@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="menuitem7101mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-edit-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem7102mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-plus-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem7103mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-plus-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem7104mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-user-all-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem7105mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-user-current-symbolic</property>
+  </object>
+  <object class="GtkMenu" id="menu7101m">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem7101m">
+        <property name="label" translatable="yes">Edit</property>
+        <property name="visible">True</property>
+        <property name="sensitive">False</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem7101mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem7102m">
+        <property name="label" translatable="yes">Add Environment Variable For Current User</property>
+        <property name="visible">True</property>
+        <property name="sensitive">False</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem7102mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem7103m">
+        <property name="label" translatable="yes">Add Environment Variable For All Users</property>
+        <property name="visible">True</property>
+        <property name="sensitive">False</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem7103mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem7104m">
+        <property name="label" translatable="yes">Set Environment Variable For All Users</property>
+        <property name="visible">True</property>
+        <property name="sensitive">False</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem7104mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem7105m">
+        <property name="label" translatable="yes">Set Environment Variable For Current User Only</property>
+        <property name="visible">True</property>
+        <property name="sensitive">False</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem7105mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="popover7101p">
+    <property name="can-focus">False</property>
+    <child>
+      <!-- n-columns=1 n-rows=4 -->
+      <object class="GtkGrid">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="border-width">5</property>
+        <property name="row-spacing">5</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">start</property>
+            <property name="margin-bottom">15</property>
+            <property name="label" translatable="yes">Environment Variables Tab Customizations:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkNotebook">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <child>
+              <!-- n-columns=1 n-rows=4 -->
+              <object class="GtkGrid">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-top">10</property>
+                <property name="border-width">10</property>
+                <property name="row-spacing">5</property>
+                <child>
+                  <!-- n-columns=2 n-rows=1 -->
+                  <object class="GtkGrid">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="column-spacing">4</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="icon-name">system-monitoring-center-column-reorder-symbolic</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Column Reordering,</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <!-- n-columns=2 n-rows=1 -->
+                  <object class="GtkGrid">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="column-spacing">4</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="icon-name">system-monitoring-center-row-sorting-symbolic</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Row Sorting,</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button7102p">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="halign">start</property>
+                    <child>
+                      <!-- n-columns=2 n-rows=1 -->
+                      <object class="GtkGrid">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="column-spacing">5</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Reset</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="icon-name">system-monitoring-center-reload-symbolic</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <!-- n-columns=2 n-rows=1 -->
+                  <object class="GtkGrid">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="column-spacing">4</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="icon-name">system-monitoring-center-column-width-symbolic</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Column Widths:</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">2</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">View</property>
+              </object>
+              <packing>
+                <property name="tab-fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <!-- n-columns=1 n-rows=2 -->
+              <object class="GtkGrid">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-top">10</property>
+                <property name="border-width">10</property>
+                <property name="row-spacing">5</property>
+                <property name="column-homogeneous">True</property>
+                <child>
+                  <!-- n-columns=2 n-rows=1 -->
+                  <object class="GtkGrid">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="column-spacing">4</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Add/Remove Variable Information:</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="icon-name">system-monitoring-center-column-add-remove-symbolic</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <!-- n-columns=2 n-rows=2 -->
+                  <object class="GtkGrid">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="row-spacing">5</property>
+                    <property name="column-homogeneous">True</property>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton7101p">
+                        <property name="label" translatable="yes">Variable</property>
+                        <property name="visible">True</property>
+                        <property name="sensitive">False</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="active">True</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton7102p">
+                        <property name="label" translatable="yes">Value</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton7103p">
+                        <property name="label" translatable="yes">Variable Type</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Add/Remove Columns</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+                <property name="tab-fill">False</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button7101p">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="halign">center</property>
+            <child>
+              <!-- n-columns=2 n-rows=1 -->
+              <object class="GtkGrid">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="column-spacing">5</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Reset All</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="icon-name">system-monitoring-center-reload-symbolic</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-top">8</property>
+            <property name="margin-bottom">8</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="popover7101p2">
+    <property name="can-focus">False</property>
+    <child>
+      <!-- n-columns=1 n-rows=8 -->
+      <object class="GtkGrid">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="border-width">5</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Environment Variables Search Customizations:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">start</property>
+            <property name="margin-top">10</property>
+            <property name="label" translatable="yes">Search in column:</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">start</property>
+            <property name="margin-top">10</property>
+            <property name="label" translatable="yes">Search in variables with type:</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="checkbutton7101p2">
+            <property name="label" translatable="yes">All variables</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="radiobutton7101p2">
+            <property name="label" translatable="yes">Variable</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="radiobutton7102p2">
+            <property name="label" translatable="yes">Value</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="draw-indicator">True</property>
+            <property name="group">radiobutton7101p2</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="checkbutton7102p2">
+            <property name="label" translatable="yes">Environment variables</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">6</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="checkbutton7103p2">
+            <property name="label" translatable="yes">Shell variables</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">7</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   viewBox="0 0 135.46666 135.46668"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="smart-system-monitor-eject-symbolic.svg"
+   inkscape:export-filename="/home/asush/Masaüstü/files/python/task_manager/icon_studies/smart-system-monitor-settings.symbolic.png"
+   inkscape:export-xdpi="20.171528"
+   inkscape:export-ydpi="20.171528">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.2672078"
+     inkscape:cx="-46.722843"
+     inkscape:cy="78.717159"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="696"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     units="px" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Katman 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-497.02587,-476.47219)">
+    <path
+       id="rect4087"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:10.8031;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
+       d="m 632.49254,560.14375 -67.73341,-67.7334 h -10e-4 l -67.73226,67.73228 v 10e-4 h 67.7334 z" />
+    <rect
+       style="fill:#000000;stroke-width:17.5372;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect851"
+       width="135.46666"
+       height="24.215126"
+       x="497.02588"
+       y="571.78558"
+       ry="0" />
+  </g>
+</svg>
