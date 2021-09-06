@@ -2,12 +2,34 @@
 
 GTK3 and Python 3 based, system performance and usage monitoring tool.
 
-### Main Goals:
+### Features:
 * Detailed system performance monitoring features
-* Low system resources usage (in terms of CPU and RAM)
-* Balance between desktop system usage habits and modern GUI designs
-* Simplifying Linux system monitoring by GUI methods instead of commandline tools
-* Maintaining a compact tool for multiple system monitoring functions
+    * Monitoring CPU, RAM, Disk, Network, GPU, Sensors
+    * An always on top and semi-transparent floating summary window for performance monitoring.
+    * Monitoring and managing processes
+    * Viewing all human users (logged in/logged out) and monitoring per-user performance data
+    * Monitoring and managing storage (non-removable, removable, optical/virtual disks, etc.)
+    * Monitoring and managing startup applications (additional support for desktop environments other than XFCE and GNOME may be needed)
+    * Monitoring and managing system services
+    * Viewing environment variables and shell variables (managing variable features will be added soon)
+    * Monitoring general system information (hardware/software)
+* Application search and run with the following features:
+    * Run in terminal
+    * Run as root
+    * Run with external GPU
+* Customization options per-tab
+* Very low system resource usage while monitoring
+* Language support (more languages will be added if translations are provided by contributors):
+    * English
+    * Turkish
+* Provides help and additional information when mouse hover action is performed on several GUI objects
+* Easy-to-use and multi-featured, compact GUI tool for system monitoring for:
+    * Entry/Mid level computer users
+    * Advanced level computer users for daily usage
+* Adapts to system theme
+* Open sourced and free
+
+
 
 ![System Monitoring Center](screenshots/cpu_tab_dark_system_theme_tr.png)
 
@@ -42,9 +64,9 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 ### Dependencies:
 * Python 3.7.3 (Programming language)
 * GTK 3.24.5-1 (GUI)
-* PyOpenGL (for FPS counting)
+* python3-opengl (for FPS counting)
 
 ### Status:
 <br/>Under development, not all features are coded and there are bugs to be fixed.
 
-Note: tested only on Pardus 19.5 (Kernel >= 4.19.0-17-amd64) both on physical and virtual machines.
+Note: tested only on Pardus 19.5/21 (Kernel >= 4.19.0-17-amd64) both on physical and virtual machines.
