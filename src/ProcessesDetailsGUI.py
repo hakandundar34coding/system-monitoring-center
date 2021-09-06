@@ -27,7 +27,7 @@ def processes_details_gui_function():
 
     # Processes Details window GUI objects - get
     builder2101w = Gtk.Builder()
-    builder2101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesDetailsWindow.glade")
+    builder2101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesDetailsWindow.ui")
 
     window2101w = builder2101w.get_object('window2101w')
 

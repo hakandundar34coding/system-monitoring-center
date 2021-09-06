@@ -21,7 +21,7 @@ def services_menus_gui_func():
 
     # Define builder and get all objects (Services tab right click menu, Services tab customizations popover, Services tab search customizations popover) from GUI file.
     builder6101m = Gtk.Builder()
-    builder6101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesMenus.glade")
+    builder6101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesMenus.ui")
 
 
     # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

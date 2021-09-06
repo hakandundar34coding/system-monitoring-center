@@ -42,7 +42,7 @@ def processes_custom_priority_gui_func():
 
     # Processes Custom Priority window GUI objects - get
     builder2101w2 = Gtk.Builder()
-    builder2101w2.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesCustomPriorityWindow.glade")
+    builder2101w2.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesCustomPriorityWindow.ui")
 
     window2101w2 = builder2101w2.get_object('window2101w2')
 

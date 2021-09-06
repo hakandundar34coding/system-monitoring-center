@@ -11,8 +11,8 @@ def settings_gui_import_func():
     import os
 
 
-    global Config
-    import Config
+    global Config, MainGUI
+    import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -46,7 +46,7 @@ def settings_gui_func():
 
     # Settings tab GUI objects - get
     builder2001 = Gtk.Builder()
-    builder2001.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/SettingsWindow.glade")
+    builder2001.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/SettingsWindow.ui")
 
     window2001 = builder2001.get_object('window2001')
     button2001 = builder2001.get_object('button2001')
@@ -121,11 +121,14 @@ def settings_gui_func():
         if "colorchooserdialog1001" not in globals():
             global colorchooserdialog1001
             colorchooserdialog2001 = Gtk.ColorChooserDialog()
-        if colorchooserdialog2001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog2001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             selected_color = colorchooserdialog2001.get_rgba()
             Config.chart_background_color_all_charts = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
             colorchooserdialog2001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog2001.hide()
 
     def on_button2002_clicked(widget):                                                        # "Reset general settings to defaults" GUI object signal
         Config.config_default_general_general_func()
@@ -231,10 +234,14 @@ def settings_gui_func():
         Config.config_save_func()
         settings_gui_set_func()
 
-    def on_button2004_clicked(widget):                                                        # "Show/Hide Performance Information - CPU Usage Average" GUI object signal
-        Config.config_default_reset_all_func()
-        Config.config_save_func()
-        settings_gui_set_func()
+    def on_button2004_clicked(widget):                                                        # "Reset all settings of the application to defaults" button
+        settings_gui_reset_all_settings_warning_dialog()
+        if warning_dialog2001_response == Gtk.ResponseType.YES:
+            Config.config_default_reset_all_func()
+            Config.config_save_func()
+            settings_gui_set_func()
+        if warning_dialog2001_response == Gtk.ResponseType.NO:
+            pass                                                                              # Do nothing when "No" button is clicked. Dialog will be closed.
 
 
     # Settings tab GUI functions - connect
@@ -351,3 +358,14 @@ def settings_gui_set_func():
         checkbutton2011.set_active(True)
     if 8 in Config.floating_summary_data_shown:
         checkbutton2012.set_active(True)
+
+
+# ----------------------------------- Processes - Processes End Process Warning Dialog Function (shows an warning dialog a process is tried to be end) -----------------------------------
+def settings_gui_reset_all_settings_warning_dialog():
+
+    warning_dialog2001 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Reset All Settings?"), )
+    warning_dialog2001.format_secondary_text(_tr("Do you want to reset all settings of the application to defaults?"))
+    global warning_dialog2001_response
+    warning_dialog2001_response = warning_dialog2001.run()
+    warning_dialog2001.destroy()

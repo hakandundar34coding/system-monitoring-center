@@ -25,7 +25,7 @@ def services_details_gui_function():
 
     # Services Details window GUI objects - get
     builder6101w = Gtk.Builder()
-    builder6101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesDetailsWindow.glade")
+    builder6101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesDetailsWindow.ui")
 
     window6101w = builder6101w.get_object('window6101w')
 

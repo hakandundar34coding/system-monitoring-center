@@ -38,7 +38,7 @@ def storage_menus_gui_func():
 
     # Define builder and get all objects (Storage tab right click menu, Storage tab customizations popover, Storage tab search customizations popover) from GUI file.
     builder4101m = Gtk.Builder()
-    builder4101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageMenus.glade")
+    builder4101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageMenus.ui")
 
 
     # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

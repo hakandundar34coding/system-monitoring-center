@@ -107,7 +107,7 @@ def config_default_general_floating_summary_func():
     global show_floating_summary, floating_summary_window_transparency, floating_summary_data_shown
     show_floating_summary = 0
     floating_summary_window_transparency = 0.6
-    floating_summary_data_shown = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    floating_summary_data_shown = [0, 1]                                     # floating_summary_data_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8] - [0: CPU, 1: RAM, 2: Disk Read+Write, 3: Disk Read, 4: Disk Write, 5: Network Receive+Send, 6: Network Receive, 7: Network Send, 8: FPS (not coded)]
 
 # ----------------------------------- Config - Config Default Performance Tab-CPU Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
 def config_default_performance_cpu_func():
@@ -164,7 +164,7 @@ def config_default_performance_sensors_row_column_func():
     sensors_treeview_columns_shown = [0, 1, 2, 3]
     sensors_data_row_sorting_column = 0
     sensors_data_row_sorting_order = 0
-    sensors_data_column_order = [0, 1, 2, 3]
+    sensors_data_column_order = [0, 1, 2, 3]                                                  # sensors_data_column_order all values = [0, 1, 2, 3]
     sensors_data_column_widths = [-1, -1, -1, -1]
 
 # ----------------------------------- Config - Config Default Processes Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
@@ -176,7 +176,7 @@ def config_default_processes_func():
     show_processes_of_all_users = 1
     show_processes_as_tree = 0
     show_tree_lines = 0
-    processes_cpu_usage_percent_precision = 2
+    processes_cpu_usage_percent_precision = 0
     processes_ram_swap_data_precision = 2
     processes_ram_swap_data_unit = 0
     processes_disk_speed_data_precision = 2
@@ -184,7 +184,7 @@ def config_default_processes_func():
     processes_disk_speed_data_unit = 0
     processes_disk_usage_data_unit = 0
     warn_before_stopping_processes = 1
-    processes_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]    # Processes data to be get, processed and shown (data that will be added into treestore - do not confuse with columns shown)
+    processes_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 10, 11]                             # Processes data to be get, processed and shown. processes_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
     processes_data_row_sorting_column = 0                                                     # Column number for row sorting
     processes_data_row_sorting_order = 0
     processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
@@ -202,10 +202,10 @@ def config_default_processes_row_sort_column_order_func():
 def config_default_users_func():
     global users_cpu_usage_percent_precision, users_ram_swap_data_precision, users_ram_swap_data_unit
     global users_treeview_columns_shown, users_data_row_sorting_column, users_data_row_sorting_order, users_data_column_order, users_data_column_widths
-    users_cpu_usage_percent_precision = 2
+    users_cpu_usage_percent_precision = 0
     users_ram_swap_data_precision = 2
     users_ram_swap_data_unit = 0
-    users_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    users_treeview_columns_shown = [0, 1, 2, 3, 5, 7, 12, 13]                                 # users_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     users_data_row_sorting_column = 0
     users_data_row_sorting_order = 0
     users_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
@@ -225,7 +225,7 @@ def config_default_storage_func():
     global storage_treeview_columns_shown, storage_data_row_sorting_column, storage_data_row_sorting_order, storage_data_column_order, storage_data_column_widths
     storage_disk_usage_data_precision = 2
     storage_disk_usage_data_unit = 0
-    storage_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    storage_treeview_columns_shown = [0, 2, 5, 6, 9, 10, 11, 13]                              # storage_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
     storage_data_row_sorting_column = 0
     storage_data_row_sorting_order = 0
     storage_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
@@ -243,7 +243,7 @@ def config_default_storage_row_sort_column_order_func():
 # ----------------------------------- Config - Config Default Startup Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
 def config_default_startup_func():
     global startup_treeview_columns_shown, startup_data_row_sorting_column, startup_data_row_sorting_order, startup_data_column_order, startup_data_column_widths
-    startup_treeview_columns_shown = [0, 1, 2]
+    startup_treeview_columns_shown = [0, 1, 2]                                                # startup_treeview_columns_shown all values = [0, 1, 2]
     startup_data_row_sorting_column = 0
     startup_data_row_sorting_order = 0
     startup_data_column_order = [0, 1, 2]
@@ -263,7 +263,7 @@ def config_default_services_func():
     global services_treeview_columns_shown, services_data_row_sorting_column, services_data_row_sorting_order, services_data_column_order, services_data_column_widths
     services_ram_swap_data_precision = 2
     services_ram_swap_data_unit = 0
-    services_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7]
+    services_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7]                                # services_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7]
     services_data_row_sorting_column = 0
     services_data_row_sorting_order = 0
     services_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7]
@@ -280,7 +280,7 @@ def config_default_services_row_sort_column_order_func():
 # ----------------------------------- Config - Config Default Environment Variables Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
 def config_default_environment_variables_func():
     global environment_variables_treeview_columns_shown, environment_variables_data_row_sorting_column, environment_variables_data_row_sorting_order, environment_variables_data_column_order, environment_variables_data_column_widths
-    environment_variables_treeview_columns_shown = [0, 1, 2]
+    environment_variables_treeview_columns_shown = [0, 1, 2]                                  # environment_variables_treeview_columns_shown all values = [0, 1, 2]
     environment_variables_data_row_sorting_column = 0
     environment_variables_data_row_sorting_order = 0
     environment_variables_data_column_order = [0, 1, 2]

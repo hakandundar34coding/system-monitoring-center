@@ -33,7 +33,7 @@
           <object class="GtkImage" id="image1001w">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-right">5</property>
+            <property name="margin-end">5</property>
             <property name="icon-name">system-monitoring-center-search-symbolic</property>
             <property name="icon_size">6</property>
           </object>

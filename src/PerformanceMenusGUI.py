@@ -57,7 +57,7 @@ def performance_menus_gui_func():
     global checkbutton1601p2, checkbutton1602p2, checkbutton1603p2
 
     builder1101m = Gtk.Builder()
-    builder1101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/PerformanceMenus.glade")
+    builder1101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/PerformanceMenus.ui")
 
 
     # ********************** Get objects for CPU tab popover **********************
@@ -153,16 +153,22 @@ def performance_menus_gui_func():
             Config.config_save_func()
 
     def on_button1101p_clicked(widget):                                                       # For setting chart foreground color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("cpu_percent")                          # "cpu_percent" variable passed to the function in order to use settings for CPU chart
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_button1102p_clicked(widget):                                                       # For setting chart background color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("all_charts_background")
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_combobox1101p_changed(widget):                                                     # Option for defining "CPU usage number precision" shown by using a label
         Config.performance_cpu_usage_percent_precision = Config.number_precision_list[combobox1101p.get_active()][2]
@@ -190,16 +196,22 @@ def performance_menus_gui_func():
 
     # ********************** Define object functions for RAM tab popover **********************
     def on_button1201p_clicked(widget):                                                       # For setting chart foreground color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("ram_swap_percent")                     # "ram_swap_percent" variable passed to the function in order to use settings for RAM chart
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_button1202p_clicked(widget):                                                       # For setting chart background color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("all_charts_background")
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_combobox1201p_changed(widget):                                                     # Option for defining "RAM/Swap data number precision" shown by using labels
         Config.performance_ram_swap_data_precision = Config.number_precision_list[combobox1201p.get_active()][2]
@@ -247,16 +259,22 @@ def performance_menus_gui_func():
         Config.config_save_func()
 
     def on_button1301p_clicked(widget):                                                       # For setting chart foreground color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("disk_speed_usage")
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_button1302p_clicked(widget):                                                       # For setting chart background color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("all_charts_background")
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_combobox1301p_changed(widget):                                                     # Option for defining "disk read/write speed number precision" shown by using label
         Config.performance_disk_speed_data_precision = Config.number_precision_list[combobox1301p.get_active()][2]
@@ -325,16 +343,22 @@ def performance_menus_gui_func():
         Config.config_save_func()
 
     def on_button1401p_clicked(widget):                                                       # For setting chart foreground color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("network_speed")
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_button1402p_clicked(widget):                                                       # For setting chart background color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("all_charts_background")
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_combobox1401p_changed(widget):                                                     # Option for defining "network download/upload speed number precision" shown by using label
         Config.performance_network_speed_data_precision = Config.number_precision_list[combobox1401p.get_active()][2]
@@ -381,16 +405,22 @@ def performance_menus_gui_func():
 
     # ********************** Define object functions for GPU tab popover **********************
     def on_button1502p_clicked(widget):                                                       # For setting chart foreground color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("fps")
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_button1503p_clicked(widget):                                                       # For setting chart background color
-        if colorchooserdialog1001.run() == Gtk.ResponseType.OK:
+        dialog_response = colorchooserdialog1001.run()
+        if dialog_response == Gtk.ResponseType.OK:
             on_colorchooserdialog1001_color_activated("all_charts_background")
             colorchooserdialog1001.hide()
             Config.config_save_func()
+        if dialog_response == Gtk.ResponseType.CANCEL:
+            colorchooserdialog1001.hide()
 
     def on_combobox1501p_changed(widget):                                                     # For resetting all GPU tab settings                                             # Option for defining "selected gpu/graphics card" which affects information shown on the GUI
         Config.selected_gpu = Performance.gpu_list[combobox1501p.get_active()]

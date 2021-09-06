@@ -40,7 +40,7 @@ def startup_rename_gui_func():
     global entry5101w, entry5102w, entry5103w, entry5104w, checkbutton5101w, checkbutton5102w, button5101w, button5102w
 
     builder5101w = Gtk.Builder()
-    builder5101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StartupNewItemWindow.glade")
+    builder5101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StartupNewItemWindow.ui")
 
     # Startup New Item window GUI objects - get
     window5101w = builder5101w.get_object('window5101w')

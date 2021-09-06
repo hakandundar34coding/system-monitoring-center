@@ -25,7 +25,7 @@ def storage_details_gui_function():
 
     # Storage Details window GUI objects - get
     builder4101w = Gtk.Builder()
-    builder4101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageDetailsWindow.glade")
+    builder4101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageDetailsWindow.ui")
 
     window4101w = builder4101w.get_object('window4101w')
 

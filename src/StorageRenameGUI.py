@@ -42,7 +42,7 @@ def storage_rename_gui_func():
 
     # Storage Rename window GUI objects - get
     builder4101w2 = Gtk.Builder()
-    builder4101w2.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageRenameWindow.glade")
+    builder4101w2.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageRenameWindow.ui")
 
     window4101w2 = builder4101w2.get_object('window4101w2')
     entry4101w2 = builder4101w2.get_object('entry4101w2')

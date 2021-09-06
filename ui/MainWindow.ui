@@ -477,7 +477,7 @@
                               <object class="GtkGrid">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="margin-left">60</property>
+                                <property name="margin-start">60</property>
                                 <child>
                                   <object class="GtkLabel" id="label1102">
                                     <property name="visible">True</property>
@@ -932,7 +932,7 @@ Free and Available RAM memory values are different</property>
                               <object class="GtkGrid">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="margin-left">60</property>
+                                <property name="margin-start">60</property>
                                 <child>
                                   <object class="GtkLabel" id="label1202">
                                     <property name="visible">True</property>
@@ -1106,7 +1106,7 @@ Free and Available RAM memory values are different</property>
                               <object class="GtkGrid">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="margin-left">60</property>
+                                <property name="margin-start">60</property>
                                 <child>
                                   <object class="GtkLabel" id="label1302">
                                     <property name="visible">True</property>
@@ -2033,7 +2033,7 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
                               <object class="GtkGrid">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="margin-left">60</property>
+                                <property name="margin-start">60</property>
                                 <child>
                                   <object class="GtkLabel" id="label1402">
                                     <property name="visible">True</property>
@@ -2474,7 +2474,7 @@ May be different than maximum resolution of the monitor.</property>
                               <object class="GtkGrid">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="margin-left">60</property>
+                                <property name="margin-start">60</property>
                                 <child>
                                   <object class="GtkLabel" id="label1502">
                                     <property name="visible">True</property>
@@ -2580,7 +2580,7 @@ May be different than maximum resolution of the monitor.</property>
                                     <property name="can-focus">False</property>
                                     <property name="halign">start</property>
                                     <property name="valign">start</property>
-                                    <property name="margin-left">5</property>
+                                    <property name="margin-start">5</property>
                                   </object>
                                   <packing>
                                     <property name="left-attach">1</property>
@@ -2713,7 +2713,7 @@ May be different than maximum resolution of the monitor.</property>
                                 <property name="receives-default">False</property>
                                 <property name="tooltip-text" translatable="yes">Show all sensors
 (Temperature and fan sensors)</property>
-                                <property name="margin-left">5</property>
+                                <property name="margin-start">5</property>
                                 <property name="active">True</property>
                                 <property name="draw-indicator">False</property>
                                 <child>
@@ -2733,7 +2733,7 @@ May be different than maximum resolution of the monitor.</property>
                               <object class="GtkSearchEntry" id="searchentry1601">
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
-                                <property name="margin-left">5</property>
+                                <property name="margin-start">5</property>
                                 <property name="hexpand">True</property>
                                 <property name="primary-icon-name">edit-find-symbolic</property>
                                 <property name="primary-icon-activatable">False</property>
@@ -2800,14 +2800,13 @@ May be different than maximum resolution of the monitor.</property>
                               <object class="GtkGrid">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="margin-left">60</property>
                                 <child>
                                   <object class="GtkLabel" id="label1601">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="tooltip-text" translatable="yes">Number of listed sensors</property>
                                     <property name="halign">start</property>
-                                    <property name="margin-left">60</property>
+                                    <property name="margin-start">60</property>
                                     <property name="label" translatable="yes">Total: -- sensors (-- temperature (°C), -- fan (RPM) sensors)</property>
                                     <property name="wrap">True</property>
                                     <property name="selectable">True</property>
@@ -3276,7 +3275,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="tooltip-text" translatable="yes">Show all processes</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="active">True</property>
                         <property name="draw-indicator">False</property>
                         <child>
@@ -3296,7 +3295,7 @@ May be different than maximum resolution of the monitor.</property>
                       <object class="GtkSearchEntry" id="searchentry2101">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="hexpand">True</property>
                         <property name="primary-icon-name">edit-find-symbolic</property>
                         <property name="primary-icon-activatable">False</property>
@@ -3314,7 +3313,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="receives-default">True</property>
                         <property name="tooltip-text" translatable="yes">Open Process Right Click Menu</property>
                         <property name="halign">start</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
@@ -3334,7 +3333,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="tooltip-text" translatable="yes">User defined expand</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="active">True</property>
                         <property name="draw-indicator">False</property>
                         <child>
@@ -3431,7 +3430,7 @@ May be different than maximum resolution of the monitor.</property>
                             <property name="can-focus">False</property>
                             <property name="tooltip-text" translatable="yes">Number of listed processes</property>
                             <property name="halign">start</property>
-                            <property name="margin-left">60</property>
+                            <property name="margin-start">60</property>
                             <property name="label" translatable="yes">Total: -- processes (-- from this user, -- from other users/system)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
@@ -3555,7 +3554,7 @@ May be different than maximum resolution of the monitor.</property>
                             <property name="can-focus">False</property>
                             <property name="tooltip-text" translatable="yes">Number of listed users</property>
                             <property name="halign">start</property>
-                            <property name="margin-left">60</property>
+                            <property name="margin-start">60</property>
                             <property name="label" translatable="yes">Total: -- users (-- logged in, -- logged out users)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
@@ -3671,7 +3670,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="tooltip-text" translatable="yes">Show all users</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="active">True</property>
                         <property name="draw-indicator">False</property>
                         <child>
@@ -3691,7 +3690,7 @@ May be different than maximum resolution of the monitor.</property>
                       <object class="GtkSearchEntry" id="searchentry3101">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="hexpand">True</property>
                         <property name="primary-icon-name">edit-find-symbolic</property>
                         <property name="primary-icon-activatable">False</property>
@@ -3710,7 +3709,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="receives-default">True</property>
                         <property name="tooltip-text" translatable="yes">Open User Right Click Menu</property>
                         <property name="halign">start</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
@@ -3799,7 +3798,7 @@ May be different than maximum resolution of the monitor.</property>
                             <property name="can-focus">False</property>
                             <property name="tooltip-text" translatable="yes">Number of listed users</property>
                             <property name="halign">start</property>
-                            <property name="margin-left">60</property>
+                            <property name="margin-start">60</property>
                             <property name="label" translatable="yes">Total: -- disks/partitions (-- disks, -- partitions)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
@@ -3871,7 +3870,7 @@ May be different than maximum resolution of the monitor.</property>
                       <object class="GtkSearchEntry" id="searchentry4101">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="hexpand">True</property>
                         <property name="primary-icon-name">edit-find-symbolic</property>
                         <property name="primary-icon-activatable">False</property>
@@ -3889,7 +3888,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="receives-default">True</property>
                         <property name="tooltip-text" translatable="yes">Open Storage Right Click Menu</property>
                         <property name="halign">start</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
@@ -3909,7 +3908,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="tooltip-text" translatable="yes">Show all disks/partitions</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="active">True</property>
                         <property name="draw-indicator">False</property>
                         <child>
@@ -3995,7 +3994,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="tooltip-text" translatable="yes">User defined expand</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="active">True</property>
                         <property name="draw-indicator">False</property>
                         <child>
@@ -4128,7 +4127,7 @@ May be different than maximum resolution of the monitor.</property>
                             <property name="can-focus">False</property>
                             <property name="tooltip-text" translatable="yes">Number of listed startup items</property>
                             <property name="halign">start</property>
-                            <property name="margin-left">60</property>
+                            <property name="margin-start">60</property>
                             <property name="label" translatable="yes">Total: -- startup items  (-- visible, -- hidden startup items)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
@@ -4200,7 +4199,7 @@ May be different than maximum resolution of the monitor.</property>
                       <object class="GtkSearchEntry" id="searchentry5101">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="hexpand">True</property>
                         <property name="primary-icon-name">edit-find-symbolic</property>
                         <property name="primary-icon-activatable">False</property>
@@ -4218,7 +4217,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="receives-default">True</property>
                         <property name="tooltip-text" translatable="yes">Open Startup Item Right Click Menu</property>
                         <property name="halign">start</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
@@ -4238,7 +4237,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="tooltip-text" translatable="yes">Show all startup items</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="active">True</property>
                         <property name="draw-indicator">False</property>
                         <child>
@@ -4371,7 +4370,6 @@ May be different than maximum resolution of the monitor.</property>
                             <property name="can-focus">False</property>
                             <property name="tooltip-text" translatable="yes">Number of listed services</property>
                             <property name="halign">start</property>
-                            <property name="margin-left">60</property>
                             <property name="label" translatable="yes">Total: -- services  (-- loaded, -- non-loaded services)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
@@ -4443,7 +4441,7 @@ May be different than maximum resolution of the monitor.</property>
                       <object class="GtkSearchEntry" id="searchentry6101">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="hexpand">True</property>
                         <property name="primary-icon-name">edit-find-symbolic</property>
                         <property name="primary-icon-activatable">False</property>
@@ -4461,7 +4459,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="receives-default">True</property>
                         <property name="tooltip-text" translatable="yes">Open Service Right Click Menu</property>
                         <property name="halign">start</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
@@ -4502,7 +4500,7 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="tooltip-text" translatable="yes">Show all services</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="active">True</property>
                         <property name="draw-indicator">False</property>
                         <child>
@@ -4636,7 +4634,7 @@ Variables</property>
                             <property name="can-focus">False</property>
                             <property name="tooltip-text" translatable="yes">Number of listed environment variables</property>
                             <property name="halign">start</property>
-                            <property name="margin-left">60</property>
+                            <property name="margin-start">60</property>
                             <property name="label" translatable="yes">Total: -- environment variables  (-- system wide, -- user environment variables)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
@@ -4708,7 +4706,7 @@ Variables</property>
                       <object class="GtkSearchEntry" id="searchentry7101">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="hexpand">True</property>
                         <property name="primary-icon-name">edit-find-symbolic</property>
                         <property name="primary-icon-activatable">False</property>
@@ -4727,7 +4725,7 @@ Variables</property>
                         <property name="receives-default">True</property>
                         <property name="tooltip-text" translatable="yes">Open Variable Right Click Menu</property>
                         <property name="halign">start</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
@@ -4747,7 +4745,7 @@ Variables</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="tooltip-text" translatable="yes">Show all environment/shell variables</property>
-                        <property name="margin-left">5</property>
+                        <property name="margin-start">5</property>
                         <property name="active">True</property>
                         <property name="draw-indicator">False</property>
                         <child>
@@ -4836,7 +4834,7 @@ Variables</property>
                       <object class="GtkGrid">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="margin-left">60</property>
+                        <property name="margin-start">60</property>
                         <child>
                           <object class="GtkLabel" id="label8102">
                             <property name="visible">True</property>

@@ -39,7 +39,7 @@ def startup_menus_gui_func():
 
     # Define builder and get all objects (Startup tab right click menu, Startup tab customizations popover, Startup tab search customizations popover) from GUI file.
     builder5101m = Gtk.Builder()
-    builder5101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StartupMenus.glade")
+    builder5101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StartupMenus.ui")
 
     # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     # Define object names, get object names, define object functions and connect signals to GUI objects for Startup tab right click menu

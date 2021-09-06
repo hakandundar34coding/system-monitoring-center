@@ -27,7 +27,7 @@ def main_menus_gui_func():
 
 
     builder1001 = Gtk.Builder()
-    builder1001.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.glade")
+    builder1001.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.ui")
 
     menu1001m = builder1001.get_object('menu1001m')
     menuitem1001m = builder1001.get_object('menuitem1001m')
@@ -41,7 +41,7 @@ def main_menus_gui_func():
 
 
     builder1001d = Gtk.Builder()
-    builder1001d.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.glade")
+    builder1001d.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.ui")
     aboutdialog1001d = builder1001d.get_object('aboutdialog1001d')
 
 

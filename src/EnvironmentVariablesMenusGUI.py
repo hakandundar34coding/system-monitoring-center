@@ -21,7 +21,7 @@ def environment_variables_menus_gui_func():
 
     # Define builder and get all objects (Environment Variables tab right click menu, Environment Variables tab customizations popover, Environment Variables tab search customizations popover) from GUI file.
     builder7101m = Gtk.Builder()
-    builder7101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/EnvironmentVariablesMenus.glade")
+    builder7101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/EnvironmentVariablesMenus.ui")
 
 
     # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

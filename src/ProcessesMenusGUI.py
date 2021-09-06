@@ -39,7 +39,7 @@ def processes_menus_gui_func():
 
     # Define builder and get all objects (Processes tab right click menu, Processes tab customizations popover, Processes tab search customizations popover) from GUI file.
     builder2101m = Gtk.Builder()
-    builder2101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesMenus.glade")
+    builder2101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesMenus.ui")
 
 
     # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

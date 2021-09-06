@@ -20,7 +20,7 @@ def users_menus_gui_func():
 
     # Define builder and get all objects (Users tab customizations popover, Users tab search customizations popover) from GUI file.
     builder3101m = Gtk.Builder()
-    builder3101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/UsersMenus.glade")
+    builder3101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/UsersMenus.ui")
 
     # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     # Define object names, get object names, define object functions and connect signals to GUI objects for Users tab right click menu
