@@ -223,8 +223,8 @@ def storage_loop_func():
         # Get disk total size
         if 6 in storage_treeview_columns_shown:
             with open("/sys/class/block/" + disk + "/size") as reader:
-                disk_size = int(reader.read()) * disk_sector_size
-            storage_data_row.append(disk_size)
+                disk_total_size = int(reader.read()) * disk_sector_size
+            storage_data_row.append(disk_total_size)
         # Get disk free space
         if 7 in storage_treeview_columns_shown:
             if disk_mount_point != _tr("[Not mounted]"):
@@ -750,6 +750,9 @@ def storage_treeview_column_order_width_row_sorting_func():
 def storage_define_data_unit_converter_variables_func():
 
     global data_unit_list
+
+    # Calculated values are used in order to obtain faster code run, because this function will be called very frequently. For the details of the calculation, see "Data_unit_conversion.ods." document.
+
     data_unit_list = [[0, 0, _tr("Auto-Byte")], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
                       [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
                       [8, 0, _tr("Auto-bit")], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
@@ -760,14 +763,20 @@ def storage_define_data_unit_converter_variables_func():
 def storage_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
+    if unit >= 8:
+        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
     if unit == 0 or unit == 8:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1
             data = data/1024
         unit = data_unit_list[unit_counter][2]
+        if data == 0:
+            precision = 0
         return f'{data:.{precision}f} {unit}'
 
     data = data / data_unit_list[unit][1]
     unit = data_unit_list[unit][2]
+    if data == 0:
+        precision = 0
     return f'{data:.{precision}f} {unit}'

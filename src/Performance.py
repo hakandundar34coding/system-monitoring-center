@@ -498,6 +498,11 @@ def performance_foreground_initial_func():
             cpu_architecture = "-"
 
         # Set CPU tab label texts by using information get
+        show_cpu_usage_per_core = Config.show_cpu_usage_per_core
+        if show_cpu_usage_per_core == 0:
+            PerformanceGUI.label1113.set_text(_tr("CPU Usage % (Average):"))
+        if show_cpu_usage_per_core == 1:
+            PerformanceGUI.label1113.set_text(_tr("CPU Usage % (Per Core):"))
         PerformanceGUI.label1101.set_text(cpu_model_names[selected_cpu_core_number])
 #         PerformanceGUI.label1102.set_text(f'Selected CPU Core: {selected_cpu_core}')
         PerformanceGUI.label1102.set_text(_tr("Selected CPU Core: ") + selected_cpu_core)
@@ -732,10 +737,11 @@ def performance_foreground_initial_func():
 def performance_foreground_func():
 
     # Update performance data on the headerbar
-    ChartPlots.drawingarea101.queue_draw()
-    ChartPlots.drawingarea102.queue_draw()
-    MainGUI.label101.set_text(f'{performance_data_unit_converter_func((disk_read_speed[selected_disk_number][-1] + disk_write_speed[selected_disk_number][-1]), 0, 0)}/s')
-    MainGUI.label102.set_text(f'{performance_data_unit_converter_func((network_receive_speed[selected_network_card_number][-1] + network_send_speed[selected_network_card_number][-1]), 0, 0)}/s')
+    if Config.performance_summary_on_the_headerbar == 1:                                      # Perform the following operations if "performance_summary_on_the_headerbar" preference is enabled by the user.
+        ChartPlots.drawingarea101.queue_draw()
+        ChartPlots.drawingarea102.queue_draw()
+        MainGUI.label101.set_text(f'{performance_data_unit_converter_func((disk_read_speed[selected_disk_number][-1] + disk_write_speed[selected_disk_number][-1]), 0, 0)}/s')
+        MainGUI.label102.set_text(f'{performance_data_unit_converter_func((network_receive_speed[selected_network_card_number][-1] + network_send_speed[selected_network_card_number][-1]), 0, 0)}/s')
 
     # Update CPU tab data on the GUI
     if PerformanceGUI.radiobutton1001.get_active() == True:                                   # Check if CPU tab is selected.
@@ -1045,18 +1051,23 @@ def performance_define_data_unit_converter_variables_func():
 # ----------------------------------- Performance - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
 def performance_data_unit_converter_func(data, unit, precision):
 
+    global data_unit_list
     if isinstance(data, str) is True:
         return data
     if unit >= 8:
-        data = data * 8   
+        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
     if unit == 0 or unit == 8:
-        unit_counter = unit + 1                                                               # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
+        unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1
             data = data/1024
         unit = data_unit_list[unit_counter][2]
+        if data == 0:
+            precision = 0
         return f'{data:.{precision}f} {unit}'
 
     data = data / data_unit_list[unit][1]
     unit = data_unit_list[unit][2]
+    if data == 0:
+        precision = 0
     return f'{data:.{precision}f} {unit}'

@@ -266,7 +266,7 @@ def on_drawingarea1301_draw(drawingarea1301, chart1301):
     chart1301_y_limit = 1.1 * ((max(max(disk_read_speed), max(disk_write_speed))) + 0.0000001)
     if Config.plot_disk_read_speed == 1 and Config.plot_disk_write_speed == 0:
         chart1301_y_limit = 1.1 * (max(disk_read_speed) + 0.0000001)
-    if Config.plot_disk_read_speed == 1 and Config.plot_disk_write_speed == 0:
+    if Config.plot_disk_read_speed == 0 and Config.plot_disk_write_speed == 1:
         chart1301_y_limit = 1.1 * (max(disk_write_speed) + 0.0000001)
 
     chart1301.set_dash([], 0)
@@ -370,7 +370,7 @@ def on_drawingarea1401_draw(drawingarea1401, chart1401):
     chart1401_y_limit = 1.1 * ((max(max(network_receive_speed), max(network_send_speed))) + 0.0000001)
     if Config.plot_network_download_speed == 1 and Config.plot_network_upload_speed == 0:
         chart1401_y_limit = 1.1 * (max(network_receive_speed) + 0.0000001)
-    if Config.plot_network_download_speed == 1 and Config.plot_network_upload_speed == 0:
+    if Config.plot_network_download_speed == 0 and Config.plot_network_upload_speed == 1:
         chart1401_y_limit = 1.1 * (max(network_send_speed) + 0.0000001)
 
     chart1401.set_dash([], 0)

@@ -1,0 +1,31 @@
+system-monitoring-center (0.1.2-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Implementations of functions for General Settings window
+  * Removed unnecessary commandline functions which are used for getting hardware information.
+  * 0 Byte values are shown as 0 B instead of 0.00 B.
+  * Menus longer than size of the main window are redesigned because they were trimmed on some systems.
+  * Various bug fixes
+  * Error handling improvements
+  * Minor translation updates
+  * Some code changes for easier code readability
+  * Removed unused code
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 08 Sep 2021 17:35:00 +0300
+
+system-monitoring-center (0.1.1-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Changed default settings for more user friendly view.
+  * Changed some GTK GUI object properties which were deprecated.
+  * Various bug fixes
+  * Minor translation updates
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 06 Sep 2021 20:44:00 +0300
+
+system-monitoring-center (0.1.0-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Initial commit
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 05 Sep 2021 17:10:00 +0300

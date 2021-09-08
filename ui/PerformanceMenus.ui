@@ -234,8 +234,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -246,8 +246,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -258,8 +258,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -314,8 +314,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -323,7 +323,7 @@
           </packing>
         </child>
         <child>
-          <!-- n-columns=3 n-rows=1 -->
+          <!-- n-columns=2 n-rows=1 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -336,26 +336,6 @@
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button1104p">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <property name="tooltip-text" translatable="yes">CPU information from 'lscpu' command output</property>
-                <property name="margin-left">10</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center-info-about-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">2</property>
                 <property name="top-attach">0</property>
               </packing>
             </child>
@@ -475,8 +455,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -487,8 +467,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -670,8 +650,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -682,8 +662,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -823,8 +803,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -996,8 +976,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1008,8 +988,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1204,8 +1184,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1213,7 +1193,7 @@
           </packing>
         </child>
         <child>
-          <!-- n-columns=3 n-rows=1 -->
+          <!-- n-columns=2 n-rows=1 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -1240,27 +1220,6 @@
                 <property name="top-attach">0</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkButton" id="button1304p">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <property name="tooltip-text" translatable="yes">Disk information from 'lsblk -o NAME,TYPE,FSTYPE,SIZE,FSUSE%,MODEL,LABEL,PARTLABEL,PATH,MOUNTPOINT' command output</property>
-                <property name="halign">end</property>
-                <property name="margin-left">10</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center-info-about-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">2</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1271,8 +1230,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1368,8 +1327,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1541,8 +1500,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1553,8 +1512,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1749,8 +1708,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1761,8 +1720,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -1770,7 +1729,7 @@
           </packing>
         </child>
         <child>
-          <!-- n-columns=3 n-rows=1 -->
+          <!-- n-columns=2 n-rows=1 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -1783,27 +1742,6 @@
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button1404p">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <property name="tooltip-text" translatable="yes">Network card information from 'lspci | grep -i net \n ip a' command output</property>
-                <property name="halign">end</property>
-                <property name="margin-left">10</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center-info-about-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">2</property>
                 <property name="top-attach">0</property>
               </packing>
             </child>
@@ -1962,8 +1900,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -2018,8 +1956,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -2027,7 +1965,7 @@
           </packing>
         </child>
         <child>
-          <!-- n-columns=3 n-rows=1 -->
+          <!-- n-columns=2 n-rows=1 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -2040,25 +1978,6 @@
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button1505p">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <property name="tooltip-text" translatable="yes">GPU/Graphics card information from 'glxinfo -B' command output</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center-info-about-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">2</property>
                 <property name="top-attach">0</property>
               </packing>
             </child>
@@ -2165,8 +2084,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

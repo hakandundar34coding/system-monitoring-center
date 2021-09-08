@@ -1,0 +1,11 @@
+Package: system-monitoring-center
+Version: 0.1.2-beta
+Architecture: amd64
+Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
+Installed-Size: 3025
+Depends: python3 (>= 3.7), python3-gi, python3-opengl, util-linux, mesa-utils, systemd
+Section: utils
+Priority: optional
+Homepage: https://kod.pardus.org.tr/Hakan/system-monitoring-center
+Description: Provides information about system performance and usage.
+ Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.

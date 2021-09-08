@@ -78,7 +78,12 @@ def settings_gui_func():
         return True
 
     def on_window2001_show(widget):
+        try:                                                                                  # No these signals are not connected on the first showing of the Settings Window. This error is not encountered on later "show window" operations during the application runtime. This "try-except" is used for avoiding errors in this situation.
+            settings_disconnect_signals_func()                                                # Disconnect some of the GUI signals in order to avoid performing "settings" operations when GUI object preferences are set (for example a checkbox is set as enable/disabled for the current preference).
+        except TypeError:
+            pass
         settings_gui_set_func()                                                               # Set GUI objects appropriate with user preferences when Settings window is shown
+        settings_connect_signals_func()                                                       # Connect GUI signals.
 
     def on_combobox2001_changed(widget):                                                      # "Update interval" GUI object signal
         Config.update_interval = update_interval_list[combobox2001.get_active()]
@@ -90,16 +95,22 @@ def settings_gui_func():
 
     def on_checkbutton2001_toggled(widget):                                                   # "Show performance summary on the headerbar" GUI object signal
         if checkbutton2001.get_active() == True:
+            MainGUI.headerbar1.add(MainGUI.grid101)                                           # Add performance summary to the main window headerbar.
             Config.performance_summary_on_the_headerbar = 1
         if checkbutton2001.get_active() == False:
+            MainGUI.headerbar1.remove(MainGUI.grid101)                                        # Remove performance summary from the main window headerbar.
             Config.performance_summary_on_the_headerbar = 0
         Config.config_save_func()
 
     def on_checkbutton2002_toggled(widget):                                                   # "Remember last opened tabs on application start" GUI object signal
         if checkbutton2002.get_active() == True:
             Config.remember_last_opened_tabs_on_application_start = 1
+            combobox2003.set_sensitive(False)
+            combobox2004.set_sensitive(False)
         if checkbutton2002.get_active() == False:
             Config.remember_last_opened_tabs_on_application_start = 0
+            combobox2003.set_sensitive(True)
+            combobox2004.set_sensitive(True)
         Config.config_save_func()
 
     def on_combobox2003_changed(widget):                                                      # "Default main tab" GUI object signal
@@ -133,106 +144,43 @@ def settings_gui_func():
     def on_button2002_clicked(widget):                                                        # "Reset general settings to defaults" GUI object signal
         Config.config_default_general_general_func()
         Config.config_save_func()
-        settings_gui_set_func()
+        settings_gui_general_settings_tab_set_func()
 
     def spinbutton2001_on_value_changed(widget):                                              # "Window transparency" GUI object signal
         Config.floating_summary_window_transparency = spinbutton2001.get_value()
         Config.config_save_func()
 
     def on_checkbutton2004_toggled(widget):                                                   # "Show/Hide Performance Information - CPU Usage Average" GUI object signal
-        if checkbutton2004.get_active() == True:
-            floating_summary_data_shown_scratch = Config.floating_summary_data_shown
-            floating_summary_data_shown_scratch.append(0)
-            floating_summary_data_shown_scratch = sorted(list(set(floating_summary_data_shown_scratch)))
-            Config.floating_summary_data_shown = list(floating_summary_data_shown_scratch)
-        if checkbutton2004.get_active() == False:
-            Config.floating_summary_data_shown.remove(0)
-        Config.config_save_func()
+        settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_checkbutton2005_toggled(widget):                                                   # "Show/Hide Performance Information - RAM Usage" GUI object signal
-        if checkbutton2005.get_active() == True:
-            floating_summary_data_shown_scratch = Config.floating_summary_data_shown
-            floating_summary_data_shown_scratch.append(1)
-            floating_summary_data_shown_scratch = sorted(list(set(floating_summary_data_shown_scratch)))
-            Config.floating_summary_data_shown = list(floating_summary_data_shown_scratch)
-        if checkbutton2005.get_active() == False:
-            Config.floating_summary_data_shown.remove(1)
-        Config.config_save_func()
+        settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_checkbutton2006_toggled(widget):                                                   # "Show/Hide Performance Information - Disk Read+Write Speed" GUI object signal
-        if checkbutton2006.get_active() == True:
-            floating_summary_data_shown_scratch = Config.floating_summary_data_shown
-            floating_summary_data_shown_scratch.append(2)
-            floating_summary_data_shown_scratch = sorted(list(set(floating_summary_data_shown_scratch)))
-            Config.floating_summary_data_shown = list(floating_summary_data_shown_scratch)
-        if checkbutton2006.get_active() == False:
-            Config.floating_summary_data_shown.remove(2)
-        Config.config_save_func()
+        settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_checkbutton2007_toggled(widget):                                                   # "Show/Hide Performance Information - Disk Read Speed" GUI object signal
-        if checkbutton2007.get_active() == True:
-            floating_summary_data_shown_scratch = Config.floating_summary_data_shown
-            floating_summary_data_shown_scratch.append(3)
-            floating_summary_data_shown_scratch = sorted(list(set(floating_summary_data_shown_scratch)))
-            Config.floating_summary_data_shown = list(floating_summary_data_shown_scratch)
-        if checkbutton2007.get_active() == False:
-            Config.floating_summary_data_shown.remove(3)
-        Config.config_save_func()
+        settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_checkbutton2008_toggled(widget):                                                   # "Show/Hide Performance Information - Disk Write Speed" GUI object signal
-        if checkbutton2008.get_active() == True:
-            floating_summary_data_shown_scratch = Config.floating_summary_data_shown
-            floating_summary_data_shown_scratch.append(4)
-            floating_summary_data_shown_scratch = sorted(list(set(floating_summary_data_shown_scratch)))
-            Config.floating_summary_data_shown = list(floating_summary_data_shown_scratch)
-        if checkbutton2008.get_active() == False:
-            Config.floating_summary_data_shown.remove(4)
-        Config.config_save_func()
+        settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_checkbutton2009_toggled(widget):                                                   # "Show/Hide Performance Information - Network Receive+Send Speed" GUI object signal
-        if checkbutton2009.get_active() == True:
-            floating_summary_data_shown_scratch = Config.floating_summary_data_shown
-            floating_summary_data_shown_scratch.append(5)
-            floating_summary_data_shown_scratch = sorted(list(set(floating_summary_data_shown_scratch)))
-            Config.floating_summary_data_shown = list(floating_summary_data_shown_scratch)
-        if checkbutton2009.get_active() == False:
-            Config.floating_summary_data_shown.remove(5)
-        Config.config_save_func()
+        settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_checkbutton2010_toggled(widget):                                                   # "Show/Hide Performance Information - Network Receive Speed" GUI object signal
-        if checkbutton2010.get_active() == True:
-            floating_summary_data_shown_scratch = Config.floating_summary_data_shown
-            floating_summary_data_shown_scratch.append(6)
-            floating_summary_data_shown_scratch = sorted(list(set(floating_summary_data_shown_scratch)))
-            Config.floating_summary_data_shown = list(floating_summary_data_shown_scratch)
-        if checkbutton2010.get_active() == False:
-            Config.floating_summary_data_shown.remove(6)
-        Config.config_save_func()
+        settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_checkbutton2011_toggled(widget):                                                   # "Show/Hide Performance Information - Network Send Speed" GUI object signal
-        if checkbutton2011.get_active() == True:
-            floating_summary_data_shown_scratch = Config.floating_summary_data_shown
-            floating_summary_data_shown_scratch.append(7)
-            floating_summary_data_shown_scratch = sorted(list(set(floating_summary_data_shown_scratch)))
-            Config.floating_summary_data_shown = list(floating_summary_data_shown_scratch)
-        if checkbutton2011.get_active() == False:
-            Config.floating_summary_data_shown.remove(7)
-        Config.config_save_func()
+        settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_checkbutton2012_toggled(widget):                                                   # "Show/Hide Performance Information - FPS" GUI object signal
-        if checkbutton2012.get_active() == True:
-            floating_summary_data_shown_scratch = Config.floating_summary_data_shown
-            floating_summary_data_shown_scratch.append(8)
-            floating_summary_data_shown_scratch = sorted(list(set(floating_summary_data_shown_scratch)))
-            Config.floating_summary_data_shown = list(floating_summary_data_shown_scratch)
-        if checkbutton2012.get_active() == False:
-            Config.floating_summary_data_shown.remove(8)
-        Config.config_save_func()
+        settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_button2003_clicked(widget):                                                        # "Reset floating summary window settings to defaults" GUI object signal
         Config.config_default_general_floating_summary_func()
         Config.config_save_func()
-        settings_gui_set_func()
+        settings_gui_floating_summary_settings_tab_set_func()
 
     def on_button2004_clicked(widget):                                                        # "Reset all settings of the application to defaults" button
         settings_gui_reset_all_settings_warning_dialog()
@@ -251,26 +199,58 @@ def settings_gui_func():
     button2002.connect("clicked", on_button2002_clicked)
     button2003.connect("clicked", on_button2003_clicked)
     button2004.connect("clicked", on_button2004_clicked)
-    combobox2001.connect("changed", on_combobox2001_changed)
-    combobox2002.connect("changed", on_combobox2002_changed)
-    combobox2003.connect("changed", on_combobox2003_changed)
-    checkbutton2001.connect("toggled", on_checkbutton2001_toggled)
-    checkbutton2002.connect("toggled", on_checkbutton2002_toggled)
-    checkbutton2003.connect("toggled", on_checkbutton2003_toggled)
-    checkbutton2004.connect("toggled", on_checkbutton2004_toggled)
-    checkbutton2005.connect("toggled", on_checkbutton2005_toggled)
-    checkbutton2006.connect("toggled", on_checkbutton2006_toggled)
-    checkbutton2007.connect("toggled", on_checkbutton2007_toggled)
-    checkbutton2008.connect("toggled", on_checkbutton2008_toggled)
-    checkbutton2009.connect("toggled", on_checkbutton2009_toggled)
-    checkbutton2010.connect("toggled", on_checkbutton2010_toggled)
-    checkbutton2011.connect("toggled", on_checkbutton2011_toggled)
-    checkbutton2012.connect("toggled", on_checkbutton2012_toggled)
-    spinbutton2001.connect("value-changed", spinbutton2001_on_value_changed)
+
+
+    # ----------------------------------- Settings - Settings GUI Connect Signals Function (connects signals of the some of the Settings Window GUI objects (selectable/changeable GUI objects) in order to prevent them preforming actions when GUI objects are set appropriate with user preferences.) -----------------------------------
+    def settings_connect_signals_func():
+        combobox2001.connect("changed", on_combobox2001_changed)
+        combobox2002.connect("changed", on_combobox2002_changed)
+        combobox2003.connect("changed", on_combobox2003_changed)
+        combobox2004.connect("changed", on_combobox2004_changed)
+        checkbutton2001.connect("toggled", on_checkbutton2001_toggled)
+        checkbutton2002.connect("toggled", on_checkbutton2002_toggled)
+        checkbutton2003.connect("toggled", on_checkbutton2003_toggled)
+        checkbutton2004.connect("toggled", on_checkbutton2004_toggled)
+        checkbutton2005.connect("toggled", on_checkbutton2005_toggled)
+        checkbutton2006.connect("toggled", on_checkbutton2006_toggled)
+        checkbutton2007.connect("toggled", on_checkbutton2007_toggled)
+        checkbutton2008.connect("toggled", on_checkbutton2008_toggled)
+        checkbutton2009.connect("toggled", on_checkbutton2009_toggled)
+        checkbutton2010.connect("toggled", on_checkbutton2010_toggled)
+        checkbutton2011.connect("toggled", on_checkbutton2011_toggled)
+        checkbutton2012.connect("toggled", on_checkbutton2012_toggled)
+        spinbutton2001.connect("value-changed", spinbutton2001_on_value_changed)
+
+
+    # ----------------------------------- Settings - Settings GUI Disconnect Signals Function (disconnects signals of the some of the Settings Window GUI objects (selectable/changeable GUI objects) in order to prevent them preforming actions when GUI objects are set appropriate with user preferences.) -----------------------------------
+    def settings_disconnect_signals_func():
+        combobox2001.disconnect_by_func(on_combobox2001_changed)
+        combobox2002.disconnect_by_func(on_combobox2002_changed)
+        combobox2003.disconnect_by_func(on_combobox2003_changed)
+        combobox2004.disconnect_by_func(on_combobox2004_changed)
+        checkbutton2001.disconnect_by_func(on_checkbutton2001_toggled)
+        checkbutton2002.disconnect_by_func(on_checkbutton2002_toggled)
+        checkbutton2003.disconnect_by_func(on_checkbutton2003_toggled)
+        checkbutton2004.disconnect_by_func(on_checkbutton2004_toggled)
+        checkbutton2005.disconnect_by_func(on_checkbutton2005_toggled)
+        checkbutton2006.disconnect_by_func(on_checkbutton2006_toggled)
+        checkbutton2007.disconnect_by_func(on_checkbutton2007_toggled)
+        checkbutton2008.disconnect_by_func(on_checkbutton2008_toggled)
+        checkbutton2009.disconnect_by_func(on_checkbutton2009_toggled)
+        checkbutton2010.disconnect_by_func(on_checkbutton2010_toggled)
+        checkbutton2011.disconnect_by_func(on_checkbutton2011_toggled)
+        checkbutton2012.disconnect_by_func(on_checkbutton2012_toggled)
+        spinbutton2001.disconnect_by_func(spinbutton2001_on_value_changed)
 
 
 # ----------------------------------- Settings - Settings GUI Set Function (sets Settings Window GUI objects appropriate with user preferences get from Config module) -----------------------------------
 def settings_gui_set_func():
+    settings_gui_general_settings_tab_set_func()
+    settings_gui_floating_summary_settings_tab_set_func()
+
+
+# ----------------------------------- Settings - Settings GUI General Settings Tab Set Function (sets Settings Window GUI objects appropriate with user preferences get from Config module) -----------------------------------
+def settings_gui_general_settings_tab_set_func():
     # Set GUI preferences for "update interval" setting
     if "liststore2001" not in globals():
         global liststore2001, update_interval_list
@@ -300,9 +280,13 @@ def settings_gui_set_func():
     # Set GUI preferences for "show performance summary on the headerbar" setting
     if Config.performance_summary_on_the_headerbar == 1:
         checkbutton2001.set_active(True)
+    if Config.performance_summary_on_the_headerbar == 0:
+        checkbutton2001.set_active(False)
     # Set GUI preferences for "remember last opened tabs on application start" setting
     if Config.remember_last_opened_tabs_on_application_start == 1:
         checkbutton2002.set_active(True)
+    if Config.remember_last_opened_tabs_on_application_start == 0:
+        checkbutton2002.set_active(False)
     # Set GUI preferences for "defult main tab" setting
     if "liststore2003" not in globals():
         global liststore2003, default_main_tab_list
@@ -332,6 +316,12 @@ def settings_gui_set_func():
     # Set GUI preferences for "remember last selected hardware" setting
     if Config.remember_last_selected_hardware == 1:
         checkbutton2003.set_active(True)
+    if Config.remember_last_selected_hardware == 0:
+        checkbutton2003.set_active(False)
+
+
+# ----------------------------------- Settings - Settings GUI Floating Summary Settings Tab Set Function (sets Settings Window GUI objects appropriate with user preferences get from Config module) -----------------------------------
+def settings_gui_floating_summary_settings_tab_set_func():
     # Set GUI preferences for "window transparency" setting
     if "adjustment2001" not in globals():
         global adjustment2001
@@ -342,25 +332,68 @@ def settings_gui_set_func():
     # Set GUI preferences for "show/hide information" setting
     if 0 in Config.floating_summary_data_shown:
         checkbutton2004.set_active(True)
+    if 0 not in Config.floating_summary_data_shown:
+        checkbutton2004.set_active(False)
     if 1 in Config.floating_summary_data_shown:
         checkbutton2005.set_active(True)
+    if 1 not in Config.floating_summary_data_shown:
+        checkbutton2005.set_active(False)
     if 2 in Config.floating_summary_data_shown:
         checkbutton2006.set_active(True)
+    if 2 not in Config.floating_summary_data_shown:
+        checkbutton2006.set_active(False)
     if 3 in Config.floating_summary_data_shown:
         checkbutton2007.set_active(True)
+    if 3 not in Config.floating_summary_data_shown:
+        checkbutton2007.set_active(False)
     if 4 in Config.floating_summary_data_shown:
         checkbutton2008.set_active(True)
+    if 4 not in Config.floating_summary_data_shown:
+        checkbutton2008.set_active(False)
     if 5 in Config.floating_summary_data_shown:
         checkbutton2009.set_active(True)
+    if 5 not in Config.floating_summary_data_shown:
+        checkbutton2009.set_active(False)
     if 6 in Config.floating_summary_data_shown:
         checkbutton2010.set_active(True)
+    if 6 not in Config.floating_summary_data_shown:
+        checkbutton2010.set_active(False)
     if 7 in Config.floating_summary_data_shown:
         checkbutton2011.set_active(True)
+    if 7 not in Config.floating_summary_data_shown:
+        checkbutton2011.set_active(False)
     if 8 in Config.floating_summary_data_shown:
         checkbutton2012.set_active(True)
+    if 8 not in Config.floating_summary_data_shown:
+        checkbutton2012.set_active(False)
 
 
-# ----------------------------------- Processes - Processes End Process Warning Dialog Function (shows an warning dialog a process is tried to be end) -----------------------------------
+# ----------------------------------- Settings - Add/Remove Floating Summary Performance Information Function (adds/removes performance information for floating summary window) -----------------------------------
+def settings_gui_add_remove_floating_summary_performance_information_func():
+
+    Config.floating_summary_data_shown = []
+    if checkbutton2004.get_active() == True:
+        Config.floating_summary_data_shown.append(0)
+    if checkbutton2005.get_active() == True:
+        Config.floating_summary_data_shown.append(1)
+    if checkbutton2006.get_active() == True:
+        Config.floating_summary_data_shown.append(2)
+    if checkbutton2007.get_active() == True:
+        Config.floating_summary_data_shown.append(3)
+    if checkbutton2008.get_active() == True:
+        Config.floating_summary_data_shown.append(4)
+    if checkbutton2009.get_active() == True:
+        Config.floating_summary_data_shown.append(5)
+    if checkbutton2010.get_active() == True:
+        Config.floating_summary_data_shown.append(6)
+    if checkbutton2011.get_active() == True:
+        Config.floating_summary_data_shown.append(7)
+    if checkbutton2012.get_active() == True:
+        Config.floating_summary_data_shown.append(8)
+    Config.config_save_func()
+
+
+# ----------------------------------- Settings - Reset All Settings Warning Dialog Function (shows an warning dialog when "Reset all settings of the application to defaults" button is clicked) -----------------------------------
 def settings_gui_reset_all_settings_warning_dialog():
 
     warning_dialog2001 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,

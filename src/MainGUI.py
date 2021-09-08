@@ -122,7 +122,7 @@ def main_gui_func():
     radiobutton8.connect("toggled", on_radiobutton8_toggled)
 
 
-# ----------------------------------- MainGUI - Main Set Default Tab Function (switches to default main tab ((Performance, Processes, Users, Storage, Startup, Services, Environment Variables, OS)) on initial run when) -----------------------------------
+# ----------------------------------- MainGUI - Main Set Default Tab Function (switches to default main tab ((Performance, Processes, Users, Storage, Startup, Services, Environment Variables, OS)) on initial run) -----------------------------------
 def main_gui_default_main_tab_func():
 
     stack1.set_transition_duration(0)
@@ -145,7 +145,26 @@ def main_gui_default_main_tab_func():
     stack1.set_transition_duration(200)
 
 
-# ----------------------------------- MainGUI - Main Function Run Function (runs main functions (Performance, Processes, Users, Storage, Startup, Services, Environment Variables, OS) when their stack page is selected) -----------------------------------
+# ----------------------------------- MainGUI - Set Performance Tab Default Sub-Tab Function (switches to performance tab default sub-tab ((CPU, RAM, Disk, Network, GPU, Sensors)) on initial run) -----------------------------------
+def main_gui_peformance_tab_default_sub_tab_func():
+
+    PerformanceGUI.stack1001.set_transition_duration(0)
+    if Config.performance_tab_default_sub_tab == 0:
+         PerformanceGUI.radiobutton1001.set_active(True)
+    if Config.performance_tab_default_sub_tab == 1:
+         PerformanceGUI.radiobutton1002.set_active(True)
+    if Config.performance_tab_default_sub_tab == 2:
+         PerformanceGUI.radiobutton1003.set_active(True)
+    if Config.performance_tab_default_sub_tab == 3:
+         PerformanceGUI.radiobutton1004.set_active(True)
+    if Config.performance_tab_default_sub_tab == 4:
+         PerformanceGUI.radiobutton1005.set_active(True)
+    if Config.performance_tab_default_sub_tab == 5:
+         PerformanceGUI.radiobutton1006.set_active(True)
+    PerformanceGUI.stack1001.set_transition_duration(200)
+
+
+# ----------------------------------- MainGUI - Main Function Run Function (runs main functions (Performance, Processes, Users, Storage, Startup, Services, Environment Variables, OS) when their stack page is selected. All main tabs and performance tab sub-tabs switches are controlled in this function) -----------------------------------
 def main_gui_main_function_run_func():
 
     if Config.show_floating_summary == 1:                                                     # Show Floating Summary window appropriate with user preferences
@@ -157,11 +176,17 @@ def main_gui_main_function_run_func():
         FloatingSummary.floating_summary_thread_run_func()
         FloatingSummary.floating_summary_window.show()
 
+    remember_last_opened_tabs_on_application_start = Config.remember_last_opened_tabs_on_application_start    # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
+
     if radiobutton1.get_active() == True:                                                     # It switches to "Performance" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid1)
+        if remember_last_opened_tabs_on_application_start == 1:
+            Config.default_main_tab = 0
         if 'PerformanceGUI' not in globals():                                                 # Check if "PerformanceGUI" module is imported. Therefore it is not reimported after switching "Performance" tab off and on if "PerformanceGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
-            global PerformanceGUI, PerformanceMenusGUI, ChartPlots
-            import PerformanceGUI, PerformanceMenusGUI, ChartPlots
+            global Performance, PerformanceGUI, PerformanceMenusGUI, ChartPlots
+            import Performance, PerformanceGUI, PerformanceMenusGUI, ChartPlots
+            Performance.performance_import_func()
+            Performance.performance_background_thread_run_func()
             PerformanceGUI.performance_gui_import_func()
             PerformanceGUI.performance_gui_func()
             PerformanceMenusGUI.performance_menus_import_func()
@@ -170,20 +195,34 @@ def main_gui_main_function_run_func():
             ChartPlots.chart_plots_import_func()
             ChartPlots.charts_gui_func()
             ChartPlots.chart_plots_drawingarea_signal_connect_thread_func()
+            main_gui_peformance_tab_default_sub_tab_func()                                    # Run performance tab default sub-tab function after initial showing of the main window
         Performance.performance_foreground_initial_initial_func()
+
 
         if PerformanceGUI.radiobutton1001.get_active() == True:                               # It switches to "CPU" tab if relevant radiobutton is clicked.
             PerformanceGUI.stack1001.set_visible_child(PerformanceGUI.grid1001)
+            if remember_last_opened_tabs_on_application_start == 1:
+                Config.performance_tab_default_sub_tab = 0
         if PerformanceGUI.radiobutton1002.get_active() == True:                               # It switches to "RAM" tab if relevant radiobutton is clicked.
             PerformanceGUI.stack1001.set_visible_child(PerformanceGUI.grid1002)
+            if remember_last_opened_tabs_on_application_start == 1:
+                Config.performance_tab_default_sub_tab = 1
         if PerformanceGUI.radiobutton1003.get_active() == True:                               # It switches to "Disk" tab if relevant radiobutton is clicked.
             PerformanceGUI.stack1001.set_visible_child(PerformanceGUI.grid1003)
+            if remember_last_opened_tabs_on_application_start == 1:
+                Config.performance_tab_default_sub_tab = 2
         if PerformanceGUI.radiobutton1004.get_active() == True:                               # It switches to "Network" tab if relevant radiobutton is clicked.
             PerformanceGUI.stack1001.set_visible_child(PerformanceGUI.grid1004)
+            if remember_last_opened_tabs_on_application_start == 1:
+                Config.performance_tab_default_sub_tab = 3
         if PerformanceGUI.radiobutton1005.get_active() == True:                               # It switches to "GPU" tab if relevant radiobutton is clicked.
             PerformanceGUI.stack1001.set_visible_child(PerformanceGUI.grid1005)
+            if remember_last_opened_tabs_on_application_start == 1:
+                Config.performance_tab_default_sub_tab = 4
         if PerformanceGUI.radiobutton1006.get_active() == True:                               # It switches to "Sensors" tab if relevant radiobutton is clicked.
             PerformanceGUI.stack1001.set_visible_child(PerformanceGUI.grid1006)
+            if remember_last_opened_tabs_on_application_start == 1:
+                Config.performance_tab_default_sub_tab = 5
             if 'Sensors' not in globals():                                                    # Check if "Sensors" module is imported. Therefore it is not reimported after switching "Performance" tab off and on if "PerformanceGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
                 global Sensors
                 import Sensors
@@ -192,6 +231,8 @@ def main_gui_main_function_run_func():
 
     if radiobutton2.get_active() == True:                                                     # It switches to "Processes" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid2)
+        if remember_last_opened_tabs_on_application_start == 1:
+            Config.default_main_tab = 1
         if 'ProcessesGUI' not in globals():                                                   # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
             import Processes, ProcessesGUI, ProcessesMenusGUI, ProcessesDetailsGUI, ProcessesDetails, ProcessesCustomPriorityGUI
             Processes.processes_import_func()
@@ -208,6 +249,8 @@ def main_gui_main_function_run_func():
 
     if radiobutton3.get_active() == True:                                                     # It switches to "Users" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid3)
+        if remember_last_opened_tabs_on_application_start == 1:
+            Config.default_main_tab = 2
         if 'UsersGUI' not in globals():
             import Users, UsersGUI, UsersMenusGUI
             Users.users_import_func()
@@ -219,6 +262,8 @@ def main_gui_main_function_run_func():
 
     if radiobutton4.get_active() == True:                                                     # It switches to "Storage" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid4)
+        if remember_last_opened_tabs_on_application_start == 1:
+            Config.default_main_tab = 3
         import Storage, StorageGUI, StorageMenusGUI, StorageDetailsGUI, StorageDetails, StorageRenameGUI
         Storage.storage_import_func()
         StorageGUI.storage_gui_import_func()
@@ -234,6 +279,8 @@ def main_gui_main_function_run_func():
 
     if radiobutton5.get_active() == True:                                                     # It switches to "Startup" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid5)
+        if remember_last_opened_tabs_on_application_start == 1:
+            Config.default_main_tab = 4
         import Startup, StartupGUI, StartupMenusGUI, StartupNewItemGUI
         Startup.startup_import_func()
         StartupGUI.startup_gui_import_func()
@@ -246,6 +293,8 @@ def main_gui_main_function_run_func():
 
     if radiobutton6.get_active() == True:                                                     # It switches to "Services" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid6)
+        if remember_last_opened_tabs_on_application_start == 1:
+            Config.default_main_tab = 5
         import Services, ServicesGUI, ServicesMenusGUI, ServicesDetailsGUI, ServicesDetails
         Services.services_import_func()
         ServicesGUI.services_gui_import_func()
@@ -259,6 +308,8 @@ def main_gui_main_function_run_func():
 
     if radiobutton7.get_active() == True:                                                     # It switches to "Environment Variables" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid7)
+        if remember_last_opened_tabs_on_application_start == 1:
+            Config.default_main_tab = 6
         import EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
         EnvironmentVariables.environment_variables_import_func()
         EnvironmentVariablesGUI.environment_variables_gui_import_func()
@@ -269,12 +320,15 @@ def main_gui_main_function_run_func():
 
     if radiobutton8.get_active() == True:                                                     # It switches to "System" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid8)
+        if remember_last_opened_tabs_on_application_start == 1:
+            Config.default_main_tab = 7
         import System, SystemGUI
         System.system_import_func()
         SystemGUI.system_gui_import_func()
         SystemGUI.system_gui_func()
         System.system_thread_run_func()
 
+    Config.config_save_func()
 
 
 main_gui_import_func()
@@ -284,16 +338,17 @@ import Config                                                                   
 Config.config_import_func()                                                                   # Start import operations of the module
 Config.config_read_func()                                                                     # Start setting read operations of the module
 
-import Performance                                                                            # Import Performance module which gets hardware/performance data and shows on the GUI
-Performance.performance_import_func()
-Performance.performance_background_thread_run_func()
-
 import MainMenusDialogsGUI                                                                    # Import MainMenusDialogsGUI module which contains main menus/dialogs GUI obejcts and signals
 MainMenusDialogsGUI.main_menus_gui_import_func()
 MainMenusDialogsGUI.main_menus_gui_func()
 
 menubutton1.set_popup(MainMenusDialogsGUI.menu1001m)                                          # Set popup menu (Main menu)
-main_gui_default_main_tab_func()                                                              # Run default tab function after initial showing main window
+main_gui_default_main_tab_func()                                                              # Run default tab function after initial showing of the main window
+
+# Remove performance summary widgets from the main window headerbar. This summary exists in the .ui file (for easier GUI design/maintenance) and it is removed from the headerbar on application start appropriate with user preferences.
+if Config.performance_summary_on_the_headerbar == 0:
+    headerbar1.remove(grid101)
+
 
 # Show information for warning the user if the application has been run with root privileges. Information is shown just below the application window headerbar.
 if os.geteuid() == 0:                                                                         # Check UID if it is "0". This means the application is run with root privileges.

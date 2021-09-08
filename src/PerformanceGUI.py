@@ -20,12 +20,12 @@ def performance_gui_func():
 
     # Performance tab GUI objects
     global stack1001
-    global radiobutton1001, radiobutton1002, radiobutton1003, radiobutton1004, radiobutton1005, radiobutton1006, radiobutton1007, radiobutton1008
+    global radiobutton1001, radiobutton1002, radiobutton1003, radiobutton1004, radiobutton1005, radiobutton1006
     global grid1001, grid1002, grid1003, grid1004, grid1005, grid1006, grid1007, grid1008
 
     # CPU tab GUI objects
     global button1101, label1101, label1102
-    global label1103, label1104, label1105, label1106, label1107, label1108, label1109, label1110, label1111, label1112
+    global label1103, label1104, label1105, label1106, label1107, label1108, label1109, label1110, label1111, label1112, label1113
     global grid1101
 
     # RAM tab GUI objects
@@ -59,8 +59,6 @@ def performance_gui_func():
     radiobutton1004 = MainGUI.builder.get_object('radiobutton1004')
     radiobutton1005 = MainGUI.builder.get_object('radiobutton1005')
     radiobutton1006 = MainGUI.builder.get_object('radiobutton1006')
-    radiobutton1007 = MainGUI.builder.get_object('radiobutton1007')
-    radiobutton1008 = MainGUI.builder.get_object('radiobutton1008')
     grid1001 = MainGUI.builder.get_object('grid1001')
     grid1002 = MainGUI.builder.get_object('grid1002')
     grid1003 = MainGUI.builder.get_object('grid1003')
@@ -84,6 +82,7 @@ def performance_gui_func():
     label1110 = MainGUI.builder.get_object('label1110')
     label1111 = MainGUI.builder.get_object('label1111')
     label1112 = MainGUI.builder.get_object('label1112')
+    label1113 = MainGUI.builder.get_object('label1113')
     grid1101 = MainGUI.builder.get_object('grid1101')
 
     # RAM tab GUI objects - get
@@ -163,61 +162,48 @@ def performance_gui_func():
 
     def on_radiobutton1001_toggled(widget):
         if radiobutton1001.get_active() == True:
-            performance_gui_function_run_func()
+            MainGUI.main_gui_main_function_run_func()
 
     def on_radiobutton1002_toggled(widget):
         if radiobutton1002.get_active() == True:
-            performance_gui_function_run_func()
+            MainGUI.main_gui_main_function_run_func()
 
     def on_radiobutton1003_toggled(widget):
         if radiobutton1003.get_active() == True:
-            performance_gui_function_run_func()
+            MainGUI.main_gui_main_function_run_func()
 
     def on_radiobutton1004_toggled(widget):
         if radiobutton1004.get_active() == True:
-            performance_gui_function_run_func()
+            MainGUI.main_gui_main_function_run_func()
 
     def on_radiobutton1005_toggled(widget):
         if radiobutton1005.get_active() == True:
-            performance_gui_function_run_func()
+            MainGUI.main_gui_main_function_run_func()
 
     def on_radiobutton1006_toggled(widget):
         if radiobutton1006.get_active() == True:
-            performance_gui_function_run_func()
-
-    def on_radiobutton1007_toggled(widget):
-        if radiobutton1007.get_active() == True:
-            performance_gui_function_run_func()
-
-    def on_radiobutton1008_toggled(widget):
-        if radiobutton1008.get_active() == True:
-            performance_gui_function_run_func()
+            MainGUI.main_gui_main_function_run_func()
 
 
     # CPU tab GUI functions
     def on_button1101_clicked(widget):
-        PerformanceMenusGUI.cpu_tab_popover_set_gui()                                         # Apply settings on the CPU tab popover GUI before showing it
         PerformanceMenusGUI.popover1101p.popup()                                              # Show CPU tab popover GUI
 
     # RAM tab GUI functions
     def on_button1201_clicked(widget):
-        PerformanceMenusGUI.ram_tab_popover_set_gui()                                         # Apply settings on the RAM tab popover GUI before showing it
         PerformanceMenusGUI.popover1201p.popup()                                              # Show RAM tab popover GUI
 
     # Disk tab GUI functions
     def on_button1301_clicked(widget):
-        PerformanceMenusGUI.disk_tab_popover_set_gui()                                        # Apply settings on the Disk tab popover GUI before showing it
         PerformanceMenusGUI.popover1301p.popup()                                              # Show Disk tab popover GUI
 
     # Network tab GUI functions
     def on_button1401_clicked(widget):
-        PerformanceMenusGUI.network_tab_popover_set_gui()                                     # Apply settings on the Network tab popover GUI before showing it
         PerformanceMenusGUI.popover1401p.popup()                                              # Show Network tab popover GUI
 
     # GPU tab GUI functions
     def on_button1501_clicked(widget):
-        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                                  # Get gpu/graphics card list and set selected gpu
-        PerformanceMenusGUI.gpu_tab_popover_set_gui()                                         # Apply settings on the GPU tab popover GUI before showing it
+        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Get gpu/graphics card list and set selected gpu
         PerformanceMenusGUI.popover1501p.popup()                                              # Show GPU tab popover GUI
 
     # Sensors tab GUI functions
@@ -282,32 +268,3 @@ def performance_gui_func():
     treeview1601.set_enable_search(True)              # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
     treeview1601.set_search_column(2)                 # This command used for searching by using entry.
     treeview1601.set_tooltip_column(2)
-
-
-# ----------------------------------- Performance - Performance Functions Run Function (runs functions (CPU, RAM, Disk, Network, GPU, Sensors) when their stack page is selected) -----------------------------------
-def performance_gui_function_run_func():
-    MainGUI.main_gui_main_function_run_func()
-    return
-
-    if radiobutton1001.get_active() == True:
-        stack1001.set_visible_child(grid1001)
-
-    if radiobutton1002.get_active() == True:
-        stack1001.set_visible_child(grid1002)
-
-    if radiobutton1003.get_active() == True:
-        stack1001.set_visible_child(grid1003)
-
-    if radiobutton1004.get_active() == True:
-        stack1001.set_visible_child(grid1004)
-
-    if radiobutton1005.get_active() == True:
-        stack1001.set_visible_child(grid1005)
-
-    if radiobutton1006.get_active() == True:
-        stack1001.set_visible_child(grid1006)
-        import Sensors
-        Sensors.sensors_import_func()
-        Sensors.sensors_thread_run_func()
-
-    Performance.performance_foreground_initial_func()

@@ -226,7 +226,7 @@ def process_details_foreground_func():
         ProcessesDetailsGUI.label2106w.set_text(f'{selected_process_cpu_percent:.{processes_cpu_usage_percent_precision}f} %')
         ProcessesDetailsGUI.label2107w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_rss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
         if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            ProcessesDetailsGUI.label2108w.set_text(f'{processes_details_data_speed_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)} / {processes_details_data_speed_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            ProcessesDetailsGUI.label2108w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)} / {processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
         if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":
             ProcessesDetailsGUI.label2108w.set_text("- / -")
         ProcessesDetailsGUI.label2109w.set_text(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
@@ -398,8 +398,8 @@ def process_details_foreground_func():
             selected_process_open_files = "-"
         # Set label text by using process data
         if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            ProcessesDetailsGUI.label2128w.set_text(f'{processes_details_data_speed_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            ProcessesDetailsGUI.label2129w.set_text(f'{processes_details_data_speed_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            ProcessesDetailsGUI.label2128w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            ProcessesDetailsGUI.label2129w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
             ProcessesDetailsGUI.label2130w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
             ProcessesDetailsGUI.label2131w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
             ProcessesDetailsGUI.label2132w.set_text(f'{selected_process_read_count}')
@@ -474,53 +474,36 @@ def process_details_foreground_thread_run_func():
 # ----------------------------------- Processes - Processes Details Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
 def processes_details_define_data_unit_converter_variables_func():
 
-    global data_unit_list, data_speed_unit_list
+    global data_unit_list
 
-    # Calculated values are used in order to obtain faster code run, because this function will be called very frequently.
-    # For the details of the calculation, see "Data_unit_conversion.ods." document.
+    # Calculated values are used in order to obtain faster code run, because this function will be called very frequently. For the details of the calculation, see "Data_unit_conversion.ods." document.
 
-    data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
+    data_unit_list = [[0, 0, _tr("Auto-Byte")], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
                       [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                      [8, 0, "Auto-bit"], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
+                      [8, 0, _tr("Auto-bit")], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
-
-    data_speed_unit_list = [[0, 0, "Auto-Byte/s"], [1, 1, "B/s"], [2, 1024, "KiB/s"], [3, 1.04858E+06, "MiB/s"], [4, 1.07374E+09, "GiB/s"],
-                           [5, 1.09951E+12, "TiB/s"], [6, 1.12590E+15, "PiB/s"], [7, 1.15292E+18, "EiB/s"],
-                           [8, 0, "Auto-bit/s"], [9, 8, "b"], [10, 8192, "Kib/s"], [11, 8.38861E+06, "Mib/s"], [12, 8.58993E+09, "Gib/s"],
-                           [13, 8.79609E+12, "Tib/s"], [14, 9.00720E+15, "Pib/s"], [15, 9.22337E+18, "Eib/s"]]
 
 
 # ----------------------------------- Processes - Processes Details Data Unit Converter Function (converts byte and bit data units) -----------------------------------
 def processes_details_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
+    if unit >= 8:
+        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
     if unit == 0 or unit == 8:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1
             data = data/1024
         unit = data_unit_list[unit_counter][2]
+        if data == 0:
+            precision = 0
         return f'{data:.{precision}f} {unit}'
 
     data = data / data_unit_list[unit][1]
     unit = data_unit_list[unit][2]
-    return f'{data:.{precision}f} {unit}'
-
-
-# ----------------------------------- Processes - Processes Details Data Speed Unit Converter Function (converts byte and bit data speed units) -----------------------------------
-def processes_details_data_speed_unit_converter_func(data, unit, precision):
-
-    global data_speed_unit_list
-    if unit == 0 or unit == 8:
-        unit_counter = unit + 1
-        while data > 1024:
-            unit_counter = unit_counter + 1
-            data = data/1024
-        unit = data_speed_unit_list[unit_counter][2]
-        return f'{data:.{precision}f} {unit}'
-
-    data = data / data_speed_unit_list[unit][1]
-    unit = data_speed_unit_list[unit][2]
+    if data == 0:
+        precision = 0
     return f'{data:.{precision}f} {unit}'
 
 

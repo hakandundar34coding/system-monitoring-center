@@ -69,13 +69,13 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel">
+                                  <object class="GtkLabel" id="label1113">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="tooltip-text" translatable="yes">CPU usage percent
 (Max value is 100 %)</property>
                                     <property name="halign">start</property>
-                                    <property name="label" translatable="yes">CPU Usage %:</property>
+                                    <property name="label" translatable="yes">CPU Usage % (Average):</property>
                                   </object>
                                   <packing>
                                     <property name="left-attach">0</property>
@@ -4773,7 +4773,7 @@ Variables</property>
                           <object class="GtkImage">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-system-symbolic</property>
+                            <property name="icon-name">system-monitoring-center-environment-variables-symbolic</property>
                           </object>
                         </child>
                       </object>
@@ -4794,7 +4794,7 @@ Variables</property>
                           <object class="GtkImage">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-user-symbolic</property>
+                            <property name="icon-name">system-monitoring-center-terminal-symbolic</property>
                           </object>
                         </child>
                       </object>

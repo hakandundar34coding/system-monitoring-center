@@ -154,7 +154,7 @@ def storage_details_foreground_func():
     # Get disk total size
     try:
         with open("/sys/class/block/" + disk + "/size") as reader:
-            disk_size = int(reader.read()) * disk_sector_size
+            disk_total_size = int(reader.read()) * disk_sector_size
     except FileNotFoundError:
         StorageDetailsGUI.window4101w.hide()
         storage_no_such_storage_error_dialog()
@@ -168,6 +168,7 @@ def storage_details_foreground_func():
         else:
             disk_available = -9999                                                            # "-9999" value is used as "disk_available" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
     except:
+        StorageDetailsGUI.window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
     # Get disk used space
@@ -175,11 +176,13 @@ def storage_details_foreground_func():
         if disk_mount_point != _tr("[Not mounted]"):
             statvfs_disk_usage_values = os.statvfs(disk_mount_point)
             fragment_size = statvfs_disk_usage_values.f_frsize
+            disk_size = statvfs_disk_usage_values.f_blocks * fragment_size
             disk_free = statvfs_disk_usage_values.f_bfree * fragment_size
             disk_used = disk_size - disk_free
         else:
             disk_used = -9999                                                                 # "-9999" value is used as "disk_used" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
     except:
+        StorageDetailsGUI.window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
     # Get disk used space percentage
@@ -196,6 +199,7 @@ def storage_details_foreground_func():
         else:
             disk_usage_percent = -9999                                                        # "-9999" value is used as "disk_usage_percent" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
     except:
+        StorageDetailsGUI.window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
     # Get disk vendor and model
@@ -342,7 +346,7 @@ def storage_details_foreground_func():
     StorageDetailsGUI.label4104w.set_text(disk_type)
     StorageDetailsGUI.label4105w.set_text(disk_transport_type)
     StorageDetailsGUI.label4106w.set_text(disk_file_system)
-    StorageDetailsGUI.label4107w.set_text(f'{storage_data_unit_converter_func(disk_size, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
+    StorageDetailsGUI.label4107w.set_text(f'{storage_data_unit_converter_func(disk_total_size, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
     if disk_available == -9999:
         StorageDetailsGUI.label4108w.set_text(_tr("[Not mounted]"))
         StorageDetailsGUI.label4109w.set_text(_tr("[Not mounted]"))
@@ -389,6 +393,9 @@ def storage_details_foreground_thread_run_func():
 def storage_define_data_unit_converter_variables_func():
 
     global data_unit_list
+
+    # Calculated values are used in order to obtain faster code run, because this function will be called very frequently. For the details of the calculation, see "Data_unit_conversion.ods." document.
+
     data_unit_list = [[0, 0, _tr("Auto-Byte")], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
                       [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
                       [8, 0, _tr("Auto-bit")], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
@@ -399,16 +406,22 @@ def storage_define_data_unit_converter_variables_func():
 def storage_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
+    if unit >= 8:
+        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
     if unit == 0 or unit == 8:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1
             data = data/1024
         unit = data_unit_list[unit_counter][2]
+        if data == 0:
+            precision = 0
         return f'{data:.{precision}f} {unit}'
 
     data = data / data_unit_list[unit][1]
     unit = data_unit_list[unit][2]
+    if data == 0:
+        precision = 0
     return f'{data:.{precision}f} {unit}'
 
 
