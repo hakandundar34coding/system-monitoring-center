@@ -68,8 +68,8 @@ def performance_set_selected_disk_func():
         selected_disk_number = disk_list.index(Config.selected_disk)
     if Config.selected_disk not in disk_list:
         if system_disk_list != []:
-            Config.selected_disk = system_disk_list[0]
-            selected_disk_number = disk_list.index(system_disk_list[0])
+            selected_disk = system_disk_list[0]
+            selected_disk_number = disk_list.index(selected_disk)
         if system_disk_list == []:
             selected_disk_number = disk_list.index(disk_list[0])
 
@@ -196,11 +196,16 @@ def performance_background_initial_func():
     network_send_speed = []
 
     # Define initial values for fps_count and frame_latency values
-    global fps_count, gpu_chart_x, frame_latency
+    global fps_count, frame_latency
     fps_count = [0] * Config.chart_data_history
-    gpu_chart_x = list(range(0, Config.chart_data_history))
     frame_latency = 0
 
+    # Reset selected hardware if "remember_last_selected_hardware" prefrence is disabled by the user.
+    if Config.remember_last_selected_hardware == 0:
+        Config.selected_cpu_core = ""
+        Config.selected_disk = ""
+        Config.selected_network_card = ""
+        Config.selected_gpu = ""
 
 # ----------------------------------- Performance - Background Function (gets basic CPU, RAM, disk and network usage data in the background in order to assure uninterrupted data for charts) -----------------------------------
 def performance_background_func():
@@ -415,7 +420,6 @@ def performance_foreground_initial_func():
 
     if PerformanceGUI.radiobutton1001.get_active() == True:                                   # Check if CPU tab is selected.
         # Get number of physical cores, number_of_cpu_sockets, cpu_model_names
-        #global number_of_physical_cores, number_of_cpu_sockets, cpu_model_names
         cpu_model_names = []
         with open("/proc/cpuinfo") as reader:
             proc_cpuinfo_lines = reader.read().split("\n")

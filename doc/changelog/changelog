@@ -1,3 +1,16 @@
+system-monitoring-center (0.1.3-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Performance improvements for more smooth tab switches
+  * Minor performance improvements for application start speed
+  * Implementations of functions for General Settings window
+  * Fixed bugs which cause incorrect chart scaling on Disk and Network tabs.
+  * Various bug fixes
+  * Error handling improvements
+  * Removed unused code
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 09 Sep 2021 18:08:20 +0300
+
 system-monitoring-center (0.1.2-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
@@ -11,7 +24,7 @@ system-monitoring-center (0.1.2-beta) unstable; urgency=medium
   * Some code changes for easier code readability
   * Removed unused code
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 08 Sep 2021 17:35:00 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 08 Sep 2021 17:35:00 +0300
 
 system-monitoring-center (0.1.1-beta) unstable; urgency=medium
 

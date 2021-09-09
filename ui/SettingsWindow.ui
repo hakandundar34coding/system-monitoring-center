@@ -225,7 +225,6 @@
                     <child>
                       <object class="GtkComboBox" id="combobox2002">
                         <property name="visible">True</property>
-                        <property name="sensitive">False</property>
                         <property name="can-focus">False</property>
                       </object>
                       <packing>

@@ -97,7 +97,7 @@ def config_default_general_general_func():
     remember_last_opened_tabs_on_application_start = 0
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     remember_last_selected_hardware = 0
-    selected_cpu_core = "0"
+    selected_cpu_core = ""
     selected_disk = ""
     selected_network_card = ""
     selected_gpu = ""

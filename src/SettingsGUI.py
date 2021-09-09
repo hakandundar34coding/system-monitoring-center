@@ -3,16 +3,16 @@
 # ----------------------------------- Settings - Settings GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def settings_gui_import_func():
 
-    global Gtk, os
+    global Gtk, Gdk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk
+    from gi.repository import Gtk, Gdk
     import os
 
 
-    global Config, MainGUI
-    import Config, MainGUI
+    global Config, MainGUI, Performance
+    import Config, MainGUI, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -92,6 +92,7 @@ def settings_gui_func():
     def on_combobox2002_changed(widget):                                                      # "Chart data history" GUI object signal
         Config.chart_data_history = chart_data_history_list[combobox2002.get_active()]
         Config.config_save_func()
+        settings_gui_set_chart_data_history_func()
 
     def on_checkbutton2001_toggled(widget):                                                   # "Show performance summary on the headerbar" GUI object signal
         if checkbutton2001.get_active() == True:
@@ -132,6 +133,8 @@ def settings_gui_func():
         if "colorchooserdialog1001" not in globals():
             global colorchooserdialog1001
             colorchooserdialog2001 = Gtk.ColorChooserDialog()
+        red, blue, green, alpha = Config.chart_background_color_all_charts                    # Get current foreground color of the chart
+        colorchooserdialog2001.set_rgba(Gdk.RGBA(red, blue, green, alpha))                    # Set current chart foregorund color as selected color of the dialog on dialog run
         dialog_response = colorchooserdialog2001.run()
         if dialog_response == Gtk.ResponseType.OK:
             selected_color = colorchooserdialog2001.get_rgba()
@@ -145,6 +148,13 @@ def settings_gui_func():
         Config.config_default_general_general_func()
         Config.config_save_func()
         settings_gui_general_settings_tab_set_func()
+        settings_gui_set_chart_data_history_func()                                        # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
+        Performance.performance_set_selected_cpu_core_func()                              # Call this function in order to apply selected CPU core changes
+        Performance.performance_set_selected_disk_func()                                  # Call this function in order to apply selected disk changes
+        Performance.performance_set_selected_network_card_func()                          # Call this function in order to apply selected network card changes
+        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                  # Call this function in order to apply selected GPU changes
+        Performance.performance_foreground_initial_func()                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        Performance.performance_foreground_func()                                         # Call this function in order to apply changes immediately (without waiting update interval).
 
     def spinbutton2001_on_value_changed(widget):                                              # "Window transparency" GUI object signal
         Config.floating_summary_window_transparency = spinbutton2001.get_value()
@@ -188,6 +198,13 @@ def settings_gui_func():
             Config.config_default_reset_all_func()
             Config.config_save_func()
             settings_gui_set_func()
+            settings_gui_set_chart_data_history_func()                                        # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
+            Performance.performance_set_selected_cpu_core_func()                              # Call this function in order to apply selected CPU core changes
+            Performance.performance_set_selected_disk_func()                                  # Call this function in order to apply selected disk changes
+            Performance.performance_set_selected_network_card_func()                          # Call this function in order to apply selected network card changes
+            Performance.performance_get_gpu_list_and_set_selected_gpu_func()                  # Call this function in order to apply selected GPU changes
+            Performance.performance_foreground_initial_func()                                 # Call this function in order to apply changes immediately (without waiting update interval).
+            Performance.performance_foreground_func()                                         # Call this function in order to apply changes immediately (without waiting update interval).
         if warning_dialog2001_response == Gtk.ResponseType.NO:
             pass                                                                              # Do nothing when "No" button is clicked. Dialog will be closed.
 
@@ -391,6 +408,38 @@ def settings_gui_add_remove_floating_summary_performance_information_func():
     if checkbutton2012.get_active() == True:
         Config.floating_summary_data_shown.append(8)
     Config.config_save_func()
+
+
+# ----------------------------------- Settings - Set Chart Data History Function (trim/adds performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...) when user changes "chart_data_history" preference) -----------------------------------
+def settings_gui_set_chart_data_history_func():
+
+    chart_data_history_current = len(Performance.cpu_usage_percent_ave)                       # Get current chart_data_history length. This value is same for all performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...).
+    chart_data_history_new = Config.chart_data_history
+    if chart_data_history_current > chart_data_history_new:                                   # Trim beginning part of the lists if new "chart_data_history" value is smaller than the old value.
+        Performance.cpu_usage_percent_ave = Performance.cpu_usage_percent_ave[chart_data_history_current-chart_data_history_new:]    # "cpu_usage_percent_ave" list has no sub-lists and trimming is performed in this way.
+        Performance.ram_usage_percent = Performance.ram_usage_percent[chart_data_history_current-chart_data_history_new:]    # "ram_usage_percent" list has no sub-lists and trimming is performed in this way.
+        Performance.fps_count = Performance.fps_count[chart_data_history_current-chart_data_history_new:]    # "fps_count" list has no sub-lists and trimming is performed in this way.
+        disk_read_speed_len = len(Performance.disk_read_speed)
+        for i in range(disk_read_speed_len):
+            Performance.disk_read_speed[i] = Performance.disk_read_speed[i][chart_data_history_current-chart_data_history_new:]    # "disk_read_speed" list has sub-lists and trimming is performed for every sub-lists (for every disk).
+            Performance.disk_write_speed[i] = Performance.disk_write_speed[i][chart_data_history_current-chart_data_history_new:]    # "disk_write_speed" list has sub-lists and trimming is performed for every sub-lists (for every disk).
+        network_receive_speed_len = len(Performance.network_receive_speed)
+        for i in range(network_receive_speed_len):
+            Performance.network_receive_speed[i] = Performance.network_receive_speed[i][chart_data_history_current-chart_data_history_new:]    # "network_receive_speed" list has sub-lists and trimming is performed for every sub-lists (for every network card).
+            Performance.network_send_speed[i] = Performance.network_send_speed[i][chart_data_history_current-chart_data_history_new:]    # "network_send_speed" list has sub-lists and trimming is performed for every sub-lists (for every network card).
+    if chart_data_history_current < chart_data_history_new:                                   # Add list of zeroes to the beginning part of the lists if new "chart_data_history" value is bigger than the old value.
+        list_to_add = [0] * (chart_data_history_new - chart_data_history_current)             # Generate list of zeroes for adding to the beginning of te lists.
+        Performance.cpu_usage_percent_ave = list_to_add + Performance.cpu_usage_percent_ave    # "cpu_usage_percent_ave" list has no sub-lists and addition is performed in this way.
+        Performance.ram_usage_percent = list_to_add + Performance.ram_usage_percent           # "ram_usage_percent" list has no sub-lists and addition is performed in this way.
+        Performance.fps_count = list_to_add + Performance.fps_count                           # "fps_count" list has no sub-lists and addition is performed in this way.
+        disk_read_speed_len = len(Performance.disk_read_speed)
+        for i in range(disk_read_speed_len):
+            Performance.disk_read_speed[i] = list_to_add + Performance.disk_read_speed[i]     # "disk_read_speed" list has sub-lists and addition is performed for every sub-lists (for every disk).
+            Performance.disk_write_speed[i] = list_to_add + Performance.disk_write_speed[i]    # "disk_write_speed" list has sub-lists and addition is performed for every sub-lists (for every disk).
+        network_receive_speed_len = len(Performance.network_receive_speed)
+        for i in range(network_receive_speed_len):
+            Performance.network_receive_speed[i] = list_to_add + Performance.network_receive_speed[i]    # "network_receive_speed" list has sub-lists and addition is performed for every sub-lists (for every network card).
+            Performance.network_send_speed[i] = list_to_add + Performance.network_send_speed[i]    # "network_send_speed" list has sub-lists and addition is performed for every sub-lists (for every network card).
 
 
 # ----------------------------------- Settings - Reset All Settings Warning Dialog Function (shows an warning dialog when "Reset all settings of the application to defaults" button is clicked) -----------------------------------

@@ -208,8 +208,12 @@ def processes_loop_func():
         process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]  # Process name is get from string by using the indexes get previously.
         process_name = process_name_from_stat
         if len(process_name) >= 15:                                                           # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name. "=15" is enough but this limit may be increased in the next releases of the kernel. ">=15" is used in order to handle this possible change.
-            with open("/proc/" + pid + "/cmdline") as reader:
-                process_name = ''.join(reader.read().split("/")[-1].split("\x00"))            # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()" and joined again without these characters.
+            try:
+                with open("/proc/" + pid + "/cmdline") as reader:
+                    process_name = ''.join(reader.read().split("/")[-1].split("\x00"))        # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()" and joined again without these characters.
+            except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
+                pid_list.remove(pid)
+                continue
             if process_name.startswith(process_name_from_stat) == False:
                 process_name = process_name_from_stat                                         # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
         if process_name in application_icon_list:                                             # Use process name as process icon name if process name is found in application icons list
@@ -241,8 +245,12 @@ def processes_loop_func():
         if 6 in processes_treeview_columns_shown:
             processes_data_row.append(int(proc_pid_stat_lines_split[-30]))                    # Get process VMS (virtual memory size) memory (this value is in bytes unit).
         if 7 in processes_treeview_columns_shown:
-            with open("/proc/" + pid + "/statm") as reader:                                   
-                processes_data_row.append(int(reader.read().split()[2]) * memory_page_size)   # Get shared memory pages and multiply with memory_page_size in order to convert the value into bytes.
+            try:
+                with open("/proc/" + pid + "/statm") as reader:                                   
+                    processes_data_row.append(int(reader.read().split()[2]) * memory_page_size)   # Get shared memory pages and multiply with memory_page_size in order to convert the value into bytes.
+            except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
+                pid_list.remove(pid)
+                continue
         if 8 in processes_treeview_columns_shown or 9 in processes_treeview_columns_shown or 10 in processes_treeview_columns_shown or 11 in processes_treeview_columns_shown:
             try:                                                                              # Root access is needed for reading "/proc/[PID]/io" file else it gives error. "try-except" is used in order to avoid this error if user has no root privileges.
                 with open("/proc/" + pid + "/io") as reader:

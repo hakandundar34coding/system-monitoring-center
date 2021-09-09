@@ -125,22 +125,23 @@ def main_gui_func():
 # ----------------------------------- MainGUI - Main Set Default Tab Function (switches to default main tab ((Performance, Processes, Users, Storage, Startup, Services, Environment Variables, OS)) on initial run) -----------------------------------
 def main_gui_default_main_tab_func():
 
+    default_main_tab = Config.default_main_tab                                                # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
     stack1.set_transition_duration(0)
-    if Config.default_main_tab == 0:
+    if default_main_tab == 0:
          radiobutton1.set_active(True)
-    if Config.default_main_tab == 1:
+    if default_main_tab == 1:
          radiobutton2.set_active(True)
-    if Config.default_main_tab == 2:
+    if default_main_tab == 2:
          radiobutton3.set_active(True)
-    if Config.default_main_tab == 3:
+    if default_main_tab == 3:
          radiobutton4.set_active(True)
-    if Config.default_main_tab == 4:
+    if default_main_tab == 4:
          radiobutton5.set_active(True)
-    if Config.default_main_tab == 5:
+    if default_main_tab == 5:
          radiobutton6.set_active(True)
-    if Config.default_main_tab == 6:
+    if default_main_tab == 6:
          radiobutton7.set_active(True)
-    if Config.default_main_tab == 7:
+    if default_main_tab == 7:
          radiobutton8.set_active(True)
     stack1.set_transition_duration(200)
 
@@ -148,18 +149,19 @@ def main_gui_default_main_tab_func():
 # ----------------------------------- MainGUI - Set Performance Tab Default Sub-Tab Function (switches to performance tab default sub-tab ((CPU, RAM, Disk, Network, GPU, Sensors)) on initial run) -----------------------------------
 def main_gui_peformance_tab_default_sub_tab_func():
 
+    performance_tab_default_sub_tab = Config.performance_tab_default_sub_tab                  # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
     PerformanceGUI.stack1001.set_transition_duration(0)
-    if Config.performance_tab_default_sub_tab == 0:
+    if performance_tab_default_sub_tab == 0:
          PerformanceGUI.radiobutton1001.set_active(True)
-    if Config.performance_tab_default_sub_tab == 1:
+    if performance_tab_default_sub_tab == 1:
          PerformanceGUI.radiobutton1002.set_active(True)
-    if Config.performance_tab_default_sub_tab == 2:
+    if performance_tab_default_sub_tab == 2:
          PerformanceGUI.radiobutton1003.set_active(True)
-    if Config.performance_tab_default_sub_tab == 3:
+    if performance_tab_default_sub_tab == 3:
          PerformanceGUI.radiobutton1004.set_active(True)
-    if Config.performance_tab_default_sub_tab == 4:
+    if performance_tab_default_sub_tab == 4:
          PerformanceGUI.radiobutton1005.set_active(True)
-    if Config.performance_tab_default_sub_tab == 5:
+    if performance_tab_default_sub_tab == 5:
          PerformanceGUI.radiobutton1006.set_active(True)
     PerformanceGUI.stack1001.set_transition_duration(200)
 
@@ -198,7 +200,6 @@ def main_gui_main_function_run_func():
             main_gui_peformance_tab_default_sub_tab_func()                                    # Run performance tab default sub-tab function after initial showing of the main window
         Performance.performance_foreground_initial_initial_func()
 
-
         if PerformanceGUI.radiobutton1001.get_active() == True:                               # It switches to "CPU" tab if relevant radiobutton is clicked.
             PerformanceGUI.stack1001.set_visible_child(PerformanceGUI.grid1001)
             if remember_last_opened_tabs_on_application_start == 1:
@@ -234,98 +235,110 @@ def main_gui_main_function_run_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 1
         if 'ProcessesGUI' not in globals():                                                   # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
+            global Processes, ProcessesGUI, ProcessesMenusGUI, ProcessesDetailsGUI, ProcessesDetails, ProcessesCustomPriorityGUI
             import Processes, ProcessesGUI, ProcessesMenusGUI, ProcessesDetailsGUI, ProcessesDetails, ProcessesCustomPriorityGUI
             Processes.processes_import_func()
             ProcessesGUI.processes_gui_import_func()
             ProcessesGUI.processes_gui_func()
             ProcessesMenusGUI.processes_menus_import_func()
             ProcessesMenusGUI.processes_menus_gui_func()
-            Processes.processes_thread_run_func()
             ProcessesDetailsGUI.processes_details_gui_import_function()
             ProcessesDetailsGUI.processes_details_gui_function()
             ProcessesDetails.processes_details_import_func()
             ProcessesCustomPriorityGUI.processes_custom_priority_import_func()
             ProcessesCustomPriorityGUI.processes_custom_priority_gui_func()
+        Processes.processes_thread_run_func()
 
     if radiobutton3.get_active() == True:                                                     # It switches to "Users" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid3)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 2
         if 'UsersGUI' not in globals():
+            global Users, UsersGUI, UsersMenusGUI
             import Users, UsersGUI, UsersMenusGUI
             Users.users_import_func()
             UsersGUI.users_gui_import_func()
             UsersGUI.users_gui_func()
             UsersMenusGUI.users_menus_import_func()
             UsersMenusGUI.users_menus_gui_func()
-            Users.users_thread_run_func()
+        Users.users_thread_run_func()
 
     if radiobutton4.get_active() == True:                                                     # It switches to "Storage" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid4)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 3
-        import Storage, StorageGUI, StorageMenusGUI, StorageDetailsGUI, StorageDetails, StorageRenameGUI
-        Storage.storage_import_func()
-        StorageGUI.storage_gui_import_func()
-        StorageGUI.storage_gui_func()
-        StorageMenusGUI.storage_menus_import_func()
-        StorageMenusGUI.storage_menus_gui_func()
+        if 'StorageGUI' not in globals():
+            global Storage, StorageGUI, StorageMenusGUI, StorageDetailsGUI, StorageDetails, StorageRenameGUI
+            import Storage, StorageGUI, StorageMenusGUI, StorageDetailsGUI, StorageDetails, StorageRenameGUI
+            Storage.storage_import_func()
+            StorageGUI.storage_gui_import_func()
+            StorageGUI.storage_gui_func()
+            StorageMenusGUI.storage_menus_import_func()
+            StorageMenusGUI.storage_menus_gui_func()
+            StorageDetailsGUI.storage_details_gui_import_function()
+            StorageDetailsGUI.storage_details_gui_function()
+            StorageDetails.storage_details_import_func()
+            StorageRenameGUI.storage_rename_import_func()
+            StorageRenameGUI.storage_rename_gui_func()
         Storage.storage_thread_run_func()
-        StorageDetailsGUI.storage_details_gui_import_function()
-        StorageDetailsGUI.storage_details_gui_function()
-        StorageDetails.storage_details_import_func()
-        StorageRenameGUI.storage_rename_import_func()
-        StorageRenameGUI.storage_rename_gui_func()
 
     if radiobutton5.get_active() == True:                                                     # It switches to "Startup" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid5)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 4
-        import Startup, StartupGUI, StartupMenusGUI, StartupNewItemGUI
-        Startup.startup_import_func()
-        StartupGUI.startup_gui_import_func()
-        StartupGUI.startup_gui_func()
-        StartupMenusGUI.startup_menus_import_func()
-        StartupMenusGUI.startup_menus_gui_func()
+        if 'StartupGUI' not in globals():
+            global Startup, StartupGUI, StartupMenusGUI, StartupNewItemGUI
+            import Startup, StartupGUI, StartupMenusGUI, StartupNewItemGUI
+            Startup.startup_import_func()
+            StartupGUI.startup_gui_import_func()
+            StartupGUI.startup_gui_func()
+            StartupMenusGUI.startup_menus_import_func()
+            StartupMenusGUI.startup_menus_gui_func()
+            StartupNewItemGUI.startup_rename_import_func()
+            StartupNewItemGUI.startup_rename_gui_func()
         Startup.startup_thread_run_func()
-        StartupNewItemGUI.startup_rename_import_func()
-        StartupNewItemGUI.startup_rename_gui_func()
 
     if radiobutton6.get_active() == True:                                                     # It switches to "Services" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid6)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 5
-        import Services, ServicesGUI, ServicesMenusGUI, ServicesDetailsGUI, ServicesDetails
-        Services.services_import_func()
-        ServicesGUI.services_gui_import_func()
-        ServicesGUI.services_gui_func()
-        ServicesMenusGUI.services_menus_import_func()
-        ServicesMenusGUI.services_menus_gui_func()
-        ServicesDetailsGUI.services_details_gui_import_function()
-        ServicesDetailsGUI.services_details_gui_function()
-        ServicesDetails.services_details_import_func()
+        if 'ServicesGUI' not in globals():
+            global Services, ServicesGUI, ServicesMenusGUI, ServicesDetailsGUI, ServicesDetails
+            import Services, ServicesGUI, ServicesMenusGUI, ServicesDetailsGUI, ServicesDetails
+            Services.services_import_func()
+            ServicesGUI.services_gui_import_func()
+            ServicesGUI.services_gui_func()
+            ServicesMenusGUI.services_menus_import_func()
+            ServicesMenusGUI.services_menus_gui_func()
+            ServicesDetailsGUI.services_details_gui_import_function()
+            ServicesDetailsGUI.services_details_gui_function()
+            ServicesDetails.services_details_import_func()
         Services.services_thread_run_func()
 
     if radiobutton7.get_active() == True:                                                     # It switches to "Environment Variables" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid7)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 6
-        import EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
-        EnvironmentVariables.environment_variables_import_func()
-        EnvironmentVariablesGUI.environment_variables_gui_import_func()
-        EnvironmentVariablesGUI.environment_variables_gui_func()
-        EnvironmentVariablesMenusGUI.environment_variables_menus_import_func()
-        EnvironmentVariablesMenusGUI.environment_variables_menus_gui_func()
+        if 'EnvironmentVariablesGUI' not in globals():
+            global EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
+            import EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
+            EnvironmentVariables.environment_variables_import_func()
+            EnvironmentVariablesGUI.environment_variables_gui_import_func()
+            EnvironmentVariablesGUI.environment_variables_gui_func()
+            EnvironmentVariablesMenusGUI.environment_variables_menus_import_func()
+            EnvironmentVariablesMenusGUI.environment_variables_menus_gui_func()
         EnvironmentVariables.environment_variables_thread_run_func()
 
     if radiobutton8.get_active() == True:                                                     # It switches to "System" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid8)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 7
-        import System, SystemGUI
-        System.system_import_func()
-        SystemGUI.system_gui_import_func()
-        SystemGUI.system_gui_func()
+        if 'SystemGUI' not in globals():
+            global System, SystemGUI
+            import System, SystemGUI
+            System.system_import_func()
+            SystemGUI.system_gui_import_func()
+            SystemGUI.system_gui_func()
         System.system_thread_run_func()
 
     Config.config_save_func()
