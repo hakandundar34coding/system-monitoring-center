@@ -173,7 +173,7 @@ def processes_loop_func():
     # Get user names of the processes (this data is get outside and before the "getting process data" loop in which process pseudo files are read because this data also will be used for "show_processes_of_all_users" preference)
     for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
         try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + pid + "/status") as reader:                                  # User name of the process owner is get from "/proc/status" file because it is present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+            with open("/proc/" + pid + "/status") as reader:                                  # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
                 proc_pid_status_lines = reader.read().split("\n")
         except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
             pid_list.remove(pid)
@@ -643,6 +643,30 @@ def processes_treeview_column_order_width_row_sorting_func():
 # ----------------------------------- Processes - Define Window Function (defines a window by a user mouse click and highlights process of the defined window process on the proces list (on treeview)) -----------------------------------
 def processes_define_window_func():
 
+    # Get windowing system and stop function if current windowing system is not "X11". Because window could not be get by using "wcnk" on systems which run windowing system "Wayland".
+    windowing_system = os.environ.get('XDG_SESSION_TYPE')
+    if windowing_system != None:
+        windowing_system = windowing_system.capitalize()
+    if windowing_system == None:
+        windowing_system = _tr("Unknown")                                                     # Initial value of "windowing_system" variable. This value will be used if "windowing_system" could not be detected.
+        pids_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]     # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
+        for pid in pids_list:
+            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+                with open("/proc/" + pid + "/comm") as reader:
+                    process_name = reader.read().strip()
+            except FileNotFoundError:
+                continue
+            if process_name.lower() == "xorg":
+                windowing_system = "X11"
+                break
+            if process_name.lower() == "xwayland":
+                windowing_system = "Wayland"
+                break
+    if windowing_system != "X11":
+        processes_current_windowing_system_not_supported_dialog()
+        return
+
+    # Determine the window which is clicked on and highlight the process of its program.
     global processes_define_window_stop_loop
     processes_define_window_stop_loop = 0                                                     # This is a variable to check if defining window is completed and to stop loop for watching active window PIDs.
     changed_cursor = Gdk.Cursor(Gdk.CursorType.CROSSHAIR)                                     # Define "cross hair" cursor type to be used after clicking "Define Window" button in order to inform user that defining function is ready.
@@ -694,6 +718,16 @@ def processes_define_window_func():
         processes_define_window_loop_thread = Thread(target=processes_define_window_loop_thread_func, daemon=True)
         processes_define_window_loop_thread.start()
     processes_define_window_thread_run_func()                                                 # Run the function in order to start threads
+
+
+# ----------------------------------- Processes - Current Windowing System Not Supported Dialog Function (shows a dialog when "Define a window by clicking on it and highlight its process" button is clicked on systems which run a windowing system other than "X11") -----------------------------------
+def processes_current_windowing_system_not_supported_dialog():
+
+    dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Current Windowing System Is not Supported"), )
+    dialog2102.format_secondary_text(_tr("This function can not be used on systems which run a windowing system other than X11."))
+    dialog2102.run()
+    dialog2102.destroy()
 
 
 # ----------------------------------- Processes - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------

@@ -5370,7 +5370,7 @@ Variables</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Window Manager:</property>
+                        <property name="label" translatable="yes">Display Manager:</property>
                         <property name="ellipsize">end</property>
                       </object>
                       <packing>

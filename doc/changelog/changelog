@@ -1,3 +1,18 @@
+system-monitoring-center (0.1.4-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Added support for detection of Wayland windowing system (System tab)
+  * Added support for detection of Cinnamon, Mate, Kde Plasma desktop environments (System tab)
+  * Fixed a bug which causes error when an application window is tried to be defined on systems run Wayland (Processes tab)
+  * Fixed a bug which causes error while detecting current monitor on systems run Wayland (System tab)
+  * Fixed a bug which causes error while getting information of "Based on" on Debian OS (System tab)
+  * Various bug fixes
+  * Minor performance improvements on System tab
+  * Error handling improvements
+  * Removed unused code
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 10 Sep 2021 14:17:00 +0300
+
 system-monitoring-center (0.1.3-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
