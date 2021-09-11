@@ -105,14 +105,14 @@ def startup_menus_gui_func():
             if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == False:
                 with open(current_user_autostart_directory + selected_startup_application_file_name, 'w') as writer:
                     writer.write("[Desktop Entry]" + "\n")
-                    if Startup.current_desktop_session in not_show_in_value_system or (Startup.current_desktop_session not in only_show_in_value_system and only_show_in_value_system != ""):
-                        if Startup.current_desktop_session == "XFCE":
+                    if Startup.current_desktop_environment in not_show_in_value_system or (Startup.current_desktop_environment not in only_show_in_value_system and only_show_in_value_system != ""):
+                        if Startup.current_desktop_environment == "XFCE":
                             writer.write("X-XFCE-Autostart-Override=true" + "\n")
                     if hidden_value_system == "true":
                         writer.write("Hidden=false" + "\n")
                     return
             if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == True:
-                if Startup.current_desktop_session in not_show_in_value_system or (Startup.current_desktop_session not in only_show_in_value_system and only_show_in_value_system != ""):
+                if Startup.current_desktop_environment in not_show_in_value_system or (Startup.current_desktop_environment not in only_show_in_value_system and only_show_in_value_system != ""):
                     if xfce_autostart_override_value_user != "":
                         for line in desktop_file_user_lines:                                  # Search for visibility value
                             if "X-XFCE-Autostart-Override" in line:
@@ -125,14 +125,16 @@ def startup_menus_gui_func():
                     desktop_file_user_lines.append("Hidden=false")                            # Append new value into the list
                 with open(current_user_autostart_directory + selected_startup_application_file_name, 'w') as writer:
                     writer.write('\n'.join(desktop_file_user_lines))
-            treestore5101.set_value(Startup.piter_list[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)], 1, True)
+            treestore5101.set_value(Startup.piter_list[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)], 1, True)    # Update startup application visibility (Enabled/Disabled on startup) value in "treestore5101". This will update checkbox on the treeview.
+            Startup.startup_applications_visibility_list[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)] = True    # Update startup application visibility (Enabled/Disabled on startup) value in "startup_applications_visibility_list".
+            Startup.startup_data_rows[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)][1] = True    # Update startup application visibility (Enabled/Disabled on startup) value in "startup_data_rows". This will prevent errors when right click on the newly enabled/disabled startup item is performed before treeview is updated.
 
         if checkmenuitem5101m.get_active() == False:
             if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == False:
                 with open(current_user_autostart_directory + selected_startup_application_file_name, 'w') as writer:
                     writer.write("[Desktop Entry]" + "\n")
                     if xfce_autostart_override_value_system == "true":
-                        if Startup.current_desktop_session == "XFCE":
+                        if Startup.current_desktop_environment == "XFCE":
                             writer.write("X-XFCE-Autostart-Override=false" + "\n")
                     if hidden_value_system == "false":
                         writer.write("Hidden=true" + "\n")
@@ -152,7 +154,9 @@ def startup_menus_gui_func():
                     desktop_file_user_lines.append("Hidden=true")                             # Append new value into the list
                 with open(current_user_autostart_directory + selected_startup_application_file_name, 'w') as writer:
                     writer.write('\n'.join(desktop_file_user_lines))
-            treestore5101.set_value(Startup.piter_list[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)], 1, False)
+            treestore5101.set_value(Startup.piter_list[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)], 1, False)    # Update startup application visibility (Enabled/Disabled on startup) value in "treestore5101". This will update checkbox on the treeview.
+            Startup.startup_applications_visibility_list[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)] = False    # Update startup application visibility (Enabled/Disabled on startup) value in "startup_applications_visibility_list".
+            Startup.startup_data_rows[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)][1] = False    # Update startup application visibility (Enabled/Disabled on startup) value in "startup_data_rows". This will prevent errors when right click on the newly enabled/disabled startup item is performed before treeview is updated.
 
         if checkmenuitem5101m.get_active() == False:
             treestore5101.set_value(Startup.piter_list[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)], 1, False)

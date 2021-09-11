@@ -213,7 +213,7 @@
                                 <property name="can-focus">False</property>
                                 <property name="tooltip-text" translatable="yes">L1d (for data) and L1i (for instructions) cache memory values of the selected CPU core</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Cache (L1d, L1i):</property>
+                                <property name="label" translatable="yes">Cache (L1d-L1i):</property>
                                 <property name="ellipsize">end</property>
                               </object>
                               <packing>
@@ -293,10 +293,10 @@
                               <object class="GtkLabel">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="tooltip-text" translatable="yes">Number of total (online logical cores) and physical CPU cores
-(Number of total and physical CPU cores are same if CPU has no SMT feature or if it is disabled.)</property>
+                                <property name="tooltip-text" translatable="yes">Number of physical CPU cores and number of online logical CPU cores
+(Number of physical and logical CPU cores are same if CPU has no SMT feature or if it is disabled.)</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Total-Physical Cores:</property>
+                                <property name="label" translatable="yes">Physical-Logical Cores:</property>
                                 <property name="ellipsize">end</property>
                               </object>
                               <packing>
@@ -414,7 +414,7 @@
                                 <property name="can-focus">False</property>
                                 <property name="tooltip-text" translatable="yes">L2 and L3 cache memory values of the selected CPU core</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Cache (L2, L3):</property>
+                                <property name="label" translatable="yes">Cache (L2-L3):</property>
                                 <property name="ellipsize">end</property>
                               </object>
                               <packing>
@@ -486,8 +486,8 @@
 This selection affects these values:
 Current Frequency,
 Min-Max Frequency,
-Cache (L1d, L1i),
-Cache (L2, L3)</property>
+Cache (L1d-L1i),
+Cache (L2-L3)</property>
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">--</property>
                                     <property name="selectable">True</property>
@@ -5259,7 +5259,7 @@ Variables</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Display System:</property>
+                        <property name="label" translatable="yes">Graphical User Interface (GUI):</property>
                         <property name="ellipsize">end</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>

@@ -515,10 +515,10 @@ def performance_foreground_initial_func():
         if isinstance(cpu_max_frequency_all_cores[selected_cpu_core_number], str) is True:
             PerformanceGUI.label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]} - {cpu_max_frequency_all_cores[selected_cpu_core_number]}')
         PerformanceGUI.label1106.set_text(f'{number_of_cpu_sockets}')
-        PerformanceGUI.label1107.set_text(f'{number_of_logical_cores} - {number_of_physical_cores}')
+        PerformanceGUI.label1107.set_text(f'{number_of_physical_cores} - {number_of_logical_cores}')
         PerformanceGUI.label1108.set_text(cpu_architecture)
-        PerformanceGUI.label1109.set_text(f'{cpu_l1i_cache_values[selected_cpu_core_number]}, {cpu_l1d_cache_values[selected_cpu_core_number]}')
-        PerformanceGUI.label1110.set_text(f'{cpu_l2_cache_values[selected_cpu_core_number]}, {cpu_l3_cache_values[selected_cpu_core_number]}')
+        PerformanceGUI.label1109.set_text(f'{cpu_l1i_cache_values[selected_cpu_core_number]} - {cpu_l1d_cache_values[selected_cpu_core_number]}')
+        PerformanceGUI.label1110.set_text(f'{cpu_l2_cache_values[selected_cpu_core_number]} - {cpu_l3_cache_values[selected_cpu_core_number]}')
 
 
     if PerformanceGUI.radiobutton1002.get_active() == True:                                   # Check if RAM tab is selected.
@@ -973,8 +973,7 @@ def performance_foreground_initial_initial_func():
 def performance_foreground_loop_func():
 
     GLib.idle_add(performance_foreground_func)
-    if MainGUI.window1.get_visible() == True:                                                 # Check if main window is visible. If window is closed, this function is not repeated and thread is ended. Therefore, there is no working process is left after window closed.
-        GLib.timeout_add(Config.update_interval * 1000, performance_foreground_loop_func)
+    GLib.timeout_add(Config.update_interval * 1000, performance_foreground_loop_func)
 
 
 # ----------------------------------- Performance Foreground Thread Run Function (starts execution of the threads) -----------------------------------

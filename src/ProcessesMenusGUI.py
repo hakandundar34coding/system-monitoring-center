@@ -511,8 +511,10 @@ def processes_tab_popover_set_gui():
         checkbutton2101p.set_active(False)
     if Config.show_processes_as_tree == 1:
         checkbutton2102p.set_active(True)
+        checkbutton2103p.set_sensitive(True)
     if Config.show_processes_as_tree == 0:
         checkbutton2102p.set_active(False)
+        checkbutton2103p.set_sensitive(False)
     if Config.show_tree_lines == 1:
         checkbutton2103p.set_active(True)
     if Config.show_tree_lines == 0:

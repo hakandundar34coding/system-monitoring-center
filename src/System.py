@@ -153,8 +153,8 @@ def system_initial_func():
                 break
 
     # Get current desktop environment
-    current_dektop_environment = os.environ.get('XDG_CURRENT_DESKTOP')
-    if current_dektop_environment == None:
+    current_desktop_environment = os.environ.get('XDG_CURRENT_DESKTOP')
+    if current_desktop_environment == None:
         current_desktop_session = "-"                                                         # Set an initial string in order to avoid errors in case of undetected current desktop session.
         for pid in pid_list:
             try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
@@ -179,28 +179,28 @@ def system_initial_func():
                     current_desktop_session = "MATE"
                 if process_name == "plasmashell":
                     current_desktop_session = "KDE"
-        current_dektop_environment = current_desktop_session
+        current_desktop_environment = current_desktop_session
 
     # Get current desktop environment version
     supported_desktop_environments_list = ["XFCE", "GNOME", "X-CINNAMON", "CINNAMON", "MATE", "KDE"]
-    if current_dektop_environment == "XFCE":
-        current_dektop_environment_version_lines = (subprocess.check_output("xfce4-panel --version", shell=True).strip()).decode().split("\n")
-        for line in current_dektop_environment_version_lines:
+    if current_desktop_environment == "XFCE":
+        current_desktop_environment_version_lines = (subprocess.check_output("xfce4-panel --version", shell=True).strip()).decode().split("\n")
+        for line in current_desktop_environment_version_lines:
             if "xfce4-panel" in line:
-                current_dektop_environment_version = line.split(" ")[1]
-    if current_dektop_environment == "GNOME":
-        current_dektop_environment_version_lines = (subprocess.check_output("gnome-shell --version", shell=True).strip()).decode().split("\n")
-        for line in current_dektop_environment_version_lines:
+                current_desktop_environment_version = line.split(" ")[1]
+    if current_desktop_environment == "GNOME":
+        current_desktop_environment_version_lines = (subprocess.check_output("gnome-shell --version", shell=True).strip()).decode().split("\n")
+        for line in current_desktop_environment_version_lines:
             if "GNOME Shell" in line:
-                current_dektop_environment_version = line.split(" ")[2]
-    if current_dektop_environment == "X-CINNAMON" or current_dektop_environment == "CINNAMON":
-        current_dektop_environment_version = (subprocess.check_output("cinnamon --version", shell=True).strip()).decode().strip()
-    if current_dektop_environment == "MATE":
-        current_dektop_environment_version = _tr("Unknown")
-    if current_dektop_environment == "KDE":
-        current_dektop_environment_version = (subprocess.check_output("plasmashell --version", shell=True).strip()).decode().strip()
-    if current_dektop_environment not in supported_desktop_environments_list:
-        current_dektop_environment_version = _tr("Unknown")
+                current_desktop_environment_version = line.split(" ")[2]
+    if current_desktop_environment == "X-CINNAMON" or current_desktop_environment == "CINNAMON":
+        current_desktop_environment_version = (subprocess.check_output("cinnamon --version", shell=True).strip()).decode().strip()
+    if current_desktop_environment == "MATE":
+        current_desktop_environment_version = _tr("Unknown")
+    if current_desktop_environment == "KDE":
+        current_desktop_environment_version = (subprocess.check_output("plasmashell --version", shell=True).strip()).decode().strip()
+    if current_desktop_environment not in supported_desktop_environments_list:
+        current_desktop_environment_version = _tr("Unknown")
 
     # Get current display manager
     with open("/etc/X11/default-display-manager") as reader:
@@ -228,7 +228,7 @@ def system_initial_func():
     # Set label texts to show information
     SystemGUI.label8102.set_text(f'{computer_vendor} {computer_model}')
     SystemGUI.label8105.set_text(os_family)
-    SystemGUI.label8108.set_text(f'{current_dektop_environment} ({current_dektop_environment_version})')
+    SystemGUI.label8108.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
     SystemGUI.label8110.set_text(current_display_manager)
     SystemGUI.label8109.set_text(windowing_system)
     SystemGUI.label8111.set_text(computer_vendor)

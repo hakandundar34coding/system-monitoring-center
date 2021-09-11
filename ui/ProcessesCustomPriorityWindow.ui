@@ -14,6 +14,7 @@
     <property name="modal">True</property>
     <property name="default-width">400</property>
     <property name="destroy-with-parent">True</property>
+    <property name="icon-name">system-monitoring-center-services-symbolic</property>
     <property name="type-hint">dialog</property>
     <property name="skip-taskbar-hint">True</property>
     <child>

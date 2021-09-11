@@ -95,9 +95,9 @@ def processes_initial_func():
         try:
             with open("/usr/share/applications/" + application) as reader:
                 application_file_content = reader.read()
-            appliation_exec = application_file_content.split("Exec=")[1].split("\n")[0].split("/")[-1].split(" ")[0]    # Get application exec data
-            if appliation_exec != "sh":                                                       # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f"). This statement is used to avoid from this confusion.
-                application_exec_list.append(appliation_exec)
+            application_exec = application_file_content.split("Exec=")[1].split("\n")[0].split("/")[-1].split(" ")[0]    # Get application exec data
+            if application_exec != "sh":                                                      # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f"). This statement is used to avoid from this confusion.
+                application_exec_list.append(application_exec)
             else:
                 application_exec_list.append(application_file_content.split("Exec=")[1].split("\n")[0])
             application_icon_list.append(application_file_content.split("Icon=")[1].split("\n")[0])    # Get application icon name data
@@ -200,29 +200,24 @@ def processes_loop_func():
             pid_list.remove(pid)
             continue
         proc_pid_stat_lines_split = proc_pid_stat_lines.split()
-        processes_data_row = []
-        processes_data_row.append(True)                                                       # Process visibility data (on treeview) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
         ppid_list.append(proc_pid_stat_lines_split[-49])                                      # Process data is get by negative indexes because file content is split by " " (empty space) character and also process name could contain empty space character which may result confusion getting correct process data. In other words empty space character count may not be same for all process "stat" files and process name it at the second place in the file. Reading process data of which turn is later than process name by using negative index is a reliable method.
         first_parentheses = proc_pid_stat_lines.find("(")                                     # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
         second_parentheses = proc_pid_stat_lines.rfind(")")                                   # Last parantheses ")" index is get by using "find()".
         process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]  # Process name is get from string by using the indexes get previously.
         process_name = process_name_from_stat
-        if len(process_name) >= 15:                                                           # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name. "=15" is enough but this limit may be increased in the next releases of the kernel. ">=15" is used in order to handle this possible change.
+        if len(process_name) == 15:                                                           # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
             try:
                 with open("/proc/" + pid + "/cmdline") as reader:
-                    process_name = ''.join(reader.read().split("/")[-1].split("\x00"))        # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()" and joined again without these characters.
+                    process_name = reader.read().split("/")[-1].split("\x00")[0]              # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
             except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
                 pid_list.remove(pid)
                 continue
             if process_name.startswith(process_name_from_stat) == False:
                 process_name = process_name_from_stat                                         # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
-        if process_name in application_icon_list:                                             # Use process name as process icon name if process name is found in application icons list
-            process_icon = process_name
-        elif process_name in application_exec_list:                                           # Use process icon name from application file if process name is found in application exec list
+        process_icon = "system-monitoring-center-process-symbolic"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
+        if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list
             process_icon = application_icon_list[application_exec_list.index(process_name)]
-        else:
-            process_icon = "system-monitoring-center-process-symbolic"                        # This icon will be shown for processes of which icon could not be found in default icon theme.
-        processes_data_row.extend((process_icon, process_name))
+        processes_data_row = [True, process_icon, process_name]                               # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
         if 1 in processes_treeview_columns_shown:
             processes_data_row.append(int(proc_pid_stat_lines_split[0]))                      # Get process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
         if 2 in processes_treeview_columns_shown:

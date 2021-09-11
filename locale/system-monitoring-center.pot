@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-10 06:47+0300\n"
+"POT-Creation-Date: 2021-09-11 15:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,8 +39,8 @@ msgstr ""
 msgid "Shell Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:275 src/Processes.py:482 src/Sensors.py:266
-#: src/Services.py:361 src/Startup.py:544 src/Storage.py:571 src/Users.py:449
+#: src/EnvironmentVariables.py:275 src/Processes.py:477 src/Sensors.py:266
+#: src/Services.py:361 src/Startup.py:541 src/Storage.py:571 src/Users.py:449
 msgid "Total: "
 msgstr ""
 
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Network W: "
 msgstr ""
 
-#: src/MainGUI.py:368
+#: src/MainGUI.py:98
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -150,25 +150,26 @@ msgstr ""
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Performance.py:909 src/System.py:108 src/System.py:207
+#: src/Performance.py:909 src/Processes.py:646 src/System.py:140
+#: src/System.py:199 src/System.py:203
 msgid "Unknown"
 msgstr ""
 
-#: src/Performance.py:1002 src/Performance.py:1007
+#: src/Performance.py:1001 src/Performance.py:1006
 msgid "disk"
 msgstr ""
 
-#: src/Performance.py:1011
+#: src/Performance.py:1010
 msgid "partition"
 msgstr ""
 
-#: src/Performance.py:1049 src/Processes.py:706 src/ProcessesDetails.py:481
+#: src/Performance.py:1048 src/Processes.py:735 src/ProcessesDetails.py:481
 #: src/Services.py:505 src/ServicesDetails.py:236 src/Storage.py:756
 #: src/StorageDetails.py:399 src/Users.py:591
 msgid "Auto-Byte"
 msgstr ""
 
-#: src/Performance.py:1051 src/Processes.py:708 src/ProcessesDetails.py:483
+#: src/Performance.py:1050 src/Processes.py:737 src/ProcessesDetails.py:483
 #: src/Services.py:507 src/ServicesDetails.py:238 src/Storage.py:758
 #: src/StorageDetails.py:401 src/Users.py:593
 msgid "Auto-bit"
@@ -283,45 +284,61 @@ msgstr ""
 msgid "Dead"
 msgstr ""
 
-#: src/Processes.py:482
+#: src/Processes.py:477
 msgid " processes ("
 msgstr ""
 
-#: src/Processes.py:482
+#: src/Processes.py:477
 msgid " from this user, "
 msgstr ""
 
-#: src/Processes.py:482
+#: src/Processes.py:477
 msgid " from other users/system)"
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:124 src/ProcessesCustomPriorityGUI.py:134
-#: src/ProcessesDetails.py:513 src/ProcessesMenusGUI.py:803
-#: src/ProcessesMenusGUI.py:835 src/StorageMenusGUI.py:710
+#: src/Processes.py:721 src/ProcessesGUI.py:159 src/ProcessesMenusGUI.py:815
+#: src/ProcessesMenusGUI.py:826 src/ServicesGUI.py:136 src/SettingsGUI.py:448
+#: src/StartupGUI.py:129 src/StorageGUI.py:156
+msgid "Warning"
+msgstr ""
+
+#: src/Processes.py:722
+msgid "Current Windowing System Is not Supported"
+msgstr ""
+
+#: src/Processes.py:723
+msgid ""
+"This function can not be used on systems which run a windowing system other "
+"than X11."
+msgstr ""
+
+#: src/ProcessesCustomPriorityGUI.py:128 src/ProcessesCustomPriorityGUI.py:138
+#: src/ProcessesDetails.py:513 src/ProcessesMenusGUI.py:805
+#: src/ProcessesMenusGUI.py:837 src/StorageMenusGUI.py:710
 #: src/StorageMenusGUI.py:719
 msgid "Error"
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:125 src/ProcessesDetails.py:514
+#: src/ProcessesCustomPriorityGUI.py:129 src/ProcessesDetails.py:514
 msgid "Process Is Not Running Anymore"
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:126
+#: src/ProcessesCustomPriorityGUI.py:130
 msgid ""
 "Following process is not running anymore \n"
 "and process custom priority window is closed automatically:\n"
 " "
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:126 src/ProcessesDetails.py:515
+#: src/ProcessesCustomPriorityGUI.py:130 src/ProcessesDetails.py:515
 msgid " (PID: "
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:135 src/ProcessesMenusGUI.py:804
+#: src/ProcessesCustomPriorityGUI.py:139 src/ProcessesMenusGUI.py:806
 msgid "Access Denied"
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:136 src/ProcessesMenusGUI.py:805
+#: src/ProcessesCustomPriorityGUI.py:140 src/ProcessesMenusGUI.py:807
 msgid ""
 "You have to have root privileges in order to:\n"
 "  1) Increase nice value of your processes\n"
@@ -339,12 +356,6 @@ msgstr ""
 msgid ")"
 msgstr ""
 
-#: src/ProcessesGUI.py:159 src/ProcessesMenusGUI.py:813
-#: src/ProcessesMenusGUI.py:824 src/ServicesGUI.py:136 src/SettingsGUI.py:448
-#: src/StartupGUI.py:129 src/StorageGUI.py:156
-msgid "Warning"
-msgstr ""
-
 #: src/ProcessesGUI.py:160
 msgid "Select A Process"
 msgstr ""
@@ -353,31 +364,31 @@ msgstr ""
 msgid "Please select a process and try again for opening the menu"
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:814
+#: src/ProcessesMenusGUI.py:816
 msgid "End Process?"
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:815
+#: src/ProcessesMenusGUI.py:817
 msgid ""
 "Do you want to end the following process?\n"
 " "
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:825
+#: src/ProcessesMenusGUI.py:827
 msgid "End Process Tree?"
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:826
+#: src/ProcessesMenusGUI.py:828
 msgid ""
 "Do you want to end the following process and its child processes?\n"
 " "
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:836
+#: src/ProcessesMenusGUI.py:838
 msgid "Process Directory Could Not Be Get"
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:837
+#: src/ProcessesMenusGUI.py:839
 msgid ""
 "Process directory could not be get.\n"
 "No folder will be opened."
@@ -614,25 +625,15 @@ msgstr ""
 msgid "Command"
 msgstr ""
 
-#: src/Startup.py:150
-msgid "[UNKNOWN]"
-msgstr ""
-
-#: src/Startup.py:154
-msgid ""
-"Your desktop environment is not 'XFCE' or 'GNOME'. Currently, only these "
-"desktop environments are supported for listing startup items."
-msgstr ""
-
-#: src/Startup.py:544
+#: src/Startup.py:541
 msgid " startup applications ("
 msgstr ""
 
-#: src/Startup.py:544
+#: src/Startup.py:541
 msgid " visible, "
 msgstr ""
 
-#: src/Startup.py:544
+#: src/Startup.py:541
 msgid " hidden)"
 msgstr ""
 
@@ -644,15 +645,15 @@ msgstr ""
 msgid "Please select a startup item and try again for opening the menu"
 msgstr ""
 
-#: src/StartupMenusGUI.py:416 src/StartupMenusGUI.py:419 ui/StartupMenus.ui:597
+#: src/StartupMenusGUI.py:420 src/StartupMenusGUI.py:423 ui/StartupMenus.ui:597
 msgid "System-wide values file: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:419 src/StartupMenusGUI.py:425
+#: src/StartupMenusGUI.py:423 src/StartupMenusGUI.py:429
 msgid "None"
 msgstr ""
 
-#: src/StartupMenusGUI.py:422 src/StartupMenusGUI.py:425 ui/StartupMenus.ui:606
+#: src/StartupMenusGUI.py:426 src/StartupMenusGUI.py:429 ui/StartupMenus.ui:606
 msgid "User-specific values file: "
 msgstr ""
 
@@ -802,11 +803,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/System.py:155
+#: src/System.py:91
 msgid "(Yes)"
 msgstr ""
 
-#: src/System.py:157
+#: src/System.py:93
 msgid "(No)"
 msgstr ""
 
@@ -1152,7 +1153,7 @@ msgstr ""
 #: ui/MainWindow.ui:5230 ui/MainWindow.ui:5309 ui/MainWindow.ui:5326
 #: ui/MainWindow.ui:5343 ui/MainWindow.ui:5425 ui/MainWindow.ui:5442
 #: ui/MainWindow.ui:5459 ui/MainWindow.ui:6024 ui/MainWindow.ui:6036
-#: ui/ProcessesCustomPriorityWindow.ui:43 ui/ProcessesDetailsWindow.ui:211
+#: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:211
 #: ui/ProcessesDetailsWindow.ui:225 ui/ProcessesDetailsWindow.ui:239
 #: ui/ProcessesDetailsWindow.ui:253 ui/ProcessesDetailsWindow.ui:267
 #: ui/ProcessesDetailsWindow.ui:281 ui/ProcessesDetailsWindow.ui:295
@@ -1224,18 +1225,18 @@ msgid ""
 msgstr ""
 
 #: ui/MainWindow.ui:216
-msgid "Cache (L1d, L1i):"
+msgid "Cache (L1d-L1i):"
 msgstr ""
 
 #: ui/MainWindow.ui:296
 msgid ""
-"Number of total (online logical cores) and physical CPU cores\n"
-"(Number of total and physical CPU cores are same if CPU has no SMT feature "
+"Number of physical CPU cores and number of online logical CPU cores\n"
+"(Number of physical and logical CPU cores are same if CPU has no SMT feature "
 "or if it is disabled.)"
 msgstr ""
 
 #: ui/MainWindow.ui:299
-msgid "Total-Physical Cores:"
+msgid "Physical-Logical Cores:"
 msgstr ""
 
 #: ui/MainWindow.ui:311
@@ -1283,7 +1284,7 @@ msgid "L2 and L3 cache memory values of the selected CPU core"
 msgstr ""
 
 #: ui/MainWindow.ui:417
-msgid "Cache (L2, L3):"
+msgid "Cache (L2-L3):"
 msgstr ""
 
 #: ui/MainWindow.ui:459
@@ -1296,8 +1297,8 @@ msgid ""
 "This selection affects these values:\n"
 "Current Frequency,\n"
 "Min-Max Frequency,\n"
-"Cache (L1d, L1i),\n"
-"Cache (L2, L3)"
+"Cache (L1d-L1i),\n"
+"Cache (L2-L3)"
 msgstr ""
 
 #: ui/MainWindow.ui:505
@@ -2152,7 +2153,7 @@ msgid "Monitors - Current:"
 msgstr ""
 
 #: ui/MainWindow.ui:5262
-msgid "Display System:"
+msgid "Graphical User Interface (GUI):"
 msgstr ""
 
 #: ui/MainWindow.ui:5279 ui/ProcessesDetailsWindow.ui:68
@@ -2405,21 +2406,21 @@ msgstr ""
 msgid "Set Process Priority (Nice)"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:31
+#: ui/ProcessesCustomPriorityWindow.ui:32
 msgid "Change priority of this process:"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:71
+#: ui/ProcessesCustomPriorityWindow.ui:72
 msgid ""
 "Set process priority:\n"
 "(Smaller value means higher process priority)"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:105 ui/StorageRenameWindow.ui:90
+#: ui/ProcessesCustomPriorityWindow.ui:106 ui/StorageRenameWindow.ui:90
 msgid "Apply"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:150 ui/StartupNewItemWindow.ui:103
+#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:103
 #: ui/StorageRenameWindow.ui:135
 msgid "Cancel"
 msgstr ""

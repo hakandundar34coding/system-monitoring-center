@@ -63,6 +63,36 @@ def startup_initial_func():
     global startup_image_no_icon
     startup_image_no_icon = "system-monitoring-center-application-startup-symbolic"           # Will be used as image of the startup items that has no icons.
 
+    # Get current desktop environment
+    global current_desktop_environment
+    current_desktop_environment = os.environ.get('XDG_CURRENT_DESKTOP')
+    if current_desktop_environment == None:
+        current_desktop_session = "-"                                                         # Set an initial string in order to avoid errors in case of undetected current desktop session.
+        for pid in pid_list:
+            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+                with open("/proc/" + pid + "/comm") as reader:
+                    process_name = reader.read().strip()
+                with open("/proc/" + pid + "/status") as reader:                              # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+                    proc_pid_status_lines = reader.read().split("\n")
+            except FileNotFoundError:
+                continue
+            for line in proc_pid_status_lines:
+                if "Uid:\t" in line:
+                    real_user_id = line.split(":")[1].split()[0].strip()                      # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+            if process_username == current_user_name:
+                if process_name == "xfce4-session":
+                    current_desktop_session = "XFCE"
+                if process_name == "gnome-session-b":
+                    current_desktop_session = "GNOME"
+                if process_name == "cinnamon-session":
+                    current_desktop_session = "CINNAMON"
+                if process_name == "mate-session":
+                    current_desktop_session = "MATE"
+                if process_name == "plasmashell":
+                    current_desktop_session = "KDE"
+        current_desktop_environment = current_desktop_session
+
 
 # ----------------------------------- Startup - Get Startup Data Function (gets startup data, adds into treeview and updates it) -----------------------------------
 def startup_loop_func():
@@ -116,43 +146,10 @@ def startup_loop_func():
     comment_language_country = "Comment[" + system_locale + "]="
     comment_language = "Comment[" + system_language + "]="
 
-    # Get current desktop session by controlling "ssh-agent" process (owned by the current user) commandline pseudo file (/proc/[PID]/comm)
-    pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]          # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
-    for pid in pid_list:
-        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + pid + "/comm") as reader:
-                process_name = reader.read().strip()
-        except FileNotFoundError:                                                             # Skip to next loop (pid) if process is ended just after pid_list is generated.
-            continue
-        if process_name == "ssh-agent":
-            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-                with open("/proc/" + pid + "/status") as reader:                              # User name of the process owner is get from "/proc/status" file because it is present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                    proc_pid_status_lines = reader.read().split("\n")
-                for line in proc_pid_status_lines:
-                    if "Uid:\t" in line:
-                        real_user_id = line.split(":")[1].split()[0].strip()                  # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                        username = usernames_startup_applications_visibility_list[usernames_uid_list.index(real_user_id)]
-                if username != current_user_name:
-                    continue
-            except FileNotFoundError:
-                pass
-            try:
-                with open("/proc/" + pid + "/cmdline") as reader:
-                    process_commandline = reader.read()
-            except FileNotFoundError:
-                pass
-    global current_desktop_session
-    if process_commandline != "" and "x-session-manager" in process_commandline.lower():
-        current_desktop_session = "XFCE"
-    elif process_commandline != "" and "gnome-session" in process_commandline.lower():
-        current_desktop_session = "GNOME"
-    else:
-        current_desktop_session = _tr("[UNKNOWN]")
-
-    # In order to avoid errors, stop the loop function if current desktop session is not XFCE or GNOME. Currently other dektop environments are not tested for "Startup" tab. Dekstop environments may have specific lines in the ".desktop" files. More investigation is needed for desktop environments other than CXFCE and GNOME.
-    if current_desktop_session != "XFCE" and current_desktop_session != "GNOME":
-        StartupGUI.label5101.set_text(_tr("Your desktop environment is not 'XFCE' or 'GNOME'. Currently, only these desktop environments are supported for listing startup items."))
-        return
+#     # In order to avoid errors, stop the loop function if current desktop session is not XFCE or GNOME. Currently other dektop environments are not tested for "Startup" tab. Dekstop environments may have specific lines in the ".desktop" files. More investigation is needed for desktop environments other than CXFCE and GNOME.
+#     if current_desktop_environment != "XFCE" and current_desktop_environment != "GNOME":
+#         StartupGUI.label5101.set_text(_tr("Your desktop environment is not 'XFCE' or 'GNOME'. Currently, only these desktop environments are supported for listing startup items."))
+#         return
 
     # There are user startup applications and system wide startup applications in linux. They are in different directories. Modifications in directory of system wide startup applications require root access.
     # To be able to make system wide startup application preferences user specific, updates (enabling/disabling startup preferences) on the .desktop files are saved in user startup application directory.
@@ -260,11 +257,11 @@ def startup_loop_func():
         if desktop_file in system_autostart_directory_applications:
             # Get startup application visibility (which is different from application data treeview row visibility data)
             startup_application_visibility = True
-            if current_desktop_session not in only_show_in_value_system and only_show_in_value_system != "":
+            if current_desktop_environment not in only_show_in_value_system and only_show_in_value_system != "":
                 startup_application_visibility = False
-            if current_desktop_session in not_show_in_value_system:
+            if current_desktop_environment in not_show_in_value_system:
                 startup_application_visibility = False
-            if xfce_autostart_override_value_system == "true" and current_desktop_session not in only_show_in_value_system and only_show_in_value_system != "" and current_desktop_session in not_show_in_value_system:
+            if xfce_autostart_override_value_system == "true" and current_desktop_environment not in only_show_in_value_system and only_show_in_value_system != "" and current_desktop_environment in not_show_in_value_system:
                 startup_application_visibility = True
             if hidden_value_system == "true":
                 startup_application_visibility = False
@@ -288,11 +285,11 @@ def startup_loop_func():
         if desktop_file in current_user_autostart_applications:
             # Get startup application visibility (which is different from application data treeview row visibility data)
             startup_application_visibility = True
-            if current_desktop_session not in only_show_in_value_user and only_show_in_value_user != "":
+            if current_desktop_environment not in only_show_in_value_user and only_show_in_value_user != "":
                 startup_application_visibility = False
-            if current_desktop_session in not_show_in_value_user:
+            if current_desktop_environment in not_show_in_value_user:
                 startup_application_visibility = False
-            if xfce_autostart_override_value_user == "true" and current_desktop_session not in only_show_in_value_user and only_show_in_value_user != "" and current_desktop_session in not_show_in_value_user:
+            if xfce_autostart_override_value_user == "true" and current_desktop_environment not in only_show_in_value_user and only_show_in_value_user != "" and current_desktop_environment in not_show_in_value_user:
                 startup_application_visibility = True
             if hidden_value_user == "true":
                 startup_application_visibility = False
@@ -353,11 +350,11 @@ def startup_loop_func():
                 xfce_autostart_override_value_modified = xfce_autostart_override_value_user
             # Get startup application visibility
             startup_application_visibility = True
-            if current_desktop_session not in only_show_in_value_modified and only_show_in_value_modified != "":
+            if current_desktop_environment not in only_show_in_value_modified and only_show_in_value_modified != "":
                 startup_application_visibility = False
-            if current_desktop_session in not_show_in_value_modified:
+            if current_desktop_environment in not_show_in_value_modified:
                 startup_application_visibility = False
-            if xfce_autostart_override_value_modified == "true" and current_desktop_session not in only_show_in_value_modified and only_show_in_value_modified != "" and current_desktop_session not in not_show_in_value_modified:
+            if xfce_autostart_override_value_modified == "true" and current_desktop_environment not in only_show_in_value_modified and only_show_in_value_modified != "" and current_desktop_environment not in not_show_in_value_modified:
                 startup_application_visibility = True
             if hidden_value_modified == "true":
                 startup_application_visibility = False

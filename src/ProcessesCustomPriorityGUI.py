@@ -73,9 +73,13 @@ def processes_custom_priority_gui_func():
         second_parentheses = proc_pid_stat_lines.rfind(")")                                   # Last parantheses ")" index is get by using "find()".
         process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]  # Process name is get from string by using the indexes get previously.
         selected_process_name = process_name_from_stat
-        if len(selected_process_name) >= 15:                                                  # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name. "=15" is enough but this limit may be increased in the next releases of the kernel. ">=15" is used in order to handle this possible change.
-            with open("/proc/" + pid + "/cmdline") as reader:
-                selected_process_name = ''.join(reader.read().split("/")[-1].split("\x00"))   # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()" and joined again without these characters.
+        if len(selected_process_name) == 15:                                                  # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
+            try:
+                with open("/proc/" + selected_process_pid + "/cmdline") as reader:
+                    selected_process_name = reader.read().split("/")[-1].split("\x00")[0]     # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
+            except FileNotFoundError:
+                processes_no_such_process_error_dialog()
+                return
             if selected_process_name.startswith(process_name_from_stat) == False:
                 selected_process_name = process_name_from_stat                                # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
         selected_process_nice = int(proc_pid_stat_lines_split[-34])

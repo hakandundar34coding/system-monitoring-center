@@ -1,3 +1,15 @@
+system-monitoring-center (0.1.5-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Added support for listing startup items on systems with Cinnamon, Mate, Kde desktop environments (Startup tab).
+  * Improvements for listing processes with names longer than 15 characters (Processes tab)
+  * Various bug fixes
+  * Minor performance improvements on Startup tab
+  * Minor GUI improvements
+  * Error handling improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 11 Sep 2021 16:14:00 +0300
+
 system-monitoring-center (0.1.4-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
