@@ -34,6 +34,7 @@ def floating_summary_import_func():
 
 # ----------------------------------- FloatingSummary - Initial Function (defines and sets floating summary GUI objects which are not updated on every loop) -----------------------------------
 def floating_summary_initial_func():
+    # Floating Summary window is closed when main window is closed (when application is run as running a desktop application). But it is not closed when main window is closed if application is run from an IDE for debugging/develoing purposes.
 
     global floating_summary_window, floating_summary_grid, floating_summary_data_shown_prev
     floating_summary_data_shown_prev = []
@@ -41,10 +42,9 @@ def floating_summary_initial_func():
     floating_summary_window = Gtk.Window()
     floating_summary_grid = Gtk.Grid()
     floating_summary_window.add(floating_summary_grid)
-#     floating_summary_grid.set_column_homogeneous(True)
-#     floating_summary_grid.set_row_homogeneous(True)
     floating_summary_grid.set_size_request(-1, -1)
 
+    # Append labels to grid for showing performance data
     grid_row_count = 0
     global floating_summary_cpu_label
     floating_summary_cpu_label = Gtk.Label()
@@ -101,12 +101,13 @@ def floating_summary_initial_func():
     floating_summary_fps_label.set_valign(Gtk.Align.START)
     floating_summary_window.show_all()
 
+    # Set floating summary window properties
+    floating_summary_window.set_resizable(False)                                              # For preventing window to be resized.
+    floating_summary_window.set_skip_taskbar_hint(True)                                       # For hiding window on the taskbar.
+    floating_summary_window.set_decorated(False)                                              # For hiding window title, buttons on the title and window border.
+    floating_summary_window.set_keep_above(True)                                              # For keeping the window on top of all windows.
 
-    floating_summary_window.set_resizable(False)
-    floating_summary_window.set_skip_taskbar_hint(True)
-    floating_summary_window.set_decorated(False)
-    floating_summary_window.set_keep_above(True)
-
+    # Define a function for clicking and dragging the window.
     def on_floating_summary_window_button_press_event(widget, event):
         if event.button == 1:
             floating_summary_window.begin_move_drag(event.button, event.x_root, event.y_root, event.time)
@@ -114,9 +115,7 @@ def floating_summary_initial_func():
     floating_summary_window.connect("button-press-event", on_floating_summary_window_button_press_event)
 
     floating_summary_window.show_all()
-    floating_summary_window.set_opacity(Config.floating_summary_window_transparency)
-    floating_summary_window.set_transient_for(MainGUI.window1)                                # To be able to use "set_destroy_with_parent"
-    floating_summary_window.set_destroy_with_parent(True)                                     # To be able to destroy "floating_summary_window" when application main window is destroyed
+    floating_summary_window.set_opacity(Config.floating_summary_window_transparency)          # Set transperancy of the window.
 
 
 # ----------------------------------- FloatingSummary - Loop Function (updates performance data on the floating summary window) -----------------------------------
@@ -169,6 +168,7 @@ def floating_summary_loop_func():
 
     floating_summary_data_shown_prev = list(floating_summary_data_shown)                      # list1 = list(list2) have to be used for proper working of the code because using this equation without "list()" makes a connection between these lists instead of copying one list with a different variable name.
 
+    # Set label text for showing peformance data
     if 0 in floating_summary_data_shown:
         floating_summary_cpu_label.set_text(_tr("CPU: ") + f'{Performance.cpu_usage_percent_ave[-1]:.2f}' + "%")
     if 1 in floating_summary_data_shown:
@@ -186,7 +186,7 @@ def floating_summary_loop_func():
     if 7 in floating_summary_data_shown:
         floating_summary_network_send_speed_label.set_text(_tr("Network W: ") + f'{Performance.network_send_speed[Performance.selected_network_card_number][-1]:.0f}' + "B/s")
     if 8 in floating_summary_data_shown:
-        floating_summary_fps_label.set_text("FPS: Not coded")
+        floating_summary_fps_label.set_text(_tr("FPS: ") + "[Not coded]")
 
 
 # ----------------------------------- FloatingSummary Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

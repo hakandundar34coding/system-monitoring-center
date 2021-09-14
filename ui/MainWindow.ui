@@ -4128,7 +4128,7 @@ May be different than maximum resolution of the monitor.</property>
                             <property name="tooltip-text" translatable="yes">Number of listed startup items</property>
                             <property name="halign">start</property>
                             <property name="margin-start">60</property>
-                            <property name="label" translatable="yes">Total: -- startup items  (-- visible, -- hidden startup items)</property>
+                            <property name="label" translatable="yes">Total: -- startup items (-- visible, -- hidden startup items)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
                           </object>
@@ -4265,7 +4265,7 @@ May be different than maximum resolution of the monitor.</property>
                           <object class="GtkImage">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-user-symbolic</property>
+                            <property name="icon-name">system-monitoring-center-apply-symbolic</property>
                           </object>
                         </child>
                       </object>
@@ -4286,7 +4286,7 @@ May be different than maximum resolution of the monitor.</property>
                           <object class="GtkImage">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-system-symbolic</property>
+                            <property name="icon-name">system-monitoring-center-cancel-symbolic</property>
                           </object>
                         </child>
                       </object>
@@ -4370,7 +4370,7 @@ May be different than maximum resolution of the monitor.</property>
                             <property name="can-focus">False</property>
                             <property name="tooltip-text" translatable="yes">Number of listed services</property>
                             <property name="halign">start</property>
-                            <property name="label" translatable="yes">Total: -- services  (-- loaded, -- non-loaded services)</property>
+                            <property name="label" translatable="yes">Total: -- services (-- loaded, -- non-loaded services)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
                           </object>
@@ -4635,7 +4635,7 @@ Variables</property>
                             <property name="tooltip-text" translatable="yes">Number of listed environment variables</property>
                             <property name="halign">start</property>
                             <property name="margin-start">60</property>
-                            <property name="label" translatable="yes">Total: -- environment variables  (-- system wide, -- user environment variables)</property>
+                            <property name="label" translatable="yes">Total: -- environment variables (-- system wide, -- user environment variables)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
                           </object>

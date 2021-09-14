@@ -1,3 +1,14 @@
+system-monitoring-center (0.1.6-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Added support for listing startup items on systems with GNOME-Classic, Ubuntu-GNOME desktop environments (Startup tab).
+  * Added "Run Now" and "Reset To System Values" items on the right click menu on Startup tab.
+  * Fixed bugs which cause incorrect startup item "Enabled/Disabled" information (Startup tab)
+  * Various bug fixes
+  * Minor GUI improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 14 Sep 2021 09:08:00 +0300
+
 system-monitoring-center (0.1.5-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]

@@ -84,6 +84,16 @@ def startup_rename_gui_func():
         window5101w.hide()
 
     def on_button5102w_clicked(widget):                                                       # "Save" button
+        # Get human and root user usernames and UIDs. This data will be used if application is run with "pkexec" command.
+        usernames_username_list = []
+        usernames_uid_list = []
+        with open("/etc/passwd") as reader:                                                   # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
+            etc_passwd_lines = reader.read().strip().split("\n")                              # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
+        for line in etc_passwd_lines:
+            line_splitted = line.split(":")
+            usernames_username_list.append(line_splitted[0])
+            usernames_uid_list.append(line_splitted[2])
+
         # Get current username which will be used for determining current user home directory.
         global current_user_name
         current_user_name = os.environ.get('SUDO_USER')                                       # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
@@ -91,17 +101,7 @@ def startup_rename_gui_func():
             current_user_name = os.environ.get('USER')
         pkexec_uid = os.environ.get('PKEXEC_UID')
         if current_user_name == "root" and pkexec_uid != None:                                # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-            current_user_name = usernames_startup_applications_visibility_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
-
-        # Get human and root user usernames and UIDs. This data will be used if application is run with "pkexec" command.
-        usernames_startup_applications_visibility_list = []
-        usernames_uid_list = []
-        with open("/etc/passwd") as reader:                                                   # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
-            etc_passwd_lines = reader.read().strip().split("\n")                              # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
-        for line in etc_passwd_lines:
-            line_splitted = line.split(":")
-            usernames_startup_applications_visibility_list.append(line_splitted[0])
-            usernames_uid_list.append(line_splitted[2])
+            current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
 
         # Get startup item file directories. System default autostart directory is "system_autostart_directory". Startup items are copied into "current_user_autostart_directory" directory with modified values if user make modifications for the startup item. For the user, these values override system values for the user-modified startup item.
         for line in etc_passwd_lines:
@@ -111,6 +111,15 @@ def startup_rename_gui_func():
         current_user_autostart_directory = current_user_homedir + "/.config/autostart/"
         system_autostart_directory = "/etc/xdg/autostart/"
 
+        # Show a warning dialog if there is already a .desktop file with the same name.
+        new_startup_application_name = entry5101w.get_text()
+        new_startup_application_file_name = entry5101w.get_text() + ".desktop"
+        if os.path.isfile(current_user_autostart_directory + new_startup_application_file_name) == True:
+            startup_overwrite_existing_startup_item_warning_dialog(new_startup_application_name, new_startup_application_file_name)
+            if warning_dialog5103_response == Gtk.ResponseType.YES:
+                pass                                                                          # Continue running the code if "Yes" is clicked on the dialog.
+            if warning_dialog5103_response == Gtk.ResponseType.NO:
+                return                                                                        # Do nothing (stop running the code and close the dialog) if "No" is clicked.
         # Save ".desktop" file in order to add new startup item
         with open(current_user_autostart_directory + entry5101w.get_text() + ".desktop", "w") as writer:
             writer.write("[Desktop Entry]" + "\n")
@@ -139,3 +148,14 @@ def startup_rename_gui_func():
     entry5103w.connect("changed", on_entry5103w_changed)
     button5101w.connect("clicked", on_button5101w_clicked)
     button5102w.connect("clicked", on_button5102w_clicked)
+
+
+# ----------------------------------- Startup - Startup Overwrite Existing Startup Item Warning Dialog Function (shows a warning dialog when a new startup item file is tried to be generated with the same name of an existing one) -----------------------------------
+def startup_overwrite_existing_startup_item_warning_dialog(new_startup_application_name, new_startup_application_file_name):
+
+    warning_dialog5103 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do You Want To Overwrite Existing File?"), )
+    warning_dialog5103.format_secondary_text(_tr("There is already a '.desktop' file with the same name.\nExisting file will be overwritten if you continue.\nDo you want to continue?") + "\n" + " Existing Startup Item: " + new_startup_application_name + "\n" + _tr(" Existing '.desktop' File Name: ") + new_startup_application_file_name)
+    global warning_dialog5103_response
+    warning_dialog5103_response = warning_dialog5103.run()
+    warning_dialog5103.destroy()

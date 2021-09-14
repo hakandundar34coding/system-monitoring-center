@@ -809,7 +809,7 @@ def processes_nice_error_dialog():
     error_dialog2101.destroy()
 
 
-# ----------------------------------- Processes - Processes End Process Warning Dialog Function (shows an warning dialog when a process is tried to be end) -----------------------------------
+# ----------------------------------- Processes - Processes End Process Warning Dialog Function (shows a warning dialog when a process is tried to be end) -----------------------------------
 def processes_end_process_warning_dialog(process_name, process_pid):
 
     warning_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
@@ -820,7 +820,7 @@ def processes_end_process_warning_dialog(process_name, process_pid):
     warning_dialog2101.destroy()
 
 
-# ----------------------------------- Processes - Processes End Process Tree Warning Dialog Function (shows an warning dialog when a process tree is tried to be end) -----------------------------------
+# ----------------------------------- Processes - Processes End Process Tree Warning Dialog Function (shows a warning dialog when a process tree is tried to be end) -----------------------------------
 def processes_end_process_tree_warning_dialog(process_name, process_pid):
 
     warning_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,

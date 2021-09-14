@@ -116,12 +116,14 @@ def startup_open_right_click_menu_func(event):
     if treeiter is None:
         startup_no_startup_item_selected_dialog()
     if treeiter is not None:
-        global selected_startup_application_file_name, selected_startup_application_visibility
+        global selected_startup_application_file_name, selected_startup_application_visibility, selected_startup_application_name
         selected_startup_application_file_name = Startup.all_autostart_applications_list[Startup.startup_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "startup_data_rows" list to use it getting name of the startup application file name.
         selected_startup_application_visibility = Startup.startup_applications_visibility_list[Startup.startup_data_rows.index(model[treeiter][:])]
+        selected_startup_application_name = model[treeiter][3]
         StartupMenusGUI.menu5101m.popup(None, None, None, None, event.button, event.time)
         StartupMenusGUI.startup_set_checkmenuitem_func()
         StartupMenusGUI.startup_set_menu_labels_func()
+
 
 # ----------------------------------- Startup - No Startup Item Selected Dialog Function (shows a dialog when Open Startup Item Right Click Menu is clicked without selecting a startup item) -----------------------------------
 def startup_no_startup_item_selected_dialog():

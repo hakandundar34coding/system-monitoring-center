@@ -2,6 +2,16 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-run-application-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-reload-symbolic</property>
+  </object>
   <object class="GtkImage" id="menuitem5102mimage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -579,6 +589,30 @@
       <object class="GtkSeparatorMenuItem">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem5106m">
+        <property name="label" translatable="yes">Run Now</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">image1</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem5107m">
+        <property name="label" translatable="yes">Reset To System Values</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">image2</property>
+        <property name="use-stock">False</property>
       </object>
     </child>
     <child>

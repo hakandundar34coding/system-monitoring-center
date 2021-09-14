@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-11 15:56+0300\n"
+"POT-Creation-Date: 2021-09-14 08:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgid "Shell Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:275 src/Processes.py:477 src/Sensors.py:266
-#: src/Services.py:361 src/Startup.py:541 src/Storage.py:571 src/Users.py:449
+#: src/Services.py:361 src/Startup.py:590 src/Storage.py:571 src/Users.py:449
 msgid "Total: "
 msgstr ""
 
@@ -86,6 +86,10 @@ msgstr ""
 
 #: src/FloatingSummary.py:187
 msgid "Network W: "
+msgstr ""
+
+#: src/FloatingSummary.py:189
+msgid "FPS: "
 msgstr ""
 
 #: src/MainGUI.py:98
@@ -150,8 +154,8 @@ msgstr ""
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Performance.py:909 src/Processes.py:646 src/System.py:140
-#: src/System.py:199 src/System.py:203
+#: src/Performance.py:909 src/Processes.py:646 src/System.py:69
+#: src/System.py:128 src/System.py:132
 msgid "Unknown"
 msgstr ""
 
@@ -298,7 +302,8 @@ msgstr ""
 
 #: src/Processes.py:721 src/ProcessesGUI.py:159 src/ProcessesMenusGUI.py:815
 #: src/ProcessesMenusGUI.py:826 src/ServicesGUI.py:136 src/SettingsGUI.py:448
-#: src/StartupGUI.py:129 src/StorageGUI.py:156
+#: src/StartupGUI.py:131 src/StartupMenusGUI.py:557 src/StartupMenusGUI.py:568
+#: src/StartupNewItemGUI.py:156 src/StorageGUI.py:156
 msgid "Warning"
 msgstr ""
 
@@ -613,11 +618,11 @@ msgid "Do you want to reset all settings of the application to defaults?"
 msgstr ""
 
 #: src/Startup.py:48 ui/ProcessesMenus.ui:597 ui/ProcessesMenus.ui:1362
-#: ui/StartupMenus.ui:266 ui/StartupMenus.ui:436 ui/UsersMenus.ui:979
+#: ui/StartupMenus.ui:276 ui/StartupMenus.ui:446 ui/UsersMenus.ui:979
 msgid "Name"
 msgstr ""
 
-#: src/Startup.py:49 ui/StartupMenus.ui:282 ui/StartupMenus.ui:450
+#: src/Startup.py:49 ui/StartupMenus.ui:292 ui/StartupMenus.ui:460
 msgid "Comment"
 msgstr ""
 
@@ -625,36 +630,97 @@ msgstr ""
 msgid "Command"
 msgstr ""
 
-#: src/Startup.py:541
+#: src/Startup.py:180
+msgid ""
+"Currently following desktop environments are supported for listing startup "
+"items:\n"
+msgstr ""
+
+#: src/Startup.py:590
 msgid " startup applications ("
 msgstr ""
 
-#: src/Startup.py:541
+#: src/Startup.py:590
 msgid " visible, "
 msgstr ""
 
-#: src/Startup.py:541
+#: src/Startup.py:590
 msgid " hidden)"
 msgstr ""
 
-#: src/StartupGUI.py:130
+#: src/StartupGUI.py:132
 msgid "Select A Startup Item"
 msgstr ""
 
-#: src/StartupGUI.py:131
+#: src/StartupGUI.py:133
 msgid "Please select a startup item and try again for opening the menu"
 msgstr ""
 
-#: src/StartupMenusGUI.py:420 src/StartupMenusGUI.py:423 ui/StartupMenus.ui:597
+#: src/StartupMenusGUI.py:499
+msgid "The startup item has system values."
+msgstr ""
+
+#: src/StartupMenusGUI.py:510 src/StartupMenusGUI.py:513 ui/StartupMenus.ui:631
 msgid "System-wide values file: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:423 src/StartupMenusGUI.py:429
+#: src/StartupMenusGUI.py:513 src/StartupMenusGUI.py:519
 msgid "None"
 msgstr ""
 
-#: src/StartupMenusGUI.py:426 src/StartupMenusGUI.py:429 ui/StartupMenus.ui:606
+#: src/StartupMenusGUI.py:516 src/StartupMenusGUI.py:519 ui/StartupMenus.ui:640
 msgid "User-specific values file: "
+msgstr ""
+
+#: src/StartupMenusGUI.py:558
+msgid "Run Startup Item Now?"
+msgstr ""
+
+#: src/StartupMenusGUI.py:559
+msgid "Do you want to run the following startup item?"
+msgstr ""
+
+#: src/StartupMenusGUI.py:559
+msgid " Command: "
+msgstr ""
+
+#: src/StartupMenusGUI.py:569
+msgid "Reset The Startup Item To System Values?"
+msgstr ""
+
+#: src/StartupMenusGUI.py:570
+msgid "Do you want to reset the following startup item to system values?"
+msgstr ""
+
+#: src/StartupMenusGUI.py:571
+msgid " '.desktop' File Name: "
+msgstr ""
+
+#: src/StartupMenusGUI.py:572
+msgid ""
+"1) If the startup item has both system-wide and user-specific '.desktop' "
+"files, user-specific file will be deleted."
+msgstr ""
+
+#: src/StartupMenusGUI.py:573
+msgid ""
+"2) If the startup item has only user-specific '.desktop' files, this file "
+"will be deleted and startup item will be removed completely."
+msgstr ""
+
+#: src/StartupNewItemGUI.py:157
+msgid "Do You Want To Overwrite Existing File?"
+msgstr ""
+
+#: src/StartupNewItemGUI.py:158
+msgid ""
+"There is already a '.desktop' file with the same name.\n"
+"Existing file will be overwritten if you continue.\n"
+"Do you want to continue?"
+msgstr ""
+
+#: src/StartupNewItemGUI.py:158
+msgid " Existing '.desktop' File Name: "
 msgstr ""
 
 #: src/Storage.py:49 ui/StorageMenus.ui:371 ui/StorageMenus.ui:1036
@@ -803,11 +869,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/System.py:91
+#: src/System.py:221
 msgid "(Yes)"
 msgstr ""
 
-#: src/System.py:93
+#: src/System.py:223
 msgid "(No)"
 msgstr ""
 
@@ -960,31 +1026,31 @@ msgid "Environment Variables Tab Customizations:"
 msgstr ""
 
 #: ui/EnvironmentVariablesMenus.ui:142 ui/PerformanceMenus.ui:2160
-#: ui/ProcessesMenus.ui:396 ui/ServicesMenus.ui:199 ui/StartupMenus.ui:78
+#: ui/ProcessesMenus.ui:396 ui/ServicesMenus.ui:199 ui/StartupMenus.ui:88
 #: ui/StorageMenus.ui:183 ui/UsersMenus.ui:246
 msgid "Column Reordering,"
 msgstr ""
 
 #: ui/EnvironmentVariablesMenus.ui:176 ui/PerformanceMenus.ui:2194
-#: ui/ProcessesMenus.ui:430 ui/ServicesMenus.ui:233 ui/StartupMenus.ui:112
+#: ui/ProcessesMenus.ui:430 ui/ServicesMenus.ui:233 ui/StartupMenus.ui:122
 #: ui/StorageMenus.ui:217 ui/UsersMenus.ui:280
 msgid "Row Sorting,"
 msgstr ""
 
 #: ui/EnvironmentVariablesMenus.ui:207 ui/PerformanceMenus.ui:2113
-#: ui/ProcessesMenus.ui:473 ui/ServicesMenus.ui:264 ui/StartupMenus.ui:143
+#: ui/ProcessesMenus.ui:473 ui/ServicesMenus.ui:264 ui/StartupMenus.ui:153
 #: ui/StorageMenus.ui:248 ui/UsersMenus.ui:311
 msgid "Reset"
 msgstr ""
 
 #: ui/EnvironmentVariablesMenus.ui:254 ui/PerformanceMenus.ui:2228
-#: ui/ProcessesMenus.ui:520 ui/ServicesMenus.ui:311 ui/StartupMenus.ui:190
+#: ui/ProcessesMenus.ui:520 ui/ServicesMenus.ui:311 ui/StartupMenus.ui:200
 #: ui/StorageMenus.ui:295 ui/UsersMenus.ui:358
 msgid "Column Widths:"
 msgstr ""
 
 #: ui/EnvironmentVariablesMenus.ui:273 ui/ProcessesMenus.ui:539
-#: ui/ServicesMenus.ui:330 ui/StartupMenus.ui:209 ui/StorageMenus.ui:314
+#: ui/ServicesMenus.ui:330 ui/StartupMenus.ui:219 ui/StorageMenus.ui:314
 #: ui/UsersMenus.ui:377
 msgid "View"
 msgstr ""
@@ -994,7 +1060,7 @@ msgid "Add/Remove Variable Information:"
 msgstr ""
 
 #: ui/EnvironmentVariablesMenus.ui:391 ui/ProcessesMenus.ui:870
-#: ui/ServicesMenus.ui:515 ui/StartupMenus.ui:326 ui/StorageMenus.ui:722
+#: ui/ServicesMenus.ui:515 ui/StartupMenus.ui:336 ui/StorageMenus.ui:722
 #: ui/UsersMenus.ui:646
 msgid "Add/Remove Columns"
 msgstr ""
@@ -1003,7 +1069,7 @@ msgstr ""
 #: ui/PerformanceMenus.ui:496 ui/PerformanceMenus.ui:832
 #: ui/PerformanceMenus.ui:1356 ui/PerformanceMenus.ui:1929
 #: ui/PerformanceMenus.ui:2057 ui/ProcessesMenus.ui:1209
-#: ui/ServicesMenus.ui:723 ui/SettingsWindow.ui:676 ui/StartupMenus.ui:357
+#: ui/ServicesMenus.ui:723 ui/SettingsWindow.ui:676 ui/StartupMenus.ui:367
 #: ui/StorageMenus.ui:930 ui/UsersMenus.ui:873
 msgid "Reset All"
 msgstr ""
@@ -1013,7 +1079,7 @@ msgid "Environment Variables Search Customizations:"
 msgstr ""
 
 #: ui/EnvironmentVariablesMenus.ui:492 ui/PerformanceMenus.ui:2273
-#: ui/ProcessesMenus.ui:1291 ui/ServicesMenus.ui:793 ui/StartupMenus.ui:427
+#: ui/ProcessesMenus.ui:1291 ui/ServicesMenus.ui:793 ui/StartupMenus.ui:437
 #: ui/StorageMenus.ui:1000 ui/UsersMenus.ui:943
 msgid "Search in column:"
 msgstr ""
@@ -3004,51 +3070,59 @@ msgstr ""
 msgid "Reset all settings of the application to defaults"
 msgstr ""
 
-#: ui/StartupMenus.ui:35
+#: ui/StartupMenus.ui:45
 msgid "Startup Tab Customizations:"
 msgstr ""
 
-#: ui/StartupMenus.ui:233 ui/StorageMenus.ui:338
+#: ui/StartupMenus.ui:243 ui/StorageMenus.ui:338
 msgid "Add/Remove Storage Information:"
 msgstr ""
 
-#: ui/StartupMenus.ui:296 ui/StartupMenus.ui:478
+#: ui/StartupMenus.ui:306 ui/StartupMenus.ui:488
 msgid "Command (Exec)"
 msgstr ""
 
-#: ui/StartupMenus.ui:411
+#: ui/StartupMenus.ui:421
 msgid "Startup Search Customizations:"
 msgstr ""
 
-#: ui/StartupMenus.ui:464
+#: ui/StartupMenus.ui:474
 msgid "Disabled (Hidden) startup items"
 msgstr ""
 
-#: ui/StartupMenus.ui:496 ui/StorageMenus.ui:1013
+#: ui/StartupMenus.ui:506 ui/StorageMenus.ui:1013
 msgid "Search in disk types:"
 msgstr ""
 
-#: ui/StartupMenus.ui:505
+#: ui/StartupMenus.ui:515
 msgid "All startup items"
 msgstr ""
 
-#: ui/StartupMenus.ui:519
+#: ui/StartupMenus.ui:529
 msgid "Enabled (Visible) startup items"
 msgstr ""
 
-#: ui/StartupMenus.ui:551
+#: ui/StartupMenus.ui:561
 msgid "Enable/Disable"
 msgstr ""
 
-#: ui/StartupMenus.ui:562
+#: ui/StartupMenus.ui:572
 msgid "Add"
 msgstr ""
 
-#: ui/StartupMenus.ui:571 ui/StorageMenus.ui:72
+#: ui/StartupMenus.ui:581 ui/StorageMenus.ui:72
 msgid "Remove"
 msgstr ""
 
-#: ui/StartupMenus.ui:586
+#: ui/StartupMenus.ui:596
+msgid "Run Now"
+msgstr ""
+
+#: ui/StartupMenus.ui:611
+msgid "Reset To System Values"
+msgstr ""
+
+#: ui/StartupMenus.ui:620
 msgid "Browse '.desktop' File..."
 msgstr ""
 
@@ -3074,6 +3148,10 @@ msgstr ""
 
 #: ui/StartupNewItemWindow.ui:220
 msgid "Startup Notify"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:251
+msgid "Note: Name and Command fields cannot be left blank."
 msgstr ""
 
 #: ui/StorageDetailsWindow.ui:8

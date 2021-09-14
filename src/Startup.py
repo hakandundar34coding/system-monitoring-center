@@ -64,33 +64,62 @@ def startup_initial_func():
     startup_image_no_icon = "system-monitoring-center-application-startup-symbolic"           # Will be used as image of the startup items that has no icons.
 
     # Get current desktop environment
+    global supported_desktop_environments_list
+    supported_desktop_environments_list = ["XFCE", "GNOME", "X-CINNAMON", "CINNAMON", "MATE", "KDE", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
     global current_desktop_environment
-    current_desktop_environment = os.environ.get('XDG_CURRENT_DESKTOP')
-    if current_desktop_environment == None:
-        current_desktop_session = "-"                                                         # Set an initial string in order to avoid errors in case of undetected current desktop session.
+    current_desktop_environment = [os.environ.get('XDG_CURRENT_DESKTOP').strip().upper()]     # "current_desktop_environment" is defined as list because some dektop environmens takes into account more than one name.
+    if current_desktop_environment == ["X-CINNAMON"] or current_desktop_environment == ["CINNAMON"]:
+        current_desktop_environment = ["X-CINNAMON", "CINNAMON", "GNOME"]                     # These names are taked into account by Cinnamon desktop environment.
+    if current_desktop_environment == ["UBUNTU:GNOME"]:
+        current_desktop_environment = ["GNOME", "UBUNTU:GNOME"]
+    if current_desktop_environment == ["GNOME-CLASSIC:GNOME"]:
+        current_desktop_environment = ["GNOME", "GNOME-CLASSIC:GNOME"]
+    if current_desktop_environment == [None]:
+        # Get human and root user usernames and UIDs only one time at the per loop in order to avoid running it per startup item loop (it is different than main loop = startup_loop_func) which increases CPU consumption. This data will be used if application is run with "pkexec" command.
+        usernames_username_list = []
+        usernames_uid_list = []
+        with open("/etc/passwd") as reader:                                                   # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
+            etc_passwd_lines = reader.read().strip().split("\n")                              # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
+        for line in etc_passwd_lines:
+            line_splitted = line.split(":")
+            usernames_username_list.append(line_splitted[0])
+            usernames_uid_list.append(line_splitted[2])
+
+        # Get current username which will be used for determining current user home directory.
+        global current_user_name
+        current_user_name = os.environ.get('SUDO_USER')                                        # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
+        if current_user_name is None:                                                          # Get username in the following way if current application has not been run by root privileges.
+            current_user_name = os.environ.get('USER')
+        pkexec_uid = os.environ.get('PKEXEC_UID')
+        if current_user_name == "root" and pkexec_uid != None:                                 # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
+            current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
+
+        # Get "current_desktop_environment"
+        current_desktop_session = "-"                                                          # Set an initial string in order to avoid errors in case of undetected current desktop session.
+        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]       # Get process PID list.
         for pid in pid_list:
-            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+            try:                                                                               # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
                 with open("/proc/" + pid + "/comm") as reader:
                     process_name = reader.read().strip()
-                with open("/proc/" + pid + "/status") as reader:                              # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+                with open("/proc/" + pid + "/status") as reader:                               # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
                     proc_pid_status_lines = reader.read().split("\n")
             except FileNotFoundError:
                 continue
             for line in proc_pid_status_lines:
                 if "Uid:\t" in line:
-                    real_user_id = line.split(":")[1].split()[0].strip()                      # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                    real_user_id = line.split(":")[1].split()[0].strip()                       # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
                     process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
             if process_username == current_user_name:
                 if process_name == "xfce4-session":
-                    current_desktop_session = "XFCE"
-                if process_name == "gnome-session-b":
-                    current_desktop_session = "GNOME"
+                    current_desktop_session = ["XFCE"]
+                if process_name.startswith("gnome-session-b"):
+                    current_desktop_session = ["GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"]
                 if process_name == "cinnamon-session":
-                    current_desktop_session = "CINNAMON"
+                    current_desktop_session = ["X-CINNAMON", "CINNAMON", "GNOME"]             # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
                 if process_name == "mate-session":
-                    current_desktop_session = "MATE"
+                    current_desktop_session = ["MATE"]
                 if process_name == "plasmashell":
-                    current_desktop_session = "KDE"
+                    current_desktop_session = ["KDE"]
         current_desktop_environment = current_desktop_session
 
 
@@ -107,13 +136,13 @@ def startup_loop_func():
     startup_data_column_widths = Config.startup_data_column_widths
 
     # Get human and root user usernames and UIDs only one time at the per loop in order to avoid running it per startup item loop (it is different than main loop = startup_loop_func) which increases CPU consumption. This data will be used if application is run with "pkexec" command.
-    usernames_startup_applications_visibility_list = []
+    usernames_username_list = []
     usernames_uid_list = []
     with open("/etc/passwd") as reader:                                                       # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
         etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
     for line in etc_passwd_lines:
         line_splitted = line.split(":")
-        usernames_startup_applications_visibility_list.append(line_splitted[0])
+        usernames_username_list.append(line_splitted[0])
         usernames_uid_list.append(line_splitted[2])
 
     # Get current username which will be used for determining current user home directory.
@@ -123,7 +152,7 @@ def startup_loop_func():
         current_user_name = os.environ.get('USER')
     pkexec_uid = os.environ.get('PKEXEC_UID')
     if current_user_name == "root" and pkexec_uid != None:                                    # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-        current_user_name = usernames_startup_applications_visibility_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
+        current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
 
     # Define global variables and empty lists for the current loop
     global startup_data_rows, startup_data_rows_prev, all_autostart_applications_list, all_autostart_applications_list_prev, startup_applications_visibility_list
@@ -146,19 +175,24 @@ def startup_loop_func():
     comment_language_country = "Comment[" + system_locale + "]="
     comment_language = "Comment[" + system_language + "]="
 
-#     # In order to avoid errors, stop the loop function if current desktop session is not XFCE or GNOME. Currently other dektop environments are not tested for "Startup" tab. Dekstop environments may have specific lines in the ".desktop" files. More investigation is needed for desktop environments other than CXFCE and GNOME.
-#     if current_desktop_environment != "XFCE" and current_desktop_environment != "GNOME":
-#         StartupGUI.label5101.set_text(_tr("Your desktop environment is not 'XFCE' or 'GNOME'. Currently, only these desktop environments are supported for listing startup items."))
-#         return
+    # In order to avoid errors, stop the loop function if current desktop session is not one of these in the "supported_desktop_environments_list" list. Currently other dektop environments are not tested for "Startup" tab. Dekstop environments may have specific lines in the ".desktop" files.
+    if set(current_desktop_environment).intersection(supported_desktop_environments_list) == 0:
+        StartupGUI.label5101.set_text(_tr("Currently following desktop environments are supported for listing startup items:\n") + "XFCE, GNOME, CINNAMON, MATE, KDE (Plasma).")
+        return
 
     # There are user startup applications and system wide startup applications in linux. They are in different directories. Modifications in directory of system wide startup applications require root access.
     # To be able to make system wide startup application preferences user specific, updates (enabling/disabling startup preferences) on the .desktop files are saved in user startup application directory.
     # If same file is in both directories, .desktop file settings in user startup application directory override system wide startup application settings. For more information about this multiple instance files behavior, see: https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html
-    _, _, system_autostart_directory_applications = next(os.walk(system_autostart_directory))    # "os.walk()" is used in order to get only filenames(not also folders).
+    system_autostart_directory_applications = [filename for filename in os.listdir(system_autostart_directory) if os.path.isfile(system_autostart_directory + filename)]
+    for filename in system_autostart_directory_applications[:]:                               # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
+        if filename.endswith(".desktop") == False:
+            system_autostart_directory_applications.remove(filename)
     current_user_autostart_directory_applications = []                                        # This list is defined in order to prevent errors while performing subtraction operations if current_user_autostart_directory does not exist.
     if os.path.isdir(current_user_autostart_directory) == True:                               # Check if current user autostart directory exists. By default, this directory does not exists if no modifications are made for startup items since system installation.
-        _, _, current_user_autostart_directory_applications = next(os.walk(current_user_autostart_directory))
-
+        current_user_autostart_directory_applications = [filename for filename in os.listdir(current_user_autostart_directory) if os.path.isfile(current_user_autostart_directory + filename)]
+    for filename in current_user_autostart_directory_applications[:]:                         # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
+        if filename.endswith(".desktop") == False:
+            current_user_autostart_directory_applications.remove(filename)
     system_autostart_applications = sorted(set(system_autostart_directory_applications) - set(current_user_autostart_directory_applications))          # Autostart application files (only unmodified system autostart applications - there is no another copy of these files in the user autostart directory)
     current_user_autostart_applications = sorted(set(current_user_autostart_directory_applications) - set(system_autostart_directory_applications))    # Autostart application files (only user autostart applications - there is no another copy of these files in the system autostart directory)
     modified_system_applications = sorted(set(system_autostart_directory_applications).intersection(current_user_autostart_directory_applications))    # Autostart application files (modified autostart applications - there is one copy of these application files in both system and user autostart directories)
@@ -189,6 +223,7 @@ def startup_loop_func():
             not_show_in_value_system = ""
             only_show_in_value_system = ""
             xfce_autostart_override_value_system = ""
+            gnome_autostart_enabled_value_system = ""
             for line in file_data_system_lines:
                 if "Name=" in line:                                                           # Value of "Name=" entry is get to be used as application name.
                     name_value_system = line.split("=")[1]
@@ -209,11 +244,13 @@ def startup_loop_func():
                 if "Hidden=" in line:                                                         # Application "hidden" value. Application is not started on the system start if this value is "true". This value overrides "NotShowIn" and "OnlyShowIn" values.
                     hidden_value_system = line.split("=")[1]
                 if "NotShowIn" in line:                                                       # Application "NotShowIn" value. Application is not started on the system start if name of the current desktop session (XFCE, GNOME, etc.) is in this value. Desktop session name may not exist in both "NotShowIn" and "OnlyShowIn" values. Application is not started on the system start in this situation.
-                    not_show_in_value_system = line.split("=")[1].split(";")
+                    not_show_in_value_system = line.split("=")[1].strip(";").split(";")
                 if "OnlyShowIn" in line:                                                      # Application "OnlyShowIn" value. Application is started on the system start only if name of the current desktop session (XFCE, GNOME, etc.) is in this value. Desktop session name may not exist in both "NotShowIn" and "OnlyShowIn" values. Application is not started on the system start in this situation.
-                    only_show_in_value_system = line.split("=")[1].split(";")
+                    only_show_in_value_system = line.split("=")[1].strip(";").split(";")
                 if "X-XFCE-Autostart-Override" in line:                                       # Application "X-XFCE-Autostart-Override". If this value is "true", application is started on the system start if current desktop session name is in "NotShowIn" value or not in "OnlyShowIn" value.
                     xfce_autostart_override_value_system = line.split("=")[1]
+                if "X-GNOME-Autostart-enabled" in line:                                       # Application "X-GNOME-Autostart-enabled". If this value is "true", application is started on the system start if current desktop session name is in "NotShowIn" value or not in "OnlyShowIn" value.
+                    gnome_autostart_enabled_value_system = line.split("=")[1]
         # Perform loop operation per autostart application file in the user autostart directory and get information for appending into a list (startup_data_row).
         if desktop_file in current_user_autostart_directory_applications:
             name_value_user = ""                                                              # Initial value of "name_value_system" variable. This value will be used if "name_value_system" could not be detected.
@@ -228,6 +265,7 @@ def startup_loop_func():
             not_show_in_value_user = ""
             only_show_in_value_user = ""
             xfce_autostart_override_value_user = ""
+            gnome_autostart_enabled_value_user = ""
             for line in file_data_user_lines:
                 if "Name=" in line:
                     name_value_user = line.split("=")[1]
@@ -248,21 +286,25 @@ def startup_loop_func():
                 if "Hidden=" in line:
                     hidden_value_user = line.split("=")[1]
                 if "NotShowIn" in line:
-                    not_show_in_value_user = line.split("=")[1].split(";")
+                    not_show_in_value_user = line.split("=")[1].strip(";").split(";")
                 if "OnlyShowIn" in line:
-                    only_show_in_value_user = line.split("=")[1].split(";")
+                    only_show_in_value_user = line.split("=")[1].strip(";").split(";")
                 if "X-XFCE-Autostart-Override" in line:
                     xfce_autostart_override_value_user = line.split("=")[1]
+                if "X-GNOME-Autostart-enabled" in line:
+                    gnome_autostart_enabled_value_user = line.split("=")[1]
         # Process and get data of the startup application if it is in the system autostart directory. This data will be overwritten if same application name exists in the user autostart directory.
         if desktop_file in system_autostart_directory_applications:
             # Get startup application visibility (which is different from application data treeview row visibility data)
             startup_application_visibility = True
-            if current_desktop_environment not in only_show_in_value_system and only_show_in_value_system != "":
+            if len(set(current_desktop_environment).intersection(only_show_in_value_system)) == 0 and only_show_in_value_system != "":
                 startup_application_visibility = False
-            if current_desktop_environment in not_show_in_value_system:
+            if len(set(current_desktop_environment).intersection(not_show_in_value_system)) > 0 and len(set(current_desktop_environment).intersection(["X_CINNAMON", "CINNAMON"])) == 0:    # "Cinnamon" desktop environment takes into account "GNOME" desktop environment name but this is not valid for "NotShowIn" line in the .desktop file.
                 startup_application_visibility = False
-            if xfce_autostart_override_value_system == "true" and current_desktop_environment not in only_show_in_value_system and only_show_in_value_system != "" and current_desktop_environment in not_show_in_value_system:
+            if xfce_autostart_override_value_system == "true" and len(set(current_desktop_environment).intersection(["XFCE"])) > 0:
                 startup_application_visibility = True
+            if gnome_autostart_enabled_value_system == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME"])) > 0:
+                startup_application_visibility = False
             if hidden_value_system == "true":
                 startup_application_visibility = False
             # Get application icon
@@ -285,12 +327,14 @@ def startup_loop_func():
         if desktop_file in current_user_autostart_applications:
             # Get startup application visibility (which is different from application data treeview row visibility data)
             startup_application_visibility = True
-            if current_desktop_environment not in only_show_in_value_user and only_show_in_value_user != "":
+            if len(set(current_desktop_environment).intersection(only_show_in_value_user)) == 0 and only_show_in_value_user != "":
                 startup_application_visibility = False
-            if current_desktop_environment in not_show_in_value_user:
+            if len(set(current_desktop_environment).intersection(not_show_in_value_user)) > 0 and len(set(current_desktop_environment).intersection(["X_CINNAMON", "CINNAMON"])) == 0:    # "Cinnamon" desktop environment takes into account "GNOME" desktop environment name but this is not valid for "NotShowIn" line in the .desktop file.
                 startup_application_visibility = False
-            if xfce_autostart_override_value_user == "true" and current_desktop_environment not in only_show_in_value_user and only_show_in_value_user != "" and current_desktop_environment in not_show_in_value_user:
+            if xfce_autostart_override_value_user == "true" and len(set(current_desktop_environment).intersection(["XFCE"])) > 0:
                 startup_application_visibility = True
+            if gnome_autostart_enabled_value_user == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME"])) > 0:
+                startup_application_visibility = False
             if hidden_value_user == "true":
                 startup_application_visibility = False
             # Get application icon
@@ -324,6 +368,7 @@ def startup_loop_func():
             not_show_in_value_modified = not_show_in_value_system
             only_show_in_value_modified = only_show_in_value_system
             xfce_autostart_override_value_modified = xfce_autostart_override_value_system
+            gnome_autostart_enabled_value_modified = gnome_autostart_enabled_value_system
             if name_value_user != "":
                 name_value_modified = name_value_user
             if name_language_value_user != "":
@@ -348,14 +393,18 @@ def startup_loop_func():
                 only_show_in_value_modified = only_show_in_value_user
             if xfce_autostart_override_value_user != "":
                 xfce_autostart_override_value_modified = xfce_autostart_override_value_user
+            if gnome_autostart_enabled_value_user != "":
+                gnome_autostart_enabled_value_modified = gnome_autostart_enabled_value_user
             # Get startup application visibility
             startup_application_visibility = True
-            if current_desktop_environment not in only_show_in_value_modified and only_show_in_value_modified != "":
+            if len(set(current_desktop_environment).intersection(only_show_in_value_modified)) == 0 and only_show_in_value_modified != "":
                 startup_application_visibility = False
-            if current_desktop_environment in not_show_in_value_modified:
+            if len(set(current_desktop_environment).intersection(not_show_in_value_modified)) > 0 and len(set(current_desktop_environment).intersection(["X_CINNAMON", "CINNAMON"])) == 0:    # "Cinnamon" desktop environment takes into account "GNOME" desktop environment name but this is not valid for "NotShowIn" line in the .desktop file.
                 startup_application_visibility = False
-            if xfce_autostart_override_value_modified == "true" and current_desktop_environment not in only_show_in_value_modified and only_show_in_value_modified != "" and current_desktop_environment not in not_show_in_value_modified:
+            if xfce_autostart_override_value_modified == "true" and len(set(current_desktop_environment).intersection(["XFCE"])) > 0:
                 startup_application_visibility = True
+            if gnome_autostart_enabled_value_modified == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME"])) > 0:
+                startup_application_visibility = False
             if hidden_value_modified == "true":
                 startup_application_visibility = False
             # Get application icon

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-11 15:56+0300\n"
-"PO-Revision-Date: 2021-09-11 15:58+0300\n"
+"POT-Creation-Date: 2021-09-14 08:53+0300\n"
+"PO-Revision-Date: 2021-09-14 08:59+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -41,7 +41,7 @@ msgid "Shell Variable"
 msgstr "Kabuk (Shell) Değişkeni"
 
 #: src/EnvironmentVariables.py:275 src/Processes.py:477 src/Sensors.py:266
-#: src/Services.py:361 src/Startup.py:541 src/Storage.py:571 src/Users.py:449
+#: src/Services.py:361 src/Startup.py:590 src/Storage.py:571 src/Users.py:449
 msgid "Total: "
 msgstr "Toplam: "
 
@@ -88,6 +88,10 @@ msgstr "Ağ İ: "
 #: src/FloatingSummary.py:187
 msgid "Network W: "
 msgstr "Ağ Y: "
+
+#: src/FloatingSummary.py:189
+msgid "FPS: "
+msgstr "FPS: "
 
 #: src/MainGUI.py:98
 msgid ""
@@ -153,8 +157,8 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:909 src/Processes.py:646 src/System.py:140
-#: src/System.py:199 src/System.py:203
+#: src/Performance.py:909 src/Processes.py:646 src/System.py:69
+#: src/System.py:128 src/System.py:132
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -301,19 +305,22 @@ msgstr " diğer kullanıcılardan/sistemden)"
 
 #: src/Processes.py:721 src/ProcessesGUI.py:159 src/ProcessesMenusGUI.py:815
 #: src/ProcessesMenusGUI.py:826 src/ServicesGUI.py:136 src/SettingsGUI.py:448
-#: src/StartupGUI.py:129 src/StorageGUI.py:156
+#: src/StartupGUI.py:131 src/StartupMenusGUI.py:557 src/StartupMenusGUI.py:568
+#: src/StartupNewItemGUI.py:156 src/StorageGUI.py:156
 msgid "Warning"
 msgstr "Uyarı"
 
 #: src/Processes.py:722
 msgid "Current Windowing System Is not Supported"
-msgstr ""
+msgstr "Şimdki Pencere Sistemi Desteklenmiyor"
 
 #: src/Processes.py:723
 msgid ""
 "This function can not be used on systems which run a windowing system other "
 "than X11."
 msgstr ""
+"Bu fonksiyon, X11'den başka pencere sistemi çalıştıran sistemlerde "
+"kullanılamaz."
 
 #: src/ProcessesCustomPriorityGUI.py:128 src/ProcessesCustomPriorityGUI.py:138
 #: src/ProcessesDetails.py:513 src/ProcessesMenusGUI.py:805
@@ -637,11 +644,11 @@ msgid "Do you want to reset all settings of the application to defaults?"
 msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırlamak istiyor musunuz?"
 
 #: src/Startup.py:48 ui/ProcessesMenus.ui:597 ui/ProcessesMenus.ui:1362
-#: ui/StartupMenus.ui:266 ui/StartupMenus.ui:436 ui/UsersMenus.ui:979
+#: ui/StartupMenus.ui:276 ui/StartupMenus.ui:446 ui/UsersMenus.ui:979
 msgid "Name"
 msgstr "İsim"
 
-#: src/Startup.py:49 ui/StartupMenus.ui:282 ui/StartupMenus.ui:450
+#: src/Startup.py:49 ui/StartupMenus.ui:292 ui/StartupMenus.ui:460
 msgid "Comment"
 msgstr "Açıklama"
 
@@ -649,37 +656,105 @@ msgstr "Açıklama"
 msgid "Command"
 msgstr "Komut"
 
-#: src/Startup.py:541
+#: src/Startup.py:180
+msgid ""
+"Currently following desktop environments are supported for listing startup "
+"items:\n"
+msgstr "Şimdilik şu masaüstü ortamları destekleniyor:\n"
+
+#: src/Startup.py:590
 msgid " startup applications ("
 msgstr " başlangıç uygulaması ("
 
-#: src/Startup.py:541
+#: src/Startup.py:590
 msgid " visible, "
 msgstr " görünür, "
 
-#: src/Startup.py:541
+#: src/Startup.py:590
 msgid " hidden)"
 msgstr " gizli)"
 
-#: src/StartupGUI.py:130
+#: src/StartupGUI.py:132
 msgid "Select A Startup Item"
 msgstr "Bir Başlangıç Ögesi Seçin"
 
-#: src/StartupGUI.py:131
+#: src/StartupGUI.py:133
 msgid "Please select a startup item and try again for opening the menu"
 msgstr "Lütfen bir başlangıç ögesi seçin ve menüyü açmak için tekrar deneyin"
 
-#: src/StartupMenusGUI.py:420 src/StartupMenusGUI.py:423 ui/StartupMenus.ui:597
+#: src/StartupMenusGUI.py:499
+msgid "The startup item has system values."
+msgstr "Başlangıç ögesi sistem değerlerine sahip."
+
+#: src/StartupMenusGUI.py:510 src/StartupMenusGUI.py:513 ui/StartupMenus.ui:631
 msgid "System-wide values file: "
 msgstr "Sistem geneli değerler dosyası: "
 
-#: src/StartupMenusGUI.py:423 src/StartupMenusGUI.py:429
+#: src/StartupMenusGUI.py:513 src/StartupMenusGUI.py:519
 msgid "None"
 msgstr "Yok"
 
-#: src/StartupMenusGUI.py:426 src/StartupMenusGUI.py:429 ui/StartupMenus.ui:606
+#: src/StartupMenusGUI.py:516 src/StartupMenusGUI.py:519 ui/StartupMenus.ui:640
 msgid "User-specific values file: "
 msgstr "Kullanıcıya özgü değerler dosyası: "
+
+#: src/StartupMenusGUI.py:558
+msgid "Run Startup Item Now?"
+msgstr "Başlangıç Ögesini Şimdi Çalıştır?"
+
+#: src/StartupMenusGUI.py:559
+msgid "Do you want to run the following startup item?"
+msgstr "Şu başlangıç ögesini çalıştırmak istiyor musunuz?"
+
+#: src/StartupMenusGUI.py:559
+msgid " Command: "
+msgstr " Komut: "
+
+#: src/StartupMenusGUI.py:569
+msgid "Reset The Startup Item To System Values?"
+msgstr "Başlangıç Ögesini Sistem Değerlerine Ayarla?"
+
+#: src/StartupMenusGUI.py:570
+msgid "Do you want to reset the following startup item to system values?"
+msgstr "Şu başlangıç ögesini sistem değerlerine ayarlamak istiyor musunuz?"
+
+#: src/StartupMenusGUI.py:571
+msgid " '.desktop' File Name: "
+msgstr " '.desktop' Dosyası Adı: "
+
+#: src/StartupMenusGUI.py:572
+msgid ""
+"1) If the startup item has both system-wide and user-specific '.desktop' "
+"files, user-specific file will be deleted."
+msgstr ""
+"1) Eğer başlangıç ögesinin hem sistem-geneli hem de kullanıcıya özgü '."
+"desktop' dosyaları varsa, kullanıcıya özgü dosya silinecek."
+
+#: src/StartupMenusGUI.py:573
+msgid ""
+"2) If the startup item has only user-specific '.desktop' files, this file "
+"will be deleted and startup item will be removed completely."
+msgstr ""
+"2) Eğer başlangıç ögesinin sadece kullanıcıya özgü '.desktop' dosyası varsa "
+"bu dosya silinecek ve başlangıç ögesi tamamen kaldırılacak."
+
+#: src/StartupNewItemGUI.py:157
+msgid "Do You Want To Overwrite Existing File?"
+msgstr "Var Olan Dosyanın Üzerine Yazmak İstiyor musunuz?"
+
+#: src/StartupNewItemGUI.py:158
+msgid ""
+"There is already a '.desktop' file with the same name.\n"
+"Existing file will be overwritten if you continue.\n"
+"Do you want to continue?"
+msgstr ""
+"Aynı isimde bir '.desktop' dosyası zaten var.\n"
+"Devam ederseniz var olan dosyanın üzerine yazılacak.\n"
+"Devam etmek istiyor musunuz?"
+
+#: src/StartupNewItemGUI.py:158
+msgid " Existing '.desktop' File Name: "
+msgstr " Var Olan '.desktop' Dosya Adı: "
 
 #: src/Storage.py:49 ui/StorageMenus.ui:371 ui/StorageMenus.ui:1036
 msgid "Disk Name"
@@ -837,11 +912,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr "Disk çıkarıldı ve dosya sistemi yeniden adlandırılabilir."
 
-#: src/System.py:91
+#: src/System.py:221
 msgid "(Yes)"
 msgstr "(Evet)"
 
-#: src/System.py:93
+#: src/System.py:223
 msgid "(No)"
 msgstr "(Hayır)"
 
@@ -994,31 +1069,31 @@ msgid "Environment Variables Tab Customizations:"
 msgstr "Ortam Değişkenleri Özelleştirme Menüsü:"
 
 #: ui/EnvironmentVariablesMenus.ui:142 ui/PerformanceMenus.ui:2160
-#: ui/ProcessesMenus.ui:396 ui/ServicesMenus.ui:199 ui/StartupMenus.ui:78
+#: ui/ProcessesMenus.ui:396 ui/ServicesMenus.ui:199 ui/StartupMenus.ui:88
 #: ui/StorageMenus.ui:183 ui/UsersMenus.ui:246
 msgid "Column Reordering,"
 msgstr "Sütun Sıralaması,"
 
 #: ui/EnvironmentVariablesMenus.ui:176 ui/PerformanceMenus.ui:2194
-#: ui/ProcessesMenus.ui:430 ui/ServicesMenus.ui:233 ui/StartupMenus.ui:112
+#: ui/ProcessesMenus.ui:430 ui/ServicesMenus.ui:233 ui/StartupMenus.ui:122
 #: ui/StorageMenus.ui:217 ui/UsersMenus.ui:280
 msgid "Row Sorting,"
 msgstr "Satır Sıralaması,"
 
 #: ui/EnvironmentVariablesMenus.ui:207 ui/PerformanceMenus.ui:2113
-#: ui/ProcessesMenus.ui:473 ui/ServicesMenus.ui:264 ui/StartupMenus.ui:143
+#: ui/ProcessesMenus.ui:473 ui/ServicesMenus.ui:264 ui/StartupMenus.ui:153
 #: ui/StorageMenus.ui:248 ui/UsersMenus.ui:311
 msgid "Reset"
 msgstr "Sıfırla"
 
 #: ui/EnvironmentVariablesMenus.ui:254 ui/PerformanceMenus.ui:2228
-#: ui/ProcessesMenus.ui:520 ui/ServicesMenus.ui:311 ui/StartupMenus.ui:190
+#: ui/ProcessesMenus.ui:520 ui/ServicesMenus.ui:311 ui/StartupMenus.ui:200
 #: ui/StorageMenus.ui:295 ui/UsersMenus.ui:358
 msgid "Column Widths:"
 msgstr "Sütun Genişlikleri:"
 
 #: ui/EnvironmentVariablesMenus.ui:273 ui/ProcessesMenus.ui:539
-#: ui/ServicesMenus.ui:330 ui/StartupMenus.ui:209 ui/StorageMenus.ui:314
+#: ui/ServicesMenus.ui:330 ui/StartupMenus.ui:219 ui/StorageMenus.ui:314
 #: ui/UsersMenus.ui:377
 msgid "View"
 msgstr "Görünüm"
@@ -1028,7 +1103,7 @@ msgid "Add/Remove Variable Information:"
 msgstr "Değişken Bilgilerini Ekle/Çıkart:"
 
 #: ui/EnvironmentVariablesMenus.ui:391 ui/ProcessesMenus.ui:870
-#: ui/ServicesMenus.ui:515 ui/StartupMenus.ui:326 ui/StorageMenus.ui:722
+#: ui/ServicesMenus.ui:515 ui/StartupMenus.ui:336 ui/StorageMenus.ui:722
 #: ui/UsersMenus.ui:646
 msgid "Add/Remove Columns"
 msgstr "Sütun Ekle/Çıkart"
@@ -1037,7 +1112,7 @@ msgstr "Sütun Ekle/Çıkart"
 #: ui/PerformanceMenus.ui:496 ui/PerformanceMenus.ui:832
 #: ui/PerformanceMenus.ui:1356 ui/PerformanceMenus.ui:1929
 #: ui/PerformanceMenus.ui:2057 ui/ProcessesMenus.ui:1209
-#: ui/ServicesMenus.ui:723 ui/SettingsWindow.ui:676 ui/StartupMenus.ui:357
+#: ui/ServicesMenus.ui:723 ui/SettingsWindow.ui:676 ui/StartupMenus.ui:367
 #: ui/StorageMenus.ui:930 ui/UsersMenus.ui:873
 msgid "Reset All"
 msgstr "Hepsini Sıfırla"
@@ -1047,7 +1122,7 @@ msgid "Environment Variables Search Customizations:"
 msgstr "Ortam Değişkenleri Arama Menüsü Özelleştirmeleri:"
 
 #: ui/EnvironmentVariablesMenus.ui:492 ui/PerformanceMenus.ui:2273
-#: ui/ProcessesMenus.ui:1291 ui/ServicesMenus.ui:793 ui/StartupMenus.ui:427
+#: ui/ProcessesMenus.ui:1291 ui/ServicesMenus.ui:793 ui/StartupMenus.ui:437
 #: ui/StorageMenus.ui:1000 ui/UsersMenus.ui:943
 msgid "Search in column:"
 msgstr "Sütunda ara:"
@@ -3131,51 +3206,59 @@ msgstr "Yüzen özet penceresinin ayarlarını varsayılanlara sfırla"
 msgid "Reset all settings of the application to defaults"
 msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırla"
 
-#: ui/StartupMenus.ui:35
+#: ui/StartupMenus.ui:45
 msgid "Startup Tab Customizations:"
 msgstr "Başlangıç Sekmesi Özelleştirmeleri:"
 
-#: ui/StartupMenus.ui:233 ui/StorageMenus.ui:338
+#: ui/StartupMenus.ui:243 ui/StorageMenus.ui:338
 msgid "Add/Remove Storage Information:"
 msgstr "Depolama Bilgilerini Ekle/Çıkart:"
 
-#: ui/StartupMenus.ui:296 ui/StartupMenus.ui:478
+#: ui/StartupMenus.ui:306 ui/StartupMenus.ui:488
 msgid "Command (Exec)"
 msgstr "Komut (Exec)"
 
-#: ui/StartupMenus.ui:411
+#: ui/StartupMenus.ui:421
 msgid "Startup Search Customizations:"
 msgstr "Başlangıç Sekmesi Arama Özelleştirmeleri:"
 
-#: ui/StartupMenus.ui:464
+#: ui/StartupMenus.ui:474
 msgid "Disabled (Hidden) startup items"
 msgstr "Devre dışı bırakılmış (gizli) başlangıç ögeleri"
 
-#: ui/StartupMenus.ui:496 ui/StorageMenus.ui:1013
+#: ui/StartupMenus.ui:506 ui/StorageMenus.ui:1013
 msgid "Search in disk types:"
 msgstr "Disk tipinde ara:"
 
-#: ui/StartupMenus.ui:505
+#: ui/StartupMenus.ui:515
 msgid "All startup items"
 msgstr "Tüm başlangıç ögeleri"
 
-#: ui/StartupMenus.ui:519
+#: ui/StartupMenus.ui:529
 msgid "Enabled (Visible) startup items"
 msgstr "Etkinleştirilmiş (görünür) başlangıç ögeleri"
 
-#: ui/StartupMenus.ui:551
+#: ui/StartupMenus.ui:561
 msgid "Enable/Disable"
 msgstr "Etkinleştir/Devre Dışı Bırak"
 
-#: ui/StartupMenus.ui:562
+#: ui/StartupMenus.ui:572
 msgid "Add"
 msgstr "Ekle"
 
-#: ui/StartupMenus.ui:571 ui/StorageMenus.ui:72
+#: ui/StartupMenus.ui:581 ui/StorageMenus.ui:72
 msgid "Remove"
 msgstr "Kaldır"
 
-#: ui/StartupMenus.ui:586
+#: ui/StartupMenus.ui:596
+msgid "Run Now"
+msgstr "Şimdi Çalıştır"
+
+#: ui/StartupMenus.ui:611
+msgid "Reset To System Values"
+msgstr "Sistem Değerlerine Ayarla"
+
+#: ui/StartupMenus.ui:620
 msgid "Browse '.desktop' File..."
 msgstr "'.desktop' Dosyasını Aç..."
 
@@ -3202,6 +3285,10 @@ msgstr "Küçük Resim:"
 #: ui/StartupNewItemWindow.ui:220
 msgid "Startup Notify"
 msgstr "Başlangıç Bildirimi"
+
+#: ui/StartupNewItemWindow.ui:251
+msgid "Note: Name and Command fields cannot be left blank."
+msgstr "Not: İsim ve Komut alanları boş bırakılamaz."
 
 #: ui/StorageDetailsWindow.ui:8
 msgid "Storage Details"
@@ -3387,13 +3474,6 @@ msgstr "Çıkış yapmış kullanıcılar"
 
 #~ msgid "[UNKNOWN]"
 #~ msgstr "[BİLİNMİYOR]"
-
-#~ msgid ""
-#~ "Your desktop environment is not 'XFCE' or 'GNOME'. Currently, only these "
-#~ "desktop environments are supported for listing startup items."
-#~ msgstr ""
-#~ "Masaüstü ortamınız 'XFCE' ya da 'GNOME' değil. Başlangıç ögelerini "
-#~ "listelemek için şimdilik sadece bu masaüstü ortamları destekleniyor."
 
 #~ msgid "Display System:"
 #~ msgstr "Görüntü Sistemi:"

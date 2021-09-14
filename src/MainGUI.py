@@ -194,15 +194,6 @@ def main_gui_peformance_tab_default_sub_tab_func():
 # ----------------------------------- MainGUI - Main Function Run Function (runs main functions (Performance, Processes, Users, Storage, Startup, Services, Environment Variables, OS) when their stack page is selected. All main tabs and performance tab sub-tabs switches are controlled in this function) -----------------------------------
 def main_gui_main_function_run_func():
 
-    if Config.show_floating_summary == 1:                                                     # Show Floating Summary window appropriate with user preferences
-        if "FloatingSummary" not in globals():
-            global FloatingSummary
-            import FloatingSummary
-            FloatingSummary.floating_summary_import_func()
-            FloatingSummary.floating_summary_initial_func()
-        FloatingSummary.floating_summary_thread_run_func()
-        FloatingSummary.floating_summary_window.show()
-
     remember_last_opened_tabs_on_application_start = Config.remember_last_opened_tabs_on_application_start    # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
 
     if radiobutton1.get_active() == True:                                                     # It switches to "Performance" tab if relevant radiobutton is clicked.
@@ -365,6 +356,15 @@ def main_gui_main_function_run_func():
             SystemGUI.system_gui_import_func()
             SystemGUI.system_gui_func()
         System.system_thread_run_func()
+
+    if Config.show_floating_summary == 1:                                                     # Show Floating Summary window appropriate with user preferences. Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.
+        if "FloatingSummary" not in globals():
+            global FloatingSummary
+            import FloatingSummary
+            FloatingSummary.floating_summary_import_func()
+            FloatingSummary.floating_summary_initial_func()
+        FloatingSummary.floating_summary_thread_run_func()
+        FloatingSummary.floating_summary_window.show()
 
     Config.config_save_func()
 
