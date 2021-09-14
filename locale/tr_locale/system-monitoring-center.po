@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 08:53+0300\n"
-"PO-Revision-Date: 2021-09-14 08:59+0300\n"
+"POT-Creation-Date: 2021-09-14 14:27+0300\n"
+"PO-Revision-Date: 2021-09-14 14:29+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -305,7 +305,7 @@ msgstr " diğer kullanıcılardan/sistemden)"
 
 #: src/Processes.py:721 src/ProcessesGUI.py:159 src/ProcessesMenusGUI.py:815
 #: src/ProcessesMenusGUI.py:826 src/ServicesGUI.py:136 src/SettingsGUI.py:448
-#: src/StartupGUI.py:131 src/StartupMenusGUI.py:557 src/StartupMenusGUI.py:568
+#: src/StartupGUI.py:131 src/StartupMenusGUI.py:578 src/StartupMenusGUI.py:589
 #: src/StartupNewItemGUI.py:156 src/StorageGUI.py:156
 msgid "Warning"
 msgstr "Uyarı"
@@ -682,47 +682,47 @@ msgstr "Bir Başlangıç Ögesi Seçin"
 msgid "Please select a startup item and try again for opening the menu"
 msgstr "Lütfen bir başlangıç ögesi seçin ve menüyü açmak için tekrar deneyin"
 
-#: src/StartupMenusGUI.py:499
+#: src/StartupMenusGUI.py:520
 msgid "The startup item has system values."
 msgstr "Başlangıç ögesi sistem değerlerine sahip."
 
-#: src/StartupMenusGUI.py:510 src/StartupMenusGUI.py:513 ui/StartupMenus.ui:631
+#: src/StartupMenusGUI.py:531 src/StartupMenusGUI.py:534 ui/StartupMenus.ui:633
 msgid "System-wide values file: "
 msgstr "Sistem geneli değerler dosyası: "
 
-#: src/StartupMenusGUI.py:513 src/StartupMenusGUI.py:519
+#: src/StartupMenusGUI.py:534 src/StartupMenusGUI.py:540
 msgid "None"
 msgstr "Yok"
 
-#: src/StartupMenusGUI.py:516 src/StartupMenusGUI.py:519 ui/StartupMenus.ui:640
+#: src/StartupMenusGUI.py:537 src/StartupMenusGUI.py:540 ui/StartupMenus.ui:642
 msgid "User-specific values file: "
 msgstr "Kullanıcıya özgü değerler dosyası: "
 
-#: src/StartupMenusGUI.py:558
+#: src/StartupMenusGUI.py:579
 msgid "Run Startup Item Now?"
 msgstr "Başlangıç Ögesini Şimdi Çalıştır?"
 
-#: src/StartupMenusGUI.py:559
+#: src/StartupMenusGUI.py:580
 msgid "Do you want to run the following startup item?"
 msgstr "Şu başlangıç ögesini çalıştırmak istiyor musunuz?"
 
-#: src/StartupMenusGUI.py:559
+#: src/StartupMenusGUI.py:580
 msgid " Command: "
 msgstr " Komut: "
 
-#: src/StartupMenusGUI.py:569
+#: src/StartupMenusGUI.py:590
 msgid "Reset The Startup Item To System Values?"
 msgstr "Başlangıç Ögesini Sistem Değerlerine Ayarla?"
 
-#: src/StartupMenusGUI.py:570
+#: src/StartupMenusGUI.py:591
 msgid "Do you want to reset the following startup item to system values?"
 msgstr "Şu başlangıç ögesini sistem değerlerine ayarlamak istiyor musunuz?"
 
-#: src/StartupMenusGUI.py:571
+#: src/StartupMenusGUI.py:592
 msgid " '.desktop' File Name: "
 msgstr " '.desktop' Dosyası Adı: "
 
-#: src/StartupMenusGUI.py:572
+#: src/StartupMenusGUI.py:593
 msgid ""
 "1) If the startup item has both system-wide and user-specific '.desktop' "
 "files, user-specific file will be deleted."
@@ -730,7 +730,7 @@ msgstr ""
 "1) Eğer başlangıç ögesinin hem sistem-geneli hem de kullanıcıya özgü '."
 "desktop' dosyaları varsa, kullanıcıya özgü dosya silinecek."
 
-#: src/StartupMenusGUI.py:573
+#: src/StartupMenusGUI.py:594
 msgid ""
 "2) If the startup item has only user-specific '.desktop' files, this file "
 "will be deleted and startup item will be removed completely."
@@ -1905,7 +1905,7 @@ msgstr "Birleşik Bellek:"
 #: ui/MainWindow.ui:2282
 msgid ""
 "Current refresh rate\n"
-"May be different than maximum refresh rate of the monitor."
+"may be different than maximum refresh rate of the monitor."
 msgstr ""
 "Şimdiki yenileme oranı\n"
 "Monitörün en yüksek yenileme oranından farklı olabilir."
@@ -2166,7 +2166,7 @@ msgid "Number of listed startup items"
 msgstr "Listelenen başlangıç ögeleri sayısı"
 
 #: ui/MainWindow.ui:4131
-msgid "Total: -- startup items  (-- visible, -- hidden startup items)"
+msgid "Total: -- startup items (-- visible, -- hidden startup items)"
 msgstr ""
 
 #: ui/MainWindow.ui:4151
@@ -2202,7 +2202,7 @@ msgid "Number of listed services"
 msgstr "Listelenen servis sayısı"
 
 #: ui/MainWindow.ui:4373
-msgid "Total: -- services  (-- loaded, -- non-loaded services)"
+msgid "Total: -- services (-- loaded, -- non-loaded services)"
 msgstr ""
 
 #: ui/MainWindow.ui:4393
@@ -2254,10 +2254,12 @@ msgid "Number of listed environment variables"
 msgstr "Listelenen ortam değişkenleri sayısı"
 
 #: ui/MainWindow.ui:4638
+#, fuzzy
+#| msgid "Show all system wide environment variables"
 msgid ""
-"Total: -- environment variables  (-- system wide, -- user environment "
+"Total: -- environment variables (-- system wide, -- user environment "
 "variables)"
-msgstr ""
+msgstr "Sistem çapındaki tüm ortam değişkenlerini göster"
 
 #: ui/MainWindow.ui:4658
 msgid "Environment Variables Tab Customizations"
@@ -3239,26 +3241,36 @@ msgid "Enabled (Visible) startup items"
 msgstr "Etkinleştirilmiş (görünür) başlangıç ögeleri"
 
 #: ui/StartupMenus.ui:561
+msgid ""
+"This change may make startup item enabled/disabled for other desktop "
+"environments.\n"
+"For more detailed control, '.desktop' file may be edited manually."
+msgstr ""
+"Bu değişiklik başlangıç ögesini diğer masaüstü ortamlarında da etkin/devre "
+"dışı yapabilir.\n"
+"Daha detaylı kontrol için '.desktop' dosyası elle düzenlenebilir."
+
+#: ui/StartupMenus.ui:563
 msgid "Enable/Disable"
 msgstr "Etkinleştir/Devre Dışı Bırak"
 
-#: ui/StartupMenus.ui:572
+#: ui/StartupMenus.ui:574
 msgid "Add"
 msgstr "Ekle"
 
-#: ui/StartupMenus.ui:581 ui/StorageMenus.ui:72
+#: ui/StartupMenus.ui:583 ui/StorageMenus.ui:72
 msgid "Remove"
 msgstr "Kaldır"
 
-#: ui/StartupMenus.ui:596
+#: ui/StartupMenus.ui:598
 msgid "Run Now"
 msgstr "Şimdi Çalıştır"
 
-#: ui/StartupMenus.ui:611
+#: ui/StartupMenus.ui:613
 msgid "Reset To System Values"
 msgstr "Sistem Değerlerine Ayarla"
 
-#: ui/StartupMenus.ui:620
+#: ui/StartupMenus.ui:622
 msgid "Browse '.desktop' File..."
 msgstr "'.desktop' Dosyasını Aç..."
 
@@ -3513,9 +3525,6 @@ msgstr "Çıkış yapmış kullanıcılar"
 
 #~ msgid "Sensors Tab Customizations"
 #~ msgstr "Algılayıcılar Sekmesi Özelleştirmeleri"
-
-#~ msgid "Show all system wide environment variables"
-#~ msgstr "Sistem çapındaki tüm ortam değişkenlerini göster"
 
 #~ msgid "Show all user environment variables"
 #~ msgstr "Kullanıcıya özgü tüm ortam değişkenlerini göster"

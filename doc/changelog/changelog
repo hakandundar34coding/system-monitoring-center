@@ -1,4 +1,10 @@
-system-monitoring-center (0.1.6-beta) unstable; urgency=medium
+system-monitoring-center (0.1.7-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Fixed bugs which cause incorrect startup item "Enabled/Disabled" behavior (Startup tab)
+  * Minor GUI improvements (GUI object tooltip changes/updates)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 14 Sep 2021 14:42:00 +0300
 
   [ Hakan Dündar ]
   * Added support for listing startup items on systems with GNOME-Classic, Ubuntu-GNOME desktop environments (Startup tab).

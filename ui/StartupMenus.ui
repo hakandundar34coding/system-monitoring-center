@@ -558,6 +558,8 @@
       <object class="GtkCheckMenuItem" id="checkmenuitem5101m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
+        <property name="tooltip-text" translatable="yes">This change may make startup item enabled/disabled for other desktop environments.
+For more detailed control, '.desktop' file may be edited manually.</property>
         <property name="label" translatable="yes">Enable/Disable</property>
       </object>
     </child>

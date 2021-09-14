@@ -64,11 +64,13 @@ def startup_menus_gui_func():
         treestore5101 = Startup.treestore5101
         startup_get_system_and_user_autostart_directories_func()
         name_value_system = ""
+        icon_value_system = ""
         exec_value_system = ""
         hidden_value_system = ""
         not_show_in_value_system = ""
         only_show_in_value_system = ""
         xfce_autostart_override_value_system = ""
+        gnome_autostart_enabled_value_system = ""
         if os.path.exists(system_autostart_directory + selected_startup_application_file_name) == True:
             with open(system_autostart_directory + selected_startup_application_file_name) as reader:    # Get content of the ".desktop" file in the system autostart directory
                 desktop_file_system_lines = reader.read().strip("").split("\n")
@@ -79,6 +81,8 @@ def startup_menus_gui_func():
             for line in desktop_file_system_lines:
                 if "Name=" in line:                                                           # Value of "Name=" entry is get to be used as application name.
                     name_value_system = line.split("=")[1]
+                if "Icon=" in line:                                                           # Application icon name
+                    icon_value_system = line.split("=")[1]
                 if "Exec=" in line:                                                           # Application executable (command) name
                     exec_value_system = line.split("=")[1]
                 if "Hidden=" in line:                                                         # Application "hidden" value. Application is not started on the system start if this value is "true". This value overrides "NotShowIn" and "OnlyShowIn" values.
@@ -89,12 +93,16 @@ def startup_menus_gui_func():
                     only_show_in_value_system = line.split("=")[1].strip(";").split(";")
                 if "X-XFCE-Autostart-Override" in line:                                       # Application "X-XFCE-Autostart-Override". If this value is "true", application is started on the system start if current desktop session name is in "NotShowIn" value or not in "OnlyShowIn" value.
                     xfce_autostart_override_value_system = line.split("=")[1]
+                if "X-GNOME-Autostart-enabled" in line:                                       # Application "X-GNOME-Autostart-enabled". If this value is "true", application is started on the system start if current desktop session name is in "NotShowIn" value or not in "OnlyShowIn" value.
+                    gnome_autostart_enabled_value_system = line.split("=")[1]
         name_value_user = ""
+        icon_value_user = ""
         exec_value_user = ""
         hidden_value_user = ""
         not_show_in_value_user = ""
         only_show_in_value_user = ""
         xfce_autostart_override_value_user = ""
+        gnome_autostart_enabled_value_user = ""
         if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == True:
             with open(current_user_autostart_directory + selected_startup_application_file_name) as reader:    # Get content of the ".desktop" file in the user autostart directory
                 desktop_file_user_lines = reader.read().strip("").split("\n")
@@ -105,6 +113,8 @@ def startup_menus_gui_func():
             for line in desktop_file_user_lines:
                 if "Name=" in line:                                                           # Value of "Name=" entry is get to be used as application name.
                     name_value_user = line.split("=")[1]
+                if "Icon=" in line:                                                           # Application icon name
+                    icon_value_user = line.split("=")[1]
                 if "Exec=" in line:                                                           # Application executable (command) name
                     exec_value_user = line.split("=")[1]
                 if "Hidden=" in line:
@@ -115,15 +125,20 @@ def startup_menus_gui_func():
                     only_show_in_value_user = line.split("=")[1].strip(";").split(";")
                 if "X-XFCE-Autostart-Override" in line:
                     xfce_autostart_override_value_user = line.split("=")[1]
+                if "X-GNOME-Autostart-enabled" in line:                                       # Application "X-GNOME-Autostart-enabled". If this value is "true", application is started on the system start if current desktop session name is in "NotShowIn" value or not in "OnlyShowIn" value.
+                    gnome_autostart_enabled_value_user = line.split("=")[1]
         if checkmenuitem5101m.get_active() == True:
             if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == False:
                 with open(current_user_autostart_directory + selected_startup_application_file_name, 'w') as writer:
                     writer.write("[Desktop Entry]" + "\n")
                     writer.write("Name=" + name_value_system + "\n")
+                    writer.write("Icon=" + icon_value_system + "\n")
                     writer.write("Exec=" + exec_value_system + "\n")
                     if len(set(Startup.current_desktop_environment).intersection(not_show_in_value_system)) > 0 or (len(set(Startup.current_desktop_environment).intersection(only_show_in_value_system)) == 0 and only_show_in_value_system != ""): 
-                        if Startup.current_desktop_environment == ["XFCE"]:
+                        if len(set(Startup.current_desktop_environment).intersection(["XFCE"])) > 0:
                             writer.write("X-XFCE-Autostart-Override=true" + "\n")
+                    if len(set(Startup.current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"])) > 0 and gnome_autostart_enabled_value_system == "false":
+                        writer.write("X-GNOME-Autostart-enabled=true" + "\n")
                     if len(set(Startup.current_desktop_environment).intersection(not_show_in_value_system)) > 0:
                         for desktop_environment in Startup.current_desktop_environment:
                             if desktop_environment in not_show_in_value_system:
@@ -142,6 +157,11 @@ def startup_menus_gui_func():
                             if "X-XFCE-Autostart-Override" in line:
                                 desktop_file_user_lines.remove(line)                          # Remove old value from the list
                                 desktop_file_user_lines.append("X-XFCE-Autostart-Override=true")    # Append new value into the list
+                if len(set(Startup.current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"])) > 0 and (gnome_autostart_enabled_value_system == "false" or gnome_autostart_enabled_value_user != ""):
+                    for line in desktop_file_user_lines:                                  # Search for visibility value
+                        if "X-GNOME-Autostart-enabled" in line:
+                            desktop_file_user_lines.remove(line)                          # Remove old value from the list
+                            desktop_file_user_lines.append("X-GNOME-Autostart-enabled=true")    # Append new value into the list
                 for line in desktop_file_user_lines:                                          # Search for visibility value
                     if "NotShowIn=" in line:
                         desktop_file_user_lines.remove(line)                                  # Remove old value from the list
@@ -159,7 +179,7 @@ def startup_menus_gui_func():
                 for line in desktop_file_user_lines:                                          # Search for visibility value
                     if "Hidden=" in line:
                         desktop_file_user_lines.remove(line)                                  # Remove old value from the list
-                if hidden_value_system == "true" or hidden_value_user == "true":
+                if hidden_value_system == "true" or hidden_value_system == "" or hidden_value_user == "true" or hidden_value_user == "":
                     desktop_file_user_lines.append("Hidden=false")                            # Append new value into the list
                 with open(current_user_autostart_directory + selected_startup_application_file_name, 'w') as writer:
                     writer.write('\n'.join(desktop_file_user_lines))
@@ -172,15 +192,16 @@ def startup_menus_gui_func():
                 with open(current_user_autostart_directory + selected_startup_application_file_name, 'w') as writer:
                     writer.write("[Desktop Entry]" + "\n")
                     writer.write("Name=" + name_value_system + "\n")
+                    writer.write("Icon=" + icon_value_system + "\n")
                     writer.write("Exec=" + exec_value_system + "\n")
                     if xfce_autostart_override_value_system == "true":
-                        if Startup.current_desktop_environment == ["XFCE"]:
+                        if len(set(Startup.current_desktop_environment).intersection(["XFCE"])) > 0:
                             writer.write("X-XFCE-Autostart-Override=false" + "\n")
-                    if hidden_value_system == "false":
+                    if hidden_value_system == "false" or hidden_value_system == "":
                         writer.write("Hidden=true" + "\n")
                     return
             if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == True:
-                if xfce_autostart_override_value_user != "":
+                if xfce_autostart_override_value_user != "" and len(set(Startup.current_desktop_environment).intersection(["XFCE"])) > 0:
                     for line in desktop_file_user_lines:                                      # Search for visibility value
                         if "X-XFCE-Autostart-Override" in line:
                             desktop_file_user_lines.remove(line)                              # Remove old value from the list

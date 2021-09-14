@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 08:53+0300\n"
+"POT-Creation-Date: 2021-09-14 14:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -302,7 +302,7 @@ msgstr ""
 
 #: src/Processes.py:721 src/ProcessesGUI.py:159 src/ProcessesMenusGUI.py:815
 #: src/ProcessesMenusGUI.py:826 src/ServicesGUI.py:136 src/SettingsGUI.py:448
-#: src/StartupGUI.py:131 src/StartupMenusGUI.py:557 src/StartupMenusGUI.py:568
+#: src/StartupGUI.py:131 src/StartupMenusGUI.py:578 src/StartupMenusGUI.py:589
 #: src/StartupNewItemGUI.py:156 src/StorageGUI.py:156
 msgid "Warning"
 msgstr ""
@@ -656,53 +656,53 @@ msgstr ""
 msgid "Please select a startup item and try again for opening the menu"
 msgstr ""
 
-#: src/StartupMenusGUI.py:499
+#: src/StartupMenusGUI.py:520
 msgid "The startup item has system values."
 msgstr ""
 
-#: src/StartupMenusGUI.py:510 src/StartupMenusGUI.py:513 ui/StartupMenus.ui:631
+#: src/StartupMenusGUI.py:531 src/StartupMenusGUI.py:534 ui/StartupMenus.ui:633
 msgid "System-wide values file: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:513 src/StartupMenusGUI.py:519
+#: src/StartupMenusGUI.py:534 src/StartupMenusGUI.py:540
 msgid "None"
 msgstr ""
 
-#: src/StartupMenusGUI.py:516 src/StartupMenusGUI.py:519 ui/StartupMenus.ui:640
+#: src/StartupMenusGUI.py:537 src/StartupMenusGUI.py:540 ui/StartupMenus.ui:642
 msgid "User-specific values file: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:558
+#: src/StartupMenusGUI.py:579
 msgid "Run Startup Item Now?"
 msgstr ""
 
-#: src/StartupMenusGUI.py:559
+#: src/StartupMenusGUI.py:580
 msgid "Do you want to run the following startup item?"
 msgstr ""
 
-#: src/StartupMenusGUI.py:559
+#: src/StartupMenusGUI.py:580
 msgid " Command: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:569
+#: src/StartupMenusGUI.py:590
 msgid "Reset The Startup Item To System Values?"
 msgstr ""
 
-#: src/StartupMenusGUI.py:570
+#: src/StartupMenusGUI.py:591
 msgid "Do you want to reset the following startup item to system values?"
 msgstr ""
 
-#: src/StartupMenusGUI.py:571
+#: src/StartupMenusGUI.py:592
 msgid " '.desktop' File Name: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:572
+#: src/StartupMenusGUI.py:593
 msgid ""
 "1) If the startup item has both system-wide and user-specific '.desktop' "
 "files, user-specific file will be deleted."
 msgstr ""
 
-#: src/StartupMenusGUI.py:573
+#: src/StartupMenusGUI.py:594
 msgid ""
 "2) If the startup item has only user-specific '.desktop' files, this file "
 "will be deleted and startup item will be removed completely."
@@ -1793,7 +1793,7 @@ msgstr ""
 #: ui/MainWindow.ui:2282
 msgid ""
 "Current refresh rate\n"
-"May be different than maximum refresh rate of the monitor."
+"may be different than maximum refresh rate of the monitor."
 msgstr ""
 
 #: ui/MainWindow.ui:2285
@@ -2040,7 +2040,7 @@ msgid "Number of listed startup items"
 msgstr ""
 
 #: ui/MainWindow.ui:4131
-msgid "Total: -- startup items  (-- visible, -- hidden startup items)"
+msgid "Total: -- startup items (-- visible, -- hidden startup items)"
 msgstr ""
 
 #: ui/MainWindow.ui:4151
@@ -2076,7 +2076,7 @@ msgid "Number of listed services"
 msgstr ""
 
 #: ui/MainWindow.ui:4373
-msgid "Total: -- services  (-- loaded, -- non-loaded services)"
+msgid "Total: -- services (-- loaded, -- non-loaded services)"
 msgstr ""
 
 #: ui/MainWindow.ui:4393
@@ -2125,7 +2125,7 @@ msgstr ""
 
 #: ui/MainWindow.ui:4638
 msgid ""
-"Total: -- environment variables  (-- system wide, -- user environment "
+"Total: -- environment variables (-- system wide, -- user environment "
 "variables)"
 msgstr ""
 
@@ -3103,26 +3103,33 @@ msgid "Enabled (Visible) startup items"
 msgstr ""
 
 #: ui/StartupMenus.ui:561
+msgid ""
+"This change may make startup item enabled/disabled for other desktop "
+"environments.\n"
+"For more detailed control, '.desktop' file may be edited manually."
+msgstr ""
+
+#: ui/StartupMenus.ui:563
 msgid "Enable/Disable"
 msgstr ""
 
-#: ui/StartupMenus.ui:572
+#: ui/StartupMenus.ui:574
 msgid "Add"
 msgstr ""
 
-#: ui/StartupMenus.ui:581 ui/StorageMenus.ui:72
+#: ui/StartupMenus.ui:583 ui/StorageMenus.ui:72
 msgid "Remove"
 msgstr ""
 
-#: ui/StartupMenus.ui:596
+#: ui/StartupMenus.ui:598
 msgid "Run Now"
 msgstr ""
 
-#: ui/StartupMenus.ui:611
+#: ui/StartupMenus.ui:613
 msgid "Reset To System Values"
 msgstr ""
 
-#: ui/StartupMenus.ui:620
+#: ui/StartupMenus.ui:622
 msgid "Browse '.desktop' File..."
 msgstr ""
 
