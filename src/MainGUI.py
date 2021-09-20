@@ -310,8 +310,8 @@ def main_gui_main_function_run_func():
             StartupGUI.startup_gui_func()
             StartupMenusGUI.startup_menus_import_func()
             StartupMenusGUI.startup_menus_gui_func()
-            StartupNewItemGUI.startup_rename_import_func()
-            StartupNewItemGUI.startup_rename_gui_func()
+            StartupNewItemGUI.startup_new_item_import_func()
+            StartupNewItemGUI.startup_new_item_gui_func()
         Startup.startup_thread_run_func()
 
     if radiobutton6.get_active() == True:                                                     # It switches to "Services" tab if relevant radiobutton is clicked.
@@ -336,13 +336,15 @@ def main_gui_main_function_run_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 6
         if 'EnvironmentVariablesGUI' not in globals():
-            global EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
-            import EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
+            global EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI, EnvironmentVariablesInputGUI
+            import EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI, EnvironmentVariablesInputGUI
             EnvironmentVariables.environment_variables_import_func()
             EnvironmentVariablesGUI.environment_variables_gui_import_func()
             EnvironmentVariablesGUI.environment_variables_gui_func()
             EnvironmentVariablesMenusGUI.environment_variables_menus_import_func()
             EnvironmentVariablesMenusGUI.environment_variables_menus_gui_func()
+            EnvironmentVariablesInputGUI.environment_variables_input_gui_import_func()
+            EnvironmentVariablesInputGUI.environment_variables_input_gui_func()
         EnvironmentVariables.environment_variables_thread_run_func()
 
     if radiobutton8.get_active() == True:                                                     # It switches to "System" tab if relevant radiobutton is clicked.

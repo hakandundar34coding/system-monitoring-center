@@ -2,81 +2,82 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkImage" id="menuitem7101mimage">
+  <object class="GtkImage" id="menuitem7101m_image">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">system-monitoring-center-edit-symbolic</property>
   </object>
-  <object class="GtkImage" id="menuitem7102mimage">
+  <object class="GtkImage" id="menuitem7102m_image">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">system-monitoring-center-plus-symbolic</property>
   </object>
-  <object class="GtkImage" id="menuitem7103mimage">
+  <object class="GtkImage" id="menuitem7103m_image">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-plus-symbolic</property>
+    <property name="icon-name">system-monitoring-center-delete</property>
   </object>
-  <object class="GtkImage" id="menuitem7104mimage">
+  <object class="GtkImage" id="menuitem7104m_image">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-user-all-symbolic</property>
+    <property name="icon-name">system-monitoring-center-copy-symbolic</property>
   </object>
-  <object class="GtkImage" id="menuitem7105mimage">
+  <object class="GtkImage" id="menuitem7105m_image">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-user-current-symbolic</property>
+    <property name="icon-name">system-monitoring-center-copy-symbolic</property>
   </object>
   <object class="GtkMenu" id="menu7101m">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <child>
       <object class="GtkImageMenuItem" id="menuitem7101m">
-        <property name="label" translatable="yes">Edit</property>
+        <property name="label" translatable="yes">Add Persistent Environment Variable</property>
         <property name="visible">True</property>
-        <property name="sensitive">False</property>
         <property name="can-focus">False</property>
-        <property name="image">menuitem7101mimage</property>
+        <property name="image">menuitem7102m_image</property>
         <property name="use-stock">False</property>
       </object>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem7102m">
-        <property name="label" translatable="yes">Add Environment Variable For Current User</property>
+        <property name="label" translatable="yes">Edit Environment Variable</property>
         <property name="visible">True</property>
-        <property name="sensitive">False</property>
         <property name="can-focus">False</property>
-        <property name="image">menuitem7102mimage</property>
+        <property name="image">menuitem7101m_image</property>
         <property name="use-stock">False</property>
       </object>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem7103m">
-        <property name="label" translatable="yes">Add Environment Variable For All Users</property>
+        <property name="label" translatable="yes">Delete Environment Variable</property>
         <property name="visible">True</property>
-        <property name="sensitive">False</property>
         <property name="can-focus">False</property>
-        <property name="image">menuitem7103mimage</property>
+        <property name="image">menuitem7103m_image</property>
         <property name="use-stock">False</property>
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="menuitem7104m">
-        <property name="label" translatable="yes">Set Environment Variable For All Users</property>
+      <object class="GtkSeparatorMenuItem">
         <property name="visible">True</property>
-        <property name="sensitive">False</property>
         <property name="can-focus">False</property>
-        <property name="image">menuitem7104mimage</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem7104m">
+        <property name="label" translatable="yes">Copy Variable</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem7104m_image</property>
         <property name="use-stock">False</property>
       </object>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem7105m">
-        <property name="label" translatable="yes">Set Environment Variable For Current User Only</property>
+        <property name="label" translatable="yes">Copy Value</property>
         <property name="visible">True</property>
-        <property name="sensitive">False</property>
         <property name="can-focus">False</property>
-        <property name="image">menuitem7105mimage</property>
+        <property name="image">menuitem7105m_image</property>
         <property name="use-stock">False</property>
       </object>
     </child>

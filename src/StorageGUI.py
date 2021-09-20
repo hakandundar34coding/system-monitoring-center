@@ -3,16 +3,16 @@
 # ----------------------------------- Storage - Storage GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def storage_gui_import_func():
 
-    global Gtk, os
+    global Gtk, Gdk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk
+    from gi.repository import Gtk, Gdk
     import os
 
 
-    global MainGUI, Storage, StorageMenusGUI
-    import MainGUI, Storage, StorageMenusGUI
+    global MainGUI, Storage, StorageMenusGUI, StorageDetails, StorageDetailsGUI
+    import MainGUI, Storage, StorageMenusGUI, StorageDetails, StorageDetailsGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -61,6 +61,19 @@ def storage_gui_func():
             Storage.storage_treeview_column_order_width_row_sorting_func()
         if event.button == 3:                                                                 # Open Storage tab right click menu if mouse is right clicked on the treeview (and on any disk, otherwise menu will not be shown) and the mouse button is released.
             storage_open_right_click_menu_func(event)
+
+    def on_treeview4101_button_press_event(widget, event):                                    # Treeview button press event which will be used for detecting mouse double clicks
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
+            model, treeiter = treeview4101.get_selection().get_selected()
+            if treeiter is None:
+                storage_no_disk_selected_dialog()
+            if treeiter is not None:
+                global selected_storage_kernel_name
+                selected_storage_kernel_name = Storage.disk_list[Storage.storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
+                # Open Storage Details window
+                StorageDetailsGUI.storage_details_gui_function()
+                StorageDetailsGUI.window4101w.show()
+                StorageDetails.storage_details_foreground_thread_run_func()
 
     def on_searchentry4101_changed(widget):                                                   # Search entry change event (called when text in the search entry is changed)
         radiobutton4101.set_active(True)
@@ -115,6 +128,7 @@ def storage_gui_func():
 
     # ********************** Connect signals to GUI objects for Storage tab right click menu **********************
     treeview4101.connect("button-release-event", on_treeview4101_button_release_event)
+    treeview4101.connect("button-press-event", on_treeview4101_button_press_event)
     searchentry4101.connect("changed", on_searchentry4101_changed)
     button4101.connect("clicked", on_button4101_clicked)
     button4103.connect("clicked", on_button4103_clicked)

@@ -110,7 +110,7 @@ def process_details_foreground_func():
     else:
         selected_process_icon = "system-monitoring-center-process-symbolic"                   # This icon will be shown for processes of which icon could not be found in default icon theme.
 
-    ProcessesDetailsGUI.window2101w.set_title(f'Process Details: {selected_process_name} - (PID: {selected_process_pid})')    # Set window title
+    ProcessesDetailsGUI.window2101w.set_title(_tr("Process Details: ") + selected_process_name + " - (" + "PID: " + selected_process_pid + ")")    # Set window title
     ProcessesDetailsGUI.window2101w.set_icon_name(selected_process_icon)                      # Set ProcessesDetails window icon
 
 

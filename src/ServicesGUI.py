@@ -3,17 +3,17 @@
 # ----------------------------------- Services - Services GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def services_gui_import_func():
 
-    global Gtk, os, subprocess
+    global Gtk, Gdk, os, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk
+    from gi.repository import Gtk, Gdk
     import os
     import subprocess
 
 
-    global MainGUI, Services, ServicesMenusGUI
-    import MainGUI, Services, ServicesMenusGUI
+    global MainGUI, Services, ServicesMenusGUI, ServicesDetails, ServicesDetailsGUI
+    import MainGUI, Services, ServicesMenusGUI, ServicesDetails, ServicesDetailsGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -62,6 +62,19 @@ def services_gui_func():
         if event.button == 3:                                                                 # Open Services tab right click menu if mouse is right clicked on the treeview (and on any service, otherwise menu will not be shown) and the mouse button is released.
             services_open_right_click_menu_func(event)
 
+    def on_treeview6101_button_press_event(widget, event):                                    # Treeview button press event which will be used for detecting mouse double clicks
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
+            model, treeiter = treeview6101.get_selection().get_selected()
+            if treeiter is None:
+                services_no_service_selected_dialog()
+            if treeiter is not None:
+                global selected_service_name
+                selected_service_name = Services.service_list[Services.services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the process.
+                # Open Service Details window
+                ServicesDetailsGUI.services_details_gui_function()
+                ServicesDetailsGUI.window6101w.show()
+                ServicesDetails.services_details_foreground_thread_run_func()
+
     def on_searchentry6101_changed(widget):
         radiobutton6101.set_active(True)
         Services.services_treeview_filter_search_func()
@@ -97,6 +110,7 @@ def services_gui_func():
 
     # Services tab GUI functions - connect
     treeview6101.connect("button-release-event", on_treeview6101_button_release_event)
+    treeview6101.connect("button-press-event", on_treeview6101_button_press_event)
     searchentry6101.connect("changed", on_searchentry6101_changed)
     button6101.connect("clicked", on_button6101_clicked)
     button6102.connect("clicked", on_button6102_clicked)

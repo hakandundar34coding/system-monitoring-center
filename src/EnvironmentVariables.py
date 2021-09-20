@@ -60,15 +60,39 @@ def environment_variables_initial_func():
     environment_variables_data_column_order_prev = []
     environment_variables_data_column_widths_prev = []
 
-    global environment_variable_image, shell_variable_image
+    global environment_variable_image, shell_variable_image, environment_shell_variable_image
     environment_variable_image = "system-monitoring-center-environment-variables-symbolic"    # Will be used as image of the environment_variables
     shell_variable_image = "system-monitoring-center-terminal-symbolic"                       # Will be used as image of the shell_variables
-
-    environment_variable_type_text_list = [_tr("Environment Variable"), _tr("Shell Variable")]    # This list is defined in order to make English variable type information to be translated into other languages.
+    environment_shell_variable_image = "system-monitoring-center-environment-shell-variable-symbolic"    # Will be used as image of the both environment and shell_variables
 
 
 # ----------------------------------- Environment Variables - Get EnvironmentVariables Data Function (gets environment_variables data, adds into treeview and updates it) -----------------------------------
 def environment_variables_loop_func():
+
+    # Prevent running the function if application is run with root privileges. Othserwise errors are encountered and additional work may be done for handling them.
+    if os.geteuid() == 0:
+        EnvironmentVariablesGUI.label7101.set_text(_tr("Listing environment/shell variables is not supported when application is run with root privileges."))
+        return
+
+    # Prevent running the function if application is run from bash/terminal. Othserwise errors are encountered and additional work may be done for handling them.
+    # Get PID of the application, get PPID of the application (from PID), get name of the parent process of the application (from PPID), check if this name is "bash" in order to control if the application is run from terminal (bash). This situation occurs if application is run from code instead of shortcut (.desktop file) of the application. Because application process name is "python" or "Main" instead of "system-monitoring-center" in this situation.
+    pid_of_application = os.getpid()
+    with open("/proc/" + str(pid_of_application) + "/stat") as reader:                        # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
+        ppid_of_application = reader.read().split()[-49]                                      # Process data is get by negative indexes because file content is split by " " (empty space) character and also process name could contain empty space character which may result confusion getting correct process data. In other words empty space character count may not be same for all process "stat" files and process name it at the second place in the file. Reading process data of which turn is later than process name by using negative index is a reliable method.
+    with open("/proc/" + ppid_of_application + "/comm") as reader:
+        parent_process_name = reader.read().strip()
+    if parent_process_name == "bash":
+        EnvironmentVariablesGUI.label7101.set_text(_tr("Listing environment/shell variables is not supported when application is run in terminal."))
+        return
+    # Parent process name may be "system-monitoring-center" if application is run from its ".desktop" file. In this situation, parent process of this process and its name is get. Finally name check for this process name is made (if name is "bash").
+    if parent_process_name.startswith("system-monitori") == True:                             # Process name is used as "system-monitori" because linux kernel gives first 16 (15) characters of the process name and there is no need for getting full name of the process in this case.
+        with open("/proc/" + ppid_of_application + "/stat") as reader:                        # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
+            ppid_of_application = reader.read().split()[-49]
+        with open("/proc/" + ppid_of_application + "/comm") as reader:
+            parent_process_name = reader.read().strip()
+        if parent_process_name == "bash":
+            EnvironmentVariablesGUI.label7101.set_text(_tr("Listing environment/shell variables is not supported when application is run in terminal."))
+            return
 
     # Define global variables and get treeview columns, sort column/order, column widths, etc.
     global environment_variables_treeview_columns_shown
@@ -86,8 +110,8 @@ def environment_variables_loop_func():
     variable_type_list = []
 
     # Get environment variabes and shell variables
-    printenv_output_lines = subprocess.check_output("printenv", shell=True, executable='/bin/bash').strip().decode().split("_=")[0].split("\n")    # Variables with name starting with "_" are not get.
-    set_output_lines = subprocess.check_output("set", shell=True, executable='/bin/bash').strip().decode().split("_=")[0].split("\n")    # Variables with name starting with "_" are not get.
+    printenv_output_lines = subprocess.check_output("/bin/bash -i -c printenv", shell=True).strip().decode().split("_=")[0].split("\n")    # Variables with name starting with "_" are not get. "-i" is used in order to get variables which are get from "printenv" command typed by human user. Otherwise there are different results.
+    set_output_lines = subprocess.check_output("/bin/bash -i -c set", shell=True).decode().split("_=")[0].split("\n")    # Variables with name starting with "_" are not get. "-i" is used in order to get variables which are get from "printenv" command typed by human user. Otherwise there are different results.
 
     # Join Environment and Shell Variables in a list (variable_list). Shell variables output (from "set" command) also contains environment variables. These are removed for preventing dublicated variables.
     variable_list = list(printenv_output_lines)
@@ -104,18 +128,21 @@ def environment_variables_loop_func():
     for variable in variable_list:
         variable_split = variable.split("=")
         # Get variable type (environment variable/shell variable). This data will be used for filtering (search, etc.) variables.
-        if variable in printenv_output_lines:
-            variable_type = "Environment Variable"
+        if variable in printenv_output_lines and variable not in set_output_lines:
+            variable_type = _tr("Environment Variable")
             variable_type_image = environment_variable_image
-        if variable not in printenv_output_lines:
-            variable_type = "Shell Variable"
+        if variable in set_output_lines and variable not in printenv_output_lines:
+            variable_type = _tr("Shell Variable")
             variable_type_image = shell_variable_image
+        if variable in printenv_output_lines and variable in set_output_lines:
+            variable_type = _tr("Environment & Shell Variable")
+            variable_type_image = environment_shell_variable_image
         variable_type_list.append(variable_type)
         # Append variable name
         environment_variables_data_row = [True, variable_split[0]]                            # Variable visibility data (on treeview) which is used for showing/hiding variable when variables in specific type (environment/shell variable) is preferred to be shown or variable search feature is used from the GUI.
         # Append variable value
         if 1 in environment_variables_treeview_columns_shown:
-            environment_variables_data_row.append(variable_split[1])
+            environment_variables_data_row.append('='.join(variable_split[1:]))               # There may be more than "=" in the VARIABLE=VALUE string. String later than first "=" is get as value.
         # Append variable type icon and variable type
         if 2 in environment_variables_treeview_columns_shown:
             environment_variables_data_row.extend((variable_type_image, variable_type))
@@ -270,9 +297,10 @@ def environment_variables_loop_func():
     environment_variables_data_column_widths_prev = environment_variables_data_column_widths
 
     # Get number of shell variables and number of all variables and show these information on the GUI label
-    shell_variable_count = variable_type_list.count("Shell Variable")
+    shell_variable_count = variable_type_list.count(_tr("Shell Variable")) + variable_type_list.count(_tr("Environment & Shell Variable"))
+    environment_variable_count = variable_type_list.count(_tr("Environment Variable")) + variable_type_list.count(_tr("Environment & Shell Variable"))
     number_of_all_variables = len(variable_type_list)
-    EnvironmentVariablesGUI.label7101.set_text(_tr("Total: ") + str(number_of_all_variables) + _tr(" variables (") + str(shell_variable_count) + _tr(" environment variables, ") + str(number_of_all_variables-shell_variable_count) + _tr(" shell variables)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    EnvironmentVariablesGUI.label7101.set_text(_tr("Total: ") + str(number_of_all_variables) + _tr(" persistent variables (") + str(environment_variable_count) + _tr(" environment variables, ") + str(shell_variable_count) + _tr(" shell variables)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
 
 
 # ----------------------------------- Environment Variables Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
@@ -309,19 +337,19 @@ def environment_variables_treeview_filter_show_all_func():
         treestore7101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Environment Variables - Treeview Filter Show All Enabled (Visible) Environment Variables Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Environment Variables - Treeview Filter Show All Environment Variables Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
 def environment_variables_treeview_filter_environment_variables_logged_in_only():
 
     for piter in piter_list:
-        if variable_type_list[piter_list.index(piter)] != "Environment Variable":
+        if variable_type_list[piter_list.index(piter)] == _tr("Shell Variable"):
             treestore7101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Environment Variables - Treeview Filter Show All Disabled (Hidden) Environment Variables Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Environment Variables - Treeview Filter Show All Shell Variables Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
 def environment_variables_treeview_filter_environment_variables_logged_out_only():
 
     for piter in piter_list:
-        if variable_type_list[piter_list.index(piter)] != "Shell Variable":
+        if variable_type_list[piter_list.index(piter)] == _tr("Environment Variable"):
             treestore7101.set_value(piter, 0, False)
 
 
@@ -340,9 +368,9 @@ def environment_variables_treeview_filter_search_func():
     # Variable could be shown/hidden for environment/shell variable type. Preferred visibility data is determined here.
     filter_variable_type = []
     if EnvironmentVariablesMenusGUI.checkbutton7102p2.get_active() == True:
-        filter_variable_type.append("Environment Variable")
+        filter_variable_type.extend((_tr("Environment Variable"), _tr("Environment & Shell Variable")))
     if EnvironmentVariablesMenusGUI.checkbutton7103p2.get_active() == True:
-        filter_variable_type.append("Shell Variable")
+        filter_variable_type.extend((_tr("Shell Variable"), _tr("Environment & Shell Variable")))
 
     variable_search_text = EnvironmentVariablesGUI.searchentry7101.get_text().lower()
     # Set visible/hidden variables

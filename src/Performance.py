@@ -919,17 +919,15 @@ def performance_foreground_func():
         if network_ssid == "":
             network_ssid = "-"
         # Get network_signal_strength
-        network_signal_strength = ""
-        if "wl" in network_card_list[selected_network_card_number] and network_card_connected == "Yes":
+        network_signal_strength = "-"                                                         # Initial value of the "network_signal_strength". This value will be used if value could not be get.
+        if "wl" in network_card_list[selected_network_card_number] and network_card_connected == _tr("Yes"):    # Translated value have to be used by using gettext constant. Not "Yes".
             with open("/proc/net/wireless") as reader:
                 proc_net_wireless_output_lines = reader.read().strip().split("\n")
-                for line in proc_net_wireless_output_lines:
-                    line_splitted = line.split()
-                    if network_card_list[selected_network_card_number] == line_splitted[0].split(":")[0]:
-                        network_signal_strength = line_splitted[2].split(".")[0]              # "split(".")" is used in order to remove "." at the end of the signal value.
-                        break
-        if network_signal_strength == "":
-            network_signal_strength = "-"
+            for line in proc_net_wireless_output_lines:
+                line_splitted = line.split()
+                if network_card_list[selected_network_card_number] == line_splitted[0].split(":")[0]:
+                    network_signal_strength = line_splitted[2].split(".")[0]              # "split(".")" is used in order to remove "." at the end of the signal value.
+                    break
 
         # Set and update Network tab label texts by using information get
         PerformanceGUI.label1403.set_text(f'{performance_data_unit_converter_func(network_receive_speed[selected_network_card_number][-1], performance_network_speed_data_unit, performance_network_speed_data_precision)}/s')

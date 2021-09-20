@@ -4572,7 +4572,7 @@ May be different than maximum resolution of the monitor.</property>
               </packing>
             </child>
             <child>
-              <!-- n-columns=1 n-rows=3 -->
+              <!-- n-columns=1 n-rows=4 -->
               <object class="GtkGrid" id="grid7">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -4610,6 +4610,18 @@ May be different than maximum resolution of the monitor.</property>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Persistent environment variables and shell variables are listed on this tab.
+
+New environment variables can be added for current user-only or for all users (system-wide).
+Existing environments can be edited and deleted.
+
+Following files are used for adding/editing/deleting user-specific and system wide environment variables:
+/etc/environment
+/home/[username]/.bashrc
+
+There are many other files which are used by system for storing environment variables and variables in these files may override the variables you defined.
+
+As a general information, environment variables for only current user (user-specific) override environment variables for all users (system-wide) if variable names are the same.</property>
                         <property name="halign">start</property>
                         <property name="label" translatable="yes">Environment
 Variables</property>
@@ -4632,10 +4644,12 @@ Variables</property>
                           <object class="GtkLabel" id="label7101">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="tooltip-text" translatable="yes">Number of listed environment variables</property>
+                            <property name="tooltip-text" translatable="yes">Number of listed persistent environment/shell variables
+Summation of number of environment variables and number of shell variables may be bigger than number of total variables.
+Because there may be both environment variable and shell variable with the same variable name.</property>
                             <property name="halign">start</property>
                             <property name="margin-start">60</property>
-                            <property name="label" translatable="yes">Total: -- environment variables (-- system wide, -- user environment variables)</property>
+                            <property name="label" translatable="yes">Total: -- persistent variables (-- system wide, -- user environment variables)</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
                           </object>
@@ -4710,7 +4724,7 @@ Variables</property>
                         <property name="hexpand">True</property>
                         <property name="primary-icon-name">edit-find-symbolic</property>
                         <property name="primary-icon-activatable">False</property>
-                        <property name="placeholder-text" translatable="yes">Search environment variable...</property>
+                        <property name="placeholder-text" translatable="yes">Search environment/shell variable...</property>
                       </object>
                       <packing>
                         <property name="left-attach">3</property>
@@ -4720,7 +4734,6 @@ Variables</property>
                     <child>
                       <object class="GtkButton" id="button7104">
                         <property name="visible">True</property>
-                        <property name="sensitive">False</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
                         <property name="tooltip-text" translatable="yes">Open Variable Right Click Menu</property>
@@ -4807,6 +4820,19 @@ Variables</property>
                   <packing>
                     <property name="left-attach">0</property>
                     <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Note: Backing up the following files is advised before changing environment variables: '/etc/environment', '/home/[username]/.bashrc'.</property>
+                    <property name="wrap">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">3</property>
                   </packing>
                 </child>
               </object>

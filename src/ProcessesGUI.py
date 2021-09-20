@@ -3,16 +3,16 @@
 # ----------------------------------- Processes - Processes GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_gui_import_func():
 
-    global Gtk, os
+    global Gtk, Gdk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk
+    from gi.repository import Gtk, Gdk
     import os
 
 
-    global Config, MainGUI, Processes, ProcessesMenusGUI
-    import Config, MainGUI, Processes, ProcessesMenusGUI
+    global Config, MainGUI, Processes, ProcessesMenusGUI, ProcessesDetails, ProcessesDetailsGUI
+    import Config, MainGUI, Processes, ProcessesMenusGUI, ProcessesDetails, ProcessesDetailsGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -64,6 +64,23 @@ def processes_gui_func():
         if event.button == 3:                                                                 # Open Processes tab right click menu if mouse is right clicked on the treeview (and on any process, otherwise menu will not be shown) and the mouse button is released.
             processes_open_right_click_menu_func(event)
 
+    def on_treeview2101_button_press_event(widget, event):                                    # Treeview button press event which will be used for detecting mouse double clicks
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
+            model, treeiter = treeview2101.get_selection().get_selected()
+            if treeiter is None:
+                processes_no_process_selected_dialog()
+            if treeiter is not None:
+                global selected_process_pid
+                try:
+                    selected_process_pid = Processes.pid_list[Processes.processes_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "processes_data_rows" list to use it getting pid of the process.
+                except ValueError:                                                            # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+                    print("not in list error")
+                    return
+                # Open Process Details window
+                ProcessesDetailsGUI.processes_details_gui_function()
+                ProcessesDetailsGUI.window2101w.show()
+                ProcessesDetails.process_details_foreground_thread_run_func()
+
     def on_searchentry2101_changed(widget):
         radiobutton2101.set_active(True)
         radiobutton2104.set_active(True)
@@ -114,6 +131,7 @@ def processes_gui_func():
 
     # Processes tab GUI functions - connect
     treeview2101.connect("button-release-event", on_treeview2101_button_release_event)
+    treeview2101.connect("button-press-event", on_treeview2101_button_press_event)
     searchentry2101.connect("changed", on_searchentry2101_changed)
     button2101.connect("clicked", on_button2101_clicked)
     button2102.connect("clicked", on_button2102_clicked)

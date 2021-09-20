@@ -1,3 +1,16 @@
+system-monitoring-center (0.1.8-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Improvements for listing environment/shell variables correctly
+  * Add/Edit/Delete/Copy right click menu functions are added (Environment Variables tab)
+  * Now double clicking on process/storage/service rows opens details window on relevant tab
+  * Fixed bugs which cause error when application is run with root privileges (Startup tab)
+  * Fixed a bug for showing signal strength (link value) of the WI-FI network (Network tab)
+  * Various bug fixes
+  * Minor GUI improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 18 Sep 2021 20:41:00 +0300
+
 system-monitoring-center (0.1.7-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
@@ -5,6 +18,8 @@ system-monitoring-center (0.1.7-beta) unstable; urgency=medium
   * Minor GUI improvements (GUI object tooltip changes/updates)
 
  -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 14 Sep 2021 14:42:00 +0300
+
+system-monitoring-center (0.1.6-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
   * Added support for listing startup items on systems with GNOME-Classic, Ubuntu-GNOME desktop environments (Startup tab).

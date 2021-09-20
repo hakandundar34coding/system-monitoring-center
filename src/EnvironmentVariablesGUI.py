@@ -3,15 +3,33 @@
 # ----------------------------------- EnvironmentVariables - EnvironmentVariables GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def environment_variables_gui_import_func():
 
-    global Gtk
+    global Gtk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk
+    import os
 
 
     global MainGUI, EnvironmentVariables, EnvironmentVariablesMenusGUI
     import MainGUI, EnvironmentVariables, EnvironmentVariablesMenusGUI
+
+
+    # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
+    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    import locale
+    from locale import gettext as _tr
+
+    # Define contstants for language translation support
+    global application_name
+    application_name = "system-monitoring-center"
+    translation_files_path = "/usr/share/locale"
+    system_current_language = os.environ.get("LANG")
+
+    # Define functions for language translation support
+    locale.bindtextdomain(application_name, translation_files_path)
+    locale.textdomain(application_name)
+    locale.setlocale(locale.LC_ALL, system_current_language)
 
 
 # ----------------------------------- EnvironmentVariables - EnvironmentVariables GUI Function (the code of this module in order to avoid running them during module import and defines "EnvironmentVariables" tab GUI objects and functions/signals) -----------------------------------
@@ -97,7 +115,30 @@ def environment_variables_gui_func():
 def environment_variables_open_right_click_menu_func(event):
 
     model, treeiter = treeview7101.get_selection().get_selected()
+    if treeiter is None:
+        environment_variables_no_variable_selected_dialog()
     if treeiter is not None:
-        global selected_environment_variable
-        selected_environment_variable = EnvironmentVariables.variable_list[EnvironmentVariables.environment_variables_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "environment_variables_data_rows" list to use it getting name of the variable.
+        global selected_variable_value, selected_variable_type
+        selected_variable_value = EnvironmentVariables.variable_list[EnvironmentVariables.environment_variables_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "environment_variables_data_rows" list to use it getting name of the variable.
+        selected_variable_type = EnvironmentVariables.variable_type_list[EnvironmentVariables.variable_list.index(selected_variable_value)]
+        if selected_variable_type == _tr("Environment Variable") or selected_variable_type == _tr("Environment & Shell Variable"):    # Perform following oprations if variable is not shell variable.
+            EnvironmentVariablesMenusGUI.menuitem7102m.set_sensitive(True)                    # Set "Edit Environment Variable" item as sensitive
+            EnvironmentVariablesMenusGUI.menuitem7102m.set_tooltip_text("")                   # Delete "Edit Environment Variable" item tooltip text
+            EnvironmentVariablesMenusGUI.menuitem7103m.set_sensitive(True)                    # Set "Delete Environment Variable" item as sensitive
+            EnvironmentVariablesMenusGUI.menuitem7103m.set_tooltip_text("")                   # Delete "Delete Environment Variable" item tooltip text
+        if selected_variable_type == _tr("Shell Variable"):                                   # Perform following oprations if variable is shell variable.
+            EnvironmentVariablesMenusGUI.menuitem7102m.set_sensitive(False)                   # Set "Edit Environment Variable" item as insensitive
+            EnvironmentVariablesMenusGUI.menuitem7102m.set_tooltip_text(_tr("Shell variables cannot be edited."))    # Set "Edit Environment Variable" item tooltip text
+            EnvironmentVariablesMenusGUI.menuitem7103m.set_sensitive(False)                   # Set "Delete Environment Variable" item as insensitive
+            EnvironmentVariablesMenusGUI.menuitem7103m.set_tooltip_text(_tr("Shell variables cannot be deleted."))    # Set "Delete Environment Variable" item tooltip text
         EnvironmentVariablesMenusGUI.menu7101m.popup(None, None, None, None, event.button, event.time)
+
+
+# ----------------------------------- Startup - No Startup Item Selected Dialog Function (shows a dialog when Open Startup Item Right Click Menu is clicked without selecting a startup item) -----------------------------------
+def environment_variables_no_variable_selected_dialog():
+
+    dialog7101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Select A Variable"), )
+    dialog7101.format_secondary_text(_tr("Please select a variable and try again for opening the menu"))
+    dialog7101.run()
+    dialog7101.destroy()

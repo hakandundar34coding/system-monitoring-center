@@ -67,7 +67,9 @@ def startup_initial_func():
     global supported_desktop_environments_list
     supported_desktop_environments_list = ["XFCE", "GNOME", "X-CINNAMON", "CINNAMON", "MATE", "KDE", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
     global current_desktop_environment
-    current_desktop_environment = [os.environ.get('XDG_CURRENT_DESKTOP').strip().upper()]     # "current_desktop_environment" is defined as list because some dektop environmens takes into account more than one name.
+    current_desktop_environment = [os.environ.get('XDG_CURRENT_DESKTOP')]
+    if current_desktop_environment != [None]:
+        current_desktop_environment[0] = current_desktop_environment[0].strip().upper()       # "current_desktop_environment" is defined as list because some dektop environmens takes into account more than one name.
     if current_desktop_environment == ["X-CINNAMON"] or current_desktop_environment == ["CINNAMON"]:
         current_desktop_environment = ["X-CINNAMON", "CINNAMON", "GNOME"]                     # These names are taked into account by Cinnamon desktop environment.
     if current_desktop_environment == ["UBUNTU:GNOME"]:

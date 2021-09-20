@@ -108,7 +108,7 @@ def storage_details_foreground_func():
     disk_physical_type = disk_symbol                                                          # Get disk type
 
     # Set Storage Details window title and window icon image
-    StorageDetailsGUI.window4101w.set_title(f'Storage Details: {disk}')                       # Set window title
+    StorageDetailsGUI.window4101w.set_title(_tr("Storage Details: ") + disk)                  # Set window title
     StorageDetailsGUI.window4101w.set_icon_name(disk_symbol)                                  # Set StorageDetails window icon
 
     # Get disk parent name

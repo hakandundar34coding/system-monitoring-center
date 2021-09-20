@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # ----------------------------------- Startup - Startup New Item Window GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
-def startup_rename_import_func():
+def startup_new_item_import_func():
 
     global Gtk, Gdk, os, subprocess
 
@@ -34,7 +34,7 @@ def startup_rename_import_func():
 
 
 # ----------------------------------- Startup - Startup New Item Window GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab GUI objects and functions/signals) -----------------------------------
-def startup_rename_gui_func():
+def startup_new_item_gui_func():
 
     global builder5101w, window5101w
     global entry5101w, entry5102w, entry5103w, entry5104w, checkbutton5101w, checkbutton5102w, button5101w, button5102w
