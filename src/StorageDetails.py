@@ -228,10 +228,13 @@ def storage_details_foreground_func():
         pass
     # Get disk partition label
     disk_partition_label = "-"                                                                # Initial value of "disk_partition_label" variable. This value will be used if disk partition label could not be detected.
-    disk_partition_label_list = os.listdir("/dev/disk/by-partlabel/")
-    for label in disk_partition_label_list:
-        if os.path.realpath("/dev/disk/by-partlabel/" + label).split("/")[-1] == disk:
-            disk_partition_label = label
+    try:
+        disk_partition_label_list = os.listdir("/dev/disk/by-partlabel/")
+        for label in disk_partition_label_list:
+            if os.path.realpath("/dev/disk/by-partlabel/" + label).split("/")[-1] == disk:
+                disk_partition_label = label
+    except FileNotFoundError:
+        pass
     # Get disk path
     disk_path = "-"                                                                           # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
     try:

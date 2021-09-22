@@ -3704,7 +3704,6 @@ May be different than maximum resolution of the monitor.</property>
                     <child>
                       <object class="GtkButton" id="button3104">
                         <property name="visible">True</property>
-                        <property name="sensitive">False</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
                         <property name="tooltip-text" translatable="yes">Open User Right Click Menu</property>

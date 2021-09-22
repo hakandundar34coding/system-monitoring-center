@@ -53,7 +53,7 @@ def users_initial_func():
                       [3, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                       [4, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                       [5, _tr('Processes'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                      [6, _tr('Home Dir.'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                      [6, _tr('Home Directory'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [7, _tr('Group'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [8, _tr('Terminal'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [9, _tr('Last Login'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
@@ -78,12 +78,12 @@ def users_initial_func():
     users_data_column_widths_prev = []
 
 
-    global number_of_clock_ticks, memory_page_size, system_boot_time, user_image_unset_pixbuf, user_image_unset_pixbuf
+    global number_of_clock_ticks, memory_page_size, system_boot_time, user_image_unset_pixbuf
 
     number_of_clock_ticks = os.sysconf("SC_CLK_TCK")                                          # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
     memory_page_size = os.sysconf("SC_PAGE_SIZE")                                             # This value is used for converting memory page values into byte values. This value depends on architecture (also sometimes depends on machine model). Default value is 4096 Bytes (4 KiB) for most processors.
 
-    # Get system boot time which will be used for obtaining user process (sh) start time
+    # Get system boot time which will be used for obtaining user process start time
     with open("/proc/stat") as reader:
         stat_lines = reader.read().split("\n")
     for line in stat_lines:
@@ -250,25 +250,27 @@ def users_loop_func():
                 users_data_row.append(user_terminal)
             # Get user last log in time
             if 9 in users_treeview_columns_shown:
-                user_last_log_in_time = "-"                                                   # Initial value for "user_last_log_in_time" which will be used when any value could not be get from the "auth.log" file
                 for i, line in enumerate(lslogins_command_lines):                             # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
                     if line.split("=")[1].strip('"') == username:
                         user_last_log_in_time = " ".join(lslogins_command_lines[i+1].split("=")[1].strip('"').split())    # Get "user last log-in time" if user name matches.
                         break
+                if user_last_log_in_time == "":                                               # Use "-" as "user_last_log_in_time" value if it could not be detected.
+                    user_last_log_in_time = "-"
                 users_data_row.append(user_last_log_in_time)
             # Get user last failed log in time
             if 10 in users_treeview_columns_shown:
-                user_last_failed_log_in_time = "-"                                            # Initial value for "user_last_log_in_time" which will be used when any value could not be get from the "auth.log" file
                 for i, line in enumerate(lslogins_command_lines):
                     if line.split("=")[1].strip('"') == username:                             # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
                         user_last_failed_log_in_time = " ".join(lslogins_command_lines[i+2].split("=")[1].strip('"').split())    # Get "user last failed log-in time" if user name matches.
                         break
+                if user_last_failed_log_in_time == "":                                        # Use "-" as "user_last_failed_log_in_time" value if it could not be detected.
+                    user_last_failed_log_in_time = "-"
                 users_data_row.append(user_last_failed_log_in_time)
             # Get user process start time
             if 11 in users_treeview_columns_shown:
                 if user_process_pid == 0:
-                    user_process_start_time = 0                                               # User process (sh) start time is "0" if it is not alive (if user is not logged in)
-                if user_process_pid != 0:                                                     # User process (sh) start time is get if it is alive (if user is logged in)
+                    user_process_start_time = 0                                               # User process start time is "0" if it is not alive (if user is not logged in)
+                if user_process_pid != 0:                                                     # User process start time is get if it is alive (if user is logged in)
                     try:
                         with open("/proc/" + str(user_process_pid) + "/stat") as reader:
                             proc_pid_stat_lines = int(reader.read().split()[-31])             # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)

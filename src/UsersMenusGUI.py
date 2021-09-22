@@ -11,8 +11,8 @@ def users_menus_import_func():
     import os
 
 
-    global Config, Users, UsersGUI
-    import Config, Users, UsersGUI
+    global Config, Users, UsersGUI, UsersDetails, UsersDetailsGUI
+    import Config, Users, UsersGUI, UsersDetails, UsersDetailsGUI
 
 
 # ----------------------------------- Users - Users Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -23,7 +23,28 @@ def users_menus_gui_func():
     builder3101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/UsersMenus.ui")
 
     # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    # Define object names, get object names, define object functions and connect signals to GUI objects for Users tab right click menu
+    # Define object names, get object names, define object functions and connect signals to GUI objects for Users tab customizations popover
+    # ********************** Define object names for Users tab right click menu **********************
+    global menu3101m
+    global menuitem3101m
+
+    # ********************** Get object names for Users tab right click menu **********************
+    menu3101m = builder3101m.get_object('menu3101m')
+    menuitem3101m = builder3101m.get_object('menuitem3101m')
+
+    # ********************** Define object functions for Users tab right click menu **********************
+    def on_menuitem3101m_activate(widget):                                                    # "Details" item on the right click menu
+        UsersDetailsGUI.users_details_gui_function()
+        UsersDetailsGUI.window3101w.show()
+        UsersDetails.users_details_foreground_thread_run_func()
+
+    # ********************** Connect signals to GUI objects for Users tab right click menu **********************
+    menuitem3101m.connect("activate", on_menuitem3101m_activate)
+    # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    # Define object names, get object names, define object functions and connect signals to GUI objects for Users tab customizations popover
     # ********************** Define object names for Users tab customizations popover **********************
     global popover3101p
     global button3101p, button3102p

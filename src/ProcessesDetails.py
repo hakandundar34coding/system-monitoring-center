@@ -86,10 +86,10 @@ def process_details_foreground_func():
 
     number_of_clock_ticks = Processes.number_of_clock_ticks
     global_cpu_time_all = time.time() * number_of_clock_ticks                                 # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent. global_cpu_time_all value is get by using time module of Python instead of reading "/proc/stat" file for faster processing.
-    try:                                                                                      # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+    try:                                                                                      # Process may be ended. "try-catch" is used for avoiding errors in this situation.
         with open("/proc/" + selected_process_pid + "/stat") as reader:                       # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
             proc_pid_stat_lines = reader.read()
-    except FileNotFoundError:                                                                 # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
+    except FileNotFoundError:
         ProcessesDetailsGUI.window2101w.hide()
         processes_no_such_process_error_dialog()
         return
@@ -119,10 +119,10 @@ def process_details_foreground_func():
         # Get process status
         selected_process_status = process_status_list[proc_pid_stat_lines_split[-50]]         # Get process status
         # Get process user name
-        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+        try:                                                                                  # Process may be ended. "try-catch" is used for avoiding errors in this situation.
             with open("/proc/" + selected_process_pid + "/status") as reader:                 # User name of the process owner is get from "/proc/status" file because it is present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
                 proc_pid_status_lines = reader.read().split("\n")
-        except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
+        except FileNotFoundError:
             ProcessesDetailsGUI.window2101w.hide()
             processes_no_such_process_error_dialog()
             return
@@ -184,7 +184,7 @@ def process_details_foreground_func():
             selected_process_exe = os.path.realpath("/proc/" + pid + "/exe")
         except:
             selected_process_exe = "-"
-        # Get parent processes of the process
+        # Get parent processes name and PIDs
         parent_process_names_pids = []
         current_ppid = selected_process_pid                                                   # Define "current_ppid" as "selected_process_pid". They are not same thing for the initial value but it is defined as initial value for proper working of the ppid loop code.
         while current_ppid != 0:
@@ -193,16 +193,57 @@ def process_details_foreground_func():
             if current_ppid != 0:
                 with open("/proc/" + str(current_ppid) + "/stat") as reader:
                     proc_pid_stat_lines = reader.read()
-                first_parentheses = proc_pid_stat_lines.find("(")                                         # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
-                second_parentheses = proc_pid_stat_lines.rfind(")")                                       # Last parantheses ")" index is get by using "find()".
-                process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]      # Process name is get from string by using the indexes get previously.
+                first_parentheses = proc_pid_stat_lines.find("(")                             # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
+                second_parentheses = proc_pid_stat_lines.rfind(")")                           # Last parantheses ")" index is get by using "find()".
+                process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]    # Process name is get from string by using the indexes get previously.
                 process_name = process_name_from_stat
-                if len(process_name) >= 15:                                                      # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name. "=15" is enough but this limit may be increased in the next releases of the kernel. ">=15" is used in order to handle this possible change.
+                if len(process_name) >= 15:                                                   # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name. "=15" is enough but this limit may be increased in the next releases of the kernel. ">=15" is used in order to handle this possible change.
                     with open("/proc/" + str(current_ppid) + "/cmdline") as reader:
-                        process_name = ''.join(reader.read().split("/")[-1].split("\x00"))       # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()" and joined again without these characters.
+                        process_name = ''.join(reader.read().split("/")[-1].split("\x00"))    # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()" and joined again without these characters.
                     if process_name.startswith(process_name_from_stat) == False:
                         process_name = process_name_from_stat
                 parent_process_names_pids.append(f'{process_name} (PID: {current_ppid})')
+        # Get child process names and PIDs
+        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
+        ppid_list = []
+        for pid in pid_list[:]:                                                               # "[:]" is used for iterating over copy of the list because element are removed during iteration. Otherwise incorrect operations (incorrect element removal) are performed on the list.
+            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+                with open("/proc/" + pid + "/stat") as reader:                                # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
+                    proc_pid_stat_lines = reader.read()
+            except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
+                pid_list.remove(pid)
+                continue
+            proc_pid_stat_lines_split = proc_pid_stat_lines.split()
+            ppid_list.append(proc_pid_stat_lines_split[-49])
+        selected_process_child_process_pids = []
+        for i, ppid in enumerate(ppid_list):
+            if ppid == selected_process_pid:
+                selected_process_child_process_pids.append(pid_list[i])
+        selected_process_child_process_names = []
+        for pid in selected_process_child_process_pids:
+            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+                with open("/proc/" + pid + "/stat") as reader:                                # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
+                    proc_pid_stat_lines = reader.read()
+            except FileNotFoundError:                                                         # Removed pid from "selected_process_child_process_pids" and skip to next loop (pid) if process is ended just after selected_process_child_process_pids is generated.
+                selected_process_child_process_pids.remove(pid)
+                continue
+            first_parentheses = proc_pid_stat_lines.find("(")                                 # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
+            second_parentheses = proc_pid_stat_lines.rfind(")")                               # Last parantheses ")" index is get by using "find()".
+            process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]  # Process name is get from string by using the indexes get previously.
+            process_name = process_name_from_stat
+            if len(process_name) == 15:                                                       # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
+                try:
+                    with open("/proc/" + pid + "/cmdline") as reader:
+                        process_name = reader.read().split("/")[-1].split("\x00")[0]          # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
+                except FileNotFoundError:                                                     # Removed pid from "selected_process_child_process_pids" and skip to next loop (pid) if process is ended just after selected_process_child_process_pids is generated.
+                    selected_process_child_process_pids.remove(pid)
+                    continue
+                if process_name.startswith(process_name_from_stat) == False:
+                    process_name = process_name_from_stat                                     # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
+            selected_process_child_process_names.append(process_name)
+        child_process_names_pids = []
+        for i, pid in enumerate(selected_process_child_process_pids):
+            child_process_names_pids.append(f'{selected_process_child_process_names[i]} (PID: {pid})')
         # Get real, effective and saved UIDs
         for line in proc_pid_status_lines:
             if "Uid:\t" in line:
@@ -232,8 +273,14 @@ def process_details_foreground_func():
         ProcessesDetailsGUI.label2109w.set_text(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
         ProcessesDetailsGUI.label2110w.set_text(selected_process_exe)
         ProcessesDetailsGUI.label2111w.set_text(f'{selected_process_ppid}')
-        ProcessesDetailsGUI.label2112w.set_text(',\n'.join(parent_process_names_pids))
-    #     ProcessesDetailsGUI.label2113w.set_text(',\n'.join(children_process_names_pids))
+        if parent_process_names_pids != []:
+            ProcessesDetailsGUI.label2112w.set_text(',\n'.join(parent_process_names_pids))
+        if parent_process_names_pids == []:
+            ProcessesDetailsGUI.label2112w.set_text("-")
+        if child_process_names_pids != []:
+            ProcessesDetailsGUI.label2113w.set_text(',\n'.join(child_process_names_pids))
+        if child_process_names_pids == []:
+            ProcessesDetailsGUI.label2113w.set_text("-")
         ProcessesDetailsGUI.label2114w.set_text(f'Real: {selected_process_uid_real}, Effective: {selected_process_uid_effective}, Saved: {selected_process_uid_saved}')
         ProcessesDetailsGUI.label2115w.set_text(f'Real: {selected_process_gid_real}, Effective: {selected_process_gid_effective}, Saved: {selected_process_gid_saved}')
 
@@ -258,8 +305,8 @@ def process_details_foreground_func():
         selected_process_threads = [filename for filename in os.listdir("/proc/" + selected_process_pid + "/task/") if filename.isdigit()]    # Get process thread list (TIDs).
         # Get the last CPU core number which process executed on
         selected_process_cpu_num = proc_pid_stat_lines_split[-14]
-        # Get COU cores that process runn allowed on
-        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+        # Get CPU cores that process run allowed on
+        try:                                                                                  # Process may be ended. "try-catch" is used for avoiding errors in this situation.
             with open("/proc/" + selected_process_pid + "/status") as reader:
                 proc_pid_status_lines = reader.read().split("\n")
         except FileNotFoundError:

@@ -3,15 +3,33 @@
 # ----------------------------------- Users - Users GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def users_gui_import_func():
 
-    global Gtk
+    global Gtk, Gdk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk
+    from gi.repository import Gtk, Gdk
+    import os
 
 
-    global MainGUI, Users, UsersMenusGUI
-    import MainGUI, Users, UsersMenusGUI
+    global MainGUI, Users, UsersMenusGUI, UsersDetails, UsersDetailsGUI
+    import MainGUI, Users, UsersMenusGUI, UsersDetails, UsersDetailsGUI
+
+
+    # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
+    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    import locale
+    from locale import gettext as _tr
+
+    # Define contstants for language translation support
+    global application_name
+    application_name = "system-monitoring-center"
+    translation_files_path = "/usr/share/locale"
+    system_current_language = os.environ.get("LANG")
+
+    # Define functions for language translation support
+    locale.bindtextdomain(application_name, translation_files_path)
+    locale.textdomain(application_name)
+    locale.setlocale(locale.LC_ALL, system_current_language)
 
 
 # ----------------------------------- Users - Users GUI Function (the code of this module in order to avoid running them during module import and defines "Users" tab GUI objects and functions/signals) -----------------------------------
@@ -38,6 +56,21 @@ def users_gui_func():
     def on_treeview3101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
             Users.users_treeview_column_order_width_row_sorting_func()
+        if event.button == 3:                                                                 # Open Users tab right click menu if mouse is right clicked on the treeview (and on any user, otherwise menu will not be shown) and the mouse button is released.
+            users_open_right_click_menu_func(event)
+
+    def on_treeview3101_button_press_event(widget, event):                                    # Treeview button press event which will be used for detecting mouse double clicks
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
+            model, treeiter = treeview3101.get_selection().get_selected()
+            if treeiter is None:
+                users_no_user_selected_dialog()
+            if treeiter is not None:
+                global selected_user_uid
+                selected_user_uid = Users.uid_username_list[Users.users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
+                # Open Users Details window
+                UsersDetailsGUI.users_details_gui_function()
+                UsersDetailsGUI.window3101w.show()
+                UsersDetails.users_details_foreground_thread_run_func()
 
     def on_searchentry3101_changed(widget):
         radiobutton3101.set_active(True)
@@ -63,12 +96,18 @@ def users_gui_func():
     def on_button3102_clicked(widget):                                                        # "Users Tab Search Customizations" button
         UsersMenusGUI.popover3101p2.popup()
 
+    def on_button3104_button_release_event(widget, event):                                    # "Open Users Right Click Menu" button
+        if event.button == 1:                                                                 # Open Users tab right click menu if "Open Users Right Click Menu" button is left clicked and the mouse button is released.
+            users_open_right_click_menu_func(event)
+
 
     # Users tab GUI functions - connect
     treeview3101.connect("button-release-event", on_treeview3101_button_release_event)
+    treeview3101.connect("button-press-event", on_treeview3101_button_press_event)
     searchentry3101.connect("changed", on_searchentry3101_changed)
     button3101.connect("clicked", on_button3101_clicked)
     button3102.connect("clicked", on_button3102_clicked)
+    button3104.connect("button-release-event", on_button3104_button_release_event)
     radiobutton3101.connect("toggled", on_radiobutton3101_toggled)
     radiobutton3102.connect("toggled", on_radiobutton3102_toggled)
     radiobutton3103.connect("toggled", on_radiobutton3103_toggled)
@@ -82,3 +121,25 @@ def users_gui_func():
     treeview3101.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
     treeview3101.set_search_column(2)                                                         # This command used for searching by using entry.
     treeview3101.set_tooltip_column(2)
+
+
+# ----------------------------------- Users - Open Right Click Menu Function (gets right clicked user UID and opens right click menu) -----------------------------------
+def users_open_right_click_menu_func(event):
+
+    model, treeiter = treeview3101.get_selection().get_selected()
+    if treeiter is None:
+        users_no_user_selected_dialog()
+    if treeiter is not None:
+        global selected_user_uid
+        selected_user_uid = Users.uid_username_list[Users.users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting UID of the user.
+        UsersMenusGUI.menu3101m.popup(None, None, None, None, event.button, event.time)
+
+
+# ----------------------------------- Users - No User Selected Dialog Function (shows a dialog when Open Users Right Click Menu is clicked without selecting an user) -----------------------------------
+def users_no_user_selected_dialog():
+
+    dialog3101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Select An User"), )
+    dialog3101.format_secondary_text(_tr("Please select an user and try again for opening the menu"))
+    dialog3101.run()
+    dialog3101.destroy()

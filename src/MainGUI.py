@@ -27,6 +27,7 @@ def main_gui_import_func():
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
 
+
 # ----------------------------------- MainGUI - GUI Function (the code of this module in order to avoid running them during module import and defines GUI functions/signals) -----------------------------------
 def main_gui_func():
 
@@ -270,13 +271,16 @@ def main_gui_main_function_run_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 2
         if 'UsersGUI' not in globals():
-            global Users, UsersGUI, UsersMenusGUI
-            import Users, UsersGUI, UsersMenusGUI
+            global Users, UsersGUI, UsersMenusGUI, UsersDetailsGUI, UsersDetails
+            import Users, UsersGUI, UsersMenusGUI, UsersDetailsGUI, UsersDetails
             Users.users_import_func()
             UsersGUI.users_gui_import_func()
             UsersGUI.users_gui_func()
             UsersMenusGUI.users_menus_import_func()
             UsersMenusGUI.users_menus_gui_func()
+            UsersDetailsGUI.users_details_gui_import_function()
+            UsersDetailsGUI.users_details_gui_function()
+            UsersDetails.users_details_import_func()
         Users.users_thread_run_func()
 
     if radiobutton4.get_active() == True:                                                     # It switches to "Storage" tab if relevant radiobutton is clicked.

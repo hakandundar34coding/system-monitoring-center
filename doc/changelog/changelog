@@ -1,3 +1,14 @@
+system-monitoring-center (0.1.9-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * User details can be viewed on a separate window (Users tab)
+  * Child processes of a process can be viewed on Process Details window (Processes tab)
+  * Fixed a bug for viewing storage details on systems if there is no disks with label since system installation.
+  * Various bug fixes
+  * Minor GUI improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 22 Sep 2021 13:22:00 +0300
+
 system-monitoring-center (0.1.8-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
