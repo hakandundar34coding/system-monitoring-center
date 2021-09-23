@@ -1,0 +1,21 @@
+Source: system-monitoring-center
+Section: utils
+Priority: optional
+Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
+Build-Depends: debhelper (>= 10), dh-python, python3-all, python3-setuptools
+Standards-Version: 4.3.0
+Homepage: https://kod.pardus.org.tr/Hakan/system-monitoring-center
+
+Package: system-monitoring-center
+Architecture: amd64
+Depends: ${misc:Depends},
+         ${python3:Depends},
+         python3 (>=3.7),
+         python3-gi,
+         python3-opengl,
+         util-linux,
+         mesa-utils,
+         systemd,
+         bash
+Description: Provides information about system performance and usage.
+ Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.

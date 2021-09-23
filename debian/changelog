@@ -1,3 +1,15 @@
+system-monitoring-center (0.1.10-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * OS kernel version information is available on the GUI
+  * Fixed a bug for showing CPU architecture on some systems
+  * For getting CPU architecture, removed dependency of lscpu command (CPU tab)
+  * Minor improvements for CPU usage on CPU tab and System tab
+  * Various bug fixes
+  * Minor GUI improvements (added tooltips for several objects on System tab, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 23 Sep 2021 14:49:00 +0300
+
 system-monitoring-center (0.1.9-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
