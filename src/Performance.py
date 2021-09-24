@@ -3,7 +3,7 @@
 # ----------------------------------- Performance - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def performance_import_func():
 
-    global Gtk, GLib, Thread, subprocess, os, time
+    global Gtk, GLib, Thread, subprocess, os, platform, time
 
     import gi
     gi.require_version('Gtk', '3.0')
@@ -11,6 +11,7 @@ def performance_import_func():
     from threading import Thread
     import subprocess
     import os
+    import platform
     import time
 
 
@@ -494,12 +495,11 @@ def performance_foreground_initial_func():
             else:
                 cpu_l3_cache_values.append("-")
         # Get CPU architecture
-        lscpu_output = (subprocess.check_output("lscpu", shell=True).strip()).decode().split("\n")
-        for line in lscpu_output:
-            if "Architecture:" in line:
-                cpu_architecture = line.split(":")[1].strip()
-        if 'cpu_architecture' not in dir():
-            cpu_architecture = "-"
+        cpu_architecture = platform.processor()
+        if cpu_architecture == "":
+            cpu_architecture = platform.machine()
+            if cpu_architecture == "":
+                cpu_architecture = "-"
 
         # Set CPU tab label texts by using information get
         show_cpu_usage_per_core = Config.show_cpu_usage_per_core

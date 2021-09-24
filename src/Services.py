@@ -500,7 +500,25 @@ def services_define_data_unit_converter_variables_func():
 
     global data_unit_list
 
-    # Calculated values are used in order to obtain faster code run, because this function will be called very frequently. For the details of the calculation, see "Data_unit_conversion.ods." document.
+    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently.
+
+    # Unit Name    Abbreviation    bytes   
+    # byte         B               1
+    # kilobyte     KB              1024
+    # megabyte     MB              1.04858E+06
+    # gigabyte     GB              1.07374E+09
+    # terabyte     TB              1.09951E+12
+    # petabyte     PB              1.12590E+15
+    # exabyte      EB              1.15292E+18
+
+    # Unit Name    Abbreviation    bytes    
+    # bit          b               8
+    # kilobit      Kb              8192
+    # megabit      Mb              8,38861E+06
+    # gigabit      Gb              8,58993E+09
+    # terabit      Tb              8,79609E+12
+    # petabit      Pb              9,00720E+15
+    # exabit       Eb              9,22337E+18
 
     data_unit_list = [[0, 0, _tr("Auto-Byte")], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
                       [5, 1.09961E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],

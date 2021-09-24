@@ -3,7 +3,7 @@
 # ----------------------------------- System - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def system_import_func():
 
-    global Gtk, GLib, Thread, subprocess, os, time
+    global Gtk, GLib, Thread, subprocess, os, platform, time
 
     import gi
     gi.require_version('Gtk', '3.0')
@@ -11,6 +11,7 @@ def system_import_func():
     from threading import Thread
     import subprocess
     import os
+    import platform
     import time
 
 
@@ -57,8 +58,9 @@ def system_initial_func():
         current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
 
     # Get os family
-    uname_output_lines = (subprocess.check_output("uname -o; uname -r", shell=True).strip()).decode().split("\n")
-    os_family = uname_output_lines[0]
+    os_family = platform.system()
+    if os_family == "":
+        os_family = "-"
 
     # Get windowing system
     global windowing_system
@@ -157,12 +159,12 @@ def system_initial_func():
     # Set label texts to show information
     SystemGUI.label8102.set_text(f'{computer_vendor} {computer_model}')
     SystemGUI.label8105.set_text(os_family)
-    SystemGUI.label8108.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
-    SystemGUI.label8110.set_text(current_display_manager)
-    SystemGUI.label8109.set_text(windowing_system)
-    SystemGUI.label8111.set_text(computer_vendor)
-    SystemGUI.label8112.set_text(computer_model)
-    SystemGUI.label8113.set_text(computer_chassis_type)
+    SystemGUI.label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
+    SystemGUI.label8110.set_text(windowing_system)
+    SystemGUI.label8111.set_text(current_display_manager)
+    SystemGUI.label8112.set_text(computer_vendor)
+    SystemGUI.label8113.set_text(computer_model)
+    SystemGUI.label8114.set_text(computer_chassis_type)
 
 
 # ----------------------------------- System - Loop Function (updates the system data and labels on the GUI) -----------------------------------
@@ -186,9 +188,15 @@ def system_loop_func():
             debian_version = reader.read().strip()
         os_based_on = os_based_on + " (" + debian_version + ")"
 
-    # Get kernel release
-    uname_output_lines = (subprocess.check_output("uname -o; uname -r", shell=True).strip()).decode().split("\n")
-    kernel_release = uname_output_lines[1]
+    # Get kernel release (base version of kernel)
+    kernel_release = platform.release()
+    if kernel_release == "":
+        kernel_release = "-"
+
+    # Get kernel version (package version of kernel))
+    kernel_version = platform.version()
+    if kernel_version == "":
+        kernel_version = "-"
 
     with open("/proc/sys/kernel/hostname") as reader:
         host_name = reader.read().strip()
@@ -216,8 +224,7 @@ def system_loop_func():
     number_of_installed_packages = len((subprocess.check_output("dpkg --list", shell=True)).decode().split("\n"))
 
     # Get if current user has root privileges
-    id_output = (subprocess.check_output("id -u", shell=True).strip()).decode()
-    if id_output == "0":
+    if os.geteuid() == 0:
         have_root_access = _tr("(Yes)")
     else:
         have_root_access = _tr("(No)")
@@ -229,11 +236,13 @@ def system_loop_func():
     SystemGUI.label8104.set_text(f'{os_version} - {os_version_code_name}')
     SystemGUI.label8106.set_text(os_based_on)
     SystemGUI.label8107.set_text(kernel_release)
-    SystemGUI.label8114.set_text(host_name)
-    SystemGUI.label8115.set_text(f'{number_of_monitors} - {current_monitor}')
-    SystemGUI.label8116.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
-    SystemGUI.label8117.set_text(f'{number_of_installed_packages}')
-    SystemGUI.label8118.set_text(f'{current_user_name} - {have_root_access}')
+    SystemGUI.label8108.set_text(kernel_version)
+    SystemGUI.label8115.set_text(host_name)
+    SystemGUI.label8116.set_text(f'{number_of_monitors}')
+    SystemGUI.label8117.set_text(f'{current_monitor}')
+    SystemGUI.label8118.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
+    SystemGUI.label8119.set_text(f'{number_of_installed_packages}')
+    SystemGUI.label8120.set_text(f'{current_user_name} - {have_root_access}')
 
 
 # ----------------------------------- System Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
