@@ -4,20 +4,21 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 ### Features:
 * Detailed system performance monitoring features
-    * Monitoring CPU, RAM, Disk, Network, GPU, Sensors
-    * An always on top and semi-transparent floating summary window for performance monitoring.
+    * Monitoring CPU, RAM, Disk, Network, GPU, Sensor hardware information/performance/usage
+    * An always on top and semi-transparent floating summary window for performance monitoring
     * Monitoring and managing processes
     * Viewing all human users (logged in/logged out) and monitoring per-user performance data
     * Monitoring and managing storage (non-removable, removable, optical/virtual disks, etc.)
-    * Monitoring and managing startup applications (additional support for desktop environments other than XFCE and GNOME may be needed)
-    * Monitoring and managing system services
-    * Viewing environment variables and shell variables (managing variable features will be added soon)
+    * Monitoring and managing startup applications (currently supports XFCE, GNOME, CINNAMON, MATE, KDE Plasma, GNOME-CLASSIC desktop environments)
+    * Monitoring and managing system services (systemd services)
+    * Monitoring and managing persistent environment variables and shell variables
     * Monitoring general system information (hardware/software)
 * Application search and run with the following features:
     * Run in terminal
     * Run as root
     * Run with external GPU
-* Customization options per-tab
+* Functional/Visual customization options per-tab
+* Advanced search options on Sensors, Processes, Users, Storage, Startup, Services, Environment Variables tabs
 * Very low system resource usage while monitoring
 * Language support (more languages will be added if translations are provided by contributors):
     * English
@@ -27,7 +28,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
     * Entry/Mid level computer users
     * Advanced level computer users for daily usage
 * Adapts to system theme
-* Open sourced and free
+* Free and open sourced
 
 
 
@@ -62,11 +63,11 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 ![System Monitoring Center](screenshots/system_tab_dark_system_theme.png)
 
 ### Dependencies:
-* Python 3.7.3 (Programming language)
-* GTK 3.24.5-1 (GUI)
+* Python 3.7 (Programming language)
+* GTK 3.24 (GUI)
 * python3-opengl (for FPS counting)
 
 ### Status:
-<br/>Under development, not all features are coded and there are bugs to be fixed.
+<br/>Under development, some features are not coded (very rare) and there may be bugs to be fixed.
 
-Note: tested only on Pardus 19.5/21 (Kernel >= 4.19.0-17-amd64) both on physical and virtual machines.
+Note: Developed on Pardus 21 XFCE (Debian-like GNU/Linux, Kernel: 5.10.0-8-amd64).
