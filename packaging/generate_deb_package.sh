@@ -7,7 +7,7 @@ version_file="${parent_directory}/src/__version__"
 version=$(cat "$version_file")
 new_version="Version: ${version} "
 
-deb_files_directory="${current_directory}/system-monitoring-center_${version}"
+deb_files_directory="${current_directory}/system-monitoring-center_${version}_amd64"
 
 
 mkdir -p "${deb_files_directory}"
