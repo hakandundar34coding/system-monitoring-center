@@ -118,7 +118,10 @@ def services_gui_func():
 # ----------------------------------- Services - Open Right Click Menu Function (gets right clicked service name and opens right click menu) -----------------------------------
 def services_open_right_click_menu_func(event):
 
-    path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+    try:                                                                                      # Data on the "Services" tab is get about 1 second after tab switch and "try-except" is used in order to avoid errors which are encountered when mouse is right clicked before data is fully get and treeview is updated.
+        path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
     model = treeview6101.get_model()
     treeiter = model.get_iter(path)
     if treeiter is None:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-27 10:46+0300\n"
+"POT-Creation-Date: 2021-09-27 14:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Environment & Shell Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:303 src/Processes.py:482 src/Sensors.py:266
+#: src/EnvironmentVariables.py:303 src/Processes.py:483 src/Sensors.py:266
 #: src/Services.py:361 src/Startup.py:596 src/Storage.py:571 src/Users.py:457
 msgid "Total: "
 msgstr ""
@@ -88,9 +88,9 @@ msgstr ""
 
 #: src/EnvironmentVariablesGUI.py:139 src/EnvironmentVariablesInputGUI.py:177
 #: src/EnvironmentVariablesInputGUI.py:188
-#: src/EnvironmentVariablesMenusGUI.py:333 src/Processes.py:726
+#: src/EnvironmentVariablesMenusGUI.py:333 src/Processes.py:727
 #: src/ProcessesGUI.py:200 src/ProcessesMenusGUI.py:837
-#: src/ProcessesMenusGUI.py:848 src/ServicesGUI.py:154 src/SettingsGUI.py:452
+#: src/ProcessesMenusGUI.py:848 src/ServicesGUI.py:157 src/SettingsGUI.py:452
 #: src/StartupGUI.py:131 src/StartupMenusGUI.py:578 src/StartupMenusGUI.py:589
 #: src/StartupNewItemGUI.py:156 src/StorageGUI.py:176 src/UsersGUI.py:146
 msgid "Warning"
@@ -273,7 +273,7 @@ msgstr ""
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Performance.py:907 src/Processes.py:651 src/System.py:71
+#: src/Performance.py:907 src/Processes.py:652 src/System.py:71
 #: src/System.py:147
 msgid "Unknown"
 msgstr ""
@@ -286,13 +286,13 @@ msgstr ""
 msgid "partition"
 msgstr ""
 
-#: src/Performance.py:1044 src/Processes.py:758 src/ProcessesDetails.py:549
+#: src/Performance.py:1044 src/Processes.py:759 src/ProcessesDetails.py:549
 #: src/Services.py:523 src/ServicesDetails.py:254 src/Storage.py:774
 #: src/StorageDetails.py:420 src/Users.py:617 src/UsersDetails.py:298
 msgid "Auto-Byte"
 msgstr ""
 
-#: src/Performance.py:1046 src/Processes.py:760 src/ProcessesDetails.py:551
+#: src/Performance.py:1046 src/Processes.py:761 src/ProcessesDetails.py:551
 #: src/Services.py:525 src/ServicesDetails.py:256 src/Storage.py:776
 #: src/StorageDetails.py:422 src/Users.py:619 src/UsersDetails.py:300
 msgid "Auto-bit"
@@ -406,23 +406,23 @@ msgstr ""
 msgid "Dead"
 msgstr ""
 
-#: src/Processes.py:482
+#: src/Processes.py:483
 msgid " processes ("
 msgstr ""
 
-#: src/Processes.py:482
+#: src/Processes.py:483
 msgid " from this user, "
 msgstr ""
 
-#: src/Processes.py:482
+#: src/Processes.py:483
 msgid " from other users/system)"
 msgstr ""
 
-#: src/Processes.py:727
+#: src/Processes.py:728
 msgid "Current Windowing System Is not Supported"
 msgstr ""
 
-#: src/Processes.py:728
+#: src/Processes.py:729
 msgid ""
 "This function can not be used on systems which run a windowing system other "
 "than X11."
@@ -736,11 +736,11 @@ msgstr ""
 msgid "Exited"
 msgstr ""
 
-#: src/ServicesGUI.py:155
+#: src/ServicesGUI.py:158
 msgid "Select A Service"
 msgstr ""
 
-#: src/ServicesGUI.py:156
+#: src/ServicesGUI.py:159
 msgid "Please select a service and try again for opening the menu"
 msgstr ""
 
@@ -1591,7 +1591,7 @@ msgid ""
 msgstr ""
 
 #: ui/MainWindow.ui:299
-msgid "Physical-Logical Cores:"
+msgid "Cores (Physical-Logical):"
 msgstr ""
 
 #: ui/MainWindow.ui:311
@@ -1599,7 +1599,7 @@ msgid "Number of CPU packages (CPU sockets)"
 msgstr ""
 
 #: ui/MainWindow.ui:313
-msgid "Total CPUs:"
+msgid "CPU Sockets:"
 msgstr ""
 
 #: ui/MainWindow.ui:325
@@ -2066,11 +2066,11 @@ msgstr ""
 #: ui/MainWindow.ui:2272
 msgid ""
 "Current refresh rate\n"
-"may be different than maximum refresh rate of the monitor."
+"May be different than maximum refresh rate of the monitor."
 msgstr ""
 
 #: ui/MainWindow.ui:2275
-msgid "Current Refresh Rate"
+msgid "Refresh Rate:"
 msgstr ""
 
 #: ui/MainWindow.ui:2304
@@ -2080,7 +2080,7 @@ msgid ""
 msgstr ""
 
 #: ui/MainWindow.ui:2307
-msgid "Current Driver"
+msgid "Driver:"
 msgstr ""
 
 #: ui/MainWindow.ui:2353
@@ -2100,7 +2100,7 @@ msgid ""
 msgstr ""
 
 #: ui/MainWindow.ui:2370
-msgid "Current Resolution:"
+msgid "Resolution:"
 msgstr ""
 
 #: ui/MainWindow.ui:2428

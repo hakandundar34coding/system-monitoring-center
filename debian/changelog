@@ -1,3 +1,11 @@
+system-monitoring-center (0.1.12-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Fixed a bug for showing right click menu on Services tab
+  * Minor GUI improvements (CPU and GPU tabs)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 27 Sep 2021 14:27:00 +0300
+
 system-monitoring-center (0.1.11-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]

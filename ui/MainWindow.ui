@@ -296,7 +296,7 @@
                                 <property name="tooltip-text" translatable="yes">Number of physical CPU cores and number of online logical CPU cores
 (Number of physical and logical CPU cores are same if CPU has no SMT feature or if it is disabled.)</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Physical-Logical Cores:</property>
+                                <property name="label" translatable="yes">Cores (Physical-Logical):</property>
                                 <property name="ellipsize">end</property>
                               </object>
                               <packing>
@@ -310,7 +310,7 @@
                                 <property name="can-focus">False</property>
                                 <property name="tooltip-text" translatable="yes">Number of CPU packages (CPU sockets)</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Total CPUs:</property>
+                                <property name="label" translatable="yes">CPU Sockets:</property>
                                 <property name="ellipsize">end</property>
                               </object>
                               <packing>
@@ -2270,9 +2270,9 @@ FPS counting does not continue when window is minimized.</property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="tooltip-text" translatable="yes">Current refresh rate
-may be different than maximum refresh rate of the monitor.</property>
+May be different than maximum refresh rate of the monitor.</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Current Refresh Rate</property>
+                                <property name="label" translatable="yes">Refresh Rate:</property>
                                 <property name="ellipsize">end</property>
                               </object>
                               <packing>
@@ -2304,7 +2304,7 @@ may be different than maximum refresh rate of the monitor.</property>
                                 <property name="tooltip-text" translatable="yes">Current driver name and version of the selected GPU
 (May be proprietary or open sourced driver name)</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Current Driver</property>
+                                <property name="label" translatable="yes">Driver:</property>
                                 <property name="ellipsize">end</property>
                               </object>
                               <packing>
@@ -2367,7 +2367,7 @@ may be different than maximum refresh rate of the monitor.</property>
                                 <property name="tooltip-text" translatable="yes">Current resolution
 May be different than maximum resolution of the monitor.</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Current Resolution:</property>
+                                <property name="label" translatable="yes">Resolution:</property>
                                 <property name="ellipsize">end</property>
                               </object>
                               <packing>
