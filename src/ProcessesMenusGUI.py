@@ -244,6 +244,7 @@ def processes_menus_gui_func():
         processes_tab_customization_popover_disconnect_signals_func()
         processes_tab_popover_set_gui()
         processes_tab_customization_popover_connect_signals_func()
+        processes_expand_collapse_button_preferences_func()
 
     # ********************** Define object functions for Processes tab customizations popover View Tab **********************
     def on_checkbutton2101p_toggled(widget):                                                  # "Show processes of all users" checkbutton
@@ -263,6 +264,7 @@ def processes_menus_gui_func():
             Config.show_processes_as_tree = 0
             checkbutton2103p.set_sensitive(False)
         Config.config_save_func()
+        processes_expand_collapse_button_preferences_func()
 
     def on_checkbutton2103p_toggled(widget):                                                  # "Show tree lines" checkbutton
         if checkbutton2103p.get_active() == True:
@@ -797,6 +799,26 @@ def processes_add_remove_columns_function():
     if checkbutton2123p.get_active() is True:
         Config.processes_treeview_columns_shown.append(17)
     Config.config_save_func()
+
+
+# ----------------------------------- Processes - Expand/Collapse Button Preference Function (sets "User defined expand, Expand all, Collapse all" buttons as sensitive/insensitive if "show_processes_as_tree" is enabled/disabled) -----------------------------------
+def processes_expand_collapse_button_preferences_func():
+    if checkbutton2102p.get_active() == True:
+        # Set "User defined expand, Expand all, Collapse all" buttons as "sensitive" on the Processes tab if "show_processes_as_tree" option is enabled. Therefore, expanding/collapsing treeview rows functions will be available for using by the user. Also change widget tooltips for better understandability
+        ProcessesGUI.radiobutton2104.set_sensitive(True)
+        ProcessesGUI.radiobutton2105.set_sensitive(True)
+        ProcessesGUI.radiobutton2106.set_sensitive(True)
+        ProcessesGUI.radiobutton2104.set_tooltip_text(_tr("User defined expand"))
+        ProcessesGUI.radiobutton2105.set_tooltip_text(_tr("Expand all"))
+        ProcessesGUI.radiobutton2106.set_tooltip_text(_tr("Collapse all"))
+    if checkbutton2102p.get_active() == False:
+        # Set "User defined expand, Expand all, Collapse all" buttons as "insensitive" on the Processes tab if "show_processes_as_tree" option is disabled. Because expanding/collapsing treeview rows has no effects when treeview items are listed as "list". Also change widget tooltips for better understandability
+        ProcessesGUI.radiobutton2104.set_sensitive(False)
+        ProcessesGUI.radiobutton2105.set_sensitive(False)
+        ProcessesGUI.radiobutton2106.set_sensitive(False)
+        ProcessesGUI.radiobutton2104.set_tooltip_text(_tr("User defined expand\n(Usable if processes are listed as tree)"))
+        ProcessesGUI.radiobutton2105.set_tooltip_text(_tr("Expand all\n(Usable if processes are listed as tree)"))
+        ProcessesGUI.radiobutton2106.set_tooltip_text(_tr("Collapse all\n(Usable if processes are listed as tree)"))
 
 
 # ----------------------------------- Processes - Processes Nice Error Dialog Function (shows an error dialog when nice is tried to increased (nice number decreased) for a process that owned by the user or nice is tried to increased/decreased for other users/system processes) -----------------------------------

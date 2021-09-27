@@ -3,13 +3,12 @@
 # ----------------------------------- Services - Services GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def services_gui_import_func():
 
-    global Gtk, Gdk, os, subprocess
+    global Gtk, Gdk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Gdk
     import os
-    import subprocess
 
 
     global MainGUI, Services, ServicesMenusGUI, ServicesDetails, ServicesDetailsGUI
@@ -37,7 +36,7 @@ def services_gui_import_func():
 def services_gui_func():
 
     # Services tab GUI objects
-    global treeview6101, searchentry6101, button6101, button6102, button6103, button6104
+    global treeview6101, searchentry6101, button6101, button6102, button6103
     global radiobutton6101, radiobutton6102, radiobutton6103
     global label6101
 
@@ -48,7 +47,6 @@ def services_gui_func():
     button6101 = MainGUI.builder.get_object('button6101')
     button6102 = MainGUI.builder.get_object('button6102')
     button6103 = MainGUI.builder.get_object('button6103')
-    button6104 = MainGUI.builder.get_object('button6104')
     radiobutton6101 = MainGUI.builder.get_object('radiobutton6101')
     radiobutton6102 = MainGUI.builder.get_object('radiobutton6102')
     radiobutton6103 = MainGUI.builder.get_object('radiobutton6103')
@@ -56,24 +54,15 @@ def services_gui_func():
 
 
     # Services tab GUI functions
+    def on_treeview6101_button_press_event(widget, event):
+        if event.button == 3:                                                                 # Open Services tab right click menu if mouse is right clicked on the treeview (and on any service, otherwise menu will not be shown) and the mouse button is pressed.
+            services_open_right_click_menu_func(event)
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open Service Details window if double click is performed.
+            services_open_service_details_window_func(event)
+
     def on_treeview6101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
             Services.services_treeview_column_order_width_row_sorting_func()
-        if event.button == 3:                                                                 # Open Services tab right click menu if mouse is right clicked on the treeview (and on any service, otherwise menu will not be shown) and the mouse button is released.
-            services_open_right_click_menu_func(event)
-
-    def on_treeview6101_button_press_event(widget, event):                                    # Treeview button press event which will be used for detecting mouse double clicks
-        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
-            model, treeiter = treeview6101.get_selection().get_selected()
-            if treeiter is None:
-                services_no_service_selected_dialog()
-            if treeiter is not None:
-                global selected_service_name
-                selected_service_name = Services.service_list[Services.services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the process.
-                # Open Service Details window
-                ServicesDetailsGUI.services_details_gui_function()
-                ServicesDetailsGUI.window6101w.show()
-                ServicesDetails.services_details_foreground_thread_run_func()
 
     def on_searchentry6101_changed(widget):
         radiobutton6101.set_active(True)
@@ -102,20 +91,15 @@ def services_gui_func():
             Services.services_treeview_filter_show_all_func()
             Services.services_treeview_filter_services_not_loaded_only()
 
-    def on_button6104_button_release_event(widget, event):                                    # "Open Service Right Click Menu" button
-        if event.button == 1:                                                                 # Open Services tab right click menu if mouse is right clicked on the treeview (and on any service, otherwise menu will not be shown) and the mouse button is released.
-            services_open_right_click_menu_func(event)
-
 
 
     # Services tab GUI functions - connect
-    treeview6101.connect("button-release-event", on_treeview6101_button_release_event)
     treeview6101.connect("button-press-event", on_treeview6101_button_press_event)
+    treeview6101.connect("button-release-event", on_treeview6101_button_release_event)
     searchentry6101.connect("changed", on_searchentry6101_changed)
     button6101.connect("clicked", on_button6101_clicked)
     button6102.connect("clicked", on_button6102_clicked)
     button6103.connect("clicked", on_button6103_clicked)
-    button6104.connect("button-release-event", on_button6104_button_release_event)
     radiobutton6101.connect("toggled", on_radiobutton6101_toggled)
     radiobutton6102.connect("toggled", on_radiobutton6102_toggled)
     radiobutton6103.connect("toggled", on_radiobutton6103_toggled)
@@ -134,14 +118,34 @@ def services_gui_func():
 # ----------------------------------- Services - Open Right Click Menu Function (gets right clicked service name and opens right click menu) -----------------------------------
 def services_open_right_click_menu_func(event):
 
-    model, treeiter = treeview6101.get_selection().get_selected()
+    path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+    model = treeview6101.get_model()
+    treeiter = model.get_iter(path)
     if treeiter is None:
         services_no_service_selected_dialog()
     if treeiter is not None:
         global selected_service_name
-        selected_service_name = Services.service_list[Services.services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the process.
+        selected_service_name = Services.service_list[Services.services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
         ServicesMenusGUI.menu6101m.popup(None, None, None, None, event.button, event.time)
         ServicesMenusGUI.services_set_checkmenuitem_func()
+
+
+# ----------------------------------- Services - Open Service Details Window Function (gets double clicked service nam and opens Service Details window) -----------------------------------
+def services_open_service_details_window_func(event):
+
+    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
+        path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+        model = treeview6101.get_model()
+        treeiter = model.get_iter(path)
+        if treeiter is None:
+            services_no_service_selected_dialog()
+        if treeiter is not None:
+            global selected_service_name
+            selected_service_name = Services.service_list[Services.services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
+            # Open Service Details window
+            ServicesDetailsGUI.services_details_gui_function()
+            ServicesDetailsGUI.window6101w.show()
+            ServicesDetails.services_details_foreground_thread_run_func()
 
 
 # ----------------------------------- Services - No Service Selected Dialog Function (shows a dialog when Open Services Right Click Menu is clicked without selecting a service) -----------------------------------

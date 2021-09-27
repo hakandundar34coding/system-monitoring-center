@@ -35,7 +35,7 @@ def storage_gui_import_func():
 # ----------------------------------- Storage - Storage GUI Function (the code of this module in order to avoid running them during module import and defines "Storage" tab GUI objects and functions/signals) -----------------------------------
 def storage_gui_func():
 
-    global treeview4101, searchentry4101, button4101, button4103, button4104
+    global treeview4101, searchentry4101, button4101, button4103
     global radiobutton4101, radiobutton4102, radiobutton4103, radiobutton4104, radiobutton4105, radiobutton4106, radiobutton4107
     global label4101
 
@@ -44,7 +44,6 @@ def storage_gui_func():
     searchentry4101 = MainGUI.builder.get_object('searchentry4101')
     button4101 = MainGUI.builder.get_object('button4101')
     button4103 = MainGUI.builder.get_object('button4103')
-    button4104 = MainGUI.builder.get_object('button4104')
     radiobutton4101 = MainGUI.builder.get_object('radiobutton4101')
     radiobutton4102 = MainGUI.builder.get_object('radiobutton4102')
     radiobutton4103 = MainGUI.builder.get_object('radiobutton4103')
@@ -56,24 +55,15 @@ def storage_gui_func():
 
 
     # Storage tab GUI functions
-    def on_treeview4101_button_release_event(widget, event):                                  # Mouse button release event (on the treeview)
+    def on_treeview4101_button_press_event(widget, event):                                    # Mouse button press event (on the treeview)
+        if event.button == 3:                                                                 # Open Storage tab right click menu if mouse is right clicked on the treeview (and on any disk, otherwise menu will not be shown) and the mouse button is pressed.
+            storage_open_right_click_menu_func(event)
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open Storage Details window if double click is performed.
+            storage_open_storage_details_window_func(event)
+
+    def on_treeview4101_button_release_event(widget, event):                                  # Mouse button press event (on the treeview)
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
             Storage.storage_treeview_column_order_width_row_sorting_func()
-        if event.button == 3:                                                                 # Open Storage tab right click menu if mouse is right clicked on the treeview (and on any disk, otherwise menu will not be shown) and the mouse button is released.
-            storage_open_right_click_menu_func(event)
-
-    def on_treeview4101_button_press_event(widget, event):                                    # Treeview button press event which will be used for detecting mouse double clicks
-        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
-            model, treeiter = treeview4101.get_selection().get_selected()
-            if treeiter is None:
-                storage_no_disk_selected_dialog()
-            if treeiter is not None:
-                global selected_storage_kernel_name
-                selected_storage_kernel_name = Storage.disk_list[Storage.storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
-                # Open Storage Details window
-                StorageDetailsGUI.storage_details_gui_function()
-                StorageDetailsGUI.window4101w.show()
-                StorageDetails.storage_details_foreground_thread_run_func()
 
     def on_searchentry4101_changed(widget):                                                   # Search entry change event (called when text in the search entry is changed)
         radiobutton4101.set_active(True)
@@ -121,18 +111,14 @@ def storage_gui_func():
     def on_button4103_clicked(widget):                                                        # "Storage Tab Search Customizations" button
         StorageMenusGUI.popover4101p2.popup()
 
-    def on_button4104_button_release_event(widget, event):                                    # "Open Storage Right Click Menu" button
-        if event.button == 1:                                                                 # Open Storage tab right click menu if "Open Storage Right Click Menu" button is left clicked and the mouse button is released.
-            storage_open_right_click_menu_func(event)
 
 
     # ********************** Connect signals to GUI objects for Storage tab right click menu **********************
-    treeview4101.connect("button-release-event", on_treeview4101_button_release_event)
     treeview4101.connect("button-press-event", on_treeview4101_button_press_event)
+    treeview4101.connect("button-release-event", on_treeview4101_button_release_event)
     searchentry4101.connect("changed", on_searchentry4101_changed)
     button4101.connect("clicked", on_button4101_clicked)
     button4103.connect("clicked", on_button4103_clicked)
-    button4104.connect("button-release-event", on_button4104_button_release_event)
     radiobutton4101.connect("toggled", on_radiobutton4101_toggled)
     radiobutton4102.connect("toggled", on_radiobutton4102_toggled)
     radiobutton4103.connect("toggled", on_radiobutton4103_toggled)
@@ -155,13 +141,33 @@ def storage_gui_func():
 # ----------------------------------- Storage - Open Right Click Menu Function (gets right clicked storage kernel name and opens right click menu) -----------------------------------
 def storage_open_right_click_menu_func(event):
 
-    model, treeiter = treeview4101.get_selection().get_selected()
+    path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
+    model = treeview4101.get_model()
+    treeiter = model.get_iter(path)
     if treeiter is None:
         storage_no_disk_selected_dialog()
     if treeiter is not None:
         global selected_storage_kernel_name
         selected_storage_kernel_name = Storage.disk_list[Storage.storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
         StorageMenusGUI.menu4101m.popup(None, None, None, None, event.button, event.time)
+
+
+# ----------------------------------- Storage - Open Storage Details Window Function (gets double clicked storage kernel name and opens Storage Details window) -----------------------------------
+def storage_open_storage_details_window_func(event):
+
+    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
+        path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
+        model = treeview4101.get_model()
+        treeiter = model.get_iter(path)
+        if treeiter is None:
+            storage_no_disk_selected_dialog()
+        if treeiter is not None:
+            global selected_storage_kernel_name
+            selected_storage_kernel_name = Storage.disk_list[Storage.storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
+            # Open Storage Details window
+            StorageDetailsGUI.storage_details_gui_function()
+            StorageDetailsGUI.window4101w.show()
+            StorageDetails.storage_details_foreground_thread_run_func()
 
 
 # ----------------------------------- Storage - No Disk Selected Dialog Function (shows a dialog when Open Storage Right Click Menu is clicked without selecting a storage/disk) -----------------------------------

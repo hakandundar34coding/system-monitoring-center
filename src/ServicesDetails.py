@@ -51,8 +51,8 @@ def services_details_initial_func():
         if "btime " in line:
             system_boot_time = int(line.split()[1].strip())
 
-    service_state_list = [_tr("enabled"), _tr("disabled"), _tr("masked"), _tr("unmasked"), _tr("static"), _tr("generated"), _tr("enabled-runtime"), _tr("indirect"), _tr("active"), _tr("inactive"), _tr("loaded"), _tr("dead"), _tr("exited"), _tr("running")]    # This list is defined in order to make English service state names to be translated into other languages.
-    services_other_text_list = [_tr("yes"), _tr("no")]                                        # This list is defined in order to make English service information to be translated into other languages.
+    service_state_list = [_tr("Enabled"), _tr("Disabled"), _tr("Masked"), _tr("Unmasked"), _tr("Static"), _tr("Generated"), _tr("Enabled-runtime"), _tr("Indirect"), _tr("Active"), _tr("Inactive"), _tr("Loaded"), _tr("Dead"), _tr("Exited"), _tr("Running")]    # This list is defined in order to make English service state names to be translated into other languages. String names are capitalized here as they are capitalized in the code by using ".capitalize()" in order to use translated strings.
+    services_other_text_list = [_tr("Yes"), _tr("No")]                                        # This list is defined in order to make English service information to be translated into other languages.
 
 
 # ----------------------------------- Services - Services Details Foreground Function (updates the service data on the "Services Details" window) -----------------------------------
@@ -89,7 +89,7 @@ def services_details_foreground_func():
 
     for line in systemctl_show_lines:
         if "Type=" in line:
-            selected_service_type = line.split("=")[1]
+            selected_service_type = _tr(line.split("=")[1].capitalize())
             continue                                                                          # Skip to next loop if searched line ("Type=") is found in order to avoid redundant line search.
         if "MainPID=" in line:
             selected_service_main_pid = line.split("=")[1]
@@ -153,31 +153,31 @@ def services_details_foreground_func():
             selected_service_description = line.split("=")[1]
             continue
         if "ActiveState=" in line:
-            selected_service_active_state = line.split("=")[1]
+            selected_service_active_state = _tr(line.split("=")[1].capitalize())              # "_tr([value])" is used for using translated string.
             continue
         if "LoadState=" in line:
-            selected_service_load_state = line.split("=")[1]
+            selected_service_load_state = _tr(line.split("=")[1].capitalize())                # "_tr([value])" is used for using translated string.
             continue
         if "SubState=" in line:
-            selected_service_sub_state = line.split("=")[1]
+            selected_service_sub_state = _tr(line.split("=")[1].capitalize())                 # "_tr([value])" is used for using translated string.
             continue
         if "FragmentPath=" in line:
             selected_service_fragment_path = line.split("=")[1]
             continue
         if "UnitFileState=" in line:
-            selected_service_unit_file_state = line.split("=")[1]
+            selected_service_unit_file_state = _tr(line.split("=")[1])                        # "_tr([value])" is used for using translated string.
             continue
         if "UnitFilePreset=" in line:
-            selected_service_unit_file_preset = line.split("=")[1]
+            selected_service_unit_file_preset = _tr(line.split("=")[1])                       # "_tr([value])" is used for using translated string.
             continue
         if "CanStart=" in line:
-            selected_service_can_start = line.split("=")[1]
+            selected_service_can_start = _tr(line.split("=")[1].capitalize())                 # "_tr([value])" is used for using translated string.
             continue
         if "CanStop=" in line:
-            selected_service_can_stop = line.split("=")[1]
+            selected_service_can_stop = _tr(line.split("=")[1].capitalize())                  # "_tr([value])" is used for using translated string.
             continue
         if "CanReload=" in line:
-            selected_service_can_reload = line.split("=")[1]
+            selected_service_can_reload = _tr(line.split("=")[1].capitalize())                # "_tr([value])" is used for using translated string.
             continue
 
 

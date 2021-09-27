@@ -218,7 +218,7 @@ def users_loop_func():
                 user_account_image = GdkPixbuf.Pixbuf.new_from_file_at_size(user_image_path, 24, 24)
             if os.path.isfile(user_image_path) == False:
                 user_account_image = user_image_unset_pixbuf
-            users_data_row = [True, user_account_image, username]                              # User data row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.
+            users_data_row = [True, user_account_image, username]                             # User data row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.
             # Get user full name
             if 1 in users_treeview_columns_shown:
                 user_full_name = line_split[4]
@@ -252,16 +252,22 @@ def users_loop_func():
             if 9 in users_treeview_columns_shown:
                 for i, line in enumerate(lslogins_command_lines):                             # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
                     if line.split("=")[1].strip('"') == username:
-                        user_last_log_in_time = " ".join(lslogins_command_lines[i+1].split("=")[1].strip('"').split())    # Get "user last log-in time" if user name matches.
+                        user_last_log_in_time_split = lslogins_command_lines[i+1].split("=")[1].strip('"').split()    # For using translated strings (day and month names)
+                        for i, string in enumerate(user_last_log_in_time_split):
+                            user_last_log_in_time_split[i] = _tr(string)
+                        user_last_log_in_time = " ".join(user_last_log_in_time_split)
                         break
                 if user_last_log_in_time == "":                                               # Use "-" as "user_last_log_in_time" value if it could not be detected.
                     user_last_log_in_time = "-"
                 users_data_row.append(user_last_log_in_time)
             # Get user last failed log in time
             if 10 in users_treeview_columns_shown:
-                for i, line in enumerate(lslogins_command_lines):
-                    if line.split("=")[1].strip('"') == username:                             # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
-                        user_last_failed_log_in_time = " ".join(lslogins_command_lines[i+2].split("=")[1].strip('"').split())    # Get "user last failed log-in time" if user name matches.
+                for i, line in enumerate(lslogins_command_lines):                             # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
+                    if line.split("=")[1].strip('"') == username:
+                        user_last_failed_log_in_time_split = lslogins_command_lines[i+2].split("=")[1].strip('"').split()    # For using translated strings (day and month names)
+                        for i, string in enumerate(user_last_failed_log_in_time_split):
+                            user_last_failed_log_in_time_split[i] = _tr(string)
+                        user_last_failed_log_in_time = " ".join(user_last_failed_log_in_time_split)
                         break
                 if user_last_failed_log_in_time == "":                                        # Use "-" as "user_last_failed_log_in_time" value if it could not be detected.
                     user_last_failed_log_in_time = "-"

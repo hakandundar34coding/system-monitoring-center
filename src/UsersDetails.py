@@ -183,7 +183,10 @@ def users_details_foreground_func():
     # Get user last log in time
     for i, line in enumerate(lslogins_command_lines):                                         # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
         if line.split("=")[1].strip('"') == selected_user_username:
-            selected_user_last_log_in_time = " ".join(lslogins_command_lines[i+1].split("=")[1].strip('"').split())    # Get "user last log-in time" if user name matches.
+            selected_user_last_log_in_time_split = lslogins_command_lines[i+1].split("=")[1].strip('"').split()    # For using translated strings (day and month names)
+            for i, string in enumerate(selected_user_last_log_in_time_split):
+                selected_user_last_log_in_time_split[i] = _tr(string)
+            selected_user_last_log_in_time = " ".join(selected_user_last_log_in_time_split)
             break
     if selected_user_last_log_in_time == "":
         selected_user_last_log_in_time = "-"
@@ -191,7 +194,10 @@ def users_details_foreground_func():
     # Get user last failed log in time
     for i, line in enumerate(lslogins_command_lines):
         if line.split("=")[1].strip('"') == selected_user_username:                           # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
-            selected_user_last_failed_log_in_time = " ".join(lslogins_command_lines[i+2].split("=")[1].strip('"').split())    # Get "user last failed log-in time" if user name matches.
+            selected_user_last_failed_log_in_time_split = lslogins_command_lines[i+2].split("=")[1].strip('"').split()    # For using translated strings (day and month names)
+            for i, string in enumerate(selected_user_last_failed_log_in_time_split):
+                selected_user_last_failed_log_in_time_split[i] = _tr(string)
+            selected_user_last_failed_log_in_time = " ".join(selected_user_last_failed_log_in_time_split)
             break
     if selected_user_last_failed_log_in_time == "":
         selected_user_last_failed_log_in_time = "-"
@@ -237,7 +243,10 @@ def users_details_foreground_func():
     UsersDetailsGUI.label3109w.set_text(selected_user_terminal)
     UsersDetailsGUI.label3110w.set_text(selected_user_last_log_in_time)
     UsersDetailsGUI.label3111w.set_text(selected_user_last_failed_log_in_time)
-    UsersDetailsGUI.label3112w.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
+    if selected_user_process_start_time != 0:
+        UsersDetailsGUI.label3112w.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
+    if selected_user_process_start_time == 0:
+        UsersDetailsGUI.label3112w.set_text("-")
     UsersDetailsGUI.label3113w.set_text(f'{selected_user_cpu_percent:.{users_cpu_usage_percent_precision}f} %')
     UsersDetailsGUI.label3114w.set_text(f'{users_data_unit_converter_func(selected_user_ram_percent, users_ram_swap_data_unit, users_ram_swap_data_precision)}')
 

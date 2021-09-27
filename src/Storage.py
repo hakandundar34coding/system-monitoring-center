@@ -152,22 +152,22 @@ def storage_loop_func():
         # Get disk symbol which also will be used for detecting disk type (will be used for disk filtering)
         for line in sys_class_block_disk_uevent_lines:
             if "DEVTYPE" in line:
-                disk_type = line.split("=")[1]
+                disk_type = _tr(line.split("=")[1].capitalize())
                 break
         disk_symbol = storage_image_ssd_hdd                                                   # Initial value of "disk_symbol" variable. This value will be used if disk type could not be detected. The same value is also used for non-USB and non-optical drives.
-        if disk_type == "disk":
+        if disk_type == _tr("Disk"):
             if "loop" in disk or "sr" in disk:                                                # Optical symbol is used as disk symbol if disk type is "disk (not partition)" and disk is a virtual disk or physical optical disk.
                 disk_symbol = storage_image_optical
             elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:
                 disk_symbol = storage_image_removable
             else:
                 disk_symbol = storage_image_ssd_hdd
-        if disk_type == "partition":                                                          # Same symbol image is used for all disk partitions.
+        if disk_type == _tr("Partition"):                                                     # Same symbol image is used for all disk partitions.
             disk_symbol = storage_image_partition
         disk_type_list.append(disk_symbol)                                                    # Append disk type
         # Get disk parent name
         disk_parent_name = "-"                                                                # Initial value of "disk_parent_name" variable. This value will be used if disk has no parent disk or disk parent name could not be detected.
-        if disk_type == "partition":
+        if disk_type == _tr("Partition"):
             for check_disk_dir in disk_list:
                 if os.path.isdir("/sys/class/block/" + check_disk_dir + "/" + disk) == True:
                     disk_parent_name = check_disk_dir
@@ -262,7 +262,7 @@ def storage_loop_func():
         # Get disk vendor and model
         if 10 in storage_treeview_columns_shown:
             disk_vendor_model = "-"                                                           # Initial value of "disk_vendor_model" variable. This value will be used if disk vendor and model could not be detected. The same value is also used for disk partitions.
-            if disk_type == "disk":
+            if disk_type == _tr("Disk"):
                 try:
                     with open("/sys/class/block/" + disk + "/device/vendor") as reader:
                         disk_vendor = reader.read().strip()
@@ -306,7 +306,7 @@ def storage_loop_func():
         # Get disk revision
         if 15 in storage_treeview_columns_shown:
             disk_revision = "-"                                                               # Initial value of "disk_revision" variable. This value will be used if disk revision could not be detected. Disk partitions do not have disk revision.
-            if disk_type == "disk":
+            if disk_type == _tr("Disk"):
                 try:
                     with open("/sys/class/block/" + disk + "/device/rev") as reader:
                         disk_revision = reader.read().strip()
@@ -316,7 +316,7 @@ def storage_loop_func():
         # Get disk serial number
         if 16 in storage_treeview_columns_shown:
             disk_serial_number = "-"                                                          # Initial value of "disk_serial_number" variable. This value will be used if disk serial number could not be detected.
-            if disk_type == "disk":
+            if disk_type == _tr("Disk"):
                 disk_id_list = os.listdir("/dev/disk/by-id/")
                 for id in disk_id_list:
                     if os.path.realpath("/dev/disk/by-id/" + id).split("/")[-1] == disk and ("/dev/disk/by-id/" + id).startswith("wwn-") == False:
@@ -327,7 +327,7 @@ def storage_loop_func():
         # Get disk mode (rw, ro, etc.)
         if 17 in storage_treeview_columns_shown:
             disk_mode = "-"                                                                   # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
-            if disk_type == "disk":
+            if disk_type == _tr("Disk"):
                 for line in proc_mounts_lines:
                     line_split = line.split()
                     if line_split[0].split("/")[-1] == disk:
@@ -336,7 +336,7 @@ def storage_loop_func():
         # Get disk removable information
         if 18 in storage_treeview_columns_shown:
             disk_removable = "-"                                                              # Initial value of "disk_removable" variable. This value will be used if disk removable information could not be detected (if disk is a partition).
-            if disk_type == "disk":
+            if disk_type == _tr("Disk"):
                 with open("/sys/class/block/" + disk + "/removable") as reader:
                     disk_removable_as_number = reader.read().strip()
                 if disk_removable_as_number == "1":
@@ -347,7 +347,7 @@ def storage_loop_func():
         # Get disk rotational information
         if 19 in storage_treeview_columns_shown:
             disk_rotational = "-"                                                             # Initial value of "disk_rotational" variable. This value will be used if disk rotational information could not be detected (if disk is a partition).
-            if disk_type == "disk":
+            if disk_type == _tr("Disk"):
                 with open("/sys/class/block/" + disk + "/queue/rotational") as reader:
                     disk_rotational_as_number = reader.read().strip()
                 if disk_rotational_as_number == "1":
@@ -358,7 +358,7 @@ def storage_loop_func():
         # Get disk read-only information
         if 20 in storage_treeview_columns_shown:
             disk_read_only = "-"                                                              # Initial value of "disk_read_only" variable. This value will be used if disk read-only information could not be detected (if disk is a partition).
-            if disk_type == "disk":
+            if disk_type == _tr("Disk"):
                 with open("/sys/class/block/" + disk + "/ro") as reader:
                     disk_read_only_as_number = reader.read().strip()
                 if disk_read_only_as_number == "1":

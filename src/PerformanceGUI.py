@@ -253,7 +253,6 @@ def performance_gui_func():
     # Sensors tab GUI functions - connect
     global treeview1601_handler_id
     searchentry1601.connect("changed", on_searchentry1601_changed)
-#     button1601.connect("clicked", on_button1601_clicked)
     button1603.connect("clicked", on_button1603_clicked)
     radiobutton1601.connect("toggled", on_radiobutton1601_toggled)
     radiobutton1602.connect("toggled", on_radiobutton1602_toggled)

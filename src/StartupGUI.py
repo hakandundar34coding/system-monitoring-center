@@ -35,7 +35,7 @@ def startup_gui_import_func():
 # ----------------------------------- Startup - Startup GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab GUI objects and functions/signals) -----------------------------------
 def startup_gui_func():
 
-    global treeview5101, searchentry5101, button5101, button5102, button5104
+    global treeview5101, searchentry5101, button5101, button5102
     global radiobutton5101, radiobutton5102, radiobutton5103
     global label5101
 
@@ -44,7 +44,6 @@ def startup_gui_func():
     searchentry5101 = MainGUI.builder.get_object('searchentry5101')
     button5101 = MainGUI.builder.get_object('button5101')
     button5102 = MainGUI.builder.get_object('button5102')
-    button5104 = MainGUI.builder.get_object('button5104')
     radiobutton5101 = MainGUI.builder.get_object('radiobutton5101')
     radiobutton5102 = MainGUI.builder.get_object('radiobutton5102')
     radiobutton5103 = MainGUI.builder.get_object('radiobutton5103')
@@ -52,11 +51,13 @@ def startup_gui_func():
 
 
     # Startup tab GUI functions
-    def on_treeview5101_button_release_event(widget, event):                                  # Mouse button release event (on the treeview)
+    def on_treeview5101_button_press_event(widget, event):                                    # Mouse button press event (on the treeview)
+        if event.button == 3:                                                                 # Open Startup tab right click menu if mouse is right clicked on the treeview (and on any disk, otherwise menu will not be shown) and the mouse button is pressed.
+            startup_open_right_click_menu_func(event)
+
+    def on_treeview5101_button_release_event(widget, event):                                  # Mouse button press event (on the treeview)
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
             Startup.startup_treeview_column_order_width_row_sorting_func()
-        if event.button == 3:                                                                 # Open Startup tab right click menu if mouse is right clicked on the treeview (and on any disk, otherwise menu will not be shown) and the mouse button is released.
-            startup_open_right_click_menu_func(event)
 
     def on_searchentry5101_changed(widget):
         radiobutton5101.set_active(True)
@@ -82,17 +83,14 @@ def startup_gui_func():
     def on_button5102_clicked(widget):                                                        # "Startup Tab Search Customizations" button
         StartupMenusGUI.popover5101p2.popup()
 
-    def on_button5104_button_release_event(widget, event):
-        if event.button == 1:                                                                 # Open Startup tab right click menu if "Open Startup Item Right Click Menu" button is left clicked and the mouse button is released.
-            startup_open_right_click_menu_func(event)
 
 
     # Startup tab GUI functions - connect
+    treeview5101.connect("button-press-event", on_treeview5101_button_press_event)
     treeview5101.connect("button-release-event", on_treeview5101_button_release_event)
     searchentry5101.connect("changed", on_searchentry5101_changed)
     button5101.connect("clicked", on_button5101_clicked)
     button5102.connect("clicked", on_button5102_clicked)
-    button5104.connect("button-release-event", on_button5104_button_release_event)
     radiobutton5101.connect("toggled", on_radiobutton5101_toggled)
     radiobutton5102.connect("toggled", on_radiobutton5102_toggled)
     radiobutton5103.connect("toggled", on_radiobutton5103_toggled)
@@ -112,7 +110,9 @@ def startup_gui_func():
 def startup_open_right_click_menu_func(event):
 
     global model, treeiter
-    model, treeiter = treeview5101.get_selection().get_selected()
+    path, _, _, _ = treeview5101.get_path_at_pos(int(event.x), int(event.y))
+    model = treeview5101.get_model()
+    treeiter = model.get_iter(path)
     if treeiter is None:
         startup_no_startup_item_selected_dialog()
     if treeiter is not None:

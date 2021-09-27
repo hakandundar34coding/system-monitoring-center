@@ -36,7 +36,7 @@ def processes_gui_import_func():
 def processes_gui_func():
 
     # Processes tab GUI objects
-    global treeview2101, searchentry2101, button2101, button2102, button2104, button2105
+    global treeview2101, searchentry2101, button2101, button2102, button2104
     global radiobutton2101, radiobutton2102, radiobutton2103, radiobutton2104, radiobutton2105, radiobutton2106
     global label2101
 
@@ -47,7 +47,6 @@ def processes_gui_func():
     button2101 = MainGUI.builder.get_object('button2101')
     button2102 = MainGUI.builder.get_object('button2102')
     button2104 = MainGUI.builder.get_object('button2104')
-    button2105 = MainGUI.builder.get_object('button2105')
     radiobutton2101 = MainGUI.builder.get_object('radiobutton2101')
     radiobutton2102 = MainGUI.builder.get_object('radiobutton2102')
     radiobutton2103 = MainGUI.builder.get_object('radiobutton2103')
@@ -58,28 +57,15 @@ def processes_gui_func():
 
 
     # Processes tab GUI functions
+    def on_treeview2101_button_press_event(widget, event):
+        if event.button == 3:                                                                 # Open Processes tab right click menu if mouse is right clicked on the treeview (and on any process, otherwise menu will not be shown) and the mouse button is pressed.
+            processes_open_right_click_menu_func(event)
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open Process Details window if double click is performed.
+            processes_open_process_details_window_func(event)
+
     def on_treeview2101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
             Processes.processes_treeview_column_order_width_row_sorting_func()
-        if event.button == 3:                                                                 # Open Processes tab right click menu if mouse is right clicked on the treeview (and on any process, otherwise menu will not be shown) and the mouse button is released.
-            processes_open_right_click_menu_func(event)
-
-    def on_treeview2101_button_press_event(widget, event):                                    # Treeview button press event which will be used for detecting mouse double clicks
-        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
-            model, treeiter = treeview2101.get_selection().get_selected()
-            if treeiter is None:
-                processes_no_process_selected_dialog()
-            if treeiter is not None:
-                global selected_process_pid
-                try:
-                    selected_process_pid = Processes.pid_list[Processes.processes_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "processes_data_rows" list to use it getting pid of the process.
-                except ValueError:                                                            # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
-                    print("not in list error")
-                    return
-                # Open Process Details window
-                ProcessesDetailsGUI.processes_details_gui_function()
-                ProcessesDetailsGUI.window2101w.show()
-                ProcessesDetails.process_details_foreground_thread_run_func()
 
     def on_searchentry2101_changed(widget):
         radiobutton2101.set_active(True)
@@ -94,10 +80,6 @@ def processes_gui_func():
 
     def on_button2104_clicked(widget):                                                        # "Processes Tab Search Customizations" button
         ProcessesMenusGUI.popover2101p2.popup()
-
-    def on_button2105_button_release_event(widget, event):                                    # "Open Process Right Click Menu" button
-        if event.button == 1:
-            processes_open_right_click_menu_func(event)
 
     def on_radiobutton2101_toggled(widget):                                                   # "Show all processes" radiobutton
         if radiobutton2101.get_active() == True:
@@ -130,13 +112,12 @@ def processes_gui_func():
 
 
     # Processes tab GUI functions - connect
-    treeview2101.connect("button-release-event", on_treeview2101_button_release_event)
     treeview2101.connect("button-press-event", on_treeview2101_button_press_event)
+    treeview2101.connect("button-release-event", on_treeview2101_button_release_event)
     searchentry2101.connect("changed", on_searchentry2101_changed)
     button2101.connect("clicked", on_button2101_clicked)
     button2102.connect("clicked", on_button2102_clicked)
     button2104.connect("clicked", on_button2104_clicked)
-    button2105.connect("button-release-event", on_button2105_button_release_event)
     radiobutton2101.connect("toggled", on_radiobutton2101_toggled)
     radiobutton2102.connect("toggled", on_radiobutton2102_toggled)
     radiobutton2103.connect("toggled", on_radiobutton2103_toggled)
@@ -154,10 +135,31 @@ def processes_gui_func():
     treeview2101.set_tooltip_column(2)
 
 
+    # Set "User defined expand, Expand all, Collapse all" buttons as "insensitive" on the Processes tab if "show_processes_as_tree" option is disabled. Because expanding/collapsing treeview rows has no effects when treeview items are listed as "list". Also change widget tooltips for better understandability
+    if Config.show_processes_as_tree == 1:
+        radiobutton2104.set_sensitive(True)
+        radiobutton2105.set_sensitive(True)
+        radiobutton2106.set_sensitive(True)
+        radiobutton2104.set_tooltip_text(_tr("User defined expand"))
+        radiobutton2105.set_tooltip_text(_tr("Expand all"))
+        radiobutton2106.set_tooltip_text(_tr("Collapse all"))
+
+    # Set "User defined expand, Expand all, Collapse all" buttons as "sensitive" on the Processes tab if "show_processes_as_tree" option is enabled. Therefore, expanding/collapsing treeview rows functions will be available for using by the user. Also change widget tooltips for better understandability
+    if Config.show_processes_as_tree == 0:
+        radiobutton2104.set_sensitive(False)
+        radiobutton2105.set_sensitive(False)
+        radiobutton2106.set_sensitive(False)
+        radiobutton2104.set_tooltip_text(_tr("User defined expand\n(Usable if processes are listed as tree)"))
+        radiobutton2105.set_tooltip_text(_tr("Expand all\n(Usable if processes are listed as tree)"))
+        radiobutton2106.set_tooltip_text(_tr("Collapse all\n(Usable if processes are listed as tree)"))
+
+
 # ----------------------------------- Processes - Open Right Click Menu Function (gets right clicked process PID and opens right click menu) -----------------------------------
 def processes_open_right_click_menu_func(event):
 
-    model, treeiter = treeview2101.get_selection().get_selected()
+    path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
+    model = treeview2101.get_model()
+    treeiter = model.get_iter(path)
     if treeiter is None:
         processes_no_process_selected_dialog()
     if treeiter is not None:
@@ -169,6 +171,27 @@ def processes_open_right_click_menu_func(event):
             return
         ProcessesMenusGUI.menu2101m.popup(None, None, None, None, event.button, event.time)
         ProcessesMenusGUI.processes_select_process_nice_option_func()
+
+
+# ----------------------------------- Processes - Open Process Details Window Function (gets double clicked process PID and opens Process Details window) -----------------------------------
+def processes_open_process_details_window_func(event):
+
+    path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
+    model = treeview2101.get_model()
+    treeiter = model.get_iter(path)
+    if treeiter is None:
+        processes_no_process_selected_dialog()
+    if treeiter is not None:
+        global selected_process_pid
+        try:
+            selected_process_pid = Processes.pid_list[Processes.processes_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "processes_data_rows" list to use it getting pid of the process.
+        except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+            print("not in list error")
+            return
+        # Open Process Details window
+        ProcessesDetailsGUI.processes_details_gui_function()
+        ProcessesDetailsGUI.window2101w.show()
+        ProcessesDetails.process_details_foreground_thread_run_func()
 
 
 # ----------------------------------- Processes - No Process Selected Dialog Function (shows a dialog when Open Process Right Click Menu is clicked without selecting a process) -----------------------------------

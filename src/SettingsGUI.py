@@ -205,6 +205,10 @@ def settings_gui_func():
             Performance.performance_get_gpu_list_and_set_selected_gpu_func()                  # Call this function in order to apply selected GPU changes
             Performance.performance_foreground_initial_func()                                 # Call this function in order to apply changes immediately (without waiting update interval).
             Performance.performance_foreground_func()                                         # Call this function in order to apply changes immediately (without waiting update interval).
+            try:                                                                              # "try-catch" is used in order to avoid errors because "ProcessesMenusGUI" may not be loaded.
+                ProcessesMenusGUI.processes_expand_collapse_button_preferences_func()
+            except:
+                pass
         if warning_dialog2001_response == Gtk.ResponseType.NO:
             pass                                                                              # Do nothing when "No" button is clicked. Dialog will be closed.
 

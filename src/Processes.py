@@ -49,7 +49,7 @@ def processes_initial_func():
     processes_data_list = [
                           [0, _tr('Process Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
                           [1, _tr('PID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                          [2, _tr('User Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                          [2, _tr('User'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                           [3, _tr('Status'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                           [4, _tr('CPU %'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
                           [5, _tr('RAM (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
@@ -208,18 +208,23 @@ def processes_loop_func():
         if len(process_name) == 15:                                                           # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
             try:
                 with open("/proc/" + pid + "/cmdline") as reader:
-                    process_name = reader.read().split("/")[-1].split("\x00")[0]              # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
+                    process_cmdline = reader.read()
+                process_name = process_cmdline.split("/")[-1].split("\x00")[0]                # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
             except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
                 pid_list.remove(pid)
                 continue
             if process_name.startswith(process_name_from_stat) == False:
-                process_name = process_name_from_stat                                         # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
+                process_name = process_cmdline.split(" ")[0].split("\x00")[0].strip()         # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
+                if process_name.startswith(process_name_from_stat) == False:
+                    process_name = process_cmdline.split("\x00")[0].split("/")[-1].strip()
+                    if process_name.startswith(process_name_from_stat) == False:
+                        process_name = process_name_from_stat                                 # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
         process_icon = "system-monitoring-center-process-symbolic"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
         if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list
             process_icon = application_icon_list[application_exec_list.index(process_name)]
         processes_data_row = [True, process_icon, process_name]                               # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
         if 1 in processes_treeview_columns_shown:
-            processes_data_row.append(int(proc_pid_stat_lines_split[0]))                      # Get process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
+            processes_data_row.append(int(pid))                                               # Get process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
         if 2 in processes_treeview_columns_shown:
             processes_data_row.append(username_list[pid_list.index(pid)])                     # Append process username
         if 3 in processes_treeview_columns_shown:
@@ -384,7 +389,7 @@ def processes_loop_func():
             if processes_data_row_sorting_column not in processes_treeview_columns_shown:
                 column_title_for_sorting = processes_data_list[0][1]
             column_for_sorting = processes_treeview_columns[treeview_column_titles.index(column_title_for_sorting)]
-            column_for_sorting.clicked()                                                  # For row sorting.
+            column_for_sorting.clicked()                                                      # For row sorting.
             if processes_data_row_sorting_order == int(column_for_sorting.get_sort_order()):
                 break
 
@@ -569,7 +574,7 @@ def processes_treeview_filter_search_func():
             filter_column = 3                                                                 # Append internal column number (3) of "PID" for filtering
     if ProcessesMenusGUI.radiobutton2103p2.get_active() == True:
         if 2 in processes_treeview_columns_shown:                                             # "2" is treeview column number
-            filter_column = 4                                                                 # Append internal column number (4) of "user name" for filtering
+            filter_column = 4                                                                 # Append internal column number (4) of "user" for filtering
     if ProcessesMenusGUI.radiobutton2104p2.get_active() == True:
         if 3 in processes_treeview_columns_shown:                                             # "3" is treeview column number
             filter_column = 5                                                                 # Append internal column number (5) of "status" for filtering

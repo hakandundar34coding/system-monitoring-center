@@ -149,11 +149,11 @@ def services_loop_func():
         service_load_state = "-"                                                              # Initial value of "service_load_state" variable. This value will be used if "service_load_state" could not be detected.
         for line in systemctl_show_command_lines_split:
             if "LoadState=" in line:
-                service_load_state = line.split("=")[1]
-                if service_load_state == "loaded":
+                service_load_state = _tr(line.split("=")[1].capitalize())                     # "_tr([value])" is used for using translated string.
+                if service_load_state == _tr("Loaded"):
                     service_loaded_not_loaded_list.append(True)
                     break
-                if service_load_state != "loaded":
+                if service_load_state != _tr("Loaded"):
                     service_loaded_not_loaded_list.append(False)
         # Append service icon and service name
         services_data_row = [True, services_image, service]                                   # Service visibility data (on treeview) which is used for showing/hiding service when services in specific type (enabled/disabled) is preferred to be shown or service search feature is used from the GUI.
@@ -161,7 +161,7 @@ def services_loop_func():
         if 1 in services_treeview_columns_shown:
             for line in systemctl_show_command_lines_split:
                 if "UnitFileState=" in line:
-                    service_state = line.split("=")[1]
+                    service_state = _tr(line.split("=")[1].capitalize())                      # "_tr([value])" is used for using translated string.
                     break
             services_data_row.append(service_state)
         # Append service unit file state
@@ -175,7 +175,7 @@ def services_loop_func():
         if 3 in services_treeview_columns_shown:
             for line in systemctl_show_command_lines_split:
                 if "ActiveState=" in line:
-                    service_active_state = line.split("=")[1]
+                    service_active_state = _tr(line.split("=")[1].capitalize())               # "_tr([value])" is used for using translated string.
                     break
             services_data_row.append(service_active_state)
         # Append service unit file state (it has been get previously)
@@ -185,7 +185,7 @@ def services_loop_func():
         if 5 in services_treeview_columns_shown:
             for line in systemctl_show_command_lines_split:
                 if "SubState=" in line:
-                    service_sub_state = line.split("=")[1]
+                    service_sub_state = _tr(line.split("=")[1].capitalize())                  # "_tr([value])" is used for using translated string.
                     break
             services_data_row.append(service_sub_state)
         # Append service unit file state

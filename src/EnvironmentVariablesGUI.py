@@ -36,7 +36,7 @@ def environment_variables_gui_import_func():
 def environment_variables_gui_func():
 
     # Environment Variables tab GUI objects
-    global treeview7101, searchentry7101, button7101, button7103, button7104
+    global treeview7101, searchentry7101, button7101, button7103
     global radiobutton7101, radiobutton7102, radiobutton7103
     global label7101
 
@@ -46,7 +46,6 @@ def environment_variables_gui_func():
     searchentry7101 = MainGUI.builder.get_object('searchentry7101')
     button7101 = MainGUI.builder.get_object('button7101')
     button7103 = MainGUI.builder.get_object('button7103')
-    button7104 = MainGUI.builder.get_object('button7104')
     radiobutton7101 = MainGUI.builder.get_object('radiobutton7101')
     radiobutton7102 = MainGUI.builder.get_object('radiobutton7102')
     radiobutton7103 = MainGUI.builder.get_object('radiobutton7103')
@@ -54,11 +53,13 @@ def environment_variables_gui_func():
 
 
     # Environment Variables tab GUI functions
+    def on_treeview7101_button_press_event(widget, event):
+        if event.button == 3:                                                                 # Open Environment Variables tab right click menu if mouse is right clicked on the treeview (and on any variable, otherwise menu will not be shown) and the mouse button is pressed.
+            environment_variables_open_right_click_menu_func(event)
+
     def on_treeview7101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
             EnvironmentVariables.environment_variables_treeview_column_order_width_row_sorting_func()
-        if event.button == 3:                                                                 # Open Environment Variables tab right click menu if mouse is right clicked on the treeview (and on any variable, otherwise menu will not be shown) and the mouse button is released.
-            environment_variables_open_right_click_menu_func(event)
 
     def on_searchentry7101_changed(widget):
         radiobutton7101.set_active(True)
@@ -69,10 +70,6 @@ def environment_variables_gui_func():
 
     def on_button7103_clicked(widget):                                                        # "Environment Variables Tab Search Customizations" button
         EnvironmentVariablesMenusGUI.popover7101p2.popup()
-
-    def on_button7104_button_release_event(widget, event):                                    # Open Variable Right Click Menu" button
-        if event.button == 1:                                                                 # Open Environment Variables tab right click menu if mouse is right clicked on the treeview (and on any variable, otherwise menu will not be shown) and the mouse button is released.
-            environment_variables_open_right_click_menu_func(event)
 
     def on_radiobutton7101_toggled(widget):                                                   # "Show all environment/shell variables" radiobutton
         if radiobutton7101.get_active() == True:
@@ -91,11 +88,11 @@ def environment_variables_gui_func():
 
 
     # Environment Variables tab GUI functions - connect
+    treeview7101.connect("button-press-event", on_treeview7101_button_press_event)
     treeview7101.connect("button-release-event", on_treeview7101_button_release_event)
     searchentry7101.connect("changed", on_searchentry7101_changed)
     button7101.connect("clicked", on_button7101_clicked)
     button7103.connect("clicked", on_button7103_clicked)
-    button7104.connect("button-release-event", on_button7104_button_release_event)
     radiobutton7101.connect("toggled", on_radiobutton7101_toggled)
     radiobutton7102.connect("toggled", on_radiobutton7102_toggled)
     radiobutton7103.connect("toggled", on_radiobutton7103_toggled)
@@ -114,7 +111,9 @@ def environment_variables_gui_func():
 # ----------------------------------- Environment Variables - Open Right Click Menu Function (gets right clicked variable name and opens right click menu) -----------------------------------
 def environment_variables_open_right_click_menu_func(event):
 
-    model, treeiter = treeview7101.get_selection().get_selected()
+    path, _, _, _ = treeview7101.get_path_at_pos(int(event.x), int(event.y))
+    model = treeview7101.get_model()
+    treeiter = model.get_iter(path)
     if treeiter is None:
         environment_variables_no_variable_selected_dialog()
     if treeiter is not None:

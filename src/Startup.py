@@ -65,7 +65,7 @@ def startup_initial_func():
 
     # Get current desktop environment
     global supported_desktop_environments_list
-    supported_desktop_environments_list = ["XFCE", "GNOME", "X-CINNAMON", "CINNAMON", "MATE", "KDE", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
+    supported_desktop_environments_list = ["XFCE", "GNOME", "X-CINNAMON", "CINNAMON", "MATE", "KDE", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME", "LXQT", "LXDE"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
     global current_desktop_environment
     current_desktop_environment = [os.environ.get('XDG_CURRENT_DESKTOP')]
     if current_desktop_environment != [None]:
@@ -89,27 +89,27 @@ def startup_initial_func():
 
         # Get current username which will be used for determining current user home directory.
         global current_user_name
-        current_user_name = os.environ.get('SUDO_USER')                                        # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
-        if current_user_name is None:                                                          # Get username in the following way if current application has not been run by root privileges.
+        current_user_name = os.environ.get('SUDO_USER')                                       # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
+        if current_user_name is None:                                                         # Get username in the following way if current application has not been run by root privileges.
             current_user_name = os.environ.get('USER')
         pkexec_uid = os.environ.get('PKEXEC_UID')
-        if current_user_name == "root" and pkexec_uid != None:                                 # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
+        if current_user_name == "root" and pkexec_uid != None:                                # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
             current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
 
         # Get "current_desktop_environment"
-        current_desktop_session = "-"                                                          # Set an initial string in order to avoid errors in case of undetected current desktop session.
-        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]       # Get process PID list.
+        current_desktop_session = "-"                                                         # Set an initial string in order to avoid errors in case of undetected current desktop session.
+        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]      # Get process PID list.
         for pid in pid_list:
-            try:                                                                               # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
                 with open("/proc/" + pid + "/comm") as reader:
                     process_name = reader.read().strip()
-                with open("/proc/" + pid + "/status") as reader:                               # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+                with open("/proc/" + pid + "/status") as reader:                              # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
                     proc_pid_status_lines = reader.read().split("\n")
             except FileNotFoundError:
                 continue
             for line in proc_pid_status_lines:
                 if "Uid:\t" in line:
-                    real_user_id = line.split(":")[1].split()[0].strip()                       # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                    real_user_id = line.split(":")[1].split()[0].strip()                      # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
                     process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
             if process_username == current_user_name:
                 if process_name == "xfce4-session":
@@ -122,6 +122,10 @@ def startup_initial_func():
                     current_desktop_session = ["MATE"]
                 if process_name == "plasmashell":
                     current_desktop_session = ["KDE"]
+                if process_name == "lxqt-session":
+                    current_desktop_session = ["LXQT"]
+                if process_name == "lxsession":
+                    current_desktop_session = ["LXDE"]
         current_desktop_environment = current_desktop_session
 
 

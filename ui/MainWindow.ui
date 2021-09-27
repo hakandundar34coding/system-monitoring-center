@@ -546,10 +546,6 @@ Cache (L2-L3)</property>
                           </packing>
                         </child>
                       </object>
-                      <packing>
-                        <property name="name">page0</property>
-                        <property name="title" translatable="yes">page0</property>
-                      </packing>
                     </child>
                     <child>
                       <!-- n-columns=1 n-rows=3 -->
@@ -1045,8 +1041,6 @@ Free and Available RAM memory values are different</property>
                         </child>
                       </object>
                       <packing>
-                        <property name="name">page1</property>
-                        <property name="title" translatable="yes">page1</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -1578,8 +1572,6 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
                         </child>
                       </object>
                       <packing>
-                        <property name="name">page2</property>
-                        <property name="title" translatable="yes">page2</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
@@ -2081,8 +2073,6 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
                         </child>
                       </object>
                       <packing>
-                        <property name="name">page3</property>
-                        <property name="title" translatable="yes">page3</property>
                         <property name="position">3</property>
                       </packing>
                     </child>
@@ -2532,7 +2522,7 @@ May be different than maximum resolution of the monitor.</property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="halign">end</property>
-                                <property name="label" translatable="yes">Max Monitor Refresh Rate</property>
+                                <property name="label" translatable="yes">FPS</property>
                               </object>
                               <packing>
                                 <property name="left-attach">1</property>
@@ -2614,8 +2604,6 @@ May be different than maximum resolution of the monitor.</property>
                         </child>
                       </object>
                       <packing>
-                        <property name="name">page4</property>
-                        <property name="title" translatable="yes">page4</property>
                         <property name="position">4</property>
                       </packing>
                     </child>
@@ -2830,8 +2818,6 @@ May be different than maximum resolution of the monitor.</property>
                         </child>
                       </object>
                       <packing>
-                        <property name="name">page5</property>
-                        <property name="title" translatable="yes">page5</property>
                         <property name="position">5</property>
                       </packing>
                     </child>
@@ -3148,10 +3134,6 @@ May be different than maximum resolution of the monitor.</property>
                   </packing>
                 </child>
               </object>
-              <packing>
-                <property name="name">page0</property>
-                <property name="title" translatable="yes">page0</property>
-              </packing>
             </child>
             <child>
               <!-- n-columns=1 n-rows=3 -->
@@ -3183,7 +3165,7 @@ May be different than maximum resolution of the monitor.</property>
                   </packing>
                 </child>
                 <child>
-                  <!-- n-columns=10 n-rows=1 -->
+                  <!-- n-columns=9 n-rows=1 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -3307,32 +3289,12 @@ May be different than maximum resolution of the monitor.</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button2105">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <property name="tooltip-text" translatable="yes">Open Process Right Click Menu</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">5</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-view-more-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left-attach">9</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkRadioButton" id="radiobutton2104">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
-                        <property name="tooltip-text" translatable="yes">User defined expand</property>
+                        <property name="tooltip-text" translatable="yes">User defined expand
+(Usable if processes are listed as tree)</property>
                         <property name="margin-start">5</property>
                         <property name="active">True</property>
                         <property name="draw-indicator">False</property>
@@ -3354,7 +3316,8 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
-                        <property name="tooltip-text" translatable="yes">Expand all</property>
+                        <property name="tooltip-text" translatable="yes">Expand all
+(Usable if processes are listed as tree)</property>
                         <property name="draw-indicator">False</property>
                         <property name="group">radiobutton2104</property>
                         <child>
@@ -3375,7 +3338,8 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
-                        <property name="tooltip-text" translatable="yes">Collapse all</property>
+                        <property name="tooltip-text" translatable="yes">Collapse all
+(Usable if processes are listed as tree)</property>
                         <property name="draw-indicator">False</property>
                         <property name="group">radiobutton2104</property>
                         <child>
@@ -3475,8 +3439,6 @@ May be different than maximum resolution of the monitor.</property>
                 </child>
               </object>
               <packing>
-                <property name="name">page1</property>
-                <property name="title" translatable="yes">page1</property>
                 <property name="position">1</property>
               </packing>
             </child>
@@ -3598,7 +3560,7 @@ May be different than maximum resolution of the monitor.</property>
                   </packing>
                 </child>
                 <child>
-                  <!-- n-columns=6 n-rows=1 -->
+                  <!-- n-columns=5 n-rows=1 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -3701,27 +3663,6 @@ May be different than maximum resolution of the monitor.</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
-                    <child>
-                      <object class="GtkButton" id="button3104">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <property name="tooltip-text" translatable="yes">Open User Right Click Menu</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">5</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-view-more-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left-attach">5</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
                   </object>
                   <packing>
                     <property name="left-attach">0</property>
@@ -3730,8 +3671,6 @@ May be different than maximum resolution of the monitor.</property>
                 </child>
               </object>
               <packing>
-                <property name="name">page2</property>
-                <property name="title" translatable="yes">page2</property>
                 <property name="position">2</property>
               </packing>
             </child>
@@ -3841,7 +3780,7 @@ May be different than maximum resolution of the monitor.</property>
                   </packing>
                 </child>
                 <child>
-                  <!-- n-columns=10 n-rows=1 -->
+                  <!-- n-columns=9 n-rows=1 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -3877,27 +3816,6 @@ May be different than maximum resolution of the monitor.</property>
                       </object>
                       <packing>
                         <property name="left-attach">7</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button4104">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <property name="tooltip-text" translatable="yes">Open Storage Right Click Menu</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">5</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-view-more-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left-attach">9</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
@@ -4059,8 +3977,6 @@ May be different than maximum resolution of the monitor.</property>
                 </child>
               </object>
               <packing>
-                <property name="name">page3</property>
-                <property name="title" translatable="yes">page3</property>
                 <property name="position">3</property>
               </packing>
             </child>
@@ -4170,7 +4086,7 @@ May be different than maximum resolution of the monitor.</property>
                   </packing>
                 </child>
                 <child>
-                  <!-- n-columns=6 n-rows=1 -->
+                  <!-- n-columns=5 n-rows=1 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -4206,27 +4122,6 @@ May be different than maximum resolution of the monitor.</property>
                       </object>
                       <packing>
                         <property name="left-attach">3</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button5104">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <property name="tooltip-text" translatable="yes">Open Startup Item Right Click Menu</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">5</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-view-more-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left-attach">5</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
@@ -4302,8 +4197,6 @@ May be different than maximum resolution of the monitor.</property>
                 </child>
               </object>
               <packing>
-                <property name="name">page4</property>
-                <property name="title" translatable="yes">page4</property>
                 <property name="position">4</property>
               </packing>
             </child>
@@ -4412,7 +4305,7 @@ May be different than maximum resolution of the monitor.</property>
                   </packing>
                 </child>
                 <child>
-                  <!-- n-columns=7 n-rows=1 -->
+                  <!-- n-columns=6 n-rows=1 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -4448,27 +4341,6 @@ May be different than maximum resolution of the monitor.</property>
                       </object>
                       <packing>
                         <property name="left-attach">4</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button6104">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <property name="tooltip-text" translatable="yes">Open Service Right Click Menu</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">5</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-view-more-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left-attach">6</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
@@ -4565,8 +4437,6 @@ May be different than maximum resolution of the monitor.</property>
                 </child>
               </object>
               <packing>
-                <property name="name">page5</property>
-                <property name="title" translatable="yes">page5</property>
                 <property name="position">5</property>
               </packing>
             </child>
@@ -4691,7 +4561,7 @@ Because there may be both environment variable and shell variable with the same 
                   </packing>
                 </child>
                 <child>
-                  <!-- n-columns=6 n-rows=1 -->
+                  <!-- n-columns=5 n-rows=1 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -4727,27 +4597,6 @@ Because there may be both environment variable and shell variable with the same 
                       </object>
                       <packing>
                         <property name="left-attach">3</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button7104">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <property name="tooltip-text" translatable="yes">Open Variable Right Click Menu</property>
-                        <property name="halign">start</property>
-                        <property name="margin-start">5</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-view-more-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left-attach">5</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
@@ -4836,13 +4685,11 @@ Because there may be both environment variable and shell variable with the same 
                 </child>
               </object>
               <packing>
-                <property name="name">page6</property>
-                <property name="title" translatable="yes">page6</property>
                 <property name="position">6</property>
               </packing>
             </child>
             <child>
-              <!-- n-columns=1 n-rows=5 -->
+              <!-- n-columns=1 n-rows=2 -->
               <object class="GtkGrid" id="grid8">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -4922,692 +4769,746 @@ Because there may be both environment variable and shell variable with the same 
                   </packing>
                 </child>
                 <child>
-                  <!-- n-columns=4 n-rows=7 -->
-                  <object class="GtkGrid">
+                  <object class="GtkFrame">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="hexpand">True</property>
-                    <property name="row-spacing">10</property>
-                    <property name="row-homogeneous">True</property>
-                    <property name="column-homogeneous">True</property>
+                    <property name="label-xalign">0</property>
+                    <property name="label-yalign">1</property>
+                    <property name="shadow-type">in</property>
                     <child>
-                      <object class="GtkLabel">
+                      <!-- n-columns=1 n-rows=3 -->
+                      <object class="GtkGrid">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Operating System (OS):</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                        <property name="width">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Name of the OS
+                        <property name="border-width">6</property>
+                        <property name="row-spacing">10</property>
+                        <child>
+                          <!-- n-columns=4 n-rows=7 -->
+                          <object class="GtkGrid">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="hexpand">True</property>
+                            <property name="row-spacing">10</property>
+                            <property name="row-homogeneous">True</property>
+                            <property name="column-homogeneous">True</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Operating System (OS):</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                                <property name="width">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Name of the OS
 (ID of the OS)</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Name:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Version and code name of the OS</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Version - Code Name:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8103">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8104">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Computer model name
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Name:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Version and code name of the OS</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Version - Code Name:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8103">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8104">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Computer model name
 This information may not be present in all motherboards.</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Model:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Type of the computer chassis
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Model:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Type of the computer chassis
 This information may not be present in all motherboards.</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Computer Type:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8114">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Name of the OS which this OS is based on</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Based On:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8105">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Base version of the kernel
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Computer Type:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8115">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Name of the OS which this OS is based on</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Based On:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8105">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Base version of the kernel
 May be different from package version of the kernel.</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Kernel Release:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8107">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Computer:</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">0</property>
-                        <property name="width">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8113">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Computer vendor name
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Kernel Release:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">5</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8107">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">5</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Computer:</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">0</property>
+                                <property name="width">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8114">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Computer vendor name
 This information may not be present in all motherboards.</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Vendor:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8112">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8106">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Family of the OS</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">OS Family:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Name of the computer
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Vendor:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8113">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8106">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Family of the OS</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">OS Family:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Name of the computer
 Host name is defined by the vendor or by the user during system installation.
 This name can be changed later.</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Host Name:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8115">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Number of detected monitors</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Number Of Monitors:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8116">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Package version of the kernel
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Host Name:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8116">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Number of detected monitors</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Number Of Monitors:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">5</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8117">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">5</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Package version of the kernel
 May be different from base version of the kernel.</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Kernel Version:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8108">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Monitor which most part of this window is shown on</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Current Monitor:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8117">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">6</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="left-attach">0</property>
-                    <property name="top-attach">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <!-- n-columns=4 n-rows=4 -->
-                  <object class="GtkGrid">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="hexpand">True</property>
-                    <property name="row-spacing">10</property>
-                    <property name="row-homogeneous">True</property>
-                    <property name="column-homogeneous">True</property>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Graphical User Interface (GUI):</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">0</property>
-                        <property name="width">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Status:</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">0</property>
-                        <property name="width">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Name of the desktop environment
-Desktop environments provide several applications and utilities to user for using the computer.</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Desktop Environment:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8109">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8110">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8111">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Name of the windowing system (window system)
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Kernel Version:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">6</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8108">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">6</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Monitor which most part of this window is shown on</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Current Monitor:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">6</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8118">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">6</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSeparator">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="margin-top">7</property>
+                            <property name="margin-bottom">7</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <!-- n-columns=4 n-rows=5 -->
+                          <object class="GtkGrid">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="hexpand">True</property>
+                            <property name="row-spacing">10</property>
+                            <property name="row-homogeneous">True</property>
+                            <property name="column-homogeneous">True</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Graphical User Interface (GUI):</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                                <property name="width">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Status:</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">0</property>
+                                <property name="width">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Name of the desktop environment
+Desktop environments provide several applications (such as file manager, media player, text editor, task manager etc.) and utilities (such as localization, power management, some settings management features, panels, windowing system, display manager, session manager, etc.) to user for using the computer.
+There may be big differences of system resource usages and features between different desktop environments.</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Desktop Environment:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8109">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8110">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8112">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Name of the windowing system (window system)
 Windowing system draws windows, icons, pointers, fonts, etc.
 Windowing systems have some components such as display server and window manager.</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Windowing System:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Name of the display manager (login manager)
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Windowing System:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Name of the display manager (login manager)
 Provides a graphical user interface for user login, starts the display server and loads the desktop environment after user login.
 Features, system resource usages and appearance of the greeter (login screen) are different for different display managers.</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Display Manager:</property>
-                        <property name="ellipsize">end</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Display Manager:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Elapsed time since last system boot</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">System Up Time:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Number of installed packages</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Packages Installed:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Name of the current user and information of whether the user has root privileges</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Current User - (Root?):</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8119">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8120">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8121">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">3</property>
+                                <property name="top-attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="tooltip-text" translatable="yes">Name of the window manager
+Window manager manages position, size, stacking order, focus of the windows, performs minimizing/maximizing operations of windows, provides window decorations, manages virtual desktops (workspaces).
+
+Note: Window manager changes during user session are not tracked.</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Window Manager:</property>
+                                <property name="ellipsize">end</property>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label8111">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">--</property>
+                                <property name="selectable">True</property>
+                                <property name="ellipsize">end</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <placeholder/>
+                            </child>
+                            <child>
+                              <placeholder/>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">2</property>
+                          </packing>
+                        </child>
                       </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
-                      </packing>
                     </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Elapsed time since last system boot</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">System Up Time:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">1</property>
-                      </packing>
+                    <child type="label_item">
+                      <placeholder/>
                     </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Number of installed packages</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Packages Installed:</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Name of the current user and information of whether the user has root privileges</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Current User - (Root?):</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8118">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8119">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label8120">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left-attach">3</property>
-                        <property name="top-attach">3</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="left-attach">0</property>
-                    <property name="top-attach">4</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="margin-top">10</property>
-                    <property name="margin-bottom">10</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">0</property>
-                    <property name="top-attach">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="margin-top">5</property>
-                    <property name="margin-bottom">5</property>
                   </object>
                   <packing>
                     <property name="left-attach">0</property>
@@ -5616,8 +5517,6 @@ Features, system resource usages and appearance of the greeter (login screen) ar
                 </child>
               </object>
               <packing>
-                <property name="name">page7</property>
-                <property name="title" translatable="yes">page7</property>
                 <property name="position">7</property>
               </packing>
             </child>

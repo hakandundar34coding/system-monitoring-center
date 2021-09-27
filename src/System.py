@@ -83,6 +83,32 @@ def system_initial_func():
                 windowing_system = "Wayland"
                 break
 
+    # Get window manager
+    supported_window_managers_list = ["xfwm4", "mutter", "kwin", "kwin_x11", "cinnamon", "openbox", "metacity", "marco", "compiz", "englightenment", "fvwm2", "icewm", "sawfish", "awesome"]
+    global window_manager
+    window_manager = "-"                                                                      # Set an initial string in order to avoid errors in case of undetected current desktop session.
+    if 'pid_list' not in locals():
+        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]      # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
+    for pid in pid_list:
+        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+            with open("/proc/" + pid + "/comm") as reader:
+                process_name = reader.read().strip()
+        except FileNotFoundError:
+            continue
+        if process_name.lower() in supported_window_managers_list:
+            try:
+                with open("/proc/" + pid + "/status") as reader:                              # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+                    proc_pid_status_lines = reader.read().split("\n")
+            except FileNotFoundError:
+                continue
+            for line in proc_pid_status_lines:
+                if "Uid:\t" in line:
+                    real_user_id = line.split(":")[1].split()[0].strip()                      # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+            if process_username == current_user_name:
+                window_manager = process_name.lower()
+                break
+
     # Get current desktop environment
     current_desktop_environment = os.environ.get('XDG_CURRENT_DESKTOP')
     if current_desktop_environment == None:
@@ -110,10 +136,15 @@ def system_initial_func():
                     current_desktop_session = "MATE"
                 if process_name == "plasmashell":
                     current_desktop_session = "KDE"
+                if process_name == "lxqt-session":
+                    current_desktop_session = "LXQt"
+                if process_name == "lxsession":
+                    current_desktop_session = "LXDE"
         current_desktop_environment = current_desktop_session
 
     # Get current desktop environment version
-    supported_desktop_environments_list = ["XFCE", "GNOME", "X-Cinnamon", "CINNAMON", "MATE", "KDE"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
+    supported_desktop_environments_list = ["XFCE", "GNOME", "X-Cinnamon", "CINNAMON", "MATE", "KDE", "LXQt", "LXDE"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
+    current_desktop_environment_version = _tr("Unknown")                                                                # Set initial value of the "current_desktop_environment_version". This value will be used if it could not be detected.
     if current_desktop_environment == "XFCE":
         current_desktop_environment_version_lines = (subprocess.check_output("xfce4-panel --version", shell=True).strip()).decode().split("\n")
         for line in current_desktop_environment_version_lines:
@@ -125,13 +156,16 @@ def system_initial_func():
             if "GNOME Shell" in line:
                 current_desktop_environment_version = line.split(" ")[2]
     if current_desktop_environment == "X-Cinnamon" or current_desktop_environment == "CINNAMON":
-        current_desktop_environment_version = (subprocess.check_output("cinnamon --version", shell=True).strip()).decode().strip()
+        current_desktop_environment_version = (subprocess.check_output("cinnamon --version", shell=True).strip()).decode().split(" ")[-1]
     if current_desktop_environment == "MATE":
-        current_desktop_environment_version = _tr("Unknown")
+        current_desktop_environment_version = (subprocess.check_output("mate-about --version", shell=True).strip()).decode().split(" ")[-1]
     if current_desktop_environment == "KDE":
-        current_desktop_environment_version = (subprocess.check_output("plasmashell --version", shell=True).strip()).decode().strip()
-    if current_desktop_environment not in supported_desktop_environments_list:
-        current_desktop_environment_version = _tr("Unknown")
+        current_desktop_environment_version = (subprocess.check_output("plasmashell --version", shell=True).strip()).decode()
+    if current_desktop_environment == "LXQt":
+        current_desktop_environment_version_lines = (subprocess.check_output("lxqt-about --version", shell=True).strip()).decode()
+        for line in current_desktop_environment_version_lines:
+            if "liblxqt" in line:
+                current_desktop_environment_version = line.split()[1].strip()
 
     # Get current display manager
     with open("/etc/X11/default-display-manager") as reader:
@@ -161,10 +195,11 @@ def system_initial_func():
     SystemGUI.label8105.set_text(os_family)
     SystemGUI.label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
     SystemGUI.label8110.set_text(windowing_system)
-    SystemGUI.label8111.set_text(current_display_manager)
-    SystemGUI.label8112.set_text(computer_vendor)
-    SystemGUI.label8113.set_text(computer_model)
-    SystemGUI.label8114.set_text(computer_chassis_type)
+    SystemGUI.label8111.set_text(window_manager)
+    SystemGUI.label8112.set_text(current_display_manager)
+    SystemGUI.label8113.set_text(computer_vendor)
+    SystemGUI.label8114.set_text(computer_model)
+    SystemGUI.label8115.set_text(computer_chassis_type)
 
 
 # ----------------------------------- System - Loop Function (updates the system data and labels on the GUI) -----------------------------------
@@ -237,12 +272,12 @@ def system_loop_func():
     SystemGUI.label8106.set_text(os_based_on)
     SystemGUI.label8107.set_text(kernel_release)
     SystemGUI.label8108.set_text(kernel_version)
-    SystemGUI.label8115.set_text(host_name)
-    SystemGUI.label8116.set_text(f'{number_of_monitors}')
-    SystemGUI.label8117.set_text(f'{current_monitor}')
-    SystemGUI.label8118.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
-    SystemGUI.label8119.set_text(f'{number_of_installed_packages}')
-    SystemGUI.label8120.set_text(f'{current_user_name} - {have_root_access}')
+    SystemGUI.label8116.set_text(host_name)
+    SystemGUI.label8117.set_text(f'{number_of_monitors}')
+    SystemGUI.label8118.set_text(f'{current_monitor}')
+    SystemGUI.label8119.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
+    SystemGUI.label8120.set_text(f'{number_of_installed_packages}')
+    SystemGUI.label8121.set_text(f'{current_user_name} - {have_root_access}')
 
 
 # ----------------------------------- System Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

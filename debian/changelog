@@ -1,3 +1,19 @@
+system-monitoring-center (0.1.11-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Window manager information is added to the System tab
+  * Added support for listing startup applications on systems with LXQt and LXDE desktop environments
+  * Added support for showing desktop environment versions of MATE and LXQt desktop environments (System tab)
+  * Changed right click menu popup code for quicker menu popups
+  * Removed open right click menu buttons on several tabs for a simpler GUI
+  * Fixed a bug for some process names longer than 15 characters (Processes tab)
+  * Fixed a bug for "Started" information on User Details window
+  * Fixed bugs for untranslated texts on several tabs/windows
+  * Various bug fixes
+  * Minor GUI improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 27 Sep 2021 10:54:00 +0300
+
 system-monitoring-center (0.1.10-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]

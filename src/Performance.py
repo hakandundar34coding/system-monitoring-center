@@ -776,16 +776,14 @@ def performance_foreground_func():
                         cpu_current_frequency_all_cores.append(float(line.split(":")[1].strip()))
         # Get number_of_total_threads and number_of_total_processes
         thread_count_list = []
-        file_list = os.listdir("/proc/")                                                      # List all file in the "/proc/" directory
-        for file in file_list:
-            if file.isdigit():                                                                # Accept file name as process PID if file name is digit. Because there are also another files/folders in the "/proc/" directory.
-                pid = file
-                try:                                                                          # try-except is used in order to pass the loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
-                    with open("/proc/" + pid + "/status") as reader:
-                        proc_status_output = reader.read()
-                        thread_count_list.append(int(proc_status_output.split("\nThreads:")[1].split("\n")[0].strip()))    # Append number of threads of the process
-                except FileNotFoundError:
-                    pass
+        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
+        for pid in pid_list:
+            try:                                                                          # try-except is used in order to pass the loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
+                with open("/proc/" + pid + "/status") as reader:
+                    proc_status_output = reader.read()
+                    thread_count_list.append(int(proc_status_output.split("\nThreads:")[1].split("\n")[0].strip()))    # Append number of threads of the process
+            except (FileNotFoundError, ProcessLookupError) as me:
+                pass
         number_of_total_processes = len(thread_count_list)
         number_of_total_threads = sum(thread_count_list)
 

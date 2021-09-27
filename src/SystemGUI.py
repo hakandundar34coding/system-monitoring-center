@@ -18,7 +18,7 @@ def system_gui_import_func():
 def system_gui_func():
 
     global label8101, label8102, label8103, label8104, label8105, label8106, label8107, label8108, label8109, label8110
-    global label8111, label8112, label8113, label8114, label8115, label8116, label8117, label8118, label8119, label8120
+    global label8111, label8112, label8113, label8114, label8115, label8116, label8117, label8118, label8119, label8120, label8121
 
     label8101 = MainGUI.builder.get_object('label8101')
     label8102 = MainGUI.builder.get_object('label8102')
@@ -40,3 +40,4 @@ def system_gui_func():
     label8118 = MainGUI.builder.get_object('label8118')
     label8119 = MainGUI.builder.get_object('label8119')
     label8120 = MainGUI.builder.get_object('label8120')
+    label8121 = MainGUI.builder.get_object('label8121')
