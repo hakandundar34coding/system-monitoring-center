@@ -13,14 +13,22 @@ if os.path.exists(changelog):
     f.write(version)
     f.close()
 
+
+def files_in_folder(folder):
+    file_paths = []
+    for file in [filename for filename in os.listdir(folder)]:
+        file_paths.append(folder + file)
+    return file_paths
+
+
 data_files = [
     ("/usr/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
     ("/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
-    ("/usr/share/system-monitoring-center/src", ["src/"]),
-    ("/usr/share/system-monitoring-center/ui", ["ui/"]),
-    ("/usr/share/icons/hicolor/scalable/actions/", ["icons/actions/"]),
-    ("/usr/share/icons/hicolor/scalable/apps/", ["icons/apps/"]),
-    ("/usr/share/polkit-1/actions", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
+    ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
+    ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
+    ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
+    ("/usr/share/icons/hicolor/scalable/apps/", ["icons/apps/system-monitoring-center.svg"]),
+    ("/usr/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
     ("/usr/bin/", ["integration/system-monitoring-center"])
 ]
 
@@ -28,7 +36,7 @@ setup(
     name="System Monitoring Center",
     version=version,
     packages=find_packages(),
-    scripts=["system-monitoring-center"],
+    scripts=["integration/system-monitoring-center"],
     install_requires=["PyGObject"],
     data_files=data_files,
     author="Hakan Dündar",
