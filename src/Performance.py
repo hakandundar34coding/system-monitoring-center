@@ -36,10 +36,6 @@ def performance_import_func():
     locale.setlocale(locale.LC_ALL, system_current_language)
 
 
-import OpenGL
-from OpenGL.GL import *                                                                       # This code could not be run in a module because of the "*". Need to be imported in a module when "GPU" tab is opened. Because importing this module consumes about 11 MiB of RAM.
-
-
 # ----------------------------------- Performance - Set Selected CPU Core Function (defines CPU logical core to be viewed (hardware and performance data)) -----------------------------------
 def performance_set_selected_cpu_core_func():
 
@@ -654,7 +650,13 @@ def performance_foreground_initial_func():
 
     if PerformanceGUI.radiobutton1005.get_active() == True:                                   # Check if GPU tab is selected.
 
-        # Measure FPS
+        # Import required OpenGL modules for measuring FPS (glarea will be used).
+        if "OpenGL" not in globals():                                                         # Import modules if they have not been imported before. This modeles are imported here because importing them takes about 0.15 seconds on a 4-cored i7-2630QM notebook and this slows application start a bit.
+            import OpenGL
+            # from OpenGL.GL import *                                                         # This code could not be run in a module because of the "*". Need to be imported in a module when "GPU" tab is opened. Because importing this module consumes about 11 MiB of RAM.
+            from OpenGL.GL import glClearColor, glClear, GL_COLOR_BUFFER_BIT, glFlush         # This code is used instead of "from OpenGL.GL import *" to be able to import required module in a function otherwise, module could not be imported in a module because of the "*".
+
+        # Measure FPS (Rendering is performed by using glarea in order to measure FPS. FPS on drawing area is counted. Lower FPS is obtained depending on the GPU load/performance.)
         if "frame_list" not in globals():
             global glarea1501, frame_list
             glarea1501 = PerformanceGUI.glarea1501
@@ -666,7 +668,7 @@ def performance_foreground_initial_func():
                   return
 
             def on_glarea1501_render(area, context):
-                glClearColor(0.5, 0.5, 0.5, 1.0)
+                glClearColor(0.5, 0.5, 0.5, 1.0)                                              # Arbitrary color
                 glClear(GL_COLOR_BUFFER_BIT)
                 glFlush()
                 global frame_list

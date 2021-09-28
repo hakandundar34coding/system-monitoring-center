@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="smart-system-monitor-user-other-symbolic.svg"
+   sodipodi:docname="system-monitoring-center-user-other-symbolic.svg"
    inkscape:export-filename="/home/asush/Masaüstü/files/python/task_manager/icon_studies/smart-system-monitor-user-current.symbolic.png"
    inkscape:export-xdpi="8.999999"
    inkscape:export-ydpi="8.999999">
@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.4405594"
-     inkscape:cx="131.12473"
-     inkscape:cy="339.72167"
+     inkscape:zoom="0.5820261"
+     inkscape:cx="272.77302"
+     inkscape:cy="283.32463"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -60,13 +60,13 @@
      transform="translate(-147.93097,-157.24948)">
     <path
        id="rect1298"
-       style="fill:#000000;stroke:none;stroke-width:1.98945;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#bebebe;stroke:none;stroke-width:1.98945;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
        d="m 180.54967,164.49813 c -18.36107,1.747 -32.6187,16.79042 -32.6187,35.2087 v 27.50169 h 32.6187 v -12.69794 c -4.75375,-1.45104 -8.18574,-5.77465 -8.18574,-10.91096 v -12.95787 c 0,-5.1363 3.43199,-9.4594 8.18574,-10.91044 z m 7.16258,0 v 15.23266 c 4.75408,1.45085 8.18574,5.77443 8.18574,10.91096 v 12.95787 c 0,5.13654 -3.43166,9.46063 -8.18574,10.91148 v 12.69742 h 32.61922 v -27.50169 c 0,-18.41828 -14.25809,-33.4617 -32.61922,-35.2087 z m -39.78128,69.71047 v 15.88017 c 0,19.59987 16.14514,35.37872 36.19999,35.37872 20.05485,0 36.20051,-15.77885 36.20051,-35.37872 V 234.2086 Z"
        inkscape:export-xdpi="4.5"
        inkscape:export-ydpi="4.5" />
     <path
        id="rect835"
-       style="fill:#000000;stroke-width:3.39579"
+       style="fill:#bebebe;stroke-width:3.39579;fill-opacity:1"
        d="m 249.36358,258.24374 34.03406,-33.26092 -34.03406,-33.26093 v 19.93054 h -25.88719 v 26.65976 h 25.88719 z"
        inkscape:export-xdpi="4.5"
        inkscape:export-ydpi="4.5" />

@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="smart-system-monitor-color-symbolic.svg">
+   sodipodi:docname="system-monitoring-center-color-symbolic.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,7 +58,7 @@
      transform="translate(-53.419224,-73.382207)">
     <path
        id="path993"
-       style="fill:#000000;stroke:none;stroke-width:11.8469;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:#bebebe;stroke:none;stroke-width:11.8469;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
        d="M 121.10993,73.382209 84.548849,136.70702 a 45.357227,45.357227 0 0 0 -4.894275,8.477 l -0.223759,0.38758 h 0.05478 a 45.357227,45.357227 0 0 0 -3.690214,17.91983 45.357227,45.357227 0 0 0 45.357439,45.35744 45.357227,45.357227 0 0 0 45.35692,-45.35744 45.357227,45.357227 0 0 0 -9.14311,-27.30944 z M 86.917697,154.71368 a 78.139765,78.139765 0 0 0 42.687833,42.8842 37.3074,37.3074 0 0 1 -5.87251,0.46509 37.3074,37.3074 0 0 1 -37.307283,-37.30729 37.3074,37.3074 0 0 1 0.49196,-6.042 z" />
   </g>
 </svg>

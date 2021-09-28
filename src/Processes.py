@@ -221,7 +221,7 @@ def processes_loop_func():
                     if process_name.startswith(process_name_from_stat) == False:
                         process_name = process_name_from_stat                                 # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
         process_icon = "system-monitoring-center-process-symbolic"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
-        if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list
+        if process_name in application_exec_list and process_icon != "_no_icon_":             # Use process icon name from application file if process name is found in application exec list
             process_icon = application_icon_list[application_exec_list.index(process_name)]
         processes_data_row = [True, process_icon, process_name]                               # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
         if 1 in processes_treeview_columns_shown:

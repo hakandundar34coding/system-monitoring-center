@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="smart-system-monitor-disk-partition-symbolic.svg"
+   sodipodi:docname="system-monitoring-center-disk-partition-symbolic.svg"
    inkscape:export-filename="/home/asush/Masaüstü/files/python/task_manager/icon_studies/smart-system-monitor-settings.symbolic.png"
    inkscape:export-xdpi="20.171528"
    inkscape:export-ydpi="20.171528">
@@ -26,7 +26,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.53441559"
+     inkscape:zoom="0.49923165"
      inkscape:cx="246.85096"
      inkscape:cy="277.98139"
      inkscape:document-units="mm"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -60,13 +60,13 @@
      transform="translate(-413.06274,-340.1538)">
     <path
        id="path3897-5-0-6"
-       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:5.59782;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
+       style="fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:5.59782;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
        inkscape:transform-center-x="-30.648138"
        inkscape:transform-center-y="-15.324137"
        d="m 535.15545,414.82412 a 61.296341,61.296341 0 0 1 -37.83925,56.63044 61.296341,61.296341 0 0 1 -66.80015,-13.28738 61.296341,61.296341 0 0 1 -13.28738,-66.80015 61.296341,61.296341 0 0 1 56.63043,-37.83925 l 10e-6,61.29635 z" />
     <path
        id="path3897-5-0-6-1"
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.54294;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
+       style="opacity:1;fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:4.54294;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
        inkscape:transform-center-x="-30.648135"
        inkscape:transform-center-y="-15.32413"
        d="m 487.73305,339.6538 a 61.296341,61.296341 0 0 1 61.29634,61.29634 h -61.29634 z" />

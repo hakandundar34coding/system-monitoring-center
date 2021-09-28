@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="smart-system-monitor-stop.symbolic.svg">
+   sodipodi:docname="system-monitoring-center-stop-symbolic.svg">
   <defs
      id="defs2">
     <rect
@@ -30,9 +30,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.32"
-     inkscape:cx="425.9027"
-     inkscape:cy="432.79922"
+     inkscape:zoom="0.42275423"
+     inkscape:cx="231.59306"
+     inkscape:cy="275.66154"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -67,7 +67,7 @@
        id="text1119"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1121);fill:#000000;fill-opacity:1;stroke:none;" />
     <rect
-       style="opacity:1;fill:#000000;stroke-width:7.07215;stroke-linecap:round"
+       style="opacity:1;fill:#bebebe;stroke-width:7.07215;stroke-linecap:round;fill-opacity:1"
        id="rect835"
        width="135.46666"
        height="135.46666"

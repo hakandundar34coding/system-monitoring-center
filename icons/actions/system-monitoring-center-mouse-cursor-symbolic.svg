@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="smart-system-monitor-mouse-cursor-symbolic.svg"
+   sodipodi:docname="system-monitoring-center-mouse-cursor-symbolic.svg"
    inkscape:export-filename="/home/asush/Masaüstü/files/python/task_manager/icon_studies/smart-system-monitor-settings.symbolic.png"
    inkscape:export-xdpi="20.171528"
    inkscape:export-ydpi="20.171528">
@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.37788889"
-     inkscape:cx="-30.952879"
-     inkscape:cy="281.49521"
+     inkscape:zoom="0.49923165"
+     inkscape:cx="212.91871"
+     inkscape:cy="302.75994"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -60,12 +60,12 @@
      transform="translate(-552.3194,-389.14872)">
     <path
        id="rect4087"
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:5.95535;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
+       style="opacity:1;fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:5.95535;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
        d="m 655.24994,476.07495 -70.39342,-86.92623 -0.001,111.85359 1.8e-4,5.2e-4 32.13966,-22.03187 z"
        sodipodi:nodetypes="cccccc" />
     <path
        id="rect4178"
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.35571;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
+       style="opacity:1;fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:2.35571;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
        d="m 623.34522,524.61539 8.42605,-2.98383 8.42646,-2.98397 -15.07004,-42.55648 -8.42646,2.98397 -8.42606,2.98382 z" />
   </g>
 </svg>

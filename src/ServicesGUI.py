@@ -137,7 +137,10 @@ def services_open_right_click_menu_func(event):
 def services_open_service_details_window_func(event):
 
     if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+        try:                                                                                  # Loading services takes about 1 second on 4-cored i7-2630QM notebook and it gives error if double-click is performed on the treeview just after "Services" radiobutton is clicked (double clicking without waiting loading and listing the services on the GUI).
+            path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return                                                                            # Stop running rest of the code if the error is encountered.
         model = treeview6101.get_model()
         treeiter = model.get_iter(path)
         if treeiter is None:

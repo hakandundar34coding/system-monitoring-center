@@ -95,13 +95,13 @@ def main_gui_func():
             headerbar1.remove(grid101)
 
         # Show information for warning the user if the application has been run with root privileges. Information is shown just below the application window headerbar.
-        if os.geteuid() == 0:                                                                         # Check UID if it is "0". This means the application is run with root privileges.
+        if os.geteuid() == 0:                                                                 # Check UID if it is "0". This means the application is run with root privileges.
             label_root_warning = Gtk.Label(label=_tr("Warning! The application has been run with root privileges, you may harm your system."))    # Generate a new label for the information. This label does not exist in the ".ui" UI file.
             # label_root_warning.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(0.0, 1.0, 0.0, 1.0))
-            label_root_warning.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))               # Set background color of the label.
-            grid10.insert_row(0)                                                                      # Insert a row at top of the grid.
-            grid10.attach(label_root_warning, 0, 0, 1, 1)                                             # Attach the label to the grid at (0, 0) position.
-            label_root_warning.set_visible(True)                                                      # Set the label as visible.
+            label_root_warning.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))       # Set background color of the label.
+            grid10.insert_row(0)                                                              # Insert a row at top of the grid.
+            grid10.attach(label_root_warning, 0, 0, 1, 1)                                     # Attach the label to the grid at (0, 0) position.
+            label_root_warning.set_visible(True)                                              # Set the label as visible.
 
     def on_radiobutton1_toggled(widget):                                                      # "Performance" radiobutton
         if radiobutton1.get_active() == True:

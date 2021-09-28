@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="smart-system-monitor-user-online-symbolic.svg"
+   sodipodi:docname="system-monitoring-center-user-online-symbolic.svg"
    inkscape:export-filename="/home/asush/Masaüstü/files/python/task_manager/icon_studies/smart-system-monitor-user-current.symbolic.png"
    inkscape:export-xdpi="8.999999"
    inkscape:export-ydpi="8.999999">
@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.8811188"
-     inkscape:cx="263.28467"
-     inkscape:cy="269.8608"
+     inkscape:zoom="0.5820261"
+     inkscape:cx="254.58484"
+     inkscape:cy="248.51704"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -60,7 +60,7 @@
      transform="translate(-147.93097,-157.24948)">
     <path
        id="rect1298"
-       style="fill:#000000;stroke:none;stroke-width:2.22787;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#bebebe;stroke:none;stroke-width:2.22787;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
        d="m 211.65369,157.24948 c -20.56151,1.95637 -36.528,18.8025 -36.528,39.42808 v 30.79761 h 36.528 v -14.21981 c -5.32345,-1.62493 -9.16688,-6.46651 -9.16688,-12.21837 v -14.51075 c 0,-5.75183 3.84343,-10.59292 9.16688,-12.21785 z m 8.02071,0 v 17.05839 c 5.32381,1.62473 9.16688,6.46628 9.16688,12.21837 v 14.51075 c 0,5.75212 -3.84307,10.59469 -9.16688,12.21941 v 14.21877 h 36.52851 v -30.79761 c 0,-20.62558 -15.96693,-37.47171 -36.52851,-39.42808 z m -44.54871,78.065 v 17.7829 c 0,21.94877 18.07982,39.61876 40.5381,39.61876 22.45828,0 40.53912,-17.66999 40.53912,-39.61876 v -17.7829 z m 65.6208,2.17971 a 6.9999999,6.9999999 0 0 1 0.11421,0 6.9999999,6.9999999 0 0 1 4.49637,1.66812 6.9999999,6.9999999 0 0 1 0.79839,9.8671 l -34.61132,40.70087 -19.45876,-27.08 a 6.9999999,6.9999999 0 0 1 1.59939,-9.76943 6.9999999,6.9999999 0 0 1 9.76994,1.59939 l 9.01754,12.5491 23.0172,-27.07018 a 6.9999999,6.9999999 0 0 1 5.25704,-2.46497 z" />
   </g>
 </svg>

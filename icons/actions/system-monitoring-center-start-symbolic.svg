@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="smart-system-monitor-start-symbolic.svg">
+   sodipodi:docname="system-monitoring-center-start-symbolic.svg">
   <defs
      id="defs2">
     <rect
@@ -30,9 +30,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.32"
-     inkscape:cx="328.35172"
-     inkscape:cy="293.478"
+     inkscape:zoom="0.42275423"
+     inkscape:cx="215.81859"
+     inkscape:cy="271.42447"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -54,7 +54,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -69,7 +69,7 @@
        transform="translate(9.0746483)" />
     <path
        id="rect1223"
-       style="opacity:1;fill:#000000;stroke:none;stroke-width:9.04667;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#bebebe;stroke:none;stroke-width:9.04667;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
        d="M 151.68101,152.48531 V 287.95198 L 268.99838,220.21865 Z" />
   </g>
 </svg>

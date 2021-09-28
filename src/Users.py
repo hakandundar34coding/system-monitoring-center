@@ -90,7 +90,7 @@ def users_initial_func():
         if "btime " in line:
             system_boot_time = int(line.split()[1].strip())
 
-    user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("system-monitoring-center-user-symbolic", 24, 0)
+    user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("system-monitoring-center-user-symbolic", 16, 0)
 
     date_month_names_list = [_tr("Jan"), _tr("Feb"), _tr("Mar"), _tr("Apr"), _tr("May"), _tr("Jun"), _tr("Jul"), _tr("Aug"), _tr("Sep"), _tr("Oct"), _tr("Nov"), _tr("Dec")]    # This list is defined in order to make English month names (get from /var/log/auth.log file) to be translated into other languages.
     date_day_names_list = [_tr("Mon"), _tr("Tue"), _tr("Wed"), _tr("Thu"), _tr("Fri"), _tr("Sat"), _tr("Sun")]    # This list is defined in order to make English day names (get from "lslogins") to be translated into other languages.
@@ -215,7 +215,7 @@ def users_loop_func():
             # Append row visibility data, username (username has been get previously) and get user account image
             user_image_path = "/var/lib/AccountsService/icons/" + username
             if os.path.isfile(user_image_path) == True:
-                user_account_image = GdkPixbuf.Pixbuf.new_from_file_at_size(user_image_path, 24, 24)
+                user_account_image = GdkPixbuf.Pixbuf.new_from_file_at_size(user_image_path, 16, 16)
             if os.path.isfile(user_image_path) == False:
                 user_account_image = user_image_unset_pixbuf
             users_data_row = [True, user_account_image, username]                             # User data row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.

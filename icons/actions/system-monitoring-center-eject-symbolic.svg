@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="smart-system-monitor-eject-symbolic.svg"
+   sodipodi:docname="system-monitoring-center-eject-symbolic.svg"
    inkscape:export-filename="/home/asush/Masaüstü/files/python/task_manager/icon_studies/smart-system-monitor-settings.symbolic.png"
    inkscape:export-xdpi="20.171528"
    inkscape:export-ydpi="20.171528">
@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.2672078"
-     inkscape:cx="-46.722843"
-     inkscape:cy="78.717159"
+     inkscape:zoom="0.49923165"
+     inkscape:cx="241.22424"
+     inkscape:cy="272.93613"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -60,10 +60,10 @@
      transform="translate(-497.02587,-476.47219)">
     <path
        id="rect4087"
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:10.8031;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
+       style="opacity:1;fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:10.8031;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.996354"
        d="m 632.49254,560.14375 -67.73341,-67.7334 h -10e-4 l -67.73226,67.73228 v 10e-4 h 67.7334 z" />
     <rect
-       style="fill:#000000;stroke-width:17.5372;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:#bebebe;stroke-width:17.5372;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
        id="rect851"
        width="135.46666"
        height="24.215126"

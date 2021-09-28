@@ -1,3 +1,14 @@
+system-monitoring-center (0.1.13-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+
+  * Start speed of the application is increased
+  * RAM usage of the application is decreased in most situations
+  * Icon images are recolored as "bebebeff" color instead of black (this does not affect icon appearances on the GUI)
+  * Fixed a bug for trying to open Service Details window without waiting the services to be loaded and listed
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 28 Sep 2021 14:24:00 +0300
+
 system-monitoring-center (0.1.12-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
