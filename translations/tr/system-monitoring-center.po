@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-27 14:23+0300\n"
-"PO-Revision-Date: 2021-09-27 14:26+0300\n"
+"POT-Creation-Date: 2021-09-30 07:03+0300\n"
+"PO-Revision-Date: 2021-09-30 07:04+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -66,7 +66,7 @@ msgstr "Kabuk (Shell) Değişkeni"
 msgid "Environment & Shell Variable"
 msgstr "Ortam & Kabuk Değişkeni"
 
-#: src/EnvironmentVariables.py:303 src/Processes.py:483 src/Sensors.py:266
+#: src/EnvironmentVariables.py:303 src/Processes.py:482 src/Sensors.py:266
 #: src/Services.py:361 src/Startup.py:596 src/Storage.py:571 src/Users.py:457
 msgid "Total: "
 msgstr "Toplam: "
@@ -93,9 +93,9 @@ msgstr "Kabuk (Shell) değişkenleri silinemez."
 
 #: src/EnvironmentVariablesGUI.py:139 src/EnvironmentVariablesInputGUI.py:177
 #: src/EnvironmentVariablesInputGUI.py:188
-#: src/EnvironmentVariablesMenusGUI.py:333 src/Processes.py:727
+#: src/EnvironmentVariablesMenusGUI.py:333 src/Processes.py:726
 #: src/ProcessesGUI.py:200 src/ProcessesMenusGUI.py:837
-#: src/ProcessesMenusGUI.py:848 src/ServicesGUI.py:157 src/SettingsGUI.py:452
+#: src/ProcessesMenusGUI.py:848 src/ServicesGUI.py:160 src/SettingsGUI.py:452
 #: src/StartupGUI.py:131 src/StartupMenusGUI.py:578 src/StartupMenusGUI.py:589
 #: src/StartupNewItemGUI.py:156 src/StorageGUI.py:176 src/UsersGUI.py:146
 msgid "Warning"
@@ -233,28 +233,28 @@ msgstr ""
 "Uyarı! Uygulama root ayrıcalıklarıyla ile çalıştırıldı, sisteminize zarar "
 "verebilirsiniz."
 
-#: src/Performance.py:507 ui/MainWindow.ui:78
+#: src/Performance.py:503 ui/MainWindow.ui:78
 msgid "CPU Usage % (Average):"
 msgstr "MİB Kullanım % (Ortalama):"
 
-#: src/Performance.py:509
+#: src/Performance.py:505
 msgid "CPU Usage % (Per Core):"
 msgstr "MİB Kullanım % (Çekirdek Başına):"
 
-#: src/Performance.py:512
+#: src/Performance.py:508
 msgid "Selected CPU Core: "
 msgstr "Seçilen MİB Çekirdeği: "
 
-#: src/Performance.py:554
+#: src/Performance.py:550
 msgid "Total Physical RAM: "
 msgstr "Toplam Fiziksel RAM: "
 
-#: src/Performance.py:555
+#: src/Performance.py:551
 msgid "Reserved Swap Memory: "
 msgstr "Ayrılmış Takas Belleği: "
 
-#: src/Performance.py:576 src/Performance.py:869 src/Performance.py:870
-#: src/Performance.py:871 src/Performance.py:872 src/Storage.py:176
+#: src/Performance.py:572 src/Performance.py:871 src/Performance.py:872
+#: src/Performance.py:873 src/Performance.py:874 src/Storage.py:176
 #: src/Storage.py:230 src/Storage.py:239 src/Storage.py:250 src/Storage.py:578
 #: src/Storage.py:585 src/StorageDetails.py:121 src/StorageDetails.py:164
 #: src/StorageDetails.py:176 src/StorageDetails.py:190
@@ -263,53 +263,53 @@ msgstr "Ayrılmış Takas Belleği: "
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
-#: src/Performance.py:584 src/Storage.py:221 src/StorageDetails.py:153
+#: src/Performance.py:580 src/Storage.py:221 src/StorageDetails.py:153
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
-#: src/Performance.py:593 src/Performance.py:725 src/Performance.py:903
-#: src/Performance.py:921 src/ServicesDetails.py:55 src/Storage.py:343
+#: src/Performance.py:589 src/Performance.py:727 src/Performance.py:905
+#: src/Performance.py:923 src/ServicesDetails.py:55 src/Storage.py:343
 #: src/Storage.py:354 src/Storage.py:365 src/StorageDetails.py:131
 #: src/StorageDetails.py:286 src/StorageDetails.py:300
 #: src/StorageDetails.py:314 src/UsersDetails.py:166
 msgid "Yes"
 msgstr "Evet"
 
-#: src/Performance.py:595 src/Performance.py:727 src/Performance.py:905
+#: src/Performance.py:591 src/Performance.py:729 src/Performance.py:907
 #: src/ServicesDetails.py:55 src/Storage.py:345 src/Storage.py:356
 #: src/Storage.py:367 src/StorageDetails.py:127 src/StorageDetails.py:288
 #: src/StorageDetails.py:302 src/StorageDetails.py:316 src/UsersDetails.py:168
 msgid "No"
 msgstr "Hayır"
 
-#: src/Performance.py:626
+#: src/Performance.py:622
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: src/Performance.py:628
+#: src/Performance.py:624
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:907 src/Processes.py:652 src/System.py:71
-#: src/System.py:147
+#: src/Performance.py:909 src/Processes.py:651 src/System.py:81
+#: src/System.py:157
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-#: src/Performance.py:997 src/Performance.py:1002
+#: src/Performance.py:999 src/Performance.py:1004
 msgid "disk"
 msgstr "disk"
 
-#: src/Performance.py:1006
+#: src/Performance.py:1008
 msgid "partition"
 msgstr "disk bölümü"
 
-#: src/Performance.py:1044 src/Processes.py:759 src/ProcessesDetails.py:549
+#: src/Performance.py:1046 src/Processes.py:758 src/ProcessesDetails.py:549
 #: src/Services.py:523 src/ServicesDetails.py:254 src/Storage.py:774
 #: src/StorageDetails.py:420 src/Users.py:617 src/UsersDetails.py:298
 msgid "Auto-Byte"
 msgstr "Oto-Bayt"
 
-#: src/Performance.py:1046 src/Processes.py:761 src/ProcessesDetails.py:551
+#: src/Performance.py:1048 src/Processes.py:760 src/ProcessesDetails.py:551
 #: src/Services.py:525 src/ServicesDetails.py:256 src/Storage.py:776
 #: src/StorageDetails.py:422 src/Users.py:619 src/UsersDetails.py:300
 msgid "Auto-bit"
@@ -423,23 +423,23 @@ msgstr "Tracing Stop"
 msgid "Dead"
 msgstr "Sonlanmış"
 
-#: src/Processes.py:483
+#: src/Processes.py:482
 msgid " processes ("
 msgstr " işlem ("
 
-#: src/Processes.py:483
+#: src/Processes.py:482
 msgid " from this user, "
 msgstr " bu kullanıcıdan, "
 
-#: src/Processes.py:483
+#: src/Processes.py:482
 msgid " from other users/system)"
 msgstr " diğer kullanıcılardan/sistemden)"
 
-#: src/Processes.py:728
+#: src/Processes.py:727
 msgid "Current Windowing System Is not Supported"
 msgstr "Şimdki Pencere Sistemi Desteklenmiyor"
 
-#: src/Processes.py:729
+#: src/Processes.py:728
 msgid ""
 "This function can not be used on systems which run a windowing system other "
 "than X11."
@@ -782,11 +782,11 @@ msgstr "İnaktif"
 msgid "Exited"
 msgstr "Çıkmış"
 
-#: src/ServicesGUI.py:158
+#: src/ServicesGUI.py:161
 msgid "Select A Service"
 msgstr "Bir Servis Seçin"
 
-#: src/ServicesGUI.py:159
+#: src/ServicesGUI.py:162
 msgid "Please select a service and try again for opening the menu"
 msgstr "Lütfen bir servis seçin ve menüyü açmak için tekrar deneyin"
 
@@ -1140,11 +1140,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr "Disk çıkarıldı ve dosya sistemi yeniden adlandırılabilir."
 
-#: src/System.py:263
+#: src/System.py:265
 msgid "(Yes)"
 msgstr "(Evet)"
 
-#: src/System.py:265
+#: src/System.py:267
 msgid "(No)"
 msgstr "(Hayır)"
 
@@ -2600,8 +2600,8 @@ msgstr ""
 "yedeklemeniz önerilir: '/etc/environment', '/home/[username]/.bashrc'."
 
 #: ui/MainWindow.ui:4714
-msgid "Computer Name"
-msgstr "Bilgisayar Adı"
+msgid "Computer Name And Model"
+msgstr "Bilgisayar Adı ve Modeli"
 
 #: ui/MainWindow.ui:4729
 msgid "Operating System Name and Version"

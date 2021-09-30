@@ -92,17 +92,16 @@ def processes_initial_func():
     application_icon_list = []
     application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]    # Get  ".desktop" file name
     for application in application_file_list:
-        try:
-            with open("/usr/share/applications/" + application) as reader:
-                application_file_content = reader.read()
-            application_exec = application_file_content.split("Exec=")[1].split("\n")[0].split("/")[-1].split(" ")[0]    # Get application exec data
-            if application_exec != "sh":                                                      # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f"). This statement is used to avoid from this confusion.
-                application_exec_list.append(application_exec)
-            else:
-                application_exec_list.append(application_file_content.split("Exec=")[1].split("\n")[0])
-            application_icon_list.append(application_file_content.split("Icon=")[1].split("\n")[0])    # Get application icon name data
-        except:
-            application_icon_list.append("_no_icon_")                                         # Append "_no_icon_" into the list if no icon name data is found in the ".desktop" file in order to keep list length same as "application_exec_list" list. Because index matching of these list is used in order to get application icon names by using application exec data.
+        with open("/usr/share/applications/" + application) as reader:
+            application_file_content = reader.read()
+        if "Exec=" not in application_file_content or "Icon=" not in application_file_content:    # Do not include application name or icon name if any of them is not found in the .desktop file.
+            continue
+        application_exec = application_file_content.split("Exec=")[1].split("\n")[0].split("/")[-1].split(" ")[0]    # Get application exec data
+        if application_exec != "sh":                                                          # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f"). This statement is used to avoid from this confusion.
+            application_exec_list.append(application_exec)
+        else:
+            application_exec_list.append(application_file_content.split("Exec=")[1].split("\n")[0])
+        application_icon_list.append(application_file_content.split("Icon=")[1].split("\n")[0])    # Get application icon name data
 
 
 # ----------------------------------- Processes - Get Process Data Function (gets processes data, adds into treeview and updates it) -----------------------------------
@@ -221,7 +220,7 @@ def processes_loop_func():
                     if process_name.startswith(process_name_from_stat) == False:
                         process_name = process_name_from_stat                                 # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
         process_icon = "system-monitoring-center-process-symbolic"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
-        if process_name in application_exec_list and process_icon != "_no_icon_":             # Use process icon name from application file if process name is found in application exec list
+        if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list.
             process_icon = application_icon_list[application_exec_list.index(process_name)]
         processes_data_row = [True, process_icon, process_name]                               # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
         if 1 in processes_treeview_columns_shown:

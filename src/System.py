@@ -62,6 +62,16 @@ def system_initial_func():
     if os_family == "":
         os_family = "-"
 
+    # Get kernel release (base version of kernel)
+    kernel_release = platform.release()
+    if kernel_release == "":
+        kernel_release = "-"
+
+    # Get kernel version (package version of kernel))
+    kernel_version = platform.version()
+    if kernel_version == "":
+        kernel_version = "-"
+
     # Get windowing system
     global windowing_system
     windowing_system = os.environ.get('XDG_SESSION_TYPE')
@@ -193,6 +203,8 @@ def system_initial_func():
     # Set label texts to show information
     SystemGUI.label8102.set_text(f'{computer_vendor} {computer_model}')
     SystemGUI.label8105.set_text(os_family)
+    SystemGUI.label8107.set_text(kernel_release)
+    SystemGUI.label8108.set_text(kernel_version)
     SystemGUI.label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
     SystemGUI.label8110.set_text(windowing_system)
     SystemGUI.label8111.set_text(window_manager)
@@ -222,16 +234,6 @@ def system_loop_func():
         with open("/etc/debian_version") as reader:
             debian_version = reader.read().strip()
         os_based_on = os_based_on + " (" + debian_version + ")"
-
-    # Get kernel release (base version of kernel)
-    kernel_release = platform.release()
-    if kernel_release == "":
-        kernel_release = "-"
-
-    # Get kernel version (package version of kernel))
-    kernel_version = platform.version()
-    if kernel_version == "":
-        kernel_version = "-"
 
     with open("/proc/sys/kernel/hostname") as reader:
         host_name = reader.read().strip()
@@ -270,8 +272,6 @@ def system_loop_func():
     SystemGUI.label8103.set_text(os_name)
     SystemGUI.label8104.set_text(f'{os_version} - {os_version_code_name}')
     SystemGUI.label8106.set_text(os_based_on)
-    SystemGUI.label8107.set_text(kernel_release)
-    SystemGUI.label8108.set_text(kernel_version)
     SystemGUI.label8116.set_text(host_name)
     SystemGUI.label8117.set_text(f'{number_of_monitors}')
     SystemGUI.label8118.set_text(f'{current_monitor}')

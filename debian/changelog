@@ -1,3 +1,13 @@
+system-monitoring-center (0.1.14-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+
+  * Fixed a bug which causes displaying wrong process icons (Processes tab)
+  * Minor performance improvements on System tab
+  * Minor translation updates
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 30 Sep 2021 07:17:00 +0300
+
 system-monitoring-center (0.1.13-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
@@ -7,7 +17,7 @@ system-monitoring-center (0.1.13-beta) unstable; urgency=medium
   * Icon images are recolored as "bebebeff" color instead of black (this does not affect icon appearances on the GUI)
   * Fixed a bug for trying to open Service Details window without waiting the services to be loaded and listed
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 28 Sep 2021 14:24:00 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 28 Sep 2021 14:24:00 +0300
 
 system-monitoring-center (0.1.12-beta) unstable; urgency=medium
 
