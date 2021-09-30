@@ -36,24 +36,30 @@ def processes_gui_import_func():
 def processes_gui_func():
 
     # Processes tab GUI objects
-    global treeview2101, searchentry2101, button2101, button2102, button2104
+    global grid2101, treeview2101, searchentry2101, button2101, button2102, button2104
     global radiobutton2101, radiobutton2102, radiobutton2103, radiobutton2104, radiobutton2105, radiobutton2106
     global label2101
 
 
+    # Processes tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesTab.ui")
+
     # Processes tab GUI objects - get
-    treeview2101 = MainGUI.builder.get_object('treeview2101')
-    searchentry2101 = MainGUI.builder.get_object('searchentry2101')
-    button2101 = MainGUI.builder.get_object('button2101')
-    button2102 = MainGUI.builder.get_object('button2102')
-    button2104 = MainGUI.builder.get_object('button2104')
-    radiobutton2101 = MainGUI.builder.get_object('radiobutton2101')
-    radiobutton2102 = MainGUI.builder.get_object('radiobutton2102')
-    radiobutton2103 = MainGUI.builder.get_object('radiobutton2103')
-    radiobutton2104 = MainGUI.builder.get_object('radiobutton2104')
-    radiobutton2105 = MainGUI.builder.get_object('radiobutton2105')
-    radiobutton2106 = MainGUI.builder.get_object('radiobutton2106')
-    label2101 = MainGUI.builder.get_object('label2101')
+    grid2101 = builder.get_object('grid2101')
+    treeview2101 = builder.get_object('treeview2101')
+    searchentry2101 = builder.get_object('searchentry2101')
+    button2101 = builder.get_object('button2101')
+    button2102 = builder.get_object('button2102')
+    button2104 = builder.get_object('button2104')
+    radiobutton2101 = builder.get_object('radiobutton2101')
+    radiobutton2102 = builder.get_object('radiobutton2102')
+    radiobutton2103 = builder.get_object('radiobutton2103')
+    radiobutton2104 = builder.get_object('radiobutton2104')
+    radiobutton2105 = builder.get_object('radiobutton2105')
+    radiobutton2106 = builder.get_object('radiobutton2106')
+    label2101 = builder.get_object('label2101')
 
 
     # Processes tab GUI functions

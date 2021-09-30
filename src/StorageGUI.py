@@ -35,23 +35,30 @@ def storage_gui_import_func():
 # ----------------------------------- Storage - Storage GUI Function (the code of this module in order to avoid running them during module import and defines "Storage" tab GUI objects and functions/signals) -----------------------------------
 def storage_gui_func():
 
-    global treeview4101, searchentry4101, button4101, button4103
+    global grid4101, treeview4101, searchentry4101, button4101, button4103
     global radiobutton4101, radiobutton4102, radiobutton4103, radiobutton4104, radiobutton4105, radiobutton4106, radiobutton4107
     global label4101
 
 
-    treeview4101 = MainGUI.builder.get_object('treeview4101')
-    searchentry4101 = MainGUI.builder.get_object('searchentry4101')
-    button4101 = MainGUI.builder.get_object('button4101')
-    button4103 = MainGUI.builder.get_object('button4103')
-    radiobutton4101 = MainGUI.builder.get_object('radiobutton4101')
-    radiobutton4102 = MainGUI.builder.get_object('radiobutton4102')
-    radiobutton4103 = MainGUI.builder.get_object('radiobutton4103')
-    radiobutton4104 = MainGUI.builder.get_object('radiobutton4104')
-    radiobutton4105 = MainGUI.builder.get_object('radiobutton4105')
-    radiobutton4106 = MainGUI.builder.get_object('radiobutton4106')
-    radiobutton4107 = MainGUI.builder.get_object('radiobutton4107')
-    label4101 = MainGUI.builder.get_object('label4101')
+    # Storage tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageTab.ui")
+
+    # Storage tab GUI objects - get
+    grid4101 = builder.get_object('grid4101')
+    treeview4101 = builder.get_object('treeview4101')
+    searchentry4101 = builder.get_object('searchentry4101')
+    button4101 = builder.get_object('button4101')
+    button4103 = builder.get_object('button4103')
+    radiobutton4101 = builder.get_object('radiobutton4101')
+    radiobutton4102 = builder.get_object('radiobutton4102')
+    radiobutton4103 = builder.get_object('radiobutton4103')
+    radiobutton4104 = builder.get_object('radiobutton4104')
+    radiobutton4105 = builder.get_object('radiobutton4105')
+    radiobutton4106 = builder.get_object('radiobutton4106')
+    radiobutton4107 = builder.get_object('radiobutton4107')
+    label4101 = builder.get_object('label4101')
 
 
     # Storage tab GUI functions

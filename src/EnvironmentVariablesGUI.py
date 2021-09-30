@@ -36,20 +36,26 @@ def environment_variables_gui_import_func():
 def environment_variables_gui_func():
 
     # Environment Variables tab GUI objects
-    global treeview7101, searchentry7101, button7101, button7103
+    global grid7101, treeview7101, searchentry7101, button7101, button7103
     global radiobutton7101, radiobutton7102, radiobutton7103
     global label7101
 
 
+    # Environment Variables tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/EnvironmentVariablesTab.ui")
+
     # Environment Variables tab GUI objects - get
-    treeview7101 = MainGUI.builder.get_object('treeview7101')
-    searchentry7101 = MainGUI.builder.get_object('searchentry7101')
-    button7101 = MainGUI.builder.get_object('button7101')
-    button7103 = MainGUI.builder.get_object('button7103')
-    radiobutton7101 = MainGUI.builder.get_object('radiobutton7101')
-    radiobutton7102 = MainGUI.builder.get_object('radiobutton7102')
-    radiobutton7103 = MainGUI.builder.get_object('radiobutton7103')
-    label7101 = MainGUI.builder.get_object('label7101')
+    grid7101 = builder.get_object('grid7101')
+    treeview7101 = builder.get_object('treeview7101')
+    searchentry7101 = builder.get_object('searchentry7101')
+    button7101 = builder.get_object('button7101')
+    button7103 = builder.get_object('button7103')
+    radiobutton7101 = builder.get_object('radiobutton7101')
+    radiobutton7102 = builder.get_object('radiobutton7102')
+    radiobutton7103 = builder.get_object('radiobutton7103')
+    label7101 = builder.get_object('label7101')
 
 
     # Environment Variables tab GUI functions

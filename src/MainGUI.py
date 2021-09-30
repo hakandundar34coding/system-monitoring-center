@@ -254,9 +254,14 @@ def main_gui_main_function_run_func():
         if 'ProcessesGUI' not in globals():                                                   # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
             global Processes, ProcessesGUI, ProcessesMenusGUI, ProcessesDetailsGUI, ProcessesDetails, ProcessesCustomPriorityGUI
             import Processes, ProcessesGUI, ProcessesMenusGUI, ProcessesDetailsGUI, ProcessesDetails, ProcessesCustomPriorityGUI
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             Processes.processes_import_func()
             ProcessesGUI.processes_gui_import_func()
             ProcessesGUI.processes_gui_func()
+            grid2.attach(ProcessesGUI.grid2101, 0, 0, 1, 1)                                   # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             ProcessesMenusGUI.processes_menus_import_func()
             ProcessesMenusGUI.processes_menus_gui_func()
             ProcessesDetailsGUI.processes_details_gui_import_function()
@@ -273,9 +278,14 @@ def main_gui_main_function_run_func():
         if 'UsersGUI' not in globals():
             global Users, UsersGUI, UsersMenusGUI, UsersDetailsGUI, UsersDetails
             import Users, UsersGUI, UsersMenusGUI, UsersDetailsGUI, UsersDetails
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             Users.users_import_func()
             UsersGUI.users_gui_import_func()
             UsersGUI.users_gui_func()
+            grid3.attach(UsersGUI.grid3101, 0, 0, 1, 1)                                       # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             UsersMenusGUI.users_menus_import_func()
             UsersMenusGUI.users_menus_gui_func()
             UsersDetailsGUI.users_details_gui_import_function()
@@ -290,9 +300,14 @@ def main_gui_main_function_run_func():
         if 'StorageGUI' not in globals():
             global Storage, StorageGUI, StorageMenusGUI, StorageDetailsGUI, StorageDetails, StorageRenameGUI
             import Storage, StorageGUI, StorageMenusGUI, StorageDetailsGUI, StorageDetails, StorageRenameGUI
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             Storage.storage_import_func()
             StorageGUI.storage_gui_import_func()
             StorageGUI.storage_gui_func()
+            grid4.attach(StorageGUI.grid4101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             StorageMenusGUI.storage_menus_import_func()
             StorageMenusGUI.storage_menus_gui_func()
             StorageDetailsGUI.storage_details_gui_import_function()
@@ -309,9 +324,14 @@ def main_gui_main_function_run_func():
         if 'StartupGUI' not in globals():
             global Startup, StartupGUI, StartupMenusGUI, StartupNewItemGUI
             import Startup, StartupGUI, StartupMenusGUI, StartupNewItemGUI
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             Startup.startup_import_func()
             StartupGUI.startup_gui_import_func()
             StartupGUI.startup_gui_func()
+            grid5.attach(StartupGUI.grid5101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             StartupMenusGUI.startup_menus_import_func()
             StartupMenusGUI.startup_menus_gui_func()
             StartupNewItemGUI.startup_new_item_import_func()
@@ -325,9 +345,14 @@ def main_gui_main_function_run_func():
         if 'ServicesGUI' not in globals():
             global Services, ServicesGUI, ServicesMenusGUI, ServicesDetailsGUI, ServicesDetails
             import Services, ServicesGUI, ServicesMenusGUI, ServicesDetailsGUI, ServicesDetails
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             Services.services_import_func()
             ServicesGUI.services_gui_import_func()
             ServicesGUI.services_gui_func()
+            grid6.attach(ServicesGUI.grid6101, 0, 0, 1, 1)                                    # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             ServicesMenusGUI.services_menus_import_func()
             ServicesMenusGUI.services_menus_gui_func()
             ServicesDetailsGUI.services_details_gui_import_function()
@@ -342,9 +367,14 @@ def main_gui_main_function_run_func():
         if 'EnvironmentVariablesGUI' not in globals():
             global EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI, EnvironmentVariablesInputGUI
             import EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI, EnvironmentVariablesInputGUI
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             EnvironmentVariables.environment_variables_import_func()
             EnvironmentVariablesGUI.environment_variables_gui_import_func()
             EnvironmentVariablesGUI.environment_variables_gui_func()
+            grid7.attach(EnvironmentVariablesGUI.grid7101, 0, 0, 1, 1)                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             EnvironmentVariablesMenusGUI.environment_variables_menus_import_func()
             EnvironmentVariablesMenusGUI.environment_variables_menus_gui_func()
             EnvironmentVariablesInputGUI.environment_variables_input_gui_import_func()
@@ -358,9 +388,14 @@ def main_gui_main_function_run_func():
         if 'SystemGUI' not in globals():
             global System, SystemGUI
             import System, SystemGUI
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
             System.system_import_func()
             SystemGUI.system_gui_import_func()
             SystemGUI.system_gui_func()
+            grid8.attach(SystemGUI.grid8101, 0, 0, 1, 1)                                      # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
         System.system_thread_run_func()
 
     if Config.show_floating_summary == 1:                                                     # Show Floating Summary window appropriate with user preferences. Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.

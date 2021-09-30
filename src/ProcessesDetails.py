@@ -414,9 +414,10 @@ def process_details_foreground_func():
             selected_process_cwd = os.readlink("/proc/" + selected_process_pid + "/cwd")
         except (PermissionError, FileNotFoundError) as multiple_exception:                    # "PermissionError" is used for processes that require root privileges for "cwd data". "FileNotFoundError" is used for zombie processes which do not have a readable "cwd" file (it has the file but it is a broken link).
             selected_process_cwd = "-"
+        # Get process cmdline
         with open("/proc/" + selected_process_pid + "/cmdline") as reader:
             selected_process_cmdline = reader.read().split("\x00")
-        if selected_process_cmdline == "":
+        if selected_process_cmdline == [""]:
             selected_process_cmdline = "-"
         # Get open files of the process
         selected_process_open_files = []

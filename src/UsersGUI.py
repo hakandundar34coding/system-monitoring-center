@@ -35,20 +35,27 @@ def users_gui_import_func():
 # ----------------------------------- Users - Users GUI Function (the code of this module in order to avoid running them during module import and defines "Users" tab GUI objects and functions/signals) -----------------------------------
 def users_gui_func():
 
-    global treeview3101, searchentry3101, button3101, button3102
+    global grid3101, treeview3101, searchentry3101, button3101, button3102
     global radiobutton3101, radiobutton3102, radiobutton3103
     global label3101
 
 
-    treeview3101 = MainGUI.builder.get_object('treeview3101')
-    searchentry3101 = MainGUI.builder.get_object('searchentry3101')
-    button3101 = MainGUI.builder.get_object('button3101')
-    button3102 = MainGUI.builder.get_object('button3102')
-    button3103 = MainGUI.builder.get_object('button3103')
-    radiobutton3101 = MainGUI.builder.get_object('radiobutton3101')
-    radiobutton3102 = MainGUI.builder.get_object('radiobutton3102')
-    radiobutton3103 = MainGUI.builder.get_object('radiobutton3103')
-    label3101 = MainGUI.builder.get_object('label3101')
+    # Users tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/UsersTab.ui")
+
+    # Users tab GUI objects - get
+    grid3101 = builder.get_object('grid3101')
+    treeview3101 = builder.get_object('treeview3101')
+    searchentry3101 = builder.get_object('searchentry3101')
+    button3101 = builder.get_object('button3101')
+    button3102 = builder.get_object('button3102')
+    button3103 = builder.get_object('button3103')
+    radiobutton3101 = builder.get_object('radiobutton3101')
+    radiobutton3102 = builder.get_object('radiobutton3102')
+    radiobutton3103 = builder.get_object('radiobutton3103')
+    label3101 = builder.get_object('label3101')
 
 
     # Users tab GUI functions

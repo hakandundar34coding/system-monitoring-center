@@ -1,3 +1,14 @@
+system-monitoring-center (0.1.15-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+
+  * Application start speed is improved
+  * Tab switch performance is improved
+  * Fixed a bug for showing process cmdline on Process Details window
+  * Minor GUI improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 30 Sep 2021 20:01:00 +0300
+
 system-monitoring-center (0.1.14-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]

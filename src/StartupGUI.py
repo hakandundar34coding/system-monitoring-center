@@ -35,19 +35,26 @@ def startup_gui_import_func():
 # ----------------------------------- Startup - Startup GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab GUI objects and functions/signals) -----------------------------------
 def startup_gui_func():
 
-    global treeview5101, searchentry5101, button5101, button5102
+    global grid5101, treeview5101, searchentry5101, button5101, button5102
     global radiobutton5101, radiobutton5102, radiobutton5103
     global label5101
 
 
-    treeview5101 = MainGUI.builder.get_object('treeview5101')
-    searchentry5101 = MainGUI.builder.get_object('searchentry5101')
-    button5101 = MainGUI.builder.get_object('button5101')
-    button5102 = MainGUI.builder.get_object('button5102')
-    radiobutton5101 = MainGUI.builder.get_object('radiobutton5101')
-    radiobutton5102 = MainGUI.builder.get_object('radiobutton5102')
-    radiobutton5103 = MainGUI.builder.get_object('radiobutton5103')
-    label5101 = MainGUI.builder.get_object('label5101')
+    # Startup tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StartupTab.ui")
+
+    # Startup tab GUI objects - get
+    grid5101 = builder.get_object('grid5101')
+    treeview5101 = builder.get_object('treeview5101')
+    searchentry5101 = builder.get_object('searchentry5101')
+    button5101 = builder.get_object('button5101')
+    button5102 = builder.get_object('button5102')
+    radiobutton5101 = builder.get_object('radiobutton5101')
+    radiobutton5102 = builder.get_object('radiobutton5102')
+    radiobutton5103 = builder.get_object('radiobutton5103')
+    label5101 = builder.get_object('label5101')
 
 
     # Startup tab GUI functions

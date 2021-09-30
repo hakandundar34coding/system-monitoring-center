@@ -36,21 +36,27 @@ def services_gui_import_func():
 def services_gui_func():
 
     # Services tab GUI objects
-    global treeview6101, searchentry6101, button6101, button6102, button6103
+    global grid6101, treeview6101, searchentry6101, button6101, button6102, button6103
     global radiobutton6101, radiobutton6102, radiobutton6103
     global label6101
 
 
+    # Services tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesTab.ui")
+
     # Services tab GUI objects - get
-    treeview6101 = MainGUI.builder.get_object('treeview6101')
-    searchentry6101 = MainGUI.builder.get_object('searchentry6101')
-    button6101 = MainGUI.builder.get_object('button6101')
-    button6102 = MainGUI.builder.get_object('button6102')
-    button6103 = MainGUI.builder.get_object('button6103')
-    radiobutton6101 = MainGUI.builder.get_object('radiobutton6101')
-    radiobutton6102 = MainGUI.builder.get_object('radiobutton6102')
-    radiobutton6103 = MainGUI.builder.get_object('radiobutton6103')
-    label6101 = MainGUI.builder.get_object('label6101')
+    grid6101 = builder.get_object('grid6101')
+    treeview6101 = builder.get_object('treeview6101')
+    searchentry6101 = builder.get_object('searchentry6101')
+    button6101 = builder.get_object('button6101')
+    button6102 = builder.get_object('button6102')
+    button6103 = builder.get_object('button6103')
+    radiobutton6101 = builder.get_object('radiobutton6101')
+    radiobutton6102 = builder.get_object('radiobutton6102')
+    radiobutton6103 = builder.get_object('radiobutton6103')
+    label6101 = builder.get_object('label6101')
 
 
     # Services tab GUI functions
