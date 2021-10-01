@@ -107,6 +107,9 @@ def processes_initial_func():
 # ----------------------------------- Processes - Get Process Data Function (gets processes data, adds into treeview and updates it) -----------------------------------
 def processes_loop_func():
 
+    # Get GUI obejcts one time per floop instead of getting them multiple times
+    treeview2101 = ProcessesGUI.treeview2101
+
     # Get configrations one time per floop instead of getting them multiple times (hundreds of times for many of them) in every loop which causes high CPU usage.
     global processes_cpu_usage_percent_precision
     global processes_ram_swap_data_precision, processes_ram_swap_data_unit
@@ -303,12 +306,12 @@ def processes_loop_func():
     disk_read_write_data_prev = disk_read_write_data                                          # For using values in the next loop
 
     # Add/Remove treeview columns appropriate for user preferences
-    ProcessesGUI.treeview2101.freeze_child_notify()                                           # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview2101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     if processes_treeview_columns_shown != processes_treeview_columns_shown_prev:             # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
-        for column in ProcessesGUI.treeview2101.get_columns():                                # Remove all columns in the treeview.
-            ProcessesGUI.treeview2101.remove_column(column)
+        for column in treeview2101.get_columns():                                             # Remove all columns in the treeview.
+            treeview2101.remove_column(column)
         for i, column in enumerate(processes_treeview_columns_shown):
             if processes_data_list[column][0] in processes_treeview_columns_shown:
                 cumulative_sort_column_id = cumulative_sort_column_id + processes_data_list[column][2]
@@ -332,7 +335,7 @@ def processes_loop_func():
             processes_treeview_column.set_reorderable(True)                                   # Set columns reorderable by the user when column title buttons are dragged.
             processes_treeview_column.set_min_width(40)                                       # Set minimum column widths as "40 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
             processes_treeview_column.connect("clicked", on_column_title_clicked)             # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-            ProcessesGUI.treeview2101.append_column(processes_treeview_column)                # Append column into treeview
+            treeview2101.append_column(processes_treeview_column)                             # Append column into treeview
 
         # Get column data types for appending processes data into treestore
         processes_data_column_types = []
@@ -347,21 +350,21 @@ def processes_loop_func():
         treestore2101.set_column_types(processes_data_column_types)                           # Set column types of the columns which will be appended into treestore
         treemodelfilter2101 = treestore2101.filter_new()
         treemodelfilter2101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
-        #ProcessesGUI.treeview2101.set_model(treemodelfilter2101)                             # If sorting will not be used, this command could be used instead of "ProcessesGUI.treeview3101.set_model(Gtk.TreeModelSort(model=treemodelfilter3101))".
+        #treeview2101.set_model(treemodelfilter2101)                                          # If sorting will not be used, this command could be used instead of "ProcessesGUI.treeview3101.set_model(Gtk.TreeModelSort(model=treemodelfilter3101))".
         #treemodelsort2101 = Gtk.TreeModelSort.new_with_model(treemodelfilter2101)
-        #ProcessesGUI.treeview2101.set_model(treemodelsort2101)                               # If one model is added, previous one is removed. In order to avoid from this behavior, treemodelfilter is added instead of standalone treestore. A treestore also is added into a treemodelfilter. This command is used instead of "PerformanceGUI.treeview2101.set_model(treemodelfilter2101)" in order to prevent "Gtk-CRITICAL **: ... gtk_tree_sortable_set_sort_column_id: assertion 'GTK_IS_TREE_SORTABLE (sortable)' failed" warnings.
-        #ProcessesGUI.treeview2101.set_model(treestore2101)
+        #treeview2101.set_model(treemodelsort2101)                                            # If one model is added, previous one is removed. In order to avoid from this behavior, treemodelfilter is added instead of standalone treestore. A treestore also is added into a treemodelfilter. This command is used instead of "PerformanceGUI.treeview2101.set_model(treemodelfilter2101)" in order to prevent "Gtk-CRITICAL **: ... gtk_tree_sortable_set_sort_column_id: assertion 'GTK_IS_TREE_SORTABLE (sortable)' failed" warnings.
+        #treeview2101.set_model(treestore2101)
         treemodelsort2101 = Gtk.TreeModelSort(treemodelfilter2101)
-        ProcessesGUI.treeview2101.set_model(treemodelsort2101)
+        treeview2101.set_model(treemodelsort2101)
         pid_list_prev = []                                                                    # Redefine (clear) "pid_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
         global piter_list
         piter_list = []
-    ProcessesGUI.treeview2101.thaw_child_notify()                                             # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview2101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if processes_treeview_columns_shown_prev != processes_treeview_columns_shown or processes_data_column_order_prev != processes_data_column_order:
-        processes_treeview_columns = ProcessesGUI.treeview2101.get_columns()                  # Get shown columns on the treeview in order to use this data for reordering the columns.
-        processes_treeview_columns_modified = ProcessesGUI.treeview2101.get_columns()
+        processes_treeview_columns = treeview2101.get_columns()                               # Get shown columns on the treeview in order to use this data for reordering the columns.
+        processes_treeview_columns_modified = treeview2101.get_columns()
         treeview_column_titles = []
         for column in processes_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -373,11 +376,11 @@ def processes_loop_func():
                 column_title_to_move = column_to_move.get_title()
                 for data in processes_data_list:
                     if data[1] == column_title_to_move:
-                        ProcessesGUI.treeview2101.move_column_after(column_to_move, None)     # Column is moved at the beginning of the treeview if "None" is used.
+                        treeview2101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort process rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if processes_treeview_columns_shown_prev != processes_treeview_columns_shown or processes_data_row_sorting_column_prev != processes_data_row_sorting_column or processes_data_row_sorting_order != processes_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
-        processes_treeview_columns = ProcessesGUI.treeview2101.get_columns()                  # Get shown columns on the treeview in order to use this data for reordering the columns.
+        processes_treeview_columns = treeview2101.get_columns()                               # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_column_titles = []
         for column in processes_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -395,7 +398,7 @@ def processes_loop_func():
 
     # Set column widths if there are changes since last loop.
     if processes_treeview_columns_shown_prev != processes_treeview_columns_shown or processes_data_column_widths_prev != processes_data_column_widths:
-        processes_treeview_columns = ProcessesGUI.treeview2101.get_columns()
+        processes_treeview_columns = treeview2101.get_columns()
         treeview_column_titles = []
         for column in processes_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -422,7 +425,7 @@ def processes_loop_func():
     updated_existing_proc_index = [[pid_list.index(i), pid_list_prev.index(i)] for i in existing_processes]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
     processes_data_rows_row_length = len(processes_data_rows[0])
     # Append/Remove/Update processes data into treestore
-    ProcessesGUI.treeview2101.freeze_child_notify()                                           # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview2101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     global process_search_text, filter_process_type, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_proc_index:
@@ -462,10 +465,10 @@ def processes_loop_func():
                         piter_list.append(treestore2101.append(piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
             if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
                 piter_list.insert(pid_list.index(process), treestore2101.insert(None, pid_list.index(process), processes_data_rows[pid_list.index(process)]))
-    ProcessesGUI.treeview2101.thaw_child_notify()                                             # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview2101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     if pid_list_prev == []:                                                                   # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made. "First loop" control is made by checking if pid_list_prev is empty.
-        ProcessesGUI.treeview2101.expand_all()
+        treeview2101.expand_all()
 
     pid_list_prev = pid_list
     processes_data_rows_prev = processes_data_rows
@@ -483,15 +486,15 @@ def processes_loop_func():
 
     # Show/Hide treeview expander arrows
     if show_processes_as_tree == 1:
-        ProcessesGUI.treeview2101.set_show_expanders(True)                                    # Show expander arrows (default is True) if "Show processes as tree" option is preferred. If "child rows" are not used and there is no need for these expanders (they would be shown as empty spaces in this situation).
+        treeview2101.set_show_expanders(True)                                                 # Show expander arrows (default is True) if "Show processes as tree" option is preferred. If "child rows" are not used and there is no need for these expanders (they would be shown as empty spaces in this situation).
     if show_processes_as_tree == 0:
-        ProcessesGUI.treeview2101.set_show_expanders(False)                                   # Hide expander arrows (default is True) if "Show processes as tree" option is not preferred.
+        treeview2101.set_show_expanders(False)                                                # Hide expander arrows (default is True) if "Show processes as tree" option is not preferred.
 
     # Show/Hide treeview tree lines
     if Config.show_tree_lines == 1:
-        ProcessesGUI.treeview2101.set_enable_tree_lines(True)                                 # Show tree lines for tree view of processes (default is False).
+        treeview2101.set_enable_tree_lines(True)                                              # Show tree lines for tree view of processes (default is False).
     if Config.show_tree_lines == 0:
-        ProcessesGUI.treeview2101.set_enable_tree_lines(False)                                # Hide tree lines for tree view of processes. There is no need for showing tree lines for list view of processes.
+        treeview2101.set_enable_tree_lines(False)                                             # Hide tree lines for tree view of processes. There is no need for showing tree lines for list view of processes.
 
 
 # ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

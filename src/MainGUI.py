@@ -242,9 +242,18 @@ def main_gui_main_function_run_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 5
             if 'Sensors' not in globals():                                                    # Check if "Sensors" module is imported. Therefore it is not reimported after switching "Performance" tab off and on if "PerformanceGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
-                global Sensors
-                import Sensors
+                global Sensors, SensorsGUI, SensorsMenusGUI
+                import Sensors, SensorsGUI, SensorsMenusGUI
+                while Gtk.events_pending():                                                   # Used for more fluent tab switch.
+                    Gtk.main_iteration()
                 Sensors.sensors_import_func()
+                SensorsGUI.sensors_gui_import_func()
+                SensorsGUI.sensors_gui_func()
+                PerformanceGUI.grid1006.attach(SensorsGUI.grid1601, 0, 0, 1, 1)               # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                while Gtk.events_pending():                                                   # Used for more fluent tab switch.
+                    Gtk.main_iteration()
+                SensorsMenusGUI.sensors_menus_import_func()
+                SensorsMenusGUI.sensors_menus_gui_func()
             Sensors.sensors_thread_run_func()
 
     if radiobutton2.get_active() == True:                                                     # It switches to "Processes" tab if relevant radiobutton is clicked.

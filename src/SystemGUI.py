@@ -20,7 +20,8 @@ def system_gui_func():
 
     global grid8101
     global label8101, label8102, label8103, label8104, label8105, label8106, label8107, label8108, label8109, label8110
-    global label8111, label8112, label8113, label8114, label8115, label8116, label8117, label8118, label8119, label8120, label8121
+    global label8111, label8112, label8113, label8114, label8115, label8116, label8117, label8118, label8119, label8120
+    global label8121, label8122
 
 
     # System tab GUI objects - get from file
@@ -50,3 +51,4 @@ def system_gui_func():
     label8119 = builder.get_object('label8119')
     label8120 = builder.get_object('label8120')
     label8121 = builder.get_object('label8121')
+    label8122 = builder.get_object('label8122')

@@ -684,7 +684,7 @@ Features, system resource usages and appearance of the greeter (login screen) ar
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Elapsed time since last system boot</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">System Up Time:</property>
+                    <property name="label" translatable="yes">Up Time:</property>
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>
@@ -696,9 +696,9 @@ Features, system resource usages and appearance of the greeter (login screen) ar
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Number of installed packages</property>
+                    <property name="tooltip-text" translatable="yes">Number of installed APT packages</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Packages Installed:</property>
+                    <property name="label" translatable="yes">Packages (APT):</property>
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>
@@ -712,12 +712,12 @@ Features, system resource usages and appearance of the greeter (login screen) ar
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Name of the current user and information of whether the user has root privileges</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Current User - (Root?):</property>
+                    <property name="label" translatable="yes">User - (Root?):</property>
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>
                     <property name="left-attach">2</property>
-                    <property name="top-attach">3</property>
+                    <property name="top-attach">4</property>
                   </packing>
                 </child>
                 <child>
@@ -755,23 +755,6 @@ Features, system resource usages and appearance of the greeter (login screen) ar
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label8121">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="label" translatable="yes">--</property>
-                    <property name="selectable">True</property>
-                    <property name="ellipsize">end</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left-attach">3</property>
-                    <property name="top-attach">3</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -806,10 +789,52 @@ Note: Window manager changes during user session are not tracked.</property>
                   </packing>
                 </child>
                 <child>
-                  <placeholder/>
+                  <object class="GtkLabel" id="label8122">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">--</property>
+                    <property name="selectable">True</property>
+                    <property name="ellipsize">end</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left-attach">3</property>
+                    <property name="top-attach">4</property>
+                  </packing>
                 </child>
                 <child>
-                  <placeholder/>
+                  <object class="GtkLabel" id="label8121">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">--</property>
+                    <property name="selectable">True</property>
+                    <property name="ellipsize">end</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left-attach">3</property>
+                    <property name="top-attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Number of installed Flatpak applications and runtimes</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Packages (Flatpak):</property>
+                    <property name="ellipsize">end</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">3</property>
+                  </packing>
                 </child>
               </object>
               <packing>

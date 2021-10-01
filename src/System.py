@@ -257,8 +257,17 @@ def system_loop_func():
     sut_seconds = (sut_minutes - sut_minutes_int) * 60
     sut_seconds_int = int(sut_seconds)
 
-    # Get number of installed packages
-    number_of_installed_packages = len((subprocess.check_output("dpkg --list", shell=True)).decode().split("\n"))
+    # Get number of installed APT packages
+    try:                                                                                      # try-except" is used in order to handle errors if "dpkg" command is not available on the system.
+        dpkg_list_output = (subprocess.check_output("dpkg --list", shell=True)).decode()
+        number_of_installed_apt_packages = dpkg_list_output.count("\nii  ")
+    except:
+        number_of_installed_apt_packages = "-"
+    # Get number of installed Flatpak packages
+    try:                                                                                      # try-except" is used in order to handle errors if "flatpak" command is not available on the system.
+        number_of_installed_flatpak_packages = len((subprocess.check_output("flatpak list", shell=True)).decode().split("\n"))
+    except:
+        number_of_installed_flatpak_packages = "-"
 
     # Get if current user has root privileges
     if os.geteuid() == 0:
@@ -276,8 +285,9 @@ def system_loop_func():
     SystemGUI.label8117.set_text(f'{number_of_monitors}')
     SystemGUI.label8118.set_text(f'{current_monitor}')
     SystemGUI.label8119.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
-    SystemGUI.label8120.set_text(f'{number_of_installed_packages}')
-    SystemGUI.label8121.set_text(f'{current_user_name} - {have_root_access}')
+    SystemGUI.label8120.set_text(f'{number_of_installed_apt_packages}')
+    SystemGUI.label8121.set_text(f'{number_of_installed_flatpak_packages}')
+    SystemGUI.label8122.set_text(f'{current_user_name} - {have_root_access}')
 
 
 # ----------------------------------- System Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

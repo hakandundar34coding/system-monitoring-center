@@ -132,6 +132,9 @@ def startup_initial_func():
 # ----------------------------------- Startup - Get Startup Data Function (gets startup data, adds into treeview and updates it) -----------------------------------
 def startup_loop_func():
 
+    # Get GUI obejcts one time per floop instead of getting them multiple times
+    treeview5101 = StartupGUI.treeview5101
+
     # Define global variables and get treeview columns, sort column/order, column widths, etc.
     global startup_treeview_columns_shown
     global startup_treeview_columns_shown_prev, startup_data_row_sorting_column_prev, startup_data_row_sorting_order_prev, startup_data_column_order_prev, startup_data_column_widths_prev
@@ -443,12 +446,12 @@ def startup_loop_func():
         startup_data_rows.append(startup_data_row)
 
     # Add/Remove treeview columns appropriate for user preferences
-    StartupGUI.treeview5101.freeze_child_notify()                                             # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview5101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     if startup_treeview_columns_shown != startup_treeview_columns_shown_prev:                 # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
-        for column in StartupGUI.treeview5101.get_columns():                                  # Remove all columns in the treeview.
-            StartupGUI.treeview5101.remove_column(column)
+        for column in treeview5101.get_columns():                                             # Remove all columns in the treeview.
+            treeview5101.remove_column(column)
         for i, column in enumerate(startup_treeview_columns_shown):
             if startup_data_list[column][0] in startup_treeview_columns_shown:
                 cumulative_sort_column_id = cumulative_sort_column_id + startup_data_list[column][2]
@@ -474,7 +477,7 @@ def startup_loop_func():
             startup_treeview_column.set_reorderable(True)                                     # Set columns reorderable by the user when column title buttons are dragged.
             startup_treeview_column.set_min_width(40)                                         # Set minimum column widths as "40 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
             startup_treeview_column.connect("clicked", on_column_title_clicked)               # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-            StartupGUI.treeview5101.append_column(startup_treeview_column)                    # Append column into treeview
+            treeview5101.append_column(startup_treeview_column)                               # Append column into treeview
 
         # Get column data types for appending startup data into treestore
         startup_data_column_types = []
@@ -490,16 +493,16 @@ def startup_loop_func():
         treemodelfilter5101 = treestore5101.filter_new()
         treemodelfilter5101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
         treemodelsort5101 = Gtk.TreeModelSort(treemodelfilter5101)
-        StartupGUI.treeview5101.set_model(treemodelsort5101)
+        treeview5101.set_model(treemodelsort5101)
         all_autostart_applications_list_prev = []                                             # Redefine (clear) "all_autostart_applications_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
         global piter_list
         piter_list = []
-    StartupGUI.treeview5101.thaw_child_notify()                                               # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview5101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if startup_treeview_columns_shown_prev != startup_treeview_columns_shown or startup_data_column_order_prev != startup_data_column_order:
-        startup_treeview_columns = StartupGUI.treeview5101.get_columns()                      # Get shown columns on the treeview in order to use this data for reordering the columns.
-        startup_treeview_columns_modified = StartupGUI.treeview5101.get_columns()
+        startup_treeview_columns = treeview5101.get_columns()                                 # Get shown columns on the treeview in order to use this data for reordering the columns.
+        startup_treeview_columns_modified = treeview5101.get_columns()
         treeview_column_titles = []
         for column in startup_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -511,11 +514,11 @@ def startup_loop_func():
                 column_title_to_move = column_to_move.get_title()
                 for data in startup_data_list:
                     if data[1] == column_title_to_move:
-                        StartupGUI.treeview5101.move_column_after(column_to_move, None)       # Column is moved at the beginning of the treeview if "None" is used.
+                        treeview5101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort startup rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if startup_treeview_columns_shown_prev != startup_treeview_columns_shown or startup_data_row_sorting_column_prev != startup_data_row_sorting_column or startup_data_row_sorting_order != startup_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
-        startup_treeview_columns = StartupGUI.treeview5101.get_columns()                      # Get shown columns on the treeview in order to use this data for reordering the columns.
+        startup_treeview_columns = treeview5101.get_columns()                                 # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_column_titles = []
         for column in startup_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -533,7 +536,7 @@ def startup_loop_func():
 
     # Set column widths if there are changes since last loop.
     if startup_treeview_columns_shown_prev != startup_treeview_columns_shown or startup_data_column_widths_prev != startup_data_column_widths:
-        startup_treeview_columns = StartupGUI.treeview5101.get_columns()
+        startup_treeview_columns = treeview5101.get_columns()
         treeview_column_titles = []
         for column in startup_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -553,7 +556,7 @@ def startup_loop_func():
     updated_existing_startup_app_index = [[all_autostart_applications_list.index(i), all_autostart_applications_list_prev.index(i)] for i in existing_startup_application]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
     startup_app_data_rows_row_length = len(startup_data_rows[0])
     # Append/Remove/Update startup applications data into treestore
-    StartupGUI.treeview5101.freeze_child_notify()                                             # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview5101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     global startup_application_search_text, filter_startup_application_type, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_startup_app_index:
@@ -581,7 +584,7 @@ def startup_loop_func():
                     startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
             # \\\ End \\\ This block of code is used for determining if the newly added startup_application will be shown on the treeview (user search actions and/or search customizations and/or "Show all visible/hidden startup items" preference affect startup_application visibility).
             piter_list.insert(all_autostart_applications_list.index(startup_application), treestore5101.insert(None, all_autostart_applications_list.index(startup_application), startup_data_rows[all_autostart_applications_list.index(startup_application)]))    # "insert" have to be used for appending element into both "piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of ".desktop" file names (this sorting is performed for getting list differences).
-    StartupGUI.treeview5101.thaw_child_notify()                                               # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview5101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
     all_autostart_applications_list_prev = all_autostart_applications_list                    # For using values in the next loop
     startup_data_rows_prev = startup_data_rows
     startup_treeview_columns_shown_prev = startup_treeview_columns_shown

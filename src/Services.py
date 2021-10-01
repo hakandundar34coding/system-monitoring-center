@@ -78,6 +78,9 @@ def services_initial_func():
 # ----------------------------------- Services - Get Services Data Function (gets services data, adds into treeview and updates it) -----------------------------------
 def services_loop_func():
 
+    # Get GUI obejcts one time per floop instead of getting them multiple times
+    treeview6101 = ServicesGUI.treeview6101
+
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global services_ram_swap_data_precision, services_ram_swap_data_unit
     services_ram_swap_data_precision = Config.services_ram_swap_data_precision
@@ -210,12 +213,12 @@ def services_loop_func():
         services_data_rows.append(services_data_row)
 
     # Add/Remove treeview columns appropriate for user preferences
-    ServicesGUI.treeview6101.freeze_child_notify()                                            # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview6101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     if services_treeview_columns_shown != services_treeview_columns_shown_prev:               # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
-        for column in ServicesGUI.treeview6101.get_columns():                                 # Remove all columns in the treeview.
-            ServicesGUI.treeview6101.remove_column(column)
+        for column in treeview6101.get_columns():                                             # Remove all columns in the treeview.
+            treeview6101.remove_column(column)
         for i, column in enumerate(services_treeview_columns_shown):
             if services_data_list[column][0] in services_treeview_columns_shown:
                 cumulative_sort_column_id = cumulative_sort_column_id + services_data_list[column][2]
@@ -239,7 +242,7 @@ def services_loop_func():
             services_treeview_column.set_reorderable(True)                                    # Set columns reorderable by the user when column title buttons are dragged.
             services_treeview_column.set_min_width(40)                                        # Set minimum column widths as "40 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
             services_treeview_column.connect("clicked", on_column_title_clicked)              # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-            ServicesGUI.treeview6101.append_column(services_treeview_column)                  # Append column into treeview
+            treeview6101.append_column(services_treeview_column)                              # Append column into treeview
 
         # Get column data types for appending services data into treestore
         services_data_column_types = []
@@ -255,15 +258,15 @@ def services_loop_func():
         treemodelfilter6101 = treestore6101.filter_new()
         treemodelfilter6101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
         treemodelsort6101 = Gtk.TreeModelSort(treemodelfilter6101)
-        ServicesGUI.treeview6101.set_model(treemodelsort6101)
+        treeview6101.set_model(treemodelsort6101)
         service_list_prev = []                                                                # Redefine (clear) "service_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.        global piter_list
         piter_list = []
-    ServicesGUI.treeview6101.thaw_child_notify()                                              # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview6101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if services_treeview_columns_shown_prev != services_treeview_columns_shown or services_data_column_order_prev != services_data_column_order:
-        services_treeview_columns = ServicesGUI.treeview6101.get_columns()                    # Get shown columns on the treeview in order to use this data for reordering the columns.
-        services_treeview_columns_modified = ServicesGUI.treeview6101.get_columns()
+        services_treeview_columns = treeview6101.get_columns()                                # Get shown columns on the treeview in order to use this data for reordering the columns.
+        services_treeview_columns_modified = treeview6101.get_columns()
         treeview_column_titles = []
         for column in services_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -275,11 +278,11 @@ def services_loop_func():
                 column_title_to_move = column_to_move.get_title()
                 for data in services_data_list:
                     if data[1] == column_title_to_move:
-                        ServicesGUI.treeview6101.move_column_after(column_to_move, None)      # Column is moved at the beginning of the treeview if "None" is used.
+                        treeview6101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort service rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if services_treeview_columns_shown_prev != services_treeview_columns_shown or services_data_row_sorting_column_prev != services_data_row_sorting_column or services_data_row_sorting_order != services_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
-        services_treeview_columns = ServicesGUI.treeview6101.get_columns()                    # Get shown columns on the treeview in order to use this data for reordering the columns.
+        services_treeview_columns = treeview6101.get_columns()                                # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_column_titles = []
         for column in services_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -297,7 +300,7 @@ def services_loop_func():
 
     # Set column widths if there are changes since last loop.
     if services_treeview_columns_shown_prev != services_treeview_columns_shown or services_data_column_widths_prev != services_data_column_widths:
-        services_treeview_columns = ServicesGUI.treeview6101.get_columns()
+        services_treeview_columns = treeview6101.get_columns()
         treeview_column_titles = []
         for column in services_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -317,7 +320,7 @@ def services_loop_func():
     services_data_rows_row_length = len(services_data_rows[0])
 
     # Append/Remove/Update services data into treestore
-    ServicesGUI.treeview6101.freeze_child_notify()                                            # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview6101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     global service_search_text, filter_service_type, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_services_index:
@@ -345,7 +348,7 @@ def services_loop_func():
                     services_data_rows[service_list.index(service)][0] = False
             # \\\ End \\\ This block of code is used for determining if the newly added service will be shown on the treeview (user search actions and/or search customizations and/or "Show all loaded/non-loaded services" preference affect service visibility).
             piter_list.insert(service_list.index(service), treestore6101.insert(None, service_list.index(service), services_data_rows[service_list.index(service)]))    # "insert" have to be used for appending element into both "piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of ".service" file names (this sorting is performed for getting list differences).
-    ServicesGUI.treeview6101.thaw_child_notify()                                              # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview6101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     service_list_prev = service_list                                                          # For using values in the next loop
     services_data_rows_prev = services_data_rows

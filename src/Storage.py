@@ -98,6 +98,9 @@ def storage_initial_func():
 # ----------------------------------- Storage - Get Storage Data Function (gets storage data, adds into treeview and updates it) -----------------------------------
 def storage_loop_func():
 
+    # Get GUI obejcts one time per floop instead of getting them multiple times
+    treeview4101 = StorageGUI.treeview4101
+
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global storage_disk_usage_data_precision, storage_disk_usage_data_unit
     storage_disk_usage_data_precision = Config.storage_disk_usage_data_precision
@@ -403,12 +406,12 @@ def storage_loop_func():
         storage_data_rows.append(storage_data_row)
 
     # Add/Remove treeview columns appropriate for user preferences
-    StorageGUI.treeview4101.freeze_child_notify()                                             # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview4101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     if storage_treeview_columns_shown != storage_treeview_columns_shown_prev:                 # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
-        for column in StorageGUI.treeview4101.get_columns():                                  # Remove all columns in the treeview.
-            StorageGUI.treeview4101.remove_column(column)
+        for column in treeview4101.get_columns():                                             # Remove all columns in the treeview.
+            treeview4101.remove_column(column)
         for i, column in enumerate(storage_treeview_columns_shown):
             if storage_data_list[column][0] in storage_treeview_columns_shown:
                 cumulative_sort_column_id = cumulative_sort_column_id + storage_data_list[column][2]
@@ -434,7 +437,7 @@ def storage_loop_func():
             storage_treeview_column.set_reorderable(True)                                     # Set columns reorderable by the user when column title buttons are dragged.
             storage_treeview_column.set_min_width(40)                                         # Set minimum column widths as "40 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
             storage_treeview_column.connect("clicked", on_column_title_clicked)               # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-            StorageGUI.treeview4101.append_column(storage_treeview_column)                    # Append column into treeview
+            treeview4101.append_column(storage_treeview_column)                               # Append column into treeview
 
         # Get column data types for appending storage data into treestore
         storage_data_column_types = []
@@ -450,16 +453,16 @@ def storage_loop_func():
         treemodelfilter4101 = treestore4101.filter_new()
         treemodelfilter4101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
         treemodelsort4101 = Gtk.TreeModelSort(treemodelfilter4101)
-        StorageGUI.treeview4101.set_model(treemodelsort4101)
+        treeview4101.set_model(treemodelsort4101)
         disk_order_name_time_list_prev = []                                                   # Redefine (clear) "disk_order_name_time_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
         global piter_list
         piter_list = []
-    StorageGUI.treeview4101.thaw_child_notify()                                               # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview4101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if storage_treeview_columns_shown_prev != storage_treeview_columns_shown or storage_data_column_order_prev != storage_data_column_order:
-        storage_treeview_columns = StorageGUI.treeview4101.get_columns()                      # Get shown columns on the treeview in order to use this data for reordering the columns.
-        storage_treeview_columns_modified = StorageGUI.treeview4101.get_columns()
+        storage_treeview_columns = treeview4101.get_columns()                                 # Get shown columns on the treeview in order to use this data for reordering the columns.
+        storage_treeview_columns_modified = treeview4101.get_columns()
         treeview_column_titles = []
         for column in storage_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -471,11 +474,11 @@ def storage_loop_func():
                 column_title_to_move = column_to_move.get_title()
                 for data in storage_data_list:
                     if data[1] == column_title_to_move:
-                        StorageGUI.treeview4101.move_column_after(column_to_move, None)       # Column is moved at the beginning of the treeview if "None" is used.
+                        treeview4101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort storage rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if storage_treeview_columns_shown_prev != storage_treeview_columns_shown or storage_data_row_sorting_column_prev != storage_data_row_sorting_column or storage_data_row_sorting_order != storage_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
-        storage_treeview_columns = StorageGUI.treeview4101.get_columns()                      # Get shown columns on the treeview in order to use this data for reordering the columns.
+        storage_treeview_columns = treeview4101.get_columns()                                 # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_column_titles = []
         for column in storage_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -493,7 +496,7 @@ def storage_loop_func():
 
     # Set column widths if there are changes since last loop.
     if storage_treeview_columns_shown_prev != storage_treeview_columns_shown or storage_data_column_widths_prev != storage_data_column_widths:
-        storage_treeview_columns = StorageGUI.treeview4101.get_columns()
+        storage_treeview_columns = treeview4101.get_columns()
         treeview_column_titles = []
         for column in storage_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -512,7 +515,7 @@ def storage_loop_func():
     updated_existing_proc_index = [[disk_order_name_time_list.index(list(i)), disk_order_name_time_list_prev.index(list(i))] for i in existing_storage]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
     storage_data_rows_row_length = len(storage_data_rows[0])
     # Append/Remove/Update storage data into treestore
-    StorageGUI.treeview4101.freeze_child_notify()                                             # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview4101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     global storage_search_text, filter_storage_type, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_proc_index:
@@ -548,14 +551,14 @@ def storage_loop_func():
             if parent_disk_list[disk_order_name_time_list.index(list(storage))] != "-":
                 piter_list.append(treestore4101.append(piter_list[disk_list.index(parent_disk_list[disk_order_name_time_list.index(list(storage))])], storage_data_rows[disk_order_name_time_list.index(list(storage))]))
 #             new_storage_path = treestore4101.get_path(piter_list[-1])
-#             model = StorageGUI.treeview4101.get_model()
+#             model = treeview4101.get_model()
 #             path = model.convert_child_path_to_path(new_storage_path)
-#             StorageGUI.treeview4101.expand_row(path, True)
-            StorageGUI.treeview4101.expand_all()                                              # New appended row and its children are shown as collapsed on the treeview. All rows are expanded by this code. Only appended row should be expanded and there need to be a working code to do this.
-    StorageGUI.treeview4101.thaw_child_notify()                                               # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+#             treeview4101.expand_row(path, True)
+            treeview4101.expand_all()                                                         # New appended row and its children are shown as collapsed on the treeview. All rows are expanded by this code. Only appended row should be expanded and there need to be a working code to do this.
+    treeview4101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     if disk_order_name_time_list_prev == []:                                                  # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop of the Storage tab. It expands treeview rows (and children) in all loops if this control is not made. "First loop" control is made by checking if disk_order_name_time_list_prev is empty.
-        StorageGUI.treeview4101.expand_all()
+        treeview4101.expand_all()
 
     disk_order_name_time_list_prev = disk_order_name_time_list                                # For using values in the next loop
     storage_data_rows_prev = storage_data_rows

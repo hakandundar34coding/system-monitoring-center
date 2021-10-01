@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-30 07:03+0300\n"
+"POT-Creation-Date: 2021-10-01 08:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,19 +45,19 @@ msgstr ""
 
 #: src/EnvironmentVariables.py:132 src/EnvironmentVariables.py:301
 #: src/EnvironmentVariables.py:352 src/EnvironmentVariables.py:371
-#: src/EnvironmentVariablesGUI.py:123
+#: src/EnvironmentVariablesGUI.py:129
 msgid "Environment Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:135 src/EnvironmentVariables.py:300
 #: src/EnvironmentVariables.py:344 src/EnvironmentVariables.py:373
-#: src/EnvironmentVariablesGUI.py:128
+#: src/EnvironmentVariablesGUI.py:134
 msgid "Shell Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:138 src/EnvironmentVariables.py:300
 #: src/EnvironmentVariables.py:301 src/EnvironmentVariables.py:371
-#: src/EnvironmentVariables.py:373 src/EnvironmentVariablesGUI.py:123
+#: src/EnvironmentVariables.py:373 src/EnvironmentVariablesGUI.py:129
 msgid "Environment & Shell Variable"
 msgstr ""
 
@@ -78,29 +78,29 @@ msgstr ""
 msgid " shell variables)"
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:130
+#: src/EnvironmentVariablesGUI.py:136
 msgid "Shell variables cannot be edited."
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:132
+#: src/EnvironmentVariablesGUI.py:138
 msgid "Shell variables cannot be deleted."
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:139 src/EnvironmentVariablesInputGUI.py:177
+#: src/EnvironmentVariablesGUI.py:145 src/EnvironmentVariablesInputGUI.py:177
 #: src/EnvironmentVariablesInputGUI.py:188
 #: src/EnvironmentVariablesMenusGUI.py:333 src/Processes.py:726
-#: src/ProcessesGUI.py:200 src/ProcessesMenusGUI.py:837
-#: src/ProcessesMenusGUI.py:848 src/ServicesGUI.py:160 src/SettingsGUI.py:452
-#: src/StartupGUI.py:131 src/StartupMenusGUI.py:578 src/StartupMenusGUI.py:589
-#: src/StartupNewItemGUI.py:156 src/StorageGUI.py:176 src/UsersGUI.py:146
+#: src/ProcessesGUI.py:206 src/ProcessesMenusGUI.py:837
+#: src/ProcessesMenusGUI.py:848 src/ServicesGUI.py:166 src/SettingsGUI.py:452
+#: src/StartupGUI.py:138 src/StartupMenusGUI.py:578 src/StartupMenusGUI.py:589
+#: src/StartupNewItemGUI.py:156 src/StorageGUI.py:183 src/UsersGUI.py:153
 msgid "Warning"
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:140
+#: src/EnvironmentVariablesGUI.py:146
 msgid "Select A Variable"
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:141
+#: src/EnvironmentVariablesGUI.py:147
 msgid "Please select a variable and try again for opening the menu"
 msgstr ""
 
@@ -216,7 +216,7 @@ msgid ""
 "your system."
 msgstr ""
 
-#: src/Performance.py:503 ui/MainWindow.ui:78
+#: src/Performance.py:503 ui/MainWindow.ui:384 ui/PerformanceTab.ui:58
 msgid "CPU Usage % (Average):"
 msgstr ""
 
@@ -286,13 +286,13 @@ msgstr ""
 msgid "partition"
 msgstr ""
 
-#: src/Performance.py:1046 src/Processes.py:758 src/ProcessesDetails.py:549
+#: src/Performance.py:1046 src/Processes.py:758 src/ProcessesDetails.py:550
 #: src/Services.py:523 src/ServicesDetails.py:254 src/Storage.py:774
 #: src/StorageDetails.py:420 src/Users.py:617 src/UsersDetails.py:298
 msgid "Auto-Byte"
 msgstr ""
 
-#: src/Performance.py:1048 src/Processes.py:760 src/ProcessesDetails.py:551
+#: src/Performance.py:1048 src/Processes.py:760 src/ProcessesDetails.py:552
 #: src/Services.py:525 src/ServicesDetails.py:256 src/Storage.py:776
 #: src/StorageDetails.py:422 src/Users.py:619 src/UsersDetails.py:300
 msgid "Auto-bit"
@@ -429,13 +429,13 @@ msgid ""
 msgstr ""
 
 #: src/ProcessesCustomPriorityGUI.py:128 src/ProcessesCustomPriorityGUI.py:138
-#: src/ProcessesDetails.py:581 src/ProcessesMenusGUI.py:827
+#: src/ProcessesDetails.py:582 src/ProcessesMenusGUI.py:827
 #: src/ProcessesMenusGUI.py:859 src/StorageMenusGUI.py:710
 #: src/StorageMenusGUI.py:719
 msgid "Error"
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:129 src/ProcessesDetails.py:582
+#: src/ProcessesCustomPriorityGUI.py:129 src/ProcessesDetails.py:583
 msgid "Process Is Not Running Anymore"
 msgstr ""
 
@@ -446,7 +446,7 @@ msgid ""
 " "
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:130 src/ProcessesDetails.py:583
+#: src/ProcessesCustomPriorityGUI.py:130 src/ProcessesDetails.py:584
 msgid " (PID: "
 msgstr ""
 
@@ -465,52 +465,52 @@ msgstr ""
 msgid "Process Details: "
 msgstr ""
 
-#: src/ProcessesDetails.py:583
+#: src/ProcessesDetails.py:584
 msgid ""
 "Following process is not running anymore \n"
 "and process details window is closed automatically:\n"
 "  "
 msgstr ""
 
-#: src/ProcessesDetails.py:583
+#: src/ProcessesDetails.py:584
 msgid ")"
 msgstr ""
 
-#: src/ProcessesGUI.py:143 src/ProcessesMenusGUI.py:811 ui/MainWindow.ui:3913
+#: src/ProcessesGUI.py:149 src/ProcessesMenusGUI.py:811 ui/StorageTab.ui:261
 msgid "User defined expand"
 msgstr ""
 
-#: src/ProcessesGUI.py:144 src/ProcessesMenusGUI.py:812 ui/MainWindow.ui:3935
+#: src/ProcessesGUI.py:150 src/ProcessesMenusGUI.py:812 ui/StorageTab.ui:283
 msgid "Expand all"
 msgstr ""
 
-#: src/ProcessesGUI.py:145 src/ProcessesMenusGUI.py:813 ui/MainWindow.ui:3956
+#: src/ProcessesGUI.py:151 src/ProcessesMenusGUI.py:813 ui/StorageTab.ui:305
 msgid "Collapse all"
 msgstr ""
 
-#: src/ProcessesGUI.py:152 src/ProcessesMenusGUI.py:819 ui/MainWindow.ui:3296
+#: src/ProcessesGUI.py:158 src/ProcessesMenusGUI.py:819 ui/ProcessesTab.ui:184
 msgid ""
 "User defined expand\n"
 "(Usable if processes are listed as tree)"
 msgstr ""
 
-#: src/ProcessesGUI.py:153 src/ProcessesMenusGUI.py:820 ui/MainWindow.ui:3319
+#: src/ProcessesGUI.py:159 src/ProcessesMenusGUI.py:820 ui/ProcessesTab.ui:207
 msgid ""
 "Expand all\n"
 "(Usable if processes are listed as tree)"
 msgstr ""
 
-#: src/ProcessesGUI.py:154 src/ProcessesMenusGUI.py:821 ui/MainWindow.ui:3341
+#: src/ProcessesGUI.py:160 src/ProcessesMenusGUI.py:821 ui/ProcessesTab.ui:230
 msgid ""
 "Collapse all\n"
 "(Usable if processes are listed as tree)"
 msgstr ""
 
-#: src/ProcessesGUI.py:201
+#: src/ProcessesGUI.py:207
 msgid "Select A Process"
 msgstr ""
 
-#: src/ProcessesGUI.py:202
+#: src/ProcessesGUI.py:208
 msgid "Please select a process and try again for opening the menu"
 msgstr ""
 
@@ -736,52 +736,54 @@ msgstr ""
 msgid "Exited"
 msgstr ""
 
-#: src/ServicesGUI.py:161
+#: src/ServicesGUI.py:167
 msgid "Select A Service"
 msgstr ""
 
-#: src/ServicesGUI.py:162
+#: src/ServicesGUI.py:168
 msgid "Please select a service and try again for opening the menu"
 msgstr ""
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:5896
+#: src/SettingsGUI.py:314 ui/MainWindow.ui:3402
 msgid "Performance"
 msgstr ""
 
-#: src/SettingsGUI.py:314 src/Users.py:55 ui/MainWindow.ui:3375
-#: ui/MainWindow.ui:5849 ui/UsersMenus.ui:342
+#: src/SettingsGUI.py:314 src/Users.py:55 ui/MainWindow.ui:3355
+#: ui/ProcessesTab.ui:271 ui/UsersMenus.ui:342
 msgid "Processes"
 msgstr ""
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:3497 ui/MainWindow.ui:5560
+#: src/SettingsGUI.py:314 ui/MainWindow.ui:3066 ui/UsersTab.ui:56
 msgid "Users"
 msgstr ""
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:3717 ui/MainWindow.ui:5608
+#: src/SettingsGUI.py:314 ui/MainWindow.ui:3114 ui/StorageTab.ui:44
 msgid "Storage"
 msgstr ""
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:4023 ui/MainWindow.ui:5706
+#: src/SettingsGUI.py:314 ui/MainWindow.ui:3212 ui/StartupTab.ui:44
 msgid "Startup"
 msgstr ""
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:4243 ui/MainWindow.ui:5801
+#: src/SettingsGUI.py:314 ui/MainWindow.ui:3307 ui/ServicesTab.ui:44
 msgid "Services"
 msgstr ""
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:5657
+#: src/SettingsGUI.py:314 ui/MainWindow.ui:3163
 msgid "Environment Variables"
 msgstr ""
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:4754 ui/MainWindow.ui:5754
+#: src/SettingsGUI.py:314 ui/MainWindow.ui:3260 ui/SystemTab.ui:67
 msgid "System"
 msgstr ""
 
-#: src/SettingsGUI.py:327 ui/MainWindow.ui:531 ui/MainWindow.ui:2870
+#: src/SettingsGUI.py:327 ui/MainWindow.ui:80 ui/MainWindow.ui:837
+#: ui/PerformanceTab.ui:511 ui/PerformanceTab.ui:2864
 msgid "CPU"
 msgstr ""
 
-#: src/SettingsGUI.py:327 ui/MainWindow.ui:894 ui/MainWindow.ui:2917
+#: src/SettingsGUI.py:327 ui/MainWindow.ui:127 ui/MainWindow.ui:1200
+#: ui/PerformanceTab.ui:874 ui/PerformanceTab.ui:2911
 msgid "RAM"
 msgstr ""
 
@@ -791,20 +793,24 @@ msgstr ""
 #: src/StorageDetails.py:207 src/StorageDetails.py:249
 #: src/StorageDetails.py:261 src/StorageDetails.py:270
 #: src/StorageDetails.py:277 src/StorageDetails.py:291
-#: src/StorageDetails.py:305 ui/MainWindow.ui:1066 ui/MainWindow.ui:2964
+#: src/StorageDetails.py:305 ui/MainWindow.ui:174 ui/MainWindow.ui:1372
+#: ui/PerformanceTab.ui:1046 ui/PerformanceTab.ui:2958
 msgid "Disk"
 msgstr ""
 
-#: src/SettingsGUI.py:327 ui/MainWindow.ui:1991 ui/MainWindow.ui:3058
+#: src/SettingsGUI.py:327 ui/MainWindow.ui:268 ui/MainWindow.ui:2297
+#: ui/PerformanceTab.ui:1971 ui/PerformanceTab.ui:3052
 #: ui/ProcessesDetailsWindow.ui:1458
 msgid "Network"
 msgstr ""
 
-#: src/SettingsGUI.py:327 ui/MainWindow.ui:2430 ui/MainWindow.ui:3011
+#: src/SettingsGUI.py:327 ui/MainWindow.ui:221 ui/MainWindow.ui:2736
+#: ui/PerformanceTab.ui:2410 ui/PerformanceTab.ui:3005
 msgid "GPU"
 msgstr ""
 
-#: src/SettingsGUI.py:327 ui/MainWindow.ui:2775 ui/MainWindow.ui:3105
+#: src/SettingsGUI.py:327 ui/MainWindow.ui:315 ui/PerformanceTab.ui:2769
+#: ui/PerformanceTab.ui:3099 ui/SensorsTab.ui:183
 msgid "Sensors"
 msgstr ""
 
@@ -847,11 +853,11 @@ msgstr ""
 msgid " hidden)"
 msgstr ""
 
-#: src/StartupGUI.py:132
+#: src/StartupGUI.py:139
 msgid "Select A Startup Item"
 msgstr ""
 
-#: src/StartupGUI.py:133
+#: src/StartupGUI.py:140
 msgid "Please select a startup item and try again for opening the menu"
 msgstr ""
 
@@ -1042,11 +1048,11 @@ msgid ""
 "  "
 msgstr ""
 
-#: src/StorageGUI.py:177
+#: src/StorageGUI.py:184
 msgid "Select A Disk/Partition"
 msgstr ""
 
-#: src/StorageGUI.py:178
+#: src/StorageGUI.py:185
 msgid "Please select a disk/partition and try again for opening the menu"
 msgstr ""
 
@@ -1077,11 +1083,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/System.py:265
+#: src/System.py:274
 msgid "(Yes)"
 msgstr ""
 
-#: src/System.py:267
+#: src/System.py:276
 msgid "(No)"
 msgstr ""
 
@@ -1221,11 +1227,11 @@ msgstr ""
 msgid "User Details"
 msgstr ""
 
-#: src/UsersGUI.py:147
+#: src/UsersGUI.py:154
 msgid "Select An User"
 msgstr ""
 
-#: src/UsersGUI.py:148
+#: src/UsersGUI.py:155
 msgid "Please select an user and try again for opening the menu"
 msgstr ""
 
@@ -1306,26 +1312,26 @@ msgstr ""
 msgid "Environment Variables Tab Customizations:"
 msgstr ""
 
-#: ui/EnvironmentVariablesMenus.ui:143 ui/PerformanceMenus.ui:2160
-#: ui/ProcessesMenus.ui:396 ui/ServicesMenus.ui:199 ui/StartupMenus.ui:88
+#: ui/EnvironmentVariablesMenus.ui:143 ui/ProcessesMenus.ui:396
+#: ui/SensorsMenusGUI.ui:151 ui/ServicesMenus.ui:199 ui/StartupMenus.ui:88
 #: ui/StorageMenus.ui:183 ui/UsersMenus.ui:81
 msgid "Column Reordering,"
 msgstr ""
 
-#: ui/EnvironmentVariablesMenus.ui:177 ui/PerformanceMenus.ui:2194
-#: ui/ProcessesMenus.ui:430 ui/ServicesMenus.ui:233 ui/StartupMenus.ui:122
+#: ui/EnvironmentVariablesMenus.ui:177 ui/ProcessesMenus.ui:430
+#: ui/SensorsMenusGUI.ui:185 ui/ServicesMenus.ui:233 ui/StartupMenus.ui:122
 #: ui/StorageMenus.ui:217 ui/UsersMenus.ui:115
 msgid "Row Sorting,"
 msgstr ""
 
-#: ui/EnvironmentVariablesMenus.ui:208 ui/PerformanceMenus.ui:2113
-#: ui/ProcessesMenus.ui:473 ui/ServicesMenus.ui:264 ui/StartupMenus.ui:153
+#: ui/EnvironmentVariablesMenus.ui:208 ui/ProcessesMenus.ui:473
+#: ui/SensorsMenusGUI.ui:104 ui/ServicesMenus.ui:264 ui/StartupMenus.ui:153
 #: ui/StorageMenus.ui:248 ui/UsersMenus.ui:146
 msgid "Reset"
 msgstr ""
 
-#: ui/EnvironmentVariablesMenus.ui:255 ui/PerformanceMenus.ui:2228
-#: ui/ProcessesMenus.ui:520 ui/ServicesMenus.ui:311 ui/StartupMenus.ui:200
+#: ui/EnvironmentVariablesMenus.ui:255 ui/ProcessesMenus.ui:520
+#: ui/SensorsMenusGUI.ui:219 ui/ServicesMenus.ui:311 ui/StartupMenus.ui:200
 #: ui/StorageMenus.ui:295 ui/UsersMenus.ui:193
 msgid "Column Widths:"
 msgstr ""
@@ -1349,9 +1355,9 @@ msgstr ""
 #: ui/EnvironmentVariablesMenus.ui:423 ui/PerformanceMenus.ui:287
 #: ui/PerformanceMenus.ui:496 ui/PerformanceMenus.ui:832
 #: ui/PerformanceMenus.ui:1356 ui/PerformanceMenus.ui:1929
-#: ui/PerformanceMenus.ui:2057 ui/ProcessesMenus.ui:1209
-#: ui/ServicesMenus.ui:723 ui/SettingsWindow.ui:676 ui/StartupMenus.ui:367
-#: ui/StorageMenus.ui:930 ui/UsersMenus.ui:708
+#: ui/ProcessesMenus.ui:1209 ui/SensorsMenusGUI.ui:48 ui/ServicesMenus.ui:723
+#: ui/SettingsWindow.ui:676 ui/StartupMenus.ui:367 ui/StorageMenus.ui:930
+#: ui/UsersMenus.ui:708
 msgid "Reset All"
 msgstr ""
 
@@ -1359,8 +1365,8 @@ msgstr ""
 msgid "Environment Variables Search Customizations:"
 msgstr ""
 
-#: ui/EnvironmentVariablesMenus.ui:493 ui/PerformanceMenus.ui:2273
-#: ui/ProcessesMenus.ui:1291 ui/ServicesMenus.ui:793 ui/StartupMenus.ui:437
+#: ui/EnvironmentVariablesMenus.ui:493 ui/ProcessesMenus.ui:1291
+#: ui/SensorsMenusGUI.ui:264 ui/ServicesMenus.ui:793 ui/StartupMenus.ui:437
 #: ui/StorageMenus.ui:1000 ui/UsersMenus.ui:778
 msgid "Search in column:"
 msgstr ""
@@ -1379,6 +1385,80 @@ msgstr ""
 
 #: ui/EnvironmentVariablesMenus.ui:571
 msgid "Shell variables"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:43
+msgid ""
+"Persistent environment variables and shell variables are listed on this "
+"tab.\n"
+"\n"
+"New environment variables can be added for current user-only or for all "
+"users (system-wide).\n"
+"Existing environments can be edited and deleted.\n"
+"\n"
+"Following files are used for adding/editing/deleting user-specific and "
+"system wide environment variables:\n"
+"/etc/environment\n"
+"/home/[username]/.bashrc\n"
+"\n"
+"There are many other files which are used by system for storing environment "
+"variables and variables in these files may override the variables you "
+"defined.\n"
+"\n"
+"As a general information, environment variables for only current user (user-"
+"specific) override environment variables for all users (system-wide) if "
+"variable names are the same."
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:56
+msgid ""
+"Environment\n"
+"Variables"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:77
+msgid ""
+"Number of listed persistent environment/shell variables\n"
+"Summation of number of environment variables and number of shell variables "
+"may be bigger than number of total variables.\n"
+"Because there may be both environment variable and shell variable with the "
+"same variable name."
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:82
+msgid ""
+"Total: -- persistent variables (-- system wide, -- user environment "
+"variables)"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:102
+msgid "Environment Variables Tab Customizations"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:134
+msgid "Environment Variables Tab Search Customizations"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:157
+msgid "Search environment/shell variable..."
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:175
+msgid "Show all environment/shell variables"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:197
+msgid "Show all environment variables"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:219
+msgid "Show all shell variables"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:253
+msgid ""
+"Note: Backing up the following files is advised before changing environment "
+"variables: '/etc/environment', '/home/[username]/.bashrc'."
 msgstr ""
 
 #: ui/MainMenusDialogs.ui:12
@@ -1460,47 +1540,67 @@ msgstr ""
 msgid "Closes application"
 msgstr ""
 
-#: ui/MainWindow.ui:64 ui/MainWindow.ui:989
+#: ui/MainWindow.ui:370 ui/MainWindow.ui:1295 ui/PerformanceTab.ui:44
+#: ui/PerformanceTab.ui:969
 msgid "100%"
 msgstr ""
 
-#: ui/MainWindow.ui:75
+#: ui/MainWindow.ui:381 ui/PerformanceTab.ui:55
 msgid ""
 "CPU usage percent\n"
 "(Max value is 100 %)"
 msgstr ""
 
-#: ui/MainWindow.ui:90 ui/MainWindow.ui:1015
+#: ui/MainWindow.ui:396 ui/MainWindow.ui:1321 ui/PerformanceTab.ui:70
+#: ui/PerformanceTab.ui:995
 msgid "0%"
 msgstr ""
 
-#: ui/MainWindow.ui:136 ui/MainWindow.ui:153 ui/MainWindow.ui:170
-#: ui/MainWindow.ui:229 ui/MainWindow.ui:246 ui/MainWindow.ui:263
-#: ui/MainWindow.ui:280 ui/MainWindow.ui:354 ui/MainWindow.ui:385
-#: ui/MainWindow.ui:430 ui/MainWindow.ui:492 ui/MainWindow.ui:507
-#: ui/MainWindow.ui:618 ui/MainWindow.ui:635 ui/MainWindow.ui:680
-#: ui/MainWindow.ui:697 ui/MainWindow.ui:728 ui/MainWindow.ui:759
-#: ui/MainWindow.ui:791 ui/MainWindow.ui:839 ui/MainWindow.ui:938
-#: ui/MainWindow.ui:953 ui/MainWindow.ui:1110 ui/MainWindow.ui:1125
-#: ui/MainWindow.ui:1239 ui/MainWindow.ui:1256 ui/MainWindow.ui:1273
-#: ui/MainWindow.ui:1290 ui/MainWindow.ui:1307 ui/MainWindow.ui:1354
-#: ui/MainWindow.ui:1385 ui/MainWindow.ui:1434 ui/MainWindow.ui:1473
-#: ui/MainWindow.ui:1490 ui/MainWindow.ui:1713 ui/MainWindow.ui:1730
-#: ui/MainWindow.ui:1747 ui/MainWindow.ui:1764 ui/MainWindow.ui:1781
-#: ui/MainWindow.ui:1798 ui/MainWindow.ui:1815 ui/MainWindow.ui:1832
-#: ui/MainWindow.ui:1863 ui/MainWindow.ui:1895 ui/MainWindow.ui:2035
-#: ui/MainWindow.ui:2050 ui/MainWindow.ui:2160 ui/MainWindow.ui:2177
-#: ui/MainWindow.ui:2194 ui/MainWindow.ui:2239 ui/MainWindow.ui:2256
-#: ui/MainWindow.ui:2288 ui/MainWindow.ui:2320 ui/MainWindow.ui:2337
-#: ui/MainWindow.ui:2383 ui/MainWindow.ui:2400 ui/MainWindow.ui:2474
-#: ui/MainWindow.ui:2489 ui/MainWindow.ui:4716 ui/MainWindow.ui:4731
-#: ui/MainWindow.ui:4845 ui/MainWindow.ui:4862 ui/MainWindow.ui:4909
-#: ui/MainWindow.ui:4940 ui/MainWindow.ui:4972 ui/MainWindow.ui:5006
-#: ui/MainWindow.ui:5038 ui/MainWindow.ui:5055 ui/MainWindow.ui:5102
-#: ui/MainWindow.ui:5133 ui/MainWindow.ui:5165 ui/MainWindow.ui:5196
-#: ui/MainWindow.ui:5290 ui/MainWindow.ui:5307 ui/MainWindow.ui:5324
-#: ui/MainWindow.ui:5415 ui/MainWindow.ui:5432 ui/MainWindow.ui:5449
-#: ui/MainWindow.ui:5483 ui/MainWindow.ui:6039 ui/MainWindow.ui:6051
+#: ui/MainWindow.ui:442 ui/MainWindow.ui:459 ui/MainWindow.ui:476
+#: ui/MainWindow.ui:535 ui/MainWindow.ui:552 ui/MainWindow.ui:569
+#: ui/MainWindow.ui:586 ui/MainWindow.ui:660 ui/MainWindow.ui:691
+#: ui/MainWindow.ui:736 ui/MainWindow.ui:798 ui/MainWindow.ui:813
+#: ui/MainWindow.ui:924 ui/MainWindow.ui:941 ui/MainWindow.ui:986
+#: ui/MainWindow.ui:1003 ui/MainWindow.ui:1034 ui/MainWindow.ui:1065
+#: ui/MainWindow.ui:1097 ui/MainWindow.ui:1145 ui/MainWindow.ui:1244
+#: ui/MainWindow.ui:1259 ui/MainWindow.ui:1416 ui/MainWindow.ui:1431
+#: ui/MainWindow.ui:1545 ui/MainWindow.ui:1562 ui/MainWindow.ui:1579
+#: ui/MainWindow.ui:1596 ui/MainWindow.ui:1613 ui/MainWindow.ui:1660
+#: ui/MainWindow.ui:1691 ui/MainWindow.ui:1740 ui/MainWindow.ui:1779
+#: ui/MainWindow.ui:1796 ui/MainWindow.ui:2019 ui/MainWindow.ui:2036
+#: ui/MainWindow.ui:2053 ui/MainWindow.ui:2070 ui/MainWindow.ui:2087
+#: ui/MainWindow.ui:2104 ui/MainWindow.ui:2121 ui/MainWindow.ui:2138
+#: ui/MainWindow.ui:2169 ui/MainWindow.ui:2201 ui/MainWindow.ui:2341
+#: ui/MainWindow.ui:2356 ui/MainWindow.ui:2466 ui/MainWindow.ui:2483
+#: ui/MainWindow.ui:2500 ui/MainWindow.ui:2545 ui/MainWindow.ui:2562
+#: ui/MainWindow.ui:2594 ui/MainWindow.ui:2626 ui/MainWindow.ui:2643
+#: ui/MainWindow.ui:2689 ui/MainWindow.ui:2706 ui/MainWindow.ui:2780
+#: ui/MainWindow.ui:2795 ui/MainWindow.ui:3545 ui/MainWindow.ui:3557
+#: ui/PerformanceTab.ui:116 ui/PerformanceTab.ui:133 ui/PerformanceTab.ui:150
+#: ui/PerformanceTab.ui:209 ui/PerformanceTab.ui:226 ui/PerformanceTab.ui:243
+#: ui/PerformanceTab.ui:260 ui/PerformanceTab.ui:334 ui/PerformanceTab.ui:365
+#: ui/PerformanceTab.ui:410 ui/PerformanceTab.ui:472 ui/PerformanceTab.ui:487
+#: ui/PerformanceTab.ui:598 ui/PerformanceTab.ui:615 ui/PerformanceTab.ui:660
+#: ui/PerformanceTab.ui:677 ui/PerformanceTab.ui:708 ui/PerformanceTab.ui:739
+#: ui/PerformanceTab.ui:771 ui/PerformanceTab.ui:819 ui/PerformanceTab.ui:918
+#: ui/PerformanceTab.ui:933 ui/PerformanceTab.ui:1090 ui/PerformanceTab.ui:1105
+#: ui/PerformanceTab.ui:1219 ui/PerformanceTab.ui:1236
+#: ui/PerformanceTab.ui:1253 ui/PerformanceTab.ui:1270
+#: ui/PerformanceTab.ui:1287 ui/PerformanceTab.ui:1334
+#: ui/PerformanceTab.ui:1365 ui/PerformanceTab.ui:1414
+#: ui/PerformanceTab.ui:1453 ui/PerformanceTab.ui:1470
+#: ui/PerformanceTab.ui:1693 ui/PerformanceTab.ui:1710
+#: ui/PerformanceTab.ui:1727 ui/PerformanceTab.ui:1744
+#: ui/PerformanceTab.ui:1761 ui/PerformanceTab.ui:1778
+#: ui/PerformanceTab.ui:1795 ui/PerformanceTab.ui:1812
+#: ui/PerformanceTab.ui:1843 ui/PerformanceTab.ui:1875
+#: ui/PerformanceTab.ui:2015 ui/PerformanceTab.ui:2030
+#: ui/PerformanceTab.ui:2140 ui/PerformanceTab.ui:2157
+#: ui/PerformanceTab.ui:2174 ui/PerformanceTab.ui:2219
+#: ui/PerformanceTab.ui:2236 ui/PerformanceTab.ui:2268
+#: ui/PerformanceTab.ui:2300 ui/PerformanceTab.ui:2317
+#: ui/PerformanceTab.ui:2363 ui/PerformanceTab.ui:2380
+#: ui/PerformanceTab.ui:2454 ui/PerformanceTab.ui:2469
 #: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:226 ui/ProcessesDetailsWindow.ui:240
 #: ui/ProcessesDetailsWindow.ui:254 ui/ProcessesDetailsWindow.ui:268
@@ -1546,7 +1646,14 @@ msgstr ""
 #: ui/StorageDetailsWindow.ui:597 ui/StorageDetailsWindow.ui:611
 #: ui/StorageDetailsWindow.ui:625 ui/StorageDetailsWindow.ui:639
 #: ui/StorageDetailsWindow.ui:653 ui/StorageDetailsWindow.ui:668
-#: ui/StorageRenameWindow.ui:42 ui/UsersDetailsWindow.ui:199
+#: ui/StorageRenameWindow.ui:42 ui/SystemTab.ui:29 ui/SystemTab.ui:44
+#: ui/SystemTab.ui:158 ui/SystemTab.ui:175 ui/SystemTab.ui:222
+#: ui/SystemTab.ui:253 ui/SystemTab.ui:285 ui/SystemTab.ui:319
+#: ui/SystemTab.ui:351 ui/SystemTab.ui:368 ui/SystemTab.ui:415
+#: ui/SystemTab.ui:446 ui/SystemTab.ui:478 ui/SystemTab.ui:509
+#: ui/SystemTab.ui:603 ui/SystemTab.ui:620 ui/SystemTab.ui:637
+#: ui/SystemTab.ui:728 ui/SystemTab.ui:745 ui/SystemTab.ui:779
+#: ui/SystemTab.ui:796 ui/SystemTab.ui:813 ui/UsersDetailsWindow.ui:199
 #: ui/UsersDetailsWindow.ui:213 ui/UsersDetailsWindow.ui:227
 #: ui/UsersDetailsWindow.ui:241 ui/UsersDetailsWindow.ui:255
 #: ui/UsersDetailsWindow.ui:269 ui/UsersDetailsWindow.ui:283
@@ -1557,96 +1664,97 @@ msgstr ""
 msgid "--"
 msgstr ""
 
-#: ui/MainWindow.ui:186 ui/MainWindow.ui:5372
+#: ui/MainWindow.ui:492 ui/PerformanceTab.ui:166 ui/SystemTab.ui:685
 msgid "Elapsed time since last system boot"
 msgstr ""
 
-#: ui/MainWindow.ui:188 ui/MainWindow.ui:5374
-msgid "System Up Time:"
+#: ui/MainWindow.ui:494 ui/SystemTab.ui:687
+msgid "Up Time:"
 msgstr ""
 
-#: ui/MainWindow.ui:200
+#: ui/MainWindow.ui:506 ui/PerformanceTab.ui:180
 msgid "Number of total running processes and threads"
 msgstr ""
 
-#: ui/MainWindow.ui:202
+#: ui/MainWindow.ui:508 ui/PerformanceTab.ui:182
 msgid "Processes-Threads:"
 msgstr ""
 
-#: ui/MainWindow.ui:214
+#: ui/MainWindow.ui:520 ui/PerformanceTab.ui:194
 msgid ""
 "L1d (for data) and L1i (for instructions) cache memory values of the "
 "selected CPU core"
 msgstr ""
 
-#: ui/MainWindow.ui:216
+#: ui/MainWindow.ui:522 ui/PerformanceTab.ui:196
 msgid "Cache (L1d-L1i):"
 msgstr ""
 
-#: ui/MainWindow.ui:296
+#: ui/MainWindow.ui:602 ui/PerformanceTab.ui:276
 msgid ""
 "Number of physical CPU cores and number of online logical CPU cores\n"
 "(Number of physical and logical CPU cores are same if CPU has no SMT feature "
 "or if it is disabled.)"
 msgstr ""
 
-#: ui/MainWindow.ui:299
+#: ui/MainWindow.ui:605 ui/PerformanceTab.ui:279
 msgid "Cores (Physical-Logical):"
 msgstr ""
 
-#: ui/MainWindow.ui:311
+#: ui/MainWindow.ui:617 ui/PerformanceTab.ui:291
 msgid "Number of CPU packages (CPU sockets)"
 msgstr ""
 
-#: ui/MainWindow.ui:313
+#: ui/MainWindow.ui:619 ui/PerformanceTab.ui:293
 msgid "CPU Sockets:"
 msgstr ""
 
-#: ui/MainWindow.ui:325
+#: ui/MainWindow.ui:631 ui/PerformanceTab.ui:305
 msgid "Minimum and maximum frequency values of the selected CPU core"
 msgstr ""
 
-#: ui/MainWindow.ui:327
+#: ui/MainWindow.ui:633 ui/PerformanceTab.ui:307
 msgid "Min-Max Frequency:"
 msgstr ""
 
-#: ui/MainWindow.ui:339
+#: ui/MainWindow.ui:645 ui/PerformanceTab.ui:319
 msgid "Current frequency of the selected CPU core"
 msgstr ""
 
-#: ui/MainWindow.ui:341
+#: ui/MainWindow.ui:647 ui/PerformanceTab.ui:321
 msgid "Current Frequency:"
 msgstr ""
 
-#: ui/MainWindow.ui:370 ui/MainWindow.ui:5976 ui/MainWindow.ui:5988
+#: ui/MainWindow.ui:676 ui/MainWindow.ui:3482 ui/MainWindow.ui:3494
+#: ui/PerformanceTab.ui:350
 msgid "Average CPU usage of all cores"
 msgstr ""
 
-#: ui/MainWindow.ui:372
+#: ui/MainWindow.ui:678 ui/PerformanceTab.ui:352
 msgid "Average Usage:"
 msgstr ""
 
-#: ui/MainWindow.ui:401
+#: ui/MainWindow.ui:707 ui/PerformanceTab.ui:381
 msgid "CPU architecture"
 msgstr ""
 
-#: ui/MainWindow.ui:403
+#: ui/MainWindow.ui:709 ui/PerformanceTab.ui:383
 msgid "Architecture:"
 msgstr ""
 
-#: ui/MainWindow.ui:415
+#: ui/MainWindow.ui:721 ui/PerformanceTab.ui:395
 msgid "L2 and L3 cache memory values of the selected CPU core"
 msgstr ""
 
-#: ui/MainWindow.ui:417
+#: ui/MainWindow.ui:723 ui/PerformanceTab.ui:397
 msgid "Cache (L2-L3):"
 msgstr ""
 
-#: ui/MainWindow.ui:459
+#: ui/MainWindow.ui:765 ui/PerformanceTab.ui:439
 msgid "CPU Tab Customizations"
 msgstr ""
 
-#: ui/MainWindow.ui:485
+#: ui/MainWindow.ui:791 ui/PerformanceTab.ui:465
 msgid ""
 "Selected CPU Core Number\n"
 "This selection affects these values:\n"
@@ -1656,159 +1764,165 @@ msgid ""
 "Cache (L2-L3)"
 msgstr ""
 
-#: ui/MainWindow.ui:505
+#: ui/MainWindow.ui:811 ui/PerformanceTab.ui:485
 msgid "CPU Model Name"
 msgstr ""
 
-#: ui/MainWindow.ui:529
+#: ui/MainWindow.ui:835 ui/PerformanceTab.ui:509
 msgid "CPU (Central Processing Unit)"
 msgstr ""
 
-#: ui/MainWindow.ui:570
+#: ui/MainWindow.ui:876 ui/PerformanceTab.ui:550
 msgid "RAM Information"
 msgstr ""
 
-#: ui/MainWindow.ui:572 ui/MainWindow.ui:6015 ui/ProcessesDetailsWindow.ui:622
+#: ui/MainWindow.ui:878 ui/MainWindow.ui:3521 ui/PerformanceTab.ui:552
+#: ui/ProcessesDetailsWindow.ui:622
 msgid "RAM:"
 msgstr ""
 
-#: ui/MainWindow.ui:588
+#: ui/MainWindow.ui:894 ui/PerformanceTab.ui:568
 msgid "Used RAM memory (in powers of 1024) and usage percent"
 msgstr ""
 
-#: ui/MainWindow.ui:590 ui/MainWindow.ui:653 ui/MainWindow.ui:1341
+#: ui/MainWindow.ui:896 ui/MainWindow.ui:959 ui/MainWindow.ui:1647
+#: ui/PerformanceTab.ui:570 ui/PerformanceTab.ui:633 ui/PerformanceTab.ui:1321
 msgid "Used:"
 msgstr ""
 
-#: ui/MainWindow.ui:602
+#: ui/MainWindow.ui:908 ui/PerformanceTab.ui:582
 msgid ""
 "Available RAM memory (in powers of 1024)\n"
 "Available and Free RAM memory values are different"
 msgstr ""
 
-#: ui/MainWindow.ui:605 ui/MainWindow.ui:667
+#: ui/MainWindow.ui:911 ui/MainWindow.ui:973 ui/PerformanceTab.ui:585
+#: ui/PerformanceTab.ui:647
 msgid "Available:"
 msgstr ""
 
-#: ui/MainWindow.ui:651
+#: ui/MainWindow.ui:957 ui/PerformanceTab.ui:631
 msgid "Used swap memory (in powers of 1024)"
 msgstr ""
 
-#: ui/MainWindow.ui:665
+#: ui/MainWindow.ui:971 ui/PerformanceTab.ui:645
 msgid "Available swap memory (in powers of 1024)"
 msgstr ""
 
-#: ui/MainWindow.ui:713
+#: ui/MainWindow.ui:1019 ui/PerformanceTab.ui:693
 msgid "Capacity of RAM memory (in powers of 1024)"
 msgstr ""
 
-#: ui/MainWindow.ui:715 ui/MainWindow.ui:746 ui/MainWindow.ui:1460
+#: ui/MainWindow.ui:1021 ui/MainWindow.ui:1052 ui/MainWindow.ui:1766
+#: ui/PerformanceTab.ui:695 ui/PerformanceTab.ui:726 ui/PerformanceTab.ui:1440
 msgid "Capacity:"
 msgstr ""
 
-#: ui/MainWindow.ui:744
+#: ui/MainWindow.ui:1050 ui/PerformanceTab.ui:724
 msgid "Total capacity of swap memory (in powers of 1024)"
 msgstr ""
 
-#: ui/MainWindow.ui:775
+#: ui/MainWindow.ui:1081 ui/PerformanceTab.ui:755
 msgid ""
 "Free RAM memory (in powers of 1024)\n"
 "Free and Available RAM memory values are different"
 msgstr ""
 
-#: ui/MainWindow.ui:778 ui/MainWindow.ui:1326
+#: ui/MainWindow.ui:1084 ui/MainWindow.ui:1632 ui/PerformanceTab.ui:758
+#: ui/PerformanceTab.ui:1306
 msgid "Free:"
 msgstr ""
 
-#: ui/MainWindow.ui:813
+#: ui/MainWindow.ui:1119 ui/PerformanceTab.ui:793
 msgid "Swap memory usage percent"
 msgstr ""
 
-#: ui/MainWindow.ui:815
+#: ui/MainWindow.ui:1121 ui/PerformanceTab.ui:795
 msgid "Swap Mem. Usg. %:"
 msgstr ""
 
-#: ui/MainWindow.ui:862
+#: ui/MainWindow.ui:1168 ui/PerformanceTab.ui:842
 msgid "Swap Memory Information"
 msgstr ""
 
-#: ui/MainWindow.ui:864 ui/ProcessesDetailsWindow.ui:691
+#: ui/MainWindow.ui:1170 ui/PerformanceTab.ui:844
+#: ui/ProcessesDetailsWindow.ui:691
 msgid "Swap Memory:"
 msgstr ""
 
-#: ui/MainWindow.ui:892
+#: ui/MainWindow.ui:1198 ui/PerformanceTab.ui:872
 msgid "RAM (Random Access Memory)"
 msgstr ""
 
-#: ui/MainWindow.ui:910
+#: ui/MainWindow.ui:1216 ui/PerformanceTab.ui:890
 msgid "RAM Tab Customizations"
 msgstr ""
 
-#: ui/MainWindow.ui:936
+#: ui/MainWindow.ui:1242 ui/PerformanceTab.ui:916
 msgid "Swap Memory Capacity in Powers of Bytes (1024)"
 msgstr ""
 
-#: ui/MainWindow.ui:951
+#: ui/MainWindow.ui:1257 ui/PerformanceTab.ui:931
 msgid "Physical RAM Capacity in Powers of Bytes (1024)"
 msgstr ""
 
-#: ui/MainWindow.ui:1000
+#: ui/MainWindow.ui:1306 ui/PerformanceTab.ui:980
 msgid ""
 "RAM usage percent\n"
 "(Max value is 100 %)"
 msgstr ""
 
-#: ui/MainWindow.ui:1003
+#: ui/MainWindow.ui:1309 ui/PerformanceTab.ui:983
 msgid "RAM Usage %:"
 msgstr ""
 
-#: ui/MainWindow.ui:1064
+#: ui/MainWindow.ui:1370 ui/PerformanceTab.ui:1044
 msgid "Disk (Storage items in form of disk/partition)"
 msgstr ""
 
-#: ui/MainWindow.ui:1082
+#: ui/MainWindow.ui:1388 ui/PerformanceTab.ui:1062
 msgid "Disk Tab Customizations"
 msgstr ""
 
-#: ui/MainWindow.ui:1108
+#: ui/MainWindow.ui:1414 ui/PerformanceTab.ui:1088
 msgid "Disk Kernel Name (and if selected disk is a disk or partition)"
 msgstr ""
 
-#: ui/MainWindow.ui:1123
+#: ui/MainWindow.ui:1429 ui/PerformanceTab.ui:1103
 msgid "Disk Device Model Name"
 msgstr ""
 
-#: ui/MainWindow.ui:1161
+#: ui/MainWindow.ui:1467 ui/PerformanceTab.ui:1141
 msgid ""
 "Disk read speed on the selected disk\n"
 "(could be shown as Byte or bit)"
 msgstr ""
 
-#: ui/MainWindow.ui:1164
+#: ui/MainWindow.ui:1470 ui/PerformanceTab.ui:1144
 msgid "Read Speed:"
 msgstr ""
 
-#: ui/MainWindow.ui:1176
+#: ui/MainWindow.ui:1482 ui/PerformanceTab.ui:1156
 msgid ""
 "Disk write speed on the selected disk\n"
 "(could be shown as Byte or bit)"
 msgstr ""
 
-#: ui/MainWindow.ui:1179
+#: ui/MainWindow.ui:1485 ui/PerformanceTab.ui:1159
 msgid "Write Speed:"
 msgstr ""
 
-#: ui/MainWindow.ui:1191
+#: ui/MainWindow.ui:1497 ui/PerformanceTab.ui:1171
 msgid ""
 "Total disk read time on the selected disk\n"
 "(milliseconds)"
 msgstr ""
 
-#: ui/MainWindow.ui:1194
+#: ui/MainWindow.ui:1500 ui/PerformanceTab.ui:1174
 msgid "Total Read Time:"
 msgstr ""
 
-#: ui/MainWindow.ui:1206
+#: ui/MainWindow.ui:1512 ui/PerformanceTab.ui:1186
 msgid ""
 "File system of the selected disk partition\n"
 "File system is shown from user space and may differ from the actual file "
@@ -1818,196 +1932,202 @@ msgid ""
 "\"[SWAP]\" information is shown if selected disk is a Swap partition."
 msgstr ""
 
-#: ui/MainWindow.ui:1211 ui/StorageDetailsWindow.ui:94
+#: ui/MainWindow.ui:1517 ui/PerformanceTab.ui:1191
+#: ui/StorageDetailsWindow.ui:94
 msgid "File System:"
 msgstr ""
 
-#: ui/MainWindow.ui:1223
+#: ui/MainWindow.ui:1529 ui/PerformanceTab.ui:1203
 msgid ""
 "Total disk write time on the selected disk\n"
 "(milliseconds)"
 msgstr ""
 
-#: ui/MainWindow.ui:1226
+#: ui/MainWindow.ui:1532 ui/PerformanceTab.ui:1206
 msgid "Total Write Time:"
 msgstr ""
 
-#: ui/MainWindow.ui:1323
+#: ui/MainWindow.ui:1629 ui/PerformanceTab.ui:1303
 msgid ""
 "Free space of the selected disk (in powers of 1024)\n"
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 
-#: ui/MainWindow.ui:1338
+#: ui/MainWindow.ui:1644 ui/PerformanceTab.ui:1318
 msgid ""
 "Used space of the selected disk (in powers of 1024)\n"
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 
-#: ui/MainWindow.ui:1370
+#: ui/MainWindow.ui:1676 ui/PerformanceTab.ui:1350
 msgid "If operating system is installed on the selected disk"
 msgstr ""
 
-#: ui/MainWindow.ui:1372 ui/StorageDetailsWindow.ui:55
+#: ui/MainWindow.ui:1678 ui/PerformanceTab.ui:1352
+#: ui/StorageDetailsWindow.ui:55
 msgid "System Disk:"
 msgstr ""
 
-#: ui/MainWindow.ui:1407
+#: ui/MainWindow.ui:1713 ui/PerformanceTab.ui:1387
 msgid ""
 "Disk usage percent of the selected disk\n"
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 
-#: ui/MainWindow.ui:1410 ui/PerformanceMenus.ui:1022
-#: ui/PerformanceMenus.ui:1067 ui/ProcessesMenus.ui:988
-#: ui/ProcessesMenus.ui:1090 ui/StorageMenus.ui:795 ui/StorageMenus.ui:855
+#: ui/MainWindow.ui:1716 ui/PerformanceMenus.ui:1022
+#: ui/PerformanceMenus.ui:1067 ui/PerformanceTab.ui:1390
+#: ui/ProcessesMenus.ui:988 ui/ProcessesMenus.ui:1090 ui/StorageMenus.ui:795
+#: ui/StorageMenus.ui:855
 msgid "Disk Usage:"
 msgstr ""
 
-#: ui/MainWindow.ui:1457
+#: ui/MainWindow.ui:1763 ui/PerformanceTab.ui:1437
 msgid ""
 "Total capacity of the selected disk (in powers of 1024)\n"
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 
-#: ui/MainWindow.ui:1520 ui/MainWindow.ui:1938
+#: ui/MainWindow.ui:1826 ui/MainWindow.ui:2244 ui/PerformanceTab.ui:1500
+#: ui/PerformanceTab.ui:1918
 msgid "B/s "
 msgstr ""
 
-#: ui/MainWindow.ui:1531
+#: ui/MainWindow.ui:1837 ui/PerformanceTab.ui:1511
 msgid ""
 "Disk read and write speed on the selected disk\n"
 "(Max value depends on disk speed and graphic scale is updated dynamically)"
 msgstr ""
 
-#: ui/MainWindow.ui:1534
+#: ui/MainWindow.ui:1840 ui/PerformanceTab.ui:1514
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr ""
 
-#: ui/MainWindow.ui:1546 ui/MainWindow.ui:1964 ui/MainWindow.ui:2537
+#: ui/MainWindow.ui:1852 ui/MainWindow.ui:2270 ui/MainWindow.ui:2843
+#: ui/PerformanceTab.ui:1526 ui/PerformanceTab.ui:1944
+#: ui/PerformanceTab.ui:2517
 msgid "0"
 msgstr ""
 
-#: ui/MainWindow.ui:1597
+#: ui/MainWindow.ui:1903 ui/PerformanceTab.ui:1577
 msgid "Data download speed on the selected network card"
 msgstr ""
 
-#: ui/MainWindow.ui:1599
+#: ui/MainWindow.ui:1905 ui/PerformanceTab.ui:1579
 msgid "Download Speed:"
 msgstr ""
 
-#: ui/MainWindow.ui:1611
+#: ui/MainWindow.ui:1917 ui/PerformanceTab.ui:1591
 msgid "Data upload speed on the selected network card"
 msgstr ""
 
-#: ui/MainWindow.ui:1613
+#: ui/MainWindow.ui:1919 ui/PerformanceTab.ui:1593
 msgid "Upload Speed:"
 msgstr ""
 
-#: ui/MainWindow.ui:1625
+#: ui/MainWindow.ui:1931 ui/PerformanceTab.ui:1605
 msgid ""
 "Downloaded data on the selected network card\n"
 "(since last system boot)"
 msgstr ""
 
-#: ui/MainWindow.ui:1628
+#: ui/MainWindow.ui:1934 ui/PerformanceTab.ui:1608
 msgid "Downloaded Data:"
 msgstr ""
 
-#: ui/MainWindow.ui:1640
+#: ui/MainWindow.ui:1946 ui/PerformanceTab.ui:1620
 msgid ""
 "Uploaded data on the selected network card\n"
 "(since last system start)"
 msgstr ""
 
-#: ui/MainWindow.ui:1643
+#: ui/MainWindow.ui:1949 ui/PerformanceTab.ui:1623
 msgid "Uploaded Data:"
 msgstr ""
 
-#: ui/MainWindow.ui:1655
+#: ui/MainWindow.ui:1961 ui/PerformanceTab.ui:1635
 msgid ""
 "Network connection on the selected network card\n"
 "(Wi-Fi or Ethernet)"
 msgstr ""
 
-#: ui/MainWindow.ui:1658
+#: ui/MainWindow.ui:1964 ui/PerformanceTab.ui:1638
 msgid "Connection Type:"
 msgstr ""
 
-#: ui/MainWindow.ui:1670
+#: ui/MainWindow.ui:1976 ui/PerformanceTab.ui:1650
 msgid "IPv4 address on the selected network card"
 msgstr ""
 
-#: ui/MainWindow.ui:1672
+#: ui/MainWindow.ui:1978 ui/PerformanceTab.ui:1652
 msgid "IPv4 Address:"
 msgstr ""
 
-#: ui/MainWindow.ui:1684
+#: ui/MainWindow.ui:1990 ui/PerformanceTab.ui:1664
 msgid "IPv6 address on the selected network card"
 msgstr ""
 
-#: ui/MainWindow.ui:1686
+#: ui/MainWindow.ui:1992 ui/PerformanceTab.ui:1666
 msgid "IPv6 Address:"
 msgstr ""
 
-#: ui/MainWindow.ui:1698
+#: ui/MainWindow.ui:2004 ui/PerformanceTab.ui:1678
 msgid "MAC (Media Access Control) address of the selected network card"
 msgstr ""
 
-#: ui/MainWindow.ui:1700
+#: ui/MainWindow.ui:2006 ui/PerformanceTab.ui:1680
 msgid "MAC Address:"
 msgstr ""
 
-#: ui/MainWindow.ui:1848
+#: ui/MainWindow.ui:2154 ui/PerformanceTab.ui:1828
 msgid ""
 "If selected network card is connected - Network name (SSID = Service Set "
 "Identifier)"
 msgstr ""
 
-#: ui/MainWindow.ui:1850
+#: ui/MainWindow.ui:2156 ui/PerformanceTab.ui:1830
 msgid "Connected-SSID:"
 msgstr ""
 
-#: ui/MainWindow.ui:1879
+#: ui/MainWindow.ui:2185 ui/PerformanceTab.ui:1859
 msgid ""
 "Current signal strength of the connected network\n"
 "(link value)"
 msgstr ""
 
-#: ui/MainWindow.ui:1882
+#: ui/MainWindow.ui:2188 ui/PerformanceTab.ui:1862
 msgid "Signal Strength:"
 msgstr ""
 
-#: ui/MainWindow.ui:1949
+#: ui/MainWindow.ui:2255 ui/PerformanceTab.ui:1929
 msgid ""
 "Network download and upload speed on the selected network card\n"
 "(Max value depends on network/network card speed and graphic scale is "
 "updated dynamically)"
 msgstr ""
 
-#: ui/MainWindow.ui:1952
+#: ui/MainWindow.ui:2258 ui/PerformanceTab.ui:1932
 msgid "Network Download (-) & Upload (--) Speed:"
 msgstr ""
 
-#: ui/MainWindow.ui:1988
+#: ui/MainWindow.ui:2294 ui/PerformanceTab.ui:1968
 msgid ""
 "Network\n"
 "(Wired and Wireless Network Cards)"
 msgstr ""
 
-#: ui/MainWindow.ui:2007
+#: ui/MainWindow.ui:2313 ui/PerformanceTab.ui:1987
 msgid "Network Tab Customizations"
 msgstr ""
 
-#: ui/MainWindow.ui:2033
+#: ui/MainWindow.ui:2339 ui/PerformanceTab.ui:2013
 msgid "Network Interface Controller (NIC) Name"
 msgstr ""
 
-#: ui/MainWindow.ui:2048
+#: ui/MainWindow.ui:2354 ui/PerformanceTab.ui:2028
 msgid "Network Card Device Model Name"
 msgstr ""
 
-#: ui/MainWindow.ui:2098
+#: ui/MainWindow.ui:2404 ui/PerformanceTab.ui:2078
 msgid ""
 "FPS (Frames Per Second)\n"
 "Counted by using a glarea and OpenGL library.\n"
@@ -2015,651 +2135,155 @@ msgid ""
 "FPS counting does not continue when window is minimized."
 msgstr ""
 
-#: ui/MainWindow.ui:2103
+#: ui/MainWindow.ui:2409 ui/PerformanceTab.ui:2083
 msgid "FPS (Frame Rate): "
 msgstr ""
 
-#: ui/MainWindow.ui:2115
+#: ui/MainWindow.ui:2421 ui/PerformanceTab.ui:2095
 msgid ""
 "Average frame latency which is time delay (milliseconds) between frames\n"
 "(=1/FPS)"
 msgstr ""
 
-#: ui/MainWindow.ui:2118
+#: ui/MainWindow.ui:2424 ui/PerformanceTab.ui:2098
 msgid "Frame Latency:"
 msgstr ""
 
-#: ui/MainWindow.ui:2130
+#: ui/MainWindow.ui:2436 ui/PerformanceTab.ui:2110
 msgid ""
 "Video memory of the selected GPU\n"
 "(Could be dedicated memory or reserved from RAM)"
 msgstr ""
 
-#: ui/MainWindow.ui:2133
+#: ui/MainWindow.ui:2439 ui/PerformanceTab.ui:2113
 msgid "Video Memory:"
 msgstr ""
 
-#: ui/MainWindow.ui:2145
+#: ui/MainWindow.ui:2451 ui/PerformanceTab.ui:2125
 msgid "If selected GPU supports direct rendering"
 msgstr ""
 
-#: ui/MainWindow.ui:2147
+#: ui/MainWindow.ui:2453 ui/PerformanceTab.ui:2127
 msgid "Direct Rendering:"
 msgstr ""
 
-#: ui/MainWindow.ui:2210
+#: ui/MainWindow.ui:2516 ui/PerformanceTab.ui:2190
 msgid "OpenGL version supported by the selected GPU"
 msgstr ""
 
-#: ui/MainWindow.ui:2212
+#: ui/MainWindow.ui:2518 ui/PerformanceTab.ui:2192
 msgid "OpenGL Version:"
 msgstr ""
 
-#: ui/MainWindow.ui:2224
+#: ui/MainWindow.ui:2530 ui/PerformanceTab.ui:2204
 msgid "If selected GPU has unified memory (reserved from RAM)"
 msgstr ""
 
-#: ui/MainWindow.ui:2226
+#: ui/MainWindow.ui:2532 ui/PerformanceTab.ui:2206
 msgid "Unified Memory:"
 msgstr ""
 
-#: ui/MainWindow.ui:2272
+#: ui/MainWindow.ui:2578 ui/PerformanceTab.ui:2252
 msgid ""
 "Current refresh rate\n"
 "May be different than maximum refresh rate of the monitor."
 msgstr ""
 
-#: ui/MainWindow.ui:2275
+#: ui/MainWindow.ui:2581 ui/PerformanceTab.ui:2255
 msgid "Refresh Rate:"
 msgstr ""
 
-#: ui/MainWindow.ui:2304
+#: ui/MainWindow.ui:2610 ui/PerformanceTab.ui:2284
 msgid ""
 "Current driver name and version of the selected GPU\n"
 "(May be proprietary or open sourced driver name)"
 msgstr ""
 
-#: ui/MainWindow.ui:2307
+#: ui/MainWindow.ui:2613 ui/PerformanceTab.ui:2287
 msgid "Driver:"
 msgstr ""
 
-#: ui/MainWindow.ui:2353
+#: ui/MainWindow.ui:2659 ui/PerformanceTab.ui:2333
 msgid ""
 "If selected GPU is default on system boot and/or used for graphics "
 "processing by default"
 msgstr ""
 
-#: ui/MainWindow.ui:2355
+#: ui/MainWindow.ui:2661 ui/PerformanceTab.ui:2335
 msgid "Default GPU:"
 msgstr ""
 
-#: ui/MainWindow.ui:2367
+#: ui/MainWindow.ui:2673 ui/PerformanceTab.ui:2347
 msgid ""
 "Current resolution\n"
 "May be different than maximum resolution of the monitor."
 msgstr ""
 
-#: ui/MainWindow.ui:2370
+#: ui/MainWindow.ui:2676 ui/PerformanceTab.ui:2350
 msgid "Resolution:"
 msgstr ""
 
-#: ui/MainWindow.ui:2428
+#: ui/MainWindow.ui:2734 ui/PerformanceTab.ui:2408
 msgid "GPU (Graphics Processing Unit) / Graphics Card"
 msgstr ""
 
-#: ui/MainWindow.ui:2446
+#: ui/MainWindow.ui:2752 ui/PerformanceTab.ui:2426
 msgid "GPU Tab Customizations"
 msgstr ""
 
-#: ui/MainWindow.ui:2472
+#: ui/MainWindow.ui:2778 ui/PerformanceTab.ui:2452
 msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
 msgstr ""
 
-#: ui/MainWindow.ui:2487
+#: ui/MainWindow.ui:2793 ui/PerformanceTab.ui:2467
 msgid "GPU/Graphics Card Device Model Name"
 msgstr ""
 
-#: ui/MainWindow.ui:2525 ui/SettingsWindow.ui:466
+#: ui/MainWindow.ui:2831 ui/PerformanceTab.ui:2505 ui/SettingsWindow.ui:466
 msgid "FPS"
 msgstr ""
 
-#: ui/MainWindow.ui:2554
+#: ui/MainWindow.ui:2860 ui/PerformanceTab.ui:2534
 msgid ""
 "FPS (Frames Per Second)\n"
 "(Maximum value could be limited with current monitor refresh rate or GPU "
 "performance)"
 msgstr ""
 
-#: ui/MainWindow.ui:2557
+#: ui/MainWindow.ui:2863 ui/PerformanceTab.ui:2537
 msgid "FPS Count:"
 msgstr ""
 
-#: ui/MainWindow.ui:2623
-msgid "Note: Some sensors may not provide correct values!"
-msgstr ""
-
-#: ui/MainWindow.ui:2640
-msgid "Sensors Tab Search Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:2660
-msgid "Show all temperature sensors"
-msgstr ""
-
-#: ui/MainWindow.ui:2681
-msgid "Show all fan sensors"
-msgstr ""
-
-#: ui/MainWindow.ui:2702
-msgid ""
-"Show all sensors\n"
-"(Temperature and fan sensors)"
-msgstr ""
-
-#: ui/MainWindow.ui:2728
-msgid "Search sensor..."
-msgstr ""
-
-#: ui/MainWindow.ui:2773
-msgid "Temperature and Fan Sensors"
-msgstr ""
-
-#: ui/MainWindow.ui:2795
-msgid "Number of listed sensors"
-msgstr ""
-
-#: ui/MainWindow.ui:2798
-msgid "Total: -- sensors (-- temperature (°C), -- fan (RPM) sensors)"
-msgstr ""
-
-#: ui/MainWindow.ui:3177
-msgid "Define a window by clicking on it and highlight its process"
-msgstr ""
-
-#: ui/MainWindow.ui:3197
-msgid "Processes Tab Search Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:3217
-msgid "Show processes from this user"
-msgstr ""
-
-#: ui/MainWindow.ui:3238
-msgid "Show processes from other users"
-msgstr ""
-
-#: ui/MainWindow.ui:3259
-msgid "Show all processes"
-msgstr ""
-
-#: ui/MainWindow.ui:3284
-msgid "Search process..."
-msgstr ""
-
-#: ui/MainWindow.ui:3395
-msgid "Number of listed processes"
-msgstr ""
-
-#: ui/MainWindow.ui:3398
-msgid "Total: -- processes (-- from this user, -- from other users/system)"
-msgstr ""
-
-#: ui/MainWindow.ui:3418
-msgid "Processes Tab Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:3479
-msgid "Note: User-specific performance data is approximative."
-msgstr ""
-
-#: ui/MainWindow.ui:3517 ui/MainWindow.ui:3737
-msgid "Number of listed users"
-msgstr ""
-
-#: ui/MainWindow.ui:3520
-msgid "Total: -- users (-- logged in, -- logged out users)"
-msgstr ""
-
-#: ui/MainWindow.ui:3540
-msgid "Users Tab Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:3572
-msgid "Users Tab Search Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:3592
-msgid "Show only users logged in"
-msgstr ""
-
-#: ui/MainWindow.ui:3613
-msgid "Show only users logged out"
-msgstr ""
-
-#: ui/MainWindow.ui:3634
-msgid "Show all users"
-msgstr ""
-
-#: ui/MainWindow.ui:3659
-msgid "Search user..."
-msgstr ""
-
-#: ui/MainWindow.ui:3740
-msgid "Total: -- disks/partitions (-- disks, -- partitions)"
-msgstr ""
-
-#: ui/MainWindow.ui:3760
-msgid "Storage Tab Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:3792
-msgid "Storage Tab Search Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:3815
-msgid "Search storage..."
-msgstr ""
-
-#: ui/MainWindow.ui:3827
-msgid "Show all disks/partitions"
-msgstr ""
-
-#: ui/MainWindow.ui:3849
-msgid "Show all non-removable disks/partitions"
-msgstr ""
-
-#: ui/MainWindow.ui:3870
-msgid "Show all removable disks/partitions"
-msgstr ""
-
-#: ui/MainWindow.ui:3891
-msgid "Show all optical and virtual disks/partitions"
-msgstr ""
-
-#: ui/MainWindow.ui:4043
-msgid "Number of listed startup items"
-msgstr ""
-
-#: ui/MainWindow.ui:4046
-msgid "Total: -- startup items (-- visible, -- hidden startup items)"
-msgstr ""
-
-#: ui/MainWindow.ui:4066
-msgid "Startup Tab Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:4098
-msgid "Startup Tab Search Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:4121
-msgid "Search startup item..."
-msgstr ""
-
-#: ui/MainWindow.ui:4133
-msgid "Show all startup items"
-msgstr ""
-
-#: ui/MainWindow.ui:4155
-msgid "Show all enabled (visible) startup items"
-msgstr ""
-
-#: ui/MainWindow.ui:4176
-msgid "Show all disabled (hidden) startup items"
-msgstr ""
-
-#: ui/MainWindow.ui:4263
-msgid "Number of listed services"
-msgstr ""
-
-#: ui/MainWindow.ui:4265
-msgid "Total: -- services (-- loaded, -- non-loaded services)"
-msgstr ""
-
-#: ui/MainWindow.ui:4285
-msgid "Services Tab Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:4317
-msgid "Services Tab Search Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:4340
-msgid "Search system service..."
-msgstr ""
-
-#: ui/MainWindow.ui:4352
-msgid ""
-"Refresh\n"
-"(Reloads Services tab data)"
-msgstr ""
-
-#: ui/MainWindow.ui:4373
-msgid "Show all services"
-msgstr ""
-
-#: ui/MainWindow.ui:4395
-msgid "Show all loaded services"
-msgstr ""
-
-#: ui/MainWindow.ui:4416
-msgid "Show all non-loaded services"
-msgstr ""
-
-#: ui/MainWindow.ui:4482
-msgid ""
-"Persistent environment variables and shell variables are listed on this "
-"tab.\n"
-"\n"
-"New environment variables can be added for current user-only or for all "
-"users (system-wide).\n"
-"Existing environments can be edited and deleted.\n"
-"\n"
-"Following files are used for adding/editing/deleting user-specific and "
-"system wide environment variables:\n"
-"/etc/environment\n"
-"/home/[username]/.bashrc\n"
-"\n"
-"There are many other files which are used by system for storing environment "
-"variables and variables in these files may override the variables you "
-"defined.\n"
-"\n"
-"As a general information, environment variables for only current user (user-"
-"specific) override environment variables for all users (system-wide) if "
-"variable names are the same."
-msgstr ""
-
-#: ui/MainWindow.ui:4495
-msgid ""
-"Environment\n"
-"Variables"
-msgstr ""
-
-#: ui/MainWindow.ui:4516
-msgid ""
-"Number of listed persistent environment/shell variables\n"
-"Summation of number of environment variables and number of shell variables "
-"may be bigger than number of total variables.\n"
-"Because there may be both environment variable and shell variable with the "
-"same variable name."
-msgstr ""
-
-#: ui/MainWindow.ui:4521
-msgid ""
-"Total: -- persistent variables (-- system wide, -- user environment "
-"variables)"
-msgstr ""
-
-#: ui/MainWindow.ui:4541
-msgid "Environment Variables Tab Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:4573
-msgid "Environment Variables Tab Search Customizations"
-msgstr ""
-
-#: ui/MainWindow.ui:4596
-msgid "Search environment/shell variable..."
-msgstr ""
-
-#: ui/MainWindow.ui:4608
-msgid "Show all environment/shell variables"
-msgstr ""
-
-#: ui/MainWindow.ui:4630
-msgid "Show all environment variables"
-msgstr ""
-
-#: ui/MainWindow.ui:4651
-msgid "Show all shell variables"
-msgstr ""
-
-#: ui/MainWindow.ui:4678
-msgid ""
-"Note: Backing up the following files is advised before changing environment "
-"variables: '/etc/environment', '/home/[username]/.bashrc'."
-msgstr ""
-
-#: ui/MainWindow.ui:4714
-msgid "Computer Name And Model"
-msgstr ""
-
-#: ui/MainWindow.ui:4729
-msgid "Operating System Name and Version"
-msgstr ""
-
-#: ui/MainWindow.ui:4799
-msgid "Operating System (OS):"
-msgstr ""
-
-#: ui/MainWindow.ui:4815
-msgid ""
-"Name of the OS\n"
-"(ID of the OS)"
-msgstr ""
-
-#: ui/MainWindow.ui:4818 ui/ProcessesDetailsWindow.ui:42
-#: ui/ServicesDetailsWindow.ui:57 ui/StartupNewItemWindow.ui:164
-msgid "Name:"
-msgstr ""
-
-#: ui/MainWindow.ui:4830
-msgid "Version and code name of the OS"
-msgstr ""
-
-#: ui/MainWindow.ui:4832
-msgid "Version - Code Name:"
-msgstr ""
-
-#: ui/MainWindow.ui:4878
-msgid ""
-"Computer model name\n"
-"This information may not be present in all motherboards."
-msgstr ""
-
-#: ui/MainWindow.ui:4881
-msgid "Model:"
-msgstr ""
-
-#: ui/MainWindow.ui:4893
-msgid ""
-"Type of the computer chassis\n"
-"This information may not be present in all motherboards."
-msgstr ""
-
-#: ui/MainWindow.ui:4896
-msgid "Computer Type:"
-msgstr ""
-
-#: ui/MainWindow.ui:4925
-msgid "Name of the OS which this OS is based on"
-msgstr ""
-
-#: ui/MainWindow.ui:4927
-msgid "Based On:"
-msgstr ""
-
-#: ui/MainWindow.ui:4956
-msgid ""
-"Base version of the kernel\n"
-"May be different from package version of the kernel."
-msgstr ""
-
-#: ui/MainWindow.ui:4959
-msgid "Kernel Release:"
-msgstr ""
-
-#: ui/MainWindow.ui:4989
-msgid "Computer:"
-msgstr ""
-
-#: ui/MainWindow.ui:5022
-msgid ""
-"Computer vendor name\n"
-"This information may not be present in all motherboards."
-msgstr ""
-
-#: ui/MainWindow.ui:5025
-msgid "Vendor:"
-msgstr ""
-
-#: ui/MainWindow.ui:5071
-msgid "Family of the OS"
-msgstr ""
-
-#: ui/MainWindow.ui:5073
-msgid "OS Family:"
-msgstr ""
-
-#: ui/MainWindow.ui:5085
-msgid ""
-"Name of the computer\n"
-"Host name is defined by the vendor or by the user during system "
-"installation.\n"
-"This name can be changed later."
-msgstr ""
-
-#: ui/MainWindow.ui:5089
-msgid "Host Name:"
-msgstr ""
-
-#: ui/MainWindow.ui:5118
-msgid "Number of detected monitors"
-msgstr ""
-
-#: ui/MainWindow.ui:5120
-msgid "Number Of Monitors:"
-msgstr ""
-
-#: ui/MainWindow.ui:5149
-msgid ""
-"Package version of the kernel\n"
-"May be different from base version of the kernel."
-msgstr ""
-
-#: ui/MainWindow.ui:5152
-msgid "Kernel Version:"
-msgstr ""
-
-#: ui/MainWindow.ui:5181
-msgid "Monitor which most part of this window is shown on"
-msgstr ""
-
-#: ui/MainWindow.ui:5183
-msgid "Current Monitor:"
-msgstr ""
-
-#: ui/MainWindow.ui:5240
-msgid "Graphical User Interface (GUI):"
-msgstr ""
-
-#: ui/MainWindow.ui:5257 ui/ProcessesDetailsWindow.ui:68
-msgid "Status:"
-msgstr ""
-
-#: ui/MainWindow.ui:5273
-msgid ""
-"Name of the desktop environment\n"
-"Desktop environments provide several applications (such as file manager, "
-"media player, text editor, task manager etc.) and utilities (such as "
-"localization, power management, some settings management features, panels, "
-"windowing system, display manager, session manager, etc.) to user for using "
-"the computer.\n"
-"There may be big differences of system resource usages and features between "
-"different desktop environments."
-msgstr ""
-
-#: ui/MainWindow.ui:5277
-msgid "Desktop Environment:"
-msgstr ""
-
-#: ui/MainWindow.ui:5340
-msgid ""
-"Name of the windowing system (window system)\n"
-"Windowing system draws windows, icons, pointers, fonts, etc.\n"
-"Windowing systems have some components such as display server and window "
-"manager."
-msgstr ""
-
-#: ui/MainWindow.ui:5344
-msgid "Windowing System:"
-msgstr ""
-
-#: ui/MainWindow.ui:5356
-msgid ""
-"Name of the display manager (login manager)\n"
-"Provides a graphical user interface for user login, starts the display "
-"server and loads the desktop environment after user login.\n"
-"Features, system resource usages and appearance of the greeter (login "
-"screen) are different for different display managers."
-msgstr ""
-
-#: ui/MainWindow.ui:5360
-msgid "Display Manager:"
-msgstr ""
-
-#: ui/MainWindow.ui:5386
-msgid "Number of installed packages"
-msgstr ""
-
-#: ui/MainWindow.ui:5388
-msgid "Packages Installed:"
-msgstr ""
-
-#: ui/MainWindow.ui:5400
-msgid ""
-"Name of the current user and information of whether the user has root "
-"privileges"
-msgstr ""
-
-#: ui/MainWindow.ui:5402
-msgid "Current User - (Root?):"
-msgstr ""
-
-#: ui/MainWindow.ui:5465
-msgid ""
-"Name of the window manager\n"
-"Window manager manages position, size, stacking order, focus of the windows, "
-"performs minimizing/maximizing operations of windows, provides window "
-"decorations, manages virtual desktops (workspaces).\n"
-"\n"
-"Note: Window manager changes during user session are not tracked."
-msgstr ""
-
-#: ui/MainWindow.ui:5470
-msgid "Window Manager:"
-msgstr ""
-
-#: ui/MainWindow.ui:5946
+#: ui/MainWindow.ui:3452
 msgid "System Monitoring Center"
 msgstr ""
 
-#: ui/MainWindow.ui:5954
+#: ui/MainWindow.ui:3460
 msgid "Main Menu"
 msgstr ""
 
-#: ui/MainWindow.ui:5977 ui/ProcessesDetailsWindow.ui:604
+#: ui/MainWindow.ui:3483 ui/ProcessesDetailsWindow.ui:604
 msgid "CPU:"
 msgstr ""
 
-#: ui/MainWindow.ui:6001 ui/MainWindow.ui:6014
+#: ui/MainWindow.ui:3507 ui/MainWindow.ui:3520
 msgid "RAM Usage Percent"
 msgstr ""
 
-#: ui/MainWindow.ui:6026 ui/MainWindow.ui:6038
+#: ui/MainWindow.ui:3532 ui/MainWindow.ui:3544
 msgid "Disk read+write speed of the selected disk (in powers of 1024)"
 msgstr ""
 
-#: ui/MainWindow.ui:6027 ui/ProcessesDetailsWindow.ui:1085
+#: ui/MainWindow.ui:3533 ui/ProcessesDetailsWindow.ui:1085
 msgid "Disk:"
 msgstr ""
 
-#: ui/MainWindow.ui:6050 ui/MainWindow.ui:6062
+#: ui/MainWindow.ui:3556 ui/MainWindow.ui:3568
 msgid ""
 "Data download+upload speed on the selected network card (in powers of 1024)"
 msgstr ""
 
-#: ui/MainWindow.ui:6063 ui/ProcessesDetailsWindow.ui:1434
+#: ui/MainWindow.ui:3569 ui/ProcessesDetailsWindow.ui:1434
 msgid "Network:"
 msgstr ""
 
@@ -2816,36 +2440,46 @@ msgstr ""
 msgid "Select GPU/Graphics Card:"
 msgstr ""
 
-#: ui/PerformanceMenus.ui:2029
-msgid "Sensors Tab Customizations:"
+#: ui/PerformanceTab.ui:168
+msgid "System Up Time:"
 msgstr ""
 
-#: ui/PerformanceMenus.ui:2257
-msgid "Sensor Search Customizations:"
+#: ui/PerformanceTab.ui:2603 ui/SensorsTab.ui:17
+msgid "Note: Some sensors may not provide correct values!"
 msgstr ""
 
-#: ui/PerformanceMenus.ui:2286
-msgid "Search in sensor type:"
+#: ui/PerformanceTab.ui:2620 ui/SensorsTab.ui:34
+msgid "Sensors Tab Search Customizations"
 msgstr ""
 
-#: ui/PerformanceMenus.ui:2295
-msgid "All sensors"
+#: ui/PerformanceTab.ui:2643 ui/SensorsTab.ui:57
+msgid "Search sensor..."
 msgstr ""
 
-#: ui/PerformanceMenus.ui:2309
-msgid "Sensor group names"
+#: ui/PerformanceTab.ui:2661 ui/SensorsTab.ui:75
+msgid ""
+"Show all sensors\n"
+"(Temperature and fan sensors)"
 msgstr ""
 
-#: ui/PerformanceMenus.ui:2323
-msgid "Sensor names"
+#: ui/PerformanceTab.ui:2684 ui/SensorsTab.ui:98
+msgid "Show all temperature sensors"
 msgstr ""
 
-#: ui/PerformanceMenus.ui:2337
-msgid "Temperature sensors"
+#: ui/PerformanceTab.ui:2706 ui/SensorsTab.ui:120
+msgid "Show all fan sensors"
 msgstr ""
 
-#: ui/PerformanceMenus.ui:2351
-msgid "Fan sensors"
+#: ui/PerformanceTab.ui:2767 ui/SensorsTab.ui:181
+msgid "Temperature and Fan Sensors"
+msgstr ""
+
+#: ui/PerformanceTab.ui:2789 ui/SensorsTab.ui:203
+msgid "Number of listed sensors"
+msgstr ""
+
+#: ui/PerformanceTab.ui:2792 ui/SensorsTab.ui:206
+msgid "Total: -- sensors (-- temperature (°C), -- fan (RPM) sensors)"
 msgstr ""
 
 #: ui/ProcessesCustomPriorityWindow.ui:13
@@ -2870,8 +2504,17 @@ msgstr ""
 msgid "Process Details"
 msgstr ""
 
+#: ui/ProcessesDetailsWindow.ui:42 ui/ServicesDetailsWindow.ui:57
+#: ui/StartupNewItemWindow.ui:164 ui/SystemTab.ui:131
+msgid "Name:"
+msgstr ""
+
 #: ui/ProcessesDetailsWindow.ui:55
 msgid "PID:"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:68 ui/SystemTab.ui:570
+msgid "Status:"
 msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:81
@@ -3174,6 +2817,42 @@ msgstr ""
 msgid "Other users"
 msgstr ""
 
+#: ui/ProcessesTab.ui:43
+msgid "Define a window by clicking on it and highlight its process"
+msgstr ""
+
+#: ui/ProcessesTab.ui:63
+msgid "Processes Tab Search Customizations"
+msgstr ""
+
+#: ui/ProcessesTab.ui:86
+msgid "Search process..."
+msgstr ""
+
+#: ui/ProcessesTab.ui:105
+msgid "Show all processes"
+msgstr ""
+
+#: ui/ProcessesTab.ui:127
+msgid "Show processes from this user"
+msgstr ""
+
+#: ui/ProcessesTab.ui:149
+msgid "Show processes from other users"
+msgstr ""
+
+#: ui/ProcessesTab.ui:291
+msgid "Number of listed processes"
+msgstr ""
+
+#: ui/ProcessesTab.ui:294
+msgid "Total: -- processes (-- from this user, -- from other users/system)"
+msgstr ""
+
+#: ui/ProcessesTab.ui:314
+msgid "Processes Tab Customizations"
+msgstr ""
+
 #: ui/RunApplicationWindow.ui:7
 msgid "Run a Program"
 msgstr ""
@@ -3200,6 +2879,38 @@ msgstr ""
 
 #: ui/RunApplicationWindow.ui:117
 msgid "Note: Program search match is case sensitive."
+msgstr ""
+
+#: ui/SensorsMenusGUI.ui:20
+msgid "Sensors Tab Customizations:"
+msgstr ""
+
+#: ui/SensorsMenusGUI.ui:248
+msgid "Sensor Search Customizations:"
+msgstr ""
+
+#: ui/SensorsMenusGUI.ui:277
+msgid "Search in sensor type:"
+msgstr ""
+
+#: ui/SensorsMenusGUI.ui:286
+msgid "All sensors"
+msgstr ""
+
+#: ui/SensorsMenusGUI.ui:300
+msgid "Sensor group names"
+msgstr ""
+
+#: ui/SensorsMenusGUI.ui:314
+msgid "Sensor names"
+msgstr ""
+
+#: ui/SensorsMenusGUI.ui:328
+msgid "Temperature sensors"
+msgstr ""
+
+#: ui/SensorsMenusGUI.ui:342
+msgid "Fan sensors"
 msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:70
@@ -3349,6 +3060,44 @@ msgstr ""
 
 #: ui/ServicesMenus.ui:871
 msgid "Non-loaded services"
+msgstr ""
+
+#: ui/ServicesTab.ui:64
+msgid "Number of listed services"
+msgstr ""
+
+#: ui/ServicesTab.ui:66
+msgid "Total: -- services (-- loaded, -- non-loaded services)"
+msgstr ""
+
+#: ui/ServicesTab.ui:86
+msgid "Services Tab Customizations"
+msgstr ""
+
+#: ui/ServicesTab.ui:118
+msgid "Services Tab Search Customizations"
+msgstr ""
+
+#: ui/ServicesTab.ui:141
+msgid "Search system service..."
+msgstr ""
+
+#: ui/ServicesTab.ui:153
+msgid ""
+"Refresh\n"
+"(Reloads Services tab data)"
+msgstr ""
+
+#: ui/ServicesTab.ui:181
+msgid "Show all services"
+msgstr ""
+
+#: ui/ServicesTab.ui:203
+msgid "Show all loaded services"
+msgstr ""
+
+#: ui/ServicesTab.ui:225
+msgid "Show all non-loaded services"
 msgstr ""
 
 #: ui/SettingsWindow.ui:7
@@ -3530,6 +3279,38 @@ msgstr ""
 msgid "Note: Name and Command fields cannot be left blank."
 msgstr ""
 
+#: ui/StartupTab.ui:64
+msgid "Number of listed startup items"
+msgstr ""
+
+#: ui/StartupTab.ui:67
+msgid "Total: -- startup items (-- visible, -- hidden startup items)"
+msgstr ""
+
+#: ui/StartupTab.ui:87
+msgid "Startup Tab Customizations"
+msgstr ""
+
+#: ui/StartupTab.ui:119
+msgid "Startup Tab Search Customizations"
+msgstr ""
+
+#: ui/StartupTab.ui:142
+msgid "Search startup item..."
+msgstr ""
+
+#: ui/StartupTab.ui:160
+msgid "Show all startup items"
+msgstr ""
+
+#: ui/StartupTab.ui:182
+msgid "Show all enabled (visible) startup items"
+msgstr ""
+
+#: ui/StartupTab.ui:204
+msgid "Show all disabled (hidden) startup items"
+msgstr ""
+
 #: ui/StorageDetailsWindow.ui:8
 msgid "Storage Details"
 msgstr ""
@@ -3678,6 +3459,251 @@ msgstr ""
 msgid " "
 msgstr ""
 
+#: ui/StorageTab.ui:64 ui/UsersTab.ui:76
+msgid "Number of listed users"
+msgstr ""
+
+#: ui/StorageTab.ui:67
+msgid "Total: -- disks/partitions (-- disks, -- partitions)"
+msgstr ""
+
+#: ui/StorageTab.ui:87
+msgid "Storage Tab Customizations"
+msgstr ""
+
+#: ui/StorageTab.ui:119
+msgid "Storage Tab Search Customizations"
+msgstr ""
+
+#: ui/StorageTab.ui:142
+msgid "Search storage..."
+msgstr ""
+
+#: ui/StorageTab.ui:160
+msgid "Show all disks/partitions"
+msgstr ""
+
+#: ui/StorageTab.ui:182
+msgid "Show all non-removable disks/partitions"
+msgstr ""
+
+#: ui/StorageTab.ui:204
+msgid "Show all removable disks/partitions"
+msgstr ""
+
+#: ui/StorageTab.ui:226
+msgid "Show all optical and virtual disks/partitions"
+msgstr ""
+
+#: ui/SystemTab.ui:27
+msgid "Computer Name And Model"
+msgstr ""
+
+#: ui/SystemTab.ui:42
+msgid "Operating System Name and Version"
+msgstr ""
+
+#: ui/SystemTab.ui:112
+msgid "Operating System (OS):"
+msgstr ""
+
+#: ui/SystemTab.ui:128
+msgid ""
+"Name of the OS\n"
+"(ID of the OS)"
+msgstr ""
+
+#: ui/SystemTab.ui:143
+msgid "Version and code name of the OS"
+msgstr ""
+
+#: ui/SystemTab.ui:145
+msgid "Version - Code Name:"
+msgstr ""
+
+#: ui/SystemTab.ui:191
+msgid ""
+"Computer model name\n"
+"This information may not be present in all motherboards."
+msgstr ""
+
+#: ui/SystemTab.ui:194
+msgid "Model:"
+msgstr ""
+
+#: ui/SystemTab.ui:206
+msgid ""
+"Type of the computer chassis\n"
+"This information may not be present in all motherboards."
+msgstr ""
+
+#: ui/SystemTab.ui:209
+msgid "Computer Type:"
+msgstr ""
+
+#: ui/SystemTab.ui:238
+msgid "Name of the OS which this OS is based on"
+msgstr ""
+
+#: ui/SystemTab.ui:240
+msgid "Based On:"
+msgstr ""
+
+#: ui/SystemTab.ui:269
+msgid ""
+"Base version of the kernel\n"
+"May be different from package version of the kernel."
+msgstr ""
+
+#: ui/SystemTab.ui:272
+msgid "Kernel Release:"
+msgstr ""
+
+#: ui/SystemTab.ui:302
+msgid "Computer:"
+msgstr ""
+
+#: ui/SystemTab.ui:335
+msgid ""
+"Computer vendor name\n"
+"This information may not be present in all motherboards."
+msgstr ""
+
+#: ui/SystemTab.ui:338
+msgid "Vendor:"
+msgstr ""
+
+#: ui/SystemTab.ui:384
+msgid "Family of the OS"
+msgstr ""
+
+#: ui/SystemTab.ui:386
+msgid "OS Family:"
+msgstr ""
+
+#: ui/SystemTab.ui:398
+msgid ""
+"Name of the computer\n"
+"Host name is defined by the vendor or by the user during system "
+"installation.\n"
+"This name can be changed later."
+msgstr ""
+
+#: ui/SystemTab.ui:402
+msgid "Host Name:"
+msgstr ""
+
+#: ui/SystemTab.ui:431
+msgid "Number of detected monitors"
+msgstr ""
+
+#: ui/SystemTab.ui:433
+msgid "Number Of Monitors:"
+msgstr ""
+
+#: ui/SystemTab.ui:462
+msgid ""
+"Package version of the kernel\n"
+"May be different from base version of the kernel."
+msgstr ""
+
+#: ui/SystemTab.ui:465
+msgid "Kernel Version:"
+msgstr ""
+
+#: ui/SystemTab.ui:494
+msgid "Monitor which most part of this window is shown on"
+msgstr ""
+
+#: ui/SystemTab.ui:496
+msgid "Current Monitor:"
+msgstr ""
+
+#: ui/SystemTab.ui:553
+msgid "Graphical User Interface (GUI):"
+msgstr ""
+
+#: ui/SystemTab.ui:586
+msgid ""
+"Name of the desktop environment\n"
+"Desktop environments provide several applications (such as file manager, "
+"media player, text editor, task manager etc.) and utilities (such as "
+"localization, power management, some settings management features, panels, "
+"windowing system, display manager, session manager, etc.) to user for using "
+"the computer.\n"
+"There may be big differences of system resource usages and features between "
+"different desktop environments."
+msgstr ""
+
+#: ui/SystemTab.ui:590
+msgid "Desktop Environment:"
+msgstr ""
+
+#: ui/SystemTab.ui:653
+msgid ""
+"Name of the windowing system (window system)\n"
+"Windowing system draws windows, icons, pointers, fonts, etc.\n"
+"Windowing systems have some components such as display server and window "
+"manager."
+msgstr ""
+
+#: ui/SystemTab.ui:657
+msgid "Windowing System:"
+msgstr ""
+
+#: ui/SystemTab.ui:669
+msgid ""
+"Name of the display manager (login manager)\n"
+"Provides a graphical user interface for user login, starts the display "
+"server and loads the desktop environment after user login.\n"
+"Features, system resource usages and appearance of the greeter (login "
+"screen) are different for different display managers."
+msgstr ""
+
+#: ui/SystemTab.ui:673
+msgid "Display Manager:"
+msgstr ""
+
+#: ui/SystemTab.ui:699
+msgid "Number of installed APT packages"
+msgstr ""
+
+#: ui/SystemTab.ui:701
+msgid "Packages (APT):"
+msgstr ""
+
+#: ui/SystemTab.ui:713
+msgid ""
+"Name of the current user and information of whether the user has root "
+"privileges"
+msgstr ""
+
+#: ui/SystemTab.ui:715
+msgid "User - (Root?):"
+msgstr ""
+
+#: ui/SystemTab.ui:761
+msgid ""
+"Name of the window manager\n"
+"Window manager manages position, size, stacking order, focus of the windows, "
+"performs minimizing/maximizing operations of windows, provides window "
+"decorations, manages virtual desktops (workspaces).\n"
+"\n"
+"Note: Window manager changes during user session are not tracked."
+msgstr ""
+
+#: ui/SystemTab.ui:766
+msgid "Window Manager:"
+msgstr ""
+
+#: ui/SystemTab.ui:829
+msgid "Number of installed Flatpak applications and runtimes"
+msgstr ""
+
+#: ui/SystemTab.ui:831
+msgid "Packages (Flatpak):"
+msgstr ""
+
 #: ui/UsersDetailsWindow.ui:30
 msgid "User Name:"
 msgstr ""
@@ -3756,4 +3782,36 @@ msgstr ""
 
 #: ui/UsersMenus.ui:856
 msgid "Users logged out"
+msgstr ""
+
+#: ui/UsersTab.ui:38
+msgid "Note: User-specific performance data is approximative."
+msgstr ""
+
+#: ui/UsersTab.ui:79
+msgid "Total: -- users (-- logged in, -- logged out users)"
+msgstr ""
+
+#: ui/UsersTab.ui:99
+msgid "Users Tab Customizations"
+msgstr ""
+
+#: ui/UsersTab.ui:131
+msgid "Users Tab Search Customizations"
+msgstr ""
+
+#: ui/UsersTab.ui:154
+msgid "Search user..."
+msgstr ""
+
+#: ui/UsersTab.ui:172
+msgid "Show all users"
+msgstr ""
+
+#: ui/UsersTab.ui:194
+msgid "Show only users logged in"
+msgstr ""
+
+#: ui/UsersTab.ui:216
+msgid "Show only users logged out"
 msgstr ""

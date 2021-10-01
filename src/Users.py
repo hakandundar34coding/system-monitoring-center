@@ -99,6 +99,9 @@ def users_initial_func():
 # ----------------------------------- Users - Get User Data Function (gets user data, adds into treeview and updates it) -----------------------------------
 def users_loop_func():
 
+    # Get GUI obejcts one time per floop instead of getting them multiple times
+    treeview3101 = UsersGUI.treeview3101
+
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global users_cpu_usage_percent_precision
     global users_ram_swap_data_precision, users_ram_swap_data_unit
@@ -303,12 +306,12 @@ def users_loop_func():
     global_process_cpu_times_prev = global_process_cpu_times                                  # For using values in the next loop
 
     # Add/Remove treeview columns appropriate for user preferences
-    UsersGUI.treeview3101.freeze_child_notify()                                               # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview3101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     if users_treeview_columns_shown != users_treeview_columns_shown_prev:                     # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
-        for column in UsersGUI.treeview3101.get_columns():                                    # Remove all columns in the treeview.
-            UsersGUI.treeview3101.remove_column(column)
+        for column in treeview3101.get_columns():                                             # Remove all columns in the treeview.
+            treeview3101.remove_column(column)
         for i, column in enumerate(users_treeview_columns_shown):
             if users_data_list[column][0] in users_treeview_columns_shown:
                 cumulative_sort_column_id = cumulative_sort_column_id + users_data_list[column][2]
@@ -334,7 +337,7 @@ def users_loop_func():
             users_treeview_column.set_reorderable(True)                                       # Set columns reorderable by the user when column title buttons are dragged.
             users_treeview_column.set_min_width(40)                                           # Set minimum column widths as "40 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
             users_treeview_column.connect("clicked", on_column_title_clicked)                 # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-            UsersGUI.treeview3101.append_column(users_treeview_column)                        # Append column into treeview
+            treeview3101.append_column(users_treeview_column)                                 # Append column into treeview
 
         # Get column data types for appending users data into treestore
         users_data_column_types = []
@@ -350,17 +353,17 @@ def users_loop_func():
         treemodelfilter3101 = treestore3101.filter_new()
         treemodelfilter3101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
         treemodelsort3101 = Gtk.TreeModelSort(treemodelfilter3101)
-        UsersGUI.treeview3101.set_model(treemodelsort3101)
+        treeview3101.set_model(treemodelsort3101)
         pid_list_prev = []                                                                    # Redefine (clear) "pid_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
         uid_username_list_prev = []                                                           # Redefine (clear) "uid_username_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
         global piter_list
         piter_list = []
-    UsersGUI.treeview3101.thaw_child_notify()                                                 # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview3101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if users_treeview_columns_shown_prev != users_treeview_columns_shown or users_data_column_order_prev != users_data_column_order:
-        users_treeview_columns = UsersGUI.treeview3101.get_columns()                          # Get shown columns on the treeview in order to use this data for reordering the columns.
-        users_treeview_columns_modified = UsersGUI.treeview3101.get_columns()
+        users_treeview_columns = treeview3101.get_columns()                                   # Get shown columns on the treeview in order to use this data for reordering the columns.
+        users_treeview_columns_modified = treeview3101.get_columns()
         treeview_column_titles = []
         for column in users_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -372,11 +375,11 @@ def users_loop_func():
                 column_title_to_move = column_to_move.get_title()
                 for data in users_data_list:
                     if data[1] == column_title_to_move:
-                        UsersGUI.treeview3101.move_column_after(column_to_move, None)         # Column is moved at the beginning of the treeview if "None" is used.
+                        treeview3101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort user rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if users_treeview_columns_shown_prev != users_treeview_columns_shown or users_data_row_sorting_column_prev != users_data_row_sorting_column or users_data_row_sorting_order != users_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
-        users_treeview_columns = UsersGUI.treeview3101.get_columns()                          # Get shown columns on the treeview in order to use this data for reordering the columns.
+        users_treeview_columns = treeview3101.get_columns()                                   # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_column_titles = []
         for column in users_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -394,7 +397,7 @@ def users_loop_func():
 
     # Set column widths if there are changes since last loop.
     if users_treeview_columns_shown_prev != users_treeview_columns_shown or users_data_column_widths_prev != users_data_column_widths:
-        users_treeview_columns = UsersGUI.treeview3101.get_columns()
+        users_treeview_columns = treeview3101.get_columns()
         treeview_column_titles = []
         for column in users_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -413,7 +416,7 @@ def users_loop_func():
     updated_existing_user_index = [[uid_username_list.index(list(i)), uid_username_list_prev.index(list(i))] for i in existing_users]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
     users_data_rows_row_length = len(users_data_rows[0])
     # Append/Remove/Update users data into treestore
-    UsersGUI.treeview3101.freeze_child_notify()                                               # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview3101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     global user_search_text, filter_log_in_status, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_user_index:
@@ -441,7 +444,7 @@ def users_loop_func():
                     users_data_rows[uid_username_list.index(list(user))][0] = False
             # \\\ End \\\ This block of code is used for determining if the newly added user will be shown on the treeview (user search actions and/or search customizations and/or "Show only logged in/logged out users ..." preference affect user visibility).
             piter_list.append(treestore3101.append(None, users_data_rows[uid_username_list.index(list(user))]))
-    UsersGUI.treeview3101.thaw_child_notify()                                                 # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview3101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     uid_username_list_prev = uid_username_list
     users_data_rows_prev = users_data_rows

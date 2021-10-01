@@ -115,7 +115,7 @@ def config_default_performance_cpu_func():
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     chart_line_color_cpu_percent = [0.29, 0.78, 0.0, 1.0]
     show_cpu_usage_per_core = 0
-    performance_cpu_usage_percent_precision = 2
+    performance_cpu_usage_percent_precision = 0
 
 # ----------------------------------- Config - Config Default Performance Tab-RAM Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
 def config_default_performance_ram_func():

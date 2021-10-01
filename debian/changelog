@@ -1,3 +1,16 @@
+system-monitoring-center (0.1.16-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+
+  * Application start speed is improved
+  * Improved response times of the application window after window focus changes
+  * Minor improvements for reducing CPU usage on several tabs
+  * Added information of number of installed Flatpak packages (System tab)
+  * Default value of average CPU usage precision is changed to "0" to increase readability
+  * Minor GUI improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 01 Oct 2021 08:28:00 +0300
+
 system-monitoring-center (0.1.15-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]

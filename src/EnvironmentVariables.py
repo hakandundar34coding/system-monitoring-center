@@ -69,6 +69,9 @@ def environment_variables_initial_func():
 # ----------------------------------- Environment Variables - Get EnvironmentVariables Data Function (gets environment_variables data, adds into treeview and updates it) -----------------------------------
 def environment_variables_loop_func():
 
+    # Get GUI obejcts one time per floop instead of getting them multiple times
+    treeview7101 = EnvironmentVariablesGUI.treeview7101
+
     # Prevent running the function if application is run with root privileges. Othserwise errors are encountered and additional work may be done for handling them.
     if os.geteuid() == 0:
         EnvironmentVariablesGUI.label7101.set_text(_tr("Listing environment/shell variables is not supported when application is run with root privileges."))
@@ -150,12 +153,12 @@ def environment_variables_loop_func():
         environment_variables_data_rows.append(environment_variables_data_row)
 
     # Add/Remove treeview columns appropriate for user preferences
-    EnvironmentVariablesGUI.treeview7101.freeze_child_notify()                                # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview7101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     if environment_variables_treeview_columns_shown != environment_variables_treeview_columns_shown_prev:    # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
-        for column in EnvironmentVariablesGUI.treeview7101.get_columns():                     # Remove all columns in the treeview.
-            EnvironmentVariablesGUI.treeview7101.remove_column(column)
+        for column in treeview7101.get_columns():                                             # Remove all columns in the treeview.
+            treeview7101.remove_column(column)
         for i, column in enumerate(environment_variables_treeview_columns_shown):
             if environment_variables_data_list[column][0] in environment_variables_treeview_columns_shown:
                 cumulative_sort_column_id = cumulative_sort_column_id + environment_variables_data_list[column][2]
@@ -179,7 +182,7 @@ def environment_variables_loop_func():
             environment_variables_treeview_column.set_reorderable(True)                       # Set columns reorderable by the user when column title buttons are dragged.
             environment_variables_treeview_column.set_min_width(40)                           # Set minimum column widths as "40 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
             environment_variables_treeview_column.connect("clicked", on_column_title_clicked)    # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-            EnvironmentVariablesGUI.treeview7101.append_column(environment_variables_treeview_column)    # Append column into treeview
+            treeview7101.append_column(environment_variables_treeview_column)                 # Append column into treeview
 
         # Get column data types for appending environment variables data into treestore
         environment_variables_data_column_types = []
@@ -195,16 +198,16 @@ def environment_variables_loop_func():
         treemodelfilter7101 = treestore7101.filter_new()
         treemodelfilter7101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
         treemodelsort7101 = Gtk.TreeModelSort(treemodelfilter7101)
-        EnvironmentVariablesGUI.treeview7101.set_model(treemodelsort7101)
+        treeview7101.set_model(treemodelsort7101)
         variable_list_prev = []                                                               # Redefine (clear) "variable_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
         global piter_list
         piter_list = []
-    EnvironmentVariablesGUI.treeview7101.thaw_child_notify()                                  # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview7101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if environment_variables_treeview_columns_shown_prev != environment_variables_treeview_columns_shown or environment_variables_data_column_order_prev != environment_variables_data_column_order:
-        environment_variables_treeview_columns = EnvironmentVariablesGUI.treeview7101.get_columns()    # Get shown columns on the treeview in order to use this data for reordering the columns.
-        environment_variables_treeview_columns_modified = EnvironmentVariablesGUI.treeview7101.get_columns()
+        environment_variables_treeview_columns = treeview7101.get_columns()                   # Get shown columns on the treeview in order to use this data for reordering the columns.
+        environment_variables_treeview_columns_modified = treeview7101.get_columns()
         treeview_column_titles = []
         for column in environment_variables_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -216,11 +219,11 @@ def environment_variables_loop_func():
                 column_title_to_move = column_to_move.get_title()
                 for data in environment_variables_data_list:
                     if data[1] == column_title_to_move:
-                        EnvironmentVariablesGUI.treeview7101.move_column_after(column_to_move, None)    # Column is moved at the beginning of the treeview if "None" is used.
+                        treeview7101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort environment variable rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if environment_variables_treeview_columns_shown_prev != environment_variables_treeview_columns_shown or environment_variables_data_row_sorting_column_prev != environment_variables_data_row_sorting_column or environment_variables_data_row_sorting_order != environment_variables_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
-        environment_variables_treeview_columns = EnvironmentVariablesGUI.treeview7101.get_columns()    # Get shown columns on the treeview in order to use this data for reordering the columns.
+        environment_variables_treeview_columns = treeview7101.get_columns()                   # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_column_titles = []
         for column in environment_variables_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -238,7 +241,7 @@ def environment_variables_loop_func():
 
     # Set column widths if there are changes since last loop.
     if environment_variables_treeview_columns_shown_prev != environment_variables_treeview_columns_shown or environment_variables_data_column_widths_prev != environment_variables_data_column_widths:
-        environment_variables_treeview_columns = EnvironmentVariablesGUI.treeview7101.get_columns()
+        environment_variables_treeview_columns = treeview7101.get_columns()
         treeview_column_titles = []
         for column in environment_variables_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -258,7 +261,7 @@ def environment_variables_loop_func():
     environment_variables_data_rows_row_length = len(environment_variables_data_rows[0])
 
     # Append/Remove/Update environment variables data into treestore
-    EnvironmentVariablesGUI.treeview7101.freeze_child_notify()                                # For lower CPU consumption by preventing treeview updates on content changes/updates.
+    treeview7101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     global variable_search_text, filter_variable_type, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_environment_variables_index:
@@ -286,7 +289,7 @@ def environment_variables_loop_func():
                     environment_variables_data_rows[variable_list.index(variable)][0] = False
             # \\\ End \\\ This block of code is used for determining if the newly added variable will be shown on the treeview (user search actions and/or search customizations and/or "Show all environment/shell variables" preference affect variable visibility).
             piter_list.insert(variable_list.index(variable), treestore7101.insert(None, variable_list.index(variable), environment_variables_data_rows[variable_list.index(variable)]))    # "insert" have to be used for appending element into both "piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of variable names (this sorting is performed for getting list differences).
-    EnvironmentVariablesGUI.treeview7101.thaw_child_notify()                                  # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    treeview7101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     variable_list_prev = variable_list                                                        # For using values in the next loop
     environment_variables_data_rows_prev = environment_variables_data_rows
