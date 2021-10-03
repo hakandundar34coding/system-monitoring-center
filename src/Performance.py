@@ -51,7 +51,7 @@ def performance_set_selected_cpu_core_func():
 
 # ----------------------------------- Performance - Set Selected Disk Function (defines disk to be viewed (hardware and performance data)) -----------------------------------
 def performance_set_selected_disk_func():
-#     print(Config.selected_disk,"111aa")
+
     # Set selected disk
     system_disk_list = []
     for disk in disk_list:
@@ -62,16 +62,14 @@ def performance_set_selected_disk_func():
                     system_disk_list.append(disk)
     global selected_disk_number
     if Config.selected_disk in disk_list:
-#         print(selected_disk_number, Config.selected_disk,"111a")
-        selected_disk_number = disk_list_system_ordered.index(Config.selected_disk)
-#         print(selected_disk_number, Config.selected_disk,"111")
+        selected_disk = Config.selected_disk
     if Config.selected_disk not in disk_list:
         if system_disk_list != []:
             selected_disk = system_disk_list[0]
         if system_disk_list == []:
             selected_disk = disk_list[0]
-        selected_disk_number = disk_list_system_ordered.index(selected_disk)
-#     print(selected_disk_number, Config.selected_disk)
+    selected_disk_number = disk_list_system_ordered.index(selected_disk)
+
 
 # ----------------------------------- Performance - Set Selected Network Card Function (defines network card to be viewed (hardware and performance data)) -----------------------------------
 def performance_set_selected_network_card_func():

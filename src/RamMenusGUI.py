@@ -94,7 +94,9 @@ def ram_menus_gui_func():
     def on_button1203p_clicked(widget):                                                       # For resetting all RAM tab settings
         Config.config_default_performance_ram_func()
         Config.config_save_func()
+        ram_tab_customization_popover_disconnect_signals_func()
         ram_tab_popover_set_gui()                                                             # Apply setting changes on the RAM tab popover GUI
+        ram_tab_customization_popover_connect_signals_func()
         Ram.ram_initial_func()
         Ram.ram_loop_func()
 
@@ -117,7 +119,7 @@ def ram_menus_gui_func():
 
     # ********************** Define function for disconnecting Performance tab RAM sub-tab customizations popover GUI signals **********************
     def ram_tab_customization_popover_disconnect_signals_func():
-        combobox1201p.disconnect_by_func("changed", on_combobox1201p_changed)
+        combobox1201p.disconnect_by_func(on_combobox1201p_changed)
         combobox1202p.disconnect_by_func(on_combobox1202p_changed)
 
 

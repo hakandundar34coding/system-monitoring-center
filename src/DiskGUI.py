@@ -62,9 +62,11 @@ def disk_gui_func():
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
-        disk_read_speed = Performance.disk_read_speed[Performance.selected_disk_number]
-        disk_write_speed = Performance.disk_write_speed[Performance.selected_disk_number]
-
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Disk module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            disk_read_speed = Performance.disk_read_speed[Performance.selected_disk_number]
+            disk_write_speed = Performance.disk_write_speed[Performance.selected_disk_number]
+        except AttributeError:
+            return
         chart_line_color = Config.chart_line_color_disk_speed_usage
         chart_background_color = Config.chart_background_color_all_charts
 
@@ -134,9 +136,9 @@ def disk_gui_func():
     # ----------------------------------- Disk - Plot Disk usage data as a Bar Chart on "Disk" tab ----------------------------------- 
     def on_drawingarea1302_draw(drawingarea1302, chart1302):
 
-        try:
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Disk module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
             disk_usage_percent = Disk.disk_usage_percent
-        except:
+        except AttributeError:
             return
 
         chart_line_color = Config.chart_line_color_disk_speed_usage

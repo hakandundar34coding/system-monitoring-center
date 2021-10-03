@@ -109,6 +109,7 @@ def settings_gui_func():
             Config.remember_last_opened_tabs_on_application_start = 1
             combobox2003.set_sensitive(False)
             combobox2004.set_sensitive(False)
+            settings_gui_default_tab_func()
         if checkbutton2002.get_active() == False:
             Config.remember_last_opened_tabs_on_application_start = 0
             combobox2003.set_sensitive(True)
@@ -320,6 +321,10 @@ def settings_gui_general_settings_tab_set_func():
         for value in default_main_tab_list:
             liststore2003.append([value])
     combobox2003.set_active(Config.default_main_tab)
+    if Config.remember_last_opened_tabs_on_application_start == 1:
+        combobox2003.set_sensitive(False)
+    if Config.remember_last_opened_tabs_on_application_start == 0:
+        combobox2003.set_sensitive(True)
     # Set GUI preferences for "performance tab default sub-tab" setting
     if "liststore2004" not in globals():
         global liststore2004, performance_tab_default_sub_tab_list
@@ -333,6 +338,10 @@ def settings_gui_general_settings_tab_set_func():
         for value in performance_tab_default_sub_tab_list:
             liststore2004.append([value])
     combobox2004.set_active(Config.performance_tab_default_sub_tab)
+    if Config.remember_last_opened_tabs_on_application_start == 1:
+        combobox2004.set_sensitive(False)
+    if Config.remember_last_opened_tabs_on_application_start == 0:
+        combobox2004.set_sensitive(True)
     # Set GUI preferences for "remember last selected hardware" setting
     if Config.remember_last_selected_hardware == 1:
         checkbutton2003.set_active(True)
@@ -535,6 +544,39 @@ def settings_gui_apply_settings_immediately_func():
             import System
         System.system_initial_func()
         System.system_loop_func()
+
+
+# ----------------------------------- Settings - Default Tab Function (gets and saves default main tab and performance tab default sub-tab if relevant setting is enabled) -----------------------------------
+def settings_gui_default_tab_func():
+    # This function gets and saves default tabs if "Remember last opened tabs on application start" setting is enabled in order to get last opened tabs before the application is closed without any tab switches after enabling the option. Default tabs are also saved if tabs are switched during application runtime.
+    if MainGUI.radiobutton1.get_active() == True:
+        Config.default_main_tab = 0
+    if MainGUI.radiobutton2.get_active() == True:
+        Config.default_main_tab = 1
+    if MainGUI.radiobutton3.get_active() == True:
+        Config.default_main_tab = 2
+    if MainGUI.radiobutton4.get_active() == True:
+        Config.default_main_tab = 3
+    if MainGUI.radiobutton5.get_active() == True:
+        Config.default_main_tab = 4
+    if MainGUI.radiobutton6.get_active() == True:
+        Config.default_main_tab = 5
+    if MainGUI.radiobutton7.get_active() == True:
+        Config.default_main_tab = 6
+    if MainGUI.radiobutton8.get_active() == True:
+        Config.default_main_tab = 7
+    if MainGUI.radiobutton1001.get_active() == True:
+        Config.performance_tab_default_sub_tab = 0
+    if MainGUI.radiobutton1002.get_active() == True:
+        Config.performance_tab_default_sub_tab = 1
+    if MainGUI.radiobutton1003.get_active() == True:
+        Config.performance_tab_default_sub_tab = 2
+    if MainGUI.radiobutton1004.get_active() == True:
+        Config.performance_tab_default_sub_tab = 3
+    if MainGUI.radiobutton1005.get_active() == True:
+        Config.performance_tab_default_sub_tab = 4
+    if MainGUI.radiobutton1006.get_active() == True:
+        Config.performance_tab_default_sub_tab = 5
 
 
 # ----------------------------------- Settings - Reset All Settings Warning Dialog Function (shows an warning dialog when "Reset all settings of the application to defaults" button is clicked) -----------------------------------

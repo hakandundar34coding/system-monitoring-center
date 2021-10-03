@@ -99,10 +99,10 @@ def main_gui_func():
         Config.config_import_func()                                                           # Start import operations of the module
         Config.config_read_func()                                                             # Start setting read operations of the module
 
-        main_gui_tab_switch_func()                                                            # Run main tab function after initial showing main window (this function is also called when main tab checkbuttons are toggled).
-
         main_gui_default_main_tab_func()                                                      # Run default tab function after initial showing of the main window. This function have to be called after "main_gui_tab_switch_func" function in order to avoid errors else "Performance" tab functions/variables/data will not be defined.
         main_gui_peformance_tab_default_sub_tab_func()                                        # Run performance tab default sub-tab function after initial showing of the main window
+
+        main_gui_tab_switch_func()                                                            # Run main tab function after initial showing main window (this function is also called when main tab checkbuttons are toggled).
 
         import MainMenusDialogsGUI                                                            # Import MainMenusDialogsGUI module which contains main menus/dialogs GUI obejcts and signals
         MainMenusDialogsGUI.main_menus_gui_import_func()
@@ -510,7 +510,6 @@ def main_gui_tab_switch_func():
 main_gui_import_func()
 main_gui_func()
 
-# import time;times=time.time()
+
 window1.show_all()                                                                            # Show main window
-# print(time.time()-times)
 Gtk.main()                                                                                    # Start main event which keeps GUI open until program is ended by user or programmatically.

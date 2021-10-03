@@ -143,7 +143,9 @@ def network_menus_gui_func():
         Config.config_default_performance_network_func()
         Config.config_save_func()
         Performance.performance_set_selected_network_card_func()                              # Call this function in order to apply changes
+        network_tab_customization_popover_disconnect_signals_func()
         network_tab_popover_set_gui()
+        network_tab_customization_popover_connect_signals_func()
         Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
         Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
 

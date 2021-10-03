@@ -122,10 +122,7 @@ def cpu_menus_gui_func():
         Performance.performance_set_selected_cpu_core_func()                                  # Call this function in order to apply selected CPU core changes
         Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes immediately (without waiting update interval).
         Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
-        try:
-            cpu_tab_customization_popover_disconnect_signals_func()
-        except TypeError:
-            pass
+        cpu_tab_customization_popover_disconnect_signals_func()
         cpu_tab_popover_set_gui()                                                             # Apply setting changes on the CPU tab popover GUI
         cpu_tab_customization_popover_connect_signals_func()
 

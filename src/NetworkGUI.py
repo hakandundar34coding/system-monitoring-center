@@ -61,8 +61,12 @@ def network_gui_func():
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
-        network_receive_speed = Performance.network_receive_speed[Performance.selected_network_card_number]
-        network_send_speed = Performance.network_send_speed[Performance.selected_network_card_number]
+
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Network module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            network_receive_speed = Performance.network_receive_speed[Performance.selected_network_card_number]
+            network_send_speed = Performance.network_send_speed[Performance.selected_network_card_number]
+        except AttributeError:
+            return
 
         chart_line_color = Config.chart_line_color_network_speed_data
         chart_background_color = Config.chart_background_color_all_charts

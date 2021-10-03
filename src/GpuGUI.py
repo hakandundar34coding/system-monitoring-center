@@ -65,7 +65,7 @@ def gpu_gui_func():
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
-        try:
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the GPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
             fps_count = Gpu.fps_count
         except AttributeError:
             return

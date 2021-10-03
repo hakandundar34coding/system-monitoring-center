@@ -59,8 +59,12 @@ def ram_gui_func():
     def on_drawingarea1201_draw(widget, chart1201):
 
         chart_data_history = Config.chart_data_history
+
         chart_x_axis = list(range(0, chart_data_history))
-        ram_usage_percent = Performance.ram_usage_percent
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the RAM module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            ram_usage_percent = Performance.ram_usage_percent
+        except AttributeError:
+            return
 
         chart_line_color = Config.chart_line_color_ram_swap_percent
         chart_background_color = Config.chart_background_color_all_charts
@@ -110,9 +114,9 @@ def ram_gui_func():
     # ----------------------------------- RAM - Plot Swap usage data as a Bar Chart on "RAM" tab ----------------------------------- 
     def on_drawingarea1202_draw(drawingarea1202, chart1202):
 
-        try:
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the RAM module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
             swap_percent = Ram.swap_percent
-        except:
+        except AttributeError:
             return
 
         chart_line_color = Config.chart_line_color_ram_swap_percent

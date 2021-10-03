@@ -140,14 +140,12 @@ def disk_menus_gui_func():
         Config.config_save_func()
 
     def on_button1303p_clicked(widget):                                                       # For resetting all Disk tab settings
-#         print(Performance.selected_disk_number, "z1")
         Config.config_default_performance_disk_func()
-#         print(Performance.selected_disk_number, "z2")
         Config.config_save_func()
-#         print(Performance.selected_disk_number, "z3")
         Performance.performance_set_selected_disk_func()
-#         print(Performance.selected_disk_number, "z4")
+        disk_tab_customization_popover_disconnect_signals_func()
         disk_tab_popover_set_gui()
+        disk_tab_customization_popover_connect_signals_func()
         Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
         Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
 
@@ -258,9 +256,7 @@ def disk_tab_popover_set_gui():
         renderer_text = Gtk.CellRendererText()
         combobox1305p.pack_start(renderer_text, True)
         combobox1305p.add_attribute(renderer_text, "text", 0)
-#     print(Performance.selected_disk_number, Performance.disk_list_system_ordered,"3")
     liststore1305p.clear()
-#     print(Performance.selected_disk_number, Performance.disk_list_system_ordered,"4")
     for disk in Performance.disk_list_system_ordered:
         liststore1305p.append([disk])
     combobox1305p.set_active(Performance.selected_disk_number)

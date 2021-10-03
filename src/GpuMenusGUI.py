@@ -90,7 +90,9 @@ def gpu_menus_gui_func():
         Config.config_default_performance_gpu_func()
         Config.config_save_func()
         Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Call this function in order to apply changes
+        gpu_tab_customization_popover_disconnect_signals_func()
         gpu_tab_popover_set_gui()
+        gpu_tab_customization_popover_connect_signals_func()
         Gpu.gpu_initial_func()                                                            # Call this function in order to apply changes
         Gpu.gpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
 

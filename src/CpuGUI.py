@@ -73,10 +73,12 @@ def on_drawingarea1101_draw(widget, chart1101):
     # Get values from "Config and Peformance" modules and use this defined values in order to avoid multiple uses of variables from another module since CPU usage is higher for this way.
     chart_data_history = Config.chart_data_history
     chart_x_axis = list(range(0, chart_data_history))
-    try:
+
+    try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the CPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
         cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
     except AttributeError:
         return
+
     chart_line_color = Config.chart_line_color_cpu_percent
     chart_background_color = Config.chart_background_color_all_charts
 
@@ -152,7 +154,10 @@ def on_drawingarea1101_draw(widget, chart1101):
 # ----------------------------------- CPU - Plot CPU usage per core data as Bar Charts on "RAM" tab if "show cpu usage per core" setting is enabled. ----------------------------------- 
 def on_drawingarea1101_draw_per_core(widget, chart1101):
 
-    logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
+    try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the CPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+        logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
+    except AttributeError:
+        return
     logical_core_list = Performance.logical_core_list
     cpu_usage_percent_per_core = Performance.cpu_usage_percent_per_core
 
