@@ -121,6 +121,8 @@ def system_initial_func():
 
     # Get current desktop environment
     current_desktop_environment = os.environ.get('XDG_CURRENT_DESKTOP')
+    supported_desktop_environments_process_list = ["xfce4-session", "gnome-session-b", "cinnamon-session", "mate-session", "plasmashell", "lxqt-session", "lxsession"]
+    supported_desktop_environments_list = ["XFCE", "GNOME", "X-Cinnamon", "CINNAMON", "MATE", "KDE", "LXQt", "LXDE"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
     if current_desktop_environment == None:
         current_desktop_session = "-"                                                         # Set an initial string in order to avoid errors in case of undetected current desktop session.
         for pid in pid_list:
@@ -131,29 +133,36 @@ def system_initial_func():
                     proc_pid_status_lines = reader.read().split("\n")
             except FileNotFoundError:
                 continue
-            for line in proc_pid_status_lines:
-                if "Uid:\t" in line:
-                    real_user_id = line.split(":")[1].split()[0].strip()                      # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-            if process_username == current_user_name:
-                if process_name == "xfce4-session":
-                    current_desktop_session = "XFCE"
-                if process_name == "gnome-session-b":
-                    current_desktop_session = "GNOME"
-                if process_name == "cinnamon-session":
-                    current_desktop_session = "X-Cinnamon"                                    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
-                if process_name == "mate-session":
-                    current_desktop_session = "MATE"
-                if process_name == "plasmashell":
-                    current_desktop_session = "KDE"
-                if process_name == "lxqt-session":
-                    current_desktop_session = "LXQt"
-                if process_name == "lxsession":
-                    current_desktop_session = "LXDE"
-        current_desktop_environment = current_desktop_session
+            if process_name in supported_desktop_environments_process_list:
+                for line in proc_pid_status_lines:
+                    if "Uid:\t" in line:
+                        real_user_id = line.split(":")[1].split()[0].strip()                  # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                        process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                if process_username == current_user_name:
+                    if process_name == "xfce4-session":
+                        current_desktop_session = "XFCE"
+                        break
+                    if process_name == "gnome-session-b":
+                        current_desktop_session = "GNOME"
+                        break
+                    if process_name == "cinnamon-session":
+                        current_desktop_session = "X-Cinnamon"                                # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
+                        break
+                    if process_name == "mate-session":
+                        current_desktop_session = "MATE"
+                        break
+                    if process_name == "plasmashell":
+                        current_desktop_session = "KDE"
+                        break
+                    if process_name == "lxqt-session":
+                        current_desktop_session = "LXQt"
+                        break
+                    if process_name == "lxsession":
+                        current_desktop_session = "LXDE"
+                        break
+                current_desktop_environment = current_desktop_session
 
     # Get current desktop environment version
-    supported_desktop_environments_list = ["XFCE", "GNOME", "X-Cinnamon", "CINNAMON", "MATE", "KDE", "LXQt", "LXDE"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
     current_desktop_environment_version = _tr("Unknown")                                                                # Set initial value of the "current_desktop_environment_version". This value will be used if it could not be detected.
     if current_desktop_environment == "XFCE":
         current_desktop_environment_version_lines = (subprocess.check_output("xfce4-panel --version", shell=True).strip()).decode().split("\n")
@@ -178,10 +187,41 @@ def system_initial_func():
                 current_desktop_environment_version = line.split()[1].strip()
 
     # Get current display manager
-    with open("/etc/X11/default-display-manager") as reader:
-        current_display_manager = reader.read().strip()
-        if current_display_manager.startswith("/"):                                           # Split current_display_manager with "/" if it starts with "/" character which means it is a directory.
-            current_display_manager = current_display_manager.split("/")[-1]
+    supported_display_managers_list = ["lightdm", "gdm", "gdm3", "sddm", "xdm", "lxdm"]
+    supported_display_managers_process_list = ["lightdm", "gdm", "gdm3", "sddm", "xdm", "lxdm-binary"]
+    current_display_manager = "-"                                                             # Set an initial string in order to avoid errors in case of undetected current display manager.
+    for pid in pid_list:
+        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+            with open("/proc/" + pid + "/comm") as reader:
+                process_name = reader.read().strip()
+            with open("/proc/" + pid + "/status") as reader:                                  # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+                proc_pid_status_lines = reader.read().split("\n")
+        except FileNotFoundError:
+            continue
+        if process_name in supported_display_managers_process_list:
+            for line in proc_pid_status_lines:
+                if "Uid:\t" in line:
+                    real_user_id = line.split(":")[1].split()[0].strip()                      # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+            if process_username == "root":                                                    # Display manager processes are owned by root user.
+                if process_name == "lightdm":
+                    current_display_manager = "lightdm"
+                    break
+                if process_name == "gdm":
+                    current_display_manager = "gdm"
+                    break
+                if process_name == "gdm3":
+                    current_display_manager = "gdm3"
+                    break
+                if process_name == "sddm":
+                    current_display_manager = "sddm"
+                    break
+                if process_name == "xdm":
+                    current_display_manager = "xdm"
+                    break
+                if process_name == "lxdm-binary":
+                    current_display_manager = "lxdm"
+                    break
 
     # Get computer vendor, model, chassis information
     with open("/sys/devices/virtual/dmi/id/sys_vendor") as reader:
@@ -198,6 +238,21 @@ def system_initial_func():
                                    17: "Main System Chassis", 18: "Expansion Chassis", 19: "Sub Chassis", 20: "Bus Expansion Chassis", 21: "Peripheral Chassis",
                                    22: "Storage Chassis", 23: "Rack Mount Chassis", 24: "Sealed-Case PC"}
     computer_chassis_type = computer_chassis_types_dict[int(computer_chassis_type_value)]
+
+    # Determine package types used on the system. This information will be used for getting number of installed packages on the system.
+    which_commands_get_output = (subprocess.check_output("which dpkg;echo *split_line*;which rpm;echo *split_line*;which flatpak", shell=True)).decode().strip().split("*split_line*")
+    for i, output in enumerate(which_commands_get_output):                                    # Remove "\n" characters from strings.
+        which_commands_get_output[i] = output.strip("\n")
+    global apt_packages_available, rpm_packages_available, flatpak_packages_available
+    apt_packages_available = "no"                                                             # Initial value of "apt_packages_available".
+    rpm_packages_available = "no"                                                             # Initial value of "rpm_packages_available".
+    flatpak_packages_available = "no"                                                         # Initial value of "flatpak_packages_available".
+    if which_commands_get_output[0] != "":
+        apt_packages_available = "yes"
+    if which_commands_get_output[1] != "":
+        rpm_packages_available = "yes"
+    if which_commands_get_output[2] != "":
+        flatpak_packages_available = "yes"
 
 
     # Set label texts to show information
@@ -223,13 +278,13 @@ def system_loop_func():
     os_based_on = "-"                                                                         # Initial value of "os_based_on" variable. This value will be used if "os_based_on" could not be detected (For example, "ID_LIKE" value is not present in "/etc/os-release" file if OS is "Debian").
     for line in os_release_output_lines:
         if line.startswith("ID="):
-            os_name = line.split("ID=")[1].strip().capitalize()
+            os_name = line.split("ID=")[1].strip().title()                                    # ".title()" capitalizes each word in the string.
         if line.startswith("VERSION_ID="):
             os_version = line.split("VERSION_ID=")[1].strip(' "')
         if line.startswith("VERSION_CODENAME="):
-            os_version_code_name = line.split("VERSION_CODENAME=")[1].strip()
+            os_version_code_name = line.split("VERSION_CODENAME=")[1].strip(' "')
         if line.startswith("ID_LIKE="):
-            os_based_on = line.split("ID_LIKE=")[1].strip().capitalize()
+            os_based_on = line.split("ID_LIKE=")[1].strip().title()                           # ".title()" capitalizes each word in the string.
     if os_based_on == "Debian":
         with open("/etc/debian_version") as reader:
             debian_version = reader.read().strip()
@@ -239,7 +294,7 @@ def system_loop_func():
         host_name = reader.read().strip()
 
     # Get number of monitors and current monitor
-    current_monitor = "-"                                                                             # Initial value of "current_monitor" variable. This value will be used if "current_monitor" could not be detected ("current_screen" could not be get on system which run Wayland. But could be detected on systems which run X11.)..
+    current_monitor = "-"                                                                     # Initial value of "current_monitor" variable. This value will be used if "current_monitor" could not be detected ("current_screen" could not be get on system which run Wayland. But could be detected on systems which run X11.)..
     current_screen = MainGUI.window1.get_screen()
     number_of_monitors = current_screen.get_n_monitors()
     if windowing_system.lower() == "x11":
@@ -258,16 +313,39 @@ def system_loop_func():
     sut_seconds_int = int(sut_seconds)
 
     # Get number of installed APT packages
-    try:                                                                                      # try-except" is used in order to handle errors if "dpkg" command is not available on the system.
-        dpkg_list_output = (subprocess.check_output("dpkg --list", shell=True)).decode()
-        number_of_installed_apt_packages = dpkg_list_output.count("\nii  ")
-    except:
-        number_of_installed_apt_packages = "-"
+    number_of_installed_apt_packages = "-"                                                    # Initial value of "number_of_installed_apt_packages" variable. This value will be used if "number_of_installed_apt_packages" could not be detected.
+    if apt_packages_available == "yes":
+        try:
+            dpkg_list_output = (subprocess.check_output("dpkg --list", shell=True)).decode()
+            number_of_installed_apt_packages = dpkg_list_output.count("\nii  ")
+        except:
+            number_of_installed_apt_packages = "-"
+
+    # Get number of installed RPM packages
+    number_of_installed_rpm_packages = "-"                                                    # Initial value of "number_of_installed_rpm_packages" variable. This value will be used if "number_of_installed_rpm_packages" could not be detected.
+    if rpm_packages_available == "yes":
+        try:
+            number_of_installed_rpm_packages = len((subprocess.check_output("rpm -qa", shell=True)).decode().split("\n"))
+        except:
+            number_of_installed_apt_packages = "-"
+
+    # Choose variable according to package type of the system (this variable will be used for showing on a label on the GUI)
+    if number_of_installed_apt_packages == "-":
+        number_of_installed_apt_or_rpm_packages = f'{number_of_installed_rpm_packages} (RPM)'
+    if number_of_installed_rpm_packages == "-":
+        number_of_installed_apt_or_rpm_packages = f'{number_of_installed_apt_packages} (APT)'
+
     # Get number of installed Flatpak packages
-    try:                                                                                      # try-except" is used in order to handle errors if "flatpak" command is not available on the system.
-        number_of_installed_flatpak_packages = len((subprocess.check_output("flatpak list", shell=True)).decode().split("\n"))
-    except:
-        number_of_installed_flatpak_packages = "-"
+    number_of_installed_flatpak_packages = "-"                                                # Initial value of "number_of_installed_flatpak_packages" variable. This value will be used if "number_of_installed_flatpak_packages" could not be detected.
+    if flatpak_packages_available == "yes":
+        try:
+            flatpak_list_output = (subprocess.check_output("flatpak list", shell=True)).decode().strip()
+            if flatpak_list_output == "":
+                number_of_installed_flatpak_packages = "-"
+            if flatpak_list_output != "":
+                number_of_installed_flatpak_packages = len(flatpak_list_output.split("\n"))
+        except:
+            number_of_installed_apt_packages = "-"
 
     # Get if current user has root privileges
     if os.geteuid() == 0:
@@ -285,7 +363,7 @@ def system_loop_func():
     SystemGUI.label8117.set_text(f'{number_of_monitors}')
     SystemGUI.label8118.set_text(f'{current_monitor}')
     SystemGUI.label8119.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
-    SystemGUI.label8120.set_text(f'{number_of_installed_apt_packages}')
+    SystemGUI.label8120.set_text(f'{number_of_installed_apt_or_rpm_packages}')
     SystemGUI.label8121.set_text(f'{number_of_installed_flatpak_packages}')
     SystemGUI.label8122.set_text(f'{current_user_name} - {have_root_access}')
 

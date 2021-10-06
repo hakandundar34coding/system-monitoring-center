@@ -697,9 +697,9 @@ Features, system resource usages and appearance of the greeter (login screen) ar
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Number of installed APT or RPM packages</property>
+                    <property name="tooltip-text" translatable="yes">Number of installed APT packages</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Packages (APT/RPM):</property>
+                    <property name="label" translatable="yes">Packages (APT):</property>
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>

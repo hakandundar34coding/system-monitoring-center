@@ -1,3 +1,15 @@
+system-monitoring-center (0.1.19-beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+
+  * Added support for showing Network and GPU device vendor and model information on RPM-based systems
+  * Added support for showing number of installed RPM packages on RPM-based systems (System tab)
+  * Fixed a bug for showing number of installed Flatpak packages
+  * Minor performance improvements on Disk and System tab
+  * Minor changes on application icon
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 05 Oct 2021 08:10:00 +0300
+
 system-monitoring-center (0.1.18-beta) unstable; urgency=medium
 
   [ Hakan Dündar ]

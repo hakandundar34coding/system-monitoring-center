@@ -3,13 +3,12 @@
 # ----------------------------------- Performance - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def performance_import_func():
 
-    global Gtk, GLib, Thread, subprocess, os, platform, time
+    global Gtk, GLib, Thread, os, platform, time
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
     from threading import Thread
-    import subprocess
     import os
     import platform
     import time
@@ -133,7 +132,11 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
             gpu_vendor_id = "\n" + reader.read().split("x")[1].strip() + "  "
         with open(gpu_directory[i] + "/device") as reader:
             gpu_device_id = "\n\t" + reader.read().split("x")[1].strip() + "  "
-        with open("/usr/share/misc/pci.ids") as reader:
+        if os.path.isfile("/usr/share/misc/pci.ids") == True:                                 # Check if "pci.ids" file is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
+            pci_ids_file_directory = "/usr/share/misc/pci.ids"
+        if os.path.isfile("/usr/share/hwdata/pci.ids") == True:                               # Check if "pci.ids" file is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
+            pci_ids_file_directory = "/usr/share/hwdata/pci.ids"
+        with open(pci_ids_file_directory) as reader:
             pci_ids_output = reader.read()
             if gpu_vendor_id in pci_ids_output:
                 rest_of_the_pci_ids_output = pci_ids_output.split(gpu_vendor_id)[1]

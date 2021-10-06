@@ -77,7 +77,7 @@ def storage_details_foreground_func():
     for line in proc_swaps_lines:
         swap_disk_list.append(line.split()[0].split("/")[-1])
     # Get disk device path
-    disk_device_path_list = os.listdir("/dev/disk/by-path/")
+    disk_device_path_list = os.listdir("/dev/disk/by-path/")                                  # Some disks (such as zram0, zram1, etc. swap partitions) may not be present in "/dev/disk/by-path/" path.
     disk_device_path_disk_list = []
     for disk_device_path in disk_device_path_list:
         disk_device_path_disk_list.append(os.path.realpath("/dev/disk/by-path/" + disk_device_path).split("/")[-1])    # "os.readlink()" does not work with "/dev/disk/[folder_name]/[file_name]" files. "os.path.realpath()" is used for getting path.
@@ -97,7 +97,9 @@ def storage_details_foreground_func():
             break
     disk_symbol = storage_image_ssd_hdd                                                       # Initial value of "disk_symbol" variable. This value will be used if disk type could not be detected. The same value is also used for non-USB and non-optical drives.
     if disk_type == _tr("Disk"):                                                              # "_tr()" is used for using translated strings (disk/partition)
-        if "loop" in disk or "sr" in disk:                                                    # Optical symbol is used as disk symbol if disk type is "disk (not partition)" and disk is a virtual disk or physical optical disk.
+        if disk not in disk_device_path_disk_list:                                            # This condition is used first in order to vaoid errors because of the "elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:" condition. Because some disks (such as zeam0, zram1, etc.) may not present in "/dev/disk/by-path/" path and in "disk_device_path_disk_list" list.
+            disk_symbol = storage_image_ssd_hdd
+        elif "loop" in disk or "sr" in disk:                                                  # Optical symbol is used as disk symbol if disk type is "disk (not partition)" and disk is a virtual disk or physical optical disk.
             disk_symbol = storage_image_optical
         elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:
             disk_symbol = storage_image_removable
@@ -211,10 +213,6 @@ def storage_details_foreground_func():
             with open("/sys/class/block/" + disk + "/device/model") as reader:
                 disk_model = reader.read().strip()
             disk_vendor_model = disk_vendor + "-" +  disk_model
-        except FileNotFoundError:
-            StorageDetailsGUI.window4101w.hide()
-            storage_no_such_storage_error_dialog()
-            return
         except:
             disk_vendor_model = "-"
     # Get disk label
@@ -250,10 +248,6 @@ def storage_details_foreground_func():
         try:
             with open("/sys/class/block/" + disk + "/device/rev") as reader:
                 disk_revision = reader.read().strip()
-        except FileNotFoundError:
-            StorageDetailsGUI.window4101w.hide()
-            storage_no_such_storage_error_dialog()
-            return
         except:
             pass
     # Get disk serial number

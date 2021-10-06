@@ -16,6 +16,8 @@ Depends: ${misc:Depends},
          util-linux,
          mesa-utils,
          systemd,
-         bash
+         bash,
+         pci.ids,
+         x11-xserver-utils
 Description: Provides information about system performance and usage.
  Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.
