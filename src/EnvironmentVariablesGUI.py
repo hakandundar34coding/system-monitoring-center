@@ -117,7 +117,10 @@ def environment_variables_gui_func():
 # ----------------------------------- Environment Variables - Open Right Click Menu Function (gets right clicked variable name and opens right click menu) -----------------------------------
 def environment_variables_open_right_click_menu_func(event):
 
-    path, _, _, _ = treeview7101.get_path_at_pos(int(event.x), int(event.y))
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview7101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return   
     model = treeview7101.get_model()
     treeiter = model.get_iter(path)
     if treeiter is None:

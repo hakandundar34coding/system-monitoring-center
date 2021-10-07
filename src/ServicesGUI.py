@@ -124,7 +124,7 @@ def services_gui_func():
 # ----------------------------------- Services - Open Right Click Menu Function (gets right clicked service name and opens right click menu) -----------------------------------
 def services_open_right_click_menu_func(event):
 
-    try:                                                                                      # Data on the "Services" tab is get about 1 second after tab switch and "try-except" is used in order to avoid errors which are encountered when mouse is right clicked before data is fully get and treeview is updated.
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
         path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
     except TypeError:
         return
@@ -143,7 +143,7 @@ def services_open_right_click_menu_func(event):
 def services_open_service_details_window_func(event):
 
     if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        try:                                                                                  # Loading services takes about 1 second on 4-cored i7-2630QM notebook and it gives error if double-click is performed on the treeview just after "Services" radiobutton is clicked (double clicking without waiting loading and listing the services on the GUI).
+        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
             path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
         except TypeError:
             return                                                                            # Stop running rest of the code if the error is encountered.

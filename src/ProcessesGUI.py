@@ -163,7 +163,10 @@ def processes_gui_func():
 # ----------------------------------- Processes - Open Right Click Menu Function (gets right clicked process PID and opens right click menu) -----------------------------------
 def processes_open_right_click_menu_func(event):
 
-    path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
     model = treeview2101.get_model()
     treeiter = model.get_iter(path)
     if treeiter is None:
@@ -182,7 +185,10 @@ def processes_open_right_click_menu_func(event):
 # ----------------------------------- Processes - Open Process Details Window Function (gets double clicked process PID and opens Process Details window) -----------------------------------
 def processes_open_process_details_window_func(event):
 
-    path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
+    try:                                                                                      # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
+        path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
     model = treeview2101.get_model()
     treeiter = model.get_iter(path)
     if treeiter is None:

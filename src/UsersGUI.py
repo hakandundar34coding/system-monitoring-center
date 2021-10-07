@@ -119,7 +119,10 @@ def users_gui_func():
 # ----------------------------------- Users - Open Right Click Menu Function (gets right clicked user UID and opens right click menu) -----------------------------------
 def users_open_right_click_menu_func(event):
 
-    path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
     model = treeview3101.get_model()
     treeiter = model.get_iter(path)
     if treeiter is None:
@@ -134,7 +137,10 @@ def users_open_right_click_menu_func(event):
 def users_open_user_details_window_func(event):
 
     if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
+        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
+            path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return
         model = treeview3101.get_model()
         treeiter = model.get_iter(path)
         if treeiter is None:
@@ -143,7 +149,7 @@ def users_open_user_details_window_func(event):
             global selected_user_uid
             selected_user_uid = Users.uid_username_list[Users.users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
             # Open Users Details window
-            if 'UsersDetailsGUI' not in globals():                                                # Check if "UsersDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetailsGUI" name is in globals().
+            if 'UsersDetailsGUI' not in globals():                                            # Check if "UsersDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetailsGUI" name is in globals().
                 global UsersDetails, UsersDetailsGUI
                 import UsersDetails, UsersDetailsGUI
                 UsersDetailsGUI.users_details_gui_import_function()

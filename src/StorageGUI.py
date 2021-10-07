@@ -148,7 +148,10 @@ def storage_gui_func():
 # ----------------------------------- Storage - Open Right Click Menu Function (gets right clicked storage kernel name and opens right click menu) -----------------------------------
 def storage_open_right_click_menu_func(event):
 
-    path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
     model = treeview4101.get_model()
     treeiter = model.get_iter(path)
     if treeiter is None:
@@ -163,7 +166,10 @@ def storage_open_right_click_menu_func(event):
 def storage_open_storage_details_window_func(event):
 
     if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
+        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
+            path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return
         model = treeview4101.get_model()
         treeiter = model.get_iter(path)
         if treeiter is None:

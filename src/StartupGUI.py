@@ -117,7 +117,10 @@ def startup_gui_func():
 def startup_open_right_click_menu_func(event):
 
     global model, treeiter
-    path, _, _, _ = treeview5101.get_path_at_pos(int(event.x), int(event.y))
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview5101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
     model = treeview5101.get_model()
     treeiter = model.get_iter(path)
     if treeiter is None:
