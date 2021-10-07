@@ -1,13 +1,4 @@
-system-monitoring-center (0.1.20~beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
-
-  * Fixed bugs for number of installed packages information
-  * Fixed some translation problems on GPU tab
-
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 07 Oct 2021 09:23:00 +0300
-
-system-monitoring-center (0.1.19-beta) unstable; urgency=medium
+system-monitoring-center (0.1.19~beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
 
