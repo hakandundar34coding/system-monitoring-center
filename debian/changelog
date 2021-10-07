@@ -1,3 +1,10 @@
+system-monitoring-center (0.1.21~beta1) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Improved tab switch performance
+
+ -- asush <asush@pardus>  Thu, 07 Oct 2021 17:52:38 +0300
+
 system-monitoring-center (0.1.20~beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
