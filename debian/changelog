@@ -1,3 +1,10 @@
+system-monitoring-center (0.1.20~beta) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * Removed unused code
+
+ -- asush <asush@pardus>  Thu, 07 Oct 2021 13:59:10 +0300
+
 system-monitoring-center (0.1.19~beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
