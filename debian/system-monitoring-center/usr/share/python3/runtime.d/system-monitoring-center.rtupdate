@@ -1,0 +1,7 @@
+#! /bin/sh
+set -e
+
+if [ "$1" = rtupdate ]; then
+	py3clean -p system-monitoring-center /usr/share/system-monitoring-center
+	py3compile -p system-monitoring-center  /usr/share/system-monitoring-center
+fi

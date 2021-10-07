@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#! /usr/bin/python3
 
 # ----------------------------------- MainGUI - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def main_gui_import_func():
@@ -351,10 +351,14 @@ def main_gui_tab_switch_func():
         if 'ProcessesGUI' not in globals():                                                   # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
             global Processes, ProcessesGUI, ProcessesMenusGUI
             import Processes, ProcessesGUI, ProcessesMenusGUI
+#             while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+#                 Gtk.main_iteration()
             Processes.processes_import_func()
             ProcessesGUI.processes_gui_import_func()
             ProcessesGUI.processes_gui_func()
             grid2.attach(ProcessesGUI.grid2101, 0, 0, 1, 1)                                   # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+#             while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+#                 Gtk.main_iteration()
             ProcessesMenusGUI.processes_menus_import_func()
             ProcessesMenusGUI.processes_menus_gui_func()
         Processes.processes_thread_run_func()
