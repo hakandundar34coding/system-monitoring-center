@@ -9,10 +9,6 @@ def processes_details_gui_import_function():
     import os
 
 
-    global ProcessesDetails
-    import ProcessesDetails
-
-
 # ----------------------------------- Processes - Processes Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Processes Details" window GUI objects and functions/signals) -----------------------------------
 def processes_details_gui_function():
 

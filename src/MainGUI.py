@@ -349,8 +349,8 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 1
         if 'ProcessesGUI' not in globals():                                                   # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
-            global Processes, ProcessesGUI, ProcessesMenusGUI, ProcessesDetailsGUI, ProcessesDetails, ProcessesCustomPriorityGUI
-            import Processes, ProcessesGUI, ProcessesMenusGUI, ProcessesDetailsGUI, ProcessesDetails, ProcessesCustomPriorityGUI
+            global Processes, ProcessesGUI, ProcessesMenusGUI
+            import Processes, ProcessesGUI, ProcessesMenusGUI
 #             while Gtk.events_pending():                                                       # Used for more fluent tab switch.
 #                 Gtk.main_iteration()
             Processes.processes_import_func()
@@ -361,11 +361,6 @@ def main_gui_tab_switch_func():
 #                 Gtk.main_iteration()
             ProcessesMenusGUI.processes_menus_import_func()
             ProcessesMenusGUI.processes_menus_gui_func()
-            ProcessesDetailsGUI.processes_details_gui_import_function()
-            ProcessesDetailsGUI.processes_details_gui_function()
-            ProcessesDetails.processes_details_import_func()
-            ProcessesCustomPriorityGUI.processes_custom_priority_import_func()
-            ProcessesCustomPriorityGUI.processes_custom_priority_gui_func()
         Processes.processes_thread_run_func()
 
     if radiobutton3.get_active() == True:                                                     # It switches to "Users" tab if relevant radiobutton is clicked.

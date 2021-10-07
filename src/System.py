@@ -315,37 +315,28 @@ def system_loop_func():
     # Get number of installed APT packages
     number_of_installed_apt_packages = "-"                                                    # Initial value of "number_of_installed_apt_packages" variable. This value will be used if "number_of_installed_apt_packages" could not be detected.
     if apt_packages_available == "yes":
-        try:
-            dpkg_list_output = (subprocess.check_output("dpkg --list", shell=True)).decode()
-            number_of_installed_apt_packages = dpkg_list_output.count("\nii  ")
-        except:
-            number_of_installed_apt_packages = "-"
+        dpkg_list_output = (subprocess.check_output("dpkg --list", shell=True)).decode().strip()
+        number_of_installed_apt_packages = dpkg_list_output.count("\nii  ")
 
     # Get number of installed RPM packages
     number_of_installed_rpm_packages = "-"                                                    # Initial value of "number_of_installed_rpm_packages" variable. This value will be used if "number_of_installed_rpm_packages" could not be detected.
     if rpm_packages_available == "yes":
-        try:
-            number_of_installed_rpm_packages = len((subprocess.check_output("rpm -qa", shell=True)).decode().split("\n"))
-        except:
-            number_of_installed_apt_packages = "-"
+        number_of_installed_rpm_packages = len((subprocess.check_output("rpm -qa", shell=True)).decode().strip().split("\n"))
 
     # Choose variable according to package type of the system (this variable will be used for showing on a label on the GUI)
-    if number_of_installed_apt_packages == "-":
+    if apt_packages_available == "yes":
         number_of_installed_apt_or_rpm_packages = f'{number_of_installed_rpm_packages} (RPM)'
-    if number_of_installed_rpm_packages == "-":
+    if rpm_packages_available == "yes":
         number_of_installed_apt_or_rpm_packages = f'{number_of_installed_apt_packages} (APT)'
 
     # Get number of installed Flatpak packages
     number_of_installed_flatpak_packages = "-"                                                # Initial value of "number_of_installed_flatpak_packages" variable. This value will be used if "number_of_installed_flatpak_packages" could not be detected.
     if flatpak_packages_available == "yes":
-        try:
-            flatpak_list_output = (subprocess.check_output("flatpak list", shell=True)).decode().strip()
-            if flatpak_list_output == "":
-                number_of_installed_flatpak_packages = "-"
-            if flatpak_list_output != "":
-                number_of_installed_flatpak_packages = len(flatpak_list_output.split("\n"))
-        except:
-            number_of_installed_apt_packages = "-"
+        flatpak_list_output = (subprocess.check_output("flatpak list", shell=True)).decode().strip()
+        if flatpak_list_output == "":
+            number_of_installed_flatpak_packages = "-"
+        if flatpak_list_output != "":
+            number_of_installed_flatpak_packages = len(flatpak_list_output.split("\n"))
 
     # Get if current user has root privileges
     if os.geteuid() == 0:

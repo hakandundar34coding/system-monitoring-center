@@ -13,8 +13,8 @@ def processes_menus_import_func():
     import subprocess
 
 
-    global Config, MainGUI, Processes, ProcessesGUI, ProcessesDetails, ProcessesDetailsGUI, ProcessesCustomPriorityGUI
-    import Config, MainGUI, Processes, ProcessesGUI, ProcessesDetails, ProcessesDetailsGUI, ProcessesCustomPriorityGUI
+    global Config, MainGUI, Processes, ProcessesGUI
+    import Config, MainGUI, Processes, ProcessesGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -120,7 +120,12 @@ def processes_menus_gui_func():
         os.system('xdg-open "%s"' % path_only)
 
     def on_menuitem2108m_activate(widget):                                                    # "Details" item on the right click menu
-        ProcessesDetailsGUI.processes_details_gui_function()
+        if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetailsGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
+            global ProcessesDetailsGUI, ProcessesDetails
+            import ProcessesDetailsGUI, ProcessesDetails
+            ProcessesDetailsGUI.processes_details_gui_import_function()
+            ProcessesDetailsGUI.processes_details_gui_function()
+            ProcessesDetails.processes_details_import_func()
         ProcessesDetailsGUI.window2101w.show()
         ProcessesDetails.process_details_foreground_thread_run_func()
 
@@ -168,8 +173,14 @@ def processes_menus_gui_func():
         (subprocess.check_output("renice -n 19 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()
 
     def on_normalmenuitem2101m_activate(widget):                                              # "Custom Value..." item on the right click menu under "Change Priorty (Nice)" item
-        #ProcessesCustomPriorityGUI.process_custom_priority_gui_func()
+        if 'ProcessesCustomPriorityGUI' not in globals():                                     # Check if "ProcessesCustomPriorityGUI" module is imported. Therefore it is not reimported for every click on "Custom Value" sub-menu item on the rigth click menu if "ProcessesCustomPriorityGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
+            global ProcessesCustomPriorityGUI
+            import ProcessesCustomPriorityGUI
+            ProcessesCustomPriorityGUI.processes_custom_priority_import_func()
+            ProcessesCustomPriorityGUI.processes_custom_priority_gui_func()
         ProcessesCustomPriorityGUI.window2101w2.show()
+
+
 
     # ********************** Connect signals to GUI objects for Processes tab right click menu **********************
     menuitem2101m.connect("activate", on_menuitem2101m_activate)

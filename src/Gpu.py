@@ -104,9 +104,9 @@ def gpu_initial_func():
             if line.strip().startswith("Video memory:"):
                 video_memory = line.split(":")[1].strip()
             if line.strip().startswith("Unified memory:"):
-                if_unified_memory = line.split(":")[1].strip().capitalize()
+                if_unified_memory = _tr(line.split(":")[1].strip().capitalize())              # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
             if line.strip().startswith("direct rendering:"):
-                direct_rendering = line.split(":")[1].strip()
+                direct_rendering = _tr(line.split(":")[1].strip())                            # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
             if line.strip().startswith("Version:"):
                 mesa_version = line.split(":")[1].strip()
             if line.strip().startswith("OpenGL version string:"):

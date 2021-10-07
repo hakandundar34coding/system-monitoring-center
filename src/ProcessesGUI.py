@@ -11,8 +11,8 @@ def processes_gui_import_func():
     import os
 
 
-    global Config, MainGUI, Processes, ProcessesMenusGUI, ProcessesDetails, ProcessesDetailsGUI
-    import Config, MainGUI, Processes, ProcessesMenusGUI, ProcessesDetails, ProcessesDetailsGUI
+    global Config, MainGUI, Processes, ProcessesMenusGUI
+    import Config, MainGUI, Processes, ProcessesMenusGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -195,7 +195,12 @@ def processes_open_process_details_window_func(event):
             print("not in list error")
             return
         # Open Process Details window
-        ProcessesDetailsGUI.processes_details_gui_function()
+        if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every double click on any process on the treeview if "ProcessesDetailsGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
+            global ProcessesDetailsGUI, ProcessesDetails
+            import ProcessesDetailsGUI, ProcessesDetails
+            ProcessesDetailsGUI.processes_details_gui_import_function()
+            ProcessesDetailsGUI.processes_details_gui_function()
+            ProcessesDetails.processes_details_import_func()
         ProcessesDetailsGUI.window2101w.show()
         ProcessesDetails.process_details_foreground_thread_run_func()
 
