@@ -11,8 +11,8 @@ def users_gui_import_func():
     import os
 
 
-    global MainGUI, Users, UsersMenusGUI, UsersDetails, UsersDetailsGUI
-    import MainGUI, Users, UsersMenusGUI, UsersDetails, UsersDetailsGUI
+    global MainGUI, Users, UsersMenusGUI
+    import MainGUI, Users, UsersMenusGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -143,9 +143,15 @@ def users_open_user_details_window_func(event):
             global selected_user_uid
             selected_user_uid = Users.uid_username_list[Users.users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
             # Open Users Details window
-            UsersDetailsGUI.users_details_gui_function()
+            if 'UsersDetailsGUI' not in globals():                                                # Check if "UsersDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetailsGUI" name is in globals().
+                global UsersDetails, UsersDetailsGUI
+                import UsersDetails, UsersDetailsGUI
+                UsersDetailsGUI.users_details_gui_import_function()
+                UsersDetailsGUI.users_details_gui_function()
+                UsersDetails.users_details_import_func()
             UsersDetailsGUI.window3101w.show()
             UsersDetails.users_details_foreground_thread_run_func()
+
 
 # ----------------------------------- Users - No User Selected Dialog Function (shows a dialog when Open Users Right Click Menu is clicked without selecting an user) -----------------------------------
 def users_no_user_selected_dialog():

@@ -12,8 +12,8 @@ def storage_menus_import_func():
     import subprocess
 
 
-    global Config, MainGUI, Storage, StorageGUI, StorageDetails, StorageDetailsGUI, StorageRenameGUI
-    import Config, MainGUI, Storage, StorageGUI, StorageDetails, StorageDetailsGUI, StorageRenameGUI
+    global Config, MainGUI, Storage, StorageGUI
+    import Config, MainGUI, Storage, StorageGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -174,10 +174,20 @@ def storage_menus_gui_func():
 
     def on_menuitem4107m_activate(widget):                                                    # "Rename Label" item on the right click menu
         disk_name = StorageGUI.selected_storage_kernel_name
+        if 'StorageRenameGUI' not in globals():                                               # Check if "StorageRenameGUI" module is imported. Therefore it is not reimported for every click on "Rename Label" menu item if "StorageRenameGUI" name is in globals().
+            global StorageRenameGUI
+            import StorageRenameGUI
+            StorageRenameGUI.storage_rename_import_func()
+            StorageRenameGUI.storage_rename_gui_func()
         StorageRenameGUI.window4101w2.show()
 
     def on_menuitem4108m_activate(widget):                                                    # "Details" item on the right click menu
-        StorageDetailsGUI.storage_details_gui_function()
+        if 'StorageDetailsGUI' not in globals():                                              # Check if "StorageDetailsGUI" module is imported. Therefore it is not reimported for double click on "Details" menu item on the right click menu if "StorageDetailsGUI" name is in globals().
+            global StorageDetailsGUI, StorageDetails
+            import StorageDetailsGUI, StorageDetails
+            StorageDetailsGUI.storage_details_gui_import_function()
+            StorageDetailsGUI.storage_details_gui_function()
+            StorageDetails.storage_details_import_func()
         StorageDetailsGUI.window4101w.show()
         StorageDetails.storage_details_foreground_thread_run_func()
 

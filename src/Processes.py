@@ -542,7 +542,7 @@ def processes_loop_thread_func(dummy_variable):                                 
 # ----------------------------------- Processes Thread Run Function (starts execution of the threads) -----------------------------------
 def processes_thread_run_func():
 
-    if "number_of_logical_cores" not in globals():                                            # To be able to run initial thread for only one time
+    if "processes_data_rows" not in globals():                                                # To be able to run initial thread for only one time
         processes_initial_thread = Thread(target=processes_initial_thread_func, daemon=True)
         processes_initial_thread.start()
         processes_initial_thread.join()

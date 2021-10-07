@@ -11,8 +11,8 @@ def storage_gui_import_func():
     import os
 
 
-    global MainGUI, Storage, StorageMenusGUI, StorageDetails, StorageDetailsGUI
-    import MainGUI, Storage, StorageMenusGUI, StorageDetails, StorageDetailsGUI
+    global MainGUI, Storage, StorageMenusGUI
+    import MainGUI, Storage, StorageMenusGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -172,7 +172,12 @@ def storage_open_storage_details_window_func(event):
             global selected_storage_kernel_name
             selected_storage_kernel_name = Storage.disk_list[Storage.storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
             # Open Storage Details window
-            StorageDetailsGUI.storage_details_gui_function()
+            if 'StorageDetailsGUI' not in globals():                                          # Check if "StorageDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "StorageDetailsGUI" name is in globals().
+                global StorageDetailsGUI, StorageDetails
+                import StorageDetailsGUI, StorageDetails
+                StorageDetailsGUI.storage_details_gui_import_function()
+                StorageDetailsGUI.storage_details_gui_function()
+                StorageDetails.storage_details_import_func()
             StorageDetailsGUI.window4101w.show()
             StorageDetails.storage_details_foreground_thread_run_func()
 

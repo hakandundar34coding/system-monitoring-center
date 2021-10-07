@@ -9,10 +9,6 @@ def users_details_gui_import_function():
     import os
 
 
-    global UsersDetails
-    import UsersDetails
-
-
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
     global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
     import locale

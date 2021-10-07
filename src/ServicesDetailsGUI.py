@@ -9,10 +9,6 @@ def services_details_gui_import_function():
     import os
 
 
-    global ServicesDetails
-    import ServicesDetails
-
-
 # ----------------------------------- Services - Services Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Services Details" window GUI objects and functions/signals) -----------------------------------
 def services_details_gui_function():
 

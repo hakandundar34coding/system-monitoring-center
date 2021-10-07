@@ -11,8 +11,8 @@ def services_gui_import_func():
     import os
 
 
-    global MainGUI, Services, ServicesMenusGUI, ServicesDetails, ServicesDetailsGUI
-    import MainGUI, Services, ServicesMenusGUI, ServicesDetails, ServicesDetailsGUI
+    global MainGUI, Services, ServicesMenusGUI
+    import MainGUI, Services, ServicesMenusGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -155,7 +155,12 @@ def services_open_service_details_window_func(event):
             global selected_service_name
             selected_service_name = Services.service_list[Services.services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
             # Open Service Details window
-            ServicesDetailsGUI.services_details_gui_function()
+            if 'ServicesDetailsGUI' not in globals():                                         # Check if "ServicesDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "ServicesDetailsGUI" name is in globals().
+                global ServicesDetailsGUI, ServicesDetails
+                import ServicesDetailsGUI, ServicesDetails
+                ServicesDetailsGUI.services_details_gui_import_function()
+                ServicesDetailsGUI.services_details_gui_function()
+                ServicesDetails.services_details_import_func()
             ServicesDetailsGUI.window6101w.show()
             ServicesDetails.services_details_foreground_thread_run_func()
 

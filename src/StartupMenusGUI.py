@@ -13,8 +13,8 @@ def startup_menus_import_func():
     from threading import Thread
 
 
-    global Config, MainGUI, Startup, StartupGUI, StartupNewItemGUI
-    import Config, MainGUI, Startup, StartupGUI, StartupNewItemGUI
+    global Config, MainGUI, Startup, StartupGUI
+    import Config, MainGUI, Startup, StartupGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -223,6 +223,11 @@ def startup_menus_gui_func():
             treestore5101.set_value(Startup.piter_list[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)], 1, False)
 
     def on_menuitem5102m_activate(widget):                                                    # "Add" item on the right click menu
+        if 'StartupNewItemGUI' not in globals():                                              # Check if "StartupNewItemGUI" module is imported. Therefore it is not reimported for every click on "Add" menu item if "StartupNewItemGUI" name is in globals().
+            global StartupNewItemGUI
+            import StartupNewItemGUI
+            StartupNewItemGUI.startup_new_item_import_func()
+            StartupNewItemGUI.startup_new_item_gui_func()
         StartupNewItemGUI.window5101w.show()
 
     def on_menuitem5103m_activate(widget):                                                    # "Remove" item on the right click menu

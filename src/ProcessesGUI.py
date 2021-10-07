@@ -195,7 +195,7 @@ def processes_open_process_details_window_func(event):
             print("not in list error")
             return
         # Open Process Details window
-        if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every double click on any process on the treeview if "ProcessesDetailsGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
+        if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every double click on any process on the treeview if "ProcessesDetailsGUI" name is in globals().
             global ProcessesDetailsGUI, ProcessesDetails
             import ProcessesDetailsGUI, ProcessesDetails
             ProcessesDetailsGUI.processes_details_gui_import_function()

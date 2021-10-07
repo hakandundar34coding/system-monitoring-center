@@ -12,8 +12,8 @@ def services_menus_import_func():
     import subprocess
 
 
-    global Config, Services, ServicesGUI, ServicesDetails, ServicesDetailsGUI
-    import Config, Services, ServicesGUI, ServicesDetails, ServicesDetailsGUI
+    global Config, Services, ServicesGUI
+    import Config, Services, ServicesGUI
 
 
 # ----------------------------------- Services - Services Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Services" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -106,7 +106,12 @@ def services_menus_gui_func():
         clipboard.store()                                                                     # Stores copied text in the clipboard. Therefore text stays in the clipboard after application has quit.
 
     def on_menuitem6109m_activate(widget):                                                    # "Details" item on the right click menu
-        ServicesDetailsGUI.services_details_gui_function()
+        if 'ServicesDetailsGUI' not in globals():                                             # Check if "ServicesDetailsGUI" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ServicesDetailsGUI" name is in globals().
+            global ServicesDetailsGUI, ServicesDetails
+            import ServicesDetailsGUI, ServicesDetails
+            ServicesDetailsGUI.services_details_gui_import_function()
+            ServicesDetailsGUI.services_details_gui_function()
+            ServicesDetails.services_details_import_func()
         ServicesDetailsGUI.window6101w.show()
         ServicesDetails.services_details_foreground_thread_run_func()
 

@@ -12,8 +12,8 @@ def storage_rename_import_func():
     import subprocess
 
 
-    global Storage, StorageGUI, StorageRenameGUI, MainGUI
-    import Storage, StorageGUI, StorageRenameGUI, MainGUI
+    global Storage, StorageGUI, MainGUI
+    import Storage, StorageGUI, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

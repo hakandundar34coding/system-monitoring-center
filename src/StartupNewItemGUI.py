@@ -12,8 +12,8 @@ def startup_new_item_import_func():
     import subprocess
 
 
-    global Startup, StartupGUI, MainGUI
-    import Startup, StartupGUI, MainGUI
+    global MainGUI
+    import MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

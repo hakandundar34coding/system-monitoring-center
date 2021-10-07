@@ -9,10 +9,6 @@ def storage_details_gui_import_function():
     import os
 
 
-    global StorageDetails
-    import StorageDetails
-
-
 # ----------------------------------- Storage - Storage Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Storage Details" window GUI objects and functions/signals) -----------------------------------
 def storage_details_gui_function():
 

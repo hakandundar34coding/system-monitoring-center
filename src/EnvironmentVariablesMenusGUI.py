@@ -12,8 +12,8 @@ def environment_variables_menus_import_func():
     import subprocess
 
 
-    global Config, EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesInputGUI, MainGUI
-    import Config, EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesInputGUI, MainGUI
+    global Config, EnvironmentVariables, EnvironmentVariablesGUI, MainGUI
+    import Config, EnvironmentVariables, EnvironmentVariablesGUI, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -58,6 +58,11 @@ def environment_variables_menus_gui_func():
 
     # ********************** Define object functions for Environment Variables tab right click menu **********************
     def on_menuitem7101m_activate(widget):                                                    # "Add Environment Variable" item on the right click menu
+        if 'EnvironmentVariablesInputGUI' not in globals():                                   # Check if "EnvironmentVariablesInputGUI" module is imported. Therefore it is not reimported for every click on "Add Environment Variable" menu item if "EnvironmentVariablesInputGUI" name is in globals().
+            global EnvironmentVariablesInputGUI
+            import EnvironmentVariablesInputGUI
+            EnvironmentVariablesInputGUI.environment_variables_input_gui_import_func()
+            EnvironmentVariablesInputGUI.environment_variables_input_gui_func()
         EnvironmentVariablesInputGUI.window7101w.set_title(_tr("Add New Persistent Environment Variable"))
         EnvironmentVariablesInputGUI.window7101w.show()
 
@@ -65,6 +70,11 @@ def environment_variables_menus_gui_func():
         selected_variable = EnvironmentVariablesGUI.selected_variable_value.split("=")[0]
         selected_variable_value = '='.join(EnvironmentVariablesGUI.selected_variable_value.split("=")[1:])    # There may be more than "=" in the VARIABLE=VALUE string. String later than first "=" is get as value.
         selected_variable_type = EnvironmentVariablesGUI.selected_variable_type
+        if 'EnvironmentVariablesInputGUI' not in globals():                                   # Check if "EnvironmentVariablesInputGUI" module is imported. Therefore it is not reimported for every click on "Edit Environment Variable" menu item if "EnvironmentVariablesInputGUI" name is in globals().
+            global EnvironmentVariablesInputGUI
+            import EnvironmentVariablesInputGUI
+            EnvironmentVariablesInputGUI.environment_variables_input_gui_import_func()
+            EnvironmentVariablesInputGUI.environment_variables_input_gui_func()
         EnvironmentVariablesInputGUI.window7101w.show()
         EnvironmentVariablesInputGUI.entry7101w.set_text(selected_variable)                   # Set label text as varible to be edited
         EnvironmentVariablesInputGUI.entry7102w.set_text(selected_variable_value)             # Set label text as varible value to be edited

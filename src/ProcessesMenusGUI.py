@@ -120,7 +120,7 @@ def processes_menus_gui_func():
         os.system('xdg-open "%s"' % path_only)
 
     def on_menuitem2108m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetailsGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
+        if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetailsGUI" name is in globals().
             global ProcessesDetailsGUI, ProcessesDetails
             import ProcessesDetailsGUI, ProcessesDetails
             ProcessesDetailsGUI.processes_details_gui_import_function()
@@ -179,8 +179,6 @@ def processes_menus_gui_func():
             ProcessesCustomPriorityGUI.processes_custom_priority_import_func()
             ProcessesCustomPriorityGUI.processes_custom_priority_gui_func()
         ProcessesCustomPriorityGUI.window2101w2.show()
-
-
 
     # ********************** Connect signals to GUI objects for Processes tab right click menu **********************
     menuitem2101m.connect("activate", on_menuitem2101m_activate)
