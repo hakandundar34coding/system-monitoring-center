@@ -1,16 +1,22 @@
+system-monitoring-center (0.1.21~beta2) unstable; urgency=medium
+
+  * Fixed bugs for double/right clicking on empty areas of the lists on several tabs
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 08 Oct 2021 09:04:18 +0300
+
 system-monitoring-center (0.1.21~beta1) unstable; urgency=medium
 
   [ Hakan Dündar ]
   * Improved tab switch performance
 
- -- asush <asush@pardus>  Thu, 07 Oct 2021 17:58:21 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 07 Oct 2021 17:58:21 +0300
 
 system-monitoring-center (0.1.20~beta) unstable; urgency=medium
 
   [ Hakan Dündar ]
   * Removed unused code
 
- -- asush <asush@pardus>  Thu, 07 Oct 2021 13:59:10 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 07 Oct 2021 13:59:10 +0300
 
 system-monitoring-center (0.1.19~beta) unstable; urgency=medium
 
@@ -22,7 +28,7 @@ system-monitoring-center (0.1.19~beta) unstable; urgency=medium
   * Minor performance improvements on Disk and System tab
   * Minor changes on application icon
 
- -- asush <asush@pardus>  Thu, 07 Oct 2021 13:17:05 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 07 Oct 2021 13:17:05 +0300
 
 system-monitoring-center (0.1.18-beta) unstable; urgency=medium
 
