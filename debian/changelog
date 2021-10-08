@@ -1,3 +1,10 @@
+system-monitoring-center (0.1.21~beta2) unstable; urgency=medium
+
+  * Fixed bugs for double/right clicking on empty areas of the lists on several tabs
+  * Improvements for Debian packaging
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 08 Oct 2021 09:37:41 +0300
+
 system-monitoring-center (0.1.21~beta1) unstable; urgency=medium
 
   [ Hakan Dündar ]
