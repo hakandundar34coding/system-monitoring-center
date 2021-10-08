@@ -2,6 +2,8 @@
 
 GTK3 and Python 3 based, system performance and usage monitoring tool.
 
+<a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://a.fsdn.com/con/app/sf-download-button" width=276 height=48 srcset="https://a.fsdn.com/con/app/sf-download-button?button_size=2x 2x"></a>
+
 ### Features:
 * Detailed system performance monitoring features
     * Monitoring CPU, RAM, Disk, Network, GPU, Sensor hardware information/performance/usage
