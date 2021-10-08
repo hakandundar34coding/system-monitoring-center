@@ -13,10 +13,10 @@ Depends: ${misc:Depends},
          python3 (>=3.7),
          python3-gi,
          python3-opengl,
-         util-linux,
+         util-linux (>=2.33),
          mesa-utils,
          systemd,
-         bash,
+         bash (>=5.0),
          pci.ids,
          x11-xserver-utils
 Description: Provides information about system performance and usage.

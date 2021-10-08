@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-05 16:19+0300\n"
+"POT-Creation-Date: 2021-10-07 21:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,53 +30,53 @@ msgid "Selected CPU Core: "
 msgstr ""
 
 #: src/Disk.py:61 src/Disk.py:129 src/Disk.py:130 src/Disk.py:131
-#: src/Disk.py:132 src/Storage.py:179 src/Storage.py:233 src/Storage.py:242
-#: src/Storage.py:253 src/Storage.py:581 src/Storage.py:588
-#: src/StorageDetails.py:121 src/StorageDetails.py:164
-#: src/StorageDetails.py:176 src/StorageDetails.py:190
-#: src/StorageDetails.py:354 src/StorageDetails.py:355
-#: src/StorageDetails.py:356
+#: src/Disk.py:132 src/Storage.py:181 src/Storage.py:235 src/Storage.py:244
+#: src/Storage.py:255 src/Storage.py:583 src/Storage.py:590
+#: src/StorageDetails.py:123 src/StorageDetails.py:166
+#: src/StorageDetails.py:178 src/StorageDetails.py:192
+#: src/StorageDetails.py:348 src/StorageDetails.py:349
+#: src/StorageDetails.py:350
 msgid "[Not mounted]"
 msgstr ""
 
-#: src/Disk.py:69 src/Storage.py:224 src/StorageDetails.py:153
+#: src/Disk.py:69 src/Storage.py:226 src/StorageDetails.py:155
 msgid "[SWAP]"
 msgstr ""
 
 #: src/Disk.py:78 src/Gpu.py:125 src/Network.py:119 src/Network.py:137
-#: src/ServicesDetails.py:55 src/Storage.py:346 src/Storage.py:357
-#: src/Storage.py:368 src/StorageDetails.py:131 src/StorageDetails.py:286
-#: src/StorageDetails.py:300 src/StorageDetails.py:314 src/UsersDetails.py:166
+#: src/ServicesDetails.py:55 src/Storage.py:348 src/Storage.py:359
+#: src/Storage.py:370 src/StorageDetails.py:133 src/StorageDetails.py:280
+#: src/StorageDetails.py:294 src/StorageDetails.py:308 src/UsersDetails.py:166
 msgid "Yes"
 msgstr ""
 
 #: src/Disk.py:80 src/Gpu.py:127 src/Network.py:121 src/ServicesDetails.py:55
-#: src/Storage.py:348 src/Storage.py:359 src/Storage.py:370
-#: src/StorageDetails.py:127 src/StorageDetails.py:288
-#: src/StorageDetails.py:302 src/StorageDetails.py:316 src/UsersDetails.py:168
+#: src/Storage.py:350 src/Storage.py:361 src/Storage.py:372
+#: src/StorageDetails.py:129 src/StorageDetails.py:282
+#: src/StorageDetails.py:296 src/StorageDetails.py:310 src/UsersDetails.py:168
 msgid "No"
 msgstr ""
 
-#: src/Disk.py:219 src/Disk.py:224
+#: src/Disk.py:220 src/Disk.py:225
 msgid "disk"
 msgstr ""
 
-#: src/Disk.py:228
+#: src/Disk.py:233
 msgid "partition"
 msgstr ""
 
-#: src/Disk.py:265 src/Network.py:220 src/Performance.py:422
+#: src/Disk.py:270 src/Network.py:220 src/Performance.py:422
 #: src/PerformanceSummaryHeaderbar.py:109 src/Processes.py:773
 #: src/ProcessesDetails.py:550 src/Ram.py:180 src/Services.py:538
-#: src/ServicesDetails.py:254 src/Storage.py:789 src/StorageDetails.py:420
+#: src/ServicesDetails.py:254 src/Storage.py:791 src/StorageDetails.py:414
 #: src/Users.py:632 src/UsersDetails.py:298
 msgid "Auto-Byte"
 msgstr ""
 
-#: src/Disk.py:267 src/Network.py:222 src/Performance.py:424
+#: src/Disk.py:272 src/Network.py:222 src/Performance.py:424
 #: src/PerformanceSummaryHeaderbar.py:111 src/Processes.py:775
 #: src/ProcessesDetails.py:552 src/Ram.py:182 src/Services.py:540
-#: src/ServicesDetails.py:256 src/Storage.py:791 src/StorageDetails.py:422
+#: src/ServicesDetails.py:256 src/Storage.py:793 src/StorageDetails.py:416
 #: src/Users.py:634 src/UsersDetails.py:300
 msgid "Auto-bit"
 msgstr ""
@@ -109,24 +109,24 @@ msgstr ""
 
 #: src/EnvironmentVariables.py:135 src/EnvironmentVariables.py:304
 #: src/EnvironmentVariables.py:367 src/EnvironmentVariables.py:386
-#: src/EnvironmentVariablesGUI.py:129
+#: src/EnvironmentVariablesGUI.py:132
 msgid "Environment Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:138 src/EnvironmentVariables.py:303
 #: src/EnvironmentVariables.py:359 src/EnvironmentVariables.py:388
-#: src/EnvironmentVariablesGUI.py:134
+#: src/EnvironmentVariablesGUI.py:137
 msgid "Shell Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:141 src/EnvironmentVariables.py:303
 #: src/EnvironmentVariables.py:304 src/EnvironmentVariables.py:386
-#: src/EnvironmentVariables.py:388 src/EnvironmentVariablesGUI.py:129
+#: src/EnvironmentVariables.py:388 src/EnvironmentVariablesGUI.py:132
 msgid "Environment & Shell Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:306 src/Processes.py:485 src/Sensors.py:269
-#: src/Services.py:364 src/Startup.py:599 src/Storage.py:574 src/Users.py:460
+#: src/Services.py:364 src/Startup.py:599 src/Storage.py:576 src/Users.py:460
 msgid "Total: "
 msgstr ""
 
@@ -142,29 +142,29 @@ msgstr ""
 msgid " shell variables)"
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:136
+#: src/EnvironmentVariablesGUI.py:139
 msgid "Shell variables cannot be edited."
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:138
+#: src/EnvironmentVariablesGUI.py:141
 msgid "Shell variables cannot be deleted."
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:145 src/EnvironmentVariablesInputGUI.py:177
+#: src/EnvironmentVariablesGUI.py:148 src/EnvironmentVariablesInputGUI.py:177
 #: src/EnvironmentVariablesInputGUI.py:188
-#: src/EnvironmentVariablesMenusGUI.py:333 src/Processes.py:741
-#: src/ProcessesGUI.py:206 src/ProcessesMenusGUI.py:837
-#: src/ProcessesMenusGUI.py:848 src/ServicesGUI.py:166 src/SettingsGUI.py:585
-#: src/StartupGUI.py:138 src/StartupMenusGUI.py:578 src/StartupMenusGUI.py:589
-#: src/StartupNewItemGUI.py:156 src/StorageGUI.py:183 src/UsersGUI.py:153
+#: src/EnvironmentVariablesMenusGUI.py:343 src/Processes.py:741
+#: src/ProcessesGUI.py:217 src/ProcessesMenusGUI.py:846
+#: src/ProcessesMenusGUI.py:857 src/ServicesGUI.py:171 src/SettingsGUI.py:585
+#: src/StartupGUI.py:141 src/StartupMenusGUI.py:583 src/StartupMenusGUI.py:594
+#: src/StartupNewItemGUI.py:156 src/StorageGUI.py:194 src/UsersGUI.py:165
 msgid "Warning"
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:146
+#: src/EnvironmentVariablesGUI.py:149
 msgid "Select A Variable"
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:147
+#: src/EnvironmentVariablesGUI.py:150
 msgid "Please select a variable and try again for opening the menu"
 msgstr ""
 
@@ -209,32 +209,32 @@ msgid ""
 "Do you want to enable/keep enabled this option?"
 msgstr ""
 
-#: src/EnvironmentVariablesMenusGUI.py:61
+#: src/EnvironmentVariablesMenusGUI.py:66
 #: ui/EnvironmentVariablesInputWindow.ui:8
 msgid "Add New Persistent Environment Variable"
 msgstr ""
 
-#: src/EnvironmentVariablesMenusGUI.py:71
+#: src/EnvironmentVariablesMenusGUI.py:81
 msgid "Edit Persistent Environment Variable"
 msgstr ""
 
-#: src/EnvironmentVariablesMenusGUI.py:334
+#: src/EnvironmentVariablesMenusGUI.py:344
 msgid "Do You Want To Delete The Environment Variable?"
 msgstr ""
 
-#: src/EnvironmentVariablesMenusGUI.py:335
+#: src/EnvironmentVariablesMenusGUI.py:345
 msgid "Environment variable will be deleted from following files:"
 msgstr ""
 
-#: src/EnvironmentVariablesMenusGUI.py:335
+#: src/EnvironmentVariablesMenusGUI.py:345
 msgid "    Variable: "
 msgstr ""
 
-#: src/EnvironmentVariablesMenusGUI.py:335
+#: src/EnvironmentVariablesMenusGUI.py:345
 msgid "    Value: "
 msgstr ""
 
-#: src/EnvironmentVariablesMenusGUI.py:335
+#: src/EnvironmentVariablesMenusGUI.py:345
 msgid "Do you want to delete the following persistent environment variable?\n"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgstr ""
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Network.py:123 src/Processes.py:666 src/System.py:81 src/System.py:157
+#: src/Network.py:123 src/Processes.py:666 src/System.py:81 src/System.py:166
 msgid "Unknown"
 msgstr ""
 
@@ -423,9 +423,9 @@ msgid ""
 msgstr ""
 
 #: src/ProcessesCustomPriorityGUI.py:128 src/ProcessesCustomPriorityGUI.py:138
-#: src/ProcessesDetails.py:582 src/ProcessesMenusGUI.py:827
-#: src/ProcessesMenusGUI.py:859 src/StorageMenusGUI.py:710
-#: src/StorageMenusGUI.py:719
+#: src/ProcessesDetails.py:582 src/ProcessesMenusGUI.py:836
+#: src/ProcessesMenusGUI.py:868 src/StorageMenusGUI.py:720
+#: src/StorageMenusGUI.py:729
 msgid "Error"
 msgstr ""
 
@@ -444,11 +444,11 @@ msgstr ""
 msgid " (PID: "
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:139 src/ProcessesMenusGUI.py:828
+#: src/ProcessesCustomPriorityGUI.py:139 src/ProcessesMenusGUI.py:837
 msgid "Access Denied"
 msgstr ""
 
-#: src/ProcessesCustomPriorityGUI.py:140 src/ProcessesMenusGUI.py:829
+#: src/ProcessesCustomPriorityGUI.py:140 src/ProcessesMenusGUI.py:838
 msgid ""
 "You have to have root privileges in order to:\n"
 "  1) Increase nice value of your processes\n"
@@ -470,69 +470,69 @@ msgstr ""
 msgid ")"
 msgstr ""
 
-#: src/ProcessesGUI.py:149 src/ProcessesMenusGUI.py:811 ui/StorageTab.ui:261
+#: src/ProcessesGUI.py:149 src/ProcessesMenusGUI.py:820 ui/StorageTab.ui:261
 msgid "User defined expand"
 msgstr ""
 
-#: src/ProcessesGUI.py:150 src/ProcessesMenusGUI.py:812 ui/StorageTab.ui:283
+#: src/ProcessesGUI.py:150 src/ProcessesMenusGUI.py:821 ui/StorageTab.ui:283
 msgid "Expand all"
 msgstr ""
 
-#: src/ProcessesGUI.py:151 src/ProcessesMenusGUI.py:813 ui/StorageTab.ui:305
+#: src/ProcessesGUI.py:151 src/ProcessesMenusGUI.py:822 ui/StorageTab.ui:305
 msgid "Collapse all"
 msgstr ""
 
-#: src/ProcessesGUI.py:158 src/ProcessesMenusGUI.py:819 ui/ProcessesTab.ui:184
+#: src/ProcessesGUI.py:158 src/ProcessesMenusGUI.py:828 ui/ProcessesTab.ui:184
 msgid ""
 "User defined expand\n"
 "(Usable if processes are listed as tree)"
 msgstr ""
 
-#: src/ProcessesGUI.py:159 src/ProcessesMenusGUI.py:820 ui/ProcessesTab.ui:207
+#: src/ProcessesGUI.py:159 src/ProcessesMenusGUI.py:829 ui/ProcessesTab.ui:207
 msgid ""
 "Expand all\n"
 "(Usable if processes are listed as tree)"
 msgstr ""
 
-#: src/ProcessesGUI.py:160 src/ProcessesMenusGUI.py:821 ui/ProcessesTab.ui:230
+#: src/ProcessesGUI.py:160 src/ProcessesMenusGUI.py:830 ui/ProcessesTab.ui:230
 msgid ""
 "Collapse all\n"
 "(Usable if processes are listed as tree)"
 msgstr ""
 
-#: src/ProcessesGUI.py:207
+#: src/ProcessesGUI.py:218
 msgid "Select A Process"
 msgstr ""
 
-#: src/ProcessesGUI.py:208
+#: src/ProcessesGUI.py:219
 msgid "Please select a process and try again for opening the menu"
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:838
+#: src/ProcessesMenusGUI.py:847
 msgid "End Process?"
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:839
+#: src/ProcessesMenusGUI.py:848
 msgid ""
 "Do you want to end the following process?\n"
 " "
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:849
+#: src/ProcessesMenusGUI.py:858
 msgid "End Process Tree?"
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:850
+#: src/ProcessesMenusGUI.py:859
 msgid ""
 "Do you want to end the following process and its child processes?\n"
 " "
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:860
+#: src/ProcessesMenusGUI.py:869
 msgid "Process Directory Could Not Be Get"
 msgstr ""
 
-#: src/ProcessesMenusGUI.py:861
+#: src/ProcessesMenusGUI.py:870
 msgid ""
 "Process directory could not be get.\n"
 "No folder will be opened."
@@ -738,11 +738,11 @@ msgstr ""
 msgid "Exited"
 msgstr ""
 
-#: src/ServicesGUI.py:167
+#: src/ServicesGUI.py:172
 msgid "Select A Service"
 msgstr ""
 
-#: src/ServicesGUI.py:168
+#: src/ServicesGUI.py:173
 msgid "Please select a service and try again for opening the menu"
 msgstr ""
 
@@ -789,13 +789,13 @@ msgstr ""
 msgid "RAM"
 msgstr ""
 
-#: src/SettingsGUI.py:331 src/Storage.py:161 src/Storage.py:268
-#: src/Storage.py:312 src/Storage.py:322 src/Storage.py:333 src/Storage.py:342
-#: src/Storage.py:353 src/Storage.py:364 src/StorageDetails.py:99
-#: src/StorageDetails.py:207 src/StorageDetails.py:249
-#: src/StorageDetails.py:261 src/StorageDetails.py:270
-#: src/StorageDetails.py:277 src/StorageDetails.py:291
-#: src/StorageDetails.py:305 ui/DiskTab.ui:23 ui/MainWindow.ui:174
+#: src/SettingsGUI.py:331 src/Storage.py:161 src/Storage.py:270
+#: src/Storage.py:314 src/Storage.py:324 src/Storage.py:335 src/Storage.py:344
+#: src/Storage.py:355 src/Storage.py:366 src/StorageDetails.py:99
+#: src/StorageDetails.py:209 src/StorageDetails.py:247
+#: src/StorageDetails.py:255 src/StorageDetails.py:264
+#: src/StorageDetails.py:271 src/StorageDetails.py:285
+#: src/StorageDetails.py:299 ui/DiskTab.ui:23 ui/MainWindow.ui:174
 #: ui/PerformanceTab.ui:1046 ui/PerformanceTab.ui:2958
 msgid "Disk"
 msgstr ""
@@ -855,61 +855,61 @@ msgstr ""
 msgid " hidden)"
 msgstr ""
 
-#: src/StartupGUI.py:139
+#: src/StartupGUI.py:142
 msgid "Select A Startup Item"
 msgstr ""
 
-#: src/StartupGUI.py:140
+#: src/StartupGUI.py:143
 msgid "Please select a startup item and try again for opening the menu"
 msgstr ""
 
-#: src/StartupMenusGUI.py:520
+#: src/StartupMenusGUI.py:525
 msgid "The startup item has system values."
 msgstr ""
 
-#: src/StartupMenusGUI.py:531 src/StartupMenusGUI.py:534 ui/StartupMenus.ui:633
+#: src/StartupMenusGUI.py:536 src/StartupMenusGUI.py:539 ui/StartupMenus.ui:633
 msgid "System-wide values file: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:534 src/StartupMenusGUI.py:540
+#: src/StartupMenusGUI.py:539 src/StartupMenusGUI.py:545
 msgid "None"
 msgstr ""
 
-#: src/StartupMenusGUI.py:537 src/StartupMenusGUI.py:540 ui/StartupMenus.ui:642
+#: src/StartupMenusGUI.py:542 src/StartupMenusGUI.py:545 ui/StartupMenus.ui:642
 msgid "User-specific values file: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:579
+#: src/StartupMenusGUI.py:584
 msgid "Run Startup Item Now?"
 msgstr ""
 
-#: src/StartupMenusGUI.py:580
+#: src/StartupMenusGUI.py:585
 msgid "Do you want to run the following startup item?"
 msgstr ""
 
-#: src/StartupMenusGUI.py:580
+#: src/StartupMenusGUI.py:585
 msgid " Command: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:590
+#: src/StartupMenusGUI.py:595
 msgid "Reset The Startup Item To System Values?"
 msgstr ""
 
-#: src/StartupMenusGUI.py:591
+#: src/StartupMenusGUI.py:596
 msgid "Do you want to reset the following startup item to system values?"
 msgstr ""
 
-#: src/StartupMenusGUI.py:592
+#: src/StartupMenusGUI.py:597
 msgid " '.desktop' File Name: "
 msgstr ""
 
-#: src/StartupMenusGUI.py:593
+#: src/StartupMenusGUI.py:598
 msgid ""
 "1) If the startup item has both system-wide and user-specific '.desktop' "
 "files, user-specific file will be deleted."
 msgstr ""
 
-#: src/StartupMenusGUI.py:594
+#: src/StartupMenusGUI.py:599
 msgid ""
 "2) If the startup item has only user-specific '.desktop' files, this file "
 "will be deleted and startup item will be removed completely."
@@ -1022,58 +1022,58 @@ msgstr ""
 msgid "Major:Minor Device #"
 msgstr ""
 
-#: src/Storage.py:168 src/Storage.py:173 src/StorageDetails.py:106
-#: src/StorageDetails.py:116
+#: src/Storage.py:170 src/Storage.py:175 src/StorageDetails.py:108
+#: src/StorageDetails.py:118
 msgid "Partition"
 msgstr ""
 
-#: src/Storage.py:574
+#: src/Storage.py:576
 msgid " disks/partitions ("
 msgstr ""
 
-#: src/Storage.py:574
+#: src/Storage.py:576
 msgid " disks, "
 msgstr ""
 
-#: src/Storage.py:574
+#: src/Storage.py:576
 msgid " partitions)"
 msgstr ""
 
-#: src/StorageDetails.py:111
+#: src/StorageDetails.py:113
 msgid "Storage Details: "
 msgstr ""
 
-#: src/StorageDetails.py:454 src/UsersDetails.py:332
+#: src/StorageDetails.py:448 src/UsersDetails.py:332
 msgid ""
 "Following disk is not connected anymore \n"
 "and storage details window is closed automatically:\n"
 "  "
 msgstr ""
 
-#: src/StorageGUI.py:184
+#: src/StorageGUI.py:195
 msgid "Select A Disk/Partition"
 msgstr ""
 
-#: src/StorageGUI.py:185
+#: src/StorageGUI.py:196
 msgid "Please select a disk/partition and try again for opening the menu"
 msgstr ""
 
-#: src/StorageMenusGUI.py:711
+#: src/StorageMenusGUI.py:721
 msgid "Disk Is Not Mounted"
 msgstr ""
 
-#: src/StorageMenusGUI.py:712
+#: src/StorageMenusGUI.py:722
 msgid ""
 "The disk you have tried to browse is not mounted.\n"
 " Disk have to be mounted before browsing.\n"
 " Note: Some disks such as swap disks do not have mount points."
 msgstr ""
 
-#: src/StorageMenusGUI.py:720
+#: src/StorageMenusGUI.py:730
 msgid "Disk Has No Mountable File System"
 msgstr ""
 
-#: src/StorageMenusGUI.py:721
+#: src/StorageMenusGUI.py:731
 msgid ""
 "The disk you have tried to mount or unmount has no mountable file system.\n"
 "\n"
@@ -1085,11 +1085,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/System.py:308
+#: src/System.py:343
 msgid "(Yes)"
 msgstr ""
 
-#: src/System.py:310
+#: src/System.py:345
 msgid "(No)"
 msgstr ""
 
@@ -1225,15 +1225,15 @@ msgstr ""
 msgid "User Details: "
 msgstr ""
 
-#: src/UsersDetailsGUI.py:82 ui/UsersDetailsWindow.ui:8
+#: src/UsersDetailsGUI.py:78 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
 msgstr ""
 
-#: src/UsersGUI.py:154
+#: src/UsersGUI.py:166
 msgid "Select An User"
 msgstr ""
 
-#: src/UsersGUI.py:155
+#: src/UsersGUI.py:167
 msgid "Please select an user and try again for opening the menu"
 msgstr ""
 
@@ -3205,8 +3205,8 @@ msgstr ""
 msgid "Disabled (Hidden) startup items"
 msgstr ""
 
-#: ui/StartupMenus.ui:506 ui/StorageMenus.ui:1013
-msgid "Search in disk types:"
+#: ui/StartupMenus.ui:506
+msgid "Search in visibility status:"
 msgstr ""
 
 #: ui/StartupMenus.ui:515
@@ -3418,6 +3418,10 @@ msgstr ""
 
 #: ui/StorageMenus.ui:984
 msgid "Storage Search Customizations:"
+msgstr ""
+
+#: ui/StorageMenus.ui:1013
+msgid "Search in disk types:"
 msgstr ""
 
 #: ui/StorageMenus.ui:1022

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # ----------------------------------- Users - Users Details Window GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def users_details_gui_import_function():
 

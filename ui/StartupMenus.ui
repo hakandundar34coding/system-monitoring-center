@@ -503,7 +503,7 @@
             <property name="can-focus">False</property>
             <property name="halign">start</property>
             <property name="margin-top">10</property>
-            <property name="label" translatable="yes">Search in disk types:</property>
+            <property name="label" translatable="yes">Search in visibility status:</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
