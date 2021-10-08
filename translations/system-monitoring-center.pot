@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-07 21:23+0300\n"
+"POT-Creation-Date: 2021-10-08 18:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1085,11 +1085,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/System.py:343
+#: src/System.py:369
 msgid "(Yes)"
 msgstr ""
 
-#: src/System.py:345
+#: src/System.py:371
 msgid "(No)"
 msgstr ""
 
@@ -1225,7 +1225,7 @@ msgstr ""
 msgid "User Details: "
 msgstr ""
 
-#: src/UsersDetailsGUI.py:78 ui/UsersDetailsWindow.ui:8
+#: src/UsersDetailsGUI.py:80 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
 msgstr ""
 
@@ -1397,9 +1397,9 @@ msgstr ""
 #: ui/SystemTab.ui:285 ui/SystemTab.ui:319 ui/SystemTab.ui:351
 #: ui/SystemTab.ui:368 ui/SystemTab.ui:415 ui/SystemTab.ui:446
 #: ui/SystemTab.ui:478 ui/SystemTab.ui:510 ui/SystemTab.ui:604
-#: ui/SystemTab.ui:621 ui/SystemTab.ui:638 ui/SystemTab.ui:729
-#: ui/SystemTab.ui:746 ui/SystemTab.ui:780 ui/SystemTab.ui:797
-#: ui/SystemTab.ui:814 ui/UsersDetailsWindow.ui:199
+#: ui/SystemTab.ui:621 ui/SystemTab.ui:638 ui/SystemTab.ui:730
+#: ui/SystemTab.ui:747 ui/SystemTab.ui:781 ui/SystemTab.ui:798
+#: ui/SystemTab.ui:815 ui/UsersDetailsWindow.ui:199
 #: ui/UsersDetailsWindow.ui:213 ui/UsersDetailsWindow.ui:227
 #: ui/UsersDetailsWindow.ui:241 ui/UsersDetailsWindow.ui:255
 #: ui/UsersDetailsWindow.ui:269 ui/UsersDetailsWindow.ui:283
@@ -3664,24 +3664,26 @@ msgid "Display Manager:"
 msgstr ""
 
 #: ui/SystemTab.ui:700
-msgid "Number of installed APT or RPM packages"
+msgid ""
+"Number of installed packages\n"
+"(APT, RPM or pacman)"
 msgstr ""
 
-#: ui/SystemTab.ui:702
-msgid "Packages (APT/RPM):"
+#: ui/SystemTab.ui:703
+msgid "Packages (System):"
 msgstr ""
 
-#: ui/SystemTab.ui:714
+#: ui/SystemTab.ui:715
 msgid ""
 "Name of the current user and information of whether the user has root "
 "privileges"
 msgstr ""
 
-#: ui/SystemTab.ui:716
+#: ui/SystemTab.ui:717
 msgid "User - (Root?):"
 msgstr ""
 
-#: ui/SystemTab.ui:762
+#: ui/SystemTab.ui:763
 msgid ""
 "Name of the window manager\n"
 "Window manager manages position, size, stacking order, focus of the windows, "
@@ -3691,15 +3693,15 @@ msgid ""
 "Note: Window manager changes during user session are not tracked."
 msgstr ""
 
-#: ui/SystemTab.ui:767
+#: ui/SystemTab.ui:768
 msgid "Window Manager:"
 msgstr ""
 
-#: ui/SystemTab.ui:830
+#: ui/SystemTab.ui:831
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr ""
 
-#: ui/SystemTab.ui:832
+#: ui/SystemTab.ui:833
 msgid "Packages (Flatpak):"
 msgstr ""
 

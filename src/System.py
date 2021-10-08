@@ -240,24 +240,37 @@ def system_initial_func():
     computer_chassis_type = computer_chassis_types_dict[int(computer_chassis_type_value)]
 
     # Determine package types used on the system. This information will be used for getting number of installed packages on the system.
-    global apt_packages_available, rpm_packages_available, flatpak_packages_available
+    global apt_packages_available, rpm_packages_available, pacman_packages_available, flatpak_packages_available
+    apt_packages_available = "-"                                                              # Initial value of the variable.
+    rpm_packages_available = "-"
+    pacman_packages_available = "-"
+    flatpak_packages_available = "-"
     try:
-        apt_packages_available = (subprocess.check_output("which dpkg", shell=True)).decode().strip()
-        if apt_packages_available != "":
+        apt_packages_available = (subprocess.check_output("dpkg --list", shell=True)).decode().strip().count("\nii  ")
+        if apt_packages_available > 0:
             apt_packages_available = "yes"
-    except:
+    except subprocess.CalledProcessError:
         apt_packages_available = "no"
     try:
-        rpm_packages_available = (subprocess.check_output("which yum", shell=True)).decode().strip()
-        if rpm_packages_available != "":
+        rpm_packages_available = (subprocess.check_output("rpm -qa", shell=True)).decode().strip().split("\n")
+        rpm_packages_available = len(rpm_packages_available) - rpm_packages_available.count("")    # Differentiate empty line count
+        if rpm_packages_available > 0:
             rpm_packages_available = "yes"
-    except:
+    except subprocess.CalledProcessError:
         rpm_packages_available = "no"
     try:
-        flatpak_packages_available = (subprocess.check_output("which flatpak", shell=True)).decode().strip()
-        if flatpak_packages_available != "":
+        pacman_packages_available = (subprocess.check_output("pacman -Qq", shell=True)).decode().strip().split("\n")
+        pacman_packages_available = len(pacman_packages_available) - pacman_packages_available.count("")    # Differentiate empty line count
+        if pacman_packages_available > 0:
+            pacman_packages_available = "yes"
+    except subprocess.CalledProcessError:
+        pacman_packages_available = "no"
+    try:
+        flatpak_packages_available = (subprocess.check_output("flatpak list", shell=True)).decode().strip().split("\n")
+        flatpak_packages_available = len(flatpak_packages_available) - flatpak_packages_available.count("")    # Differentiate empty line count
+        if flatpak_packages_available > 0:
             flatpak_packages_available = "yes"
-    except:
+    except subprocess.CalledProcessError:
         flatpak_packages_available = "no"
 
 
@@ -281,7 +294,6 @@ def system_loop_func():
     # Get OS name, version, version code name and OS based on information
     with open("/etc/os-release") as reader:
         os_release_output_lines = reader.read().strip().split("\n")
-    os_based_on = "-"                                                                         # Initial value of "os_based_on" variable. This value will be used if "os_based_on" could not be detected (For example, "ID_LIKE" value is not present in "/etc/os-release" file if OS is "Debian").
     for line in os_release_output_lines:
         if line.startswith("ID="):
             os_name = line.split("ID=")[1].strip().title()                                    # ".title()" capitalizes each word in the string.
@@ -291,7 +303,13 @@ def system_loop_func():
             os_version_code_name = line.split("VERSION_CODENAME=")[1].strip(' "')
         if line.startswith("ID_LIKE="):
             os_based_on = line.split("ID_LIKE=")[1].strip().title()                           # ".title()" capitalizes each word in the string.
-    if os_based_on == "Debian":
+    if 'os_based_on' not in locals() or os_based_on == "-":                                  # Set variable value as "-" in case of its value is not get so far.
+        os_based_on = "-"
+    if 'os_version' not in locals() or os_version == "-":
+        os_version = "-"
+    if 'os_version_code_name' not in locals() or os_version_code_name == "-":
+        os_version_code_name = "-"
+    if 'os_based_on' in locals() and os_based_on == "Debian":
         with open("/etc/debian_version") as reader:
             debian_version = reader.read().strip()
         os_based_on = os_based_on + " (" + debian_version + ")"
@@ -318,31 +336,33 @@ def system_loop_func():
     sut_seconds = (sut_minutes - sut_minutes_int) * 60
     sut_seconds_int = int(sut_seconds)
 
+    global apt_packages_available, rpm_packages_available, pacman_packages_available, flatpak_packages_available
+    number_of_installed_apt_or_rpm_or_pacman_packages = "-"
     # Get number of installed APT packages
-    number_of_installed_apt_packages = "-"                                                    # Initial value of "number_of_installed_apt_packages" variable. This value will be used if "number_of_installed_apt_packages" could not be detected.
     if apt_packages_available == "yes":
-        dpkg_list_output = (subprocess.check_output("dpkg --list", shell=True)).decode().strip()
-        number_of_installed_apt_packages = dpkg_list_output.count("\nii  ")
+        number_of_installed_apt_packages = (subprocess.check_output("dpkg --list", shell=True)).decode().strip().count("\nii  ")
+        number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_apt_packages} (APT)'
 
     # Get number of installed RPM packages
-    number_of_installed_rpm_packages = "-"                                                    # Initial value of "number_of_installed_rpm_packages" variable. This value will be used if "number_of_installed_rpm_packages" could not be detected.
     if rpm_packages_available == "yes":
-        number_of_installed_rpm_packages = len((subprocess.check_output("rpm -qa", shell=True)).decode().strip().split("\n"))
+        number_of_installed_rpm_packages = (subprocess.check_output("rpm -qa", shell=True)).decode().strip().split("\n")
+        number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")    # Differentiate empty line count
+        number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
 
-    # Choose variable according to package type of the system (this variable will be used for showing on a label on the GUI)
-    if apt_packages_available == "yes":
-        number_of_installed_apt_or_rpm_packages = f'{number_of_installed_apt_packages} (APT)'
-    if rpm_packages_available == "yes":
-        number_of_installed_apt_or_rpm_packages = f'{number_of_installed_rpm_packages} (RPM)'
+    # Get number of installed pacman packages
+    if pacman_packages_available == "yes":
+        number_of_installed_pacman_packages = (subprocess.check_output("pacman -Qq", shell=True)).decode().strip().split("\n")
+        number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")    # Differentiate empty line count
+        number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
 
     # Get number of installed Flatpak packages
     number_of_installed_flatpak_packages = "-"                                                # Initial value of "number_of_installed_flatpak_packages" variable. This value will be used if "number_of_installed_flatpak_packages" could not be detected.
     if flatpak_packages_available == "yes":
-        flatpak_list_output = (subprocess.check_output("flatpak list", shell=True)).decode().strip()
-        if flatpak_list_output == "":
+        try:
+            number_of_installed_flatpak_packages = (subprocess.check_output("flatpak list", shell=True)).decode().strip().split("\n")
+            number_of_installed_flatpak_packages = len(number_of_installed_flatpak_packages) - number_of_installed_flatpak_packages.count("")    # Differentiate empty line count
+        except subprocess.CalledProcessError:
             number_of_installed_flatpak_packages = "-"
-        if flatpak_list_output != "":
-            number_of_installed_flatpak_packages = len(flatpak_list_output.split("\n"))
 
     # Get if current user has root privileges
     if os.geteuid() == 0:
@@ -360,7 +380,7 @@ def system_loop_func():
     SystemGUI.label8117.set_text(f'{number_of_monitors}')
     SystemGUI.label8118.set_text(f'{current_monitor}')
     SystemGUI.label8119.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
-    SystemGUI.label8120.set_text(f'{number_of_installed_apt_or_rpm_packages}')
+    SystemGUI.label8120.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
     SystemGUI.label8121.set_text(f'{number_of_installed_flatpak_packages}')
     SystemGUI.label8122.set_text(f'{current_user_name} - {have_root_access}')
 
@@ -394,8 +414,9 @@ def system_loop_thread_func(dummy_variable):                                    
 # ----------------------------------- System Thread Run Function (starts execution of the threads) -----------------------------------
 def system_thread_run_func():
 
-    system_initial_thread = Thread(target=system_initial_thread_func, daemon=True)
-    system_initial_thread.start()
-    system_initial_thread.join()
+    if "current_user_name" not in globals():                                                  # To be able to run initial thread for only one time
+        system_initial_thread = Thread(target=system_initial_thread_func, daemon=True)
+        system_initial_thread.start()
+        system_initial_thread.join()
     system_loop_thread = Thread(target=system_loop_thread_func(None), daemon=True)            # "None" is an arbitrary value which is required for using "GLib.timeout_source_new()".
     system_loop_thread.start()
