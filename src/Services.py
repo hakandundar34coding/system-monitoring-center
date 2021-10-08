@@ -138,7 +138,7 @@ def services_loop_func():
         unit_files_command_parameter_list.append("Description")
     unit_files_command_parameter_list = ",".join(unit_files_command_parameter_list)           # Join strings with "," between them.
     # Construct command for getting service information for all services
-    unit_files_command = "systemctl show --property=LoadState,UnitFileState,MainPID,ActiveState,SubState,MemoryCurrent,Description"
+    unit_files_command = "systemctl show --property=" + unit_files_command_parameter_list
     for service in service_list:
         unit_files_command = unit_files_command + " " + service
 
@@ -410,7 +410,7 @@ def services_thread_run_func():
     services_initial_thread.join()
 #     services_loop_thread = Thread(target=services_loop_thread_func(None), daemon=True)        # "None" is an arbitrary value which is required for using "GLib.timeout_source_new()".
 #     services_loop_thread.start()
-#         services_one_time_thread = Thread(target=services_loop_func, daemon=True)             # Getting and showing service data operations are not repeated (they are performed only one time) because getting service data takes a long time (nearly 1 second on a Core i7-2630QM 4-cored notebook PC). Data could be refreshed by user demand from the GUI.
+#         services_one_time_thread = Thread(target=services_loop_func, daemon=True)             # Getting and showing service data operations are not repeated (they are performed only one time) because getting service data takes a long time (nearly 0.5 second on a Core i7-2630QM 4-cored notebook PC). Data could be refreshed by user demand from the GUI.
 #         services_one_time_thread.start()
 
 

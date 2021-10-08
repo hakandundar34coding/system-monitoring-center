@@ -240,19 +240,25 @@ def system_initial_func():
     computer_chassis_type = computer_chassis_types_dict[int(computer_chassis_type_value)]
 
     # Determine package types used on the system. This information will be used for getting number of installed packages on the system.
-    which_commands_get_output = (subprocess.check_output("which dpkg;echo *split_line*;which rpm;echo *split_line*;which flatpak", shell=True)).decode().strip().split("*split_line*")
-    for i, output in enumerate(which_commands_get_output):                                    # Remove "\n" characters from strings.
-        which_commands_get_output[i] = output.strip("\n")
     global apt_packages_available, rpm_packages_available, flatpak_packages_available
-    apt_packages_available = "no"                                                             # Initial value of "apt_packages_available".
-    rpm_packages_available = "no"                                                             # Initial value of "rpm_packages_available".
-    flatpak_packages_available = "no"                                                         # Initial value of "flatpak_packages_available".
-    if which_commands_get_output[0] != "":
-        apt_packages_available = "yes"
-    if which_commands_get_output[1] != "":
-        rpm_packages_available = "yes"
-    if which_commands_get_output[2] != "":
-        flatpak_packages_available = "yes"
+    try:
+        apt_packages_available = (subprocess.check_output("which dpkg", shell=True)).decode().strip()
+        if apt_packages_available != "":
+            apt_packages_available = "yes"
+    except:
+        apt_packages_available = "no"
+    try:
+        rpm_packages_available = (subprocess.check_output("which yum", shell=True)).decode().strip()
+        if rpm_packages_available != "":
+            rpm_packages_available = "yes"
+    except:
+        rpm_packages_available = "no"
+    try:
+        flatpak_packages_available = (subprocess.check_output("which flatpak", shell=True)).decode().strip()
+        if flatpak_packages_available != "":
+            flatpak_packages_available = "yes"
+    except:
+        flatpak_packages_available = "no"
 
 
     # Set label texts to show information
@@ -325,9 +331,9 @@ def system_loop_func():
 
     # Choose variable according to package type of the system (this variable will be used for showing on a label on the GUI)
     if apt_packages_available == "yes":
-        number_of_installed_apt_or_rpm_packages = f'{number_of_installed_rpm_packages} (RPM)'
-    if rpm_packages_available == "yes":
         number_of_installed_apt_or_rpm_packages = f'{number_of_installed_apt_packages} (APT)'
+    if rpm_packages_available == "yes":
+        number_of_installed_apt_or_rpm_packages = f'{number_of_installed_rpm_packages} (RPM)'
 
     # Get number of installed Flatpak packages
     number_of_installed_flatpak_packages = "-"                                                # Initial value of "number_of_installed_flatpak_packages" variable. This value will be used if "number_of_installed_flatpak_packages" could not be detected.

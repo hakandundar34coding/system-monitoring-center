@@ -145,7 +145,7 @@ def gpu_loop_func():
     fps = len(frame_list) / update_interval
     del fps_count[0]
     fps_count.append(fps)
-    frame_latency = 1 / (fps + 0.0000001)
+    frame_latency = 1 / (fps + 0.0000001) * 1000                                              # Frame latency in milliseconds
     frame_list = []
 
     GpuGUI.drawingarea1501.queue_draw()
@@ -156,7 +156,7 @@ def gpu_loop_func():
 
     # Set and update GPU tab label texts by using information get
     GpuGUI.label1503.set_text(f'{fps_count[-1]:.0f}')
-    GpuGUI.label1504.set_text(f'{frame_latency:.2f} ms')
+    GpuGUI.label1504.set_text(f'{frame_latency:.1f} ms')
     GpuGUI.label1505.set_text(f'{current_resolution_and_refresh_rate[1]} Hz')
     GpuGUI.label1506.set_text(f'{current_resolution_and_refresh_rate[0]}')
 
