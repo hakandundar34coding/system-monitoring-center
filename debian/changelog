@@ -1,3 +1,11 @@
+system-monitoring-center (0.1.21~beta4) unstable; urgency=medium
+
+  * Added support for viewing Arch Linux and pacman packages information
+  * Minor design changes on GUI icons
+  * Update README.md
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 09 Oct 2021 10:00:54 +0300
+
 system-monitoring-center (0.1.21~beta3) unstable; urgency=medium
 
   * About %50 performance improvement for services data loading
