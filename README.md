@@ -4,8 +4,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 <a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://a.fsdn.com/con/app/sf-download-button" width=276 height=48 srcset="https://a.fsdn.com/con/app/sf-download-button?button_size=2x 2x"></a>
 </a>
-<a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>
-<a <img alt="GitLab tag (custom instance)" src="https://img.shields.io/gitlab/v/tag/Hakan/system-monitoring-center?gitlab_url=https%3A%2F%2Fkod.pardus.org.tr&include_prereleases&sort=semver"></a>
+<a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>z
 </a>
 
 ### Features:
