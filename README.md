@@ -7,6 +7,10 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 <a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>
 </a>
 
+<a href="https://repology.org/project/system-monitoring-center/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
+</a>
+
 ### Features:
 * Detailed system performance monitoring features
     * Monitoring CPU, RAM, Disk, Network, GPU, Sensor hardware information/performance/usage
