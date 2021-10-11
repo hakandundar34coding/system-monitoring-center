@@ -11,15 +11,15 @@ def sensors_gui_import_func():
     import os
 
 
-    global Config, Sensors, SensorsMenusGUI
-    import Config, Sensors, SensorsMenusGUI
+    global Sensors
+    import Sensors
 
 
 # ----------------------------------- Sensors - Sensors GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab GUI objects and functions/signals) -----------------------------------
 def sensors_gui_func():
 
     # Sensors tab GUI objects
-    global grid1601, treeview1601, searchentry1601, button1601, button1603
+    global grid1601, treeview1601, searchentry1601
     global radiobutton1601, radiobutton1602, radiobutton1603
     global label1601
 
@@ -32,8 +32,6 @@ def sensors_gui_func():
     grid1601 = builder.get_object('grid1601')
     treeview1601 = builder.get_object('treeview1601')
     searchentry1601 = builder.get_object('searchentry1601')
-    button1601 = builder.get_object('button1601')
-    button1603 = builder.get_object('button1603')
     radiobutton1601 = builder.get_object('radiobutton1601')
     radiobutton1602 = builder.get_object('radiobutton1602')
     radiobutton1603 = builder.get_object('radiobutton1603')
@@ -49,31 +47,27 @@ def sensors_gui_func():
         radiobutton1601.set_active(True)
         Sensors.sensors_treeview_filter_search_func()
 
-    def on_button1601_clicked(widget):                                                        # "Sensors Tab Customizations" button
-        PerformanceMenusGUI.popover1601p.popup()
-
     def on_radiobutton1601_toggled(widget):                                                   # "Show all sensors" radiobutton
         if radiobutton1601.get_active() == True:
+            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Sensors.sensors_treeview_filter_show_all_func()
 
     def on_radiobutton1602_toggled(widget):                                                   # "Show all temperature sensors" radiobutton
         if radiobutton1602.get_active() == True:
+            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Sensors.sensors_treeview_filter_show_all_func()
             Sensors.sensors_treeview_filter_only_temperature_sensors_func()
 
     def on_radiobutton1603_toggled(widget):                                                   # "Show all fan sensors" radiobutton
         if radiobutton1603.get_active() == True:
+            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Sensors.sensors_treeview_filter_show_all_func()
             Sensors.sensors_treeview_filter_only_fan_sensors_func()
-
-    def on_button1603_clicked(widget):
-        SensorsMenusGUI.popover1601p2.popup()
 
 
 
     # Sensors tab GUI functions - connect
     searchentry1601.connect("changed", on_searchentry1601_changed)
-    button1603.connect("clicked", on_button1603_clicked)
     radiobutton1601.connect("toggled", on_radiobutton1601_toggled)
     radiobutton1602.connect("toggled", on_radiobutton1602_toggled)
     radiobutton1603.connect("toggled", on_radiobutton1603_toggled)

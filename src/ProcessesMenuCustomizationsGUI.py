@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 
 # ----------------------------------- Processes - Processes Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
-def processes_menus_import_func():
+def processes_menu_customizations_import_func():
 
-    global Gtk, Gdk, os, signal, subprocess
+    global Gtk, os, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk
+    from gi.repository import Gtk
     import os
-    import signal
     import subprocess
 
 
-    global Config, MainGUI, Processes, ProcessesGUI
-    import Config, MainGUI, Processes, ProcessesGUI
+    global Config, Processes, ProcessesGUI
+    import Config, Processes, ProcessesGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -34,172 +33,14 @@ def processes_menus_import_func():
     locale.setlocale(locale.LC_ALL, system_current_language)
 
 
-# ----------------------------------- Processes - Processes Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab menu/popover GUI objects and functions/signals) -----------------------------------
-def processes_menus_gui_func():
+# ----------------------------------- Processes - Processes Tab Customizations Popover GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab menu/popover GUI objects and functions/signals) -----------------------------------
+def processes_menu_customizations_gui_func():
 
-    # Define builder and get all objects (Processes tab right click menu, Processes tab customizations popover, Processes tab search customizations popover) from GUI file.
-    builder2101m = Gtk.Builder()
-    builder2101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesMenus.ui")
-
-
-    # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    # Define object names, get object names, define object functions and connect signals to GUI objects for Processes tab right click menu
-    # ********************** Define object names for Processes tab right click menu **********************
-    global menu2101m
-    global menuitem2101m, menuitem2102m, menuitem2103m, menuitem2104m, menuitem2106m, menuitem2107m, menuitem2108m
-    global radiomenuitem2101m, radiomenuitem2102m, radiomenuitem2103m, radiomenuitem2104m, radiomenuitem2105m, normalmenuitem2101m
-
-    # ********************** Get object names for Processes tab right click menu **********************
-    menu2101m = builder2101m.get_object('menu2101m')
-    menuitem2101m = builder2101m.get_object('menuitem2101m')
-    menuitem2102m = builder2101m.get_object('menuitem2102m')
-    menuitem2103m = builder2101m.get_object('menuitem2103m')
-    menuitem2104m = builder2101m.get_object('menuitem2104m')
-    menuitem2106m = builder2101m.get_object('menuitem2106m')
-    menuitem2107m = builder2101m.get_object('menuitem2107m')
-    menuitem2108m = builder2101m.get_object('menuitem2108m')
-    radiomenuitem2101m = builder2101m.get_object('radiomenuitem2101m')
-    radiomenuitem2102m = builder2101m.get_object('radiomenuitem2102m')
-    radiomenuitem2103m = builder2101m.get_object('radiomenuitem2103m')
-    radiomenuitem2104m = builder2101m.get_object('radiomenuitem2104m')
-    radiomenuitem2105m = builder2101m.get_object('radiomenuitem2105m')
-    normalmenuitem2101m = builder2101m.get_object('normalmenuitem2101m')
-
-    # ********************** Define object functions for Processes tab right click menu **********************
-    def on_menuitem2101m_activate(widget):                                                    # "Pause Process" item on the right click menu
-        os.kill(ProcessesGUI.selected_process_pid, signal.SIGSTOP)
-
-    def on_menuitem2102m_activate(widget):                                                    # "Resume Process" item on the right click menu
-        os.kill(ProcessesGUI.selected_process_pid, signal.SIGCONT)
-
-    def on_menuitem2103m_activate(widget):                                                    # "End Process" item on the right click menu
-        process_pid = ProcessesGUI.selected_process_pid
-        process_name = Processes.processes_data_rows[Processes.pid_list.index(process_pid)][2]
-        if Config.warn_before_stopping_processes == 1:
-            processes_end_process_warning_dialog(process_name, process_pid)
-            if warning_dialog2101_response == Gtk.ResponseType.YES:
-                os.kill(int(process_pid), signal.SIGTERM)
-            if warning_dialog2101_response == Gtk.ResponseType.NO:
-                pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
-        if Config.warn_before_stopping_processes == 0:
-            os.kill(process_pid, signal.SIGTERM)
-
-    # Currently same as "End Process"
-    def on_menuitem2104m_activate(widget):                                                    # "End Process Tree" item on the right click menu
-        process_pid = ProcessesGUI.selected_process_pid
-        process_name = Processes.processes_data_rows[Processes.pid_list.index(process_pid)][2]
-        if Config.warn_before_stopping_processes == 1:
-            processes_end_process_tree_warning_dialog(process_name, process_pid)
-            if warning_dialog2102_response == Gtk.ResponseType.YES:
-                os.kill(int(process_pid), signal.SIGTERM)
-            if warning_dialog2102_response == Gtk.ResponseType.NO:
-                pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
-        if Config.warn_before_stopping_processes == 0:
-            os.kill(int(process_pid), signal.SIGTERM)
-
-    def on_menuitem2106m_activate(widget):                                                    # "Copy Name" item on the right click menu
-        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
-        clipboard.set_text(Processes.processes_data_rows[Processes.pid_list.index(ProcessesGUI.selected_process_pid)][2], -1)
-        clipboard.store()
-
-    def on_menuitem2107m_activate(widget):                                                    # "Open Location" item on the right click menu
-        try:                                                                                  # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
-            full_path = os.path.realpath("/proc/" + ProcessesGUI.selected_process_pid + "/exe")
-        except:
-            try:
-                with open("/proc/" + ProcessesGUI.selected_process_pid + "/cmdline") as reader:
-                    full_path = reader.read()
-            except:
-                full_path = "-"
-        if full_path == "":
-            full_path = "-"
-        if full_path == "-":
-            processes_no_path_error_dialog()
-            return
-        path_only, file_name_only = os.path.split(os.path.abspath(full_path))
-        os.system('xdg-open "%s"' % path_only)
-
-    def on_menuitem2108m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetailsGUI" name is in globals().
-            global ProcessesDetailsGUI, ProcessesDetails
-            import ProcessesDetailsGUI, ProcessesDetails
-            ProcessesDetailsGUI.processes_details_gui_import_function()
-            ProcessesDetailsGUI.processes_details_gui_function()
-            ProcessesDetails.processes_details_import_func()
-        ProcessesDetailsGUI.window2101w.show()
-        ProcessesDetails.process_details_foreground_thread_run_func()
-
-    def on_radiomenuitem2101m_activate(widget):                                               # "Very High" item on the right click menu under "Change Priorty (Nice)" item
-        processes_get_process_current_nice_func()
-        if selected_process_current_nice <= -20:
-            (subprocess.check_output("renice -n -20 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()
-        if selected_process_current_nice > -20:
-            try:
-                (subprocess.check_output("pkexec renice -n -20 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()    # It gives "renice: failed to set priority for [PID] (process ID): Access denied" output if application is not run with root privileges.
-            except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
-
-    def on_radiomenuitem2102m_activate(widget):                                               # "High" item on the right click menu under "Change Priorty (Nice)" item
-        processes_get_process_current_nice_func()
-        if selected_process_current_nice <= -10:
-            (subprocess.check_output("renice -n -10 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()
-        if selected_process_current_nice > -10:
-            try:
-                (subprocess.check_output("pkexec renice -n -10 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()    # It gives "renice: failed to set priority for [PID] (process ID): Access denied" output if application is not run with root privileges.
-            except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
-
-    def on_radiomenuitem2103m_activate(widget):                                               # "Normal" item on the right click menu under "Change Priorty (Nice)" item
-        processes_get_process_current_nice_func()
-        if selected_process_current_nice <= 0:
-            (subprocess.check_output("renice -n 0 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()
-        if selected_process_current_nice > 0:
-            try:
-                (subprocess.check_output("pkexec renice -n 0 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()    # It gives "renice: failed to set priority for [PID] (process ID): Access denied" output if application is not run with root privileges.
-            except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
-
-    def on_radiomenuitem2104m_activate(widget):                                               # "Low" item on the right click menu under "Change Priorty (Nice)" item
-        processes_get_process_current_nice_func()
-        if selected_process_current_nice <= 10:
-            (subprocess.check_output("renice -n 10 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()
-        if selected_process_current_nice > 10:
-            try:
-                (subprocess.check_output("pkexec renice -n 10 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()    # It gives "renice: failed to set priority for [PID] (process ID): Access denied" output if application is not run with root privileges.
-            except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
-
-    def on_radiomenuitem2105m_activate(widget):                                               # "Very Low" item on the right click menu under "Change Priorty (Nice)" item
-        (subprocess.check_output("renice -n 19 -p " + ProcessesGUI.selected_process_pid, shell=True).strip()).decode()
-
-    def on_normalmenuitem2101m_activate(widget):                                              # "Custom Value..." item on the right click menu under "Change Priorty (Nice)" item
-        if 'ProcessesCustomPriorityGUI' not in globals():                                     # Check if "ProcessesCustomPriorityGUI" module is imported. Therefore it is not reimported for every click on "Custom Value" sub-menu item on the rigth click menu if "ProcessesCustomPriorityGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
-            global ProcessesCustomPriorityGUI
-            import ProcessesCustomPriorityGUI
-            ProcessesCustomPriorityGUI.processes_custom_priority_import_func()
-            ProcessesCustomPriorityGUI.processes_custom_priority_gui_func()
-        ProcessesCustomPriorityGUI.window2101w2.show()
-
-    # ********************** Connect signals to GUI objects for Processes tab right click menu **********************
-    menuitem2101m.connect("activate", on_menuitem2101m_activate)
-    menuitem2102m.connect("activate", on_menuitem2102m_activate)
-    menuitem2103m.connect("activate", on_menuitem2103m_activate)
-    menuitem2104m.connect("activate", on_menuitem2104m_activate)
-    menuitem2106m.connect("activate", on_menuitem2106m_activate)
-    menuitem2107m.connect("activate", on_menuitem2107m_activate)
-    menuitem2108m.connect("activate", on_menuitem2108m_activate)
-    normalmenuitem2101m.connect("activate", on_normalmenuitem2101m_activate)
-    global radiomenuitem2101m_handler_id, radiomenuitem2102m_handler_id, radiomenuitem2103m_handler_id, radiomenuitem2104m_handler_id, radiomenuitem2105m_handler_id
-    radiomenuitem2101m_handler_id = radiomenuitem2101m.connect("activate", on_radiomenuitem2101m_activate)
-    radiomenuitem2102m_handler_id = radiomenuitem2102m.connect("activate", on_radiomenuitem2102m_activate)
-    radiomenuitem2103m_handler_id = radiomenuitem2103m.connect("activate", on_radiomenuitem2103m_activate)
-    radiomenuitem2104m_handler_id = radiomenuitem2104m.connect("activate", on_radiomenuitem2104m_activate)
-    radiomenuitem2105m_handler_id = radiomenuitem2105m.connect("activate", on_radiomenuitem2105m_activate)
-    # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    # Define builder and get all objects (Processes tab customizations popover) from GUI file.
+    builder = Gtk.Builder()
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesMenuCustomizations.ui")
 
 
-    # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    # Define object names, get object names, define object functions and connect signals to GUI objects for Processes tab customizations popover
     # ********************** Define object names for Processes tab customizations popover **********************
     global popover2101p
     global checkbutton2101p, checkbutton2102p, checkbutton2103p
@@ -210,38 +51,38 @@ def processes_menus_gui_func():
     global combobox2101p, combobox2102p, combobox2103p, combobox2104p, combobox2105p, combobox2106p, combobox2107p
 
     # ********************** Get object names for Processes tab customizations popover **********************
-    popover2101p = builder2101m.get_object('popover2101p')
-    checkbutton2101p = builder2101m.get_object('checkbutton2101p')
-    checkbutton2102p = builder2101m.get_object('checkbutton2102p')
-    checkbutton2103p = builder2101m.get_object('checkbutton2103p')
-    button2101p = builder2101m.get_object('button2101p')
-    button2102p = builder2101m.get_object('button2102p')
-    button2103p = builder2101m.get_object('button2103p')
-    checkbutton2106p = builder2101m.get_object('checkbutton2106p')
-    checkbutton2107p = builder2101m.get_object('checkbutton2107p')
-    checkbutton2108p = builder2101m.get_object('checkbutton2108p')
-    checkbutton2109p = builder2101m.get_object('checkbutton2109p')
-    checkbutton2110p = builder2101m.get_object('checkbutton2110p')
-    checkbutton2111p = builder2101m.get_object('checkbutton2111p')
-    checkbutton2112p = builder2101m.get_object('checkbutton2112p')
-    checkbutton2113p = builder2101m.get_object('checkbutton2113p')
-    checkbutton2114p = builder2101m.get_object('checkbutton2114p')
-    checkbutton2115p = builder2101m.get_object('checkbutton2115p')
-    checkbutton2116p = builder2101m.get_object('checkbutton2116p')
-    checkbutton2117p = builder2101m.get_object('checkbutton2117p')
-    checkbutton2118p = builder2101m.get_object('checkbutton2118p')
-    checkbutton2119p = builder2101m.get_object('checkbutton2119p')
-    checkbutton2120p = builder2101m.get_object('checkbutton2120p')
-    checkbutton2121p = builder2101m.get_object('checkbutton2121p')
-    checkbutton2122p = builder2101m.get_object('checkbutton2122p')
-    checkbutton2123p = builder2101m.get_object('checkbutton2123p')
-    combobox2101p = builder2101m.get_object('combobox2101p')
-    combobox2102p = builder2101m.get_object('combobox2102p')
-    combobox2103p = builder2101m.get_object('combobox2103p')
-    combobox2104p = builder2101m.get_object('combobox2104p')
-    combobox2105p = builder2101m.get_object('combobox2105p')
-    combobox2106p = builder2101m.get_object('combobox2106p')
-    combobox2107p = builder2101m.get_object('combobox2107p')
+    popover2101p = builder.get_object('popover2101p')
+    checkbutton2101p = builder.get_object('checkbutton2101p')
+    checkbutton2102p = builder.get_object('checkbutton2102p')
+    checkbutton2103p = builder.get_object('checkbutton2103p')
+    button2101p = builder.get_object('button2101p')
+    button2102p = builder.get_object('button2102p')
+    button2103p = builder.get_object('button2103p')
+    checkbutton2106p = builder.get_object('checkbutton2106p')
+    checkbutton2107p = builder.get_object('checkbutton2107p')
+    checkbutton2108p = builder.get_object('checkbutton2108p')
+    checkbutton2109p = builder.get_object('checkbutton2109p')
+    checkbutton2110p = builder.get_object('checkbutton2110p')
+    checkbutton2111p = builder.get_object('checkbutton2111p')
+    checkbutton2112p = builder.get_object('checkbutton2112p')
+    checkbutton2113p = builder.get_object('checkbutton2113p')
+    checkbutton2114p = builder.get_object('checkbutton2114p')
+    checkbutton2115p = builder.get_object('checkbutton2115p')
+    checkbutton2116p = builder.get_object('checkbutton2116p')
+    checkbutton2117p = builder.get_object('checkbutton2117p')
+    checkbutton2118p = builder.get_object('checkbutton2118p')
+    checkbutton2119p = builder.get_object('checkbutton2119p')
+    checkbutton2120p = builder.get_object('checkbutton2120p')
+    checkbutton2121p = builder.get_object('checkbutton2121p')
+    checkbutton2122p = builder.get_object('checkbutton2122p')
+    checkbutton2123p = builder.get_object('checkbutton2123p')
+    combobox2101p = builder.get_object('combobox2101p')
+    combobox2102p = builder.get_object('combobox2102p')
+    combobox2103p = builder.get_object('combobox2103p')
+    combobox2104p = builder.get_object('combobox2104p')
+    combobox2105p = builder.get_object('combobox2105p')
+    combobox2106p = builder.get_object('combobox2106p')
+    combobox2107p = builder.get_object('combobox2107p')
 
     # ********************** Define object functions for Processes tab customizations popover Common GUI Objects **********************
     def on_button2101p_clicked(widget):                                                       # "Process tree information from 'ps --forest -Ao pid,uid,ppid,cmd' command output" button
@@ -360,83 +201,11 @@ def processes_menus_gui_func():
     button2102p.connect("clicked", on_button2102p_clicked)
     # ********************** Connect signals to GUI objects for Processes tab customizations popover View Tab **********************
     button2103p.connect("clicked", on_button2103p_clicked)
-    # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-    # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    # Define object names, get object names, define object functions and connect signals to GUI objects for Processes tab search customizations popover
-    # ********************** Define object names for Processes tab search customizations popover **********************
-    global popover2101p2
-    global radiobutton2101p2, radiobutton2102p2, radiobutton2103p2, radiobutton2104p2, radiobutton2105p2, radiobutton2106p2
-    global checkbutton2101p2, checkbutton2102p2, checkbutton2103p2
-
-    # ********************** Get object names for Processes tab search customizations popover **********************
-    popover2101p2 = builder2101m.get_object('popover2101p2')
-    radiobutton2101p2 = builder2101m.get_object('radiobutton2101p2')
-    radiobutton2102p2 = builder2101m.get_object('radiobutton2102p2')
-    radiobutton2103p2 = builder2101m.get_object('radiobutton2103p2')
-    radiobutton2104p2 = builder2101m.get_object('radiobutton2104p2')
-    radiobutton2105p2 = builder2101m.get_object('radiobutton2105p2')
-    radiobutton2106p2 = builder2101m.get_object('radiobutton2106p2')
-    checkbutton2101p2 = builder2101m.get_object('checkbutton2101p2')
-    checkbutton2102p2 = builder2101m.get_object('checkbutton2102p2')
-    checkbutton2103p2 = builder2101m.get_object('checkbutton2103p2')
-
-    # ********************** Define object functions for Processes tab search customizations popover **********************
-    def on_radiobutton2101p2_toggled(widget):                                                 # "Name" radiobutton
-        if radiobutton2101p2.get_active() == True:
-            Processes.processes_treeview_filter_search_func()
-
-    def on_radiobutton2102p2_toggled(widget):                                                 # "PID" radiobutton
-        if radiobutton2102p2.get_active() == True:
-            Processes.processes_treeview_filter_search_func()
-
-    def on_radiobutton2103p2_toggled(widget):                                                 # "User Name" radiobutton
-        if radiobutton2103p2.get_active() == True:
-            Processes.processes_treeview_filter_search_func()
-
-    def on_radiobutton2104p2_toggled(widget):                                                 # "Status" radiobutton
-        if radiobutton2104p2.get_active() == True:
-            Processes.processes_treeview_filter_search_func()
-
-    def on_radiobutton2105p2_toggled(widget):                                                 # "PPID" radiobutton
-        if radiobutton2105p2.get_active() == True:
-            Processes.processes_treeview_filter_search_func()
-
-    def on_radiobutton2106p2_toggled(widget):                                                 # "Path" radiobutton
-        if radiobutton2106p2.get_active() == True:
-            Processes.processes_treeview_filter_search_func()
-
-    def on_checkbutton2101p2_toggled(widget):                                                 # "All users" checkbutton
-        processes_popovers_checkbutton_behavior_func(checkbutton2101p2)
-
-    def on_checkbutton2102p2_toggled(widget):                                                 # "This user" checkbutton
-        processes_popovers_checkbutton_behavior_func( checkbutton2102p2)
-
-    def on_checkbutton2103p2_toggled(widget):                                                 # "Other users" checkbutton
-        processes_popovers_checkbutton_behavior_func(checkbutton2103p2)
-
-    # ********************** Connect signals to GUI objects for Processes tab search customizations popover **********************
-    radiobutton2101p2.connect("toggled", on_radiobutton2101p2_toggled)
-    radiobutton2102p2.connect("toggled", on_radiobutton2102p2_toggled)
-    radiobutton2103p2.connect("toggled", on_radiobutton2103p2_toggled)
-    radiobutton2104p2.connect("toggled", on_radiobutton2104p2_toggled)
-    radiobutton2105p2.connect("toggled", on_radiobutton2105p2_toggled)
-    radiobutton2106p2.connect("toggled", on_radiobutton2106p2_toggled)
-    global checkbutton2101p2_handler_id, checkbutton2102p2_handler_id, checkbutton2103p2_handler_id
-    checkbutton2101p2_handler_id = checkbutton2101p2.connect("toggled", on_checkbutton2101p2_toggled)    # Handler ids are defined in order to block signals of the checkbuttons. Because activating and deactivating of this checkbuttons affects behaviors of each others and this would cause lock when active state of these are changed.
-    checkbutton2102p2_handler_id = checkbutton2102p2.connect("toggled", on_checkbutton2102p2_toggled)
-    checkbutton2103p2_handler_id = checkbutton2103p2.connect("toggled", on_checkbutton2103p2_toggled)
-    # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
     # ********************** Popover settings for Processes tab **********************
     popover2101p.set_relative_to(ProcessesGUI.button2101)
     popover2101p.set_position(1)
-    # ********************** Popover settings for Processes tab search customizations **********************
-    popover2101p2.set_relative_to(ProcessesGUI.button2104)
-    popover2101p2.set_position(3)                                                             # Search customizations popover menu is not very long. It will be shown at the lower edge of the caller button (set_position(3)).
-
 
 
     # ********************** Define function for connecting Processes tab customizations popover GUI signals **********************
@@ -696,80 +465,10 @@ def processes_tab_popover_set_gui():
             combobox2107p.set_active(data_list[0])
 
 
-# ----------------------------------- Processes - Processes Tab Popovers Checkbuttons Behavior Function (contains statements and blocking code in order to avoid repetitive signal operations on checkbutton toggles) -----------------------------------
-def processes_popovers_checkbutton_behavior_func(caller_checkbutton):
-
-    checkbutton_list = [checkbutton2101p2, checkbutton2102p2, checkbutton2103p2]
-    select_all_checkbutton = checkbutton_list[0]
-    sub_checkbutton_list = checkbutton_list
-    sub_checkbutton_list.remove(select_all_checkbutton)
-    checkbutton_active_state_list = []
-    for checkbutton in sub_checkbutton_list:
-        if checkbutton != select_all_checkbutton:
-            checkbutton_active_state_list.append(checkbutton.get_active())
-
-    with checkbutton2101p2.handler_block(checkbutton2101p2_handler_id) as p1, checkbutton2102p2.handler_block(checkbutton2102p2_handler_id) as p2, checkbutton2103p2.handler_block(checkbutton2103p2_handler_id) as p3:
-        if caller_checkbutton != select_all_checkbutton and caller_checkbutton.get_active() == False:
-            if True not in checkbutton_active_state_list:
-                caller_checkbutton.set_active(True)
-                checkbutton_active_state_list[sub_checkbutton_list.index(caller_checkbutton)] = True
-        if caller_checkbutton != select_all_checkbutton and False not in checkbutton_active_state_list:
-            select_all_checkbutton.set_active(True)
-            select_all_checkbutton.set_inconsistent(False)
-        if caller_checkbutton != select_all_checkbutton and False in checkbutton_active_state_list:
-            select_all_checkbutton.set_active(False)
-            select_all_checkbutton.set_inconsistent(True)
-        if select_all_checkbutton.get_active() == True:
-            select_all_checkbutton.set_inconsistent(False)
-            for i, checkbutton in enumerate(sub_checkbutton_list):
-                checkbutton.set_active(True)
-                checkbutton_active_state_list[i] = True
-        if select_all_checkbutton.get_active() == False:
-            if False not in checkbutton_active_state_list:
-                select_all_checkbutton.set_active(True)
-
-    if ProcessesGUI.searchentry2101.get_text() != "":                                         # Search filter updating is prevented, if any text is not inserted into searchentry. This is due to prevent user frustration because of the "Show processes from ..." radiobuttons above the treeview.
-        Processes.processes_treeview_filter_search_func()
-
-
-# ----------------------------------- Processes - Select Process Nice Option Function (selects process nice option on the popup menu when right click operation is performed on process row on the treeview) -----------------------------------
-def processes_select_process_nice_option_func():
-
-    try:                                                                                      # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-        with open("/proc/" + ProcessesGUI.selected_process_pid + "/stat") as reader:          # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
-            proc_pid_stat_lines = reader.read()
-    except FileNotFoundError:
-        processes_no_such_process_error_dialog()
-        return
-    selected_process_nice = int(proc_pid_stat_lines.split()[-34])
-    with radiomenuitem2101m.handler_block(radiomenuitem2101m_handler_id) as p1, radiomenuitem2102m.handler_block(radiomenuitem2102m_handler_id) as p2, radiomenuitem2103m.handler_block(radiomenuitem2103m_handler_id) as p3, radiomenuitem2104m.handler_block(radiomenuitem2104m_handler_id) as p4, radiomenuitem2105m.handler_block(radiomenuitem2105m_handler_id) as p5:    # Pause event signals while makiing changes on radiobutton selections.
-        if selected_process_nice <= -11 and selected_process_nice >= -20:
-            radiomenuitem2101m.set_active(True)
-        if selected_process_nice < 0 and selected_process_nice > -11:
-            radiomenuitem2102m.set_active(True)
-        if selected_process_nice == 0:
-            radiomenuitem2103m.set_active(True)
-        if selected_process_nice < 11 and selected_process_nice > 0:
-            radiomenuitem2104m.set_active(True)
-        if selected_process_nice <= 19 and selected_process_nice >= 11:
-            radiomenuitem2105m.set_active(True)
-
-
-# ----------------------------------- Processes - Get Process Current Nice Function (get process current nice value in order to check if root privileges are needed for nice changing operation) -----------------------------------
-def processes_get_process_current_nice_func():
-
-    try:                                                                                      # Process may be ended just after right click on the process row is performed. "try-catch" is used for avoiding errors in this situation.
-        with open("/proc/" + ProcessesGUI.selected_process_pid + "/stat") as reader:
-            proc_pid_stat_lines_split = reader.read().split()
-    except FileNotFoundError:
-        return
-    global selected_process_current_nice
-    selected_process_current_nice = int(proc_pid_stat_lines_split[-34])                       # Get process nice value
-
-
 # ----------------------------------- Processes - Processes Add/Remove Columns Function (adds/removes processes treeview columns) -----------------------------------
 def processes_add_remove_columns_function():
 
+    # Add/Remove treeview columns
     Config.processes_treeview_columns_shown = []
     if checkbutton2106p.get_active() is True:
         Config.processes_treeview_columns_shown.append(0)
@@ -828,45 +527,3 @@ def processes_expand_collapse_button_preferences_func():
         ProcessesGUI.radiobutton2104.set_tooltip_text(_tr("User defined expand\n(Usable if processes are listed as tree)"))
         ProcessesGUI.radiobutton2105.set_tooltip_text(_tr("Expand all\n(Usable if processes are listed as tree)"))
         ProcessesGUI.radiobutton2106.set_tooltip_text(_tr("Collapse all\n(Usable if processes are listed as tree)"))
-
-
-# ----------------------------------- Processes - Processes Nice Error Dialog Function (shows an error dialog when nice is tried to increased (nice number decreased) for a process that owned by the user or nice is tried to increased/decreased for other users/system processes) -----------------------------------
-def processes_nice_error_dialog():
-
-    error_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Access Denied"), )
-    error_dialog2101.format_secondary_text(_tr("You have to have root privileges in order to:\n  1) Increase nice value of your processes\n  2) Increase/decrease nice value of other processes."))
-    error_dialog2101.run()
-    error_dialog2101.destroy()
-
-
-# ----------------------------------- Processes - Processes End Process Warning Dialog Function (shows a warning dialog when a process is tried to be end) -----------------------------------
-def processes_end_process_warning_dialog(process_name, process_pid):
-
-    warning_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("End Process?"), )
-    warning_dialog2101.format_secondary_text(_tr("Do you want to end the following process?\n ") + process_name + " (PID:" + str(process_pid) + ")")
-    global warning_dialog2101_response
-    warning_dialog2101_response = warning_dialog2101.run()
-    warning_dialog2101.destroy()
-
-
-# ----------------------------------- Processes - Processes End Process Tree Warning Dialog Function (shows a warning dialog when a process tree is tried to be end) -----------------------------------
-def processes_end_process_tree_warning_dialog(process_name, process_pid):
-
-    warning_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("End Process Tree?"), )
-    warning_dialog2102.format_secondary_text(_tr("Do you want to end the following process and its child processes?\n ") + process_name + " (PID:" + str(process_pid) + ")")
-    global warning_dialog2102_response
-    warning_dialog2102_response = warning_dialog2102.run()
-    warning_dialog2102.destroy()
-
-
-# ----------------------------------- Processes - Processes No Path Error Dialog Function (shows an error dialog when process directory is tried to be opened and process directory could not be get) -----------------------------------
-def processes_no_path_error_dialog():
-
-    error_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process Directory Could Not Be Get"), )
-    error_dialog2102.format_secondary_text(_tr("Process directory could not be get.\nNo folder will be opened."))
-    error_dialog2102.run()
-    error_dialog2102.destroy()

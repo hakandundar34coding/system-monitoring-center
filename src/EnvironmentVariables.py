@@ -13,8 +13,8 @@ def environment_variables_import_func():
     import os
 
 
-    global Config, MainGUI, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
-    import Config, MainGUI, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
+    global Config, MainGUI, EnvironmentVariablesGUI
+    import Config, MainGUI, EnvironmentVariablesGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -64,6 +64,10 @@ def environment_variables_initial_func():
     environment_variable_image = "system-monitoring-center-environment-variables-symbolic"    # Will be used as image of the environment_variables
     shell_variable_image = "system-monitoring-center-terminal-symbolic"                       # Will be used as image of the shell_variables
     environment_shell_variable_image = "system-monitoring-center-environment-shell-variable-symbolic"    # Will be used as image of the both environment and shell_variables
+
+
+    global filter_column
+    filter_column = environment_variables_data_list[0][2] - 1                                 # Search filter is "Variable". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
 # ----------------------------------- Environment Variables - Get EnvironmentVariables Data Function (gets environment_variables data, adds into treeview and updates it) -----------------------------------
@@ -262,7 +266,7 @@ def environment_variables_loop_func():
 
     # Append/Remove/Update environment variables data into treestore
     treeview7101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
-    global variable_search_text, filter_variable_type, filter_column
+    global variable_search_text, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_environment_variables_index:
             if environment_variables_data_rows[i] != environment_variables_data_rows_prev[j]:
@@ -281,11 +285,9 @@ def environment_variables_loop_func():
             if EnvironmentVariablesGUI.radiobutton7103.get_active() == True and variable_type_list[variable_list.index(variable)] == True:    # Hide variable (set the visibility value as "False") if "Show all shell variables" option is selected on the GUI and variable visibility is "True".
                 environment_variables_data_rows[variable_list.index(variable)][0] = False
             if EnvironmentVariablesGUI.searchentry7101.get_text() != "":
+                variable_search_text = EnvironmentVariablesGUI.searchentry7101.get_text()
                 variable_data_text_in_model = environment_variables_data_rows[variable_list.index(variable)][filter_column]
-                varible_type_in_model = variable_type_list[variable_list.index(variable)]
                 if variable_search_text not in str(variable_data_text_in_model).lower():      # Hide variable (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the variable data.
-                    environment_variables_data_rows[variable_list.index(variable)][0] = False
-                if varible_type_in_model not in filter_variable_type:                         # Hide variable (set the visibility value as "False") if visibility data of the variable is not in the filter_variable_type (this list is constructed by using user preferred options on the "Environment Variable Search Customizations" tab).
                     environment_variables_data_rows[variable_list.index(variable)][0] = False
             # \\\ End \\\ This block of code is used for determining if the newly added variable will be shown on the treeview (user search actions and/or search customizations and/or "Show all environment/shell variables" preference affect variable visibility).
             piter_list.insert(variable_list.index(variable), treestore7101.insert(None, variable_list.index(variable), environment_variables_data_rows[variable_list.index(variable)]))    # "insert" have to be used for appending element into both "piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of variable names (this sorting is performed for getting list differences).
@@ -371,22 +373,7 @@ def environment_variables_treeview_filter_environment_variables_logged_out_only(
 # ----------------------------------- Environment Variables - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
 def environment_variables_treeview_filter_search_func():
 
-    # Determine filtering column (Service name, load state, active state, etc.) for hiding/showing variables by using search text typed into search entry.
-    global variable_search_text, filter_variable_type, filter_column
-    environment_variables_treeview_columns_shown_sorted = sorted(environment_variables_treeview_columns_shown)
-    if EnvironmentVariablesMenusGUI.radiobutton7101p2.get_active() == True:
-        if 0 in environment_variables_treeview_columns_shown:                                 # "0" is treeview column number
-            filter_column = 1                                                                 # Append internal column number (1) of "variable" for filtering
-    if EnvironmentVariablesMenusGUI.radiobutton7102p2.get_active() == True:
-        if 1 in environment_variables_treeview_columns_shown:                                 # "1" is treeview column number
-            filter_column = 2                                                                 # Append internal column number (2) of "value" for filtering
-    # Variable could be shown/hidden for environment/shell variable type. Preferred visibility data is determined here.
-    filter_variable_type = []
-    if EnvironmentVariablesMenusGUI.checkbutton7102p2.get_active() == True:
-        filter_variable_type.extend((_tr("Environment Variable"), _tr("Environment & Shell Variable")))
-    if EnvironmentVariablesMenusGUI.checkbutton7103p2.get_active() == True:
-        filter_variable_type.extend((_tr("Shell Variable"), _tr("Environment & Shell Variable")))
-
+    global filter_column
     variable_search_text = EnvironmentVariablesGUI.searchentry7101.get_text().lower()
     # Set visible/hidden variables
     for piter in piter_list:
@@ -394,9 +381,6 @@ def environment_variables_treeview_filter_search_func():
         variable_data_text_in_model = treestore7101.get_value(piter, filter_column)
         if variable_search_text in str(variable_data_text_in_model).lower():
             treestore7101.set_value(piter, 0, True)
-            variable_type_in_model = variable_type_list[piter_list.index(piter)]
-            if variable_type_in_model not in filter_variable_type:
-                treestore7101.set_value(piter, 0, False)
 
 
 # ----------------------------------- Environment Variables - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------

@@ -11,8 +11,8 @@ def storage_gui_import_func():
     import os
 
 
-    global MainGUI, Storage, StorageMenusGUI
-    import MainGUI, Storage, StorageMenusGUI
+    global MainGUI, Storage
+    import MainGUI, Storage
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -35,7 +35,7 @@ def storage_gui_import_func():
 # ----------------------------------- Storage - Storage GUI Function (the code of this module in order to avoid running them during module import and defines "Storage" tab GUI objects and functions/signals) -----------------------------------
 def storage_gui_func():
 
-    global grid4101, treeview4101, searchentry4101, button4101, button4103
+    global grid4101, treeview4101, searchentry4101, button4101
     global radiobutton4101, radiobutton4102, radiobutton4103, radiobutton4104, radiobutton4105, radiobutton4106, radiobutton4107
     global label4101
 
@@ -50,7 +50,6 @@ def storage_gui_func():
     treeview4101 = builder.get_object('treeview4101')
     searchentry4101 = builder.get_object('searchentry4101')
     button4101 = builder.get_object('button4101')
-    button4103 = builder.get_object('button4103')
     radiobutton4101 = builder.get_object('radiobutton4101')
     radiobutton4102 = builder.get_object('radiobutton4102')
     radiobutton4103 = builder.get_object('radiobutton4103')
@@ -78,27 +77,36 @@ def storage_gui_func():
         Storage.storage_treeview_filter_search_func()
 
     def on_button4101_clicked(widget):                                                        # "Storage Tab Customizations" button
-        StorageMenusGUI.popover4101p.popup()
+        if 'StorageMenuCustomizationsGUI' not in globals():                                   # Check if "StorageMenuCustomizationsGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global StorageMenuCustomizationsGUI
+            import StorageMenuCustomizationsGUI
+            StorageMenuCustomizationsGUI.storage_menu_customizations_import_func()
+            StorageMenuCustomizationsGUI.storage_menu_customizations_gui_func()
+        StorageMenuCustomizationsGUI.popover4101p.popup()
 
     def on_radiobutton4101_toggled(widget):                                                   # "Show all disks/partitions" radiobutton
         if radiobutton4101.get_active() == True:
+            searchentry4101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Storage.storage_treeview_filter_show_all_func()
             radiobutton4105.set_active(True)
 
     def on_radiobutton4102_toggled(widget):                                                   # "Show all non-removable disks/partitions" radiobutton
         if radiobutton4102.get_active() == True:
+            searchentry4101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Storage.storage_treeview_filter_show_all_func()
             Storage.storage_treeview_filter_non_removable_disks_only_func()
             radiobutton4105.set_active(True)
 
     def on_radiobutton4103_toggled(widget):                                                   # "Show all removable disks/partitions" radiobutton
         if radiobutton4103.get_active() == True:
+            searchentry4101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Storage.storage_treeview_filter_show_all_func()
             Storage.storage_treeview_filter_removable_disks_only_func()
             radiobutton4105.set_active(True)
 
     def on_radiobutton4104_toggled(widget):                                                   # "Show all optical and virtual disks/partitions" radiobutton
         if radiobutton4104.get_active() == True:
+            searchentry4101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Storage.storage_treeview_filter_show_all_func()
             Storage.storage_treeview_filter_optical_virtual_disks_only_func()
             radiobutton4105.set_active(True)
@@ -115,9 +123,6 @@ def storage_gui_func():
         if radiobutton4107.get_active() == True:
             treeview4101.collapse_all()
 
-    def on_button4103_clicked(widget):                                                        # "Storage Tab Search Customizations" button
-        StorageMenusGUI.popover4101p2.popup()
-
 
 
     # ********************** Connect signals to GUI objects for Storage tab right click menu **********************
@@ -125,7 +130,6 @@ def storage_gui_func():
     treeview4101.connect("button-release-event", on_treeview4101_button_release_event)
     searchentry4101.connect("changed", on_searchentry4101_changed)
     button4101.connect("clicked", on_button4101_clicked)
-    button4103.connect("clicked", on_button4103_clicked)
     radiobutton4101.connect("toggled", on_radiobutton4101_toggled)
     radiobutton4102.connect("toggled", on_radiobutton4102_toggled)
     radiobutton4103.connect("toggled", on_radiobutton4103_toggled)
@@ -159,7 +163,12 @@ def storage_open_right_click_menu_func(event):
     if treeiter is not None:
         global selected_storage_kernel_name
         selected_storage_kernel_name = Storage.disk_list[Storage.storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
-        StorageMenusGUI.menu4101m.popup(None, None, None, None, event.button, event.time)
+        if 'StorageMenuRightClickGUI' not in globals():                                       # Check if "ProcessesMenuRightClickGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global StorageMenuRightClickGUI
+            import StorageMenuRightClickGUI
+            StorageMenuRightClickGUI.storage_menu_right_click_import_func()
+            StorageMenuRightClickGUI.storage_menu_right_click_gui_func()
+        StorageMenuRightClickGUI.menu4101m.popup(None, None, None, None, event.button, event.time)
 
 
 # ----------------------------------- Storage - Open Storage Details Window Function (gets double clicked storage kernel name and opens Storage Details window) -----------------------------------

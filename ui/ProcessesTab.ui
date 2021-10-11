@@ -31,7 +31,7 @@
       </packing>
     </child>
     <child>
-      <!-- n-columns=5 n-rows=1 -->
+      <!-- n-columns=4 n-rows=1 -->
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
@@ -52,26 +52,6 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="button2104">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Processes Tab Search Customizations</property>
-            <property name="halign">start</property>
-            <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="icon-name">system-monitoring-center-search-customizations-symbolic</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="left-attach">4</property>
             <property name="top-attach">0</property>
           </packing>
         </child>

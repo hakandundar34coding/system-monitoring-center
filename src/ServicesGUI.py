@@ -11,8 +11,8 @@ def services_gui_import_func():
     import os
 
 
-    global MainGUI, Services, ServicesMenusGUI
-    import MainGUI, Services, ServicesMenusGUI
+    global MainGUI, Services
+    import MainGUI, Services
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -36,7 +36,7 @@ def services_gui_import_func():
 def services_gui_func():
 
     # Services tab GUI objects
-    global grid6101, treeview6101, searchentry6101, button6101, button6102, button6103
+    global grid6101, treeview6101, searchentry6101, button6101, button6102
     global radiobutton6101, radiobutton6102, radiobutton6103
     global label6101
 
@@ -52,7 +52,6 @@ def services_gui_func():
     searchentry6101 = builder.get_object('searchentry6101')
     button6101 = builder.get_object('button6101')
     button6102 = builder.get_object('button6102')
-    button6103 = builder.get_object('button6103')
     radiobutton6101 = builder.get_object('radiobutton6101')
     radiobutton6102 = builder.get_object('radiobutton6102')
     radiobutton6103 = builder.get_object('radiobutton6103')
@@ -75,25 +74,30 @@ def services_gui_func():
         Services.services_treeview_filter_search_func()
 
     def on_button6101_clicked(widget):                                                        # "Services Tab Customizations" button
-        ServicesMenusGUI.popover6101p.popup()
+        if 'ServicesMenuCustomizationsGUI' not in globals():                                  # Check if "ServicesMenuCustomizationsGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global ServicesMenuCustomizationsGUI
+            import ServicesMenuCustomizationsGUI
+            ServicesMenuCustomizationsGUI.services_menu_customizations_import_func()
+            ServicesMenuCustomizationsGUI.services_menu_customizations_gui_func()
+        ServicesMenuCustomizationsGUI.popover6101p.popup()
 
-    def on_button6102_clicked(widget):                                                        # "Services Tab Search Customizations" button
-        ServicesMenusGUI.popover6101p2.popup()
-
-    def on_button6103_clicked(widget):                                                        # "Refresh" button
+    def on_button6102_clicked(widget):                                                        # "Refresh" button
         Services.services_thread_run_func()
 
     def on_radiobutton6101_toggled(widget):                                                   # "Show all services" radiobutton
         if radiobutton6101.get_active() == True:
+            searchentry6101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Services.services_treeview_filter_show_all_func()
 
     def on_radiobutton6102_toggled(widget):                                                   # "Show all loaded services" radiobutton
         if radiobutton6102.get_active() == True:
+            searchentry6101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Services.services_treeview_filter_show_all_func()
             Services.services_treeview_filter_services_loaded_only()
 
     def on_radiobutton6103_toggled(widget):                                                   # "Show all non-loaded services" radiobutton
         if radiobutton6103.get_active() == True:
+            searchentry6101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Services.services_treeview_filter_show_all_func()
             Services.services_treeview_filter_services_not_loaded_only()
 
@@ -105,7 +109,6 @@ def services_gui_func():
     searchentry6101.connect("changed", on_searchentry6101_changed)
     button6101.connect("clicked", on_button6101_clicked)
     button6102.connect("clicked", on_button6102_clicked)
-    button6103.connect("clicked", on_button6103_clicked)
     radiobutton6101.connect("toggled", on_radiobutton6101_toggled)
     radiobutton6102.connect("toggled", on_radiobutton6102_toggled)
     radiobutton6103.connect("toggled", on_radiobutton6103_toggled)
@@ -135,8 +138,13 @@ def services_open_right_click_menu_func(event):
     if treeiter is not None:
         global selected_service_name
         selected_service_name = Services.service_list[Services.services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
-        ServicesMenusGUI.menu6101m.popup(None, None, None, None, event.button, event.time)
-        ServicesMenusGUI.services_set_checkmenuitem_func()
+        if 'ServicesMenuRightClickGUI' not in globals():                                      # Check if "ServicesMenuRightClickGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global ServicesMenuRightClickGUI
+            import ServicesMenuRightClickGUI
+            ServicesMenuRightClickGUI.services_menu_right_click_import_func()
+            ServicesMenuRightClickGUI.services_menu_right_click_gui_func()
+        ServicesMenuRightClickGUI.menu6101m.popup(None, None, None, None, event.button, event.time)
+        ServicesMenuRightClickGUI.services_set_checkmenuitem_func()
 
 
 # ----------------------------------- Services - Open Service Details Window Function (gets double clicked service nam and opens Service Details window) -----------------------------------

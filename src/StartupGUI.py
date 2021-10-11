@@ -11,8 +11,8 @@ def startup_gui_import_func():
     import os
 
 
-    global MainGUI, Startup, StartupMenusGUI
-    import MainGUI, Startup, StartupMenusGUI
+    global MainGUI, Startup
+    import MainGUI, Startup
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -35,7 +35,7 @@ def startup_gui_import_func():
 # ----------------------------------- Startup - Startup GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab GUI objects and functions/signals) -----------------------------------
 def startup_gui_func():
 
-    global grid5101, treeview5101, searchentry5101, button5101, button5102
+    global grid5101, treeview5101, searchentry5101, button5101
     global radiobutton5101, radiobutton5102, radiobutton5103
     global label5101
 
@@ -50,7 +50,6 @@ def startup_gui_func():
     treeview5101 = builder.get_object('treeview5101')
     searchentry5101 = builder.get_object('searchentry5101')
     button5101 = builder.get_object('button5101')
-    button5102 = builder.get_object('button5102')
     radiobutton5101 = builder.get_object('radiobutton5101')
     radiobutton5102 = builder.get_object('radiobutton5102')
     radiobutton5103 = builder.get_object('radiobutton5103')
@@ -71,24 +70,29 @@ def startup_gui_func():
         Startup.startup_treeview_filter_search_func()
 
     def on_button5101_clicked(widget):                                                        # "Startup Tab Customizations" button
-        StartupMenusGUI.popover5101p.popup()
+        if 'StartupMenuCustomizationsGUI' not in globals():                                   # Check if "StartupMenuCustomizationsGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global StartupMenuCustomizationsGUI
+            import StartupMenuCustomizationsGUI
+            StartupMenuCustomizationsGUI.startup_menu_customizations_import_func()
+            StartupMenuCustomizationsGUI.startup_menu_customizations_gui_func()
+        StartupMenuCustomizationsGUI.popover5101p.popup()
 
     def on_radiobutton5101_toggled(widget):                                                   # "Show all startup items" radiobutton
         if radiobutton5101.get_active() == True:
+            searchentry5101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Startup.startup_treeview_filter_show_all_func()
 
     def on_radiobutton5102_toggled(widget):                                                   # "Show all enabled (visible) startup items" radiobutton
         if radiobutton5102.get_active() == True:
+            searchentry5101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Startup.startup_treeview_filter_show_all_func()
             Startup.startup_treeview_filter_startup_visible_only()
 
     def on_radiobutton5103_toggled(widget):                                                   # "Show all disabled (hidden) startup items" radiobutton
         if radiobutton5103.get_active() == True:
+            searchentry5101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Startup.startup_treeview_filter_show_all_func()
             Startup.startup_treeview_filter_startup_hidden_only()
-
-    def on_button5102_clicked(widget):                                                        # "Startup Tab Search Customizations" button
-        StartupMenusGUI.popover5101p2.popup()
 
 
 
@@ -97,7 +101,6 @@ def startup_gui_func():
     treeview5101.connect("button-release-event", on_treeview5101_button_release_event)
     searchentry5101.connect("changed", on_searchentry5101_changed)
     button5101.connect("clicked", on_button5101_clicked)
-    button5102.connect("clicked", on_button5102_clicked)
     radiobutton5101.connect("toggled", on_radiobutton5101_toggled)
     radiobutton5102.connect("toggled", on_radiobutton5102_toggled)
     radiobutton5103.connect("toggled", on_radiobutton5103_toggled)
@@ -130,9 +133,14 @@ def startup_open_right_click_menu_func(event):
         selected_startup_application_file_name = Startup.all_autostart_applications_list[Startup.startup_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "startup_data_rows" list to use it getting name of the startup application file name.
         selected_startup_application_visibility = Startup.startup_applications_visibility_list[Startup.startup_data_rows.index(model[treeiter][:])]
         selected_startup_application_name = model[treeiter][3]
-        StartupMenusGUI.menu5101m.popup(None, None, None, None, event.button, event.time)
-        StartupMenusGUI.startup_set_checkmenuitem_func()
-        StartupMenusGUI.startup_set_menu_labels_func()
+        if 'StartupMenuRightClickGUI' not in globals():                                       # Check if "StartupMenuRightClickGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global StartupMenuRightClickGUI
+            import StartupMenuRightClickGUI
+            StartupMenuRightClickGUI.startup_menu_right_click_import_func()
+            StartupMenuRightClickGUI.startup_menu_right_click_gui_func()
+        StartupMenuRightClickGUI.menu5101m.popup(None, None, None, None, event.button, event.time)
+        StartupMenuRightClickGUI.startup_set_checkmenuitem_func()
+        StartupMenuRightClickGUI.startup_set_menu_labels_func()
 
 
 # ----------------------------------- Startup - No Startup Item Selected Dialog Function (shows a dialog when Open Startup Item Right Click Menu is clicked without selecting a startup item) -----------------------------------

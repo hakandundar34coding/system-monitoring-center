@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="menuitem4101mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-folder-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem4102mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-plus-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem4103mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-minus-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem4104mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-eject-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem4106mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-copy-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem4107mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-rename-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem4108mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-details-symbolic</property>
+  </object>
+  <object class="GtkMenu" id="menu4101m">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem4101m">
+        <property name="label" translatable="yes">Browse</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem4101mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem4102m">
+        <property name="label" translatable="yes">Mount</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem4102mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem4103m">
+        <property name="label" translatable="yes">Unmount</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem4103mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem4104m">
+        <property name="label" translatable="yes">Remove</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem4104mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem4106m">
+        <property name="label" translatable="yes">Copy Mount Point</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem4106mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem4107m">
+        <property name="label" translatable="yes">Rename</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem4107mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem4108m">
+        <property name="label" translatable="yes">Details</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem4108mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+  </object>
+</interface>

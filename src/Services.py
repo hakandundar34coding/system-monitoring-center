@@ -13,8 +13,8 @@ def services_import_func():
     import os
 
 
-    global Config, MainGUI, ServicesGUI, ServicesMenusGUI
-    import Config, MainGUI, ServicesGUI, ServicesMenusGUI
+    global Config, MainGUI, ServicesGUI
+    import Config, MainGUI, ServicesGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -73,6 +73,9 @@ def services_initial_func():
 
     service_state_list = [_tr("enabled"), _tr("disabled"), _tr("masked"), _tr("unmasked"), _tr("static"), _tr("generated"), _tr("enabled-runtime"), _tr("indirect"), _tr("active"), _tr("inactive"), _tr("loaded"), _tr("dead"), _tr("exited"), _tr("running")]    # This list is defined in order to make English service state names to be translated into other languages.
     services_other_text_list = [_tr("yes"), _tr("no")]                                        # This list is defined in order to make English service information to be translated into other languages.
+
+    global filter_column
+    filter_column = services_data_list[0][2] - 1                                              # Search filter is "Service Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
 # ----------------------------------- Services - Get Services Data Function (gets services data, adds into treeview and updates it) -----------------------------------
@@ -321,7 +324,7 @@ def services_loop_func():
 
     # Append/Remove/Update services data into treestore
     treeview6101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
-    global service_search_text, filter_service_type, filter_column
+    global service_search_text, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_services_index:
             if services_data_rows[i] != services_data_rows_prev[j]:
@@ -340,11 +343,9 @@ def services_loop_func():
             if ServicesGUI.radiobutton6103.get_active() == True and service_loaded_not_loaded_list[service_list.index(service)] == True:    # Hide service (set the visibility value as "False") if "Show all loaded/non-loaded services" option is selected on the GUI and service visibility is "True".
                 services_data_rows[service_list.index(service)][0] = False
             if ServicesGUI.searchentry6101.get_text() != "":
+                service_search_text = ServicesGUI.searchentry6101.get_text()
                 service_data_text_in_model = services_data_rows[service_list.index(service)][filter_column]
-                service_state_in_model = service_loaded_not_loaded_list[service_list.index(service)]
                 if service_search_text not in str(service_data_text_in_model).lower():        # Hide service (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the service data.
-                    services_data_rows[service_list.index(service)][0] = False
-                if service_state_in_model not in filter_service_type:                         # Hide service (set the visibility value as "False") if visibility data of the service is not in the filter_service_type (this list is constructed by using user preferred options on the "Service Search Customizations" tab).
                     services_data_rows[service_list.index(service)][0] = False
             # \\\ End \\\ This block of code is used for determining if the newly added service will be shown on the treeview (user search actions and/or search customizations and/or "Show all loaded/non-loaded services" preference affect service visibility).
             piter_list.insert(service_list.index(service), treestore6101.insert(None, service_list.index(service), services_data_rows[service_list.index(service)]))    # "insert" have to be used for appending element into both "piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of ".service" file names (this sorting is performed for getting list differences).
@@ -440,37 +441,7 @@ def services_treeview_filter_services_not_loaded_only():
 # ----------------------------------- Services - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
 def services_treeview_filter_search_func():
 
-    # Determine filtering column (Service name, load state, active state, etc.) for hiding/showing services by using search text typed into search entry.
-    global service_search_text, filter_service_type, filter_column
-    services_treeview_columns_shown_sorted = sorted(services_treeview_columns_shown)
-    if ServicesMenusGUI.radiobutton6101p2.get_active() == True:
-        if 0 in services_treeview_columns_shown:                                              # "0" is treeview column number
-            filter_column = 2                                                                 # Append internal column number (2) of "service name" for filtering
-    if ServicesMenusGUI.radiobutton6102p2.get_active() == True:
-        if 1 in services_treeview_columns_shown:                                              # "1" is treeview column number
-            filter_column = 3                                                                 # Append internal column number (3) of "state" for filtering
-    if ServicesMenusGUI.radiobutton6103p2.get_active() == True:
-        if 2 in services_treeview_columns_shown:                                              # "2" is treeview column number
-            filter_column = 4                                                                 # Append internal column number (4) of "main PID" for filtering
-    if ServicesMenusGUI.radiobutton6104p2.get_active() == True:
-        if 3 in services_treeview_columns_shown:                                              # "3" is treeview column number
-            filter_column = 5                                                                 # Append internal column number (5) of "active state" for filtering
-    if ServicesMenusGUI.radiobutton6105p2.get_active() == True:
-        if 4 in services_treeview_columns_shown:                                              # "4" is treeview column number
-            filter_column = 6                                                                 # Append internal column number (6) of "load state" for filtering
-    if ServicesMenusGUI.radiobutton6106p2.get_active() == True:
-        if 5 in services_treeview_columns_shown:                                              # "5" is treeview column number
-            filter_column = 7                                                                 # Append internal column number (7) of "sub-state" for filtering
-    if ServicesMenusGUI.radiobutton6107p2.get_active() == True:
-        if 7 in services_treeview_columns_shown:                                              # "7" is treeview column number
-            filter_column = 9                                                                 # Append internal column number (9) of "description" for filtering
-    # Service could be shown/hidden for loaded/not loaded (non-loaded) service unit file state. Preferred visibility data is determined here.
-    filter_service_type = []
-    if ServicesMenusGUI.checkbutton6102p2.get_active() == True:
-        filter_service_type.append(True)
-    if ServicesMenusGUI.checkbutton6103p2.get_active() == True:
-        filter_service_type.append(False)
-
+    global filter_column
     service_search_text = ServicesGUI.searchentry6101.get_text().lower()
     # Set visible/hidden services
     for piter in piter_list:
@@ -478,9 +449,6 @@ def services_treeview_filter_search_func():
         service_data_text_in_model = treestore6101.get_value(piter, filter_column)
         if service_search_text in str(service_data_text_in_model).lower():
             treestore6101.set_value(piter, 0, True)
-            service_load_state_in_model = service_loaded_not_loaded_list[piter_list.index(piter)]
-            if service_load_state_in_model not in filter_service_type:
-                treestore6101.set_value(piter, 0, False)
 
 
 # ----------------------------------- Services - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------

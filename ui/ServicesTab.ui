@@ -63,6 +63,7 @@
                 <property name="can-focus">False</property>
                 <property name="tooltip-text" translatable="yes">Number of listed services</property>
                 <property name="halign">start</property>
+                <property name="margin-start">60</property>
                 <property name="label" translatable="yes">Total: -- services (-- loaded, -- non-loaded services)</property>
                 <property name="wrap">True</property>
                 <property name="selectable">True</property>
@@ -106,30 +107,10 @@
       </packing>
     </child>
     <child>
-      <!-- n-columns=4 n-rows=1 -->
+      <!-- n-columns=3 n-rows=1 -->
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <child>
-          <object class="GtkButton" id="button6102">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Services Tab Search Customizations</property>
-            <property name="halign">start</property>
-            <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="icon-name">system-monitoring-center-search-customizations-symbolic</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="left-attach">3</property>
-            <property name="top-attach">0</property>
-          </packing>
-        </child>
         <child>
           <object class="GtkSearchEntry" id="searchentry6101">
             <property name="visible">True</property>
@@ -146,7 +127,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="button6103">
+          <object class="GtkButton" id="button6102">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>

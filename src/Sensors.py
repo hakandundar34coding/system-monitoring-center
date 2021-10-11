@@ -12,8 +12,8 @@ def sensors_import_func():
     import os
 
 
-    global Config, MainGUI, SensorsGUI, SensorsMenusGUI
-    import Config, MainGUI, SensorsGUI, SensorsMenusGUI
+    global Config, MainGUI, SensorsGUI
+    import Config, MainGUI, SensorsGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -61,6 +61,9 @@ def sensors_initial_func():
     global temperature_sensor_icon_name, fan_sensor_icon_name
     temperature_sensor_icon_name = "system-monitoring-center-temperature-symbolic"
     fan_sensor_icon_name = "system-monitoring-center-fan-symbolic"
+
+    global filter_column
+    filter_column = sensors_data_list[0][2] - 1                                               # Search filter is "Sensor Group". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
 # ----------------------------------- Sensors - Get Sensor Data Function (gets sensors data, adds into treeview and updates it) -----------------------------------
@@ -246,11 +249,9 @@ def sensors_loop_func():
         if SensorsGUI.radiobutton1603.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != fan_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show sensors from other users" option is selected on the GUI and sensor username is same as name of current user.
             sensors_data_row[0] = False
         if SensorsGUI.searchentry1601.get_text() != "":
+            sensor_search_text = SensorsGUI.searchentry1601.get_text()
             sensor_data_text_in_model = sensors_data_row[filter_column]
-            sensor_type_icons_in_model = sensor_type_list[sensors_data_rows.index(sensors_data_row)]
             if sensor_search_text not in str(sensor_data_text_in_model).lower():              # Hide sensor (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the sensor.
-                sensors_data_row[0] = False
-            if sensor_type_icons_in_model not in filter_sensor_type:                          # Hide sensor (set the visibility value as "False") if sensor type icon of the sensor is not in the filter_sensor_type (this list is constructed by using user preferred options on the "Sensor Search Customizations" tab).
                 sensors_data_row[0] = False
         # \\\ End \\\ This block of code is used for determining if the newly added sensor will be shown on the treeview (user search actions and/or search customizations and/or "Show onlt temperature/fan sensors" preference affect sensor visibility).
         piter_list.append(treestore1601.append(None, sensors_data_row))                       # All sensors are appended into treeview as tree root for listing sensor data as list (there is no tree view option for sensors tab).
@@ -337,22 +338,7 @@ def sensors_treeview_filter_only_fan_sensors_func():
 # ----------------------------------- Sensors - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
 def sensors_treeview_filter_search_func():
 
-    # Determine filtering column (Sensor Group Name, Sensor Name) for hiding/showing sensor data by using search text typed into search entry.
-    global sensor_search_text, filter_sensor_type, filter_column
-    sensors_treeview_columns_shown_sorted = sorted(sensors_treeview_columns_shown)
-    if SensorsMenusGUI.radiobutton1601p2.get_active() == True:
-        if 1 in sensors_treeview_columns_shown:
-            filter_column = sensors_treeview_columns_shown_sorted.index(2)                    # "2" in the ".index(2) is internal column index (not treeview column index in "sensors_data_list")
-    if SensorsMenusGUI.radiobutton1602p2.get_active() == True:
-        if 2 in sensors_treeview_columns_shown:
-            filter_column = sensors_treeview_columns_shown_sorted.index(3)                    # "3" in the ".index(3) is internal column index (not treeview column index in "sensors_data_list")
-    # Sensors could be shown/hidden for specific sensor types (temperature/fan). Preferred sensor types are determined here.
-    filter_sensor_type = []
-    if SensorsMenusGUI.checkbutton1602p2.get_active() == True:
-        filter_sensor_type.append(temperature_sensor_icon_name)
-    if SensorsMenusGUI.checkbutton1603p2.get_active() == True:
-        filter_sensor_type.append(fan_sensor_icon_name)
-
+    global filter_column
     sensor_search_text = SensorsGUI.searchentry1601.get_text().lower()
     # Set visible/hidden sensor data
     for piter in piter_list:
@@ -360,9 +346,6 @@ def sensors_treeview_filter_search_func():
         sensor_data_text_in_model = treestore1601.get_value(piter, filter_column)
         if sensor_search_text in str(sensor_data_text_in_model).lower():
             treestore1601.set_value(piter, 0, True)
-            sensor_type_in_model = sensor_type_list[piter_list.index(piter)]
-            if sensor_type_in_model not in filter_sensor_type:
-                treestore1601.set_value(piter, 0, False)
 
     SensorsGUI.treeview1601.expand_all()                                                      # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
 

@@ -15,8 +15,8 @@ def processes_import_func():
     import time
 
 
-    global Config, MainGUI, ProcessesGUI, ProcessesMenusGUI
-    import Config, MainGUI, ProcessesGUI, ProcessesMenusGUI
+    global Config, MainGUI, ProcessesGUI
+    import Config, MainGUI, ProcessesGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -102,6 +102,9 @@ def processes_initial_func():
         else:
             application_exec_list.append(application_file_content.split("Exec=")[1].split("\n")[0])
         application_icon_list.append(application_file_content.split("Icon=")[1].split("\n")[0])    # Get application icon name data
+
+    global filter_column
+    filter_column = processes_data_list[0][2] - 1                                             # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
 # ----------------------------------- Processes - Get Process Data Function (gets processes data, adds into treeview and updates it) -----------------------------------
@@ -426,7 +429,7 @@ def processes_loop_func():
     processes_data_rows_row_length = len(processes_data_rows[0])
     # Append/Remove/Update processes data into treestore
     treeview2101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
-    global process_search_text, filter_process_type, filter_column
+    global process_search_text, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_proc_index:
             if processes_data_rows[i] != processes_data_rows_prev[j]:
@@ -445,11 +448,9 @@ def processes_loop_func():
             if ProcessesGUI.radiobutton2103.get_active() == True and username_list[pid_list.index(process)] == current_user_name:    # Hide process (set the visibility value as "False") if "Show processes from other users" option is selected on the GUI and process username is same as name of current user.
                 processes_data_rows[pid_list.index(process)][0] = False
             if ProcessesGUI.searchentry2101.get_text() != "":
+                process_search_text = ProcessesGUI.searchentry2101.get_text()
                 process_data_text_in_model = processes_data_rows[pid_list.index(process)][filter_column]
-                username_in_model = username_list[pid_list.index(process)]
                 if process_search_text not in str(process_data_text_in_model).lower():        # Hide process (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the process data.
-                    processes_data_rows[pid_list.index(process)][0] = False
-                if username_in_model not in filter_process_type:                              # Hide process (set the visibility value as "False") if username of the process is not in the filter_process_type (this list is constructed by using user preferred options on the "Processes Search Customizations" tab).
                     processes_data_rows[pid_list.index(process)][0] = False
             # \\\ End \\\ This block of code is used for determining if the newly added process will be shown on the treeview (user search actions and/or search customizations and/or "Show processes from this user/other users ..." preference affect process visibility).
             if show_processes_as_tree == 1:
@@ -579,36 +580,7 @@ def processes_treeview_filter_other_users_only_func():
 # ----------------------------------- Processes - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
 def processes_treeview_filter_search_func():
 
-    # Determine filtering column (name, username, PID, etc) for hiding/showing processes by using search text typed into search entry.
-    global process_search_text, filter_process_type, filter_column
-    if ProcessesMenusGUI.radiobutton2101p2.get_active() == True:
-        if 0 in processes_treeview_columns_shown:                                             # "0" is treeview column number
-            filter_column = 2                                                                 # Append internal column number (2) of "process name" for filtering
-    if ProcessesMenusGUI.radiobutton2102p2.get_active() == True:
-        if 1 in processes_treeview_columns_shown:                                             # "1" is treeview column number
-            filter_column = 3                                                                 # Append internal column number (3) of "PID" for filtering
-    if ProcessesMenusGUI.radiobutton2103p2.get_active() == True:
-        if 2 in processes_treeview_columns_shown:                                             # "2" is treeview column number
-            filter_column = 4                                                                 # Append internal column number (4) of "user" for filtering
-    if ProcessesMenusGUI.radiobutton2104p2.get_active() == True:
-        if 3 in processes_treeview_columns_shown:                                             # "3" is treeview column number
-            filter_column = 5                                                                 # Append internal column number (5) of "status" for filtering
-    if ProcessesMenusGUI.radiobutton2105p2.get_active() == True:
-        if 14 in processes_treeview_columns_shown:                                            # "14" is treeview column number
-            filter_column = 16                                                                # Append internal column number (16) of "UID" for filtering
-    if ProcessesMenusGUI.radiobutton2106p2.get_active() == True:
-        if 17 in processes_treeview_columns_shown:                                            # "17" is treeview column number
-            filter_column = 19                                                                # Append internal column number (19) of "path" for filtering
-    # Processes could be shown/hidden for specific user names. Preferred user names are determined here.
-    filter_process_type = []
-    if ProcessesMenusGUI.checkbutton2102p2.get_active() == True:
-        filter_process_type.append(current_user_name)
-    if ProcessesMenusGUI.checkbutton2103p2.get_active() == True:
-        username_list_unique = list(set(username_list))
-        for username in username_list_unique:
-            if username != current_user_name:
-                filter_process_type.append(username)
-
+    global filter_column
     process_search_text = ProcessesGUI.searchentry2101.get_text().lower()
     # Set visible/hidden processes
     for piter in piter_list:
@@ -616,15 +588,11 @@ def processes_treeview_filter_search_func():
         process_data_text_in_model = treestore2101.get_value(piter, filter_column)
         if process_search_text in str(process_data_text_in_model).lower():
             treestore2101.set_value(piter, 0, True)
-            username_in_model = username_list[piter_list.index(piter)]
-            if username_in_model not in filter_process_type:
-                treestore2101.set_value(piter, 0, False)
-            if treestore2101.get_value(piter, 0) == True:                                     # Make parent processes visible if one of its children is visible.
-                piter_parent = treestore2101.iter_parent(piter)
-                while piter_parent != None:
-                    treestore2101.set_value(piter_parent, 0, True)
-                    piter_parent = treestore2101.iter_parent(piter_parent)
-
+            # Make parent processes visible if one of its children is visible.
+            piter_parent = treestore2101.iter_parent(piter)
+            while piter_parent != None:
+                treestore2101.set_value(piter_parent, 0, True)
+                piter_parent = treestore2101.iter_parent(piter_parent)
     ProcessesGUI.treeview2101.expand_all()                                                    # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
 
 

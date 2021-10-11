@@ -11,8 +11,8 @@ def processes_gui_import_func():
     import os
 
 
-    global Config, MainGUI, Processes, ProcessesMenusGUI
-    import Config, MainGUI, Processes, ProcessesMenusGUI
+    global Config, MainGUI, Processes
+    import Config, MainGUI, Processes
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -36,7 +36,7 @@ def processes_gui_import_func():
 def processes_gui_func():
 
     # Processes tab GUI objects
-    global grid2101, treeview2101, searchentry2101, button2101, button2102, button2104
+    global grid2101, treeview2101, searchentry2101, button2101, button2102
     global radiobutton2101, radiobutton2102, radiobutton2103, radiobutton2104, radiobutton2105, radiobutton2106
     global label2101
 
@@ -52,7 +52,6 @@ def processes_gui_func():
     searchentry2101 = builder.get_object('searchentry2101')
     button2101 = builder.get_object('button2101')
     button2102 = builder.get_object('button2102')
-    button2104 = builder.get_object('button2104')
     radiobutton2101 = builder.get_object('radiobutton2101')
     radiobutton2102 = builder.get_object('radiobutton2102')
     radiobutton2103 = builder.get_object('radiobutton2103')
@@ -79,27 +78,32 @@ def processes_gui_func():
         Processes.processes_treeview_filter_search_func()
 
     def on_button2101_clicked(widget):                                                        # "Processes Tab Customizations" button
-        ProcessesMenusGUI.popover2101p.popup()
+        if 'ProcessesMenuCustomizationsGUI' not in globals():                                 # Check if "ProcessesMenuCustomizationsGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global ProcessesMenuCustomizationsGUI
+            import ProcessesMenuCustomizationsGUI
+            ProcessesMenuCustomizationsGUI.processes_menu_customizations_import_func()
+            ProcessesMenuCustomizationsGUI.processes_menu_customizations_gui_func()
+        ProcessesMenuCustomizationsGUI.popover2101p.popup()
 
     def on_button2102_clicked(widget):                                                        # "Define a window by clicking on it and highlight its process" button
         Processes.processes_define_window_func()
 
-    def on_button2104_clicked(widget):                                                        # "Processes Tab Search Customizations" button
-        ProcessesMenusGUI.popover2101p2.popup()
-
     def on_radiobutton2101_toggled(widget):                                                   # "Show all processes" radiobutton
         if radiobutton2101.get_active() == True:
+            searchentry2101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Processes.processes_treeview_filter_show_all_func()
             radiobutton2104.set_active(True)
 
     def on_radiobutton2102_toggled(widget):                                                   # "Show processes from this user" radiobutton
         if radiobutton2102.get_active() == True:
+            searchentry2101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Processes.processes_treeview_filter_show_all_func()
             Processes.processes_treeview_filter_this_user_only_func()
             radiobutton2104.set_active(True)
 
     def on_radiobutton2103_toggled(widget):                                                   # "Show processes from other users" radiobutton
         if radiobutton2103.get_active() == True:
+            searchentry2101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Processes.processes_treeview_filter_show_all_func()
             Processes.processes_treeview_filter_other_users_only_func()
             radiobutton2104.set_active(True)
@@ -123,7 +127,6 @@ def processes_gui_func():
     searchentry2101.connect("changed", on_searchentry2101_changed)
     button2101.connect("clicked", on_button2101_clicked)
     button2102.connect("clicked", on_button2102_clicked)
-    button2104.connect("clicked", on_button2104_clicked)
     radiobutton2101.connect("toggled", on_radiobutton2101_toggled)
     radiobutton2102.connect("toggled", on_radiobutton2102_toggled)
     radiobutton2103.connect("toggled", on_radiobutton2103_toggled)
@@ -178,8 +181,13 @@ def processes_open_right_click_menu_func(event):
         except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
             print("not in list error")
             return
-        ProcessesMenusGUI.menu2101m.popup(None, None, None, None, event.button, event.time)
-        ProcessesMenusGUI.processes_select_process_nice_option_func()
+        if 'ProcessesMenuRightClickGUI' not in globals():                                     # Check if "ProcessesMenuRightClickGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global ProcessesMenuRightClickGUI
+            import ProcessesMenuRightClickGUI
+            ProcessesMenuRightClickGUI.processes_menu_right_click_import_func()
+            ProcessesMenuRightClickGUI.processes_menu_right_click_gui_func()
+        ProcessesMenuRightClickGUI.menu2101m.popup(None, None, None, None, event.button, event.time)
+        ProcessesMenuRightClickGUI.processes_select_process_nice_option_func()
 
 
 # ----------------------------------- Processes - Open Process Details Window Function (gets double clicked process PID and opens Process Details window) -----------------------------------

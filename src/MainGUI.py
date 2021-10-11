@@ -272,10 +272,10 @@ def main_gui_tab_switch_func():
             if 'CpuGUI' not in globals():
                 global CpuGUI, Cpu
                 import CpuGUI, Cpu
-                Cpu.cpu_import_func()
                 CpuGUI.cpu_gui_import_func()
                 CpuGUI.cpu_gui_func()
                 grid1001.attach(CpuGUI.grid1101, 0, 0, 1, 1)                                  # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                Cpu.cpu_import_func()
             Cpu.cpu_thread_run_func()
         if radiobutton1002.get_active() == True:
             stack1001.set_visible_child(grid1002)
@@ -284,10 +284,10 @@ def main_gui_tab_switch_func():
             if 'RamGUI' not in globals():
                 global RamGUI, Ram
                 import RamGUI, Ram
-                Ram.ram_import_func()
                 RamGUI.ram_gui_import_func()
                 RamGUI.ram_gui_func()
                 grid1002.attach(RamGUI.grid1201, 0, 0, 1, 1)                                  # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                Ram.ram_import_func()
             Ram.ram_thread_run_func()
         if radiobutton1003.get_active() == True:
             stack1001.set_visible_child(grid1003)
@@ -296,10 +296,10 @@ def main_gui_tab_switch_func():
             if 'DiskGUI' not in globals():
                 global DiskGUI, Disk
                 import DiskGUI, Disk
-                Disk.disk_import_func()
                 DiskGUI.disk_gui_import_func()
                 DiskGUI.disk_gui_func()
                 grid1003.attach(DiskGUI.grid1301, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                Disk.disk_import_func()
             Disk.disk_thread_run_func()
         if radiobutton1004.get_active() == True:
             stack1001.set_visible_child(grid1004)
@@ -308,10 +308,10 @@ def main_gui_tab_switch_func():
             if 'NetworkGUI' not in globals():
                 global NetworkGUI, Network
                 import NetworkGUI, Network
-                Network.network_import_func()
                 NetworkGUI.network_gui_import_func()
                 NetworkGUI.network_gui_func()
                 grid1004.attach(NetworkGUI.grid1401, 0, 0, 1, 1)                              # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                Network.network_import_func()
             Network.network_thread_run_func()
         if radiobutton1005.get_active() == True:
             stack1001.set_visible_child(grid1005)
@@ -320,28 +320,24 @@ def main_gui_tab_switch_func():
             if 'GpuGUI' not in globals():
                 global GpuGUI, Gpu
                 import GpuGUI, Gpu
-                Gpu.gpu_import_func()
                 GpuGUI.gpu_gui_import_func()
                 GpuGUI.gpu_gui_func()
                 grid1005.attach(GpuGUI.grid1501, 0, 0, 1, 1)                                  # Attach the grid to the grid (on the Main Window) at (0, 0)
+                Gpu.gpu_import_func()
             Gpu.gpu_thread_run_func()
         if radiobutton1006.get_active() == True:
             stack1001.set_visible_child(grid1006)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 5
             if 'Sensors' not in globals():
-                global Sensors, SensorsGUI, SensorsMenusGUI
-                import Sensors, SensorsGUI, SensorsMenusGUI
-                while Gtk.events_pending():                                                   # Used for more fluent tab switch.
-                    Gtk.main_iteration()
-                Sensors.sensors_import_func()
+                global Sensors, SensorsGUI
+                import Sensors, SensorsGUI
                 SensorsGUI.sensors_gui_import_func()
                 SensorsGUI.sensors_gui_func()
                 grid1006.attach(SensorsGUI.grid1601, 0, 0, 1, 1)                              # Attach the grid to the grid (on the Main Window) at (0, 0) position.
                 while Gtk.events_pending():                                                   # Used for more fluent tab switch.
                     Gtk.main_iteration()
-                SensorsMenusGUI.sensors_menus_import_func()
-                SensorsMenusGUI.sensors_menus_gui_func()
+                Sensors.sensors_import_func()
             Sensors.sensors_thread_run_func()
 
     if radiobutton2.get_active() == True:                                                     # It switches to "Processes" tab if relevant radiobutton is clicked.
@@ -349,16 +345,14 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 1
         if 'ProcessesGUI' not in globals():                                                   # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
-            global Processes, ProcessesGUI, ProcessesMenusGUI
-            import Processes, ProcessesGUI, ProcessesMenusGUI
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
-            Processes.processes_import_func()
+            global Processes, ProcessesGUI
+            import Processes, ProcessesGUI
             ProcessesGUI.processes_gui_import_func()
             ProcessesGUI.processes_gui_func()
             grid2.attach(ProcessesGUI.grid2101, 0, 0, 1, 1)                                   # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-            ProcessesMenusGUI.processes_menus_import_func()
-            ProcessesMenusGUI.processes_menus_gui_func()
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
+            Processes.processes_import_func()
         Processes.processes_thread_run_func()
 
     if radiobutton3.get_active() == True:                                                     # It switches to "Users" tab if relevant radiobutton is clicked.
@@ -366,16 +360,14 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 2
         if 'UsersGUI' not in globals():
-            global Users, UsersGUI, UsersMenusGUI
-            import Users, UsersGUI, UsersMenusGUI
+            global Users, UsersGUI
+            import Users, UsersGUI
+            UsersGUI.users_gui_import_func()
+            UsersGUI.users_gui_func()
+            grid3.attach(UsersGUI.grid3101, 0, 0, 1, 1)                                       # Attach the grid to the grid (on the Main Window) at (0, 0) position.
             while Gtk.events_pending():                                                       # Used for more fluent tab switch.
                 Gtk.main_iteration()
             Users.users_import_func()
-            UsersGUI.users_gui_import_func()
-            UsersGUI.users_gui_func()
-            grid3.attach(UsersGUI.grid3101, 0, 0, 1, 1)                                       # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-            UsersMenusGUI.users_menus_import_func()
-            UsersMenusGUI.users_menus_gui_func()
         Users.users_thread_run_func()
 
     if radiobutton4.get_active() == True:                                                     # It switches to "Storage" tab if relevant radiobutton is clicked.
@@ -383,16 +375,14 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 3
         if 'StorageGUI' not in globals():
-            global Storage, StorageGUI, StorageMenusGUI
-            import Storage, StorageGUI, StorageMenusGUI
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
-            Storage.storage_import_func()
+            global Storage, StorageGUI
+            import Storage, StorageGUI
             StorageGUI.storage_gui_import_func()
             StorageGUI.storage_gui_func()
             grid4.attach(StorageGUI.grid4101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-            StorageMenusGUI.storage_menus_import_func()
-            StorageMenusGUI.storage_menus_gui_func()
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
+            Storage.storage_import_func()
         Storage.storage_thread_run_func()
 
     if radiobutton5.get_active() == True:                                                     # It switches to "Startup" tab if relevant radiobutton is clicked.
@@ -400,16 +390,14 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 4
         if 'StartupGUI' not in globals():
-            global Startup, StartupGUI, StartupMenusGUI
-            import Startup, StartupGUI, StartupMenusGUI
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
-            Startup.startup_import_func()
+            global Startup, StartupGUI
+            import Startup, StartupGUI
             StartupGUI.startup_gui_import_func()
             StartupGUI.startup_gui_func()
             grid5.attach(StartupGUI.grid5101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-            StartupMenusGUI.startup_menus_import_func()
-            StartupMenusGUI.startup_menus_gui_func()
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
+            Startup.startup_import_func()
         Startup.startup_thread_run_func()
 
     if radiobutton6.get_active() == True:                                                     # It switches to "Services" tab if relevant radiobutton is clicked.
@@ -417,16 +405,14 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 5
         if 'ServicesGUI' not in globals():
-            global Services, ServicesGUI, ServicesMenusGUI
-            import Services, ServicesGUI, ServicesMenusGUI
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
-            Services.services_import_func()
+            global Services, ServicesGUI
+            import Services, ServicesGUI
             ServicesGUI.services_gui_import_func()
             ServicesGUI.services_gui_func()
             grid6.attach(ServicesGUI.grid6101, 0, 0, 1, 1)                                    # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-            ServicesMenusGUI.services_menus_import_func()
-            ServicesMenusGUI.services_menus_gui_func()
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
+            Services.services_import_func()
         Services.services_thread_run_func()
 
     if radiobutton7.get_active() == True:                                                     # It switches to "Environment Variables" tab if relevant radiobutton is clicked.
@@ -434,16 +420,14 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 6
         if 'EnvironmentVariablesGUI' not in globals():
-            global EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
-            import EnvironmentVariables, EnvironmentVariablesGUI, EnvironmentVariablesMenusGUI
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
-            EnvironmentVariables.environment_variables_import_func()
+            global EnvironmentVariables, EnvironmentVariablesGUI
+            import EnvironmentVariables, EnvironmentVariablesGUI
             EnvironmentVariablesGUI.environment_variables_gui_import_func()
             EnvironmentVariablesGUI.environment_variables_gui_func()
             grid7.attach(EnvironmentVariablesGUI.grid7101, 0, 0, 1, 1)                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-            EnvironmentVariablesMenusGUI.environment_variables_menus_import_func()
-            EnvironmentVariablesMenusGUI.environment_variables_menus_gui_func()
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
+            EnvironmentVariables.environment_variables_import_func()
         EnvironmentVariables.environment_variables_thread_run_func()
 
     if radiobutton8.get_active() == True:                                                     # It switches to "System" tab if relevant radiobutton is clicked.
@@ -453,12 +437,12 @@ def main_gui_tab_switch_func():
         if 'SystemGUI' not in globals():
             global System, SystemGUI
             import System, SystemGUI
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
-            System.system_import_func()
             SystemGUI.system_gui_import_func()
             SystemGUI.system_gui_func()
             grid8.attach(SystemGUI.grid8101, 0, 0, 1, 1)                                      # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
+                Gtk.main_iteration()
+            System.system_import_func()
         System.system_thread_run_func()
 
     if Config.show_floating_summary == 1:                                                     # Show Floating Summary window appropriate with user preferences. Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.

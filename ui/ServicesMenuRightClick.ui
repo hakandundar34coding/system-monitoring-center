@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="menuitem6101mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-start-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem6102mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-stop-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem6103mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-reload-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem6104mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-load-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem6105mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-cancel-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem6106mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-apply-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem6108mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-copy-symbolic</property>
+  </object>
+  <object class="GtkImage" id="menuitem6109mimage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-details-symbolic</property>
+  </object>
+  <object class="GtkMenu" id="menu6101m">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem6101m">
+        <property name="label" translatable="yes">Start</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem6101mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem6102m">
+        <property name="label" translatable="yes">Stop</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem6102mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem6103m">
+        <property name="label" translatable="yes">Restart</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem6103mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem6104m">
+        <property name="label" translatable="yes">Reload</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem6104mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem6105m">
+        <property name="label" translatable="yes">Enable</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem6106mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem6106m">
+        <property name="label" translatable="yes">Disable</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem6105mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkCheckMenuItem" id="checkmenuitem6107m">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Mask</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem6108m">
+        <property name="label" translatable="yes">Copy Name</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem6108mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem6109m">
+        <property name="label" translatable="yes">Details</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">menuitem6109mimage</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+  </object>
+</interface>

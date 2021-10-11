@@ -11,8 +11,8 @@ def environment_variables_gui_import_func():
     import os
 
 
-    global MainGUI, EnvironmentVariables, EnvironmentVariablesMenusGUI
-    import MainGUI, EnvironmentVariables, EnvironmentVariablesMenusGUI
+    global MainGUI, EnvironmentVariables
+    import MainGUI, EnvironmentVariables
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -36,7 +36,7 @@ def environment_variables_gui_import_func():
 def environment_variables_gui_func():
 
     # Environment Variables tab GUI objects
-    global grid7101, treeview7101, searchentry7101, button7101, button7103
+    global grid7101, treeview7101, searchentry7101, button7101
     global radiobutton7101, radiobutton7102, radiobutton7103
     global label7101
 
@@ -51,7 +51,6 @@ def environment_variables_gui_func():
     treeview7101 = builder.get_object('treeview7101')
     searchentry7101 = builder.get_object('searchentry7101')
     button7101 = builder.get_object('button7101')
-    button7103 = builder.get_object('button7103')
     radiobutton7101 = builder.get_object('radiobutton7101')
     radiobutton7102 = builder.get_object('radiobutton7102')
     radiobutton7103 = builder.get_object('radiobutton7103')
@@ -72,22 +71,27 @@ def environment_variables_gui_func():
         EnvironmentVariables.environment_variables_treeview_filter_search_func()
 
     def on_button7101_clicked(widget):                                                        # "Environment Variables Tab Customizations" button
-        EnvironmentVariablesMenusGUI.popover7101p.popup()
-
-    def on_button7103_clicked(widget):                                                        # "Environment Variables Tab Search Customizations" button
-        EnvironmentVariablesMenusGUI.popover7101p2.popup()
+        if 'EnvironmentVarMenuCustomizationsGUI' not in globals():                            # Check if "EnvironmentVarMenuCustomizationsGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global EnvironmentVarMenuCustomizationsGUI
+            import EnvironmentVarMenuCustomizationsGUI
+            EnvironmentVarMenuCustomizationsGUI.environment_variables_menu_customizations_import_func()
+            EnvironmentVarMenuCustomizationsGUI.environment_variables_menu_customizations_gui_func()
+        EnvironmentVarMenuCustomizationsGUI.popover7101p.popup()
 
     def on_radiobutton7101_toggled(widget):                                                   # "Show all environment/shell variables" radiobutton
         if radiobutton7101.get_active() == True:
+            searchentry7101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             EnvironmentVariables.environment_variables_treeview_filter_show_all_func()
 
     def on_radiobutton7102_toggled(widget):                                                   # "Show all environment variables" radiobutton
         if radiobutton7102.get_active() == True:
+            searchentry7101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             EnvironmentVariables.environment_variables_treeview_filter_show_all_func()
             EnvironmentVariables.environment_variables_treeview_filter_environment_variables_logged_in_only()
 
     def on_radiobutton7103_toggled(widget):                                                   # "Show all shell variables" radiobutton
         if radiobutton7103.get_active() == True:
+            searchentry7101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             EnvironmentVariables.environment_variables_treeview_filter_show_all_func()
             EnvironmentVariables.environment_variables_treeview_filter_environment_variables_logged_out_only()
 
@@ -98,7 +102,6 @@ def environment_variables_gui_func():
     treeview7101.connect("button-release-event", on_treeview7101_button_release_event)
     searchentry7101.connect("changed", on_searchentry7101_changed)
     button7101.connect("clicked", on_button7101_clicked)
-    button7103.connect("clicked", on_button7103_clicked)
     radiobutton7101.connect("toggled", on_radiobutton7101_toggled)
     radiobutton7102.connect("toggled", on_radiobutton7102_toggled)
     radiobutton7103.connect("toggled", on_radiobutton7103_toggled)
@@ -129,17 +132,22 @@ def environment_variables_open_right_click_menu_func(event):
         global selected_variable_value, selected_variable_type
         selected_variable_value = EnvironmentVariables.variable_list[EnvironmentVariables.environment_variables_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "environment_variables_data_rows" list to use it getting name of the variable.
         selected_variable_type = EnvironmentVariables.variable_type_list[EnvironmentVariables.variable_list.index(selected_variable_value)]
-        if selected_variable_type == _tr("Environment Variable") or selected_variable_type == _tr("Environment & Shell Variable"):    # Perform following oprations if variable is not shell variable.
-            EnvironmentVariablesMenusGUI.menuitem7102m.set_sensitive(True)                    # Set "Edit Environment Variable" item as sensitive
-            EnvironmentVariablesMenusGUI.menuitem7102m.set_tooltip_text("")                   # Delete "Edit Environment Variable" item tooltip text
-            EnvironmentVariablesMenusGUI.menuitem7103m.set_sensitive(True)                    # Set "Delete Environment Variable" item as sensitive
-            EnvironmentVariablesMenusGUI.menuitem7103m.set_tooltip_text("")                   # Delete "Delete Environment Variable" item tooltip text
-        if selected_variable_type == _tr("Shell Variable"):                                   # Perform following oprations if variable is shell variable.
-            EnvironmentVariablesMenusGUI.menuitem7102m.set_sensitive(False)                   # Set "Edit Environment Variable" item as insensitive
-            EnvironmentVariablesMenusGUI.menuitem7102m.set_tooltip_text(_tr("Shell variables cannot be edited."))    # Set "Edit Environment Variable" item tooltip text
-            EnvironmentVariablesMenusGUI.menuitem7103m.set_sensitive(False)                   # Set "Delete Environment Variable" item as insensitive
-            EnvironmentVariablesMenusGUI.menuitem7103m.set_tooltip_text(_tr("Shell variables cannot be deleted."))    # Set "Delete Environment Variable" item tooltip text
-        EnvironmentVariablesMenusGUI.menu7101m.popup(None, None, None, None, event.button, event.time)
+        if 'EnvironmentVarMenuRightClickGUI' not in globals():                                # Check if "EnvironmentVarMenuRightClickGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global EnvironmentVarMenuRightClickGUI
+            import EnvironmentVarMenuRightClickGUI
+            EnvironmentVarMenuRightClickGUI.environment_variables_menu_right_click_import_func()
+            EnvironmentVarMenuRightClickGUI.environment_variables_menu_right_click_gui_func()
+            if selected_variable_type == _tr("Environment Variable") or selected_variable_type == _tr("Environment & Shell Variable"):    # Perform following oprations if variable is not shell variable.
+                EnvironmentVarMenuRightClickGUI.menuitem7102m.set_sensitive(True)                 # Set "Edit Environment Variable" item as sensitive
+                EnvironmentVarMenuRightClickGUI.menuitem7102m.set_tooltip_text("")                # Delete "Edit Environment Variable" item tooltip text
+                EnvironmentVarMenuRightClickGUI.menuitem7103m.set_sensitive(True)                 # Set "Delete Environment Variable" item as sensitive
+                EnvironmentVarMenuRightClickGUI.menuitem7103m.set_tooltip_text("")                # Delete "Delete Environment Variable" item tooltip text
+            if selected_variable_type == _tr("Shell Variable"):                                   # Perform following oprations if variable is shell variable.
+                EnvironmentVarMenuRightClickGUI.menuitem7102m.set_sensitive(False)                # Set "Edit Environment Variable" item as insensitive
+                EnvironmentVarMenuRightClickGUI.menuitem7102m.set_tooltip_text(_tr("Shell variables cannot be edited."))    # Set "Edit Environment Variable" item tooltip text
+                EnvironmentVarMenuRightClickGUI.menuitem7103m.set_sensitive(False)                # Set "Delete Environment Variable" item as insensitive
+                EnvironmentVarMenuRightClickGUI.menuitem7103m.set_tooltip_text(_tr("Shell variables cannot be deleted."))    # Set "Delete Environment Variable" item tooltip text
+        EnvironmentVarMenuRightClickGUI.menu7101m.popup(None, None, None, None, event.button, event.time)
 
 
 # ----------------------------------- Startup - No Startup Item Selected Dialog Function (shows a dialog when Open Startup Item Right Click Menu is clicked without selecting a startup item) -----------------------------------

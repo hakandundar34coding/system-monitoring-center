@@ -13,8 +13,8 @@ def startup_import_func():
     import os
 
 
-    global Config, MainGUI, StartupGUI, StartupMenusGUI
-    import Config, MainGUI, StartupGUI, StartupMenusGUI
+    global Config, MainGUI, StartupGUI
+    import Config, MainGUI, StartupGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -127,6 +127,9 @@ def startup_initial_func():
                 if process_name == "lxsession":
                     current_desktop_session = ["LXDE"]
         current_desktop_environment = current_desktop_session
+
+    global filter_column
+    filter_column = startup_data_list[0][2] - 1                                                # Search filter is "Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
 # ----------------------------------- Startup - Get Startup Data Function (gets startup data, adds into treeview and updates it) -----------------------------------
@@ -557,7 +560,7 @@ def startup_loop_func():
     startup_app_data_rows_row_length = len(startup_data_rows[0])
     # Append/Remove/Update startup applications data into treestore
     treeview5101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
-    global startup_application_search_text, filter_startup_application_type, filter_column
+    global startup_application_search_text, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_startup_app_index:
             if startup_data_rows[i] != startup_data_rows_prev[j]:
@@ -576,11 +579,9 @@ def startup_loop_func():
             if StartupGUI.radiobutton5103.get_active() == True and startup_applications_visibility_list[all_autostart_applications_list.index(startup_application)] == True:    # Hide startup_application (set the visibility value as "False") if "Show all hidden startup items" option is selected on the GUI and startup_application visibility is "True".
                 startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
             if StartupGUI.searchentry5101.get_text() != "":
+                startup_application_search_text = StartupGUI.searchentry5101.get_text()
                 startup_item_data_text_in_model = startup_data_rows[all_autostart_applications_list.index(startup_application)][filter_column]
-                startup_aplication_type_in_model = startup_applications_visibility_list[all_autostart_applications_list.index(startup_application)]
                 if startup_application_search_text not in str(startup_item_data_text_in_model).lower():    # Hide startup_application (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the startup_application data.
-                    startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
-                if startup_aplication_type_in_model not in filter_startup_application_type:                # Hide startup_application (set the visibility value as "False") if visibility data of the startup_application is not in the filter_startup_application_type (this list is constructed by using user preferred options on the "Startup Search Customizations" tab).
                     startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
             # \\\ End \\\ This block of code is used for determining if the newly added startup_application will be shown on the treeview (user search actions and/or search customizations and/or "Show all visible/hidden startup items" preference affect startup_application visibility).
             piter_list.insert(all_autostart_applications_list.index(startup_application), treestore5101.insert(None, all_autostart_applications_list.index(startup_application), startup_data_rows[all_autostart_applications_list.index(startup_application)]))    # "insert" have to be used for appending element into both "piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of ".desktop" file names (this sorting is performed for getting list differences).
@@ -664,25 +665,7 @@ def startup_treeview_filter_startup_hidden_only():
 # ----------------------------------- Startup - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
 def startup_treeview_filter_search_func():
 
-    # Determine filtering column (Name, Comment, Exec) for hiding/showing startup items by using search text typed into search entry.
-    global startup_application_search_text, filter_startup_application_type, filter_column
-    startup_treeview_columns_shown_sorted = sorted(startup_treeview_columns_shown)
-    if StartupMenusGUI.radiobutton5101p2.get_active() == True:
-        if 0 in startup_treeview_columns_shown:                                               # "0" is treeview column number
-            filter_column = 3                                                                 # Append internal column number (3) of "name" for filtering
-    if StartupMenusGUI.radiobutton5102p2.get_active() == True:
-        if 1 in startup_treeview_columns_shown:                                               # "1" is treeview column number
-            filter_column = 4                                                                 # Append internal column number (4) of "comment" for filtering
-    if StartupMenusGUI.radiobutton5103p2.get_active() == True:
-        if 2 in startup_treeview_columns_shown:                                               # "2" is treeview column number
-            filter_column = 5                                                                 # Append internal column number (5) of "command (exec)" for filtering
-    # Startup item could be shown/hidden for enabled/disabled (visible/hidden). Preferred visibility data is determined here.
-    filter_startup_application_type = []
-    if StartupMenusGUI.checkbutton5102p2.get_active() == True:
-        filter_startup_application_type.append(True)
-    if StartupMenusGUI.checkbutton5103p2.get_active() == True:
-        filter_startup_application_type.append(False)
-
+    global filter_column
     startup_application_search_text = StartupGUI.searchentry5101.get_text().lower()
     # Set visible/hidden startup items
     for piter in piter_list:
@@ -690,9 +673,6 @@ def startup_treeview_filter_search_func():
         startup_item_data_text_in_model = treestore5101.get_value(piter, filter_column)
         if startup_application_search_text in str(startup_item_data_text_in_model).lower():
             treestore5101.set_value(piter, 0, True)
-            startup_aplication_type_in_model = startup_applications_visibility_list[piter_list.index(piter)]
-            if startup_aplication_type_in_model not in filter_startup_application_type:
-                treestore5101.set_value(piter, 0, False)
 
 
 # ----------------------------------- Startup - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------

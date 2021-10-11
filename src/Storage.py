@@ -14,8 +14,8 @@ def storage_import_func():
     from datetime import datetime
 
 
-    global Config, MainGUI, StorageGUI, StorageMenusGUI
-    import Config, MainGUI, StorageGUI, StorageMenusGUI
+    global Config, MainGUI, StorageGUI
+    import Config, MainGUI, StorageGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -93,6 +93,9 @@ def storage_initial_func():
     storage_image_removable = "system-monitoring-center-disk-removable-symbolic"
     storage_image_optical = "system-monitoring-center-disk-optical-symbolic"
     storage_image_partition = "system-monitoring-center-disk-partition-symbolic"
+
+    global filter_column
+    filter_column = storage_data_list[0][2] - 1                                               # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
 # ----------------------------------- Storage - Get Storage Data Function (gets storage data, adds into treeview and updates it) -----------------------------------
@@ -518,7 +521,7 @@ def storage_loop_func():
     storage_data_rows_row_length = len(storage_data_rows[0])
     # Append/Remove/Update storage data into treestore
     treeview4101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
-    global storage_search_text, filter_storage_type, filter_column
+    global storage_search_text, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_proc_index:
             if storage_data_rows[i] != storage_data_rows_prev[j]:
@@ -539,12 +542,10 @@ def storage_loop_func():
             if StorageGUI.radiobutton4104.get_active() == True and disk_type_list[disk_order_name_time_list.index(list(storage))] != selected_disk_type:    # Hide disk (set the visibility value as "False") if "Show all optical and virtual disks/partitions" option is selected on the GUI and disk type is not same with the selection.
                 storage_data_rows[disk_order_name_time_list.index(list(storage))][0] = False
             if StorageGUI.searchentry4101.get_text() != "":
+                storage_search_text = StorageGUI.searchentry4101.get_text()
                 storage_data_text_in_model = storage_data_rows[disk_order_name_time_list.index(list(storage))][filter_column]
-                disk_type_in_model = disk_type_list[disk_order_name_time_list.index(list(storage))]
                 if storage_search_text not in str(storage_data_text_in_model).lower():        # Hide disk (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the disk data.
-                    storage_data_rows[disk_order_name_time_list.index(list(storage))][0] = False
-                if disk_type_in_model not in filter_storage_type:                             # Hide disk (set the visibility value as "False") if disk type of the disk is not in the filter_storage_type (this list is constructed by using user preferred options on the "Storage Search Customizations" tab).
-                    storage_data_rows[disk_order_name_time_list.index(list(storage))][0] = False
+                   storage_data_rows[disk_order_name_time_list.index(list(storage))][0] = False
             if disk_type_list[disk_order_name_time_list.index(list(storage))] == storage_image_partition:
                 storage_data_rows[disk_order_name_time_list.index(list(storage))][0] = True   # Make visible child disks (partitions). Otherwise stay hidden because "storage_image_partition" does not match with " != selected_disk_type" control which is made when new disk/storage is connected to system.
             # \\\ End \\\ This block of code is used for determining if the newly added disk will be shown on the treeview (user search actions and/or search customizations and/or "SShow all non-removable/removable/optical-virtual disks/partitions" preference affect disk visibility).
@@ -681,42 +682,7 @@ def storage_treeview_filter_optical_virtual_disks_only_func():
 # ----------------------------------- Storage - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
 def storage_treeview_filter_search_func():
 
-    # Determine filtering column (disk name, disk parent name, label, etc) for hiding/showing storage/disk by using search text typed into search entry.
-    global storage_search_text, filter_storage_type, filter_column
-    storage_treeview_columns_shown_sorted = sorted(storage_treeview_columns_shown)
-    if StorageMenusGUI.radiobutton4101p2.get_active() == True:
-        if 0 in storage_treeview_columns_shown:                                               # "0" is treeview column number
-            filter_column = 2                                                                 # Append internal column number (2) of "disk name" for filtering
-    if StorageMenusGUI.radiobutton4102p2.get_active() == True:
-        if 1 in storage_treeview_columns_shown:                                               # "1" is treeview column number
-            filter_column = 3                                                                 # Append internal column number (3) of "parent name" for filtering
-    if StorageMenusGUI.radiobutton4103p2.get_active() == True:
-        if 3 in storage_treeview_columns_shown:                                               # "3" is treeview column number
-            filter_column = 5                                                                 # Append internal column number (5) of "type" for filtering
-    if StorageMenusGUI.radiobutton4104p2.get_active() == True:
-        if 5 in storage_treeview_columns_shown:                                               # "5" is treeview column number
-            filter_column = 7                                                                 # Append internal column number (7) of "file system" for filtering
-    if StorageMenusGUI.radiobutton4105p2.get_active() == True:
-        if 10 in storage_treeview_columns_shown:                                              # "10" is treeview column number
-            filter_column = 10                                                                # Append internal column number (10) of "vendor-model" for filtering
-    if StorageMenusGUI.radiobutton4106p2.get_active() == True:
-        if 11 in storage_treeview_columns_shown:                                              # "11" is treeview column number
-            filter_column = 11                                                                # Append internal column number (11) of "label" for filtering
-    if StorageMenusGUI.radiobutton4106p2.get_active() == True:
-        if 12 in storage_treeview_columns_shown:                                              # "12" is treeview column number
-            filter_column = 12                                                                # Append internal column number (12) of "partition label" for filtering
-    if StorageMenusGUI.radiobutton4106p2.get_active() == True:
-        if 14 in storage_treeview_columns_shown:                                              # "14" is treeview column number
-            filter_column = 14                                                                # Append internal column number (14) of "path" for filtering
-    # Storage/Disks could be shown/hidden for specific disk types (non-removable disks, removable disks, optical/virtual disks). Preferred storage/disk types are determined here.
-    filter_storage_type = []
-    if StorageMenusGUI.checkbutton4102p2.get_active() == True:
-        filter_storage_type.extend((storage_image_ssd_hdd, storage_image_partition))          # Also "storage_image_partition" is appended into "filter_storage_type" list for showing children disks (parititons). Else partitions are set as hidden because their disk_type is not "storage_image_ssd_hdd".
-    if StorageMenusGUI.checkbutton4103p2.get_active() == True:
-        filter_storage_type.extend((storage_image_removable, storage_image_partition))        # Also "storage_image_partition" is appended into "filter_storage_type" list for showing children disks (parititons). Else partitions are set as hidden because their disk_type is not "storage_image_removable".
-    if StorageMenusGUI.checkbutton4104p2.get_active() == True:
-        filter_storage_type.extend((storage_image_optical, storage_image_partition))          # Also "storage_image_partition" is appended into "filter_storage_type" list for showing children disks (parititons). Else partitions are set as hidden because their disk_type is not "storage_image_optical".
-
+    global filter_column
     storage_search_text = StorageGUI.searchentry4101.get_text().lower()
     # Set visible/hidden storage/disk
     for piter in piter_list:
@@ -724,14 +690,11 @@ def storage_treeview_filter_search_func():
         storage_data_text_in_model = treestore4101.get_value(piter, filter_column)
         if storage_search_text in str(storage_data_text_in_model).lower():
             treestore4101.set_value(piter, 0, True)
-            disk_type_in_model = disk_type_list[piter_list.index(piter)]
-            if disk_type_in_model not in filter_storage_type:
-                treestore4101.set_value(piter, 0, False)
-            if treestore4101.get_value(piter, 0) == True:                                     # Make parent disk visible if one of its children is visible.
-                piter_parent = treestore4101.iter_parent(piter)
-                while piter_parent != None:
-                    treestore4101.set_value(piter_parent, 0, True)
-                    piter_parent = treestore4101.iter_parent(piter_parent)
+        if treestore4101.get_value(piter, 0) == True:                                         # Make parent disk visible if one of its children is visible.
+            piter_parent = treestore4101.iter_parent(piter)
+            while piter_parent != None:
+                treestore4101.set_value(piter_parent, 0, True)
+                piter_parent = treestore4101.iter_parent(piter_parent)
 
     StorageGUI.treeview4101.expand_all()                                                      # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
 

@@ -15,8 +15,8 @@ def users_import_func():
     import time
 
 
-    global Config, MainGUI, UsersGUI, UsersMenusGUI
-    import Config, MainGUI, UsersGUI, UsersMenusGUI
+    global Config, MainGUI, UsersGUI
+    import Config, MainGUI, UsersGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -94,6 +94,9 @@ def users_initial_func():
 
     date_month_names_list = [_tr("Jan"), _tr("Feb"), _tr("Mar"), _tr("Apr"), _tr("May"), _tr("Jun"), _tr("Jul"), _tr("Aug"), _tr("Sep"), _tr("Oct"), _tr("Nov"), _tr("Dec")]    # This list is defined in order to make English month names (get from /var/log/auth.log file) to be translated into other languages.
     date_day_names_list = [_tr("Mon"), _tr("Tue"), _tr("Wed"), _tr("Thu"), _tr("Fri"), _tr("Sat"), _tr("Sun")]    # This list is defined in order to make English day names (get from "lslogins") to be translated into other languages.
+
+    global filter_column
+    filter_column = users_data_list[0][2] - 1                                                 # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
 # ----------------------------------- Users - Get User Data Function (gets user data, adds into treeview and updates it) -----------------------------------
@@ -417,7 +420,7 @@ def users_loop_func():
     users_data_rows_row_length = len(users_data_rows[0])
     # Append/Remove/Update users data into treestore
     treeview3101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
-    global user_search_text, filter_log_in_status, filter_column
+    global user_search_text, filter_column
     if len(piter_list) > 0:
         for i, j in updated_existing_user_index:
             if users_data_rows[i] != users_data_rows_prev[j]:
@@ -436,11 +439,9 @@ def users_loop_func():
             if UsersGUI.radiobutton3103.get_active() == True and user_logged_in_list[uid_username_list.index(list(user))] == True:    # Hide user (set the visibility value as "False") if "Show only logged out users" option is selected on the GUI and user log in status is "True".
                 users_data_rows[uid_username_list.index(user)][0] = False
             if UsersGUI.searchentry3101.get_text() != "":
-                user_data_text_in_model = users_data_rows[uid_username_list.index(user)][filter_column]
-                user_logged_in_data_in_model = user_logged_in_list[uid_username_list.index(list(user))]
+                user_search_text = UsersGUI.searchentry3101.get_text()
+                user_data_text_in_model = users_data_rows[uid_username_list.index(list(user))][filter_column]
                 if user_search_text not in str(user_data_text_in_model).lower():              # Hide user (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the user.
-                    users_data_rows[uid_username_list.index(list(user))][0] = False
-                if user_logged_in_data_in_model not in filter_log_in_status:                  # Hide user (set the visibility value as "False") if log in information of the user is not in the filter_log_in_status (this list is constructed by using user preferred options on the "Users Search Customizations" tab).
                     users_data_rows[uid_username_list.index(list(user))][0] = False
             # \\\ End \\\ This block of code is used for determining if the newly added user will be shown on the treeview (user search actions and/or search customizations and/or "Show only logged in/logged out users ..." preference affect user visibility).
             piter_list.append(treestore3101.append(None, users_data_rows[uid_username_list.index(list(user))]))
@@ -540,31 +541,7 @@ def users_treeview_filter_users_logged_out_only():
 # ----------------------------------- Users - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
 def users_treeview_filter_search_func():
 
-    # Determine filtering column (username, UID, User Group, etc) for hiding/showing users by using search text typed into search entry.
-    global user_search_text, filter_log_in_status, filter_column
-    users_treeview_columns_shown_sorted = sorted(users_treeview_columns_shown)
-    if UsersMenusGUI.radiobutton3101p2.get_active() == True:
-        if 0 in users_treeview_columns_shown:                                                 # "0" is treeview column number
-            filter_column = 2                                                                 # Append internal column number (2) of "user name" for filtering
-    if UsersMenusGUI.radiobutton3102p2.get_active() == True:
-        if 1 in users_treeview_columns_shown:                                                 # "1" is treeview column number
-            filter_column = 3                                                                 # Append internal column number (3) of "full name" for filtering
-    if UsersMenusGUI.radiobutton3103p2.get_active() == True:
-        if 7 in users_treeview_columns_shown:                                                 # "7" is treeview column number
-            filter_column = 9                                                                 # Append internal column number (9) of "group" for filtering
-    if UsersMenusGUI.radiobutton3104p2.get_active() == True:
-        if 3 in users_treeview_columns_shown:                                                 # "3" is treeview column number
-            filter_column = 5                                                                 # Append internal column number (5) of "UID" for filtering
-    if UsersMenusGUI.radiobutton3105p2.get_active() == True:
-        if 4 in users_treeview_columns_shown:                                                 # "4" is treeview column number
-            filter_column = 6                                                                 # Append internal column number (6) of "GID" for filtering
-    # Users could be shown/hidden for log in status. Preferred log in status is determined here.
-    filter_log_in_status = []
-    if UsersMenusGUI.checkbutton3102p2.get_active() == True:
-        filter_log_in_status.append(True)
-    if UsersMenusGUI.checkbutton3103p2.get_active() == True:
-        filter_log_in_status.append(False)
-
+    global filter_column
     user_search_text = UsersGUI.searchentry3101.get_text().lower()
     # Set visible/hidden users
     for piter in piter_list:
@@ -572,9 +549,6 @@ def users_treeview_filter_search_func():
         user_data_text_in_model = treestore3101.get_value(piter, filter_column)
         if user_search_text in str(user_data_text_in_model).lower():
             treestore3101.set_value(piter, 0, True)
-            log_in_status_in_model = user_logged_in_list[piter_list.index(piter)]
-            if log_in_status_in_model not in filter_log_in_status:
-                treestore3101.set_value(piter, 0, False)
 
 
 # ----------------------------------- Users - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------

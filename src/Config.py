@@ -184,7 +184,7 @@ def config_default_processes_func():
     processes_disk_speed_data_unit = 0
     processes_disk_usage_data_unit = 0
     warn_before_stopping_processes = 1
-    processes_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 10, 11]                             # Processes data to be get, processed and shown. processes_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+    processes_treeview_columns_shown = [0, 1, 2, 4, 5, 10, 11]                                # Processes data to be get, processed and shown. processes_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
     processes_data_row_sorting_column = 0                                                     # Column number for row sorting
     processes_data_row_sorting_order = 0
     processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
@@ -205,7 +205,7 @@ def config_default_users_func():
     users_cpu_usage_percent_precision = 0
     users_ram_swap_data_precision = 2
     users_ram_swap_data_unit = 0
-    users_treeview_columns_shown = [0, 1, 2, 3, 5, 7, 12, 13]                                 # users_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    users_treeview_columns_shown = [0, 2, 3, 5, 7, 12, 13]                                    # users_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     users_data_row_sorting_column = 0
     users_data_row_sorting_order = 0
     users_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]

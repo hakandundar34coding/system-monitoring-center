@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.38.2 -->
 <interface>
-  <requires lib="gtk+" version="3.20"/>
-  <object class="GtkImage" id="menuitem3101mimage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-details-symbolic</property>
-  </object>
-  <object class="GtkMenu" id="menu3101m">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <child>
-      <object class="GtkImageMenuItem" id="menuitem3101m">
-        <property name="label" translatable="yes">Details</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">menuitem3101mimage</property>
-        <property name="use-stock">False</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkPopover" id="popover3101p">
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkPopover" id="popover4101p">
     <property name="can-focus">False</property>
     <child>
       <!-- n-columns=1 n-rows=4 -->
@@ -35,7 +17,7 @@
             <property name="can-focus">False</property>
             <property name="halign">start</property>
             <property name="margin-bottom">15</property>
-            <property name="label" translatable="yes">Users Tab Customizations:</property>
+            <property name="label" translatable="yes">Storage Tab Customizations:</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
@@ -126,7 +108,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="button3102p">
+                  <object class="GtkButton" id="button4102p">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
@@ -223,7 +205,6 @@
                 <property name="margin-top">10</property>
                 <property name="border-width">10</property>
                 <property name="row-spacing">5</property>
-                <property name="column-homogeneous">True</property>
                 <child>
                   <!-- n-columns=2 n-rows=1 -->
                   <object class="GtkGrid">
@@ -234,7 +215,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Add/Remove User Information:</property>
+                        <property name="label" translatable="yes">Add/Remove Storage Information:</property>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -259,15 +240,15 @@
                   </packing>
                 </child>
                 <child>
-                  <!-- n-columns=2 n-rows=7 -->
+                  <!-- n-columns=2 n-rows=12 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="row-spacing">5</property>
                     <property name="column-homogeneous">True</property>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3101p">
-                        <property name="label" translatable="yes">User Name</property>
+                      <object class="GtkCheckButton" id="checkbutton4101p">
+                        <property name="label" translatable="yes">Disk Name</property>
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can-focus">True</property>
@@ -282,8 +263,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3102p">
-                        <property name="label" translatable="yes">Full Name</property>
+                      <object class="GtkCheckButton" id="checkbutton4102p">
+                        <property name="label" translatable="yes">Parent Name</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -296,8 +277,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3103p">
-                        <property name="label" translatable="yes">Logged In</property>
+                      <object class="GtkCheckButton" id="checkbutton4103p">
+                        <property name="label" translatable="yes">System Disk</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -310,8 +291,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3104p">
-                        <property name="label" translatable="yes">UID</property>
+                      <object class="GtkCheckButton" id="checkbutton4104p">
+                        <property name="label" translatable="yes">Type</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -324,8 +305,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3105p">
-                        <property name="label" translatable="yes">GID</property>
+                      <object class="GtkCheckButton" id="checkbutton4105p">
+                        <property name="label" translatable="yes">Transport Type</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -338,8 +319,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3106p">
-                        <property name="label" translatable="yes">Processes</property>
+                      <object class="GtkCheckButton" id="checkbutton4106p">
+                        <property name="label" translatable="yes">File System</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -352,8 +333,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3107p">
-                        <property name="label" translatable="yes">Home Directory</property>
+                      <object class="GtkCheckButton" id="checkbutton4107p">
+                        <property name="label" translatable="yes">Total Size</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -366,8 +347,22 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3113p">
-                        <property name="label" translatable="yes">CPU%</property>
+                      <object class="GtkCheckButton" id="checkbutton4117p">
+                        <property name="label" translatable="yes">Serial Number</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4118p">
+                        <property name="label" translatable="yes">Mode</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -380,8 +375,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3114p">
-                        <property name="label" translatable="yes">RAM (RSS)</property>
+                      <object class="GtkCheckButton" id="checkbutton4119p">
+                        <property name="label" translatable="yes">Removable</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -394,8 +389,50 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3108p">
-                        <property name="label" translatable="yes">Group</property>
+                      <object class="GtkCheckButton" id="checkbutton4108p">
+                        <property name="label" translatable="yes">Free Space</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">7</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4115p">
+                        <property name="label" translatable="yes">Path</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4116p">
+                        <property name="label" translatable="yes">Revision</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4113p">
+                        <property name="label" translatable="yes">Partition Label</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -408,36 +445,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3111p">
-                        <property name="label" translatable="yes">Last Failed Login</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">False</property>
-                        <property name="halign">start</property>
-                        <property name="draw-indicator">True</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton3112p">
-                        <property name="label" translatable="yes">Started</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">False</property>
-                        <property name="halign">start</property>
-                        <property name="draw-indicator">True</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton3109p">
-                        <property name="label" translatable="yes">Terminal</property>
+                      <object class="GtkCheckButton" id="checkbutton4114p">
+                        <property name="label" translatable="yes">Mount Point</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -450,8 +459,64 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3110p">
-                        <property name="label" translatable="yes">Last Login</property>
+                      <object class="GtkCheckButton" id="checkbutton4110p">
+                        <property name="label" translatable="yes">Used Space%</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">9</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4109p">
+                        <property name="label" translatable="yes">Used Space</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">8</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4111p">
+                        <property name="label" translatable="yes">Vendor-Model</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">10</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4112p">
+                        <property name="label" translatable="yes">Label</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">11</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4120p">
+                        <property name="label" translatable="yes">Rotational</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -460,7 +525,63 @@
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
-                        <property name="top-attach">2</property>
+                        <property name="top-attach">7</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4121p">
+                        <property name="label" translatable="yes">Read-only</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">8</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4122p">
+                        <property name="label" translatable="yes">UUID</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">9</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4124p">
+                        <property name="label" translatable="yes">Major:Minor Device #</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">11</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton4123p">
+                        <property name="label" translatable="yes">Unique Storage Id.</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="halign">start</property>
+                        <property name="draw-indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">10</property>
                       </packing>
                     </child>
                   </object>
@@ -537,45 +658,26 @@
                     <property name="column-spacing">5</property>
                     <property name="column-homogeneous">True</property>
                     <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">RAM &amp; Swap Usage:</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBox" id="combobox3101p">
+                      <object class="GtkComboBox" id="combobox4101p">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
                         <property name="top-attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBox" id="combobox3102p">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">1</property>
+                        <property name="width">2</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">CPU Percent:</property>
+                        <property name="label" translatable="yes">Disk Usage:</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
                         <property name="top-attach">0</property>
+                        <property name="width">2</property>
                       </packing>
                     </child>
                   </object>
@@ -630,7 +732,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">RAM &amp; Swap Usage:</property>
+                        <property name="label" translatable="yes">Disk Usage:</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -638,7 +740,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="combobox3103p">
+                      <object class="GtkComboBox" id="combobox4102p">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                       </object>
@@ -688,7 +790,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="button3101p">
+          <object class="GtkButton" id="button4101p">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
@@ -741,172 +843,6 @@
           <packing>
             <property name="left-attach">0</property>
             <property name="top-attach">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkPopover" id="popover3101p2">
-    <property name="can-focus">False</property>
-    <child>
-      <!-- n-columns=1 n-rows=11 -->
-      <object class="GtkGrid">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="border-width">5</property>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Users Search Customizations:</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="margin-top">10</property>
-            <property name="label" translatable="yes">Search in column:</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="margin-top">10</property>
-            <property name="label" translatable="yes">Search in users:</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">7</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="checkbutton3101p2">
-            <property name="label" translatable="yes">All users</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
-            <property name="active">True</property>
-            <property name="draw-indicator">True</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">8</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRadioButton" id="radiobutton3101p2">
-            <property name="label" translatable="yes">Name</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
-            <property name="active">True</property>
-            <property name="draw-indicator">True</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRadioButton" id="radiobutton3102p2">
-            <property name="label" translatable="yes">Full Name</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
-            <property name="draw-indicator">True</property>
-            <property name="group">radiobutton3101p2</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="checkbutton3102p2">
-            <property name="label" translatable="yes">Users logged in</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
-            <property name="active">True</property>
-            <property name="draw-indicator">True</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">9</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="checkbutton3103p2">
-            <property name="label" translatable="yes">Users logged out</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
-            <property name="active">True</property>
-            <property name="draw-indicator">True</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">10</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRadioButton" id="radiobutton3103p2">
-            <property name="label" translatable="yes">Group</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
-            <property name="draw-indicator">True</property>
-            <property name="group">radiobutton3101p2</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRadioButton" id="radiobutton3104p2">
-            <property name="label" translatable="yes">UID</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
-            <property name="active">True</property>
-            <property name="draw-indicator">True</property>
-            <property name="group">radiobutton3101p2</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRadioButton" id="radiobutton3105p2">
-            <property name="label" translatable="yes">GID</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
-            <property name="active">True</property>
-            <property name="draw-indicator">True</property>
-            <property name="group">radiobutton3101p2</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">6</property>
           </packing>
         </child>
       </object>

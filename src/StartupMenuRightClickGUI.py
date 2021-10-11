@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Startup - Startup Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
-def startup_menus_import_func():
+# ----------------------------------- Startup - Startup Right Click Menu GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+def startup_menu_right_click_import_func():
 
     global Gtk, Gdk, Gio, os, subprocess, Thread
 
@@ -34,29 +34,27 @@ def startup_menus_import_func():
     locale.setlocale(locale.LC_ALL, system_current_language)
 
 
-# ----------------------------------- Startup - Startup Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab menu/popover GUI objects and functions/signals) -----------------------------------
-def startup_menus_gui_func():
+# ----------------------------------- Startup - Startup Right Click Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab menu/popover GUI objects and functions/signals) -----------------------------------
+def startup_menu_right_click_gui_func():
 
-    # Define builder and get all objects (Startup tab right click menu, Startup tab customizations popover, Startup tab search customizations popover) from GUI file.
-    builder5101m = Gtk.Builder()
-    builder5101m.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StartupMenus.ui")
+    # Define builder and get all objects (Startup tab right click menu) from GUI file.
+    builder = Gtk.Builder()
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StartupMenuRightClick.ui")
 
-    # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    # Define object names, get object names, define object functions and connect signals to GUI objects for Startup tab right click menu
     # ********************** Define object names for Startup tab right click menu **********************
     global menu5101m
     global checkmenuitem5101m, menuitem5102m, menuitem5103m, menuitem5105m, menuitem5106m, menuitem5107m, sub_menuitem5101m, sub_menuitem5102m
 
     # ********************** Get object names for Startup tab right click menu **********************
-    menu5101m = builder5101m.get_object('menu5101m')
-    checkmenuitem5101m = builder5101m.get_object('checkmenuitem5101m')
-    menuitem5102m = builder5101m.get_object('menuitem5102m')
-    menuitem5103m = builder5101m.get_object('menuitem5103m')
-    menuitem5105m = builder5101m.get_object('menuitem5105m')
-    menuitem5106m = builder5101m.get_object('menuitem5106m')
-    menuitem5107m = builder5101m.get_object('menuitem5107m')
-    sub_menuitem5101m = builder5101m.get_object('sub_menuitem5101m')
-    sub_menuitem5102m = builder5101m.get_object('sub_menuitem5102m')
+    menu5101m = builder.get_object('menu5101m')
+    checkmenuitem5101m = builder.get_object('checkmenuitem5101m')
+    menuitem5102m = builder.get_object('menuitem5102m')
+    menuitem5103m = builder.get_object('menuitem5103m')
+    menuitem5105m = builder.get_object('menuitem5105m')
+    menuitem5106m = builder.get_object('menuitem5106m')
+    menuitem5107m = builder.get_object('menuitem5107m')
+    sub_menuitem5101m = builder.get_object('sub_menuitem5101m')
+    sub_menuitem5102m = builder.get_object('sub_menuitem5102m')
 
     # ********************** Define object functions for Startup tab right click menu **********************
     def on_checkmenuitem5101m_toggled(widget):                                                # "Enable/Disable" item on the right click menu
@@ -158,9 +156,9 @@ def startup_menus_gui_func():
                                 desktop_file_user_lines.remove(line)                          # Remove old value from the list
                                 desktop_file_user_lines.append("X-XFCE-Autostart-Override=true")    # Append new value into the list
                 if len(set(Startup.current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"])) > 0 and (gnome_autostart_enabled_value_system == "false" or gnome_autostart_enabled_value_user != ""):
-                    for line in desktop_file_user_lines:                                  # Search for visibility value
+                    for line in desktop_file_user_lines:                                      # Search for visibility value
                         if "X-GNOME-Autostart-enabled" in line:
-                            desktop_file_user_lines.remove(line)                          # Remove old value from the list
+                            desktop_file_user_lines.remove(line)                              # Remove old value from the list
                             desktop_file_user_lines.append("X-GNOME-Autostart-enabled=true")    # Append new value into the list
                 for line in desktop_file_user_lines:                                          # Search for visibility value
                     if "NotShowIn=" in line:
@@ -302,196 +300,38 @@ def startup_menus_gui_func():
     menuitem5107m.connect("activate", on_menuitem5107m_activate)
     sub_menuitem5101m.connect("activate", on_sub_menuitem5101m_activate)
     sub_menuitem5102m.connect("activate", on_sub_menuitem5102m_activate)
-    # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
-    # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    # Define object names, get object names, define object functions and connect signals to GUI objects for Startup tab customizations popover
-    # ********************** Define object names for Startup tab customizations popover **********************
-    global popover5101p
-    global checkbutton5101p, checkbutton5102p, checkbutton5103p
-    global button5101p, button5102p
+# ----------------------------------- Startup - Set System And User Autostart Directories Function (gets system and user autostart directories) -----------------------------------
+def startup_get_system_and_user_autostart_directories_func():
+    # Get human and root user usernames and UIDs. This data will be used if application is run with "pkexec" command.
+    usernames_username_list = []
+    usernames_uid_list = []
+    with open("/etc/passwd") as reader:                                                       # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
+        etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
+    for line in etc_passwd_lines:
+        line_splitted = line.split(":")
+        usernames_username_list.append(line_splitted[0])
+        usernames_uid_list.append(line_splitted[2])
 
-    # ********************** Get object names for Startup tab customizations popover **********************
-    popover5101p = builder5101m.get_object('popover5101p')
-    checkbutton5101p = builder5101m.get_object('checkbutton5101p')
-    checkbutton5102p = builder5101m.get_object('checkbutton5102p')
-    checkbutton5103p = builder5101m.get_object('checkbutton5103p')
-    button5101p = builder5101m.get_object('button5101p')
-    button5102p = builder5101m.get_object('button5102p')
+    # Get current username which will be used for determining current user home directory.
+    global current_user_name
+    current_user_name = os.environ.get('SUDO_USER')                                           # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
+    if current_user_name is None:                                                             # Get username in the following way if current application has not been run by root privileges.
+        current_user_name = os.environ.get('USER')
+    pkexec_uid = os.environ.get('PKEXEC_UID')
+    if current_user_name == "root" and pkexec_uid != None:                                    # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
+        current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
 
-    # ********************** Define object functions for Startup tab customizations popover Common GUI Objects **********************
-    def on_button5101p_clicked(widget):                                                       # "Reset All" button
-        Config.config_default_startup_func()
-        Config.config_save_func()
-        startup_tab_customization_popover_disconnect_signals_func()
-        startup_tab_popover_set_gui()
-        startup_tab_customization_popover_connect_signals_func()
+    # Get startup item file directories. System default autostart directory is "system_autostart_directory". Startup items are copied into "current_user_autostart_directory" directory with modified values if user make modifications for the startup item. For the user, these values override system values for the user-modified startup item.
+    for line in etc_passwd_lines:
+        line_splitted = line.split(":")
+        if line_splitted[0] == current_user_name:
+            current_user_homedir = line_splitted[5]
 
-    # ********************** Define object functions for Startup tab customizations popover View Tab **********************
-    def on_button5102p_clicked(widget):                                                       # "Reset" button
-        Config.config_default_startup_row_sort_column_order_func()
-        startup_tab_customization_popover_disconnect_signals_func()
-        Config.config_save_func()
-        startup_tab_customization_popover_connect_signals_func()
-
-    # ********************** Define object functions for Startup tab customizations popover Add/Remove Columns Tab **********************
-    def on_checkbutton5101p_toggled(widget):                                                  # "Name" checkbutton
-        startup_add_remove_columns_function()
-    def on_checkbutton5102p_toggled(widget):                                                  # "Comment" checkbutton
-        startup_add_remove_columns_function()
-    def on_checkbutton5103p_toggled(widget):                                                  # "Command (Exec)" checkbutton
-        startup_add_remove_columns_function()
-
-    # ********************** Connect signals to GUI objects for Startup tab customizations popover Common GUI Objects **********************
-    button5101p.connect("clicked", on_button5101p_clicked)
-    button5102p.connect("clicked", on_button5102p_clicked)
-    # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-    # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    # Define object names, get object names, define object functions and connect signals to GUI objects for Startup tab search customizations popover
-    # ********************** Define object names for Startup tab search customizations popover **********************
-    global popover5101p2
-    global radiobutton5101p2, radiobutton5102p2, radiobutton5103p2
-    global checkbutton5101p2, checkbutton5102p2, checkbutton5103p2
-
-    # ********************** Get object names for Startup tab search customizations popover **********************
-    popover5101p2 = builder5101m.get_object('popover5101p2')
-    radiobutton5101p2 = builder5101m.get_object('radiobutton5101p2')
-    radiobutton5102p2 = builder5101m.get_object('radiobutton5102p2')
-    radiobutton5103p2 = builder5101m.get_object('radiobutton5103p2')
-    checkbutton5101p2 = builder5101m.get_object('checkbutton5101p2')
-    checkbutton5102p2 = builder5101m.get_object('checkbutton5102p2')
-    checkbutton5103p2 = builder5101m.get_object('checkbutton5103p2')
-
-    # ********************** Define object functions for Startup tab search customizations popover **********************
-    def on_radiobutton5101p2_toggled(widget):
-        if radiobutton5101p2.get_active() == True:
-            Startup.startup_treeview_filter_search_func()
-
-    def on_radiobutton5102p2_toggled(widget):
-        if radiobutton5102p2.get_active() == True:
-            Startup.startup_treeview_filter_search_func()
-
-    def on_radiobutton5103p2_toggled(widget):
-        if radiobutton5103p2.get_active() == True:
-            Startup.startup_treeview_filter_search_func()
-
-    def on_checkbutton5101p2_toggled(widget):
-        startup_popovers_checkbutton_behavior_func(checkbutton5101p2)
-
-    def on_checkbutton5102p2_toggled(widget):
-        startup_popovers_checkbutton_behavior_func( checkbutton5102p2)
-
-    def on_checkbutton5103p2_toggled(widget):
-        startup_popovers_checkbutton_behavior_func(checkbutton5103p2)
-
-    # ********************** Connect signals to GUI objects for Startup tab search customizations popover **********************
-    radiobutton5101p2.connect("toggled", on_radiobutton5101p2_toggled)
-    radiobutton5102p2.connect("toggled", on_radiobutton5102p2_toggled)
-    radiobutton5103p2.connect("toggled", on_radiobutton5103p2_toggled)
-    global checkbutton5101p2_handler_id, checkbutton5102p2_handler_id, checkbutton5103p2_handler_id
-    checkbutton5101p2_handler_id = checkbutton5101p2.connect("toggled", on_checkbutton5101p2_toggled)    # Handler ids are defined in order to block signals of the checkbuttons. Because activating and deactivating of this checkbuttons affects behaviors of each others and this would cause lock when active state of these are changed.
-    checkbutton5102p2_handler_id = checkbutton5102p2.connect("toggled", on_checkbutton5102p2_toggled)
-    checkbutton5103p2_handler_id = checkbutton5103p2.connect("toggled", on_checkbutton5103p2_toggled)
-    # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-    # ********************** Popover settings for Startup tab **********************
-    popover5101p.set_relative_to(StartupGUI.button5101)
-    popover5101p.set_position(1)
-    # ********************** Popover settings for Startup tab search customizations **********************
-    popover5101p2.set_relative_to(StartupGUI.button5102)
-    popover5101p2.set_position(3)                                                             # Search customizations popover menu is not very long. It will be shown at the lower edge of the caller button (set_position(3)).
-
-
-
-    # ********************** Define function for connecting Startup tab customizations popover GUI signals **********************
-    def startup_tab_customization_popover_connect_signals_func():
-        # ********************** Connect signals to GUI objects for Startup tab customizations popover Add/Remove Columns Tab **********************
-        checkbutton5101p.connect("toggled", on_checkbutton5101p_toggled)
-        checkbutton5102p.connect("toggled", on_checkbutton5102p_toggled)
-        checkbutton5103p.connect("toggled", on_checkbutton5103p_toggled)
-
-
-    # ********************** Define function for disconnecting Startup tab customizations popover GUI signals **********************
-    def startup_tab_customization_popover_disconnect_signals_func():
-        # ********************** Disconnect signals of GUI objects for Startup tab customizations popover Add/Remove Columns Tab **********************
-        checkbutton5101p.disconnect_by_func(on_checkbutton5101p_toggled)
-        checkbutton5102p.disconnect_by_func(on_checkbutton5102p_toggled)
-        checkbutton5103p.disconnect_by_func(on_checkbutton5103p_toggled)
-
-
-    startup_tab_popover_set_gui()
-    startup_tab_customization_popover_connect_signals_func()
-
-
-# ********************** Set Startup tab customizations popover menu GUI object data/selections appropriate for settings **********************
-def startup_tab_popover_set_gui():
-    # Set Startup tab customizations popover menu Add/Remove Column tab GUI object data/selections appropriate for settings
-    if 0 in Config.startup_treeview_columns_shown:
-        checkbutton5101p.set_active(True)
-    if 0 not in Config.startup_treeview_columns_shown:
-        checkbutton5101p.set_active(False)
-    if 1 in Config.startup_treeview_columns_shown:
-        checkbutton5102p.set_active(True)
-    if 1 not in Config.startup_treeview_columns_shown:
-        checkbutton5102p.set_active(False)
-    if 2 in Config.startup_treeview_columns_shown:
-        checkbutton5103p.set_active(True)
-    if 2 not in Config.startup_treeview_columns_shown:
-        checkbutton5103p.set_active(False)
-
-
-# ----------------------------------- Startup - Startup Tab Popovers Checkbuttons Behavior Function (contains statements and blocking code in order to avoid repetitive signal operations on checkbutton toggles) -----------------------------------
-def startup_popovers_checkbutton_behavior_func(caller_checkbutton):
-
-    checkbutton_list = [checkbutton5101p2, checkbutton5102p2, checkbutton5103p2]
-    select_all_checkbutton = checkbutton_list[0]
-    sub_checkbutton_list = checkbutton_list
-    sub_checkbutton_list.remove(select_all_checkbutton)
-    checkbutton_active_state_list = []
-    for checkbutton in sub_checkbutton_list:
-        if checkbutton != select_all_checkbutton:
-            checkbutton_active_state_list.append(checkbutton.get_active())
-
-    with checkbutton5101p2.handler_block(checkbutton5101p2_handler_id) as p1, checkbutton5102p2.handler_block(checkbutton5102p2_handler_id) as p2, checkbutton5103p2.handler_block(checkbutton5103p2_handler_id) as p3:
-        if caller_checkbutton != select_all_checkbutton and caller_checkbutton.get_active() == False:
-            if True not in checkbutton_active_state_list:
-                caller_checkbutton.set_active(True)
-                checkbutton_active_state_list[sub_checkbutton_list.index(caller_checkbutton)] = True
-        if caller_checkbutton != select_all_checkbutton and False not in checkbutton_active_state_list:
-            select_all_checkbutton.set_active(True)
-            select_all_checkbutton.set_inconsistent(False)
-        if caller_checkbutton != select_all_checkbutton and False in checkbutton_active_state_list:
-            select_all_checkbutton.set_active(False)
-            select_all_checkbutton.set_inconsistent(True)
-        if select_all_checkbutton.get_active() == True:
-            select_all_checkbutton.set_inconsistent(False)
-            for i, checkbutton in enumerate(sub_checkbutton_list):
-                checkbutton.set_active(True)
-                checkbutton_active_state_list[i] = True
-        if select_all_checkbutton.get_active() == False:
-            if False not in checkbutton_active_state_list:
-                select_all_checkbutton.set_active(True)
-
-    if StartupGUI.searchentry5101.get_text() != "":                                         # Search filter updating is prevented, if any text is not inserted into searchentry. This is due to prevent user frustration because of the "show all ... disks" radiobuttons above the treeview.
-        Startup.startup_treeview_filter_search_func()
-
-
-# ----------------------------------- Startup - Startup Add/Remove Columns Function (adds/removes storage treeview columns) -----------------------------------
-def startup_add_remove_columns_function():
-
-    Config.startup_treeview_columns_shown = []
-    if checkbutton5101p.get_active() is True:
-        Config.startup_treeview_columns_shown.append(0)
-    if checkbutton5102p.get_active() is True:
-        Config.startup_treeview_columns_shown.append(1)
-    if checkbutton5103p.get_active() is True:
-        Config.startup_treeview_columns_shown.append(2)
-
-    Config.config_save_func()
+    global current_user_autostart_directory, system_autostart_directory
+    current_user_autostart_directory = current_user_homedir + "/.config/autostart/"
+    system_autostart_directory = "/etc/xdg/autostart/"
 
 
 # ----------------------------------- Startup - Set Checkmenuitems (acivates/deactivates checkmenuitem (Enable/Disable checkbox for startup application visibility) on the popup menu when right click operation is performed on startup item row on the treeview) -----------------------------------
@@ -543,38 +383,6 @@ def startup_set_menu_labels_func():
     if os.path.exists(desktop_file_user_full_path) == False:
         sub_menuitem5102m.set_sensitive(False)
         sub_menuitem5102m.set_label(_tr("User-specific values file: ") + _tr("None"))
-
-
-# ----------------------------------- Startup - Set System And User Autostart Directories Function (gets system and user autostart directories) -----------------------------------
-def startup_get_system_and_user_autostart_directories_func():
-    # Get human and root user usernames and UIDs. This data will be used if application is run with "pkexec" command.
-    usernames_username_list = []
-    usernames_uid_list = []
-    with open("/etc/passwd") as reader:                                                   # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
-        etc_passwd_lines = reader.read().strip().split("\n")                              # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
-    for line in etc_passwd_lines:
-        line_splitted = line.split(":")
-        usernames_username_list.append(line_splitted[0])
-        usernames_uid_list.append(line_splitted[2])
-
-    # Get current username which will be used for determining current user home directory.
-    global current_user_name
-    current_user_name = os.environ.get('SUDO_USER')                                       # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
-    if current_user_name is None:                                                         # Get username in the following way if current application has not been run by root privileges.
-        current_user_name = os.environ.get('USER')
-    pkexec_uid = os.environ.get('PKEXEC_UID')
-    if current_user_name == "root" and pkexec_uid != None:                                # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-        current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
-
-    # Get startup item file directories. System default autostart directory is "system_autostart_directory". Startup items are copied into "current_user_autostart_directory" directory with modified values if user make modifications for the startup item. For the user, these values override system values for the user-modified startup item.
-    for line in etc_passwd_lines:
-        line_splitted = line.split(":")
-        if line_splitted[0] == current_user_name:
-            current_user_homedir = line_splitted[5]
-
-    global current_user_autostart_directory, system_autostart_directory
-    current_user_autostart_directory = current_user_homedir + "/.config/autostart/"
-    system_autostart_directory = "/etc/xdg/autostart/"
 
 
 # ----------------------------------- Startup - Startup Run Startup Item Warning Dialog Function (shows a warning dialog when a startup item is tried to be run) -----------------------------------

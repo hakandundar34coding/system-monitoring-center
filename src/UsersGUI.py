@@ -11,8 +11,8 @@ def users_gui_import_func():
     import os
 
 
-    global MainGUI, Users, UsersMenusGUI
-    import MainGUI, Users, UsersMenusGUI
+    global MainGUI, Users
+    import MainGUI, Users
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -35,7 +35,7 @@ def users_gui_import_func():
 # ----------------------------------- Users - Users GUI Function (the code of this module in order to avoid running them during module import and defines "Users" tab GUI objects and functions/signals) -----------------------------------
 def users_gui_func():
 
-    global grid3101, treeview3101, searchentry3101, button3101, button3102
+    global grid3101, treeview3101, searchentry3101, button3101
     global radiobutton3101, radiobutton3102, radiobutton3103
     global label3101
 
@@ -50,8 +50,6 @@ def users_gui_func():
     treeview3101 = builder.get_object('treeview3101')
     searchentry3101 = builder.get_object('searchentry3101')
     button3101 = builder.get_object('button3101')
-    button3102 = builder.get_object('button3102')
-    button3103 = builder.get_object('button3103')
     radiobutton3101 = builder.get_object('radiobutton3101')
     radiobutton3102 = builder.get_object('radiobutton3102')
     radiobutton3103 = builder.get_object('radiobutton3103')
@@ -74,24 +72,29 @@ def users_gui_func():
         Users.users_treeview_filter_search_func()
 
     def on_button3101_clicked(widget):                                                        # "Users Tab Customizations" button
-        UsersMenusGUI.popover3101p.popup()
+        if 'UsersMenuCustomizationsGUI' not in globals():                                     # Check if "UsersMenuCustomizationsGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global UsersMenuCustomizationsGUI
+            import UsersMenuCustomizationsGUI
+            UsersMenuCustomizationsGUI.users_menu_customizations_import_func()
+            UsersMenuCustomizationsGUI.users_menu_customizations_gui_func()
+        UsersMenuCustomizationsGUI.popover3101p.popup()
 
     def on_radiobutton3101_toggled(widget):                                                   # "Show all users" radiobutton
         if radiobutton3101.get_active() == True:
+            searchentry3101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Users.users_treeview_filter_show_all_func()
 
     def on_radiobutton3102_toggled(widget):                                                   # "Show only users logged in" radiobutton
         if radiobutton3102.get_active() == True:
+            searchentry3101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Users.users_treeview_filter_show_all_func()
             Users.users_treeview_filter_users_logged_in_only()
 
     def on_radiobutton3103_toggled(widget):                                                   # "Show only users logged out" radiobutton
         if radiobutton3103.get_active() == True:
+            searchentry3101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
             Users.users_treeview_filter_show_all_func()
             Users.users_treeview_filter_users_logged_out_only()
-
-    def on_button3102_clicked(widget):                                                        # "Users Tab Search Customizations" button
-        UsersMenusGUI.popover3101p2.popup()
 
 
 
@@ -100,7 +103,6 @@ def users_gui_func():
     treeview3101.connect("button-release-event", on_treeview3101_button_release_event)
     searchentry3101.connect("changed", on_searchentry3101_changed)
     button3101.connect("clicked", on_button3101_clicked)
-    button3102.connect("clicked", on_button3102_clicked)
     radiobutton3101.connect("toggled", on_radiobutton3101_toggled)
     radiobutton3102.connect("toggled", on_radiobutton3102_toggled)
     radiobutton3103.connect("toggled", on_radiobutton3103_toggled)
@@ -130,7 +132,12 @@ def users_open_right_click_menu_func(event):
     if treeiter is not None:
         global selected_user_uid
         selected_user_uid = Users.uid_username_list[Users.users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting UID of the user.
-        UsersMenusGUI.menu3101m.popup(None, None, None, None, event.button, event.time)
+        if 'UsersMenuRightClickGUI' not in globals():                                         # Check if "UsersMenuRightClickGUI" module is imported. Therefore it is not reimported on every right click operation.
+            global UsersMenuRightClickGUI
+            import UsersMenuRightClickGUI
+            UsersMenuRightClickGUI.users_menu_right_click_import_func()
+            UsersMenuRightClickGUI.users_menu_right_click_gui_func()
+        UsersMenuRightClickGUI.menu3101m.popup(None, None, None, None, event.button, event.time)
 
 
 # ----------------------------------- Users - Open User Details Window Function (gets double clicked user UID and opens User Details window) -----------------------------------
