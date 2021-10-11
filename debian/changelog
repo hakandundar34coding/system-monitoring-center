@@ -1,3 +1,9 @@
+system-monitoring-center (0.1.21~beta5) unstable; urgency=medium
+
+  * Remove search customization features for simplicity
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 11 Oct 2021 07:43:57 +0300
+
 system-monitoring-center (0.1.21~beta4) unstable; urgency=medium
 
   * Added support for viewing Arch Linux and pacman packages information
