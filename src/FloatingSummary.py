@@ -111,6 +111,8 @@ def floating_summary_initial_func():
     floating_summary_window.show_all()
     floating_summary_window.set_opacity(Config.floating_summary_window_transparency)          # Set transperancy of the window.
 
+    floating_summary_define_data_unit_converter_variables_func()                              # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
+
 
 # ----------------------------------- FloatingSummary - Loop Function (updates performance data on the floating summary window) -----------------------------------
 def floating_summary_loop_func():
@@ -161,21 +163,21 @@ def floating_summary_loop_func():
 
     # Set label text for showing peformance data
     if 0 in floating_summary_data_shown:
-        floating_summary_cpu_label.set_text(_tr("CPU: ") + f'{Performance.cpu_usage_percent_ave[-1]:.2f}' + "%")
+        floating_summary_cpu_label.set_text(_tr("CPU: ") + f'{Performance.cpu_usage_percent_ave[-1]:.0f} %')
     if 1 in floating_summary_data_shown:
-        floating_summary_ram_label.set_text(_tr("RAM: ") + f'{Performance.ram_usage_percent[-1]:.0f}' + "%")
+        floating_summary_ram_label.set_text(_tr("RAM: ") + f'{Performance.ram_usage_percent[-1]:.0f} %')
     if 2 in floating_summary_data_shown:
-        floating_summary_disk_read_write_speed_label.set_text(_tr("Disk R+W: ") + f'{(Performance.disk_read_speed[Performance.selected_disk_number][-1] + Performance.disk_write_speed[Performance.selected_disk_number][-1]):.0f}' + "B/s")
+        floating_summary_disk_read_write_speed_label.set_text(_tr("Disk R+W: ") + f'{floating_summary_data_unit_converter_func((Performance.disk_read_speed[Performance.selected_disk_number][-1] + Performance.disk_write_speed[Performance.selected_disk_number][-1]), 0, 2)}/s')
     if 3 in floating_summary_data_shown:
-        floating_summary_disk_read_speed_label.set_text(_tr("Disk R: ") + f'{Performance.disk_read_speed[Performance.selected_disk_number][-1]:.0f}' + "B/s")
+        floating_summary_disk_read_speed_label.set_text(_tr("Disk R: ") + f'{floating_summary_data_unit_converter_func(Performance.disk_read_speed[Performance.selected_disk_number][-1], 0, 2)}/s')
     if 4 in floating_summary_data_shown:
-        floating_summary_disk_write_speed_label.set_text(_tr("Disk W: ") + f'{Performance.disk_write_speed[Performance.selected_disk_number][-1]:.0f}' + "B/s")
+        floating_summary_disk_write_speed_label.set_text(_tr("Disk W: ") + f'{floating_summary_data_unit_converter_func(Performance.disk_write_speed[Performance.selected_disk_number][-1], 0, 2)}/s')
     if 5 in floating_summary_data_shown:
-        floating_summary_network_receive_send_speed_label.set_text(_tr("Network D+U: ") + f'{(Performance.network_receive_speed[Performance.selected_network_card_number][-1] + Performance.network_send_speed[Performance.selected_network_card_number][-1]):.0f}' + "B/s")
+        floating_summary_network_receive_send_speed_label.set_text(_tr("Network D+U: ") + f'{floating_summary_data_unit_converter_func((Performance.network_receive_speed[Performance.selected_network_card_number][-1] + Performance.network_send_speed[Performance.selected_network_card_number][-1]), 0, 2)}/s')
     if 6 in floating_summary_data_shown:
-        floating_summary_network_receive_speed_label.set_text(_tr("Network R: ") + f'{Performance.network_receive_speed[Performance.selected_network_card_number][-1]:.0f}' + "B/s")
+        floating_summary_network_receive_speed_label.set_text(_tr("Network R: ") + f'{floating_summary_data_unit_converter_func(Performance.network_receive_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
     if 7 in floating_summary_data_shown:
-        floating_summary_network_send_speed_label.set_text(_tr("Network W: ") + f'{Performance.network_send_speed[Performance.selected_network_card_number][-1]:.0f}' + "B/s")
+        floating_summary_network_send_speed_label.set_text(_tr("Network W: ") + f'{floating_summary_data_unit_converter_func(Performance.network_send_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
 
 
 # ----------------------------------- FloatingSummary Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
@@ -200,3 +202,57 @@ def floating_summary_thread_run_func():
 #     floating_summary_initial_thread.join()
     floating_summary_loop_thread = Thread(target=floating_summary_loop_thread_func, daemon=True)
     floating_summary_loop_thread.start()
+
+
+# ----------------------------------- FloatingSummary - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+def floating_summary_define_data_unit_converter_variables_func():
+
+    global data_unit_list
+
+    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently.
+
+    # Unit Name    Abbreviation    bytes   
+    # byte         B               1
+    # kilobyte     KB              1024
+    # megabyte     MB              1.04858E+06
+    # gigabyte     GB              1.07374E+09
+    # terabyte     TB              1.09951E+12
+    # petabyte     PB              1.12590E+15
+    # exabyte      EB              1.15292E+18
+
+    # Unit Name    Abbreviation    bytes    
+    # bit          b               8
+    # kilobit      Kb              8192
+    # megabit      Mb              8,38861E+06
+    # gigabit      Gb              8,58993E+09
+    # terabit      Tb              8,79609E+12
+    # petabit      Pb              9,00720E+15
+    # exabit       Eb              9,22337E+18
+
+    data_unit_list = [[0, 0, _tr("Auto-Byte")], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
+                      [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
+                      [8, 0, _tr("Auto-bit")], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
+                      [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
+
+
+# ----------------------------------- FloatingSummary - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+def floating_summary_data_unit_converter_func(data, unit, precision):
+
+    global data_unit_list
+    if unit >= 8:
+        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
+    if unit == 0 or unit == 8:
+        unit_counter = unit + 1
+        while data > 1024:
+            unit_counter = unit_counter + 1
+            data = data/1024
+        unit = data_unit_list[unit_counter][2]
+        if data == 0:
+            precision = 0
+        return f'{data:.{precision}f} {unit}'
+
+    data = data / data_unit_list[unit][1]
+    unit = data_unit_list[unit][2]
+    if data == 0:
+        precision = 0
+    return f'{data:.{precision}f} {unit}'
