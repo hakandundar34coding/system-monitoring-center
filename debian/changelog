@@ -3,6 +3,7 @@ system-monitoring-center (0.1.21~beta6) unstable; urgency=medium
   * Update README.md
   * Minor GUI improvements
   * Removed Run Application window which needs more detailed work
+  * Updated translation files
 
  -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 13 Oct 2021 10:07:57 +0300
 
