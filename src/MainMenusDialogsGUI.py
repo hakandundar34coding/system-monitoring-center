@@ -30,14 +30,12 @@ def main_menus_gui_func():
     builder1001.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.ui")
 
     menu1001m = builder1001.get_object('menu1001m')
-    menuitem1001m = builder1001.get_object('menuitem1001m')
     menuitem1002m = builder1001.get_object('menuitem1002m')
     menuitem1003m = builder1001.get_object('menuitem1003m')
     menuitem1004m = builder1001.get_object('menuitem1004m')
     menuitem1005m = builder1001.get_object('menuitem1005m')
     menuitem1006m = builder1001.get_object('menuitem1006m')
     checkmenuitem1001m = builder1001.get_object('checkmenuitem1001m')
-    menuitem1001m = builder1001.get_object('menuitem1001m')
 
 
     builder1001d = Gtk.Builder()
@@ -52,15 +50,6 @@ def main_menus_gui_func():
         if Config.show_floating_summary == 1:
             checkmenuitem1001m.set_active(True)
         checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
-
-    def on_menuitem1001m_activate(widget):                                                    # "Run Program" menu item
-        if "RunApplicationGUI" not in globals():                                                    # Settings module is imported and the following functions are run only one time during application run. This statement is used in order to avoid them running on every window opening.
-            global RunApplicationGUI, RunApplication
-            import RunApplicationGUI, RunApplication
-            RunApplicationGUI.run_application_gui_import_func()
-            RunApplicationGUI.run_application_gui_func()
-            RunApplication.run_application_import_func()
-        RunApplication.run_application_func()
 
     def on_menuitem1002m_activate(widget):                                                    # "Open Terminal" menu item
         open_terminal_thread = Thread(target=main_menus_gui_open_terminal_func, daemon=True).start()    # Terminal is run in another thread in order not to wait end of the run which occurs in single threaded code execution.
@@ -109,7 +98,6 @@ def main_menus_gui_func():
 
 
     menu1001m.connect("show", on_menu1001m_show)
-    menuitem1001m.connect("activate", on_menuitem1001m_activate)
     menuitem1002m.connect("activate", on_menuitem1002m_activate)
     checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
     menuitem1003m.connect("activate", on_menuitem1003m_activate)

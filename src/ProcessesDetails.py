@@ -471,37 +471,6 @@ def process_details_foreground_func():
             ProcessesDetailsGUI.label2137w.set_text("-")
 
 
-    # Show and update process details on the "Network" tab
-    if ProcessesDetailsGUI.notebook2101w.get_current_page() == 3:
-        return
-
-
-        if selected_process_connections_ipv4 != "-":
-            ProcessesDetailsGUI.label2138w.set_text(',\n'.join(process_connections_ipv4))
-        if selected_process_connections_ipv4 == "-":
-            ProcessesDetailsGUI.label2138w.set_text("-")
-        if selected_process_connections_ipv6 != "-":
-            ProcessesDetailsGUI.label2139w.set_text(',\n'.join(process_connections_ipv6))
-        if selected_process_connections_ipv6 == "-":
-            ProcessesDetailsGUI.label2139w.set_text("-")
-        if selected_process_connections_tcp4 != "-":
-            ProcessesDetailsGUI.label2140w.set_text(',\n'.join(process_connections_tcp4))
-        if selected_process_connections_tcp4 == "-":
-            ProcessesDetailsGUI.label2140w.set_text("-")
-        if selected_process_connections_tcp6 != "-":
-            ProcessesDetailsGUI.label2141w.set_text(',\n'.join(process_connections_tcp6))
-        if selected_process_connections_tcp6 == "-":
-            ProcessesDetailsGUI.label2141w.set_text("-")
-        if selected_process_connections_udp4 != "-":
-            ProcessesDetailsGUI.label2142w.set_text(',\n'.join(process_connections_udp4))
-        if selected_process_connections_udp4 == "-":
-            ProcessesDetailsGUI.label2142w.set_text("-")
-        if selected_process_connections_udp6 != "-":
-            ProcessesDetailsGUI.label2143w.set_text(',\n'.join(process_connections_udp6))
-        if selected_process_connections_udp6 == "-":
-            ProcessesDetailsGUI.label2143w.set_text("-")
-
-
 # ----------------------------------- Processes - Processes Details Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def process_details_loop_func():
 

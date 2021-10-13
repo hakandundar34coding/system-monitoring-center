@@ -19,8 +19,7 @@ def processes_details_gui_function():
     global label2101w, label2102w, label2103w, label2104w, label2105w, label2106w, label2107w, label2108w, label2109w, label2110w
     global label2111w, label2112w, label2113w, label2114w, label2115w, label2116w, label2117w, label2118w, label2119w, label2120w
     global label2121w, label2122w, label2123w, label2124w, label2125w, label2126w, label2127w, label2128w, label2129w, label2130w
-    global label2131w, label2132w, label2133w, label2134w, label2135w, label2136w, label2137w, label2138w, label2139w, label2140w
-    global label2141w, label2142w, label2143w
+    global label2131w, label2132w, label2133w, label2134w, label2135w, label2136w, label2137w
 
 
     # Processes Details window GUI objects - get
@@ -73,14 +72,6 @@ def processes_details_gui_function():
     label2135w = builder2101w.get_object('label2135w')
     label2136w = builder2101w.get_object('label2136w')
     label2137w = builder2101w.get_object('label2137w')
-
-    # Process Details window "Network" tab GUI objects
-    label2138w = builder2101w.get_object('label2138w')
-    label2139w = builder2101w.get_object('label2139w')
-    label2140w = builder2101w.get_object('label2140w')
-    label2141w = builder2101w.get_object('label2141w')
-    label2142w = builder2101w.get_object('label2142w')
-    label2143w = builder2101w.get_object('label2143w')
 
 
     # Processes Details window GUI functions
@@ -138,9 +129,3 @@ def processes_details_gui_reset_function():
     label2135w.set_text("--")
     label2136w.set_text("--")
     label2137w.set_text("--")
-    label2138w.set_text("--")
-    label2139w.set_text("--")
-    label2140w.set_text("--")
-    label2141w.set_text("--")
-    label2142w.set_text("--")
-    label2143w.set_text("--")
