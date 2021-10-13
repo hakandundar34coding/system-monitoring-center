@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-13 10:09+0300\n"
-"PO-Revision-Date: 2021-10-13 10:13+0300\n"
+"POT-Creation-Date: 2021-10-13 14:00+0300\n"
+"PO-Revision-Date: 2021-10-13 14:01+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -58,27 +58,27 @@ msgstr "Evet"
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:220 src/Disk.py:225
+#: src/Disk.py:214 src/Disk.py:219
 msgid "disk"
 msgstr "disk"
 
-#: src/Disk.py:233
+#: src/Disk.py:227
 msgid "partition"
 msgstr "disk bölümü"
 
-#: src/Disk.py:270 src/Network.py:220 src/Performance.py:422
-#: src/PerformanceSummaryHeaderbar.py:109 src/Processes.py:741
-#: src/ProcessesDetails.py:519 src/Ram.py:180 src/Services.py:506
-#: src/ServicesDetails.py:254 src/Storage.py:754 src/StorageDetails.py:414
-#: src/Users.py:606 src/UsersDetails.py:298
+#: src/Disk.py:264 src/Network.py:214 src/Performance.py:422
+#: src/PerformanceSummaryHeaderbar.py:109 src/Processes.py:735
+#: src/ProcessesDetails.py:519 src/Ram.py:174 src/Services.py:500
+#: src/ServicesDetails.py:254 src/Storage.py:748 src/StorageDetails.py:414
+#: src/Users.py:600 src/UsersDetails.py:298
 msgid "Auto-Byte"
 msgstr "Oto-Bayt"
 
-#: src/Disk.py:272 src/Network.py:222 src/Performance.py:424
-#: src/PerformanceSummaryHeaderbar.py:111 src/Processes.py:743
-#: src/ProcessesDetails.py:521 src/Ram.py:182 src/Services.py:508
-#: src/ServicesDetails.py:256 src/Storage.py:756 src/StorageDetails.py:416
-#: src/Users.py:608 src/UsersDetails.py:300
+#: src/Disk.py:266 src/Network.py:216 src/Performance.py:424
+#: src/PerformanceSummaryHeaderbar.py:111 src/Processes.py:737
+#: src/ProcessesDetails.py:521 src/Ram.py:176 src/Services.py:502
+#: src/ServicesDetails.py:256 src/Storage.py:750 src/StorageDetails.py:416
+#: src/Users.py:602 src/UsersDetails.py:300
 msgid "Auto-bit"
 msgstr "Oto-Bit"
 
@@ -93,10 +93,10 @@ msgstr "Kalıcı Ortam Değişkenini Düzenle"
 
 #: src/EnvironmentVarMenuRightClickGUI.py:157
 #: src/EnvironmentVariablesGUI.py:156 src/EnvironmentVariablesInputGUI.py:177
-#: src/EnvironmentVariablesInputGUI.py:188 src/Processes.py:709
+#: src/EnvironmentVariablesInputGUI.py:188 src/Processes.py:703
 #: src/ProcessesGUI.py:225 src/ProcessesMenuRightClickGUI.py:247
 #: src/ProcessesMenuRightClickGUI.py:258 src/ServicesGUI.py:179
-#: src/SettingsGUI.py:585 src/StartupGUI.py:149
+#: src/SettingsGUI.py:573 src/StartupGUI.py:149
 #: src/StartupMenuRightClickGUI.py:391 src/StartupMenuRightClickGUI.py:402
 #: src/StartupNewItemGUI.py:156 src/StorageGUI.py:203 src/UsersGUI.py:172
 msgid "Warning"
@@ -151,12 +151,12 @@ msgstr ""
 "listelenmesi desteklenmiyor."
 
 #: src/EnvironmentVariables.py:139 src/EnvironmentVariables.py:306
-#: src/EnvironmentVariables.py:369 src/EnvironmentVariablesGUI.py:140
+#: src/EnvironmentVariables.py:363 src/EnvironmentVariablesGUI.py:140
 msgid "Environment Variable"
 msgstr "Ortam Değişkeni"
 
 #: src/EnvironmentVariables.py:142 src/EnvironmentVariables.py:305
-#: src/EnvironmentVariables.py:361 src/EnvironmentVariablesGUI.py:145
+#: src/EnvironmentVariables.py:355 src/EnvironmentVariablesGUI.py:145
 msgid "Shell Variable"
 msgstr "Kabuk (Shell) Değişkeni"
 
@@ -249,41 +249,37 @@ msgstr ""
 "çalışıldığında da gösterilir.\n"
 "Bu seçeneği etkinleştirmek/etkin bırakmak istiyor musunuz?"
 
-#: src/FloatingSummary.py:173
+#: src/FloatingSummary.py:164
 msgid "CPU: "
 msgstr "MİB: "
 
-#: src/FloatingSummary.py:175
+#: src/FloatingSummary.py:166
 msgid "RAM: "
 msgstr "RAM: "
 
-#: src/FloatingSummary.py:177
+#: src/FloatingSummary.py:168
 msgid "Disk R+W: "
 msgstr "Disk O+Y: "
 
-#: src/FloatingSummary.py:179
+#: src/FloatingSummary.py:170
 msgid "Disk R: "
 msgstr "Disk O: "
 
-#: src/FloatingSummary.py:181
+#: src/FloatingSummary.py:172
 msgid "Disk W: "
 msgstr "Disk Y: "
 
-#: src/FloatingSummary.py:183
+#: src/FloatingSummary.py:174
 msgid "Network D+U: "
 msgstr "Ağ İ+Y: "
 
-#: src/FloatingSummary.py:185
+#: src/FloatingSummary.py:176
 msgid "Network R: "
 msgstr "Ağ İ: "
 
-#: src/FloatingSummary.py:187
+#: src/FloatingSummary.py:178
 msgid "Network W: "
 msgstr "Ağ Y: "
-
-#: src/FloatingSummary.py:189
-msgid "FPS: "
-msgstr "FPS: "
 
 #: src/MainGUI.py:124
 msgid ""
@@ -301,7 +297,7 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Network.py:123 src/Processes.py:634 src/System.py:81 src/System.py:166
+#: src/Network.py:123 src/Processes.py:628 src/System.py:81 src/System.py:166
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -356,7 +352,7 @@ msgid "Disk Read Speed"
 msgstr "Disk Okuma Hızı"
 
 #: src/Processes.py:61 ui/ProcessesDetailsWindow.ui:1300
-#: ui/ProcessesMenuCustomizations.ui:578 ui/SettingsWindow.ui:480
+#: ui/ProcessesMenuCustomizations.ui:578 ui/SettingsWindow.ui:466
 msgid "Disk Write Speed"
 msgstr "Disk Yazma Hızı"
 
@@ -434,11 +430,11 @@ msgstr " bu kullanıcıdan, "
 msgid " from other users/system)"
 msgstr " diğer kullanıcılardan/sistemden)"
 
-#: src/Processes.py:710
+#: src/Processes.py:704
 msgid "Current Windowing System Is not Supported"
 msgstr "Şimdki Pencere Sistemi Desteklenmiyor"
 
-#: src/Processes.py:711
+#: src/Processes.py:705
 msgid ""
 "This function can not be used on systems which run a windowing system other "
 "than X11."
@@ -796,51 +792,51 @@ msgstr "Bir Servis Seçin"
 msgid "Please select a service and try again for opening the menu"
 msgstr "Lütfen bir servis seçin ve menüyü açmak için tekrar deneyin"
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:890
+#: src/SettingsGUI.py:308 ui/MainWindow.ui:890
 msgid "Performance"
 msgstr "Performans"
 
-#: src/SettingsGUI.py:314 src/Users.py:55 ui/MainWindow.ui:843
+#: src/SettingsGUI.py:308 src/Users.py:55 ui/MainWindow.ui:843
 #: ui/ProcessesTab.ui:251 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:324
 msgid "Processes"
 msgstr "İşlemler"
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:554 ui/UsersTab.ui:56
+#: src/SettingsGUI.py:308 ui/MainWindow.ui:554 ui/UsersTab.ui:56
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:602 ui/StorageTab.ui:44
+#: src/SettingsGUI.py:308 ui/MainWindow.ui:602 ui/StorageTab.ui:44
 msgid "Storage"
 msgstr "Depolama"
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:700 ui/StartupTab.ui:44
+#: src/SettingsGUI.py:308 ui/MainWindow.ui:700 ui/StartupTab.ui:44
 msgid "Startup"
 msgstr "Başlangıç"
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:795 ui/ServicesTab.ui:44
+#: src/SettingsGUI.py:308 ui/MainWindow.ui:795 ui/ServicesTab.ui:44
 msgid "Services"
 msgstr "Servisler"
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:651
+#: src/SettingsGUI.py:308 ui/MainWindow.ui:651
 msgid "Environment Variables"
 msgstr "Ortam Değişkenleri"
 
-#: src/SettingsGUI.py:314 ui/MainWindow.ui:748 ui/SystemTab.ui:67
+#: src/SettingsGUI.py:308 ui/MainWindow.ui:748 ui/SystemTab.ui:67
 msgid "System"
 msgstr "Sistem"
 
-#: src/SettingsGUI.py:331 ui/CpuTab.ui:498 ui/MainWindow.ui:80
+#: src/SettingsGUI.py:325 ui/CpuTab.ui:498 ui/MainWindow.ui:80
 #: ui/PerformanceTab.ui:511 ui/PerformanceTab.ui:2864
 msgid "CPU"
 msgstr "MİB"
 
-#: src/SettingsGUI.py:331 ui/MainWindow.ui:127 ui/PerformanceTab.ui:874
+#: src/SettingsGUI.py:325 ui/MainWindow.ui:127 ui/PerformanceTab.ui:874
 #: ui/PerformanceTab.ui:2911 ui/RamTab.ui:348
 msgid "RAM"
 msgstr "RAM"
 
-#: src/SettingsGUI.py:331 src/Storage.py:164 src/Storage.py:273
+#: src/SettingsGUI.py:325 src/Storage.py:164 src/Storage.py:273
 #: src/Storage.py:317 src/Storage.py:327 src/Storage.py:338 src/Storage.py:347
 #: src/Storage.py:358 src/Storage.py:369 src/StorageDetails.py:99
 #: src/StorageDetails.py:209 src/StorageDetails.py:247
@@ -851,26 +847,26 @@ msgstr "RAM"
 msgid "Disk"
 msgstr "Disk"
 
-#: src/SettingsGUI.py:331 ui/MainWindow.ui:268 ui/NetworkTab.ui:417
+#: src/SettingsGUI.py:325 ui/MainWindow.ui:268 ui/NetworkTab.ui:417
 #: ui/PerformanceTab.ui:1971 ui/PerformanceTab.ui:3052
 msgid "Network"
 msgstr "Ağ"
 
-#: src/SettingsGUI.py:331 ui/GpuTab.ui:355 ui/MainWindow.ui:221
+#: src/SettingsGUI.py:325 ui/GpuTab.ui:355 ui/MainWindow.ui:221
 #: ui/PerformanceTab.ui:2410 ui/PerformanceTab.ui:3005
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:331 ui/MainWindow.ui:315 ui/PerformanceTab.ui:2769
+#: src/SettingsGUI.py:325 ui/MainWindow.ui:315 ui/PerformanceTab.ui:2769
 #: ui/PerformanceTab.ui:3099 ui/SensorsTab.ui:163
 msgid "Sensors"
 msgstr "Algılayıcı"
 
-#: src/SettingsGUI.py:586
+#: src/SettingsGUI.py:574
 msgid "Reset All Settings?"
 msgstr "Tüm Ayarları Sıfırla?"
 
-#: src/SettingsGUI.py:587
+#: src/SettingsGUI.py:575
 msgid "Do you want to reset all settings of the application to defaults?"
 msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırlamak istiyor musunuz?"
 
@@ -1379,7 +1375,7 @@ msgstr "Önplan"
 #: ui/EnvironmentVarMenuCustomizations.ui:343 ui/GpuMenus.ui:156
 #: ui/NetworkMenus.ui:107 ui/ProcessesMenuCustomizations.ui:1006
 #: ui/RamMenus.ui:129 ui/ServicesMenuCustomizations.ui:587
-#: ui/SettingsWindow.ui:676 ui/StartupMenuCustomizations.ui:342
+#: ui/SettingsWindow.ui:665 ui/StartupMenuCustomizations.ui:342
 #: ui/StorageMenuCustomizations.ui:810 ui/UsersMenuCustomizations.ui:690
 msgid "Reset All"
 msgstr "Hepsini Sıfırla"
@@ -2198,7 +2194,7 @@ msgstr "İ.S. Tarafından Verilen (Ve Sürücüdeki) GPU/Grafik Kartı Adı"
 msgid "GPU/Graphics Card Device Model Name"
 msgstr "GPU/Grafik Kartı Cihaz Modeli Adı"
 
-#: ui/GpuTab.ui:450 ui/PerformanceTab.ui:2505 ui/SettingsWindow.ui:466
+#: ui/GpuTab.ui:450 ui/PerformanceTab.ui:2505
 msgid "FPS"
 msgstr "FPS"
 
@@ -2253,7 +2249,7 @@ msgstr ""
 "Şeffaf ve her zaman üstte gözüken performans özeti penceresini gösterir/"
 "gizler"
 
-#: ui/MainMenusDialogs.ui:89 ui/SettingsWindow.ui:607
+#: ui/MainMenusDialogs.ui:89 ui/SettingsWindow.ui:596
 msgid "Floating Summary"
 msgstr "Yüzen Özet"
 
@@ -3211,27 +3207,27 @@ msgstr "RAM Kullanımı"
 msgid "Network Download Speed"
 msgstr "Ağ İndirme Hızı"
 
-#: ui/SettingsWindow.ui:494
+#: ui/SettingsWindow.ui:480
 msgid "Network Upload Speed"
 msgstr "Ağ Yükleme Hızı"
 
-#: ui/SettingsWindow.ui:508
+#: ui/SettingsWindow.ui:494
 msgid "Disk Read+Write Speed"
 msgstr "Disk Okuma+Yazma Hızı"
 
-#: ui/SettingsWindow.ui:522
+#: ui/SettingsWindow.ui:508
 msgid "Network Download+Upload Speed"
 msgstr "Ağ İndirme+Yükleme Hızı"
 
-#: ui/SettingsWindow.ui:543
+#: ui/SettingsWindow.ui:532
 msgid "Show/Hide Performance Information"
 msgstr "Performans Bilgilerini Göster/Gizle"
 
-#: ui/SettingsWindow.ui:582
+#: ui/SettingsWindow.ui:571
 msgid "Reset floating summary window settings to defaults"
 msgstr "Yüzen özet penceresinin ayarlarını varsayılanlara sfırla"
 
-#: ui/SettingsWindow.ui:641
+#: ui/SettingsWindow.ui:630
 msgid "Reset all settings of the application to defaults"
 msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırla"
 
@@ -3738,6 +3734,9 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "FPS: "
+#~ msgstr "FPS: "
 
 #~ msgid ""
 #~ "Warning! The application has been run with root privileges, you may harm "

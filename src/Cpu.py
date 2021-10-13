@@ -202,13 +202,7 @@ def cpu_initial_thread_func():
 
 
 # ----------------------------------- CPU Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def cpu_loop_thread_func(dummy_variable):                                                     # "dummy_variable" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
-#     GLib.idle_add(cpu_loop_func)
-#     if MainGUI.radiobutton1001.get_active() == True:
-#         global update_interval
-#         update_interval = Config.update_interval
-#         GLib.timeout_add(update_interval * 1000, cpu_loop_thread_func)
+def cpu_loop_thread_func(*args):                                                              # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
 
     if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1001.get_active() == True:
         global cpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
@@ -230,5 +224,5 @@ def cpu_thread_run_func():
         cpu_initial_thread = Thread(target=cpu_initial_thread_func, daemon=True)
         cpu_initial_thread.start()
         cpu_initial_thread.join()
-    cpu_loop_thread = Thread(target=cpu_loop_thread_func(None), daemon=True)                  # "None" is an arbitrary value which is required for using "GLib.timeout_source_new()".
+    cpu_loop_thread = Thread(target=cpu_loop_thread_func(), daemon=True)
     cpu_loop_thread.start()

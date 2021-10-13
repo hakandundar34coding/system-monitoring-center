@@ -94,12 +94,6 @@ def floating_summary_initial_func():
     floating_summary_network_send_speed_label.set_halign(Gtk.Align.START)
     floating_summary_network_send_speed_label.set_valign(Gtk.Align.START)
     grid_row_count = grid_row_count + 1
-    global floating_summary_fps_label
-    floating_summary_fps_label = Gtk.Label()
-    floating_summary_grid.attach(floating_summary_fps_label, 0, grid_row_count, 1, 1)
-    floating_summary_fps_label.set_halign(Gtk.Align.START)
-    floating_summary_fps_label.set_valign(Gtk.Align.START)
-    floating_summary_window.show_all()
 
     # Set floating summary window properties
     floating_summary_window.set_resizable(False)                                              # For preventing window to be resized.
@@ -161,9 +155,6 @@ def floating_summary_loop_func():
         if 7 in floating_summary_data_shown:
             grid_row_count = grid_row_count + 1
             floating_summary_grid.attach(floating_summary_network_send_speed_label, 0, grid_row_count, 1, 1)
-        if 8 in floating_summary_data_shown:
-            grid_row_count = grid_row_count + 1
-            floating_summary_grid.attach(floating_summary_fps_label, 0, grid_row_count, 1, 1)
 
 
     floating_summary_data_shown_prev = list(floating_summary_data_shown)                      # list1 = list(list2) have to be used for proper working of the code because using this equation without "list()" makes a connection between these lists instead of copying one list with a different variable name.
@@ -185,8 +176,6 @@ def floating_summary_loop_func():
         floating_summary_network_receive_speed_label.set_text(_tr("Network R: ") + f'{Performance.network_receive_speed[Performance.selected_network_card_number][-1]:.0f}' + "B/s")
     if 7 in floating_summary_data_shown:
         floating_summary_network_send_speed_label.set_text(_tr("Network W: ") + f'{Performance.network_send_speed[Performance.selected_network_card_number][-1]:.0f}' + "B/s")
-    if 8 in floating_summary_data_shown:
-        floating_summary_fps_label.set_text(_tr("FPS: ") + "[Not coded]")
 
 
 # ----------------------------------- FloatingSummary Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

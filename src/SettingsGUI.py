@@ -40,7 +40,7 @@ def settings_gui_func():
     global button2001, button2002, button2003, button2004
     global combobox2001, combobox2002, combobox2003, combobox2004
     global checkbutton2001, checkbutton2002, checkbutton2003, checkbutton2004, checkbutton2005, checkbutton2006
-    global checkbutton2007, checkbutton2008, checkbutton2009, checkbutton2010, checkbutton2011, checkbutton2012
+    global checkbutton2007, checkbutton2008, checkbutton2009, checkbutton2010, checkbutton2011
     global spinbutton2001
 
 
@@ -68,7 +68,6 @@ def settings_gui_func():
     checkbutton2009 = builder2001.get_object('checkbutton2009')
     checkbutton2010 = builder2001.get_object('checkbutton2010')
     checkbutton2011 = builder2001.get_object('checkbutton2011')
-    checkbutton2012 = builder2001.get_object('checkbutton2012')
     spinbutton2001 = builder2001.get_object('spinbutton2001')
 
 
@@ -185,9 +184,6 @@ def settings_gui_func():
     def on_checkbutton2011_toggled(widget):                                                   # "Show/Hide Performance Information - Network Send Speed" GUI object signal
         settings_gui_add_remove_floating_summary_performance_information_func()
 
-    def on_checkbutton2012_toggled(widget):                                                   # "Show/Hide Performance Information - FPS" GUI object signal
-        settings_gui_add_remove_floating_summary_performance_information_func()
-
     def on_button2003_clicked(widget):                                                        # "Reset floating summary window settings to defaults" GUI object signal
         Config.config_default_general_floating_summary_func()
         Config.config_save_func()
@@ -239,7 +235,6 @@ def settings_gui_func():
         checkbutton2009.connect("toggled", on_checkbutton2009_toggled)
         checkbutton2010.connect("toggled", on_checkbutton2010_toggled)
         checkbutton2011.connect("toggled", on_checkbutton2011_toggled)
-        checkbutton2012.connect("toggled", on_checkbutton2012_toggled)
         spinbutton2001.connect("value-changed", spinbutton2001_on_value_changed)
 
 
@@ -260,7 +255,6 @@ def settings_gui_func():
         checkbutton2009.disconnect_by_func(on_checkbutton2009_toggled)
         checkbutton2010.disconnect_by_func(on_checkbutton2010_toggled)
         checkbutton2011.disconnect_by_func(on_checkbutton2011_toggled)
-        checkbutton2012.disconnect_by_func(on_checkbutton2012_toggled)
         spinbutton2001.disconnect_by_func(spinbutton2001_on_value_changed)
 
 
@@ -391,10 +385,6 @@ def settings_gui_floating_summary_settings_tab_set_func():
         checkbutton2011.set_active(True)
     if 7 not in Config.floating_summary_data_shown:
         checkbutton2011.set_active(False)
-    if 8 in Config.floating_summary_data_shown:
-        checkbutton2012.set_active(True)
-    if 8 not in Config.floating_summary_data_shown:
-        checkbutton2012.set_active(False)
 
 
 # ----------------------------------- Settings - Add/Remove Floating Summary Performance Information Function (adds/removes performance information for floating summary window) -----------------------------------
@@ -417,8 +407,6 @@ def settings_gui_add_remove_floating_summary_performance_information_func():
         Config.floating_summary_data_shown.append(6)
     if checkbutton2011.get_active() == True:
         Config.floating_summary_data_shown.append(7)
-    if checkbutton2012.get_active() == True:
-        Config.floating_summary_data_shown.append(8)
     Config.config_save_func()
 
 

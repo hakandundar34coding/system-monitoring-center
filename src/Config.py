@@ -103,7 +103,7 @@ def config_default_general_floating_summary_func():
     global show_floating_summary, floating_summary_window_transparency, floating_summary_data_shown
     show_floating_summary = 0
     floating_summary_window_transparency = 0.6
-    floating_summary_data_shown = [0, 1]                                     # floating_summary_data_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8] - [0: CPU, 1: RAM, 2: Disk Read+Write, 3: Disk Read, 4: Disk Write, 5: Network Receive+Send, 6: Network Receive, 7: Network Send, 8: FPS (not coded)]
+    floating_summary_data_shown = [0, 1]                                     # floating_summary_data_shown all values = [0, 1, 2, 3, 4, 5, 6, 7] - [0: CPU, 1: RAM, 2: Disk Read+Write, 3: Disk Read, 4: Disk Write, 5: Network Receive+Send, 6: Network Receive, 7: Network Send]
 
 # ----------------------------------- Config - Config Default Performance Tab-CPU Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
 def config_default_performance_cpu_func():
