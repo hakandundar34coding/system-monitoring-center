@@ -3,11 +3,11 @@
 # ----------------------------------- MainGUI - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def main_gui_import_func():
 
-    global Gtk, Gdk, os
+    global Gtk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk
+    from gi.repository import Gtk
     import os
 
 
@@ -121,6 +121,7 @@ def main_gui_func():
 
         # Show information for warning the user if the application has been run with root privileges. Information is shown just below the application window headerbar.
         if os.geteuid() == 0:                                                                 # Check UID if it is "0". This means the application is run with root privileges.
+            import Gdk                                                                        # Used for changing default label color
             label_root_warning = Gtk.Label(label=_tr("Warning! The application has been run with root privileges, you may harm your system."))    # Generate a new label for the information. This label does not exist in the ".ui" UI file.
             # label_root_warning.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(0.0, 1.0, 0.0, 1.0))
             label_root_warning.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))       # Set background color of the label.
