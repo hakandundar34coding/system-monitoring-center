@@ -44,7 +44,7 @@ def processes_menu_customizations_gui_func():
     # ********************** Define object names for Processes tab customizations popover **********************
     global popover2101p
     global checkbutton2101p, checkbutton2102p, checkbutton2103p
-    global button2101p, button2102p, button2103p
+    global button2102p, button2103p
     global checkbutton2106p, checkbutton2107p, checkbutton2108p, checkbutton2109p, checkbutton2110p, checkbutton2111p, checkbutton2112p, checkbutton2113p
     global checkbutton2114p, checkbutton2115p, checkbutton2116p, checkbutton2117p, checkbutton2118p, checkbutton2119p, checkbutton2120p, checkbutton2121p
     global checkbutton2122p, checkbutton2123p
@@ -55,7 +55,6 @@ def processes_menu_customizations_gui_func():
     checkbutton2101p = builder.get_object('checkbutton2101p')
     checkbutton2102p = builder.get_object('checkbutton2102p')
     checkbutton2103p = builder.get_object('checkbutton2103p')
-    button2101p = builder.get_object('button2101p')
     button2102p = builder.get_object('button2102p')
     button2103p = builder.get_object('button2103p')
     checkbutton2106p = builder.get_object('checkbutton2106p')
@@ -85,9 +84,6 @@ def processes_menu_customizations_gui_func():
     combobox2107p = builder.get_object('combobox2107p')
 
     # ********************** Define object functions for Processes tab customizations popover Common GUI Objects **********************
-    def on_button2101p_clicked(widget):                                                       # "Process tree information from 'ps --forest -Ao pid,uid,ppid,cmd' command output" button
-        process = subprocess.Popen("x-terminal-emulator -e /bin/bash -c \'ps --forest -Ao pid,uid,ppid,cmd; exec bash\'", stdout=subprocess.PIPE, stderr=None, shell=True)
-
     def on_button2102p_clicked(widget):                                                       # "Reset All" button
         Config.config_default_processes_func()
         Config.config_save_func()
@@ -197,7 +193,6 @@ def processes_menu_customizations_gui_func():
         Config.config_save_func()
 
     # ********************** Connect signals to GUI objects for Processes tab customizations popover Common GUI Objects **********************
-    button2101p.connect("clicked", on_button2101p_clicked)
     button2102p.connect("clicked", on_button2102p_clicked)
     # ********************** Connect signals to GUI objects for Processes tab customizations popover View Tab **********************
     button2103p.connect("clicked", on_button2103p_clicked)
