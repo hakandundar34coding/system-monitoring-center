@@ -99,6 +99,12 @@ def main_gui_func():
         Config.config_import_func()                                                           # Start import operations of the module
         Config.config_read_func()                                                             # Start setting read operations of the module
 
+        # Run "Performance" module in order to provide performance data to Performance tab, performance summary on the headerbar and Floating Summary window.
+        global Performance                                                                    # This module is always imported after window show in order to track performance data in the background even if tabs are switched. Otherwise performance data such as CPU, RAM, etc. will be shown as intermitted on the charts (due to tab switches).
+        import Performance
+        Performance.performance_import_func()
+        Performance.performance_background_thread_run_func()
+
         main_gui_default_main_tab_func()                                                      # Run default tab function after initial showing of the main window. This function have to be called after "main_gui_tab_switch_func" function in order to avoid errors else "Performance" tab functions/variables/data will not be defined.
         main_gui_peformance_tab_default_sub_tab_func()                                        # Run performance tab default sub-tab function after initial showing of the main window
 
@@ -111,13 +117,20 @@ def main_gui_func():
 
         # Add performance summary widgets to the main window headerbar.
         if Config.performance_summary_on_the_headerbar == 1:
-            global PerformanceSummaryHeaderbarGUI, PerformanceSummaryHeaderbar
             import PerformanceSummaryHeaderbarGUI, PerformanceSummaryHeaderbar
             PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
             PerformanceSummaryHeaderbarGUI.performance_summary_headerbar_gui_import_func()
             PerformanceSummaryHeaderbarGUI.performance_summary_headerbar_gui_func()
             headerbar1.add(PerformanceSummaryHeaderbarGUI.grid101)                            # Add the grid to the window headerbar
             PerformanceSummaryHeaderbar.performance_summary_headerbar_thread_run_func()
+
+        # Show Floating Summary Window on application start if this setting is leaved as "Enabled" from the Main Menu.
+        if Config.show_floating_summary == 1:                                                 # Show Floating Summary window appropriate with user preferences. Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.
+            import FloatingSummary
+            FloatingSummary.floating_summary_import_func()
+            FloatingSummary.floating_summary_initial_func()
+            FloatingSummary.floating_summary_thread_run_func()
+            FloatingSummary.floating_summary_window.show()
 
         # Show information for warning the user if the application has been run with root privileges. Information is shown just below the application window headerbar.
         if os.geteuid() == 0:                                                                 # Check UID if it is "0". This means the application is run with root privileges.
@@ -257,19 +270,15 @@ def main_gui_tab_switch_func():
 
     remember_last_opened_tabs_on_application_start = Config.remember_last_opened_tabs_on_application_start    # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
 
-    if 'Performance' not in globals():                                                        # Check if "Performance" module is imported. Therefore it is not reimported after switching tabs if "Performance" name is in globals(). It is not recognized after tab switch if it is not imported as global.
-        global Performance                                                                    # This module is always imported after window show in order to track performance data in the background even if tabs are switched. Otherwise performance data such as CPU, RAM, etc. will be shown as intermitted on the charts (due to tab switches).
-        import Performance
-        Performance.performance_import_func()
-        Performance.performance_background_thread_run_func()
     if radiobutton1.get_active() == True:                                                     # It switches to "Performance" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid1)
         if remember_last_opened_tabs_on_application_start == 1:
-            Config.default_main_tab = 0
+            Config.default_main_tab = 0                                                       # No need to save Config values after this value is defined. Because save operation is performed for Performance tab sub-tabs (CPU, RAM, Disk, Network, GPU, Sensors tabs).
         if radiobutton1001.get_active() == True:
             stack1001.set_visible_child(grid1001)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 0
+                Config.config_save_func()
             if 'CpuGUI' not in globals():
                 global CpuGUI, Cpu
                 import CpuGUI, Cpu
@@ -278,10 +287,12 @@ def main_gui_tab_switch_func():
                 grid1001.attach(CpuGUI.grid1101, 0, 0, 1, 1)                                  # Attach the grid to the grid (on the Main Window) at (0, 0) position.
                 Cpu.cpu_import_func()
             Cpu.cpu_thread_run_func()
+            return
         if radiobutton1002.get_active() == True:
             stack1001.set_visible_child(grid1002)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 1
+                Config.config_save_func()
             if 'RamGUI' not in globals():
                 global RamGUI, Ram
                 import RamGUI, Ram
@@ -290,10 +301,12 @@ def main_gui_tab_switch_func():
                 grid1002.attach(RamGUI.grid1201, 0, 0, 1, 1)                                  # Attach the grid to the grid (on the Main Window) at (0, 0) position.
                 Ram.ram_import_func()
             Ram.ram_thread_run_func()
+            return
         if radiobutton1003.get_active() == True:
             stack1001.set_visible_child(grid1003)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 2
+                Config.config_save_func()
             if 'DiskGUI' not in globals():
                 global DiskGUI, Disk
                 import DiskGUI, Disk
@@ -302,10 +315,12 @@ def main_gui_tab_switch_func():
                 grid1003.attach(DiskGUI.grid1301, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
                 Disk.disk_import_func()
             Disk.disk_thread_run_func()
+            return
         if radiobutton1004.get_active() == True:
             stack1001.set_visible_child(grid1004)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 3
+                Config.config_save_func()
             if 'NetworkGUI' not in globals():
                 global NetworkGUI, Network
                 import NetworkGUI, Network
@@ -314,10 +329,12 @@ def main_gui_tab_switch_func():
                 grid1004.attach(NetworkGUI.grid1401, 0, 0, 1, 1)                              # Attach the grid to the grid (on the Main Window) at (0, 0) position.
                 Network.network_import_func()
             Network.network_thread_run_func()
+            return
         if radiobutton1005.get_active() == True:
             stack1001.set_visible_child(grid1005)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 4
+                Config.config_save_func()
             if 'GpuGUI' not in globals():
                 global GpuGUI, Gpu
                 import GpuGUI, Gpu
@@ -326,136 +343,126 @@ def main_gui_tab_switch_func():
                 grid1005.attach(GpuGUI.grid1501, 0, 0, 1, 1)                                  # Attach the grid to the grid (on the Main Window) at (0, 0)
                 Gpu.gpu_import_func()
             Gpu.gpu_thread_run_func()
+            return
         if radiobutton1006.get_active() == True:
             stack1001.set_visible_child(grid1006)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 5
+                Config.config_save_func()
             if 'Sensors' not in globals():
                 global Sensors, SensorsGUI
                 import Sensors, SensorsGUI
                 SensorsGUI.sensors_gui_import_func()
                 SensorsGUI.sensors_gui_func()
                 grid1006.attach(SensorsGUI.grid1601, 0, 0, 1, 1)                              # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-                while Gtk.events_pending():                                                   # Used for more fluent tab switch.
-                    Gtk.main_iteration()
                 Sensors.sensors_import_func()
             Sensors.sensors_thread_run_func()
+            return
 
     if radiobutton2.get_active() == True:                                                     # It switches to "Processes" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid2)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 1
+            Config.config_save_func()
         if 'ProcessesGUI' not in globals():                                                   # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
             global Processes, ProcessesGUI
             import Processes, ProcessesGUI
             ProcessesGUI.processes_gui_import_func()
             ProcessesGUI.processes_gui_func()
             grid2.attach(ProcessesGUI.grid2101, 0, 0, 1, 1)                                   # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
             Processes.processes_import_func()
         Processes.processes_thread_run_func()
+        return
 
     if radiobutton3.get_active() == True:                                                     # It switches to "Users" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid3)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 2
+            Config.config_save_func()
         if 'UsersGUI' not in globals():
             global Users, UsersGUI
             import Users, UsersGUI
             UsersGUI.users_gui_import_func()
             UsersGUI.users_gui_func()
             grid3.attach(UsersGUI.grid3101, 0, 0, 1, 1)                                       # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
             Users.users_import_func()
         Users.users_thread_run_func()
+        return
 
     if radiobutton4.get_active() == True:                                                     # It switches to "Storage" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid4)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 3
+            Config.config_save_func()
         if 'StorageGUI' not in globals():
             global Storage, StorageGUI
             import Storage, StorageGUI
             StorageGUI.storage_gui_import_func()
             StorageGUI.storage_gui_func()
             grid4.attach(StorageGUI.grid4101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
             Storage.storage_import_func()
         Storage.storage_thread_run_func()
+        return
 
     if radiobutton5.get_active() == True:                                                     # It switches to "Startup" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid5)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 4
+            Config.config_save_func()
         if 'StartupGUI' not in globals():
             global Startup, StartupGUI
             import Startup, StartupGUI
             StartupGUI.startup_gui_import_func()
             StartupGUI.startup_gui_func()
             grid5.attach(StartupGUI.grid5101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
             Startup.startup_import_func()
         Startup.startup_thread_run_func()
+        return
 
     if radiobutton6.get_active() == True:                                                     # It switches to "Services" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid6)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 5
+            Config.config_save_func()
         if 'ServicesGUI' not in globals():
             global Services, ServicesGUI
             import Services, ServicesGUI
             ServicesGUI.services_gui_import_func()
             ServicesGUI.services_gui_func()
             grid6.attach(ServicesGUI.grid6101, 0, 0, 1, 1)                                    # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
             Services.services_import_func()
         Services.services_thread_run_func()
+        return
 
     if radiobutton7.get_active() == True:                                                     # It switches to "Environment Variables" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid7)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 6
+            Config.config_save_func()
         if 'EnvironmentVariablesGUI' not in globals():
             global EnvironmentVariables, EnvironmentVariablesGUI
             import EnvironmentVariables, EnvironmentVariablesGUI
             EnvironmentVariablesGUI.environment_variables_gui_import_func()
             EnvironmentVariablesGUI.environment_variables_gui_func()
             grid7.attach(EnvironmentVariablesGUI.grid7101, 0, 0, 1, 1)                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
             EnvironmentVariables.environment_variables_import_func()
         EnvironmentVariables.environment_variables_thread_run_func()
+        return
 
     if radiobutton8.get_active() == True:                                                     # It switches to "System" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid8)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 7
+            Config.config_save_func()
         if 'SystemGUI' not in globals():
             global System, SystemGUI
             import System, SystemGUI
             SystemGUI.system_gui_import_func()
             SystemGUI.system_gui_func()
             grid8.attach(SystemGUI.grid8101, 0, 0, 1, 1)                                      # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-            while Gtk.events_pending():                                                       # Used for more fluent tab switch.
-                Gtk.main_iteration()
             System.system_import_func()
         System.system_thread_run_func()
-
-    if Config.show_floating_summary == 1:                                                     # Show Floating Summary window appropriate with user preferences. Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.
-        if "FloatingSummary" not in globals():
-            global FloatingSummary
-            import FloatingSummary
-            FloatingSummary.floating_summary_import_func()
-            FloatingSummary.floating_summary_initial_func()
-        FloatingSummary.floating_summary_thread_run_func()
-        FloatingSummary.floating_summary_window.show()
-
-    Config.config_save_func()
+        return
 
 
 main_gui_import_func()
