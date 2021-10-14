@@ -1,3 +1,13 @@
+system-monitoring-center (0.1.21~beta7) unstable; urgency=medium
+
+  * Minor updates for function repeating mechanism
+  * Automatic data units are set for Floating Summary window
+  * Minor internal and GUI improvements
+  * Processes tab customizations menu simplifications
+  * Reduced CPU load while application start and tab switch
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 14 Oct 2021 11:48:47 +0300
+
 system-monitoring-center (0.1.21~beta6) unstable; urgency=medium
 
   * Update README.md
