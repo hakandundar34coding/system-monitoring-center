@@ -225,7 +225,7 @@ def main_gui_func():
 def main_gui_default_main_tab_func():
 
     default_main_tab = Config.default_main_tab                                                # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
-    stack1.set_transition_duration(0)
+    stack1.set_transition_duration(0)                                                         # Set animation time as 0 ms (default value is 200 ms) before switching tab programmatically.
     if default_main_tab == 0:
          radiobutton1.set_active(True)
     if default_main_tab == 1:
@@ -242,14 +242,14 @@ def main_gui_default_main_tab_func():
          radiobutton7.set_active(True)
     if default_main_tab == 7:
          radiobutton8.set_active(True)
-    stack1.set_transition_duration(200)
+    stack1.set_transition_duration(200)                                                       # Set animation time as 200 ms (default value) before switching tab programmatically.
 
 
 # ----------------------------------- MainGUI - Set Performance Tab Default Sub-Tab Function (switches to performance tab default sub-tab ((CPU, RAM, Disk, Network, GPU, Sensors)) on initial run) -----------------------------------
 def main_gui_peformance_tab_default_sub_tab_func():
 
     performance_tab_default_sub_tab = Config.performance_tab_default_sub_tab                  # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
-    stack1001.set_transition_duration(0)
+    stack1001.set_transition_duration(0)                                                      # Set animation time as 0 ms (default value is 200 ms) before switching tab programmatically.
     if performance_tab_default_sub_tab == 0:
          radiobutton1001.set_active(True)
     if performance_tab_default_sub_tab == 1:
@@ -262,7 +262,7 @@ def main_gui_peformance_tab_default_sub_tab_func():
          radiobutton1005.set_active(True)
     if performance_tab_default_sub_tab == 5:
          radiobutton1006.set_active(True)
-    stack1001.set_transition_duration(200)
+    stack1001.set_transition_duration(200)                                                    # Set animation time as 200 ms (default value) before switching tab programmatically.
 
 
 # ----------------------------------- MainGUI - Main Function Run Function (runs main functions (Performance, Processes, Users, Storage, Startup, Services, Environment Variables, OS) when their stack page is selected. All main tabs and performance tab sub-tabs switches are controlled in this function) -----------------------------------

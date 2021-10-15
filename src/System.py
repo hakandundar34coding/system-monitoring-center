@@ -303,7 +303,7 @@ def system_loop_func():
             os_version_code_name = line.split("VERSION_CODENAME=")[1].strip(' "')
         if line.startswith("ID_LIKE="):
             os_based_on = line.split("ID_LIKE=")[1].strip().title()                           # ".title()" capitalizes each word in the string.
-    if 'os_based_on' not in locals() or os_based_on == "-":                                  # Set variable value as "-" in case of its value is not get so far.
+    if 'os_based_on' not in locals() or os_based_on == "-":                                   # Set variable value as "-" in case of its value is not get so far.
         os_based_on = "-"
     if 'os_version' not in locals() or os_version == "-":
         os_version = "-"
