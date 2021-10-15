@@ -126,8 +126,6 @@ def environment_variables_open_right_click_menu_func(event):
         return   
     model = treeview7101.get_model()
     treeiter = model.get_iter(path)
-    if treeiter is None:
-        environment_variables_no_variable_selected_dialog()
     if treeiter is not None:
         global selected_variable_value, selected_variable_type
         selected_variable_value = EnvironmentVariables.variable_list[EnvironmentVariables.environment_variables_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "environment_variables_data_rows" list to use it getting name of the variable.
@@ -148,13 +146,3 @@ def environment_variables_open_right_click_menu_func(event):
                 EnvironmentVarMenuRightClickGUI.menuitem7103m.set_sensitive(False)                # Set "Delete Environment Variable" item as insensitive
                 EnvironmentVarMenuRightClickGUI.menuitem7103m.set_tooltip_text(_tr("Shell variables cannot be deleted."))    # Set "Delete Environment Variable" item tooltip text
         EnvironmentVarMenuRightClickGUI.menu7101m.popup(None, None, None, None, event.button, event.time)
-
-
-# ----------------------------------- Startup - No Startup Item Selected Dialog Function (shows a dialog when Open Startup Item Right Click Menu is clicked without selecting a startup item) -----------------------------------
-def environment_variables_no_variable_selected_dialog():
-
-    dialog7101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Select A Variable"), )
-    dialog7101.format_secondary_text(_tr("Please select a variable and try again for opening the menu"))
-    dialog7101.run()
-    dialog7101.destroy()

@@ -158,8 +158,6 @@ def storage_open_right_click_menu_func(event):
         return
     model = treeview4101.get_model()
     treeiter = model.get_iter(path)
-    if treeiter is None:
-        storage_no_disk_selected_dialog()
     if treeiter is not None:
         global selected_storage_kernel_name
         selected_storage_kernel_name = Storage.disk_list[Storage.storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
@@ -181,8 +179,6 @@ def storage_open_storage_details_window_func(event):
             return
         model = treeview4101.get_model()
         treeiter = model.get_iter(path)
-        if treeiter is None:
-            storage_no_disk_selected_dialog()
         if treeiter is not None:
             global selected_storage_kernel_name
             selected_storage_kernel_name = Storage.disk_list[Storage.storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
@@ -195,13 +191,3 @@ def storage_open_storage_details_window_func(event):
                 StorageDetails.storage_details_import_func()
             StorageDetailsGUI.window4101w.show()
             StorageDetails.storage_details_foreground_thread_run_func()
-
-
-# ----------------------------------- Storage - No Disk Selected Dialog Function (shows a dialog when Open Storage Right Click Menu is clicked without selecting a storage/disk) -----------------------------------
-def storage_no_disk_selected_dialog():
-
-    dialog4101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Select A Disk/Partition"), )
-    dialog4101.format_secondary_text(_tr("Please select a disk/partition and try again for opening the menu"))
-    dialog4101.run()
-    dialog4101.destroy()

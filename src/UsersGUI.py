@@ -127,8 +127,6 @@ def users_open_right_click_menu_func(event):
         return
     model = treeview3101.get_model()
     treeiter = model.get_iter(path)
-    if treeiter is None:
-        users_no_user_selected_dialog()
     if treeiter is not None:
         global selected_user_uid
         selected_user_uid = Users.uid_username_list[Users.users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting UID of the user.
@@ -150,8 +148,6 @@ def users_open_user_details_window_func(event):
             return
         model = treeview3101.get_model()
         treeiter = model.get_iter(path)
-        if treeiter is None:
-            users_no_user_selected_dialog()
         if treeiter is not None:
             global selected_user_uid
             selected_user_uid = Users.uid_username_list[Users.users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
@@ -164,13 +160,3 @@ def users_open_user_details_window_func(event):
                 UsersDetails.users_details_import_func()
             UsersDetailsGUI.window3101w.show()
             UsersDetails.users_details_foreground_thread_run_func()
-
-
-# ----------------------------------- Users - No User Selected Dialog Function (shows a dialog when Open Users Right Click Menu is clicked without selecting an user) -----------------------------------
-def users_no_user_selected_dialog():
-
-    dialog3101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Select An User"), )
-    dialog3101.format_secondary_text(_tr("Please select an user and try again for opening the menu"))
-    dialog3101.run()
-    dialog3101.destroy()

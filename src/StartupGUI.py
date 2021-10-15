@@ -126,8 +126,6 @@ def startup_open_right_click_menu_func(event):
         return
     model = treeview5101.get_model()
     treeiter = model.get_iter(path)
-    if treeiter is None:
-        startup_no_startup_item_selected_dialog()
     if treeiter is not None:
         global selected_startup_application_file_name, selected_startup_application_visibility, selected_startup_application_name
         selected_startup_application_file_name = Startup.all_autostart_applications_list[Startup.startup_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "startup_data_rows" list to use it getting name of the startup application file name.
@@ -141,13 +139,3 @@ def startup_open_right_click_menu_func(event):
         StartupMenuRightClickGUI.menu5101m.popup(None, None, None, None, event.button, event.time)
         StartupMenuRightClickGUI.startup_set_checkmenuitem_func()
         StartupMenuRightClickGUI.startup_set_menu_labels_func()
-
-
-# ----------------------------------- Startup - No Startup Item Selected Dialog Function (shows a dialog when Open Startup Item Right Click Menu is clicked without selecting a startup item) -----------------------------------
-def startup_no_startup_item_selected_dialog():
-
-    dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Select A Startup Item"), )
-    dialog5101.format_secondary_text(_tr("Please select a startup item and try again for opening the menu"))
-    dialog5101.run()
-    dialog5101.destroy()

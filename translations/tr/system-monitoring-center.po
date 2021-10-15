@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 08:42+0300\n"
-"PO-Revision-Date: 2021-10-15 08:45+0300\n"
+"POT-Creation-Date: 2021-10-15 09:03+0300\n"
+"PO-Revision-Date: 2021-10-15 09:05+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -92,13 +92,11 @@ msgid "Edit Persistent Environment Variable"
 msgstr "Kalıcı Ortam Değişkenini Düzenle"
 
 #: src/EnvironmentVarMenuRightClickGUI.py:157
-#: src/EnvironmentVariablesGUI.py:156 src/EnvironmentVariablesInputGUI.py:177
+#: src/EnvironmentVariablesInputGUI.py:177
 #: src/EnvironmentVariablesInputGUI.py:188 src/Processes.py:703
-#: src/ProcessesGUI.py:225 src/ProcessesMenuRightClickGUI.py:247
-#: src/ProcessesMenuRightClickGUI.py:258 src/ServicesGUI.py:179
-#: src/SettingsGUI.py:573 src/StartupGUI.py:149
-#: src/StartupMenuRightClickGUI.py:394 src/StartupMenuRightClickGUI.py:407
-#: src/StartupNewItemGUI.py:156 src/StorageGUI.py:203 src/UsersGUI.py:172
+#: src/ProcessesMenuRightClickGUI.py:247 src/ProcessesMenuRightClickGUI.py:258
+#: src/SettingsGUI.py:573 src/StartupMenuRightClickGUI.py:394
+#: src/StartupMenuRightClickGUI.py:407 src/StartupNewItemGUI.py:156
 msgid "Warning"
 msgstr "Uyarı"
 
@@ -151,17 +149,17 @@ msgstr ""
 "listelenmesi desteklenmiyor."
 
 #: src/EnvironmentVariables.py:139 src/EnvironmentVariables.py:306
-#: src/EnvironmentVariables.py:363 src/EnvironmentVariablesGUI.py:140
+#: src/EnvironmentVariables.py:363 src/EnvironmentVariablesGUI.py:138
 msgid "Environment Variable"
 msgstr "Ortam Değişkeni"
 
 #: src/EnvironmentVariables.py:142 src/EnvironmentVariables.py:305
-#: src/EnvironmentVariables.py:355 src/EnvironmentVariablesGUI.py:145
+#: src/EnvironmentVariables.py:355 src/EnvironmentVariablesGUI.py:143
 msgid "Shell Variable"
 msgstr "Kabuk (Shell) Değişkeni"
 
 #: src/EnvironmentVariables.py:145 src/EnvironmentVariables.py:305
-#: src/EnvironmentVariables.py:306 src/EnvironmentVariablesGUI.py:140
+#: src/EnvironmentVariables.py:306 src/EnvironmentVariablesGUI.py:138
 msgid "Environment & Shell Variable"
 msgstr "Ortam & Kabuk Değişkeni"
 
@@ -182,21 +180,13 @@ msgstr " ortam değişkeni, "
 msgid " shell variables)"
 msgstr " kabuk (shell) değişkeni)"
 
-#: src/EnvironmentVariablesGUI.py:147
+#: src/EnvironmentVariablesGUI.py:145
 msgid "Shell variables cannot be edited."
 msgstr "Kabuk (Shell) değişkenleri düzenlenemez."
 
-#: src/EnvironmentVariablesGUI.py:149
+#: src/EnvironmentVariablesGUI.py:147
 msgid "Shell variables cannot be deleted."
 msgstr "Kabuk (Shell) değişkenleri silinemez."
-
-#: src/EnvironmentVariablesGUI.py:157
-msgid "Select A Variable"
-msgstr "Bir Değişken Seçin"
-
-#: src/EnvironmentVariablesGUI.py:158
-msgid "Please select a variable and try again for opening the menu"
-msgstr "Lütfen bir değişken seçin ve menüyü açmak için tekrar deneyin"
 
 #: src/EnvironmentVariablesInputGUI.py:178
 msgid "Do You Want To Overwrite Existing Environment Variable?"
@@ -543,14 +533,6 @@ msgstr ""
 "Tümünü daralt\n"
 "(Eğer işlemler ağaç olarak listelenmişse kullanılabilir)"
 
-#: src/ProcessesGUI.py:226
-msgid "Select A Process"
-msgstr "Bir İşlem Seçin"
-
-#: src/ProcessesGUI.py:227
-msgid "Please select a process and try again for opening the menu"
-msgstr "Lütfen bir işlem seçin ve menüyü açmak için tekrar deneyin"
-
 #: src/ProcessesMenuRightClickGUI.py:248
 msgid "End Process?"
 msgstr "İşlemi Sonlandır?"
@@ -784,14 +766,6 @@ msgstr "İnaktif"
 msgid "Exited"
 msgstr "Çıkmış"
 
-#: src/ServicesGUI.py:180
-msgid "Select A Service"
-msgstr "Bir Servis Seçin"
-
-#: src/ServicesGUI.py:181
-msgid "Please select a service and try again for opening the menu"
-msgstr "Lütfen bir servis seçin ve menüyü açmak için tekrar deneyin"
-
 #: src/SettingsGUI.py:308 ui/MainWindow.ui:891
 msgid "Performance"
 msgstr "Performans"
@@ -901,14 +875,6 @@ msgstr " görünür, "
 #: src/Startup.py:600
 msgid " hidden)"
 msgstr " gizli)"
-
-#: src/StartupGUI.py:150
-msgid "Select A Startup Item"
-msgstr "Bir Başlangıç Ögesi Seçin"
-
-#: src/StartupGUI.py:151
-msgid "Please select a startup item and try again for opening the menu"
-msgstr "Lütfen bir başlangıç ögesi seçin ve menüyü açmak için tekrar deneyin"
 
 #: src/StartupMenuRightClickGUI.py:368
 msgid "The startup item has system values."
@@ -1144,14 +1110,6 @@ msgstr ""
 "ve depolama detayları penceresi otomatik olarak kapatıldı.\n"
 "  "
 
-#: src/StorageGUI.py:204
-msgid "Select A Disk/Partition"
-msgstr "Bir Disk/Disk Bölümü Seçin"
-
-#: src/StorageGUI.py:205
-msgid "Please select a disk/partition and try again for opening the menu"
-msgstr "Lütfen bir disk/disk bölümü seçin ve menüyü açmak için tekrar deneyin"
-
 #: src/StorageMenuRightClickGUI.py:207
 msgid "Disk Is Not Mounted"
 msgstr "Disk Bağlı Değil"
@@ -1339,14 +1297,6 @@ msgstr "Kullanıcı Detayları: "
 #: src/UsersDetailsGUI.py:80 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
 msgstr "Kullanıcı Detayları"
-
-#: src/UsersGUI.py:173
-msgid "Select An User"
-msgstr "Bir Kullanıcı Seçin"
-
-#: src/UsersGUI.py:174
-msgid "Please select an user and try again for opening the menu"
-msgstr "Lütfen bir kullanıcı seçin ve menüyü açmak için tekrar deneyin"
 
 #: ui/CpuMenus.ui:20
 msgid "CPU Tab Customizations:"
@@ -3735,6 +3685,44 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Select A Variable"
+#~ msgstr "Bir Değişken Seçin"
+
+#~ msgid "Please select a variable and try again for opening the menu"
+#~ msgstr "Lütfen bir değişken seçin ve menüyü açmak için tekrar deneyin"
+
+#~ msgid "Select A Process"
+#~ msgstr "Bir İşlem Seçin"
+
+#~ msgid "Please select a process and try again for opening the menu"
+#~ msgstr "Lütfen bir işlem seçin ve menüyü açmak için tekrar deneyin"
+
+#~ msgid "Select A Service"
+#~ msgstr "Bir Servis Seçin"
+
+#~ msgid "Please select a service and try again for opening the menu"
+#~ msgstr "Lütfen bir servis seçin ve menüyü açmak için tekrar deneyin"
+
+#~ msgid "Select A Startup Item"
+#~ msgstr "Bir Başlangıç Ögesi Seçin"
+
+#~ msgid "Please select a startup item and try again for opening the menu"
+#~ msgstr ""
+#~ "Lütfen bir başlangıç ögesi seçin ve menüyü açmak için tekrar deneyin"
+
+#~ msgid "Select A Disk/Partition"
+#~ msgstr "Bir Disk/Disk Bölümü Seçin"
+
+#~ msgid "Please select a disk/partition and try again for opening the menu"
+#~ msgstr ""
+#~ "Lütfen bir disk/disk bölümü seçin ve menüyü açmak için tekrar deneyin"
+
+#~ msgid "Select An User"
+#~ msgstr "Bir Kullanıcı Seçin"
+
+#~ msgid "Please select an user and try again for opening the menu"
+#~ msgstr "Lütfen bir kullanıcı seçin ve menüyü açmak için tekrar deneyin"
 
 #~ msgid " Command: "
 #~ msgstr " Komut: "

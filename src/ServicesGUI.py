@@ -133,8 +133,6 @@ def services_open_right_click_menu_func(event):
         return
     model = treeview6101.get_model()
     treeiter = model.get_iter(path)
-    if treeiter is None:
-        services_no_service_selected_dialog()
     if treeiter is not None:
         global selected_service_name
         selected_service_name = Services.service_list[Services.services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
@@ -157,8 +155,6 @@ def services_open_service_details_window_func(event):
             return                                                                            # Stop running rest of the code if the error is encountered.
         model = treeview6101.get_model()
         treeiter = model.get_iter(path)
-        if treeiter is None:
-            services_no_service_selected_dialog()
         if treeiter is not None:
             global selected_service_name
             selected_service_name = Services.service_list[Services.services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
@@ -171,13 +167,3 @@ def services_open_service_details_window_func(event):
                 ServicesDetails.services_details_import_func()
             ServicesDetailsGUI.window6101w.show()
             ServicesDetails.services_details_foreground_thread_run_func()
-
-
-# ----------------------------------- Services - No Service Selected Dialog Function (shows a dialog when Open Services Right Click Menu is clicked without selecting a service) -----------------------------------
-def services_no_service_selected_dialog():
-
-    dialog6101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Select A Service"), )
-    dialog6101.format_secondary_text(_tr("Please select a service and try again for opening the menu"))
-    dialog6101.run()
-    dialog6101.destroy()

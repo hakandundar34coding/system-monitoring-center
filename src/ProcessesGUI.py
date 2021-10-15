@@ -172,14 +172,11 @@ def processes_open_right_click_menu_func(event):
         return
     model = treeview2101.get_model()
     treeiter = model.get_iter(path)
-    if treeiter is None:
-        processes_no_process_selected_dialog()
     if treeiter is not None:
         global selected_process_pid
         try:
             selected_process_pid = Processes.pid_list[Processes.processes_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "processes_data_rows" list to use it getting pid of the process.
         except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
-            print("not in list error")
             return
         if 'ProcessesMenuRightClickGUI' not in globals():                                     # Check if "ProcessesMenuRightClickGUI" module is imported. Therefore it is not reimported on every right click operation.
             global ProcessesMenuRightClickGUI
@@ -199,14 +196,11 @@ def processes_open_process_details_window_func(event):
         return
     model = treeview2101.get_model()
     treeiter = model.get_iter(path)
-    if treeiter is None:
-        processes_no_process_selected_dialog()
     if treeiter is not None:
         global selected_process_pid
         try:
             selected_process_pid = Processes.pid_list[Processes.processes_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "processes_data_rows" list to use it getting pid of the process.
         except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
-            print("not in list error")
             return
         # Open Process Details window
         if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every double click on any process on the treeview if "ProcessesDetailsGUI" name is in globals().
@@ -217,13 +211,3 @@ def processes_open_process_details_window_func(event):
             ProcessesDetails.processes_details_import_func()
         ProcessesDetailsGUI.window2101w.show()
         ProcessesDetails.process_details_foreground_thread_run_func()
-
-
-# ----------------------------------- Processes - No Process Selected Dialog Function (shows a dialog when Open Process Right Click Menu is clicked without selecting a process) -----------------------------------
-def processes_no_process_selected_dialog():
-
-    dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Select A Process"), )
-    dialog2101.format_secondary_text(_tr("Please select a process and try again for opening the menu"))
-    dialog2101.run()
-    dialog2101.destroy()

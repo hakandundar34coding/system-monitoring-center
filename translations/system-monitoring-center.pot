@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 08:42+0300\n"
+"POT-Creation-Date: 2021-10-15 09:03+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,13 +91,11 @@ msgid "Edit Persistent Environment Variable"
 msgstr ""
 
 #: src/EnvironmentVarMenuRightClickGUI.py:157
-#: src/EnvironmentVariablesGUI.py:156 src/EnvironmentVariablesInputGUI.py:177
+#: src/EnvironmentVariablesInputGUI.py:177
 #: src/EnvironmentVariablesInputGUI.py:188 src/Processes.py:703
-#: src/ProcessesGUI.py:225 src/ProcessesMenuRightClickGUI.py:247
-#: src/ProcessesMenuRightClickGUI.py:258 src/ServicesGUI.py:179
-#: src/SettingsGUI.py:573 src/StartupGUI.py:149
-#: src/StartupMenuRightClickGUI.py:394 src/StartupMenuRightClickGUI.py:407
-#: src/StartupNewItemGUI.py:156 src/StorageGUI.py:203 src/UsersGUI.py:172
+#: src/ProcessesMenuRightClickGUI.py:247 src/ProcessesMenuRightClickGUI.py:258
+#: src/SettingsGUI.py:573 src/StartupMenuRightClickGUI.py:394
+#: src/StartupMenuRightClickGUI.py:407 src/StartupNewItemGUI.py:156
 msgid "Warning"
 msgstr ""
 
@@ -146,17 +144,17 @@ msgid ""
 msgstr ""
 
 #: src/EnvironmentVariables.py:139 src/EnvironmentVariables.py:306
-#: src/EnvironmentVariables.py:363 src/EnvironmentVariablesGUI.py:140
+#: src/EnvironmentVariables.py:363 src/EnvironmentVariablesGUI.py:138
 msgid "Environment Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:142 src/EnvironmentVariables.py:305
-#: src/EnvironmentVariables.py:355 src/EnvironmentVariablesGUI.py:145
+#: src/EnvironmentVariables.py:355 src/EnvironmentVariablesGUI.py:143
 msgid "Shell Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:145 src/EnvironmentVariables.py:305
-#: src/EnvironmentVariables.py:306 src/EnvironmentVariablesGUI.py:140
+#: src/EnvironmentVariables.py:306 src/EnvironmentVariablesGUI.py:138
 msgid "Environment & Shell Variable"
 msgstr ""
 
@@ -177,20 +175,12 @@ msgstr ""
 msgid " shell variables)"
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:147
+#: src/EnvironmentVariablesGUI.py:145
 msgid "Shell variables cannot be edited."
 msgstr ""
 
-#: src/EnvironmentVariablesGUI.py:149
+#: src/EnvironmentVariablesGUI.py:147
 msgid "Shell variables cannot be deleted."
-msgstr ""
-
-#: src/EnvironmentVariablesGUI.py:157
-msgid "Select A Variable"
-msgstr ""
-
-#: src/EnvironmentVariablesGUI.py:158
-msgid "Please select a variable and try again for opening the menu"
 msgstr ""
 
 #: src/EnvironmentVariablesInputGUI.py:178
@@ -507,14 +497,6 @@ msgid ""
 "(Usable if processes are listed as tree)"
 msgstr ""
 
-#: src/ProcessesGUI.py:226
-msgid "Select A Process"
-msgstr ""
-
-#: src/ProcessesGUI.py:227
-msgid "Please select a process and try again for opening the menu"
-msgstr ""
-
 #: src/ProcessesMenuRightClickGUI.py:248
 msgid "End Process?"
 msgstr ""
@@ -742,14 +724,6 @@ msgstr ""
 msgid "Exited"
 msgstr ""
 
-#: src/ServicesGUI.py:180
-msgid "Select A Service"
-msgstr ""
-
-#: src/ServicesGUI.py:181
-msgid "Please select a service and try again for opening the menu"
-msgstr ""
-
 #: src/SettingsGUI.py:308 ui/MainWindow.ui:891
 msgid "Performance"
 msgstr ""
@@ -858,14 +832,6 @@ msgstr ""
 
 #: src/Startup.py:600
 msgid " hidden)"
-msgstr ""
-
-#: src/StartupGUI.py:150
-msgid "Select A Startup Item"
-msgstr ""
-
-#: src/StartupGUI.py:151
-msgid "Please select a startup item and try again for opening the menu"
 msgstr ""
 
 #: src/StartupMenuRightClickGUI.py:368
@@ -1092,14 +1058,6 @@ msgid ""
 "  "
 msgstr ""
 
-#: src/StorageGUI.py:204
-msgid "Select A Disk/Partition"
-msgstr ""
-
-#: src/StorageGUI.py:205
-msgid "Please select a disk/partition and try again for opening the menu"
-msgstr ""
-
 #: src/StorageMenuRightClickGUI.py:207
 msgid "Disk Is Not Mounted"
 msgstr ""
@@ -1279,14 +1237,6 @@ msgstr ""
 
 #: src/UsersDetailsGUI.py:80 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
-msgstr ""
-
-#: src/UsersGUI.py:173
-msgid "Select An User"
-msgstr ""
-
-#: src/UsersGUI.py:174
-msgid "Please select an user and try again for opening the menu"
 msgstr ""
 
 #: ui/CpuMenus.ui:20
