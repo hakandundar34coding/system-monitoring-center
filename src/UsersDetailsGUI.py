@@ -93,3 +93,18 @@ def users_details_gui_reset_function():
     label3112w.set_text("--")
     label3113w.set_text("--")
     label3114w.set_text("--")
+
+
+# # ----------------------------------- Users - Users Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
+# def users_details_tab_switch_control_func():
+# 
+#     global previous_page
+#     if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
+#         previous_page = None
+#         current_page = None
+#     current_page = notebook3101w.get_current_page()
+#     if current_page != previous_page and previous_page != None:                               # Check if tab is switched
+#         UsersDetails.user_details_foreground_func()                                           # Update the data on the tab
+#     previous_page = current_page
+#     if window3101w.get_visible() == True:
+#         GLib.timeout_add(200, users_details_tab_switch_control_func)                          # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.

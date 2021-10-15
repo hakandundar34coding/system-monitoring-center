@@ -3,12 +3,16 @@
 # ----------------------------------- Processes - Processes Details Window GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_details_gui_import_function():
 
-    global Gtk, os
+    global Gtk, GLib, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk
+    from gi.repository import Gtk, GLib
     import os
+
+
+    global ProcessesDetails
+    import ProcessesDetails
 
 
 # ----------------------------------- Processes - Processes Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Processes Details" window GUI objects and functions/signals) -----------------------------------
@@ -81,6 +85,7 @@ def processes_details_gui_function():
 
     def on_window2101w_show(widget):
         processes_details_gui_reset_function()                                                # Call this function in order to reset Processes Details window. Data from previous process remains visible (for a short time) until getting and showing new process data if window is closed and opened for an another process. Also last selected tab remains same because window is made hidden when close button is clicked.
+        processes_details_tab_switch_control_func()
 
 
     # Processes Details window GUI functions - connect
@@ -129,3 +134,18 @@ def processes_details_gui_reset_function():
     label2135w.set_text("--")
     label2136w.set_text("--")
     label2137w.set_text("--")
+
+
+# ----------------------------------- Processes - Processes Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
+def processes_details_tab_switch_control_func():
+
+    global previous_page
+    if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
+        previous_page = None
+        current_page = None
+    current_page = notebook2101w.get_current_page()
+    if current_page != previous_page and previous_page != None:                               # Check if tab is switched
+        ProcessesDetails.process_details_foreground_func()                                    # Update the data on the tab
+    previous_page = current_page
+    if window2101w.get_visible() == True:
+        GLib.timeout_add(200, processes_details_tab_switch_control_func)                      # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.

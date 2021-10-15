@@ -95,3 +95,18 @@ def storage_details_gui_reset_function():
     label4122w.set_text("--")
     label4123w.set_text("--")
     label4124w.set_text("--")
+
+
+# # ----------------------------------- Storage - Storage Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
+# def storage_details_tab_switch_control_func():
+# 
+#     global previous_page
+#     if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
+#         previous_page = None
+#         current_page = None
+#     current_page = notebook4101w.get_current_page()
+#     if current_page != previous_page and previous_page != None:                               # Check if tab is switched
+#         StorageDetails.storage_details_foreground_func()                                      # Update the data on the tab
+#     previous_page = current_page
+#     if window4101w.get_visible() == True:
+#         GLib.timeout_add(200, storage_details_tab_switch_control_func)                        # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
