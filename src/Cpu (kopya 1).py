@@ -42,6 +42,34 @@ def cpu_initial_func():
     selected_cpu_core_number = Performance.selected_cpu_core_number
     selected_cpu_core = Performance.selected_cpu_core
 
+    # Get number of physical cores, number_of_cpu_sockets, cpu_model_names
+    cpu_model_names = []
+    with open("/proc/cpuinfo") as reader:
+        proc_cpuinfo_lines = reader.read().split("\n")
+        number_of_physical_cores = 0
+        physical_id = 0
+        physical_id_prev = 0
+        for line in proc_cpuinfo_lines:
+            if line.startswith("physical id"):
+                physical_id_prev = physical_id
+                physical_id = line.split(":")[1].strip()
+            if physical_id != physical_id_prev and line.startswith("cpu cores"):
+                number_of_physical_cores = number_of_physical_cores + int(line.split(":")[1].strip())
+            if line.startswith("model name"):
+                cpu_model_names.append(line.split(":")[1].strip())
+        number_of_cpu_sockets = int(physical_id) + 1
+    # Get maximum and minimum frequencies of all cores
+    cpu_max_frequency_all_cores = []
+    cpu_min_frequency_all_cores = []
+    if os.path.isfile("/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq") is True:
+        for cpu_core in logical_core_list_system_ordered:
+            with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_max_freq") as reader:
+                cpu_max_frequency_all_cores.append(float(reader.read().strip()) / 1000)
+            with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_min_freq") as reader:
+                cpu_min_frequency_all_cores.append(float(reader.read().strip()) / 1000)
+    else:
+        cpu_max_frequency_all_cores = ["-"] * number_of_logical_cores
+        cpu_min_frequency_all_cores = ["-"] * number_of_logical_cores
     # Get cache values of all cores
     cpu_l1d_cache_values = []
     cpu_l1i_cache_values = []
@@ -101,7 +129,15 @@ def cpu_initial_func():
         CpuGUI.label1113.set_text(_tr("CPU Usage % (Average):"))
     if show_cpu_usage_per_core == 1:
         CpuGUI.label1113.set_text(_tr("CPU Usage % (Per Core):"))
+    CpuGUI.label1101.set_text(cpu_model_names[selected_cpu_core_number])
 #         CpuGUI.label1102.set_text(f'Selected CPU Core: {selected_cpu_core}')
+    CpuGUI.label1102.set_text(_tr("Selected CPU Core: ") + selected_cpu_core)
+    if isinstance(cpu_max_frequency_all_cores[selected_cpu_core_number], str) is False:
+        CpuGUI.label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]:.0f} - {cpu_max_frequency_all_cores[selected_cpu_core_number]:.0f} MHz')
+    if isinstance(cpu_max_frequency_all_cores[selected_cpu_core_number], str) is True:
+        CpuGUI.label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]} - {cpu_max_frequency_all_cores[selected_cpu_core_number]}')
+    CpuGUI.label1106.set_text(f'{number_of_cpu_sockets}')
+    CpuGUI.label1107.set_text(f'{number_of_physical_cores} - {number_of_logical_cores}')
     CpuGUI.label1108.set_text(cpu_architecture)
     CpuGUI.label1109.set_text(f'{cpu_l1i_cache_values[selected_cpu_core_number]} - {cpu_l1d_cache_values[selected_cpu_core_number]}')
     CpuGUI.label1110.set_text(f'{cpu_l2_cache_values[selected_cpu_core_number]} - {cpu_l3_cache_values[selected_cpu_core_number]}')
@@ -110,43 +146,11 @@ def cpu_initial_func():
 # ----------------------------------- CPU - Get CPU Data Function (gets CPU data, shows on the labels on the GUI) -----------------------------------
 def cpu_loop_func():
 
-    number_of_logical_cores = Performance.number_of_logical_cores
     logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
     cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
     selected_cpu_core_number = Performance.selected_cpu_core_number
-    selected_cpu_core = Performance.selected_cpu_core
 
     CpuGUI.drawingarea1101.queue_draw()
-
-    # Get number of physical cores, number_of_cpu_sockets, cpu_model_names
-    cpu_model_names = []
-    with open("/proc/cpuinfo") as reader:
-        proc_cpuinfo_lines = reader.read().split("\n")
-        number_of_physical_cores = 0
-        physical_id = 0
-        physical_id_prev = 0
-        for line in proc_cpuinfo_lines:
-            if line.startswith("physical id"):
-                physical_id_prev = physical_id
-                physical_id = line.split(":")[1].strip()
-            if physical_id != physical_id_prev and line.startswith("cpu cores"):
-                number_of_physical_cores = number_of_physical_cores + int(line.split(":")[1].strip())
-            if line.startswith("model name"):
-                cpu_model_names.append(line.split(":")[1].strip())
-        number_of_cpu_sockets = int(physical_id) + 1
-
-    # Get maximum and minimum frequencies of all cores
-    cpu_max_frequency_all_cores = []
-    cpu_min_frequency_all_cores = []
-    if os.path.isfile("/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq") is True:
-        for cpu_core in logical_core_list_system_ordered:
-            with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_max_freq") as reader:
-                cpu_max_frequency_all_cores.append(float(reader.read().strip()) / 1000)
-            with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_min_freq") as reader:
-                cpu_min_frequency_all_cores.append(float(reader.read().strip()) / 1000)
-    else:
-        cpu_max_frequency_all_cores = ["-"] * number_of_logical_cores
-        cpu_min_frequency_all_cores = ["-"] * number_of_logical_cores
 
     # Get system up time (sut) information
     with open("/proc/uptime") as reader:
@@ -185,18 +189,10 @@ def cpu_loop_func():
     number_of_total_threads = sum(thread_count_list)
 
     # Set and update CPU tab label texts by using information get
-    CpuGUI.label1101.set_text(cpu_model_names[selected_cpu_core_number])
     CpuGUI.label1111.set_text(f'{number_of_total_processes} - {number_of_total_threads}')
     CpuGUI.label1112.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
     CpuGUI.label1103.set_text(f'{cpu_usage_percent_ave[-1]:.{Config.performance_cpu_usage_percent_precision}f} %')
     CpuGUI.label1104.set_text(f'{cpu_current_frequency_all_cores[int(selected_cpu_core_number)]:.0f} MHz')
-    CpuGUI.label1102.set_text(_tr("Selected CPU Core: ") + selected_cpu_core)
-    if isinstance(cpu_max_frequency_all_cores[selected_cpu_core_number], str) is False:
-        CpuGUI.label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]:.0f} - {cpu_max_frequency_all_cores[selected_cpu_core_number]:.0f} MHz')
-    if isinstance(cpu_max_frequency_all_cores[selected_cpu_core_number], str) is True:
-        CpuGUI.label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]} - {cpu_max_frequency_all_cores[selected_cpu_core_number]}')
-    CpuGUI.label1106.set_text(f'{number_of_cpu_sockets}')
-    CpuGUI.label1107.set_text(f'{number_of_physical_cores} - {number_of_logical_cores}')
 
 
 # ----------------------------------- CPU Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
