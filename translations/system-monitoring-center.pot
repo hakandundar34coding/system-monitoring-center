@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 09:03+0300\n"
+"POT-Creation-Date: 2021-10-15 10:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,7 +270,7 @@ msgstr ""
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Network.py:123 src/Processes.py:628 src/System.py:81 src/System.py:166
+#: src/Network.py:123 src/Processes.py:628 src/System.py:82 src/System.py:167
 msgid "Unknown"
 msgstr ""
 
@@ -1085,11 +1085,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/System.py:369
+#: src/System.py:374
 msgid "(Yes)"
 msgstr ""
 
-#: src/System.py:371
+#: src/System.py:376
 msgid "(No)"
 msgstr ""
 
@@ -3403,11 +3403,15 @@ msgid "Window Manager:"
 msgstr ""
 
 #: ui/SystemTab.ui:831
-msgid "Number of installed Flatpak applications and runtimes"
+msgid ""
+"Number of installed Python packages and number of installed Flatpak "
+"applications and runtimes\n"
+"\n"
+"Built-in Python packages are not counted."
 msgstr ""
 
-#: ui/SystemTab.ui:833
-msgid "Packages (Flatpak):"
+#: ui/SystemTab.ui:835
+msgid "Packages (Python-Flatpak):"
 msgstr ""
 
 #: ui/UsersMenuCustomizations.ui:20

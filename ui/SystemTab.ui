@@ -828,9 +828,11 @@ Note: Window manager changes during user session are not tracked.</property>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Number of installed Flatpak applications and runtimes</property>
+                    <property name="tooltip-text" translatable="yes">Number of installed Python packages and number of installed Flatpak applications and runtimes
+
+Built-in Python packages are not counted.</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Packages (Flatpak):</property>
+                    <property name="label" translatable="yes">Packages (Python-Flatpak):</property>
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 09:03+0300\n"
-"PO-Revision-Date: 2021-10-15 09:05+0300\n"
+"POT-Creation-Date: 2021-10-15 10:35+0300\n"
+"PO-Revision-Date: 2021-10-15 10:36+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -287,7 +287,7 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Network.py:123 src/Processes.py:628 src/System.py:81 src/System.py:166
+#: src/Network.py:123 src/Processes.py:628 src/System.py:82 src/System.py:167
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -1144,11 +1144,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr "Disk çıkarıldı ve dosya sistemi yeniden adlandırılabilir."
 
-#: src/System.py:369
+#: src/System.py:374
 msgid "(Yes)"
 msgstr "(Evet)"
 
-#: src/System.py:371
+#: src/System.py:376
 msgid "(No)"
 msgstr "(Hayır)"
 
@@ -3643,12 +3643,19 @@ msgid "Window Manager:"
 msgstr "Pencere Yöneticisi:"
 
 #: ui/SystemTab.ui:831
-msgid "Number of installed Flatpak applications and runtimes"
-msgstr "Kurulu Flatpak uygulaması ve çalışma zamanı (runtime) sayısı"
+msgid ""
+"Number of installed Python packages and number of installed Flatpak "
+"applications and runtimes\n"
+"\n"
+"Built-in Python packages are not counted."
+msgstr ""
+"Kurulu Python paketi sayısı ve Flatpak uygulaması ve çalışma zamanı sayısı\n"
+"\n"
+"Dahili (built-in) Python paketleri sayılmaz."
 
-#: ui/SystemTab.ui:833
-msgid "Packages (Flatpak):"
-msgstr "Paketler (Flatpak):"
+#: ui/SystemTab.ui:835
+msgid "Packages (Python-Flatpak):"
+msgstr "Paketler (Python-Flatpak):"
 
 #: ui/UsersMenuCustomizations.ui:20
 msgid "Users Tab Customizations:"
@@ -3685,6 +3692,9 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Number of installed Flatpak applications and runtimes"
+#~ msgstr "Kurulu Flatpak uygulaması ve çalışma zamanı (runtime) sayısı"
 
 #~ msgid "Select A Variable"
 #~ msgstr "Bir Değişken Seçin"

@@ -3,7 +3,7 @@
 # ----------------------------------- System - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def system_import_func():
 
-    global Gtk, GLib, Thread, subprocess, os, platform, time
+    global Gtk, GLib, Thread, subprocess, os, platform, time, pkg_resources
 
     import gi
     gi.require_version('Gtk', '3.0')
@@ -13,6 +13,7 @@ def system_import_func():
     import os
     import platform
     import time
+    import pkg_resources
 
 
     global Config, MainGUI, SystemGUI
@@ -355,6 +356,9 @@ def system_loop_func():
         number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")    # Differentiate empty line count
         number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
 
+    # Get number of installed Python packages (including built-in packages)
+    number_of_installed_python_packages = len([d.project_name for d in pkg_resources.working_set])
+
     # Get number of installed Flatpak packages
     number_of_installed_flatpak_packages = "-"                                                # Initial value of "number_of_installed_flatpak_packages" variable. This value will be used if "number_of_installed_flatpak_packages" could not be detected.
     if flatpak_packages_available == "yes":
@@ -381,7 +385,7 @@ def system_loop_func():
     SystemGUI.label8118.set_text(f'{current_monitor}')
     SystemGUI.label8119.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
     SystemGUI.label8120.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
-    SystemGUI.label8121.set_text(f'{number_of_installed_flatpak_packages}')
+    SystemGUI.label8121.set_text(f'{number_of_installed_python_packages} (Py) - {number_of_installed_flatpak_packages} (Fp)')
     SystemGUI.label8122.set_text(f'{current_user_name} - {have_root_access}')
 
 
