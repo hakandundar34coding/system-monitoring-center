@@ -254,7 +254,10 @@ def startup_menu_right_click_gui_func():
                     selected_startup_application_exec_value = line.split("=")[1]
         startup_run_startup_item_warning_dialog(selected_startup_application_name, selected_startup_application_exec_value)
         if warning_dialog5101_response == Gtk.ResponseType.YES:
-            subprocess.Popen(selected_startup_application_exec_value, shell=False)            # Run the command of the startup item. If "Yes" is clicked. "shell=False" is used in order to prevent "shell injection" which may cause security problems.
+            try:
+                subprocess.Popen(selected_startup_application_exec_value, shell=False)        # Run the command of the startup item. If "Yes" is clicked. "shell=False" is used in order to prevent "shell injection" which may cause security problems.
+            except FileNotFoundError:
+                startup_run_now_error_dialog(selected_startup_application_file_name, selected_startup_application_exec_value)
         if warning_dialog5101_response == Gtk.ResponseType.NO:
             return                                                                            # Do nothing (close the dialog) if "No" is clicked.
 
@@ -390,7 +393,9 @@ def startup_run_startup_item_warning_dialog(selected_startup_application_name, s
 
     warning_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Run Startup Item Now?"), )
-    warning_dialog5101.format_secondary_text(_tr("Do you want to run the following startup item?") + "\n" + " Startup Item: " + selected_startup_application_name + "\n" + _tr(" Command: ") + selected_startup_application_exec_value)
+    warning_dialog5101.format_secondary_text(_tr("Do you want to run the following startup item?") +
+                                             "\n\n    " + _tr("Startup Item:") + " " + selected_startup_application_name +
+                                             "\n    " + _tr("Command:") + " " + selected_startup_application_exec_value)
     global warning_dialog5101_response
     warning_dialog5101_response = warning_dialog5101.run()
     warning_dialog5101.destroy()
@@ -401,10 +406,25 @@ def startup_reset_to_system_values_warning_dialog(selected_startup_application_n
 
     warning_dialog5102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Reset The Startup Item To System Values?"), )
-    warning_dialog5102.format_secondary_text(_tr("Do you want to reset the following startup item to system values?") + "\n" + " Startup Item: " + selected_startup_application_name + "\n" +
-                                             _tr(" '.desktop' File Name: ") + selected_startup_application_file_name + "\n\n" +
-                                             _tr("1) If the startup item has both system-wide and user-specific '.desktop' files, user-specific file will be deleted.") + "\n" +
+    warning_dialog5102.format_secondary_text(_tr("Do you want to reset the following startup item to system values?") +
+                                             "\n\n    " + _tr("Startup Item:") + " " + selected_startup_application_name +
+                                             "\n    " + _tr("'.desktop' File Name:") + " " + selected_startup_application_file_name +
+                                             "\n\n\n" +
+                                             _tr("1) If the startup item has both system-wide and user-specific '.desktop' files, user-specific file will be deleted.") +
+                                             "\n\n" + 
                                              _tr("2) If the startup item has only user-specific '.desktop' files, this file will be deleted and startup item will be removed completely."))
     global warning_dialog5102_response
     warning_dialog5102_response = warning_dialog5102.run()
     warning_dialog5102.destroy()
+
+
+# ----------------------------------- Startup - Startup Reset To System Default Warning Dialog Function (shows a warning dialog when a startup item is tried to be reset to system default which means user specific desktop file of the startup application will be deleted (system-wide values file will be untouched)) -----------------------------------
+def startup_run_now_error_dialog(selected_startup_application_file_name, selected_startup_application_exec_value):
+
+    error_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Error While Running Startup Item Command"), )
+    error_dialog5101.format_secondary_text(_tr("Error is encountered while running the following command:") +
+                                           "\n\n    " + _tr("'.desktop' File Name:") + " " + selected_startup_application_file_name +
+                                           "\n    " + _tr("Startup Item Command:") + " " + selected_startup_application_exec_value)
+    error_dialog5101.run()
+    error_dialog5101.destroy()
