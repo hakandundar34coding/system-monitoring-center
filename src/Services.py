@@ -263,6 +263,7 @@ def services_loop_func():
         treemodelsort6101 = Gtk.TreeModelSort(treemodelfilter6101)
         treeview6101.set_model(treemodelsort6101)
         service_list_prev = []                                                                # Redefine (clear) "service_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.        global piter_list
+        global piter_list
         piter_list = []
     treeview6101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
