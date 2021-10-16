@@ -269,7 +269,7 @@ def settings_gui_general_settings_tab_set_func():
     # Set GUI preferences for "update interval" setting
     if "liststore2001" not in globals():
         global liststore2001, update_interval_list
-        update_interval_list = [0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, 5.0, 10.0]
+        update_interval_list = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 5.0, 10.0]
         liststore2001 = Gtk.ListStore()
         liststore2001.set_column_types([str])
         combobox2001.set_model(liststore2001)
@@ -282,7 +282,7 @@ def settings_gui_general_settings_tab_set_func():
     # Set GUI preferences for "chart data history" setting
     if "liststore2002" not in globals():
         global liststore2002, chart_data_history_list
-        chart_data_history_list = [30, 60, 90, 120, 150, 180, 240, 480, 600]
+        chart_data_history_list = [30, 60, 90, 120, 150, 180, 300, 600, 1200]
         liststore2002 = Gtk.ListStore()
         liststore2002.set_column_types([str])
         combobox2002.set_model(liststore2002)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 10:35+0300\n"
+"POT-Creation-Date: 2021-10-16 08:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/Cpu.py:129 ui/CpuTab.ui:45 ui/PerformanceTab.ui:58
+#: src/Cpu.py:101 ui/CpuTab.ui:45 ui/PerformanceTab.ui:58
 msgid "CPU Usage % (Average):"
 msgstr ""
 
-#: src/Cpu.py:131
+#: src/Cpu.py:103
 msgid "CPU Usage % (Per Core):"
 msgstr ""
 
-#: src/Cpu.py:134
+#: src/Cpu.py:193
 msgid "Selected CPU Core: "
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 #: src/Disk.py:264 src/FloatingSummary.py:232 src/Network.py:214
 #: src/Performance.py:422 src/PerformanceSummaryHeaderbar.py:109
 #: src/Processes.py:735 src/ProcessesDetails.py:519 src/Ram.py:174
-#: src/Services.py:500 src/ServicesDetails.py:254 src/Storage.py:748
+#: src/Services.py:501 src/ServicesDetails.py:254 src/Storage.py:748
 #: src/StorageDetails.py:414 src/Users.py:600 src/UsersDetails.py:298
 msgid "Auto-Byte"
 msgstr ""
@@ -76,7 +76,7 @@ msgstr ""
 #: src/Disk.py:266 src/FloatingSummary.py:234 src/Network.py:216
 #: src/Performance.py:424 src/PerformanceSummaryHeaderbar.py:111
 #: src/Processes.py:737 src/ProcessesDetails.py:521 src/Ram.py:176
-#: src/Services.py:502 src/ServicesDetails.py:256 src/Storage.py:750
+#: src/Services.py:503 src/ServicesDetails.py:256 src/Storage.py:750
 #: src/StorageDetails.py:416 src/Users.py:602 src/UsersDetails.py:300
 msgid "Auto-bit"
 msgstr ""
@@ -159,7 +159,7 @@ msgid "Environment & Shell Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:308 src/Processes.py:486 src/Sensors.py:270
-#: src/Services.py:365 src/Startup.py:600 src/Storage.py:577 src/Users.py:461
+#: src/Services.py:366 src/Startup.py:600 src/Storage.py:577 src/Users.py:461
 msgid "Total: "
 msgstr ""
 
@@ -668,15 +668,15 @@ msgstr ""
 msgid "Loaded"
 msgstr ""
 
-#: src/Services.py:365
+#: src/Services.py:366
 msgid " services ("
 msgstr ""
 
-#: src/Services.py:365
+#: src/Services.py:366
 msgid " loaded, "
 msgstr ""
 
-#: src/Services.py:365
+#: src/Services.py:366
 msgid " non-loaded)"
 msgstr ""
 
@@ -1085,11 +1085,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/System.py:374
+#: src/System.py:373
 msgid "(Yes)"
 msgstr ""
 
-#: src/System.py:376
+#: src/System.py:375
 msgid "(No)"
 msgstr ""
 
@@ -2910,6 +2910,11 @@ msgstr ""
 
 #: ui/ServicesTab.ui:206
 msgid "Show all non-loaded services"
+msgstr ""
+
+#: ui/ServicesTab.ui:240
+msgid ""
+"Note: This tab is not reloaded automatically. Manually reload for changes."
 msgstr ""
 
 #: ui/SettingsWindow.ui:7

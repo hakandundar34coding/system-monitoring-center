@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 10:35+0300\n"
-"PO-Revision-Date: 2021-10-15 10:36+0300\n"
+"POT-Creation-Date: 2021-10-16 08:55+0300\n"
+"PO-Revision-Date: 2021-10-16 08:56+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -18,15 +18,15 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/Cpu.py:129 ui/CpuTab.ui:45 ui/PerformanceTab.ui:58
+#: src/Cpu.py:101 ui/CpuTab.ui:45 ui/PerformanceTab.ui:58
 msgid "CPU Usage % (Average):"
 msgstr "MİB Kullanım % (Ortalama):"
 
-#: src/Cpu.py:131
+#: src/Cpu.py:103
 msgid "CPU Usage % (Per Core):"
 msgstr "MİB Kullanım % (Çekirdek Başına):"
 
-#: src/Cpu.py:134
+#: src/Cpu.py:193
 msgid "Selected CPU Core: "
 msgstr "Seçilen MİB Çekirdeği: "
 
@@ -69,7 +69,7 @@ msgstr "disk bölümü"
 #: src/Disk.py:264 src/FloatingSummary.py:232 src/Network.py:214
 #: src/Performance.py:422 src/PerformanceSummaryHeaderbar.py:109
 #: src/Processes.py:735 src/ProcessesDetails.py:519 src/Ram.py:174
-#: src/Services.py:500 src/ServicesDetails.py:254 src/Storage.py:748
+#: src/Services.py:501 src/ServicesDetails.py:254 src/Storage.py:748
 #: src/StorageDetails.py:414 src/Users.py:600 src/UsersDetails.py:298
 msgid "Auto-Byte"
 msgstr "Oto-Bayt"
@@ -77,7 +77,7 @@ msgstr "Oto-Bayt"
 #: src/Disk.py:266 src/FloatingSummary.py:234 src/Network.py:216
 #: src/Performance.py:424 src/PerformanceSummaryHeaderbar.py:111
 #: src/Processes.py:737 src/ProcessesDetails.py:521 src/Ram.py:176
-#: src/Services.py:502 src/ServicesDetails.py:256 src/Storage.py:750
+#: src/Services.py:503 src/ServicesDetails.py:256 src/Storage.py:750
 #: src/StorageDetails.py:416 src/Users.py:602 src/UsersDetails.py:300
 msgid "Auto-bit"
 msgstr "Oto-Bit"
@@ -164,7 +164,7 @@ msgid "Environment & Shell Variable"
 msgstr "Ortam & Kabuk Değişkeni"
 
 #: src/EnvironmentVariables.py:308 src/Processes.py:486 src/Sensors.py:270
-#: src/Services.py:365 src/Startup.py:600 src/Storage.py:577 src/Users.py:461
+#: src/Services.py:366 src/Startup.py:600 src/Storage.py:577 src/Users.py:461
 msgid "Total: "
 msgstr "Toplam: "
 
@@ -710,15 +710,15 @@ msgstr "hayır"
 msgid "Loaded"
 msgstr "Yüklenmiş"
 
-#: src/Services.py:365
+#: src/Services.py:366
 msgid " services ("
 msgstr " servis ("
 
-#: src/Services.py:365
+#: src/Services.py:366
 msgid " loaded, "
 msgstr " yüklenmiş, "
 
-#: src/Services.py:365
+#: src/Services.py:366
 msgid " non-loaded)"
 msgstr " yüklenmemiş)"
 
@@ -1144,11 +1144,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr "Disk çıkarıldı ve dosya sistemi yeniden adlandırılabilir."
 
-#: src/System.py:374
+#: src/System.py:373
 msgid "(Yes)"
 msgstr "(Evet)"
 
-#: src/System.py:376
+#: src/System.py:375
 msgid "(No)"
 msgstr "(Hayır)"
 
@@ -3093,6 +3093,13 @@ msgstr "Tüm yüklenmiş servisleri göster"
 #: ui/ServicesTab.ui:206
 msgid "Show all non-loaded services"
 msgstr "Tüm yüklenmemiş servisleri göster"
+
+#: ui/ServicesTab.ui:240
+msgid ""
+"Note: This tab is not reloaded automatically. Manually reload for changes."
+msgstr ""
+"Not: Bu sekme otomatik güncellenmez. Değişiklikler için manuel olarak "
+"güncelleyiniz."
 
 #: ui/SettingsWindow.ui:7
 msgid "General Settings"
