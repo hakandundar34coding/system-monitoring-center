@@ -11,8 +11,8 @@ def environment_variables_menu_customizations_import_func():
     import os
 
 
-    global Config, EnvironmentVariables, EnvironmentVariablesGUI
-    import Config, EnvironmentVariables, EnvironmentVariablesGUI
+    global Config, EnvironmentVariables
+    import Config, EnvironmentVariables
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -83,7 +83,7 @@ def environment_variables_menu_customizations_gui_func():
 
 
     # ********************** Popover settings for Environment Variables tab **********************
-    popover7101p.set_relative_to(EnvironmentVariablesGUI.button7101)
+    popover7101p.set_relative_to(EnvironmentVariables.button7101)
     popover7101p.set_position(1)
 
 

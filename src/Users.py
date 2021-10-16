@@ -15,8 +15,8 @@ def users_import_func():
     import time
 
 
-    global Config, MainGUI, UsersGUI
-    import Config, MainGUI, UsersGUI
+    global Config, MainGUI
+    import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -34,6 +34,135 @@ def users_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- Users - Users GUI Function (the code of this module in order to avoid running them during module import and defines "Users" tab GUI objects and functions/signals) -----------------------------------
+def users_gui_func():
+
+    global grid3101, treeview3101, searchentry3101, button3101
+    global radiobutton3101, radiobutton3102, radiobutton3103
+    global label3101
+
+
+    # Users tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/UsersTab.ui")
+
+    # Users tab GUI objects - get
+    grid3101 = builder.get_object('grid3101')
+    treeview3101 = builder.get_object('treeview3101')
+    searchentry3101 = builder.get_object('searchentry3101')
+    button3101 = builder.get_object('button3101')
+    radiobutton3101 = builder.get_object('radiobutton3101')
+    radiobutton3102 = builder.get_object('radiobutton3102')
+    radiobutton3103 = builder.get_object('radiobutton3103')
+    label3101 = builder.get_object('label3101')
+
+
+    # Users tab GUI functions
+    def on_treeview3101_button_press_event(widget, event):
+        if event.button == 3:                                                                 # Open Users tab right click menu if mouse is right clicked on the treeview (and on any user, otherwise menu will not be shown) and the mouse button is pressed.
+            users_open_right_click_menu_func(event)
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open User Details window if double click is performed.
+            users_open_user_details_window_func(event)
+
+    def on_treeview3101_button_release_event(widget, event):
+        if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
+            users_treeview_column_order_width_row_sorting_func()
+
+    def on_searchentry3101_changed(widget):
+        radiobutton3101.set_active(True)
+        users_treeview_filter_search_func()
+
+    def on_button3101_clicked(widget):                                                        # "Users Tab Customizations" button
+        if 'UsersMenuCustomizations' not in globals():                                        # Check if "UsersMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
+            global UsersMenuCustomizations
+            import UsersMenuCustomizations
+            UsersMenuCustomizations.users_menu_customizations_import_func()
+            UsersMenuCustomizations.users_menu_customizations_gui_func()
+        UsersMenuCustomizations.popover3101p.popup()
+
+    def on_radiobutton3101_toggled(widget):                                                   # "Show all users" radiobutton
+        if radiobutton3101.get_active() == True:
+            searchentry3101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            users_treeview_filter_show_all_func()
+
+    def on_radiobutton3102_toggled(widget):                                                   # "Show only users logged in" radiobutton
+        if radiobutton3102.get_active() == True:
+            searchentry3101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            users_treeview_filter_show_all_func()
+            users_treeview_filter_users_logged_in_only()
+
+    def on_radiobutton3103_toggled(widget):                                                   # "Show only users logged out" radiobutton
+        if radiobutton3103.get_active() == True:
+            searchentry3101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            users_treeview_filter_show_all_func()
+            users_treeview_filter_users_logged_out_only()
+
+
+    # Users tab GUI functions - connect
+    treeview3101.connect("button-press-event", on_treeview3101_button_press_event)
+    treeview3101.connect("button-release-event", on_treeview3101_button_release_event)
+    searchentry3101.connect("changed", on_searchentry3101_changed)
+    button3101.connect("clicked", on_button3101_clicked)
+    radiobutton3101.connect("toggled", on_radiobutton3101_toggled)
+    radiobutton3102.connect("toggled", on_radiobutton3102_toggled)
+    radiobutton3103.connect("toggled", on_radiobutton3103_toggled)
+
+
+    # Users Tab - Treeview Properties
+    treeview3101.set_activate_on_single_click(True)                                           # This command used for activating rows and column header buttons on single click. Column headers have to clicked twice (or clicked() command have to be used twice) for the first sorting operation if this is not used.
+    treeview3101.set_fixed_height_mode(True)                                                  # This command is used for lower CPU usage when treeview is updated. It prevents calculating of the row heights on every update. To be able to use this command, "'column'.set_sizing(2)" command have to be used for all columns when adding them into treeview.
+    treeview3101.set_headers_clickable(True)
+    treeview3101.set_show_expanders(False)
+    treeview3101.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
+    treeview3101.set_search_column(2)                                                         # This command used for searching by using entry.
+    treeview3101.set_tooltip_column(2)
+
+
+# ----------------------------------- Users - Open Right Click Menu Function (gets right clicked user UID and opens right click menu) -----------------------------------
+def users_open_right_click_menu_func(event):
+
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
+    model = treeview3101.get_model()
+    treeiter = model.get_iter(path)
+    if treeiter is not None:
+        global selected_user_uid
+        selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting UID of the user.
+        if 'UsersMenuRightClick' not in globals():                                            # Check if "UsersMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
+            global UsersMenuRightClick
+            import UsersMenuRightClick
+            UsersMenuRightClick.users_menu_right_click_import_func()
+            UsersMenuRightClick.users_menu_right_click_gui_func()
+        UsersMenuRightClick.menu3101m.popup(None, None, None, None, event.button, event.time)
+
+
+# ----------------------------------- Users - Open User Details Window Function (gets double clicked user UID and opens User Details window) -----------------------------------
+def users_open_user_details_window_func(event):
+
+    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
+        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
+            path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return
+        model = treeview3101.get_model()
+        treeiter = model.get_iter(path)
+        if treeiter is not None:
+            global selected_user_uid
+            selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
+            # Open Users Details window
+            if 'UsersDetailsGUI' not in globals():                                            # Check if "UsersDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetailsGUI" name is in globals().
+                global UsersDetails, UsersDetailsGUI
+                import UsersDetails, UsersDetailsGUI
+                UsersDetailsGUI.users_details_gui_import_function()
+                UsersDetailsGUI.users_details_gui_function()
+                UsersDetails.users_details_import_func()
+            UsersDetailsGUI.window3101w.show()
+            UsersDetails.users_details_foreground_thread_run_func()
 
 
 # ----------------------------------- Users - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -103,7 +232,7 @@ def users_initial_func():
 def users_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
-    treeview3101 = UsersGUI.treeview3101
+    global treeview3101
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global users_cpu_usage_percent_precision
@@ -434,12 +563,12 @@ def users_loop_func():
     if len(new_users) > 0:
         for i, user in enumerate(new_users):
             # /// Start /// This block of code is used for determining if the newly added user will be shown on the treeview (user search actions and/or search customizations and/or "Show only logged in/logged out users ..." preference affect user visibility).
-            if UsersGUI.radiobutton3102.get_active() == True and user_logged_in_list[uid_username_list.index(list(user))] != True:    # Hide user (set the visibility value as "False") if "Show only logged in users" option is selected on the GUI and user log in status is not "True"
+            if radiobutton3102.get_active() == True and user_logged_in_list[uid_username_list.index(list(user))] != True:    # Hide user (set the visibility value as "False") if "Show only logged in users" option is selected on the GUI and user log in status is not "True"
                 users_data_rows[uid_username_list.index(user)][0] = False
-            if UsersGUI.radiobutton3103.get_active() == True and user_logged_in_list[uid_username_list.index(list(user))] == True:    # Hide user (set the visibility value as "False") if "Show only logged out users" option is selected on the GUI and user log in status is "True".
+            if radiobutton3103.get_active() == True and user_logged_in_list[uid_username_list.index(list(user))] == True:    # Hide user (set the visibility value as "False") if "Show only logged out users" option is selected on the GUI and user log in status is "True".
                 users_data_rows[uid_username_list.index(user)][0] = False
-            if UsersGUI.searchentry3101.get_text() != "":
-                user_search_text = UsersGUI.searchentry3101.get_text()
+            if searchentry3101.get_text() != "":
+                user_search_text = searchentry3101.get_text()
                 user_data_text_in_model = users_data_rows[uid_username_list.index(list(user))][filter_column]
                 if user_search_text not in str(user_data_text_in_model).lower():              # Hide user (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the user.
                     users_data_rows[uid_username_list.index(list(user))][0] = False
@@ -458,7 +587,7 @@ def users_loop_func():
     # Get number of logged in users and number of all users and show these information on the GUI label
     logged_in_users_count = user_logged_in_list.count(True)
     number_of_all_users = len(user_logged_in_list)
-    UsersGUI.label3101.set_text(_tr("Total: ") + str(number_of_all_users) + _tr(" users (") + str(logged_in_users_count) + _tr(" logged in users, ") + str(number_of_all_users-logged_in_users_count) + _tr(" logged out users)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    label3101.set_text(_tr("Total: ") + str(number_of_all_users) + _tr(" users (") + str(logged_in_users_count) + _tr(" logged in users, ") + str(number_of_all_users-logged_in_users_count) + _tr(" logged out users)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
 
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
@@ -536,7 +665,7 @@ def users_treeview_filter_users_logged_out_only():
 def users_treeview_filter_search_func():
 
     global filter_column
-    user_search_text = UsersGUI.searchentry3101.get_text().lower()
+    user_search_text = searchentry3101.get_text().lower()
     # Set visible/hidden users
     for piter in piter_list:
         treestore3101.set_value(piter, 0, False)
@@ -559,7 +688,7 @@ def on_column_title_clicked(widget):
 # ----------------------------------- Users - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
 def users_treeview_column_order_width_row_sorting_func():
     # Columns in the treeview are get one by one and appended into "users_data_column_order". "users_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "users_data") are changed if column order/widths are changed.
-    users_treeview_columns = UsersGUI.treeview3101.get_columns()
+    users_treeview_columns = treeview3101.get_columns()
     treeview_column_titles = []
     for column in users_treeview_columns:
         treeview_column_titles.append(column.get_title())

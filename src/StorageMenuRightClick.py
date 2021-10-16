@@ -12,8 +12,8 @@ def storage_menu_right_click_import_func():
     import subprocess
 
 
-    global MainGUI, StorageGUI
-    import MainGUI, StorageGUI
+    global MainGUI, Storage
+    import MainGUI, Storage
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -40,7 +40,6 @@ def storage_menu_right_click_gui_func():
     builder = Gtk.Builder()
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageMenuRightClick.ui")
 
-
     # ********************** Define object names for Storage tab right click menu **********************
     global menu4101m
     global menuitem4101m, menuitem4102m, menuitem4103m, menuitem4104m, menuitem4106m, menuitem4107m, menuitem4108m
@@ -60,7 +59,7 @@ def storage_menu_right_click_gui_func():
         pass
 
     def on_menuitem4101m_activate(widget):                                                    # "Browse" item on the right click menu
-        disk_name = StorageGUI.selected_storage_kernel_name
+        disk_name = Storage.selected_storage_kernel_name
         with open("/proc/mounts") as reader:                                                  # Read "/proc/mounts" file in order to get disk mount point.
             proc_mounts_lines = reader.read().strip().split("\n")
         disk_mount_point = "[Not mounted]"                                                    # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
@@ -74,7 +73,7 @@ def storage_menu_right_click_gui_func():
             storage_disk_not_mounted_error_dialog()
 
     def on_menuitem4102m_activate(widget):                                                    # "Mount" item on the right click menu
-        disk_name = StorageGUI.selected_storage_kernel_name
+        disk_name = Storage.selected_storage_kernel_name
         # Get all disks (disks and partitions) including physical, optical and virtual disks
         with open("/proc/partitions") as reader:
             proc_partitions_lines = reader.read().split("\n")[2:-1]                           # Get without first 2 lines (header line and an empty line).
@@ -108,7 +107,7 @@ def storage_menu_right_click_gui_func():
                     pass
 
     def on_menuitem4103m_activate(widget):                                                    # "Unmount" item on the right click menu
-        disk_name = StorageGUI.selected_storage_kernel_name
+        disk_name = Storage.selected_storage_kernel_name
         # Get all disks (disks and partitions) including physical, optical and virtual disks
         with open("/proc/partitions") as reader:
             proc_partitions_lines = reader.read().split("\n")[2:-1]                           # Get without first 2 lines (header line and an empty line).
@@ -143,7 +142,7 @@ def storage_menu_right_click_gui_func():
 
     def on_menuitem4104m_activate(widget):                                                    # "Remove" item on the right click menu
         on_menuitem4103m_activate(menuitem4103m)
-        disk_name = StorageGUI.selected_storage_kernel_name
+        disk_name = Storage.selected_storage_kernel_name
         disk_path = "-"                                                                       # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
         if os.path.exists("/dev/" + disk_name) == True:
             disk_path = "/dev/" + disk_name
@@ -158,7 +157,7 @@ def storage_menu_right_click_gui_func():
                 (subprocess.check_output("udisksctl power-off -b " + disk_path, shell=True).strip()).decode()
 
     def on_menuitem4106m_activate(widget):                                                    # "Copy Mount Point" item on the right click menu
-        disk_name = StorageGUI.selected_storage_kernel_name
+        disk_name = Storage.selected_storage_kernel_name
         with open("/proc/mounts") as reader:                                                  # Read "/proc/mounts" file in order to get disk mount point.
             proc_mounts_lines = reader.read().strip().split("\n")
         disk_mount_point = "[Not mounted]"                                                    # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
@@ -171,7 +170,7 @@ def storage_menu_right_click_gui_func():
         clipboard.store()                                                                     # Stores copied text in the clipboard. Therefore text stays in the clipboard after application has quit.
 
     def on_menuitem4107m_activate(widget):                                                    # "Rename Label" item on the right click menu
-        disk_name = StorageGUI.selected_storage_kernel_name
+        disk_name = Storage.selected_storage_kernel_name
         if 'StorageRenameGUI' not in globals():                                               # Check if "StorageRenameGUI" module is imported. Therefore it is not reimported for every click on "Rename Label" menu item if "StorageRenameGUI" name is in globals().
             global StorageRenameGUI
             import StorageRenameGUI

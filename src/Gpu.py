@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- GPU - GPU Tab GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- GPU - GPU Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def gpu_import_func():
 
     global Gtk, GLib, Thread, os, subprocess
@@ -13,8 +13,8 @@ def gpu_import_func():
     import subprocess
 
 
-    global Config, MainGUI, Performance, GpuGUI
-    import Config, MainGUI, Performance, GpuGUI
+    global Config, MainGUI, Performance
+    import Config, MainGUI, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -34,6 +34,110 @@ def gpu_import_func():
     locale.setlocale(locale.LC_ALL, system_current_language)
 
 
+# ----------------------------------- GPU - GPU GUI Function (the code of this module in order to avoid running them during module import and defines "GPU" tab GUI objects and functions/signals) -----------------------------------
+def gpu_gui_func():
+
+    # GPU tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/GpuTab.ui")
+
+    # GPU tab GUI objects
+    global grid1501, drawingarea1501, button1501, label1501, label1502
+    global label1503, label1504, label1505, label1506, label1507, label1508, label1509, label1510, label1511, label1512
+    global glarea1501
+
+    # GPU tab GUI objects - get
+    grid1501 = builder.get_object('grid1501')
+    drawingarea1501 = builder.get_object('drawingarea1501')
+    button1501 = builder.get_object('button1501')
+    label1501 = builder.get_object('label1501')
+    label1502 = builder.get_object('label1502')
+    label1503 = builder.get_object('label1503')
+    label1504 = builder.get_object('label1504')
+    label1505 = builder.get_object('label1505')
+    label1506 = builder.get_object('label1506')
+    label1507 = builder.get_object('label1507')
+    label1508 = builder.get_object('label1508')
+    label1509 = builder.get_object('label1509')
+    label1510 = builder.get_object('label1510')
+    label1511 = builder.get_object('label1511')
+    label1512 = builder.get_object('label1512')
+    glarea1501 = builder.get_object('glarea1501')
+
+
+    # GPU tab GUI functions
+    def on_button1501_clicked(widget):
+        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Get gpu/graphics card list and set selected gpu
+        if 'GpuMenu' not in globals():
+            global GpuMenu
+            import GpuMenu
+            GpuMenu.gpu_menus_import_func()
+            GpuMenu.gpu_menus_gui_func()
+            GpuMenu.popover1501p.set_relative_to(button1501)                                  # Set widget that popover menu will display at the edge of.
+            GpuMenu.popover1501p.set_position(1)                                              # Show popover menu at the right edge of the caller button.
+        GpuMenu.popover1501p.popup()                                                          # Show GPU tab popover GUI
+
+
+    # ----------------------------------- GPU - Plot FPS data as a Line Chart ----------------------------------- 
+    def on_drawingarea1501_draw(widget, chart1501):
+
+        chart_data_history = Config.chart_data_history
+        chart_x_axis = list(range(0, chart_data_history))
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the GPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            fps_count_check = fps_count
+        except NameError:
+            return
+
+        chart_line_color = Config.chart_line_color_fps
+        chart_background_color = Config.chart_background_color_all_charts
+
+        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
+        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
+
+        chart1501_width = Gtk.Widget.get_allocated_width(drawingarea1501)
+        chart1501_height = Gtk.Widget.get_allocated_height(drawingarea1501)
+
+        chart1501.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        chart1501.rectangle(0, 0, chart1501_width, chart1501_height)
+        chart1501.fill()
+
+        chart1501.set_line_width(1)
+        chart1501.set_dash([4, 3])
+        chart1501.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        for i in range(3):
+            chart1501.move_to(0, chart1501_height/4*(i+1))
+            chart1501.line_to(chart1501_width, chart1501_height/4*(i+1))
+        for i in range(4):
+            chart1501.move_to(chart1501_width/5*(i+1), 0)
+            chart1501.line_to(chart1501_width/5*(i+1), chart1501_height)
+        chart1501.stroke()
+
+        chart1501.set_dash([], 0)
+        chart1501.rectangle(0, 0, chart1501_width, chart1501_height)
+        chart1501.stroke()
+
+        chart1501.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+        chart1501.move_to(chart1501_width*chart_x_axis[0]/(chart_data_history-1), chart1501_height - chart1501_height*fps_count[0]/100)
+        for i in range(len(chart_x_axis) - 1):
+            delta_x_chart1501 = (chart1501_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1501_width * chart_x_axis[i]/(chart_data_history-1))
+            delta_y_chart1501 = (chart1501_height*fps_count[i+1]/100) - (chart1501_height*fps_count[i]/100)
+            chart1501.rel_line_to(delta_x_chart1501, -delta_y_chart1501)
+
+        chart1501.rel_line_to(10, 0)
+        chart1501.rel_line_to(0, chart1501_height+10)
+        chart1501.rel_line_to(-(chart1501_width+20), 0)
+        chart1501.rel_line_to(0, -(chart1501_height+10))
+        chart1501.close_path()
+        chart1501.stroke_preserve()
+        chart1501.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        chart1501.fill()
+
+
+    # GPU tab GUI functions - connect
+    button1501.connect("clicked", on_button1501_clicked)
+    drawingarea1501.connect("draw", on_drawingarea1501_draw)
+
+
 # ----------------------------------- GPU - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
 def gpu_initial_func():
 
@@ -51,7 +155,6 @@ def gpu_initial_func():
     # Measure FPS (Rendering is performed by using glarea in order to measure FPS. FPS on drawing area is counted. Lower FPS is obtained depending on the GPU load/performance.)
     if "frame_list" not in globals():
         global glarea1501, frame_list
-        glarea1501 = GpuGUI.glarea1501
         frame_list = []
 
         def on_glarea1501_realize(area):
@@ -65,7 +168,6 @@ def gpu_initial_func():
             glFlush()
             global frame_list
             frame_list.append(0)
-            #GpuGUI.label1513.set_text(".")
             glarea1501.queue_draw()
             return True
 
@@ -127,14 +229,14 @@ def gpu_initial_func():
         if_default_gpu = _tr("No")
 
     # Set GPU tab label texts by using information get
-    GpuGUI.label1501.set_text(gpu_device_model_name[selected_gpu_number])
-    GpuGUI.label1502.set_text(f'{gpu_list[selected_gpu_number]} ({gpu_vendor_name_in_driver} {gpu_device_name_in_driver})')
-    GpuGUI.label1507.set_text(if_default_gpu)
-    GpuGUI.label1508.set_text(video_memory)
-    GpuGUI.label1509.set_text(if_unified_memory)
-    GpuGUI.label1510.set_text(direct_rendering)
-    GpuGUI.label1511.set_text(display_driver)
-    GpuGUI.label1512.set_text(opengl_version)
+    label1501.set_text(gpu_device_model_name[selected_gpu_number])
+    label1502.set_text(f'{gpu_list[selected_gpu_number]} ({gpu_vendor_name_in_driver} {gpu_device_name_in_driver})')
+    label1507.set_text(if_default_gpu)
+    label1508.set_text(video_memory)
+    label1509.set_text(if_unified_memory)
+    label1510.set_text(direct_rendering)
+    label1511.set_text(display_driver)
+    label1512.set_text(opengl_version)
 
 
 # ----------------------------------- GPU - Get GPU Data Function (gets GPU data, shows on the labels on the GUI) -----------------------------------
@@ -148,17 +250,17 @@ def gpu_loop_func():
     frame_latency = 1 / (fps + 0.0000001) * 1000                                              # Frame latency in milliseconds
     frame_list = []
 
-    GpuGUI.drawingarea1501.queue_draw()
+    drawingarea1501.queue_draw()
 
     current_resolution_and_refresh_rate = (subprocess.check_output("xrandr | grep '*'", shell=True).strip()).decode().split('*')[0].split(' ')
     current_resolution_and_refresh_rate = [i for i in current_resolution_and_refresh_rate if i != '']
 
 
     # Set and update GPU tab label texts by using information get
-    GpuGUI.label1503.set_text(f'{fps_count[-1]:.0f}')
-    GpuGUI.label1504.set_text(f'{frame_latency:.1f} ms')
-    GpuGUI.label1505.set_text(f'{current_resolution_and_refresh_rate[1]} Hz')
-    GpuGUI.label1506.set_text(f'{current_resolution_and_refresh_rate[0]}')
+    label1503.set_text(f'{fps_count[-1]:.0f}')
+    label1504.set_text(f'{frame_latency:.1f} ms')
+    label1505.set_text(f'{current_resolution_and_refresh_rate[1]} Hz')
+    label1506.set_text(f'{current_resolution_and_refresh_rate[0]}')
 
 
 # ----------------------------------- GPU Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

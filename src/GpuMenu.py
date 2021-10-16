@@ -11,8 +11,8 @@ def gpu_menus_import_func():
     import os
 
 
-    global Config, GpuGUI, Gpu, Performance
-    import Config, GpuGUI, Gpu, Performance
+    global Config, Gpu, Performance
+    import Config, Gpu, Performance
 
 
 # ----------------------------------- GPU - GPU Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "GPU" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -21,7 +21,6 @@ def gpu_menus_gui_func():
     # Define builder and get all objects (Performance tab GPU sub-tab customizations popovers) from GUI file.
     builder = Gtk.Builder()
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/GpuMenus.ui")
-
 
     # Define a colorchooserdialog in order to set chart colors
     global colorchooserdialog1001
@@ -95,7 +94,6 @@ def gpu_menus_gui_func():
         gpu_tab_customization_popover_connect_signals_func()
         Gpu.gpu_initial_func()                                                            # Call this function in order to apply changes
         Gpu.gpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
-
 
 
     # ********************** Connect signals to GUI objects for GPU tab **********************

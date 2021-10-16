@@ -14,8 +14,8 @@ def storage_import_func():
     from datetime import datetime
 
 
-    global Config, MainGUI, StorageGUI
-    import Config, MainGUI, StorageGUI
+    global Config, MainGUI
+    import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -33,6 +33,166 @@ def storage_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- Storage - Storage GUI Function (the code of this module in order to avoid running them during module import and defines "Storage" tab GUI objects and functions/signals) -----------------------------------
+def storage_gui_func():
+
+    global grid4101, treeview4101, searchentry4101, button4101
+    global radiobutton4101, radiobutton4102, radiobutton4103, radiobutton4104, radiobutton4105, radiobutton4106, radiobutton4107
+    global label4101
+
+
+    # Storage tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageTab.ui")
+
+    # Storage tab GUI objects - get
+    grid4101 = builder.get_object('grid4101')
+    treeview4101 = builder.get_object('treeview4101')
+    searchentry4101 = builder.get_object('searchentry4101')
+    button4101 = builder.get_object('button4101')
+    radiobutton4101 = builder.get_object('radiobutton4101')
+    radiobutton4102 = builder.get_object('radiobutton4102')
+    radiobutton4103 = builder.get_object('radiobutton4103')
+    radiobutton4104 = builder.get_object('radiobutton4104')
+    radiobutton4105 = builder.get_object('radiobutton4105')
+    radiobutton4106 = builder.get_object('radiobutton4106')
+    radiobutton4107 = builder.get_object('radiobutton4107')
+    label4101 = builder.get_object('label4101')
+
+
+    # Storage tab GUI functions
+    def on_treeview4101_button_press_event(widget, event):                                    # Mouse button press event (on the treeview)
+        if event.button == 3:                                                                 # Open Storage tab right click menu if mouse is right clicked on the treeview (and on any disk, otherwise menu will not be shown) and the mouse button is pressed.
+            storage_open_right_click_menu_func(event)
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open Storage Details window if double click is performed.
+            storage_open_storage_details_window_func(event)
+
+    def on_treeview4101_button_release_event(widget, event):                                  # Mouse button press event (on the treeview)
+        if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
+            storage_treeview_column_order_width_row_sorting_func()
+
+    def on_searchentry4101_changed(widget):                                                   # Search entry change event (called when text in the search entry is changed)
+        radiobutton4101.set_active(True)
+        radiobutton4105.set_active(True)
+        storage_treeview_filter_search_func()
+
+    def on_button4101_clicked(widget):                                                        # "Storage Tab Customizations" button
+        if 'StorageMenuCustomizations' not in globals():                                      # Check if "StorageMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
+            global StorageMenuCustomizations
+            import StorageMenuCustomizations
+            StorageMenuCustomizations.storage_menu_customizations_import_func()
+            StorageMenuCustomizations.storage_menu_customizations_gui_func()
+        StorageMenuCustomizations.popover4101p.popup()
+
+    def on_radiobutton4101_toggled(widget):                                                   # "Show all disks/partitions" radiobutton
+        if radiobutton4101.get_active() == True:
+            searchentry4101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            storage_treeview_filter_show_all_func()
+            radiobutton4105.set_active(True)
+
+    def on_radiobutton4102_toggled(widget):                                                   # "Show all non-removable disks/partitions" radiobutton
+        if radiobutton4102.get_active() == True:
+            searchentry4101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            storage_treeview_filter_show_all_func()
+            storage_treeview_filter_non_removable_disks_only_func()
+            radiobutton4105.set_active(True)
+
+    def on_radiobutton4103_toggled(widget):                                                   # "Show all removable disks/partitions" radiobutton
+        if radiobutton4103.get_active() == True:
+            searchentry4101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            storage_treeview_filter_show_all_func()
+            storage_treeview_filter_removable_disks_only_func()
+            radiobutton4105.set_active(True)
+
+    def on_radiobutton4104_toggled(widget):                                                   # "Show all optical and virtual disks/partitions" radiobutton
+        if radiobutton4104.get_active() == True:
+            searchentry4101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            storage_treeview_filter_show_all_func()
+            storage_treeview_filter_optical_virtual_disks_only_func()
+            radiobutton4105.set_active(True)
+
+    def on_radiobutton4105_toggled(widget):                                                   # "User defined expand" radiobutton
+        if radiobutton4105.get_active() == True:
+            pass
+
+    def on_radiobutton4106_toggled(widget):                                                   # "Expand all" radiobutton
+        if radiobutton4106.get_active() == True:
+            treeview4101.expand_all()
+
+    def on_radiobutton4107_toggled(widget):                                                   # "Collapse all" radiobutton
+        if radiobutton4107.get_active() == True:
+            treeview4101.collapse_all()
+
+
+    # ********************** Connect signals to GUI objects for Storage tab right click menu **********************
+    treeview4101.connect("button-press-event", on_treeview4101_button_press_event)
+    treeview4101.connect("button-release-event", on_treeview4101_button_release_event)
+    searchentry4101.connect("changed", on_searchentry4101_changed)
+    button4101.connect("clicked", on_button4101_clicked)
+    radiobutton4101.connect("toggled", on_radiobutton4101_toggled)
+    radiobutton4102.connect("toggled", on_radiobutton4102_toggled)
+    radiobutton4103.connect("toggled", on_radiobutton4103_toggled)
+    radiobutton4104.connect("toggled", on_radiobutton4104_toggled)
+    radiobutton4105.connect("toggled", on_radiobutton4105_toggled)
+    radiobutton4106.connect("toggled", on_radiobutton4106_toggled)
+    radiobutton4107.connect("toggled", on_radiobutton4107_toggled)
+
+
+    # Storage Tab - Treeview Properties
+    treeview4101.set_activate_on_single_click(True)                                           # This command used for activating rows and column header buttons on single click. Column headers have to clicked twice (or clicked() command have to be used twice) for the first sorting operation if this is not used.
+    treeview4101.set_fixed_height_mode(True)                                                  # This command is used for lower CPU usage when treeview is updated. It prevents calculating of the row heights on every update. To be able to use this command, "'column'.set_sizing(2)" command have to be used for all columns when adding them into treeview.
+    treeview4101.set_headers_clickable(True)
+    treeview4101.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
+    treeview4101.set_search_column(2)                                                         # This command used for searching by using entry.
+    treeview4101.set_tooltip_column(2)
+    treeview4101.set_show_expanders(True)                                                     # Show expander arrows because rows on the Storage tab are alwaus shown as tree structure.
+
+
+# ----------------------------------- Storage - Open Right Click Menu Function (gets right clicked storage kernel name and opens right click menu) -----------------------------------
+def storage_open_right_click_menu_func(event):
+
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
+    model = treeview4101.get_model()
+    treeiter = model.get_iter(path)
+    if treeiter is not None:
+        global selected_storage_kernel_name
+        selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
+        if 'StorageMenuRightClick' not in globals():                                          # Check if "StorageMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
+            global StorageMenuRightClick
+            import StorageMenuRightClick
+            StorageMenuRightClick.storage_menu_right_click_import_func()
+            StorageMenuRightClick.storage_menu_right_click_gui_func()
+        StorageMenuRightClick.menu4101m.popup(None, None, None, None, event.button, event.time)
+
+
+# ----------------------------------- Storage - Open Storage Details Window Function (gets double clicked storage kernel name and opens Storage Details window) -----------------------------------
+def storage_open_storage_details_window_func(event):
+
+    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
+        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
+            path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return
+        model = treeview4101.get_model()
+        treeiter = model.get_iter(path)
+        if treeiter is not None:
+            global selected_storage_kernel_name
+            selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
+            # Open Storage Details window
+            if 'StorageDetailsGUI' not in globals():                                          # Check if "StorageDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "StorageDetailsGUI" name is in globals().
+                global StorageDetailsGUI, StorageDetails
+                import StorageDetailsGUI, StorageDetails
+                StorageDetailsGUI.storage_details_gui_import_function()
+                StorageDetailsGUI.storage_details_gui_function()
+                StorageDetails.storage_details_import_func()
+            StorageDetailsGUI.window4101w.show()
+            StorageDetails.storage_details_foreground_thread_run_func()
 
 
 # ----------------------------------- Storage - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -102,7 +262,7 @@ def storage_initial_func():
 def storage_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
-    treeview4101 = StorageGUI.treeview4101
+    global treeview4101
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global storage_disk_usage_data_precision, storage_disk_usage_data_unit
@@ -535,14 +695,14 @@ def storage_loop_func():
     if len(new_storage) > 0:
         for storage in new_storage:
             # /// Start /// This block of code is used for determining if the newly added disk/storage will be shown on the treeview (user search actions and/or search customizations and/or "Show only ... disks/partitions" preference affect disk/storage visibility).
-            if StorageGUI.radiobutton4102.get_active() == True and disk_type_list[disk_order_name_time_list.index(list(storage))] != selected_disk_type:    # Hide disk (set the visibility value as "False") if "Show all non-removable disks/partitions" option is selected on the GUI and disk type is not same with the selection.
+            if radiobutton4102.get_active() == True and disk_type_list[disk_order_name_time_list.index(list(storage))] != selected_disk_type:    # Hide disk (set the visibility value as "False") if "Show all non-removable disks/partitions" option is selected on the GUI and disk type is not same with the selection.
                 storage_data_rows[disk_order_name_time_list.index(list(storage))][0] = False
-            if StorageGUI.radiobutton4103.get_active() == True and disk_type_list[disk_order_name_time_list.index(list(storage))] != selected_disk_type:    # Hide disk (set the visibility value as "False") if "Show all removable disks/partitions" option is selected on the GUI and disk type is not same with the selection.
+            if radiobutton4103.get_active() == True and disk_type_list[disk_order_name_time_list.index(list(storage))] != selected_disk_type:    # Hide disk (set the visibility value as "False") if "Show all removable disks/partitions" option is selected on the GUI and disk type is not same with the selection.
                 storage_data_rows[disk_order_name_time_list.index(list(storage))][0] = False
-            if StorageGUI.radiobutton4104.get_active() == True and disk_type_list[disk_order_name_time_list.index(list(storage))] != selected_disk_type:    # Hide disk (set the visibility value as "False") if "Show all optical and virtual disks/partitions" option is selected on the GUI and disk type is not same with the selection.
+            if radiobutton4104.get_active() == True and disk_type_list[disk_order_name_time_list.index(list(storage))] != selected_disk_type:    # Hide disk (set the visibility value as "False") if "Show all optical and virtual disks/partitions" option is selected on the GUI and disk type is not same with the selection.
                 storage_data_rows[disk_order_name_time_list.index(list(storage))][0] = False
-            if StorageGUI.searchentry4101.get_text() != "":
-                storage_search_text = StorageGUI.searchentry4101.get_text()
+            if searchentry4101.get_text() != "":
+                storage_search_text = searchentry4101.get_text()
                 storage_data_text_in_model = storage_data_rows[disk_order_name_time_list.index(list(storage))][filter_column]
                 if storage_search_text not in str(storage_data_text_in_model).lower():        # Hide disk (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the disk data.
                    storage_data_rows[disk_order_name_time_list.index(list(storage))][0] = False
@@ -574,7 +734,7 @@ def storage_loop_func():
     # Get number of partitions and number of all disks/storage/partitions and show these information on the GUI label
     disks_count = disk_type_list.count(storage_image_partition)
     number_of_all_disks_partitions = len(disk_type_list)
-    StorageGUI.label4101.set_text(_tr("Total: ") + str(number_of_all_disks_partitions) + _tr(" disks/partitions (") + str(disks_count) + _tr(" disks, ") + str(number_of_all_disks_partitions-disks_count) + _tr(" partitions)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    label4101.set_text(_tr("Total: ") + str(number_of_all_disks_partitions) + _tr(" disks/partitions (") + str(disks_count) + _tr(" disks, ") + str(number_of_all_disks_partitions-disks_count) + _tr(" partitions)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
 
 
 # ----------------------------------- Storage - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
@@ -631,7 +791,7 @@ def storage_treeview_filter_show_all_func():
 
     for piter in piter_list:
         treestore4101.set_value(piter, 0, True)
-    StorageGUI.treeview4101.expand_all()
+    treeview4101.expand_all()
 
 
 # ----------------------------------- Storage - Treeview Filter Non-Removable Disks Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
@@ -644,7 +804,7 @@ def storage_treeview_filter_non_removable_disks_only_func():
             treestore4101.set_value(piter, 0, False)
         if disk_type_list[piter_list.index(piter)] == storage_image_partition:
             treestore4101.set_value(piter, 0, True)
-    StorageGUI.treeview4101.expand_all()
+    treeview4101.expand_all()
 
 
 # ----------------------------------- Storage - Treeview Filter Removable Disks Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
@@ -657,7 +817,7 @@ def storage_treeview_filter_removable_disks_only_func():
             treestore4101.set_value(piter, 0, False)
         if disk_type_list[piter_list.index(piter)] == storage_image_partition:
             treestore4101.set_value(piter, 0, True)
-    StorageGUI.treeview4101.expand_all()
+    treeview4101.expand_all()
 
 
 # ----------------------------------- Storage - Treeview Filter Optical/Virtual Disks Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
@@ -670,14 +830,14 @@ def storage_treeview_filter_optical_virtual_disks_only_func():
             treestore4101.set_value(piter, 0, False)
         if disk_type_list[piter_list.index(piter)] == storage_image_partition:
             treestore4101.set_value(piter, 0, True)
-    StorageGUI.treeview4101.expand_all()
+    treeview4101.expand_all()
 
 
 # ----------------------------------- Storage - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
 def storage_treeview_filter_search_func():
 
     global filter_column
-    storage_search_text = StorageGUI.searchentry4101.get_text().lower()
+    storage_search_text = searchentry4101.get_text().lower()
     # Set visible/hidden storage/disk
     for piter in piter_list:
         treestore4101.set_value(piter, 0, False)
@@ -690,7 +850,7 @@ def storage_treeview_filter_search_func():
                 treestore4101.set_value(piter_parent, 0, True)
                 piter_parent = treestore4101.iter_parent(piter_parent)
 
-    StorageGUI.treeview4101.expand_all()                                                      # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
+    treeview4101.expand_all()                                                                 # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
 
 
 # ----------------------------------- Storage - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
@@ -707,7 +867,7 @@ def on_column_title_clicked(widget):
 # ----------------------------------- Storage - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
 def storage_treeview_column_order_width_row_sorting_func():
     # Columns in the treeview are get one by one and appended into "storage_data_column_order". "storage_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "storage_data") are changed if column order/widths are changed.
-    storage_treeview_columns = StorageGUI.treeview4101.get_columns()
+    storage_treeview_columns = treeview4101.get_columns()
     treeview_column_titles = []
     for column in storage_treeview_columns:
         treeview_column_titles.append(column.get_title())

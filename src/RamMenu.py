@@ -12,8 +12,8 @@ def ram_menus_import_func():
     import subprocess
 
 
-    global Config, RamGUI, Ram, Performance
-    import Config, RamGUI, Ram, Performance
+    global Config, Ram, Performance
+    import Config, Ram, Performance
 
 
 # ----------------------------------- RAM - RAM Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "RAM" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -102,7 +102,6 @@ def ram_menus_gui_func():
 
     def on_button1204p_clicked(widget):                                                       # For listing RAM information by using "dmidecode" command on the system default terminal
         process = subprocess.Popen("x-terminal-emulator -e pkexec /bin/bash -c \'sudo dmidecode --type memory; exec bash\'", stdout=subprocess.PIPE, stderr=None, shell=True)
-
 
 
     # ********************** Connect signals to GUI objects for RAM tab **********************

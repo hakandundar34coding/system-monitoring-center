@@ -12,8 +12,8 @@ def processes_menu_customizations_import_func():
     import subprocess
 
 
-    global Config, Processes, ProcessesGUI
-    import Config, Processes, ProcessesGUI
+    global Config, Processes
+    import Config, Processes
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -199,7 +199,7 @@ def processes_menu_customizations_gui_func():
 
 
     # ********************** Popover settings for Processes tab **********************
-    popover2101p.set_relative_to(ProcessesGUI.button2101)
+    popover2101p.set_relative_to(Processes.button2101)
     popover2101p.set_position(1)
 
 
@@ -508,17 +508,17 @@ def processes_add_remove_columns_function():
 def processes_expand_collapse_button_preferences_func():
     if checkbutton2102p.get_active() == True:
         # Set "User defined expand, Expand all, Collapse all" buttons as "sensitive" on the Processes tab if "show_processes_as_tree" option is enabled. Therefore, expanding/collapsing treeview rows functions will be available for using by the user. Also change widget tooltips for better understandability
-        ProcessesGUI.radiobutton2104.set_sensitive(True)
-        ProcessesGUI.radiobutton2105.set_sensitive(True)
-        ProcessesGUI.radiobutton2106.set_sensitive(True)
-        ProcessesGUI.radiobutton2104.set_tooltip_text(_tr("User defined expand"))
-        ProcessesGUI.radiobutton2105.set_tooltip_text(_tr("Expand all"))
-        ProcessesGUI.radiobutton2106.set_tooltip_text(_tr("Collapse all"))
+        Processes.radiobutton2104.set_sensitive(True)
+        Processes.radiobutton2105.set_sensitive(True)
+        Processes.radiobutton2106.set_sensitive(True)
+        Processes.radiobutton2104.set_tooltip_text(_tr("User defined expand"))
+        Processes.radiobutton2105.set_tooltip_text(_tr("Expand all"))
+        Processes.radiobutton2106.set_tooltip_text(_tr("Collapse all"))
     if checkbutton2102p.get_active() == False:
         # Set "User defined expand, Expand all, Collapse all" buttons as "insensitive" on the Processes tab if "show_processes_as_tree" option is disabled. Because expanding/collapsing treeview rows has no effects when treeview items are listed as "list". Also change widget tooltips for better understandability
-        ProcessesGUI.radiobutton2104.set_sensitive(False)
-        ProcessesGUI.radiobutton2105.set_sensitive(False)
-        ProcessesGUI.radiobutton2106.set_sensitive(False)
-        ProcessesGUI.radiobutton2104.set_tooltip_text(_tr("User defined expand\n(Usable if processes are listed as tree)"))
-        ProcessesGUI.radiobutton2105.set_tooltip_text(_tr("Expand all\n(Usable if processes are listed as tree)"))
-        ProcessesGUI.radiobutton2106.set_tooltip_text(_tr("Collapse all\n(Usable if processes are listed as tree)"))
+        Processes.radiobutton2104.set_sensitive(False)
+        Processes.radiobutton2105.set_sensitive(False)
+        Processes.radiobutton2106.set_sensitive(False)
+        Processes.radiobutton2104.set_tooltip_text(_tr("User defined expand\n(Usable if processes are listed as tree)"))
+        Processes.radiobutton2105.set_tooltip_text(_tr("Expand all\n(Usable if processes are listed as tree)"))
+        Processes.radiobutton2106.set_tooltip_text(_tr("Collapse all\n(Usable if processes are listed as tree)"))

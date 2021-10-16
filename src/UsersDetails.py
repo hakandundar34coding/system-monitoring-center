@@ -15,8 +15,8 @@ def users_details_import_func():
     import time
 
 
-    global Config, Users, UsersGUI, UsersDetailsGUI, MainGUI
-    import Config, Users, UsersGUI, UsersDetailsGUI, MainGUI
+    global Config, Users, UsersDetailsGUI, MainGUI
+    import Config, Users, UsersDetailsGUI, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -67,7 +67,7 @@ def users_details_initial_func():
 def users_details_foreground_func():
 
     global selected_user_uid
-    selected_user_uid = str(UsersGUI.selected_user_uid)                                       # Get right clicked disk name
+    selected_user_uid = str(Users.selected_user_uid)                                       # Get right clicked disk name
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global users_cpu_usage_percent_precision

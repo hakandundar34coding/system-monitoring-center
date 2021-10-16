@@ -15,8 +15,8 @@ def services_details_import_func():
     from datetime import datetime
 
 
-    global Config, Services, ServicesGUI, ServicesDetailsGUI, MainGUI
-    import Config, Services, ServicesGUI, ServicesDetailsGUI, MainGUI
+    global Config, Services, ServicesDetailsGUI, MainGUI
+    import Config, Services, ServicesDetailsGUI, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -40,7 +40,7 @@ def services_details_import_func():
 def services_details_initial_func():
 
     global selected_service_name
-    selected_service_name = ServicesGUI.selected_service_name
+    selected_service_name = Services.selected_service_name
     services_define_data_unit_converter_variables_func()                                      # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
     # Get system boot time (will be used for appending to process start times to get process start times as date time.)

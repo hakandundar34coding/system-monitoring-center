@@ -12,8 +12,8 @@ def storage_rename_import_func():
     import subprocess
 
 
-    global Storage, StorageGUI, MainGUI
-    import Storage, StorageGUI, MainGUI
+    global Storage, MainGUI
+    import Storage, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -59,7 +59,7 @@ def storage_rename_gui_func():
 
     def on_window4101w2_show(widget):
         global disk_name
-        disk_name = StorageGUI.selected_storage_kernel_name
+        disk_name = Storage.selected_storage_kernel_name
         label4101w2.set_text(disk_name)
         disk_label = ""                                                                       # Initial value of "disk_label" variable. This value will be used if disk label could not be detected.
         try:

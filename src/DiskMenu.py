@@ -11,8 +11,8 @@ def disk_menus_import_func():
     import os
 
 
-    global Config, DiskGUI, Disk, Performance
-    import Config, DiskGUI, Disk, Performance
+    global Config, Disk, Performance
+    import Config, Disk, Performance
 
 
 # ----------------------------------- Disk - Disk Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Disk" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -148,7 +148,6 @@ def disk_menus_gui_func():
         disk_tab_customization_popover_connect_signals_func()
         Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
         Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
-
 
 
     # ********************** Connect signals to GUI objects for Disk tab **********************

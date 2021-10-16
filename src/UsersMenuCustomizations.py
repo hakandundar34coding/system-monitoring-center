@@ -11,8 +11,8 @@ def users_menu_customizations_import_func():
     import os
 
 
-    global Config, Users, UsersGUI
-    import Config, Users, UsersGUI
+    global Config, Users
+    import Config, Users
 
 
 # ----------------------------------- Users - Users Customizations Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -117,7 +117,7 @@ def users_menu_customizations_gui_func():
 
 
     # ********************** Popover settings for Users tab **********************
-    popover3101p.set_relative_to(UsersGUI.button3101)
+    popover3101p.set_relative_to(Users.button3101)
     popover3101p.set_position(1)
 
 

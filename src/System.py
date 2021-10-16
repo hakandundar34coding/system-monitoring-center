@@ -16,8 +16,8 @@ def system_import_func():
     import pkg_resources
 
 
-    global Config, MainGUI, SystemGUI
-    import Config, MainGUI, SystemGUI
+    global Config, MainGUI
+    import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -35,6 +35,45 @@ def system_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- System - System GUI Function (the code of this module in order to avoid running them during module import and defines "System" tab GUI objects and functions/signals) -----------------------------------
+def system_gui_func():
+
+    # System tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/SystemTab.ui")
+
+    # System tab GUI objects
+    global grid8101
+    global label8101, label8102, label8103, label8104, label8105, label8106, label8107, label8108, label8109, label8110
+    global label8111, label8112, label8113, label8114, label8115, label8116, label8117, label8118, label8119, label8120
+    global label8121, label8122
+
+    # System tab GUI objects - get
+    grid8101 = builder.get_object('grid8101')
+    label8101 = builder.get_object('label8101')
+    label8102 = builder.get_object('label8102')
+    label8103 = builder.get_object('label8103')
+    label8104 = builder.get_object('label8104')
+    label8105 = builder.get_object('label8105')
+    label8106 = builder.get_object('label8106')
+    label8107 = builder.get_object('label8107')
+    label8108 = builder.get_object('label8108')
+    label8109 = builder.get_object('label8109')
+    label8110 = builder.get_object('label8110')
+    label8111 = builder.get_object('label8111')
+    label8112 = builder.get_object('label8112')
+    label8113 = builder.get_object('label8113')
+    label8114 = builder.get_object('label8114')
+    label8115 = builder.get_object('label8115')
+    label8116 = builder.get_object('label8116')
+    label8117 = builder.get_object('label8117')
+    label8118 = builder.get_object('label8118')
+    label8119 = builder.get_object('label8119')
+    label8120 = builder.get_object('label8120')
+    label8121 = builder.get_object('label8121')
+    label8122 = builder.get_object('label8122')
 
 
 # ----------------------------------- System - Initial Function (gets data and adds into labels) -----------------------------------
@@ -276,17 +315,17 @@ def system_initial_func():
 
 
     # Set label texts to show information
-    SystemGUI.label8102.set_text(f'{computer_vendor} {computer_model}')
-    SystemGUI.label8105.set_text(os_family)
-    SystemGUI.label8107.set_text(kernel_release)
-    SystemGUI.label8108.set_text(kernel_version)
-    SystemGUI.label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
-    SystemGUI.label8110.set_text(windowing_system)
-    SystemGUI.label8111.set_text(window_manager)
-    SystemGUI.label8112.set_text(current_display_manager)
-    SystemGUI.label8113.set_text(computer_vendor)
-    SystemGUI.label8114.set_text(computer_model)
-    SystemGUI.label8115.set_text(computer_chassis_type)
+    label8102.set_text(f'{computer_vendor} {computer_model}')
+    label8105.set_text(os_family)
+    label8107.set_text(kernel_release)
+    label8108.set_text(kernel_version)
+    label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
+    label8110.set_text(windowing_system)
+    label8111.set_text(window_manager)
+    label8112.set_text(current_display_manager)
+    label8113.set_text(computer_vendor)
+    label8114.set_text(computer_model)
+    label8115.set_text(computer_chassis_type)
 
 
 # ----------------------------------- System - Loop Function (updates the system data and labels on the GUI) -----------------------------------
@@ -376,17 +415,17 @@ def system_loop_func():
 
 
     # Set label texts to show information
-    SystemGUI.label8101.set_text(f'{os_name} {os_version}')
-    SystemGUI.label8103.set_text(os_name)
-    SystemGUI.label8104.set_text(f'{os_version} - {os_version_code_name}')
-    SystemGUI.label8106.set_text(os_based_on)
-    SystemGUI.label8116.set_text(host_name)
-    SystemGUI.label8117.set_text(f'{number_of_monitors}')
-    SystemGUI.label8118.set_text(f'{current_monitor}')
-    SystemGUI.label8119.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
-    SystemGUI.label8120.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
-    SystemGUI.label8121.set_text(f'{number_of_installed_python_packages} (Py) - {number_of_installed_flatpak_packages} (Fp)')
-    SystemGUI.label8122.set_text(f'{current_user_name} - {have_root_access}')
+    label8101.set_text(f'{os_name} {os_version}')
+    label8103.set_text(os_name)
+    label8104.set_text(f'{os_version} - {os_version_code_name}')
+    label8106.set_text(os_based_on)
+    label8116.set_text(host_name)
+    label8117.set_text(f'{number_of_monitors}')
+    label8118.set_text(f'{current_monitor}')
+    label8119.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
+    label8120.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
+    label8121.set_text(f'{number_of_installed_python_packages} (Py) - {number_of_installed_flatpak_packages} (Fp)')
+    label8122.set_text(f'{current_user_name} - {have_root_access}')
 
 
 # ----------------------------------- System Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

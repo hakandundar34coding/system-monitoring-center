@@ -13,8 +13,8 @@ def startup_import_func():
     import os
 
 
-    global Config, MainGUI, StartupGUI
-    import Config, MainGUI, StartupGUI
+    global Config, MainGUI
+    import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -32,6 +32,114 @@ def startup_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- Startup - Startup GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab GUI objects and functions/signals) -----------------------------------
+def startup_gui_func():
+
+    global grid5101, treeview5101, searchentry5101, button5101
+    global radiobutton5101, radiobutton5102, radiobutton5103
+    global label5101
+
+
+    # Startup tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StartupTab.ui")
+
+    # Startup tab GUI objects - get
+    grid5101 = builder.get_object('grid5101')
+    treeview5101 = builder.get_object('treeview5101')
+    searchentry5101 = builder.get_object('searchentry5101')
+    button5101 = builder.get_object('button5101')
+    radiobutton5101 = builder.get_object('radiobutton5101')
+    radiobutton5102 = builder.get_object('radiobutton5102')
+    radiobutton5103 = builder.get_object('radiobutton5103')
+    label5101 = builder.get_object('label5101')
+
+
+    # Startup tab GUI functions
+    def on_treeview5101_button_press_event(widget, event):                                    # Mouse button press event (on the treeview)
+        if event.button == 3:                                                                 # Open Startup tab right click menu if mouse is right clicked on the treeview (and on any disk, otherwise menu will not be shown) and the mouse button is pressed.
+            startup_open_right_click_menu_func(event)
+
+    def on_treeview5101_button_release_event(widget, event):                                  # Mouse button press event (on the treeview)
+        if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
+            startup_treeview_column_order_width_row_sorting_func()
+
+    def on_searchentry5101_changed(widget):
+        radiobutton5101.set_active(True)
+        startup_treeview_filter_search_func()
+
+    def on_button5101_clicked(widget):                                                        # "Startup Tab Customizations" button
+        if 'StartupMenuCustomizations' not in globals():                                      # Check if "StartupMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
+            global StartupMenuCustomizations
+            import StartupMenuCustomizations
+            StartupMenuCustomizations.startup_menu_customizations_import_func()
+            StartupMenuCustomizations.startup_menu_customizations_gui_func()
+        StartupMenuCustomizations.popover5101p.popup()
+
+    def on_radiobutton5101_toggled(widget):                                                   # "Show all startup items" radiobutton
+        if radiobutton5101.get_active() == True:
+            searchentry5101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            startup_treeview_filter_show_all_func()
+
+    def on_radiobutton5102_toggled(widget):                                                   # "Show all enabled (visible) startup items" radiobutton
+        if radiobutton5102.get_active() == True:
+            searchentry5101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            startup_treeview_filter_show_all_func()
+            startup_treeview_filter_startup_visible_only()
+
+    def on_radiobutton5103_toggled(widget):                                                   # "Show all disabled (hidden) startup items" radiobutton
+        if radiobutton5103.get_active() == True:
+            searchentry5101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            startup_treeview_filter_show_all_func()
+            startup_treeview_filter_startup_hidden_only()
+
+
+    # Startup tab GUI functions - connect
+    treeview5101.connect("button-press-event", on_treeview5101_button_press_event)
+    treeview5101.connect("button-release-event", on_treeview5101_button_release_event)
+    searchentry5101.connect("changed", on_searchentry5101_changed)
+    button5101.connect("clicked", on_button5101_clicked)
+    radiobutton5101.connect("toggled", on_radiobutton5101_toggled)
+    radiobutton5102.connect("toggled", on_radiobutton5102_toggled)
+    radiobutton5103.connect("toggled", on_radiobutton5103_toggled)
+
+
+    # Startup Tab - Treeview Properties
+    treeview5101.set_activate_on_single_click(True)                                           # This command used for activating rows and column header buttons on single click. Column headers have to clicked twice (or clicked() command have to be used twice) for the first sorting operation if this is not used.
+    treeview5101.set_fixed_height_mode(True)                                                  # This command is used for lower CPU usage when treeview is updated. It prevents calculating of the row heights on every update. To be able to use this command, "'column'.set_sizing(2)" command have to be used for all columns when adding them into treeview.
+    treeview5101.set_headers_clickable(True)
+    treeview5101.set_show_expanders(False)
+    treeview5101.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
+    treeview5101.set_search_column(3)                                                         # This command used for searching by using entry.
+    treeview5101.set_tooltip_column(3)
+
+
+# ----------------------------------- ProceStartupsses - Open Right Click Menu Function (gets right clicked startup application file name and opens right click menu) -----------------------------------
+def startup_open_right_click_menu_func(event):
+
+    global model, treeiter
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview5101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
+    model = treeview5101.get_model()
+    treeiter = model.get_iter(path)
+    if treeiter is not None:
+        global selected_startup_application_file_name, selected_startup_application_visibility, selected_startup_application_name
+        selected_startup_application_file_name = all_autostart_applications_list[startup_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "startup_data_rows" list to use it getting name of the startup application file name.
+        selected_startup_application_visibility = startup_applications_visibility_list[startup_data_rows.index(model[treeiter][:])]
+        selected_startup_application_name = model[treeiter][3]
+        if 'StartupMenuRightClick' not in globals():                                          # Check if "StartupMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
+            global StartupMenuRightClick
+            import StartupMenuRightClick
+            StartupMenuRightClick.startup_menu_right_click_import_func()
+            StartupMenuRightClick.startup_menu_right_click_gui_func()
+        StartupMenuRightClick.menu5101m.popup(None, None, None, None, event.button, event.time)
+        StartupMenuRightClick.startup_set_checkmenuitem_func()
+        StartupMenuRightClick.startup_set_menu_labels_func()
 
 
 # ----------------------------------- Startup - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -136,7 +244,7 @@ def startup_initial_func():
 def startup_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
-    treeview5101 = StartupGUI.treeview5101
+    global treeview5101
 
     # Define global variables and get treeview columns, sort column/order, column widths, etc.
     global startup_treeview_columns_shown
@@ -189,7 +297,7 @@ def startup_loop_func():
 
     # In order to avoid errors, stop the loop function if current desktop session is not one of these in the "supported_desktop_environments_list" list. Currently other dektop environments are not tested for "Startup" tab. Dekstop environments may have specific lines in the ".desktop" files.
     if set(current_desktop_environment).intersection(supported_desktop_environments_list) == 0:
-        StartupGUI.label5101.set_text(_tr("Currently following desktop environments are supported for listing startup items:\n") + "XFCE, GNOME, CINNAMON, MATE, KDE (Plasma).")
+        label5101.set_text(_tr("Currently following desktop environments are supported for listing startup items:\n") + "XFCE, GNOME, CINNAMON, MATE, KDE (Plasma).")
         return
 
     # There are user startup applications and system wide startup applications in linux. They are in different directories. Modifications in directory of system wide startup applications require root access.
@@ -574,12 +682,12 @@ def startup_loop_func():
     if len(new_startup_application) > 0:
         for startup_application in new_startup_application:
             # /// Start /// This block of code is used for determining if the newly added startup_application will be shown on the treeview (user search actions and/or search customizations and/or "Show all visible/hidden startup items" preference affect startup item visibility).
-            if StartupGUI.radiobutton5102.get_active() == True and startup_applications_visibility_list[all_autostart_applications_list.index(startup_application)] != True:    # Hide startup_application (set the visibility value as "False") if "Show all visible startup items" option is selected on the GUI and startup_application visibility is not "True".
+            if radiobutton5102.get_active() == True and startup_applications_visibility_list[all_autostart_applications_list.index(startup_application)] != True:    # Hide startup_application (set the visibility value as "False") if "Show all visible startup items" option is selected on the GUI and startup_application visibility is not "True".
                 startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
-            if StartupGUI.radiobutton5103.get_active() == True and startup_applications_visibility_list[all_autostart_applications_list.index(startup_application)] == True:    # Hide startup_application (set the visibility value as "False") if "Show all hidden startup items" option is selected on the GUI and startup_application visibility is "True".
+            if radiobutton5103.get_active() == True and startup_applications_visibility_list[all_autostart_applications_list.index(startup_application)] == True:    # Hide startup_application (set the visibility value as "False") if "Show all hidden startup items" option is selected on the GUI and startup_application visibility is "True".
                 startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
-            if StartupGUI.searchentry5101.get_text() != "":
-                startup_application_search_text = StartupGUI.searchentry5101.get_text()
+            if searchentry5101.get_text() != "":
+                startup_application_search_text = searchentry5101.get_text()
                 startup_item_data_text_in_model = startup_data_rows[all_autostart_applications_list.index(startup_application)][filter_column]
                 if startup_application_search_text not in str(startup_item_data_text_in_model).lower():    # Hide startup_application (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the startup_application data.
                     startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
@@ -597,7 +705,7 @@ def startup_loop_func():
     # Get number of visible startup applications and number of all startup applications and show these information on the GUI label
     visible_startup_applications_count = startup_applications_visibility_list.count(True)
     number_of_all_startup_applications = len(startup_applications_visibility_list)
-    StartupGUI.label5101.set_text(_tr("Total: ") + str(number_of_all_startup_applications) + _tr(" startup applications (") + str(visible_startup_applications_count) + _tr(" visible, ") + str(number_of_all_startup_applications-visible_startup_applications_count) + _tr(" hidden)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    label5101.set_text(_tr("Total: ") + str(number_of_all_startup_applications) + _tr(" startup applications (") + str(visible_startup_applications_count) + _tr(" visible, ") + str(number_of_all_startup_applications-visible_startup_applications_count) + _tr(" hidden)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
 
 
 # ----------------------------------- Startup Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
@@ -660,7 +768,7 @@ def startup_treeview_filter_startup_hidden_only():
 def startup_treeview_filter_search_func():
 
     global filter_column
-    startup_application_search_text = StartupGUI.searchentry5101.get_text().lower()
+    startup_application_search_text = searchentry5101.get_text().lower()
     # Set visible/hidden startup items
     for piter in piter_list:
         treestore5101.set_value(piter, 0, False)
@@ -683,7 +791,7 @@ def on_column_title_clicked(widget):
 # ----------------------------------- Startup - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
 def startup_treeview_column_order_width_row_sorting_func():
     # Columns in the treeview are get one by one and appended into "startup_data_column_order". "startup_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "startup_data") are changed if column order/widths are changed.
-    startup_treeview_columns = StartupGUI.treeview5101.get_columns()
+    startup_treeview_columns = treeview5101.get_columns()
     treeview_column_titles = []
     for column in startup_treeview_columns:
         treeview_column_titles.append(column.get_title())

@@ -11,8 +11,8 @@ def storage_menu_customizations_import_func():
     import os
 
 
-    global Config, StorageGUI
-    import Config, StorageGUI
+    global Config, Storage
+    import Config, Storage
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -160,7 +160,7 @@ def storage_menu_customizations_gui_func():
 
 
     # ********************** Popover settings for Storage tab **********************
-    popover4101p.set_relative_to(StorageGUI.button4101)
+    popover4101p.set_relative_to(Storage.button4101)
     popover4101p.set_position(1)
 
 

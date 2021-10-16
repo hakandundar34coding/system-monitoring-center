@@ -12,8 +12,8 @@ def sensors_import_func():
     import os
 
 
-    global Config, MainGUI, SensorsGUI
-    import Config, MainGUI, SensorsGUI
+    global Config, MainGUI
+    import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -31,6 +31,72 @@ def sensors_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- Sensors - Sensors GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab GUI objects and functions/signals) -----------------------------------
+def sensors_gui_func():
+
+    # Sensors tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/SensorsTab.ui")
+
+    # Sensors tab GUI objects
+    global grid1601, treeview1601, searchentry1601
+    global radiobutton1601, radiobutton1602, radiobutton1603
+    global label1601
+
+    # Sensors tab GUI objects - get
+    grid1601 = builder.get_object('grid1601')
+    treeview1601 = builder.get_object('treeview1601')
+    searchentry1601 = builder.get_object('searchentry1601')
+    radiobutton1601 = builder.get_object('radiobutton1601')
+    radiobutton1602 = builder.get_object('radiobutton1602')
+    radiobutton1603 = builder.get_object('radiobutton1603')
+    label1601 = builder.get_object('label1601')
+
+
+    # Sensors tab GUI functions
+    def on_treeview1601_button_release_event(widget, event):
+        if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
+            sensors_treeview_column_order_width_row_sorting_func()
+
+    def on_searchentry1601_changed(widget):
+        radiobutton1601.set_active(True)
+        sensors_treeview_filter_search_func()
+
+    def on_radiobutton1601_toggled(widget):                                                   # "Show all sensors" radiobutton
+        if radiobutton1601.get_active() == True:
+            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            sensors_treeview_filter_show_all_func()
+
+    def on_radiobutton1602_toggled(widget):                                                   # "Show all temperature sensors" radiobutton
+        if radiobutton1602.get_active() == True:
+            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            sensors_treeview_filter_show_all_func()
+            sensors_treeview_filter_only_temperature_sensors_func()
+
+    def on_radiobutton1603_toggled(widget):                                                   # "Show all fan sensors" radiobutton
+        if radiobutton1603.get_active() == True:
+            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            sensors_treeview_filter_show_all_func()
+            sensors_treeview_filter_only_fan_sensors_func()
+
+
+    # Sensors tab GUI functions - connect
+    searchentry1601.connect("changed", on_searchentry1601_changed)
+    radiobutton1601.connect("toggled", on_radiobutton1601_toggled)
+    radiobutton1602.connect("toggled", on_radiobutton1602_toggled)
+    radiobutton1603.connect("toggled", on_radiobutton1603_toggled)
+
+
+    # Sensors Tab on Sensors Tab - Treeview Properties
+    treeview1601.set_activate_on_single_click(True)
+    treeview1601.set_show_expanders(False)                                                    # This command is used for hiding expanders (arrows) at the beginning of the rows. For "Sensors" tab, "child rows" are not used and there is no need for these expanders (they are shown as empty spaces in this situation).
+    treeview1601.set_fixed_height_mode(True)                                                  # This command is used for lower CPU usage when treeview is updated. It prevents calculating of the row heights on every update. To be able to use this command, "'column'.set_sizing(2)" command have to be used for all columns when adding them into treeview.
+    treeview1601.set_headers_clickable(True)
+    treeview1601.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
+    treeview1601.set_search_column(2)                                                         # This command used for searching by using entry.
+    treeview1601.set_tooltip_column(2)
 
 
 # ----------------------------------- Sensors - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -70,7 +136,7 @@ def sensors_initial_func():
 def sensors_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
-    treeview1601 = SensorsGUI.treeview1601
+    global treeview1601
 
     # Define global variables and get treeview columns, sort column/order, column widths, etc.
     global sensors_treeview_columns_shown
@@ -244,12 +310,12 @@ def sensors_loop_func():
     # Append sensor data into treeview
     for sensors_data_row in sensors_data_rows:
         # /// Start /// This block of code is used for determining if the newly added sensor will be shown on the treeview (sensor search actions and/or search customizations and/or "Show only temperature/fan sensors" preference affect sensor visibility).
-        if SensorsGUI.radiobutton1602.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != temperature_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show sensors from this user" option is selected on the GUI and sensor username is not same as name of current user.
+        if radiobutton1602.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != temperature_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show sensors from this user" option is selected on the GUI and sensor username is not same as name of current user.
             sensors_data_row[0] = False
-        if SensorsGUI.radiobutton1603.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != fan_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show sensors from other users" option is selected on the GUI and sensor username is same as name of current user.
+        if radiobutton1603.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != fan_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show sensors from other users" option is selected on the GUI and sensor username is same as name of current user.
             sensors_data_row[0] = False
-        if SensorsGUI.searchentry1601.get_text() != "":
-            sensor_search_text = SensorsGUI.searchentry1601.get_text()
+        if searchentry1601.get_text() != "":
+            sensor_search_text = searchentry1601.get_text()
             sensor_data_text_in_model = sensors_data_row[filter_column]
             if sensor_search_text not in str(sensor_data_text_in_model).lower():              # Hide sensor (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the sensor.
                 sensors_data_row[0] = False
@@ -267,7 +333,7 @@ def sensors_loop_func():
     temperature_sensors_count = sensor_type_list.count(temperature_sensor_icon_name)
     fan_sensors_count = sensor_type_list.count(fan_sensor_icon_name)
     number_of_all_sensors = len(sensor_type_list)
-    SensorsGUI.label1601.set_text(_tr("Total: ") + str(number_of_all_sensors) + _tr(" sensors (") + str(temperature_sensors_count) + _tr(" temperature (°C), ") + str(fan_sensors_count) + _tr(" fan (RPM) sensors)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    label1601.set_text(_tr("Total: ") + str(number_of_all_sensors) + _tr(" sensors (") + str(temperature_sensors_count) + _tr(" temperature (°C), ") + str(fan_sensors_count) + _tr(" fan (RPM) sensors)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
 
 
 # ----------------------------------- Sensors Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
@@ -308,7 +374,7 @@ def sensors_treeview_filter_show_all_func():
 
     for piter in piter_list:
         treestore1601.set_value(piter, 0, True)
-    SensorsGUI.treeview1601.expand_all()
+    treeview1601.expand_all()
 
 
 # ----------------------------------- Sensors - Treeview Filter Only Temperature Sensors Function (updates treeview shown rows when relevant button clicked) -----------------------------------
@@ -317,7 +383,7 @@ def sensors_treeview_filter_only_temperature_sensors_func():
     for piter in piter_list:
         if sensor_type_list[piter_list.index(piter)] != temperature_sensor_icon_name:
             treestore1601.set_value(piter, 0, False)
-    SensorsGUI.treeview1601.expand_all()
+    treeview1601.expand_all()
 
 
 # ----------------------------------- Sensors - Treeview Filter Only Fan Sensors Function (updates treeview shown rows when relevant button clicked) -----------------------------------
@@ -326,14 +392,14 @@ def sensors_treeview_filter_only_fan_sensors_func():
     for piter in piter_list:
         if sensor_type_list[piter_list.index(piter)] == temperature_sensor_icon_name:
             treestore1601.set_value(piter, 0, False)
-    SensorsGUI.treeview1601.expand_all()
+    treeview1601.expand_all()
 
 
 # ----------------------------------- Sensors - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
 def sensors_treeview_filter_search_func():
 
     global filter_column
-    sensor_search_text = SensorsGUI.searchentry1601.get_text().lower()
+    sensor_search_text = searchentry1601.get_text().lower()
     # Set visible/hidden sensor data
     for piter in piter_list:
         treestore1601.set_value(piter, 0, False)
@@ -341,7 +407,7 @@ def sensors_treeview_filter_search_func():
         if sensor_search_text in str(sensor_data_text_in_model).lower():
             treestore1601.set_value(piter, 0, True)
 
-    SensorsGUI.treeview1601.expand_all()                                                      # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
+    treeview1601.expand_all()                                                                 # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
 
 
 # ----------------------------------- Sensors - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
@@ -358,7 +424,7 @@ def on_column_title_clicked(widget):
 # ----------------------------------- Sensors - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
 def sensors_treeview_column_order_width_row_sorting_func():
     # Columns in the treeview are get one by one and appended into "sensors_data_column_order". "sensors_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "sensors_data") are changed if column order/widths are changed.
-    sensors_treeview_columns = SensorsGUI.treeview1601.get_columns()
+    sensors_treeview_columns = treeview1601.get_columns()
     treeview_column_titles = []
     for column in sensors_treeview_columns:
         treeview_column_titles.append(column.get_title())

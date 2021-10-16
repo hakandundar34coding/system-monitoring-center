@@ -11,8 +11,8 @@ def cpu_menus_import_func():
     import os
 
 
-    global Config, CpuGUI, Cpu, Performance
-    import Config, CpuGUI, Cpu, Performance
+    global Config, Cpu, Performance
+    import Config, Cpu, Performance
 
 
 # ----------------------------------- CPU - CPU Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "CPU" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -21,7 +21,6 @@ def cpu_menus_gui_func():
     # Define builder and get all objects (Performance tab CPU sub-tab customizations popovers) from GUI file.
     builder = Gtk.Builder()
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/CpuMenus.ui")
-
 
     # Define a colorchooserdialog in order to set chart colors
     global colorchooserdialog1001
@@ -55,8 +54,8 @@ def cpu_menus_gui_func():
     def on_radiobutton1101p_toggled(widget):                                                  # Option for drawing "average CPU usage"
         if radiobutton1101p.get_active() == True:
             Config.show_cpu_usage_per_core = 0                                                # Make this definition before calling the following function in order to prevent problems because of the unchanged setting.
-            CpuGUI.drawingarea1101.disconnect_by_func(CpuGUI.on_drawingarea1101_draw_per_core)    # Disconnect "on_drawingarea1101_draw_per_core" function in order to connect "on_drawingarea1101_draw" function which draws cpu usage percent average.
-            CpuGUI.drawingarea1101.connect("draw", CpuGUI.on_drawingarea1101_draw)            # Connect "on_drawingarea1101_draw" function in order to draw cpu usage percent average.
+            Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw_per_core)      # Disconnect "on_drawingarea1101_draw_per_core" function in order to connect "on_drawingarea1101_draw" function which draws cpu usage percent average.
+            Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw)                  # Connect "on_drawingarea1101_draw" function in order to draw cpu usage percent average.
             Cpu.cpu_initial_func()                                                            # Call this function in order to apply changes
             Cpu.cpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
             Config.config_save_func()
@@ -65,10 +64,10 @@ def cpu_menus_gui_func():
         if radiobutton1102p.get_active() == True:
             Config.show_cpu_usage_per_core = 1                                                # Make this definition before calling the following function in order to prevent problems because of the unchanged setting.
             try:
-                CpuGUI.drawingarea1101.disconnect_by_func(CpuGUI.on_drawingarea1101_draw)     # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
+                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)           # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
             except TypeError:
                 pass
-            CpuGUI.drawingarea1101.connect("draw", CpuGUI.on_drawingarea1101_draw_per_core)    # Connect "on_drawingarea1101_draw_per_core" function in order to draw cpu usage percent per core.
+            Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)         # Connect "on_drawingarea1101_draw_per_core" function in order to draw cpu usage percent per core.
             Cpu.cpu_initial_func()                                                            # Call this function in order to apply changes
             Cpu.cpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
             Config.config_save_func()
@@ -127,7 +126,6 @@ def cpu_menus_gui_func():
         cpu_tab_customization_popover_connect_signals_func()
 
 
-
     # ********************** Connect signals to GUI objects for CPU tab **********************
     popover1101p.connect("show", on_popover1101p_show)
     button1101p.connect("clicked", on_button1101p_clicked)
@@ -159,7 +157,7 @@ def cpu_tab_popover_set_gui():
         radiobutton1102p.set_active(True)
 
     # Add CPU usage percent data into combobox on the CPU tab on the Performance tab
-    if "liststore1101p" not in globals():         # Check if "liststore1101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
+    if "liststore1101p" not in globals():                                                     # Check if "liststore1101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
         global liststore1101p
         liststore1101p = Gtk.ListStore()
         liststore1101p.set_column_types([str, int])
@@ -172,7 +170,7 @@ def cpu_tab_popover_set_gui():
     combobox1101p.set_active(Config.performance_cpu_usage_percent_precision)
 
     # Add CPU core list into combobox on CPU tab
-    if "liststore1102p" not in globals():         # Check if "liststore1101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
+    if "liststore1102p" not in globals():                                                     # Check if "liststore1101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
         global liststore1102p
         liststore1102p = Gtk.ListStore()
         liststore1102p.set_column_types([str])
@@ -191,17 +189,17 @@ def cpu_set_default_cpu_usage_type_func():
 
     if Config.show_cpu_usage_per_core == 0:
         try:
-            CpuGUI.drawingarea1101.disconnect_by_func(CpuGUI.on_drawingarea1101_draw_per_core)    # Disconnect "on_drawingarea1101_draw_per_core" function in order to connect "on_drawingarea1101_draw" function which draws cpu usage percent average.
+            Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw_per_core)      # Disconnect "on_drawingarea1101_draw_per_core" function in order to connect "on_drawingarea1101_draw" function which draws cpu usage percent average.
         except TypeError:
             return                                                                            # Function run is stopped here if there is no "on_drawingarea1101_draw_per_core" signals connected to the widget which means "show_cpu_usage_per_core = 0".
-        CpuGUI.drawingarea1101.connect("draw", CpuGUI.on_drawingarea1101_draw)                # Connect "on_drawingarea1101_draw" function in order to draw cpu usage percent average.
+        Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw)                      # Connect "on_drawingarea1101_draw" function in order to draw cpu usage percent average.
         Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes
         Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
     if Config.show_cpu_usage_per_core == 1:
         try:
-            CpuGUI.drawingarea1101.disconnect_by_func(CpuGUI.on_drawingarea1101_draw)         # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
+            Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)               # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
         except TypeError:
             return                                                                            # Function run is stopped here if there is no "on_drawingarea1101_draw_per_core" signals connected to the widget which means "show_cpu_usage_per_core = 0".
-        CpuGUI.drawingarea1101.connect("draw", CpuGUI.on_drawingarea1101_draw_per_core)       # Connect "on_drawingarea1101_draw_per_core" function in order to draw cpu usage percent per core.
+        Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)             # Connect "on_drawingarea1101_draw_per_core" function in order to draw cpu usage percent per core.
         Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes
         Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).

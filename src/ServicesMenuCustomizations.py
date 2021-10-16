@@ -11,8 +11,8 @@ def services_menu_customizations_import_func():
     import os
 
 
-    global Config, ServicesGUI
-    import Config, ServicesGUI
+    global Config, Services
+    import Config, Services
 
 
 # ----------------------------------- Services - Services Customizations Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Services" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -94,7 +94,7 @@ def services_menu_customizations_gui_func():
 
 
     # ********************** Popover settings for Services tab customizations menu **********************
-    popover6101p.set_relative_to(ServicesGUI.button6101)
+    popover6101p.set_relative_to(Services.button6101)
     popover6101p.set_position(1)
 
 

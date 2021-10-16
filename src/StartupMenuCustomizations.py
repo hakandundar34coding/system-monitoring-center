@@ -11,8 +11,8 @@ def startup_menu_customizations_import_func():
     import os
 
 
-    global Config, StartupGUI
-    import Config, StartupGUI
+    global Config, Startup
+    import Config, Startup
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -82,7 +82,7 @@ def startup_menu_customizations_gui_func():
 
 
     # ********************** Popover settings for Startup tab **********************
-    popover5101p.set_relative_to(StartupGUI.button5101)
+    popover5101p.set_relative_to(Startup.button5101)
     popover5101p.set_position(1)
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Disk - Disk Tab GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Disk - Disk Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def disk_import_func():
 
     global Gtk, GLib, Thread, os
@@ -12,8 +12,8 @@ def disk_import_func():
     import os
 
 
-    global Config, MainGUI, Performance, DiskGUI
-    import Config, MainGUI, Performance, DiskGUI
+    global Config, MainGUI, Performance
+    import Config, MainGUI, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -33,12 +33,165 @@ def disk_import_func():
     locale.setlocale(locale.LC_ALL, system_current_language)
 
 
+# ----------------------------------- Disk - Disk GUI Function (the code of this module in order to avoid running them during module import and defines "Disk" tab GUI objects and functions/signals) -----------------------------------
+def disk_gui_func():
+
+    # Disk tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/DiskTab.ui")
+
+    # Disk tab GUI objects
+    global grid1301, drawingarea1301, drawingarea1302, button1301, label1301, label1302
+    global label1303, label1304, label1305, label1306, label1307, label1308, label1309, label1310, label1311, label1312
+
+    # Disk tab GUI objects - get
+    grid1301 = builder.get_object('grid1301')
+    drawingarea1301 = builder.get_object('drawingarea1301')
+    drawingarea1302 = builder.get_object('drawingarea1302')
+    button1301 = builder.get_object('button1301')
+    label1301 = builder.get_object('label1301')
+    label1302 = builder.get_object('label1302')
+    label1303 = builder.get_object('label1303')
+    label1304 = builder.get_object('label1304')
+    label1305 = builder.get_object('label1305')
+    label1306 = builder.get_object('label1306')
+    label1307 = builder.get_object('label1307')
+    label1308 = builder.get_object('label1308')
+    label1309 = builder.get_object('label1309')
+    label1310 = builder.get_object('label1310')
+    label1311 = builder.get_object('label1311')
+    label1312 = builder.get_object('label1312')
+
+
+    # Disk tab GUI functions
+    def on_button1301_clicked(widget):
+        if 'DiskMenu' not in globals():
+            global DiskMenu
+            import DiskMenu
+            DiskMenu.disk_menus_import_func()
+            DiskMenu.disk_menus_gui_func()
+            DiskMenu.popover1301p.set_relative_to(button1301)                                 # Set widget that popover menu will display at the edge of.
+            DiskMenu.popover1301p.set_position(1)                                             # Show popover menu at the right edge of the caller button.
+        DiskMenu.popover1301p.popup()                                                         # Show Disk tab popover GUI
+
+    # ----------------------------------- Disk - Plot Disk read/write speed data as a Line Chart ----------------------------------- 
+    def on_drawingarea1301_draw(drawingarea1301, chart1301):
+
+        chart_data_history = Config.chart_data_history
+        chart_x_axis = list(range(0, chart_data_history))
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Disk module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            disk_read_speed = Performance.disk_read_speed[Performance.selected_disk_number]
+            disk_write_speed = Performance.disk_write_speed[Performance.selected_disk_number]
+        except AttributeError:
+            return
+        chart_line_color = Config.chart_line_color_disk_speed_usage
+        chart_background_color = Config.chart_background_color_all_charts
+
+        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
+        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
+
+        chart1301_width = Gtk.Widget.get_allocated_width(drawingarea1301)
+        chart1301_height = Gtk.Widget.get_allocated_height(drawingarea1301)
+
+        chart1301.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        chart1301.rectangle(0, 0, chart1301_width, chart1301_height)
+        chart1301.fill()
+
+        chart1301.set_line_width(1)
+        chart1301.set_dash([4, 3])
+        chart1301.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        for i in range(3):
+            chart1301.move_to(0, chart1301_height/4*(i+1))
+            chart1301.line_to(chart1301_width, chart1301_height/4*(i+1))
+        for i in range(4):
+            chart1301.move_to(chart1301_width/5*(i+1), 0)
+            chart1301.line_to(chart1301_width/5*(i+1), chart1301_height)
+        chart1301.stroke()
+
+        chart1301_y_limit = 1.1 * ((max(max(disk_read_speed), max(disk_write_speed))) + 0.0000001)
+        if Config.plot_disk_read_speed == 1 and Config.plot_disk_write_speed == 0:
+            chart1301_y_limit = 1.1 * (max(disk_read_speed) + 0.0000001)
+        if Config.plot_disk_read_speed == 0 and Config.plot_disk_write_speed == 1:
+            chart1301_y_limit = 1.1 * (max(disk_write_speed) + 0.0000001)
+
+        chart1301.set_dash([], 0)
+        chart1301.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+        chart1301.rectangle(0, 0, chart1301_width, chart1301_height)
+        chart1301.stroke()
+
+        if Config.plot_disk_read_speed == 1:
+            chart1301.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+            chart1301.move_to(chart1301_width*chart_x_axis[0]/(chart_data_history-1), chart1301_height - chart1301_height*disk_read_speed[0]/chart1301_y_limit)
+            for i in range(len(chart_x_axis) - 1):
+                delta_x_chart1301a = (chart1301_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1301_width * chart_x_axis[i]/(chart_data_history-1))
+                delta_y_chart1301a = (chart1301_height*disk_read_speed[i+1]/chart1301_y_limit) - (chart1301_height*disk_read_speed[i]/chart1301_y_limit)
+                chart1301.rel_line_to(delta_x_chart1301a, -delta_y_chart1301a)
+
+            chart1301.rel_line_to(10, 0)
+            chart1301.rel_line_to(0, chart1301_height+10)
+            chart1301.rel_line_to(-(chart1301_width+20), 0)
+            chart1301.rel_line_to(0, -(chart1301_height+10))
+            chart1301.close_path()
+            chart1301.stroke()
+
+        if Config.plot_disk_write_speed == 1:
+            chart1301.set_dash([3, 3])
+            chart1301.move_to(chart1301_width*chart_x_axis[0]/(chart_data_history-1), chart1301_height - chart1301_height*disk_write_speed[0]/chart1301_y_limit)
+            for i in range(len(chart_x_axis) - 1):
+                delta_x_chart1301b = (chart1301_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1301_width * chart_x_axis[i]/(chart_data_history-1))
+                delta_y_chart1301b = (chart1301_height*disk_write_speed[i+1]/chart1301_y_limit) - (chart1301_height*disk_write_speed[i]/chart1301_y_limit)
+                chart1301.rel_line_to(delta_x_chart1301b, -delta_y_chart1301b)
+
+            chart1301.rel_line_to(10, 0)
+            chart1301.rel_line_to(0, chart1301_height+10)
+            chart1301.rel_line_to(-(chart1301_width+20), 0)
+            chart1301.rel_line_to(0, -(chart1301_height+10))
+            chart1301.close_path()
+            chart1301.stroke()
+
+
+    # ----------------------------------- Disk - Plot Disk usage data as a Bar Chart ----------------------------------- 
+    def on_drawingarea1302_draw(drawingarea1302, chart1302):
+
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Disk module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            disk_usage_percent_check = disk_usage_percent
+        except NameError:
+            return
+
+        chart_line_color = Config.chart_line_color_disk_speed_usage
+        chart_background_color = Config.chart_background_color_all_charts
+
+        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
+        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3]]
+
+        chart1302_width = Gtk.Widget.get_allocated_width(drawingarea1302)
+        chart1302_height = Gtk.Widget.get_allocated_height(drawingarea1302)
+
+        chart1302.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        chart1302.rectangle(0, 0, chart1302_width, chart1302_height)
+        chart1302.fill()
+
+        chart1302.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        chart1302.rectangle(0, 0, chart1302_width, chart1302_height)
+        chart1302.stroke()
+        chart1302.set_line_width(1)
+        chart1302.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        chart1302.rectangle(0, 0, chart1302_width*disk_usage_percent/100, chart1302_height)
+        chart1302.fill()
+
+
+    # Disk tab GUI functions - connect
+    button1301.connect("clicked", on_button1301_clicked)
+    drawingarea1301.connect("draw", on_drawingarea1301_draw)
+    drawingarea1302.connect("draw", on_drawingarea1302_draw)
+
+
 # ----------------------------------- Disk - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
 def disk_initial_func():
 
     disk_define_data_unit_converter_variables_func()                                          # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
-    global disk_list, selected_disk_number                                                  # These variables are defined as global variables because they will be used in "disk_loop_func" function and also they will be used by "disk_get_device_partition_model_name_mount_point_func" function.
+    global disk_list, selected_disk_number                                                    # These variables are defined as global variables because they will be used in "disk_loop_func" function and also they will be used by "disk_get_device_partition_model_name_mount_point_func" function.
     disk_list = Performance.disk_list
     selected_disk_number = Performance.selected_disk_number
 
@@ -80,10 +233,10 @@ def disk_initial_func():
         if_system_disk = _tr("No")
 
     # Set Disk tab label texts by using information get
-    DiskGUI.label1301.set_text(disk_model_name)
-    DiskGUI.label1302.set_text(f'{disk_list[selected_disk_number]} ({disk_device_or_partition})')
-    DiskGUI.label1307.set_text(disk_file_system)
-    DiskGUI.label1312.set_text(if_system_disk)
+    label1301.set_text(disk_model_name)
+    label1302.set_text(f'{disk_list[selected_disk_number]} ({disk_device_or_partition})')
+    label1307.set_text(disk_file_system)
+    label1312.set_text(if_system_disk)
 
 
 # ----------------------------------- Disk - Get Disk Data Function (gets Disk data, shows on the labels on the GUI) -----------------------------------
@@ -97,8 +250,8 @@ def disk_loop_func():
     performance_disk_speed_data_unit = Config.performance_disk_speed_data_unit
     performance_disk_usage_data_unit = Config.performance_disk_usage_data_unit
 
-    DiskGUI.drawingarea1301.queue_draw()
-    DiskGUI.drawingarea1302.queue_draw()
+    drawingarea1301.queue_draw()
+    drawingarea1302.queue_draw()
 
     # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
     try:
@@ -133,17 +286,17 @@ def disk_loop_func():
         disk_usage_percent = 0
 
     # Set and update Disk tab label texts by using information get
-    DiskGUI.label1303.set_text(f'{disk_data_unit_converter_func(disk_read_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
-    DiskGUI.label1304.set_text(f'{disk_data_unit_converter_func(disk_write_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
-    DiskGUI.label1305.set_text(f'{disk_time_unit_converter_func(disk_read_time)} ms')
-    DiskGUI.label1306.set_text(f'{disk_time_unit_converter_func(disk_write_time)} ms')
+    label1303.set_text(f'{disk_data_unit_converter_func(disk_read_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
+    label1304.set_text(f'{disk_data_unit_converter_func(disk_write_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
+    label1305.set_text(f'{disk_time_unit_converter_func(disk_read_time)} ms')
+    label1306.set_text(f'{disk_time_unit_converter_func(disk_write_time)} ms')
     if disk_mount_point != "":
-        DiskGUI.label1308.set_text(f'{disk_usage_percent:.0f} %')
+        label1308.set_text(f'{disk_usage_percent:.0f} %')
     if disk_mount_point == "":
-        DiskGUI.label1308.set_text("- %")
-    DiskGUI.label1309.set_text(disk_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
-    DiskGUI.label1310.set_text(disk_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
-    DiskGUI.label1311.set_text(disk_data_unit_converter_func(disk_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
+        label1308.set_text("- %")
+    label1309.set_text(disk_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
+    label1310.set_text(disk_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
+    label1311.set_text(disk_data_unit_converter_func(disk_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
 
 
 # ----------------------------------- Disk Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

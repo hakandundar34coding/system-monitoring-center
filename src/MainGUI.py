@@ -279,13 +279,12 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 0
                 Config.config_save_func()
-            if 'CpuGUI' not in globals():
-                global CpuGUI, Cpu
-                import CpuGUI, Cpu
-                CpuGUI.cpu_gui_import_func()
-                CpuGUI.cpu_gui_func()
-                grid1001.attach(CpuGUI.grid1101, 0, 0, 1, 1)                                  # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            if 'Cpu' not in globals():
+                global Cpu
+                import Cpu
                 Cpu.cpu_import_func()
+                Cpu.cpu_gui_func()
+                grid1001.attach(Cpu.grid1101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.
             Cpu.cpu_thread_run_func()
             return
         if radiobutton1002.get_active() == True:
@@ -293,13 +292,12 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 1
                 Config.config_save_func()
-            if 'RamGUI' not in globals():
-                global RamGUI, Ram
-                import RamGUI, Ram
-                RamGUI.ram_gui_import_func()
-                RamGUI.ram_gui_func()
-                grid1002.attach(RamGUI.grid1201, 0, 0, 1, 1)                                  # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            if 'Ram' not in globals():
+                global Ram
+                import Ram
                 Ram.ram_import_func()
+                Ram.ram_gui_func()
+                grid1002.attach(Ram.grid1201, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.
             Ram.ram_thread_run_func()
             return
         if radiobutton1003.get_active() == True:
@@ -307,13 +305,12 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 2
                 Config.config_save_func()
-            if 'DiskGUI' not in globals():
-                global DiskGUI, Disk
-                import DiskGUI, Disk
-                DiskGUI.disk_gui_import_func()
-                DiskGUI.disk_gui_func()
-                grid1003.attach(DiskGUI.grid1301, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            if 'Disk' not in globals():
+                global Disk
+                import Disk
                 Disk.disk_import_func()
+                Disk.disk_gui_func()
+                grid1003.attach(Disk.grid1301, 0, 0, 1, 1)                                    # Attach the grid to the grid (on the Main Window) at (0, 0) position.
             Disk.disk_thread_run_func()
             return
         if radiobutton1004.get_active() == True:
@@ -321,13 +318,12 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 3
                 Config.config_save_func()
-            if 'NetworkGUI' not in globals():
-                global NetworkGUI, Network
-                import NetworkGUI, Network
-                NetworkGUI.network_gui_import_func()
-                NetworkGUI.network_gui_func()
-                grid1004.attach(NetworkGUI.grid1401, 0, 0, 1, 1)                              # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            if 'Network' not in globals():
+                global Network
+                import Network
                 Network.network_import_func()
+                Network.network_gui_func()
+                grid1004.attach(Network.grid1401, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
             Network.network_thread_run_func()
             return
         if radiobutton1005.get_active() == True:
@@ -335,13 +331,12 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 4
                 Config.config_save_func()
-            if 'GpuGUI' not in globals():
-                global GpuGUI, Gpu
-                import GpuGUI, Gpu
-                GpuGUI.gpu_gui_import_func()
-                GpuGUI.gpu_gui_func()
-                grid1005.attach(GpuGUI.grid1501, 0, 0, 1, 1)                                  # Attach the grid to the grid (on the Main Window) at (0, 0)
+            if 'Gpu' not in globals():
+                global Gpu
+                import Gpu
                 Gpu.gpu_import_func()
+                Gpu.gpu_gui_func()
+                grid1005.attach(Gpu.grid1501, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0)
             Gpu.gpu_thread_run_func()
             return
         if radiobutton1006.get_active() == True:
@@ -350,12 +345,11 @@ def main_gui_tab_switch_func():
                 Config.performance_tab_default_sub_tab = 5
                 Config.config_save_func()
             if 'Sensors' not in globals():
-                global Sensors, SensorsGUI
-                import Sensors, SensorsGUI
-                SensorsGUI.sensors_gui_import_func()
-                SensorsGUI.sensors_gui_func()
-                grid1006.attach(SensorsGUI.grid1601, 0, 0, 1, 1)                              # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                global Sensors
+                import Sensors
                 Sensors.sensors_import_func()
+                Sensors.sensors_gui_func()
+                grid1006.attach(Sensors.grid1601, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
             Sensors.sensors_thread_run_func()
             return
 
@@ -364,13 +358,12 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 1
             Config.config_save_func()
-        if 'ProcessesGUI' not in globals():                                                   # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
-            global Processes, ProcessesGUI
-            import Processes, ProcessesGUI
-            ProcessesGUI.processes_gui_import_func()
-            ProcessesGUI.processes_gui_func()
-            grid2.attach(ProcessesGUI.grid2101, 0, 0, 1, 1)                                   # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+        if 'Processes' not in globals():                                                      # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
+            global Processes
+            import Processes
             Processes.processes_import_func()
+            Processes.processes_gui_func()
+            grid2.attach(Processes.grid2101, 0, 0, 1, 1)                                      # Attach the grid to the grid (on the Main Window) at (0, 0) position.
         Processes.processes_thread_run_func()
         return
 
@@ -379,13 +372,12 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 2
             Config.config_save_func()
-        if 'UsersGUI' not in globals():
-            global Users, UsersGUI
-            import Users, UsersGUI
-            UsersGUI.users_gui_import_func()
-            UsersGUI.users_gui_func()
-            grid3.attach(UsersGUI.grid3101, 0, 0, 1, 1)                                       # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+        if 'Users' not in globals():
+            global Users
+            import Users
             Users.users_import_func()
+            Users.users_gui_func()
+            grid3.attach(Users.grid3101, 0, 0, 1, 1)                                          # Attach the grid to the grid (on the Main Window) at (0, 0) position.
         Users.users_thread_run_func()
         return
 
@@ -394,13 +386,12 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 3
             Config.config_save_func()
-        if 'StorageGUI' not in globals():
-            global Storage, StorageGUI
-            import Storage, StorageGUI
-            StorageGUI.storage_gui_import_func()
-            StorageGUI.storage_gui_func()
-            grid4.attach(StorageGUI.grid4101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+        if 'Storage' not in globals():
+            global Storage
+            import Storage
             Storage.storage_import_func()
+            Storage.storage_gui_func()
+            grid4.attach(Storage.grid4101, 0, 0, 1, 1)                                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
         Storage.storage_thread_run_func()
         return
 
@@ -409,13 +400,12 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 4
             Config.config_save_func()
-        if 'StartupGUI' not in globals():
-            global Startup, StartupGUI
-            import Startup, StartupGUI
-            StartupGUI.startup_gui_import_func()
-            StartupGUI.startup_gui_func()
-            grid5.attach(StartupGUI.grid5101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+        if 'Startup' not in globals():
+            global Startup
+            import Startup
             Startup.startup_import_func()
+            Startup.startup_gui_func()
+            grid5.attach(Startup.grid5101, 0, 0, 1, 1)                                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
         Startup.startup_thread_run_func()
         return
 
@@ -424,13 +414,12 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 5
             Config.config_save_func()
-        if 'ServicesGUI' not in globals():
-            global Services, ServicesGUI
-            import Services, ServicesGUI
-            ServicesGUI.services_gui_import_func()
-            ServicesGUI.services_gui_func()
-            grid6.attach(ServicesGUI.grid6101, 0, 0, 1, 1)                                    # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+        if 'Services' not in globals():
+            global Services
+            import Services
             Services.services_import_func()
+            Services.services_gui_func()
+            grid6.attach(Services.grid6101, 0, 0, 1, 1)                                       # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
         Services.services_thread_run_func()
         return
 
@@ -439,13 +428,12 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 6
             Config.config_save_func()
-        if 'EnvironmentVariablesGUI' not in globals():
-            global EnvironmentVariables, EnvironmentVariablesGUI
-            import EnvironmentVariables, EnvironmentVariablesGUI
-            EnvironmentVariablesGUI.environment_variables_gui_import_func()
-            EnvironmentVariablesGUI.environment_variables_gui_func()
-            grid7.attach(EnvironmentVariablesGUI.grid7101, 0, 0, 1, 1)                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+        if 'EnvironmentVariables' not in globals():
+            global EnvironmentVariables
+            import EnvironmentVariables
             EnvironmentVariables.environment_variables_import_func()
+            EnvironmentVariables.environment_variables_gui_func()
+            grid7.attach(EnvironmentVariables.grid7101, 0, 0, 1, 1)                           # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
         EnvironmentVariables.environment_variables_thread_run_func()
         return
 
@@ -454,13 +442,12 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 7
             Config.config_save_func()
-        if 'SystemGUI' not in globals():
-            global System, SystemGUI
-            import System, SystemGUI
-            SystemGUI.system_gui_import_func()
-            SystemGUI.system_gui_func()
-            grid8.attach(SystemGUI.grid8101, 0, 0, 1, 1)                                      # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+        if 'System' not in globals():
+            global System
+            import System
             System.system_import_func()
+            System.system_gui_func()
+            grid8.attach(System.grid8101, 0, 0, 1, 1)                                         # Attach the grid to the grid (on the Main Window) at (0, 0) position.
         System.system_thread_run_func()
         return
 

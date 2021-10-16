@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- RAM - RAM Tab GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- RAM - RAM Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def ram_import_func():
 
     global Gtk, GLib, Thread, os
@@ -12,8 +12,8 @@ def ram_import_func():
     import os
 
 
-    global Config, MainGUI, Performance, RamGUI, RamGUI
-    import Config, MainGUI, Performance, RamGUI, RamGUI
+    global Config, MainGUI, Performance
+    import Config, MainGUI, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -31,6 +31,138 @@ def ram_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- RAM - RAM GUI Function (the code of this module in order to avoid running them during module import and defines "RAM" tab GUI objects and functions/signals) -----------------------------------
+def ram_gui_func():
+
+    # RAM tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamTab.ui")
+
+    # RAM tab GUI objects
+    global grid1201, drawingarea1201, drawingarea1202, button1201, label1201, label1202
+    global label1203, label1204, label1205, label1206, label1207, label1208, label1209, label1210
+
+    # RAM tab GUI objects - get
+    grid1201 = builder.get_object('grid1201')
+    drawingarea1201 = builder.get_object('drawingarea1201')
+    drawingarea1202 = builder.get_object('drawingarea1202')
+    button1201 = builder.get_object('button1201')
+    label1201 = builder.get_object('label1201')
+    label1202 = builder.get_object('label1202')
+    label1203 = builder.get_object('label1203')
+    label1204 = builder.get_object('label1204')
+    label1205 = builder.get_object('label1205')
+    label1206 = builder.get_object('label1206')
+    label1207 = builder.get_object('label1207')
+    label1208 = builder.get_object('label1208')
+    label1209 = builder.get_object('label1209')
+    label1210 = builder.get_object('label1210')
+
+
+    # RAM tab GUI functions
+    def on_button1201_clicked(widget):
+        if 'RamMenu' not in globals():
+            global RamMenu
+            import RamMenu
+            RamMenu.ram_menus_import_func()
+            RamMenu.ram_menus_gui_func()
+            RamMenu.popover1201p.set_relative_to(button1201)                                  # Set widget that popover menu will display at the edge of.
+            RamMenu.popover1201p.set_position(1)                                              # Show popover menu at the right edge of the caller button.
+        RamMenu.popover1201p.popup()                                                          # Show RAM tab popover GUI
+
+    # ----------------------------------- RAM - Plot RAM usage data as a Line Chart ----------------------------------- 
+    def on_drawingarea1201_draw(widget, chart1201):
+
+        chart_data_history = Config.chart_data_history
+
+        chart_x_axis = list(range(0, chart_data_history))
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the RAM module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            ram_usage_percent = Performance.ram_usage_percent
+        except AttributeError:
+            return
+
+        chart_line_color = Config.chart_line_color_ram_swap_percent
+        chart_background_color = Config.chart_background_color_all_charts
+
+        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
+        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
+
+        chart1201_width = Gtk.Widget.get_allocated_width(drawingarea1201)
+        chart1201_height = Gtk.Widget.get_allocated_height(drawingarea1201)
+
+        chart1201.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        chart1201.rectangle(0, 0, chart1201_width, chart1201_height)
+        chart1201.fill()
+
+        chart1201.set_line_width(1)
+        chart1201.set_dash([4, 3])
+        chart1201.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        for i in range(3):
+            chart1201.move_to(0, chart1201_height/4*(i+1))
+            chart1201.line_to(chart1201_width, chart1201_height/4*(i+1))
+        for i in range(4):
+            chart1201.move_to(chart1201_width/5*(i+1), 0)
+            chart1201.line_to(chart1201_width/5*(i+1), chart1201_height)
+        chart1201.stroke()
+
+        chart1201.set_dash([], 0)
+        chart1201.rectangle(0, 0, chart1201_width, chart1201_height)
+        chart1201.stroke()
+
+        chart1201.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+        chart1201.move_to(chart1201_width*chart_x_axis[0]/(chart_data_history-1), chart1201_height - chart1201_height*ram_usage_percent[0]/100)
+        for i in range(len(chart_x_axis) - 1):
+            delta_x_chart1201 = (chart1201_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1201_width * chart_x_axis[i]/(chart_data_history-1))
+            delta_y_chart1201 = (chart1201_height*ram_usage_percent[i+1]/100) - (chart1201_height*ram_usage_percent[i]/100)
+            chart1201.rel_line_to(delta_x_chart1201, -delta_y_chart1201)
+
+        chart1201.rel_line_to(10, 0)
+        chart1201.rel_line_to(0, chart1201_height+10)
+        chart1201.rel_line_to(-(chart1201_width+20), 0)
+        chart1201.rel_line_to(0, -(chart1201_height+10))
+        chart1201.close_path()
+        chart1201.stroke_preserve()
+        chart1201.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        chart1201.fill()
+
+
+    # ----------------------------------- RAM - Plot Swap usage data as a Bar Chart ----------------------------------- 
+    def on_drawingarea1202_draw(drawingarea1202, chart1202):
+
+        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the RAM module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            swap_percent_check = swap_percent
+        except NameError:
+            return
+
+        chart_line_color = Config.chart_line_color_ram_swap_percent
+        chart_background_color = Config.chart_background_color_all_charts
+
+        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
+        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3]]
+
+        chart1202_width = Gtk.Widget.get_allocated_width(drawingarea1202)
+        chart1202_height = Gtk.Widget.get_allocated_height(drawingarea1202)
+
+        chart1202.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        chart1202.rectangle(0, 0, chart1202_width, chart1202_height)
+        chart1202.fill()
+
+        chart1202.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        chart1202.rectangle(0, 0, chart1202_width, chart1202_height)
+        chart1202.stroke()
+        chart1202.set_line_width(1)
+        chart1202.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        chart1202.rectangle(0, 0, chart1202_width*swap_percent/100, chart1202_height)
+        chart1202.fill()
+
+
+
+    # RAM tab GUI functions - connect
+    button1201.connect("clicked", on_button1201_clicked)
+    drawingarea1201.connect("draw", on_drawingarea1201_draw)
+    drawingarea1202.connect("draw", on_drawingarea1202_draw)
 
 
 # ----------------------------------- RAM - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
@@ -65,11 +197,9 @@ def ram_initial_func():
                 swap_total = int(line.split()[1]) * 1024
 
     # Set RAM tab label texts by using information get
-#         RamGUI.label1201.set_text(f'Total Physical RAM: {ram_data_unit_converter_func(total_physical_ram, 0, 1)}')
-#         RamGUI.label1202.set_text(f'Reserved Swap Memory: {ram_data_unit_converter_func(swap_total, 0, 1)}')
-    RamGUI.label1201.set_text(_tr("Total Physical RAM: ") + str(ram_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
-    RamGUI.label1202.set_text(_tr("Reserved Swap Memory: ") + str(ram_data_unit_converter_func(swap_total, 0, 1)))
-    RamGUI.label1205.set_text(ram_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+    label1201.set_text(_tr("Total Physical RAM: ") + str(ram_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    label1202.set_text(_tr("Reserved Swap Memory: ") + str(ram_data_unit_converter_func(swap_total, 0, 1)))
+    label1205.set_text(ram_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
 
 # ----------------------------------- RAM - Get RAM Data Function (gets RAM data, shows on the labels on the GUI) -----------------------------------
@@ -84,8 +214,8 @@ def ram_loop_func():
     performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
     global swap_percent
 
-    RamGUI.drawingarea1201.queue_draw()
-    RamGUI.drawingarea1202.queue_draw()
+    drawingarea1201.queue_draw()
+    drawingarea1202.queue_draw()
 
     # Get RAM usage values
     with open("/proc/meminfo") as reader:                                                     # Read total swap area and free swap area from /proc/meminfo file
@@ -103,13 +233,13 @@ def ram_loop_func():
         swap_percent = 0
 
     # Set and update RAM tab label texts by using information get
-    RamGUI.label1203.set_text(f'{ram_data_unit_converter_func(ram_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)} ({ram_usage_percent[-1]:.0f} %)')
-    RamGUI.label1204.set_text(ram_data_unit_converter_func(ram_available, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-    RamGUI.label1206.set_text(ram_data_unit_converter_func(ram_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-    RamGUI.label1207.set_text(f'{swap_percent:.0f} %')
-    RamGUI.label1208.set_text(f'{ram_data_unit_converter_func(swap_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}')
-    RamGUI.label1209.set_text(ram_data_unit_converter_func(swap_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-    RamGUI.label1210.set_text(ram_data_unit_converter_func((swap_total), performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+    label1203.set_text(f'{ram_data_unit_converter_func(ram_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)} ({ram_usage_percent[-1]:.0f} %)')
+    label1204.set_text(ram_data_unit_converter_func(ram_available, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+    label1206.set_text(ram_data_unit_converter_func(ram_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+    label1207.set_text(f'{swap_percent:.0f} %')
+    label1208.set_text(f'{ram_data_unit_converter_func(swap_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}')
+    label1209.set_text(ram_data_unit_converter_func(swap_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+    label1210.set_text(ram_data_unit_converter_func((swap_total), performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
 
 # ----------------------------------- RAM Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

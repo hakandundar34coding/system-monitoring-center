@@ -13,8 +13,8 @@ def services_import_func():
     import os
 
 
-    global Config, MainGUI, ServicesGUI
-    import Config, MainGUI, ServicesGUI
+    global Config, MainGUI
+    import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -32,6 +32,142 @@ def services_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- Services - Services GUI Function (the code of this module in order to avoid running them during module import and defines "Services" tab GUI objects and functions/signals) -----------------------------------
+def services_gui_func():
+
+    # Services tab GUI objects
+    global grid6101, treeview6101, searchentry6101, button6101, button6102
+    global radiobutton6101, radiobutton6102, radiobutton6103
+    global label6101
+
+
+    # Services tab GUI objects - get from file
+    builder = Gtk.Builder()
+    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesTab.ui")
+
+    # Services tab GUI objects - get
+    grid6101 = builder.get_object('grid6101')
+    treeview6101 = builder.get_object('treeview6101')
+    searchentry6101 = builder.get_object('searchentry6101')
+    button6101 = builder.get_object('button6101')
+    button6102 = builder.get_object('button6102')
+    radiobutton6101 = builder.get_object('radiobutton6101')
+    radiobutton6102 = builder.get_object('radiobutton6102')
+    radiobutton6103 = builder.get_object('radiobutton6103')
+    label6101 = builder.get_object('label6101')
+
+
+    # Services tab GUI functions
+    def on_treeview6101_button_press_event(widget, event):
+        if event.button == 3:                                                                 # Open Services tab right click menu if mouse is right clicked on the treeview (and on any service, otherwise menu will not be shown) and the mouse button is pressed.
+            services_open_right_click_menu_func(event)
+        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open Service Details window if double click is performed.
+            services_open_service_details_window_func(event)
+
+    def on_treeview6101_button_release_event(widget, event):
+        if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
+            services_treeview_column_order_width_row_sorting_func()
+
+    def on_searchentry6101_changed(widget):
+        radiobutton6101.set_active(True)
+        services_treeview_filter_search_func()
+
+    def on_button6101_clicked(widget):                                                        # "Services Tab Customizations" button
+        if 'ServicesMenuCustomizations' not in globals():                                     # Check if "ServicesMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
+            global ServicesMenuCustomizations
+            import ServicesMenuCustomizations
+            ServicesMenuCustomizations.services_menu_customizations_import_func()
+            ServicesMenuCustomizations.services_menu_customizations_gui_func()
+        ServicesMenuCustomizations.popover6101p.popup()
+
+    def on_button6102_clicked(widget):                                                        # "Refresh" button
+        services_thread_run_func()
+
+    def on_radiobutton6101_toggled(widget):                                                   # "Show all services" radiobutton
+        if radiobutton6101.get_active() == True:
+            searchentry6101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            services_treeview_filter_show_all_func()
+
+    def on_radiobutton6102_toggled(widget):                                                   # "Show all loaded services" radiobutton
+        if radiobutton6102.get_active() == True:
+            searchentry6101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            services_treeview_filter_show_all_func()
+            services_treeview_filter_services_loaded_only()
+
+    def on_radiobutton6103_toggled(widget):                                                   # "Show all non-loaded services" radiobutton
+        if radiobutton6103.get_active() == True:
+            searchentry6101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            services_treeview_filter_show_all_func()
+            services_treeview_filter_services_not_loaded_only()
+
+
+    # Services tab GUI functions - connect
+    treeview6101.connect("button-press-event", on_treeview6101_button_press_event)
+    treeview6101.connect("button-release-event", on_treeview6101_button_release_event)
+    searchentry6101.connect("changed", on_searchentry6101_changed)
+    button6101.connect("clicked", on_button6101_clicked)
+    button6102.connect("clicked", on_button6102_clicked)
+    radiobutton6101.connect("toggled", on_radiobutton6101_toggled)
+    radiobutton6102.connect("toggled", on_radiobutton6102_toggled)
+    radiobutton6103.connect("toggled", on_radiobutton6103_toggled)
+
+
+    # Services Tab - Treeview Properties
+    treeview6101.set_activate_on_single_click(True)                                           # This command used for activating rows and column header buttons on single click. Column headers have to clicked twice (or clicked() command have to be used twice) for the first sorting operation if this is not used.
+    treeview6101.set_fixed_height_mode(True)                                                  # This command is used for lower CPU usage when treeview is updated. It prevents calculating of the row heights on every update. To be able to use this command, "'column'.set_sizing(2)" command have to be used for all columns when adding them into treeview.
+    treeview6101.set_headers_clickable(True)
+    treeview6101.set_show_expanders(False)
+    treeview6101.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
+    treeview6101.set_search_column(2)                                                         # This command used for searching by using entry.
+    treeview6101.set_tooltip_column(2)
+
+
+# ----------------------------------- Services - Open Right Click Menu Function (gets right clicked service name and opens right click menu) -----------------------------------
+def services_open_right_click_menu_func(event):
+
+    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
+    model = treeview6101.get_model()
+    treeiter = model.get_iter(path)
+    if treeiter is not None:
+        global selected_service_name
+        selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
+        if 'ServicesMenuRightClick' not in globals():                                         # Check if "ServicesMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
+            global ServicesMenuRightClick
+            import ServicesMenuRightClick
+            ServicesMenuRightClick.services_menu_right_click_import_func()
+            ServicesMenuRightClick.services_menu_right_click_gui_func()
+        ServicesMenuRightClick.menu6101m.popup(None, None, None, None, event.button, event.time)
+        ServicesMenuRightClick.services_set_checkmenuitem_func()
+
+
+# ----------------------------------- Services - Open Service Details Window Function (gets double clicked service nam and opens Service Details window) -----------------------------------
+def services_open_service_details_window_func(event):
+
+    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
+        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
+            path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return                                                                            # Stop running rest of the code if the error is encountered.
+        model = treeview6101.get_model()
+        treeiter = model.get_iter(path)
+        if treeiter is not None:
+            global selected_service_name
+            selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
+            # Open Service Details window
+            if 'ServicesDetailsGUI' not in globals():                                         # Check if "ServicesDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "ServicesDetailsGUI" name is in globals().
+                global ServicesDetailsGUI, ServicesDetails
+                import ServicesDetailsGUI, ServicesDetails
+                ServicesDetailsGUI.services_details_gui_import_function()
+                ServicesDetailsGUI.services_details_gui_function()
+                ServicesDetails.services_details_import_func()
+            ServicesDetailsGUI.window6101w.show()
+            ServicesDetails.services_details_foreground_thread_run_func()
 
 
 # ----------------------------------- Services - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -82,7 +218,7 @@ def services_initial_func():
 def services_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
-    treeview6101 = ServicesGUI.treeview6101
+    global treeview6101
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global services_ram_swap_data_precision, services_ram_swap_data_unit
@@ -339,12 +475,12 @@ def services_loop_func():
     if len(new_services) > 0:
         for service in new_services:
             # /// Start /// This block of code is used for determining if the newly added service will be shown on the treeview (user search actions and/or search customizations and/or "Show all loaded/non-loaded services" preference affect service visibility).
-            if ServicesGUI.radiobutton6102.get_active() == True and service_loaded_not_loaded_list[service_list.index(service)] != True:    # Hide service (set the visibility value as "False") if "Show all loaded/non-loaded services" option is selected on the GUI and service visibility is not "True".
+            if radiobutton6102.get_active() == True and service_loaded_not_loaded_list[service_list.index(service)] != True:    # Hide service (set the visibility value as "False") if "Show all loaded/non-loaded services" option is selected on the GUI and service visibility is not "True".
                 services_data_rows[service_list.index(service)][0] = False
-            if ServicesGUI.radiobutton6103.get_active() == True and service_loaded_not_loaded_list[service_list.index(service)] == True:    # Hide service (set the visibility value as "False") if "Show all loaded/non-loaded services" option is selected on the GUI and service visibility is "True".
+            if radiobutton6103.get_active() == True and service_loaded_not_loaded_list[service_list.index(service)] == True:    # Hide service (set the visibility value as "False") if "Show all loaded/non-loaded services" option is selected on the GUI and service visibility is "True".
                 services_data_rows[service_list.index(service)][0] = False
-            if ServicesGUI.searchentry6101.get_text() != "":
-                service_search_text = ServicesGUI.searchentry6101.get_text()
+            if searchentry6101.get_text() != "":
+                service_search_text = searchentry6101.get_text()
                 service_data_text_in_model = services_data_rows[service_list.index(service)][filter_column]
                 if service_search_text not in str(service_data_text_in_model).lower():        # Hide service (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the service data.
                     services_data_rows[service_list.index(service)][0] = False
@@ -363,7 +499,7 @@ def services_loop_func():
     # Get number of visible services and number of all services and show these information on the GUI label
     loaded_service_count = service_loaded_not_loaded_list.count(True)
     number_of_all_services = len(service_loaded_not_loaded_list)
-    ServicesGUI.label6101.set_text(_tr("Total: ") + str(number_of_all_services) + _tr(" services (") + str(loaded_service_count) + _tr(" loaded, ") + str(number_of_all_services-loaded_service_count) + _tr(" non-loaded)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    label6101.set_text(_tr("Total: ") + str(number_of_all_services) + _tr(" services (") + str(loaded_service_count) + _tr(" loaded, ") + str(number_of_all_services-loaded_service_count) + _tr(" non-loaded)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
 
 
 # ----------------------------------- Services - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
@@ -437,7 +573,7 @@ def services_treeview_filter_services_not_loaded_only():
 def services_treeview_filter_search_func():
 
     global filter_column
-    service_search_text = ServicesGUI.searchentry6101.get_text().lower()
+    service_search_text = searchentry6101.get_text().lower()
     # Set visible/hidden services
     for piter in piter_list:
         treestore6101.set_value(piter, 0, False)
@@ -460,7 +596,7 @@ def on_column_title_clicked(widget):
 # ----------------------------------- Services - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
 def services_treeview_column_order_width_row_sorting_func():
     # Columns in the treeview are get one by one and appended into "services_data_column_order". "services_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "services_data") are changed if column order/widths are changed.
-    services_treeview_columns = ServicesGUI.treeview6101.get_columns()
+    services_treeview_columns = treeview6101.get_columns()
     treeview_column_titles = []
     for column in services_treeview_columns:
         treeview_column_titles.append(column.get_title())

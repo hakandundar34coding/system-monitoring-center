@@ -14,8 +14,8 @@ def storage_details_import_func():
     from datetime import datetime
 
 
-    global Config, Storage, StorageGUI, StorageDetailsGUI, MainGUI
-    import Config, Storage, StorageGUI, StorageDetailsGUI, MainGUI
+    global Config, Storage, StorageDetailsGUI, MainGUI
+    import Config, Storage, StorageDetailsGUI, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -54,7 +54,7 @@ def storage_details_initial_func():
 def storage_details_foreground_func():
 
     global disk
-    disk = StorageGUI.selected_storage_kernel_name                                            # Get right clicked disk name
+    disk = Storage.selected_storage_kernel_name                                            # Get right clicked disk name
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global storage_disk_usage_data_precision, storage_disk_usage_data_unit
