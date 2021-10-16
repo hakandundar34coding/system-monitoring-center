@@ -64,39 +64,53 @@ def processes_menu_right_click_gui_func():
     normalmenuitem2101m = builder.get_object('normalmenuitem2101m')
 
     # ********************** Define object functions for Processes tab right click menu **********************
-    def on_menuitem2101m_activate(widget):                                                    # "Pause Process" item on the right click menu
-#         try:
+    def on_menuitem2101m_activate(widget):                                                    # "Stop Process" item on the right click menu
+        try:
             os.kill(int(Processes.selected_process_pid), signal.SIGSTOP)
-#         except PermissionError:
-#             return
+        except PermissionError:
+            os.system("pkexec kill -19 " + Processes.selected_process_pid)
 
-    def on_menuitem2102m_activate(widget):                                                    # "Resume Process" item on the right click menu
-        os.kill(int(Processes.selected_process_pid), signal.SIGCONT)
+    def on_menuitem2102m_activate(widget):                                                    # "Continue Process" item on the right click menu
+        try:
+            os.kill(int(Processes.selected_process_pid), signal.SIGCONT)
+        except PermissionError:
+            os.system("pkexec kill -18 " + Processes.selected_process_pid)
 
-    def on_menuitem2103m_activate(widget):                                                    # "End Process" item on the right click menu
-        process_pid = Processes.selected_process_pid
-        process_name = Processes.processes_data_rows[Processes.pid_list.index(process_pid)][2]
+    def on_menuitem2103m_activate(widget):                                                    # "Terminate Process" item on the right click menu
+        selected_process_pid = Processes.selected_process_pid
+        selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
         if Config.warn_before_stopping_processes == 1:
-            processes_end_process_warning_dialog(process_name, process_pid)
+            processes_end_process_warning_dialog(selected_process_name, selected_process_pid)
             if warning_dialog2101_response == Gtk.ResponseType.YES:
-                os.kill(int(process_pid), signal.SIGTERM)
+                try:
+                    os.kill(int(selected_process_pid), signal.SIGTERM)
+                except PermissionError:
+                    os.system("pkexec kill -15 " + selected_process_pid)
             if warning_dialog2101_response == Gtk.ResponseType.NO:
                 pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
         if Config.warn_before_stopping_processes == 0:
-            os.kill(process_pid, signal.SIGTERM)
+            try:
+                os.kill(selected_process_pid, signal.SIGTERM)
+            except PermissionError:
+                os.system("pkexec kill -15 " + selected_process_pid)
 
-    # Currently same as "End Process"
-    def on_menuitem2104m_activate(widget):                                                    # "End Process Tree" item on the right click menu
-        process_pid = Processes.selected_process_pid
-        process_name = Processes.processes_data_rows[Processes.pid_list.index(process_pid)][2]
+    def on_menuitem2104m_activate(widget):                                                    # "Kill Process" item on the right click menu
+        selected_process_pid = Processes.selected_process_pid
+        selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
         if Config.warn_before_stopping_processes == 1:
-            processes_end_process_tree_warning_dialog(process_name, process_pid)
-            if warning_dialog2102_response == Gtk.ResponseType.YES:
-                os.kill(int(process_pid), signal.SIGTERM)
-            if warning_dialog2102_response == Gtk.ResponseType.NO:
+            processes_end_process_warning_dialog(selected_process_name, selected_process_pid)
+            if warning_dialog2101_response == Gtk.ResponseType.YES:
+                try:
+                    os.kill(int(selected_process_pid), signal.SIGKILL)
+                except PermissionError:
+                    os.system("pkexec kill -9 " + selected_process_pid)
+            if warning_dialog2101_response == Gtk.ResponseType.NO:
                 pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
         if Config.warn_before_stopping_processes == 0:
-            os.kill(int(process_pid), signal.SIGTERM)
+            try:
+                os.kill(selected_process_pid, signal.SIGKILL)
+            except PermissionError:
+                os.system("pkexec kill -9 " + selected_process_pid)
 
     def on_menuitem2106m_activate(widget):                                                    # "Copy Name" item on the right click menu
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
@@ -131,47 +145,34 @@ def processes_menu_right_click_gui_func():
         ProcessesDetails.process_details_foreground_thread_run_func()
 
     def on_radiomenuitem2101m_activate(widget):                                               # "Very High" item on the right click menu under "Change Priorty (Nice)" item
-        processes_get_process_current_nice_func()
-        if selected_process_current_nice <= -20:
+        try:
             (subprocess.check_output("renice -n -20 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
-        if selected_process_current_nice > -20:
-            try:
-                (subprocess.check_output("pkexec renice -n -20 -p " + Processes.selected_process_pid, shell=True).strip()).decode()    # It gives "renice: failed to set priority for [PID] (process ID): Access denied" output if application is not run with root privileges.
-            except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+        except subprocess.CalledProcessError:
+            (subprocess.check_output("pkexec renice -n -20 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
 
     def on_radiomenuitem2102m_activate(widget):                                               # "High" item on the right click menu under "Change Priorty (Nice)" item
-        processes_get_process_current_nice_func()
-        if selected_process_current_nice <= -10:
+        try:
             (subprocess.check_output("renice -n -10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
-        if selected_process_current_nice > -10:
-            try:
-                (subprocess.check_output("pkexec renice -n -10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()    # It gives "renice: failed to set priority for [PID] (process ID): Access denied" output if application is not run with root privileges.
-            except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+        except subprocess.CalledProcessError:
+            (subprocess.check_output("pkexec renice -n -10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
 
     def on_radiomenuitem2103m_activate(widget):                                               # "Normal" item on the right click menu under "Change Priorty (Nice)" item
-        processes_get_process_current_nice_func()
-        if selected_process_current_nice <= 0:
+        try:
             (subprocess.check_output("renice -n 0 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
-        if selected_process_current_nice > 0:
-            try:
-                (subprocess.check_output("pkexec renice -n 0 -p " + Processes.selected_process_pid, shell=True).strip()).decode()    # It gives "renice: failed to set priority for [PID] (process ID): Access denied" output if application is not run with root privileges.
-            except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+        except subprocess.CalledProcessError:
+            (subprocess.check_output("pkexec renice -n 0 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
 
     def on_radiomenuitem2104m_activate(widget):                                               # "Low" item on the right click menu under "Change Priorty (Nice)" item
-        processes_get_process_current_nice_func()
-        if selected_process_current_nice <= 10:
+        try:
             (subprocess.check_output("renice -n 10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
-        if selected_process_current_nice > 10:
-            try:
-                (subprocess.check_output("pkexec renice -n 10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()    # It gives "renice: failed to set priority for [PID] (process ID): Access denied" output if application is not run with root privileges.
-            except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+        except subprocess.CalledProcessError:
+            (subprocess.check_output("pkexec renice -n 10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
 
     def on_radiomenuitem2105m_activate(widget):                                               # "Very Low" item on the right click menu under "Change Priorty (Nice)" item
-        (subprocess.check_output("renice -n 19 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+        try:
+            (subprocess.check_output("renice -n 19 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+        except subprocess.CalledProcessError:
+            (subprocess.check_output("pkexec renice -n 19 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
 
     def on_normalmenuitem2101m_activate(widget):                                              # "Custom Value..." item on the right click menu under "Change Priorty (Nice)" item
         if 'ProcessesCustomPriorityGUI' not in globals():                                     # Check if "ProcessesCustomPriorityGUI" module is imported. Therefore it is not reimported for every click on "Custom Value" sub-menu item on the rigth click menu if "ProcessesCustomPriorityGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.

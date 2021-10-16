@@ -334,7 +334,8 @@ def storage_tab_popover_set_gui():
         checkbutton4124p.set_active(False)
     # Set Storage tab customizations popover menu Precision/Data Units tab GUI object data/selections appropriate for settings
     # Add Disk usage data precision into combobox
-    if "liststore4101p" not in globals():                                                 # Check if "liststore4101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
+    if "liststore4101p" not in globals():                                                     # Check if "liststore4101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
+        global liststore4101p
         liststore4101p = Gtk.ListStore()
         liststore4101p.set_column_types([str, int])
         combobox4101p.set_model(liststore4101p)

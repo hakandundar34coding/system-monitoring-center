@@ -47,7 +47,7 @@
     <property name="can-focus">False</property>
     <child>
       <object class="GtkImageMenuItem" id="menuitem2101m">
-        <property name="label" translatable="yes">Pause Process</property>
+        <property name="label" translatable="yes">Stop Process</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="image">menuitem2101mimage</property>
@@ -56,7 +56,7 @@
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem2102m">
-        <property name="label" translatable="yes">Resume Process</property>
+        <property name="label" translatable="yes">Continue Process</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="image">menuitem2102mimage</property>
@@ -65,7 +65,7 @@
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem2103m">
-        <property name="label" translatable="yes">End Prcocess</property>
+        <property name="label" translatable="yes">Terminate Process</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="image">menuitem2103mimage</property>
@@ -74,7 +74,7 @@
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem2104m">
-        <property name="label" translatable="yes">End Process Tree</property>
+        <property name="label" translatable="yes">Kill Process</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="image">menuitem2104mimage</property>

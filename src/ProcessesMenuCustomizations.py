@@ -369,7 +369,7 @@ def processes_tab_popover_set_gui():
         checkbutton2123p.set_active(False)
     # Set Processes tab customizations popover menu Precision/Data Units tab GUI object data/selections appropriate for settings
     # Add CPU usage percent data into combobox
-    if "liststore2101p" not in globals():                                                 # Check if "liststore2101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
+    if "liststore2101p" not in globals():                                                     # Check if "liststore2101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
         global liststore2101p
         liststore2101p = Gtk.ListStore()
         liststore2101p.set_column_types([str, int])
