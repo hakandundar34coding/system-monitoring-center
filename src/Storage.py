@@ -782,7 +782,7 @@ def storage_thread_run_func():
         storage_initial_thread = Thread(target=storage_initial_thread_func, daemon=True)
         storage_initial_thread.start()
         storage_initial_thread.join()
-    storage_loop_thread = Thread(target=storage_loop_thread_func(), daemon=True)
+    storage_loop_thread = Thread(target=storage_loop_thread_func, daemon=True)
     storage_loop_thread.start()
 
 

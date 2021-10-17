@@ -292,5 +292,5 @@ def gpu_thread_run_func():
         gpu_initial_thread = Thread(target=gpu_initial_thread_func, daemon=True)
         gpu_initial_thread.start()
         gpu_initial_thread.join()
-    gpu_loop_thread = Thread(target=gpu_loop_thread_func(), daemon=True)
+    gpu_loop_thread = Thread(target=gpu_loop_thread_func, daemon=True)
     gpu_loop_thread.start()

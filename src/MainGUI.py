@@ -110,10 +110,10 @@ def main_gui_func():
 
         main_gui_tab_switch_func()                                                            # Run main tab function after initial showing main window (this function is also called when main tab checkbuttons are toggled).
 
-        import MainMenusDialogsGUI                                                            # Import MainMenusDialogsGUI module which contains main menus/dialogs GUI obejcts and signals
-        MainMenusDialogsGUI.main_menus_gui_import_func()
-        MainMenusDialogsGUI.main_menus_gui_func()
-        menubutton1.set_popup(MainMenusDialogsGUI.menu1001m)                                  # Set popup menu (Main menu)
+        import MainMenusDialogs                                                               # Import MainMenusDialogs module which contains main menus/dialogs GUI obejcts and signals
+        MainMenusDialogs.main_menus_gui_import_func()
+        MainMenusDialogs.main_menus_gui_func()
+        menubutton1.set_popup(MainMenusDialogs.menu1001m)                                     # Set popup menu (Main menu)
 
         # Add performance summary widgets to the main window headerbar.
         if Config.performance_summary_on_the_headerbar == 1:

@@ -634,7 +634,7 @@ def users_thread_run_func():
         users_initial_thread = Thread(target=users_initial_thread_func, daemon=True)
         users_initial_thread.start()
         users_initial_thread.join()
-    users_loop_thread = Thread(target=users_loop_thread_func(), daemon=True)
+    users_loop_thread = Thread(target=users_loop_thread_func, daemon=True)
     users_loop_thread.start()
 
 

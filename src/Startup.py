@@ -737,7 +737,7 @@ def startup_thread_run_func():
         startup_initial_thread = Thread(target=startup_initial_thread_func, daemon=True)
         startup_initial_thread.start()
         startup_initial_thread.join()
-    startup_loop_thread = Thread(target=startup_loop_thread_func(), daemon=True)
+    startup_loop_thread = Thread(target=startup_loop_thread_func, daemon=True)
     startup_loop_thread.start()
 
 

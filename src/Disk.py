@@ -328,7 +328,7 @@ def disk_thread_run_func():
         disk_initial_thread = Thread(target=disk_initial_thread_func, daemon=True)
         disk_initial_thread.start()
         disk_initial_thread.join()
-    disk_loop_thread = Thread(target=disk_loop_thread_func(), daemon=True)
+    disk_loop_thread = Thread(target=disk_loop_thread_func, daemon=True)
     disk_loop_thread.start()
 
 

@@ -305,7 +305,7 @@ def network_thread_run_func():
         network_initial_thread = Thread(target=network_initial_thread_func, daemon=True)
         network_initial_thread.start()
         network_initial_thread.join()
-    network_loop_thread = Thread(target=network_loop_thread_func(), daemon=True)
+    network_loop_thread = Thread(target=network_loop_thread_func, daemon=True)
     network_loop_thread.start()
 
 

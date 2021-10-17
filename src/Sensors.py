@@ -365,7 +365,7 @@ def sensors_thread_run_func():
         sensors_initial_thread = Thread(target=sensors_initial_thread_func, daemon=True)
         sensors_initial_thread.start()
         sensors_initial_thread.join()
-    sensors_loop_thread = Thread(target=sensors_loop_thread_func(), daemon=True)
+    sensors_loop_thread = Thread(target=sensors_loop_thread_func, daemon=True)
     sensors_loop_thread.start()
 
 

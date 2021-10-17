@@ -453,7 +453,7 @@ def environment_variables_thread_run_func():
         environment_variables_initial_thread = Thread(target=environment_variables_initial_thread_func, daemon=True)
         environment_variables_initial_thread.start()
         environment_variables_initial_thread.join()
-    environment_variables_loop_thread = Thread(target=environment_variables_loop_thread_func(), daemon=True)
+    environment_variables_loop_thread = Thread(target=environment_variables_loop_thread_func, daemon=True)
     environment_variables_loop_thread.start()
 
 

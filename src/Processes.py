@@ -722,7 +722,7 @@ def processes_thread_run_func():
         processes_initial_thread = Thread(target=processes_initial_thread_func, daemon=True)
         processes_initial_thread.start()
         processes_initial_thread.join()
-    processes_loop_thread = Thread(target=processes_loop_thread_func(), daemon=True)
+    processes_loop_thread = Thread(target=processes_loop_thread_func, daemon=True)
     processes_loop_thread.start()
 
 

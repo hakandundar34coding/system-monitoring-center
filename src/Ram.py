@@ -271,7 +271,7 @@ def ram_thread_run_func():
         ram_initial_thread = Thread(target=ram_initial_thread_func, daemon=True)
         ram_initial_thread.start()
         ram_initial_thread.join()
-    ram_loop_thread = Thread(target=ram_loop_thread_func(), daemon=True)
+    ram_loop_thread = Thread(target=ram_loop_thread_func, daemon=True)
     ram_loop_thread.start()
 
 

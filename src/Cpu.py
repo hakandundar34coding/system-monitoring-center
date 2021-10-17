@@ -402,5 +402,5 @@ def cpu_thread_run_func():
         cpu_initial_thread = Thread(target=cpu_initial_thread_func, daemon=True)
         cpu_initial_thread.start()
         cpu_initial_thread.join()
-    cpu_loop_thread = Thread(target=cpu_loop_thread_func(), daemon=True)
+    cpu_loop_thread = Thread(target=cpu_loop_thread_func, daemon=True)
     cpu_loop_thread.start()
