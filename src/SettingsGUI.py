@@ -11,8 +11,8 @@ def settings_gui_import_func():
     import os
 
 
-    global Config, MainGUI, Performance, PerformanceSummaryHeaderbarGUI
-    import Config, MainGUI, Performance, PerformanceSummaryHeaderbarGUI
+    global Config, MainGUI, Performance
+    import Config, MainGUI, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -96,11 +96,19 @@ def settings_gui_func():
 
     def on_checkbutton2001_toggled(widget):                                                   # "Show performance summary on the headerbar" GUI object signal
         if checkbutton2001.get_active() == True:
-            MainGUI.headerbar1.add(PerformanceSummaryHeaderbarGUI.grid101)                    # Add performance summary to the main window headerbar.
-            Config.performance_summary_on_the_headerbar = 1
+            Config.performance_summary_on_the_headerbar = 1                                   # This setting have to be set before running "performance_summary_headerbar_thread_run_func" function because this setting is used by this function in "PerformanceSummaryHeaderbar" module.
+            if 'PerformanceSummaryHeaderbar' not in globals():
+                global PerformanceSummaryHeaderbar
+                import PerformanceSummaryHeaderbar
+                PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
+                PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
+            PerformanceSummaryHeaderbar.performance_summary_headerbar_thread_run_func()
+            MainGUI.headerbar1.add(PerformanceSummaryHeaderbar.grid101)                       # Add performance summary to the main window headerbar.
         if checkbutton2001.get_active() == False:
-            MainGUI.headerbar1.remove(PerformanceSummaryHeaderbarGUI.grid101)                 # Remove performance summary from the main window headerbar.
             Config.performance_summary_on_the_headerbar = 0
+            if 'PerformanceSummaryHeaderbar' not in globals():
+                import PerformanceSummaryHeaderbar
+            MainGUI.headerbar1.remove(PerformanceSummaryHeaderbar.grid101)                    # Remove performance summary from the main window headerbar.
         Config.config_save_func()
 
     def on_checkbutton2002_toggled(widget):                                                   # "Remember last opened tabs on application start" GUI object signal
@@ -431,15 +439,15 @@ def settings_gui_set_chart_data_history_func():
             Performance.network_send_speed[i] = Performance.network_send_speed[i][chart_data_history_current-chart_data_history_new:]    # "network_send_speed" list has sub-lists and trimming is performed for every sub-lists (for every network card).
     if chart_data_history_current < chart_data_history_new:                                   # Add list of zeroes to the beginning part of the lists if new "chart_data_history" value is bigger than the old value.
         list_to_add = [0] * (chart_data_history_new - chart_data_history_current)             # Generate list of zeroes for adding to the beginning of te lists.
-        Performance.cpu_usage_percent_ave = list_to_add + Performance.cpu_usage_percent_ave    # "cpu_usage_percent_ave" list has no sub-lists and addition is performed in this way.
+        Performance.cpu_usage_percent_ave = list_to_add + Performance.cpu_usage_percent_ave   # "cpu_usage_percent_ave" list has no sub-lists and addition is performed in this way.
         Performance.ram_usage_percent = list_to_add + Performance.ram_usage_percent           # "ram_usage_percent" list has no sub-lists and addition is performed in this way.
         if MainGUI.radiobutton1005.get_active() == True:
             import Gpu
-            Gpu.fps_count = list_to_add + Gpu.fps_count                                           # "fps_count" list has no sub-lists and addition is performed in this way.
+            Gpu.fps_count = list_to_add + Gpu.fps_count                                       # "fps_count" list has no sub-lists and addition is performed in this way.
         disk_read_speed_len = len(Performance.disk_read_speed)
         for i in range(disk_read_speed_len):
             Performance.disk_read_speed[i] = list_to_add + Performance.disk_read_speed[i]     # "disk_read_speed" list has sub-lists and addition is performed for every sub-lists (for every disk).
-            Performance.disk_write_speed[i] = list_to_add + Performance.disk_write_speed[i]    # "disk_write_speed" list has sub-lists and addition is performed for every sub-lists (for every disk).
+            Performance.disk_write_speed[i] = list_to_add + Performance.disk_write_speed[i]   # "disk_write_speed" list has sub-lists and addition is performed for every sub-lists (for every disk).
         network_receive_speed_len = len(Performance.network_receive_speed)
         for i in range(network_receive_speed_len):
             Performance.network_receive_speed[i] = list_to_add + Performance.network_receive_speed[i]    # "network_receive_speed" list has sub-lists and addition is performed for every sub-lists (for every network card).

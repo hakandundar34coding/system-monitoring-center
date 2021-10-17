@@ -117,11 +117,10 @@ def main_gui_func():
 
         # Add performance summary widgets to the main window headerbar.
         if Config.performance_summary_on_the_headerbar == 1:
-            import PerformanceSummaryHeaderbarGUI, PerformanceSummaryHeaderbar
+            import PerformanceSummaryHeaderbar
             PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
-            PerformanceSummaryHeaderbarGUI.performance_summary_headerbar_gui_import_func()
-            PerformanceSummaryHeaderbarGUI.performance_summary_headerbar_gui_func()
-            headerbar1.add(PerformanceSummaryHeaderbarGUI.grid101)                            # Add the grid to the window headerbar
+            PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
+            headerbar1.add(PerformanceSummaryHeaderbar.grid101)                               # Add the grid to the window headerbar
             PerformanceSummaryHeaderbar.performance_summary_headerbar_thread_run_func()
 
         # Show Floating Summary Window on application start if this setting is leaved as "Enabled" from the Main Menu.
