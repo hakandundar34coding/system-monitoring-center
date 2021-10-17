@@ -14,8 +14,8 @@ def processes_details_import_func():
     from datetime import datetime
 
 
-    global Config, Processes, ProcessesDetailsGUI, MainGUI
-    import Config, Processes, ProcessesDetailsGUI, MainGUI
+    global Config, Processes, MainGUI
+    import Config, Processes, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -33,6 +33,142 @@ def processes_details_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- Processes - Processes Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Processes Details" window GUI objects and functions/signals) -----------------------------------
+def processes_details_gui_function():
+
+    # Processes Details window GUI objects
+    global builder2101w, window2101w, notebook2101w
+    global label2101w, label2102w, label2103w, label2104w, label2105w, label2106w, label2107w, label2108w, label2109w, label2110w
+    global label2111w, label2112w, label2113w, label2114w, label2115w, label2116w, label2117w, label2118w, label2119w, label2120w
+    global label2121w, label2122w, label2123w, label2124w, label2125w, label2126w, label2127w, label2128w, label2129w, label2130w
+    global label2131w, label2132w, label2133w, label2134w, label2135w, label2136w, label2137w
+
+
+    # Processes Details window GUI objects - get
+    builder2101w = Gtk.Builder()
+    builder2101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesDetailsWindow.ui")
+
+    window2101w = builder2101w.get_object('window2101w')
+
+    notebook2101w = builder2101w.get_object('notebook2101w')
+
+    # Process Details window "Summary" tab GUI objects
+    label2101w = builder2101w.get_object('label2101w')
+    label2102w = builder2101w.get_object('label2102w')
+    label2103w = builder2101w.get_object('label2103w')
+    label2104w = builder2101w.get_object('label2104w')
+    label2105w = builder2101w.get_object('label2105w')
+    label2106w = builder2101w.get_object('label2106w')
+    label2107w = builder2101w.get_object('label2107w')
+    label2108w = builder2101w.get_object('label2108w')
+    label2109w = builder2101w.get_object('label2109w')
+    label2110w = builder2101w.get_object('label2110w')
+    label2111w = builder2101w.get_object('label2111w')
+    label2112w = builder2101w.get_object('label2112w')
+    label2113w = builder2101w.get_object('label2113w')
+    label2114w = builder2101w.get_object('label2114w')
+    label2115w = builder2101w.get_object('label2115w')
+
+    # Process Details window "CPU and RAM" tab GUI objects
+    label2116w = builder2101w.get_object('label2116w')
+    label2117w = builder2101w.get_object('label2117w')
+    label2118w = builder2101w.get_object('label2118w')
+    label2119w = builder2101w.get_object('label2119w')
+    label2120w = builder2101w.get_object('label2120w')
+    label2121w = builder2101w.get_object('label2121w')
+    label2122w = builder2101w.get_object('label2122w')
+    label2123w = builder2101w.get_object('label2123w')
+    label2124w = builder2101w.get_object('label2124w')
+    label2125w = builder2101w.get_object('label2125w')
+    label2126w = builder2101w.get_object('label2126w')
+    label2127w = builder2101w.get_object('label2127w')
+
+    # Process Details window "Disk and Path" tab GUI objects
+    label2128w = builder2101w.get_object('label2128w')
+    label2129w = builder2101w.get_object('label2129w')
+    label2130w = builder2101w.get_object('label2130w')
+    label2131w = builder2101w.get_object('label2131w')
+    label2132w = builder2101w.get_object('label2132w')
+    label2133w = builder2101w.get_object('label2133w')
+    label2134w = builder2101w.get_object('label2134w')
+    label2135w = builder2101w.get_object('label2135w')
+    label2136w = builder2101w.get_object('label2136w')
+    label2137w = builder2101w.get_object('label2137w')
+
+
+    # Processes Details window GUI functions
+    def on_window2101w_delete_event(widget, event):
+        window2101w.hide()
+        return True
+
+    def on_window2101w_show(widget):
+        processes_details_gui_reset_function()                                                # Call this function in order to reset Processes Details window. Data from previous process remains visible (for a short time) until getting and showing new process data if window is closed and opened for an another process. Also last selected tab remains same because window is made hidden when close button is clicked.
+        processes_details_tab_switch_control_func()
+
+
+    # Processes Details window GUI functions - connect
+    window2101w.connect("delete-event", on_window2101w_delete_event)
+    window2101w.connect("show", on_window2101w_show)
+
+
+# ----------------------------------- Processes - Processes Details Window GUI Reset Function (resets Processes Details window) -----------------------------------
+def processes_details_gui_reset_function():
+
+    notebook2101w.set_current_page(0)                                                         # Set fist page (Summary tab) of the notebook
+    label2101w.set_text("--")
+    label2102w.set_text("--")
+    label2103w.set_text("--")
+    label2104w.set_text("--")
+    label2105w.set_text("--")
+    label2106w.set_text("--")
+    label2107w.set_text("--")
+    label2108w.set_text("--")
+    label2109w.set_text("--")
+    label2110w.set_text("--")
+    label2111w.set_text("--")
+    label2112w.set_text("--")
+    label2113w.set_text("--")
+    label2114w.set_text("--")
+    label2115w.set_text("--")
+    label2116w.set_text("--")
+    label2117w.set_text("--")
+    label2118w.set_text("--")
+    label2119w.set_text("--")
+    label2120w.set_text("--")
+    label2121w.set_text("--")
+    label2122w.set_text("--")
+    label2123w.set_text("--")
+    label2124w.set_text("--")
+    label2125w.set_text("--")
+    label2126w.set_text("--")
+    label2127w.set_text("--")
+    label2128w.set_text("--")
+    label2129w.set_text("--")
+    label2130w.set_text("--")
+    label2131w.set_text("--")
+    label2132w.set_text("--")
+    label2133w.set_text("--")
+    label2134w.set_text("--")
+    label2135w.set_text("--")
+    label2136w.set_text("--")
+    label2137w.set_text("--")
+
+
+# ----------------------------------- Processes - Processes Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
+def processes_details_tab_switch_control_func():
+
+    global previous_page
+    if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
+        previous_page = None
+        current_page = None
+    current_page = notebook2101w.get_current_page()
+    if current_page != previous_page and previous_page != None:                               # Check if tab is switched
+        process_details_foreground_func()                                                     # Update the data on the tab
+    previous_page = current_page
+    if window2101w.get_visible() == True:
+        GLib.timeout_add(200, processes_details_tab_switch_control_func)                      # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
 
 
 # ----------------------------------- Processes - Processes Details Function (the code of this module in order to avoid running them during module import and defines "Processes" tab GUI objects and functions/signals) -----------------------------------
@@ -78,7 +214,7 @@ def process_details_foreground_func():
         usernames_uid_list.append(line_splitted[2])
 
     global selected_process_pid
-    selected_process_pid = Processes.selected_process_pid                                  # Get "selected_process_pid" from module "ProcessesGUI".
+    selected_process_pid = Processes.selected_process_pid                                     # Get "selected_process_pid" from module "ProcessesGUI".
 
     number_of_clock_ticks = Processes.number_of_clock_ticks
     global_cpu_time_all = time.time() * number_of_clock_ticks                                 # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent. global_cpu_time_all value is get by using time module of Python instead of reading "/proc/stat" file for faster processing.
@@ -86,7 +222,7 @@ def process_details_foreground_func():
         with open("/proc/" + selected_process_pid + "/stat") as reader:                       # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
             proc_pid_stat_lines = reader.read()
     except FileNotFoundError:
-        ProcessesDetailsGUI.window2101w.hide()
+        window2101w.hide()
         processes_no_such_process_error_dialog()
         return
     proc_pid_stat_lines_split = proc_pid_stat_lines.split()
@@ -100,7 +236,7 @@ def process_details_foreground_func():
                 process_cmdline = reader.read()
             selected_process_name = process_cmdline.split("/")[-1].split("\x00")[0]           # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
         except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-            ProcessesDetailsGUI.window2101w.hide()
+            window2101w.hide()
             processes_no_such_process_error_dialog()
             return
         if selected_process_name.startswith(process_name_from_stat) == False:
@@ -113,12 +249,12 @@ def process_details_foreground_func():
     if selected_process_name in Processes.application_exec_list:                              # Use process icon name from application file if process name is found in application exec list
         selected_process_icon = Processes.application_icon_list[Processes.application_exec_list.index(selected_process_name)]
 
-    ProcessesDetailsGUI.window2101w.set_title(_tr("Process Details: ") + selected_process_name + " - (" + "PID: " + selected_process_pid + ")")    # Set window title
-    ProcessesDetailsGUI.window2101w.set_icon_name(selected_process_icon)                      # Set ProcessesDetails window icon
+    window2101w.set_title(_tr("Process Details: ") + selected_process_name + " - (" + "PID: " + selected_process_pid + ")")    # Set window title
+    window2101w.set_icon_name(selected_process_icon)                                          # Set ProcessesDetails window icon
 
 
     # Show and update process details on the "Summary" tab
-    if ProcessesDetailsGUI.notebook2101w.get_current_page() == 0:
+    if notebook2101w.get_current_page() == 0:
         # Get process status
         selected_process_status = process_status_list[proc_pid_stat_lines_split[-50]]         # Get process status
         # Get process user name
@@ -126,7 +262,7 @@ def process_details_foreground_func():
             with open("/proc/" + selected_process_pid + "/status") as reader:                 # User name of the process owner is get from "/proc/status" file because it is present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
                 proc_pid_status_lines = reader.read().split("\n")
         except FileNotFoundError:
-            ProcessesDetailsGUI.window2101w.hide()
+            window2101w.hide()
             processes_no_such_process_error_dialog()
             return
         for line in proc_pid_status_lines:
@@ -176,7 +312,7 @@ def process_details_foreground_func():
             with open("/proc/" + selected_process_pid + "/stat") as reader:
                 proc_pid_stat_lines = int(reader.read().split()[-31])                         # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
         except:
-            ProcessesDetailsGUI.window2101w.hide()
+            window2101w.hide()
             processes_no_such_process_error_dialog()
             return
         selected_process_start_time = (proc_pid_stat_lines / number_of_clock_ticks) + system_boot_time
@@ -262,34 +398,34 @@ def process_details_foreground_func():
                 selected_process_gid_effective = line_split[1].strip()
                 selected_process_gid_saved = line_split[2].strip()
         # Set label text by using process data
-        ProcessesDetailsGUI.label2101w.set_text(selected_process_name)
-        ProcessesDetailsGUI.label2102w.set_text(f'{selected_process_pid}')
-        ProcessesDetailsGUI.label2103w.set_text(selected_process_status)
-        ProcessesDetailsGUI.label2104w.set_text(selected_process_username)
-        ProcessesDetailsGUI.label2105w.set_text(f'{selected_process_nice}')
-        ProcessesDetailsGUI.label2106w.set_text(f'{selected_process_cpu_percent:.{processes_cpu_usage_percent_precision}f} %')
-        ProcessesDetailsGUI.label2107w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_rss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
+        label2101w.set_text(selected_process_name)
+        label2102w.set_text(f'{selected_process_pid}')
+        label2103w.set_text(selected_process_status)
+        label2104w.set_text(selected_process_username)
+        label2105w.set_text(f'{selected_process_nice}')
+        label2106w.set_text(f'{selected_process_cpu_percent:.{processes_cpu_usage_percent_precision}f} %')
+        label2107w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_rss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
         if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            ProcessesDetailsGUI.label2108w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)} / {processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            label2108w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)} / {processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
         if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":
-            ProcessesDetailsGUI.label2108w.set_text("- / -")
-        ProcessesDetailsGUI.label2109w.set_text(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
-        ProcessesDetailsGUI.label2110w.set_text(selected_process_exe)
-        ProcessesDetailsGUI.label2111w.set_text(f'{selected_process_ppid}')
+            label2108w.set_text("- / -")
+        label2109w.set_text(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
+        label2110w.set_text(selected_process_exe)
+        label2111w.set_text(f'{selected_process_ppid}')
         if parent_process_names_pids != []:
-            ProcessesDetailsGUI.label2112w.set_text(',\n'.join(parent_process_names_pids))
+            label2112w.set_text(',\n'.join(parent_process_names_pids))
         if parent_process_names_pids == []:
-            ProcessesDetailsGUI.label2112w.set_text("-")
+            label2112w.set_text("-")
         if child_process_names_pids != []:
-            ProcessesDetailsGUI.label2113w.set_text(',\n'.join(child_process_names_pids))
+            label2113w.set_text(',\n'.join(child_process_names_pids))
         if child_process_names_pids == []:
-            ProcessesDetailsGUI.label2113w.set_text("-")
-        ProcessesDetailsGUI.label2114w.set_text(f'Real: {selected_process_uid_real}, Effective: {selected_process_uid_effective}, Saved: {selected_process_uid_saved}')
-        ProcessesDetailsGUI.label2115w.set_text(f'Real: {selected_process_gid_real}, Effective: {selected_process_gid_effective}, Saved: {selected_process_gid_saved}')
+            label2113w.set_text("-")
+        label2114w.set_text(f'Real: {selected_process_uid_real}, Effective: {selected_process_uid_effective}, Saved: {selected_process_uid_saved}')
+        label2115w.set_text(f'Real: {selected_process_gid_real}, Effective: {selected_process_gid_effective}, Saved: {selected_process_gid_saved}')
 
 
     # Show and update process details on the "CPU and Memory" tab
-    if ProcessesDetailsGUI.notebook2101w.get_current_page() == 1:
+    if notebook2101w.get_current_page() == 1:
         # Calculate CPU usage percent of the selected process
         process_cpu_time = int(proc_pid_stat_lines_split[-39]) + int(proc_pid_stat_lines_split[-38])   # Get process cpu time in user mode (utime + stime)
         global_process_cpu_times = [global_cpu_time_all, process_cpu_time]
@@ -313,7 +449,7 @@ def process_details_foreground_func():
             with open("/proc/" + selected_process_pid + "/status") as reader:
                 proc_pid_status_lines = reader.read().split("\n")
         except FileNotFoundError:
-            ProcessesDetailsGUI.window2101w.hide()
+            window2101w.hide()
             processes_no_such_process_error_dialog()
             return
         for line in proc_pid_status_lines:
@@ -358,26 +494,26 @@ def process_details_foreground_func():
             selected_process_memory_uss = "-"
             selected_process_memory_swap = "-"
         # Set label text by using process data
-        ProcessesDetailsGUI.label2116w.set_text(f'{selected_process_cpu_percent:.{processes_cpu_usage_percent_precision}f} %')
-        ProcessesDetailsGUI.label2117w.set_text(f'{selected_process_num_threads}')
-        ProcessesDetailsGUI.label2118w.set_text(',\n'.join(selected_process_threads))
-        ProcessesDetailsGUI.label2119w.set_text(f'{selected_process_cpu_num}')
-        ProcessesDetailsGUI.label2120w.set_text(selected_process_cpus_allowed)
-        ProcessesDetailsGUI.label2121w.set_text(f'User: {selected_process_cpu_times_user}, System: {selected_process_cpu_times_kernel}, Children User: {selected_process_cpu_times_children_user}, Children System: {selected_process_cpu_times_children_kernel}, IO Wait: {selected_process_cpu_times_io_wait}')
-        ProcessesDetailsGUI.label2122w.set_text(f'Voluntary: {selected_process_num_ctx_switches_voluntary}, Involuntary: {selected_process_num_ctx_switches_nonvoluntary}')
-        ProcessesDetailsGUI.label2123w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_rss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-        ProcessesDetailsGUI.label2124w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_vms, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-        ProcessesDetailsGUI.label2125w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_shared, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
+        label2116w.set_text(f'{selected_process_cpu_percent:.{processes_cpu_usage_percent_precision}f} %')
+        label2117w.set_text(f'{selected_process_num_threads}')
+        label2118w.set_text(',\n'.join(selected_process_threads))
+        label2119w.set_text(f'{selected_process_cpu_num}')
+        label2120w.set_text(selected_process_cpus_allowed)
+        label2121w.set_text(f'User: {selected_process_cpu_times_user}, System: {selected_process_cpu_times_kernel}, Children User: {selected_process_cpu_times_children_user}, Children System: {selected_process_cpu_times_children_kernel}, IO Wait: {selected_process_cpu_times_io_wait}')
+        label2122w.set_text(f'Voluntary: {selected_process_num_ctx_switches_voluntary}, Involuntary: {selected_process_num_ctx_switches_nonvoluntary}')
+        label2123w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_rss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
+        label2124w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_vms, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
+        label2125w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_shared, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
         if selected_process_memory_uss != "-" and selected_process_memory_swap != "-":
-            ProcessesDetailsGUI.label2126w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_uss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-            ProcessesDetailsGUI.label2127w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_swap, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
+            label2126w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_uss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
+            label2127w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_swap, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
         if selected_process_memory_uss == "-" and selected_process_memory_swap == "-":
-            ProcessesDetailsGUI.label2126w.set_text(selected_process_memory_uss)
-            ProcessesDetailsGUI.label2127w.set_text(selected_process_memory_swap)
+            label2126w.set_text(selected_process_memory_uss)
+            label2127w.set_text(selected_process_memory_swap)
 
 
     # Show and update process details on the "Disk and Path" tab
-    if ProcessesDetailsGUI.notebook2101w.get_current_page() == 2:
+    if notebook2101w.get_current_page() == 2:
         # Get disk read data, disk write data, read count, write count of the process
         try:                                                                                  # Root access is needed for reading "/proc/[PID]/io" file else it gives error. "try-except" is used in order to avoid this error if user has no root privileges.
             with open("/proc/" + selected_process_pid + "/io") as reader:
@@ -449,32 +585,32 @@ def process_details_foreground_func():
             selected_process_open_files = "-"
         # Set label text by using process data
         if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            ProcessesDetailsGUI.label2128w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            ProcessesDetailsGUI.label2129w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            ProcessesDetailsGUI.label2130w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            ProcessesDetailsGUI.label2131w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            ProcessesDetailsGUI.label2132w.set_text(f'{selected_process_read_count}')
-            ProcessesDetailsGUI.label2133w.set_text(f'{selected_process_write_count}')
+            label2128w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            label2129w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            label2130w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            label2131w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            label2132w.set_text(f'{selected_process_read_count}')
+            label2133w.set_text(f'{selected_process_write_count}')
         if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":
-            ProcessesDetailsGUI.label2128w.set_text("-")
-            ProcessesDetailsGUI.label2129w.set_text("-")
-            ProcessesDetailsGUI.label2130w.set_text("-")
-            ProcessesDetailsGUI.label2131w.set_text("-")
-            ProcessesDetailsGUI.label2132w.set_text("-")
-            ProcessesDetailsGUI.label2133w.set_text("-")
-        ProcessesDetailsGUI.label2134w.set_text(selected_process_exe)
-        ProcessesDetailsGUI.label2135w.set_text(selected_process_cwd)
-        ProcessesDetailsGUI.label2136w.set_text(',\n'.join(selected_process_cmdline))
+            label2128w.set_text("-")
+            label2129w.set_text("-")
+            label2130w.set_text("-")
+            label2131w.set_text("-")
+            label2132w.set_text("-")
+            label2133w.set_text("-")
+        label2134w.set_text(selected_process_exe)
+        label2135w.set_text(selected_process_cwd)
+        label2136w.set_text(',\n'.join(selected_process_cmdline))
         if selected_process_open_files != "-":
-            ProcessesDetailsGUI.label2137w.set_text(',\n'.join(selected_process_open_files))
+            label2137w.set_text(',\n'.join(selected_process_open_files))
         if selected_process_open_files == "-":
-            ProcessesDetailsGUI.label2137w.set_text("-")
+            label2137w.set_text("-")
 
 
 # ----------------------------------- Processes - Processes Details Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def process_details_loop_func():
 
-    if ProcessesDetailsGUI.window2101w.get_visible() is True:
+    if window2101w.get_visible() is True:
         GLib.idle_add(process_details_foreground_func)
         global update_interval
         update_interval = Config.update_interval

@@ -135,13 +135,12 @@ def processes_menu_right_click_gui_func():
         os.system('xdg-open "%s"' % path_only)
 
     def on_menuitem2108m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetailsGUI" name is in globals().
-            global ProcessesDetailsGUI, ProcessesDetails
-            import ProcessesDetailsGUI, ProcessesDetails
-            ProcessesDetailsGUI.processes_details_gui_import_function()
-            ProcessesDetailsGUI.processes_details_gui_function()
+        if 'ProcessesDetails' not in globals():                                               # Check if "ProcessesDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetails" name is in globals().
+            global ProcessesDetails
+            import ProcessesDetails
             ProcessesDetails.processes_details_import_func()
-        ProcessesDetailsGUI.window2101w.show()
+            ProcessesDetails.processes_details_gui_function()
+        ProcessesDetails.window2101w.show()
         ProcessesDetails.process_details_foreground_thread_run_func()
 
     def on_radiomenuitem2101m_activate(widget):                                               # "Very High" item on the right click menu under "Change Priorty (Nice)" item

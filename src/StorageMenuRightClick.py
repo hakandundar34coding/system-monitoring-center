@@ -179,13 +179,12 @@ def storage_menu_right_click_gui_func():
         StorageRenameGUI.window4101w2.show()
 
     def on_menuitem4108m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'StorageDetailsGUI' not in globals():                                              # Check if "StorageDetailsGUI" module is imported. Therefore it is not reimported for double click on "Details" menu item on the right click menu if "StorageDetailsGUI" name is in globals().
-            global StorageDetailsGUI, StorageDetails
-            import StorageDetailsGUI, StorageDetails
-            StorageDetailsGUI.storage_details_gui_import_function()
-            StorageDetailsGUI.storage_details_gui_function()
+        if 'StorageDetails' not in globals():                                                 # Check if "StorageDetails" module is imported. Therefore it is not reimported for double click on "Details" menu item on the right click menu if "StorageDetails" name is in globals().
+            global StorageDetails
+            import StorageDetails
             StorageDetails.storage_details_import_func()
-        StorageDetailsGUI.window4101w.show()
+            StorageDetails.storage_details_gui_function()
+        StorageDetails.window4101w.show()
         StorageDetails.storage_details_foreground_thread_run_func()
 
     # ********************** Connect signals to GUI objects for Storage tab right click menu **********************

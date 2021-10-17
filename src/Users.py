@@ -155,13 +155,12 @@ def users_open_user_details_window_func(event):
             global selected_user_uid
             selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
             # Open Users Details window
-            if 'UsersDetailsGUI' not in globals():                                            # Check if "UsersDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetailsGUI" name is in globals().
-                global UsersDetails, UsersDetailsGUI
-                import UsersDetails, UsersDetailsGUI
-                UsersDetailsGUI.users_details_gui_import_function()
-                UsersDetailsGUI.users_details_gui_function()
+            if 'UsersDetails' not in globals():                                               # Check if "UsersDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetails" name is in globals().
+                global UsersDetails
+                import UsersDetails
                 UsersDetails.users_details_import_func()
-            UsersDetailsGUI.window3101w.show()
+                UsersDetails.users_details_gui_function()
+            UsersDetails.window3101w.show()
             UsersDetails.users_details_foreground_thread_run_func()
 
 

@@ -15,8 +15,8 @@ def services_details_import_func():
     from datetime import datetime
 
 
-    global Config, Services, ServicesDetailsGUI, MainGUI
-    import Config, Services, ServicesDetailsGUI, MainGUI
+    global Config, Services, MainGUI
+    import Config, Services, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -34,6 +34,108 @@ def services_details_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- Services - Services Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Services Details" window GUI objects and functions/signals) -----------------------------------
+def services_details_gui_function():
+
+    # Services Details window GUI objects
+    global builder6101w, window6101w, notebook6101w
+    global label6101w, label6102w, label6103w, label6104w, label6105w, label6106w, label6107w, label6108w, label6109w, label6110w
+    global label6111w, label6112w, label6113w, label6114w, label6115w, label6116w, label6117w, label6118w, label6119w, label6120w
+    global label6121w, label6122w
+
+
+    # Services Details window GUI objects - get
+    builder6101w = Gtk.Builder()
+    builder6101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesDetailsWindow.ui")
+
+    window6101w = builder6101w.get_object('window6101w')
+
+    notebook6101w = builder6101w.get_object('notebook6101w')
+
+    # Service Details window "General" tab GUI objects
+    label6101w = builder6101w.get_object('label6101w')
+    label6102w = builder6101w.get_object('label6102w')
+    label6103w = builder6101w.get_object('label6103w')
+    label6104w = builder6101w.get_object('label6104w')
+    label6105w = builder6101w.get_object('label6105w')
+    label6106w = builder6101w.get_object('label6106w')
+    label6107w = builder6101w.get_object('label6107w')
+    label6108w = builder6101w.get_object('label6108w')
+    label6109w = builder6101w.get_object('label6109w')
+    label6110w = builder6101w.get_object('label6110w')
+    label6111w = builder6101w.get_object('label6111w')
+    label6112w = builder6101w.get_object('label6112w')
+    label6113w = builder6101w.get_object('label6113w')
+    label6114w = builder6101w.get_object('label6114w')
+    label6115w = builder6101w.get_object('label6115w')
+    label6116w = builder6101w.get_object('label6116w')
+    label6117w = builder6101w.get_object('label6117w')
+    label6118w = builder6101w.get_object('label6118w')
+
+    # Service Details window "Dependencies" tab GUI objects
+    label6119w = builder6101w.get_object('label6119w')
+    label6120w = builder6101w.get_object('label6120w')
+    label6121w = builder6101w.get_object('label6121w')
+    label6122w = builder6101w.get_object('label6122w')
+
+
+    # Services Details window GUI functions
+    def on_window6101w_delete_event(widget, event):
+        window6101w.hide()
+        return True
+
+    def on_window6101w_show(widget):
+        services_details_gui_reset_function()                                                 # Call this function in order to reset Services Details window. Data from previous service remains visible (for a short time) until getting and showing new service data if window is closed and opened for an another service. Also last selected tab remains same because window is made hidden when close button is clicked.
+
+
+    # Services Details window GUI functions - connect
+    window6101w.connect("delete-event", on_window6101w_delete_event)
+    window6101w.connect("show", on_window6101w_show)
+
+
+# ----------------------------------- Services - Services Details Window GUI Reset Function (resets Services Details window) -----------------------------------
+def services_details_gui_reset_function():
+
+    notebook6101w.set_current_page(0)                                                          # Set fist page (Summary tab) of the notebook
+    label6101w.set_text("--")
+    label6102w.set_text("--")
+    label6103w.set_text("--")
+    label6104w.set_text("--")
+    label6105w.set_text("--")
+    label6106w.set_text("--")
+    label6107w.set_text("--")
+    label6108w.set_text("--")
+    label6109w.set_text("--")
+    label6110w.set_text("--")
+    label6111w.set_text("--")
+    label6112w.set_text("--")
+    label6113w.set_text("--")
+    label6114w.set_text("--")
+    label6115w.set_text("--")
+    label6116w.set_text("--")
+    label6117w.set_text("--")
+    label6118w.set_text("--")
+    label6119w.set_text("--")
+    label6120w.set_text("--")
+    label6121w.set_text("--")
+    label6122w.set_text("--")
+
+
+# # ----------------------------------- Services - Services Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
+# def services_details_tab_switch_control_func():
+# 
+#     global previous_page
+#     if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
+#         previous_page = None
+#         current_page = None
+#     current_page = notebook6101w.get_current_page()
+#     if current_page != previous_page and previous_page != None:                               # Check if tab is switched
+#         ServicesDetails.service_details_foreground_func()                                     # Update the data on the tab
+#     previous_page = current_page
+#     if window6101w.get_visible() == True:
+#         GLib.timeout_add(200, services_details_tab_switch_control_func)                       # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
 
 
 # ----------------------------------- Services - Services Details Function (the code of this module in order to avoid running them during module import and defines "Services" tab GUI objects and functions/signals) -----------------------------------
@@ -182,34 +284,34 @@ def services_details_foreground_func():
 
 
     # Set label text by using service data
-    ServicesDetailsGUI.label6101w.set_text(selected_service_name)
-    ServicesDetailsGUI.label6102w.set_text(selected_service_description)
-    ServicesDetailsGUI.label6103w.set_text(f'{selected_service_unit_file_state} - {selected_service_unit_file_preset}')
-    ServicesDetailsGUI.label6104w.set_text(selected_service_load_state)
-    ServicesDetailsGUI.label6105w.set_text(selected_service_active_state)
-    ServicesDetailsGUI.label6106w.set_text(selected_service_sub_state)
-    ServicesDetailsGUI.label6107w.set_text(selected_service_fragment_path)
-    ServicesDetailsGUI.label6108w.set_text(',\n'.join(selected_service_documentation))
-    ServicesDetailsGUI.label6109w.set_text(selected_service_triggered_by)
-    ServicesDetailsGUI.label6110w.set_text(selected_service_main_pid)
-    ServicesDetailsGUI.label6111w.set_text(f'{selected_service_can_start} - {selected_service_can_stop}')
-    ServicesDetailsGUI.label6112w.set_text(selected_service_can_reload)
-    ServicesDetailsGUI.label6113w.set_text(selected_service_exec_main_pid)
-    ServicesDetailsGUI.label6114w.set_text(selected_service_exec_main_start_times_stamp_monotonic)
-    ServicesDetailsGUI.label6115w.set_text(selected_service_exec_main_exit_times_stamp_monotonic)
-    ServicesDetailsGUI.label6116w.set_text(selected_service_control_pid)
-    ServicesDetailsGUI.label6117w.set_text(selected_service_type)
-    ServicesDetailsGUI.label6118w.set_text(selected_service_memory_current)
-    ServicesDetailsGUI.label6119w.set_text(',\n'.join(selected_service_requires))
-    ServicesDetailsGUI.label6120w.set_text(',\n'.join(selected_service_conflicts))
-    ServicesDetailsGUI.label6121w.set_text(',\n'.join(selected_service_after))
-    ServicesDetailsGUI.label6122w.set_text(',\n'.join(selected_service_before))
+    label6101w.set_text(selected_service_name)
+    label6102w.set_text(selected_service_description)
+    label6103w.set_text(f'{selected_service_unit_file_state} - {selected_service_unit_file_preset}')
+    label6104w.set_text(selected_service_load_state)
+    label6105w.set_text(selected_service_active_state)
+    label6106w.set_text(selected_service_sub_state)
+    label6107w.set_text(selected_service_fragment_path)
+    label6108w.set_text(',\n'.join(selected_service_documentation))
+    label6109w.set_text(selected_service_triggered_by)
+    label6110w.set_text(selected_service_main_pid)
+    label6111w.set_text(f'{selected_service_can_start} - {selected_service_can_stop}')
+    label6112w.set_text(selected_service_can_reload)
+    label6113w.set_text(selected_service_exec_main_pid)
+    label6114w.set_text(selected_service_exec_main_start_times_stamp_monotonic)
+    label6115w.set_text(selected_service_exec_main_exit_times_stamp_monotonic)
+    label6116w.set_text(selected_service_control_pid)
+    label6117w.set_text(selected_service_type)
+    label6118w.set_text(selected_service_memory_current)
+    label6119w.set_text(',\n'.join(selected_service_requires))
+    label6120w.set_text(',\n'.join(selected_service_conflicts))
+    label6121w.set_text(',\n'.join(selected_service_after))
+    label6122w.set_text(',\n'.join(selected_service_before))
 
 
 # ----------------------------------- Services - Services Details Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def services_details_loop_func():
 
-    if ServicesDetailsGUI.window6101w.get_visible() is True:
+    if window6101w.get_visible() is True:
         GLib.idle_add(services_details_foreground_func)
         global update_interval
         update_interval = Config.update_interval

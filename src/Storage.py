@@ -185,13 +185,12 @@ def storage_open_storage_details_window_func(event):
             global selected_storage_kernel_name
             selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
             # Open Storage Details window
-            if 'StorageDetailsGUI' not in globals():                                          # Check if "StorageDetailsGUI" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "StorageDetailsGUI" name is in globals().
-                global StorageDetailsGUI, StorageDetails
-                import StorageDetailsGUI, StorageDetails
-                StorageDetailsGUI.storage_details_gui_import_function()
-                StorageDetailsGUI.storage_details_gui_function()
+            if 'StorageDetails' not in globals():                                             # Check if "StorageDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "StorageDetails" name is in globals().
+                global StorageDetails
+                import StorageDetails
                 StorageDetails.storage_details_import_func()
-            StorageDetailsGUI.window4101w.show()
+                StorageDetails.storage_details_gui_function()
+            StorageDetails.window4101w.show()
             StorageDetails.storage_details_foreground_thread_run_func()
 
 

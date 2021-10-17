@@ -207,13 +207,12 @@ def processes_open_process_details_window_func(event):
         except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
             return
         # Open Process Details window
-        if 'ProcessesDetailsGUI' not in globals():                                            # Check if "ProcessesDetailsGUI" module is imported. Therefore it is not reimported for every double click on any process on the treeview if "ProcessesDetailsGUI" name is in globals().
-            global ProcessesDetailsGUI, ProcessesDetails
-            import ProcessesDetailsGUI, ProcessesDetails
-            ProcessesDetailsGUI.processes_details_gui_import_function()
-            ProcessesDetailsGUI.processes_details_gui_function()
+        if 'ProcessesDetails' not in globals():                                               # Check if "ProcessesDetails" module is imported. Therefore it is not reimported for every double click on any process on the treeview if "ProcessesDetails" name is in globals().
+            global ProcessesDetails
+            import ProcessesDetails
             ProcessesDetails.processes_details_import_func()
-        ProcessesDetailsGUI.window2101w.show()
+            ProcessesDetails.processes_details_gui_function()
+        ProcessesDetails.window2101w.show()
         ProcessesDetails.process_details_foreground_thread_run_func()
 
 

@@ -14,8 +14,8 @@ def storage_details_import_func():
     from datetime import datetime
 
 
-    global Config, Storage, StorageDetailsGUI, MainGUI
-    import Config, Storage, StorageDetailsGUI, MainGUI
+    global Config, Storage, MainGUI
+    import Config, Storage, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -33,6 +33,107 @@ def storage_details_import_func():
     locale.bindtextdomain(application_name, translation_files_path)
     locale.textdomain(application_name)
     locale.setlocale(locale.LC_ALL, system_current_language)
+
+
+# ----------------------------------- Storage - Storage Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Storage Details" window GUI objects and functions/signals) -----------------------------------
+def storage_details_gui_function():
+
+    # Storage Details window GUI objects
+    global builder4101w, window4101w
+    global label4101w, label4102w, label4103w, label4104w, label4105w, label4106w, label4107w, label4108w, label4109w, label4110w
+    global label4111w, label4112w, label4113w, label4114w, label4115w, label4116w, label4117w, label4118w, label4119w, label4120w
+    global label4121w, label4122w, label4123w, label4124w
+
+
+    # Storage Details window GUI objects - get
+    builder4101w = Gtk.Builder()
+    builder4101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageDetailsWindow.ui")
+
+    window4101w = builder4101w.get_object('window4101w')
+
+
+    # Storage Details window GUI objects
+    label4101w = builder4101w.get_object('label4101w')
+    label4102w = builder4101w.get_object('label4102w')
+    label4103w = builder4101w.get_object('label4103w')
+    label4104w = builder4101w.get_object('label4104w')
+    label4105w = builder4101w.get_object('label4105w')
+    label4106w = builder4101w.get_object('label4106w')
+    label4107w = builder4101w.get_object('label4107w')
+    label4108w = builder4101w.get_object('label4108w')
+    label4109w = builder4101w.get_object('label4109w')
+    label4110w = builder4101w.get_object('label4110w')
+    label4111w = builder4101w.get_object('label4111w')
+    label4112w = builder4101w.get_object('label4112w')
+    label4113w = builder4101w.get_object('label4113w')
+    label4114w = builder4101w.get_object('label4114w')
+    label4115w = builder4101w.get_object('label4115w')
+    label4116w = builder4101w.get_object('label4116w')
+    label4117w = builder4101w.get_object('label4117w')
+    label4118w = builder4101w.get_object('label4118w')
+    label4119w = builder4101w.get_object('label4119w')
+    label4120w = builder4101w.get_object('label4120w')
+    label4121w = builder4101w.get_object('label4121w')
+    label4122w = builder4101w.get_object('label4122w')
+    label4123w = builder4101w.get_object('label4123w')
+    label4124w = builder4101w.get_object('label4124w')
+
+
+    # Storage Details window GUI functions
+    def on_window4101w_delete_event(widget, event):
+        window4101w.hide()
+        return True
+
+    def on_window4101w_show(widget):
+        storage_details_gui_reset_function()    # Call this function in order to reset Storage Details window. Data from previous storage/disk remains visible (for a short time) until getting and showing new storage/disk data if window is closed and opened for an another storage/disk because window is made hidden when close button is clicked.
+
+
+    # Storage Details window GUI functions - connect
+    window4101w.connect("delete-event", on_window4101w_delete_event)
+    window4101w.connect("show", on_window4101w_show)
+
+
+# ----------------------------------- Storage - Storage Details Window GUI Reset Function (resets Storage Details window) -----------------------------------
+def storage_details_gui_reset_function():
+    label4101w.set_text("--")
+    label4102w.set_text("--")
+    label4103w.set_text("--")
+    label4104w.set_text("--")
+    label4105w.set_text("--")
+    label4106w.set_text("--")
+    label4107w.set_text("--")
+    label4108w.set_text("--")
+    label4109w.set_text("--")
+    label4110w.set_text("--")
+    label4111w.set_text("--")
+    label4112w.set_text("--")
+    label4113w.set_text("--")
+    label4114w.set_text("--")
+    label4115w.set_text("--")
+    label4116w.set_text("--")
+    label4117w.set_text("--")
+    label4118w.set_text("--")
+    label4119w.set_text("--")
+    label4120w.set_text("--")
+    label4121w.set_text("--")
+    label4122w.set_text("--")
+    label4123w.set_text("--")
+    label4124w.set_text("--")
+
+
+# # ----------------------------------- Storage - Storage Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
+# def storage_details_tab_switch_control_func():
+# 
+#     global previous_page
+#     if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
+#         previous_page = None
+#         current_page = None
+#     current_page = notebook4101w.get_current_page()
+#     if current_page != previous_page and previous_page != None:                               # Check if tab is switched
+#         StorageDetails.storage_details_foreground_func()                                      # Update the data on the tab
+#     previous_page = current_page
+#     if window4101w.get_visible() == True:
+#         GLib.timeout_add(200, storage_details_tab_switch_control_func)                        # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
 
 
 # ----------------------------------- Storage - Storage Details Function (the code of this module in order to avoid running them during module import and defines "Storage" tab GUI objects and functions/signals) -----------------------------------
@@ -87,7 +188,7 @@ def storage_details_foreground_func():
         with open("/sys/class/block/" + disk + "/uevent") as reader:
             sys_class_block_disk_uevent_lines = reader.read().split("\n")
     except FileNotFoundError:
-        StorageDetailsGUI.window4101w.hide()
+        window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
     # Get disk symbol
@@ -110,8 +211,8 @@ def storage_details_foreground_func():
     disk_physical_type = disk_symbol                                                          # Get disk type
 
     # Set Storage Details window title and window icon image
-    StorageDetailsGUI.window4101w.set_title(_tr("Storage Details: ") + disk)                  # Set window title
-    StorageDetailsGUI.window4101w.set_icon_name(disk_symbol)                                  # Set StorageDetails window icon
+    window4101w.set_title(_tr("Storage Details: ") + disk)                  # Set window title
+    window4101w.set_icon_name(disk_symbol)                                  # Set StorageDetails window icon
 
     # Get disk parent name
     disk_parent_name = "-"                                                                    # Initial value of "disk_parent_name" variable. This value will be used if disk has no parent disk or disk parent name could not be detected.
@@ -158,7 +259,7 @@ def storage_details_foreground_func():
         with open("/sys/class/block/" + disk + "/size") as reader:
             disk_total_size = int(reader.read()) * disk_sector_size
     except FileNotFoundError:
-        StorageDetailsGUI.window4101w.hide()
+        window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
     # Get disk free space
@@ -170,7 +271,7 @@ def storage_details_foreground_func():
         else:
             disk_available = -9999                                                            # "-9999" value is used as "disk_available" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
     except:
-        StorageDetailsGUI.window4101w.hide()
+        window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
     # Get disk used space
@@ -184,7 +285,7 @@ def storage_details_foreground_func():
         else:
             disk_used = -9999                                                                 # "-9999" value is used as "disk_used" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
     except:
-        StorageDetailsGUI.window4101w.hide()
+        window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
     # Get disk used space percentage
@@ -201,7 +302,7 @@ def storage_details_foreground_func():
         else:
             disk_usage_percent = -9999                                                        # "-9999" value is used as "disk_usage_percent" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
     except:
-        StorageDetailsGUI.window4101w.hide()
+        window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
     # Get disk vendor and model
@@ -239,7 +340,7 @@ def storage_details_foreground_func():
         if os.path.exists("/dev/" + disk) == True:
             disk_path = "/dev/" + disk
     except FileNotFoundError:
-        StorageDetailsGUI.window4101w.hide()
+        window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
     # Get disk revision
@@ -273,7 +374,7 @@ def storage_details_foreground_func():
             with open("/sys/class/block/" + disk + "/removable") as reader:
                 disk_removable_as_number = reader.read().strip()
         except FileNotFoundError:
-            StorageDetailsGUI.window4101w.hide()
+            window4101w.hide()
             storage_no_such_storage_error_dialog()
             return
         if disk_removable_as_number == "1":
@@ -287,7 +388,7 @@ def storage_details_foreground_func():
             with open("/sys/class/block/" + disk + "/queue/rotational") as reader:
                 disk_rotational_as_number = reader.read().strip()
         except FileNotFoundError:
-            StorageDetailsGUI.window4101w.hide()
+            window4101w.hide()
             storage_no_such_storage_error_dialog()
             return
         if disk_rotational_as_number == "1":
@@ -301,7 +402,7 @@ def storage_details_foreground_func():
             with open("/sys/class/block/" + disk + "/ro") as reader:
                 disk_read_only_as_number = reader.read().strip()
         except FileNotFoundError:
-            StorageDetailsGUI.window4101w.hide()
+            window4101w.hide()
             storage_no_such_storage_error_dialog()
             return
         if disk_read_only_as_number == "1":
@@ -337,41 +438,41 @@ def storage_details_foreground_func():
             break
 
     # Set label text by using storage/disk data
-    StorageDetailsGUI.label4101w.set_text(disk)
-    StorageDetailsGUI.label4102w.set_text(disk_parent_name)
-    StorageDetailsGUI.label4103w.set_text(disk_system_disk)
-    StorageDetailsGUI.label4104w.set_text(disk_type)
-    StorageDetailsGUI.label4105w.set_text(disk_transport_type)
-    StorageDetailsGUI.label4106w.set_text(disk_file_system)
-    StorageDetailsGUI.label4107w.set_text(f'{storage_data_unit_converter_func(disk_total_size, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
+    label4101w.set_text(disk)
+    label4102w.set_text(disk_parent_name)
+    label4103w.set_text(disk_system_disk)
+    label4104w.set_text(disk_type)
+    label4105w.set_text(disk_transport_type)
+    label4106w.set_text(disk_file_system)
+    label4107w.set_text(f'{storage_data_unit_converter_func(disk_total_size, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
     if disk_available == -9999:
-        StorageDetailsGUI.label4108w.set_text(_tr("[Not mounted]"))
-        StorageDetailsGUI.label4109w.set_text(_tr("[Not mounted]"))
-        StorageDetailsGUI.label4110w.set_text(_tr("[Not mounted]"))
+        label4108w.set_text(_tr("[Not mounted]"))
+        label4109w.set_text(_tr("[Not mounted]"))
+        label4110w.set_text(_tr("[Not mounted]"))
     if disk_available != -9999:
-        StorageDetailsGUI.label4108w.set_text(f'{storage_data_unit_converter_func(disk_available, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
-        StorageDetailsGUI.label4109w.set_text(f'{storage_data_unit_converter_func(disk_used, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
-        StorageDetailsGUI.label4110w.set_text(f'{disk_usage_percent:.1f}%')
-    StorageDetailsGUI.label4111w.set_text(disk_vendor_model)
-    StorageDetailsGUI.label4112w.set_text(disk_label)
-    StorageDetailsGUI.label4113w.set_text(disk_partition_label)
-    StorageDetailsGUI.label4114w.set_text(disk_mount_point)
-    StorageDetailsGUI.label4115w.set_text(disk_path)
-    StorageDetailsGUI.label4116w.set_text(disk_revision)
-    StorageDetailsGUI.label4117w.set_text(disk_serial_number)
-    StorageDetailsGUI.label4118w.set_text(disk_mode)
-    StorageDetailsGUI.label4119w.set_text(disk_removable)
-    StorageDetailsGUI.label4120w.set_text(disk_rotational)
-    StorageDetailsGUI.label4121w.set_text(disk_read_only)
-    StorageDetailsGUI.label4122w.set_text(disk_uuid)
-    StorageDetailsGUI.label4123w.set_text(disk_unique_storage_id)
-    StorageDetailsGUI.label4124w.set_text(disk_maj_min_number)
+        label4108w.set_text(f'{storage_data_unit_converter_func(disk_available, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
+        label4109w.set_text(f'{storage_data_unit_converter_func(disk_used, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
+        label4110w.set_text(f'{disk_usage_percent:.1f}%')
+    label4111w.set_text(disk_vendor_model)
+    label4112w.set_text(disk_label)
+    label4113w.set_text(disk_partition_label)
+    label4114w.set_text(disk_mount_point)
+    label4115w.set_text(disk_path)
+    label4116w.set_text(disk_revision)
+    label4117w.set_text(disk_serial_number)
+    label4118w.set_text(disk_mode)
+    label4119w.set_text(disk_removable)
+    label4120w.set_text(disk_rotational)
+    label4121w.set_text(disk_read_only)
+    label4122w.set_text(disk_uuid)
+    label4123w.set_text(disk_unique_storage_id)
+    label4124w.set_text(disk_maj_min_number)
 
 
 # ----------------------------------- Storage - Storage Details Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def storage_details_loop_func():
 
-    if StorageDetailsGUI.window4101w.get_visible() is True:
+    if window4101w.get_visible() is True:
         GLib.idle_add(storage_details_foreground_func)
         GLib.timeout_add(Config.update_interval * 1000, storage_details_loop_func)
 

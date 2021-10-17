@@ -104,13 +104,12 @@ def services_menu_right_click_gui_func():
         clipboard.store()                                                                     # Stores copied text in the clipboard. Therefore text stays in the clipboard after application has quit.
 
     def on_menuitem6109m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'ServicesDetailsGUI' not in globals():                                             # Check if "ServicesDetailsGUI" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ServicesDetailsGUI" name is in globals().
-            global ServicesDetailsGUI, ServicesDetails
-            import ServicesDetailsGUI, ServicesDetails
-            ServicesDetailsGUI.services_details_gui_import_function()
-            ServicesDetailsGUI.services_details_gui_function()
+        if 'ServicesDetails' not in globals():                                                # Check if "ServicesDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ServicesDetails" name is in globals().
+            global ServicesDetails
+            import ServicesDetails
             ServicesDetails.services_details_import_func()
-        ServicesDetailsGUI.window6101w.show()
+            ServicesDetails.services_details_gui_function()
+        ServicesDetails.window6101w.show()
         ServicesDetails.services_details_foreground_thread_run_func()
 
     # ********************** Connect signals to GUI objects for Services tab right click menu **********************

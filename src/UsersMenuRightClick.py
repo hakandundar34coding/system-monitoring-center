@@ -28,13 +28,12 @@ def users_menu_right_click_gui_func():
 
     # ********************** Define object functions for Users tab right click menu **********************
     def on_menuitem3101m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'UsersDetailsGUI' not in globals():                                                # Check if "UsersDetailsGUI" module is imported. Therefore it is not reimported for every click on "Details" menu item on right click menu if "UsersDetailsGUI" name is in globals().
-            global UsersDetails, UsersDetailsGUI
-            import UsersDetails, UsersDetailsGUI
-            UsersDetailsGUI.users_details_gui_import_function()
-            UsersDetailsGUI.users_details_gui_function()
+        if 'UsersDetails' not in globals():                                                   # Check if "UsersDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on right click menu if "UsersDetails" name is in globals().
+            global UsersDetails
+            import UsersDetails
             UsersDetails.users_details_import_func()
-        UsersDetailsGUI.window3101w.show()
+            UsersDetails.users_details_gui_function()
+        UsersDetails.window3101w.show()
         UsersDetails.users_details_foreground_thread_run_func()
 
     # ********************** Connect signals to GUI objects for Users tab right click menu **********************
