@@ -1,3 +1,19 @@
+system-monitoring-center (0.1.21~beta8) unstable; urgency=medium
+
+  * Improvements for error handling and dialogs (Startup tab)
+  * Removed unused dialogs
+  * Minor code comment changes
+  * Added information of number of Python packages (System tab)
+  * fix: dynamic updating of CPU core count and max frequency
+  * Reduced data update latency on tab switch (Process Details window)
+  * fix: search bug for services (Services tab)
+  * Various minor improvements (settings, GUI, etc.)
+  * Several changes for easier maintenance
+  * Fixed Processes tab right click menu bugs
+  * Improvements for performance summary on the headerbar
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 17 Oct 2021 11:16:16 +0300
+
 system-monitoring-center (0.1.21~beta7) unstable; urgency=medium
 
   * Minor updates for function repeating mechanism
