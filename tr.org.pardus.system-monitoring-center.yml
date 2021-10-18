@@ -1,0 +1,66 @@
+app-id: tr.org.pardus.pkexec.system-monitoring-center
+runtime: org.freedesktop.Platform
+runtime-version: '21.08'
+sdk: org.freedesktop.Sdk
+command: system-monitoring-center
+modules:
+
+  - name: cpython
+    sources:
+      - type: archive
+        url: https://www.python.org/ftp/python/3.9.2/Python-3.9.2.tar.xz
+        sha256: 3c2034c54f811448f516668dce09d24008a0716c3a794dd8639b5388cbde247d
+
+  - name: PyOpenGL
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "PyOpenGL>=3.1.5" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/b8/73/31c8177f3d236e9a5424f7267659c70ccea604dab0585bfcd55828397746/PyOpenGL-3.1.5.tar.gz
+        sha256: 4107ba0d0390da5766a08c242cf0cf3404c377ed293c5f6d701e457c57ba3424
+
+  - name: wheel
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "wheel>=0.37.0" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/4e/be/8139f127b4db2f79c8b117c80af56a3078cc4824b5b94250c7f81a70e03b/wheel-0.37.0.tar.gz
+        sha256: e2ef7239991699e3355d54f8e968a21bb940a1dbf34a4d226741e64462516fad
+
+  - name: pycairo
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "pycairo>=1.20.1" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/bc/3f/64e6e066d163fbcf13213f9eeda0fc83376243335ea46a66cefd70d62e8f/pycairo-1.20.1.tar.gz
+        sha256: 1ee72b035b21a475e1ed648e26541b04e5d7e753d75ca79de8c583b25785531b
+
+  - name: PyGObject
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "PyGObject>=3.42.0" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/cc/72/48cfdd7a0caf3c27f392d2657731ac6f7c3c1c0a60bfeba3e1ba9ffa7ba9/PyGObject-3.42.0.tar.gz
+        sha256: b9803991ec0b0b4175e81fee0ad46090fa7af438fe169348a9b18ae53447afcd
+
+  - name: system-monitoring-center
+    buildsystem: simple
+    build-commands:
+      - python3 setup.py install --flatpak
+    sources:
+      - type: git
+        url: https://kod.pardus.org.tr/Hakan/system-monitoring-center.git
+        branch: a768a39fcdf9d8d26c7bafb937ea5b53607dacf3
+    post-install:
+      - install -Dm644 icons/apps/system-monitoring-center.svg /app/share/icons/hicolor/scalable/apps/system-monitoring-center.svg
+      - install -Dm644 integration/tr.org.pardus.system-monitoring-center.desktop /app/share/applications/tr.org.pardus.system-monitoring-center.desktop
+      - install -Dm644 tr.org.pardus.system-monitoring-center.appdata.xml /app/share/metainfo/tr.org.pardus.system-monitoring-center.appdata.xml
+
