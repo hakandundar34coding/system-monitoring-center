@@ -118,6 +118,7 @@ def storage_menu_right_click_gui_func():
         if disk_path != "-":
             if "loop" in disk_name and os.path.isdir("/sys/class/block/" + disk_name + "/loop/") == True:    # "Remove" operation ("delete loop" operation for optical disks) for loop (virtual disk) devices (also if they are not partition).
                 remove_output = (subprocess.check_output(["udisksctl loop-delete -b", disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                storage_disk_action_warning_dialog(remove_output)
                 return
             if "sr" in disk_name:                                                             # "Remove" operation ("eject" operation for optical disk disks) for optical disk drives.
                 remove_output = (subprocess.check_output(["eject", disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
