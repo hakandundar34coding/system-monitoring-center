@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from setuptools import setup, find_packages, os
+import sys
 
 changelog = 'debian/changelog'
 if os.path.exists(changelog):
@@ -20,16 +21,20 @@ def files_in_folder(folder):
         file_paths.append(folder + file)
     return file_paths
 
+PREFIX="/usr"
+if "--prefix" in sys.argv:
+    PREFIX="/app"
+    sys.argv.remove("--flatpak")
 
 data_files = [
-    ("/usr/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
-    ("/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
-    ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
-    ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
-    ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
-    ("/usr/share/icons/hicolor/scalable/apps/", ["icons/apps/system-monitoring-center.svg"]),
-    ("/usr/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
-    ("/usr/bin/", ["integration/system-monitoring-center"])
+    (f"{PREFIX}/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
+    (f"{PREFIX}/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+    (f"{PREFIX}/share/system-monitoring-center/src/", files_in_folder("src/")),
+    (f"{PREFIX}/share/system-monitoring-center/ui/", files_in_folder("ui/")),
+    (f"{PREFIX}/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
+    (f"{PREFIX}/share/icons/hicolor/scalable/apps/", ["icons/apps/system-monitoring-center.svg"]),
+    (f"{PREFIX}/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
+    (f"{PREFIX}/bin/", ["integration/system-monitoring-center"])
 ]
 
 setup(

@@ -55,9 +55,6 @@ def storage_menu_right_click_gui_func():
     menuitem4108m = builder.get_object('menuitem4108m')
 
     # ********************** Define object functions for Storage tab right click menu **********************
-    def on_menu4101m_show(widget):
-        pass
-
     def on_menuitem4101m_activate(widget):                                                    # "Browse" item on the right click menu
         disk_name = Storage.selected_storage_kernel_name
         with open("/proc/mounts") as reader:                                                  # Read "/proc/mounts" file in order to get disk mount point.
@@ -73,21 +70,7 @@ def storage_menu_right_click_gui_func():
             storage_disk_not_mounted_error_dialog()
 
     def on_menuitem4102m_activate(widget):                                                    # "Mount" item on the right click menu
-        disk_name = Storage.selected_storage_kernel_name
-        # Get all disks (disks and partitions) including physical, optical and virtual disks
-        with open("/proc/partitions") as reader:
-            proc_partitions_lines = reader.read().split("\n")[2:-1]                           # Get without first 2 lines (header line and an empty line).
-        disk_list = []
-        for line in proc_partitions_lines:
-            disk_list.append(line.split()[3])
-        # Get disk mount points which will be used for passing mounting operation if disk is already mounted.
-        with open("/proc/mounts") as reader:
-            proc_mounts_lines = reader.read().strip().split("\n")
-        # Get Right clicked disk and its child disks (if it has child disks)
-        disk_and_child_disks_list = [disk_name]
-        for disk in disk_list:
-            if os.path.isdir("/sys/class/block/" + disk_name + "/" + disk) == True:
-                disk_and_child_disks_list.append(disk)
+        storage_disk_child_disk_mount_point_etc_func()
         # Try mounting right clicked disk and its child disks (if it has child disks)
         for disk in disk_and_child_disks_list:
             disk_mount_point = "[Not mounted]"                                                # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
@@ -107,21 +90,7 @@ def storage_menu_right_click_gui_func():
                     pass
 
     def on_menuitem4103m_activate(widget):                                                    # "Unmount" item on the right click menu
-        disk_name = Storage.selected_storage_kernel_name
-        # Get all disks (disks and partitions) including physical, optical and virtual disks
-        with open("/proc/partitions") as reader:
-            proc_partitions_lines = reader.read().split("\n")[2:-1]                           # Get without first 2 lines (header line and an empty line).
-        disk_list = []
-        for line in proc_partitions_lines:
-            disk_list.append(line.split()[3])
-        # Get disk mount points which will be used for passing mounting operation if disk is already unmounted.
-        with open("/proc/mounts") as reader:
-            proc_mounts_lines = reader.read().strip().split("\n")
-        # Get Right clicked disk and its child disks (if it has child disks)
-        disk_and_child_disks_list = [disk_name]
-        for disk in disk_list:
-            if os.path.isdir("/sys/class/block/" + disk_name + "/" + disk) == True:
-                disk_and_child_disks_list.append(disk)
+        storage_disk_child_disk_mount_point_etc_func()
         # Try mounting right clicked disk and its child disks (if it has child disks)
         for disk in disk_and_child_disks_list:
             disk_mount_point = "[Not mounted]"                                                # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
@@ -141,20 +110,21 @@ def storage_menu_right_click_gui_func():
                     pass
 
     def on_menuitem4104m_activate(widget):                                                    # "Remove" item on the right click menu
-        on_menuitem4103m_activate(menuitem4103m)
+        on_menuitem4103m_activate(menuitem4103m)                                              # Unmount device before removing it.
         disk_name = Storage.selected_storage_kernel_name
         disk_path = "-"                                                                       # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
         if os.path.exists("/dev/" + disk_name) == True:
             disk_path = "/dev/" + disk_name
         if disk_path != "-":
-            if "loop" in disk_name:                                                           # "Remove" operation ("delete loop" operation for optical disks) for loop (virtual disk) devices.
-                (subprocess.check_output("udisksctl loop-delete -b " + disk_path, shell=True).strip()).decode()
+            if "loop" in disk_name and os.path.isdir("/sys/class/block/" + disk_name + "/loop/") == True:    # "Remove" operation ("delete loop" operation for optical disks) for loop (virtual disk) devices (also if they are not partition).
+                remove_output = (subprocess.check_output(["udisksctl loop-delete -b", disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
                 return
             if "sr" in disk_name:                                                             # "Remove" operation ("eject" operation for optical disk disks) for optical disk drives.
-                (subprocess.check_output("eject " + disk_name, shell=True).strip()).decode()
+                remove_output = (subprocess.check_output(["eject", disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
                 return
-            if "loop" not in disk_name or "sr" not in disk_name:                              # "Remove" operation ("power off" operation) for non-virtual (loop devices) disks and non-optical disk drives. This operations method is used for USB disks, external HDDs/SSDs, etc.
-                (subprocess.check_output("udisksctl power-off -b " + disk_path, shell=True).strip()).decode()
+            if "loop" not in disk_name and "sr" not in disk_name:                             # "Remove" operation ("power off" operation) for non-virtual (loop devices) disks and non-optical disk drives. This operations method is used for USB disks, external HDDs/SSDs, etc.
+                remove_output = (subprocess.check_output(["udisksctl power-off -b", disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                return
 
     def on_menuitem4106m_activate(widget):                                                    # "Copy Mount Point" item on the right click menu
         disk_name = Storage.selected_storage_kernel_name
@@ -188,7 +158,6 @@ def storage_menu_right_click_gui_func():
         StorageDetails.storage_details_foreground_thread_run_func()
 
     # ********************** Connect signals to GUI objects for Storage tab right click menu **********************
-    menu4101m.connect("show", on_menu4101m_show)
     menuitem4101m.connect("activate", on_menuitem4101m_activate)
     menuitem4102m.connect("activate", on_menuitem4102m_activate)
     menuitem4103m.connect("activate", on_menuitem4103m_activate)
@@ -196,6 +165,29 @@ def storage_menu_right_click_gui_func():
     menuitem4106m.connect("activate", on_menuitem4106m_activate)
     menuitem4107m.connect("activate", on_menuitem4107m_activate)
     menuitem4108m.connect("activate", on_menuitem4108m_activate)
+
+
+# ----------------------------------- Storage - Storage Disk, Child Disk, Mount Point, etc Function (gets several disk information) -----------------------------------
+def storage_disk_child_disk_mount_point_etc_func():
+
+    disk_name = Storage.selected_storage_kernel_name
+    # Get all disks (disks and partitions) including physical, optical and virtual disks
+    with open("/proc/partitions") as reader:
+        proc_partitions_lines = reader.read().split("\n")[2:-1]                               # Get without first 2 lines (header line and an empty line).
+    global disk_list
+    disk_list = []
+    for line in proc_partitions_lines:
+        disk_list.append(line.split()[3])
+    # Get disk mount points which will be used for passing mounting operation if disk is already mounted.
+    global proc_mounts_lines
+    with open("/proc/mounts") as reader:
+        proc_mounts_lines = reader.read().strip().split("\n")
+    # Get Right clicked disk and its child disks (if it has child disks)
+    global disk_and_child_disks_list
+    disk_and_child_disks_list = [disk_name]
+    for disk in disk_list:
+        if os.path.isdir("/sys/class/block/" + disk_name + "/" + disk) == True:
+            disk_and_child_disks_list.append(disk)
 
 
 # ----------------------------------- Storage - Storage Disk Not Mounted Error Dialog Function (shows an error dialog when a disk with no mount point is tried to be browsed) -----------------------------------
@@ -216,3 +208,14 @@ def storage_disk_has_no_mountable_file_system_error_dialog():
     error_dialog4102.format_secondary_text(_tr("The disk you have tried to mount or unmount has no mountable file system.\n\n Note: Some disks such as parent disks, swap disks do not have mountable file systems."))
     error_dialog4102.run()
     error_dialog4102.destroy()
+
+
+# ----------------------------------- Storage - Storage Disk Action Warning Dialog Function (shows a warning dialog when a n output text is obtained during disk actions (mount, unmount, remove, etc.)) -----------------------------------
+def storage_disk_action_warning_dialog(dialog_text):
+
+    warning_dialog4101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Information"), )
+    warning_dialog4101.format_secondary_text(dialog_text)
+    global warning_dialog4101_response
+    warning_dialog4101_response = warning_dialog4101.run()
+    warning_dialog4101.destroy()

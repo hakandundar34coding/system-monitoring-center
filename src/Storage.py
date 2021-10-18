@@ -321,10 +321,10 @@ def storage_loop_func():
                 break
         disk_symbol = storage_image_ssd_hdd                                                   # Initial value of "disk_symbol" variable. This value will be used if disk type could not be detected. The same value is also used for non-USB and non-optical drives.
         if disk_type == _tr("Disk"):
-            if disk not in disk_device_path_disk_list:                                        # This condition is used first in order to vaoid errors because of the "elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:" condition. Because some disks (such as zeam0, zram1, etc.) may not present in "/dev/disk/by-path/" path and in "disk_device_path_disk_list" list.
-                disk_symbol = storage_image_ssd_hdd
-            elif "loop" in disk or "sr" in disk:                                              # Optical symbol is used as disk symbol if disk type is "disk (not partition)" and disk is a virtual disk or physical optical disk.
+            if "loop" in disk or "sr" in disk:                                                # Optical symbol is used as disk symbol if disk type is "disk (not partition)" and disk is a virtual disk or physical optical disk.
                 disk_symbol = storage_image_optical
+            elif disk not in disk_device_path_disk_list:                                      # This condition is used before checking "'-usb-' in disk_device_path_list" in order to avoid errors because of the "elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:" condition. Because some disks (such as zram0, zram1, etc.) may not present in "/dev/disk/by-path/" path and in "disk_device_path_disk_list" list.
+                disk_symbol = storage_image_ssd_hdd
             elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:
                 disk_symbol = storage_image_removable
             else:
