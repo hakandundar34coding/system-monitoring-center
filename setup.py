@@ -26,6 +26,13 @@ if "--flatpak" in sys.argv:
     PREFIX="/app"
     sys.argv.remove("--flatpak")
 
+if PREFIX == "/app":
+    os.rename("integration/tr.org.pardus.system-monitoring-center.desktop", "integration/tr.org.pardus.pkexec.system-monitoring-center." + "system-monitoring-center.desktop")
+    os.rename("icons/apps/system-monitoring-center.svg", "icons/apps/tr.org.pardus.pkexec.system-monitoring-center." + "system-monitoring-center.svg")
+    icon_list = os.listdir("icons/actions/")
+    for icon in icon_list:
+        os.rename("icons/actions/" + icon, "icons/actions/tr.org.pardus.pkexec.system-monitoring-center." + icon)
+
 data_files = [
     (f"{PREFIX}/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
     (f"{PREFIX}/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
@@ -36,13 +43,6 @@ data_files = [
     (f"{PREFIX}/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
     (f"{PREFIX}/bin/", ["integration/system-monitoring-center"])
 ]
-
-if PREFIX == "/app":
-    os.rename("/app/share/applications/" + "tr.org.pardus.system-monitoring-center.desktop", "/app/share/icons/hicolor/scalable/actions/" + "tr.org.pardus.pkexec.system-monitoring-center." + "system-monitoring-center.desktop")
-    os.rename("/app/share/icons/hicolor/scalable/actions/" + "system-monitoring-center.svg", "/app/share/icons/hicolor/scalable/actions/" + "tr.org.pardus.pkexec.system-monitoring-center." + "system-monitoring-center.svg")
-    icon_list = os.listdir("/app/share/icons/hicolor/scalable/actions/")
-    for icon in icon_list:
-        os.rename("/app/share/icons/hicolor/scalable/actions/" + icon, "/app/share/icons/hicolor/scalable/actions/" + "tr.org.pardus.pkexec.system-monitoring-center." + icon)
 
 setup(
     name="System Monitoring Center",
