@@ -24,6 +24,7 @@ def files_in_folder(folder):
 PREFIX="/usr"
 if "--prefix" in sys.argv:
     PREFIX="/app"
+    sys.argv.remove("--flatpak")
 
 data_files = [
     (f"{PREFIX}/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
