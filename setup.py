@@ -22,7 +22,7 @@ def files_in_folder(folder):
     return file_paths
 
 PREFIX="/usr"
-if "--prefix" in sys.argv:
+if "--flatpak" in sys.argv:
     PREFIX="/app"
     sys.argv.remove("--flatpak")
 
