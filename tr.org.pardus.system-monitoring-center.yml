@@ -58,4 +58,4 @@ modules:
     sources:
       - type: git
         url: https://kod.pardus.org.tr/Hakan/system-monitoring-center.git
-        branch: d736ffd5028bbacfdafbe68cee9d332bbad0b063
+        branch: 4bd9fabe533db41f00f4916ce0713ce4985b7d7b

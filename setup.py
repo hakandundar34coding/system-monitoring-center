@@ -27,19 +27,19 @@ if "--flatpak" in sys.argv:
     sys.argv.remove("--flatpak")
 
 if PREFIX == "/app":
-    os.rename("integration/tr.org.pardus.system-monitoring-center.desktop", "integration/tr.org.pardus.pkexec.system-monitoring-center." + "system-monitoring-center.desktop")
-    os.rename("icons/apps/system-monitoring-center.svg", "icons/apps/tr.org.pardus.pkexec.system-monitoring-center." + "system-monitoring-center.svg")
+    os.rename("integration/tr.org.pardus.system-monitoring-center.desktop", "integration/tr.org.pardus.pkexec.system-monitoring-center.desktop")
+    os.rename("icons/apps/system-monitoring-center.svg", "icons/apps/tr.org.pardus.pkexec.system-monitoring-center.svg")
     icon_list = os.listdir("icons/actions/")
     for icon in icon_list:
-        os.rename("icons/actions/" + icon, "icons/actions/tr.org.pardus.pkexec.system-monitoring-center." + icon)
+        os.rename("icons/actions/" + icon, "icons/actions/tr.org.pardus.pkexec.system-monitoring-center." + icon.split("system-monitoring-center-")[-1])
 
 data_files = [
-    (f"{PREFIX}/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
+    (f"{PREFIX}/share/applications/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.desktop"]),
     (f"{PREFIX}/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
     (f"{PREFIX}/share/system-monitoring-center/src/", files_in_folder("src/")),
     (f"{PREFIX}/share/system-monitoring-center/ui/", files_in_folder("ui/")),
     (f"{PREFIX}/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
-    (f"{PREFIX}/share/icons/hicolor/scalable/apps/", ["icons/apps/system-monitoring-center.svg"]),
+    (f"{PREFIX}/share/icons/hicolor/scalable/apps/", ["icons/apps/tr.org.pardus.pkexec.system-monitoring-center.svg"]),
     (f"{PREFIX}/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
     (f"{PREFIX}/bin/", ["integration/system-monitoring-center"])
 ]
