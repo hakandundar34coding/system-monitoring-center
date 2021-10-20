@@ -21,9 +21,9 @@ def files_in_folder(folder):
         file_paths.append(folder + file)
     return file_paths
 
-PREFIX="/usr"
+PREFIX = "/usr"
 if "--flatpak" in sys.argv:
-    PREFIX="/app"
+    PREFIX = "/app"
     sys.argv.remove("--flatpak")
 
 if PREFIX == "/app":
@@ -33,16 +33,34 @@ if PREFIX == "/app":
     for icon in icon_list:
         os.rename("icons/actions/" + icon, "icons/actions/tr.org.pardus.pkexec.system-monitoring-center." + icon.split("system-monitoring-center-")[-1])
 
-data_files = [
-    (f"{PREFIX}/share/applications/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.desktop"]),
-    (f"{PREFIX}/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
-    (f"{PREFIX}/share/system-monitoring-center/src/", files_in_folder("src/")),
-    (f"{PREFIX}/share/system-monitoring-center/ui/", files_in_folder("ui/")),
-    (f"{PREFIX}/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
-    (f"{PREFIX}/share/icons/hicolor/scalable/apps/", ["icons/apps/tr.org.pardus.pkexec.system-monitoring-center.svg"]),
-    (f"{PREFIX}/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
-    (f"{PREFIX}/bin/", ["integration/system-monitoring-center"])
-]
+    with open("integration/tr.org.pardus.pkexec.system-monitoring-center.desktop") as reader:
+        desktop_file_content = reader.read()
+    desktop_file_content = desktop_file_content.replace("Icon=system-monitoring-center", "Icon=tr.org.pardus.pkexec.system-monitoring-center")
+    with open("integration/tr.org.pardus.pkexec.system-monitoring-center.desktop", "w") as writer:
+        writer.write(desktop_file_content)
+
+    data_files = [
+        ("/app/share/applications/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.desktop"]),
+        ("/app/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        ("/app/share/system-monitoring-center/src/", files_in_folder("src/")),
+        ("/app/share/system-monitoring-center/ui/", files_in_folder("ui/")),
+        ("/app/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
+        ("/app/share/icons/hicolor/scalable/apps/", ["icons/apps/tr.org.pardus.pkexec.system-monitoring-center.svg"]),
+        ("/app/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
+        ("/app/bin/", ["integration/system-monitoring-center"])
+    ]
+
+if PREFIX != "/app":
+    data_files = [
+        ("/usr/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
+        ("/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
+        ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
+        ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
+        ("/usr/share/icons/hicolor/scalable/apps/", ["icons/apps/system-monitoring-center.svg"]),
+        ("/usr/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
+        ("/usr/bin/", ["integration/system-monitoring-center"])
+    ]
 
 setup(
     name="System Monitoring Center",

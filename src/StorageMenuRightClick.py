@@ -117,14 +117,22 @@ def storage_menu_right_click_gui_func():
             disk_path = "/dev/" + disk_name
         if disk_path != "-":
             if "loop" in disk_name and os.path.isdir("/sys/class/block/" + disk_name + "/loop/") == True:    # "Remove" operation ("delete loop" operation for optical disks) for loop (virtual disk) devices (also if they are not partition).
-                remove_output = (subprocess.check_output(["udisksctl loop-delete -b", disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
-                storage_disk_action_warning_dialog(remove_output)
+                try:
+                    remove_output = (subprocess.check_output(["udisksctl loop-delete -b " + disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                except subprocess.CalledProcessError as e:
+                    storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())      # Convert bytes to string by using ".decode("utf-8")".
                 return
             if "sr" in disk_name:                                                             # "Remove" operation ("eject" operation for optical disk disks) for optical disk drives.
-                remove_output = (subprocess.check_output(["eject", disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                try:
+                    remove_output = (subprocess.check_output(["eject " + disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                except subprocess.CalledProcessError as e:
+                    storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())
                 return
             if "loop" not in disk_name and "sr" not in disk_name:                             # "Remove" operation ("power off" operation) for non-virtual (loop devices) disks and non-optical disk drives. This operations method is used for USB disks, external HDDs/SSDs, etc.
-                remove_output = (subprocess.check_output(["udisksctl power-off -b", disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                try:
+                    remove_output = (subprocess.check_output(["udisksctl power-off -b " + disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                except subprocess.CalledProcessError as e:
+                    storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())
                 return
 
     def on_menuitem4106m_activate(widget):                                                    # "Copy Mount Point" item on the right click menu
@@ -215,7 +223,7 @@ def storage_disk_has_no_mountable_file_system_error_dialog():
 def storage_disk_action_warning_dialog(dialog_text):
 
     warning_dialog4101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Information"), )
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"), )
     warning_dialog4101.format_secondary_text(dialog_text)
     global warning_dialog4101_response
     warning_dialog4101_response = warning_dialog4101.run()

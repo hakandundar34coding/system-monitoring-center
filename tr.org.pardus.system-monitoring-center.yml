@@ -56,6 +56,5 @@ modules:
     build-commands:
       - python3 setup.py install --flatpak
     sources:
-      - type: git
-        url: https://kod.pardus.org.tr/Hakan/system-monitoring-center.git
-        branch: 4bd9fabe533db41f00f4916ce0713ce4985b7d7b
+      - type: dir
+        path: /home/asush/Masaüstü/files/python/system-monitoring-center/project/
