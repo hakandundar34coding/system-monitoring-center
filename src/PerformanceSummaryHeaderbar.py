@@ -10,11 +10,10 @@ def performance_summary_headerbar_import_func():
     from gi.repository import Gtk, GLib
     from threading import Thread
     import os
-    import platform
 
 
-    global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+    global Config, Performance
+    import Config, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

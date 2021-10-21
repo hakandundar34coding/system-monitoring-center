@@ -205,23 +205,23 @@ def system_initial_func():
     # Get current desktop environment version
     current_desktop_environment_version = _tr("Unknown")                                                                # Set initial value of the "current_desktop_environment_version". This value will be used if it could not be detected.
     if current_desktop_environment == "XFCE":
-        current_desktop_environment_version_lines = (subprocess.check_output("xfce4-panel --version", shell=True).strip()).decode().split("\n")
+        current_desktop_environment_version_lines = (subprocess.check_output(["xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
         for line in current_desktop_environment_version_lines:
             if "xfce4-panel" in line:
                 current_desktop_environment_version = line.split(" ")[1]
     if current_desktop_environment == "GNOME":
-        current_desktop_environment_version_lines = (subprocess.check_output("gnome-shell --version", shell=True).strip()).decode().split("\n")
+        current_desktop_environment_version_lines = (subprocess.check_output(["gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
         for line in current_desktop_environment_version_lines:
             if "GNOME Shell" in line:
                 current_desktop_environment_version = line.split(" ")[2]
     if current_desktop_environment == "X-Cinnamon" or current_desktop_environment == "CINNAMON":
-        current_desktop_environment_version = (subprocess.check_output("cinnamon --version", shell=True).strip()).decode().split(" ")[-1]
+        current_desktop_environment_version = (subprocess.check_output(["cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
     if current_desktop_environment == "MATE":
-        current_desktop_environment_version = (subprocess.check_output("mate-about --version", shell=True).strip()).decode().split(" ")[-1]
+        current_desktop_environment_version = (subprocess.check_output(["mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
     if current_desktop_environment == "KDE":
-        current_desktop_environment_version = (subprocess.check_output("plasmashell --version", shell=True).strip()).decode()
+        current_desktop_environment_version = (subprocess.check_output(["plasmashell", "--version"], shell=False)).decode().strip()
     if current_desktop_environment == "LXQt":
-        current_desktop_environment_version_lines = (subprocess.check_output("lxqt-about --version", shell=True).strip()).decode()
+        current_desktop_environment_version_lines = (subprocess.check_output(["lxqt-about", "--version"], shell=False)).decode().strip()
         for line in current_desktop_environment_version_lines:
             if "liblxqt" in line:
                 current_desktop_environment_version = line.split()[1].strip()
@@ -286,31 +286,31 @@ def system_initial_func():
     pacman_packages_available = "-"
     flatpak_packages_available = "-"
     try:
-        apt_packages_available = (subprocess.check_output("dpkg --list", shell=True)).decode().strip().count("\nii  ")
+        apt_packages_available = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
         if apt_packages_available > 0:
             apt_packages_available = "yes"
-    except subprocess.CalledProcessError:
+    except FileNotFoundError:                                                                 # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
         apt_packages_available = "no"
     try:
-        rpm_packages_available = (subprocess.check_output("rpm -qa", shell=True)).decode().strip().split("\n")
+        rpm_packages_available = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
         rpm_packages_available = len(rpm_packages_available) - rpm_packages_available.count("")    # Differentiate empty line count
         if rpm_packages_available > 0:
             rpm_packages_available = "yes"
-    except subprocess.CalledProcessError:
+    except FileNotFoundError:
         rpm_packages_available = "no"
     try:
-        pacman_packages_available = (subprocess.check_output("pacman -Qq", shell=True)).decode().strip().split("\n")
+        pacman_packages_available = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
         pacman_packages_available = len(pacman_packages_available) - pacman_packages_available.count("")    # Differentiate empty line count
         if pacman_packages_available > 0:
             pacman_packages_available = "yes"
-    except subprocess.CalledProcessError:
+    except FileNotFoundError:
         pacman_packages_available = "no"
     try:
-        flatpak_packages_available = (subprocess.check_output("flatpak list", shell=True)).decode().strip().split("\n")
+        flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
         flatpak_packages_available = len(flatpak_packages_available) - flatpak_packages_available.count("")    # Differentiate empty line count
         if flatpak_packages_available > 0:
             flatpak_packages_available = "yes"
-    except subprocess.CalledProcessError:
+    except FileNotFoundError:
         flatpak_packages_available = "no"
 
 
@@ -380,18 +380,18 @@ def system_loop_func():
     number_of_installed_apt_or_rpm_or_pacman_packages = "-"
     # Get number of installed APT packages
     if apt_packages_available == "yes":
-        number_of_installed_apt_packages = (subprocess.check_output("dpkg --list", shell=True)).decode().strip().count("\nii  ")
+        number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
         number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_apt_packages} (APT)'
 
     # Get number of installed RPM packages
     if rpm_packages_available == "yes":
-        number_of_installed_rpm_packages = (subprocess.check_output("rpm -qa", shell=True)).decode().strip().split("\n")
+        number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
         number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")    # Differentiate empty line count
         number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
 
     # Get number of installed pacman packages
     if pacman_packages_available == "yes":
-        number_of_installed_pacman_packages = (subprocess.check_output("pacman -Qq", shell=True)).decode().strip().split("\n")
+        number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
         number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")    # Differentiate empty line count
         number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
 
@@ -402,9 +402,9 @@ def system_loop_func():
     number_of_installed_flatpak_packages = "-"                                                # Initial value of "number_of_installed_flatpak_packages" variable. This value will be used if "number_of_installed_flatpak_packages" could not be detected.
     if flatpak_packages_available == "yes":
         try:
-            number_of_installed_flatpak_packages = (subprocess.check_output("flatpak list", shell=True)).decode().strip().split("\n")
+            number_of_installed_flatpak_packages = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
             number_of_installed_flatpak_packages = len(number_of_installed_flatpak_packages) - number_of_installed_flatpak_packages.count("")    # Differentiate empty line count
-        except subprocess.CalledProcessError:
+        except FileNotFoundError:                                                             # "try-except" is used in order to prevent errors if Flatpak is uninstalled during run-time of this application.
             number_of_installed_flatpak_packages = "-"
 
     # Get if current user has root privileges

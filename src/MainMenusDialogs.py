@@ -3,44 +3,39 @@
 # ----------------------------------- MainMenusGUI - Main Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def main_menus_gui_import_func():
 
-    global Gtk, os, signal, Thread
+    global Gtk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk
     import os
-    import signal
-    from threading import Thread
 
 
-    global Config, MainGUI
-    import Config, MainGUI
+    global Config
+    import Config
 
 
 # ----------------------------------- MainMenusGUI - Main Menus GUI Function (the code of this module in order to avoid running them during module import and defines GUI functions/signals) -----------------------------------
 def main_menus_gui_func():
 
-    global builder1001
+    global builder
     global menu1001m
 
     global aboutdialog1001d
 
 
-    builder1001 = Gtk.Builder()
-    builder1001.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.ui")
+    builder = Gtk.Builder()
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.ui")
 
-    menu1001m = builder1001.get_object('menu1001m')
-    menuitem1002m = builder1001.get_object('menuitem1002m')
-    menuitem1003m = builder1001.get_object('menuitem1003m')
-    menuitem1004m = builder1001.get_object('menuitem1004m')
-    menuitem1005m = builder1001.get_object('menuitem1005m')
-    menuitem1006m = builder1001.get_object('menuitem1006m')
-    checkmenuitem1001m = builder1001.get_object('checkmenuitem1001m')
+    menu1001m = builder.get_object('menu1001m')
+    menuitem1002m = builder.get_object('menuitem1002m')
+    menuitem1003m = builder.get_object('menuitem1003m')
+    menuitem1004m = builder.get_object('menuitem1004m')
+    menuitem1005m = builder.get_object('menuitem1005m')
+    menuitem1006m = builder.get_object('menuitem1006m')
+    checkmenuitem1001m = builder.get_object('checkmenuitem1001m')
 
-
-    builder1001d = Gtk.Builder()
-    builder1001d.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.ui")
-    aboutdialog1001d = builder1001d.get_object('aboutdialog1001d')
+    aboutdialog1001d = builder.get_object('aboutdialog1001d')
 
 
     def on_menu1001m_show(widget):
@@ -52,6 +47,9 @@ def main_menus_gui_func():
         checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
 
     def on_menuitem1002m_activate(widget):                                                    # "Open Terminal" menu item
+        if 'Thread' not in globals():
+            global Thread
+            from threading import Thread
         open_terminal_thread = Thread(target=main_menus_gui_open_terminal_func, daemon=True).start()    # Terminal is run in another thread in order not to wait end of the run which occurs in single threaded code execution.
 
     def on_checkmenuitem1001m_toggled(widget):                                                # "Floating Summary" menu item
@@ -70,6 +68,12 @@ def main_menus_gui_func():
         Config.config_save_func()
 
     def on_menuitem1003m_activate(widget):                                                    # "Restart as Root" menu item
+        if 'signal' not in globals():
+            global signal
+            import signal
+        if 'Thread' not in globals():
+            global Thread
+            from threading import Thread
         def restart_as_root():                                                                # Running action is performed in a separate thread for letting rest of the function code to be run without waiting closing the new opened application.
            os.system("pkexec system-monitoring-center")                                       # For running application as root by using polkit authentication window 
         restart_as_root_thread = Thread(target=restart_as_root, daemon=True).start()          # Define a thread and run it

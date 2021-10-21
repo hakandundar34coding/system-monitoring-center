@@ -3,13 +3,12 @@
 # ----------------------------------- Processes - Processes Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_menu_customizations_import_func():
 
-    global Gtk, os, subprocess
+    global Gtk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk
     import os
-    import subprocess
 
 
     global Config, Processes

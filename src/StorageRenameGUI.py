@@ -83,18 +83,29 @@ def storage_rename_gui_func():
         if new_label == "":
             new_label = '""'                                                                  # Not string can not be used for deleting labels because of the its applications. "" have to be used in the commandline for deleting labels. '""' value is used for deleting labels of the file systems if no text is get from the entry.
         try:
-            disk_filesystem = (subprocess.check_output("lsblk /dev/" + disk_name + " -no FSTYPE", shell=True).strip()).decode().lower()    # Get disk file system for determining which application will be used for renaming operation. Different applications (commands) are used for renaming disks with different file systems.
-            if disk_filesystem == "ntfs":
-                os.system("pkexec sudo ntfslabel /dev/" + disk_name + " " + new_label)        # "pkexec" is used for running application as root by using polkit authentication window. "pkexec" is used with "sudo" because some applications such as "ntfslabel" do not work without "sudo" is used.
-            if disk_filesystem == "ex2" or disk_filesystem == "ex3" or disk_filesystem == "ex4":
-                os.system("pkexec sudo e2label /dev/" + disk_name + " " + new_label)
-            if disk_filesystem == "mkswap":
-                os.system("pkexec sudo mkswap -L " + new_label + " /dev/" + disk_name)        # For renaming labels of "swap"disks
-            if disk_filesystem == "exfat":
-                os.system("pkexec sudo exfatlabel /dev/" + disk_name + " " + new_label)
-            if disk_filesystem == "fat" or disk_filesystem == "vfat":
-                os.system("pkexec sudo fatlabel /dev/" + disk_name + " " + new_label)
-        except subprocess.CalledProcessError:
+            disk_for_file_system = "/dev/" + disk_name
+            disk_file_system = (subprocess.check_output(["lsblk", disk_for_file_system, "-no", "FSTYPE"], shell=False)).decode().strip().lower()    # Get disk file system for determining which application will be used for renaming operation. Different applications (commands) are used for renaming disks with different file systems.
+            if disk_file_system == "ntfs":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "ntfslabel", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()        # "pkexec" is used for running application as root by using polkit authentication window. "pkexec" is used with "sudo" because some applications such as "ntfslabel" do not work without "sudo" is used.
+            if disk_file_system == "ext2" or disk_file_system == "ext3" or disk_file_system == "ext4":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "e2label", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()
+            if disk_file_system == "btrfs":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "btrfs", "filesystem", "label", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()
+            if disk_file_system == "mkswap":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "mkswap", "-L", new_label, disk_for_file_system], stderr=subprocess.STDOUT, shell=False)).decode()        # For renaming labels of "swap"disks
+            if disk_file_system == "exfat":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "exfatlabel", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()
+            if disk_file_system == "fat" or disk_file_system == "vfat":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "fatlabel", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()
+            if disk_file_system == "xfs":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "xfs_admin", "-L", new_label, disk_for_file_system], stderr=subprocess.STDOUT, shell=False)).decode()
+            if disk_file_system == "reiserfs":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "reiserfstune", "-l", new_label, disk_for_file_system], stderr=subprocess.STDOUT, shell=False)).decode()
+            if disk_file_system == "jfs":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "jfs_tune", "-L", new_label, disk_for_file_system], stderr=subprocess.STDOUT, shell=False)).decode()
+            if action_output != "":
+                storage_rename_action_warning_dialog(action_output)
+        except subprocess.CalledProcessError as e:
             # Get all disks (disks and partitions) including physical, optical and virtual disks for checking if disk is not removed.
             with open("/proc/partitions") as reader:
                 proc_partitions_lines = reader.read().split("\n")[2:-1]                       # Get without first 2 lines (header line and an empty line).
@@ -105,6 +116,8 @@ def storage_rename_gui_func():
                 label4102w2.set_text(_tr("Disk has been removed and file system could not be renamed."))    # Show warning information if disk file system label is tried to be renamed after disk is removed.
                 label4102w2.modify_fg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))          # Change color of warning information text to "red" if disk file system label is tried to be renamed after disk is removed.
                 return                                                                        # For preventing code from closing the window.
+            if e.output.decode("utf-8").strip() != "":
+                storage_rename_action_warning_dialog(e.output.decode("utf-8").strip())        # Convert bytes to string by using ".decode("utf-8")".
         window4101w2.hide()
 
 
@@ -115,3 +128,14 @@ def storage_rename_gui_func():
     entry4101w2.connect("changed", on_entry4101w2_changed)
     button4101w2.connect("clicked", on_button4101w2_clicked)
     button4102w2.connect("clicked", on_button4102w2_clicked)
+
+
+# ----------------------------------- Storage - Storage Rename Action Warning Dialog Function (shows a warning dialog when an output text is obtained during disk renaming actions) -----------------------------------
+def storage_rename_action_warning_dialog(dialog_text):
+
+    warning_dialog4101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"), )
+    warning_dialog4101w2.format_secondary_text(dialog_text)
+    global warning_dialog4101w2_response
+    warning_dialog4101w2_response = warning_dialog4101w2.run()
+    warning_dialog4101w2.destroy()

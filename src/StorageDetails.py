@@ -248,8 +248,8 @@ def storage_details_foreground_func():
             disk_file_system = line_split[2]
     if disk_file_system  == "fuseblk":                                                        # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
         try:
-            disk_file_system_from_lsblk = (subprocess.check_output("lsblk -no FSTYPE /dev/" + disk, shell=True).strip()).decode()
-            disk_file_system = disk_file_system + " (" + disk_file_system_from_lsblk + ")"
+            disk_for_file_system = "/dev/" + disk
+            disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
         except:
             pass
     if disk in swap_disk_list:

@@ -276,12 +276,12 @@ def services_loop_func():
         unit_files_command_parameter_list.append("Description")
     unit_files_command_parameter_list = ",".join(unit_files_command_parameter_list)           # Join strings with "," between them.
     # Construct command for getting service information for all services
-    unit_files_command = "systemctl show --property=" + unit_files_command_parameter_list
+    unit_files_command = ["systemctl", "show", "--property=" + unit_files_command_parameter_list]
     for service in service_list:
-        unit_files_command = unit_files_command + " " + service
+        unit_files_command.append(service)
 
     # Get service data per service file in one attempt in order to obtain lower CPU usage. Because information from all service files will be get by one commandline operation and will be parsed later.
-    systemctl_show_command_lines = subprocess.check_output(unit_files_command, shell=True).decode().strip().split("\n\n")
+    systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
 
     # Get services data (specific information by processing the data get previously)
     for i, service in enumerate(service_list):

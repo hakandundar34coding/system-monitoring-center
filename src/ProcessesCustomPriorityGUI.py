@@ -98,9 +98,12 @@ def processes_custom_priority_gui_func():
         processes_get_process_current_nice_func()
         selected_process_nice = int(adjustment2101w2.get_value())
         try:
-            (subprocess.check_output("renice -n " + str(selected_process_nice) + " -p " + selected_process_pid, shell=True).strip()).decode()
+            (subprocess.check_output(["renice", "-n", str(selected_process_nice), "-p", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
         except subprocess.CalledProcessError:
-            (subprocess.check_output("pkexec renice -n " + str(selected_process_nice) + " -p " + selected_process_pid, shell=True).strip()).decode()
+            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                (subprocess.check_output(["pkexec", "renice", "-n", str(selected_process_nice), "-p", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:
+                processes_nice_error_dialog()
         window2101w2.hide()
 
 

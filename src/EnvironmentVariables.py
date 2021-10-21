@@ -232,9 +232,19 @@ def environment_variables_loop_func():
     variable_list = []
     variable_type_list = []
 
-    # Get environment variabes and shell variables
-    printenv_output_lines = subprocess.check_output("/bin/bash -i -c printenv", shell=True).strip().decode().split("_=")[0].split("\n")    # Variables with name starting with "_" are not get. "-i" is used in order to get variables which are get from "printenv" command typed by human user. Otherwise there are different results.
-    set_output_lines = subprocess.check_output("/bin/bash -i -c set", shell=True).decode().split("_=")[0].split("\n")    # Variables with name starting with "_" are not get. "-i" is used in order to get variables which are get from "printenv" command typed by human user. Otherwise there are different results.
+    # Get environment variables and shell variables
+    printenv_output_lines = (subprocess.check_output(["/bin/bash", "-i", "-c", "printenv"], stderr=subprocess.STDOUT, shell=False)).decode().strip().split("_=")[0].split("\n")    # Variables with name starting with "_" are not get. "-i" is used in order to get variables which are get from "printenv" command typed by human user. Otherwise there are different results.
+    set_output_lines = (subprocess.check_output(["/bin/bash", "-i", "-c", "set"], stderr=subprocess.STDOUT, shell=False)).decode().strip().split("_=")[0].split("\n")    # Variables with name starting with "_" are not get. "-i" is used in order to get variables which are get from "printenv" command typed by human user. Otherwise there are different results.
+
+    # Delete some warning information (two warnings per "subprocess.check_output" code and they may be translated into other languages) which are printed when "-i" argument is used for "/bin/bash". Warning 1: "bash: cannot set terminal process group (number): Inappropriate ioctl for device". Warning 2: "bash: no job control in this shell".
+    if printenv_output_lines[0].startswith("bash: ") == True:
+        del printenv_output_lines[0]
+    if printenv_output_lines[0].startswith("bash: ") == True:
+        del printenv_output_lines[0]
+    if set_output_lines[0].startswith("bash: ") == True:
+        del set_output_lines[0]
+    if set_output_lines[0].startswith("bash: ") == True:
+        del set_output_lines[0]
 
     # Join Environment and Shell Variables in a list (variable_list). Shell variables output (from "set" command) also contains environment variables. These are removed for preventing dublicated variables.
     variable_list = list(printenv_output_lines)

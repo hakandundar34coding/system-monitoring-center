@@ -163,7 +163,7 @@ def services_details_foreground_func():
     services_ram_swap_data_precision = Config.services_ram_swap_data_precision
     services_ram_swap_data_unit = Config.services_ram_swap_data_unit
 
-    systemctl_show_lines = (subprocess.check_output("systemctl show " + selected_service_name, shell=True).strip()).decode().split("\n")
+    systemctl_show_lines = (subprocess.check_output(["systemctl", "show", selected_service_name], shell=False)).decode().strip().split("\n")
 
     selected_service_type = "-"                                                               # Initial value of "selected_service_type" variable. This value will be used if "selected_service_type" could not be detected.
     selected_service_main_pid = "-"

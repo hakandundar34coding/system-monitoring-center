@@ -3,13 +3,14 @@
 # ----------------------------------- Disk - Disk Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def disk_import_func():
 
-    global Gtk, GLib, Thread, os
+    global Gtk, GLib, Thread, os, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
     from threading import Thread
     import os
+    import subprocess
 
 
     global Config, MainGUI, Performance
@@ -222,8 +223,8 @@ def disk_initial_func():
         disk_file_system = _tr("[SWAP]")
     if disk_file_system  == "fuseblk":                                                        # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
         try:
-            disk_file_system_from_lsblk = (subprocess.check_output("lsblk -no FSTYPE /dev/" + disk_list[selected_disk_number], shell=True).strip()).decode()
-            disk_file_system = disk_file_system + " (" + disk_file_system_from_lsblk + ")"
+            disk_for_file_system = "/dev/" + disk_list[selected_disk_number]
+            disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
         except:
             pass
     # Get if_system_disk

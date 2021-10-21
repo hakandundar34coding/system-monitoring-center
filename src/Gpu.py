@@ -184,9 +184,9 @@ def gpu_initial_func():
     gpu_device_model_name = Performance.gpu_device_model_name
     # Get video_memory, if_unified_memory, direct_rendering, mesa_version, opengl_version values of the GPU which is preferred for running this application. "DRI_PRIME application-name" and "DRI_PRIME=1 application-name" could be used for running an application by using internal and external GPUs respectively.
     glxinfo_command_list = ["glxinfo -B", "DRI_PRIME=1 glxinfo -B"]
-    for command in glxinfo_command_list:                                                      # "10" is large enough to try for all GPUs on an average computer.
+    for command in glxinfo_command_list:
         try:
-            glxinfo_output_lines = (subprocess.check_output(command, shell=True).strip()).decode().split("\n")    # This command gives current GPU information. If application is run with "DRI_PRIME=1 application-name" this command gives external GPU information.
+            glxinfo_output_lines = (subprocess.check_output(command, shell=True)).decode().strip().split("\n")    # This command gives current GPU information. If application is run with "DRI_PRIME=1 application-name" this command gives external GPU information.
             for line in glxinfo_output_lines:
                 if line.strip().startswith("Vendor:"):
                     gpu_vendor_in_driver = line.split()[-1].strip("()").split("x")[1].strip()
@@ -252,15 +252,20 @@ def gpu_loop_func():
 
     drawingarea1501.queue_draw()
 
-    current_resolution_and_refresh_rate = (subprocess.check_output("xrandr | grep '*'", shell=True).strip()).decode().split('*')[0].split(' ')
-    current_resolution_and_refresh_rate = [i for i in current_resolution_and_refresh_rate if i != '']
+    # Get current resolution and current refresh rate
+    xrandr_lines = (subprocess.check_output(["xrandr"], shell=False)).decode().strip().split("\n")
+    for line in xrandr_lines:
+        if "*" in line:
+            current_resolution = line.split()[0]
+            current_refresh_rate = line.split()[1].split("*")[0]
+            break
 
 
     # Set and update GPU tab label texts by using information get
     label1503.set_text(f'{fps_count[-1]:.0f}')
     label1504.set_text(f'{frame_latency:.1f} ms')
-    label1505.set_text(f'{current_resolution_and_refresh_rate[1]} Hz')
-    label1506.set_text(f'{current_resolution_and_refresh_rate[0]}')
+    label1505.set_text(f'{current_refresh_rate} Hz')
+    label1506.set_text(f'{current_resolution}')
 
 
 # ----------------------------------- GPU Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

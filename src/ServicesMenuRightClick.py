@@ -12,8 +12,25 @@ def services_menu_right_click_import_func():
     import subprocess
 
 
-    global Services
-    import Services
+    global MainGUI, Services
+    import MainGUI, Services
+
+
+    # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
+    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    import locale
+    from locale import gettext as _tr
+
+    # Define contstants for language translation support
+    global application_name
+    application_name = "system-monitoring-center"
+    translation_files_path = "/usr/share/locale"
+    system_current_language = os.environ.get("LANG")
+
+    # Define functions for language translation support
+    locale.bindtextdomain(application_name, translation_files_path)
+    locale.textdomain(application_name)
+    locale.setlocale(locale.LC_ALL, system_current_language)
 
 
 # ----------------------------------- Services - Services Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Services" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -42,60 +59,63 @@ def services_menu_right_click_gui_func():
     menuitem6109m = builder.get_object('menuitem6109m')
 
     # ********************** Define object functions for Services tab right click menu **********************
-    def on_menu6101m_show(widget):
-        pass
-
     def on_menuitem6101m_activate(widget):                                                    # "Start" item on the right click menu
         service_name = Services.selected_service_name
         try:
-            (subprocess.check_output("systemctl start " + service_name, shell=True).strip()).decode()
-        except subprocess.CalledProcessError:
-            pass
+            (subprocess.check_output(["systemctl", "start", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
+        except subprocess.CalledProcessError as e:
+            services_action_warning_dialog(e.output.decode("utf-8").strip())
+        return
 
     def on_menuitem6102m_activate(widget):                                                    # "Stop" item on the right click menu
         service_name = Services.selected_service_name
         try:
-            (subprocess.check_output("systemctl stop " + service_name, shell=True).strip()).decode()
-        except subprocess.CalledProcessError:
-            pass
+            (subprocess.check_output(["systemctl", "stop", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
+        except subprocess.CalledProcessError as e:
+            services_action_warning_dialog(e.output.decode("utf-8").strip())
+        return
 
     def on_menuitem6103m_activate(widget):                                                    # "Restart" item on the right click menu
         service_name = Services.selected_service_name
         try:
-            (subprocess.check_output("systemctl restart " + service_name, shell=True).strip()).decode()
-        except subprocess.CalledProcessError:
-            pass
+            (subprocess.check_output(["systemctl", "restart", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
+        except subprocess.CalledProcessError as e:
+            services_action_warning_dialog(e.output.decode("utf-8").strip())
+        return
 
     def on_menuitem6104m_activate(widget):                                                    # "Reload" item on the right click menu
         service_name = Services.selected_service_name
         try:
-            (subprocess.check_output("systemctl reload " + service_name, shell=True).strip()).decode()
-        except subprocess.CalledProcessError:
-            pass
+            (subprocess.check_output(["systemctl", "reload", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
+        except subprocess.CalledProcessError as e:
+            services_action_warning_dialog(e.output.decode("utf-8").strip())
+        return
 
     def on_menuitem6105m_activate(widget):                                                    # "Enable" item on the right click menu
         service_name = Services.selected_service_name
         try:
-            (subprocess.check_output("systemctl enable " + service_name, shell=True).strip()).decode()
-        except subprocess.CalledProcessError:
-            pass
+            (subprocess.check_output(["systemctl", "enable", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
+        except subprocess.CalledProcessError as e:
+            services_action_warning_dialog(e.output.decode("utf-8").strip())
+        return
 
     def on_menuitem6106m_activate(widget):                                                    # "Disable" item on the right click menu
         service_name = Services.selected_service_name
         try:
-            (subprocess.check_output("systemctl disable " + service_name, shell=True).strip()).decode()
-        except subprocess.CalledProcessError:
-            pass
+            (subprocess.check_output(["systemctl", "disable", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
+        except subprocess.CalledProcessError as e:
+            services_action_warning_dialog(e.output.decode("utf-8").strip())
+        return
 
     def on_checkmenuitem6107m_toggled(widget):                                                # "Mask" item on the right click menu
         service_name = Services.selected_service_name
         try:
             if checkmenuitem6107m.get_active() == True:
-                (subprocess.check_output("systemctl mask " + service_name, shell=True).strip()).decode()
+                (subprocess.check_output(["systemctl", "mask", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
             if checkmenuitem6107m.get_active() == False:
-                (subprocess.check_output("systemctl unmask " + service_name, shell=True).strip()).decode()
-        except subprocess.CalledProcessError:
-            pass
+                (subprocess.check_output(["systemctl", "unmask", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
+        except subprocess.CalledProcessError as e:
+            services_action_warning_dialog(e.output.decode("utf-8").strip())
 
     def on_menuitem6108m_activate(widget):                                                    # "Copy Name" item on the right click menu
         service_name = Services.selected_service_name
@@ -113,7 +133,6 @@ def services_menu_right_click_gui_func():
         ServicesDetails.services_details_foreground_thread_run_func()
 
     # ********************** Connect signals to GUI objects for Services tab right click menu **********************
-    menu6101m.connect("show", on_menu6101m_show)
     menuitem6101m.connect("activate", on_menuitem6101m_activate)
     menuitem6102m.connect("activate", on_menuitem6102m_activate)
     menuitem6103m.connect("activate", on_menuitem6103m_activate)
@@ -128,9 +147,20 @@ def services_menu_right_click_gui_func():
 def services_set_checkmenuitem_func():
 
     service_name = Services.selected_service_name
-    service_status = subprocess.check_output("systemctl show " + service_name + " --property=UnitFileState", shell=True).decode().strip().split("=")[1]
+    service_status = (subprocess.check_output(["systemctl", "show", service_name, "--property=UnitFileState"], shell=False)).decode().strip().split("=")[1]
     with checkmenuitem6107m.handler_block(checkmenuitem6107m_handler_id):
         if service_status == "masked":
             checkmenuitem6107m.set_active(True)
         if service_status != "masked":
             checkmenuitem6107m.set_active(False)
+
+
+# ----------------------------------- Services - Service Action Warning Dialog Function (shows a warning dialog when an output text is obtained during service actions (start, stop, reload, etc.)) -----------------------------------
+def services_action_warning_dialog(dialog_text):
+
+    warning_dialog6101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"), )
+    warning_dialog6101.format_secondary_text(dialog_text)
+    global warning_dialog6101_response
+    warning_dialog6101_response = warning_dialog6101.run()
+    warning_dialog6101.destroy()

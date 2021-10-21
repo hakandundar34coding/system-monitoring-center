@@ -68,49 +68,67 @@ def processes_menu_right_click_gui_func():
         try:
             os.kill(int(Processes.selected_process_pid), signal.SIGSTOP)
         except PermissionError:
-            os.system("pkexec kill -19 " + Processes.selected_process_pid)
+            try:
+                (subprocess.check_output(["pkexec", "kill", "-19", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
+            except subprocess.CalledProcessError:
+                pass
 
     def on_menuitem2102m_activate(widget):                                                    # "Continue Process" item on the right click menu
         try:
             os.kill(int(Processes.selected_process_pid), signal.SIGCONT)
         except PermissionError:
-            os.system("pkexec kill -18 " + Processes.selected_process_pid)
+            try:
+                (subprocess.check_output(["pkexec", "kill", "-18", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
+            except subprocess.CalledProcessError:
+                pass
 
     def on_menuitem2103m_activate(widget):                                                    # "Terminate Process" item on the right click menu
         selected_process_pid = Processes.selected_process_pid
         selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
         if Config.warn_before_stopping_processes == 1:
-            processes_end_process_warning_dialog(selected_process_name, selected_process_pid)
+            processes_terminate_process_warning_dialog(selected_process_name, selected_process_pid)
             if warning_dialog2101_response == Gtk.ResponseType.YES:
                 try:
                     os.kill(int(selected_process_pid), signal.SIGTERM)
                 except PermissionError:
-                    os.system("pkexec kill -15 " + selected_process_pid)
+                    try:
+                        (subprocess.check_output(["pkexec", "kill", "-15", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
+                    except subprocess.CalledProcessError:
+                        pass
             if warning_dialog2101_response == Gtk.ResponseType.NO:
                 pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
         if Config.warn_before_stopping_processes == 0:
             try:
                 os.kill(selected_process_pid, signal.SIGTERM)
             except PermissionError:
-                os.system("pkexec kill -15 " + selected_process_pid)
+                try:
+                    (subprocess.check_output(["pkexec", "kill", "-15", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
+                except subprocess.CalledProcessError:
+                    pass
 
     def on_menuitem2104m_activate(widget):                                                    # "Kill Process" item on the right click menu
         selected_process_pid = Processes.selected_process_pid
         selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
         if Config.warn_before_stopping_processes == 1:
-            processes_end_process_warning_dialog(selected_process_name, selected_process_pid)
-            if warning_dialog2101_response == Gtk.ResponseType.YES:
+            processes_kill_process_warning_dialog(selected_process_name, selected_process_pid)
+            if warning_dialog2102_response == Gtk.ResponseType.YES:
                 try:
                     os.kill(int(selected_process_pid), signal.SIGKILL)
                 except PermissionError:
-                    os.system("pkexec kill -9 " + selected_process_pid)
-            if warning_dialog2101_response == Gtk.ResponseType.NO:
+                    try:
+                        (subprocess.check_output(["pkexec", "kill", "-9", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
+                    except subprocess.CalledProcessError:
+                        pass
+            if warning_dialog2102_response == Gtk.ResponseType.NO:
                 pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
         if Config.warn_before_stopping_processes == 0:
             try:
                 os.kill(selected_process_pid, signal.SIGKILL)
             except PermissionError:
-                os.system("pkexec kill -9 " + selected_process_pid)
+                try:
+                    (subprocess.check_output(["pkexec", "kill", "-9", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
+                except subprocess.CalledProcessError:
+                    pass
 
     def on_menuitem2106m_activate(widget):                                                    # "Copy Name" item on the right click menu
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
@@ -132,7 +150,7 @@ def processes_menu_right_click_gui_func():
             processes_no_path_error_dialog()
             return
         path_only, file_name_only = os.path.split(os.path.abspath(full_path))
-        os.system('xdg-open "%s"' % path_only)
+        (subprocess.check_output(["xdg-open", path_only], shell=False)).decode()
 
     def on_menuitem2108m_activate(widget):                                                    # "Details" item on the right click menu
         if 'ProcessesDetails' not in globals():                                               # Check if "ProcessesDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetails" name is in globals().
@@ -145,33 +163,48 @@ def processes_menu_right_click_gui_func():
 
     def on_radiomenuitem2101m_activate(widget):                                               # "Very High" item on the right click menu under "Change Priorty (Nice)" item
         try:
-            (subprocess.check_output("renice -n -20 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            (subprocess.check_output(["renice", "-n", "-20", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
         except subprocess.CalledProcessError:
-            (subprocess.check_output("pkexec renice -n -20 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                (subprocess.check_output(["pkexec", "renice", "-n", "-20", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:
+                processes_nice_error_dialog()
 
     def on_radiomenuitem2102m_activate(widget):                                               # "High" item on the right click menu under "Change Priorty (Nice)" item
         try:
-            (subprocess.check_output("renice -n -10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            (subprocess.check_output(["renice", "-n", "-10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
         except subprocess.CalledProcessError:
-            (subprocess.check_output("pkexec renice -n -10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                (subprocess.check_output(["pkexec", "renice", "-n", "-10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:
+                processes_nice_error_dialog()
 
     def on_radiomenuitem2103m_activate(widget):                                               # "Normal" item on the right click menu under "Change Priorty (Nice)" item
         try:
-            (subprocess.check_output("renice -n 0 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            (subprocess.check_output(["renice", "-n", "0", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
         except subprocess.CalledProcessError:
-            (subprocess.check_output("pkexec renice -n 0 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                (subprocess.check_output(["pkexec", "renice", "-n", "0", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:
+                processes_nice_error_dialog()
 
     def on_radiomenuitem2104m_activate(widget):                                               # "Low" item on the right click menu under "Change Priorty (Nice)" item
         try:
-            (subprocess.check_output("renice -n 10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            (subprocess.check_output(["renice", "-n", "10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
         except subprocess.CalledProcessError:
-            (subprocess.check_output("pkexec renice -n 10 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                (subprocess.check_output(["pkexec", "renice", "-n", "10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:
+                processes_nice_error_dialog()
 
     def on_radiomenuitem2105m_activate(widget):                                               # "Very Low" item on the right click menu under "Change Priorty (Nice)" item
         try:
-            (subprocess.check_output("renice -n 19 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            (subprocess.check_output(["renice", "-n", "19", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
         except subprocess.CalledProcessError:
-            (subprocess.check_output("pkexec renice -n 19 -p " + Processes.selected_process_pid, shell=True).strip()).decode()
+            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                (subprocess.check_output(["pkexec", "renice", "-n", "19", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:
+                processes_nice_error_dialog()
 
     def on_normalmenuitem2101m_activate(widget):                                              # "Custom Value..." item on the right click menu under "Change Priorty (Nice)" item
         if 'ProcessesCustomPriorityGUI' not in globals():                                     # Check if "ProcessesCustomPriorityGUI" module is imported. Therefore it is not reimported for every click on "Custom Value" sub-menu item on the rigth click menu if "ProcessesCustomPriorityGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
@@ -234,7 +267,7 @@ def processes_get_process_current_nice_func():
     selected_process_current_nice = int(proc_pid_stat_lines_split[-34])                       # Get process nice value
 
 
-# ----------------------------------- Processes - Processes Nice Error Dialog Function (shows an error dialog when nice is tried to increased (nice number decreased) for a process that owned by the user or nice is tried to increased/decreased for other users/system processes) -----------------------------------
+# ----------------------------------- Processes - Processes Nice Error Dialog Function (shows an error dialog when nice is tried to be increased (nice number decreased) for a process that owned by the user or nice is tried be to increased/decreased for other users/system processes) -----------------------------------
 def processes_nice_error_dialog():
 
     error_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
@@ -244,23 +277,25 @@ def processes_nice_error_dialog():
     error_dialog2101.destroy()
 
 
-# ----------------------------------- Processes - Processes End Process Warning Dialog Function (shows a warning dialog when a process is tried to be end) -----------------------------------
-def processes_end_process_warning_dialog(process_name, process_pid):
+# ----------------------------------- Processes - Processes Terminate Process Warning Dialog Function (shows a warning dialog when a process is tried to be terminated) -----------------------------------
+def processes_terminate_process_warning_dialog(process_name, process_pid):
 
     warning_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("End Process?"), )
-    warning_dialog2101.format_secondary_text(_tr("Do you want to end the following process?\n ") + process_name + " (PID:" + str(process_pid) + ")")
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Terminate Process?"), )
+    warning_dialog2101.format_secondary_text(_tr("Do you want to terminate the following process?") +
+                                             "\n\n    " + process_name + " (" + "PID:" + " " + str(process_pid) + ")")
     global warning_dialog2101_response
     warning_dialog2101_response = warning_dialog2101.run()
     warning_dialog2101.destroy()
 
 
-# ----------------------------------- Processes - Processes End Process Tree Warning Dialog Function (shows a warning dialog when a process tree is tried to be end) -----------------------------------
-def processes_end_process_tree_warning_dialog(process_name, process_pid):
+# ----------------------------------- Processes - Processes Kill Process Warning Dialog Function (shows a warning dialog when a process is tried to be killed) -----------------------------------
+def processes_kill_process_warning_dialog(process_name, process_pid):
 
     warning_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("End Process Tree?"), )
-    warning_dialog2102.format_secondary_text(_tr("Do you want to end the following process and its child processes?\n ") + process_name + " (PID:" + str(process_pid) + ")")
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Kill Process?"), )
+    warning_dialog2102.format_secondary_text(_tr("Do you want to kill the following process?\n ") +
+                                             "\n\n    " + process_name + " (" + "PID:" + " " + str(process_pid) + ")")
     global warning_dialog2102_response
     warning_dialog2102_response = warning_dialog2102.run()
     warning_dialog2102.destroy()

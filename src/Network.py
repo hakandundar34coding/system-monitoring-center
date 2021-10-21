@@ -180,12 +180,18 @@ def network_initial_func():
             pci_ids_file_directory = "/usr/share/hwdata/pci.ids"
         with open(pci_ids_file_directory) as reader:                                          # Find network card device model from "pci.ids" file by using vendor id and device id.
             pci_ids_output = reader.read()
-            if network_card_vendor_id in pci_ids_output:
+            if network_card_vendor_id in pci_ids_output:                                      # "vendor" information may not be present in the pci.ids file.
                 rest_of_the_pci_ids_output = pci_ids_output.split(network_card_vendor_id)[1]
                 network_card_vendor_name = rest_of_the_pci_ids_output.split("\n")[0].strip()
-            if network_card_device_id in rest_of_the_pci_ids_output:
+            else:
+                network_card_vendor_name = _tr("Unknown")
+                network_card_vendor_name = f'[{network_card_vendor_name}]'
+            if network_card_device_id in rest_of_the_pci_ids_output:                          # "device name" information may not be present in the pci.ids file.
                 rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(network_card_device_id)[1]
                 network_card_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n")[0].strip()
+            else:
+                network_card_device_name = _tr("Unknown")
+                network_card_device_name = f'[{network_card_device_name}]'
     network_card_device_model_name = f'{network_card_vendor_name} {network_card_device_name}'
     if network_card_list[selected_network_card_number] == "lo":                               # lo (Loopback Device) is a system device and it is not a physical device. Therefore it could not be found in "pci.ids" file.
         network_card_device_model_name = "Loopback Device"
@@ -200,7 +206,7 @@ def network_initial_func():
     with open("/sys/class/net/" + network_card_list[selected_network_card_number] + "/address") as reader:
         network_card_mac_address = reader.read().strip().upper()
     # Get network_address_ipv4, network_address_ipv6
-    ip_output_lines = (subprocess.check_output("ip a show " + network_card_list[selected_network_card_number], shell=True).strip()).decode().split("\n")
+    ip_output_lines = (subprocess.check_output(["ip", "a", "show", network_card_list[selected_network_card_number]], shell=False)).decode().strip().split("\n")
     for line in ip_output_lines:
         if "inet " in line:
             network_address_ipv4 = line.split()[1].split("/")[0]
@@ -247,7 +253,7 @@ def network_loop_func():
         else:
             network_card_connected = network_info
     # Get network_ssid
-    nmcli_output_lines = (subprocess.check_output("nmcli -get-values DEVICE,CONNECTION device status", shell=True).strip()).decode().split("\n")
+    nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
     for line in nmcli_output_lines:
         line_splitted = line.split(":")
         if network_card_list[selected_network_card_number] == line_splitted[0]:

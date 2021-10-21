@@ -3,13 +3,12 @@
 # ----------------------------------- Startup - Startup New Item Window GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def startup_new_item_import_func():
 
-    global Gtk, Gdk, os, subprocess
+    global Gtk, Gdk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Gdk
     import os
-    import subprocess
 
 
     global MainGUI

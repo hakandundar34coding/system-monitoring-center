@@ -3,15 +3,13 @@
 # ----------------------------------- Performance - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def performance_import_func():
 
-    global Gtk, GLib, Thread, os, platform, time
+    global Gtk, GLib, Thread, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
     from threading import Thread
     import os
-    import platform
-    import time
 
 
     global Config
@@ -138,12 +136,18 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
             pci_ids_file_directory = "/usr/share/hwdata/pci.ids"
         with open(pci_ids_file_directory) as reader:
             pci_ids_output = reader.read()
-            if gpu_vendor_id in pci_ids_output:
+            if gpu_vendor_id in pci_ids_output:                                               # "vendor" information may not be present in the pci.ids file.
                 rest_of_the_pci_ids_output = pci_ids_output.split(gpu_vendor_id)[1]
                 gpu_vendor_name = rest_of_the_pci_ids_output.split("\n")[0].strip()
-            if gpu_device_id in rest_of_the_pci_ids_output:
+            else:
+                gpu_vendor_name = _tr("Unknown")
+                gpu_vendor_name = f'[{gpu_vendor_name}]'
+            if gpu_device_id in rest_of_the_pci_ids_output:                                   # "device name" information may not be present in the pci.ids file.
                 rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(gpu_device_id)[1]
                 gpu_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n")[0].strip()
+            else:
+                gpu_device_name = _tr("Unknown")
+                gpu_device_name = f'[{gpu_device_name}]'
         gpu_device_model_name.append(f'{gpu_vendor_name} {gpu_device_name}')
         gpu_vendor_id_list.append(gpu_vendor_id)                                              # This list will be used for matching with GPU information from "glxinfo" command.
         gpu_device_id_list.append(gpu_device_id)                                              # This list will be used for matching with GPU information from "glxinfo" command.

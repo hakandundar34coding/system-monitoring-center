@@ -85,9 +85,9 @@ def storage_menu_right_click_gui_func():
                 disk_path = "/dev/" + disk
             if disk_path != "-":             
                 try:
-                    (subprocess.check_output("udisksctl mount -b " + disk_path, shell=True).strip()).decode()
-                except subprocess.CalledProcessError:                                         # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
-                    pass
+                    remove_output = (subprocess.check_output(["udisksctl", "mount", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
+                except subprocess.CalledProcessError as e:                                    # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
+                    storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())      # Convert bytes to string by using ".decode("utf-8")".
 
     def on_menuitem4103m_activate(widget):                                                    # "Unmount" item on the right click menu
         storage_disk_child_disk_mount_point_etc_func()
@@ -105,9 +105,9 @@ def storage_menu_right_click_gui_func():
                 disk_path = "/dev/" + disk
             if disk_path != "-":             
                 try:
-                    (subprocess.check_output("udisksctl unmount -b " + disk_path, shell=True).strip()).decode()
-                except subprocess.CalledProcessError:                                         # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
-                    pass
+                    remove_output = (subprocess.check_output(["udisksctl", "unmount", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
+                except subprocess.CalledProcessError as e:                                    # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
+                    storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())      # Convert bytes to string by using ".decode("utf-8")".
 
     def on_menuitem4104m_activate(widget):                                                    # "Remove" item on the right click menu
         on_menuitem4103m_activate(menuitem4103m)                                              # Unmount device before removing it.
@@ -118,19 +118,19 @@ def storage_menu_right_click_gui_func():
         if disk_path != "-":
             if "loop" in disk_name and os.path.isdir("/sys/class/block/" + disk_name + "/loop/") == True:    # "Remove" operation ("delete loop" operation for optical disks) for loop (virtual disk) devices (also if they are not partition).
                 try:
-                    remove_output = (subprocess.check_output(["udisksctl loop-delete -b " + disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                    remove_output = (subprocess.check_output(["udisksctl", "loop-delete", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
                 except subprocess.CalledProcessError as e:
                     storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())      # Convert bytes to string by using ".decode("utf-8")".
                 return
             if "sr" in disk_name:                                                             # "Remove" operation ("eject" operation for optical disk disks) for optical disk drives.
                 try:
-                    remove_output = (subprocess.check_output(["eject " + disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                    remove_output = (subprocess.check_output(["eject", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
                 except subprocess.CalledProcessError as e:
                     storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())
                 return
             if "loop" not in disk_name and "sr" not in disk_name:                             # "Remove" operation ("power off" operation) for non-virtual (loop devices) disks and non-optical disk drives. This operations method is used for USB disks, external HDDs/SSDs, etc.
                 try:
-                    remove_output = (subprocess.check_output(["udisksctl power-off -b " + disk_path], stderr=subprocess.STDOUT, shell=True)).decode().strip()
+                    remove_output = (subprocess.check_output(["udisksctl", "power-off", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
                 except subprocess.CalledProcessError as e:
                     storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())
                 return
@@ -219,7 +219,7 @@ def storage_disk_has_no_mountable_file_system_error_dialog():
     error_dialog4102.destroy()
 
 
-# ----------------------------------- Storage - Storage Disk Action Warning Dialog Function (shows a warning dialog when a n output text is obtained during disk actions (mount, unmount, remove, etc.)) -----------------------------------
+# ----------------------------------- Storage - Storage Disk Action Warning Dialog Function (shows a warning dialog when an output text is obtained during disk actions (mount, unmount, remove, etc.)) -----------------------------------
 def storage_disk_action_warning_dialog(dialog_text):
 
     warning_dialog4101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,

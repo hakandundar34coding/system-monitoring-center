@@ -255,7 +255,7 @@ def startup_menu_right_click_gui_func():
         startup_run_startup_item_warning_dialog(selected_startup_application_name, selected_startup_application_exec_value)
         if warning_dialog5101_response == Gtk.ResponseType.YES:
             try:
-                subprocess.Popen(selected_startup_application_exec_value, shell=False)        # Run the command of the startup item. If "Yes" is clicked. "shell=False" is used in order to prevent "shell injection" which may cause security problems.
+                subprocess.Popen([selected_startup_application_exec_value], shell=False)        # Run the command of the startup item. If "Yes" is clicked. "shell=False" is used in order to prevent "shell injection" which may cause security problems.
             except FileNotFoundError:
                 startup_run_now_error_dialog(selected_startup_application_file_name, selected_startup_application_exec_value)
         if warning_dialog5101_response == Gtk.ResponseType.NO:

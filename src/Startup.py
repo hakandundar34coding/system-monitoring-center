@@ -3,13 +3,12 @@
 # ----------------------------------- Startup - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def startup_import_func():
 
-    global Gtk, Gdk, GLib, Thread, subprocess, os
+    global Gtk, Gdk, GLib, Thread, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Gdk, GLib
     from threading import Thread
-    import subprocess
     import os
 
 

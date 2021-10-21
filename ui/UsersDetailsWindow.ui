@@ -8,7 +8,7 @@
     <property name="title" translatable="yes">User Details</property>
     <property name="modal">True</property>
     <property name="default-width">350</property>
-    <property name="default-height">350</property>
+    <property name="default-height">380</property>
     <property name="destroy-with-parent">True</property>
     <property name="icon-name">system-monitoring-center-user-symbolic</property>
     <property name="type-hint">dialog</property>

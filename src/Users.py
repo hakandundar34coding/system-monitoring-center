@@ -322,7 +322,7 @@ def users_loop_func():
             all_process_memory_usages.append(int(proc_pid_stat_lines[-29]) * memory_page_size)    # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
     # Get all users last log in and last failed log in times
     if 9 in users_treeview_columns_shown or 10 in users_treeview_columns_shown:
-        lslogins_command_lines = subprocess.check_output("lslogins --notruncate -e --newline --time-format=full -u -o =USER,LAST-LOGIN,FAILED-LOGIN", shell=True).decode().strip().split("\n")
+        lslogins_command_lines = (subprocess.check_output(["lslogins", "--notruncate", "-e", "--newline", "--time-format=full", "-u", "-o", "=USER,LAST-LOGIN,FAILED-LOGIN"], shell=False)).decode().strip().split("\n")
 
     # Get and append data per user
     for line in etc_passwd_lines:

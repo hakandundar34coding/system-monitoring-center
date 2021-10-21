@@ -60,8 +60,8 @@ def gpu_menus_gui_func():
             Config.config_save_func()
         if dialog_response == Gtk.ResponseType.CANCEL:
             colorchooserdialog1001.hide()
-        Gpu.gpu_initial_func()                                                            # Call this function in order to apply changes
-        Gpu.gpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
+        Gpu.gpu_initial_func()                                                                # Call this function in order to apply changes
+        Gpu.gpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
 
     def on_button1503p_clicked(widget):                                                       # For setting chart background color
         red, blue, green, alpha = Config.chart_background_color_all_charts                    # Get current background color of the chart
@@ -74,26 +74,26 @@ def gpu_menus_gui_func():
             Config.config_save_func()
         if dialog_response == Gtk.ResponseType.CANCEL:
             colorchooserdialog1001.hide()
-        Gpu.gpu_initial_func()                                                            # Call this function in order to apply changes
-        Gpu.gpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
+        Gpu.gpu_initial_func()                                                                # Call this function in order to apply changes
+        Gpu.gpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
 
-    def on_combobox1501p_changed(widget):                                                     # For resetting all GPU tab settings                                             # Option for defining "selected gpu/graphics card" which affects information shown on the GUI
+    def on_combobox1501p_changed(widget):                                                     # Option for defining "selected gpu/graphics card" which affects information shown on the GUI
         Config.selected_gpu = Performance.gpu_list[combobox1501p.get_active()]
         Performance.set_selected_gpu = Config.selected_gpu
         Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Call this function in order to apply changes
-        Gpu.gpu_initial_func()                                                            # Call this function in order to apply changes
-        Gpu.gpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
+        Gpu.gpu_initial_func()                                                                # Call this function in order to apply changes
+        Gpu.gpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
         Config.config_save_func()
 
-    def on_button1504p_clicked(widget):
+    def on_button1504p_clicked(widget):                                                       # For resetting all GPU tab settings
         Config.config_default_performance_gpu_func()
         Config.config_save_func()
         Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Call this function in order to apply changes
         gpu_tab_customization_popover_disconnect_signals_func()
         gpu_tab_popover_set_gui()
         gpu_tab_customization_popover_connect_signals_func()
-        Gpu.gpu_initial_func()                                                            # Call this function in order to apply changes
-        Gpu.gpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
+        Gpu.gpu_initial_func()                                                                # Call this function in order to apply changes
+        Gpu.gpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
 
 
     # ********************** Connect signals to GUI objects for GPU tab **********************
