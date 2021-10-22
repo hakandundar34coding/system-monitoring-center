@@ -1,3 +1,9 @@
+system-monitoring-center (0.1.21~beta9) unstable; urgency=medium
+
+  * Several improvements (performance, security, bug fixes, etc)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 22 Oct 2021 19:17:18 +0300
+
 system-monitoring-center (0.1.21~beta8) unstable; urgency=medium
 
   * Improvements for error handling and dialogs (Startup tab)
