@@ -18,15 +18,18 @@ def main_menus_gui_import_func():
 # ----------------------------------- MainMenusGUI - Main Menus GUI Function (the code of this module in order to avoid running them during module import and defines GUI functions/signals) -----------------------------------
 def main_menus_gui_func():
 
-    global builder
-    global menu1001m
-
-    global aboutdialog1001d
-
-
+    # Define builder and get all objects (Main Menu GUI and About Dialog) from GUI file.
     builder = Gtk.Builder()
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.ui")
 
+
+    # ********************** Define object names for Main Menu GUI and About Dialog **********************
+    global menu1001m
+    global menuitem1002m, menuitem1003m, menuitem1004m, menuitem1005m, menuitem1006m, checkmenuitem1001m
+
+    global aboutdialog1001d
+
+    # ********************** Get objects for Main Menu GUI and About Dialog **********************
     menu1001m = builder.get_object('menu1001m')
     menuitem1002m = builder.get_object('menuitem1002m')
     menuitem1003m = builder.get_object('menuitem1003m')
@@ -38,6 +41,7 @@ def main_menus_gui_func():
     aboutdialog1001d = builder.get_object('aboutdialog1001d')
 
 
+    # ********************** Define object functions for Main Menu GUI **********************
     def on_menu1001m_show(widget):
         checkmenuitem1001m.disconnect_by_func(on_checkmenuitem1001m_toggled)                  # Disconnect "on_checkmenuitem1001m_toggled" function in order to prevent it from sending event signals when toggling is performed by the code for reflecting the user preference about "Floating Window".
         if Config.show_floating_summary == 0:
@@ -47,9 +51,14 @@ def main_menus_gui_func():
         checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
 
     def on_menuitem1002m_activate(widget):                                                    # "Open Terminal" menu item
+        if 'subprocess' not in globals():
+            global subprocess
+            import subprocess
         if 'Thread' not in globals():
             global Thread
             from threading import Thread
+        def main_menus_gui_open_terminal_func():
+            (subprocess.check_output(["x-terminal-emulator", "-e", "/bin/bash"], shell=False)).decode()
         open_terminal_thread = Thread(target=main_menus_gui_open_terminal_func, daemon=True).start()    # Terminal is run in another thread in order not to wait end of the run which occurs in single threaded code execution.
 
     def on_checkmenuitem1001m_toggled(widget):                                                # "Floating Summary" menu item
@@ -75,7 +84,7 @@ def main_menus_gui_func():
             global Thread
             from threading import Thread
         def restart_as_root():                                                                # Running action is performed in a separate thread for letting rest of the function code to be run without waiting closing the new opened application.
-           os.system("pkexec system-monitoring-center")                                       # For running application as root by using polkit authentication window 
+           os.system("pkexec system-monitoring-center")                                       # For running application as root by using polkit authentication window
         restart_as_root_thread = Thread(target=restart_as_root, daemon=True).start()          # Define a thread and run it
         os.kill(os.getpid(), signal.SIGTERM)                                                  # Get PID of the current application and end it
 
@@ -100,7 +109,7 @@ def main_menus_gui_func():
         Gtk.main_quit()
 
 
-
+    # ********************** Connect signals to GUI objects for Main Menu GUI **********************
     menu1001m.connect("show", on_menu1001m_show)
     menuitem1002m.connect("activate", on_menuitem1002m_activate)
     checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
@@ -108,7 +117,3 @@ def main_menus_gui_func():
     menuitem1004m.connect("activate", on_menuitem1004m_activate)
     menuitem1005m.connect("activate", on_menuitem1005m_activate)
     menuitem1006m.connect("activate", on_menuitem1006m_activate)
-
-
-def main_menus_gui_open_terminal_func():
-    os.system("x-terminal-emulator -e /bin/bash")

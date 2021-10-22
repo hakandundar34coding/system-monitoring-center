@@ -65,7 +65,7 @@ def storage_menu_right_click_gui_func():
             if line_split[0].split("/")[-1] == disk_name:
                 disk_mount_point = bytes(line_split[1], "utf-8").decode("unicode_escape")     # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
         if disk_mount_point != "[Not mounted]":
-            os.system('xdg-open "%s"' % disk_mount_point)
+            (subprocess.check_output(["xdg-open", disk_mount_point], shell=False)).decode()
         if disk_mount_point == "[Not mounted]":
             storage_disk_not_mounted_error_dialog()
 
