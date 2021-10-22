@@ -32,8 +32,6 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 
 
-![System Monitoring Center](screenshots/cpu_tab_dark_system_theme_tr.png)
-
 ![System Monitoring Center](screenshots/cpu_tab_customizations.png)
 
 ![System Monitoring Center](screenshots/cpu_tab_default_system_theme.png)
@@ -63,11 +61,11 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 ![System Monitoring Center](screenshots/system_tab_dark_system_theme.png)
 
 ### Dependencies:
-* Python 3.7 (Programming language)
-* GTK 3.24 (GUI)
+* Python 3 (Programming language)
+* GTK3 (GUI)
 * python3-opengl (for FPS counting)
 
 ### Status:
-<br/>Under development, some features are not coded (very rare) and there may be bugs to be fixed.
+* Under development, some features are not coded (very rare) and there may be bugs to be fixed.
 
-Note: Developed on Pardus 21 XFCE (Debian-like GNU/Linux, Kernel: 5.10.0-8-amd64).
+Note: Developed on Pardus 21 XFCE (Debian-like GNU/Linux, Kernel: 5.10).

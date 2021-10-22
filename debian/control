@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
 Build-Depends: debhelper (>= 10), dh-python, python3-all, python3-setuptools
 Standards-Version: 4.3.0
-Homepage: https://kod.pardus.org.tr/Hakan/system-monitoring-center
+Homepage: https://github.com/hakandundar34coding/system-monitoring-center
 
 Package: system-monitoring-center
 Architecture: amd64

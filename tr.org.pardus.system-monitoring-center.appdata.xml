@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2021 Hakan Dündar -->
 <component>
-  <id type="desktop">tr.org.pardus.system-monitoring-center</id>
-  <launchable type="desktop-id">tr.org.pardus.system-monitoring-center.desktop</launchable>
+  <id type="desktop">tr.org.pardus.pkexec.system-monitoring-center.desktop</id>
+  <launchable type="desktop-id">tr.org.pardus.pkexec.system-monitoring-center.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <name>System Monitoring Center</name>
   <project_license>GPL-3.0</project_license>
   <summary>Provides information about system performance and usage.</summary>
-  <url type="https://kod.pardus.org.tr/Hakan/system-monitoring-center</url>
+  <url type="https://github.com/hakandundar34coding/system-monitoring-center</url>
   <description>
     <p>Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.</p>
     <p>Features:</p>
@@ -17,10 +17,6 @@
       <li> - An always on top and semi-transparent floating summary window for performance monitoring</li>
       <li> - Monitoring and managing processes, storage, startup items, services, environment variables</li>
       <li> - Monitoring users and system information</li>
-      <li>Application search and run with the following features:</li>
-      <li> - Run in terminal</li>
-      <li> - Run as root</li>
-      <li> - Run with external GPU</li>
       <li>Low system resource usage while monitoring</li>
       <li>Language support (more languages will be added if translations are provided by contributors):</li>
       <li> - English, Turkish</li>
@@ -55,7 +51,7 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="0.1.21~beta5" date="2021-10-11"></release>
+    <release version="0.1.21~beta8" date="2021-10-17"></release>
   </releases>
   <content_rating type="oars-1.1"/>
 </component>
