@@ -66,6 +66,4 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 * python3-opengl (for FPS counting)
 
 ### Status:
-* Under development, some features are not coded (very rare) and there may be bugs to be fixed.
-
-Note: Developed on Pardus 21 XFCE (Debian-like GNU/Linux, Kernel: 5.10).
+* Under development, there may be bugs to be fixed.

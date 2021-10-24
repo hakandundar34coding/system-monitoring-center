@@ -12,8 +12,8 @@ def processes_custom_priority_import_func():
     import subprocess
 
 
-    global Processes, MainGUI
-    import Processes, MainGUI
+    global Processes, MainGUI, ProcessesMenuRightClick
+    import Processes, MainGUI, ProcessesMenuRightClick
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -65,7 +65,7 @@ def processes_custom_priority_gui_func():
             with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:         # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
                 proc_pid_stat_lines = reader.read()
         except FileNotFoundError:
-            processes_no_such_process_error_dialog()
+            ProcessesMenuRightClick.processes_no_such_process_error_dialog()
             return
         # Get process name and nice value
         proc_pid_stat_lines_split = proc_pid_stat_lines.split()
@@ -79,7 +79,7 @@ def processes_custom_priority_gui_func():
                     process_cmdline = reader.read()
                 selected_process_name = process_cmdline.split("/")[-1].split("\x00")[0]       # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
             except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-                processes_no_such_process_error_dialog()
+                ProcessesMenuRightClick.processes_no_such_process_error_dialog()
                 return
             if selected_process_name.startswith(process_name_from_stat) == False:
                 selected_process_name = process_cmdline.split(" ")[0].split("\x00")[0].strip()    # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
@@ -96,14 +96,14 @@ def processes_custom_priority_gui_func():
 
     def on_button2102w2_clicked(widget):                                                      # "Apply" button
         processes_get_process_current_nice_func()
-        selected_process_nice = int(adjustment2101w2.get_value())
+        selected_process_nice = str(int(adjustment2101w2.get_value()))
         try:
-            (subprocess.check_output(["renice", "-n", str(selected_process_nice), "-p", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
+            (subprocess.check_output(["renice", "-n", selected_process_nice, "-p", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
         except subprocess.CalledProcessError:
             try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
-                (subprocess.check_output(["pkexec", "renice", "-n", str(selected_process_nice), "-p", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+                (subprocess.check_output(["pkexec", "renice", "-n", selected_process_nice, "-p", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
             except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+                ProcessesMenuRightClick.processes_nice_error_dialog()
         window2101w2.hide()
 
 
@@ -124,23 +124,3 @@ def processes_get_process_current_nice_func():
         return
     global selected_process_current_nice
     selected_process_current_nice = int(proc_pid_stat_lines_split[-34])                       # Get process nice value
-
-
-# ----------------------------------- Processes - Processes No Such Process Error Dialog Function (shows an error dialog and stops showing the "Set Process Custom Priority window" when the process is not alive anymore) -----------------------------------
-def processes_no_such_process_error_dialog():
-
-    error_dialog2101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process Is Not Running Anymore"), )
-    error_dialog2101w2.format_secondary_text(_tr("Following process is not running anymore \nand process custom priority window is closed automatically:\n ") + selected_process_name + _tr(" (PID: ") + selected_process_pid)
-    error_dialog2101w2.run()
-    error_dialog2101w2.destroy()
-
-
-# ----------------------------------- Processes - Processes Nice Error Dialog Function (shows an error dialog when nice is tried to increased (nice number decreased) for a process that owned by the user or nice is tried to increased/decreased for other users/system processes) -----------------------------------
-def processes_nice_error_dialog():
-
-    error_dialog2101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Access Denied"), )
-    error_dialog2101w2.format_secondary_text(_tr("You have to have root privileges in order to:\n  1) Increase nice value of your processes\n  2) Increase/decrease nice value of other processes."))
-    error_dialog2101w2.run()
-    error_dialog2101w2.destroy()

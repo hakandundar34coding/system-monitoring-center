@@ -56,66 +56,61 @@ def storage_menu_right_click_gui_func():
 
     # ********************** Define object functions for Storage tab right click menu **********************
     def on_menuitem4101m_activate(widget):                                                    # "Browse" item on the right click menu
-        disk_name = Storage.selected_storage_kernel_name
-        with open("/proc/mounts") as reader:                                                  # Read "/proc/mounts" file in order to get disk mount point.
-            proc_mounts_lines = reader.read().strip().split("\n")
-        disk_mount_point = "[Not mounted]"                                                    # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
-        for line in proc_mounts_lines:
-            line_split = line.split()
-            if line_split[0].split("/")[-1] == disk_name:
-                disk_mount_point = bytes(line_split[1], "utf-8").decode("unicode_escape")     # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
-        if disk_mount_point != "[Not mounted]":
+        storage_disk_parent_child_disk_mount_point_etc_func()
+        if disk_mount_point != _tr("[Not mounted]"):
             (subprocess.check_output(["xdg-open", disk_mount_point], shell=False)).decode()
-        if disk_mount_point == "[Not mounted]":
+        if disk_mount_point == _tr("[Not mounted]"):
             storage_disk_not_mounted_error_dialog()
 
     def on_menuitem4102m_activate(widget):                                                    # "Mount" item on the right click menu
-        storage_disk_child_disk_mount_point_etc_func()
-        # Try mounting right clicked disk and its child disks (if it has child disks)
-        for disk in disk_and_child_disks_list:
-            disk_mount_point = "[Not mounted]"                                                # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
-            for line in proc_mounts_lines:
-                line_split = line.split()
-                if line_split[0].split("/")[-1] == disk:
-                    disk_mount_point = line_split[1]
-            if disk_mount_point != "[Not mounted]":                                           # Skip to next loop (skip this disk) if disk is already mounted.
-                continue
-            disk_path = "-"                                                                   # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
-            if os.path.exists("/dev/" + disk) == True:
-                disk_path = "/dev/" + disk
-            if disk_path != "-":             
-                try:
-                    remove_output = (subprocess.check_output(["udisksctl", "mount", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
-                except subprocess.CalledProcessError as e:                                    # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
-                    storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())      # Convert bytes to string by using ".decode("utf-8")".
+        storage_disk_parent_child_disk_mount_point_etc_func()
+        global disk_mount_point, disk_path
+        if disk_mount_point != _tr("[Not mounted]"):
+            storage_disk_action_warning_dialog(_tr("Disk is already mounted."))
+            return
+        if disk_mount_point == _tr("[Not mounted]"):
+            try:
+                remove_output = (subprocess.check_output(["udisksctl", "mount", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
+            except subprocess.CalledProcessError as e:                                        # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
+                storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())          # Convert bytes to string by using ".decode("utf-8")".
 
     def on_menuitem4103m_activate(widget):                                                    # "Unmount" item on the right click menu
-        storage_disk_child_disk_mount_point_etc_func()
-        # Try mounting right clicked disk and its child disks (if it has child disks)
-        for disk in disk_and_child_disks_list:
-            disk_mount_point = "[Not mounted]"                                                # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
+        storage_disk_parent_child_disk_mount_point_etc_func()
+        global disk_mount_point, disk_path
+        if disk_mount_point == _tr("[Not mounted]"):
+            storage_disk_action_warning_dialog(_tr("Disk is already unmounted."))
+            return
+        if disk_mount_point != _tr("[Not mounted]"):
+            try:
+                remove_output = (subprocess.check_output(["udisksctl", "unmount", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
+            except subprocess.CalledProcessError as e:                                        # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
+                storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())          # Convert bytes to string by using ".decode("utf-8")".
+
+    def on_menuitem4104m_activate(widget):                                                    # "Remove" item on the right click menu
+        storage_disk_parent_child_disk_mount_point_etc_func()
+        # Unmount child disks of the right clicked disk
+        global disk_name
+        if disk_file_system != "-":
+            child_disk_list.append(disk_name)
+        for disk in child_disk_list:
+            disk_mount_point_local = _tr("[Not mounted]")                                     # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
             for line in proc_mounts_lines:
                 line_split = line.split()
                 if line_split[0].split("/")[-1] == disk:
-                    disk_mount_point = line_split[1]
-            if disk_mount_point == "[Not mounted]":                                           # Skip to next loop (skip this disk) if disk is already unmounted.
-                continue
-            disk_path = "-"                                                                   # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
-            if os.path.exists("/dev/" + disk) == True:
-                disk_path = "/dev/" + disk
-            if disk_path != "-":             
+                    disk_mount_point_local = bytes(line_split[1], "utf-8").decode("unicode_escape")    # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
+                    break
+            if disk_mount_point_local != _tr("[Not mounted]"):                                # Check if disk is mounted.
+                if os.path.exists("/dev/" + disk) == True:
+                    disk_path_local = "/dev/" + disk
+                else:
+                    return
                 try:
-                    remove_output = (subprocess.check_output(["udisksctl", "unmount", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
+                    remove_output = (subprocess.check_output(["udisksctl", "unmount", "-b", disk_path_local], stderr=subprocess.STDOUT, shell=False)).decode().strip()    # Unmount disk
                 except subprocess.CalledProcessError as e:                                    # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
                     storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())      # Convert bytes to string by using ".decode("utf-8")".
-
-    def on_menuitem4104m_activate(widget):                                                    # "Remove" item on the right click menu
-        on_menuitem4103m_activate(menuitem4103m)                                              # Unmount device before removing it.
-        disk_name = Storage.selected_storage_kernel_name
-        disk_path = "-"                                                                       # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
-        if os.path.exists("/dev/" + disk_name) == True:
-            disk_path = "/dev/" + disk_name
-        if disk_path != "-":
+        # Remove the right clicked disk
+        global disk_path
+        if disk_path != "-":                                                                  # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
             if "loop" in disk_name and os.path.isdir("/sys/class/block/" + disk_name + "/loop/") == True:    # "Remove" operation ("delete loop" operation for optical disks) for loop (virtual disk) devices (also if they are not partition).
                 try:
                     remove_output = (subprocess.check_output(["udisksctl", "loop-delete", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
@@ -136,14 +131,8 @@ def storage_menu_right_click_gui_func():
                 return
 
     def on_menuitem4106m_activate(widget):                                                    # "Copy Mount Point" item on the right click menu
-        disk_name = Storage.selected_storage_kernel_name
-        with open("/proc/mounts") as reader:                                                  # Read "/proc/mounts" file in order to get disk mount point.
-            proc_mounts_lines = reader.read().strip().split("\n")
-        disk_mount_point = "[Not mounted]"                                                    # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
-        for line in proc_mounts_lines:
-            line_split = line.split()
-            if line_split[0].split("/")[-1] == disk_name:
-                disk_mount_point = line_split[1].replace("\\040", " ")                        # Replace ""\\040"" whitespace character with " " if it exists.
+        storage_disk_parent_child_disk_mount_point_etc_func()
+        global disk_mount_point
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         clipboard.set_text(disk_mount_point, -1)
         clipboard.store()                                                                     # Stores copied text in the clipboard. Therefore text stays in the clipboard after application has quit.
@@ -177,26 +166,66 @@ def storage_menu_right_click_gui_func():
 
 
 # ----------------------------------- Storage - Storage Disk, Child Disk, Mount Point, etc Function (gets several disk information) -----------------------------------
-def storage_disk_child_disk_mount_point_etc_func():
+def storage_disk_parent_child_disk_mount_point_etc_func():
 
+    global disk_name
     disk_name = Storage.selected_storage_kernel_name
     # Get all disks (disks and partitions) including physical, optical and virtual disks
-    with open("/proc/partitions") as reader:
-        proc_partitions_lines = reader.read().split("\n")[2:-1]                               # Get without first 2 lines (header line and an empty line).
     global disk_list
-    disk_list = []
-    for line in proc_partitions_lines:
-        disk_list.append(line.split()[3])
+    disk_list = Storage.disk_list
     # Get disk mount points which will be used for passing mounting operation if disk is already mounted.
-    global proc_mounts_lines
+    global proc_mounts_lines, disk_mount_point
     with open("/proc/mounts") as reader:
         proc_mounts_lines = reader.read().strip().split("\n")
-    # Get Right clicked disk and its child disks (if it has child disks)
-    global disk_and_child_disks_list
-    disk_and_child_disks_list = [disk_name]
+    disk_mount_point = _tr("[Not mounted]")                                                   # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
+    for line in proc_mounts_lines:
+        line_split = line.split()
+        if line_split[0].split("/")[-1] == disk_name:
+            disk_mount_point = bytes(line_split[1], "utf-8").decode("unicode_escape")         # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
+    # Get disk type to use for getting parent disk name
+    with open("/sys/class/block/" + disk_name + "/uevent") as reader:
+        sys_class_block_disk_uevent_lines = reader.read().split("\n")
+    for line in sys_class_block_disk_uevent_lines:
+        if "DEVTYPE" in line:
+            disk_type = _tr(line.split("=")[1].capitalize())
+            break
+    # Get parent disk name of the right clicked disk
+    global disk_parent_name
+    disk_parent_name = "-"                                                                    # Initial value of "disk_parent_name" variable. This value will be used if disk has no parent disk or disk parent name could not be detected.
+    if disk_type == _tr("Partition"):
+        for disk in disk_list:
+            if os.path.isdir("/sys/class/block/" + disk + "/" + disk_name) == True:
+                disk_parent_name = disk
+    # Get child disks of the right clicked disk
+    global child_disk_list
+    child_disk_list = []
     for disk in disk_list:
         if os.path.isdir("/sys/class/block/" + disk_name + "/" + disk) == True:
-            disk_and_child_disks_list.append(disk)
+            child_disk_list.append(disk)
+    # Get disk path
+    global disk_path
+    disk_path = "-"                                                                           # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
+    if os.path.exists("/dev/" + disk_name) == True:
+        disk_path = "/dev/" + disk_name
+    # Get disk file system
+    global disk_file_system
+    disk_file_system = (subprocess.check_output(["lsblk", disk_path, "-no", "FSTYPE"], shell=False)).decode().split("\n")[0].strip().lower()    # ".split("\n")[0]" is used in order to get correct line if file system of a parent disk is tried to get. Else, it will give parent and child disk filsystems in different lines.
+    if disk_file_system == "":
+        disk_file_system = "-"
+    # Set right click menu items sensitive or insensitive for preventing errorenous user actions. For example, mounting parent disks or removing partitions are prevented.
+    if (disk_file_system != "-" and disk_parent_name != "-" and child_disk_list == []) or (disk_file_system != "-" and disk_parent_name == "-" and child_disk_list == []):    # Checking only "disk_file_system" is not adequate for determining if disk has a mountable filesystem. For example, disk may be a parent loop disk and it is not mountable even if it gives "iso9660 as filesystem.
+        menuitem4101m.set_sensitive(True)
+        menuitem4102m.set_sensitive(True)
+        menuitem4103m.set_sensitive(True)
+    else:
+        menuitem4101m.set_sensitive(False)
+        menuitem4102m.set_sensitive(False)
+        menuitem4103m.set_sensitive(False)
+
+    if disk_parent_name == "-":
+        menuitem4104m.set_sensitive(True)
+    if disk_parent_name != "-":
+        menuitem4104m.set_sensitive(False)
 
 
 # ----------------------------------- Storage - Storage Disk Not Mounted Error Dialog Function (shows an error dialog when a disk with no mount point is tried to be browsed) -----------------------------------
@@ -204,7 +233,10 @@ def storage_disk_not_mounted_error_dialog():
 
     error_dialog4101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Disk Is Not Mounted"), )
-    error_dialog4101.format_secondary_text(_tr("The disk you have tried to browse is not mounted.\n Disk have to be mounted before browsing.\n Note: Some disks such as swap disks do not have mount points."))
+    error_dialog4101.format_secondary_text(_tr("The disk you have tried to browse is not mounted.") +
+                                           "\n" +
+                                           _tr("Disk have to be mounted before browsing.") +
+                                           "\n\n" + _tr("Note: Some disks such as parent disks or swap disks do not have mount points."))
     error_dialog4101.run()
     error_dialog4101.destroy()
 

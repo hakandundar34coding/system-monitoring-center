@@ -99,7 +99,7 @@
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem4107m">
-        <property name="label" translatable="yes">Rename</property>
+        <property name="label" translatable="yes">Rename Label</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="image">menuitem4107mimage</property>

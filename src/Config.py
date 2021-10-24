@@ -223,7 +223,7 @@ def config_default_users_row_sort_column_order_func():
 def config_default_storage_func():
     global storage_disk_usage_data_precision, storage_disk_usage_data_unit
     global storage_treeview_columns_shown, storage_data_row_sorting_column, storage_data_row_sorting_order, storage_data_column_order, storage_data_column_widths
-    storage_disk_usage_data_precision = 2
+    storage_disk_usage_data_precision = 1
     storage_disk_usage_data_unit = 0
     storage_treeview_columns_shown = [0, 2, 5, 6, 9, 10, 11, 13]                              # storage_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
     storage_data_row_sorting_column = 0

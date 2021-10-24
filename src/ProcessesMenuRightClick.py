@@ -162,49 +162,54 @@ def processes_menu_right_click_gui_func():
         ProcessesDetails.process_details_foreground_thread_run_func()
 
     def on_radiomenuitem2101m_activate(widget):                                               # "Very High" item on the right click menu under "Change Priorty (Nice)" item
-        try:
-            (subprocess.check_output(["renice", "-n", "-20", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-        except subprocess.CalledProcessError:
-            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
-                (subprocess.check_output(["pkexec", "renice", "-n", "-20", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+        if radiomenuitem2101m.get_active() == True:
+            try:
+                (subprocess.check_output(["renice", "-n", "-20", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
             except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+                try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                    (subprocess.check_output(["pkexec", "renice", "-n", "-20", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+                except subprocess.CalledProcessError:
+                    processes_nice_error_dialog()
 
     def on_radiomenuitem2102m_activate(widget):                                               # "High" item on the right click menu under "Change Priorty (Nice)" item
-        try:
-            (subprocess.check_output(["renice", "-n", "-10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-        except subprocess.CalledProcessError:
-            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
-                (subprocess.check_output(["pkexec", "renice", "-n", "-10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+        if radiomenuitem2102m.get_active() == True:
+            try:
+                (subprocess.check_output(["renice", "-n", "-10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
             except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+                try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                    (subprocess.check_output(["pkexec", "renice", "-n", "-10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+                except subprocess.CalledProcessError:
+                    processes_nice_error_dialog()
 
     def on_radiomenuitem2103m_activate(widget):                                               # "Normal" item on the right click menu under "Change Priorty (Nice)" item
-        try:
-            (subprocess.check_output(["renice", "-n", "0", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-        except subprocess.CalledProcessError:
-            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
-                (subprocess.check_output(["pkexec", "renice", "-n", "0", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+        if radiomenuitem2103m.get_active() == True:
+            try:
+                (subprocess.check_output(["renice", "-n", "0", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
             except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+                try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                    (subprocess.check_output(["pkexec", "renice", "-n", "0", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+                except subprocess.CalledProcessError:
+                    processes_nice_error_dialog()
 
     def on_radiomenuitem2104m_activate(widget):                                               # "Low" item on the right click menu under "Change Priorty (Nice)" item
-        try:
-            (subprocess.check_output(["renice", "-n", "10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-        except subprocess.CalledProcessError:
-            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
-                (subprocess.check_output(["pkexec", "renice", "-n", "10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+        if radiomenuitem2104m.get_active() == True:
+            try:
+                (subprocess.check_output(["renice", "-n", "10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
             except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+                try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                    (subprocess.check_output(["pkexec", "renice", "-n", "10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+                except subprocess.CalledProcessError:
+                    processes_nice_error_dialog()
 
     def on_radiomenuitem2105m_activate(widget):                                               # "Very Low" item on the right click menu under "Change Priorty (Nice)" item
-        try:
-            (subprocess.check_output(["renice", "-n", "19", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-        except subprocess.CalledProcessError:
-            try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
-                (subprocess.check_output(["pkexec", "renice", "-n", "19", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+        if radiomenuitem2105m.get_active() == True:
+            try:
+                (subprocess.check_output(["renice", "-n", "19", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
             except subprocess.CalledProcessError:
-                processes_nice_error_dialog()
+                try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
+                    (subprocess.check_output(["pkexec", "renice", "-n", "19", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+                except subprocess.CalledProcessError:
+                    processes_nice_error_dialog()
 
     def on_normalmenuitem2101m_activate(widget):                                              # "Custom Value..." item on the right click menu under "Change Priorty (Nice)" item
         if 'ProcessesCustomPriorityGUI' not in globals():                                     # Check if "ProcessesCustomPriorityGUI" module is imported. Therefore it is not reimported for every click on "Custom Value" sub-menu item on the rigth click menu if "ProcessesCustomPriorityGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
@@ -272,7 +277,9 @@ def processes_nice_error_dialog():
 
     error_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Access Denied"), )
-    error_dialog2101.format_secondary_text(_tr("You have to have root privileges in order to:\n  1) Increase nice value of your processes\n  2) Increase/decrease nice value of other processes."))
+    error_dialog2101.format_secondary_text(_tr("You have to have root privileges in order to:") +
+                                               "\n\n    " + _tr("1) Increase nice value of your processes") +
+                                               "\n    " + _tr("2) Increase/decrease nice value of other processes."))
     error_dialog2101.run()
     error_dialog2101.destroy()
 
@@ -299,6 +306,16 @@ def processes_kill_process_warning_dialog(process_name, process_pid):
     global warning_dialog2102_response
     warning_dialog2102_response = warning_dialog2102.run()
     warning_dialog2102.destroy()
+
+
+# ----------------------------------- Processes - Processes No Such Process Error Dialog Function (shows an error dialog and stops showing the "Set Process Custom Priority window" when the process is not alive anymore) -----------------------------------
+def processes_no_such_process_error_dialog():
+
+    error_dialog2101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process Is Not Running Anymore"), )
+    error_dialog2101w2.format_secondary_text(_tr("Following process is not running anymore \nand process custom priority window is closed automatically:\n ") + selected_process_name + _tr(" (PID: ") + selected_process_pid)
+    error_dialog2101w2.run()
+    error_dialog2101w2.destroy()
 
 
 # ----------------------------------- Processes - Processes No Path Error Dialog Function (shows an error dialog when process directory is tried to be opened and process directory could not be get) -----------------------------------

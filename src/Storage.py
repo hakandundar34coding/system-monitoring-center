@@ -168,6 +168,7 @@ def storage_open_right_click_menu_func(event):
             import StorageMenuRightClick
             StorageMenuRightClick.storage_menu_right_click_import_func()
             StorageMenuRightClick.storage_menu_right_click_gui_func()
+        StorageMenuRightClick.storage_disk_parent_child_disk_mount_point_etc_func()
         StorageMenuRightClick.menu4101m.popup(None, None, None, None, event.button, event.time)
 
 
