@@ -188,9 +188,12 @@ def sensors_loop_func():
                 sensors_data_row.append(sensor_name)
             if label_file not in sensor_label_files_in_sensor_group:
                 sensors_data_row.append("")
-            with open("/sys/class/hwmon/" + sensor_group + "/" + current_value_file) as reader:
-                current_value = int(reader.read().strip())
-            if sensors_data_row[-3] == temperature_sensor_icon_name:
+            try:
+                with open("/sys/class/hwmon/" + sensor_group + "/" + current_value_file) as reader:
+                    current_value = int(reader.read().strip())
+            except OSError:
+                current_value = "-"
+            if sensors_data_row[-3] == temperature_sensor_icon_name and current_value != "-":
                 current_value = current_value / 1000                                          # Values in this file are divided by 1000 in order to get temperatures in Celcius unit. Fan sensor values are used without division.
             sensors_data_row.append(str(current_value))
             critical_value_file = current_value_file.split("_")[0] + "_crit"

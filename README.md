@@ -66,4 +66,4 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 * python3-opengl (for FPS counting)
 
 ### Status:
-* Under development, there may be bugs to be fixed.
+* The application is in Beta stage and there may be bugs to be fixed.

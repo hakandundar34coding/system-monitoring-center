@@ -66,6 +66,9 @@ def startup_new_item_gui_func():
         checkbutton5101w.set_active(False)
         checkbutton5102w.set_active(False)
         button5102w.set_sensitive(False)
+        entry5101w.set_can_focus(True)                                                        # Set flag to be able to enable grabing focus to be ready for typing directly without clicking on it. Otherwise, entry has to be clicked on it for typing in it.
+        entry5101w.grab_focus()                                                               # Enable grabing focus to be ready for typing directly without clicking on it. Otherwise, entry has to be clicked on it for typing in it.
+
 
     def on_entry5101w_changed(widget):                                                        # Set sensitivity of the "Save" button as "False" if "Name" and "Command" entries are empty.
         if entry5101w.get_text() == "" or entry5103w.get_text() == "":

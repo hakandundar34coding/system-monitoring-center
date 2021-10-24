@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-23 21:00+0300\n"
-"PO-Revision-Date: 2021-10-23 21:03+0300\n"
+"POT-Creation-Date: 2021-10-24 08:33+0300\n"
+"PO-Revision-Date: 2021-10-24 14:32+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -39,8 +39,8 @@ msgstr "Seçilen MİB Çekirdeği: "
 #: src/StorageDetails.py:451 src/StorageMenuRightClick.py:60
 #: src/StorageMenuRightClick.py:62 src/StorageMenuRightClick.py:68
 #: src/StorageMenuRightClick.py:71 src/StorageMenuRightClick.py:80
-#: src/StorageMenuRightClick.py:83 src/StorageMenuRightClick.py:93
-#: src/StorageMenuRightClick.py:99 src/StorageMenuRightClick.py:177
+#: src/StorageMenuRightClick.py:83 src/StorageMenuRightClick.py:96
+#: src/StorageMenuRightClick.py:102 src/StorageMenuRightClick.py:180
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
@@ -101,7 +101,7 @@ msgstr "Kalıcı Ortam Değişkenini Düzenle"
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
 #: src/ServicesMenuRightClick.py:161 src/SettingsGUI.py:581
 #: src/StartupMenuRightClick.py:394 src/StartupMenuRightClick.py:407
-#: src/StartupNewItemGUI.py:155 src/StorageMenuRightClick.py:245
+#: src/StartupNewItemGUI.py:155 src/StorageMenuRightClick.py:257
 #: src/StorageRenameGUI.py:158
 msgid "Warning"
 msgstr "Uyarı"
@@ -488,8 +488,8 @@ msgstr "İşlem Detayları: "
 
 #: src/ProcessesDetails.py:687 src/ProcessesMenuRightClick.py:278
 #: src/ProcessesMenuRightClick.py:314 src/ProcessesMenuRightClick.py:324
-#: src/StartupMenuRightClick.py:424 src/StorageMenuRightClick.py:222
-#: src/StorageMenuRightClick.py:235
+#: src/StartupMenuRightClick.py:424 src/StorageMenuRightClick.py:234
+#: src/StorageMenuRightClick.py:247
 msgid "Error"
 msgstr "Hata"
 
@@ -770,7 +770,7 @@ msgstr "İnaktif"
 msgid "Exited"
 msgstr "Çıkmış"
 
-#: src/ServicesMenuRightClick.py:162 src/StorageMenuRightClick.py:246
+#: src/ServicesMenuRightClick.py:162 src/StorageMenuRightClick.py:258
 #: src/StorageRenameGUI.py:159
 msgid "Information"
 msgstr "Bilgi"
@@ -1089,7 +1089,7 @@ msgid "Major:Minor Device #"
 msgstr "Majör:Minör Cihaz #"
 
 #: src/Storage.py:333 src/Storage.py:338 src/StorageDetails.py:209
-#: src/StorageDetails.py:219 src/StorageMenuRightClick.py:192
+#: src/StorageDetails.py:219 src/StorageMenuRightClick.py:195
 msgid "Partition"
 msgstr "Disk bölümü"
 
@@ -1127,30 +1127,30 @@ msgstr "Disk zaten bağlı."
 msgid "Disk is already unmounted."
 msgstr "Disk zaten bağlı değil."
 
-#: src/StorageMenuRightClick.py:223
+#: src/StorageMenuRightClick.py:235
 msgid "Disk Is Not Mounted"
 msgstr "Disk Bağlı Değil"
 
-#: src/StorageMenuRightClick.py:224
+#: src/StorageMenuRightClick.py:236
 msgid "The disk you have tried to browse is not mounted."
 msgstr "Göz atmak istediğiniz disk bağlı değil."
 
-#: src/StorageMenuRightClick.py:226
+#: src/StorageMenuRightClick.py:238
 msgid "Disk have to be mounted before browsing."
 msgstr "Göz atmadan önce diskin bağlanması gereklidir."
 
-#: src/StorageMenuRightClick.py:227
+#: src/StorageMenuRightClick.py:239
 msgid ""
 "Note: Some disks such as parent disks or swap disks do not have mount points."
 msgstr ""
 "Not: Ebeveyn diskler veya takas diskler gibi bazı disklerin bağlama "
 "noktaları yoktur."
 
-#: src/StorageMenuRightClick.py:236
+#: src/StorageMenuRightClick.py:248
 msgid "Disk Has No Mountable File System"
 msgstr "Diskin Bağlanabilir Dosya Sistemi Yok"
 
-#: src/StorageMenuRightClick.py:237
+#: src/StorageMenuRightClick.py:249
 msgid ""
 "The disk you have tried to mount or unmount has no mountable file system.\n"
 "\n"
@@ -3287,7 +3287,7 @@ msgstr "Başlangıç Bildirimi"
 
 #: ui/StartupNewItemWindow.ui:251
 msgid "Note: Name and Command fields cannot be left blank."
-msgstr "Not: İsim ve Komut alanları boş bırakılamaz."
+msgstr "Not: Ad ve Komut alanları boş bırakılamaz."
 
 #: ui/StartupTab.ui:64
 msgid "Number of listed startup items"

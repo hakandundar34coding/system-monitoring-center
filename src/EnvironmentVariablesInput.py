@@ -63,6 +63,8 @@ def environment_variables_input_gui_func():
         entry7102w.set_text("")
         radiobutton7101w.set_active(True)
         button7102w.set_sensitive(False)
+        entry7101w.set_can_focus(True)                                                        # Set flag to be able to enable grabing focus to be ready for typing directly without clicking on it. Otherwise, entry has to be clicked on it for typing in it.
+        entry7101w.grab_focus()                                                               # Enable grabing focus to be ready for typing directly without clicking on it. Otherwise, entry has to be clicked on it for typing in it.
 
     def on_entry7101w_changed(widget):                                                        # Set sensitivity of the "Save" button as "False" if "Name" and "Command" entries are empty.
         if entry7101w.get_text() == "":
