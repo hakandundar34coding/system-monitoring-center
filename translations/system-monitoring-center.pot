@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-24 08:33+0300\n"
+"POT-Creation-Date: 2021-10-26 20:13+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,13 +94,12 @@ msgstr ""
 msgid "Edit Persistent Environment Variable"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:157
-#: src/EnvironmentVariablesInputGUI.py:177
-#: src/EnvironmentVariablesInputGUI.py:188 src/Processes.py:883
+#: src/EnvironmentVarMenuRightClick.py:157 src/EnvironmentVariablesInput.py:179
+#: src/EnvironmentVariablesInput.py:190 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
 #: src/ServicesMenuRightClick.py:161 src/SettingsGUI.py:581
-#: src/StartupMenuRightClick.py:394 src/StartupMenuRightClick.py:407
-#: src/StartupNewItemGUI.py:155 src/StorageMenuRightClick.py:257
+#: src/StartupMenuRightClick.py:425 src/StartupMenuRightClick.py:438
+#: src/StartupNewItem.py:191 src/StorageMenuRightClick.py:257
 #: src/StorageRenameGUI.py:158
 msgid "Warning"
 msgstr ""
@@ -172,7 +171,7 @@ msgid ""
 "in terminal."
 msgstr ""
 
-#: src/EnvironmentVariables.py:434 src/Processes.py:666 src/Sensors.py:336
+#: src/EnvironmentVariables.py:434 src/Processes.py:666 src/Sensors.py:339
 #: src/Services.py:501 src/Startup.py:707 src/Storage.py:737 src/Users.py:589
 msgid "Total: "
 msgstr ""
@@ -189,38 +188,38 @@ msgstr ""
 msgid " shell variables)"
 msgstr ""
 
-#: src/EnvironmentVariablesInputGUI.py:178
+#: src/EnvironmentVariablesInput.py:180
 msgid "Do You Want To Overwrite Existing Environment Variable?"
 msgstr ""
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid ""
 "There is already an environment variable with the same name.\n"
 "Existing variable will be overwritten if you continue.\n"
 "Do you want to continue?"
 msgstr ""
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid "    Existing Environment Variable: "
 msgstr ""
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid "    Existing Environment Variable Value: "
 msgstr ""
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid "    New Environment Variable: "
 msgstr ""
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid "    New Environment Variable Value: "
 msgstr ""
 
-#: src/EnvironmentVariablesInputGUI.py:189
+#: src/EnvironmentVariablesInput.py:191
 msgid "Do You Want To Add Environment Variable For All Users?"
 msgstr ""
 
-#: src/EnvironmentVariablesInputGUI.py:190
+#: src/EnvironmentVariablesInput.py:192
 msgid ""
 "You may make your system unusable if you edit/overwrite some of the system "
 "variables.\n"
@@ -463,7 +462,7 @@ msgstr ""
 
 #: src/ProcessesDetails.py:687 src/ProcessesMenuRightClick.py:278
 #: src/ProcessesMenuRightClick.py:314 src/ProcessesMenuRightClick.py:324
-#: src/StartupMenuRightClick.py:424 src/StorageMenuRightClick.py:234
+#: src/StartupMenuRightClick.py:451 src/StorageMenuRightClick.py:234
 #: src/StorageMenuRightClick.py:247
 msgid "Error"
 msgstr ""
@@ -562,15 +561,15 @@ msgstr ""
 msgid "Critical Value"
 msgstr ""
 
-#: src/Sensors.py:336
+#: src/Sensors.py:339
 msgid " sensors ("
 msgstr ""
 
-#: src/Sensors.py:336
+#: src/Sensors.py:339
 msgid " temperature (°C), "
 msgstr ""
 
-#: src/Sensors.py:336
+#: src/Sensors.py:339
 msgid " fan (RPM) sensors)"
 msgstr ""
 
@@ -850,89 +849,96 @@ msgstr ""
 msgid " hidden)"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:368
-msgid "The startup item has system values."
+#: src/StartupMenuRightClick.py:252
+msgid ""
+"Do you want to delete system-wide values file of the following startup item?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:379 src/StartupMenuRightClick.py:382
-#: ui/StartupMenuRightClick.ui:119
+#: src/StartupMenuRightClick.py:266
+msgid ""
+"Do you want to delete user-specific values file of the following startup "
+"item?"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:279
+msgid ""
+"Do you want to delete system-wide and user-specific value files of the "
+"following startup item?"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:410 src/StartupMenuRightClick.py:413
+#: ui/StartupMenuRightClick.ui:153
 msgid "System-wide values file: "
 msgstr ""
 
-#: src/StartupMenuRightClick.py:382 src/StartupMenuRightClick.py:388
+#: src/StartupMenuRightClick.py:413 src/StartupMenuRightClick.py:419
 msgid "None"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:385 src/StartupMenuRightClick.py:388
-#: ui/StartupMenuRightClick.ui:128
+#: src/StartupMenuRightClick.py:416 src/StartupMenuRightClick.py:419
+#: ui/StartupMenuRightClick.ui:162
 msgid "User-specific values file: "
 msgstr ""
 
-#: src/StartupMenuRightClick.py:395
+#: src/StartupMenuRightClick.py:426
 msgid "Run Startup Item Now?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:396
+#: src/StartupMenuRightClick.py:427
 msgid "Do you want to run the following startup item?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:397 src/StartupMenuRightClick.py:410
+#: src/StartupMenuRightClick.py:428 src/StartupMenuRightClick.py:441
 msgid "Startup Item:"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:398 ui/StartupNewItemWindow.ui:188
+#: src/StartupMenuRightClick.py:429 src/StartupMenuRightClick.py:442
+#: ui/StartupNewItemWindow.ui:189
 msgid "Command:"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:408
-msgid "Reset The Startup Item To System Values?"
+#: src/StartupMenuRightClick.py:439
+msgid "Delete Startup Item?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:409
-msgid "Do you want to reset the following startup item to system values?"
-msgstr ""
-
-#: src/StartupMenuRightClick.py:411 src/StartupMenuRightClick.py:427
-msgid "'.desktop' File Name:"
-msgstr ""
-
-#: src/StartupMenuRightClick.py:413
-msgid ""
-"1) If the startup item has both system-wide and user-specific '.desktop' "
-"files, user-specific file will be deleted."
-msgstr ""
-
-#: src/StartupMenuRightClick.py:415
-msgid ""
-"2) If the startup item has only user-specific '.desktop' files, this file "
-"will be deleted and startup item will be removed completely."
-msgstr ""
-
-#: src/StartupMenuRightClick.py:425
+#: src/StartupMenuRightClick.py:452
 msgid "Error While Running Startup Item Command"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:426
+#: src/StartupMenuRightClick.py:453
 msgid "Error is encountered while running the following command:"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:428
+#: src/StartupMenuRightClick.py:454
+msgid "'.desktop' File Name:"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:455
 msgid "Startup Item Command:"
 msgstr ""
 
-#: src/StartupNewItemGUI.py:156
+#: src/StartupNewItem.py:192
 msgid "Do You Want To Overwrite Existing File?"
 msgstr ""
 
-#: src/StartupNewItemGUI.py:157
-msgid ""
-"There is already a '.desktop' file with the same name.\n"
-"Existing file will be overwritten if you continue.\n"
-"Do you want to continue?"
+#: src/StartupNewItem.py:193
+msgid "There is already a '.desktop' file with the same name."
 msgstr ""
 
-#: src/StartupNewItemGUI.py:157
-msgid " Existing '.desktop' File Name: "
+#: src/StartupNewItem.py:194
+msgid "Existing file will be overwritten if you continue."
+msgstr ""
+
+#: src/StartupNewItem.py:195
+msgid "Do you want to continue?"
+msgstr ""
+
+#: src/StartupNewItem.py:196
+msgid "Existing Startup Item:"
+msgstr ""
+
+#: src/StartupNewItem.py:197
+msgid "Existing '.desktop' File Name:"
 msgstr ""
 
 #: src/Storage.py:209 ui/StorageDetailsWindow.ui:38
@@ -1152,7 +1158,7 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
-#: src/Users.py:186 ui/StartupNewItemWindow.ui:234 ui/UsersDetailsWindow.ui:143
+#: src/Users.py:186 ui/StartupNewItemWindow.ui:235 ui/UsersDetailsWindow.ui:143
 #: ui/UsersMenuCustomizations.ui:422
 msgid "Terminal"
 msgstr ""
@@ -1808,12 +1814,12 @@ msgstr ""
 msgid "Copy Value"
 msgstr ""
 
-#: ui/EnvironmentVariablesInputWindow.ui:58 ui/StartupNewItemWindow.ui:58
+#: ui/EnvironmentVariablesInputWindow.ui:58 ui/StartupNewItemWindow.ui:59
 msgid "Save"
 msgstr ""
 
 #: ui/EnvironmentVariablesInputWindow.ui:103
-#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:103
+#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
 #: ui/StorageRenameWindow.ui:126
 msgid "Cancel"
 msgstr ""
@@ -3055,34 +3061,42 @@ msgstr ""
 msgid "Command (Exec)"
 msgstr ""
 
-#: ui/StartupMenuRightClick.ui:47
+#: ui/StartupMenuRightClick.ui:57
 msgid ""
 "This change may make startup item enabled/disabled for other desktop "
 "environments.\n"
 "For more detailed control, '.desktop' file may be edited manually."
 msgstr ""
 
-#: ui/StartupMenuRightClick.ui:49
+#: ui/StartupMenuRightClick.ui:59
 msgid "Enable/Disable"
 msgstr ""
 
-#: ui/StartupMenuRightClick.ui:60
+#: ui/StartupMenuRightClick.ui:70
 msgid "Add"
 msgstr ""
 
-#: ui/StartupMenuRightClick.ui:69 ui/StorageMenuRightClick.ui:72
-msgid "Remove"
+#: ui/StartupMenuRightClick.ui:79
+msgid "Delete"
 msgstr ""
 
-#: ui/StartupMenuRightClick.ui:84
-msgid "Run Now"
+#: ui/StartupMenuRightClick.ui:90
+msgid "Delete System-Wide Values File"
 msgstr ""
 
 #: ui/StartupMenuRightClick.ui:99
-msgid "Reset To System Values"
+msgid "Delete User-Specific Values File"
 msgstr ""
 
 #: ui/StartupMenuRightClick.ui:108
+msgid "Delete Both Files"
+msgstr ""
+
+#: ui/StartupMenuRightClick.ui:127
+msgid "Run Now"
+msgstr ""
+
+#: ui/StartupMenuRightClick.ui:142
 msgid "Browse '.desktop' File..."
 msgstr ""
 
@@ -3090,24 +3104,36 @@ msgstr ""
 msgid "Add New Startup Item"
 msgstr ""
 
-#: ui/StartupNewItemWindow.ui:164 ui/SystemTab.ui:131
+#: ui/StartupNewItemWindow.ui:165 ui/SystemTab.ui:131
 msgid "Name:"
 msgstr ""
 
-#: ui/StartupNewItemWindow.ui:176
+#: ui/StartupNewItemWindow.ui:177
 msgid "Comment:"
 msgstr ""
 
-#: ui/StartupNewItemWindow.ui:200
+#: ui/StartupNewItemWindow.ui:201
 msgid "Icon:"
 msgstr ""
 
-#: ui/StartupNewItemWindow.ui:220
+#: ui/StartupNewItemWindow.ui:221
 msgid "Startup Notify"
 msgstr ""
 
-#: ui/StartupNewItemWindow.ui:251
+#: ui/StartupNewItemWindow.ui:252
 msgid "Note: Name and Command fields cannot be left blank."
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:274
+msgid "User-specific (for current user only)"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:288
+msgid "System-wide (for all users)"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:307
+msgid "Type of the startup item:"
 msgstr ""
 
 #: ui/StartupTab.ui:64
@@ -3174,6 +3200,10 @@ msgstr ""
 
 #: ui/StorageMenuRightClick.ui:63
 msgid "Unmount"
+msgstr ""
+
+#: ui/StorageMenuRightClick.ui:72
+msgid "Remove"
 msgstr ""
 
 #: ui/StorageMenuRightClick.ui:87

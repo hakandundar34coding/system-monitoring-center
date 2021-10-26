@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-24 08:33+0300\n"
-"PO-Revision-Date: 2021-10-24 14:32+0300\n"
+"POT-Creation-Date: 2021-10-26 20:13+0300\n"
+"PO-Revision-Date: 2021-10-26 20:20+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -95,13 +95,12 @@ msgstr "Yeni Kalıcı Ortam Değişkeni Ekle"
 msgid "Edit Persistent Environment Variable"
 msgstr "Kalıcı Ortam Değişkenini Düzenle"
 
-#: src/EnvironmentVarMenuRightClick.py:157
-#: src/EnvironmentVariablesInputGUI.py:177
-#: src/EnvironmentVariablesInputGUI.py:188 src/Processes.py:883
+#: src/EnvironmentVarMenuRightClick.py:157 src/EnvironmentVariablesInput.py:179
+#: src/EnvironmentVariablesInput.py:190 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
 #: src/ServicesMenuRightClick.py:161 src/SettingsGUI.py:581
-#: src/StartupMenuRightClick.py:394 src/StartupMenuRightClick.py:407
-#: src/StartupNewItemGUI.py:155 src/StorageMenuRightClick.py:257
+#: src/StartupMenuRightClick.py:425 src/StartupMenuRightClick.py:438
+#: src/StartupNewItem.py:191 src/StorageMenuRightClick.py:257
 #: src/StorageRenameGUI.py:158
 msgid "Warning"
 msgstr "Uyarı"
@@ -177,7 +176,7 @@ msgstr ""
 "Uygulama uçbirimden çalıştırıldığında ortam/kabuk (shell) değişkenlerinin "
 "listelenmesi desteklenmiyor."
 
-#: src/EnvironmentVariables.py:434 src/Processes.py:666 src/Sensors.py:336
+#: src/EnvironmentVariables.py:434 src/Processes.py:666 src/Sensors.py:339
 #: src/Services.py:501 src/Startup.py:707 src/Storage.py:737 src/Users.py:589
 msgid "Total: "
 msgstr "Toplam: "
@@ -194,11 +193,11 @@ msgstr " ortam değişkeni, "
 msgid " shell variables)"
 msgstr " kabuk (shell) değişkeni)"
 
-#: src/EnvironmentVariablesInputGUI.py:178
+#: src/EnvironmentVariablesInput.py:180
 msgid "Do You Want To Overwrite Existing Environment Variable?"
 msgstr "Var Olan Ortam Değişkeninin Üzerine Yazmak İstiyor musunuz?"
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid ""
 "There is already an environment variable with the same name.\n"
 "Existing variable will be overwritten if you continue.\n"
@@ -208,27 +207,27 @@ msgstr ""
 "Devam ederseniz var olan değişkenin üzerine yazılacak.\n"
 "Devam etmek istiyor musunuz?"
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid "    Existing Environment Variable: "
 msgstr "    Var Olan Ortam Değişkeni: "
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid "    Existing Environment Variable Value: "
 msgstr "    Var Olan Ortam Değişkeni Değeri: "
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid "    New Environment Variable: "
 msgstr "    Yeni Ortam Değişkeni: "
 
-#: src/EnvironmentVariablesInputGUI.py:179
+#: src/EnvironmentVariablesInput.py:181
 msgid "    New Environment Variable Value: "
 msgstr "    Yeni Ortam Değişkeni Değeri: "
 
-#: src/EnvironmentVariablesInputGUI.py:189
+#: src/EnvironmentVariablesInput.py:191
 msgid "Do You Want To Add Environment Variable For All Users?"
 msgstr "Ortam Değişkenini Tüm Kullanıcılar İçin Eklemek İstiyor musunuz?"
 
-#: src/EnvironmentVariablesInputGUI.py:190
+#: src/EnvironmentVariablesInput.py:192
 msgid ""
 "You may make your system unusable if you edit/overwrite some of the system "
 "variables.\n"
@@ -488,7 +487,7 @@ msgstr "İşlem Detayları: "
 
 #: src/ProcessesDetails.py:687 src/ProcessesMenuRightClick.py:278
 #: src/ProcessesMenuRightClick.py:314 src/ProcessesMenuRightClick.py:324
-#: src/StartupMenuRightClick.py:424 src/StorageMenuRightClick.py:234
+#: src/StartupMenuRightClick.py:451 src/StorageMenuRightClick.py:234
 #: src/StorageMenuRightClick.py:247
 msgid "Error"
 msgstr "Hata"
@@ -597,15 +596,15 @@ msgstr "Şimdiki Değer"
 msgid "Critical Value"
 msgstr "Kritik Değer"
 
-#: src/Sensors.py:336
+#: src/Sensors.py:339
 msgid " sensors ("
 msgstr " algılayıcı ("
 
-#: src/Sensors.py:336
+#: src/Sensors.py:339
 msgid " temperature (°C), "
 msgstr " sıcaklık (°C), "
 
-#: src/Sensors.py:336
+#: src/Sensors.py:339
 msgid " fan (RPM) sensors)"
 msgstr " fan (RPM) algılayıcısı)"
 
@@ -885,97 +884,103 @@ msgstr " görünür, "
 msgid " hidden)"
 msgstr " gizli)"
 
-#: src/StartupMenuRightClick.py:368
-msgid "The startup item has system values."
-msgstr "Başlangıç ögesi sistem değerlerine sahip."
+#: src/StartupMenuRightClick.py:252
+msgid ""
+"Do you want to delete system-wide values file of the following startup item?"
+msgstr ""
+"Şu başlangıç ögesinin sistem geneli değerler dosyasını silmek istiyor "
+"musunuz?"
 
-#: src/StartupMenuRightClick.py:379 src/StartupMenuRightClick.py:382
-#: ui/StartupMenuRightClick.ui:119
+#: src/StartupMenuRightClick.py:266
+msgid ""
+"Do you want to delete user-specific values file of the following startup "
+"item?"
+msgstr ""
+"Şu başlangıç ögesinin kullanıcıya özgü değerler dosyasını silmek istiyor "
+"musunuz?"
+
+#: src/StartupMenuRightClick.py:279
+msgid ""
+"Do you want to delete system-wide and user-specific value files of the "
+"following startup item?"
+msgstr ""
+"Şu başlangıç ögesinin sistem geneli ve kullanıcıya özgü değerler dosyalarını "
+"silmek istiyor musunuz?"
+
+#: src/StartupMenuRightClick.py:410 src/StartupMenuRightClick.py:413
+#: ui/StartupMenuRightClick.ui:153
 msgid "System-wide values file: "
 msgstr "Sistem geneli değerler dosyası: "
 
-#: src/StartupMenuRightClick.py:382 src/StartupMenuRightClick.py:388
+#: src/StartupMenuRightClick.py:413 src/StartupMenuRightClick.py:419
 msgid "None"
 msgstr "Yok"
 
-#: src/StartupMenuRightClick.py:385 src/StartupMenuRightClick.py:388
-#: ui/StartupMenuRightClick.ui:128
+#: src/StartupMenuRightClick.py:416 src/StartupMenuRightClick.py:419
+#: ui/StartupMenuRightClick.ui:162
 msgid "User-specific values file: "
 msgstr "Kullanıcıya özgü değerler dosyası: "
 
-#: src/StartupMenuRightClick.py:395
+#: src/StartupMenuRightClick.py:426
 msgid "Run Startup Item Now?"
 msgstr "Başlangıç Ögesini Şimdi Çalıştır?"
 
-#: src/StartupMenuRightClick.py:396
+#: src/StartupMenuRightClick.py:427
 msgid "Do you want to run the following startup item?"
 msgstr "Şu başlangıç ögesini çalıştırmak istiyor musunuz?"
 
-#: src/StartupMenuRightClick.py:397 src/StartupMenuRightClick.py:410
+#: src/StartupMenuRightClick.py:428 src/StartupMenuRightClick.py:441
 msgid "Startup Item:"
 msgstr "Başlangıç Ögesi:"
 
-#: src/StartupMenuRightClick.py:398 ui/StartupNewItemWindow.ui:188
+#: src/StartupMenuRightClick.py:429 src/StartupMenuRightClick.py:442
+#: ui/StartupNewItemWindow.ui:189
 msgid "Command:"
 msgstr "Komut:"
 
-#: src/StartupMenuRightClick.py:408
-msgid "Reset The Startup Item To System Values?"
-msgstr "Başlangıç Ögesini Sistem Değerlerine Ayarla?"
+#: src/StartupMenuRightClick.py:439
+msgid "Delete Startup Item?"
+msgstr "Başlangıç Ögesini Sil?"
 
-#: src/StartupMenuRightClick.py:409
-msgid "Do you want to reset the following startup item to system values?"
-msgstr "Şu başlangıç ögesini sistem değerlerine ayarlamak istiyor musunuz?"
-
-#: src/StartupMenuRightClick.py:411 src/StartupMenuRightClick.py:427
-msgid "'.desktop' File Name:"
-msgstr "'.desktop' Dosyası Adı:"
-
-#: src/StartupMenuRightClick.py:413
-msgid ""
-"1) If the startup item has both system-wide and user-specific '.desktop' "
-"files, user-specific file will be deleted."
-msgstr ""
-"1) Eğer başlangıç ögesinin hem sistem-geneli hem de kullanıcıya özgü '."
-"desktop' dosyaları varsa, kullanıcıya özgü dosya silinecek."
-
-#: src/StartupMenuRightClick.py:415
-msgid ""
-"2) If the startup item has only user-specific '.desktop' files, this file "
-"will be deleted and startup item will be removed completely."
-msgstr ""
-"2) Eğer başlangıç ögesinin sadece kullanıcıya özgü '.desktop' dosyası varsa "
-"bu dosya silinecek ve başlangıç ögesi tamamen kaldırılacak."
-
-#: src/StartupMenuRightClick.py:425
+#: src/StartupMenuRightClick.py:452
 msgid "Error While Running Startup Item Command"
 msgstr "Başlangıç Ögesi Komutunu Çalıştırırken Hata"
 
-#: src/StartupMenuRightClick.py:426
+#: src/StartupMenuRightClick.py:453
 msgid "Error is encountered while running the following command:"
 msgstr "Şu komutu çalıştırırken hatayla karşılaşıldı:"
 
-#: src/StartupMenuRightClick.py:428
+#: src/StartupMenuRightClick.py:454
+msgid "'.desktop' File Name:"
+msgstr "'.desktop' Dosyası Adı:"
+
+#: src/StartupMenuRightClick.py:455
 msgid "Startup Item Command:"
 msgstr "Başlangıç Ögesi Komutu:"
 
-#: src/StartupNewItemGUI.py:156
+#: src/StartupNewItem.py:192
 msgid "Do You Want To Overwrite Existing File?"
 msgstr "Var Olan Dosyanın Üzerine Yazmak İstiyor musunuz?"
 
-#: src/StartupNewItemGUI.py:157
-msgid ""
-"There is already a '.desktop' file with the same name.\n"
-"Existing file will be overwritten if you continue.\n"
-"Do you want to continue?"
-msgstr ""
-"Aynı isimde bir '.desktop' dosyası zaten var.\n"
-"Devam ederseniz var olan dosyanın üzerine yazılacak.\n"
-"Devam etmek istiyor musunuz?"
+#: src/StartupNewItem.py:193
+msgid "There is already a '.desktop' file with the same name."
+msgstr "Aynı isimde zaten bir '.desktop' dosyası var."
 
-#: src/StartupNewItemGUI.py:157
-msgid " Existing '.desktop' File Name: "
-msgstr " Var Olan '.desktop' Dosya Adı: "
+#: src/StartupNewItem.py:194
+msgid "Existing file will be overwritten if you continue."
+msgstr "Devam ederseniz var olan dosya silinecek."
+
+#: src/StartupNewItem.py:195
+msgid "Do you want to continue?"
+msgstr "Devam etmek istiyor musunuz?"
+
+#: src/StartupNewItem.py:196
+msgid "Existing Startup Item:"
+msgstr "Var Olan Başlangıç Ögesi:"
+
+#: src/StartupNewItem.py:197
+msgid "Existing '.desktop' File Name:"
+msgstr "Var Olan '.desktop' Dosyası Adı:"
 
 #: src/Storage.py:209 ui/StorageDetailsWindow.ui:38
 #: ui/StorageMenuCustomizations.ui:251
@@ -1203,7 +1208,7 @@ msgstr "Ev Dizini"
 msgid "Group"
 msgstr "Grup"
 
-#: src/Users.py:186 ui/StartupNewItemWindow.ui:234 ui/UsersDetailsWindow.ui:143
+#: src/Users.py:186 ui/StartupNewItemWindow.ui:235 ui/UsersDetailsWindow.ui:143
 #: ui/UsersMenuCustomizations.ui:422
 msgid "Terminal"
 msgstr "Uçbirim"
@@ -1897,12 +1902,12 @@ msgstr "Değişkeni Kopyala"
 msgid "Copy Value"
 msgstr "Değeri Kopyala"
 
-#: ui/EnvironmentVariablesInputWindow.ui:58 ui/StartupNewItemWindow.ui:58
+#: ui/EnvironmentVariablesInputWindow.ui:58 ui/StartupNewItemWindow.ui:59
 msgid "Save"
 msgstr "Kaydet"
 
 #: ui/EnvironmentVariablesInputWindow.ui:103
-#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:103
+#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
 #: ui/StorageRenameWindow.ui:126
 msgid "Cancel"
 msgstr "İptal"
@@ -3231,7 +3236,7 @@ msgstr "Depolama Bilgilerini Ekle/Çıkart:"
 msgid "Command (Exec)"
 msgstr "Komut (Exec)"
 
-#: ui/StartupMenuRightClick.ui:47
+#: ui/StartupMenuRightClick.ui:57
 msgid ""
 "This change may make startup item enabled/disabled for other desktop "
 "environments.\n"
@@ -3241,27 +3246,35 @@ msgstr ""
 "dışı yapabilir.\n"
 "Daha detaylı kontrol için '.desktop' dosyası elle düzenlenebilir."
 
-#: ui/StartupMenuRightClick.ui:49
+#: ui/StartupMenuRightClick.ui:59
 msgid "Enable/Disable"
 msgstr "Etkinleştir/Devre Dışı Bırak"
 
-#: ui/StartupMenuRightClick.ui:60
+#: ui/StartupMenuRightClick.ui:70
 msgid "Add"
 msgstr "Ekle"
 
-#: ui/StartupMenuRightClick.ui:69 ui/StorageMenuRightClick.ui:72
-msgid "Remove"
-msgstr "Kaldır"
+#: ui/StartupMenuRightClick.ui:79
+msgid "Delete"
+msgstr "Sil"
 
-#: ui/StartupMenuRightClick.ui:84
+#: ui/StartupMenuRightClick.ui:90
+msgid "Delete System-Wide Values File"
+msgstr "Sistem Geneli Değerler Dosyasını Sil"
+
+#: ui/StartupMenuRightClick.ui:99
+msgid "Delete User-Specific Values File"
+msgstr "Kullanıcıya Özgü Değerler Dosyasını Sil"
+
+#: ui/StartupMenuRightClick.ui:108
+msgid "Delete Both Files"
+msgstr "Her İki Dosyayı Sil"
+
+#: ui/StartupMenuRightClick.ui:127
 msgid "Run Now"
 msgstr "Şimdi Çalıştır"
 
-#: ui/StartupMenuRightClick.ui:99
-msgid "Reset To System Values"
-msgstr "Sistem Değerlerine Ayarla"
-
-#: ui/StartupMenuRightClick.ui:108
+#: ui/StartupMenuRightClick.ui:142
 msgid "Browse '.desktop' File..."
 msgstr "'.desktop' Dosyasını Aç..."
 
@@ -3269,25 +3282,37 @@ msgstr "'.desktop' Dosyasını Aç..."
 msgid "Add New Startup Item"
 msgstr "Yeni Başlangıç Ögesi Ekle"
 
-#: ui/StartupNewItemWindow.ui:164 ui/SystemTab.ui:131
+#: ui/StartupNewItemWindow.ui:165 ui/SystemTab.ui:131
 msgid "Name:"
 msgstr "Ad:"
 
-#: ui/StartupNewItemWindow.ui:176
+#: ui/StartupNewItemWindow.ui:177
 msgid "Comment:"
 msgstr "Açıklama:"
 
-#: ui/StartupNewItemWindow.ui:200
+#: ui/StartupNewItemWindow.ui:201
 msgid "Icon:"
 msgstr "Küçük Resim:"
 
-#: ui/StartupNewItemWindow.ui:220
+#: ui/StartupNewItemWindow.ui:221
 msgid "Startup Notify"
 msgstr "Başlangıç Bildirimi"
 
-#: ui/StartupNewItemWindow.ui:251
+#: ui/StartupNewItemWindow.ui:252
 msgid "Note: Name and Command fields cannot be left blank."
 msgstr "Not: Ad ve Komut alanları boş bırakılamaz."
+
+#: ui/StartupNewItemWindow.ui:274
+msgid "User-specific (for current user only)"
+msgstr "Kullanıcıya Özgü (sadece bu kullanıcı için)"
+
+#: ui/StartupNewItemWindow.ui:288
+msgid "System-wide (for all users)"
+msgstr "Sistem geneli (tüm kullanıcılar için)"
+
+#: ui/StartupNewItemWindow.ui:307
+msgid "Type of the startup item:"
+msgstr "Başlangıç Ögesi Türü:"
 
 #: ui/StartupTab.ui:64
 msgid "Number of listed startup items"
@@ -3356,6 +3381,10 @@ msgstr "Bağla"
 #: ui/StorageMenuRightClick.ui:63
 msgid "Unmount"
 msgstr "Ayır"
+
+#: ui/StorageMenuRightClick.ui:72
+msgid "Remove"
+msgstr "Kaldır"
 
 #: ui/StorageMenuRightClick.ui:87
 msgid "Copy Mount Point"
@@ -3728,6 +3757,41 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
 
+#~ msgid "The startup item has system values."
+#~ msgstr "Başlangıç ögesi sistem değerlerine sahip."
+
+#~ msgid "Reset The Startup Item To System Values?"
+#~ msgstr "Başlangıç Ögesini Sistem Değerlerine Ayarla?"
+
+#~ msgid "Do you want to reset the following startup item to system values?"
+#~ msgstr "Şu başlangıç ögesini sistem değerlerine ayarlamak istiyor musunuz?"
+
+#~ msgid ""
+#~ "1) If the startup item has both system-wide and user-specific '.desktop' "
+#~ "files, user-specific file will be deleted."
+#~ msgstr ""
+#~ "1) Eğer başlangıç ögesinin hem sistem-geneli hem de kullanıcıya özgü '."
+#~ "desktop' dosyaları varsa, kullanıcıya özgü dosya silinecek."
+
+#~ msgid ""
+#~ "2) If the startup item has only user-specific '.desktop' files, this file "
+#~ "will be deleted and startup item will be removed completely."
+#~ msgstr ""
+#~ "2) Eğer başlangıç ögesinin sadece kullanıcıya özgü '.desktop' dosyası "
+#~ "varsa bu dosya silinecek ve başlangıç ögesi tamamen kaldırılacak."
+
+#~ msgid ""
+#~ "There is already a '.desktop' file with the same name.\n"
+#~ "Existing file will be overwritten if you continue.\n"
+#~ "Do you want to continue?"
+#~ msgstr ""
+#~ "Aynı isimde bir '.desktop' dosyası zaten var.\n"
+#~ "Devam ederseniz var olan dosyanın üzerine yazılacak.\n"
+#~ "Devam etmek istiyor musunuz?"
+
+#~ msgid "Reset To System Values"
+#~ msgstr "Sistem Değerlerine Ayarla"
+
 #~ msgid ""
 #~ "The disk you have tried to browse is not mounted.\n"
 #~ " Disk have to be mounted before browsing.\n"
@@ -3787,9 +3851,6 @@ msgstr "Sadece çıkış yapmış kullanıcıları göster"
 
 #~ msgid "Please select a service and try again for opening the menu"
 #~ msgstr "Lütfen bir servis seçin ve menüyü açmak için tekrar deneyin"
-
-#~ msgid "Select A Startup Item"
-#~ msgstr "Bir Başlangıç Ögesi Seçin"
 
 #~ msgid "Please select a startup item and try again for opening the menu"
 #~ msgstr ""

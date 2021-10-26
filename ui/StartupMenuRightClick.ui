@@ -7,10 +7,20 @@
     <property name="can-focus">False</property>
     <property name="icon-name">system-monitoring-center-run-application-symbolic</property>
   </object>
-  <object class="GtkImage" id="image2">
+  <object class="GtkImage" id="image3">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-reload-symbolic</property>
+    <property name="icon-name">system-monitoring-center-file-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-file-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-file-symbolic</property>
   </object>
   <object class="GtkImage" id="menuitem5102mimage">
     <property name="visible">True</property>
@@ -66,11 +76,44 @@ For more detailed control, '.desktop' file may be edited manually.</property>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem5103m">
-        <property name="label" translatable="yes">Remove</property>
+        <property name="label" translatable="yes">Delete</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="image">menuitem5103mimage</property>
         <property name="use-stock">False</property>
+        <child type="submenu">
+          <object class="GtkMenu">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkImageMenuItem" id="sub_menuitem5103m">
+                <property name="label" translatable="yes">Delete System-Wide Values File</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="image">image3</property>
+                <property name="use-stock">False</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkImageMenuItem" id="sub_menuitem5104m">
+                <property name="label" translatable="yes">Delete User-Specific Values File</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="image">image4</property>
+                <property name="use-stock">False</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkImageMenuItem" id="sub_menuitem5105m">
+                <property name="label" translatable="yes">Delete Both Files</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="image">image5</property>
+                <property name="use-stock">False</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
     <child>
@@ -92,15 +135,6 @@ For more detailed control, '.desktop' file may be edited manually.</property>
       <object class="GtkSeparatorMenuItem">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="menuitem5107m">
-        <property name="label" translatable="yes">Reset To System Values</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">image2</property>
-        <property name="use-stock">False</property>
       </object>
     </child>
     <child>
