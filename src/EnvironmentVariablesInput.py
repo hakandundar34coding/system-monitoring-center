@@ -178,7 +178,13 @@ def environment_variables_overwrite_existing_environment_variable_warning_dialog
 
     warning_dialog7102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do You Want To Overwrite Existing Environment Variable?"), )
-    warning_dialog7102.format_secondary_text(_tr("There is already an environment variable with the same name.\nExisting variable will be overwritten if you continue.\nDo you want to continue?") + "\n" + _tr("    Existing Environment Variable: ") + existing_variable + "\n" + _tr("    Existing Environment Variable Value: ") + existing_value + "\n" + _tr("    New Environment Variable: ") + new_variable + "\n" + _tr("    New Environment Variable Value: ") + new_value)
+    warning_dialog7102.format_secondary_text(_tr("There is already an environment variable with the same name.") +
+                                             "\n" + _tr("Existing variable will be overwritten if you continue.") +
+                                             "\n" + _tr("Do you want to continue?") +
+                                             "\n\n    " + _tr("Existing Environment Variable:") + " " + existing_variable +
+                                             "\n    " + _tr("Existing Environment Variable Value:") + " " + existing_value +
+                                             "\n\n    " + _tr("New Environment Variable:") + " " + new_variable +
+                                             "\n    " + _tr("New Environment Variable Value:") + " " + new_value)
     global warning_dialog7102_response
     warning_dialog7102_response = warning_dialog7102.run()
     warning_dialog7102.destroy()
@@ -189,7 +195,10 @@ def environment_variables_variable_for_all_users_warning_dialog():
 
     warning_dialog7103 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do You Want To Add Environment Variable For All Users?"), )
-    warning_dialog7103.format_secondary_text(_tr("You may make your system unusable if you edit/overwrite some of the system variables.\nVariable will be added/edited for all users if this option is enabled.\nThis warning is also shown when an environment variable for all users is tried to be edited.\nDo you want to enable/keep enabled this option?"))
+    warning_dialog7103.format_secondary_text(_tr("You may make your system unusable if you edit/overwrite some of the system variables.") +
+                                             "\n" + _tr("Variable will be added/edited for all users if this option is enabled.") +
+                                             "\n" + _tr("This warning is also shown when an environment variable for all users is tried to be edited.") +
+                                             "\n" + _tr("Do you want to enable/keep enabled this option?"))
     global warning_dialog7103_response
     warning_dialog7103_response = warning_dialog7103.run()
     warning_dialog7103.destroy()

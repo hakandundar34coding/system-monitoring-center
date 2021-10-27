@@ -156,7 +156,14 @@ def environment_variables_delete_variable_warning_dialog(selected_variable, sele
 
     warning_dialog7104 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do You Want To Delete The Environment Variable?"), )
-    warning_dialog7104.format_secondary_text(_tr("Environment variable will be deleted from following files:") + "\n" + "    /etc/environment" + "\n" + "    /home/[username]/.bashrc" + "\n" + _tr("Do you want to delete the following persistent environment variable?" + "\n" + _tr("    Variable: ") + selected_variable + "\n" + _tr("    Value: ") + selected_variable_value))
+    warning_dialog7104.format_secondary_text(_tr("Environment variable will be deleted from following files:") +
+                                             "\n\n    " + "/etc/environment" +
+                                             "\n    " + "/home/[username]/.bashrc" +
+                                             "\n\n" +
+                                             _tr("Do you want to delete the following persistent environment variable?") +
+                                             "\n\n    " +
+                                             _tr("Variable:") + " " + selected_variable +
+                                             "\n    " + _tr("Value:") + " " + selected_variable_value)
     global warning_dialog7104_response
     warning_dialog7104_response = warning_dialog7104.run()
     warning_dialog7104.destroy()

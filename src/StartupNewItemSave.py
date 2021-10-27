@@ -13,21 +13,24 @@ new_startup_application_startup_notify = sys.argv[7]
 new_startup_application_terminal = sys.argv[8]
 
 
-# Save ".desktop" file in order to add new startup item
-with open(system_or_current_user_autostart_directory + new_startup_application_name + ".desktop", "w") as writer:
-    writer.write("[Desktop Entry]" + "\n")
-    writer.write("Type=Application" + "\n")
-    writer.write("Name=" + new_startup_application_name + "\n")
-    if new_startup_application_comment != "":
-        writer.write("Comment=" + new_startup_application_comment + "\n")
-    writer.write("Exec=" + new_startup_application_command + "\n")
-    if new_startup_application_icon != "":
-        writer.write("Icon=" + new_startup_application_icon + "\n")
-    if new_startup_application_startup_notify == "True":
-        writer.write("StartupNotify=true" + "\n")
-    if new_startup_application_startup_notify == "False":
-        writer.write("StartupNotify=false" + "\n")
-    if new_startup_application_terminal == "True":
-        writer.write("Terminal=true" + "\n")
-    if new_startup_application_terminal == "False":
-        writer.write("Terminal=false" + "\n")
+# ----------------------------------- Startup - Startup New Item Save Function (saves ".desktop" file in order to add new startup item)  -----------------------------------
+def startup_new_item_save_func():
+    with open(system_or_current_user_autostart_directory + new_startup_application_name + ".desktop", "w") as writer:
+        writer.write("[Desktop Entry]" + "\n")
+        writer.write("Type=Application" + "\n")
+        writer.write("Name=" + new_startup_application_name + "\n")
+        if new_startup_application_comment != "":
+            writer.write("Comment=" + new_startup_application_comment + "\n")
+        writer.write("Exec=" + new_startup_application_command + "\n")
+        if new_startup_application_icon != "":
+            writer.write("Icon=" + new_startup_application_icon + "\n")
+        if new_startup_application_startup_notify == "True":
+            writer.write("StartupNotify=true" + "\n")
+        if new_startup_application_startup_notify == "False":
+            writer.write("StartupNotify=false" + "\n")
+        if new_startup_application_terminal == "True":
+            writer.write("Terminal=true" + "\n")
+        if new_startup_application_terminal == "False":
+            writer.write("Terminal=false" + "\n")
+
+startup_new_item_save_func()

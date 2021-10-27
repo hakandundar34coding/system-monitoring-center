@@ -245,19 +245,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Note: Name and Command fields cannot be left blank.</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">7</property>
-            <property name="width">2</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkFrame">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -311,6 +298,19 @@
           <packing>
             <property name="left-attach">0</property>
             <property name="top-attach">6</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Note: Name and Command fields cannot be left blank.</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">7</property>
             <property name="width">2</property>
           </packing>
         </child>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 08:11+0300\n"
+"POT-Creation-Date: 2021-10-27 16:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,12 +95,12 @@ msgid "Edit Persistent Environment Variable"
 msgstr ""
 
 #: src/EnvironmentVarMenuRightClick.py:157 src/EnvironmentVariablesInput.py:179
-#: src/EnvironmentVariablesInput.py:190 src/Processes.py:883
+#: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
 #: src/ServicesMenuRightClick.py:161 src/SettingsGUI.py:581
 #: src/StartupMenuRightClick.py:425 src/StartupMenuRightClick.py:438
 #: src/StartupNewItem.py:191 src/StorageMenuRightClick.py:257
-#: src/StorageRenameGUI.py:158
+#: src/StorageRename.py:158
 msgid "Warning"
 msgstr ""
 
@@ -112,16 +112,18 @@ msgstr ""
 msgid "Environment variable will be deleted from following files:"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:159
-msgid "    Variable: "
+#: src/EnvironmentVarMenuRightClick.py:163
+msgid "Do you want to delete the following persistent environment variable?"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:159
-msgid "    Value: "
+#: src/EnvironmentVarMenuRightClick.py:165
+#: ui/EnvironmentVariablesInputWindow.ui:153
+msgid "Variable:"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:159
-msgid "Do you want to delete the following persistent environment variable?\n"
+#: src/EnvironmentVarMenuRightClick.py:166
+#: ui/EnvironmentVariablesInputWindow.ui:165
+msgid "Value:"
 msgstr ""
 
 #: src/EnvironmentVariables.py:140 src/EnvironmentVariables.py:265
@@ -193,40 +195,55 @@ msgid "Do You Want To Overwrite Existing Environment Variable?"
 msgstr ""
 
 #: src/EnvironmentVariablesInput.py:181
-msgid ""
-"There is already an environment variable with the same name.\n"
-"Existing variable will be overwritten if you continue.\n"
-"Do you want to continue?"
+msgid "There is already an environment variable with the same name."
 msgstr ""
 
-#: src/EnvironmentVariablesInput.py:181
-msgid "    Existing Environment Variable: "
+#: src/EnvironmentVariablesInput.py:182
+msgid "Existing variable will be overwritten if you continue."
 msgstr ""
 
-#: src/EnvironmentVariablesInput.py:181
-msgid "    Existing Environment Variable Value: "
+#: src/EnvironmentVariablesInput.py:183 src/StartupNewItem.py:195
+msgid "Do you want to continue?"
 msgstr ""
 
-#: src/EnvironmentVariablesInput.py:181
-msgid "    New Environment Variable: "
+#: src/EnvironmentVariablesInput.py:184
+msgid "Existing Environment Variable:"
 msgstr ""
 
-#: src/EnvironmentVariablesInput.py:181
-msgid "    New Environment Variable Value: "
+#: src/EnvironmentVariablesInput.py:185
+msgid "Existing Environment Variable Value:"
 msgstr ""
 
-#: src/EnvironmentVariablesInput.py:191
+#: src/EnvironmentVariablesInput.py:186
+msgid "New Environment Variable:"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:187
+msgid "New Environment Variable Value:"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:197
 msgid "Do You Want To Add Environment Variable For All Users?"
 msgstr ""
 
-#: src/EnvironmentVariablesInput.py:192
+#: src/EnvironmentVariablesInput.py:198
 msgid ""
 "You may make your system unusable if you edit/overwrite some of the system "
-"variables.\n"
-"Variable will be added/edited for all users if this option is enabled.\n"
+"variables."
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:199
+msgid "Variable will be added/edited for all users if this option is enabled."
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:200
+msgid ""
 "This warning is also shown when an environment variable for all users is "
-"tried to be edited.\n"
-"Do you want to enable/keep enabled this option?"
+"tried to be edited."
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:201
+msgid "Do you want to enable/keep enabled this option?"
 msgstr ""
 
 #: src/FloatingSummary.py:166
@@ -735,7 +752,7 @@ msgid "Exited"
 msgstr ""
 
 #: src/ServicesMenuRightClick.py:162 src/StorageMenuRightClick.py:258
-#: src/StorageRenameGUI.py:159
+#: src/StorageRename.py:159
 msgid "Information"
 msgstr ""
 
@@ -929,10 +946,6 @@ msgstr ""
 msgid "Existing file will be overwritten if you continue."
 msgstr ""
 
-#: src/StartupNewItem.py:195
-msgid "Do you want to continue?"
-msgstr ""
-
 #: src/StartupNewItem.py:196
 msgid "Existing Startup Item:"
 msgstr ""
@@ -1117,11 +1130,11 @@ msgid ""
 "file systems."
 msgstr ""
 
-#: src/StorageRenameGUI.py:124
+#: src/StorageRename.py:124
 msgid "Renaming disks with this file system is not supported."
 msgstr ""
 
-#: src/StorageRenameGUI.py:137
+#: src/StorageRename.py:137
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
@@ -1828,14 +1841,6 @@ msgstr ""
 #: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
 #: ui/StorageRenameWindow.ui:126
 msgid "Cancel"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:153
-msgid "Variable:"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:165
-msgid "Value:"
 msgstr ""
 
 #: ui/EnvironmentVariablesInputWindow.ui:187
@@ -3220,20 +3225,20 @@ msgstr ""
 msgid "Startup Notify"
 msgstr ""
 
-#: ui/StartupNewItemWindow.ui:252
-msgid "Note: Name and Command fields cannot be left blank."
-msgstr ""
-
-#: ui/StartupNewItemWindow.ui:274
+#: ui/StartupNewItemWindow.ui:261
 msgid "User-specific (for current user only)"
 msgstr ""
 
-#: ui/StartupNewItemWindow.ui:288
+#: ui/StartupNewItemWindow.ui:275
 msgid "System-wide (for all users)"
 msgstr ""
 
-#: ui/StartupNewItemWindow.ui:307
+#: ui/StartupNewItemWindow.ui:294
 msgid "Type of the startup item:"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:309
+msgid "Note: Name and Command fields cannot be left blank."
 msgstr ""
 
 #: ui/StartupTab.ui:64

@@ -139,12 +139,12 @@ def storage_menu_right_click_gui_func():
 
     def on_menuitem4107m_activate(widget):                                                    # "Rename Label" item on the right click menu
         disk_name = Storage.selected_storage_kernel_name
-        if 'StorageRenameGUI' not in globals():                                               # Check if "StorageRenameGUI" module is imported. Therefore it is not reimported for every click on "Rename Label" menu item if "StorageRenameGUI" name is in globals().
-            global StorageRenameGUI
-            import StorageRenameGUI
-            StorageRenameGUI.storage_rename_import_func()
-            StorageRenameGUI.storage_rename_gui_func()
-        StorageRenameGUI.window4101w2.show()
+        if 'StorageRename' not in globals():                                                  # Check if "StorageRename" module is imported. Therefore it is not reimported for every click on "Rename Label" menu item if "StorageRename" name is in globals().
+            global StorageRename
+            import StorageRename
+            StorageRename.storage_rename_import_func()
+            StorageRename.storage_rename_gui_func()
+        StorageRename.window4101w2.show()
 
     def on_menuitem4108m_activate(widget):                                                    # "Details" item on the right click menu
         if 'StorageDetails' not in globals():                                                 # Check if "StorageDetails" module is imported. Therefore it is not reimported for double click on "Details" menu item on the right click menu if "StorageDetails" name is in globals().
