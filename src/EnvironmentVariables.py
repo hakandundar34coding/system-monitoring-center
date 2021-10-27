@@ -137,16 +137,16 @@ def environment_variables_open_right_click_menu_func(event):
             import EnvironmentVarMenuRightClick
             EnvironmentVarMenuRightClick.environment_variables_menu_right_click_import_func()
             EnvironmentVarMenuRightClick.environment_variables_menu_right_click_gui_func()
-            if selected_variable_type == _tr("Environment Variable") or selected_variable_type == _tr("Environment & Shell Variable"):    # Perform following oprations if variable is not shell variable.
-                EnvironmentVarMenuRightClick.menuitem7102m.set_sensitive(True)                # Set "Edit Environment Variable" item as sensitive
-                EnvironmentVarMenuRightClick.menuitem7102m.set_tooltip_text("")               # Delete "Edit Environment Variable" item tooltip text
-                EnvironmentVarMenuRightClick.menuitem7103m.set_sensitive(True)                # Set "Delete Environment Variable" item as sensitive
-                EnvironmentVarMenuRightClick.menuitem7103m.set_tooltip_text("")               # Delete "Delete Environment Variable" item tooltip text
-            if selected_variable_type == _tr("Shell Variable"):                               # Perform following oprations if variable is shell variable.
-                EnvironmentVarMenuRightClick.menuitem7102m.set_sensitive(False)               # Set "Edit Environment Variable" item as insensitive
-                EnvironmentVarMenuRightClick.menuitem7102m.set_tooltip_text(_tr("Shell variables cannot be edited."))    # Set "Edit Environment Variable" item tooltip text
-                EnvironmentVarMenuRightClick.menuitem7103m.set_sensitive(False)               # Set "Delete Environment Variable" item as insensitive
-                EnvironmentVarMenuRightClick.menuitem7103m.set_tooltip_text(_tr("Shell variables cannot be deleted."))    # Set "Delete Environment Variable" item tooltip text
+        if selected_variable_type == _tr("Environment Variable") or selected_variable_type == _tr("Environment & Shell Variable"):    # Perform following oprations if variable is not shell variable.
+            EnvironmentVarMenuRightClick.menuitem7102m.set_sensitive(True)                    # Set "Edit Environment Variable" item as sensitive
+            EnvironmentVarMenuRightClick.menuitem7102m.set_tooltip_text("")                   # Delete "Edit Environment Variable" item tooltip text
+            EnvironmentVarMenuRightClick.menuitem7103m.set_sensitive(True)                    # Set "Delete Environment Variable" item as sensitive
+            EnvironmentVarMenuRightClick.menuitem7103m.set_tooltip_text("")                   # Delete "Delete Environment Variable" item tooltip text
+        if selected_variable_type == _tr("Shell Variable"):                                   # Perform following oprations if variable is shell variable.
+            EnvironmentVarMenuRightClick.menuitem7102m.set_sensitive(False)                   # Set "Edit Environment Variable" item as insensitive
+            EnvironmentVarMenuRightClick.menuitem7102m.set_tooltip_text(_tr("Shell variables cannot be edited."))    # Set "Edit Environment Variable" item tooltip text
+            EnvironmentVarMenuRightClick.menuitem7103m.set_sensitive(False)                   # Set "Delete Environment Variable" item as insensitive
+            EnvironmentVarMenuRightClick.menuitem7103m.set_tooltip_text(_tr("Shell variables cannot be deleted."))    # Set "Delete Environment Variable" item tooltip text
         EnvironmentVarMenuRightClick.menu7101m.popup(None, None, None, None, event.button, event.time)
 
 

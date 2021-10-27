@@ -62,6 +62,7 @@ def environment_variables_input_gui_func():
         entry7101w.set_text("")
         entry7102w.set_text("")
         radiobutton7101w.set_active(True)
+        checkbutton7101w.set_sensitive(False)                                                 # This GUI object is made insensitive if "Only current user" option is selected (default selection).
         button7102w.set_sensitive(False)
         entry7101w.set_can_focus(True)                                                        # Set flag to be able to enable grabing focus to be ready for typing directly without clicking on it. Otherwise, entry has to be clicked on it for typing in it.
         entry7101w.grab_focus()                                                               # Enable grabing focus to be ready for typing directly without clicking on it. Otherwise, entry has to be clicked on it for typing in it.
