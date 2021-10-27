@@ -189,6 +189,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Computer model name
+
 This information may not be present in all motherboards.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Model:</property>
@@ -204,6 +205,7 @@ This information may not be present in all motherboards.</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Type of the computer chassis
+
 This information may not be present in all motherboards.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Computer Type:</property>
@@ -267,6 +269,7 @@ This information may not be present in all motherboards.</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Base version of the kernel
+
 May be different from package version of the kernel.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Kernel Release:</property>
@@ -333,6 +336,7 @@ May be different from package version of the kernel.</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Computer vendor name
+
 This information may not be present in all motherboards.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Vendor:</property>
@@ -396,6 +400,7 @@ This information may not be present in all motherboards.</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Name of the computer
+
 Host name is defined by the vendor or by the user during system installation.
 This name can be changed later.</property>
                     <property name="halign">start</property>
@@ -460,6 +465,7 @@ This name can be changed later.</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Package version of the kernel
+
 May be different from base version of the kernel.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Kernel Version:</property>
@@ -492,6 +498,7 @@ May be different from base version of the kernel.</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Monitor which most part of this window is shown on
+
 This information is available only on systems with X11 windowing system.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Current Monitor:</property>
@@ -585,6 +592,7 @@ This information is available only on systems with X11 windowing system.</proper
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Name of the desktop environment
+
 Desktop environments provide several applications (such as file manager, media player, text editor, task manager etc.) and utilities (such as localization, power management, some settings management features, panels, windowing system, display manager, session manager, etc.) to user for using the computer.
 There may be big differences of system resource usages and features between different desktop environments.</property>
                     <property name="halign">start</property>
@@ -652,6 +660,7 @@ There may be big differences of system resource usages and features between diff
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Name of the windowing system (window system)
+
 Windowing system draws windows, icons, pointers, fonts, etc.
 Windowing systems have some components such as display server and window manager.</property>
                     <property name="halign">start</property>
@@ -668,6 +677,7 @@ Windowing systems have some components such as display server and window manager
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Name of the display manager (login manager)
+
 Provides a graphical user interface for user login, starts the display server and loads the desktop environment after user login.
 Features, system resource usages and appearance of the greeter (login screen) are different for different display managers.</property>
                     <property name="halign">start</property>
@@ -761,6 +771,7 @@ Features, system resource usages and appearance of the greeter (login screen) ar
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Name of the window manager
+
 Window manager manages position, size, stacking order, focus of the windows, performs minimizing/maximizing operations of windows, provides window decorations, manages virtual desktops (workspaces).
 
 Note: Window manager changes during user session are not tracked.</property>

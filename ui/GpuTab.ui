@@ -21,6 +21,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">FPS (Frames Per Second)
+
 Counted by using a glarea and OpenGL library.
 This is a simple FPS counter and may not be accurate in some situations.
 FPS counting does not continue when window is minimized.</property>
@@ -195,6 +196,7 @@ FPS counting does not continue when window is minimized.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Current refresh rate
+
 May be different than maximum refresh rate of the monitor.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Refresh Rate:</property>
@@ -290,6 +292,7 @@ May be different than maximum refresh rate of the monitor.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Current resolution
+
 May be different than maximum resolution of the monitor.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Resolution:</property>

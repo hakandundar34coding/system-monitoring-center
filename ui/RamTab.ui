@@ -54,7 +54,8 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Available RAM memory (in powers of 1024)
-Available and Free RAM memory values are different</property>
+
+Available and Free RAM memory values are different.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Available:</property>
             <property name="ellipsize">end</property>
@@ -227,7 +228,8 @@ Available and Free RAM memory values are different</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Free RAM memory (in powers of 1024)
-Free and Available RAM memory values are different</property>
+
+Free and Available RAM memory values are different.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Free:</property>
             <property name="ellipsize">end</property>

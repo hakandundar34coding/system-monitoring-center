@@ -161,8 +161,8 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">File system of the selected disk partition
+
 File system is shown from user space and may differ from the actual file system.
-Actual file system is also tried to shown if "fuseblk" is detected as file system.
 "[SWAP]" information is shown if selected disk is a Swap partition.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">File System:</property>
@@ -278,6 +278,7 @@ Actual file system is also tried to shown if "fuseblk" is detected as file syste
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Free space of the selected disk (in powers of 1024)
+
 Measurement is made for filesystem and may differ from mass storage values.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Free:</property>
@@ -293,6 +294,7 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Used space of the selected disk (in powers of 1024)
+
 Measurement is made for filesystem and may differ from mass storage values.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Used:</property>
@@ -362,6 +364,7 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="tooltip-text" translatable="yes">Disk usage percent of the selected disk
+
 Measurement is made for filesystem and may differ from mass storage values.</property>
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Disk Usage:</property>
@@ -412,6 +415,7 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Total capacity of the selected disk (in powers of 1024)
+
 Measurement is made for filesystem and may differ from mass storage values.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Capacity:</property>
@@ -486,7 +490,8 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Disk read and write speed on the selected disk
-(Max value depends on disk speed and graphic scale is updated dynamically)</property>
+
+Max value depends on disk speed and graphic scale is updated dynamically.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Disk Read (-) &amp; Write (--) Speed:</property>
           </object>
