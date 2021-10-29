@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-29 10:50+0300\n"
-"PO-Revision-Date: 2021-10-29 10:53+0300\n"
+"POT-Creation-Date: 2021-10-29 17:15+0300\n"
+"PO-Revision-Date: 2021-10-29 17:15+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/Cpu.py:276 ui/CpuTab.ui:45 ui/PerformanceTab.ui:58
+#: src/Cpu.py:276 ui/CpuTab.ui:45
 msgid "CPU Usage % (Average):"
 msgstr "MİB Kullanım % (Ortalama):"
 
@@ -823,12 +823,10 @@ msgid "System"
 msgstr "Sistem"
 
 #: src/SettingsGUI.py:333 ui/CpuTab.ui:500 ui/MainWindow.ui:80
-#: ui/PerformanceTab.ui:511 ui/PerformanceTab.ui:2864
 msgid "CPU"
 msgstr "MİB"
 
-#: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/PerformanceTab.ui:874
-#: ui/PerformanceTab.ui:2911 ui/RamTab.ui:350
+#: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/RamTab.ui:350
 msgid "RAM"
 msgstr "RAM"
 
@@ -839,22 +837,18 @@ msgstr "RAM"
 #: src/StorageDetails.py:356 src/StorageDetails.py:365
 #: src/StorageDetails.py:372 src/StorageDetails.py:386
 #: src/StorageDetails.py:400 ui/DiskTab.ui:23 ui/MainWindow.ui:174
-#: ui/PerformanceTab.ui:1046 ui/PerformanceTab.ui:2958
 msgid "Disk"
 msgstr "Disk"
 
 #: src/SettingsGUI.py:333 ui/MainWindow.ui:268 ui/NetworkTab.ui:417
-#: ui/PerformanceTab.ui:1971 ui/PerformanceTab.ui:3052
 msgid "Network"
 msgstr "Ağ"
 
 #: src/SettingsGUI.py:333 ui/GpuTab.ui:358 ui/MainWindow.ui:221
-#: ui/PerformanceTab.ui:2410 ui/PerformanceTab.ui:3005
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:333 ui/MainWindow.ui:315 ui/PerformanceTab.ui:2769
-#: ui/PerformanceTab.ui:3099 ui/SensorsTab.ui:163
+#: src/SettingsGUI.py:333 ui/MainWindow.ui:315 ui/SensorsTab.ui:163
 msgid "Sensors"
 msgstr "Algılayıcı"
 
@@ -1391,12 +1385,11 @@ msgstr "Hepsini Sıfırla"
 msgid "Select CPU Core:"
 msgstr "MİB Çekirdeği Seç:"
 
-#: ui/CpuTab.ui:31 ui/PerformanceTab.ui:44 ui/PerformanceTab.ui:969
-#: ui/RamTab.ui:445
+#: ui/CpuTab.ui:31 ui/RamTab.ui:445
 msgid "100%"
 msgstr "%100"
 
-#: ui/CpuTab.ui:42 ui/PerformanceTab.ui:55
+#: ui/CpuTab.ui:42
 msgid ""
 "CPU usage percent\n"
 "(Max value is 100 %)"
@@ -1404,8 +1397,7 @@ msgstr ""
 "MİB kullanım yüzdesi\n"
 "(En yüksek değer %100)"
 
-#: ui/CpuTab.ui:57 ui/PerformanceTab.ui:70 ui/PerformanceTab.ui:995
-#: ui/RamTab.ui:471
+#: ui/CpuTab.ui:57 ui/RamTab.ui:471
 msgid "0%"
 msgstr "%0"
 
@@ -1423,32 +1415,7 @@ msgstr "%0"
 #: ui/NetworkTab.ui:241 ui/NetworkTab.ui:258 ui/NetworkTab.ui:289
 #: ui/NetworkTab.ui:321 ui/NetworkTab.ui:461 ui/NetworkTab.ui:476
 #: ui/PerformanceSummaryHeaderBarGrid.ui:78
-#: ui/PerformanceSummaryHeaderBarGrid.ui:90 ui/PerformanceTab.ui:116
-#: ui/PerformanceTab.ui:133 ui/PerformanceTab.ui:150 ui/PerformanceTab.ui:209
-#: ui/PerformanceTab.ui:226 ui/PerformanceTab.ui:243 ui/PerformanceTab.ui:260
-#: ui/PerformanceTab.ui:334 ui/PerformanceTab.ui:365 ui/PerformanceTab.ui:410
-#: ui/PerformanceTab.ui:472 ui/PerformanceTab.ui:487 ui/PerformanceTab.ui:598
-#: ui/PerformanceTab.ui:615 ui/PerformanceTab.ui:660 ui/PerformanceTab.ui:677
-#: ui/PerformanceTab.ui:708 ui/PerformanceTab.ui:739 ui/PerformanceTab.ui:771
-#: ui/PerformanceTab.ui:819 ui/PerformanceTab.ui:918 ui/PerformanceTab.ui:933
-#: ui/PerformanceTab.ui:1090 ui/PerformanceTab.ui:1105
-#: ui/PerformanceTab.ui:1219 ui/PerformanceTab.ui:1236
-#: ui/PerformanceTab.ui:1253 ui/PerformanceTab.ui:1270
-#: ui/PerformanceTab.ui:1287 ui/PerformanceTab.ui:1334
-#: ui/PerformanceTab.ui:1365 ui/PerformanceTab.ui:1414
-#: ui/PerformanceTab.ui:1453 ui/PerformanceTab.ui:1470
-#: ui/PerformanceTab.ui:1693 ui/PerformanceTab.ui:1710
-#: ui/PerformanceTab.ui:1727 ui/PerformanceTab.ui:1744
-#: ui/PerformanceTab.ui:1761 ui/PerformanceTab.ui:1778
-#: ui/PerformanceTab.ui:1795 ui/PerformanceTab.ui:1812
-#: ui/PerformanceTab.ui:1843 ui/PerformanceTab.ui:1875
-#: ui/PerformanceTab.ui:2015 ui/PerformanceTab.ui:2030
-#: ui/PerformanceTab.ui:2140 ui/PerformanceTab.ui:2157
-#: ui/PerformanceTab.ui:2174 ui/PerformanceTab.ui:2219
-#: ui/PerformanceTab.ui:2236 ui/PerformanceTab.ui:2268
-#: ui/PerformanceTab.ui:2300 ui/PerformanceTab.ui:2317
-#: ui/PerformanceTab.ui:2363 ui/PerformanceTab.ui:2380
-#: ui/PerformanceTab.ui:2454 ui/PerformanceTab.ui:2469
+#: ui/PerformanceSummaryHeaderBarGrid.ui:90
 #: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
 #: ui/ProcessesDetailsWindow.ui:257 ui/ProcessesDetailsWindow.ui:272
@@ -1512,7 +1479,7 @@ msgstr "%0"
 msgid "--"
 msgstr ""
 
-#: ui/CpuTab.ui:153 ui/PerformanceTab.ui:166 ui/SystemTab.ui:696
+#: ui/CpuTab.ui:153 ui/SystemTab.ui:696
 msgid "Elapsed time since last system boot"
 msgstr "Sistem başlangıcından sonra geçen zaman"
 
@@ -1520,15 +1487,15 @@ msgstr "Sistem başlangıcından sonra geçen zaman"
 msgid "Up Time:"
 msgstr "Çalışma Zamanı:"
 
-#: ui/CpuTab.ui:167 ui/PerformanceTab.ui:180
+#: ui/CpuTab.ui:167
 msgid "Number of total running processes and threads"
 msgstr "Toplam çalışan işlem ve iş parçacığı sayısı"
 
-#: ui/CpuTab.ui:169 ui/PerformanceTab.ui:182
+#: ui/CpuTab.ui:169
 msgid "Processes-Threads:"
 msgstr "İşlemler-İş Parçacıkları:"
 
-#: ui/CpuTab.ui:181 ui/PerformanceTab.ui:194
+#: ui/CpuTab.ui:181
 msgid ""
 "L1d (for data) and L1i (for instructions) cache memory values of the "
 "selected CPU core"
@@ -1536,7 +1503,7 @@ msgstr ""
 "Seçilen MİB çekirdeği için L1d (veri için) ve L1i (komutlar için) ön bellek "
 "değerleri"
 
-#: ui/CpuTab.ui:183 ui/PerformanceTab.ui:196
+#: ui/CpuTab.ui:183
 msgid "Cache (L1d-L1i):"
 msgstr "Ön Bellek (L1d-L1i):"
 
@@ -1552,60 +1519,60 @@ msgstr ""
 "(MİB'nin SMT özelliği yoksa veya devre dışı ise, toplam mantıksal ve "
 "fiziksel çekirdek sayıları birbirine eşittir.)"
 
-#: ui/CpuTab.ui:267 ui/PerformanceTab.ui:279
+#: ui/CpuTab.ui:267
 msgid "Cores (Physical-Logical):"
 msgstr "Çekirdekler (Fiziksel-Mantıksal):"
 
-#: ui/CpuTab.ui:279 ui/PerformanceTab.ui:291
+#: ui/CpuTab.ui:279
 msgid "Number of CPU packages (CPU sockets)"
 msgstr "MİB paketi sayısı (MİB soketi sayısı)"
 
-#: ui/CpuTab.ui:281 ui/PerformanceTab.ui:293
+#: ui/CpuTab.ui:281
 msgid "CPU Sockets:"
 msgstr "MİB Soketleri:"
 
-#: ui/CpuTab.ui:293 ui/PerformanceTab.ui:305
+#: ui/CpuTab.ui:293
 msgid "Minimum and maximum frequency values of the selected CPU core"
 msgstr "Seçilen MİB çekirdeğinin en düşük ve en yüksek frekans değerleri"
 
-#: ui/CpuTab.ui:295 ui/PerformanceTab.ui:307
+#: ui/CpuTab.ui:295
 msgid "Min-Max Frequency:"
 msgstr "Min-Maks Frekans:"
 
-#: ui/CpuTab.ui:307 ui/PerformanceTab.ui:319
+#: ui/CpuTab.ui:307
 msgid "Current frequency of the selected CPU core"
 msgstr "Seçilen MİB çekirdeğinin şimdiki frekansı"
 
-#: ui/CpuTab.ui:309 ui/PerformanceTab.ui:321
-msgid "Current Frequency:"
-msgstr "Şimdiki Frekans:"
+#: ui/CpuTab.ui:309
+msgid "Frequency:"
+msgstr "Frekans:"
 
 #: ui/CpuTab.ui:338 ui/PerformanceSummaryHeaderBarGrid.ui:15
-#: ui/PerformanceSummaryHeaderBarGrid.ui:27 ui/PerformanceTab.ui:350
+#: ui/PerformanceSummaryHeaderBarGrid.ui:27
 msgid "Average CPU usage of all cores"
 msgstr "Tüm çekirdeklerin ortalama MİB kullanımı"
 
-#: ui/CpuTab.ui:340 ui/PerformanceTab.ui:352
+#: ui/CpuTab.ui:340
 msgid "Average Usage:"
 msgstr "Ortalama Kullanım:"
 
-#: ui/CpuTab.ui:369 ui/PerformanceTab.ui:381
+#: ui/CpuTab.ui:369
 msgid "CPU architecture"
 msgstr "MİB mimarisi"
 
-#: ui/CpuTab.ui:371 ui/PerformanceTab.ui:383
+#: ui/CpuTab.ui:371
 msgid "Architecture:"
 msgstr "Mimari:"
 
-#: ui/CpuTab.ui:383 ui/PerformanceTab.ui:395
+#: ui/CpuTab.ui:383
 msgid "L2 and L3 cache memory values of the selected CPU core"
 msgstr "Seçilen MİB çekirdeği için L2 ve L3 ön bellek değerleri"
 
-#: ui/CpuTab.ui:385 ui/PerformanceTab.ui:397
+#: ui/CpuTab.ui:385
 msgid "Cache (L2-L3):"
 msgstr "Ön Bellek (L2-L3):"
 
-#: ui/CpuTab.ui:427 ui/PerformanceTab.ui:439
+#: ui/CpuTab.ui:427
 msgid "CPU Tab Customizations"
 msgstr "MİB Sekmesi Özelleştirmeleri"
 
@@ -1627,11 +1594,11 @@ msgstr ""
 "Ön Bellek (L1d-L1i),\n"
 "Ön Bellek (L2-L3)"
 
-#: ui/CpuTab.ui:474 ui/PerformanceTab.ui:485
+#: ui/CpuTab.ui:474
 msgid "CPU Model Name"
 msgstr "MİB Model Adı"
 
-#: ui/CpuTab.ui:498 ui/PerformanceTab.ui:509
+#: ui/CpuTab.ui:498
 msgid "CPU (Central Processing Unit)"
 msgstr "MİB (Merkezi İşlem Birimi = CPU)"
 
@@ -1661,9 +1628,8 @@ msgid "Disk Speed:"
 msgstr "Disk Hızı:"
 
 #: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:370
-#: ui/PerformanceTab.ui:1390 ui/ProcessesMenuCustomizations.ui:732
-#: ui/ProcessesMenuCustomizations.ui:834 ui/StorageMenuCustomizations.ui:675
-#: ui/StorageMenuCustomizations.ui:735
+#: ui/ProcessesMenuCustomizations.ui:732 ui/ProcessesMenuCustomizations.ui:834
+#: ui/StorageMenuCustomizations.ui:675 ui/StorageMenuCustomizations.ui:735
 msgid "Disk Usage:"
 msgstr "Disk Kullanımı:"
 
@@ -1683,23 +1649,23 @@ msgstr "Yazma Hızı"
 msgid "Select Disk:"
 msgstr "Disk Seç:"
 
-#: ui/DiskTab.ui:21 ui/PerformanceTab.ui:1044
+#: ui/DiskTab.ui:21
 msgid "Disk (Storage items in form of disk/partition)"
 msgstr "Disk (disk/disk bölümü formundaki depolama ögeleri)"
 
-#: ui/DiskTab.ui:39 ui/PerformanceTab.ui:1062
+#: ui/DiskTab.ui:39
 msgid "Disk Tab Customizations"
 msgstr "Disk Sekmesi Özelleştirmeleri"
 
-#: ui/DiskTab.ui:65 ui/PerformanceTab.ui:1088
+#: ui/DiskTab.ui:65
 msgid "Disk Kernel Name (and if selected disk is a disk or partition)"
 msgstr "Kernel'deki Disk Adı (ve seçilen diskin disk veya disk bölümü olması)"
 
-#: ui/DiskTab.ui:80 ui/PerformanceTab.ui:1103
+#: ui/DiskTab.ui:80
 msgid "Disk Device Model Name"
 msgstr "Disk Cihaz Modeli Adı"
 
-#: ui/DiskTab.ui:118 ui/PerformanceTab.ui:1141
+#: ui/DiskTab.ui:118
 msgid ""
 "Disk read speed on the selected disk\n"
 "(could be shown as Byte or bit)"
@@ -1707,11 +1673,11 @@ msgstr ""
 "Seçilen disk üzerindeki okuma hızı\n"
 "(Bayt veya bit olarak görüntülenebilir)"
 
-#: ui/DiskTab.ui:121 ui/PerformanceTab.ui:1144
+#: ui/DiskTab.ui:121
 msgid "Read Speed:"
 msgstr "Okuma Hızı:"
 
-#: ui/DiskTab.ui:133 ui/PerformanceTab.ui:1156
+#: ui/DiskTab.ui:133
 msgid ""
 "Disk write speed on the selected disk\n"
 "(could be shown as Byte or bit)"
@@ -1719,21 +1685,21 @@ msgstr ""
 "Seçilen disk üzerindeki yazma hızı\n"
 "(Bayt veya bit olarak görüntülenebilir)"
 
-#: ui/DiskTab.ui:136 ui/PerformanceTab.ui:1159
+#: ui/DiskTab.ui:136
 msgid "Write Speed:"
 msgstr "Yazma Hızı:"
 
-#: ui/DiskTab.ui:148 ui/PerformanceTab.ui:1171
+#: ui/DiskTab.ui:148
 msgid ""
 "Total disk read time on the selected disk\n"
 "(milliseconds)"
 msgstr ""
-"Seçilen disk üzerindeki toplam okuma zamanı\n"
+"Seçilen disk üzerindeki toplam okuma süresi\n"
 "(milisaniye)"
 
-#: ui/DiskTab.ui:151 ui/PerformanceTab.ui:1174
-msgid "Total Read Time:"
-msgstr "Toplam Okuma Zamanı:"
+#: ui/DiskTab.ui:151
+msgid "Read Time:"
+msgstr "Okuma Süresi:"
 
 #: ui/DiskTab.ui:163
 msgid ""
@@ -1749,11 +1715,11 @@ msgstr ""
 "dosya sisteminden farlı olabilir.\n"
 "Eğer seçilen disk bir takas bölümü ise \"[SWAP]\" bilgisi gösterilir."
 
-#: ui/DiskTab.ui:168 ui/PerformanceTab.ui:1191
+#: ui/DiskTab.ui:168
 msgid "File System:"
 msgstr "Dosya Sistemi:"
 
-#: ui/DiskTab.ui:180 ui/PerformanceTab.ui:1203
+#: ui/DiskTab.ui:180
 msgid ""
 "Total disk write time on the selected disk\n"
 "(milliseconds)"
@@ -1761,9 +1727,9 @@ msgstr ""
 "Seçilen disk üzerindeki toplam yazma süresi\n"
 "(milisaniye)"
 
-#: ui/DiskTab.ui:183 ui/PerformanceTab.ui:1206
-msgid "Total Write Time:"
-msgstr "Toplam Yazma Süresi:"
+#: ui/DiskTab.ui:183
+msgid "Write Time:"
+msgstr "Yazma Süresi:"
 
 #: ui/DiskTab.ui:280
 msgid ""
@@ -1776,8 +1742,7 @@ msgstr ""
 "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
 "olabilir."
 
-#: ui/DiskTab.ui:284 ui/PerformanceTab.ui:758 ui/PerformanceTab.ui:1306
-#: ui/RamTab.ui:234
+#: ui/DiskTab.ui:284 ui/RamTab.ui:234
 msgid "Free:"
 msgstr "Boş:"
 
@@ -1792,16 +1757,15 @@ msgstr ""
 "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
 "olabilir."
 
-#: ui/DiskTab.ui:300 ui/PerformanceTab.ui:570 ui/PerformanceTab.ui:633
-#: ui/PerformanceTab.ui:1321 ui/RamTab.ui:44 ui/RamTab.ui:108
+#: ui/DiskTab.ui:300 ui/RamTab.ui:44 ui/RamTab.ui:108
 msgid "Used:"
 msgstr "Kullanılan:"
 
-#: ui/DiskTab.ui:329 ui/PerformanceTab.ui:1350
+#: ui/DiskTab.ui:329
 msgid "If operating system is installed on the selected disk"
 msgstr "İşletim sisteminin seçilen diske kurulu olup olmaması"
 
-#: ui/DiskTab.ui:331 ui/PerformanceTab.ui:1352
+#: ui/DiskTab.ui:331
 msgid "System Disk:"
 msgstr "Sistem Diski:"
 
@@ -1827,13 +1791,11 @@ msgstr ""
 "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
 "olabilir."
 
-#: ui/DiskTab.ui:421 ui/PerformanceTab.ui:695 ui/PerformanceTab.ui:726
-#: ui/PerformanceTab.ui:1440 ui/RamTab.ui:170 ui/RamTab.ui:201
+#: ui/DiskTab.ui:421 ui/RamTab.ui:170 ui/RamTab.ui:201
 msgid "Capacity:"
 msgstr "Kapasite:"
 
-#: ui/DiskTab.ui:481 ui/NetworkTab.ui:364 ui/PerformanceTab.ui:1500
-#: ui/PerformanceTab.ui:1918
+#: ui/DiskTab.ui:481 ui/NetworkTab.ui:364
 msgid "B/s "
 msgstr "B/s "
 
@@ -1847,13 +1809,11 @@ msgstr ""
 "\n"
 "Maks. değer disk hızına bağlıdır ve grafik ölçeği dinamik olarak güncellenir."
 
-#: ui/DiskTab.ui:496 ui/PerformanceTab.ui:1514
+#: ui/DiskTab.ui:496
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr "Disk Okuma (-) & Yazma (--) Hızı:"
 
 #: ui/DiskTab.ui:508 ui/GpuTab.ui:465 ui/NetworkTab.ui:390
-#: ui/PerformanceTab.ui:1526 ui/PerformanceTab.ui:1944
-#: ui/PerformanceTab.ui:2517
 msgid "0"
 msgstr ""
 
@@ -2095,21 +2055,21 @@ msgstr ""
 "Basit bir FPS sayacıdır ve bazı durumlarda doğru değerler vermeyebilir.\n"
 "Pencere küçültülmüşken FPS sayımı devam etmez."
 
-#: ui/GpuTab.ui:29 ui/PerformanceTab.ui:2083
+#: ui/GpuTab.ui:29
 msgid "FPS (Frame Rate): "
 msgstr "FPS (Kare Oranı): "
 
-#: ui/GpuTab.ui:41 ui/PerformanceTab.ui:2095
+#: ui/GpuTab.ui:41
 msgid ""
 "Average frame latency which is time delay (milliseconds) between frames\n"
 "(=1/FPS)"
 msgstr "Ortalama kare gecikmesi, yani kareler arasındaki gecikme (milisaniye)"
 
-#: ui/GpuTab.ui:44 ui/PerformanceTab.ui:2098
+#: ui/GpuTab.ui:44
 msgid "Frame Latency:"
 msgstr "Kare Gecikmesi:"
 
-#: ui/GpuTab.ui:56 ui/PerformanceTab.ui:2110
+#: ui/GpuTab.ui:56
 msgid ""
 "Video memory of the selected GPU\n"
 "(Could be dedicated memory or reserved from RAM)"
@@ -2117,32 +2077,32 @@ msgstr ""
 "Seçilen GPU'nun video belleği\n"
 "(Adanmış veya RAM'dan ayrılmış bellek olabilir)"
 
-#: ui/GpuTab.ui:59 ui/PerformanceTab.ui:2113
+#: ui/GpuTab.ui:59
 msgid "Video Memory:"
 msgstr "Video Belleği:"
 
-#: ui/GpuTab.ui:71 ui/PerformanceTab.ui:2125
+#: ui/GpuTab.ui:71
 msgid "If selected GPU supports direct rendering"
 msgstr ""
-"Seçilen GPU'nun direkt işleme (direct rendering) desteleyip desteklememesi"
+"Seçilen GPU'nun doğrudan işleme (direct rendering) desteleyip desteklememesi"
 
-#: ui/GpuTab.ui:73 ui/PerformanceTab.ui:2127
+#: ui/GpuTab.ui:73
 msgid "Direct Rendering:"
-msgstr "Direkt İşleme:"
+msgstr "Doğrudan İşleme:"
 
-#: ui/GpuTab.ui:136 ui/PerformanceTab.ui:2190
+#: ui/GpuTab.ui:136
 msgid "OpenGL version supported by the selected GPU"
 msgstr "Seçilen GPU tarafından desteklenen OpenGL sürümü"
 
-#: ui/GpuTab.ui:138 ui/PerformanceTab.ui:2192
+#: ui/GpuTab.ui:138
 msgid "OpenGL Version:"
 msgstr "OpenGL Sürümü:"
 
-#: ui/GpuTab.ui:150 ui/PerformanceTab.ui:2204
+#: ui/GpuTab.ui:150
 msgid "If selected GPU has unified memory (reserved from RAM)"
 msgstr "Seçilen GPU'nun birleşik belleğinin (RAM'dan ayrılmış) olup olmaması"
 
-#: ui/GpuTab.ui:152 ui/PerformanceTab.ui:2206
+#: ui/GpuTab.ui:152
 msgid "Unified Memory:"
 msgstr "Birleşik Bellek:"
 
@@ -2156,11 +2116,11 @@ msgstr ""
 "\n"
 "Monitörün en yüksek yenileme oranından farklı olabilir."
 
-#: ui/GpuTab.ui:202 ui/PerformanceTab.ui:2255
+#: ui/GpuTab.ui:202
 msgid "Refresh Rate:"
 msgstr "Yenileme Oranı:"
 
-#: ui/GpuTab.ui:231 ui/PerformanceTab.ui:2284
+#: ui/GpuTab.ui:231
 msgid ""
 "Current driver name and version of the selected GPU\n"
 "(May be proprietary or open sourced driver name)"
@@ -2168,11 +2128,11 @@ msgstr ""
 "Seçilen GPU'nun şimdiki sürücü adı ve sürümü\n"
 "(Kapalı veya açık kaynak kodlu sürücünün adı olabilir)"
 
-#: ui/GpuTab.ui:234 ui/PerformanceTab.ui:2287
+#: ui/GpuTab.ui:234
 msgid "Driver:"
 msgstr "Sürücü:"
 
-#: ui/GpuTab.ui:280 ui/PerformanceTab.ui:2333
+#: ui/GpuTab.ui:280
 msgid ""
 "If selected GPU is default on system boot and/or used for graphics "
 "processing by default"
@@ -2180,7 +2140,7 @@ msgstr ""
 "Seçili GPU'nun sistem açılışında varsayılan olup olmaması ve/veya grafik "
 "işleme için varsayılan olup olmaması"
 
-#: ui/GpuTab.ui:282 ui/PerformanceTab.ui:2335
+#: ui/GpuTab.ui:282
 msgid "Default GPU:"
 msgstr "Varsayılan GPU:"
 
@@ -2194,31 +2154,31 @@ msgstr ""
 "\n"
 "Monitörün en yüksek çözünürlüğünden farklı olabilir."
 
-#: ui/GpuTab.ui:298 ui/PerformanceTab.ui:2350
+#: ui/GpuTab.ui:298
 msgid "Resolution:"
 msgstr "Çözünürlük:"
 
-#: ui/GpuTab.ui:356 ui/PerformanceTab.ui:2408
+#: ui/GpuTab.ui:356
 msgid "GPU (Graphics Processing Unit) / Graphics Card"
 msgstr "GPU (Grafik İşleme Ünitesi = Graphics Processing Unit) / Grafik Kartı"
 
-#: ui/GpuTab.ui:374 ui/PerformanceTab.ui:2426
+#: ui/GpuTab.ui:374
 msgid "GPU Tab Customizations"
 msgstr "GPU Sekmesi Özelleştirmeleri"
 
-#: ui/GpuTab.ui:400 ui/PerformanceTab.ui:2452
+#: ui/GpuTab.ui:400
 msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
 msgstr "İ.S. Tarafından Verilen (Ve Sürücüdeki) GPU/Grafik Kartı Adı"
 
-#: ui/GpuTab.ui:415 ui/PerformanceTab.ui:2467
+#: ui/GpuTab.ui:415
 msgid "GPU/Graphics Card Device Model Name"
 msgstr "GPU/Grafik Kartı Cihaz Modeli Adı"
 
-#: ui/GpuTab.ui:453 ui/PerformanceTab.ui:2505
+#: ui/GpuTab.ui:453
 msgid "FPS"
 msgstr "FPS"
 
-#: ui/GpuTab.ui:482 ui/PerformanceTab.ui:2534
+#: ui/GpuTab.ui:482
 msgid ""
 "FPS (Frames Per Second)\n"
 "(Maximum value could be limited with current monitor refresh rate or GPU "
@@ -2228,7 +2188,7 @@ msgstr ""
 "(En yüksek değer monitörün şimdiki yenileme oranı veya GPU performansı ile "
 "limitli olabilir)"
 
-#: ui/GpuTab.ui:485 ui/PerformanceTab.ui:2537
+#: ui/GpuTab.ui:485
 msgid "FPS Count:"
 msgstr "FPS Sayısı:"
 
@@ -2345,23 +2305,23 @@ msgstr "Yükleme Hızı"
 msgid "Select Network Card:"
 msgstr "Ağ Kartı Seç:"
 
-#: ui/NetworkTab.ui:23 ui/PerformanceTab.ui:1577
+#: ui/NetworkTab.ui:23
 msgid "Data download speed on the selected network card"
 msgstr "Seçilen ağ kartı üzerindeki veri indirme hızı"
 
-#: ui/NetworkTab.ui:25 ui/PerformanceTab.ui:1579
+#: ui/NetworkTab.ui:25
 msgid "Download Speed:"
 msgstr "İndirme Hızı:"
 
-#: ui/NetworkTab.ui:37 ui/PerformanceTab.ui:1591
+#: ui/NetworkTab.ui:37
 msgid "Data upload speed on the selected network card"
 msgstr "Seçilen ağ kartı üzerindeki veri yükleme hızı"
 
-#: ui/NetworkTab.ui:39 ui/PerformanceTab.ui:1593
+#: ui/NetworkTab.ui:39
 msgid "Upload Speed:"
 msgstr "Yükleme Hızı:"
 
-#: ui/NetworkTab.ui:51 ui/PerformanceTab.ui:1605
+#: ui/NetworkTab.ui:51
 msgid ""
 "Downloaded data on the selected network card\n"
 "(since last system boot)"
@@ -2369,11 +2329,11 @@ msgstr ""
 "Seçilen ağ kartı üzerinden indirilmiş veri\n"
 "(son sistem başlangıcından sonra)"
 
-#: ui/NetworkTab.ui:54 ui/PerformanceTab.ui:1608
+#: ui/NetworkTab.ui:54
 msgid "Downloaded Data:"
 msgstr "İndirilen Veri:"
 
-#: ui/NetworkTab.ui:66 ui/PerformanceTab.ui:1620
+#: ui/NetworkTab.ui:66
 msgid ""
 "Uploaded data on the selected network card\n"
 "(since last system start)"
@@ -2381,11 +2341,11 @@ msgstr ""
 "Seçilen ağ kartı üzerinden yüklenmiş veri\n"
 "(son sistem başlangıcından sonra)"
 
-#: ui/NetworkTab.ui:69 ui/PerformanceTab.ui:1623
+#: ui/NetworkTab.ui:69
 msgid "Uploaded Data:"
 msgstr "Yüklenen Veri:"
 
-#: ui/NetworkTab.ui:81 ui/PerformanceTab.ui:1635
+#: ui/NetworkTab.ui:81
 msgid ""
 "Network connection on the selected network card\n"
 "(Wi-Fi or Ethernet)"
@@ -2393,36 +2353,36 @@ msgstr ""
 "Seçilen ağ kartı üzerindeki ağ bağlantısı tipi\n"
 "(Wi-Fi veya Ethernet)"
 
-#: ui/NetworkTab.ui:84 ui/PerformanceTab.ui:1638
+#: ui/NetworkTab.ui:84
 msgid "Connection Type:"
 msgstr "Bağlantı Tipi:"
 
-#: ui/NetworkTab.ui:96 ui/PerformanceTab.ui:1650
+#: ui/NetworkTab.ui:96
 msgid "IPv4 address on the selected network card"
 msgstr "Seçilen ağ kartı üzerindeki IPv4 adresi"
 
-#: ui/NetworkTab.ui:98 ui/PerformanceTab.ui:1652
+#: ui/NetworkTab.ui:98
 msgid "IPv4 Address:"
 msgstr "IPv4 Adresi:"
 
-#: ui/NetworkTab.ui:110 ui/PerformanceTab.ui:1664
+#: ui/NetworkTab.ui:110
 msgid "IPv6 address on the selected network card"
 msgstr "Seçilen ağ kartı üzerindeki IPv6 adresi"
 
-#: ui/NetworkTab.ui:112 ui/PerformanceTab.ui:1666
+#: ui/NetworkTab.ui:112
 msgid "IPv6 Address:"
 msgstr "IPv6 Adresi:"
 
-#: ui/NetworkTab.ui:124 ui/PerformanceTab.ui:1678
+#: ui/NetworkTab.ui:124
 msgid "MAC (Media Access Control) address of the selected network card"
 msgstr ""
 "Seçilen ağ kartının MAC (Medya Erişim Kontrolü = Media Access Control) adresi"
 
-#: ui/NetworkTab.ui:126 ui/PerformanceTab.ui:1680
+#: ui/NetworkTab.ui:126
 msgid "MAC Address:"
 msgstr "MAC Adresi:"
 
-#: ui/NetworkTab.ui:274 ui/PerformanceTab.ui:1828
+#: ui/NetworkTab.ui:274
 msgid ""
 "If selected network card is connected - Network name (SSID = Service Set "
 "Identifier)"
@@ -2430,11 +2390,11 @@ msgstr ""
 "Seçilen ağ kartının bağlı olup olmaması - Ağ adı (SSID = Service Set "
 "Identifier)"
 
-#: ui/NetworkTab.ui:276 ui/PerformanceTab.ui:1830
+#: ui/NetworkTab.ui:276
 msgid "Connected-SSID:"
 msgstr "Bağlı-SSID:"
 
-#: ui/NetworkTab.ui:305 ui/PerformanceTab.ui:1859
+#: ui/NetworkTab.ui:305
 msgid ""
 "Current signal strength of the connected network\n"
 "(link value)"
@@ -2442,11 +2402,11 @@ msgstr ""
 "Bağlı ağ kartının şimdiki sinyal gücü\n"
 "(link değeri)"
 
-#: ui/NetworkTab.ui:308 ui/PerformanceTab.ui:1862
+#: ui/NetworkTab.ui:308
 msgid "Signal Strength:"
 msgstr "Sinyal Gücü:"
 
-#: ui/NetworkTab.ui:375 ui/PerformanceTab.ui:1929
+#: ui/NetworkTab.ui:375
 msgid ""
 "Network download and upload speed on the selected network card\n"
 "(Max value depends on network/network card speed and graphic scale is "
@@ -2456,11 +2416,11 @@ msgstr ""
 "(Maks değer ağ/ağ kartının hızına bağlıdır ve grafik ölçeği dinamik olarak "
 "güncellenir)"
 
-#: ui/NetworkTab.ui:378 ui/PerformanceTab.ui:1932
+#: ui/NetworkTab.ui:378
 msgid "Network Download (-) & Upload (--) Speed:"
 msgstr "Ağ İndirme (-) & Yükleme (--) Hızı:"
 
-#: ui/NetworkTab.ui:414 ui/PerformanceTab.ui:1968
+#: ui/NetworkTab.ui:414
 msgid ""
 "Network\n"
 "(Wired and Wireless Network Cards)"
@@ -2468,15 +2428,15 @@ msgstr ""
 "Ağ\n"
 "(Kablolu ve Kablosuz Ağ Kartları)"
 
-#: ui/NetworkTab.ui:433 ui/PerformanceTab.ui:1987
+#: ui/NetworkTab.ui:433
 msgid "Network Tab Customizations"
 msgstr "Ağ Sekmesi Özelleştirmeleri"
 
-#: ui/NetworkTab.ui:459 ui/PerformanceTab.ui:2013
+#: ui/NetworkTab.ui:459
 msgid "Network Interface Controller (NIC) Name"
 msgstr "Ağ Arayüz Kontrolcüsü (NIC) Adı"
 
-#: ui/NetworkTab.ui:474 ui/PerformanceTab.ui:2028
+#: ui/NetworkTab.ui:474
 msgid "Network Card Device Model Name"
 msgstr "Ağ Kartı Cihaz Modeli Adı"
 
@@ -2489,8 +2449,8 @@ msgstr "MİB:"
 msgid "RAM Usage Percent"
 msgstr "RAM Kullanım Yüzdesi"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:54 ui/PerformanceTab.ui:552
-#: ui/ProcessesDetailsWindow.ui:832 ui/RamTab.ui:26
+#: ui/PerformanceSummaryHeaderBarGrid.ui:54 ui/ProcessesDetailsWindow.ui:832
+#: ui/RamTab.ui:26
 msgid "RAM:"
 msgstr "RAM:"
 
@@ -2513,250 +2473,6 @@ msgstr ""
 #: ui/PerformanceSummaryHeaderBarGrid.ui:102
 msgid "Network:"
 msgstr "Ağ:"
-
-#: ui/PerformanceTab.ui:168
-msgid "System Up Time:"
-msgstr "Sistem Çalışma Zamanı:"
-
-#: ui/PerformanceTab.ui:276
-msgid ""
-"Number of physical CPU cores and number of online logical CPU cores\n"
-"(Number of physical and logical CPU cores are same if CPU has no SMT feature "
-"or if it is disabled.)"
-msgstr ""
-"Fiziksel MİB çekirdek sayısı ve çevrim içi mantıksal MİB çekirdek sayısı\n"
-"(MİB'nin SMT özelliği yoksa veya devre dışı ise, toplam mantıksal ve "
-"fiziksel çekirdek sayıları birbirine eşittir.)"
-
-#: ui/PerformanceTab.ui:465
-msgid ""
-"Selected CPU Core Number\n"
-"This selection affects these values:\n"
-"Current Frequency,\n"
-"Min-Max Frequency,\n"
-"Cache (L1d-L1i),\n"
-"Cache (L2-L3)"
-msgstr ""
-"Seçilen MİB Çekirdeğinin Numarası\n"
-"Bu seçim şu değerleri etkiler:\n"
-"Şimdiki Frekans,\n"
-"Min-Maks Frekans,\n"
-"Ön Bellek (L1d-L1i),\n"
-"Ön Bellek (L2-L3)"
-
-#: ui/PerformanceTab.ui:550 ui/RamTab.ui:24
-msgid "RAM Information"
-msgstr "RAM Bilgisi"
-
-#: ui/PerformanceTab.ui:568 ui/RamTab.ui:42
-msgid "Used RAM memory (in powers of 1024) and usage percent"
-msgstr "Kullanılan RAM bellek (1024'ün katların şeklinde) ve kullanım yüzdesi"
-
-#: ui/PerformanceTab.ui:582
-msgid ""
-"Available RAM memory (in powers of 1024)\n"
-"Available and Free RAM memory values are different"
-msgstr ""
-"Kullanılabilir RAM bellek (1024'ün katları şeklinde)\n"
-"Kullanılabilir ve Boş RAM bellek değerleri farklıdır"
-
-#: ui/PerformanceTab.ui:585 ui/PerformanceTab.ui:647 ui/RamTab.ui:60
-#: ui/RamTab.ui:122
-msgid "Available:"
-msgstr "Kullanılabilir:"
-
-#: ui/PerformanceTab.ui:631 ui/RamTab.ui:106
-msgid "Used swap memory (in powers of 1024)"
-msgstr "Kullanılan takas belleği (1024'ün katları şeklinde)"
-
-#: ui/PerformanceTab.ui:645 ui/RamTab.ui:120
-msgid "Available swap memory (in powers of 1024)"
-msgstr "Kullanılabilir takas belleği (1024'ün katları şeklinde)"
-
-#: ui/PerformanceTab.ui:693 ui/RamTab.ui:168
-msgid "Capacity of RAM memory (in powers of 1024)"
-msgstr "RAM bellek kapasitesi (1024'ün katları şeklinde)"
-
-#: ui/PerformanceTab.ui:724 ui/RamTab.ui:199
-msgid "Total capacity of swap memory (in powers of 1024)"
-msgstr "Takas belleğinin toplam kapasitesi (1024'ün katları şeklinde)"
-
-#: ui/PerformanceTab.ui:755
-msgid ""
-"Free RAM memory (in powers of 1024)\n"
-"Free and Available RAM memory values are different"
-msgstr ""
-"Boş RAM bellek (1024'ün katları şeklinde)\n"
-"Boş ve Kullanılabilir RAM bellek değerleri farklıdır"
-
-#: ui/PerformanceTab.ui:793 ui/RamTab.ui:269
-msgid "Swap memory usage percent"
-msgstr "Takas belleği kullanım yüzdesi"
-
-#: ui/PerformanceTab.ui:795 ui/RamTab.ui:271
-msgid "Swap Mem. Usg. %:"
-msgstr "Takas Bell. Kul. %:"
-
-#: ui/PerformanceTab.ui:842 ui/RamTab.ui:318
-msgid "Swap Memory Information"
-msgstr "Takas Belleği Bilgileri"
-
-#: ui/PerformanceTab.ui:844 ui/RamTab.ui:320
-msgid "Swap Memory:"
-msgstr "Takas Belleği:"
-
-#: ui/PerformanceTab.ui:872 ui/RamTab.ui:348
-msgid "RAM (Random Access Memory)"
-msgstr "RAM (Rastgele Erişim Belleği = Random Access Memory)"
-
-#: ui/PerformanceTab.ui:890 ui/RamTab.ui:366
-msgid "RAM Tab Customizations"
-msgstr "RAM Sekmesi Özelleştirmeleri"
-
-#: ui/PerformanceTab.ui:916 ui/RamTab.ui:392
-msgid "Swap Memory Capacity in Powers of Bytes (1024)"
-msgstr "Bayt Katlarında (1024) Takas Belleği Kapasitesi"
-
-#: ui/PerformanceTab.ui:931 ui/RamTab.ui:407
-msgid "Physical RAM Capacity in Powers of Bytes (1024)"
-msgstr "Bayt Katlarında (1024) RAM Bellek Kapasitesi"
-
-#: ui/PerformanceTab.ui:980 ui/RamTab.ui:456
-msgid ""
-"RAM usage percent\n"
-"(Max value is 100 %)"
-msgstr ""
-"RAM kullanım yüzdesi\n"
-"(Maks değer %100)"
-
-#: ui/PerformanceTab.ui:983 ui/RamTab.ui:459
-msgid "RAM Usage %:"
-msgstr "RAM Kullanım %:"
-
-#: ui/PerformanceTab.ui:1186
-msgid ""
-"File system of the selected disk partition\n"
-"File system is shown from user space and may differ from the actual file "
-"system.\n"
-"Actual file system is also tried to shown if \"fuseblk\" is detected as file "
-"system.\n"
-"\"[SWAP]\" information is shown if selected disk is a Swap partition."
-msgstr ""
-"Seçilen disk bölümünün dosya sistemi\n"
-"Dosya sistemi kullanıcı alanından (user space) gösterilmektedir ve gerçek "
-"dosya sisteminden farlı olabilir.\n"
-"Eğer dosya sistemi \"fuseblk\" olarak belirlenirse, gerçek dosya sistemi "
-"ayrıca gösterilmeye çalışılır.\n"
-"Eğer seçilen disk bir takas bölümü ise \"[SWAP]\" bilgisi gösterilir."
-
-#: ui/PerformanceTab.ui:1303
-msgid ""
-"Free space of the selected disk (in powers of 1024)\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr "Seçilen diskteki boş alan (1024'ün katları şeklinde)"
-
-#: ui/PerformanceTab.ui:1318
-msgid ""
-"Used space of the selected disk (in powers of 1024)\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr ""
-"Seçilen diskteki kullanılan alan (1024'ün katları şeklinde)\n"
-"Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
-"olabilir."
-
-#: ui/PerformanceTab.ui:1387
-msgid ""
-"Disk usage percent of the selected disk\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr ""
-"Seçilen diskin kullanım yüzdesi\n"
-"Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
-"olabilir."
-
-#: ui/PerformanceTab.ui:1437
-msgid ""
-"Total capacity of the selected disk (in powers of 1024)\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr ""
-"Seçilen diskin toplam kapasitesi (1024'ün katları şeklinde)\n"
-"Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
-"olabilir."
-
-#: ui/PerformanceTab.ui:1511
-msgid ""
-"Disk read and write speed on the selected disk\n"
-"(Max value depends on disk speed and graphic scale is updated dynamically)"
-msgstr ""
-"Seçilen disk üzerindeki okuma ve yazma hızı\n"
-"(Maks değer disk hızına bağlıdır ve grafik ölçeği dinamik olarak güncellenir)"
-
-#: ui/PerformanceTab.ui:2078
-msgid ""
-"FPS (Frames Per Second)\n"
-"Counted by using a glarea and OpenGL library.\n"
-"This is a simple FPS counter and may not be accurate in some situations.\n"
-"FPS counting does not continue when window is minimized."
-msgstr ""
-"FPS (Saniyedeki kare sayısı = Frames Per Second)\n"
-"glarea ve OpenGL kütüphanesi kullanılarak sayılır.\n"
-"Basit bir FPS sayacıdır ve bazı durumlarda doğru değerler vermeyebilir.\n"
-"Pencere küçültülmüşken FPS sayımı devam etmez."
-
-#: ui/PerformanceTab.ui:2252
-msgid ""
-"Current refresh rate\n"
-"May be different than maximum refresh rate of the monitor."
-msgstr ""
-"Şimdiki yenileme oranı\n"
-"Monitörün en yüksek yenileme oranından farklı olabilir."
-
-#: ui/PerformanceTab.ui:2347
-msgid ""
-"Current resolution\n"
-"May be different than maximum resolution of the monitor."
-msgstr ""
-"Şimdiki çözünürlük\n"
-"Monitörün en yüksek çözünürlüğünden farklı olabilir."
-
-#: ui/PerformanceTab.ui:2603 ui/SensorsTab.ui:17
-msgid "Note: Some sensors may not provide correct values!"
-msgstr "Not: Bazı algılayıcılar doğru değerler sağlamayabilir!"
-
-#: ui/PerformanceTab.ui:2620
-msgid "Sensors Tab Search Customizations"
-msgstr "Algılayıcılar Sekmesi Arama Özelleştirmeleri"
-
-#: ui/PerformanceTab.ui:2643 ui/SensorsTab.ui:37
-msgid "Search sensor..."
-msgstr "Algılayıcı ara..."
-
-#: ui/PerformanceTab.ui:2661 ui/SensorsTab.ui:55
-msgid ""
-"Show all sensors\n"
-"(Temperature and fan sensors)"
-msgstr ""
-"Tüm algılayıcıları göster\n"
-"(Sıcaklık ve fan algılayıcıları)"
-
-#: ui/PerformanceTab.ui:2684 ui/SensorsTab.ui:78
-msgid "Show all temperature sensors"
-msgstr "Tüm sıcaklık algılayıcılarını göster"
-
-#: ui/PerformanceTab.ui:2706 ui/SensorsTab.ui:100
-msgid "Show all fan sensors"
-msgstr "Tüm fan algılayıcılarını göster"
-
-#: ui/PerformanceTab.ui:2767 ui/SensorsTab.ui:161
-msgid "Temperature and Fan Sensors"
-msgstr "Sıcaklık ve Fan Algılayıcıları"
-
-#: ui/PerformanceTab.ui:2789 ui/SensorsTab.ui:183
-msgid "Number of listed sensors"
-msgstr "Listelenen algılayıcılar"
-
-#: ui/PerformanceTab.ui:2792 ui/SensorsTab.ui:186
-msgid "Total: -- sensors (-- temperature (°C), -- fan (RPM) sensors)"
-msgstr ""
 
 #: ui/ProcessesCustomPriorityWindow.ui:13
 msgid "Set Process Priority (Nice)"
@@ -3118,6 +2834,14 @@ msgstr ""
 "'dmidecode --type memory' komutu çıktısından RAM bilgileri | Root şifresi "
 "gerekir!"
 
+#: ui/RamTab.ui:24
+msgid "RAM Information"
+msgstr "RAM Bilgisi"
+
+#: ui/RamTab.ui:42
+msgid "Used RAM memory (in powers of 1024) and usage percent"
+msgstr "Kullanılan RAM bellek (1024'ün katların şeklinde) ve kullanım yüzdesi"
+
 #: ui/RamTab.ui:56
 msgid ""
 "Available RAM memory (in powers of 1024)\n"
@@ -3128,6 +2852,26 @@ msgstr ""
 "\n"
 "Kullanılabilir ve Boş RAM bellek değerleri farklıdır."
 
+#: ui/RamTab.ui:60 ui/RamTab.ui:122
+msgid "Available:"
+msgstr "Kullanılabilir:"
+
+#: ui/RamTab.ui:106
+msgid "Used swap memory (in powers of 1024)"
+msgstr "Kullanılan takas belleği (1024'ün katları şeklinde)"
+
+#: ui/RamTab.ui:120
+msgid "Available swap memory (in powers of 1024)"
+msgstr "Kullanılabilir takas belleği (1024'ün katları şeklinde)"
+
+#: ui/RamTab.ui:168
+msgid "Capacity of RAM memory (in powers of 1024)"
+msgstr "RAM bellek kapasitesi (1024'ün katları şeklinde)"
+
+#: ui/RamTab.ui:199
+msgid "Total capacity of swap memory (in powers of 1024)"
+msgstr "Takas belleğinin toplam kapasitesi (1024'ün katları şeklinde)"
+
 #: ui/RamTab.ui:230
 msgid ""
 "Free RAM memory (in powers of 1024)\n"
@@ -3137,6 +2881,86 @@ msgstr ""
 "Boş RAM bellek (1024'ün katları şeklinde)\n"
 "\n"
 "Boş ve Kullanılabilir RAM bellek değerleri farklıdır."
+
+#: ui/RamTab.ui:269
+msgid "Swap memory usage percent"
+msgstr "Takas belleği kullanım yüzdesi"
+
+#: ui/RamTab.ui:271
+msgid "Swap Mem. Usg. %:"
+msgstr "Takas Bell. Kul. %:"
+
+#: ui/RamTab.ui:318
+msgid "Swap Memory Information"
+msgstr "Takas Belleği Bilgileri"
+
+#: ui/RamTab.ui:320
+msgid "Swap Memory:"
+msgstr "Takas Belleği:"
+
+#: ui/RamTab.ui:348
+msgid "RAM (Random Access Memory)"
+msgstr "RAM (Rastgele Erişim Belleği = Random Access Memory)"
+
+#: ui/RamTab.ui:366
+msgid "RAM Tab Customizations"
+msgstr "RAM Sekmesi Özelleştirmeleri"
+
+#: ui/RamTab.ui:392
+msgid "Swap Memory Capacity in Powers of Bytes (1024)"
+msgstr "Bayt Katlarında (1024) Takas Belleği Kapasitesi"
+
+#: ui/RamTab.ui:407
+msgid "Physical RAM Capacity in Powers of Bytes (1024)"
+msgstr "Bayt Katlarında (1024) RAM Bellek Kapasitesi"
+
+#: ui/RamTab.ui:456
+msgid ""
+"RAM usage percent\n"
+"(Max value is 100 %)"
+msgstr ""
+"RAM kullanım yüzdesi\n"
+"(Maks değer %100)"
+
+#: ui/RamTab.ui:459
+msgid "RAM Usage %:"
+msgstr "RAM Kullanım %:"
+
+#: ui/SensorsTab.ui:17
+msgid "Note: Some sensors may not provide correct values!"
+msgstr "Not: Bazı algılayıcılar doğru değerler sağlamayabilir!"
+
+#: ui/SensorsTab.ui:37
+msgid "Search sensor..."
+msgstr "Algılayıcı ara..."
+
+#: ui/SensorsTab.ui:55
+msgid ""
+"Show all sensors\n"
+"(Temperature and fan sensors)"
+msgstr ""
+"Tüm algılayıcıları göster\n"
+"(Sıcaklık ve fan algılayıcıları)"
+
+#: ui/SensorsTab.ui:78
+msgid "Show all temperature sensors"
+msgstr "Tüm sıcaklık algılayıcılarını göster"
+
+#: ui/SensorsTab.ui:100
+msgid "Show all fan sensors"
+msgstr "Tüm fan algılayıcılarını göster"
+
+#: ui/SensorsTab.ui:161
+msgid "Temperature and Fan Sensors"
+msgstr "Sıcaklık ve Fan Algılayıcıları"
+
+#: ui/SensorsTab.ui:183
+msgid "Number of listed sensors"
+msgstr "Listelenen algılayıcılar"
+
+#: ui/SensorsTab.ui:186
+msgid "Total: -- sensors (-- temperature (°C), -- fan (RPM) sensors)"
+msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:82
 msgid "Documentation"
@@ -3931,6 +3755,140 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "System Up Time:"
+#~ msgstr "Sistem Çalışma Zamanı:"
+
+#~ msgid ""
+#~ "Number of physical CPU cores and number of online logical CPU cores\n"
+#~ "(Number of physical and logical CPU cores are same if CPU has no SMT "
+#~ "feature or if it is disabled.)"
+#~ msgstr ""
+#~ "Fiziksel MİB çekirdek sayısı ve çevrim içi mantıksal MİB çekirdek sayısı\n"
+#~ "(MİB'nin SMT özelliği yoksa veya devre dışı ise, toplam mantıksal ve "
+#~ "fiziksel çekirdek sayıları birbirine eşittir.)"
+
+#~ msgid "Current Frequency:"
+#~ msgstr "Şimdiki Frekans:"
+
+#~ msgid ""
+#~ "Selected CPU Core Number\n"
+#~ "This selection affects these values:\n"
+#~ "Current Frequency,\n"
+#~ "Min-Max Frequency,\n"
+#~ "Cache (L1d-L1i),\n"
+#~ "Cache (L2-L3)"
+#~ msgstr ""
+#~ "Seçilen MİB Çekirdeğinin Numarası\n"
+#~ "Bu seçim şu değerleri etkiler:\n"
+#~ "Şimdiki Frekans,\n"
+#~ "Min-Maks Frekans,\n"
+#~ "Ön Bellek (L1d-L1i),\n"
+#~ "Ön Bellek (L2-L3)"
+
+#~ msgid ""
+#~ "Available RAM memory (in powers of 1024)\n"
+#~ "Available and Free RAM memory values are different"
+#~ msgstr ""
+#~ "Kullanılabilir RAM bellek (1024'ün katları şeklinde)\n"
+#~ "Kullanılabilir ve Boş RAM bellek değerleri farklıdır"
+
+#~ msgid ""
+#~ "Free RAM memory (in powers of 1024)\n"
+#~ "Free and Available RAM memory values are different"
+#~ msgstr ""
+#~ "Boş RAM bellek (1024'ün katları şeklinde)\n"
+#~ "Boş ve Kullanılabilir RAM bellek değerleri farklıdır"
+
+#~ msgid "Total Read Time:"
+#~ msgstr "Toplam Okuma Süresi:"
+
+#~ msgid ""
+#~ "File system of the selected disk partition\n"
+#~ "File system is shown from user space and may differ from the actual file "
+#~ "system.\n"
+#~ "Actual file system is also tried to shown if \"fuseblk\" is detected as "
+#~ "file system.\n"
+#~ "\"[SWAP]\" information is shown if selected disk is a Swap partition."
+#~ msgstr ""
+#~ "Seçilen disk bölümünün dosya sistemi\n"
+#~ "Dosya sistemi kullanıcı alanından (user space) gösterilmektedir ve gerçek "
+#~ "dosya sisteminden farlı olabilir.\n"
+#~ "Eğer dosya sistemi \"fuseblk\" olarak belirlenirse, gerçek dosya sistemi "
+#~ "ayrıca gösterilmeye çalışılır.\n"
+#~ "Eğer seçilen disk bir takas bölümü ise \"[SWAP]\" bilgisi gösterilir."
+
+#~ msgid "Total Write Time:"
+#~ msgstr "Toplam Yazma Süresi:"
+
+#~ msgid ""
+#~ "Free space of the selected disk (in powers of 1024)\n"
+#~ "Measurement is made for filesystem and may differ from mass storage "
+#~ "values."
+#~ msgstr "Seçilen diskteki boş alan (1024'ün katları şeklinde)"
+
+#~ msgid ""
+#~ "Used space of the selected disk (in powers of 1024)\n"
+#~ "Measurement is made for filesystem and may differ from mass storage "
+#~ "values."
+#~ msgstr ""
+#~ "Seçilen diskteki kullanılan alan (1024'ün katları şeklinde)\n"
+#~ "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
+#~ "olabilir."
+
+#~ msgid ""
+#~ "Disk usage percent of the selected disk\n"
+#~ "Measurement is made for filesystem and may differ from mass storage "
+#~ "values."
+#~ msgstr ""
+#~ "Seçilen diskin kullanım yüzdesi\n"
+#~ "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
+#~ "olabilir."
+
+#~ msgid ""
+#~ "Total capacity of the selected disk (in powers of 1024)\n"
+#~ "Measurement is made for filesystem and may differ from mass storage "
+#~ "values."
+#~ msgstr ""
+#~ "Seçilen diskin toplam kapasitesi (1024'ün katları şeklinde)\n"
+#~ "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
+#~ "olabilir."
+
+#~ msgid ""
+#~ "Disk read and write speed on the selected disk\n"
+#~ "(Max value depends on disk speed and graphic scale is updated dynamically)"
+#~ msgstr ""
+#~ "Seçilen disk üzerindeki okuma ve yazma hızı\n"
+#~ "(Maks değer disk hızına bağlıdır ve grafik ölçeği dinamik olarak "
+#~ "güncellenir)"
+
+#~ msgid ""
+#~ "FPS (Frames Per Second)\n"
+#~ "Counted by using a glarea and OpenGL library.\n"
+#~ "This is a simple FPS counter and may not be accurate in some situations.\n"
+#~ "FPS counting does not continue when window is minimized."
+#~ msgstr ""
+#~ "FPS (Saniyedeki kare sayısı = Frames Per Second)\n"
+#~ "glarea ve OpenGL kütüphanesi kullanılarak sayılır.\n"
+#~ "Basit bir FPS sayacıdır ve bazı durumlarda doğru değerler vermeyebilir.\n"
+#~ "Pencere küçültülmüşken FPS sayımı devam etmez."
+
+#~ msgid ""
+#~ "Current refresh rate\n"
+#~ "May be different than maximum refresh rate of the monitor."
+#~ msgstr ""
+#~ "Şimdiki yenileme oranı\n"
+#~ "Monitörün en yüksek yenileme oranından farklı olabilir."
+
+#~ msgid ""
+#~ "Current resolution\n"
+#~ "May be different than maximum resolution of the monitor."
+#~ msgstr ""
+#~ "Şimdiki çözünürlük\n"
+#~ "Monitörün en yüksek çözünürlüğünden farklı olabilir."
+
+#~ msgid "Sensors Tab Search Customizations"
+#~ msgstr "Algılayıcılar Sekmesi Arama Özelleştirmeleri"
 
 #~ msgid ""
 #~ "This warning is also shown when an environment variable for all users is "

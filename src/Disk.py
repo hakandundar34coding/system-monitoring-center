@@ -292,9 +292,9 @@ def disk_loop_func():
     label1305.set_text(f'{disk_time_unit_converter_func(disk_read_time)} ms')
     label1306.set_text(f'{disk_time_unit_converter_func(disk_write_time)} ms')
     if disk_mount_point != "":
-        label1308.set_text(f'{disk_usage_percent:.0f} %')
+        label1308.set_text(f'{disk_usage_percent:.0f}%')
     if disk_mount_point == "":
-        label1308.set_text("- %")
+        label1308.set_text("-%")
     label1309.set_text(disk_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
     label1310.set_text(disk_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
     label1311.set_text(disk_data_unit_converter_func(disk_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
@@ -346,11 +346,13 @@ def disk_time_unit_converter_func(time):
     w_r_time_seconds_int = int(w_r_time_seconds)
     w_r_time_milliseconds = (w_r_time_seconds - w_r_time_seconds_int) * 1000
     w_r_time_milliseconds_int = int(w_r_time_milliseconds)
-    
-    if w_r_time_days_int != 0:
-        return f'{w_r_time_days_int:02}:{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}.{w_r_time_seconds_int:02}:{w_r_time_milliseconds_int:03}'
-    if w_r_time_days_int == 0:
+
+    if time < 3600000:                                                                        # Return time in the following format if time is less than 1 hour.
+        return f'{w_r_time_minutes_int:02}:{w_r_time_seconds_int:02}.{w_r_time_milliseconds_int:03}'
+    if time >= 3600000 and time < 86400000:                                                   # Return time in the following format if time is more than 1 hour and less than 1 day.
         return f'{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}:{w_r_time_seconds_int:02}.{w_r_time_milliseconds_int:03}'
+    if time >= 86400000:                                                                      # Return time in the following format if time is more than 1 day.
+        return f'{w_r_time_days_int:02}:{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}.{w_r_time_seconds_int:02}:{w_r_time_milliseconds_int:03}'
 
 
 # ----------------------------------- Disk - Get disk_model_name, parent_disk, disk_mount_point Values Function -----------------------------------

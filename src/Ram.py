@@ -233,10 +233,10 @@ def ram_loop_func():
         swap_percent = 0
 
     # Set and update RAM tab label texts by using information get
-    label1203.set_text(f'{ram_data_unit_converter_func(ram_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)} ({ram_usage_percent[-1]:.0f} %)')
+    label1203.set_text(f'{ram_data_unit_converter_func(ram_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)} ({ram_usage_percent[-1]:.0f}%)')
     label1204.set_text(ram_data_unit_converter_func(ram_available, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
     label1206.set_text(ram_data_unit_converter_func(ram_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-    label1207.set_text(f'{swap_percent:.0f} %')
+    label1207.set_text(f'{swap_percent:.0f}%')
     label1208.set_text(f'{ram_data_unit_converter_func(swap_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}')
     label1209.set_text(ram_data_unit_converter_func(swap_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
     label1210.set_text(ram_data_unit_converter_func((swap_total), performance_ram_swap_data_unit, performance_ram_swap_data_precision))

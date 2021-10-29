@@ -148,7 +148,7 @@
             <property name="tooltip-text" translatable="yes">Total disk read time on the selected disk
 (milliseconds)</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Total Read Time:</property>
+            <property name="label" translatable="yes">Read Time:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -180,7 +180,7 @@ File system is shown from user space and may differ from the actual file system.
             <property name="tooltip-text" translatable="yes">Total disk write time on the selected disk
 (milliseconds)</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Total Write Time:</property>
+            <property name="label" translatable="yes">Write Time:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>

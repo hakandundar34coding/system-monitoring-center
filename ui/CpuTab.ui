@@ -306,7 +306,7 @@ Number of physical and logical CPU cores are same if CPU has no SMT feature or i
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Current frequency of the selected CPU core</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Current Frequency:</property>
+            <property name="label" translatable="yes">Frequency:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>

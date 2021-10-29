@@ -363,10 +363,10 @@ def cpu_loop_func():
     label1111.set_text(f'{number_of_total_processes} - {number_of_total_threads}')
     label1112.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
     label1103.set_text(f'{cpu_usage_percent_ave[-1]:.{Config.performance_cpu_usage_percent_precision}f} %')
-    label1104.set_text(f'{cpu_current_frequency_all_cores[int(selected_cpu_core_number)]:.0f} MHz')
+    label1104.set_text(f'{cpu_current_frequency_all_cores[int(selected_cpu_core_number)]/1000:.2f} GHz')
     label1102.set_text(_tr("Selected CPU Core: ") + selected_cpu_core)
     if isinstance(cpu_max_frequency_all_cores[selected_cpu_core_number], str) is False:
-        label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]:.0f} - {cpu_max_frequency_all_cores[selected_cpu_core_number]:.0f} MHz')
+        label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]/1000:.2f} - {cpu_max_frequency_all_cores[selected_cpu_core_number]/1000:.2f} GHz')
     if isinstance(cpu_max_frequency_all_cores[selected_cpu_core_number], str) is True:
         label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]} - {cpu_max_frequency_all_cores[selected_cpu_core_number]}')
     label1106.set_text(f'{number_of_cpu_sockets}')

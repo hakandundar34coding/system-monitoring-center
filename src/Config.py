@@ -119,7 +119,7 @@ def config_default_performance_ram_func():
     global chart_background_color_all_charts, chart_line_color_ram_swap_percent, performance_ram_swap_data_precision, performance_ram_swap_data_unit
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     chart_line_color_ram_swap_percent = [0.27, 0.49, 1.0, 1.0]
-    performance_ram_swap_data_precision = 2
+    performance_ram_swap_data_precision = 1
     performance_ram_swap_data_unit = 0
 
 # ----------------------------------- Config - Config Default Performance Tab-Disk Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
@@ -128,8 +128,8 @@ def config_default_performance_disk_func():
     global performance_disk_speed_data_unit, performance_disk_usage_data_unit, plot_disk_read_speed, plot_disk_write_speed, selected_disk
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     chart_line_color_disk_speed_usage = [1.0, 0.44, 0.17, 1.0]
-    performance_disk_speed_data_precision = 2
-    performance_disk_usage_data_precision = 2
+    performance_disk_speed_data_precision = 1
+    performance_disk_usage_data_precision = 1
     performance_disk_speed_data_unit = 0
     performance_disk_usage_data_unit = 0
     plot_disk_read_speed = 1
@@ -177,10 +177,10 @@ def config_default_processes_func():
     show_processes_as_tree = 0
     show_tree_lines = 0
     processes_cpu_usage_percent_precision = 0
-    processes_ram_swap_data_precision = 2
+    processes_ram_swap_data_precision = 1
     processes_ram_swap_data_unit = 0
-    processes_disk_speed_data_precision = 2
-    processes_disk_usage_data_precision = 2
+    processes_disk_speed_data_precision = 1
+    processes_disk_usage_data_precision = 1
     processes_disk_speed_data_unit = 0
     processes_disk_usage_data_unit = 0
     warn_before_stopping_processes = 1
@@ -203,7 +203,7 @@ def config_default_users_func():
     global users_cpu_usage_percent_precision, users_ram_swap_data_precision, users_ram_swap_data_unit
     global users_treeview_columns_shown, users_data_row_sorting_column, users_data_row_sorting_order, users_data_column_order, users_data_column_widths
     users_cpu_usage_percent_precision = 0
-    users_ram_swap_data_precision = 2
+    users_ram_swap_data_precision = 1
     users_ram_swap_data_unit = 0
     users_treeview_columns_shown = [0, 2, 3, 5, 7, 12, 13]                                    # users_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     users_data_row_sorting_column = 0
@@ -261,7 +261,7 @@ def config_default_startup_row_sort_column_order_func():
 def config_default_services_func():
     global services_ram_swap_data_precision, services_ram_swap_data_unit
     global services_treeview_columns_shown, services_data_row_sorting_column, services_data_row_sorting_order, services_data_column_order, services_data_column_widths
-    services_ram_swap_data_precision = 2
+    services_ram_swap_data_precision = 1
     services_ram_swap_data_unit = 0
     services_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7]                                # services_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7]
     services_data_row_sorting_column = 0
