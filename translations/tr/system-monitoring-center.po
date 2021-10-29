@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 16:19+0300\n"
-"PO-Revision-Date: 2021-10-27 16:19+0300\n"
+"POT-Creation-Date: 2021-10-29 10:50+0300\n"
+"PO-Revision-Date: 2021-10-29 10:53+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -95,74 +95,82 @@ msgstr "Yeni Kalıcı Ortam Değişkeni Ekle"
 msgid "Edit Persistent Environment Variable"
 msgstr "Kalıcı Ortam Değişkenini Düzenle"
 
-#: src/EnvironmentVarMenuRightClick.py:157 src/EnvironmentVariablesInput.py:179
+#: src/EnvironmentVarMenuRightClick.py:156 src/EnvironmentVariablesInput.py:179
 #: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
 #: src/ServicesMenuRightClick.py:161 src/SettingsGUI.py:581
 #: src/StartupMenuRightClick.py:425 src/StartupMenuRightClick.py:438
-#: src/StartupNewItem.py:191 src/StorageMenuRightClick.py:257
+#: src/StartupNewItem.py:190 src/StorageMenuRightClick.py:257
 #: src/StorageRename.py:158
 msgid "Warning"
 msgstr "Uyarı"
 
-#: src/EnvironmentVarMenuRightClick.py:158
+#: src/EnvironmentVarMenuRightClick.py:157
 msgid "Do You Want To Delete The Environment Variable?"
 msgstr "Ortam Değişkenini Silmek İstiyor musunuz?"
 
-#: src/EnvironmentVarMenuRightClick.py:159
+#: src/EnvironmentVarMenuRightClick.py:158
 msgid "Environment variable will be deleted from following files:"
 msgstr "Ortam değişkeni şu dosyalardan silinecek:"
 
-#: src/EnvironmentVarMenuRightClick.py:163
+#: src/EnvironmentVarMenuRightClick.py:162
 msgid "Do you want to delete the following persistent environment variable?"
 msgstr "Şu kalıcı ortam değişkenini silmek istiyor musunuz?"
 
-#: src/EnvironmentVarMenuRightClick.py:165
+#: src/EnvironmentVarMenuRightClick.py:164
 #: ui/EnvironmentVariablesInputWindow.ui:153
 msgid "Variable:"
 msgstr "Değişken:"
 
-#: src/EnvironmentVarMenuRightClick.py:166
+#: src/EnvironmentVarMenuRightClick.py:165
 #: ui/EnvironmentVariablesInputWindow.ui:165
 msgid "Value:"
 msgstr "Değer:"
 
-#: src/EnvironmentVariables.py:140 src/EnvironmentVariables.py:265
-#: src/EnvironmentVariables.py:432 src/EnvironmentVariables.py:489
+#: src/EnvironmentVariables.py:161 src/EnvironmentVariables.py:163
+msgid ""
+"Currently editing/deleting environment variables only in '/home/[username]/."
+"bashrc' and '/etc/environment' files are supported."
+msgstr ""
+"Şimdilik sadece '/home/[username]/.bashrc' ve '/etc/environment' "
+"dosyalarındaki ortam değişkenlerinin düzenlenmesi/silinmesi destekleniyor."
+
+#: src/EnvironmentVariables.py:180 src/EnvironmentVariables.py:306
+#: src/EnvironmentVariables.py:473 src/EnvironmentVariables.py:530
 msgid "Environment Variable"
 msgstr "Ortam Değişkeni"
 
-#: src/EnvironmentVariables.py:140 src/EnvironmentVariables.py:271
-#: src/EnvironmentVariables.py:431 src/EnvironmentVariables.py:432
+#: src/EnvironmentVariables.py:180 src/EnvironmentVariables.py:312
+#: src/EnvironmentVariables.py:472 src/EnvironmentVariables.py:473
 msgid "Environment & Shell Variable"
 msgstr "Ortam & Kabuk Değişkeni"
 
-#: src/EnvironmentVariables.py:145 src/EnvironmentVariables.py:268
-#: src/EnvironmentVariables.py:431 src/EnvironmentVariables.py:481
+#: src/EnvironmentVariables.py:186 src/EnvironmentVariables.py:309
+#: src/EnvironmentVariables.py:472 src/EnvironmentVariables.py:522
 msgid "Shell Variable"
 msgstr "Kabuk (Shell) Değişkeni"
 
-#: src/EnvironmentVariables.py:147
+#: src/EnvironmentVariables.py:188
 msgid "Shell variables cannot be edited."
 msgstr "Kabuk (Shell) değişkenleri düzenlenemez."
 
-#: src/EnvironmentVariables.py:149
+#: src/EnvironmentVariables.py:190
 msgid "Shell variables cannot be deleted."
 msgstr "Kabuk (Shell) değişkenleri silinemez."
 
-#: src/EnvironmentVariables.py:164 ui/EnvironmentVarMenuCustomizations.ui:252
+#: src/EnvironmentVariables.py:205 ui/EnvironmentVarMenuCustomizations.ui:252
 msgid "Variable"
 msgstr "Değişken"
 
-#: src/EnvironmentVariables.py:165 ui/EnvironmentVarMenuCustomizations.ui:268
+#: src/EnvironmentVariables.py:206 ui/EnvironmentVarMenuCustomizations.ui:268
 msgid "Value"
 msgstr "Değer"
 
-#: src/EnvironmentVariables.py:166 ui/EnvironmentVarMenuCustomizations.ui:282
+#: src/EnvironmentVariables.py:207 ui/EnvironmentVarMenuCustomizations.ui:282
 msgid "Variable Type"
 msgstr "Değişken Türü"
 
-#: src/EnvironmentVariables.py:197
+#: src/EnvironmentVariables.py:238
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "with root privileges."
@@ -170,7 +178,7 @@ msgstr ""
 "Uygulama root ayrıcalıklarıyla çalıştırıldığında ortam/kabuk (shell) "
 "değişkenlerinin listelenmesi desteklenmiyor."
 
-#: src/EnvironmentVariables.py:208 src/EnvironmentVariables.py:217
+#: src/EnvironmentVariables.py:249 src/EnvironmentVariables.py:258
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "in terminal."
@@ -178,20 +186,20 @@ msgstr ""
 "Uygulama uçbirimden çalıştırıldığında ortam/kabuk (shell) değişkenlerinin "
 "listelenmesi desteklenmiyor."
 
-#: src/EnvironmentVariables.py:434 src/Processes.py:666 src/Sensors.py:339
+#: src/EnvironmentVariables.py:475 src/Processes.py:666 src/Sensors.py:339
 #: src/Services.py:501 src/Startup.py:707 src/Storage.py:737 src/Users.py:589
 msgid "Total: "
 msgstr "Toplam: "
 
-#: src/EnvironmentVariables.py:434
+#: src/EnvironmentVariables.py:475
 msgid " persistent variables ("
 msgstr " kalıcı değişken ("
 
-#: src/EnvironmentVariables.py:434
+#: src/EnvironmentVariables.py:475
 msgid " environment variables, "
 msgstr " ortam değişkeni, "
 
-#: src/EnvironmentVariables.py:434
+#: src/EnvironmentVariables.py:475
 msgid " shell variables)"
 msgstr " kabuk (shell) değişkeni)"
 
@@ -207,7 +215,7 @@ msgstr "Aynı isimde zaten bir ortam değişkeni var."
 msgid "Existing variable will be overwritten if you continue."
 msgstr "Devam ederseniz var olan değişkenin üzerine yazılacak."
 
-#: src/EnvironmentVariablesInput.py:183 src/StartupNewItem.py:195
+#: src/EnvironmentVariablesInput.py:183 src/StartupNewItem.py:194
 msgid "Do you want to continue?"
 msgstr "Devam etmek istiyor musunuz?"
 
@@ -228,8 +236,9 @@ msgid "New Environment Variable Value:"
 msgstr "Yeni Ortam Değişkeni Değeri:"
 
 #: src/EnvironmentVariablesInput.py:197
-msgid "Do You Want To Add Environment Variable For All Users?"
-msgstr "Ortam Değişkenini Tüm Kullanıcılar İçin Eklemek İstiyor musunuz?"
+msgid "Do You Want To Add/Edit Environment Variable For All Users?"
+msgstr ""
+"Ortam Değişkenini Tüm Kullanıcılar İçin Eklemek/Düzenlemek İstiyor musunuz?"
 
 #: src/EnvironmentVariablesInput.py:198
 msgid ""
@@ -246,14 +255,6 @@ msgstr ""
 "düzenlenecek."
 
 #: src/EnvironmentVariablesInput.py:200
-msgid ""
-"This warning is also shown when an environment variable for all users is "
-"tried to be edited."
-msgstr ""
-"Bu uyarı ayrıca bir ortam değişkeni tüm kullanıcılar için düzenlenmeye "
-"çalışıldığında da gösterilir."
-
-#: src/EnvironmentVariablesInput.py:201
 msgid "Do you want to enable/keep enabled this option?"
 msgstr "Bu seçeneği etkinleştirmek/etkinleştirilmiş bırakmak istiyor musunuz?"
 
@@ -971,23 +972,23 @@ msgstr "'.desktop' Dosyası Adı:"
 msgid "Startup Item Command:"
 msgstr "Başlangıç Ögesi Komutu:"
 
-#: src/StartupNewItem.py:192
+#: src/StartupNewItem.py:191
 msgid "Do You Want To Overwrite Existing File?"
 msgstr "Var Olan Dosyanın Üzerine Yazmak İstiyor musunuz?"
 
-#: src/StartupNewItem.py:193
+#: src/StartupNewItem.py:192
 msgid "There is already a '.desktop' file with the same name."
 msgstr "Aynı isimde zaten bir '.desktop' dosyası var."
 
-#: src/StartupNewItem.py:194
+#: src/StartupNewItem.py:193
 msgid "Existing file will be overwritten if you continue."
 msgstr "Devam ederseniz var olan dosya silinecek."
 
-#: src/StartupNewItem.py:196
+#: src/StartupNewItem.py:195
 msgid "Existing Startup Item:"
 msgstr "Var Olan Başlangıç Ögesi:"
 
-#: src/StartupNewItem.py:197
+#: src/StartupNewItem.py:196
 msgid "Existing '.desktop' File Name:"
 msgstr "Var Olan '.desktop' Dosyası Adı:"
 
@@ -1962,17 +1963,17 @@ msgstr "Not: Değişken alanı boş bırakılamaz."
 
 #: ui/EnvironmentVariablesInputWindow.ui:282
 msgid "Overwrite environment variable of the current user"
-msgstr "Şimdiki kullanıcının ortam değişkeni"
+msgstr "Şimdiki kullanıcının ortam değişkeninin üzerine yaz"
 
 #: ui/EnvironmentVariablesInputWindow.ui:298
 msgid ""
-"Note: User-specific environment variables with the same name (of the "
-"environment variable for all users) will be deleted from the '.bashrc' file "
-"if this option is enabled."
+"Note: User-specific environment variable will be deleted if newly added "
+"environment variable for all users has same name with the user-specific "
+"environment variable."
 msgstr ""
-"Not: Eğer bu seçenek etkinleştirilirse, kullanıcıya özgü aynı isimdeki (tüm "
-"kullanıcılar için olan ortam değişkeniyle aynı) ortam değişkenleri '.bashrc' "
-"dosyasından silinecek."
+"Not: Yeni eklenen tüm kullanıcılar için olan ortam değişkeni, kullanıcıya "
+"özgü ortam değişkeni ile aynı isme sahipse kullanıcıya özgü ortam değişkeni "
+"silinecek."
 
 #: ui/EnvironmentVariablesTab.ui:43
 msgid ""
@@ -3930,6 +3931,13 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid ""
+#~ "This warning is also shown when an environment variable for all users is "
+#~ "tried to be edited."
+#~ msgstr ""
+#~ "Bu uyarı ayrıca bir ortam değişkeni tüm kullanıcılar için düzenlenmeye "
+#~ "çalışıldığında da gösterilir."
 
 #~ msgid "    Variable: "
 #~ msgstr "    Değişken: "

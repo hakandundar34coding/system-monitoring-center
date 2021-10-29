@@ -95,10 +95,9 @@ def environment_variables_menu_right_click_gui_func():
                 if line_write.startswith("export " + selected_variable + "=") == False:
                     writer.write(line_write + "\n")
 
-        current_working_directory = os.getcwd()                                               # Get current working directory which will be used for running a Python module in this directory by using bash.
-        variables_to_pass = 'a=' + selected_variable + '; b=' + selected_variable_value + ';'    # To pass these variable to be used in the called Python module.
+        python_file_and_path = os.path.dirname(os.path.realpath(__file__)) + "/../src/EnvironmentVarDeleteForAllUsers.py"
         try:
-            subprocess.check_output(variables_to_pass + ' pkexec python3 ' + current_working_directory + '/' + 'EnvironmentVariablesDeleteForAllUsers.py "$a" "$b"', shell=True)    # Run the command for running a Python module with "root" privileges.
+            (subprocess.check_output(["pkexec", "python3", python_file_and_path, selected_variable, selected_variable_value], stderr=subprocess.STDOUT, shell=False)).decode()    # Run the command for running a Python module with "root" privileges.
         except subprocess.CalledProcessError:                                                 # For handling the error which is generated if user clicks "cancel" on the password dialog for root privileges. This also suppresses other errors when subprocess is used. There may be additional work for handling specific errors which are generated when subprocess is used.
             pass
 

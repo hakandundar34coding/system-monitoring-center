@@ -295,7 +295,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Note: User-specific environment variables with the same name (of the environment variable for all users) will be deleted from the '.bashrc' file if this option is enabled.</property>
+                    <property name="label" translatable="yes">Note: User-specific environment variable will be deleted if newly added environment variable for all users has same name with the user-specific environment variable.</property>
                     <property name="wrap">True</property>
                   </object>
                   <packing>

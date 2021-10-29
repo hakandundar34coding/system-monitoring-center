@@ -114,7 +114,7 @@ def environment_variables_input_gui_func():
         if current_user_name == "root" and pkexec_uid != None:                                # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
             current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
 
-        # Get startup item file directories. System default autostart directory is "system_autostart_directory". Startup items are copied into "current_user_autostart_directory" directory with modified values if user make modifications for the startup item. For the user, these values override system values for the user-modified startup item.
+        # Get home directory of the current user.
         for line in etc_passwd_lines:
             line_splitted = line.split(":")
             if line_splitted[0] == current_user_name:
@@ -153,10 +153,9 @@ def environment_variables_input_gui_func():
                         continue
                     if warning_dialog7102_response == Gtk.ResponseType.NO:                    # Stop running the code and do not overwrite existing variable if "No" is clicked on the dialog.
                         return
-            current_working_directory = os.getcwd()                                           # Get current working directory which will be used for running a Python module in this directory by using bash.
-            variables_to_pass = 'a=' + new_variable + '; b=' + new_value + ';'                # To pass these variable to be used in the called Python module.
+            python_file_and_path = os.path.dirname(os.path.realpath(__file__)) + "/../src/EnvironmentVarAddForAllUsers.py"
             try:
-                subprocess.check_output(variables_to_pass + ' pkexec python3 ' + current_working_directory + '/' + 'EnvironmentVariablesAddForAllUsers.py "$a" "$b"', shell=True)    # Run the command for running a Python module with "root" privileges.
+                (subprocess.check_output(["pkexec", "python3", python_file_and_path, new_variable, new_value], stderr=subprocess.STDOUT, shell=False)).decode()    # Run the command for running a Python module with "root" privileges.
             except subprocess.CalledProcessError:                                             # For handling the error which is generated if user clicks "cancel" on the password dialog for root privileges. This also suppresses other errors when subprocess is used. There may be additional work for handling specific errors which are generated when subprocess is used.
                 pass
 
@@ -195,10 +194,9 @@ def environment_variables_overwrite_existing_environment_variable_warning_dialog
 def environment_variables_variable_for_all_users_warning_dialog():
 
     warning_dialog7103 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do You Want To Add Environment Variable For All Users?"), )
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do You Want To Add/Edit Environment Variable For All Users?"), )
     warning_dialog7103.format_secondary_text(_tr("You may make your system unusable if you edit/overwrite some of the system variables.") +
                                              "\n" + _tr("Variable will be added/edited for all users if this option is enabled.") +
-                                             "\n" + _tr("This warning is also shown when an environment variable for all users is tried to be edited.") +
                                              "\n" + _tr("Do you want to enable/keep enabled this option?"))
     global warning_dialog7103_response
     warning_dialog7103_response = warning_dialog7103.run()

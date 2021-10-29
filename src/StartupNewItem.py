@@ -119,27 +119,26 @@ def startup_new_item_gui_func():
             if warning_dialog5103_response == Gtk.ResponseType.NO:
                 return                                                                        # Do nothing (stop running the code and close the dialog) if "No" is clicked.
         # Save ".desktop" file in order to add new startup item
-        current_working_directory = os.getcwd()
-        python_file_and_path = current_working_directory + "/StartupNewItemSave.py"
+        python_file_and_path = os.path.dirname(os.path.realpath(__file__)) + "/../src/StartupNewItemSave.py"
         if radiobutton5101w.get_active() == True:
             try:
-                remove_output = (subprocess.check_output(["python3", python_file_and_path,
-                                                          system_or_current_user_autostart_directory,
-                                                          new_startup_application_file_name, new_startup_application_name,
-                                                          new_startup_application_comment, new_startup_application_command, new_startup_application_icon,
-                                                          new_startup_application_startup_notify, new_startup_application_terminal
-                                                          ], stderr=subprocess.STDOUT, shell=False)).decode()
-            except subprocess.CalledProcessError:                                                 # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
+                (subprocess.check_output(["python3", python_file_and_path,
+                                          system_or_current_user_autostart_directory,
+                                          new_startup_application_file_name, new_startup_application_name,
+                                          new_startup_application_comment, new_startup_application_command, new_startup_application_icon,
+                                          new_startup_application_startup_notify, new_startup_application_terminal
+                                          ], stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:                                             # For handling the error which is generated if user clicks "cancel" on the password dialog for root privileges. This also suppresses other errors when subprocess is used. There may be additional work for handling specific errors which are generated when subprocess is used.
                 pass
         if radiobutton5102w.get_active() == True:
             try:
-                remove_output = (subprocess.check_output(["pkexec", "python3", python_file_and_path,
-                                                          system_or_current_user_autostart_directory,
-                                                          new_startup_application_file_name, new_startup_application_name,
-                                                          new_startup_application_comment, new_startup_application_command, new_startup_application_icon,
-                                                          new_startup_application_startup_notify, new_startup_application_terminal
-                                                          ], stderr=subprocess.STDOUT, shell=False)).decode()
-            except subprocess.CalledProcessError:                                                 # Some disks do not have a mountable file system. A warning (Object /org/freedesktop/UDisks2/block_devices/[DISK_NAME] is not a mountable filesystem.) is given by "udisksctl" application for these disks.
+                (subprocess.check_output(["pkexec", "python3", python_file_and_path,
+                                          system_or_current_user_autostart_directory,
+                                          new_startup_application_file_name, new_startup_application_name,
+                                          new_startup_application_comment, new_startup_application_command, new_startup_application_icon,
+                                          new_startup_application_startup_notify, new_startup_application_terminal
+                                          ], stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:                                             # For handling the error which is generated if user clicks "cancel" on the password dialog for root privileges. This also suppresses other errors when subprocess is used. There may be additional work for handling specific errors which are generated when subprocess is used.
                 pass
         window5101w.hide()
 

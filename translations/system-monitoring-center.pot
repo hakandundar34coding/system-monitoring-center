@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 16:19+0300\n"
+"POT-Creation-Date: 2021-10-29 10:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,99 +94,105 @@ msgstr ""
 msgid "Edit Persistent Environment Variable"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:157 src/EnvironmentVariablesInput.py:179
+#: src/EnvironmentVarMenuRightClick.py:156 src/EnvironmentVariablesInput.py:179
 #: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
 #: src/ServicesMenuRightClick.py:161 src/SettingsGUI.py:581
 #: src/StartupMenuRightClick.py:425 src/StartupMenuRightClick.py:438
-#: src/StartupNewItem.py:191 src/StorageMenuRightClick.py:257
+#: src/StartupNewItem.py:190 src/StorageMenuRightClick.py:257
 #: src/StorageRename.py:158
 msgid "Warning"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:158
+#: src/EnvironmentVarMenuRightClick.py:157
 msgid "Do You Want To Delete The Environment Variable?"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:159
+#: src/EnvironmentVarMenuRightClick.py:158
 msgid "Environment variable will be deleted from following files:"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:163
+#: src/EnvironmentVarMenuRightClick.py:162
 msgid "Do you want to delete the following persistent environment variable?"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:165
+#: src/EnvironmentVarMenuRightClick.py:164
 #: ui/EnvironmentVariablesInputWindow.ui:153
 msgid "Variable:"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:166
+#: src/EnvironmentVarMenuRightClick.py:165
 #: ui/EnvironmentVariablesInputWindow.ui:165
 msgid "Value:"
 msgstr ""
 
-#: src/EnvironmentVariables.py:140 src/EnvironmentVariables.py:265
-#: src/EnvironmentVariables.py:432 src/EnvironmentVariables.py:489
+#: src/EnvironmentVariables.py:161 src/EnvironmentVariables.py:163
+msgid ""
+"Currently editing/deleting environment variables only in '/home/[username]/."
+"bashrc' and '/etc/environment' files are supported."
+msgstr ""
+
+#: src/EnvironmentVariables.py:180 src/EnvironmentVariables.py:306
+#: src/EnvironmentVariables.py:473 src/EnvironmentVariables.py:530
 msgid "Environment Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:140 src/EnvironmentVariables.py:271
-#: src/EnvironmentVariables.py:431 src/EnvironmentVariables.py:432
+#: src/EnvironmentVariables.py:180 src/EnvironmentVariables.py:312
+#: src/EnvironmentVariables.py:472 src/EnvironmentVariables.py:473
 msgid "Environment & Shell Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:145 src/EnvironmentVariables.py:268
-#: src/EnvironmentVariables.py:431 src/EnvironmentVariables.py:481
+#: src/EnvironmentVariables.py:186 src/EnvironmentVariables.py:309
+#: src/EnvironmentVariables.py:472 src/EnvironmentVariables.py:522
 msgid "Shell Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:147
+#: src/EnvironmentVariables.py:188
 msgid "Shell variables cannot be edited."
 msgstr ""
 
-#: src/EnvironmentVariables.py:149
+#: src/EnvironmentVariables.py:190
 msgid "Shell variables cannot be deleted."
 msgstr ""
 
-#: src/EnvironmentVariables.py:164 ui/EnvironmentVarMenuCustomizations.ui:252
+#: src/EnvironmentVariables.py:205 ui/EnvironmentVarMenuCustomizations.ui:252
 msgid "Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:165 ui/EnvironmentVarMenuCustomizations.ui:268
+#: src/EnvironmentVariables.py:206 ui/EnvironmentVarMenuCustomizations.ui:268
 msgid "Value"
 msgstr ""
 
-#: src/EnvironmentVariables.py:166 ui/EnvironmentVarMenuCustomizations.ui:282
+#: src/EnvironmentVariables.py:207 ui/EnvironmentVarMenuCustomizations.ui:282
 msgid "Variable Type"
 msgstr ""
 
-#: src/EnvironmentVariables.py:197
+#: src/EnvironmentVariables.py:238
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "with root privileges."
 msgstr ""
 
-#: src/EnvironmentVariables.py:208 src/EnvironmentVariables.py:217
+#: src/EnvironmentVariables.py:249 src/EnvironmentVariables.py:258
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "in terminal."
 msgstr ""
 
-#: src/EnvironmentVariables.py:434 src/Processes.py:666 src/Sensors.py:339
+#: src/EnvironmentVariables.py:475 src/Processes.py:666 src/Sensors.py:339
 #: src/Services.py:501 src/Startup.py:707 src/Storage.py:737 src/Users.py:589
 msgid "Total: "
 msgstr ""
 
-#: src/EnvironmentVariables.py:434
+#: src/EnvironmentVariables.py:475
 msgid " persistent variables ("
 msgstr ""
 
-#: src/EnvironmentVariables.py:434
+#: src/EnvironmentVariables.py:475
 msgid " environment variables, "
 msgstr ""
 
-#: src/EnvironmentVariables.py:434
+#: src/EnvironmentVariables.py:475
 msgid " shell variables)"
 msgstr ""
 
@@ -202,7 +208,7 @@ msgstr ""
 msgid "Existing variable will be overwritten if you continue."
 msgstr ""
 
-#: src/EnvironmentVariablesInput.py:183 src/StartupNewItem.py:195
+#: src/EnvironmentVariablesInput.py:183 src/StartupNewItem.py:194
 msgid "Do you want to continue?"
 msgstr ""
 
@@ -223,7 +229,7 @@ msgid "New Environment Variable Value:"
 msgstr ""
 
 #: src/EnvironmentVariablesInput.py:197
-msgid "Do You Want To Add Environment Variable For All Users?"
+msgid "Do You Want To Add/Edit Environment Variable For All Users?"
 msgstr ""
 
 #: src/EnvironmentVariablesInput.py:198
@@ -237,12 +243,6 @@ msgid "Variable will be added/edited for all users if this option is enabled."
 msgstr ""
 
 #: src/EnvironmentVariablesInput.py:200
-msgid ""
-"This warning is also shown when an environment variable for all users is "
-"tried to be edited."
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:201
 msgid "Do you want to enable/keep enabled this option?"
 msgstr ""
 
@@ -934,23 +934,23 @@ msgstr ""
 msgid "Startup Item Command:"
 msgstr ""
 
-#: src/StartupNewItem.py:192
+#: src/StartupNewItem.py:191
 msgid "Do You Want To Overwrite Existing File?"
 msgstr ""
 
-#: src/StartupNewItem.py:193
+#: src/StartupNewItem.py:192
 msgid "There is already a '.desktop' file with the same name."
 msgstr ""
 
-#: src/StartupNewItem.py:194
+#: src/StartupNewItem.py:193
 msgid "Existing file will be overwritten if you continue."
 msgstr ""
 
-#: src/StartupNewItem.py:196
+#: src/StartupNewItem.py:195
 msgid "Existing Startup Item:"
 msgstr ""
 
-#: src/StartupNewItem.py:197
+#: src/StartupNewItem.py:196
 msgid "Existing '.desktop' File Name:"
 msgstr ""
 
@@ -1873,9 +1873,9 @@ msgstr ""
 
 #: ui/EnvironmentVariablesInputWindow.ui:298
 msgid ""
-"Note: User-specific environment variables with the same name (of the "
-"environment variable for all users) will be deleted from the '.bashrc' file "
-"if this option is enabled."
+"Note: User-specific environment variable will be deleted if newly added "
+"environment variable for all users has same name with the user-specific "
+"environment variable."
 msgstr ""
 
 #: ui/EnvironmentVariablesTab.ui:43
