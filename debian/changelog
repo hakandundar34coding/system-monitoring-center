@@ -1,3 +1,13 @@
+system-monitoring-center (0.1.21~beta12) unstable; urgency=medium
+
+  * Improvements for Startup tab right click menu
+  * Improvements for GUI and translations
+  * Various minor improvements
+  * Bug fixes for Environment Variables tab
+  * Several improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 30 Oct 2021 14:23:06 +0300
+
 system-monitoring-center (0.1.21~beta11) unstable; urgency=medium
 
   * Several improvements (functionality, bug fixes, etc)
