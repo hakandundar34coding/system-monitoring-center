@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-29 17:15+0300\n"
+"POT-Creation-Date: 2021-10-30 14:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,25 +61,25 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/Disk.py:368 src/Disk.py:373
+#: src/Disk.py:370 src/Disk.py:375
 msgid "disk"
 msgstr ""
 
-#: src/Disk.py:381
+#: src/Disk.py:383
 msgid "partition"
 msgstr ""
 
-#: src/Disk.py:418 src/FloatingSummary.py:232 src/Network.py:343
+#: src/Disk.py:420 src/FloatingSummary.py:232 src/Network.py:343
 #: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
-#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:304
+#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:311
 #: src/Services.py:636 src/ServicesDetails.py:356 src/Storage.py:908
 #: src/StorageDetails.py:515 src/Users.py:728 src/UsersDetails.py:380
 msgid "Auto-Byte"
 msgstr ""
 
-#: src/Disk.py:420 src/FloatingSummary.py:234 src/Network.py:345
+#: src/Disk.py:422 src/FloatingSummary.py:234 src/Network.py:345
 #: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
-#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:306
+#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:313
 #: src/Services.py:638 src/ServicesDetails.py:358 src/Storage.py:910
 #: src/StorageDetails.py:517 src/Users.py:730 src/UsersDetails.py:382
 msgid "Auto-bit"
@@ -554,11 +554,11 @@ msgid ""
 "No folder will be opened."
 msgstr ""
 
-#: src/Ram.py:200
+#: src/Ram.py:207
 msgid "Total Physical RAM: "
 msgstr ""
 
-#: src/Ram.py:201
+#: src/Ram.py:208
 msgid "Reserved Swap Memory: "
 msgstr ""
 
