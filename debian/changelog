@@ -1,3 +1,9 @@
+system-monitoring-center (0.1.21~beta13) unstable; urgency=medium
+
+  * Fix a bug for RAM tab
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 30 Oct 2021 14:30:02 +0300
+
 system-monitoring-center (0.1.21~beta12) unstable; urgency=medium
 
   * Improvements for Startup tab right click menu
