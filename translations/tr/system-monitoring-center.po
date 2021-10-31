@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-31 12:52+0300\n"
-"PO-Revision-Date: 2021-10-31 12:56+0300\n"
+"POT-Creation-Date: 2021-10-31 18:42+0300\n"
+"PO-Revision-Date: 2021-10-31 18:42+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -873,8 +873,7 @@ msgstr "Sistem"
 msgid "CPU"
 msgstr "MİB"
 
-#: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/RamTab (kopya 1).ui:350
-#: ui/RamTab.ui:398
+#: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/RamTab.ui:396
 msgid "RAM"
 msgstr "RAM"
 
@@ -1424,7 +1423,7 @@ msgstr "Hepsini Sıfırla"
 msgid "Select CPU Core:"
 msgstr "MİB Çekirdeği Seç:"
 
-#: ui/CpuTab.ui:31 ui/RamTab (kopya 1).ui:445 ui/RamTab.ui:493
+#: ui/CpuTab.ui:31 ui/RamTab.ui:491
 msgid "100%"
 msgstr "%100"
 
@@ -1436,7 +1435,7 @@ msgstr ""
 "MİB kullanım yüzdesi\n"
 "(En yüksek değer %100)"
 
-#: ui/CpuTab.ui:57 ui/RamTab (kopya 1).ui:471 ui/RamTab.ui:519
+#: ui/CpuTab.ui:57 ui/RamTab.ui:517
 msgid "0%"
 msgstr "%0"
 
@@ -1474,42 +1473,40 @@ msgstr "%0"
 #: ui/ProcessesDetailsWindow.ui:1425 ui/ProcessesDetailsWindow.ui:1440
 #: ui/ProcessesDetailsWindow.ui:1556 ui/ProcessesDetailsWindow.ui:1571
 #: ui/ProcessesDetailsWindow.ui:1586 ui/ProcessesDetailsWindow.ui:1601
-#: ui/RamHardwareWindow.ui:87 ui/RamTab (kopya 1).ui:73 1).ui:90 1).ui:135
-#: 1).ui:152 1).ui:183 1).ui:214 1).ui:247 1).ui:295 1).ui:394 1).ui:409
-#: ui/RamTab.ui:72 ui/RamTab.ui:89 ui/RamTab.ui:134 ui/RamTab.ui:151
-#: ui/RamTab.ui:182 ui/RamTab.ui:213 ui/RamTab.ui:246 ui/RamTab.ui:294
-#: ui/RamTab.ui:442 ui/RamTab.ui:457 ui/ServicesDetailsWindow.ui:107
-#: ui/ServicesDetailsWindow.ui:121 ui/ServicesDetailsWindow.ui:135
-#: ui/ServicesDetailsWindow.ui:149 ui/ServicesDetailsWindow.ui:163
-#: ui/ServicesDetailsWindow.ui:177 ui/ServicesDetailsWindow.ui:191
-#: ui/ServicesDetailsWindow.ui:322 ui/ServicesDetailsWindow.ui:336
-#: ui/ServicesDetailsWindow.ui:350 ui/ServicesDetailsWindow.ui:364
-#: ui/ServicesDetailsWindow.ui:378 ui/ServicesDetailsWindow.ui:392
-#: ui/ServicesDetailsWindow.ui:406 ui/ServicesDetailsWindow.ui:420
-#: ui/ServicesDetailsWindow.ui:434 ui/ServicesDetailsWindow.ui:461
-#: ui/ServicesDetailsWindow.ui:514 ui/ServicesDetailsWindow.ui:847
-#: ui/ServicesDetailsWindow.ui:861 ui/ServicesDetailsWindow.ui:875
-#: ui/ServicesDetailsWindow.ui:889 ui/StorageDetailsWindow.ui:207
-#: ui/StorageDetailsWindow.ui:222 ui/StorageDetailsWindow.ui:237
-#: ui/StorageDetailsWindow.ui:252 ui/StorageDetailsWindow.ui:267
-#: ui/StorageDetailsWindow.ui:282 ui/StorageDetailsWindow.ui:297
-#: ui/StorageDetailsWindow.ui:312 ui/StorageDetailsWindow.ui:327
-#: ui/StorageDetailsWindow.ui:342 ui/StorageDetailsWindow.ui:357
-#: ui/StorageDetailsWindow.ui:373 ui/StorageDetailsWindow.ui:389
-#: ui/StorageDetailsWindow.ui:431 ui/StorageDetailsWindow.ui:447
-#: ui/StorageDetailsWindow.ui:580 ui/StorageDetailsWindow.ui:595
-#: ui/StorageDetailsWindow.ui:610 ui/StorageDetailsWindow.ui:625
-#: ui/StorageDetailsWindow.ui:640 ui/StorageDetailsWindow.ui:655
-#: ui/StorageDetailsWindow.ui:670 ui/StorageDetailsWindow.ui:685
-#: ui/StorageDetailsWindow.ui:701 ui/StorageRenameWindow.ui:164
-#: ui/SystemTab.ui:29 ui/SystemTab.ui:44 ui/SystemTab.ui:158
-#: ui/SystemTab.ui:175 ui/SystemTab.ui:224 ui/SystemTab.ui:255
-#: ui/SystemTab.ui:288 ui/SystemTab.ui:322 ui/SystemTab.ui:355
-#: ui/SystemTab.ui:372 ui/SystemTab.ui:420 ui/SystemTab.ui:451
-#: ui/SystemTab.ui:484 ui/SystemTab.ui:517 ui/SystemTab.ui:612
-#: ui/SystemTab.ui:629 ui/SystemTab.ui:646 ui/SystemTab.ui:740
-#: ui/SystemTab.ui:757 ui/SystemTab.ui:792 ui/SystemTab.ui:809
-#: ui/SystemTab.ui:826 ui/UsersDetailsWindow.ui:208
+#: ui/RamHardwareWindow.ui:87 ui/RamTab.ui:73 ui/RamTab.ui:90 ui/RamTab.ui:135
+#: ui/RamTab.ui:152 ui/RamTab.ui:183 ui/RamTab.ui:214 ui/RamTab.ui:247
+#: ui/RamTab.ui:295 ui/RamTab.ui:440 ui/RamTab.ui:455
+#: ui/ServicesDetailsWindow.ui:107 ui/ServicesDetailsWindow.ui:121
+#: ui/ServicesDetailsWindow.ui:135 ui/ServicesDetailsWindow.ui:149
+#: ui/ServicesDetailsWindow.ui:163 ui/ServicesDetailsWindow.ui:177
+#: ui/ServicesDetailsWindow.ui:191 ui/ServicesDetailsWindow.ui:322
+#: ui/ServicesDetailsWindow.ui:336 ui/ServicesDetailsWindow.ui:350
+#: ui/ServicesDetailsWindow.ui:364 ui/ServicesDetailsWindow.ui:378
+#: ui/ServicesDetailsWindow.ui:392 ui/ServicesDetailsWindow.ui:406
+#: ui/ServicesDetailsWindow.ui:420 ui/ServicesDetailsWindow.ui:434
+#: ui/ServicesDetailsWindow.ui:461 ui/ServicesDetailsWindow.ui:514
+#: ui/ServicesDetailsWindow.ui:847 ui/ServicesDetailsWindow.ui:861
+#: ui/ServicesDetailsWindow.ui:875 ui/ServicesDetailsWindow.ui:889
+#: ui/StorageDetailsWindow.ui:207 ui/StorageDetailsWindow.ui:222
+#: ui/StorageDetailsWindow.ui:237 ui/StorageDetailsWindow.ui:252
+#: ui/StorageDetailsWindow.ui:267 ui/StorageDetailsWindow.ui:282
+#: ui/StorageDetailsWindow.ui:297 ui/StorageDetailsWindow.ui:312
+#: ui/StorageDetailsWindow.ui:327 ui/StorageDetailsWindow.ui:342
+#: ui/StorageDetailsWindow.ui:357 ui/StorageDetailsWindow.ui:373
+#: ui/StorageDetailsWindow.ui:389 ui/StorageDetailsWindow.ui:431
+#: ui/StorageDetailsWindow.ui:447 ui/StorageDetailsWindow.ui:580
+#: ui/StorageDetailsWindow.ui:595 ui/StorageDetailsWindow.ui:610
+#: ui/StorageDetailsWindow.ui:625 ui/StorageDetailsWindow.ui:640
+#: ui/StorageDetailsWindow.ui:655 ui/StorageDetailsWindow.ui:670
+#: ui/StorageDetailsWindow.ui:685 ui/StorageDetailsWindow.ui:701
+#: ui/StorageRenameWindow.ui:164 ui/SystemTab.ui:29 ui/SystemTab.ui:44
+#: ui/SystemTab.ui:158 ui/SystemTab.ui:175 ui/SystemTab.ui:224
+#: ui/SystemTab.ui:255 ui/SystemTab.ui:288 ui/SystemTab.ui:322
+#: ui/SystemTab.ui:355 ui/SystemTab.ui:372 ui/SystemTab.ui:420
+#: ui/SystemTab.ui:451 ui/SystemTab.ui:484 ui/SystemTab.ui:517
+#: ui/SystemTab.ui:612 ui/SystemTab.ui:629 ui/SystemTab.ui:646
+#: ui/SystemTab.ui:740 ui/SystemTab.ui:757 ui/SystemTab.ui:792
+#: ui/SystemTab.ui:809 ui/SystemTab.ui:826 ui/UsersDetailsWindow.ui:208
 #: ui/UsersDetailsWindow.ui:223 ui/UsersDetailsWindow.ui:238
 #: ui/UsersDetailsWindow.ui:253 ui/UsersDetailsWindow.ui:268
 #: ui/UsersDetailsWindow.ui:283 ui/UsersDetailsWindow.ui:298
@@ -1622,7 +1619,7 @@ msgid ""
 "Selected CPU Core Number\n"
 "\n"
 "This selection affects these values:\n"
-"Current Frequency,\n"
+"Frequency,\n"
 "Min-Max Frequency,\n"
 "Cache (L1d-L1i),\n"
 "Cache (L2-L3)"
@@ -1630,7 +1627,7 @@ msgstr ""
 "Seçilen MİB Çekirdeğinin Numarası\n"
 "\n"
 "Bu seçim şu değerleri etkiler:\n"
-"Şimdiki Frekans,\n"
+"Frekans,\n"
 "Min-Maks Frekans,\n"
 "Ön Bellek (L1d-L1i),\n"
 "Ön Bellek (L2-L3)"
@@ -1783,7 +1780,7 @@ msgstr ""
 "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
 "olabilir."
 
-#: ui/DiskTab.ui:284 ui/RamTab (kopya 1).ui:234 ui/RamTab.ui:233
+#: ui/DiskTab.ui:284 ui/RamTab.ui:234
 msgid "Free:"
 msgstr "Boş:"
 
@@ -1798,8 +1795,7 @@ msgstr ""
 "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
 "olabilir."
 
-#: ui/DiskTab.ui:300 ui/RamTab (kopya 1).ui:44 1).ui:108 ui/RamTab.ui:43
-#: ui/RamTab.ui:107
+#: ui/DiskTab.ui:300 ui/RamTab.ui:44 ui/RamTab.ui:108
 msgid "Used:"
 msgstr "Kullanılan:"
 
@@ -1833,8 +1829,7 @@ msgstr ""
 "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
 "olabilir."
 
-#: ui/DiskTab.ui:421 ui/RamTab (kopya 1).ui:170 1).ui:201 ui/RamTab.ui:169
-#: ui/RamTab.ui:200
+#: ui/DiskTab.ui:421 ui/RamTab.ui:170 ui/RamTab.ui:201
 msgid "Capacity:"
 msgstr "Kapasite:"
 
@@ -2493,7 +2488,7 @@ msgid "RAM Usage Percent"
 msgstr "RAM Kullanım Yüzdesi"
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:54 ui/ProcessesDetailsWindow.ui:832
-#: ui/RamTab (kopya 1).ui:26 ui/RamTab.ui:26
+#: ui/RamTab.ui:26
 msgid "RAM:"
 msgstr "RAM:"
 
@@ -2857,7 +2852,7 @@ msgstr "RAM Donanım Bilgisi"
 msgid "Close"
 msgstr "Kapat"
 
-#: ui/RamHardwareWindow.ui:104
+#: ui/RamHardwareWindow.ui:105
 msgid ""
 "Note: RAM hardware information may be get partially or may not be get at all "
 "on some systems."
@@ -2893,15 +2888,15 @@ msgstr ""
 "'dmidecode --type memory' komutu çıktısından RAM bilgileri | Root şifresi "
 "gerekir!"
 
-#: ui/RamTab (kopya 1).ui:24 ui/RamTab.ui:24
+#: ui/RamTab.ui:24
 msgid "RAM Information"
 msgstr "RAM Bilgisi"
 
-#: ui/RamTab (kopya 1).ui:42 ui/RamTab.ui:41
+#: ui/RamTab.ui:42
 msgid "Used RAM memory (in powers of 1024) and usage percent"
 msgstr "Kullanılan RAM bellek (1024'ün katların şeklinde) ve kullanım yüzdesi"
 
-#: ui/RamTab (kopya 1).ui:56 ui/RamTab.ui:55
+#: ui/RamTab.ui:56
 msgid ""
 "Available RAM memory (in powers of 1024)\n"
 "\n"
@@ -2911,27 +2906,27 @@ msgstr ""
 "\n"
 "Kullanılabilir ve Boş RAM bellek değerleri farklıdır."
 
-#: ui/RamTab (kopya 1).ui:60 1).ui:122 ui/RamTab.ui:59 ui/RamTab.ui:121
+#: ui/RamTab.ui:60 ui/RamTab.ui:122
 msgid "Available:"
 msgstr "Kullanılabilir:"
 
-#: ui/RamTab (kopya 1).ui:106 ui/RamTab.ui:105
+#: ui/RamTab.ui:106
 msgid "Used swap memory (in powers of 1024)"
 msgstr "Kullanılan takas belleği (1024'ün katları şeklinde)"
 
-#: ui/RamTab (kopya 1).ui:120 ui/RamTab.ui:119
+#: ui/RamTab.ui:120
 msgid "Available swap memory (in powers of 1024)"
 msgstr "Kullanılabilir takas belleği (1024'ün katları şeklinde)"
 
-#: ui/RamTab (kopya 1).ui:168 ui/RamTab.ui:167
+#: ui/RamTab.ui:168
 msgid "Capacity of RAM memory (in powers of 1024)"
 msgstr "RAM bellek kapasitesi (1024'ün katları şeklinde)"
 
-#: ui/RamTab (kopya 1).ui:199 ui/RamTab.ui:198
+#: ui/RamTab.ui:199
 msgid "Total capacity of swap memory (in powers of 1024)"
 msgstr "Takas belleğinin toplam kapasitesi (1024'ün katları şeklinde)"
 
-#: ui/RamTab (kopya 1).ui:230 ui/RamTab.ui:229
+#: ui/RamTab.ui:230
 msgid ""
 "Free RAM memory (in powers of 1024)\n"
 "\n"
@@ -2941,51 +2936,23 @@ msgstr ""
 "\n"
 "Boş ve Kullanılabilir RAM bellek değerleri farklıdır."
 
-#: ui/RamTab (kopya 1).ui:269 ui/RamTab.ui:268
+#: ui/RamTab.ui:269
 msgid "Swap memory usage percent"
 msgstr "Takas belleği kullanım yüzdesi"
 
-#: ui/RamTab (kopya 1).ui:271 ui/RamTab.ui:270
+#: ui/RamTab.ui:271
 msgid "Swap Mem. Usg. %:"
 msgstr "Takas Bell. Kul. %:"
 
-#: ui/RamTab (kopya 1).ui:318 ui/RamTab.ui:317
+#: ui/RamTab.ui:318
 msgid "Swap Memory Information"
 msgstr "Takas Belleği Bilgileri"
 
-#: ui/RamTab (kopya 1).ui:320 ui/RamTab.ui:319
+#: ui/RamTab.ui:320
 msgid "Swap Memory:"
 msgstr "Takas Belleği:"
 
-#: ui/RamTab (kopya 1).ui:348 ui/RamTab.ui:396
-msgid "RAM (Random Access Memory)"
-msgstr "RAM (Rastgele Erişim Belleği = Random Access Memory)"
-
-#: ui/RamTab (kopya 1).ui:366 ui/RamTab.ui:414
-msgid "RAM Tab Customizations"
-msgstr "RAM Sekmesi Özelleştirmeleri"
-
-#: ui/RamTab (kopya 1).ui:392 ui/RamTab.ui:440
-msgid "Swap Memory Capacity in Powers of Bytes (1024)"
-msgstr "Bayt Katlarında (1024) Takas Belleği Kapasitesi"
-
-#: ui/RamTab (kopya 1).ui:407 ui/RamTab.ui:455
-msgid "Physical RAM Capacity in Powers of Bytes (1024)"
-msgstr "Bayt Katlarında (1024) RAM Bellek Kapasitesi"
-
-#: ui/RamTab (kopya 1).ui:456 ui/RamTab.ui:504
-msgid ""
-"RAM usage percent\n"
-"(Max value is 100 %)"
-msgstr ""
-"RAM kullanım yüzdesi\n"
-"(Maks değer %100)"
-
-#: ui/RamTab (kopya 1).ui:459 ui/RamTab.ui:507
-msgid "RAM Usage %:"
-msgstr "RAM Kullanım %:"
-
-#: ui/RamTab.ui:357
+#: ui/RamTab.ui:336
 msgid ""
 "Shows RAM hardware information.\n"
 "\n"
@@ -2995,9 +2962,41 @@ msgstr ""
 "\n"
 "Bu bilgiyi elde etmek için root yetkileri gereklidir."
 
-#: ui/RamTab.ui:361
-msgid "Hardware"
-msgstr "Donanım"
+#: ui/RamTab.ui:340
+msgid "Hardware:"
+msgstr "Donanım:"
+
+#: ui/RamTab.ui:358
+msgid "Query..."
+msgstr "Sorgula..."
+
+#: ui/RamTab.ui:394
+msgid "RAM (Random Access Memory)"
+msgstr "RAM (Rastgele Erişim Belleği = Random Access Memory)"
+
+#: ui/RamTab.ui:412
+msgid "RAM Tab Customizations"
+msgstr "RAM Sekmesi Özelleştirmeleri"
+
+#: ui/RamTab.ui:438
+msgid "Swap Memory Capacity in Powers of Bytes (1024)"
+msgstr "Bayt Katlarında (1024) Takas Belleği Kapasitesi"
+
+#: ui/RamTab.ui:453
+msgid "Physical RAM Capacity in Powers of Bytes (1024)"
+msgstr "Bayt Katlarında (1024) RAM Bellek Kapasitesi"
+
+#: ui/RamTab.ui:502
+msgid ""
+"RAM usage percent\n"
+"(Max value is 100 %)"
+msgstr ""
+"RAM kullanım yüzdesi\n"
+"(Maks değer %100)"
+
+#: ui/RamTab.ui:505
+msgid "RAM Usage %:"
+msgstr "RAM Kullanım %:"
 
 #: ui/SensorsTab.ui:17
 msgid "Note: Some sensors may not provide correct values!"

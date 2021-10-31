@@ -453,7 +453,7 @@ Number of physical and logical CPU cores are same if CPU has no SMT feature or i
                 <property name="tooltip-text" translatable="yes">Selected CPU Core Number
 
 This selection affects these values:
-Current Frequency,
+Frequency,
 Min-Max Frequency,
 Cache (L1d-L1i),
 Cache (L2-L3)</property>
