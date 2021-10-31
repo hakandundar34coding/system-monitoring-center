@@ -18,6 +18,7 @@ Depends: ${misc:Depends},
          systemd,
          bash (>=5.0),
          pci.ids,
-         x11-xserver-utils
+         x11-xserver-utils,
+         dmidecode
 Description: Provides information about system performance and usage.
  Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.

@@ -42,7 +42,7 @@ def ram_gui_func():
 
     # RAM tab GUI objects
     global grid1201, drawingarea1201, drawingarea1202, button1201, label1201, label1202
-    global label1203, label1204, label1205, label1206, label1207, label1208, label1209, label1210
+    global label1203, label1204, label1205, label1206, label1207, label1208, label1209, label1210, eventbox1201
 
     # RAM tab GUI objects - get
     grid1201 = builder.get_object('grid1201')
@@ -59,6 +59,7 @@ def ram_gui_func():
     label1208 = builder.get_object('label1208')
     label1209 = builder.get_object('label1209')
     label1210 = builder.get_object('label1210')
+    eventbox1201 = builder.get_object('eventbox1201')
 
 
     # RAM tab GUI functions
@@ -71,6 +72,17 @@ def ram_gui_func():
             RamMenu.popover1201p.set_relative_to(button1201)                                  # Set widget that popover menu will display at the edge of.
             RamMenu.popover1201p.set_position(1)                                              # Show popover menu at the right edge of the caller button.
         RamMenu.popover1201p.popup()                                                          # Show RAM tab popover GUI
+
+    def on_eventbox1201_button_click_event(widget, event):
+        if event.button == 1:
+            if 'RamHardwareInformation' not in globals():                                     # Check if "RamHardwareInformation" module is imported. Therefore it is not reimported for every mouse click on relevant GUI object on the RAM tab if "RamHardwareInformation" name is in globals().
+                global RamHardwareInformation
+                import RamHardwareInformation
+                RamHardwareInformation.ram_hardware_information_import_func()
+                RamHardwareInformation.ram_hardware_information_gui_func()
+            RamHardwareInformation.ram_hardware_information_get_func()                        # Run this function in order to get RAM hardware information.
+            if RamHardwareInformation.memory_hardware_information_text != "":                 # This statement is used for preventing showing RAM hardware Information window if user closes polkit window without entering password.
+                RamHardwareInformation.window1201w.show()
 
 
     # ----------------------------------- RAM - Plot RAM usage data as a Line Chart ----------------------------------- 
@@ -164,6 +176,7 @@ def ram_gui_func():
     button1201.connect("clicked", on_button1201_clicked)
     drawingarea1201.connect("draw", on_drawingarea1201_draw)
     drawingarea1202.connect("draw", on_drawingarea1202_draw)
+    eventbox1201.connect("button-press-event", on_eventbox1201_button_click_event)
 
 
 # ----------------------------------- RAM - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------

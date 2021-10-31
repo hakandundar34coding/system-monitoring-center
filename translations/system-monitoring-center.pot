@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-30 14:21+0300\n"
+"POT-Creation-Date: 2021-10-31 12:52+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 
 #: src/Disk.py:420 src/FloatingSummary.py:232 src/Network.py:343
 #: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
-#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:311
+#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:318
 #: src/Services.py:636 src/ServicesDetails.py:356 src/Storage.py:908
 #: src/StorageDetails.py:515 src/Users.py:728 src/UsersDetails.py:380
 msgid "Auto-Byte"
@@ -79,7 +79,7 @@ msgstr ""
 
 #: src/Disk.py:422 src/FloatingSummary.py:234 src/Network.py:345
 #: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
-#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:313
+#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:320
 #: src/Services.py:638 src/ServicesDetails.py:358 src/Storage.py:910
 #: src/StorageDetails.py:517 src/Users.py:730 src/UsersDetails.py:382
 msgid "Auto-bit"
@@ -97,10 +97,10 @@ msgstr ""
 #: src/EnvironmentVarMenuRightClick.py:156 src/EnvironmentVariablesInput.py:179
 #: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
-#: src/ServicesMenuRightClick.py:161 src/SettingsGUI.py:581
-#: src/StartupMenuRightClick.py:425 src/StartupMenuRightClick.py:438
-#: src/StartupNewItem.py:190 src/StorageMenuRightClick.py:257
-#: src/StorageRename.py:158
+#: src/RamHardwareInformation.py:171 src/ServicesMenuRightClick.py:161
+#: src/SettingsGUI.py:581 src/StartupMenuRightClick.py:425
+#: src/StartupMenuRightClick.py:438 src/StartupNewItem.py:190
+#: src/StorageMenuRightClick.py:257 src/StorageRename.py:158
 msgid "Warning"
 msgstr ""
 
@@ -286,7 +286,7 @@ msgstr ""
 
 #: src/Network.py:187 src/Network.py:193 src/Network.py:252
 #: src/Performance.py:143 src/Performance.py:149 src/Processes.py:808
-#: src/System.py:121 src/System.py:206
+#: src/RamHardwareInformation.py:78 src/System.py:121 src/System.py:206
 msgid "Unknown"
 msgstr ""
 
@@ -503,7 +503,7 @@ msgstr ""
 msgid ")"
 msgstr ""
 
-#: src/ProcessesMenuRightClick.py:279
+#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:172
 msgid "Access Denied"
 msgstr ""
 
@@ -554,12 +554,59 @@ msgid ""
 "No folder will be opened."
 msgstr ""
 
-#: src/Ram.py:207
+#: src/Ram.py:214
 msgid "Total Physical RAM: "
 msgstr ""
 
-#: src/Ram.py:208
+#: src/Ram.py:215
 msgid "Reserved Swap Memory: "
+msgstr ""
+
+#: src/RamHardwareInformation.py:78 src/StartupMenuRightClick.py:413
+#: src/StartupMenuRightClick.py:419
+msgid "None"
+msgstr ""
+
+#: src/RamHardwareInformation.py:103
+msgid "Maximum Capacity"
+msgstr ""
+
+#: src/RamHardwareInformation.py:104
+msgid "Number Of Devices"
+msgstr ""
+
+#: src/RamHardwareInformation.py:141 src/RamHardwareInformation.py:159
+msgid "Capacity"
+msgstr ""
+
+#: src/RamHardwareInformation.py:142 src/RamHardwareInformation.py:160
+#: src/Storage.py:212 ui/ServicesDetailsWindow.ui:245
+#: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:295
+msgid "Type"
+msgstr ""
+
+#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:161
+msgid "Speed"
+msgstr ""
+
+#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:162
+msgid "Manufacturer"
+msgstr ""
+
+#: src/RamHardwareInformation.py:145 src/RamHardwareInformation.py:163
+msgid "Form Factor"
+msgstr ""
+
+#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:164
+msgid "Locator"
+msgstr ""
+
+#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:165
+msgid "Bank Locator"
+msgstr ""
+
+#: src/RamHardwareInformation.py:173
+msgid "Root privileges are needed for viewing RAM hardware information."
 msgstr ""
 
 #: src/Sensors.py:113
@@ -794,7 +841,8 @@ msgstr ""
 msgid "CPU"
 msgstr ""
 
-#: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/RamTab.ui:350
+#: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/RamTab (kopya 1).ui:350
+#: ui/RamTab.ui:398
 msgid "RAM"
 msgstr ""
 
@@ -882,10 +930,6 @@ msgstr ""
 msgid "System-wide values file: "
 msgstr ""
 
-#: src/StartupMenuRightClick.py:413 src/StartupMenuRightClick.py:419
-msgid "None"
-msgstr ""
-
 #: src/StartupMenuRightClick.py:416 src/StartupMenuRightClick.py:419
 #: ui/StartupMenuRightClick.ui:162
 msgid "User-specific values file: "
@@ -961,11 +1005,6 @@ msgstr ""
 #: src/Storage.py:211 ui/StorageDetailsWindow.ui:64
 #: ui/StorageMenuCustomizations.ui:281
 msgid "System Disk"
-msgstr ""
-
-#: src/Storage.py:212 ui/ServicesDetailsWindow.ui:245
-#: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:295
-msgid "Type"
 msgstr ""
 
 #: src/Storage.py:213 ui/StorageDetailsWindow.ui:90
@@ -1338,7 +1377,7 @@ msgstr ""
 msgid "Select CPU Core:"
 msgstr ""
 
-#: ui/CpuTab.ui:31 ui/RamTab.ui:445
+#: ui/CpuTab.ui:31 ui/RamTab (kopya 1).ui:445 ui/RamTab.ui:493
 msgid "100%"
 msgstr ""
 
@@ -1348,7 +1387,7 @@ msgid ""
 "(Max value is 100 %)"
 msgstr ""
 
-#: ui/CpuTab.ui:57 ui/RamTab.ui:471
+#: ui/CpuTab.ui:57 ui/RamTab (kopya 1).ui:471 ui/RamTab.ui:519
 msgid "0%"
 msgstr ""
 
@@ -1386,40 +1425,45 @@ msgstr ""
 #: ui/ProcessesDetailsWindow.ui:1425 ui/ProcessesDetailsWindow.ui:1440
 #: ui/ProcessesDetailsWindow.ui:1556 ui/ProcessesDetailsWindow.ui:1571
 #: ui/ProcessesDetailsWindow.ui:1586 ui/ProcessesDetailsWindow.ui:1601
-#: ui/RamTab.ui:73 ui/RamTab.ui:90 ui/RamTab.ui:135 ui/RamTab.ui:152
-#: ui/RamTab.ui:183 ui/RamTab.ui:214 ui/RamTab.ui:247 ui/RamTab.ui:295
-#: ui/RamTab.ui:394 ui/RamTab.ui:409 ui/ServicesDetailsWindow.ui:107
-#: ui/ServicesDetailsWindow.ui:121 ui/ServicesDetailsWindow.ui:135
-#: ui/ServicesDetailsWindow.ui:149 ui/ServicesDetailsWindow.ui:163
-#: ui/ServicesDetailsWindow.ui:177 ui/ServicesDetailsWindow.ui:191
-#: ui/ServicesDetailsWindow.ui:322 ui/ServicesDetailsWindow.ui:336
-#: ui/ServicesDetailsWindow.ui:350 ui/ServicesDetailsWindow.ui:364
-#: ui/ServicesDetailsWindow.ui:378 ui/ServicesDetailsWindow.ui:392
-#: ui/ServicesDetailsWindow.ui:406 ui/ServicesDetailsWindow.ui:420
-#: ui/ServicesDetailsWindow.ui:434 ui/ServicesDetailsWindow.ui:461
-#: ui/ServicesDetailsWindow.ui:514 ui/ServicesDetailsWindow.ui:847
-#: ui/ServicesDetailsWindow.ui:861 ui/ServicesDetailsWindow.ui:875
-#: ui/ServicesDetailsWindow.ui:889 ui/StorageDetailsWindow.ui:207
-#: ui/StorageDetailsWindow.ui:222 ui/StorageDetailsWindow.ui:237
-#: ui/StorageDetailsWindow.ui:252 ui/StorageDetailsWindow.ui:267
-#: ui/StorageDetailsWindow.ui:282 ui/StorageDetailsWindow.ui:297
-#: ui/StorageDetailsWindow.ui:312 ui/StorageDetailsWindow.ui:327
-#: ui/StorageDetailsWindow.ui:342 ui/StorageDetailsWindow.ui:357
-#: ui/StorageDetailsWindow.ui:373 ui/StorageDetailsWindow.ui:389
-#: ui/StorageDetailsWindow.ui:431 ui/StorageDetailsWindow.ui:447
-#: ui/StorageDetailsWindow.ui:580 ui/StorageDetailsWindow.ui:595
-#: ui/StorageDetailsWindow.ui:610 ui/StorageDetailsWindow.ui:625
-#: ui/StorageDetailsWindow.ui:640 ui/StorageDetailsWindow.ui:655
-#: ui/StorageDetailsWindow.ui:670 ui/StorageDetailsWindow.ui:685
-#: ui/StorageDetailsWindow.ui:701 ui/StorageRenameWindow.ui:164
-#: ui/SystemTab.ui:29 ui/SystemTab.ui:44 ui/SystemTab.ui:158
-#: ui/SystemTab.ui:175 ui/SystemTab.ui:224 ui/SystemTab.ui:255
-#: ui/SystemTab.ui:288 ui/SystemTab.ui:322 ui/SystemTab.ui:355
-#: ui/SystemTab.ui:372 ui/SystemTab.ui:420 ui/SystemTab.ui:451
-#: ui/SystemTab.ui:484 ui/SystemTab.ui:517 ui/SystemTab.ui:612
-#: ui/SystemTab.ui:629 ui/SystemTab.ui:646 ui/SystemTab.ui:740
-#: ui/SystemTab.ui:757 ui/SystemTab.ui:792 ui/SystemTab.ui:809
-#: ui/SystemTab.ui:826 ui/UsersDetailsWindow.ui:208
+#: ui/RamHardwareWindow.ui:87 ui/RamTab (kopya 1).ui:73
+#: ui/RamTab (kopya 1).ui:90 ui/RamTab (kopya 1).ui:135
+#: ui/RamTab (kopya 1).ui:152 ui/RamTab (kopya 1).ui:183
+#: ui/RamTab (kopya 1).ui:214 ui/RamTab (kopya 1).ui:247
+#: ui/RamTab (kopya 1).ui:295 ui/RamTab (kopya 1).ui:394
+#: ui/RamTab (kopya 1).ui:409 ui/RamTab.ui:72 ui/RamTab.ui:89 ui/RamTab.ui:134
+#: ui/RamTab.ui:151 ui/RamTab.ui:182 ui/RamTab.ui:213 ui/RamTab.ui:246
+#: ui/RamTab.ui:294 ui/RamTab.ui:442 ui/RamTab.ui:457
+#: ui/ServicesDetailsWindow.ui:107 ui/ServicesDetailsWindow.ui:121
+#: ui/ServicesDetailsWindow.ui:135 ui/ServicesDetailsWindow.ui:149
+#: ui/ServicesDetailsWindow.ui:163 ui/ServicesDetailsWindow.ui:177
+#: ui/ServicesDetailsWindow.ui:191 ui/ServicesDetailsWindow.ui:322
+#: ui/ServicesDetailsWindow.ui:336 ui/ServicesDetailsWindow.ui:350
+#: ui/ServicesDetailsWindow.ui:364 ui/ServicesDetailsWindow.ui:378
+#: ui/ServicesDetailsWindow.ui:392 ui/ServicesDetailsWindow.ui:406
+#: ui/ServicesDetailsWindow.ui:420 ui/ServicesDetailsWindow.ui:434
+#: ui/ServicesDetailsWindow.ui:461 ui/ServicesDetailsWindow.ui:514
+#: ui/ServicesDetailsWindow.ui:847 ui/ServicesDetailsWindow.ui:861
+#: ui/ServicesDetailsWindow.ui:875 ui/ServicesDetailsWindow.ui:889
+#: ui/StorageDetailsWindow.ui:207 ui/StorageDetailsWindow.ui:222
+#: ui/StorageDetailsWindow.ui:237 ui/StorageDetailsWindow.ui:252
+#: ui/StorageDetailsWindow.ui:267 ui/StorageDetailsWindow.ui:282
+#: ui/StorageDetailsWindow.ui:297 ui/StorageDetailsWindow.ui:312
+#: ui/StorageDetailsWindow.ui:327 ui/StorageDetailsWindow.ui:342
+#: ui/StorageDetailsWindow.ui:357 ui/StorageDetailsWindow.ui:373
+#: ui/StorageDetailsWindow.ui:389 ui/StorageDetailsWindow.ui:431
+#: ui/StorageDetailsWindow.ui:447 ui/StorageDetailsWindow.ui:580
+#: ui/StorageDetailsWindow.ui:595 ui/StorageDetailsWindow.ui:610
+#: ui/StorageDetailsWindow.ui:625 ui/StorageDetailsWindow.ui:640
+#: ui/StorageDetailsWindow.ui:655 ui/StorageDetailsWindow.ui:670
+#: ui/StorageDetailsWindow.ui:685 ui/StorageDetailsWindow.ui:701
+#: ui/StorageRenameWindow.ui:164 ui/SystemTab.ui:29 ui/SystemTab.ui:44
+#: ui/SystemTab.ui:158 ui/SystemTab.ui:175 ui/SystemTab.ui:224
+#: ui/SystemTab.ui:255 ui/SystemTab.ui:288 ui/SystemTab.ui:322
+#: ui/SystemTab.ui:355 ui/SystemTab.ui:372 ui/SystemTab.ui:420
+#: ui/SystemTab.ui:451 ui/SystemTab.ui:484 ui/SystemTab.ui:517
+#: ui/SystemTab.ui:612 ui/SystemTab.ui:629 ui/SystemTab.ui:646
+#: ui/SystemTab.ui:740 ui/SystemTab.ui:757 ui/SystemTab.ui:792
+#: ui/SystemTab.ui:809 ui/SystemTab.ui:826 ui/UsersDetailsWindow.ui:208
 #: ui/UsersDetailsWindow.ui:223 ui/UsersDetailsWindow.ui:238
 #: ui/UsersDetailsWindow.ui:253 ui/UsersDetailsWindow.ui:268
 #: ui/UsersDetailsWindow.ui:283 ui/UsersDetailsWindow.ui:298
@@ -1663,7 +1707,7 @@ msgid ""
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 
-#: ui/DiskTab.ui:284 ui/RamTab.ui:234
+#: ui/DiskTab.ui:284 ui/RamTab (kopya 1).ui:234 ui/RamTab.ui:233
 msgid "Free:"
 msgstr ""
 
@@ -1674,7 +1718,8 @@ msgid ""
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 
-#: ui/DiskTab.ui:300 ui/RamTab.ui:44 ui/RamTab.ui:108
+#: ui/DiskTab.ui:300 ui/RamTab (kopya 1).ui:44 ui/RamTab (kopya 1).ui:108
+#: ui/RamTab.ui:43 ui/RamTab.ui:107
 msgid "Used:"
 msgstr ""
 
@@ -1700,7 +1745,8 @@ msgid ""
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 
-#: ui/DiskTab.ui:421 ui/RamTab.ui:170 ui/RamTab.ui:201
+#: ui/DiskTab.ui:421 ui/RamTab (kopya 1).ui:170 ui/RamTab (kopya 1).ui:201
+#: ui/RamTab.ui:169 ui/RamTab.ui:200
 msgid "Capacity:"
 msgstr ""
 
@@ -2286,7 +2332,7 @@ msgid "RAM Usage Percent"
 msgstr ""
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:54 ui/ProcessesDetailsWindow.ui:832
-#: ui/RamTab.ui:26
+#: ui/RamTab (kopya 1).ui:26 ui/RamTab.ui:26
 msgid "RAM:"
 msgstr ""
 
@@ -2636,6 +2682,20 @@ msgstr ""
 msgid "Processes Tab Customizations"
 msgstr ""
 
+#: ui/RamHardwareWindow.ui:8
+msgid "RAM Hardware Information"
+msgstr ""
+
+#: ui/RamHardwareWindow.ui:42
+msgid "Close"
+msgstr ""
+
+#: ui/RamHardwareWindow.ui:104
+msgid ""
+"Note: RAM hardware information may be get partially or may not be get at all "
+"on some systems."
+msgstr ""
+
 #: ui/RamMenus.ui:20
 msgid "RAM Tab Customizations:"
 msgstr ""
@@ -2662,88 +2722,100 @@ msgid ""
 "root password!"
 msgstr ""
 
-#: ui/RamTab.ui:24
+#: ui/RamTab (kopya 1).ui:24 ui/RamTab.ui:24
 msgid "RAM Information"
 msgstr ""
 
-#: ui/RamTab.ui:42
+#: ui/RamTab (kopya 1).ui:42 ui/RamTab.ui:41
 msgid "Used RAM memory (in powers of 1024) and usage percent"
 msgstr ""
 
-#: ui/RamTab.ui:56
+#: ui/RamTab (kopya 1).ui:56 ui/RamTab.ui:55
 msgid ""
 "Available RAM memory (in powers of 1024)\n"
 "\n"
 "Available and Free RAM memory values are different."
 msgstr ""
 
-#: ui/RamTab.ui:60 ui/RamTab.ui:122
+#: ui/RamTab (kopya 1).ui:60 ui/RamTab (kopya 1).ui:122 ui/RamTab.ui:59
+#: ui/RamTab.ui:121
 msgid "Available:"
 msgstr ""
 
-#: ui/RamTab.ui:106
+#: ui/RamTab (kopya 1).ui:106 ui/RamTab.ui:105
 msgid "Used swap memory (in powers of 1024)"
 msgstr ""
 
-#: ui/RamTab.ui:120
+#: ui/RamTab (kopya 1).ui:120 ui/RamTab.ui:119
 msgid "Available swap memory (in powers of 1024)"
 msgstr ""
 
-#: ui/RamTab.ui:168
+#: ui/RamTab (kopya 1).ui:168 ui/RamTab.ui:167
 msgid "Capacity of RAM memory (in powers of 1024)"
 msgstr ""
 
-#: ui/RamTab.ui:199
+#: ui/RamTab (kopya 1).ui:199 ui/RamTab.ui:198
 msgid "Total capacity of swap memory (in powers of 1024)"
 msgstr ""
 
-#: ui/RamTab.ui:230
+#: ui/RamTab (kopya 1).ui:230 ui/RamTab.ui:229
 msgid ""
 "Free RAM memory (in powers of 1024)\n"
 "\n"
 "Free and Available RAM memory values are different."
 msgstr ""
 
-#: ui/RamTab.ui:269
+#: ui/RamTab (kopya 1).ui:269 ui/RamTab.ui:268
 msgid "Swap memory usage percent"
 msgstr ""
 
-#: ui/RamTab.ui:271
+#: ui/RamTab (kopya 1).ui:271 ui/RamTab.ui:270
 msgid "Swap Mem. Usg. %:"
 msgstr ""
 
-#: ui/RamTab.ui:318
+#: ui/RamTab (kopya 1).ui:318 ui/RamTab.ui:317
 msgid "Swap Memory Information"
 msgstr ""
 
-#: ui/RamTab.ui:320
+#: ui/RamTab (kopya 1).ui:320 ui/RamTab.ui:319
 msgid "Swap Memory:"
 msgstr ""
 
-#: ui/RamTab.ui:348
+#: ui/RamTab (kopya 1).ui:348 ui/RamTab.ui:396
 msgid "RAM (Random Access Memory)"
 msgstr ""
 
-#: ui/RamTab.ui:366
+#: ui/RamTab (kopya 1).ui:366 ui/RamTab.ui:414
 msgid "RAM Tab Customizations"
 msgstr ""
 
-#: ui/RamTab.ui:392
+#: ui/RamTab (kopya 1).ui:392 ui/RamTab.ui:440
 msgid "Swap Memory Capacity in Powers of Bytes (1024)"
 msgstr ""
 
-#: ui/RamTab.ui:407
+#: ui/RamTab (kopya 1).ui:407 ui/RamTab.ui:455
 msgid "Physical RAM Capacity in Powers of Bytes (1024)"
 msgstr ""
 
-#: ui/RamTab.ui:456
+#: ui/RamTab (kopya 1).ui:456 ui/RamTab.ui:504
 msgid ""
 "RAM usage percent\n"
 "(Max value is 100 %)"
 msgstr ""
 
-#: ui/RamTab.ui:459
+#: ui/RamTab (kopya 1).ui:459 ui/RamTab.ui:507
 msgid "RAM Usage %:"
+msgstr ""
+
+#: ui/RamTab.ui:357
+msgid ""
+"Shows RAM hardware information.\n"
+"\n"
+"Root privileges are needed for getting this information."
+msgstr ""
+
+#: ui/RamTab.ui:361
+msgid "Hardware"
 msgstr ""
 
 #: ui/SensorsTab.ui:17
