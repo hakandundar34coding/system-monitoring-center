@@ -42,7 +42,7 @@ def ram_gui_func():
 
     # RAM tab GUI objects
     global grid1201, drawingarea1201, drawingarea1202, button1201, label1201, label1202
-    global label1203, label1204, label1205, label1206, label1207, label1208, label1209, label1210, eventbox1201
+    global label1203, label1204, label1205, label1206, label1207, label1208, label1209, label1210, eventbox1201, eventbox1202
 
     # RAM tab GUI objects - get
     grid1201 = builder.get_object('grid1201')
@@ -60,6 +60,7 @@ def ram_gui_func():
     label1209 = builder.get_object('label1209')
     label1210 = builder.get_object('label1210')
     eventbox1201 = builder.get_object('eventbox1201')
+    eventbox1202 = builder.get_object('eventbox1202')
 
 
     # RAM tab GUI functions
@@ -83,6 +84,16 @@ def ram_gui_func():
             RamHardwareInformation.ram_hardware_information_get_func()                        # Run this function in order to get RAM hardware information.
             if RamHardwareInformation.memory_hardware_information_text != "":                 # This statement is used for preventing showing RAM hardware Information window if user closes polkit window without entering password.
                 RamHardwareInformation.window1201w.show()
+
+    def on_eventbox1202_button_click_event(widget, event):
+        if event.button == 1:
+            if 'RamSwapDetails' not in globals():                                             # Check if "RamSwapDetails" module is imported. Therefore it is not reimported for every mouse click on relevant GUI object on the RAM tab if "RamSwapDetails" name is in globals().
+                global RamSwapDetails
+                import RamSwapDetails
+                RamSwapDetails.ram_swap_details_import_func()
+                RamSwapDetails.ram_swap_details_gui_func()
+            RamSwapDetails.ram_swap_details_get_func()                                        # Run this function in order to get RAM hardware information.
+            RamSwapDetails.window1201w2.show()
 
 
     # ----------------------------------- RAM - Plot RAM usage data as a Line Chart ----------------------------------- 
@@ -177,6 +188,7 @@ def ram_gui_func():
     drawingarea1201.connect("draw", on_drawingarea1201_draw)
     drawingarea1202.connect("draw", on_drawingarea1202_draw)
     eventbox1201.connect("button-press-event", on_eventbox1201_button_click_event)
+    eventbox1202.connect("button-press-event", on_eventbox1202_button_click_event)
 
 
 # ----------------------------------- RAM - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
@@ -291,7 +303,6 @@ def ram_thread_run_func():
 
 # ----------------------------------- RAM - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
 def ram_define_data_unit_converter_variables_func():
-
 
     global data_unit_list
 

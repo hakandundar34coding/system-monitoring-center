@@ -377,7 +377,7 @@ Root privileges are needed for getting this information.</property>
 
 Root privileges are needed for getting this information.</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Details:</property>
+            <property name="label" translatable="yes">Swap Mem. Details:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
