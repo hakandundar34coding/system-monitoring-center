@@ -4,7 +4,7 @@
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window1">
     <property name="can-focus">False</property>
-    <property name="border-width">10</property>
+    <property name="border-width">8</property>
     <property name="default-width">670</property>
     <property name="default-height">520</property>
     <property name="icon-name">system-monitoring-center</property>
@@ -527,8 +527,8 @@
             <property name="can-focus">False</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
-            <property name="row-spacing">4</property>
-            <property name="column-spacing">4</property>
+            <property name="row-spacing">3</property>
+            <property name="column-spacing">3</property>
             <property name="row-homogeneous">True</property>
             <property name="column-homogeneous">True</property>
             <child>

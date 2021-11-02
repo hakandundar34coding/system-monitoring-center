@@ -6,7 +6,7 @@
   <object class="GtkGrid" id="grid5101">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="border-width">10</property>
+    <property name="border-width">5</property>
     <property name="row-spacing">10</property>
     <child>
       <object class="GtkScrolledWindow">
