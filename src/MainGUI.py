@@ -127,9 +127,9 @@ def main_gui_func():
         if Config.show_floating_summary == 1:                                                 # Show Floating Summary window appropriate with user preferences. Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.
             import FloatingSummary
             FloatingSummary.floating_summary_import_func()
-            FloatingSummary.floating_summary_initial_func()
+            FloatingSummary.floating_summary_gui_func()
+            FloatingSummary.window3001.show()                                                     # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
             FloatingSummary.floating_summary_thread_run_func()
-            FloatingSummary.floating_summary_window.show()
 
         # Show information for warning the user if the application has been run with root privileges. Information is shown just below the application window headerbar.
         if os.geteuid() == 0:                                                                 # Check UID if it is "0". This means the application is run with root privileges.

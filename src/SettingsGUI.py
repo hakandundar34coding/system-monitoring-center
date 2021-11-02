@@ -541,6 +541,21 @@ def settings_gui_apply_settings_immediately_func():
         System.system_initial_func()
         System.system_loop_func()
 
+    # Show/Hide Floating Summary Window by reading reset settings.
+    if "FloatingSummary" not in globals():
+        global FloatingSummary
+        import FloatingSummary
+    try:                                                                                      # Floating Summary window is tried to be hidden in order to prevent opening a second window if default value for "show_floating_summary" is "1" and the Floating Summary window is already visible.
+        FloatingSummary.window3001.hide()
+    except AttributeError:
+        pass
+    if Config.show_floating_summary == 1:                                                     # Shown Floating Summary window if default value of "show_floating_summary" is "1".
+        FloatingSummary.floating_summary_import_func()
+        FloatingSummary.floating_summary_gui_func()
+        FloatingSummary.window3001.show()                                                     # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
+        FloatingSummary.floating_summary_thread_run_func()
+        Config.show_floating_summary = 1
+
 
 # ----------------------------------- Settings - Default Tab Function (gets and saves default main tab and performance tab default sub-tab if relevant setting is enabled) -----------------------------------
 def settings_gui_default_tab_func():

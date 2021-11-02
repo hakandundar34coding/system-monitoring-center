@@ -67,12 +67,12 @@ def main_menus_gui_func():
             import FloatingSummary
         if checkmenuitem1001m.get_active() == True:
             FloatingSummary.floating_summary_import_func()
-            FloatingSummary.floating_summary_initial_func()
+            FloatingSummary.floating_summary_gui_func()
+            FloatingSummary.window3001.show()                                                 # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
             FloatingSummary.floating_summary_thread_run_func()
-            FloatingSummary.floating_summary_window.show()
             Config.show_floating_summary = 1
         if checkmenuitem1001m.get_active() == False:
-            FloatingSummary.floating_summary_window.hide()
+            FloatingSummary.window3001.hide()
             Config.show_floating_summary = 0
         Config.config_save_func()
 
