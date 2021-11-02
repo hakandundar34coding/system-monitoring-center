@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-02 18:36+0300\n"
+"POT-Creation-Date: 2021-11-02 19:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 
 #: src/Disk.py:420 src/FloatingSummary.py:208 src/Network.py:343
 #: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
-#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:329
+#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:349
 #: src/RamSwapDetails.py:143 src/Services.py:636 src/ServicesDetails.py:356
 #: src/Storage.py:908 src/StorageDetails.py:515 src/Users.py:728
 #: src/UsersDetails.py:380
@@ -80,7 +80,7 @@ msgstr ""
 
 #: src/Disk.py:422 src/FloatingSummary.py:210 src/Network.py:345
 #: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
-#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:331
+#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:351
 #: src/RamSwapDetails.py:145 src/Services.py:638 src/ServicesDetails.py:358
 #: src/Storage.py:910 src/StorageDetails.py:517 src/Users.py:730
 #: src/UsersDetails.py:382
@@ -556,11 +556,11 @@ msgid ""
 "No folder will be opened."
 msgstr ""
 
-#: src/Ram.py:226
+#: src/Ram.py:246
 msgid "Total Physical RAM: "
 msgstr ""
 
-#: src/Ram.py:227
+#: src/Ram.py:247
 msgid "Reserved Swap Memory: "
 msgstr ""
 
@@ -2730,16 +2730,6 @@ msgstr ""
 
 #: ui/RamMenus.ui:259
 msgid "Data Unit - RAM & Swap Usage:"
-msgstr ""
-
-#: ui/RamMenus.ui:316
-msgid "RAM Information:"
-msgstr ""
-
-#: ui/RamMenus.ui:328
-msgid ""
-"RAM information from 'dmidecode --type memory' command output | Requires "
-"root password!"
 msgstr ""
 
 #: ui/RamSwapDetailsWindow.ui:8

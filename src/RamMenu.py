@@ -30,7 +30,7 @@ def ram_menus_gui_func():
 
     # ********************** Define object names for RAM tab popover **********************
     global popover1201p
-    global button1201p, button1202p, button1203p, button1204p
+    global button1201p, button1202p, button1203p
     global combobox1201p, combobox1202p
 
     # ********************** Get objects for RAM tab popover **********************
@@ -38,7 +38,6 @@ def ram_menus_gui_func():
     button1201p = builder.get_object('button1201p')
     button1202p = builder.get_object('button1202p')
     button1203p = builder.get_object('button1203p')
-    button1204p = builder.get_object('button1204p')
     combobox1201p = builder.get_object('combobox1201p')
     combobox1202p = builder.get_object('combobox1202p')
 
@@ -100,16 +99,12 @@ def ram_menus_gui_func():
         Ram.ram_initial_func()
         Ram.ram_loop_func()
 
-    def on_button1204p_clicked(widget):                                                       # For listing RAM information by using "dmidecode" command on the system default terminal
-        process = subprocess.Popen("x-terminal-emulator -e pkexec /bin/bash -c \'sudo dmidecode --type memory; exec bash\'", stdout=subprocess.PIPE, stderr=None, shell=True)
-
 
     # ********************** Connect signals to GUI objects for RAM tab **********************
     popover1201p.connect("show", on_popover1201p_show)
     button1201p.connect("clicked", on_button1201p_clicked)
     button1202p.connect("clicked", on_button1202p_clicked)
     button1203p.connect("clicked", on_button1203p_clicked)
-    button1204p.connect("clicked", on_button1204p_clicked)
 
     # ********************** Define function for connecting Performance tab RAM sub-tab customizations popover GUI signals **********************
     def ram_tab_customization_popover_connect_signals_func():
