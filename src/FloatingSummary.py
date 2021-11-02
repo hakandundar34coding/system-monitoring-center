@@ -146,7 +146,7 @@ def floating_summary_loop_func():
         label3007.set_text(_tr("Network R: ") + f'{floating_summary_data_unit_converter_func(Performance.network_receive_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
     if 7 in floating_summary_data_shown:
         label3008.set_text(_tr("Network W: ") + f'{floating_summary_data_unit_converter_func(Performance.network_send_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
-    print("1")
+
 
 # ----------------------------------- FloatingSummary Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def floating_summary_initial_thread_func():
