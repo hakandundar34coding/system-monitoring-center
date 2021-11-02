@@ -40,7 +40,7 @@ def ram_hardware_information_gui_func():
     global label1201w, button1201w
 
 
-    # Storage Rename window GUI objects - get
+    # RAM Hardware Information window GUI objects - get
     builder = Gtk.Builder()
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamHardwareWindow.ui")
 
@@ -49,7 +49,7 @@ def ram_hardware_information_gui_func():
     button1201w = builder.get_object('button1201w')
 
 
-    # Storage Rename window GUI functions
+    # RAM Hardware Information window GUI functions
     def on_window1201w_delete_event(widget, event):
         window1201w.hide()
         return True
@@ -66,7 +66,7 @@ def ram_hardware_information_gui_func():
         window1201w.hide()
 
 
-    # Storage Rename window GUI functions - connect
+    # RAM Hardware Information window GUI functions - connect
     window1201w.connect("delete-event", on_window1201w_delete_event)
     window1201w.connect("show", on_window1201w_show)
     button1201w.connect("clicked", on_button1201w_clicked)
