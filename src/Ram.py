@@ -3,11 +3,11 @@
 # ----------------------------------- RAM - RAM Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def ram_import_func():
 
-    global Gtk, GLib, Thread, os
+    global Gtk, GLib, Thread, os, Gdk
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, GLib
+    from gi.repository import Gtk, GLib, Gdk
     from threading import Thread
     import os
 
@@ -74,7 +74,7 @@ def ram_gui_func():
             RamMenu.popover1201p.set_position(1)                                              # Show popover menu at the right edge of the caller button.
         RamMenu.popover1201p.popup()                                                          # Show RAM tab popover GUI
 
-    def on_eventbox1201_button_click_event(widget, event):
+    def on_eventbox1201_button_click_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
         if event.button == 1:
             if 'RamHardwareInformation' not in globals():                                     # Check if "RamHardwareInformation" module is imported. Therefore it is not reimported for every mouse click on relevant GUI object on the RAM tab if "RamHardwareInformation" name is in globals().
                 global RamHardwareInformation
@@ -85,7 +85,15 @@ def ram_gui_func():
             if RamHardwareInformation.memory_hardware_information_text != "":                 # This statement is used for preventing showing RAM hardware Information window if user closes polkit window without entering password.
                 RamHardwareInformation.window1201w.show()
 
-    def on_eventbox1202_button_click_event(widget, event):
+    def on_eventbox1201_enter_notify_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
+        changed_cursor = Gdk.Cursor(Gdk.CursorType.QUESTION_ARROW)                            # Define cursor type (when mouse cursor is entered area of the widget) to inform user this GUI object is clickable.
+        MainGUI.window1.get_window().set_cursor(changed_cursor)                               # Set cursor.
+
+    def on_eventbox1201_leave_notify_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
+        changed_cursor = Gdk.Cursor(Gdk.CursorType.ARROW)                                     # Reset cursor type (when mouse cursor is leaved area of the widget).
+        MainGUI.window1.get_window().set_cursor(changed_cursor)                               # Set cursor.
+
+    def on_eventbox1202_button_click_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
         if event.button == 1:
             if 'RamSwapDetails' not in globals():                                             # Check if "RamSwapDetails" module is imported. Therefore it is not reimported for every mouse click on relevant GUI object on the RAM tab if "RamSwapDetails" name is in globals().
                 global RamSwapDetails
@@ -94,6 +102,14 @@ def ram_gui_func():
                 RamSwapDetails.ram_swap_details_gui_func()
             RamSwapDetails.ram_swap_details_get_func()                                        # Run this function in order to get RAM hardware information.
             RamSwapDetails.window1201w2.show()
+
+    def on_eventbox1202_enter_notify_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
+        changed_cursor = Gdk.Cursor(Gdk.CursorType.QUESTION_ARROW)                            # Define cursor type (when mouse cursor is entered area of the widget) to inform user this GUI object is clickable.
+        MainGUI.window1.get_window().set_cursor(changed_cursor)                               # Set cursor.
+
+    def on_eventbox1202_leave_notify_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
+        changed_cursor = Gdk.Cursor(Gdk.CursorType.ARROW)                                     # Reset cursor type (when mouse cursor is leaved area of the widget).
+        MainGUI.window1.get_window().set_cursor(changed_cursor)                               # Set cursor.
 
 
     # ----------------------------------- RAM - Plot RAM usage data as a Line Chart ----------------------------------- 
@@ -188,7 +204,11 @@ def ram_gui_func():
     drawingarea1201.connect("draw", on_drawingarea1201_draw)
     drawingarea1202.connect("draw", on_drawingarea1202_draw)
     eventbox1201.connect("button-press-event", on_eventbox1201_button_click_event)
+    eventbox1201.connect("enter-notify-event", on_eventbox1201_enter_notify_event)
+    eventbox1201.connect("leave-notify-event", on_eventbox1201_leave_notify_event)
     eventbox1202.connect("button-press-event", on_eventbox1202_button_click_event)
+    eventbox1202.connect("enter-notify-event", on_eventbox1202_enter_notify_event)
+    eventbox1202.connect("leave-notify-event", on_eventbox1202_leave_notify_event)
 
 
 # ----------------------------------- RAM - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
