@@ -39,7 +39,7 @@ def ram_swap_details_gui_func():
     global label1201w2, button1201w2
 
 
-    # RAM Hardware Information window GUI objects - get
+    # Swap Details window GUI objects - get
     builder = Gtk.Builder()
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamSwapDetailsWindow.ui")
 
@@ -48,7 +48,7 @@ def ram_swap_details_gui_func():
     button1201w2 = builder.get_object('button1201w2')
 
 
-    # RAM Hardware Information window GUI functions
+    # Swap Details window GUI functions
     def on_window1201w2_delete_event(widget, event):
         window1201w2.hide()
         return True
@@ -65,7 +65,7 @@ def ram_swap_details_gui_func():
         window1201w2.hide()
 
 
-    # RAM Hardware Information window GUI functions - connect
+    # Swap Details window GUI functions - connect
     window1201w2.connect("delete-event", on_window1201w2_delete_event)
     window1201w2.connect("show", on_window1201w2_show)
     button1201w2.connect("clicked", on_button1201w2_clicked)
