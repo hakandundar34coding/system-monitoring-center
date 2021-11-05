@@ -1,3 +1,13 @@
+system-monitoring-center (0.1.21~beta14) unstable; urgency=medium
+
+  * New: RAM hardware information can be viewed (RAM tab)
+  * New: Swap memory details can be viewed (RAM tab)
+  * Improvements for Floating Summary window
+  * Minor GUI improvements
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 05 Nov 2021 16:44:16 +0300
+
 system-monitoring-center (0.1.21~beta13) unstable; urgency=medium
 
   * Fix a bug for RAM tab
