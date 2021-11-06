@@ -1,3 +1,9 @@
+system-monitoring-center (0.1.21~beta15) unstable; urgency=medium
+
+  * Minor improvements and bug fixes
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 06 Nov 2021 11:11:31 +0300
+
 system-monitoring-center (0.1.21~beta14) unstable; urgency=medium
 
   * New: RAM hardware information can be viewed (RAM tab)
