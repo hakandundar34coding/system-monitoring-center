@@ -81,7 +81,9 @@ def ram_gui_func():
                 import RamHardwareInformation
                 RamHardwareInformation.ram_hardware_information_import_func()
                 RamHardwareInformation.ram_hardware_information_gui_func()
-            RamHardwareInformation.window1201w.show()
+            RamHardwareInformation.ram_hardware_information_get_func()
+            if RamHardwareInformation.memory_hardware_information_text != "":                 # This statement is used in order to avoid errors if user closes polkit window without entering password.
+                RamHardwareInformation.window1201w.show()
 
     def on_eventbox1201_enter_notify_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
         changed_cursor = Gdk.Cursor(Gdk.CursorType.QUESTION_ARROW)                            # Define cursor type (when mouse cursor is entered area of the widget) to inform user this GUI object is clickable.

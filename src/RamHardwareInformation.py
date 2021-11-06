@@ -56,7 +56,6 @@ def ram_hardware_information_gui_func():
 
     def on_window1201w_show(widget):
         label1201w.set_text("-")                                                              # Reset label text when window is shown.
-        ram_hardware_information_get_func()                                                   # There are problems on Gnome desktop environment installed systems if this function is called from another module.
         global memory_hardware_information_text
         try:                                                                                  # "try-except" is used in order to avoid errors if user closed polkit dialog without entering password. Because "memory_hardware_information_text" string will not be defined and will not be get in this situation.
             label1201w.set_text(memory_hardware_information_text)                             # Set label text for showing RAM hardware information.
@@ -82,7 +81,7 @@ def ram_hardware_information_get_func():
     memory_hardware_information_text = ""                                                     # Set initial value of "memory_hardware_information_text". Hardware information will be appended to this string.
 
     try:
-        dmidecode_output = (subprocess.check_output(["pkexec", "sudo", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()    # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
+        dmidecode_output = (subprocess.check_output(["pkexec", "pkexec", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()    # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
     except:
         window1201w.hide()
         ram_hardware_information_root_privileges_warning_dialog()
