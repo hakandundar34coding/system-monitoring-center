@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-02 19:55+0300\n"
-"PO-Revision-Date: 2021-11-02 19:55+0300\n"
+"POT-Creation-Date: 2021-11-06 10:59+0300\n"
+"PO-Revision-Date: 2021-11-06 11:00+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -72,7 +72,7 @@ msgstr "disk bölümü"
 
 #: src/Disk.py:420 src/FloatingSummary.py:208 src/Network.py:343
 #: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
-#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:349
+#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:347
 #: src/RamSwapDetails.py:143 src/Services.py:636 src/ServicesDetails.py:356
 #: src/Storage.py:908 src/StorageDetails.py:515 src/Users.py:728
 #: src/UsersDetails.py:380
@@ -81,7 +81,7 @@ msgstr "Oto-Bayt"
 
 #: src/Disk.py:422 src/FloatingSummary.py:210 src/Network.py:345
 #: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
-#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:351
+#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:349
 #: src/RamSwapDetails.py:145 src/Services.py:638 src/ServicesDetails.py:358
 #: src/Storage.py:910 src/StorageDetails.py:517 src/Users.py:730
 #: src/UsersDetails.py:382
@@ -100,7 +100,7 @@ msgstr "Kalıcı Ortam Değişkenini Düzenle"
 #: src/EnvironmentVarMenuRightClick.py:156 src/EnvironmentVariablesInput.py:179
 #: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
-#: src/RamHardwareInformation.py:171 src/ServicesMenuRightClick.py:161
+#: src/RamHardwareInformation.py:173 src/ServicesMenuRightClick.py:161
 #: src/SettingsGUI.py:596 src/StartupMenuRightClick.py:425
 #: src/StartupMenuRightClick.py:438 src/StartupNewItem.py:190
 #: src/StorageMenuRightClick.py:257 src/StorageRename.py:158
@@ -302,7 +302,7 @@ msgstr ""
 
 #: src/Network.py:187 src/Network.py:193 src/Network.py:252
 #: src/Performance.py:143 src/Performance.py:149 src/Processes.py:808
-#: src/RamHardwareInformation.py:78 src/System.py:121 src/System.py:206
+#: src/RamHardwareInformation.py:79 src/System.py:121 src/System.py:206
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -530,7 +530,7 @@ msgstr " (PID: "
 msgid ")"
 msgstr ")"
 
-#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:172
+#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:174
 msgid "Access Denied"
 msgstr "Erişim Engellendi"
 
@@ -588,60 +588,60 @@ msgstr ""
 "İşlem dizini alınamadı.\n"
 "Klasör açılmayacak."
 
-#: src/Ram.py:246
+#: src/Ram.py:244
 msgid "Total Physical RAM: "
 msgstr "Toplam Fiziksel RAM: "
 
-#: src/Ram.py:247
+#: src/Ram.py:245
 msgid "Reserved Swap Memory: "
 msgstr "Ayrılmış Takas Belleği: "
 
-#: src/RamHardwareInformation.py:78 src/StartupMenuRightClick.py:413
+#: src/RamHardwareInformation.py:79 src/StartupMenuRightClick.py:413
 #: src/StartupMenuRightClick.py:419
 msgid "None"
 msgstr "Yok"
 
-#: src/RamHardwareInformation.py:103
+#: src/RamHardwareInformation.py:105
 msgid "Maximum Capacity"
 msgstr "Maksimum Kapasite"
 
-#: src/RamHardwareInformation.py:104
+#: src/RamHardwareInformation.py:106
 msgid "Number Of Devices"
 msgstr "Aygıt Sayısı"
 
-#: src/RamHardwareInformation.py:141 src/RamHardwareInformation.py:159
+#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:161
 msgid "Capacity"
 msgstr "Kapasite"
 
-#: src/RamHardwareInformation.py:142 src/RamHardwareInformation.py:160
+#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:162
 #: src/RamSwapDetails.py:108 src/Storage.py:212 ui/ServicesDetailsWindow.ui:245
 #: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:295
 msgid "Type"
 msgstr "Tür"
 
-#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:161
+#: src/RamHardwareInformation.py:145 src/RamHardwareInformation.py:163
 msgid "Speed"
 msgstr "Hız"
 
-#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:162
+#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:164
 msgid "Manufacturer"
 msgstr "Üretici"
 
-#: src/RamHardwareInformation.py:145 src/RamHardwareInformation.py:163
+#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:165
 msgid "Form Factor"
 msgstr "Şekil Faktörü"
 
-#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:164
+#: src/RamHardwareInformation.py:148 src/RamHardwareInformation.py:166
 msgid "Locator"
 msgstr "Kimlik"
 
-#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:165
+#: src/RamHardwareInformation.py:149 src/RamHardwareInformation.py:167
 msgid "Bank Locator"
 msgstr "Yuva Kimliği"
 
-#: src/RamHardwareInformation.py:173
+#: src/RamHardwareInformation.py:175
 msgid "Root privileges are needed for viewing RAM hardware information."
-msgstr "RAM donanım bilgisini görüntülemek için root öncelikleri gereklidir."
+msgstr "RAM donanım bilgisini görüntülemek için root ayrıcalıkları gereklidir."
 
 #: src/RamSwapDetails.py:81 src/Storage.py:333 src/Storage.py:338
 #: src/StorageDetails.py:209 src/StorageDetails.py:219
@@ -3782,7 +3782,7 @@ msgid ""
 "Name of the current user and information of whether the user has root "
 "privileges"
 msgstr ""
-"Şimdiki kullanıcının adı ve kullanıcının root önceliklerine sahip olup "
+"Şimdiki kullanıcının adı ve kullanıcının root ayrıcalıklarına sahip olup "
 "olmadığı bilgisi"
 
 #: ui/SystemTab.ui:727

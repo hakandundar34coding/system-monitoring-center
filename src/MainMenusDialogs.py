@@ -58,7 +58,10 @@ def main_menus_gui_func():
             global Thread
             from threading import Thread
         def main_menus_gui_open_terminal_func():
-            (subprocess.check_output(["x-terminal-emulator", "-e", "/bin/bash"], shell=False)).decode()
+            try:                                                                              # "try-catch" is used in order to avoid errors after terminal window is closed on Gnome desktop environment installed systems.
+                (subprocess.check_output(["x-terminal-emulator", "-e", "/bin/bash"], shell=False)).decode()
+            except:
+                pass
         open_terminal_thread = Thread(target=main_menus_gui_open_terminal_func, daemon=True).start()    # Terminal is run in another thread in order not to wait end of the run which occurs in single threaded code execution.
 
     def on_checkmenuitem1001m_toggled(widget):                                                # "Floating Summary" menu item
