@@ -1,3 +1,9 @@
+system-monitoring-center (0.1.21~beta16) unstable; urgency=medium
+
+  * Fixed a bug for RAM hardware information window
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 06 Nov 2021 16:49:34 +0300
+
 system-monitoring-center (0.1.21~beta15) unstable; urgency=medium
 
   * Minor improvements and bug fixes
