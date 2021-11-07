@@ -2,6 +2,11 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-monitoring-center-stop-symbolic</property>
+  </object>
   <object class="GtkImage" id="menuitem3101mimage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -12,6 +17,21 @@
     <property name="can-focus">False</property>
     <child>
       <object class="GtkImageMenuItem" id="menuitem3101m">
+        <property name="label" translatable="yes">End User Session</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">image1</property>
+        <property name="use-stock">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menuitem3102m">
         <property name="label" translatable="yes">Details</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>

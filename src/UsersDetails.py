@@ -149,7 +149,7 @@ def users_details_initial_func():
 def users_details_foreground_func():
 
     global selected_user_uid
-    selected_user_uid = str(Users.selected_user_uid)                                          # Get right clicked disk name
+    selected_user_uid = str(Users.selected_user_uid)                                          # Get right clicked user UID
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global users_cpu_usage_percent_precision

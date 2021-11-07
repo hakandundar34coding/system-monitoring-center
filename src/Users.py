@@ -131,8 +131,9 @@ def users_open_right_click_menu_func(event):
     model = treeview3101.get_model()
     treeiter = model.get_iter(path)
     if treeiter is not None:
-        global selected_user_uid
+        global selected_user_uid, selected_username
         selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting UID of the user.
+        selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting username of the user.
         if 'UsersMenuRightClick' not in globals():                                            # Check if "UsersMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
             global UsersMenuRightClick
             import UsersMenuRightClick
@@ -152,8 +153,9 @@ def users_open_user_details_window_func(event):
         model = treeview3101.get_model()
         treeiter = model.get_iter(path)
         if treeiter is not None:
-            global selected_user_uid
+            global selected_user_uid, selected_username
             selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
+            selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting username of the user.
             # Open Users Details window
             if 'UsersDetails' not in globals():                                               # Check if "UsersDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetails" name is in globals().
                 global UsersDetails
