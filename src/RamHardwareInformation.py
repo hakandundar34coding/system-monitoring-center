@@ -81,7 +81,7 @@ def ram_hardware_information_get_func():
     memory_hardware_information_text = ""                                                     # Set initial value of "memory_hardware_information_text". Hardware information will be appended to this string.
 
     try:
-        dmidecode_output = (subprocess.check_output(["pkexec", "pkexec", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()    # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
+        dmidecode_output = (subprocess.check_output(["pkexec", "sudo", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()    # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
     except:
         window1201w.hide()
         ram_hardware_information_root_privileges_warning_dialog()

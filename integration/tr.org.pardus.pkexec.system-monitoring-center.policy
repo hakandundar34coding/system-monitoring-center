@@ -6,7 +6,7 @@
 <policyconfig>
 
   <vendor>System Monitoring Center Developers</vendor>
-  <vendor_url>https://kod.pardus.org.tr/Hakan/system-monitoring-center</vendor_url>
+  <vendor_url>https://github.com/hakandundar34coding/system-monitoring-center</vendor_url>
 
   <action id="tr.org.pardus.pkexec.system-monitoring-center">
     <description>Restart as Root</description>

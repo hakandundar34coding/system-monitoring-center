@@ -43,7 +43,6 @@ def users_gui_func():
     global radiobutton3101, radiobutton3102, radiobutton3103
     global label3101
 
-
     # Users tab GUI objects - get from file
     builder = Gtk.Builder()
     builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
@@ -190,7 +189,7 @@ def users_initial_func():
                       [10, _tr('Last Failed Login'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [11, _tr('Started'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_started]],
                       [12, _tr('CPU%'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
-                      [13, _tr('RAM (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]]
+                      [13, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]]
                       ]
 
     users_define_data_unit_converter_variables_func()                                         # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.

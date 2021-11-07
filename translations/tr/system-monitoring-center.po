@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-06 10:59+0300\n"
-"PO-Revision-Date: 2021-11-06 11:00+0300\n"
+"POT-Creation-Date: 2021-11-07 12:38+0300\n"
+"PO-Revision-Date: 2021-11-07 12:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -72,18 +72,18 @@ msgstr "disk bölümü"
 
 #: src/Disk.py:420 src/FloatingSummary.py:208 src/Network.py:343
 #: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
-#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:347
+#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:349
 #: src/RamSwapDetails.py:143 src/Services.py:636 src/ServicesDetails.py:356
-#: src/Storage.py:908 src/StorageDetails.py:515 src/Users.py:728
+#: src/Storage.py:908 src/StorageDetails.py:515 src/Users.py:729
 #: src/UsersDetails.py:380
 msgid "Auto-Byte"
 msgstr "Oto-Bayt"
 
 #: src/Disk.py:422 src/FloatingSummary.py:210 src/Network.py:345
 #: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
-#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:349
+#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:351
 #: src/RamSwapDetails.py:145 src/Services.py:638 src/ServicesDetails.py:358
-#: src/Storage.py:910 src/StorageDetails.py:517 src/Users.py:730
+#: src/Storage.py:910 src/StorageDetails.py:517 src/Users.py:731
 #: src/UsersDetails.py:382
 msgid "Auto-bit"
 msgstr "Oto-Bit"
@@ -100,10 +100,11 @@ msgstr "Kalıcı Ortam Değişkenini Düzenle"
 #: src/EnvironmentVarMenuRightClick.py:156 src/EnvironmentVariablesInput.py:179
 #: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
-#: src/RamHardwareInformation.py:173 src/ServicesMenuRightClick.py:161
+#: src/RamHardwareInformation.py:172 src/ServicesMenuRightClick.py:161
 #: src/SettingsGUI.py:596 src/StartupMenuRightClick.py:425
 #: src/StartupMenuRightClick.py:438 src/StartupNewItem.py:190
 #: src/StorageMenuRightClick.py:257 src/StorageRename.py:158
+#: src/UsersMenuRightClick.py:86 src/UsersMenuRightClick.py:97
 msgid "Warning"
 msgstr "Uyarı"
 
@@ -189,7 +190,7 @@ msgstr ""
 "listelenmesi desteklenmiyor."
 
 #: src/EnvironmentVariables.py:475 src/Processes.py:666 src/Sensors.py:339
-#: src/Services.py:501 src/Startup.py:707 src/Storage.py:737 src/Users.py:589
+#: src/Services.py:501 src/Startup.py:707 src/Storage.py:737 src/Users.py:590
 msgid "Total: "
 msgstr "Toplam: "
 
@@ -218,6 +219,7 @@ msgid "Existing variable will be overwritten if you continue."
 msgstr "Devam ederseniz var olan değişkenin üzerine yazılacak."
 
 #: src/EnvironmentVariablesInput.py:183 src/StartupNewItem.py:194
+#: src/UsersMenuRightClick.py:101
 msgid "Do you want to continue?"
 msgstr "Devam etmek istiyor musunuz?"
 
@@ -302,7 +304,7 @@ msgstr ""
 
 #: src/Network.py:187 src/Network.py:193 src/Network.py:252
 #: src/Performance.py:143 src/Performance.py:149 src/Processes.py:808
-#: src/RamHardwareInformation.py:79 src/System.py:121 src/System.py:206
+#: src/RamHardwareInformation.py:78 src/System.py:121 src/System.py:206
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -374,12 +376,13 @@ msgstr "Kullanıcı"
 msgid "Status"
 msgstr "Durum"
 
-#: src/Processes.py:234
-msgid "CPU %"
-msgstr "% MİB"
+#: src/Processes.py:234 src/Users.py:191 ui/UsersDetailsWindow.ui:195
+#: ui/UsersMenuCustomizations.ui:352
+msgid "CPU%"
+msgstr "%MİB"
 
-#: src/Processes.py:235 src/Users.py:191 ui/ProcessesMenuCustomizations.ui:413
-#: ui/UsersDetailsWindow.ui:406 ui/UsersMenuCustomizations.ui:366
+#: src/Processes.py:235 ui/ProcessesMenuCustomizations.ui:413
+#: ui/UsersMenuCustomizations.ui:366
 msgid "RAM (RSS)"
 msgstr "RAM (RSS)"
 
@@ -425,12 +428,12 @@ msgstr "İş Parçacığı Sayısı"
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:245 src/Users.py:181 ui/ProcessesMenuCustomizations.ui:567
+#: src/Processes.py:245 src/Users.py:182 ui/ProcessesMenuCustomizations.ui:567
 #: ui/UsersDetailsWindow.ui:78 ui/UsersMenuCustomizations.ui:296
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:246 src/Users.py:182 ui/ProcessesMenuCustomizations.ui:581
+#: src/Processes.py:246 src/Users.py:183 ui/ProcessesMenuCustomizations.ui:581
 #: ui/UsersDetailsWindow.ui:91 ui/UsersMenuCustomizations.ui:310
 msgid "GID"
 msgstr "GID"
@@ -530,7 +533,8 @@ msgstr " (PID: "
 msgid ")"
 msgstr ")"
 
-#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:174
+#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:173
+#: src/UsersMenuRightClick.py:87
 msgid "Access Denied"
 msgstr "Erişim Engellendi"
 
@@ -588,58 +592,58 @@ msgstr ""
 "İşlem dizini alınamadı.\n"
 "Klasör açılmayacak."
 
-#: src/Ram.py:244
+#: src/Ram.py:246
 msgid "Total Physical RAM: "
 msgstr "Toplam Fiziksel RAM: "
 
-#: src/Ram.py:245
+#: src/Ram.py:247
 msgid "Reserved Swap Memory: "
 msgstr "Ayrılmış Takas Belleği: "
 
-#: src/RamHardwareInformation.py:79 src/StartupMenuRightClick.py:413
+#: src/RamHardwareInformation.py:78 src/StartupMenuRightClick.py:413
 #: src/StartupMenuRightClick.py:419
 msgid "None"
 msgstr "Yok"
 
-#: src/RamHardwareInformation.py:105
+#: src/RamHardwareInformation.py:104
 msgid "Maximum Capacity"
 msgstr "Maksimum Kapasite"
 
-#: src/RamHardwareInformation.py:106
+#: src/RamHardwareInformation.py:105
 msgid "Number Of Devices"
 msgstr "Aygıt Sayısı"
 
-#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:161
+#: src/RamHardwareInformation.py:142 src/RamHardwareInformation.py:160
 msgid "Capacity"
 msgstr "Kapasite"
 
-#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:162
+#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:161
 #: src/RamSwapDetails.py:108 src/Storage.py:212 ui/ServicesDetailsWindow.ui:245
 #: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:295
 msgid "Type"
 msgstr "Tür"
 
-#: src/RamHardwareInformation.py:145 src/RamHardwareInformation.py:163
+#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:162
 msgid "Speed"
 msgstr "Hız"
 
-#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:164
+#: src/RamHardwareInformation.py:145 src/RamHardwareInformation.py:163
 msgid "Manufacturer"
 msgstr "Üretici"
 
-#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:165
+#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:164
 msgid "Form Factor"
 msgstr "Şekil Faktörü"
 
-#: src/RamHardwareInformation.py:148 src/RamHardwareInformation.py:166
+#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:165
 msgid "Locator"
 msgstr "Kimlik"
 
-#: src/RamHardwareInformation.py:149 src/RamHardwareInformation.py:167
+#: src/RamHardwareInformation.py:148 src/RamHardwareInformation.py:166
 msgid "Bank Locator"
 msgstr "Yuva Kimliği"
 
-#: src/RamHardwareInformation.py:175
+#: src/RamHardwareInformation.py:174
 msgid "Root privileges are needed for viewing RAM hardware information."
 msgstr "RAM donanım bilgisini görüntülemek için root ayrıcalıkları gereklidir."
 
@@ -725,7 +729,8 @@ msgstr "Yüklenme Durumu"
 msgid "Sub-State"
 msgstr "Alt Durum"
 
-#: src/Services.py:189 ui/ServicesMenuCustomizations.ui:338
+#: src/Services.py:189 src/Users.py:192 ui/ServicesMenuCustomizations.ui:338
+#: ui/UsersDetailsWindow.ui:406
 msgid "Memory (RSS)"
 msgstr "Bellek (RSS)"
 
@@ -867,7 +872,7 @@ msgstr "Bilgi"
 msgid "Performance"
 msgstr "Performans"
 
-#: src/SettingsGUI.py:316 src/Users.py:183 ui/MainWindow.ui:844
+#: src/SettingsGUI.py:316 src/Users.py:184 ui/MainWindow.ui:844
 #: ui/ProcessesTab.ui:251 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:324
 msgid "Processes"
@@ -1248,141 +1253,136 @@ msgstr "(Evet)"
 msgid "(No)"
 msgstr "(Hayır)"
 
-#: src/Users.py:178 ui/UsersDetailsWindow.ui:39
+#: src/Users.py:179 ui/UsersDetailsWindow.ui:39
 #: ui/UsersMenuCustomizations.ui:252
 msgid "User Name"
 msgstr "Kullanıcı Adı"
 
-#: src/Users.py:179 ui/UsersDetailsWindow.ui:52
+#: src/Users.py:180 ui/UsersDetailsWindow.ui:52
 #: ui/UsersMenuCustomizations.ui:268
 msgid "Full Name"
 msgstr "Tam Ad"
 
-#: src/Users.py:180 ui/UsersDetailsWindow.ui:65
+#: src/Users.py:181 ui/UsersDetailsWindow.ui:65
 #: ui/UsersMenuCustomizations.ui:282
 msgid "Logged In"
 msgstr "Giriş Yapmış"
 
-#: src/Users.py:184 ui/UsersDetailsWindow.ui:117
+#: src/Users.py:185 ui/UsersDetailsWindow.ui:117
 #: ui/UsersMenuCustomizations.ui:338
 msgid "Home Directory"
 msgstr "Ev Dizini"
 
-#: src/Users.py:185 ui/UsersDetailsWindow.ui:130
+#: src/Users.py:186 ui/UsersDetailsWindow.ui:130
 #: ui/UsersMenuCustomizations.ui:380
 msgid "Group"
 msgstr "Grup"
 
-#: src/Users.py:186 ui/StartupNewItemWindow.ui:235 ui/UsersDetailsWindow.ui:143
+#: src/Users.py:187 ui/StartupNewItemWindow.ui:235 ui/UsersDetailsWindow.ui:143
 #: ui/UsersMenuCustomizations.ui:422
 msgid "Terminal"
 msgstr "Uçbirim"
 
-#: src/Users.py:187 ui/UsersDetailsWindow.ui:156
+#: src/Users.py:188 ui/UsersDetailsWindow.ui:156
 #: ui/UsersMenuCustomizations.ui:436
 msgid "Last Login"
 msgstr "Son Giriş"
 
-#: src/Users.py:188 ui/UsersDetailsWindow.ui:169
+#: src/Users.py:189 ui/UsersDetailsWindow.ui:169
 #: ui/UsersMenuCustomizations.ui:394
 msgid "Last Failed Login"
 msgstr "Son Hatalı Giriş"
 
-#: src/Users.py:189 ui/UsersDetailsWindow.ui:182
+#: src/Users.py:190 ui/UsersDetailsWindow.ui:182
 #: ui/UsersMenuCustomizations.ui:408
 msgid "Started"
 msgstr "Başlama"
 
-#: src/Users.py:190 ui/UsersDetailsWindow.ui:195
-#: ui/UsersMenuCustomizations.ui:352
-msgid "CPU%"
-msgstr "%MİB"
-
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Jan"
 msgstr "Oca"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Feb"
 msgstr "Şub"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Mar"
 msgstr "Mar"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Apr"
 msgstr "Nis"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "May"
 msgstr "May"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Jun"
 msgstr "Haz"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Jul"
 msgstr "Tem"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Aug"
 msgstr "Ağu"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Sep"
 msgstr "Eyl"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Oct"
 msgstr "Eki"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Nov"
 msgstr "Kas"
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Dec"
 msgstr "Ara"
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Mon"
 msgstr "Pzt"
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Tue"
 msgstr "Sal"
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Wed"
 msgstr "Çar"
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Thu"
 msgstr "Per"
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Fri"
 msgstr "Cum"
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Sat"
 msgstr "Cmt"
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Sun"
 msgstr "Paz"
 
-#: src/Users.py:589
+#: src/Users.py:590
 msgid " users ("
 msgstr " kullanıcı ("
 
-#: src/Users.py:589
+#: src/Users.py:590
 msgid " logged in users, "
 msgstr " giriş yapmış kullanıcı, "
 
-#: src/Users.py:589
+#: src/Users.py:590
 msgid " logged out users)"
 msgstr " çıkış yapmış kullanıcı)"
 
@@ -1393,6 +1393,35 @@ msgstr "Kullanıcı Detayları"
 #: src/UsersDetails.py:313
 msgid "User Details: "
 msgstr "Kullanıcı Detayları: "
+
+#: src/UsersMenuRightClick.py:88
+msgid "Root privileges are needed for ending an user session."
+msgstr ""
+"Bir kullanıcı oturumunu sonlandırmak için root ayrıcalıkları gereklidir."
+
+#: src/UsersMenuRightClick.py:98
+msgid "Do You Want To End User Session?"
+msgstr "Kullanıcı Oturumunu Sonlandırmak İstiyor musunuz?"
+
+#: src/UsersMenuRightClick.py:99
+msgid ""
+"This action will end all processes of the user immediately and may cause "
+"data loss for the user."
+msgstr ""
+"Bu eylem kullanıcının tüm işlemlerini hemen sonlandıracak ve kullanıcı için "
+"veri kayıplarına sebep olabilir."
+
+#: src/UsersMenuRightClick.py:100
+msgid "User session will be ended if you continue."
+msgstr "Devam ederseniz kullanıcı oturumu sonlandırılacak."
+
+#: src/UsersMenuRightClick.py:102
+msgid "User Name:"
+msgstr "Kullanıcı Adı:"
+
+#: src/UsersMenuRightClick.py:103
+msgid "User UID:"
+msgstr "Kullanıcı UUID:"
 
 #: ui/CpuMenus.ui:20
 msgid "CPU Tab Customizations:"
@@ -2560,7 +2589,7 @@ msgstr ""
 msgid "Apply"
 msgstr "Uygula"
 
-#: ui/ProcessesDetailsWindow.ui:8 ui/ServicesDetailsWindow.ui:7
+#: ui/ProcessesDetailsWindow.ui:8 ui/ServicesDetailsWindow.ui:8
 msgid "Process Details"
 msgstr "İşlem Detayları"
 
@@ -2835,7 +2864,7 @@ msgid "Open Location"
 msgstr "Konumunu Aç"
 
 #: ui/ProcessesMenuRightClick.ui:200 ui/ServicesMenuRightClick.ui:133
-#: ui/StorageMenuRightClick.ui:117 ui/UsersMenuRightClick.ui:15
+#: ui/StorageMenuRightClick.ui:117 ui/UsersMenuRightClick.ui:35
 msgid "Details"
 msgstr "Detaylar"
 
@@ -3836,6 +3865,10 @@ msgstr "Kullanıcılar Sekmesi Özelleştirmeleri:"
 msgid "Add/Remove User Information:"
 msgstr "Kullanıcı Bilgilerini Ekle/Çıkart:"
 
+#: ui/UsersMenuRightClick.ui:20
+msgid "End User Session"
+msgstr "Kullanıcı Oturumunu Sonlandır"
+
 #: ui/UsersTab.ui:38
 msgid "Note: User-specific performance data is approximative."
 msgstr "Not: Kullanıcıya özgü performans bilgisi yaklaşıktır."
@@ -3863,6 +3896,9 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "CPU %"
+#~ msgstr "% MİB"
 
 #~ msgid "RAM Information:"
 #~ msgstr "RAM Bilgisi:"
@@ -4322,14 +4358,8 @@ msgstr "Sadece çıkış yapmış kullanıcıları göster"
 #~ msgid "Rotational:"
 #~ msgstr "Dönen:"
 
-#~ msgid "UUID:"
-#~ msgstr "UUID:"
-
 #~ msgid "Read-Only:"
 #~ msgstr "Sadece Okuma:"
-
-#~ msgid "User Name:"
-#~ msgstr "Kullanıcı Adı:"
 
 #~ msgid "Full Name:"
 #~ msgstr "Tam Ad:"

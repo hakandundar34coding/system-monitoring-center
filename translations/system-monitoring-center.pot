@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-06 10:59+0300\n"
+"POT-Creation-Date: 2021-11-07 12:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,18 +71,18 @@ msgstr ""
 
 #: src/Disk.py:420 src/FloatingSummary.py:208 src/Network.py:343
 #: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
-#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:347
+#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:349
 #: src/RamSwapDetails.py:143 src/Services.py:636 src/ServicesDetails.py:356
-#: src/Storage.py:908 src/StorageDetails.py:515 src/Users.py:728
+#: src/Storage.py:908 src/StorageDetails.py:515 src/Users.py:729
 #: src/UsersDetails.py:380
 msgid "Auto-Byte"
 msgstr ""
 
 #: src/Disk.py:422 src/FloatingSummary.py:210 src/Network.py:345
 #: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
-#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:349
+#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:351
 #: src/RamSwapDetails.py:145 src/Services.py:638 src/ServicesDetails.py:358
-#: src/Storage.py:910 src/StorageDetails.py:517 src/Users.py:730
+#: src/Storage.py:910 src/StorageDetails.py:517 src/Users.py:731
 #: src/UsersDetails.py:382
 msgid "Auto-bit"
 msgstr ""
@@ -99,10 +99,11 @@ msgstr ""
 #: src/EnvironmentVarMenuRightClick.py:156 src/EnvironmentVariablesInput.py:179
 #: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
-#: src/RamHardwareInformation.py:173 src/ServicesMenuRightClick.py:161
+#: src/RamHardwareInformation.py:172 src/ServicesMenuRightClick.py:161
 #: src/SettingsGUI.py:596 src/StartupMenuRightClick.py:425
 #: src/StartupMenuRightClick.py:438 src/StartupNewItem.py:190
 #: src/StorageMenuRightClick.py:257 src/StorageRename.py:158
+#: src/UsersMenuRightClick.py:86 src/UsersMenuRightClick.py:97
 msgid "Warning"
 msgstr ""
 
@@ -182,7 +183,7 @@ msgid ""
 msgstr ""
 
 #: src/EnvironmentVariables.py:475 src/Processes.py:666 src/Sensors.py:339
-#: src/Services.py:501 src/Startup.py:707 src/Storage.py:737 src/Users.py:589
+#: src/Services.py:501 src/Startup.py:707 src/Storage.py:737 src/Users.py:590
 msgid "Total: "
 msgstr ""
 
@@ -211,6 +212,7 @@ msgid "Existing variable will be overwritten if you continue."
 msgstr ""
 
 #: src/EnvironmentVariablesInput.py:183 src/StartupNewItem.py:194
+#: src/UsersMenuRightClick.py:101
 msgid "Do you want to continue?"
 msgstr ""
 
@@ -288,7 +290,7 @@ msgstr ""
 
 #: src/Network.py:187 src/Network.py:193 src/Network.py:252
 #: src/Performance.py:143 src/Performance.py:149 src/Processes.py:808
-#: src/RamHardwareInformation.py:79 src/System.py:121 src/System.py:206
+#: src/RamHardwareInformation.py:78 src/System.py:121 src/System.py:206
 msgid "Unknown"
 msgstr ""
 
@@ -354,12 +356,13 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: src/Processes.py:234
-msgid "CPU %"
+#: src/Processes.py:234 src/Users.py:191 ui/UsersDetailsWindow.ui:195
+#: ui/UsersMenuCustomizations.ui:352
+msgid "CPU%"
 msgstr ""
 
-#: src/Processes.py:235 src/Users.py:191 ui/ProcessesMenuCustomizations.ui:413
-#: ui/UsersDetailsWindow.ui:406 ui/UsersMenuCustomizations.ui:366
+#: src/Processes.py:235 ui/ProcessesMenuCustomizations.ui:413
+#: ui/UsersMenuCustomizations.ui:366
 msgid "RAM (RSS)"
 msgstr ""
 
@@ -405,12 +408,12 @@ msgstr ""
 msgid "PPID"
 msgstr ""
 
-#: src/Processes.py:245 src/Users.py:181 ui/ProcessesMenuCustomizations.ui:567
+#: src/Processes.py:245 src/Users.py:182 ui/ProcessesMenuCustomizations.ui:567
 #: ui/UsersDetailsWindow.ui:78 ui/UsersMenuCustomizations.ui:296
 msgid "UID"
 msgstr ""
 
-#: src/Processes.py:246 src/Users.py:182 ui/ProcessesMenuCustomizations.ui:581
+#: src/Processes.py:246 src/Users.py:183 ui/ProcessesMenuCustomizations.ui:581
 #: ui/UsersDetailsWindow.ui:91 ui/UsersMenuCustomizations.ui:310
 msgid "GID"
 msgstr ""
@@ -505,7 +508,8 @@ msgstr ""
 msgid ")"
 msgstr ""
 
-#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:174
+#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:173
+#: src/UsersMenuRightClick.py:87
 msgid "Access Denied"
 msgstr ""
 
@@ -556,58 +560,58 @@ msgid ""
 "No folder will be opened."
 msgstr ""
 
-#: src/Ram.py:244
+#: src/Ram.py:246
 msgid "Total Physical RAM: "
 msgstr ""
 
-#: src/Ram.py:245
+#: src/Ram.py:247
 msgid "Reserved Swap Memory: "
 msgstr ""
 
-#: src/RamHardwareInformation.py:79 src/StartupMenuRightClick.py:413
+#: src/RamHardwareInformation.py:78 src/StartupMenuRightClick.py:413
 #: src/StartupMenuRightClick.py:419
 msgid "None"
 msgstr ""
 
-#: src/RamHardwareInformation.py:105
+#: src/RamHardwareInformation.py:104
 msgid "Maximum Capacity"
 msgstr ""
 
-#: src/RamHardwareInformation.py:106
+#: src/RamHardwareInformation.py:105
 msgid "Number Of Devices"
 msgstr ""
 
-#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:161
+#: src/RamHardwareInformation.py:142 src/RamHardwareInformation.py:160
 msgid "Capacity"
 msgstr ""
 
-#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:162
+#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:161
 #: src/RamSwapDetails.py:108 src/Storage.py:212 ui/ServicesDetailsWindow.ui:245
 #: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:295
 msgid "Type"
 msgstr ""
 
-#: src/RamHardwareInformation.py:145 src/RamHardwareInformation.py:163
+#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:162
 msgid "Speed"
 msgstr ""
 
-#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:164
+#: src/RamHardwareInformation.py:145 src/RamHardwareInformation.py:163
 msgid "Manufacturer"
 msgstr ""
 
-#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:165
+#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:164
 msgid "Form Factor"
 msgstr ""
 
-#: src/RamHardwareInformation.py:148 src/RamHardwareInformation.py:166
+#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:165
 msgid "Locator"
 msgstr ""
 
-#: src/RamHardwareInformation.py:149 src/RamHardwareInformation.py:167
+#: src/RamHardwareInformation.py:148 src/RamHardwareInformation.py:166
 msgid "Bank Locator"
 msgstr ""
 
-#: src/RamHardwareInformation.py:175
+#: src/RamHardwareInformation.py:174
 msgid "Root privileges are needed for viewing RAM hardware information."
 msgstr ""
 
@@ -693,7 +697,8 @@ msgstr ""
 msgid "Sub-State"
 msgstr ""
 
-#: src/Services.py:189 ui/ServicesMenuCustomizations.ui:338
+#: src/Services.py:189 src/Users.py:192 ui/ServicesMenuCustomizations.ui:338
+#: ui/UsersDetailsWindow.ui:406
 msgid "Memory (RSS)"
 msgstr ""
 
@@ -835,7 +840,7 @@ msgstr ""
 msgid "Performance"
 msgstr ""
 
-#: src/SettingsGUI.py:316 src/Users.py:183 ui/MainWindow.ui:844
+#: src/SettingsGUI.py:316 src/Users.py:184 ui/MainWindow.ui:844
 #: ui/ProcessesTab.ui:251 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:324
 msgid "Processes"
@@ -1201,141 +1206,136 @@ msgstr ""
 msgid "(No)"
 msgstr ""
 
-#: src/Users.py:178 ui/UsersDetailsWindow.ui:39
+#: src/Users.py:179 ui/UsersDetailsWindow.ui:39
 #: ui/UsersMenuCustomizations.ui:252
 msgid "User Name"
 msgstr ""
 
-#: src/Users.py:179 ui/UsersDetailsWindow.ui:52
+#: src/Users.py:180 ui/UsersDetailsWindow.ui:52
 #: ui/UsersMenuCustomizations.ui:268
 msgid "Full Name"
 msgstr ""
 
-#: src/Users.py:180 ui/UsersDetailsWindow.ui:65
+#: src/Users.py:181 ui/UsersDetailsWindow.ui:65
 #: ui/UsersMenuCustomizations.ui:282
 msgid "Logged In"
 msgstr ""
 
-#: src/Users.py:184 ui/UsersDetailsWindow.ui:117
+#: src/Users.py:185 ui/UsersDetailsWindow.ui:117
 #: ui/UsersMenuCustomizations.ui:338
 msgid "Home Directory"
 msgstr ""
 
-#: src/Users.py:185 ui/UsersDetailsWindow.ui:130
+#: src/Users.py:186 ui/UsersDetailsWindow.ui:130
 #: ui/UsersMenuCustomizations.ui:380
 msgid "Group"
 msgstr ""
 
-#: src/Users.py:186 ui/StartupNewItemWindow.ui:235 ui/UsersDetailsWindow.ui:143
+#: src/Users.py:187 ui/StartupNewItemWindow.ui:235 ui/UsersDetailsWindow.ui:143
 #: ui/UsersMenuCustomizations.ui:422
 msgid "Terminal"
 msgstr ""
 
-#: src/Users.py:187 ui/UsersDetailsWindow.ui:156
+#: src/Users.py:188 ui/UsersDetailsWindow.ui:156
 #: ui/UsersMenuCustomizations.ui:436
 msgid "Last Login"
 msgstr ""
 
-#: src/Users.py:188 ui/UsersDetailsWindow.ui:169
+#: src/Users.py:189 ui/UsersDetailsWindow.ui:169
 #: ui/UsersMenuCustomizations.ui:394
 msgid "Last Failed Login"
 msgstr ""
 
-#: src/Users.py:189 ui/UsersDetailsWindow.ui:182
+#: src/Users.py:190 ui/UsersDetailsWindow.ui:182
 #: ui/UsersMenuCustomizations.ui:408
 msgid "Started"
 msgstr ""
 
-#: src/Users.py:190 ui/UsersDetailsWindow.ui:195
-#: ui/UsersMenuCustomizations.ui:352
-msgid "CPU%"
-msgstr ""
-
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Jan"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Feb"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Mar"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Apr"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "May"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Jun"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Jul"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Aug"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Sep"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Oct"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Nov"
 msgstr ""
 
-#: src/Users.py:223 src/UsersDetails.py:144
+#: src/Users.py:224 src/UsersDetails.py:144
 msgid "Dec"
 msgstr ""
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Mon"
 msgstr ""
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Tue"
 msgstr ""
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Wed"
 msgstr ""
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Thu"
 msgstr ""
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Fri"
 msgstr ""
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Sat"
 msgstr ""
 
-#: src/Users.py:224 src/UsersDetails.py:145
+#: src/Users.py:225 src/UsersDetails.py:145
 msgid "Sun"
 msgstr ""
 
-#: src/Users.py:589
+#: src/Users.py:590
 msgid " users ("
 msgstr ""
 
-#: src/Users.py:589
+#: src/Users.py:590
 msgid " logged in users, "
 msgstr ""
 
-#: src/Users.py:589
+#: src/Users.py:590
 msgid " logged out users)"
 msgstr ""
 
@@ -1345,6 +1345,32 @@ msgstr ""
 
 #: src/UsersDetails.py:313
 msgid "User Details: "
+msgstr ""
+
+#: src/UsersMenuRightClick.py:88
+msgid "Root privileges are needed for ending an user session."
+msgstr ""
+
+#: src/UsersMenuRightClick.py:98
+msgid "Do You Want To End User Session?"
+msgstr ""
+
+#: src/UsersMenuRightClick.py:99
+msgid ""
+"This action will end all processes of the user immediately and may cause "
+"data loss for the user."
+msgstr ""
+
+#: src/UsersMenuRightClick.py:100
+msgid "User session will be ended if you continue."
+msgstr ""
+
+#: src/UsersMenuRightClick.py:102
+msgid "User Name:"
+msgstr ""
+
+#: src/UsersMenuRightClick.py:103
+msgid "User UID:"
 msgstr ""
 
 #: ui/CpuMenus.ui:20
@@ -2393,7 +2419,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:8 ui/ServicesDetailsWindow.ui:7
+#: ui/ProcessesDetailsWindow.ui:8 ui/ServicesDetailsWindow.ui:8
 msgid "Process Details"
 msgstr ""
 
@@ -2666,7 +2692,7 @@ msgid "Open Location"
 msgstr ""
 
 #: ui/ProcessesMenuRightClick.ui:200 ui/ServicesMenuRightClick.ui:133
-#: ui/StorageMenuRightClick.ui:117 ui/UsersMenuRightClick.ui:15
+#: ui/StorageMenuRightClick.ui:117 ui/UsersMenuRightClick.ui:35
 msgid "Details"
 msgstr ""
 
@@ -3573,6 +3599,10 @@ msgstr ""
 
 #: ui/UsersMenuCustomizations.ui:219
 msgid "Add/Remove User Information:"
+msgstr ""
+
+#: ui/UsersMenuRightClick.ui:20
+msgid "End User Session"
 msgstr ""
 
 #: ui/UsersTab.ui:38
