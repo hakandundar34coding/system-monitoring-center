@@ -12,46 +12,48 @@
     <p>Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.</p>
     <p>Features:</p>
     <ul>
-      <li>Detailed system performance monitoring features:</li>
+      <li>Detailed system performance and usage usage monitoring/managing features:</li>
       <li> - Monitoring CPU, RAM, Disk, Network, GPU, Sensor hardware information/performance/usage</li>
       <li> - An always on top and semi-transparent floating summary window for performance monitoring</li>
-      <li> - Monitoring and managing processes, storage, startup items, services, environment variables</li>
-      <li> - Monitoring users and system information</li>
+      <li> - Monitoring and managing processes, users, storage devices, startup applications, services (systemd) and environment variables</li>
+      <li> - Monitoring general system information</li>
+      <li>Customization options per-tab</li>
       <li>Low system resource usage while monitoring</li>
       <li>Language support (more languages will be added if translations are provided by contributors):</li>
       <li> - English, Turkish</li>
-      <li>Provides help and additional information when mouse hover action is performed on several GUI objects</li>
+      <li>Provides help information when mouse hover action is performed on several GUI objects</li>
       <li>Adapts to system theme</li>
+      <li>Free and open sourced</li>
     </ul>
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://kod.pardus.org.tr/Hakan/system-monitoring-center/raw/master/screenshots/cpu_tab_default_system_theme.png</image>
+      <image>https://github.com/hakandundar34coding/system-monitoring-center/raw/master/screenshots/cpu_tab_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
-      <image>https://kod.pardus.org.tr/Hakan/system-monitoring-center/raw/master/screenshots/cpu_tab_customizations.png</image>
+      <image>https://github.com/hakandundar34coding/system-monitoring-center/raw/master/screenshots/cpu_tab_white_system_theme.png</image>
     </screenshot>
     <screenshot>
-      <image>https://kod.pardus.org.tr/Hakan/system-monitoring-center/raw/master/screenshots/network_tab_dark_system_theme.png</image>
+      <image>https://github.com/hakandundar34coding/system-monitoring-center/raw/master/screenshots/network_tab_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
-      <image>https://kod.pardus.org.tr/Hakan/system-monitoring-center/raw/master/screenshots/processes_tab_tree_view_dark.png</image>
+      <image>https://github.com/hakandundar34coding/system-monitoring-center/raw/master/screenshots/processes_tree_view_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
-      <image>https://kod.pardus.org.tr/Hakan/system-monitoring-center/raw/master/screenshots/storage_tab_dark_system_theme.png</image>
+      <image>https://github.com/hakandundar34coding/system-monitoring-center/raw/master/screenshots/storage_tab_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
-      <image>https://kod.pardus.org.tr/Hakan/system-monitoring-center/raw/master/screenshots/startup_tab_dark_system_theme.png</image>
+      <image>https://github.com/hakandundar34coding/system-monitoring-center/raw/master/screenshots/startup_tab_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
-      <image>https://kod.pardus.org.tr/Hakan/system-monitoring-center/raw/master/screenshots/services_tab_dark_system_theme.png</image>
+      <image>https://github.com/hakandundar34coding/system-monitoring-center/raw/master/screenshots/services_tab_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
-      <image>https://kod.pardus.org.tr/Hakan/system-monitoring-center/raw/master/screenshots/environment_variables_tab_dark.png</image>
+      <image>https://github.com/hakandundar34coding/system-monitoring-center/raw/master/screenshots/system_tab_dark_system_theme.png</image>
     </screenshot>
   </screenshots>
   <releases>
-    <release version="0.1.21~beta8" date="2021-10-17"></release>
+    <release version="0.1.21~beta16" date="2021-11-06"></release>
   </releases>
   <content_rating type="oars-1.1"/>
 </component>

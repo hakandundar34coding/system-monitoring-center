@@ -74,5 +74,5 @@ setup(
     description="Provides information about system performance and usage.",
     license="GPLv3",
     keywords="system monitor task manager center performance speed frequency cpu usage ram usage swap memory memory usage storage network usage download speed fps frame ratio processes users startup programs services environment variables shell variables os",
-    url="https://kod.pardus.org.tr/Hakan/system-monitoring-center",
+    url="https://github.com/hakandundar34coding/system-monitoring-center",
 )
