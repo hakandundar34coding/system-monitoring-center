@@ -111,9 +111,9 @@ def sensors_initial_func():
     global sensors_data_list
     sensors_data_list = [
                         [0, _tr('Sensor Group'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
-                        [1, _tr('Sensor Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [2, _tr('Current Vale'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [3, _tr('Critical Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
+                        [1, _tr('Sensor Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                        [2, _tr('Current Vale'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [3, _tr('Critical Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']]
                         ]
 
     global sensors_data_rows_prev, sensors_treeview_columns_shown_prev, sensors_data_row_sorting_column_prev, sensors_data_row_sorting_order_prev, sensors_data_column_order_prev, sensors_data_column_widths_prev
@@ -194,15 +194,15 @@ def sensors_loop_func():
             except OSError:
                 current_value = "-"
             if sensors_data_row[-3] == temperature_sensor_icon_name and current_value != "-":
-                current_value = current_value / 1000                                          # Values in this file are divided by 1000 in order to get temperatures in Celcius unit. Fan sensor values are used without division.
-            sensors_data_row.append(str(current_value))
+                current_value = f'{(current_value / 1000):.0f}'                               # Values in this file are divided by 1000 in order to get temperatures in Celcius unit. Fan sensor values are used without division.
+            sensors_data_row.append(str(current_value))                                       # Sensor data may be fan value and it is converted to string. Temperature values are converted to string by using Python f string.
             critical_value_file = current_value_file.split("_")[0] + "_crit"
             if critical_value_file in critical_value_files_in_sensor_group:
                 with open("/sys/class/hwmon/" + sensor_group + "/" + critical_value_file) as reader:
                     critical_value = int(reader.read().strip())
                 if sensors_data_row[-4] == temperature_sensor_icon_name:
-                    critical_value = critical_value / 1000                                    # Values in this file are divided by 1000 in order to get temperatures in Celcius unit. Fan sensor values are used without division.
-                sensors_data_row.append(str(critical_value))
+                    critical_value = f'{(critical_value / 1000):.0f}'                         # Values in this file are divided by 1000 in order to get temperatures in Celcius unit. Fan sensor values are used without division.
+                sensors_data_row.append(str(critical_value))                                  # Sensor data may be fan value and it is converted to string. Temperature values are converted to string by using Python f string.
             if critical_value_file not in critical_value_files_in_sensor_group:               # There may not be critical value files for some sensors. "" appended into the list in this situation.
                 sensors_data_row.append("-")
             # Append sensor data list into main list

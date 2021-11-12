@@ -111,6 +111,8 @@ def ram_swap_details_get_func():
         swap_details_text = swap_details_text + "\n" + _tr("Priority") + " :    " + swap_priority
         swap_details_text = swap_details_text + "\n"
 
+    swap_details_text = swap_details_text.strip()                                             # Delete empty lines at the beginning and end of the string.
+
     if swap_details_text.strip() == "":
         swap_details_text = _tr("This system has no swap memory.")
 
