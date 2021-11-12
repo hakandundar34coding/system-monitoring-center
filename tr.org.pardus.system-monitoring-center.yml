@@ -1,8 +1,19 @@
 app-id: tr.org.pardus.pkexec.system-monitoring-center
-runtime: org.freedesktop.Platform
-runtime-version: '21.08'
-sdk: org.freedesktop.Sdk
+runtime: org.gnome.Platform
+runtime-version: '3.38'
+sdk: org.gnome.Sdk
 command: system-monitoring-center
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --device=dri
+  - --socket=wayland
+  - --filesystem=home
+  - --filesystem=host-os:ro
+  - --filesystem=host:ro
+  - --filesystem=/run/systemd/units/:ro
+  - --device=all
+
 modules:
 
   - name: cpython
@@ -57,4 +68,4 @@ modules:
       - python3 setup.py install --flatpak
     sources:
       - type: dir
-        path: /home/asush/Masaüstü/files/python/system-monitoring-center/project/
+        path: [path to project]

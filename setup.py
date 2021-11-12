@@ -21,10 +21,18 @@ def files_in_folder(folder):
         file_paths.append(folder + file)
     return file_paths
 
+
 PREFIX = "/usr"
 if "--flatpak" in sys.argv:
     PREFIX = "/app"
     sys.argv.remove("--flatpak")
+
+if "--rpm" in sys.argv:
+    PREFIX = "RPM"
+    sys.argv.remove("--rpm")
+    build_root = sys.argv[-1].strip("--")
+    del sys.argv[-1]
+
 
 if PREFIX == "/app":
     os.rename("integration/tr.org.pardus.system-monitoring-center.desktop", "integration/tr.org.pardus.pkexec.system-monitoring-center.desktop")
@@ -50,7 +58,30 @@ if PREFIX == "/app":
         ("/app/bin/", ["integration/system-monitoring-center"])
     ]
 
-if PREFIX != "/app":
+if PREFIX == "RPM":
+    os.chmod("integration/tr.org.pardus.system-monitoring-center.desktop", 0o644)
+    os.chmod("translations/tr/system-monitoring-center.mo", 0o644)
+    for file in files_in_folder("src/"):
+        os.chmod(file, 0o644)
+    for file in files_in_folder("ui/"):
+        os.chmod(file, 0o644)
+    for file in files_in_folder("icons/actions/"):
+        os.chmod(file, 0o644)
+    os.chmod("icons/apps/system-monitoring-center.svg", 0o644)
+    os.chmod("integration/tr.org.pardus.pkexec.system-monitoring-center.policy", 0o644)
+    os.chmod("integration/system-monitoring-center", 0o644)
+    data_files = [
+        (build_root + "/usr/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
+        (build_root + "/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        (build_root + "/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
+        (build_root + "/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
+        (build_root + "/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
+        (build_root + "/usr/share/icons/hicolor/scalable/apps/", ["icons/apps/system-monitoring-center.svg"]),
+        (build_root + "/usr/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
+        (build_root + "/usr/bin/", ["integration/system-monitoring-center"])
+    ]
+
+if PREFIX != "/app" and PREFIX != "RPM":
     data_files = [
         ("/usr/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
         ("/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),

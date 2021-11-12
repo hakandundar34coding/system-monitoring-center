@@ -3,11 +3,11 @@
 # ----------------------------------- GPU - GPU Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def gpu_import_func():
 
-    global Gtk, GLib, Thread, os, subprocess
+    global Gtk, GLib, Gdk, Thread, os, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, GLib
+    from gi.repository import Gtk, GLib, Gdk
     from threading import Thread
     import os
     import subprocess
@@ -253,18 +253,21 @@ def gpu_loop_func():
     drawingarea1501.queue_draw()
 
     # Get current resolution and current refresh rate
-    xrandr_lines = (subprocess.check_output(["xrandr"], shell=False)).decode().strip().split("\n")
-    for line in xrandr_lines:
-        if "*" in line:
-            current_resolution = line.split()[0]
-            current_refresh_rate = line.split()[1].split("*")[0]
-            break
+    current_screen = Gdk.Screen.get_default()
+    current_resolution = str(current_screen.get_width()) + "x" + str(current_screen.get_height())
+
+    try:
+        current_monitor_number = current_screen.get_monitor_at_window(current_screen.get_active_window())
+        current_display = Gdk.Display.get_default()
+        current_refresh_rate = f'{(current_display.get_monitor(current_monitor_number).get_refresh_rate() / 1000):.2f} Hz'
+    except:
+        current_refresh_rate = "[" + "Unknown" + "]"
 
 
     # Set and update GPU tab label texts by using information get
     label1503.set_text(f'{fps_count[-1]:.0f}')
     label1504.set_text(f'{frame_latency:.1f} ms')
-    label1505.set_text(f'{current_refresh_rate} Hz')
+    label1505.set_text(current_refresh_rate)
     label1506.set_text(f'{current_resolution}')
 
 

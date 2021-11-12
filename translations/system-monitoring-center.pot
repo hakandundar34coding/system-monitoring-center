@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-07 12:38+0300\n"
+"POT-Creation-Date: 2021-11-12 09:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -892,7 +892,7 @@ msgstr ""
 msgid "Network"
 msgstr ""
 
-#: src/SettingsGUI.py:333 ui/GpuTab.ui:358 ui/MainWindow.ui:221
+#: src/SettingsGUI.py:333 ui/GpuTab.ui:360 ui/MainWindow.ui:221
 msgid "GPU"
 msgstr ""
 
@@ -1450,8 +1450,8 @@ msgstr ""
 #: ui/FloatingSummaryWindow.ui:67 ui/FloatingSummaryWindow.ui:79
 #: ui/FloatingSummaryWindow.ui:91 ui/FloatingSummaryWindow.ui:103
 #: ui/GpuTab.ui:86 ui/GpuTab.ui:103 ui/GpuTab.ui:120 ui/GpuTab.ui:165
-#: ui/GpuTab.ui:182 ui/GpuTab.ui:215 ui/GpuTab.ui:247 ui/GpuTab.ui:264
-#: ui/GpuTab.ui:311 ui/GpuTab.ui:328 ui/GpuTab.ui:402 ui/GpuTab.ui:417
+#: ui/GpuTab.ui:182 ui/GpuTab.ui:217 ui/GpuTab.ui:249 ui/GpuTab.ui:266
+#: ui/GpuTab.ui:313 ui/GpuTab.ui:330 ui/GpuTab.ui:404 ui/GpuTab.ui:419
 #: ui/NetworkTab.ui:139 ui/NetworkTab.ui:156 ui/NetworkTab.ui:173
 #: ui/NetworkTab.ui:190 ui/NetworkTab.ui:207 ui/NetworkTab.ui:224
 #: ui/NetworkTab.ui:241 ui/NetworkTab.ui:258 ui/NetworkTab.ui:289
@@ -1811,7 +1811,7 @@ msgstr ""
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr ""
 
-#: ui/DiskTab.ui:508 ui/GpuTab.ui:465 ui/NetworkTab.ui:390
+#: ui/DiskTab.ui:508 ui/GpuTab.ui:467 ui/NetworkTab.ui:390
 msgid "0"
 msgstr ""
 
@@ -2069,72 +2069,74 @@ msgstr ""
 msgid ""
 "Current refresh rate\n"
 "\n"
-"May be different than maximum refresh rate of the monitor."
+"May be different than maximum refresh rate of the monitor.\n"
+"\n"
+"This information is available only on systems with X11 windowing system."
 msgstr ""
 
-#: ui/GpuTab.ui:202
+#: ui/GpuTab.ui:204
 msgid "Refresh Rate:"
 msgstr ""
 
-#: ui/GpuTab.ui:231
+#: ui/GpuTab.ui:233
 msgid ""
 "Current driver name and version of the selected GPU\n"
 "(May be proprietary or open sourced driver name)"
 msgstr ""
 
-#: ui/GpuTab.ui:234
+#: ui/GpuTab.ui:236
 msgid "Driver:"
 msgstr ""
 
-#: ui/GpuTab.ui:280
+#: ui/GpuTab.ui:282
 msgid ""
 "If selected GPU is default on system boot and/or used for graphics "
 "processing by default"
 msgstr ""
 
-#: ui/GpuTab.ui:282
+#: ui/GpuTab.ui:284
 msgid "Default GPU:"
 msgstr ""
 
-#: ui/GpuTab.ui:294
+#: ui/GpuTab.ui:296
 msgid ""
 "Current resolution\n"
 "\n"
 "May be different than maximum resolution of the monitor."
 msgstr ""
 
-#: ui/GpuTab.ui:298
+#: ui/GpuTab.ui:300
 msgid "Resolution:"
 msgstr ""
 
-#: ui/GpuTab.ui:356
+#: ui/GpuTab.ui:358
 msgid "GPU (Graphics Processing Unit) / Graphics Card"
 msgstr ""
 
-#: ui/GpuTab.ui:374
+#: ui/GpuTab.ui:376
 msgid "GPU Tab Customizations"
 msgstr ""
 
-#: ui/GpuTab.ui:400
+#: ui/GpuTab.ui:402
 msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
 msgstr ""
 
-#: ui/GpuTab.ui:415
+#: ui/GpuTab.ui:417
 msgid "GPU/Graphics Card Device Model Name"
 msgstr ""
 
-#: ui/GpuTab.ui:453
+#: ui/GpuTab.ui:455
 msgid "FPS"
 msgstr ""
 
-#: ui/GpuTab.ui:482
+#: ui/GpuTab.ui:484
 msgid ""
 "FPS (Frames Per Second)\n"
 "(Maximum value could be limited with current monitor refresh rate or GPU "
 "performance)"
 msgstr ""
 
-#: ui/GpuTab.ui:485
+#: ui/GpuTab.ui:487
 msgid "FPS Count:"
 msgstr ""
 

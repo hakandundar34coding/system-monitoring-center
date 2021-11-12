@@ -197,7 +197,9 @@ FPS counting does not continue when window is minimized.</property>
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Current refresh rate
 
-May be different than maximum refresh rate of the monitor.</property>
+May be different than maximum refresh rate of the monitor.
+
+This information is available only on systems with X11 windowing system.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Refresh Rate:</property>
             <property name="ellipsize">end</property>
