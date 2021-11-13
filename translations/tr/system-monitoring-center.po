@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 09:50+0300\n"
-"PO-Revision-Date: 2021-11-12 09:51+0300\n"
+"POT-Creation-Date: 2021-11-12 19:20+0300\n"
+"PO-Revision-Date: 2021-11-12 19:21+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -73,7 +73,7 @@ msgstr "disk bölümü"
 #: src/Disk.py:420 src/FloatingSummary.py:208 src/Network.py:343
 #: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
 #: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:349
-#: src/RamSwapDetails.py:143 src/Services.py:636 src/ServicesDetails.py:356
+#: src/RamSwapDetails.py:145 src/Services.py:636 src/ServicesDetails.py:356
 #: src/Storage.py:908 src/StorageDetails.py:515 src/Users.py:729
 #: src/UsersDetails.py:380
 msgid "Auto-Byte"
@@ -82,7 +82,7 @@ msgstr "Oto-Bayt"
 #: src/Disk.py:422 src/FloatingSummary.py:210 src/Network.py:345
 #: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
 #: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:351
-#: src/RamSwapDetails.py:145 src/Services.py:638 src/ServicesDetails.py:358
+#: src/RamSwapDetails.py:147 src/Services.py:638 src/ServicesDetails.py:358
 #: src/Storage.py:910 src/StorageDetails.py:517 src/Users.py:731
 #: src/UsersDetails.py:382
 msgid "Auto-bit"
@@ -669,7 +669,7 @@ msgstr "Boyut"
 msgid "Used"
 msgstr "Kullanılan"
 
-#: src/RamSwapDetails.py:115
+#: src/RamSwapDetails.py:117
 msgid "This system has no swap memory."
 msgstr "Bu sistemde takas belleği yok."
 
@@ -2148,7 +2148,7 @@ msgstr ""
 "\n"
 "glarea ve OpenGL kütüphanesi kullanılarak sayılır.\n"
 "Basit bir FPS sayacıdır ve bazı durumlarda doğru değerler vermeyebilir.\n"
-"Pencere küçültülmüşken FPS sayımı devam etmez."
+"Pencere simge durumuna küçültülmüşken FPS sayımı devam etmez."
 
 #: ui/GpuTab.ui:29
 msgid "FPS (Frame Rate): "

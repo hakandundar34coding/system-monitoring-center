@@ -50,6 +50,7 @@ if PREFIX == "/app":
     data_files = [
         ("/app/share/applications/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.desktop"]),
         ("/app/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        ("/app/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         ("/app/share/system-monitoring-center/src/", files_in_folder("src/")),
         ("/app/share/system-monitoring-center/ui/", files_in_folder("ui/")),
         ("/app/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
@@ -61,6 +62,7 @@ if PREFIX == "/app":
 if PREFIX == "RPM":
     os.chmod("integration/tr.org.pardus.system-monitoring-center.desktop", 0o644)
     os.chmod("translations/tr/system-monitoring-center.mo", 0o644)
+    os.chmod("man/system-monitoring-center.1.gz", 0o644)
     for file in files_in_folder("src/"):
         os.chmod(file, 0o644)
     for file in files_in_folder("ui/"):
@@ -73,6 +75,7 @@ if PREFIX == "RPM":
     data_files = [
         (build_root + "/usr/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
         (build_root + "/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        (build_root + "/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         (build_root + "/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
         (build_root + "/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
         (build_root + "/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
@@ -82,9 +85,16 @@ if PREFIX == "RPM":
     ]
 
 if PREFIX != "/app" and PREFIX != "RPM":
+    for file in files_in_folder("ui/"):
+        if file.endswith(".ui"):
+            os.chmod(file, 0o644)
+    os.chmod("translations/tr/system-monitoring-center.mo", 0o644)
+    os.chmod("integration/tr.org.pardus.pkexec.system-monitoring-center.policy", 0o644)
+    os.chmod("src/__version__", 0o644)
     data_files = [
         ("/usr/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
         ("/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        ("/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
         ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
         ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),

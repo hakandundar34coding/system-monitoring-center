@@ -20,4 +20,6 @@ Depends: ${misc:Depends},
          pci.ids,
          dmidecode
 Description: Provides information about system performance and usage.
- Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.
+ Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, 
+ processes, users, storage, startup programs, services, environment variables 
+ and system.
