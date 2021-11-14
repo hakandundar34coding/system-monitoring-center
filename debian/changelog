@@ -1,3 +1,19 @@
+system-monitoring-center (0.1.21~beta17) unstable; urgency=medium
+
+  * update version file
+  * Minor GUI improvements
+  * New: End User Session action is added (Users tab)
+  * Various improvements (GUI, Readme file, etc.)
+  * Minor improvements
+  * Several improvements (RPM packaging, dependencies, etc.
+  * Visual improvements for Sensors and RAM tabs
+  * Improvements for debian packaging and GUI
+  * Improvements for debian packaging and GUI
+  * Several improvements (RPM packaging, dependencies, etc.)
+  * Several improvements (Sytsem tab DE support and other)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 14 Nov 2021 10:16:56 +0300
+
 system-monitoring-center (0.1.21~beta16) unstable; urgency=medium
 
   * Fixed a bug for RAM hardware information window
