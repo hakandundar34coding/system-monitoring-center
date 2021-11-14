@@ -42,7 +42,7 @@
                 <property name="tooltip-text" translatable="yes">CPU usage percent
 (Max value is 100 %)</property>
                 <property name="halign">start</property>
-                <property name="label" translatable="yes">CPU Usage % (Average):</property>
+                <property name="label" translatable="yes">CPU Usage (Average):</property>
               </object>
               <packing>
                 <property name="left-attach">0</property>

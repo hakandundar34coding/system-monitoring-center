@@ -118,7 +118,7 @@ def system_initial_func():
     if windowing_system != None:
         windowing_system = windowing_system.capitalize()
     if windowing_system == None:
-        windowing_system = _tr("Unknown")                                                     # Initial value of "windowing_system" variable. This value will be used if "windowing_system" could not be detected.
+        windowing_system = "-"                                                                # Initial value of "windowing_system" variable. This value will be used if "windowing_system" could not be detected.
         pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]      # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
         for pid in pid_list:
             try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
@@ -134,7 +134,7 @@ def system_initial_func():
                 break
 
     # Get window manager
-    supported_window_managers_list = ["xfwm4", "mutter", "kwin", "kwin_x11", "cinnamon", "openbox", "metacity", "marco", "compiz", "englightenment", "fvwm2", "icewm", "sawfish", "awesome"]
+    supported_window_managers_list = ["xfwm4", "mutter", "kwin", "kwin_x11", "cinnamon", "budgie-wm", "openbox", "metacity", "marco", "compiz", "englightenment", "fvwm2", "icewm", "sawfish", "awesome"]
     global window_manager
     window_manager = "-"                                                                      # Set an initial string in order to avoid errors in case of undetected current desktop session.
     if 'pid_list' not in locals():
@@ -160,9 +160,9 @@ def system_initial_func():
                 break
 
     # Get current desktop environment
-    current_desktop_environment = os.environ.get('XDG_CURRENT_DESKTOP')
-    supported_desktop_environments_process_list = ["xfce4-session", "gnome-session-b", "cinnamon-session", "mate-session", "plasmashell", "lxqt-session", "lxsession"]
-    supported_desktop_environments_list = ["XFCE", "GNOME", "X-Cinnamon", "CINNAMON", "MATE", "KDE", "LXQt", "LXDE"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
+    current_desktop_environment = os.environ.get('XDG_CURRENT_DESKTOP')                       # This command may give Budgie desktop environment as "Budgie:GNOME".
+    supported_desktop_environments_process_list = ["xfce4-session", "gnome-session-b", "cinnamon-session", "mate-session", "plasmashell", "lxqt-session", "lxsession", "budgie-panel"]
+    supported_desktop_environments_list = ["XFCE", "GNOME", "X-Cinnamon", "CINNAMON", "MATE", "KDE", "LXQt", "LXDE", "Budgie", "Deepin"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
     if current_desktop_environment == None:
         current_desktop_session = "-"                                                         # Set an initial string in order to avoid errors in case of undetected current desktop session.
         for pid in pid_list:
@@ -200,10 +200,16 @@ def system_initial_func():
                     if process_name == "lxsession":
                         current_desktop_session = "LXDE"
                         break
+                    if process_name == "budgie-panel":                                        # This control for Budgie desktop have to be made after contrl of "gnome-session-b" process. Because "budgie-panel" process is child process of "gnome-session-b" process.
+                        current_desktop_session = "Budgie"
+                        break
+                    if process_name == "dde-desktop":
+                        current_desktop_session = "Deepin"
+                        break
                 current_desktop_environment = current_desktop_session
 
     # Get current desktop environment version
-    current_desktop_environment_version = _tr("Unknown")                                                                # Set initial value of the "current_desktop_environment_version". This value will be used if it could not be detected.
+    current_desktop_environment_version = "-"                                                 # Set initial value of the "current_desktop_environment_version". This value will be used if it could not be detected.
     if current_desktop_environment == "XFCE":
         current_desktop_environment_version_lines = (subprocess.check_output(["xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
         for line in current_desktop_environment_version_lines:
@@ -225,6 +231,8 @@ def system_initial_func():
         for line in current_desktop_environment_version_lines:
             if "liblxqt" in line:
                 current_desktop_environment_version = line.split()[1].strip()
+    if current_desktop_environment == "Budgie" or current_desktop_environment == "Budgie:GNOME":
+        current_desktop_environment_version = (subprocess.check_output(["budgie-desktop", "--version"], shell=False)).decode().strip().split("\n")[0].strip().split(" ")[-1]
 
     # Get current display manager
     supported_display_managers_list = ["lightdm", "gdm", "gdm3", "sddm", "xdm", "lxdm"]

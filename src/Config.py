@@ -142,7 +142,7 @@ def config_default_performance_network_func():
     global performance_network_speed_data_unit, performance_network_data_data_unit, plot_network_download_speed, plot_network_upload_speed, selected_network_card
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     chart_line_color_network_speed_data = [0.56, 0.30, 0.78, 1.0]
-    performance_network_speed_data_precision = 2
+    performance_network_speed_data_precision = 1
     performance_network_data_data_precision = 2
     performance_network_speed_data_unit = 0
     performance_network_data_data_unit = 0

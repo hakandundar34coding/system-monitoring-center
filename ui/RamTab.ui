@@ -536,7 +536,7 @@ Root privileges are needed for getting this information.</property>
             <property name="tooltip-text" translatable="yes">RAM usage percent
 (Max value is 100 %)</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">RAM Usage %:</property>
+            <property name="label" translatable="yes">RAM Usage:</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 19:20+0300\n"
-"PO-Revision-Date: 2021-11-12 19:21+0300\n"
+"POT-Creation-Date: 2021-11-13 16:45+0300\n"
+"PO-Revision-Date: 2021-11-13 16:47+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/Cpu.py:276 ui/CpuTab.ui:45
-msgid "CPU Usage % (Average):"
-msgstr "MİB Kullanım % (Ortalama):"
+msgid "CPU Usage (Average):"
+msgstr "MİB Kullanımı (Ortalama):"
 
 #: src/Cpu.py:278
-msgid "CPU Usage % (Per Core):"
-msgstr "MİB Kullanım % (Çekirdek Başına):"
+msgid "CPU Usage (Per Core):"
+msgstr "MİB Kullanımı (Çekirdek Başına):"
 
 #: src/Cpu.py:367
 msgid "Selected CPU Core: "
@@ -3063,9 +3063,10 @@ msgstr ""
 "RAM kullanım yüzdesi\n"
 "(Maks değer %100)"
 
-#: ui/RamTab.ui:539
-msgid "RAM Usage %:"
-msgstr "RAM Kullanım %:"
+#: ui/RamTab.ui:539 ui/ServicesMenuCustomizations.ui:452
+#: ui/ServicesMenuCustomizations.ui:512
+msgid "RAM Usage:"
+msgstr "RAM Kullanımı:"
 
 #: ui/SensorsTab.ui:17
 msgid "Note: Some sensors may not provide correct values!"
@@ -3175,10 +3176,6 @@ msgstr "Servisler Sekmesi Özelleştirmeleri:"
 #: ui/ServicesMenuCustomizations.ui:219
 msgid "Add/Remove Service Information:"
 msgstr "Servis Bilgilerini Ekle/Çıkart:"
-
-#: ui/ServicesMenuCustomizations.ui:452 ui/ServicesMenuCustomizations.ui:512
-msgid "RAM Usage:"
-msgstr "RAM Kullanımı:"
 
 #: ui/ServicesMenuRightClick.ui:50
 msgid "Start"
@@ -3900,6 +3897,9 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "RAM Usage %:"
+#~ msgstr "RAM Kullanım %:"
 
 #~ msgid ""
 #~ "Current refresh rate\n"

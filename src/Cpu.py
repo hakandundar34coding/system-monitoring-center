@@ -273,9 +273,9 @@ def cpu_initial_func():
     # Set CPU tab label texts by using information get
     show_cpu_usage_per_core = Config.show_cpu_usage_per_core
     if show_cpu_usage_per_core == 0:
-        label1113.set_text(_tr("CPU Usage % (Average):"))
+        label1113.set_text(_tr("CPU Usage (Average):"))
     if show_cpu_usage_per_core == 1:
-        label1113.set_text(_tr("CPU Usage % (Per Core):"))
+        label1113.set_text(_tr("CPU Usage (Per Core):"))
     label1108.set_text(cpu_architecture)
     label1109.set_text(f'{cpu_l1i_cache_values[selected_cpu_core_number]} - {cpu_l1d_cache_values[selected_cpu_core_number]}')
     label1110.set_text(f'{cpu_l2_cache_values[selected_cpu_core_number]} - {cpu_l3_cache_values[selected_cpu_core_number]}')
