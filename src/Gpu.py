@@ -183,7 +183,7 @@ def gpu_initial_func():
     default_gpu = Performance.default_gpu
     gpu_device_model_name = Performance.gpu_device_model_name
     # Get video_memory, if_unified_memory, direct_rendering, mesa_version, opengl_version values of the GPU which is preferred for running this application. "DRI_PRIME application-name" and "DRI_PRIME=1 application-name" could be used for running an application by using internal and external GPUs respectively.
-    glxinfo_command_list = [["env", "glxinfo", "-B"], ["env", "DRI_PRIME=1", "glxinfo", "-B"]]     # "env" command is used for running a program in a modified environment. "DRI_PRIME=1 application_name" does not work when "(subprocess.check_output(command, shell=False))" is used in order to prevent shell injection. "DRI_PRIME=1" is environment variable name, it is not an application/package name.
+    glxinfo_command_list = [["env", "DRI_PRIME=0", "glxinfo", "-B"], ["env", "DRI_PRIME=1", "glxinfo", "-B"]]     # "env" command is used for running a program in a modified environment. "DRI_PRIME=1 application_name" does not work when "(subprocess.check_output(command, shell=False))" is used in order to prevent shell injection. "DRI_PRIME=1" is environment variable name, it is not an application/package name.
     for command in glxinfo_command_list:
         try:
             glxinfo_output_lines = (subprocess.check_output(command, shell=False)).decode().strip().split("\n")    # This command gives current GPU information. If application is run with "DRI_PRIME=1 application-name" this command gives external GPU information.

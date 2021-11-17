@@ -151,9 +151,9 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
         gpu_device_model_name.append(f'{gpu_vendor_name} {gpu_device_name}')
         gpu_vendor_id_list.append(gpu_vendor_id)                                              # This list will be used for matching with GPU information from "glxinfo" command.
         gpu_device_id_list.append(gpu_device_id)                                              # This list will be used for matching with GPU information from "glxinfo" command.
-
+    print(Config.selected_gpu)
     # Set selected gpu/graphics card
-    if Config.selected_gpu == "":                                                             # "" is predefined disk name before release of the software. This statement is used in order to avoid error, if no disk selection is made since first run of the software.
+    if Config.selected_gpu == "":                                                             # "" is predefined gpu name before release of the software. This statement is used in order to avoid error, if no gpu selection is made since first run of the software.
         set_selected_gpu = default_gpu
     if Config.selected_gpu in gpu_list:
         set_selected_gpu = Config.selected_gpu
@@ -161,6 +161,8 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
         set_selected_gpu = default_gpu
     global selected_gpu_number
     selected_gpu_number = gpu_list.index(set_selected_gpu)
+    print(gpu_list)
+    print(selected_gpu_number)
 
 
 # ----------------------------------- Performance - Background Initial Function (defines initial arrays and values for performance background function) -----------------------------------
