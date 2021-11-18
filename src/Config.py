@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#! /usr/bin/python3
 
 # ----------------------------------- Config - Config Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def config_import_func():
@@ -50,10 +50,15 @@ def config_read_func():
 
 
     try:
+        global reset_all_settings_with_new_release_value                                      # This value is used for resetting all settings. This integer value is increased "1" in the new application release if resetting is wanted by the developer. Code reads this value from the config file and compares with the value in the code. All settings are reset if integer value of this value is bigger than the value in the config file. There is no action if integer value of this value is smaller than the value in the config file. There is no relationship between this value and application version.
+        reset_all_settings_with_new_release_value = 1
         with open(config_file_path) as reader:
             global config_lines
             config_lines = reader.read().split("\n")
         config_get_values_func()
+        if 'reset_all_settings_with_new_release' not in globals() or reset_all_settings_with_new_release < reset_all_settings_with_new_release_value:
+            config_default_reset_all_func()
+            config_save_func()
     except:
         if os.path.exists(config_folder_path) == False:
             os.makedirs(config_folder_path)
@@ -86,9 +91,11 @@ def config_default_reset_all_func():
 
 # ----------------------------------- Config - Config Default General Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
 def config_default_general_general_func():
+    global reset_all_settings_with_new_release
     global update_interval, chart_data_history, default_main_tab, performance_tab_default_sub_tab
     global performance_summary_on_the_headerbar, remember_last_opened_tabs_on_application_start, chart_background_color_all_charts
     global remember_last_selected_hardware
+    reset_all_settings_with_new_release = reset_all_settings_with_new_release_value 
     update_interval = 0.75
     chart_data_history = 150
     default_main_tab = 0
@@ -297,6 +304,7 @@ def config_default_environment_variables_row_sort_column_order_func():
 
 # ----------------------------------- Config - Config Read Function (reads settings from configration file) -----------------------------------
 def config_get_values_func():
+    global reset_all_settings_with_new_release
     global update_interval, chart_data_history, default_main_tab, performance_tab_default_sub_tab
     global performance_summary_on_the_headerbar, remember_last_opened_tabs_on_application_start, chart_background_color_all_charts
     global remember_last_selected_hardware
@@ -336,6 +344,9 @@ def config_get_values_func():
     global environment_variables_treeview_columns_shown, environment_variables_data_row_sorting_column, environment_variables_data_row_sorting_order, environment_variables_data_column_order, environment_variables_data_column_widths
 
     for line in config_lines:
+        if line.startswith("reset_all_settings_with_new_release = ") == True:
+            reset_all_settings_with_new_release = int(line.split(" = ")[1])
+            continue
         if line.startswith("update_interval = ") == True:
             update_interval = float(line.split(" = ")[1])
             continue
@@ -626,6 +637,7 @@ def config_save_func():
 
     with open(config_file_path, "w") as writer:
         writer.write("[General - General]" + "\n")
+        writer.write("reset_all_settings_with_new_release = " + str(reset_all_settings_with_new_release) + "\n")
         writer.write("update_interval = " + str(update_interval) + "\n")
         writer.write("chart_data_history = " + str(chart_data_history) + "\n")
         writer.write("default_main_tab = " + str(default_main_tab) + "\n")
