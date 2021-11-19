@@ -87,6 +87,7 @@ def environment_variables_menu_right_click_gui_func():
             pass
         if warning_dialog7104_response == Gtk.ResponseType.NO:                                # Do nothing (stop running the function) if "No" is clicked on the dialog.
             return
+        # Delete the selected (right clicked) variable for current user.
         environment_variables_get_current_user_home_dir_func()                                # Run the function for getting home directory of the current user. This directory will be used for reading from/writing into ".bashrc" file.
         with open(current_user_homedir + "/.bashrc") as reader:
             bashrc_lines = reader.read().strip().split("\n")                                  # ".strip()" is used in order to prevent adding "\n" per function run (this new line is appended when data is written into file).
@@ -95,6 +96,12 @@ def environment_variables_menu_right_click_gui_func():
                 if line_write.startswith("export " + selected_variable + "=") == False:
                     writer.write(line_write + "\n")
 
+        # Check if selected (right clicked) variable is in the "/etc/environment" which means variable is for all users.
+        with open("/etc/environment") as reader:
+            etc_environment_lines = reader.read()
+        if selected_variable + "=" not in etc_environment_lines:
+            return                                                                            # Stop running code to prevent asking password to user if selected (right cliked) variable is not in the file.
+        # Delete the selected (right clicked) variable for all users.
         python_file_and_path = os.path.dirname(os.path.realpath(__file__)) + "/../src/EnvironmentVarDeleteForAllUsers.py"
         try:
             (subprocess.check_output(["pkexec", "python3", python_file_and_path, selected_variable, selected_variable_value], stderr=subprocess.STDOUT, shell=False)).decode()    # Run the command for running a Python module with "root" privileges.
