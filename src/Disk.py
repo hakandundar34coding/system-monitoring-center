@@ -389,7 +389,8 @@ def disk_get_device_partition_model_name_mount_point_func():
         disk_mount_point = ""
         for line in proc_mounts_output_lines:
             if line.split()[0].strip() == ("/dev/" + selected_disk_name):
-                disk_mount_point = line.split()[1].strip().replace("\\040", " ")              # Disk mount point is get with containing "\\040" characters if there are spaces in the name of the loop disk. ".replace("\\040", " ")" code is used in order to replace these characters with a space for avoidng errors.
+                disk_mount_point = bytes(line.split()[1].strip(), "utf-8").decode("unicode_escape")    # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
+                break                                                                         # System disk is listed twice with different mountpoint information on systems which are installed on disks with "btrfs" filesystem. "/" mountpoint information is used by using "break" code.
 
 
 # ----------------------------------- Disk - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
