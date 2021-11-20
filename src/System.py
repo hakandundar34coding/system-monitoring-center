@@ -46,12 +46,14 @@ def system_gui_func():
 
     # System tab GUI objects
     global grid8101
+    global button8101
     global label8101, label8102, label8103, label8104, label8105, label8106, label8107, label8108, label8109, label8110
     global label8111, label8112, label8113, label8114, label8115, label8116, label8117, label8118, label8119, label8120
     global label8121, label8122
 
     # System tab GUI objects - get
     grid8101 = builder.get_object('grid8101')
+    button8101 = builder.get_object('button8101')
     label8101 = builder.get_object('label8101')
     label8102 = builder.get_object('label8102')
     label8103 = builder.get_object('label8103')
@@ -74,6 +76,16 @@ def system_gui_func():
     label8120 = builder.get_object('label8120')
     label8121 = builder.get_object('label8121')
     label8122 = builder.get_object('label8122')
+
+
+    # System tab GUI functions
+    def on_button8101_clicked(widget):                                                        # "Refresh" button
+        system_initial_func()
+        system_loop_func()
+
+
+    # System tab GUI functions - connect
+    button8101.connect("clicked", on_button8101_clicked)
 
 
 # ----------------------------------- System - Initial Function (gets data and adds into labels) -----------------------------------
@@ -320,6 +332,13 @@ def system_initial_func():
             flatpak_packages_available = "yes"
     except FileNotFoundError:
         flatpak_packages_available = "no"
+
+    # Delete global "number_of_installed_rpm_packages" variable before loop function.
+    try:
+        global number_of_installed_rpm_packages
+        del number_of_installed_rpm_packages                                                  # Global "number_of_installed_rpm_packages" variable is deleted in order to get its value if user clicks on "Refresh" button on System tab. Because presence of this variable in "globals()" is contolled on every loop in order to avoid getting its value in every loop (for avoiding very high CPU usage).
+    except NameError:
+        pass
 
 
     # Set label texts to show information
