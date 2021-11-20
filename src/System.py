@@ -393,8 +393,10 @@ def system_loop_func():
 
     # Get number of installed RPM packages
     if rpm_packages_available == "yes":
-        number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
-        number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")    # Differentiate empty line count
+        if 'number_of_installed_rpm_packages' not in globals():                               # Number of installed RPM packages is not updated on every loop. Getting number of installed RPM packages consumes very high CPU usage because of the "rpm -qa" command and there is no any other solution for getting this information with low CPU usage.
+            global number_of_installed_rpm_packages
+            number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
+            number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")    # Differentiate empty line count
         number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
 
     # Get number of installed pacman packages
