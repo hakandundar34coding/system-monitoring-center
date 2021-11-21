@@ -25,7 +25,6 @@
       <object class="GtkDrawingArea" id="drawingarea101">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Average CPU usage of all cores</property>
         <property name="margin-top">2</property>
         <property name="margin-bottom">2</property>
       </object>
@@ -38,7 +37,6 @@
       <object class="GtkDrawingArea" id="drawingarea102">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">RAM Usage Percent</property>
         <property name="margin-top">2</property>
         <property name="margin-bottom">2</property>
       </object>
@@ -77,7 +75,6 @@
       <object class="GtkLabel" id="label101">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Disk read+write speed of the selected disk (in powers of 1024)</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">--</property>
       </object>
@@ -90,7 +87,6 @@
       <object class="GtkLabel" id="label102">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Data download+upload speed on the selected network card (in powers of 1024)</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">--</property>
       </object>
