@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-13 16:45+0300\n"
-"PO-Revision-Date: 2021-11-13 16:47+0300\n"
+"POT-Creation-Date: 2021-11-21 09:11+0300\n"
+"PO-Revision-Date: 2021-11-21 09:14+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -70,7 +70,7 @@ msgstr "disk"
 msgid "partition"
 msgstr "disk bölümü"
 
-#: src/Disk.py:420 src/FloatingSummary.py:208 src/Network.py:343
+#: src/Disk.py:421 src/FloatingSummary.py:208 src/Network.py:343
 #: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
 #: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:349
 #: src/RamSwapDetails.py:145 src/Services.py:636 src/ServicesDetails.py:356
@@ -79,7 +79,7 @@ msgstr "disk bölümü"
 msgid "Auto-Byte"
 msgstr "Oto-Bayt"
 
-#: src/Disk.py:422 src/FloatingSummary.py:210 src/Network.py:345
+#: src/Disk.py:423 src/FloatingSummary.py:210 src/Network.py:345
 #: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
 #: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:351
 #: src/RamSwapDetails.py:147 src/Services.py:638 src/ServicesDetails.py:358
@@ -97,7 +97,7 @@ msgstr "Yeni Kalıcı Ortam Değişkeni Ekle"
 msgid "Edit Persistent Environment Variable"
 msgstr "Kalıcı Ortam Değişkenini Düzenle"
 
-#: src/EnvironmentVarMenuRightClick.py:156 src/EnvironmentVariablesInput.py:179
+#: src/EnvironmentVarMenuRightClick.py:163 src/EnvironmentVariablesInput.py:179
 #: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
 #: src/RamHardwareInformation.py:172 src/ServicesMenuRightClick.py:161
@@ -108,24 +108,24 @@ msgstr "Kalıcı Ortam Değişkenini Düzenle"
 msgid "Warning"
 msgstr "Uyarı"
 
-#: src/EnvironmentVarMenuRightClick.py:157
+#: src/EnvironmentVarMenuRightClick.py:164
 msgid "Do You Want To Delete The Environment Variable?"
 msgstr "Ortam Değişkenini Silmek İstiyor musunuz?"
 
-#: src/EnvironmentVarMenuRightClick.py:158
+#: src/EnvironmentVarMenuRightClick.py:165
 msgid "Environment variable will be deleted from following files:"
 msgstr "Ortam değişkeni şu dosyalardan silinecek:"
 
-#: src/EnvironmentVarMenuRightClick.py:162
+#: src/EnvironmentVarMenuRightClick.py:169
 msgid "Do you want to delete the following persistent environment variable?"
 msgstr "Şu kalıcı ortam değişkenini silmek istiyor musunuz?"
 
-#: src/EnvironmentVarMenuRightClick.py:164
+#: src/EnvironmentVarMenuRightClick.py:171
 #: ui/EnvironmentVariablesInputWindow.ui:153
 msgid "Variable:"
 msgstr "Değişken:"
 
-#: src/EnvironmentVarMenuRightClick.py:165
+#: src/EnvironmentVarMenuRightClick.py:172
 #: ui/EnvironmentVariablesInputWindow.ui:165
 msgid "Value:"
 msgstr "Değer:"
@@ -302,9 +302,24 @@ msgstr ""
 "Uyarı! Uygulama root ayrıcalıklarıyla ile çalıştırıldı, sisteminize zarar "
 "verebilirsiniz."
 
+#: src/MainMenusDialogs.py:148 src/ProcessesDetails.py:687
+#: src/ProcessesMenuRightClick.py:278 src/ProcessesMenuRightClick.py:314
+#: src/ProcessesMenuRightClick.py:324 src/StartupMenuRightClick.py:451
+#: src/StorageMenuRightClick.py:234 src/StorageMenuRightClick.py:247
+msgid "Error"
+msgstr "Hata"
+
+#: src/MainMenusDialogs.py:149
+msgid "Default Terminal Application Not Detected"
+msgstr "Varsayılan Terminal Uygulaması Belirlenemedi"
+
+#: src/MainMenusDialogs.py:150
+msgid "Default terminal application on this system could not be detected."
+msgstr "Bu sistemdeki varsayılan terminal uygulaması belirlenemedi."
+
 #: src/Network.py:187 src/Network.py:193 src/Network.py:252
 #: src/Performance.py:143 src/Performance.py:149 src/Processes.py:808
-#: src/RamHardwareInformation.py:78 src/System.py:121 src/System.py:206
+#: src/RamHardwareInformation.py:78
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -503,13 +518,6 @@ msgstr ""
 #: src/ProcessesDetails.py:252
 msgid "Process Details: "
 msgstr "İşlem Detayları: "
-
-#: src/ProcessesDetails.py:687 src/ProcessesMenuRightClick.py:278
-#: src/ProcessesMenuRightClick.py:314 src/ProcessesMenuRightClick.py:324
-#: src/StartupMenuRightClick.py:451 src/StorageMenuRightClick.py:234
-#: src/StorageMenuRightClick.py:247
-msgid "Error"
-msgstr "Hata"
 
 #: src/ProcessesDetails.py:688 src/ProcessesMenuRightClick.py:315
 msgid "Process Is Not Running Anymore"
@@ -1245,11 +1253,11 @@ msgstr "Bu dosya sistemine sahip diskleri yeniden adlandırma desteklenmiyor."
 msgid "Disk has been removed and file system could not be renamed."
 msgstr "Disk çıkarıldı ve dosya sistemi yeniden adlandırılabilir."
 
-#: src/System.py:412
+#: src/System.py:441
 msgid "(Yes)"
 msgstr "(Evet)"
 
-#: src/System.py:414
+#: src/System.py:443
 msgid "(No)"
 msgstr "(Hayır)"
 
@@ -1508,8 +1516,8 @@ msgstr "%0"
 #: ui/NetworkTab.ui:190 ui/NetworkTab.ui:207 ui/NetworkTab.ui:224
 #: ui/NetworkTab.ui:241 ui/NetworkTab.ui:258 ui/NetworkTab.ui:289
 #: ui/NetworkTab.ui:321 ui/NetworkTab.ui:461 ui/NetworkTab.ui:476
-#: ui/PerformanceSummaryHeaderBarGrid.ui:78
-#: ui/PerformanceSummaryHeaderBarGrid.ui:90
+#: ui/PerformanceSummaryHeaderBarGrid.ui:79
+#: ui/PerformanceSummaryHeaderBarGrid.ui:91
 #: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
 #: ui/ProcessesDetailsWindow.ui:257 ui/ProcessesDetailsWindow.ui:272
@@ -1556,14 +1564,14 @@ msgstr "%0"
 #: ui/StorageDetailsWindow.ui:640 ui/StorageDetailsWindow.ui:655
 #: ui/StorageDetailsWindow.ui:670 ui/StorageDetailsWindow.ui:685
 #: ui/StorageDetailsWindow.ui:701 ui/StorageRenameWindow.ui:164
-#: ui/SystemTab.ui:29 ui/SystemTab.ui:44 ui/SystemTab.ui:158
-#: ui/SystemTab.ui:175 ui/SystemTab.ui:224 ui/SystemTab.ui:255
-#: ui/SystemTab.ui:288 ui/SystemTab.ui:322 ui/SystemTab.ui:355
-#: ui/SystemTab.ui:372 ui/SystemTab.ui:420 ui/SystemTab.ui:451
-#: ui/SystemTab.ui:484 ui/SystemTab.ui:517 ui/SystemTab.ui:612
-#: ui/SystemTab.ui:629 ui/SystemTab.ui:646 ui/SystemTab.ui:740
-#: ui/SystemTab.ui:757 ui/SystemTab.ui:792 ui/SystemTab.ui:809
-#: ui/SystemTab.ui:826 ui/UsersDetailsWindow.ui:208
+#: ui/SystemTab.ui:29 ui/SystemTab.ui:44 ui/SystemTab.ui:182
+#: ui/SystemTab.ui:199 ui/SystemTab.ui:248 ui/SystemTab.ui:279
+#: ui/SystemTab.ui:312 ui/SystemTab.ui:346 ui/SystemTab.ui:379
+#: ui/SystemTab.ui:396 ui/SystemTab.ui:444 ui/SystemTab.ui:475
+#: ui/SystemTab.ui:508 ui/SystemTab.ui:541 ui/SystemTab.ui:636
+#: ui/SystemTab.ui:653 ui/SystemTab.ui:670 ui/SystemTab.ui:764
+#: ui/SystemTab.ui:781 ui/SystemTab.ui:816 ui/SystemTab.ui:833
+#: ui/SystemTab.ui:850 ui/UsersDetailsWindow.ui:208
 #: ui/UsersDetailsWindow.ui:223 ui/UsersDetailsWindow.ui:238
 #: ui/UsersDetailsWindow.ui:253 ui/UsersDetailsWindow.ui:268
 #: ui/UsersDetailsWindow.ui:283 ui/UsersDetailsWindow.ui:298
@@ -1574,11 +1582,11 @@ msgstr "%0"
 msgid "--"
 msgstr ""
 
-#: ui/CpuTab.ui:153 ui/SystemTab.ui:696
+#: ui/CpuTab.ui:153 ui/SystemTab.ui:720
 msgid "Elapsed time since last system boot"
 msgstr "Sistem başlangıcından sonra geçen zaman"
 
-#: ui/CpuTab.ui:155 ui/SystemTab.ui:698
+#: ui/CpuTab.ui:155 ui/SystemTab.ui:722
 msgid "Up Time:"
 msgstr "Çalışma Zamanı:"
 
@@ -1643,7 +1651,6 @@ msgid "Frequency:"
 msgstr "Frekans:"
 
 #: ui/CpuTab.ui:338 ui/PerformanceSummaryHeaderBarGrid.ui:15
-#: ui/PerformanceSummaryHeaderBarGrid.ui:27
 msgid "Average CPU usage of all cores"
 msgstr "Tüm çekirdeklerin ortalama MİB kullanımı"
 
@@ -2539,12 +2546,11 @@ msgstr "Ağ Arayüz Kontrolcüsü (NIC) Adı"
 msgid "Network Card Device Model Name"
 msgstr "Ağ Kartı Cihaz Modeli Adı"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:16 ui/ProcessesDetailsWindow.ui:814
+#: ui/PerformanceSummaryHeaderBarGrid.ui:17 ui/ProcessesDetailsWindow.ui:814
 msgid "CPU:"
 msgstr "MİB:"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:40
-#: ui/PerformanceSummaryHeaderBarGrid.ui:53
+#: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM Usage Percent"
 msgstr "RAM Kullanım Yüzdesi"
 
@@ -2554,22 +2560,20 @@ msgid "RAM:"
 msgstr "RAM:"
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:65
-#: ui/PerformanceSummaryHeaderBarGrid.ui:77
 msgid "Disk read+write speed of the selected disk (in powers of 1024)"
 msgstr "Seçilen diskin okuma+yazma hızı (1024'ün katları şeklinde)"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:66 ui/ProcessesDetailsWindow.ui:1469
+#: ui/PerformanceSummaryHeaderBarGrid.ui:67 ui/ProcessesDetailsWindow.ui:1469
 msgid "Disk:"
 msgstr "Disk:"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:89
-#: ui/PerformanceSummaryHeaderBarGrid.ui:101
+#: ui/PerformanceSummaryHeaderBarGrid.ui:102
 msgid ""
 "Data download+upload speed on the selected network card (in powers of 1024)"
 msgstr ""
 "Seçilen ağ kartındaki veri indirme+yükleme hızı (1024'ün katları şeklinde)"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:102
+#: ui/PerformanceSummaryHeaderBarGrid.ui:104
 msgid "Network:"
 msgstr "Ağ:"
 
@@ -3397,7 +3401,7 @@ msgstr "'.desktop' Dosyasını Aç..."
 msgid "Add New Startup Item"
 msgstr "Yeni Başlangıç Ögesi Ekle"
 
-#: ui/StartupNewItemWindow.ui:165 ui/SystemTab.ui:131
+#: ui/StartupNewItemWindow.ui:165 ui/SystemTab.ui:155
 msgid "Name:"
 msgstr "Ad:"
 
@@ -3573,25 +3577,39 @@ msgstr "Bilgisayar Adı ve Modeli"
 msgid "Operating System Name and Version"
 msgstr "İşletim Sistemi Adı ve Sürümü"
 
-#: ui/SystemTab.ui:112
+#: ui/SystemTab.ui:83
+msgid ""
+"Refresh\n"
+"(Reloads System tab data)\n"
+"\n"
+"Some of the information on this tab are reloaded automatically but all of "
+"them can be reloaded manually."
+msgstr ""
+"Yenile\n"
+"(Sistem sekmesi verilerini yeniden yükler)\n"
+"\n"
+"Bu sekmedeki bazı bilgiler otomatik olarak yenilenir ama hepsi elle "
+"güncellenebilir."
+
+#: ui/SystemTab.ui:136
 msgid "Operating System (OS):"
 msgstr "İşletim Sistemi (İ.S.):"
 
-#: ui/SystemTab.ui:128
+#: ui/SystemTab.ui:152
 msgid ""
 "Name of the OS\n"
 "(ID of the OS)"
 msgstr "İşletim sisteminin adı"
 
-#: ui/SystemTab.ui:143
+#: ui/SystemTab.ui:167
 msgid "Version and code name of the OS"
 msgstr "İşletim sisteminin sürüm ve kod adı"
 
-#: ui/SystemTab.ui:145
+#: ui/SystemTab.ui:169
 msgid "Version - Code Name:"
 msgstr "Sürüm - Kod Adı:"
 
-#: ui/SystemTab.ui:191
+#: ui/SystemTab.ui:215
 msgid ""
 "Computer model name\n"
 "\n"
@@ -3601,11 +3619,11 @@ msgstr ""
 "\n"
 "Bu bilgi tüm anakartlarda mevcut olmayabilir."
 
-#: ui/SystemTab.ui:195
+#: ui/SystemTab.ui:219
 msgid "Model:"
 msgstr "Model:"
 
-#: ui/SystemTab.ui:207
+#: ui/SystemTab.ui:231
 msgid ""
 "Type of the computer chassis\n"
 "\n"
@@ -3615,19 +3633,19 @@ msgstr ""
 "\n"
 "Bu bilgi tüm anakartlarda mevcut olmayabilir."
 
-#: ui/SystemTab.ui:211
+#: ui/SystemTab.ui:235
 msgid "Computer Type:"
 msgstr "Bilgisayar Tipi:"
 
-#: ui/SystemTab.ui:240
+#: ui/SystemTab.ui:264
 msgid "Name of the OS which this OS is based on"
 msgstr "İşletim sisteminin temel aldığı işletim sisteminin adı"
 
-#: ui/SystemTab.ui:242
+#: ui/SystemTab.ui:266
 msgid "Based On:"
 msgstr "Temeli:"
 
-#: ui/SystemTab.ui:271
+#: ui/SystemTab.ui:295
 msgid ""
 "Base version of the kernel\n"
 "\n"
@@ -3637,15 +3655,15 @@ msgstr ""
 "\n"
 "İ.S. çekirdeğinin paket sürümünden (kernel version) farklı olabilir."
 
-#: ui/SystemTab.ui:275
+#: ui/SystemTab.ui:299
 msgid "Kernel Release:"
 msgstr "Kernel Sürümü:"
 
-#: ui/SystemTab.ui:305
+#: ui/SystemTab.ui:329
 msgid "Computer:"
 msgstr "Bilgisayar:"
 
-#: ui/SystemTab.ui:338
+#: ui/SystemTab.ui:362
 msgid ""
 "Computer vendor name\n"
 "\n"
@@ -3655,19 +3673,19 @@ msgstr ""
 "\n"
 "Bu bilgi tüm anakartlarda mevcut olmayabilir."
 
-#: ui/SystemTab.ui:342
+#: ui/SystemTab.ui:366
 msgid "Vendor:"
 msgstr "Firma:"
 
-#: ui/SystemTab.ui:388
+#: ui/SystemTab.ui:412
 msgid "Family of the OS"
 msgstr "İşletim sisteminin ailesi"
 
-#: ui/SystemTab.ui:390
+#: ui/SystemTab.ui:414
 msgid "OS Family:"
 msgstr "İ.S. Ailesi:"
 
-#: ui/SystemTab.ui:402
+#: ui/SystemTab.ui:426
 msgid ""
 "Name of the computer\n"
 "\n"
@@ -3681,19 +3699,19 @@ msgstr ""
 "kurulumu sırasında belirlenir.\n"
 "Bu isim daha sonra değiştirilebilir."
 
-#: ui/SystemTab.ui:407
+#: ui/SystemTab.ui:431
 msgid "Host Name:"
 msgstr "Bilgisayar Adı:"
 
-#: ui/SystemTab.ui:436
+#: ui/SystemTab.ui:460
 msgid "Number of detected monitors"
 msgstr "Algılanan ekran sayısı"
 
-#: ui/SystemTab.ui:438
+#: ui/SystemTab.ui:462
 msgid "Number Of Monitors:"
 msgstr "Ekran Sayısı:"
 
-#: ui/SystemTab.ui:467
+#: ui/SystemTab.ui:491
 msgid ""
 "Package version of the kernel\n"
 "\n"
@@ -3703,11 +3721,11 @@ msgstr ""
 "\n"
 "İ.S. çekirdeği sürümünden (kernel release) farklı olabilir."
 
-#: ui/SystemTab.ui:471
+#: ui/SystemTab.ui:495
 msgid "Kernel Version:"
 msgstr "Kernel Sürüm Numarası:"
 
-#: ui/SystemTab.ui:500
+#: ui/SystemTab.ui:524
 msgid ""
 "Monitor which most part of this window is shown on\n"
 "\n"
@@ -3717,19 +3735,19 @@ msgstr ""
 "\n"
 "Bu bilgi sadece X11 pencere sisteminin kullanıldığı sistemlerde sağlanabilir."
 
-#: ui/SystemTab.ui:504
+#: ui/SystemTab.ui:528
 msgid "Current Monitor:"
 msgstr "Şimdiki Ekran:"
 
-#: ui/SystemTab.ui:561
+#: ui/SystemTab.ui:585
 msgid "Graphical User Interface (GUI):"
 msgstr "Grafiksel Kullanıcı Arayüzü (GUI):"
 
-#: ui/SystemTab.ui:578
+#: ui/SystemTab.ui:602
 msgid "Status:"
 msgstr "Durum:"
 
-#: ui/SystemTab.ui:594
+#: ui/SystemTab.ui:618
 msgid ""
 "Name of the desktop environment\n"
 "\n"
@@ -3751,11 +3769,11 @@ msgstr ""
 "Farklı masaüstü ortamlarının sistem kaynakları kullanımları ve özellikleri "
 "arasında büyük farklılıklar olabilir."
 
-#: ui/SystemTab.ui:599
+#: ui/SystemTab.ui:623
 msgid "Desktop Environment:"
 msgstr "Masaüstü Ortamı:"
 
-#: ui/SystemTab.ui:662
+#: ui/SystemTab.ui:686
 msgid ""
 "Name of the windowing system (window system)\n"
 "\n"
@@ -3770,11 +3788,11 @@ msgstr ""
 "Pencere sistemlerinin görüntü sunucusu (display server) ve pencere "
 "yöneticisi (window manager) gibi bileşenleri vardır."
 
-#: ui/SystemTab.ui:667
+#: ui/SystemTab.ui:691
 msgid "Windowing System:"
 msgstr "Pencere Sistemi:"
 
-#: ui/SystemTab.ui:679
+#: ui/SystemTab.ui:703
 msgid ""
 "Name of the display manager (login manager)\n"
 "\n"
@@ -3791,11 +3809,11 @@ msgstr ""
 "Farklı ekran yöneticilerinin özellikleri, sistem kaynağı kullanımları ve "
 "giriş ekranı (greeter) görünümleri farklıdır."
 
-#: ui/SystemTab.ui:684
+#: ui/SystemTab.ui:708
 msgid "Display Manager:"
 msgstr "Ekran Yöneticisi:"
 
-#: ui/SystemTab.ui:710
+#: ui/SystemTab.ui:734
 msgid ""
 "Number of installed packages\n"
 "(APT, RPM or pacman)"
@@ -3803,11 +3821,11 @@ msgstr ""
 "Kurulu paket sayısı\n"
 "(APT, RPM veya pacman)"
 
-#: ui/SystemTab.ui:713
+#: ui/SystemTab.ui:737
 msgid "Packages (System):"
 msgstr "Paketler (Sistem):"
 
-#: ui/SystemTab.ui:725
+#: ui/SystemTab.ui:749
 msgid ""
 "Name of the current user and information of whether the user has root "
 "privileges"
@@ -3815,11 +3833,11 @@ msgstr ""
 "Şimdiki kullanıcının adı ve kullanıcının root ayrıcalıklarına sahip olup "
 "olmadığı bilgisi"
 
-#: ui/SystemTab.ui:727
+#: ui/SystemTab.ui:751
 msgid "User - (Root?):"
 msgstr "Kullanıcı - (Root?):"
 
-#: ui/SystemTab.ui:773
+#: ui/SystemTab.ui:797
 msgid ""
 "Name of the window manager\n"
 "\n"
@@ -3839,11 +3857,11 @@ msgstr ""
 "Not: Kullanıcı oturumu sırasındaki pencere yöneticisi değişiklikleri takip "
 "edilmez."
 
-#: ui/SystemTab.ui:779
+#: ui/SystemTab.ui:803
 msgid "Window Manager:"
 msgstr "Pencere Yöneticisi:"
 
-#: ui/SystemTab.ui:842
+#: ui/SystemTab.ui:866
 msgid ""
 "Number of installed Python packages and number of installed Flatpak "
 "applications and runtimes\n"
@@ -3854,7 +3872,7 @@ msgstr ""
 "\n"
 "Dahili (built-in) Python paketleri sayılmaz."
 
-#: ui/SystemTab.ui:846
+#: ui/SystemTab.ui:870
 msgid "Packages (Python-Flatpak):"
 msgstr "Paketler (Python-Flatpak):"
 

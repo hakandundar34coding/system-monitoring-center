@@ -81,7 +81,9 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="tooltip-text" translatable="yes">Refresh
-(Reloads System tab data)</property>
+(Reloads System tab data)
+
+Some of the information on this tab are reloaded automatically but all of them can be reloaded manually.</property>
             <property name="halign">end</property>
             <property name="hexpand">True</property>
             <child>
