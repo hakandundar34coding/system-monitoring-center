@@ -660,7 +660,7 @@ def storage_loop_func():
                 break
 
     # Set column widths if there are changes since last loop.
-    if storage_data_column_widths_prev != storage_data_column_widths:
+    if storage_treeview_columns_shown_prev != storage_treeview_columns_shown or storage_data_column_widths_prev != storage_data_column_widths:
         storage_treeview_columns = treeview4101.get_columns()
         treeview_column_titles = []
         for column in storage_treeview_columns:
