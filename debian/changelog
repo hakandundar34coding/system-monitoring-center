@@ -1,3 +1,17 @@
+system-monitoring-center (0.1.21~beta18) unstable; urgency=medium
+
+  * Security improvements for command running operations (GPU tab)
+  * Fixed a bug for GPU vendor-device information (GPU tab)
+  * Application category change: Settings category is removed
+  * Added new capability: Resetting all settings with new release
+  * Improvements for detecting system disk (Disk tab)
+  * Improvements for deleting environment variable
+  * Performance improvements for getting RPM package count
+  * Fixed a bug for running terminal application (Main menu)
+  * Minor GUI improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 25 Nov 2021 12:18:57 +0300
+
 system-monitoring-center (0.1.21~beta17) unstable; urgency=medium
 
   * New: End User Session action is added (Users tab)
