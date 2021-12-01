@@ -227,11 +227,11 @@ def system_initial_func():
         for line in current_desktop_environment_version_lines:
             if "xfce4-panel" in line:
                 current_desktop_environment_version = line.split(" ")[1]
-    if current_desktop_environment == "GNOME":
+    if current_desktop_environment == "GNOME" or current_desktop_environment == "Zorin:GNOME":
         current_desktop_environment_version_lines = (subprocess.check_output(["gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
         for line in current_desktop_environment_version_lines:
             if "GNOME Shell" in line:
-                current_desktop_environment_version = line.split(" ")[2]
+                current_desktop_environment_version = line.split(" ")[-1]
     if current_desktop_environment == "X-Cinnamon" or current_desktop_environment == "CINNAMON":
         current_desktop_environment_version = (subprocess.check_output(["cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
     if current_desktop_environment == "MATE":
