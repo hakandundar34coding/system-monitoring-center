@@ -71,6 +71,9 @@ def main_menus_gui_func():
         checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
 
     def on_menuitem1002m_activate(widget):                                                    # "Open Terminal" menu item
+        if os.path.isfile("/etc/alternatives/x-terminal-emulator") == False:
+            main_menus_gui_system_default_terminal_detection_error_dialog()
+            return
         if 'subprocess' not in globals():
             global subprocess
             import subprocess
@@ -81,7 +84,7 @@ def main_menus_gui_func():
             try:                                                                              # "try-catch" is used in order to avoid errors and show an error dialog to user if default terminal on the system can not be detected.
                 (subprocess.call(["x-terminal-emulator"], shell=False))
             except:
-                main_menus_gui_system_default_terminal_detection_error_dialog()
+                pass
         open_terminal_thread = Thread(target=main_menus_gui_open_terminal_func, daemon=True).start()    # Terminal is run in another thread in order not to wait end of the run which occurs in single threaded code execution.
 
     def on_checkmenuitem1001m_toggled(widget):                                                # "Floating Summary" menu item
