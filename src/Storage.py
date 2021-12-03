@@ -436,7 +436,7 @@ def storage_loop_func():
                         disk_vendor = reader.read().strip()
                     with open("/sys/class/block/" + disk + "/device/model") as reader:
                         disk_model = reader.read().strip()
-                    disk_vendor_model = disk_vendor + "-" +  disk_model
+                    disk_vendor_model = disk_vendor + " - " +  disk_model
                 except:
                     disk_vendor_model = "-"
             storage_data_row.append(disk_vendor_model)

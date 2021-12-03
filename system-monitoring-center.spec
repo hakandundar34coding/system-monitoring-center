@@ -1,5 +1,5 @@
 Name:       system-monitoring-center
-Version:    0.1.21~beta16
+Version:    0.1.21~beta19
 Release:    1%{?dist}
 Summary:    Provides information about system performance and usage.
 License:    GPLv3

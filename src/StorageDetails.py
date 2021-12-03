@@ -313,7 +313,7 @@ def storage_details_foreground_func():
                 disk_vendor = reader.read().strip()
             with open("/sys/class/block/" + disk + "/device/model") as reader:
                 disk_model = reader.read().strip()
-            disk_vendor_model = disk_vendor + "-" +  disk_model
+            disk_vendor_model = disk_vendor + " - " +  disk_model
         except:
             disk_vendor_model = "-"
     # Get disk label
