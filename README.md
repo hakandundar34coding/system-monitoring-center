@@ -14,7 +14,6 @@ Download Debian, RPM and pacman Packages:
 
 <a href="https://sourceforge.net/projects/system-monitoring-center/files"><img alt="Download System Monitoring Center" src="https://a.fsdn.com/con/app/sf-download-button" width=276 height=48 srcset="https://a.fsdn.com/con/app/sf-download-button?button_size=2x 2x"></a>
 </a>
-
 Latest Version:
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/hakandundar34coding/system-monitoring-center"></a>
 
