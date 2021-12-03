@@ -16,7 +16,6 @@ Download Debian, RPM and pacman Packages:
 </a>
 
 Latest Version:
-
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/hakandundar34coding/system-monitoring-center"></a>
 
 <a href="https://repology.org/project/system-monitoring-center/versions">
