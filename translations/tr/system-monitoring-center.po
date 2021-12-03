@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-21 09:11+0300\n"
-"PO-Revision-Date: 2021-11-21 09:14+0300\n"
+"POT-Creation-Date: 2021-12-03 11:18+0300\n"
+"PO-Revision-Date: 2021-12-03 11:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -44,7 +44,7 @@ msgstr "Seçilen MİB Çekirdeği: "
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
-#: src/Disk.py:223 src/Storage.py:389 src/StorageDetails.py:256
+#: src/Disk.py:223 src/Disk.py:405 src/Storage.py:389 src/StorageDetails.py:256
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
@@ -62,27 +62,35 @@ msgstr "Evet"
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:370 src/Disk.py:375
-msgid "disk"
-msgstr "disk"
+#: src/Disk.py:378 src/Disk.py:393 src/RamSwapDetails.py:81 src/Storage.py:333
+#: src/Storage.py:338 src/StorageDetails.py:209 src/StorageDetails.py:219
+#: src/StorageMenuRightClick.py:195
+msgid "Partition"
+msgstr "Disk bölümü"
 
-#: src/Disk.py:383
-msgid "partition"
-msgstr "disk bölümü"
+#: src/Disk.py:384 src/SettingsGUI.py:333 src/Storage.py:324 src/Storage.py:433
+#: src/Storage.py:477 src/Storage.py:487 src/Storage.py:498 src/Storage.py:507
+#: src/Storage.py:518 src/Storage.py:529 src/StorageDetails.py:200
+#: src/StorageDetails.py:310 src/StorageDetails.py:348
+#: src/StorageDetails.py:356 src/StorageDetails.py:365
+#: src/StorageDetails.py:372 src/StorageDetails.py:386
+#: src/StorageDetails.py:400 ui/DiskTab.ui:23 ui/MainWindow.ui:174
+msgid "Disk"
+msgstr "Disk"
 
-#: src/Disk.py:421 src/FloatingSummary.py:208 src/Network.py:343
+#: src/Disk.py:441 src/FloatingSummary.py:208 src/Network.py:343
 #: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
 #: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:349
-#: src/RamSwapDetails.py:145 src/Services.py:636 src/ServicesDetails.py:356
+#: src/RamSwapDetails.py:147 src/Services.py:636 src/ServicesDetails.py:356
 #: src/Storage.py:908 src/StorageDetails.py:515 src/Users.py:729
 #: src/UsersDetails.py:380
 msgid "Auto-Byte"
 msgstr "Oto-Bayt"
 
-#: src/Disk.py:423 src/FloatingSummary.py:210 src/Network.py:345
+#: src/Disk.py:443 src/FloatingSummary.py:210 src/Network.py:345
 #: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
 #: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:351
-#: src/RamSwapDetails.py:147 src/Services.py:638 src/ServicesDetails.py:358
+#: src/RamSwapDetails.py:149 src/Services.py:638 src/ServicesDetails.py:358
 #: src/Storage.py:910 src/StorageDetails.py:517 src/Users.py:731
 #: src/UsersDetails.py:382
 msgid "Auto-bit"
@@ -100,7 +108,7 @@ msgstr "Kalıcı Ortam Değişkenini Düzenle"
 #: src/EnvironmentVarMenuRightClick.py:163 src/EnvironmentVariablesInput.py:179
 #: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
-#: src/RamHardwareInformation.py:172 src/ServicesMenuRightClick.py:161
+#: src/RamHardwareInformation.py:174 src/ServicesMenuRightClick.py:161
 #: src/SettingsGUI.py:596 src/StartupMenuRightClick.py:425
 #: src/StartupMenuRightClick.py:438 src/StartupNewItem.py:190
 #: src/StorageMenuRightClick.py:257 src/StorageRename.py:158
@@ -302,18 +310,18 @@ msgstr ""
 "Uyarı! Uygulama root ayrıcalıklarıyla ile çalıştırıldı, sisteminize zarar "
 "verebilirsiniz."
 
-#: src/MainMenusDialogs.py:148 src/ProcessesDetails.py:687
+#: src/MainMenusDialogs.py:151 src/ProcessesDetails.py:687
 #: src/ProcessesMenuRightClick.py:278 src/ProcessesMenuRightClick.py:314
 #: src/ProcessesMenuRightClick.py:324 src/StartupMenuRightClick.py:451
 #: src/StorageMenuRightClick.py:234 src/StorageMenuRightClick.py:247
 msgid "Error"
 msgstr "Hata"
 
-#: src/MainMenusDialogs.py:149
+#: src/MainMenusDialogs.py:152
 msgid "Default Terminal Application Not Detected"
 msgstr "Varsayılan Terminal Uygulaması Belirlenemedi"
 
-#: src/MainMenusDialogs.py:150
+#: src/MainMenusDialogs.py:153
 msgid "Default terminal application on this system could not be detected."
 msgstr "Bu sistemdeki varsayılan terminal uygulaması belirlenemedi."
 
@@ -541,7 +549,7 @@ msgstr " (PID: "
 msgid ")"
 msgstr ")"
 
-#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:173
+#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:175
 #: src/UsersMenuRightClick.py:87
 msgid "Access Denied"
 msgstr "Erişim Engellendi"
@@ -621,45 +629,43 @@ msgstr "Maksimum Kapasite"
 msgid "Number Of Devices"
 msgstr "Aygıt Sayısı"
 
-#: src/RamHardwareInformation.py:142 src/RamHardwareInformation.py:160
+#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:162
 msgid "Capacity"
 msgstr "Kapasite"
 
-#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:161
+#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:163
 #: src/RamSwapDetails.py:108 src/Storage.py:212 ui/ServicesDetailsWindow.ui:245
 #: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:295
 msgid "Type"
 msgstr "Tür"
 
-#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:162
-msgid "Speed"
-msgstr "Hız"
+#: src/RamHardwareInformation.py:145
+msgid "Speed/Frequency"
+msgstr "Hız/Frekans"
 
-#: src/RamHardwareInformation.py:145 src/RamHardwareInformation.py:163
+#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:165
 msgid "Manufacturer"
 msgstr "Üretici"
 
-#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:164
+#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:166
 msgid "Form Factor"
 msgstr "Şekil Faktörü"
 
-#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:165
+#: src/RamHardwareInformation.py:148 src/RamHardwareInformation.py:167
 msgid "Locator"
 msgstr "Kimlik"
 
-#: src/RamHardwareInformation.py:148 src/RamHardwareInformation.py:166
+#: src/RamHardwareInformation.py:149 src/RamHardwareInformation.py:168
 msgid "Bank Locator"
 msgstr "Yuva Kimliği"
 
-#: src/RamHardwareInformation.py:174
+#: src/RamHardwareInformation.py:164
+msgid "Speed"
+msgstr "Hız"
+
+#: src/RamHardwareInformation.py:176
 msgid "Root privileges are needed for viewing RAM hardware information."
 msgstr "RAM donanım bilgisini görüntülemek için root ayrıcalıkları gereklidir."
-
-#: src/RamSwapDetails.py:81 src/Storage.py:333 src/Storage.py:338
-#: src/StorageDetails.py:209 src/StorageDetails.py:219
-#: src/StorageMenuRightClick.py:195
-msgid "Partition"
-msgstr "Disk bölümü"
 
 #: src/RamSwapDetails.py:81
 msgid "File"
@@ -677,7 +683,7 @@ msgstr "Boyut"
 msgid "Used"
 msgstr "Kullanılan"
 
-#: src/RamSwapDetails.py:117
+#: src/RamSwapDetails.py:119
 msgid "This system has no swap memory."
 msgstr "Bu sistemde takas belleği yok."
 
@@ -917,16 +923,6 @@ msgstr "MİB"
 #: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/RamTab.ui:430
 msgid "RAM"
 msgstr "RAM"
-
-#: src/SettingsGUI.py:333 src/Storage.py:324 src/Storage.py:433
-#: src/Storage.py:477 src/Storage.py:487 src/Storage.py:498 src/Storage.py:507
-#: src/Storage.py:518 src/Storage.py:529 src/StorageDetails.py:200
-#: src/StorageDetails.py:310 src/StorageDetails.py:348
-#: src/StorageDetails.py:356 src/StorageDetails.py:365
-#: src/StorageDetails.py:372 src/StorageDetails.py:386
-#: src/StorageDetails.py:400 ui/DiskTab.ui:23 ui/MainWindow.ui:174
-msgid "Disk"
-msgstr "Disk"
 
 #: src/SettingsGUI.py:333 ui/MainWindow.ui:268 ui/NetworkTab.ui:417
 msgid "Network"
@@ -3915,6 +3911,12 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "disk"
+#~ msgstr "disk"
+
+#~ msgid "partition"
+#~ msgstr "disk bölümü"
 
 #~ msgid "RAM Usage %:"
 #~ msgstr "RAM Kullanım %:"

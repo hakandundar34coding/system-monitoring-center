@@ -139,9 +139,10 @@ def ram_hardware_information_get_func():
                 if line.startswith("Manufacturer:"):
                     memory_manufacturer = line.split(":")[1].strip()
                     continue
+            memory_hardware_information_text = memory_hardware_information_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
             memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Capacity") + " :    " + memory_size
             memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Type") + " :    " + memory_type
-            memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Speed") + " :    " + memory_speed
+            memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Speed/Frequency") + " :    " + memory_speed
             memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
             memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
             memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator
@@ -157,6 +158,7 @@ def ram_hardware_information_get_func():
         memory_speed = "-"
         memory_manufacturer = "-"
 
+        memory_hardware_information_text = memory_hardware_information_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Capacity") + " :    " + memory_size
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Type") + " :    " + memory_type
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Speed") + " :    " + memory_speed
