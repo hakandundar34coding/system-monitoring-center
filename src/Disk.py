@@ -202,7 +202,7 @@ def disk_initial_func():
             return
     except:
         return
-    # Get disk_model_name, parent_disk, disk_mount_point
+    # Get disk_vendor_model, disk_parent_name, disk_mount_point
     disk_get_device_partition_model_name_mount_point_func()
     # Get disk_file_system
     with open("/proc/mounts") as reader:                                                      # Get file systems for mounted disks
@@ -234,8 +234,8 @@ def disk_initial_func():
         if_system_disk = _tr("No")
 
     # Set Disk tab label texts by using information get
-    label1301.set_text(disk_model_name)
-    label1302.set_text(f'{disk_list[selected_disk_number]} ({disk_device_or_partition})')
+    label1301.set_text(disk_vendor_model)
+    label1302.set_text(f'{disk_list[selected_disk_number]} ({disk_type})')
     label1307.set_text(disk_file_system)
     label1312.set_text(if_system_disk)
 
@@ -355,10 +355,10 @@ def disk_time_unit_converter_func(time):
         return f'{w_r_time_days_int:02}:{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}.{w_r_time_seconds_int:02}:{w_r_time_milliseconds_int:03}'
 
 
-# ----------------------------------- Disk - Get disk_model_name, parent_disk, disk_mount_point Values Function -----------------------------------
+# ----------------------------------- Disk - Get disk_vendor_model, disk_parent_name, disk_mount_point Values Function -----------------------------------
 def disk_get_device_partition_model_name_mount_point_func():
-    # Get disk_model_name, parent_disk, disk_mount_point values
-    global disk_device_or_partition, disk_model_name, disk_mount_point
+
+    global disk_type, disk_vendor_model, disk_mount_point
     # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
     selected_disk_name = disk_list[selected_disk_number]                                      # This definition is made in order to reduce CPU usage because this value is used multiple times in this function.
     try:
@@ -366,24 +366,44 @@ def disk_get_device_partition_model_name_mount_point_func():
             return
     except:
         return
-    if os.path.isdir("/sys/class/block/" + selected_disk_name + "/device"):                   # Checking "DEVTYPE" information in "/sys/class/block/[DISKNAME]/uevent" causes getting wrong "parent-child disk" information for "loop" devices. Checking "/device" folder is a more secure way.
-        disk_device_or_partition = _tr("disk")
-        parent_disk = ""
-        with open("/sys/class/block/" + selected_disk_name + "/device/model") as reader:
-            disk_model_name = reader.read().strip()
-    elif "loop" in selected_disk_name:
-        disk_device_or_partition = _tr("disk")
-        parent_disk = ""
-        disk_model_name = "[Loop Device]"
-    elif "zram" in selected_disk_name:                                                        # SWAP partitions on some systems are named as "zram0, zram1, etc.) and these partitions are defined as "disk" instead pf "partition" in the "uevent" file.
+    # Get disk type (Disk or Partition)
+    with open("/sys/class/block/" + selected_disk_name + "/uevent") as reader:
+        sys_class_block_disk_uevent_lines = reader.read().split("\n")
+    for line in sys_class_block_disk_uevent_lines:
+        if "DEVTYPE" in line:
+            disk_type = _tr(line.split("=")[1].capitalize())
+            break
+    # Get parent disk name of the disk
+    disk_parent_name = ""                                                                     # Initial value of "disk_parent_name" variable. This value will be used if disk has no parent disk or disk parent name could not be detected.
+    if disk_type == _tr("Partition"):
         for check_disk_dir in disk_list:
             if os.path.isdir("/sys/class/block/" + check_disk_dir + "/" + selected_disk_name) == True:
-                parent_disk = check_disk_dir
-    else:
-        disk_device_or_partition = _tr("partition")
-        parent_disk = selected_disk_name.rstrip('0123456789')                                 # Split string with numbers at the end of it.
-        with open("/sys/class/block/" + parent_disk + "/device/model") as reader:
-            disk_model_name = reader.read().strip()
+                disk_parent_name = check_disk_dir
+    # Get disk vendor and model
+    disk_vendor_model = "-"                                                                   # Initial value of "disk_vendor_model" variable. This value will be used if disk vendor and model could not be detected. The same value is also used for disk partitions.
+    if disk_type == _tr("Disk"):
+        try:
+            with open("/sys/class/block/" + selected_disk_name + "/device/vendor") as reader:
+                disk_vendor = reader.read().strip()
+            with open("/sys/class/block/" + selected_disk_name + "/device/model") as reader:
+                disk_model = reader.read().strip()
+            disk_vendor_model = disk_vendor + " - " +  disk_model
+        except:
+            disk_vendor_model = "-"
+    if disk_type == _tr("Partition"):
+        try:
+            with open("/sys/class/block/" + disk_parent_name + "/device/vendor") as reader:
+                disk_vendor = reader.read().strip()
+            with open("/sys/class/block/" + disk_parent_name + "/device/model") as reader:
+                disk_model = reader.read().strip()
+            disk_vendor_model = disk_vendor + " - " +  disk_model
+        except:
+            disk_vendor_model = "-"
+    if "loop" in selected_disk_name:
+        disk_vendor_model = "[Loop Device]"
+    if "zram" in selected_disk_name:
+        disk_vendor_model = _tr("[SWAP]")
+    # Get disk mount point
     with open("/proc/mounts") as reader:
         proc_mounts_output_lines = reader.read().strip().split("\n")
         disk_mount_point = ""
