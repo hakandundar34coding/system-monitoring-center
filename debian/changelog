@@ -1,3 +1,13 @@
+system-monitoring-center (0.1.21~beta19) unstable; urgency=medium
+
+  * Improvements for getting Gnome DE version
+  * Improvements for packaging scripts
+  * Improvements for opening default terminal application
+  * Fixed a bug for NVMe SSDs (Disk tab)
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 03 Dec 2021 13:56:56 +0300
+
 system-monitoring-center (0.1.21~beta18) unstable; urgency=medium
 
   * Security improvements for command running operations (GPU tab)
