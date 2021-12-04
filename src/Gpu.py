@@ -112,15 +112,17 @@ def gpu_gui_func():
             chart1501.line_to(chart1501_width/5*(i+1), chart1501_height)
         chart1501.stroke()
 
+        chart1501_y_limit = 1.1 * (max(fps_count) + 0.0000001)                                # Maximum FPS value is multiplied by 1.1 in order to scale chart when FPS is increased or decreased for preventing the line being out of the chart border.
+
         chart1501.set_dash([], 0)
         chart1501.rectangle(0, 0, chart1501_width, chart1501_height)
         chart1501.stroke()
 
         chart1501.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        chart1501.move_to(chart1501_width*chart_x_axis[0]/(chart_data_history-1), chart1501_height - chart1501_height*fps_count[0]/100)
+        chart1501.move_to(chart1501_width*chart_x_axis[0]/(chart_data_history-1), chart1501_height - chart1501_height*fps_count[0]/chart1501_y_limit)
         for i in range(len(chart_x_axis) - 1):
             delta_x_chart1501 = (chart1501_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1501_width * chart_x_axis[i]/(chart_data_history-1))
-            delta_y_chart1501 = (chart1501_height*fps_count[i+1]/100) - (chart1501_height*fps_count[i]/100)
+            delta_y_chart1501 = (chart1501_height*fps_count[i+1]/chart1501_y_limit) - (chart1501_height*fps_count[i]/chart1501_y_limit)
             chart1501.rel_line_to(delta_x_chart1501, -delta_y_chart1501)
 
         chart1501.rel_line_to(10, 0)
