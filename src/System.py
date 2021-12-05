@@ -284,12 +284,21 @@ def system_initial_func():
                     break
 
     # Get computer vendor, model, chassis information
-    with open("/sys/devices/virtual/dmi/id/sys_vendor") as reader:
-        computer_vendor = reader.read().strip()
-    with open("/sys/devices/virtual/dmi/id/product_name") as reader:
-        computer_model = reader.read().strip()
-    with open("/sys/devices/virtual/dmi/id/chassis_type") as reader:
-        computer_chassis_type_value = reader.read().strip()
+    try:                                                                                      # This information may not be available on some systems such as ARM CPU used motherboards.
+        with open("/sys/devices/virtual/dmi/id/sys_vendor") as reader:
+            computer_vendor = reader.read().strip()
+    except FileNotFoundError:
+        computer_vendor = "-"
+    try:                                                                                      # This information may not be available on some systems such as ARM CPU used motherboards.
+        with open("/sys/devices/virtual/dmi/id/product_name") as reader:
+            computer_model = reader.read().strip()
+    except FileNotFoundError:
+        computer_model = "-"
+    try:                                                                                      # This information may not be available on some systems such as ARM CPU used motherboards.
+        with open("/sys/devices/virtual/dmi/id/chassis_type") as reader:
+            computer_chassis_type_value = reader.read().strip()
+    except FileNotFoundError:
+        computer_chassis_type_value = 2
 
     # For more information about computer chassis types, see: "https://docs.microsoft.com/en-us/previous-versions/tn-archive/ee156537(v=technet.10)"
     # "https://superuser.com/questions/877677/programatically-determine-if-an-script-is-being-executed-on-laptop-or-desktop"
