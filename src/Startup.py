@@ -172,7 +172,7 @@ def startup_initial_func():
 
     # Get current desktop environment
     global supported_desktop_environments_list
-    supported_desktop_environments_list = ["XFCE", "GNOME", "X-CINNAMON", "CINNAMON", "MATE", "KDE", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME", "LXQT", "LXDE"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
+    supported_desktop_environments_list = ["XFCE", "GNOME", "X-CINNAMON", "CINNAMON", "MATE", "KDE", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME", "zorin:GNOME", "LXQT", "LXDE"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
     global current_desktop_environment
     current_desktop_environment = [os.environ.get('XDG_CURRENT_DESKTOP')]
     if current_desktop_environment != [None]:
@@ -183,6 +183,8 @@ def startup_initial_func():
         current_desktop_environment = ["GNOME", "UBUNTU:GNOME"]
     if current_desktop_environment == ["GNOME-CLASSIC:GNOME"]:
         current_desktop_environment = ["GNOME", "GNOME-CLASSIC:GNOME"]
+    if current_desktop_environment == ["zorin:GNOME"]:
+        current_desktop_environment = ["GNOME", "zorin:GNOME"]
     if current_desktop_environment == [None]:
         # Get human and root user usernames and UIDs only one time at the per loop in order to avoid running it per startup item loop (it is different than main loop = startup_loop_func) which increases CPU consumption. This data will be used if application is run with "pkexec" command.
         usernames_username_list = []
@@ -222,7 +224,7 @@ def startup_initial_func():
                 if process_name == "xfce4-session":
                     current_desktop_session = ["XFCE"]
                 if process_name.startswith("gnome-session-b"):
-                    current_desktop_session = ["GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"]
+                    current_desktop_session = ["GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME", "zorin:GNOME"]
                 if process_name == "cinnamon-session":
                     current_desktop_session = ["X-CINNAMON", "CINNAMON", "GNOME"]             # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
                 if process_name == "mate-session":
@@ -422,7 +424,7 @@ def startup_loop_func():
                 startup_application_visibility = False
             if xfce_autostart_override_value_system == "true" and len(set(current_desktop_environment).intersection(["XFCE"])) > 0:
                 startup_application_visibility = True
-            if gnome_autostart_enabled_value_system == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME"])) > 0:
+            if gnome_autostart_enabled_value_system == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "zorin:GNOME"])) > 0:
                 startup_application_visibility = False
             if hidden_value_system == "true":
                 startup_application_visibility = False
@@ -452,7 +454,7 @@ def startup_loop_func():
                 startup_application_visibility = False
             if xfce_autostart_override_value_user == "true" and len(set(current_desktop_environment).intersection(["XFCE"])) > 0:
                 startup_application_visibility = True
-            if gnome_autostart_enabled_value_user == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME"])) > 0:
+            if gnome_autostart_enabled_value_user == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "zorin:GNOME"])) > 0:
                 startup_application_visibility = False
             if hidden_value_user == "true":
                 startup_application_visibility = False
@@ -522,7 +524,7 @@ def startup_loop_func():
                 startup_application_visibility = False
             if xfce_autostart_override_value_modified == "true" and len(set(current_desktop_environment).intersection(["XFCE"])) > 0:
                 startup_application_visibility = True
-            if gnome_autostart_enabled_value_modified == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME"])) > 0:
+            if gnome_autostart_enabled_value_modified == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "zorin:GNOME"])) > 0:
                 startup_application_visibility = False
             if hidden_value_modified == "true":
                 startup_application_visibility = False
