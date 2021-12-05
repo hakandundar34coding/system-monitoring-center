@@ -296,18 +296,18 @@ def cpu_loop_func():
     cpu_model_names = []
     with open("/proc/cpuinfo") as reader:
         proc_cpuinfo_lines = reader.read().split("\n")
-        number_of_physical_cores = 0
-        physical_id = 0
-        physical_id_prev = 0
-        for line in proc_cpuinfo_lines:
-            if line.startswith("physical id"):
-                physical_id_prev = physical_id
-                physical_id = line.split(":")[1].strip()
-            if physical_id != physical_id_prev and line.startswith("cpu cores"):
-                number_of_physical_cores = number_of_physical_cores + int(line.split(":")[1].strip())
-            if line.startswith("model name"):
-                cpu_model_names.append(line.split(":")[1].strip())
-        number_of_cpu_sockets = int(physical_id) + 1
+    number_of_physical_cores = 0
+    physical_id = 0
+    physical_id_prev = 0
+    for line in proc_cpuinfo_lines:
+        if line.startswith("physical id"):
+            physical_id_prev = physical_id
+            physical_id = line.split(":")[1].strip()
+        if physical_id != physical_id_prev and line.startswith("cpu cores"):
+            number_of_physical_cores = number_of_physical_cores + int(line.split(":")[1].strip())
+        if line.startswith("model name"):
+            cpu_model_names.append(line.split(":")[1].strip())
+    number_of_cpu_sockets = int(physical_id) + 1
 
     # Get maximum and minimum frequencies of all cores
     cpu_max_frequency_all_cores = []
@@ -342,9 +342,9 @@ def cpu_loop_func():
     else:
         with open("/proc/cpuinfo") as reader:
             proc_cpuinfo_lines = reader.read().split("\n")
-            for line in proc_cpuinfo_lines:
-                if line.startswith("cpu MHz"):
-                    cpu_current_frequency_all_cores.append(float(line.split(":")[1].strip()))
+        for line in proc_cpuinfo_lines:
+            if line.startswith("cpu MHz"):
+                cpu_current_frequency_all_cores.append(float(line.split(":")[1].strip()))
     # Get number_of_total_threads and number_of_total_processes
     thread_count_list = []
     pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
@@ -352,7 +352,7 @@ def cpu_loop_func():
         try:                                                                                  # try-except is used in order to pass the loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
             with open("/proc/" + pid + "/status") as reader:
                 proc_status_output = reader.read()
-                thread_count_list.append(int(proc_status_output.split("\nThreads:")[1].split("\n")[0].strip()))    # Append number of threads of the process
+            thread_count_list.append(int(proc_status_output.split("\nThreads:")[1].split("\n")[0].strip()))    # Append number of threads of the process
         except (FileNotFoundError, ProcessLookupError) as me:
             pass
     number_of_total_processes = len(thread_count_list)
