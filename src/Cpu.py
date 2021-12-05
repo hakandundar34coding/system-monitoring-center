@@ -263,6 +263,7 @@ def cpu_initial_func():
                 cpu_l3_cache_values.append(cache_size)
         else:
             cpu_l3_cache_values.append("-")
+
     # Get CPU architecture
     cpu_architecture = platform.processor()
     if cpu_architecture == "":
@@ -293,21 +294,42 @@ def cpu_loop_func():
     drawingarea1101.queue_draw()
 
     # Get number of physical cores, number_of_cpu_sockets, cpu_model_names
-    cpu_model_names = []
     with open("/proc/cpuinfo") as reader:
-        proc_cpuinfo_lines = reader.read().split("\n")
-    number_of_physical_cores = 0
-    physical_id = 0
-    physical_id_prev = 0
-    for line in proc_cpuinfo_lines:
-        if line.startswith("physical id"):
-            physical_id_prev = physical_id
-            physical_id = line.split(":")[1].strip()
-        if physical_id != physical_id_prev and line.startswith("cpu cores"):
-            number_of_physical_cores = number_of_physical_cores + int(line.split(":")[1].strip())
-        if line.startswith("model name"):
-            cpu_model_names.append(line.split(":")[1].strip())
-    number_of_cpu_sockets = int(physical_id) + 1
+        proc_cpuinfo_output = reader.read()
+    proc_cpuinfo_output_lines = proc_cpuinfo_output.split("\n")
+    # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "x86_64" architecture. Physical and logical cores and model name per core information are tracked easily on this platform.
+    if "physical id" in proc_cpuinfo_output:
+        cpu_model_names = []
+        number_of_physical_cores = 0
+        physical_id = 0
+        physical_id_prev = 0
+        for line in proc_cpuinfo_output_lines:
+            if line.startswith("physical id"):
+                physical_id_prev = physical_id
+                physical_id = line.split(":")[1].strip()
+            if physical_id != physical_id_prev and line.startswith("cpu cores"):
+                number_of_physical_cores = number_of_physical_cores + int(line.split(":")[1].strip())
+            if line.startswith("model name"):
+                cpu_model_names.append(line.split(":")[1].strip())
+        number_of_cpu_sockets = int(physical_id) + 1
+    # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "ARM" architecture. Physical and logical cores and model name per core information are not tracked easily on this platform. Different ARM processors (v6, v7, v8 or models of same ARM vX processors) may have different information in "/proc/cpuinfo" file.
+    if "physical id" not in proc_cpuinfo_output:
+        cpu_model_names = []
+        number_of_physical_cores = number_of_logical_cores
+        # Some processors have "processor", some processors have "Processor" and some processors have both "processor" and "Processor". "processor" is used for core number and "Processor" is used for model name. But "model name" is used for model name on some ARM processors. Model name is repeated for all cores on these processors. "Processor" is used for one time for the processor.
+        if "model name" in proc_cpuinfo_output:
+            for line in proc_cpuinfo_output_lines:
+                if line.startswith("model name"):
+                    cpu_model_names.append(line.split(":")[1].strip())
+        if "model name" not in proc_cpuinfo_output and "Processor" in proc_cpuinfo_output:
+            for line in proc_cpuinfo_output_lines:
+                if line.startswith("Processor"):
+                    cpu_model_names.append(line.split(":")[1].strip())
+        if len(cpu_model_names) == 1:
+            cpu_model_names = cpu_model_names * number_of_logical_cores
+        # Some ARM processors do not have model name information in "/proc/cpuinfo" file.
+        if cpu_model_names == []:
+            cpu_model_names = [_tr("Unknown")]
 
     # Get maximum and minimum frequencies of all cores
     cpu_max_frequency_all_cores = []
@@ -333,6 +355,7 @@ def cpu_loop_func():
     sut_minutes_int = int(sut_minutes)
     sut_seconds = (sut_minutes - sut_minutes_int) * 60
     sut_seconds_int = int(sut_seconds)
+
     # Get current frequencies of all cores
     cpu_current_frequency_all_cores = []
     if os.path.isfile("/sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq") is True:
@@ -345,6 +368,9 @@ def cpu_loop_func():
         for line in proc_cpuinfo_lines:
             if line.startswith("cpu MHz"):
                 cpu_current_frequency_all_cores.append(float(line.split(":")[1].strip()))
+    if cpu_current_frequency_all_cores == []:                                                 # CPUs with ARM architecture may not have current core frequency information.
+        cpu_current_frequency_all_cores = ["-"] * number_of_logical_cores
+
     # Get number_of_total_threads and number_of_total_processes
     thread_count_list = []
     pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
