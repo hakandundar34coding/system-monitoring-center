@@ -396,7 +396,7 @@ def disk_get_device_partition_model_name_mount_point_func():
         except FileNotFoundError:                                                             # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + selected_disk_name + "/device" directory. They have this file under "/sys/class/block/" + selected_disk_name + "/device/device/vendor" directory.
             try:
                 with open("/sys/class/block/" + selected_disk_name + "/device/device/vendor") as reader:
-                    disk_vendor_id = reader.read().strip()
+                    disk_vendor_id = reader.read().strip().split("x")[-1]
                 if disk_vendor_id in pci_ids_output:                                          # "vendor" information may not be present in the pci.ids file.
                     rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id)[1]
                     disk_vendor = rest_of_the_pci_ids_output.split("\n")[0].strip()
@@ -419,7 +419,7 @@ def disk_get_device_partition_model_name_mount_point_func():
         except FileNotFoundError:                                                             # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + disk_parent_name + "/device" directory. They have this file under "/sys/class/block/" + disk_parent_name + "/device/device/vendor" directory.
             try:
                 with open("/sys/class/block/" + disk_parent_name + "/device/device/vendor") as reader:
-                    disk_vendor_id = reader.read().strip()
+                    disk_vendor_id = reader.read().strip().split("x")[-1]
                 if disk_vendor_id in pci_ids_output:                                          # "vendor" information may not be present in the pci.ids file.
                     rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id)[1]
                     disk_vendor = rest_of_the_pci_ids_output.split("\n")[0].strip()
