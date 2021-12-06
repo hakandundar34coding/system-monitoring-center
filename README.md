@@ -3,6 +3,7 @@
 GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 
+<p align="center">
 <a href="https://sourceforge.net/projects/system-monitoring-center/files"><img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"/>
 </a>
 <a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>
@@ -11,6 +12,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 </a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/hakandundar34coding/system-monitoring-center"></a>
 </a>
+</p>
 
 <a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://a.fsdn.com/con/app/sf-download-button" width=276 height=48 srcset="https://a.fsdn.com/con/app/sf-download-button?button_size=2x 2x"></a>
 </a>
