@@ -1,8 +1,6 @@
-<p align="center">
 # System Monitoring Center
 
 GTK3 and Python 3 based, system performance and usage monitoring tool.
-</p>
 
 
 <p align="center">
@@ -17,7 +15,6 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 </p>
 
 
-<p align="center">
 <a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://a.fsdn.com/con/app/sf-download-button" width=276 height=48 srcset="https://a.fsdn.com/con/app/sf-download-button?button_size=2x 2x"></a>
 </a>
 
@@ -29,7 +26,6 @@ Download Debian, RPM and pacman Packages:
 <a href="https://repology.org/project/system-monitoring-center/versions">
     <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
 </a>
-</p>
 
 ### Features:
 * Detailed system performance and usage usage monitoring/managing features:
