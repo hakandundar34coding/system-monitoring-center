@@ -2,20 +2,23 @@
 
 GTK3 and Python 3 based, system performance and usage monitoring tool.
 
-<a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://a.fsdn.com/con/app/sf-download-button" width=276 height=48 srcset="https://a.fsdn.com/con/app/sf-download-button?button_size=2x 2x"></a>
+
+<a href="https://sourceforge.net/projects/system-monitoring-center/files"><img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"/>
 </a>
 <a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>
 </a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/hakandundar34coding/system-monitoring-center/total"></a>
 </a>
+<a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/hakandundar34coding/system-monitoring-center"></a>
+</a>
 
+<a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://a.fsdn.com/con/app/sf-download-button" width=276 height=48 srcset="https://a.fsdn.com/con/app/sf-download-button?button_size=2x 2x"></a>
+</a>
 
 Download Debian, RPM and pacman Packages:
 
 <a href="https://sourceforge.net/projects/system-monitoring-center/files"><img alt="Download System Monitoring Center" src="https://a.fsdn.com/con/app/sf-download-button" width=276 height=48 srcset="https://a.fsdn.com/con/app/sf-download-button?button_size=2x 2x"></a>
 </a>
-Latest Version:
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/hakandundar34coding/system-monitoring-center"></a>
 
 <a href="https://repology.org/project/system-monitoring-center/versions">
     <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
