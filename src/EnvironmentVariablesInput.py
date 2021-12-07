@@ -83,8 +83,6 @@ def environment_variables_input_gui_func():
             checkbutton7101w.set_sensitive(True)
             checkbutton7101w.set_active(False)
             environment_variables_variable_for_all_users_warning_dialog()
-            if warning_dialog7103_response == Gtk.ResponseType.YES:
-                pass                                                                          # Leave the option (checkbutton) as "All Users" if "Yes" is clicked on the dialog.
             if warning_dialog7103_response == Gtk.ResponseType.NO:
                 radiobutton7101w.set_active(True)                                             # Set the option as "Only Current User" if "No" is clicked on the dialog.
 

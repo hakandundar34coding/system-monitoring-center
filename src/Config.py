@@ -59,7 +59,7 @@ def config_read_func():
         if 'reset_all_settings_with_new_release' not in globals() or reset_all_settings_with_new_release < reset_all_settings_with_new_release_value:
             config_default_reset_all_func()
             config_save_func()
-    except:
+    except Exception:
         if os.path.exists(config_folder_path) == False:
             os.makedirs(config_folder_path)
         config_default_reset_all_func()

@@ -180,7 +180,7 @@ def process_details_initial_func():
     process_status_list = Processes.process_status_list
     global_process_cpu_times_prev = []
     disk_read_write_data_prev = []
-    fd_mode_dict = {32768: "r", 32769: "w", 33793: "a", 32770: "r+", 32770: "w+", 33794: "a+"}
+    fd_mode_dict = {32768: "r", 32769: "w", 33793: "a", 32770: "w+", 33794: "a+"}
 
     # Get system boot time
     global system_boot_time
@@ -311,7 +311,7 @@ def process_details_foreground_func():
         try:
             with open("/proc/" + selected_process_pid + "/stat") as reader:
                 proc_pid_stat_lines = int(reader.read().split()[-31])                         # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
-        except:
+        except Exception:
             window2101w.hide()
             processes_no_such_process_error_dialog()
             return
@@ -321,7 +321,7 @@ def process_details_foreground_func():
         # Get process exe
         try:                                                                                  # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
             selected_process_exe = os.path.realpath("/proc/" + pid + "/exe")
-        except:
+        except Exception:
             selected_process_exe = "-"
         # Get parent processes name and PIDs
         parent_process_names_pids = []
@@ -490,7 +490,7 @@ def process_details_foreground_func():
                     memory_swap = memory_swap + int(line.split(":")[1].split()[0].strip())
             selected_process_memory_uss = (private_clean + private_dirty) * 1024              # Kilobytes value converted into bytes value (there is a negligible deviation in bytes unit)
             selected_process_memory_swap = memory_swap * 1024                                 # Kilobytes value converted into bytes value (there is a negligible deviation in bytes unit)
-        except:
+        except Exception:
             selected_process_memory_uss = "-"
             selected_process_memory_swap = "-"
         # Set label text by using process data
@@ -543,7 +543,7 @@ def process_details_foreground_func():
         # Get process exe
         try:                                                                                  # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
             selected_process_exe = os.path.realpath("/proc/" + selected_process_pid + "/exe")
-        except:
+        except Exception:
             selected_process_exe = "-"
         # Get process cwd
         try:

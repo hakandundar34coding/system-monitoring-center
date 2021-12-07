@@ -220,12 +220,12 @@ def services_details_foreground_func():
             continue
         if "MemoryCurrent=" in line:
             selected_service_memory_current = line.split("=")[1]
-            if selected_service_memory_current == "-" or selected_service_memory_current == "[not set]":
+            if selected_service_memory_current in ["-", "[not set]"]:
                 selected_service_memory_current = "-"
             else:
                 try:
                     selected_service_memory_current = f'{services_details_data_unit_converter_func(int(selected_service_memory_current), services_ram_swap_data_unit, services_ram_swap_data_precision)}'
-                except:
+                except Exception:
                     selected_service_memory_current = "-"
             continue
         if "Requires=" in line:
@@ -246,9 +246,11 @@ def services_details_foreground_func():
         if "Documentation=" in line:
             selected_service_documentation = line.split("=")[1].split()
             # Convert string into multi-line string if there are more than one documentation information.
-            selected_service_documentation_scratch = []
-            for documentation in selected_service_documentation:
-                selected_service_documentation_scratch.append(documentation.strip('"'))
+            selected_service_documentation_scratch = [
+                documentation.strip('"')
+                for documentation in selected_service_documentation
+            ]
+
             selected_service_documentation = selected_service_documentation_scratch
             continue
         if "Description=" in line:
@@ -365,7 +367,7 @@ def services_details_data_unit_converter_func(data, unit, precision):
     global data_unit_list
     if unit >= 8:
         data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit == 0 or unit == 8:
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

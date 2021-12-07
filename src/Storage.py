@@ -175,24 +175,25 @@ def storage_open_right_click_menu_func(event):
 # ----------------------------------- Storage - Open Storage Details Window Function (gets double clicked storage kernel name and opens Storage Details window) -----------------------------------
 def storage_open_storage_details_window_func(event):
 
-    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
-            path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
-        except TypeError:
-            return
-        model = treeview4101.get_model()
-        treeiter = model.get_iter(path)
-        if treeiter is not None:
-            global selected_storage_kernel_name
-            selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
-            # Open Storage Details window
-            if 'StorageDetails' not in globals():                                             # Check if "StorageDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "StorageDetails" name is in globals().
-                global StorageDetails
-                import StorageDetails
-                StorageDetails.storage_details_import_func()
-                StorageDetails.storage_details_gui_function()
-            StorageDetails.window4101w.show()
-            StorageDetails.storage_details_foreground_thread_run_func()
+    if event.type != Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
+        return
+    try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
+        path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
+    model = treeview4101.get_model()
+    treeiter = model.get_iter(path)
+    if treeiter is not None:
+        global selected_storage_kernel_name
+        selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
+        # Open Storage Details window
+        if 'StorageDetails' not in globals():                                             # Check if "StorageDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "StorageDetails" name is in globals().
+            global StorageDetails
+            import StorageDetails
+            StorageDetails.storage_details_import_func()
+            StorageDetails.storage_details_gui_function()
+        StorageDetails.window4101w.show()
+        StorageDetails.storage_details_foreground_thread_run_func()
 
 
 # ----------------------------------- Storage - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -383,7 +384,7 @@ def storage_loop_func():
                 try:
                     disk_for_file_system = "/dev/" + disk
                     disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
-                except:
+                except Exception:
                     pass
             if disk in swap_disk_list:
                 disk_file_system = _tr("[SWAP]")
@@ -437,7 +438,7 @@ def storage_loop_func():
                     with open("/sys/class/block/" + disk + "/device/model") as reader:
                         disk_model = reader.read().strip()
                     disk_vendor_model = disk_vendor + " - " +  disk_model
-                except:
+                except Exception:
                     disk_vendor_model = "-"
             storage_data_row.append(disk_vendor_model)
         # Get disk label
@@ -478,7 +479,7 @@ def storage_loop_func():
                 try:
                     with open("/sys/class/block/" + disk + "/device/rev") as reader:
                         disk_revision = reader.read().strip()
-                except:
+                except Exception:
                     pass
             storage_data_row.append(disk_revision)
         # Get disk serial number

@@ -95,8 +95,6 @@ def processes_menu_right_click_gui_func():
                         (subprocess.check_output(["pkexec", "kill", "-15", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
                     except subprocess.CalledProcessError:
                         pass
-            if warning_dialog2101_response == Gtk.ResponseType.NO:
-                pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
         if Config.warn_before_stopping_processes == 0:
             try:
                 os.kill(selected_process_pid, signal.SIGTERM)
@@ -119,8 +117,6 @@ def processes_menu_right_click_gui_func():
                         (subprocess.check_output(["pkexec", "kill", "-9", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
                     except subprocess.CalledProcessError:
                         pass
-            if warning_dialog2102_response == Gtk.ResponseType.NO:
-                pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
         if Config.warn_before_stopping_processes == 0:
             try:
                 os.kill(selected_process_pid, signal.SIGKILL)
@@ -138,11 +134,11 @@ def processes_menu_right_click_gui_func():
     def on_menuitem2107m_activate(widget):                                                    # "Open Location" item on the right click menu
         try:                                                                                  # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
             full_path = os.path.realpath("/proc/" + Processes.selected_process_pid + "/exe")
-        except:
+        except Exception:
             try:
                 with open("/proc/" + Processes.selected_process_pid + "/cmdline") as reader:
                     full_path = reader.read()
-            except:
+            except Exception:
                 full_path = "-"
         if full_path == "":
             full_path = "-"

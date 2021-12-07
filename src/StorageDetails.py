@@ -174,14 +174,15 @@ def storage_details_foreground_func():
     # Get swap disk information
     with open("/proc/swaps") as reader:
         proc_swaps_lines = reader.read().split("\n")[1:-1]                                    # Get without first line (header line).
-    swap_disk_list = []
-    for line in proc_swaps_lines:
-        swap_disk_list.append(line.split()[0].split("/")[-1])
+    swap_disk_list = [line.split()[0].split("/")[-1] for line in proc_swaps_lines]
     # Get disk device path
     disk_device_path_list = os.listdir("/dev/disk/by-path/")                                  # Some disks (such as zram0, zram1, etc. swap partitions) may not be present in "/dev/disk/by-path/" path.
-    disk_device_path_disk_list = []
-    for disk_device_path in disk_device_path_list:
-        disk_device_path_disk_list.append(os.path.realpath("/dev/disk/by-path/" + disk_device_path).split("/")[-1])    # "os.readlink()" does not work with "/dev/disk/[folder_name]/[file_name]" files. "os.path.realpath()" is used for getting path.
+    disk_device_path_disk_list = [
+        os.path.realpath("/dev/disk/by-path/" + disk_device_path).split("/")[
+            -1
+        ]
+        for disk_device_path in disk_device_path_list
+    ]
 
     # Get disk specific data
     try:
@@ -250,7 +251,7 @@ def storage_details_foreground_func():
         try:
             disk_for_file_system = "/dev/" + disk
             disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
-        except:
+        except Exception:
             pass
     if disk in swap_disk_list:
         disk_file_system = _tr("[SWAP]")
@@ -270,7 +271,7 @@ def storage_details_foreground_func():
             disk_available = statvfs_disk_usage_values.f_bavail * fragment_size
         else:
             disk_available = -9999                                                            # "-9999" value is used as "disk_available" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
-    except:
+    except Exception:
         window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
@@ -284,7 +285,7 @@ def storage_details_foreground_func():
             disk_used = disk_size - disk_free
         else:
             disk_used = -9999                                                                 # "-9999" value is used as "disk_used" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
-    except:
+    except Exception:
         window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
@@ -301,7 +302,7 @@ def storage_details_foreground_func():
             # disk_usage_percent = disk_used / (disk_available + disk_used) * 100             # disk_usage_percent value is calculated as "used disk space / available disk space" in terms of filesystem values (same with "df" command output values). This is real usage percent.
         else:
             disk_usage_percent = -9999                                                        # "-9999" value is used as "disk_usage_percent" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
-    except:
+    except Exception:
         window4101w.hide()
         storage_no_such_storage_error_dialog()
         return
@@ -314,7 +315,7 @@ def storage_details_foreground_func():
             with open("/sys/class/block/" + disk + "/device/model") as reader:
                 disk_model = reader.read().strip()
             disk_vendor_model = disk_vendor + " - " +  disk_model
-        except:
+        except Exception:
             disk_vendor_model = "-"
     # Get disk label
     disk_label = "-"                                                                          # Initial value of "disk_label" variable. This value will be used if disk label could not be detected.
@@ -349,7 +350,7 @@ def storage_details_foreground_func():
         try:
             with open("/sys/class/block/" + disk + "/device/rev") as reader:
                 disk_revision = reader.read().strip()
-        except:
+        except Exception:
             pass
     # Get disk serial number
     disk_serial_number = "-"                                                                  # Initial value of "disk_serial_number" variable. This value will be used if disk serial number could not be detected.

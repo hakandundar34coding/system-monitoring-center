@@ -325,22 +325,22 @@ def environment_variables_loop_func():
 
     # Add/Remove treeview columns appropriate for user preferences
     treeview7101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
-    if environment_variables_treeview_columns_shown != environment_variables_treeview_columns_shown_prev:    # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
+    if environment_variables_treeview_columns_shown != environment_variables_treeview_columns_shown_prev:# Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
         for column in treeview7101.get_columns():                                             # Remove all columns in the treeview.
             treeview7101.remove_column(column)
         for i, column in enumerate(environment_variables_treeview_columns_shown):
             if environment_variables_data_list[column][0] in environment_variables_treeview_columns_shown:
-                cumulative_sort_column_id = cumulative_sort_column_id + environment_variables_data_list[column][2]
+                cumulative_sort_column_id += environment_variables_data_list[column][2]
             environment_variables_treeview_column = Gtk.TreeViewColumn(environment_variables_data_list[column][1])    # Define column (also column title is defined)
             for i, cell_renderer_type in enumerate(environment_variables_data_list[column][6]):
-                cumulative_internal_data_id = cumulative_internal_data_id + 1
+                cumulative_internal_data_id += 1
                 if cell_renderer_type == "internal_column":                                   # Continue to next loop to avoid generating a cell renderer for internal column (internal columns are not shon on the treeview and they do not have cell renderers).
                     continue
-                if cell_renderer_type == "CellRendererPixbuf":                                # Define cell renderer
+                if cell_renderer_type == "CellRendererPixbuf":
                     cell_renderer = Gtk.CellRendererPixbuf()
-                if cell_renderer_type == "CellRendererText":                                  # Define cell renderer
+                elif cell_renderer_type == "CellRendererText":
                     cell_renderer = Gtk.CellRendererText()
                 cell_renderer.set_alignment(environment_variables_data_list[column][9][i], 0.5)    # Vertical alignment is set 0.5 in order to leave it as unchanged.
                 environment_variables_treeview_column.pack_start(cell_renderer, environment_variables_data_list[column][10][i])    # Set if column will allocate unused space
@@ -393,12 +393,12 @@ def environment_variables_loop_func():
                         treeview7101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort environment variable rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
-    if environment_variables_treeview_columns_shown_prev != environment_variables_treeview_columns_shown or environment_variables_data_row_sorting_column_prev != environment_variables_data_row_sorting_column or environment_variables_data_row_sorting_order != environment_variables_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
+    if environment_variables_treeview_columns_shown_prev != environment_variables_treeview_columns_shown or environment_variables_data_row_sorting_column_prev != environment_variables_data_row_sorting_column or environment_variables_data_row_sorting_order != environment_variables_data_row_sorting_order_prev:# Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
         environment_variables_treeview_columns = treeview7101.get_columns()                   # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_column_titles = []
         for column in environment_variables_treeview_columns:
             treeview_column_titles.append(column.get_title())
-        for i in range(10):
+        for _ in range(10):
             if environment_variables_data_row_sorting_column in environment_variables_treeview_columns_shown:
                 for data in environment_variables_data_list:
                     if data[0] == environment_variables_data_row_sorting_column:

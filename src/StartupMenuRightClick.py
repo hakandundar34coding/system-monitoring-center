@@ -76,7 +76,7 @@ def startup_menu_right_click_gui_func():
                 desktop_file_system_lines = reader.read().strip("").split("\n")
             try:
                 desktop_file_system_lines.remove("")                                          # Remove empty lines (if exist)
-            except:
+            except Exception:
                 pass
             for line in desktop_file_system_lines:
                 if "Name=" in line:                                                           # Value of "Name=" entry is get to be used as application name.
@@ -108,7 +108,7 @@ def startup_menu_right_click_gui_func():
                 desktop_file_user_lines = reader.read().strip("").split("\n")
             try:
                 desktop_file_user_lines.remove("")                                            # Remove empty lines (if exist)
-            except:
+            except Exception:
                 pass
             for line in desktop_file_user_lines:
                 if "Name=" in line:                                                           # Value of "Name=" entry is get to be used as application name.
@@ -134,9 +134,28 @@ def startup_menu_right_click_gui_func():
                     writer.write("Name=" + name_value_system + "\n")
                     writer.write("Icon=" + icon_value_system + "\n")
                     writer.write("Exec=" + exec_value_system + "\n")
-                    if len(set(Startup.current_desktop_environment).intersection(not_show_in_value_system)) > 0 or (len(set(Startup.current_desktop_environment).intersection(only_show_in_value_system)) == 0 and only_show_in_value_system != ""): 
-                        if len(set(Startup.current_desktop_environment).intersection(["XFCE"])) > 0:
-                            writer.write("X-XFCE-Autostart-Override=true" + "\n")
+                    if (
+                        len(
+                            set(Startup.current_desktop_environment).intersection(
+                                not_show_in_value_system
+                            )
+                        )
+                        > 0
+                        or (
+                            len(
+                                set(
+                                    Startup.current_desktop_environment
+                                ).intersection(only_show_in_value_system)
+                            )
+                            == 0
+                            and only_show_in_value_system != ""
+                        )
+                    ) and len(
+                        set(Startup.current_desktop_environment).intersection(
+                            ["XFCE"]
+                        )
+                    ) > 0:
+                        writer.write("X-XFCE-Autostart-Override=true" + "\n")
                     if len(set(Startup.current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"])) > 0 and gnome_autostart_enabled_value_system == "false":
                         writer.write("X-GNOME-Autostart-enabled=true" + "\n")
                     if len(set(Startup.current_desktop_environment).intersection(not_show_in_value_system)) > 0:
@@ -151,12 +170,27 @@ def startup_menu_right_click_gui_func():
                         writer.write("Hidden=false" + "\n")
                     return
             if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == True:
-                if len(set(Startup.current_desktop_environment).intersection(not_show_in_value_system)) > 0 or (len(set(Startup.current_desktop_environment).intersection(only_show_in_value_system)) == 0 and only_show_in_value_system != ""):
-                    if xfce_autostart_override_value_user != "":
-                        for line in desktop_file_user_lines:                                  # Search for visibility value
-                            if "X-XFCE-Autostart-Override" in line:
-                                desktop_file_user_lines.remove(line)                          # Remove old value from the list
-                                desktop_file_user_lines.append("X-XFCE-Autostart-Override=true")    # Append new value into the list
+                if (
+                    len(
+                        set(Startup.current_desktop_environment).intersection(
+                            not_show_in_value_system
+                        )
+                    )
+                    > 0
+                    or (
+                        len(
+                            set(Startup.current_desktop_environment).intersection(
+                                only_show_in_value_system
+                            )
+                        )
+                        == 0
+                        and only_show_in_value_system != ""
+                    )
+                ) and xfce_autostart_override_value_user != "":
+                    for line in desktop_file_user_lines:                                  # Search for visibility value
+                        if "X-XFCE-Autostart-Override" in line:
+                            desktop_file_user_lines.remove(line)                          # Remove old value from the list
+                            desktop_file_user_lines.append("X-XFCE-Autostart-Override=true")    # Append new value into the list
                 if len(set(Startup.current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME"])) > 0 and (gnome_autostart_enabled_value_system == "false" or gnome_autostart_enabled_value_user != ""):
                     for line in desktop_file_user_lines:                                      # Search for visibility value
                         if "X-GNOME-Autostart-enabled" in line:
@@ -194,10 +228,17 @@ def startup_menu_right_click_gui_func():
                     writer.write("Name=" + name_value_system + "\n")
                     writer.write("Icon=" + icon_value_system + "\n")
                     writer.write("Exec=" + exec_value_system + "\n")
-                    if xfce_autostart_override_value_system == "true":
-                        if len(set(Startup.current_desktop_environment).intersection(["XFCE"])) > 0:
-                            writer.write("X-XFCE-Autostart-Override=false" + "\n")
-                    if hidden_value_system == "false" or hidden_value_system == "":
+                    if (
+                        xfce_autostart_override_value_system == "true"
+                        and len(
+                            set(Startup.current_desktop_environment).intersection(
+                                ["XFCE"]
+                            )
+                        )
+                        > 0
+                    ):
+                        writer.write("X-XFCE-Autostart-Override=false" + "\n")
+                    if hidden_value_system in ["false", ""]:
                         writer.write("Hidden=true" + "\n")
                     return
             if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == True:
@@ -255,7 +296,7 @@ def startup_menu_right_click_gui_func():
             try:
                 (subprocess.check_output(["pkexec", "rm", desktop_file_system_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
                 os.remove(desktop_file_system_full_path)
-            except:
+            except Exception:
                 pass
         if warning_dialog5102_response == Gtk.ResponseType.NO:
             return                                                                            # Do nothing (close the dialog) if "No" is clicked.
@@ -268,7 +309,7 @@ def startup_menu_right_click_gui_func():
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
                 (subprocess.check_output(["rm", desktop_file_user_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
-            except:
+            except Exception:
                 pass
         if warning_dialog5102_response == Gtk.ResponseType.NO:
             return                                                                            # Do nothing (close the dialog) if "No" is clicked.
@@ -281,11 +322,11 @@ def startup_menu_right_click_gui_func():
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
                 (subprocess.check_output(["pkexec", "rm", desktop_file_system_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
-            except:
+            except Exception:
                 pass
             try:
                 (subprocess.check_output(["rm", desktop_file_user_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
-            except:
+            except Exception:
                 pass
         if warning_dialog5102_response == Gtk.ResponseType.NO:
             return   

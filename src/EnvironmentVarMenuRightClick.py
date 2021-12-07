@@ -83,8 +83,6 @@ def environment_variables_menu_right_click_gui_func():
         selected_variable_value = '='.join(EnvironmentVariables.selected_variable_value.split("=")[1:])    # There may be more than "=" in the VARIABLE=VALUE string. String later than first "=" is get as value.
 
         environment_variables_delete_variable_warning_dialog(selected_variable, selected_variable_value)    # Show a warning dialog before deleting an environment variable.
-        if warning_dialog7104_response == Gtk.ResponseType.YES:                               # Delete the variable (continue running the function) if "Yes" is clicked on the dialog.
-            pass
         if warning_dialog7104_response == Gtk.ResponseType.NO:                                # Do nothing (stop running the function) if "No" is clicked on the dialog.
             return
         # Delete the selected (right clicked) variable for current user.

@@ -94,19 +94,16 @@ def storage_rename_gui_func():
         # Rename or delete labels of the disks. Some filesystems require different methods for deleting filesystem labels. Using "" for deleting the label does not work for them.
         try:
             if disk_file_system == "ntfs":
-                if new_label != "" or new_label == "":
-                    action_output = (subprocess.check_output(["pkexec", "sudo", "ntfslabel", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()    # "pkexec" is used for running application as root by using polkit authentication window. "pkexec" is used with "sudo" because some applications such as "ntfslabel" do not work without "sudo" is used.
-            elif disk_file_system == "ext2" or disk_file_system == "ext3" or disk_file_system == "ext4":
-                if new_label != "" or new_label == "":
-                    action_output = (subprocess.check_output(["pkexec", "sudo", "e2label", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()
+                action_output = (subprocess.check_output(["pkexec", "sudo", "ntfslabel", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()    # "pkexec" is used for running application as root by using polkit authentication window. "pkexec" is used with "sudo" because some applications such as "ntfslabel" do not work without "sudo" is used.
+            elif disk_file_system in ["ext2", "ext3", "ext4"]:
+                action_output = (subprocess.check_output(["pkexec", "sudo", "e2label", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()
             elif disk_file_system == "btrfs":
                 action_output = (subprocess.check_output(["pkexec", "sudo", "btrfs", "filesystem", "label", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()    # Possibly, same command works for setting new label and deleting it. Additional information for deleting/resetting filsystem label was not found in the man page.
             elif disk_file_system == "mkswap":
                 action_output = (subprocess.check_output(["pkexec", "sudo", "mkswap", "-L", new_label, disk_for_file_system], stderr=subprocess.STDOUT, shell=False)).decode()    # For renaming labels of "swap" disks.     # Possibly, same command works for setting new label and deleting it. Additional information for deleting/resetting filsystem label was not found in the man page.
             elif disk_file_system == "exfat":
-                if new_label != "" or new_label == "":
-                    action_output = (subprocess.check_output(["pkexec", "sudo", "exfatlabel", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()
-            elif disk_file_system == "fat" or disk_file_system == "vfat":
+                action_output = (subprocess.check_output(["pkexec", "sudo", "exfatlabel", disk_for_file_system, new_label], stderr=subprocess.STDOUT, shell=False)).decode()
+            elif disk_file_system in ["fat", "vfat"]:
                 if new_label == "":
                     action_output = (subprocess.check_output(["pkexec", "sudo", "fatlabel", disk_for_file_system, "-r"], stderr=subprocess.STDOUT, shell=False)).decode()
                 if new_label != "":
@@ -130,9 +127,7 @@ def storage_rename_gui_func():
             # Get all disks (disks and partitions) including physical, optical and virtual disks for checking if disk is not removed.
             with open("/proc/partitions") as reader:
                 proc_partitions_lines = reader.read().split("\n")[2:-1]                       # Get without first 2 lines (header line and an empty line).
-            disk_list = []
-            for line in proc_partitions_lines:
-                disk_list.append(line.split()[3])
+            disk_list = [line.split()[3] for line in proc_partitions_lines]
             if disk_name not in disk_list:                                                    # Perform following actions if disk is removed.
                 label4102w2.set_text(_tr("Disk has been removed and file system could not be renamed."))    # Show warning information if disk file system label is tried to be renamed after disk is removed.
                 label4102w2.modify_fg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))          # Change color of warning information text to "red" if disk file system label is tried to be renamed after disk is removed.

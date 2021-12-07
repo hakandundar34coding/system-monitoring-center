@@ -79,7 +79,7 @@ def disk_gui_func():
     def on_drawingarea1301_draw(drawingarea1301, chart1301):
 
         chart_data_history = Config.chart_data_history
-        chart_x_axis = list(range(0, chart_data_history))
+        chart_x_axis = list(range(chart_data_history))
         try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Disk module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
             disk_read_speed = Performance.disk_read_speed[Performance.selected_disk_number]
             disk_write_speed = Performance.disk_write_speed[Performance.selected_disk_number]
@@ -200,7 +200,7 @@ def disk_initial_func():
     try:
         if os.path.isdir("/sys/class/block/" + disk_list[selected_disk_number]) == False:
             return
-    except:
+    except Exception:
         return
     # Read pci.ids file. Some disks such as NVMe SSDs have "vendor" file with device id content. pci.ids file will be used for getting disk vendor name by using these ids.
     if os.path.isfile("/usr/share/misc/pci.ids") == True:                                     # Check if "pci.ids" file is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
@@ -221,26 +221,24 @@ def disk_initial_func():
                 break
             else:
                 disk_file_system = _tr("[Not mounted]")
-    with open("/proc/swaps") as reader:                                                       # Show "[SWAP]" information for swap disks (if selected swap area is partition (not file))
+    with open("/proc/swaps") as reader:                                                   # Show "[SWAP]" information for swap disks (if selected swap area is partition (not file))
         proc_swaps_output_lines = reader.read().strip().split("\n")
-        swap_disk_list = []
-        for line in proc_swaps_output_lines:
-            if line.split()[1].strip() == "partition":
-                swap_disk_list.append(line.split()[0].strip().split("/")[-1])
-    if len(swap_disk_list) > 0 and disk_list[selected_disk_number] in swap_disk_list:
+        swap_disk_list = [
+            line.split()[0].strip().split("/")[-1]
+            for line in proc_swaps_output_lines
+            if line.split()[1].strip() == "partition"
+        ]
+
+    if swap_disk_list and disk_list[selected_disk_number] in swap_disk_list:
         disk_file_system = _tr("[SWAP]")
     if disk_file_system  == "fuseblk":                                                        # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
         try:
             disk_for_file_system = "/dev/" + disk_list[selected_disk_number]
             disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
-        except:
+        except Exception:
             pass
     # Get if_system_disk
-    if disk_mount_point == "/":
-        if_system_disk = _tr("Yes")
-    else:
-        if_system_disk = _tr("No")
-
+    if_system_disk = _tr("Yes") if disk_mount_point == "/" else _tr("No")
     # Set Disk tab label texts by using information get
     label1301.set_text(disk_vendor_model)
     label1302.set_text(f'{disk_list[selected_disk_number]} ({disk_type})')
@@ -266,7 +264,7 @@ def disk_loop_func():
     try:
         if os.path.isdir("/sys/class/block/" + disk_list[selected_disk_number]) == False:
             return
-    except:
+    except Exception:
         return
     # Get disk_read_time, disk_write_time
     with open("/proc/diskstats") as reader:
@@ -317,17 +315,22 @@ def disk_initial_thread_func():
 # ----------------------------------- Disk Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def disk_loop_thread_func(*args):                                                             # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
 
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1003.get_active() == True:
-        global disk_glib_source, update_interval                                              # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            disk_glib_source.destroy()                                                        # Destroy GLib source for preventing it repeating the function.
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        disk_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(disk_loop_func)
-        disk_glib_source.set_callback(disk_loop_thread_func)
-        disk_glib_source.attach(GLib.MainContext.default())                                   # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+    if (
+        MainGUI.radiobutton1.get_active() != True
+        or MainGUI.radiobutton1003.get_active() != True
+    ):
+        return
+
+    global disk_glib_source, update_interval                                              # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
+    try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
+        disk_glib_source.destroy()                                                        # Destroy GLib source for preventing it repeating the function.
+    except NameError:
+        pass
+    update_interval = Config.update_interval
+    disk_glib_source = GLib.timeout_source_new(update_interval * 1000)
+    GLib.idle_add(disk_loop_func)
+    disk_glib_source.set_callback(disk_loop_thread_func)
+    disk_glib_source.attach(GLib.MainContext.default())                                   # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
 
 
 # ----------------------------------- Disk Thread Run Function (starts execution of the threads) -----------------------------------
@@ -357,10 +360,9 @@ def disk_time_unit_converter_func(time):
 
     if time < 3600000:                                                                        # Return time in the following format if time is less than 1 hour.
         return f'{w_r_time_minutes_int:02}:{w_r_time_seconds_int:02}.{w_r_time_milliseconds_int:03}'
-    if time >= 3600000 and time < 86400000:                                                   # Return time in the following format if time is more than 1 hour and less than 1 day.
+    if time < 86400000:                                                   # Return time in the following format if time is more than 1 hour and less than 1 day.
         return f'{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}:{w_r_time_seconds_int:02}.{w_r_time_milliseconds_int:03}'
-    if time >= 86400000:                                                                      # Return time in the following format if time is more than 1 day.
-        return f'{w_r_time_days_int:02}:{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}.{w_r_time_seconds_int:02}:{w_r_time_milliseconds_int:03}'
+    return f'{w_r_time_days_int:02}:{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}.{w_r_time_seconds_int:02}:{w_r_time_milliseconds_int:03}'
 
 
 # ----------------------------------- Disk - Get disk_vendor_model, disk_parent_name, disk_mount_point Values Function -----------------------------------
@@ -372,7 +374,7 @@ def disk_get_device_partition_model_name_mount_point_func():
     try:
         if os.path.isdir("/sys/class/block/" + selected_disk_name) == False:
             return
-    except:
+    except Exception:
         return
     # Get disk type (Disk or Partition)
     with open("/sys/class/block/" + selected_disk_name + "/uevent") as reader:
@@ -402,13 +404,13 @@ def disk_get_device_partition_model_name_mount_point_func():
                     disk_vendor = rest_of_the_pci_ids_output.split("\n")[0].strip()
                 if disk_vendor_id not in pci_ids_output:
                     disk_vendor = "-"
-            except:
+            except Exception:
                 disk_vendor = "-"
         # Get disk model if selected disk is a disk
         try:
             with open("/sys/class/block/" + selected_disk_name + "/device/model") as reader:
                 disk_model = reader.read().strip()
-        except:
+        except Exception:
             disk_model = "-"
         disk_vendor_model = disk_vendor + " - " +  disk_model
     if disk_type == _tr("Partition"):
@@ -425,13 +427,13 @@ def disk_get_device_partition_model_name_mount_point_func():
                     disk_vendor = rest_of_the_pci_ids_output.split("\n")[0].strip()
                 if disk_vendor_id not in pci_ids_output:
                     disk_vendor = "-"
-            except:
+            except Exception:
                 disk_vendor = "-"
         # Get disk model if selected disk is a partition
         try:
             with open("/sys/class/block/" + disk_parent_name + "/device/model") as reader:
                 disk_model = reader.read().strip()
-        except:
+        except Exception:
             disk_model = "-"
         disk_vendor_model = disk_vendor + " - " +  disk_model
     if "loop" in selected_disk_name:
@@ -487,7 +489,7 @@ def disk_data_unit_converter_func(data, unit, precision):
         return data
     if unit >= 8:
         data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit == 0 or unit == 8:
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

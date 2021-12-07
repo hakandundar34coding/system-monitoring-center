@@ -144,25 +144,26 @@ def users_open_right_click_menu_func(event):
 # ----------------------------------- Users - Open User Details Window Function (gets double clicked user UID and opens User Details window) -----------------------------------
 def users_open_user_details_window_func(event):
 
-    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
-            path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
-        except TypeError:
-            return
-        model = treeview3101.get_model()
-        treeiter = model.get_iter(path)
-        if treeiter is not None:
-            global selected_user_uid, selected_username
-            selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
-            selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting username of the user.
-            # Open Users Details window
-            if 'UsersDetails' not in globals():                                               # Check if "UsersDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetails" name is in globals().
-                global UsersDetails
-                import UsersDetails
-                UsersDetails.users_details_import_func()
-                UsersDetails.users_details_gui_function()
-            UsersDetails.window3101w.show()
-            UsersDetails.users_details_foreground_thread_run_func()
+    if event.type != Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
+        return
+    try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
+        path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
+    model = treeview3101.get_model()
+    treeiter = model.get_iter(path)
+    if treeiter is not None:
+        global selected_user_uid, selected_username
+        selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
+        selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting username of the user.
+        # Open Users Details window
+        if 'UsersDetails' not in globals():                                               # Check if "UsersDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetails" name is in globals().
+            global UsersDetails
+            import UsersDetails
+            UsersDetails.users_details_import_func()
+            UsersDetails.users_details_gui_function()
+        UsersDetails.window3101w.show()
+        UsersDetails.users_details_foreground_thread_run_func()
 
 
 # ----------------------------------- Users - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -261,7 +262,7 @@ def users_loop_func():
     global number_of_logical_cores
     try:
         number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")                           # To be able to get number of online logical CPU cores first try  a faster way: using "SC_NPROCESSORS_ONLN" variable.
-    except:
+    except Exception:
         with open("/proc/cpuinfo") as reader:                                                 # As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
             proc_cpuinfo_lines = reader.read().split("\n")
         number_of_logical_cores = 0
@@ -416,7 +417,7 @@ def users_loop_func():
                         with open("/proc/" + str(user_process_pid) + "/stat") as reader:
                             proc_pid_stat_lines = int(reader.read().split()[-31])             # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
                         user_process_start_time = (proc_pid_stat_lines / number_of_clock_ticks) + system_boot_time
-                    except:
+                    except Exception:
                         user_process_start_time = 0
                 users_data_row.append(user_process_start_time)
             # Get user processes CPU usage percent and RAM memory (RSS) usage percent

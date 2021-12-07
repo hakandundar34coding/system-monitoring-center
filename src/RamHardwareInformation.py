@@ -82,7 +82,7 @@ def ram_hardware_information_get_func():
 
     try:
         dmidecode_output = (subprocess.check_output(["pkexec", "sudo", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()    # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
-    except:
+    except Exception:
         window1201w.hide()
         ram_hardware_information_root_privileges_warning_dialog()
         return
@@ -104,7 +104,7 @@ def ram_hardware_information_get_func():
     memory_hardware_information_text = memory_hardware_information_text + _tr("Maximum Capacity") + " :    " + maximum_capacity
     memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Number Of Devices") + " :    " + number_of_devices + "\n"
 
-    if "Memory Device" in dmidecode_output:                                                   # Perform the following operations if "Memory Device" is found in "dmidecode_output" output. This information may not be available on some systems.
+    if "Memory Device" in dmidecode_output:                                               # Perform the following operations if "Memory Device" is found in "dmidecode_output" output. This information may not be available on some systems.
         data_per_slot = dmidecode_output.split("Memory Device")
         del data_per_slot[0]                                                                  # First element in this list is not information of memory device and it is deleted.
         for data in data_per_slot:
@@ -147,7 +147,7 @@ def ram_hardware_information_get_func():
             memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
             memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator
             memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
-            memory_hardware_information_text = memory_hardware_information_text + "\n"
+            memory_hardware_information_text += "\n"
 
     if "Memory Device" not in dmidecode_output:                                               # Perform the following operations if "Memory Device" is not found in "dmidecode_output" output. This information may not be available on some systems.
         memory_size = "-"

@@ -177,7 +177,7 @@ def startup_initial_func():
     current_desktop_environment = [os.environ.get('XDG_CURRENT_DESKTOP')]
     if current_desktop_environment != [None]:
         current_desktop_environment[0] = current_desktop_environment[0].strip().upper()       # "current_desktop_environment" is defined as list because some dektop environmens takes into account more than one name.
-    if current_desktop_environment == ["X-CINNAMON"] or current_desktop_environment == ["CINNAMON"]:
+    if current_desktop_environment in [["X-CINNAMON"], ["CINNAMON"]]:
         current_desktop_environment = ["X-CINNAMON", "CINNAMON", "GNOME"]                     # These names are taked into account by Cinnamon desktop environment.
     if current_desktop_environment == ["UBUNTU:GNOME"]:
         current_desktop_environment = ["GNOME", "UBUNTU:GNOME"]
@@ -227,14 +227,14 @@ def startup_initial_func():
                     current_desktop_session = ["GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME", "zorin:GNOME"]
                 if process_name == "cinnamon-session":
                     current_desktop_session = ["X-CINNAMON", "CINNAMON", "GNOME"]             # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
-                if process_name == "mate-session":
-                    current_desktop_session = ["MATE"]
-                if process_name == "plasmashell":
-                    current_desktop_session = ["KDE"]
-                if process_name == "lxqt-session":
+                elif process_name == "lxqt-session":
                     current_desktop_session = ["LXQT"]
-                if process_name == "lxsession":
+                elif process_name == "lxsession":
                     current_desktop_session = ["LXDE"]
+                elif process_name == "mate-session":
+                    current_desktop_session = ["MATE"]
+                elif process_name == "plasmashell":
+                    current_desktop_session = ["KDE"]
         current_desktop_environment = current_desktop_session
 
     global filter_column

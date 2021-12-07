@@ -149,24 +149,25 @@ def services_open_right_click_menu_func(event):
 # ----------------------------------- Services - Open Service Details Window Function (gets double clicked service nam and opens Service Details window) -----------------------------------
 def services_open_service_details_window_func(event):
 
-    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
-            path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
-        except TypeError:
-            return                                                                            # Stop running rest of the code if the error is encountered.
-        model = treeview6101.get_model()
-        treeiter = model.get_iter(path)
-        if treeiter is not None:
-            global selected_service_name
-            selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
-            # Open Service Details window
-            if 'ServicesDetails' not in globals():                                         # Check if "ServicesDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "ServicesDetails" name is in globals().
-                global ServicesDetails
-                import ServicesDetails
-                ServicesDetails.services_details_import_func()
-                ServicesDetails.services_details_gui_function()
-            ServicesDetails.window6101w.show()
-            ServicesDetails.services_details_foreground_thread_run_func()
+    if event.type != Gdk.EventType._2BUTTON_PRESS:                                        # Check if double click is performed
+        return
+    try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
+        path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return                                                                            # Stop running rest of the code if the error is encountered.
+    model = treeview6101.get_model()
+    treeiter = model.get_iter(path)
+    if treeiter is not None:
+        global selected_service_name
+        selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
+        # Open Service Details window
+        if 'ServicesDetails' not in globals():                                         # Check if "ServicesDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "ServicesDetails" name is in globals().
+            global ServicesDetails
+            import ServicesDetails
+            ServicesDetails.services_details_import_func()
+            ServicesDetails.services_details_gui_function()
+        ServicesDetails.window6101w.show()
+        ServicesDetails.services_details_foreground_thread_run_func()
 
 
 # ----------------------------------- Services - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -252,12 +253,11 @@ def services_loop_func():
         if "@" not in service_unit_file:
             service_list.append(service_unit_file)
             continue
-        if "@" in service_unit_file:
-            service_unit_file_split = service_unit_file.split("@")[0]
-            for service_loaded in service_files_from_run_systemd_list:
-                if "@" in service_loaded and service_unit_file_split == service_loaded.split("@")[0]:
-                    service_list.append(service_loaded)
-                    continue
+        service_unit_file_split = service_unit_file.split("@")[0]
+        for service_loaded in service_files_from_run_systemd_list:
+            if "@" in service_loaded and service_unit_file_split == service_loaded.split("@")[0]:
+                service_list.append(service_loaded)
+                continue
     service_list = sorted(service_list)
 
     # Generate "unit_files_command_parameter_list". This list will be used for constructing commandline for getting service data per service file.
@@ -352,22 +352,22 @@ def services_loop_func():
 
     # Add/Remove treeview columns appropriate for user preferences
     treeview6101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
-    if services_treeview_columns_shown != services_treeview_columns_shown_prev:               # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
+    if services_treeview_columns_shown != services_treeview_columns_shown_prev:           # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
         for column in treeview6101.get_columns():                                             # Remove all columns in the treeview.
             treeview6101.remove_column(column)
         for i, column in enumerate(services_treeview_columns_shown):
             if services_data_list[column][0] in services_treeview_columns_shown:
-                cumulative_sort_column_id = cumulative_sort_column_id + services_data_list[column][2]
+                cumulative_sort_column_id += services_data_list[column][2]
             services_treeview_column = Gtk.TreeViewColumn(services_data_list[column][1])      # Define column (also column title is defined)
             for i, cell_renderer_type in enumerate(services_data_list[column][6]):
                 cumulative_internal_data_id = cumulative_internal_data_id + 1
                 if cell_renderer_type == "internal_column":                                   # Continue to next loop to avoid generating a cell renderer for internal column (internal columns are not shon on the treeview and they do not have cell renderers).
                     continue
-                if cell_renderer_type == "CellRendererPixbuf":                                # Define cell renderer
+                if cell_renderer_type == "CellRendererPixbuf":
                     cell_renderer = Gtk.CellRendererPixbuf()
-                if cell_renderer_type == "CellRendererText":                                  # Define cell renderer
+                elif cell_renderer_type == "CellRendererText":
                     cell_renderer = Gtk.CellRendererText()
                 cell_renderer.set_alignment(services_data_list[column][9][i], 0.5)            # Vertical alignment is set 0.5 in order to leave it as unchanged.
                 services_treeview_column.pack_start(cell_renderer, services_data_list[column][10][i])    # Set if column will allocate unused space

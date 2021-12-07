@@ -319,7 +319,7 @@ def processes_loop_func():
     global number_of_logical_cores
     try:
         number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")                           # To be able to get number of online logical CPU cores first try  a faster way: using "SC_NPROCESSORS_ONLN" variable.
-    except:
+    except Exception:
         with open("/proc/cpuinfo") as reader:                                                 # As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
             proc_cpuinfo_lines = reader.read().split("\n")
         number_of_logical_cores = 0
@@ -480,7 +480,7 @@ def processes_loop_func():
         if 17 in processes_treeview_columns_shown:
             try:                                                                              # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
                 process_executable_path = os.path.realpath("/proc/" + pid + "/exe")
-            except:
+            except Exception:
                 process_executable_path = "-"
             processes_data_row.append(process_executable_path)                                # Append process executable path
         # Append process data into a list (processes_data_rows)

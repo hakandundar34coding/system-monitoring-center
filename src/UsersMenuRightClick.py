@@ -56,13 +56,11 @@ def users_menu_right_click_gui_func():
         selected_username = str(Users.selected_username)                                      # Get right clicked username
         selected_user_uid = str(Users.selected_user_uid)                                      # Get right clicked user UID
         users_end_user_session_warning_dialog(selected_username, selected_user_uid)
-        if warning_dialog3102_response == Gtk.ResponseType.YES:
-            pass                                                                              # Continue running the code if "Yes" is clicked on the dialog.
         if warning_dialog3102_response == Gtk.ResponseType.NO:
             return                                                                            # Do nothing (stop running the code and close the dialog) if "No" is clicked.
         try:
             (subprocess.check_output(["pkexec", "pkill", "-9", "--uid", selected_user_uid], stderr=subprocess.STDOUT, shell=False)).decode()    # End processes which has the specified UID.
-        except:
+        except Exception:
             users_end_user_session_root_privileges_warning_dialog()
 
     def on_menuitem3102m_activate(widget):                                                    # "Details" item on the right click menu

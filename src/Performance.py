@@ -97,7 +97,6 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
     global gpu_list, gpu_number_list, default_gpu, gpu_device_model_name, gpu_vendor_id_list, gpu_device_id_list
     gpu_list = []
     gpu_number_list = []
-    gpu_pci_info_list_unordered = []
     gpu_directory = []
     gpu_device_model_name = []
     gpu_vendor_id_list = []
@@ -108,9 +107,12 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
             gpu_list.append(file)
             gpu_number_list.append(file.split("card")[1])
     files_in_dev_dri_by_path = os.listdir("/dev/dri/by-path/")
-    for file in files_in_dev_dri_by_path:
-        if file.endswith("card"):
-            gpu_pci_info_list_unordered.append(file.split("-card")[0].split("pci-")[1])
+    gpu_pci_info_list_unordered = [
+        file.split("-card")[0].split("pci-")[1]
+        for file in files_in_dev_dri_by_path
+        if file.endswith("card")
+    ]
+
     for gpu_number in gpu_number_list:
         for gpu_pci_info in gpu_pci_info_list_unordered:
             if os.path.isdir("/sys/devices/pci0000:00/" + gpu_pci_info + "/drm/card" + gpu_number) == True:
@@ -279,12 +281,13 @@ def performance_background_func():
     global disk_read_data, disk_write_data
     global disk_read_data_prev, disk_write_data_prev
     global disk_read_speed, disk_write_speed
-    disk_list_system_ordered = []
     proc_diskstats_lines_filtered = []
     with open("/proc/partitions") as reader:
         proc_partitions_lines = reader.read().strip().split("\n")[2:]
-    for line in proc_partitions_lines:
-        disk_list_system_ordered.append(line.split()[3].strip())
+    disk_list_system_ordered = [
+        line.split()[3].strip() for line in proc_partitions_lines
+    ]
+
     with open("/proc/diskstats") as reader:
         proc_diskstats_lines = reader.read().strip().split("\n")
         for line in proc_diskstats_lines:
@@ -316,8 +319,6 @@ def performance_background_func():
         disk_data = proc_diskstats_lines_filtered[disk_list_system_ordered.index(disk)].split()
         disk_read_data.append(int(disk_data[5]) * disk_sector_size)
         disk_write_data.append(int(disk_data[9]) * disk_sector_size)
-        if disk_read_data[-1] - disk_read_data_prev[i] == 0:
-            pass
         disk_read_speed[i].append((disk_read_data[-1] - disk_read_data_prev[i]) / update_interval)
         disk_write_speed[i].append((disk_write_data[-1] - disk_write_data_prev[i]) / update_interval)
         del disk_read_speed[i][0]
@@ -330,11 +331,12 @@ def performance_background_func():
     global network_receive_bytes, network_send_bytes
     global network_receive_bytes_prev, network_send_bytes_prev
     global network_receive_speed, network_send_speed
-    network_card_list_system_ordered = []
     with open("/proc/net/dev") as reader:
         proc_net_dev_lines = reader.read().strip().split("\n")[2:]
-    for line in proc_net_dev_lines:
-        network_card_list_system_ordered.append(line.split(":")[0].strip())
+    network_card_list_system_ordered = [
+        line.split(":")[0].strip() for line in proc_net_dev_lines
+    ]
+
     for i, network_card in enumerate(network_card_list_system_ordered):
         if network_card not in network_card_list:
             network_card_list.append(network_card)
@@ -361,8 +363,6 @@ def performance_background_func():
         network_data = proc_net_dev_lines[network_card_list_system_ordered.index(network_card)].split()
         network_receive_bytes.append(int(network_data[1]))
         network_send_bytes.append(int(network_data[9]))
-        if network_receive_bytes[-1] - network_receive_bytes_prev[i] == 0:
-            pass
         network_receive_speed[i].append((network_receive_bytes[-1] - network_receive_bytes_prev[i]) / update_interval)
         network_send_speed[i].append((network_send_bytes[-1] - network_send_bytes_prev[i]) / update_interval)
         del network_receive_speed[i][0]
@@ -437,7 +437,7 @@ def performance_data_unit_converter_func(data, unit, precision):
         return data
     if unit >= 8:
         data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit == 0 or unit == 8:
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

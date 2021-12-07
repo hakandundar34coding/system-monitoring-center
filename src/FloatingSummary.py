@@ -93,12 +93,12 @@ def floating_summary_loop_func():
 
     global floating_summary_data_shown_prev
     floating_summary_data_shown = Config.floating_summary_data_shown
-    if floating_summary_data_shown != floating_summary_data_shown_prev:                       # Remove all labels and add preferred ones if user makes changes on visible performance data (labels).
+    if floating_summary_data_shown != floating_summary_data_shown_prev:                   # Remove all labels and add preferred ones if user makes changes on visible performance data (labels).
         for i in reversed(range(9)):                                                          # 9 is large enough to remove all labels on the grid.
             try:
                 label_to_remove = grid3001.get_child_at(0, i)
                 grid3001.remove(label_to_remove)
-            except:
+            except Exception:
                 pass
 
         grid_row_count = 0
@@ -106,25 +106,25 @@ def floating_summary_loop_func():
             grid_row_count = 0
             grid3001.attach(label3001, 0, grid_row_count, 1, 1)                               # Attach label for average CPU usage percent data
         if 1 in floating_summary_data_shown:
-            grid_row_count = grid_row_count + 1
+            grid_row_count += 1
             grid3001.attach(label3002, 0, grid_row_count, 1, 1)                               # Attach label for RAM usage percent data
         if 2 in floating_summary_data_shown:
-            grid_row_count = grid_row_count + 1
+            grid_row_count += 1
             grid3001.attach(label3003, 0, grid_row_count, 1, 1)                               # Attach label for disk read+write speed data
         if 3 in floating_summary_data_shown:
-            grid_row_count = grid_row_count + 1
+            grid_row_count += 1
             grid3001.attach(label3004, 0, grid_row_count, 1, 1)                               # Attach label for disk read speed data
         if 4 in floating_summary_data_shown:
-            grid_row_count = grid_row_count + 1
+            grid_row_count += 1
             grid3001.attach(label3005, 0, grid_row_count, 1, 1)                               # Attach label for disk write speed data
         if 5 in floating_summary_data_shown:
-            grid_row_count = grid_row_count + 1
+            grid_row_count += 1
             grid3001.attach(label3006, 0, grid_row_count, 1, 1)                               # Attach label for network download+upload speed data
         if 6 in floating_summary_data_shown:
-            grid_row_count = grid_row_count + 1
+            grid_row_count += 1
             grid3001.attach(label3007, 0, grid_row_count, 1, 1)                               # Attach label for network download speed data
         if 7 in floating_summary_data_shown:
-            grid_row_count = grid_row_count + 1
+            grid_row_count += 1
             grid3001.attach(label3008, 0, grid_row_count, 1, 1)                               # Attach label for network upload speed data
 
     floating_summary_data_shown_prev = list(floating_summary_data_shown)                      # list1 = list(list2) have to be used for proper working of the code because using this equation without "list()" makes a connection between these lists instead of copying one list with a different variable name.
@@ -157,17 +157,19 @@ def floating_summary_initial_thread_func():
 # ----------------------------------- FloatingSummary Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def floating_summary_loop_thread_func(*args):                                                 # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when Floating Summary window is set as hidden and shown again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
 
-    if window3001.get_visible() == True:
-        global floating_summary_glib_source, update_interval                                  # GLib source variable name is defined as global to be able to destroy it if Floating Summary window is shown again in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            floating_summary_glib_source.destroy()                                            # Destroy GLib source for preventing it repeating the function.
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        floating_summary_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(floating_summary_loop_func)
-        floating_summary_glib_source.set_callback(floating_summary_loop_thread_func)
-        floating_summary_glib_source.attach(GLib.MainContext.default())                       # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+    if window3001.get_visible() != True:
+        return
+
+    global floating_summary_glib_source, update_interval                                  # GLib source variable name is defined as global to be able to destroy it if Floating Summary window is shown again in update_interval time.
+    try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
+        floating_summary_glib_source.destroy()                                            # Destroy GLib source for preventing it repeating the function.
+    except NameError:
+        pass
+    update_interval = Config.update_interval
+    floating_summary_glib_source = GLib.timeout_source_new(update_interval * 1000)
+    GLib.idle_add(floating_summary_loop_func)
+    floating_summary_glib_source.set_callback(floating_summary_loop_thread_func)
+    floating_summary_glib_source.attach(GLib.MainContext.default())                       # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
 
 
 # ----------------------------------- FloatingSummary Thread Run Function (starts execution of the threads) -----------------------------------
@@ -217,7 +219,7 @@ def floating_summary_data_unit_converter_func(data, unit, precision):
     global data_unit_list
     if unit >= 8:
         data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit == 0 or unit == 8:
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

@@ -89,7 +89,7 @@ def on_drawingarea1101_draw(widget, chart1101):
 
     # Get values from "Config and Peformance" modules and use this defined values in order to avoid multiple uses of variables from another module since CPU usage is higher for this way.
     chart_data_history = Config.chart_data_history
-    chart_x_axis = list(range(0, chart_data_history))
+    chart_x_axis = list(range(chart_data_history))
 
     try:                                                                                      # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the CPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
         cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
@@ -272,8 +272,8 @@ def cpu_initial_func():
     cpu_architecture = platform.processor()
     if cpu_architecture == "":
         cpu_architecture = platform.machine()
-        if cpu_architecture == "":
-            cpu_architecture = "-"
+    if cpu_architecture == "":
+        cpu_architecture = "-"
 
     # Set CPU tab label texts by using information get
     show_cpu_usage_per_core = Config.show_cpu_usage_per_core
@@ -312,7 +312,7 @@ def cpu_loop_func():
                 physical_id_prev = physical_id
                 physical_id = line.split(":")[1].strip()
             if physical_id != physical_id_prev and line.startswith("cpu cores"):
-                number_of_physical_cores = number_of_physical_cores + int(line.split(":")[1].strip())
+                number_of_physical_cores += int(line.split(":")[1].strip())
             if line.startswith("model name"):
                 cpu_model_names.append(line.split(":")[1].strip())
         number_of_cpu_sockets = int(physical_id) + 1
@@ -330,7 +330,7 @@ def cpu_loop_func():
                 if line.startswith("Processor"):
                     cpu_model_names.append(line.split(":")[1].strip())
         if len(cpu_model_names) == 1:
-            cpu_model_names = cpu_model_names * number_of_logical_cores
+            cpu_model_names *= number_of_logical_cores
         # Some ARM processors do not have model name information in "/proc/cpuinfo" file.
         if cpu_model_names == []:
             cpu_model_names = [_tr("Unknown")]
@@ -412,17 +412,22 @@ def cpu_initial_thread_func():
 # ----------------------------------- CPU Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def cpu_loop_thread_func(*args):                                                              # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
 
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1001.get_active() == True:
-        global cpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            cpu_glib_source.destroy()                                                         # Destroy GLib source for preventing it repeating the function.
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        cpu_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(cpu_loop_func)
-        cpu_glib_source.set_callback(cpu_loop_thread_func)
-        cpu_glib_source.attach(GLib.MainContext.default())                                    # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+    if (
+        MainGUI.radiobutton1.get_active() != True
+        or MainGUI.radiobutton1001.get_active() != True
+    ):
+        return
+
+    global cpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
+    try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
+        cpu_glib_source.destroy()                                                         # Destroy GLib source for preventing it repeating the function.
+    except NameError:
+        pass
+    update_interval = Config.update_interval
+    cpu_glib_source = GLib.timeout_source_new(update_interval * 1000)
+    GLib.idle_add(cpu_loop_func)
+    cpu_glib_source.set_callback(cpu_loop_thread_func)
+    cpu_glib_source.attach(GLib.MainContext.default())                                    # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
 
 
 # ----------------------------------- CPU Thread Run Function (starts execution of the threads) -----------------------------------

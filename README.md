@@ -73,6 +73,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 * Python 3 (Programming language)
 * GTK3 (GUI)
 * python3-opengl (for FPS counting)
+* Pycairo (for graphics)
 
 ### Status:
 * The application is in Beta stage and there may be bugs to be fixed.

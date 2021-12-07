@@ -83,7 +83,7 @@ def main_menus_gui_func():
         def main_menus_gui_open_terminal_func():
             try:                                                                              # "try-catch" is used in order to avoid errors and show an error dialog to user if default terminal on the system can not be detected.
                 (subprocess.call(["x-terminal-emulator"], shell=False))
-            except:
+            except Exception:
                 pass
         open_terminal_thread = Thread(target=main_menus_gui_open_terminal_func, daemon=True).start()    # Terminal is run in another thread in order not to wait end of the run which occurs in single threaded code execution.
 
@@ -125,7 +125,7 @@ def main_menus_gui_func():
     def on_menuitem1005m_activate(widget):                                                    # "About" menu item
         try:
             software_version = open(os.path.dirname(os.path.abspath(__file__)) + "/__version__").readline()
-        except:
+        except Exception:
             pass
         aboutdialog1001d.set_version(software_version)
         aboutdialog1001d.run()

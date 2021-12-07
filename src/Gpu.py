@@ -82,7 +82,7 @@ def gpu_gui_func():
     def on_drawingarea1501_draw(widget, chart1501):
 
         chart_data_history = Config.chart_data_history
-        chart_x_axis = list(range(0, chart_data_history))
+        chart_x_axis = list(range(chart_data_history))
         try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the GPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
             fps_count_check = fps_count
         except NameError:
@@ -194,7 +194,7 @@ def gpu_initial_func():
                     gpu_vendor_in_driver = line.split()[-1].strip("()").split("x")[1].strip()
                 if line.strip().startswith("Device:"):
                     gpu_device_in_driver = line.split()[-1].strip("()").split("x")[1].strip()
-        except:
+        except Exception:
             gpu_vendor_in_driver = "-"
             gpu_device_in_driver = "-"
         if gpu_vendor_in_driver == gpu_vendor_id_list[selected_gpu_number].strip(" \n\t") and gpu_device_in_driver == gpu_device_id_list[selected_gpu_number].strip(" \n\t")[1:]:    # Check for matching GPU information from "sys/devices/pci0000:00/..." directory and from "glxinfo" command. "[1:]" is used for trimming "0" at the beginning of the device id which is get from "/sys/devices/..." directory.
@@ -215,7 +215,7 @@ def gpu_initial_func():
                 mesa_version = line.split(":")[1].strip()
             if line.strip().startswith("OpenGL version string:"):
                 opengl_version, display_driver = line.split(":")[1].strip().split(" ", 1)     # "split(" ", 1" is for splitting string by first space character
-    except:
+    except Exception:
         gpu_vendor_name_in_driver = "-"
         gpu_device_name_in_driver = "-"
         video_memory = "-"
@@ -262,7 +262,7 @@ def gpu_loop_func():
         current_monitor_number = current_screen.get_monitor_at_window(current_screen.get_active_window())
         current_display = Gdk.Display.get_default()
         current_refresh_rate = f'{(current_display.get_monitor(current_monitor_number).get_refresh_rate() / 1000):.2f} Hz'
-    except:
+    except Exception:
         current_refresh_rate = "[" + "Unknown" + "]"
 
 
@@ -282,17 +282,22 @@ def gpu_initial_thread_func():
 # ----------------------------------- GPU Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def gpu_loop_thread_func(*args):                                                              # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
 
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1005.get_active() == True:
-        global gpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            gpu_glib_source.destroy()                                                         # Destroy GLib source for preventing it repeating the function.
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        gpu_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(gpu_loop_func)
-        gpu_glib_source.set_callback(gpu_loop_thread_func)
-        gpu_glib_source.attach(GLib.MainContext.default())                                    # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+    if (
+        MainGUI.radiobutton1.get_active() != True
+        or MainGUI.radiobutton1005.get_active() != True
+    ):
+        return
+
+    global gpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
+    try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
+        gpu_glib_source.destroy()                                                         # Destroy GLib source for preventing it repeating the function.
+    except NameError:
+        pass
+    update_interval = Config.update_interval
+    gpu_glib_source = GLib.timeout_source_new(update_interval * 1000)
+    GLib.idle_add(gpu_loop_func)
+    gpu_glib_source.set_callback(gpu_loop_thread_func)
+    gpu_glib_source.attach(GLib.MainContext.default())                                    # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
 
 
 # ----------------------------------- GPU Thread Run Function (starts execution of the threads) -----------------------------------

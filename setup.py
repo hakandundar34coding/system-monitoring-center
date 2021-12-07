@@ -7,19 +7,17 @@ if os.path.exists(changelog):
     head = open(changelog).readline()
     try:
         version = head.split("(")[1].split(")")[0]
-    except:
+    except Exception:
         print("debian/changelog format is wrong for get version")
         version = ""
-    f = open('src/__version__', 'w')
-    f.write(version)
-    f.close()
+    with open('src/__version__', 'w') as f:
+        f.write(version)
 
 
 def files_in_folder(folder):
-    file_paths = []
-    for file in [filename for filename in os.listdir(folder)]:
-        file_paths.append(folder + file)
-    return file_paths
+    return [
+        folder + file for file in [filename for filename in os.listdir(folder)]
+    ]
 
 
 PREFIX = "/usr"
@@ -59,7 +57,7 @@ if PREFIX == "/app":
         ("/app/bin/", ["integration/system-monitoring-center"])
     ]
 
-if PREFIX == "RPM":
+elif PREFIX == "RPM":
     os.chmod("integration/tr.org.pardus.system-monitoring-center.desktop", 0o644)
     os.chmod("translations/tr/system-monitoring-center.mo", 0o644)
     os.chmod("man/system-monitoring-center.1.gz", 0o644)
@@ -84,7 +82,7 @@ if PREFIX == "RPM":
         (build_root + "/usr/bin/", ["integration/system-monitoring-center"])
     ]
 
-if PREFIX != "/app" and PREFIX != "RPM":
+if PREFIX not in ["/app", "RPM"]:
     for file in files_in_folder("ui/"):
         if file.endswith(".ui"):
             os.chmod(file, 0o644)
@@ -108,7 +106,7 @@ setup(
     version=version,
     packages=find_packages(),
     scripts=["integration/system-monitoring-center"],
-    install_requires=["PyGObject"],
+    install_requires=["PyGObject", "pycairo"],
     data_files=data_files,
     author="Hakan Dündar",
     author_email="hakandundar34coding@gmail.com",

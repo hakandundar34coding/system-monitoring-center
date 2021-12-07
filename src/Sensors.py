@@ -153,7 +153,7 @@ def sensors_loop_func():
     sensor_type_list = []
 
     # Get sensor data
-    sensor_groups = sorted([filename for filename in os.listdir("/sys/class/hwmon/")])        # Get sensor group names. In some sensor directories there are a name file and multiple label files. For example, name: "coretemp", label: "Core 0", "Core 1", ... For easier grouping and understanding name is used as "Sensor Group" name and labels are used as "Sensor" names.
+    sensor_groups = sorted(list(os.listdir("/sys/class/hwmon/")))
     sensor_group_names = []
     for sensor_group in sensor_groups:
         with open("/sys/class/hwmon/" + sensor_group + "/name") as reader:
@@ -176,9 +176,15 @@ def sensors_loop_func():
                 sensor_type_icons_in_sensor_group.append(fan_sensor_icon_name)
         # Get current sensor values from files which "_input" suffixed and get critical sensor values from files which "_crit" suffixed.
         for current_value_file in current_value_files_in_sensor_group:
-            sensors_data_row = []
-            sensors_data_row.append(True)                                                     # Append sensor visibility data (on treeview) which is used for showing/hiding sensor when sensor data of specific sensor type (temperature or fan sensor) is preferred to be shown or sensor search feature is used from the GUI.
-            sensors_data_row.append(sensor_type_icons_in_sensor_group[current_value_files_in_sensor_group.index(current_value_file)])
+            sensors_data_row = [
+                True,
+                sensor_type_icons_in_sensor_group[
+                    current_value_files_in_sensor_group.index(
+                        current_value_file
+                    )
+                ],
+            ]
+
             sensor_type_list.append(sensors_data_row[-1])
             sensors_data_row.append(sensor_group_name)
             label_file = current_value_file.split("_")[0] + "_label"
@@ -210,22 +216,22 @@ def sensors_loop_func():
 
     # Add/Remove treeview columns appropriate for user preferences
     treeview1601.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
-    if sensors_treeview_columns_shown != sensors_treeview_columns_shown_prev:                 # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
+    if sensors_treeview_columns_shown != sensors_treeview_columns_shown_prev:             # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
         for column in treeview1601.get_columns():                                             # Remove all columns in the treeview.
             treeview1601.remove_column(column)
         for i, column in enumerate(sensors_treeview_columns_shown):
             if sensors_data_list[column][0] in sensors_treeview_columns_shown:
-                cumulative_sort_column_id = cumulative_sort_column_id + sensors_data_list[column][2]
+                cumulative_sort_column_id += sensors_data_list[column][2]
             sensors_treeview_column = Gtk.TreeViewColumn(sensors_data_list[column][1])        # Define column (also column title is defined)
             for i, cell_renderer_type in enumerate(sensors_data_list[column][6]):
-                cumulative_internal_data_id = cumulative_internal_data_id + 1
+                cumulative_internal_data_id += 1
                 if cell_renderer_type == "internal_column":                                   # Continue to next loop to avoid generating a cell renderer for internal column (internal columns are not shon on the treeview and they do not have cell renderers).
                     continue
-                if cell_renderer_type == "CellRendererPixbuf":                                # Define cell renderer
+                if cell_renderer_type == "CellRendererPixbuf":
                     cell_renderer = Gtk.CellRendererPixbuf()
-                if cell_renderer_type == "CellRendererText":                                  # Define cell renderer
+                elif cell_renderer_type == "CellRendererText":
                     cell_renderer = Gtk.CellRendererText()
                 cell_renderer.set_alignment(sensors_data_list[column][9][i], 0.5)             # Vertical alignment is set 0.5 in order to leave it as unchanged.
                 sensors_treeview_column.pack_start(cell_renderer, sensors_data_list[column][10][i])    # Set if column will allocate unused space

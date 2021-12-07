@@ -146,17 +146,19 @@ def performance_summary_headerbar_initial_thread_func():
 # ----------------------------------- Performance Summary Headerbar Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def performance_summary_headerbar_loop_thread_func(*args):
 
-    if Config.performance_summary_on_the_headerbar == 1:
-        global performance_summary_headerbar_glib_source, update_interval                     # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            performance_summary_headerbar_glib_source.destroy()                               # Destroy GLib source for preventing it repeating the function.
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        performance_summary_headerbar_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(performance_summary_headerbar_loop_func)
-        performance_summary_headerbar_glib_source.set_callback(performance_summary_headerbar_loop_thread_func)
-        performance_summary_headerbar_glib_source.attach(GLib.MainContext.default())          # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+    if Config.performance_summary_on_the_headerbar != 1:
+        return
+
+    global performance_summary_headerbar_glib_source, update_interval                     # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
+    try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
+        performance_summary_headerbar_glib_source.destroy()                               # Destroy GLib source for preventing it repeating the function.
+    except NameError:
+        pass
+    update_interval = Config.update_interval
+    performance_summary_headerbar_glib_source = GLib.timeout_source_new(update_interval * 1000)
+    GLib.idle_add(performance_summary_headerbar_loop_func)
+    performance_summary_headerbar_glib_source.set_callback(performance_summary_headerbar_loop_thread_func)
+    performance_summary_headerbar_glib_source.attach(GLib.MainContext.default())          # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
 
 
 # ----------------------------------- Performance Summary Headerbar Thread Run Function (starts execution of the threads) -----------------------------------
@@ -210,7 +212,7 @@ def performance_summary_headerbar_data_unit_converter_func(data, unit, precision
         return data
     if unit >= 8:
         data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit == 0 or unit == 8:
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

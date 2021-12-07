@@ -110,7 +110,7 @@ def storage_menu_right_click_gui_func():
                     storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())      # Convert bytes to string by using ".decode("utf-8")".
         # Remove the right clicked disk
         global disk_path
-        if disk_path != "-":                                                                  # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
+        if disk_path != "-":                                                              # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.
             if "loop" in disk_name and os.path.isdir("/sys/class/block/" + disk_name + "/loop/") == True:    # "Remove" operation ("delete loop" operation for optical disks) for loop (virtual disk) devices (also if they are not partition).
                 try:
                     remove_output = (subprocess.check_output(["udisksctl", "loop-delete", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
@@ -123,7 +123,7 @@ def storage_menu_right_click_gui_func():
                 except subprocess.CalledProcessError as e:
                     storage_disk_action_warning_dialog(e.output.decode("utf-8").strip())
                 return
-            if "loop" not in disk_name and "sr" not in disk_name:                             # "Remove" operation ("power off" operation) for non-virtual (loop devices) disks and non-optical disk drives. This operations method is used for USB disks, external HDDs/SSDs, etc.
+            if "loop" not in disk_name:                             # "Remove" operation ("power off" operation) for non-virtual (loop devices) disks and non-optical disk drives. This operations method is used for USB disks, external HDDs/SSDs, etc.
                 try:
                     remove_output = (subprocess.check_output(["udisksctl", "power-off", "-b", disk_path], stderr=subprocess.STDOUT, shell=False)).decode().strip()
                 except subprocess.CalledProcessError as e:
@@ -198,10 +198,12 @@ def storage_disk_parent_child_disk_mount_point_etc_func():
                 disk_parent_name = disk
     # Get child disks of the right clicked disk
     global child_disk_list
-    child_disk_list = []
-    for disk in disk_list:
-        if os.path.isdir("/sys/class/block/" + disk_name + "/" + disk) == True:
-            child_disk_list.append(disk)
+    child_disk_list = [
+        disk
+        for disk in disk_list
+        if os.path.isdir("/sys/class/block/" + disk_name + "/" + disk) == True
+    ]
+
     # Get disk path
     global disk_path
     disk_path = "-"                                                                           # Initial value of "disk_path" variable. This value will be used if disk path could not be detected.

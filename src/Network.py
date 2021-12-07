@@ -78,7 +78,7 @@ def network_gui_func():
     def on_drawingarea1401_draw(drawingarea1401, chart1401):
 
         chart_data_history = Config.chart_data_history
-        chart_x_axis = list(range(0, chart_data_history))
+        chart_x_axis = list(range(chart_data_history))
 
         try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Network module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
             network_receive_speed = Performance.network_receive_speed[Performance.selected_network_card_number]
@@ -290,17 +290,22 @@ def network_initial_thread_func():
 # ----------------------------------- Network Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
 def network_loop_thread_func(*args):                                                          # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
 
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1004.get_active() == True:
-        global network_glib_source, update_interval                                           # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            network_glib_source.destroy()                                                     # Destroy GLib source for preventing it repeating the function.
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        network_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(network_loop_func)
-        network_glib_source.set_callback(network_loop_thread_func)
-        network_glib_source.attach(GLib.MainContext.default())                                # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+    if (
+        MainGUI.radiobutton1.get_active() != True
+        or MainGUI.radiobutton1004.get_active() != True
+    ):
+        return
+
+    global network_glib_source, update_interval                                           # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
+    try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
+        network_glib_source.destroy()                                                     # Destroy GLib source for preventing it repeating the function.
+    except NameError:
+        pass
+    update_interval = Config.update_interval
+    network_glib_source = GLib.timeout_source_new(update_interval * 1000)
+    GLib.idle_add(network_loop_func)
+    network_glib_source.set_callback(network_loop_thread_func)
+    network_glib_source.attach(GLib.MainContext.default())                                # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
         
 
 
@@ -354,7 +359,7 @@ def network_data_unit_converter_func(data, unit, precision):
         return data
     if unit >= 8:
         data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit == 0 or unit == 8:
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1
