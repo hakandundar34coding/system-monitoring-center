@@ -223,7 +223,8 @@ def cpu_initial_func():
     cpu_l2_cache_values = []
     cpu_l3_cache_values = []
     for cpu_core in logical_core_list_system_ordered:
-        if os.path.isfile("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index0/level") is True:    # Get l1d cache values
+        # Get l1d cache values
+        try:
             with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index0/level") as reader:
                 cache_level = reader.read().strip()
             with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index0/type") as reader:
@@ -232,9 +233,10 @@ def cpu_initial_func():
                 cache_size = reader.read().strip()
             if cache_level == "1" and cache_type == "Data":
                 cpu_l1d_cache_values.append(cache_size)
-        else:
+        except FileNotFoundError:
             cpu_l1d_cache_values.append("-")
-        if os.path.isfile("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index1/level") is True:    # Get li cache values
+        # Get li cache values
+        try:
             with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index1/level") as reader:
                 cache_level = reader.read().strip()
             with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index1/type") as reader:
@@ -243,25 +245,27 @@ def cpu_initial_func():
                 cache_size = reader.read().strip()
             if cache_level == "1" and cache_type == "Instruction":
                 cpu_l1i_cache_values.append(cache_size)
-        else:
+        except FileNotFoundError:
             cpu_l1i_cache_values.append("-")
-        if os.path.isfile("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index2/level") is True:    # Get l2 cache values
+        # Get l2 cache values
+        try:
             with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index2/level") as reader:
                 cache_level = reader.read().strip()
             with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index2/size") as reader:
                 cache_size = reader.read().strip()
             if cache_level == "2":
                 cpu_l2_cache_values.append(cache_size)
-        else:
+        except FileNotFoundError:
             cpu_l2_cache_values.append("-")
-        if os.path.isfile("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index3/level") is True:    # Get l3 cache values
+        # Get l3 cache values
+        try:
             with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index3/level") as reader:
                 cache_level = reader.read().strip()
             with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index3/size") as reader:
                 cache_size = reader.read().strip()
             if cache_level == "3":
                 cpu_l3_cache_values.append(cache_size)
-        else:
+        except FileNotFoundError:
             cpu_l3_cache_values.append("-")
 
     # Get CPU architecture
