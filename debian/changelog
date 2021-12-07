@@ -1,3 +1,38 @@
+system-monitoring-center (0.1.21~beta20) unstable; urgency=medium
+
+  * update version file
+  * Update PKGBUILD file
+  * Update README.md file
+  * Update README.md file
+  * Update README.md file
+  * Update README.md file
+  * Update README.md file
+  * Update README.md file
+  * Update README.md file
+  * Update README.md file
+  * Update README.md file
+  * Update README.md file
+  * Update README.md file
+  * Fix: FPS graph problems for screens with high refresh rate (>100 Hz)
+  * Fix: Disk vendor name for NVMe SSDs
+  * Minor improvements
+  * New: limited support for ARM CPUs (CPU tab)
+  * New: limited support for ARM CPUs (System tab)
+  * Improvements for detection of startup applications behavior
+  * Fix: Disk vendor name for NVMe SSDs
+  * Minor improvements
+  * Minor improvements
+  * Minor improvements
+  * Minor improvements
+  * Minor improvements
+  * Minor improvements
+  * Minor improvements
+  * Minor improvements for reducing CPU load (CPU tab)
+  * Improvements for getting Gnome DE version (System tab)
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 07 Dec 2021 09:46:22 +0300
+
 system-monitoring-center (0.1.21~beta19) unstable; urgency=medium
 
   * Improvements for getting Gnome DE version
