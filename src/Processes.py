@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from threading import Thread
+
 # ----------------------------------- Processes - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_import_func():
 
@@ -10,7 +12,6 @@ def processes_import_func():
     from gi.repository import Gtk, Gdk, GLib, GObject
     gi.require_version('Wnck', '3.0')
     from gi.repository import Wnck
-    from threading import Thread
     import os
     import time
 
@@ -366,7 +367,10 @@ def processes_loop_func():
         for line in proc_pid_status_lines:
             if "Uid:\t" in line:
                 real_user_id = line.split(":")[1].split()[0].strip()                          # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                try:
+                    username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                except ValueError:
+                    continue
                 break
         username_list.append(username)
         # Remove PIDs of processes from other than current user (show processes only from this user) if it is preferred by user
