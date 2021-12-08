@@ -373,9 +373,7 @@ Root privileges are needed for getting this information.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Shows RAM hardware information.
-
-Root privileges are needed for getting this information.</property>
+            <property name="tooltip-text" translatable="yes">Shows detailed swap memory information.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Details:</property>
             <property name="ellipsize">end</property>

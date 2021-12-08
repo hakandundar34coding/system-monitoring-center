@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-03 11:18+0300\n"
+"POT-Creation-Date: 2021-12-08 09:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/Cpu.py:276 ui/CpuTab.ui:45
+#: src/Cpu.py:281 ui/CpuTab.ui:45
 msgid "CPU Usage (Average):"
 msgstr ""
 
-#: src/Cpu.py:278
+#: src/Cpu.py:283
 msgid "CPU Usage (Per Core):"
 msgstr ""
 
-#: src/Cpu.py:367
+#: src/Cpu.py:336 src/Network.py:187 src/Network.py:193 src/Network.py:252
+#: src/Performance.py:143 src/Performance.py:149 src/Processes.py:808
+#: src/RamHardwareInformation.py:78
+msgid "Unknown"
+msgstr ""
+
+#: src/Cpu.py:397
 msgid "Selected CPU Core: "
 msgstr ""
 
-#: src/Disk.py:215 src/Disk.py:283 src/Disk.py:284 src/Disk.py:285
-#: src/Disk.py:286 src/Storage.py:344 src/Storage.py:398 src/Storage.py:407
+#: src/Disk.py:222 src/Disk.py:290 src/Disk.py:291 src/Disk.py:292
+#: src/Disk.py:293 src/Storage.py:344 src/Storage.py:398 src/Storage.py:407
 #: src/Storage.py:418 src/Storage.py:744 src/Storage.py:751
 #: src/StorageDetails.py:224 src/StorageDetails.py:267
 #: src/StorageDetails.py:279 src/StorageDetails.py:293
@@ -43,31 +49,31 @@ msgstr ""
 msgid "[Not mounted]"
 msgstr ""
 
-#: src/Disk.py:223 src/Disk.py:405 src/Storage.py:389 src/StorageDetails.py:256
+#: src/Disk.py:230 src/Disk.py:439 src/Storage.py:389 src/StorageDetails.py:256
 msgid "[SWAP]"
 msgstr ""
 
-#: src/Disk.py:232 src/Gpu.py:227 src/Network.py:248 src/Network.py:266
+#: src/Disk.py:239 src/Gpu.py:229 src/Network.py:248 src/Network.py:266
 #: src/ServicesDetails.py:157 src/Storage.py:511 src/Storage.py:522
 #: src/Storage.py:533 src/StorageDetails.py:234 src/StorageDetails.py:381
 #: src/StorageDetails.py:395 src/StorageDetails.py:409 src/UsersDetails.py:248
 msgid "Yes"
 msgstr ""
 
-#: src/Disk.py:234 src/Gpu.py:229 src/Network.py:250 src/ServicesDetails.py:157
+#: src/Disk.py:241 src/Gpu.py:231 src/Network.py:250 src/ServicesDetails.py:157
 #: src/Storage.py:513 src/Storage.py:524 src/Storage.py:535
 #: src/StorageDetails.py:230 src/StorageDetails.py:383
 #: src/StorageDetails.py:397 src/StorageDetails.py:411 src/UsersDetails.py:250
 msgid "No"
 msgstr ""
 
-#: src/Disk.py:378 src/Disk.py:393 src/RamSwapDetails.py:81 src/Storage.py:333
+#: src/Disk.py:385 src/Disk.py:413 src/RamSwapDetails.py:81 src/Storage.py:333
 #: src/Storage.py:338 src/StorageDetails.py:209 src/StorageDetails.py:219
 #: src/StorageMenuRightClick.py:195
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:384 src/SettingsGUI.py:333 src/Storage.py:324 src/Storage.py:433
+#: src/Disk.py:390 src/SettingsGUI.py:333 src/Storage.py:324 src/Storage.py:433
 #: src/Storage.py:477 src/Storage.py:487 src/Storage.py:498 src/Storage.py:507
 #: src/Storage.py:518 src/Storage.py:529 src/StorageDetails.py:200
 #: src/StorageDetails.py:310 src/StorageDetails.py:348
@@ -77,21 +83,19 @@ msgstr ""
 msgid "Disk"
 msgstr ""
 
-#: src/Disk.py:441 src/FloatingSummary.py:208 src/Network.py:343
-#: src/Performance.py:426 src/PerformanceSummaryHeaderbar.py:199
-#: src/Processes.py:915 src/ProcessesDetails.py:655 src/Ram.py:349
-#: src/RamSwapDetails.py:147 src/Services.py:636 src/ServicesDetails.py:356
-#: src/Storage.py:908 src/StorageDetails.py:515 src/Users.py:729
-#: src/UsersDetails.py:380
+#: src/Disk.py:475 src/FloatingSummary.py:208 src/Network.py:343
+#: src/PerformanceSummaryHeaderbar.py:199 src/Processes.py:915
+#: src/ProcessesDetails.py:655 src/Ram.py:329 src/RamSwapDetails.py:147
+#: src/Services.py:636 src/ServicesDetails.py:356 src/Storage.py:908
+#: src/StorageDetails.py:515 src/Users.py:729 src/UsersDetails.py:380
 msgid "Auto-Byte"
 msgstr ""
 
-#: src/Disk.py:443 src/FloatingSummary.py:210 src/Network.py:345
-#: src/Performance.py:428 src/PerformanceSummaryHeaderbar.py:201
-#: src/Processes.py:917 src/ProcessesDetails.py:657 src/Ram.py:351
-#: src/RamSwapDetails.py:149 src/Services.py:638 src/ServicesDetails.py:358
-#: src/Storage.py:910 src/StorageDetails.py:517 src/Users.py:731
-#: src/UsersDetails.py:382
+#: src/Disk.py:477 src/FloatingSummary.py:210 src/Network.py:345
+#: src/PerformanceSummaryHeaderbar.py:201 src/Processes.py:917
+#: src/ProcessesDetails.py:657 src/Ram.py:331 src/RamSwapDetails.py:149
+#: src/Services.py:638 src/ServicesDetails.py:358 src/Storage.py:910
+#: src/StorageDetails.py:517 src/Users.py:731 src/UsersDetails.py:382
 msgid "Auto-bit"
 msgstr ""
 
@@ -191,7 +195,7 @@ msgid ""
 msgstr ""
 
 #: src/EnvironmentVariables.py:475 src/Processes.py:666 src/Sensors.py:339
-#: src/Services.py:501 src/Startup.py:707 src/Storage.py:737 src/Users.py:590
+#: src/Services.py:501 src/Startup.py:709 src/Storage.py:737 src/Users.py:590
 msgid "Total: "
 msgstr ""
 
@@ -309,12 +313,6 @@ msgstr ""
 
 #: src/MainMenusDialogs.py:153
 msgid "Default terminal application on this system could not be detected."
-msgstr ""
-
-#: src/Network.py:187 src/Network.py:193 src/Network.py:252
-#: src/Performance.py:143 src/Performance.py:149 src/Processes.py:808
-#: src/RamHardwareInformation.py:78
-msgid "Unknown"
 msgstr ""
 
 #: src/Network.py:200
@@ -576,11 +574,11 @@ msgid ""
 "No folder will be opened."
 msgstr ""
 
-#: src/Ram.py:246
+#: src/Ram.py:226
 msgid "Total Physical RAM: "
 msgstr ""
 
-#: src/Ram.py:247
+#: src/Ram.py:227
 msgid "Reserved Swap Memory: "
 msgstr ""
 
@@ -888,7 +886,7 @@ msgstr ""
 msgid "CPU"
 msgstr ""
 
-#: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/RamTab.ui:430
+#: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/RamTab.ui:428
 msgid "RAM"
 msgstr ""
 
@@ -926,21 +924,21 @@ msgstr ""
 msgid "Command"
 msgstr ""
 
-#: src/Startup.py:299
+#: src/Startup.py:301
 msgid ""
 "Currently following desktop environments are supported for listing startup "
 "items:\n"
 msgstr ""
 
-#: src/Startup.py:707
+#: src/Startup.py:709
 msgid " startup applications ("
 msgstr ""
 
-#: src/Startup.py:707
+#: src/Startup.py:709
 msgid " visible, "
 msgstr ""
 
-#: src/Startup.py:707
+#: src/Startup.py:709
 msgid " hidden)"
 msgstr ""
 
@@ -1202,11 +1200,11 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/System.py:441
+#: src/System.py:450
 msgid "(Yes)"
 msgstr ""
 
-#: src/System.py:443
+#: src/System.py:452
 msgid "(No)"
 msgstr ""
 
@@ -1429,7 +1427,7 @@ msgstr ""
 msgid "Select CPU Core:"
 msgstr ""
 
-#: ui/CpuTab.ui:31 ui/RamTab.ui:525
+#: ui/CpuTab.ui:31 ui/RamTab.ui:523
 msgid "100%"
 msgstr ""
 
@@ -1439,7 +1437,7 @@ msgid ""
 "(Max value is 100 %)"
 msgstr ""
 
-#: ui/CpuTab.ui:57 ui/RamTab.ui:551
+#: ui/CpuTab.ui:57 ui/RamTab.ui:549
 msgid "0%"
 msgstr ""
 
@@ -1483,8 +1481,8 @@ msgstr ""
 #: ui/ProcessesDetailsWindow.ui:1586 ui/ProcessesDetailsWindow.ui:1601
 #: ui/RamHardwareWindow.ui:87 ui/RamSwapDetailsWindow.ui:87 ui/RamTab.ui:73
 #: ui/RamTab.ui:90 ui/RamTab.ui:135 ui/RamTab.ui:152 ui/RamTab.ui:183
-#: ui/RamTab.ui:214 ui/RamTab.ui:247 ui/RamTab.ui:295 ui/RamTab.ui:474
-#: ui/RamTab.ui:489 ui/ServicesDetailsWindow.ui:107
+#: ui/RamTab.ui:214 ui/RamTab.ui:247 ui/RamTab.ui:295 ui/RamTab.ui:472
+#: ui/RamTab.ui:487 ui/ServicesDetailsWindow.ui:107
 #: ui/ServicesDetailsWindow.ui:121 ui/ServicesDetailsWindow.ui:135
 #: ui/ServicesDetailsWindow.ui:149 ui/ServicesDetailsWindow.ui:163
 #: ui/ServicesDetailsWindow.ui:177 ui/ServicesDetailsWindow.ui:191
@@ -2832,7 +2830,7 @@ msgstr ""
 msgid "Swap Memory:"
 msgstr ""
 
-#: ui/RamTab.ui:336 ui/RamTab.ui:376
+#: ui/RamTab.ui:336
 msgid ""
 "Shows RAM hardware information.\n"
 "\n"
@@ -2843,37 +2841,41 @@ msgstr ""
 msgid "Hardware:"
 msgstr ""
 
-#: ui/RamTab.ui:358 ui/RamTab.ui:398
+#: ui/RamTab.ui:358 ui/RamTab.ui:396
 msgid "Query..."
 msgstr ""
 
-#: ui/RamTab.ui:380
+#: ui/RamTab.ui:376
+msgid "Shows detailed swap memory information."
+msgstr ""
+
+#: ui/RamTab.ui:378
 msgid "Details:"
 msgstr ""
 
-#: ui/RamTab.ui:428
+#: ui/RamTab.ui:426
 msgid "RAM (Random Access Memory)"
 msgstr ""
 
-#: ui/RamTab.ui:446
+#: ui/RamTab.ui:444
 msgid "RAM Tab Customizations"
 msgstr ""
 
-#: ui/RamTab.ui:472
+#: ui/RamTab.ui:470
 msgid "Swap Memory Capacity in Powers of Bytes (1024)"
 msgstr ""
 
-#: ui/RamTab.ui:487
+#: ui/RamTab.ui:485
 msgid "Physical RAM Capacity in Powers of Bytes (1024)"
 msgstr ""
 
-#: ui/RamTab.ui:536
+#: ui/RamTab.ui:534
 msgid ""
 "RAM usage percent\n"
 "(Max value is 100 %)"
 msgstr ""
 
-#: ui/RamTab.ui:539 ui/ServicesMenuCustomizations.ui:452
+#: ui/RamTab.ui:537 ui/ServicesMenuCustomizations.ui:452
 #: ui/ServicesMenuCustomizations.ui:512
 msgid "RAM Usage:"
 msgstr ""
