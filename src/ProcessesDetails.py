@@ -180,7 +180,7 @@ def process_details_initial_func():
     process_status_list = Processes.process_status_list
     global_process_cpu_times_prev = []
     disk_read_write_data_prev = []
-    fd_mode_dict = {32768: "r", 32769: "w", 33793: "a", 32770: "r+", 32770: "w+", 33794: "a+"}
+    fd_mode_dict = {32768: "r", 32769: "w", 33793: "a", 32770: "w+", 33794: "a+"}
 
     # Get system boot time
     global system_boot_time

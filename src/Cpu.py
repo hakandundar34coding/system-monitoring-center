@@ -338,35 +338,23 @@ def cpu_loop_func():
     # Get maximum and minimum frequencies of all cores
     cpu_max_frequency_all_cores = []
     cpu_min_frequency_all_cores = []
-    if os.path.isfile("/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq") is True:
+    try:
         for cpu_core in logical_core_list_system_ordered:
             with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_max_freq") as reader:
                 cpu_max_frequency_all_cores.append(float(reader.read().strip()) / 1000)
             with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_min_freq") as reader:
                 cpu_min_frequency_all_cores.append(float(reader.read().strip()) / 1000)
-    else:
+    except FileNotFoundError:
         cpu_max_frequency_all_cores = ["-"] * number_of_logical_cores
         cpu_min_frequency_all_cores = ["-"] * number_of_logical_cores
 
-    # Get system up time (sut) information
-    with open("/proc/uptime") as reader:
-        sut_read = float(reader.read().split(" ")[0].strip())
-    sut_days = sut_read/60/60/24
-    sut_days_int = int(sut_days)
-    sut_hours = (sut_days -sut_days_int) * 24
-    sut_hours_int = int(sut_hours)
-    sut_minutes = (sut_hours - sut_hours_int) * 60
-    sut_minutes_int = int(sut_minutes)
-    sut_seconds = (sut_minutes - sut_minutes_int) * 60
-    sut_seconds_int = int(sut_seconds)
-
     # Get current frequencies of all cores
     cpu_current_frequency_all_cores = []
-    if os.path.isfile("/sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq") is True:
+    try:
         for cpu_core in logical_core_list_system_ordered:
             with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_cur_freq") as reader:
                 cpu_current_frequency_all_cores.append(float(reader.read().strip()) / 1000)
-    else:
+    except FileNotFoundError:
         with open("/proc/cpuinfo") as reader:
             proc_cpuinfo_lines = reader.read().split("\n")
         for line in proc_cpuinfo_lines:
@@ -387,6 +375,18 @@ def cpu_loop_func():
             pass
     number_of_total_processes = len(thread_count_list)
     number_of_total_threads = sum(thread_count_list)
+
+    # Get system up time (sut) information
+    with open("/proc/uptime") as reader:
+        sut_read = float(reader.read().split(" ")[0].strip())
+    sut_days = sut_read/60/60/24
+    sut_days_int = int(sut_days)
+    sut_hours = (sut_days -sut_days_int) * 24
+    sut_hours_int = int(sut_hours)
+    sut_minutes = (sut_hours - sut_hours_int) * 60
+    sut_minutes_int = int(sut_minutes)
+    sut_seconds = (sut_minutes - sut_minutes_int) * 60
+    sut_seconds_int = int(sut_seconds)
 
     # Set and update CPU tab label texts by using information get
     label1101.set_text(cpu_model_names[selected_cpu_core_number])

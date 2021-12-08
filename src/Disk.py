@@ -198,8 +198,7 @@ def disk_initial_func():
 
     # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
     try:
-        if os.path.isdir("/sys/class/block/" + disk_list[selected_disk_number]) == False:
-            return
+        check_value = "/sys/class/block/" + disk_list[selected_disk_number]
     except:
         return
     # Read pci.ids file. Some disks such as NVMe SSDs have "vendor" file with device id content. pci.ids file will be used for getting disk vendor name by using these ids.

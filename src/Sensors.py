@@ -153,7 +153,7 @@ def sensors_loop_func():
     sensor_type_list = []
 
     # Get sensor data
-    sensor_groups = sorted([filename for filename in os.listdir("/sys/class/hwmon/")])        # Get sensor group names. In some sensor directories there are a name file and multiple label files. For example, name: "coretemp", label: "Core 0", "Core 1", ... For easier grouping and understanding name is used as "Sensor Group" name and labels are used as "Sensor" names.
+    sensor_groups = sorted(os.listdir("/sys/class/hwmon/"))                                   # Get sensor group names. In some sensor directories there are a name file and multiple label files. For example, name: "coretemp", label: "Core 0", "Core 1", ... For easier grouping and understanding name is used as "Sensor Group" name and labels are used as "Sensor" names.
     sensor_group_names = []
     for sensor_group in sensor_groups:
         with open("/sys/class/hwmon/" + sensor_group + "/name") as reader:

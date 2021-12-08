@@ -259,20 +259,20 @@ def performance_background_func():
     global ram_total, ram_free, ram_available, ram_used
     with open("/proc/meminfo") as reader:                                                     # RAM usage information is get from /proc/meminfo VFS file.
         memory_info = reader.read().split("\n")
-        for line in memory_info:
-            if line.startswith("MemTotal:"):
-                ram_total = int(line.split()[1]) * 1024                                       # Memory values in /proc/meminfo directory are in KibiBytes (KiB). Thet are multiplied with 1024 in order to convert them into bytes. There is some accuracy deviation during the convertion (only in bytes form, it is not valid for KiB, MiB, ...) but it is negligible.
-            if line.startswith("MemFree:"):
-               ram_free = int(line.split()[1]) * 1024
-            if line.startswith("MemAvailable:"):
-                ram_available = int(line.split()[1]) * 1024
-            if line.startswith("Buffers:"):
-                ram_buffers = int(line.split()[1]) * 1024
-            if line.startswith("Cached:"):
-                ram_cached = int(line.split()[1]) * 1024
-        ram_used = ram_total - ram_free - ram_cached - ram_buffers                            # Used RAM value is calculated
-        ram_usage_percent.append(ram_used / ram_total * 100)                                  # Used RAM percentage is calculated
-        del ram_usage_percent[0]                                                              # Delete the first RAM usage percent value from the list in order to keep list lenght same. Because a new value is appended in every loop. This list is used for RAM usage percent graphic.
+    for line in memory_info:
+        if line.startswith("MemTotal:"):
+            ram_total = int(line.split()[1]) * 1024                                           # Memory values in /proc/meminfo directory are in KibiBytes (KiB). Thet are multiplied with 1024 in order to convert them into bytes. There is some accuracy deviation during the convertion (only in bytes form, it is not valid for KiB, MiB, ...) but it is negligible.
+        if line.startswith("MemFree:"):
+           ram_free = int(line.split()[1]) * 1024
+        if line.startswith("MemAvailable:"):
+            ram_available = int(line.split()[1]) * 1024
+        if line.startswith("Buffers:"):
+            ram_buffers = int(line.split()[1]) * 1024
+        if line.startswith("Cached:"):
+            ram_cached = int(line.split()[1]) * 1024
+    ram_used = ram_total - ram_free - ram_cached - ram_buffers                                # Used RAM value is calculated
+    ram_usage_percent.append(ram_used / ram_total * 100)                                      # Used RAM percentage is calculated
+    del ram_usage_percent[0]                                                                  # Delete the first RAM usage percent value from the list in order to keep list lenght same. Because a new value is appended in every loop. This list is used for RAM usage percent graphic.
 
     # Get disk_list
     global disk_list_system_ordered, disk_list
@@ -287,9 +287,9 @@ def performance_background_func():
         disk_list_system_ordered.append(line.split()[3].strip())
     with open("/proc/diskstats") as reader:
         proc_diskstats_lines = reader.read().strip().split("\n")
-        for line in proc_diskstats_lines:
-            if line.split()[2] in disk_list_system_ordered:
-                proc_diskstats_lines_filtered.append(line)                                    # Disk information of some disks (such a loop devices) exist in "/proc/diskstats" file even if these dvice are unmounted. "proc_diskstats_lines_filtered" list is used in order to use disk list without these remaining information.
+    for line in proc_diskstats_lines:
+        if line.split()[2] in disk_list_system_ordered:
+            proc_diskstats_lines_filtered.append(line)                                        # Disk information of some disks (such a loop devices) exist in "/proc/diskstats" file even if these dvice are unmounted. "proc_diskstats_lines_filtered" list is used in order to use disk list without these remaining information.
     for i, disk in enumerate(disk_list_system_ordered):
         if disk not in disk_list:
             disk_list.append(disk)
@@ -316,8 +316,6 @@ def performance_background_func():
         disk_data = proc_diskstats_lines_filtered[disk_list_system_ordered.index(disk)].split()
         disk_read_data.append(int(disk_data[5]) * disk_sector_size)
         disk_write_data.append(int(disk_data[9]) * disk_sector_size)
-        if disk_read_data[-1] - disk_read_data_prev[i] == 0:
-            pass
         disk_read_speed[i].append((disk_read_data[-1] - disk_read_data_prev[i]) / update_interval)
         disk_write_speed[i].append((disk_write_data[-1] - disk_write_data_prev[i]) / update_interval)
         del disk_read_speed[i][0]
@@ -361,8 +359,6 @@ def performance_background_func():
         network_data = proc_net_dev_lines[network_card_list_system_ordered.index(network_card)].split()
         network_receive_bytes.append(int(network_data[1]))
         network_send_bytes.append(int(network_data[9]))
-        if network_receive_bytes[-1] - network_receive_bytes_prev[i] == 0:
-            pass
         network_receive_speed[i].append((network_receive_bytes[-1] - network_receive_bytes_prev[i]) / update_interval)
         network_send_speed[i].append((network_send_bytes[-1] - network_send_bytes_prev[i]) / update_interval)
         del network_receive_speed[i][0]
