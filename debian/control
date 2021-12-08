@@ -10,16 +10,17 @@ Package: system-monitoring-center
 Architecture: amd64
 Depends: ${misc:Depends},
          ${python3:Depends},
-         python3 (>=3.7),
-         python3-gi,
-         python3-cairo,
-         python3-opengl,
-         util-linux (>=2.33),
-         mesa-utils,
-         systemd,
          bash (>=5.0),
+         dmidecode,
+         libwnck-3-0,
+         mesa-utils,
          pci.ids,
-         dmidecode
+         python3 (>=3.7),
+         python3-cairo,
+         python3-gi,
+         python3-opengl,
+         systemd,
+         util-linux (>=2.33)
 Description: Provides information about system performance and usage.
  Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, 
  processes, users, storage, startup programs, services, environment variables 
