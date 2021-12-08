@@ -268,7 +268,10 @@ def process_details_foreground_func():
         for line in proc_pid_status_lines:
             if "Uid:\t" in line:
                 real_user_id = line.split(":")[1].split()[0].strip()                          # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                selected_process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                try:
+                    selected_process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                except ValueError:
+                    selected_process_username = real_user_id
         # Get process nice
         selected_process_nice = int(proc_pid_stat_lines_split[-34])
         # Calculate CPU usage percent of the selected process
