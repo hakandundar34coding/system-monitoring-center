@@ -183,11 +183,14 @@ def sensors_loop_func():
             sensors_data_row.append(sensor_group_name)
             label_file = current_value_file.split("_")[0] + "_label"
             if label_file in sensor_label_files_in_sensor_group:
-                with open("/sys/class/hwmon/" + sensor_group + "/" + label_file) as reader:
-                    sensor_name = reader.read().strip()
+                try:
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + label_file) as reader:
+                        sensor_name = reader.read().strip()
+                except OSError:
+                    sensor_name = "-"
                 sensors_data_row.append(sensor_name)
             if label_file not in sensor_label_files_in_sensor_group:
-                sensors_data_row.append("")
+                sensors_data_row.append("-")
             try:
                 with open("/sys/class/hwmon/" + sensor_group + "/" + current_value_file) as reader:
                     current_value = int(reader.read().strip())
