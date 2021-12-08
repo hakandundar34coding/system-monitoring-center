@@ -366,7 +366,10 @@ def processes_loop_func():
         for line in proc_pid_status_lines:
             if "Uid:\t" in line:
                 real_user_id = line.split(":")[1].split()[0].strip()                          # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                try:
+                    username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                except ValueError:
+                    username = real_user_id
                 break
         username_list.append(username)
         # Remove PIDs of processes from other than current user (show processes only from this user) if it is preferred by user
