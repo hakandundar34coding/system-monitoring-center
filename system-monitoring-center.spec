@@ -10,6 +10,7 @@ BuildRequires:  python3-setuptools
 Requires:       python3 >= 3.7
 # python3-gobject is installed on Fedora (python3-gi on Debian-like systems)
 Requires:       python3-gobject
+Requires:       python3-cairo
 # python3-pyopengl is installed on Fedora (python3-opengl on Debian-like systems)
 Requires:       python3-pyopengl
 Requires:       util-linux >= 2.33
