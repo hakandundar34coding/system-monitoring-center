@@ -53,7 +53,7 @@
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="tooltip-text" translatable="yes">Show all sensors
-(Temperature and fan sensors)</property>
+(Temperature, fan, voltage and current sensors)</property>
                 <property name="active">True</property>
                 <property name="draw-indicator">False</property>
                 <child>
@@ -114,6 +114,28 @@
                 <property name="position">2</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkRadioButton" id="radiobutton1">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Show all voltage and current sensors</property>
+                <property name="draw-indicator">False</property>
+                <property name="group">radiobutton1601</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="icon-name">system-monitoring-center-voltage-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -158,7 +180,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Temperature and Fan Sensors</property>
+            <property name="tooltip-text" translatable="yes">Temperature, Fan, Voltage and Current Sensors</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Sensors</property>
             <attributes>
@@ -183,7 +205,7 @@
                 <property name="tooltip-text" translatable="yes">Number of listed sensors</property>
                 <property name="halign">start</property>
                 <property name="margin-start">60</property>
-                <property name="label" translatable="yes">Total: -- sensors (-- temperature (°C), -- fan (RPM) sensors)</property>
+                <property name="label" translatable="yes">Total: -- sensors (-- temperature, -- fan, -- voltage/current sensors)</property>
                 <property name="wrap">True</property>
                 <property name="selectable">True</property>
               </object>

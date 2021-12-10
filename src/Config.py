@@ -51,7 +51,7 @@ def config_read_func():
 
     try:
         global reset_all_settings_with_new_release_value                                      # This value is used for resetting all settings. This integer value is increased "1" in the new application release if resetting is wanted by the developer. Code reads this value from the config file and compares with the value in the code. All settings are reset if integer value of this value is bigger than the value in the config file. There is no action if integer value of this value is smaller than the value in the config file. There is no relationship between this value and application version.
-        reset_all_settings_with_new_release_value = 1
+        reset_all_settings_with_new_release_value = 2
         with open(config_file_path) as reader:
             global config_lines
             config_lines = reader.read().split("\n")
@@ -168,11 +168,11 @@ def config_default_performance_gpu_func():
 # ----------------------------------- Config - Config Default Performance Tab-Sensors Tab Row Sort Column Order Width Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
 def config_default_performance_sensors_row_column_func():
     global sensors_treeview_columns_shown, sensors_data_row_sorting_column, sensors_data_row_sorting_order, sensors_data_column_order, sensors_data_column_widths
-    sensors_treeview_columns_shown = [0, 1, 2, 3]
+    sensors_treeview_columns_shown = [0, 1, 2, 3, 4]
     sensors_data_row_sorting_column = 0
     sensors_data_row_sorting_order = 0
-    sensors_data_column_order = [0, 1, 2, 3]                                                  # sensors_data_column_order all values = [0, 1, 2, 3]
-    sensors_data_column_widths = [-1, -1, -1, -1]
+    sensors_data_column_order = [0, 1, 2, 3, 4]                                               # sensors_data_column_order all values = [0, 1, 2, 3]
+    sensors_data_column_widths = [-1, -1, -1, -1, -1]
 
 # ----------------------------------- Config - Config Default Processes Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
 def config_default_processes_func():

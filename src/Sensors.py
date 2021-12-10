@@ -113,7 +113,8 @@ def sensors_initial_func():
                         [0, _tr('Sensor Group'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
                         [1, _tr('Sensor Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                         [2, _tr('Current Vale'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [3, _tr('Critical Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']]
+                        [3, _tr('Critical Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [4, _tr('Max Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']]
                         ]
 
     global sensors_data_rows_prev, sensors_treeview_columns_shown_prev, sensors_data_row_sorting_column_prev, sensors_data_row_sorting_order_prev, sensors_data_column_order_prev, sensors_data_column_widths_prev
@@ -124,9 +125,10 @@ def sensors_initial_func():
     sensors_data_column_order_prev = []
     sensors_data_column_widths_prev = []
 
-    global temperature_sensor_icon_name, fan_sensor_icon_name
+    global temperature_sensor_icon_name, fan_sensor_icon_name, voltage_current_sensor_icon_name
     temperature_sensor_icon_name = "system-monitoring-center-temperature-symbolic"
     fan_sensor_icon_name = "system-monitoring-center-fan-symbolic"
+    voltage_current_sensor_icon_name = "system-monitoring-center-voltage-symbolic"
 
     global filter_column
     filter_column = sensors_data_list[0][2] - 1                                               # Search filter is "Sensor Group". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
@@ -151,65 +153,89 @@ def sensors_loop_func():
     global sensors_data_rows, sensor_type_list
     sensors_data_rows = []
     sensor_type_list = []
+    supported_sensor_attributes = ["temp", "fan", "in", "curr"]
 
     # Get sensor data
     sensor_groups = sorted(os.listdir("/sys/class/hwmon/"))                                   # Get sensor group names. In some sensor directories there are a name file and multiple label files. For example, name: "coretemp", label: "Core 0", "Core 1", ... For easier grouping and understanding name is used as "Sensor Group" name and labels are used as "Sensor" names.
     sensor_group_names = []
     for sensor_group in sensor_groups:
-        with open("/sys/class/hwmon/" + sensor_group + "/name") as reader:
-            sensor_group_name = reader.read().strip()
-        sensor_label_files_in_sensor_group = sorted([filename for filename in os.listdir("/sys/class/hwmon/" + sensor_group) if (filename.startswith("temp") or filename.startswith("fan")) and filename.endswith("_label")])
-        current_value_files_in_sensor_group = sorted([filename for filename in os.listdir("/sys/class/hwmon/" + sensor_group) if (filename.startswith("temp") or filename.startswith("fan")) and filename.endswith("_input")])
-        critical_value_files_in_sensor_group = sorted([filename for filename in os.listdir("/sys/class/hwmon/" + sensor_group) if (filename.startswith("temp") or filename.startswith("fan")) and filename.endswith("_crit")])
-        # Remove temperature input file names if there are both temperature and fan names in the file names. For a specific notebook computer fan revolution is defined by using this temperature value and this temperature value is same with the acpitz temperature.
-        fan_sensors = [file for file in current_value_files_in_sensor_group if "fan" in file]
-        temperature_sensors = [file for file in current_value_files_in_sensor_group if "temp" in file]
-        if fan_sensors != [] and temperature_sensors != []:
-            for file in temperature_sensors:
-                current_value_files_in_sensor_group.remove(file)
-        # Define sensor types (temperture or fan sensors)
-        sensor_type_icons_in_sensor_group = []
-        for file in current_value_files_in_sensor_group:
-            if "temp" in file:
-                sensor_type_icons_in_sensor_group.append(temperature_sensor_icon_name)
-            if "fan" in file:
-                sensor_type_icons_in_sensor_group.append(fan_sensor_icon_name)
-        # Get current sensor values from files which "_input" suffixed and get critical sensor values from files which "_crit" suffixed.
-        for current_value_file in current_value_files_in_sensor_group:
-            sensors_data_row = []
-            sensors_data_row.append(True)                                                     # Append sensor visibility data (on treeview) which is used for showing/hiding sensor when sensor data of specific sensor type (temperature or fan sensor) is preferred to be shown or sensor search feature is used from the GUI.
-            sensors_data_row.append(sensor_type_icons_in_sensor_group[current_value_files_in_sensor_group.index(current_value_file)])
-            sensor_type_list.append(sensors_data_row[-1])
-            sensors_data_row.append(sensor_group_name)
-            label_file = current_value_file.split("_")[0] + "_label"
-            if label_file in sensor_label_files_in_sensor_group:
+        files_in_sensor_group = os.listdir("/sys/class/hwmon/" + sensor_group)
+        for attribute in supported_sensor_attributes:
+            sensor_number = 0
+            while True:                                                                       # Continue loop until code breaks it when next sensor data is not available in the folder.
+                string_sensor_number = str(sensor_number)                                     # Convert integer value to string value in order to reduce CPU usage. Because this value is used multiple times.
+                if (attribute + string_sensor_number + "_label" not in files_in_sensor_group) and (attribute + string_sensor_number + "_input" not in files_in_sensor_group):    # Some sensor groups have both label and input files. Some sensor groups have only label or only input files. Some sensor groups do not have label or input files, but they have name files. Data of sensor groups with only name files are not get because they do not have sensor values.
+                    if sensor_number == 0:                                                    # Number in sensor names may start from 0 or 1. Skipped to next loop if number is 0.
+                        sensor_number = sensor_number + 1
+                        continue
+                    if sensor_number > 0:                                                     # Number in sensor names may start from 0 or 1. Loop is broken if number is bigger than 1.
+                        break
+                # Get sensor group name
+                with open("/sys/class/hwmon/" + sensor_group + "/name") as reader:
+                    sensor_group_name = reader.read().strip()
+                if attribute == "temp":
+                    sensor_type = temperature_sensor_icon_name
+                if attribute == "fan":
+                    sensor_type = fan_sensor_icon_name
+                if attribute == "in" or attribute == "curr":
+                    sensor_type = voltage_current_sensor_icon_name
+                # Get sensor name
                 try:
-                    with open("/sys/class/hwmon/" + sensor_group + "/" + label_file) as reader:
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_label") as reader:
                         sensor_name = reader.read().strip()
                 except OSError:
                     sensor_name = "-"
-                sensors_data_row.append(sensor_name)
-            if label_file not in sensor_label_files_in_sensor_group:
-                sensors_data_row.append("-")
-            try:
-                with open("/sys/class/hwmon/" + sensor_group + "/" + current_value_file) as reader:
-                    current_value = int(reader.read().strip())
-            except OSError:
-                current_value = "-"
-            if sensors_data_row[-3] == temperature_sensor_icon_name and current_value != "-":
-                current_value = f'{(current_value / 1000):.0f}'                               # Values in this file are divided by 1000 in order to get temperatures in Celcius unit. Fan sensor values are used without division.
-            sensors_data_row.append(str(current_value))                                       # Sensor data may be fan value and it is converted to string. Temperature values are converted to string by using Python f string.
-            critical_value_file = current_value_file.split("_")[0] + "_crit"
-            if critical_value_file in critical_value_files_in_sensor_group:
-                with open("/sys/class/hwmon/" + sensor_group + "/" + critical_value_file) as reader:
-                    critical_value = int(reader.read().strip())
-                if sensors_data_row[-4] == temperature_sensor_icon_name:
-                    critical_value = f'{(critical_value / 1000):.0f}'                         # Values in this file are divided by 1000 in order to get temperatures in Celcius unit. Fan sensor values are used without division.
-                sensors_data_row.append(str(critical_value))                                  # Sensor data may be fan value and it is converted to string. Temperature values are converted to string by using Python f string.
-            if critical_value_file not in critical_value_files_in_sensor_group:               # There may not be critical value files for some sensors. "" appended into the list in this situation.
-                sensors_data_row.append("-")
-            # Append sensor data list into main list
-            sensors_data_rows.append(sensors_data_row)
+                # Get sensor current value
+                try:
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_input") as reader:
+                        current_value = int(reader.read().strip())                            # Units of data in this file are millidegree Celcius for temperature sensors, RM for fan sensors, millivolt for voltage sensors and milliamper for current sensors.
+                        if attribute == "temp":
+                            current_value = f'{(current_value / 1000):.0f} °C'                # Convert millidegree Celcius to degree Celcius and show not numbers after ".".
+                        if attribute == "fan":
+                            current_value = f'{current_value} RPM'
+                        if attribute == "in":
+                            current_value = f'{(current_value / 1000):.3f} V'                 # Convert millivolt to Volt and show 3 numbers after ".".
+                        if attribute == "curr":
+                            current_value = f'{(current_value / 1000):.3f} A'                 # Convert milliamper to Amper and show 3 numbers after ".".
+                except OSError:
+                    current_value = "-"
+                # Get sensor critical value
+                try:
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_crit") as reader:
+                        critical_value = int(reader.read().strip())                           # Units of data in this file are millidegree Celcius for temperature sensors, RM for fan sensors, millivolt for voltage sensors and milliamper for current sensors.
+                        if attribute == "temp":
+                            critical_value = f'{(critical_value / 1000):.0f} °C'              # Convert millidegree Celcius to degree Celcius and show not numbers after ".".
+                        if attribute == "fan":
+                            critical_value = f'{critical_value} RPM'
+                        if attribute == "in":
+                            critical_value = f'{(critical_value / 1000):.3f} V'               # Convert millivolt to Volt and show 3 numbers after ".".
+                        if attribute == "curr":
+                            critical_value = f'{(critical_value / 1000):.3f} A'               # Convert milliamper to Amper and show 3 numbers after ".".
+                except OSError:
+                    critical_value = "-"
+                # Get sensor maximum value
+                try:
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_max") as reader:
+                        max_value = int(reader.read().strip())                                # Units of data in this file are millidegree Celcius for temperature sensors, RM for fan sensors, millivolt for voltage sensors and milliamper for current sensors.
+                        if attribute == "temp":
+                            max_value = f'{(max_value / 1000):.0f} °C'                        # Convert millidegree Celcius to degree Celcius and show not numbers after ".".
+                        if attribute == "fan":
+                            max_value = f'{max_value} RPM'
+                        if attribute == "in":
+                            max_value = f'{(max_value / 1000):.3f} V'                         # Convert millivolt to Volt and show 3 numbers after ".".
+                        if attribute == "curr":
+                            max_value = f'{(max_value / 1000):.3f} A'                         # Convert milliamper to Amper and show 3 numbers after ".".
+                except OSError:
+                    max_value = "-"
+
+
+                sensor_type_list.append(sensor_type)                                          # Append sensor type. This information will be used for filtering sensors by type when "Show all temperature/fan/voltage and current sensors" radiobuttons are clicked.
+                sensors_data_row = [True, sensor_type, sensor_group_name, sensor_name, current_value, critical_value, max_value]    # Append sensor visibility data (on treeview) which is used for showing/hiding sensor when sensor data of specific sensor type (temperature or fan sensor) is preferred to be shown or sensor search feature is used from the GUI.
+
+                # Append sensor data list into main list
+                sensors_data_rows.append(sensors_data_row)
+
+                sensor_number = sensor_number + 1                                             # Increase sensor number by "1" in order to use this value for getting next file names of the sensor.
 
     # Add/Remove treeview columns appropriate for user preferences
     treeview1601.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
@@ -338,8 +364,9 @@ def sensors_loop_func():
     # Get number of all/temperature/fan sensors and show these information on the GUI label
     temperature_sensors_count = sensor_type_list.count(temperature_sensor_icon_name)
     fan_sensors_count = sensor_type_list.count(fan_sensor_icon_name)
+    voltage_and_current_sensors_count = sensor_type_list.count(voltage_current_sensor_icon_name)
     number_of_all_sensors = len(sensor_type_list)
-    label1601.set_text(_tr("Total: ") + str(number_of_all_sensors) + _tr(" sensors (") + str(temperature_sensors_count) + _tr(" temperature (°C), ") + str(fan_sensors_count) + _tr(" fan (RPM) sensors)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    label1601.set_text(_tr("Total: ") + str(number_of_all_sensors) + _tr(" sensors (") + str(temperature_sensors_count) + _tr(" temperature, ") + str(fan_sensors_count) + _tr(" fan, ") + str(voltage_and_current_sensors_count) + _tr(" voltage/current sensors)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
 
 
 # ----------------------------------- Sensors Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------

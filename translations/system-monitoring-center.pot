@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-08 09:11+0300\n"
+"POT-Creation-Date: 2021-12-10 18:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "CPU Usage (Per Core):"
 msgstr ""
 
 #: src/Cpu.py:336 src/Network.py:187 src/Network.py:193 src/Network.py:252
-#: src/Performance.py:143 src/Performance.py:149 src/Processes.py:808
+#: src/Performance.py:143 src/Performance.py:149 src/Processes.py:811
 #: src/RamHardwareInformation.py:78
 msgid "Unknown"
 msgstr ""
@@ -84,16 +84,16 @@ msgid "Disk"
 msgstr ""
 
 #: src/Disk.py:475 src/FloatingSummary.py:208 src/Network.py:343
-#: src/PerformanceSummaryHeaderbar.py:199 src/Processes.py:915
-#: src/ProcessesDetails.py:655 src/Ram.py:329 src/RamSwapDetails.py:147
+#: src/PerformanceSummaryHeaderbar.py:199 src/Processes.py:918
+#: src/ProcessesDetails.py:658 src/Ram.py:329 src/RamSwapDetails.py:147
 #: src/Services.py:636 src/ServicesDetails.py:356 src/Storage.py:908
 #: src/StorageDetails.py:515 src/Users.py:729 src/UsersDetails.py:380
 msgid "Auto-Byte"
 msgstr ""
 
 #: src/Disk.py:477 src/FloatingSummary.py:210 src/Network.py:345
-#: src/PerformanceSummaryHeaderbar.py:201 src/Processes.py:917
-#: src/ProcessesDetails.py:657 src/Ram.py:331 src/RamSwapDetails.py:149
+#: src/PerformanceSummaryHeaderbar.py:201 src/Processes.py:920
+#: src/ProcessesDetails.py:660 src/Ram.py:331 src/RamSwapDetails.py:149
 #: src/Services.py:638 src/ServicesDetails.py:358 src/Storage.py:910
 #: src/StorageDetails.py:517 src/Users.py:731 src/UsersDetails.py:382
 msgid "Auto-bit"
@@ -109,7 +109,7 @@ msgid "Edit Persistent Environment Variable"
 msgstr ""
 
 #: src/EnvironmentVarMenuRightClick.py:163 src/EnvironmentVariablesInput.py:179
-#: src/EnvironmentVariablesInput.py:196 src/Processes.py:883
+#: src/EnvironmentVariablesInput.py:196 src/Processes.py:886
 #: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
 #: src/RamHardwareInformation.py:174 src/ServicesMenuRightClick.py:161
 #: src/SettingsGUI.py:596 src/StartupMenuRightClick.py:425
@@ -194,7 +194,7 @@ msgid ""
 "in terminal."
 msgstr ""
 
-#: src/EnvironmentVariables.py:475 src/Processes.py:666 src/Sensors.py:339
+#: src/EnvironmentVariables.py:475 src/Processes.py:669 src/Sensors.py:369
 #: src/Services.py:501 src/Startup.py:709 src/Storage.py:737 src/Users.py:590
 msgid "Total: "
 msgstr ""
@@ -300,7 +300,7 @@ msgid ""
 "your system."
 msgstr ""
 
-#: src/MainMenusDialogs.py:151 src/ProcessesDetails.py:687
+#: src/MainMenusDialogs.py:151 src/ProcessesDetails.py:690
 #: src/ProcessesMenuRightClick.py:278 src/ProcessesMenuRightClick.py:314
 #: src/ProcessesMenuRightClick.py:324 src/StartupMenuRightClick.py:451
 #: src/StorageMenuRightClick.py:234 src/StorageMenuRightClick.py:247
@@ -477,23 +477,23 @@ msgstr ""
 msgid "Dead"
 msgstr ""
 
-#: src/Processes.py:666
+#: src/Processes.py:669
 msgid " processes ("
 msgstr ""
 
-#: src/Processes.py:666
+#: src/Processes.py:669
 msgid " from this user, "
 msgstr ""
 
-#: src/Processes.py:666
+#: src/Processes.py:669
 msgid " from other users/system)"
 msgstr ""
 
-#: src/Processes.py:884
+#: src/Processes.py:887
 msgid "Current Windowing System Is not Supported"
 msgstr ""
 
-#: src/Processes.py:885
+#: src/Processes.py:888
 msgid ""
 "This function can not be used on systems which run a windowing system other "
 "than X11."
@@ -503,22 +503,22 @@ msgstr ""
 msgid "Process Details: "
 msgstr ""
 
-#: src/ProcessesDetails.py:688 src/ProcessesMenuRightClick.py:315
+#: src/ProcessesDetails.py:691 src/ProcessesMenuRightClick.py:315
 msgid "Process Is Not Running Anymore"
 msgstr ""
 
-#: src/ProcessesDetails.py:689
+#: src/ProcessesDetails.py:692
 msgid ""
 "Following process is not running anymore \n"
 "and process details window is closed automatically:\n"
 "  "
 msgstr ""
 
-#: src/ProcessesDetails.py:689 src/ProcessesMenuRightClick.py:316
+#: src/ProcessesDetails.py:692 src/ProcessesMenuRightClick.py:316
 msgid " (PID: "
 msgstr ""
 
-#: src/ProcessesDetails.py:689
+#: src/ProcessesDetails.py:692
 msgid ")"
 msgstr ""
 
@@ -669,16 +669,24 @@ msgstr ""
 msgid "Critical Value"
 msgstr ""
 
-#: src/Sensors.py:339
+#: src/Sensors.py:117
+msgid "Max Value"
+msgstr ""
+
+#: src/Sensors.py:369
 msgid " sensors ("
 msgstr ""
 
-#: src/Sensors.py:339
-msgid " temperature (°C), "
+#: src/Sensors.py:369
+msgid " temperature, "
 msgstr ""
 
-#: src/Sensors.py:339
-msgid " fan (RPM) sensors)"
+#: src/Sensors.py:369
+msgid " fan, "
+msgstr ""
+
+#: src/Sensors.py:369
+msgid " voltage/current sensors)"
 msgstr ""
 
 #: src/Services.py:183 ui/ServicesMenuCustomizations.ui:252
@@ -898,7 +906,7 @@ msgstr ""
 msgid "GPU"
 msgstr ""
 
-#: src/SettingsGUI.py:333 ui/MainWindow.ui:315 ui/SensorsTab.ui:163
+#: src/SettingsGUI.py:333 ui/MainWindow.ui:315 ui/SensorsTab.ui:185
 msgid "Sensors"
 msgstr ""
 
@@ -2891,7 +2899,7 @@ msgstr ""
 #: ui/SensorsTab.ui:55
 msgid ""
 "Show all sensors\n"
-"(Temperature and fan sensors)"
+"(Temperature, fan, voltage and current sensors)"
 msgstr ""
 
 #: ui/SensorsTab.ui:78
@@ -2902,16 +2910,20 @@ msgstr ""
 msgid "Show all fan sensors"
 msgstr ""
 
-#: ui/SensorsTab.ui:161
-msgid "Temperature and Fan Sensors"
+#: ui/SensorsTab.ui:122
+msgid "Show all voltage and current sensors"
 msgstr ""
 
 #: ui/SensorsTab.ui:183
+msgid "Temperature, Fan, Voltage and Current Sensors"
+msgstr ""
+
+#: ui/SensorsTab.ui:205
 msgid "Number of listed sensors"
 msgstr ""
 
-#: ui/SensorsTab.ui:186
-msgid "Total: -- sensors (-- temperature (°C), -- fan (RPM) sensors)"
+#: ui/SensorsTab.ui:208
+msgid "Total: -- sensors (-- temperature, -- fan, -- voltage/current sensors)"
 msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:82
