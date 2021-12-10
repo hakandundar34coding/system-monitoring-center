@@ -42,7 +42,7 @@ def sensors_gui_func():
 
     # Sensors tab GUI objects
     global grid1601, treeview1601, searchentry1601
-    global radiobutton1601, radiobutton1602, radiobutton1603
+    global radiobutton1601, radiobutton1602, radiobutton1603, radiobutton1604
     global label1601
 
     # Sensors tab GUI objects - get
@@ -52,6 +52,7 @@ def sensors_gui_func():
     radiobutton1601 = builder.get_object('radiobutton1601')
     radiobutton1602 = builder.get_object('radiobutton1602')
     radiobutton1603 = builder.get_object('radiobutton1603')
+    radiobutton1604 = builder.get_object('radiobutton1604')
     label1601 = builder.get_object('label1601')
 
 
@@ -81,12 +82,19 @@ def sensors_gui_func():
             sensors_treeview_filter_show_all_func()
             sensors_treeview_filter_only_fan_sensors_func()
 
+    def on_radiobutton1604_toggled(widget):                                                   # "Show all voltage and current sensors" radiobutton
+        if radiobutton1604.get_active() == True:
+            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            sensors_treeview_filter_show_all_func()
+            sensors_treeview_filter_only_voltage_current_sensors_func()
+
 
     # Sensors tab GUI functions - connect
     searchentry1601.connect("changed", on_searchentry1601_changed)
     radiobutton1601.connect("toggled", on_radiobutton1601_toggled)
     radiobutton1602.connect("toggled", on_radiobutton1602_toggled)
     radiobutton1603.connect("toggled", on_radiobutton1603_toggled)
+    radiobutton1604.connect("toggled", on_radiobutton1604_toggled)
 
 
     # Sensors Tab on Sensors Tab - Treeview Properties
@@ -342,9 +350,11 @@ def sensors_loop_func():
     # Append sensor data into treeview
     for sensors_data_row in sensors_data_rows:
         # /// Start /// This block of code is used for determining if the newly added sensor will be shown on the treeview (sensor search actions and/or search customizations and/or "Show only temperature/fan sensors" preference affect sensor visibility).
-        if radiobutton1602.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != temperature_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show sensors from this user" option is selected on the GUI and sensor username is not same as name of current user.
+        if radiobutton1602.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != temperature_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show all temperature sensors" option is selected on the GUI and sensor type is not temperature.
             sensors_data_row[0] = False
-        if radiobutton1603.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != fan_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show sensors from other users" option is selected on the GUI and sensor username is same as name of current user.
+        if radiobutton1603.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != fan_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show all fan sensors" option is selected on the GUI and sensor type is not fan.
+            sensors_data_row[0] = False
+        if radiobutton1604.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != voltage_current_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show all voltage and current sensors" option is selected on the GUI and sensor type is not voltage or current.
             sensors_data_row[0] = False
         if searchentry1601.get_text() != "":
             sensor_search_text = searchentry1601.get_text()
@@ -423,7 +433,16 @@ def sensors_treeview_filter_only_temperature_sensors_func():
 def sensors_treeview_filter_only_fan_sensors_func():
 
     for piter in piter_list:
-        if sensor_type_list[piter_list.index(piter)] == temperature_sensor_icon_name:
+        if sensor_type_list[piter_list.index(piter)] != fan_sensor_icon_name:
+            treestore1601.set_value(piter, 0, False)
+    treeview1601.expand_all()
+
+
+# ----------------------------------- Sensors - Treeview Filter Only Voltage and Current Sensors Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+def sensors_treeview_filter_only_voltage_current_sensors_func():
+
+    for piter in piter_list:
+        if sensor_type_list[piter_list.index(piter)] != voltage_current_sensor_icon_name:
             treestore1601.set_value(piter, 0, False)
     treeview1601.expand_all()
 

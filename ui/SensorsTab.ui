@@ -115,7 +115,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="radiobutton1">
+              <object class="GtkRadioButton" id="radiobutton1604">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
