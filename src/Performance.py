@@ -114,13 +114,13 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
     for gpu_number in gpu_number_list:
         for gpu_pci_info in gpu_pci_info_list_unordered:
             if os.path.isdir("/sys/devices/pci0000:00/" + gpu_pci_info + "/drm/card" + gpu_number) == True:
-                gpu_directory.append("/sys/devices/pci0000:00/" + gpu_pci_info + "/")
+                gpu_directory.append("/sys/devices/pci0000:00/" + gpu_pci_info)
                 continue
             if os.path.isdir("/sys/devices/pci0000:00/" + gpu_pci_info + "/drm/card" + gpu_number) == False:
                 files_in_sys_devices_pci = os.listdir("/sys/devices/pci0000:00/")
                 for file in files_in_sys_devices_pci:
                     if os.path.isdir("/sys/devices/pci0000:00/" + file + "/" + gpu_pci_info + "/drm/card" + gpu_number):
-                        gpu_directory.append("/sys/devices/pci0000:00/" + file + "/" + gpu_pci_info + "/")
+                        gpu_directory.append("/sys/devices/pci0000:00/" + file + "/" + gpu_pci_info)
                         continue
     for i, gpu_number in enumerate(gpu_number_list):
         with open(gpu_directory[i] + "/boot_vga") as reader:
