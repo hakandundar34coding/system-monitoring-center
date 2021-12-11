@@ -10,13 +10,16 @@ BuildRequires:  python3-setuptools
 Requires:       bash >= 5.0
 Requires:       dmidecode
 Requires:       glx-utils
-Requires:       hwdata                  # hwdata package is installed on Fedora for pci.ids file.
-Requires:       iproute2
+# hwdata package is installed on Fedora for pci.ids file.
+Requires:       hwdata
+Requires:       iproute
 Requires:       libwnck3
 Requires:       python3 >= 3.7
 Requires:       python3-cairo
-Requires:       python3-gobject         # python3-gobject is installed on Fedora (python3-gi on Debian-like systems)
-Requires:       python3-pyopengl        # python3-pyopengl is installed on Fedora (python3-opengl on Debian-like systems)
+# python3-gobject is installed on Fedora (python3-gi on Debian-like systems)
+Requires:       python3-gobject
+# python3-pyopengl is installed on Fedora (python3-opengl on Debian-like systems)
+Requires:       python3-pyopengl
 Requires:       systemd
 Requires:       util-linux >= 2.33
 
