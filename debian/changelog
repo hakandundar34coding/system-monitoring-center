@@ -1,3 +1,14 @@
+system-monitoring-center (0.3.0~beta1) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * New: Support for voltage,current and more temp./fan sensors
+  * Minor performance improvements for several tabs
+  * Fix: sensor name (Sensors tab)
+  * Updated package dependencies
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 11 Dec 2021 12:59:53 +0300
+
 system-monitoring-center (0.2.0~beta1) unstable; urgency=medium
 
   * New: limited support for ARM CPUs (CPU tab)
