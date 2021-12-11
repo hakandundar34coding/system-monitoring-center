@@ -202,13 +202,13 @@ def disk_initial_func():
     except:
         return
     # Read pci.ids file. Some disks such as NVMe SSDs have "vendor" file with device id content. pci.ids file will be used for getting disk vendor name by using these ids.
-    if os.path.isfile("/usr/share/misc/pci.ids") == True:                                     # Check if "pci.ids" file is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
-        pci_ids_file_directory = "/usr/share/misc/pci.ids"
-    if os.path.isfile("/usr/share/hwdata/pci.ids") == True:                                   # Check if "pci.ids" file is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
-        pci_ids_file_directory = "/usr/share/hwdata/pci.ids"
     global pci_ids_output
-    with open(pci_ids_file_directory) as reader:                                              # Find network card device model from "pci.ids" file by using vendor id and device id.
-        pci_ids_output = reader.read()
+    try:                                                                                      # Find disk device model from "pci.ids" file by using vendor id and device id.
+        with open("/usr/share/misc/pci.ids") as reader:                                       # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
+            pci_ids_output = reader.read()
+    except FileNotFoundError:
+        with open("/usr/share/hwdata/pci.ids") as reader:                                     # Read "pci.ids" file if it is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
+            pci_ids_output = reader.read()
     # Get disk_vendor_model, disk_parent_name, disk_mount_point
     disk_get_device_partition_model_name_mount_point_func()
     # Get disk_file_system
@@ -400,15 +400,15 @@ def disk_get_device_partition_model_name_mount_point_func():
                     rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id)[1]
                     disk_vendor = rest_of_the_pci_ids_output.split("\n")[0].strip()
                 if disk_vendor_id not in pci_ids_output:
-                    disk_vendor = "-"
+                    disk_vendor = f'[{_tr("Unknown")}]'
             except:
-                disk_vendor = "-"
+                disk_vendor = f'[{_tr("Unknown")}]'
         # Get disk model if selected disk is a disk
         try:
             with open("/sys/class/block/" + selected_disk_name + "/device/model") as reader:
                 disk_model = reader.read().strip()
         except:
-            disk_model = "-"
+            disk_model = f'[{_tr("Unknown")}]'
         disk_vendor_model = disk_vendor + " - " +  disk_model
     if disk_type == _tr("Partition"):
         # Get disk vendor if selected disk is a partition

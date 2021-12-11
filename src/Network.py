@@ -174,25 +174,23 @@ def network_initial_func():
             network_card_vendor_id = "\n" + reader.read().split("x")[1].strip() + "  "
         with open("/sys/class/net/" + network_card_list[selected_network_card_number] + "/device/device") as reader:   # Get network card device id
             network_card_device_id = "\n\t" + reader.read().split("x")[1].strip() + "  "
-        if os.path.isfile("/usr/share/misc/pci.ids") == True:                                 # Check if "pci.ids" file is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
-            pci_ids_file_directory = "/usr/share/misc/pci.ids"
-        if os.path.isfile("/usr/share/hwdata/pci.ids") == True:                               # Check if "pci.ids" file is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
-            pci_ids_file_directory = "/usr/share/hwdata/pci.ids"
-        with open(pci_ids_file_directory) as reader:                                          # Find network card device model from "pci.ids" file by using vendor id and device id.
-            pci_ids_output = reader.read()
-            if network_card_vendor_id in pci_ids_output:                                      # "vendor" information may not be present in the pci.ids file.
-                rest_of_the_pci_ids_output = pci_ids_output.split(network_card_vendor_id)[1]
-                network_card_vendor_name = rest_of_the_pci_ids_output.split("\n")[0].strip()
-            else:
-                network_card_vendor_name = _tr("Unknown")
-                network_card_vendor_name = f'[{network_card_vendor_name}]'
-            if network_card_device_id in rest_of_the_pci_ids_output:                          # "device name" information may not be present in the pci.ids file.
-                rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(network_card_device_id)[1]
-                network_card_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n")[0].strip()
-            else:
-                network_card_device_name = _tr("Unknown")
-                network_card_device_name = f'[{network_card_device_name}]'
-    network_card_device_model_name = f'{network_card_vendor_name} {network_card_device_name}'
+        try:                                                                                  # Find network card device model from "pci.ids" file by using vendor id and device id.
+            with open("/usr/share/misc/pci.ids") as reader:                                   # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
+                pci_ids_output = reader.read()
+        except FileNotFoundError:
+            with open("/usr/share/hwdata/pci.ids") as reader:                                 # Read "pci.ids" file if it is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
+                pci_ids_output = reader.read()
+        if network_card_vendor_id in pci_ids_output:                                          # "vendor" information may not be present in the pci.ids file.
+            rest_of_the_pci_ids_output = pci_ids_output.split(network_card_vendor_id)[1]
+            network_card_vendor_name = rest_of_the_pci_ids_output.split("\n")[0].strip()
+        else:
+            network_card_vendor_name = f'[{_tr("Unknown")}]'
+        if network_card_device_id in rest_of_the_pci_ids_output:                              # "device name" information may not be present in the pci.ids file.
+            rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(network_card_device_id)[1]
+            network_card_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n")[0].strip()
+        else:
+            network_card_device_name = f'[{_tr("Unknown")}]'
+    network_card_device_model_name = f'{network_card_vendor_name} - {network_card_device_name}'
     if network_card_list[selected_network_card_number] == "lo":                               # lo (Loopback Device) is a system device and it is not a physical device. Therefore it could not be found in "pci.ids" file.
         network_card_device_model_name = "Loopback Device"
     # Get connection_type
