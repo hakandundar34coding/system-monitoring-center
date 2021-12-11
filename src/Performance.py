@@ -95,40 +95,22 @@ def performance_set_selected_network_card_func():
 def performance_get_gpu_list_and_set_selected_gpu_func():
 
     global gpu_list, gpu_number_list, default_gpu, gpu_device_model_name, gpu_vendor_id_list, gpu_device_id_list
-    gpu_list = []
-    gpu_number_list = []
-    gpu_pci_info_list_unordered = []
-    gpu_directory = []
     gpu_device_model_name = []
     gpu_vendor_id_list = []
     gpu_device_id_list = []
-    files_in_dev_dri = os.listdir("/dev/dri/")
-    for file in files_in_dev_dri:
-        if file.startswith("card"):
-            gpu_list.append(file)
-            gpu_number_list.append(file.split("card")[1])
-    files_in_dev_dri_by_path = os.listdir("/dev/dri/by-path/")
-    for file in files_in_dev_dri_by_path:
-        if file.endswith("card"):
-            gpu_pci_info_list_unordered.append(file.split("-card")[0].split("pci-")[1])
-    for gpu_number in gpu_number_list:
-        for gpu_pci_info in gpu_pci_info_list_unordered:
-            if os.path.isdir("/sys/devices/pci0000:00/" + gpu_pci_info + "/drm/card" + gpu_number) == True:
-                gpu_directory.append("/sys/devices/pci0000:00/" + gpu_pci_info)
-                continue
-            if os.path.isdir("/sys/devices/pci0000:00/" + gpu_pci_info + "/drm/card" + gpu_number) == False:
-                files_in_sys_devices_pci = os.listdir("/sys/devices/pci0000:00/")
-                for file in files_in_sys_devices_pci:
-                    if os.path.isdir("/sys/devices/pci0000:00/" + file + "/" + gpu_pci_info + "/drm/card" + gpu_number):
-                        gpu_directory.append("/sys/devices/pci0000:00/" + file + "/" + gpu_pci_info)
-                        continue
-    for i, gpu_number in enumerate(gpu_number_list):
-        with open(gpu_directory[i] + "/boot_vga") as reader:
-            if reader.read().strip() == "1":
-                default_gpu = gpu_list[i]
-        with open(gpu_directory[i] + "/vendor") as reader:
+    default_gpu = ""                                                                          # Initial value of "default_gpu" variable.
+    gpu_list = [gpu_name for gpu_name in os.listdir("/dev/dri/") if gpu_name.rstrip("0123456789") == "card"]
+    gpu_number_list = [gpu.split("card")[1] for gpu in gpu_list]
+    for gpu in gpu_list:
+        try:
+            with open("/sys/class/drm/" + gpu + "/device/boot_vga") as reader:
+                if reader.read().strip() == "1":
+                    default_gpu = gpu
+        except FileNotFoundError:
+            pass
+        with open("/sys/class/drm/" + gpu + "/device/vendor") as reader:
             gpu_vendor_id = "\n" + reader.read().split("x")[1].strip() + "  "
-        with open(gpu_directory[i] + "/device") as reader:
+        with open("/sys/class/drm/" + gpu + "/device/device") as reader:
             gpu_device_id = "\n\t" + reader.read().split("x")[1].strip() + "  "
         if os.path.isfile("/usr/share/misc/pci.ids") == True:                                 # Check if "pci.ids" file is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
             pci_ids_file_directory = "/usr/share/misc/pci.ids"
@@ -154,11 +136,17 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
 
     # Set selected gpu/graphics card
     if Config.selected_gpu == "":                                                             # "" is predefined gpu name before release of the software. This statement is used in order to avoid error, if no gpu selection is made since first run of the software.
-        set_selected_gpu = default_gpu
+        if default_gpu != "":
+            set_selected_gpu = default_gpu
+        if default_gpu == "":
+            set_selected_gpu = gpu_list[0]
     if Config.selected_gpu in gpu_list:
         set_selected_gpu = Config.selected_gpu
     if Config.selected_gpu not in gpu_list:
-        set_selected_gpu = default_gpu
+        if default_gpu != "":
+            set_selected_gpu = default_gpu
+        if default_gpu == "":
+            set_selected_gpu = gpu_list[0]
     global selected_gpu_number
     selected_gpu_number = gpu_list.index(set_selected_gpu)
 
