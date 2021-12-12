@@ -124,7 +124,7 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
             gpu_vendor_name = rest_of_the_pci_ids_output.split("\n")[0].strip()
         else:
             gpu_vendor_name = f'[{_tr("Unknown")}]'
-        if gpu_device_id_for_search in rest_of_the_pci_ids_output:                            # "device name" information may not be present in the pci.ids file.
+        if gpu_device_id_for_search in rest_of_the_pci_ids_output and gpu_vendor_name != f'[{_tr("Unknown")}]':    # "device name" information may not be present in the pci.ids file.
             rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(gpu_device_id_for_search)[1]
             gpu_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n")[0].strip()
         else:
