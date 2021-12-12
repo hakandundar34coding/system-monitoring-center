@@ -232,7 +232,7 @@ def gpu_initial_func():
 
     # Set GPU tab label texts by using information get
     label1501.set_text(gpu_device_model_name[selected_gpu_number])
-    label1502.set_text(f'{gpu_list[selected_gpu_number]} ({gpu_vendor_name_in_driver} {gpu_device_name_in_driver})')
+    label1502.set_text(f'{gpu_list[selected_gpu_number]} ({gpu_vendor_name_in_driver} - {gpu_device_name_in_driver})')
     label1507.set_text(if_default_gpu)
     label1508.set_text(video_memory)
     label1509.set_text(if_unified_memory)
