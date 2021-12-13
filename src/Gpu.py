@@ -179,8 +179,8 @@ def gpu_initial_func():
     # Get gpu_device_name value
     Performance.performance_get_gpu_list_and_set_selected_gpu_func()                          # Get gpu/graphics card list and set selected gpu
     gpu_vendor_id_list = Performance.gpu_vendor_id_list
-    selected_gpu_number = Performance.selected_gpu_number
     gpu_device_id_list = Performance.gpu_device_id_list
+    selected_gpu_number = Performance.selected_gpu_number
     gpu_list = Performance.gpu_list
     default_gpu = Performance.default_gpu
     gpu_device_model_name = Performance.gpu_device_model_name
@@ -197,24 +197,31 @@ def gpu_initial_func():
         except:
             gpu_vendor_in_driver = "-"
             gpu_device_in_driver = "-"
-        if gpu_vendor_in_driver == gpu_vendor_id_list[selected_gpu_number].strip(" \n\t") and gpu_device_in_driver == gpu_device_id_list[selected_gpu_number].strip(" \n\t")[1:]:    # Check for matching GPU information from "sys/devices/pci0000:00/..." directory and from "glxinfo" command. "[1:]" is used for trimming "0" at the beginning of the device id which is get from "/sys/devices/..." directory.
+        if gpu_vendor_in_driver == gpu_vendor_id_list[selected_gpu_number] and gpu_device_in_driver == gpu_device_id_list[selected_gpu_number][1:]:    # Check for matching GPU information from "sys/devices/pci0000:00/..." directory and from "glxinfo" command. "[1:]" is used for trimming "0" at the beginning of the device id which is get from "/sys/devices/..." directory.
             break
     try:
         for line in glxinfo_output_lines:
             if line.strip().startswith("OpenGL vendor string:"):
                 gpu_vendor_name_in_driver = line.split(":")[1].strip()
+                continue
             if line.strip().startswith("OpenGL renderer string:"):
                 gpu_device_name_in_driver = line.split(":")[1].strip()
+                continue
             if line.strip().startswith("Video memory:"):
                 video_memory = line.split(":")[1].strip()
+                continue
             if line.strip().startswith("Unified memory:"):
                 if_unified_memory = _tr(line.split(":")[1].strip().capitalize())              # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
+                continue
             if line.strip().startswith("direct rendering:"):
                 direct_rendering = _tr(line.split(":")[1].strip())                            # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
+                continue
             if line.strip().startswith("Version:"):
                 mesa_version = line.split(":")[1].strip()
+                continue
             if line.strip().startswith("OpenGL version string:"):
                 opengl_version, display_driver = line.split(":")[1].strip().split(" ", 1)     # "split(" ", 1" is for splitting string by first space character
+                continue
     except:
         gpu_vendor_name_in_driver = "-"
         gpu_device_name_in_driver = "-"
