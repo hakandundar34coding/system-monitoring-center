@@ -14,7 +14,7 @@ def network_import_func():
 
 
     global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+    from . import Config, MainGUI, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -67,7 +67,7 @@ def network_gui_func():
     def on_button1401_clicked(widget):
         if 'NetworkMenu' not in globals():
             global NetworkMenu
-            import NetworkMenu
+            from . import NetworkMenu
             NetworkMenu.network_menus_import_func()
             NetworkMenu.network_menus_gui_func()
             NetworkMenu.popover1401p.set_relative_to(button1401)                              # Set widget that popover menu will display at the edge of.

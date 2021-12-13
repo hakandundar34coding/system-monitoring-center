@@ -13,7 +13,7 @@ def environment_variables_menu_right_click_import_func():
 
 
     global EnvironmentVariables, MainGUI
-    import EnvironmentVariables, MainGUI
+    from . import EnvironmentVariables, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

@@ -14,7 +14,7 @@ def startup_menu_right_click_import_func():
 
 
     global MainGUI, Startup
-    import MainGUI, Startup
+    from . import MainGUI, Startup
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

@@ -13,7 +13,7 @@ def ram_import_func():
 
 
     global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+    from . import Config, MainGUI, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -67,7 +67,7 @@ def ram_gui_func():
     def on_button1201_clicked(widget):
         if 'RamMenu' not in globals():
             global RamMenu
-            import RamMenu
+            from . import RamMenu
             RamMenu.ram_menus_import_func()
             RamMenu.ram_menus_gui_func()
             RamMenu.popover1201p.set_relative_to(button1201)                                  # Set widget that popover menu will display at the edge of.
@@ -78,7 +78,7 @@ def ram_gui_func():
         if event.button == 1:
             if 'RamHardwareInformation' not in globals():                                     # Check if "RamHardwareInformation" module is imported. Therefore it is not reimported for every mouse click on relevant GUI object on the RAM tab if "RamHardwareInformation" name is in globals().
                 global RamHardwareInformation
-                import RamHardwareInformation
+                from . import RamHardwareInformation
                 RamHardwareInformation.ram_hardware_information_import_func()
                 RamHardwareInformation.ram_hardware_information_gui_func()
             RamHardwareInformation.ram_hardware_information_get_func()
@@ -89,7 +89,7 @@ def ram_gui_func():
         if event.button == 1:
             if 'RamSwapDetails' not in globals():                                             # Check if "RamSwapDetails" module is imported. Therefore it is not reimported for every mouse click on relevant GUI object on the RAM tab if "RamSwapDetails" name is in globals().
                 global RamSwapDetails
-                import RamSwapDetails
+                from . import RamSwapDetails
                 RamSwapDetails.ram_swap_details_import_func()
                 RamSwapDetails.ram_swap_details_gui_func()
             RamSwapDetails.ram_swap_details_get_func()                                        # Run this function in order to get RAM hardware information.

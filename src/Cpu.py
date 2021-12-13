@@ -14,7 +14,7 @@ def cpu_import_func():
 
 
     global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+    from . import Config, MainGUI, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -68,7 +68,7 @@ def cpu_gui_func():
     def on_button1101_clicked(widget):                                                        # "CPU Tab Customizations" button
         if 'CpuMenu' not in globals():
             global CpuMenu
-            import CpuMenu
+            from . import CpuMenu
             CpuMenu.cpu_menus_import_func()
             CpuMenu.cpu_menus_gui_func()
             CpuMenu.popover1101p.set_relative_to(button1101)                                  # Set widget that popover menu will display at the edge of.

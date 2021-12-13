@@ -95,13 +95,13 @@ def main_gui_func():
 
     def on_window1_show(widget):                                                              # Some functions such a (hardware selection, performance backround function, main menu gui importing and setting popup menu (main menu) are run after main window is shown. This is due to decreasing window display delay.
         global Config
-        import Config                                                                         # Import Config module which reads, saves and contains all read settings
+        from . import Config                                                                         # Import Config module which reads, saves and contains all read settings
         Config.config_import_func()                                                           # Start import operations of the module
         Config.config_read_func()                                                             # Start setting read operations of the module
 
         # Run "Performance" module in order to provide performance data to Performance tab, performance summary on the headerbar and Floating Summary window.
         global Performance                                                                    # This module is always imported after window show in order to track performance data in the background even if tabs are switched. Otherwise performance data such as CPU, RAM, etc. will be shown as intermitted on the charts (due to tab switches).
-        import Performance
+        from . import Performance
         Performance.performance_import_func()
         Performance.performance_background_thread_run_func()
 
@@ -110,14 +110,14 @@ def main_gui_func():
 
         main_gui_tab_switch_func()                                                            # Run main tab function after initial showing main window (this function is also called when main tab checkbuttons are toggled).
 
-        import MainMenusDialogs                                                               # Import MainMenusDialogs module which contains main menus/dialogs GUI obejcts and signals
+        from . import MainMenusDialogs                                                               # Import MainMenusDialogs module which contains main menus/dialogs GUI obejcts and signals
         MainMenusDialogs.main_menus_gui_import_func()
         MainMenusDialogs.main_menus_gui_func()
         menubutton1.set_popup(MainMenusDialogs.menu1001m)                                     # Set popup menu (Main menu)
 
         # Add performance summary widgets to the main window headerbar.
         if Config.performance_summary_on_the_headerbar == 1:
-            import PerformanceSummaryHeaderbar
+            from . import PerformanceSummaryHeaderbar
             PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
             PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
             headerbar1.add(PerformanceSummaryHeaderbar.grid101)                               # Add the grid to the window headerbar
@@ -125,7 +125,7 @@ def main_gui_func():
 
         # Show Floating Summary Window on application start if this setting is leaved as "Enabled" from the Main Menu.
         if Config.show_floating_summary == 1:                                                 # Show Floating Summary window appropriate with user preferences. Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.
-            import FloatingSummary
+            from . import FloatingSummary
             FloatingSummary.floating_summary_import_func()
             FloatingSummary.floating_summary_gui_func()
             FloatingSummary.window3001.show()                                                     # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
@@ -280,7 +280,7 @@ def main_gui_tab_switch_func():
                 Config.config_save_func()
             if 'Cpu' not in globals():
                 global Cpu
-                import Cpu
+                from . import Cpu
                 Cpu.cpu_import_func()
                 Cpu.cpu_gui_func()
                 grid1001.attach(Cpu.grid1101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.
@@ -293,7 +293,7 @@ def main_gui_tab_switch_func():
                 Config.config_save_func()
             if 'Ram' not in globals():
                 global Ram
-                import Ram
+                from . import Ram
                 Ram.ram_import_func()
                 Ram.ram_gui_func()
                 grid1002.attach(Ram.grid1201, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.
@@ -306,7 +306,7 @@ def main_gui_tab_switch_func():
                 Config.config_save_func()
             if 'Disk' not in globals():
                 global Disk
-                import Disk
+                from . import Disk
                 Disk.disk_import_func()
                 Disk.disk_gui_func()
                 grid1003.attach(Disk.grid1301, 0, 0, 1, 1)                                    # Attach the grid to the grid (on the Main Window) at (0, 0) position.
@@ -319,7 +319,7 @@ def main_gui_tab_switch_func():
                 Config.config_save_func()
             if 'Network' not in globals():
                 global Network
-                import Network
+                from . import Network
                 Network.network_import_func()
                 Network.network_gui_func()
                 grid1004.attach(Network.grid1401, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
@@ -332,7 +332,7 @@ def main_gui_tab_switch_func():
                 Config.config_save_func()
             if 'Gpu' not in globals():
                 global Gpu
-                import Gpu
+                from . import Gpu
                 Gpu.gpu_import_func()
                 Gpu.gpu_gui_func()
                 grid1005.attach(Gpu.grid1501, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0)
@@ -345,7 +345,7 @@ def main_gui_tab_switch_func():
                 Config.config_save_func()
             if 'Sensors' not in globals():
                 global Sensors
-                import Sensors
+                from . import Sensors
                 Sensors.sensors_import_func()
                 Sensors.sensors_gui_func()
                 grid1006.attach(Sensors.grid1601, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
@@ -359,7 +359,7 @@ def main_gui_tab_switch_func():
             Config.config_save_func()
         if 'Processes' not in globals():                                                      # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
             global Processes
-            import Processes
+            from . import Processes
             Processes.processes_import_func()
             Processes.processes_gui_func()
             grid2.attach(Processes.grid2101, 0, 0, 1, 1)                                      # Attach the grid to the grid (on the Main Window) at (0, 0) position.
@@ -373,7 +373,7 @@ def main_gui_tab_switch_func():
             Config.config_save_func()
         if 'Users' not in globals():
             global Users
-            import Users
+            from . import Users
             Users.users_import_func()
             Users.users_gui_func()
             grid3.attach(Users.grid3101, 0, 0, 1, 1)                                          # Attach the grid to the grid (on the Main Window) at (0, 0) position.
@@ -387,7 +387,7 @@ def main_gui_tab_switch_func():
             Config.config_save_func()
         if 'Storage' not in globals():
             global Storage
-            import Storage
+            from . import Storage
             Storage.storage_import_func()
             Storage.storage_gui_func()
             grid4.attach(Storage.grid4101, 0, 0, 1, 1)                                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
@@ -401,7 +401,7 @@ def main_gui_tab_switch_func():
             Config.config_save_func()
         if 'Startup' not in globals():
             global Startup
-            import Startup
+            from . import Startup
             Startup.startup_import_func()
             Startup.startup_gui_func()
             grid5.attach(Startup.grid5101, 0, 0, 1, 1)                                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
@@ -415,7 +415,7 @@ def main_gui_tab_switch_func():
             Config.config_save_func()
         if 'Services' not in globals():
             global Services
-            import Services
+            from . import Services
             Services.services_import_func()
             Services.services_gui_func()
             grid6.attach(Services.grid6101, 0, 0, 1, 1)                                       # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
@@ -429,7 +429,7 @@ def main_gui_tab_switch_func():
             Config.config_save_func()
         if 'EnvironmentVariables' not in globals():
             global EnvironmentVariables
-            import EnvironmentVariables
+            from . import EnvironmentVariables
             EnvironmentVariables.environment_variables_import_func()
             EnvironmentVariables.environment_variables_gui_func()
             grid7.attach(EnvironmentVariables.grid7101, 0, 0, 1, 1)                           # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
@@ -443,7 +443,7 @@ def main_gui_tab_switch_func():
             Config.config_save_func()
         if 'System' not in globals():
             global System
-            import System
+            from . import System
             System.system_import_func()
             System.system_gui_func()
             grid8.attach(System.grid8101, 0, 0, 1, 1)                                         # Attach the grid to the grid (on the Main Window) at (0, 0) position.

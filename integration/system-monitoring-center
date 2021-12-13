@@ -1,2 +1,2 @@
 #!/bin/sh
-/usr/bin/python3 /usr/share/system-monitoring-center/src/Main.py
+python3 -m system_monitoring_center

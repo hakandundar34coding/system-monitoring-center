@@ -13,7 +13,7 @@ def storage_menu_right_click_import_func():
 
 
     global MainGUI, Storage
-    import MainGUI, Storage
+    from . import MainGUI, Storage
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

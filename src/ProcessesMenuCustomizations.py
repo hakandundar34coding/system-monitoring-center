@@ -12,7 +12,7 @@ def processes_menu_customizations_import_func():
 
 
     global Config, Processes
-    import Config, Processes
+    from . import Config, Processes
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

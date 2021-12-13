@@ -12,7 +12,7 @@ def cpu_menus_import_func():
 
 
     global Config, Cpu, Performance
-    import Config, Cpu, Performance
+    from . import Config, Cpu, Performance
 
 
 # ----------------------------------- CPU - CPU Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "CPU" tab menu/popover GUI objects and functions/signals) -----------------------------------

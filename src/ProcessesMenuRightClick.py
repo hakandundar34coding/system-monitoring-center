@@ -14,7 +14,7 @@ def processes_menu_right_click_import_func():
 
 
     global Config, MainGUI, Processes
-    import Config, MainGUI, Processes
+    from . import Config, MainGUI, Processes
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -155,7 +155,7 @@ def processes_menu_right_click_gui_func():
     def on_menuitem2108m_activate(widget):                                                    # "Details" item on the right click menu
         if 'ProcessesDetails' not in globals():                                               # Check if "ProcessesDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetails" name is in globals().
             global ProcessesDetails
-            import ProcessesDetails
+            from . import ProcessesDetails
             ProcessesDetails.processes_details_import_func()
             ProcessesDetails.processes_details_gui_function()
         ProcessesDetails.window2101w.show()
@@ -214,7 +214,7 @@ def processes_menu_right_click_gui_func():
     def on_normalmenuitem2101m_activate(widget):                                              # "Custom Value..." item on the right click menu under "Change Priorty (Nice)" item
         if 'ProcessesCustomPriorityGUI' not in globals():                                     # Check if "ProcessesCustomPriorityGUI" module is imported. Therefore it is not reimported for every click on "Custom Value" sub-menu item on the rigth click menu if "ProcessesCustomPriorityGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
             global ProcessesCustomPriorityGUI
-            import ProcessesCustomPriorityGUI
+            from . import ProcessesCustomPriorityGUI
             ProcessesCustomPriorityGUI.processes_custom_priority_import_func()
             ProcessesCustomPriorityGUI.processes_custom_priority_gui_func()
         ProcessesCustomPriorityGUI.window2101w2.show()

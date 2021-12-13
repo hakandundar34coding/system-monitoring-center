@@ -12,7 +12,7 @@ def users_menu_customizations_import_func():
 
 
     global Config, Users
-    import Config, Users
+    from . import Config, Users
 
 
 # ----------------------------------- Users - Users Customizations Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab menu/popover GUI objects and functions/signals) -----------------------------------

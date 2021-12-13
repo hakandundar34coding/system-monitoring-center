@@ -13,7 +13,7 @@ def users_menu_right_click_import_func():
 
 
     global Users, MainGUI
-    import Users, MainGUI
+    from . import Users, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -68,7 +68,7 @@ def users_menu_right_click_gui_func():
     def on_menuitem3102m_activate(widget):                                                    # "Details" item on the right click menu
         if 'UsersDetails' not in globals():                                                   # Check if "UsersDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on right click menu if "UsersDetails" name is in globals().
             global UsersDetails
-            import UsersDetails
+            from . import UsersDetails
             UsersDetails.users_details_import_func()
             UsersDetails.users_details_gui_function()
         UsersDetails.window3101w.show()

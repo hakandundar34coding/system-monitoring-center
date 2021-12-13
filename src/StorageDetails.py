@@ -15,7 +15,7 @@ def storage_details_import_func():
 
 
     global Config, Storage, MainGUI
-    import Config, Storage, MainGUI
+    from . import Config, Storage, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

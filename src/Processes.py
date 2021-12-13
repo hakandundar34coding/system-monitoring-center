@@ -16,7 +16,7 @@ def processes_import_func():
 
 
     global Config, MainGUI
-    import Config, MainGUI
+    from . import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -84,7 +84,7 @@ def processes_gui_func():
     def on_button2101_clicked(widget):                                                        # "Processes Tab Customizations" button
         if 'ProcessesMenuCustomizations' not in globals():                                    # Check if "ProcessesMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
             global ProcessesMenuCustomizations
-            import ProcessesMenuCustomizations
+            from . import ProcessesMenuCustomizations
             ProcessesMenuCustomizations.processes_menu_customizations_import_func()
             ProcessesMenuCustomizations.processes_menu_customizations_gui_func()
         ProcessesMenuCustomizations.popover2101p.popup()
@@ -184,7 +184,7 @@ def processes_open_right_click_menu_func(event):
             return
         if 'ProcessesMenuRightClick' not in globals():                                        # Check if "ProcessesMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
             global ProcessesMenuRightClick
-            import ProcessesMenuRightClick
+            from . import ProcessesMenuRightClick
             ProcessesMenuRightClick.processes_menu_right_click_import_func()
             ProcessesMenuRightClick.processes_menu_right_click_gui_func()
         ProcessesMenuRightClick.menu2101m.popup(None, None, None, None, event.button, event.time)
@@ -209,7 +209,7 @@ def processes_open_process_details_window_func(event):
         # Open Process Details window
         if 'ProcessesDetails' not in globals():                                               # Check if "ProcessesDetails" module is imported. Therefore it is not reimported for every double click on any process on the treeview if "ProcessesDetails" name is in globals().
             global ProcessesDetails
-            import ProcessesDetails
+            from . import ProcessesDetails
             ProcessesDetails.processes_details_import_func()
             ProcessesDetails.processes_details_gui_function()
         ProcessesDetails.window2101w.show()

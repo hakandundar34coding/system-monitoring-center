@@ -12,7 +12,7 @@ def services_menu_customizations_import_func():
 
 
     global Config, Services
-    import Config, Services
+    from . import Config, Services
 
 
 # ----------------------------------- Services - Services Customizations Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Services" tab menu/popover GUI objects and functions/signals) -----------------------------------

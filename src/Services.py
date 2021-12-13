@@ -14,7 +14,7 @@ def services_import_func():
 
 
     global Config, MainGUI
-    import Config, MainGUI
+    from . import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -78,7 +78,7 @@ def services_gui_func():
     def on_button6101_clicked(widget):                                                        # "Services Tab Customizations" button
         if 'ServicesMenuCustomizations' not in globals():                                     # Check if "ServicesMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
             global ServicesMenuCustomizations
-            import ServicesMenuCustomizations
+            from . import ServicesMenuCustomizations
             ServicesMenuCustomizations.services_menu_customizations_import_func()
             ServicesMenuCustomizations.services_menu_customizations_gui_func()
         ServicesMenuCustomizations.popover6101p.popup()
@@ -139,7 +139,7 @@ def services_open_right_click_menu_func(event):
         selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
         if 'ServicesMenuRightClick' not in globals():                                         # Check if "ServicesMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
             global ServicesMenuRightClick
-            import ServicesMenuRightClick
+            from . import ServicesMenuRightClick
             ServicesMenuRightClick.services_menu_right_click_import_func()
             ServicesMenuRightClick.services_menu_right_click_gui_func()
         ServicesMenuRightClick.menu6101m.popup(None, None, None, None, event.button, event.time)
@@ -162,7 +162,7 @@ def services_open_service_details_window_func(event):
             # Open Service Details window
             if 'ServicesDetails' not in globals():                                         # Check if "ServicesDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "ServicesDetails" name is in globals().
                 global ServicesDetails
-                import ServicesDetails
+                from . import ServicesDetails
                 ServicesDetails.services_details_import_func()
                 ServicesDetails.services_details_gui_function()
             ServicesDetails.window6101w.show()

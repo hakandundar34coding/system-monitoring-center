@@ -14,7 +14,7 @@ def environment_variables_import_func():
 
 
     global Config, MainGUI
-    import Config, MainGUI
+    from . import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

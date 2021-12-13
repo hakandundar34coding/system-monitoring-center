@@ -12,7 +12,7 @@ def gpu_menus_import_func():
 
 
     global Config, Gpu, Performance
-    import Config, Gpu, Performance
+    from . import Config, Gpu, Performance
 
 
 # ----------------------------------- GPU - GPU Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "GPU" tab menu/popover GUI objects and functions/signals) -----------------------------------

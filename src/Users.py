@@ -16,7 +16,7 @@ def users_import_func():
 
 
     global Config, MainGUI
-    import Config, MainGUI
+    from . import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -77,7 +77,7 @@ def users_gui_func():
     def on_button3101_clicked(widget):                                                        # "Users Tab Customizations" button
         if 'UsersMenuCustomizations' not in globals():                                        # Check if "UsersMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
             global UsersMenuCustomizations
-            import UsersMenuCustomizations
+            from . import UsersMenuCustomizations
             UsersMenuCustomizations.users_menu_customizations_import_func()
             UsersMenuCustomizations.users_menu_customizations_gui_func()
         UsersMenuCustomizations.popover3101p.popup()
@@ -135,7 +135,7 @@ def users_open_right_click_menu_func(event):
         selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting username of the user.
         if 'UsersMenuRightClick' not in globals():                                            # Check if "UsersMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
             global UsersMenuRightClick
-            import UsersMenuRightClick
+            from . import UsersMenuRightClick
             UsersMenuRightClick.users_menu_right_click_import_func()
             UsersMenuRightClick.users_menu_right_click_gui_func()
         UsersMenuRightClick.menu3101m.popup(None, None, None, None, event.button, event.time)
@@ -158,7 +158,7 @@ def users_open_user_details_window_func(event):
             # Open Users Details window
             if 'UsersDetails' not in globals():                                               # Check if "UsersDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetails" name is in globals().
                 global UsersDetails
-                import UsersDetails
+                from . import UsersDetails
                 UsersDetails.users_details_import_func()
                 UsersDetails.users_details_gui_function()
             UsersDetails.window3101w.show()

@@ -15,7 +15,7 @@ def storage_import_func():
 
 
     global Config, MainGUI
-    import Config, MainGUI
+    from . import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -82,7 +82,7 @@ def storage_gui_func():
     def on_button4101_clicked(widget):                                                        # "Storage Tab Customizations" button
         if 'StorageMenuCustomizations' not in globals():                                      # Check if "StorageMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
             global StorageMenuCustomizations
-            import StorageMenuCustomizations
+            from . import StorageMenuCustomizations
             StorageMenuCustomizations.storage_menu_customizations_import_func()
             StorageMenuCustomizations.storage_menu_customizations_gui_func()
         StorageMenuCustomizations.popover4101p.popup()
@@ -165,7 +165,7 @@ def storage_open_right_click_menu_func(event):
         selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
         if 'StorageMenuRightClick' not in globals():                                          # Check if "StorageMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
             global StorageMenuRightClick
-            import StorageMenuRightClick
+            from . import StorageMenuRightClick
             StorageMenuRightClick.storage_menu_right_click_import_func()
             StorageMenuRightClick.storage_menu_right_click_gui_func()
         StorageMenuRightClick.storage_disk_parent_child_disk_mount_point_etc_func()
@@ -188,7 +188,7 @@ def storage_open_storage_details_window_func(event):
             # Open Storage Details window
             if 'StorageDetails' not in globals():                                             # Check if "StorageDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "StorageDetails" name is in globals().
                 global StorageDetails
-                import StorageDetails
+                from . import StorageDetails
                 StorageDetails.storage_details_import_func()
                 StorageDetails.storage_details_gui_function()
             StorageDetails.window4101w.show()

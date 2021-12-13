@@ -12,10 +12,10 @@ def main_menus_gui_import_func():
 
 
     global Config
-    import Config
+    from . import Config
 
     global MainGUI
-    import MainGUI
+    from . import MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -90,7 +90,7 @@ def main_menus_gui_func():
     def on_checkmenuitem1001m_toggled(widget):                                                # "Floating Summary" menu item
         if "FloatingSummary" not in globals():                                                # Floating Summary window might have been opened on the application start and user may want to hide it from the Main Menu of the application. Existance check of the "FloatingSummary" variable is performed before the "if checkmenuitem1001m.get_active() == False:" statement in order to avoid errors of FloatingSummary not defined.
             global FloatingSummary
-            import FloatingSummary
+            from . import FloatingSummary
         if checkmenuitem1001m.get_active() == True:
             FloatingSummary.floating_summary_import_func()
             FloatingSummary.floating_summary_gui_func()
@@ -117,7 +117,7 @@ def main_menus_gui_func():
     def on_menuitem1004m_activate(widget):                                                    # "Settings" menu item
         if "SettingsGUI" not in globals():                                                    # Settings module is imported and the following functions are run only one time during application run. This statement is used in order to avoid them running on every window opening.
             global SettingsGUI
-            import SettingsGUI
+            from . import SettingsGUI
             SettingsGUI.settings_gui_import_func()
             SettingsGUI.settings_gui_func()
         SettingsGUI.window2001.show()

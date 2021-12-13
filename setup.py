@@ -92,24 +92,26 @@ if PREFIX != "/app" and PREFIX != "RPM":
     os.chmod("integration/tr.org.pardus.pkexec.system-monitoring-center.policy", 0o644)
     os.chmod("src/__version__", 0o644)
     data_files = [
-        ("/usr/share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
-        ("/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
-        ("/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
-        ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
-        ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
-        ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
-        ("/usr/share/icons/hicolor/scalable/apps/", ["icons/apps/system-monitoring-center.svg"]),
-        ("/usr/share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
-        ("/usr/bin/", ["integration/system-monitoring-center"])
+        ("share/applications/", ["integration/tr.org.pardus.system-monitoring-center.desktop"]),
+        ("share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        ("share/man/man1/", ["man/system-monitoring-center.1.gz"]),
+        # ("share/system-monitoring-center/src/", files_in_folder("src/")),
+        # ("share/system-monitoring-center/ui/", files_in_folder("ui/")),
+        ("share/icons/hicolor/scalable/actions/", files_in_folder("icons/actions/")),
+        ("share/icons/hicolor/scalable/apps/", ["icons/apps/system-monitoring-center.svg"]),
+        ("share/polkit-1/actions/", ["integration/tr.org.pardus.pkexec.system-monitoring-center.policy"]),
+        ("bin/", ["integration/system-monitoring-center"])
     ]
 
 setup(
-    name="System Monitoring Center",
-    version=version,
-    packages=find_packages(),
+    name="system-monitoring-center",
+    version='0.3b1',
+    package_dir={'system_monitoring_center': 'src'},
+    packages=['system_monitoring_center'],
     scripts=["integration/system-monitoring-center"],
     install_requires=["PyGObject"],
     data_files=data_files,
+    package_data={'system_monitoring_center': ['ui/*']},
     author="Hakan Dündar",
     author_email="hakandundar34coding@gmail.com",
     description="Provides information about system performance and usage.",

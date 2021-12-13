@@ -13,7 +13,7 @@ def processes_custom_priority_import_func():
 
 
     global Processes, MainGUI, ProcessesMenuRightClick
-    import Processes, MainGUI, ProcessesMenuRightClick
+    from . import Processes, MainGUI, ProcessesMenuRightClick
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

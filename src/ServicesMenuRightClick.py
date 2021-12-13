@@ -13,7 +13,7 @@ def services_menu_right_click_import_func():
 
 
     global MainGUI, Services
-    import MainGUI, Services
+    from . import MainGUI, Services
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

@@ -12,7 +12,7 @@ def network_menus_import_func():
 
 
     global Config, Network, Performance
-    import Config, Network, Performance
+    from . import Config, Network, Performance
 
 
 # ----------------------------------- Network - Network Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Network" tab menu/popover GUI objects and functions/signals) -----------------------------------

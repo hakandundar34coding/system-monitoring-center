@@ -13,7 +13,7 @@ def startup_import_func():
 
 
     global Config, MainGUI
-    import Config, MainGUI
+    from . import Config, MainGUI
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -73,7 +73,7 @@ def startup_gui_func():
     def on_button5101_clicked(widget):                                                        # "Startup Tab Customizations" button
         if 'StartupMenuCustomizations' not in globals():                                      # Check if "StartupMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
             global StartupMenuCustomizations
-            import StartupMenuCustomizations
+            from . import StartupMenuCustomizations
             StartupMenuCustomizations.startup_menu_customizations_import_func()
             StartupMenuCustomizations.startup_menu_customizations_gui_func()
         StartupMenuCustomizations.popover5101p.popup()
@@ -133,7 +133,7 @@ def startup_open_right_click_menu_func(event):
         selected_startup_application_name = model[treeiter][3]
         if 'StartupMenuRightClick' not in globals():                                          # Check if "StartupMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
             global StartupMenuRightClick
-            import StartupMenuRightClick
+            from . import StartupMenuRightClick
             StartupMenuRightClick.startup_menu_right_click_import_func()
             StartupMenuRightClick.startup_menu_right_click_gui_func()
         StartupMenuRightClick.menu5101m.popup(None, None, None, None, event.button, event.time)

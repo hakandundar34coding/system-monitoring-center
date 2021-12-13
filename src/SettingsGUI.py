@@ -12,7 +12,7 @@ def settings_gui_import_func():
 
 
     global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+    from . import Config, MainGUI, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
@@ -99,7 +99,7 @@ def settings_gui_func():
             Config.performance_summary_on_the_headerbar = 1                                   # This setting have to be set before running "performance_summary_headerbar_thread_run_func" function because this setting is used by this function in "PerformanceSummaryHeaderbar" module.
             if 'PerformanceSummaryHeaderbar' not in globals():
                 global PerformanceSummaryHeaderbar
-                import PerformanceSummaryHeaderbar
+                from . import PerformanceSummaryHeaderbar
                 PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
                 PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
             PerformanceSummaryHeaderbar.performance_summary_headerbar_thread_run_func()
@@ -107,7 +107,7 @@ def settings_gui_func():
         if checkbutton2001.get_active() == False:
             Config.performance_summary_on_the_headerbar = 0
             if 'PerformanceSummaryHeaderbar' not in globals():
-                import PerformanceSummaryHeaderbar
+                from . import PerformanceSummaryHeaderbar
             MainGUI.headerbar1.remove(PerformanceSummaryHeaderbar.grid101)                    # Remove performance summary from the main window headerbar.
         Config.config_save_func()
 
@@ -427,7 +427,7 @@ def settings_gui_set_chart_data_history_func():
         Performance.cpu_usage_percent_ave = Performance.cpu_usage_percent_ave[chart_data_history_current-chart_data_history_new:]    # "cpu_usage_percent_ave" list has no sub-lists and trimming is performed in this way.
         Performance.ram_usage_percent = Performance.ram_usage_percent[chart_data_history_current-chart_data_history_new:]    # "ram_usage_percent" list has no sub-lists and trimming is performed in this way.
         if MainGUI.radiobutton1005.get_active() == True:
-            import Gpu
+            from . import Gpu
             Gpu.fps_count = Gpu.fps_count[chart_data_history_current-chart_data_history_new:]     # "fps_count" list has no sub-lists and trimming is performed in this way.
         disk_read_speed_len = len(Performance.disk_read_speed)
         for i in range(disk_read_speed_len):
@@ -442,7 +442,7 @@ def settings_gui_set_chart_data_history_func():
         Performance.cpu_usage_percent_ave = list_to_add + Performance.cpu_usage_percent_ave   # "cpu_usage_percent_ave" list has no sub-lists and addition is performed in this way.
         Performance.ram_usage_percent = list_to_add + Performance.ram_usage_percent           # "ram_usage_percent" list has no sub-lists and addition is performed in this way.
         if MainGUI.radiobutton1005.get_active() == True:
-            import Gpu
+            from . import Gpu
             Gpu.fps_count = list_to_add + Gpu.fps_count                                       # "fps_count" list has no sub-lists and addition is performed in this way.
         disk_read_speed_len = len(Performance.disk_read_speed)
         for i in range(disk_read_speed_len):
@@ -458,93 +458,93 @@ def settings_gui_set_chart_data_history_func():
 def settings_gui_apply_settings_immediately_func():
     if 'Performance' not in globals():
         global Performance
-        import Performance
+        from . import Performance
 #     Performance.performance_background_initial_func()
     Performance.performance_background_func()
     if MainGUI.radiobutton1.get_active() == True:
         if MainGUI.radiobutton1001.get_active() == True:
             if 'Cpu' not in globals():
                 global Cpu
-                import Cpu
+                from . import Cpu
             Cpu.cpu_initial_func()
             Cpu.cpu_loop_func()
         if MainGUI.radiobutton1002.get_active() == True:
             if 'Ram' not in globals():
                 global Ram
-                import Ram
+                from . import Ram
             Ram.ram_initial_func()
             Ram.ram_loop_func()
         if MainGUI.radiobutton1003.get_active() == True:
             if 'Disk' not in globals():
                 global Disk
-                import Disk
+                from . import Disk
             Disk.disk_initial_func()
             Disk.disk_loop_func()
         if MainGUI.radiobutton1004.get_active() == True:
             if 'Network' not in globals():
                 global Network
-                import Network
+                from . import Network
             Network.network_initial_func()
             Network.network_loop_func()
         if MainGUI.radiobutton1005.get_active() == True:
             if 'Gpu' not in globals():
                 global Gpu
-                import Gpu
+                from . import Gpu
             Gpu.gpu_initial_func()
             Gpu.gpu_loop_func()
         if MainGUI.radiobutton1006.get_active() == True:
             if 'Sensors' not in globals():
                 global Sensors
-                import Sensors
+                from . import Sensors
             Sensors.sensors_initial_func()
             Sensors.sensors_loop_func()
     if MainGUI.radiobutton2.get_active() == True:
         if 'Processes' not in globals():
             global Processes
-            import Processes
+            from . import Processes
         Processes.processes_initial_func()
         Processes.processes_loop_func()
     if MainGUI.radiobutton3.get_active() == True:
         if 'Users' not in globals():
             global Users
-            import Users
+            from . import Users
         Users.users_initial_func()
         Users.users_loop_func()
     if MainGUI.radiobutton4.get_active() == True:
         if 'Storage' not in globals():
             global Storage
-            import Storage
+            from . import Storage
         Storage.storage_initial_func()
         Storage.storage_loop_func()
     if MainGUI.radiobutton5.get_active() == True:
         if 'Startup' not in globals():
             global Startup
-            import Startup
+            from . import Startup
         Startup.startup_initial_func()
         Startup.startup_loop_func()
     if MainGUI.radiobutton6.get_active() == True:
         if 'Services' not in globals():
             global Services
-            import Services
+            from . import Services
         Services.services_initial_func()
         Services.services_loop_func()
     if MainGUI.radiobutton7.get_active() == True:
         if 'EnvironmentVariables' not in globals():
             global EnvironmentVariables
-            import EnvironmentVariables
+            from . import EnvironmentVariables
         EnvironmentVariables.environment_variables_initial_func()
         EnvironmentVariables.environment_variables_loop_func()
     if MainGUI.radiobutton8.get_active() == True:
         if 'System' not in globals():
             global System
-            import System
+            from . import System
         System.system_initial_func()
         System.system_loop_func()
 
     # Show/Hide Floating Summary Window by reading reset settings.
     if "FloatingSummary" not in globals():
         global FloatingSummary
-        import FloatingSummary
+        from . import FloatingSummary
     try:                                                                                      # Floating Summary window is tried to be hidden in order to prevent opening a second window if default value for "show_floating_summary" is "1" and the Floating Summary window is already visible.
         FloatingSummary.window3001.hide()
     except AttributeError:

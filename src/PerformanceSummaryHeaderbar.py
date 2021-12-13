@@ -13,7 +13,7 @@ def performance_summary_headerbar_import_func():
 
 
     global Config, Performance
-    import Config, Performance
+    from . import Config, Performance
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 

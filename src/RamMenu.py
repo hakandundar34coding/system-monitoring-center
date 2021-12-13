@@ -13,7 +13,7 @@ def ram_menus_import_func():
 
 
     global Config, Ram, Performance
-    import Config, Ram, Performance
+    from . import Config, Ram, Performance
 
 
 # ----------------------------------- RAM - RAM Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "RAM" tab menu/popover GUI objects and functions/signals) -----------------------------------

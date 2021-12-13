@@ -13,7 +13,7 @@ def performance_import_func():
 
 
     global Config
-    import Config
+    from . import Config
 
 
     # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
