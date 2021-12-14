@@ -2,3 +2,4 @@
 /system_monitoring_center.egg-info/
 /dist/
 /src/__pycache__/
+/build/
