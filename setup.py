@@ -111,7 +111,6 @@ setup(
     scripts=["integration/system-monitoring-center"],
     install_requires=["PyGObject"],
     data_files=data_files,
-    include_package_data=True,
     package_data={'system_monitoring_center': ['ui/*.ui']},
     author="Hakan Dündar",
     author_email="hakandundar34coding@gmail.com",
