@@ -39,7 +39,7 @@ def startup_menu_right_click_gui_func():
 
     # Define builder and get all objects (Startup tab right click menu) from GUI file.
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StartupMenuRightClick.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/StartupMenuRightClick.ui")
 
     # ********************** Define object names for Startup tab right click menu **********************
     global menu5101m

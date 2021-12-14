@@ -39,7 +39,7 @@ def network_gui_func():
 
     # Network tab GUI objects - get from file
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/NetworkTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/NetworkTab.ui")
 
     # Network tab GUI objects
     global grid1401, drawingarea1401, button1401, label1401, label1402

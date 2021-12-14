@@ -20,7 +20,7 @@ def users_menu_customizations_gui_func():
 
     # Define builder and get all objects (Users tab customizations popover) from GUI file.
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/UsersMenuCustomizations.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/UsersMenuCustomizations.ui")
 
 
     # ********************** Define object names for Users tab customizations popover **********************

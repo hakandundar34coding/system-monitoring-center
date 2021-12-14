@@ -42,7 +42,7 @@ def ram_hardware_information_gui_func():
 
     # RAM Hardware Information window GUI objects - get
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamHardwareWindow.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/RamHardwareWindow.ui")
 
     window1201w = builder.get_object('window1201w')
     label1201w = builder.get_object('label1201w')

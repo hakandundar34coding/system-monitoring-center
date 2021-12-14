@@ -46,7 +46,7 @@ def users_gui_func():
     # Users tab GUI objects - get from file
     builder = Gtk.Builder()
     builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/UsersTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/UsersTab.ui")
 
     # Users tab GUI objects - get
     grid3101 = builder.get_object('grid3101')

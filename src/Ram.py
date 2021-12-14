@@ -38,7 +38,7 @@ def ram_gui_func():
 
     # RAM tab GUI objects - get from file
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/RamTab.ui")
 
     # RAM tab GUI objects
     global grid1201, drawingarea1201, drawingarea1202, button1201, label1201, label1202

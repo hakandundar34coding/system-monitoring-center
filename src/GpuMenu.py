@@ -20,7 +20,7 @@ def gpu_menus_gui_func():
 
     # Define builder and get all objects (Performance tab GPU sub-tab customizations popovers) from GUI file.
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/GpuMenus.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/GpuMenus.ui")
 
     # Define a colorchooserdialog in order to set chart colors
     global colorchooserdialog1001

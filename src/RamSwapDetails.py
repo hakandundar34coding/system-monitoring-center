@@ -41,7 +41,7 @@ def ram_swap_details_gui_func():
 
     # Swap Details window GUI objects - get
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamSwapDetailsWindow.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/RamSwapDetailsWindow.ui")
 
     window1201w2 = builder.get_object('window1201w2')
     label1201w2 = builder.get_object('label1201w2')

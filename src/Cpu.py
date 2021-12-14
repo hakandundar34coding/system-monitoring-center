@@ -39,7 +39,7 @@ def cpu_gui_func():
 
     # CPU tab GUI objects - get from file
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/CpuTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/CpuTab.ui")
 
     # CPU tab GUI objects
     global grid1101, drawingarea1101, button1101, label1101, label1102

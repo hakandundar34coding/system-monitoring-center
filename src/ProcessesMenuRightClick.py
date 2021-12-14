@@ -39,7 +39,7 @@ def processes_menu_right_click_gui_func():
 
     # Define builder and get all objects (Processes Tab Right Click Menu) from GUI file.
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesMenuRightClick.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/ProcessesMenuRightClick.ui")
 
 
     # ********************** Define object names for Processes tab right click menu **********************

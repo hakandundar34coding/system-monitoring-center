@@ -38,7 +38,7 @@ def sensors_gui_func():
 
     # Sensors tab GUI objects - get from file
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/SensorsTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/SensorsTab.ui")
 
     # Sensors tab GUI objects
     global grid1601, treeview1601, searchentry1601

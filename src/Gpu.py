@@ -39,7 +39,7 @@ def gpu_gui_func():
 
     # GPU tab GUI objects - get from file
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/GpuTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/GpuTab.ui")
 
     # GPU tab GUI objects
     global grid1501, drawingarea1501, button1501, label1501, label1502

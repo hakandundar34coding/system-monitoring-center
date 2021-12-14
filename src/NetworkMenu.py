@@ -20,7 +20,7 @@ def network_menus_gui_func():
 
     # Define builder and get all objects (Performance tab Network sub-tab customizations popovers) from GUI file.
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/NetworkMenus.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/NetworkMenus.ui")
 
 
     # Define a colorchooserdialog in order to set chart colors

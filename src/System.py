@@ -42,7 +42,7 @@ def system_gui_func():
 
     # System tab GUI objects - get from file
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/SystemTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/SystemTab.ui")
 
     # System tab GUI objects
     global grid8101

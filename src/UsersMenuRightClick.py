@@ -38,7 +38,7 @@ def users_menu_right_click_gui_func():
 
     # Define builder and get all objects (Users tab right click menu) from GUI file.
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/UsersMenuRightClick.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/UsersMenuRightClick.ui")
 
     # ********************** Define object names for Users tab right click menu **********************
     global menu3101m

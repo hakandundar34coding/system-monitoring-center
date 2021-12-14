@@ -46,7 +46,7 @@ def environment_variables_gui_func():
     # Environment Variables tab GUI objects - get from file
     builder = Gtk.Builder()
     builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/EnvironmentVariablesTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/EnvironmentVariablesTab.ui")
 
     # Environment Variables tab GUI objects - get
     grid7101 = builder.get_object('grid7101')

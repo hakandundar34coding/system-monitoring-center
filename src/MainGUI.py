@@ -46,7 +46,7 @@ def main_gui_func():
     # Main GUI objects - get from file
     builder = Gtk.Builder()
     builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainWindow.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/MainWindow.ui")
 
     # Main tab GUI objects - get
     window1 = builder.get_object('window1')

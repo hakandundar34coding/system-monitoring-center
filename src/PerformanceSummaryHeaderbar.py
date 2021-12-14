@@ -38,7 +38,7 @@ def performance_summary_headerbar_gui_func():
 
     # Performance Summary Headerbar Grid GUI objects - get from file
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/PerformanceSummaryHeaderBarGrid.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/PerformanceSummaryHeaderBarGrid.ui")
 
     # Performance Summary Headerbar Grid GUI objects
     global grid101, drawingarea101, drawingarea102, label101, label102

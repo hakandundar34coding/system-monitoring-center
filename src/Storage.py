@@ -46,7 +46,7 @@ def storage_gui_func():
     # Storage tab GUI objects - get from file
     builder = Gtk.Builder()
     builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/StorageTab.ui")
 
     # Storage tab GUI objects - get
     grid4101 = builder.get_object('grid4101')

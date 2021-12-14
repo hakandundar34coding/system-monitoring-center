@@ -37,7 +37,7 @@ def processes_menu_customizations_gui_func():
 
     # Define builder and get all objects (Processes tab customizations popover) from GUI file.
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesMenuCustomizations.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/ProcessesMenuCustomizations.ui")
 
 
     # ********************** Define object names for Processes tab customizations popover **********************

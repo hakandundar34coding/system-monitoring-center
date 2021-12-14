@@ -40,7 +40,7 @@ def main_menus_gui_func():
 
     # Define builder and get all objects (Main Menu GUI and About Dialog) from GUI file.
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainMenusDialogs.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/MainMenusDialogs.ui")
 
 
     # ********************** Define object names for Main Menu GUI and About Dialog **********************

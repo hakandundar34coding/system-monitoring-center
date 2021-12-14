@@ -38,7 +38,7 @@ def services_menu_right_click_gui_func():
 
     # Define builder and get all objects (Services tab right click menu) from GUI file.
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesMenuRightClick.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/ServicesMenuRightClick.ui")
 
 
     # ********************** Define object names for Services tab right click menu **********************

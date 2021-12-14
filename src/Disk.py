@@ -39,7 +39,7 @@ def disk_gui_func():
 
     # Disk tab GUI objects - get from file
     builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/DiskTab.ui")
+    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/ui/DiskTab.ui")
 
     # Disk tab GUI objects
     global grid1301, drawingarea1301, drawingarea1302, button1301, label1301, label1302
