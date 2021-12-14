@@ -211,14 +211,14 @@ def gpu_initial_func():
     glxinfo_output_discrete_gpu_lines = glxinfo_output_discrete_gpu.split("\n")
     # Check GPU/driver configuration to be able to get GPU/Graphics Card information from drive without wrong information.
     if len(gpu_vendor_id_list) == 1 and ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu):    # "Extended renderer info (GLX_MESA_query_renderer):" information exists in the output of "glxinfo" command if open sourced driver of GPU is used.
-        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines)
+        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, 0)
     elif len(gpu_vendor_id_list) >= 2 and (glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu and "Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_discrete_gpu):
-        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines)
+        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, 1)
     elif len(gpu_vendor_id_list) >= 2 and (glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu and "Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu):
-        gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines)
+        gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, 1)
     elif len(gpu_vendor_id_list) >= 2 and (glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu and "Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu):
-        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines)
-        gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines)
+        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, 1)
+        gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, 1)
     else:                                                                                     # Currently, other GPU/driver configurations are not supported.
         pass
 
@@ -272,7 +272,7 @@ def gpu_loop_func():
 
 
 # ----------------------------------- GPU - Get Information From Driver Function (gets GPU information from driver) -----------------------------------
-def gpu_get_information_from_driver_func(output_to_search_gpu_information_from_driver):
+def gpu_get_information_from_driver_func(output_to_search_gpu_information_from_driver, check_vendor_device_id_match):
 
     # Define initial values of the variables. These values will be used if values can not be get.
     gpu_vendor_in_driver = "-"
@@ -291,35 +291,36 @@ def gpu_get_information_from_driver_func(output_to_search_gpu_information_from_d
         if line.strip().startswith("Device:"):
             gpu_device_id_in_driver = line.split()[-1].strip("()").split("x")[1].strip()
     for i in range(len(gpu_vendor_id_list)):
-        if gpu_vendor_id_in_driver == gpu_vendor_id_list[i] and gpu_device_id_in_driver == gpu_device_id_list[i].lstrip("0"):    # Check if GPU from the "glxinfo" command and GPU from "/sys/class/drm/card[number]/device/device" file are same. Outputs from "DRI_PRIME=0 glxinfo -B" and "DRI_PRIME=1 glxinfo -B" commands may be reversed sometimes (very rare). ".lstrip("0")" is used in order to remove "0" (if exists) at the beginning at the device id.
-            for line in output_to_search_gpu_information_from_driver:
-                if line.strip().startswith("OpenGL vendor string:"):
-                    gpu_vendor_name_in_driver = line.split(":")[1].strip()
-                    continue
-                if line.strip().startswith("OpenGL renderer string:"):
-                    gpu_device_name_in_driver = line.split(":")[1].strip()
-                    continue
-                if line.strip().startswith("Video memory:"):
-                    video_memory = line.split(":")[1].strip()
-                    continue
-                if line.strip().startswith("Unified memory:"):
-                    if_unified_memory = _tr(line.split(":")[1].strip().capitalize())              # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
-                    continue
-                if line.strip().startswith("direct rendering:"):
-                    direct_rendering = _tr(line.split(":")[1].strip())                            # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
-                    continue
-                if line.strip().startswith("OpenGL version string:"):
-                    opengl_version, display_driver = line.split(":")[1].strip().split(" ", 1)     # "split(" ", 1" is for splitting string by first space character
-                    continue
-            # Replace "-" values in the list with the values which are get from "glxinfo" output. Information of the selected GPU will be get from this list by using "selected_gpu_number" value. To be able to match GPU information from "/sys/class/drm/card[number]" and GPU information from "glxinfo" command are used. None of these informations contain the information of "integrated/discrete GPU". This matching is performed by using vendor and device ids.
-            global gpu_vendor_name_in_driver_list, gpu_device_name_in_driver_list, video_memory_list, if_unified_memory_list, direct_rendering_list, opengl_version_list, display_driver_list
-            gpu_vendor_name_in_driver_list[i] = gpu_vendor_name_in_driver
-            gpu_device_name_in_driver_list[i] = gpu_device_name_in_driver
-            video_memory_list[i] = video_memory
-            if_unified_memory_list[i] = if_unified_memory
-            direct_rendering_list[i] = direct_rendering
-            opengl_version_list[i] = opengl_version
-            display_driver_list[i] = display_driver
+        if gpu_vendor_id_in_driver != gpu_vendor_id_list[i] and gpu_device_id_in_driver != gpu_device_id_list[i].lstrip("0") and check_vendor_device_id_match == 1:    # Check if GPU from the "glxinfo" command and GPU from "/sys/class/drm/card[number]/device/device" file are same. Outputs from "DRI_PRIME=0 glxinfo -B" and "DRI_PRIME=1 glxinfo -B" commands may be reversed sometimes (very rare). ".lstrip("0")" is used in order to remove "0" (if exists) at the beginning at the device id. Checking GPU vendor and device id match between "/sys/class/drm/card[number]/device/..." files and driver is skipped if "check_vendor_device_id_match" value is 0. This check is not performed if there is only 1 GPU/Graphics Card on the system.
+            continue
+        for line in output_to_search_gpu_information_from_driver:
+            if line.strip().startswith("OpenGL vendor string:"):
+                gpu_vendor_name_in_driver = line.split(":")[1].strip()
+                continue
+            if line.strip().startswith("OpenGL renderer string:"):
+                gpu_device_name_in_driver = line.split(":")[1].strip()
+                continue
+            if line.strip().startswith("Video memory:"):
+                video_memory = line.split(":")[1].strip()
+                continue
+            if line.strip().startswith("Unified memory:"):
+                if_unified_memory = _tr(line.split(":")[1].strip().capitalize())              # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
+                continue
+            if line.strip().startswith("direct rendering:"):
+                direct_rendering = _tr(line.split(":")[1].strip())                            # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
+                continue
+            if line.strip().startswith("OpenGL version string:"):
+                opengl_version, display_driver = line.split(":")[1].strip().split(" ", 1)     # "split(" ", 1" is for splitting string by first space character
+                continue
+        # Replace "-" values in the list with the values which are get from "glxinfo" output. Information of the selected GPU will be get from this list by using "selected_gpu_number" value. To be able to match GPU information from "/sys/class/drm/card[number]" and GPU information from "glxinfo" command are used. None of these informations contain the information of "integrated/discrete GPU". This matching is performed by using vendor and device ids.
+        global gpu_vendor_name_in_driver_list, gpu_device_name_in_driver_list, video_memory_list, if_unified_memory_list, direct_rendering_list, opengl_version_list, display_driver_list
+        gpu_vendor_name_in_driver_list[i] = gpu_vendor_name_in_driver
+        gpu_device_name_in_driver_list[i] = gpu_device_name_in_driver
+        video_memory_list[i] = video_memory
+        if_unified_memory_list[i] = if_unified_memory
+        direct_rendering_list[i] = direct_rendering
+        opengl_version_list[i] = opengl_version
+        display_driver_list[i] = display_driver
 
 
 # ----------------------------------- GPU Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
