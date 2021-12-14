@@ -351,7 +351,7 @@ def system_initial_func():
 
 
     # Set label texts to show information
-    label8102.set_text(f'{computer_vendor} {computer_model}')
+    label8102.set_text(f'{computer_vendor} - {computer_model}')
     label8105.set_text(os_family)
     label8107.set_text(kernel_release)
     label8108.set_text(kernel_version)
@@ -453,7 +453,7 @@ def system_loop_func():
 
 
     # Set label texts to show information
-    label8101.set_text(f'{os_name} {os_version}')
+    label8101.set_text(f'{os_name} - {os_version}')
     label8103.set_text(os_name)
     label8104.set_text(f'{os_version} - {os_version_code_name}')
     label8106.set_text(os_based_on)

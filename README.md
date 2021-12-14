@@ -26,6 +26,12 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
     <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
 </a>
 
+### Generating Packages From Source Code:
+1) Download the source code
+2) Browse /packaging_scripts folder
+3) Open terminal in this folder
+4) Run the required script without "sudo" (command: sh [script file name].sh)
+
 ### Features:
 * Detailed system performance and usage usage monitoring/managing features:
     * Monitoring CPU, RAM, Disk, Network, GPU, Sensor hardware information/performance/usage

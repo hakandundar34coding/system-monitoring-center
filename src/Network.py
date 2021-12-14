@@ -185,7 +185,7 @@ def network_initial_func():
             network_card_vendor_name = rest_of_the_pci_ids_output.split("\n")[0].strip()
         else:
             network_card_vendor_name = f'[{_tr("Unknown")}]'
-        if network_card_device_id in rest_of_the_pci_ids_output:                              # "device name" information may not be present in the pci.ids file.
+        if network_card_device_id in rest_of_the_pci_ids_output and network_card_vendor_name != f'[{_tr("Unknown")}]':    # "device name" information may not be present in the pci.ids file.
             rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(network_card_device_id)[1]
             network_card_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n")[0].strip()
         else:
@@ -251,13 +251,17 @@ def network_loop_func():
         else:
             network_card_connected = network_info
     # Get network_ssid
-    nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
-    for line in nmcli_output_lines:
-        line_splitted = line.split(":")
-        if network_card_list[selected_network_card_number] == line_splitted[0]:
-            network_ssid = line_splitted[1].strip()
-            break
-    if network_ssid == "":
+    try:                                                                                      # "try-catch" is used in order to avoid errors because Network Manager (which is required for running "nmcli" command) may not be installed on all systems. This is a very rare sitution.
+        nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
+    except FileNotFoundError:
+        network_ssid = f'[{_tr("Unknown")}]'
+    if "nmcli_output_lines" in locals():                                                      # Check if "nmcli_output_lines" value is get.
+        for line in nmcli_output_lines:
+            line_splitted = line.split(":")
+            if network_card_list[selected_network_card_number] == line_splitted[0]:
+                network_ssid = line_splitted[1].strip()
+                break
+    if network_ssid == "":                                                                    # "network_ssid" value is get as "" if selected network card is not connected a Wi-Fi network.
         network_ssid = "-"
     # Get network_signal_strength
     network_signal_strength = "-"                                                             # Initial value of the "network_signal_strength". This value will be used if value could not be get.

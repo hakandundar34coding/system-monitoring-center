@@ -8,8 +8,11 @@ def processes_import_func():
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Gdk, GLib, GObject
-    gi.require_version('Wnck', '3.0')
-    from gi.repository import Wnck
+    try:                                                                                      # "Wnck" is used in order to higlight a process from the list when window of the process clicked by user. "try-catch" is used in order to avoid errors if "Wnck" package is not installed on the system. This package may not be installed on some systems.
+        gi.require_version('Wnck', '3.0')
+        from gi.repository import Wnck
+    except ValueError:
+        pass
     from threading import Thread
     import os
     import time
