@@ -328,7 +328,7 @@ def gpu_get_information_from_driver_func(output_to_search_gpu_information_from_d
             if check_driver_open_sourced == "closed_sourced":
                 if line.strip().startswith("Dedicated video memory:"):
                     video_memory = line.split(":")[1].strip()
-                    if_unified_memory = _tr("Yes")                                            # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
+                    if_unified_memory = _tr("No")                                             # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
                     continue
             if line.strip().startswith("direct rendering:"):
                 direct_rendering = _tr(line.split(":")[1].strip())                            # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
