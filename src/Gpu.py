@@ -207,22 +207,37 @@ def gpu_initial_func():
         glxinfo_output_discrete_gpu = (subprocess.check_output(glxinfo_for_discrete_gpu, shell=False)).decode().strip()
     except:
         glxinfo_output_discrete_gpu = ""
+    if "libGL error: failed to create dri screen" in glxinfo_output_discrete_gpu or "libGL error: failed to load driver:" in glxinfo_output_discrete_gpu:    # "libGL error: failed to create dri screen\nlibGL error: failed to load driver: nouveau" information may be printed when DRI_PRIME=1 glxinfo -B" command is used if closed sourced driver and GPU configurations are used for NVIDIA cards. Same output contains information of integrated GPU.
+        glxinfo_output_discrete_gpu = "-"
     glxinfo_output_integrated_gpu_lines = glxinfo_output_integrated_gpu.split("\n")
     glxinfo_output_discrete_gpu_lines = glxinfo_output_discrete_gpu.split("\n")
     # Check GPU/driver configuration to be able to get GPU/Graphics Card information from drive without wrong information.
-    if len(gpu_vendor_id_list) == 1 and ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu):    # "Extended renderer info (GLX_MESA_query_renderer):" information exists in the output of "glxinfo" command if open sourced driver of GPU is used.
-        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "open_sourced")
-    if len(gpu_vendor_id_list) == 1 and ("Extended renderer info (GL_NVX_gpu_memory_info):" in glxinfo_output_integrated_gpu):    # "Extended renderer info (GLX_MESA_query_renderer):" information exists in the output of "glxinfo" command if open sourced driver of GPU is used.
-        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
-    elif len(gpu_vendor_id_list) >= 2 and (glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu and "Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_discrete_gpu):
-        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "check", "open_sourced")
-    elif len(gpu_vendor_id_list) >= 2 and (glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu and "Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu):
-        gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, "check", "open_sourced")
-    elif len(gpu_vendor_id_list) >= 2 and (glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu and "Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu):
-        gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "check", "open_sourced")
-        gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, "check", "open_sourced")
-    else:                                                                                     # Currently, other GPU/driver configurations are not supported.
-        pass
+    # INFORMATION ABOUT GPU/DRIVER CONFIGURATIONS:
+    # "Extended renderer info (GLX_MESA_query_renderer):" information exists in the output of "glxinfo" command if open sourced driver of GPU is used.
+    # "Extended renderer info (GL_NVX_gpu_memory_info):" information exists in the output of "glxinfo" command if closed sourced driver of GPU is used. Both "Extended renderer info (GLX_MESA_query_renderer):" and "Extended renderer info (GLX_MESA_query_renderer):" informations are printed if open sourced driver is used for AMD GPUs.
+    # Vendor and device id numbers (0x[id number]) are not printed in closed sourced drivers. Vendor and device IDs can be get from vendor and device files in "/sys/class/drm/card[card number]/device/" directories.
+    # But IDs from these folders and IDs from drivers can not be matched when closed sourced drivers are used for the selected GPU.
+    # IDs matching can be performed if there is 1 GPU on the system (with open or closed sourced drivers), if there are 2 GPUs (with both open sourced driver or 1 open sourced and 1 closed source driver) on the system.
+    # IDs may be "0xffffffff" for vendor and device on virtual machines. ID matching is performed on these systems because there is 1 GPU on these systems (default configuration).
+    # "libGL error: failed to create dri screen\nlibGL error: failed to load driver: nouveau" lines may be printed if closed sourced drivers are used and some GPU configurations are made on some systems. For example some Asus ROG notebooks with "asusctl" utility.
+    # "prime-run" for NVIDIA GPUs and "progl" for AMD GPUs are used for running applications with discrete GPU if "DRI_PRIME=1" does not work on systems with closed sourced GPU drivers. Usage: "prime-run glxinfo -B", "progl glxinfo -B".
+    # But "prime-run" may not work on some systems (for example some Asus ROG notebooks with "asusctl" utility). More information is needed to know if same situation is valid for "progl".
+    if len(gpu_vendor_id_list) == 1:
+        if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu):
+            gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "open_sourced")
+        if len(gpu_vendor_id_list) == 1 and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu) and ("Extended renderer info (GL_NVX_gpu_memory_info):" in glxinfo_output_integrated_gpu):
+            gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
+    if len(gpu_vendor_id_list) >= 2:
+        if glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu:
+            if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu):
+                gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "check", "open_sourced")
+            if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu):
+                gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, "check", "open_sourced")
+            if len(gpu_vendor_id_list) == 2:
+                if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_discrete_gpu):
+                    gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, "no_check", "closed_sourced")
+                if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu):
+                    gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
 
     # Get if_default_gpu value
     if gpu_list[selected_gpu_number] == default_gpu:
