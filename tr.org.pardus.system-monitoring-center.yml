@@ -1,6 +1,6 @@
 app-id: tr.org.pardus.pkexec.system-monitoring-center
 runtime: org.gnome.Platform
-runtime-version: '3.38'
+runtime-version: '41'
 sdk: org.gnome.Sdk
 command: system-monitoring-center
 finish-args:
@@ -62,10 +62,85 @@ modules:
         url: https://files.pythonhosted.org/packages/cc/72/48cfdd7a0caf3c27f392d2657731ac6f7c3c1c0a60bfeba3e1ba9ffa7ba9/PyGObject-3.42.0.tar.gz
         sha256: b9803991ec0b0b4175e81fee0ad46090fa7af438fe169348a9b18ae53447afcd
 
+  - name: rsync
+    config-opts:
+      - --disable-zstd
+      - --disable-md2man
+      - --disable-xxhash
+    sources:
+      - type: archive
+        url: https://github.com/WayneD/rsync/archive/refs/tags/v3.2.3.tar.gz
+        sha256: 3127c93d7081db075d1057a44b0bd68ff37f297ba9fe2554043c3e4481ae5056
+    cleanup:
+      - "/share"
+
+  - name: systemd
+    buildsystem: meson
+    config-opts:
+      - --libdir=lib
+      - -Drootprefix=/app
+      - -Drootlibdir=/app/lib
+      - -Dsysconfdir=/app/etc
+      - -Dutmp=false
+      - -Dhibernate=false
+      - -Dldconfig=false
+      - -Dresolve=false
+      - -Defi=false
+      - -Dtpm=false
+      - -Denvironment-d=false
+      - -Dbinfmt=false
+      - -Dcoredump=false
+      - -Dlogind=false
+      - -Dhostnamed=false
+      - -Dlocaled=false
+      - -Dmachined=false
+      - -Dportabled=false
+      - -Dnetworkd=false
+      - -Dtimedated=false
+      - -Dtimesyncd=false
+      - -Dremote=false
+      - -Dnss-myhostname=false
+      - -Dnss-mymachines=false
+      - -Dnss-resolve=false
+      - -Dnss-systemd=false
+      - -Dfirstboot=false
+      - -Drandomseed=false
+      - -Dbacklight=false
+      - -Dvconsole=false
+      - -Dquotacheck=false
+      - -Dsysusers=false
+      - -Dtmpfiles=false
+      - -Dimportd=false
+      - -Dhwdb=false
+      - -Drfkill=false
+      - -Dman=false
+      - -Dhtml=false
+      - -Dbashcompletiondir=no
+      - -Dzshcompletiondir=no
+    sources:
+      - type: git
+        url: https://github.com/systemd/systemd.git
+        commit: 5c68ad14af6c89261f31f0abb4850fb1c99e8cfd
+    cleanup:
+      - "/bin"
+      - "/etc"
+      - "/lib/libudev*"
+      - "/lib/kernel"
+      - "/lib/modprobe.d"
+      - "/lib/rpm"
+      - "/lib/sysctl.d"
+      - "/lib/systemd"
+      - "/lib/udev"
+      - "/share"
+
+
+
+
   - name: system-monitoring-center
     buildsystem: simple
     build-commands:
       - python3 setup.py install --flatpak
     sources:
-      - type: dir
-        path: [path to project]
+      - type: archive
+        url: https://github.com/hakandundar34coding/system-monitoring-center/archive/refs/tags/v0.3.0-beta1.tar.gz
+        sha256: 2acb5a4ca0ec71107e1a60ca874675f92e3f1feb413ae0c5f2fef4f6485e019f
