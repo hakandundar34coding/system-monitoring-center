@@ -1,0 +1,146 @@
+app-id: com.github.hakand34.system-monitoring-center
+runtime: org.gnome.Platform
+runtime-version: '41'
+sdk: org.gnome.Sdk
+command: system-monitoring-center
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --device=dri
+  - --socket=wayland
+  - --filesystem=home
+  - --filesystem=host-os:ro
+  - --filesystem=host:ro
+  - --filesystem=/run/systemd/units/:ro
+  - --device=all
+
+modules:
+
+  - name: cpython
+    sources:
+      - type: archive
+        url: https://www.python.org/ftp/python/3.9.2/Python-3.9.2.tar.xz
+        sha256: 3c2034c54f811448f516668dce09d24008a0716c3a794dd8639b5388cbde247d
+
+  - name: PyOpenGL
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "PyOpenGL>=3.1.5" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/b8/73/31c8177f3d236e9a5424f7267659c70ccea604dab0585bfcd55828397746/PyOpenGL-3.1.5.tar.gz
+        sha256: 4107ba0d0390da5766a08c242cf0cf3404c377ed293c5f6d701e457c57ba3424
+
+  - name: wheel
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "wheel>=0.37.0" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/4e/be/8139f127b4db2f79c8b117c80af56a3078cc4824b5b94250c7f81a70e03b/wheel-0.37.0.tar.gz
+        sha256: e2ef7239991699e3355d54f8e968a21bb940a1dbf34a4d226741e64462516fad
+
+  - name: pycairo
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "pycairo>=1.20.1" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/bc/3f/64e6e066d163fbcf13213f9eeda0fc83376243335ea46a66cefd70d62e8f/pycairo-1.20.1.tar.gz
+        sha256: 1ee72b035b21a475e1ed648e26541b04e5d7e753d75ca79de8c583b25785531b
+
+  - name: PyGObject
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "PyGObject>=3.42.0" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/cc/72/48cfdd7a0caf3c27f392d2657731ac6f7c3c1c0a60bfeba3e1ba9ffa7ba9/PyGObject-3.42.0.tar.gz
+        sha256: b9803991ec0b0b4175e81fee0ad46090fa7af438fe169348a9b18ae53447afcd
+
+  - name: rsync
+    config-opts:
+      - --disable-zstd
+      - --disable-md2man
+      - --disable-xxhash
+    sources:
+      - type: archive
+        url: https://github.com/WayneD/rsync/archive/refs/tags/v3.2.3.tar.gz
+        sha256: 3127c93d7081db075d1057a44b0bd68ff37f297ba9fe2554043c3e4481ae5056
+    cleanup:
+      - "/share"
+
+  - name: systemd
+    buildsystem: meson
+    config-opts:
+      - --libdir=lib
+      - -Drootprefix=/app
+      - -Drootlibdir=/app/lib
+      - -Dsysconfdir=/app/etc
+      - -Dutmp=false
+      - -Dhibernate=false
+      - -Dldconfig=false
+      - -Dresolve=false
+      - -Defi=false
+      - -Dtpm=false
+      - -Denvironment-d=false
+      - -Dbinfmt=false
+      - -Dcoredump=false
+      - -Dlogind=false
+      - -Dhostnamed=false
+      - -Dlocaled=false
+      - -Dmachined=false
+      - -Dportabled=false
+      - -Dnetworkd=false
+      - -Dtimedated=false
+      - -Dtimesyncd=false
+      - -Dremote=false
+      - -Dnss-myhostname=false
+      - -Dnss-mymachines=false
+      - -Dnss-resolve=false
+      - -Dnss-systemd=false
+      - -Dfirstboot=false
+      - -Drandomseed=false
+      - -Dbacklight=false
+      - -Dvconsole=false
+      - -Dquotacheck=false
+      - -Dsysusers=false
+      - -Dtmpfiles=false
+      - -Dimportd=false
+      - -Dhwdb=false
+      - -Drfkill=false
+      - -Dman=false
+      - -Dhtml=false
+      - -Dbashcompletiondir=no
+      - -Dzshcompletiondir=no
+    sources:
+      - type: git
+        url: https://github.com/systemd/systemd.git
+        commit: 5c68ad14af6c89261f31f0abb4850fb1c99e8cfd
+    cleanup:
+      - "/bin"
+      - "/etc"
+      - "/lib/libudev*"
+      - "/lib/kernel"
+      - "/lib/modprobe.d"
+      - "/lib/rpm"
+      - "/lib/sysctl.d"
+      - "/lib/systemd"
+      - "/lib/udev"
+      - "/share"
+
+
+
+
+  - name: system-monitoring-center
+    buildsystem: simple
+    build-commands:
+      - python3 setup.py install --flatpak
+    sources:
+      - type: archive
+        url: https://github.com/hakandundar34coding/system-monitoring-center/archive/refs/tags/v0.3.0-beta1.tar.gz
+        sha256: 2acb5a4ca0ec71107e1a60ca874675f92e3f1feb413ae0c5f2fef4f6485e019f
