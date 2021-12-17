@@ -2,6 +2,6 @@
 
 cd ..
 
-flatpak-builder --force-clean build-dir tr.org.pardus.system-monitoring-center.yml
-flatpak-builder --user --install --force-clean build-dir tr.org.pardus.system-monitoring-center.yml
-flatpak run tr.org.pardus.system-monitoring-center
+flatpak-builder --force-clean build-dir com.github.hakand34.system-monitoring-center.yml
+flatpak-builder --user --install --force-clean build-dir com.github.hakand34.system-monitoring-center.yml
+flatpak run com.github.hakand34.system-monitoring-center

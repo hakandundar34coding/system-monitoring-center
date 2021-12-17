@@ -41,12 +41,12 @@ sudo chown -R $USER /usr/share/system-monitoring-center/src/Main.py
 %files
 %defattr(-,root,root,-)
 /usr/bin/system-monitoring-center
-/usr/share/applications/tr.org.pardus.system-monitoring-center.desktop
+/usr/share/applications/com.github.hakand34.system-monitoring-center.desktop
 /usr/share/icons/hicolor/scalable/actions/system-monitoring-center*
 /usr/share/icons/hicolor/scalable/apps/system-monitoring-center*
 /usr/share/locale/*/LC_MESSAGES/system-monitoring-center.mo
 /usr/share/man/man1/system-monitoring-center.1.gz
-/usr/share/polkit-1/actions/tr.org.pardus.pkexec.system-monitoring-center.policy
+/usr/share/polkit-1/actions/com.github.hakand34.system-monitoring-center.policy
 /usr/share/system-monitoring-center/*
 
 %changelog
