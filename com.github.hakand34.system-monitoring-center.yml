@@ -141,6 +141,7 @@ modules:
     build-commands:
       - python3 setup.py install --flatpak
     sources:
-      - type: archive
-        url: https://github.com/hakandundar34coding/system-monitoring-center/archive/refs/tags/v0.3.0-beta1.tar.gz
-        sha256: 2acb5a4ca0ec71107e1a60ca874675f92e3f1feb413ae0c5f2fef4f6485e019f
+      - type: git
+        url: https://github.com/hakandundar34coding/system-monitoring-center.git
+        path: https://github.com/hakandundar34coding/system-monitoring-center/archive/refs/heads/master.zip
+        commit: dc8f2dbc35db9aa45a4f347621537791da04e6b3
