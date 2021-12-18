@@ -223,28 +223,49 @@ def system_initial_func():
     # Get current desktop environment version
     current_desktop_environment_version = "-"                                                 # Set initial value of the "current_desktop_environment_version". This value will be used if it could not be detected.
     if current_desktop_environment == "XFCE":
-        current_desktop_environment_version_lines = (subprocess.check_output(["xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
-        for line in current_desktop_environment_version_lines:
-            if "xfce4-panel" in line:
-                current_desktop_environment_version = line.split(" ")[1]
+        try:
+            current_desktop_environment_version_lines = (subprocess.check_output(["xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
+            for line in current_desktop_environment_version_lines:
+                if "xfce4-panel" in line:
+                    current_desktop_environment_version = line.split(" ")[1]
+        except FileNotFoundError:
+            pass
     if current_desktop_environment == "GNOME" or current_desktop_environment == "zorin:GNOME" or current_desktop_environment == "ubuntu:GNOME":
-        current_desktop_environment_version_lines = (subprocess.check_output(["gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
-        for line in current_desktop_environment_version_lines:
-            if "GNOME Shell" in line:
-                current_desktop_environment_version = line.split(" ")[-1]
+        try:
+            current_desktop_environment_version_lines = (subprocess.check_output(["gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
+            for line in current_desktop_environment_version_lines:
+                if "GNOME Shell" in line:
+                    current_desktop_environment_version = line.split(" ")[-1]
+        except FileNotFoundError:
+            pass
     if current_desktop_environment == "X-Cinnamon" or current_desktop_environment == "CINNAMON":
-        current_desktop_environment_version = (subprocess.check_output(["cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
+        try:
+            current_desktop_environment_version = (subprocess.check_output(["cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
+        except FileNotFoundError:
+            pass
     if current_desktop_environment == "MATE":
-        current_desktop_environment_version = (subprocess.check_output(["mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
+        try:
+            current_desktop_environment_version = (subprocess.check_output(["mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
+        except FileNotFoundError:
+            pass
     if current_desktop_environment == "KDE":
-        current_desktop_environment_version = (subprocess.check_output(["plasmashell", "--version"], shell=False)).decode().strip()
+        try:
+            current_desktop_environment_version = (subprocess.check_output(["plasmashell", "--version"], shell=False)).decode().strip()
+        except FileNotFoundError:
+            pass
     if current_desktop_environment == "LXQt":
-        current_desktop_environment_version_lines = (subprocess.check_output(["lxqt-about", "--version"], shell=False)).decode().strip()
-        for line in current_desktop_environment_version_lines:
-            if "liblxqt" in line:
-                current_desktop_environment_version = line.split()[1].strip()
+        try:
+            current_desktop_environment_version_lines = (subprocess.check_output(["lxqt-about", "--version"], shell=False)).decode().strip()
+            for line in current_desktop_environment_version_lines:
+                if "liblxqt" in line:
+                    current_desktop_environment_version = line.split()[1].strip()
+        except FileNotFoundError:
+            pass
     if current_desktop_environment == "Budgie" or current_desktop_environment == "Budgie:GNOME":
-        current_desktop_environment_version = (subprocess.check_output(["budgie-desktop", "--version"], shell=False)).decode().strip().split("\n")[0].strip().split(" ")[-1]
+        try:
+            current_desktop_environment_version = (subprocess.check_output(["budgie-desktop", "--version"], shell=False)).decode().strip().split("\n")[0].strip().split(" ")[-1]
+        except FileNotFoundError:
+            pass
 
     # Get current display manager
     supported_display_managers_list = ["lightdm", "gdm", "gdm3", "sddm", "xdm", "lxdm"]
