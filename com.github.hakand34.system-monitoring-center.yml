@@ -5,6 +5,7 @@ sdk: org.gnome.Sdk
 command: system-monitoring-center
 finish-args:
   - --share=ipc
+  - --share=network
   - --socket=x11
   - --device=dri
   - --socket=wayland
@@ -143,20 +144,7 @@ modules:
       - ./configure --prefix=/
       - make -j $FLATPAK_BUILDER_N_JOBS
       - find . -type f | perl -lne 'print if -B and -x' | xargs strip
-      - install -D ./ip/ip $FLATPAK_DEST/sbin/ip
       - install -D ./ip/ip $FLATPAK_DEST/bin/ip
-
-  - name: dmidecode
-    buildsystem: simple
-    sources:
-      - type: archive
-        url: https://download.savannah.gnu.org/releases/dmidecode/dmidecode-3.3.tar.xz
-        sha256: 82c737a780614c38a783e8055340d295e332fb12c7f418b5d21a0797d3fb1455
-    build-commands:
-      - sed -i -e 's/ -O2/ -s -O2/' Makefile
-      - make -j $FLATPAK_BUILDER_N_JOBS
-      - find . -type f | perl -lne 'print if -B and -x' | xargs strip
-      - make install prefix=/ DESTDIR=$FLATPAK_DEST
 
   - name: mesa-demos
     config-opts:
@@ -218,15 +206,32 @@ modules:
         build-options:
           cflags: -fcommon
 
+  - name: util-linux
+    buildsystem: simple
+    sources:
+      - type: archive
+        url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.37/util-linux-2.37.2.tar.xz
+        sha256: 6a0764c1aae7fb607ef8a6dd2c0f6c47d5e5fd27aa08820abaad9ec14e28e9d9
+    build-commands:
+      - ./configure --prefix=/
+      - sed -i -e 's/ -g / -s /' Makefile
+      - make -j $FLATPAK_BUILDER_N_JOBS lsblk
+      - make -j $FLATPAK_BUILDER_N_JOBS lslogins
+      - find . -type f | perl -lne 'print if -B and -x' | xargs strip
+      - install -D ./lsblk $FLATPAK_DEST/bin/lsblk
+      - install -D ./lslogins $FLATPAK_DEST/bin/lslogins
 
-
-
-
-
-
-
-
-
+  - name: dmidecode
+    buildsystem: simple
+    sources:
+      - type: archive
+        url: https://download.savannah.gnu.org/releases/dmidecode/dmidecode-3.3.tar.xz
+        sha256: 82c737a780614c38a783e8055340d295e332fb12c7f418b5d21a0797d3fb1455
+    build-commands:
+      - sed -i -e 's/ -O2/ -s -O2/' Makefile
+      - make -j $FLATPAK_BUILDER_N_JOBS
+      - find . -type f | perl -lne 'print if -B and -x' | xargs strip
+      - install -D ./dmidecode $FLATPAK_DEST/bin/dmidecode
 
 
 
@@ -240,5 +245,4 @@ modules:
     sources:
       - type: git
         url: https://github.com/hakandundar34coding/system-monitoring-center.git
-        path: https://github.com/hakandundar34coding/system-monitoring-center/archive/refs/heads/master.zip
         commit: d6983c716cd2e6748f52b34199c187adf8a7a722
