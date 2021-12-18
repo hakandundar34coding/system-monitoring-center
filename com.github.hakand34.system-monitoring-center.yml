@@ -241,4 +241,4 @@ modules:
       - type: git
         url: https://github.com/hakandundar34coding/system-monitoring-center.git
         path: https://github.com/hakandundar34coding/system-monitoring-center/archive/refs/heads/master.zip
-        commit: dc8f2dbc35db9aa45a4f347621537791da04e6b3
+        commit: d6983c716cd2e6748f52b34199c187adf8a7a722
