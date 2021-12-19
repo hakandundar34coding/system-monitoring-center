@@ -35,8 +35,8 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
    Command:
    sh [script file name].sh
 
-    Note: If there are uninstalled dependency problems during installation:
-          Try installing the application after installing the dependencies.
+Note: If there are uninstalled dependency problems during installation:
+      Try installing the application after installing the dependencies.
 ```
 
 ### Features:
