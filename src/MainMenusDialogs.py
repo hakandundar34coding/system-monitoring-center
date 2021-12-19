@@ -104,14 +104,13 @@ def main_menus_gui_func():
 
     def on_menuitem1003m_activate(widget):                                                    # "Restart as Root" menu item
         if 'signal' not in globals():
-            global signal
-            import signal
-        if 'Thread' not in globals():
-            global Thread
+            global signal, Thread, time
+            import signal, time
             from threading import Thread
         def restart_as_root():                                                                # Running action is performed in a separate thread for letting rest of the function code to be run without waiting closing the new opened application.
-           os.system("pkexec system-monitoring-center")                                       # For running application as root by using polkit authentication window
+            os.system("pkexec system-monitoring-center")                                      # For running application as root by using polkit authentication window
         restart_as_root_thread = Thread(target=restart_as_root, daemon=True).start()          # Define a thread and run it
+        time.sleep(0.4)                                                                       # For preventing ending the previous instance of the application before new one is started. "0.4" second is enough time to start the new instance of the application.
         os.kill(os.getpid(), signal.SIGTERM)                                                  # Get PID of the current application and end it
 
     def on_menuitem1004m_activate(widget):                                                    # "Settings" menu item
