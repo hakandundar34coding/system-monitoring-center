@@ -31,7 +31,12 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 1) Download the source code
 2) Browse /packaging_scripts folder
 3) Open terminal in this folder
-4) Run the required script without "sudo" (command: sh [script file name].sh)
+4) Run the required script without "sudo"
+   Command:
+   sh [script file name].sh
+
+Note: If there are uninstalled dependency problems during installation:
+      Try installing the application after installing the dependencies.
 ```
 
 ### Features:
@@ -83,4 +88,4 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 * python3-opengl (for FPS counting)
 
 ### Status:
-* The application is in Beta stage and there may be bugs to be fixed. Also settings of System Monitoring Center may be reset (very rare).
+* The application is in Beta stage and there may be bugs to be fixed. Also settings of System Monitoring Center may be reset (very rare) when a newer version is installed.
