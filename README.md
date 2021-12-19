@@ -37,6 +37,9 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 Note: If there are uninstalled dependency problems during installation:
       Try installing the application after installing the dependencies.
+
+Note2: For RPM based distributions:
+       Generate RPM package by using the installation script and install it if the application is not run after installation of the downloaded RPM package.
 ```
 
 ### Features:
