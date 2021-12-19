@@ -1,3 +1,12 @@
+system-monitoring-center (0.3.1~beta1) unstable; urgency=medium
+
+  * Fix: GPU model name matching problem (GPU tab)
+  * Improvements for Flatpak packaging
+  * Improvement: restarting the application with root privileges
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 19 Dec 2021 13:24:51 +0300
+
 system-monitoring-center (0.3.0~beta1) unstable; urgency=medium
 
   [ Hakan Dündar ]
