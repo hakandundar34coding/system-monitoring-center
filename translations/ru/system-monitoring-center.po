@@ -1,0 +1,3658 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: TranslAster <https://github.com/translaster/>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-10 18:57+0300\n"
+"PO-Revision-Date: 2021-12-23 17:51+0500\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"Last-Translator: Dmitriy Q <dmitry@atsip.ru>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Language: ru_RU\n"
+
+#: src/Cpu.py:281 ui/CpuTab.ui:45
+msgid "CPU Usage (Average):"
+msgstr ""
+
+#: src/Cpu.py:283
+msgid "CPU Usage (Per Core):"
+msgstr ""
+
+#: src/Cpu.py:336 src/Network.py:187 src/Network.py:193 src/Network.py:252
+#: src/Performance.py:143 src/Performance.py:149 src/Processes.py:811
+#: src/RamHardwareInformation.py:78
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: src/Cpu.py:397
+msgid "Selected CPU Core: "
+msgstr ""
+
+#: src/Disk.py:222 src/Disk.py:290 src/Disk.py:291 src/Disk.py:292
+#: src/Disk.py:293 src/Storage.py:344 src/Storage.py:398 src/Storage.py:407
+#: src/Storage.py:418 src/Storage.py:744 src/Storage.py:751
+#: src/StorageDetails.py:224 src/StorageDetails.py:267
+#: src/StorageDetails.py:279 src/StorageDetails.py:293
+#: src/StorageDetails.py:449 src/StorageDetails.py:450
+#: src/StorageDetails.py:451 src/StorageMenuRightClick.py:60
+#: src/StorageMenuRightClick.py:62 src/StorageMenuRightClick.py:68
+#: src/StorageMenuRightClick.py:71 src/StorageMenuRightClick.py:80
+#: src/StorageMenuRightClick.py:83 src/StorageMenuRightClick.py:96
+#: src/StorageMenuRightClick.py:102 src/StorageMenuRightClick.py:180
+msgid "[Not mounted]"
+msgstr ""
+
+#: src/Disk.py:230 src/Disk.py:439 src/Storage.py:389 src/StorageDetails.py:256
+msgid "[SWAP]"
+msgstr ""
+
+#: src/Disk.py:239 src/Gpu.py:229 src/Network.py:248 src/Network.py:266
+#: src/ServicesDetails.py:157 src/Storage.py:511 src/Storage.py:522
+#: src/Storage.py:533 src/StorageDetails.py:234 src/StorageDetails.py:381
+#: src/StorageDetails.py:395 src/StorageDetails.py:409 src/UsersDetails.py:248
+msgid "Yes"
+msgstr "Да"
+
+#: src/Disk.py:241 src/Gpu.py:231 src/Network.py:250 src/ServicesDetails.py:157
+#: src/Storage.py:513 src/Storage.py:524 src/Storage.py:535
+#: src/StorageDetails.py:230 src/StorageDetails.py:383
+#: src/StorageDetails.py:397 src/StorageDetails.py:411 src/UsersDetails.py:250
+msgid "No"
+msgstr ""
+
+#: src/Disk.py:385 src/Disk.py:413 src/RamSwapDetails.py:81 src/Storage.py:333
+#: src/Storage.py:338 src/StorageDetails.py:209 src/StorageDetails.py:219
+#: src/StorageMenuRightClick.py:195
+msgid "Partition"
+msgstr ""
+
+#: src/Disk.py:390 src/SettingsGUI.py:333 src/Storage.py:324 src/Storage.py:433
+#: src/Storage.py:477 src/Storage.py:487 src/Storage.py:498 src/Storage.py:507
+#: src/Storage.py:518 src/Storage.py:529 src/StorageDetails.py:200
+#: src/StorageDetails.py:310 src/StorageDetails.py:348
+#: src/StorageDetails.py:356 src/StorageDetails.py:365
+#: src/StorageDetails.py:372 src/StorageDetails.py:386
+#: src/StorageDetails.py:400 ui/DiskTab.ui:23 ui/MainWindow.ui:174
+msgid "Disk"
+msgstr "Диск"
+
+#: src/Disk.py:475 src/FloatingSummary.py:208 src/Network.py:343
+#: src/PerformanceSummaryHeaderbar.py:199 src/Processes.py:918
+#: src/ProcessesDetails.py:658 src/Ram.py:329 src/RamSwapDetails.py:147
+#: src/Services.py:636 src/ServicesDetails.py:356 src/Storage.py:908
+#: src/StorageDetails.py:515 src/Users.py:729 src/UsersDetails.py:380
+msgid "Auto-Byte"
+msgstr ""
+
+#: src/Disk.py:477 src/FloatingSummary.py:210 src/Network.py:345
+#: src/PerformanceSummaryHeaderbar.py:201 src/Processes.py:920
+#: src/ProcessesDetails.py:660 src/Ram.py:331 src/RamSwapDetails.py:149
+#: src/Services.py:638 src/ServicesDetails.py:358 src/Storage.py:910
+#: src/StorageDetails.py:517 src/Users.py:731 src/UsersDetails.py:382
+msgid "Auto-bit"
+msgstr ""
+
+#: src/EnvironmentVarMenuRightClick.py:64
+#: ui/EnvironmentVariablesInputWindow.ui:8
+msgid "Add New Persistent Environment Variable"
+msgstr ""
+
+#: src/EnvironmentVarMenuRightClick.py:79
+msgid "Edit Persistent Environment Variable"
+msgstr ""
+
+#: src/EnvironmentVarMenuRightClick.py:163 src/EnvironmentVariablesInput.py:179
+#: src/EnvironmentVariablesInput.py:196 src/Processes.py:886
+#: src/ProcessesMenuRightClick.py:290 src/ProcessesMenuRightClick.py:302
+#: src/RamHardwareInformation.py:174 src/ServicesMenuRightClick.py:161
+#: src/SettingsGUI.py:596 src/StartupMenuRightClick.py:425
+#: src/StartupMenuRightClick.py:438 src/StartupNewItem.py:190
+#: src/StorageMenuRightClick.py:257 src/StorageRename.py:158
+#: src/UsersMenuRightClick.py:86 src/UsersMenuRightClick.py:97
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: src/EnvironmentVarMenuRightClick.py:164
+msgid "Do You Want To Delete The Environment Variable?"
+msgstr ""
+
+#: src/EnvironmentVarMenuRightClick.py:165
+msgid "Environment variable will be deleted from following files:"
+msgstr ""
+
+#: src/EnvironmentVarMenuRightClick.py:169
+msgid "Do you want to delete the following persistent environment variable?"
+msgstr ""
+
+#: src/EnvironmentVarMenuRightClick.py:171
+#: ui/EnvironmentVariablesInputWindow.ui:153
+msgid "Variable:"
+msgstr ""
+
+#: src/EnvironmentVarMenuRightClick.py:172
+#: ui/EnvironmentVariablesInputWindow.ui:165
+msgid "Value:"
+msgstr "Значение:"
+
+#: src/EnvironmentVariables.py:161 src/EnvironmentVariables.py:163
+msgid ""
+"Currently editing/deleting environment variables only in '/home/[username]/."
+"bashrc' and '/etc/environment' files are supported."
+msgstr ""
+
+#: src/EnvironmentVariables.py:180 src/EnvironmentVariables.py:306
+#: src/EnvironmentVariables.py:473 src/EnvironmentVariables.py:530
+msgid "Environment Variable"
+msgstr ""
+
+#: src/EnvironmentVariables.py:180 src/EnvironmentVariables.py:312
+#: src/EnvironmentVariables.py:472 src/EnvironmentVariables.py:473
+msgid "Environment & Shell Variable"
+msgstr ""
+
+#: src/EnvironmentVariables.py:186 src/EnvironmentVariables.py:309
+#: src/EnvironmentVariables.py:472 src/EnvironmentVariables.py:522
+msgid "Shell Variable"
+msgstr ""
+
+#: src/EnvironmentVariables.py:188
+msgid "Shell variables cannot be edited."
+msgstr ""
+
+#: src/EnvironmentVariables.py:190
+msgid "Shell variables cannot be deleted."
+msgstr ""
+
+#: src/EnvironmentVariables.py:205 ui/EnvironmentVarMenuCustomizations.ui:252
+msgid "Variable"
+msgstr ""
+
+#: src/EnvironmentVariables.py:206 ui/EnvironmentVarMenuCustomizations.ui:268
+msgid "Value"
+msgstr "Значение"
+
+#: src/EnvironmentVariables.py:207 ui/EnvironmentVarMenuCustomizations.ui:282
+msgid "Variable Type"
+msgstr ""
+
+#: src/EnvironmentVariables.py:238
+msgid ""
+"Listing environment/shell variables is not supported when application is run "
+"with root privileges."
+msgstr ""
+
+#: src/EnvironmentVariables.py:249 src/EnvironmentVariables.py:258
+msgid ""
+"Listing environment/shell variables is not supported when application is run "
+"in terminal."
+msgstr ""
+
+#: src/EnvironmentVariables.py:475 src/Processes.py:669 src/Sensors.py:369
+#: src/Services.py:501 src/Startup.py:709 src/Storage.py:737 src/Users.py:590
+msgid "Total: "
+msgstr ""
+
+#: src/EnvironmentVariables.py:475
+msgid " persistent variables ("
+msgstr ""
+
+#: src/EnvironmentVariables.py:475
+msgid " environment variables, "
+msgstr ""
+
+#: src/EnvironmentVariables.py:475
+msgid " shell variables)"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:180
+msgid "Do You Want To Overwrite Existing Environment Variable?"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:181
+msgid "There is already an environment variable with the same name."
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:182
+msgid "Existing variable will be overwritten if you continue."
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:183 src/StartupNewItem.py:194
+#: src/UsersMenuRightClick.py:101
+msgid "Do you want to continue?"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:184
+msgid "Existing Environment Variable:"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:185
+msgid "Existing Environment Variable Value:"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:186
+msgid "New Environment Variable:"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:187
+msgid "New Environment Variable Value:"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:197
+msgid "Do You Want To Add/Edit Environment Variable For All Users?"
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:198
+msgid ""
+"You may make your system unusable if you edit/overwrite some of the system "
+"variables."
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:199
+msgid "Variable will be added/edited for all users if this option is enabled."
+msgstr ""
+
+#: src/EnvironmentVariablesInput.py:200
+msgid "Do you want to enable/keep enabled this option?"
+msgstr ""
+
+#: src/FloatingSummary.py:134
+msgid "CPU: "
+msgstr ""
+
+#: src/FloatingSummary.py:136
+msgid "RAM: "
+msgstr ""
+
+#: src/FloatingSummary.py:138
+msgid "Disk R+W: "
+msgstr ""
+
+#: src/FloatingSummary.py:140
+msgid "Disk R: "
+msgstr ""
+
+#: src/FloatingSummary.py:142
+msgid "Disk W: "
+msgstr ""
+
+#: src/FloatingSummary.py:144
+msgid "Network D+U: "
+msgstr ""
+
+#: src/FloatingSummary.py:146
+msgid "Network R: "
+msgstr ""
+
+#: src/FloatingSummary.py:148
+msgid "Network W: "
+msgstr ""
+
+#: src/MainGUI.py:137
+msgid ""
+"Warning! The application has been run with root privileges, you may harm "
+"your system."
+msgstr ""
+
+#: src/MainMenusDialogs.py:151 src/ProcessesDetails.py:690
+#: src/ProcessesMenuRightClick.py:278 src/ProcessesMenuRightClick.py:314
+#: src/ProcessesMenuRightClick.py:324 src/StartupMenuRightClick.py:451
+#: src/StorageMenuRightClick.py:234 src/StorageMenuRightClick.py:247
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/MainMenusDialogs.py:152
+msgid "Default Terminal Application Not Detected"
+msgstr ""
+
+#: src/MainMenusDialogs.py:153
+msgid "Default terminal application on this system could not be detected."
+msgstr ""
+
+#: src/Network.py:200
+msgid "Ethernet"
+msgstr ""
+
+#: src/Network.py:202
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+#: src/Processes.py:156 src/ProcessesMenuCustomizations.py:513
+#: ui/StorageTab.ui:241
+msgid "User defined expand"
+msgstr ""
+
+#: src/Processes.py:157 src/ProcessesMenuCustomizations.py:514
+#: ui/StorageTab.ui:263
+msgid "Expand all"
+msgstr ""
+
+#: src/Processes.py:158 src/ProcessesMenuCustomizations.py:515
+#: ui/StorageTab.ui:285
+msgid "Collapse all"
+msgstr ""
+
+#: src/Processes.py:165 src/ProcessesMenuCustomizations.py:521
+#: ui/ProcessesTab.ui:164
+msgid ""
+"User defined expand\n"
+"(Usable if processes are listed as tree)"
+msgstr ""
+
+#: src/Processes.py:166 src/ProcessesMenuCustomizations.py:522
+#: ui/ProcessesTab.ui:187
+msgid ""
+"Expand all\n"
+"(Usable if processes are listed as tree)"
+msgstr ""
+
+#: src/Processes.py:167 src/ProcessesMenuCustomizations.py:523
+#: ui/ProcessesTab.ui:210
+msgid ""
+"Collapse all\n"
+"(Usable if processes are listed as tree)"
+msgstr ""
+
+#: src/Processes.py:230
+msgid "Process Name"
+msgstr "Название процесса"
+
+#: src/Processes.py:231 ui/ProcessesDetailsWindow.ui:55
+#: ui/ProcessesMenuCustomizations.ui:357
+msgid "PID"
+msgstr ""
+
+#: src/Processes.py:232 ui/ProcessesMenuCustomizations.ui:371
+msgid "User"
+msgstr "Пользователь"
+
+#: src/Processes.py:233 ui/ProcessesDetailsWindow.ui:68
+#: ui/ProcessesMenuCustomizations.ui:385
+msgid "Status"
+msgstr "Состояние"
+
+#: src/Processes.py:234 src/Users.py:191 ui/UsersDetailsWindow.ui:195
+#: ui/UsersMenuCustomizations.ui:352
+msgid "CPU%"
+msgstr ""
+
+#: src/Processes.py:235 ui/ProcessesMenuCustomizations.ui:413
+#: ui/UsersMenuCustomizations.ui:366
+msgid "RAM (RSS)"
+msgstr ""
+
+#: src/Processes.py:236 ui/ProcessesMenuCustomizations.ui:427
+msgid "RAM (VMS)"
+msgstr ""
+
+#: src/Processes.py:237 ui/ProcessesMenuCustomizations.ui:497
+msgid "RAM (Shared)"
+msgstr ""
+
+#: src/Processes.py:238 ui/ProcessesDetailsWindow.ui:1313
+#: ui/ProcessesMenuCustomizations.ui:539
+msgid "Disk Read Data"
+msgstr ""
+
+#: src/Processes.py:239 ui/ProcessesDetailsWindow.ui:1326
+#: ui/ProcessesMenuCustomizations.ui:553
+msgid "Disk Write Data"
+msgstr ""
+
+#: src/Processes.py:240 ui/ProcessesDetailsWindow.ui:1287
+#: ui/ProcessesMenuCustomizations.ui:511 ui/SettingsWindow.ui:438
+msgid "Disk Read Speed"
+msgstr ""
+
+#: src/Processes.py:241 ui/ProcessesDetailsWindow.ui:1300
+#: ui/ProcessesMenuCustomizations.ui:525 ui/SettingsWindow.ui:466
+msgid "Disk Write Speed"
+msgstr ""
+
+#: src/Processes.py:242 src/RamSwapDetails.py:111
+#: ui/ProcessesDetailsWindow.ui:94 ui/ProcessesMenuCustomizations.ui:441
+msgid "Priority"
+msgstr "Приоритет"
+
+#: src/Processes.py:243
+msgid "# of Threads"
+msgstr ""
+
+#: src/Processes.py:244 ui/ProcessesDetailsWindow.ui:172
+#: ui/ProcessesMenuCustomizations.ui:469
+msgid "PPID"
+msgstr ""
+
+#: src/Processes.py:245 src/Users.py:182 ui/ProcessesMenuCustomizations.ui:567
+#: ui/UsersDetailsWindow.ui:78 ui/UsersMenuCustomizations.ui:296
+msgid "UID"
+msgstr "UID"
+
+#: src/Processes.py:246 src/Users.py:183 ui/ProcessesMenuCustomizations.ui:581
+#: ui/UsersDetailsWindow.ui:91 ui/UsersMenuCustomizations.ui:310
+msgid "GID"
+msgstr ""
+
+#: src/Processes.py:247 src/Storage.py:223
+#: ui/ProcessesMenuCustomizations.ui:483 ui/ServicesDetailsWindow.ui:69
+#: ui/StorageDetailsWindow.ui:418 ui/StorageMenuCustomizations.ui:407
+msgid "Path"
+msgstr "Путь"
+
+#: src/Processes.py:266 src/ServicesDetails.py:156
+msgid "Running"
+msgstr "Запустить"
+
+#: src/Processes.py:266
+msgid "Sleeping"
+msgstr ""
+
+#: src/Processes.py:266
+msgid "Waiting"
+msgstr "Ожидание"
+
+#: src/Processes.py:266
+msgid "Idle"
+msgstr "Простаивает"
+
+#: src/Processes.py:266
+msgid "Zombie"
+msgstr ""
+
+#: src/Processes.py:266
+msgid "Stopped"
+msgstr ""
+
+#: src/Processes.py:266
+msgid "Tracing Stop"
+msgstr ""
+
+#: src/Processes.py:266 src/ServicesDetails.py:156
+msgid "Dead"
+msgstr ""
+
+#: src/Processes.py:669
+msgid " processes ("
+msgstr ""
+
+#: src/Processes.py:669
+msgid " from this user, "
+msgstr ""
+
+#: src/Processes.py:669
+msgid " from other users/system)"
+msgstr ""
+
+#: src/Processes.py:887
+msgid "Current Windowing System Is not Supported"
+msgstr ""
+
+#: src/Processes.py:888
+msgid ""
+"This function can not be used on systems which run a windowing system other "
+"than X11."
+msgstr ""
+
+#: src/ProcessesDetails.py:252
+msgid "Process Details: "
+msgstr ""
+
+#: src/ProcessesDetails.py:691 src/ProcessesMenuRightClick.py:315
+msgid "Process Is Not Running Anymore"
+msgstr ""
+
+#: src/ProcessesDetails.py:692
+msgid ""
+"Following process is not running anymore \n"
+"and process details window is closed automatically:\n"
+"  "
+msgstr ""
+
+#: src/ProcessesDetails.py:692 src/ProcessesMenuRightClick.py:316
+msgid " (PID: "
+msgstr " (PID: "
+
+#: src/ProcessesDetails.py:692
+msgid ")"
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:175
+#: src/UsersMenuRightClick.py:87
+msgid "Access Denied"
+msgstr "Доступ запрещен"
+
+#: src/ProcessesMenuRightClick.py:280
+msgid "You have to have root privileges in order to:"
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:281
+msgid "1) Increase nice value of your processes"
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:282
+msgid "2) Increase/decrease nice value of other processes."
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:291
+msgid "Terminate Process?"
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:292
+msgid "Do you want to terminate the following process?"
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:303
+msgid "Kill Process?"
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:304
+msgid ""
+"Do you want to kill the following process?\n"
+" "
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:316
+msgid ""
+"Following process is not running anymore \n"
+"and process custom priority window is closed automatically:\n"
+" "
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:325
+msgid "Process Directory Could Not Be Get"
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:326
+msgid ""
+"Process directory could not be get.\n"
+"No folder will be opened."
+msgstr ""
+
+#: src/Ram.py:226
+msgid "Total Physical RAM: "
+msgstr ""
+
+#: src/Ram.py:227
+msgid "Reserved Swap Memory: "
+msgstr ""
+
+#: src/RamHardwareInformation.py:78 src/StartupMenuRightClick.py:413
+#: src/StartupMenuRightClick.py:419
+msgid "None"
+msgstr "Отсутствует"
+
+#: src/RamHardwareInformation.py:104
+msgid "Maximum Capacity"
+msgstr ""
+
+#: src/RamHardwareInformation.py:105
+msgid "Number Of Devices"
+msgstr ""
+
+#: src/RamHardwareInformation.py:143 src/RamHardwareInformation.py:162
+msgid "Capacity"
+msgstr "Вместимость"
+
+#: src/RamHardwareInformation.py:144 src/RamHardwareInformation.py:163
+#: src/RamSwapDetails.py:108 src/Storage.py:212 ui/ServicesDetailsWindow.ui:245
+#: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:295
+msgid "Type"
+msgstr "Тип"
+
+#: src/RamHardwareInformation.py:145
+msgid "Speed/Frequency"
+msgstr "Скорость/Частота"
+
+#: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:165
+msgid "Manufacturer"
+msgstr ""
+
+#: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:166
+msgid "Form Factor"
+msgstr ""
+
+#: src/RamHardwareInformation.py:148 src/RamHardwareInformation.py:167
+msgid "Locator"
+msgstr ""
+
+#: src/RamHardwareInformation.py:149 src/RamHardwareInformation.py:168
+msgid "Bank Locator"
+msgstr ""
+
+#: src/RamHardwareInformation.py:164
+msgid "Speed"
+msgstr "Скорость"
+
+#: src/RamHardwareInformation.py:176
+msgid "Root privileges are needed for viewing RAM hardware information."
+msgstr ""
+
+#: src/RamSwapDetails.py:81
+msgid "File"
+msgstr "Файл"
+
+#: src/RamSwapDetails.py:107
+msgid "Partition/File Name"
+msgstr ""
+
+#: src/RamSwapDetails.py:109
+msgid "Size"
+msgstr "Размер"
+
+#: src/RamSwapDetails.py:110
+msgid "Used"
+msgstr "Используется"
+
+#: src/RamSwapDetails.py:119
+msgid "This system has no swap memory."
+msgstr ""
+
+#: src/Sensors.py:113
+msgid "Sensor Group"
+msgstr "Группа сенсоров"
+
+#: src/Sensors.py:114
+msgid "Sensor Name"
+msgstr "Название сенсора"
+
+#: src/Sensors.py:115
+msgid "Current Vale"
+msgstr ""
+
+#: src/Sensors.py:116
+msgid "Critical Value"
+msgstr ""
+
+#: src/Sensors.py:117
+msgid "Max Value"
+msgstr ""
+
+#: src/Sensors.py:369
+msgid " sensors ("
+msgstr " сенсоры ("
+
+#: src/Sensors.py:369
+msgid " temperature, "
+msgstr ""
+
+#: src/Sensors.py:369
+msgid " fan, "
+msgstr " вентилятор, "
+
+#: src/Sensors.py:369
+msgid " voltage/current sensors)"
+msgstr ""
+
+#: src/Services.py:183 ui/ServicesMenuCustomizations.ui:252
+msgid "Service Name"
+msgstr "Название службы"
+
+#: src/Services.py:184 ui/ServicesMenuCustomizations.ui:268
+msgid "State"
+msgstr "Состояние"
+
+#: src/Services.py:185 ui/ServicesDetailsWindow.ui:476
+#: ui/ServicesMenuCustomizations.ui:282
+msgid "Main PID"
+msgstr ""
+
+#: src/Services.py:186 ui/ServicesDetailsWindow.ui:297
+#: ui/ServicesMenuCustomizations.ui:296
+msgid "Active State"
+msgstr ""
+
+#: src/Services.py:187 ui/ServicesDetailsWindow.ui:284
+#: ui/ServicesMenuCustomizations.ui:310
+msgid "Load State"
+msgstr ""
+
+#: src/Services.py:188 ui/ServicesDetailsWindow.ui:310
+#: ui/ServicesMenuCustomizations.ui:324
+msgid "Sub-State"
+msgstr ""
+
+#: src/Services.py:189 src/Users.py:192 ui/ServicesMenuCustomizations.ui:338
+#: ui/UsersDetailsWindow.ui:406
+msgid "Memory (RSS)"
+msgstr ""
+
+#: src/Services.py:190 ui/ServicesDetailsWindow.ui:56
+#: ui/ServicesMenuCustomizations.ui:352
+msgid "Description"
+msgstr "Описание"
+
+#: src/Services.py:209
+msgid "enabled"
+msgstr ""
+
+#: src/Services.py:209
+msgid "disabled"
+msgstr "отключено"
+
+#: src/Services.py:209
+msgid "masked"
+msgstr ""
+
+#: src/Services.py:209
+msgid "unmasked"
+msgstr ""
+
+#: src/Services.py:209
+msgid "static"
+msgstr ""
+
+#: src/Services.py:209
+msgid "generated"
+msgstr ""
+
+#: src/Services.py:209
+msgid "enabled-runtime"
+msgstr ""
+
+#: src/Services.py:209
+msgid "indirect"
+msgstr ""
+
+#: src/Services.py:209
+msgid "active"
+msgstr "активный"
+
+#: src/Services.py:209
+msgid "inactive"
+msgstr ""
+
+#: src/Services.py:209
+msgid "loaded"
+msgstr "загружено"
+
+#: src/Services.py:209
+msgid "dead"
+msgstr ""
+
+#: src/Services.py:209
+msgid "exited"
+msgstr ""
+
+#: src/Services.py:209
+msgid "running"
+msgstr ""
+
+#: src/Services.py:210
+msgid "yes"
+msgstr "да"
+
+#: src/Services.py:210
+msgid "no"
+msgstr ""
+
+#: src/Services.py:294 src/Services.py:297 src/ServicesDetails.py:156
+msgid "Loaded"
+msgstr ""
+
+#: src/Services.py:501
+msgid " services ("
+msgstr " службы ("
+
+#: src/Services.py:501
+msgid " loaded, "
+msgstr ""
+
+#: src/Services.py:501
+msgid " non-loaded)"
+msgstr ""
+
+#: src/ServicesDetails.py:156
+msgid "Enabled"
+msgstr "Включен"
+
+#: src/ServicesDetails.py:156
+msgid "Disabled"
+msgstr "Отключено"
+
+#: src/ServicesDetails.py:156
+msgid "Masked"
+msgstr ""
+
+#: src/ServicesDetails.py:156
+msgid "Unmasked"
+msgstr ""
+
+#: src/ServicesDetails.py:156
+msgid "Static"
+msgstr ""
+
+#: src/ServicesDetails.py:156
+msgid "Generated"
+msgstr ""
+
+#: src/ServicesDetails.py:156
+msgid "Enabled-runtime"
+msgstr ""
+
+#: src/ServicesDetails.py:156
+msgid "Indirect"
+msgstr ""
+
+#: src/ServicesDetails.py:156
+msgid "Active"
+msgstr "Активный"
+
+#: src/ServicesDetails.py:156
+msgid "Inactive"
+msgstr "Неактивно"
+
+#: src/ServicesDetails.py:156
+msgid "Exited"
+msgstr ""
+
+#: src/ServicesMenuRightClick.py:162 src/StorageMenuRightClick.py:258
+#: src/StorageRename.py:159
+msgid "Information"
+msgstr "Информация"
+
+#: src/SettingsGUI.py:316 ui/MainWindow.ui:891
+msgid "Performance"
+msgstr ""
+
+#: src/SettingsGUI.py:316 src/Users.py:184 ui/MainWindow.ui:844
+#: ui/ProcessesTab.ui:251 ui/UsersDetailsWindow.ui:104
+#: ui/UsersMenuCustomizations.ui:324
+msgid "Processes"
+msgstr ""
+
+#: src/SettingsGUI.py:316 ui/MainWindow.ui:554 ui/UsersTab.ui:56
+msgid "Users"
+msgstr "Пользователи"
+
+#: src/SettingsGUI.py:316 ui/MainWindow.ui:602 ui/StorageTab.ui:44
+msgid "Storage"
+msgstr ""
+
+#: src/SettingsGUI.py:316 ui/MainWindow.ui:700 ui/StartupTab.ui:44
+msgid "Startup"
+msgstr ""
+
+#: src/SettingsGUI.py:316 ui/MainWindow.ui:796 ui/ServicesTab.ui:44
+msgid "Services"
+msgstr "Службы"
+
+#: src/SettingsGUI.py:316 ui/MainWindow.ui:651
+msgid "Environment Variables"
+msgstr ""
+
+#: src/SettingsGUI.py:316 ui/MainWindow.ui:748 ui/SystemTab.ui:67
+msgid "System"
+msgstr "Система"
+
+#: src/SettingsGUI.py:333 ui/CpuTab.ui:500 ui/MainWindow.ui:80
+msgid "CPU"
+msgstr "ЦП"
+
+#: src/SettingsGUI.py:333 ui/MainWindow.ui:127 ui/RamTab.ui:428
+msgid "RAM"
+msgstr ""
+
+#: src/SettingsGUI.py:333 ui/MainWindow.ui:268 ui/NetworkTab.ui:417
+msgid "Network"
+msgstr "Сеть"
+
+#: src/SettingsGUI.py:333 ui/GpuTab.ui:360 ui/MainWindow.ui:221
+msgid "GPU"
+msgstr ""
+
+#: src/SettingsGUI.py:333 ui/MainWindow.ui:315 ui/SensorsTab.ui:185
+msgid "Sensors"
+msgstr "Сенсоры"
+
+#: src/SettingsGUI.py:597
+msgid "Reset All Settings?"
+msgstr ""
+
+#: src/SettingsGUI.py:598
+msgid "Do you want to reset all settings of the application to defaults?"
+msgstr ""
+
+#: src/Startup.py:155 ui/ProcessesDetailsWindow.ui:42
+#: ui/ProcessesMenuCustomizations.ui:341 ui/ServicesDetailsWindow.ui:43
+#: ui/StartupMenuCustomizations.ui:251
+msgid "Name"
+msgstr "Название"
+
+#: src/Startup.py:156 ui/StartupMenuCustomizations.ui:267
+msgid "Comment"
+msgstr "Комментарий"
+
+#: src/Startup.py:157
+msgid "Command"
+msgstr "Команда"
+
+#: src/Startup.py:301
+msgid ""
+"Currently following desktop environments are supported for listing startup "
+"items:\n"
+msgstr ""
+
+#: src/Startup.py:709
+msgid " startup applications ("
+msgstr ""
+
+#: src/Startup.py:709
+msgid " visible, "
+msgstr ""
+
+#: src/Startup.py:709
+msgid " hidden)"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:252
+msgid ""
+"Do you want to delete system-wide values file of the following startup item?"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:266
+msgid ""
+"Do you want to delete user-specific values file of the following startup "
+"item?"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:279
+msgid ""
+"Do you want to delete system-wide and user-specific value files of the "
+"following startup item?"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:410 src/StartupMenuRightClick.py:413
+#: ui/StartupMenuRightClick.ui:153
+msgid "System-wide values file: "
+msgstr ""
+
+#: src/StartupMenuRightClick.py:416 src/StartupMenuRightClick.py:419
+#: ui/StartupMenuRightClick.ui:162
+msgid "User-specific values file: "
+msgstr ""
+
+#: src/StartupMenuRightClick.py:426
+msgid "Run Startup Item Now?"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:427
+msgid "Do you want to run the following startup item?"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:428 src/StartupMenuRightClick.py:441
+msgid "Startup Item:"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:429 src/StartupMenuRightClick.py:442
+#: ui/StartupNewItemWindow.ui:189
+msgid "Command:"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:439
+msgid "Delete Startup Item?"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:452
+msgid "Error While Running Startup Item Command"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:453
+msgid "Error is encountered while running the following command:"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:454
+msgid "'.desktop' File Name:"
+msgstr ""
+
+#: src/StartupMenuRightClick.py:455
+msgid "Startup Item Command:"
+msgstr ""
+
+#: src/StartupNewItem.py:191
+msgid "Do You Want To Overwrite Existing File?"
+msgstr ""
+
+#: src/StartupNewItem.py:192
+msgid "There is already a '.desktop' file with the same name."
+msgstr ""
+
+#: src/StartupNewItem.py:193
+msgid "Existing file will be overwritten if you continue."
+msgstr ""
+
+#: src/StartupNewItem.py:195
+msgid "Existing Startup Item:"
+msgstr ""
+
+#: src/StartupNewItem.py:196
+msgid "Existing '.desktop' File Name:"
+msgstr ""
+
+#: src/Storage.py:209 ui/StorageDetailsWindow.ui:38
+#: ui/StorageMenuCustomizations.ui:251
+msgid "Disk Name"
+msgstr ""
+
+#: src/Storage.py:210 ui/StorageDetailsWindow.ui:51
+#: ui/StorageMenuCustomizations.ui:267
+msgid "Parent Name"
+msgstr ""
+
+#: src/Storage.py:211 ui/StorageDetailsWindow.ui:64
+#: ui/StorageMenuCustomizations.ui:281
+msgid "System Disk"
+msgstr ""
+
+#: src/Storage.py:213 ui/StorageDetailsWindow.ui:90
+#: ui/StorageMenuCustomizations.ui:309
+msgid "Transport Type"
+msgstr "Тип транспорта"
+
+#: src/Storage.py:214 ui/StorageDetailsWindow.ui:103
+#: ui/StorageMenuCustomizations.ui:323
+msgid "File System"
+msgstr ""
+
+#: src/Storage.py:215 ui/StorageDetailsWindow.ui:116
+#: ui/StorageMenuCustomizations.ui:337
+msgid "Total Size"
+msgstr ""
+
+#: src/Storage.py:216 ui/StorageDetailsWindow.ui:129
+#: ui/StorageMenuCustomizations.ui:393
+msgid "Free Space"
+msgstr "Свободное пространство"
+
+#: src/Storage.py:217 ui/StorageDetailsWindow.ui:142
+#: ui/StorageMenuCustomizations.ui:477
+msgid "Used Space"
+msgstr ""
+
+#: src/Storage.py:218 ui/StorageDetailsWindow.ui:155
+#: ui/StorageMenuCustomizations.ui:463
+msgid "Used Space%"
+msgstr ""
+
+#: src/Storage.py:219 ui/StorageDetailsWindow.ui:168
+#: ui/StorageMenuCustomizations.ui:491
+msgid "Vendor-Model"
+msgstr ""
+
+#: src/Storage.py:220 ui/StorageMenuCustomizations.ui:505
+msgid "Label"
+msgstr "Название"
+
+#: src/Storage.py:221 ui/StorageDetailsWindow.ui:194
+#: ui/StorageMenuCustomizations.ui:435
+msgid "Partition Label"
+msgstr ""
+
+#: src/Storage.py:222 ui/StorageDetailsWindow.ui:405
+#: ui/StorageMenuCustomizations.ui:449
+msgid "Mount Point"
+msgstr ""
+
+#: src/Storage.py:224 ui/StorageDetailsWindow.ui:462
+#: ui/StorageMenuCustomizations.ui:421
+msgid "Revision"
+msgstr "Версия"
+
+#: src/Storage.py:225 ui/StorageDetailsWindow.ui:475
+#: ui/StorageMenuCustomizations.ui:351
+msgid "Serial Number"
+msgstr "Серийный номер"
+
+#: src/Storage.py:226 ui/StorageDetailsWindow.ui:501
+#: ui/StorageMenuCustomizations.ui:365
+msgid "Mode"
+msgstr "Режим"
+
+#: src/Storage.py:227 ui/StorageDetailsWindow.ui:488
+#: ui/StorageMenuCustomizations.ui:379
+msgid "Removable"
+msgstr ""
+
+#: src/Storage.py:228 ui/StorageDetailsWindow.ui:514
+#: ui/StorageMenuCustomizations.ui:519
+msgid "Rotational"
+msgstr ""
+
+#: src/Storage.py:229 ui/StorageDetailsWindow.ui:540
+msgid "Read-Only"
+msgstr ""
+
+#: src/Storage.py:230 ui/StorageDetailsWindow.ui:527
+#: ui/StorageMenuCustomizations.ui:547
+msgid "UUID"
+msgstr ""
+
+#: src/Storage.py:231 ui/StorageMenuCustomizations.ui:575
+msgid "Unique Storage Id."
+msgstr ""
+
+#: src/Storage.py:232 ui/StorageMenuCustomizations.ui:561
+msgid "Major:Minor Device #"
+msgstr ""
+
+#: src/Storage.py:737
+msgid " disks/partitions ("
+msgstr ""
+
+#: src/Storage.py:737
+msgid " disks, "
+msgstr " диски, "
+
+#: src/Storage.py:737
+msgid " partitions)"
+msgstr ""
+
+#: src/StorageDetails.py:214
+msgid "Storage Details: "
+msgstr ""
+
+#: src/StorageDetails.py:549 src/UsersDetails.py:414
+msgid ""
+"Following disk is not connected anymore \n"
+"and storage details window is closed automatically:\n"
+"  "
+msgstr ""
+
+#: src/StorageMenuRightClick.py:69
+msgid "Disk is already mounted."
+msgstr ""
+
+#: src/StorageMenuRightClick.py:81
+msgid "Disk is already unmounted."
+msgstr ""
+
+#: src/StorageMenuRightClick.py:235
+msgid "Disk Is Not Mounted"
+msgstr ""
+
+#: src/StorageMenuRightClick.py:236
+msgid "The disk you have tried to browse is not mounted."
+msgstr ""
+
+#: src/StorageMenuRightClick.py:238
+msgid "Disk have to be mounted before browsing."
+msgstr ""
+
+#: src/StorageMenuRightClick.py:239
+msgid ""
+"Note: Some disks such as parent disks or swap disks do not have mount points."
+msgstr ""
+
+#: src/StorageMenuRightClick.py:248
+msgid "Disk Has No Mountable File System"
+msgstr ""
+
+#: src/StorageMenuRightClick.py:249
+msgid ""
+"The disk you have tried to mount or unmount has no mountable file system.\n"
+"\n"
+" Note: Some disks such as parent disks, swap disks do not have mountable "
+"file systems."
+msgstr ""
+
+#: src/StorageRename.py:124
+msgid "Renaming disks with this file system is not supported."
+msgstr ""
+
+#: src/StorageRename.py:137
+msgid "Disk has been removed and file system could not be renamed."
+msgstr ""
+
+#: src/System.py:450
+msgid "(Yes)"
+msgstr "(Да)"
+
+#: src/System.py:452
+msgid "(No)"
+msgstr "(Нет)"
+
+#: src/Users.py:179 ui/UsersDetailsWindow.ui:39
+#: ui/UsersMenuCustomizations.ui:252
+msgid "User Name"
+msgstr "Имя пользователя"
+
+#: src/Users.py:180 ui/UsersDetailsWindow.ui:52
+#: ui/UsersMenuCustomizations.ui:268
+msgid "Full Name"
+msgstr ""
+
+#: src/Users.py:181 ui/UsersDetailsWindow.ui:65
+#: ui/UsersMenuCustomizations.ui:282
+msgid "Logged In"
+msgstr ""
+
+#: src/Users.py:185 ui/UsersDetailsWindow.ui:117
+#: ui/UsersMenuCustomizations.ui:338
+msgid "Home Directory"
+msgstr ""
+
+#: src/Users.py:186 ui/UsersDetailsWindow.ui:130
+#: ui/UsersMenuCustomizations.ui:380
+msgid "Group"
+msgstr "Группа"
+
+#: src/Users.py:187 ui/StartupNewItemWindow.ui:235 ui/UsersDetailsWindow.ui:143
+#: ui/UsersMenuCustomizations.ui:422
+msgid "Terminal"
+msgstr "Терминал"
+
+#: src/Users.py:188 ui/UsersDetailsWindow.ui:156
+#: ui/UsersMenuCustomizations.ui:436
+msgid "Last Login"
+msgstr ""
+
+#: src/Users.py:189 ui/UsersDetailsWindow.ui:169
+#: ui/UsersMenuCustomizations.ui:394
+msgid "Last Failed Login"
+msgstr ""
+
+#: src/Users.py:190 ui/UsersDetailsWindow.ui:182
+#: ui/UsersMenuCustomizations.ui:408
+msgid "Started"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Jan"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Feb"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Mar"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Apr"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "May"
+msgstr "Май"
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Jun"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Jul"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Aug"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Sep"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Oct"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Nov"
+msgstr ""
+
+#: src/Users.py:224 src/UsersDetails.py:144
+msgid "Dec"
+msgstr ""
+
+#: src/Users.py:225 src/UsersDetails.py:145
+msgid "Mon"
+msgstr ""
+
+#: src/Users.py:225 src/UsersDetails.py:145
+msgid "Tue"
+msgstr ""
+
+#: src/Users.py:225 src/UsersDetails.py:145
+msgid "Wed"
+msgstr ""
+
+#: src/Users.py:225 src/UsersDetails.py:145
+msgid "Thu"
+msgstr ""
+
+#: src/Users.py:225 src/UsersDetails.py:145
+msgid "Fri"
+msgstr ""
+
+#: src/Users.py:225 src/UsersDetails.py:145
+msgid "Sat"
+msgstr ""
+
+#: src/Users.py:225 src/UsersDetails.py:145
+msgid "Sun"
+msgstr ""
+
+#: src/Users.py:590
+msgid " users ("
+msgstr ""
+
+#: src/Users.py:590
+msgid " logged in users, "
+msgstr ""
+
+#: src/Users.py:590
+msgid " logged out users)"
+msgstr ""
+
+#: src/UsersDetails.py:88 ui/UsersDetailsWindow.ui:8
+msgid "User Details"
+msgstr "Сведения о пользователе"
+
+#: src/UsersDetails.py:313
+msgid "User Details: "
+msgstr ""
+
+#: src/UsersMenuRightClick.py:88
+msgid "Root privileges are needed for ending an user session."
+msgstr ""
+
+#: src/UsersMenuRightClick.py:98
+msgid "Do You Want To End User Session?"
+msgstr ""
+
+#: src/UsersMenuRightClick.py:99
+msgid ""
+"This action will end all processes of the user immediately and may cause "
+"data loss for the user."
+msgstr ""
+
+#: src/UsersMenuRightClick.py:100
+msgid "User session will be ended if you continue."
+msgstr ""
+
+#: src/UsersMenuRightClick.py:102
+msgid "User Name:"
+msgstr "Имя пользователя:"
+
+#: src/UsersMenuRightClick.py:103
+msgid "User UID:"
+msgstr ""
+
+#: ui/CpuMenus.ui:20
+msgid "CPU Tab Customizations:"
+msgstr ""
+
+#: ui/CpuMenus.ui:51
+msgid "Chart - Show:"
+msgstr ""
+
+#: ui/CpuMenus.ui:66
+msgid "Average CPU usage"
+msgstr ""
+
+#: ui/CpuMenus.ui:80
+msgid "CPU usage per core"
+msgstr ""
+
+#: ui/CpuMenus.ui:113 ui/GpuMenus.ui:51
+msgid "Chart - Set Color:"
+msgstr ""
+
+#: ui/CpuMenus.ui:130 ui/DiskMenus.ui:34 ui/GpuMenus.ui:68
+#: ui/NetworkMenus.ui:34 ui/RamMenus.ui:34
+msgid "Note: Same background color is used for all charts."
+msgstr ""
+
+#: ui/CpuMenus.ui:160
+msgid "Precision - CPU Percent:"
+msgstr ""
+
+#: ui/CpuMenus.ui:199 ui/DiskMenus.ui:183 ui/GpuMenus.ui:93
+#: ui/NetworkMenus.ui:183 ui/RamMenus.ui:205
+msgid "Background"
+msgstr "Бэкграунд"
+
+#: ui/CpuMenus.ui:217 ui/DiskMenus.ui:201 ui/GpuMenus.ui:111
+#: ui/NetworkMenus.ui:201 ui/RamMenus.ui:223
+msgid "Foreground"
+msgstr ""
+
+#: ui/CpuMenus.ui:286 ui/DiskMenus.ui:107
+#: ui/EnvironmentVarMenuCustomizations.ui:343 ui/GpuMenus.ui:156
+#: ui/NetworkMenus.ui:107 ui/ProcessesMenuCustomizations.ui:953
+#: ui/RamMenus.ui:129 ui/ServicesMenuCustomizations.ui:587
+#: ui/SettingsWindow.ui:665 ui/StartupMenuCustomizations.ui:342
+#: ui/StorageMenuCustomizations.ui:810 ui/UsersMenuCustomizations.ui:690
+msgid "Reset All"
+msgstr "Сбросить всё"
+
+#: ui/CpuMenus.ui:334
+msgid "Select CPU Core:"
+msgstr ""
+
+#: ui/CpuTab.ui:31 ui/RamTab.ui:523
+msgid "100%"
+msgstr "100%"
+
+#: ui/CpuTab.ui:42
+msgid ""
+"CPU usage percent\n"
+"(Max value is 100 %)"
+msgstr ""
+
+#: ui/CpuTab.ui:57 ui/RamTab.ui:549
+msgid "0%"
+msgstr "0%"
+
+#: ui/CpuTab.ui:103 ui/CpuTab.ui:120 ui/CpuTab.ui:137 ui/CpuTab.ui:196
+#: ui/CpuTab.ui:213 ui/CpuTab.ui:230 ui/CpuTab.ui:247 ui/CpuTab.ui:322
+#: ui/CpuTab.ui:353 ui/CpuTab.ui:398 ui/CpuTab.ui:461 ui/CpuTab.ui:476
+#: ui/DiskTab.ui:67 ui/DiskTab.ui:82 ui/DiskTab.ui:196 ui/DiskTab.ui:213
+#: ui/DiskTab.ui:230 ui/DiskTab.ui:247 ui/DiskTab.ui:264 ui/DiskTab.ui:313
+#: ui/DiskTab.ui:344 ui/DiskTab.ui:394 ui/DiskTab.ui:434 ui/DiskTab.ui:451
+#: ui/FloatingSummaryWindow.ui:19 ui/FloatingSummaryWindow.ui:31
+#: ui/FloatingSummaryWindow.ui:43 ui/FloatingSummaryWindow.ui:55
+#: ui/FloatingSummaryWindow.ui:67 ui/FloatingSummaryWindow.ui:79
+#: ui/FloatingSummaryWindow.ui:91 ui/FloatingSummaryWindow.ui:103
+#: ui/GpuTab.ui:86 ui/GpuTab.ui:103 ui/GpuTab.ui:120 ui/GpuTab.ui:165
+#: ui/GpuTab.ui:182 ui/GpuTab.ui:217 ui/GpuTab.ui:249 ui/GpuTab.ui:266
+#: ui/GpuTab.ui:313 ui/GpuTab.ui:330 ui/GpuTab.ui:404 ui/GpuTab.ui:419
+#: ui/NetworkTab.ui:139 ui/NetworkTab.ui:156 ui/NetworkTab.ui:173
+#: ui/NetworkTab.ui:190 ui/NetworkTab.ui:207 ui/NetworkTab.ui:224
+#: ui/NetworkTab.ui:241 ui/NetworkTab.ui:258 ui/NetworkTab.ui:289
+#: ui/NetworkTab.ui:321 ui/NetworkTab.ui:461 ui/NetworkTab.ui:476
+#: ui/PerformanceSummaryHeaderBarGrid.ui:79
+#: ui/PerformanceSummaryHeaderBarGrid.ui:91
+#: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
+#: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
+#: ui/ProcessesDetailsWindow.ui:257 ui/ProcessesDetailsWindow.ui:272
+#: ui/ProcessesDetailsWindow.ui:287 ui/ProcessesDetailsWindow.ui:302
+#: ui/ProcessesDetailsWindow.ui:317 ui/ProcessesDetailsWindow.ui:332
+#: ui/ProcessesDetailsWindow.ui:347 ui/ProcessesDetailsWindow.ui:362
+#: ui/ProcessesDetailsWindow.ui:377 ui/ProcessesDetailsWindow.ui:392
+#: ui/ProcessesDetailsWindow.ui:433 ui/ProcessesDetailsWindow.ui:448
+#: ui/ProcessesDetailsWindow.ui:914 ui/ProcessesDetailsWindow.ui:929
+#: ui/ProcessesDetailsWindow.ui:944 ui/ProcessesDetailsWindow.ui:959
+#: ui/ProcessesDetailsWindow.ui:974 ui/ProcessesDetailsWindow.ui:989
+#: ui/ProcessesDetailsWindow.ui:1004 ui/ProcessesDetailsWindow.ui:1019
+#: ui/ProcessesDetailsWindow.ui:1034 ui/ProcessesDetailsWindow.ui:1049
+#: ui/ProcessesDetailsWindow.ui:1064 ui/ProcessesDetailsWindow.ui:1079
+#: ui/ProcessesDetailsWindow.ui:1365 ui/ProcessesDetailsWindow.ui:1380
+#: ui/ProcessesDetailsWindow.ui:1395 ui/ProcessesDetailsWindow.ui:1410
+#: ui/ProcessesDetailsWindow.ui:1425 ui/ProcessesDetailsWindow.ui:1440
+#: ui/ProcessesDetailsWindow.ui:1556 ui/ProcessesDetailsWindow.ui:1571
+#: ui/ProcessesDetailsWindow.ui:1586 ui/ProcessesDetailsWindow.ui:1601
+#: ui/RamHardwareWindow.ui:87 ui/RamSwapDetailsWindow.ui:87 ui/RamTab.ui:73
+#: ui/RamTab.ui:90 ui/RamTab.ui:135 ui/RamTab.ui:152 ui/RamTab.ui:183
+#: ui/RamTab.ui:214 ui/RamTab.ui:247 ui/RamTab.ui:295 ui/RamTab.ui:472
+#: ui/RamTab.ui:487 ui/ServicesDetailsWindow.ui:107
+#: ui/ServicesDetailsWindow.ui:121 ui/ServicesDetailsWindow.ui:135
+#: ui/ServicesDetailsWindow.ui:149 ui/ServicesDetailsWindow.ui:163
+#: ui/ServicesDetailsWindow.ui:177 ui/ServicesDetailsWindow.ui:191
+#: ui/ServicesDetailsWindow.ui:322 ui/ServicesDetailsWindow.ui:336
+#: ui/ServicesDetailsWindow.ui:350 ui/ServicesDetailsWindow.ui:364
+#: ui/ServicesDetailsWindow.ui:378 ui/ServicesDetailsWindow.ui:392
+#: ui/ServicesDetailsWindow.ui:406 ui/ServicesDetailsWindow.ui:420
+#: ui/ServicesDetailsWindow.ui:434 ui/ServicesDetailsWindow.ui:461
+#: ui/ServicesDetailsWindow.ui:514 ui/ServicesDetailsWindow.ui:847
+#: ui/ServicesDetailsWindow.ui:861 ui/ServicesDetailsWindow.ui:875
+#: ui/ServicesDetailsWindow.ui:889 ui/StorageDetailsWindow.ui:207
+#: ui/StorageDetailsWindow.ui:222 ui/StorageDetailsWindow.ui:237
+#: ui/StorageDetailsWindow.ui:252 ui/StorageDetailsWindow.ui:267
+#: ui/StorageDetailsWindow.ui:282 ui/StorageDetailsWindow.ui:297
+#: ui/StorageDetailsWindow.ui:312 ui/StorageDetailsWindow.ui:327
+#: ui/StorageDetailsWindow.ui:342 ui/StorageDetailsWindow.ui:357
+#: ui/StorageDetailsWindow.ui:373 ui/StorageDetailsWindow.ui:389
+#: ui/StorageDetailsWindow.ui:431 ui/StorageDetailsWindow.ui:447
+#: ui/StorageDetailsWindow.ui:580 ui/StorageDetailsWindow.ui:595
+#: ui/StorageDetailsWindow.ui:610 ui/StorageDetailsWindow.ui:625
+#: ui/StorageDetailsWindow.ui:640 ui/StorageDetailsWindow.ui:655
+#: ui/StorageDetailsWindow.ui:670 ui/StorageDetailsWindow.ui:685
+#: ui/StorageDetailsWindow.ui:701 ui/StorageRenameWindow.ui:164
+#: ui/SystemTab.ui:29 ui/SystemTab.ui:44 ui/SystemTab.ui:182
+#: ui/SystemTab.ui:199 ui/SystemTab.ui:248 ui/SystemTab.ui:279
+#: ui/SystemTab.ui:312 ui/SystemTab.ui:346 ui/SystemTab.ui:379
+#: ui/SystemTab.ui:396 ui/SystemTab.ui:444 ui/SystemTab.ui:475
+#: ui/SystemTab.ui:508 ui/SystemTab.ui:541 ui/SystemTab.ui:636
+#: ui/SystemTab.ui:653 ui/SystemTab.ui:670 ui/SystemTab.ui:764
+#: ui/SystemTab.ui:781 ui/SystemTab.ui:816 ui/SystemTab.ui:833
+#: ui/SystemTab.ui:850 ui/UsersDetailsWindow.ui:208
+#: ui/UsersDetailsWindow.ui:223 ui/UsersDetailsWindow.ui:238
+#: ui/UsersDetailsWindow.ui:253 ui/UsersDetailsWindow.ui:268
+#: ui/UsersDetailsWindow.ui:283 ui/UsersDetailsWindow.ui:298
+#: ui/UsersDetailsWindow.ui:313 ui/UsersDetailsWindow.ui:328
+#: ui/UsersDetailsWindow.ui:343 ui/UsersDetailsWindow.ui:358
+#: ui/UsersDetailsWindow.ui:374 ui/UsersDetailsWindow.ui:390
+#: ui/UsersDetailsWindow.ui:419
+msgid "--"
+msgstr ""
+
+#: ui/CpuTab.ui:153 ui/SystemTab.ui:720
+msgid "Elapsed time since last system boot"
+msgstr ""
+
+#: ui/CpuTab.ui:155 ui/SystemTab.ui:722
+msgid "Up Time:"
+msgstr ""
+
+#: ui/CpuTab.ui:167
+msgid "Number of total running processes and threads"
+msgstr ""
+
+#: ui/CpuTab.ui:169
+msgid "Processes-Threads:"
+msgstr ""
+
+#: ui/CpuTab.ui:181
+msgid ""
+"L1d (for data) and L1i (for instructions) cache memory values of the "
+"selected CPU core"
+msgstr ""
+
+#: ui/CpuTab.ui:183
+msgid "Cache (L1d-L1i):"
+msgstr ""
+
+#: ui/CpuTab.ui:263
+msgid ""
+"Number of physical CPU cores and number of online logical CPU cores\n"
+"\n"
+"Number of physical and logical CPU cores are same if CPU has no SMT feature "
+"or if it is disabled."
+msgstr ""
+
+#: ui/CpuTab.ui:267
+msgid "Cores (Physical-Logical):"
+msgstr ""
+
+#: ui/CpuTab.ui:279
+msgid "Number of CPU packages (CPU sockets)"
+msgstr ""
+
+#: ui/CpuTab.ui:281
+msgid "CPU Sockets:"
+msgstr ""
+
+#: ui/CpuTab.ui:293
+msgid "Minimum and maximum frequency values of the selected CPU core"
+msgstr ""
+
+#: ui/CpuTab.ui:295
+msgid "Min-Max Frequency:"
+msgstr ""
+
+#: ui/CpuTab.ui:307
+msgid "Current frequency of the selected CPU core"
+msgstr ""
+
+#: ui/CpuTab.ui:309
+msgid "Frequency:"
+msgstr ""
+
+#: ui/CpuTab.ui:338 ui/PerformanceSummaryHeaderBarGrid.ui:15
+msgid "Average CPU usage of all cores"
+msgstr ""
+
+#: ui/CpuTab.ui:340
+msgid "Average Usage:"
+msgstr ""
+
+#: ui/CpuTab.ui:369
+msgid "CPU architecture"
+msgstr ""
+
+#: ui/CpuTab.ui:371
+msgid "Architecture:"
+msgstr "Архитектура:"
+
+#: ui/CpuTab.ui:383
+msgid "L2 and L3 cache memory values of the selected CPU core"
+msgstr ""
+
+#: ui/CpuTab.ui:385
+msgid "Cache (L2-L3):"
+msgstr ""
+
+#: ui/CpuTab.ui:427
+msgid "CPU Tab Customizations"
+msgstr ""
+
+#: ui/CpuTab.ui:453
+msgid ""
+"Selected CPU Core Number\n"
+"\n"
+"This selection affects these values:\n"
+"Frequency,\n"
+"Min-Max Frequency,\n"
+"Cache (L1d-L1i),\n"
+"Cache (L2-L3)"
+msgstr ""
+
+#: ui/CpuTab.ui:474
+msgid "CPU Model Name"
+msgstr ""
+
+#: ui/CpuTab.ui:498
+msgid "CPU (Central Processing Unit)"
+msgstr ""
+
+#: ui/DiskMenus.ui:20
+msgid "Disk Tab Customizations:"
+msgstr ""
+
+#: ui/DiskMenus.ui:64 ui/NetworkMenus.ui:64
+#: ui/ProcessesMenuCustomizations.ui:651 ui/ServicesMenuCustomizations.ui:416
+#: ui/StorageMenuCustomizations.ui:639 ui/UsersMenuCustomizations.ui:500
+msgid "Precision:"
+msgstr ""
+
+#: ui/DiskMenus.ui:154
+msgid "Chart - Set Color - Disk:"
+msgstr ""
+
+#: ui/DiskMenus.ui:237 ui/NetworkMenus.ui:237
+#: ui/ProcessesMenuCustomizations.ui:900 ui/ServicesMenuCustomizations.ui:487
+#: ui/StorageMenuCustomizations.ui:710 ui/UsersMenuCustomizations.ui:590
+msgid "Data Unit:"
+msgstr ""
+
+#: ui/DiskMenus.ui:286 ui/DiskMenus.ui:373
+#: ui/ProcessesMenuCustomizations.ui:763 ui/ProcessesMenuCustomizations.ui:823
+msgid "Disk Speed:"
+msgstr ""
+
+#: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:370
+#: ui/ProcessesMenuCustomizations.ui:732 ui/ProcessesMenuCustomizations.ui:834
+#: ui/StorageMenuCustomizations.ui:675 ui/StorageMenuCustomizations.ui:735
+msgid "Disk Usage:"
+msgstr ""
+
+#: ui/DiskMenus.ui:407
+msgid "Chart - Show Line - Disk:"
+msgstr ""
+
+#: ui/DiskMenus.ui:428
+msgid "Read Speed"
+msgstr "Скорость чтения"
+
+#: ui/DiskMenus.ui:441
+msgid "Write Speed"
+msgstr "Скорость записи"
+
+#: ui/DiskMenus.ui:480
+msgid "Select Disk:"
+msgstr ""
+
+#: ui/DiskTab.ui:21
+msgid "Disk (Storage items in form of disk/partition)"
+msgstr ""
+
+#: ui/DiskTab.ui:39
+msgid "Disk Tab Customizations"
+msgstr ""
+
+#: ui/DiskTab.ui:65
+msgid "Disk Kernel Name (and if selected disk is a disk or partition)"
+msgstr ""
+
+#: ui/DiskTab.ui:80
+msgid "Disk Device Model Name"
+msgstr ""
+
+#: ui/DiskTab.ui:118
+msgid ""
+"Disk read speed on the selected disk\n"
+"(could be shown as Byte or bit)"
+msgstr ""
+
+#: ui/DiskTab.ui:121
+msgid "Read Speed:"
+msgstr "Скорость чтения:"
+
+#: ui/DiskTab.ui:133
+msgid ""
+"Disk write speed on the selected disk\n"
+"(could be shown as Byte or bit)"
+msgstr ""
+
+#: ui/DiskTab.ui:136
+msgid "Write Speed:"
+msgstr "Скорость записи:"
+
+#: ui/DiskTab.ui:148
+msgid ""
+"Total disk read time on the selected disk\n"
+"(milliseconds)"
+msgstr ""
+
+#: ui/DiskTab.ui:151
+msgid "Read Time:"
+msgstr ""
+
+#: ui/DiskTab.ui:163
+msgid ""
+"File system of the selected disk partition\n"
+"\n"
+"File system is shown from user space and may differ from the actual file "
+"system.\n"
+"\"[SWAP]\" information is shown if selected disk is a Swap partition."
+msgstr ""
+
+#: ui/DiskTab.ui:168
+msgid "File System:"
+msgstr ""
+
+#: ui/DiskTab.ui:180
+msgid ""
+"Total disk write time on the selected disk\n"
+"(milliseconds)"
+msgstr ""
+
+#: ui/DiskTab.ui:183
+msgid "Write Time:"
+msgstr "Время записи:"
+
+#: ui/DiskTab.ui:280
+msgid ""
+"Free space of the selected disk (in powers of 1024)\n"
+"\n"
+"Measurement is made for filesystem and may differ from mass storage values."
+msgstr ""
+
+#: ui/DiskTab.ui:284 ui/RamTab.ui:234
+msgid "Free:"
+msgstr ""
+
+#: ui/DiskTab.ui:296
+msgid ""
+"Used space of the selected disk (in powers of 1024)\n"
+"\n"
+"Measurement is made for filesystem and may differ from mass storage values."
+msgstr ""
+
+#: ui/DiskTab.ui:300 ui/RamTab.ui:44 ui/RamTab.ui:108
+msgid "Used:"
+msgstr ""
+
+#: ui/DiskTab.ui:329
+msgid "If operating system is installed on the selected disk"
+msgstr ""
+
+#: ui/DiskTab.ui:331
+msgid "System Disk:"
+msgstr ""
+
+#: ui/DiskTab.ui:366
+msgid ""
+"Disk usage percent of the selected disk\n"
+"\n"
+"Measurement is made for filesystem and may differ from mass storage values."
+msgstr ""
+
+#: ui/DiskTab.ui:417
+msgid ""
+"Total capacity of the selected disk (in powers of 1024)\n"
+"\n"
+"Measurement is made for filesystem and may differ from mass storage values."
+msgstr ""
+
+#: ui/DiskTab.ui:421 ui/RamTab.ui:170 ui/RamTab.ui:201
+msgid "Capacity:"
+msgstr ""
+
+#: ui/DiskTab.ui:481 ui/NetworkTab.ui:364
+msgid "B/s "
+msgstr ""
+
+#: ui/DiskTab.ui:492
+msgid ""
+"Disk read and write speed on the selected disk\n"
+"\n"
+"Max value depends on disk speed and graphic scale is updated dynamically."
+msgstr ""
+
+#: ui/DiskTab.ui:496
+msgid "Disk Read (-) & Write (--) Speed:"
+msgstr ""
+
+#: ui/DiskTab.ui:508 ui/GpuTab.ui:467 ui/NetworkTab.ui:390
+msgid "0"
+msgstr "0"
+
+#: ui/EnvironmentVarMenuCustomizations.ui:20
+msgid "Environment Variables Tab Customizations:"
+msgstr ""
+
+#: ui/EnvironmentVarMenuCustomizations.ui:63
+#: ui/ProcessesMenuCustomizations.ui:140 ui/ServicesMenuCustomizations.ui:63
+#: ui/StartupMenuCustomizations.ui:63 ui/StorageMenuCustomizations.ui:63
+#: ui/UsersMenuCustomizations.ui:63
+msgid "Column Reordering,"
+msgstr ""
+
+#: ui/EnvironmentVarMenuCustomizations.ui:97
+#: ui/ProcessesMenuCustomizations.ui:174 ui/ServicesMenuCustomizations.ui:97
+#: ui/StartupMenuCustomizations.ui:97 ui/StorageMenuCustomizations.ui:97
+#: ui/UsersMenuCustomizations.ui:97
+msgid "Row Sorting,"
+msgstr ""
+
+#: ui/EnvironmentVarMenuCustomizations.ui:128
+#: ui/ProcessesMenuCustomizations.ui:217 ui/ServicesMenuCustomizations.ui:128
+#: ui/StartupMenuCustomizations.ui:128 ui/StorageMenuCustomizations.ui:128
+#: ui/UsersMenuCustomizations.ui:128
+msgid "Reset"
+msgstr "Сбросить"
+
+#: ui/EnvironmentVarMenuCustomizations.ui:175
+#: ui/ProcessesMenuCustomizations.ui:264 ui/ServicesMenuCustomizations.ui:175
+#: ui/StartupMenuCustomizations.ui:175 ui/StorageMenuCustomizations.ui:175
+#: ui/UsersMenuCustomizations.ui:175
+msgid "Column Widths:"
+msgstr ""
+
+#: ui/EnvironmentVarMenuCustomizations.ui:194
+#: ui/ProcessesMenuCustomizations.ui:283 ui/ServicesMenuCustomizations.ui:194
+#: ui/StartupMenuCustomizations.ui:194 ui/StorageMenuCustomizations.ui:194
+#: ui/UsersMenuCustomizations.ui:194
+msgid "View"
+msgstr "Вид"
+
+#: ui/EnvironmentVarMenuCustomizations.ui:219
+msgid "Add/Remove Variable Information:"
+msgstr ""
+
+#: ui/EnvironmentVarMenuCustomizations.ui:312
+#: ui/ProcessesMenuCustomizations.ui:614 ui/ServicesMenuCustomizations.ui:379
+#: ui/StartupMenuCustomizations.ui:311 ui/StorageMenuCustomizations.ui:602
+#: ui/UsersMenuCustomizations.ui:463
+msgid "Add/Remove Columns"
+msgstr ""
+
+#: ui/EnvironmentVarMenuRightClick.ui:35
+msgid "Add Persistent Environment Variable"
+msgstr ""
+
+#: ui/EnvironmentVarMenuRightClick.ui:44
+msgid "Edit Environment Variable"
+msgstr ""
+
+#: ui/EnvironmentVarMenuRightClick.ui:53
+msgid "Delete Environment Variable"
+msgstr ""
+
+#: ui/EnvironmentVarMenuRightClick.ui:68
+msgid "Copy Variable"
+msgstr ""
+
+#: ui/EnvironmentVarMenuRightClick.ui:77
+msgid "Copy Value"
+msgstr ""
+
+#: ui/EnvironmentVariablesInputWindow.ui:58 ui/StartupNewItemWindow.ui:59
+msgid "Save"
+msgstr "Сохранение"
+
+#: ui/EnvironmentVariablesInputWindow.ui:103
+#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
+#: ui/StorageRenameWindow.ui:126
+msgid "Cancel"
+msgstr "Отмена"
+
+#: ui/EnvironmentVariablesInputWindow.ui:187
+msgid "Only current user"
+msgstr ""
+
+#: ui/EnvironmentVariablesInputWindow.ui:201
+msgid "All users (Recognized after system restart)"
+msgstr ""
+
+#: ui/EnvironmentVariablesInputWindow.ui:219
+msgid "\t\t(Appended into \"/etc/environment\" file)"
+msgstr ""
+
+#: ui/EnvironmentVariablesInputWindow.ui:231
+msgid "\t\t(Appended into \"/home/[username]/.bashrc\" file)"
+msgstr ""
+
+#: ui/EnvironmentVariablesInputWindow.ui:244
+msgid "Environment Variable Is Valid For:"
+msgstr ""
+
+#: ui/EnvironmentVariablesInputWindow.ui:259
+msgid "Note: Variable field cannot be left blank."
+msgstr ""
+
+#: ui/EnvironmentVariablesInputWindow.ui:282
+msgid "Overwrite environment variable of the current user"
+msgstr ""
+
+#: ui/EnvironmentVariablesInputWindow.ui:298
+msgid ""
+"Note: User-specific environment variable will be deleted if newly added "
+"environment variable for all users has same name with the user-specific "
+"environment variable."
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:43
+msgid ""
+"Persistent environment variables and shell variables are listed on this "
+"tab.\n"
+"\n"
+"New environment variables can be added for current user-only or for all "
+"users (system-wide).\n"
+"Existing environments can be edited and deleted.\n"
+"\n"
+"Following files are used for adding/editing/deleting user-specific and "
+"system wide environment variables:\n"
+"/etc/environment\n"
+"/home/[username]/.bashrc\n"
+"\n"
+"There are many other files which are used by system for storing environment "
+"variables and variables in these files may override the variables you "
+"defined.\n"
+"\n"
+"As a general information, environment variables for only current user (user-"
+"specific) override environment variables for all users (system-wide) if "
+"variable names are the same."
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:56
+msgid ""
+"Environment\n"
+"Variables"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:77
+msgid ""
+"Number of listed persistent environment/shell variables\n"
+"Summation of number of environment variables and number of shell variables "
+"may be bigger than number of total variables.\n"
+"Because there may be both environment variable and shell variable with the "
+"same variable name."
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:82
+msgid ""
+"Total: -- persistent variables (-- system wide, -- user environment "
+"variables)"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:102
+msgid "Environment Variables Tab Customizations"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:137
+msgid "Search environment/shell variable..."
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:155
+msgid "Show all environment/shell variables"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:177
+msgid "Show all environment variables"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:199
+msgid "Show all shell variables"
+msgstr ""
+
+#: ui/EnvironmentVariablesTab.ui:233
+msgid ""
+"Note: Backing up the following files is advised before changing environment "
+"variables: '/etc/environment', '/home/[username]/.bashrc'."
+msgstr ""
+
+#: ui/GpuMenus.ui:20
+msgid "GPU Tab Customizations:"
+msgstr ""
+
+#: ui/GpuMenus.ui:204
+msgid "Select GPU/Graphics Card:"
+msgstr ""
+
+#: ui/GpuTab.ui:23
+msgid ""
+"FPS (Frames Per Second)\n"
+"\n"
+"Counted by using a glarea and OpenGL library.\n"
+"This is a simple FPS counter and may not be accurate in some situations.\n"
+"FPS counting does not continue when window is minimized."
+msgstr ""
+
+#: ui/GpuTab.ui:29
+msgid "FPS (Frame Rate): "
+msgstr ""
+
+#: ui/GpuTab.ui:41
+msgid ""
+"Average frame latency which is time delay (milliseconds) between frames\n"
+"(=1/FPS)"
+msgstr ""
+
+#: ui/GpuTab.ui:44
+msgid "Frame Latency:"
+msgstr ""
+
+#: ui/GpuTab.ui:56
+msgid ""
+"Video memory of the selected GPU\n"
+"(Could be dedicated memory or reserved from RAM)"
+msgstr ""
+
+#: ui/GpuTab.ui:59
+msgid "Video Memory:"
+msgstr "Видеопамять:"
+
+#: ui/GpuTab.ui:71
+msgid "If selected GPU supports direct rendering"
+msgstr ""
+
+#: ui/GpuTab.ui:73
+msgid "Direct Rendering:"
+msgstr ""
+
+#: ui/GpuTab.ui:136
+msgid "OpenGL version supported by the selected GPU"
+msgstr ""
+
+#: ui/GpuTab.ui:138
+msgid "OpenGL Version:"
+msgstr ""
+
+#: ui/GpuTab.ui:150
+msgid "If selected GPU has unified memory (reserved from RAM)"
+msgstr ""
+
+#: ui/GpuTab.ui:152
+msgid "Unified Memory:"
+msgstr ""
+
+#: ui/GpuTab.ui:198
+msgid ""
+"Current refresh rate\n"
+"\n"
+"May be different than maximum refresh rate of the monitor.\n"
+"\n"
+"This information is available only on systems with X11 windowing system."
+msgstr ""
+
+#: ui/GpuTab.ui:204
+msgid "Refresh Rate:"
+msgstr ""
+
+#: ui/GpuTab.ui:233
+msgid ""
+"Current driver name and version of the selected GPU\n"
+"(May be proprietary or open sourced driver name)"
+msgstr ""
+
+#: ui/GpuTab.ui:236
+msgid "Driver:"
+msgstr ""
+
+#: ui/GpuTab.ui:282
+msgid ""
+"If selected GPU is default on system boot and/or used for graphics "
+"processing by default"
+msgstr ""
+
+#: ui/GpuTab.ui:284
+msgid "Default GPU:"
+msgstr ""
+
+#: ui/GpuTab.ui:296
+msgid ""
+"Current resolution\n"
+"\n"
+"May be different than maximum resolution of the monitor."
+msgstr ""
+
+#: ui/GpuTab.ui:300
+msgid "Resolution:"
+msgstr ""
+
+#: ui/GpuTab.ui:358
+msgid "GPU (Graphics Processing Unit) / Graphics Card"
+msgstr ""
+
+#: ui/GpuTab.ui:376
+msgid "GPU Tab Customizations"
+msgstr ""
+
+#: ui/GpuTab.ui:402
+msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
+msgstr ""
+
+#: ui/GpuTab.ui:417
+msgid "GPU/Graphics Card Device Model Name"
+msgstr ""
+
+#: ui/GpuTab.ui:455
+msgid "FPS"
+msgstr ""
+
+#: ui/GpuTab.ui:484
+msgid ""
+"FPS (Frames Per Second)\n"
+"(Maximum value could be limited with current monitor refresh rate or GPU "
+"performance)"
+msgstr ""
+
+#: ui/GpuTab.ui:487
+msgid "FPS Count:"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:12
+msgid "© 2021 Hakan DÜNDAR"
+msgstr "© 2021 Hakan DÜNDAR"
+
+#: ui/MainMenusDialogs.ui:13
+msgid "GTK and Python based, system performance and usage monitoring tool."
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:15
+msgid "Web Page"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:16
+msgid ""
+"Bu program kesinlikle hiçbir garanti vermiyor.\n"
+"Ayrıntılar için <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU "
+"Genel Kamu Lisansı, sürüm 3 ya da sonrası</a> bağlantısına bakın."
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:19
+msgid "Hakan DÜNDAR"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:75
+msgid "Open Terminal"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:78
+msgid "Runs system default terminal window"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:88
+msgid "Shows/Hides a transparent and always on top performance summary window"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:89 ui/SettingsWindow.ui:596
+msgid "Floating Summary"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:95
+msgid "Restart as Root"
+msgstr "Перезапустить от рута"
+
+#: ui/MainMenusDialogs.ui:98
+msgid "Closes this application and reopens with root privileges"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:105
+msgid "Settings"
+msgstr "Параметры"
+
+#: ui/MainMenusDialogs.ui:108
+msgid "Opens \"Settings\" window"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:116
+msgid "About"
+msgstr "О программе"
+
+#: ui/MainMenusDialogs.ui:119
+msgid "Opens \"About\" dialog"
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:127
+msgid "Quit"
+msgstr "Выход"
+
+#: ui/MainMenusDialogs.ui:130
+msgid "Closes application"
+msgstr ""
+
+#: ui/MainWindow.ui:941
+msgid "System Monitoring Center"
+msgstr ""
+
+#: ui/MainWindow.ui:949
+msgid "Main Menu"
+msgstr ""
+
+#: ui/NetworkMenus.ui:20
+msgid "Network Tab Customizations:"
+msgstr ""
+
+#: ui/NetworkMenus.ui:154
+msgid "Chart - Set Color - Network:"
+msgstr ""
+
+#: ui/NetworkMenus.ui:286 ui/NetworkMenus.ui:373
+msgid "Network Speed:"
+msgstr ""
+
+#: ui/NetworkMenus.ui:297 ui/NetworkMenus.ui:342
+msgid "Network Data:"
+msgstr ""
+
+#: ui/NetworkMenus.ui:407
+msgid "Chart - Show Line - Network:"
+msgstr ""
+
+#: ui/NetworkMenus.ui:428
+msgid "Download Speed"
+msgstr ""
+
+#: ui/NetworkMenus.ui:441
+msgid "Upload Speed"
+msgstr "Скорость загрузки"
+
+#: ui/NetworkMenus.ui:492
+msgid "Select Network Card:"
+msgstr ""
+
+#: ui/NetworkTab.ui:23
+msgid "Data download speed on the selected network card"
+msgstr ""
+
+#: ui/NetworkTab.ui:25
+msgid "Download Speed:"
+msgstr ""
+
+#: ui/NetworkTab.ui:37
+msgid "Data upload speed on the selected network card"
+msgstr ""
+
+#: ui/NetworkTab.ui:39
+msgid "Upload Speed:"
+msgstr "Скорость загрузки:"
+
+#: ui/NetworkTab.ui:51
+msgid ""
+"Downloaded data on the selected network card\n"
+"(since last system boot)"
+msgstr ""
+
+#: ui/NetworkTab.ui:54
+msgid "Downloaded Data:"
+msgstr ""
+
+#: ui/NetworkTab.ui:66
+msgid ""
+"Uploaded data on the selected network card\n"
+"(since last system start)"
+msgstr ""
+
+#: ui/NetworkTab.ui:69
+msgid "Uploaded Data:"
+msgstr ""
+
+#: ui/NetworkTab.ui:81
+msgid ""
+"Network connection on the selected network card\n"
+"(Wi-Fi or Ethernet)"
+msgstr ""
+
+#: ui/NetworkTab.ui:84
+msgid "Connection Type:"
+msgstr ""
+
+#: ui/NetworkTab.ui:96
+msgid "IPv4 address on the selected network card"
+msgstr ""
+
+#: ui/NetworkTab.ui:98
+msgid "IPv4 Address:"
+msgstr ""
+
+#: ui/NetworkTab.ui:110
+msgid "IPv6 address on the selected network card"
+msgstr ""
+
+#: ui/NetworkTab.ui:112
+msgid "IPv6 Address:"
+msgstr ""
+
+#: ui/NetworkTab.ui:124
+msgid "MAC (Media Access Control) address of the selected network card"
+msgstr ""
+
+#: ui/NetworkTab.ui:126
+msgid "MAC Address:"
+msgstr ""
+
+#: ui/NetworkTab.ui:274
+msgid ""
+"If selected network card is connected - Network name (SSID = Service Set "
+"Identifier)"
+msgstr ""
+
+#: ui/NetworkTab.ui:276
+msgid "Connected-SSID:"
+msgstr ""
+
+#: ui/NetworkTab.ui:305
+msgid ""
+"Current signal strength of the connected network\n"
+"(link value)"
+msgstr ""
+
+#: ui/NetworkTab.ui:308
+msgid "Signal Strength:"
+msgstr ""
+
+#: ui/NetworkTab.ui:375
+msgid ""
+"Network download and upload speed on the selected network card\n"
+"(Max value depends on network/network card speed and graphic scale is "
+"updated dynamically)"
+msgstr ""
+
+#: ui/NetworkTab.ui:378
+msgid "Network Download (-) & Upload (--) Speed:"
+msgstr ""
+
+#: ui/NetworkTab.ui:414
+msgid ""
+"Network\n"
+"(Wired and Wireless Network Cards)"
+msgstr ""
+
+#: ui/NetworkTab.ui:433
+msgid "Network Tab Customizations"
+msgstr ""
+
+#: ui/NetworkTab.ui:459
+msgid "Network Interface Controller (NIC) Name"
+msgstr ""
+
+#: ui/NetworkTab.ui:474
+msgid "Network Card Device Model Name"
+msgstr ""
+
+#: ui/PerformanceSummaryHeaderBarGrid.ui:17 ui/ProcessesDetailsWindow.ui:814
+msgid "CPU:"
+msgstr ""
+
+#: ui/PerformanceSummaryHeaderBarGrid.ui:52
+msgid "RAM Usage Percent"
+msgstr ""
+
+#: ui/PerformanceSummaryHeaderBarGrid.ui:54 ui/ProcessesDetailsWindow.ui:832
+#: ui/RamTab.ui:26
+msgid "RAM:"
+msgstr ""
+
+#: ui/PerformanceSummaryHeaderBarGrid.ui:65
+msgid "Disk read+write speed of the selected disk (in powers of 1024)"
+msgstr ""
+
+#: ui/PerformanceSummaryHeaderBarGrid.ui:67 ui/ProcessesDetailsWindow.ui:1469
+msgid "Disk:"
+msgstr ""
+
+#: ui/PerformanceSummaryHeaderBarGrid.ui:102
+msgid ""
+"Data download+upload speed on the selected network card (in powers of 1024)"
+msgstr ""
+
+#: ui/PerformanceSummaryHeaderBarGrid.ui:104
+msgid "Network:"
+msgstr ""
+
+#: ui/ProcessesCustomPriorityWindow.ui:13
+msgid "Set Process Priority (Nice)"
+msgstr ""
+
+#: ui/ProcessesCustomPriorityWindow.ui:32
+msgid "Change priority of this process:"
+msgstr ""
+
+#: ui/ProcessesCustomPriorityWindow.ui:72
+msgid ""
+"Set process priority:\n"
+"(Smaller value means higher process priority)"
+msgstr ""
+
+#: ui/ProcessesCustomPriorityWindow.ui:106 ui/StorageRenameWindow.ui:81
+msgid "Apply"
+msgstr "Применить"
+
+#: ui/ProcessesDetailsWindow.ui:8 ui/ServicesDetailsWindow.ui:8
+msgid "Process Details"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:81
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:709
+msgid "CPU Usage"
+msgstr "ЦП используется"
+
+#: ui/ProcessesDetailsWindow.ui:120 ui/ProcessesDetailsWindow.ui:849
+msgid "RAM (RSS) Usage  (%)"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:133
+msgid "Disk Read / Write Speed"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:146
+msgid "Create Time"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:159 ui/ProcessesDetailsWindow.ui:1504
+msgid "Exe"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:185
+msgid "Parent Processes"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:198
+msgid ""
+"Children Processes\n"
+"(Not recursively)"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:407
+msgid "UIDs"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:420
+msgid "GIDs"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:464
+msgid "Summary:"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:481 ui/ProcessesDetailsWindow.ui:494
+#: ui/ProcessesDetailsWindow.ui:507 ui/ProcessesDetailsWindow.ui:520
+#: ui/ProcessesDetailsWindow.ui:533 ui/ProcessesDetailsWindow.ui:546
+#: ui/ProcessesDetailsWindow.ui:559 ui/ProcessesDetailsWindow.ui:572
+#: ui/ProcessesDetailsWindow.ui:585 ui/ProcessesDetailsWindow.ui:598
+#: ui/ProcessesDetailsWindow.ui:611 ui/ProcessesDetailsWindow.ui:624
+#: ui/ProcessesDetailsWindow.ui:637 ui/ProcessesDetailsWindow.ui:650
+#: ui/ProcessesDetailsWindow.ui:663 ui/ProcessesDetailsWindow.ui:1094
+#: ui/ProcessesDetailsWindow.ui:1107 ui/ProcessesDetailsWindow.ui:1120
+#: ui/ProcessesDetailsWindow.ui:1133 ui/ProcessesDetailsWindow.ui:1146
+#: ui/ProcessesDetailsWindow.ui:1159 ui/ProcessesDetailsWindow.ui:1172
+#: ui/ProcessesDetailsWindow.ui:1185 ui/ProcessesDetailsWindow.ui:1198
+#: ui/ProcessesDetailsWindow.ui:1211 ui/ProcessesDetailsWindow.ui:1224
+#: ui/ProcessesDetailsWindow.ui:1237 ui/ProcessesDetailsWindow.ui:1616
+#: ui/ProcessesDetailsWindow.ui:1629 ui/ProcessesDetailsWindow.ui:1642
+#: ui/ProcessesDetailsWindow.ui:1655 ui/ProcessesDetailsWindow.ui:1668
+#: ui/ProcessesDetailsWindow.ui:1681 ui/ProcessesDetailsWindow.ui:1694
+#: ui/ProcessesDetailsWindow.ui:1707 ui/ProcessesDetailsWindow.ui:1720
+#: ui/ProcessesDetailsWindow.ui:1733 ui/ServicesDetailsWindow.ui:529
+#: ui/ServicesDetailsWindow.ui:542 ui/ServicesDetailsWindow.ui:555
+#: ui/ServicesDetailsWindow.ui:568 ui/ServicesDetailsWindow.ui:581
+#: ui/ServicesDetailsWindow.ui:594 ui/ServicesDetailsWindow.ui:607
+#: ui/ServicesDetailsWindow.ui:620 ui/ServicesDetailsWindow.ui:633
+#: ui/ServicesDetailsWindow.ui:646 ui/ServicesDetailsWindow.ui:659
+#: ui/ServicesDetailsWindow.ui:672 ui/ServicesDetailsWindow.ui:685
+#: ui/ServicesDetailsWindow.ui:698 ui/ServicesDetailsWindow.ui:711
+#: ui/ServicesDetailsWindow.ui:724 ui/ServicesDetailsWindow.ui:737
+#: ui/ServicesDetailsWindow.ui:750 ui/ServicesDetailsWindow.ui:904
+#: ui/ServicesDetailsWindow.ui:917 ui/ServicesDetailsWindow.ui:930
+#: ui/ServicesDetailsWindow.ui:943 ui/StorageDetailsWindow.ui:717
+#: ui/StorageDetailsWindow.ui:730 ui/StorageDetailsWindow.ui:743
+#: ui/StorageDetailsWindow.ui:756 ui/StorageDetailsWindow.ui:769
+#: ui/StorageDetailsWindow.ui:782 ui/StorageDetailsWindow.ui:795
+#: ui/StorageDetailsWindow.ui:808 ui/StorageDetailsWindow.ui:821
+#: ui/StorageDetailsWindow.ui:834 ui/StorageDetailsWindow.ui:847
+#: ui/StorageDetailsWindow.ui:860 ui/StorageDetailsWindow.ui:873
+#: ui/StorageDetailsWindow.ui:886 ui/StorageDetailsWindow.ui:899
+#: ui/StorageDetailsWindow.ui:912 ui/StorageDetailsWindow.ui:925
+#: ui/StorageDetailsWindow.ui:938 ui/StorageDetailsWindow.ui:951
+#: ui/StorageDetailsWindow.ui:964 ui/StorageDetailsWindow.ui:977
+#: ui/StorageDetailsWindow.ui:990 ui/StorageDetailsWindow.ui:1003
+#: ui/StorageDetailsWindow.ui:1016 ui/UsersDetailsWindow.ui:435
+#: ui/UsersDetailsWindow.ui:448 ui/UsersDetailsWindow.ui:461
+#: ui/UsersDetailsWindow.ui:474 ui/UsersDetailsWindow.ui:487
+#: ui/UsersDetailsWindow.ui:500 ui/UsersDetailsWindow.ui:513
+#: ui/UsersDetailsWindow.ui:526 ui/UsersDetailsWindow.ui:539
+#: ui/UsersDetailsWindow.ui:552 ui/UsersDetailsWindow.ui:565
+#: ui/UsersDetailsWindow.ui:578 ui/UsersDetailsWindow.ui:591
+#: ui/UsersDetailsWindow.ui:604
+msgid ":"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:680
+msgid "Summary"
+msgstr "Краткая сводка"
+
+#: ui/ProcessesDetailsWindow.ui:722 ui/ProcessesMenuCustomizations.ui:455
+msgid "Number of Threads"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:735
+msgid "Threads"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:748
+msgid "Used CPU Core(s)"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:761
+msgid "CPU Affinity"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:774
+msgid "CPU Times"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:787
+msgid "Context Switches"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:862
+msgid "RAM (VMS) Usage"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:875
+msgid "Ram (Shared) Usage"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:888
+msgid "Memory (USS)"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:901
+msgid "Swap Memory"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:1257
+msgid "CPU and Memory"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:1339
+msgid "Disk Read Count"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:1352
+msgid "Disk Write Count"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:1487
+msgid "Path:"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:1517
+msgid "Current Working Directory"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:1530
+msgid "Command Line"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:1543
+msgid "Opened Files"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:1753
+msgid "Disk and Path"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:20
+msgid "Processes Tab Customizations:"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:63
+msgid "Processes - View:"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:78
+msgid "Show processes of all users"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:92
+msgid "Show processes as tree"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:106
+msgid "Show tree lines"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:308
+msgid "Add/Remove Process Information:"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:399
+msgid "CPU Usage Percent"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:676 ui/ProcessesMenuCustomizations.ui:788
+#: ui/UsersMenuCustomizations.ui:525 ui/UsersMenuCustomizations.ui:615
+msgid "RAM & Swap Usage:"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:707 ui/UsersMenuCustomizations.ui:556
+msgid "CPU Percent:"
+msgstr ""
+
+#: ui/ProcessesMenuCustomizations.ui:922 ui/ServicesMenuCustomizations.ui:556
+#: ui/StorageMenuCustomizations.ui:779 ui/UsersMenuCustomizations.ui:659
+msgid "Precision/Data Units"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:50
+msgid "Stop Process"
+msgstr "Остановить процесс"
+
+#: ui/ProcessesMenuRightClick.ui:59
+msgid "Continue Process"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:68
+msgid "Terminate Process"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:77
+msgid "Kill Process"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:92
+msgid "Change Priority (Nice)"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:105
+msgid "Very High"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:115
+msgid "High"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:125
+msgid "Normal"
+msgstr "Нормальный"
+
+#: ui/ProcessesMenuRightClick.ui:135
+msgid "Low"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:145
+msgid "Very Low"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:160
+msgid "Custom Value..."
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:176 ui/ServicesMenuRightClick.ui:118
+msgid "Copy Name"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:185
+msgid "Open Location"
+msgstr ""
+
+#: ui/ProcessesMenuRightClick.ui:200 ui/ServicesMenuRightClick.ui:133
+#: ui/StorageMenuRightClick.ui:117 ui/UsersMenuRightClick.ui:35
+msgid "Details"
+msgstr "Детали"
+
+#: ui/ProcessesTab.ui:43
+msgid "Define a window by clicking on it and highlight its process"
+msgstr ""
+
+#: ui/ProcessesTab.ui:66
+msgid "Search process..."
+msgstr ""
+
+#: ui/ProcessesTab.ui:85
+msgid "Show all processes"
+msgstr ""
+
+#: ui/ProcessesTab.ui:107
+msgid "Show processes from this user"
+msgstr ""
+
+#: ui/ProcessesTab.ui:129
+msgid "Show processes from other users"
+msgstr ""
+
+#: ui/ProcessesTab.ui:271
+msgid "Number of listed processes"
+msgstr ""
+
+#: ui/ProcessesTab.ui:274
+msgid "Total: -- processes (-- from this user, -- from other users/system)"
+msgstr ""
+
+#: ui/ProcessesTab.ui:294
+msgid "Processes Tab Customizations"
+msgstr ""
+
+#: ui/RamHardwareWindow.ui:8
+msgid "RAM Hardware Information"
+msgstr ""
+
+#: ui/RamHardwareWindow.ui:42 ui/RamSwapDetailsWindow.ui:42
+msgid "Close"
+msgstr "Закрыть"
+
+#: ui/RamHardwareWindow.ui:105
+msgid ""
+"Note: RAM hardware information may be get partially or may not be get at all "
+"on some systems."
+msgstr ""
+
+#: ui/RamMenus.ui:20
+msgid "RAM Tab Customizations:"
+msgstr ""
+
+#: ui/RamMenus.ui:64
+msgid "Precision - RAM & Swap Usage:"
+msgstr ""
+
+#: ui/RamMenus.ui:176
+msgid "Chart - Set Color - RAM:"
+msgstr ""
+
+#: ui/RamMenus.ui:259
+msgid "Data Unit - RAM & Swap Usage:"
+msgstr ""
+
+#: ui/RamSwapDetailsWindow.ui:8
+msgid "Swap Memory Details"
+msgstr ""
+
+#: ui/RamSwapDetailsWindow.ui:105
+msgid ""
+"Note: Presence and configuration of swap memory may vary between different "
+"operating systems."
+msgstr ""
+
+#: ui/RamSwapDetailsWindow.ui:118
+msgid "Note 2: Information on this window is not reloaded automatically."
+msgstr ""
+
+#: ui/RamTab.ui:24
+msgid "RAM Information"
+msgstr ""
+
+#: ui/RamTab.ui:42
+msgid "Used RAM memory (in powers of 1024) and usage percent"
+msgstr ""
+
+#: ui/RamTab.ui:56
+msgid ""
+"Available RAM memory (in powers of 1024)\n"
+"\n"
+"Available and Free RAM memory values are different."
+msgstr ""
+
+#: ui/RamTab.ui:60 ui/RamTab.ui:122
+msgid "Available:"
+msgstr ""
+
+#: ui/RamTab.ui:106
+msgid "Used swap memory (in powers of 1024)"
+msgstr ""
+
+#: ui/RamTab.ui:120
+msgid "Available swap memory (in powers of 1024)"
+msgstr ""
+
+#: ui/RamTab.ui:168
+msgid "Capacity of RAM memory (in powers of 1024)"
+msgstr ""
+
+#: ui/RamTab.ui:199
+msgid "Total capacity of swap memory (in powers of 1024)"
+msgstr ""
+
+#: ui/RamTab.ui:230
+msgid ""
+"Free RAM memory (in powers of 1024)\n"
+"\n"
+"Free and Available RAM memory values are different."
+msgstr ""
+
+#: ui/RamTab.ui:269
+msgid "Swap memory usage percent"
+msgstr ""
+
+#: ui/RamTab.ui:271
+msgid "Swap Mem. Usg. %:"
+msgstr ""
+
+#: ui/RamTab.ui:318
+msgid "Swap Memory Information"
+msgstr ""
+
+#: ui/RamTab.ui:320
+msgid "Swap Memory:"
+msgstr ""
+
+#: ui/RamTab.ui:336
+msgid ""
+"Shows RAM hardware information.\n"
+"\n"
+"Root privileges are needed for getting this information."
+msgstr ""
+
+#: ui/RamTab.ui:340
+msgid "Hardware:"
+msgstr ""
+
+#: ui/RamTab.ui:358 ui/RamTab.ui:396
+msgid "Query..."
+msgstr ""
+
+#: ui/RamTab.ui:376
+msgid "Shows detailed swap memory information."
+msgstr ""
+
+#: ui/RamTab.ui:378
+msgid "Details:"
+msgstr ""
+
+#: ui/RamTab.ui:426
+msgid "RAM (Random Access Memory)"
+msgstr ""
+
+#: ui/RamTab.ui:444
+msgid "RAM Tab Customizations"
+msgstr ""
+
+#: ui/RamTab.ui:470
+msgid "Swap Memory Capacity in Powers of Bytes (1024)"
+msgstr ""
+
+#: ui/RamTab.ui:485
+msgid "Physical RAM Capacity in Powers of Bytes (1024)"
+msgstr ""
+
+#: ui/RamTab.ui:534
+msgid ""
+"RAM usage percent\n"
+"(Max value is 100 %)"
+msgstr ""
+
+#: ui/RamTab.ui:537 ui/ServicesMenuCustomizations.ui:452
+#: ui/ServicesMenuCustomizations.ui:512
+msgid "RAM Usage:"
+msgstr ""
+
+#: ui/SensorsTab.ui:17
+msgid "Note: Some sensors may not provide correct values!"
+msgstr ""
+
+#: ui/SensorsTab.ui:37
+msgid "Search sensor..."
+msgstr ""
+
+#: ui/SensorsTab.ui:55
+msgid ""
+"Show all sensors\n"
+"(Temperature, fan, voltage and current sensors)"
+msgstr ""
+
+#: ui/SensorsTab.ui:78
+msgid "Show all temperature sensors"
+msgstr ""
+
+#: ui/SensorsTab.ui:100
+msgid "Show all fan sensors"
+msgstr ""
+
+#: ui/SensorsTab.ui:122
+msgid "Show all voltage and current sensors"
+msgstr ""
+
+#: ui/SensorsTab.ui:183
+msgid "Temperature, Fan, Voltage and Current Sensors"
+msgstr ""
+
+#: ui/SensorsTab.ui:205
+msgid "Number of listed sensors"
+msgstr ""
+
+#: ui/SensorsTab.ui:208
+msgid "Total: -- sensors (-- temperature, -- fan, -- voltage/current sensors)"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:82
+msgid "Documentation"
+msgstr "Документация"
+
+#: ui/ServicesDetailsWindow.ui:95
+msgid "Main Process PID - Name"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:206
+msgid "Main Process Start Time"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:219
+msgid "Main Process End Time"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:232
+msgid "Control PID"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:258
+msgid "Current Memory (RSS)"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:271
+msgid "Unit File State - Preset"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:449
+msgid "Triggered By"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:489
+msgid "Can Start - Stop?"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:502
+msgid "Can Reload?"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:767 ui/SettingsWindow.ui:308
+#: ui/SettingsWindow.ui:324
+msgid "General"
+msgstr "Общие"
+
+#: ui/ServicesDetailsWindow.ui:796
+msgid "Requires"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:809
+msgid "Conflicts"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:822
+msgid "After"
+msgstr "После"
+
+#: ui/ServicesDetailsWindow.ui:835
+msgid "Before"
+msgstr ""
+
+#: ui/ServicesDetailsWindow.ui:963
+msgid "Dependencies"
+msgstr "Зависимости"
+
+#: ui/ServicesMenuCustomizations.ui:20
+msgid "Services Tab Customizations:"
+msgstr ""
+
+#: ui/ServicesMenuCustomizations.ui:219
+msgid "Add/Remove Service Information:"
+msgstr ""
+
+#: ui/ServicesMenuRightClick.ui:50
+msgid "Start"
+msgstr "Старт"
+
+#: ui/ServicesMenuRightClick.ui:59
+msgid "Stop"
+msgstr ""
+
+#: ui/ServicesMenuRightClick.ui:68
+msgid "Restart"
+msgstr "Перезапуск"
+
+#: ui/ServicesMenuRightClick.ui:77
+msgid "Reload"
+msgstr "Перезагрузка"
+
+#: ui/ServicesMenuRightClick.ui:86
+msgid "Enable"
+msgstr "Включить"
+
+#: ui/ServicesMenuRightClick.ui:95
+msgid "Disable"
+msgstr "Выключить"
+
+#: ui/ServicesMenuRightClick.ui:106
+msgid "Mask"
+msgstr ""
+
+#: ui/ServicesTab.ui:64
+msgid "Number of listed services"
+msgstr ""
+
+#: ui/ServicesTab.ui:67
+msgid "Total: -- services (-- loaded, -- non-loaded services)"
+msgstr ""
+
+#: ui/ServicesTab.ui:87
+msgid "Services Tab Customizations"
+msgstr ""
+
+#: ui/ServicesTab.ui:122
+msgid "Search system service..."
+msgstr ""
+
+#: ui/ServicesTab.ui:134
+msgid ""
+"Refresh\n"
+"(Reloads Services tab data)"
+msgstr ""
+
+#: ui/ServicesTab.ui:162
+msgid "Show all services"
+msgstr ""
+
+#: ui/ServicesTab.ui:184
+msgid "Show all loaded services"
+msgstr ""
+
+#: ui/ServicesTab.ui:206
+msgid "Show all non-loaded services"
+msgstr ""
+
+#: ui/ServicesTab.ui:240
+msgid ""
+"Note: This tab is not reloaded automatically. Manually reload for changes."
+msgstr ""
+
+#: ui/SettingsWindow.ui:7
+msgid "General Settings"
+msgstr "Основные настройки"
+
+#: ui/SettingsWindow.ui:56
+msgid "Reset general settings to defaults"
+msgstr ""
+
+#: ui/SettingsWindow.ui:92
+msgid "Update interval (seconds):"
+msgstr ""
+
+#: ui/SettingsWindow.ui:114
+msgid "Default main tab:"
+msgstr ""
+
+#: ui/SettingsWindow.ui:133
+msgid "Remember last opened tabs on application start"
+msgstr ""
+
+#: ui/SettingsWindow.ui:151
+msgid "Performance tab default sub-tab:"
+msgstr ""
+
+#: ui/SettingsWindow.ui:170
+msgid "Show performance summary on the headerbar"
+msgstr ""
+
+#: ui/SettingsWindow.ui:192
+msgid "Background color"
+msgstr ""
+
+#: ui/SettingsWindow.ui:206
+msgid "Set background color for all charts:"
+msgstr ""
+
+#: ui/SettingsWindow.ui:218
+msgid "Chart data history:"
+msgstr ""
+
+#: ui/SettingsWindow.ui:237
+msgid "Remember last selected hardware"
+msgstr ""
+
+#: ui/SettingsWindow.ui:358
+msgid "Window transparency:"
+msgstr ""
+
+#: ui/SettingsWindow.ui:370
+msgid "0,00"
+msgstr "0,00"
+
+#: ui/SettingsWindow.ui:384
+msgid "Window"
+msgstr ""
+
+#: ui/SettingsWindow.ui:410
+msgid "CPU Usage Average"
+msgstr ""
+
+#: ui/SettingsWindow.ui:424
+msgid "RAM Usage"
+msgstr ""
+
+#: ui/SettingsWindow.ui:452
+msgid "Network Download Speed"
+msgstr ""
+
+#: ui/SettingsWindow.ui:480
+msgid "Network Upload Speed"
+msgstr ""
+
+#: ui/SettingsWindow.ui:494
+msgid "Disk Read+Write Speed"
+msgstr ""
+
+#: ui/SettingsWindow.ui:508
+msgid "Network Download+Upload Speed"
+msgstr ""
+
+#: ui/SettingsWindow.ui:532
+msgid "Show/Hide Performance Information"
+msgstr ""
+
+#: ui/SettingsWindow.ui:571
+msgid "Reset floating summary window settings to defaults"
+msgstr ""
+
+#: ui/SettingsWindow.ui:630
+msgid "Reset all settings of the application to defaults"
+msgstr ""
+
+#: ui/StartupMenuCustomizations.ui:20
+msgid "Startup Tab Customizations:"
+msgstr ""
+
+#: ui/StartupMenuCustomizations.ui:218 ui/StorageMenuCustomizations.ui:218
+msgid "Add/Remove Storage Information:"
+msgstr ""
+
+#: ui/StartupMenuCustomizations.ui:281
+msgid "Command (Exec)"
+msgstr ""
+
+#: ui/StartupMenuRightClick.ui:57
+msgid ""
+"This change may make startup item enabled/disabled for other desktop "
+"environments.\n"
+"For more detailed control, '.desktop' file may be edited manually."
+msgstr ""
+
+#: ui/StartupMenuRightClick.ui:59
+msgid "Enable/Disable"
+msgstr ""
+
+#: ui/StartupMenuRightClick.ui:70
+msgid "Add"
+msgstr "Добавить"
+
+#: ui/StartupMenuRightClick.ui:79
+msgid "Delete"
+msgstr "Удалить"
+
+#: ui/StartupMenuRightClick.ui:90
+msgid "Delete System-Wide Values File"
+msgstr ""
+
+#: ui/StartupMenuRightClick.ui:99
+msgid "Delete User-Specific Values File"
+msgstr ""
+
+#: ui/StartupMenuRightClick.ui:108
+msgid "Delete Both Files"
+msgstr ""
+
+#: ui/StartupMenuRightClick.ui:127
+msgid "Run Now"
+msgstr ""
+
+#: ui/StartupMenuRightClick.ui:142
+msgid "Browse '.desktop' File..."
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:8
+msgid "Add New Startup Item"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:165 ui/SystemTab.ui:155
+msgid "Name:"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:177
+msgid "Comment:"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:201
+msgid "Icon:"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:221
+msgid "Startup Notify"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:261
+msgid "User-specific (for current user only)"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:275
+msgid "System-wide (for all users)"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:294
+msgid "Type of the startup item:"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:309
+msgid "Note: Name and Command fields cannot be left blank."
+msgstr ""
+
+#: ui/StartupTab.ui:64
+msgid "Number of listed startup items"
+msgstr ""
+
+#: ui/StartupTab.ui:67
+msgid "Total: -- startup items (-- visible, -- hidden startup items)"
+msgstr ""
+
+#: ui/StartupTab.ui:87
+msgid "Startup Tab Customizations"
+msgstr ""
+
+#: ui/StartupTab.ui:122
+msgid "Search startup item..."
+msgstr ""
+
+#: ui/StartupTab.ui:140
+msgid "Show all startup items"
+msgstr ""
+
+#: ui/StartupTab.ui:162
+msgid "Show all enabled (visible) startup items"
+msgstr ""
+
+#: ui/StartupTab.ui:184
+msgid "Show all disabled (hidden) startup items"
+msgstr ""
+
+#: ui/StorageDetailsWindow.ui:8
+msgid "Storage Details"
+msgstr ""
+
+#: ui/StorageDetailsWindow.ui:181
+msgid "Label (File System)"
+msgstr ""
+
+#: ui/StorageDetailsWindow.ui:553
+msgid "Major:Minor Device Number"
+msgstr ""
+
+#: ui/StorageDetailsWindow.ui:566
+msgid ""
+"Unique Storage Identifier\n"
+"(WWN)"
+msgstr ""
+
+#: ui/StorageMenuCustomizations.ui:20
+msgid "Storage Tab Customizations:"
+msgstr ""
+
+#: ui/StorageMenuCustomizations.ui:533
+msgid "Read-only"
+msgstr ""
+
+#: ui/StorageMenuRightClick.ui:45
+msgid "Browse"
+msgstr "Просмотр"
+
+#: ui/StorageMenuRightClick.ui:54
+msgid "Mount"
+msgstr ""
+
+#: ui/StorageMenuRightClick.ui:63
+msgid "Unmount"
+msgstr ""
+
+#: ui/StorageMenuRightClick.ui:72
+msgid "Remove"
+msgstr "Удалить"
+
+#: ui/StorageMenuRightClick.ui:87
+msgid "Copy Mount Point"
+msgstr ""
+
+#: ui/StorageMenuRightClick.ui:102
+msgid "Rename Label"
+msgstr ""
+
+#: ui/StorageRenameWindow.ui:8
+msgid "Rename Disk File System Label"
+msgstr ""
+
+#: ui/StorageRenameWindow.ui:26
+msgid "Rename file system of this disk:"
+msgstr ""
+
+#: ui/StorageRenameWindow.ui:38
+msgid " "
+msgstr ""
+
+#: ui/StorageRenameWindow.ui:179
+msgid ""
+"Note: Renaming is not performed if following conditions are not meet:\n"
+"1) Only file systems of partitions (not whole disk) can be renamed.\n"
+"2) Disks (partitions) have to be unmounted for renaming many file systems."
+msgstr ""
+
+#: ui/StorageTab.ui:64 ui/UsersTab.ui:76
+msgid "Number of listed users"
+msgstr ""
+
+#: ui/StorageTab.ui:67
+msgid "Total: -- disks/partitions (-- disks, -- partitions)"
+msgstr ""
+
+#: ui/StorageTab.ui:87
+msgid "Storage Tab Customizations"
+msgstr ""
+
+#: ui/StorageTab.ui:122
+msgid "Search storage..."
+msgstr ""
+
+#: ui/StorageTab.ui:140
+msgid "Show all disks/partitions"
+msgstr ""
+
+#: ui/StorageTab.ui:162
+msgid "Show all non-removable disks/partitions"
+msgstr ""
+
+#: ui/StorageTab.ui:184
+msgid "Show all removable disks/partitions"
+msgstr ""
+
+#: ui/StorageTab.ui:206
+msgid "Show all optical and virtual disks/partitions"
+msgstr ""
+
+#: ui/SystemTab.ui:27
+msgid "Computer Name And Model"
+msgstr ""
+
+#: ui/SystemTab.ui:42
+msgid "Operating System Name and Version"
+msgstr ""
+
+#: ui/SystemTab.ui:83
+msgid ""
+"Refresh\n"
+"(Reloads System tab data)\n"
+"\n"
+"Some of the information on this tab are reloaded automatically but all of "
+"them can be reloaded manually."
+msgstr ""
+
+#: ui/SystemTab.ui:136
+msgid "Operating System (OS):"
+msgstr ""
+
+#: ui/SystemTab.ui:152
+msgid ""
+"Name of the OS\n"
+"(ID of the OS)"
+msgstr ""
+
+#: ui/SystemTab.ui:167
+msgid "Version and code name of the OS"
+msgstr ""
+
+#: ui/SystemTab.ui:169
+msgid "Version - Code Name:"
+msgstr ""
+
+#: ui/SystemTab.ui:215
+msgid ""
+"Computer model name\n"
+"\n"
+"This information may not be present in all motherboards."
+msgstr ""
+
+#: ui/SystemTab.ui:219
+msgid "Model:"
+msgstr ""
+
+#: ui/SystemTab.ui:231
+msgid ""
+"Type of the computer chassis\n"
+"\n"
+"This information may not be present in all motherboards."
+msgstr ""
+
+#: ui/SystemTab.ui:235
+msgid "Computer Type:"
+msgstr ""
+
+#: ui/SystemTab.ui:264
+msgid "Name of the OS which this OS is based on"
+msgstr ""
+
+#: ui/SystemTab.ui:266
+msgid "Based On:"
+msgstr ""
+
+#: ui/SystemTab.ui:295
+msgid ""
+"Base version of the kernel\n"
+"\n"
+"May be different from package version of the kernel."
+msgstr ""
+
+#: ui/SystemTab.ui:299
+msgid "Kernel Release:"
+msgstr ""
+
+#: ui/SystemTab.ui:329
+msgid "Computer:"
+msgstr ""
+
+#: ui/SystemTab.ui:362
+msgid ""
+"Computer vendor name\n"
+"\n"
+"This information may not be present in all motherboards."
+msgstr ""
+
+#: ui/SystemTab.ui:366
+msgid "Vendor:"
+msgstr ""
+
+#: ui/SystemTab.ui:412
+msgid "Family of the OS"
+msgstr ""
+
+#: ui/SystemTab.ui:414
+msgid "OS Family:"
+msgstr ""
+
+#: ui/SystemTab.ui:426
+msgid ""
+"Name of the computer\n"
+"\n"
+"Host name is defined by the vendor or by the user during system "
+"installation.\n"
+"This name can be changed later."
+msgstr ""
+
+#: ui/SystemTab.ui:431
+msgid "Host Name:"
+msgstr ""
+
+#: ui/SystemTab.ui:460
+msgid "Number of detected monitors"
+msgstr ""
+
+#: ui/SystemTab.ui:462
+msgid "Number Of Monitors:"
+msgstr ""
+
+#: ui/SystemTab.ui:491
+msgid ""
+"Package version of the kernel\n"
+"\n"
+"May be different from base version of the kernel."
+msgstr ""
+
+#: ui/SystemTab.ui:495
+msgid "Kernel Version:"
+msgstr ""
+
+#: ui/SystemTab.ui:524
+msgid ""
+"Monitor which most part of this window is shown on\n"
+"\n"
+"This information is available only on systems with X11 windowing system."
+msgstr ""
+
+#: ui/SystemTab.ui:528
+msgid "Current Monitor:"
+msgstr ""
+
+#: ui/SystemTab.ui:585
+msgid "Graphical User Interface (GUI):"
+msgstr ""
+
+#: ui/SystemTab.ui:602
+msgid "Status:"
+msgstr "Состояние:"
+
+#: ui/SystemTab.ui:618
+msgid ""
+"Name of the desktop environment\n"
+"\n"
+"Desktop environments provide several applications (such as file manager, "
+"media player, text editor, task manager etc.) and utilities (such as "
+"localization, power management, some settings management features, panels, "
+"windowing system, display manager, session manager, etc.) to user for using "
+"the computer.\n"
+"There may be big differences of system resource usages and features between "
+"different desktop environments."
+msgstr ""
+
+#: ui/SystemTab.ui:623
+msgid "Desktop Environment:"
+msgstr ""
+
+#: ui/SystemTab.ui:686
+msgid ""
+"Name of the windowing system (window system)\n"
+"\n"
+"Windowing system draws windows, icons, pointers, fonts, etc.\n"
+"Windowing systems have some components such as display server and window "
+"manager."
+msgstr ""
+
+#: ui/SystemTab.ui:691
+msgid "Windowing System:"
+msgstr ""
+
+#: ui/SystemTab.ui:703
+msgid ""
+"Name of the display manager (login manager)\n"
+"\n"
+"Provides a graphical user interface for user login, starts the display "
+"server and loads the desktop environment after user login.\n"
+"Features, system resource usages and appearance of the greeter (login "
+"screen) are different for different display managers."
+msgstr ""
+
+#: ui/SystemTab.ui:708
+msgid "Display Manager:"
+msgstr ""
+
+#: ui/SystemTab.ui:734
+msgid ""
+"Number of installed packages\n"
+"(APT, RPM or pacman)"
+msgstr ""
+
+#: ui/SystemTab.ui:737
+msgid "Packages (System):"
+msgstr ""
+
+#: ui/SystemTab.ui:749
+msgid ""
+"Name of the current user and information of whether the user has root "
+"privileges"
+msgstr ""
+
+#: ui/SystemTab.ui:751
+msgid "User - (Root?):"
+msgstr ""
+
+#: ui/SystemTab.ui:797
+msgid ""
+"Name of the window manager\n"
+"\n"
+"Window manager manages position, size, stacking order, focus of the windows, "
+"performs minimizing/maximizing operations of windows, provides window "
+"decorations, manages virtual desktops (workspaces).\n"
+"\n"
+"Note: Window manager changes during user session are not tracked."
+msgstr ""
+
+#: ui/SystemTab.ui:803
+msgid "Window Manager:"
+msgstr ""
+
+#: ui/SystemTab.ui:866
+msgid ""
+"Number of installed Python packages and number of installed Flatpak "
+"applications and runtimes\n"
+"\n"
+"Built-in Python packages are not counted."
+msgstr ""
+
+#: ui/SystemTab.ui:870
+msgid "Packages (Python-Flatpak):"
+msgstr ""
+
+#: ui/UsersMenuCustomizations.ui:20
+msgid "Users Tab Customizations:"
+msgstr ""
+
+#: ui/UsersMenuCustomizations.ui:219
+msgid "Add/Remove User Information:"
+msgstr ""
+
+#: ui/UsersMenuRightClick.ui:20
+msgid "End User Session"
+msgstr ""
+
+#: ui/UsersTab.ui:38
+msgid "Note: User-specific performance data is approximative."
+msgstr ""
+
+#: ui/UsersTab.ui:79
+msgid "Total: -- users (-- logged in, -- logged out users)"
+msgstr ""
+
+#: ui/UsersTab.ui:99
+msgid "Users Tab Customizations"
+msgstr ""
+
+#: ui/UsersTab.ui:134
+msgid "Search user..."
+msgstr ""
+
+#: ui/UsersTab.ui:152
+msgid "Show all users"
+msgstr ""
+
+#: ui/UsersTab.ui:174
+msgid "Show only users logged in"
+msgstr ""
+
+#: ui/UsersTab.ui:196
+msgid "Show only users logged out"
+msgstr ""
