@@ -185,9 +185,12 @@ def network_initial_func():
             network_card_vendor_name = rest_of_the_pci_ids_output.split("\n")[0].strip()
         else:
             network_card_vendor_name = f'[{_tr("Unknown")}]'
-        if network_card_device_id in rest_of_the_pci_ids_output and network_card_vendor_name != f'[{_tr("Unknown")}]':    # "device name" information may not be present in the pci.ids file.
-            rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(network_card_device_id)[1]
-            network_card_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n")[0].strip()
+        if network_card_vendor_name != f'[{_tr("Unknown")}]':
+            if network_card_device_id in rest_of_the_pci_ids_output:                          # "device name" information may not be present in the pci.ids file.
+                rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(network_card_device_id)[1]
+                network_card_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n")[0].strip()
+            else:
+                network_card_device_name = f'[{_tr("Unknown")}]'
         else:
             network_card_device_name = f'[{_tr("Unknown")}]'
     network_card_device_model_name = f'{network_card_vendor_name} - {network_card_device_name}'
