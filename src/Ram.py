@@ -200,27 +200,33 @@ def ram_initial_func():
     performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
 
     # Get total_physical_ram value (this value is very similar to RAM hardware size which is a bit different than ram_total value)
-    with open("/sys/devices/system/memory/block_size_bytes") as reader:                       # "memory block size" is read from this file and size of the blocks depend on architecture (For more information see: https://www.kernel.org/doc/html/latest/admin-guide/mm/memory-hotplug.html).
-        block_size = int(reader.read().strip(), 16)                                           # Value in this file is in hex form and it is converted into integer (byte)
-    total_online_memory = 0
-    total_offline_memory = 0
-    files_in_sys_devices_system_memory = os.listdir("/sys/devices/system/memory/")            # Number of folders (of which name start with "memory") in this folder is multiplied with the integer value of "block_size_bytes" file content (hex value).
-    for file in files_in_sys_devices_system_memory:
-        if os.path.isdir("/sys/devices/system/memory/" + file) and file.startswith("memory"):
-            with open("/sys/devices/system/memory/" + file + "/online") as reader:
-                if reader.read().strip() == "1":
-                    total_online_memory = total_online_memory + block_size
-                if reader.read().strip() == "0":
-                    total_offline_memory = total_offline_memory + block_size
-    total_physical_ram = (total_online_memory + total_offline_memory)                         # Summation of total online and offline memories gives RAM hardware size. RAM harware size and total RAM value get from proc file system of by using "free" command are not same thing. Because some of the RAM may be reserved for harware and/or by the OS kernel.
+    try:                                                                                      # "block_size_bytes" file may not be present on some systems such as ARM CPU used systems. Currently kernel 5.10 does not have this feature but this feature will be included in the newer versions of the kernel.
+        with open("/sys/devices/system/memory/block_size_bytes") as reader:                   # "memory block size" is read from this file and size of the blocks depend on architecture (For more information see: https://www.kernel.org/doc/html/latest/admin-guide/mm/memory-hotplug.html).
+            block_size = int(reader.read().strip(), 16)                                       # Value in this file is in hex form and it is converted into integer (byte)
+    except FileNotFoundError:
+        block_size = "-"
+    if block_size != "-":
+        total_online_memory = 0
+        total_offline_memory = 0
+        files_in_sys_devices_system_memory = os.listdir("/sys/devices/system/memory/")        # Number of folders (of which name start with "memory") in this folder is multiplied with the integer value of "block_size_bytes" file content (hex value).
+        for file in files_in_sys_devices_system_memory:
+            if os.path.isdir("/sys/devices/system/memory/" + file) and file.startswith("memory"):
+                with open("/sys/devices/system/memory/" + file + "/online") as reader:
+                    if reader.read().strip() == "1":
+                        total_online_memory = total_online_memory + block_size
+                    if reader.read().strip() == "0":
+                        total_offline_memory = total_offline_memory + block_size
+        total_physical_ram = (total_online_memory + total_offline_memory)                     # Summation of total online and offline memories gives RAM hardware size. RAM harware size and total RAM value get from proc file system of by using "free" command are not same thing. Because some of the RAM may be reserved for harware and/or by the OS kernel.
+    else:
+        total_physical_ram = f'[{_tr("Unknown")}]'
     # Get ram_total and swap_total values
     with open("/proc/meminfo") as reader:
         proc_memory_info_output_lines = reader.read().split("\n")
-        for line in proc_memory_info_output_lines:
-            if "MemTotal:" in line:
-                ram_total = int(line.split()[1]) * 1024                                       # Values in this file are in "KiB" unit. These values are multiplied with 1024 in order to obtain byte (nearly) values.
-            if "SwapTotal:" in line:
-                swap_total = int(line.split()[1]) * 1024
+    for line in proc_memory_info_output_lines:
+        if "MemTotal:" in line:
+            ram_total = int(line.split()[1]) * 1024                                           # Values in this file are in "KiB" unit. These values are multiplied with 1024 in order to obtain byte (nearly) values.
+        if "SwapTotal:" in line:
+            swap_total = int(line.split()[1]) * 1024
 
     # Set RAM tab label texts by using information get
     label1201.set_text(_tr("Total Physical RAM: ") + str(ram_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
