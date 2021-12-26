@@ -41,7 +41,7 @@ def performance_summary_headerbar_gui_func():
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/PerformanceSummaryHeaderBarGrid.ui")
 
     # Performance Summary Headerbar Grid GUI objects
-    global grid101, drawingarea101, drawingarea102, label101, label102
+    global grid101, drawingarea101, drawingarea102, label101, label102, label103, label104
 
     # Performance Summary Headerbar Grid GUI objects - get
     grid101 = builder.get_object('grid101')
@@ -49,6 +49,8 @@ def performance_summary_headerbar_gui_func():
     drawingarea102 = builder.get_object('drawingarea102')
     label101 = builder.get_object('label101')
     label102 = builder.get_object('label102')
+    label103 = builder.get_object('label103')
+    label104 = builder.get_object('label104')
 
 
     # Performance Summary Headerbar Grid GUI functions
@@ -121,6 +123,9 @@ def performance_summary_headerbar_gui_func():
 
 # ----------------------------------- Performance Summary Headerbar - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
 def performance_summary_headerbar_initial_func():
+
+    label103.set_text(f'{_tr("Disk:"):<8}')
+    label104.set_text(f'{_tr("Network:"):<8}')
 
     performance_summary_headerbar_define_data_unit_converter_variables_func()                 # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 

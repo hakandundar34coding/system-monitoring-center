@@ -6,6 +6,8 @@
   <object class="GtkGrid" id="grid101">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
+    <property name="margin-top">2</property>
+    <property name="margin-bottom">2</property>
     <property name="column-spacing">5</property>
     <property name="row-homogeneous">True</property>
     <child>
@@ -25,8 +27,8 @@
       <object class="GtkDrawingArea" id="drawingarea101">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="margin-top">2</property>
-        <property name="margin-bottom">2</property>
+        <property name="margin-top">4</property>
+        <property name="margin-bottom">4</property>
       </object>
       <packing>
         <property name="left-attach">0</property>
@@ -37,8 +39,8 @@
       <object class="GtkDrawingArea" id="drawingarea102">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="margin-top">2</property>
-        <property name="margin-bottom">2</property>
+        <property name="margin-top">4</property>
+        <property name="margin-bottom">4</property>
       </object>
       <packing>
         <property name="left-attach">1</property>
@@ -59,7 +61,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkLabel" id="label103">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="tooltip-text" translatable="yes">Disk read+write speed of the selected disk (in powers of 1024)</property>
@@ -102,7 +104,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkLabel" id="label104">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="tooltip-text" translatable="yes">Data download+upload speed on the selected network card (in powers of 1024)</property>
