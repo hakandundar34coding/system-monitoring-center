@@ -839,7 +839,7 @@ def processes_define_window_func():
         global current_process_pid
         current_process_pid = os.getpid()                                                     # Get current application window (system monitor window) PID to check if it is changed. It means user clicked on a window if it is changed. Therefore loop function is not run anymore.
 
-    def processes_define_window_func():                                                       # Loop function that will be run repeatedly in order to watch for active window PIDs.
+    def processes_define_window_loop_func():                                                  # Loop function that will be run repeatedly in order to watch for active window PIDs.
         global processes_define_window_stop_loop
         default_screen = Wnck.Screen.get_default()                                            # Get default screen
         default_screen.force_update()                                                         # Force update "wnck". "wnck" has an internal updating mechanism and it will give same output in some situations if this "force update" is not used.
@@ -870,7 +870,7 @@ def processes_define_window_func():
         GLib.idle_add(processes_define_window_initial_func)
 
     def processes_define_window_loop_thread_func():                                           # A function to run loop function as threaded and prevent blocking Gtk signals/events.
-        GLib.idle_add(processes_define_window_func)
+        GLib.idle_add(processes_define_window_loop_func)
         if processes_define_window_stop_loop != 1 and MainGUI.window1.get_visible() == True:    # Also check if main window is visible. If window is closed, this function is not repeated and thread is ended. Therefore, there is no working process is left after window closed. "is/is not" is about 15% faster than "==/!="
             GLib.timeout_add(200, processes_define_window_loop_thread_func)                   # 200 milliseconds value is used for waiting before rerunning the loop function
 

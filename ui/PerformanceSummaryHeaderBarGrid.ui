@@ -77,6 +77,9 @@
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">--</property>
+        <attributes>
+          <attribute name="absolute-size" value="11000"/>
+        </attributes>
       </object>
       <packing>
         <property name="left-attach">2</property>
@@ -89,6 +92,9 @@
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">--</property>
+        <attributes>
+          <attribute name="absolute-size" value="11000"/>
+        </attributes>
       </object>
       <packing>
         <property name="left-attach">3</property>
