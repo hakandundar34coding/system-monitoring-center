@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TranslAster <https://github.com/translaster/>\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-10 18:57+0300\n"
-"PO-Revision-Date: 2021-12-27 10:24+0500\n"
+"PO-Revision-Date: 2021-12-27 14:45+0500\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,7 +73,7 @@ msgstr "Нет"
 #: src/Storage.py:338 src/StorageDetails.py:209 src/StorageDetails.py:219
 #: src/StorageMenuRightClick.py:195
 msgid "Partition"
-msgstr ""
+msgstr "Раздел"
 
 #: src/Disk.py:390 src/SettingsGUI.py:333 src/Storage.py:324 src/Storage.py:433
 #: src/Storage.py:477 src/Storage.py:487 src/Storage.py:498 src/Storage.py:507
@@ -162,15 +162,15 @@ msgstr ""
 #: src/EnvironmentVariables.py:186 src/EnvironmentVariables.py:309
 #: src/EnvironmentVariables.py:472 src/EnvironmentVariables.py:522
 msgid "Shell Variable"
-msgstr ""
+msgstr "Переменная оболочки"
 
 #: src/EnvironmentVariables.py:188
 msgid "Shell variables cannot be edited."
-msgstr ""
+msgstr "Переменные оболочки не могут быть изменены."
 
 #: src/EnvironmentVariables.py:190
 msgid "Shell variables cannot be deleted."
-msgstr ""
+msgstr "Переменные оболочки не могут быть удалены."
 
 #: src/EnvironmentVariables.py:205 ui/EnvironmentVarMenuCustomizations.ui:252
 msgid "Variable"
@@ -465,7 +465,7 @@ msgstr "Простаивает"
 
 #: src/Processes.py:266
 msgid "Zombie"
-msgstr ""
+msgstr "Зомби"
 
 #: src/Processes.py:266
 msgid "Stopped"
@@ -543,7 +543,7 @@ msgstr "2) Увеличивайте /уменьшайте ценность др�
 
 #: src/ProcessesMenuRightClick.py:291
 msgid "Terminate Process?"
-msgstr ""
+msgstr "Завершить процесс?"
 
 #: src/ProcessesMenuRightClick.py:292
 msgid "Do you want to terminate the following process?"
@@ -551,7 +551,7 @@ msgstr ""
 
 #: src/ProcessesMenuRightClick.py:303
 msgid "Kill Process?"
-msgstr ""
+msgstr "Убить процесс?"
 
 #: src/ProcessesMenuRightClick.py:304
 msgid ""
@@ -613,7 +613,7 @@ msgstr "Скорость/Частота"
 
 #: src/RamHardwareInformation.py:146 src/RamHardwareInformation.py:165
 msgid "Manufacturer"
-msgstr ""
+msgstr "Производитель"
 
 #: src/RamHardwareInformation.py:147 src/RamHardwareInformation.py:166
 msgid "Form Factor"
@@ -641,7 +641,7 @@ msgstr "Файл"
 
 #: src/RamSwapDetails.py:107
 msgid "Partition/File Name"
-msgstr ""
+msgstr "Раздел/Имя файла"
 
 #: src/RamSwapDetails.py:109
 msgid "Size"
@@ -866,7 +866,7 @@ msgstr "Производительность"
 #: ui/ProcessesTab.ui:251 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:324
 msgid "Processes"
-msgstr ""
+msgstr "Процессы"
 
 #: src/SettingsGUI.py:316 ui/MainWindow.ui:554 ui/UsersTab.ui:56
 msgid "Users"
@@ -1010,7 +1010,7 @@ msgstr ""
 
 #: src/StartupMenuRightClick.py:454
 msgid "'.desktop' File Name:"
-msgstr ""
+msgstr "Имя файла '.desktop':"
 
 #: src/StartupMenuRightClick.py:455
 msgid "Startup Item Command:"
@@ -1059,7 +1059,7 @@ msgstr "Тип транспорта"
 #: src/Storage.py:214 ui/StorageDetailsWindow.ui:103
 #: ui/StorageMenuCustomizations.ui:323
 msgid "File System"
-msgstr ""
+msgstr "Файловая система"
 
 #: src/Storage.py:215 ui/StorageDetailsWindow.ui:116
 #: ui/StorageMenuCustomizations.ui:337
@@ -1093,7 +1093,7 @@ msgstr "Название"
 #: src/Storage.py:221 ui/StorageDetailsWindow.ui:194
 #: ui/StorageMenuCustomizations.ui:435
 msgid "Partition Label"
-msgstr ""
+msgstr "Метка раздела"
 
 #: src/Storage.py:222 ui/StorageDetailsWindow.ui:405
 #: ui/StorageMenuCustomizations.ui:449
@@ -1127,7 +1127,7 @@ msgstr ""
 
 #: src/Storage.py:229 ui/StorageDetailsWindow.ui:540
 msgid "Read-Only"
-msgstr ""
+msgstr "Только для чтения"
 
 #: src/Storage.py:230 ui/StorageDetailsWindow.ui:527
 #: ui/StorageMenuCustomizations.ui:547
@@ -1236,7 +1236,7 @@ msgstr ""
 #: src/Users.py:185 ui/UsersDetailsWindow.ui:117
 #: ui/UsersMenuCustomizations.ui:338
 msgid "Home Directory"
-msgstr ""
+msgstr "Домашний каталог"
 
 #: src/Users.py:186 ui/UsersDetailsWindow.ui:130
 #: ui/UsersMenuCustomizations.ui:380
@@ -1269,7 +1269,7 @@ msgstr "Янв"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Feb"
-msgstr ""
+msgstr "Фев"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Mar"
@@ -1309,7 +1309,7 @@ msgstr "Ноя"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Dec"
-msgstr ""
+msgstr "Дек"
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Mon"
@@ -1321,7 +1321,7 @@ msgstr "Вт"
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Wed"
-msgstr ""
+msgstr "Ср"
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Thu"
@@ -1586,7 +1586,7 @@ msgstr ""
 
 #: ui/CpuTab.ui:295
 msgid "Min-Max Frequency:"
-msgstr ""
+msgstr "Мин-макс частота:"
 
 #: ui/CpuTab.ui:307
 msgid "Current frequency of the selected CPU core"
@@ -1594,7 +1594,7 @@ msgstr ""
 
 #: ui/CpuTab.ui:309
 msgid "Frequency:"
-msgstr "Частота"
+msgstr "Частота:"
 
 #: ui/CpuTab.ui:338 ui/PerformanceSummaryHeaderBarGrid.ui:15
 msgid "Average CPU usage of all cores"
@@ -1744,10 +1744,16 @@ msgid ""
 "system.\n"
 "\"[SWAP]\" information is shown if selected disk is a Swap partition."
 msgstr ""
+"Файловая система выбранного раздела диска\n"
+"\n"
+"Файловая система отображается из пространства пользователя и может "
+"отличаться от реальной файловой системы.\n"
+"Информация \"[SWAP]\" отображается, если выбранный диск является разделом "
+"подкачки."
 
 #: ui/DiskTab.ui:168
 msgid "File System:"
-msgstr ""
+msgstr "Файловая система:"
 
 #: ui/DiskTab.ui:180
 msgid ""
@@ -1809,7 +1815,7 @@ msgstr "Вместимость:"
 
 #: ui/DiskTab.ui:481 ui/NetworkTab.ui:364
 msgid "B/s "
-msgstr ""
+msgstr "Б/с "
 
 #: ui/DiskTab.ui:492
 msgid ""
@@ -2040,7 +2046,7 @@ msgstr ""
 
 #: ui/GpuTab.ui:44
 msgid "Frame Latency:"
-msgstr ""
+msgstr "Задержка кадров:"
 
 #: ui/GpuTab.ui:56
 msgid ""
@@ -2172,7 +2178,7 @@ msgstr ""
 
 #: ui/MainMenusDialogs.ui:19
 msgid "Hakan DÜNDAR"
-msgstr ""
+msgstr "Hakan DÜNDAR"
 
 #: ui/MainMenusDialogs.ui:75
 msgid "Open Terminal"
@@ -2228,7 +2234,7 @@ msgstr ""
 
 #: ui/MainWindow.ui:949
 msgid "Main Menu"
-msgstr ""
+msgstr "Главное меню"
 
 #: ui/NetworkMenus.ui:20
 msgid "Network Tab Customizations:"
@@ -2310,27 +2316,27 @@ msgstr ""
 
 #: ui/NetworkTab.ui:96
 msgid "IPv4 address on the selected network card"
-msgstr ""
+msgstr "Адрес IPv4 на выбранной сетевой карте"
 
 #: ui/NetworkTab.ui:98
 msgid "IPv4 Address:"
-msgstr ""
+msgstr "Адрес IPv4:"
 
 #: ui/NetworkTab.ui:110
 msgid "IPv6 address on the selected network card"
-msgstr ""
+msgstr "Адрес IPv6 на выбранной сетевой карте"
 
 #: ui/NetworkTab.ui:112
 msgid "IPv6 Address:"
-msgstr ""
+msgstr "Адрес IPv6:"
 
 #: ui/NetworkTab.ui:124
 msgid "MAC (Media Access Control) address of the selected network card"
-msgstr ""
+msgstr "MAC (Media Access Control) адрес выбранной сетевой карты"
 
 #: ui/NetworkTab.ui:126
 msgid "MAC Address:"
-msgstr ""
+msgstr "MAC-адрес:"
 
 #: ui/NetworkTab.ui:274
 msgid ""
@@ -2409,7 +2415,7 @@ msgstr ""
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:104
 msgid "Network:"
-msgstr ""
+msgstr "Сеть:"
 
 #: ui/ProcessesCustomPriorityWindow.ui:13
 msgid "Set Process Priority (Nice)"
@@ -2659,11 +2665,11 @@ msgstr ""
 
 #: ui/ProcessesMenuRightClick.ui:68
 msgid "Terminate Process"
-msgstr ""
+msgstr "Завершить процесс"
 
 #: ui/ProcessesMenuRightClick.ui:77
 msgid "Kill Process"
-msgstr ""
+msgstr "Убить процесс"
 
 #: ui/ProcessesMenuRightClick.ui:92
 msgid "Change Priority (Nice)"
@@ -2849,7 +2855,7 @@ msgstr ""
 
 #: ui/RamTab.ui:340
 msgid "Hardware:"
-msgstr ""
+msgstr "Оборудование:"
 
 #: ui/RamTab.ui:358 ui/RamTab.ui:396
 msgid "Query..."
@@ -3209,7 +3215,7 @@ msgstr ""
 
 #: ui/StartupMenuRightClick.ui:142
 msgid "Browse '.desktop' File..."
-msgstr ""
+msgstr "Просмотр файла '.desktop'..."
 
 #: ui/StartupNewItemWindow.ui:8
 msgid "Add New Startup Item"
@@ -3225,7 +3231,7 @@ msgstr "Комментарий:"
 
 #: ui/StartupNewItemWindow.ui:201
 msgid "Icon:"
-msgstr ""
+msgstr "Иконка:"
 
 #: ui/StartupNewItemWindow.ui:221
 msgid "Startup Notify"
@@ -3299,7 +3305,7 @@ msgstr ""
 
 #: ui/StorageMenuCustomizations.ui:533
 msgid "Read-only"
-msgstr ""
+msgstr "Только для чтения"
 
 #: ui/StorageMenuRightClick.ui:45
 msgid "Browse"
@@ -3420,7 +3426,7 @@ msgstr ""
 
 #: ui/SystemTab.ui:219
 msgid "Model:"
-msgstr ""
+msgstr "Модель:"
 
 #: ui/SystemTab.ui:231
 msgid ""
@@ -3450,7 +3456,7 @@ msgstr ""
 
 #: ui/SystemTab.ui:299
 msgid "Kernel Release:"
-msgstr ""
+msgstr "Релиз ядра:"
 
 #: ui/SystemTab.ui:329
 msgid "Computer:"
@@ -3505,7 +3511,7 @@ msgstr ""
 
 #: ui/SystemTab.ui:495
 msgid "Kernel Version:"
-msgstr ""
+msgstr "Версия ядра:"
 
 #: ui/SystemTab.ui:524
 msgid ""
