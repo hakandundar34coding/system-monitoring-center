@@ -124,7 +124,7 @@ def performance_summary_headerbar_gui_func():
 # ----------------------------------- Performance Summary Headerbar - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
 def performance_summary_headerbar_initial_func():
 
-    label103.set_text(f'{_tr("Disk:"):<9}')                                                   # Empty characters are placed at right side of the label by using "f'value:<8'" in order to prevent movement of the label when data numbers change. Total length of the string is set as 8 characters if actual length is smaller. This code has no effect if length of the string equals to 8 or more characters.
+    label103.set_text(f'{_tr("Disk:"):<9}')                                                   # Empty characters are placed at right side of the label by using "f'value:<9'" in order to prevent movement of the label when data numbers change. Total length of the string is set as 9 characters if actual length is smaller. This code has no effect if length of the string equals to 9 or more characters.
     label104.set_text(f'{_tr("Network:"):<9}')
 
     performance_summary_headerbar_define_data_unit_converter_variables_func()                 # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
