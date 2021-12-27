@@ -844,7 +844,10 @@ def processes_define_window_func():
         default_screen = Wnck.Screen.get_default()                                            # Get default screen
         default_screen.force_update()                                                         # Force update "wnck". "wnck" has an internal updating mechanism and it will give same output in some situations if this "force update" is not used.
         active_window = default_screen.get_active_window()                                    # Get active window (top most window). Because window will be topmost window when user clicks on it.
-        active_window_pid = active_window.get_pid()                                           # Get PID of active window
+        try:                                                                                  # try-except is used in order to prevent errors if "active_window" is get as "None".
+            active_window_pid = active_window.get_pid()                                       # Get PID of active window
+        except AttributeError:
+            active_window_pid = None                                                          # Required operations are performed in the later lines if "active_window" is get a "None".
         active_window = None                                                                  # Set active window as None in order to save memory resources
         default_screen = None                                                                 # Set default screen as None in order to save memory resources
         Wnck.shutdown()                                                                       # Use this command in order to save memory resources
