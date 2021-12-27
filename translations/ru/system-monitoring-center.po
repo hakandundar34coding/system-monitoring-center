@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TranslAster <https://github.com/translaster/>\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-10 18:57+0300\n"
-"PO-Revision-Date: 2021-12-23 17:57+0500\n"
+"PO-Revision-Date: 2021-12-27 10:24+0500\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,11 +49,11 @@ msgstr ""
 #: src/StorageMenuRightClick.py:83 src/StorageMenuRightClick.py:96
 #: src/StorageMenuRightClick.py:102 src/StorageMenuRightClick.py:180
 msgid "[Not mounted]"
-msgstr ""
+msgstr "[Не смонтировано]"
 
 #: src/Disk.py:230 src/Disk.py:439 src/Storage.py:389 src/StorageDetails.py:256
 msgid "[SWAP]"
-msgstr ""
+msgstr "[SWAP]"
 
 #: src/Disk.py:239 src/Gpu.py:229 src/Network.py:248 src/Network.py:266
 #: src/ServicesDetails.py:157 src/Storage.py:511 src/Storage.py:522
@@ -67,7 +67,7 @@ msgstr "Да"
 #: src/StorageDetails.py:230 src/StorageDetails.py:383
 #: src/StorageDetails.py:397 src/StorageDetails.py:411 src/UsersDetails.py:250
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: src/Disk.py:385 src/Disk.py:413 src/RamSwapDetails.py:81 src/Storage.py:333
 #: src/Storage.py:338 src/StorageDetails.py:209 src/StorageDetails.py:219
@@ -104,7 +104,7 @@ msgstr ""
 #: src/EnvironmentVarMenuRightClick.py:64
 #: ui/EnvironmentVariablesInputWindow.ui:8
 msgid "Add New Persistent Environment Variable"
-msgstr ""
+msgstr "Добавить новую постоянную переменную среды"
 
 #: src/EnvironmentVarMenuRightClick.py:79
 msgid "Edit Persistent Environment Variable"
@@ -203,15 +203,15 @@ msgstr ""
 
 #: src/EnvironmentVariables.py:475
 msgid " persistent variables ("
-msgstr ""
+msgstr " постоянные переменные ("
 
 #: src/EnvironmentVariables.py:475
 msgid " environment variables, "
-msgstr ""
+msgstr " переменные среды, "
 
 #: src/EnvironmentVariables.py:475
 msgid " shell variables)"
-msgstr ""
+msgstr " переменные оболочки)"
 
 #: src/EnvironmentVariablesInput.py:180
 msgid "Do You Want To Overwrite Existing Environment Variable?"
@@ -266,7 +266,7 @@ msgstr ""
 
 #: src/FloatingSummary.py:134
 msgid "CPU: "
-msgstr "ЦП:"
+msgstr "ЦП: "
 
 #: src/FloatingSummary.py:136
 msgid "RAM: "
@@ -424,7 +424,7 @@ msgstr "Приоритет"
 
 #: src/Processes.py:243
 msgid "# of Threads"
-msgstr ""
+msgstr "# потоков"
 
 #: src/Processes.py:244 ui/ProcessesDetailsWindow.ui:172
 #: ui/ProcessesMenuCustomizations.ui:469
@@ -481,15 +481,15 @@ msgstr ""
 
 #: src/Processes.py:669
 msgid " processes ("
-msgstr ""
+msgstr " процессы ("
 
 #: src/Processes.py:669
 msgid " from this user, "
-msgstr ""
+msgstr " от этого пользователя, "
 
 #: src/Processes.py:669
 msgid " from other users/system)"
-msgstr ""
+msgstr " от других пользователей/систем)"
 
 #: src/Processes.py:887
 msgid "Current Windowing System Is not Supported"
@@ -522,7 +522,7 @@ msgstr " (PID: "
 
 #: src/ProcessesDetails.py:692
 msgid ")"
-msgstr ""
+msgstr ")"
 
 #: src/ProcessesMenuRightClick.py:279 src/RamHardwareInformation.py:175
 #: src/UsersMenuRightClick.py:87
@@ -535,11 +535,11 @@ msgstr ""
 
 #: src/ProcessesMenuRightClick.py:281
 msgid "1) Increase nice value of your processes"
-msgstr ""
+msgstr "1) Увеличьте ценность ваших процессов"
 
 #: src/ProcessesMenuRightClick.py:282
 msgid "2) Increase/decrease nice value of other processes."
-msgstr ""
+msgstr "2) Увеличивайте /уменьшайте ценность других процессов."
 
 #: src/ProcessesMenuRightClick.py:291
 msgid "Terminate Process?"
@@ -681,7 +681,7 @@ msgstr " сенсоры ("
 
 #: src/Sensors.py:369
 msgid " temperature, "
-msgstr ""
+msgstr " температура, "
 
 #: src/Sensors.py:369
 msgid " fan, "
@@ -689,7 +689,7 @@ msgstr " вентилятор, "
 
 #: src/Sensors.py:369
 msgid " voltage/current sensors)"
-msgstr ""
+msgstr " датчики напряжения/тока)"
 
 #: src/Services.py:183 ui/ServicesMenuCustomizations.ui:252
 msgid "Service Name"
@@ -707,7 +707,7 @@ msgstr ""
 #: src/Services.py:186 ui/ServicesDetailsWindow.ui:297
 #: ui/ServicesMenuCustomizations.ui:296
 msgid "Active State"
-msgstr ""
+msgstr "Активное состояние"
 
 #: src/Services.py:187 ui/ServicesDetailsWindow.ui:284
 #: ui/ServicesMenuCustomizations.ui:310
@@ -791,7 +791,7 @@ msgstr "да"
 
 #: src/Services.py:210
 msgid "no"
-msgstr ""
+msgstr "нет"
 
 #: src/Services.py:294 src/Services.py:297 src/ServicesDetails.py:156
 msgid "Loaded"
@@ -803,11 +803,11 @@ msgstr " службы ("
 
 #: src/Services.py:501
 msgid " loaded, "
-msgstr ""
+msgstr " загружено, "
 
 #: src/Services.py:501
 msgid " non-loaded)"
-msgstr ""
+msgstr " незагруженный)"
 
 #: src/ServicesDetails.py:156
 msgid "Enabled"
@@ -860,7 +860,7 @@ msgstr "Информация"
 
 #: src/SettingsGUI.py:316 ui/MainWindow.ui:891
 msgid "Performance"
-msgstr ""
+msgstr "Производительность"
 
 #: src/SettingsGUI.py:316 src/Users.py:184 ui/MainWindow.ui:844
 #: ui/ProcessesTab.ui:251 ui/UsersDetailsWindow.ui:104
@@ -942,15 +942,15 @@ msgstr ""
 
 #: src/Startup.py:709
 msgid " startup applications ("
-msgstr ""
+msgstr " запуск приложений ("
 
 #: src/Startup.py:709
 msgid " visible, "
-msgstr ""
+msgstr "  видимых, "
 
 #: src/Startup.py:709
 msgid " hidden)"
-msgstr ""
+msgstr " скрытые)"
 
 #: src/StartupMenuRightClick.py:252
 msgid ""
@@ -1098,7 +1098,7 @@ msgstr ""
 #: src/Storage.py:222 ui/StorageDetailsWindow.ui:405
 #: ui/StorageMenuCustomizations.ui:449
 msgid "Mount Point"
-msgstr ""
+msgstr "Точка монтирования"
 
 #: src/Storage.py:224 ui/StorageDetailsWindow.ui:462
 #: ui/StorageMenuCustomizations.ui:421
@@ -1144,7 +1144,7 @@ msgstr ""
 
 #: src/Storage.py:737
 msgid " disks/partitions ("
-msgstr ""
+msgstr " диски/разделы ("
 
 #: src/Storage.py:737
 msgid " disks, "
@@ -1152,7 +1152,7 @@ msgstr " диски, "
 
 #: src/Storage.py:737
 msgid " partitions)"
-msgstr ""
+msgstr " разделы)"
 
 #: src/StorageDetails.py:214
 msgid "Storage Details: "
@@ -1265,7 +1265,7 @@ msgstr ""
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Jan"
-msgstr ""
+msgstr "Янв"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Feb"
@@ -1273,7 +1273,7 @@ msgstr ""
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Mar"
-msgstr ""
+msgstr "Март"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Apr"
@@ -1285,11 +1285,11 @@ msgstr "Май"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Jun"
-msgstr ""
+msgstr "Июнь"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Jul"
-msgstr ""
+msgstr "Июль"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Aug"
@@ -1297,15 +1297,15 @@ msgstr "Авг"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Sep"
-msgstr ""
+msgstr "Сент"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Oct"
-msgstr ""
+msgstr "Окт"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Nov"
-msgstr ""
+msgstr "Ноя"
 
 #: src/Users.py:224 src/UsersDetails.py:144
 msgid "Dec"
@@ -1313,11 +1313,11 @@ msgstr ""
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Mon"
-msgstr ""
+msgstr "Пон"
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Tue"
-msgstr ""
+msgstr "Вт"
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Wed"
@@ -1325,31 +1325,31 @@ msgstr ""
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Thu"
-msgstr ""
+msgstr "Четв"
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Fri"
-msgstr ""
+msgstr "Пт"
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Sat"
-msgstr ""
+msgstr "Суб"
 
 #: src/Users.py:225 src/UsersDetails.py:145
 msgid "Sun"
-msgstr ""
+msgstr "Воск"
 
 #: src/Users.py:590
 msgid " users ("
-msgstr ""
+msgstr " пользователи ("
 
 #: src/Users.py:590
 msgid " logged in users, "
-msgstr ""
+msgstr "  зарегистрированные пользователи, "
 
 #: src/Users.py:590
 msgid " logged out users)"
-msgstr ""
+msgstr "  вышедшие из системы пользователи)"
 
 #: src/UsersDetails.py:88 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
@@ -1532,7 +1532,7 @@ msgstr "0%"
 #: ui/UsersDetailsWindow.ui:374 ui/UsersDetailsWindow.ui:390
 #: ui/UsersDetailsWindow.ui:419
 msgid "--"
-msgstr ""
+msgstr "--"
 
 #: ui/CpuTab.ui:153 ui/SystemTab.ui:720
 msgid "Elapsed time since last system boot"
@@ -1570,7 +1570,7 @@ msgstr ""
 
 #: ui/CpuTab.ui:267
 msgid "Cores (Physical-Logical):"
-msgstr ""
+msgstr "Ядра (Физико-логические):"
 
 #: ui/CpuTab.ui:279
 msgid "Number of CPU packages (CPU sockets)"
@@ -1594,7 +1594,7 @@ msgstr ""
 
 #: ui/CpuTab.ui:309
 msgid "Frequency:"
-msgstr ""
+msgstr "Частота"
 
 #: ui/CpuTab.ui:338 ui/PerformanceSummaryHeaderBarGrid.ui:15
 msgid "Average CPU usage of all cores"
@@ -1805,7 +1805,7 @@ msgstr ""
 
 #: ui/DiskTab.ui:421 ui/RamTab.ui:170 ui/RamTab.ui:201
 msgid "Capacity:"
-msgstr ""
+msgstr "Вместимость:"
 
 #: ui/DiskTab.ui:481 ui/NetworkTab.ui:364
 msgid "B/s "
@@ -1867,18 +1867,18 @@ msgstr "Вид"
 
 #: ui/EnvironmentVarMenuCustomizations.ui:219
 msgid "Add/Remove Variable Information:"
-msgstr ""
+msgstr "Добавление/удаление информации о переменной:"
 
 #: ui/EnvironmentVarMenuCustomizations.ui:312
 #: ui/ProcessesMenuCustomizations.ui:614 ui/ServicesMenuCustomizations.ui:379
 #: ui/StartupMenuCustomizations.ui:311 ui/StorageMenuCustomizations.ui:602
 #: ui/UsersMenuCustomizations.ui:463
 msgid "Add/Remove Columns"
-msgstr ""
+msgstr "Добавление/удаление столбцов"
 
 #: ui/EnvironmentVarMenuRightClick.ui:35
 msgid "Add Persistent Environment Variable"
-msgstr ""
+msgstr "Добавить постоянную переменную среды"
 
 #: ui/EnvironmentVarMenuRightClick.ui:44
 msgid "Edit Environment Variable"
@@ -1890,11 +1890,11 @@ msgstr ""
 
 #: ui/EnvironmentVarMenuRightClick.ui:68
 msgid "Copy Variable"
-msgstr ""
+msgstr "Копировать переменную"
 
 #: ui/EnvironmentVarMenuRightClick.ui:77
 msgid "Copy Value"
-msgstr ""
+msgstr "Копировать значение"
 
 #: ui/EnvironmentVariablesInputWindow.ui:58 ui/StartupNewItemWindow.ui:59
 msgid "Save"
@@ -1912,15 +1912,15 @@ msgstr ""
 
 #: ui/EnvironmentVariablesInputWindow.ui:201
 msgid "All users (Recognized after system restart)"
-msgstr ""
+msgstr "Все пользователи (распознаются после перезагрузки системы)"
 
 #: ui/EnvironmentVariablesInputWindow.ui:219
 msgid "\t\t(Appended into \"/etc/environment\" file)"
-msgstr ""
+msgstr "\t\t((Добавляется в файл \"/etc/environment\")"
 
 #: ui/EnvironmentVariablesInputWindow.ui:231
 msgid "\t\t(Appended into \"/home/[username]/.bashrc\" file)"
-msgstr ""
+msgstr "\t\t(Добавляется в файл \"/home/[username]/.bashrc\")"
 
 #: ui/EnvironmentVariablesInputWindow.ui:244
 msgid "Environment Variable Is Valid For:"
@@ -2529,7 +2529,7 @@ msgstr ""
 #: ui/UsersDetailsWindow.ui:578 ui/UsersDetailsWindow.ui:591
 #: ui/UsersDetailsWindow.ui:604
 msgid ":"
-msgstr ""
+msgstr ":"
 
 #: ui/ProcessesDetailsWindow.ui:680
 msgid "Summary"
@@ -2541,7 +2541,7 @@ msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:735
 msgid "Threads"
-msgstr ""
+msgstr "Потоки"
 
 #: ui/ProcessesDetailsWindow.ui:748
 msgid "Used CPU Core(s)"
@@ -2589,7 +2589,7 @@ msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:1487
 msgid "Path:"
-msgstr ""
+msgstr "Путь:"
 
 #: ui/ProcessesDetailsWindow.ui:1517
 msgid "Current Working Directory"
@@ -2629,7 +2629,7 @@ msgstr ""
 
 #: ui/ProcessesMenuCustomizations.ui:308
 msgid "Add/Remove Process Information:"
-msgstr ""
+msgstr "Добавление/удаление информации о процессе:"
 
 #: ui/ProcessesMenuCustomizations.ui:399
 msgid "CPU Usage Percent"
@@ -2691,11 +2691,11 @@ msgstr ""
 
 #: ui/ProcessesMenuRightClick.ui:160
 msgid "Custom Value..."
-msgstr ""
+msgstr "Пользовательское значение..."
 
 #: ui/ProcessesMenuRightClick.ui:176 ui/ServicesMenuRightClick.ui:118
 msgid "Copy Name"
-msgstr ""
+msgstr "Копировать название"
 
 #: ui/ProcessesMenuRightClick.ui:185
 msgid "Open Location"
@@ -2799,7 +2799,7 @@ msgstr ""
 
 #: ui/RamTab.ui:60 ui/RamTab.ui:122
 msgid "Available:"
-msgstr ""
+msgstr "Доступны:"
 
 #: ui/RamTab.ui:106
 msgid "Used swap memory (in powers of 1024)"
@@ -2853,7 +2853,7 @@ msgstr ""
 
 #: ui/RamTab.ui:358 ui/RamTab.ui:396
 msgid "Query..."
-msgstr ""
+msgstr "Очередь..."
 
 #: ui/RamTab.ui:376
 msgid "Shows detailed swap memory information."
@@ -2962,11 +2962,11 @@ msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:489
 msgid "Can Start - Stop?"
-msgstr ""
+msgstr "Может запустить - остановить?"
 
 #: ui/ServicesDetailsWindow.ui:502
 msgid "Can Reload?"
-msgstr ""
+msgstr "Может перезагрузить?"
 
 #: ui/ServicesDetailsWindow.ui:767 ui/SettingsWindow.ui:308
 #: ui/SettingsWindow.ui:324
@@ -2987,7 +2987,7 @@ msgstr "После"
 
 #: ui/ServicesDetailsWindow.ui:835
 msgid "Before"
-msgstr ""
+msgstr "До"
 
 #: ui/ServicesDetailsWindow.ui:963
 msgid "Dependencies"
@@ -2999,7 +2999,7 @@ msgstr ""
 
 #: ui/ServicesMenuCustomizations.ui:219
 msgid "Add/Remove Service Information:"
-msgstr ""
+msgstr "Добавление/удаление служебной информации:"
 
 #: ui/ServicesMenuRightClick.ui:50
 msgid "Start"
@@ -3027,7 +3027,7 @@ msgstr "Выключить"
 
 #: ui/ServicesMenuRightClick.ui:106
 msgid "Mask"
-msgstr ""
+msgstr "Маска"
 
 #: ui/ServicesTab.ui:64
 msgid "Number of listed services"
@@ -3098,7 +3098,7 @@ msgstr ""
 
 #: ui/SettingsWindow.ui:192
 msgid "Background color"
-msgstr ""
+msgstr "Цвет фона"
 
 #: ui/SettingsWindow.ui:206
 msgid "Set background color for all charts:"
@@ -3166,7 +3166,7 @@ msgstr ""
 
 #: ui/StartupMenuCustomizations.ui:218 ui/StorageMenuCustomizations.ui:218
 msgid "Add/Remove Storage Information:"
-msgstr ""
+msgstr "Добавление/удаление информации о хранилище:"
 
 #: ui/StartupMenuCustomizations.ui:281
 msgid "Command (Exec)"
@@ -3213,11 +3213,11 @@ msgstr ""
 
 #: ui/StartupNewItemWindow.ui:8
 msgid "Add New Startup Item"
-msgstr ""
+msgstr "Добавить новый элемент запуска"
 
 #: ui/StartupNewItemWindow.ui:165 ui/SystemTab.ui:155
 msgid "Name:"
-msgstr ""
+msgstr "Название:"
 
 #: ui/StartupNewItemWindow.ui:177
 msgid "Comment:"
@@ -3307,7 +3307,7 @@ msgstr "Просмотр"
 
 #: ui/StorageMenuRightClick.ui:54
 msgid "Mount"
-msgstr ""
+msgstr "Монтирование"
 
 #: ui/StorageMenuRightClick.ui:63
 msgid "Unmount"
@@ -3319,7 +3319,7 @@ msgstr "Удалить"
 
 #: ui/StorageMenuRightClick.ui:87
 msgid "Copy Mount Point"
-msgstr ""
+msgstr "Копировать точку монтирования"
 
 #: ui/StorageMenuRightClick.ui:102
 msgid "Rename Label"
@@ -3335,7 +3335,7 @@ msgstr ""
 
 #: ui/StorageRenameWindow.ui:38
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ui/StorageRenameWindow.ui:179
 msgid ""
@@ -3473,7 +3473,7 @@ msgstr ""
 
 #: ui/SystemTab.ui:414
 msgid "OS Family:"
-msgstr ""
+msgstr "Семейство ОС:"
 
 #: ui/SystemTab.ui:426
 msgid ""
@@ -3486,7 +3486,7 @@ msgstr ""
 
 #: ui/SystemTab.ui:431
 msgid "Host Name:"
-msgstr ""
+msgstr "Имя узла:"
 
 #: ui/SystemTab.ui:460
 msgid "Number of detected monitors"
@@ -3623,7 +3623,7 @@ msgstr ""
 
 #: ui/UsersMenuCustomizations.ui:219
 msgid "Add/Remove User Information:"
-msgstr ""
+msgstr "Добавление/удаление информации о пользователе:"
 
 #: ui/UsersMenuRightClick.ui:20
 msgid "End User Session"
