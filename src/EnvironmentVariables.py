@@ -17,21 +17,9 @@ def environment_variables_import_func():
     import Config, MainGUI
 
 
-    # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
+    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
     global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
-    import locale
     from locale import gettext as _tr
-
-    # Define contstants for language translation support
-    global application_name
-    application_name = "system-monitoring-center"
-    translation_files_path = "/usr/share/locale"
-    system_current_language = os.environ.get("LANG")
-
-    # Define functions for language translation support
-    locale.bindtextdomain(application_name, translation_files_path)
-    locale.textdomain(application_name)
-    locale.setlocale(locale.LC_ALL, system_current_language)
 
 
 # ----------------------------------- EnvironmentVariables - EnvironmentVariables GUI Function (the code of this module in order to avoid running them during module import and defines "EnvironmentVariables" tab GUI objects and functions/signals) -----------------------------------
