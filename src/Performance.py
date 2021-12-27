@@ -249,15 +249,14 @@ def performance_background_func():
     for line in memory_info:
         if line.startswith("MemTotal:"):
             ram_total = int(line.split()[1]) * 1024                                           # Memory values in /proc/meminfo directory are in KibiBytes (KiB). Thet are multiplied with 1024 in order to convert them into bytes. There is some accuracy deviation during the convertion (only in bytes form, it is not valid for KiB, MiB, ...) but it is negligible.
+            continue
         if line.startswith("MemFree:"):
-           ram_free = int(line.split()[1]) * 1024
+            ram_free = int(line.split()[1]) * 1024
+            continue
         if line.startswith("MemAvailable:"):
             ram_available = int(line.split()[1]) * 1024
-        if line.startswith("Buffers:"):
-            ram_buffers = int(line.split()[1]) * 1024
-        if line.startswith("Cached:"):
-            ram_cached = int(line.split()[1]) * 1024
-    ram_used = ram_total - ram_free - ram_cached - ram_buffers                                # Used RAM value is calculated
+            continue
+    ram_used = ram_total - ram_available                                                      # Used RAM value is calculated
     ram_usage_percent.append(ram_used / ram_total * 100)                                      # Used RAM percentage is calculated
     del ram_usage_percent[0]                                                                  # Delete the first RAM usage percent value from the list in order to keep list lenght same. Because a new value is appended in every loop. This list is used for RAM usage percent graphic.
 
