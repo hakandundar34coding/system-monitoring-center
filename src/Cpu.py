@@ -327,33 +327,30 @@ def cpu_loop_func():
         if cpu_model_names == []:
             cpu_model_names = [_tr("Unknown")]
 
-    # Get maximum and minimum frequencies of all cores
-    cpu_max_frequency_all_cores = []
-    cpu_min_frequency_all_cores = []
+    # Get maximum and minimum frequencies of the selected CPU core
     try:
-        for cpu_core in logical_core_list_system_ordered:
-            with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_max_freq") as reader:
-                cpu_max_frequency_all_cores.append(float(reader.read().strip()) / 1000)
-            with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_min_freq") as reader:
-                cpu_min_frequency_all_cores.append(float(reader.read().strip()) / 1000)
+        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core + "/scaling_max_freq") as reader:
+            cpu_max_frequency_selected_core = float(reader.read().strip()) / 1000
+        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core + "/scaling_min_freq") as reader:
+            cpu_min_frequency_selected_core = float(reader.read().strip()) / 1000
     except FileNotFoundError:
-        cpu_max_frequency_all_cores = ["-"] * number_of_logical_cores
-        cpu_min_frequency_all_cores = ["-"] * number_of_logical_cores
+        cpu_max_frequency_selected_core = "-"
+        cpu_min_frequency_selected_core = "-"
 
-    # Get current frequencies of all cores
-    cpu_current_frequency_all_cores = []
+    # Get current frequency of the selected CPU core
+    cpu_current_frequency_selected_core = ""
     try:
-        for cpu_core in logical_core_list_system_ordered:
-            with open("/sys/devices/system/cpu/cpufreq/policy" + cpu_core + "/scaling_cur_freq") as reader:
-                cpu_current_frequency_all_cores.append(float(reader.read().strip()) / 1000)
+        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core + "/scaling_cur_freq") as reader:
+            cpu_current_frequency_selected_core = float(reader.read().strip()) / 1000
     except FileNotFoundError:
         with open("/proc/cpuinfo") as reader:
-            proc_cpuinfo_lines = reader.read().split("\n")
-        for line in proc_cpuinfo_lines:
+            proc_cpuinfo_all_cores = reader.read().strip().split("\n\n")
+        proc_cpuinfo_all_cores_lines = proc_cpuinfo_all_cores[int(selected_cpu_core)].split("\n")
+        for line in proc_cpuinfo_all_cores_lines:
             if line.startswith("cpu MHz"):
-                cpu_current_frequency_all_cores.append(float(line.split(":")[1].strip()))
-    if cpu_current_frequency_all_cores == []:                                                 # CPUs with ARM architecture may not have current core frequency information.
-        cpu_current_frequency_all_cores = ["-"] * number_of_logical_cores
+                cpu_current_frequency_selected_core = float(line.split(":")[1].strip())
+    if cpu_current_frequency_selected_core == "":                                             # CPUs with ARM architecture may not have current core frequency information.
+        cpu_current_frequency_selected_core = "-"
 
     # Get number_of_total_threads and number_of_total_processes
     thread_count_list = []
@@ -362,9 +359,9 @@ def cpu_loop_func():
         try:                                                                                  # try-except is used in order to pass the loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
             with open("/proc/" + pid + "/status") as reader:
                 proc_status_output = reader.read()
-            thread_count_list.append(int(proc_status_output.split("\nThreads:")[1].split("\n")[0].strip()))    # Append number of threads of the process
         except (FileNotFoundError, ProcessLookupError) as me:
-            pass
+            continue
+        thread_count_list.append(int(proc_status_output.split("\nThreads:")[1].split("\n")[0].strip()))    # Append number of threads of the process
     number_of_total_processes = len(thread_count_list)
     number_of_total_threads = sum(thread_count_list)
 
@@ -385,12 +382,12 @@ def cpu_loop_func():
     label1111.set_text(f'{number_of_total_processes} - {number_of_total_threads}')
     label1112.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
     label1103.set_text(f'{cpu_usage_percent_ave[-1]:.{Config.performance_cpu_usage_percent_precision}f} %')
-    label1104.set_text(f'{cpu_current_frequency_all_cores[int(selected_cpu_core_number)]/1000:.2f} GHz')
+    label1104.set_text(f'{cpu_current_frequency_selected_core/1000:.2f} GHz')
     label1102.set_text(_tr("Selected CPU Core: ") + selected_cpu_core)
-    if isinstance(cpu_max_frequency_all_cores[selected_cpu_core_number], str) is False:
-        label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]/1000:.2f} - {cpu_max_frequency_all_cores[selected_cpu_core_number]/1000:.2f} GHz')
-    if isinstance(cpu_max_frequency_all_cores[selected_cpu_core_number], str) is True:
-        label1105.set_text(f'{cpu_min_frequency_all_cores[selected_cpu_core_number]} - {cpu_max_frequency_all_cores[selected_cpu_core_number]}')
+    if isinstance(cpu_max_frequency_selected_core, str) is False:
+        label1105.set_text(f'{cpu_min_frequency_selected_core/1000:.2f} - {cpu_max_frequency_selected_core/1000:.2f} GHz')
+    if isinstance(cpu_max_frequency_selected_core, str) is True:
+        label1105.set_text(f'{cpu_min_frequency_selected_core} - {cpu_max_frequency_selected_core}')
     label1106.set_text(f'{number_of_cpu_sockets}')
     label1107.set_text(f'{number_of_physical_cores} - {number_of_logical_cores}')
 

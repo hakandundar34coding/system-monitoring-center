@@ -123,7 +123,7 @@ def main_gui_func():
             import FloatingSummary
             FloatingSummary.floating_summary_import_func()
             FloatingSummary.floating_summary_gui_func()
-            FloatingSummary.window3001.show()                                                     # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
+            FloatingSummary.window3001.show()                                                 # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
             FloatingSummary.floating_summary_thread_run_func()
 
         # Show information for warning the user if the application has been run with root privileges. Information is shown just below the application window headerbar.
