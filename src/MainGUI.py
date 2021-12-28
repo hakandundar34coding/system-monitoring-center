@@ -142,8 +142,6 @@ def main_gui_func():
             import MainMenusDialogs
             MainMenusDialogs.main_menus_gui_import_func()
             MainMenusDialogs.main_menus_gui_func()
-#             MainMenusDialogs.popover1101p.set_relative_to(button1101)                                  # Set widget that popover menu will display at the edge of.
-#             MainMenusDialogs.popover1101p.set_position(1)                                              # Show popover menu at the right edge of the caller button in order not to hide CPU usage percentage when menu is shown. Becuse there is CPU usage percentage precision setting and user may want to see visual changes just in time.
         MainMenusDialogs.menu1001m.popup(None, None, None, None, 1, Gtk.get_current_event_time())                                                          # Show CPU tab popover GUI
 
     def on_radiobutton1_toggled(widget):                                                      # "Performance" radiobutton
