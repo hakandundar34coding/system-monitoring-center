@@ -33,7 +33,6 @@ def services_gui_func():
 
     # Services tab GUI objects - get from file
     builder = Gtk.Builder()
-    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesTab.ui")
 
     # Services tab GUI objects - get

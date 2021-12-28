@@ -38,7 +38,6 @@ def processes_gui_func():
 
     # Processes tab GUI objects - get from file
     builder = Gtk.Builder()
-    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesTab.ui")
 
     # Processes tab GUI objects - get

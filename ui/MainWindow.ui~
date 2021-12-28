@@ -942,7 +942,7 @@
         <property name="spacing">5</property>
         <property name="show-close-button">True</property>
         <child>
-          <object class="GtkButton" id="button1">
+          <object class="GtkButton">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>

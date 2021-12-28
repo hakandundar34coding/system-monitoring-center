@@ -33,7 +33,7 @@ def main_gui_func():
 
     # Main GUI objects
     global window1
-    global headerbar1, menubutton1
+    global headerbar1, button1
     global grid10, stack1
     global radiobutton1, radiobutton2, radiobutton3, radiobutton4, radiobutton5, radiobutton6, radiobutton7, radiobutton8
     global grid1, grid2, grid3, grid4, grid5, grid6, grid7, grid8
@@ -51,7 +51,7 @@ def main_gui_func():
     # Main tab GUI objects - get
     window1 = builder.get_object('window1')
     headerbar1 = builder.get_object('headerbar1')
-    menubutton1 = builder.get_object('menubutton1')
+    button1 = builder.get_object('button1')
     grid10 = builder.get_object('grid10')
     stack1 = builder.get_object('stack1')
     radiobutton1 = builder.get_object('radiobutton1')
@@ -110,11 +110,6 @@ def main_gui_func():
 
         main_gui_tab_switch_func()                                                            # Run main tab function after initial showing main window (this function is also called when main tab checkbuttons are toggled).
 
-        import MainMenusDialogs                                                               # Import MainMenusDialogs module which contains main menus/dialogs GUI obejcts and signals
-        MainMenusDialogs.main_menus_gui_import_func()
-        MainMenusDialogs.main_menus_gui_func()
-        menubutton1.set_popup(MainMenusDialogs.menu1001m)                                     # Set popup menu (Main menu)
-
         # Add performance summary widgets to the main window headerbar.
         if Config.performance_summary_on_the_headerbar == 1:
             import PerformanceSummaryHeaderbar
@@ -140,6 +135,16 @@ def main_gui_func():
             grid10.insert_row(0)                                                              # Insert a row at top of the grid.
             grid10.attach(label_root_warning, 0, 0, 1, 1)                                     # Attach the label to the grid at (0, 0) position.
             label_root_warning.set_visible(True)                                              # Set the label as visible.
+
+    def on_button1_clicked(widget):                                                           # "Main Menu" button
+        if 'MainMenusDialogs' not in globals():
+            global MainMenusDialogs
+            import MainMenusDialogs
+            MainMenusDialogs.main_menus_gui_import_func()
+            MainMenusDialogs.main_menus_gui_func()
+#             MainMenusDialogs.popover1101p.set_relative_to(button1101)                                  # Set widget that popover menu will display at the edge of.
+#             MainMenusDialogs.popover1101p.set_position(1)                                              # Show popover menu at the right edge of the caller button in order not to hide CPU usage percentage when menu is shown. Becuse there is CPU usage percentage precision setting and user may want to see visual changes just in time.
+        MainMenusDialogs.menu1001m.popup(None, None, None, None, 1, Gtk.get_current_event_time())                                                          # Show CPU tab popover GUI
 
     def on_radiobutton1_toggled(widget):                                                      # "Performance" radiobutton
         if radiobutton1.get_active() == True:
@@ -202,6 +207,7 @@ def main_gui_func():
     # Main GUI functions - connect
     window1.connect("destroy", on_window1_destroy)
     window1.connect("show", on_window1_show)
+    button1.connect("clicked", on_button1_clicked)
     radiobutton1.connect("toggled", on_radiobutton1_toggled)
     radiobutton2.connect("toggled", on_radiobutton2_toggled)
     radiobutton3.connect("toggled", on_radiobutton3_toggled)
