@@ -205,56 +205,51 @@ def cpu_initial_func():
     selected_cpu_core_number = Performance.selected_cpu_core_number
     selected_cpu_core = Performance.selected_cpu_core
 
-    # Get cache values of all cores
-    cpu_l1d_cache_values = []
-    cpu_l1i_cache_values = []
-    cpu_l2_cache_values = []
-    cpu_l3_cache_values = []
-    for cpu_core in logical_core_list_system_ordered:
-        # Get l1d cache values
-        try:
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index0/level") as reader:
-                cache_level = reader.read().strip()
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index0/type") as reader:
-                cache_type = reader.read().strip()
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index0/size") as reader:
-                cache_size = reader.read().strip()
-            if cache_level == "1" and cache_type == "Data":
-                cpu_l1d_cache_values.append(cache_size)
-        except FileNotFoundError:
-            cpu_l1d_cache_values.append("-")
-        # Get li cache values
-        try:
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index1/level") as reader:
-                cache_level = reader.read().strip()
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index1/type") as reader:
-                cache_type = reader.read().strip()
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index1/size") as reader:
-                cache_size = reader.read().strip()
-            if cache_level == "1" and cache_type == "Instruction":
-                cpu_l1i_cache_values.append(cache_size)
-        except FileNotFoundError:
-            cpu_l1i_cache_values.append("-")
-        # Get l2 cache values
-        try:
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index2/level") as reader:
-                cache_level = reader.read().strip()
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index2/size") as reader:
-                cache_size = reader.read().strip()
-            if cache_level == "2":
-                cpu_l2_cache_values.append(cache_size)
-        except FileNotFoundError:
-            cpu_l2_cache_values.append("-")
-        # Get l3 cache values
-        try:
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index3/level") as reader:
-                cache_level = reader.read().strip()
-            with open("/sys/devices/system/cpu/cpu" + cpu_core + "/cache/index3/size") as reader:
-                cache_size = reader.read().strip()
-            if cache_level == "3":
-                cpu_l3_cache_values.append(cache_size)
-        except FileNotFoundError:
-            cpu_l3_cache_values.append("-")
+    # Get cache memory values of the selected CPU core
+    # Get l1d cache value
+    try:
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index0/level") as reader:
+            cache_level = reader.read().strip()
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index0/type") as reader:
+            cache_type = reader.read().strip()
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index0/size") as reader:
+            cache_size = reader.read().strip()
+        if cache_level == "1" and cache_type == "Data":
+            cpu_l1d_cache_value_selected_core = cache_size
+    except FileNotFoundError:
+        cpu_l1d_cache_value_selected_core = "-"
+    # Get li cache value
+    try:
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index1/level") as reader:
+            cache_level = reader.read().strip()
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index1/type") as reader:
+            cache_type = reader.read().strip()
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index1/size") as reader:
+            cache_size = reader.read().strip()
+        if cache_level == "1" and cache_type == "Instruction":
+            cpu_l1i_cache_value_selected_core = cache_size
+    except FileNotFoundError:
+        cpu_l1i_cache_value_selected_core = "-"
+    # Get l2 cache value
+    try:
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index2/level") as reader:
+            cache_level = reader.read().strip()
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index2/size") as reader:
+            cache_size = reader.read().strip()
+        if cache_level == "2":
+            cpu_l2_cache_value_selected_core = cache_size
+    except FileNotFoundError:
+        cpu_l2_cache_value_selected_core = "-"
+    # Get l3 cache value
+    try:
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index3/level") as reader:
+            cache_level = reader.read().strip()
+        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index3/size") as reader:
+            cache_size = reader.read().strip()
+        if cache_level == "3":
+            cpu_l3_cache_value_selected_core = cache_size
+    except FileNotFoundError:
+        cpu_l3_cache_value_selected_core = "-"
 
     # Get CPU architecture
     cpu_architecture = platform.processor()
@@ -270,8 +265,8 @@ def cpu_initial_func():
     if show_cpu_usage_per_core == 1:
         label1113.set_text(_tr("CPU Usage (Per Core):"))
     label1108.set_text(cpu_architecture)
-    label1109.set_text(f'{cpu_l1i_cache_values[selected_cpu_core_number]} - {cpu_l1d_cache_values[selected_cpu_core_number]}')
-    label1110.set_text(f'{cpu_l2_cache_values[selected_cpu_core_number]} - {cpu_l3_cache_values[selected_cpu_core_number]}')
+    label1109.set_text(f'{cpu_l1i_cache_value_selected_core} - {cpu_l1d_cache_value_selected_core}')
+    label1110.set_text(f'{cpu_l2_cache_value_selected_core} - {cpu_l3_cache_value_selected_core}')
 
 
 # ----------------------------------- CPU - Get CPU Data Function (gets CPU data, shows on the labels on the GUI) -----------------------------------
@@ -338,7 +333,6 @@ def cpu_loop_func():
         cpu_min_frequency_selected_core = "-"
 
     # Get current frequency of the selected CPU core
-    cpu_current_frequency_selected_core = ""
     try:
         with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core + "/scaling_cur_freq") as reader:
             cpu_current_frequency_selected_core = float(reader.read().strip()) / 1000
@@ -349,14 +343,13 @@ def cpu_loop_func():
         for line in proc_cpuinfo_all_cores_lines:
             if line.startswith("cpu MHz"):
                 cpu_current_frequency_selected_core = float(line.split(":")[1].strip())
-    if cpu_current_frequency_selected_core == "":                                             # CPUs with ARM architecture may not have current core frequency information.
-        cpu_current_frequency_selected_core = "-"
+                break
 
     # Get number_of_total_threads and number_of_total_processes
     thread_count_list = []
     pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
     for pid in pid_list:
-        try:                                                                                  # try-except is used in order to pass the loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
+        try:                                                                                  # try-except is used in order to skip to the next loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
             with open("/proc/" + pid + "/status") as reader:
                 proc_status_output = reader.read()
         except (FileNotFoundError, ProcessLookupError) as me:
