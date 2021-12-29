@@ -3,16 +3,12 @@
 # ----------------------------------- Processes - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_import_func():
 
-    global Gtk, Gdk, GLib, GObject, Wnck, Thread, os, time
+    global Gtk, Gdk, GLib, GObject, Thread, os, time
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Gdk, GLib, GObject
-    try:                                                                                      # "Wnck" is used in order to higlight a process from the list when window of the process clicked by user. "try-catch" is used in order to avoid errors if "Wnck" package is not installed on the system. This package may not be installed on some systems.
-        gi.require_version('Wnck', '3.0')
-        from gi.repository import Wnck
-    except ValueError:
-        pass
+    gi.require_version('Wnck', '3.0')                                                         # Define "Wnck" version to be imported. "Wnck" will be imported when relevant button is clicked by the user in order to avoid importing it when Processes tab switched on.
     from threading import Thread
     import os
     import time
@@ -792,6 +788,10 @@ def processes_treeview_column_order_width_row_sorting_func():
 
 # ----------------------------------- Processes - Define Window Function (defines a window by a user mouse click and highlights process of the defined window process on the proces list (on treeview)) -----------------------------------
 def processes_define_window_func():
+
+    if 'Wnck' not in globals():
+        global Wnck
+        from gi.repository import Wnck                                                        # "Wnck" is used in order to higlight a process from the list when window of the process clicked by user.
 
     # Get windowing system and stop function if current windowing system is not "X11". Because window could not be get by using "wcnk" on systems which run windowing system "Wayland".
     windowing_system = os.environ.get('XDG_SESSION_TYPE')

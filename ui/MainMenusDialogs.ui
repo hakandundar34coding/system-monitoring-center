@@ -47,11 +47,6 @@ Ayrıntılar için &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html"&gt;GNU
     <property name="can-focus">False</property>
     <property name="icon-name">utilities-terminal</property>
   </object>
-  <object class="GtkImage" id="menuitem1003m_image">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-lock-symbolic</property>
-  </object>
   <object class="GtkImage" id="menuitem1004m_image">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -88,16 +83,6 @@ Ayrıntılar için &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html"&gt;GNU
         <property name="tooltip-text" translatable="yes">Shows/Hides a transparent and always on top performance summary window</property>
         <property name="label" translatable="yes">Floating Summary</property>
         <property name="use-underline">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="menuitem1003m">
-        <property name="label" translatable="yes">Restart as Root</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Closes this application and reopens with root privileges</property>
-        <property name="image">menuitem1003m_image</property>
-        <property name="use-stock">False</property>
       </object>
     </child>
     <child>
