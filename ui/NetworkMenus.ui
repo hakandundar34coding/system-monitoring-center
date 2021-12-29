@@ -15,9 +15,9 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="halign">start</property>
+            <property name="halign">center</property>
             <property name="margin-bottom">15</property>
-            <property name="label" translatable="yes">Network Tab Customizations:</property>
+            <property name="label" translatable="yes">Network Tab Customizations</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
