@@ -1,3 +1,14 @@
+system-monitoring-center (0.3.2~beta1) unstable; urgency=medium
+
+  * Improvements for ARM device support
+  * Fix: highligthing processes of clicked windows
+  * Updated used RAM calculation method
+  * Minor improvements for application start speed
+  * Performance improvements (CPU tab)
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 29 Dec 2021 11:50:48 +0300
+
 system-monitoring-center (0.3.1~beta1) unstable; urgency=medium
 
   * Fix: GPU model name matching problem (GPU tab)
