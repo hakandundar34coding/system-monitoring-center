@@ -25,7 +25,6 @@ def floating_summary_gui_func():
 
     # FloatingSummary Window GUI objects - get from file
     builder = Gtk.Builder()
-    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/FloatingSummaryWindow.ui")
 
     # FloatingSummary Window GUI objects
