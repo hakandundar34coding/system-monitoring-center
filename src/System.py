@@ -269,31 +269,29 @@ def system_initial_func():
     pacman_packages_available = "-"
     flatpak_packages_available = "-"
     try:
-        apt_packages_available = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
-        if apt_packages_available > 0:
+        apt_packages_available = (subprocess.check_output(["dpkg", "-s", "python3"], shell=False)).decode().strip()    # Check if "python3" is installed in order to determine package type of the system.
+        if "Package: python3" in apt_packages_available:
             apt_packages_available = "yes"
-    except FileNotFoundError:                                                                 # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
+    except (FileNotFoundError, subprocess.CalledProcessError) as me:                          # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
         apt_packages_available = "no"
     try:
-        rpm_packages_available = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
-        rpm_packages_available = len(rpm_packages_available) - rpm_packages_available.count("")    # Differentiate empty line count
-        if rpm_packages_available > 0:
+        rpm_packages_available = (subprocess.check_output(["rpm", "-q", "python3"], shell=False)).decode().strip()
+        if rpm_packages_available.startswith("python3-3."):
             rpm_packages_available = "yes"
-    except FileNotFoundError:
+    except (FileNotFoundError, subprocess.CalledProcessError) as me:
         rpm_packages_available = "no"
     try:
-        pacman_packages_available = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
-        pacman_packages_available = len(pacman_packages_available) - pacman_packages_available.count("")    # Differentiate empty line count
-        if pacman_packages_available > 0:
+        pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
+        if pacman_packages_available.startswith("python 3."):
             pacman_packages_available = "yes"
-    except FileNotFoundError:
+    except (FileNotFoundError, subprocess.CalledProcessError) as me:
         pacman_packages_available = "no"
     try:
         flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
         flatpak_packages_available = len(flatpak_packages_available) - flatpak_packages_available.count("")    # Differentiate empty line count
         if flatpak_packages_available > 0:
             flatpak_packages_available = "yes"
-    except FileNotFoundError:
+    except (FileNotFoundError, subprocess.CalledProcessError) as me:
         flatpak_packages_available = "no"
 
     # Delete global "number_of_installed_rpm_packages" variable before loop function.
