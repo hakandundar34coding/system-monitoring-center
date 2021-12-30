@@ -320,6 +320,9 @@ def system_initial_func():
 def system_loop_func():
 
     # Get OS name, version, version code name and OS based on information
+    os_based_on = "-"                                                                         # Initial value of "os_based_on" variable. This value will be used if "os_based_on" could not be detected.
+    os_version = "-"
+    os_version_code_name = "-"
     with open("/etc/os-release") as reader:
         os_release_output_lines = reader.read().strip().split("\n")
     for line in os_release_output_lines:
@@ -331,17 +334,12 @@ def system_loop_func():
             os_version_code_name = line.split("VERSION_CODENAME=")[1].strip(' "')
         if line.startswith("ID_LIKE="):
             os_based_on = line.split("ID_LIKE=")[1].strip().title()                           # ".title()" capitalizes each word in the string.
-    if 'os_based_on' not in locals() or os_based_on == "-":                                   # Set variable value as "-" in case of its value is not get so far.
-        os_based_on = "-"
-    if 'os_version' not in locals() or os_version == "-":
-        os_version = "-"
-    if 'os_version_code_name' not in locals() or os_version_code_name == "-":
-        os_version_code_name = "-"
-    if 'os_based_on' in locals() and os_based_on == "Debian":
+    if os_based_on == "Debian":
         with open("/etc/debian_version") as reader:
             debian_version = reader.read().strip()
         os_based_on = os_based_on + " (" + debian_version + ")"
 
+    # Get host name
     with open("/proc/sys/kernel/hostname") as reader:
         host_name = reader.read().strip()
 
