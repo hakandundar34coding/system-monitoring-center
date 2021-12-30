@@ -8,7 +8,6 @@ def processes_import_func():
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Gdk, GLib, GObject
-    gi.require_version('Wnck', '3.0')                                                         # Define "Wnck" version to be imported. "Wnck" will be imported when relevant button is clicked by the user in order to avoid importing it when Processes tab switched on.
     from threading import Thread
     import os
     import time
@@ -27,7 +26,7 @@ def processes_import_func():
 def processes_gui_func():
 
     # Processes tab GUI objects
-    global grid2101, treeview2101, searchentry2101, button2101, button2102
+    global grid2101, treeview2101, searchentry2101, button2101
     global radiobutton2101, radiobutton2102, radiobutton2103, radiobutton2104, radiobutton2105, radiobutton2106
     global label2101
 
@@ -41,7 +40,6 @@ def processes_gui_func():
     treeview2101 = builder.get_object('treeview2101')
     searchentry2101 = builder.get_object('searchentry2101')
     button2101 = builder.get_object('button2101')
-    button2102 = builder.get_object('button2102')
     radiobutton2101 = builder.get_object('radiobutton2101')
     radiobutton2102 = builder.get_object('radiobutton2102')
     radiobutton2103 = builder.get_object('radiobutton2103')
@@ -74,9 +72,6 @@ def processes_gui_func():
             ProcessesMenuCustomizations.processes_menu_customizations_import_func()
             ProcessesMenuCustomizations.processes_menu_customizations_gui_func()
         ProcessesMenuCustomizations.popover2101p.popup()
-
-    def on_button2102_clicked(widget):                                                        # "Define a window by clicking on it and highlight its process" button
-        processes_define_window_func()
 
     def on_radiobutton2101_toggled(widget):                                                   # "Show all processes" radiobutton
         if radiobutton2101.get_active() == True:
@@ -116,7 +111,6 @@ def processes_gui_func():
     treeview2101.connect("button-release-event", on_treeview2101_button_release_event)
     searchentry2101.connect("changed", on_searchentry2101_changed)
     button2101.connect("clicked", on_button2101_clicked)
-    button2102.connect("clicked", on_button2102_clicked)
     radiobutton2101.connect("toggled", on_radiobutton2101_toggled)
     radiobutton2102.connect("toggled", on_radiobutton2102_toggled)
     radiobutton2103.connect("toggled", on_radiobutton2103_toggled)
@@ -784,103 +778,6 @@ def processes_treeview_column_order_width_row_sorting_func():
                 Config.processes_data_column_widths[i] = processes_treeview_columns[j].get_width()
                 break
     Config.config_save_func()
-
-
-# ----------------------------------- Processes - Define Window Function (defines a window by a user mouse click and highlights process of the defined window process on the proces list (on treeview)) -----------------------------------
-def processes_define_window_func():
-
-    if 'Wnck' not in globals():
-        global Wnck
-        from gi.repository import Wnck                                                        # "Wnck" is used in order to higlight a process from the list when window of the process clicked by user.
-
-    # Get windowing system and stop function if current windowing system is not "X11". Because window could not be get by using "wcnk" on systems which run windowing system "Wayland".
-    windowing_system = os.environ.get('XDG_SESSION_TYPE')
-    if windowing_system != None:
-        windowing_system = windowing_system.capitalize()
-    if windowing_system == None:
-        windowing_system = _tr("Unknown")                                                     # Initial value of "windowing_system" variable. This value will be used if "windowing_system" could not be detected.
-        pids_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]     # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
-        for pid in pids_list:
-            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-                with open("/proc/" + pid + "/comm") as reader:
-                    process_name = reader.read().strip()
-            except FileNotFoundError:
-                continue
-            if process_name.lower() == "xorg":
-                windowing_system = "X11"
-                break
-            if process_name.lower() == "xwayland":
-                windowing_system = "Wayland"
-                break
-    if windowing_system != "X11":
-        processes_current_windowing_system_not_supported_dialog()
-        return
-
-    # Determine the window which is clicked on and highlight the process of its program.
-    global processes_define_window_stop_loop
-    processes_define_window_stop_loop = 0                                                     # This is a variable to check if defining window is completed and to stop loop for watching active window PIDs.
-    changed_cursor = Gdk.Cursor(Gdk.CursorType.CROSSHAIR)                                     # Define "cross hair" cursor type to be used after clicking "Define Window" button in order to inform user that defining function is ready.
-    MainGUI.window1.get_window().set_cursor(changed_cursor)                                   # Set "cross hair" cursor type
-
-    def processes_define_window_initial_func():                                               # Initial function that will be run once after "Define Window" button is clicked.
-        global current_process_pid
-        current_process_pid = os.getpid()                                                     # Get current application window (system monitor window) PID to check if it is changed. It means user clicked on a window if it is changed. Therefore loop function is not run anymore.
-
-    def processes_define_window_loop_func():                                                  # Loop function that will be run repeatedly in order to watch for active window PIDs.
-        global processes_define_window_stop_loop
-        default_screen = Wnck.Screen.get_default()                                            # Get default screen
-        default_screen.force_update()                                                         # Force update "wnck". "wnck" has an internal updating mechanism and it will give same output in some situations if this "force update" is not used.
-        active_window = default_screen.get_active_window()                                    # Get active window (top most window). Because window will be topmost window when user clicks on it.
-        try:                                                                                  # try-except is used in order to prevent errors if "active_window" is get as "None".
-            active_window_pid = active_window.get_pid()                                       # Get PID of active window
-        except AttributeError:
-            active_window_pid = None                                                          # Required operations are performed in the later lines if "active_window" is get a "None".
-        active_window = None                                                                  # Set active window as None in order to save memory resources
-        default_screen = None                                                                 # Set default screen as None in order to save memory resources
-        Wnck.shutdown()                                                                       # Use this command in order to save memory resources
-        if active_window_pid == 0 or active_window_pid == None:                               # Some window managers give window PID as "0" or "None". This is not fault of "wnck". In this case, this statement is used in order to avoid errors.
-            changed_cursor = Gdk.Cursor(Gdk.CursorType.ARROW)                                 # Define default cursor (ARROW) if window PID is get as "0" or "None".
-            MainGUI.window1.get_window().set_cursor(changed_cursor)                           # Set default cursor (ARROW) if window PID is get as "0" or "None".
-            processes_define_window_stop_loop = 1                                             # Set the variable a "1" in order to prevent running loop function since clicking on a window is done even window PID is get as "0" or "None".
-            return                                                                            # Stop running function
-        if active_window_pid > 0 and active_window_pid != current_process_pid:                # If active window PID is not get as "0" or "None" run the following code (scroll to treeview row of the active window process).
-            model = treeview2101.get_model()                                                  # Get model (in this case treemodelsort is get.) connected to the treeview.
-            child_path = treestore2101.get_path(piter_list[pid_list.index(str(active_window_pid))])    # "child_path" is the path in the child model. Treeview model has treestore, treemodelfilter and treemodelsort. There is a child/parent model relationship due to this structure. Therefore, path and child path are different. It selects incorrect row (as if row sorting is not applied) if wrong path is used.
-            path = model.convert_child_path_to_path(child_path)                               # Get path by using child_path.
-            get_iter = model.get_iter(path)                                                   # Get iter by using path.
-            treeview2101.get_selection().select_iter(get_iter)                                # Select row on the treeview by using iter.
-            column = treeview2101.get_column(0)                                               # Get first column on the treeview (This is required to scroll to a treeview row. Column "0" is used because column number is not necessary in this situation and using the first one is safer.)
-            treeview2101.scroll_to_cell(path, column, False)                                  # Scroll to a cell (therefore  scroll to its row) of the active window process
-            changed_cursor = Gdk.Cursor(Gdk.CursorType.ARROW)                                 # Define default cursor (ARROW) if window PID is get as "0" or "None".
-            MainGUI.window1.get_window().set_cursor(changed_cursor)                           # Set default cursor (ARROW) if window PID is get as "0" or "None".
-            processes_define_window_stop_loop = 1                                             # Set the variable a "1" in order to prevent running loop function since clicking on a window is done.
-            return                                                                            # Stop running function
-
-    def processes_define_window_initial_thread_func():                                        # A function to run initial function as threaded and prevent blocking Gtk signals/events.
-        GLib.idle_add(processes_define_window_initial_func)
-
-    def processes_define_window_loop_thread_func():                                           # A function to run loop function as threaded and prevent blocking Gtk signals/events.
-        GLib.idle_add(processes_define_window_loop_func)
-        if processes_define_window_stop_loop != 1 and MainGUI.window1.get_visible() == True:    # Also check if main window is visible. If window is closed, this function is not repeated and thread is ended. Therefore, there is no working process is left after window closed. "is/is not" is about 15% faster than "==/!="
-            GLib.timeout_add(200, processes_define_window_loop_thread_func)                   # 200 milliseconds value is used for waiting before rerunning the loop function
-
-    def processes_define_window_thread_run_func():                                            # A funciton to run threads for initial and loop functions
-        processes_define_window_initial_thread = Thread(target=processes_define_window_initial_thread_func, daemon=True)
-        processes_define_window_initial_thread.start()
-        processes_define_window_initial_thread.join()
-        processes_define_window_loop_thread = Thread(target=processes_define_window_loop_thread_func, daemon=True)
-        processes_define_window_loop_thread.start()
-    processes_define_window_thread_run_func()                                                 # Run the function in order to start threads
-
-
-# ----------------------------------- Processes - Current Windowing System Not Supported Dialog Function (shows a dialog when "Define a window by clicking on it and highlight its process" button is clicked on systems which run a windowing system other than "X11") -----------------------------------
-def processes_current_windowing_system_not_supported_dialog():
-
-    dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Current Windowing System Is not Supported"), )
-    dialog2102.format_secondary_text(_tr("This function can not be used on systems which run a windowing system other than X11."))
-    dialog2102.run()
-    dialog2102.destroy()
 
 
 # ----------------------------------- Processes - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------

@@ -33,13 +33,12 @@ def main_menus_gui_func():
 
     # ********************** Define object names for Main Menu GUI and About Dialog **********************
     global menu1001m
-    global menuitem1002m, menuitem1004m, menuitem1005m, menuitem1006m, checkmenuitem1001m
+    global menuitem1004m, menuitem1005m, menuitem1006m, checkmenuitem1001m
 
     global aboutdialog1001d
 
     # ********************** Get objects for Main Menu GUI and About Dialog **********************
     menu1001m = builder.get_object('menu1001m')
-    menuitem1002m = builder.get_object('menuitem1002m')
     menuitem1004m = builder.get_object('menuitem1004m')
     menuitem1005m = builder.get_object('menuitem1005m')
     menuitem1006m = builder.get_object('menuitem1006m')
@@ -56,23 +55,6 @@ def main_menus_gui_func():
         if Config.show_floating_summary == 1:
             checkmenuitem1001m.set_active(True)
         checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
-
-    def on_menuitem1002m_activate(widget):                                                    # "Open Terminal" menu item
-        if os.path.isfile("/etc/alternatives/x-terminal-emulator") == False:
-            main_menus_gui_system_default_terminal_detection_error_dialog()
-            return
-        if 'subprocess' not in globals():
-            global subprocess
-            import subprocess
-        if 'Thread' not in globals():
-            global Thread
-            from threading import Thread
-        def main_menus_gui_open_terminal_func():
-            try:                                                                              # "try-catch" is used in order to avoid errors and show an error dialog to user if default terminal on the system can not be detected.
-                (subprocess.call(["x-terminal-emulator"], shell=False))
-            except:
-                pass
-        open_terminal_thread = Thread(target=main_menus_gui_open_terminal_func, daemon=True).start()    # Terminal is run in another thread in order not to wait end of the run which occurs in single threaded code execution.
 
     def on_checkmenuitem1001m_toggled(widget):                                                # "Floating Summary" menu item
         if "FloatingSummary" not in globals():                                                # Floating Summary window might have been opened on the application start and user may want to hide it from the Main Menu of the application. Existance check of the "FloatingSummary" variable is performed before the "if checkmenuitem1001m.get_active() == False:" statement in order to avoid errors of FloatingSummary not defined.
@@ -112,7 +94,6 @@ def main_menus_gui_func():
 
     # ********************** Connect signals to GUI objects for Main Menu GUI **********************
     menu1001m.connect("show", on_menu1001m_show)
-    menuitem1002m.connect("activate", on_menuitem1002m_activate)
     checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
     menuitem1004m.connect("activate", on_menuitem1004m_activate)
     menuitem1005m.connect("activate", on_menuitem1005m_activate)

@@ -42,11 +42,6 @@ Ayrıntılar için &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html"&gt;GNU
       </object>
     </child>
   </object>
-  <object class="GtkImage" id="menuitem1002m_image">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">utilities-terminal</property>
-  </object>
   <object class="GtkImage" id="menuitem1004m_image">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -65,17 +60,6 @@ Ayrıntılar için &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html"&gt;GNU
   <object class="GtkMenu" id="menu1001m">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <child>
-      <object class="GtkImageMenuItem" id="menuitem1002m">
-        <property name="label" translatable="yes">Open Terminal</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Runs system default terminal window</property>
-        <property name="image">menuitem1002m_image</property>
-        <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
-      </object>
-    </child>
     <child>
       <object class="GtkCheckMenuItem" id="checkmenuitem1001m">
         <property name="visible">True</property>

@@ -13,7 +13,6 @@ Requires:       glx-utils
 # hwdata package is installed on Fedora for pci.ids file.
 Requires:       hwdata
 Requires:       iproute
-Requires:       libwnck3
 Requires:       python3 >= 3.7
 Requires:       python3-cairo
 # python3-gobject is installed on Fedora (python3-gi on Debian-like systems)
