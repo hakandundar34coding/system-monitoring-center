@@ -3,12 +3,11 @@
 # ----------------------------------- Performance Summary Headerbar - Performance Summary Headerbar GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def performance_summary_headerbar_import_func():
 
-    global Gtk, GLib, Thread, os
+    global Gtk, GLib, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
-    from threading import Thread
     import os
 
 
@@ -16,8 +15,7 @@ def performance_summary_headerbar_import_func():
     import Config, Performance
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -45,10 +43,7 @@ def performance_summary_headerbar_gui_func():
     # ----------------------------------- Performance Summary Headerbar - Plot Performance Summary as a Bar Chart On Headerbar - CPU usage data ----------------------------------- 
     def on_drawingarea101_draw(widget, chart101):
 
-        try:
-            cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
-        except AttributeError:
-            return
+        cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
 
         chart_line_color = Config.chart_line_color_cpu_percent
         chart_background_color = Config.chart_background_color_all_charts
@@ -76,10 +71,7 @@ def performance_summary_headerbar_gui_func():
     # ----------------------------------- Performance Summary Headerbar - Plot Performance Summary as a Bar Chart On Headerbar - RAM usage data ----------------------------------- 
     def on_drawingarea102_draw(widget, chart102):
 
-        try:
-            ram_usage_percent = Performance.ram_usage_percent
-        except AttributeError:
-            return
+        ram_usage_percent = Performance.ram_usage_percent
 
         chart_line_color = Config.chart_line_color_ram_swap_percent
         chart_background_color = Config.chart_background_color_all_charts
@@ -130,42 +122,26 @@ def performance_summary_headerbar_loop_func():
     label102.set_text(f'{performance_summary_headerbar_data_unit_converter_func((Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), 0, 0)}/s')
 
 
-# ----------------------------------- Performance Summary Headerbar Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def performance_summary_headerbar_initial_thread_func():
+# ----------------------------------- Performance Summary Headerbar Run Function (runs initial and loop functions) -----------------------------------
+def performance_summary_headerbar_run_func(*args):
 
-    GLib.idle_add(performance_summary_headerbar_initial_func)
-
-
-# ----------------------------------- Performance Summary Headerbar Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def performance_summary_headerbar_loop_thread_func(*args):
-
+    if "update_interval" not in globals():
+        GLib.idle_add(performance_summary_headerbar_initial_func)
     if Config.performance_summary_on_the_headerbar == 1:
-        global performance_summary_headerbar_glib_source, update_interval                     # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            performance_summary_headerbar_glib_source.destroy()                               # Destroy GLib source for preventing it repeating the function.
+        global performance_summary_headerbar_glib_source, update_interval
+        try:
+            performance_summary_headerbar_glib_source.destroy()
         except NameError:
             pass
         update_interval = Config.update_interval
         performance_summary_headerbar_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(performance_summary_headerbar_loop_func)
-        performance_summary_headerbar_glib_source.set_callback(performance_summary_headerbar_loop_thread_func)
-        performance_summary_headerbar_glib_source.attach(GLib.MainContext.default())          # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
-# ----------------------------------- Performance Summary Headerbar Thread Run Function (starts execution of the threads) -----------------------------------
-def performance_summary_headerbar_thread_run_func():
-
-    if "update_interval" not in globals():                                                    # To be able to run initial thread for only one time
-        performance_summary_headerbar_initial_thread = Thread(target=performance_summary_headerbar_initial_thread_func, daemon=True)
-        performance_summary_headerbar_initial_thread.start()
-        performance_summary_headerbar_initial_thread.join()
-    performance_summary_headerbar_loop_thread = Thread(target=performance_summary_headerbar_loop_thread_func, daemon=True)
-    performance_summary_headerbar_loop_thread.start()
+        performance_summary_headerbar_glib_source.set_callback(performance_summary_headerbar_run_func)
+        performance_summary_headerbar_glib_source.attach(GLib.MainContext.default())
 
 
 # ----------------------------------- Performance Summary Headerbar - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
 def performance_summary_headerbar_define_data_unit_converter_variables_func():
-
 
     global data_unit_list
 
@@ -202,8 +178,8 @@ def performance_summary_headerbar_data_unit_converter_func(data, unit, precision
     if isinstance(data, str) is True:
         return data
     if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
+        data = data * 8
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

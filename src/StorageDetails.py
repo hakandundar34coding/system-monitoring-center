@@ -3,13 +3,12 @@
 # ----------------------------------- Storage - Storage Details Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def storage_details_import_func():
 
-    global Gtk, GLib, os, Thread, subprocess, datetime
+    global Gtk, GLib, os, subprocess, datetime
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
     import os
-    from threading import Thread
     import subprocess
     from datetime import datetime
 
@@ -18,8 +17,7 @@ def storage_details_import_func():
     import Config, Storage, MainGUI
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -73,6 +71,11 @@ def storage_details_gui_function():
         return True
 
     def on_window4101w_show(widget):
+        try:
+            global update_interval
+            del update_interval                                                               # Delete "update_interval" variable in order to let the code to run initial function. Otherwise, data from previous process (if it was viewed) will be used.
+        except NameError:
+            pass
         storage_details_gui_reset_function()    # Call this function in order to reset Storage Details window. Data from previous storage/disk remains visible (for a short time) until getting and showing new storage/disk data if window is closed and opened for an another storage/disk because window is made hidden when close button is clicked.
 
 
@@ -140,7 +143,7 @@ def storage_details_initial_func():
 
 
 # ----------------------------------- Storage - Storage Details Foreground Function (updates the process data on the "Storage Details" window) -----------------------------------
-def storage_details_foreground_func():
+def storage_details_loop_func():
 
     global disk
     disk = Storage.selected_storage_kernel_name                                            # Get right clicked disk name
@@ -199,8 +202,8 @@ def storage_details_foreground_func():
     disk_physical_type = disk_symbol                                                          # Get disk type
 
     # Set Storage Details window title and window icon image
-    window4101w.set_title(_tr("Storage Details: ") + disk)                  # Set window title
-    window4101w.set_icon_name(disk_symbol)                                  # Set StorageDetails window icon
+    window4101w.set_title(_tr("Storage Details") + ": " + disk)                               # Set window title
+    window4101w.set_icon_name(disk_symbol)                                                    # Set StorageDetails window icon
 
     # Get disk parent name
     disk_parent_name = "-"                                                                    # Initial value of "disk_parent_name" variable. This value will be used if disk has no parent disk or disk parent name could not be detected.
@@ -457,23 +460,16 @@ def storage_details_foreground_func():
     label4124w.set_text(disk_maj_min_number)
 
 
-# ----------------------------------- Storage - Storage Details Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def storage_details_loop_func():
+# ----------------------------------- Storage Details Run Function (runs initial and loop functions) -----------------------------------
+def storage_details_run_func():
 
+    if "update_interval" not in globals():
+        GLib.idle_add(storage_details_initial_func)
     if window4101w.get_visible() is True:
-        GLib.idle_add(storage_details_foreground_func)
-        GLib.timeout_add(Config.update_interval * 1000, storage_details_loop_func)
-
-
-# ----------------------------------- Storage Details Foreground Thread Run Function (starts execution of the threads) -----------------------------------
-def storage_details_foreground_thread_run_func():
-
-    storage_details_initial_thread = Thread(target=storage_details_initial_func, daemon=True)
-    storage_details_initial_thread.start()
-    storage_details_initial_thread.join()
-    storage_details_loop_thread = Thread(target=storage_details_loop_func, daemon=True)
-    storage_details_loop_thread.start()
-
+        GLib.idle_add(storage_details_loop_func)
+        global update_interval
+        update_interval = Config.update_interval
+        GLib.timeout_add(update_interval * 1000, storage_details_run_func)
 
 # ----------------------------------- Storage - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
 def storage_define_data_unit_converter_variables_func():
@@ -511,8 +507,8 @@ def storage_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
     if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
+        data = data * 8
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1
@@ -533,7 +529,7 @@ def storage_data_unit_converter_func(data, unit, precision):
 def storage_no_such_storage_error_dialog():
 
     error_dialog4101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Error", flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text="Disk Is Not Connected Anymore", )
-    error_dialog4101w.format_secondary_text(_tr("Following disk is not connected anymore \nand storage details window is closed automatically:\n  ") + disk)
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Disk Is Not Connected Anymore"), )
+    error_dialog4101w.format_secondary_text(_tr("Following disk is not connected anymore and storage details window is closed automatically:") + "\n\n    " + disk)
     error_dialog4101w.run()
     error_dialog4101w.destroy()

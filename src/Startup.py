@@ -3,12 +3,11 @@
 # ----------------------------------- Startup - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def startup_import_func():
 
-    global Gtk, Gdk, GLib, Thread, os
+    global Gtk, Gdk, GLib, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Gdk, GLib
-    from threading import Thread
     import os
 
 
@@ -16,8 +15,7 @@ def startup_import_func():
     import Config, MainGUI
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -696,37 +694,22 @@ def startup_loop_func():
     label5101.set_text(_tr("Total: ") + str(number_of_all_startup_applications) + _tr(" startup applications (") + str(visible_startup_applications_count) + _tr(" visible, ") + str(number_of_all_startup_applications-visible_startup_applications_count) + _tr(" hidden)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
 
 
-# ----------------------------------- Startup Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def startup_initial_thread_func():
+# ----------------------------------- Startup Run Function (runs initial and loop functions) -----------------------------------
+def startup_run_func(*args):
 
-    GLib.idle_add(startup_initial_func)
-
-
-# ----------------------------------- Startup Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def startup_loop_thread_func(*args):                                                          # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
+    if "startup_data_rows" not in globals():
+        GLib.idle_add(startup_initial_func)
     if MainGUI.radiobutton5.get_active() == True:
-        global startup_glib_source, update_interval                                           # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            startup_glib_source.destroy()                                                     # Destroy GLib source for preventing it repeating the function.
+        global startup_glib_source, update_interval
+        try:
+            startup_glib_source.destroy()
         except NameError:
             pass
         update_interval = Config.update_interval
         startup_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(startup_loop_func)
-        startup_glib_source.set_callback(startup_loop_thread_func)
-        startup_glib_source.attach(GLib.MainContext.default())                                # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
-# ----------------------------------- Startup Thread Run Function (starts execution of the threads) -----------------------------------
-def startup_thread_run_func():
-
-    if "startup_data_rows" not in globals():                                                  # To be able to run initial thread for only one time
-        startup_initial_thread = Thread(target=startup_initial_thread_func, daemon=True)
-        startup_initial_thread.start()
-        startup_initial_thread.join()
-    startup_loop_thread = Thread(target=startup_loop_thread_func, daemon=True)
-    startup_loop_thread.start()
+        startup_glib_source.set_callback(startup_run_func)
+        startup_glib_source.attach(GLib.MainContext.default())
 
 
 # ----------------------------------- Startup - Treeview Filter Show All Function (updates treeview shown rows when relevant button clicked) -----------------------------------

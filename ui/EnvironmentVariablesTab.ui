@@ -79,7 +79,7 @@ Summation of number of environment variables and number of shell variables may b
 Because there may be both environment variable and shell variable with the same variable name.</property>
                 <property name="halign">start</property>
                 <property name="margin-start">60</property>
-                <property name="label" translatable="yes">Total: -- persistent variables (-- system wide, -- user environment variables)</property>
+                <property name="label" translatable="yes">--</property>
                 <property name="wrap">True</property>
                 <property name="selectable">True</property>
               </object>

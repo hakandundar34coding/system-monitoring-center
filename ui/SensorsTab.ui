@@ -205,7 +205,7 @@
                 <property name="tooltip-text" translatable="yes">Number of listed sensors</property>
                 <property name="halign">start</property>
                 <property name="margin-start">60</property>
-                <property name="label" translatable="yes">Total: -- sensors (-- temperature, -- fan, -- voltage/current sensors)</property>
+                <property name="label" translatable="yes">--</property>
                 <property name="wrap">True</property>
                 <property name="selectable">True</property>
               </object>

@@ -3,12 +3,11 @@
 # ----------------------------------- CPU - CPU Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def cpu_import_func():
 
-    global Gtk, GLib, Thread, os, platform
+    global Gtk, GLib, os, platform
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
-    from threading import Thread
     import os
     import platform
 
@@ -79,10 +78,7 @@ def on_drawingarea1101_draw(widget, chart1101):
     chart_data_history = Config.chart_data_history
     chart_x_axis = list(range(0, chart_data_history))
 
-    try:                                                                                      # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the CPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-        cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
-    except AttributeError:
-        return
+    cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
 
     chart_line_color = Config.chart_line_color_cpu_percent
     chart_background_color = Config.chart_background_color_all_charts
@@ -159,10 +155,8 @@ def on_drawingarea1101_draw(widget, chart1101):
 # ----------------------------------- CPU - Plot CPU usage per core data as Bar Charts if "show cpu usage per core" setting is enabled. ----------------------------------- 
 def on_drawingarea1101_draw_per_core(widget, chart1101):
 
-    try:                                                                                      # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the CPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-        logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
-    except AttributeError:
-        return
+    logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
+
     logical_core_list = Performance.logical_core_list
     cpu_usage_percent_per_core = Performance.cpu_usage_percent_per_core
 
@@ -385,15 +379,11 @@ def cpu_loop_func():
     label1107.set_text(f'{number_of_physical_cores} - {number_of_logical_cores}')
 
 
-# ----------------------------------- CPU Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def cpu_initial_thread_func():
+# ----------------------------------- CPU Run Function (runs initial and loop functions) -----------------------------------
+def cpu_run_func(*args):                                                                # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
 
-    GLib.idle_add(cpu_initial_func)
-
-
-# ----------------------------------- CPU Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def cpu_loop_thread_func(*args):                                                              # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
+    if "update_interval" not in globals():                                                    # To be able to run initial function for only one time
+        GLib.idle_add(cpu_initial_func)
     if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1001.get_active() == True:
         global cpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
         try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
@@ -403,16 +393,5 @@ def cpu_loop_thread_func(*args):                                                
         update_interval = Config.update_interval
         cpu_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(cpu_loop_func)
-        cpu_glib_source.set_callback(cpu_loop_thread_func)
+        cpu_glib_source.set_callback(cpu_run_func)
         cpu_glib_source.attach(GLib.MainContext.default())                                    # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
-# ----------------------------------- CPU Thread Run Function (starts execution of the threads) -----------------------------------
-def cpu_thread_run_func():
-
-    if "update_interval" not in globals():                                                    # To be able to run initial thread for only one time
-        cpu_initial_thread = Thread(target=cpu_initial_thread_func, daemon=True)
-        cpu_initial_thread.start()
-        cpu_initial_thread.join()
-    cpu_loop_thread = Thread(target=cpu_loop_thread_func, daemon=True)
-    cpu_loop_thread.start()

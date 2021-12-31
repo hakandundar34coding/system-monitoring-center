@@ -16,21 +16,8 @@ def storage_menu_right_click_import_func():
     import MainGUI, Storage
 
 
-    # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
-    import locale
+    global _tr
     from locale import gettext as _tr
-
-    # Define contstants for language translation support
-    global application_name
-    application_name = "system-monitoring-center"
-    translation_files_path = "/usr/share/locale"
-    system_current_language = os.environ.get("LANG")
-
-    # Define functions for language translation support
-    locale.bindtextdomain(application_name, translation_files_path)
-    locale.textdomain(application_name)
-    locale.setlocale(locale.LC_ALL, system_current_language)
 
 
 # ----------------------------------- Storage - Storage Right Click Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Storage" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -153,7 +140,7 @@ def storage_menu_right_click_gui_func():
             StorageDetails.storage_details_import_func()
             StorageDetails.storage_details_gui_function()
         StorageDetails.window4101w.show()
-        StorageDetails.storage_details_foreground_thread_run_func()
+        StorageDetails.storage_details_run_func()
 
     # ********************** Connect signals to GUI objects for Storage tab right click menu **********************
     menuitem4101m.connect("activate", on_menuitem4101m_activate)

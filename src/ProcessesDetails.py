@@ -3,13 +3,12 @@
 # ----------------------------------- Processes - Processes Details Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_details_import_func():
 
-    global Gtk, GLib, os, Thread, time, datetime
+    global Gtk, GLib, os, time, datetime
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
     import os
-    from threading import Thread
     import time
     from datetime import datetime
 
@@ -18,8 +17,7 @@ def processes_details_import_func():
     import Config, Processes, MainGUI
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -92,6 +90,11 @@ def processes_details_gui_function():
         return True
 
     def on_window2101w_show(widget):
+        try:
+            global update_interval
+            del update_interval                                                               # Delete "update_interval" variable in order to let the code to run initial function. Otherwise, data from previous process (if it was viewed) will be used.
+        except NameError:
+            pass
         processes_details_gui_reset_function()                                                # Call this function in order to reset Processes Details window. Data from previous process remains visible (for a short time) until getting and showing new process data if window is closed and opened for an another process. Also last selected tab remains same because window is made hidden when close button is clicked.
         processes_details_tab_switch_control_func()
 
@@ -153,7 +156,7 @@ def processes_details_tab_switch_control_func():
         current_page = None
     current_page = notebook2101w.get_current_page()
     if current_page != previous_page and previous_page != None:                               # Check if tab is switched
-        process_details_foreground_func()                                                     # Update the data on the tab
+        process_details_loop_func()                                                           # Update the data on the tab
     previous_page = current_page
     if window2101w.get_visible() == True:
         GLib.timeout_add(200, processes_details_tab_switch_control_func)                      # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
@@ -180,7 +183,7 @@ def process_details_initial_func():
 
 
 # ----------------------------------- Processes - Processes Details Foreground Function (updates the process data on the "Processes Details" window) -----------------------------------
-def process_details_foreground_func():
+def process_details_loop_func():
 
     processes_cpu_usage_percent_precision = Config.processes_cpu_usage_percent_precision
     processes_ram_swap_data_precision = Config.processes_ram_swap_data_precision
@@ -217,6 +220,7 @@ def process_details_foreground_func():
     first_parentheses = proc_pid_stat_lines.find("(")                                         # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
     second_parentheses = proc_pid_stat_lines.rfind(")")                                       # Last parantheses ")" index is get by using "find()".
     process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]      # Process name is get from string by using the indexes get previously.
+    global selected_process_name
     selected_process_name = process_name_from_stat
     if len(selected_process_name) == 15:                                                      # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
         try:
@@ -237,7 +241,7 @@ def process_details_foreground_func():
     if selected_process_name in Processes.application_exec_list:                              # Use process icon name from application file if process name is found in application exec list
         selected_process_icon = Processes.application_icon_list[Processes.application_exec_list.index(selected_process_name)]
 
-    window2101w.set_title(_tr("Process Details: ") + selected_process_name + " - (" + "PID: " + selected_process_pid + ")")    # Set window title
+    window2101w.set_title(_tr("Process Details") + ": " + selected_process_name + " - (" + _tr("PID") + ": " + selected_process_pid + ")")    # Set window title
     window2101w.set_icon_name(selected_process_icon)                                          # Set ProcessesDetails window icon
 
 
@@ -265,11 +269,11 @@ def process_details_foreground_func():
         # Calculate CPU usage percent of the selected process
         process_cpu_time = int(proc_pid_stat_lines_split[-39]) + int(proc_pid_stat_lines_split[-38])   # Get process cpu time in user mode (utime + stime)
         global_process_cpu_times = [global_cpu_time_all, process_cpu_time]
-        if global_process_cpu_times_prev == []:
+        try:                                                                                  # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are used in these situations.
+            global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev
+        except (ValueError, IndexError, UnboundLocalError) as me:
             process_cpu_time_prev = process_cpu_time                                          # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
             global_cpu_time_all_prev = global_process_cpu_times[0] - 1                        # Subtract "1" CPU time (a negligible value) if this is first loop of the process
-        if global_process_cpu_times_prev != []:
-            global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev
         process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
         global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
         selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Processes.number_of_logical_cores
@@ -420,11 +424,11 @@ def process_details_foreground_func():
         # Calculate CPU usage percent of the selected process
         process_cpu_time = int(proc_pid_stat_lines_split[-39]) + int(proc_pid_stat_lines_split[-38])   # Get process cpu time in user mode (utime + stime)
         global_process_cpu_times = [global_cpu_time_all, process_cpu_time]
-        if global_process_cpu_times_prev == []:
+        try:                                                                                  # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are used in these situations.
+            global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev
+        except (ValueError, IndexError, UnboundLocalError) as me:
             process_cpu_time_prev = process_cpu_time                                          # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
             global_cpu_time_all_prev = global_process_cpu_times[0] - 1                        # Subtract "1" CPU time (a negligible value) if this is first loop of the process
-        if global_process_cpu_times_prev != []:
-            global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev
         process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
         global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
         selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Processes.number_of_logical_cores
@@ -598,24 +602,16 @@ def process_details_foreground_func():
             label2137w.set_text("-")
 
 
-# ----------------------------------- Processes - Processes Details Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def process_details_loop_func():
+# ----------------------------------- Processes Details Run Function (runs initial and loop functions) -----------------------------------
+def process_details_run_func():
 
+    if "update_interval" not in globals():
+        GLib.idle_add(process_details_initial_func)
     if window2101w.get_visible() is True:
-        GLib.idle_add(process_details_foreground_func)
+        GLib.idle_add(process_details_loop_func)
         global update_interval
         update_interval = Config.update_interval
-        GLib.timeout_add(update_interval * 1000, process_details_loop_func)
-
-
-# ----------------------------------- Processes Details Foreground Thread Run Function (starts execution of the threads) -----------------------------------
-def process_details_foreground_thread_run_func():
-
-    processes_details_initial_thread = Thread(target=process_details_initial_func, daemon=True)
-    processes_details_initial_thread.start()
-    processes_details_initial_thread.join()
-    processes_details_loop_thread = Thread(target=process_details_loop_func, daemon=True)
-    processes_details_loop_thread.start()
+        GLib.timeout_add(update_interval * 1000, process_details_run_func)
 
 
 # ----------------------------------- Processes - Processes Details Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
@@ -654,8 +650,8 @@ def processes_details_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
     if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
+        data = data * 8
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1
@@ -677,6 +673,6 @@ def processes_no_such_process_error_dialog():
 
     error_dialog2101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process Is Not Running Anymore"), )
-    error_dialog2101w.format_secondary_text(_tr("Following process is not running anymore \nand process details window is closed automatically:\n  ") + selected_process_name + _tr(" (PID: ") + selected_process_pid + _tr(")"), )
+    error_dialog2101w.format_secondary_text(_tr("Following process is not running anymore and process details window is closed automatically:") + "\n\n    " + selected_process_name + " (" + _tr("PID") + ": " + selected_process_pid + ")", )
     error_dialog2101w.run()
     error_dialog2101w.destroy()

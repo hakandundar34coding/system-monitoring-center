@@ -3,12 +3,11 @@
 # ----------------------------------- Performance - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def performance_import_func():
 
-    global Gtk, GLib, Thread, os
+    global Gtk, GLib, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
-    from threading import Thread
     import os
 
 
@@ -16,8 +15,7 @@ def performance_import_func():
     import Config
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -182,7 +180,7 @@ def performance_background_initial_func():
         Config.selected_gpu = ""
 
 # ----------------------------------- Performance - Background Function (gets basic CPU, RAM, disk and network usage data in the background in order to assure uninterrupted data for charts) -----------------------------------
-def performance_background_func():
+def performance_background_loop_func():
 
     update_interval = Config.update_interval                                                  # This value will be used multiple times and it is get from another module and defined as a variable in this module in order to achieve lower CPU consumption.
 
@@ -341,27 +339,14 @@ def performance_background_func():
     network_send_bytes_prev = list(network_send_bytes)
 
 
-# ----------------------------------- Performance - Background Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def performance_background_initial_initial_func():
+# ----------------------------------- Performance Background Run Function (runs initial and loop functions) -----------------------------------
+def performance_background_run_func():
 
-    GLib.idle_add(performance_background_initial_func)
-
-
-# ----------------------------------- Performance Background Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def performance_background_loop_func():
-
-    GLib.idle_add(performance_background_func)
+    if 'update_interval' not in globals():
+#         GLib.idle_add(performance_background_initial_func)
+        performance_background_initial_func()                                                 # Function is run directly without using "GLib.idle_add([function_name])" in order to avoid errors which are given if another threads (such as threads in CPU module) run before this function is finished.
+#     GLib.idle_add(performance_background_loop_func)
+    performance_background_loop_func()
     global update_interval
     update_interval = Config.update_interval
-    GLib.timeout_add(update_interval * 1000, performance_background_loop_func)
-
-
-# ----------------------------------- Performance Background Thread Run Function (starts execution of the threads) -----------------------------------
-def performance_background_thread_run_func():
-
-    global performance_background_initial_thread, performance_background_thread
-    performance_background_initial_thread = Thread(target=performance_background_initial_initial_func, daemon=True)
-    performance_background_initial_thread.start()
-    performance_background_initial_thread.join()
-    performance_background_thread = Thread(target=performance_background_loop_func, daemon=True)
-    performance_background_thread.start()
+    GLib.timeout_add(update_interval * 1000, performance_background_run_func)

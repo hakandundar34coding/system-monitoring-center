@@ -17,8 +17,7 @@ def processes_menu_right_click_import_func():
     import Config, MainGUI, Processes
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -147,7 +146,7 @@ def processes_menu_right_click_gui_func():
             ProcessesDetails.processes_details_import_func()
             ProcessesDetails.processes_details_gui_function()
         ProcessesDetails.window2101w.show()
-        ProcessesDetails.process_details_foreground_thread_run_func()
+        ProcessesDetails.process_details_run_func()
 
     def on_radiomenuitem2101m_activate(widget):                                               # "Very High" item on the right click menu under "Change Priorty (Nice)" item
         if radiomenuitem2101m.get_active() == True:

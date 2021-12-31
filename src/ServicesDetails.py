@@ -3,13 +3,12 @@
 # ----------------------------------- Services - Services Details Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def services_details_import_func():
 
-    global Gtk, GLib, os, Thread, subprocess, time, datetime
+    global Gtk, GLib, os, subprocess, time, datetime
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
     import os
-    from threading import Thread
     import subprocess
     import time
     from datetime import datetime
@@ -19,8 +18,7 @@ def services_details_import_func():
     import Config, Services, MainGUI
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -75,6 +73,11 @@ def services_details_gui_function():
         return True
 
     def on_window6101w_show(widget):
+        try:
+            global update_interval
+            del update_interval                                                               # Delete "update_interval" variable in order to let the code to run initial function. Otherwise, data from previous process (if it was viewed) will be used.
+        except NameError:
+            pass
         services_details_gui_reset_function()                                                 # Call this function in order to reset Services Details window. Data from previous service remains visible (for a short time) until getting and showing new service data if window is closed and opened for an another service. Also last selected tab remains same because window is made hidden when close button is clicked.
 
 
@@ -86,7 +89,7 @@ def services_details_gui_function():
 # ----------------------------------- Services - Services Details Window GUI Reset Function (resets Services Details window) -----------------------------------
 def services_details_gui_reset_function():
 
-    notebook6101w.set_current_page(0)                                                          # Set fist page (Summary tab) of the notebook
+    notebook6101w.set_current_page(0)                                                         # Set fist page (Summary tab) of the notebook
     label6101w.set_text("--")
     label6102w.set_text("--")
     label6103w.set_text("--")
@@ -146,7 +149,7 @@ def services_details_initial_func():
 
 
 # ----------------------------------- Services - Services Details Foreground Function (updates the service data on the "Services Details" window) -----------------------------------
-def services_details_foreground_func():
+def services_details_loop_func():
 
     services_ram_swap_data_precision = Config.services_ram_swap_data_precision
     services_ram_swap_data_unit = Config.services_ram_swap_data_unit
@@ -243,31 +246,31 @@ def services_details_foreground_func():
             selected_service_description = line.split("=")[1]
             continue
         if "ActiveState=" in line:
-            selected_service_active_state = _tr(line.split("=")[1].capitalize())              # "_tr([value])" is used for using translated string.
+            selected_service_active_state = _tr(line.split("=")[1].capitalize())
             continue
         if "LoadState=" in line:
-            selected_service_load_state = _tr(line.split("=")[1].capitalize())                # "_tr([value])" is used for using translated string.
+            selected_service_load_state = _tr(line.split("=")[1].capitalize())
             continue
         if "SubState=" in line:
-            selected_service_sub_state = _tr(line.split("=")[1].capitalize())                 # "_tr([value])" is used for using translated string.
+            selected_service_sub_state = _tr(line.split("=")[1].capitalize())
             continue
         if "FragmentPath=" in line:
             selected_service_fragment_path = line.split("=")[1]
             continue
         if "UnitFileState=" in line:
-            selected_service_unit_file_state = _tr(line.split("=")[1])                        # "_tr([value])" is used for using translated string.
+            selected_service_unit_file_state = _tr(line.split("=")[1])
             continue
         if "UnitFilePreset=" in line:
-            selected_service_unit_file_preset = _tr(line.split("=")[1])                       # "_tr([value])" is used for using translated string.
+            selected_service_unit_file_preset = _tr(line.split("=")[1])
             continue
         if "CanStart=" in line:
-            selected_service_can_start = _tr(line.split("=")[1].capitalize())                 # "_tr([value])" is used for using translated string.
+            selected_service_can_start = _tr(line.split("=")[1].capitalize())
             continue
         if "CanStop=" in line:
-            selected_service_can_stop = _tr(line.split("=")[1].capitalize())                  # "_tr([value])" is used for using translated string.
+            selected_service_can_stop = _tr(line.split("=")[1].capitalize())
             continue
         if "CanReload=" in line:
-            selected_service_can_reload = _tr(line.split("=")[1].capitalize())                # "_tr([value])" is used for using translated string.
+            selected_service_can_reload = _tr(line.split("=")[1].capitalize())
             continue
 
 
@@ -296,24 +299,16 @@ def services_details_foreground_func():
     label6122w.set_text(',\n'.join(selected_service_before))
 
 
-# ----------------------------------- Services - Services Details Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def services_details_loop_func():
+# ----------------------------------- Services Details Run Function (runs initial and loop functions) -----------------------------------
+def services_details_run_func():
 
+    if "update_interval" not in globals():
+        GLib.idle_add(services_details_initial_func)
     if window6101w.get_visible() is True:
-        GLib.idle_add(services_details_foreground_func)
+        GLib.idle_add(services_details_loop_func)
         global update_interval
         update_interval = Config.update_interval
-        GLib.timeout_add(update_interval * 1000, services_details_loop_func)
-
-
-# ----------------------------------- Services Details Foreground Thread Run Function (starts execution of the threads) -----------------------------------
-def services_details_foreground_thread_run_func():
-
-    services_details_initial_thread = Thread(target=services_details_initial_func, daemon=True)
-    services_details_initial_thread.start()
-    services_details_initial_thread.join()
-    services_details_loop_thread = Thread(target=services_details_loop_func, daemon=True)
-    services_details_loop_thread.start()
+        GLib.timeout_add(update_interval * 1000, services_details_run_func)
 
 
 # ----------------------------------- Services - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
@@ -352,8 +347,8 @@ def services_details_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
     if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
+        data = data * 8
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1
@@ -374,7 +369,7 @@ def services_details_data_unit_converter_func(data, unit, precision):
 def services_no_such_service_error_dialog():
 
     error_dialog6101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Error", flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text="Service File Does Not Exist Anymore", )
-    error_dialog6101w.format_secondary_text(f'Following service file does not exist anymore \nand service details window is closed automatically:\n  {selected_service_name} (PID: {selected_service_pid})')
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Service File Does Not Exist Anymore"), )
+    error_dialog6101w.format_secondary_text(_tr("Following service file does not exist anymore and service details window is closed automatically:") + "\n\n    " + selected_service_name + " (" + _tr("PID") + ": " + selected_service_pid + ")", )
     error_dialog6101w.run()
     error_dialog6101w.destroy()

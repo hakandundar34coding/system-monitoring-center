@@ -3,12 +3,11 @@
 # ----------------------------------- RAM - RAM Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def ram_import_func():
 
-    global Gtk, GLib, Thread, os, Gdk
+    global Gtk, GLib, os, Gdk
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib, Gdk
-    from threading import Thread
     import os
 
 
@@ -16,8 +15,7 @@ def ram_import_func():
     import Config, MainGUI, Performance
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -88,12 +86,10 @@ def ram_gui_func():
     def on_drawingarea1201_draw(widget, chart1201):
 
         chart_data_history = Config.chart_data_history
-
         chart_x_axis = list(range(0, chart_data_history))
-        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the RAM module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-            ram_usage_percent = Performance.ram_usage_percent
-        except AttributeError:
-            return
+
+        ram_usage_percent = Performance.ram_usage_percent
+
 
         chart_line_color = Config.chart_line_color_ram_swap_percent
         chart_background_color = Config.chart_background_color_all_charts
@@ -143,10 +139,7 @@ def ram_gui_func():
     # ----------------------------------- RAM - Plot Swap usage data as a Bar Chart ----------------------------------- 
     def on_drawingarea1202_draw(drawingarea1202, chart1202):
 
-        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the RAM module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-            swap_percent_check = swap_percent
-        except NameError:
-            return
+        swap_percent_check = swap_percent
 
         chart_line_color = Config.chart_line_color_ram_swap_percent
         chart_background_color = Config.chart_background_color_all_charts
@@ -262,37 +255,22 @@ def ram_loop_func():
     label1210.set_text(ram_data_unit_converter_func((swap_total), performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
 
-# ----------------------------------- RAM Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def ram_initial_thread_func():
+# ----------------------------------- RAM Run Function (runs initial and loop functions) -----------------------------------
+def ram_run_func(*args):
 
-    GLib.idle_add(ram_initial_func)
-
-
-# ----------------------------------- RAM Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def ram_loop_thread_func(*args):                                                              # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
+    if "update_interval" not in globals():
+        GLib.idle_add(ram_initial_func)
     if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1002.get_active() == True:
-        global ram_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            ram_glib_source.destroy()                                                         # Destroy GLib source for preventing it repeating the function.
+        global ram_glib_source, update_interval
+        try:
+            ram_glib_source.destroy()
         except NameError:
             pass
         update_interval = Config.update_interval
         ram_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(ram_loop_func)
-        ram_glib_source.set_callback(ram_loop_thread_func)
-        ram_glib_source.attach(GLib.MainContext.default())                                    # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
-# ----------------------------------- RAM Thread Run Function (starts execution of the threads) -----------------------------------
-def ram_thread_run_func():
-
-    if "update_interval" not in globals():                                                    # To be able to run initial thread for only one time
-        ram_initial_thread = Thread(target=ram_initial_thread_func, daemon=True)
-        ram_initial_thread.start()
-        ram_initial_thread.join()
-    ram_loop_thread = Thread(target=ram_loop_thread_func, daemon=True)
-    ram_loop_thread.start()
+        ram_glib_source.set_callback(ram_run_func)
+        ram_glib_source.attach(GLib.MainContext.default())
 
 
 # ----------------------------------- RAM - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------

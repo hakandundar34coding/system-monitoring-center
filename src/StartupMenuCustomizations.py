@@ -15,11 +15,6 @@ def startup_menu_customizations_import_func():
     import Config, Startup
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
-    from locale import gettext as _tr
-
-
 # ----------------------------------- Startup - Startup Customizations Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab menu/popover GUI objects and functions/signals) -----------------------------------
 def startup_menu_customizations_gui_func():
 

@@ -3,12 +3,11 @@
 # ----------------------------------- Processes - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_import_func():
 
-    global Gtk, Gdk, GLib, GObject, Thread, os, time
+    global Gtk, Gdk, GLib, GObject, os, time
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Gdk, GLib, GObject
-    from threading import Thread
     import os
     import time
 
@@ -17,8 +16,7 @@ def processes_import_func():
     import Config, MainGUI
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -193,7 +191,7 @@ def processes_open_process_details_window_func(event):
             ProcessesDetails.processes_details_import_func()
             ProcessesDetails.processes_details_gui_function()
         ProcessesDetails.window2101w.show()
-        ProcessesDetails.process_details_foreground_thread_run_func()
+        ProcessesDetails.process_details_run_func()
 
 
 # ----------------------------------- Processes - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -401,7 +399,7 @@ def processes_loop_func():
         if 4 in processes_treeview_columns_shown:
             process_cpu_time = int(proc_pid_stat_lines_split[-39]) + int(proc_pid_stat_lines_split[-38])   # Get process cpu time in user mode (utime + stime)
             global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))          # While appending multiple elements into a list "append((value1, value2))" is faster than "append([value1, value2])".
-            try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are use in these situations.
+            try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are used in these situations.
                 global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(pid)]
             except (ValueError, IndexError, UnboundLocalError) as me:
                 process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
@@ -675,37 +673,22 @@ def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
 
 
-# ----------------------------------- Processes Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def processes_initial_thread_func():
+# ----------------------------------- Processes Run Function (runs initial and loop functions) -----------------------------------
+def processes_run_func(*args):
 
-    GLib.idle_add(processes_initial_func)
-
-
-# ----------------------------------- Processes Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def processes_loop_thread_func(*args):                                                        # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
+    if "processes_data_rows" not in globals():
+        GLib.idle_add(processes_initial_func)
     if MainGUI.radiobutton2.get_active() == True:
-        global processes_glib_source, update_interval                                         # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            processes_glib_source.destroy()                                                   # Destroy GLib source for preventing it repeating the function.
+        global processes_glib_source, update_interval
+        try:
+            processes_glib_source.destroy()
         except NameError:
             pass
         update_interval = Config.update_interval
         processes_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(processes_loop_func)
-        processes_glib_source.set_callback(processes_loop_thread_func)
-        processes_glib_source.attach(GLib.MainContext.default())                              # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
-# ----------------------------------- Processes Thread Run Function (starts execution of the threads) -----------------------------------
-def processes_thread_run_func():
-
-    if "processes_data_rows" not in globals():                                                # To be able to run initial thread for only one time
-        processes_initial_thread = Thread(target=processes_initial_thread_func, daemon=True)
-        processes_initial_thread.start()
-        processes_initial_thread.join()
-    processes_loop_thread = Thread(target=processes_loop_thread_func, daemon=True)
-    processes_loop_thread.start()
+        processes_glib_source.set_callback(processes_run_func)
+        processes_glib_source.attach(GLib.MainContext.default())
 
 
 # ----------------------------------- Processes - Treeview Filter Show All Function (updates treeview shown rows when relevant button clicked) -----------------------------------
@@ -816,8 +799,8 @@ def processes_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
     if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
+        data = data * 8
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

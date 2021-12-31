@@ -3,12 +3,11 @@
 # ----------------------------------- Disk - Disk Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def disk_import_func():
 
-    global Gtk, GLib, Thread, os, subprocess
+    global Gtk, GLib, os, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
-    from threading import Thread
     import os
     import subprocess
 
@@ -17,8 +16,7 @@ def disk_import_func():
     import Config, MainGUI, Performance
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -68,11 +66,10 @@ def disk_gui_func():
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
-        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Disk module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-            disk_read_speed = Performance.disk_read_speed[Performance.selected_disk_number]
-            disk_write_speed = Performance.disk_write_speed[Performance.selected_disk_number]
-        except AttributeError:
-            return
+
+        disk_read_speed = Performance.disk_read_speed[Performance.selected_disk_number]
+        disk_write_speed = Performance.disk_write_speed[Performance.selected_disk_number]
+
         chart_line_color = Config.chart_line_color_disk_speed_usage
         chart_background_color = Config.chart_background_color_all_charts
 
@@ -142,10 +139,7 @@ def disk_gui_func():
     # ----------------------------------- Disk - Plot Disk usage data as a Bar Chart ----------------------------------- 
     def on_drawingarea1302_draw(drawingarea1302, chart1302):
 
-        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Disk module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-            disk_usage_percent_check = disk_usage_percent
-        except NameError:
-            return
+        disk_usage_percent_check = disk_usage_percent
 
         chart_line_color = Config.chart_line_color_disk_speed_usage
         chart_background_color = Config.chart_background_color_all_charts
@@ -295,37 +289,22 @@ def disk_loop_func():
     label1311.set_text(disk_data_unit_converter_func(disk_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
 
 
-# ----------------------------------- Disk Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def disk_initial_thread_func():
+# ----------------------------------- Disk Run Function (runs initial and loop functions) -----------------------------------
+def disk_run_func(*args):
 
-    GLib.idle_add(disk_initial_func)
-
-
-# ----------------------------------- Disk Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def disk_loop_thread_func(*args):                                                             # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
+    if "update_interval" not in globals():
+        GLib.idle_add(disk_initial_func)
     if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1003.get_active() == True:
-        global disk_glib_source, update_interval                                              # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            disk_glib_source.destroy()                                                        # Destroy GLib source for preventing it repeating the function.
+        global disk_glib_source, update_interval
+        try:
+            disk_glib_source.destroy()
         except NameError:
             pass
         update_interval = Config.update_interval
         disk_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(disk_loop_func)
-        disk_glib_source.set_callback(disk_loop_thread_func)
-        disk_glib_source.attach(GLib.MainContext.default())                                   # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
-# ----------------------------------- Disk Thread Run Function (starts execution of the threads) -----------------------------------
-def disk_thread_run_func():
-
-    if "update_interval" not in globals():                                                    # To be able to run initial thread for only one time
-        disk_initial_thread = Thread(target=disk_initial_thread_func, daemon=True)
-        disk_initial_thread.start()
-        disk_initial_thread.join()
-    disk_loop_thread = Thread(target=disk_loop_thread_func, daemon=True)
-    disk_loop_thread.start()
+        disk_glib_source.set_callback(disk_run_func)
+        disk_glib_source.attach(GLib.MainContext.default())
 
 
 # ----------------------------------- Disk - Define Time Unit Converter Variables Function (contains time unit variables) -----------------------------------
@@ -473,8 +452,8 @@ def disk_data_unit_converter_func(data, unit, precision):
     if isinstance(data, str) is True:
         return data
     if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".                                                                     # "if unit in [0, 8]" is about %25 faster than "if unit == 0 or unit == 8:".
+        data = data * 8
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

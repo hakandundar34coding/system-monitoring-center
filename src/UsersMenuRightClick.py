@@ -16,8 +16,7 @@ def users_menu_right_click_import_func():
     import Users, MainGUI
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -60,7 +59,7 @@ def users_menu_right_click_gui_func():
             UsersDetails.users_details_import_func()
             UsersDetails.users_details_gui_function()
         UsersDetails.window3101w.show()
-        UsersDetails.users_details_foreground_thread_run_func()
+        UsersDetails.users_details_run_func()
 
 
     # ********************** Connect signals to GUI objects for Users tab right click menu **********************

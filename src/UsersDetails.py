@@ -3,13 +3,12 @@
 # ----------------------------------- Users - Users Details Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def users_details_import_func():
 
-    global Gtk, GLib, GdkPixbuf, os, Thread, subprocess, datetime, time
+    global Gtk, GLib, GdkPixbuf, os, subprocess, datetime, time
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib, GdkPixbuf
     import os
-    from threading import Thread
     import subprocess
     from datetime import datetime
     import time
@@ -19,8 +18,7 @@ def users_details_import_func():
     import Config, Users, MainGUI
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -63,6 +61,11 @@ def users_details_gui_function():
         return True
 
     def on_window3101w_show(widget):
+        try:
+            global update_interval
+            del update_interval                                                               # Delete "update_interval" variable in order to let the code to run initial function. Otherwise, data from previous process (if it was viewed) will be used.
+        except NameError:
+            pass
         users_details_gui_reset_function()                                                    # Call this function in order to reset Users Details window. Data from previous user remains visible (for a short time) until getting and showing new user data if window is closed and opened for an another user because window is made hidden when close button is clicked.
 
 
@@ -134,7 +137,7 @@ def users_details_initial_func():
 
 
 # ----------------------------------- Users - Users Details Foreground Function (updates the process data on the "Users Details" window) -----------------------------------
-def users_details_foreground_func():
+def users_details_loop_func():
 
     global selected_user_uid
     selected_user_uid = str(Users.selected_user_uid)                                          # Get right clicked user UID
@@ -298,7 +301,7 @@ def users_details_foreground_func():
 
 
     # Set Users Details window title and window icon image
-    window3101w.set_title(_tr("User Details: ") + selected_user_username)                     # Set window title
+    window3101w.set_title(_tr("User Details") + ": " + selected_user_username)                     # Set window title
     window3101w.set_icon(selected_user_account_image)                                         # Set UsersDetails window icon
 
     # Set label text by using storage/disk data
@@ -321,23 +324,16 @@ def users_details_foreground_func():
     label3114w.set_text(f'{users_data_unit_converter_func(selected_user_ram_percent, users_ram_swap_data_unit, users_ram_swap_data_precision)}')
 
 
+# ----------------------------------- Users Details Run Function (runs initial and loop functions) -----------------------------------
+def users_details_run_func():
 
-# ----------------------------------- Users - Users Details Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def users_details_loop_func():
-
+    if "update_interval" not in globals():
+        GLib.idle_add(users_details_initial_func)
     if window3101w.get_visible() is True:
-        GLib.idle_add(users_details_foreground_func)
-        GLib.timeout_add(Config.update_interval * 1000, users_details_loop_func)
-
-
-# ----------------------------------- Users Details Foreground Thread Run Function (starts execution of the threads) -----------------------------------
-def users_details_foreground_thread_run_func():
-
-    users_details_initial_thread = Thread(target=users_details_initial_func, daemon=True)
-    users_details_initial_thread.start()
-    users_details_initial_thread.join()
-    users_details_loop_thread = Thread(target=users_details_loop_func, daemon=True)
-    users_details_loop_thread.start()
+        GLib.idle_add(users_details_loop_func)
+        global update_interval
+        update_interval = Config.update_interval
+        GLib.timeout_add(update_interval * 1000, users_details_run_func)
 
 
 # ----------------------------------- Users - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
@@ -376,8 +372,8 @@ def users_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
     if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
+        data = data * 8
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1
@@ -398,7 +394,7 @@ def users_data_unit_converter_func(data, unit, precision):
 def users_no_such_user_error_dialog():
 
     error_dialog3101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Error", flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text="Disk Is Not Connected Anymore", )
-    error_dialog3101w.format_secondary_text(_tr("Following disk is not connected anymore \nand storage details window is closed automatically:\n  ") + disk)
+    buttons=Gtk.ButtonsType.CLOSE, text="User Account Does Not Exist Anymore", )
+    error_dialog3101w.format_secondary_text(_tr("Following user account does not exist anymore and user details window is closed automatically:") + "\n\n    " + selected_user_username)
     error_dialog3101w.run()
     error_dialog3101w.destroy()

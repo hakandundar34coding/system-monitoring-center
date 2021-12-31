@@ -103,7 +103,7 @@ def main_gui_func():
         global Performance                                                                    # This module is always imported after window show in order to track performance data in the background even if tabs are switched. Otherwise performance data such as CPU, RAM, etc. will be shown as intermitted on the charts (due to tab switches).
         import Performance
         Performance.performance_import_func()
-        Performance.performance_background_thread_run_func()
+        Performance.performance_background_run_func()
 
         main_gui_default_main_tab_func()                                                      # Run default tab function after initial showing of the main window. This function have to be called after "main_gui_tab_switch_func" function in order to avoid errors else "Performance" tab functions/variables/data will not be defined.
         main_gui_peformance_tab_default_sub_tab_func()                                        # Run performance tab default sub-tab function after initial showing of the main window
@@ -116,7 +116,7 @@ def main_gui_func():
             PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
             PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
             headerbar1.add(PerformanceSummaryHeaderbar.grid101)                               # Add the grid to the window headerbar
-            PerformanceSummaryHeaderbar.performance_summary_headerbar_thread_run_func()
+            PerformanceSummaryHeaderbar.performance_summary_headerbar_run_func()
 
         # Show Floating Summary Window on application start if this setting is leaved as "Enabled" from the Main Menu.
         if Config.show_floating_summary == 1:                                                 # Show Floating Summary window appropriate with user preferences. Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.
@@ -124,7 +124,7 @@ def main_gui_func():
             FloatingSummary.floating_summary_import_func()
             FloatingSummary.floating_summary_gui_func()
             FloatingSummary.window3001.show()                                                 # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
-            FloatingSummary.floating_summary_thread_run_func()
+            FloatingSummary.floating_summary_run_func()
 
         # Show information for warning the user if the application has been run with root privileges. Information is shown just below the application window headerbar.
         if os.geteuid() == 0:                                                                 # Check UID if it is "0". This means the application is run with root privileges.
@@ -288,7 +288,7 @@ def main_gui_tab_switch_func():
                 Cpu.cpu_import_func()
                 Cpu.cpu_gui_func()
                 grid1001.attach(Cpu.grid1101, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-            Cpu.cpu_thread_run_func()
+            Cpu.cpu_run_func()
             return
         if radiobutton1002.get_active() == True:
             stack1001.set_visible_child(grid1002)
@@ -301,7 +301,7 @@ def main_gui_tab_switch_func():
                 Ram.ram_import_func()
                 Ram.ram_gui_func()
                 grid1002.attach(Ram.grid1201, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-            Ram.ram_thread_run_func()
+            Ram.ram_run_func()
             return
         if radiobutton1003.get_active() == True:
             stack1001.set_visible_child(grid1003)
@@ -314,7 +314,7 @@ def main_gui_tab_switch_func():
                 Disk.disk_import_func()
                 Disk.disk_gui_func()
                 grid1003.attach(Disk.grid1301, 0, 0, 1, 1)                                    # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-            Disk.disk_thread_run_func()
+            Disk.disk_run_func()
             return
         if radiobutton1004.get_active() == True:
             stack1001.set_visible_child(grid1004)
@@ -327,7 +327,7 @@ def main_gui_tab_switch_func():
                 Network.network_import_func()
                 Network.network_gui_func()
                 grid1004.attach(Network.grid1401, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-            Network.network_thread_run_func()
+            Network.network_run_func()
             return
         if radiobutton1005.get_active() == True:
             stack1001.set_visible_child(grid1005)
@@ -340,7 +340,7 @@ def main_gui_tab_switch_func():
                 Gpu.gpu_import_func()
                 Gpu.gpu_gui_func()
                 grid1005.attach(Gpu.grid1501, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0)
-            Gpu.gpu_thread_run_func()
+            Gpu.gpu_run_func()
             return
         if radiobutton1006.get_active() == True:
             stack1001.set_visible_child(grid1006)
@@ -353,7 +353,7 @@ def main_gui_tab_switch_func():
                 Sensors.sensors_import_func()
                 Sensors.sensors_gui_func()
                 grid1006.attach(Sensors.grid1601, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-            Sensors.sensors_thread_run_func()
+            Sensors.sensors_run_func()
             return
 
     if radiobutton2.get_active() == True:                                                     # It switches to "Processes" tab if relevant radiobutton is clicked.
@@ -367,7 +367,7 @@ def main_gui_tab_switch_func():
             Processes.processes_import_func()
             Processes.processes_gui_func()
             grid2.attach(Processes.grid2101, 0, 0, 1, 1)                                      # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-        Processes.processes_thread_run_func()
+        Processes.processes_run_func()
         return
 
     if radiobutton3.get_active() == True:                                                     # It switches to "Users" tab if relevant radiobutton is clicked.
@@ -381,7 +381,7 @@ def main_gui_tab_switch_func():
             Users.users_import_func()
             Users.users_gui_func()
             grid3.attach(Users.grid3101, 0, 0, 1, 1)                                          # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-        Users.users_thread_run_func()
+        Users.users_run_func()
         return
 
     if radiobutton4.get_active() == True:                                                     # It switches to "Storage" tab if relevant radiobutton is clicked.
@@ -395,7 +395,7 @@ def main_gui_tab_switch_func():
             Storage.storage_import_func()
             Storage.storage_gui_func()
             grid4.attach(Storage.grid4101, 0, 0, 1, 1)                                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-        Storage.storage_thread_run_func()
+        Storage.storage_run_func()
         return
 
     if radiobutton5.get_active() == True:                                                     # It switches to "Startup" tab if relevant radiobutton is clicked.
@@ -409,7 +409,7 @@ def main_gui_tab_switch_func():
             Startup.startup_import_func()
             Startup.startup_gui_func()
             grid5.attach(Startup.grid5101, 0, 0, 1, 1)                                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-        Startup.startup_thread_run_func()
+        Startup.startup_run_func()
         return
 
     if radiobutton6.get_active() == True:                                                     # It switches to "Services" tab if relevant radiobutton is clicked.
@@ -423,7 +423,7 @@ def main_gui_tab_switch_func():
             Services.services_import_func()
             Services.services_gui_func()
             grid6.attach(Services.grid6101, 0, 0, 1, 1)                                       # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-        Services.services_thread_run_func()
+        Services.services_run_func()
         return
 
     if radiobutton7.get_active() == True:                                                     # It switches to "Environment Variables" tab if relevant radiobutton is clicked.
@@ -437,7 +437,7 @@ def main_gui_tab_switch_func():
             EnvironmentVariables.environment_variables_import_func()
             EnvironmentVariables.environment_variables_gui_func()
             grid7.attach(EnvironmentVariables.grid7101, 0, 0, 1, 1)                           # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
-        EnvironmentVariables.environment_variables_thread_run_func()
+        EnvironmentVariables.environment_variables_run_func()
         return
 
     if radiobutton8.get_active() == True:                                                     # It switches to "System" tab if relevant radiobutton is clicked.
@@ -451,7 +451,7 @@ def main_gui_tab_switch_func():
             System.system_import_func()
             System.system_gui_func()
             grid8.attach(System.grid8101, 0, 0, 1, 1)                                         # Attach the grid to the grid (on the Main Window) at (0, 0) position.
-        System.system_thread_run_func()
+        System.system_run_func()
         return
 
 

@@ -3,12 +3,11 @@
 # ----------------------------------- GPU - GPU Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def gpu_import_func():
 
-    global Gtk, GLib, Gdk, Thread, os, subprocess
+    global Gtk, GLib, Gdk, os, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib, Gdk
-    from threading import Thread
     import os
     import subprocess
 
@@ -17,8 +16,7 @@ def gpu_import_func():
     import Config, MainGUI, Performance
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -71,6 +69,7 @@ def gpu_gui_func():
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
+
         try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the GPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
             fps_count_check = fps_count
         except NameError:
@@ -335,34 +334,19 @@ def gpu_get_information_from_driver_func(output_to_search_gpu_information_from_d
         display_driver_list[i] = display_driver
 
 
-# ----------------------------------- GPU Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def gpu_initial_thread_func():
+# ----------------------------------- GPU Run Function (runs initial and loop functions) -----------------------------------
+def gpu_run_func(*args):
 
-    GLib.idle_add(gpu_initial_func)
-
-
-# ----------------------------------- GPU Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def gpu_loop_thread_func(*args):                                                              # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
+    if "update_interval" not in globals():
+        GLib.idle_add(gpu_initial_func)
     if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1005.get_active() == True:
-        global gpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            gpu_glib_source.destroy()                                                         # Destroy GLib source for preventing it repeating the function.
+        global gpu_glib_source, update_interval
+        try:
+            gpu_glib_source.destroy()
         except NameError:
             pass
         update_interval = Config.update_interval
         gpu_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(gpu_loop_func)
-        gpu_glib_source.set_callback(gpu_loop_thread_func)
-        gpu_glib_source.attach(GLib.MainContext.default())                                    # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
-# ----------------------------------- GPU Thread Run Function (starts execution of the threads) -----------------------------------
-def gpu_thread_run_func():
-
-    if "update_interval" not in globals():                                                    # To be able to run initial thread for only one time
-        gpu_initial_thread = Thread(target=gpu_initial_thread_func, daemon=True)
-        gpu_initial_thread.start()
-        gpu_initial_thread.join()
-    gpu_loop_thread = Thread(target=gpu_loop_thread_func, daemon=True)
-    gpu_loop_thread.start()
+        gpu_glib_source.set_callback(gpu_run_func)
+        gpu_glib_source.attach(GLib.MainContext.default())

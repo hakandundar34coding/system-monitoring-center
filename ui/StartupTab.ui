@@ -64,7 +64,7 @@
                 <property name="tooltip-text" translatable="yes">Number of listed startup items</property>
                 <property name="halign">start</property>
                 <property name="margin-start">60</property>
-                <property name="label" translatable="yes">Total: -- startup items (-- visible, -- hidden startup items)</property>
+                <property name="label" translatable="yes">--</property>
                 <property name="wrap">True</property>
                 <property name="selectable">True</property>
               </object>

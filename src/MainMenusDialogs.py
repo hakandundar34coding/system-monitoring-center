@@ -14,14 +14,6 @@ def main_menus_gui_import_func():
     global Config
     import Config
 
-    global MainGUI
-    import MainGUI
-
-
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
-    from locale import gettext as _tr
-
 
 # ----------------------------------- MainMenusGUI - Main Menus GUI Function (the code of this module in order to avoid running them during module import and defines GUI functions/signals) -----------------------------------
 def main_menus_gui_func():
@@ -64,7 +56,7 @@ def main_menus_gui_func():
             FloatingSummary.floating_summary_import_func()
             FloatingSummary.floating_summary_gui_func()
             FloatingSummary.window3001.show()                                                 # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
-            FloatingSummary.floating_summary_thread_run_func()
+            FloatingSummary.floating_summary_run_func()
             Config.show_floating_summary = 1
         if checkmenuitem1001m.get_active() == False:
             FloatingSummary.window3001.hide()
@@ -98,13 +90,3 @@ def main_menus_gui_func():
     menuitem1004m.connect("activate", on_menuitem1004m_activate)
     menuitem1005m.connect("activate", on_menuitem1005m_activate)
     menuitem1006m.connect("activate", on_menuitem1006m_activate)
-
-
-# ----------------------------------- MainMenusGUI - Main Menu GUI System Default Terminal Detection Error Dialog Function (shows a warning dialog when a startup item is tried to be reset to system default which means user specific desktop file of the startup application will be deleted (system-wide values file will be untouched)) -----------------------------------
-def main_menus_gui_system_default_terminal_detection_error_dialog():
-
-    error_dialog1001 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Default Terminal Application Not Detected"), )
-    error_dialog1001.format_secondary_text(_tr("Default terminal application on this system could not be detected."))
-    error_dialog1001.run()
-    error_dialog1001.destroy()

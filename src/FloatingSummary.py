@@ -3,20 +3,18 @@
 # ----------------------------------- FloatingSummary - FloatingSummary Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def floating_summary_import_func():
 
-    global Gtk, GLib, Thread, os
+    global Gtk, GLib, os
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
-    from threading import Thread
     import os
 
     global Config, Performance, MainGUI
     import Config, Performance, MainGUI
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -67,9 +65,6 @@ def floating_summary_gui_func():
 # ----------------------------------- FloatingSummary - Initial Function (defines and sets floating summary GUI objects which are not updated on every loop) -----------------------------------
 def floating_summary_initial_func():
 
-    global floating_summary_data_shown_prev
-    floating_summary_data_shown_prev = []
-
     floating_summary_define_data_unit_converter_variables_func()                              # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
 
@@ -78,7 +73,7 @@ def floating_summary_loop_func():
 
     window3001.set_opacity(Config.floating_summary_window_transparency)
 
-    global floating_summary_data_shown_prev
+    floating_summary_data_shown_prev = []
     floating_summary_data_shown = Config.floating_summary_data_shown
     if floating_summary_data_shown != floating_summary_data_shown_prev:                       # Remove all labels and add preferred ones if user makes changes on visible performance data (labels).
         for i in reversed(range(9)):                                                          # 9 is large enough to remove all labels on the grid.
@@ -135,36 +130,22 @@ def floating_summary_loop_func():
         label3008.set_text(_tr("Network W: ") + f'{floating_summary_data_unit_converter_func(Performance.network_send_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
 
 
-# ----------------------------------- FloatingSummary Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def floating_summary_initial_thread_func():
+# ----------------------------------- FloatingSummary Run Function (runs initial and loop functions) -----------------------------------
+def floating_summary_run_func(*args):
 
-    GLib.idle_add(floating_summary_initial_func)
-
-
-# ----------------------------------- FloatingSummary Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def floating_summary_loop_thread_func(*args):                                                 # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when Floating Summary window is set as hidden and shown again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
+    if "floating_summary_glib_source" not in globals():
+        GLib.idle_add(floating_summary_initial_func)
     if window3001.get_visible() == True:
-        global floating_summary_glib_source, update_interval                                  # GLib source variable name is defined as global to be able to destroy it if Floating Summary window is shown again in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            floating_summary_glib_source.destroy()                                            # Destroy GLib source for preventing it repeating the function.
+        global floating_summary_glib_source, update_interval
+        try:
+            floating_summary_glib_source.destroy()
         except NameError:
             pass
         update_interval = Config.update_interval
         floating_summary_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(floating_summary_loop_func)
-        floating_summary_glib_source.set_callback(floating_summary_loop_thread_func)
-        floating_summary_glib_source.attach(GLib.MainContext.default())                       # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
-# ----------------------------------- FloatingSummary Thread Run Function (starts execution of the threads) -----------------------------------
-def floating_summary_thread_run_func():
-
-    floating_summary_initial_thread = Thread(target=floating_summary_initial_thread_func, daemon=True)
-    floating_summary_initial_thread.start()
-    floating_summary_initial_thread.join()
-    floating_summary_loop_thread = Thread(target=floating_summary_loop_thread_func, daemon=True)
-    floating_summary_loop_thread.start()
+        floating_summary_glib_source.set_callback(floating_summary_run_func)
+        floating_summary_glib_source.attach(GLib.MainContext.default())
 
 
 # ----------------------------------- FloatingSummary - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
@@ -203,8 +184,8 @@ def floating_summary_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
     if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
+        data = data * 8
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

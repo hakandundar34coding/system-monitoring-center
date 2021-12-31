@@ -15,8 +15,7 @@ def settings_gui_import_func():
     import Config, MainGUI, Performance
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -84,13 +83,13 @@ def settings_gui_func():
 
     def on_checkbutton2001_toggled(widget):                                                   # "Show performance summary on the headerbar" GUI object signal
         if checkbutton2001.get_active() == True:
-            Config.performance_summary_on_the_headerbar = 1                                   # This setting have to be set before running "performance_summary_headerbar_thread_run_func" function because this setting is used by this function in "PerformanceSummaryHeaderbar" module.
+            Config.performance_summary_on_the_headerbar = 1                                   # This setting have to be set before running "performance_summary_headerbar_run_func" function because this setting is used by this function in "PerformanceSummaryHeaderbar" module.
             if 'PerformanceSummaryHeaderbar' not in globals():
                 global PerformanceSummaryHeaderbar
                 import PerformanceSummaryHeaderbar
                 PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
                 PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
-            PerformanceSummaryHeaderbar.performance_summary_headerbar_thread_run_func()
+            PerformanceSummaryHeaderbar.performance_summary_headerbar_run_func()
             MainGUI.headerbar1.add(PerformanceSummaryHeaderbar.grid101)                       # Add performance summary to the main window headerbar.
         if checkbutton2001.get_active() == False:
             Config.performance_summary_on_the_headerbar = 0
@@ -448,7 +447,7 @@ def settings_gui_apply_settings_immediately_func():
         global Performance
         import Performance
 #     Performance.performance_background_initial_func()
-    Performance.performance_background_func()
+    Performance.performance_background_loop_func()
     if MainGUI.radiobutton1.get_active() == True:
         if MainGUI.radiobutton1001.get_active() == True:
             if 'Cpu' not in globals():
@@ -540,8 +539,8 @@ def settings_gui_apply_settings_immediately_func():
     if Config.show_floating_summary == 1:                                                     # Shown Floating Summary window if default value of "show_floating_summary" is "1".
         FloatingSummary.floating_summary_import_func()
         FloatingSummary.floating_summary_gui_func()
-        FloatingSummary.window3001.show()                                                     # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
-        FloatingSummary.floating_summary_thread_run_func()
+        FloatingSummary.window3001.show()                                                     # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_run_func" function.
+        FloatingSummary.floating_summary_run_func()
         Config.show_floating_summary = 1
 
 
