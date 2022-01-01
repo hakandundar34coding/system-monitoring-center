@@ -362,7 +362,12 @@ def sensors_loop_func():
     fan_sensors_count = sensor_type_list.count(fan_sensor_icon_name)
     voltage_and_current_sensors_count = sensor_type_list.count(voltage_current_sensor_icon_name)
     number_of_all_sensors = len(sensor_type_list)
-    label1601.set_text(_tr("Total: ") + str(number_of_all_sensors) + _tr(" sensors (") + str(temperature_sensors_count) + _tr(" temperature, ") + str(fan_sensors_count) + _tr(" fan, ") + str(voltage_and_current_sensors_count) + _tr(" voltage/current sensors)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    number_of_sensors_string = _tr("Total: AAAA sensors (BBBB temperature, CCCC fan, DDDD voltage/current sensors)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
+    number_of_sensors_string = number_of_sensors_string.replace("AAAA", str(number_of_all_sensors))
+    number_of_sensors_string = number_of_sensors_string.replace("BBBB", str(temperature_sensors_count))
+    number_of_sensors_string = number_of_sensors_string.replace("CCCC", str(fan_sensors_count))
+    number_of_sensors_string = number_of_sensors_string.replace("DDDD", str(voltage_and_current_sensors_count))
+    label1601.set_text(number_of_sensors_string)
 
 
 # ----------------------------------- Sensors Run Function (runs initial and loop functions) -----------------------------------

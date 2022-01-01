@@ -572,7 +572,11 @@ def users_loop_func():
     # Get number of logged in users and number of all users and show these information on the GUI label
     logged_in_users_count = user_logged_in_list.count(True)
     number_of_all_users = len(user_logged_in_list)
-    label3101.set_text(_tr("Total: ") + str(number_of_all_users) + _tr(" users (") + str(logged_in_users_count) + _tr(" logged in users, ") + str(number_of_all_users-logged_in_users_count) + _tr(" logged out users)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    number_of_users_string = _tr("Total: AAAA users (BBBB logged in users, CCCC logged out users)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
+    number_of_users_string = number_of_users_string.replace("AAAA", str(number_of_all_users))
+    number_of_users_string = number_of_users_string.replace("BBBB", str(logged_in_users_count))
+    number_of_users_string = number_of_users_string.replace("CCCC", str(number_of_all_users-logged_in_users_count))
+    label3101.set_text(number_of_users_string)
 
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

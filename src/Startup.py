@@ -691,7 +691,11 @@ def startup_loop_func():
     # Get number of visible startup applications and number of all startup applications and show these information on the GUI label
     visible_startup_applications_count = startup_applications_visibility_list.count(True)
     number_of_all_startup_applications = len(startup_applications_visibility_list)
-    label5101.set_text(_tr("Total: ") + str(number_of_all_startup_applications) + _tr(" startup applications (") + str(visible_startup_applications_count) + _tr(" visible, ") + str(number_of_all_startup_applications-visible_startup_applications_count) + _tr(" hidden)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    number_of_startup_applications_string = _tr("Total: AAAA startup applications (BBBB visible, CCCC hidden)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
+    number_of_startup_applications_string = number_of_startup_applications_string.replace("AAAA", str(number_of_all_startup_applications))
+    number_of_startup_applications_string = number_of_startup_applications_string.replace("BBBB", str(visible_startup_applications_count))
+    number_of_startup_applications_string = number_of_startup_applications_string.replace("CCCC", str(number_of_all_startup_applications-visible_startup_applications_count))
+    label5101.set_text(number_of_startup_applications_string)
 
 
 # ----------------------------------- Startup Run Function (runs initial and loop functions) -----------------------------------

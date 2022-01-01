@@ -457,7 +457,11 @@ def environment_variables_loop_func():
     shell_variable_count = variable_type_list.count(_tr("Shell Variable")) + variable_type_list.count(_tr("Environment & Shell Variable"))
     environment_variable_count = variable_type_list.count(_tr("Environment Variable")) + variable_type_list.count(_tr("Environment & Shell Variable"))
     number_of_all_variables = len(variable_type_list)
-    label7101.set_text(_tr("Total: ") + str(number_of_all_variables) + _tr(" persistent variables (") + str(environment_variable_count) + _tr(" environment variables, ") + str(shell_variable_count) + _tr(" shell variables)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    number_of_environment_variables_string = _tr("Total: AAAA persistent variables (BBBB environment variables, CCCC shell variables)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
+    number_of_environment_variables_string = number_of_environment_variables_string.replace("AAAA", str(number_of_all_variables))
+    number_of_environment_variables_string = number_of_environment_variables_string.replace("BBBB", str(environment_variable_count))
+    number_of_environment_variables_string = number_of_environment_variables_string.replace("CCCC", str(shell_variable_count))
+    label7101.set_text(number_of_environment_variables_string)
 
 
 # ----------------------------------- Environment Variables Run Function (runs initial and loop functions) -----------------------------------

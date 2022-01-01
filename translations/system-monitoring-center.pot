@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-01 11:05+0300\n"
+"POT-Creation-Date: 2022-01-01 13:54+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: src/Disk.py:207 src/Disk.py:275 src/Disk.py:276 src/Disk.py:277
 #: src/Disk.py:278 src/Storage.py:329 src/Storage.py:383 src/Storage.py:392
-#: src/Storage.py:403 src/Storage.py:729 src/Storage.py:736
+#: src/Storage.py:403 src/Storage.py:733 src/Storage.py:740
 #: src/StorageDetails.py:215 src/StorageDetails.py:258
 #: src/StorageDetails.py:270 src/StorageDetails.py:284
 #: src/StorageDetails.py:440 src/StorageDetails.py:441
@@ -130,7 +130,7 @@ msgid ""
 msgstr ""
 
 #: src/EnvironmentVariables.py:165 src/EnvironmentVariables.py:291
-#: src/EnvironmentVariables.py:458 src/EnvironmentVariables.py:500
+#: src/EnvironmentVariables.py:458 src/EnvironmentVariables.py:504
 msgid "Environment Variable"
 msgstr ""
 
@@ -140,7 +140,7 @@ msgid "Environment & Shell Variable"
 msgstr ""
 
 #: src/EnvironmentVariables.py:171 src/EnvironmentVariables.py:294
-#: src/EnvironmentVariables.py:457 src/EnvironmentVariables.py:492
+#: src/EnvironmentVariables.py:457 src/EnvironmentVariables.py:496
 msgid "Shell Variable"
 msgstr ""
 
@@ -176,21 +176,10 @@ msgid ""
 "in terminal."
 msgstr ""
 
-#: src/EnvironmentVariables.py:460 src/Processes.py:640 src/Sensors.py:365
-#: src/Services.py:486 src/Startup.py:694 src/Storage.py:722 src/Users.py:575
-msgid "Total: "
-msgstr ""
-
 #: src/EnvironmentVariables.py:460
-msgid " persistent variables ("
-msgstr ""
-
-#: src/EnvironmentVariables.py:460
-msgid " environment variables, "
-msgstr ""
-
-#: src/EnvironmentVariables.py:460
-msgid " shell variables)"
+msgid ""
+"Total: AAAA persistent variables (BBBB environment variables, CCCC shell "
+"variables)"
 msgstr ""
 
 #: src/EnvironmentVariablesInput.py:167
@@ -445,16 +434,9 @@ msgstr ""
 msgid "Dead"
 msgstr ""
 
-#: src/Processes.py:640
-msgid " processes ("
-msgstr ""
-
-#: src/Processes.py:640
-msgid " from this user, "
-msgstr ""
-
-#: src/Processes.py:640
-msgid " from other users/system)"
+#: src/Processes.py:639
+msgid ""
+"Total: AAAA processes (BBBB from this user, CCCC from other users/system)"
 msgstr ""
 
 #: src/ProcessesDetails.py:244 ui/ProcessesDetailsWindow.ui:8
@@ -635,19 +617,9 @@ msgid "Max Value"
 msgstr ""
 
 #: src/Sensors.py:365
-msgid " sensors ("
-msgstr ""
-
-#: src/Sensors.py:365
-msgid " temperature, "
-msgstr ""
-
-#: src/Sensors.py:365
-msgid " fan, "
-msgstr ""
-
-#: src/Sensors.py:365
-msgid " voltage/current sensors)"
+msgid ""
+"Total: AAAA sensors (BBBB temperature, CCCC fan, DDDD voltage/current "
+"sensors)"
 msgstr ""
 
 #: src/Services.py:168 ui/ServicesMenuCustomizations.ui:252
@@ -757,15 +729,7 @@ msgid "Loaded"
 msgstr ""
 
 #: src/Services.py:486
-msgid " services ("
-msgstr ""
-
-#: src/Services.py:486
-msgid " loaded, "
-msgstr ""
-
-#: src/Services.py:486
-msgid " non-loaded)"
+msgid "Total: AAAA services (BBBB loaded, CCCC non-loaded)"
 msgstr ""
 
 #: src/ServicesDetails.py:147
@@ -910,15 +874,7 @@ msgid ""
 msgstr ""
 
 #: src/Startup.py:694
-msgid " startup applications ("
-msgstr ""
-
-#: src/Startup.py:694
-msgid " visible, "
-msgstr ""
-
-#: src/Startup.py:694
-msgid " hidden)"
+msgid "Total: AAAA startup applications (BBBB visible, CCCC hidden)"
 msgstr ""
 
 #: src/StartupMenuRightClick.py:239
@@ -1112,15 +1068,7 @@ msgid "Major:Minor Device #"
 msgstr ""
 
 #: src/Storage.py:722
-msgid " disks/partitions ("
-msgstr ""
-
-#: src/Storage.py:722
-msgid " disks, "
-msgstr ""
-
-#: src/Storage.py:722
-msgid " partitions)"
+msgid "Total: AAAA disks/partitions (BBBB disks, CCCC partitions)"
 msgstr ""
 
 #: src/StorageDetails.py:205 ui/StorageDetailsWindow.ui:8
@@ -1312,15 +1260,7 @@ msgid "Sun"
 msgstr ""
 
 #: src/Users.py:575
-msgid " users ("
-msgstr ""
-
-#: src/Users.py:575
-msgid " logged in users, "
-msgstr ""
-
-#: src/Users.py:575
-msgid " logged out users)"
+msgid "Total: AAAA users (BBBB logged in users, CCCC logged out users)"
 msgstr ""
 
 #: src/UsersDetails.py:79 src/UsersDetails.py:304 ui/UsersDetailsWindow.ui:8

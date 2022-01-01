@@ -719,7 +719,11 @@ def storage_loop_func():
     # Get number of partitions and number of all disks/storage/partitions and show these information on the GUI label
     disks_count = disk_type_list.count(storage_image_partition)
     number_of_all_disks_partitions = len(disk_type_list)
-    label4101.set_text(_tr("Total: ") + str(number_of_all_disks_partitions) + _tr(" disks/partitions (") + str(disks_count) + _tr(" disks, ") + str(number_of_all_disks_partitions-disks_count) + _tr(" partitions)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    number_of_disks_string = _tr("Total: AAAA disks/partitions (BBBB disks, CCCC partitions)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
+    number_of_disks_string = number_of_disks_string.replace("AAAA", str(number_of_all_disks_partitions))
+    number_of_disks_string = number_of_disks_string.replace("BBBB", str(disks_count))
+    number_of_disks_string = number_of_disks_string.replace("CCCC", str(number_of_all_disks_partitions-disks_count))
+    label4101.set_text(number_of_disks_string)
 
 
 # ----------------------------------- Storage - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

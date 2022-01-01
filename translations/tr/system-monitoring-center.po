@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-31 11:10+0300\n"
-"PO-Revision-Date: 2021-12-31 11:15+0300\n"
+"POT-Creation-Date: 2022-01-01 13:54+0300\n"
+"PO-Revision-Date: 2022-01-01 13:58+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -26,10 +26,6 @@ msgstr "MİB Kullanımı (Ortalama):"
 msgid "CPU Usage (Per Core):"
 msgstr "MİB Kullanımı (Çekirdek Başına):"
 
-#: src/Cpu.py:300
-msgid "[Unknown]"
-msgstr "[Bilinmiyor]"
-
 #: src/Cpu.py:317 src/Network.py:236 src/RamHardwareInformation.py:65
 msgid "Unknown"
 msgstr "Bilinmiyor"
@@ -38,13 +34,13 @@ msgstr "Bilinmiyor"
 msgid "Selected CPU Core: "
 msgstr "Seçilen MİB Çekirdeği: "
 
-#: src/Disk.py:204 src/Disk.py:272 src/Disk.py:273 src/Disk.py:274
-#: src/Disk.py:275 src/Storage.py:329 src/Storage.py:383 src/Storage.py:392
-#: src/Storage.py:403 src/Storage.py:729 src/Storage.py:736
-#: src/StorageDetails.py:210 src/StorageDetails.py:253
-#: src/StorageDetails.py:265 src/StorageDetails.py:279
-#: src/StorageDetails.py:435 src/StorageDetails.py:436
-#: src/StorageDetails.py:437 src/StorageMenuRightClick.py:47
+#: src/Disk.py:207 src/Disk.py:275 src/Disk.py:276 src/Disk.py:277
+#: src/Disk.py:278 src/Storage.py:329 src/Storage.py:383 src/Storage.py:392
+#: src/Storage.py:403 src/Storage.py:733 src/Storage.py:740
+#: src/StorageDetails.py:215 src/StorageDetails.py:258
+#: src/StorageDetails.py:270 src/StorageDetails.py:284
+#: src/StorageDetails.py:440 src/StorageDetails.py:441
+#: src/StorageDetails.py:442 src/StorageMenuRightClick.py:47
 #: src/StorageMenuRightClick.py:49 src/StorageMenuRightClick.py:55
 #: src/StorageMenuRightClick.py:58 src/StorageMenuRightClick.py:67
 #: src/StorageMenuRightClick.py:70 src/StorageMenuRightClick.py:83
@@ -52,37 +48,37 @@ msgstr "Seçilen MİB Çekirdeği: "
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
-#: src/Disk.py:212 src/Disk.py:406 src/Storage.py:374 src/StorageDetails.py:242
+#: src/Disk.py:215 src/Disk.py:409 src/Storage.py:374 src/StorageDetails.py:247
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
-#: src/Disk.py:221 src/Gpu.py:231 src/Network.py:232 src/Network.py:254
-#: src/ServicesDetails.py:143 src/Storage.py:496 src/Storage.py:507
-#: src/Storage.py:518 src/StorageDetails.py:220 src/StorageDetails.py:367
-#: src/StorageDetails.py:381 src/StorageDetails.py:395 src/UsersDetails.py:234
+#: src/Disk.py:224 src/Gpu.py:231 src/Network.py:232 src/Network.py:254
+#: src/ServicesDetails.py:148 src/Storage.py:496 src/Storage.py:507
+#: src/Storage.py:518 src/StorageDetails.py:225 src/StorageDetails.py:372
+#: src/StorageDetails.py:386 src/StorageDetails.py:400 src/UsersDetails.py:239
 msgid "Yes"
 msgstr "Evet"
 
-#: src/Disk.py:223 src/Gpu.py:233 src/Gpu.py:318 src/Network.py:234
-#: src/ServicesDetails.py:143 src/Storage.py:498 src/Storage.py:509
-#: src/Storage.py:520 src/StorageDetails.py:216 src/StorageDetails.py:369
-#: src/StorageDetails.py:383 src/StorageDetails.py:397 src/UsersDetails.py:236
+#: src/Disk.py:226 src/Gpu.py:233 src/Gpu.py:318 src/Network.py:234
+#: src/ServicesDetails.py:148 src/Storage.py:498 src/Storage.py:509
+#: src/Storage.py:520 src/StorageDetails.py:221 src/StorageDetails.py:374
+#: src/StorageDetails.py:388 src/StorageDetails.py:402 src/UsersDetails.py:241
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:352 src/Disk.py:380 src/RamSwapDetails.py:68 src/Storage.py:318
-#: src/Storage.py:323 src/StorageDetails.py:195 src/StorageDetails.py:205
+#: src/Disk.py:355 src/Disk.py:383 src/RamSwapDetails.py:68 src/Storage.py:318
+#: src/Storage.py:323 src/StorageDetails.py:200 src/StorageDetails.py:210
 #: src/StorageMenuRightClick.py:182
 msgid "Partition"
 msgstr "Disk bölümü"
 
-#: src/Disk.py:357 src/SettingsGUI.py:320 src/Storage.py:309 src/Storage.py:418
+#: src/Disk.py:360 src/SettingsGUI.py:320 src/Storage.py:309 src/Storage.py:418
 #: src/Storage.py:462 src/Storage.py:472 src/Storage.py:483 src/Storage.py:492
-#: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:186
-#: src/StorageDetails.py:296 src/StorageDetails.py:334
-#: src/StorageDetails.py:342 src/StorageDetails.py:351
-#: src/StorageDetails.py:358 src/StorageDetails.py:372
-#: src/StorageDetails.py:386 ui/DiskTab.ui:23 ui/MainWindow.ui:174
+#: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:191
+#: src/StorageDetails.py:301 src/StorageDetails.py:339
+#: src/StorageDetails.py:347 src/StorageDetails.py:356
+#: src/StorageDetails.py:363 src/StorageDetails.py:377
+#: src/StorageDetails.py:391 ui/DiskTab.ui:23 ui/MainWindow.ui:174
 msgid "Disk"
 msgstr "Disk"
 
@@ -137,7 +133,7 @@ msgstr ""
 "dosyalarındaki ortam değişkenlerinin düzenlenmesi/silinmesi destekleniyor."
 
 #: src/EnvironmentVariables.py:165 src/EnvironmentVariables.py:291
-#: src/EnvironmentVariables.py:458 src/EnvironmentVariables.py:500
+#: src/EnvironmentVariables.py:458 src/EnvironmentVariables.py:504
 msgid "Environment Variable"
 msgstr "Ortam Değişkeni"
 
@@ -147,7 +143,7 @@ msgid "Environment & Shell Variable"
 msgstr "Ortam & Kabuk Değişkeni"
 
 #: src/EnvironmentVariables.py:171 src/EnvironmentVariables.py:294
-#: src/EnvironmentVariables.py:457 src/EnvironmentVariables.py:492
+#: src/EnvironmentVariables.py:457 src/EnvironmentVariables.py:496
 msgid "Shell Variable"
 msgstr "Kabuk (Shell) Değişkeni"
 
@@ -187,22 +183,13 @@ msgstr ""
 "Uygulama uçbirimden çalıştırıldığında ortam/kabuk (shell) değişkenlerinin "
 "listelenmesi desteklenmiyor."
 
-#: src/EnvironmentVariables.py:460 src/Processes.py:647 src/Sensors.py:365
-#: src/Services.py:486 src/Startup.py:694 src/Storage.py:722 src/Users.py:575
-msgid "Total: "
-msgstr "Toplam: "
-
 #: src/EnvironmentVariables.py:460
-msgid " persistent variables ("
-msgstr " kalıcı değişken ("
-
-#: src/EnvironmentVariables.py:460
-msgid " environment variables, "
-msgstr " ortam değişkeni, "
-
-#: src/EnvironmentVariables.py:460
-msgid " shell variables)"
-msgstr " kabuk (shell) değişkeni)"
+msgid ""
+"Total: AAAA persistent variables (BBBB environment variables, CCCC shell "
+"variables)"
+msgstr ""
+"Toplam: AAAA kalıcı değişken (BBBB ortam değişkeni, CCCC kabuk (shell) "
+"değişkeni)"
 
 #: src/EnvironmentVariablesInput.py:167
 msgid "Do You Want To Overwrite Existing Environment Variable?"
@@ -354,8 +341,8 @@ msgstr ""
 msgid "Process Name"
 msgstr "İşlem Adı"
 
-#: src/Processes.py:209 src/ProcessesDetails.py:239 src/ProcessesDetails.py:670
-#: src/ServicesDetails.py:367 ui/ProcessesDetailsWindow.ui:55
+#: src/Processes.py:209 src/ProcessesDetails.py:244 src/ProcessesDetails.py:656
+#: src/ServicesDetails.py:353 ui/ProcessesDetailsWindow.ui:55
 #: ui/ProcessesMenuCustomizations.ui:357
 msgid "PID"
 msgstr "PID"
@@ -437,7 +424,7 @@ msgstr "GID"
 msgid "Path"
 msgstr "Yol"
 
-#: src/Processes.py:244 src/ServicesDetails.py:142
+#: src/Processes.py:244 src/ServicesDetails.py:147
 msgid "Running"
 msgstr "Çalışıyor"
 
@@ -465,39 +452,34 @@ msgstr "Durdu"
 msgid "Tracing Stop"
 msgstr "Tracing Stop"
 
-#: src/Processes.py:244 src/ServicesDetails.py:142
+#: src/Processes.py:244 src/ServicesDetails.py:147
 msgid "Dead"
 msgstr "Sonlanmış"
 
-#: src/Processes.py:647
-msgid " processes ("
-msgstr " işlem ("
+#: src/Processes.py:639
+msgid ""
+"Total: AAAA processes (BBBB from this user, CCCC from other users/system)"
+msgstr ""
+"Toplam: AAAA işlem (BBBB bu kullanıcıdan, CCCC diğer kullanıcılardan/"
+"sistemden)"
 
-#: src/Processes.py:647
-msgid " from this user, "
-msgstr " bu kullanıcıdan, "
-
-#: src/Processes.py:647
-msgid " from other users/system)"
-msgstr " diğer kullanıcılardan/sistemden)"
-
-#: src/ProcessesDetails.py:239 ui/ProcessesDetailsWindow.ui:8
+#: src/ProcessesDetails.py:244 ui/ProcessesDetailsWindow.ui:8
 #: ui/ServicesDetailsWindow.ui:8
 msgid "Process Details"
 msgstr "İşlem Detayları"
 
-#: src/ProcessesDetails.py:668 src/ProcessesMenuRightClick.py:265
+#: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:265
 #: src/ProcessesMenuRightClick.py:301 src/ProcessesMenuRightClick.py:311
 #: src/StartupMenuRightClick.py:438 src/StorageMenuRightClick.py:221
 #: src/StorageMenuRightClick.py:234
 msgid "Error"
 msgstr "Hata"
 
-#: src/ProcessesDetails.py:669 src/ProcessesMenuRightClick.py:302
+#: src/ProcessesDetails.py:655 src/ProcessesMenuRightClick.py:302
 msgid "Process Is Not Running Anymore"
 msgstr "İşlem Artık Çalışmıyor"
 
-#: src/ProcessesDetails.py:670
+#: src/ProcessesDetails.py:656
 msgid ""
 "Following process is not running anymore and process details window is "
 "closed automatically:"
@@ -568,11 +550,11 @@ msgstr ""
 "İşlem dizini alınamadı.\n"
 "Klasör açılmayacak."
 
-#: src/Ram.py:213
+#: src/Ram.py:216
 msgid "Total Physical RAM: "
 msgstr "Toplam Fiziksel RAM: "
 
-#: src/Ram.py:214
+#: src/Ram.py:217
 msgid "Reserved Swap Memory: "
 msgstr "Ayrılmış Takas Belleği: "
 
@@ -668,20 +650,12 @@ msgid "Max Value"
 msgstr "Maks. Değer"
 
 #: src/Sensors.py:365
-msgid " sensors ("
-msgstr " algılayıcı ("
-
-#: src/Sensors.py:365
-msgid " temperature, "
-msgstr " sıcaklık, "
-
-#: src/Sensors.py:365
-msgid " fan, "
-msgstr " fan, "
-
-#: src/Sensors.py:365
-msgid " voltage/current sensors)"
-msgstr " voltaj/akım algılayıcısı)"
+msgid ""
+"Total: AAAA sensors (BBBB temperature, CCCC fan, DDDD voltage/current "
+"sensors)"
+msgstr ""
+"Toplam: AAAA algılayıcı (BBBB sıcaklık, CCCC fan, DDDD voltaj/akım "
+"algılayıcısı)"
 
 #: src/Services.py:168 ui/ServicesMenuCustomizations.ui:252
 msgid "Service Name"
@@ -785,71 +759,63 @@ msgstr "evet"
 msgid "no"
 msgstr "hayır"
 
-#: src/Services.py:279 src/Services.py:282 src/ServicesDetails.py:142
+#: src/Services.py:279 src/Services.py:282 src/ServicesDetails.py:147
 msgid "Loaded"
 msgstr "Yüklenmiş"
 
 #: src/Services.py:486
-msgid " services ("
-msgstr " servis ("
+msgid "Total: AAAA services (BBBB loaded, CCCC non-loaded)"
+msgstr "Toplam: AAAA servis (BBBB yüklenmiş, CCCC yüklenmemiş)"
 
-#: src/Services.py:486
-msgid " loaded, "
-msgstr " yüklenmiş, "
-
-#: src/Services.py:486
-msgid " non-loaded)"
-msgstr " yüklenmemiş)"
-
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Enabled"
 msgstr "Etkin"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Disabled"
 msgstr "Devre Dışı"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Masked"
 msgstr "Gizli"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Unmasked"
 msgstr "Gizli değil"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Static"
 msgstr "Statik"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Generated"
 msgstr "Oluşturulmuş"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Enabled-runtime"
 msgstr "Etkin-çalışma zamanı"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Indirect"
 msgstr "Dolaylı"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Active"
 msgstr "Aktif"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Inactive"
 msgstr "İnaktif"
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Exited"
 msgstr "Çıkmış"
 
-#: src/ServicesDetails.py:366
+#: src/ServicesDetails.py:352
 msgid "Service File Does Not Exist Anymore"
 msgstr "Servis Dosyası Artık Mevcut Değil"
 
-#: src/ServicesDetails.py:367
+#: src/ServicesDetails.py:353
 msgid ""
 "Following service file does not exist anymore and service details window is "
 "closed automatically:"
@@ -945,16 +911,8 @@ msgid ""
 msgstr "Şimdilik şu masaüstü ortamları destekleniyor:\n"
 
 #: src/Startup.py:694
-msgid " startup applications ("
-msgstr " başlangıç uygulaması ("
-
-#: src/Startup.py:694
-msgid " visible, "
-msgstr " görünür, "
-
-#: src/Startup.py:694
-msgid " hidden)"
-msgstr " gizli)"
+msgid "Total: AAAA startup applications (BBBB visible, CCCC hidden)"
+msgstr "Toplam: AAAA başlangıç uygulaması (BBBB görünür, CCCC gizli)"
 
 #: src/StartupMenuRightClick.py:239
 msgid ""
@@ -1153,26 +1111,18 @@ msgid "Major:Minor Device #"
 msgstr "Majör:Minör Cihaz #"
 
 #: src/Storage.py:722
-msgid " disks/partitions ("
-msgstr " disk/disk bölümü ("
+msgid "Total: AAAA disks/partitions (BBBB disks, CCCC partitions)"
+msgstr "Toplam: AAAA disk/disk bölümü (BBBB disk, CCCC disk bölümü)"
 
-#: src/Storage.py:722
-msgid " disks, "
-msgstr " disk, "
-
-#: src/Storage.py:722
-msgid " partitions)"
-msgstr " disk bölümü)"
-
-#: src/StorageDetails.py:200 ui/StorageDetailsWindow.ui:8
+#: src/StorageDetails.py:205 ui/StorageDetailsWindow.ui:8
 msgid "Storage Details"
 msgstr "Depolama Detayları"
 
-#: src/StorageDetails.py:526
+#: src/StorageDetails.py:512
 msgid "Disk Is Not Connected Anymore"
 msgstr "Disk Artık Bağlı Değil"
 
-#: src/StorageDetails.py:527
+#: src/StorageDetails.py:513
 msgid ""
 "Following disk is not connected anymore and storage details window is closed "
 "automatically:"
@@ -1284,99 +1234,93 @@ msgstr "Son Hatalı Giriş"
 msgid "Started"
 msgstr "Başlama"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Jan"
 msgstr "Oca"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Feb"
 msgstr "Şub"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Mar"
 msgstr "Mar"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Apr"
 msgstr "Nis"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "May"
 msgstr "May"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Jun"
 msgstr "Haz"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Jul"
 msgstr "Tem"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Aug"
 msgstr "Ağu"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Sep"
 msgstr "Eyl"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Oct"
 msgstr "Eki"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Nov"
 msgstr "Kas"
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Dec"
 msgstr "Ara"
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Mon"
 msgstr "Pzt"
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Tue"
 msgstr "Sal"
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Wed"
 msgstr "Çar"
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Thu"
 msgstr "Per"
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Fri"
 msgstr "Cum"
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Sat"
 msgstr "Cmt"
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Sun"
 msgstr "Paz"
 
 #: src/Users.py:575
-msgid " users ("
-msgstr " kullanıcı ("
+msgid "Total: AAAA users (BBBB logged in users, CCCC logged out users)"
+msgstr ""
+"Toplam: AAAA kullanıcı (BBBB giriş yapmış kullanıcı, CCCC çıkış yapmış "
+"kullanıcı)"
 
-#: src/Users.py:575
-msgid " logged in users, "
-msgstr " giriş yapmış kullanıcı, "
-
-#: src/Users.py:575
-msgid " logged out users)"
-msgstr " çıkış yapmış kullanıcı)"
-
-#: src/UsersDetails.py:74 src/UsersDetails.py:299 ui/UsersDetailsWindow.ui:8
+#: src/UsersDetails.py:79 src/UsersDetails.py:304 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
 msgstr "Kullanıcı Detayları"
 
-#: src/UsersDetails.py:392
+#: src/UsersDetails.py:378
 msgid ""
 "Following user account does not exist anymore and user details window is "
 "closed automatically:"
@@ -2555,8 +2499,8 @@ msgid "Disk Read / Write Speed"
 msgstr "Disk Okuma / Yazma Hızı"
 
 #: ui/ProcessesDetailsWindow.ui:146
-msgid "Create Time"
-msgstr "Oluşturma Zamanı"
+msgid "Start Time"
+msgstr "Başlama Zamanı"
 
 #: ui/ProcessesDetailsWindow.ui:159 ui/ProcessesDetailsWindow.ui:1504
 msgid "Exe"
@@ -3803,6 +3747,81 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Total: "
+#~ msgstr "Toplam: "
+
+#~ msgid " persistent variables ("
+#~ msgstr " kalıcı değişken ("
+
+#~ msgid " environment variables, "
+#~ msgstr " ortam değişkeni, "
+
+#~ msgid " shell variables)"
+#~ msgstr " kabuk (shell) değişkeni)"
+
+#~ msgid " sensors ("
+#~ msgstr " algılayıcı ("
+
+#~ msgid " temperature, "
+#~ msgstr " sıcaklık, "
+
+#~ msgid " fan, "
+#~ msgstr " fan, "
+
+#~ msgid " voltage/current sensors)"
+#~ msgstr " voltaj/akım algılayıcısı)"
+
+#~ msgid " services ("
+#~ msgstr " servis ("
+
+#~ msgid " loaded, "
+#~ msgstr " yüklenmiş, "
+
+#~ msgid " non-loaded)"
+#~ msgstr " yüklenmemiş)"
+
+#~ msgid " startup applications ("
+#~ msgstr " başlangıç uygulaması ("
+
+#~ msgid " visible, "
+#~ msgstr " görünür, "
+
+#~ msgid " hidden)"
+#~ msgstr " gizli)"
+
+#~ msgid " disks/partitions ("
+#~ msgstr " disk/disk bölümü ("
+
+#~ msgid " disks, "
+#~ msgstr " disk, "
+
+#~ msgid " partitions)"
+#~ msgstr " disk bölümü)"
+
+#~ msgid " users ("
+#~ msgstr " kullanıcı ("
+
+#~ msgid " logged in users, "
+#~ msgstr " giriş yapmış kullanıcı, "
+
+#~ msgid " logged out users)"
+#~ msgstr " çıkış yapmış kullanıcı)"
+
+#~ msgid "[Unknown]"
+#~ msgstr "[Bilinmiyor]"
+
+#~ msgid " processes ("
+#~ msgstr " işlem ("
+
+#~ msgid " from this user, "
+#~ msgstr " bu kullanıcıdan, "
+
+#~ msgid " from other users/system)"
+#~ msgstr " diğer kullanıcılardan/sistemden)"
+
+#~ msgid "Create Time"
+#~ msgstr "Oluşturma Zamanı"
 
 #~ msgid "Auto-Byte"
 #~ msgstr "Oto-Bayt"

@@ -483,7 +483,11 @@ def services_loop_func():
     # Get number of visible services and number of all services and show these information on the GUI label
     loaded_service_count = service_loaded_not_loaded_list.count(True)
     number_of_all_services = len(service_loaded_not_loaded_list)
-    label6101.set_text(_tr("Total: ") + str(number_of_all_services) + _tr(" services (") + str(loaded_service_count) + _tr(" loaded, ") + str(number_of_all_services-loaded_service_count) + _tr(" non-loaded)"))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    number_of_services_string = _tr("Total: AAAA services (BBBB loaded, CCCC non-loaded)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
+    number_of_services_string = number_of_services_string.replace("AAAA", str(number_of_all_services))
+    number_of_services_string = number_of_services_string.replace("BBBB", str(loaded_service_count))
+    number_of_services_string = number_of_services_string.replace("CCCC", str(number_of_all_services-loaded_service_count))
+    label6101.set_text(number_of_services_string)
 
 
 # ----------------------------------- Services - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
