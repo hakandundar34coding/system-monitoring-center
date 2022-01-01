@@ -254,12 +254,12 @@ def processes_initial_func():
             application_file_content = reader.read()
         if "Exec=" not in application_file_content or "Icon=" not in application_file_content:    # Do not include application name or icon name if any of them is not found in the .desktop file.
             continue
-        application_exec = application_file_content.split("Exec=")[1].split("\n")[0].split("/")[-1].split(" ")[0]    # Get application exec data
+        application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0].split("/")[-1].split(" ")[0]    # Get application exec data
         if application_exec != "sh":                                                          # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f"). This statement is used to avoid from this confusion.
             application_exec_list.append(application_exec)
         else:
-            application_exec_list.append(application_file_content.split("Exec=")[1].split("\n")[0])
-        application_icon_list.append(application_file_content.split("Icon=")[1].split("\n")[0])    # Get application icon name data
+            application_exec_list.append(application_file_content.split("Exec=", 1)[1].split("\n", 1)[0])
+        application_icon_list.append(application_file_content.split("Icon=", 1)[1].split("\n", 1)[0])    # Get application icon name data
 
     global filter_column
     filter_column = processes_data_list[0][2] - 1                                             # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
@@ -337,18 +337,15 @@ def processes_loop_func():
     for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
         try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
             with open("/proc/" + pid + "/status") as reader:                                  # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                proc_pid_status_lines = reader.read().split("\n")
+                proc_pid_status_output = reader.read()
         except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
             pid_list.remove(pid)
             continue
-        for line in proc_pid_status_lines:
-            if "Uid:\t" in line:
-                real_user_id = line.split(":")[1].split()[0].strip()                          # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                try:
-                    username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-                except ValueError:
-                    username = real_user_id
-                break
+        real_user_id = proc_pid_status_output.split("\nUid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0].strip()    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+        try:
+            username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+        except ValueError:
+            username = real_user_id
         username_list.append(username)
         # Remove PIDs of processes from other than current user (show processes only from this user) if it is preferred by user
         if show_processes_of_all_users == 0:
@@ -357,8 +354,7 @@ def processes_loop_func():
                 del username_list[-1]                                                         # Remove last username which has been appended in this loop. It is removed because its process PID has been removed (because it is not owned by current user).
                 continue
 
-    # Get process data
-    for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because element are removed during iteration. Otherwise incorrect operations (incorrect element removal) are performed on the list.
+        # Get process data
         global_cpu_time_all = time.time() * number_of_clock_ticks                             # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent. global_cpu_time_all value is get by using time module of Python instead of reading "/proc/stat" file for faster processing.
         try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
             with open("/proc/" + pid + "/stat") as reader:                                    # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
@@ -368,9 +364,7 @@ def processes_loop_func():
             continue
         proc_pid_stat_lines_split = proc_pid_stat_lines.split()
         ppid_list.append(proc_pid_stat_lines_split[-49])                                      # Process data is get by negative indexes because file content is split by " " (empty space) character and also process name could contain empty space character which may result confusion getting correct process data. In other words empty space character count may not be same for all process "stat" files and process name it at the second place in the file. Reading process data of which turn is later than process name by using negative index is a reliable method.
-        first_parentheses = proc_pid_stat_lines.find("(")                                     # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
-        second_parentheses = proc_pid_stat_lines.rfind(")")                                   # Last parantheses ")" index is get by using "find()".
-        process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]  # Process name is get from string by using the indexes get previously.
+        process_name_from_stat = proc_pid_stat_lines.split("(", 1)[1].rsplit(")", 1)[0]
         process_name = process_name_from_stat
         if len(process_name) == 15:                                                           # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
             try:
@@ -455,9 +449,7 @@ def processes_loop_func():
         if 15 in processes_treeview_columns_shown:
             processes_data_row.append(int(real_user_id))                                      # Append process UID value
         if 16 in processes_treeview_columns_shown:
-            for line in proc_pid_status_lines:
-                if "Gid:\t" in line:
-                    processes_data_row.append(int(line.split(":")[1].split()[0].strip()))     # There are 4 values in the Gid line and first one (real GID) is get from this file.
+            processes_data_row.append(int(proc_pid_status_output.split("\nGid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0].strip()))    # There are 4 values in the Gid line and first one (real GID) is get from this file.
         if 17 in processes_treeview_columns_shown:
             try:                                                                              # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
                 process_executable_path = os.path.realpath("/proc/" + pid + "/exe")

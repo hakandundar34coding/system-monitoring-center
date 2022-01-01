@@ -143,7 +143,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Start Time</property>
+                        <property name="label" translatable="yes">Create Time</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>

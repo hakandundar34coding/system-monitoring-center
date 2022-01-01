@@ -297,7 +297,7 @@ def cpu_loop_func():
     if "physical id" not in proc_cpuinfo_output:
         cpu_model_names = []
         number_of_physical_cores = number_of_logical_cores
-        number_of_cpu_sockets = _tr("[Unknown]")                                              # Initial value of "number_of_cpu_sockets". This value may not be detected on systems with ARM CPUs.
+        number_of_cpu_sockets = f'[{_tr("Unknown")}]'                                         # Initial value of "number_of_cpu_sockets". This value may not be detected on systems with ARM CPUs.
         # Some processors have "processor", some processors have "Processor" and some processors have both "processor" and "Processor". "processor" is used for core number and "Processor" is used for model name. But "model name" is used for model name on some ARM processors. Model name is repeated for all cores on these processors. "Processor" is used for one time for the processor.
         if "model name" in proc_cpuinfo_output:
             for line in proc_cpuinfo_output_lines:

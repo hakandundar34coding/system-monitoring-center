@@ -140,7 +140,7 @@ def ram_gui_func():
     def on_drawingarea1202_draw(drawingarea1202, chart1202):
 
         try:
-            swap_percent_check = swap_percent                                                 # "swap_percent" value is get in this module and drawingarea may try to get use this value before relevant thread (which provides this value) is finished.
+            swap_percent_check = swap_percent                                                 # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
         except NameError:
             return
 

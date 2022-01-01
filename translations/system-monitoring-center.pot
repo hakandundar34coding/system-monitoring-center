@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-31 11:10+0300\n"
+"POT-Creation-Date: 2022-01-01 11:05+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,10 +25,6 @@ msgstr ""
 msgid "CPU Usage (Per Core):"
 msgstr ""
 
-#: src/Cpu.py:300
-msgid "[Unknown]"
-msgstr ""
-
 #: src/Cpu.py:317 src/Network.py:236 src/RamHardwareInformation.py:65
 msgid "Unknown"
 msgstr ""
@@ -37,13 +33,13 @@ msgstr ""
 msgid "Selected CPU Core: "
 msgstr ""
 
-#: src/Disk.py:204 src/Disk.py:272 src/Disk.py:273 src/Disk.py:274
-#: src/Disk.py:275 src/Storage.py:329 src/Storage.py:383 src/Storage.py:392
+#: src/Disk.py:207 src/Disk.py:275 src/Disk.py:276 src/Disk.py:277
+#: src/Disk.py:278 src/Storage.py:329 src/Storage.py:383 src/Storage.py:392
 #: src/Storage.py:403 src/Storage.py:729 src/Storage.py:736
-#: src/StorageDetails.py:210 src/StorageDetails.py:253
-#: src/StorageDetails.py:265 src/StorageDetails.py:279
-#: src/StorageDetails.py:435 src/StorageDetails.py:436
-#: src/StorageDetails.py:437 src/StorageMenuRightClick.py:47
+#: src/StorageDetails.py:215 src/StorageDetails.py:258
+#: src/StorageDetails.py:270 src/StorageDetails.py:284
+#: src/StorageDetails.py:440 src/StorageDetails.py:441
+#: src/StorageDetails.py:442 src/StorageMenuRightClick.py:47
 #: src/StorageMenuRightClick.py:49 src/StorageMenuRightClick.py:55
 #: src/StorageMenuRightClick.py:58 src/StorageMenuRightClick.py:67
 #: src/StorageMenuRightClick.py:70 src/StorageMenuRightClick.py:83
@@ -51,37 +47,37 @@ msgstr ""
 msgid "[Not mounted]"
 msgstr ""
 
-#: src/Disk.py:212 src/Disk.py:406 src/Storage.py:374 src/StorageDetails.py:242
+#: src/Disk.py:215 src/Disk.py:409 src/Storage.py:374 src/StorageDetails.py:247
 msgid "[SWAP]"
 msgstr ""
 
-#: src/Disk.py:221 src/Gpu.py:231 src/Network.py:232 src/Network.py:254
-#: src/ServicesDetails.py:143 src/Storage.py:496 src/Storage.py:507
-#: src/Storage.py:518 src/StorageDetails.py:220 src/StorageDetails.py:367
-#: src/StorageDetails.py:381 src/StorageDetails.py:395 src/UsersDetails.py:234
+#: src/Disk.py:224 src/Gpu.py:231 src/Network.py:232 src/Network.py:254
+#: src/ServicesDetails.py:148 src/Storage.py:496 src/Storage.py:507
+#: src/Storage.py:518 src/StorageDetails.py:225 src/StorageDetails.py:372
+#: src/StorageDetails.py:386 src/StorageDetails.py:400 src/UsersDetails.py:239
 msgid "Yes"
 msgstr ""
 
-#: src/Disk.py:223 src/Gpu.py:233 src/Gpu.py:318 src/Network.py:234
-#: src/ServicesDetails.py:143 src/Storage.py:498 src/Storage.py:509
-#: src/Storage.py:520 src/StorageDetails.py:216 src/StorageDetails.py:369
-#: src/StorageDetails.py:383 src/StorageDetails.py:397 src/UsersDetails.py:236
+#: src/Disk.py:226 src/Gpu.py:233 src/Gpu.py:318 src/Network.py:234
+#: src/ServicesDetails.py:148 src/Storage.py:498 src/Storage.py:509
+#: src/Storage.py:520 src/StorageDetails.py:221 src/StorageDetails.py:374
+#: src/StorageDetails.py:388 src/StorageDetails.py:402 src/UsersDetails.py:241
 msgid "No"
 msgstr ""
 
-#: src/Disk.py:352 src/Disk.py:380 src/RamSwapDetails.py:68 src/Storage.py:318
-#: src/Storage.py:323 src/StorageDetails.py:195 src/StorageDetails.py:205
+#: src/Disk.py:355 src/Disk.py:383 src/RamSwapDetails.py:68 src/Storage.py:318
+#: src/Storage.py:323 src/StorageDetails.py:200 src/StorageDetails.py:210
 #: src/StorageMenuRightClick.py:182
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:357 src/SettingsGUI.py:320 src/Storage.py:309 src/Storage.py:418
+#: src/Disk.py:360 src/SettingsGUI.py:320 src/Storage.py:309 src/Storage.py:418
 #: src/Storage.py:462 src/Storage.py:472 src/Storage.py:483 src/Storage.py:492
-#: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:186
-#: src/StorageDetails.py:296 src/StorageDetails.py:334
-#: src/StorageDetails.py:342 src/StorageDetails.py:351
-#: src/StorageDetails.py:358 src/StorageDetails.py:372
-#: src/StorageDetails.py:386 ui/DiskTab.ui:23 ui/MainWindow.ui:174
+#: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:191
+#: src/StorageDetails.py:301 src/StorageDetails.py:339
+#: src/StorageDetails.py:347 src/StorageDetails.py:356
+#: src/StorageDetails.py:363 src/StorageDetails.py:377
+#: src/StorageDetails.py:391 ui/DiskTab.ui:23 ui/MainWindow.ui:174
 msgid "Disk"
 msgstr ""
 
@@ -180,7 +176,7 @@ msgid ""
 "in terminal."
 msgstr ""
 
-#: src/EnvironmentVariables.py:460 src/Processes.py:647 src/Sensors.py:365
+#: src/EnvironmentVariables.py:460 src/Processes.py:640 src/Sensors.py:365
 #: src/Services.py:486 src/Startup.py:694 src/Storage.py:722 src/Users.py:575
 msgid "Total: "
 msgstr ""
@@ -334,8 +330,8 @@ msgstr ""
 msgid "Process Name"
 msgstr ""
 
-#: src/Processes.py:209 src/ProcessesDetails.py:239 src/ProcessesDetails.py:670
-#: src/ServicesDetails.py:367 ui/ProcessesDetailsWindow.ui:55
+#: src/Processes.py:209 src/ProcessesDetails.py:244 src/ProcessesDetails.py:656
+#: src/ServicesDetails.py:353 ui/ProcessesDetailsWindow.ui:55
 #: ui/ProcessesMenuCustomizations.ui:357
 msgid "PID"
 msgstr ""
@@ -417,7 +413,7 @@ msgstr ""
 msgid "Path"
 msgstr ""
 
-#: src/Processes.py:244 src/ServicesDetails.py:142
+#: src/Processes.py:244 src/ServicesDetails.py:147
 msgid "Running"
 msgstr ""
 
@@ -445,39 +441,39 @@ msgstr ""
 msgid "Tracing Stop"
 msgstr ""
 
-#: src/Processes.py:244 src/ServicesDetails.py:142
+#: src/Processes.py:244 src/ServicesDetails.py:147
 msgid "Dead"
 msgstr ""
 
-#: src/Processes.py:647
+#: src/Processes.py:640
 msgid " processes ("
 msgstr ""
 
-#: src/Processes.py:647
+#: src/Processes.py:640
 msgid " from this user, "
 msgstr ""
 
-#: src/Processes.py:647
+#: src/Processes.py:640
 msgid " from other users/system)"
 msgstr ""
 
-#: src/ProcessesDetails.py:239 ui/ProcessesDetailsWindow.ui:8
+#: src/ProcessesDetails.py:244 ui/ProcessesDetailsWindow.ui:8
 #: ui/ServicesDetailsWindow.ui:8
 msgid "Process Details"
 msgstr ""
 
-#: src/ProcessesDetails.py:668 src/ProcessesMenuRightClick.py:265
+#: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:265
 #: src/ProcessesMenuRightClick.py:301 src/ProcessesMenuRightClick.py:311
 #: src/StartupMenuRightClick.py:438 src/StorageMenuRightClick.py:221
 #: src/StorageMenuRightClick.py:234
 msgid "Error"
 msgstr ""
 
-#: src/ProcessesDetails.py:669 src/ProcessesMenuRightClick.py:302
+#: src/ProcessesDetails.py:655 src/ProcessesMenuRightClick.py:302
 msgid "Process Is Not Running Anymore"
 msgstr ""
 
-#: src/ProcessesDetails.py:670
+#: src/ProcessesDetails.py:656
 msgid ""
 "Following process is not running anymore and process details window is "
 "closed automatically:"
@@ -539,11 +535,11 @@ msgid ""
 "No folder will be opened."
 msgstr ""
 
-#: src/Ram.py:213
+#: src/Ram.py:216
 msgid "Total Physical RAM: "
 msgstr ""
 
-#: src/Ram.py:214
+#: src/Ram.py:217
 msgid "Reserved Swap Memory: "
 msgstr ""
 
@@ -756,7 +752,7 @@ msgstr ""
 msgid "no"
 msgstr ""
 
-#: src/Services.py:279 src/Services.py:282 src/ServicesDetails.py:142
+#: src/Services.py:279 src/Services.py:282 src/ServicesDetails.py:147
 msgid "Loaded"
 msgstr ""
 
@@ -772,55 +768,55 @@ msgstr ""
 msgid " non-loaded)"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Enabled"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Disabled"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Masked"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Unmasked"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Static"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Generated"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Enabled-runtime"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Indirect"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Active"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Inactive"
 msgstr ""
 
-#: src/ServicesDetails.py:142
+#: src/ServicesDetails.py:147
 msgid "Exited"
 msgstr ""
 
-#: src/ServicesDetails.py:366
+#: src/ServicesDetails.py:352
 msgid "Service File Does Not Exist Anymore"
 msgstr ""
 
-#: src/ServicesDetails.py:367
+#: src/ServicesDetails.py:353
 msgid ""
 "Following service file does not exist anymore and service details window is "
 "closed automatically:"
@@ -1127,15 +1123,15 @@ msgstr ""
 msgid " partitions)"
 msgstr ""
 
-#: src/StorageDetails.py:200 ui/StorageDetailsWindow.ui:8
+#: src/StorageDetails.py:205 ui/StorageDetailsWindow.ui:8
 msgid "Storage Details"
 msgstr ""
 
-#: src/StorageDetails.py:526
+#: src/StorageDetails.py:512
 msgid "Disk Is Not Connected Anymore"
 msgstr ""
 
-#: src/StorageDetails.py:527
+#: src/StorageDetails.py:513
 msgid ""
 "Following disk is not connected anymore and storage details window is closed "
 "automatically:"
@@ -1239,79 +1235,79 @@ msgstr ""
 msgid "Started"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Jan"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Feb"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Mar"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Apr"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "May"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Jun"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Jul"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Aug"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Sep"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Oct"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Nov"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:130
+#: src/Users.py:209 src/UsersDetails.py:135
 msgid "Dec"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Mon"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Tue"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Wed"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Thu"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Fri"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Sat"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:131
+#: src/Users.py:210 src/UsersDetails.py:136
 msgid "Sun"
 msgstr ""
 
@@ -1327,11 +1323,11 @@ msgstr ""
 msgid " logged out users)"
 msgstr ""
 
-#: src/UsersDetails.py:74 src/UsersDetails.py:299 ui/UsersDetailsWindow.ui:8
+#: src/UsersDetails.py:79 src/UsersDetails.py:304 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
 msgstr ""
 
-#: src/UsersDetails.py:392
+#: src/UsersDetails.py:378
 msgid ""
 "Following user account does not exist anymore and user details window is "
 "closed automatically:"
@@ -2383,7 +2379,7 @@ msgid "Disk Read / Write Speed"
 msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:146
-msgid "Create Time"
+msgid "Start Time"
 msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:159 ui/ProcessesDetailsWindow.ui:1504

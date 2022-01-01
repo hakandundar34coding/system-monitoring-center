@@ -140,7 +140,7 @@ def disk_gui_func():
     def on_drawingarea1302_draw(drawingarea1302, chart1302):
 
         try:
-            disk_usage_percent_check = disk_usage_percent                                     # "disk_usage_percent" value is get in this module and drawingarea may try to get use this value before relevant thread (which provides this value) is finished.
+            disk_usage_percent_check = disk_usage_percent                                     # "disk_usage_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
         except NameError:
             return
 
