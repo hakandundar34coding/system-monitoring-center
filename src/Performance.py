@@ -85,6 +85,12 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
     gpu_vendor_id_list = []
     gpu_device_id_list = []
     default_gpu = ""                                                                          # Initial value of "default_gpu" variable.
+    try:
+        with open("/usr/share/misc/pci.ids") as reader:                                       # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
+            pci_ids_output = reader.read()
+    except FileNotFoundError:
+        with open("/usr/share/hwdata/pci.ids") as reader:                                     # Read "pci.ids" file if it is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
+            pci_ids_output = reader.read()
     gpu_list = [gpu_name for gpu_name in os.listdir("/dev/dri/") if gpu_name.rstrip("0123456789") == "card"]
     for gpu in gpu_list:
         try:
@@ -99,20 +105,14 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
             gpu_device_id = reader.read().split("x")[1].strip()
         gpu_vendor_id_for_search = "\n" + gpu_vendor_id + "  "
         gpu_device_id_for_search = "\n\t" + gpu_device_id + "  "
-        try:
-            with open("/usr/share/misc/pci.ids") as reader:                                   # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
-                pci_ids_output = reader.read()
-        except FileNotFoundError:
-            with open("/usr/share/hwdata/pci.ids") as reader:                                 # Read "pci.ids" file if it is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
-                pci_ids_output = reader.read()
         if gpu_vendor_id_for_search in pci_ids_output:                                        # "vendor" information may not be present in the pci.ids file.
-            rest_of_the_pci_ids_output = pci_ids_output.split(gpu_vendor_id_for_search)[1]
-            gpu_vendor_name = rest_of_the_pci_ids_output.split("\n")[0].strip()
+            rest_of_the_pci_ids_output = pci_ids_output.split(gpu_vendor_id_for_search, 1)[1]    # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
+            gpu_vendor_name = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
         else:
             gpu_vendor_name = f'[{_tr("Unknown")}]'
         if gpu_device_id_for_search in rest_of_the_pci_ids_output and gpu_vendor_name != f'[{_tr("Unknown")}]':    # "device name" information may not be present in the pci.ids file.
-            rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(gpu_device_id_for_search)[1]
-            gpu_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n")[0].strip()
+            rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(gpu_device_id_for_search, 1)[1]
+            gpu_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
         else:
             gpu_device_name = f'[{_tr("Unknown")}]'
         gpu_device_model_name.append(f'{gpu_vendor_name} - {gpu_device_name}')
@@ -343,9 +343,7 @@ def performance_background_loop_func():
 def performance_background_run_func():
 
     if 'update_interval' not in globals():
-#         GLib.idle_add(performance_background_initial_func)
         performance_background_initial_func()                                                 # Function is run directly without using "GLib.idle_add([function_name])" in order to avoid errors which are given if another threads (such as threads in CPU module) run before this function is finished.
-#     GLib.idle_add(performance_background_loop_func)
     performance_background_loop_func()
     global update_interval
     update_interval = Config.update_interval

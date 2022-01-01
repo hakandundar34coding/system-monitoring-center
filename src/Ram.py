@@ -139,7 +139,10 @@ def ram_gui_func():
     # ----------------------------------- RAM - Plot Swap usage data as a Bar Chart ----------------------------------- 
     def on_drawingarea1202_draw(drawingarea1202, chart1202):
 
-        swap_percent_check = swap_percent
+        try:
+            swap_percent_check = swap_percent                                                 # "swap_percent" value is get in this module and drawingarea may try to get use this value before relevant thread (which provides this value) is finished.
+        except NameError:
+            return
 
         chart_line_color = Config.chart_line_color_ram_swap_percent
         chart_background_color = Config.chart_background_color_all_charts
@@ -278,7 +281,7 @@ def ram_define_data_unit_converter_variables_func():
 
     global data_unit_list
 
-    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently.
+    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
 
     # Unit Name    Abbreviation    bytes   
     # byte         B               1

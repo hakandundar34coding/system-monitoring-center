@@ -380,7 +380,7 @@ def cpu_loop_func():
 
 
 # ----------------------------------- CPU Run Function (runs initial and loop functions) -----------------------------------
-def cpu_run_func(*args):                                                                # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
+def cpu_run_func(*args):                                                                      # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
 
     if "update_interval" not in globals():                                                    # To be able to run initial function for only one time
         GLib.idle_add(cpu_initial_func)
