@@ -21,7 +21,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">RAM Information</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">RAM:</property>
             <property name="ellipsize">end</property>
@@ -39,7 +38,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Used RAM memory (in powers of 1024) and usage percent</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Used:</property>
             <property name="ellipsize">end</property>
@@ -53,9 +51,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Available RAM memory (in powers of 1024)
-
-Available and Free RAM memory values are different.</property>
+            <property name="tooltip-text" translatable="yes">Available and Free RAM memory values are different.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Available:</property>
             <property name="ellipsize">end</property>
@@ -103,7 +99,6 @@ Available and Free RAM memory values are different.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Used swap memory (in powers of 1024)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Used:</property>
             <property name="ellipsize">end</property>
@@ -117,7 +112,6 @@ Available and Free RAM memory values are different.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Available swap memory (in powers of 1024)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Available:</property>
             <property name="ellipsize">end</property>
@@ -165,7 +159,6 @@ Available and Free RAM memory values are different.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Capacity of RAM memory (in powers of 1024)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Capacity:</property>
             <property name="ellipsize">end</property>
@@ -196,7 +189,6 @@ Available and Free RAM memory values are different.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Total capacity of swap memory (in powers of 1024)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Capacity:</property>
             <property name="ellipsize">end</property>
@@ -227,9 +219,7 @@ Available and Free RAM memory values are different.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Free RAM memory (in powers of 1024)
-
-Free and Available RAM memory values are different.</property>
+            <property name="tooltip-text" translatable="yes">Available and Free RAM memory values are different.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Free:</property>
             <property name="ellipsize">end</property>
@@ -266,7 +256,6 @@ Free and Available RAM memory values are different.</property>
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Swap memory usage percent</property>
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Swap Mem. Usg. %:</property>
                 <property name="ellipsize">end</property>
@@ -315,7 +304,6 @@ Free and Available RAM memory values are different.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Swap Memory Information</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Swap Memory:</property>
             <property name="ellipsize">end</property>
@@ -423,7 +411,6 @@ Root privileges are needed for getting this information.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">RAM (Random Access Memory)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">RAM</property>
             <attributes>

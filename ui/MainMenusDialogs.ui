@@ -74,7 +74,6 @@ Ayrıntılar için &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html"&gt;GNU
         <property name="label" translatable="yes">Settings</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Opens "Settings" window</property>
         <property name="image">menuitem1004m_image</property>
         <property name="use-stock">False</property>
         <property name="always-show-image">True</property>
@@ -85,7 +84,6 @@ Ayrıntılar için &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html"&gt;GNU
         <property name="label" translatable="yes">About</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Opens "About" dialog</property>
         <property name="image">menuitem1005m_image</property>
         <property name="use-stock">False</property>
         <property name="always-show-image">True</property>
@@ -96,7 +94,6 @@ Ayrıntılar için &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html"&gt;GNU
         <property name="label" translatable="yes">Quit</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Closes application</property>
         <property name="image">menuitem1006m_image</property>
         <property name="use-stock">False</property>
       </object>

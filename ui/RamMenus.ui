@@ -61,7 +61,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Precision - RAM &amp; Swap Usage:</property>
+                <property name="label" translatable="yes">Precision:</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -173,7 +173,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Chart - Set Color - RAM:</property>
+                <property name="label" translatable="yes">Chart - Set Color:</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -256,7 +256,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Data Unit - RAM &amp; Swap Usage:</property>
+                <property name="label" translatable="yes">Data Unit:</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>

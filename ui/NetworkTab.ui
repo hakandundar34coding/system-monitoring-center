@@ -20,7 +20,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Data download speed on the selected network card</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Download Speed:</property>
             <property name="ellipsize">end</property>
@@ -34,7 +33,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Data upload speed on the selected network card</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Upload Speed:</property>
             <property name="ellipsize">end</property>
@@ -93,7 +91,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">IPv4 address on the selected network card</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">IPv4 Address:</property>
             <property name="ellipsize">end</property>
@@ -107,7 +104,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">IPv6 address on the selected network card</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">IPv6 Address:</property>
             <property name="ellipsize">end</property>
@@ -121,7 +117,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">MAC (Media Access Control) address of the selected network card</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">MAC Address:</property>
             <property name="ellipsize">end</property>
@@ -410,8 +405,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Network
-(Wired and Wireless Network Cards)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Network</property>
             <attributes>

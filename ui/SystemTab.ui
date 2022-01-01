@@ -149,8 +149,6 @@ Some of the information on this tab are reloaded automatically but all of them c
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Name of the OS
-(ID of the OS)</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Name:</property>
                     <property name="ellipsize">end</property>
@@ -164,7 +162,6 @@ Some of the information on this tab are reloaded automatically but all of them c
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Version and code name of the OS</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Version - Code Name:</property>
                     <property name="ellipsize">end</property>
@@ -212,9 +209,7 @@ Some of the information on this tab are reloaded automatically but all of them c
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Computer model name
-
-This information may not be present in all motherboards.</property>
+                    <property name="tooltip-text" translatable="yes">This information may not be present in all motherboards.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Model:</property>
                     <property name="ellipsize">end</property>
@@ -228,9 +223,7 @@ This information may not be present in all motherboards.</property>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Type of the computer chassis
-
-This information may not be present in all motherboards.</property>
+                    <property name="tooltip-text" translatable="yes">This information may not be present in all motherboards.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Computer Type:</property>
                     <property name="ellipsize">end</property>
@@ -261,7 +254,6 @@ This information may not be present in all motherboards.</property>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Name of the OS which this OS is based on</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Based On:</property>
                     <property name="ellipsize">end</property>
@@ -359,9 +351,7 @@ May be different from package version of the kernel.</property>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Computer vendor name
-
-This information may not be present in all motherboards.</property>
+                    <property name="tooltip-text" translatable="yes">This information may not be present in all motherboards.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Vendor:</property>
                     <property name="ellipsize">end</property>
@@ -409,7 +399,6 @@ This information may not be present in all motherboards.</property>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Family of the OS</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">OS Family:</property>
                     <property name="ellipsize">end</property>
@@ -423,10 +412,6 @@ This information may not be present in all motherboards.</property>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Name of the computer
-
-Host name is defined by the vendor or by the user during system installation.
-This name can be changed later.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Host Name:</property>
                     <property name="ellipsize">end</property>
@@ -615,10 +600,6 @@ This information is available only on systems with X11 windowing system.</proper
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Name of the desktop environment
-
-Desktop environments provide several applications (such as file manager, media player, text editor, task manager etc.) and utilities (such as localization, power management, some settings management features, panels, windowing system, display manager, session manager, etc.) to user for using the computer.
-There may be big differences of system resource usages and features between different desktop environments.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Desktop Environment:</property>
                     <property name="ellipsize">end</property>
@@ -683,10 +664,6 @@ There may be big differences of system resource usages and features between diff
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Name of the windowing system (window system)
-
-Windowing system draws windows, icons, pointers, fonts, etc.
-Windowing systems have some components such as display server and window manager.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Windowing System:</property>
                     <property name="ellipsize">end</property>
@@ -700,10 +677,7 @@ Windowing systems have some components such as display server and window manager
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Name of the display manager (login manager)
-
-Provides a graphical user interface for user login, starts the display server and loads the desktop environment after user login.
-Features, system resource usages and appearance of the greeter (login screen) are different for different display managers.</property>
+                    <property name="tooltip-text" translatable="yes">Name of the display manager (login manager)</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Display Manager:</property>
                     <property name="ellipsize">end</property>
@@ -717,7 +691,6 @@ Features, system resource usages and appearance of the greeter (login screen) ar
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Elapsed time since last system boot</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Up Time:</property>
                     <property name="ellipsize">end</property>
@@ -794,11 +767,6 @@ Features, system resource usages and appearance of the greeter (login screen) ar
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Name of the window manager
-
-Window manager manages position, size, stacking order, focus of the windows, performs minimizing/maximizing operations of windows, provides window decorations, manages virtual desktops (workspaces).
-
-Note: Window manager changes during user session are not tracked.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Window Manager:</property>
                     <property name="ellipsize">end</property>

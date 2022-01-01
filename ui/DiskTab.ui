@@ -18,7 +18,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Disk (Storage items in form of disk/partition)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Disk</property>
             <attributes>
@@ -115,8 +114,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Disk read speed on the selected disk
-(could be shown as Byte or bit)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Read Speed:</property>
             <property name="ellipsize">end</property>
@@ -130,8 +127,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Disk write speed on the selected disk
-(could be shown as Byte or bit)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Write Speed:</property>
             <property name="ellipsize">end</property>
@@ -160,10 +155,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">File system of the selected disk partition
-
-File system is shown from user space and may differ from the actual file system.
-"[SWAP]" information is shown if selected disk is a Swap partition.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">File System:</property>
             <property name="ellipsize">end</property>

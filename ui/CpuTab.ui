@@ -148,7 +148,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Elapsed time since last system boot</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Up Time:</property>
             <property name="ellipsize">end</property>
@@ -162,7 +161,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Number of total running processes and threads</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Processes-Threads:</property>
             <property name="ellipsize">end</property>
@@ -176,7 +174,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">L1d (for data) and L1i (for instructions) cache memory values of the selected CPU core</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Cache (L1d-L1i):</property>
             <property name="ellipsize">end</property>
@@ -274,7 +271,6 @@ Number of physical and logical CPU cores are same if CPU has no SMT feature or i
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Number of CPU packages (CPU sockets)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">CPU Sockets:</property>
             <property name="ellipsize">end</property>
@@ -288,7 +284,6 @@ Number of physical and logical CPU cores are same if CPU has no SMT feature or i
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Minimum and maximum frequency values of the selected CPU core</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Min-Max Frequency:</property>
             <property name="ellipsize">end</property>
@@ -364,7 +359,6 @@ Number of physical and logical CPU cores are same if CPU has no SMT feature or i
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">CPU architecture</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Architecture:</property>
             <property name="ellipsize">end</property>
@@ -378,7 +372,6 @@ Number of physical and logical CPU cores are same if CPU has no SMT feature or i
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">L2 and L3 cache memory values of the selected CPU core</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Cache (L2-L3):</property>
             <property name="ellipsize">end</property>
@@ -493,7 +486,6 @@ Cache (L2-L3)</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">CPU (Central Processing Unit)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">CPU</property>
             <attributes>

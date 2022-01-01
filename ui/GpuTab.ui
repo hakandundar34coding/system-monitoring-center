@@ -38,8 +38,6 @@ FPS counting does not continue when window is minimized.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Average frame latency which is time delay (milliseconds) between frames
-(=1/FPS)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Frame Latency:</property>
             <property name="ellipsize">end</property>
@@ -68,7 +66,6 @@ FPS counting does not continue when window is minimized.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">If selected GPU supports direct rendering</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Direct Rendering:</property>
             <property name="ellipsize">end</property>
@@ -133,7 +130,6 @@ FPS counting does not continue when window is minimized.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">OpenGL version supported by the selected GPU</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">OpenGL Version:</property>
             <property name="ellipsize">end</property>
@@ -195,11 +191,7 @@ FPS counting does not continue when window is minimized.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Current refresh rate
-
-May be different than maximum refresh rate of the monitor.
-
-This information is available only on systems with X11 windowing system.</property>
+            <property name="tooltip-text" translatable="yes">This information is available only on systems with X11 windowing system.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Refresh Rate:</property>
             <property name="ellipsize">end</property>
@@ -230,8 +222,6 @@ This information is available only on systems with X11 windowing system.</proper
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Current driver name and version of the selected GPU
-(May be proprietary or open sourced driver name)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Driver:</property>
             <property name="ellipsize">end</property>
@@ -293,9 +283,6 @@ This information is available only on systems with X11 windowing system.</proper
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Current resolution
-
-May be different than maximum resolution of the monitor.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Resolution:</property>
             <property name="ellipsize">end</property>
@@ -355,7 +342,6 @@ May be different than maximum resolution of the monitor.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">GPU (Graphics Processing Unit) / Graphics Card</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">GPU</property>
             <attributes>
