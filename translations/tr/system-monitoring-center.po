@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-01 13:54+0300\n"
-"PO-Revision-Date: 2022-01-01 13:58+0300\n"
+"POT-Creation-Date: 2022-01-01 17:01+0300\n"
+"PO-Revision-Date: 2022-01-01 17:03+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/Cpu.py:258 ui/CpuTab.ui:45
+#: src/Cpu.py:258 ui/CpuTab.ui:43
 msgid "CPU Usage (Average):"
 msgstr "MİB Kullanımı (Ortalama):"
 
@@ -862,7 +862,7 @@ msgstr "Ortam Değişkenleri"
 msgid "System"
 msgstr "Sistem"
 
-#: src/SettingsGUI.py:320 ui/CpuTab.ui:500 ui/MainWindow.ui:80
+#: src/SettingsGUI.py:320 ui/CpuTab.ui:498 ui/MainWindow.ui:80
 msgid "CPU"
 msgstr "MİB"
 
@@ -870,7 +870,7 @@ msgstr "MİB"
 msgid "RAM"
 msgstr "RAM"
 
-#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:417
+#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:416
 msgid "Network"
 msgstr "Ağ"
 
@@ -1357,7 +1357,7 @@ msgstr "Kullanıcı Adı:"
 msgid "User UID:"
 msgstr "Kullanıcı UUID:"
 
-#: ui/CpuMenus.ui:20 ui/CpuTab.ui:427
+#: ui/CpuMenus.ui:20 ui/CpuTab.ui:425
 msgid "CPU Tab Customizations"
 msgstr "MİB Sekmesi Özelleştirmeleri"
 
@@ -1413,25 +1413,17 @@ msgstr "MİB Çekirdeği Seç:"
 msgid "100%"
 msgstr "%100"
 
-#: ui/CpuTab.ui:42
-msgid ""
-"CPU usage percent\n"
-"(Max value is 100 %)"
-msgstr ""
-"MİB kullanım yüzdesi\n"
-"(En yüksek değer %100)"
-
-#: ui/CpuTab.ui:57 ui/RamTab.ui:549
+#: ui/CpuTab.ui:55 ui/RamTab.ui:547
 msgid "0%"
 msgstr "%0"
 
-#: ui/CpuTab.ui:103 ui/CpuTab.ui:120 ui/CpuTab.ui:137 ui/CpuTab.ui:196
-#: ui/CpuTab.ui:213 ui/CpuTab.ui:230 ui/CpuTab.ui:247 ui/CpuTab.ui:322
-#: ui/CpuTab.ui:353 ui/CpuTab.ui:398 ui/CpuTab.ui:461 ui/CpuTab.ui:476
+#: ui/CpuTab.ui:101 ui/CpuTab.ui:118 ui/CpuTab.ui:135 ui/CpuTab.ui:194
+#: ui/CpuTab.ui:211 ui/CpuTab.ui:228 ui/CpuTab.ui:245 ui/CpuTab.ui:320
+#: ui/CpuTab.ui:351 ui/CpuTab.ui:396 ui/CpuTab.ui:459 ui/CpuTab.ui:474
 #: ui/DiskTab.ui:67 ui/DiskTab.ui:82 ui/DiskTab.ui:196 ui/DiskTab.ui:213
 #: ui/DiskTab.ui:230 ui/DiskTab.ui:247 ui/DiskTab.ui:264 ui/DiskTab.ui:313
 #: ui/DiskTab.ui:344 ui/DiskTab.ui:394 ui/DiskTab.ui:434 ui/DiskTab.ui:451
-#: ui/EnvironmentVariablesTab.ui:82 ui/FloatingSummaryWindow.ui:19
+#: ui/EnvironmentVariablesTab.ui:83 ui/FloatingSummaryWindow.ui:19
 #: ui/FloatingSummaryWindow.ui:31 ui/FloatingSummaryWindow.ui:43
 #: ui/FloatingSummaryWindow.ui:55 ui/FloatingSummaryWindow.ui:67
 #: ui/FloatingSummaryWindow.ui:79 ui/FloatingSummaryWindow.ui:91
@@ -1441,8 +1433,8 @@ msgstr "%0"
 #: ui/GpuTab.ui:404 ui/GpuTab.ui:419 ui/NetworkTab.ui:139 ui/NetworkTab.ui:156
 #: ui/NetworkTab.ui:173 ui/NetworkTab.ui:190 ui/NetworkTab.ui:207
 #: ui/NetworkTab.ui:224 ui/NetworkTab.ui:241 ui/NetworkTab.ui:258
-#: ui/NetworkTab.ui:289 ui/NetworkTab.ui:321 ui/NetworkTab.ui:461
-#: ui/NetworkTab.ui:476 ui/PerformanceSummaryHeaderBarGrid.ui:85
+#: ui/NetworkTab.ui:289 ui/NetworkTab.ui:321 ui/NetworkTab.ui:460
+#: ui/NetworkTab.ui:475 ui/PerformanceSummaryHeaderBarGrid.ui:85
 #: ui/PerformanceSummaryHeaderBarGrid.ui:100
 #: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
@@ -1509,23 +1501,23 @@ msgstr "%0"
 msgid "--"
 msgstr ""
 
-#: ui/CpuTab.ui:153 ui/SystemTab.ui:720
+#: ui/CpuTab.ui:151 ui/SystemTab.ui:720
 msgid "Elapsed time since last system boot"
 msgstr "Sistem başlangıcından sonra geçen zaman"
 
-#: ui/CpuTab.ui:155 ui/SystemTab.ui:722
+#: ui/CpuTab.ui:153 ui/SystemTab.ui:722
 msgid "Up Time:"
 msgstr "Çalışma Zamanı:"
 
-#: ui/CpuTab.ui:167
+#: ui/CpuTab.ui:165
 msgid "Number of total running processes and threads"
 msgstr "Toplam çalışan işlem ve iş parçacığı sayısı"
 
-#: ui/CpuTab.ui:169
+#: ui/CpuTab.ui:167
 msgid "Processes-Threads:"
 msgstr "İşlemler-İş Parçacıkları:"
 
-#: ui/CpuTab.ui:181
+#: ui/CpuTab.ui:179
 msgid ""
 "L1d (for data) and L1i (for instructions) cache memory values of the "
 "selected CPU core"
@@ -1533,11 +1525,11 @@ msgstr ""
 "Seçilen MİB çekirdeği için L1d (veri için) ve L1i (komutlar için) ön bellek "
 "değerleri"
 
-#: ui/CpuTab.ui:183
+#: ui/CpuTab.ui:181
 msgid "Cache (L1d-L1i):"
 msgstr "Ön Bellek (L1d-L1i):"
 
-#: ui/CpuTab.ui:263
+#: ui/CpuTab.ui:261
 msgid ""
 "Number of physical CPU cores and number of online logical CPU cores\n"
 "\n"
@@ -1549,59 +1541,59 @@ msgstr ""
 "(MİB'nin SMT özelliği yoksa veya devre dışı ise, toplam mantıksal ve "
 "fiziksel çekirdek sayıları birbirine eşittir.)"
 
-#: ui/CpuTab.ui:267
+#: ui/CpuTab.ui:265
 msgid "Cores (Physical-Logical):"
 msgstr "Çekirdekler (Fiziksel-Mantıksal):"
 
-#: ui/CpuTab.ui:279
+#: ui/CpuTab.ui:277
 msgid "Number of CPU packages (CPU sockets)"
 msgstr "MİB paketi sayısı (MİB soketi sayısı)"
 
-#: ui/CpuTab.ui:281
+#: ui/CpuTab.ui:279
 msgid "CPU Sockets:"
 msgstr "MİB Soketleri:"
 
-#: ui/CpuTab.ui:293
+#: ui/CpuTab.ui:291
 msgid "Minimum and maximum frequency values of the selected CPU core"
 msgstr "Seçilen MİB çekirdeğinin en düşük ve en yüksek frekans değerleri"
 
-#: ui/CpuTab.ui:295
+#: ui/CpuTab.ui:293
 msgid "Min-Max Frequency:"
 msgstr "Min-Maks Frekans:"
 
-#: ui/CpuTab.ui:307
+#: ui/CpuTab.ui:305
 msgid "Current frequency of the selected CPU core"
 msgstr "Seçilen MİB çekirdeğinin şimdiki frekansı"
 
-#: ui/CpuTab.ui:309
+#: ui/CpuTab.ui:307
 msgid "Frequency:"
 msgstr "Frekans:"
 
-#: ui/CpuTab.ui:338 ui/PerformanceSummaryHeaderBarGrid.ui:16
+#: ui/CpuTab.ui:336 ui/PerformanceSummaryHeaderBarGrid.ui:16
 msgid "Average CPU usage of all cores"
 msgstr "Tüm çekirdeklerin ortalama MİB kullanımı"
 
-#: ui/CpuTab.ui:340
+#: ui/CpuTab.ui:338
 msgid "Average Usage:"
 msgstr "Ortalama Kullanım:"
 
-#: ui/CpuTab.ui:369
+#: ui/CpuTab.ui:367
 msgid "CPU architecture"
 msgstr "MİB mimarisi"
 
-#: ui/CpuTab.ui:371
+#: ui/CpuTab.ui:369
 msgid "Architecture:"
 msgstr "Mimari:"
 
-#: ui/CpuTab.ui:383
+#: ui/CpuTab.ui:381
 msgid "L2 and L3 cache memory values of the selected CPU core"
 msgstr "Seçilen MİB çekirdeği için L2 ve L3 ön bellek değerleri"
 
-#: ui/CpuTab.ui:385
+#: ui/CpuTab.ui:383
 msgid "Cache (L2-L3):"
 msgstr "Ön Bellek (L2-L3):"
 
-#: ui/CpuTab.ui:453
+#: ui/CpuTab.ui:451
 msgid ""
 "Selected CPU Core Number\n"
 "\n"
@@ -1619,11 +1611,11 @@ msgstr ""
 "Ön Bellek (L1d-L1i),\n"
 "Ön Bellek (L2-L3)"
 
-#: ui/CpuTab.ui:474
+#: ui/CpuTab.ui:472
 msgid "CPU Model Name"
 msgstr "MİB Model Adı"
 
-#: ui/CpuTab.ui:498
+#: ui/CpuTab.ui:496
 msgid "CPU (Central Processing Unit)"
 msgstr "MİB (Merkezi İşlem Birimi = CPU)"
 
@@ -1817,28 +1809,22 @@ msgid "Capacity:"
 msgstr "Kapasite:"
 
 #: ui/DiskTab.ui:481 ui/NetworkTab.ui:364
-msgid "B/s "
-msgstr "B/s "
+msgid "B/s"
+msgstr "B/s"
 
-#: ui/DiskTab.ui:492
-msgid ""
-"Disk read and write speed on the selected disk\n"
-"\n"
-"Max value depends on disk speed and graphic scale is updated dynamically."
-msgstr ""
-"Seçilen disk üzerindeki okuma ve yazma hızı\n"
-"\n"
-"Maks. değer disk hızına bağlıdır ve grafik ölçeği dinamik olarak güncellenir."
+#: ui/DiskTab.ui:492 ui/GpuTab.ui:484 ui/NetworkTab.ui:375
+msgid "Graphic scale is updated dynamically."
+msgstr "Grafik ölçeği dinamik olarak güncellenir."
 
-#: ui/DiskTab.ui:496
+#: ui/DiskTab.ui:494
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr "Disk Okuma (-) & Yazma (--) Hızı:"
 
-#: ui/DiskTab.ui:508 ui/GpuTab.ui:467 ui/NetworkTab.ui:390
+#: ui/DiskTab.ui:506 ui/GpuTab.ui:467 ui/NetworkTab.ui:389
 msgid "0"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:102
+#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:103
 msgid "Environment Variables Tab Customizations"
 msgstr "Ortam Değişkenleri Özelleştirme Menüsü"
 
@@ -2008,35 +1994,37 @@ msgstr ""
 
 #: ui/EnvironmentVariablesTab.ui:77
 msgid ""
-"Number of listed persistent environment/shell variables\n"
+"Number of listed items\n"
+"\n"
 "Summation of number of environment variables and number of shell variables "
 "may be bigger than number of total variables.\n"
 "Because there may be both environment variable and shell variable with the "
 "same variable name."
 msgstr ""
-"Listelenen kalıcı ortam/kabuk değişkeni sayısı\n"
+"Listelenen öge sayısı\n"
+"\n"
 "Ortam değişkenlerinin ve kabuk (shell) değişkenlerinin sayılarının toplamı "
 "toplam değişken sayısından büyük olabilir.\n"
 "Çünkü aynı değişken adıyla hem ortam değişkeni hem de kabuk değişkeni "
 "olabilir."
 
-#: ui/EnvironmentVariablesTab.ui:137
+#: ui/EnvironmentVariablesTab.ui:138
 msgid "Search environment/shell variable..."
 msgstr "Ortam/kabuk değişkeni ara..."
 
-#: ui/EnvironmentVariablesTab.ui:155
+#: ui/EnvironmentVariablesTab.ui:156
 msgid "Show all environment/shell variables"
 msgstr "Tüm ortam/kabuk değişkenlerini göster"
 
-#: ui/EnvironmentVariablesTab.ui:177
+#: ui/EnvironmentVariablesTab.ui:178
 msgid "Show all environment variables"
 msgstr "Tüm ortam değişkenlerini göster"
 
-#: ui/EnvironmentVariablesTab.ui:199
+#: ui/EnvironmentVariablesTab.ui:200
 msgid "Show all shell variables"
 msgstr "Tüm kabuk değişkenlerini göster"
 
-#: ui/EnvironmentVariablesTab.ui:233
+#: ui/EnvironmentVariablesTab.ui:234
 msgid ""
 "Note: Backing up the following files is advised before changing environment "
 "variables: '/etc/environment', '/home/[username]/.bashrc'."
@@ -2189,17 +2177,7 @@ msgstr "GPU/Grafik Kartı Cihaz Modeli Adı"
 msgid "FPS"
 msgstr "FPS"
 
-#: ui/GpuTab.ui:484
-msgid ""
-"FPS (Frames Per Second)\n"
-"(Maximum value could be limited with current monitor refresh rate or GPU "
-"performance)"
-msgstr ""
-"FPS (Saniyedeki Kare Sayısı = Frames Per Second)\n"
-"(En yüksek değer monitörün şimdiki yenileme oranı veya GPU performansı ile "
-"limitli olabilir)"
-
-#: ui/GpuTab.ui:487
+#: ui/GpuTab.ui:486
 msgid "FPS Count:"
 msgstr "FPS Sayısı:"
 
@@ -2268,7 +2246,7 @@ msgstr "Sistem Gözlem Merkezi"
 msgid "Main Menu"
 msgstr "Ana Menü"
 
-#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:433
+#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:432
 msgid "Network Tab Customizations"
 msgstr "Ağ Sekmesi Özelleştirmeleri"
 
@@ -2401,21 +2379,11 @@ msgstr ""
 msgid "Signal Strength:"
 msgstr "Sinyal Gücü:"
 
-#: ui/NetworkTab.ui:375
-msgid ""
-"Network download and upload speed on the selected network card\n"
-"(Max value depends on network/network card speed and graphic scale is "
-"updated dynamically)"
-msgstr ""
-"Ağ İndirme ve Yükleme Hızı\n"
-"(Maks değer ağ/ağ kartının hızına bağlıdır ve grafik ölçeği dinamik olarak "
-"güncellenir)"
-
-#: ui/NetworkTab.ui:378
+#: ui/NetworkTab.ui:377
 msgid "Network Download (-) & Upload (--) Speed:"
 msgstr "Ağ İndirme (-) & Yükleme (--) Hızı:"
 
-#: ui/NetworkTab.ui:414
+#: ui/NetworkTab.ui:413
 msgid ""
 "Network\n"
 "(Wired and Wireless Network Cards)"
@@ -2423,11 +2391,11 @@ msgstr ""
 "Ağ\n"
 "(Kablolu ve Kablosuz Ağ Kartları)"
 
-#: ui/NetworkTab.ui:459
+#: ui/NetworkTab.ui:458
 msgid "Network Interface Controller (NIC) Name"
 msgstr "Ağ Arayüz Kontrolcüsü (NIC) Adı"
 
-#: ui/NetworkTab.ui:474
+#: ui/NetworkTab.ui:473
 msgid "Network Card Device Model Name"
 msgstr "Ağ Kartı Cihaz Modeli Adı"
 
@@ -2773,9 +2741,10 @@ msgstr "Bu kullanıcının işlemlerini göster"
 msgid "Show processes from other users"
 msgstr "Diğer kullanıcıların işlemlerini göster"
 
-#: ui/ProcessesTab.ui:251
-msgid "Number of listed processes"
-msgstr "Listelenen işlem sayısı"
+#: ui/ProcessesTab.ui:251 ui/SensorsTab.ui:205 ui/ServicesTab.ui:64
+#: ui/StartupTab.ui:64 ui/StorageTab.ui:64 ui/UsersTab.ui:76
+msgid "Number of listed items"
+msgstr "Listelenen öge sayısı"
 
 #: ui/RamHardwareWindow.ui:8
 msgid "RAM Hardware Information"
@@ -2927,15 +2896,7 @@ msgstr "Bayt Katlarında (1024) Takas Belleği Kapasitesi"
 msgid "Physical RAM Capacity in Powers of Bytes (1024)"
 msgstr "Bayt Katlarında (1024) RAM Bellek Kapasitesi"
 
-#: ui/RamTab.ui:534
-msgid ""
-"RAM usage percent\n"
-"(Max value is 100 %)"
-msgstr ""
-"RAM kullanım yüzdesi\n"
-"(Maks değer %100)"
-
-#: ui/RamTab.ui:537 ui/ServicesMenuCustomizations.ui:452
+#: ui/RamTab.ui:535 ui/ServicesMenuCustomizations.ui:452
 #: ui/ServicesMenuCustomizations.ui:512
 msgid "RAM Usage:"
 msgstr "RAM Kullanımı:"
@@ -2971,10 +2932,6 @@ msgstr "Tüm voltaj ve akım algılayıcılarını göster"
 #: ui/SensorsTab.ui:183
 msgid "Temperature, Fan, Voltage and Current Sensors"
 msgstr "Sıcaklık, Fan, Voltaj ve Akım Algılayıcıları"
-
-#: ui/SensorsTab.ui:205
-msgid "Number of listed sensors"
-msgstr "Listelenen algılayıcılar"
 
 #: ui/ServicesDetailsWindow.ui:82
 msgid "Documentation"
@@ -3076,10 +3033,6 @@ msgstr "Devre Dışı Bırak"
 #: ui/ServicesMenuRightClick.ui:106
 msgid "Mask"
 msgstr "Gizle"
-
-#: ui/ServicesTab.ui:64
-msgid "Number of listed services"
-msgstr "Listelenen servis sayısı"
 
 #: ui/ServicesTab.ui:122
 msgid "Search system service..."
@@ -3293,10 +3246,6 @@ msgstr "Başlangıç Ögesi Türü:"
 msgid "Note: Name and Command fields cannot be left blank."
 msgstr "Not: Ad ve Komut alanları boş bırakılamaz."
 
-#: ui/StartupTab.ui:64
-msgid "Number of listed startup items"
-msgstr "Listelenen başlangıç ögeleri sayısı"
-
 #: ui/StartupTab.ui:122
 msgid "Search startup item..."
 msgstr "Başlangıç ögesi ara..."
@@ -3384,10 +3333,6 @@ msgstr ""
 "adlandırılabilir.\n"
 "2) Çoğu dosya sisteminin yeniden adlandırılabilmesi için diskler (disk "
 "bölümleri) ayrılmış olmalıdır."
-
-#: ui/StorageTab.ui:64 ui/UsersTab.ui:76
-msgid "Number of listed users"
-msgstr "Listelenen kullanıcı sayısı"
 
 #: ui/StorageTab.ui:122
 msgid "Search storage..."
@@ -3747,6 +3692,60 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:196
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid ""
+#~ "CPU usage percent\n"
+#~ "(Max value is 100 %)"
+#~ msgstr ""
+#~ "MİB kullanım yüzdesi\n"
+#~ "(En yüksek değer %100)"
+
+#~ msgid ""
+#~ "Disk read and write speed on the selected disk\n"
+#~ "\n"
+#~ "Max value depends on disk speed and graphic scale is updated dynamically."
+#~ msgstr ""
+#~ "Seçilen disk üzerindeki okuma ve yazma hızı\n"
+#~ "\n"
+#~ "Maks. değer disk hızına bağlıdır ve grafik ölçeği dinamik olarak "
+#~ "güncellenir."
+
+#~ msgid ""
+#~ "FPS (Frames Per Second)\n"
+#~ "(Maximum value could be limited with current monitor refresh rate or GPU "
+#~ "performance)"
+#~ msgstr ""
+#~ "FPS (Saniyedeki Kare Sayısı = Frames Per Second)\n"
+#~ "(En yüksek değer monitörün şimdiki yenileme oranı veya GPU performansı "
+#~ "ile limitli olabilir)"
+
+#~ msgid ""
+#~ "Network download and upload speed on the selected network card\n"
+#~ "(Max value depends on network/network card speed and graphic scale is "
+#~ "updated dynamically)"
+#~ msgstr ""
+#~ "Ağ İndirme ve Yükleme Hızı\n"
+#~ "(Maks değer ağ/ağ kartının hızına bağlıdır ve grafik ölçeği dinamik "
+#~ "olarak güncellenir)"
+
+#~ msgid "Number of listed processes"
+#~ msgstr "Listelenen işlem sayısı"
+
+#~ msgid ""
+#~ "RAM usage percent\n"
+#~ "(Max value is 100 %)"
+#~ msgstr ""
+#~ "RAM kullanım yüzdesi\n"
+#~ "(Maks değer %100)"
+
+#~ msgid "Number of listed sensors"
+#~ msgstr "Listelenen algılayıcılar"
+
+#~ msgid "Number of listed services"
+#~ msgstr "Listelenen servis sayısı"
+
+#~ msgid "Number of listed startup items"
+#~ msgstr "Listelenen başlangıç ögeleri sayısı"
 
 #~ msgid "Total: "
 #~ msgstr "Toplam: "

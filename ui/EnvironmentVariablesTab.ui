@@ -74,7 +74,8 @@ Variables</property>
               <object class="GtkLabel" id="label7101">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Number of listed persistent environment/shell variables
+                <property name="tooltip-text" translatable="yes">Number of listed items
+
 Summation of number of environment variables and number of shell variables may be bigger than number of total variables.
 Because there may be both environment variable and shell variable with the same variable name.</property>
                 <property name="halign">start</property>

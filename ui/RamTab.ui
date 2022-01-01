@@ -531,8 +531,6 @@ Root privileges are needed for getting this information.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">RAM usage percent
-(Max value is 100 %)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">RAM Usage:</property>
           </object>

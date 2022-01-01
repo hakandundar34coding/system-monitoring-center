@@ -481,8 +481,7 @@ May be different than maximum resolution of the monitor.</property>
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">FPS (Frames Per Second)
-(Maximum value could be limited with current monitor refresh rate or GPU performance)</property>
+                <property name="tooltip-text" translatable="yes">Graphic scale is updated dynamically.</property>
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">FPS Count:</property>
               </object>

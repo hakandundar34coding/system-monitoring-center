@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-01 13:54+0300\n"
+"POT-Creation-Date: 2022-01-01 17:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/Cpu.py:258 ui/CpuTab.ui:45
+#: src/Cpu.py:258 ui/CpuTab.ui:43
 msgid "CPU Usage (Average):"
 msgstr ""
 
@@ -825,7 +825,7 @@ msgstr ""
 msgid "System"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/CpuTab.ui:500 ui/MainWindow.ui:80
+#: src/SettingsGUI.py:320 ui/CpuTab.ui:498 ui/MainWindow.ui:80
 msgid "CPU"
 msgstr ""
 
@@ -833,7 +833,7 @@ msgstr ""
 msgid "RAM"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:417
+#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:416
 msgid "Network"
 msgstr ""
 
@@ -1299,7 +1299,7 @@ msgstr ""
 msgid "User UID:"
 msgstr ""
 
-#: ui/CpuMenus.ui:20 ui/CpuTab.ui:427
+#: ui/CpuMenus.ui:20 ui/CpuTab.ui:425
 msgid "CPU Tab Customizations"
 msgstr ""
 
@@ -1355,23 +1355,17 @@ msgstr ""
 msgid "100%"
 msgstr ""
 
-#: ui/CpuTab.ui:42
-msgid ""
-"CPU usage percent\n"
-"(Max value is 100 %)"
-msgstr ""
-
-#: ui/CpuTab.ui:57 ui/RamTab.ui:549
+#: ui/CpuTab.ui:55 ui/RamTab.ui:547
 msgid "0%"
 msgstr ""
 
-#: ui/CpuTab.ui:103 ui/CpuTab.ui:120 ui/CpuTab.ui:137 ui/CpuTab.ui:196
-#: ui/CpuTab.ui:213 ui/CpuTab.ui:230 ui/CpuTab.ui:247 ui/CpuTab.ui:322
-#: ui/CpuTab.ui:353 ui/CpuTab.ui:398 ui/CpuTab.ui:461 ui/CpuTab.ui:476
+#: ui/CpuTab.ui:101 ui/CpuTab.ui:118 ui/CpuTab.ui:135 ui/CpuTab.ui:194
+#: ui/CpuTab.ui:211 ui/CpuTab.ui:228 ui/CpuTab.ui:245 ui/CpuTab.ui:320
+#: ui/CpuTab.ui:351 ui/CpuTab.ui:396 ui/CpuTab.ui:459 ui/CpuTab.ui:474
 #: ui/DiskTab.ui:67 ui/DiskTab.ui:82 ui/DiskTab.ui:196 ui/DiskTab.ui:213
 #: ui/DiskTab.ui:230 ui/DiskTab.ui:247 ui/DiskTab.ui:264 ui/DiskTab.ui:313
 #: ui/DiskTab.ui:344 ui/DiskTab.ui:394 ui/DiskTab.ui:434 ui/DiskTab.ui:451
-#: ui/EnvironmentVariablesTab.ui:82 ui/FloatingSummaryWindow.ui:19
+#: ui/EnvironmentVariablesTab.ui:83 ui/FloatingSummaryWindow.ui:19
 #: ui/FloatingSummaryWindow.ui:31 ui/FloatingSummaryWindow.ui:43
 #: ui/FloatingSummaryWindow.ui:55 ui/FloatingSummaryWindow.ui:67
 #: ui/FloatingSummaryWindow.ui:79 ui/FloatingSummaryWindow.ui:91
@@ -1381,8 +1375,8 @@ msgstr ""
 #: ui/GpuTab.ui:404 ui/GpuTab.ui:419 ui/NetworkTab.ui:139 ui/NetworkTab.ui:156
 #: ui/NetworkTab.ui:173 ui/NetworkTab.ui:190 ui/NetworkTab.ui:207
 #: ui/NetworkTab.ui:224 ui/NetworkTab.ui:241 ui/NetworkTab.ui:258
-#: ui/NetworkTab.ui:289 ui/NetworkTab.ui:321 ui/NetworkTab.ui:461
-#: ui/NetworkTab.ui:476 ui/PerformanceSummaryHeaderBarGrid.ui:85
+#: ui/NetworkTab.ui:289 ui/NetworkTab.ui:321 ui/NetworkTab.ui:460
+#: ui/NetworkTab.ui:475 ui/PerformanceSummaryHeaderBarGrid.ui:85
 #: ui/PerformanceSummaryHeaderBarGrid.ui:100
 #: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
@@ -1449,33 +1443,33 @@ msgstr ""
 msgid "--"
 msgstr ""
 
-#: ui/CpuTab.ui:153 ui/SystemTab.ui:720
+#: ui/CpuTab.ui:151 ui/SystemTab.ui:720
 msgid "Elapsed time since last system boot"
 msgstr ""
 
-#: ui/CpuTab.ui:155 ui/SystemTab.ui:722
+#: ui/CpuTab.ui:153 ui/SystemTab.ui:722
 msgid "Up Time:"
 msgstr ""
 
-#: ui/CpuTab.ui:167
+#: ui/CpuTab.ui:165
 msgid "Number of total running processes and threads"
 msgstr ""
 
-#: ui/CpuTab.ui:169
+#: ui/CpuTab.ui:167
 msgid "Processes-Threads:"
 msgstr ""
 
-#: ui/CpuTab.ui:181
+#: ui/CpuTab.ui:179
 msgid ""
 "L1d (for data) and L1i (for instructions) cache memory values of the "
 "selected CPU core"
 msgstr ""
 
-#: ui/CpuTab.ui:183
+#: ui/CpuTab.ui:181
 msgid "Cache (L1d-L1i):"
 msgstr ""
 
-#: ui/CpuTab.ui:263
+#: ui/CpuTab.ui:261
 msgid ""
 "Number of physical CPU cores and number of online logical CPU cores\n"
 "\n"
@@ -1483,59 +1477,59 @@ msgid ""
 "or if it is disabled."
 msgstr ""
 
-#: ui/CpuTab.ui:267
+#: ui/CpuTab.ui:265
 msgid "Cores (Physical-Logical):"
 msgstr ""
 
-#: ui/CpuTab.ui:279
+#: ui/CpuTab.ui:277
 msgid "Number of CPU packages (CPU sockets)"
 msgstr ""
 
-#: ui/CpuTab.ui:281
+#: ui/CpuTab.ui:279
 msgid "CPU Sockets:"
 msgstr ""
 
-#: ui/CpuTab.ui:293
+#: ui/CpuTab.ui:291
 msgid "Minimum and maximum frequency values of the selected CPU core"
 msgstr ""
 
-#: ui/CpuTab.ui:295
+#: ui/CpuTab.ui:293
 msgid "Min-Max Frequency:"
 msgstr ""
 
-#: ui/CpuTab.ui:307
+#: ui/CpuTab.ui:305
 msgid "Current frequency of the selected CPU core"
 msgstr ""
 
-#: ui/CpuTab.ui:309
+#: ui/CpuTab.ui:307
 msgid "Frequency:"
 msgstr ""
 
-#: ui/CpuTab.ui:338 ui/PerformanceSummaryHeaderBarGrid.ui:16
+#: ui/CpuTab.ui:336 ui/PerformanceSummaryHeaderBarGrid.ui:16
 msgid "Average CPU usage of all cores"
 msgstr ""
 
-#: ui/CpuTab.ui:340
+#: ui/CpuTab.ui:338
 msgid "Average Usage:"
 msgstr ""
 
-#: ui/CpuTab.ui:369
+#: ui/CpuTab.ui:367
 msgid "CPU architecture"
 msgstr ""
 
-#: ui/CpuTab.ui:371
+#: ui/CpuTab.ui:369
 msgid "Architecture:"
 msgstr ""
 
-#: ui/CpuTab.ui:383
+#: ui/CpuTab.ui:381
 msgid "L2 and L3 cache memory values of the selected CPU core"
 msgstr ""
 
-#: ui/CpuTab.ui:385
+#: ui/CpuTab.ui:383
 msgid "Cache (L2-L3):"
 msgstr ""
 
-#: ui/CpuTab.ui:453
+#: ui/CpuTab.ui:451
 msgid ""
 "Selected CPU Core Number\n"
 "\n"
@@ -1546,11 +1540,11 @@ msgid ""
 "Cache (L2-L3)"
 msgstr ""
 
-#: ui/CpuTab.ui:474
+#: ui/CpuTab.ui:472
 msgid "CPU Model Name"
 msgstr ""
 
-#: ui/CpuTab.ui:498
+#: ui/CpuTab.ui:496
 msgid "CPU (Central Processing Unit)"
 msgstr ""
 
@@ -1715,25 +1709,22 @@ msgid "Capacity:"
 msgstr ""
 
 #: ui/DiskTab.ui:481 ui/NetworkTab.ui:364
-msgid "B/s "
+msgid "B/s"
 msgstr ""
 
-#: ui/DiskTab.ui:492
-msgid ""
-"Disk read and write speed on the selected disk\n"
-"\n"
-"Max value depends on disk speed and graphic scale is updated dynamically."
+#: ui/DiskTab.ui:492 ui/GpuTab.ui:484 ui/NetworkTab.ui:375
+msgid "Graphic scale is updated dynamically."
 msgstr ""
 
-#: ui/DiskTab.ui:496
+#: ui/DiskTab.ui:494
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr ""
 
-#: ui/DiskTab.ui:508 ui/GpuTab.ui:467 ui/NetworkTab.ui:390
+#: ui/DiskTab.ui:506 ui/GpuTab.ui:467 ui/NetworkTab.ui:389
 msgid "0"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:102
+#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:103
 msgid "Environment Variables Tab Customizations"
 msgstr ""
 
@@ -1879,30 +1870,31 @@ msgstr ""
 
 #: ui/EnvironmentVariablesTab.ui:77
 msgid ""
-"Number of listed persistent environment/shell variables\n"
+"Number of listed items\n"
+"\n"
 "Summation of number of environment variables and number of shell variables "
 "may be bigger than number of total variables.\n"
 "Because there may be both environment variable and shell variable with the "
 "same variable name."
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:137
+#: ui/EnvironmentVariablesTab.ui:138
 msgid "Search environment/shell variable..."
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:155
+#: ui/EnvironmentVariablesTab.ui:156
 msgid "Show all environment/shell variables"
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:177
+#: ui/EnvironmentVariablesTab.ui:178
 msgid "Show all environment variables"
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:199
+#: ui/EnvironmentVariablesTab.ui:200
 msgid "Show all shell variables"
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:233
+#: ui/EnvironmentVariablesTab.ui:234
 msgid ""
 "Note: Backing up the following files is advised before changing environment "
 "variables: '/etc/environment', '/home/[username]/.bashrc'."
@@ -2033,14 +2025,7 @@ msgstr ""
 msgid "FPS"
 msgstr ""
 
-#: ui/GpuTab.ui:484
-msgid ""
-"FPS (Frames Per Second)\n"
-"(Maximum value could be limited with current monitor refresh rate or GPU "
-"performance)"
-msgstr ""
-
-#: ui/GpuTab.ui:487
+#: ui/GpuTab.ui:486
 msgid "FPS Count:"
 msgstr ""
 
@@ -2107,7 +2092,7 @@ msgstr ""
 msgid "Main Menu"
 msgstr ""
 
-#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:433
+#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:432
 msgid "Network Tab Customizations"
 msgstr ""
 
@@ -2229,28 +2214,21 @@ msgstr ""
 msgid "Signal Strength:"
 msgstr ""
 
-#: ui/NetworkTab.ui:375
-msgid ""
-"Network download and upload speed on the selected network card\n"
-"(Max value depends on network/network card speed and graphic scale is "
-"updated dynamically)"
-msgstr ""
-
-#: ui/NetworkTab.ui:378
+#: ui/NetworkTab.ui:377
 msgid "Network Download (-) & Upload (--) Speed:"
 msgstr ""
 
-#: ui/NetworkTab.ui:414
+#: ui/NetworkTab.ui:413
 msgid ""
 "Network\n"
 "(Wired and Wireless Network Cards)"
 msgstr ""
 
-#: ui/NetworkTab.ui:459
+#: ui/NetworkTab.ui:458
 msgid "Network Interface Controller (NIC) Name"
 msgstr ""
 
-#: ui/NetworkTab.ui:474
+#: ui/NetworkTab.ui:473
 msgid "Network Card Device Model Name"
 msgstr ""
 
@@ -2591,8 +2569,9 @@ msgstr ""
 msgid "Show processes from other users"
 msgstr ""
 
-#: ui/ProcessesTab.ui:251
-msgid "Number of listed processes"
+#: ui/ProcessesTab.ui:251 ui/SensorsTab.ui:205 ui/ServicesTab.ui:64
+#: ui/StartupTab.ui:64 ui/StorageTab.ui:64 ui/UsersTab.ui:76
+msgid "Number of listed items"
 msgstr ""
 
 #: ui/RamHardwareWindow.ui:8
@@ -2732,13 +2711,7 @@ msgstr ""
 msgid "Physical RAM Capacity in Powers of Bytes (1024)"
 msgstr ""
 
-#: ui/RamTab.ui:534
-msgid ""
-"RAM usage percent\n"
-"(Max value is 100 %)"
-msgstr ""
-
-#: ui/RamTab.ui:537 ui/ServicesMenuCustomizations.ui:452
+#: ui/RamTab.ui:535 ui/ServicesMenuCustomizations.ui:452
 #: ui/ServicesMenuCustomizations.ui:512
 msgid "RAM Usage:"
 msgstr ""
@@ -2771,10 +2744,6 @@ msgstr ""
 
 #: ui/SensorsTab.ui:183
 msgid "Temperature, Fan, Voltage and Current Sensors"
-msgstr ""
-
-#: ui/SensorsTab.ui:205
-msgid "Number of listed sensors"
 msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:82
@@ -2876,10 +2845,6 @@ msgstr ""
 
 #: ui/ServicesMenuRightClick.ui:106
 msgid "Mask"
-msgstr ""
-
-#: ui/ServicesTab.ui:64
-msgid "Number of listed services"
 msgstr ""
 
 #: ui/ServicesTab.ui:122
@@ -3088,10 +3053,6 @@ msgstr ""
 msgid "Note: Name and Command fields cannot be left blank."
 msgstr ""
 
-#: ui/StartupTab.ui:64
-msgid "Number of listed startup items"
-msgstr ""
-
 #: ui/StartupTab.ui:122
 msgid "Search startup item..."
 msgstr ""
@@ -3171,10 +3132,6 @@ msgid ""
 "Note: Renaming is not performed if following conditions are not meet:\n"
 "1) Only file systems of partitions (not whole disk) can be renamed.\n"
 "2) Disks (partitions) have to be unmounted for renaming many file systems."
-msgstr ""
-
-#: ui/StorageTab.ui:64 ui/UsersTab.ui:76
-msgid "Number of listed users"
 msgstr ""
 
 #: ui/StorageTab.ui:122

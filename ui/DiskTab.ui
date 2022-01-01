@@ -478,7 +478,7 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">end</property>
-            <property name="label" translatable="yes">B/s </property>
+            <property name="label" translatable="yes">B/s</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
@@ -489,9 +489,7 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Disk read and write speed on the selected disk
-
-Max value depends on disk speed and graphic scale is updated dynamically.</property>
+            <property name="tooltip-text" translatable="yes">Graphic scale is updated dynamically.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Disk Read (-) &amp; Write (--) Speed:</property>
           </object>

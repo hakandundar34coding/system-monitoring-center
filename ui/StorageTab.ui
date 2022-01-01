@@ -61,7 +61,7 @@
               <object class="GtkLabel" id="label4101">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Number of listed users</property>
+                <property name="tooltip-text" translatable="yes">Number of listed items</property>
                 <property name="halign">start</property>
                 <property name="margin-start">60</property>
                 <property name="label" translatable="yes">--</property>
