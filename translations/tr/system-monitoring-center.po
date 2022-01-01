@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-01 19:01+0300\n"
-"PO-Revision-Date: 2022-01-01 19:03+0300\n"
+"POT-Creation-Date: 2022-01-01 20:04+0300\n"
+"PO-Revision-Date: 2022-01-01 20:09+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -296,17 +296,17 @@ msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
 #: src/Processes.py:134 src/ProcessesMenuCustomizations.py:500
-#: ui/StorageTab.ui:241
+#: ui/StorageTab.ui:242
 msgid "User defined expand"
 msgstr "Kullanıcı tanımlı genişletme"
 
 #: src/Processes.py:135 src/ProcessesMenuCustomizations.py:501
-#: ui/StorageTab.ui:263
+#: ui/StorageTab.ui:264
 msgid "Expand all"
 msgstr "Tümünü genişlet"
 
 #: src/Processes.py:136 src/ProcessesMenuCustomizations.py:502
-#: ui/StorageTab.ui:285
+#: ui/StorageTab.ui:286
 msgid "Collapse all"
 msgstr "Tümünü daralt"
 
@@ -1181,14 +1181,6 @@ msgstr "Bu dosya sistemine sahip diskleri yeniden adlandırma desteklenmiyor."
 msgid "Disk has been removed and file system could not be renamed."
 msgstr "Disk çıkarıldı ve dosya sistemi yeniden adlandırılabilir."
 
-#: src/System.py:398
-msgid "(Yes)"
-msgstr "(Evet)"
-
-#: src/System.py:400
-msgid "(No)"
-msgstr "(Hayır)"
-
 #: src/Users.py:164 ui/UsersDetailsWindow.ui:39
 #: ui/UsersMenuCustomizations.ui:252
 msgid "User Name"
@@ -1361,7 +1353,7 @@ msgstr "Kullanıcı UUID:"
 msgid "CPU Tab Customizations"
 msgstr "MİB Sekmesi Özelleştirmeleri"
 
-#: ui/CpuMenus.ui:51
+#: ui/CpuMenus.ui:51 ui/DiskMenus.ui:407
 msgid "Chart - Show:"
 msgstr "Grafik - Göster:"
 
@@ -1424,7 +1416,7 @@ msgstr "%0"
 #: ui/DiskTab.ui:66 ui/DiskTab.ui:81 ui/DiskTab.ui:187 ui/DiskTab.ui:204
 #: ui/DiskTab.ui:221 ui/DiskTab.ui:238 ui/DiskTab.ui:255 ui/DiskTab.ui:304
 #: ui/DiskTab.ui:335 ui/DiskTab.ui:385 ui/DiskTab.ui:425 ui/DiskTab.ui:442
-#: ui/EnvironmentVariablesTab.ui:83 ui/FloatingSummaryWindow.ui:19
+#: ui/EnvironmentVariablesTab.ui:84 ui/FloatingSummaryWindow.ui:19
 #: ui/FloatingSummaryWindow.ui:31 ui/FloatingSummaryWindow.ui:43
 #: ui/FloatingSummaryWindow.ui:55 ui/FloatingSummaryWindow.ui:67
 #: ui/FloatingSummaryWindow.ui:79 ui/FloatingSummaryWindow.ui:91
@@ -1456,7 +1448,7 @@ msgstr "%0"
 #: ui/ProcessesDetailsWindow.ui:1425 ui/ProcessesDetailsWindow.ui:1440
 #: ui/ProcessesDetailsWindow.ui:1556 ui/ProcessesDetailsWindow.ui:1571
 #: ui/ProcessesDetailsWindow.ui:1586 ui/ProcessesDetailsWindow.ui:1601
-#: ui/ProcessesTab.ui:254 ui/RamHardwareWindow.ui:87
+#: ui/ProcessesTab.ui:255 ui/RamHardwareWindow.ui:87
 #: ui/RamSwapDetailsWindow.ui:87 ui/RamTab.ui:69 ui/RamTab.ui:86
 #: ui/RamTab.ui:129 ui/RamTab.ui:146 ui/RamTab.ui:176 ui/RamTab.ui:206
 #: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:459 ui/RamTab.ui:474
@@ -1471,7 +1463,7 @@ msgstr "%0"
 #: ui/ServicesDetailsWindow.ui:434 ui/ServicesDetailsWindow.ui:461
 #: ui/ServicesDetailsWindow.ui:514 ui/ServicesDetailsWindow.ui:847
 #: ui/ServicesDetailsWindow.ui:861 ui/ServicesDetailsWindow.ui:875
-#: ui/ServicesDetailsWindow.ui:889 ui/ServicesTab.ui:67 ui/StartupTab.ui:67
+#: ui/ServicesDetailsWindow.ui:889 ui/ServicesTab.ui:68 ui/StartupTab.ui:68
 #: ui/StorageDetailsWindow.ui:207 ui/StorageDetailsWindow.ui:222
 #: ui/StorageDetailsWindow.ui:237 ui/StorageDetailsWindow.ui:252
 #: ui/StorageDetailsWindow.ui:267 ui/StorageDetailsWindow.ui:282
@@ -1484,7 +1476,7 @@ msgstr "%0"
 #: ui/StorageDetailsWindow.ui:625 ui/StorageDetailsWindow.ui:640
 #: ui/StorageDetailsWindow.ui:655 ui/StorageDetailsWindow.ui:670
 #: ui/StorageDetailsWindow.ui:685 ui/StorageDetailsWindow.ui:701
-#: ui/StorageRenameWindow.ui:164 ui/StorageTab.ui:67 ui/SystemTab.ui:29
+#: ui/StorageRenameWindow.ui:164 ui/StorageTab.ui:68 ui/SystemTab.ui:29
 #: ui/SystemTab.ui:44 ui/SystemTab.ui:179 ui/SystemTab.ui:196
 #: ui/SystemTab.ui:241 ui/SystemTab.ui:271 ui/SystemTab.ui:304
 #: ui/SystemTab.ui:338 ui/SystemTab.ui:369 ui/SystemTab.ui:386
@@ -1498,7 +1490,7 @@ msgstr "%0"
 #: ui/UsersDetailsWindow.ui:298 ui/UsersDetailsWindow.ui:313
 #: ui/UsersDetailsWindow.ui:328 ui/UsersDetailsWindow.ui:343
 #: ui/UsersDetailsWindow.ui:358 ui/UsersDetailsWindow.ui:374
-#: ui/UsersDetailsWindow.ui:390 ui/UsersDetailsWindow.ui:419 ui/UsersTab.ui:79
+#: ui/UsersDetailsWindow.ui:390 ui/UsersDetailsWindow.ui:419 ui/UsersTab.ui:80
 msgid "--"
 msgstr ""
 
@@ -1612,10 +1604,6 @@ msgstr "Disk Hızı:"
 #: ui/StorageMenuCustomizations.ui:675 ui/StorageMenuCustomizations.ui:735
 msgid "Disk Usage:"
 msgstr "Disk Kullanımı:"
-
-#: ui/DiskMenus.ui:407
-msgid "Chart - Show Line - Disk:"
-msgstr "Grafik - Çizgiyi Göster - Disk:"
 
 #: ui/DiskMenus.ui:428
 msgid "Read Speed"
@@ -1753,7 +1741,7 @@ msgstr "Disk Okuma (-) & Yazma (--) Hızı:"
 msgid "0"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:103
+#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:104
 msgid "Environment Variables Tab Customizations"
 msgstr "Ortam Değişkenleri Özelleştirme Menüsü"
 
@@ -1937,23 +1925,23 @@ msgstr ""
 "Çünkü aynı değişken adıyla hem ortam değişkeni hem de kabuk değişkeni "
 "olabilir."
 
-#: ui/EnvironmentVariablesTab.ui:138
+#: ui/EnvironmentVariablesTab.ui:139
 msgid "Search environment/shell variable..."
 msgstr "Ortam/kabuk değişkeni ara..."
 
-#: ui/EnvironmentVariablesTab.ui:156
+#: ui/EnvironmentVariablesTab.ui:157
 msgid "Show all environment/shell variables"
 msgstr "Tüm ortam/kabuk değişkenlerini göster"
 
-#: ui/EnvironmentVariablesTab.ui:178
+#: ui/EnvironmentVariablesTab.ui:179
 msgid "Show all environment variables"
 msgstr "Tüm ortam değişkenlerini göster"
 
-#: ui/EnvironmentVariablesTab.ui:200
+#: ui/EnvironmentVariablesTab.ui:201
 msgid "Show all shell variables"
 msgstr "Tüm kabuk değişkenlerini göster"
 
-#: ui/EnvironmentVariablesTab.ui:234
+#: ui/EnvironmentVariablesTab.ui:235
 msgid ""
 "Note: Backing up the following files is advised before changing environment "
 "variables: '/etc/environment', '/home/[username]/.bashrc'."
@@ -2465,7 +2453,7 @@ msgstr "Açık Dosyalar"
 msgid "Disk and Path"
 msgstr "Disk ve Yol"
 
-#: ui/ProcessesMenuCustomizations.ui:20 ui/ProcessesTab.ui:274
+#: ui/ProcessesMenuCustomizations.ui:20 ui/ProcessesTab.ui:275
 msgid "Processes Tab Customizations"
 msgstr "İşlemler Sekmesi Özelleştirmeleri"
 
@@ -2773,7 +2761,7 @@ msgstr ""
 msgid "Dependencies"
 msgstr "Bağımlılıklar"
 
-#: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:87
+#: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:88
 msgid "Services Tab Customizations"
 msgstr "Servisler Sekmesi Özelleştirmeleri"
 
@@ -2809,11 +2797,11 @@ msgstr "Devre Dışı Bırak"
 msgid "Mask"
 msgstr "Gizle"
 
-#: ui/ServicesTab.ui:122
+#: ui/ServicesTab.ui:123
 msgid "Search system service..."
 msgstr "Sistem servisi ara..."
 
-#: ui/ServicesTab.ui:134
+#: ui/ServicesTab.ui:135
 msgid ""
 "Refresh\n"
 "(Reloads Services tab data)"
@@ -2821,19 +2809,19 @@ msgstr ""
 "Yenile\n"
 "(Servisler sekmesi verilerini yeniden yükler)"
 
-#: ui/ServicesTab.ui:162
+#: ui/ServicesTab.ui:163
 msgid "Show all services"
 msgstr "Tüm servisleri göster"
 
-#: ui/ServicesTab.ui:184
+#: ui/ServicesTab.ui:185
 msgid "Show all loaded services"
 msgstr "Tüm yüklenmiş servisleri göster"
 
-#: ui/ServicesTab.ui:206
+#: ui/ServicesTab.ui:207
 msgid "Show all non-loaded services"
 msgstr "Tüm yüklenmemiş servisleri göster"
 
-#: ui/ServicesTab.ui:240
+#: ui/ServicesTab.ui:241
 msgid ""
 "Note: This tab is not reloaded automatically. Manually reload for changes."
 msgstr ""
@@ -2931,7 +2919,7 @@ msgstr "Yüzen özet penceresinin ayarlarını varsayılanlara sfırla"
 msgid "Reset all settings of the application to defaults"
 msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırla"
 
-#: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:87
+#: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:88
 msgid "Startup Tab Customizations"
 msgstr "Başlangıç Sekmesi Özelleştirmeleri"
 
@@ -3021,19 +3009,19 @@ msgstr "Başlangıç Ögesi Türü:"
 msgid "Note: Name and Command fields cannot be left blank."
 msgstr "Not: Ad ve Komut alanları boş bırakılamaz."
 
-#: ui/StartupTab.ui:122
+#: ui/StartupTab.ui:123
 msgid "Search startup item..."
 msgstr "Başlangıç ögesi ara..."
 
-#: ui/StartupTab.ui:140
+#: ui/StartupTab.ui:141
 msgid "Show all startup items"
 msgstr "Tüm başlangıç ögelerini göster"
 
-#: ui/StartupTab.ui:162
+#: ui/StartupTab.ui:163
 msgid "Show all enabled (visible) startup items"
 msgstr "Tüm etkinleştirilmiş (görünür) başlangıç ögelerini göster"
 
-#: ui/StartupTab.ui:184
+#: ui/StartupTab.ui:185
 msgid "Show all disabled (hidden) startup items"
 msgstr "Tüm devre dışı bırakılmış (gizli) başlangıç ögelerini göster"
 
@@ -3053,7 +3041,7 @@ msgstr ""
 "Benzersiz Depolama Kimliği\n"
 "(WWN)"
 
-#: ui/StorageMenuCustomizations.ui:20 ui/StorageTab.ui:87
+#: ui/StorageMenuCustomizations.ui:20 ui/StorageTab.ui:88
 msgid "Storage Tab Customizations"
 msgstr "Depolama Sekmesi Özelleştirmeleri"
 
@@ -3109,23 +3097,23 @@ msgstr ""
 "2) Çoğu dosya sisteminin yeniden adlandırılabilmesi için diskler (disk "
 "bölümleri) ayrılmış olmalıdır."
 
-#: ui/StorageTab.ui:122
+#: ui/StorageTab.ui:123
 msgid "Search storage..."
 msgstr "Depolama ara..."
 
-#: ui/StorageTab.ui:140
+#: ui/StorageTab.ui:141
 msgid "Show all disks/partitions"
 msgstr "Tüm diskleri/disk bölümlerini göster"
 
-#: ui/StorageTab.ui:162
+#: ui/StorageTab.ui:163
 msgid "Show all non-removable disks/partitions"
 msgstr "Tüm çıkarılamayan diskleri/disk bölümlerini göster"
 
-#: ui/StorageTab.ui:184
+#: ui/StorageTab.ui:185
 msgid "Show all removable disks/partitions"
 msgstr "Tüm çıkarılabilir diskleri/disk bölümlerini göster"
 
-#: ui/StorageTab.ui:206
+#: ui/StorageTab.ui:207
 msgid "Show all optical and virtual disks/partitions"
 msgstr "Tüm optik ve sanal diskleri/disk bölümlerini göster"
 
@@ -3308,7 +3296,7 @@ msgstr ""
 msgid "Packages (Python-Flatpak):"
 msgstr "Paketler (Python-Flatpak):"
 
-#: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:99
+#: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:100
 msgid "Users Tab Customizations"
 msgstr "Kullanıcılar Sekmesi Özelleştirmeleri"
 
@@ -3324,21 +3312,30 @@ msgstr "Kullanıcı Oturumunu Sonlandır"
 msgid "Note: User-specific performance data is approximative."
 msgstr "Not: Kullanıcıya özgü performans bilgisi yaklaşıktır."
 
-#: ui/UsersTab.ui:134
+#: ui/UsersTab.ui:135
 msgid "Search user..."
 msgstr "Kullanıcı ara..."
 
-#: ui/UsersTab.ui:152
+#: ui/UsersTab.ui:153
 msgid "Show all users"
 msgstr "Tüm kullanıcıları göster"
 
-#: ui/UsersTab.ui:174
+#: ui/UsersTab.ui:175
 msgid "Show only users logged in"
 msgstr "Sadece giriş yapmış kullanıcıları göster"
 
-#: ui/UsersTab.ui:196
+#: ui/UsersTab.ui:197
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "(Yes)"
+#~ msgstr "(Evet)"
+
+#~ msgid "(No)"
+#~ msgstr "(Hayır)"
+
+#~ msgid "Chart - Show Line - Disk:"
+#~ msgstr "Grafik - Çizgiyi Göster - Disk:"
 
 #~ msgid "Elapsed time since last system boot"
 #~ msgstr "Sistem başlangıcından sonra geçen zaman"

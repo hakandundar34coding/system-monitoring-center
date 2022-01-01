@@ -395,9 +395,9 @@ def system_loop_func():
 
     # Get if current user has root privileges
     if os.geteuid() == 0:
-        have_root_access = _tr("(Yes)")
+        have_root_access = f'({_tr("Yes")})'
     else:
-        have_root_access = _tr("(No)")
+        have_root_access = f'({_tr("No")})'
 
 
     # Set label texts to show information
