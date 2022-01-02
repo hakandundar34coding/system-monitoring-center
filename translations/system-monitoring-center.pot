@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-02 09:59+0300\n"
+"POT-Creation-Date: 2022-01-02 14:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,8 +34,8 @@ msgid "Selected CPU Core: "
 msgstr ""
 
 #: src/Disk.py:207 src/Disk.py:275 src/Disk.py:276 src/Disk.py:277
-#: src/Disk.py:278 src/Storage.py:329 src/Storage.py:383 src/Storage.py:392
-#: src/Storage.py:403 src/Storage.py:733 src/Storage.py:740
+#: src/Disk.py:278 src/Storage.py:323 src/Storage.py:377 src/Storage.py:386
+#: src/Storage.py:397 src/Storage.py:727 src/Storage.py:734
 #: src/StorageDetails.py:215 src/StorageDetails.py:258
 #: src/StorageDetails.py:270 src/StorageDetails.py:284
 #: src/StorageDetails.py:440 src/StorageDetails.py:441
@@ -47,35 +47,35 @@ msgstr ""
 msgid "[Not mounted]"
 msgstr ""
 
-#: src/Disk.py:215 src/Disk.py:409 src/Storage.py:374 src/StorageDetails.py:247
+#: src/Disk.py:215 src/Disk.py:409 src/Storage.py:368 src/StorageDetails.py:247
 msgid "[SWAP]"
 msgstr ""
 
 #: src/Disk.py:224 src/Gpu.py:231 src/Network.py:232 src/Network.py:254
-#: src/Services.py:195 src/ServicesDetails.py:148 src/Storage.py:496
-#: src/Storage.py:507 src/Storage.py:518 src/StorageDetails.py:225
+#: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:490
+#: src/Storage.py:501 src/Storage.py:512 src/StorageDetails.py:225
 #: src/StorageDetails.py:372 src/StorageDetails.py:386
 #: src/StorageDetails.py:400 src/UsersDetails.py:239
 msgid "Yes"
 msgstr ""
 
 #: src/Disk.py:226 src/Gpu.py:233 src/Gpu.py:318 src/Network.py:234
-#: src/Services.py:195 src/ServicesDetails.py:148 src/Storage.py:498
-#: src/Storage.py:509 src/Storage.py:520 src/StorageDetails.py:221
+#: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:492
+#: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:221
 #: src/StorageDetails.py:374 src/StorageDetails.py:388
 #: src/StorageDetails.py:402 src/UsersDetails.py:241
 msgid "No"
 msgstr ""
 
-#: src/Disk.py:355 src/Disk.py:383 src/RamSwapDetails.py:68 src/Storage.py:318
-#: src/Storage.py:323 src/StorageDetails.py:200 src/StorageDetails.py:210
+#: src/Disk.py:355 src/Disk.py:383 src/RamSwapDetails.py:68 src/Storage.py:312
+#: src/Storage.py:317 src/StorageDetails.py:200 src/StorageDetails.py:210
 #: src/StorageMenuRightClick.py:182
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:360 src/SettingsGUI.py:320 src/Storage.py:309 src/Storage.py:418
-#: src/Storage.py:462 src/Storage.py:472 src/Storage.py:483 src/Storage.py:492
-#: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:191
+#: src/Disk.py:360 src/SettingsGUI.py:320 src/Storage.py:303 src/Storage.py:412
+#: src/Storage.py:456 src/Storage.py:466 src/Storage.py:477 src/Storage.py:486
+#: src/Storage.py:497 src/Storage.py:508 src/StorageDetails.py:191
 #: src/StorageDetails.py:301 src/StorageDetails.py:339
 #: src/StorageDetails.py:347 src/StorageDetails.py:356
 #: src/StorageDetails.py:363 src/StorageDetails.py:377
@@ -131,18 +131,18 @@ msgid ""
 "bashrc' and '/etc/environment' files are supported."
 msgstr ""
 
-#: src/EnvironmentVariables.py:165 src/EnvironmentVariables.py:291
-#: src/EnvironmentVariables.py:458 src/EnvironmentVariables.py:504
+#: src/EnvironmentVariables.py:165 src/EnvironmentVariables.py:285
+#: src/EnvironmentVariables.py:452 src/EnvironmentVariables.py:498
 msgid "Environment Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:165 src/EnvironmentVariables.py:297
-#: src/EnvironmentVariables.py:457 src/EnvironmentVariables.py:458
+#: src/EnvironmentVariables.py:165 src/EnvironmentVariables.py:291
+#: src/EnvironmentVariables.py:451 src/EnvironmentVariables.py:452
 msgid "Environment & Shell Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:171 src/EnvironmentVariables.py:294
-#: src/EnvironmentVariables.py:457 src/EnvironmentVariables.py:496
+#: src/EnvironmentVariables.py:171 src/EnvironmentVariables.py:288
+#: src/EnvironmentVariables.py:451 src/EnvironmentVariables.py:490
 msgid "Shell Variable"
 msgstr ""
 
@@ -154,31 +154,31 @@ msgstr ""
 msgid "Shell variables cannot be deleted."
 msgstr ""
 
-#: src/EnvironmentVariables.py:190 ui/EnvironmentVarMenuCustomizations.ui:252
+#: src/EnvironmentVariables.py:184 ui/EnvironmentVarMenuCustomizations.ui:252
 msgid "Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:191 ui/EnvironmentVarMenuCustomizations.ui:268
+#: src/EnvironmentVariables.py:185 ui/EnvironmentVarMenuCustomizations.ui:268
 msgid "Value"
 msgstr ""
 
-#: src/EnvironmentVariables.py:192 ui/EnvironmentVarMenuCustomizations.ui:282
+#: src/EnvironmentVariables.py:186 ui/EnvironmentVarMenuCustomizations.ui:282
 msgid "Variable Type"
 msgstr ""
 
-#: src/EnvironmentVariables.py:223
+#: src/EnvironmentVariables.py:217
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "with root privileges."
 msgstr ""
 
-#: src/EnvironmentVariables.py:234 src/EnvironmentVariables.py:243
+#: src/EnvironmentVariables.py:228 src/EnvironmentVariables.py:237
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "in terminal."
 msgstr ""
 
-#: src/EnvironmentVariables.py:460
+#: src/EnvironmentVariables.py:454
 msgid ""
 "Total: AAAA persistent variables (BBBB environment variables, CCCC shell "
 "variables)"
@@ -336,7 +336,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: src/Processes.py:212 src/Users.py:176 ui/UsersDetailsWindow.ui:195
+#: src/Processes.py:212 src/Users.py:170 ui/UsersDetailsWindow.ui:195
 #: ui/UsersMenuCustomizations.ui:352
 msgid "CPU%"
 msgstr ""
@@ -388,23 +388,23 @@ msgstr ""
 msgid "PPID"
 msgstr ""
 
-#: src/Processes.py:223 src/Users.py:167 ui/ProcessesMenuCustomizations.ui:567
+#: src/Processes.py:223 src/Users.py:161 ui/ProcessesMenuCustomizations.ui:567
 #: ui/UsersDetailsWindow.ui:78 ui/UsersMenuCustomizations.ui:296
 msgid "UID"
 msgstr ""
 
-#: src/Processes.py:224 src/Users.py:168 ui/ProcessesMenuCustomizations.ui:581
+#: src/Processes.py:224 src/Users.py:162 ui/ProcessesMenuCustomizations.ui:581
 #: ui/UsersDetailsWindow.ui:91 ui/UsersMenuCustomizations.ui:310
 msgid "GID"
 msgstr ""
 
-#: src/Processes.py:225 src/Storage.py:208
+#: src/Processes.py:225 src/Storage.py:202
 #: ui/ProcessesMenuCustomizations.ui:483 ui/ServicesDetailsWindow.ui:69
 #: ui/StorageDetailsWindow.ui:418 ui/StorageMenuCustomizations.ui:407
 msgid "Path"
 msgstr ""
 
-#: src/Processes.py:244 src/Services.py:194 src/ServicesDetails.py:147
+#: src/Processes.py:244 src/Services.py:188 src/ServicesDetails.py:147
 msgid "Running"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgstr ""
 msgid "Tracing Stop"
 msgstr ""
 
-#: src/Processes.py:244 src/Services.py:194 src/ServicesDetails.py:147
+#: src/Processes.py:244 src/Services.py:188 src/ServicesDetails.py:147
 msgid "Dead"
 msgstr ""
 
@@ -545,7 +545,7 @@ msgid "Capacity"
 msgstr ""
 
 #: src/RamHardwareInformation.py:131 src/RamHardwareInformation.py:150
-#: src/RamSwapDetails.py:95 src/Storage.py:197 ui/ServicesDetailsWindow.ui:245
+#: src/RamSwapDetails.py:95 src/Storage.py:191 ui/ServicesDetailsWindow.ui:245
 #: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:295
 msgid "Type"
 msgstr ""
@@ -598,120 +598,120 @@ msgstr ""
 msgid "This system has no swap memory."
 msgstr ""
 
-#: src/Sensors.py:107
+#: src/Sensors.py:101
 msgid "Sensor Group"
 msgstr ""
 
-#: src/Sensors.py:108
+#: src/Sensors.py:102
 msgid "Sensor Name"
 msgstr ""
 
-#: src/Sensors.py:109
+#: src/Sensors.py:103
 msgid "Current Vale"
 msgstr ""
 
-#: src/Sensors.py:110
+#: src/Sensors.py:104
 msgid "Critical Value"
 msgstr ""
 
-#: src/Sensors.py:111
+#: src/Sensors.py:105
 msgid "Max Value"
 msgstr ""
 
-#: src/Sensors.py:365
+#: src/Sensors.py:359
 msgid ""
 "Total: AAAA sensors (BBBB temperature, CCCC fan, DDDD voltage/current "
 "sensors)"
 msgstr ""
 
-#: src/Services.py:168 ui/ServicesMenuCustomizations.ui:252
+#: src/Services.py:162 ui/ServicesMenuCustomizations.ui:252
 msgid "Service Name"
 msgstr ""
 
-#: src/Services.py:169 ui/ServicesMenuCustomizations.ui:268
+#: src/Services.py:163 ui/ServicesMenuCustomizations.ui:268
 msgid "State"
 msgstr ""
 
-#: src/Services.py:170 ui/ServicesDetailsWindow.ui:476
+#: src/Services.py:164 ui/ServicesDetailsWindow.ui:476
 #: ui/ServicesMenuCustomizations.ui:282
 msgid "Main PID"
 msgstr ""
 
-#: src/Services.py:171 ui/ServicesDetailsWindow.ui:297
+#: src/Services.py:165 ui/ServicesDetailsWindow.ui:297
 #: ui/ServicesMenuCustomizations.ui:296
 msgid "Active State"
 msgstr ""
 
-#: src/Services.py:172 ui/ServicesDetailsWindow.ui:284
+#: src/Services.py:166 ui/ServicesDetailsWindow.ui:284
 #: ui/ServicesMenuCustomizations.ui:310
 msgid "Load State"
 msgstr ""
 
-#: src/Services.py:173 ui/ServicesDetailsWindow.ui:310
+#: src/Services.py:167 ui/ServicesDetailsWindow.ui:310
 #: ui/ServicesMenuCustomizations.ui:324
 msgid "Sub-State"
 msgstr ""
 
-#: src/Services.py:174 src/Users.py:177 ui/ServicesMenuCustomizations.ui:338
+#: src/Services.py:168 src/Users.py:171 ui/ServicesMenuCustomizations.ui:338
 #: ui/UsersDetailsWindow.ui:406
 msgid "Memory (RSS)"
 msgstr ""
 
-#: src/Services.py:175 ui/ServicesDetailsWindow.ui:56
+#: src/Services.py:169 ui/ServicesDetailsWindow.ui:56
 #: ui/ServicesMenuCustomizations.ui:352
 msgid "Description"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Enabled"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Disabled"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Masked"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Unmasked"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Static"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Generated"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Enabled-runtime"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Indirect"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Active"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Inactive"
 msgstr ""
 
-#: src/Services.py:194 src/Services.py:279 src/Services.py:282
+#: src/Services.py:188 src/Services.py:273 src/Services.py:276
 #: src/ServicesDetails.py:147
 msgid "Loaded"
 msgstr ""
 
-#: src/Services.py:194 src/ServicesDetails.py:147
+#: src/Services.py:188 src/ServicesDetails.py:147
 msgid "Exited"
 msgstr ""
 
-#: src/Services.py:486
+#: src/Services.py:480
 msgid "Total: AAAA services (BBBB loaded, CCCC non-loaded)"
 msgstr ""
 
@@ -734,7 +734,7 @@ msgstr ""
 msgid "Performance"
 msgstr ""
 
-#: src/SettingsGUI.py:303 src/Users.py:169 ui/MainWindow.ui:844
+#: src/SettingsGUI.py:303 src/Users.py:163 ui/MainWindow.ui:844
 #: ui/ProcessesTab.ui:231 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:324
 msgid "Processes"
@@ -792,28 +792,28 @@ msgstr ""
 msgid "Do you want to reset all settings of the application to defaults?"
 msgstr ""
 
-#: src/Startup.py:140 ui/ProcessesDetailsWindow.ui:42
+#: src/Startup.py:134 ui/ProcessesDetailsWindow.ui:42
 #: ui/ProcessesMenuCustomizations.ui:341 ui/ServicesDetailsWindow.ui:43
 #: ui/StartupMenuCustomizations.ui:251 ui/StartupNewItemWindow.ui:310
 msgid "Name"
 msgstr ""
 
-#: src/Startup.py:141 ui/StartupMenuCustomizations.ui:267
+#: src/Startup.py:135 ui/StartupMenuCustomizations.ui:267
 #: ui/StartupNewItemWindow.ui:165
 msgid "Comment"
 msgstr ""
 
-#: src/Startup.py:142 ui/StartupNewItemWindow.ui:177
+#: src/Startup.py:136 ui/StartupNewItemWindow.ui:177
 msgid "Command"
 msgstr ""
 
-#: src/Startup.py:286
+#: src/Startup.py:280
 msgid ""
 "Currently following desktop environments are supported for listing startup "
 "items:\n"
 msgstr ""
 
-#: src/Startup.py:694
+#: src/Startup.py:688
 msgid "Total: AAAA startup applications (BBBB visible, CCCC hidden)"
 msgstr ""
 
@@ -900,113 +900,113 @@ msgstr ""
 msgid "Existing '.desktop' File Name:"
 msgstr ""
 
-#: src/Storage.py:194 ui/StorageDetailsWindow.ui:38
+#: src/Storage.py:188 ui/StorageDetailsWindow.ui:38
 #: ui/StorageMenuCustomizations.ui:251
 msgid "Disk Name"
 msgstr ""
 
-#: src/Storage.py:195 ui/StorageDetailsWindow.ui:51
+#: src/Storage.py:189 ui/StorageDetailsWindow.ui:51
 #: ui/StorageMenuCustomizations.ui:267
 msgid "Parent Name"
 msgstr ""
 
-#: src/Storage.py:196 ui/StorageDetailsWindow.ui:64
+#: src/Storage.py:190 ui/StorageDetailsWindow.ui:64
 #: ui/StorageMenuCustomizations.ui:281
 msgid "System Disk"
 msgstr ""
 
-#: src/Storage.py:198 ui/StorageDetailsWindow.ui:90
+#: src/Storage.py:192 ui/StorageDetailsWindow.ui:90
 #: ui/StorageMenuCustomizations.ui:309
 msgid "Transport Type"
 msgstr ""
 
-#: src/Storage.py:199 ui/StorageDetailsWindow.ui:103
+#: src/Storage.py:193 ui/StorageDetailsWindow.ui:103
 #: ui/StorageMenuCustomizations.ui:323
 msgid "File System"
 msgstr ""
 
-#: src/Storage.py:200 ui/StorageDetailsWindow.ui:116
+#: src/Storage.py:194 ui/StorageDetailsWindow.ui:116
 #: ui/StorageMenuCustomizations.ui:337
 msgid "Total Size"
 msgstr ""
 
-#: src/Storage.py:201 ui/StorageDetailsWindow.ui:129
+#: src/Storage.py:195 ui/StorageDetailsWindow.ui:129
 #: ui/StorageMenuCustomizations.ui:393
 msgid "Free Space"
 msgstr ""
 
-#: src/Storage.py:202 ui/StorageDetailsWindow.ui:142
+#: src/Storage.py:196 ui/StorageDetailsWindow.ui:142
 #: ui/StorageMenuCustomizations.ui:477
 msgid "Used Space"
 msgstr ""
 
-#: src/Storage.py:203 ui/StorageDetailsWindow.ui:155
+#: src/Storage.py:197 ui/StorageDetailsWindow.ui:155
 #: ui/StorageMenuCustomizations.ui:463
 msgid "Used Space%"
 msgstr ""
 
-#: src/Storage.py:204 ui/StorageDetailsWindow.ui:168
+#: src/Storage.py:198 ui/StorageDetailsWindow.ui:168
 #: ui/StorageMenuCustomizations.ui:491
 msgid "Vendor-Model"
 msgstr ""
 
-#: src/Storage.py:205 ui/StorageMenuCustomizations.ui:505
+#: src/Storage.py:199 ui/StorageMenuCustomizations.ui:505
 msgid "Label"
 msgstr ""
 
-#: src/Storage.py:206 ui/StorageDetailsWindow.ui:194
+#: src/Storage.py:200 ui/StorageDetailsWindow.ui:194
 #: ui/StorageMenuCustomizations.ui:435
 msgid "Partition Label"
 msgstr ""
 
-#: src/Storage.py:207 ui/StorageDetailsWindow.ui:405
+#: src/Storage.py:201 ui/StorageDetailsWindow.ui:405
 #: ui/StorageMenuCustomizations.ui:449
 msgid "Mount Point"
 msgstr ""
 
-#: src/Storage.py:209 ui/StorageDetailsWindow.ui:462
+#: src/Storage.py:203 ui/StorageDetailsWindow.ui:462
 #: ui/StorageMenuCustomizations.ui:421
 msgid "Revision"
 msgstr ""
 
-#: src/Storage.py:210 ui/StorageDetailsWindow.ui:475
+#: src/Storage.py:204 ui/StorageDetailsWindow.ui:475
 #: ui/StorageMenuCustomizations.ui:351
 msgid "Serial Number"
 msgstr ""
 
-#: src/Storage.py:211 ui/StorageDetailsWindow.ui:501
+#: src/Storage.py:205 ui/StorageDetailsWindow.ui:501
 #: ui/StorageMenuCustomizations.ui:365
 msgid "Mode"
 msgstr ""
 
-#: src/Storage.py:212 ui/StorageDetailsWindow.ui:488
+#: src/Storage.py:206 ui/StorageDetailsWindow.ui:488
 #: ui/StorageMenuCustomizations.ui:379
 msgid "Removable"
 msgstr ""
 
-#: src/Storage.py:213 ui/StorageDetailsWindow.ui:514
+#: src/Storage.py:207 ui/StorageDetailsWindow.ui:514
 #: ui/StorageMenuCustomizations.ui:519
 msgid "Rotational"
 msgstr ""
 
-#: src/Storage.py:214 ui/StorageDetailsWindow.ui:540
+#: src/Storage.py:208 ui/StorageDetailsWindow.ui:540
 msgid "Read-Only"
 msgstr ""
 
-#: src/Storage.py:215 ui/StorageDetailsWindow.ui:527
+#: src/Storage.py:209 ui/StorageDetailsWindow.ui:527
 #: ui/StorageMenuCustomizations.ui:547
 msgid "UUID"
 msgstr ""
 
-#: src/Storage.py:216 ui/StorageMenuCustomizations.ui:575
+#: src/Storage.py:210 ui/StorageMenuCustomizations.ui:575
 msgid "Unique Storage Id."
 msgstr ""
 
-#: src/Storage.py:217 ui/StorageMenuCustomizations.ui:561
+#: src/Storage.py:211 ui/StorageMenuCustomizations.ui:561
 msgid "Major:Minor Device #"
 msgstr ""
 
-#: src/Storage.py:722
+#: src/Storage.py:716
 msgid "Total: AAAA disks/partitions (BBBB disks, CCCC partitions)"
 msgstr ""
 
@@ -1069,128 +1069,128 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/Users.py:164 ui/UsersDetailsWindow.ui:39
+#: src/Users.py:158 ui/UsersDetailsWindow.ui:39
 #: ui/UsersMenuCustomizations.ui:252
 msgid "User Name"
 msgstr ""
 
-#: src/Users.py:165 ui/UsersDetailsWindow.ui:52
+#: src/Users.py:159 ui/UsersDetailsWindow.ui:52
 #: ui/UsersMenuCustomizations.ui:268
 msgid "Full Name"
 msgstr ""
 
-#: src/Users.py:166 ui/UsersDetailsWindow.ui:65
+#: src/Users.py:160 ui/UsersDetailsWindow.ui:65
 #: ui/UsersMenuCustomizations.ui:282
 msgid "Logged In"
 msgstr ""
 
-#: src/Users.py:170 ui/UsersDetailsWindow.ui:117
+#: src/Users.py:164 ui/UsersDetailsWindow.ui:117
 #: ui/UsersMenuCustomizations.ui:338
 msgid "Home Directory"
 msgstr ""
 
-#: src/Users.py:171 ui/UsersDetailsWindow.ui:130
+#: src/Users.py:165 ui/UsersDetailsWindow.ui:130
 #: ui/UsersMenuCustomizations.ui:380
 msgid "Group"
 msgstr ""
 
-#: src/Users.py:172 ui/StartupNewItemWindow.ui:223 ui/UsersDetailsWindow.ui:143
+#: src/Users.py:166 ui/StartupNewItemWindow.ui:223 ui/UsersDetailsWindow.ui:143
 #: ui/UsersMenuCustomizations.ui:422
 msgid "Terminal"
 msgstr ""
 
-#: src/Users.py:173 ui/UsersDetailsWindow.ui:156
+#: src/Users.py:167 ui/UsersDetailsWindow.ui:156
 #: ui/UsersMenuCustomizations.ui:436
 msgid "Last Login"
 msgstr ""
 
-#: src/Users.py:174 ui/UsersDetailsWindow.ui:169
+#: src/Users.py:168 ui/UsersDetailsWindow.ui:169
 #: ui/UsersMenuCustomizations.ui:394
 msgid "Last Failed Login"
 msgstr ""
 
-#: src/Users.py:175 ui/UsersDetailsWindow.ui:182
+#: src/Users.py:169 ui/UsersDetailsWindow.ui:182
 #: ui/UsersMenuCustomizations.ui:408
 msgid "Started"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Jan"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Feb"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Mar"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Apr"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "May"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Jun"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Jul"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Aug"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Sep"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Oct"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Nov"
 msgstr ""
 
-#: src/Users.py:209 src/UsersDetails.py:135
+#: src/Users.py:203 src/UsersDetails.py:135
 msgid "Dec"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:136
+#: src/Users.py:204 src/UsersDetails.py:136
 msgid "Mon"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:136
+#: src/Users.py:204 src/UsersDetails.py:136
 msgid "Tue"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:136
+#: src/Users.py:204 src/UsersDetails.py:136
 msgid "Wed"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:136
+#: src/Users.py:204 src/UsersDetails.py:136
 msgid "Thu"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:136
+#: src/Users.py:204 src/UsersDetails.py:136
 msgid "Fri"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:136
+#: src/Users.py:204 src/UsersDetails.py:136
 msgid "Sat"
 msgstr ""
 
-#: src/Users.py:210 src/UsersDetails.py:136
+#: src/Users.py:204 src/UsersDetails.py:136
 msgid "Sun"
 msgstr ""
 
-#: src/Users.py:575
+#: src/Users.py:569
 msgid "Total: AAAA users (BBBB logged in users, CCCC logged out users)"
 msgstr ""
 
@@ -1873,34 +1873,27 @@ msgstr ""
 msgid "Web Page"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:16
-msgid ""
-"Bu program kesinlikle hiçbir garanti vermiyor.\n"
-"Ayrıntılar için <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU "
-"Genel Kamu Lisansı, sürüm 3 ya da sonrası</a> bağlantısına bakın."
-msgstr ""
-
-#: ui/MainMenusDialogs.ui:19
+#: ui/MainMenusDialogs.ui:17
 msgid "Hakan DÜNDAR"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:67
+#: ui/MainMenusDialogs.ui:64
 msgid "Shows/Hides a transparent and always on top performance summary window"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:68 ui/SettingsWindow.ui:596
+#: ui/MainMenusDialogs.ui:65 ui/SettingsWindow.ui:596
 msgid "Floating Summary"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:74
+#: ui/MainMenusDialogs.ui:71
 msgid "Settings"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:84
+#: ui/MainMenusDialogs.ui:81
 msgid "About"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:94
+#: ui/MainMenusDialogs.ui:91
 msgid "Quit"
 msgstr ""
 
