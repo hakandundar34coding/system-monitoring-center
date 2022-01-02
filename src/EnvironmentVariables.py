@@ -95,12 +95,12 @@ def environment_variables_gui_func():
 
 
     # Environment Variables Tab - Treeview Properties
-    treeview7101.set_activate_on_single_click(True)                                           # This command used for activating rows and column header buttons on single click. Column headers have to clicked twice (or clicked() command have to be used twice) for the first sorting operation if this is not used.
-    treeview7101.set_fixed_height_mode(True)                                                  # This command is used for lower CPU usage when treeview is updated. It prevents calculating of the row heights on every update. To be able to use this command, "'column'.set_sizing(2)" command have to be used for all columns when adding them into treeview.
+    treeview7101.set_activate_on_single_click(True)
+    treeview7101.set_fixed_height_mode(True)
     treeview7101.set_headers_clickable(True)
     treeview7101.set_show_expanders(False)
-    treeview7101.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
-    treeview7101.set_search_column(1)                                                         # This command used for searching by using entry.
+    treeview7101.set_enable_search(True)
+    treeview7101.set_search_column(1)
     treeview7101.set_tooltip_column(1)
 
 
@@ -179,12 +179,6 @@ def environment_variables_open_right_click_menu_func(event):
 # ----------------------------------- Environment Variables - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
 def environment_variables_initial_func():
 
-    # data list explanation:
-    # environment_variables_data_list = [
-    #                                   [treeview column number, treeview column title, internal column count, cell renderer count, treeview column sort column id, [data type 1, data type 2, ...], [cell renderer type 1, cell renderer type 2, ...], [cell attribute 1, cell attribute 2, ...], [cell renderer data 1, cell renderer data 2, ...], [cell left/right alignment 1, cell left/right alignment 2, ...], [set expand 1 {if cell will allocate unused space} cell expand 2, ...], [cell function 1, cell function 2, ...]]
-    #                                   .
-    #                                   .
-    #                                   ]
     global environment_variables_data_list
     environment_variables_data_list = [
                                       [0, _tr('Variable'), 2, 1, 2, [bool, str], ['internal_column', 'CellRendererText'], ['no_cell_attribute', 'text'], [0, 1], ['no_cell_alignment', 0.0], ['no_set_expand', False], ['no_cell_function', 'no_cell_function']],

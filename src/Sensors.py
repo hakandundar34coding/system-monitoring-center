@@ -85,23 +85,17 @@ def sensors_gui_func():
 
     # Sensors Tab on Sensors Tab - Treeview Properties
     treeview1601.set_activate_on_single_click(True)
-    treeview1601.set_show_expanders(False)                                                    # This command is used for hiding expanders (arrows) at the beginning of the rows. For "Sensors" tab, "child rows" are not used and there is no need for these expanders (they are shown as empty spaces in this situation).
-    treeview1601.set_fixed_height_mode(True)                                                  # This command is used for lower CPU usage when treeview is updated. It prevents calculating of the row heights on every update. To be able to use this command, "'column'.set_sizing(2)" command have to be used for all columns when adding them into treeview.
+    treeview1601.set_show_expanders(False)
+    treeview1601.set_fixed_height_mode(True)
     treeview1601.set_headers_clickable(True)
-    treeview1601.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
-    treeview1601.set_search_column(2)                                                         # This command used for searching by using entry.
+    treeview1601.set_enable_search(True)
+    treeview1601.set_search_column(2)
     treeview1601.set_tooltip_column(2)
 
 
 # ----------------------------------- Sensors - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
 def sensors_initial_func():
 
-    # data list explanation:
-    # sensors_data_list = [
-    #                     [treeview column number, treeview column title, internal column count, cell renderer count, treeview column sort column id, [data type 1, data type 2, ...], [cell renderer type 1, cell renderer type 2, ...], [cell attribute 1, cell attribute 2, ...], [cell renderer data 1, cell renderer data 2, ...], [cell left/right alignment 1, cell left/right alignment 2, ...], [set expand 1 {if cell will allocate unused space} cell expand 2, ...], [cell function 1, cell function 2, ...]]
-    #                     .
-    #                     .
-    #                     ]
     global sensors_data_list
     sensors_data_list = [
                         [0, _tr('Sensor Group'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],

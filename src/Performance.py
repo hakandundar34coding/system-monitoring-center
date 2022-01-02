@@ -40,9 +40,9 @@ def performance_set_selected_disk_func():
     for disk in disk_list:
         with open("/proc/mounts") as reader:
             proc_mounts_output_lines = reader.read().strip().split("\n")
-            for line in proc_mounts_output_lines:
-                if line.split()[0].strip() == ("/dev/" + disk) and line.split()[1].strip() == "/":
-                    system_disk_list.append(disk)
+        for line in proc_mounts_output_lines:
+            if line.split(" ", 2)[0].strip() == ("/dev/" + disk) and line.split(" ", 2)[1].strip() == "/":
+                system_disk_list.append(disk)
     global selected_disk_number
     if Config.selected_disk in disk_list:
         selected_disk = Config.selected_disk
@@ -62,8 +62,8 @@ def performance_set_selected_network_card_func():
     for network_card in network_card_list:
         with open("/sys/class/net/" + network_card + "/operstate") as reader:
             sys_class_net_output = reader.read().strip()
-            if sys_class_net_output == "up":
-                connected_network_card_list.append(network_card)
+        if sys_class_net_output == "up":
+            connected_network_card_list.append(network_card)
     global selected_network_card_number
     if connected_network_card_list != []:                                                     # This if statement is used in order to avoid error if there is no any network card that connected.
         selected_network_card = connected_network_card_list[0]
@@ -231,17 +231,10 @@ def performance_background_loop_func():
     global ram_usage_percent
     global ram_total, ram_free, ram_available, ram_used
     with open("/proc/meminfo") as reader:                                                     # RAM usage information is get from /proc/meminfo VFS file.
-        memory_info = reader.read().split("\n")
-    for line in memory_info:
-        if line.startswith("MemTotal:"):
-            ram_total = int(line.split()[1]) * 1024                                           # Memory values in /proc/meminfo directory are in KibiBytes (KiB). Thet are multiplied with 1024 in order to convert them into bytes. There is some accuracy deviation during the convertion (only in bytes form, it is not valid for KiB, MiB, ...) but it is negligible.
-            continue
-        if line.startswith("MemFree:"):
-            ram_free = int(line.split()[1]) * 1024
-            continue
-        if line.startswith("MemAvailable:"):
-            ram_available = int(line.split()[1]) * 1024
-            continue
+        memory_info = reader.read()
+    ram_total = int(memory_info.split("MemTotal:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
+    ram_free = int(memory_info.split("\nMemFree:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
+    ram_available = int(memory_info.split("\nMemAvailable:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
     ram_used = ram_total - ram_available                                                      # Used RAM value is calculated
     ram_usage_percent.append(ram_used / ram_total * 100)                                      # Used RAM percentage is calculated
     del ram_usage_percent[0]                                                                  # Delete the first RAM usage percent value from the list in order to keep list lenght same. Because a new value is appended in every loop. This list is used for RAM usage percent graphic.

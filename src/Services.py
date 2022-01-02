@@ -101,12 +101,12 @@ def services_gui_func():
 
 
     # Services Tab - Treeview Properties
-    treeview6101.set_activate_on_single_click(True)                                           # This command used for activating rows and column header buttons on single click. Column headers have to clicked twice (or clicked() command have to be used twice) for the first sorting operation if this is not used.
-    treeview6101.set_fixed_height_mode(True)                                                  # This command is used for lower CPU usage when treeview is updated. It prevents calculating of the row heights on every update. To be able to use this command, "'column'.set_sizing(2)" command have to be used for all columns when adding them into treeview.
+    treeview6101.set_activate_on_single_click(True)
+    treeview6101.set_fixed_height_mode(True)
     treeview6101.set_headers_clickable(True)
     treeview6101.set_show_expanders(False)
-    treeview6101.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
-    treeview6101.set_search_column(2)                                                         # This command used for searching by using entry.
+    treeview6101.set_enable_search(True)
+    treeview6101.set_search_column(2)
     treeview6101.set_tooltip_column(2)
 
 
@@ -157,12 +157,6 @@ def services_open_service_details_window_func(event):
 # ----------------------------------- Services - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
 def services_initial_func():
 
-    # data list explanation:
-    # services_data_list = [
-    #                      [treeview column number, treeview column title, internal column count, cell renderer count, treeview column sort column id, [data type 1, data type 2, ...], [cell renderer type 1, cell renderer type 2, ...], [cell attribute 1, cell attribute 2, ...], [cell renderer data 1, cell renderer data 2, ...], [cell left/right alignment 1, cell left/right alignment 2, ...], [set expand 1 {if cell will allocate unused space} cell expand 2, ...], [cell function 1, cell function 2, ...]]
-    #                      .
-    #                      .
-    #                      ]
     global services_data_list
     services_data_list = [
                          [0, _tr('Service Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
