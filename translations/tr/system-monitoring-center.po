@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-02 14:08+0300\n"
-"PO-Revision-Date: 2022-01-02 14:09+0300\n"
+"POT-Creation-Date: 2022-01-02 16:36+0300\n"
+"PO-Revision-Date: 2022-01-02 16:37+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -117,12 +117,10 @@ msgid "Do you want to delete the following persistent environment variable?"
 msgstr "Şu kalıcı ortam değişkenini silmek istiyor musunuz?"
 
 #: src/EnvironmentVarMenuRightClick.py:158
-#: ui/EnvironmentVariablesInputWindow.ui:153
 msgid "Variable:"
 msgstr "Değişken:"
 
 #: src/EnvironmentVarMenuRightClick.py:159
-#: ui/EnvironmentVariablesInputWindow.ui:165
 msgid "Value:"
 msgstr "Değer:"
 
@@ -158,10 +156,12 @@ msgid "Shell variables cannot be deleted."
 msgstr "Kabuk (Shell) değişkenleri silinemez."
 
 #: src/EnvironmentVariables.py:184 ui/EnvironmentVarMenuCustomizations.ui:252
+#: ui/EnvironmentVariablesInputWindow.ui:154
 msgid "Variable"
 msgstr "Değişken"
 
 #: src/EnvironmentVariables.py:185 ui/EnvironmentVarMenuCustomizations.ui:268
+#: ui/EnvironmentVariablesInputWindow.ui:166
 msgid "Value"
 msgstr "Değer"
 
@@ -640,7 +640,7 @@ msgid "Sensor Name"
 msgstr "Algılayıcı Adı"
 
 #: src/Sensors.py:103
-msgid "Current Vale"
+msgid "Current Value"
 msgstr "Şimdiki Değer"
 
 #: src/Sensors.py:104
@@ -1319,7 +1319,7 @@ msgid "Precision - CPU Percent:"
 msgstr "Hassasiyet - İşlemci Yüzdesi:"
 
 #: ui/CpuMenus.ui:199 ui/DiskMenus.ui:183 ui/GpuMenus.ui:93
-#: ui/NetworkMenus.ui:183 ui/RamMenus.ui:205
+#: ui/NetworkMenus.ui:183 ui/RamMenus.ui:205 ui/SettingsWindow.ui:192
 msgid "Background"
 msgstr "Arkaplan"
 
@@ -1700,6 +1700,7 @@ msgstr "Satır Sıralaması,"
 
 #: ui/EnvironmentVarMenuCustomizations.ui:128
 #: ui/ProcessesMenuCustomizations.ui:217 ui/ServicesMenuCustomizations.ui:128
+#: ui/SettingsWindow.ui:56 ui/SettingsWindow.ui:571
 #: ui/StartupMenuCustomizations.ui:128 ui/StorageMenuCustomizations.ui:128
 #: ui/UsersMenuCustomizations.ui:128
 msgid "Reset"
@@ -1750,45 +1751,45 @@ msgstr "Değişkeni Kopyala"
 msgid "Copy Value"
 msgstr "Değeri Kopyala"
 
-#: ui/EnvironmentVariablesInputWindow.ui:58 ui/StartupNewItemWindow.ui:59
+#: ui/EnvironmentVariablesInputWindow.ui:59 ui/StartupNewItemWindow.ui:59
 msgid "Save"
 msgstr "Kaydet"
 
-#: ui/EnvironmentVariablesInputWindow.ui:103
+#: ui/EnvironmentVariablesInputWindow.ui:104
 #: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
 #: ui/StorageRenameWindow.ui:126
 msgid "Cancel"
 msgstr "İptal"
 
-#: ui/EnvironmentVariablesInputWindow.ui:187
+#: ui/EnvironmentVariablesInputWindow.ui:188
 msgid "Only current user"
 msgstr "Sadece şimdiki kullanıcı"
 
-#: ui/EnvironmentVariablesInputWindow.ui:201
+#: ui/EnvironmentVariablesInputWindow.ui:202
 msgid "All users (Recognized after system restart)"
 msgstr "Tüm kullanıcılar (Sistem yeniden başlatıldıktan sonra geçerli olur)"
 
-#: ui/EnvironmentVariablesInputWindow.ui:219
+#: ui/EnvironmentVariablesInputWindow.ui:220
 msgid "\t\t(Appended into \"/etc/environment\" file)"
 msgstr "\t\t(\"/etc/environment\" dosyasına eklenir)"
 
-#: ui/EnvironmentVariablesInputWindow.ui:231
+#: ui/EnvironmentVariablesInputWindow.ui:232
 msgid "\t\t(Appended into \"/home/[username]/.bashrc\" file)"
 msgstr "\t\t(\"/home/[username]/.bashrc\" dosyasına eklenir)"
 
-#: ui/EnvironmentVariablesInputWindow.ui:244
+#: ui/EnvironmentVariablesInputWindow.ui:245
 msgid "Environment Variable Is Valid For:"
 msgstr "Ortam Değişkeni Şunun İçin Geçerli:"
 
-#: ui/EnvironmentVariablesInputWindow.ui:259
+#: ui/EnvironmentVariablesInputWindow.ui:260
 msgid "Note: Variable field cannot be left blank."
 msgstr "Not: Değişken alanı boş bırakılamaz."
 
-#: ui/EnvironmentVariablesInputWindow.ui:282
+#: ui/EnvironmentVariablesInputWindow.ui:283
 msgid "Overwrite environment variable of the current user"
 msgstr "Şimdiki kullanıcının ortam değişkeninin üzerine yaz"
 
-#: ui/EnvironmentVariablesInputWindow.ui:298
+#: ui/EnvironmentVariablesInputWindow.ui:299
 msgid ""
 "Note: User-specific environment variable will be deleted if newly added "
 "environment variable for all users has same name with the user-specific "
@@ -1797,6 +1798,61 @@ msgstr ""
 "Not: Yeni eklenen tüm kullanıcılar için olan ortam değişkeni, kullanıcıya "
 "özgü ortam değişkeni ile aynı isme sahipse kullanıcıya özgü ortam değişkeni "
 "silinecek."
+
+#: ui/EnvironmentVariablesInputWindow.ui:327
+#: ui/EnvironmentVariablesInputWindow.ui:339 ui/ProcessesDetailsWindow.ui:481
+#: ui/ProcessesDetailsWindow.ui:494 ui/ProcessesDetailsWindow.ui:507
+#: ui/ProcessesDetailsWindow.ui:520 ui/ProcessesDetailsWindow.ui:533
+#: ui/ProcessesDetailsWindow.ui:546 ui/ProcessesDetailsWindow.ui:559
+#: ui/ProcessesDetailsWindow.ui:572 ui/ProcessesDetailsWindow.ui:585
+#: ui/ProcessesDetailsWindow.ui:598 ui/ProcessesDetailsWindow.ui:611
+#: ui/ProcessesDetailsWindow.ui:624 ui/ProcessesDetailsWindow.ui:637
+#: ui/ProcessesDetailsWindow.ui:650 ui/ProcessesDetailsWindow.ui:663
+#: ui/ProcessesDetailsWindow.ui:1094 ui/ProcessesDetailsWindow.ui:1107
+#: ui/ProcessesDetailsWindow.ui:1120 ui/ProcessesDetailsWindow.ui:1133
+#: ui/ProcessesDetailsWindow.ui:1146 ui/ProcessesDetailsWindow.ui:1159
+#: ui/ProcessesDetailsWindow.ui:1172 ui/ProcessesDetailsWindow.ui:1185
+#: ui/ProcessesDetailsWindow.ui:1198 ui/ProcessesDetailsWindow.ui:1211
+#: ui/ProcessesDetailsWindow.ui:1224 ui/ProcessesDetailsWindow.ui:1237
+#: ui/ProcessesDetailsWindow.ui:1616 ui/ProcessesDetailsWindow.ui:1629
+#: ui/ProcessesDetailsWindow.ui:1642 ui/ProcessesDetailsWindow.ui:1655
+#: ui/ProcessesDetailsWindow.ui:1668 ui/ProcessesDetailsWindow.ui:1681
+#: ui/ProcessesDetailsWindow.ui:1694 ui/ProcessesDetailsWindow.ui:1707
+#: ui/ProcessesDetailsWindow.ui:1720 ui/ProcessesDetailsWindow.ui:1733
+#: ui/ServicesDetailsWindow.ui:529 ui/ServicesDetailsWindow.ui:542
+#: ui/ServicesDetailsWindow.ui:555 ui/ServicesDetailsWindow.ui:568
+#: ui/ServicesDetailsWindow.ui:581 ui/ServicesDetailsWindow.ui:594
+#: ui/ServicesDetailsWindow.ui:607 ui/ServicesDetailsWindow.ui:620
+#: ui/ServicesDetailsWindow.ui:633 ui/ServicesDetailsWindow.ui:646
+#: ui/ServicesDetailsWindow.ui:659 ui/ServicesDetailsWindow.ui:672
+#: ui/ServicesDetailsWindow.ui:685 ui/ServicesDetailsWindow.ui:698
+#: ui/ServicesDetailsWindow.ui:711 ui/ServicesDetailsWindow.ui:724
+#: ui/ServicesDetailsWindow.ui:737 ui/ServicesDetailsWindow.ui:750
+#: ui/ServicesDetailsWindow.ui:904 ui/ServicesDetailsWindow.ui:917
+#: ui/ServicesDetailsWindow.ui:930 ui/ServicesDetailsWindow.ui:943
+#: ui/StartupNewItemWindow.ui:322 ui/StartupNewItemWindow.ui:334
+#: ui/StartupNewItemWindow.ui:346 ui/StartupNewItemWindow.ui:358
+#: ui/StorageDetailsWindow.ui:717 ui/StorageDetailsWindow.ui:730
+#: ui/StorageDetailsWindow.ui:743 ui/StorageDetailsWindow.ui:756
+#: ui/StorageDetailsWindow.ui:769 ui/StorageDetailsWindow.ui:782
+#: ui/StorageDetailsWindow.ui:795 ui/StorageDetailsWindow.ui:808
+#: ui/StorageDetailsWindow.ui:821 ui/StorageDetailsWindow.ui:834
+#: ui/StorageDetailsWindow.ui:847 ui/StorageDetailsWindow.ui:860
+#: ui/StorageDetailsWindow.ui:873 ui/StorageDetailsWindow.ui:886
+#: ui/StorageDetailsWindow.ui:899 ui/StorageDetailsWindow.ui:912
+#: ui/StorageDetailsWindow.ui:925 ui/StorageDetailsWindow.ui:938
+#: ui/StorageDetailsWindow.ui:951 ui/StorageDetailsWindow.ui:964
+#: ui/StorageDetailsWindow.ui:977 ui/StorageDetailsWindow.ui:990
+#: ui/StorageDetailsWindow.ui:1003 ui/StorageDetailsWindow.ui:1016
+#: ui/UsersDetailsWindow.ui:435 ui/UsersDetailsWindow.ui:448
+#: ui/UsersDetailsWindow.ui:461 ui/UsersDetailsWindow.ui:474
+#: ui/UsersDetailsWindow.ui:487 ui/UsersDetailsWindow.ui:500
+#: ui/UsersDetailsWindow.ui:513 ui/UsersDetailsWindow.ui:526
+#: ui/UsersDetailsWindow.ui:539 ui/UsersDetailsWindow.ui:552
+#: ui/UsersDetailsWindow.ui:565 ui/UsersDetailsWindow.ui:578
+#: ui/UsersDetailsWindow.ui:591 ui/UsersDetailsWindow.ui:604
+msgid ":"
+msgstr ""
 
 #: ui/EnvironmentVariablesTab.ui:43
 msgid ""
@@ -2257,60 +2313,6 @@ msgstr "GID'ler"
 msgid "Summary:"
 msgstr "Özet:"
 
-#: ui/ProcessesDetailsWindow.ui:481 ui/ProcessesDetailsWindow.ui:494
-#: ui/ProcessesDetailsWindow.ui:507 ui/ProcessesDetailsWindow.ui:520
-#: ui/ProcessesDetailsWindow.ui:533 ui/ProcessesDetailsWindow.ui:546
-#: ui/ProcessesDetailsWindow.ui:559 ui/ProcessesDetailsWindow.ui:572
-#: ui/ProcessesDetailsWindow.ui:585 ui/ProcessesDetailsWindow.ui:598
-#: ui/ProcessesDetailsWindow.ui:611 ui/ProcessesDetailsWindow.ui:624
-#: ui/ProcessesDetailsWindow.ui:637 ui/ProcessesDetailsWindow.ui:650
-#: ui/ProcessesDetailsWindow.ui:663 ui/ProcessesDetailsWindow.ui:1094
-#: ui/ProcessesDetailsWindow.ui:1107 ui/ProcessesDetailsWindow.ui:1120
-#: ui/ProcessesDetailsWindow.ui:1133 ui/ProcessesDetailsWindow.ui:1146
-#: ui/ProcessesDetailsWindow.ui:1159 ui/ProcessesDetailsWindow.ui:1172
-#: ui/ProcessesDetailsWindow.ui:1185 ui/ProcessesDetailsWindow.ui:1198
-#: ui/ProcessesDetailsWindow.ui:1211 ui/ProcessesDetailsWindow.ui:1224
-#: ui/ProcessesDetailsWindow.ui:1237 ui/ProcessesDetailsWindow.ui:1616
-#: ui/ProcessesDetailsWindow.ui:1629 ui/ProcessesDetailsWindow.ui:1642
-#: ui/ProcessesDetailsWindow.ui:1655 ui/ProcessesDetailsWindow.ui:1668
-#: ui/ProcessesDetailsWindow.ui:1681 ui/ProcessesDetailsWindow.ui:1694
-#: ui/ProcessesDetailsWindow.ui:1707 ui/ProcessesDetailsWindow.ui:1720
-#: ui/ProcessesDetailsWindow.ui:1733 ui/ServicesDetailsWindow.ui:529
-#: ui/ServicesDetailsWindow.ui:542 ui/ServicesDetailsWindow.ui:555
-#: ui/ServicesDetailsWindow.ui:568 ui/ServicesDetailsWindow.ui:581
-#: ui/ServicesDetailsWindow.ui:594 ui/ServicesDetailsWindow.ui:607
-#: ui/ServicesDetailsWindow.ui:620 ui/ServicesDetailsWindow.ui:633
-#: ui/ServicesDetailsWindow.ui:646 ui/ServicesDetailsWindow.ui:659
-#: ui/ServicesDetailsWindow.ui:672 ui/ServicesDetailsWindow.ui:685
-#: ui/ServicesDetailsWindow.ui:698 ui/ServicesDetailsWindow.ui:711
-#: ui/ServicesDetailsWindow.ui:724 ui/ServicesDetailsWindow.ui:737
-#: ui/ServicesDetailsWindow.ui:750 ui/ServicesDetailsWindow.ui:904
-#: ui/ServicesDetailsWindow.ui:917 ui/ServicesDetailsWindow.ui:930
-#: ui/ServicesDetailsWindow.ui:943 ui/StartupNewItemWindow.ui:322
-#: ui/StartupNewItemWindow.ui:334 ui/StartupNewItemWindow.ui:346
-#: ui/StartupNewItemWindow.ui:358 ui/StorageDetailsWindow.ui:717
-#: ui/StorageDetailsWindow.ui:730 ui/StorageDetailsWindow.ui:743
-#: ui/StorageDetailsWindow.ui:756 ui/StorageDetailsWindow.ui:769
-#: ui/StorageDetailsWindow.ui:782 ui/StorageDetailsWindow.ui:795
-#: ui/StorageDetailsWindow.ui:808 ui/StorageDetailsWindow.ui:821
-#: ui/StorageDetailsWindow.ui:834 ui/StorageDetailsWindow.ui:847
-#: ui/StorageDetailsWindow.ui:860 ui/StorageDetailsWindow.ui:873
-#: ui/StorageDetailsWindow.ui:886 ui/StorageDetailsWindow.ui:899
-#: ui/StorageDetailsWindow.ui:912 ui/StorageDetailsWindow.ui:925
-#: ui/StorageDetailsWindow.ui:938 ui/StorageDetailsWindow.ui:951
-#: ui/StorageDetailsWindow.ui:964 ui/StorageDetailsWindow.ui:977
-#: ui/StorageDetailsWindow.ui:990 ui/StorageDetailsWindow.ui:1003
-#: ui/StorageDetailsWindow.ui:1016 ui/UsersDetailsWindow.ui:435
-#: ui/UsersDetailsWindow.ui:448 ui/UsersDetailsWindow.ui:461
-#: ui/UsersDetailsWindow.ui:474 ui/UsersDetailsWindow.ui:487
-#: ui/UsersDetailsWindow.ui:500 ui/UsersDetailsWindow.ui:513
-#: ui/UsersDetailsWindow.ui:526 ui/UsersDetailsWindow.ui:539
-#: ui/UsersDetailsWindow.ui:552 ui/UsersDetailsWindow.ui:565
-#: ui/UsersDetailsWindow.ui:578 ui/UsersDetailsWindow.ui:591
-#: ui/UsersDetailsWindow.ui:604
-msgid ":"
-msgstr ""
-
 #: ui/ProcessesDetailsWindow.ui:680
 msgid "Summary"
 msgstr "Özet"
@@ -2532,16 +2534,8 @@ msgid "Swap Memory Details"
 msgstr "Takas Belleği Detayları"
 
 #: ui/RamSwapDetailsWindow.ui:105
-msgid ""
-"Note: Presence and configuration of swap memory may vary between different "
-"operating systems."
-msgstr ""
-"Not: Takas belleğinin bulunması ve yapılandırması sistemden sisteme "
-"değişebilir."
-
-#: ui/RamSwapDetailsWindow.ui:118
-msgid "Note 2: Information on this window is not reloaded automatically."
-msgstr "Not 2: Bu penceredeki bilgiler otomatik yenilenmez."
+msgid "Note: Information on this window is not reloaded automatically."
+msgstr "Not: Bu penceredeki bilgiler otomatik yenilenmez."
 
 #: ui/RamTab.ui:54 ui/RamTab.ui:222
 msgid "Available and Free RAM memory values are different."
@@ -2765,10 +2759,6 @@ msgstr ""
 msgid "General Settings"
 msgstr "Genel Ayarlar"
 
-#: ui/SettingsWindow.ui:56
-msgid "Reset general settings to defaults"
-msgstr "Genel ayarları varsayılanlara sıfırla"
-
 #: ui/SettingsWindow.ui:92
 msgid "Update interval (seconds):"
 msgstr "Güncelleme aralığı (saniye):"
@@ -2788,10 +2778,6 @@ msgstr "Performans sekmesinin varsayılan alt-sekmesi:"
 #: ui/SettingsWindow.ui:170
 msgid "Show performance summary on the headerbar"
 msgstr "Performans özetini başlık çubuğunda göster"
-
-#: ui/SettingsWindow.ui:192
-msgid "Background color"
-msgstr "Arkaplan rengi"
 
 #: ui/SettingsWindow.ui:206
 msgid "Set background color for all charts:"
@@ -2844,10 +2830,6 @@ msgstr "Ağ İndirme+Yükleme Hızı"
 #: ui/SettingsWindow.ui:532
 msgid "Show/Hide Performance Information"
 msgstr "Performans Bilgilerini Göster/Gizle"
-
-#: ui/SettingsWindow.ui:571
-msgid "Reset floating summary window settings to defaults"
-msgstr "Yüzen özet penceresinin ayarlarını varsayılanlara sfırla"
 
 #: ui/SettingsWindow.ui:630
 msgid "Reset all settings of the application to defaults"
@@ -3257,6 +3239,22 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:197
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid ""
+#~ "Note: Presence and configuration of swap memory may vary between "
+#~ "different operating systems."
+#~ msgstr ""
+#~ "Not: Takas belleğinin bulunması ve yapılandırması sistemden sisteme "
+#~ "değişebilir."
+
+#~ msgid "Reset general settings to defaults"
+#~ msgstr "Genel ayarları varsayılanlara sıfırla"
+
+#~ msgid "Background color"
+#~ msgstr "Arkaplan rengi"
+
+#~ msgid "Reset floating summary window settings to defaults"
+#~ msgstr "Yüzen özet penceresinin ayarlarını varsayılanlara sfırla"
 
 #~ msgid "Comment:"
 #~ msgstr "Açıklama:"
