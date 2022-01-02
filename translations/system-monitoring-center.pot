@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-02 17:01+0300\n"
+"POT-Creation-Date: 2022-01-02 17:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,16 +335,19 @@ msgstr ""
 msgid "CPU%"
 msgstr ""
 
-#: src/Processes.py:213 ui/ProcessesMenuCustomizations.ui:413
+#: src/Processes.py:213 ui/ProcessesDetailsWindow.ui:120
+#: ui/ProcessesDetailsWindow.ui:849 ui/ProcessesMenuCustomizations.ui:413
 #: ui/UsersMenuCustomizations.ui:366
 msgid "RAM (RSS)"
 msgstr ""
 
-#: src/Processes.py:214 ui/ProcessesMenuCustomizations.ui:427
+#: src/Processes.py:214 ui/ProcessesDetailsWindow.ui:862
+#: ui/ProcessesMenuCustomizations.ui:427
 msgid "RAM (VMS)"
 msgstr ""
 
-#: src/Processes.py:215 ui/ProcessesMenuCustomizations.ui:497
+#: src/Processes.py:215 ui/ProcessesDetailsWindow.ui:875
+#: ui/ProcessesMenuCustomizations.ui:497
 msgid "RAM (Shared)"
 msgstr ""
 
@@ -759,6 +762,7 @@ msgid "System"
 msgstr ""
 
 #: src/SettingsGUI.py:320 ui/CpuTab.ui:488 ui/MainWindow.ui:80
+#: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:709
 msgid "CPU"
 msgstr ""
 
@@ -2113,14 +2117,6 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:709
-msgid "CPU Usage"
-msgstr ""
-
-#: ui/ProcessesDetailsWindow.ui:120 ui/ProcessesDetailsWindow.ui:849
-msgid "RAM (RSS) Usage  (%)"
-msgstr ""
-
 #: ui/ProcessesDetailsWindow.ui:133
 msgid "Disk Read / Write Speed"
 msgstr ""
@@ -2181,14 +2177,6 @@ msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:787
 msgid "Context Switches"
-msgstr ""
-
-#: ui/ProcessesDetailsWindow.ui:862
-msgid "RAM (VMS) Usage"
-msgstr ""
-
-#: ui/ProcessesDetailsWindow.ui:875
-msgid "Ram (Shared) Usage"
 msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:888
