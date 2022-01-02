@@ -640,7 +640,7 @@ def processes_loop_func():
     number_of_processes_string = number_of_processes_string.replace("AAAA", str(number_of_all_processes))
     number_of_processes_string = number_of_processes_string.replace("BBBB", str(current_user_process_count))
     number_of_processes_string = number_of_processes_string.replace("CCCC", str(number_of_all_processes-current_user_process_count))
-#     label2101.set_text(number_of_processes_string)
+    label2101.set_text(number_of_processes_string)
 
     # Show/Hide treeview expander arrows
     if show_processes_as_tree == 1:
