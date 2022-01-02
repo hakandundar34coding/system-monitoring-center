@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-02 16:36+0300\n"
+"POT-Creation-Date: 2022-01-02 17:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,12 +115,16 @@ msgstr ""
 msgid "Do you want to delete the following persistent environment variable?"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:158
-msgid "Variable:"
+#: src/EnvironmentVarMenuRightClick.py:158 src/EnvironmentVariables.py:184
+#: ui/EnvironmentVarMenuCustomizations.ui:252
+#: ui/EnvironmentVariablesInputWindow.ui:154
+msgid "Variable"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:159
-msgid "Value:"
+#: src/EnvironmentVarMenuRightClick.py:159 src/EnvironmentVariables.py:185
+#: ui/EnvironmentVarMenuCustomizations.ui:268
+#: ui/EnvironmentVariablesInputWindow.ui:166
+msgid "Value"
 msgstr ""
 
 #: src/EnvironmentVariables.py:146 src/EnvironmentVariables.py:148
@@ -150,16 +154,6 @@ msgstr ""
 
 #: src/EnvironmentVariables.py:175
 msgid "Shell variables cannot be deleted."
-msgstr ""
-
-#: src/EnvironmentVariables.py:184 ui/EnvironmentVarMenuCustomizations.ui:252
-#: ui/EnvironmentVariablesInputWindow.ui:154
-msgid "Variable"
-msgstr ""
-
-#: src/EnvironmentVariables.py:185 ui/EnvironmentVarMenuCustomizations.ui:268
-#: ui/EnvironmentVariablesInputWindow.ui:166
-msgid "Value"
 msgstr ""
 
 #: src/EnvironmentVariables.py:186 ui/EnvironmentVarMenuCustomizations.ui:282
@@ -764,7 +758,7 @@ msgstr ""
 msgid "System"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/CpuTab.ui:490 ui/MainWindow.ui:80
+#: src/SettingsGUI.py:320 ui/CpuTab.ui:488 ui/MainWindow.ui:80
 msgid "CPU"
 msgstr ""
 
@@ -1230,7 +1224,7 @@ msgstr ""
 msgid "User UID:"
 msgstr ""
 
-#: ui/CpuMenus.ui:20 ui/CpuTab.ui:418
+#: ui/CpuMenus.ui:20 ui/CpuTab.ui:416
 msgid "CPU Tab Customizations"
 msgstr ""
 
@@ -1292,8 +1286,8 @@ msgid "0%"
 msgstr ""
 
 #: ui/CpuTab.ui:101 ui/CpuTab.ui:118 ui/CpuTab.ui:135 ui/CpuTab.ui:191
-#: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:315
-#: ui/CpuTab.ui:346 ui/CpuTab.ui:389 ui/CpuTab.ui:452 ui/CpuTab.ui:467
+#: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:313
+#: ui/CpuTab.ui:344 ui/CpuTab.ui:387 ui/CpuTab.ui:450 ui/CpuTab.ui:465
 #: ui/DiskTab.ui:66 ui/DiskTab.ui:81 ui/DiskTab.ui:187 ui/DiskTab.ui:204
 #: ui/DiskTab.ui:221 ui/DiskTab.ui:238 ui/DiskTab.ui:255 ui/DiskTab.ui:304
 #: ui/DiskTab.ui:335 ui/DiskTab.ui:385 ui/DiskTab.ui:425 ui/DiskTab.ui:442
@@ -1388,50 +1382,46 @@ msgid "Cache (L1d-L1i):"
 msgstr ""
 
 #: ui/CpuTab.ui:258
-msgid ""
-"Number of physical CPU cores and number of online logical CPU cores\n"
-"\n"
-"Number of physical and logical CPU cores are same if CPU has no SMT feature "
-"or if it is disabled."
+msgid "Number of physical CPU cores and number of online logical CPU cores"
 msgstr ""
 
-#: ui/CpuTab.ui:262
+#: ui/CpuTab.ui:260
 msgid "Cores (Physical-Logical):"
 msgstr ""
 
-#: ui/CpuTab.ui:275
+#: ui/CpuTab.ui:273
 msgid "CPU Sockets:"
 msgstr ""
 
-#: ui/CpuTab.ui:288
+#: ui/CpuTab.ui:286
 msgid "Min-Max Frequency:"
 msgstr ""
 
-#: ui/CpuTab.ui:300
+#: ui/CpuTab.ui:298
 msgid "Current frequency of the selected CPU core"
 msgstr ""
 
-#: ui/CpuTab.ui:302
+#: ui/CpuTab.ui:300
 msgid "Frequency:"
 msgstr ""
 
-#: ui/CpuTab.ui:331 ui/PerformanceSummaryHeaderBarGrid.ui:16
+#: ui/CpuTab.ui:329 ui/PerformanceSummaryHeaderBarGrid.ui:16
 msgid "Average CPU usage of all cores"
 msgstr ""
 
-#: ui/CpuTab.ui:333
+#: ui/CpuTab.ui:331
 msgid "Average Usage:"
 msgstr ""
 
-#: ui/CpuTab.ui:363
+#: ui/CpuTab.ui:361
 msgid "Architecture:"
 msgstr ""
 
-#: ui/CpuTab.ui:376
+#: ui/CpuTab.ui:374
 msgid "Cache (L2-L3):"
 msgstr ""
 
-#: ui/CpuTab.ui:444
+#: ui/CpuTab.ui:442
 msgid ""
 "Selected CPU Core Number\n"
 "\n"
@@ -1442,7 +1432,7 @@ msgid ""
 "Cache (L2-L3)"
 msgstr ""
 
-#: ui/CpuTab.ui:465
+#: ui/CpuTab.ui:463
 msgid "CPU Model Name"
 msgstr ""
 
@@ -1647,11 +1637,11 @@ msgid "Add Persistent Environment Variable"
 msgstr ""
 
 #: ui/EnvironmentVarMenuRightClick.ui:44
-msgid "Edit Environment Variable"
+msgid "Edit"
 msgstr ""
 
-#: ui/EnvironmentVarMenuRightClick.ui:53
-msgid "Delete Environment Variable"
+#: ui/EnvironmentVarMenuRightClick.ui:53 ui/StartupMenuRightClick.ui:79
+msgid "Delete"
 msgstr ""
 
 #: ui/EnvironmentVarMenuRightClick.ui:68
@@ -2702,10 +2692,6 @@ msgstr ""
 
 #: ui/StartupMenuRightClick.ui:70
 msgid "Add"
-msgstr ""
-
-#: ui/StartupMenuRightClick.ui:79
-msgid "Delete"
 msgstr ""
 
 #: ui/StartupMenuRightClick.ui:90

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-02 16:36+0300\n"
-"PO-Revision-Date: 2022-01-02 16:37+0300\n"
+"POT-Creation-Date: 2022-01-02 17:01+0300\n"
+"PO-Revision-Date: 2022-01-02 17:02+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -116,13 +116,17 @@ msgstr "Ortam değişkeni şu dosyalardan silinecek:"
 msgid "Do you want to delete the following persistent environment variable?"
 msgstr "Şu kalıcı ortam değişkenini silmek istiyor musunuz?"
 
-#: src/EnvironmentVarMenuRightClick.py:158
-msgid "Variable:"
-msgstr "Değişken:"
+#: src/EnvironmentVarMenuRightClick.py:158 src/EnvironmentVariables.py:184
+#: ui/EnvironmentVarMenuCustomizations.ui:252
+#: ui/EnvironmentVariablesInputWindow.ui:154
+msgid "Variable"
+msgstr "Değişken"
 
-#: src/EnvironmentVarMenuRightClick.py:159
-msgid "Value:"
-msgstr "Değer:"
+#: src/EnvironmentVarMenuRightClick.py:159 src/EnvironmentVariables.py:185
+#: ui/EnvironmentVarMenuCustomizations.ui:268
+#: ui/EnvironmentVariablesInputWindow.ui:166
+msgid "Value"
+msgstr "Değer"
 
 #: src/EnvironmentVariables.py:146 src/EnvironmentVariables.py:148
 msgid ""
@@ -154,16 +158,6 @@ msgstr "Kabuk (Shell) değişkenleri düzenlenemez."
 #: src/EnvironmentVariables.py:175
 msgid "Shell variables cannot be deleted."
 msgstr "Kabuk (Shell) değişkenleri silinemez."
-
-#: src/EnvironmentVariables.py:184 ui/EnvironmentVarMenuCustomizations.ui:252
-#: ui/EnvironmentVariablesInputWindow.ui:154
-msgid "Variable"
-msgstr "Değişken"
-
-#: src/EnvironmentVariables.py:185 ui/EnvironmentVarMenuCustomizations.ui:268
-#: ui/EnvironmentVariablesInputWindow.ui:166
-msgid "Value"
-msgstr "Değer"
 
 #: src/EnvironmentVariables.py:186 ui/EnvironmentVarMenuCustomizations.ui:282
 msgid "Variable Type"
@@ -801,7 +795,7 @@ msgstr "Ortam Değişkenleri"
 msgid "System"
 msgstr "Sistem"
 
-#: src/SettingsGUI.py:320 ui/CpuTab.ui:490 ui/MainWindow.ui:80
+#: src/SettingsGUI.py:320 ui/CpuTab.ui:488 ui/MainWindow.ui:80
 msgid "CPU"
 msgstr "MİB"
 
@@ -1288,7 +1282,7 @@ msgstr "Kullanıcı Adı:"
 msgid "User UID:"
 msgstr "Kullanıcı UUID:"
 
-#: ui/CpuMenus.ui:20 ui/CpuTab.ui:418
+#: ui/CpuMenus.ui:20 ui/CpuTab.ui:416
 msgid "CPU Tab Customizations"
 msgstr "MİB Sekmesi Özelleştirmeleri"
 
@@ -1350,8 +1344,8 @@ msgid "0%"
 msgstr "%0"
 
 #: ui/CpuTab.ui:101 ui/CpuTab.ui:118 ui/CpuTab.ui:135 ui/CpuTab.ui:191
-#: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:315
-#: ui/CpuTab.ui:346 ui/CpuTab.ui:389 ui/CpuTab.ui:452 ui/CpuTab.ui:467
+#: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:313
+#: ui/CpuTab.ui:344 ui/CpuTab.ui:387 ui/CpuTab.ui:450 ui/CpuTab.ui:465
 #: ui/DiskTab.ui:66 ui/DiskTab.ui:81 ui/DiskTab.ui:187 ui/DiskTab.ui:204
 #: ui/DiskTab.ui:221 ui/DiskTab.ui:238 ui/DiskTab.ui:255 ui/DiskTab.ui:304
 #: ui/DiskTab.ui:335 ui/DiskTab.ui:385 ui/DiskTab.ui:425 ui/DiskTab.ui:442
@@ -1446,54 +1440,47 @@ msgid "Cache (L1d-L1i):"
 msgstr "Ön Bellek (L1d-L1i):"
 
 #: ui/CpuTab.ui:258
-msgid ""
-"Number of physical CPU cores and number of online logical CPU cores\n"
-"\n"
-"Number of physical and logical CPU cores are same if CPU has no SMT feature "
-"or if it is disabled."
+msgid "Number of physical CPU cores and number of online logical CPU cores"
 msgstr ""
-"Fiziksel MİB çekirdek sayısı ve çevrim içi mantıksal MİB çekirdek sayısı\n"
-"\n"
-"(MİB'nin SMT özelliği yoksa veya devre dışı ise, toplam mantıksal ve "
-"fiziksel çekirdek sayıları birbirine eşittir.)"
+"Fiziksel MİB çekirdek sayısı ve çevrim içi mantıksal MİB çekirdek sayısı"
 
-#: ui/CpuTab.ui:262
+#: ui/CpuTab.ui:260
 msgid "Cores (Physical-Logical):"
 msgstr "Çekirdekler (Fiziksel-Mantıksal):"
 
-#: ui/CpuTab.ui:275
+#: ui/CpuTab.ui:273
 msgid "CPU Sockets:"
 msgstr "MİB Soketleri:"
 
-#: ui/CpuTab.ui:288
+#: ui/CpuTab.ui:286
 msgid "Min-Max Frequency:"
 msgstr "Min-Maks Frekans:"
 
-#: ui/CpuTab.ui:300
+#: ui/CpuTab.ui:298
 msgid "Current frequency of the selected CPU core"
 msgstr "Seçilen MİB çekirdeğinin şimdiki frekansı"
 
-#: ui/CpuTab.ui:302
+#: ui/CpuTab.ui:300
 msgid "Frequency:"
 msgstr "Frekans:"
 
-#: ui/CpuTab.ui:331 ui/PerformanceSummaryHeaderBarGrid.ui:16
+#: ui/CpuTab.ui:329 ui/PerformanceSummaryHeaderBarGrid.ui:16
 msgid "Average CPU usage of all cores"
 msgstr "Tüm çekirdeklerin ortalama MİB kullanımı"
 
-#: ui/CpuTab.ui:333
+#: ui/CpuTab.ui:331
 msgid "Average Usage:"
 msgstr "Ortalama Kullanım:"
 
-#: ui/CpuTab.ui:363
+#: ui/CpuTab.ui:361
 msgid "Architecture:"
 msgstr "Mimari:"
 
-#: ui/CpuTab.ui:376
+#: ui/CpuTab.ui:374
 msgid "Cache (L2-L3):"
 msgstr "Ön Bellek (L2-L3):"
 
-#: ui/CpuTab.ui:444
+#: ui/CpuTab.ui:442
 msgid ""
 "Selected CPU Core Number\n"
 "\n"
@@ -1511,7 +1498,7 @@ msgstr ""
 "Ön Bellek (L1d-L1i),\n"
 "Ön Bellek (L2-L3)"
 
-#: ui/CpuTab.ui:465
+#: ui/CpuTab.ui:463
 msgid "CPU Model Name"
 msgstr "MİB Model Adı"
 
@@ -1736,12 +1723,12 @@ msgid "Add Persistent Environment Variable"
 msgstr "Kalıcı Ortam Değişkeni Ekle"
 
 #: ui/EnvironmentVarMenuRightClick.ui:44
-msgid "Edit Environment Variable"
-msgstr "Ortam Değişkenini Düzenle"
+msgid "Edit"
+msgstr "Düzenle"
 
-#: ui/EnvironmentVarMenuRightClick.ui:53
-msgid "Delete Environment Variable"
-msgstr "Ortam Değişkenini Sil"
+#: ui/EnvironmentVarMenuRightClick.ui:53 ui/StartupMenuRightClick.ui:79
+msgid "Delete"
+msgstr "Sil"
 
 #: ui/EnvironmentVarMenuRightClick.ui:68
 msgid "Copy Variable"
@@ -2865,10 +2852,6 @@ msgstr "Etkinleştir/Devre Dışı Bırak"
 msgid "Add"
 msgstr "Ekle"
 
-#: ui/StartupMenuRightClick.ui:79
-msgid "Delete"
-msgstr "Sil"
-
 #: ui/StartupMenuRightClick.ui:90
 msgid "Delete System-Wide Values File"
 msgstr "Sistem Geneli Değerler Dosyasını Sil"
@@ -3239,6 +3222,29 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:197
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Variable:"
+#~ msgstr "Değişken:"
+
+#~ msgid "Value:"
+#~ msgstr "Değer:"
+
+#~ msgid ""
+#~ "Number of physical CPU cores and number of online logical CPU cores\n"
+#~ "\n"
+#~ "Number of physical and logical CPU cores are same if CPU has no SMT "
+#~ "feature or if it is disabled."
+#~ msgstr ""
+#~ "Fiziksel MİB çekirdek sayısı ve çevrim içi mantıksal MİB çekirdek sayısı\n"
+#~ "\n"
+#~ "(MİB'nin SMT özelliği yoksa veya devre dışı ise, toplam mantıksal ve "
+#~ "fiziksel çekirdek sayıları birbirine eşittir.)"
+
+#~ msgid "Edit Environment Variable"
+#~ msgstr "Ortam Değişkenini Düzenle"
+
+#~ msgid "Delete Environment Variable"
+#~ msgstr "Ortam Değişkenini Sil"
 
 #~ msgid ""
 #~ "Note: Presence and configuration of swap memory may vary between "
@@ -4543,9 +4549,6 @@ msgstr "Sadece çıkış yapmış kullanıcıları göster"
 
 #~ msgid " variables ("
 #~ msgstr " değişken ("
-
-#~ msgid "Edit"
-#~ msgstr "Düzenle"
 
 #~ msgid "Add Environment Variable For Current User"
 #~ msgstr "Şimdiki Kullanıcı İçin Ortam Değişkeni Ekle"

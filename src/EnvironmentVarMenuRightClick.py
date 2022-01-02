@@ -155,8 +155,8 @@ def environment_variables_delete_variable_warning_dialog(selected_variable, sele
                                              "\n\n" +
                                              _tr("Do you want to delete the following persistent environment variable?") +
                                              "\n\n    " +
-                                             _tr("Variable:") + " " + selected_variable +
-                                             "\n    " + _tr("Value:") + " " + selected_variable_value)
+                                             _tr("Variable") + ": " + selected_variable +
+                                             "\n    " + _tr("Value") + ": " + selected_variable_value)
     global warning_dialog7104_response
     warning_dialog7104_response = warning_dialog7104.run()
     warning_dialog7104.destroy()

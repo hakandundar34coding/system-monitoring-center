@@ -41,7 +41,7 @@
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem7102m">
-        <property name="label" translatable="yes">Edit Environment Variable</property>
+        <property name="label" translatable="yes">Edit</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="image">menuitem7101m_image</property>
@@ -50,7 +50,7 @@
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem7103m">
-        <property name="label" translatable="yes">Delete Environment Variable</property>
+        <property name="label" translatable="yes">Delete</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="image">menuitem7103m_image</property>

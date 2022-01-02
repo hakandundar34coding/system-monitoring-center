@@ -255,9 +255,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Number of physical CPU cores and number of online logical CPU cores
-
-Number of physical and logical CPU cores are same if CPU has no SMT feature or if it is disabled.</property>
+            <property name="tooltip-text" translatable="yes">Number of physical CPU cores and number of online logical CPU cores</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Cores (Physical-Logical):</property>
             <property name="ellipsize">end</property>
