@@ -40,14 +40,6 @@ def main_menus_gui_func():
 
 
     # ********************** Define object functions for Main Menu GUI **********************
-    def on_menu1001m_show(widget):
-        checkmenuitem1001m.disconnect_by_func(on_checkmenuitem1001m_toggled)                  # Disconnect "on_checkmenuitem1001m_toggled" function in order to prevent it from sending event signals when toggling is performed by the code for reflecting the user preference about "Floating Window".
-        if Config.show_floating_summary == 0:
-            checkmenuitem1001m.set_active(False)
-        if Config.show_floating_summary == 1:
-            checkmenuitem1001m.set_active(True)
-        checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
-
     def on_checkmenuitem1001m_toggled(widget):                                                # "Floating Summary" menu item
         if "FloatingSummary" not in globals():                                                # Floating Summary window might have been opened on the application start and user may want to hide it from the Main Menu of the application. Existance check of the "FloatingSummary" variable is performed before the "if checkmenuitem1001m.get_active() == False:" statement in order to avoid errors of FloatingSummary not defined.
             global FloatingSummary
@@ -85,8 +77,8 @@ def main_menus_gui_func():
 
 
     # ********************** Connect signals to GUI objects for Main Menu GUI **********************
-    menu1001m.connect("show", on_menu1001m_show)
-    checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)
+    global checkmenuitem1001m_handler_id
+    checkmenuitem1001m_handler_id = checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)    # Define handler id for "checkmenuitem1001m" in order to block this signal when toggling the checkbox.
     menuitem1004m.connect("activate", on_menuitem1004m_activate)
     menuitem1005m.connect("activate", on_menuitem1005m_activate)
     menuitem1006m.connect("activate", on_menuitem1006m_activate)

@@ -138,11 +138,17 @@ def main_gui_func():
 
     def on_button1_clicked(widget):                                                           # "Main Menu" button
         if 'MainMenusDialogs' not in globals():
-            global MainMenusDialogs
+            global MainMenusDialogs, Gdk
             import MainMenusDialogs
+            from gi.repository import Gdk
             MainMenusDialogs.main_menus_gui_import_func()
             MainMenusDialogs.main_menus_gui_func()
-        MainMenusDialogs.menu1001m.popup(None, None, None, None, 1, Gtk.get_current_event_time())                                                          # Show CPU tab popover GUI
+        with MainMenusDialogs.checkmenuitem1001m.handler_block(MainMenusDialogs.checkmenuitem1001m_handler_id):    # Block signal of "checkmenuitem1001m" in order to toggle it without triggering the signal.
+            if Config.show_floating_summary == 0:
+                MainMenusDialogs.checkmenuitem1001m.set_active(False)
+            if Config.show_floating_summary == 1:
+                MainMenusDialogs.checkmenuitem1001m.set_active(True)
+        MainMenusDialogs.menu1001m.popup_at_widget(button1, Gdk.Gravity(7), Gdk.Gravity(1), None)
 
     def on_radiobutton1_toggled(widget):                                                      # "Performance" radiobutton
         if radiobutton1.get_active() == True:

@@ -123,7 +123,7 @@ def system_initial_func():
     with open("/etc/passwd") as reader:                                                       # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
         etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
     for line in etc_passwd_lines:
-        line_splitted = line.split(":")
+        line_splitted = line.split(":", 3)
         usernames_username_list.append(line_splitted[0])
         usernames_uid_list.append(line_splitted[2])
     # Get current username

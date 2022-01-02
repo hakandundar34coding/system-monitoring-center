@@ -348,7 +348,7 @@ def cpu_loop_func():
                 proc_status_output = reader.read()
         except (FileNotFoundError, ProcessLookupError) as me:
             continue
-        thread_count_list.append(int(proc_status_output.split("\nThreads:")[1].split("\n")[0].strip()))    # Append number of threads of the process
+        thread_count_list.append(int(proc_status_output.split("\nThreads:", 1)[1].split("\n", 1)[0].strip()))    # Append number of threads of the process
     number_of_total_processes = len(thread_count_list)
     number_of_total_threads = sum(thread_count_list)
 
