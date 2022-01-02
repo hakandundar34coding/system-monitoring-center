@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-01 20:04+0300\n"
-"PO-Revision-Date: 2022-01-01 20:09+0300\n"
+"POT-Creation-Date: 2022-01-02 09:59+0300\n"
+"PO-Revision-Date: 2022-01-02 10:00+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -53,16 +53,18 @@ msgid "[SWAP]"
 msgstr "[TAKAS]"
 
 #: src/Disk.py:224 src/Gpu.py:231 src/Network.py:232 src/Network.py:254
-#: src/ServicesDetails.py:148 src/Storage.py:496 src/Storage.py:507
-#: src/Storage.py:518 src/StorageDetails.py:225 src/StorageDetails.py:372
-#: src/StorageDetails.py:386 src/StorageDetails.py:400 src/UsersDetails.py:239
+#: src/Services.py:195 src/ServicesDetails.py:148 src/Storage.py:496
+#: src/Storage.py:507 src/Storage.py:518 src/StorageDetails.py:225
+#: src/StorageDetails.py:372 src/StorageDetails.py:386
+#: src/StorageDetails.py:400 src/UsersDetails.py:239
 msgid "Yes"
 msgstr "Evet"
 
 #: src/Disk.py:226 src/Gpu.py:233 src/Gpu.py:318 src/Network.py:234
-#: src/ServicesDetails.py:148 src/Storage.py:498 src/Storage.py:509
-#: src/Storage.py:520 src/StorageDetails.py:221 src/StorageDetails.py:374
-#: src/StorageDetails.py:388 src/StorageDetails.py:402 src/UsersDetails.py:241
+#: src/Services.py:195 src/ServicesDetails.py:148 src/Storage.py:498
+#: src/Storage.py:509 src/Storage.py:520 src/StorageDetails.py:221
+#: src/StorageDetails.py:374 src/StorageDetails.py:388
+#: src/StorageDetails.py:402 src/UsersDetails.py:241
 msgid "No"
 msgstr "Hayır"
 
@@ -424,7 +426,7 @@ msgstr "GID"
 msgid "Path"
 msgstr "Yol"
 
-#: src/Processes.py:244 src/ServicesDetails.py:147
+#: src/Processes.py:244 src/Services.py:194 src/ServicesDetails.py:147
 msgid "Running"
 msgstr "Çalışıyor"
 
@@ -452,7 +454,7 @@ msgstr "Durdu"
 msgid "Tracing Stop"
 msgstr "Tracing Stop"
 
-#: src/Processes.py:244 src/ServicesDetails.py:147
+#: src/Processes.py:244 src/Services.py:194 src/ServicesDetails.py:147
 msgid "Dead"
 msgstr "Sonlanmış"
 
@@ -695,121 +697,58 @@ msgstr "Bellek (RSS)"
 msgid "Description"
 msgstr "Açıklama"
 
-#: src/Services.py:194
-msgid "enabled"
-msgstr "etkin"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Enabled"
+msgstr "Etkin"
 
-#: src/Services.py:194
-msgid "disabled"
-msgstr "devre dışı"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Disabled"
+msgstr "Devre Dışı"
 
-#: src/Services.py:194
-msgid "masked"
-msgstr "gizli"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Masked"
+msgstr "Gizli"
 
-#: src/Services.py:194
-msgid "unmasked"
-msgstr "gizli değil"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Unmasked"
+msgstr "Gizli değil"
 
-#: src/Services.py:194
-msgid "static"
-msgstr "statik"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Static"
+msgstr "Statik"
 
-#: src/Services.py:194
-msgid "generated"
-msgstr "oluşturulmuş"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Generated"
+msgstr "Oluşturulmuş"
 
-#: src/Services.py:194
-msgid "enabled-runtime"
-msgstr "etkin-çalışma zamanı"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Enabled-runtime"
+msgstr "Etkin-çalışma zamanı"
 
-#: src/Services.py:194
-msgid "indirect"
-msgstr "dolaylı"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Indirect"
+msgstr "Dolaylı"
 
-#: src/Services.py:194
-msgid "active"
-msgstr "aktif"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Active"
+msgstr "Aktif"
 
-#: src/Services.py:194
-msgid "inactive"
-msgstr "inaktif"
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Inactive"
+msgstr "İnaktif"
 
-#: src/Services.py:194
-msgid "loaded"
-msgstr "yüklü"
-
-#: src/Services.py:194
-msgid "dead"
-msgstr "ölü"
-
-#: src/Services.py:194
-msgid "exited"
-msgstr "çıkmış"
-
-#: src/Services.py:194
-msgid "running"
-msgstr "çalışıyor"
-
-#: src/Services.py:195
-msgid "yes"
-msgstr "evet"
-
-#: src/Services.py:195
-msgid "no"
-msgstr "hayır"
-
-#: src/Services.py:279 src/Services.py:282 src/ServicesDetails.py:147
+#: src/Services.py:194 src/Services.py:279 src/Services.py:282
+#: src/ServicesDetails.py:147
 msgid "Loaded"
 msgstr "Yüklenmiş"
+
+#: src/Services.py:194 src/ServicesDetails.py:147
+msgid "Exited"
+msgstr "Çıkmış"
 
 #: src/Services.py:486
 msgid "Total: AAAA services (BBBB loaded, CCCC non-loaded)"
 msgstr "Toplam: AAAA servis (BBBB yüklenmiş, CCCC yüklenmemiş)"
-
-#: src/ServicesDetails.py:147
-msgid "Enabled"
-msgstr "Etkin"
-
-#: src/ServicesDetails.py:147
-msgid "Disabled"
-msgstr "Devre Dışı"
-
-#: src/ServicesDetails.py:147
-msgid "Masked"
-msgstr "Gizli"
-
-#: src/ServicesDetails.py:147
-msgid "Unmasked"
-msgstr "Gizli değil"
-
-#: src/ServicesDetails.py:147
-msgid "Static"
-msgstr "Statik"
-
-#: src/ServicesDetails.py:147
-msgid "Generated"
-msgstr "Oluşturulmuş"
-
-#: src/ServicesDetails.py:147
-msgid "Enabled-runtime"
-msgstr "Etkin-çalışma zamanı"
-
-#: src/ServicesDetails.py:147
-msgid "Indirect"
-msgstr "Dolaylı"
-
-#: src/ServicesDetails.py:147
-msgid "Active"
-msgstr "Aktif"
-
-#: src/ServicesDetails.py:147
-msgid "Inactive"
-msgstr "İnaktif"
-
-#: src/ServicesDetails.py:147
-msgid "Exited"
-msgstr "Çıkmış"
 
 #: src/ServicesDetails.py:352
 msgid "Service File Does Not Exist Anymore"
@@ -892,15 +831,16 @@ msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırlamak istiyor musu
 
 #: src/Startup.py:140 ui/ProcessesDetailsWindow.ui:42
 #: ui/ProcessesMenuCustomizations.ui:341 ui/ServicesDetailsWindow.ui:43
-#: ui/StartupMenuCustomizations.ui:251
+#: ui/StartupMenuCustomizations.ui:251 ui/StartupNewItemWindow.ui:310
 msgid "Name"
 msgstr "İsim"
 
 #: src/Startup.py:141 ui/StartupMenuCustomizations.ui:267
+#: ui/StartupNewItemWindow.ui:165
 msgid "Comment"
 msgstr "Açıklama"
 
-#: src/Startup.py:142
+#: src/Startup.py:142 ui/StartupNewItemWindow.ui:177
 msgid "Command"
 msgstr "Komut"
 
@@ -960,7 +900,6 @@ msgid "Startup Item:"
 msgstr "Başlangıç Ögesi:"
 
 #: src/StartupMenuRightClick.py:416 src/StartupMenuRightClick.py:429
-#: ui/StartupNewItemWindow.ui:189
 msgid "Command:"
 msgstr "Komut:"
 
@@ -1206,7 +1145,7 @@ msgstr "Ev Dizini"
 msgid "Group"
 msgstr "Grup"
 
-#: src/Users.py:172 ui/StartupNewItemWindow.ui:235 ui/UsersDetailsWindow.ui:143
+#: src/Users.py:172 ui/StartupNewItemWindow.ui:223 ui/UsersDetailsWindow.ui:143
 #: ui/UsersMenuCustomizations.ui:422
 msgid "Terminal"
 msgstr "Uçbirim"
@@ -2354,7 +2293,9 @@ msgstr "Özet:"
 #: ui/ServicesDetailsWindow.ui:724 ui/ServicesDetailsWindow.ui:737
 #: ui/ServicesDetailsWindow.ui:750 ui/ServicesDetailsWindow.ui:904
 #: ui/ServicesDetailsWindow.ui:917 ui/ServicesDetailsWindow.ui:930
-#: ui/ServicesDetailsWindow.ui:943 ui/StorageDetailsWindow.ui:717
+#: ui/ServicesDetailsWindow.ui:943 ui/StartupNewItemWindow.ui:322
+#: ui/StartupNewItemWindow.ui:334 ui/StartupNewItemWindow.ui:346
+#: ui/StartupNewItemWindow.ui:358 ui/StorageDetailsWindow.ui:717
 #: ui/StorageDetailsWindow.ui:730 ui/StorageDetailsWindow.ui:743
 #: ui/StorageDetailsWindow.ui:756 ui/StorageDetailsWindow.ui:769
 #: ui/StorageDetailsWindow.ui:782 ui/StorageDetailsWindow.ui:795
@@ -2977,35 +2918,27 @@ msgstr "'.desktop' Dosyasını Aç..."
 msgid "Add New Startup Item"
 msgstr "Yeni Başlangıç Ögesi Ekle"
 
-#: ui/StartupNewItemWindow.ui:165 ui/SystemTab.ui:153
-msgid "Name:"
-msgstr "Ad:"
+#: ui/StartupNewItemWindow.ui:189
+msgid "Icon"
+msgstr "Küçük Resim"
 
-#: ui/StartupNewItemWindow.ui:177
-msgid "Comment:"
-msgstr "Açıklama:"
-
-#: ui/StartupNewItemWindow.ui:201
-msgid "Icon:"
-msgstr "Küçük Resim:"
-
-#: ui/StartupNewItemWindow.ui:221
+#: ui/StartupNewItemWindow.ui:209
 msgid "Startup Notify"
 msgstr "Başlangıç Bildirimi"
 
-#: ui/StartupNewItemWindow.ui:261
+#: ui/StartupNewItemWindow.ui:249
 msgid "User-specific (for current user only)"
 msgstr "Kullanıcıya Özgü (sadece bu kullanıcı için)"
 
-#: ui/StartupNewItemWindow.ui:275
+#: ui/StartupNewItemWindow.ui:263
 msgid "System-wide (for all users)"
 msgstr "Sistem geneli (tüm kullanıcılar için)"
 
-#: ui/StartupNewItemWindow.ui:294
+#: ui/StartupNewItemWindow.ui:282
 msgid "Type of the startup item:"
 msgstr "Başlangıç Ögesi Türü:"
 
-#: ui/StartupNewItemWindow.ui:309
+#: ui/StartupNewItemWindow.ui:297
 msgid "Note: Name and Command fields cannot be left blank."
 msgstr "Not: Ad ve Komut alanları boş bırakılamaz."
 
@@ -3142,6 +3075,10 @@ msgstr ""
 #: ui/SystemTab.ui:136
 msgid "Operating System (OS):"
 msgstr "İşletim Sistemi (İ.S.):"
+
+#: ui/SystemTab.ui:153
+msgid "Name:"
+msgstr "Ad:"
 
 #: ui/SystemTab.ui:166
 msgid "Version - Code Name:"
@@ -3327,6 +3264,57 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:197
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Comment:"
+#~ msgstr "Açıklama:"
+
+#~ msgid "enabled"
+#~ msgstr "etkin"
+
+#~ msgid "disabled"
+#~ msgstr "devre dışı"
+
+#~ msgid "masked"
+#~ msgstr "gizli"
+
+#~ msgid "unmasked"
+#~ msgstr "gizli değil"
+
+#~ msgid "static"
+#~ msgstr "statik"
+
+#~ msgid "generated"
+#~ msgstr "oluşturulmuş"
+
+#~ msgid "enabled-runtime"
+#~ msgstr "etkin-çalışma zamanı"
+
+#~ msgid "indirect"
+#~ msgstr "dolaylı"
+
+#~ msgid "active"
+#~ msgstr "aktif"
+
+#~ msgid "inactive"
+#~ msgstr "inaktif"
+
+#~ msgid "loaded"
+#~ msgstr "yüklü"
+
+#~ msgid "dead"
+#~ msgstr "ölü"
+
+#~ msgid "exited"
+#~ msgstr "çıkmış"
+
+#~ msgid "running"
+#~ msgstr "çalışıyor"
+
+#~ msgid "yes"
+#~ msgstr "evet"
+
+#~ msgid "no"
+#~ msgstr "hayır"
 
 #~ msgid "(Yes)"
 #~ msgstr "(Evet)"

@@ -258,10 +258,10 @@ def services_details_loop_func():
             selected_service_fragment_path = line.split("=")[1]
             continue
         if "UnitFileState=" in line:
-            selected_service_unit_file_state = _tr(line.split("=")[1])
+            selected_service_unit_file_state = _tr(line.split("=")[1].capitalize())
             continue
         if "UnitFilePreset=" in line:
-            selected_service_unit_file_preset = _tr(line.split("=")[1])
+            selected_service_unit_file_preset = _tr(line.split("=")[1].capitalize())
             continue
         if "CanStart=" in line:
             selected_service_can_start = _tr(line.split("=")[1].capitalize())

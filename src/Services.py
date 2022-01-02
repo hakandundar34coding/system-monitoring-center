@@ -191,8 +191,8 @@ def services_initial_func():
     services_image = "system-monitoring-center-services-symbolic"                             # Will be used as image of the services
     services_loop_func()
 
-    service_state_list = [_tr("enabled"), _tr("disabled"), _tr("masked"), _tr("unmasked"), _tr("static"), _tr("generated"), _tr("enabled-runtime"), _tr("indirect"), _tr("active"), _tr("inactive"), _tr("loaded"), _tr("dead"), _tr("exited"), _tr("running")]    # This list is defined in order to make English service state names to be translated into other languages.
-    services_other_text_list = [_tr("yes"), _tr("no")]                                        # This list is defined in order to make English service information to be translated into other languages.
+    service_state_list = [_tr("Enabled"), _tr("Disabled"), _tr("Masked"), _tr("Unmasked"), _tr("Static"), _tr("Generated"), _tr("Enabled-runtime"), _tr("Indirect"), _tr("Active"), _tr("Inactive"), _tr("Loaded"), _tr("Dead"), _tr("Exited"), _tr("Running")]    # This list is defined in order to make English service state names to be translated into other languages. String names are capitalized here as they are capitalized in the code by using ".capitalize()" in order to use translated strings.
+    services_other_text_list = [_tr("Yes"), _tr("No")]                                        # This list is defined in order to make English service information to be translated into other languages.
 
     global filter_column
     filter_column = services_data_list[0][2] - 1                                              # Search filter is "Service Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
