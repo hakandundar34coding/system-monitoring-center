@@ -76,7 +76,7 @@
               <object class="GtkLabel" id="label1301">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Disk Device Model Name</property>
+                <property name="tooltip-text" translatable="yes">Vendor-Model</property>
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">--</property>
                 <property name="selectable">True</property>

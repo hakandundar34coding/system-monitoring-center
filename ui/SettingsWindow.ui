@@ -407,7 +407,7 @@
                     <property name="column-homogeneous">True</property>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2004">
-                        <property name="label" translatable="yes">CPU Usage Average</property>
+                        <property name="label" translatable="yes">CPU</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -421,7 +421,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2005">
-                        <property name="label" translatable="yes">RAM Usage</property>
+                        <property name="label" translatable="yes">RAM</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>

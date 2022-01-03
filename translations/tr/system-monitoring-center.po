@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-03 09:16+0300\n"
-"PO-Revision-Date: 2022-01-03 09:16+0300\n"
+"POT-Creation-Date: 2022-01-03 10:01+0300\n"
+"PO-Revision-Date: 2022-01-03 10:02+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -800,10 +800,12 @@ msgstr "Sistem"
 
 #: src/SettingsGUI.py:320 ui/CpuTab.ui:488 ui/MainWindow.ui:80
 #: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:709
+#: ui/SettingsWindow.ui:410
 msgid "CPU"
 msgstr "MİB"
 
 #: src/SettingsGUI.py:320 ui/MainWindow.ui:127 ui/RamTab.ui:415
+#: ui/SettingsWindow.ui:424
 msgid "RAM"
 msgstr "RAM"
 
@@ -986,7 +988,8 @@ msgstr "Kullanılan Alan"
 msgid "Used Space%"
 msgstr "Kullanılan %Alan"
 
-#: src/Storage.py:198 ui/StorageDetailsWindow.ui:168
+#: src/Storage.py:198 ui/CpuTab.ui:463 ui/DiskTab.ui:79 ui/GpuTab.ui:403
+#: ui/NetworkTab.ui:466 ui/StorageDetailsWindow.ui:168
 #: ui/StorageMenuCustomizations.ui:491
 msgid "Vendor-Model"
 msgstr "Marka-Model"
@@ -1498,10 +1501,6 @@ msgstr ""
 "Ön Bellek (L1d-L1i),\n"
 "Ön Bellek (L2-L3)"
 
-#: ui/CpuTab.ui:463
-msgid "CPU Model Name"
-msgstr "MİB Model Adı"
-
 #: ui/DiskMenus.ui:20 ui/DiskTab.ui:38
 msgid "Disk Tab Customizations"
 msgstr "Disk Sekmesi Özelleştirmeleri"
@@ -1546,10 +1545,6 @@ msgstr "Disk Seç:"
 #: ui/DiskTab.ui:64
 msgid "Disk Kernel Name (and if selected disk is a disk or partition)"
 msgstr "Kernel'deki Disk Adı (ve seçilen diskin disk veya disk bölümü olması)"
-
-#: ui/DiskTab.ui:79
-msgid "Disk Device Model Name"
-msgstr "Disk Cihaz Modeli Adı"
 
 #: ui/DiskTab.ui:118
 msgid "Read Speed:"
@@ -2023,10 +2018,6 @@ msgstr "Çözünürlük:"
 msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
 msgstr "İ.S. Tarafından Verilen (Ve Sürücüdeki) GPU/Grafik Kartı Adı"
 
-#: ui/GpuTab.ui:403
-msgid "GPU/Graphics Card Device Model Name"
-msgstr "GPU/Grafik Kartı Cihaz Modeli Adı"
-
 #: ui/GpuTab.ui:441
 msgid "FPS"
 msgstr "FPS"
@@ -2196,10 +2187,6 @@ msgstr "Ağ İndirme (-) & Yükleme (--) Hızı:"
 #: ui/NetworkTab.ui:451
 msgid "Network Interface Controller (NIC) Name"
 msgstr "Ağ Arayüz Kontrolcüsü (NIC) Adı"
-
-#: ui/NetworkTab.ui:466
-msgid "Network Card Device Model Name"
-msgstr "Ağ Kartı Cihaz Modeli Adı"
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:18 ui/ProcessesDetailsWindow.ui:814
 msgid "CPU:"
@@ -2774,14 +2761,6 @@ msgstr ""
 msgid "Window"
 msgstr "Pencere"
 
-#: ui/SettingsWindow.ui:410
-msgid "CPU Usage Average"
-msgstr "MİB Kullanım Ortalaması"
-
-#: ui/SettingsWindow.ui:424
-msgid "RAM Usage"
-msgstr "RAM Kullanımı"
-
 #: ui/SettingsWindow.ui:452
 msgid "Network Download Speed"
 msgstr "Ağ İndirme Hızı"
@@ -3198,6 +3177,24 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:197
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "CPU Model Name"
+#~ msgstr "MİB Model Adı"
+
+#~ msgid "Disk Device Model Name"
+#~ msgstr "Disk Cihaz Modeli Adı"
+
+#~ msgid "GPU/Graphics Card Device Model Name"
+#~ msgstr "GPU/Grafik Kartı Cihaz Modeli Adı"
+
+#~ msgid "Network Card Device Model Name"
+#~ msgstr "Ağ Kartı Cihaz Modeli Adı"
+
+#~ msgid "CPU Usage Average"
+#~ msgstr "MİB Kullanım Ortalaması"
+
+#~ msgid "RAM Usage"
+#~ msgstr "RAM Kullanımı"
 
 #~ msgid "User session will be ended if you continue."
 #~ msgstr "Devam ederseniz kullanıcı oturumu sonlandırılacak."

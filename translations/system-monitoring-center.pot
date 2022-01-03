@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-03 09:16+0300\n"
+"POT-Creation-Date: 2022-01-03 10:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -763,10 +763,12 @@ msgstr ""
 
 #: src/SettingsGUI.py:320 ui/CpuTab.ui:488 ui/MainWindow.ui:80
 #: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:709
+#: ui/SettingsWindow.ui:410
 msgid "CPU"
 msgstr ""
 
 #: src/SettingsGUI.py:320 ui/MainWindow.ui:127 ui/RamTab.ui:415
+#: ui/SettingsWindow.ui:424
 msgid "RAM"
 msgstr ""
 
@@ -943,7 +945,8 @@ msgstr ""
 msgid "Used Space%"
 msgstr ""
 
-#: src/Storage.py:198 ui/StorageDetailsWindow.ui:168
+#: src/Storage.py:198 ui/CpuTab.ui:463 ui/DiskTab.ui:79 ui/GpuTab.ui:403
+#: ui/NetworkTab.ui:466 ui/StorageDetailsWindow.ui:168
 #: ui/StorageMenuCustomizations.ui:491
 msgid "Vendor-Model"
 msgstr ""
@@ -1432,10 +1435,6 @@ msgid ""
 "Cache (L2-L3)"
 msgstr ""
 
-#: ui/CpuTab.ui:463
-msgid "CPU Model Name"
-msgstr ""
-
 #: ui/DiskMenus.ui:20 ui/DiskTab.ui:38
 msgid "Disk Tab Customizations"
 msgstr ""
@@ -1479,10 +1478,6 @@ msgstr ""
 
 #: ui/DiskTab.ui:64
 msgid "Disk Kernel Name (and if selected disk is a disk or partition)"
-msgstr ""
-
-#: ui/DiskTab.ui:79
-msgid "Disk Device Model Name"
 msgstr ""
 
 #: ui/DiskTab.ui:118
@@ -1895,10 +1890,6 @@ msgstr ""
 msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
 msgstr ""
 
-#: ui/GpuTab.ui:403
-msgid "GPU/Graphics Card Device Model Name"
-msgstr ""
-
 #: ui/GpuTab.ui:441
 msgid "FPS"
 msgstr ""
@@ -2055,10 +2046,6 @@ msgstr ""
 
 #: ui/NetworkTab.ui:451
 msgid "Network Interface Controller (NIC) Name"
-msgstr ""
-
-#: ui/NetworkTab.ui:466
-msgid "Network Card Device Model Name"
 msgstr ""
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:18 ui/ProcessesDetailsWindow.ui:814
@@ -2617,14 +2604,6 @@ msgstr ""
 
 #: ui/SettingsWindow.ui:384
 msgid "Window"
-msgstr ""
-
-#: ui/SettingsWindow.ui:410
-msgid "CPU Usage Average"
-msgstr ""
-
-#: ui/SettingsWindow.ui:424
-msgid "RAM Usage"
 msgstr ""
 
 #: ui/SettingsWindow.ui:452
