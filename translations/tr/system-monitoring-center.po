@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-03 10:01+0300\n"
-"PO-Revision-Date: 2022-01-03 10:02+0300\n"
+"POT-Creation-Date: 2022-01-03 12:59+0300\n"
+"PO-Revision-Date: 2022-01-03 12:59+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -1338,11 +1338,11 @@ msgstr "Hepsini Sıfırla"
 msgid "Select CPU Core:"
 msgstr "MİB Çekirdeği Seç:"
 
-#: ui/CpuTab.ui:31 ui/RamTab.ui:510
+#: ui/CpuTab.ui:31 ui/RamTab.ui:508
 msgid "100%"
 msgstr "%100"
 
-#: ui/CpuTab.ui:55 ui/RamTab.ui:534
+#: ui/CpuTab.ui:55 ui/RamTab.ui:532
 msgid "0%"
 msgstr "%0"
 
@@ -1387,7 +1387,7 @@ msgstr "%0"
 #: ui/ProcessesTab.ui:255 ui/RamHardwareWindow.ui:87
 #: ui/RamSwapDetailsWindow.ui:87 ui/RamTab.ui:69 ui/RamTab.ui:86
 #: ui/RamTab.ui:129 ui/RamTab.ui:146 ui/RamTab.ui:176 ui/RamTab.ui:206
-#: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:459 ui/RamTab.ui:474
+#: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:458 ui/RamTab.ui:472
 #: ui/SensorsTab.ui:208 ui/ServicesDetailsWindow.ui:107
 #: ui/ServicesDetailsWindow.ui:121 ui/ServicesDetailsWindow.ui:135
 #: ui/ServicesDetailsWindow.ui:149 ui/ServicesDetailsWindow.ui:163
@@ -1703,8 +1703,11 @@ msgid "View"
 msgstr "Görünüm"
 
 #: ui/EnvironmentVarMenuCustomizations.ui:219
-msgid "Add/Remove Variable Information:"
-msgstr "Değişken Bilgilerini Ekle/Çıkart:"
+#: ui/ProcessesMenuCustomizations.ui:308 ui/ServicesMenuCustomizations.ui:219
+#: ui/StartupMenuCustomizations.ui:218 ui/StorageMenuCustomizations.ui:218
+#: ui/UsersMenuCustomizations.ui:219
+msgid "Add/Remove Information:"
+msgstr "Bilgi Ekle/Çıkart:"
 
 #: ui/EnvironmentVarMenuCustomizations.ui:312
 #: ui/ProcessesMenuCustomizations.ui:614 ui/ServicesMenuCustomizations.ui:379
@@ -2367,10 +2370,6 @@ msgstr "İşlemleri ağaç olarak göster"
 msgid "Show tree lines"
 msgstr "Ağaç çizgilerini göster"
 
-#: ui/ProcessesMenuCustomizations.ui:308
-msgid "Add/Remove Process Information:"
-msgstr "İşlem Bilgilerini Ekle/Çıkart:"
-
 #: ui/ProcessesMenuCustomizations.ui:399
 msgid "CPU Usage Percent"
 msgstr "MİB Kullanım Yüzdesi"
@@ -2537,15 +2536,7 @@ msgstr "Detaylı takas belleği bilgilerini gösterir."
 msgid "Details:"
 msgstr "Detaylar:"
 
-#: ui/RamTab.ui:457
-msgid "Swap Memory Capacity in Powers of Bytes (1024)"
-msgstr "Bayt Katlarında (1024) Takas Belleği Kapasitesi"
-
-#: ui/RamTab.ui:472
-msgid "Physical RAM Capacity in Powers of Bytes (1024)"
-msgstr "Bayt Katlarında (1024) RAM Bellek Kapasitesi"
-
-#: ui/RamTab.ui:522 ui/ServicesMenuCustomizations.ui:452
+#: ui/RamTab.ui:520 ui/ServicesMenuCustomizations.ui:452
 #: ui/ServicesMenuCustomizations.ui:512
 msgid "RAM Usage:"
 msgstr "RAM Kullanımı:"
@@ -2650,10 +2641,6 @@ msgstr "Bağımlılıklar"
 #: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:88
 msgid "Services Tab Customizations"
 msgstr "Servisler Sekmesi Özelleştirmeleri"
-
-#: ui/ServicesMenuCustomizations.ui:219
-msgid "Add/Remove Service Information:"
-msgstr "Servis Bilgilerini Ekle/Çıkart:"
 
 #: ui/ServicesMenuRightClick.ui:50
 msgid "Start"
@@ -2788,10 +2775,6 @@ msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırla"
 #: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:88
 msgid "Startup Tab Customizations"
 msgstr "Başlangıç Sekmesi Özelleştirmeleri"
-
-#: ui/StartupMenuCustomizations.ui:218 ui/StorageMenuCustomizations.ui:218
-msgid "Add/Remove Storage Information:"
-msgstr "Depolama Bilgilerini Ekle/Çıkart:"
 
 #: ui/StartupMenuCustomizations.ui:281
 msgid "Command (Exec)"
@@ -3150,10 +3133,6 @@ msgstr "Paketler (Python-Flatpak):"
 msgid "Users Tab Customizations"
 msgstr "Kullanıcılar Sekmesi Özelleştirmeleri"
 
-#: ui/UsersMenuCustomizations.ui:219
-msgid "Add/Remove User Information:"
-msgstr "Kullanıcı Bilgilerini Ekle/Çıkart:"
-
 #: ui/UsersMenuRightClick.ui:20
 msgid "End User Session"
 msgstr "Kullanıcı Oturumunu Sonlandır"
@@ -3177,6 +3156,24 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:197
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Add/Remove Variable Information:"
+#~ msgstr "Değişken Bilgilerini Ekle/Çıkart:"
+
+#~ msgid "Add/Remove Process Information:"
+#~ msgstr "İşlem Bilgilerini Ekle/Çıkart:"
+
+#~ msgid "Swap Memory Capacity in Powers of Bytes (1024)"
+#~ msgstr "Bayt Katlarında (1024) Takas Belleği Kapasitesi"
+
+#~ msgid "Physical RAM Capacity in Powers of Bytes (1024)"
+#~ msgstr "Bayt Katlarında (1024) RAM Bellek Kapasitesi"
+
+#~ msgid "Add/Remove Service Information:"
+#~ msgstr "Servis Bilgilerini Ekle/Çıkart:"
+
+#~ msgid "Add/Remove Storage Information:"
+#~ msgstr "Depolama Bilgilerini Ekle/Çıkart:"
 
 #~ msgid "CPU Model Name"
 #~ msgstr "MİB Model Adı"

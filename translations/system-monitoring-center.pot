@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-03 10:01+0300\n"
+"POT-Creation-Date: 2022-01-03 12:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1280,11 +1280,11 @@ msgstr ""
 msgid "Select CPU Core:"
 msgstr ""
 
-#: ui/CpuTab.ui:31 ui/RamTab.ui:510
+#: ui/CpuTab.ui:31 ui/RamTab.ui:508
 msgid "100%"
 msgstr ""
 
-#: ui/CpuTab.ui:55 ui/RamTab.ui:534
+#: ui/CpuTab.ui:55 ui/RamTab.ui:532
 msgid "0%"
 msgstr ""
 
@@ -1329,7 +1329,7 @@ msgstr ""
 #: ui/ProcessesTab.ui:255 ui/RamHardwareWindow.ui:87
 #: ui/RamSwapDetailsWindow.ui:87 ui/RamTab.ui:69 ui/RamTab.ui:86
 #: ui/RamTab.ui:129 ui/RamTab.ui:146 ui/RamTab.ui:176 ui/RamTab.ui:206
-#: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:459 ui/RamTab.ui:474
+#: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:458 ui/RamTab.ui:472
 #: ui/SensorsTab.ui:208 ui/ServicesDetailsWindow.ui:107
 #: ui/ServicesDetailsWindow.ui:121 ui/ServicesDetailsWindow.ui:135
 #: ui/ServicesDetailsWindow.ui:149 ui/ServicesDetailsWindow.ui:163
@@ -1617,7 +1617,10 @@ msgid "View"
 msgstr ""
 
 #: ui/EnvironmentVarMenuCustomizations.ui:219
-msgid "Add/Remove Variable Information:"
+#: ui/ProcessesMenuCustomizations.ui:308 ui/ServicesMenuCustomizations.ui:219
+#: ui/StartupMenuCustomizations.ui:218 ui/StorageMenuCustomizations.ui:218
+#: ui/UsersMenuCustomizations.ui:219
+msgid "Add/Remove Information:"
 msgstr ""
 
 #: ui/EnvironmentVarMenuCustomizations.ui:312
@@ -2222,10 +2225,6 @@ msgstr ""
 msgid "Show tree lines"
 msgstr ""
 
-#: ui/ProcessesMenuCustomizations.ui:308
-msgid "Add/Remove Process Information:"
-msgstr ""
-
 #: ui/ProcessesMenuCustomizations.ui:399
 msgid "CPU Usage Percent"
 msgstr ""
@@ -2387,15 +2386,7 @@ msgstr ""
 msgid "Details:"
 msgstr ""
 
-#: ui/RamTab.ui:457
-msgid "Swap Memory Capacity in Powers of Bytes (1024)"
-msgstr ""
-
-#: ui/RamTab.ui:472
-msgid "Physical RAM Capacity in Powers of Bytes (1024)"
-msgstr ""
-
-#: ui/RamTab.ui:522 ui/ServicesMenuCustomizations.ui:452
+#: ui/RamTab.ui:520 ui/ServicesMenuCustomizations.ui:452
 #: ui/ServicesMenuCustomizations.ui:512
 msgid "RAM Usage:"
 msgstr ""
@@ -2497,10 +2488,6 @@ msgstr ""
 
 #: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:88
 msgid "Services Tab Customizations"
-msgstr ""
-
-#: ui/ServicesMenuCustomizations.ui:219
-msgid "Add/Remove Service Information:"
 msgstr ""
 
 #: ui/ServicesMenuRightClick.ui:50
@@ -2632,10 +2619,6 @@ msgstr ""
 
 #: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:88
 msgid "Startup Tab Customizations"
-msgstr ""
-
-#: ui/StartupMenuCustomizations.ui:218 ui/StorageMenuCustomizations.ui:218
-msgid "Add/Remove Storage Information:"
 msgstr ""
 
 #: ui/StartupMenuCustomizations.ui:281
@@ -2964,10 +2947,6 @@ msgstr ""
 
 #: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:100
 msgid "Users Tab Customizations"
-msgstr ""
-
-#: ui/UsersMenuCustomizations.ui:219
-msgid "Add/Remove User Information:"
 msgstr ""
 
 #: ui/UsersMenuRightClick.ui:20

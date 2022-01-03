@@ -454,7 +454,6 @@ Root privileges are needed for getting this information.</property>
               <object class="GtkLabel" id="label1202">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Swap Memory Capacity in Powers of Bytes (1024)</property>
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">--</property>
                 <property name="selectable">True</property>
@@ -469,7 +468,6 @@ Root privileges are needed for getting this information.</property>
               <object class="GtkLabel" id="label1201">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Physical RAM Capacity in Powers of Bytes (1024)</property>
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">--</property>
                 <property name="selectable">True</property>
