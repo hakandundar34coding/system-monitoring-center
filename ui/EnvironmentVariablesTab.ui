@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <!-- n-columns=1 n-rows=4 -->
+  <!-- n-columns=1 n-rows=3 -->
   <object class="GtkGrid" id="grid7101">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -40,18 +40,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Persistent environment variables and shell variables are listed on this tab.
-
-New environment variables can be added for current user-only or for all users (system-wide).
-Existing environments can be edited and deleted.
-
-Following files are used for adding/editing/deleting user-specific and system wide environment variables:
-/etc/environment
-/home/[username]/.bashrc
-
-There are many other files which are used by system for storing environment variables and variables in these files may override the variables you defined.
-
-As a general information, environment variables for only current user (user-specific) override environment variables for all users (system-wide) if variable names are the same.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Environment
 Variables</property>
@@ -225,19 +213,6 @@ Because there may be both environment variable and shell variable with the same 
       <packing>
         <property name="left-attach">0</property>
         <property name="top-attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">Note: Backing up the following files is advised before changing environment variables: '/etc/environment', '/home/[username]/.bashrc'.</property>
-        <property name="wrap">True</property>
-      </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">3</property>
       </packing>
     </child>
   </object>

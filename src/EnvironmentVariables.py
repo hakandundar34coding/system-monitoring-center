@@ -107,46 +107,6 @@ def environment_variables_gui_func():
 # ----------------------------------- Environment Variables - Open Right Click Menu Function (gets right clicked variable name and opens right click menu) -----------------------------------
 def environment_variables_open_right_click_menu_func(event):
 
-    def check_if_environment_variable_editing_is_supported():
-        # Get human and root user usernames and UIDs. This data will be used if application is run with "pkexec" command.
-        usernames_username_list = []
-        usernames_uid_list = []
-        with open("/etc/passwd") as reader:                                                   # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
-            etc_passwd_lines = reader.read().strip().split("\n")                              # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
-        for line in etc_passwd_lines:
-            line_splitted = line.split(":")
-            usernames_username_list.append(line_splitted[0])
-            usernames_uid_list.append(line_splitted[2])
-        # Get current username which will be used for determining current user home directory.
-        global current_user_name
-        current_user_name = os.environ.get('SUDO_USER')                                       # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
-        if current_user_name is None:                                                         # Get username in the following way if current application has not been run by root privileges.
-            current_user_name = os.environ.get('USER')
-        pkexec_uid = os.environ.get('PKEXEC_UID')
-        if current_user_name == "root" and pkexec_uid != None:                                # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-            current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
-        # Get home directory of the current user.
-        for line in etc_passwd_lines:
-            line_splitted = line.split(":")
-            if line_splitted[0] == current_user_name:
-                current_user_homedir = line_splitted[5]
-        # Check if editing environment variable is supported.
-        with open(current_user_homedir + "/.bashrc") as reader:
-            bashrc_lines = reader.read().strip().split("\n")
-        for line in bashrc_lines:
-            if line.startswith("export " + selected_variable_value) == True:                  # Check if there is already an environment variable with the same name.
-                return                                                                        # Stop running the function in order to prevent changing right click menu GUI item sensitivity proprties and tooltip texts.
-        with open("/etc/environment") as reader:
-            etc_environment_lines = reader.read().strip().split("\n")
-        for line_write in etc_environment_lines:
-            if line_write.startswith(selected_variable_value) == True:
-                return                                                                        # Stop running the function in order to prevent changing right click menu GUI item sensitivity proprties and tooltip texts.
-        # Set right click menu GUI item sensitivity values and tooltip texts.
-        EnvironmentVarMenuRightClick.menuitem7102m.set_sensitive(False)                       # Set "Edit Environment Variable" item as insensitive
-        EnvironmentVarMenuRightClick.menuitem7102m.set_tooltip_text(_tr("Currently editing/deleting environment variables only in '/home/[username]/.bashrc' and '/etc/environment' files are supported."))    # Set "Edit Environment Variable" item tooltip text
-        EnvironmentVarMenuRightClick.menuitem7103m.set_sensitive(False)                       # Set "Delete Environment Variable" item as insensitive
-        EnvironmentVarMenuRightClick.menuitem7103m.set_tooltip_text(_tr("Currently editing/deleting environment variables only in '/home/[username]/.bashrc' and '/etc/environment' files are supported."))    # Set "Delete Environment Variable" item tooltip text
-
     try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
         path, _, _, _ = treeview7101.get_path_at_pos(int(event.x), int(event.y))
     except TypeError:
@@ -154,25 +114,13 @@ def environment_variables_open_right_click_menu_func(event):
     model = treeview7101.get_model()
     treeiter = model.get_iter(path)
     if treeiter is not None:
-        global selected_variable_value, selected_variable_type
+        global selected_variable_value
         selected_variable_value = variable_list[environment_variables_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "environment_variables_data_rows" list to use it getting name of the variable.
-        selected_variable_type = variable_type_list[variable_list.index(selected_variable_value)]
         if 'EnvironmentVarMenuRightClick' not in globals():                                   # Check if "EnvironmentVarMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
             global EnvironmentVarMenuRightClick
             import EnvironmentVarMenuRightClick
             EnvironmentVarMenuRightClick.environment_variables_menu_right_click_import_func()
             EnvironmentVarMenuRightClick.environment_variables_menu_right_click_gui_func()
-        if selected_variable_type == _tr("Environment Variable") or selected_variable_type == _tr("Environment & Shell Variable"):    # Perform following oprations if variable is not shell variable.
-            EnvironmentVarMenuRightClick.menuitem7102m.set_sensitive(True)                    # Set "Edit Environment Variable" item as sensitive
-            EnvironmentVarMenuRightClick.menuitem7102m.set_tooltip_text("")                   # Delete "Edit Environment Variable" item tooltip text
-            EnvironmentVarMenuRightClick.menuitem7103m.set_sensitive(True)                    # Set "Delete Environment Variable" item as sensitive
-            EnvironmentVarMenuRightClick.menuitem7103m.set_tooltip_text("")                   # Delete "Delete Environment Variable" item tooltip text
-            check_if_environment_variable_editing_is_supported()
-        if selected_variable_type == _tr("Shell Variable"):                                   # Perform following oprations if variable is shell variable.
-            EnvironmentVarMenuRightClick.menuitem7102m.set_sensitive(False)                   # Set "Edit Environment Variable" item as insensitive
-            EnvironmentVarMenuRightClick.menuitem7102m.set_tooltip_text(_tr("Shell variables cannot be edited."))    # Set "Edit Environment Variable" item tooltip text
-            EnvironmentVarMenuRightClick.menuitem7103m.set_sensitive(False)                   # Set "Delete Environment Variable" item as insensitive
-            EnvironmentVarMenuRightClick.menuitem7103m.set_tooltip_text(_tr("Shell variables cannot be deleted."))    # Set "Delete Environment Variable" item tooltip text
         EnvironmentVarMenuRightClick.menu7101m.popup(None, None, None, None, event.button, event.time)
 
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-03 12:59+0300\n"
+"POT-Creation-Date: 2022-01-03 15:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,150 +83,49 @@ msgstr ""
 msgid "Disk"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:51
-#: ui/EnvironmentVariablesInputWindow.ui:8
-msgid "Add New Persistent Environment Variable"
-msgstr ""
-
-#: src/EnvironmentVarMenuRightClick.py:66
-msgid "Edit Persistent Environment Variable"
-msgstr ""
-
-#: src/EnvironmentVarMenuRightClick.py:150 src/EnvironmentVariablesInput.py:166
-#: src/EnvironmentVariablesInput.py:183 src/ProcessesMenuRightClick.py:277
-#: src/ProcessesMenuRightClick.py:289 src/RamHardwareInformation.py:161
-#: src/ServicesMenuRightClick.py:148 src/SettingsGUI.py:583
-#: src/StartupMenuRightClick.py:412 src/StartupMenuRightClick.py:425
-#: src/StartupNewItem.py:177 src/StorageMenuRightClick.py:244
-#: src/StorageRename.py:145 src/UsersMenuRightClick.py:73
-#: src/UsersMenuRightClick.py:84
-msgid "Warning"
-msgstr ""
-
-#: src/EnvironmentVarMenuRightClick.py:151
-msgid "Do You Want To Delete The Environment Variable?"
-msgstr ""
-
-#: src/EnvironmentVarMenuRightClick.py:152
-msgid "Environment variable will be deleted from following files:"
-msgstr ""
-
-#: src/EnvironmentVarMenuRightClick.py:156
-msgid "Do you want to delete the following persistent environment variable?"
-msgstr ""
-
-#: src/EnvironmentVarMenuRightClick.py:158 src/EnvironmentVariables.py:184
-#: ui/EnvironmentVarMenuCustomizations.ui:252
-#: ui/EnvironmentVariablesInputWindow.ui:154
+#: src/EnvironmentVariables.py:132 ui/EnvironmentVarMenuCustomizations.ui:252
 msgid "Variable"
 msgstr ""
 
-#: src/EnvironmentVarMenuRightClick.py:159 src/EnvironmentVariables.py:185
-#: ui/EnvironmentVarMenuCustomizations.ui:268
-#: ui/EnvironmentVariablesInputWindow.ui:166
+#: src/EnvironmentVariables.py:133 ui/EnvironmentVarMenuCustomizations.ui:268
 msgid "Value"
 msgstr ""
 
-#: src/EnvironmentVariables.py:146 src/EnvironmentVariables.py:148
-msgid ""
-"Currently editing/deleting environment variables only in '/home/[username]/."
-"bashrc' and '/etc/environment' files are supported."
-msgstr ""
-
-#: src/EnvironmentVariables.py:165 src/EnvironmentVariables.py:285
-#: src/EnvironmentVariables.py:452 src/EnvironmentVariables.py:498
-msgid "Environment Variable"
-msgstr ""
-
-#: src/EnvironmentVariables.py:165 src/EnvironmentVariables.py:291
-#: src/EnvironmentVariables.py:451 src/EnvironmentVariables.py:452
-msgid "Environment & Shell Variable"
-msgstr ""
-
-#: src/EnvironmentVariables.py:171 src/EnvironmentVariables.py:288
-#: src/EnvironmentVariables.py:451 src/EnvironmentVariables.py:490
-msgid "Shell Variable"
-msgstr ""
-
-#: src/EnvironmentVariables.py:173
-msgid "Shell variables cannot be edited."
-msgstr ""
-
-#: src/EnvironmentVariables.py:175
-msgid "Shell variables cannot be deleted."
-msgstr ""
-
-#: src/EnvironmentVariables.py:186 ui/EnvironmentVarMenuCustomizations.ui:282
+#: src/EnvironmentVariables.py:134 ui/EnvironmentVarMenuCustomizations.ui:282
 msgid "Variable Type"
 msgstr ""
 
-#: src/EnvironmentVariables.py:217
+#: src/EnvironmentVariables.py:165
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "with root privileges."
 msgstr ""
 
-#: src/EnvironmentVariables.py:228 src/EnvironmentVariables.py:237
+#: src/EnvironmentVariables.py:176 src/EnvironmentVariables.py:185
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "in terminal."
 msgstr ""
 
-#: src/EnvironmentVariables.py:454
+#: src/EnvironmentVariables.py:233 src/EnvironmentVariables.py:400
+#: src/EnvironmentVariables.py:446
+msgid "Environment Variable"
+msgstr ""
+
+#: src/EnvironmentVariables.py:236 src/EnvironmentVariables.py:399
+#: src/EnvironmentVariables.py:438
+msgid "Shell Variable"
+msgstr ""
+
+#: src/EnvironmentVariables.py:239 src/EnvironmentVariables.py:399
+#: src/EnvironmentVariables.py:400
+msgid "Environment & Shell Variable"
+msgstr ""
+
+#: src/EnvironmentVariables.py:402
 msgid ""
 "Total: AAAA persistent variables (BBBB environment variables, CCCC shell "
 "variables)"
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:167
-msgid "Do You Want To Overwrite Existing Environment Variable?"
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:168
-msgid "There is already an environment variable with the same name."
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:169
-msgid "Existing variable will be overwritten if you continue."
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:170 src/StartupNewItem.py:181
-#: src/UsersMenuRightClick.py:87
-msgid "Do you want to continue?"
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:171
-msgid "Existing Environment Variable:"
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:172
-msgid "Existing Environment Variable Value:"
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:173
-msgid "New Environment Variable:"
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:174
-msgid "New Environment Variable Value:"
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:184
-msgid "Do You Want To Add/Edit Environment Variable For All Users?"
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:185
-msgid ""
-"You may make your system unusable if you edit/overwrite some of the system "
-"variables."
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:186
-msgid "Variable will be added/edited for all users if this option is enabled."
-msgstr ""
-
-#: src/EnvironmentVariablesInput.py:187
-msgid "Do you want to enable/keep enabled this option?"
 msgstr ""
 
 #: src/FloatingSummary.py:116
@@ -475,6 +374,15 @@ msgstr ""
 
 #: src/ProcessesMenuRightClick.py:269
 msgid "2) Increase/decrease nice value of other processes."
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:277 src/ProcessesMenuRightClick.py:289
+#: src/RamHardwareInformation.py:161 src/ServicesMenuRightClick.py:148
+#: src/SettingsGUI.py:583 src/StartupMenuRightClick.py:412
+#: src/StartupMenuRightClick.py:425 src/StartupNewItem.py:177
+#: src/StorageMenuRightClick.py:244 src/StorageRename.py:145
+#: src/UsersMenuRightClick.py:73 src/UsersMenuRightClick.py:84
+msgid "Warning"
 msgstr ""
 
 #: src/ProcessesMenuRightClick.py:278
@@ -892,6 +800,10 @@ msgstr ""
 msgid "Existing file will be overwritten if you continue."
 msgstr ""
 
+#: src/StartupNewItem.py:181 src/UsersMenuRightClick.py:87
+msgid "Do you want to continue?"
+msgstr ""
+
 #: src/StartupNewItem.py:182
 msgid "Existing Startup Item:"
 msgstr ""
@@ -1294,7 +1206,7 @@ msgstr ""
 #: ui/DiskTab.ui:66 ui/DiskTab.ui:81 ui/DiskTab.ui:187 ui/DiskTab.ui:204
 #: ui/DiskTab.ui:221 ui/DiskTab.ui:238 ui/DiskTab.ui:255 ui/DiskTab.ui:304
 #: ui/DiskTab.ui:335 ui/DiskTab.ui:385 ui/DiskTab.ui:425 ui/DiskTab.ui:442
-#: ui/EnvironmentVariablesTab.ui:84 ui/FloatingSummaryWindow.ui:19
+#: ui/EnvironmentVariablesTab.ui:72 ui/FloatingSummaryWindow.ui:19
 #: ui/FloatingSummaryWindow.ui:31 ui/FloatingSummaryWindow.ui:43
 #: ui/FloatingSummaryWindow.ui:55 ui/FloatingSummaryWindow.ui:67
 #: ui/FloatingSummaryWindow.ui:79 ui/FloatingSummaryWindow.ui:91
@@ -1576,7 +1488,7 @@ msgstr ""
 msgid "0"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:104
+#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:92
 msgid "Environment Variables Tab Customizations"
 msgstr ""
 
@@ -1630,156 +1542,21 @@ msgstr ""
 msgid "Add/Remove Columns"
 msgstr ""
 
-#: ui/EnvironmentVarMenuRightClick.ui:35
-msgid "Add Persistent Environment Variable"
-msgstr ""
-
-#: ui/EnvironmentVarMenuRightClick.ui:44
-msgid "Edit"
-msgstr ""
-
-#: ui/EnvironmentVarMenuRightClick.ui:53 ui/StartupMenuRightClick.ui:79
-msgid "Delete"
-msgstr ""
-
-#: ui/EnvironmentVarMenuRightClick.ui:68
+#: ui/EnvironmentVarMenuRightClick.ui:20
 msgid "Copy Variable"
 msgstr ""
 
-#: ui/EnvironmentVarMenuRightClick.ui:77
+#: ui/EnvironmentVarMenuRightClick.ui:29
 msgid "Copy Value"
 msgstr ""
 
-#: ui/EnvironmentVariablesInputWindow.ui:59 ui/StartupNewItemWindow.ui:59
-msgid "Save"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:104
-#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
-#: ui/StorageRenameWindow.ui:126
-msgid "Cancel"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:188
-msgid "Only current user"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:202
-msgid "All users (Recognized after system restart)"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:220
-msgid "\t\t(Appended into \"/etc/environment\" file)"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:232
-msgid "\t\t(Appended into \"/home/[username]/.bashrc\" file)"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:245
-msgid "Environment Variable Is Valid For:"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:260
-msgid "Note: Variable field cannot be left blank."
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:283
-msgid "Overwrite environment variable of the current user"
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:299
-msgid ""
-"Note: User-specific environment variable will be deleted if newly added "
-"environment variable for all users has same name with the user-specific "
-"environment variable."
-msgstr ""
-
-#: ui/EnvironmentVariablesInputWindow.ui:327
-#: ui/EnvironmentVariablesInputWindow.ui:339 ui/ProcessesDetailsWindow.ui:481
-#: ui/ProcessesDetailsWindow.ui:494 ui/ProcessesDetailsWindow.ui:507
-#: ui/ProcessesDetailsWindow.ui:520 ui/ProcessesDetailsWindow.ui:533
-#: ui/ProcessesDetailsWindow.ui:546 ui/ProcessesDetailsWindow.ui:559
-#: ui/ProcessesDetailsWindow.ui:572 ui/ProcessesDetailsWindow.ui:585
-#: ui/ProcessesDetailsWindow.ui:598 ui/ProcessesDetailsWindow.ui:611
-#: ui/ProcessesDetailsWindow.ui:624 ui/ProcessesDetailsWindow.ui:637
-#: ui/ProcessesDetailsWindow.ui:650 ui/ProcessesDetailsWindow.ui:663
-#: ui/ProcessesDetailsWindow.ui:1094 ui/ProcessesDetailsWindow.ui:1107
-#: ui/ProcessesDetailsWindow.ui:1120 ui/ProcessesDetailsWindow.ui:1133
-#: ui/ProcessesDetailsWindow.ui:1146 ui/ProcessesDetailsWindow.ui:1159
-#: ui/ProcessesDetailsWindow.ui:1172 ui/ProcessesDetailsWindow.ui:1185
-#: ui/ProcessesDetailsWindow.ui:1198 ui/ProcessesDetailsWindow.ui:1211
-#: ui/ProcessesDetailsWindow.ui:1224 ui/ProcessesDetailsWindow.ui:1237
-#: ui/ProcessesDetailsWindow.ui:1616 ui/ProcessesDetailsWindow.ui:1629
-#: ui/ProcessesDetailsWindow.ui:1642 ui/ProcessesDetailsWindow.ui:1655
-#: ui/ProcessesDetailsWindow.ui:1668 ui/ProcessesDetailsWindow.ui:1681
-#: ui/ProcessesDetailsWindow.ui:1694 ui/ProcessesDetailsWindow.ui:1707
-#: ui/ProcessesDetailsWindow.ui:1720 ui/ProcessesDetailsWindow.ui:1733
-#: ui/ServicesDetailsWindow.ui:529 ui/ServicesDetailsWindow.ui:542
-#: ui/ServicesDetailsWindow.ui:555 ui/ServicesDetailsWindow.ui:568
-#: ui/ServicesDetailsWindow.ui:581 ui/ServicesDetailsWindow.ui:594
-#: ui/ServicesDetailsWindow.ui:607 ui/ServicesDetailsWindow.ui:620
-#: ui/ServicesDetailsWindow.ui:633 ui/ServicesDetailsWindow.ui:646
-#: ui/ServicesDetailsWindow.ui:659 ui/ServicesDetailsWindow.ui:672
-#: ui/ServicesDetailsWindow.ui:685 ui/ServicesDetailsWindow.ui:698
-#: ui/ServicesDetailsWindow.ui:711 ui/ServicesDetailsWindow.ui:724
-#: ui/ServicesDetailsWindow.ui:737 ui/ServicesDetailsWindow.ui:750
-#: ui/ServicesDetailsWindow.ui:904 ui/ServicesDetailsWindow.ui:917
-#: ui/ServicesDetailsWindow.ui:930 ui/ServicesDetailsWindow.ui:943
-#: ui/StartupNewItemWindow.ui:322 ui/StartupNewItemWindow.ui:334
-#: ui/StartupNewItemWindow.ui:346 ui/StartupNewItemWindow.ui:358
-#: ui/StorageDetailsWindow.ui:717 ui/StorageDetailsWindow.ui:730
-#: ui/StorageDetailsWindow.ui:743 ui/StorageDetailsWindow.ui:756
-#: ui/StorageDetailsWindow.ui:769 ui/StorageDetailsWindow.ui:782
-#: ui/StorageDetailsWindow.ui:795 ui/StorageDetailsWindow.ui:808
-#: ui/StorageDetailsWindow.ui:821 ui/StorageDetailsWindow.ui:834
-#: ui/StorageDetailsWindow.ui:847 ui/StorageDetailsWindow.ui:860
-#: ui/StorageDetailsWindow.ui:873 ui/StorageDetailsWindow.ui:886
-#: ui/StorageDetailsWindow.ui:899 ui/StorageDetailsWindow.ui:912
-#: ui/StorageDetailsWindow.ui:925 ui/StorageDetailsWindow.ui:938
-#: ui/StorageDetailsWindow.ui:951 ui/StorageDetailsWindow.ui:964
-#: ui/StorageDetailsWindow.ui:977 ui/StorageDetailsWindow.ui:990
-#: ui/StorageDetailsWindow.ui:1003 ui/StorageDetailsWindow.ui:1016
-#: ui/UsersDetailsWindow.ui:435 ui/UsersDetailsWindow.ui:448
-#: ui/UsersDetailsWindow.ui:461 ui/UsersDetailsWindow.ui:474
-#: ui/UsersDetailsWindow.ui:487 ui/UsersDetailsWindow.ui:500
-#: ui/UsersDetailsWindow.ui:513 ui/UsersDetailsWindow.ui:526
-#: ui/UsersDetailsWindow.ui:539 ui/UsersDetailsWindow.ui:552
-#: ui/UsersDetailsWindow.ui:565 ui/UsersDetailsWindow.ui:578
-#: ui/UsersDetailsWindow.ui:591 ui/UsersDetailsWindow.ui:604
-msgid ":"
-msgstr ""
-
-#: ui/EnvironmentVariablesTab.ui:43
-msgid ""
-"Persistent environment variables and shell variables are listed on this "
-"tab.\n"
-"\n"
-"New environment variables can be added for current user-only or for all "
-"users (system-wide).\n"
-"Existing environments can be edited and deleted.\n"
-"\n"
-"Following files are used for adding/editing/deleting user-specific and "
-"system wide environment variables:\n"
-"/etc/environment\n"
-"/home/[username]/.bashrc\n"
-"\n"
-"There are many other files which are used by system for storing environment "
-"variables and variables in these files may override the variables you "
-"defined.\n"
-"\n"
-"As a general information, environment variables for only current user (user-"
-"specific) override environment variables for all users (system-wide) if "
-"variable names are the same."
-msgstr ""
-
-#: ui/EnvironmentVariablesTab.ui:56
+#: ui/EnvironmentVariablesTab.ui:44
 msgid ""
 "Environment\n"
 "Variables"
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:77
+#: ui/EnvironmentVariablesTab.ui:65
 msgid ""
 "Number of listed items\n"
 "\n"
@@ -1789,26 +1566,20 @@ msgid ""
 "same variable name."
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:139
+#: ui/EnvironmentVariablesTab.ui:127
 msgid "Search environment/shell variable..."
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:157
+#: ui/EnvironmentVariablesTab.ui:145
 msgid "Show all environment/shell variables"
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:179
+#: ui/EnvironmentVariablesTab.ui:167
 msgid "Show all environment variables"
 msgstr ""
 
-#: ui/EnvironmentVariablesTab.ui:201
+#: ui/EnvironmentVariablesTab.ui:189
 msgid "Show all shell variables"
-msgstr ""
-
-#: ui/EnvironmentVariablesTab.ui:235
-msgid ""
-"Note: Backing up the following files is advised before changing environment "
-"variables: '/etc/environment', '/home/[username]/.bashrc'."
 msgstr ""
 
 #: ui/GpuMenus.ui:20 ui/GpuTab.ui:362
@@ -2099,6 +1870,11 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
+#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
+#: ui/StorageRenameWindow.ui:126
+msgid "Cancel"
+msgstr ""
+
 #: ui/ProcessesDetailsWindow.ui:81
 msgid "Username"
 msgstr ""
@@ -2135,6 +1911,60 @@ msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:464
 msgid "Summary:"
+msgstr ""
+
+#: ui/ProcessesDetailsWindow.ui:481 ui/ProcessesDetailsWindow.ui:494
+#: ui/ProcessesDetailsWindow.ui:507 ui/ProcessesDetailsWindow.ui:520
+#: ui/ProcessesDetailsWindow.ui:533 ui/ProcessesDetailsWindow.ui:546
+#: ui/ProcessesDetailsWindow.ui:559 ui/ProcessesDetailsWindow.ui:572
+#: ui/ProcessesDetailsWindow.ui:585 ui/ProcessesDetailsWindow.ui:598
+#: ui/ProcessesDetailsWindow.ui:611 ui/ProcessesDetailsWindow.ui:624
+#: ui/ProcessesDetailsWindow.ui:637 ui/ProcessesDetailsWindow.ui:650
+#: ui/ProcessesDetailsWindow.ui:663 ui/ProcessesDetailsWindow.ui:1094
+#: ui/ProcessesDetailsWindow.ui:1107 ui/ProcessesDetailsWindow.ui:1120
+#: ui/ProcessesDetailsWindow.ui:1133 ui/ProcessesDetailsWindow.ui:1146
+#: ui/ProcessesDetailsWindow.ui:1159 ui/ProcessesDetailsWindow.ui:1172
+#: ui/ProcessesDetailsWindow.ui:1185 ui/ProcessesDetailsWindow.ui:1198
+#: ui/ProcessesDetailsWindow.ui:1211 ui/ProcessesDetailsWindow.ui:1224
+#: ui/ProcessesDetailsWindow.ui:1237 ui/ProcessesDetailsWindow.ui:1616
+#: ui/ProcessesDetailsWindow.ui:1629 ui/ProcessesDetailsWindow.ui:1642
+#: ui/ProcessesDetailsWindow.ui:1655 ui/ProcessesDetailsWindow.ui:1668
+#: ui/ProcessesDetailsWindow.ui:1681 ui/ProcessesDetailsWindow.ui:1694
+#: ui/ProcessesDetailsWindow.ui:1707 ui/ProcessesDetailsWindow.ui:1720
+#: ui/ProcessesDetailsWindow.ui:1733 ui/ServicesDetailsWindow.ui:529
+#: ui/ServicesDetailsWindow.ui:542 ui/ServicesDetailsWindow.ui:555
+#: ui/ServicesDetailsWindow.ui:568 ui/ServicesDetailsWindow.ui:581
+#: ui/ServicesDetailsWindow.ui:594 ui/ServicesDetailsWindow.ui:607
+#: ui/ServicesDetailsWindow.ui:620 ui/ServicesDetailsWindow.ui:633
+#: ui/ServicesDetailsWindow.ui:646 ui/ServicesDetailsWindow.ui:659
+#: ui/ServicesDetailsWindow.ui:672 ui/ServicesDetailsWindow.ui:685
+#: ui/ServicesDetailsWindow.ui:698 ui/ServicesDetailsWindow.ui:711
+#: ui/ServicesDetailsWindow.ui:724 ui/ServicesDetailsWindow.ui:737
+#: ui/ServicesDetailsWindow.ui:750 ui/ServicesDetailsWindow.ui:904
+#: ui/ServicesDetailsWindow.ui:917 ui/ServicesDetailsWindow.ui:930
+#: ui/ServicesDetailsWindow.ui:943 ui/StartupNewItemWindow.ui:322
+#: ui/StartupNewItemWindow.ui:334 ui/StartupNewItemWindow.ui:346
+#: ui/StartupNewItemWindow.ui:358 ui/StorageDetailsWindow.ui:717
+#: ui/StorageDetailsWindow.ui:730 ui/StorageDetailsWindow.ui:743
+#: ui/StorageDetailsWindow.ui:756 ui/StorageDetailsWindow.ui:769
+#: ui/StorageDetailsWindow.ui:782 ui/StorageDetailsWindow.ui:795
+#: ui/StorageDetailsWindow.ui:808 ui/StorageDetailsWindow.ui:821
+#: ui/StorageDetailsWindow.ui:834 ui/StorageDetailsWindow.ui:847
+#: ui/StorageDetailsWindow.ui:860 ui/StorageDetailsWindow.ui:873
+#: ui/StorageDetailsWindow.ui:886 ui/StorageDetailsWindow.ui:899
+#: ui/StorageDetailsWindow.ui:912 ui/StorageDetailsWindow.ui:925
+#: ui/StorageDetailsWindow.ui:938 ui/StorageDetailsWindow.ui:951
+#: ui/StorageDetailsWindow.ui:964 ui/StorageDetailsWindow.ui:977
+#: ui/StorageDetailsWindow.ui:990 ui/StorageDetailsWindow.ui:1003
+#: ui/StorageDetailsWindow.ui:1016 ui/UsersDetailsWindow.ui:435
+#: ui/UsersDetailsWindow.ui:448 ui/UsersDetailsWindow.ui:461
+#: ui/UsersDetailsWindow.ui:474 ui/UsersDetailsWindow.ui:487
+#: ui/UsersDetailsWindow.ui:500 ui/UsersDetailsWindow.ui:513
+#: ui/UsersDetailsWindow.ui:526 ui/UsersDetailsWindow.ui:539
+#: ui/UsersDetailsWindow.ui:552 ui/UsersDetailsWindow.ui:565
+#: ui/UsersDetailsWindow.ui:578 ui/UsersDetailsWindow.ui:591
+#: ui/UsersDetailsWindow.ui:604
+msgid ":"
 msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:680
@@ -2640,6 +2470,10 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+#: ui/StartupMenuRightClick.ui:79
+msgid "Delete"
+msgstr ""
+
 #: ui/StartupMenuRightClick.ui:90
 msgid "Delete System-Wide Values File"
 msgstr ""
@@ -2662,6 +2496,10 @@ msgstr ""
 
 #: ui/StartupNewItemWindow.ui:8
 msgid "Add New Startup Item"
+msgstr ""
+
+#: ui/StartupNewItemWindow.ui:59
+msgid "Save"
 msgstr ""
 
 #: ui/StartupNewItemWindow.ui:189
