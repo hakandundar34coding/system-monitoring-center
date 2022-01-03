@@ -180,7 +180,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Temperature, Fan, Voltage and Current Sensors</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Sensors</property>
             <attributes>

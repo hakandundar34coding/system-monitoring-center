@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-03 15:23+0300\n"
-"PO-Revision-Date: 2022-01-03 15:24+0300\n"
+"POT-Creation-Date: 2022-01-03 19:21+0300\n"
+"PO-Revision-Date: 2022-01-03 19:21+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -56,7 +56,7 @@ msgstr "[TAKAS]"
 #: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:490
 #: src/Storage.py:501 src/Storage.py:512 src/StorageDetails.py:225
 #: src/StorageDetails.py:372 src/StorageDetails.py:386
-#: src/StorageDetails.py:400 src/UsersDetails.py:239
+#: src/StorageDetails.py:400 src/UsersDetails.py:245
 msgid "Yes"
 msgstr "Evet"
 
@@ -64,7 +64,7 @@ msgstr "Evet"
 #: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:492
 #: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:221
 #: src/StorageDetails.py:374 src/StorageDetails.py:388
-#: src/StorageDetails.py:402 src/UsersDetails.py:241
+#: src/StorageDetails.py:402 src/UsersDetails.py:247
 msgid "No"
 msgstr "Hayır"
 
@@ -299,8 +299,9 @@ msgstr "İş Parçacığı Sayısı"
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:223 src/Users.py:161 ui/ProcessesMenuCustomizations.ui:567
-#: ui/UsersDetailsWindow.ui:78 ui/UsersMenuCustomizations.ui:296
+#: src/Processes.py:223 src/Users.py:161 src/UsersMenuRightClick.py:89
+#: ui/ProcessesMenuCustomizations.ui:567 ui/UsersDetailsWindow.ui:78
+#: ui/UsersMenuCustomizations.ui:296
 msgid "UID"
 msgstr "UID"
 
@@ -361,8 +362,8 @@ msgstr "İşlem Detayları"
 
 #: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:265
 #: src/ProcessesMenuRightClick.py:301 src/ProcessesMenuRightClick.py:311
-#: src/StartupMenuRightClick.py:438 src/StorageMenuRightClick.py:221
-#: src/StorageMenuRightClick.py:234
+#: src/StartupMenuRightClick.py:438 src/StorageDetails.py:511
+#: src/StorageMenuRightClick.py:221 src/StorageMenuRightClick.py:234
 msgid "Error"
 msgstr "Hata"
 
@@ -718,7 +719,7 @@ msgstr "Ağ"
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:320 ui/MainWindow.ui:315 ui/SensorsTab.ui:185
+#: src/SettingsGUI.py:320 ui/MainWindow.ui:315 ui/SensorsTab.ui:184
 msgid "Sensors"
 msgstr "Algılayıcı"
 
@@ -1026,7 +1027,7 @@ msgstr "Bu dosya sistemine sahip diskleri yeniden adlandırma desteklenmiyor."
 msgid "Disk has been removed and file system could not be renamed."
 msgstr "Disk çıkarıldı ve dosya sistemi yeniden adlandırılabilir."
 
-#: src/Users.py:158 ui/UsersDetailsWindow.ui:39
+#: src/Users.py:158 src/UsersMenuRightClick.py:88 ui/UsersDetailsWindow.ui:39
 #: ui/UsersMenuCustomizations.ui:252
 msgid "User Name"
 msgstr "Kullanıcı Adı"
@@ -1153,16 +1154,16 @@ msgstr ""
 "Toplam: AAAA kullanıcı (BBBB giriş yapmış kullanıcı, CCCC çıkış yapmış "
 "kullanıcı)"
 
-#: src/UsersDetails.py:79 src/UsersDetails.py:304 ui/UsersDetailsWindow.ui:8
+#: src/UsersDetails.py:79 src/UsersDetails.py:310 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
 msgstr "Kullanıcı Detayları"
 
-#: src/UsersDetails.py:378
+#: src/UsersDetails.py:384
 msgid ""
 "Following user account does not exist anymore and user details window is "
 "closed automatically:"
 msgstr ""
-"Şu kullanıcı hesabı artık bağlı değil ve kullanıcı detayları penceresi "
+"Şu kullanıcı hesabı artık mevcut değil ve kullanıcı detayları penceresi "
 "otomatik olarak kapatıldı:"
 
 #: src/UsersMenuRightClick.py:75
@@ -1181,14 +1182,6 @@ msgid ""
 msgstr ""
 "Bu eylem kullanıcının tüm işlemlerini hemen sonlandıracak ve kullanıcı için "
 "veri kayıplarına sebep olabilir."
-
-#: src/UsersMenuRightClick.py:88
-msgid "User Name:"
-msgstr "Kullanıcı Adı:"
-
-#: src/UsersMenuRightClick.py:89
-msgid "User UID:"
-msgstr "Kullanıcı UUID:"
 
 #: ui/CpuMenus.ui:20 ui/CpuTab.ui:416
 msgid "CPU Tab Customizations"
@@ -1293,7 +1286,7 @@ msgstr "%0"
 #: ui/RamSwapDetailsWindow.ui:87 ui/RamTab.ui:69 ui/RamTab.ui:86
 #: ui/RamTab.ui:129 ui/RamTab.ui:146 ui/RamTab.ui:176 ui/RamTab.ui:206
 #: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:458 ui/RamTab.ui:472
-#: ui/SensorsTab.ui:208 ui/ServicesDetailsWindow.ui:107
+#: ui/SensorsTab.ui:207 ui/ServicesDetailsWindow.ui:107
 #: ui/ServicesDetailsWindow.ui:121 ui/ServicesDetailsWindow.ui:135
 #: ui/ServicesDetailsWindow.ui:149 ui/ServicesDetailsWindow.ui:163
 #: ui/ServicesDetailsWindow.ui:177 ui/ServicesDetailsWindow.ui:191
@@ -1770,8 +1763,8 @@ msgid "FPS Count:"
 msgstr "FPS Sayısı:"
 
 #: ui/MainMenusDialogs.ui:12
-msgid "© 2021 Hakan DÜNDAR"
-msgstr "© 2021 Hakan DÜNDAR"
+msgid "© 2022 Hakan DÜNDAR"
+msgstr "© 2022 Hakan DÜNDAR"
 
 #: ui/MainMenusDialogs.ui:13
 msgid "GTK and Python based, system performance and usage monitoring tool."
@@ -1944,19 +1937,17 @@ msgstr "RAM Kullanım Yüzdesi"
 msgid "RAM:"
 msgstr "RAM:"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:68
-msgid "Disk read+write speed of the selected disk (in powers of 1024)"
-msgstr "Seçilen diskin okuma+yazma hızı (1024'ün katları şeklinde)"
+#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/SettingsWindow.ui:494
+msgid "Disk Read+Write Speed"
+msgstr "Disk Okuma+Yazma Hızı"
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:70 ui/ProcessesDetailsWindow.ui:1469
 msgid "Disk:"
 msgstr "Disk:"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:114
-msgid ""
-"Data download+upload speed on the selected network card (in powers of 1024)"
-msgstr ""
-"Seçilen ağ kartındaki veri indirme+yükleme hızı (1024'ün katları şeklinde)"
+#: ui/PerformanceSummaryHeaderBarGrid.ui:114 ui/SettingsWindow.ui:508
+msgid "Network Download+Upload Speed"
+msgstr "Ağ İndirme+Yükleme Hızı"
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:116
 msgid "Network:"
@@ -2260,7 +2251,7 @@ msgstr "Bu kullanıcının işlemlerini göster"
 msgid "Show processes from other users"
 msgstr "Diğer kullanıcıların işlemlerini göster"
 
-#: ui/ProcessesTab.ui:251 ui/SensorsTab.ui:205 ui/ServicesTab.ui:64
+#: ui/ProcessesTab.ui:251 ui/SensorsTab.ui:204 ui/ServicesTab.ui:64
 #: ui/StartupTab.ui:64 ui/StorageTab.ui:64 ui/UsersTab.ui:76
 msgid "Number of listed items"
 msgstr "Listelenen öge sayısı"
@@ -2367,10 +2358,6 @@ msgstr "Tüm fan algılayıcılarını göster"
 #: ui/SensorsTab.ui:122
 msgid "Show all voltage and current sensors"
 msgstr "Tüm voltaj ve akım algılayıcılarını göster"
-
-#: ui/SensorsTab.ui:183
-msgid "Temperature, Fan, Voltage and Current Sensors"
-msgstr "Sıcaklık, Fan, Voltaj ve Akım Algılayıcıları"
 
 #: ui/ServicesDetailsWindow.ui:82
 msgid "Documentation"
@@ -2554,14 +2541,6 @@ msgstr "Ağ İndirme Hızı"
 #: ui/SettingsWindow.ui:480
 msgid "Network Upload Speed"
 msgstr "Ağ Yükleme Hızı"
-
-#: ui/SettingsWindow.ui:494
-msgid "Disk Read+Write Speed"
-msgstr "Disk Okuma+Yazma Hızı"
-
-#: ui/SettingsWindow.ui:508
-msgid "Network Download+Upload Speed"
-msgstr "Ağ İndirme+Yükleme Hızı"
 
 #: ui/SettingsWindow.ui:532
 msgid "Show/Hide Performance Information"
@@ -2963,6 +2942,24 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:197
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Temperature, Fan, Voltage and Current Sensors"
+#~ msgstr "Sıcaklık, Fan, Voltaj ve Akım Algılayıcıları"
+
+#~ msgid "Disk read+write speed of the selected disk (in powers of 1024)"
+#~ msgstr "Seçilen diskin okuma+yazma hızı (1024'ün katları şeklinde)"
+
+#~ msgid ""
+#~ "Data download+upload speed on the selected network card (in powers of "
+#~ "1024)"
+#~ msgstr ""
+#~ "Seçilen ağ kartındaki veri indirme+yükleme hızı (1024'ün katları şeklinde)"
+
+#~ msgid "User Name:"
+#~ msgstr "Kullanıcı Adı:"
+
+#~ msgid "User UID:"
+#~ msgstr "Kullanıcı UID:"
 
 #~ msgid "Do You Want To Delete The Environment Variable?"
 #~ msgstr "Ortam Değişkenini Silmek İstiyor musunuz?"

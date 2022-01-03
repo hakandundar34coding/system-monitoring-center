@@ -139,8 +139,9 @@ def users_details_initial_func():
 # ----------------------------------- Users - Users Details Foreground Function (updates the process data on the "Users Details" window) -----------------------------------
 def users_details_loop_func():
 
-    global selected_user_uid
+    global selected_user_uid, selected_username
     selected_user_uid = str(Users.selected_user_uid)                                          # Get right clicked user UID
+    selected_username = Users.selected_username
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global users_cpu_usage_percent_precision
@@ -167,7 +168,12 @@ def users_details_loop_func():
 
     # Get all users
     with open("/etc/passwd") as reader:
-        etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used for removing empty (last) line in the text
+        etc_passwd_output = reader.read().strip()                                             # "strip()" is used for removing empty (last) line in the text
+    etc_passwd_lines = etc_passwd_output.split("\n")
+    if ":" + selected_user_uid + ":" not in etc_passwd_output:
+        window3101w.hide()
+        users_no_such_user_error_dialog()
+        return
     # Get all user groups
     with open("/etc/group") as reader:
         etc_group_lines = reader.read().strip().split("\n")
@@ -375,6 +381,7 @@ def users_no_such_user_error_dialog():
 
     error_dialog3101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Error", flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text="User Account Does Not Exist Anymore", )
-    error_dialog3101w.format_secondary_text(_tr("Following user account does not exist anymore and user details window is closed automatically:") + "\n\n    " + selected_user_username)
+    error_dialog3101w.format_secondary_text(_tr("Following user account does not exist anymore and user details window is closed automatically:") +
+                                            "\n\n    " + selected_username)
     error_dialog3101w.run()
     error_dialog3101w.destroy()

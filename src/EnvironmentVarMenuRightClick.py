@@ -11,8 +11,8 @@ def environment_variables_menu_right_click_import_func():
     import os
 
 
-    global EnvironmentVariables, MainGUI
-    import EnvironmentVariables, MainGUI
+    global EnvironmentVariables
+    import EnvironmentVariables
 
 
 # ----------------------------------- Environment Variables - Environment Variables Right Click Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Environment Variables" tab menu/popover GUI objects and functions/signals) -----------------------------------

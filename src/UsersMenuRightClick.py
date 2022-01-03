@@ -44,13 +44,13 @@ def users_menu_right_click_gui_func():
         selected_user_uid = str(Users.selected_user_uid)                                      # Get right clicked user UID
         users_end_user_session_warning_dialog(selected_username, selected_user_uid)
         if warning_dialog3102_response == Gtk.ResponseType.YES:
-            pass                                                                              # Continue running the code if "Yes" is clicked on the dialog.
+            try:
+                (subprocess.check_output(["pkexec", "pkill", "-9", "--uid", selected_user_uid], stderr=subprocess.STDOUT, shell=False)).decode()    # End processes which has the specified UID.
+            except:
+                pass
         if warning_dialog3102_response == Gtk.ResponseType.NO:
-            return                                                                            # Do nothing (stop running the code and close the dialog) if "No" is clicked.
-        try:
-            (subprocess.check_output(["pkexec", "pkill", "-9", "--uid", selected_user_uid], stderr=subprocess.STDOUT, shell=False)).decode()    # End processes which has the specified UID.
-        except:
             users_end_user_session_root_privileges_warning_dialog()
+            return
 
     def on_menuitem3102m_activate(widget):                                                    # "Details" item on the right click menu
         if 'UsersDetails' not in globals():                                                   # Check if "UsersDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on right click menu if "UsersDetails" name is in globals().
@@ -85,8 +85,8 @@ def users_end_user_session_warning_dialog(selected_username, selected_user_uid):
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do You Want To End User Session?"), )
     warning_dialog3102.format_secondary_text(_tr("This action will end all processes of the user immediately and may cause data loss for the user.") +
                                              "\n" + _tr("Do you want to continue?") +
-                                             "\n\n    " + _tr("User Name:") + " " + selected_username +
-                                             "\n    " + _tr("User UID:") + " " + selected_user_uid)
+                                             "\n\n    " + _tr("User Name") + ": " + selected_username +
+                                             "\n    " + _tr("UID") + ": " + selected_user_uid)
     global warning_dialog3102_response
     warning_dialog3102_response = warning_dialog3102.run()
     warning_dialog3102.destroy()
