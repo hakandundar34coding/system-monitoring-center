@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-02 17:14+0300\n"
-"PO-Revision-Date: 2022-01-02 17:14+0300\n"
+"POT-Creation-Date: 2022-01-03 09:16+0300\n"
+"PO-Revision-Date: 2022-01-03 09:16+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -200,7 +200,7 @@ msgid "Existing variable will be overwritten if you continue."
 msgstr "Devam ederseniz var olan değişkenin üzerine yazılacak."
 
 #: src/EnvironmentVariablesInput.py:170 src/StartupNewItem.py:181
-#: src/UsersMenuRightClick.py:88
+#: src/UsersMenuRightClick.py:87
 msgid "Do you want to continue?"
 msgstr "Devam etmek istiyor musunuz?"
 
@@ -1274,15 +1274,11 @@ msgstr ""
 "Bu eylem kullanıcının tüm işlemlerini hemen sonlandıracak ve kullanıcı için "
 "veri kayıplarına sebep olabilir."
 
-#: src/UsersMenuRightClick.py:87
-msgid "User session will be ended if you continue."
-msgstr "Devam ederseniz kullanıcı oturumu sonlandırılacak."
-
-#: src/UsersMenuRightClick.py:89
+#: src/UsersMenuRightClick.py:88
 msgid "User Name:"
 msgstr "Kullanıcı Adı:"
 
-#: src/UsersMenuRightClick.py:90
+#: src/UsersMenuRightClick.py:89
 msgid "User UID:"
 msgstr "Kullanıcı UUID:"
 
@@ -1419,8 +1415,8 @@ msgstr "%0"
 #: ui/SystemTab.ui:338 ui/SystemTab.ui:369 ui/SystemTab.ui:386
 #: ui/SystemTab.ui:429 ui/SystemTab.ui:460 ui/SystemTab.ui:493
 #: ui/SystemTab.ui:526 ui/SystemTab.ui:617 ui/SystemTab.ui:634
-#: ui/SystemTab.ui:651 ui/SystemTab.ui:737 ui/SystemTab.ui:754
-#: ui/SystemTab.ui:784 ui/SystemTab.ui:801 ui/SystemTab.ui:818
+#: ui/SystemTab.ui:651 ui/SystemTab.ui:736 ui/SystemTab.ui:753
+#: ui/SystemTab.ui:783 ui/SystemTab.ui:800 ui/SystemTab.ui:817
 #: ui/UsersDetailsWindow.ui:208 ui/UsersDetailsWindow.ui:223
 #: ui/UsersDetailsWindow.ui:238 ui/UsersDetailsWindow.ui:253
 #: ui/UsersDetailsWindow.ui:268 ui/UsersDetailsWindow.ui:283
@@ -3148,23 +3144,15 @@ msgstr ""
 msgid "Packages (System):"
 msgstr "Paketler (Sistem):"
 
-#: ui/SystemTab.ui:722
-msgid ""
-"Name of the current user and information of whether the user has root "
-"privileges"
-msgstr ""
-"Şimdiki kullanıcının adı ve kullanıcının root ayrıcalıklarına sahip olup "
-"olmadığı bilgisi"
-
-#: ui/SystemTab.ui:724
+#: ui/SystemTab.ui:723
 msgid "User - (Root?):"
 msgstr "Kullanıcı - (Root?):"
 
-#: ui/SystemTab.ui:771
+#: ui/SystemTab.ui:770
 msgid "Window Manager:"
 msgstr "Pencere Yöneticisi:"
 
-#: ui/SystemTab.ui:834
+#: ui/SystemTab.ui:833
 msgid ""
 "Number of installed Python packages and number of installed Flatpak "
 "applications and runtimes\n"
@@ -3175,7 +3163,7 @@ msgstr ""
 "\n"
 "Dahili (built-in) Python paketleri sayılmaz."
 
-#: ui/SystemTab.ui:838
+#: ui/SystemTab.ui:837
 msgid "Packages (Python-Flatpak):"
 msgstr "Paketler (Python-Flatpak):"
 
@@ -3210,6 +3198,16 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:197
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "User session will be ended if you continue."
+#~ msgstr "Devam ederseniz kullanıcı oturumu sonlandırılacak."
+
+#~ msgid ""
+#~ "Name of the current user and information of whether the user has root "
+#~ "privileges"
+#~ msgstr ""
+#~ "Şimdiki kullanıcının adı ve kullanıcının root ayrıcalıklarına sahip olup "
+#~ "olmadığı bilgisi"
 
 #~ msgid "CPU Usage"
 #~ msgstr "MİB Kullanımı"

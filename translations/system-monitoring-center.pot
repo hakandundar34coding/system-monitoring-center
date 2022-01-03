@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-02 17:14+0300\n"
+"POT-Creation-Date: 2022-01-03 09:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,7 +191,7 @@ msgid "Existing variable will be overwritten if you continue."
 msgstr ""
 
 #: src/EnvironmentVariablesInput.py:170 src/StartupNewItem.py:181
-#: src/UsersMenuRightClick.py:88
+#: src/UsersMenuRightClick.py:87
 msgid "Do you want to continue?"
 msgstr ""
 
@@ -1216,15 +1216,11 @@ msgid ""
 "data loss for the user."
 msgstr ""
 
-#: src/UsersMenuRightClick.py:87
-msgid "User session will be ended if you continue."
-msgstr ""
-
-#: src/UsersMenuRightClick.py:89
+#: src/UsersMenuRightClick.py:88
 msgid "User Name:"
 msgstr ""
 
-#: src/UsersMenuRightClick.py:90
+#: src/UsersMenuRightClick.py:89
 msgid "User UID:"
 msgstr ""
 
@@ -1361,8 +1357,8 @@ msgstr ""
 #: ui/SystemTab.ui:338 ui/SystemTab.ui:369 ui/SystemTab.ui:386
 #: ui/SystemTab.ui:429 ui/SystemTab.ui:460 ui/SystemTab.ui:493
 #: ui/SystemTab.ui:526 ui/SystemTab.ui:617 ui/SystemTab.ui:634
-#: ui/SystemTab.ui:651 ui/SystemTab.ui:737 ui/SystemTab.ui:754
-#: ui/SystemTab.ui:784 ui/SystemTab.ui:801 ui/SystemTab.ui:818
+#: ui/SystemTab.ui:651 ui/SystemTab.ui:736 ui/SystemTab.ui:753
+#: ui/SystemTab.ui:783 ui/SystemTab.ui:800 ui/SystemTab.ui:817
 #: ui/UsersDetailsWindow.ui:208 ui/UsersDetailsWindow.ui:223
 #: ui/UsersDetailsWindow.ui:238 ui/UsersDetailsWindow.ui:253
 #: ui/UsersDetailsWindow.ui:268 ui/UsersDetailsWindow.ui:283
@@ -2967,21 +2963,15 @@ msgstr ""
 msgid "Packages (System):"
 msgstr ""
 
-#: ui/SystemTab.ui:722
-msgid ""
-"Name of the current user and information of whether the user has root "
-"privileges"
-msgstr ""
-
-#: ui/SystemTab.ui:724
+#: ui/SystemTab.ui:723
 msgid "User - (Root?):"
 msgstr ""
 
-#: ui/SystemTab.ui:771
+#: ui/SystemTab.ui:770
 msgid "Window Manager:"
 msgstr ""
 
-#: ui/SystemTab.ui:834
+#: ui/SystemTab.ui:833
 msgid ""
 "Number of installed Python packages and number of installed Flatpak "
 "applications and runtimes\n"
@@ -2989,7 +2979,7 @@ msgid ""
 "Built-in Python packages are not counted."
 msgstr ""
 
-#: ui/SystemTab.ui:838
+#: ui/SystemTab.ui:837
 msgid "Packages (Python-Flatpak):"
 msgstr ""
 

@@ -719,7 +719,6 @@ This information is available only on systems with X11 windowing system.</proper
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Name of the current user and information of whether the user has root privileges</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">User - (Root?):</property>
                     <property name="ellipsize">end</property>

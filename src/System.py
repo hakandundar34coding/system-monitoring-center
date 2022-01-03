@@ -184,7 +184,7 @@ def system_initial_func():
                         proc_pid_status_lines = reader.read()
                 except FileNotFoundError:
                     continue
-                real_user_id = proc_pid_status_lines.split("\nUid:")[1].split("\n")[0].strip().split()[0].strip()    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
                 process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
                 if process_username == current_user_name:
                     window_manager = process_name.lower()
@@ -196,7 +196,7 @@ def system_initial_func():
                         proc_pid_status_lines = reader.read()
                 except FileNotFoundError:
                     continue
-                real_user_id = proc_pid_status_lines.split("\nUid:")[1].split("\n")[0].strip().split()[0].strip()    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
                 process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
                 if process_username == "root":                                                # Display manager processes are owned by root user.
                     current_display_manager = supported_display_managers_dict[process_name]
@@ -208,7 +208,7 @@ def system_initial_func():
                         proc_pid_status_lines = reader.read()
                 except FileNotFoundError:
                     continue
-                real_user_id = proc_pid_status_lines.split("\nUid:")[1].split("\n")[0].strip().split()[0].strip()    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
                 process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
                 if process_username == current_user_name:
                     current_desktop_environment = supported_desktop_environments_dict[process_name]
@@ -272,18 +272,20 @@ def system_initial_func():
             apt_packages_available = "yes"
     except (FileNotFoundError, subprocess.CalledProcessError) as me:                          # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
         apt_packages_available = "no"
-    try:
-        rpm_packages_available = (subprocess.check_output(["rpm", "-q", "python3"], shell=False)).decode().strip()
-        if rpm_packages_available.startswith("python3-3."):
-            rpm_packages_available = "yes"
-    except (FileNotFoundError, subprocess.CalledProcessError) as me:
-        rpm_packages_available = "no"
-    try:
-        pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
-        if pacman_packages_available.startswith("python 3."):
-            pacman_packages_available = "yes"
-    except (FileNotFoundError, subprocess.CalledProcessError) as me:
-        pacman_packages_available = "no"
+    if apt_packages_available != "yes":
+        try:
+            rpm_packages_available = (subprocess.check_output(["rpm", "-q", "python3"], shell=False)).decode().strip()
+            if rpm_packages_available.startswith("python3-3."):
+                rpm_packages_available = "yes"
+        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+            rpm_packages_available = "no"
+        if apt_packages_available != "yes" and rpm_packages_available != "yes":
+            try:
+                pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
+                if pacman_packages_available.startswith("python 3."):
+                    pacman_packages_available = "yes"
+            except (FileNotFoundError, subprocess.CalledProcessError) as me:
+                pacman_packages_available = "no"
     try:
         flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
         flatpak_packages_available = len(flatpak_packages_available) - flatpak_packages_available.count("")    # Differentiate empty line count
