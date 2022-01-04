@@ -40,11 +40,10 @@
                 <property name="border-width">10</property>
                 <property name="row-spacing">5</property>
                 <child>
-                  <!-- n-columns=2 n-rows=1 -->
+                  <!-- n-columns=3 n-rows=1 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="column-spacing">4</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -60,10 +59,22 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Processes - View:</property>
+                        <property name="margin-start">4</property>
+                        <property name="label" translatable="yes">View</property>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">:</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">2</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
@@ -296,16 +307,16 @@
                 <property name="row-spacing">5</property>
                 <property name="column-homogeneous">True</property>
                 <child>
-                  <!-- n-columns=2 n-rows=1 -->
+                  <!-- n-columns=3 n-rows=1 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="column-spacing">4</property>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Add/Remove Information:</property>
+                        <property name="margin-start">4</property>
+                        <property name="label" translatable="yes">Add/Remove Columns</property>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -320,6 +331,17 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">:</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">2</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
