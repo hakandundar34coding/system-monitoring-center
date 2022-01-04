@@ -36,10 +36,10 @@ def performance_set_selected_cpu_core_func():
 def performance_set_selected_disk_func():
 
     # Set selected disk
+    with open("/proc/mounts") as reader:
+        proc_mounts_output_lines = reader.read().strip().split("\n")
     system_disk_list = []
     for disk in disk_list:
-        with open("/proc/mounts") as reader:
-            proc_mounts_output_lines = reader.read().strip().split("\n")
         for line in proc_mounts_output_lines:
             if line.split(" ", 2)[0].strip() == ("/dev/" + disk) and line.split(" ", 2)[1].strip() == "/":
                 system_disk_list.append(disk)
@@ -99,10 +99,14 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
                     default_gpu = gpu
         except FileNotFoundError:
             pass
-        with open("/sys/class/drm/" + gpu + "/device/vendor") as reader:
-            gpu_vendor_id = reader.read().split("x")[1].strip()
-        with open("/sys/class/drm/" + gpu + "/device/device") as reader:
-            gpu_device_id = reader.read().split("x")[1].strip()
+        try:                                                                                  # "vendor" and "device" files may not be present on ARM systems even if there is a GPU.
+            with open("/sys/class/drm/" + gpu + "/device/vendor") as reader:
+                gpu_vendor_id = reader.read().split("x")[1].strip()
+            with open("/sys/class/drm/" + gpu + "/device/device") as reader:
+                gpu_device_id = reader.read().split("x")[1].strip()
+        except FileNotFoundError:
+            gpu_vendor_id = "_unknown_vendor_"
+            gpu_device_id = "_unknown_device_"
         gpu_vendor_id_for_search = "\n" + gpu_vendor_id + "  "
         gpu_device_id_for_search = "\n\t" + gpu_device_id + "  "
         if gpu_vendor_id_for_search in pci_ids_output:                                        # "vendor" information may not be present in the pci.ids file.
