@@ -379,7 +379,7 @@ def users_data_unit_converter_func(data, unit, precision):
 # ----------------------------------- Users - Users Details No Such Users Error Dialog Function (shows an error dialog and stops updating the "Users Details window" when the storage/disk is not connected anymore) -----------------------------------
 def users_no_such_user_error_dialog():
 
-    error_dialog3101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Error", flags=0, message_type=Gtk.MessageType.ERROR,
+    error_dialog3101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Warning", flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text="User Account Does Not Exist Anymore", )
     error_dialog3101w.format_secondary_text(_tr("Following user account does not exist anymore and user details window is closed automatically:") +
                                             "\n\n    " + selected_username)

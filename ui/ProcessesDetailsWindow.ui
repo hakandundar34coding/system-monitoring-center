@@ -39,7 +39,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Name</property>
+                        <property name="label" translatable="yes">Process Name</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>

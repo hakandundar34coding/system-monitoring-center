@@ -367,7 +367,6 @@
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="max-width-chars">1</property>
-                        <property name="text" translatable="yes">0,00</property>
                         <property name="digits">2</property>
                       </object>
                       <packing>

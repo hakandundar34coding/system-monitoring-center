@@ -538,7 +538,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton4123p">
-                        <property name="label" translatable="yes">Unique Storage Id.</property>
+                        <property name="label" translatable="yes">WWN</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>

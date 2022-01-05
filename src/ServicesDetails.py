@@ -348,8 +348,9 @@ def services_details_data_unit_converter_func(data, unit, precision):
 # ----------------------------------- Services - Services No Such Process Error Dialog Function (shows an error dialog and stops updating the "Process Details window" when the service is not alive anymore) -----------------------------------
 def services_no_such_service_error_dialog():
 
-    error_dialog6101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Error", flags=0, message_type=Gtk.MessageType.ERROR,
+    error_dialog6101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Warning", flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Service File Does Not Exist Anymore"), )
-    error_dialog6101w.format_secondary_text(_tr("Following service file does not exist anymore and service details window is closed automatically:") + "\n\n    " + selected_service_name + " (" + _tr("PID") + ": " + selected_service_pid + ")", )
+    error_dialog6101w.format_secondary_text(_tr("Following service file does not exist anymore and service details window is closed automatically:") +
+                                            "\n\n    " + selected_service_name + " (" + _tr("PID") + ": " + selected_service_pid + ")", )
     error_dialog6101w.run()
     error_dialog6101w.destroy()

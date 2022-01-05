@@ -46,8 +46,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Downloaded data on the selected network card
-(since last system boot)</property>
+            <property name="tooltip-text" translatable="yes">Measured value since last system start</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Downloaded Data:</property>
             <property name="ellipsize">end</property>
@@ -61,8 +60,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Uploaded data on the selected network card
-(since last system start)</property>
+            <property name="tooltip-text" translatable="yes">Measured value since last system start</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Uploaded Data:</property>
             <property name="ellipsize">end</property>
@@ -266,7 +264,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">If selected network card is connected - Network name (SSID = Service Set Identifier)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Connected-SSID:</property>
             <property name="ellipsize">end</property>

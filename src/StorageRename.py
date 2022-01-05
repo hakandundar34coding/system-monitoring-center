@@ -61,7 +61,7 @@ def storage_rename_gui_func():
         entry4101w2.grab_focus()                                                              # Enable grabing focus to be ready for typing directly without clicking on it. Otherwise, entry has to be clicked on it for typing in it.
 
     def on_entry4101w2_changed(widget):
-        label4102w2.set_text(" ")                                                             # Reset warning information (it is shown if disk file system label is tried to be renamed after disk is removed) label after entry text is changed.
+        label4102w2.set_text("")                                                              # Reset warning information (it is shown if disk file system label is tried to be renamed after disk is removed) label after entry text is changed.
         label4102w2.modify_fg(Gtk.StateFlags.NORMAL, None)                                    # Reset warning information (it is shown if disk file system label is tried to be renamed after disk is removed) label color after entry text is changed.
 
     def on_entry4101w2_activate(widget):

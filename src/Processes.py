@@ -218,7 +218,7 @@ def processes_initial_func():
                           [10, _tr('Disk Read Speed'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_speed]],
                           [11, _tr('Disk Write Speed'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_speed]],
                           [12, _tr('Priority'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                          [13, _tr('# of Threads'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                          [13, _tr('Number of Threads'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                           [14, _tr('PPID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                           [15, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                           [16, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
@@ -660,10 +660,10 @@ def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, da
     cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{processes_cpu_usage_percent_precision}f} %')
 
 def cell_data_function_ram_swap(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', f'{processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
+    cell.set_property('text', processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_ram_swap_data_unit, processes_ram_swap_data_precision))
 
 def cell_data_function_disk_usage(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', f'{processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_disk_usage_data_unit, processes_disk_usage_data_precision)}')
+    cell.set_property('text', processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_disk_usage_data_unit, processes_disk_usage_data_precision))
 
 def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')

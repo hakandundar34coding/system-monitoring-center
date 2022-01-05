@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-04 11:33+0300\n"
+"POT-Creation-Date: 2022-01-05 14:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -210,12 +210,12 @@ msgid ""
 "(Usable if processes are listed as tree)"
 msgstr ""
 
-#: src/Processes.py:208
+#: src/Processes.py:208 ui/ProcessesDetailsWindow.ui:42
 msgid "Process Name"
 msgstr ""
 
-#: src/Processes.py:209 src/ProcessesDetails.py:244 src/ProcessesDetails.py:656
-#: src/ServicesDetails.py:353 ui/ProcessesDetailsWindow.ui:55
+#: src/Processes.py:209 src/ProcessesDetails.py:244 src/ProcessesDetails.py:657
+#: src/ServicesDetails.py:354 ui/ProcessesDetailsWindow.ui:55
 #: ui/ProcessesMenuCustomizations.ui:379
 msgid "PID"
 msgstr ""
@@ -261,12 +261,12 @@ msgid "Disk Write Data"
 msgstr ""
 
 #: src/Processes.py:218 ui/ProcessesDetailsWindow.ui:1287
-#: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:438
+#: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:437
 msgid "Disk Read Speed"
 msgstr ""
 
 #: src/Processes.py:219 ui/ProcessesDetailsWindow.ui:1300
-#: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:466
+#: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:465
 msgid "Disk Write Speed"
 msgstr ""
 
@@ -275,8 +275,9 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
-#: src/Processes.py:221
-msgid "# of Threads"
+#: src/Processes.py:221 ui/ProcessesDetailsWindow.ui:722
+#: ui/ProcessesMenuCustomizations.ui:477
+msgid "Number of Threads"
 msgstr ""
 
 #: src/Processes.py:222 ui/ProcessesDetailsWindow.ui:172
@@ -284,7 +285,7 @@ msgstr ""
 msgid "PPID"
 msgstr ""
 
-#: src/Processes.py:223 src/Users.py:161 src/UsersMenuRightClick.py:89
+#: src/Processes.py:223 src/Users.py:161 src/UsersMenuRightClick.py:77
 #: ui/ProcessesMenuCustomizations.ui:589 ui/UsersDetailsWindow.ui:78
 #: ui/UsersMenuCustomizations.ui:262
 msgid "UID"
@@ -343,11 +344,14 @@ msgstr ""
 msgid "Process Details"
 msgstr ""
 
-#: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:265
-#: src/ProcessesMenuRightClick.py:301 src/ProcessesMenuRightClick.py:311
-#: src/StartupMenuRightClick.py:438 src/StorageDetails.py:511
-#: src/StorageMenuRightClick.py:221 src/StorageMenuRightClick.py:234
-msgid "Error"
+#: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:277
+#: src/ProcessesMenuRightClick.py:289 src/RamHardwareInformation.py:161
+#: src/ServicesMenuRightClick.py:148 src/SettingsGUI.py:583
+#: src/StartupMenuRightClick.py:412 src/StartupMenuRightClick.py:425
+#: src/StartupNewItem.py:177 src/StorageDetails.py:511
+#: src/StorageMenuRightClick.py:244 src/StorageRename.py:145
+#: src/UsersMenuRightClick.py:72
+msgid "Warning"
 msgstr ""
 
 #: src/ProcessesDetails.py:655 src/ProcessesMenuRightClick.py:302
@@ -360,8 +364,13 @@ msgid ""
 "closed automatically:"
 msgstr ""
 
+#: src/ProcessesMenuRightClick.py:265 src/ProcessesMenuRightClick.py:301
+#: src/ProcessesMenuRightClick.py:311 src/StartupMenuRightClick.py:438
+#: src/StorageMenuRightClick.py:221 src/StorageMenuRightClick.py:234
+msgid "Error"
+msgstr ""
+
 #: src/ProcessesMenuRightClick.py:266 src/RamHardwareInformation.py:162
-#: src/UsersMenuRightClick.py:74
 msgid "Access Denied"
 msgstr ""
 
@@ -375,15 +384,6 @@ msgstr ""
 
 #: src/ProcessesMenuRightClick.py:269
 msgid "2) Increase/decrease nice value of other processes."
-msgstr ""
-
-#: src/ProcessesMenuRightClick.py:277 src/ProcessesMenuRightClick.py:289
-#: src/RamHardwareInformation.py:161 src/ServicesMenuRightClick.py:148
-#: src/SettingsGUI.py:583 src/StartupMenuRightClick.py:412
-#: src/StartupMenuRightClick.py:425 src/StartupNewItem.py:177
-#: src/StorageMenuRightClick.py:244 src/StorageRename.py:145
-#: src/UsersMenuRightClick.py:73 src/UsersMenuRightClick.py:84
-msgid "Warning"
 msgstr ""
 
 #: src/ProcessesMenuRightClick.py:278
@@ -672,16 +672,16 @@ msgstr ""
 
 #: src/SettingsGUI.py:320 ui/CpuTab.ui:488 ui/MainWindow.ui:80
 #: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:709
-#: ui/SettingsWindow.ui:410
+#: ui/SettingsWindow.ui:409
 msgid "CPU"
 msgstr ""
 
 #: src/SettingsGUI.py:320 ui/MainWindow.ui:127 ui/RamTab.ui:415
-#: ui/SettingsWindow.ui:424
+#: ui/SettingsWindow.ui:423
 msgid "RAM"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:409
+#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:406
 msgid "Network"
 msgstr ""
 
@@ -701,9 +701,9 @@ msgstr ""
 msgid "Do you want to reset all settings of the application to defaults?"
 msgstr ""
 
-#: src/Startup.py:134 ui/ProcessesDetailsWindow.ui:42
-#: ui/ProcessesMenuCustomizations.ui:363 ui/ServicesDetailsWindow.ui:43
-#: ui/StartupMenuCustomizations.ui:217 ui/StartupNewItemWindow.ui:310
+#: src/Startup.py:134 ui/ProcessesMenuCustomizations.ui:363
+#: ui/ServicesDetailsWindow.ui:43 ui/StartupMenuCustomizations.ui:217
+#: ui/StartupNewItemWindow.ui:310
 msgid "Name"
 msgstr ""
 
@@ -802,7 +802,7 @@ msgstr ""
 msgid "Existing file will be overwritten if you continue."
 msgstr ""
 
-#: src/StartupNewItem.py:181 src/UsersMenuRightClick.py:87
+#: src/StartupNewItem.py:181 src/UsersMenuRightClick.py:75
 msgid "Do you want to continue?"
 msgstr ""
 
@@ -860,7 +860,7 @@ msgid "Used Space%"
 msgstr ""
 
 #: src/Storage.py:198 ui/CpuTab.ui:463 ui/DiskTab.ui:79 ui/GpuTab.ui:403
-#: ui/NetworkTab.ui:466 ui/StorageDetailsWindow.ui:168
+#: ui/NetworkTab.ui:463 ui/StorageDetailsWindow.ui:168
 #: ui/StorageMenuCustomizations.ui:457
 msgid "Vendor-Model"
 msgstr ""
@@ -914,7 +914,7 @@ msgid "UUID"
 msgstr ""
 
 #: src/Storage.py:210 ui/StorageMenuCustomizations.ui:541
-msgid "Unique Storage Id."
+msgid "WWN"
 msgstr ""
 
 #: src/Storage.py:211 ui/StorageMenuCustomizations.ui:527
@@ -984,7 +984,7 @@ msgstr ""
 msgid "Disk has been removed and file system could not be renamed."
 msgstr ""
 
-#: src/Users.py:158 src/UsersMenuRightClick.py:88 ui/UsersDetailsWindow.ui:39
+#: src/Users.py:158 src/UsersMenuRightClick.py:76 ui/UsersDetailsWindow.ui:39
 #: ui/UsersMenuCustomizations.ui:218
 msgid "User Name"
 msgstr ""
@@ -1119,15 +1119,11 @@ msgid ""
 "closed automatically:"
 msgstr ""
 
-#: src/UsersMenuRightClick.py:75
-msgid "Root privileges are needed for ending an user session."
-msgstr ""
-
-#: src/UsersMenuRightClick.py:85
+#: src/UsersMenuRightClick.py:73
 msgid "Do You Want To End User Session?"
 msgstr ""
 
-#: src/UsersMenuRightClick.py:86
+#: src/UsersMenuRightClick.py:74
 msgid ""
 "This action will end all processes of the user immediately and may cause "
 "data loss for the user."
@@ -1180,7 +1176,7 @@ msgstr ""
 #: ui/EnvironmentVarMenuCustomizations.ui:355 ui/GpuMenus.ui:156
 #: ui/NetworkMenus.ui:107 ui/ProcessesMenuCustomizations.ui:975
 #: ui/RamMenus.ui:129 ui/ServicesMenuCustomizations.ui:599
-#: ui/SettingsWindow.ui:665 ui/StartupMenuCustomizations.ui:354
+#: ui/SettingsWindow.ui:664 ui/StartupMenuCustomizations.ui:354
 #: ui/StorageMenuCustomizations.ui:822 ui/UsersMenuCustomizations.ui:702
 msgid "Reset All"
 msgstr ""
@@ -1268,11 +1264,11 @@ msgstr ""
 #: ui/FloatingSummaryWindow.ui:103 ui/GpuTab.ui:83 ui/GpuTab.ui:100
 #: ui/GpuTab.ui:117 ui/GpuTab.ui:161 ui/GpuTab.ui:178 ui/GpuTab.ui:209
 #: ui/GpuTab.ui:239 ui/GpuTab.ui:256 ui/GpuTab.ui:300 ui/GpuTab.ui:317
-#: ui/GpuTab.ui:390 ui/GpuTab.ui:405 ui/NetworkTab.ui:134 ui/NetworkTab.ui:151
-#: ui/NetworkTab.ui:168 ui/NetworkTab.ui:185 ui/NetworkTab.ui:202
-#: ui/NetworkTab.ui:219 ui/NetworkTab.ui:236 ui/NetworkTab.ui:253
-#: ui/NetworkTab.ui:284 ui/NetworkTab.ui:316 ui/NetworkTab.ui:453
-#: ui/NetworkTab.ui:468 ui/PerformanceSummaryHeaderBarGrid.ui:85
+#: ui/GpuTab.ui:390 ui/GpuTab.ui:405 ui/NetworkTab.ui:132 ui/NetworkTab.ui:149
+#: ui/NetworkTab.ui:166 ui/NetworkTab.ui:183 ui/NetworkTab.ui:200
+#: ui/NetworkTab.ui:217 ui/NetworkTab.ui:234 ui/NetworkTab.ui:251
+#: ui/NetworkTab.ui:281 ui/NetworkTab.ui:313 ui/NetworkTab.ui:450
+#: ui/NetworkTab.ui:465 ui/PerformanceSummaryHeaderBarGrid.ui:85
 #: ui/PerformanceSummaryHeaderBarGrid.ui:100
 #: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
@@ -1321,7 +1317,7 @@ msgstr ""
 #: ui/StorageDetailsWindow.ui:625 ui/StorageDetailsWindow.ui:640
 #: ui/StorageDetailsWindow.ui:655 ui/StorageDetailsWindow.ui:670
 #: ui/StorageDetailsWindow.ui:685 ui/StorageDetailsWindow.ui:701
-#: ui/StorageRenameWindow.ui:164 ui/StorageTab.ui:67 ui/SystemTab.ui:29
+#: ui/StorageRenameWindow.ui:163 ui/StorageTab.ui:67 ui/SystemTab.ui:29
 #: ui/SystemTab.ui:44 ui/SystemTab.ui:179 ui/SystemTab.ui:196
 #: ui/SystemTab.ui:241 ui/SystemTab.ui:271 ui/SystemTab.ui:304
 #: ui/SystemTab.ui:338 ui/SystemTab.ui:369 ui/SystemTab.ui:386
@@ -1520,11 +1516,11 @@ msgstr ""
 msgid "Capacity:"
 msgstr ""
 
-#: ui/DiskTab.ui:472 ui/NetworkTab.ui:359
+#: ui/DiskTab.ui:472 ui/NetworkTab.ui:356
 msgid "B/s"
 msgstr ""
 
-#: ui/DiskTab.ui:483 ui/GpuTab.ui:470 ui/NetworkTab.ui:370
+#: ui/DiskTab.ui:483 ui/GpuTab.ui:470 ui/NetworkTab.ui:367
 msgid "Graphic scale is updated dynamically."
 msgstr ""
 
@@ -1532,7 +1528,7 @@ msgstr ""
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr ""
 
-#: ui/DiskTab.ui:497 ui/GpuTab.ui:453 ui/NetworkTab.ui:384
+#: ui/DiskTab.ui:497 ui/GpuTab.ui:453 ui/NetworkTab.ui:381
 msgid "0"
 msgstr ""
 
@@ -1556,7 +1552,7 @@ msgstr ""
 
 #: ui/EnvironmentVarMenuCustomizations.ui:128
 #: ui/ProcessesMenuCustomizations.ui:228 ui/ServicesMenuCustomizations.ui:128
-#: ui/SettingsWindow.ui:56 ui/SettingsWindow.ui:571
+#: ui/SettingsWindow.ui:56 ui/SettingsWindow.ui:570
 #: ui/StartupMenuCustomizations.ui:128 ui/StorageMenuCustomizations.ui:128
 #: ui/UsersMenuCustomizations.ui:128
 msgid "Reset"
@@ -1726,7 +1722,7 @@ msgstr ""
 msgid "Shows/Hides a transparent and always on top performance summary window"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:65 ui/SettingsWindow.ui:596
+#: ui/MainMenusDialogs.ui:65 ui/SettingsWindow.ui:595
 msgid "Floating Summary"
 msgstr ""
 
@@ -1750,7 +1746,7 @@ msgstr ""
 msgid "Main Menu"
 msgstr ""
 
-#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:425
+#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:422
 msgid "Network Tab Customizations"
 msgstr ""
 
@@ -1782,73 +1778,59 @@ msgstr ""
 msgid "Upload Speed:"
 msgstr ""
 
-#: ui/NetworkTab.ui:49
-msgid ""
-"Downloaded data on the selected network card\n"
-"(since last system boot)"
+#: ui/NetworkTab.ui:49 ui/NetworkTab.ui:63
+msgid "Measured value since last system start"
 msgstr ""
 
-#: ui/NetworkTab.ui:52
+#: ui/NetworkTab.ui:51
 msgid "Downloaded Data:"
 msgstr ""
 
-#: ui/NetworkTab.ui:64
-msgid ""
-"Uploaded data on the selected network card\n"
-"(since last system start)"
-msgstr ""
-
-#: ui/NetworkTab.ui:67
+#: ui/NetworkTab.ui:65
 msgid "Uploaded Data:"
 msgstr ""
 
-#: ui/NetworkTab.ui:79
+#: ui/NetworkTab.ui:77
 msgid ""
 "Network connection on the selected network card\n"
 "(Wi-Fi or Ethernet)"
 msgstr ""
 
-#: ui/NetworkTab.ui:82
+#: ui/NetworkTab.ui:80
 msgid "Connection Type:"
 msgstr ""
 
-#: ui/NetworkTab.ui:95
+#: ui/NetworkTab.ui:93
 msgid "IPv4 Address:"
 msgstr ""
 
-#: ui/NetworkTab.ui:108
+#: ui/NetworkTab.ui:106
 msgid "IPv6 Address:"
 msgstr ""
 
-#: ui/NetworkTab.ui:121
+#: ui/NetworkTab.ui:119
 msgid "MAC Address:"
 msgstr ""
 
-#: ui/NetworkTab.ui:269
-msgid ""
-"If selected network card is connected - Network name (SSID = Service Set "
-"Identifier)"
-msgstr ""
-
-#: ui/NetworkTab.ui:271
+#: ui/NetworkTab.ui:268
 msgid "Connected-SSID:"
 msgstr ""
 
-#: ui/NetworkTab.ui:300
+#: ui/NetworkTab.ui:297
 msgid ""
 "Current signal strength of the connected network\n"
 "(link value)"
 msgstr ""
 
-#: ui/NetworkTab.ui:303
+#: ui/NetworkTab.ui:300
 msgid "Signal Strength:"
 msgstr ""
 
-#: ui/NetworkTab.ui:372
+#: ui/NetworkTab.ui:369
 msgid "Network Download (-) & Upload (--) Speed:"
 msgstr ""
 
-#: ui/NetworkTab.ui:451
+#: ui/NetworkTab.ui:448
 msgid "Network Interface Controller (NIC) Name"
 msgstr ""
 
@@ -1865,7 +1847,7 @@ msgstr ""
 msgid "RAM:"
 msgstr ""
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/SettingsWindow.ui:494
+#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/SettingsWindow.ui:493
 msgid "Disk Read+Write Speed"
 msgstr ""
 
@@ -1873,7 +1855,7 @@ msgstr ""
 msgid "Disk:"
 msgstr ""
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:114 ui/SettingsWindow.ui:508
+#: ui/PerformanceSummaryHeaderBarGrid.ui:114 ui/SettingsWindow.ui:507
 msgid "Network Download+Upload Speed"
 msgstr ""
 
@@ -1895,12 +1877,12 @@ msgid ""
 "(Smaller value means higher process priority)"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:106 ui/StorageRenameWindow.ui:81
+#: ui/ProcessesCustomPriorityWindow.ui:106 ui/StorageRenameWindow.ui:80
 msgid "Apply"
 msgstr ""
 
 #: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
-#: ui/StorageRenameWindow.ui:126
+#: ui/StorageRenameWindow.ui:125
 msgid "Cancel"
 msgstr ""
 
@@ -1944,10 +1926,6 @@ msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:680
 msgid "Summary"
-msgstr ""
-
-#: ui/ProcessesDetailsWindow.ui:722 ui/ProcessesMenuCustomizations.ui:477
-msgid "Number of Threads"
 msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:735
@@ -2377,27 +2355,23 @@ msgstr ""
 msgid "Window transparency:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:370
-msgid "0,00"
-msgstr ""
-
-#: ui/SettingsWindow.ui:384
+#: ui/SettingsWindow.ui:383
 msgid "Window"
 msgstr ""
 
-#: ui/SettingsWindow.ui:452
+#: ui/SettingsWindow.ui:451
 msgid "Network Download Speed"
 msgstr ""
 
-#: ui/SettingsWindow.ui:480
+#: ui/SettingsWindow.ui:479
 msgid "Network Upload Speed"
 msgstr ""
 
-#: ui/SettingsWindow.ui:532
+#: ui/SettingsWindow.ui:531
 msgid "Show/Hide Performance Information"
 msgstr ""
 
-#: ui/SettingsWindow.ui:630
+#: ui/SettingsWindow.ui:629
 msgid "Reset all settings of the application to defaults"
 msgstr ""
 
@@ -2546,11 +2520,7 @@ msgstr ""
 msgid "Rename file system of this disk:"
 msgstr ""
 
-#: ui/StorageRenameWindow.ui:38
-msgid " "
-msgstr ""
-
-#: ui/StorageRenameWindow.ui:179
+#: ui/StorageRenameWindow.ui:178
 msgid ""
 "Note: Renaming is not performed if following conditions are not meet:\n"
 "1) Only file systems of partitions (not whole disk) can be renamed.\n"

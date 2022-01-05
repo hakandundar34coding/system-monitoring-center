@@ -49,7 +49,6 @@ def users_menu_right_click_gui_func():
             except:
                 pass
         if warning_dialog3102_response == Gtk.ResponseType.NO:
-            users_end_user_session_root_privileges_warning_dialog()
             return
 
     def on_menuitem3102m_activate(widget):                                                    # "Details" item on the right click menu
@@ -65,17 +64,6 @@ def users_menu_right_click_gui_func():
     # ********************** Connect signals to GUI objects for Users tab right click menu **********************
     menuitem3101m.connect("activate", on_menuitem3101m_activate)
     menuitem3102m.connect("activate", on_menuitem3102m_activate)
-
-
-# ----------------------------------- Users - End User Session Root Privileges Warning Dialog Function (shows a warning dialog when an user session is tried to be ended without entering password on polkit dialog) -----------------------------------
-def users_end_user_session_root_privileges_warning_dialog():
-
-    warning_dialog3101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Access Denied"), )
-    warning_dialog3101.format_secondary_text(_tr("Root privileges are needed for ending an user session."))
-    global warning_dialog3101_response
-    warning_dialog3101_response = warning_dialog3101.run()
-    warning_dialog3101.destroy()
 
 
 # ----------------------------------- Users - End User Session Warning Dialog Function (shows a warning dialog when an user session is tried to be ended) -----------------------------------

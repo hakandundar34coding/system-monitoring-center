@@ -508,8 +508,9 @@ def storage_data_unit_converter_func(data, unit, precision):
 # ----------------------------------- Storage - Storage Details No Such Storage Error Dialog Function (shows an error dialog and stops updating the "Storage Details window" when the storage/disk is not connected anymore) -----------------------------------
 def storage_no_such_storage_error_dialog():
 
-    error_dialog4101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
+    error_dialog4101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Disk Is Not Connected Anymore"), )
-    error_dialog4101w.format_secondary_text(_tr("Following disk is not connected anymore and storage details window is closed automatically:") + "\n\n    " + disk)
+    error_dialog4101w.format_secondary_text(_tr("Following disk is not connected anymore and storage details window is closed automatically:") +
+                                            "\n\n    " + disk)
     error_dialog4101w.run()
     error_dialog4101w.destroy()
