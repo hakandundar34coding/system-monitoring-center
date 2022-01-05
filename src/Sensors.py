@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Sensors - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Sensors - Import Function -----------------------------------
 def sensors_import_func():
 
     global Gtk, Gdk, GLib, os
@@ -19,7 +19,7 @@ def sensors_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Sensors - Sensors GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Sensors - Sensors GUI Function -----------------------------------
 def sensors_gui_func():
 
     # Sensors tab GUI objects - get from file
@@ -93,7 +93,7 @@ def sensors_gui_func():
     treeview1601.set_tooltip_column(2)
 
 
-# ----------------------------------- Sensors - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Sensors - Initial Function -----------------------------------
 def sensors_initial_func():
 
     global sensors_data_list
@@ -122,7 +122,7 @@ def sensors_initial_func():
     filter_column = sensors_data_list[0][2] - 1                                               # Search filter is "Sensor Group". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
-# ----------------------------------- Sensors - Get Sensor Data Function (gets sensors data, adds into treeview and updates it) -----------------------------------
+# ----------------------------------- Sensors - Get Sensor Data Function -----------------------------------
 def sensors_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
@@ -364,7 +364,7 @@ def sensors_loop_func():
     label1601.set_text(number_of_sensors_string)
 
 
-# ----------------------------------- Sensors Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Sensors Run Function -----------------------------------
 def sensors_run_func(*args):
 
     if "sensors_data_rows" not in globals():
@@ -382,7 +382,7 @@ def sensors_run_func(*args):
         sensors_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Sensors - Treeview Filter Show All Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Sensors - Treeview Filter Show All Function -----------------------------------
 def sensors_treeview_filter_show_all_func():
 
     for piter in piter_list:
@@ -390,7 +390,7 @@ def sensors_treeview_filter_show_all_func():
     treeview1601.expand_all()
 
 
-# ----------------------------------- Sensors - Treeview Filter Only Temperature Sensors Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Sensors - Treeview Filter Only Temperature Sensors Function -----------------------------------
 def sensors_treeview_filter_only_temperature_sensors_func():
 
     for piter in piter_list:
@@ -399,7 +399,7 @@ def sensors_treeview_filter_only_temperature_sensors_func():
     treeview1601.expand_all()
 
 
-# ----------------------------------- Sensors - Treeview Filter Only Fan Sensors Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Sensors - Treeview Filter Only Fan Sensors Function -----------------------------------
 def sensors_treeview_filter_only_fan_sensors_func():
 
     for piter in piter_list:
@@ -408,7 +408,7 @@ def sensors_treeview_filter_only_fan_sensors_func():
     treeview1601.expand_all()
 
 
-# ----------------------------------- Sensors - Treeview Filter Only Voltage and Current Sensors Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Sensors - Treeview Filter Only Voltage and Current Sensors Function -----------------------------------
 def sensors_treeview_filter_only_voltage_current_sensors_func():
 
     for piter in piter_list:
@@ -417,7 +417,7 @@ def sensors_treeview_filter_only_voltage_current_sensors_func():
     treeview1601.expand_all()
 
 
-# ----------------------------------- Sensors - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
+# ----------------------------------- Sensors - Treeview Filter Search Function -----------------------------------
 def sensors_treeview_filter_search_func():
 
     global filter_column
@@ -432,7 +432,7 @@ def sensors_treeview_filter_search_func():
     treeview1601.expand_all()                                                                 # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
 
 
-# ----------------------------------- Sensors - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
+# ----------------------------------- Sensors - Column Title Clicked Function -----------------------------------
 def on_column_title_clicked(widget):
 
     sensors_data_row_sorting_column_title = widget.get_title()                                # Get column title which will be used for getting column number
@@ -443,9 +443,9 @@ def on_column_title_clicked(widget):
     Config.config_save_func()
 
 
-# ----------------------------------- Sensors - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
+# ----------------------------------- Sensors - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def sensors_treeview_column_order_width_row_sorting_func():
-    # Columns in the treeview are get one by one and appended into "sensors_data_column_order". "sensors_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "sensors_data") are changed if column order/widths are changed.
+
     sensors_treeview_columns = treeview1601.get_columns()
     treeview_column_titles = []
     for column in sensors_treeview_columns:

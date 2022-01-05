@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Users - Users Details Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Users - Users Details Import Function -----------------------------------
 def users_details_import_func():
 
     global Gtk, GLib, GdkPixbuf, os, subprocess, datetime, time
@@ -22,7 +22,7 @@ def users_details_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Users - Users Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Users Details" window GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Users - Users Details Window GUI Function -----------------------------------
 def users_details_gui_function():
 
     # Users Details window GUI objects
@@ -74,7 +74,7 @@ def users_details_gui_function():
     window3101w.connect("show", on_window3101w_show)
 
 
-# ----------------------------------- Users - Users Details Window GUI Reset Function (resets Users Details window) -----------------------------------
+# ----------------------------------- Users - Users Details Window GUI Reset Function -----------------------------------
 def users_details_gui_reset_function():
     window3101w.set_title(_tr("User Details"))                                                # Reset window title
     window3101w.set_icon_name("system-monitoring-center-user-symbolic")                       # Reset window icon
@@ -109,7 +109,7 @@ def users_details_gui_reset_function():
 #         GLib.timeout_add(200, users_details_tab_switch_control_func)                          # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
 
 
-# ----------------------------------- Users - Users Details Function (the code of this module in order to avoid running them during module import and defines "Users" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Users - Users Details Function -----------------------------------
 def users_details_initial_func():
 
     users_define_data_unit_converter_variables_func()                                         # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
@@ -136,7 +136,7 @@ def users_details_initial_func():
     date_day_names_list = [_tr("Mon"), _tr("Tue"), _tr("Wed"), _tr("Thu"), _tr("Fri"), _tr("Sat"), _tr("Sun")]    # This list is defined in order to make English day names (get from "lslogins") to be translated into other languages.
 
 
-# ----------------------------------- Users - Users Details Foreground Function (updates the process data on the "Users Details" window) -----------------------------------
+# ----------------------------------- Users - Users Details Foreground Function -----------------------------------
 def users_details_loop_func():
 
     global selected_user_uid, selected_username
@@ -172,7 +172,6 @@ def users_details_loop_func():
     etc_passwd_lines = etc_passwd_output.split("\n")
     if ":" + selected_user_uid + ":" not in etc_passwd_output:
         window3101w.hide()
-        users_no_such_user_error_dialog()
         return
     # Get all user groups
     with open("/etc/group") as reader:
@@ -330,7 +329,7 @@ def users_details_loop_func():
     label3114w.set_text(f'{users_data_unit_converter_func(selected_user_ram_percent, users_ram_swap_data_unit, users_ram_swap_data_precision)}')
 
 
-# ----------------------------------- Users Details Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Users Details Run Function -----------------------------------
 def users_details_run_func():
 
     if "update_interval" not in globals():
@@ -342,7 +341,7 @@ def users_details_run_func():
         GLib.timeout_add(update_interval * 1000, users_details_run_func)
 
 
-# ----------------------------------- Users - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Users - Define Data Unit Converter Variables Function -----------------------------------
 def users_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -353,7 +352,7 @@ def users_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Users - Data Details Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Users - Data Details Unit Converter Function -----------------------------------
 def users_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
@@ -374,14 +373,3 @@ def users_data_unit_converter_func(data, unit, precision):
     if data == 0:
         precision = 0
     return f'{data:.{precision}f} {unit}'
-
-
-# ----------------------------------- Users - Users Details No Such Users Error Dialog Function (shows an error dialog and stops updating the "Users Details window" when the storage/disk is not connected anymore) -----------------------------------
-def users_no_such_user_error_dialog():
-
-    error_dialog3101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Warning", flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text="User Account Does Not Exist Anymore", )
-    error_dialog3101w.format_secondary_text(_tr("Following user account does not exist anymore and user details window is closed automatically:") +
-                                            "\n\n    " + selected_username)
-    error_dialog3101w.run()
-    error_dialog3101w.destroy()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- CPU - CPU Tab Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- CPU - CPU Tab Menus GUI Import Function -----------------------------------
 def cpu_menus_import_func():
 
     global Gtk, Gdk, os
@@ -15,7 +15,7 @@ def cpu_menus_import_func():
     import Config, Cpu, Performance
 
 
-# ----------------------------------- CPU - CPU Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "CPU" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- CPU - CPU Tab Menus GUI Function -----------------------------------
 def cpu_menus_gui_func():
 
     # Define builder and get all objects (Performance tab CPU sub-tab customizations popovers) from GUI file.

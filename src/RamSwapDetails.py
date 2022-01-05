@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- RAM - Swap Details Window GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- RAM - Swap Details Window GUI Import Function -----------------------------------
 def ram_swap_details_import_func():
 
     global Gtk, os
@@ -19,7 +19,7 @@ def ram_swap_details_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- RAM - Swap Details Window GUI Function (the code of this module in order to avoid running them during module import and defines GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- RAM - Swap Details Window GUI Function -----------------------------------
 def ram_swap_details_gui_func():
 
     global builder, window1201w2
@@ -58,7 +58,7 @@ def ram_swap_details_gui_func():
     button1201w2.connect("clicked", on_button1201w2_clicked)
 
 
-# ----------------------------------- RAM - Swap Details Get Function (gets Swap details information) -----------------------------------
+# ----------------------------------- RAM - Swap Details Get Function -----------------------------------
 def ram_swap_details_get_func():
 
     ram_define_data_unit_converter_variables_func()                                       # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
@@ -106,7 +106,7 @@ def ram_swap_details_get_func():
         swap_details_text = _tr("This system has no swap memory.")
 
 
-# ----------------------------------- RAM - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- RAM - Define Data Unit Converter Variables Function -----------------------------------
 def ram_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -117,7 +117,7 @@ def ram_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- RAM - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- RAM - Data Unit Converter Function -----------------------------------
 def ram_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- GPU - GPU Tab Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- GPU - GPU Tab Menus GUI Import Function -----------------------------------
 def gpu_menus_import_func():
 
     global Gtk, Gdk, os
@@ -15,7 +15,7 @@ def gpu_menus_import_func():
     import Config, Gpu, Performance
 
 
-# ----------------------------------- GPU - GPU Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "GPU" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- GPU - GPU Tab Menus GUI Function -----------------------------------
 def gpu_menus_gui_func():
 
     # Define builder and get all objects (Performance tab GPU sub-tab customizations popovers) from GUI file.

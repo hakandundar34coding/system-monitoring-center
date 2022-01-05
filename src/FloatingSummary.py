@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- FloatingSummary - FloatingSummary Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- FloatingSummary - FloatingSummary Import Function -----------------------------------
 def floating_summary_import_func():
 
     global Gtk, GLib, os
@@ -18,7 +18,7 @@ def floating_summary_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- FloatingSummary - FloatingSummary Window GUI Function (the code of this module in order to avoid running them during module import and defines GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- FloatingSummary - FloatingSummary Window GUI Function -----------------------------------
 def floating_summary_gui_func():
 
     # FloatingSummary Window GUI objects - get from file
@@ -62,13 +62,13 @@ def floating_summary_gui_func():
     # Floating Summary window is closed when main window is closed (when application is run as running a desktop application). But it is not closed when main window is closed if application is run from an IDE for debugging/developing purposes.
 
 
-# ----------------------------------- FloatingSummary - Initial Function (defines and sets floating summary GUI objects which are not updated on every loop) -----------------------------------
+# ----------------------------------- FloatingSummary - Initial Function -----------------------------------
 def floating_summary_initial_func():
 
     floating_summary_define_data_unit_converter_variables_func()                              # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
 
-# ----------------------------------- FloatingSummary - Loop Function (updates performance data on the floating summary window) -----------------------------------
+# ----------------------------------- FloatingSummary - Loop Function -----------------------------------
 def floating_summary_loop_func():
 
     window3001.set_opacity(Config.floating_summary_window_transparency)
@@ -130,7 +130,7 @@ def floating_summary_loop_func():
         label3008.set_text(_tr("Network W: ") + f'{floating_summary_data_unit_converter_func(Performance.network_send_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
 
 
-# ----------------------------------- FloatingSummary Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- FloatingSummary Run Function -----------------------------------
 def floating_summary_run_func(*args):
 
     if "floating_summary_glib_source" not in globals():
@@ -148,7 +148,7 @@ def floating_summary_run_func(*args):
         floating_summary_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- FloatingSummary - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- FloatingSummary - Define Data Unit Converter Variables Function -----------------------------------
 def floating_summary_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -159,7 +159,7 @@ def floating_summary_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- FloatingSummary - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- FloatingSummary - Data Unit Converter Function -----------------------------------
 def floating_summary_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list

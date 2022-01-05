@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- RAM - RAM Hardware Information Window GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- RAM - RAM Hardware Information Window GUI Import Function -----------------------------------
 def ram_hardware_information_import_func():
 
     global Gtk, os, subprocess
@@ -20,7 +20,7 @@ def ram_hardware_information_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- RAM - RAM Hardware Information Window GUI Function (the code of this module in order to avoid running them during module import and defines GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- RAM - RAM Hardware Information Window GUI Function -----------------------------------
 def ram_hardware_information_gui_func():
 
     global builder, window1201w
@@ -59,7 +59,7 @@ def ram_hardware_information_gui_func():
     button1201w.connect("clicked", on_button1201w_clicked)
 
 
-# ----------------------------------- RAM - RAM Hardware Information Get Function (gets RAM hardware information) -----------------------------------
+# ----------------------------------- RAM - RAM Hardware Information Get Function -----------------------------------
 def ram_hardware_information_get_func():
 
     ram_hardware_information_text_list = [_tr("Unknown"), _tr("None")]                        # This list is defined in order to make some command output strings to be translated into other languages.
@@ -155,7 +155,7 @@ def ram_hardware_information_get_func():
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
 
 
-# ----------------------------------- RAM - RAM Hardware Information Root Privileges Warning Dialog Function (shows a warning dialog when an output text is obtained during disk renaming actions) -----------------------------------
+# ----------------------------------- RAM - RAM Hardware Information Root Privileges Warning Dialog Function -----------------------------------
 def ram_hardware_information_root_privileges_warning_dialog():
 
     warning_dialog1201w = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,

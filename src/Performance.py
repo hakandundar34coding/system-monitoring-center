@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Performance - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Performance - Import Function -----------------------------------
 def performance_import_func():
 
     global Gtk, GLib, os
@@ -19,7 +19,7 @@ def performance_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Performance - Set Selected CPU Core Function (defines CPU logical core to be viewed (hardware and performance data)) -----------------------------------
+# ----------------------------------- Performance - Set Selected CPU Core Function -----------------------------------
 def performance_set_selected_cpu_core_func():
 
     # Set selected CPU core
@@ -32,7 +32,7 @@ def performance_set_selected_cpu_core_func():
     selected_cpu_core_number = logical_core_list_system_ordered.index(selected_cpu_core)
 
 
-# ----------------------------------- Performance - Set Selected Disk Function (defines disk to be viewed (hardware and performance data)) -----------------------------------
+# ----------------------------------- Performance - Set Selected Disk Function -----------------------------------
 def performance_set_selected_disk_func():
 
     # Set selected disk
@@ -54,7 +54,7 @@ def performance_set_selected_disk_func():
     selected_disk_number = disk_list_system_ordered.index(selected_disk)
 
 
-# ----------------------------------- Performance - Set Selected Network Card Function (defines network card to be viewed (hardware and performance data)) -----------------------------------
+# ----------------------------------- Performance - Set Selected Network Card Function -----------------------------------
 def performance_set_selected_network_card_func():
 
     # Set selected network card
@@ -77,7 +77,7 @@ def performance_set_selected_network_card_func():
         selected_network_card_number = network_card_list.index(selected_network_card)
 
 
-# ----------------------------------- Performance - Set Selected GPU/Graphics Card Function (defines GPU/graphics card to be viewed (hardware and performance data)) -----------------------------------
+# ----------------------------------- Performance - Set Selected GPU/Graphics Card Function -----------------------------------
 def performance_get_gpu_list_and_set_selected_gpu_func():
 
     global gpu_list, default_gpu, gpu_device_model_name, gpu_vendor_id_list, gpu_device_id_list
@@ -140,7 +140,7 @@ def performance_get_gpu_list_and_set_selected_gpu_func():
     selected_gpu_number = gpu_list.index(set_selected_gpu)
     
 
-# ----------------------------------- Performance - Background Initial Function (defines initial arrays and values for performance background function) -----------------------------------
+# ----------------------------------- Performance - Background Initial Function -----------------------------------
 def performance_background_initial_func():
 
     # Define common initial values for performance data
@@ -336,7 +336,7 @@ def performance_background_loop_func():
     network_send_bytes_prev = list(network_send_bytes)
 
 
-# ----------------------------------- Performance Background Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Performance Background Run Function -----------------------------------
 def performance_background_run_func():
 
     if 'update_interval' not in globals():

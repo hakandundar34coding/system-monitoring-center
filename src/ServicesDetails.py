@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Services - Services Details Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Services - Services Details Import Function -----------------------------------
 def services_details_import_func():
 
     global Gtk, GLib, os, subprocess, time, datetime
@@ -22,7 +22,7 @@ def services_details_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Services - Services Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Services Details" window GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Services - Services Details Window GUI Function -----------------------------------
 def services_details_gui_function():
 
     # Services Details window GUI objects
@@ -86,7 +86,7 @@ def services_details_gui_function():
     window6101w.connect("show", on_window6101w_show)
 
 
-# ----------------------------------- Services - Services Details Window GUI Reset Function (resets Services Details window) -----------------------------------
+# ----------------------------------- Services - Services Details Window GUI Reset Function -----------------------------------
 def services_details_gui_reset_function():
 
     notebook6101w.set_current_page(0)                                                         # Set fist page (Summary tab) of the notebook
@@ -148,7 +148,7 @@ def services_details_initial_func():
     services_other_text_list = [_tr("Yes"), _tr("No")]                                        # This list is defined in order to make English service information to be translated into other languages.
 
 
-# ----------------------------------- Services - Services Details Foreground Function (updates the service data on the "Services Details" window) -----------------------------------
+# ----------------------------------- Services - Services Details Foreground Function -----------------------------------
 def services_details_loop_func():
 
     services_ram_swap_data_precision = Config.services_ram_swap_data_precision
@@ -299,7 +299,7 @@ def services_details_loop_func():
     label6122w.set_text(',\n'.join(selected_service_before))
 
 
-# ----------------------------------- Services Details Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Services Details Run Function -----------------------------------
 def services_details_run_func():
 
     if "update_interval" not in globals():
@@ -311,7 +311,7 @@ def services_details_run_func():
         GLib.timeout_add(update_interval * 1000, services_details_run_func)
 
 
-# ----------------------------------- Services - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Services - Define Data Unit Converter Variables Function -----------------------------------
 def services_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -322,7 +322,7 @@ def services_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Services - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Services - Data Unit Converter Function -----------------------------------
 def services_details_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
@@ -343,14 +343,3 @@ def services_details_data_unit_converter_func(data, unit, precision):
     if data == 0:
         precision = 0
     return f'{data:.{precision}f} {unit}'
-
-
-# ----------------------------------- Services - Services No Such Process Error Dialog Function (shows an error dialog and stops updating the "Process Details window" when the service is not alive anymore) -----------------------------------
-def services_no_such_service_error_dialog():
-
-    error_dialog6101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="Warning", flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Service File Does Not Exist Anymore"), )
-    error_dialog6101w.format_secondary_text(_tr("Following service file does not exist anymore and service details window is closed automatically:") +
-                                            "\n\n    " + selected_service_name + " (" + _tr("PID") + ": " + selected_service_pid + ")", )
-    error_dialog6101w.run()
-    error_dialog6101w.destroy()

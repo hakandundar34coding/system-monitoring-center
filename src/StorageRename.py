@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Storage - Storage Rename Window GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Storage - Storage Rename Window GUI Import Function -----------------------------------
 def storage_rename_import_func():
 
     global Gtk, Gdk, os, subprocess
@@ -20,7 +20,7 @@ def storage_rename_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Storage - Storage Rename Window GUI Function (the code of this module in order to avoid running them during module import and defines "Storage" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Storage - Storage Rename Window GUI Function -----------------------------------
 def storage_rename_gui_func():
 
     global builder, window4101w2
@@ -139,7 +139,7 @@ def storage_rename_gui_func():
     button4102w2.connect("clicked", on_button4102w2_clicked)
 
 
-# ----------------------------------- Storage - Storage Rename Action Warning Dialog Function (shows a warning dialog when an output text is obtained during disk renaming actions) -----------------------------------
+# ----------------------------------- Storage - Storage Rename Action Warning Dialog Function -----------------------------------
 def storage_rename_action_warning_dialog(dialog_text):
 
     warning_dialog4101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Users - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Users - Import Function -----------------------------------
 def users_import_func():
 
     global Gtk, Gdk, GLib, GObject, GdkPixbuf, os, subprocess, datetime, time
@@ -22,7 +22,7 @@ def users_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Users - Users GUI Function (the code of this module in order to avoid running them during module import and defines "Users" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Users - Users GUI Function -----------------------------------
 def users_gui_func():
 
     global grid3101, treeview3101, searchentry3101, button3101
@@ -105,10 +105,10 @@ def users_gui_func():
     treeview3101.set_tooltip_column(2)
 
 
-# ----------------------------------- Users - Open Right Click Menu Function (gets right clicked user UID and opens right click menu) -----------------------------------
+# ----------------------------------- Users - Open Right Click Menu Function -----------------------------------
 def users_open_right_click_menu_func(event):
 
-    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+    try:
         path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
     except TypeError:
         return
@@ -116,9 +116,9 @@ def users_open_right_click_menu_func(event):
     treeiter = model.get_iter(path)
     if treeiter is not None:
         global selected_user_uid, selected_username
-        selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting UID of the user.
-        selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting username of the user.
-        if 'UsersMenuRightClick' not in globals():                                            # Check if "UsersMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
+        selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]
+        selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]
+        if 'UsersMenuRightClick' not in globals():
             global UsersMenuRightClick
             import UsersMenuRightClick
             UsersMenuRightClick.users_menu_right_click_import_func()
@@ -126,7 +126,7 @@ def users_open_right_click_menu_func(event):
         UsersMenuRightClick.menu3101m.popup(None, None, None, None, event.button, event.time)
 
 
-# ----------------------------------- Users - Open User Details Window Function (gets double clicked user UID and opens User Details window) -----------------------------------
+# ----------------------------------- Users - Open User Details Window Function -----------------------------------
 def users_open_user_details_window_func(event):
 
     if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
@@ -150,7 +150,7 @@ def users_open_user_details_window_func(event):
             UsersDetails.users_details_run_func()
 
 
-# ----------------------------------- Users - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Users - Initial Function -----------------------------------
 def users_initial_func():
 
     global users_data_list
@@ -588,7 +588,7 @@ def cell_data_function_started(tree_column, cell, tree_model, iter, data):
         cell.set_property('text', "-")
 
 
-# ----------------------------------- Users Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Users Run Function -----------------------------------
 def users_run_func(*args):
 
     if "users_data_rows" not in globals():
@@ -606,14 +606,14 @@ def users_run_func(*args):
         users_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Users - Treeview Filter Show All Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Users - Treeview Filter Show All Function -----------------------------------
 def users_treeview_filter_show_all_func():
 
     for piter in piter_list:
         treestore3101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Users - Treeview Filter This User Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Users - Treeview Filter This User Only Function -----------------------------------
 def users_treeview_filter_users_logged_in_only():
 
     for piter in piter_list:
@@ -621,7 +621,7 @@ def users_treeview_filter_users_logged_in_only():
             treestore3101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Users - Treeview Filter Other Users Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Users - Treeview Filter Other Users Only Function -----------------------------------
 def users_treeview_filter_users_logged_out_only():
 
     for piter in piter_list:
@@ -629,7 +629,7 @@ def users_treeview_filter_users_logged_out_only():
             treestore3101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Users - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
+# ----------------------------------- Users - Treeview Filter Search Function -----------------------------------
 def users_treeview_filter_search_func():
 
     global filter_column
@@ -642,7 +642,7 @@ def users_treeview_filter_search_func():
             treestore3101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Users - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
+# ----------------------------------- Users - Column Title Clicked Function -----------------------------------
 def on_column_title_clicked(widget):
 
     users_data_row_sorting_column_title = widget.get_title()                                  # Get column title which will be used for getting column number
@@ -653,9 +653,9 @@ def on_column_title_clicked(widget):
     Config.config_save_func()
 
 
-# ----------------------------------- Users - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
+# ----------------------------------- Users - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def users_treeview_column_order_width_row_sorting_func():
-    # Columns in the treeview are get one by one and appended into "users_data_column_order". "users_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "users_data") are changed if column order/widths are changed.
+
     users_treeview_columns = treeview3101.get_columns()
     treeview_column_titles = []
     for column in users_treeview_columns:
@@ -669,7 +669,7 @@ def users_treeview_column_order_width_row_sorting_func():
     Config.config_save_func()
 
 
-# ----------------------------------- Users - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Users - Define Data Unit Converter Variables Function -----------------------------------
 def users_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -680,7 +680,7 @@ def users_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Users - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Users - Data Unit Converter Function -----------------------------------
 def users_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list

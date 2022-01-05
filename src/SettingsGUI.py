@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Settings - Settings GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Settings - Settings GUI Import Function -----------------------------------
 def settings_gui_import_func():
 
     global Gtk, Gdk, os
@@ -19,7 +19,7 @@ def settings_gui_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Settings - Settings GUI Function (contains the code of this module in order to avoid running them during module import and defines GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Settings - Settings GUI Function -----------------------------------
 def settings_gui_func():
 
     # Settings tab GUI objects

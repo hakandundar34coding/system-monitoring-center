@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Processes - Processes Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Processes - Processes Menus GUI Import Function -----------------------------------
 def processes_menu_customizations_import_func():
 
     global Gtk, os
@@ -19,7 +19,7 @@ def processes_menu_customizations_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Processes - Processes Tab Customizations Popover GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Processes - Processes Tab Customizations Popover GUI Function -----------------------------------
 def processes_menu_customizations_gui_func():
 
     # Define builder and get all objects (Processes tab customizations popover) from GUI file.
@@ -446,7 +446,7 @@ def processes_tab_popover_set_gui():
             combobox2107p.set_active(data_list[0])
 
 
-# ----------------------------------- Processes - Processes Add/Remove Columns Function (adds/removes processes treeview columns) -----------------------------------
+# ----------------------------------- Processes - Processes Add/Remove Columns Function -----------------------------------
 def processes_add_remove_columns_function():
 
     # Add/Remove treeview columns

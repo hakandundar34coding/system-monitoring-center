@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-# ----------------------------------- Config - Config Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Config - Config Import Function -----------------------------------
 def config_import_func():
 
     global os
@@ -45,8 +45,6 @@ def config_read_func():
                            [4, 'GiB/s', 4], [5, 'TiB/s', 5], [6, 'PiB/s', 6], [7, 'EiB/s', 7],
                            [8, 'Auto-bit', 8], [9, 'b/s', 9], [10, 'Kib/s', 10], [11, 'Mib/s', 11],
                            [12, 'Gib/s', 12], [13, 'Tib/s', 13], [14, 'Pib/s', 14], [15, 'Eib/s', 15]]
-
-#     current_user_homedir = os.environ.get('HOME')
 
 
     try:

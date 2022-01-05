@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Network - Network Tab Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Network - Network Tab Menus GUI Import Function -----------------------------------
 def network_menus_import_func():
 
     global Gtk, Gdk, os
@@ -15,7 +15,7 @@ def network_menus_import_func():
     import Config, Network, Performance
 
 
-# ----------------------------------- Network - Network Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Network" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Network - Network Tab Menus GUI Function -----------------------------------
 def network_menus_gui_func():
 
     # Define builder and get all objects (Performance tab Network sub-tab customizations popovers) from GUI file.
@@ -148,7 +148,6 @@ def network_menus_gui_func():
         network_tab_customization_popover_connect_signals_func()
         Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
         Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
-
 
 
     # ********************** Connect signals to GUI objects for Network tab **********************

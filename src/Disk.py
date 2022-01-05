@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Disk - Disk Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Disk - Disk Tab Import Function -----------------------------------
 def disk_import_func():
 
     global Gtk, GLib, os, subprocess
@@ -20,7 +20,7 @@ def disk_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Disk - Disk GUI Function (the code of this module in order to avoid running them during module import and defines "Disk" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Disk - Disk GUI Function -----------------------------------
 def disk_gui_func():
 
     # Disk tab GUI objects - get from file
@@ -172,7 +172,7 @@ def disk_gui_func():
     drawingarea1302.connect("draw", on_drawingarea1302_draw)
 
 
-# ----------------------------------- Disk - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Disk - Initial Function -----------------------------------
 def disk_initial_func():
 
     disk_define_data_unit_converter_variables_func()                                          # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
@@ -232,7 +232,7 @@ def disk_initial_func():
     label1312.set_text(if_system_disk)
 
 
-# ----------------------------------- Disk - Get Disk Data Function (gets Disk data, shows on the labels on the GUI) -----------------------------------
+# ----------------------------------- Disk - Get Disk Data Function -----------------------------------
 def disk_loop_func():
 
     disk_read_speed = Performance.disk_read_speed
@@ -292,7 +292,7 @@ def disk_loop_func():
     label1311.set_text(disk_data_unit_converter_func(disk_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
 
 
-# ----------------------------------- Disk Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Disk Run Function -----------------------------------
 def disk_run_func(*args):
 
     if "update_interval" not in globals():
@@ -310,7 +310,7 @@ def disk_run_func(*args):
         disk_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Disk - Define Time Unit Converter Variables Function (contains time unit variables) -----------------------------------
+# ----------------------------------- Disk - Define Time Unit Converter Variables Function -----------------------------------
 def disk_time_unit_converter_func(time):
 
     w_r_time_days = time / 24 / 60 / 60 / 1000
@@ -417,7 +417,7 @@ def disk_get_device_partition_model_name_mount_point_func():
                 break                                                                         # System disk is listed twice with different mountpoint information on systems which are installed on disks with "btrfs" filesystem. "/" mountpoint information is used by using "break" code.
 
 
-# ----------------------------------- Disk - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Disk - Define Data Unit Converter Variables Function -----------------------------------
 def disk_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -428,7 +428,7 @@ def disk_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Disk - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Disk - Data Unit Converter Function -----------------------------------
 def disk_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list

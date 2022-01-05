@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Network - Network Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Network - Network Tab Import Function -----------------------------------
 def network_import_func():
 
     global Gtk, GLib, os, subprocess
@@ -20,7 +20,7 @@ def network_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Network - Network GUI Function (the code of this module in order to avoid running them during module import and defines "Network" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Network - Network GUI Function -----------------------------------
 def network_gui_func():
 
     # Network tab GUI objects - get from file
@@ -140,7 +140,7 @@ def network_gui_func():
     drawingarea1401.connect("draw", on_drawingarea1401_draw)
 
 
-# ----------------------------------- Network - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Network - Initial Function -----------------------------------
 def network_initial_func():
 
     network_define_data_unit_converter_variables_func()                                       # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
@@ -210,7 +210,7 @@ def network_initial_func():
     label1412.set_text(network_card_mac_address)
 
 
-# ----------------------------------- Network - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Network - Initial Function -----------------------------------
 def network_loop_func():
 
     network_receive_speed = Performance.network_receive_speed
@@ -269,7 +269,7 @@ def network_loop_func():
     label1409.set_text(network_signal_strength)
 
 
-# ----------------------------------- Network Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Network Run Function -----------------------------------
 def network_run_func(*args):
 
     if "update_interval" not in globals():
@@ -287,7 +287,7 @@ def network_run_func(*args):
         network_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Network - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Network - Define Data Unit Converter Variables Function -----------------------------------
 def network_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -298,7 +298,7 @@ def network_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Network - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Network - Data Unit Converter Function -----------------------------------
 def network_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- MainMenusGUI - Main Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- MainMenusGUI - Main Menus GUI Import Function -----------------------------------
 def main_menus_gui_import_func():
 
     global Gtk, os
@@ -15,7 +15,7 @@ def main_menus_gui_import_func():
     import Config
 
 
-# ----------------------------------- MainMenusGUI - Main Menus GUI Function (the code of this module in order to avoid running them during module import and defines GUI functions/signals) -----------------------------------
+# ----------------------------------- MainMenusGUI - Main Menus GUI Function -----------------------------------
 def main_menus_gui_func():
 
     # Define builder and get all objects (Main Menu GUI and About Dialog) from GUI file.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Performance Summary Headerbar - Performance Summary Headerbar GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Performance Summary Headerbar - Performance Summary Headerbar GUI Import Function -----------------------------------
 def performance_summary_headerbar_import_func():
 
     global Gtk, GLib, os
@@ -19,7 +19,7 @@ def performance_summary_headerbar_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Performance Summary Headerbar - Performance Summary Headerbar Grid GUI Function (the code of this module in order to avoid running them during module import and defines "Performance Summary Headerbar" grid GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Performance Summary Headerbar - Performance Summary Headerbar Grid GUI Function -----------------------------------
 def performance_summary_headerbar_gui_func():
 
     # Performance Summary Headerbar Grid GUI objects - get from file
@@ -101,7 +101,7 @@ def performance_summary_headerbar_gui_func():
     drawingarea102.connect("draw", on_drawingarea102_draw)
 
 
-# ----------------------------------- Performance Summary Headerbar - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Performance Summary Headerbar - Initial Function -----------------------------------
 def performance_summary_headerbar_initial_func():
 
     label103.set_text(f'{_tr("Disk:"):<9}')                                                   # Empty characters are placed at right side of the label by using "f'value:<9'" in order to prevent movement of the label when data numbers change. Total length of the string is set as 9 characters if actual length is smaller. This code has no effect if length of the string equals to 9 or more characters.
@@ -110,7 +110,7 @@ def performance_summary_headerbar_initial_func():
     performance_summary_headerbar_define_data_unit_converter_variables_func()                 # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
 
-# ----------------------------------- Performance Summary Headerbar - Get Performance Summary Headerbar Data Function (gets Performance Summary Headerbar data, shows on the labels on the GUI) -----------------------------------
+# ----------------------------------- Performance Summary Headerbar - Get Performance Summary Headerbar Data Function -----------------------------------
 def performance_summary_headerbar_loop_func():
 
     # Update performance data on the headerbar
@@ -122,7 +122,7 @@ def performance_summary_headerbar_loop_func():
     label102.set_text(f'{performance_summary_headerbar_data_unit_converter_func((Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), 0, 0)}/s')
 
 
-# ----------------------------------- Performance Summary Headerbar Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Performance Summary Headerbar Run Function -----------------------------------
 def performance_summary_headerbar_run_func(*args):
 
     if "update_interval" not in globals():
@@ -140,7 +140,7 @@ def performance_summary_headerbar_run_func(*args):
         performance_summary_headerbar_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Performance Summary Headerbar - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Performance Summary Headerbar - Define Data Unit Converter Variables Function -----------------------------------
 def performance_summary_headerbar_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -151,7 +151,7 @@ def performance_summary_headerbar_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Performance Summary Headerbar - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Performance Summary Headerbar - Data Unit Converter Function -----------------------------------
 def performance_summary_headerbar_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list

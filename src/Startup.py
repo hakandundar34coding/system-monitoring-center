@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Startup - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Startup - Import Function -----------------------------------
 def startup_import_func():
 
     global Gtk, Gdk, GLib, os
@@ -19,7 +19,7 @@ def startup_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Startup - Startup GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Startup - Startup GUI Function -----------------------------------
 def startup_gui_func():
 
     global grid5101, treeview5101, searchentry5101, button5101
@@ -101,7 +101,7 @@ def startup_gui_func():
     treeview5101.set_tooltip_column(3)
 
 
-# ----------------------------------- ProceStartupsses - Open Right Click Menu Function (gets right clicked startup application file name and opens right click menu) -----------------------------------
+# ----------------------------------- ProceStartupsses - Open Right Click Menu Function -----------------------------------
 def startup_open_right_click_menu_func(event):
 
     global model, treeiter
@@ -126,7 +126,7 @@ def startup_open_right_click_menu_func(event):
         StartupMenuRightClick.startup_set_menu_labels_func()
 
 
-# ----------------------------------- Startup - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Startup - Initial Function -----------------------------------
 def startup_initial_func():
 
     global startup_data_list
@@ -220,7 +220,7 @@ def startup_initial_func():
     filter_column = startup_data_list[0][2] - 1                                                # Search filter is "Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
-# ----------------------------------- Startup - Get Startup Data Function (gets startup data, adds into treeview and updates it) -----------------------------------
+# ----------------------------------- Startup - Get Startup Data Function -----------------------------------
 def startup_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
@@ -692,7 +692,7 @@ def startup_loop_func():
     label5101.set_text(number_of_startup_applications_string)
 
 
-# ----------------------------------- Startup Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Startup Run Function -----------------------------------
 def startup_run_func(*args):
 
     if "startup_data_rows" not in globals():
@@ -710,14 +710,14 @@ def startup_run_func(*args):
         startup_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Startup - Treeview Filter Show All Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Startup - Treeview Filter Show All Function -----------------------------------
 def startup_treeview_filter_show_all_func():
 
     for piter in piter_list:
         treestore5101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Startup - Treeview Filter Show All Enabled (Visible) Startup Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Startup - Treeview Filter Show All Enabled (Visible) Startup Items Function -----------------------------------
 def startup_treeview_filter_startup_visible_only():
 
     for piter in piter_list:
@@ -725,7 +725,7 @@ def startup_treeview_filter_startup_visible_only():
             treestore5101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Startup - Treeview Filter Show All Disabled (Hidden) Startup Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Startup - Treeview Filter Show All Disabled (Hidden) Startup Items Function -----------------------------------
 def startup_treeview_filter_startup_hidden_only():
 
     for piter in piter_list:
@@ -733,7 +733,7 @@ def startup_treeview_filter_startup_hidden_only():
             treestore5101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Startup - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
+# ----------------------------------- Startup - Treeview Filter Search Function -----------------------------------
 def startup_treeview_filter_search_func():
 
     global filter_column
@@ -746,7 +746,7 @@ def startup_treeview_filter_search_func():
             treestore5101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Startup - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
+# ----------------------------------- Startup - Column Title Clicked Function -----------------------------------
 def on_column_title_clicked(widget):
 
     startup_data_row_sorting_column_title = widget.get_title()                                # Get column title which will be used for getting column number
@@ -757,9 +757,9 @@ def on_column_title_clicked(widget):
     Config.config_save_func()
 
 
-# ----------------------------------- Startup - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
+# ----------------------------------- Startup - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def startup_treeview_column_order_width_row_sorting_func():
-    # Columns in the treeview are get one by one and appended into "startup_data_column_order". "startup_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "startup_data") are changed if column order/widths are changed.
+
     startup_treeview_columns = treeview5101.get_columns()
     treeview_column_titles = []
     for column in startup_treeview_columns:

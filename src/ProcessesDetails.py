@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Processes - Processes Details Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Processes - Processes Details Import Function -----------------------------------
 def processes_details_import_func():
 
     global Gtk, GLib, os, time, datetime
@@ -21,7 +21,7 @@ def processes_details_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Processes - Processes Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Processes Details" window GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Processes - Processes Details Window GUI Function -----------------------------------
 def processes_details_gui_function():
 
     # Processes Details window GUI objects
@@ -104,7 +104,7 @@ def processes_details_gui_function():
     window2101w.connect("show", on_window2101w_show)
 
 
-# ----------------------------------- Processes - Processes Details Window GUI Reset Function (resets Processes Details window) -----------------------------------
+# ----------------------------------- Processes - Processes Details Window GUI Reset Function -----------------------------------
 def processes_details_gui_reset_function():
 
     notebook2101w.set_current_page(0)                                                         # Set fist page (Summary tab) of the notebook
@@ -162,7 +162,7 @@ def processes_details_tab_switch_control_func():
         GLib.timeout_add(200, processes_details_tab_switch_control_func)                      # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
 
 
-# ----------------------------------- Processes - Processes Details Function (the code of this module in order to avoid running them during module import and defines "Processes" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Processes - Processes Details Function -----------------------------------
 def process_details_initial_func():
 
     processes_details_define_data_unit_converter_variables_func()                             # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
@@ -182,7 +182,7 @@ def process_details_initial_func():
             system_boot_time = int(line.split()[1].strip())
 
 
-# ----------------------------------- Processes - Processes Details Foreground Function (updates the process data on the "Processes Details" window) -----------------------------------
+# ----------------------------------- Processes - Processes Details Foreground Function -----------------------------------
 def process_details_loop_func():
 
     processes_cpu_usage_percent_precision = Config.processes_cpu_usage_percent_precision
@@ -602,7 +602,7 @@ def process_details_loop_func():
             label2137w.set_text("-")
 
 
-# ----------------------------------- Processes Details Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Processes Details Run Function -----------------------------------
 def process_details_run_func():
 
     if "update_interval" not in globals():
@@ -614,7 +614,7 @@ def process_details_run_func():
         GLib.timeout_add(update_interval * 1000, process_details_run_func)
 
 
-# ----------------------------------- Processes - Processes Details Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Processes - Processes Details Define Data Unit Converter Variables Function -----------------------------------
 def processes_details_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -625,7 +625,7 @@ def processes_details_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Processes - Processes Details Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Processes - Processes Details Data Unit Converter Function -----------------------------------
 def processes_details_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
@@ -648,7 +648,7 @@ def processes_details_data_unit_converter_func(data, unit, precision):
     return f'{data:.{precision}f} {unit}'
 
 
-# ----------------------------------- Processes - Processes No Such Process Error Dialog Function (shows an error dialog and stops updating the "Process Details window" when the process is not alive anymore) -----------------------------------
+# ----------------------------------- Processes - Processes No Such Process Error Dialog Function -----------------------------------
 def processes_no_such_process_error_dialog():
 
     error_dialog2101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.ERROR,

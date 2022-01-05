@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Storage - Storage Details Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Storage - Storage Details Import Function -----------------------------------
 def storage_details_import_func():
 
     global Gtk, GLib, os, subprocess, datetime
@@ -21,7 +21,7 @@ def storage_details_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Storage - Storage Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Storage Details" window GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Storage - Storage Details Window GUI Function -----------------------------------
 def storage_details_gui_function():
 
     # Storage Details window GUI objects
@@ -84,7 +84,7 @@ def storage_details_gui_function():
     window4101w.connect("show", on_window4101w_show)
 
 
-# ----------------------------------- Storage - Storage Details Window GUI Reset Function (resets Storage Details window) -----------------------------------
+# ----------------------------------- Storage - Storage Details Window GUI Reset Function -----------------------------------
 def storage_details_gui_reset_function():
     label4101w.set_text("--")
     label4102w.set_text("--")
@@ -127,7 +127,7 @@ def storage_details_gui_reset_function():
 #         GLib.timeout_add(200, storage_details_tab_switch_control_func)                        # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
 
 
-# ----------------------------------- Storage - Storage Details Function (the code of this module in order to avoid running them during module import and defines "Storage" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Storage - Storage Details Function -----------------------------------
 def storage_details_initial_func():
 
     storage_define_data_unit_converter_variables_func()                                       # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
@@ -142,7 +142,7 @@ def storage_details_initial_func():
     storage_image_partition = "system-monitoring-center-disk-partition-symbolic"
 
 
-# ----------------------------------- Storage - Storage Details Foreground Function (updates the process data on the "Storage Details" window) -----------------------------------
+# ----------------------------------- Storage - Storage Details Foreground Function -----------------------------------
 def storage_details_loop_func():
 
     global disk
@@ -460,7 +460,7 @@ def storage_details_loop_func():
     label4124w.set_text(disk_maj_min_number)
 
 
-# ----------------------------------- Storage Details Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Storage Details Run Function -----------------------------------
 def storage_details_run_func():
 
     if "update_interval" not in globals():
@@ -471,7 +471,7 @@ def storage_details_run_func():
         update_interval = Config.update_interval
         GLib.timeout_add(update_interval * 1000, storage_details_run_func)
 
-# ----------------------------------- Storage - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Storage - Define Data Unit Converter Variables Function -----------------------------------
 def storage_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -482,7 +482,7 @@ def storage_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Storage - Data Details Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Storage - Data Details Unit Converter Function -----------------------------------
 def storage_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
@@ -505,7 +505,7 @@ def storage_data_unit_converter_func(data, unit, precision):
     return f'{data:.{precision}f} {unit}'
 
 
-# ----------------------------------- Storage - Storage Details No Such Storage Error Dialog Function (shows an error dialog and stops updating the "Storage Details window" when the storage/disk is not connected anymore) -----------------------------------
+# ----------------------------------- Storage - Storage Details No Such Storage Error Dialog Function -----------------------------------
 def storage_no_such_storage_error_dialog():
 
     error_dialog4101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.ERROR,

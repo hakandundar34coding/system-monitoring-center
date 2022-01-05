@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- System - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- System - Import Function -----------------------------------
 def system_import_func():
 
     global Gtk, GLib, subprocess, os, platform, time, pkg_resources
@@ -23,7 +23,7 @@ def system_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- System - System GUI Function (the code of this module in order to avoid running them during module import and defines "System" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- System - System GUI Function -----------------------------------
 def system_gui_func():
 
     # System tab GUI objects - get from file
@@ -74,7 +74,7 @@ def system_gui_func():
     button8101.connect("clicked", on_button8101_clicked)
 
 
-# ----------------------------------- System - Initial Function (gets data and adds into labels) -----------------------------------
+# ----------------------------------- System - Initial Function -----------------------------------
 def system_initial_func():
 
     # Get os family
@@ -316,7 +316,7 @@ def system_initial_func():
     label8115.set_text(computer_chassis_type)
 
 
-# ----------------------------------- System - Loop Function (updates the system data and labels on the GUI) -----------------------------------
+# ----------------------------------- System - Loop Function -----------------------------------
 def system_loop_func():
 
     # Get OS name, version, version code name and OS based on information
@@ -416,7 +416,7 @@ def system_loop_func():
     label8122.set_text(f'{current_user_name} - {have_root_access}')
 
 
-# ----------------------------------- System Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- System Run Function -----------------------------------
 def system_run_func(*args):
 
     if "current_user_name" not in globals():

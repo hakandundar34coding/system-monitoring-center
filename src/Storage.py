@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Storage - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Storage - Import Function -----------------------------------
 def storage_import_func():
 
     global Gtk, Gdk, GLib, GObject, subprocess, os, datetime
@@ -21,7 +21,7 @@ def storage_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Storage - Storage GUI Function (the code of this module in order to avoid running them during module import and defines "Storage" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Storage - Storage GUI Function -----------------------------------
 def storage_gui_func():
 
     global grid4101, treeview4101, searchentry4101, button4101
@@ -136,10 +136,10 @@ def storage_gui_func():
     treeview4101.set_show_expanders(True)
 
 
-# ----------------------------------- Storage - Open Right Click Menu Function (gets right clicked storage kernel name and opens right click menu) -----------------------------------
+# ----------------------------------- Storage - Open Right Click Menu Function -----------------------------------
 def storage_open_right_click_menu_func(event):
 
-    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+    try:
         path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
     except TypeError:
         return
@@ -147,8 +147,8 @@ def storage_open_right_click_menu_func(event):
     treeiter = model.get_iter(path)
     if treeiter is not None:
         global selected_storage_kernel_name
-        selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
-        if 'StorageMenuRightClick' not in globals():                                          # Check if "StorageMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
+        selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]
+        if 'StorageMenuRightClick' not in globals():
             global StorageMenuRightClick
             import StorageMenuRightClick
             StorageMenuRightClick.storage_menu_right_click_import_func()
@@ -157,7 +157,7 @@ def storage_open_right_click_menu_func(event):
         StorageMenuRightClick.menu4101m.popup(None, None, None, None, event.button, event.time)
 
 
-# ----------------------------------- Storage - Open Storage Details Window Function (gets double clicked storage kernel name and opens Storage Details window) -----------------------------------
+# ----------------------------------- Storage - Open Storage Details Window Function -----------------------------------
 def storage_open_storage_details_window_func(event):
 
     if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
@@ -180,7 +180,7 @@ def storage_open_storage_details_window_func(event):
             StorageDetails.storage_details_run_func()
 
 
-# ----------------------------------- Storage - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Storage - Initial Function -----------------------------------
 def storage_initial_func():
 
     global storage_data_list
@@ -237,7 +237,7 @@ def storage_initial_func():
     filter_column = storage_data_list[0][2] - 1                                               # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
-# ----------------------------------- Storage - Get Storage Data Function (gets storage data, adds into treeview and updates it) -----------------------------------
+# ----------------------------------- Storage - Get Storage Data Function -----------------------------------
 def storage_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
@@ -720,7 +720,7 @@ def storage_loop_func():
     label4101.set_text(number_of_disks_string)
 
 
-# ----------------------------------- Storage - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
+# ----------------------------------- Storage - Treeview Cell Functions -----------------------------------
 def cell_data_function_disk_usage(tree_column, cell, tree_model, iter, data):
     cell_data = tree_model.get(iter, data)[0]
     if cell_data == -9999:
@@ -736,7 +736,7 @@ def cell_data_function_disk_usage_percentage(tree_column, cell, tree_model, iter
         cell.set_property('text', f'{cell_data:.1f}%')
 
 
-# ----------------------------------- Storage Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Storage Run Function -----------------------------------
 def storage_run_func(*args):
 
     if "storage_data_rows" not in globals():
@@ -754,7 +754,7 @@ def storage_run_func(*args):
         storage_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Storage - Treeview Filter Show All Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Storage - Treeview Filter Show All Function -----------------------------------
 def storage_treeview_filter_show_all_func():
 
     for piter in piter_list:
@@ -762,7 +762,7 @@ def storage_treeview_filter_show_all_func():
     treeview4101.expand_all()
 
 
-# ----------------------------------- Storage - Treeview Filter Non-Removable Disks Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Storage - Treeview Filter Non-Removable Disks Only Function -----------------------------------
 def storage_treeview_filter_non_removable_disks_only_func():
 
     global selected_disk_type
@@ -775,7 +775,7 @@ def storage_treeview_filter_non_removable_disks_only_func():
     treeview4101.expand_all()
 
 
-# ----------------------------------- Storage - Treeview Filter Removable Disks Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Storage - Treeview Filter Removable Disks Only Function -----------------------------------
 def storage_treeview_filter_removable_disks_only_func():
 
     global selected_disk_type
@@ -788,7 +788,7 @@ def storage_treeview_filter_removable_disks_only_func():
     treeview4101.expand_all()
 
 
-# ----------------------------------- Storage - Treeview Filter Optical/Virtual Disks Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Storage - Treeview Filter Optical/Virtual Disks Only Function -----------------------------------
 def storage_treeview_filter_optical_virtual_disks_only_func():
 
     global selected_disk_type
@@ -801,7 +801,7 @@ def storage_treeview_filter_optical_virtual_disks_only_func():
     treeview4101.expand_all()
 
 
-# ----------------------------------- Storage - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
+# ----------------------------------- Storage - Treeview Filter Search Function -----------------------------------
 def storage_treeview_filter_search_func():
 
     global filter_column
@@ -821,7 +821,7 @@ def storage_treeview_filter_search_func():
     treeview4101.expand_all()                                                                 # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
 
 
-# ----------------------------------- Storage - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
+# ----------------------------------- Storage - Column Title Clicked Function -----------------------------------
 def on_column_title_clicked(widget):
 
     storage_data_row_sorting_column_title = widget.get_title()                                # Get column title which will be used for getting column number
@@ -832,9 +832,9 @@ def on_column_title_clicked(widget):
     Config.config_save_func()
 
 
-# ----------------------------------- Storage - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
+# ----------------------------------- Storage - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def storage_treeview_column_order_width_row_sorting_func():
-    # Columns in the treeview are get one by one and appended into "storage_data_column_order". "storage_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "storage_data") are changed if column order/widths are changed.
+
     storage_treeview_columns = treeview4101.get_columns()
     treeview_column_titles = []
     for column in storage_treeview_columns:
@@ -848,7 +848,7 @@ def storage_treeview_column_order_width_row_sorting_func():
     Config.config_save_func()
 
 
-# ----------------------------------- Storage - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Storage - Define Data Unit Converter Variables Function -----------------------------------
 def storage_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -859,7 +859,7 @@ def storage_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Storage - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Storage - Data Unit Converter Function -----------------------------------
 def storage_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list

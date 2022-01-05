@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- GPU - GPU Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- GPU - GPU Tab Import Function -----------------------------------
 def gpu_import_func():
 
     global Gtk, GLib, Gdk, os, subprocess
@@ -20,7 +20,7 @@ def gpu_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- GPU - GPU GUI Function (the code of this module in order to avoid running them during module import and defines "GPU" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- GPU - GPU GUI Function -----------------------------------
 def gpu_gui_func():
 
     # GPU tab GUI objects - get from file
@@ -127,7 +127,7 @@ def gpu_gui_func():
     drawingarea1501.connect("draw", on_drawingarea1501_draw)
 
 
-# ----------------------------------- GPU - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- GPU - Initial Function -----------------------------------
 def gpu_initial_func():
 
     # Import required OpenGL modules for measuring FPS (glarea will be used).
@@ -243,7 +243,7 @@ def gpu_initial_func():
     label1512.set_text(opengl_version_list[selected_gpu_number])
 
 
-# ----------------------------------- GPU - Get GPU Data Function (gets GPU data, shows on the labels on the GUI) -----------------------------------
+# ----------------------------------- GPU - Get GPU Data Function -----------------------------------
 def gpu_loop_func():
 
     global frame_list, fps_count, fps_count_list, frame_latency
@@ -275,7 +275,7 @@ def gpu_loop_func():
     label1506.set_text(f'{current_resolution}')
 
 
-# ----------------------------------- GPU - Get Information From Driver Function (gets GPU information from driver) -----------------------------------
+# ----------------------------------- GPU - Get Information From Driver Function -----------------------------------
 def gpu_get_information_from_driver_func(output_to_search_gpu_information_from_driver, check_vendor_device_id_match, check_driver_open_sourced):
 
     # Define initial values of the variables. These values will be used if values can not be get.
@@ -334,7 +334,7 @@ def gpu_get_information_from_driver_func(output_to_search_gpu_information_from_d
         display_driver_list[i] = display_driver
 
 
-# ----------------------------------- GPU Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- GPU Run Function -----------------------------------
 def gpu_run_func(*args):
 
     if "update_interval" not in globals():

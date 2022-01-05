@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- RAM - RAM Tab Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- RAM - RAM Tab Menus GUI Import Function -----------------------------------
 def ram_menus_import_func():
 
     global Gtk, Gdk, os, subprocess
@@ -16,7 +16,7 @@ def ram_menus_import_func():
     import Config, Ram, Performance
 
 
-# ----------------------------------- RAM - RAM Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "RAM" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- RAM - RAM Tab Menus GUI Function -----------------------------------
 def ram_menus_gui_func():
 
     # Define builder and get all objects (Performance tab RAM sub-tab customizations popovers) from GUI file.
@@ -147,5 +147,3 @@ def ram_tab_popover_set_gui():
     for data_list in Config.data_unit_list:
         if data_list[2] == Config.performance_ram_swap_data_unit:      
             combobox1202p.set_active(data_list[0])
-
-

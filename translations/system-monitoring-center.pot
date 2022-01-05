@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-05 14:04+0300\n"
+"POT-Creation-Date: 2022-01-05 19:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgstr ""
 #: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:490
 #: src/Storage.py:501 src/Storage.py:512 src/StorageDetails.py:225
 #: src/StorageDetails.py:372 src/StorageDetails.py:386
-#: src/StorageDetails.py:400 src/UsersDetails.py:245
+#: src/StorageDetails.py:400 src/UsersDetails.py:244
 msgid "Yes"
 msgstr ""
 
@@ -63,7 +63,7 @@ msgstr ""
 #: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:492
 #: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:221
 #: src/StorageDetails.py:374 src/StorageDetails.py:388
-#: src/StorageDetails.py:402 src/UsersDetails.py:247
+#: src/StorageDetails.py:402 src/UsersDetails.py:246
 msgid "No"
 msgstr ""
 
@@ -83,46 +83,46 @@ msgstr ""
 msgid "Disk"
 msgstr ""
 
-#: src/EnvironmentVariables.py:132 ui/EnvironmentVarMenuCustomizations.ui:218
+#: src/EnvironmentVariables.py:131 ui/EnvironmentVarMenuCustomizations.ui:218
 msgid "Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:133 ui/EnvironmentVarMenuCustomizations.ui:234
+#: src/EnvironmentVariables.py:132 ui/EnvironmentVarMenuCustomizations.ui:234
 msgid "Value"
 msgstr ""
 
-#: src/EnvironmentVariables.py:134 ui/EnvironmentVarMenuCustomizations.ui:248
+#: src/EnvironmentVariables.py:133 ui/EnvironmentVarMenuCustomizations.ui:248
 msgid "Variable Type"
 msgstr ""
 
-#: src/EnvironmentVariables.py:165
+#: src/EnvironmentVariables.py:164
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "with root privileges."
 msgstr ""
 
-#: src/EnvironmentVariables.py:176 src/EnvironmentVariables.py:185
+#: src/EnvironmentVariables.py:175 src/EnvironmentVariables.py:184
 msgid ""
 "Listing environment/shell variables is not supported when application is run "
 "in terminal."
 msgstr ""
 
-#: src/EnvironmentVariables.py:233 src/EnvironmentVariables.py:400
-#: src/EnvironmentVariables.py:446
+#: src/EnvironmentVariables.py:232 src/EnvironmentVariables.py:399
+#: src/EnvironmentVariables.py:445
 msgid "Environment Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:236 src/EnvironmentVariables.py:399
-#: src/EnvironmentVariables.py:438
+#: src/EnvironmentVariables.py:235 src/EnvironmentVariables.py:398
+#: src/EnvironmentVariables.py:437
 msgid "Shell Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:239 src/EnvironmentVariables.py:399
-#: src/EnvironmentVariables.py:400
+#: src/EnvironmentVariables.py:238 src/EnvironmentVariables.py:398
+#: src/EnvironmentVariables.py:399
 msgid "Environment & Shell Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:402
+#: src/EnvironmentVariables.py:401
 msgid ""
 "Total: AAAA persistent variables (BBBB environment variables, CCCC shell "
 "variables)"
@@ -215,8 +215,7 @@ msgid "Process Name"
 msgstr ""
 
 #: src/Processes.py:209 src/ProcessesDetails.py:244 src/ProcessesDetails.py:657
-#: src/ServicesDetails.py:354 ui/ProcessesDetailsWindow.ui:55
-#: ui/ProcessesMenuCustomizations.ui:379
+#: ui/ProcessesDetailsWindow.ui:55 ui/ProcessesMenuCustomizations.ui:379
 msgid "PID"
 msgstr ""
 
@@ -619,16 +618,6 @@ msgstr ""
 
 #: src/Services.py:480
 msgid "Total: AAAA services (BBBB loaded, CCCC non-loaded)"
-msgstr ""
-
-#: src/ServicesDetails.py:352
-msgid "Service File Does Not Exist Anymore"
-msgstr ""
-
-#: src/ServicesDetails.py:353
-msgid ""
-"Following service file does not exist anymore and service details window is "
-"closed automatically:"
 msgstr ""
 
 #: src/ServicesMenuRightClick.py:149 src/StorageMenuRightClick.py:245
@@ -1109,14 +1098,8 @@ msgstr ""
 msgid "Total: AAAA users (BBBB logged in users, CCCC logged out users)"
 msgstr ""
 
-#: src/UsersDetails.py:79 src/UsersDetails.py:310 ui/UsersDetailsWindow.ui:8
+#: src/UsersDetails.py:79 src/UsersDetails.py:309 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
-msgstr ""
-
-#: src/UsersDetails.py:384
-msgid ""
-"Following user account does not exist anymore and user details window is "
-"closed automatically:"
 msgstr ""
 
 #: src/UsersMenuRightClick.py:73

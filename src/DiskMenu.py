@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Disk - Disk Tab Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Disk - Disk Tab Menus GUI Import Function -----------------------------------
 def disk_menus_import_func():
 
     global Gtk, Gdk, os
@@ -15,7 +15,7 @@ def disk_menus_import_func():
     import Config, Disk, Performance
 
 
-# ----------------------------------- Disk - Disk Tab Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Disk" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Disk - Disk Tab Menus GUI Function -----------------------------------
 def disk_menus_gui_func():
 
     # Define builder and get all objects (Performance tab Disk sub-tab customizations popovers) from GUI file.

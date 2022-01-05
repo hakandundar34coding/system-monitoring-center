@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Services - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Services - Import Function -----------------------------------
 def services_import_func():
 
     global Gtk, Gdk, GLib, GObject, subprocess, os
@@ -20,7 +20,7 @@ def services_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Services - Services GUI Function (the code of this module in order to avoid running them during module import and defines "Services" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Services - Services GUI Function -----------------------------------
 def services_gui_func():
 
     # Services tab GUI objects
@@ -110,10 +110,10 @@ def services_gui_func():
     treeview6101.set_tooltip_column(2)
 
 
-# ----------------------------------- Services - Open Right Click Menu Function (gets right clicked service name and opens right click menu) -----------------------------------
+# ----------------------------------- Services - Open Right Click Menu Function -----------------------------------
 def services_open_right_click_menu_func(event):
 
-    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+    try:
         path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
     except TypeError:
         return
@@ -121,8 +121,8 @@ def services_open_right_click_menu_func(event):
     treeiter = model.get_iter(path)
     if treeiter is not None:
         global selected_service_name
-        selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
-        if 'ServicesMenuRightClick' not in globals():                                         # Check if "ServicesMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
+        selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]
+        if 'ServicesMenuRightClick' not in globals():
             global ServicesMenuRightClick
             import ServicesMenuRightClick
             ServicesMenuRightClick.services_menu_right_click_import_func()
@@ -131,7 +131,7 @@ def services_open_right_click_menu_func(event):
         ServicesMenuRightClick.services_set_checkmenuitem_func()
 
 
-# ----------------------------------- Services - Open Service Details Window Function (gets double clicked service nam and opens Service Details window) -----------------------------------
+# ----------------------------------- Services - Open Service Details Window Function -----------------------------------
 def services_open_service_details_window_func(event):
 
     if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
@@ -154,7 +154,7 @@ def services_open_service_details_window_func(event):
             ServicesDetails.services_details_run_func()
 
 
-# ----------------------------------- Services - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Services - Initial Function -----------------------------------
 def services_initial_func():
 
     global services_data_list
@@ -192,7 +192,7 @@ def services_initial_func():
     filter_column = services_data_list[0][2] - 1                                              # Search filter is "Service Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
-# ----------------------------------- Services - Get Services Data Function (gets services data, adds into treeview and updates it) -----------------------------------
+# ----------------------------------- Services - Get Services Data Function -----------------------------------
 def services_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
@@ -484,7 +484,7 @@ def services_loop_func():
     label6101.set_text(number_of_services_string)
 
 
-# ----------------------------------- Services - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
+# ----------------------------------- Services - Treeview Cell Functions -----------------------------------
 def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
     cell_data = tree_model.get(iter, data)[0]
     if cell_data == -9999:
@@ -493,7 +493,7 @@ def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
         cell.set_property('text', f'{services_data_unit_converter_func(cell_data, services_ram_swap_data_unit, services_ram_swap_data_precision)}')
 
 
-# ----------------------------------- Services Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Services Run Function -----------------------------------
 def services_run_func(*args):
 
 #     if "services_data_rows" not in globals():
@@ -511,14 +511,14 @@ def services_run_func(*args):
 #         services_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Services - Treeview Filter Show All Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Services - Treeview Filter Show All Function -----------------------------------
 def services_treeview_filter_show_all_func():
 
     for piter in piter_list:
         treestore6101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Services - Treeview Filter Show All Enabled (Visible) Services Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Services - Treeview Filter Show All Enabled (Visible) Services Items Function -----------------------------------
 def services_treeview_filter_services_loaded_only():
 
     for piter in piter_list:
@@ -526,7 +526,7 @@ def services_treeview_filter_services_loaded_only():
             treestore6101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Services - Treeview Filter Show All Disabled (Hidden) Services Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Services - Treeview Filter Show All Disabled (Hidden) Services Items Function -----------------------------------
 def services_treeview_filter_services_not_loaded_only():
 
     for piter in piter_list:
@@ -534,7 +534,7 @@ def services_treeview_filter_services_not_loaded_only():
             treestore6101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Services - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
+# ----------------------------------- Services - Treeview Filter Search Function -----------------------------------
 def services_treeview_filter_search_func():
 
     global filter_column
@@ -547,7 +547,7 @@ def services_treeview_filter_search_func():
             treestore6101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Services - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
+# ----------------------------------- Services - Column Title Clicked Function -----------------------------------
 def on_column_title_clicked(widget):
 
     services_data_row_sorting_column_title = widget.get_title()                               # Get column title which will be used for getting column number
@@ -558,9 +558,9 @@ def on_column_title_clicked(widget):
     Config.config_save_func()
 
 
-# ----------------------------------- Services - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
+# ----------------------------------- Services - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def services_treeview_column_order_width_row_sorting_func():
-    # Columns in the treeview are get one by one and appended into "services_data_column_order". "services_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "services_data") are changed if column order/widths are changed.
+
     services_treeview_columns = treeview6101.get_columns()
     treeview_column_titles = []
     for column in services_treeview_columns:
@@ -574,7 +574,7 @@ def services_treeview_column_order_width_row_sorting_func():
     Config.config_save_func()
 
 
-# ----------------------------------- Services - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- Services - Define Data Unit Converter Variables Function -----------------------------------
 def services_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -585,7 +585,7 @@ def services_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Services - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- Services - Data Unit Converter Function -----------------------------------
 def services_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list

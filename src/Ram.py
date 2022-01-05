@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- RAM - RAM Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- RAM - RAM Tab Import Function -----------------------------------
 def ram_import_func():
 
     global Gtk, GLib, os, Gdk
@@ -19,7 +19,7 @@ def ram_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- RAM - RAM GUI Function (the code of this module in order to avoid running them during module import and defines "RAM" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- RAM - RAM GUI Function -----------------------------------
 def ram_gui_func():
 
     # RAM tab GUI objects - get from file
@@ -175,7 +175,7 @@ def ram_gui_func():
     eventbox1202.connect("button-press-event", on_eventbox1202_button_click_event)
 
 
-# ----------------------------------- RAM - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- RAM - Initial Function -----------------------------------
 def ram_initial_func():
 
     ram_define_data_unit_converter_variables_func()                                           # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
@@ -218,7 +218,7 @@ def ram_initial_func():
     label1205.set_text(ram_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
 
-# ----------------------------------- RAM - Get RAM Data Function (gets RAM data, shows on the labels on the GUI) -----------------------------------
+# ----------------------------------- RAM - Get RAM Data Function -----------------------------------
 def ram_loop_func():
 
     ram_used = Performance.ram_used
@@ -258,7 +258,7 @@ def ram_loop_func():
     label1210.set_text(ram_data_unit_converter_func((swap_total), performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
 
-# ----------------------------------- RAM Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- RAM Run Function -----------------------------------
 def ram_run_func(*args):
 
     if "update_interval" not in globals():
@@ -276,7 +276,7 @@ def ram_run_func(*args):
         ram_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- RAM - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
+# ----------------------------------- RAM - Define Data Unit Converter Variables Function -----------------------------------
 def ram_define_data_unit_converter_variables_func():
 
     global data_unit_list
@@ -307,7 +307,7 @@ def ram_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- RAM - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
+# ----------------------------------- RAM - Data Unit Converter Function -----------------------------------
 def ram_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list

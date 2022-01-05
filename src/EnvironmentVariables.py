@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- EnvironmentVariables - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- EnvironmentVariables - Import Function -----------------------------------
 def environment_variables_import_func():
 
     global Gtk, Gdk, GLib, subprocess, os
@@ -20,7 +20,7 @@ def environment_variables_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- EnvironmentVariables - EnvironmentVariables GUI Function (the code of this module in order to avoid running them during module import and defines "EnvironmentVariables" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- EnvironmentVariables - EnvironmentVariables GUI Function -----------------------------------
 def environment_variables_gui_func():
 
     # Environment Variables tab GUI objects
@@ -83,7 +83,6 @@ def environment_variables_gui_func():
             environment_variables_treeview_filter_environment_variables_logged_out_only()
 
 
-
     # Environment Variables tab GUI functions - connect
     treeview7101.connect("button-press-event", on_treeview7101_button_press_event)
     treeview7101.connect("button-release-event", on_treeview7101_button_release_event)
@@ -104,10 +103,10 @@ def environment_variables_gui_func():
     treeview7101.set_tooltip_column(1)
 
 
-# ----------------------------------- Environment Variables - Open Right Click Menu Function (gets right clicked variable name and opens right click menu) -----------------------------------
+# ----------------------------------- Environment Variables - Open Right Click Menu Function -----------------------------------
 def environment_variables_open_right_click_menu_func(event):
 
-    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+    try:
         path, _, _, _ = treeview7101.get_path_at_pos(int(event.x), int(event.y))
     except TypeError:
         return   
@@ -115,8 +114,8 @@ def environment_variables_open_right_click_menu_func(event):
     treeiter = model.get_iter(path)
     if treeiter is not None:
         global selected_variable_value
-        selected_variable_value = variable_list[environment_variables_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "environment_variables_data_rows" list to use it getting name of the variable.
-        if 'EnvironmentVarMenuRightClick' not in globals():                                   # Check if "EnvironmentVarMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
+        selected_variable_value = variable_list[environment_variables_data_rows.index(model[treeiter][:])]
+        if 'EnvironmentVarMenuRightClick' not in globals():
             global EnvironmentVarMenuRightClick
             import EnvironmentVarMenuRightClick
             EnvironmentVarMenuRightClick.environment_variables_menu_right_click_import_func()
@@ -124,7 +123,7 @@ def environment_variables_open_right_click_menu_func(event):
         EnvironmentVarMenuRightClick.menu7101m.popup(None, None, None, None, event.button, event.time)
 
 
-# ----------------------------------- Environment Variables - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
+# ----------------------------------- Environment Variables - Initial Function -----------------------------------
 def environment_variables_initial_func():
 
     global environment_variables_data_list
@@ -154,7 +153,7 @@ def environment_variables_initial_func():
     filter_column = environment_variables_data_list[0][2] - 1                                 # Search filter is "Variable". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
-# ----------------------------------- Environment Variables - Get EnvironmentVariables Data Function (gets environment_variables data, adds into treeview and updates it) -----------------------------------
+# ----------------------------------- Environment Variables - Get EnvironmentVariables Data Function -----------------------------------
 def environment_variables_loop_func():
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
@@ -406,7 +405,7 @@ def environment_variables_loop_func():
     label7101.set_text(number_of_environment_variables_string)
 
 
-# ----------------------------------- Environment Variables Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Environment Variables Run Function -----------------------------------
 def environment_variables_run_func(*args):
 
     if "environment_variables_data_rows" not in globals():
@@ -424,14 +423,14 @@ def environment_variables_run_func(*args):
         environment_variables_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Environment Variables - Treeview Filter Show All Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Environment Variables - Treeview Filter Show All Function -----------------------------------
 def environment_variables_treeview_filter_show_all_func():
 
     for piter in piter_list:
         treestore7101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Environment Variables - Treeview Filter Show All Environment Variables Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Environment Variables - Treeview Filter Show All Environment Variables Items Function -----------------------------------
 def environment_variables_treeview_filter_environment_variables_logged_in_only():
 
     for piter in piter_list:
@@ -439,7 +438,7 @@ def environment_variables_treeview_filter_environment_variables_logged_in_only()
             treestore7101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Environment Variables - Treeview Filter Show All Shell Variables Items Function (updates treeview shown rows when relevant button clicked) -----------------------------------
+# ----------------------------------- Environment Variables - Treeview Filter Show All Shell Variables Items Function -----------------------------------
 def environment_variables_treeview_filter_environment_variables_logged_out_only():
 
     for piter in piter_list:
@@ -447,7 +446,7 @@ def environment_variables_treeview_filter_environment_variables_logged_out_only(
             treestore7101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Environment Variables - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
+# ----------------------------------- Environment Variables - Treeview Filter Search Function -----------------------------------
 def environment_variables_treeview_filter_search_func():
 
     global filter_column
@@ -460,7 +459,7 @@ def environment_variables_treeview_filter_search_func():
             treestore7101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Environment Variables - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
+# ----------------------------------- Environment Variables - Column Title Clicked Function -----------------------------------
 def on_column_title_clicked(widget):
 
     environment_variables_data_row_sorting_column_title = widget.get_title()                  # Get column title which will be used for getting column number
@@ -471,9 +470,9 @@ def on_column_title_clicked(widget):
     Config.config_save_func()
 
 
-# ----------------------------------- Environment Variables - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
+# ----------------------------------- Environment Variables - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def environment_variables_treeview_column_order_width_row_sorting_func():
-    # Columns in the treeview are get one by one and appended into "environment_variables_data_column_order". "environment_variables_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "environment_variables_data") are changed if column order/widths are changed.
+
     environment_variables_treeview_columns = treeview7101.get_columns()
     treeview_column_titles = []
     for column in environment_variables_treeview_columns:
