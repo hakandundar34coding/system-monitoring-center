@@ -47,7 +47,7 @@ def storage_menu_right_click_gui_func():
         if disk_mount_point != _tr("[Not mounted]"):
             (subprocess.check_output(["xdg-open", disk_mount_point], shell=False)).decode()
         if disk_mount_point == _tr("[Not mounted]"):
-            storage_disk_not_mounted_error_dialog()
+            return
 
     def on_menuitem4102m_activate(widget):                                                    # "Mount" item on the right click menu
         storage_disk_parent_child_disk_mount_point_etc_func()
@@ -213,29 +213,6 @@ def storage_disk_parent_child_disk_mount_point_etc_func():
         menuitem4104m.set_sensitive(True)
     if disk_parent_name != "-":
         menuitem4104m.set_sensitive(False)
-
-
-# ----------------------------------- Storage - Storage Disk Not Mounted Error Dialog Function (shows an error dialog when a disk with no mount point is tried to be browsed) -----------------------------------
-def storage_disk_not_mounted_error_dialog():
-
-    error_dialog4101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Disk Is Not Mounted"), )
-    error_dialog4101.format_secondary_text(_tr("The disk you have tried to browse is not mounted.") +
-                                           "\n" +
-                                           _tr("Disk have to be mounted before browsing.") +
-                                           "\n\n" + _tr("Note: Some disks such as parent disks or swap disks do not have mount points."))
-    error_dialog4101.run()
-    error_dialog4101.destroy()
-
-
-# ----------------------------------- Storage - Storage Disk Has No Mountable File System Error Dialog Function (shows an error dialog when a disk with no mountable file system is tried to be mounted/unmounted) -----------------------------------
-def storage_disk_has_no_mountable_file_system_error_dialog():
-
-    error_dialog4102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Disk Has No Mountable File System"), )
-    error_dialog4102.format_secondary_text(_tr("The disk you have tried to mount or unmount has no mountable file system.\n\n Note: Some disks such as parent disks, swap disks do not have mountable file systems."))
-    error_dialog4102.run()
-    error_dialog4102.destroy()
 
 
 # ----------------------------------- Storage - Storage Disk Action Warning Dialog Function (shows a warning dialog when an output text is obtained during disk actions (mount, unmount, remove, etc.)) -----------------------------------

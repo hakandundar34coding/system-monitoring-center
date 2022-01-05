@@ -277,7 +277,7 @@ def processes_terminate_process_warning_dialog(process_name, process_pid):
     warning_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Terminate Process?"), )
     warning_dialog2101.format_secondary_text(_tr("Do you want to terminate the following process?") +
-                                             "\n\n    " + process_name + " (" + "PID:" + " " + str(process_pid) + ")")
+                                             "\n\n    " + process_name + " (" + "PID" + ": " + str(process_pid) + ")")
     global warning_dialog2101_response
     warning_dialog2101_response = warning_dialog2101.run()
     warning_dialog2101.destroy()
@@ -289,7 +289,7 @@ def processes_kill_process_warning_dialog(process_name, process_pid):
     warning_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Kill Process?"), )
     warning_dialog2102.format_secondary_text(_tr("Do you want to kill the following process?\n ") +
-                                             "\n\n    " + process_name + " (" + "PID:" + " " + str(process_pid) + ")")
+                                             "\n\n    " + process_name + " (" + "PID" + ": " + str(process_pid) + ")")
     global warning_dialog2102_response
     warning_dialog2102_response = warning_dialog2102.run()
     warning_dialog2102.destroy()
@@ -298,9 +298,10 @@ def processes_kill_process_warning_dialog(process_name, process_pid):
 # ----------------------------------- Processes - Processes No Such Process Error Dialog Function (shows an error dialog and stops showing the "Set Process Custom Priority window" when the process is not alive anymore) -----------------------------------
 def processes_no_such_process_error_dialog():
 
-    error_dialog2101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
+    error_dialog2101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process Is Not Running Anymore"), )
-    error_dialog2101w2.format_secondary_text(_tr("Following process is not running anymore \nand process custom priority window is closed automatically:\n ") + selected_process_name + _tr(" (PID: ") + selected_process_pid)
+    error_dialog2101w2.format_secondary_text(_tr("Following process is not running anymore \nand process custom priority window is closed automatically:\n ") +
+                                             selected_process_name + "(" + _tr("PID") + ": " + selected_process_pid)
     error_dialog2101w2.run()
     error_dialog2101w2.destroy()
 

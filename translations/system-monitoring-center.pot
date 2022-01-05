@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-05 19:08+0300\n"
+"POT-Creation-Date: 2022-01-05 20:18+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -215,7 +215,8 @@ msgid "Process Name"
 msgstr ""
 
 #: src/Processes.py:209 src/ProcessesDetails.py:244 src/ProcessesDetails.py:657
-#: ui/ProcessesDetailsWindow.ui:55 ui/ProcessesMenuCustomizations.ui:379
+#: src/ProcessesMenuRightClick.py:304 ui/ProcessesDetailsWindow.ui:55
+#: ui/ProcessesMenuCustomizations.ui:379
 msgid "PID"
 msgstr ""
 
@@ -344,12 +345,12 @@ msgid "Process Details"
 msgstr ""
 
 #: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:277
-#: src/ProcessesMenuRightClick.py:289 src/RamHardwareInformation.py:161
-#: src/ServicesMenuRightClick.py:148 src/SettingsGUI.py:583
-#: src/StartupMenuRightClick.py:412 src/StartupMenuRightClick.py:425
-#: src/StartupNewItem.py:177 src/StorageDetails.py:511
-#: src/StorageMenuRightClick.py:244 src/StorageRename.py:145
-#: src/UsersMenuRightClick.py:72
+#: src/ProcessesMenuRightClick.py:289 src/ProcessesMenuRightClick.py:301
+#: src/RamHardwareInformation.py:161 src/ServicesMenuRightClick.py:148
+#: src/SettingsGUI.py:583 src/StartupMenuRightClick.py:412
+#: src/StartupMenuRightClick.py:425 src/StartupNewItem.py:177
+#: src/StorageDetails.py:511 src/StorageMenuRightClick.py:221
+#: src/StorageRename.py:145 src/UsersMenuRightClick.py:72
 msgid "Warning"
 msgstr ""
 
@@ -363,9 +364,8 @@ msgid ""
 "closed automatically:"
 msgstr ""
 
-#: src/ProcessesMenuRightClick.py:265 src/ProcessesMenuRightClick.py:301
-#: src/ProcessesMenuRightClick.py:311 src/StartupMenuRightClick.py:438
-#: src/StorageMenuRightClick.py:221 src/StorageMenuRightClick.py:234
+#: src/ProcessesMenuRightClick.py:265 src/ProcessesMenuRightClick.py:312
+#: src/StartupMenuRightClick.py:438
 msgid "Error"
 msgstr ""
 
@@ -410,15 +410,11 @@ msgid ""
 " "
 msgstr ""
 
-#: src/ProcessesMenuRightClick.py:303
-msgid " (PID: "
-msgstr ""
-
-#: src/ProcessesMenuRightClick.py:312
+#: src/ProcessesMenuRightClick.py:313
 msgid "Process Directory Could Not Be Get"
 msgstr ""
 
-#: src/ProcessesMenuRightClick.py:313
+#: src/ProcessesMenuRightClick.py:314
 msgid ""
 "Process directory could not be get.\n"
 "No folder will be opened."
@@ -620,7 +616,7 @@ msgstr ""
 msgid "Total: AAAA services (BBBB loaded, CCCC non-loaded)"
 msgstr ""
 
-#: src/ServicesMenuRightClick.py:149 src/StorageMenuRightClick.py:245
+#: src/ServicesMenuRightClick.py:149 src/StorageMenuRightClick.py:222
 #: src/StorageRename.py:146
 msgid "Information"
 msgstr ""
@@ -934,35 +930,6 @@ msgstr ""
 
 #: src/StorageMenuRightClick.py:68
 msgid "Disk is already unmounted."
-msgstr ""
-
-#: src/StorageMenuRightClick.py:222
-msgid "Disk Is Not Mounted"
-msgstr ""
-
-#: src/StorageMenuRightClick.py:223
-msgid "The disk you have tried to browse is not mounted."
-msgstr ""
-
-#: src/StorageMenuRightClick.py:225
-msgid "Disk have to be mounted before browsing."
-msgstr ""
-
-#: src/StorageMenuRightClick.py:226
-msgid ""
-"Note: Some disks such as parent disks or swap disks do not have mount points."
-msgstr ""
-
-#: src/StorageMenuRightClick.py:235
-msgid "Disk Has No Mountable File System"
-msgstr ""
-
-#: src/StorageMenuRightClick.py:236
-msgid ""
-"The disk you have tried to mount or unmount has no mountable file system.\n"
-"\n"
-" Note: Some disks such as parent disks, swap disks do not have mountable "
-"file systems."
 msgstr ""
 
 #: src/StorageRename.py:111

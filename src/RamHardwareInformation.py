@@ -164,4 +164,3 @@ def ram_hardware_information_root_privileges_warning_dialog():
     global warning_dialog1201w_response
     warning_dialog1201w_response = warning_dialog1201w.run()
     warning_dialog1201w.destroy()
-

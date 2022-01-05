@@ -43,8 +43,8 @@ def ram_swap_details_gui_func():
     def on_window1201w2_show(widget):
         label1201w2.set_text("-")                                                             # Reset label text when window is shown.
         global swap_details_text
-        try:                                                                                  # "try-except" is used in order to avoid errors if user closed polkit dialog without entering password. Because "memory_hardware_information_text" string will not be defined and will not be get in this situation.
-            label1201w2.set_text(swap_details_text)                                           # Set label text for showing RAM hardware information.
+        try:
+            label1201w2.set_text(swap_details_text)
         except NameError:
             pass
 
@@ -67,7 +67,7 @@ def ram_swap_details_get_func():
 
     ram_hardware_information_text_list = [_tr("Partition"), _tr("File")]                      # This list is defined in order to make some command output strings to be translated into other languages.
 
-    global swap_details_text                                                                  # This value will also be used for preventing showing RAM hardware Information window if user closes polkit window without entering password.
+    global swap_details_text
     swap_details_text = ""                                                                    # Set initial value of "memory_hardware_information_text". Hardware information will be appended to this string.
 
     with open("/proc/swaps") as reader:                                                       # Read "/proc/swaps" file for getting swap memory details. Systems may has more than one swap partition/file and this information can be read from this file.
