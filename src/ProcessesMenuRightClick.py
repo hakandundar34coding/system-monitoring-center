@@ -288,7 +288,7 @@ def processes_kill_process_warning_dialog(process_name, process_pid):
 
     warning_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Kill Process?"), )
-    warning_dialog2102.format_secondary_text(_tr("Do you want to kill the following process?\n ") +
+    warning_dialog2102.format_secondary_text(_tr("Do you want to kill the following process?") +
                                              "\n\n    " + process_name + " (" + "PID" + ": " + str(process_pid) + ")")
     global warning_dialog2102_response
     warning_dialog2102_response = warning_dialog2102.run()
@@ -300,8 +300,8 @@ def processes_no_such_process_error_dialog():
 
     error_dialog2101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process Is Not Running Anymore"), )
-    error_dialog2101w2.format_secondary_text(_tr("Following process is not running anymore \nand process custom priority window is closed automatically:\n ") +
-                                             selected_process_name + "(" + _tr("PID") + ": " + selected_process_pid)
+    error_dialog2101w2.format_secondary_text(_tr("Following process is not running anymore and process custom priority window is closed automatically:") +
+                                             "\n\n    " + selected_process_name + "(" + _tr("PID") + ": " + selected_process_pid)
     error_dialog2101w2.run()
     error_dialog2101w2.destroy()
 
@@ -311,6 +311,6 @@ def processes_no_path_error_dialog():
 
     error_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process Directory Could Not Be Get"), )
-    error_dialog2102.format_secondary_text(_tr("Process directory could not be get.\nNo folder will be opened."))
+    error_dialog2102.format_secondary_text(_tr("Process directory could not be get. No folder will be opened."))
     error_dialog2102.run()
     error_dialog2102.destroy()

@@ -50,10 +50,9 @@ Note2: For RPM based distributions:
     * Monitoring and managing processes, users, storage devices, startup applications, services (systemd) and environment variables
     * Monitoring general system information
 * Customization options per-tab
-* Low system resource usage while monitoring
+* Low CPU usage during monitoring
 * Language support (more languages will be added if translations are provided by contributors):
     * English, Turkish
-* Provides help information when mouse hover action is performed on several GUI objects
 * Adapts to system theme
 * Free and open sourced
 

@@ -205,6 +205,7 @@
                 <property name="margin-top">10</property>
                 <property name="border-width">10</property>
                 <property name="row-spacing">5</property>
+                <property name="column-homogeneous">True</property>
                 <child>
                   <!-- n-columns=2 n-rows=2 -->
                   <object class="GtkGrid">

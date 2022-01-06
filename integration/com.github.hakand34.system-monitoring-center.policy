@@ -5,11 +5,11 @@
 
 <policyconfig>
 
-  <vendor>System Monitoring Center Developers</vendor>
+  <vendor>System Monitoring Center</vendor>
   <vendor_url>https://github.com/hakandundar34coding/system-monitoring-center</vendor_url>
 
-  <action id="tr.org.pardus.pkexec.system-monitoring-center">
-    <description>Restart as Root</description>
+  <action id="com.github.hakand34.system-monitoring-center">
+    <description>System Monitoring Center Authentication</description>
     <message>Authentication is required to run System Monitoring Center</message>
     <message xml:lang="tr">Sistem Gözlem Merkezi için yetkilendirme gerekiyor</message>
     <defaults>
