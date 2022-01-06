@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Processes - Processes Right Click Menu GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Processes - Processes Right Click Menu GUI Import Function -----------------------------------
 def processes_menu_right_click_import_func():
 
     global Gtk, Gdk, os, signal, subprocess
@@ -21,7 +21,7 @@ def processes_menu_right_click_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Processes - Right Click Menu GUI Function (the code of this module in order to avoid running them during module import and defines menu GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Processes - Right Click Menu GUI Function -----------------------------------
 def processes_menu_right_click_gui_func():
 
     # Define builder and get all objects (Processes Tab Right Click Menu) from GUI file.
@@ -258,7 +258,7 @@ def processes_get_process_current_nice_func():
     selected_process_current_nice = int(proc_pid_stat_lines_split[-34])                       # Get process nice value
 
 
-# ----------------------------------- Processes - Processes Terminate Process Warning Dialog Function (shows a warning dialog when a process is tried to be terminated) -----------------------------------
+# ----------------------------------- Processes - Processes Terminate Process Warning Dialog Function -----------------------------------
 def processes_terminate_process_warning_dialog(process_name, process_pid):
 
     warning_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
@@ -270,7 +270,7 @@ def processes_terminate_process_warning_dialog(process_name, process_pid):
     warning_dialog2101.destroy()
 
 
-# ----------------------------------- Processes - Processes Kill Process Warning Dialog Function (shows a warning dialog when a process is tried to be killed) -----------------------------------
+# ----------------------------------- Processes - Processes Kill Process Warning Dialog Function -----------------------------------
 def processes_kill_process_warning_dialog(process_name, process_pid):
 
     warning_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
@@ -282,7 +282,7 @@ def processes_kill_process_warning_dialog(process_name, process_pid):
     warning_dialog2102.destroy()
 
 
-# ----------------------------------- Processes - Processes No Path Error Dialog Function (shows an error dialog when process directory is tried to be opened and process directory could not be get) -----------------------------------
+# ----------------------------------- Processes - Processes No Path Error Dialog Function -----------------------------------
 def processes_no_path_error_dialog():
 
     error_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,

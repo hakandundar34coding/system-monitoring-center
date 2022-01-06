@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Startup - Startup New Item Window GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Startup - Startup New Item Window GUI Import Function -----------------------------------
 def startup_new_item_import_func():
 
     global Gtk, Gdk, os, subprocess
@@ -20,7 +20,7 @@ def startup_new_item_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Startup - Startup New Item Window GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Startup - Startup New Item Window GUI Function -----------------------------------
 def startup_new_item_gui_func():
 
     global builder5101w, window5101w
@@ -139,7 +139,7 @@ def startup_new_item_gui_func():
     button5102w.connect("clicked", on_button5102w_clicked)
 
 
-# ----------------------------------- Startup - Set System And User Autostart Directories Function (gets system and user autostart directories) -----------------------------------
+# ----------------------------------- Startup - Set System And User Autostart Directories Function -----------------------------------
 def startup_get_system_and_user_autostart_directories_func():
     # Get human and root user usernames and UIDs. This data will be used if application is run with "pkexec" command.
     usernames_username_list = []
@@ -177,8 +177,6 @@ def startup_overwrite_existing_startup_item_warning_dialog(new_startup_applicati
     warning_dialog5103 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do You Want To Overwrite Existing File?"), )
     warning_dialog5103.format_secondary_text(_tr("There is already a '.desktop' file with the same name.") +
-                                             "\n" + _tr("Existing file will be overwritten if you continue.") +
-                                             "\n" + _tr("Do you want to continue?") +
                                              "\n\n    " + _tr("Existing Startup Item:") + " " + new_startup_application_name +
                                              "\n    " + _tr("Existing '.desktop' File Name:") + " " + new_startup_application_file_name)
     global warning_dialog5103_response

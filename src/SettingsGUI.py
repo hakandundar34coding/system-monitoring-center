@@ -129,8 +129,8 @@ def settings_gui_func():
         if "colorchooserdialog1001" not in globals():
             global colorchooserdialog1001
             colorchooserdialog2001 = Gtk.ColorChooserDialog()
-        red, blue, green, alpha = Config.chart_background_color_all_charts                    # Get current foreground color of the chart
-        colorchooserdialog2001.set_rgba(Gdk.RGBA(red, blue, green, alpha))                    # Set current chart foregorund color as selected color of the dialog on dialog run
+        red, blue, green, alpha = Config.chart_background_color_all_charts                    # Get current background color of the chart
+        colorchooserdialog2001.set_rgba(Gdk.RGBA(red, blue, green, alpha))                    # Set current chart background color as selected color of the dialog on dialog run
         dialog_response = colorchooserdialog2001.run()
         if dialog_response == Gtk.ResponseType.OK:
             selected_color = colorchooserdialog2001.get_rgba()
@@ -145,10 +145,10 @@ def settings_gui_func():
         Config.config_save_func()
         settings_gui_general_settings_tab_set_func()
         settings_gui_set_chart_data_history_func()                                            # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
-        Performance.performance_set_selected_cpu_core_func()                                  # Call this function in order to apply selected CPU core changes
-        Performance.performance_set_selected_disk_func()                                      # Call this function in order to apply selected disk changes
-        Performance.performance_set_selected_network_card_func()                              # Call this function in order to apply selected network card changes
-        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Call this function in order to apply selected GPU changes
+        Performance.performance_set_selected_cpu_core_func()                                  # Apply selected CPU core changes
+        Performance.performance_set_selected_disk_func()                                      # Apply selected disk changes
+        Performance.performance_set_selected_network_card_func()                              # Apply selected network card changes
+        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Apply selected GPU changes
         settings_gui_apply_settings_immediately_func()
 
     def spinbutton2001_on_value_changed(widget):                                              # "Window transparency" GUI object signal
@@ -191,11 +191,11 @@ def settings_gui_func():
             Config.config_save_func()
             settings_gui_set_func()
             settings_gui_set_chart_data_history_func()                                        # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
-            Performance.performance_set_selected_cpu_core_func()                              # Call this function in order to apply selected CPU core changes
-            Performance.performance_set_selected_disk_func()                                  # Call this function in order to apply selected disk changes
-            Performance.performance_set_selected_network_card_func()                          # Call this function in order to apply selected network card changes
-            Performance.performance_get_gpu_list_and_set_selected_gpu_func()                  # Call this function in order to apply selected GPU changes
-            settings_gui_apply_settings_immediately_func()                                    # Call this function in order to apply changes immediately (without waiting update interval).
+            Performance.performance_set_selected_cpu_core_func()                              # Apply selected CPU core changes
+            Performance.performance_set_selected_disk_func()                                  # Apply selected disk changes
+            Performance.performance_set_selected_network_card_func()                          # Apply selected network card changes
+            Performance.performance_get_gpu_list_and_set_selected_gpu_func()                  # Apply selected GPU changes
+            settings_gui_apply_settings_immediately_func()                                    # Apply changes immediately (without waiting update interval).
             try:                                                                              # "try-catch" is used in order to avoid errors because "ProcessesMenusGUI" may not be loaded.
                 ProcessesMenusGUI.processes_expand_collapse_button_preferences_func()
             except:
@@ -382,7 +382,7 @@ def settings_gui_floating_summary_settings_tab_set_func():
         checkbutton2011.set_active(False)
 
 
-# ----------------------------------- Settings - Add/Remove Floating Summary Performance Information Function (adds/removes performance information for floating summary window) -----------------------------------
+# ----------------------------------- Settings - Add/Remove Floating Summary Performance Information Function -----------------------------------
 def settings_gui_add_remove_floating_summary_performance_information_func():
 
     Config.floating_summary_data_shown = []
@@ -405,7 +405,7 @@ def settings_gui_add_remove_floating_summary_performance_information_func():
     Config.config_save_func()
 
 
-# ----------------------------------- Settings - Set Chart Data History Function (trim/adds performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...) when user changes "chart_data_history" preference) -----------------------------------
+# ----------------------------------- Settings - Set Chart Data History Function (trims/adds performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...) when user changes "chart_data_history" preference) -----------------------------------
 def settings_gui_set_chart_data_history_func():
 
     chart_data_history_current = len(Performance.cpu_usage_percent_ave)                       # Get current chart_data_history length. This value is same for all performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...).
@@ -577,7 +577,7 @@ def settings_gui_default_tab_func():
         Config.performance_tab_default_sub_tab = 5
 
 
-# ----------------------------------- Settings - Reset All Settings Warning Dialog Function (shows an warning dialog when "Reset all settings of the application to defaults" button is clicked) -----------------------------------
+# ----------------------------------- Settings - Reset All Settings Warning Dialog Function -----------------------------------
 def settings_gui_reset_all_settings_warning_dialog():
 
     warning_dialog2001 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,

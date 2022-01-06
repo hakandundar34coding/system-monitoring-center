@@ -277,7 +277,7 @@ def startup_loop_func():
 
     # In order to avoid errors, stop the loop function if current desktop session is not one of these in the "supported_desktop_environments_list" list. Currently other dektop environments are not tested for "Startup" tab. Dekstop environments may have specific lines in the ".desktop" files.
     if set(current_desktop_environment).intersection(supported_desktop_environments_list) == 0:
-        label5101.set_text(_tr("Currently following desktop environments are supported for listing startup items:\n") + "XFCE, GNOME, CINNAMON, MATE, KDE (Plasma).")
+        label5101.set_text(_tr("Currently following desktop environments are supported for listing startup items:") + "\n" + "XFCE, GNOME, CINNAMON, MATE, KDE (Plasma), LXQt, LXDE.")
         return
 
     # There are user startup applications and system wide startup applications in linux. They are in different directories. Modifications in directory of system wide startup applications require root access.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Processes - Processes Custom Priority Window GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Processes - Processes Custom Priority Window GUI Import Function -----------------------------------
 def processes_custom_priority_import_func():
 
     global Gtk, os, subprocess
@@ -20,7 +20,7 @@ def processes_custom_priority_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Processes - Processes Custom Priority Window GUI Function (the code of this module in order to avoid running them during module import and defines "Processes" tab GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Processes - Processes Custom Priority Window GUI Function -----------------------------------
 def processes_custom_priority_gui_func():
 
     global builder2101w2, window2101w2

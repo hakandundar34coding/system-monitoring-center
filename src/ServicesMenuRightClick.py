@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Services - Services Menus GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Services - Services Menus GUI Import Function -----------------------------------
 def services_menu_right_click_import_func():
 
     global Gtk, Gdk, os, subprocess
@@ -20,7 +20,7 @@ def services_menu_right_click_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Services - Services Menus GUI Function (the code of this module in order to avoid running them during module import and defines "Services" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Services - Services Menus GUI Function -----------------------------------
 def services_menu_right_click_gui_func():
 
     # Define builder and get all objects (Services tab right click menu) from GUI file.

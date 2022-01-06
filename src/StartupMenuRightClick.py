@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Startup - Startup Right Click Menu GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Startup - Startup Right Click Menu GUI Import Function -----------------------------------
 def startup_menu_right_click_import_func():
 
     global Gtk, Gdk, Gio, os, subprocess, Thread
@@ -21,7 +21,7 @@ def startup_menu_right_click_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Startup - Startup Right Click Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Startup" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Startup - Startup Right Click Menu GUI Function -----------------------------------
 def startup_menu_right_click_gui_func():
 
     # Define builder and get all objects (Startup tab right click menu) from GUI file.
@@ -406,7 +406,7 @@ def startup_set_menu_labels_func():
         sub_menuitem5102m.set_label(_tr("User-specific values file: ") + _tr("None"))
 
 
-# ----------------------------------- Startup - Startup Run Startup Item Warning Dialog Function (shows a warning dialog when a startup item is tried to be run) -----------------------------------
+# ----------------------------------- Startup - Startup Run Startup Item Warning Dialog Function -----------------------------------
 def startup_run_startup_item_warning_dialog(selected_startup_application_name, selected_startup_application_exec_value):
 
     warning_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
@@ -419,7 +419,7 @@ def startup_run_startup_item_warning_dialog(selected_startup_application_name, s
     warning_dialog5101.destroy()
 
 
-# ----------------------------------- Startup - Startup Delete Startup Item Warning Dialog Function (shows a warning dialog when a startup item is tried to be deleted) -----------------------------------
+# ----------------------------------- Startup - Startup Delete Startup Item Warning Dialog Function -----------------------------------
 def startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_exec_value):
 
     warning_dialog5102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
@@ -432,7 +432,7 @@ def startup_delete_startup_item_warning_dialog(message_text, selected_startup_ap
     warning_dialog5102.destroy()
 
 
-# ----------------------------------- Startup - Startup Reset To System Default Warning Dialog Function (shows a warning dialog when a startup item is tried to be reset to system default which means user specific desktop file of the startup application will be deleted (system-wide values file will be untouched)) -----------------------------------
+# ----------------------------------- Startup - Startup Reset To System Default Warning Dialog Function -----------------------------------
 def startup_run_now_error_dialog(selected_startup_application_file_name, selected_startup_application_exec_value):
 
     error_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,

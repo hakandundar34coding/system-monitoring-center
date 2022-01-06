@@ -50,7 +50,6 @@ Note2: For RPM based distributions:
     * Monitoring and managing processes, users, storage devices, startup applications, services (systemd) and environment variables
     * Monitoring general system information
 * Customization options per-tab
-* Low CPU usage during monitoring
 * Language support (more languages will be added if translations are provided by contributors):
     * English, Turkish
 * Adapts to system theme
@@ -89,6 +88,3 @@ Note2: For RPM based distributions:
 * Python 3 (Programming language)
 * GTK3 (GUI)
 * python3-opengl (for FPS counting)
-
-### Status:
-* The application is in Beta stage and there may be bugs to be fixed. Also settings of System Monitoring Center may be reset (very rare) when a newer version is installed.

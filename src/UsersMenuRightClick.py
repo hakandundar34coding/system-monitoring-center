@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Users - Users Right Click Menu GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Users - Users Right Click Menu GUI Import Function -----------------------------------
 def users_menu_right_click_import_func():
 
     global Gtk, os, subprocess
@@ -20,7 +20,7 @@ def users_menu_right_click_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Users - Users Right Click Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Sensors" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Users - Users Right Click Menu GUI Function -----------------------------------
 def users_menu_right_click_gui_func():
 
     # Define builder and get all objects (Users tab right click menu) from GUI file.
@@ -66,13 +66,12 @@ def users_menu_right_click_gui_func():
     menuitem3102m.connect("activate", on_menuitem3102m_activate)
 
 
-# ----------------------------------- Users - End User Session Warning Dialog Function (shows a warning dialog when an user session is tried to be ended) -----------------------------------
+# ----------------------------------- Users - End User Session Warning Dialog Function -----------------------------------
 def users_end_user_session_warning_dialog(selected_username, selected_user_uid):
 
     warning_dialog3102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do You Want To End User Session?"), )
     warning_dialog3102.format_secondary_text(_tr("This action will end all processes of the user immediately and may cause data loss for the user.") +
-                                             "\n" + _tr("Do you want to continue?") +
                                              "\n\n    " + _tr("User Name") + ": " + selected_username +
                                              "\n    " + _tr("UID") + ": " + selected_user_uid)
     global warning_dialog3102_response

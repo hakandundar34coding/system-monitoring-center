@@ -83,7 +83,7 @@
             <property name="tooltip-text" translatable="yes">Refresh
 (Reloads System tab data)
 
-Some of the information on this tab are reloaded automatically but all of them can be reloaded manually.</property>
+Some of the information on this tab are not reloaded automatically. They can be reloaded manually.</property>
             <property name="halign">end</property>
             <property name="hexpand">True</property>
             <child>

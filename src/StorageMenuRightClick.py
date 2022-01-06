@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Storage - Storage Right Click Menu GUI Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
+# ----------------------------------- Storage - Storage Right Click Menu GUI Import Function -----------------------------------
 def storage_menu_right_click_import_func():
 
     global Gtk, Gdk, os, subprocess
@@ -20,7 +20,7 @@ def storage_menu_right_click_import_func():
     from locale import gettext as _tr
 
 
-# ----------------------------------- Storage - Storage Right Click Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Storage" tab menu/popover GUI objects and functions/signals) -----------------------------------
+# ----------------------------------- Storage - Storage Right Click Menu GUI Function -----------------------------------
 def storage_menu_right_click_gui_func():
 
     # Define builder and get all objects (Storage tab right click menu) from GUI file.
@@ -152,7 +152,7 @@ def storage_menu_right_click_gui_func():
     menuitem4108m.connect("activate", on_menuitem4108m_activate)
 
 
-# ----------------------------------- Storage - Storage Disk, Child Disk, Mount Point, etc Function (gets several disk information) -----------------------------------
+# ----------------------------------- Storage - Storage Disk, Child Disk, Mount Point, etc Function -----------------------------------
 def storage_disk_parent_child_disk_mount_point_etc_func():
 
     global disk_name
