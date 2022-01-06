@@ -52,7 +52,7 @@ def processes_custom_priority_gui_func():
             with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:         # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
                 proc_pid_stat_lines = reader.read()
         except FileNotFoundError:
-            ProcessesMenuRightClick.processes_no_such_process_error_dialog()
+            window2101w2.hide()
             return
         # Get process name and nice value
         proc_pid_stat_lines_split = proc_pid_stat_lines.split()
@@ -66,7 +66,7 @@ def processes_custom_priority_gui_func():
                     process_cmdline = reader.read()
                 selected_process_name = process_cmdline.split("/")[-1].split("\x00")[0]       # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
             except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-                ProcessesMenuRightClick.processes_no_such_process_error_dialog()
+                window2101w2.hide()
                 return
             if selected_process_name.startswith(process_name_from_stat) == False:
                 selected_process_name = process_cmdline.split(" ")[0].split("\x00")[0].strip()    # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
