@@ -1,3 +1,9 @@
+system-monitoring-center (1.0.0) unstable; urgency=medium
+
+  * Various improvements (bug fixes, performance, GUI, etc.
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 07 Jan 2022 09:26:01 +0300
+
 system-monitoring-center (0.3.2~beta1) unstable; urgency=medium
 
   * Improvements for ARM device support
