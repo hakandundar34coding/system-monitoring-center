@@ -255,7 +255,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Current Memory (RSS)</property>
+                        <property name="label" translatable="yes">Memory (RSS)</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>

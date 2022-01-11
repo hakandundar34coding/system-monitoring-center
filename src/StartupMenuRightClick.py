@@ -236,8 +236,16 @@ def startup_menu_right_click_gui_func():
     def on_sub_menuitem5103m_activate(widget):                                                # "Delete System-Wide Values File" item on the right click menu
         selected_startup_application_file_name = Startup.selected_startup_application_file_name
         selected_startup_application_name = Startup.selected_startup_application_name
+        startup_get_system_and_user_autostart_directories_func()
+        selected_startup_application_exec_value = ""                                          # Initial value of "selected_startup_application_exec_value". This value will be used if it can not be get.
+        if os.path.exists(system_autostart_directory + selected_startup_application_file_name) == True:
+            with open(system_autostart_directory + selected_startup_application_file_name) as reader:    # Get content of the ".desktop" file in the system autostart directory
+                desktop_file_system_lines = reader.read().strip("").split("\n")
+            for line in desktop_file_system_lines:
+                if "Exec=" in line:                                                           # Application "hidden" value. Application is not started on the system start if this value is "true". This value overrides "NotShowIn" and "OnlyShowIn" values.
+                    selected_startup_application_exec_value = line.split("=")[1]
         message_text = _tr("Do you want to delete system-wide values file of the following startup item?")
-        startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_file_name)
+        startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_exec_value)
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
                 (subprocess.check_output(["pkexec", "rm", desktop_file_system_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
@@ -250,8 +258,16 @@ def startup_menu_right_click_gui_func():
     def on_sub_menuitem5104m_activate(widget):                                                # "Delete User-Specific Values File" item on the right click menu
         selected_startup_application_file_name = Startup.selected_startup_application_file_name
         selected_startup_application_name = Startup.selected_startup_application_name
+        startup_get_system_and_user_autostart_directories_func()
+        selected_startup_application_exec_value = ""                                          # Initial value of "selected_startup_application_exec_value". This value will be used if it can not be get.
+        if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == True:
+            with open(current_user_autostart_directory + selected_startup_application_file_name) as reader:    # Get content of the ".desktop" file in the user autostart directory
+                desktop_file_user_lines = reader.read().strip("").split("\n")
+            for line in desktop_file_user_lines:
+                if "Exec=" in line:
+                    selected_startup_application_exec_value = line.split("=")[1]
         message_text = _tr("Do you want to delete user-specific values file of the following startup item?")
-        startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_file_name)
+        startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_exec_value)
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
                 (subprocess.check_output(["rm", desktop_file_user_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
@@ -263,8 +279,22 @@ def startup_menu_right_click_gui_func():
     def on_sub_menuitem5105m_activate(widget):                                                # "Delete Both Files" item on the right click menu
         selected_startup_application_file_name = Startup.selected_startup_application_file_name
         selected_startup_application_name = Startup.selected_startup_application_name
+        startup_get_system_and_user_autostart_directories_func()
+        selected_startup_application_exec_value = ""                                          # Initial value of "selected_startup_application_exec_value". This value will be used if it can not be get.
+        if os.path.exists(system_autostart_directory + selected_startup_application_file_name) == True:
+            with open(system_autostart_directory + selected_startup_application_file_name) as reader:    # Get content of the ".desktop" file in the system autostart directory
+                desktop_file_system_lines = reader.read().strip("").split("\n")
+            for line in desktop_file_system_lines:
+                if "Exec=" in line:                                                           # Application "hidden" value. Application is not started on the system start if this value is "true". This value overrides "NotShowIn" and "OnlyShowIn" values.
+                    selected_startup_application_exec_value = line.split("=")[1]
+        if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == True:
+            with open(current_user_autostart_directory + selected_startup_application_file_name) as reader:    # Get content of the ".desktop" file in the user autostart directory
+                desktop_file_user_lines = reader.read().strip("").split("\n")
+            for line in desktop_file_user_lines:
+                if "Exec=" in line:
+                    selected_startup_application_exec_value = line.split("=")[1]
         message_text = _tr("Do you want to delete system-wide and user-specific value files of the following startup item?")
-        startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_file_name)
+        startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_exec_value)
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
                 (subprocess.check_output(["pkexec", "rm", desktop_file_system_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
@@ -275,7 +305,7 @@ def startup_menu_right_click_gui_func():
             except:
                 pass
         if warning_dialog5102_response == Gtk.ResponseType.NO:
-            return   
+            return
 
     def on_menuitem5106m_activate(widget):                                                    # "Run now" item on the right click menu
         selected_startup_application_file_name = Startup.selected_startup_application_file_name
@@ -412,8 +442,8 @@ def startup_run_startup_item_warning_dialog(selected_startup_application_name, s
     warning_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Run Startup Item Now?"), )
     warning_dialog5101.format_secondary_text(_tr("Do you want to run the following startup item?") +
-                                             "\n\n    " + _tr("Startup Item:") + " " + selected_startup_application_name +
-                                             "\n    " + _tr("Command:") + " " + selected_startup_application_exec_value)
+                                             "\n\n    " + _tr("Startup Item") + ": " + selected_startup_application_name +
+                                             "\n    " + _tr("Command") + ": " + selected_startup_application_exec_value)
     global warning_dialog5101_response
     warning_dialog5101_response = warning_dialog5101.run()
     warning_dialog5101.destroy()
@@ -425,20 +455,20 @@ def startup_delete_startup_item_warning_dialog(message_text, selected_startup_ap
     warning_dialog5102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Delete Startup Item?"), )
     warning_dialog5102.format_secondary_text(message_text +
-                                             "\n\n    " + _tr("Startup Item:") + " " + selected_startup_application_name +
-                                             "\n    " + _tr("Command:") + " " + selected_startup_application_exec_value)
+                                             "\n\n    " + _tr("Startup Item") + ": " + selected_startup_application_name +
+                                             "\n    " + _tr("Command") + ": " + selected_startup_application_exec_value)
     global warning_dialog5102_response
     warning_dialog5102_response = warning_dialog5102.run()
     warning_dialog5102.destroy()
 
 
-# ----------------------------------- Startup - Startup Reset To System Default Warning Dialog Function -----------------------------------
-def startup_run_now_error_dialog(selected_startup_application_file_name, selected_startup_application_exec_value):
+# ----------------------------------- Startup - Startup Run Now Error Dialog Function -----------------------------------
+def startup_run_now_error_dialog(selected_startup_application_name, selected_startup_application_exec_value):
 
     error_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Error While Running Startup Item Command"), )
     error_dialog5101.format_secondary_text(_tr("Error is encountered while running the following command:") +
-                                           "\n\n    " + _tr("'.desktop' File Name:") + " " + selected_startup_application_file_name +
-                                           "\n    " + _tr("Startup Item Command:") + " " + selected_startup_application_exec_value)
+                                           "\n\n    " + _tr("Startup Item") + ": " + selected_startup_application_name +
+                                           "\n    " + _tr("Command") + ": " + selected_startup_application_exec_value)
     error_dialog5101.run()
     error_dialog5101.destroy()

@@ -29,7 +29,7 @@ def gpu_gui_func():
 
     # GPU tab GUI objects
     global grid1501, drawingarea1501, button1501, label1501, label1502
-    global label1503, label1504, label1505, label1506, label1507, label1508, label1509, label1510, label1511, label1512
+    global label1503, label1504, label1505, label1506, label1507, label1508, label1509, label1510, label1511, label1512, label1513
     global glarea1501
 
     # GPU tab GUI objects - get
@@ -48,6 +48,7 @@ def gpu_gui_func():
     label1510 = builder.get_object('label1510')
     label1511 = builder.get_object('label1511')
     label1512 = builder.get_object('label1512')
+    label1513 = builder.get_object('label1513')
     glarea1501 = builder.get_object('glarea1501')
 
 
@@ -100,6 +101,16 @@ def gpu_gui_func():
         chart1501.stroke()
 
         chart1501_y_limit = 1.1 * (max(fps_count) + 0.0000001)                                # Maximum FPS value is multiplied by 1.1 in order to scale chart when FPS is increased or decreased for preventing the line being out of the chart border.
+
+        # ---------- Start - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
+        chart1501_y_limit_float = chart1501_y_limit
+        number_of_digits = len(str(int(chart1501_y_limit)))
+        multiple = 10 ** (number_of_digits - 1)
+        number_to_get_next_multiple = chart1501_y_limit_float + (multiple - 0.0001)
+        next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
+        label1513.set_text(f'{next_multiple} FPS')
+        chart1501_y_limit = (chart1501_y_limit * next_multiple / (chart1501_y_limit_float + 0.0000001) + 0.0000001)
+        # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
         chart1501.set_dash([], 0)
         chart1501.rectangle(0, 0, chart1501_width, chart1501_height)

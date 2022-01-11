@@ -1,2 +1,5 @@
-#!/bin/sh
-/usr/bin/python3 /usr/share/system-monitoring-center/src/Main.py
+#!/usr/bin/env python3
+
+import sys
+sys.path.insert(0, '/usr/share/system-monitoring-center/src/')
+import Main

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-06 16:13+0300\n"
+"POT-Creation-Date: 2022-01-11 13:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "CPU Usage (Per Core):"
 msgstr ""
 
-#: src/Cpu.py:317 src/Network.py:236 src/RamHardwareInformation.py:65
+#: src/Cpu.py:317 src/RamHardwareInformation.py:65
 msgid "Unknown"
 msgstr ""
 
@@ -33,8 +33,8 @@ msgstr ""
 msgid "Selected CPU Core: "
 msgstr ""
 
-#: src/Disk.py:207 src/Disk.py:275 src/Disk.py:276 src/Disk.py:277
-#: src/Disk.py:278 src/Storage.py:323 src/Storage.py:377 src/Storage.py:386
+#: src/Disk.py:230 src/Disk.py:298 src/Disk.py:299 src/Disk.py:300
+#: src/Disk.py:301 src/Storage.py:323 src/Storage.py:377 src/Storage.py:386
 #: src/Storage.py:397 src/Storage.py:727 src/Storage.py:734
 #: src/StorageDetails.py:215 src/StorageDetails.py:258
 #: src/StorageDetails.py:270 src/StorageDetails.py:284
@@ -47,11 +47,11 @@ msgstr ""
 msgid "[Not mounted]"
 msgstr ""
 
-#: src/Disk.py:215 src/Disk.py:409 src/Storage.py:368 src/StorageDetails.py:247
+#: src/Disk.py:238 src/Disk.py:432 src/Storage.py:368 src/StorageDetails.py:247
 msgid "[SWAP]"
 msgstr ""
 
-#: src/Disk.py:224 src/Gpu.py:231 src/Network.py:232 src/Network.py:254
+#: src/Disk.py:247 src/Gpu.py:242 src/Network.py:251 src/Network.py:273
 #: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:490
 #: src/Storage.py:501 src/Storage.py:512 src/StorageDetails.py:225
 #: src/StorageDetails.py:372 src/StorageDetails.py:386
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/Disk.py:226 src/Gpu.py:233 src/Gpu.py:318 src/Network.py:234
+#: src/Disk.py:249 src/Gpu.py:244 src/Gpu.py:329 src/Network.py:253
 #: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:492
 #: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:221
 #: src/StorageDetails.py:374 src/StorageDetails.py:388
@@ -67,13 +67,13 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/Disk.py:355 src/Disk.py:383 src/RamSwapDetails.py:68 src/Storage.py:312
+#: src/Disk.py:378 src/Disk.py:406 src/RamSwapDetails.py:68 src/Storage.py:312
 #: src/Storage.py:317 src/StorageDetails.py:200 src/StorageDetails.py:210
 #: src/StorageMenuRightClick.py:182
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:360 src/SettingsGUI.py:320 src/Storage.py:303 src/Storage.py:412
+#: src/Disk.py:383 src/SettingsGUI.py:320 src/Storage.py:303 src/Storage.py:412
 #: src/Storage.py:456 src/Storage.py:466 src/Storage.py:477 src/Storage.py:486
 #: src/Storage.py:497 src/Storage.py:508 src/StorageDetails.py:191
 #: src/StorageDetails.py:301 src/StorageDetails.py:339
@@ -91,8 +91,12 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: src/EnvironmentVariables.py:133 ui/EnvironmentVarMenuCustomizations.ui:248
-msgid "Variable Type"
+#: src/EnvironmentVariables.py:133 src/RamHardwareInformation.py:131
+#: src/RamHardwareInformation.py:150 src/RamSwapDetails.py:95
+#: src/Storage.py:191 ui/EnvironmentVarMenuCustomizations.ui:248
+#: ui/ServicesDetailsWindow.ui:245 ui/StorageDetailsWindow.ui:77
+#: ui/StorageMenuCustomizations.ui:262
+msgid "Type"
 msgstr ""
 
 #: src/EnvironmentVariables.py:164
@@ -166,11 +170,11 @@ msgid ""
 "your system."
 msgstr ""
 
-#: src/Network.py:184
+#: src/Network.py:203
 msgid "Ethernet"
 msgstr ""
 
-#: src/Network.py:186
+#: src/Network.py:205
 msgid "Wi-Fi"
 msgstr ""
 
@@ -229,8 +233,9 @@ msgid "Status"
 msgstr ""
 
 #: src/Processes.py:212 src/Users.py:170 ui/CpuMenus.ui:378
-#: ui/ProcessesMenuCustomizations.ui:735 ui/UsersDetailsWindow.ui:195
-#: ui/UsersMenuCustomizations.ui:318 ui/UsersMenuCustomizations.ui:574
+#: ui/ProcessesMenuCustomizations.ui:421 ui/ProcessesMenuCustomizations.ui:735
+#: ui/UsersDetailsWindow.ui:195 ui/UsersMenuCustomizations.ui:318
+#: ui/UsersMenuCustomizations.ui:574
 msgid "CPU%"
 msgstr ""
 
@@ -347,7 +352,7 @@ msgstr ""
 #: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:264
 #: src/ProcessesMenuRightClick.py:276 src/RamHardwareInformation.py:161
 #: src/ServicesMenuRightClick.py:148 src/SettingsGUI.py:583
-#: src/StartupMenuRightClick.py:412 src/StartupMenuRightClick.py:425
+#: src/StartupMenuRightClick.py:442 src/StartupMenuRightClick.py:455
 #: src/StartupNewItem.py:177 src/StorageDetails.py:511
 #: src/StorageMenuRightClick.py:221 src/StorageRename.py:145
 #: src/UsersMenuRightClick.py:72
@@ -380,7 +385,7 @@ msgstr ""
 msgid "Do you want to kill the following process?"
 msgstr ""
 
-#: src/ProcessesMenuRightClick.py:288 src/StartupMenuRightClick.py:438
+#: src/ProcessesMenuRightClick.py:288 src/StartupMenuRightClick.py:468
 msgid "Error"
 msgstr ""
 
@@ -400,8 +405,8 @@ msgstr ""
 msgid "Reserved Swap Memory: "
 msgstr ""
 
-#: src/RamHardwareInformation.py:65 src/StartupMenuRightClick.py:400
-#: src/StartupMenuRightClick.py:406
+#: src/RamHardwareInformation.py:65 src/StartupMenuRightClick.py:430
+#: src/StartupMenuRightClick.py:436
 msgid "None"
 msgstr ""
 
@@ -415,12 +420,6 @@ msgstr ""
 
 #: src/RamHardwareInformation.py:130 src/RamHardwareInformation.py:149
 msgid "Capacity"
-msgstr ""
-
-#: src/RamHardwareInformation.py:131 src/RamHardwareInformation.py:150
-#: src/RamSwapDetails.py:95 src/Storage.py:191 ui/ServicesDetailsWindow.ui:245
-#: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:262
-msgid "Type"
 msgstr ""
 
 #: src/RamHardwareInformation.py:132
@@ -529,8 +528,8 @@ msgstr ""
 msgid "Sub-State"
 msgstr ""
 
-#: src/Services.py:168 src/Users.py:171 ui/ServicesMenuCustomizations.ui:304
-#: ui/UsersDetailsWindow.ui:406
+#: src/Services.py:168 src/Users.py:171 ui/ServicesDetailsWindow.ui:258
+#: ui/ServicesMenuCustomizations.ui:304 ui/UsersDetailsWindow.ui:406
 msgid "Memory (RSS)"
 msgstr ""
 
@@ -642,11 +641,11 @@ msgstr ""
 msgid "RAM"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:406
+#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:405
 msgid "Network"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/GpuTab.ui:346 ui/MainWindow.ui:221
+#: src/SettingsGUI.py:320 ui/GpuTab.ui:344 ui/MainWindow.ui:221
 msgid "GPU"
 msgstr ""
 
@@ -673,8 +672,9 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: src/Startup.py:136 ui/StartupMenuCustomizations.ui:248
-#: ui/StartupNewItemWindow.ui:177
+#: src/Startup.py:136 src/StartupMenuRightClick.py:446
+#: src/StartupMenuRightClick.py:459 src/StartupMenuRightClick.py:472
+#: ui/StartupMenuCustomizations.ui:248 ui/StartupNewItemWindow.ui:177
 msgid "Command"
 msgstr ""
 
@@ -688,67 +688,56 @@ msgstr ""
 msgid "Total: AAAA startup applications (BBBB visible, CCCC hidden)"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:239
+#: src/StartupMenuRightClick.py:247
 msgid ""
 "Do you want to delete system-wide values file of the following startup item?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:253
+#: src/StartupMenuRightClick.py:269
 msgid ""
 "Do you want to delete user-specific values file of the following startup "
 "item?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:266
+#: src/StartupMenuRightClick.py:296
 msgid ""
 "Do you want to delete system-wide and user-specific value files of the "
 "following startup item?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:397 src/StartupMenuRightClick.py:400
+#: src/StartupMenuRightClick.py:427 src/StartupMenuRightClick.py:430
 #: ui/StartupMenuRightClick.ui:153
 msgid "System-wide values file: "
 msgstr ""
 
-#: src/StartupMenuRightClick.py:403 src/StartupMenuRightClick.py:406
+#: src/StartupMenuRightClick.py:433 src/StartupMenuRightClick.py:436
 #: ui/StartupMenuRightClick.ui:162
 msgid "User-specific values file: "
 msgstr ""
 
-#: src/StartupMenuRightClick.py:413
+#: src/StartupMenuRightClick.py:443
 msgid "Run Startup Item Now?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:414
+#: src/StartupMenuRightClick.py:444
 msgid "Do you want to run the following startup item?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:415 src/StartupMenuRightClick.py:428
-msgid "Startup Item:"
+#: src/StartupMenuRightClick.py:445 src/StartupMenuRightClick.py:458
+#: src/StartupMenuRightClick.py:471 src/StartupNewItem.py:180
+msgid "Startup Item"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:416 src/StartupMenuRightClick.py:429
-msgid "Command:"
-msgstr ""
-
-#: src/StartupMenuRightClick.py:426
+#: src/StartupMenuRightClick.py:456
 msgid "Delete Startup Item?"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:439
+#: src/StartupMenuRightClick.py:469
 msgid "Error While Running Startup Item Command"
 msgstr ""
 
-#: src/StartupMenuRightClick.py:440
+#: src/StartupMenuRightClick.py:470
 msgid "Error is encountered while running the following command:"
-msgstr ""
-
-#: src/StartupMenuRightClick.py:441
-msgid "'.desktop' File Name:"
-msgstr ""
-
-#: src/StartupMenuRightClick.py:442
-msgid "Startup Item Command:"
 msgstr ""
 
 #: src/StartupNewItem.py:178
@@ -759,12 +748,8 @@ msgstr ""
 msgid "There is already a '.desktop' file with the same name."
 msgstr ""
 
-#: src/StartupNewItem.py:180
-msgid "Existing Startup Item:"
-msgstr ""
-
 #: src/StartupNewItem.py:181
-msgid "Existing '.desktop' File Name:"
+msgid "'.desktop' File Name"
 msgstr ""
 
 #: src/Storage.py:188 ui/StorageDetailsWindow.ui:38
@@ -812,8 +797,8 @@ msgstr ""
 msgid "Used Space%"
 msgstr ""
 
-#: src/Storage.py:198 ui/CpuTab.ui:463 ui/DiskTab.ui:79 ui/GpuTab.ui:403
-#: ui/NetworkTab.ui:463 ui/StorageDetailsWindow.ui:168
+#: src/Storage.py:198 ui/CpuTab.ui:463 ui/DiskTab.ui:79 ui/GpuTab.ui:401
+#: ui/NetworkTab.ui:462 ui/StorageDetailsWindow.ui:168
 #: ui/StorageMenuCustomizations.ui:458
 msgid "Vendor-Model"
 msgstr ""
@@ -866,11 +851,13 @@ msgstr ""
 msgid "UUID"
 msgstr ""
 
-#: src/Storage.py:210 ui/StorageMenuCustomizations.ui:542
+#: src/Storage.py:210 ui/StorageDetailsWindow.ui:566
+#: ui/StorageMenuCustomizations.ui:542
 msgid "WWN"
 msgstr ""
 
-#: src/Storage.py:211 ui/StorageMenuCustomizations.ui:528
+#: src/Storage.py:211 ui/StorageDetailsWindow.ui:553
+#: ui/StorageMenuCustomizations.ui:528
 msgid "Major:Minor Device #"
 msgstr ""
 
@@ -1138,18 +1125,18 @@ msgstr ""
 #: ui/ServicesMenuCustomizations.ui:369 ui/StartupMenuCustomizations.ui:302
 #: ui/StartupNewItemWindow.ui:322 ui/StartupNewItemWindow.ui:334
 #: ui/StartupNewItemWindow.ui:346 ui/StartupNewItemWindow.ui:358
-#: ui/StorageDetailsWindow.ui:717 ui/StorageDetailsWindow.ui:730
-#: ui/StorageDetailsWindow.ui:743 ui/StorageDetailsWindow.ui:756
-#: ui/StorageDetailsWindow.ui:769 ui/StorageDetailsWindow.ui:782
-#: ui/StorageDetailsWindow.ui:795 ui/StorageDetailsWindow.ui:808
-#: ui/StorageDetailsWindow.ui:821 ui/StorageDetailsWindow.ui:834
-#: ui/StorageDetailsWindow.ui:847 ui/StorageDetailsWindow.ui:860
-#: ui/StorageDetailsWindow.ui:873 ui/StorageDetailsWindow.ui:886
-#: ui/StorageDetailsWindow.ui:899 ui/StorageDetailsWindow.ui:912
-#: ui/StorageDetailsWindow.ui:925 ui/StorageDetailsWindow.ui:938
-#: ui/StorageDetailsWindow.ui:951 ui/StorageDetailsWindow.ui:964
-#: ui/StorageDetailsWindow.ui:977 ui/StorageDetailsWindow.ui:990
-#: ui/StorageDetailsWindow.ui:1003 ui/StorageDetailsWindow.ui:1016
+#: ui/StorageDetailsWindow.ui:716 ui/StorageDetailsWindow.ui:729
+#: ui/StorageDetailsWindow.ui:742 ui/StorageDetailsWindow.ui:755
+#: ui/StorageDetailsWindow.ui:768 ui/StorageDetailsWindow.ui:781
+#: ui/StorageDetailsWindow.ui:794 ui/StorageDetailsWindow.ui:807
+#: ui/StorageDetailsWindow.ui:820 ui/StorageDetailsWindow.ui:833
+#: ui/StorageDetailsWindow.ui:846 ui/StorageDetailsWindow.ui:859
+#: ui/StorageDetailsWindow.ui:872 ui/StorageDetailsWindow.ui:885
+#: ui/StorageDetailsWindow.ui:898 ui/StorageDetailsWindow.ui:911
+#: ui/StorageDetailsWindow.ui:924 ui/StorageDetailsWindow.ui:937
+#: ui/StorageDetailsWindow.ui:950 ui/StorageDetailsWindow.ui:963
+#: ui/StorageDetailsWindow.ui:976 ui/StorageDetailsWindow.ui:989
+#: ui/StorageDetailsWindow.ui:1002 ui/StorageDetailsWindow.ui:1015
 #: ui/StorageMenuCustomizations.ui:593 ui/UsersDetailsWindow.ui:435
 #: ui/UsersDetailsWindow.ui:448 ui/UsersDetailsWindow.ui:461
 #: ui/UsersDetailsWindow.ui:474 ui/UsersDetailsWindow.ui:487
@@ -1174,20 +1161,22 @@ msgstr ""
 #: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:313
 #: ui/CpuTab.ui:344 ui/CpuTab.ui:387 ui/CpuTab.ui:450 ui/CpuTab.ui:465
 #: ui/DiskTab.ui:66 ui/DiskTab.ui:81 ui/DiskTab.ui:187 ui/DiskTab.ui:204
-#: ui/DiskTab.ui:221 ui/DiskTab.ui:238 ui/DiskTab.ui:255 ui/DiskTab.ui:304
-#: ui/DiskTab.ui:335 ui/DiskTab.ui:385 ui/DiskTab.ui:425 ui/DiskTab.ui:442
-#: ui/EnvironmentVariablesTab.ui:84 ui/FloatingSummaryWindow.ui:19
-#: ui/FloatingSummaryWindow.ui:31 ui/FloatingSummaryWindow.ui:43
-#: ui/FloatingSummaryWindow.ui:55 ui/FloatingSummaryWindow.ui:67
-#: ui/FloatingSummaryWindow.ui:79 ui/FloatingSummaryWindow.ui:91
-#: ui/FloatingSummaryWindow.ui:103 ui/GpuTab.ui:83 ui/GpuTab.ui:100
-#: ui/GpuTab.ui:117 ui/GpuTab.ui:161 ui/GpuTab.ui:178 ui/GpuTab.ui:209
-#: ui/GpuTab.ui:239 ui/GpuTab.ui:256 ui/GpuTab.ui:300 ui/GpuTab.ui:317
-#: ui/GpuTab.ui:390 ui/GpuTab.ui:405 ui/NetworkTab.ui:132 ui/NetworkTab.ui:149
+#: ui/DiskTab.ui:221 ui/DiskTab.ui:238 ui/DiskTab.ui:255 ui/DiskTab.ui:298
+#: ui/DiskTab.ui:328 ui/DiskTab.ui:376 ui/DiskTab.ui:414 ui/DiskTab.ui:431
+#: ui/DiskTab.ui:461 ui/EnvironmentVariablesTab.ui:84
+#: ui/FloatingSummaryWindow.ui:19 ui/FloatingSummaryWindow.ui:31
+#: ui/FloatingSummaryWindow.ui:43 ui/FloatingSummaryWindow.ui:55
+#: ui/FloatingSummaryWindow.ui:67 ui/FloatingSummaryWindow.ui:79
+#: ui/FloatingSummaryWindow.ui:91 ui/FloatingSummaryWindow.ui:103
+#: ui/GpuTab.ui:81 ui/GpuTab.ui:98 ui/GpuTab.ui:115 ui/GpuTab.ui:159
+#: ui/GpuTab.ui:176 ui/GpuTab.ui:207 ui/GpuTab.ui:237 ui/GpuTab.ui:254
+#: ui/GpuTab.ui:298 ui/GpuTab.ui:315 ui/GpuTab.ui:388 ui/GpuTab.ui:403
+#: ui/GpuTab.ui:439 ui/NetworkTab.ui:132 ui/NetworkTab.ui:149
 #: ui/NetworkTab.ui:166 ui/NetworkTab.ui:183 ui/NetworkTab.ui:200
 #: ui/NetworkTab.ui:217 ui/NetworkTab.ui:234 ui/NetworkTab.ui:251
-#: ui/NetworkTab.ui:281 ui/NetworkTab.ui:313 ui/NetworkTab.ui:450
-#: ui/NetworkTab.ui:465 ui/PerformanceSummaryHeaderBarGrid.ui:85
+#: ui/NetworkTab.ui:281 ui/NetworkTab.ui:313 ui/NetworkTab.ui:356
+#: ui/NetworkTab.ui:449 ui/NetworkTab.ui:464
+#: ui/PerformanceSummaryHeaderBarGrid.ui:85
 #: ui/PerformanceSummaryHeaderBarGrid.ui:100
 #: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
@@ -1231,11 +1220,11 @@ msgstr ""
 #: ui/StorageDetailsWindow.ui:327 ui/StorageDetailsWindow.ui:342
 #: ui/StorageDetailsWindow.ui:357 ui/StorageDetailsWindow.ui:373
 #: ui/StorageDetailsWindow.ui:389 ui/StorageDetailsWindow.ui:431
-#: ui/StorageDetailsWindow.ui:447 ui/StorageDetailsWindow.ui:580
-#: ui/StorageDetailsWindow.ui:595 ui/StorageDetailsWindow.ui:610
-#: ui/StorageDetailsWindow.ui:625 ui/StorageDetailsWindow.ui:640
-#: ui/StorageDetailsWindow.ui:655 ui/StorageDetailsWindow.ui:670
-#: ui/StorageDetailsWindow.ui:685 ui/StorageDetailsWindow.ui:701
+#: ui/StorageDetailsWindow.ui:447 ui/StorageDetailsWindow.ui:579
+#: ui/StorageDetailsWindow.ui:594 ui/StorageDetailsWindow.ui:609
+#: ui/StorageDetailsWindow.ui:624 ui/StorageDetailsWindow.ui:639
+#: ui/StorageDetailsWindow.ui:654 ui/StorageDetailsWindow.ui:669
+#: ui/StorageDetailsWindow.ui:684 ui/StorageDetailsWindow.ui:700
 #: ui/StorageRenameWindow.ui:163 ui/StorageTab.ui:83 ui/SystemTab.ui:29
 #: ui/SystemTab.ui:44 ui/SystemTab.ui:179 ui/SystemTab.ui:196
 #: ui/SystemTab.ui:241 ui/SystemTab.ui:271 ui/SystemTab.ui:304
@@ -1333,7 +1322,7 @@ msgstr ""
 msgid "Disk Speed:"
 msgstr ""
 
-#: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:361
+#: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:352
 #: ui/ProcessesMenuCustomizations.ui:777 ui/ProcessesMenuCustomizations.ui:879
 #: ui/StorageMenuCustomizations.ui:688 ui/StorageMenuCustomizations.ui:748
 msgid "Disk Usage:"
@@ -1387,67 +1376,32 @@ msgstr ""
 msgid "Write Time:"
 msgstr ""
 
-#: ui/DiskTab.ui:271
-msgid ""
-"Free space of the selected disk (in powers of 1024)\n"
-"\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr ""
-
-#: ui/DiskTab.ui:275 ui/RamTab.ui:224
+#: ui/DiskTab.ui:272 ui/RamTab.ui:224
 msgid "Free:"
 msgstr ""
 
-#: ui/DiskTab.ui:287
-msgid ""
-"Used space of the selected disk (in powers of 1024)\n"
-"\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr ""
-
-#: ui/DiskTab.ui:291 ui/RamTab.ui:42 ui/RamTab.ui:103
+#: ui/DiskTab.ui:285 ui/RamTab.ui:42 ui/RamTab.ui:103
 msgid "Used:"
 msgstr ""
 
-#: ui/DiskTab.ui:320
-msgid "If operating system is installed on the selected disk"
-msgstr ""
-
-#: ui/DiskTab.ui:322
+#: ui/DiskTab.ui:315
 msgid "System Disk:"
 msgstr ""
 
-#: ui/DiskTab.ui:357
+#: ui/DiskTab.ui:350 ui/DiskTab.ui:399
 msgid ""
-"Disk usage percent of the selected disk\n"
-"\n"
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 
-#: ui/DiskTab.ui:408
-msgid ""
-"Total capacity of the selected disk (in powers of 1024)\n"
-"\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr ""
-
-#: ui/DiskTab.ui:412 ui/RamTab.ui:163 ui/RamTab.ui:193
+#: ui/DiskTab.ui:401 ui/RamTab.ui:163 ui/RamTab.ui:193
 msgid "Capacity:"
 msgstr ""
 
-#: ui/DiskTab.ui:472 ui/NetworkTab.ui:356
-msgid "B/s"
-msgstr ""
-
-#: ui/DiskTab.ui:483 ui/GpuTab.ui:470 ui/NetworkTab.ui:367
-msgid "Graphic scale is updated dynamically."
-msgstr ""
-
-#: ui/DiskTab.ui:485
+#: ui/DiskTab.ui:473
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr ""
 
-#: ui/DiskTab.ui:497 ui/GpuTab.ui:453 ui/NetworkTab.ui:381
+#: ui/DiskTab.ui:485 ui/GpuTab.ui:451 ui/NetworkTab.ui:380
 msgid "0"
 msgstr ""
 
@@ -1531,7 +1485,7 @@ msgstr ""
 msgid "Show all shell variables"
 msgstr ""
 
-#: ui/GpuMenus.ui:20 ui/GpuTab.ui:362
+#: ui/GpuMenus.ui:20 ui/GpuTab.ui:360
 msgid "GPU Tab Customizations"
 msgstr ""
 
@@ -1548,77 +1502,63 @@ msgid ""
 "FPS counting does not continue when window is minimized."
 msgstr ""
 
-#: ui/GpuTab.ui:29
-msgid "FPS (Frame Rate): "
+#: ui/GpuTab.ui:29 ui/GpuTab.ui:469
+msgid "FPS:"
 msgstr ""
 
 #: ui/GpuTab.ui:42
 msgid "Frame Latency:"
 msgstr ""
 
-#: ui/GpuTab.ui:54
-msgid ""
-"Video memory of the selected GPU\n"
-"(Could be dedicated memory or reserved from RAM)"
-msgstr ""
-
-#: ui/GpuTab.ui:57
+#: ui/GpuTab.ui:55
 msgid "Video Memory:"
 msgstr ""
 
-#: ui/GpuTab.ui:70
+#: ui/GpuTab.ui:68
 msgid "Direct Rendering:"
 msgstr ""
 
-#: ui/GpuTab.ui:134
+#: ui/GpuTab.ui:132
 msgid "OpenGL Version:"
 msgstr ""
 
-#: ui/GpuTab.ui:146
+#: ui/GpuTab.ui:144
 msgid "If selected GPU has unified memory (reserved from RAM)"
 msgstr ""
 
-#: ui/GpuTab.ui:148
+#: ui/GpuTab.ui:146
 msgid "Unified Memory:"
 msgstr ""
 
-#: ui/GpuTab.ui:194
+#: ui/GpuTab.ui:192
 msgid ""
 "This information is available only on systems with X11 windowing system."
 msgstr ""
 
-#: ui/GpuTab.ui:196
+#: ui/GpuTab.ui:194
 msgid "Refresh Rate:"
 msgstr ""
 
-#: ui/GpuTab.ui:226
+#: ui/GpuTab.ui:224
 msgid "Driver:"
 msgstr ""
 
-#: ui/GpuTab.ui:272
+#: ui/GpuTab.ui:270
 msgid ""
 "If selected GPU is default on system boot and/or used for graphics "
 "processing by default"
 msgstr ""
 
-#: ui/GpuTab.ui:274
+#: ui/GpuTab.ui:272
 msgid "Default GPU:"
 msgstr ""
 
-#: ui/GpuTab.ui:287
+#: ui/GpuTab.ui:285
 msgid "Resolution:"
 msgstr ""
 
-#: ui/GpuTab.ui:388
+#: ui/GpuTab.ui:386
 msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
-msgstr ""
-
-#: ui/GpuTab.ui:441
-msgid "FPS"
-msgstr ""
-
-#: ui/GpuTab.ui:472
-msgid "FPS Count:"
 msgstr ""
 
 #: ui/MainMenusDialogs.ui:12
@@ -1665,7 +1605,7 @@ msgstr ""
 msgid "Main Menu"
 msgstr ""
 
-#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:422
+#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:421
 msgid "Network Tab Customizations"
 msgstr ""
 
@@ -1745,11 +1685,11 @@ msgstr ""
 msgid "Signal Strength:"
 msgstr ""
 
-#: ui/NetworkTab.ui:369
+#: ui/NetworkTab.ui:368
 msgid "Network Download (-) & Upload (--) Speed:"
 msgstr ""
 
-#: ui/NetworkTab.ui:448
+#: ui/NetworkTab.ui:447
 msgid "Network Interface Controller (NIC) Name"
 msgstr ""
 
@@ -1921,10 +1861,6 @@ msgstr ""
 
 #: ui/ProcessesMenuCustomizations.ui:117
 msgid "Show tree lines"
-msgstr ""
-
-#: ui/ProcessesMenuCustomizations.ui:421
-msgid "CPU Usage Percent"
 msgstr ""
 
 #: ui/ProcessesMenuCustomizations.ui:698 ui/ProcessesMenuCustomizations.ui:833
@@ -2124,10 +2060,6 @@ msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:232
 msgid "Control PID"
-msgstr ""
-
-#: ui/ServicesDetailsWindow.ui:258
-msgid "Current Memory (RSS)"
 msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:271
@@ -2383,16 +2315,6 @@ msgstr ""
 
 #: ui/StorageDetailsWindow.ui:181
 msgid "Label (File System)"
-msgstr ""
-
-#: ui/StorageDetailsWindow.ui:553
-msgid "Major:Minor Device Number"
-msgstr ""
-
-#: ui/StorageDetailsWindow.ui:566
-msgid ""
-"Unique Storage Identifier\n"
-"(WWN)"
 msgstr ""
 
 #: ui/StorageMenuCustomizations.ui:20 ui/StorageTab.ui:60

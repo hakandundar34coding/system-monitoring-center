@@ -268,9 +268,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Free space of the selected disk (in powers of 1024)
-
-Measurement is made for filesystem and may differ from mass storage values.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Free:</property>
             <property name="ellipsize">end</property>
@@ -284,9 +281,6 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Used space of the selected disk (in powers of 1024)
-
-Measurement is made for filesystem and may differ from mass storage values.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Used:</property>
             <property name="ellipsize">end</property>
@@ -317,7 +311,6 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">If operating system is installed on the selected disk</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">System Disk:</property>
             <property name="ellipsize">end</property>
@@ -354,9 +347,7 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Disk usage percent of the selected disk
-
-Measurement is made for filesystem and may differ from mass storage values.</property>
+                <property name="tooltip-text" translatable="yes">Measurement is made for filesystem and may differ from mass storage values.</property>
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Disk Usage:</property>
                 <property name="ellipsize">end</property>
@@ -405,9 +396,7 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Total capacity of the selected disk (in powers of 1024)
-
-Measurement is made for filesystem and may differ from mass storage values.</property>
+            <property name="tooltip-text" translatable="yes">Measurement is made for filesystem and may differ from mass storage values.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Capacity:</property>
             <property name="ellipsize">end</property>
@@ -465,11 +454,11 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="label1313">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">end</property>
-            <property name="label" translatable="yes">B/s</property>
+            <property name="label" translatable="yes">--</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
@@ -480,7 +469,6 @@ Measurement is made for filesystem and may differ from mass storage values.</pro
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Graphic scale is updated dynamically.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Disk Read (-) &amp; Write (--) Speed:</property>
           </object>

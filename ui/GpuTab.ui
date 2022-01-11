@@ -26,7 +26,7 @@ Counted by using a glarea and OpenGL library.
 This is a simple FPS counter and may not be accurate in some situations.
 FPS counting does not continue when window is minimized.</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">FPS (Frame Rate): </property>
+            <property name="label" translatable="yes">FPS:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -51,8 +51,6 @@ FPS counting does not continue when window is minimized.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Video memory of the selected GPU
-(Could be dedicated memory or reserved from RAM)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Video Memory:</property>
             <property name="ellipsize">end</property>
@@ -434,11 +432,11 @@ FPS counting does not continue when window is minimized.</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="label1513">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">end</property>
-            <property name="label" translatable="yes">FPS</property>
+            <property name="label" translatable="yes">--</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
@@ -467,9 +465,8 @@ FPS counting does not continue when window is minimized.</property>
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Graphic scale is updated dynamically.</property>
                 <property name="halign">start</property>
-                <property name="label" translatable="yes">FPS Count:</property>
+                <property name="label" translatable="yes">FPS:</property>
               </object>
               <packing>
                 <property name="left-attach">0</property>

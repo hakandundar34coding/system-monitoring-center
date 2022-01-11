@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-06 16:13+0300\n"
-"PO-Revision-Date: 2022-01-06 16:13+0300\n"
+"POT-Creation-Date: 2022-01-11 13:00+0300\n"
+"PO-Revision-Date: 2022-01-11 13:00+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -26,7 +26,7 @@ msgstr "MİB Kullanımı (Ortalama):"
 msgid "CPU Usage (Per Core):"
 msgstr "MİB Kullanımı (Çekirdek Başına):"
 
-#: src/Cpu.py:317 src/Network.py:236 src/RamHardwareInformation.py:65
+#: src/Cpu.py:317 src/RamHardwareInformation.py:65
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -34,8 +34,8 @@ msgstr "Bilinmiyor"
 msgid "Selected CPU Core: "
 msgstr "Seçilen MİB Çekirdeği: "
 
-#: src/Disk.py:207 src/Disk.py:275 src/Disk.py:276 src/Disk.py:277
-#: src/Disk.py:278 src/Storage.py:323 src/Storage.py:377 src/Storage.py:386
+#: src/Disk.py:230 src/Disk.py:298 src/Disk.py:299 src/Disk.py:300
+#: src/Disk.py:301 src/Storage.py:323 src/Storage.py:377 src/Storage.py:386
 #: src/Storage.py:397 src/Storage.py:727 src/Storage.py:734
 #: src/StorageDetails.py:215 src/StorageDetails.py:258
 #: src/StorageDetails.py:270 src/StorageDetails.py:284
@@ -48,11 +48,11 @@ msgstr "Seçilen MİB Çekirdeği: "
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
-#: src/Disk.py:215 src/Disk.py:409 src/Storage.py:368 src/StorageDetails.py:247
+#: src/Disk.py:238 src/Disk.py:432 src/Storage.py:368 src/StorageDetails.py:247
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
-#: src/Disk.py:224 src/Gpu.py:231 src/Network.py:232 src/Network.py:254
+#: src/Disk.py:247 src/Gpu.py:242 src/Network.py:251 src/Network.py:273
 #: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:490
 #: src/Storage.py:501 src/Storage.py:512 src/StorageDetails.py:225
 #: src/StorageDetails.py:372 src/StorageDetails.py:386
@@ -60,7 +60,7 @@ msgstr "[TAKAS]"
 msgid "Yes"
 msgstr "Evet"
 
-#: src/Disk.py:226 src/Gpu.py:233 src/Gpu.py:318 src/Network.py:234
+#: src/Disk.py:249 src/Gpu.py:244 src/Gpu.py:329 src/Network.py:253
 #: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:492
 #: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:221
 #: src/StorageDetails.py:374 src/StorageDetails.py:388
@@ -68,13 +68,13 @@ msgstr "Evet"
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:355 src/Disk.py:383 src/RamSwapDetails.py:68 src/Storage.py:312
+#: src/Disk.py:378 src/Disk.py:406 src/RamSwapDetails.py:68 src/Storage.py:312
 #: src/Storage.py:317 src/StorageDetails.py:200 src/StorageDetails.py:210
 #: src/StorageMenuRightClick.py:182
 msgid "Partition"
 msgstr "Disk bölümü"
 
-#: src/Disk.py:360 src/SettingsGUI.py:320 src/Storage.py:303 src/Storage.py:412
+#: src/Disk.py:383 src/SettingsGUI.py:320 src/Storage.py:303 src/Storage.py:412
 #: src/Storage.py:456 src/Storage.py:466 src/Storage.py:477 src/Storage.py:486
 #: src/Storage.py:497 src/Storage.py:508 src/StorageDetails.py:191
 #: src/StorageDetails.py:301 src/StorageDetails.py:339
@@ -92,9 +92,13 @@ msgstr "Değişken"
 msgid "Value"
 msgstr "Değer"
 
-#: src/EnvironmentVariables.py:133 ui/EnvironmentVarMenuCustomizations.ui:248
-msgid "Variable Type"
-msgstr "Değişken Türü"
+#: src/EnvironmentVariables.py:133 src/RamHardwareInformation.py:131
+#: src/RamHardwareInformation.py:150 src/RamSwapDetails.py:95
+#: src/Storage.py:191 ui/EnvironmentVarMenuCustomizations.ui:248
+#: ui/ServicesDetailsWindow.ui:245 ui/StorageDetailsWindow.ui:77
+#: ui/StorageMenuCustomizations.ui:262
+msgid "Type"
+msgstr "Tür"
 
 #: src/EnvironmentVariables.py:164
 msgid ""
@@ -175,11 +179,11 @@ msgstr ""
 "Uyarı! Uygulama root ayrıcalıklarıyla ile çalıştırıldı, sisteminize zarar "
 "verebilirsiniz."
 
-#: src/Network.py:184
+#: src/Network.py:203
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: src/Network.py:186
+#: src/Network.py:205
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
@@ -244,8 +248,9 @@ msgid "Status"
 msgstr "Durum"
 
 #: src/Processes.py:212 src/Users.py:170 ui/CpuMenus.ui:378
-#: ui/ProcessesMenuCustomizations.ui:735 ui/UsersDetailsWindow.ui:195
-#: ui/UsersMenuCustomizations.ui:318 ui/UsersMenuCustomizations.ui:574
+#: ui/ProcessesMenuCustomizations.ui:421 ui/ProcessesMenuCustomizations.ui:735
+#: ui/UsersDetailsWindow.ui:195 ui/UsersMenuCustomizations.ui:318
+#: ui/UsersMenuCustomizations.ui:574
 msgid "CPU%"
 msgstr "%MİB"
 
@@ -364,7 +369,7 @@ msgstr "İşlem Detayları"
 #: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:264
 #: src/ProcessesMenuRightClick.py:276 src/RamHardwareInformation.py:161
 #: src/ServicesMenuRightClick.py:148 src/SettingsGUI.py:583
-#: src/StartupMenuRightClick.py:412 src/StartupMenuRightClick.py:425
+#: src/StartupMenuRightClick.py:442 src/StartupMenuRightClick.py:455
 #: src/StartupNewItem.py:177 src/StorageDetails.py:511
 #: src/StorageMenuRightClick.py:221 src/StorageRename.py:145
 #: src/UsersMenuRightClick.py:72
@@ -399,7 +404,7 @@ msgstr "İşlemi Öldür?"
 msgid "Do you want to kill the following process?"
 msgstr "Şu işlemi öldürmek istiyor musunuz?"
 
-#: src/ProcessesMenuRightClick.py:288 src/StartupMenuRightClick.py:438
+#: src/ProcessesMenuRightClick.py:288 src/StartupMenuRightClick.py:468
 msgid "Error"
 msgstr "Hata"
 
@@ -419,8 +424,8 @@ msgstr "Toplam Fiziksel RAM: "
 msgid "Reserved Swap Memory: "
 msgstr "Ayrılmış Takas Belleği: "
 
-#: src/RamHardwareInformation.py:65 src/StartupMenuRightClick.py:400
-#: src/StartupMenuRightClick.py:406
+#: src/RamHardwareInformation.py:65 src/StartupMenuRightClick.py:430
+#: src/StartupMenuRightClick.py:436
 msgid "None"
 msgstr "Yok"
 
@@ -435,12 +440,6 @@ msgstr "Aygıt Sayısı"
 #: src/RamHardwareInformation.py:130 src/RamHardwareInformation.py:149
 msgid "Capacity"
 msgstr "Kapasite"
-
-#: src/RamHardwareInformation.py:131 src/RamHardwareInformation.py:150
-#: src/RamSwapDetails.py:95 src/Storage.py:191 ui/ServicesDetailsWindow.ui:245
-#: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:262
-msgid "Type"
-msgstr "Tür"
 
 #: src/RamHardwareInformation.py:132
 msgid "Speed/Frequency"
@@ -550,8 +549,8 @@ msgstr "Yüklenme Durumu"
 msgid "Sub-State"
 msgstr "Alt Durum"
 
-#: src/Services.py:168 src/Users.py:171 ui/ServicesMenuCustomizations.ui:304
-#: ui/UsersDetailsWindow.ui:406
+#: src/Services.py:168 src/Users.py:171 ui/ServicesDetailsWindow.ui:258
+#: ui/ServicesMenuCustomizations.ui:304 ui/UsersDetailsWindow.ui:406
 msgid "Memory (RSS)"
 msgstr "Bellek (RSS)"
 
@@ -663,11 +662,11 @@ msgstr "MİB"
 msgid "RAM"
 msgstr "RAM"
 
-#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:406
+#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:405
 msgid "Network"
 msgstr "Ağ"
 
-#: src/SettingsGUI.py:320 ui/GpuTab.ui:346 ui/MainWindow.ui:221
+#: src/SettingsGUI.py:320 ui/GpuTab.ui:344 ui/MainWindow.ui:221
 msgid "GPU"
 msgstr "GPU"
 
@@ -694,8 +693,9 @@ msgstr "İsim"
 msgid "Comment"
 msgstr "Açıklama"
 
-#: src/Startup.py:136 ui/StartupMenuCustomizations.ui:248
-#: ui/StartupNewItemWindow.ui:177
+#: src/Startup.py:136 src/StartupMenuRightClick.py:446
+#: src/StartupMenuRightClick.py:459 src/StartupMenuRightClick.py:472
+#: ui/StartupMenuCustomizations.ui:248 ui/StartupNewItemWindow.ui:177
 msgid "Command"
 msgstr "Komut"
 
@@ -709,14 +709,14 @@ msgstr "Şimdilik şu masaüstü ortamları destekleniyor:"
 msgid "Total: AAAA startup applications (BBBB visible, CCCC hidden)"
 msgstr "Toplam: AAAA başlangıç uygulaması (BBBB görünür, CCCC gizli)"
 
-#: src/StartupMenuRightClick.py:239
+#: src/StartupMenuRightClick.py:247
 msgid ""
 "Do you want to delete system-wide values file of the following startup item?"
 msgstr ""
 "Şu başlangıç ögesinin sistem geneli değerler dosyasını silmek istiyor "
 "musunuz?"
 
-#: src/StartupMenuRightClick.py:253
+#: src/StartupMenuRightClick.py:269
 msgid ""
 "Do you want to delete user-specific values file of the following startup "
 "item?"
@@ -724,7 +724,7 @@ msgstr ""
 "Şu başlangıç ögesinin kullanıcıya özgü değerler dosyasını silmek istiyor "
 "musunuz?"
 
-#: src/StartupMenuRightClick.py:266
+#: src/StartupMenuRightClick.py:296
 msgid ""
 "Do you want to delete system-wide and user-specific value files of the "
 "following startup item?"
@@ -732,51 +732,40 @@ msgstr ""
 "Şu başlangıç ögesinin sistem geneli ve kullanıcıya özgü değerler dosyalarını "
 "silmek istiyor musunuz?"
 
-#: src/StartupMenuRightClick.py:397 src/StartupMenuRightClick.py:400
+#: src/StartupMenuRightClick.py:427 src/StartupMenuRightClick.py:430
 #: ui/StartupMenuRightClick.ui:153
 msgid "System-wide values file: "
 msgstr "Sistem geneli değerler dosyası: "
 
-#: src/StartupMenuRightClick.py:403 src/StartupMenuRightClick.py:406
+#: src/StartupMenuRightClick.py:433 src/StartupMenuRightClick.py:436
 #: ui/StartupMenuRightClick.ui:162
 msgid "User-specific values file: "
 msgstr "Kullanıcıya özgü değerler dosyası: "
 
-#: src/StartupMenuRightClick.py:413
+#: src/StartupMenuRightClick.py:443
 msgid "Run Startup Item Now?"
 msgstr "Başlangıç Ögesini Şimdi Çalıştır?"
 
-#: src/StartupMenuRightClick.py:414
+#: src/StartupMenuRightClick.py:444
 msgid "Do you want to run the following startup item?"
 msgstr "Şu başlangıç ögesini çalıştırmak istiyor musunuz?"
 
-#: src/StartupMenuRightClick.py:415 src/StartupMenuRightClick.py:428
-msgid "Startup Item:"
-msgstr "Başlangıç Ögesi:"
+#: src/StartupMenuRightClick.py:445 src/StartupMenuRightClick.py:458
+#: src/StartupMenuRightClick.py:471 src/StartupNewItem.py:180
+msgid "Startup Item"
+msgstr "Başlangıç Ögesi"
 
-#: src/StartupMenuRightClick.py:416 src/StartupMenuRightClick.py:429
-msgid "Command:"
-msgstr "Komut:"
-
-#: src/StartupMenuRightClick.py:426
+#: src/StartupMenuRightClick.py:456
 msgid "Delete Startup Item?"
 msgstr "Başlangıç Ögesini Sil?"
 
-#: src/StartupMenuRightClick.py:439
+#: src/StartupMenuRightClick.py:469
 msgid "Error While Running Startup Item Command"
 msgstr "Başlangıç Ögesi Komutunu Çalıştırırken Hata"
 
-#: src/StartupMenuRightClick.py:440
+#: src/StartupMenuRightClick.py:470
 msgid "Error is encountered while running the following command:"
 msgstr "Şu komutu çalıştırırken hatayla karşılaşıldı:"
-
-#: src/StartupMenuRightClick.py:441
-msgid "'.desktop' File Name:"
-msgstr "'.desktop' Dosyası Adı:"
-
-#: src/StartupMenuRightClick.py:442
-msgid "Startup Item Command:"
-msgstr "Başlangıç Ögesi Komutu:"
 
 #: src/StartupNewItem.py:178
 msgid "Do You Want To Overwrite Existing File?"
@@ -786,13 +775,9 @@ msgstr "Var Olan Dosyanın Üzerine Yazmak İstiyor musunuz?"
 msgid "There is already a '.desktop' file with the same name."
 msgstr "Aynı isimde zaten bir '.desktop' dosyası var."
 
-#: src/StartupNewItem.py:180
-msgid "Existing Startup Item:"
-msgstr "Var Olan Başlangıç Ögesi:"
-
 #: src/StartupNewItem.py:181
-msgid "Existing '.desktop' File Name:"
-msgstr "Var Olan '.desktop' Dosyası Adı:"
+msgid "'.desktop' File Name"
+msgstr "'.desktop' Dosyası Adı"
 
 #: src/Storage.py:188 ui/StorageDetailsWindow.ui:38
 #: ui/StorageMenuCustomizations.ui:218
@@ -839,8 +824,8 @@ msgstr "Kullanılan Alan"
 msgid "Used Space%"
 msgstr "Kullanılan %Alan"
 
-#: src/Storage.py:198 ui/CpuTab.ui:463 ui/DiskTab.ui:79 ui/GpuTab.ui:403
-#: ui/NetworkTab.ui:463 ui/StorageDetailsWindow.ui:168
+#: src/Storage.py:198 ui/CpuTab.ui:463 ui/DiskTab.ui:79 ui/GpuTab.ui:401
+#: ui/NetworkTab.ui:462 ui/StorageDetailsWindow.ui:168
 #: ui/StorageMenuCustomizations.ui:458
 msgid "Vendor-Model"
 msgstr "Marka-Model"
@@ -893,11 +878,13 @@ msgstr "Sadece Okuma"
 msgid "UUID"
 msgstr "UUID"
 
-#: src/Storage.py:210 ui/StorageMenuCustomizations.ui:542
+#: src/Storage.py:210 ui/StorageDetailsWindow.ui:566
+#: ui/StorageMenuCustomizations.ui:542
 msgid "WWN"
 msgstr "WWN"
 
-#: src/Storage.py:211 ui/StorageMenuCustomizations.ui:528
+#: src/Storage.py:211 ui/StorageDetailsWindow.ui:553
+#: ui/StorageMenuCustomizations.ui:528
 msgid "Major:Minor Device #"
 msgstr "Majör:Minör Cihaz #"
 
@@ -1171,18 +1158,18 @@ msgstr "MİB Çekirdeği Seç:"
 #: ui/ServicesMenuCustomizations.ui:369 ui/StartupMenuCustomizations.ui:302
 #: ui/StartupNewItemWindow.ui:322 ui/StartupNewItemWindow.ui:334
 #: ui/StartupNewItemWindow.ui:346 ui/StartupNewItemWindow.ui:358
-#: ui/StorageDetailsWindow.ui:717 ui/StorageDetailsWindow.ui:730
-#: ui/StorageDetailsWindow.ui:743 ui/StorageDetailsWindow.ui:756
-#: ui/StorageDetailsWindow.ui:769 ui/StorageDetailsWindow.ui:782
-#: ui/StorageDetailsWindow.ui:795 ui/StorageDetailsWindow.ui:808
-#: ui/StorageDetailsWindow.ui:821 ui/StorageDetailsWindow.ui:834
-#: ui/StorageDetailsWindow.ui:847 ui/StorageDetailsWindow.ui:860
-#: ui/StorageDetailsWindow.ui:873 ui/StorageDetailsWindow.ui:886
-#: ui/StorageDetailsWindow.ui:899 ui/StorageDetailsWindow.ui:912
-#: ui/StorageDetailsWindow.ui:925 ui/StorageDetailsWindow.ui:938
-#: ui/StorageDetailsWindow.ui:951 ui/StorageDetailsWindow.ui:964
-#: ui/StorageDetailsWindow.ui:977 ui/StorageDetailsWindow.ui:990
-#: ui/StorageDetailsWindow.ui:1003 ui/StorageDetailsWindow.ui:1016
+#: ui/StorageDetailsWindow.ui:716 ui/StorageDetailsWindow.ui:729
+#: ui/StorageDetailsWindow.ui:742 ui/StorageDetailsWindow.ui:755
+#: ui/StorageDetailsWindow.ui:768 ui/StorageDetailsWindow.ui:781
+#: ui/StorageDetailsWindow.ui:794 ui/StorageDetailsWindow.ui:807
+#: ui/StorageDetailsWindow.ui:820 ui/StorageDetailsWindow.ui:833
+#: ui/StorageDetailsWindow.ui:846 ui/StorageDetailsWindow.ui:859
+#: ui/StorageDetailsWindow.ui:872 ui/StorageDetailsWindow.ui:885
+#: ui/StorageDetailsWindow.ui:898 ui/StorageDetailsWindow.ui:911
+#: ui/StorageDetailsWindow.ui:924 ui/StorageDetailsWindow.ui:937
+#: ui/StorageDetailsWindow.ui:950 ui/StorageDetailsWindow.ui:963
+#: ui/StorageDetailsWindow.ui:976 ui/StorageDetailsWindow.ui:989
+#: ui/StorageDetailsWindow.ui:1002 ui/StorageDetailsWindow.ui:1015
 #: ui/StorageMenuCustomizations.ui:593 ui/UsersDetailsWindow.ui:435
 #: ui/UsersDetailsWindow.ui:448 ui/UsersDetailsWindow.ui:461
 #: ui/UsersDetailsWindow.ui:474 ui/UsersDetailsWindow.ui:487
@@ -1207,20 +1194,22 @@ msgstr "%0"
 #: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:313
 #: ui/CpuTab.ui:344 ui/CpuTab.ui:387 ui/CpuTab.ui:450 ui/CpuTab.ui:465
 #: ui/DiskTab.ui:66 ui/DiskTab.ui:81 ui/DiskTab.ui:187 ui/DiskTab.ui:204
-#: ui/DiskTab.ui:221 ui/DiskTab.ui:238 ui/DiskTab.ui:255 ui/DiskTab.ui:304
-#: ui/DiskTab.ui:335 ui/DiskTab.ui:385 ui/DiskTab.ui:425 ui/DiskTab.ui:442
-#: ui/EnvironmentVariablesTab.ui:84 ui/FloatingSummaryWindow.ui:19
-#: ui/FloatingSummaryWindow.ui:31 ui/FloatingSummaryWindow.ui:43
-#: ui/FloatingSummaryWindow.ui:55 ui/FloatingSummaryWindow.ui:67
-#: ui/FloatingSummaryWindow.ui:79 ui/FloatingSummaryWindow.ui:91
-#: ui/FloatingSummaryWindow.ui:103 ui/GpuTab.ui:83 ui/GpuTab.ui:100
-#: ui/GpuTab.ui:117 ui/GpuTab.ui:161 ui/GpuTab.ui:178 ui/GpuTab.ui:209
-#: ui/GpuTab.ui:239 ui/GpuTab.ui:256 ui/GpuTab.ui:300 ui/GpuTab.ui:317
-#: ui/GpuTab.ui:390 ui/GpuTab.ui:405 ui/NetworkTab.ui:132 ui/NetworkTab.ui:149
+#: ui/DiskTab.ui:221 ui/DiskTab.ui:238 ui/DiskTab.ui:255 ui/DiskTab.ui:298
+#: ui/DiskTab.ui:328 ui/DiskTab.ui:376 ui/DiskTab.ui:414 ui/DiskTab.ui:431
+#: ui/DiskTab.ui:461 ui/EnvironmentVariablesTab.ui:84
+#: ui/FloatingSummaryWindow.ui:19 ui/FloatingSummaryWindow.ui:31
+#: ui/FloatingSummaryWindow.ui:43 ui/FloatingSummaryWindow.ui:55
+#: ui/FloatingSummaryWindow.ui:67 ui/FloatingSummaryWindow.ui:79
+#: ui/FloatingSummaryWindow.ui:91 ui/FloatingSummaryWindow.ui:103
+#: ui/GpuTab.ui:81 ui/GpuTab.ui:98 ui/GpuTab.ui:115 ui/GpuTab.ui:159
+#: ui/GpuTab.ui:176 ui/GpuTab.ui:207 ui/GpuTab.ui:237 ui/GpuTab.ui:254
+#: ui/GpuTab.ui:298 ui/GpuTab.ui:315 ui/GpuTab.ui:388 ui/GpuTab.ui:403
+#: ui/GpuTab.ui:439 ui/NetworkTab.ui:132 ui/NetworkTab.ui:149
 #: ui/NetworkTab.ui:166 ui/NetworkTab.ui:183 ui/NetworkTab.ui:200
 #: ui/NetworkTab.ui:217 ui/NetworkTab.ui:234 ui/NetworkTab.ui:251
-#: ui/NetworkTab.ui:281 ui/NetworkTab.ui:313 ui/NetworkTab.ui:450
-#: ui/NetworkTab.ui:465 ui/PerformanceSummaryHeaderBarGrid.ui:85
+#: ui/NetworkTab.ui:281 ui/NetworkTab.ui:313 ui/NetworkTab.ui:356
+#: ui/NetworkTab.ui:449 ui/NetworkTab.ui:464
+#: ui/PerformanceSummaryHeaderBarGrid.ui:85
 #: ui/PerformanceSummaryHeaderBarGrid.ui:100
 #: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
@@ -1264,11 +1253,11 @@ msgstr "%0"
 #: ui/StorageDetailsWindow.ui:327 ui/StorageDetailsWindow.ui:342
 #: ui/StorageDetailsWindow.ui:357 ui/StorageDetailsWindow.ui:373
 #: ui/StorageDetailsWindow.ui:389 ui/StorageDetailsWindow.ui:431
-#: ui/StorageDetailsWindow.ui:447 ui/StorageDetailsWindow.ui:580
-#: ui/StorageDetailsWindow.ui:595 ui/StorageDetailsWindow.ui:610
-#: ui/StorageDetailsWindow.ui:625 ui/StorageDetailsWindow.ui:640
-#: ui/StorageDetailsWindow.ui:655 ui/StorageDetailsWindow.ui:670
-#: ui/StorageDetailsWindow.ui:685 ui/StorageDetailsWindow.ui:701
+#: ui/StorageDetailsWindow.ui:447 ui/StorageDetailsWindow.ui:579
+#: ui/StorageDetailsWindow.ui:594 ui/StorageDetailsWindow.ui:609
+#: ui/StorageDetailsWindow.ui:624 ui/StorageDetailsWindow.ui:639
+#: ui/StorageDetailsWindow.ui:654 ui/StorageDetailsWindow.ui:669
+#: ui/StorageDetailsWindow.ui:684 ui/StorageDetailsWindow.ui:700
 #: ui/StorageRenameWindow.ui:163 ui/StorageTab.ui:83 ui/SystemTab.ui:29
 #: ui/SystemTab.ui:44 ui/SystemTab.ui:179 ui/SystemTab.ui:196
 #: ui/SystemTab.ui:241 ui/SystemTab.ui:271 ui/SystemTab.ui:304
@@ -1374,7 +1363,7 @@ msgstr "Veri Birimi:"
 msgid "Disk Speed:"
 msgstr "Disk Hızı:"
 
-#: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:361
+#: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:352
 #: ui/ProcessesMenuCustomizations.ui:777 ui/ProcessesMenuCustomizations.ui:879
 #: ui/StorageMenuCustomizations.ui:688 ui/StorageMenuCustomizations.ui:748
 msgid "Disk Usage:"
@@ -1432,83 +1421,34 @@ msgstr ""
 msgid "Write Time:"
 msgstr "Yazma Süresi:"
 
-#: ui/DiskTab.ui:271
-msgid ""
-"Free space of the selected disk (in powers of 1024)\n"
-"\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr ""
-"Seçilen diskteki boş alan (1024'ün katları şeklinde)\n"
-"\n"
-"Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
-"olabilir."
-
-#: ui/DiskTab.ui:275 ui/RamTab.ui:224
+#: ui/DiskTab.ui:272 ui/RamTab.ui:224
 msgid "Free:"
 msgstr "Boş:"
 
-#: ui/DiskTab.ui:287
-msgid ""
-"Used space of the selected disk (in powers of 1024)\n"
-"\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr ""
-"Seçilen diskteki kullanılan alan (1024'ün katları şeklinde)\n"
-"\n"
-"Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
-"olabilir."
-
-#: ui/DiskTab.ui:291 ui/RamTab.ui:42 ui/RamTab.ui:103
+#: ui/DiskTab.ui:285 ui/RamTab.ui:42 ui/RamTab.ui:103
 msgid "Used:"
 msgstr "Kullanılan:"
 
-#: ui/DiskTab.ui:320
-msgid "If operating system is installed on the selected disk"
-msgstr "İşletim sisteminin seçilen diske kurulu olup olmaması"
-
-#: ui/DiskTab.ui:322
+#: ui/DiskTab.ui:315
 msgid "System Disk:"
 msgstr "Sistem Diski:"
 
-#: ui/DiskTab.ui:357
+#: ui/DiskTab.ui:350 ui/DiskTab.ui:399
 msgid ""
-"Disk usage percent of the selected disk\n"
-"\n"
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
-"Seçilen diskin kullanım yüzdesi\n"
-"\n"
 "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
 "olabilir."
 
-#: ui/DiskTab.ui:408
-msgid ""
-"Total capacity of the selected disk (in powers of 1024)\n"
-"\n"
-"Measurement is made for filesystem and may differ from mass storage values."
-msgstr ""
-"Seçilen diskin toplam kapasitesi (1024'ün katları şeklinde)\n"
-"\n"
-"Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
-"olabilir."
-
-#: ui/DiskTab.ui:412 ui/RamTab.ui:163 ui/RamTab.ui:193
+#: ui/DiskTab.ui:401 ui/RamTab.ui:163 ui/RamTab.ui:193
 msgid "Capacity:"
 msgstr "Kapasite:"
 
-#: ui/DiskTab.ui:472 ui/NetworkTab.ui:356
-msgid "B/s"
-msgstr "B/s"
-
-#: ui/DiskTab.ui:483 ui/GpuTab.ui:470 ui/NetworkTab.ui:367
-msgid "Graphic scale is updated dynamically."
-msgstr "Grafik ölçeği dinamik olarak güncellenir."
-
-#: ui/DiskTab.ui:485
+#: ui/DiskTab.ui:473
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr "Disk Okuma (-) & Yazma (--) Hızı:"
 
-#: ui/DiskTab.ui:497 ui/GpuTab.ui:453 ui/NetworkTab.ui:381
+#: ui/DiskTab.ui:485 ui/GpuTab.ui:451 ui/NetworkTab.ui:380
 msgid "0"
 msgstr ""
 
@@ -1594,7 +1534,7 @@ msgstr "Tüm ortam değişkenlerini göster"
 msgid "Show all shell variables"
 msgstr "Tüm kabuk değişkenlerini göster"
 
-#: ui/GpuMenus.ui:20 ui/GpuTab.ui:362
+#: ui/GpuMenus.ui:20 ui/GpuTab.ui:360
 msgid "GPU Tab Customizations"
 msgstr "GPU Sekmesi Özelleştirmeleri"
 
@@ -1616,57 +1556,49 @@ msgstr ""
 "Basit bir FPS sayacıdır ve bazı durumlarda doğru değerler vermeyebilir.\n"
 "Pencere simge durumuna küçültülmüşken FPS sayımı devam etmez."
 
-#: ui/GpuTab.ui:29
-msgid "FPS (Frame Rate): "
-msgstr "FPS (Kare Oranı): "
+#: ui/GpuTab.ui:29 ui/GpuTab.ui:469
+msgid "FPS:"
+msgstr "FPS:"
 
 #: ui/GpuTab.ui:42
 msgid "Frame Latency:"
 msgstr "Kare Gecikmesi:"
 
-#: ui/GpuTab.ui:54
-msgid ""
-"Video memory of the selected GPU\n"
-"(Could be dedicated memory or reserved from RAM)"
-msgstr ""
-"Seçilen GPU'nun video belleği\n"
-"(Adanmış veya RAM'dan ayrılmış bellek olabilir)"
-
-#: ui/GpuTab.ui:57
+#: ui/GpuTab.ui:55
 msgid "Video Memory:"
 msgstr "Video Belleği:"
 
-#: ui/GpuTab.ui:70
+#: ui/GpuTab.ui:68
 msgid "Direct Rendering:"
 msgstr "Doğrudan İşleme:"
 
-#: ui/GpuTab.ui:134
+#: ui/GpuTab.ui:132
 msgid "OpenGL Version:"
 msgstr "OpenGL Sürümü:"
 
-#: ui/GpuTab.ui:146
+#: ui/GpuTab.ui:144
 msgid "If selected GPU has unified memory (reserved from RAM)"
 msgstr "Seçilen GPU'nun birleşik belleğinin (RAM'dan ayrılmış) olup olmaması"
 
-#: ui/GpuTab.ui:148
+#: ui/GpuTab.ui:146
 msgid "Unified Memory:"
 msgstr "Birleşik Bellek:"
 
-#: ui/GpuTab.ui:194
+#: ui/GpuTab.ui:192
 msgid ""
 "This information is available only on systems with X11 windowing system."
 msgstr ""
 "Bu bilgi sadece X11 pencere sisteminin kullanıldığı sistemlerde sağlanabilir."
 
-#: ui/GpuTab.ui:196
+#: ui/GpuTab.ui:194
 msgid "Refresh Rate:"
 msgstr "Yenileme Oranı:"
 
-#: ui/GpuTab.ui:226
+#: ui/GpuTab.ui:224
 msgid "Driver:"
 msgstr "Sürücü:"
 
-#: ui/GpuTab.ui:272
+#: ui/GpuTab.ui:270
 msgid ""
 "If selected GPU is default on system boot and/or used for graphics "
 "processing by default"
@@ -1674,25 +1606,17 @@ msgstr ""
 "Seçili GPU'nun sistem açılışında varsayılan olup olmaması ve/veya grafik "
 "işleme için varsayılan olup olmaması"
 
-#: ui/GpuTab.ui:274
+#: ui/GpuTab.ui:272
 msgid "Default GPU:"
 msgstr "Varsayılan GPU:"
 
-#: ui/GpuTab.ui:287
+#: ui/GpuTab.ui:285
 msgid "Resolution:"
 msgstr "Çözünürlük:"
 
-#: ui/GpuTab.ui:388
+#: ui/GpuTab.ui:386
 msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
 msgstr "İ.S. Tarafından Verilen (Ve Sürücüdeki) GPU/Grafik Kartı Adı"
-
-#: ui/GpuTab.ui:441
-msgid "FPS"
-msgstr "FPS"
-
-#: ui/GpuTab.ui:472
-msgid "FPS Count:"
-msgstr "FPS Sayısı:"
 
 #: ui/MainMenusDialogs.ui:12
 msgid "© 2022 Hakan DÜNDAR"
@@ -1740,7 +1664,7 @@ msgstr "Sistem Gözlem Merkezi"
 msgid "Main Menu"
 msgstr "Ana Menü"
 
-#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:422
+#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:421
 msgid "Network Tab Customizations"
 msgstr "Ağ Sekmesi Özelleştirmeleri"
 
@@ -1824,11 +1748,11 @@ msgstr ""
 msgid "Signal Strength:"
 msgstr "Sinyal Gücü:"
 
-#: ui/NetworkTab.ui:369
+#: ui/NetworkTab.ui:368
 msgid "Network Download (-) & Upload (--) Speed:"
 msgstr "Ağ İndirme (-) & Yükleme (--) Hızı:"
 
-#: ui/NetworkTab.ui:448
+#: ui/NetworkTab.ui:447
 msgid "Network Interface Controller (NIC) Name"
 msgstr "Ağ Arayüz Kontrolcüsü (NIC) Adı"
 
@@ -2005,10 +1929,6 @@ msgstr "İşlemleri ağaç olarak göster"
 #: ui/ProcessesMenuCustomizations.ui:117
 msgid "Show tree lines"
 msgstr "Ağaç çizgilerini göster"
-
-#: ui/ProcessesMenuCustomizations.ui:421
-msgid "CPU Usage Percent"
-msgstr "MİB Kullanım Yüzdesi"
 
 #: ui/ProcessesMenuCustomizations.ui:698 ui/ProcessesMenuCustomizations.ui:833
 #: ui/UsersMenuCustomizations.ui:557 ui/UsersMenuCustomizations.ui:660
@@ -2215,10 +2135,6 @@ msgstr "Ana İşlem Sonlanma Zamanı"
 #: ui/ServicesDetailsWindow.ui:232
 msgid "Control PID"
 msgstr "Kontrol PID"
-
-#: ui/ServicesDetailsWindow.ui:258
-msgid "Current Memory (RSS)"
-msgstr "Şimdiki Bellek (RSS)"
 
 #: ui/ServicesDetailsWindow.ui:271
 msgid "Unit File State - Preset"
@@ -2480,18 +2396,6 @@ msgstr "Tüm devre dışı bırakılmış (gizli) başlangıç ögelerini göste
 #: ui/StorageDetailsWindow.ui:181
 msgid "Label (File System)"
 msgstr "Etiket (Dosya Sistemi)"
-
-#: ui/StorageDetailsWindow.ui:553
-msgid "Major:Minor Device Number"
-msgstr "Majör-Minör Cihaz Numarası"
-
-#: ui/StorageDetailsWindow.ui:566
-msgid ""
-"Unique Storage Identifier\n"
-"(WWN)"
-msgstr ""
-"Benzersiz Depolama Kimliği\n"
-"(WWN)"
 
 #: ui/StorageMenuCustomizations.ui:20 ui/StorageTab.ui:60
 msgid "Storage Tab Customizations"
@@ -2767,6 +2671,106 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Variable Type"
+#~ msgstr "Değişken Türü"
+
+#~ msgid ""
+#~ "Video memory of the selected GPU\n"
+#~ "(Could be dedicated memory or reserved from RAM)"
+#~ msgstr ""
+#~ "Seçilen GPU'nun video belleği\n"
+#~ "(Adanmış veya RAM'dan ayrılmış bellek olabilir)"
+
+#~ msgid "CPU Usage Percent"
+#~ msgstr "MİB Kullanım Yüzdesi"
+
+#~ msgid "Current Memory (RSS)"
+#~ msgstr "Şimdiki Bellek (RSS)"
+
+#~ msgid "Major:Minor Device Number"
+#~ msgstr "Majör-Minör Cihaz Numarası"
+
+#~ msgid ""
+#~ "Unique Storage Identifier\n"
+#~ "(WWN)"
+#~ msgstr ""
+#~ "Benzersiz Depolama Kimliği\n"
+#~ "(WWN)"
+
+#~ msgid "Command:"
+#~ msgstr "Komut:"
+
+#~ msgid "Startup Item Command:"
+#~ msgstr "Başlangıç Ögesi Komutu:"
+
+#~ msgid "Existing Startup Item:"
+#~ msgstr "Var Olan Başlangıç Ögesi:"
+
+#~ msgid "Existing '.desktop' File Name:"
+#~ msgstr "Var Olan '.desktop' Dosyası Adı:"
+
+#~ msgid ""
+#~ "Free space of the selected disk (in powers of 1024)\n"
+#~ "\n"
+#~ "Measurement is made for filesystem and may differ from mass storage "
+#~ "values."
+#~ msgstr ""
+#~ "Seçilen diskteki boş alan (1024'ün katları şeklinde)\n"
+#~ "\n"
+#~ "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
+#~ "olabilir."
+
+#~ msgid ""
+#~ "Used space of the selected disk (in powers of 1024)\n"
+#~ "\n"
+#~ "Measurement is made for filesystem and may differ from mass storage "
+#~ "values."
+#~ msgstr ""
+#~ "Seçilen diskteki kullanılan alan (1024'ün katları şeklinde)\n"
+#~ "\n"
+#~ "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
+#~ "olabilir."
+
+#~ msgid "If operating system is installed on the selected disk"
+#~ msgstr "İşletim sisteminin seçilen diske kurulu olup olmaması"
+
+#~ msgid ""
+#~ "Disk usage percent of the selected disk\n"
+#~ "\n"
+#~ "Measurement is made for filesystem and may differ from mass storage "
+#~ "values."
+#~ msgstr ""
+#~ "Seçilen diskin kullanım yüzdesi\n"
+#~ "\n"
+#~ "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
+#~ "olabilir."
+
+#~ msgid ""
+#~ "Total capacity of the selected disk (in powers of 1024)\n"
+#~ "\n"
+#~ "Measurement is made for filesystem and may differ from mass storage "
+#~ "values."
+#~ msgstr ""
+#~ "Seçilen diskin toplam kapasitesi (1024'ün katları şeklinde)\n"
+#~ "\n"
+#~ "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
+#~ "olabilir."
+
+#~ msgid "B/s"
+#~ msgstr "B/s"
+
+#~ msgid "Graphic scale is updated dynamically."
+#~ msgstr "Grafik ölçeği dinamik olarak güncellenir."
+
+#~ msgid "FPS (Frame Rate): "
+#~ msgstr "FPS (Kare Oranı): "
+
+#~ msgid "FPS"
+#~ msgstr "FPS"
+
+#~ msgid "FPS Count:"
+#~ msgstr "FPS Sayısı:"
 
 #~ msgid "Do you want to continue?"
 #~ msgstr "Devam etmek istiyor musunuz?"
@@ -3877,15 +3881,6 @@ msgstr "Sadece çıkış yapmış kullanıcıları göster"
 #~ "olabilir."
 
 #~ msgid ""
-#~ "Disk usage percent of the selected disk\n"
-#~ "Measurement is made for filesystem and may differ from mass storage "
-#~ "values."
-#~ msgstr ""
-#~ "Seçilen diskin kullanım yüzdesi\n"
-#~ "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
-#~ "olabilir."
-
-#~ msgid ""
 #~ "Total capacity of the selected disk (in powers of 1024)\n"
 #~ "Measurement is made for filesystem and may differ from mass storage "
 #~ "values."
@@ -4091,9 +4086,6 @@ msgstr "Sadece çıkış yapmış kullanıcıları göster"
 #~ "output"
 #~ msgstr ""
 #~ "'ps --forest -Ao pid,uid,ppid,cmd' komutu çıktısından işlem ağacı bilgisi"
-
-#~ msgid "FPS: "
-#~ msgstr "FPS: "
 
 #~ msgid ""
 #~ "Warning! The application has been run with root privileges, you may harm "

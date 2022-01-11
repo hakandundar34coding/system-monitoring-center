@@ -349,11 +349,11 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="label1413">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">end</property>
-            <property name="label" translatable="yes">B/s</property>
+            <property name="label" translatable="yes">--</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
@@ -364,7 +364,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Graphic scale is updated dynamically.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Network Download (-) &amp; Upload (--) Speed:</property>
           </object>

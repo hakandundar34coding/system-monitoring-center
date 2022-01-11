@@ -130,7 +130,7 @@ def environment_variables_initial_func():
     environment_variables_data_list = [
                                       [0, _tr('Variable'), 2, 1, 2, [bool, str], ['internal_column', 'CellRendererText'], ['no_cell_attribute', 'text'], [0, 1], ['no_cell_alignment', 0.0], ['no_set_expand', False], ['no_cell_function', 'no_cell_function']],
                                       [1, _tr('Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                                      [2, _tr('Variable Type'), 2, 2, 2, [str, str], ['CellRendererPixbuf', 'CellRendererText'], ['icon_name', 'text'], [0, 1], [0.0, 0.0], [False, False], ['no_cell_function', 'no_cell_function']]
+                                      [2, _tr('Type'), 2, 2, 2, [str, str], ['CellRendererPixbuf', 'CellRendererText'], ['icon_name', 'text'], [0, 1], [0.0, 0.0], [False, False], ['no_cell_function', 'no_cell_function']]
                                       ]
 
     global environment_variables_data_rows_prev, varible_list_prev, piter_list, environment_variables_treeview_columns_shown_prev, environment_variables_data_row_sorting_column_prev, environment_variables_data_row_sorting_order_prev, environment_variables_data_column_order_prev, environment_variables_data_column_widths_prev

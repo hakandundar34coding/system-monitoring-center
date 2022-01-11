@@ -29,7 +29,7 @@ def network_gui_func():
 
     # Network tab GUI objects
     global grid1401, drawingarea1401, button1401, label1401, label1402
-    global label1403, label1404, label1405, label1406, label1407, label1408, label1409, label1410, label1411, label1412
+    global label1403, label1404, label1405, label1406, label1407, label1408, label1409, label1410, label1411, label1412, label1413
 
     # Network tab GUI objects - get
     grid1401 = builder.get_object('grid1401')
@@ -47,6 +47,7 @@ def network_gui_func():
     label1410 = builder.get_object('label1410')
     label1411 = builder.get_object('label1411')
     label1412 = builder.get_object('label1412')
+    label1413 = builder.get_object('label1413')
 
 
     # Network tab GUI functions
@@ -98,6 +99,24 @@ def network_gui_func():
             chart1401_y_limit = 1.1 * (max(network_receive_speed) + 0.0000001)
         if Config.plot_network_download_speed == 0 and Config.plot_network_upload_speed == 1:
             chart1401_y_limit = 1.1 * (max(network_send_speed) + 0.0000001)
+
+        # ---------- Start - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
+        data_unit_for_chart_y_limit = 0
+        if Config.performance_network_speed_data_unit >= 8:
+            data_unit_for_chart_y_limit = 8
+        try:
+            chart1401_y_limit_str = f'{network_data_unit_converter_func(chart1401_y_limit, data_unit_for_chart_y_limit, 0)}/s'
+        except NameError:
+            return
+        chart1401_y_limit_split = chart1401_y_limit_str.split(" ")
+        chart1401_y_limit_float = float(chart1401_y_limit_split[0])
+        number_of_digits = len(str(int(chart1401_y_limit_split[0])))
+        multiple = 10 ** (number_of_digits - 1)
+        number_to_get_next_multiple = chart1401_y_limit_float + (multiple - 0.0001)
+        next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
+        label1413.set_text(f'{next_multiple} {chart1401_y_limit_split[1]}')
+        chart1401_y_limit = (chart1401_y_limit * next_multiple / (chart1401_y_limit_float + 0.0000001) + 0.0000001)
+        # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
         chart1401.set_dash([], 0)
         chart1401.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
@@ -233,7 +252,7 @@ def network_loop_func():
         elif network_info == "down":
             network_card_connected = _tr("No")
         elif network_info == "unknown":
-            network_card_connected = _tr("Unknown")
+            network_card_connected = f'[{_tr("Unknown")}]'
         else:
             network_card_connected = network_info
     # Get network_ssid
