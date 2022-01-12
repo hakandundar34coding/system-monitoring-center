@@ -193,21 +193,19 @@ def performance_background_loop_func():
     global cpu_time_all, cpu_time_load
     global cpu_time_all_prev, cpu_time_load_prev                                              # Make global previously defined variables, therefore Python could acces these variables faster (it directly searchs in globals()).
     logical_core_list_system_ordered = []                                                     # "logical_core_list_system_ordered" contains online CPU core numbers in the order of "/proc/stats" file content which is in "ascending" online core number order.
-    with open("/proc/stat") as reader:                                                        # "/proc/stat" file contains online logical CPU core numbers (all cores without regarding CPU sockets, physical/logical cores) and CPU times since system boot. This file is not a real file (it is provided by using Virtual File System by the OS kernel) and it is not located on the storage.
+    with open("/proc/stat") as reader:                                                        # "/proc/stat" file contains online logical CPU core numbers (all cores without regarding CPU sockets, physical/logical cores) and CPU times since system boot.
         proc_stat_lines = reader.read().split("intr", 1)[0].strip().split("\n")[1:]           # Trimmed unneeded information in the file
     for line in proc_stat_lines:
-        logical_core_list_system_ordered.append(line.split(" ", 1)[0].split("cpu")[1])        # Add CPU core numbers into a temporary list in ascending core number order. This list will be used with logical_core_list in order to track last online-made CPU core. This operations are performed in order to track CPU usage per core continuously even if CPU cores made online/offline.
-    number_of_logical_cores = len(logical_core_list_system_ordered)                           # Count number of online logical CPU cores.
+        logical_core_list_system_ordered.append(line.split(" ", 1)[0])                        # Add CPU core names into a temporary list in ascending core number order. This list will be used with logical_core_list in order to track last online-made CPU core. This operations are performed in order to track CPU usage per core continuously even if CPU cores made online/offline.
+    number_of_logical_cores = len(logical_core_list_system_ordered)
     for i, cpu_core in enumerate(logical_core_list_system_ordered):                           # Track the changes if CPU core is made online/offline
         if cpu_core not in logical_core_list:                                                 # Add new core number into logical_core_list if CPU core is made online. Also CPU time data related to online-made the core is appended into lists.
             logical_core_list.append(cpu_core)
             cpu_time = proc_stat_lines[i].split()
-            cpu_time_all_scratch = int(cpu_time[1]) + int(cpu_time[2]) + int(cpu_time[3]) + int(cpu_time[4]) + int(cpu_time[5]) + int(cpu_time[6]) + int(cpu_time[7]) + int(cpu_time[8]) + int(cpu_time[9])
-            cpu_time_load_scratch = cpu_time_all_scratch - int(cpu_time[4]) - int(cpu_time[5])
-            cpu_time_all_prev.append(cpu_time_all_scratch)
-            cpu_time_load_prev.append(cpu_time_load_scratch)
+            cpu_time_all_prev.append(int(cpu_time[1]) + int(cpu_time[2]) + int(cpu_time[3]) + int(cpu_time[4]) + int(cpu_time[5]) + int(cpu_time[6]) + int(cpu_time[7]) + int(cpu_time[8]) + int(cpu_time[9]))
+            cpu_time_load_prev.append(cpu_time_all_prev[-1] - int(cpu_time[4]) - int(cpu_time[5]))
             performance_set_selected_cpu_core_func()
-    for cpu_core in logical_core_list:                                                        # Remove core number from logical_core_list if it is made offline. Also CPU time data related to offline-made the core is removed from lists.
+    for cpu_core in logical_core_list[:]:                                                     # Remove core number from logical_core_list if it is made offline. Also CPU time data related to offline-made the core is removed from lists.
         if cpu_core not in logical_core_list_system_ordered:
             del cpu_time_all_prev[logical_core_list.index(cpu_core)]
             del cpu_time_load_prev[logical_core_list.index(cpu_core)]
@@ -228,19 +226,19 @@ def performance_background_loop_func():
     cpu_usage_percent_ave.append(sum(cpu_usage_percent_per_core) / number_of_logical_cores)   # Calculate average CPU usage for all logical cores (summation of CPU usage per core / number of logical cores)
     del cpu_usage_percent_ave[0]                                                              # Delete the first CPU usage percent value from the list in order to keep list lenght same. Because a new value is appended in every loop. This list is used for CPU usage percent graphic.        
     cpu_time_all_prev = list(cpu_time_all)                                                    # Use the values as "previous" data. This data will be used in the next loop for calculating time difference.
-    cpu_time_load_prev = list(cpu_time_load)                                                  # Use the values as "previous" data. This data will be used in the next loop for calculating time difference.
+    cpu_time_load_prev = list(cpu_time_load)
 
     # Get ram_usage_percent
     global ram_usage_percent
     global ram_total, ram_free, ram_available, ram_used
-    with open("/proc/meminfo") as reader:                                                     # RAM usage information is get from /proc/meminfo VFS file.
+    with open("/proc/meminfo") as reader:
         memory_info = reader.read()
     ram_total = int(memory_info.split("MemTotal:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
     ram_free = int(memory_info.split("\nMemFree:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
     ram_available = int(memory_info.split("\nMemAvailable:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
-    ram_used = ram_total - ram_available                                                      # Used RAM value is calculated
-    ram_usage_percent.append(ram_used / ram_total * 100)                                      # Used RAM percentage is calculated
-    del ram_usage_percent[0]                                                                  # Delete the first RAM usage percent value from the list in order to keep list lenght same. Because a new value is appended in every loop. This list is used for RAM usage percent graphic.
+    ram_used = ram_total - ram_available
+    ram_usage_percent.append(ram_used / ram_total * 100)
+    del ram_usage_percent[0]
 
     # Get disk_list
     global disk_list_system_ordered, disk_list
@@ -269,7 +267,7 @@ def performance_background_loop_func():
             disk_read_speed.append([0] * chart_data_history)
             disk_write_speed.append([0] * chart_data_history)
             performance_set_selected_disk_func()
-    for disk in reversed(disk_list):
+    for disk in reversed(disk_list[:]):
         if disk not in disk_list_system_ordered:
             del disk_read_data_prev[disk_list.index(disk)]
             del disk_write_data_prev[disk_list.index(disk)]
@@ -300,7 +298,7 @@ def performance_background_loop_func():
     with open("/proc/net/dev") as reader:
         proc_net_dev_lines = reader.read().strip().split("\n")[2:]
     for line in proc_net_dev_lines:
-        network_card_list_system_ordered.append(line.split(":")[0].strip())
+        network_card_list_system_ordered.append(line.split(":", 1)[0].strip())
     for i, network_card in enumerate(network_card_list_system_ordered):
         if network_card not in network_card_list:
             network_card_list.append(network_card)
@@ -312,7 +310,7 @@ def performance_background_loop_func():
             network_receive_speed.append([0] * chart_data_history)
             network_send_speed.append([0] * chart_data_history)
             performance_set_selected_network_card_func()
-    for network_card in reversed(network_card_list):
+    for network_card in reversed(network_card_list[:]):
         if network_card not in network_card_list_system_ordered:
             del network_receive_bytes_prev[network_card_list.index(network_card)]
             del network_send_bytes_prev[network_card_list.index(network_card)]

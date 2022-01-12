@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-11 13:00+0300\n"
-"PO-Revision-Date: 2022-01-11 13:00+0300\n"
+"POT-Creation-Date: 2022-01-12 16:23+0300\n"
+"PO-Revision-Date: 2022-01-12 16:23+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -18,21 +18,17 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/Cpu.py:258 ui/CpuTab.ui:43
+#: src/Cpu.py:257 ui/CpuTab.ui:43
 msgid "CPU Usage (Average):"
 msgstr "MİB Kullanımı (Ortalama):"
 
-#: src/Cpu.py:260
+#: src/Cpu.py:259
 msgid "CPU Usage (Per Core):"
 msgstr "MİB Kullanımı (Çekirdek Başına):"
 
 #: src/Cpu.py:317 src/RamHardwareInformation.py:65
 msgid "Unknown"
 msgstr "Bilinmiyor"
-
-#: src/Cpu.py:373
-msgid "Selected CPU Core: "
-msgstr "Seçilen MİB Çekirdeği: "
 
 #: src/Disk.py:230 src/Disk.py:298 src/Disk.py:299 src/Disk.py:300
 #: src/Disk.py:301 src/Storage.py:323 src/Storage.py:377 src/Storage.py:386
@@ -2671,6 +2667,9 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Selected CPU Core: "
+#~ msgstr "Seçilen MİB Çekirdeği: "
 
 #~ msgid "Variable Type"
 #~ msgstr "Değişken Türü"

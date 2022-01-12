@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-11 13:00+0300\n"
+"POT-Creation-Date: 2022-01-12 16:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/Cpu.py:258 ui/CpuTab.ui:43
+#: src/Cpu.py:257 ui/CpuTab.ui:43
 msgid "CPU Usage (Average):"
 msgstr ""
 
-#: src/Cpu.py:260
+#: src/Cpu.py:259
 msgid "CPU Usage (Per Core):"
 msgstr ""
 
 #: src/Cpu.py:317 src/RamHardwareInformation.py:65
 msgid "Unknown"
-msgstr ""
-
-#: src/Cpu.py:373
-msgid "Selected CPU Core: "
 msgstr ""
 
 #: src/Disk.py:230 src/Disk.py:298 src/Disk.py:299 src/Disk.py:300

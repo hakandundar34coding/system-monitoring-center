@@ -196,17 +196,16 @@ def cpu_initial_func():
 
     number_of_logical_cores = Performance.number_of_logical_cores
     logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
-    selected_cpu_core_number = Performance.selected_cpu_core_number
     selected_cpu_core = Performance.selected_cpu_core
 
     # Get cache memory values of the selected CPU core
     # Get l1d cache value
     try:
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index0/level") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/level") as reader:
             cache_level = reader.read().strip()
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index0/type") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/type") as reader:
             cache_type = reader.read().strip()
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index0/size") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/size") as reader:
             cache_size = reader.read().strip()
         if cache_level == "1" and cache_type == "Data":
             cpu_l1d_cache_value_selected_core = cache_size
@@ -214,11 +213,11 @@ def cpu_initial_func():
         cpu_l1d_cache_value_selected_core = "-"
     # Get li cache value
     try:
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index1/level") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/level") as reader:
             cache_level = reader.read().strip()
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index1/type") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/type") as reader:
             cache_type = reader.read().strip()
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index1/size") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/size") as reader:
             cache_size = reader.read().strip()
         if cache_level == "1" and cache_type == "Instruction":
             cpu_l1i_cache_value_selected_core = cache_size
@@ -226,9 +225,9 @@ def cpu_initial_func():
         cpu_l1i_cache_value_selected_core = "-"
     # Get l2 cache value
     try:
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index2/level") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index2/level") as reader:
             cache_level = reader.read().strip()
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index2/size") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index2/size") as reader:
             cache_size = reader.read().strip()
         if cache_level == "2":
             cpu_l2_cache_value_selected_core = cache_size
@@ -236,9 +235,9 @@ def cpu_initial_func():
         cpu_l2_cache_value_selected_core = "-"
     # Get l3 cache value
     try:
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index3/level") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index3/level") as reader:
             cache_level = reader.read().strip()
-        with open("/sys/devices/system/cpu/cpu" + selected_cpu_core + "/cache/index3/size") as reader:
+        with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index3/size") as reader:
             cache_size = reader.read().strip()
         if cache_level == "3":
             cpu_l3_cache_value_selected_core = cache_size
@@ -271,6 +270,7 @@ def cpu_loop_func():
     cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
     selected_cpu_core_number = Performance.selected_cpu_core_number
     selected_cpu_core = Performance.selected_cpu_core
+    selected_cpu_core_number_only = selected_cpu_core.split("cpu")[1]
 
     drawingarea1101.queue_draw()
 
@@ -318,22 +318,22 @@ def cpu_loop_func():
 
     # Get maximum and minimum frequencies of the selected CPU core
     try:
-        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core + "/scaling_max_freq") as reader:
-            cpu_max_frequency_selected_core = float(reader.read().strip()) / 1000
-        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core + "/scaling_min_freq") as reader:
-            cpu_min_frequency_selected_core = float(reader.read().strip()) / 1000
+        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_max_freq") as reader:
+            cpu_max_frequency_selected_core = float(reader.read().strip()) / 1000000
+        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_min_freq") as reader:
+            cpu_min_frequency_selected_core = float(reader.read().strip()) / 1000000
     except FileNotFoundError:
         cpu_max_frequency_selected_core = "-"
         cpu_min_frequency_selected_core = "-"
 
     # Get current frequency of the selected CPU core
     try:
-        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core + "/scaling_cur_freq") as reader:
-            cpu_current_frequency_selected_core = float(reader.read().strip()) / 1000
+        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_cur_freq") as reader:
+            cpu_current_frequency_selected_core = float(reader.read().strip()) / 1000000
     except FileNotFoundError:
         with open("/proc/cpuinfo") as reader:
             proc_cpuinfo_all_cores = reader.read().strip().split("\n\n")
-        proc_cpuinfo_all_cores_lines = proc_cpuinfo_all_cores[int(selected_cpu_core)].split("\n")
+        proc_cpuinfo_all_cores_lines = proc_cpuinfo_all_cores[int(selected_cpu_core_number_only)].split("\n")
         for line in proc_cpuinfo_all_cores_lines:
             if line.startswith("cpu MHz"):
                 cpu_current_frequency_selected_core = float(line.split(":")[1].strip())
@@ -366,13 +366,13 @@ def cpu_loop_func():
 
     # Set and update CPU tab label texts by using information get
     label1101.set_text(cpu_model_names[selected_cpu_core_number])
+    label1102.set_text(selected_cpu_core)
     label1111.set_text(f'{number_of_total_processes} - {number_of_total_threads}')
     label1112.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
     label1103.set_text(f'{cpu_usage_percent_ave[-1]:.{Config.performance_cpu_usage_percent_precision}f} %')
-    label1104.set_text(f'{cpu_current_frequency_selected_core/1000:.2f} GHz')
-    label1102.set_text(_tr("Selected CPU Core: ") + selected_cpu_core)
+    label1104.set_text(f'{cpu_current_frequency_selected_core:.2f} GHz')
     if isinstance(cpu_max_frequency_selected_core, str) is False:
-        label1105.set_text(f'{cpu_min_frequency_selected_core/1000:.2f} - {cpu_max_frequency_selected_core/1000:.2f} GHz')
+        label1105.set_text(f'{cpu_min_frequency_selected_core:.2f} - {cpu_max_frequency_selected_core:.2f} GHz')
     if isinstance(cpu_max_frequency_selected_core, str) is True:
         label1105.set_text(f'{cpu_min_frequency_selected_core} - {cpu_max_frequency_selected_core}')
     label1106.set_text(f'{number_of_cpu_sockets}')
