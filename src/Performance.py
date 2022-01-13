@@ -39,10 +39,22 @@ def performance_set_selected_disk_func():
     with open("/proc/mounts") as reader:
         proc_mounts_output_lines = reader.read().strip().split("\n")
     system_disk_list = []
-    for disk in disk_list:
-        for line in proc_mounts_output_lines:
-            if line.split(" ", 2)[0].strip() == ("/dev/" + disk) and line.split(" ", 2)[1].strip() == "/":
+    for line in proc_mounts_output_lines:
+        line_split = line.split(" ", 2)
+        if line_split[1].strip() == "/":
+            disk = line_split[0].strip().split("/")[-1]
+            if disk in disk_list:
                 system_disk_list.append(disk)
+                break
+    if system_disk_list == []:                                                                # The code below this statement is used because system disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices.
+        with open("/proc/cmdline") as reader:
+            proc_cmdline = reader.read()
+        if "root=UUID=" in proc_cmdline:
+            disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
+            system_disk_list.append(os.path.realpath("/dev/disk/by-uuid/" + disk_uuid_partuuid).split("/")[-1].strip())
+        if "root=PARTUUID=" in proc_cmdline:
+            disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
+            system_disk_list.append(os.path.realpath("/dev/disk/by-partuuid/" + disk_uuid_partuuid).split("/")[-1].strip())
     global selected_disk_number
     if Config.selected_disk in disk_list:
         selected_disk = Config.selected_disk
@@ -198,19 +210,20 @@ def performance_background_loop_func():
     for line in proc_stat_lines:
         logical_core_list_system_ordered.append(line.split(" ", 1)[0])                        # Add CPU core names into a temporary list in ascending core number order. This list will be used with logical_core_list in order to track last online-made CPU core. This operations are performed in order to track CPU usage per core continuously even if CPU cores made online/offline.
     number_of_logical_cores = len(logical_core_list_system_ordered)
+    logical_core_list_prev = logical_core_list[:]                                             # Get copy of the list. Otherwise, lists will be linked.
     for i, cpu_core in enumerate(logical_core_list_system_ordered):                           # Track the changes if CPU core is made online/offline
         if cpu_core not in logical_core_list:                                                 # Add new core number into logical_core_list if CPU core is made online. Also CPU time data related to online-made the core is appended into lists.
             logical_core_list.append(cpu_core)
             cpu_time = proc_stat_lines[i].split()
             cpu_time_all_prev.append(int(cpu_time[1]) + int(cpu_time[2]) + int(cpu_time[3]) + int(cpu_time[4]) + int(cpu_time[5]) + int(cpu_time[6]) + int(cpu_time[7]) + int(cpu_time[8]) + int(cpu_time[9]))
             cpu_time_load_prev.append(cpu_time_all_prev[-1] - int(cpu_time[4]) - int(cpu_time[5]))
-            performance_set_selected_cpu_core_func()
     for cpu_core in logical_core_list[:]:                                                     # Remove core number from logical_core_list if it is made offline. Also CPU time data related to offline-made the core is removed from lists.
         if cpu_core not in logical_core_list_system_ordered:
             del cpu_time_all_prev[logical_core_list.index(cpu_core)]
             del cpu_time_load_prev[logical_core_list.index(cpu_core)]
             logical_core_list.remove(cpu_core)
-            performance_set_selected_cpu_core_func()
+    if logical_core_list_prev != logical_core_list:
+        performance_set_selected_cpu_core_func()
     # Get cpu_usage_percent_per_core, cpu_usage_percent_ave
     global cpu_usage_percent_per_core, cpu_usage_percent_ave
     cpu_time_all = []
@@ -256,6 +269,7 @@ def performance_background_loop_func():
     for line in proc_diskstats_lines:
         if line.split()[2] in disk_list_system_ordered:
             proc_diskstats_lines_filtered.append(line)                                        # Disk information of some disks (such a loop devices) exist in "/proc/diskstats" file even if these dvice are unmounted. "proc_diskstats_lines_filtered" list is used in order to use disk list without these remaining information.
+    disk_list_prev = disk_list[:]
     for i, disk in enumerate(disk_list_system_ordered):
         if disk not in disk_list:
             disk_list.append(disk)
@@ -266,7 +280,6 @@ def performance_background_loop_func():
             disk_write_data_prev.append(disk_write_data)
             disk_read_speed.append([0] * chart_data_history)
             disk_write_speed.append([0] * chart_data_history)
-            performance_set_selected_disk_func()
     for disk in reversed(disk_list[:]):
         if disk not in disk_list_system_ordered:
             del disk_read_data_prev[disk_list.index(disk)]
@@ -274,7 +287,8 @@ def performance_background_loop_func():
             del disk_read_speed[disk_list.index(disk)]
             del disk_write_speed[disk_list.index(disk)]
             disk_list.remove(disk)
-            performance_set_selected_disk_func()
+    if disk_list_prev != disk_list:
+        performance_set_selected_disk_func()
     # Get disk_read_speed, disk_write_speed
     disk_read_data = []
     disk_write_data = []
@@ -299,6 +313,7 @@ def performance_background_loop_func():
         proc_net_dev_lines = reader.read().strip().split("\n")[2:]
     for line in proc_net_dev_lines:
         network_card_list_system_ordered.append(line.split(":", 1)[0].strip())
+    network_card_list_prev = network_card_list[:]
     for i, network_card in enumerate(network_card_list_system_ordered):
         if network_card not in network_card_list:
             network_card_list.append(network_card)
@@ -309,7 +324,6 @@ def performance_background_loop_func():
             network_send_bytes_prev.append(network_send_bytes)
             network_receive_speed.append([0] * chart_data_history)
             network_send_speed.append([0] * chart_data_history)
-            performance_set_selected_network_card_func()
     for network_card in reversed(network_card_list[:]):
         if network_card not in network_card_list_system_ordered:
             del network_receive_bytes_prev[network_card_list.index(network_card)]
@@ -317,7 +331,8 @@ def performance_background_loop_func():
             del network_receive_speed[network_card_list.index(network_card)]
             del network_send_speed[network_card_list.index(network_card)]
             network_card_list.remove(network_card)
-            performance_set_selected_network_card_func()
+    if network_card_list_prev != network_card_list:
+        performance_set_selected_network_card_func()
     # Get network_receive_speed, network_send_speed
     network_receive_bytes = []
     network_send_bytes = []
