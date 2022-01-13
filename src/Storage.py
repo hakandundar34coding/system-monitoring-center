@@ -333,11 +333,28 @@ def storage_loop_func():
         # Get if disk is system disk information
         if 2 in storage_treeview_columns_shown:
             disk_system_disk = False                                                          # Initial value of "disk_system_disk" variable. This value will be used if disk mount point is not "/".
+            disk_in_proc_mounts_lines = "no"                                                  # This variable (initial value) is defined here because system disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
             for line in proc_mounts_lines:
-                line_split = line.split()
-                if line_split[0].split("/")[-1] == disk and line_split[1] == "/":
-                    disk_system_disk = True
-                    break
+                line_split = line.split(" ", 2)
+                if line_split[0].split("/")[-1] == disk:
+                    disk_in_proc_mounts_lines = "yes"
+                    if line_split[1] == "/":
+                        disk_system_disk = True
+                        break
+            if disk_in_proc_mounts_lines == "no":
+                for line in proc_mounts_lines:
+                    line_split = line.split(" ", 1)
+                    if line_split[0] == "dev/root":
+                        with open("/proc/cmdline") as reader:
+                            proc_cmdline = reader.read()
+                        if "root=UUID=" in proc_cmdline:
+                            disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
+                            system_disk = os.path.realpath("/dev/disk/by-uuid/" + disk_uuid_partuuid).split("/")[-1].strip()
+                        if "root=PARTUUID=" in proc_cmdline:
+                            disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
+                            system_disk = os.path.realpath("/dev/disk/by-partuuid/" + disk_uuid_partuuid).split("/")[-1].strip()
+                        if system_disk == disk:
+                            disk_system_disk = True
             storage_data_row.append(disk_system_disk)
         # Append disk type
         if 3 in storage_treeview_columns_shown:

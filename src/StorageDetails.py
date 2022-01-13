@@ -219,11 +219,28 @@ def storage_details_loop_func():
             disk_mount_point = bytes(line_split[1], "utf-8").decode("unicode_escape")         # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
     # Get if disk is system disk information
     disk_system_disk = _tr("No")                                                              # Initial value of "disk_system_disk" variable. This value will be used if disk mount point is not "/".
+    disk_in_proc_mounts_lines = "no"                                                          # This variable (initial value) is defined here because system disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
     for line in proc_mounts_lines:
-        line_split = line.split()
-        if line_split[0].split("/")[-1] == disk and line_split[1] == "/":
-            disk_system_disk = _tr("Yes")
-            break
+        line_split = line.split(" ", 2)
+        if line_split[0].split("/")[-1] == disk:
+            disk_in_proc_mounts_lines = "yes"
+            if line_split[1] == "/":
+                disk_system_disk = _tr("Yes")
+                break
+    if disk_in_proc_mounts_lines == "no":
+        for line in proc_mounts_lines:
+            line_split = line.split(" ", 1)
+            if line_split[0] == "dev/root":
+                with open("/proc/cmdline") as reader:
+                    proc_cmdline = reader.read()
+                if "root=UUID=" in proc_cmdline:
+                    disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
+                    system_disk = os.path.realpath("/dev/disk/by-uuid/" + disk_uuid_partuuid).split("/")[-1].strip()
+                if "root=PARTUUID=" in proc_cmdline:
+                    disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
+                    system_disk = os.path.realpath("/dev/disk/by-partuuid/" + disk_uuid_partuuid).split("/")[-1].strip()
+                if system_disk == disk:
+                    disk_system_disk = _tr("Yes")
     # Get disk transport type
     disk_transport_type = "-"                                                                 # Initial value of "disk_transport_type" variable. This value will be used if disk transport type could not be detected.
     if disk in disk_device_path_disk_list:

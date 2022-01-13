@@ -46,7 +46,7 @@ def performance_set_selected_disk_func():
             if disk in disk_list:
                 system_disk_list.append(disk)
                 break
-    if system_disk_list == []:                                                                # The code below this statement is used because system disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices.
+    if system_disk_list == []:                                                                # The code below this statement is used because system disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
         with open("/proc/cmdline") as reader:
             proc_cmdline = reader.read()
         if "root=UUID=" in proc_cmdline:

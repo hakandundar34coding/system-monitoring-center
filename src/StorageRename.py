@@ -129,7 +129,6 @@ def storage_rename_gui_func():
         window4101w2.hide()
 
 
-
     # Storage Rename window GUI functions - connect
     window4101w2.connect("delete-event", on_window4101w2_delete_event)
     window4101w2.connect("show", on_window4101w2_show)
