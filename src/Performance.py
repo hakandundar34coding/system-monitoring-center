@@ -15,10 +15,6 @@ def performance_import_func():
     import Config
 
 
-    global _tr
-    from locale import gettext as _tr
-
-
 # ----------------------------------- Performance - Set Selected CPU Core Function -----------------------------------
 def performance_set_selected_cpu_core_func():
 
@@ -88,69 +84,6 @@ def performance_set_selected_network_card_func():
     if Config.selected_network_card not in network_card_list:
         selected_network_card_number = network_card_list.index(selected_network_card)
 
-
-# ----------------------------------- Performance - Set Selected GPU/Graphics Card Function -----------------------------------
-def performance_get_gpu_list_and_set_selected_gpu_func():
-
-    global gpu_list, default_gpu, gpu_device_model_name, gpu_vendor_id_list, gpu_device_id_list
-    gpu_device_model_name = []
-    gpu_vendor_id_list = []
-    gpu_device_id_list = []
-    default_gpu = ""                                                                          # Initial value of "default_gpu" variable.
-    try:
-        with open("/usr/share/misc/pci.ids") as reader:                                       # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
-            pci_ids_output = reader.read()
-    except FileNotFoundError:
-        with open("/usr/share/hwdata/pci.ids") as reader:                                     # Read "pci.ids" file if it is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
-            pci_ids_output = reader.read()
-    gpu_list = [gpu_name for gpu_name in os.listdir("/dev/dri/") if gpu_name.rstrip("0123456789") == "card"]
-    for gpu in gpu_list:
-        try:
-            with open("/sys/class/drm/" + gpu + "/device/boot_vga") as reader:
-                if reader.read().strip() == "1":
-                    default_gpu = gpu
-        except FileNotFoundError:
-            pass
-        try:                                                                                  # "vendor" and "device" files may not be present on ARM systems even if there is a GPU.
-            with open("/sys/class/drm/" + gpu + "/device/vendor") as reader:
-                gpu_vendor_id = reader.read().split("x")[1].strip()
-            with open("/sys/class/drm/" + gpu + "/device/device") as reader:
-                gpu_device_id = reader.read().split("x")[1].strip()
-        except FileNotFoundError:
-            gpu_vendor_id = "_unknown_vendor_"
-            gpu_device_id = "_unknown_device_"
-        gpu_vendor_id_for_search = "\n" + gpu_vendor_id + "  "
-        gpu_device_id_for_search = "\n\t" + gpu_device_id + "  "
-        if gpu_vendor_id_for_search in pci_ids_output:                                        # "vendor" information may not be present in the pci.ids file.
-            rest_of_the_pci_ids_output = pci_ids_output.split(gpu_vendor_id_for_search, 1)[1]    # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
-            gpu_vendor_name = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-        else:
-            gpu_vendor_name = f'[{_tr("Unknown")}]'
-        if gpu_device_id_for_search in rest_of_the_pci_ids_output and gpu_vendor_name != f'[{_tr("Unknown")}]':    # "device name" information may not be present in the pci.ids file.
-            rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(gpu_device_id_for_search, 1)[1]
-            gpu_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-        else:
-            gpu_device_name = f'[{_tr("Unknown")}]'
-        gpu_device_model_name.append(f'{gpu_vendor_name} - {gpu_device_name}')
-        gpu_vendor_id_list.append(gpu_vendor_id)                                              # This list will be used for matching with GPU information from "glxinfo" command.
-        gpu_device_id_list.append(gpu_device_id)                                              # This list will be used for matching with GPU information from "glxinfo" command.
-
-    # Set selected gpu/graphics card
-    if Config.selected_gpu == "":                                                             # "" is predefined gpu name before release of the software. This statement is used in order to avoid error, if no gpu selection is made since first run of the software.
-        if default_gpu != "":
-            set_selected_gpu = default_gpu
-        if default_gpu == "":
-            set_selected_gpu = gpu_list[0]
-    if Config.selected_gpu in gpu_list:
-        set_selected_gpu = Config.selected_gpu
-    if Config.selected_gpu not in gpu_list:
-        if default_gpu != "":
-            set_selected_gpu = default_gpu
-        if default_gpu == "":
-            set_selected_gpu = gpu_list[0]
-    global selected_gpu_number
-    selected_gpu_number = gpu_list.index(set_selected_gpu)
-    
 
 # ----------------------------------- Performance - Background Initial Function -----------------------------------
 def performance_background_initial_func():

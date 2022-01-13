@@ -11,8 +11,8 @@ def settings_gui_import_func():
     import os
 
 
-    global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+    global Config, MainGUI, Performance, Gpu
+    import Config, MainGUI, Performance, Gpu
 
 
     global _tr
@@ -148,7 +148,10 @@ def settings_gui_func():
         Performance.performance_set_selected_cpu_core_func()                                  # Apply selected CPU core changes
         Performance.performance_set_selected_disk_func()                                      # Apply selected disk changes
         Performance.performance_set_selected_network_card_func()                              # Apply selected network card changes
-        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Apply selected GPU changes
+        try:                                                                                  # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
+            Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()                                  # Apply selected GPU changes
+        except NameError:
+            pass
         settings_gui_apply_settings_immediately_func()
 
     def spinbutton2001_on_value_changed(widget):                                              # "Window transparency" GUI object signal
@@ -194,7 +197,10 @@ def settings_gui_func():
             Performance.performance_set_selected_cpu_core_func()                              # Apply selected CPU core changes
             Performance.performance_set_selected_disk_func()                                  # Apply selected disk changes
             Performance.performance_set_selected_network_card_func()                          # Apply selected network card changes
-            Performance.performance_get_gpu_list_and_set_selected_gpu_func()                  # Apply selected GPU changes
+            try:                                                                              # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
+                Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()                              # Apply selected GPU changes
+            except NameError:
+                pass
             settings_gui_apply_settings_immediately_func()                                    # Apply changes immediately (without waiting update interval).
             try:                                                                              # "try-catch" is used in order to avoid errors because "ProcessesMenusGUI" may not be loaded.
                 ProcessesMenusGUI.processes_expand_collapse_button_preferences_func()

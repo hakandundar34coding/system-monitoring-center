@@ -11,8 +11,8 @@ def gpu_menus_import_func():
     import os
 
 
-    global Config, Gpu, Performance
-    import Config, Gpu, Performance
+    global Config, Gpu
+    import Config, Gpu
 
 
 # ----------------------------------- GPU - GPU Tab Menus GUI Function -----------------------------------
@@ -78,9 +78,9 @@ def gpu_menus_gui_func():
         Gpu.gpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
 
     def on_combobox1501p_changed(widget):                                                     # Option for defining "selected gpu/graphics card" which affects information shown on the GUI
-        Config.selected_gpu = Performance.gpu_list[combobox1501p.get_active()]
-        Performance.set_selected_gpu = Config.selected_gpu
-        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Call this function in order to apply changes
+        Config.selected_gpu = Gpu.gpu_list[combobox1501p.get_active()]
+        Gpu.set_selected_gpu = Config.selected_gpu
+        Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()                                      # Call this function in order to apply changes
         Gpu.gpu_initial_func()                                                                # Call this function in order to apply changes
         Gpu.gpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
         Config.config_save_func()
@@ -88,7 +88,7 @@ def gpu_menus_gui_func():
     def on_button1504p_clicked(widget):                                                       # For resetting all GPU tab settings
         Config.config_default_performance_gpu_func()
         Config.config_save_func()
-        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Call this function in order to apply changes
+        Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()                                      # Call this function in order to apply changes
         gpu_tab_customization_popover_disconnect_signals_func()
         gpu_tab_popover_set_gui()
         gpu_tab_customization_popover_connect_signals_func()
@@ -124,6 +124,6 @@ def gpu_tab_popover_set_gui():
         combobox1501p.pack_start(renderer_text, True)
         combobox1501p.add_attribute(renderer_text, "text", 0)
     liststore1501p.clear()
-    for gpu in Performance.gpu_list:
+    for gpu in Gpu.gpu_list:
         liststore1501p.append([gpu])
-    combobox1501p.set_active(Performance.selected_gpu_number)
+    combobox1501p.set_active(Gpu.selected_gpu_number)
