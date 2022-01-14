@@ -3,11 +3,11 @@
 # ----------------------------------- Users - Import Function -----------------------------------
 def users_import_func():
 
-    global Gtk, Gdk, GLib, GObject, GdkPixbuf, os, subprocess, datetime, time
+    global Gtk, GLib, GObject, GdkPixbuf, os, subprocess, datetime, time
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk, GLib, GObject, GdkPixbuf
+    from gi.repository import Gtk, GLib, GObject, GdkPixbuf
     import os
     import subprocess
     from datetime import datetime
@@ -46,10 +46,11 @@ def users_gui_func():
 
     # Users tab GUI functions
     def on_treeview3101_button_press_event(widget, event):
-        if event.button == 3:                                                                 # Open Users tab right click menu if mouse is right clicked on the treeview (and on any user, otherwise menu will not be shown) and the mouse button is pressed.
-            users_open_right_click_menu_func(event)
-        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open User Details window if double click is performed.
-            users_open_user_details_window_func(event)
+        if "Common" not in globals():
+            global Common
+            import Common
+            Common.common_import_func()
+        Common.common_mouse_actions_on_treeview_func(event, "Users", treeview3101, uid_username_list, users_data_rows)
 
     def on_treeview3101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
@@ -103,51 +104,6 @@ def users_gui_func():
     treeview3101.set_enable_search(True)
     treeview3101.set_search_column(2)
     treeview3101.set_tooltip_column(2)
-
-
-# ----------------------------------- Users - Open Right Click Menu Function -----------------------------------
-def users_open_right_click_menu_func(event):
-
-    try:
-        path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
-    except TypeError:
-        return
-    model = treeview3101.get_model()
-    treeiter = model.get_iter(path)
-    if treeiter is not None:
-        global selected_user_uid, selected_username
-        selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]
-        selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]
-        if 'UsersMenuRightClick' not in globals():
-            global UsersMenuRightClick
-            import UsersMenuRightClick
-            UsersMenuRightClick.users_menu_right_click_import_func()
-            UsersMenuRightClick.users_menu_right_click_gui_func()
-        UsersMenuRightClick.menu3101m.popup(None, None, None, None, event.button, event.time)
-
-
-# ----------------------------------- Users - Open User Details Window Function -----------------------------------
-def users_open_user_details_window_func(event):
-
-    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
-            path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
-        except TypeError:
-            return
-        model = treeview3101.get_model()
-        treeiter = model.get_iter(path)
-        if treeiter is not None:
-            global selected_user_uid, selected_username
-            selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "users_data_rows" list to use it getting UID of the user.
-            selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "user_data_rows" list to use it getting username of the user.
-            # Open Users Details window
-            if 'UsersDetails' not in globals():                                               # Check if "UsersDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "UsersDetails" name is in globals().
-                global UsersDetails
-                import UsersDetails
-                UsersDetails.users_details_import_func()
-                UsersDetails.users_details_gui_function()
-            UsersDetails.window3101w.show()
-            UsersDetails.users_details_run_func()
 
 
 # ----------------------------------- Users - Initial Function -----------------------------------
@@ -588,7 +544,7 @@ def cell_data_function_started(tree_column, cell, tree_model, iter, data):
         cell.set_property('text', "-")
 
 
-# ----------------------------------- Users Run Function -----------------------------------
+# ----------------------------------- Users - Run Function -----------------------------------
 def users_run_func(*args):
 
     if "users_data_rows" not in globals():

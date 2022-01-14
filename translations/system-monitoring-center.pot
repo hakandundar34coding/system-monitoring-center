@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-12 16:23+0300\n"
+"POT-Creation-Date: 2022-01-13 20:02+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,12 +30,12 @@ msgid "Unknown"
 msgstr ""
 
 #: src/Disk.py:230 src/Disk.py:298 src/Disk.py:299 src/Disk.py:300
-#: src/Disk.py:301 src/Storage.py:323 src/Storage.py:377 src/Storage.py:386
-#: src/Storage.py:397 src/Storage.py:727 src/Storage.py:734
-#: src/StorageDetails.py:215 src/StorageDetails.py:258
-#: src/StorageDetails.py:270 src/StorageDetails.py:284
-#: src/StorageDetails.py:440 src/StorageDetails.py:441
-#: src/StorageDetails.py:442 src/StorageMenuRightClick.py:47
+#: src/Disk.py:301 src/Storage.py:323 src/Storage.py:394 src/Storage.py:403
+#: src/Storage.py:414 src/Storage.py:744 src/Storage.py:751
+#: src/StorageDetails.py:215 src/StorageDetails.py:275
+#: src/StorageDetails.py:287 src/StorageDetails.py:301
+#: src/StorageDetails.py:457 src/StorageDetails.py:458
+#: src/StorageDetails.py:459 src/StorageMenuRightClick.py:47
 #: src/StorageMenuRightClick.py:49 src/StorageMenuRightClick.py:55
 #: src/StorageMenuRightClick.py:58 src/StorageMenuRightClick.py:67
 #: src/StorageMenuRightClick.py:70 src/StorageMenuRightClick.py:83
@@ -43,23 +43,23 @@ msgstr ""
 msgid "[Not mounted]"
 msgstr ""
 
-#: src/Disk.py:238 src/Disk.py:432 src/Storage.py:368 src/StorageDetails.py:247
+#: src/Disk.py:238 src/Disk.py:432 src/Storage.py:385 src/StorageDetails.py:264
 msgid "[SWAP]"
 msgstr ""
 
-#: src/Disk.py:247 src/Gpu.py:242 src/Network.py:251 src/Network.py:273
-#: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:490
-#: src/Storage.py:501 src/Storage.py:512 src/StorageDetails.py:225
-#: src/StorageDetails.py:372 src/StorageDetails.py:386
-#: src/StorageDetails.py:400 src/UsersDetails.py:244
+#: src/Disk.py:247 src/Gpu.py:236 src/Network.py:251 src/Network.py:273
+#: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:507
+#: src/Storage.py:518 src/Storage.py:529 src/StorageDetails.py:228
+#: src/StorageDetails.py:243 src/StorageDetails.py:389
+#: src/StorageDetails.py:403 src/StorageDetails.py:417 src/UsersDetails.py:244
 msgid "Yes"
 msgstr ""
 
-#: src/Disk.py:249 src/Gpu.py:244 src/Gpu.py:329 src/Network.py:253
-#: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:492
-#: src/Storage.py:503 src/Storage.py:514 src/StorageDetails.py:221
-#: src/StorageDetails.py:374 src/StorageDetails.py:388
-#: src/StorageDetails.py:402 src/UsersDetails.py:246
+#: src/Disk.py:249 src/Gpu.py:238 src/Gpu.py:323 src/Network.py:253
+#: src/Services.py:189 src/ServicesDetails.py:148 src/Storage.py:509
+#: src/Storage.py:520 src/Storage.py:531 src/StorageDetails.py:221
+#: src/StorageDetails.py:391 src/StorageDetails.py:405
+#: src/StorageDetails.py:419 src/UsersDetails.py:246
 msgid "No"
 msgstr ""
 
@@ -69,27 +69,27 @@ msgstr ""
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:383 src/SettingsGUI.py:320 src/Storage.py:303 src/Storage.py:412
-#: src/Storage.py:456 src/Storage.py:466 src/Storage.py:477 src/Storage.py:486
-#: src/Storage.py:497 src/Storage.py:508 src/StorageDetails.py:191
-#: src/StorageDetails.py:301 src/StorageDetails.py:339
-#: src/StorageDetails.py:347 src/StorageDetails.py:356
-#: src/StorageDetails.py:363 src/StorageDetails.py:377
-#: src/StorageDetails.py:391 ui/DiskTab.ui:22 ui/MainWindow.ui:174
+#: src/Disk.py:383 src/SettingsGUI.py:326 src/Storage.py:303 src/Storage.py:429
+#: src/Storage.py:473 src/Storage.py:483 src/Storage.py:494 src/Storage.py:503
+#: src/Storage.py:514 src/Storage.py:525 src/StorageDetails.py:191
+#: src/StorageDetails.py:318 src/StorageDetails.py:356
+#: src/StorageDetails.py:364 src/StorageDetails.py:373
+#: src/StorageDetails.py:380 src/StorageDetails.py:394
+#: src/StorageDetails.py:408 ui/DiskTab.ui:22 ui/MainWindow.ui:174
 msgid "Disk"
 msgstr ""
 
-#: src/EnvironmentVariables.py:131 ui/EnvironmentVarMenuCustomizations.ui:218
+#: src/EnvironmentVariables.py:131 ui/EnvironmentVarMenuCustomizations.ui:219
 msgid "Variable"
 msgstr ""
 
-#: src/EnvironmentVariables.py:132 ui/EnvironmentVarMenuCustomizations.ui:234
+#: src/EnvironmentVariables.py:132 ui/EnvironmentVarMenuCustomizations.ui:235
 msgid "Value"
 msgstr ""
 
 #: src/EnvironmentVariables.py:133 src/RamHardwareInformation.py:131
 #: src/RamHardwareInformation.py:150 src/RamSwapDetails.py:95
-#: src/Storage.py:191 ui/EnvironmentVarMenuCustomizations.ui:248
+#: src/Storage.py:191 ui/EnvironmentVarMenuCustomizations.ui:249
 #: ui/ServicesDetailsWindow.ui:245 ui/StorageDetailsWindow.ui:77
 #: ui/StorageMenuCustomizations.ui:262
 msgid "Type"
@@ -347,10 +347,10 @@ msgstr ""
 
 #: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:264
 #: src/ProcessesMenuRightClick.py:276 src/RamHardwareInformation.py:161
-#: src/ServicesMenuRightClick.py:148 src/SettingsGUI.py:583
+#: src/ServicesMenuRightClick.py:148 src/SettingsGUI.py:589
 #: src/StartupMenuRightClick.py:442 src/StartupMenuRightClick.py:455
-#: src/StartupNewItem.py:177 src/StorageDetails.py:511
-#: src/StorageMenuRightClick.py:221 src/StorageRename.py:145
+#: src/StartupNewItem.py:177 src/StorageDetails.py:528
+#: src/StorageMenuRightClick.py:221 src/StorageRename.py:144
 #: src/UsersMenuRightClick.py:72
 msgid "Warning"
 msgstr ""
@@ -588,72 +588,72 @@ msgid "Total: AAAA services (BBBB loaded, CCCC non-loaded)"
 msgstr ""
 
 #: src/ServicesMenuRightClick.py:149 src/StorageMenuRightClick.py:222
-#: src/StorageRename.py:146
+#: src/StorageRename.py:145
 msgid "Information"
 msgstr ""
 
-#: src/SettingsGUI.py:303 ui/MainWindow.ui:891
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:891
 msgid "Performance"
 msgstr ""
 
-#: src/SettingsGUI.py:303 src/Users.py:163 ui/MainWindow.ui:844
+#: src/SettingsGUI.py:309 src/Users.py:163 ui/MainWindow.ui:844
 #: ui/ProcessesTab.ui:231 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:290
 msgid "Processes"
 msgstr ""
 
-#: src/SettingsGUI.py:303 ui/MainWindow.ui:554 ui/UsersTab.ui:56
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:554 ui/UsersTab.ui:56
 msgid "Users"
 msgstr ""
 
-#: src/SettingsGUI.py:303 ui/MainWindow.ui:602 ui/StorageTab.ui:44
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:602 ui/StorageTab.ui:44
 msgid "Storage"
 msgstr ""
 
-#: src/SettingsGUI.py:303 ui/MainWindow.ui:700 ui/StartupTab.ui:44
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:700 ui/StartupTab.ui:44
 msgid "Startup"
 msgstr ""
 
-#: src/SettingsGUI.py:303 ui/MainWindow.ui:796 ui/ServicesTab.ui:44
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:796 ui/ServicesTab.ui:44
 msgid "Services"
 msgstr ""
 
-#: src/SettingsGUI.py:303 ui/MainWindow.ui:651
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:651
 msgid "Environment Variables"
 msgstr ""
 
-#: src/SettingsGUI.py:303 ui/MainWindow.ui:748 ui/SystemTab.ui:67
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:748 ui/SystemTab.ui:67
 msgid "System"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/CpuTab.ui:488 ui/MainWindow.ui:80
+#: src/SettingsGUI.py:326 ui/CpuTab.ui:488 ui/MainWindow.ui:80
 #: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:709
 #: ui/SettingsWindow.ui:409
 msgid "CPU"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/MainWindow.ui:127 ui/RamTab.ui:415
+#: src/SettingsGUI.py:326 ui/MainWindow.ui:127 ui/RamTab.ui:415
 #: ui/SettingsWindow.ui:423
 msgid "RAM"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/MainWindow.ui:268 ui/NetworkTab.ui:405
+#: src/SettingsGUI.py:326 ui/MainWindow.ui:268 ui/NetworkTab.ui:405
 msgid "Network"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/GpuTab.ui:344 ui/MainWindow.ui:221
+#: src/SettingsGUI.py:326 ui/GpuTab.ui:344 ui/MainWindow.ui:221
 msgid "GPU"
 msgstr ""
 
-#: src/SettingsGUI.py:320 ui/MainWindow.ui:315 ui/SensorsTab.ui:184
+#: src/SettingsGUI.py:326 ui/MainWindow.ui:315 ui/SensorsTab.ui:184
 msgid "Sensors"
 msgstr ""
 
-#: src/SettingsGUI.py:584
+#: src/SettingsGUI.py:590
 msgid "Reset All Settings?"
 msgstr ""
 
-#: src/SettingsGUI.py:585
+#: src/SettingsGUI.py:591
 msgid "Do you want to reset all settings of the application to defaults?"
 msgstr ""
 
@@ -857,7 +857,7 @@ msgstr ""
 msgid "Major:Minor Device #"
 msgstr ""
 
-#: src/Storage.py:716
+#: src/Storage.py:733
 msgid "Total: AAAA disks/partitions (BBBB disks, CCCC partitions)"
 msgstr ""
 
@@ -865,11 +865,11 @@ msgstr ""
 msgid "Storage Details"
 msgstr ""
 
-#: src/StorageDetails.py:512
+#: src/StorageDetails.py:529
 msgid "Disk Is Not Connected Anymore"
 msgstr ""
 
-#: src/StorageDetails.py:513
+#: src/StorageDetails.py:530
 msgid ""
 "Following disk is not connected anymore and storage details window is closed "
 "automatically:"
@@ -1074,7 +1074,7 @@ msgid "Foreground"
 msgstr ""
 
 #: ui/CpuMenus.ui:286 ui/DiskMenus.ui:107
-#: ui/EnvironmentVarMenuCustomizations.ui:355 ui/GpuMenus.ui:156
+#: ui/EnvironmentVarMenuCustomizations.ui:356 ui/GpuMenus.ui:156
 #: ui/NetworkMenus.ui:107 ui/ProcessesMenuCustomizations.ui:998
 #: ui/RamMenus.ui:129 ui/ServicesMenuCustomizations.ui:599
 #: ui/SettingsWindow.ui:664 ui/StartupMenuCustomizations.ui:355
@@ -1086,7 +1086,7 @@ msgstr ""
 msgid "Select CPU Core:"
 msgstr ""
 
-#: ui/CpuMenus.ui:389 ui/EnvironmentVarMenuCustomizations.ui:302
+#: ui/CpuMenus.ui:389 ui/EnvironmentVarMenuCustomizations.ui:303
 #: ui/ProcessesDetailsWindow.ui:481 ui/ProcessesDetailsWindow.ui:494
 #: ui/ProcessesDetailsWindow.ui:507 ui/ProcessesDetailsWindow.ui:520
 #: ui/ProcessesDetailsWindow.ui:533 ui/ProcessesDetailsWindow.ui:546
@@ -1405,21 +1405,21 @@ msgstr ""
 msgid "Environment Variables Tab Customizations"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:63
+#: ui/EnvironmentVarMenuCustomizations.ui:64
 #: ui/ProcessesMenuCustomizations.ui:151 ui/ServicesMenuCustomizations.ui:63
 #: ui/StartupMenuCustomizations.ui:63 ui/StorageMenuCustomizations.ui:63
 #: ui/UsersMenuCustomizations.ui:63
 msgid "Column Reordering,"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:97
+#: ui/EnvironmentVarMenuCustomizations.ui:98
 #: ui/ProcessesMenuCustomizations.ui:185 ui/ServicesMenuCustomizations.ui:97
 #: ui/StartupMenuCustomizations.ui:97 ui/StorageMenuCustomizations.ui:97
 #: ui/UsersMenuCustomizations.ui:97
 msgid "Row Sorting,"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:128
+#: ui/EnvironmentVarMenuCustomizations.ui:129
 #: ui/ProcessesMenuCustomizations.ui:228 ui/ServicesMenuCustomizations.ui:128
 #: ui/SettingsWindow.ui:56 ui/SettingsWindow.ui:570
 #: ui/StartupMenuCustomizations.ui:128 ui/StorageMenuCustomizations.ui:128
@@ -1427,22 +1427,22 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:175
+#: ui/EnvironmentVarMenuCustomizations.ui:176
 #: ui/ProcessesMenuCustomizations.ui:275 ui/ServicesMenuCustomizations.ui:175
 #: ui/StartupMenuCustomizations.ui:175 ui/StorageMenuCustomizations.ui:175
 #: ui/UsersMenuCustomizations.ui:175
 msgid "Column Widths:"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:194
+#: ui/EnvironmentVarMenuCustomizations.ui:195
 #: ui/ProcessesMenuCustomizations.ui:63 ui/ProcessesMenuCustomizations.ui:294
 #: ui/ServicesMenuCustomizations.ui:194 ui/StartupMenuCustomizations.ui:194
 #: ui/StorageMenuCustomizations.ui:194 ui/UsersMenuCustomizations.ui:194
 msgid "View"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:280
-#: ui/EnvironmentVarMenuCustomizations.ui:324
+#: ui/EnvironmentVarMenuCustomizations.ui:281
+#: ui/EnvironmentVarMenuCustomizations.ui:325
 #: ui/ProcessesMenuCustomizations.ui:319 ui/ProcessesMenuCustomizations.ui:636
 #: ui/ServicesMenuCustomizations.ui:347 ui/ServicesMenuCustomizations.ui:391
 #: ui/StartupMenuCustomizations.ui:280 ui/StartupMenuCustomizations.ui:324

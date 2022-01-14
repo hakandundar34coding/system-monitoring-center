@@ -3,11 +3,11 @@
 # ----------------------------------- Services - Import Function -----------------------------------
 def services_import_func():
 
-    global Gtk, Gdk, GLib, GObject, subprocess, os
+    global Gtk, GLib, GObject, subprocess, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk, GLib, GObject
+    from gi.repository import Gtk, GLib, GObject
     import subprocess
     import os
 
@@ -47,10 +47,11 @@ def services_gui_func():
 
     # Services tab GUI functions
     def on_treeview6101_button_press_event(widget, event):
-        if event.button == 3:                                                                 # Open Services tab right click menu if mouse is right clicked on the treeview (and on any service, otherwise menu will not be shown) and the mouse button is pressed.
-            services_open_right_click_menu_func(event)
-        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open Service Details window if double click is performed.
-            services_open_service_details_window_func(event)
+        if "Common" not in globals():
+            global Common
+            import Common
+            Common.common_import_func()
+        Common.common_mouse_actions_on_treeview_func(event, "Services", treeview6101, service_list, services_data_rows)
 
     def on_treeview6101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
@@ -108,50 +109,6 @@ def services_gui_func():
     treeview6101.set_enable_search(True)
     treeview6101.set_search_column(2)
     treeview6101.set_tooltip_column(2)
-
-
-# ----------------------------------- Services - Open Right Click Menu Function -----------------------------------
-def services_open_right_click_menu_func(event):
-
-    try:
-        path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
-    except TypeError:
-        return
-    model = treeview6101.get_model()
-    treeiter = model.get_iter(path)
-    if treeiter is not None:
-        global selected_service_name
-        selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]
-        if 'ServicesMenuRightClick' not in globals():
-            global ServicesMenuRightClick
-            import ServicesMenuRightClick
-            ServicesMenuRightClick.services_menu_right_click_import_func()
-            ServicesMenuRightClick.services_menu_right_click_gui_func()
-        ServicesMenuRightClick.menu6101m.popup(None, None, None, None, event.button, event.time)
-        ServicesMenuRightClick.services_set_checkmenuitem_func()
-
-
-# ----------------------------------- Services - Open Service Details Window Function -----------------------------------
-def services_open_service_details_window_func(event):
-
-    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
-            path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
-        except TypeError:
-            return                                                                            # Stop running rest of the code if the error is encountered.
-        model = treeview6101.get_model()
-        treeiter = model.get_iter(path)
-        if treeiter is not None:
-            global selected_service_name
-            selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "services_data_rows" list to use it getting name of the service.
-            # Open Service Details window
-            if 'ServicesDetails' not in globals():                                         # Check if "ServicesDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "ServicesDetails" name is in globals().
-                global ServicesDetails
-                import ServicesDetails
-                ServicesDetails.services_details_import_func()
-                ServicesDetails.services_details_gui_function()
-            ServicesDetails.window6101w.show()
-            ServicesDetails.services_details_run_func()
 
 
 # ----------------------------------- Services - Initial Function -----------------------------------
@@ -493,7 +450,7 @@ def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
         cell.set_property('text', f'{services_data_unit_converter_func(cell_data, services_ram_swap_data_unit, services_ram_swap_data_precision)}')
 
 
-# ----------------------------------- Services Run Function -----------------------------------
+# ----------------------------------- Services - Run Function -----------------------------------
 def services_run_func(*args):
 
 #     if "services_data_rows" not in globals():

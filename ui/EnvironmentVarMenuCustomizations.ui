@@ -18,6 +18,7 @@
             <property name="halign">center</property>
             <property name="margin-bottom">15</property>
             <property name="label" translatable="yes">Environment Variables Tab Customizations</property>
+            <property name="wrap">True</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>

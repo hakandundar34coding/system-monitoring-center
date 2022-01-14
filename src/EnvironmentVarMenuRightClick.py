@@ -11,8 +11,8 @@ def environment_variables_menu_right_click_import_func():
     import os
 
 
-    global EnvironmentVariables
-    import EnvironmentVariables
+    global EnvironmentVariables, Common
+    import EnvironmentVariables, Common
 
 
 # ----------------------------------- Environment Variables - Environment Variables Right Click Menu GUI Function (the code of this module in order to avoid running them during module import and defines "Environment Variables" tab menu/popover GUI objects and functions/signals) -----------------------------------
@@ -35,13 +35,13 @@ def environment_variables_menu_right_click_gui_func():
 
     # ********************** Define object functions for Environment Variables tab right click menu **********************
     def on_menuitem7104m_activate(widget):                                                    # "Copy Variable" item on the right click menu
-        selected_variable = EnvironmentVariables.selected_variable_value.split("=")[0]
+        selected_variable = Common.selected_variable_value.split("=")[0]
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         clipboard.set_text(selected_variable, -1)
         clipboard.store()
 
     def on_menuitem7105m_activate(widget):                                                    # "Copy Value" item on the right click menu
-        selected_value = '='.join(EnvironmentVariables.selected_variable_value.split("=")[1:])    # There may be more than "=" in the VARIABLE=VALUE string. String later than first "=" is get as value.
+        selected_value = '='.join(Common.selected_variable_value.split("=")[1:])              # There may be more than "=" in the VARIABLE=VALUE string. String later than first "=" is get as value.
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         clipboard.set_text(selected_value, -1)
         clipboard.store()

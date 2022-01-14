@@ -13,8 +13,8 @@ def processes_details_import_func():
     from datetime import datetime
 
 
-    global Config, Processes, MainGUI
-    import Config, Processes, MainGUI
+    global Config, Processes, MainGUI, Common
+    import Config, Processes, MainGUI, Common
 
 
     global _tr
@@ -205,7 +205,7 @@ def process_details_loop_func():
         usernames_uid_list.append(line_splitted[2])
 
     global selected_process_pid
-    selected_process_pid = Processes.selected_process_pid                                     # Get "selected_process_pid" from module "ProcessesGUI".
+    selected_process_pid = Common.selected_process_pid                                        # Get "selected_process_pid" from module "ProcessesGUI".
 
     number_of_clock_ticks = Processes.number_of_clock_ticks
     global_cpu_time_all = time.time() * number_of_clock_ticks                                 # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent. global_cpu_time_all value is get by using time module of Python instead of reading "/proc/stat" file for faster processing.
@@ -602,7 +602,7 @@ def process_details_loop_func():
             label2137w.set_text("-")
 
 
-# ----------------------------------- Processes Details Run Function -----------------------------------
+# ----------------------------------- Processes Details - Run Function -----------------------------------
 def process_details_run_func():
 
     if "update_interval" not in globals():

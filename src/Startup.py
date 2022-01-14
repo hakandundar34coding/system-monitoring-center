@@ -3,11 +3,11 @@
 # ----------------------------------- Startup - Import Function -----------------------------------
 def startup_import_func():
 
-    global Gtk, Gdk, GLib, os
+    global Gtk, GLib, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk, GLib
+    from gi.repository import Gtk, GLib
     import os
 
 
@@ -44,8 +44,12 @@ def startup_gui_func():
 
     # Startup tab GUI functions
     def on_treeview5101_button_press_event(widget, event):                                    # Mouse button press event (on the treeview)
-        if event.button == 3:                                                                 # Open Startup tab right click menu if mouse is right clicked on the treeview (and on any disk, otherwise menu will not be shown) and the mouse button is pressed.
-            startup_open_right_click_menu_func(event)
+        if "Common" not in globals():
+            global Common
+            import Common
+            Common.common_import_func()
+        tab_data_list_list = [all_autostart_applications_list, startup_applications_visibility_list]
+        Common.common_mouse_actions_on_treeview_func(event, "Startup", treeview5101, tab_data_list_list, startup_data_rows)
 
     def on_treeview5101_button_release_event(widget, event):                                  # Mouse button press event (on the treeview)
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
@@ -99,31 +103,6 @@ def startup_gui_func():
     treeview5101.set_enable_search(True)
     treeview5101.set_search_column(3)
     treeview5101.set_tooltip_column(3)
-
-
-# ----------------------------------- ProceStartupsses - Open Right Click Menu Function -----------------------------------
-def startup_open_right_click_menu_func(event):
-
-    global model, treeiter
-    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
-        path, _, _, _ = treeview5101.get_path_at_pos(int(event.x), int(event.y))
-    except TypeError:
-        return
-    model = treeview5101.get_model()
-    treeiter = model.get_iter(path)
-    if treeiter is not None:
-        global selected_startup_application_file_name, selected_startup_application_visibility, selected_startup_application_name
-        selected_startup_application_file_name = all_autostart_applications_list[startup_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "startup_data_rows" list to use it getting name of the startup application file name.
-        selected_startup_application_visibility = startup_applications_visibility_list[startup_data_rows.index(model[treeiter][:])]
-        selected_startup_application_name = model[treeiter][3]
-        if 'StartupMenuRightClick' not in globals():                                          # Check if "StartupMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
-            global StartupMenuRightClick
-            import StartupMenuRightClick
-            StartupMenuRightClick.startup_menu_right_click_import_func()
-            StartupMenuRightClick.startup_menu_right_click_gui_func()
-        StartupMenuRightClick.menu5101m.popup(None, None, None, None, event.button, event.time)
-        StartupMenuRightClick.startup_set_checkmenuitem_func()
-        StartupMenuRightClick.startup_set_menu_labels_func()
 
 
 # ----------------------------------- Startup - Initial Function -----------------------------------
@@ -692,7 +671,7 @@ def startup_loop_func():
     label5101.set_text(number_of_startup_applications_string)
 
 
-# ----------------------------------- Startup Run Function -----------------------------------
+# ----------------------------------- Startup - Run Function -----------------------------------
 def startup_run_func(*args):
 
     if "startup_data_rows" not in globals():

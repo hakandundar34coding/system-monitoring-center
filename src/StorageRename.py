@@ -12,8 +12,8 @@ def storage_rename_import_func():
     import subprocess
 
 
-    global Storage, MainGUI
-    import Storage, MainGUI
+    global Storage, MainGUI, Common
+    import Storage, MainGUI, Common
 
 
     global _tr
@@ -46,7 +46,7 @@ def storage_rename_gui_func():
 
     def on_window4101w2_show(widget):
         global disk_name
-        disk_name = Storage.selected_storage_kernel_name
+        disk_name = Common.selected_storage_kernel_name
         label4101w2.set_text("    " + disk_name)
         disk_label = ""                                                                       # Initial value of "disk_label" variable. This value will be used if disk label could not be detected.
         try:

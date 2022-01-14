@@ -258,7 +258,7 @@ def ram_loop_func():
     label1210.set_text(ram_data_unit_converter_func((swap_total), performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
 
-# ----------------------------------- RAM Run Function -----------------------------------
+# ----------------------------------- RAM - Run Function -----------------------------------
 def ram_run_func(*args):
 
     if "update_interval" not in globals():

@@ -122,7 +122,7 @@ def performance_summary_headerbar_loop_func():
     label102.set_text(f'{performance_summary_headerbar_data_unit_converter_func((Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), 0, 0)}/s')
 
 
-# ----------------------------------- Performance Summary Headerbar Run Function -----------------------------------
+# ----------------------------------- Performance Summary Headerbar - Run Function -----------------------------------
 def performance_summary_headerbar_run_func(*args):
 
     if "update_interval" not in globals():

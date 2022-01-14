@@ -364,7 +364,7 @@ def sensors_loop_func():
     label1601.set_text(number_of_sensors_string)
 
 
-# ----------------------------------- Sensors Run Function -----------------------------------
+# ----------------------------------- Sensors - Run Function -----------------------------------
 def sensors_run_func(*args):
 
     if "sensors_data_rows" not in globals():

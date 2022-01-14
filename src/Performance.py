@@ -281,7 +281,7 @@ def performance_background_loop_func():
     network_send_bytes_prev = list(network_send_bytes)
 
 
-# ----------------------------------- Performance Background Run Function -----------------------------------
+# ----------------------------------- Performance - Background Run Function -----------------------------------
 def performance_background_run_func():
 
     if 'update_interval' not in globals():

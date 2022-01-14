@@ -12,8 +12,8 @@ def services_menu_right_click_import_func():
     import subprocess
 
 
-    global MainGUI, Services
-    import MainGUI, Services
+    global MainGUI, Services, Common
+    import MainGUI, Services, Common
 
 
     global _tr
@@ -47,7 +47,7 @@ def services_menu_right_click_gui_func():
 
     # ********************** Define object functions for Services tab right click menu **********************
     def on_menuitem6101m_activate(widget):                                                    # "Start" item on the right click menu
-        service_name = Services.selected_service_name
+        service_name = Common.selected_service_name
         try:
             (subprocess.check_output(["systemctl", "start", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
         except subprocess.CalledProcessError as e:
@@ -55,7 +55,7 @@ def services_menu_right_click_gui_func():
         return
 
     def on_menuitem6102m_activate(widget):                                                    # "Stop" item on the right click menu
-        service_name = Services.selected_service_name
+        service_name = Common.selected_service_name
         try:
             (subprocess.check_output(["systemctl", "stop", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
         except subprocess.CalledProcessError as e:
@@ -63,7 +63,7 @@ def services_menu_right_click_gui_func():
         return
 
     def on_menuitem6103m_activate(widget):                                                    # "Restart" item on the right click menu
-        service_name = Services.selected_service_name
+        service_name = Common.selected_service_name
         try:
             (subprocess.check_output(["systemctl", "restart", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
         except subprocess.CalledProcessError as e:
@@ -71,7 +71,7 @@ def services_menu_right_click_gui_func():
         return
 
     def on_menuitem6104m_activate(widget):                                                    # "Reload" item on the right click menu
-        service_name = Services.selected_service_name
+        service_name = Common.selected_service_name
         try:
             (subprocess.check_output(["systemctl", "reload", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
         except subprocess.CalledProcessError as e:
@@ -79,7 +79,7 @@ def services_menu_right_click_gui_func():
         return
 
     def on_menuitem6105m_activate(widget):                                                    # "Enable" item on the right click menu
-        service_name = Services.selected_service_name
+        service_name = Common.selected_service_name
         try:
             (subprocess.check_output(["systemctl", "enable", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
         except subprocess.CalledProcessError as e:
@@ -87,7 +87,7 @@ def services_menu_right_click_gui_func():
         return
 
     def on_menuitem6106m_activate(widget):                                                    # "Disable" item on the right click menu
-        service_name = Services.selected_service_name
+        service_name = Common.selected_service_name
         try:
             (subprocess.check_output(["systemctl", "disable", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
         except subprocess.CalledProcessError as e:
@@ -95,7 +95,7 @@ def services_menu_right_click_gui_func():
         return
 
     def on_checkmenuitem6107m_toggled(widget):                                                # "Mask" item on the right click menu
-        service_name = Services.selected_service_name
+        service_name = Common.selected_service_name
         try:
             if checkmenuitem6107m.get_active() == True:
                 (subprocess.check_output(["systemctl", "mask", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
@@ -105,7 +105,7 @@ def services_menu_right_click_gui_func():
             services_action_warning_dialog(e.output.decode("utf-8").strip())
 
     def on_menuitem6108m_activate(widget):                                                    # "Copy Name" item on the right click menu
-        service_name = Services.selected_service_name
+        service_name = Common.selected_service_name
         clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         clipboard.set_text(service_name, -1)
         clipboard.store()                                                                     # Stores copied text in the clipboard. Therefore text stays in the clipboard after application has quit.
@@ -133,7 +133,7 @@ def services_menu_right_click_gui_func():
 # ----------------------------------- Services - Set Checkmenuitems (acivates/deactivates checkmenuitem (Enable/Disable checkbox for service status (enabled/disabled, masked/unmasked)) on the popup menu when right click operation is performed on service row on the treeview) -----------------------------------
 def services_set_checkmenuitem_func():
 
-    service_name = Services.selected_service_name
+    service_name = Common.selected_service_name
     service_status = (subprocess.check_output(["systemctl", "show", service_name, "--property=UnitFileState"], shell=False)).decode().strip().split("=")[1]
     with checkmenuitem6107m.handler_block(checkmenuitem6107m_handler_id):
         if service_status == "masked":

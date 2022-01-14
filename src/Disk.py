@@ -315,7 +315,7 @@ def disk_loop_func():
     label1311.set_text(disk_data_unit_converter_func(disk_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
 
 
-# ----------------------------------- Disk Run Function -----------------------------------
+# ----------------------------------- Disk - Run Function -----------------------------------
 def disk_run_func(*args):
 
     if "update_interval" not in globals():

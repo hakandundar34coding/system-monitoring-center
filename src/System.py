@@ -416,7 +416,7 @@ def system_loop_func():
     label8122.set_text(f'{current_user_name} - {have_root_access}')
 
 
-# ----------------------------------- System Run Function -----------------------------------
+# ----------------------------------- System - Run Function -----------------------------------
 def system_run_func(*args):
 
     if "current_user_name" not in globals():

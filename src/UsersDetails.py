@@ -14,8 +14,8 @@ def users_details_import_func():
     import time
 
 
-    global Config, Users, MainGUI
-    import Config, Users, MainGUI
+    global Config, Users, MainGUI, Common
+    import Config, Users, MainGUI, Common
 
 
     global _tr
@@ -140,8 +140,8 @@ def users_details_initial_func():
 def users_details_loop_func():
 
     global selected_user_uid, selected_username
-    selected_user_uid = str(Users.selected_user_uid)                                          # Get right clicked user UID
-    selected_username = Users.selected_username
+    selected_user_uid = str(Common.selected_user_uid)                                         # Get right clicked user UID
+    selected_username = Common.selected_username
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global users_cpu_usage_percent_precision
@@ -329,7 +329,7 @@ def users_details_loop_func():
     label3114w.set_text(f'{users_data_unit_converter_func(selected_user_ram_percent, users_ram_swap_data_unit, users_ram_swap_data_precision)}')
 
 
-# ----------------------------------- Users Details Run Function -----------------------------------
+# ----------------------------------- Users Details - Run Function -----------------------------------
 def users_details_run_func():
 
     if "update_interval" not in globals():

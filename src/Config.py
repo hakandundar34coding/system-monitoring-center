@@ -13,8 +13,8 @@ def config_read_func():
     # Get human and root user usernames and UIDs which will be used for determining username when "pkexec_uid" is get.
     usernames_username_list = []
     usernames_uid_list = []
-    with open("/etc/passwd") as reader:                                                       # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
-        etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
+    with open("/etc/passwd") as reader:
+        etc_passwd_lines = reader.read().strip().split("\n")
     for line in etc_passwd_lines:
         line_splitted = line.split(":", 3)
         usernames_username_list.append(line_splitted[0])

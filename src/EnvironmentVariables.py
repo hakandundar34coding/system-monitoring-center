@@ -3,11 +3,11 @@
 # ----------------------------------- EnvironmentVariables - Import Function -----------------------------------
 def environment_variables_import_func():
 
-    global Gtk, Gdk, GLib, subprocess, os
+    global Gtk, GLib, subprocess, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk, GLib
+    from gi.repository import Gtk, GLib
     import subprocess
     import os
 
@@ -46,8 +46,11 @@ def environment_variables_gui_func():
 
     # Environment Variables tab GUI functions
     def on_treeview7101_button_press_event(widget, event):
-        if event.button == 3:                                                                 # Open Environment Variables tab right click menu if mouse is right clicked on the treeview (and on any variable, otherwise menu will not be shown) and the mouse button is pressed.
-            environment_variables_open_right_click_menu_func(event)
+        if "Common" not in globals():
+            global Common
+            import Common
+            Common.common_import_func()
+        Common.common_mouse_actions_on_treeview_func(event, "Environment Variables", treeview7101, variable_list, environment_variables_data_rows)
 
     def on_treeview7101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
@@ -101,26 +104,6 @@ def environment_variables_gui_func():
     treeview7101.set_enable_search(True)
     treeview7101.set_search_column(1)
     treeview7101.set_tooltip_column(1)
-
-
-# ----------------------------------- Environment Variables - Open Right Click Menu Function -----------------------------------
-def environment_variables_open_right_click_menu_func(event):
-
-    try:
-        path, _, _, _ = treeview7101.get_path_at_pos(int(event.x), int(event.y))
-    except TypeError:
-        return   
-    model = treeview7101.get_model()
-    treeiter = model.get_iter(path)
-    if treeiter is not None:
-        global selected_variable_value
-        selected_variable_value = variable_list[environment_variables_data_rows.index(model[treeiter][:])]
-        if 'EnvironmentVarMenuRightClick' not in globals():
-            global EnvironmentVarMenuRightClick
-            import EnvironmentVarMenuRightClick
-            EnvironmentVarMenuRightClick.environment_variables_menu_right_click_import_func()
-            EnvironmentVarMenuRightClick.environment_variables_menu_right_click_gui_func()
-        EnvironmentVarMenuRightClick.menu7101m.popup(None, None, None, None, event.button, event.time)
 
 
 # ----------------------------------- Environment Variables - Initial Function -----------------------------------
@@ -405,7 +388,7 @@ def environment_variables_loop_func():
     label7101.set_text(number_of_environment_variables_string)
 
 
-# ----------------------------------- Environment Variables Run Function -----------------------------------
+# ----------------------------------- Environment Variables - Run Function -----------------------------------
 def environment_variables_run_func(*args):
 
     if "environment_variables_data_rows" not in globals():

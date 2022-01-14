@@ -14,8 +14,8 @@ def services_details_import_func():
     from datetime import datetime
 
 
-    global Config, Services, MainGUI
-    import Config, Services, MainGUI
+    global Config, Services, MainGUI, Common
+    import Config, Services, MainGUI, Common
 
 
     global _tr
@@ -133,7 +133,7 @@ def services_details_gui_reset_function():
 def services_details_initial_func():
 
     global selected_service_name
-    selected_service_name = Services.selected_service_name
+    selected_service_name = Common.selected_service_name
     services_define_data_unit_converter_variables_func()                                      # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
     # Get system boot time (will be used for appending to process start times to get process start times as date time.)
@@ -299,7 +299,7 @@ def services_details_loop_func():
     label6122w.set_text(',\n'.join(selected_service_before))
 
 
-# ----------------------------------- Services Details Run Function -----------------------------------
+# ----------------------------------- Services Details - Run Function -----------------------------------
 def services_details_run_func():
 
     if "update_interval" not in globals():

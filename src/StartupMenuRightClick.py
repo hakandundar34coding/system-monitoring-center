@@ -13,8 +13,8 @@ def startup_menu_right_click_import_func():
     from threading import Thread
 
 
-    global MainGUI, Startup
-    import MainGUI, Startup
+    global MainGUI, Startup, Common
+    import MainGUI, Startup, Common
 
 
     global _tr
@@ -47,7 +47,7 @@ def startup_menu_right_click_gui_func():
 
     # ********************** Define object functions for Startup tab right click menu **********************
     def on_checkmenuitem5101m_toggled(widget):                                                # "Enable/Disable" item on the right click menu
-        selected_startup_application_file_name = Startup.selected_startup_application_file_name
+        selected_startup_application_file_name = Common.selected_startup_application_file_name
         treestore5101 = Startup.treestore5101
         startup_get_system_and_user_autostart_directories_func()
         name_value_system = ""
@@ -218,7 +218,7 @@ def startup_menu_right_click_gui_func():
         StartupNewItem.window5101w.show()
 
     def on_menuitem5103m_activate(widget):                                                    # "Delete" item on the right click menu
-        selected_startup_application_file_name = Startup.selected_startup_application_file_name
+        selected_startup_application_file_name = Common.selected_startup_application_file_name
         startup_get_system_and_user_autostart_directories_func()
         if os.path.exists(system_autostart_directory + selected_startup_application_file_name) == True:
             sub_menuitem5103m.set_sensitive(True)
@@ -234,8 +234,8 @@ def startup_menu_right_click_gui_func():
             sub_menuitem5105m.set_sensitive(True)
 
     def on_sub_menuitem5103m_activate(widget):                                                # "Delete System-Wide Values File" item on the right click menu
-        selected_startup_application_file_name = Startup.selected_startup_application_file_name
-        selected_startup_application_name = Startup.selected_startup_application_name
+        selected_startup_application_file_name = Common.selected_startup_application_file_name
+        selected_startup_application_name = Common.selected_startup_application_name
         startup_get_system_and_user_autostart_directories_func()
         selected_startup_application_exec_value = ""                                          # Initial value of "selected_startup_application_exec_value". This value will be used if it can not be get.
         if os.path.exists(system_autostart_directory + selected_startup_application_file_name) == True:
@@ -256,8 +256,8 @@ def startup_menu_right_click_gui_func():
             return                                                                            # Do nothing (close the dialog) if "No" is clicked.
 
     def on_sub_menuitem5104m_activate(widget):                                                # "Delete User-Specific Values File" item on the right click menu
-        selected_startup_application_file_name = Startup.selected_startup_application_file_name
-        selected_startup_application_name = Startup.selected_startup_application_name
+        selected_startup_application_file_name = Common.selected_startup_application_file_name
+        selected_startup_application_name = Common.selected_startup_application_name
         startup_get_system_and_user_autostart_directories_func()
         selected_startup_application_exec_value = ""                                          # Initial value of "selected_startup_application_exec_value". This value will be used if it can not be get.
         if os.path.exists(current_user_autostart_directory + selected_startup_application_file_name) == True:
@@ -277,8 +277,8 @@ def startup_menu_right_click_gui_func():
             return                                                                            # Do nothing (close the dialog) if "No" is clicked.
 
     def on_sub_menuitem5105m_activate(widget):                                                # "Delete Both Files" item on the right click menu
-        selected_startup_application_file_name = Startup.selected_startup_application_file_name
-        selected_startup_application_name = Startup.selected_startup_application_name
+        selected_startup_application_file_name = Common.selected_startup_application_file_name
+        selected_startup_application_name = Common.selected_startup_application_name
         startup_get_system_and_user_autostart_directories_func()
         selected_startup_application_exec_value = ""                                          # Initial value of "selected_startup_application_exec_value". This value will be used if it can not be get.
         if os.path.exists(system_autostart_directory + selected_startup_application_file_name) == True:
@@ -308,8 +308,8 @@ def startup_menu_right_click_gui_func():
             return
 
     def on_menuitem5106m_activate(widget):                                                    # "Run now" item on the right click menu
-        selected_startup_application_file_name = Startup.selected_startup_application_file_name
-        selected_startup_application_name = Startup.selected_startup_application_name
+        selected_startup_application_file_name = Common.selected_startup_application_file_name
+        selected_startup_application_name = Common.selected_startup_application_name
         startup_get_system_and_user_autostart_directories_func()
         global selected_startup_application_exec_value
         selected_startup_application_exec_value = ""                                          # Initial value of "selected_startup_application_exec_value". This value will be used if it can not be get.
@@ -402,8 +402,8 @@ def startup_get_system_and_user_autostart_directories_func():
 # ----------------------------------- Startup - Set Checkmenuitems (acivates/deactivates checkmenuitem (Enable/Disable checkbox for startup application visibility) on the popup menu when right click operation is performed on startup item row on the treeview) -----------------------------------
 def startup_set_checkmenuitem_func():
 
-    startup_application_file_name = Startup.selected_startup_application_file_name
-    startup_application_visibility = Startup.selected_startup_application_visibility
+    startup_application_file_name = Common.selected_startup_application_file_name
+    startup_application_visibility = Common.selected_startup_application_visibility
     with checkmenuitem5101m.handler_block(checkmenuitem5101m_handler_id):
         if startup_application_visibility == True:
             checkmenuitem5101m.set_active(True)
@@ -414,7 +414,7 @@ def startup_set_checkmenuitem_func():
 # ----------------------------------- Startup - Set Menu Labels Function (sets widget sensitivity of "Remove" menuitem and widget sensitivity and labels (system-wide and user-specific .desktop file names) of sub-menu items of "Browse '.desktop' File..." menu item when right click operation is performed on startup item row on the treeview) -----------------------------------
 def startup_set_menu_labels_func():
 
-    selected_startup_application_file_name = Startup.selected_startup_application_file_name
+    selected_startup_application_file_name = Common.selected_startup_application_file_name
     startup_get_system_and_user_autostart_directories_func()
     global desktop_file_system_full_path, desktop_file_user_full_path
     desktop_file_system_full_path = system_autostart_directory + selected_startup_application_file_name

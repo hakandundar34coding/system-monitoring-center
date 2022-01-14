@@ -288,7 +288,7 @@ def network_loop_func():
     label1409.set_text(network_signal_strength)
 
 
-# ----------------------------------- Network Run Function -----------------------------------
+# ----------------------------------- Network - Run Function -----------------------------------
 def network_run_func(*args):
 
     if "update_interval" not in globals():

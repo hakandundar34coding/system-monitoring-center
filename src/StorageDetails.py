@@ -13,8 +13,8 @@ def storage_details_import_func():
     from datetime import datetime
 
 
-    global Config, Storage, MainGUI
-    import Config, Storage, MainGUI
+    global Config, Storage, MainGUI, Common
+    import Config, Storage, MainGUI, Common
 
 
     global _tr
@@ -146,7 +146,7 @@ def storage_details_initial_func():
 def storage_details_loop_func():
 
     global disk
-    disk = Storage.selected_storage_kernel_name                                            # Get right clicked disk name
+    disk = Common.selected_storage_kernel_name                                                # Get right clicked disk name
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global storage_disk_usage_data_precision, storage_disk_usage_data_unit
@@ -477,7 +477,7 @@ def storage_details_loop_func():
     label4124w.set_text(disk_maj_min_number)
 
 
-# ----------------------------------- Storage Details Run Function -----------------------------------
+# ----------------------------------- Storage Details - Run Function -----------------------------------
 def storage_details_run_func():
 
     if "update_interval" not in globals():

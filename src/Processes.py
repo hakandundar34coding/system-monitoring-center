@@ -3,11 +3,11 @@
 # ----------------------------------- Processes - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_import_func():
 
-    global Gtk, Gdk, GLib, GObject, os, time
+    global Gtk, GLib, GObject, os, time
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk, GLib, GObject
+    from gi.repository import Gtk, GLib, GObject
     import os
     import time
 
@@ -49,10 +49,11 @@ def processes_gui_func():
 
     # Processes tab GUI functions
     def on_treeview2101_button_press_event(widget, event):
-        if event.button == 3:                                                                 # Open Processes tab right click menu if mouse is right clicked on the treeview (and on any process, otherwise menu will not be shown) and the mouse button is pressed.
-            processes_open_right_click_menu_func(event)
-        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open Process Details window if double click is performed.
-            processes_open_process_details_window_func(event)
+        if "Common" not in globals():
+            global Common
+            import Common
+            Common.common_import_func()
+        Common.common_mouse_actions_on_treeview_func(event, "Processes", treeview2101, pid_list, processes_data_rows)
 
     def on_treeview2101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
@@ -143,55 +144,6 @@ def processes_gui_func():
         radiobutton2104.set_tooltip_text(_tr("User defined expand\n(Usable if processes are listed as tree)"))
         radiobutton2105.set_tooltip_text(_tr("Expand all\n(Usable if processes are listed as tree)"))
         radiobutton2106.set_tooltip_text(_tr("Collapse all\n(Usable if processes are listed as tree)"))
-
-
-# ----------------------------------- Processes - Open Right Click Menu Function (gets right clicked process PID and opens right click menu) -----------------------------------
-def processes_open_right_click_menu_func(event):
-
-    try:                                                                                      # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
-        path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
-    except TypeError:
-        return
-    model = treeview2101.get_model()
-    treeiter = model.get_iter(path)
-    if treeiter is not None:
-        global selected_process_pid
-        try:
-            selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "processes_data_rows" list to use it getting pid of the process.
-        except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
-            return
-        if 'ProcessesMenuRightClick' not in globals():                                        # Check if "ProcessesMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
-            global ProcessesMenuRightClick
-            import ProcessesMenuRightClick
-            ProcessesMenuRightClick.processes_menu_right_click_import_func()
-            ProcessesMenuRightClick.processes_menu_right_click_gui_func()
-        ProcessesMenuRightClick.menu2101m.popup(None, None, None, None, event.button, event.time)
-        ProcessesMenuRightClick.processes_select_process_nice_option_func()
-
-
-# ----------------------------------- Processes - Open Process Details Window Function (gets double clicked process PID and opens Process Details window) -----------------------------------
-def processes_open_process_details_window_func(event):
-
-    try:                                                                                      # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
-        path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
-    except TypeError:
-        return
-    model = treeview2101.get_model()
-    treeiter = model.get_iter(path)
-    if treeiter is not None:
-        global selected_process_pid
-        try:
-            selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "processes_data_rows" list to use it getting pid of the process.
-        except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
-            return
-        # Open Process Details window
-        if 'ProcessesDetails' not in globals():                                               # Check if "ProcessesDetails" module is imported. Therefore it is not reimported for every double click on any process on the treeview if "ProcessesDetails" name is in globals().
-            global ProcessesDetails
-            import ProcessesDetails
-            ProcessesDetails.processes_details_import_func()
-            ProcessesDetails.processes_details_gui_function()
-        ProcessesDetails.window2101w.show()
-        ProcessesDetails.process_details_run_func()
 
 
 # ----------------------------------- Processes - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -669,7 +621,7 @@ def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
 
 
-# ----------------------------------- Processes Run Function (runs initial and loop functions) -----------------------------------
+# ----------------------------------- Processes - Run Function (runs initial and loop functions) -----------------------------------
 def processes_run_func(*args):
 
     if "processes_data_rows" not in globals():

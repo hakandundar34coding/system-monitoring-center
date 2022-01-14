@@ -12,8 +12,8 @@ def storage_menu_right_click_import_func():
     import subprocess
 
 
-    global MainGUI, Storage
-    import MainGUI, Storage
+    global MainGUI, Storage, Common
+    import MainGUI, Storage, Common
 
 
     global _tr
@@ -125,7 +125,7 @@ def storage_menu_right_click_gui_func():
         clipboard.store()                                                                     # Stores copied text in the clipboard. Therefore text stays in the clipboard after application has quit.
 
     def on_menuitem4107m_activate(widget):                                                    # "Rename Label" item on the right click menu
-        disk_name = Storage.selected_storage_kernel_name
+        disk_name = Common.selected_storage_kernel_name
         if 'StorageRename' not in globals():                                                  # Check if "StorageRename" module is imported. Therefore it is not reimported for every click on "Rename Label" menu item if "StorageRename" name is in globals().
             global StorageRename
             import StorageRename
@@ -156,7 +156,7 @@ def storage_menu_right_click_gui_func():
 def storage_disk_parent_child_disk_mount_point_etc_func():
 
     global disk_name
-    disk_name = Storage.selected_storage_kernel_name
+    disk_name = Common.selected_storage_kernel_name
     # Get all disks (disks and partitions) including physical, optical and virtual disks
     global disk_list
     disk_list = Storage.disk_list

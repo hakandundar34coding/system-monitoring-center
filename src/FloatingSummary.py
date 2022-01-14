@@ -130,7 +130,7 @@ def floating_summary_loop_func():
         label3008.set_text(_tr("Network W: ") + f'{floating_summary_data_unit_converter_func(Performance.network_send_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
 
 
-# ----------------------------------- FloatingSummary Run Function -----------------------------------
+# ----------------------------------- FloatingSummary - Run Function -----------------------------------
 def floating_summary_run_func(*args):
 
     if "floating_summary_glib_source" not in globals():

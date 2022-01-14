@@ -3,11 +3,11 @@
 # ----------------------------------- Storage - Import Function -----------------------------------
 def storage_import_func():
 
-    global Gtk, Gdk, GLib, GObject, subprocess, os, datetime
+    global Gtk, GLib, GObject, subprocess, os, datetime
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk, GLib, GObject
+    from gi.repository import Gtk, GLib, GObject
     import subprocess
     import os
     from datetime import datetime
@@ -50,10 +50,11 @@ def storage_gui_func():
 
     # Storage tab GUI functions
     def on_treeview4101_button_press_event(widget, event):                                    # Mouse button press event (on the treeview)
-        if event.button == 3:                                                                 # Open Storage tab right click menu if mouse is right clicked on the treeview (and on any disk, otherwise menu will not be shown) and the mouse button is pressed.
-            storage_open_right_click_menu_func(event)
-        if event.type == Gdk.EventType._2BUTTON_PRESS:                                        # Open Storage Details window if double click is performed.
-            storage_open_storage_details_window_func(event)
+        if "Common" not in globals():
+            global Common
+            import Common
+            Common.common_import_func()
+        Common.common_mouse_actions_on_treeview_func(event, "Storage", treeview4101, disk_list, storage_data_rows)
 
     def on_treeview4101_button_release_event(widget, event):                                  # Mouse button press event (on the treeview)
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
@@ -134,50 +135,6 @@ def storage_gui_func():
     treeview4101.set_search_column(2)
     treeview4101.set_tooltip_column(2)
     treeview4101.set_show_expanders(True)
-
-
-# ----------------------------------- Storage - Open Right Click Menu Function -----------------------------------
-def storage_open_right_click_menu_func(event):
-
-    try:
-        path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
-    except TypeError:
-        return
-    model = treeview4101.get_model()
-    treeiter = model.get_iter(path)
-    if treeiter is not None:
-        global selected_storage_kernel_name
-        selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]
-        if 'StorageMenuRightClick' not in globals():
-            global StorageMenuRightClick
-            import StorageMenuRightClick
-            StorageMenuRightClick.storage_menu_right_click_import_func()
-            StorageMenuRightClick.storage_menu_right_click_gui_func()
-        StorageMenuRightClick.storage_disk_parent_child_disk_mount_point_etc_func()
-        StorageMenuRightClick.menu4101m.popup(None, None, None, None, event.button, event.time)
-
-
-# ----------------------------------- Storage - Open Storage Details Window Function -----------------------------------
-def storage_open_storage_details_window_func(event):
-
-    if event.type == Gdk.EventType._2BUTTON_PRESS:                                            # Check if double click is performed
-        try:                                                                                  # "try-except" is used in order to prevent errors when double clicked on an empty area on the treeview.
-            path, _, _, _ = treeview4101.get_path_at_pos(int(event.x), int(event.y))
-        except TypeError:
-            return
-        model = treeview4101.get_model()
-        treeiter = model.get_iter(path)
-        if treeiter is not None:
-            global selected_storage_kernel_name
-            selected_storage_kernel_name = disk_list[storage_data_rows.index(model[treeiter][:])]    # "[:]" is used in order to copy entire list to be able to use it for getting index in the "storage_data_rows" list to use it getting name of the disk.
-            # Open Storage Details window
-            if 'StorageDetails' not in globals():                                             # Check if "StorageDetails" module is imported. Therefore it is not reimported for every double click on any user on the treeview if "StorageDetails" name is in globals().
-                global StorageDetails
-                import StorageDetails
-                StorageDetails.storage_details_import_func()
-                StorageDetails.storage_details_gui_function()
-            StorageDetails.window4101w.show()
-            StorageDetails.storage_details_run_func()
 
 
 # ----------------------------------- Storage - Initial Function -----------------------------------
@@ -753,7 +710,7 @@ def cell_data_function_disk_usage_percentage(tree_column, cell, tree_model, iter
         cell.set_property('text', f'{cell_data:.1f}%')
 
 
-# ----------------------------------- Storage Run Function -----------------------------------
+# ----------------------------------- Storage - Run Function -----------------------------------
 def storage_run_func(*args):
 
     if "storage_data_rows" not in globals():
