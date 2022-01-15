@@ -7,7 +7,7 @@ Standards-Version: 4.3.0
 Homepage: https://github.com/hakandundar34coding/system-monitoring-center
 
 Package: system-monitoring-center
-Architecture: amd64
+Architecture: all
 Depends: ${misc:Depends},
          ${python3:Depends},
          bash (>=5.0),

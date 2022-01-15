@@ -1,9 +1,11 @@
-Name:       system-monitoring-center
-Version:    1.0.0
-Release:    1%{?dist}
-Summary:    Provides information about system performance and usage.
-License:    GPLv3
-URL:        https://github.com/hakandundar34coding/system-monitoring-center
+Name:           system-monitoring-center
+Version:        1.0.0
+Release:        1%{?dist}
+Summary:        Provides information about system performance and usage.
+License:        GPLv3
+URL:            https://github.com/hakandundar34coding/system-monitoring-center
+
+BuildArch:      noarch
 
 BuildRequires:  python3-setuptools
 
