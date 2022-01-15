@@ -395,12 +395,6 @@ def system_loop_func():
         except FileNotFoundError:                                                             # "try-except" is used in order to prevent errors if Flatpak is uninstalled during run-time of this application.
             number_of_installed_flatpak_packages = "-"
 
-    # Get if current user has root privileges
-    if os.geteuid() == 0:
-        have_root_access = f'({_tr("Yes")})'
-    else:
-        have_root_access = f'({_tr("No")})'
-
 
     # Set label texts to show information
     label8101.set_text(f'{os_name} - {os_version}')
@@ -410,10 +404,10 @@ def system_loop_func():
     label8116.set_text(host_name)
     label8117.set_text(f'{number_of_monitors}')
     label8118.set_text(f'{current_monitor}')
-    label8119.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
-    label8120.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
-    label8121.set_text(f'{number_of_installed_python_packages} (Py) - {number_of_installed_flatpak_packages} (Fp)')
-    label8122.set_text(f'{current_user_name} - {have_root_access}')
+    label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
+    label8120.set_text(f'{number_of_installed_python_packages}')
+    label8121.set_text(f'{number_of_installed_flatpak_packages}')
+    label8122.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
 
 
 # ----------------------------------- System - Run Function -----------------------------------

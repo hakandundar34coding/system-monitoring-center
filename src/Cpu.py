@@ -188,7 +188,7 @@ def on_drawingarea1101_draw_per_core(widget, chart1101):
         chart1101.fill()
         chart1101.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], 2*chart_foreground_color[3])
         chart1101.move_to(i*chart1101_width_per_core+8, 16)
-        chart1101.show_text(f'{cpu_core}')
+        chart1101.show_text(f'{cpu_core.split("cpu")[-1]}')
 
 
 # ----------------------------------- CPU - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------

@@ -121,7 +121,7 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="tooltip-text" translatable="yes">Refresh
-(Reloads Services tab data)</property>
+(Reloads data on this tab)</property>
             <property name="halign">start</property>
             <child>
               <object class="GtkImage">
