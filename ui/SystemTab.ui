@@ -282,7 +282,6 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Base version of the kernel</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Kernel Release:</property>
                     <property name="ellipsize">end</property>
@@ -469,7 +468,6 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Package version of the kernel</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Kernel Version:</property>
                     <property name="ellipsize">end</property>
@@ -707,7 +705,7 @@ This information is available only on systems with X11 windowing system.</proper
                   </object>
                   <packing>
                     <property name="left-attach">2</property>
-                    <property name="top-attach">3</property>
+                    <property name="top-attach">2</property>
                   </packing>
                 </child>
                 <child>
@@ -812,6 +810,20 @@ This information is available only on systems with X11 windowing system.</proper
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Version of Python which is running this application</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Python Version:</property>
+                    <property name="ellipsize">end</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Built-in Python packages are not counted.</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Python:</property>
@@ -819,20 +831,7 @@ This information is available only on systems with X11 windowing system.</proper
                   </object>
                   <packing>
                     <property name="left-attach">2</property>
-                    <property name="top-attach">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="label" translatable="yes">Up Time:</property>
-                    <property name="ellipsize">end</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">2</property>
-                    <property name="top-attach">4</property>
+                    <property name="top-attach">3</property>
                   </packing>
                 </child>
               </object>

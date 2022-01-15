@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-15 12:36+0300\n"
-"PO-Revision-Date: 2022-01-15 12:39+0300\n"
+"POT-Creation-Date: 2022-01-15 13:26+0300\n"
+"PO-Revision-Date: 2022-01-15 13:26+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -1256,12 +1256,12 @@ msgstr "%0"
 #: ui/StorageDetailsWindow.ui:684 ui/StorageDetailsWindow.ui:700
 #: ui/StorageRenameWindow.ui:163 ui/StorageTab.ui:83 ui/SystemTab.ui:29
 #: ui/SystemTab.ui:44 ui/SystemTab.ui:177 ui/SystemTab.ui:194
-#: ui/SystemTab.ui:239 ui/SystemTab.ui:269 ui/SystemTab.ui:300
-#: ui/SystemTab.ui:334 ui/SystemTab.ui:365 ui/SystemTab.ui:382
-#: ui/SystemTab.ui:425 ui/SystemTab.ui:456 ui/SystemTab.ui:487
-#: ui/SystemTab.ui:520 ui/SystemTab.ui:611 ui/SystemTab.ui:628
-#: ui/SystemTab.ui:645 ui/SystemTab.ui:718 ui/SystemTab.ui:735
-#: ui/SystemTab.ui:765 ui/SystemTab.ui:782 ui/SystemTab.ui:799
+#: ui/SystemTab.ui:239 ui/SystemTab.ui:269 ui/SystemTab.ui:299
+#: ui/SystemTab.ui:333 ui/SystemTab.ui:364 ui/SystemTab.ui:381
+#: ui/SystemTab.ui:424 ui/SystemTab.ui:455 ui/SystemTab.ui:485
+#: ui/SystemTab.ui:518 ui/SystemTab.ui:609 ui/SystemTab.ui:626
+#: ui/SystemTab.ui:643 ui/SystemTab.ui:716 ui/SystemTab.ui:733
+#: ui/SystemTab.ui:763 ui/SystemTab.ui:780 ui/SystemTab.ui:797
 #: ui/UsersDetailsWindow.ui:208 ui/UsersDetailsWindow.ui:223
 #: ui/UsersDetailsWindow.ui:238 ui/UsersDetailsWindow.ui:253
 #: ui/UsersDetailsWindow.ui:268 ui/UsersDetailsWindow.ui:283
@@ -1272,7 +1272,7 @@ msgstr "%0"
 msgid "--"
 msgstr ""
 
-#: ui/CpuTab.ui:152 ui/SystemTab.ui:830
+#: ui/CpuTab.ui:152
 msgid "Up Time:"
 msgstr "Çalışma Zamanı:"
 
@@ -2485,7 +2485,7 @@ msgstr "Ad:"
 msgid "Version - Code Name:"
 msgstr "Sürüm - Kod Adı:"
 
-#: ui/SystemTab.ui:210 ui/SystemTab.ui:224 ui/SystemTab.ui:350
+#: ui/SystemTab.ui:210 ui/SystemTab.ui:224 ui/SystemTab.ui:349
 msgid "This information may not be present in all motherboards."
 msgstr "Bu bilgi tüm anakartlarda mevcut olmayabilir."
 
@@ -2501,47 +2501,39 @@ msgstr "Bilgisayar Tipi:"
 msgid "Based On:"
 msgstr "Temeli:"
 
-#: ui/SystemTab.ui:285
-msgid "Base version of the kernel"
-msgstr "İşletim sistemi çekirdeğinin (kernel) temel sürümü (kernel release)"
-
-#: ui/SystemTab.ui:287
+#: ui/SystemTab.ui:286
 msgid "Kernel Release:"
 msgstr "Kernel Sürümü:"
 
-#: ui/SystemTab.ui:317
+#: ui/SystemTab.ui:316
 msgid "Computer:"
 msgstr "Bilgisayar:"
 
-#: ui/SystemTab.ui:352
+#: ui/SystemTab.ui:351
 msgid "Vendor:"
 msgstr "Firma:"
 
-#: ui/SystemTab.ui:399
+#: ui/SystemTab.ui:398
 msgid "OS Family:"
 msgstr "İ.S. Ailesi:"
 
-#: ui/SystemTab.ui:412
+#: ui/SystemTab.ui:411
 msgid "Host Name:"
 msgstr "Bilgisayar Adı:"
 
-#: ui/SystemTab.ui:441
+#: ui/SystemTab.ui:440
 msgid "Number of detected monitors"
 msgstr "Algılanan ekran sayısı"
 
-#: ui/SystemTab.ui:443
+#: ui/SystemTab.ui:442
 msgid "Number Of Monitors:"
 msgstr "Ekran Sayısı:"
 
 #: ui/SystemTab.ui:472
-msgid "Package version of the kernel"
-msgstr "İşletim sistemi çekirdeğinin (kernel) paket sürümü (kernel version)"
-
-#: ui/SystemTab.ui:474
 msgid "Kernel Version:"
 msgstr "Kernel Sürüm Numarası:"
 
-#: ui/SystemTab.ui:503
+#: ui/SystemTab.ui:501
 msgid ""
 "Monitor which most part of this window is shown on\n"
 "\n"
@@ -2551,35 +2543,35 @@ msgstr ""
 "\n"
 "Bu bilgi sadece X11 pencere sisteminin kullanıldığı sistemlerde sağlanabilir."
 
-#: ui/SystemTab.ui:507
+#: ui/SystemTab.ui:505
 msgid "Current Monitor:"
 msgstr "Şimdiki Ekran:"
 
-#: ui/SystemTab.ui:564
+#: ui/SystemTab.ui:562
 msgid "Graphical User Interface (GUI):"
 msgstr "Grafiksel Kullanıcı Arayüzü (GUI):"
 
-#: ui/SystemTab.ui:581
+#: ui/SystemTab.ui:579
 msgid "Packages:"
 msgstr "Paketler:"
 
-#: ui/SystemTab.ui:598
+#: ui/SystemTab.ui:596
 msgid "Desktop Environment:"
 msgstr "Masaüstü Ortamı:"
 
-#: ui/SystemTab.ui:662
+#: ui/SystemTab.ui:660
 msgid "Windowing System:"
 msgstr "Pencere Sistemi:"
 
-#: ui/SystemTab.ui:674
+#: ui/SystemTab.ui:672
 msgid "Name of the display manager (login manager)"
 msgstr "Ekran yöneticisinin (display manager/login manager) adı"
 
-#: ui/SystemTab.ui:676
+#: ui/SystemTab.ui:674
 msgid "Display Manager:"
 msgstr "Ekran Yöneticisi:"
 
-#: ui/SystemTab.ui:688
+#: ui/SystemTab.ui:686
 msgid ""
 "Number of installed packages\n"
 "(APT, RPM or pacman)"
@@ -2587,27 +2579,35 @@ msgstr ""
 "Kurulu paket sayısı\n"
 "(APT, RPM veya pacman)"
 
-#: ui/SystemTab.ui:691
+#: ui/SystemTab.ui:689
 msgid "System:"
 msgstr "Sistem:"
 
-#: ui/SystemTab.ui:703
+#: ui/SystemTab.ui:701
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "Kurulu Flatpak uygulaması ve çalışma zamanı (runtime) sayısı"
 
-#: ui/SystemTab.ui:705
+#: ui/SystemTab.ui:703
 msgid "Flatpak:"
 msgstr "Flatpak:"
 
-#: ui/SystemTab.ui:752
+#: ui/SystemTab.ui:750
 msgid "Window Manager:"
 msgstr "Pencere Yöneticisi:"
 
+#: ui/SystemTab.ui:813
+msgid "Version of Python which is running this application"
+msgstr "Bu uygulamayı çalıştıran Python'ın sürümü"
+
 #: ui/SystemTab.ui:815
+msgid "Python Version:"
+msgstr "Python Sürümü:"
+
+#: ui/SystemTab.ui:827
 msgid "Built-in Python packages are not counted."
 msgstr "Dahili (Built-in) Python paketleri sayılmaz."
 
-#: ui/SystemTab.ui:817
+#: ui/SystemTab.ui:829
 msgid "Python:"
 msgstr "Python:"
 
@@ -2638,6 +2638,12 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Base version of the kernel"
+#~ msgstr "İşletim sistemi çekirdeğinin (kernel) temel sürümü (kernel release)"
+
+#~ msgid "Package version of the kernel"
+#~ msgstr "İşletim sistemi çekirdeğinin (kernel) paket sürümü (kernel version)"
 
 #~ msgid ""
 #~ "Refresh\n"

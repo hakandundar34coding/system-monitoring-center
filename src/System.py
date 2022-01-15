@@ -3,7 +3,7 @@
 # ----------------------------------- System - Import Function -----------------------------------
 def system_import_func():
 
-    global Gtk, GLib, subprocess, os, platform, time, pkg_resources
+    global Gtk, GLib, subprocess, os, platform, pkg_resources
 
     import gi
     gi.require_version('Gtk', '3.0')
@@ -11,7 +11,6 @@ def system_import_func():
     import subprocess
     import os
     import platform
-    import time
     import pkg_resources
 
 
@@ -91,6 +90,9 @@ def system_initial_func():
     kernel_version = platform.version()
     if kernel_version == "":
         kernel_version = "-"
+
+    # Get current Python version (Python which is running this code)
+    current_python_version = platform.python_version()
 
     # Get computer vendor, model, chassis information
     try:                                                                                      # This information may not be available on some systems such as ARM CPU used motherboards.
@@ -314,6 +316,7 @@ def system_initial_func():
     label8113.set_text(computer_vendor)
     label8114.set_text(computer_model)
     label8115.set_text(computer_chassis_type)
+    label8122.set_text(f'{current_python_version}')
 
 
 # ----------------------------------- System - Loop Function -----------------------------------
@@ -350,18 +353,7 @@ def system_loop_func():
     if windowing_system.lower() == "x11":
         current_monitor = current_screen.get_monitor_at_window(current_screen.get_active_window())    # Get the monitor number that most of the gtk.gdk.Window is in.
 
-    # Get system up time
-    with open("/proc/uptime") as reader:
-        sut_read = float(reader.read().split(" ")[0].strip())
-    sut_days = sut_read/60/60/24
-    sut_days_int = int(sut_days)
-    sut_hours = (sut_days -sut_days_int) * 24
-    sut_hours_int = int(sut_hours)
-    sut_minutes = (sut_hours - sut_hours_int) * 60
-    sut_minutes_int = int(sut_minutes)
-    sut_seconds = (sut_minutes - sut_minutes_int) * 60
-    sut_seconds_int = int(sut_seconds)
-
+    # Get number of installed packages
     global apt_packages_available, rpm_packages_available, pacman_packages_available, flatpak_packages_available
     number_of_installed_apt_or_rpm_or_pacman_packages = "-"
     # Get number of installed APT packages
@@ -405,9 +397,8 @@ def system_loop_func():
     label8117.set_text(f'{number_of_monitors}')
     label8118.set_text(f'{current_monitor}')
     label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
-    label8120.set_text(f'{number_of_installed_python_packages}')
-    label8121.set_text(f'{number_of_installed_flatpak_packages}')
-    label8122.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
+    label8120.set_text(f'{number_of_installed_flatpak_packages}')
+    label8121.set_text(f'{number_of_installed_python_packages}')
 
 
 # ----------------------------------- System - Run Function -----------------------------------
