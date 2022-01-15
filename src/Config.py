@@ -10,31 +10,13 @@ def config_import_func():
 # ----------------------------------- Config - Config Read Function (reads settings from configration file) -----------------------------------
 def config_read_func():
 
-    # Get human and root user usernames and UIDs which will be used for determining username when "pkexec_uid" is get.
-    usernames_username_list = []
-    usernames_uid_list = []
-    with open("/etc/passwd") as reader:
-        etc_passwd_lines = reader.read().strip().split("\n")
-    for line in etc_passwd_lines:
-        line_splitted = line.split(":", 3)
-        usernames_username_list.append(line_splitted[0])
-        usernames_uid_list.append(line_splitted[2])
-
-    # Get current username which will be used for determining configration file directory.
-    global current_user_name
-    current_user_name = os.environ.get('SUDO_USER')                                           # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
-    if current_user_name is None:                                                             # Get username in the following way if current application has not been run by root privileges.
-        current_user_name = os.environ.get('USER')
-    pkexec_uid = os.environ.get('PKEXEC_UID')
-    if current_user_name == "root" and pkexec_uid != None:                                    # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-        current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
     # Define configration folder and file directory
-    global config_file_path, config_folder_path
-    config_folder_path = "/home/" + current_user_name + "/.config/system-monitoring-center/"
+    global config_file_path
+    current_user_homedir = os.environ.get('HOME')
+    config_folder_path = current_user_homedir + "/.config/system-monitoring-center/"
     config_file_path = config_folder_path + "config.txt"
 
-
-    global number_precision_list, data_unit_list, data_speed_unit_list, current_user_homedir
+    global number_precision_list, data_unit_list, data_speed_unit_list
     # number_precision_list data info: [[ordering number, used in the code to get data, data unit, precision number], ...]
     number_precision_list = [[0, '0', 0], [1, '0.0', 1], [2, '0,00', 2], [3, '0,000', 3]]
     # data_unit_list data info: [[ordering number, used in the code to get data, data unit, precision number], ...]
@@ -87,7 +69,7 @@ def config_default_reset_all_func():
     config_default_environment_variables_func()
     config_default_environment_variables_row_sort_column_order_func()
 
-# ----------------------------------- Config - Config Default General Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default General Function -----------------------------------
 def config_default_general_general_func():
     global reset_all_settings_with_new_release
     global update_interval, chart_data_history, default_main_tab, performance_tab_default_sub_tab
@@ -103,14 +85,14 @@ def config_default_general_general_func():
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     remember_last_selected_hardware = 0
 
-# ----------------------------------- Config - Config Default Floating Summary Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Floating Summary Function -----------------------------------
 def config_default_general_floating_summary_func():
     global show_floating_summary, floating_summary_window_transparency, floating_summary_data_shown
     show_floating_summary = 0
     floating_summary_window_transparency = 0.6
     floating_summary_data_shown = [0, 1]                                     # floating_summary_data_shown all values = [0, 1, 2, 3, 4, 5, 6, 7] - [0: CPU, 1: RAM, 2: Disk Read+Write, 3: Disk Read, 4: Disk Write, 5: Network Receive+Send, 6: Network Receive, 7: Network Send]
 
-# ----------------------------------- Config - Config Default Performance Tab-CPU Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Performance Tab-CPU Tab Function -----------------------------------
 def config_default_performance_cpu_func():
     global chart_background_color_all_charts, chart_line_color_cpu_percent, show_cpu_usage_per_core, performance_cpu_usage_percent_precision, selected_cpu_core
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
@@ -119,7 +101,7 @@ def config_default_performance_cpu_func():
     performance_cpu_usage_percent_precision = 0
     selected_cpu_core = ""
 
-# ----------------------------------- Config - Config Default Performance Tab-RAM Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Performance Tab-RAM Tab Function -----------------------------------
 def config_default_performance_ram_func():
     global chart_background_color_all_charts, chart_line_color_ram_swap_percent, performance_ram_swap_data_precision, performance_ram_swap_data_unit
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
@@ -127,7 +109,7 @@ def config_default_performance_ram_func():
     performance_ram_swap_data_precision = 1
     performance_ram_swap_data_unit = 0
 
-# ----------------------------------- Config - Config Default Performance Tab-Disk Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Performance Tab-Disk Tab Function -----------------------------------
 def config_default_performance_disk_func():
     global chart_background_color_all_charts, chart_line_color_disk_speed_usage, performance_disk_speed_data_precision, performance_disk_usage_data_precision
     global performance_disk_speed_data_unit, performance_disk_usage_data_unit, plot_disk_read_speed, plot_disk_write_speed, selected_disk
@@ -141,7 +123,7 @@ def config_default_performance_disk_func():
     plot_disk_write_speed = 1
     selected_disk = ""
 
-# ----------------------------------- Config - Config Default Performance Tab-Network Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Performance Tab-Network Tab Function -----------------------------------
 def config_default_performance_network_func():
     global chart_background_color_all_charts, chart_line_color_network_speed_data, performance_network_speed_data_precision, performance_network_data_data_precision
     global performance_network_speed_data_unit, performance_network_data_data_unit, plot_network_download_speed, plot_network_upload_speed, selected_network_card
@@ -155,7 +137,7 @@ def config_default_performance_network_func():
     plot_network_upload_speed = 1
     selected_network_card = ""
 
-# ----------------------------------- Config - Config Default Performance Tab-GPU Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Performance Tab-GPU Tab Function -----------------------------------
 def config_default_performance_gpu_func():
     global chart_background_color_all_charts, chart_line_color_fps, continue_fps_counting_in_background, selected_gpu
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
@@ -163,7 +145,7 @@ def config_default_performance_gpu_func():
     continue_fps_counting_in_background = 1
     selected_gpu = ""
 
-# ----------------------------------- Config - Config Default Performance Tab-Sensors Tab Row Sort Column Order Width Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Performance Tab-Sensors Tab Row Sort Column Order Width Function -----------------------------------
 def config_default_performance_sensors_row_column_func():
     global sensors_treeview_columns_shown, sensors_data_row_sorting_column, sensors_data_row_sorting_order, sensors_data_column_order, sensors_data_column_widths
     sensors_treeview_columns_shown = [0, 1, 2, 3, 4]
@@ -172,7 +154,7 @@ def config_default_performance_sensors_row_column_func():
     sensors_data_column_order = [0, 1, 2, 3, 4]                                               # sensors_data_column_order all values = [0, 1, 2, 3]
     sensors_data_column_widths = [-1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Processes Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Processes Tab Function -----------------------------------
 def config_default_processes_func():
     global show_processes_of_all_users, show_processes_as_tree, show_tree_lines, processes_cpu_usage_percent_precision
     global processes_ram_swap_data_precision, processes_ram_swap_data_unit, processes_disk_speed_data_precision, processes_disk_usage_data_precision
@@ -195,7 +177,7 @@ def config_default_processes_func():
     processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
     processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Processes Tab Row Sort Column Order Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Processes Tab Row Sort Column Order Function -----------------------------------
 def config_default_processes_row_sort_column_order_func():
     global processes_data_row_sorting_column, processes_data_row_sorting_order, processes_data_column_order, processes_data_column_widths
     processes_data_row_sorting_column = 0                                                     # Column number for row sorting
@@ -203,7 +185,7 @@ def config_default_processes_row_sort_column_order_func():
     processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
     processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Users Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Users Tab Function -----------------------------------
 def config_default_users_func():
     global users_cpu_usage_percent_precision, users_ram_swap_data_precision, users_ram_swap_data_unit
     global users_treeview_columns_shown, users_data_row_sorting_column, users_data_row_sorting_order, users_data_column_order, users_data_column_widths
@@ -216,7 +198,7 @@ def config_default_users_func():
     users_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     users_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Users Tab Row Sort Column Order Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Users Tab Row Sort Column Order Function -----------------------------------
 def config_default_users_row_sort_column_order_func():
     global users_data_row_sorting_column, users_data_row_sorting_order, users_data_column_order, users_data_column_widths
     users_data_row_sorting_column = 0
@@ -224,7 +206,7 @@ def config_default_users_row_sort_column_order_func():
     users_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     users_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Storage Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Storage Tab Function -----------------------------------
 def config_default_storage_func():
     global storage_disk_usage_data_precision, storage_disk_usage_data_unit
     global storage_treeview_columns_shown, storage_data_row_sorting_column, storage_data_row_sorting_order, storage_data_column_order, storage_data_column_widths
@@ -236,7 +218,7 @@ def config_default_storage_func():
     storage_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
     storage_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Storage Tab Row Sort Column Order Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Storage Tab Row Sort Column Order Function -----------------------------------
 def config_default_storage_row_sort_column_order_func():
     global storage_data_row_sorting_column, storage_data_row_sorting_order, storage_data_column_order, storage_data_column_widths
     storage_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
@@ -245,7 +227,7 @@ def config_default_storage_row_sort_column_order_func():
     storage_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
     storage_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Startup Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Startup Tab Function -----------------------------------
 def config_default_startup_func():
     global startup_treeview_columns_shown, startup_data_row_sorting_column, startup_data_row_sorting_order, startup_data_column_order, startup_data_column_widths
     startup_treeview_columns_shown = [0, 1, 2]                                                # startup_treeview_columns_shown all values = [0, 1, 2]
@@ -254,7 +236,7 @@ def config_default_startup_func():
     startup_data_column_order = [0, 1, 2]
     startup_data_column_widths = [-1, -1, -1]
 
-# ----------------------------------- Config - Config Default Startup Tab Row Sort Column Order Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Startup Tab Row Sort Column Order Function -----------------------------------
 def config_default_startup_row_sort_column_order_func():
     global startup_data_row_sorting_column, startup_data_row_sorting_order, startup_data_column_order, startup_data_column_widths
     startup_data_row_sorting_column = 0
@@ -262,7 +244,7 @@ def config_default_startup_row_sort_column_order_func():
     startup_data_column_order = [0, 1, 2]
     startup_data_column_widths = [-1, -1, -1]
 
-# ----------------------------------- Config - Config Default Services Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Services Tab Function -----------------------------------
 def config_default_services_func():
     global services_ram_swap_data_precision, services_ram_swap_data_unit
     global services_treeview_columns_shown, services_data_row_sorting_column, services_data_row_sorting_order, services_data_column_order, services_data_column_widths
@@ -274,7 +256,7 @@ def config_default_services_func():
     services_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7]
     services_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Services Tab Row Sort Column Order Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Services Tab Row Sort Column Order Function -----------------------------------
 def config_default_services_row_sort_column_order_func():
     global services_data_row_sorting_column, services_data_row_sorting_order, services_data_column_order, services_data_column_widths
     services_data_row_sorting_column = 0
@@ -282,7 +264,7 @@ def config_default_services_row_sort_column_order_func():
     services_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7]
     services_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Environment Variables Tab Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Environment Variables Tab Function -----------------------------------
 def config_default_environment_variables_func():
     global environment_variables_treeview_columns_shown, environment_variables_data_row_sorting_column, environment_variables_data_row_sorting_order, environment_variables_data_column_order, environment_variables_data_column_widths
     environment_variables_treeview_columns_shown = [0, 1, 2]                                  # environment_variables_treeview_columns_shown all values = [0, 1, 2]
@@ -291,7 +273,7 @@ def config_default_environment_variables_func():
     environment_variables_data_column_order = [0, 1, 2]
     environment_variables_data_column_widths = [-1, -1, -1]
 
-# ----------------------------------- Config - Config Default Environment Variables Tab Row Sort Column Order Function (Defines default settings by user demand or if there are any problems during reading config file and its content) -----------------------------------
+# ----------------------------------- Config - Config Default Environment Variables Tab Row Sort Column Order Function -----------------------------------
 def config_default_environment_variables_row_sort_column_order_func():
     global environment_variables_data_row_sorting_column, environment_variables_data_row_sorting_order, environment_variables_data_column_order, environment_variables_data_column_widths
     environment_variables_data_row_sorting_column = 0
