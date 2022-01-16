@@ -90,6 +90,13 @@ def system_initial_func():
     # Get current Python version (Python which is running this code)
     current_python_version = platform.python_version()
 
+    # Get CPU architecture
+    cpu_architecture = platform.processor()
+    if cpu_architecture == "":
+        cpu_architecture = platform.machine()
+        if cpu_architecture == "":
+            cpu_architecture = "-"
+
     # Get computer vendor, model, chassis information
     try:                                                                                      # This information may not be available on some systems such as ARM CPU used motherboards.
         with open("/sys/devices/virtual/dmi/id/sys_vendor") as reader:
@@ -312,6 +319,7 @@ def system_initial_func():
     label8113.set_text(computer_vendor)
     label8114.set_text(computer_model)
     label8115.set_text(computer_chassis_type)
+    label8117.set_text(cpu_architecture)
     label8122.set_text(f'{current_python_version}')
 
 
@@ -342,12 +350,9 @@ def system_loop_func():
     with open("/proc/sys/kernel/hostname") as reader:
         host_name = reader.read().strip()
 
-    # Get number of monitors and current monitor
-    current_monitor = "-"                                                                     # Initial value of "current_monitor" variable. This value will be used if "current_monitor" could not be detected ("current_screen" could not be get on system which run Wayland. But could be detected on systems which run X11.)..
+    # Get number of monitors
     current_screen = MainGUI.window1.get_screen()
     number_of_monitors = current_screen.get_n_monitors()
-    if windowing_system.lower() == "x11":
-        current_monitor = current_screen.get_monitor_at_window(current_screen.get_active_window())    # Get the monitor number that most of the gtk.gdk.Window is in.
 
     # Get number of installed packages
     global apt_packages_available, rpm_packages_available, pacman_packages_available, flatpak_packages_available
@@ -390,8 +395,7 @@ def system_loop_func():
     label8104.set_text(f'{os_version} - {os_version_code_name}')
     label8106.set_text(os_based_on)
     label8116.set_text(host_name)
-    label8117.set_text(f'{number_of_monitors}')
-    label8118.set_text(f'{current_monitor}')
+    label8118.set_text(f'{number_of_monitors}')
     label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
     label8120.set_text(f'{number_of_installed_flatpak_packages}')
     label8121.set_text(f'{number_of_installed_python_packages}')

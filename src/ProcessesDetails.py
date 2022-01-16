@@ -652,7 +652,7 @@ def processes_details_data_unit_converter_func(data, unit, precision):
 def processes_no_such_process_error_dialog():
 
     error_dialog2101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("This process is not running anymore."), )
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("This process is not running anymore:"), )
     error_dialog2101w.format_secondary_text(selected_process_name + " (" + _tr("PID") + ": " + selected_process_pid + ")", )
     error_dialog2101w.run()
     error_dialog2101w.destroy()

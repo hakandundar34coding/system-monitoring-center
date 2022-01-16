@@ -123,18 +123,20 @@ def processes_menu_right_click_gui_func():
         clipboard.store()
 
     def on_menuitem2107m_activate(widget):                                                    # "Open Location" item on the right click menu
+        selected_process_pid = Common.selected_process_pid
+        selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
         try:                                                                                  # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
-            full_path = os.path.realpath("/proc/" + Common.selected_process_pid + "/exe")
+            full_path = os.path.realpath("/proc/" + selected_process_pid + "/exe")
         except:
             try:
-                with open("/proc/" + Common.selected_process_pid + "/cmdline") as reader:
+                with open("/proc/" + selected_process_pid + "/cmdline") as reader:
                     full_path = reader.read()
             except:
                 full_path = "-"
         if full_path == "":
             full_path = "-"
         if full_path == "-":
-            processes_no_path_error_dialog()
+            processes_no_path_error_dialog(selected_process_name, selected_process_pid)
             return
         path_only, file_name_only = os.path.split(os.path.abspath(full_path))
         (subprocess.check_output(["xdg-open", path_only], shell=False)).decode()
@@ -281,10 +283,10 @@ def processes_kill_process_warning_dialog(process_name, process_pid):
 
 
 # ----------------------------------- Processes - Processes No Path Error Dialog Function -----------------------------------
-def processes_no_path_error_dialog():
+def processes_no_path_error_dialog(process_name, process_pid):
 
     error_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process directory could not be get."), )
-    error_dialog2102.format_secondary_text(_tr("No folder will be opened."))
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Directory of this process could not be get:"), )
+    error_dialog2102.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
     error_dialog2102.run()
     error_dialog2102.destroy()

@@ -437,9 +437,8 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Number of detected monitors</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Number Of Monitors:</property>
+                    <property name="label" translatable="yes">Architecture:</property>
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>
@@ -498,11 +497,8 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Monitor which most part of this window is shown on
-
-This information is available only on systems with X11 windowing system.</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Current Monitor:</property>
+                    <property name="label" translatable="yes">Number Of Monitors:</property>
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-16 11:07+0300\n"
-"PO-Revision-Date: 2022-01-16 11:07+0300\n"
+"POT-Creation-Date: 2022-01-16 13:39+0300\n"
+"PO-Revision-Date: 2022-01-16 13:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -363,24 +363,20 @@ msgid "Process Details"
 msgstr "İşlem Detayları"
 
 #: src/ProcessesDetails.py:655
-msgid "This process is not running anymore."
-msgstr "Bu işlem artık çalışmıyor."
+msgid "This process is not running anymore:"
+msgstr "Bu işlem artık çalışmıyor:"
 
-#: src/ProcessesMenuRightClick.py:265
+#: src/ProcessesMenuRightClick.py:267
 msgid "Do you want to terminate this process?"
 msgstr "Bu işlemi sonlandırmak istiyor musunuz?"
 
-#: src/ProcessesMenuRightClick.py:276
+#: src/ProcessesMenuRightClick.py:278
 msgid "Do you want to kill this process?"
 msgstr "Bu işlemi öldürmek istiyor musunuz?"
 
-#: src/ProcessesMenuRightClick.py:287
-msgid "Process directory could not be get."
-msgstr "İşlem dizini alınamadı."
-
-#: src/ProcessesMenuRightClick.py:288
-msgid "No folder will be opened."
-msgstr "Klasör açılmayacak."
+#: src/ProcessesMenuRightClick.py:289
+msgid "Directory of this process could not be get:"
+msgstr "Bu işlemin dizini alınamadı:"
 
 #: src/Ram.py:216
 msgid "Total Physical RAM: "
@@ -1189,10 +1185,10 @@ msgstr "%0"
 #: ui/SystemTab.ui:44 ui/SystemTab.ui:177 ui/SystemTab.ui:194
 #: ui/SystemTab.ui:239 ui/SystemTab.ui:269 ui/SystemTab.ui:299
 #: ui/SystemTab.ui:333 ui/SystemTab.ui:364 ui/SystemTab.ui:381
-#: ui/SystemTab.ui:424 ui/SystemTab.ui:455 ui/SystemTab.ui:485
-#: ui/SystemTab.ui:518 ui/SystemTab.ui:609 ui/SystemTab.ui:626
-#: ui/SystemTab.ui:643 ui/SystemTab.ui:716 ui/SystemTab.ui:733
-#: ui/SystemTab.ui:763 ui/SystemTab.ui:780 ui/SystemTab.ui:797
+#: ui/SystemTab.ui:424 ui/SystemTab.ui:454 ui/SystemTab.ui:484
+#: ui/SystemTab.ui:514 ui/SystemTab.ui:605 ui/SystemTab.ui:622
+#: ui/SystemTab.ui:639 ui/SystemTab.ui:712 ui/SystemTab.ui:729
+#: ui/SystemTab.ui:759 ui/SystemTab.ui:776 ui/SystemTab.ui:793
 #: ui/UsersDetailsWindow.ui:208 ui/UsersDetailsWindow.ui:223
 #: ui/UsersDetailsWindow.ui:238 ui/UsersDetailsWindow.ui:253
 #: ui/UsersDetailsWindow.ui:268 ui/UsersDetailsWindow.ui:283
@@ -1248,7 +1244,7 @@ msgstr "Tüm çekirdeklerin ortalama MİB kullanımı"
 msgid "Average Usage:"
 msgstr "Ortalama Kullanım:"
 
-#: ui/CpuTab.ui:361
+#: ui/CpuTab.ui:361 ui/SystemTab.ui:441
 msgid "Architecture:"
 msgstr "Mimari:"
 
@@ -2436,57 +2432,39 @@ msgstr "İ.S. Ailesi:"
 msgid "Host Name:"
 msgstr "Bilgisayar Adı:"
 
-#: ui/SystemTab.ui:440
-msgid "Number of detected monitors"
-msgstr "Algılanan ekran sayısı"
-
-#: ui/SystemTab.ui:442
-msgid "Number Of Monitors:"
-msgstr "Ekran Sayısı:"
-
-#: ui/SystemTab.ui:472
+#: ui/SystemTab.ui:471
 msgid "Kernel Version:"
 msgstr "Kernel Sürüm Numarası:"
 
 #: ui/SystemTab.ui:501
-msgid ""
-"Monitor which most part of this window is shown on\n"
-"\n"
-"This information is available only on systems with X11 windowing system."
-msgstr ""
-"Bu pencerenin çoğu kısmının gösterildiği ekran\n"
-"\n"
-"Bu bilgi sadece X11 pencere sisteminin kullanıldığı sistemlerde sağlanabilir."
+msgid "Number Of Monitors:"
+msgstr "Ekran Sayısı:"
 
-#: ui/SystemTab.ui:505
-msgid "Current Monitor:"
-msgstr "Şimdiki Ekran:"
-
-#: ui/SystemTab.ui:562
+#: ui/SystemTab.ui:558
 msgid "Graphical User Interface (GUI):"
 msgstr "Grafiksel Kullanıcı Arayüzü (GUI):"
 
-#: ui/SystemTab.ui:579
+#: ui/SystemTab.ui:575
 msgid "Packages:"
 msgstr "Paketler:"
 
-#: ui/SystemTab.ui:596
+#: ui/SystemTab.ui:592
 msgid "Desktop Environment:"
 msgstr "Masaüstü Ortamı:"
 
-#: ui/SystemTab.ui:660
+#: ui/SystemTab.ui:656
 msgid "Windowing System:"
 msgstr "Pencere Sistemi:"
 
-#: ui/SystemTab.ui:672
+#: ui/SystemTab.ui:668
 msgid "Name of the display manager (login manager)"
 msgstr "Ekran yöneticisinin (display manager/login manager) adı"
 
-#: ui/SystemTab.ui:674
+#: ui/SystemTab.ui:670
 msgid "Display Manager:"
 msgstr "Ekran Yöneticisi:"
 
-#: ui/SystemTab.ui:686
+#: ui/SystemTab.ui:682
 msgid ""
 "Number of installed packages\n"
 "(APT, RPM or pacman)"
@@ -2494,35 +2472,35 @@ msgstr ""
 "Kurulu paket sayısı\n"
 "(APT, RPM veya pacman)"
 
-#: ui/SystemTab.ui:689
+#: ui/SystemTab.ui:685
 msgid "System:"
 msgstr "Sistem:"
 
-#: ui/SystemTab.ui:701
+#: ui/SystemTab.ui:697
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "Kurulu Flatpak uygulaması ve çalışma zamanı (runtime) sayısı"
 
-#: ui/SystemTab.ui:703
+#: ui/SystemTab.ui:699
 msgid "Flatpak:"
 msgstr "Flatpak:"
 
-#: ui/SystemTab.ui:750
+#: ui/SystemTab.ui:746
 msgid "Window Manager:"
 msgstr "Pencere Yöneticisi:"
 
-#: ui/SystemTab.ui:813
+#: ui/SystemTab.ui:809
 msgid "Version of Python which is running this application"
 msgstr "Bu uygulamayı çalıştıran Python'ın sürümü"
 
-#: ui/SystemTab.ui:815
+#: ui/SystemTab.ui:811
 msgid "Python Version:"
 msgstr "Python Sürümü:"
 
-#: ui/SystemTab.ui:827
+#: ui/SystemTab.ui:823
 msgid "Built-in Python packages are not counted."
 msgstr "Dahili (Built-in) Python paketleri sayılmaz."
 
-#: ui/SystemTab.ui:829
+#: ui/SystemTab.ui:825
 msgid "Python:"
 msgstr "Python:"
 
@@ -2553,6 +2531,25 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "No folder will be opened."
+#~ msgstr "Klasör açılmayacak."
+
+#~ msgid "Number of detected monitors"
+#~ msgstr "Algılanan ekran sayısı"
+
+#~ msgid ""
+#~ "Monitor which most part of this window is shown on\n"
+#~ "\n"
+#~ "This information is available only on systems with X11 windowing system."
+#~ msgstr ""
+#~ "Bu pencerenin çoğu kısmının gösterildiği ekran\n"
+#~ "\n"
+#~ "Bu bilgi sadece X11 pencere sisteminin kullanıldığı sistemlerde "
+#~ "sağlanabilir."
+
+#~ msgid "Current Monitor:"
+#~ msgstr "Şimdiki Ekran:"
 
 #~ msgid "Run this startup item now?"
 #~ msgstr "Bu başlangıç ögesini şimdi çalıştır?"
