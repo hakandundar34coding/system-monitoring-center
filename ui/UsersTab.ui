@@ -120,7 +120,7 @@
             <property name="hexpand">True</property>
             <property name="primary-icon-name">system-monitoring-center-search-symbolic</property>
             <property name="primary-icon-activatable">False</property>
-            <property name="placeholder-text" translatable="yes">Search user...</property>
+            <property name="placeholder-text" translatable="yes">Search...</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
@@ -138,7 +138,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Show all users</property>
+                <property name="tooltip-text" translatable="yes">Show all</property>
                 <property name="active">True</property>
                 <property name="draw-indicator">False</property>
                 <child>

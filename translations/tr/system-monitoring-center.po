@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-16 13:39+0300\n"
-"PO-Revision-Date: 2022-01-16 13:40+0300\n"
+"POT-Creation-Date: 2022-01-16 17:53+0300\n"
+"PO-Revision-Date: 2022-01-16 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -18,15 +18,15 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/Cpu.py:257 ui/CpuTab.ui:43
+#: src/Cpu.py:267 ui/CpuTab.ui:43
 msgid "CPU Usage (Average):"
 msgstr "MİB Kullanımı (Ortalama):"
 
-#: src/Cpu.py:259
+#: src/Cpu.py:269
 msgid "CPU Usage (Per Core):"
 msgstr "MİB Kullanımı (Çekirdek Başına):"
 
-#: src/Cpu.py:317 src/RamHardwareInformation.py:65
+#: src/Cpu.py:330 src/RamHardwareInformation.py:65
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -611,7 +611,7 @@ msgstr "Sistem"
 msgid "CPU"
 msgstr "MİB"
 
-#: src/SettingsGUI.py:326 ui/MainWindow.ui:127 ui/RamTab.ui:415
+#: src/SettingsGUI.py:326 ui/MainWindow.ui:127 ui/RamTab.ui:414
 #: ui/SettingsWindow.ui:423
 msgid "RAM"
 msgstr "RAM"
@@ -624,17 +624,13 @@ msgstr "Ağ"
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:326 ui/MainWindow.ui:315 ui/SensorsTab.ui:184
+#: src/SettingsGUI.py:326 ui/MainWindow.ui:315 ui/SensorsTab.ui:183
 msgid "Sensors"
 msgstr "Algılayıcı"
 
 #: src/SettingsGUI.py:590
-msgid "Reset All Settings?"
-msgstr "Tüm Ayarları Sıfırla?"
-
-#: src/SettingsGUI.py:591
-msgid "Do you want to reset all settings of the application to defaults?"
-msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırlamak istiyor musunuz?"
+msgid "Do you want to reset all settings to defaults?"
+msgstr "Tüm ayarları varsayılanlara sıfırlamak istiyor musunuz?"
 
 #: src/Startup.py:113 ui/ProcessesMenuCustomizations.ui:363
 #: ui/ServicesDetailsWindow.ui:43 ui/StartupMenuCustomizations.ui:218
@@ -703,7 +699,7 @@ msgid "Startup Item"
 msgstr "Başlangıç Ögesi"
 
 #: src/StartupNewItem.py:178
-msgid "Do you want to overwrite existing file?"
+msgid "Do you want to overwrite the existing file?"
 msgstr "Var olan dosyanın üzerine yazmak istiyor musunuz?"
 
 #: src/StartupNewItem.py:179
@@ -1105,11 +1101,11 @@ msgstr "MİB Çekirdeği Seç:"
 msgid ":"
 msgstr ""
 
-#: ui/CpuTab.ui:31 ui/RamTab.ui:508
+#: ui/CpuTab.ui:31 ui/RamTab.ui:507
 msgid "100%"
 msgstr "%100"
 
-#: ui/CpuTab.ui:55 ui/RamTab.ui:532
+#: ui/CpuTab.ui:55 ui/RamTab.ui:531
 msgid "0%"
 msgstr "%0"
 
@@ -1156,8 +1152,8 @@ msgstr "%0"
 #: ui/ProcessesTab.ui:270 ui/RamHardwareWindow.ui:87
 #: ui/RamSwapDetailsWindow.ui:87 ui/RamTab.ui:69 ui/RamTab.ui:86
 #: ui/RamTab.ui:129 ui/RamTab.ui:146 ui/RamTab.ui:176 ui/RamTab.ui:206
-#: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:458 ui/RamTab.ui:472
-#: ui/SensorsTab.ui:201 ui/ServicesDetailsWindow.ui:107
+#: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:457 ui/RamTab.ui:471
+#: ui/SensorsTab.ui:200 ui/ServicesDetailsWindow.ui:107
 #: ui/ServicesDetailsWindow.ui:121 ui/ServicesDetailsWindow.ui:135
 #: ui/ServicesDetailsWindow.ui:149 ui/ServicesDetailsWindow.ui:163
 #: ui/ServicesDetailsWindow.ui:177 ui/ServicesDetailsWindow.ui:191
@@ -1429,13 +1425,17 @@ msgstr ""
 "Ortam\n"
 "Değişkenleri"
 
-#: ui/EnvironmentVariablesTab.ui:112
-msgid "Search environment/shell variable..."
-msgstr "Ortam/kabuk değişkeni ara..."
+#: ui/EnvironmentVariablesTab.ui:112 ui/ProcessesTab.ui:46 ui/SensorsTab.ui:37
+#: ui/ServicesTab.ui:111 ui/StartupTab.ui:111 ui/StorageTab.ui:111
+#: ui/UsersTab.ui:123
+msgid "Search..."
+msgstr "Ara..."
 
-#: ui/EnvironmentVariablesTab.ui:130
-msgid "Show all environment/shell variables"
-msgstr "Tüm ortam/kabuk değişkenlerini göster"
+#: ui/EnvironmentVariablesTab.ui:130 ui/ProcessesTab.ui:65 ui/SensorsTab.ui:55
+#: ui/ServicesTab.ui:151 ui/StartupTab.ui:129 ui/StorageTab.ui:129
+#: ui/UsersTab.ui:141
+msgid "Show all"
+msgstr "Tümünü göster"
 
 #: ui/EnvironmentVariablesTab.ui:152
 msgid "Show all environment variables"
@@ -1904,14 +1904,6 @@ msgstr "Konumunu Aç"
 msgid "Details"
 msgstr "Detaylar"
 
-#: ui/ProcessesTab.ui:46
-msgid "Search process..."
-msgstr "İşlem ara..."
-
-#: ui/ProcessesTab.ui:65
-msgid "Show all processes"
-msgstr "Tüm işlemleri göster"
-
 #: ui/ProcessesTab.ui:87
 msgid "Show processes from this user"
 msgstr "Bu kullanıcının işlemlerini göster"
@@ -1936,7 +1928,7 @@ msgstr ""
 "Not: Bazı sistemlerde RAM donanım bilgisi kısmi olarak elde edilebilir veya "
 "hiç elde edilemeyebilir."
 
-#: ui/RamMenus.ui:20 ui/RamTab.ui:431
+#: ui/RamMenus.ui:20 ui/RamTab.ui:430
 msgid "RAM Tab Customizations"
 msgstr "RAM Sekmesi Özelleştirmeleri"
 
@@ -1978,19 +1970,15 @@ msgstr ""
 msgid "Hardware:"
 msgstr "Donanım:"
 
-#: ui/RamTab.ui:346 ui/RamTab.ui:384
+#: ui/RamTab.ui:346 ui/RamTab.ui:383
 msgid "Query..."
 msgstr "Sorgula..."
 
-#: ui/RamTab.ui:364
-msgid "Shows detailed swap memory information."
-msgstr "Detaylı takas belleği bilgilerini gösterir."
-
-#: ui/RamTab.ui:366
+#: ui/RamTab.ui:365
 msgid "Details:"
 msgstr "Detaylar:"
 
-#: ui/RamTab.ui:520 ui/ServicesMenuCustomizations.ui:464
+#: ui/RamTab.ui:519 ui/ServicesMenuCustomizations.ui:464
 #: ui/ServicesMenuCustomizations.ui:524
 msgid "RAM Usage:"
 msgstr "RAM Kullanımı:"
@@ -1999,27 +1987,15 @@ msgstr "RAM Kullanımı:"
 msgid "Note: Some sensors may not provide correct values!"
 msgstr "Not: Bazı algılayıcılar doğru değerler sağlamayabilir!"
 
-#: ui/SensorsTab.ui:37
-msgid "Search sensor..."
-msgstr "Algılayıcı ara..."
-
-#: ui/SensorsTab.ui:55
-msgid ""
-"Show all sensors\n"
-"(Temperature, fan, voltage and current sensors)"
-msgstr ""
-"Tüm algılayıcıları göster\n"
-"(Sıcaklık, fan, voltaj ve akım algılayıcıları)"
-
-#: ui/SensorsTab.ui:78
+#: ui/SensorsTab.ui:77
 msgid "Show all temperature sensors"
 msgstr "Tüm sıcaklık algılayıcılarını göster"
 
-#: ui/SensorsTab.ui:100
+#: ui/SensorsTab.ui:99
 msgid "Show all fan sensors"
 msgstr "Tüm fan algılayıcılarını göster"
 
-#: ui/SensorsTab.ui:122
+#: ui/SensorsTab.ui:121
 msgid "Show all voltage and current sensors"
 msgstr "Tüm voltaj ve akım algılayıcılarını göster"
 
@@ -2116,10 +2092,6 @@ msgstr "Devre Dışı Bırak"
 msgid "Mask"
 msgstr "Gizle"
 
-#: ui/ServicesTab.ui:111
-msgid "Search system service..."
-msgstr "Sistem servisi ara..."
-
 #: ui/ServicesTab.ui:123 ui/SystemTab.ui:83
 msgid ""
 "Refresh\n"
@@ -2127,10 +2099,6 @@ msgid ""
 msgstr ""
 "Yenile\n"
 "(Bu sekmedeki verileri yeniden yükler)"
-
-#: ui/ServicesTab.ui:151
-msgid "Show all services"
-msgstr "Tüm servisleri göster"
 
 #: ui/ServicesTab.ui:173
 msgid "Show all loaded services"
@@ -2284,14 +2252,6 @@ msgstr "Başlangıç Ögesi Türü:"
 msgid "Note: Name and Command fields cannot be left blank."
 msgstr "Not: Ad ve Komut alanları boş bırakılamaz."
 
-#: ui/StartupTab.ui:111
-msgid "Search startup item..."
-msgstr "Başlangıç ögesi ara..."
-
-#: ui/StartupTab.ui:129
-msgid "Show all startup items"
-msgstr "Tüm başlangıç ögelerini göster"
-
 #: ui/StartupTab.ui:151
 msgid "Show all enabled (visible) startup items"
 msgstr "Tüm etkinleştirilmiş (görünür) başlangıç ögelerini göster"
@@ -2355,14 +2315,6 @@ msgstr ""
 "adlandırılabilir.\n"
 "2) Çoğu dosya sisteminin yeniden adlandırılabilmesi için diskler (disk "
 "bölümleri) ayrılmış olmalıdır."
-
-#: ui/StorageTab.ui:111
-msgid "Search storage..."
-msgstr "Depolama ara..."
-
-#: ui/StorageTab.ui:129
-msgid "Show all disks/partitions"
-msgstr "Tüm diskleri/disk bölümlerini göster"
 
 #: ui/StorageTab.ui:151
 msgid "Show all non-removable disks/partitions"
@@ -2516,14 +2468,6 @@ msgstr "Kullanıcı Oturumunu Sonlandır"
 msgid "Note: User-specific performance data is approximative."
 msgstr "Not: Kullanıcıya özgü performans bilgisi yaklaşıktır."
 
-#: ui/UsersTab.ui:123
-msgid "Search user..."
-msgstr "Kullanıcı ara..."
-
-#: ui/UsersTab.ui:141
-msgid "Show all users"
-msgstr "Tüm kullanıcıları göster"
-
 #: ui/UsersTab.ui:163
 msgid "Show only users logged in"
 msgstr "Sadece giriş yapmış kullanıcıları göster"
@@ -2531,6 +2475,52 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Search environment/shell variable..."
+#~ msgstr "Ortam/kabuk değişkeni ara..."
+
+#~ msgid "Search process..."
+#~ msgstr "İşlem ara..."
+
+#~ msgid "Search sensor..."
+#~ msgstr "Algılayıcı ara..."
+
+#~ msgid "Search system service..."
+#~ msgstr "Sistem servisi ara..."
+
+#~ msgid "Search startup item..."
+#~ msgstr "Başlangıç ögesi ara..."
+
+#~ msgid "Search storage..."
+#~ msgstr "Depolama ara..."
+
+#~ msgid "Reset All Settings?"
+#~ msgstr "Tüm Ayarları Sıfırla?"
+
+#~ msgid "Show all environment/shell variables"
+#~ msgstr "Tüm ortam/kabuk değişkenlerini göster"
+
+#~ msgid "Show all processes"
+#~ msgstr "Tüm işlemleri göster"
+
+#~ msgid "Shows detailed swap memory information."
+#~ msgstr "Detaylı takas belleği bilgilerini gösterir."
+
+#~ msgid ""
+#~ "Show all sensors\n"
+#~ "(Temperature, fan, voltage and current sensors)"
+#~ msgstr ""
+#~ "Tüm algılayıcıları göster\n"
+#~ "(Sıcaklık, fan, voltaj ve akım algılayıcıları)"
+
+#~ msgid "Show all services"
+#~ msgstr "Tüm servisleri göster"
+
+#~ msgid "Show all startup items"
+#~ msgstr "Tüm başlangıç ögelerini göster"
+
+#~ msgid "Show all disks/partitions"
+#~ msgstr "Tüm diskleri/disk bölümlerini göster"
 
 #~ msgid "No folder will be opened."
 #~ msgstr "Klasör açılmayacak."

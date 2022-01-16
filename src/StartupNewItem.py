@@ -175,7 +175,7 @@ def startup_get_system_and_user_autostart_directories_func():
 def startup_overwrite_existing_startup_item_warning_dialog(new_startup_application_name, new_startup_application_file_name):
 
     warning_dialog5103 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to overwrite existing file?"), )
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to overwrite the existing file?"), )
     warning_dialog5103.format_secondary_text(_tr("There is already a '.desktop' file with the same name.") +
                                              "\n\n    " + _tr("Startup Item") + ": " + new_startup_application_name +
                                              "\n    " + _tr("'.desktop' File Name") + ": " + new_startup_application_file_name)

@@ -194,9 +194,7 @@ def on_drawingarea1101_draw_per_core(widget, chart1101):
 # ----------------------------------- CPU - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
 def cpu_initial_func():
 
-    number_of_logical_cores = Performance.number_of_logical_cores
     logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
-    selected_cpu_core = Performance.selected_cpu_core
     selected_cpu_core = Performance.selected_cpu_core
     selected_cpu_core_number_only = selected_cpu_core.split("cpu")[1]
 
@@ -282,7 +280,6 @@ def cpu_initial_func():
 def cpu_loop_func():
 
     number_of_logical_cores = Performance.number_of_logical_cores
-    logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
     cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
     selected_cpu_core_number = Performance.selected_cpu_core_number
     selected_cpu_core = Performance.selected_cpu_core
