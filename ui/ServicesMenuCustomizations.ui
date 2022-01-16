@@ -215,7 +215,7 @@
                     <property name="column-homogeneous">True</property>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton6101p">
-                        <property name="label" translatable="yes">Service Name</property>
+                        <property name="label" translatable="yes">Name</property>
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can-focus">True</property>
@@ -461,7 +461,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">RAM Usage:</property>
+                        <property name="label" translatable="yes">Memory:</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -521,7 +521,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">RAM Usage:</property>
+                        <property name="label" translatable="yes">Memory:</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>

@@ -493,18 +493,12 @@ def processes_add_remove_columns_function():
 # ----------------------------------- Processes - Expand/Collapse Button Preference Function (sets "User defined expand, Expand all, Collapse all" buttons as sensitive/insensitive if "show_processes_as_tree" is enabled/disabled) -----------------------------------
 def processes_expand_collapse_button_preferences_func():
     if checkbutton2102p.get_active() == True:
-        # Set "User defined expand, Expand all, Collapse all" buttons as "sensitive" on the Processes tab if "show_processes_as_tree" option is enabled. Therefore, expanding/collapsing treeview rows functions will be available for using by the user. Also change widget tooltips for better understandability
+        # Set "User defined expand, Expand all, Collapse all" buttons as "sensitive" on the Processes tab if "show_processes_as_tree" option is enabled. Therefore, expanding/collapsing treeview rows functions will be available for using by the user.
         Processes.radiobutton2104.set_sensitive(True)
         Processes.radiobutton2105.set_sensitive(True)
         Processes.radiobutton2106.set_sensitive(True)
-        Processes.radiobutton2104.set_tooltip_text(_tr("User defined expand"))
-        Processes.radiobutton2105.set_tooltip_text(_tr("Expand all"))
-        Processes.radiobutton2106.set_tooltip_text(_tr("Collapse all"))
     if checkbutton2102p.get_active() == False:
-        # Set "User defined expand, Expand all, Collapse all" buttons as "insensitive" on the Processes tab if "show_processes_as_tree" option is disabled. Because expanding/collapsing treeview rows has no effects when treeview items are listed as "list". Also change widget tooltips for better understandability
+        # Set "User defined expand, Expand all, Collapse all" buttons as "insensitive" on the Processes tab if "show_processes_as_tree" option is disabled. Because expanding/collapsing treeview rows has no effects when treeview items are listed as "list".
         Processes.radiobutton2104.set_sensitive(False)
         Processes.radiobutton2105.set_sensitive(False)
         Processes.radiobutton2106.set_sensitive(False)
-        Processes.radiobutton2104.set_tooltip_text(_tr("User defined expand\n(Usable if processes are listed as tree)"))
-        Processes.radiobutton2105.set_tooltip_text(_tr("Expand all\n(Usable if processes are listed as tree)"))
-        Processes.radiobutton2106.set_tooltip_text(_tr("Collapse all\n(Usable if processes are listed as tree)"))

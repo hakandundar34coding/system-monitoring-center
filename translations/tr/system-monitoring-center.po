@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-16 17:53+0300\n"
-"PO-Revision-Date: 2022-01-16 17:54+0300\n"
+"POT-Creation-Date: 2022-01-16 21:08+0300\n"
+"PO-Revision-Date: 2022-01-16 21:08+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -183,174 +183,134 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Processes.py:135 src/ProcessesMenuCustomizations.py:500
-#: ui/StorageTab.ui:230
-msgid "User defined expand"
-msgstr "Kullanıcı tanımlı genişletme"
-
-#: src/Processes.py:136 src/ProcessesMenuCustomizations.py:501
-#: ui/StorageTab.ui:252
-msgid "Expand all"
-msgstr "Tümünü genişlet"
-
-#: src/Processes.py:137 src/ProcessesMenuCustomizations.py:502
-#: ui/StorageTab.ui:274
-msgid "Collapse all"
-msgstr "Tümünü daralt"
-
-#: src/Processes.py:144 src/ProcessesMenuCustomizations.py:508
-#: ui/ProcessesTab.ui:144
-msgid ""
-"User defined expand\n"
-"(Usable if processes are listed as tree)"
-msgstr ""
-"Kullanıcı tanımlı genişletme\n"
-"(Eğer işlemler ağaç olarak listelenmişse kullanılabilir)"
-
-#: src/Processes.py:145 src/ProcessesMenuCustomizations.py:509
-#: ui/ProcessesTab.ui:167
-msgid ""
-"Expand all\n"
-"(Usable if processes are listed as tree)"
-msgstr ""
-"Tümünü genişlet\n"
-"(Eğer işlemler ağaç olarak listelenmişse kullanılabilir)"
-
-#: src/Processes.py:146 src/ProcessesMenuCustomizations.py:510
-#: ui/ProcessesTab.ui:190
-msgid ""
-"Collapse all\n"
-"(Usable if processes are listed as tree)"
-msgstr ""
-"Tümünü daralt\n"
-"(Eğer işlemler ağaç olarak listelenmişse kullanılabilir)"
-
-#: src/Processes.py:160 ui/ProcessesDetailsWindow.ui:42
+#: src/Processes.py:154 ui/ProcessesDetailsWindow.ui:42
 msgid "Process Name"
 msgstr "İşlem Adı"
 
-#: src/Processes.py:161 src/ProcessesDetails.py:244 src/ProcessesDetails.py:656
+#: src/Processes.py:155 src/ProcessesDetails.py:244 src/ProcessesDetails.py:656
 #: ui/ProcessesDetailsWindow.ui:55 ui/ProcessesMenuCustomizations.ui:379
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:162 ui/ProcessesMenuCustomizations.ui:393
+#: src/Processes.py:156 ui/ProcessesMenuCustomizations.ui:393
 msgid "User"
 msgstr "Kullanıcı"
 
-#: src/Processes.py:163 ui/ProcessesDetailsWindow.ui:68
+#: src/Processes.py:157 ui/ProcessesDetailsWindow.ui:68
 #: ui/ProcessesMenuCustomizations.ui:407
 msgid "Status"
 msgstr "Durum"
 
-#: src/Processes.py:164 src/Users.py:126 ui/CpuMenus.ui:378
-#: ui/ProcessesMenuCustomizations.ui:421 ui/ProcessesMenuCustomizations.ui:735
+#: src/Processes.py:158 src/Users.py:126 ui/CpuMenus.ui:378
+#: ui/ProcessesMenuCustomizations.ui:421 ui/ProcessesMenuCustomizations.ui:724
 #: ui/UsersDetailsWindow.ui:195 ui/UsersMenuCustomizations.ui:318
 #: ui/UsersMenuCustomizations.ui:574
 msgid "CPU%"
 msgstr "%MİB"
 
-#: src/Processes.py:165 ui/ProcessesDetailsWindow.ui:120
-#: ui/ProcessesDetailsWindow.ui:849 ui/ProcessesMenuCustomizations.ui:435
+#: src/Processes.py:159 src/Services.py:125 src/Users.py:127
+#: ui/ProcessesDetailsWindow.ui:120 ui/ProcessesDetailsWindow.ui:849
+#: ui/ProcessesMenuCustomizations.ui:435 ui/ServicesDetailsWindow.ui:258
+#: ui/ServicesMenuCustomizations.ui:304 ui/UsersDetailsWindow.ui:406
 #: ui/UsersMenuCustomizations.ui:332
-msgid "RAM (RSS)"
-msgstr "RAM (RSS)"
+msgid "Memory (RSS)"
+msgstr "Bellek (RSS)"
 
-#: src/Processes.py:166 ui/ProcessesDetailsWindow.ui:862
+#: src/Processes.py:160 ui/ProcessesDetailsWindow.ui:862
 #: ui/ProcessesMenuCustomizations.ui:449
-msgid "RAM (VMS)"
-msgstr "RAM (VMS)"
+msgid "Memory (VMS)"
+msgstr "Bellek (VMS)"
 
-#: src/Processes.py:167 ui/ProcessesDetailsWindow.ui:875
+#: src/Processes.py:161 ui/ProcessesDetailsWindow.ui:875
 #: ui/ProcessesMenuCustomizations.ui:519
-msgid "RAM (Shared)"
-msgstr "RAM (Paylaşılan)"
+msgid "Memory (Shared)"
+msgstr "Bellek (Paylaşılan)"
 
-#: src/Processes.py:168 ui/ProcessesDetailsWindow.ui:1313
+#: src/Processes.py:162 ui/ProcessesDetailsWindow.ui:1313
 #: ui/ProcessesMenuCustomizations.ui:561
 msgid "Disk Read Data"
 msgstr "Disk Okunan Veri"
 
-#: src/Processes.py:169 ui/ProcessesDetailsWindow.ui:1326
+#: src/Processes.py:163 ui/ProcessesDetailsWindow.ui:1326
 #: ui/ProcessesMenuCustomizations.ui:575
 msgid "Disk Write Data"
 msgstr "Disk Yazılan Veri"
 
-#: src/Processes.py:170 ui/ProcessesDetailsWindow.ui:1287
+#: src/Processes.py:164 ui/ProcessesDetailsWindow.ui:1287
 #: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:437
 msgid "Disk Read Speed"
 msgstr "Disk Okuma Hızı"
 
-#: src/Processes.py:171 ui/ProcessesDetailsWindow.ui:1300
+#: src/Processes.py:165 ui/ProcessesDetailsWindow.ui:1300
 #: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:465
 msgid "Disk Write Speed"
 msgstr "Disk Yazma Hızı"
 
-#: src/Processes.py:172 src/RamSwapDetails.py:98
+#: src/Processes.py:166 src/RamSwapDetails.py:98
 #: ui/ProcessesDetailsWindow.ui:94 ui/ProcessesMenuCustomizations.ui:463
 msgid "Priority"
 msgstr "Öncelik"
 
-#: src/Processes.py:173 ui/ProcessesDetailsWindow.ui:722
+#: src/Processes.py:167 ui/ProcessesDetailsWindow.ui:722
 #: ui/ProcessesMenuCustomizations.ui:477
 msgid "Number of Threads"
 msgstr "İşlem Parçacığı Sayısı"
 
-#: src/Processes.py:174 ui/ProcessesDetailsWindow.ui:172
+#: src/Processes.py:168 ui/ProcessesDetailsWindow.ui:172
 #: ui/ProcessesMenuCustomizations.ui:491
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:175 src/Users.py:117 src/UsersMenuRightClick.py:76
+#: src/Processes.py:169 src/Users.py:117 src/UsersMenuRightClick.py:76
 #: ui/ProcessesMenuCustomizations.ui:589 ui/UsersDetailsWindow.ui:78
 #: ui/UsersMenuCustomizations.ui:262
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:176 src/Users.py:118 ui/ProcessesMenuCustomizations.ui:603
+#: src/Processes.py:170 src/Users.py:118 ui/ProcessesMenuCustomizations.ui:603
 #: ui/UsersDetailsWindow.ui:91 ui/UsersMenuCustomizations.ui:276
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:177 src/Storage.py:159
+#: src/Processes.py:171 src/Storage.py:159
 #: ui/ProcessesMenuCustomizations.ui:505 ui/ServicesDetailsWindow.ui:69
 #: ui/StorageDetailsWindow.ui:418 ui/StorageMenuCustomizations.ui:374
 msgid "Path"
 msgstr "Yol"
 
-#: src/Processes.py:196 src/Services.py:145 src/ServicesDetails.py:147
+#: src/Processes.py:190 src/Services.py:145 src/ServicesDetails.py:147
 msgid "Running"
 msgstr "Çalışıyor"
 
-#: src/Processes.py:196
+#: src/Processes.py:190
 msgid "Sleeping"
 msgstr "Uyuyor"
 
-#: src/Processes.py:196
+#: src/Processes.py:190
 msgid "Waiting"
 msgstr "Bekliyor"
 
-#: src/Processes.py:196
+#: src/Processes.py:190
 msgid "Idle"
 msgstr "Boşta"
 
-#: src/Processes.py:196
+#: src/Processes.py:190
 msgid "Zombie"
 msgstr "Zombi"
 
-#: src/Processes.py:196
+#: src/Processes.py:190
 msgid "Stopped"
 msgstr "Durdu"
 
-#: src/Processes.py:196
+#: src/Processes.py:190
 msgid "Tracing Stop"
 msgstr "Tracing Stop"
 
-#: src/Processes.py:196 src/Services.py:145 src/ServicesDetails.py:147
+#: src/Processes.py:190 src/Services.py:145 src/ServicesDetails.py:147
 msgid "Dead"
 msgstr "Sonlanmış"
 
-#: src/Processes.py:591
+#: src/Processes.py:585
 msgid ""
 "Total: AAAA processes (BBBB from this user, CCCC from other users/system)"
 msgstr ""
@@ -475,9 +435,11 @@ msgstr ""
 "Toplam: AAAA algılayıcı (BBBB sıcaklık, CCCC fan, DDDD voltaj/akım "
 "algılayıcısı)"
 
-#: src/Services.py:119 ui/ServicesMenuCustomizations.ui:218
-msgid "Service Name"
-msgstr "Servis Adı"
+#: src/Services.py:119 src/Startup.py:113 ui/ProcessesMenuCustomizations.ui:363
+#: ui/ServicesDetailsWindow.ui:43 ui/ServicesMenuCustomizations.ui:218
+#: ui/StartupMenuCustomizations.ui:218 ui/StartupNewItemWindow.ui:310
+msgid "Name"
+msgstr "İsim"
 
 #: src/Services.py:120 ui/ServicesMenuCustomizations.ui:234
 msgid "State"
@@ -502,11 +464,6 @@ msgstr "Yüklenme Durumu"
 #: ui/ServicesMenuCustomizations.ui:290
 msgid "Sub-State"
 msgstr "Alt Durum"
-
-#: src/Services.py:125 src/Users.py:127 ui/ServicesDetailsWindow.ui:258
-#: ui/ServicesMenuCustomizations.ui:304 ui/UsersDetailsWindow.ui:406
-msgid "Memory (RSS)"
-msgstr "Bellek (RSS)"
 
 #: src/Services.py:126 ui/ServicesDetailsWindow.ui:56
 #: ui/ServicesMenuCustomizations.ui:318
@@ -576,7 +533,7 @@ msgid "Performance"
 msgstr "Performans"
 
 #: src/SettingsGUI.py:309 src/Users.py:119 ui/MainWindow.ui:844
-#: ui/ProcessesTab.ui:231 ui/UsersDetailsWindow.ui:104
+#: ui/ProcessesTab.ui:228 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:290
 msgid "Processes"
 msgstr "İşlemler"
@@ -631,12 +588,6 @@ msgstr "Algılayıcı"
 #: src/SettingsGUI.py:590
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Tüm ayarları varsayılanlara sıfırlamak istiyor musunuz?"
-
-#: src/Startup.py:113 ui/ProcessesMenuCustomizations.ui:363
-#: ui/ServicesDetailsWindow.ui:43 ui/StartupMenuCustomizations.ui:218
-#: ui/StartupNewItemWindow.ui:310
-msgid "Name"
-msgstr "İsim"
 
 #: src/Startup.py:114 ui/StartupMenuCustomizations.ui:234
 #: ui/StartupNewItemWindow.ui:165
@@ -1062,7 +1013,7 @@ msgstr "MİB Çekirdeği Seç:"
 #: ui/ProcessesDetailsWindow.ui:1681 ui/ProcessesDetailsWindow.ui:1694
 #: ui/ProcessesDetailsWindow.ui:1707 ui/ProcessesDetailsWindow.ui:1720
 #: ui/ProcessesDetailsWindow.ui:1733 ui/ProcessesMenuCustomizations.ui:74
-#: ui/ProcessesMenuCustomizations.ui:341 ui/ProcessesMenuCustomizations.ui:746
+#: ui/ProcessesMenuCustomizations.ui:341 ui/ProcessesMenuCustomizations.ui:735
 #: ui/ServicesDetailsWindow.ui:529 ui/ServicesDetailsWindow.ui:542
 #: ui/ServicesDetailsWindow.ui:555 ui/ServicesDetailsWindow.ui:568
 #: ui/ServicesDetailsWindow.ui:581 ui/ServicesDetailsWindow.ui:594
@@ -1149,7 +1100,7 @@ msgstr "%0"
 #: ui/ProcessesDetailsWindow.ui:1425 ui/ProcessesDetailsWindow.ui:1440
 #: ui/ProcessesDetailsWindow.ui:1556 ui/ProcessesDetailsWindow.ui:1571
 #: ui/ProcessesDetailsWindow.ui:1586 ui/ProcessesDetailsWindow.ui:1601
-#: ui/ProcessesTab.ui:270 ui/RamHardwareWindow.ui:87
+#: ui/ProcessesTab.ui:267 ui/RamHardwareWindow.ui:87
 #: ui/RamSwapDetailsWindow.ui:87 ui/RamTab.ui:69 ui/RamTab.ui:86
 #: ui/RamTab.ui:129 ui/RamTab.ui:146 ui/RamTab.ui:176 ui/RamTab.ui:206
 #: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:457 ui/RamTab.ui:471
@@ -1671,8 +1622,7 @@ msgstr "MİB:"
 msgid "RAM Usage Percent"
 msgstr "RAM Kullanım Yüzdesi"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:54 ui/ProcessesDetailsWindow.ui:832
-#: ui/RamTab.ui:25
+#: ui/PerformanceSummaryHeaderBarGrid.ui:54 ui/RamTab.ui:25
 msgid "RAM:"
 msgstr "RAM:"
 
@@ -1781,6 +1731,13 @@ msgstr "MİB Zamanları"
 msgid "Context Switches"
 msgstr "İçerik Değiştirmeleri"
 
+#: ui/ProcessesDetailsWindow.ui:832 ui/ProcessesMenuCustomizations.ui:752
+#: ui/ProcessesMenuCustomizations.ui:833 ui/ServicesMenuCustomizations.ui:464
+#: ui/ServicesMenuCustomizations.ui:524 ui/UsersMenuCustomizations.ui:557
+#: ui/UsersMenuCustomizations.ui:660
+msgid "Memory:"
+msgstr "Bellek:"
+
 #: ui/ProcessesDetailsWindow.ui:888
 msgid "Memory (USS)"
 msgstr "Bellek (USS)"
@@ -1821,7 +1778,7 @@ msgstr "Açık Dosyalar"
 msgid "Disk and Path"
 msgstr "Disk ve Yol"
 
-#: ui/ProcessesMenuCustomizations.ui:20 ui/ProcessesTab.ui:247
+#: ui/ProcessesMenuCustomizations.ui:20 ui/ProcessesTab.ui:244
 msgid "Processes Tab Customizations"
 msgstr "İşlemler Sekmesi Özelleştirmeleri"
 
@@ -1836,11 +1793,6 @@ msgstr "İşlemleri ağaç olarak göster"
 #: ui/ProcessesMenuCustomizations.ui:117
 msgid "Show tree lines"
 msgstr "Ağaç çizgilerini göster"
-
-#: ui/ProcessesMenuCustomizations.ui:698 ui/ProcessesMenuCustomizations.ui:833
-#: ui/UsersMenuCustomizations.ui:557 ui/UsersMenuCustomizations.ui:660
-msgid "RAM & Swap Usage:"
-msgstr "RAM & Takas Kullanımı:"
 
 #: ui/ProcessesMenuCustomizations.ui:967 ui/ServicesMenuCustomizations.ui:568
 #: ui/StorageMenuCustomizations.ui:792 ui/UsersMenuCustomizations.ui:694
@@ -1912,6 +1864,18 @@ msgstr "Bu kullanıcının işlemlerini göster"
 msgid "Show processes from other users"
 msgstr "Diğer kullanıcıların işlemlerini göster"
 
+#: ui/ProcessesTab.ui:144 ui/StorageTab.ui:230
+msgid "User defined expand"
+msgstr "Kullanıcı tanımlı genişletme"
+
+#: ui/ProcessesTab.ui:166 ui/StorageTab.ui:252
+msgid "Expand all"
+msgstr "Tümünü genişlet"
+
+#: ui/ProcessesTab.ui:188 ui/StorageTab.ui:274
+msgid "Collapse all"
+msgstr "Tümünü daralt"
+
 #: ui/RamHardwareWindow.ui:8
 msgid "RAM Hardware Information"
 msgstr "RAM Donanım Bilgisi"
@@ -1978,8 +1942,7 @@ msgstr "Sorgula..."
 msgid "Details:"
 msgstr "Detaylar:"
 
-#: ui/RamTab.ui:519 ui/ServicesMenuCustomizations.ui:464
-#: ui/ServicesMenuCustomizations.ui:524
+#: ui/RamTab.ui:519
 msgid "RAM Usage:"
 msgstr "RAM Kullanımı:"
 
@@ -2475,6 +2438,42 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Service Name"
+#~ msgstr "Servis Adı"
+
+#~ msgid "RAM (RSS)"
+#~ msgstr "RAM (RSS)"
+
+#~ msgid "RAM (VMS)"
+#~ msgstr "RAM (VMS)"
+
+#~ msgid "RAM (Shared)"
+#~ msgstr "RAM (Paylaşılan)"
+
+#~ msgid "RAM & Swap Usage:"
+#~ msgstr "RAM & Takas Kullanımı:"
+
+#~ msgid ""
+#~ "User defined expand\n"
+#~ "(Usable if processes are listed as tree)"
+#~ msgstr ""
+#~ "Kullanıcı tanımlı genişletme\n"
+#~ "(Eğer işlemler ağaç olarak listelenmişse kullanılabilir)"
+
+#~ msgid ""
+#~ "Expand all\n"
+#~ "(Usable if processes are listed as tree)"
+#~ msgstr ""
+#~ "Tümünü genişlet\n"
+#~ "(Eğer işlemler ağaç olarak listelenmişse kullanılabilir)"
+
+#~ msgid ""
+#~ "Collapse all\n"
+#~ "(Usable if processes are listed as tree)"
+#~ msgstr ""
+#~ "Tümünü daralt\n"
+#~ "(Eğer işlemler ağaç olarak listelenmişse kullanılabilir)"
 
 #~ msgid "Search environment/shell variable..."
 #~ msgstr "Ortam/kabuk değişkeni ara..."
@@ -4491,9 +4490,6 @@ msgstr "Sadece çıkış yapmış kullanıcıları göster"
 
 #~ msgid "Service (Unit) Name"
 #~ msgstr "Servis (Unit) Adı"
-
-#~ msgid "Memory"
-#~ msgstr "Bellek"
 
 #~ msgid "Sensors Tab Customizations"
 #~ msgstr "Algılayıcılar Sekmesi Özelleştirmeleri"

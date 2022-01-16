@@ -141,8 +141,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">User defined expand
-(Usable if processes are listed as tree)</property>
+                <property name="tooltip-text" translatable="yes">User defined expand</property>
                 <property name="active">True</property>
                 <property name="draw-indicator">False</property>
                 <child>
@@ -164,8 +163,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Expand all
-(Usable if processes are listed as tree)</property>
+                <property name="tooltip-text" translatable="yes">Expand all</property>
                 <property name="draw-indicator">False</property>
                 <property name="group">radiobutton2104</property>
                 <child>
@@ -187,8 +185,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Collapse all
-(Usable if processes are listed as tree)</property>
+                <property name="tooltip-text" translatable="yes">Collapse all</property>
                 <property name="draw-indicator">False</property>
                 <property name="group">radiobutton2104</property>
                 <child>

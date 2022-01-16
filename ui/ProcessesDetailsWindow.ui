@@ -117,7 +117,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">RAM (RSS)</property>
+                        <property name="label" translatable="yes">Memory (RSS)</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -829,7 +829,7 @@
                         <property name="halign">start</property>
                         <property name="valign">start</property>
                         <property name="margin-bottom">5</property>
-                        <property name="label" translatable="yes">RAM:</property>
+                        <property name="label" translatable="yes">Memory:</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -846,7 +846,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">RAM (RSS)</property>
+                        <property name="label" translatable="yes">Memory (RSS)</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -859,7 +859,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">RAM (VMS)</property>
+                        <property name="label" translatable="yes">Memory (VMS)</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -872,7 +872,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">RAM (Shared)</property>
+                        <property name="label" translatable="yes">Memory (Shared)</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>

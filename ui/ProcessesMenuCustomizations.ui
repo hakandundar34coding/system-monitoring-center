@@ -432,7 +432,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2111p">
-                        <property name="label" translatable="yes">RAM (RSS)</property>
+                        <property name="label" translatable="yes">Memory (RSS)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -446,7 +446,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2112p">
-                        <property name="label" translatable="yes">RAM (VMS)</property>
+                        <property name="label" translatable="yes">Memory (VMS)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -516,7 +516,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2113p">
-                        <property name="label" translatable="yes">RAM (Shared)</property>
+                        <property name="label" translatable="yes">Memory (Shared)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -692,17 +692,6 @@
                     <property name="column-spacing">5</property>
                     <property name="column-homogeneous">True</property>
                     <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">RAM &amp; Swap Usage:</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkComboBox" id="combobox2101p">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -753,6 +742,17 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Memory:</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
@@ -830,7 +830,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">RAM &amp; Swap Usage:</property>
+                        <property name="label" translatable="yes">Memory:</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
