@@ -229,9 +229,9 @@ def services_loop_func():
                 service_load_state = _tr(line.split("=")[1].capitalize())                     # "_tr([value])" is used for using translated string.
                 if service_load_state == _tr("Loaded"):
                     service_loaded_not_loaded_list.append(True)
-                    break
                 if service_load_state != _tr("Loaded"):
                     service_loaded_not_loaded_list.append(False)
+                break
         # Append service icon and service name
         services_data_row = [True, services_image, service]                                   # Service visibility data (on treeview) which is used for showing/hiding service when services in specific type (enabled/disabled) is preferred to be shown or service search feature is used from the GUI.
         # Append service unit file state

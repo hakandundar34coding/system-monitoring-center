@@ -145,7 +145,7 @@ def services_set_checkmenuitem_func():
 # ----------------------------------- Services - Service Action Warning Dialog Function (shows a warning dialog when an output text is obtained during service actions (start, stop, reload, etc.)) -----------------------------------
 def services_action_warning_dialog(dialog_text):
 
-    warning_dialog6101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    warning_dialog6101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"), )
     warning_dialog6101.format_secondary_text(dialog_text)
     global warning_dialog6101_response

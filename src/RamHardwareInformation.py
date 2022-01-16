@@ -71,7 +71,6 @@ def ram_hardware_information_get_func():
         dmidecode_output = (subprocess.check_output(["pkexec", "sudo", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()    # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
     except:
         window1201w.hide()
-        ram_hardware_information_root_privileges_warning_dialog()
         return
 
     dmidecode_output_lines = dmidecode_output.split("\n")
@@ -153,14 +152,3 @@ def ram_hardware_information_get_func():
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
-
-
-# ----------------------------------- RAM - RAM Hardware Information Root Privileges Warning Dialog Function -----------------------------------
-def ram_hardware_information_root_privileges_warning_dialog():
-
-    warning_dialog1201w = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Access Denied"), )
-    warning_dialog1201w.format_secondary_text(_tr("Root privileges are needed for viewing RAM hardware information."))
-    global warning_dialog1201w_response
-    warning_dialog1201w_response = warning_dialog1201w.run()
-    warning_dialog1201w.destroy()

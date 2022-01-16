@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-15 13:26+0300\n"
-"PO-Revision-Date: 2022-01-15 13:26+0300\n"
+"POT-Creation-Date: 2022-01-16 11:07+0300\n"
+"PO-Revision-Date: 2022-01-16 11:07+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -88,8 +88,8 @@ msgstr "Değişken"
 msgid "Value"
 msgstr "Değer"
 
-#: src/EnvironmentVariables.py:116 src/RamHardwareInformation.py:131
-#: src/RamHardwareInformation.py:150 src/RamSwapDetails.py:95
+#: src/EnvironmentVariables.py:116 src/RamHardwareInformation.py:130
+#: src/RamHardwareInformation.py:149 src/RamSwapDetails.py:95
 #: src/Storage.py:148 ui/EnvironmentVarMenuCustomizations.ui:249
 #: ui/ServicesDetailsWindow.ui:245 ui/StorageDetailsWindow.ui:77
 #: ui/StorageMenuCustomizations.ui:262
@@ -229,7 +229,7 @@ msgstr ""
 msgid "Process Name"
 msgstr "İşlem Adı"
 
-#: src/Processes.py:161 src/ProcessesDetails.py:244 src/ProcessesDetails.py:657
+#: src/Processes.py:161 src/ProcessesDetails.py:244 src/ProcessesDetails.py:656
 #: ui/ProcessesDetailsWindow.ui:55 ui/ProcessesMenuCustomizations.ui:379
 msgid "PID"
 msgstr "PID"
@@ -362,55 +362,25 @@ msgstr ""
 msgid "Process Details"
 msgstr "İşlem Detayları"
 
-#: src/ProcessesDetails.py:654 src/ProcessesMenuRightClick.py:264
-#: src/ProcessesMenuRightClick.py:276 src/RamHardwareInformation.py:161
-#: src/ServicesMenuRightClick.py:148 src/SettingsGUI.py:589
-#: src/StartupMenuRightClick.py:442 src/StartupMenuRightClick.py:455
-#: src/StartupNewItem.py:177 src/StorageDetails.py:528
-#: src/StorageMenuRightClick.py:221 src/StorageRename.py:144
-#: src/UsersMenuRightClick.py:72
-msgid "Warning"
-msgstr "Uyarı"
-
 #: src/ProcessesDetails.py:655
-msgid "Process Is Not Running Anymore"
-msgstr "İşlem Artık Çalışmıyor"
-
-#: src/ProcessesDetails.py:656
-msgid ""
-"Following process is not running anymore and process details window is "
-"closed automatically:"
-msgstr ""
-"Şu işlem artık çalışmıyor ve işlem detayları penceresi otomatik olarak "
-"kapatıldı:"
+msgid "This process is not running anymore."
+msgstr "Bu işlem artık çalışmıyor."
 
 #: src/ProcessesMenuRightClick.py:265
-msgid "Terminate Process?"
-msgstr "İşlemi Sonlandır?"
+msgid "Do you want to terminate this process?"
+msgstr "Bu işlemi sonlandırmak istiyor musunuz?"
 
-#: src/ProcessesMenuRightClick.py:266
-msgid "Do you want to terminate the following process?"
-msgstr "Şu işlemi sonlandırmak istiyor musunuz?"
+#: src/ProcessesMenuRightClick.py:276
+msgid "Do you want to kill this process?"
+msgstr "Bu işlemi öldürmek istiyor musunuz?"
 
-#: src/ProcessesMenuRightClick.py:277
-msgid "Kill Process?"
-msgstr "İşlemi Öldür?"
+#: src/ProcessesMenuRightClick.py:287
+msgid "Process directory could not be get."
+msgstr "İşlem dizini alınamadı."
 
-#: src/ProcessesMenuRightClick.py:278
-msgid "Do you want to kill the following process?"
-msgstr "Şu işlemi öldürmek istiyor musunuz?"
-
-#: src/ProcessesMenuRightClick.py:288 src/StartupMenuRightClick.py:468
-msgid "Error"
-msgstr "Hata"
-
-#: src/ProcessesMenuRightClick.py:289
-msgid "Process Directory Could Not Be Get"
-msgstr "İşlem Dizini Alınamadı"
-
-#: src/ProcessesMenuRightClick.py:290
-msgid "Process directory could not be get. No folder will be opened."
-msgstr "İşlem dizini alınamadı. Klasör açılmayacak."
+#: src/ProcessesMenuRightClick.py:288
+msgid "No folder will be opened."
+msgstr "Klasör açılmayacak."
 
 #: src/Ram.py:216
 msgid "Total Physical RAM: "
@@ -425,49 +395,41 @@ msgstr "Ayrılmış Takas Belleği: "
 msgid "None"
 msgstr "Yok"
 
-#: src/RamHardwareInformation.py:91
+#: src/RamHardwareInformation.py:90
 msgid "Maximum Capacity"
 msgstr "Maksimum Kapasite"
 
-#: src/RamHardwareInformation.py:92
+#: src/RamHardwareInformation.py:91
 msgid "Number Of Devices"
 msgstr "Aygıt Sayısı"
 
-#: src/RamHardwareInformation.py:130 src/RamHardwareInformation.py:149
+#: src/RamHardwareInformation.py:129 src/RamHardwareInformation.py:148
 msgid "Capacity"
 msgstr "Kapasite"
 
-#: src/RamHardwareInformation.py:132
+#: src/RamHardwareInformation.py:131
 msgid "Speed/Frequency"
 msgstr "Hız/Frekans"
 
-#: src/RamHardwareInformation.py:133 src/RamHardwareInformation.py:152
+#: src/RamHardwareInformation.py:132 src/RamHardwareInformation.py:151
 msgid "Manufacturer"
 msgstr "Üretici"
 
-#: src/RamHardwareInformation.py:134 src/RamHardwareInformation.py:153
+#: src/RamHardwareInformation.py:133 src/RamHardwareInformation.py:152
 msgid "Form Factor"
 msgstr "Şekil Faktörü"
 
-#: src/RamHardwareInformation.py:135 src/RamHardwareInformation.py:154
+#: src/RamHardwareInformation.py:134 src/RamHardwareInformation.py:153
 msgid "Locator"
 msgstr "Kimlik"
 
-#: src/RamHardwareInformation.py:136 src/RamHardwareInformation.py:155
+#: src/RamHardwareInformation.py:135 src/RamHardwareInformation.py:154
 msgid "Bank Locator"
 msgstr "Yuva Kimliği"
 
-#: src/RamHardwareInformation.py:151
+#: src/RamHardwareInformation.py:150
 msgid "Speed"
 msgstr "Hız"
-
-#: src/RamHardwareInformation.py:162
-msgid "Access Denied"
-msgstr "Erişim Engellendi"
-
-#: src/RamHardwareInformation.py:163
-msgid "Root privileges are needed for viewing RAM hardware information."
-msgstr "RAM donanım bilgisini görüntülemek için root ayrıcalıkları gereklidir."
 
 #: src/RamSwapDetails.py:68
 msgid "File"
@@ -595,7 +557,7 @@ msgstr "Aktif"
 msgid "Inactive"
 msgstr "İnaktif"
 
-#: src/Services.py:145 src/Services.py:230 src/Services.py:233
+#: src/Services.py:145 src/Services.py:230 src/Services.py:232
 #: src/ServicesDetails.py:147
 msgid "Loaded"
 msgstr "Yüklenmiş"
@@ -689,8 +651,8 @@ msgstr "İsim"
 msgid "Comment"
 msgstr "Açıklama"
 
-#: src/Startup.py:115 src/StartupMenuRightClick.py:446
-#: src/StartupMenuRightClick.py:459 src/StartupMenuRightClick.py:472
+#: src/Startup.py:115 src/StartupMenuRightClick.py:445
+#: src/StartupMenuRightClick.py:457 src/StartupMenuRightClick.py:469
 #: ui/StartupMenuCustomizations.ui:248 ui/StartupNewItemWindow.ui:177
 msgid "Command"
 msgstr "Komut"
@@ -706,26 +668,23 @@ msgid "Total: AAAA startup applications (BBBB visible, CCCC hidden)"
 msgstr "Toplam: AAAA başlangıç uygulaması (BBBB görünür, CCCC gizli)"
 
 #: src/StartupMenuRightClick.py:247
-msgid ""
-"Do you want to delete system-wide values file of the following startup item?"
+msgid "Do you want to delete system-wide values file of this startup item?"
 msgstr ""
-"Şu başlangıç ögesinin sistem geneli değerler dosyasını silmek istiyor "
+"Bu başlangıç ögesinin sistem geneli değerler dosyasını silmek istiyor "
 "musunuz?"
 
 #: src/StartupMenuRightClick.py:269
-msgid ""
-"Do you want to delete user-specific values file of the following startup "
-"item?"
+msgid "Do you want to delete user-specific values file of this startup item?"
 msgstr ""
-"Şu başlangıç ögesinin kullanıcıya özgü değerler dosyasını silmek istiyor "
+"Bu başlangıç ögesinin kullanıcıya özgü değerler dosyasını silmek istiyor "
 "musunuz?"
 
 #: src/StartupMenuRightClick.py:296
 msgid ""
-"Do you want to delete system-wide and user-specific value files of the "
-"following startup item?"
+"Do you want to delete system-wide and user-specific value files of this "
+"startup item?"
 msgstr ""
-"Şu başlangıç ögesinin sistem geneli ve kullanıcıya özgü değerler dosyalarını "
+"Bu başlangıç ögesinin sistem geneli ve kullanıcıya özgü değerler dosyalarını "
 "silmek istiyor musunuz?"
 
 #: src/StartupMenuRightClick.py:427 src/StartupMenuRightClick.py:430
@@ -739,33 +698,17 @@ msgid "User-specific values file: "
 msgstr "Kullanıcıya özgü değerler dosyası: "
 
 #: src/StartupMenuRightClick.py:443
-msgid "Run Startup Item Now?"
-msgstr "Başlangıç Ögesini Şimdi Çalıştır?"
+msgid "Do you want to run this startup item now?"
+msgstr "Şu başlangıç ögesini şimdi çalıştırmak istiyor musunuz?"
 
-#: src/StartupMenuRightClick.py:444
-msgid "Do you want to run the following startup item?"
-msgstr "Şu başlangıç ögesini çalıştırmak istiyor musunuz?"
-
-#: src/StartupMenuRightClick.py:445 src/StartupMenuRightClick.py:458
-#: src/StartupMenuRightClick.py:471 src/StartupNewItem.py:180
+#: src/StartupMenuRightClick.py:444 src/StartupMenuRightClick.py:456
+#: src/StartupMenuRightClick.py:468 src/StartupNewItem.py:180
 msgid "Startup Item"
 msgstr "Başlangıç Ögesi"
 
-#: src/StartupMenuRightClick.py:456
-msgid "Delete Startup Item?"
-msgstr "Başlangıç Ögesini Sil?"
-
-#: src/StartupMenuRightClick.py:469
-msgid "Error While Running Startup Item Command"
-msgstr "Başlangıç Ögesi Komutunu Çalıştırırken Hata"
-
-#: src/StartupMenuRightClick.py:470
-msgid "Error is encountered while running the following command:"
-msgstr "Şu komutu çalıştırırken hatayla karşılaşıldı:"
-
 #: src/StartupNewItem.py:178
-msgid "Do You Want To Overwrite Existing File?"
-msgstr "Var Olan Dosyanın Üzerine Yazmak İstiyor musunuz?"
+msgid "Do you want to overwrite existing file?"
+msgstr "Var olan dosyanın üzerine yazmak istiyor musunuz?"
 
 #: src/StartupNewItem.py:179
 msgid "There is already a '.desktop' file with the same name."
@@ -891,18 +834,6 @@ msgstr "Toplam: AAAA disk/disk bölümü (BBBB disk, CCCC disk bölümü)"
 #: src/StorageDetails.py:205 ui/StorageDetailsWindow.ui:8
 msgid "Storage Details"
 msgstr "Depolama Detayları"
-
-#: src/StorageDetails.py:529
-msgid "Disk Is Not Connected Anymore"
-msgstr "Disk Artık Bağlı Değil"
-
-#: src/StorageDetails.py:530
-msgid ""
-"Following disk is not connected anymore and storage details window is closed "
-"automatically:"
-msgstr ""
-"Şu disk artık bağlı değil ve depolama detayları penceresi otomatik olarak "
-"kapatıldı:"
 
 #: src/StorageMenuRightClick.py:56
 msgid "Disk is already mounted."
@@ -1052,16 +983,16 @@ msgid "User Details"
 msgstr "Kullanıcı Detayları"
 
 #: src/UsersMenuRightClick.py:73
-msgid "Do You Want To End User Session?"
-msgstr "Kullanıcı Oturumunu Sonlandırmak İstiyor musunuz?"
+msgid "Do you want to end session of this user?"
+msgstr "Bu kullanıcının oturumunu sonlandırmak istiyor musunuz?"
 
 #: src/UsersMenuRightClick.py:74
 msgid ""
 "This action will end all processes of the user immediately and may cause "
-"data loss for the user."
+"data loss."
 msgstr ""
-"Bu eylem kullanıcının tüm işlemlerini hemen sonlandıracak ve kullanıcı için "
-"veri kayıplarına sebep olabilir."
+"Bu eylem kullanıcının tüm işlemlerini hemen sonlandıracak ve veri "
+"kayıplarına sebep olabilir."
 
 #: ui/CpuMenus.ui:20 ui/CpuTab.ui:416
 msgid "CPU Tab Customizations"
@@ -1189,10 +1120,10 @@ msgstr "%0"
 #: ui/CpuTab.ui:101 ui/CpuTab.ui:118 ui/CpuTab.ui:135 ui/CpuTab.ui:191
 #: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:313
 #: ui/CpuTab.ui:344 ui/CpuTab.ui:387 ui/CpuTab.ui:450 ui/CpuTab.ui:465
-#: ui/DiskTab.ui:66 ui/DiskTab.ui:81 ui/DiskTab.ui:187 ui/DiskTab.ui:204
-#: ui/DiskTab.ui:221 ui/DiskTab.ui:238 ui/DiskTab.ui:255 ui/DiskTab.ui:298
-#: ui/DiskTab.ui:328 ui/DiskTab.ui:376 ui/DiskTab.ui:414 ui/DiskTab.ui:431
-#: ui/DiskTab.ui:461 ui/EnvironmentVariablesTab.ui:84
+#: ui/DiskTab.ui:66 ui/DiskTab.ui:81 ui/DiskTab.ui:185 ui/DiskTab.ui:202
+#: ui/DiskTab.ui:219 ui/DiskTab.ui:236 ui/DiskTab.ui:253 ui/DiskTab.ui:296
+#: ui/DiskTab.ui:326 ui/DiskTab.ui:374 ui/DiskTab.ui:412 ui/DiskTab.ui:429
+#: ui/DiskTab.ui:459 ui/EnvironmentVariablesTab.ui:84
 #: ui/FloatingSummaryWindow.ui:19 ui/FloatingSummaryWindow.ui:31
 #: ui/FloatingSummaryWindow.ui:43 ui/FloatingSummaryWindow.ui:55
 #: ui/FloatingSummaryWindow.ui:67 ui/FloatingSummaryWindow.ui:79
@@ -1359,7 +1290,7 @@ msgstr "Veri Birimi:"
 msgid "Disk Speed:"
 msgstr "Disk Hızı:"
 
-#: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:352
+#: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:350
 #: ui/ProcessesMenuCustomizations.ui:777 ui/ProcessesMenuCustomizations.ui:879
 #: ui/StorageMenuCustomizations.ui:688 ui/StorageMenuCustomizations.ui:748
 msgid "Disk Usage:"
@@ -1389,62 +1320,50 @@ msgstr "Okuma Hızı:"
 msgid "Write Speed:"
 msgstr "Yazma Hızı:"
 
-#: ui/DiskTab.ui:143
-msgid ""
-"Total disk read time on the selected disk\n"
-"(milliseconds)"
-msgstr ""
-"Seçilen disk üzerindeki toplam okuma süresi\n"
-"(milisaniye)"
+#: ui/DiskTab.ui:143 ui/DiskTab.ui:170 ui/NetworkTab.ui:49 ui/NetworkTab.ui:63
+msgid "Measured value since last system start"
+msgstr "Sistem başlangıcından sonra ölçülen değer"
 
-#: ui/DiskTab.ui:146
+#: ui/DiskTab.ui:145
 msgid "Read Time:"
 msgstr "Okuma Süresi:"
 
-#: ui/DiskTab.ui:159
+#: ui/DiskTab.ui:158
 msgid "File System:"
 msgstr "Dosya Sistemi:"
 
-#: ui/DiskTab.ui:171
-msgid ""
-"Total disk write time on the selected disk\n"
-"(milliseconds)"
-msgstr ""
-"Seçilen disk üzerindeki toplam yazma süresi\n"
-"(milisaniye)"
-
-#: ui/DiskTab.ui:174
+#: ui/DiskTab.ui:172
 msgid "Write Time:"
 msgstr "Yazma Süresi:"
 
-#: ui/DiskTab.ui:272 ui/RamTab.ui:224
+#: ui/DiskTab.ui:270 ui/RamTab.ui:224
 msgid "Free:"
 msgstr "Boş:"
 
-#: ui/DiskTab.ui:285 ui/RamTab.ui:42 ui/RamTab.ui:103
+#: ui/DiskTab.ui:283 ui/RamTab.ui:42 ui/RamTab.ui:103
 msgid "Used:"
 msgstr "Kullanılan:"
 
-#: ui/DiskTab.ui:315
+#: ui/DiskTab.ui:313
 msgid "System Disk:"
 msgstr "Sistem Diski:"
 
-#: ui/DiskTab.ui:350 ui/DiskTab.ui:399
+#: ui/DiskTab.ui:348 ui/DiskTab.ui:397
 msgid ""
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
 "olabilir."
 
-#: ui/DiskTab.ui:401 ui/RamTab.ui:163 ui/RamTab.ui:193
+#: ui/DiskTab.ui:399 ui/RamTab.ui:163 ui/RamTab.ui:193
 msgid "Capacity:"
 msgstr "Kapasite:"
 
-#: ui/DiskTab.ui:473
+#: ui/DiskTab.ui:471
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr "Disk Okuma (-) & Yazma (--) Hızı:"
 
-#: ui/DiskTab.ui:485 ui/GpuTab.ui:451 ui/NetworkTab.ui:380
+#: ui/DiskTab.ui:483 ui/GpuTab.ui:451 ui/NetworkTab.ui:380
 msgid "0"
 msgstr ""
 
@@ -1691,10 +1610,6 @@ msgstr "İndirme Hızı:"
 #: ui/NetworkTab.ui:37
 msgid "Upload Speed:"
 msgstr "Yükleme Hızı:"
-
-#: ui/NetworkTab.ui:49 ui/NetworkTab.ui:63
-msgid "Measured value since last system start"
-msgstr "Sistem başlangıcından sonra ölçülen değer"
 
 #: ui/NetworkTab.ui:51
 msgid "Downloaded Data:"
@@ -2638,6 +2553,78 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Run this startup item now?"
+#~ msgstr "Bu başlangıç ögesini şimdi çalıştır?"
+
+#~ msgid "Warning"
+#~ msgstr "Uyarı"
+
+#~ msgid ""
+#~ "Following process is not running anymore and process details window is "
+#~ "closed automatically:"
+#~ msgstr ""
+#~ "Şu işlem artık çalışmıyor ve işlem detayları penceresi otomatik olarak "
+#~ "kapatıldı:"
+
+#~ msgid "Terminate Process?"
+#~ msgstr "İşlemi Sonlandır?"
+
+#~ msgid "Kill Process?"
+#~ msgstr "İşlemi Öldür?"
+
+#~ msgid "Error"
+#~ msgstr "Hata"
+
+#~ msgid "Process directory could not be get. No folder will be opened."
+#~ msgstr "İşlem dizini alınamadı. Klasör açılmayacak."
+
+#~ msgid "Delete Startup Item?"
+#~ msgstr "Başlangıç Ögesini Sil?"
+
+#~ msgid "Error While Running Startup Item Command"
+#~ msgstr "Başlangıç Ögesi Komutunu Çalıştırırken Hata"
+
+#~ msgid "Error is encountered while running the following command:"
+#~ msgstr "Şu komutu çalıştırırken hatayla karşılaşıldı:"
+
+#~ msgid "Disk Is Not Connected Anymore"
+#~ msgstr "Disk Artık Bağlı Değil"
+
+#~ msgid ""
+#~ "Following disk is not connected anymore and storage details window is "
+#~ "closed automatically:"
+#~ msgstr ""
+#~ "Şu disk artık bağlı değil ve depolama detayları penceresi otomatik olarak "
+#~ "kapatıldı:"
+
+#~ msgid ""
+#~ "Measured value since last system boot\n"
+#~ "(milliseconds)"
+#~ msgstr ""
+#~ "Sistem başlangıcından sonra ölçülen değer\n"
+#~ "(milisaniye)"
+
+#~ msgid "Access Denied"
+#~ msgstr "Erişim Engellendi"
+
+#~ msgid "Root privileges are needed for viewing RAM hardware information."
+#~ msgstr ""
+#~ "RAM donanım bilgisini görüntülemek için root ayrıcalıkları gereklidir."
+
+#~ msgid ""
+#~ "Total disk read time on the selected disk\n"
+#~ "(milliseconds)"
+#~ msgstr ""
+#~ "Seçilen disk üzerindeki toplam okuma süresi\n"
+#~ "(milisaniye)"
+
+#~ msgid ""
+#~ "Total disk write time on the selected disk\n"
+#~ "(milliseconds)"
+#~ msgstr ""
+#~ "Seçilen disk üzerindeki toplam yazma süresi\n"
+#~ "(milisaniye)"
 
 #~ msgid "Base version of the kernel"
 #~ msgstr "İşletim sistemi çekirdeğinin (kernel) temel sürümü (kernel release)"

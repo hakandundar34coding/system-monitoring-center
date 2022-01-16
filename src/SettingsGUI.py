@@ -586,7 +586,7 @@ def settings_gui_default_tab_func():
 # ----------------------------------- Settings - Reset All Settings Warning Dialog Function -----------------------------------
 def settings_gui_reset_all_settings_warning_dialog():
 
-    warning_dialog2001 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    warning_dialog2001 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Reset All Settings?"), )
     warning_dialog2001.format_secondary_text(_tr("Do you want to reset all settings of the application to defaults?"))
     global warning_dialog2001_response

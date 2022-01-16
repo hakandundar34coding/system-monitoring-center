@@ -18,10 +18,6 @@ def system_import_func():
     import Config, MainGUI
 
 
-    global _tr
-    from locale import gettext as _tr
-
-
 # ----------------------------------- System - System GUI Function -----------------------------------
 def system_gui_func():
 

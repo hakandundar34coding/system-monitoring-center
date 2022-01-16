@@ -261,10 +261,9 @@ def processes_get_process_current_nice_func():
 # ----------------------------------- Processes - Processes Terminate Process Warning Dialog Function -----------------------------------
 def processes_terminate_process_warning_dialog(process_name, process_pid):
 
-    warning_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Terminate Process?"), )
-    warning_dialog2101.format_secondary_text(_tr("Do you want to terminate the following process?") +
-                                             "\n\n    " + process_name + " (" + "PID" + ": " + str(process_pid) + ")")
+    warning_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to terminate this process?"), )
+    warning_dialog2101.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
     global warning_dialog2101_response
     warning_dialog2101_response = warning_dialog2101.run()
     warning_dialog2101.destroy()
@@ -273,10 +272,9 @@ def processes_terminate_process_warning_dialog(process_name, process_pid):
 # ----------------------------------- Processes - Processes Kill Process Warning Dialog Function -----------------------------------
 def processes_kill_process_warning_dialog(process_name, process_pid):
 
-    warning_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Kill Process?"), )
-    warning_dialog2102.format_secondary_text(_tr("Do you want to kill the following process?") +
-                                             "\n\n    " + process_name + " (" + "PID" + ": " + str(process_pid) + ")")
+    warning_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to kill this process?"), )
+    warning_dialog2102.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
     global warning_dialog2102_response
     warning_dialog2102_response = warning_dialog2102.run()
     warning_dialog2102.destroy()
@@ -285,8 +283,8 @@ def processes_kill_process_warning_dialog(process_name, process_pid):
 # ----------------------------------- Processes - Processes No Path Error Dialog Function -----------------------------------
 def processes_no_path_error_dialog():
 
-    error_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process Directory Could Not Be Get"), )
-    error_dialog2102.format_secondary_text(_tr("Process directory could not be get. No folder will be opened."))
+    error_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.ERROR,
+    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process directory could not be get."), )
+    error_dialog2102.format_secondary_text(_tr("No folder will be opened."))
     error_dialog2102.run()
     error_dialog2102.destroy()

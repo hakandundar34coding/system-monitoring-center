@@ -244,7 +244,7 @@ def startup_menu_right_click_gui_func():
             for line in desktop_file_system_lines:
                 if "Exec=" in line:                                                           # Application "hidden" value. Application is not started on the system start if this value is "true". This value overrides "NotShowIn" and "OnlyShowIn" values.
                     selected_startup_application_exec_value = line.split("=")[1]
-        message_text = _tr("Do you want to delete system-wide values file of the following startup item?")
+        message_text = _tr("Do you want to delete system-wide values file of this startup item?")
         startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_exec_value)
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
@@ -266,7 +266,7 @@ def startup_menu_right_click_gui_func():
             for line in desktop_file_user_lines:
                 if "Exec=" in line:
                     selected_startup_application_exec_value = line.split("=")[1]
-        message_text = _tr("Do you want to delete user-specific values file of the following startup item?")
+        message_text = _tr("Do you want to delete user-specific values file of this startup item?")
         startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_exec_value)
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
@@ -293,7 +293,7 @@ def startup_menu_right_click_gui_func():
             for line in desktop_file_user_lines:
                 if "Exec=" in line:
                     selected_startup_application_exec_value = line.split("=")[1]
-        message_text = _tr("Do you want to delete system-wide and user-specific value files of the following startup item?")
+        message_text = _tr("Do you want to delete system-wide and user-specific value files of this startup item?")
         startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_exec_value)
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
@@ -439,11 +439,10 @@ def startup_set_menu_labels_func():
 # ----------------------------------- Startup - Startup Run Startup Item Warning Dialog Function -----------------------------------
 def startup_run_startup_item_warning_dialog(selected_startup_application_name, selected_startup_application_exec_value):
 
-    warning_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Run Startup Item Now?"), )
-    warning_dialog5101.format_secondary_text(_tr("Do you want to run the following startup item?") +
-                                             "\n\n    " + _tr("Startup Item") + ": " + selected_startup_application_name +
-                                             "\n    " + _tr("Command") + ": " + selected_startup_application_exec_value)
+    warning_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to run this startup item now?"), )
+    warning_dialog5101.format_secondary_text(_tr("Startup Item") + ": " + selected_startup_application_name +
+                                             "\n" + _tr("Command") + ": " + selected_startup_application_exec_value)
     global warning_dialog5101_response
     warning_dialog5101_response = warning_dialog5101.run()
     warning_dialog5101.destroy()
@@ -452,11 +451,10 @@ def startup_run_startup_item_warning_dialog(selected_startup_application_name, s
 # ----------------------------------- Startup - Startup Delete Startup Item Warning Dialog Function -----------------------------------
 def startup_delete_startup_item_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_exec_value):
 
-    warning_dialog5102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Delete Startup Item?"), )
-    warning_dialog5102.format_secondary_text(message_text +
-                                             "\n\n    " + _tr("Startup Item") + ": " + selected_startup_application_name +
-                                             "\n    " + _tr("Command") + ": " + selected_startup_application_exec_value)
+    warning_dialog5102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
+    buttons=Gtk.ButtonsType.YES_NO, text=message_text, )
+    warning_dialog5102.format_secondary_text(_tr("Startup Item") + ": " + selected_startup_application_name +
+                                             "\n" + _tr("Command") + ": " + selected_startup_application_exec_value)
     global warning_dialog5102_response
     warning_dialog5102_response = warning_dialog5102.run()
     warning_dialog5102.destroy()
@@ -465,10 +463,9 @@ def startup_delete_startup_item_warning_dialog(message_text, selected_startup_ap
 # ----------------------------------- Startup - Startup Run Now Error Dialog Function -----------------------------------
 def startup_run_now_error_dialog(selected_startup_application_name, selected_startup_application_exec_value):
 
-    error_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Error While Running Startup Item Command"), )
-    error_dialog5101.format_secondary_text(_tr("Error is encountered while running the following command:") +
-                                           "\n\n    " + _tr("Startup Item") + ": " + selected_startup_application_name +
-                                           "\n    " + _tr("Command") + ": " + selected_startup_application_exec_value)
+    error_dialog5101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.ERROR,
+    buttons=Gtk.ButtonsType.CLOSE, text=message_text, )
+    error_dialog5101.format_secondary_text(_tr("Startup Item") + ": " + selected_startup_application_name +
+                                           "\n" + _tr("Command") + ": " + selected_startup_application_exec_value)
     error_dialog5101.run()
     error_dialog5101.destroy()

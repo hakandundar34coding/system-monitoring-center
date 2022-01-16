@@ -141,7 +141,7 @@ def storage_rename_gui_func():
 # ----------------------------------- Storage - Storage Rename Action Warning Dialog Function -----------------------------------
 def storage_rename_action_warning_dialog(dialog_text):
 
-    warning_dialog4101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Warning"), flags=0, message_type=Gtk.MessageType.WARNING,
+    warning_dialog4101w2 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"), )
     warning_dialog4101w2.format_secondary_text(dialog_text)
     global warning_dialog4101w2_response
