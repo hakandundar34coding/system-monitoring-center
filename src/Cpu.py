@@ -197,6 +197,18 @@ def cpu_initial_func():
     number_of_logical_cores = Performance.number_of_logical_cores
     logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
     selected_cpu_core = Performance.selected_cpu_core
+    selected_cpu_core = Performance.selected_cpu_core
+    selected_cpu_core_number_only = selected_cpu_core.split("cpu")[1]
+
+    # Get maximum and minimum frequencies of the selected CPU core
+    try:
+        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_max_freq") as reader:
+            cpu_max_frequency_selected_core = float(reader.read().strip()) / 1000000
+        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_min_freq") as reader:
+            cpu_min_frequency_selected_core = float(reader.read().strip()) / 1000000
+    except FileNotFoundError:
+        cpu_max_frequency_selected_core = "-"
+        cpu_min_frequency_selected_core = "-"
 
     # Get cache memory values of the selected CPU core
     # Get l1d cache value
@@ -258,6 +270,10 @@ def cpu_initial_func():
     if show_cpu_usage_per_core == 1:
         label1113.set_text(_tr("CPU Usage (Per Core):"))
     label1108.set_text(cpu_architecture)
+    if isinstance(cpu_max_frequency_selected_core, str) is False:
+        label1105.set_text(f'{cpu_min_frequency_selected_core:.2f} - {cpu_max_frequency_selected_core:.2f} GHz')
+    if isinstance(cpu_max_frequency_selected_core, str) is True:
+        label1105.set_text(f'{cpu_min_frequency_selected_core} - {cpu_max_frequency_selected_core}')
     label1109.set_text(f'{cpu_l1i_cache_value_selected_core} - {cpu_l1d_cache_value_selected_core}')
     label1110.set_text(f'{cpu_l2_cache_value_selected_core} - {cpu_l3_cache_value_selected_core}')
 
@@ -316,16 +332,6 @@ def cpu_loop_func():
         if cpu_model_names == []:
             cpu_model_names = [_tr("Unknown")]
 
-    # Get maximum and minimum frequencies of the selected CPU core
-    try:
-        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_max_freq") as reader:
-            cpu_max_frequency_selected_core = float(reader.read().strip()) / 1000000
-        with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_min_freq") as reader:
-            cpu_min_frequency_selected_core = float(reader.read().strip()) / 1000000
-    except FileNotFoundError:
-        cpu_max_frequency_selected_core = "-"
-        cpu_min_frequency_selected_core = "-"
-
     # Get current frequency of the selected CPU core
     try:
         with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_cur_freq") as reader:
@@ -336,7 +342,7 @@ def cpu_loop_func():
         proc_cpuinfo_all_cores_lines = proc_cpuinfo_all_cores[int(selected_cpu_core_number_only)].split("\n")
         for line in proc_cpuinfo_all_cores_lines:
             if line.startswith("cpu MHz"):
-                cpu_current_frequency_selected_core = float(line.split(":")[1].strip())
+                cpu_current_frequency_selected_core = float(line.split(":")[1].strip()) / 1000
                 break
 
     # Get number_of_total_threads and number_of_total_processes
@@ -371,10 +377,6 @@ def cpu_loop_func():
     label1112.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
     label1103.set_text(f'{cpu_usage_percent_ave[-1]:.{Config.performance_cpu_usage_percent_precision}f} %')
     label1104.set_text(f'{cpu_current_frequency_selected_core:.2f} GHz')
-    if isinstance(cpu_max_frequency_selected_core, str) is False:
-        label1105.set_text(f'{cpu_min_frequency_selected_core:.2f} - {cpu_max_frequency_selected_core:.2f} GHz')
-    if isinstance(cpu_max_frequency_selected_core, str) is True:
-        label1105.set_text(f'{cpu_min_frequency_selected_core} - {cpu_max_frequency_selected_core}')
     label1106.set_text(f'{number_of_cpu_sockets}')
     label1107.set_text(f'{number_of_physical_cores} - {number_of_logical_cores}')
 
