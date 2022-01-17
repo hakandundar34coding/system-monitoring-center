@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-16 21:08+0300\n"
-"PO-Revision-Date: 2022-01-16 21:08+0300\n"
+"POT-Creation-Date: 2022-01-17 11:30+0300\n"
+"PO-Revision-Date: 2022-01-17 11:31+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -26,7 +26,7 @@ msgstr "MİB Kullanımı (Ortalama):"
 msgid "CPU Usage (Per Core):"
 msgstr "MİB Kullanımı (Çekirdek Başına):"
 
-#: src/Cpu.py:330 src/RamHardwareInformation.py:65
+#: src/Cpu.py:330 src/RamHardwareInformation.py:60
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -64,7 +64,7 @@ msgstr "Evet"
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:378 src/Disk.py:406 src/RamSwapDetails.py:68 src/Storage.py:269
+#: src/Disk.py:378 src/Disk.py:406 src/RamSwapDetails.py:63 src/Storage.py:269
 #: src/Storage.py:274 src/StorageDetails.py:200 src/StorageDetails.py:210
 #: src/StorageMenuRightClick.py:182
 msgid "Partition"
@@ -88,8 +88,8 @@ msgstr "Değişken"
 msgid "Value"
 msgstr "Değer"
 
-#: src/EnvironmentVariables.py:116 src/RamHardwareInformation.py:130
-#: src/RamHardwareInformation.py:149 src/RamSwapDetails.py:95
+#: src/EnvironmentVariables.py:116 src/RamHardwareInformation.py:125
+#: src/RamHardwareInformation.py:144 src/RamSwapDetails.py:90
 #: src/Storage.py:148 ui/EnvironmentVarMenuCustomizations.ui:249
 #: ui/ServicesDetailsWindow.ui:245 ui/StorageDetailsWindow.ui:77
 #: ui/StorageMenuCustomizations.ui:262
@@ -209,49 +209,49 @@ msgid "CPU%"
 msgstr "%MİB"
 
 #: src/Processes.py:159 src/Services.py:125 src/Users.py:127
-#: ui/ProcessesDetailsWindow.ui:120 ui/ProcessesDetailsWindow.ui:849
+#: ui/ProcessesDetailsWindow.ui:120 ui/ProcessesDetailsWindow.ui:877
 #: ui/ProcessesMenuCustomizations.ui:435 ui/ServicesDetailsWindow.ui:258
 #: ui/ServicesMenuCustomizations.ui:304 ui/UsersDetailsWindow.ui:406
 #: ui/UsersMenuCustomizations.ui:332
 msgid "Memory (RSS)"
 msgstr "Bellek (RSS)"
 
-#: src/Processes.py:160 ui/ProcessesDetailsWindow.ui:862
+#: src/Processes.py:160 ui/ProcessesDetailsWindow.ui:890
 #: ui/ProcessesMenuCustomizations.ui:449
 msgid "Memory (VMS)"
 msgstr "Bellek (VMS)"
 
-#: src/Processes.py:161 ui/ProcessesDetailsWindow.ui:875
+#: src/Processes.py:161 ui/ProcessesDetailsWindow.ui:903
 #: ui/ProcessesMenuCustomizations.ui:519
 msgid "Memory (Shared)"
 msgstr "Bellek (Paylaşılan)"
 
-#: src/Processes.py:162 ui/ProcessesDetailsWindow.ui:1313
+#: src/Processes.py:162 ui/ProcessesDetailsWindow.ui:1341
 #: ui/ProcessesMenuCustomizations.ui:561
 msgid "Disk Read Data"
 msgstr "Disk Okunan Veri"
 
-#: src/Processes.py:163 ui/ProcessesDetailsWindow.ui:1326
+#: src/Processes.py:163 ui/ProcessesDetailsWindow.ui:1354
 #: ui/ProcessesMenuCustomizations.ui:575
 msgid "Disk Write Data"
 msgstr "Disk Yazılan Veri"
 
-#: src/Processes.py:164 ui/ProcessesDetailsWindow.ui:1287
+#: src/Processes.py:164 ui/ProcessesDetailsWindow.ui:1315
 #: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:437
 msgid "Disk Read Speed"
 msgstr "Disk Okuma Hızı"
 
-#: src/Processes.py:165 ui/ProcessesDetailsWindow.ui:1300
+#: src/Processes.py:165 ui/ProcessesDetailsWindow.ui:1328
 #: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:465
 msgid "Disk Write Speed"
 msgstr "Disk Yazma Hızı"
 
-#: src/Processes.py:166 src/RamSwapDetails.py:98
+#: src/Processes.py:166 src/RamSwapDetails.py:93
 #: ui/ProcessesDetailsWindow.ui:94 ui/ProcessesMenuCustomizations.ui:463
 msgid "Priority"
 msgstr "Öncelik"
 
-#: src/Processes.py:167 ui/ProcessesDetailsWindow.ui:722
+#: src/Processes.py:167 ui/ProcessesDetailsWindow.ui:750
 #: ui/ProcessesMenuCustomizations.ui:477
 msgid "Number of Threads"
 msgstr "İşlem Parçacığı Sayısı"
@@ -272,7 +272,7 @@ msgstr "UID"
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:171 src/Storage.py:159
+#: src/Processes.py:171 src/Storage.py:159 ui/ProcessesDetailsWindow.ui:1762
 #: ui/ProcessesMenuCustomizations.ui:505 ui/ServicesDetailsWindow.ui:69
 #: ui/StorageDetailsWindow.ui:418 ui/StorageMenuCustomizations.ui:374
 msgid "Path"
@@ -318,7 +318,6 @@ msgstr ""
 "sistemden)"
 
 #: src/ProcessesDetails.py:244 ui/ProcessesDetailsWindow.ui:8
-#: ui/ServicesDetailsWindow.ui:8
 msgid "Process Details"
 msgstr "İşlem Detayları"
 
@@ -346,64 +345,60 @@ msgstr "Toplam Fiziksel RAM: "
 msgid "Reserved Swap Memory: "
 msgstr "Ayrılmış Takas Belleği: "
 
-#: src/RamHardwareInformation.py:65 src/StartupMenuRightClick.py:430
+#: src/RamHardwareInformation.py:60 src/StartupMenuRightClick.py:430
 #: src/StartupMenuRightClick.py:436
 msgid "None"
 msgstr "Yok"
 
-#: src/RamHardwareInformation.py:90
+#: src/RamHardwareInformation.py:85
 msgid "Maximum Capacity"
 msgstr "Maksimum Kapasite"
 
-#: src/RamHardwareInformation.py:91
+#: src/RamHardwareInformation.py:86
 msgid "Number Of Devices"
 msgstr "Aygıt Sayısı"
 
-#: src/RamHardwareInformation.py:129 src/RamHardwareInformation.py:148
+#: src/RamHardwareInformation.py:124 src/RamHardwareInformation.py:143
 msgid "Capacity"
 msgstr "Kapasite"
 
-#: src/RamHardwareInformation.py:131
+#: src/RamHardwareInformation.py:126 src/RamHardwareInformation.py:145
 msgid "Speed/Frequency"
 msgstr "Hız/Frekans"
 
-#: src/RamHardwareInformation.py:132 src/RamHardwareInformation.py:151
+#: src/RamHardwareInformation.py:127 src/RamHardwareInformation.py:146
 msgid "Manufacturer"
 msgstr "Üretici"
 
-#: src/RamHardwareInformation.py:133 src/RamHardwareInformation.py:152
+#: src/RamHardwareInformation.py:128 src/RamHardwareInformation.py:147
 msgid "Form Factor"
 msgstr "Şekil Faktörü"
 
-#: src/RamHardwareInformation.py:134 src/RamHardwareInformation.py:153
+#: src/RamHardwareInformation.py:129 src/RamHardwareInformation.py:148
 msgid "Locator"
 msgstr "Kimlik"
 
-#: src/RamHardwareInformation.py:135 src/RamHardwareInformation.py:154
+#: src/RamHardwareInformation.py:130 src/RamHardwareInformation.py:149
 msgid "Bank Locator"
 msgstr "Yuva Kimliği"
 
-#: src/RamHardwareInformation.py:150
-msgid "Speed"
-msgstr "Hız"
-
-#: src/RamSwapDetails.py:68
+#: src/RamSwapDetails.py:63
 msgid "File"
 msgstr "Dosya"
 
-#: src/RamSwapDetails.py:94
+#: src/RamSwapDetails.py:89
 msgid "Partition/File Name"
 msgstr "Disk Bölümü/Dosya Adı"
 
-#: src/RamSwapDetails.py:96
+#: src/RamSwapDetails.py:91
 msgid "Size"
 msgstr "Boyut"
 
-#: src/RamSwapDetails.py:97
+#: src/RamSwapDetails.py:92
 msgid "Used"
 msgstr "Kullanılan"
 
-#: src/RamSwapDetails.py:106
+#: src/RamSwapDetails.py:101
 msgid "This system has no swap memory."
 msgstr "Bu sistemde takas belleği yok."
 
@@ -563,12 +558,13 @@ msgid "System"
 msgstr "Sistem"
 
 #: src/SettingsGUI.py:326 ui/CpuTab.ui:488 ui/MainWindow.ui:80
-#: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:709
+#: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:737
 #: ui/SettingsWindow.ui:409
 msgid "CPU"
 msgstr "MİB"
 
-#: src/SettingsGUI.py:326 ui/MainWindow.ui:127 ui/RamTab.ui:414
+#: src/SettingsGUI.py:326 ui/MainWindow.ui:127
+#: ui/PerformanceSummaryHeaderBarGrid.ui:52 ui/RamTab.ui:411
 #: ui/SettingsWindow.ui:423
 msgid "RAM"
 msgstr "RAM"
@@ -791,10 +787,11 @@ msgid "Renaming disks with this file system is not supported."
 msgstr "Bu dosya sistemine sahip diskleri yeniden adlandırma desteklenmiyor."
 
 #: src/StorageRename.py:124
-msgid "Disk has been removed and file system could not be renamed."
-msgstr "Disk çıkarıldı ve dosya sistemi yeniden adlandırılabilir."
+msgid "Disk is not mounted and file system could not be renamed."
+msgstr "Disk bağlı değil ve dosya sistemi yeniden adlandırılamadı."
 
-#: src/Users.py:114 src/UsersMenuRightClick.py:75 ui/UsersDetailsWindow.ui:39
+#: src/Users.py:114 src/UsersMenuRightClick.py:75
+#: ui/ProcessesDetailsWindow.ui:81 ui/UsersDetailsWindow.ui:39
 #: ui/UsersMenuCustomizations.ui:218
 msgid "User Name"
 msgstr "Kullanıcı Adı"
@@ -994,25 +991,26 @@ msgid "Select CPU Core:"
 msgstr "MİB Çekirdeği Seç:"
 
 #: ui/CpuMenus.ui:389 ui/EnvironmentVarMenuCustomizations.ui:303
-#: ui/ProcessesDetailsWindow.ui:481 ui/ProcessesDetailsWindow.ui:494
-#: ui/ProcessesDetailsWindow.ui:507 ui/ProcessesDetailsWindow.ui:520
-#: ui/ProcessesDetailsWindow.ui:533 ui/ProcessesDetailsWindow.ui:546
-#: ui/ProcessesDetailsWindow.ui:559 ui/ProcessesDetailsWindow.ui:572
-#: ui/ProcessesDetailsWindow.ui:585 ui/ProcessesDetailsWindow.ui:598
-#: ui/ProcessesDetailsWindow.ui:611 ui/ProcessesDetailsWindow.ui:624
-#: ui/ProcessesDetailsWindow.ui:637 ui/ProcessesDetailsWindow.ui:650
-#: ui/ProcessesDetailsWindow.ui:663 ui/ProcessesDetailsWindow.ui:1094
-#: ui/ProcessesDetailsWindow.ui:1107 ui/ProcessesDetailsWindow.ui:1120
-#: ui/ProcessesDetailsWindow.ui:1133 ui/ProcessesDetailsWindow.ui:1146
-#: ui/ProcessesDetailsWindow.ui:1159 ui/ProcessesDetailsWindow.ui:1172
-#: ui/ProcessesDetailsWindow.ui:1185 ui/ProcessesDetailsWindow.ui:1198
-#: ui/ProcessesDetailsWindow.ui:1211 ui/ProcessesDetailsWindow.ui:1224
-#: ui/ProcessesDetailsWindow.ui:1237 ui/ProcessesDetailsWindow.ui:1616
-#: ui/ProcessesDetailsWindow.ui:1629 ui/ProcessesDetailsWindow.ui:1642
-#: ui/ProcessesDetailsWindow.ui:1655 ui/ProcessesDetailsWindow.ui:1668
-#: ui/ProcessesDetailsWindow.ui:1681 ui/ProcessesDetailsWindow.ui:1694
-#: ui/ProcessesDetailsWindow.ui:1707 ui/ProcessesDetailsWindow.ui:1720
-#: ui/ProcessesDetailsWindow.ui:1733 ui/ProcessesMenuCustomizations.ui:74
+#: ui/ProcessesDetailsWindow.ui:463 ui/ProcessesDetailsWindow.ui:476
+#: ui/ProcessesDetailsWindow.ui:489 ui/ProcessesDetailsWindow.ui:502
+#: ui/ProcessesDetailsWindow.ui:515 ui/ProcessesDetailsWindow.ui:528
+#: ui/ProcessesDetailsWindow.ui:541 ui/ProcessesDetailsWindow.ui:554
+#: ui/ProcessesDetailsWindow.ui:567 ui/ProcessesDetailsWindow.ui:580
+#: ui/ProcessesDetailsWindow.ui:593 ui/ProcessesDetailsWindow.ui:606
+#: ui/ProcessesDetailsWindow.ui:619 ui/ProcessesDetailsWindow.ui:632
+#: ui/ProcessesDetailsWindow.ui:645 ui/ProcessesDetailsWindow.ui:681
+#: ui/ProcessesDetailsWindow.ui:1122 ui/ProcessesDetailsWindow.ui:1135
+#: ui/ProcessesDetailsWindow.ui:1148 ui/ProcessesDetailsWindow.ui:1161
+#: ui/ProcessesDetailsWindow.ui:1174 ui/ProcessesDetailsWindow.ui:1187
+#: ui/ProcessesDetailsWindow.ui:1200 ui/ProcessesDetailsWindow.ui:1213
+#: ui/ProcessesDetailsWindow.ui:1226 ui/ProcessesDetailsWindow.ui:1239
+#: ui/ProcessesDetailsWindow.ui:1252 ui/ProcessesDetailsWindow.ui:1265
+#: ui/ProcessesDetailsWindow.ui:1626 ui/ProcessesDetailsWindow.ui:1639
+#: ui/ProcessesDetailsWindow.ui:1652 ui/ProcessesDetailsWindow.ui:1665
+#: ui/ProcessesDetailsWindow.ui:1678 ui/ProcessesDetailsWindow.ui:1691
+#: ui/ProcessesDetailsWindow.ui:1704 ui/ProcessesDetailsWindow.ui:1717
+#: ui/ProcessesDetailsWindow.ui:1730 ui/ProcessesDetailsWindow.ui:1743
+#: ui/ProcessesDetailsWindow.ui:1779 ui/ProcessesMenuCustomizations.ui:74
 #: ui/ProcessesMenuCustomizations.ui:341 ui/ProcessesMenuCustomizations.ui:735
 #: ui/ServicesDetailsWindow.ui:529 ui/ServicesDetailsWindow.ui:542
 #: ui/ServicesDetailsWindow.ui:555 ui/ServicesDetailsWindow.ui:568
@@ -1052,11 +1050,11 @@ msgstr "MİB Çekirdeği Seç:"
 msgid ":"
 msgstr ""
 
-#: ui/CpuTab.ui:31 ui/RamTab.ui:507
+#: ui/CpuTab.ui:31 ui/RamTab.ui:504
 msgid "100%"
 msgstr "%100"
 
-#: ui/CpuTab.ui:55 ui/RamTab.ui:531
+#: ui/CpuTab.ui:55 ui/RamTab.ui:528
 msgid "0%"
 msgstr "%0"
 
@@ -1089,21 +1087,21 @@ msgstr "%0"
 #: ui/ProcessesDetailsWindow.ui:347 ui/ProcessesDetailsWindow.ui:362
 #: ui/ProcessesDetailsWindow.ui:377 ui/ProcessesDetailsWindow.ui:392
 #: ui/ProcessesDetailsWindow.ui:433 ui/ProcessesDetailsWindow.ui:448
-#: ui/ProcessesDetailsWindow.ui:914 ui/ProcessesDetailsWindow.ui:929
-#: ui/ProcessesDetailsWindow.ui:944 ui/ProcessesDetailsWindow.ui:959
-#: ui/ProcessesDetailsWindow.ui:974 ui/ProcessesDetailsWindow.ui:989
-#: ui/ProcessesDetailsWindow.ui:1004 ui/ProcessesDetailsWindow.ui:1019
-#: ui/ProcessesDetailsWindow.ui:1034 ui/ProcessesDetailsWindow.ui:1049
-#: ui/ProcessesDetailsWindow.ui:1064 ui/ProcessesDetailsWindow.ui:1079
-#: ui/ProcessesDetailsWindow.ui:1365 ui/ProcessesDetailsWindow.ui:1380
-#: ui/ProcessesDetailsWindow.ui:1395 ui/ProcessesDetailsWindow.ui:1410
-#: ui/ProcessesDetailsWindow.ui:1425 ui/ProcessesDetailsWindow.ui:1440
-#: ui/ProcessesDetailsWindow.ui:1556 ui/ProcessesDetailsWindow.ui:1571
-#: ui/ProcessesDetailsWindow.ui:1586 ui/ProcessesDetailsWindow.ui:1601
-#: ui/ProcessesTab.ui:267 ui/RamHardwareWindow.ui:87
-#: ui/RamSwapDetailsWindow.ui:87 ui/RamTab.ui:69 ui/RamTab.ui:86
+#: ui/ProcessesDetailsWindow.ui:942 ui/ProcessesDetailsWindow.ui:957
+#: ui/ProcessesDetailsWindow.ui:972 ui/ProcessesDetailsWindow.ui:987
+#: ui/ProcessesDetailsWindow.ui:1002 ui/ProcessesDetailsWindow.ui:1017
+#: ui/ProcessesDetailsWindow.ui:1032 ui/ProcessesDetailsWindow.ui:1047
+#: ui/ProcessesDetailsWindow.ui:1062 ui/ProcessesDetailsWindow.ui:1077
+#: ui/ProcessesDetailsWindow.ui:1092 ui/ProcessesDetailsWindow.ui:1107
+#: ui/ProcessesDetailsWindow.ui:1393 ui/ProcessesDetailsWindow.ui:1408
+#: ui/ProcessesDetailsWindow.ui:1423 ui/ProcessesDetailsWindow.ui:1438
+#: ui/ProcessesDetailsWindow.ui:1453 ui/ProcessesDetailsWindow.ui:1468
+#: ui/ProcessesDetailsWindow.ui:1566 ui/ProcessesDetailsWindow.ui:1581
+#: ui/ProcessesDetailsWindow.ui:1596 ui/ProcessesDetailsWindow.ui:1611
+#: ui/ProcessesTab.ui:267 ui/RamHardwareWindow.ui:41
+#: ui/RamSwapDetailsWindow.ui:41 ui/RamTab.ui:69 ui/RamTab.ui:86
 #: ui/RamTab.ui:129 ui/RamTab.ui:146 ui/RamTab.ui:176 ui/RamTab.ui:206
-#: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:457 ui/RamTab.ui:471
+#: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:454 ui/RamTab.ui:468
 #: ui/SensorsTab.ui:200 ui/ServicesDetailsWindow.ui:107
 #: ui/ServicesDetailsWindow.ui:121 ui/ServicesDetailsWindow.ui:135
 #: ui/ServicesDetailsWindow.ui:149 ui/ServicesDetailsWindow.ui:163
@@ -1614,13 +1612,9 @@ msgstr "Ağ İndirme (-) & Yükleme (--) Hızı:"
 msgid "Network Interface Controller (NIC) Name"
 msgstr "Ağ Arayüz Kontrolcüsü (NIC) Adı"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:18 ui/ProcessesDetailsWindow.ui:814
+#: ui/PerformanceSummaryHeaderBarGrid.ui:18 ui/ProcessesDetailsWindow.ui:842
 msgid "CPU:"
 msgstr "MİB:"
-
-#: ui/PerformanceSummaryHeaderBarGrid.ui:52
-msgid "RAM Usage Percent"
-msgstr "RAM Kullanım Yüzdesi"
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:54 ui/RamTab.ui:25
 msgid "RAM:"
@@ -1630,7 +1624,7 @@ msgstr "RAM:"
 msgid "Disk Read+Write Speed"
 msgstr "Disk Okuma+Yazma Hızı"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:70 ui/ProcessesDetailsWindow.ui:1469
+#: ui/PerformanceSummaryHeaderBarGrid.ui:70 ui/ProcessesDetailsWindow.ui:1497
 msgid "Disk:"
 msgstr "Disk:"
 
@@ -1667,10 +1661,6 @@ msgstr "Uygula"
 msgid "Cancel"
 msgstr "İptal"
 
-#: ui/ProcessesDetailsWindow.ui:81
-msgid "Username"
-msgstr "Kullanıcı Adı"
-
 #: ui/ProcessesDetailsWindow.ui:133
 msgid "Disk Read / Write Speed"
 msgstr "Disk Okuma / Yazma Hızı"
@@ -1679,7 +1669,7 @@ msgstr "Disk Okuma / Yazma Hızı"
 msgid "Start Time"
 msgstr "Başlama Zamanı"
 
-#: ui/ProcessesDetailsWindow.ui:159 ui/ProcessesDetailsWindow.ui:1504
+#: ui/ProcessesDetailsWindow.ui:159 ui/ProcessesDetailsWindow.ui:1514
 msgid "Exe"
 msgstr "Konum"
 
@@ -1703,78 +1693,70 @@ msgstr "UID'ler"
 msgid "GIDs"
 msgstr "GID'ler"
 
-#: ui/ProcessesDetailsWindow.ui:464
-msgid "Summary:"
-msgstr "Özet:"
-
-#: ui/ProcessesDetailsWindow.ui:680
+#: ui/ProcessesDetailsWindow.ui:664 ui/ProcessesDetailsWindow.ui:708
 msgid "Summary"
 msgstr "Özet"
 
-#: ui/ProcessesDetailsWindow.ui:735
+#: ui/ProcessesDetailsWindow.ui:763
 msgid "Threads"
 msgstr "İşlem Parçacıkları"
 
-#: ui/ProcessesDetailsWindow.ui:748
+#: ui/ProcessesDetailsWindow.ui:776
 msgid "Used CPU Core(s)"
 msgstr "Kullanılan MİB Çekirdekleri"
 
-#: ui/ProcessesDetailsWindow.ui:761
+#: ui/ProcessesDetailsWindow.ui:789
 msgid "CPU Affinity"
 msgstr "MİB Bağlılığı"
 
-#: ui/ProcessesDetailsWindow.ui:774
+#: ui/ProcessesDetailsWindow.ui:802
 msgid "CPU Times"
 msgstr "MİB Zamanları"
 
-#: ui/ProcessesDetailsWindow.ui:787
+#: ui/ProcessesDetailsWindow.ui:815
 msgid "Context Switches"
 msgstr "İçerik Değiştirmeleri"
 
-#: ui/ProcessesDetailsWindow.ui:832 ui/ProcessesMenuCustomizations.ui:752
+#: ui/ProcessesDetailsWindow.ui:860 ui/ProcessesMenuCustomizations.ui:752
 #: ui/ProcessesMenuCustomizations.ui:833 ui/ServicesMenuCustomizations.ui:464
 #: ui/ServicesMenuCustomizations.ui:524 ui/UsersMenuCustomizations.ui:557
 #: ui/UsersMenuCustomizations.ui:660
 msgid "Memory:"
 msgstr "Bellek:"
 
-#: ui/ProcessesDetailsWindow.ui:888
+#: ui/ProcessesDetailsWindow.ui:916
 msgid "Memory (USS)"
 msgstr "Bellek (USS)"
 
-#: ui/ProcessesDetailsWindow.ui:901
+#: ui/ProcessesDetailsWindow.ui:929
 msgid "Swap Memory"
 msgstr "Takas Belleği"
 
-#: ui/ProcessesDetailsWindow.ui:1257
+#: ui/ProcessesDetailsWindow.ui:1285
 msgid "CPU and Memory"
 msgstr "MİB ve Bellek"
 
-#: ui/ProcessesDetailsWindow.ui:1339
+#: ui/ProcessesDetailsWindow.ui:1367
 msgid "Disk Read Count"
 msgstr "Diskten Okuma Sayısı"
 
-#: ui/ProcessesDetailsWindow.ui:1352
+#: ui/ProcessesDetailsWindow.ui:1380
 msgid "Disk Write Count"
 msgstr "Diske Yazma Sayısı"
 
-#: ui/ProcessesDetailsWindow.ui:1487
-msgid "Path:"
-msgstr "Yol:"
-
-#: ui/ProcessesDetailsWindow.ui:1517
+#: ui/ProcessesDetailsWindow.ui:1527
 msgid "Current Working Directory"
 msgstr "Şimdiki Çalışma Konumu"
 
-#: ui/ProcessesDetailsWindow.ui:1530
+#: ui/ProcessesDetailsWindow.ui:1540
 msgid "Command Line"
 msgstr "Komut Satırı"
 
-#: ui/ProcessesDetailsWindow.ui:1543
+#: ui/ProcessesDetailsWindow.ui:1553
 msgid "Opened Files"
 msgstr "Açık Dosyalar"
 
-#: ui/ProcessesDetailsWindow.ui:1753
+#: ui/ProcessesDetailsWindow.ui:1809
 msgid "Disk and Path"
 msgstr "Disk ve Yol"
 
@@ -1880,11 +1862,7 @@ msgstr "Tümünü daralt"
 msgid "RAM Hardware Information"
 msgstr "RAM Donanım Bilgisi"
 
-#: ui/RamHardwareWindow.ui:42 ui/RamSwapDetailsWindow.ui:42
-msgid "Close"
-msgstr "Kapat"
-
-#: ui/RamHardwareWindow.ui:105
+#: ui/RamHardwareWindow.ui:59
 msgid ""
 "Note: RAM hardware information may be get partially or may not be get at all "
 "on some systems."
@@ -1892,7 +1870,7 @@ msgstr ""
 "Not: Bazı sistemlerde RAM donanım bilgisi kısmi olarak elde edilebilir veya "
 "hiç elde edilemeyebilir."
 
-#: ui/RamMenus.ui:20 ui/RamTab.ui:430
+#: ui/RamMenus.ui:20 ui/RamTab.ui:427
 msgid "RAM Tab Customizations"
 msgstr "RAM Sekmesi Özelleştirmeleri"
 
@@ -1900,7 +1878,7 @@ msgstr "RAM Sekmesi Özelleştirmeleri"
 msgid "Swap Memory Details"
 msgstr "Takas Belleği Detayları"
 
-#: ui/RamSwapDetailsWindow.ui:105
+#: ui/RamSwapDetailsWindow.ui:59
 msgid "Note: Information on this window is not reloaded automatically."
 msgstr "Not: Bu penceredeki bilgiler otomatik yenilenmez."
 
@@ -1920,29 +1898,19 @@ msgstr "Takas Bell. Kul. %:"
 msgid "Swap Memory:"
 msgstr "Takas Belleği:"
 
-#: ui/RamTab.ui:324
-msgid ""
-"Shows RAM hardware information.\n"
-"\n"
-"Root privileges are needed for getting this information."
-msgstr ""
-"RAM donanım bilgisini gösterir.\n"
-"\n"
-"Bu bilgiyi elde etmek için root yetkileri gereklidir."
-
-#: ui/RamTab.ui:328
+#: ui/RamTab.ui:325
 msgid "Hardware:"
 msgstr "Donanım:"
 
-#: ui/RamTab.ui:346 ui/RamTab.ui:383
+#: ui/RamTab.ui:343 ui/RamTab.ui:380
 msgid "Query..."
 msgstr "Sorgula..."
 
-#: ui/RamTab.ui:365
+#: ui/RamTab.ui:362
 msgid "Details:"
 msgstr "Detaylar:"
 
-#: ui/RamTab.ui:519
+#: ui/RamTab.ui:516
 msgid "RAM Usage:"
 msgstr "RAM Kullanımı:"
 
@@ -1961,6 +1929,10 @@ msgstr "Tüm fan algılayıcılarını göster"
 #: ui/SensorsTab.ui:121
 msgid "Show all voltage and current sensors"
 msgstr "Tüm voltaj ve akım algılayıcılarını göster"
+
+#: ui/ServicesDetailsWindow.ui:8
+msgid "Service Details"
+msgstr "Servis Detayları"
 
 #: ui/ServicesDetailsWindow.ui:82
 msgid "Documentation"
@@ -2255,13 +2227,9 @@ msgstr "Kaldır"
 msgid "Copy Mount Point"
 msgstr "Bağlama Noktasını Kopyala"
 
-#: ui/StorageMenuRightClick.ui:102
+#: ui/StorageMenuRightClick.ui:102 ui/StorageRenameWindow.ui:8
 msgid "Rename Label"
 msgstr "Etiketi Yeniden Adlandır"
-
-#: ui/StorageRenameWindow.ui:8
-msgid "Rename Disk File System Label"
-msgstr "Dosya Sistemi Etiketini Yeniden Adlandır"
 
 #: ui/StorageRenameWindow.ui:26
 msgid "Rename file system of this disk:"
@@ -2438,6 +2406,36 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "RAM Usage Percent"
+#~ msgstr "RAM Kullanım Yüzdesi"
+
+#~ msgid "Username"
+#~ msgstr "Kullanıcı Adı"
+
+#~ msgid "Summary:"
+#~ msgstr "Özet:"
+
+#~ msgid "Path:"
+#~ msgstr "Yol:"
+
+#~ msgid "Close"
+#~ msgstr "Kapat"
+
+#~ msgid "Rename Disk File System Label"
+#~ msgstr "Dosya Sistemi Etiketini Yeniden Adlandır"
+
+#~ msgid "Speed"
+#~ msgstr "Hız"
+
+#~ msgid ""
+#~ "Shows RAM hardware information.\n"
+#~ "\n"
+#~ "Root privileges are needed for getting this information."
+#~ msgstr ""
+#~ "RAM donanım bilgisini gösterir.\n"
+#~ "\n"
+#~ "Bu bilgiyi elde etmek için root yetkileri gereklidir."
 
 #~ msgid "Service Name"
 #~ msgstr "Servis Adı"

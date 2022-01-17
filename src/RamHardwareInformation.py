@@ -24,7 +24,7 @@ def ram_hardware_information_import_func():
 def ram_hardware_information_gui_func():
 
     global builder, window1201w
-    global label1201w, button1201w
+    global label1201w
 
 
     # RAM Hardware Information window GUI objects - get
@@ -33,7 +33,6 @@ def ram_hardware_information_gui_func():
 
     window1201w = builder.get_object('window1201w')
     label1201w = builder.get_object('label1201w')
-    button1201w = builder.get_object('button1201w')
 
 
     # RAM Hardware Information window GUI functions
@@ -49,14 +48,10 @@ def ram_hardware_information_gui_func():
         except NameError:
             pass
 
-    def on_button1201w_clicked(widget):                                                       # "Close" button
-        window1201w.hide()
-
 
     # RAM Hardware Information window GUI functions - connect
     window1201w.connect("delete-event", on_window1201w_delete_event)
     window1201w.connect("show", on_window1201w_show)
-    button1201w.connect("clicked", on_button1201w_clicked)
 
 
 # ----------------------------------- RAM - RAM Hardware Information Get Function -----------------------------------
@@ -147,7 +142,7 @@ def ram_hardware_information_get_func():
         memory_hardware_information_text = memory_hardware_information_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Capacity") + " :    " + memory_size
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Type") + " :    " + memory_type
-        memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Speed") + " :    " + memory_speed
+        memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Speed/Frequency") + " :    " + memory_speed
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
         memory_hardware_information_text = memory_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator

@@ -121,7 +121,7 @@ def storage_rename_gui_func():
             for line in proc_partitions_lines:
                 disk_list.append(line.split()[3])
             if disk_name not in disk_list:                                                    # Perform following actions if disk is removed.
-                label4102w2.set_text(_tr("Disk has been removed and file system could not be renamed."))    # Show warning information if disk file system label is tried to be renamed after disk is removed.
+                label4102w2.set_text(_tr("Disk is not mounted and file system could not be renamed."))    # Show warning information if disk file system label is tried to be renamed after disk is removed.
                 label4102w2.modify_fg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))          # Change color of warning information text to "red" if disk file system label is tried to be renamed after disk is removed.
                 return                                                                        # For preventing code from closing the window.
             if e.output.decode("utf-8").strip() != "":

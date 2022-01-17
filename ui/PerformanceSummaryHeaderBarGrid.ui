@@ -49,7 +49,7 @@
       <object class="GtkLabel">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">RAM Usage Percent</property>
+        <property name="tooltip-text" translatable="yes">RAM</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">RAM:</property>
         <attributes>

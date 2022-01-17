@@ -23,7 +23,7 @@ def ram_swap_details_import_func():
 def ram_swap_details_gui_func():
 
     global builder, window1201w2
-    global label1201w2, button1201w2
+    global label1201w2
 
 
     # Swap Details window GUI objects - get
@@ -32,7 +32,6 @@ def ram_swap_details_gui_func():
 
     window1201w2 = builder.get_object('window1201w2')
     label1201w2 = builder.get_object('label1201w2')
-    button1201w2 = builder.get_object('button1201w2')
 
 
     # Swap Details window GUI functions
@@ -48,14 +47,10 @@ def ram_swap_details_gui_func():
         except NameError:
             pass
 
-    def on_button1201w2_clicked(widget):                                                      # "Close" button
-        window1201w2.hide()
-
 
     # Swap Details window GUI functions - connect
     window1201w2.connect("delete-event", on_window1201w2_delete_event)
     window1201w2.connect("show", on_window1201w2_show)
-    button1201w2.connect("clicked", on_button1201w2_clicked)
 
 
 # ----------------------------------- RAM - Swap Details Get Function -----------------------------------
