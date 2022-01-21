@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 09:22+0300\n"
+"POT-Creation-Date: 2022-01-21 11:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1895,7 +1895,7 @@ msgid "Default main tab:"
 msgstr ""
 
 #: ui/SettingsWindow.ui:132
-msgid "Remember last opened tabs on application start"
+msgid "Remember last opened tabs"
 msgstr ""
 
 #: ui/SettingsWindow.ui:150

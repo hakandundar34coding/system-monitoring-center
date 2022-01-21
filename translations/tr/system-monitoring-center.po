@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 09:22+0300\n"
-"PO-Revision-Date: 2022-01-21 09:22+0300\n"
+"POT-Creation-Date: 2022-01-21 11:01+0300\n"
+"PO-Revision-Date: 2022-01-21 11:01+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -1945,8 +1945,8 @@ msgid "Default main tab:"
 msgstr "Varsayılan ana sekme:"
 
 #: ui/SettingsWindow.ui:132
-msgid "Remember last opened tabs on application start"
-msgstr "Uygulama açılışında son açılan sekmeleri hatırla"
+msgid "Remember last opened tabs"
+msgstr "Son açılan sekmeleri hatırla"
 
 #: ui/SettingsWindow.ui:150
 msgid "Performance tab default sub-tab:"

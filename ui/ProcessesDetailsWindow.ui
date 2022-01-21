@@ -8,7 +8,7 @@
     <property name="title" translatable="yes">Process Details</property>
     <property name="modal">True</property>
     <property name="default-width">500</property>
-    <property name="default-height">480</property>
+    <property name="default-height">490</property>
     <property name="destroy-with-parent">True</property>
     <property name="type-hint">dialog</property>
     <property name="skip-taskbar-hint">True</property>

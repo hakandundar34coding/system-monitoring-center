@@ -66,8 +66,6 @@ def config_default_reset_all_func():
     config_default_startup_row_sort_column_order_func()
     config_default_services_func()
     config_default_services_row_sort_column_order_func()
-    config_default_environment_variables_func()
-    config_default_environment_variables_row_sort_column_order_func()
 
 # ----------------------------------- Config - Config Default General Function -----------------------------------
 def config_default_general_general_func():
@@ -703,3 +701,4 @@ def config_save_func():
         writer.write("services_data_row_sorting_order = " + str(services_data_row_sorting_order) + "\n")
         writer.write("services_data_column_order = " + str(services_data_column_order) + "\n")
         writer.write("services_data_column_widths = " + str(services_data_column_widths) + "\n")
+        writer.write("\n")
