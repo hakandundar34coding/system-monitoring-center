@@ -302,8 +302,8 @@ def system_initial_func():
     apt_packages_available = "-"                                                              # Initial value of the variable.
     rpm_packages_available = "-"
     pacman_packages_available = "-"
-    flatpak_packages_available = "-"
     number_of_installed_apt_or_rpm_or_pacman_packages = "-"
+    number_of_installed_flatpak_packages = "-"
     try:
         apt_packages_available = (subprocess.check_output(["dpkg", "-s", "python3"], shell=False)).decode().strip()    # Check if "python3" is installed in order to determine package type of the system.
         if "Package: python3" in apt_packages_available:
@@ -329,17 +329,13 @@ def system_initial_func():
                 number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
             pacman_packages_available = "-"
+
+    # Get number of installed Flatpak packages (and runtimes)
     try:
         flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
-        flatpak_packages_available = len(flatpak_packages_available) - flatpak_packages_available.count("")    # Differentiate empty line count
-        if flatpak_packages_available > 0:
-            try:
-                number_of_installed_flatpak_packages = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
-                number_of_installed_flatpak_packages = len(number_of_installed_flatpak_packages) - number_of_installed_flatpak_packages.count("")    # Differentiate empty line count
-            except FileNotFoundError:                                                             # "try-except" is used in order to prevent errors if Flatpak is uninstalled during run-time of this application.
-                number_of_installed_flatpak_packages = "-"
+        number_of_installed_flatpak_packages = len(flatpak_packages_available) - flatpak_packages_available.count("")    # Differentiate empty line count
     except (FileNotFoundError, subprocess.CalledProcessError) as me:
-        flatpak_packages_available = "-"
+        number_of_installed_flatpak_packages = "-"
 
     # Get number of installed Python packages (including built-in packages)
     number_of_installed_python_packages = len([d.project_name for d in pkg_resources.working_set])
