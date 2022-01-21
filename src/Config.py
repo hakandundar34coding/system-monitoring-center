@@ -264,24 +264,6 @@ def config_default_services_row_sort_column_order_func():
     services_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7]
     services_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Environment Variables Tab Function -----------------------------------
-def config_default_environment_variables_func():
-    global environment_variables_treeview_columns_shown, environment_variables_data_row_sorting_column, environment_variables_data_row_sorting_order, environment_variables_data_column_order, environment_variables_data_column_widths
-    environment_variables_treeview_columns_shown = [0, 1, 2]                                  # environment_variables_treeview_columns_shown all values = [0, 1, 2]
-    environment_variables_data_row_sorting_column = 0
-    environment_variables_data_row_sorting_order = 0
-    environment_variables_data_column_order = [0, 1, 2]
-    environment_variables_data_column_widths = [-1, -1, -1]
-
-# ----------------------------------- Config - Config Default Environment Variables Tab Row Sort Column Order Function -----------------------------------
-def config_default_environment_variables_row_sort_column_order_func():
-    global environment_variables_data_row_sorting_column, environment_variables_data_row_sorting_order, environment_variables_data_column_order, environment_variables_data_column_widths
-    environment_variables_data_row_sorting_column = 0
-    environment_variables_data_row_sorting_order = 0
-    environment_variables_data_column_order = [0, 1, 2]
-    environment_variables_data_column_widths = [-1, -1, -1]
-
-
 # ----------------------------------- Config - Config Read Function (reads settings from configration file) -----------------------------------
 def config_get_values_func():
     global reset_all_settings_with_new_release
@@ -320,8 +302,6 @@ def config_get_values_func():
 
     global services_ram_swap_data_precision, services_ram_swap_data_unit
     global services_treeview_columns_shown, services_data_row_sorting_column, services_data_row_sorting_order, services_data_column_order, services_data_column_widths
-
-    global environment_variables_treeview_columns_shown, environment_variables_data_row_sorting_column, environment_variables_data_row_sorting_order, environment_variables_data_column_order, environment_variables_data_column_widths
 
     for line in config_lines:
         if line.startswith("reset_all_settings_with_new_release = ") == True:
@@ -595,22 +575,6 @@ def config_get_values_func():
             services_data_column_widths = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
             continue
 
-        if line.startswith("environment_variables_treeview_columns_shown = ") == True:
-            environment_variables_treeview_columns_shown = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("environment_variables_data_row_sorting_column = ") == True:
-            environment_variables_data_row_sorting_column = int(line.split(" = ")[1])
-            continue
-        if line.startswith("environment_variables_data_row_sorting_order = ") == True:
-            environment_variables_data_row_sorting_order = int(line.split(" = ")[1])
-            continue
-        if line.startswith("environment_variables_data_column_order = ") == True:
-            environment_variables_data_column_order = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("environment_variables_data_column_widths = ") == True:
-            environment_variables_data_column_widths = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-
 
 # ----------------------------------- Config - Config Save Function (writes settings into configration file) -----------------------------------
 def config_save_func():
@@ -739,11 +703,3 @@ def config_save_func():
         writer.write("services_data_row_sorting_order = " + str(services_data_row_sorting_order) + "\n")
         writer.write("services_data_column_order = " + str(services_data_column_order) + "\n")
         writer.write("services_data_column_widths = " + str(services_data_column_widths) + "\n")
-        writer.write("\n")
-
-        writer.write("[Environment Variables Tab]" + "\n")
-        writer.write("environment_variables_treeview_columns_shown = " + str(environment_variables_treeview_columns_shown) + "\n")
-        writer.write("environment_variables_data_row_sorting_column = " + str(environment_variables_data_row_sorting_column) + "\n")
-        writer.write("environment_variables_data_row_sorting_order = " + str(environment_variables_data_row_sorting_order) + "\n")
-        writer.write("environment_variables_data_column_order = " + str(services_data_column_order) + "\n")
-        writer.write("environment_variables_data_column_widths = " + str(environment_variables_data_column_widths) + "\n")

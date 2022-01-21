@@ -289,7 +289,7 @@ def settings_gui_general_settings_tab_set_func():
     # Set GUI preferences for "defult main tab" setting
     if "liststore2003" not in globals():
         global liststore2003, default_main_tab_list
-        default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Storage"), _tr("Startup"), _tr("Services"), _tr("Environment Variables"), _tr("System")]
+        default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Storage"), _tr("Startup"), _tr("Services"), _tr("System")]
         liststore2003 = Gtk.ListStore()
         liststore2003.set_column_types([str])
         combobox2003.set_model(liststore2003)
@@ -504,12 +504,6 @@ def settings_gui_apply_settings_immediately_func():
             import Services
         Services.services_initial_func()
         Services.services_loop_func()
-    if MainGUI.radiobutton7.get_active() == True:
-        if 'EnvironmentVariables' not in globals():
-            global EnvironmentVariables
-            import EnvironmentVariables
-        EnvironmentVariables.environment_variables_initial_func()
-        EnvironmentVariables.environment_variables_loop_func()
     if MainGUI.radiobutton8.get_active() == True:
         if 'System' not in globals():
             global System
@@ -548,8 +542,6 @@ def settings_gui_default_tab_func():
         Config.default_main_tab = 4
     if MainGUI.radiobutton6.get_active() == True:
         Config.default_main_tab = 5
-    if MainGUI.radiobutton7.get_active() == True:
-        Config.default_main_tab = 6
     if MainGUI.radiobutton8.get_active() == True:
         Config.default_main_tab = 7
     if MainGUI.radiobutton1001.get_active() == True:

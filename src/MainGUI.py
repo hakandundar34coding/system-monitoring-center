@@ -35,7 +35,7 @@ def main_gui_func():
     global window1
     global headerbar1, button1
     global grid10, stack1
-    global radiobutton1, radiobutton2, radiobutton3, radiobutton4, radiobutton5, radiobutton6, radiobutton7, radiobutton8
+    global radiobutton1, radiobutton2, radiobutton3, radiobutton4, radiobutton5, radiobutton6, radiobutton8
     global grid1, grid2, grid3, grid4, grid5, grid6, grid7, grid8
 
     # Main GUI - Performance tab GUI objects
@@ -60,7 +60,6 @@ def main_gui_func():
     radiobutton4 = builder.get_object('radiobutton4')
     radiobutton5 = builder.get_object('radiobutton5')
     radiobutton6 = builder.get_object('radiobutton6')
-    radiobutton7 = builder.get_object('radiobutton7')
     radiobutton8 = builder.get_object('radiobutton8')
     grid1 = builder.get_object('grid1')
     grid2 = builder.get_object('grid2')
@@ -174,10 +173,6 @@ def main_gui_func():
         if radiobutton6.get_active() == True:
             main_gui_tab_switch_func()
 
-    def on_radiobutton7_toggled(widget):                                                      # "Environment Variables" radiobutton
-        if radiobutton7.get_active() == True:
-            main_gui_tab_switch_func()
-
     def on_radiobutton8_toggled(widget):                                                      # "System" radiobutton
         if radiobutton8.get_active() == True:
             main_gui_tab_switch_func()
@@ -218,7 +213,6 @@ def main_gui_func():
     radiobutton4.connect("toggled", on_radiobutton4_toggled)
     radiobutton5.connect("toggled", on_radiobutton5_toggled)
     radiobutton6.connect("toggled", on_radiobutton6_toggled)
-    radiobutton7.connect("toggled", on_radiobutton7_toggled)
     radiobutton8.connect("toggled", on_radiobutton8_toggled)
 
     # Main GUI - Performance tab GUI functions - connect
@@ -246,8 +240,6 @@ def main_gui_default_main_tab_func():
          radiobutton5.set_active(True)
     if default_main_tab == 5:
          radiobutton6.set_active(True)
-    if default_main_tab == 6:
-         radiobutton7.set_active(True)
     if default_main_tab == 7:
          radiobutton8.set_active(True)
 
@@ -426,20 +418,6 @@ def main_gui_tab_switch_func():
             Services.services_gui_func()
             grid6.attach(Services.grid6101, 0, 0, 1, 1)
         Services.services_run_func()
-        return
-
-    if radiobutton7.get_active() == True:                                                     # It switches to "Environment Variables" tab if relevant radiobutton is clicked.
-        stack1.set_visible_child(grid7)
-        if remember_last_opened_tabs_on_application_start == 1:
-            Config.default_main_tab = 6
-            Config.config_save_func()
-        if 'EnvironmentVariables' not in globals():
-            global EnvironmentVariables
-            import EnvironmentVariables
-            EnvironmentVariables.environment_variables_import_func()
-            EnvironmentVariables.environment_variables_gui_func()
-            grid7.attach(EnvironmentVariables.grid7101, 0, 0, 1, 1)
-        EnvironmentVariables.environment_variables_run_func()
         return
 
     if radiobutton8.get_active() == True:                                                     # It switches to "System" tab if relevant radiobutton is clicked.
