@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-17 11:30+0300\n"
+"POT-Creation-Date: 2022-01-20 17:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,13 +69,13 @@ msgstr ""
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:383 src/SettingsGUI.py:326 src/Storage.py:260 src/Storage.py:386
+#: src/Disk.py:383 src/SettingsGUI.py:309 src/Storage.py:260 src/Storage.py:386
 #: src/Storage.py:430 src/Storage.py:440 src/Storage.py:451 src/Storage.py:460
 #: src/Storage.py:471 src/Storage.py:482 src/StorageDetails.py:191
 #: src/StorageDetails.py:318 src/StorageDetails.py:356
 #: src/StorageDetails.py:364 src/StorageDetails.py:373
 #: src/StorageDetails.py:380 src/StorageDetails.py:394
-#: src/StorageDetails.py:408 ui/DiskTab.ui:22 ui/MainWindow.ui:174
+#: src/StorageDetails.py:408 ui/DiskTab.ui:22 ui/MainWindow.ui:175
 msgid "Disk"
 msgstr ""
 
@@ -228,12 +228,12 @@ msgid "Disk Write Data"
 msgstr ""
 
 #: src/Processes.py:164 ui/ProcessesDetailsWindow.ui:1315
-#: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:437
+#: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:406
 msgid "Disk Read Speed"
 msgstr ""
 
 #: src/Processes.py:165 ui/ProcessesDetailsWindow.ui:1328
-#: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:465
+#: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:434
 msgid "Disk Write Speed"
 msgstr ""
 
@@ -301,7 +301,7 @@ msgstr ""
 msgid "Dead"
 msgstr ""
 
-#: src/Processes.py:585
+#: src/Processes.py:580
 msgid ""
 "Total: AAAA processes (BBBB from this user, CCCC from other users/system)"
 msgstr ""
@@ -375,8 +375,11 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: src/RamSwapDetails.py:89
-msgid "Partition/File Name"
+#: src/RamSwapDetails.py:89 src/Services.py:119 src/Startup.py:113
+#: ui/ProcessesMenuCustomizations.ui:363 ui/ServicesDetailsWindow.ui:43
+#: ui/ServicesMenuCustomizations.ui:218 ui/StartupMenuCustomizations.ui:218
+#: ui/StartupNewItemWindow.ui:310
+msgid "Name"
 msgstr ""
 
 #: src/RamSwapDetails.py:91
@@ -415,12 +418,6 @@ msgstr ""
 msgid ""
 "Total: AAAA sensors (BBBB temperature, CCCC fan, DDDD voltage/current "
 "sensors)"
-msgstr ""
-
-#: src/Services.py:119 src/Startup.py:113 ui/ProcessesMenuCustomizations.ui:363
-#: ui/ServicesDetailsWindow.ui:43 ui/ServicesMenuCustomizations.ui:218
-#: ui/StartupMenuCustomizations.ui:218 ui/StartupNewItemWindow.ui:310
-msgid "Name"
 msgstr ""
 
 #: src/Services.py:120 ui/ServicesMenuCustomizations.ui:234
@@ -510,65 +507,65 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:891
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:893
 msgid "Performance"
 msgstr ""
 
-#: src/SettingsGUI.py:309 src/Users.py:119 ui/MainWindow.ui:844
+#: src/SettingsGUI.py:292 src/Users.py:119 ui/MainWindow.ui:846
 #: ui/ProcessesTab.ui:228 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:290
 msgid "Processes"
 msgstr ""
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:554 ui/UsersTab.ui:56
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:556 ui/UsersTab.ui:56
 msgid "Users"
 msgstr ""
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:602 ui/StorageTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:604 ui/StorageTab.ui:44
 msgid "Storage"
 msgstr ""
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:700 ui/StartupTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:702 ui/StartupTab.ui:44
 msgid "Startup"
 msgstr ""
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:796 ui/ServicesTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:798 ui/ServicesTab.ui:44
 msgid "Services"
 msgstr ""
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:651
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:653
 msgid "Environment Variables"
 msgstr ""
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:748 ui/SystemTab.ui:67
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:750 ui/SystemTab.ui:67
 msgid "System"
 msgstr ""
 
-#: src/SettingsGUI.py:326 ui/CpuTab.ui:488 ui/MainWindow.ui:80
+#: src/SettingsGUI.py:309 ui/CpuTab.ui:488 ui/MainWindow.ui:81
 #: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:737
-#: ui/SettingsWindow.ui:409
+#: ui/SettingsWindow.ui:378
 msgid "CPU"
 msgstr ""
 
-#: src/SettingsGUI.py:326 ui/MainWindow.ui:127
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:128
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52 ui/RamTab.ui:411
-#: ui/SettingsWindow.ui:423
+#: ui/SettingsWindow.ui:392
 msgid "RAM"
 msgstr ""
 
-#: src/SettingsGUI.py:326 ui/MainWindow.ui:268 ui/NetworkTab.ui:405
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:269 ui/NetworkTab.ui:405
 msgid "Network"
 msgstr ""
 
-#: src/SettingsGUI.py:326 ui/GpuTab.ui:344 ui/MainWindow.ui:221
+#: src/SettingsGUI.py:309 ui/GpuTab.ui:344 ui/MainWindow.ui:222
 msgid "GPU"
 msgstr ""
 
-#: src/SettingsGUI.py:326 ui/MainWindow.ui:315 ui/SensorsTab.ui:183
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:316 ui/SensorsTab.ui:183
 msgid "Sensors"
 msgstr ""
 
-#: src/SettingsGUI.py:590
+#: src/SettingsGUI.py:573
 msgid "Do you want to reset all settings to defaults?"
 msgstr ""
 
@@ -911,8 +908,16 @@ msgid ""
 "data loss."
 msgstr ""
 
-#: ui/CpuMenus.ui:20 ui/CpuTab.ui:416
-msgid "CPU Tab Customizations"
+#: ui/CpuMenus.ui:20 ui/CpuTab.ui:416 ui/DiskMenus.ui:20 ui/DiskTab.ui:38
+#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:61
+#: ui/GpuMenus.ui:20 ui/GpuTab.ui:360 ui/NetworkMenus.ui:20
+#: ui/NetworkTab.ui:421 ui/ProcessesMenuCustomizations.ui:20
+#: ui/ProcessesTab.ui:244 ui/RamMenus.ui:20 ui/RamTab.ui:427
+#: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:60
+#: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:60
+#: ui/StorageMenuCustomizations.ui:20 ui/StorageTab.ui:60
+#: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:72
+msgid "Current Tab Customizations"
 msgstr ""
 
 #: ui/CpuMenus.ui:51 ui/DiskMenus.ui:407 ui/NetworkMenus.ui:407
@@ -945,7 +950,7 @@ msgid "Precision:"
 msgstr ""
 
 #: ui/CpuMenus.ui:199 ui/DiskMenus.ui:183 ui/GpuMenus.ui:93
-#: ui/NetworkMenus.ui:183 ui/RamMenus.ui:205 ui/SettingsWindow.ui:192
+#: ui/NetworkMenus.ui:183 ui/RamMenus.ui:205
 msgid "Background"
 msgstr ""
 
@@ -958,7 +963,7 @@ msgstr ""
 #: ui/EnvironmentVarMenuCustomizations.ui:356 ui/GpuMenus.ui:156
 #: ui/NetworkMenus.ui:107 ui/ProcessesMenuCustomizations.ui:998
 #: ui/RamMenus.ui:129 ui/ServicesMenuCustomizations.ui:599
-#: ui/SettingsWindow.ui:664 ui/StartupMenuCustomizations.ui:355
+#: ui/SettingsWindow.ui:633 ui/StartupMenuCustomizations.ui:355
 #: ui/StorageMenuCustomizations.ui:823 ui/UsersMenuCustomizations.ui:725
 msgid "Reset All"
 msgstr ""
@@ -1056,7 +1061,7 @@ msgstr ""
 #: ui/NetworkTab.ui:449 ui/NetworkTab.ui:464
 #: ui/PerformanceSummaryHeaderBarGrid.ui:85
 #: ui/PerformanceSummaryHeaderBarGrid.ui:100
-#: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
+#: ui/ProcessesCustomPriorityWindow.ui:45 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
 #: ui/ProcessesDetailsWindow.ui:257 ui/ProcessesDetailsWindow.ui:272
 #: ui/ProcessesDetailsWindow.ui:287 ui/ProcessesDetailsWindow.ui:302
@@ -1184,10 +1189,6 @@ msgid ""
 "Cache (L2-L3)"
 msgstr ""
 
-#: ui/DiskMenus.ui:20 ui/DiskTab.ui:38
-msgid "Disk Tab Customizations"
-msgstr ""
-
 #: ui/DiskMenus.ui:237 ui/NetworkMenus.ui:237
 #: ui/ProcessesMenuCustomizations.ui:945 ui/RamMenus.ui:259
 #: ui/ServicesMenuCustomizations.ui:499 ui/StorageMenuCustomizations.ui:723
@@ -1275,10 +1276,6 @@ msgstr ""
 msgid "0"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:61
-msgid "Environment Variables Tab Customizations"
-msgstr ""
-
 #: ui/EnvironmentVarMenuCustomizations.ui:64
 #: ui/ProcessesMenuCustomizations.ui:151 ui/ServicesMenuCustomizations.ui:63
 #: ui/StartupMenuCustomizations.ui:63 ui/StorageMenuCustomizations.ui:63
@@ -1295,7 +1292,7 @@ msgstr ""
 
 #: ui/EnvironmentVarMenuCustomizations.ui:129
 #: ui/ProcessesMenuCustomizations.ui:228 ui/ServicesMenuCustomizations.ui:128
-#: ui/SettingsWindow.ui:56 ui/SettingsWindow.ui:570
+#: ui/SettingsWindow.ui:56 ui/SettingsWindow.ui:539
 #: ui/StartupMenuCustomizations.ui:128 ui/StorageMenuCustomizations.ui:128
 #: ui/UsersMenuCustomizations.ui:128
 msgid "Reset"
@@ -1357,10 +1354,6 @@ msgstr ""
 
 #: ui/EnvironmentVariablesTab.ui:174
 msgid "Show all shell variables"
-msgstr ""
-
-#: ui/GpuMenus.ui:20 ui/GpuTab.ui:360
-msgid "GPU Tab Customizations"
 msgstr ""
 
 #: ui/GpuMenus.ui:204
@@ -1455,7 +1448,7 @@ msgstr ""
 msgid "Shows/Hides a transparent and always on top performance summary window"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:65 ui/SettingsWindow.ui:595
+#: ui/MainMenusDialogs.ui:65 ui/SettingsWindow.ui:564
 msgid "Floating Summary"
 msgstr ""
 
@@ -1471,16 +1464,12 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: ui/MainWindow.ui:941
+#: ui/MainWindow.ui:943
 msgid "System Monitoring Center"
 msgstr ""
 
-#: ui/MainWindow.ui:949
+#: ui/MainWindow.ui:951
 msgid "Main Menu"
-msgstr ""
-
-#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:421
-msgid "Network Tab Customizations"
 msgstr ""
 
 #: ui/NetworkMenus.ui:286 ui/NetworkMenus.ui:373
@@ -1571,7 +1560,7 @@ msgstr ""
 msgid "RAM:"
 msgstr ""
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/SettingsWindow.ui:493
+#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/SettingsWindow.ui:462
 msgid "Disk Read+Write Speed"
 msgstr ""
 
@@ -1579,7 +1568,7 @@ msgstr ""
 msgid "Disk:"
 msgstr ""
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:114 ui/SettingsWindow.ui:507
+#: ui/PerformanceSummaryHeaderBarGrid.ui:114 ui/SettingsWindow.ui:476
 msgid "Network Download+Upload Speed"
 msgstr ""
 
@@ -1592,20 +1581,16 @@ msgid "Set Process Priority (Nice)"
 msgstr ""
 
 #: ui/ProcessesCustomPriorityWindow.ui:32
-msgid "Change priority of this process:"
-msgstr ""
-
-#: ui/ProcessesCustomPriorityWindow.ui:72
 msgid ""
-"Set process priority:\n"
+"Change priority of this process:\n"
 "(Smaller value means higher process priority)"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:106 ui/StorageRenameWindow.ui:80
+#: ui/ProcessesCustomPriorityWindow.ui:94 ui/StorageRenameWindow.ui:80
 msgid "Apply"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
+#: ui/ProcessesCustomPriorityWindow.ui:139 ui/StartupNewItemWindow.ui:104
 #: ui/StorageRenameWindow.ui:125
 msgid "Cancel"
 msgstr ""
@@ -1705,10 +1690,6 @@ msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:1809
 msgid "Disk and Path"
-msgstr ""
-
-#: ui/ProcessesMenuCustomizations.ui:20 ui/ProcessesTab.ui:244
-msgid "Processes Tab Customizations"
 msgstr ""
 
 #: ui/ProcessesMenuCustomizations.ui:89
@@ -1815,10 +1796,6 @@ msgid ""
 "on some systems."
 msgstr ""
 
-#: ui/RamMenus.ui:20 ui/RamTab.ui:427
-msgid "RAM Tab Customizations"
-msgstr ""
-
 #: ui/RamSwapDetailsWindow.ui:8
 msgid "Swap Memory Details"
 msgstr ""
@@ -1915,8 +1892,8 @@ msgstr ""
 msgid "Can Reload?"
 msgstr ""
 
-#: ui/ServicesDetailsWindow.ui:767 ui/SettingsWindow.ui:308
-#: ui/SettingsWindow.ui:324
+#: ui/ServicesDetailsWindow.ui:767 ui/SettingsWindow.ui:277
+#: ui/SettingsWindow.ui:293
 msgid "General"
 msgstr ""
 
@@ -1938,10 +1915,6 @@ msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:963
 msgid "Dependencies"
-msgstr ""
-
-#: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:60
-msgid "Services Tab Customizations"
 msgstr ""
 
 #: ui/ServicesMenuRightClick.ui:50
@@ -1995,64 +1968,56 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
-#: ui/SettingsWindow.ui:92
+#: ui/SettingsWindow.ui:91
 msgid "Update interval (seconds):"
 msgstr ""
 
-#: ui/SettingsWindow.ui:114
+#: ui/SettingsWindow.ui:113
 msgid "Default main tab:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:133
+#: ui/SettingsWindow.ui:132
 msgid "Remember last opened tabs on application start"
 msgstr ""
 
-#: ui/SettingsWindow.ui:151
+#: ui/SettingsWindow.ui:150
 msgid "Performance tab default sub-tab:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:170
+#: ui/SettingsWindow.ui:169
 msgid "Show performance summary on the headerbar"
 msgstr ""
 
-#: ui/SettingsWindow.ui:206
-msgid "Set background color for all charts:"
-msgstr ""
-
-#: ui/SettingsWindow.ui:218
+#: ui/SettingsWindow.ui:187
 msgid "Chart data history:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:237
+#: ui/SettingsWindow.ui:206
 msgid "Remember last selected hardware"
 msgstr ""
 
-#: ui/SettingsWindow.ui:358
+#: ui/SettingsWindow.ui:327
 msgid "Window transparency:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:383
+#: ui/SettingsWindow.ui:352
 msgid "Window"
 msgstr ""
 
-#: ui/SettingsWindow.ui:451
+#: ui/SettingsWindow.ui:420
 msgid "Network Download Speed"
 msgstr ""
 
-#: ui/SettingsWindow.ui:479
+#: ui/SettingsWindow.ui:448
 msgid "Network Upload Speed"
 msgstr ""
 
-#: ui/SettingsWindow.ui:531
+#: ui/SettingsWindow.ui:500
 msgid "Show/Hide Performance Information"
 msgstr ""
 
-#: ui/SettingsWindow.ui:629
+#: ui/SettingsWindow.ui:598
 msgid "Reset all settings of the application to defaults"
-msgstr ""
-
-#: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:60
-msgid "Startup Tab Customizations"
 msgstr ""
 
 #: ui/StartupMenuRightClick.ui:57
@@ -2136,10 +2101,6 @@ msgstr ""
 
 #: ui/StorageDetailsWindow.ui:181
 msgid "Label (File System)"
-msgstr ""
-
-#: ui/StorageMenuCustomizations.ui:20 ui/StorageTab.ui:60
-msgid "Storage Tab Customizations"
 msgstr ""
 
 #: ui/StorageMenuCustomizations.ui:500
@@ -2317,10 +2278,6 @@ msgstr ""
 
 #: ui/SystemTab.ui:825
 msgid "Python:"
-msgstr ""
-
-#: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:72
-msgid "Users Tab Customizations"
 msgstr ""
 
 #: ui/UsersMenuRightClick.ui:20

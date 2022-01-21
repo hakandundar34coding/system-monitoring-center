@@ -3,11 +3,11 @@
 # ----------------------------------- Sensors - Import Function -----------------------------------
 def sensors_import_func():
 
-    global Gtk, Gdk, GLib, os
+    global Gtk, GLib, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk, GLib
+    from gi.repository import Gtk, GLib
     import os
 
 
@@ -177,42 +177,42 @@ def sensors_loop_func():
                 try:
                     with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_input") as reader:
                         current_value = int(reader.read().strip())                            # Units of data in this file are millidegree Celcius for temperature sensors, RM for fan sensors, millivolt for voltage sensors and milliamper for current sensors.
-                        if attribute == "temp":
-                            current_value = f'{(current_value / 1000):.0f} °C'                # Convert millidegree Celcius to degree Celcius and show not numbers after ".".
-                        if attribute == "fan":
-                            current_value = f'{current_value} RPM'
-                        if attribute == "in":
-                            current_value = f'{(current_value / 1000):.3f} V'                 # Convert millivolt to Volt and show 3 numbers after ".".
-                        if attribute == "curr":
-                            current_value = f'{(current_value / 1000):.3f} A'                 # Convert milliamper to Amper and show 3 numbers after ".".
+                    if attribute == "temp":
+                        current_value = f'{(current_value / 1000):.0f} °C'                    # Convert millidegree Celcius to degree Celcius and show not numbers after ".".
+                    if attribute == "fan":
+                        current_value = f'{current_value} RPM'
+                    if attribute == "in":
+                        current_value = f'{(current_value / 1000):.3f} V'                     # Convert millivolt to Volt and show 3 numbers after ".".
+                    if attribute == "curr":
+                        current_value = f'{(current_value / 1000):.3f} A'                     # Convert milliamper to Amper and show 3 numbers after ".".
                 except OSError:
                     current_value = "-"
                 # Get sensor critical value
                 try:
                     with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_crit") as reader:
-                        critical_value = int(reader.read().strip())                           # Units of data in this file are millidegree Celcius for temperature sensors, RM for fan sensors, millivolt for voltage sensors and milliamper for current sensors.
-                        if attribute == "temp":
-                            critical_value = f'{(critical_value / 1000):.0f} °C'              # Convert millidegree Celcius to degree Celcius and show not numbers after ".".
-                        if attribute == "fan":
-                            critical_value = f'{critical_value} RPM'
-                        if attribute == "in":
-                            critical_value = f'{(critical_value / 1000):.3f} V'               # Convert millivolt to Volt and show 3 numbers after ".".
-                        if attribute == "curr":
-                            critical_value = f'{(critical_value / 1000):.3f} A'               # Convert milliamper to Amper and show 3 numbers after ".".
+                        critical_value = int(reader.read().strip())
+                    if attribute == "temp":
+                        critical_value = f'{(critical_value / 1000):.0f} °C'
+                    if attribute == "fan":
+                        critical_value = f'{critical_value} RPM'
+                    if attribute == "in":
+                        critical_value = f'{(critical_value / 1000):.3f} V'
+                    if attribute == "curr":
+                        critical_value = f'{(critical_value / 1000):.3f} A'
                 except OSError:
                     critical_value = "-"
                 # Get sensor maximum value
                 try:
                     with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_max") as reader:
-                        max_value = int(reader.read().strip())                                # Units of data in this file are millidegree Celcius for temperature sensors, RM for fan sensors, millivolt for voltage sensors and milliamper for current sensors.
-                        if attribute == "temp":
-                            max_value = f'{(max_value / 1000):.0f} °C'                        # Convert millidegree Celcius to degree Celcius and show not numbers after ".".
-                        if attribute == "fan":
-                            max_value = f'{max_value} RPM'
-                        if attribute == "in":
-                            max_value = f'{(max_value / 1000):.3f} V'                         # Convert millivolt to Volt and show 3 numbers after ".".
-                        if attribute == "curr":
-                            max_value = f'{(max_value / 1000):.3f} A'                         # Convert milliamper to Amper and show 3 numbers after ".".
+                        max_value = int(reader.read().strip())
+                    if attribute == "temp":
+                        max_value = f'{(max_value / 1000):.0f} °C'
+                    if attribute == "fan":
+                        max_value = f'{max_value} RPM'
+                    if attribute == "in":
+                        max_value = f'{(max_value / 1000):.3f} V'
+                    if attribute == "curr":
+                        max_value = f'{(max_value / 1000):.3f} A'
                 except OSError:
                     max_value = "-"
 

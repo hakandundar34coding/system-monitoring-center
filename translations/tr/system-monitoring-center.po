@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-17 11:30+0300\n"
-"PO-Revision-Date: 2022-01-17 11:31+0300\n"
+"POT-Creation-Date: 2022-01-20 17:27+0300\n"
+"PO-Revision-Date: 2022-01-20 17:29+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -70,13 +70,13 @@ msgstr "Hayır"
 msgid "Partition"
 msgstr "Disk bölümü"
 
-#: src/Disk.py:383 src/SettingsGUI.py:326 src/Storage.py:260 src/Storage.py:386
+#: src/Disk.py:383 src/SettingsGUI.py:309 src/Storage.py:260 src/Storage.py:386
 #: src/Storage.py:430 src/Storage.py:440 src/Storage.py:451 src/Storage.py:460
 #: src/Storage.py:471 src/Storage.py:482 src/StorageDetails.py:191
 #: src/StorageDetails.py:318 src/StorageDetails.py:356
 #: src/StorageDetails.py:364 src/StorageDetails.py:373
 #: src/StorageDetails.py:380 src/StorageDetails.py:394
-#: src/StorageDetails.py:408 ui/DiskTab.ui:22 ui/MainWindow.ui:174
+#: src/StorageDetails.py:408 ui/DiskTab.ui:22 ui/MainWindow.ui:175
 msgid "Disk"
 msgstr "Disk"
 
@@ -237,12 +237,12 @@ msgid "Disk Write Data"
 msgstr "Disk Yazılan Veri"
 
 #: src/Processes.py:164 ui/ProcessesDetailsWindow.ui:1315
-#: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:437
+#: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:406
 msgid "Disk Read Speed"
 msgstr "Disk Okuma Hızı"
 
 #: src/Processes.py:165 ui/ProcessesDetailsWindow.ui:1328
-#: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:465
+#: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:434
 msgid "Disk Write Speed"
 msgstr "Disk Yazma Hızı"
 
@@ -310,7 +310,7 @@ msgstr "Tracing Stop"
 msgid "Dead"
 msgstr "Sonlanmış"
 
-#: src/Processes.py:585
+#: src/Processes.py:580
 msgid ""
 "Total: AAAA processes (BBBB from this user, CCCC from other users/system)"
 msgstr ""
@@ -386,9 +386,12 @@ msgstr "Yuva Kimliği"
 msgid "File"
 msgstr "Dosya"
 
-#: src/RamSwapDetails.py:89
-msgid "Partition/File Name"
-msgstr "Disk Bölümü/Dosya Adı"
+#: src/RamSwapDetails.py:89 src/Services.py:119 src/Startup.py:113
+#: ui/ProcessesMenuCustomizations.ui:363 ui/ServicesDetailsWindow.ui:43
+#: ui/ServicesMenuCustomizations.ui:218 ui/StartupMenuCustomizations.ui:218
+#: ui/StartupNewItemWindow.ui:310
+msgid "Name"
+msgstr "İsim"
 
 #: src/RamSwapDetails.py:91
 msgid "Size"
@@ -429,12 +432,6 @@ msgid ""
 msgstr ""
 "Toplam: AAAA algılayıcı (BBBB sıcaklık, CCCC fan, DDDD voltaj/akım "
 "algılayıcısı)"
-
-#: src/Services.py:119 src/Startup.py:113 ui/ProcessesMenuCustomizations.ui:363
-#: ui/ServicesDetailsWindow.ui:43 ui/ServicesMenuCustomizations.ui:218
-#: ui/StartupMenuCustomizations.ui:218 ui/StartupNewItemWindow.ui:310
-msgid "Name"
-msgstr "İsim"
 
 #: src/Services.py:120 ui/ServicesMenuCustomizations.ui:234
 msgid "State"
@@ -523,65 +520,65 @@ msgstr "Toplam: AAAA servis (BBBB yüklenmiş, CCCC yüklenmemiş)"
 msgid "Information"
 msgstr "Bilgi"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:891
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:893
 msgid "Performance"
 msgstr "Performans"
 
-#: src/SettingsGUI.py:309 src/Users.py:119 ui/MainWindow.ui:844
+#: src/SettingsGUI.py:292 src/Users.py:119 ui/MainWindow.ui:846
 #: ui/ProcessesTab.ui:228 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:290
 msgid "Processes"
 msgstr "İşlemler"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:554 ui/UsersTab.ui:56
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:556 ui/UsersTab.ui:56
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:602 ui/StorageTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:604 ui/StorageTab.ui:44
 msgid "Storage"
 msgstr "Depolama"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:700 ui/StartupTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:702 ui/StartupTab.ui:44
 msgid "Startup"
 msgstr "Başlangıç"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:796 ui/ServicesTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:798 ui/ServicesTab.ui:44
 msgid "Services"
 msgstr "Servisler"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:651
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:653
 msgid "Environment Variables"
 msgstr "Ortam Değişkenleri"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:748 ui/SystemTab.ui:67
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:750 ui/SystemTab.ui:67
 msgid "System"
 msgstr "Sistem"
 
-#: src/SettingsGUI.py:326 ui/CpuTab.ui:488 ui/MainWindow.ui:80
+#: src/SettingsGUI.py:309 ui/CpuTab.ui:488 ui/MainWindow.ui:81
 #: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:737
-#: ui/SettingsWindow.ui:409
+#: ui/SettingsWindow.ui:378
 msgid "CPU"
 msgstr "MİB"
 
-#: src/SettingsGUI.py:326 ui/MainWindow.ui:127
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:128
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52 ui/RamTab.ui:411
-#: ui/SettingsWindow.ui:423
+#: ui/SettingsWindow.ui:392
 msgid "RAM"
 msgstr "RAM"
 
-#: src/SettingsGUI.py:326 ui/MainWindow.ui:268 ui/NetworkTab.ui:405
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:269 ui/NetworkTab.ui:405
 msgid "Network"
 msgstr "Ağ"
 
-#: src/SettingsGUI.py:326 ui/GpuTab.ui:344 ui/MainWindow.ui:221
+#: src/SettingsGUI.py:309 ui/GpuTab.ui:344 ui/MainWindow.ui:222
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:326 ui/MainWindow.ui:315 ui/SensorsTab.ui:183
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:316 ui/SensorsTab.ui:183
 msgid "Sensors"
 msgstr "Algılayıcı"
 
-#: src/SettingsGUI.py:590
+#: src/SettingsGUI.py:573
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Tüm ayarları varsayılanlara sıfırlamak istiyor musunuz?"
 
@@ -934,9 +931,17 @@ msgstr ""
 "Bu eylem kullanıcının tüm işlemlerini hemen sonlandıracak ve veri "
 "kayıplarına sebep olabilir."
 
-#: ui/CpuMenus.ui:20 ui/CpuTab.ui:416
-msgid "CPU Tab Customizations"
-msgstr "MİB Sekmesi Özelleştirmeleri"
+#: ui/CpuMenus.ui:20 ui/CpuTab.ui:416 ui/DiskMenus.ui:20 ui/DiskTab.ui:38
+#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:61
+#: ui/GpuMenus.ui:20 ui/GpuTab.ui:360 ui/NetworkMenus.ui:20
+#: ui/NetworkTab.ui:421 ui/ProcessesMenuCustomizations.ui:20
+#: ui/ProcessesTab.ui:244 ui/RamMenus.ui:20 ui/RamTab.ui:427
+#: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:60
+#: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:60
+#: ui/StorageMenuCustomizations.ui:20 ui/StorageTab.ui:60
+#: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:72
+msgid "Current Tab Customizations"
+msgstr "Geçerli Sekme Özelleştirmeleri"
 
 #: ui/CpuMenus.ui:51 ui/DiskMenus.ui:407 ui/NetworkMenus.ui:407
 msgid "Chart - Show:"
@@ -968,7 +973,7 @@ msgid "Precision:"
 msgstr "Hassasiyet:"
 
 #: ui/CpuMenus.ui:199 ui/DiskMenus.ui:183 ui/GpuMenus.ui:93
-#: ui/NetworkMenus.ui:183 ui/RamMenus.ui:205 ui/SettingsWindow.ui:192
+#: ui/NetworkMenus.ui:183 ui/RamMenus.ui:205
 msgid "Background"
 msgstr "Arkaplan"
 
@@ -981,7 +986,7 @@ msgstr "Önplan"
 #: ui/EnvironmentVarMenuCustomizations.ui:356 ui/GpuMenus.ui:156
 #: ui/NetworkMenus.ui:107 ui/ProcessesMenuCustomizations.ui:998
 #: ui/RamMenus.ui:129 ui/ServicesMenuCustomizations.ui:599
-#: ui/SettingsWindow.ui:664 ui/StartupMenuCustomizations.ui:355
+#: ui/SettingsWindow.ui:633 ui/StartupMenuCustomizations.ui:355
 #: ui/StorageMenuCustomizations.ui:823 ui/UsersMenuCustomizations.ui:725
 msgid "Reset All"
 msgstr "Hepsini Sıfırla"
@@ -1079,7 +1084,7 @@ msgstr "%0"
 #: ui/NetworkTab.ui:449 ui/NetworkTab.ui:464
 #: ui/PerformanceSummaryHeaderBarGrid.ui:85
 #: ui/PerformanceSummaryHeaderBarGrid.ui:100
-#: ui/ProcessesCustomPriorityWindow.ui:44 ui/ProcessesDetailsWindow.ui:212
+#: ui/ProcessesCustomPriorityWindow.ui:45 ui/ProcessesDetailsWindow.ui:212
 #: ui/ProcessesDetailsWindow.ui:227 ui/ProcessesDetailsWindow.ui:242
 #: ui/ProcessesDetailsWindow.ui:257 ui/ProcessesDetailsWindow.ui:272
 #: ui/ProcessesDetailsWindow.ui:287 ui/ProcessesDetailsWindow.ui:302
@@ -1215,10 +1220,6 @@ msgstr ""
 "Ön Bellek (L1d-L1i),\n"
 "Ön Bellek (L2-L3)"
 
-#: ui/DiskMenus.ui:20 ui/DiskTab.ui:38
-msgid "Disk Tab Customizations"
-msgstr "Disk Sekmesi Özelleştirmeleri"
-
 #: ui/DiskMenus.ui:237 ui/NetworkMenus.ui:237
 #: ui/ProcessesMenuCustomizations.ui:945 ui/RamMenus.ui:259
 #: ui/ServicesMenuCustomizations.ui:499 ui/StorageMenuCustomizations.ui:723
@@ -1308,10 +1309,6 @@ msgstr "Disk Okuma (-) & Yazma (--) Hızı:"
 msgid "0"
 msgstr ""
 
-#: ui/EnvironmentVarMenuCustomizations.ui:20 ui/EnvironmentVariablesTab.ui:61
-msgid "Environment Variables Tab Customizations"
-msgstr "Ortam Değişkenleri Sekmesi Özelleştirme Menüsü"
-
 #: ui/EnvironmentVarMenuCustomizations.ui:64
 #: ui/ProcessesMenuCustomizations.ui:151 ui/ServicesMenuCustomizations.ui:63
 #: ui/StartupMenuCustomizations.ui:63 ui/StorageMenuCustomizations.ui:63
@@ -1328,7 +1325,7 @@ msgstr "Satır Sıralaması,"
 
 #: ui/EnvironmentVarMenuCustomizations.ui:129
 #: ui/ProcessesMenuCustomizations.ui:228 ui/ServicesMenuCustomizations.ui:128
-#: ui/SettingsWindow.ui:56 ui/SettingsWindow.ui:570
+#: ui/SettingsWindow.ui:56 ui/SettingsWindow.ui:539
 #: ui/StartupMenuCustomizations.ui:128 ui/StorageMenuCustomizations.ui:128
 #: ui/UsersMenuCustomizations.ui:128
 msgid "Reset"
@@ -1393,10 +1390,6 @@ msgstr "Tüm ortam değişkenlerini göster"
 #: ui/EnvironmentVariablesTab.ui:174
 msgid "Show all shell variables"
 msgstr "Tüm kabuk değişkenlerini göster"
-
-#: ui/GpuMenus.ui:20 ui/GpuTab.ui:360
-msgid "GPU Tab Customizations"
-msgstr "GPU Sekmesi Özelleştirmeleri"
 
 #: ui/GpuMenus.ui:204
 msgid "Select GPU/Graphics Card:"
@@ -1500,7 +1493,7 @@ msgstr ""
 "Şeffaf ve her zaman üstte gözüken performans özeti penceresini gösterir/"
 "gizler"
 
-#: ui/MainMenusDialogs.ui:65 ui/SettingsWindow.ui:595
+#: ui/MainMenusDialogs.ui:65 ui/SettingsWindow.ui:564
 msgid "Floating Summary"
 msgstr "Yüzen Özet"
 
@@ -1516,17 +1509,13 @@ msgstr "Hakkında"
 msgid "Quit"
 msgstr "Çık"
 
-#: ui/MainWindow.ui:941
+#: ui/MainWindow.ui:943
 msgid "System Monitoring Center"
 msgstr "Sistem Gözlem Merkezi"
 
-#: ui/MainWindow.ui:949
+#: ui/MainWindow.ui:951
 msgid "Main Menu"
 msgstr "Ana Menü"
-
-#: ui/NetworkMenus.ui:20 ui/NetworkTab.ui:421
-msgid "Network Tab Customizations"
-msgstr "Ağ Sekmesi Özelleştirmeleri"
 
 #: ui/NetworkMenus.ui:286 ui/NetworkMenus.ui:373
 msgid "Network Speed:"
@@ -1620,7 +1609,7 @@ msgstr "MİB:"
 msgid "RAM:"
 msgstr "RAM:"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/SettingsWindow.ui:493
+#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/SettingsWindow.ui:462
 msgid "Disk Read+Write Speed"
 msgstr "Disk Okuma+Yazma Hızı"
 
@@ -1628,7 +1617,7 @@ msgstr "Disk Okuma+Yazma Hızı"
 msgid "Disk:"
 msgstr "Disk:"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:114 ui/SettingsWindow.ui:507
+#: ui/PerformanceSummaryHeaderBarGrid.ui:114 ui/SettingsWindow.ui:476
 msgid "Network Download+Upload Speed"
 msgstr "Ağ İndirme+Yükleme Hızı"
 
@@ -1641,22 +1630,18 @@ msgid "Set Process Priority (Nice)"
 msgstr "İşlemin Önceliğini (Nice) Ayarla"
 
 #: ui/ProcessesCustomPriorityWindow.ui:32
-msgid "Change priority of this process:"
-msgstr "Bu işlemin önceliğini değiştir:"
-
-#: ui/ProcessesCustomPriorityWindow.ui:72
 msgid ""
-"Set process priority:\n"
+"Change priority of this process:\n"
 "(Smaller value means higher process priority)"
 msgstr ""
-"İşlem önceliğini ayarla:\n"
-"(Küçük değer daha yüksek işlem önceliği anlamına gelir)"
+"Bu işlemin önceliğini değiştir:\n"
+"(Daha küçük değer daha yüksek işlem önceliği anlamına gelir)"
 
-#: ui/ProcessesCustomPriorityWindow.ui:106 ui/StorageRenameWindow.ui:80
+#: ui/ProcessesCustomPriorityWindow.ui:94 ui/StorageRenameWindow.ui:80
 msgid "Apply"
 msgstr "Uygula"
 
-#: ui/ProcessesCustomPriorityWindow.ui:151 ui/StartupNewItemWindow.ui:104
+#: ui/ProcessesCustomPriorityWindow.ui:139 ui/StartupNewItemWindow.ui:104
 #: ui/StorageRenameWindow.ui:125
 msgid "Cancel"
 msgstr "İptal"
@@ -1759,10 +1744,6 @@ msgstr "Açık Dosyalar"
 #: ui/ProcessesDetailsWindow.ui:1809
 msgid "Disk and Path"
 msgstr "Disk ve Yol"
-
-#: ui/ProcessesMenuCustomizations.ui:20 ui/ProcessesTab.ui:244
-msgid "Processes Tab Customizations"
-msgstr "İşlemler Sekmesi Özelleştirmeleri"
 
 #: ui/ProcessesMenuCustomizations.ui:89
 msgid "Show processes of all users"
@@ -1870,10 +1851,6 @@ msgstr ""
 "Not: Bazı sistemlerde RAM donanım bilgisi kısmi olarak elde edilebilir veya "
 "hiç elde edilemeyebilir."
 
-#: ui/RamMenus.ui:20 ui/RamTab.ui:427
-msgid "RAM Tab Customizations"
-msgstr "RAM Sekmesi Özelleştirmeleri"
-
 #: ui/RamSwapDetailsWindow.ui:8
 msgid "Swap Memory Details"
 msgstr "Takas Belleği Detayları"
@@ -1970,8 +1947,8 @@ msgstr "Başlayabilir - Durabilir?"
 msgid "Can Reload?"
 msgstr "Yeniden Yükleyebilir?"
 
-#: ui/ServicesDetailsWindow.ui:767 ui/SettingsWindow.ui:308
-#: ui/SettingsWindow.ui:324
+#: ui/ServicesDetailsWindow.ui:767 ui/SettingsWindow.ui:277
+#: ui/SettingsWindow.ui:293
 msgid "General"
 msgstr "Genel"
 
@@ -1994,10 +1971,6 @@ msgstr "Öncesinde"
 #: ui/ServicesDetailsWindow.ui:963
 msgid "Dependencies"
 msgstr "Bağımlılıklar"
-
-#: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:60
-msgid "Services Tab Customizations"
-msgstr "Servisler Sekmesi Özelleştirmeleri"
 
 #: ui/ServicesMenuRightClick.ui:50
 msgid "Start"
@@ -2053,65 +2026,57 @@ msgstr ""
 msgid "General Settings"
 msgstr "Genel Ayarlar"
 
-#: ui/SettingsWindow.ui:92
+#: ui/SettingsWindow.ui:91
 msgid "Update interval (seconds):"
 msgstr "Güncelleme aralığı (saniye):"
 
-#: ui/SettingsWindow.ui:114
+#: ui/SettingsWindow.ui:113
 msgid "Default main tab:"
 msgstr "Varsayılan ana sekme:"
 
-#: ui/SettingsWindow.ui:133
+#: ui/SettingsWindow.ui:132
 msgid "Remember last opened tabs on application start"
 msgstr "Uygulama açılışında son açılan sekmeleri hatırla"
 
-#: ui/SettingsWindow.ui:151
+#: ui/SettingsWindow.ui:150
 msgid "Performance tab default sub-tab:"
 msgstr "Performans sekmesinin varsayılan alt-sekmesi:"
 
-#: ui/SettingsWindow.ui:170
+#: ui/SettingsWindow.ui:169
 msgid "Show performance summary on the headerbar"
 msgstr "Performans özetini başlık çubuğunda göster"
 
-#: ui/SettingsWindow.ui:206
-msgid "Set background color for all charts:"
-msgstr "Tüm grafikler için arkaplan rengini ayarla:"
-
-#: ui/SettingsWindow.ui:218
+#: ui/SettingsWindow.ui:187
 msgid "Chart data history:"
 msgstr "Grafik veri geçmişi:"
 
-#: ui/SettingsWindow.ui:237
+#: ui/SettingsWindow.ui:206
 msgid "Remember last selected hardware"
 msgstr "Son seçilen donanımı hatırla"
 
-#: ui/SettingsWindow.ui:358
+#: ui/SettingsWindow.ui:327
 msgid "Window transparency:"
 msgstr "Pencere şeffaflığı:"
 
-#: ui/SettingsWindow.ui:383
+#: ui/SettingsWindow.ui:352
 msgid "Window"
 msgstr "Pencere"
 
-#: ui/SettingsWindow.ui:451
+#: ui/SettingsWindow.ui:420
 msgid "Network Download Speed"
 msgstr "Ağ İndirme Hızı"
 
-#: ui/SettingsWindow.ui:479
+#: ui/SettingsWindow.ui:448
 msgid "Network Upload Speed"
 msgstr "Ağ Yükleme Hızı"
 
-#: ui/SettingsWindow.ui:531
+#: ui/SettingsWindow.ui:500
 msgid "Show/Hide Performance Information"
 msgstr "Performans Bilgilerini Göster/Gizle"
 
-#: ui/SettingsWindow.ui:629
+#: ui/SettingsWindow.ui:598
 msgid "Reset all settings of the application to defaults"
 msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırla"
-
-#: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:60
-msgid "Startup Tab Customizations"
-msgstr "Başlangıç Sekmesi Özelleştirmeleri"
 
 #: ui/StartupMenuRightClick.ui:57
 msgid ""
@@ -2198,10 +2163,6 @@ msgstr "Tüm devre dışı bırakılmış (gizli) başlangıç ögelerini göste
 #: ui/StorageDetailsWindow.ui:181
 msgid "Label (File System)"
 msgstr "Etiket (Dosya Sistemi)"
-
-#: ui/StorageMenuCustomizations.ui:20 ui/StorageTab.ui:60
-msgid "Storage Tab Customizations"
-msgstr "Depolama Sekmesi Özelleştirmeleri"
 
 #: ui/StorageMenuCustomizations.ui:500
 msgid "Read-only"
@@ -2387,10 +2348,6 @@ msgstr "Dahili (Built-in) Python paketleri sayılmaz."
 msgid "Python:"
 msgstr "Python:"
 
-#: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:72
-msgid "Users Tab Customizations"
-msgstr "Kullanıcılar Sekmesi Özelleştirmeleri"
-
 #: ui/UsersMenuRightClick.ui:20
 msgid "End User Session"
 msgstr "Kullanıcı Oturumunu Sonlandır"
@@ -2406,6 +2363,48 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Change priority of this process:"
+#~ msgstr "Bu işlemin önceliğini değiştir:"
+
+#~ msgid "CPU Tab Customizations"
+#~ msgstr "MİB Sekmesi Özelleştirmeleri"
+
+#~ msgid "Disk Tab Customizations"
+#~ msgstr "Disk Sekmesi Özelleştirmeleri"
+
+#~ msgid "Environment Variables Tab Customizations"
+#~ msgstr "Ortam Değişkenleri Sekmesi Özelleştirme Menüsü"
+
+#~ msgid "GPU Tab Customizations"
+#~ msgstr "GPU Sekmesi Özelleştirmeleri"
+
+#~ msgid "Network Tab Customizations"
+#~ msgstr "Ağ Sekmesi Özelleştirmeleri"
+
+#~ msgid "Processes Tab Customizations"
+#~ msgstr "İşlemler Sekmesi Özelleştirmeleri"
+
+#~ msgid "RAM Tab Customizations"
+#~ msgstr "RAM Sekmesi Özelleştirmeleri"
+
+#~ msgid "Services Tab Customizations"
+#~ msgstr "Servisler Sekmesi Özelleştirmeleri"
+
+#~ msgid "Startup Tab Customizations"
+#~ msgstr "Başlangıç Sekmesi Özelleştirmeleri"
+
+#~ msgid "Storage Tab Customizations"
+#~ msgstr "Depolama Sekmesi Özelleştirmeleri"
+
+#~ msgid "Users Tab Customizations"
+#~ msgstr "Kullanıcılar Sekmesi Özelleştirmeleri"
+
+#~ msgid "Set background color for all charts:"
+#~ msgstr "Tüm grafikler için arkaplan rengini ayarla:"
+
+#~ msgid "Partition/File Name"
+#~ msgstr "Disk Bölümü/Dosya Adı"
 
 #~ msgid "RAM Usage Percent"
 #~ msgstr "RAM Kullanım Yüzdesi"

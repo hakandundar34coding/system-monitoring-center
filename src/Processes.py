@@ -243,7 +243,7 @@ def processes_loop_func():
     global number_of_logical_cores
     try:
         number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")                           # To be able to get number of online logical CPU cores first try  a faster way: using "SC_NPROCESSORS_ONLN" variable.
-    except:
+    except ValueError:
         with open("/proc/cpuinfo") as reader:                                                 # As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
             proc_cpuinfo_lines = reader.read().split("\n")
         number_of_logical_cores = 0
@@ -254,8 +254,8 @@ def processes_loop_func():
     # Get human and root user usernames and UIDs only one time at the per loop in order to avoid running it per process loop (it is different than main loop = processes_loop_func) which increases CPU consumption.
     usernames_username_list = []
     usernames_uid_list = []
-    with open("/etc/passwd") as reader:                                                       # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
-        etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
+    with open("/etc/passwd") as reader:
+        etc_passwd_lines = reader.read().strip().split("\n")
     for line in etc_passwd_lines:
         line_splitted = line.split(":", 3)
         usernames_username_list.append(line_splitted[0])
@@ -263,12 +263,7 @@ def processes_loop_func():
 
     # Get current username which will be used for determining processes from only this user or other users.
     global current_user_name
-    current_user_name = os.environ.get('SUDO_USER')                                           # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
-    if current_user_name is None:                                                             # Get username in the following way if current application has not been run by root privileges.
-        current_user_name = os.environ.get('USER')
-    pkexec_uid = os.environ.get('PKEXEC_UID')
-    if current_user_name == "root" and pkexec_uid != None:                                    # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-        current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
+    current_user_name = os.environ.get('USER')
 
     # Get process PIDs and define global variables and empty lists for the current loop
     global processes_data_rows, processes_data_rows_prev, global_process_cpu_times_prev, disk_read_write_data_prev, pid_list, pid_list_prev, username_list
@@ -279,10 +274,10 @@ def processes_loop_func():
     disk_read_write_data = []
     pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]          # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
 
-    # Get user names of the processes (this data is get outside and before the "getting process data" loop in which process pseudo files are read because this data also will be used for "show_processes_of_all_users" preference)
+    # Get user names of the processes
     for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
         try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + pid + "/status") as reader:                                  # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+            with open(f'/proc/{pid}/status') as reader:                                       # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
                 proc_pid_status_output = reader.read()
         except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
             pid_list.remove(pid)
@@ -303,7 +298,7 @@ def processes_loop_func():
         # Get process data
         global_cpu_time_all = time.time() * number_of_clock_ticks                             # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent. global_cpu_time_all value is get by using time module of Python instead of reading "/proc/stat" file for faster processing.
         try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + pid + "/stat") as reader:                                    # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
+            with open(f'/proc/{pid}/stat') as reader:                                         # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
                 proc_pid_stat_lines = reader.read()
         except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
             pid_list.remove(pid)
@@ -314,7 +309,7 @@ def processes_loop_func():
         process_name = process_name_from_stat
         if len(process_name) == 15:                                                           # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
             try:
-                with open("/proc/" + pid + "/cmdline") as reader:
+                with open(f'/proc/{pid}/cmdline') as reader:
                     process_cmdline = reader.read()
                 process_name = process_cmdline.split("/")[-1].split("\x00")[0]                # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
             except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
@@ -333,7 +328,7 @@ def processes_loop_func():
         if 1 in processes_treeview_columns_shown:
             processes_data_row.append(int(pid))                                               # Get process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
         if 2 in processes_treeview_columns_shown:
-            processes_data_row.append(username_list[pid_list.index(pid)])                     # Append process username
+            processes_data_row.append(username)                                               # Append process username (this value is get before).
         if 3 in processes_treeview_columns_shown:
             processes_data_row.append(process_status_list[proc_pid_stat_lines_split[-50]])    # Get process status
         if 4 in processes_treeview_columns_shown:
@@ -353,14 +348,14 @@ def processes_loop_func():
             processes_data_row.append(int(proc_pid_stat_lines_split[-30]))                    # Get process VMS (virtual memory size) memory (this value is in bytes unit).
         if 7 in processes_treeview_columns_shown:
             try:
-                with open("/proc/" + pid + "/statm") as reader:                                   
+                with open(f'/proc/{pid}/statm') as reader:                                   
                     processes_data_row.append(int(reader.read().split()[2]) * memory_page_size)   # Get shared memory pages and multiply with memory_page_size in order to convert the value into bytes.
             except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
                 pid_list.remove(pid)
                 continue
         if 8 in processes_treeview_columns_shown or 9 in processes_treeview_columns_shown or 10 in processes_treeview_columns_shown or 11 in processes_treeview_columns_shown:
             try:                                                                              # Root access is needed for reading "/proc/[PID]/io" file else it gives error. "try-except" is used in order to avoid this error if user has no root privileges.
-                with open("/proc/" + pid + "/io") as reader:
+                with open(f'/proc/{pid}/io') as reader:
                     proc_pid_io_lines = reader.read().split("\n")
                 process_read_bytes = int(proc_pid_io_lines[4].split(":")[1])
                 process_write_bytes = int(proc_pid_io_lines[5].split(":")[1])
@@ -398,7 +393,7 @@ def processes_loop_func():
             processes_data_row.append(int(proc_pid_status_output.split("\nGid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0].strip()))    # There are 4 values in the Gid line and first one (real GID) is get from this file.
         if 17 in processes_treeview_columns_shown:
             try:                                                                              # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
-                process_executable_path = os.path.realpath("/proc/" + pid + "/exe")
+                process_executable_path = os.path.realpath(f'/proc/{pid}/exe')
             except:
                 process_executable_path = "-"
             processes_data_row.append(process_executable_path)                                # Append process executable path

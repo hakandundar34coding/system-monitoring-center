@@ -72,6 +72,30 @@ def system_gui_func():
 # ----------------------------------- System - Initial Function -----------------------------------
 def system_initial_func():
 
+    # Get OS name, version, version code name and OS based on information
+    os_based_on = "-"                                                                         # Initial value of "os_based_on" variable. This value will be used if "os_based_on" could not be detected.
+    os_version = "-"
+    os_version_code_name = "-"
+    with open("/etc/os-release") as reader:
+        os_release_output_lines = reader.read().strip().split("\n")
+    for line in os_release_output_lines:
+        if line.startswith("ID="):
+            os_name = line.split("ID=")[1].strip().title()
+            continue
+        if line.startswith("VERSION_ID="):
+            os_version = line.split("VERSION_ID=")[1].strip(' "')
+            continue
+        if line.startswith("VERSION_CODENAME="):
+            os_version_code_name = line.split("VERSION_CODENAME=")[1].strip(' "')
+            continue
+        if line.startswith("ID_LIKE="):
+            os_based_on = line.split("ID_LIKE=")[1].strip().title()
+            continue
+    if os_based_on == "Debian":
+        with open("/etc/debian_version") as reader:
+            debian_version = reader.read().strip()
+        os_based_on = os_based_on + " (" + debian_version + ")"
+
     # Get os family
     os_family = platform.system()
     if os_family == "":
@@ -121,6 +145,14 @@ def system_initial_func():
                                    17: "Main System Chassis", 18: "Expansion Chassis", 19: "Sub Chassis", 20: "Bus Expansion Chassis", 21: "Peripheral Chassis",
                                    22: "Storage Chassis", 23: "Rack Mount Chassis", 24: "Sealed-Case PC"}
     computer_chassis_type = computer_chassis_types_dict[int(computer_chassis_type_value)]
+
+    # Get host name
+    with open("/proc/sys/kernel/hostname") as reader:
+        host_name = reader.read().strip()
+
+    # Get number of monitors
+    current_screen = MainGUI.window1.get_screen()
+    number_of_monitors = current_screen.get_n_monitors()
 
     # Get human and root user usernames and UIDs which will be used for determining username when "pkexec_uid" is get.
     usernames_username_list = []
@@ -271,45 +303,55 @@ def system_initial_func():
     rpm_packages_available = "-"
     pacman_packages_available = "-"
     flatpak_packages_available = "-"
+    number_of_installed_apt_or_rpm_or_pacman_packages = "-"
     try:
         apt_packages_available = (subprocess.check_output(["dpkg", "-s", "python3"], shell=False)).decode().strip()    # Check if "python3" is installed in order to determine package type of the system.
         if "Package: python3" in apt_packages_available:
-            apt_packages_available = "yes"
+            number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
+            number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_apt_packages} (APT)'
     except (FileNotFoundError, subprocess.CalledProcessError) as me:                          # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
-        apt_packages_available = "no"
-    if apt_packages_available != "yes":
+        apt_packages_available = "-"
+    if apt_packages_available == "-":
         try:
             rpm_packages_available = (subprocess.check_output(["rpm", "-q", "python3"], shell=False)).decode().strip()
             if rpm_packages_available.startswith("python3-3."):
-                rpm_packages_available = "yes"
+                number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
+                number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")    # Differentiate empty line count
+                number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
-            rpm_packages_available = "no"
-        if apt_packages_available != "yes" and rpm_packages_available != "yes":
-            try:
-                pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
-                if pacman_packages_available.startswith("python 3."):
-                    pacman_packages_available = "yes"
-            except (FileNotFoundError, subprocess.CalledProcessError) as me:
-                pacman_packages_available = "no"
+            rpm_packages_available = "-"
+    if apt_packages_available == "-" and rpm_packages_available == "-":
+        try:
+            pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
+            if pacman_packages_available.startswith("python 3."):
+                number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
+                number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")    # Differentiate empty line count
+                number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
+        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+            pacman_packages_available = "-"
     try:
         flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
         flatpak_packages_available = len(flatpak_packages_available) - flatpak_packages_available.count("")    # Differentiate empty line count
         if flatpak_packages_available > 0:
-            flatpak_packages_available = "yes"
+            try:
+                number_of_installed_flatpak_packages = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
+                number_of_installed_flatpak_packages = len(number_of_installed_flatpak_packages) - number_of_installed_flatpak_packages.count("")    # Differentiate empty line count
+            except FileNotFoundError:                                                             # "try-except" is used in order to prevent errors if Flatpak is uninstalled during run-time of this application.
+                number_of_installed_flatpak_packages = "-"
     except (FileNotFoundError, subprocess.CalledProcessError) as me:
-        flatpak_packages_available = "no"
+        flatpak_packages_available = "-"
 
-    # Delete global "number_of_installed_rpm_packages" variable before loop function.
-    try:
-        global number_of_installed_rpm_packages
-        del number_of_installed_rpm_packages                                                  # Global "number_of_installed_rpm_packages" variable is deleted in order to get its value if user clicks on "Refresh" button on System tab. Because presence of this variable in "globals()" is contolled on every loop in order to avoid getting its value in every loop (for avoiding very high CPU usage).
-    except NameError:
-        pass
+    # Get number of installed Python packages (including built-in packages)
+    number_of_installed_python_packages = len([d.project_name for d in pkg_resources.working_set])
 
 
     # Set label texts to show information
+    label8101.set_text(f'{os_name} - {os_version}')
     label8102.set_text(f'{computer_vendor} - {computer_model}')
+    label8103.set_text(os_name)
+    label8104.set_text(f'{os_version} - {os_version_code_name}')
     label8105.set_text(os_family)
+    label8106.set_text(os_based_on)
     label8107.set_text(kernel_release)
     label8108.set_text(kernel_version)
     label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
@@ -319,101 +361,16 @@ def system_initial_func():
     label8113.set_text(computer_vendor)
     label8114.set_text(computer_model)
     label8115.set_text(computer_chassis_type)
-    label8117.set_text(cpu_architecture)
-    label8122.set_text(f'{current_python_version}')
-
-
-# ----------------------------------- System - Loop Function -----------------------------------
-def system_loop_func():
-
-    # Get OS name, version, version code name and OS based on information
-    os_based_on = "-"                                                                         # Initial value of "os_based_on" variable. This value will be used if "os_based_on" could not be detected.
-    os_version = "-"
-    os_version_code_name = "-"
-    with open("/etc/os-release") as reader:
-        os_release_output_lines = reader.read().strip().split("\n")
-    for line in os_release_output_lines:
-        if line.startswith("ID="):
-            os_name = line.split("ID=")[1].strip().title()                                    # ".title()" capitalizes each word in the string.
-        if line.startswith("VERSION_ID="):
-            os_version = line.split("VERSION_ID=")[1].strip(' "')
-        if line.startswith("VERSION_CODENAME="):
-            os_version_code_name = line.split("VERSION_CODENAME=")[1].strip(' "')
-        if line.startswith("ID_LIKE="):
-            os_based_on = line.split("ID_LIKE=")[1].strip().title()                           # ".title()" capitalizes each word in the string.
-    if os_based_on == "Debian":
-        with open("/etc/debian_version") as reader:
-            debian_version = reader.read().strip()
-        os_based_on = os_based_on + " (" + debian_version + ")"
-
-    # Get host name
-    with open("/proc/sys/kernel/hostname") as reader:
-        host_name = reader.read().strip()
-
-    # Get number of monitors
-    current_screen = MainGUI.window1.get_screen()
-    number_of_monitors = current_screen.get_n_monitors()
-
-    # Get number of installed packages
-    global apt_packages_available, rpm_packages_available, pacman_packages_available, flatpak_packages_available
-    number_of_installed_apt_or_rpm_or_pacman_packages = "-"
-    # Get number of installed APT packages
-    if apt_packages_available == "yes":
-        number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
-        number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_apt_packages} (APT)'
-
-    # Get number of installed RPM packages
-    if rpm_packages_available == "yes":
-        if 'number_of_installed_rpm_packages' not in globals():                               # Number of installed RPM packages is not updated on every loop. Getting number of installed RPM packages consumes very high CPU usage because of the "rpm -qa" command and there is no any other solution for getting this information with low CPU usage.
-            global number_of_installed_rpm_packages
-            number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
-            number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")    # Differentiate empty line count
-        number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
-
-    # Get number of installed pacman packages
-    if pacman_packages_available == "yes":
-        number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
-        number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")    # Differentiate empty line count
-        number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
-
-    # Get number of installed Python packages (including built-in packages)
-    number_of_installed_python_packages = len([d.project_name for d in pkg_resources.working_set])
-
-    # Get number of installed Flatpak packages
-    number_of_installed_flatpak_packages = "-"                                                # Initial value of "number_of_installed_flatpak_packages" variable. This value will be used if "number_of_installed_flatpak_packages" could not be detected.
-    if flatpak_packages_available == "yes":
-        try:
-            number_of_installed_flatpak_packages = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
-            number_of_installed_flatpak_packages = len(number_of_installed_flatpak_packages) - number_of_installed_flatpak_packages.count("")    # Differentiate empty line count
-        except FileNotFoundError:                                                             # "try-except" is used in order to prevent errors if Flatpak is uninstalled during run-time of this application.
-            number_of_installed_flatpak_packages = "-"
-
-
-    # Set label texts to show information
-    label8101.set_text(f'{os_name} - {os_version}')
-    label8103.set_text(os_name)
-    label8104.set_text(f'{os_version} - {os_version_code_name}')
-    label8106.set_text(os_based_on)
     label8116.set_text(host_name)
+    label8117.set_text(cpu_architecture)
     label8118.set_text(f'{number_of_monitors}')
     label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
     label8120.set_text(f'{number_of_installed_flatpak_packages}')
     label8121.set_text(f'{number_of_installed_python_packages}')
+    label8122.set_text(f'{current_python_version}')
 
 
 # ----------------------------------- System - Run Function -----------------------------------
 def system_run_func(*args):
 
-    if "current_user_name" not in globals():
-        GLib.idle_add(system_initial_func)
-    if MainGUI.radiobutton8.get_active() == True:
-        global system_glib_source, update_interval
-        try:
-            system_glib_source.destroy()
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        system_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(system_loop_func)
-        system_glib_source.set_callback(system_run_func)
-        system_glib_source.attach(GLib.MainContext.default())
+    GLib.idle_add(system_initial_func)

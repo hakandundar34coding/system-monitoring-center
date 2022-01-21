@@ -45,10 +45,10 @@ Note2: For RPM based distributions:
 
 ### Features:
 * Detailed system performance and usage usage monitoring/managing features:
-    * Monitoring CPU, RAM, Disk, Network, GPU, Sensor hardware information/performance/usage
+    * Monitoring CPU, RAM, Disk, Network, GPU hardware information/performance/usage
     * An always on top and semi-transparent floating summary window for performance monitoring
-    * Monitoring and managing processes, users, storage devices, startup applications, services (systemd) and environment variables
-    * Monitoring general system information
+    * Monitoring and managing processes, users, storage devices, startup applications and services (systemd)
+    * Monitoring sensors and general system information
 * Customization options per-tab
 * Language support (more languages will be added if translations are provided by contributors):
     * English, Turkish
@@ -78,8 +78,6 @@ Note2: For RPM based distributions:
 ![System Monitoring Center](screenshots/startup_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/services_tab_dark_system_theme.png)
-
-![System Monitoring Center](screenshots/environment_variables_tab_dark.png)
 
 ![System Monitoring Center](screenshots/system_tab_dark_system_theme.png)
 

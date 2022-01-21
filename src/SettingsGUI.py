@@ -24,7 +24,7 @@ def settings_gui_func():
 
     # Settings tab GUI objects
     global builder2001, window2001
-    global button2001, button2002, button2003, button2004
+    global button2002, button2003, button2004
     global combobox2001, combobox2002, combobox2003, combobox2004
     global checkbutton2001, checkbutton2002, checkbutton2003, checkbutton2004, checkbutton2005, checkbutton2006
     global checkbutton2007, checkbutton2008, checkbutton2009, checkbutton2010, checkbutton2011
@@ -36,7 +36,6 @@ def settings_gui_func():
     builder2001.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/SettingsWindow.ui")
 
     window2001 = builder2001.get_object('window2001')
-    button2001 = builder2001.get_object('button2001')
     button2002 = builder2001.get_object('button2002')
     button2003 = builder2001.get_object('button2003')
     button2004 = builder2001.get_object('button2004')
@@ -125,21 +124,6 @@ def settings_gui_func():
             Config.remember_last_selected_hardware = 0
         Config.config_save_func()
 
-    def on_button2001_clicked(widget):                                                        # "Set background colors for all charts" GUI object signal
-        if "colorchooserdialog1001" not in globals():
-            global colorchooserdialog1001
-            colorchooserdialog2001 = Gtk.ColorChooserDialog()
-        red, blue, green, alpha = Config.chart_background_color_all_charts                    # Get current background color of the chart
-        colorchooserdialog2001.set_rgba(Gdk.RGBA(red, blue, green, alpha))                    # Set current chart background color as selected color of the dialog on dialog run
-        dialog_response = colorchooserdialog2001.run()
-        if dialog_response == Gtk.ResponseType.OK:
-            selected_color = colorchooserdialog2001.get_rgba()
-            Config.chart_background_color_all_charts = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
-            colorchooserdialog2001.hide()
-            Config.config_save_func()
-        if dialog_response == Gtk.ResponseType.CANCEL:
-            colorchooserdialog2001.hide()
-
     def on_button2002_clicked(widget):                                                        # "Reset general settings to defaults" GUI object signal
         Config.config_default_general_general_func()
         Config.config_save_func()
@@ -213,7 +197,6 @@ def settings_gui_func():
     # Settings tab GUI functions - connect
     window2001.connect("delete-event", on_window2001_delete_event)
     window2001.connect("show", on_window2001_show)
-    button2001.connect("clicked", on_button2001_clicked)
     button2002.connect("clicked", on_button2002_clicked)
     button2003.connect("clicked", on_button2003_clicked)
     button2004.connect("clicked", on_button2004_clicked)

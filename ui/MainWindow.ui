@@ -20,6 +20,7 @@
             <property name="can-focus">False</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
+            <property name="transition-duration">0</property>
             <property name="transition-type">over-right-left</property>
             <child>
               <!-- n-columns=3 n-rows=1 -->
@@ -339,6 +340,7 @@
                     <property name="can-focus">False</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
+                    <property name="transition-duration">0</property>
                     <property name="transition-type">over-up-down</property>
                     <child>
                       <!-- n-columns=1 n-rows=1 -->

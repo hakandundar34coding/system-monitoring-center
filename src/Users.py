@@ -196,7 +196,7 @@ def users_loop_func():
     global number_of_logical_cores
     try:
         number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")                           # To be able to get number of online logical CPU cores first try  a faster way: using "SC_NPROCESSORS_ONLN" variable.
-    except:
+    except ValueError:
         with open("/proc/cpuinfo") as reader:                                                 # As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
             proc_cpuinfo_lines = reader.read().split("\n")
         number_of_logical_cores = 0

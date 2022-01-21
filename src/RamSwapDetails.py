@@ -86,7 +86,7 @@ def ram_swap_details_get_func():
         swap_used = int(line_split[3].strip()) * 1024                                         # Values in this file are in KiB. They are converted to Bytes.
         swap_used = f'{ram_data_unit_converter_func(swap_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}'
         swap_priority = line_split[4].strip()
-        swap_details_text = swap_details_text + "\n" + _tr("Partition/File Name") + " :    " + swap_name
+        swap_details_text = swap_details_text + "\n" + _tr("Name") + " :    " + swap_name
         swap_details_text = swap_details_text + "\n" + _tr("Type") + " :    " + swap_type
         swap_details_text = swap_details_text + "\n" + _tr("Size") + " :    " + swap_size
         swap_details_text = swap_details_text + "\n" + _tr("Used") + " :    " + swap_used

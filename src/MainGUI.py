@@ -234,7 +234,6 @@ def main_gui_func():
 def main_gui_default_main_tab_func():
 
     default_main_tab = Config.default_main_tab                                                # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
-    stack1.set_transition_duration(0)                                                         # Set animation time as 0 ms (default value is 200 ms) before switching tab programmatically.
     if default_main_tab == 0:
          radiobutton1.set_active(True)
     if default_main_tab == 1:
@@ -251,14 +250,12 @@ def main_gui_default_main_tab_func():
          radiobutton7.set_active(True)
     if default_main_tab == 7:
          radiobutton8.set_active(True)
-    stack1.set_transition_duration(200)                                                       # Set animation time as 200 ms (default value) before switching tab programmatically.
 
 
 # ----------------------------------- MainGUI - Set Performance Tab Default Sub-Tab Function (switches to performance tab default sub-tab ((CPU, RAM, Disk, Network, GPU, Sensors)) on initial run) -----------------------------------
 def main_gui_peformance_tab_default_sub_tab_func():
 
     performance_tab_default_sub_tab = Config.performance_tab_default_sub_tab                  # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
-    stack1001.set_transition_duration(0)                                                      # Set animation time as 0 ms (default value is 200 ms) before switching tab programmatically.
     if performance_tab_default_sub_tab == 0:
          radiobutton1001.set_active(True)
     if performance_tab_default_sub_tab == 1:
@@ -271,7 +268,6 @@ def main_gui_peformance_tab_default_sub_tab_func():
          radiobutton1005.set_active(True)
     if performance_tab_default_sub_tab == 5:
          radiobutton1006.set_active(True)
-    stack1001.set_transition_duration(200)                                                    # Set animation time as 200 ms (default value) before switching tab programmatically.
 
 
 # ----------------------------------- MainGUI - Main Function Run Function (runs main functions (Performance, Processes, Users, Storage, Startup, Services, Environment Variables, OS) when their stack page is selected. All main tabs and performance tab sub-tabs switches are controlled in this function) -----------------------------------
@@ -288,7 +284,7 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 0
                 Config.config_save_func()
-            if 'Cpu' not in globals():
+            if 'Cpu' not in globals():                                                        # Check if "Cpu" module is imported. Therefore it is not reimported after switching "Cpu" tab off and on if "Cpu" name is in globals().
                 global Cpu
                 import Cpu
                 Cpu.cpu_import_func()
@@ -306,7 +302,7 @@ def main_gui_tab_switch_func():
                 import Ram
                 Ram.ram_import_func()
                 Ram.ram_gui_func()
-                grid1002.attach(Ram.grid1201, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                grid1002.attach(Ram.grid1201, 0, 0, 1, 1)
             Ram.ram_run_func()
             return
         if radiobutton1003.get_active() == True:
@@ -319,7 +315,7 @@ def main_gui_tab_switch_func():
                 import Disk
                 Disk.disk_import_func()
                 Disk.disk_gui_func()
-                grid1003.attach(Disk.grid1301, 0, 0, 1, 1)                                    # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                grid1003.attach(Disk.grid1301, 0, 0, 1, 1)
             Disk.disk_run_func()
             return
         if radiobutton1004.get_active() == True:
@@ -332,7 +328,7 @@ def main_gui_tab_switch_func():
                 import Network
                 Network.network_import_func()
                 Network.network_gui_func()
-                grid1004.attach(Network.grid1401, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                grid1004.attach(Network.grid1401, 0, 0, 1, 1)
             Network.network_run_func()
             return
         if radiobutton1005.get_active() == True:
@@ -345,7 +341,7 @@ def main_gui_tab_switch_func():
                 import Gpu
                 Gpu.gpu_import_func()
                 Gpu.gpu_gui_func()
-                grid1005.attach(Gpu.grid1501, 0, 0, 1, 1)                                     # Attach the grid to the grid (on the Main Window) at (0, 0)
+                grid1005.attach(Gpu.grid1501, 0, 0, 1, 1)
             Gpu.gpu_run_func()
             return
         if radiobutton1006.get_active() == True:
@@ -358,7 +354,7 @@ def main_gui_tab_switch_func():
                 import Sensors
                 Sensors.sensors_import_func()
                 Sensors.sensors_gui_func()
-                grid1006.attach(Sensors.grid1601, 0, 0, 1, 1)                                 # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+                grid1006.attach(Sensors.grid1601, 0, 0, 1, 1)
             Sensors.sensors_run_func()
             return
 
@@ -367,12 +363,12 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 1
             Config.config_save_func()
-        if 'Processes' not in globals():                                                      # Check if "ProcessesGUI" module is imported. Therefore it is not reimported after switching "Processes" tab off and on if "ProcessesGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
+        if 'Processes' not in globals():
             global Processes
             import Processes
             Processes.processes_import_func()
             Processes.processes_gui_func()
-            grid2.attach(Processes.grid2101, 0, 0, 1, 1)                                      # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            grid2.attach(Processes.grid2101, 0, 0, 1, 1)
         Processes.processes_run_func()
         return
 
@@ -386,7 +382,7 @@ def main_gui_tab_switch_func():
             import Users
             Users.users_import_func()
             Users.users_gui_func()
-            grid3.attach(Users.grid3101, 0, 0, 1, 1)                                          # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            grid3.attach(Users.grid3101, 0, 0, 1, 1)
         Users.users_run_func()
         return
 
@@ -400,7 +396,7 @@ def main_gui_tab_switch_func():
             import Storage
             Storage.storage_import_func()
             Storage.storage_gui_func()
-            grid4.attach(Storage.grid4101, 0, 0, 1, 1)                                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+            grid4.attach(Storage.grid4101, 0, 0, 1, 1)
         Storage.storage_run_func()
         return
 
@@ -414,7 +410,7 @@ def main_gui_tab_switch_func():
             import Startup
             Startup.startup_import_func()
             Startup.startup_gui_func()
-            grid5.attach(Startup.grid5101, 0, 0, 1, 1)                                        # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+            grid5.attach(Startup.grid5101, 0, 0, 1, 1)
         Startup.startup_run_func()
         return
 
@@ -428,7 +424,7 @@ def main_gui_tab_switch_func():
             import Services
             Services.services_import_func()
             Services.services_gui_func()
-            grid6.attach(Services.grid6101, 0, 0, 1, 1)                                       # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+            grid6.attach(Services.grid6101, 0, 0, 1, 1)
         Services.services_run_func()
         return
 
@@ -442,7 +438,7 @@ def main_gui_tab_switch_func():
             import EnvironmentVariables
             EnvironmentVariables.environment_variables_import_func()
             EnvironmentVariables.environment_variables_gui_func()
-            grid7.attach(EnvironmentVariables.grid7101, 0, 0, 1, 1)                           # Attach the grid to the grid (on the Main Window) at (0, 0) position.     
+            grid7.attach(EnvironmentVariables.grid7101, 0, 0, 1, 1)
         EnvironmentVariables.environment_variables_run_func()
         return
 
@@ -456,7 +452,7 @@ def main_gui_tab_switch_func():
             import System
             System.system_import_func()
             System.system_gui_func()
-            grid8.attach(System.grid8101, 0, 0, 1, 1)                                         # Attach the grid to the grid (on the Main Window) at (0, 0) position.
+            grid8.attach(System.grid8101, 0, 0, 1, 1)
         System.system_run_func()
         return
 

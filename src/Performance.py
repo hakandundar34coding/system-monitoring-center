@@ -130,7 +130,7 @@ def performance_background_initial_func():
 # ----------------------------------- Performance - Background Function (gets basic CPU, RAM, disk and network usage data in the background in order to assure uninterrupted data for charts) -----------------------------------
 def performance_background_loop_func():
 
-    update_interval = Config.update_interval                                                  # This value will be used multiple times and it is get from another module and defined as a variable in this module in order to achieve lower CPU consumption.
+    global update_interval                                                                    # This value will be used multiple times and it is get from another module and defined as a global variable in this function in order to achieve lower CPU consumption.
 
     # Get logical_core_list, number_of_logical_cores
     global logical_core_list_system_ordered, logical_core_list, number_of_logical_cores       # "logical_core_list" list contains online CPU core numbers and ordering changes when online/offline CPU core changes are made. Last online-made core is listed as the last core.
@@ -284,8 +284,8 @@ def performance_background_loop_func():
 def performance_background_run_func():
 
     if 'update_interval' not in globals():
+        global update_interval
         performance_background_initial_func()                                                 # Function is run directly without using "GLib.idle_add([function_name])" in order to avoid errors which are given if another threads (such as threads in CPU module) run before this function is finished.
-    performance_background_loop_func()
-    global update_interval
     update_interval = Config.update_interval
+    performance_background_loop_func()
     GLib.timeout_add(update_interval * 1000, performance_background_run_func)
