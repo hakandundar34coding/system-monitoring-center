@@ -289,7 +289,7 @@ def settings_gui_general_settings_tab_set_func():
     # Set GUI preferences for "defult main tab" setting
     if "liststore2003" not in globals():
         global liststore2003, default_main_tab_list
-        default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Storage"), _tr("Startup"), _tr("Services"), _tr("System")]
+        default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Startup"), _tr("Services"), _tr("System")]
         liststore2003 = Gtk.ListStore()
         liststore2003.set_column_types([str])
         combobox2003.set_model(liststore2003)
@@ -486,12 +486,6 @@ def settings_gui_apply_settings_immediately_func():
             import Users
         Users.users_initial_func()
         Users.users_loop_func()
-    if MainGUI.radiobutton4.get_active() == True:
-        if 'Storage' not in globals():
-            global Storage
-            import Storage
-        Storage.storage_initial_func()
-        Storage.storage_loop_func()
     if MainGUI.radiobutton5.get_active() == True:
         if 'Startup' not in globals():
             global Startup

@@ -155,7 +155,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">File System:</property>
+            <property name="label" translatable="yes">System Disk:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -246,23 +246,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label1307">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
-            <property name="selectable">True</property>
-            <property name="ellipsize">end</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">4</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -310,7 +293,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">System Disk:</property>
+            <property name="label" translatable="yes">Details:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -422,7 +405,31 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label1312">
+          <object class="GtkEventBox" id="eventbox1301">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">start</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Query...</property>
+                <property name="ellipsize">end</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                  <attribute name="underline" value="True"/>
+                </attributes>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">3</property>
+            <property name="top-attach">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label1307">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
@@ -434,7 +441,7 @@
             </attributes>
           </object>
           <packing>
-            <property name="left-attach">3</property>
+            <property name="left-attach">1</property>
             <property name="top-attach">4</property>
           </packing>
         </child>

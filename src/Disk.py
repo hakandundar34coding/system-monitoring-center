@@ -29,7 +29,7 @@ def disk_gui_func():
 
     # Disk tab GUI objects
     global grid1301, drawingarea1301, drawingarea1302, button1301, label1301, label1302
-    global label1303, label1304, label1305, label1306, label1307, label1308, label1309, label1310, label1311, label1312, label1313
+    global label1303, label1304, label1305, label1306, label1307, label1308, label1309, label1310, label1311, label1313, eventbox1301
 
     # Disk tab GUI objects - get
     grid1301 = builder.get_object('grid1301')
@@ -47,8 +47,8 @@ def disk_gui_func():
     label1309 = builder.get_object('label1309')
     label1310 = builder.get_object('label1310')
     label1311 = builder.get_object('label1311')
-    label1312 = builder.get_object('label1312')
     label1313 = builder.get_object('label1313')
+    eventbox1301 = builder.get_object('eventbox1301')
 
 
     # Disk tab GUI functions
@@ -61,6 +61,17 @@ def disk_gui_func():
             DiskMenu.popover1301p.set_relative_to(button1301)                                 # Set widget that popover menu will display at the edge of.
             DiskMenu.popover1301p.set_position(1)                                             # Show popover menu at the right edge of the caller button.
         DiskMenu.popover1301p.popup()                                                         # Show Disk tab popover GUI
+
+    def on_eventbox1301_button_click_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
+        if event.button == 1:
+            if 'DiskDetails' not in globals():                                                # Check if "DiskDetails" module is imported. Therefore it is not reimported for every mouse click if "DiskDetails" name is in globals().
+                global DiskDetails
+                import DiskDetails
+                DiskDetails.disk_details_import_func()
+                DiskDetails.disk_details_gui_func()
+            DiskDetails.window1301w.show()
+            DiskDetails.disk_details_run_func()
+
 
     # ----------------------------------- Disk - Plot Disk read/write speed data as a Line Chart ----------------------------------- 
     def on_drawingarea1301_draw(drawingarea1301, chart1301):
@@ -193,6 +204,7 @@ def disk_gui_func():
     button1301.connect("clicked", on_button1301_clicked)
     drawingarea1301.connect("draw", on_drawingarea1301_draw)
     drawingarea1302.connect("draw", on_drawingarea1302_draw)
+    eventbox1301.connect("button-press-event", on_eventbox1301_button_click_event)
 
 
 # ----------------------------------- Disk - Initial Function -----------------------------------
@@ -251,8 +263,7 @@ def disk_initial_func():
     # Set Disk tab label texts by using information get
     label1301.set_text(disk_vendor_model)
     label1302.set_text(f'{disk_list[selected_disk_number]} ({disk_type})')
-    label1307.set_text(disk_file_system)
-    label1312.set_text(if_system_disk)
+    label1307.set_text(if_system_disk)
 
 
 # ----------------------------------- Disk - Get Disk Data Function -----------------------------------

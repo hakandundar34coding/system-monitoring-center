@@ -1,157 +1,141 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Storage - Storage Details Import Function -----------------------------------
-def storage_details_import_func():
+# ----------------------------------- Disk - Disk Details Import Function -----------------------------------
+def disk_details_import_func():
 
-    global Gtk, GLib, os, subprocess, datetime
+    global Gtk, GLib, os, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GLib
     import os
     import subprocess
-    from datetime import datetime
 
 
-    global Config, Storage, MainGUI, Common
-    import Config, Storage, MainGUI, Common
+    global Config, Disk, MainGUI
+    import Config, Disk, MainGUI
 
 
     global _tr
     from locale import gettext as _tr
 
 
-# ----------------------------------- Storage - Storage Details Window GUI Function -----------------------------------
-def storage_details_gui_function():
+# ----------------------------------- Disk - Disk Details Window GUI Function -----------------------------------
+def disk_details_gui_func():
 
-    # Storage Details window GUI objects
-    global builder4101w, window4101w
-    global label4101w, label4102w, label4103w, label4104w, label4105w, label4106w, label4107w, label4108w, label4109w, label4110w
-    global label4111w, label4112w, label4113w, label4114w, label4115w, label4116w, label4117w, label4118w, label4119w, label4120w
-    global label4121w, label4122w, label4123w, label4124w
-
-
-    # Storage Details window GUI objects - get
-    builder4101w = Gtk.Builder()
-    builder4101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/StorageDetailsWindow.ui")
-
-    window4101w = builder4101w.get_object('window4101w')
+    # Disk Details window GUI objects
+    global builder1301w, window1301w
+    global label1301w, label1302w, label1303w, label1304w, label1305w, label1306w, label1307w, label1308w, label1309w, label1310w
+    global label1311w, label1312w, label1313w, label1314w, label1315w, label1316w, label1317w, label1318w, label1319w, label1320w
+    global label1321w, label1322w, label1323w, label1324w
 
 
-    # Storage Details window GUI objects
-    label4101w = builder4101w.get_object('label4101w')
-    label4102w = builder4101w.get_object('label4102w')
-    label4103w = builder4101w.get_object('label4103w')
-    label4104w = builder4101w.get_object('label4104w')
-    label4105w = builder4101w.get_object('label4105w')
-    label4106w = builder4101w.get_object('label4106w')
-    label4107w = builder4101w.get_object('label4107w')
-    label4108w = builder4101w.get_object('label4108w')
-    label4109w = builder4101w.get_object('label4109w')
-    label4110w = builder4101w.get_object('label4110w')
-    label4111w = builder4101w.get_object('label4111w')
-    label4112w = builder4101w.get_object('label4112w')
-    label4113w = builder4101w.get_object('label4113w')
-    label4114w = builder4101w.get_object('label4114w')
-    label4115w = builder4101w.get_object('label4115w')
-    label4116w = builder4101w.get_object('label4116w')
-    label4117w = builder4101w.get_object('label4117w')
-    label4118w = builder4101w.get_object('label4118w')
-    label4119w = builder4101w.get_object('label4119w')
-    label4120w = builder4101w.get_object('label4120w')
-    label4121w = builder4101w.get_object('label4121w')
-    label4122w = builder4101w.get_object('label4122w')
-    label4123w = builder4101w.get_object('label4123w')
-    label4124w = builder4101w.get_object('label4124w')
+    # Disk Details window GUI objects - get
+    builder1301w = Gtk.Builder()
+    builder1301w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/DiskDetailsWindow.ui")
+
+    window1301w = builder1301w.get_object('window1301w')
 
 
-    # Storage Details window GUI functions
-    def on_window4101w_delete_event(widget, event):
-        window4101w.hide()
+    # Disk Details window GUI objects
+    label1301w = builder1301w.get_object('label1301w')
+    label1302w = builder1301w.get_object('label1302w')
+    label1303w = builder1301w.get_object('label1303w')
+    label1304w = builder1301w.get_object('label1304w')
+    label1305w = builder1301w.get_object('label1305w')
+    label1306w = builder1301w.get_object('label1306w')
+    label1307w = builder1301w.get_object('label1307w')
+    label1308w = builder1301w.get_object('label1308w')
+    label1309w = builder1301w.get_object('label1309w')
+    label1310w = builder1301w.get_object('label1310w')
+    label1311w = builder1301w.get_object('label1311w')
+    label1312w = builder1301w.get_object('label1312w')
+    label1313w = builder1301w.get_object('label1313w')
+    label1314w = builder1301w.get_object('label1314w')
+    label1315w = builder1301w.get_object('label1315w')
+    label1316w = builder1301w.get_object('label1316w')
+    label1317w = builder1301w.get_object('label1317w')
+    label1318w = builder1301w.get_object('label1318w')
+    label1319w = builder1301w.get_object('label1319w')
+    label1320w = builder1301w.get_object('label1320w')
+    label1321w = builder1301w.get_object('label1321w')
+    label1322w = builder1301w.get_object('label1322w')
+    label1323w = builder1301w.get_object('label1323w')
+    label1324w = builder1301w.get_object('label1324w')
+
+
+    # Disk Details window GUI functions
+    def on_window1301w_delete_event(widget, event):
+        window1301w.hide()
         return True
 
-    def on_window4101w_show(widget):
+    def on_window1301w_show(widget):
         try:
             global update_interval
             del update_interval                                                               # Delete "update_interval" variable in order to let the code to run initial function. Otherwise, data from previous process (if it was viewed) will be used.
         except NameError:
             pass
-        storage_details_gui_reset_function()    # Call this function in order to reset Storage Details window. Data from previous storage/disk remains visible (for a short time) until getting and showing new storage/disk data if window is closed and opened for an another storage/disk because window is made hidden when close button is clicked.
+        disk_details_gui_reset_func()                                                         # Call this function in order to reset Disk Details window. Data from previous storage/disk remains visible (for a short time) until getting and showing new storage/disk data if window is closed and opened for an another storage/disk because window is made hidden when close button is clicked.
 
 
-    # Storage Details window GUI functions - connect
-    window4101w.connect("delete-event", on_window4101w_delete_event)
-    window4101w.connect("show", on_window4101w_show)
+    # Disk Details window GUI functions - connect
+    window1301w.connect("delete-event", on_window1301w_delete_event)
+    window1301w.connect("show", on_window1301w_show)
 
 
-# ----------------------------------- Storage - Storage Details Window GUI Reset Function -----------------------------------
-def storage_details_gui_reset_function():
-    label4101w.set_text("--")
-    label4102w.set_text("--")
-    label4103w.set_text("--")
-    label4104w.set_text("--")
-    label4105w.set_text("--")
-    label4106w.set_text("--")
-    label4107w.set_text("--")
-    label4108w.set_text("--")
-    label4109w.set_text("--")
-    label4110w.set_text("--")
-    label4111w.set_text("--")
-    label4112w.set_text("--")
-    label4113w.set_text("--")
-    label4114w.set_text("--")
-    label4115w.set_text("--")
-    label4116w.set_text("--")
-    label4117w.set_text("--")
-    label4118w.set_text("--")
-    label4119w.set_text("--")
-    label4120w.set_text("--")
-    label4121w.set_text("--")
-    label4122w.set_text("--")
-    label4123w.set_text("--")
-    label4124w.set_text("--")
+# ----------------------------------- Disk - Disk Details Window GUI Reset Function -----------------------------------
+def disk_details_gui_reset_func():
+    label1301w.set_text("--")
+    label1302w.set_text("--")
+    label1303w.set_text("--")
+    label1304w.set_text("--")
+    label1305w.set_text("--")
+    label1306w.set_text("--")
+    label1307w.set_text("--")
+    label1308w.set_text("--")
+    label1309w.set_text("--")
+    label1310w.set_text("--")
+    label1311w.set_text("--")
+    label1312w.set_text("--")
+    label1313w.set_text("--")
+    label1314w.set_text("--")
+    label1315w.set_text("--")
+    label1316w.set_text("--")
+    label1317w.set_text("--")
+    label1318w.set_text("--")
+    label1319w.set_text("--")
+    label1320w.set_text("--")
+    label1321w.set_text("--")
+    label1322w.set_text("--")
+    label1323w.set_text("--")
+    label1324w.set_text("--")
 
 
-# # ----------------------------------- Storage - Storage Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
-# def storage_details_tab_switch_control_func():
-# 
-#     global previous_page
-#     if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
-#         previous_page = None
-#         current_page = None
-#     current_page = notebook4101w.get_current_page()
-#     if current_page != previous_page and previous_page != None:                               # Check if tab is switched
-#         StorageDetails.storage_details_foreground_func()                                      # Update the data on the tab
-#     previous_page = current_page
-#     if window4101w.get_visible() == True:
-#         GLib.timeout_add(200, storage_details_tab_switch_control_func)                        # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
+# ----------------------------------- Disk - Disk Details Function -----------------------------------
+def disk_details_initial_func():
 
-
-# ----------------------------------- Storage - Storage Details Function -----------------------------------
-def storage_details_initial_func():
-
-    storage_define_data_unit_converter_variables_func()                                       # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
+    disk_define_data_unit_converter_variables_func()                                          # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
     global disk_sector_size
     disk_sector_size = 512                                                                    # Disk data values from "/sys/class/block/[DISK_NAME]/" are multiplied by 512 in order to find values in the form of byte. Disk sector size for all disk device could be found in "/sys/block/[disk device name such as sda]/queue/hw_sector_size". Linux uses 512 value for all disks without regarding device real block size (source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121).
 
-    global storage_image_ssd_hdd, storage_image_removable, storage_image_optical, storage_image_partition
-    storage_image_ssd_hdd = "system-monitoring-center-disk-hdd-symbolic"
-    storage_image_removable = "system-monitoring-center-disk-removable-symbolic"
-    storage_image_optical = "system-monitoring-center-disk-optical-symbolic"
-    storage_image_partition = "system-monitoring-center-disk-partition-symbolic"
+    global disk_image_ssd_hdd, disk_image_removable, disk_image_optical, disk_image_partition
+    disk_image_ssd_hdd = "system-monitoring-center-disk-hdd-symbolic"
+    disk_image_removable = "system-monitoring-center-disk-removable-symbolic"
+    disk_image_optical = "system-monitoring-center-disk-optical-symbolic"
+    disk_image_partition = "system-monitoring-center-disk-partition-symbolic"
 
 
-# ----------------------------------- Storage - Storage Details Foreground Function -----------------------------------
-def storage_details_loop_func():
+# ----------------------------------- Disk - Disk Details Foreground Function -----------------------------------
+def disk_details_loop_func():
 
     global disk
-    disk = Common.selected_storage_kernel_name                                                # Get right clicked disk name
+    disk = Disk.disk_list[Disk.selected_disk_number]                                          # Get right clicked disk name
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
-    global storage_disk_usage_data_precision, storage_disk_usage_data_unit
-    storage_disk_usage_data_precision = Config.storage_disk_usage_data_precision
-    storage_disk_usage_data_unit = Config.storage_disk_usage_data_unit
+    global performance_disk_usage_data_precision, performance_disk_usage_data_unit
+    performance_disk_usage_data_precision = Config.performance_disk_usage_data_precision
+    performance_disk_usage_data_unit = Config.performance_disk_usage_data_unit
 
     # Get all disks (disks and partitions) including physical, optical and virtual disks
     with open("/proc/partitions") as reader:
@@ -179,31 +163,30 @@ def storage_details_loop_func():
         with open("/sys/class/block/" + disk + "/uevent") as reader:
             sys_class_block_disk_uevent_lines = reader.read().split("\n")
     except FileNotFoundError:
-        window4101w.hide()
-        storage_no_such_storage_error_dialog()
+        window1301w.hide()
         return
     # Get disk symbol
     for line in sys_class_block_disk_uevent_lines:
         if "DEVTYPE" in line:
             disk_type = _tr(line.split("=")[1].capitalize())                                  # "_tr()" is used for using translated strings (disk/partition)
             break
-    disk_symbol = storage_image_ssd_hdd                                                       # Initial value of "disk_symbol" variable. This value will be used if disk type could not be detected. The same value is also used for non-USB and non-optical drives.
+    disk_symbol = disk_image_ssd_hdd                                                          # Initial value of "disk_symbol" variable. This value will be used if disk type could not be detected. The same value is also used for non-USB and non-optical drives.
     if disk_type == _tr("Disk"):                                                              # "_tr()" is used for using translated strings (disk/partition)
         if disk not in disk_device_path_disk_list:                                            # This condition is used first in order to vaoid errors because of the "elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:" condition. Because some disks (such as zeam0, zram1, etc.) may not present in "/dev/disk/by-path/" path and in "disk_device_path_disk_list" list.
-            disk_symbol = storage_image_ssd_hdd
+            disk_symbol = disk_image_ssd_hdd
         elif "loop" in disk or "sr" in disk:                                                  # Optical symbol is used as disk symbol if disk type is "disk (not partition)" and disk is a virtual disk or physical optical disk.
-            disk_symbol = storage_image_optical
+            disk_symbol = disk_image_optical
         elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:
-            disk_symbol = storage_image_removable
+            disk_symbol = disk_image_removable
         else:
-            disk_symbol = storage_image_ssd_hdd
+            disk_symbol = disk_image_ssd_hdd
     if disk_type == _tr("Partition"):                                                         # Same symbol image is used for all disk partitions.
-        disk_symbol = storage_image_partition
+        disk_symbol = disk_image_partition
     disk_physical_type = disk_symbol                                                          # Get disk type
 
-    # Set Storage Details window title and window icon image
-    window4101w.set_title(_tr("Storage Details") + ": " + disk)                               # Set window title
-    window4101w.set_icon_name(disk_symbol)                                                    # Set StorageDetails window icon
+    # Set Disk Details window title and window icon image
+    window1301w.set_title(_tr("Disk Details") + ": " + disk)                                  # Set window title
+    window1301w.set_icon_name(disk_symbol)                                                    # Set DiskDetails window icon
 
     # Get disk parent name
     disk_parent_name = "-"                                                                    # Initial value of "disk_parent_name" variable. This value will be used if disk has no parent disk or disk parent name could not be detected.
@@ -267,8 +250,7 @@ def storage_details_loop_func():
         with open("/sys/class/block/" + disk + "/size") as reader:
             disk_total_size = int(reader.read()) * disk_sector_size
     except FileNotFoundError:
-        window4101w.hide()
-        storage_no_such_storage_error_dialog()
+        window1301w.hide()
         return
     # Get disk free space
     try:
@@ -279,8 +261,7 @@ def storage_details_loop_func():
         else:
             disk_available = -9999                                                            # "-9999" value is used as "disk_available" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
     except:
-        window4101w.hide()
-        storage_no_such_storage_error_dialog()
+        window1301w.hide()
         return
     # Get disk used space
     try:
@@ -293,8 +274,7 @@ def storage_details_loop_func():
         else:
             disk_used = -9999                                                                 # "-9999" value is used as "disk_used" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
     except:
-        window4101w.hide()
-        storage_no_such_storage_error_dialog()
+        window1301w.hide()
         return
     # Get disk used space percentage
     try:
@@ -305,13 +285,12 @@ def storage_details_loop_func():
             # disk_available = statvfs_disk_usage_values.f_bavail * fragment_size
             disk_free = statvfs_disk_usage_values.f_bfree * fragment_size
             disk_used = disk_size - disk_free
-            disk_usage_percent = disk_used / disk_size * 100                                  # Gives same result with "lsblk" command (mass storage values)
-            # disk_usage_percent = disk_used / (disk_available + disk_used) * 100             # disk_usage_percent value is calculated as "used disk space / available disk space" in terms of filesystem values (same with "df" command output values). This is real usage percent.
+#             disk_usage_percent = disk_used / disk_size * 100                                  # Gives same result with "lsblk" command (mass storage values)
+            disk_usage_percent = disk_used / (disk_available + disk_used) * 100             # disk_usage_percent value is calculated as "used disk space / available disk space" in terms of filesystem values (same with "df" command output values). This is real usage percent.
         else:
             disk_usage_percent = -9999                                                        # "-9999" value is used as "disk_usage_percent" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
     except:
-        window4101w.hide()
-        storage_no_such_storage_error_dialog()
+        window1301w.hide()
         return
     # Get disk vendor and model
     disk_vendor_model = "-"                                                                   # Initial value of "disk_vendor_model" variable. This value will be used if disk vendor and model could not be detected. The same value is also used for disk partitions.
@@ -348,8 +327,7 @@ def storage_details_loop_func():
         if os.path.exists("/dev/" + disk) == True:
             disk_path = "/dev/" + disk
     except FileNotFoundError:
-        window4101w.hide()
-        storage_no_such_storage_error_dialog()
+        window1301w.hide()
         return
     # Get disk revision
     disk_revision = "-"                                                                       # Initial value of "disk_revision" variable. This value will be used if disk revision could not be detected. Disk partitions do not have disk revision.
@@ -382,8 +360,7 @@ def storage_details_loop_func():
             with open("/sys/class/block/" + disk + "/removable") as reader:
                 disk_removable_as_number = reader.read().strip()
         except FileNotFoundError:
-            window4101w.hide()
-            storage_no_such_storage_error_dialog()
+            window1301w.hide()
             return
         if disk_removable_as_number == "1":
             disk_removable = _tr("Yes")
@@ -396,8 +373,7 @@ def storage_details_loop_func():
             with open("/sys/class/block/" + disk + "/queue/rotational") as reader:
                 disk_rotational_as_number = reader.read().strip()
         except FileNotFoundError:
-            window4101w.hide()
-            storage_no_such_storage_error_dialog()
+            window1301w.hide()
             return
         if disk_rotational_as_number == "1":
             disk_rotational = _tr("Yes")
@@ -410,8 +386,7 @@ def storage_details_loop_func():
             with open("/sys/class/block/" + disk + "/ro") as reader:
                 disk_read_only_as_number = reader.read().strip()
         except FileNotFoundError:
-            window4101w.hide()
-            storage_no_such_storage_error_dialog()
+            window1301w.hide()
             return
         if disk_read_only_as_number == "1":
             disk_read_only = _tr("Yes")
@@ -427,12 +402,12 @@ def storage_details_loop_func():
     except FileNotFoundError:
         pass
     # Get disk unique storage id
-    disk_unique_storage_id = "-"                                                              # Initial value of "disk_read_only" variable. This value will be used if disk read-only information could not be detected (if disk is a virtual disk).
+    disk_unique_disk_id = "-"                                                                 # Initial value of "disk_read_only" variable. This value will be used if disk read-only information could not be detected (if disk is a virtual disk).
     try:
         disk_id_list = os.listdir("/dev/disk/by-id/")
         for id in disk_id_list:
             if os.path.realpath("/dev/disk/by-id/" + id).split("/")[-1] == disk and id.startswith("wwn-") == True:
-                disk_unique_storage_id = id.split("wwn-")[1]
+                disk_unique_disk_id = id.split("wwn-")[1]
     except FileNotFoundError:
         pass
     # Get disk major:minor device number
@@ -446,50 +421,50 @@ def storage_details_loop_func():
             break
 
     # Set label text by using storage/disk data
-    label4101w.set_text(disk)
-    label4102w.set_text(disk_parent_name)
-    label4103w.set_text(disk_system_disk)
-    label4104w.set_text(disk_type)
-    label4105w.set_text(disk_transport_type)
-    label4106w.set_text(disk_file_system)
-    label4107w.set_text(f'{storage_data_unit_converter_func(disk_total_size, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
+    label1301w.set_text(disk)
+    label1302w.set_text(disk_parent_name)
+    label1303w.set_text(disk_system_disk)
+    label1304w.set_text(disk_type)
+    label1305w.set_text(disk_transport_type)
+    label1306w.set_text(disk_file_system)
+    label1307w.set_text(f'{disk_data_unit_converter_func(disk_total_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
     if disk_available == -9999:
-        label4108w.set_text(_tr("[Not mounted]"))
-        label4109w.set_text(_tr("[Not mounted]"))
-        label4110w.set_text(_tr("[Not mounted]"))
+        label1308w.set_text(_tr("[Not mounted]"))
+        label1309w.set_text(_tr("[Not mounted]"))
+        label1310w.set_text(_tr("[Not mounted]"))
     if disk_available != -9999:
-        label4108w.set_text(f'{storage_data_unit_converter_func(disk_available, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
-        label4109w.set_text(f'{storage_data_unit_converter_func(disk_used, storage_disk_usage_data_unit, storage_disk_usage_data_precision)}')
-        label4110w.set_text(f'{disk_usage_percent:.1f}%')
-    label4111w.set_text(disk_vendor_model)
-    label4112w.set_text(disk_label)
-    label4113w.set_text(disk_partition_label)
-    label4114w.set_text(disk_mount_point)
-    label4115w.set_text(disk_path)
-    label4116w.set_text(disk_revision)
-    label4117w.set_text(disk_serial_number)
-    label4118w.set_text(disk_mode)
-    label4119w.set_text(disk_removable)
-    label4120w.set_text(disk_rotational)
-    label4121w.set_text(disk_read_only)
-    label4122w.set_text(disk_uuid)
-    label4123w.set_text(disk_unique_storage_id)
-    label4124w.set_text(disk_maj_min_number)
+        label1308w.set_text(f'{disk_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
+        label1309w.set_text(f'{disk_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
+        label1310w.set_text(f'{disk_usage_percent:.1f}%')
+    label1311w.set_text(disk_vendor_model)
+    label1312w.set_text(disk_label)
+    label1313w.set_text(disk_partition_label)
+    label1314w.set_text(disk_mount_point)
+    label1315w.set_text(disk_path)
+    label1316w.set_text(disk_revision)
+    label1317w.set_text(disk_serial_number)
+    label1318w.set_text(disk_mode)
+    label1319w.set_text(disk_removable)
+    label1320w.set_text(disk_rotational)
+    label1321w.set_text(disk_read_only)
+    label1322w.set_text(disk_uuid)
+    label1323w.set_text(disk_unique_disk_id)
+    label1324w.set_text(disk_maj_min_number)
 
 
-# ----------------------------------- Storage Details - Run Function -----------------------------------
-def storage_details_run_func():
+# ----------------------------------- Disk Details - Run Function -----------------------------------
+def disk_details_run_func():
 
     if "update_interval" not in globals():
-        GLib.idle_add(storage_details_initial_func)
-    if window4101w.get_visible() is True:
-        GLib.idle_add(storage_details_loop_func)
+        GLib.idle_add(disk_details_initial_func)
+    if window1301w.get_visible() is True:
+        GLib.idle_add(disk_details_loop_func)
         global update_interval
         update_interval = Config.update_interval
-        GLib.timeout_add(update_interval * 1000, storage_details_run_func)
+        GLib.timeout_add(update_interval * 1000, disk_details_run_func)
 
-# ----------------------------------- Storage - Define Data Unit Converter Variables Function -----------------------------------
-def storage_define_data_unit_converter_variables_func():
+# ----------------------------------- Disk - Define Data Unit Converter Variables Function -----------------------------------
+def disk_define_data_unit_converter_variables_func():
 
     global data_unit_list
     # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
@@ -499,8 +474,8 @@ def storage_define_data_unit_converter_variables_func():
                       [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
 
 
-# ----------------------------------- Storage - Data Details Unit Converter Function -----------------------------------
-def storage_data_unit_converter_func(data, unit, precision):
+# ----------------------------------- Disk - Data Details Unit Converter Function -----------------------------------
+def disk_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
     if unit >= 8:

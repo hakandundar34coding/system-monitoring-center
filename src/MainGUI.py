@@ -35,7 +35,7 @@ def main_gui_func():
     global window1
     global headerbar1, button1
     global grid10, stack1
-    global radiobutton1, radiobutton2, radiobutton3, radiobutton4, radiobutton5, radiobutton6, radiobutton8
+    global radiobutton1, radiobutton2, radiobutton3, radiobutton5, radiobutton6, radiobutton8
     global grid1, grid2, grid3, grid4, grid5, grid6, grid7, grid8
 
     # Main GUI - Performance tab GUI objects
@@ -57,7 +57,6 @@ def main_gui_func():
     radiobutton1 = builder.get_object('radiobutton1')
     radiobutton2 = builder.get_object('radiobutton2')
     radiobutton3 = builder.get_object('radiobutton3')
-    radiobutton4 = builder.get_object('radiobutton4')
     radiobutton5 = builder.get_object('radiobutton5')
     radiobutton6 = builder.get_object('radiobutton6')
     radiobutton8 = builder.get_object('radiobutton8')
@@ -161,10 +160,6 @@ def main_gui_func():
         if radiobutton3.get_active() == True:
             main_gui_tab_switch_func()
 
-    def on_radiobutton4_toggled(widget):                                                      # "Storage" radiobutton
-        if radiobutton4.get_active() == True:
-            main_gui_tab_switch_func()
-
     def on_radiobutton5_toggled(widget):                                                      # "Startup" radiobutton
         if radiobutton5.get_active() == True:
             main_gui_tab_switch_func()
@@ -210,7 +205,6 @@ def main_gui_func():
     radiobutton1.connect("toggled", on_radiobutton1_toggled)
     radiobutton2.connect("toggled", on_radiobutton2_toggled)
     radiobutton3.connect("toggled", on_radiobutton3_toggled)
-    radiobutton4.connect("toggled", on_radiobutton4_toggled)
     radiobutton5.connect("toggled", on_radiobutton5_toggled)
     radiobutton6.connect("toggled", on_radiobutton6_toggled)
     radiobutton8.connect("toggled", on_radiobutton8_toggled)
@@ -234,8 +228,6 @@ def main_gui_default_main_tab_func():
          radiobutton2.set_active(True)
     if default_main_tab == 2:
          radiobutton3.set_active(True)
-    if default_main_tab == 3:
-         radiobutton4.set_active(True)
     if default_main_tab == 4:
          radiobutton5.set_active(True)
     if default_main_tab == 5:
@@ -376,20 +368,6 @@ def main_gui_tab_switch_func():
             Users.users_gui_func()
             grid3.attach(Users.grid3101, 0, 0, 1, 1)
         Users.users_run_func()
-        return
-
-    if radiobutton4.get_active() == True:                                                     # It switches to "Storage" tab if relevant radiobutton is clicked.
-        stack1.set_visible_child(grid4)
-        if remember_last_opened_tabs_on_application_start == 1:
-            Config.default_main_tab = 3
-            Config.config_save_func()
-        if 'Storage' not in globals():
-            global Storage
-            import Storage
-            Storage.storage_import_func()
-            Storage.storage_gui_func()
-            grid4.attach(Storage.grid4101, 0, 0, 1, 1)
-        Storage.storage_run_func()
         return
 
     if radiobutton5.get_active() == True:                                                     # It switches to "Startup" tab if relevant radiobutton is clicked.

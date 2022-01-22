@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkWindow" id="window4101w">
+  <object class="GtkWindow" id="window1301w">
     <property name="can-focus">False</property>
     <property name="border-width">10</property>
     <property name="title" translatable="yes">Storage Details</property>
@@ -199,7 +199,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4101w">
+                  <object class="GtkLabel" id="label1301w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -214,7 +214,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4102w">
+                  <object class="GtkLabel" id="label1302w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -229,7 +229,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4103w">
+                  <object class="GtkLabel" id="label1303w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -244,7 +244,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4104w">
+                  <object class="GtkLabel" id="label1304w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -259,7 +259,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4105w">
+                  <object class="GtkLabel" id="label1305w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -274,7 +274,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4106w">
+                  <object class="GtkLabel" id="label1306w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -289,7 +289,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4107w">
+                  <object class="GtkLabel" id="label1307w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -304,7 +304,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4108w">
+                  <object class="GtkLabel" id="label1308w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -319,7 +319,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4109w">
+                  <object class="GtkLabel" id="label1309w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -334,7 +334,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4110w">
+                  <object class="GtkLabel" id="label1310w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -349,7 +349,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4111w">
+                  <object class="GtkLabel" id="label1311w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -365,7 +365,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4112w">
+                  <object class="GtkLabel" id="label1312w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -381,7 +381,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4113w">
+                  <object class="GtkLabel" id="label1313w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -423,7 +423,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4114w">
+                  <object class="GtkLabel" id="label1314w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -439,7 +439,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4115w">
+                  <object class="GtkLabel" id="label1315w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -571,7 +571,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4116w">
+                  <object class="GtkLabel" id="label1316w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -586,7 +586,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4117w">
+                  <object class="GtkLabel" id="label1317w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -601,7 +601,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4118w">
+                  <object class="GtkLabel" id="label1318w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -616,7 +616,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4120w">
+                  <object class="GtkLabel" id="label1320w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -631,7 +631,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4119w">
+                  <object class="GtkLabel" id="label1319w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -646,7 +646,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4121w">
+                  <object class="GtkLabel" id="label1321w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -661,7 +661,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4122w">
+                  <object class="GtkLabel" id="label1322w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -676,7 +676,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4123w">
+                  <object class="GtkLabel" id="label1323w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
@@ -692,7 +692,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label4124w">
+                  <object class="GtkLabel" id="label1324w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>

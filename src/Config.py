@@ -60,8 +60,6 @@ def config_default_reset_all_func():
     config_default_processes_row_sort_column_order_func()
     config_default_users_func()
     config_default_users_row_sort_column_order_func()
-    config_default_storage_func()
-    config_default_storage_row_sort_column_order_func()
     config_default_startup_func()
     config_default_startup_row_sort_column_order_func()
     config_default_services_func()
@@ -204,27 +202,6 @@ def config_default_users_row_sort_column_order_func():
     users_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     users_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
-# ----------------------------------- Config - Config Default Storage Tab Function -----------------------------------
-def config_default_storage_func():
-    global storage_disk_usage_data_precision, storage_disk_usage_data_unit
-    global storage_treeview_columns_shown, storage_data_row_sorting_column, storage_data_row_sorting_order, storage_data_column_order, storage_data_column_widths
-    storage_disk_usage_data_precision = 1
-    storage_disk_usage_data_unit = 0
-    storage_treeview_columns_shown = [0, 2, 5, 6, 9, 10, 11, 13]                              # storage_treeview_columns_shown all values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
-    storage_data_row_sorting_column = 0
-    storage_data_row_sorting_order = 0
-    storage_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
-    storage_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-
-# ----------------------------------- Config - Config Default Storage Tab Row Sort Column Order Function -----------------------------------
-def config_default_storage_row_sort_column_order_func():
-    global storage_data_row_sorting_column, storage_data_row_sorting_order, storage_data_column_order, storage_data_column_widths
-    storage_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
-    storage_data_row_sorting_column = 0
-    storage_data_row_sorting_order = 0
-    storage_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
-    storage_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-
 # ----------------------------------- Config - Config Default Startup Tab Function -----------------------------------
 def config_default_startup_func():
     global startup_treeview_columns_shown, startup_data_row_sorting_column, startup_data_row_sorting_order, startup_data_column_order, startup_data_column_widths
@@ -292,9 +269,6 @@ def config_get_values_func():
 
     global users_cpu_usage_percent_precision, users_ram_swap_data_precision, users_ram_swap_data_unit
     global users_treeview_columns_shown, users_data_row_sorting_column, users_data_row_sorting_order, users_data_column_order, users_data_column_widths
-
-    global storage_disk_usage_data_precision, storage_disk_usage_data_unit
-    global storage_treeview_columns_shown, storage_data_row_sorting_column, storage_data_row_sorting_order, storage_data_column_order, storage_data_column_widths
 
     global startup_treeview_columns_shown, startup_data_row_sorting_column, startup_data_row_sorting_order, startup_data_column_order, startup_data_column_widths
 
@@ -513,28 +487,6 @@ def config_get_values_func():
             users_data_column_widths = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
             continue
 
-        if line.startswith("storage_disk_usage_data_precision = ") == True:
-            storage_disk_usage_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("storage_disk_usage_data_unit = ") == True:
-            storage_disk_usage_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("storage_treeview_columns_shown = ") == True:
-            storage_treeview_columns_shown = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("storage_data_row_sorting_column = ") == True:
-            storage_data_row_sorting_column = int(line.split(" = ")[1])
-            continue
-        if line.startswith("storage_data_row_sorting_order = ") == True:
-            storage_data_row_sorting_order = int(line.split(" = ")[1])
-            continue
-        if line.startswith("storage_data_column_order = ") == True:
-            storage_data_column_order = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("storage_data_column_widths = ") == True:
-            storage_data_column_widths = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-
         if line.startswith("startup_treeview_columns_shown = ") == True:
             startup_treeview_columns_shown = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
             continue
@@ -673,16 +625,6 @@ def config_save_func():
         writer.write("users_data_row_sorting_order = " + str(users_data_row_sorting_order) + "\n")
         writer.write("users_data_column_order = " + str(users_data_column_order) + "\n")
         writer.write("users_data_column_widths = " + str(users_data_column_widths) + "\n")
-        writer.write("\n")
-
-        writer.write("[Storage Tab]" + "\n")
-        writer.write("storage_disk_usage_data_precision = " + str(storage_disk_usage_data_precision) + "\n")
-        writer.write("storage_disk_usage_data_unit = " + str(storage_disk_usage_data_unit) + "\n")
-        writer.write("storage_treeview_columns_shown = " + str(storage_treeview_columns_shown) + "\n")
-        writer.write("storage_data_row_sorting_column = " + str(storage_data_row_sorting_column) + "\n")
-        writer.write("storage_data_row_sorting_order = " + str(storage_data_row_sorting_order) + "\n")
-        writer.write("storage_data_column_order = " + str(storage_data_column_order) + "\n")
-        writer.write("storage_data_column_widths = " + str(storage_data_column_widths) + "\n")
         writer.write("\n")
 
         writer.write("[Startup Tab]" + "\n")

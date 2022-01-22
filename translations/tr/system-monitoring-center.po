@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-22 13:07+0300\n"
-"PO-Revision-Date: 2022-01-22 13:07+0300\n"
+"POT-Creation-Date: 2022-01-22 17:19+0300\n"
+"PO-Revision-Date: 2022-01-22 17:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -30,55 +30,46 @@ msgstr "MİB Kullanımı (Çekirdek Başına):"
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-#: src/Disk.py:230 src/Disk.py:298 src/Disk.py:299 src/Disk.py:300
-#: src/Disk.py:301 src/Storage.py:280 src/Storage.py:351 src/Storage.py:360
-#: src/Storage.py:371 src/Storage.py:701 src/Storage.py:708
-#: src/StorageDetails.py:215 src/StorageDetails.py:275
-#: src/StorageDetails.py:287 src/StorageDetails.py:301
-#: src/StorageDetails.py:457 src/StorageDetails.py:458
-#: src/StorageDetails.py:459 src/StorageMenuRightClick.py:47
-#: src/StorageMenuRightClick.py:49 src/StorageMenuRightClick.py:55
-#: src/StorageMenuRightClick.py:58 src/StorageMenuRightClick.py:67
-#: src/StorageMenuRightClick.py:70 src/StorageMenuRightClick.py:83
-#: src/StorageMenuRightClick.py:89 src/StorageMenuRightClick.py:167
+#: src/Disk.py:242 src/Disk.py:309 src/Disk.py:310 src/Disk.py:311
+#: src/Disk.py:312 src/DiskDetails.py:198 src/DiskDetails.py:257
+#: src/DiskDetails.py:268 src/DiskDetails.py:281 src/DiskDetails.py:432
+#: src/DiskDetails.py:433 src/DiskDetails.py:434
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
-#: src/Disk.py:238 src/Disk.py:430 src/Storage.py:342 src/StorageDetails.py:264
+#: src/Disk.py:250 src/Disk.py:441 src/DiskDetails.py:247
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
-#: src/Disk.py:247 src/Gpu.py:236 src/Network.py:251 src/Network.py:273
-#: src/Services.py:146 src/ServicesDetails.py:148 src/Storage.py:464
-#: src/Storage.py:475 src/Storage.py:486 src/StorageDetails.py:228
-#: src/StorageDetails.py:243 src/StorageDetails.py:389
-#: src/StorageDetails.py:403 src/StorageDetails.py:417 src/UsersDetails.py:244
+#: src/Disk.py:259 src/DiskDetails.py:211 src/DiskDetails.py:226
+#: src/DiskDetails.py:366 src/DiskDetails.py:379 src/DiskDetails.py:392
+#: src/Gpu.py:236 src/Network.py:251 src/Network.py:273 src/Services.py:146
+#: src/ServicesDetails.py:148 src/UsersDetails.py:244
 msgid "Yes"
 msgstr "Evet"
 
-#: src/Disk.py:249 src/Gpu.py:238 src/Gpu.py:323 src/Network.py:253
-#: src/Services.py:146 src/ServicesDetails.py:148 src/Storage.py:466
-#: src/Storage.py:477 src/Storage.py:488 src/StorageDetails.py:221
-#: src/StorageDetails.py:391 src/StorageDetails.py:405
-#: src/StorageDetails.py:419 src/UsersDetails.py:246
+#: src/Disk.py:261 src/DiskDetails.py:204 src/DiskDetails.py:368
+#: src/DiskDetails.py:381 src/DiskDetails.py:394 src/Gpu.py:238 src/Gpu.py:323
+#: src/Network.py:253 src/Services.py:146 src/ServicesDetails.py:148
+#: src/UsersDetails.py:246
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:378 src/Disk.py:385 src/RamSwapDetails.py:63 src/Storage.py:269
-#: src/Storage.py:274 src/StorageDetails.py:200 src/StorageDetails.py:210
-#: src/StorageMenuRightClick.py:182
+#: src/Disk.py:389 src/Disk.py:396 src/DiskDetails.py:183
+#: src/DiskDetails.py:193 src/RamSwapDetails.py:63
 msgid "Partition"
 msgstr "Disk bölümü"
 
-#: src/Disk.py:383 src/SettingsGUI.py:309 src/Storage.py:260 src/Storage.py:386
-#: src/Storage.py:430 src/Storage.py:440 src/Storage.py:451 src/Storage.py:460
-#: src/Storage.py:471 src/Storage.py:482 src/StorageDetails.py:191
-#: src/StorageDetails.py:318 src/StorageDetails.py:356
-#: src/StorageDetails.py:364 src/StorageDetails.py:373
-#: src/StorageDetails.py:380 src/StorageDetails.py:394
-#: src/StorageDetails.py:408 ui/DiskTab.ui:22 ui/MainWindow.ui:262
+#: src/Disk.py:394 src/DiskDetails.py:174 src/DiskDetails.py:297
+#: src/DiskDetails.py:334 src/DiskDetails.py:342 src/DiskDetails.py:351
+#: src/DiskDetails.py:358 src/DiskDetails.py:371 src/DiskDetails.py:384
+#: src/SettingsGUI.py:309 ui/DiskTab.ui:22 ui/MainWindow.ui:262
 msgid "Disk"
 msgstr "Disk"
+
+#: src/DiskDetails.py:188
+msgid "Disk Details"
+msgstr "Disk Detayları"
 
 #: src/FloatingSummary.py:116
 msgid "CPU: "
@@ -112,7 +103,7 @@ msgstr "Ağ İ: "
 msgid "Network W: "
 msgstr "Ağ Y: "
 
-#: src/MainGUI.py:131
+#: src/MainGUI.py:130
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -217,9 +208,9 @@ msgstr "UID"
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:171 src/Storage.py:159 ui/ProcessesDetailsWindow.ui:1762
-#: ui/ProcessesMenuCustomizations.ui:505 ui/ServicesDetailsWindow.ui:69
-#: ui/StorageDetailsWindow.ui:418 ui/StorageMenuCustomizations.ui:374
+#: src/Processes.py:171 ui/DiskDetailsWindow.ui:418
+#: ui/ProcessesDetailsWindow.ui:1762 ui/ProcessesMenuCustomizations.ui:505
+#: ui/ServicesDetailsWindow.ui:69
 msgid "Path"
 msgstr "Yol"
 
@@ -308,8 +299,8 @@ msgid "Capacity"
 msgstr "Kapasite"
 
 #: src/RamHardwareInformation.py:125 src/RamHardwareInformation.py:144
-#: src/RamSwapDetails.py:90 src/Storage.py:148 ui/ServicesDetailsWindow.ui:245
-#: ui/StorageDetailsWindow.ui:77 ui/StorageMenuCustomizations.ui:262
+#: src/RamSwapDetails.py:90 ui/DiskDetailsWindow.ui:77
+#: ui/ServicesDetailsWindow.ui:245
 msgid "Type"
 msgstr "Tür"
 
@@ -466,38 +457,33 @@ msgstr "Çıkmış"
 msgid "Total: AAAA services (BBBB loaded, CCCC non-loaded)"
 msgstr "Toplam: AAAA servis (BBBB yüklenmiş, CCCC yüklenmemiş)"
 
-#: src/ServicesMenuRightClick.py:149 src/StorageMenuRightClick.py:222
-#: src/StorageRename.py:145
+#: src/ServicesMenuRightClick.py:149
 msgid "Information"
 msgstr "Bilgi"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:565
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:552
 msgid "Performance"
 msgstr "Performans"
 
-#: src/SettingsGUI.py:292 src/Users.py:119 ui/MainWindow.ui:614
+#: src/SettingsGUI.py:292 src/Users.py:119 ui/MainWindow.ui:601
 #: ui/ProcessesTab.ui:228 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:290
 msgid "Processes"
 msgstr "İşlemler"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:663 ui/UsersTab.ui:56
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:650 ui/UsersTab.ui:56
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:712 ui/StorageTab.ui:44
-msgid "Storage"
-msgstr "Depolama"
-
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:761 ui/StartupTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:699 ui/StartupTab.ui:44
 msgid "Startup"
 msgstr "Başlangıç"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:810 ui/ServicesTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:748 ui/ServicesTab.ui:44
 msgid "Services"
 msgstr "Servisler"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:859 ui/SystemTab.ui:67
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:797 ui/SystemTab.ui:67
 msgid "System"
 msgstr "Sistem"
 
@@ -525,7 +511,7 @@ msgstr "GPU"
 msgid "Sensors"
 msgstr "Algılayıcı"
 
-#: src/SettingsGUI.py:565
+#: src/SettingsGUI.py:559
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Tüm ayarları varsayılanlara sıfırlamak istiyor musunuz?"
 
@@ -600,139 +586,6 @@ msgstr "Aynı isimde zaten bir '.desktop' dosyası var."
 #: src/StartupNewItem.py:181
 msgid "'.desktop' File Name"
 msgstr "'.desktop' Dosyası Adı"
-
-#: src/Storage.py:145 ui/StorageDetailsWindow.ui:38
-#: ui/StorageMenuCustomizations.ui:218
-msgid "Disk Name"
-msgstr "Disk Adı"
-
-#: src/Storage.py:146 ui/StorageDetailsWindow.ui:51
-#: ui/StorageMenuCustomizations.ui:234
-msgid "Parent Name"
-msgstr "Ebeveyn Adı"
-
-#: src/Storage.py:147 ui/StorageDetailsWindow.ui:64
-#: ui/StorageMenuCustomizations.ui:248
-msgid "System Disk"
-msgstr "Sistem Diski"
-
-#: src/Storage.py:149 ui/StorageDetailsWindow.ui:90
-#: ui/StorageMenuCustomizations.ui:276
-msgid "Transport Type"
-msgstr "Aktarma Türü"
-
-#: src/Storage.py:150 ui/StorageDetailsWindow.ui:103
-#: ui/StorageMenuCustomizations.ui:290
-msgid "File System"
-msgstr "Dosya Sistemi"
-
-#: src/Storage.py:151 ui/StorageDetailsWindow.ui:116
-#: ui/StorageMenuCustomizations.ui:304
-msgid "Total Size"
-msgstr "Toplam Boyut"
-
-#: src/Storage.py:152 ui/StorageDetailsWindow.ui:129
-#: ui/StorageMenuCustomizations.ui:360
-msgid "Free Space"
-msgstr "Boş Alan"
-
-#: src/Storage.py:153 ui/StorageDetailsWindow.ui:142
-#: ui/StorageMenuCustomizations.ui:444
-msgid "Used Space"
-msgstr "Kullanılan Alan"
-
-#: src/Storage.py:154 ui/StorageDetailsWindow.ui:155
-#: ui/StorageMenuCustomizations.ui:430
-msgid "Used Space%"
-msgstr "Kullanılan %Alan"
-
-#: src/Storage.py:155 ui/CpuTab.ui:463 ui/DiskTab.ui:79 ui/GpuTab.ui:401
-#: ui/NetworkTab.ui:462 ui/StorageDetailsWindow.ui:168
-#: ui/StorageMenuCustomizations.ui:458
-msgid "Vendor-Model"
-msgstr "Marka-Model"
-
-#: src/Storage.py:156 ui/StorageMenuCustomizations.ui:472
-msgid "Label"
-msgstr "Etiket"
-
-#: src/Storage.py:157 ui/StorageDetailsWindow.ui:194
-#: ui/StorageMenuCustomizations.ui:402
-msgid "Partition Label"
-msgstr "Disk Bölümü Etiketi"
-
-#: src/Storage.py:158 ui/StorageDetailsWindow.ui:405
-#: ui/StorageMenuCustomizations.ui:416
-msgid "Mount Point"
-msgstr "Bağlantı Noktası"
-
-#: src/Storage.py:160 ui/StorageDetailsWindow.ui:462
-#: ui/StorageMenuCustomizations.ui:388
-msgid "Revision"
-msgstr "Revizyon"
-
-#: src/Storage.py:161 ui/StorageDetailsWindow.ui:475
-#: ui/StorageMenuCustomizations.ui:318
-msgid "Serial Number"
-msgstr "Seri Numarası"
-
-#: src/Storage.py:162 ui/StorageDetailsWindow.ui:501
-#: ui/StorageMenuCustomizations.ui:332
-msgid "Mode"
-msgstr "Mod"
-
-#: src/Storage.py:163 ui/StorageDetailsWindow.ui:488
-#: ui/StorageMenuCustomizations.ui:346
-msgid "Removable"
-msgstr "Çıkarılabilir"
-
-#: src/Storage.py:164 ui/StorageDetailsWindow.ui:514
-#: ui/StorageMenuCustomizations.ui:486
-msgid "Rotational"
-msgstr "Dönen"
-
-#: src/Storage.py:165 ui/StorageDetailsWindow.ui:540
-msgid "Read-Only"
-msgstr "Sadece Okuma"
-
-#: src/Storage.py:166 ui/StorageDetailsWindow.ui:527
-#: ui/StorageMenuCustomizations.ui:514
-msgid "UUID"
-msgstr "UUID"
-
-#: src/Storage.py:167 ui/StorageDetailsWindow.ui:566
-#: ui/StorageMenuCustomizations.ui:542
-msgid "WWN"
-msgstr "WWN"
-
-#: src/Storage.py:168 ui/StorageDetailsWindow.ui:553
-#: ui/StorageMenuCustomizations.ui:528
-msgid "Major:Minor Device #"
-msgstr "Majör:Minör Cihaz #"
-
-#: src/Storage.py:690
-msgid "Total: AAAA disks/partitions (BBBB disks, CCCC partitions)"
-msgstr "Toplam: AAAA disk/disk bölümü (BBBB disk, CCCC disk bölümü)"
-
-#: src/StorageDetails.py:205 ui/StorageDetailsWindow.ui:8
-msgid "Storage Details"
-msgstr "Depolama Detayları"
-
-#: src/StorageMenuRightClick.py:56
-msgid "Disk is already mounted."
-msgstr "Disk zaten bağlı."
-
-#: src/StorageMenuRightClick.py:68
-msgid "Disk is already unmounted."
-msgstr "Disk zaten bağlı değil."
-
-#: src/StorageRename.py:111
-msgid "Renaming disks with this file system is not supported."
-msgstr "Bu dosya sistemine sahip diskleri yeniden adlandırma desteklenmiyor."
-
-#: src/StorageRename.py:124
-msgid "Disk is not mounted and file system could not be renamed."
-msgstr "Disk bağlı değil ve dosya sistemi yeniden adlandırılamadı."
 
 #: src/Users.py:114 src/UsersMenuRightClick.py:75
 #: ui/ProcessesDetailsWindow.ui:81 ui/UsersDetailsWindow.ui:39
@@ -884,7 +737,6 @@ msgstr ""
 #: ui/ProcessesTab.ui:244 ui/RamMenus.ui:20 ui/RamTab.ui:427
 #: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:60
 #: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:60
-#: ui/StorageMenuCustomizations.ui:20 ui/StorageTab.ui:60
 #: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:72
 msgid "Current Tab Customizations"
 msgstr "Geçerli Sekme Özelleştirmeleri"
@@ -913,8 +765,7 @@ msgstr "Not: Aynı arkaplan rengi tüm grafikler için kullanılır."
 
 #: ui/CpuMenus.ui:160 ui/DiskMenus.ui:64 ui/NetworkMenus.ui:64
 #: ui/ProcessesMenuCustomizations.ui:673 ui/RamMenus.ui:64
-#: ui/ServicesMenuCustomizations.ui:428 ui/StorageMenuCustomizations.ui:652
-#: ui/UsersMenuCustomizations.ui:512
+#: ui/ServicesMenuCustomizations.ui:428 ui/UsersMenuCustomizations.ui:512
 msgid "Precision:"
 msgstr "Hassasiyet:"
 
@@ -932,7 +783,7 @@ msgstr "Önplan"
 #: ui/NetworkMenus.ui:107 ui/ProcessesMenuCustomizations.ui:998
 #: ui/RamMenus.ui:129 ui/ServicesMenuCustomizations.ui:599
 #: ui/SettingsWindow.ui:565 ui/StartupMenuCustomizations.ui:355
-#: ui/StorageMenuCustomizations.ui:823 ui/UsersMenuCustomizations.ui:725
+#: ui/UsersMenuCustomizations.ui:725
 msgid "Reset All"
 msgstr "Hepsini Sıfırla"
 
@@ -940,54 +791,53 @@ msgstr "Hepsini Sıfırla"
 msgid "Select CPU Core:"
 msgstr "MİB Çekirdeği Seç:"
 
-#: ui/CpuMenus.ui:389 ui/ProcessesDetailsWindow.ui:463
-#: ui/ProcessesDetailsWindow.ui:476 ui/ProcessesDetailsWindow.ui:489
-#: ui/ProcessesDetailsWindow.ui:502 ui/ProcessesDetailsWindow.ui:515
-#: ui/ProcessesDetailsWindow.ui:528 ui/ProcessesDetailsWindow.ui:541
-#: ui/ProcessesDetailsWindow.ui:554 ui/ProcessesDetailsWindow.ui:567
-#: ui/ProcessesDetailsWindow.ui:580 ui/ProcessesDetailsWindow.ui:593
-#: ui/ProcessesDetailsWindow.ui:606 ui/ProcessesDetailsWindow.ui:619
-#: ui/ProcessesDetailsWindow.ui:632 ui/ProcessesDetailsWindow.ui:645
-#: ui/ProcessesDetailsWindow.ui:681 ui/ProcessesDetailsWindow.ui:1122
-#: ui/ProcessesDetailsWindow.ui:1135 ui/ProcessesDetailsWindow.ui:1148
-#: ui/ProcessesDetailsWindow.ui:1161 ui/ProcessesDetailsWindow.ui:1174
-#: ui/ProcessesDetailsWindow.ui:1187 ui/ProcessesDetailsWindow.ui:1200
-#: ui/ProcessesDetailsWindow.ui:1213 ui/ProcessesDetailsWindow.ui:1226
-#: ui/ProcessesDetailsWindow.ui:1239 ui/ProcessesDetailsWindow.ui:1252
-#: ui/ProcessesDetailsWindow.ui:1265 ui/ProcessesDetailsWindow.ui:1626
-#: ui/ProcessesDetailsWindow.ui:1639 ui/ProcessesDetailsWindow.ui:1652
-#: ui/ProcessesDetailsWindow.ui:1665 ui/ProcessesDetailsWindow.ui:1678
-#: ui/ProcessesDetailsWindow.ui:1691 ui/ProcessesDetailsWindow.ui:1704
-#: ui/ProcessesDetailsWindow.ui:1717 ui/ProcessesDetailsWindow.ui:1730
-#: ui/ProcessesDetailsWindow.ui:1743 ui/ProcessesDetailsWindow.ui:1779
-#: ui/ProcessesMenuCustomizations.ui:74 ui/ProcessesMenuCustomizations.ui:341
-#: ui/ProcessesMenuCustomizations.ui:735 ui/ServicesDetailsWindow.ui:529
-#: ui/ServicesDetailsWindow.ui:542 ui/ServicesDetailsWindow.ui:555
-#: ui/ServicesDetailsWindow.ui:568 ui/ServicesDetailsWindow.ui:581
-#: ui/ServicesDetailsWindow.ui:594 ui/ServicesDetailsWindow.ui:607
-#: ui/ServicesDetailsWindow.ui:620 ui/ServicesDetailsWindow.ui:633
-#: ui/ServicesDetailsWindow.ui:646 ui/ServicesDetailsWindow.ui:659
-#: ui/ServicesDetailsWindow.ui:672 ui/ServicesDetailsWindow.ui:685
-#: ui/ServicesDetailsWindow.ui:698 ui/ServicesDetailsWindow.ui:711
-#: ui/ServicesDetailsWindow.ui:724 ui/ServicesDetailsWindow.ui:737
-#: ui/ServicesDetailsWindow.ui:750 ui/ServicesDetailsWindow.ui:904
-#: ui/ServicesDetailsWindow.ui:917 ui/ServicesDetailsWindow.ui:930
-#: ui/ServicesDetailsWindow.ui:943 ui/ServicesMenuCustomizations.ui:369
-#: ui/StartupMenuCustomizations.ui:302 ui/StartupNewItemWindow.ui:322
-#: ui/StartupNewItemWindow.ui:334 ui/StartupNewItemWindow.ui:346
-#: ui/StartupNewItemWindow.ui:358 ui/StorageDetailsWindow.ui:716
-#: ui/StorageDetailsWindow.ui:729 ui/StorageDetailsWindow.ui:742
-#: ui/StorageDetailsWindow.ui:755 ui/StorageDetailsWindow.ui:768
-#: ui/StorageDetailsWindow.ui:781 ui/StorageDetailsWindow.ui:794
-#: ui/StorageDetailsWindow.ui:807 ui/StorageDetailsWindow.ui:820
-#: ui/StorageDetailsWindow.ui:833 ui/StorageDetailsWindow.ui:846
-#: ui/StorageDetailsWindow.ui:859 ui/StorageDetailsWindow.ui:872
-#: ui/StorageDetailsWindow.ui:885 ui/StorageDetailsWindow.ui:898
-#: ui/StorageDetailsWindow.ui:911 ui/StorageDetailsWindow.ui:924
-#: ui/StorageDetailsWindow.ui:937 ui/StorageDetailsWindow.ui:950
-#: ui/StorageDetailsWindow.ui:963 ui/StorageDetailsWindow.ui:976
-#: ui/StorageDetailsWindow.ui:989 ui/StorageDetailsWindow.ui:1002
-#: ui/StorageDetailsWindow.ui:1015 ui/StorageMenuCustomizations.ui:593
+#: ui/CpuMenus.ui:389 ui/DiskDetailsWindow.ui:716 ui/DiskDetailsWindow.ui:729
+#: ui/DiskDetailsWindow.ui:742 ui/DiskDetailsWindow.ui:755
+#: ui/DiskDetailsWindow.ui:768 ui/DiskDetailsWindow.ui:781
+#: ui/DiskDetailsWindow.ui:794 ui/DiskDetailsWindow.ui:807
+#: ui/DiskDetailsWindow.ui:820 ui/DiskDetailsWindow.ui:833
+#: ui/DiskDetailsWindow.ui:846 ui/DiskDetailsWindow.ui:859
+#: ui/DiskDetailsWindow.ui:872 ui/DiskDetailsWindow.ui:885
+#: ui/DiskDetailsWindow.ui:898 ui/DiskDetailsWindow.ui:911
+#: ui/DiskDetailsWindow.ui:924 ui/DiskDetailsWindow.ui:937
+#: ui/DiskDetailsWindow.ui:950 ui/DiskDetailsWindow.ui:963
+#: ui/DiskDetailsWindow.ui:976 ui/DiskDetailsWindow.ui:989
+#: ui/DiskDetailsWindow.ui:1002 ui/DiskDetailsWindow.ui:1015
+#: ui/ProcessesDetailsWindow.ui:463 ui/ProcessesDetailsWindow.ui:476
+#: ui/ProcessesDetailsWindow.ui:489 ui/ProcessesDetailsWindow.ui:502
+#: ui/ProcessesDetailsWindow.ui:515 ui/ProcessesDetailsWindow.ui:528
+#: ui/ProcessesDetailsWindow.ui:541 ui/ProcessesDetailsWindow.ui:554
+#: ui/ProcessesDetailsWindow.ui:567 ui/ProcessesDetailsWindow.ui:580
+#: ui/ProcessesDetailsWindow.ui:593 ui/ProcessesDetailsWindow.ui:606
+#: ui/ProcessesDetailsWindow.ui:619 ui/ProcessesDetailsWindow.ui:632
+#: ui/ProcessesDetailsWindow.ui:645 ui/ProcessesDetailsWindow.ui:681
+#: ui/ProcessesDetailsWindow.ui:1122 ui/ProcessesDetailsWindow.ui:1135
+#: ui/ProcessesDetailsWindow.ui:1148 ui/ProcessesDetailsWindow.ui:1161
+#: ui/ProcessesDetailsWindow.ui:1174 ui/ProcessesDetailsWindow.ui:1187
+#: ui/ProcessesDetailsWindow.ui:1200 ui/ProcessesDetailsWindow.ui:1213
+#: ui/ProcessesDetailsWindow.ui:1226 ui/ProcessesDetailsWindow.ui:1239
+#: ui/ProcessesDetailsWindow.ui:1252 ui/ProcessesDetailsWindow.ui:1265
+#: ui/ProcessesDetailsWindow.ui:1626 ui/ProcessesDetailsWindow.ui:1639
+#: ui/ProcessesDetailsWindow.ui:1652 ui/ProcessesDetailsWindow.ui:1665
+#: ui/ProcessesDetailsWindow.ui:1678 ui/ProcessesDetailsWindow.ui:1691
+#: ui/ProcessesDetailsWindow.ui:1704 ui/ProcessesDetailsWindow.ui:1717
+#: ui/ProcessesDetailsWindow.ui:1730 ui/ProcessesDetailsWindow.ui:1743
+#: ui/ProcessesDetailsWindow.ui:1779 ui/ProcessesMenuCustomizations.ui:74
+#: ui/ProcessesMenuCustomizations.ui:341 ui/ProcessesMenuCustomizations.ui:735
+#: ui/ServicesDetailsWindow.ui:529 ui/ServicesDetailsWindow.ui:542
+#: ui/ServicesDetailsWindow.ui:555 ui/ServicesDetailsWindow.ui:568
+#: ui/ServicesDetailsWindow.ui:581 ui/ServicesDetailsWindow.ui:594
+#: ui/ServicesDetailsWindow.ui:607 ui/ServicesDetailsWindow.ui:620
+#: ui/ServicesDetailsWindow.ui:633 ui/ServicesDetailsWindow.ui:646
+#: ui/ServicesDetailsWindow.ui:659 ui/ServicesDetailsWindow.ui:672
+#: ui/ServicesDetailsWindow.ui:685 ui/ServicesDetailsWindow.ui:698
+#: ui/ServicesDetailsWindow.ui:711 ui/ServicesDetailsWindow.ui:724
+#: ui/ServicesDetailsWindow.ui:737 ui/ServicesDetailsWindow.ui:750
+#: ui/ServicesDetailsWindow.ui:904 ui/ServicesDetailsWindow.ui:917
+#: ui/ServicesDetailsWindow.ui:930 ui/ServicesDetailsWindow.ui:943
+#: ui/ServicesMenuCustomizations.ui:369 ui/StartupMenuCustomizations.ui:302
+#: ui/StartupNewItemWindow.ui:322 ui/StartupNewItemWindow.ui:334
+#: ui/StartupNewItemWindow.ui:346 ui/StartupNewItemWindow.ui:358
 #: ui/UsersDetailsWindow.ui:435 ui/UsersDetailsWindow.ui:448
 #: ui/UsersDetailsWindow.ui:461 ui/UsersDetailsWindow.ui:474
 #: ui/UsersDetailsWindow.ui:487 ui/UsersDetailsWindow.ui:500
@@ -1010,21 +860,33 @@ msgstr "%0"
 #: ui/CpuTab.ui:101 ui/CpuTab.ui:118 ui/CpuTab.ui:135 ui/CpuTab.ui:191
 #: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:313
 #: ui/CpuTab.ui:344 ui/CpuTab.ui:387 ui/CpuTab.ui:450 ui/CpuTab.ui:465
-#: ui/DiskTab.ui:66 ui/DiskTab.ui:81 ui/DiskTab.ui:185 ui/DiskTab.ui:202
-#: ui/DiskTab.ui:219 ui/DiskTab.ui:236 ui/DiskTab.ui:253 ui/DiskTab.ui:296
-#: ui/DiskTab.ui:326 ui/DiskTab.ui:374 ui/DiskTab.ui:412 ui/DiskTab.ui:429
-#: ui/DiskTab.ui:459 ui/FloatingSummaryWindow.ui:19
-#: ui/FloatingSummaryWindow.ui:31 ui/FloatingSummaryWindow.ui:43
-#: ui/FloatingSummaryWindow.ui:55 ui/FloatingSummaryWindow.ui:67
-#: ui/FloatingSummaryWindow.ui:79 ui/FloatingSummaryWindow.ui:91
-#: ui/FloatingSummaryWindow.ui:103 ui/GpuTab.ui:81 ui/GpuTab.ui:98
-#: ui/GpuTab.ui:115 ui/GpuTab.ui:159 ui/GpuTab.ui:176 ui/GpuTab.ui:207
-#: ui/GpuTab.ui:237 ui/GpuTab.ui:254 ui/GpuTab.ui:298 ui/GpuTab.ui:315
-#: ui/GpuTab.ui:388 ui/GpuTab.ui:403 ui/GpuTab.ui:439 ui/NetworkTab.ui:132
-#: ui/NetworkTab.ui:149 ui/NetworkTab.ui:166 ui/NetworkTab.ui:183
-#: ui/NetworkTab.ui:200 ui/NetworkTab.ui:217 ui/NetworkTab.ui:234
-#: ui/NetworkTab.ui:251 ui/NetworkTab.ui:281 ui/NetworkTab.ui:313
-#: ui/NetworkTab.ui:356 ui/NetworkTab.ui:449 ui/NetworkTab.ui:464
+#: ui/DiskDetailsWindow.ui:207 ui/DiskDetailsWindow.ui:222
+#: ui/DiskDetailsWindow.ui:237 ui/DiskDetailsWindow.ui:252
+#: ui/DiskDetailsWindow.ui:267 ui/DiskDetailsWindow.ui:282
+#: ui/DiskDetailsWindow.ui:297 ui/DiskDetailsWindow.ui:312
+#: ui/DiskDetailsWindow.ui:327 ui/DiskDetailsWindow.ui:342
+#: ui/DiskDetailsWindow.ui:357 ui/DiskDetailsWindow.ui:373
+#: ui/DiskDetailsWindow.ui:389 ui/DiskDetailsWindow.ui:431
+#: ui/DiskDetailsWindow.ui:447 ui/DiskDetailsWindow.ui:579
+#: ui/DiskDetailsWindow.ui:594 ui/DiskDetailsWindow.ui:609
+#: ui/DiskDetailsWindow.ui:624 ui/DiskDetailsWindow.ui:639
+#: ui/DiskDetailsWindow.ui:654 ui/DiskDetailsWindow.ui:669
+#: ui/DiskDetailsWindow.ui:684 ui/DiskDetailsWindow.ui:700 ui/DiskTab.ui:66
+#: ui/DiskTab.ui:81 ui/DiskTab.ui:185 ui/DiskTab.ui:202 ui/DiskTab.ui:219
+#: ui/DiskTab.ui:236 ui/DiskTab.ui:279 ui/DiskTab.ui:309 ui/DiskTab.ui:357
+#: ui/DiskTab.ui:395 ui/DiskTab.ui:436 ui/DiskTab.ui:466
+#: ui/FloatingSummaryWindow.ui:19 ui/FloatingSummaryWindow.ui:31
+#: ui/FloatingSummaryWindow.ui:43 ui/FloatingSummaryWindow.ui:55
+#: ui/FloatingSummaryWindow.ui:67 ui/FloatingSummaryWindow.ui:79
+#: ui/FloatingSummaryWindow.ui:91 ui/FloatingSummaryWindow.ui:103
+#: ui/GpuTab.ui:81 ui/GpuTab.ui:98 ui/GpuTab.ui:115 ui/GpuTab.ui:159
+#: ui/GpuTab.ui:176 ui/GpuTab.ui:207 ui/GpuTab.ui:237 ui/GpuTab.ui:254
+#: ui/GpuTab.ui:298 ui/GpuTab.ui:315 ui/GpuTab.ui:388 ui/GpuTab.ui:403
+#: ui/GpuTab.ui:439 ui/NetworkTab.ui:132 ui/NetworkTab.ui:149
+#: ui/NetworkTab.ui:166 ui/NetworkTab.ui:183 ui/NetworkTab.ui:200
+#: ui/NetworkTab.ui:217 ui/NetworkTab.ui:234 ui/NetworkTab.ui:251
+#: ui/NetworkTab.ui:281 ui/NetworkTab.ui:313 ui/NetworkTab.ui:356
+#: ui/NetworkTab.ui:449 ui/NetworkTab.ui:464
 #: ui/PerformanceSummaryHeaderBarGrid.ui:85
 #: ui/PerformanceSummaryHeaderBarGrid.ui:100
 #: ui/ProcessesCustomPriorityWindow.ui:45 ui/ProcessesDetailsWindow.ui:212
@@ -1062,33 +924,21 @@ msgstr "%0"
 #: ui/ServicesDetailsWindow.ui:514 ui/ServicesDetailsWindow.ui:847
 #: ui/ServicesDetailsWindow.ui:861 ui/ServicesDetailsWindow.ui:875
 #: ui/ServicesDetailsWindow.ui:889 ui/ServicesTab.ui:83 ui/StartupTab.ui:83
-#: ui/StorageDetailsWindow.ui:207 ui/StorageDetailsWindow.ui:222
-#: ui/StorageDetailsWindow.ui:237 ui/StorageDetailsWindow.ui:252
-#: ui/StorageDetailsWindow.ui:267 ui/StorageDetailsWindow.ui:282
-#: ui/StorageDetailsWindow.ui:297 ui/StorageDetailsWindow.ui:312
-#: ui/StorageDetailsWindow.ui:327 ui/StorageDetailsWindow.ui:342
-#: ui/StorageDetailsWindow.ui:357 ui/StorageDetailsWindow.ui:373
-#: ui/StorageDetailsWindow.ui:389 ui/StorageDetailsWindow.ui:431
-#: ui/StorageDetailsWindow.ui:447 ui/StorageDetailsWindow.ui:579
-#: ui/StorageDetailsWindow.ui:594 ui/StorageDetailsWindow.ui:609
-#: ui/StorageDetailsWindow.ui:624 ui/StorageDetailsWindow.ui:639
-#: ui/StorageDetailsWindow.ui:654 ui/StorageDetailsWindow.ui:669
-#: ui/StorageDetailsWindow.ui:684 ui/StorageDetailsWindow.ui:700
-#: ui/StorageRenameWindow.ui:163 ui/StorageTab.ui:83 ui/SystemTab.ui:29
-#: ui/SystemTab.ui:44 ui/SystemTab.ui:177 ui/SystemTab.ui:194
-#: ui/SystemTab.ui:239 ui/SystemTab.ui:269 ui/SystemTab.ui:299
-#: ui/SystemTab.ui:333 ui/SystemTab.ui:364 ui/SystemTab.ui:381
-#: ui/SystemTab.ui:424 ui/SystemTab.ui:454 ui/SystemTab.ui:484
-#: ui/SystemTab.ui:514 ui/SystemTab.ui:605 ui/SystemTab.ui:622
-#: ui/SystemTab.ui:639 ui/SystemTab.ui:712 ui/SystemTab.ui:729
-#: ui/SystemTab.ui:759 ui/SystemTab.ui:776 ui/SystemTab.ui:793
-#: ui/UsersDetailsWindow.ui:208 ui/UsersDetailsWindow.ui:223
-#: ui/UsersDetailsWindow.ui:238 ui/UsersDetailsWindow.ui:253
-#: ui/UsersDetailsWindow.ui:268 ui/UsersDetailsWindow.ui:283
-#: ui/UsersDetailsWindow.ui:298 ui/UsersDetailsWindow.ui:313
-#: ui/UsersDetailsWindow.ui:328 ui/UsersDetailsWindow.ui:343
-#: ui/UsersDetailsWindow.ui:358 ui/UsersDetailsWindow.ui:374
-#: ui/UsersDetailsWindow.ui:390 ui/UsersDetailsWindow.ui:419 ui/UsersTab.ui:95
+#: ui/SystemTab.ui:29 ui/SystemTab.ui:44 ui/SystemTab.ui:177
+#: ui/SystemTab.ui:194 ui/SystemTab.ui:239 ui/SystemTab.ui:269
+#: ui/SystemTab.ui:299 ui/SystemTab.ui:333 ui/SystemTab.ui:364
+#: ui/SystemTab.ui:381 ui/SystemTab.ui:424 ui/SystemTab.ui:454
+#: ui/SystemTab.ui:484 ui/SystemTab.ui:514 ui/SystemTab.ui:605
+#: ui/SystemTab.ui:622 ui/SystemTab.ui:639 ui/SystemTab.ui:712
+#: ui/SystemTab.ui:729 ui/SystemTab.ui:759 ui/SystemTab.ui:776
+#: ui/SystemTab.ui:793 ui/UsersDetailsWindow.ui:208
+#: ui/UsersDetailsWindow.ui:223 ui/UsersDetailsWindow.ui:238
+#: ui/UsersDetailsWindow.ui:253 ui/UsersDetailsWindow.ui:268
+#: ui/UsersDetailsWindow.ui:283 ui/UsersDetailsWindow.ui:298
+#: ui/UsersDetailsWindow.ui:313 ui/UsersDetailsWindow.ui:328
+#: ui/UsersDetailsWindow.ui:343 ui/UsersDetailsWindow.ui:358
+#: ui/UsersDetailsWindow.ui:374 ui/UsersDetailsWindow.ui:390
+#: ui/UsersDetailsWindow.ui:419 ui/UsersTab.ui:95
 msgid "--"
 msgstr ""
 
@@ -1163,10 +1013,102 @@ msgstr ""
 "Ön Bellek (L1d-L1i),\n"
 "Ön Bellek (L2-L3)"
 
+#: ui/CpuTab.ui:463 ui/DiskDetailsWindow.ui:168 ui/DiskTab.ui:79
+#: ui/GpuTab.ui:401 ui/NetworkTab.ui:462
+msgid "Vendor-Model"
+msgstr "Marka-Model"
+
+#: ui/DiskDetailsWindow.ui:8
+msgid "Storage Details"
+msgstr "Depolama Detayları"
+
+#: ui/DiskDetailsWindow.ui:38
+msgid "Disk Name"
+msgstr "Disk Adı"
+
+#: ui/DiskDetailsWindow.ui:51
+msgid "Parent Name"
+msgstr "Ebeveyn Adı"
+
+#: ui/DiskDetailsWindow.ui:64
+msgid "System Disk"
+msgstr "Sistem Diski"
+
+#: ui/DiskDetailsWindow.ui:90
+msgid "Transport Type"
+msgstr "Aktarma Türü"
+
+#: ui/DiskDetailsWindow.ui:103
+msgid "File System"
+msgstr "Dosya Sistemi"
+
+#: ui/DiskDetailsWindow.ui:116
+msgid "Total Size"
+msgstr "Toplam Boyut"
+
+#: ui/DiskDetailsWindow.ui:129
+msgid "Free Space"
+msgstr "Boş Alan"
+
+#: ui/DiskDetailsWindow.ui:142
+msgid "Used Space"
+msgstr "Kullanılan Alan"
+
+#: ui/DiskDetailsWindow.ui:155
+msgid "Used Space%"
+msgstr "Kullanılan %Alan"
+
+#: ui/DiskDetailsWindow.ui:181
+msgid "Label (File System)"
+msgstr "Etiket (Dosya Sistemi)"
+
+#: ui/DiskDetailsWindow.ui:194
+msgid "Partition Label"
+msgstr "Disk Bölümü Etiketi"
+
+#: ui/DiskDetailsWindow.ui:405
+msgid "Mount Point"
+msgstr "Bağlantı Noktası"
+
+#: ui/DiskDetailsWindow.ui:462
+msgid "Revision"
+msgstr "Revizyon"
+
+#: ui/DiskDetailsWindow.ui:475
+msgid "Serial Number"
+msgstr "Seri Numarası"
+
+#: ui/DiskDetailsWindow.ui:488
+msgid "Removable"
+msgstr "Çıkarılabilir"
+
+#: ui/DiskDetailsWindow.ui:501
+msgid "Mode"
+msgstr "Mod"
+
+#: ui/DiskDetailsWindow.ui:514
+msgid "Rotational"
+msgstr "Dönen"
+
+#: ui/DiskDetailsWindow.ui:527
+msgid "UUID"
+msgstr "UUID"
+
+#: ui/DiskDetailsWindow.ui:540
+msgid "Read-Only"
+msgstr "Sadece Okuma"
+
+#: ui/DiskDetailsWindow.ui:553
+msgid "Major:Minor Device #"
+msgstr "Majör:Minör Cihaz #"
+
+#: ui/DiskDetailsWindow.ui:566
+msgid "WWN"
+msgstr "WWN"
+
 #: ui/DiskMenus.ui:237 ui/NetworkMenus.ui:237
 #: ui/ProcessesMenuCustomizations.ui:945 ui/RamMenus.ui:259
-#: ui/ServicesMenuCustomizations.ui:499 ui/StorageMenuCustomizations.ui:723
-#: ui/UsersMenuCustomizations.ui:625
+#: ui/ServicesMenuCustomizations.ui:499 ui/UsersMenuCustomizations.ui:625
 msgid "Data Unit:"
 msgstr "Veri Birimi:"
 
@@ -1175,9 +1117,8 @@ msgstr "Veri Birimi:"
 msgid "Disk Speed:"
 msgstr "Disk Hızı:"
 
-#: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:350
+#: ui/DiskMenus.ui:297 ui/DiskMenus.ui:342 ui/DiskTab.ui:333
 #: ui/ProcessesMenuCustomizations.ui:777 ui/ProcessesMenuCustomizations.ui:879
-#: ui/StorageMenuCustomizations.ui:688 ui/StorageMenuCustomizations.ui:748
 msgid "Disk Usage:"
 msgstr "Disk Kullanımı:"
 
@@ -1214,41 +1155,45 @@ msgid "Read Time:"
 msgstr "Okuma Süresi:"
 
 #: ui/DiskTab.ui:158
-msgid "File System:"
-msgstr "Dosya Sistemi:"
+msgid "System Disk:"
+msgstr "Sistem Diski:"
 
 #: ui/DiskTab.ui:172
 msgid "Write Time:"
 msgstr "Yazma Süresi:"
 
-#: ui/DiskTab.ui:270 ui/RamTab.ui:224
+#: ui/DiskTab.ui:253 ui/RamTab.ui:224
 msgid "Free:"
 msgstr "Boş:"
 
-#: ui/DiskTab.ui:283 ui/RamTab.ui:42 ui/RamTab.ui:103
+#: ui/DiskTab.ui:266 ui/RamTab.ui:42 ui/RamTab.ui:103
 msgid "Used:"
 msgstr "Kullanılan:"
 
-#: ui/DiskTab.ui:313
-msgid "System Disk:"
-msgstr "Sistem Diski:"
+#: ui/DiskTab.ui:296 ui/RamTab.ui:362
+msgid "Details:"
+msgstr "Detaylar:"
 
-#: ui/DiskTab.ui:348 ui/DiskTab.ui:397
+#: ui/DiskTab.ui:331 ui/DiskTab.ui:380
 msgid ""
 "Measurement is made for filesystem and may differ from mass storage values."
 msgstr ""
 "Ölçüm dosya sistemi için yapılır ve yığın depolama değerlerinden farklı "
 "olabilir."
 
-#: ui/DiskTab.ui:399 ui/RamTab.ui:163 ui/RamTab.ui:193
+#: ui/DiskTab.ui:382 ui/RamTab.ui:163 ui/RamTab.ui:193
 msgid "Capacity:"
 msgstr "Kapasite:"
 
-#: ui/DiskTab.ui:471
+#: ui/DiskTab.ui:417 ui/RamTab.ui:343 ui/RamTab.ui:380
+msgid "Query..."
+msgstr "Sorgula..."
+
+#: ui/DiskTab.ui:478
 msgid "Disk Read (-) & Write (--) Speed:"
 msgstr "Disk Okuma (-) & Yazma (--) Hızı:"
 
-#: ui/DiskTab.ui:483 ui/GpuTab.ui:451 ui/NetworkTab.ui:380
+#: ui/DiskTab.ui:490 ui/GpuTab.ui:451 ui/NetworkTab.ui:380
 msgid "0"
 msgstr ""
 
@@ -1370,11 +1315,11 @@ msgstr "Hakkında"
 msgid "Quit"
 msgstr "Çık"
 
-#: ui/MainWindow.ui:888
+#: ui/MainWindow.ui:826
 msgid "System Monitoring Center"
 msgstr "Sistem Gözlem Merkezi"
 
-#: ui/MainWindow.ui:896
+#: ui/MainWindow.ui:834
 msgid "Main Menu"
 msgstr "Ana Menü"
 
@@ -1498,12 +1443,11 @@ msgstr ""
 "Bu işlemin önceliğini değiştir:\n"
 "(Daha küçük değer daha yüksek işlem önceliği anlamına gelir)"
 
-#: ui/ProcessesCustomPriorityWindow.ui:94 ui/StorageRenameWindow.ui:80
+#: ui/ProcessesCustomPriorityWindow.ui:94
 msgid "Apply"
 msgstr "Uygula"
 
 #: ui/ProcessesCustomPriorityWindow.ui:139 ui/StartupNewItemWindow.ui:104
-#: ui/StorageRenameWindow.ui:125
 msgid "Cancel"
 msgstr "İptal"
 
@@ -1608,7 +1552,7 @@ msgstr "Disk ve Yol"
 
 #: ui/ProcessesMenuCustomizations.ui:63 ui/ProcessesMenuCustomizations.ui:294
 #: ui/ServicesMenuCustomizations.ui:194 ui/StartupMenuCustomizations.ui:194
-#: ui/StorageMenuCustomizations.ui:194 ui/UsersMenuCustomizations.ui:194
+#: ui/UsersMenuCustomizations.ui:194
 msgid "View"
 msgstr "Görünüm"
 
@@ -1625,40 +1569,35 @@ msgid "Show tree lines"
 msgstr "Ağaç çizgilerini göster"
 
 #: ui/ProcessesMenuCustomizations.ui:151 ui/ServicesMenuCustomizations.ui:63
-#: ui/StartupMenuCustomizations.ui:63 ui/StorageMenuCustomizations.ui:63
-#: ui/UsersMenuCustomizations.ui:63
+#: ui/StartupMenuCustomizations.ui:63 ui/UsersMenuCustomizations.ui:63
 msgid "Column Reordering,"
 msgstr "Sütun Sıralaması,"
 
 #: ui/ProcessesMenuCustomizations.ui:185 ui/ServicesMenuCustomizations.ui:97
-#: ui/StartupMenuCustomizations.ui:97 ui/StorageMenuCustomizations.ui:97
-#: ui/UsersMenuCustomizations.ui:97
+#: ui/StartupMenuCustomizations.ui:97 ui/UsersMenuCustomizations.ui:97
 msgid "Row Sorting,"
 msgstr "Satır Sıralaması,"
 
 #: ui/ProcessesMenuCustomizations.ui:228 ui/ServicesMenuCustomizations.ui:128
 #: ui/SettingsWindow.ui:240 ui/SettingsWindow.ui:446
-#: ui/StartupMenuCustomizations.ui:128 ui/StorageMenuCustomizations.ui:128
-#: ui/UsersMenuCustomizations.ui:128
+#: ui/StartupMenuCustomizations.ui:128 ui/UsersMenuCustomizations.ui:128
 msgid "Reset"
 msgstr "Sıfırla"
 
 #: ui/ProcessesMenuCustomizations.ui:275 ui/ServicesMenuCustomizations.ui:175
-#: ui/StartupMenuCustomizations.ui:175 ui/StorageMenuCustomizations.ui:175
-#: ui/UsersMenuCustomizations.ui:175
+#: ui/StartupMenuCustomizations.ui:175 ui/UsersMenuCustomizations.ui:175
 msgid "Column Widths:"
 msgstr "Sütun Genişlikleri:"
 
 #: ui/ProcessesMenuCustomizations.ui:319 ui/ProcessesMenuCustomizations.ui:636
 #: ui/ServicesMenuCustomizations.ui:347 ui/ServicesMenuCustomizations.ui:391
 #: ui/StartupMenuCustomizations.ui:280 ui/StartupMenuCustomizations.ui:324
-#: ui/StorageMenuCustomizations.ui:571 ui/StorageMenuCustomizations.ui:615
 #: ui/UsersMenuCustomizations.ui:431 ui/UsersMenuCustomizations.ui:475
 msgid "Add/Remove Columns"
 msgstr "Sütun Ekle/Çıkart"
 
 #: ui/ProcessesMenuCustomizations.ui:967 ui/ServicesMenuCustomizations.ui:568
-#: ui/StorageMenuCustomizations.ui:792 ui/UsersMenuCustomizations.ui:694
+#: ui/UsersMenuCustomizations.ui:694
 msgid "Precision/Data Units"
 msgstr "Hassasiyet/Veri Birimleri"
 
@@ -1715,17 +1654,17 @@ msgid "Open Location"
 msgstr "Konumunu Aç"
 
 #: ui/ProcessesMenuRightClick.ui:200 ui/ServicesMenuRightClick.ui:133
-#: ui/StorageMenuRightClick.ui:117 ui/UsersMenuRightClick.ui:35
+#: ui/UsersMenuRightClick.ui:35
 msgid "Details"
 msgstr "Detaylar"
 
 #: ui/ProcessesTab.ui:46 ui/SensorsTab.ui:37 ui/ServicesTab.ui:111
-#: ui/StartupTab.ui:111 ui/StorageTab.ui:111 ui/UsersTab.ui:123
+#: ui/StartupTab.ui:111 ui/UsersTab.ui:123
 msgid "Search..."
 msgstr "Ara..."
 
 #: ui/ProcessesTab.ui:65 ui/SensorsTab.ui:55 ui/ServicesTab.ui:151
-#: ui/StartupTab.ui:129 ui/StorageTab.ui:129 ui/UsersTab.ui:141
+#: ui/StartupTab.ui:129 ui/UsersTab.ui:141
 msgid "Show all"
 msgstr "Tümünü göster"
 
@@ -1737,15 +1676,15 @@ msgstr "Bu kullanıcının işlemlerini göster"
 msgid "Show processes from other users"
 msgstr "Diğer kullanıcıların işlemlerini göster"
 
-#: ui/ProcessesTab.ui:144 ui/StorageTab.ui:230
+#: ui/ProcessesTab.ui:144
 msgid "User defined expand"
 msgstr "Kullanıcı tanımlı genişletme"
 
-#: ui/ProcessesTab.ui:166 ui/StorageTab.ui:252
+#: ui/ProcessesTab.ui:166
 msgid "Expand all"
 msgstr "Tümünü genişlet"
 
-#: ui/ProcessesTab.ui:188 ui/StorageTab.ui:274
+#: ui/ProcessesTab.ui:188
 msgid "Collapse all"
 msgstr "Tümünü daralt"
 
@@ -1788,14 +1727,6 @@ msgstr "Takas Belleği:"
 #: ui/RamTab.ui:325
 msgid "Hardware:"
 msgstr "Donanım:"
-
-#: ui/RamTab.ui:343 ui/RamTab.ui:380
-msgid "Query..."
-msgstr "Sorgula..."
-
-#: ui/RamTab.ui:362
-msgid "Details:"
-msgstr "Detaylar:"
 
 #: ui/RamTab.ui:516
 msgid "RAM Usage:"
@@ -2069,66 +2000,6 @@ msgstr "Tüm etkinleştirilmiş (görünür) başlangıç ögelerini göster"
 msgid "Show all disabled (hidden) startup items"
 msgstr "Tüm devre dışı bırakılmış (gizli) başlangıç ögelerini göster"
 
-#: ui/StorageDetailsWindow.ui:181
-msgid "Label (File System)"
-msgstr "Etiket (Dosya Sistemi)"
-
-#: ui/StorageMenuCustomizations.ui:500
-msgid "Read-only"
-msgstr "Sadece okuma"
-
-#: ui/StorageMenuRightClick.ui:45
-msgid "Browse"
-msgstr "Göz At"
-
-#: ui/StorageMenuRightClick.ui:54
-msgid "Mount"
-msgstr "Bağla"
-
-#: ui/StorageMenuRightClick.ui:63
-msgid "Unmount"
-msgstr "Ayır"
-
-#: ui/StorageMenuRightClick.ui:72
-msgid "Remove"
-msgstr "Kaldır"
-
-#: ui/StorageMenuRightClick.ui:87
-msgid "Copy Mount Point"
-msgstr "Bağlama Noktasını Kopyala"
-
-#: ui/StorageMenuRightClick.ui:102 ui/StorageRenameWindow.ui:8
-msgid "Rename Label"
-msgstr "Etiketi Yeniden Adlandır"
-
-#: ui/StorageRenameWindow.ui:26
-msgid "Rename file system of this disk:"
-msgstr "Bu diskin dosya sistemini yeniden adlandır:"
-
-#: ui/StorageRenameWindow.ui:178
-msgid ""
-"Note: Renaming is not performed if following conditions are not meet:\n"
-"1) Only file systems of partitions (not whole disk) can be renamed.\n"
-"2) Disks (partitions) have to be unmounted for renaming many file systems."
-msgstr ""
-"Yeniden adlandırma şu şartlar karşılanmazsa gerçekleştirilmez:\n"
-"1) Sadece disk bölümlerinin (tüm diskin değil) dosya sistemleri yeniden "
-"adlandırılabilir.\n"
-"2) Çoğu dosya sisteminin yeniden adlandırılabilmesi için diskler (disk "
-"bölümleri) ayrılmış olmalıdır."
-
-#: ui/StorageTab.ui:151
-msgid "Show all non-removable disks/partitions"
-msgstr "Tüm çıkarılamayan diskleri/disk bölümlerini göster"
-
-#: ui/StorageTab.ui:173
-msgid "Show all removable disks/partitions"
-msgstr "Tüm çıkarılabilir diskleri/disk bölümlerini göster"
-
-#: ui/StorageTab.ui:195
-msgid "Show all optical and virtual disks/partitions"
-msgstr "Tüm optik ve sanal diskleri/disk bölümlerini göster"
-
 #: ui/SystemTab.ui:27
 msgid "Computer Name And Model"
 msgstr "Bilgisayar Adı ve Modeli"
@@ -2272,6 +2143,75 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Storage"
+#~ msgstr "Depolama"
+
+#~ msgid "Label"
+#~ msgstr "Etiket"
+
+#~ msgid "Total: AAAA disks/partitions (BBBB disks, CCCC partitions)"
+#~ msgstr "Toplam: AAAA disk/disk bölümü (BBBB disk, CCCC disk bölümü)"
+
+#~ msgid "Disk is already mounted."
+#~ msgstr "Disk zaten bağlı."
+
+#~ msgid "Disk is already unmounted."
+#~ msgstr "Disk zaten bağlı değil."
+
+#~ msgid "Renaming disks with this file system is not supported."
+#~ msgstr ""
+#~ "Bu dosya sistemine sahip diskleri yeniden adlandırma desteklenmiyor."
+
+#~ msgid "Disk is not mounted and file system could not be renamed."
+#~ msgstr "Disk bağlı değil ve dosya sistemi yeniden adlandırılamadı."
+
+#~ msgid "File System:"
+#~ msgstr "Dosya Sistemi:"
+
+#~ msgid "Read-only"
+#~ msgstr "Sadece okuma"
+
+#~ msgid "Browse"
+#~ msgstr "Göz At"
+
+#~ msgid "Mount"
+#~ msgstr "Bağla"
+
+#~ msgid "Unmount"
+#~ msgstr "Ayır"
+
+#~ msgid "Remove"
+#~ msgstr "Kaldır"
+
+#~ msgid "Copy Mount Point"
+#~ msgstr "Bağlama Noktasını Kopyala"
+
+#~ msgid "Rename Label"
+#~ msgstr "Etiketi Yeniden Adlandır"
+
+#~ msgid "Rename file system of this disk:"
+#~ msgstr "Bu diskin dosya sistemini yeniden adlandır:"
+
+#~ msgid ""
+#~ "Note: Renaming is not performed if following conditions are not meet:\n"
+#~ "1) Only file systems of partitions (not whole disk) can be renamed.\n"
+#~ "2) Disks (partitions) have to be unmounted for renaming many file systems."
+#~ msgstr ""
+#~ "Yeniden adlandırma şu şartlar karşılanmazsa gerçekleştirilmez:\n"
+#~ "1) Sadece disk bölümlerinin (tüm diskin değil) dosya sistemleri yeniden "
+#~ "adlandırılabilir.\n"
+#~ "2) Çoğu dosya sisteminin yeniden adlandırılabilmesi için diskler (disk "
+#~ "bölümleri) ayrılmış olmalıdır."
+
+#~ msgid "Show all non-removable disks/partitions"
+#~ msgstr "Tüm çıkarılamayan diskleri/disk bölümlerini göster"
+
+#~ msgid "Show all removable disks/partitions"
+#~ msgstr "Tüm çıkarılabilir diskleri/disk bölümlerini göster"
+
+#~ msgid "Show all optical and virtual disks/partitions"
+#~ msgstr "Tüm optik ve sanal diskleri/disk bölümlerini göster"
 
 #~ msgid "Window"
 #~ msgstr "Pencere"
