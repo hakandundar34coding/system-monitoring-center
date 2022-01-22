@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-22 17:19+0300\n"
-"PO-Revision-Date: 2022-01-22 17:19+0300\n"
+"POT-Creation-Date: 2022-01-22 19:39+0300\n"
+"PO-Revision-Date: 2022-01-22 19:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -31,43 +31,40 @@ msgid "Unknown"
 msgstr "Bilinmiyor"
 
 #: src/Disk.py:242 src/Disk.py:309 src/Disk.py:310 src/Disk.py:311
-#: src/Disk.py:312 src/DiskDetails.py:198 src/DiskDetails.py:257
-#: src/DiskDetails.py:268 src/DiskDetails.py:281 src/DiskDetails.py:432
-#: src/DiskDetails.py:433 src/DiskDetails.py:434
+#: src/Disk.py:312 src/DiskDetails.py:166 src/DiskDetails.py:225
+#: src/DiskDetails.py:236 src/DiskDetails.py:249 src/DiskDetails.py:336
+#: src/DiskDetails.py:337 src/DiskDetails.py:338
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
-#: src/Disk.py:250 src/Disk.py:441 src/DiskDetails.py:247
+#: src/Disk.py:250 src/Disk.py:441 src/DiskDetails.py:215
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
-#: src/Disk.py:259 src/DiskDetails.py:211 src/DiskDetails.py:226
-#: src/DiskDetails.py:366 src/DiskDetails.py:379 src/DiskDetails.py:392
-#: src/Gpu.py:236 src/Network.py:251 src/Network.py:273 src/Services.py:146
+#: src/Disk.py:259 src/DiskDetails.py:179 src/DiskDetails.py:194 src/Gpu.py:236
+#: src/Network.py:251 src/Network.py:273 src/Services.py:146
 #: src/ServicesDetails.py:148 src/UsersDetails.py:244
 msgid "Yes"
 msgstr "Evet"
 
-#: src/Disk.py:261 src/DiskDetails.py:204 src/DiskDetails.py:368
-#: src/DiskDetails.py:381 src/DiskDetails.py:394 src/Gpu.py:238 src/Gpu.py:323
+#: src/Disk.py:261 src/DiskDetails.py:172 src/Gpu.py:238 src/Gpu.py:323
 #: src/Network.py:253 src/Services.py:146 src/ServicesDetails.py:148
 #: src/UsersDetails.py:246
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:389 src/Disk.py:396 src/DiskDetails.py:183
-#: src/DiskDetails.py:193 src/RamSwapDetails.py:63
+#: src/Disk.py:389 src/Disk.py:396 src/DiskDetails.py:161
+#: src/RamSwapDetails.py:63
 msgid "Partition"
 msgstr "Disk bölümü"
 
-#: src/Disk.py:394 src/DiskDetails.py:174 src/DiskDetails.py:297
-#: src/DiskDetails.py:334 src/DiskDetails.py:342 src/DiskDetails.py:351
-#: src/DiskDetails.py:358 src/DiskDetails.py:371 src/DiskDetails.py:384
-#: src/SettingsGUI.py:309 ui/DiskTab.ui:22 ui/MainWindow.ui:262
+#: src/Disk.py:394 src/DiskDetails.py:265 src/DiskDetails.py:302
+#: src/DiskDetails.py:310 src/SettingsGUI.py:309 ui/DiskTab.ui:22
+#: ui/MainWindow.ui:262
 msgid "Disk"
 msgstr "Disk"
 
-#: src/DiskDetails.py:188
+#: src/DiskDetails.py:120
 msgid "Disk Details"
 msgstr "Disk Detayları"
 
@@ -103,7 +100,7 @@ msgstr "Ağ İ: "
 msgid "Network W: "
 msgstr "Ağ Y: "
 
-#: src/MainGUI.py:130
+#: src/MainGUI.py:128
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -208,7 +205,7 @@ msgstr "UID"
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:171 ui/DiskDetailsWindow.ui:418
+#: src/Processes.py:171 ui/DiskDetailsWindow.ui:419
 #: ui/ProcessesDetailsWindow.ui:1762 ui/ProcessesMenuCustomizations.ui:505
 #: ui/ServicesDetailsWindow.ui:69
 msgid "Path"
@@ -299,7 +296,7 @@ msgid "Capacity"
 msgstr "Kapasite"
 
 #: src/RamHardwareInformation.py:125 src/RamHardwareInformation.py:144
-#: src/RamSwapDetails.py:90 ui/DiskDetailsWindow.ui:77
+#: src/RamSwapDetails.py:90 ui/DiskDetailsWindow.ui:78
 #: ui/ServicesDetailsWindow.ui:245
 msgid "Type"
 msgstr "Tür"
@@ -791,18 +788,15 @@ msgstr "Hepsini Sıfırla"
 msgid "Select CPU Core:"
 msgstr "MİB Çekirdeği Seç:"
 
-#: ui/CpuMenus.ui:389 ui/DiskDetailsWindow.ui:716 ui/DiskDetailsWindow.ui:729
-#: ui/DiskDetailsWindow.ui:742 ui/DiskDetailsWindow.ui:755
-#: ui/DiskDetailsWindow.ui:768 ui/DiskDetailsWindow.ui:781
-#: ui/DiskDetailsWindow.ui:794 ui/DiskDetailsWindow.ui:807
-#: ui/DiskDetailsWindow.ui:820 ui/DiskDetailsWindow.ui:833
-#: ui/DiskDetailsWindow.ui:846 ui/DiskDetailsWindow.ui:859
-#: ui/DiskDetailsWindow.ui:872 ui/DiskDetailsWindow.ui:885
-#: ui/DiskDetailsWindow.ui:898 ui/DiskDetailsWindow.ui:911
-#: ui/DiskDetailsWindow.ui:924 ui/DiskDetailsWindow.ui:937
-#: ui/DiskDetailsWindow.ui:950 ui/DiskDetailsWindow.ui:963
-#: ui/DiskDetailsWindow.ui:976 ui/DiskDetailsWindow.ui:989
-#: ui/DiskDetailsWindow.ui:1002 ui/DiskDetailsWindow.ui:1015
+#: ui/CpuMenus.ui:389 ui/DiskDetailsWindow.ui:547 ui/DiskDetailsWindow.ui:560
+#: ui/DiskDetailsWindow.ui:573 ui/DiskDetailsWindow.ui:586
+#: ui/DiskDetailsWindow.ui:599 ui/DiskDetailsWindow.ui:612
+#: ui/DiskDetailsWindow.ui:625 ui/DiskDetailsWindow.ui:638
+#: ui/DiskDetailsWindow.ui:651 ui/DiskDetailsWindow.ui:664
+#: ui/DiskDetailsWindow.ui:677 ui/DiskDetailsWindow.ui:690
+#: ui/DiskDetailsWindow.ui:703 ui/DiskDetailsWindow.ui:716
+#: ui/DiskDetailsWindow.ui:729 ui/DiskDetailsWindow.ui:742
+#: ui/DiskDetailsWindow.ui:755 ui/DiskDetailsWindow.ui:768
 #: ui/ProcessesDetailsWindow.ui:463 ui/ProcessesDetailsWindow.ui:476
 #: ui/ProcessesDetailsWindow.ui:489 ui/ProcessesDetailsWindow.ui:502
 #: ui/ProcessesDetailsWindow.ui:515 ui/ProcessesDetailsWindow.ui:528
@@ -860,18 +854,15 @@ msgstr "%0"
 #: ui/CpuTab.ui:101 ui/CpuTab.ui:118 ui/CpuTab.ui:135 ui/CpuTab.ui:191
 #: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:313
 #: ui/CpuTab.ui:344 ui/CpuTab.ui:387 ui/CpuTab.ui:450 ui/CpuTab.ui:465
-#: ui/DiskDetailsWindow.ui:207 ui/DiskDetailsWindow.ui:222
-#: ui/DiskDetailsWindow.ui:237 ui/DiskDetailsWindow.ui:252
-#: ui/DiskDetailsWindow.ui:267 ui/DiskDetailsWindow.ui:282
-#: ui/DiskDetailsWindow.ui:297 ui/DiskDetailsWindow.ui:312
-#: ui/DiskDetailsWindow.ui:327 ui/DiskDetailsWindow.ui:342
-#: ui/DiskDetailsWindow.ui:357 ui/DiskDetailsWindow.ui:373
-#: ui/DiskDetailsWindow.ui:389 ui/DiskDetailsWindow.ui:431
-#: ui/DiskDetailsWindow.ui:447 ui/DiskDetailsWindow.ui:579
-#: ui/DiskDetailsWindow.ui:594 ui/DiskDetailsWindow.ui:609
-#: ui/DiskDetailsWindow.ui:624 ui/DiskDetailsWindow.ui:639
-#: ui/DiskDetailsWindow.ui:654 ui/DiskDetailsWindow.ui:669
-#: ui/DiskDetailsWindow.ui:684 ui/DiskDetailsWindow.ui:700 ui/DiskTab.ui:66
+#: ui/DiskDetailsWindow.ui:208 ui/DiskDetailsWindow.ui:223
+#: ui/DiskDetailsWindow.ui:238 ui/DiskDetailsWindow.ui:253
+#: ui/DiskDetailsWindow.ui:268 ui/DiskDetailsWindow.ui:283
+#: ui/DiskDetailsWindow.ui:298 ui/DiskDetailsWindow.ui:313
+#: ui/DiskDetailsWindow.ui:328 ui/DiskDetailsWindow.ui:343
+#: ui/DiskDetailsWindow.ui:358 ui/DiskDetailsWindow.ui:374
+#: ui/DiskDetailsWindow.ui:390 ui/DiskDetailsWindow.ui:432
+#: ui/DiskDetailsWindow.ui:448 ui/DiskDetailsWindow.ui:502
+#: ui/DiskDetailsWindow.ui:517 ui/DiskDetailsWindow.ui:532 ui/DiskTab.ui:66
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:185 ui/DiskTab.ui:202 ui/DiskTab.ui:219
 #: ui/DiskTab.ui:236 ui/DiskTab.ui:279 ui/DiskTab.ui:309 ui/DiskTab.ui:357
 #: ui/DiskTab.ui:395 ui/DiskTab.ui:436 ui/DiskTab.ui:466
@@ -1013,7 +1004,7 @@ msgstr ""
 "Ön Bellek (L1d-L1i),\n"
 "Ön Bellek (L2-L3)"
 
-#: ui/CpuTab.ui:463 ui/DiskDetailsWindow.ui:168 ui/DiskTab.ui:79
+#: ui/CpuTab.ui:463 ui/DiskDetailsWindow.ui:169 ui/DiskTab.ui:79
 #: ui/GpuTab.ui:401 ui/NetworkTab.ui:462
 msgid "Vendor-Model"
 msgstr "Marka-Model"
@@ -1022,89 +1013,65 @@ msgstr "Marka-Model"
 msgid "Storage Details"
 msgstr "Depolama Detayları"
 
-#: ui/DiskDetailsWindow.ui:38
+#: ui/DiskDetailsWindow.ui:39
 msgid "Disk Name"
 msgstr "Disk Adı"
 
-#: ui/DiskDetailsWindow.ui:51
+#: ui/DiskDetailsWindow.ui:52
 msgid "Parent Name"
 msgstr "Ebeveyn Adı"
 
-#: ui/DiskDetailsWindow.ui:64
+#: ui/DiskDetailsWindow.ui:65
 msgid "System Disk"
 msgstr "Sistem Diski"
 
-#: ui/DiskDetailsWindow.ui:90
+#: ui/DiskDetailsWindow.ui:91
 msgid "Transport Type"
 msgstr "Aktarma Türü"
 
-#: ui/DiskDetailsWindow.ui:103
+#: ui/DiskDetailsWindow.ui:104
 msgid "File System"
 msgstr "Dosya Sistemi"
 
-#: ui/DiskDetailsWindow.ui:116
+#: ui/DiskDetailsWindow.ui:117
 msgid "Total Size"
 msgstr "Toplam Boyut"
 
-#: ui/DiskDetailsWindow.ui:129
+#: ui/DiskDetailsWindow.ui:130
 msgid "Free Space"
 msgstr "Boş Alan"
 
-#: ui/DiskDetailsWindow.ui:142
+#: ui/DiskDetailsWindow.ui:143
 msgid "Used Space"
 msgstr "Kullanılan Alan"
 
-#: ui/DiskDetailsWindow.ui:155
+#: ui/DiskDetailsWindow.ui:156
 msgid "Used Space%"
 msgstr "Kullanılan %Alan"
 
-#: ui/DiskDetailsWindow.ui:181
+#: ui/DiskDetailsWindow.ui:182
 msgid "Label (File System)"
 msgstr "Etiket (Dosya Sistemi)"
 
-#: ui/DiskDetailsWindow.ui:194
+#: ui/DiskDetailsWindow.ui:195
 msgid "Partition Label"
 msgstr "Disk Bölümü Etiketi"
 
-#: ui/DiskDetailsWindow.ui:405
+#: ui/DiskDetailsWindow.ui:406
 msgid "Mount Point"
 msgstr "Bağlantı Noktası"
 
-#: ui/DiskDetailsWindow.ui:462
+#: ui/DiskDetailsWindow.ui:463
 msgid "Revision"
 msgstr "Revizyon"
 
-#: ui/DiskDetailsWindow.ui:475
+#: ui/DiskDetailsWindow.ui:476
 msgid "Serial Number"
 msgstr "Seri Numarası"
 
-#: ui/DiskDetailsWindow.ui:488
-msgid "Removable"
-msgstr "Çıkarılabilir"
-
-#: ui/DiskDetailsWindow.ui:501
-msgid "Mode"
-msgstr "Mod"
-
-#: ui/DiskDetailsWindow.ui:514
-msgid "Rotational"
-msgstr "Dönen"
-
-#: ui/DiskDetailsWindow.ui:527
+#: ui/DiskDetailsWindow.ui:489
 msgid "UUID"
 msgstr "UUID"
-
-#: ui/DiskDetailsWindow.ui:540
-msgid "Read-Only"
-msgstr "Sadece Okuma"
-
-#: ui/DiskDetailsWindow.ui:553
-msgid "Major:Minor Device #"
-msgstr "Majör:Minör Cihaz #"
-
-#: ui/DiskDetailsWindow.ui:566
-msgid "WWN"
-msgstr "WWN"
 
 #: ui/DiskMenus.ui:237 ui/NetworkMenus.ui:237
 #: ui/ProcessesMenuCustomizations.ui:945 ui/RamMenus.ui:259
@@ -2143,6 +2110,24 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "WWN"
+#~ msgstr "WWN"
+
+#~ msgid "Removable"
+#~ msgstr "Çıkarılabilir"
+
+#~ msgid "Mode"
+#~ msgstr "Mod"
+
+#~ msgid "Rotational"
+#~ msgstr "Dönen"
+
+#~ msgid "Read-Only"
+#~ msgstr "Sadece Okuma"
+
+#~ msgid "Major:Minor Device #"
+#~ msgstr "Majör:Minör Cihaz #"
 
 #~ msgid "Storage"
 #~ msgstr "Depolama"

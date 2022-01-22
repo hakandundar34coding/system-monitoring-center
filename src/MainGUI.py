@@ -36,7 +36,7 @@ def main_gui_func():
     global headerbar1, button1
     global grid10, stack1
     global radiobutton1, radiobutton2, radiobutton3, radiobutton5, radiobutton6, radiobutton8
-    global grid1, grid2, grid3, grid4, grid5, grid6, grid7, grid8
+    global grid1, grid2, grid3, grid5, grid6, grid8
 
     # Main GUI - Performance tab GUI objects
     global stack1001
@@ -63,10 +63,8 @@ def main_gui_func():
     grid1 = builder.get_object('grid1')
     grid2 = builder.get_object('grid2')
     grid3 = builder.get_object('grid3')
-    grid4 = builder.get_object('grid4')
     grid5 = builder.get_object('grid5')
     grid6 = builder.get_object('grid6')
-    grid7 = builder.get_object('grid7')
     grid8 = builder.get_object('grid8')
 
     # Main GUI - Performance tab GUI objects - get

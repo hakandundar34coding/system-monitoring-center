@@ -26,8 +26,7 @@ def disk_details_gui_func():
     # Disk Details window GUI objects
     global builder1301w, window1301w
     global label1301w, label1302w, label1303w, label1304w, label1305w, label1306w, label1307w, label1308w, label1309w, label1310w
-    global label1311w, label1312w, label1313w, label1314w, label1315w, label1316w, label1317w, label1318w, label1319w, label1320w
-    global label1321w, label1322w, label1323w, label1324w
+    global label1311w, label1312w, label1313w, label1314w, label1315w, label1316w, label1317w, label1322w
 
 
     # Disk Details window GUI objects - get
@@ -55,13 +54,7 @@ def disk_details_gui_func():
     label1315w = builder1301w.get_object('label1315w')
     label1316w = builder1301w.get_object('label1316w')
     label1317w = builder1301w.get_object('label1317w')
-    label1318w = builder1301w.get_object('label1318w')
-    label1319w = builder1301w.get_object('label1319w')
-    label1320w = builder1301w.get_object('label1320w')
-    label1321w = builder1301w.get_object('label1321w')
     label1322w = builder1301w.get_object('label1322w')
-    label1323w = builder1301w.get_object('label1323w')
-    label1324w = builder1301w.get_object('label1324w')
 
 
     # Disk Details window GUI functions
@@ -102,13 +95,7 @@ def disk_details_gui_reset_func():
     label1315w.set_text("--")
     label1316w.set_text("--")
     label1317w.set_text("--")
-    label1318w.set_text("--")
-    label1319w.set_text("--")
-    label1320w.set_text("--")
-    label1321w.set_text("--")
     label1322w.set_text("--")
-    label1323w.set_text("--")
-    label1324w.set_text("--")
 
 
 # ----------------------------------- Disk - Disk Details Function -----------------------------------
@@ -119,11 +106,8 @@ def disk_details_initial_func():
     global disk_sector_size
     disk_sector_size = 512                                                                    # Disk data values from "/sys/class/block/[DISK_NAME]/" are multiplied by 512 in order to find values in the form of byte. Disk sector size for all disk device could be found in "/sys/block/[disk device name such as sda]/queue/hw_sector_size". Linux uses 512 value for all disks without regarding device real block size (source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121).
 
-    global disk_image_ssd_hdd, disk_image_removable, disk_image_optical, disk_image_partition
+    global disk_image_ssd_hdd
     disk_image_ssd_hdd = "system-monitoring-center-disk-hdd-symbolic"
-    disk_image_removable = "system-monitoring-center-disk-removable-symbolic"
-    disk_image_optical = "system-monitoring-center-disk-optical-symbolic"
-    disk_image_partition = "system-monitoring-center-disk-partition-symbolic"
 
 
 # ----------------------------------- Disk - Disk Details Foreground Function -----------------------------------
@@ -131,6 +115,9 @@ def disk_details_loop_func():
 
     global disk
     disk = Disk.disk_list[Disk.selected_disk_number]                                          # Get right clicked disk name
+
+    # Set Disk Details window title
+    window1301w.set_title(_tr("Disk Details") + ": " + disk)                                  # Set window title
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global performance_disk_usage_data_precision, performance_disk_usage_data_unit
@@ -157,7 +144,6 @@ def disk_details_loop_func():
     disk_device_path_disk_list = []
     for disk_device_path in disk_device_path_list:
         disk_device_path_disk_list.append(os.path.realpath("/dev/disk/by-path/" + disk_device_path).split("/")[-1])    # "os.readlink()" does not work with "/dev/disk/[folder_name]/[file_name]" files. "os.path.realpath()" is used for getting path.
-
     # Get disk specific data
     try:
         with open("/sys/class/block/" + disk + "/uevent") as reader:
@@ -165,29 +151,11 @@ def disk_details_loop_func():
     except FileNotFoundError:
         window1301w.hide()
         return
-    # Get disk symbol
+    # Get disk type
     for line in sys_class_block_disk_uevent_lines:
         if "DEVTYPE" in line:
             disk_type = _tr(line.split("=")[1].capitalize())                                  # "_tr()" is used for using translated strings (disk/partition)
             break
-    disk_symbol = disk_image_ssd_hdd                                                          # Initial value of "disk_symbol" variable. This value will be used if disk type could not be detected. The same value is also used for non-USB and non-optical drives.
-    if disk_type == _tr("Disk"):                                                              # "_tr()" is used for using translated strings (disk/partition)
-        if disk not in disk_device_path_disk_list:                                            # This condition is used first in order to vaoid errors because of the "elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:" condition. Because some disks (such as zeam0, zram1, etc.) may not present in "/dev/disk/by-path/" path and in "disk_device_path_disk_list" list.
-            disk_symbol = disk_image_ssd_hdd
-        elif "loop" in disk or "sr" in disk:                                                  # Optical symbol is used as disk symbol if disk type is "disk (not partition)" and disk is a virtual disk or physical optical disk.
-            disk_symbol = disk_image_optical
-        elif "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:
-            disk_symbol = disk_image_removable
-        else:
-            disk_symbol = disk_image_ssd_hdd
-    if disk_type == _tr("Partition"):                                                         # Same symbol image is used for all disk partitions.
-        disk_symbol = disk_image_partition
-    disk_physical_type = disk_symbol                                                          # Get disk type
-
-    # Set Disk Details window title and window icon image
-    window1301w.set_title(_tr("Disk Details") + ": " + disk)                                  # Set window title
-    window1301w.set_icon_name(disk_symbol)                                                    # Set DiskDetails window icon
-
     # Get disk parent name
     disk_parent_name = "-"                                                                    # Initial value of "disk_parent_name" variable. This value will be used if disk has no parent disk or disk parent name could not be detected.
     if disk_type == _tr("Partition"):
@@ -346,52 +314,6 @@ def disk_details_loop_func():
                 disk_serial_number = id.split("-")[-1]
                 if "part" in disk_serial_number:
                     disk_serial_number = id.split("-")[-2]
-    # Get disk mode (rw, ro, etc.)
-    disk_mode = "-"                                                                           # Initial value of "disk_mount_point" variable. This value will be used if disk mount point could not be detected.
-    if disk_type == _tr("Disk"):
-        for line in proc_mounts_lines:
-            line_split = line.split()
-            if line_split[0].split("/")[-1] == disk:
-                disk_mode = line_split[3]
-    # Get disk removable information
-    disk_removable = "-"                                                                      # Initial value of "disk_removable" variable. This value will be used if disk removable information could not be detected (if disk is a partition).
-    if disk_type == _tr("Disk"):
-        try:
-            with open("/sys/class/block/" + disk + "/removable") as reader:
-                disk_removable_as_number = reader.read().strip()
-        except FileNotFoundError:
-            window1301w.hide()
-            return
-        if disk_removable_as_number == "1":
-            disk_removable = _tr("Yes")
-        if disk_removable_as_number == "0":
-            disk_removable = _tr("No")
-    # Get disk rotational information
-    disk_rotational = "-"                                                                     # Initial value of "disk_rotational" variable. This value will be used if disk rotational information could not be detected (if disk is a partition).
-    if disk_type == _tr("Disk"):
-        try:
-            with open("/sys/class/block/" + disk + "/queue/rotational") as reader:
-                disk_rotational_as_number = reader.read().strip()
-        except FileNotFoundError:
-            window1301w.hide()
-            return
-        if disk_rotational_as_number == "1":
-            disk_rotational = _tr("Yes")
-        if disk_rotational_as_number == "0":
-            disk_rotational = _tr("No")
-    # Get disk read-only information
-    disk_read_only = "-"                                                                      # Initial value of "disk_read_only" variable. This value will be used if disk read-only information could not be detected (if disk is a partition).
-    if disk_type == _tr("Disk"):
-        try:
-            with open("/sys/class/block/" + disk + "/ro") as reader:
-                disk_read_only_as_number = reader.read().strip()
-        except FileNotFoundError:
-            window1301w.hide()
-            return
-        if disk_read_only_as_number == "1":
-            disk_read_only = _tr("Yes")
-        if disk_read_only_as_number == "0":
-            disk_read_only = _tr("No")
     # Get disk UUID
     disk_uuid = "-"                                                                           # Initial value of "disk_uuid" variable. This value will be used if disk disk_uuid could not be detected (for example: if an optical drive has no disk).
     try:
@@ -401,24 +323,6 @@ def disk_details_loop_func():
                 disk_uuid = uuid
     except FileNotFoundError:
         pass
-    # Get disk unique storage id
-    disk_unique_disk_id = "-"                                                                 # Initial value of "disk_read_only" variable. This value will be used if disk read-only information could not be detected (if disk is a virtual disk).
-    try:
-        disk_id_list = os.listdir("/dev/disk/by-id/")
-        for id in disk_id_list:
-            if os.path.realpath("/dev/disk/by-id/" + id).split("/")[-1] == disk and id.startswith("wwn-") == True:
-                disk_unique_disk_id = id.split("wwn-")[1]
-    except FileNotFoundError:
-        pass
-    # Get disk major:minor device number
-    disk_maj_min_number = "-"                                                                 # Initial value of "disk_maj_min_number" variable. This value will be used if disk major:minor device number could not be detected.
-    for line in sys_class_block_disk_uevent_lines:
-        if "MAJOR=" in line:
-            disk_major_number = line.split("=")[1]
-        if "MINOR=" in line:
-            disk_minor_number = line.split("=")[1]
-            disk_maj_min_number = disk_major_number + ":" + disk_minor_number
-            break
 
     # Set label text by using storage/disk data
     label1301w.set_text(disk)
@@ -443,13 +347,7 @@ def disk_details_loop_func():
     label1315w.set_text(disk_path)
     label1316w.set_text(disk_revision)
     label1317w.set_text(disk_serial_number)
-    label1318w.set_text(disk_mode)
-    label1319w.set_text(disk_removable)
-    label1320w.set_text(disk_rotational)
-    label1321w.set_text(disk_read_only)
     label1322w.set_text(disk_uuid)
-    label1323w.set_text(disk_unique_disk_id)
-    label1324w.set_text(disk_maj_min_number)
 
 
 # ----------------------------------- Disk Details - Run Function -----------------------------------
