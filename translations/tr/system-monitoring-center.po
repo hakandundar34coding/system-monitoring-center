@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-22 19:39+0300\n"
-"PO-Revision-Date: 2022-01-22 19:39+0300\n"
+"POT-Creation-Date: 2022-01-22 20:14+0300\n"
+"PO-Revision-Date: 2022-01-22 20:15+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -205,7 +205,7 @@ msgstr "UID"
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:171 ui/DiskDetailsWindow.ui:419
+#: src/Processes.py:171 ui/DiskDetailsWindow.ui:406
 #: ui/ProcessesDetailsWindow.ui:1762 ui/ProcessesMenuCustomizations.ui:505
 #: ui/ServicesDetailsWindow.ui:69
 msgid "Path"
@@ -292,6 +292,7 @@ msgid "Number Of Devices"
 msgstr "Aygıt Sayısı"
 
 #: src/RamHardwareInformation.py:124 src/RamHardwareInformation.py:143
+#: ui/DiskDetailsWindow.ui:104
 msgid "Capacity"
 msgstr "Kapasite"
 
@@ -336,7 +337,7 @@ msgstr "İsim"
 msgid "Size"
 msgstr "Boyut"
 
-#: src/RamSwapDetails.py:92
+#: src/RamSwapDetails.py:92 ui/DiskDetailsWindow.ui:130
 msgid "Used"
 msgstr "Kullanılan"
 
@@ -788,15 +789,15 @@ msgstr "Hepsini Sıfırla"
 msgid "Select CPU Core:"
 msgstr "MİB Çekirdeği Seç:"
 
-#: ui/CpuMenus.ui:389 ui/DiskDetailsWindow.ui:547 ui/DiskDetailsWindow.ui:560
-#: ui/DiskDetailsWindow.ui:573 ui/DiskDetailsWindow.ui:586
-#: ui/DiskDetailsWindow.ui:599 ui/DiskDetailsWindow.ui:612
-#: ui/DiskDetailsWindow.ui:625 ui/DiskDetailsWindow.ui:638
-#: ui/DiskDetailsWindow.ui:651 ui/DiskDetailsWindow.ui:664
-#: ui/DiskDetailsWindow.ui:677 ui/DiskDetailsWindow.ui:690
-#: ui/DiskDetailsWindow.ui:703 ui/DiskDetailsWindow.ui:716
-#: ui/DiskDetailsWindow.ui:729 ui/DiskDetailsWindow.ui:742
-#: ui/DiskDetailsWindow.ui:755 ui/DiskDetailsWindow.ui:768
+#: ui/CpuMenus.ui:389 ui/DiskDetailsWindow.ui:534 ui/DiskDetailsWindow.ui:547
+#: ui/DiskDetailsWindow.ui:560 ui/DiskDetailsWindow.ui:573
+#: ui/DiskDetailsWindow.ui:586 ui/DiskDetailsWindow.ui:599
+#: ui/DiskDetailsWindow.ui:612 ui/DiskDetailsWindow.ui:625
+#: ui/DiskDetailsWindow.ui:638 ui/DiskDetailsWindow.ui:651
+#: ui/DiskDetailsWindow.ui:664 ui/DiskDetailsWindow.ui:677
+#: ui/DiskDetailsWindow.ui:690 ui/DiskDetailsWindow.ui:703
+#: ui/DiskDetailsWindow.ui:716 ui/DiskDetailsWindow.ui:729
+#: ui/DiskDetailsWindow.ui:742 ui/DiskDetailsWindow.ui:755
 #: ui/ProcessesDetailsWindow.ui:463 ui/ProcessesDetailsWindow.ui:476
 #: ui/ProcessesDetailsWindow.ui:489 ui/ProcessesDetailsWindow.ui:502
 #: ui/ProcessesDetailsWindow.ui:515 ui/ProcessesDetailsWindow.ui:528
@@ -854,15 +855,15 @@ msgstr "%0"
 #: ui/CpuTab.ui:101 ui/CpuTab.ui:118 ui/CpuTab.ui:135 ui/CpuTab.ui:191
 #: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:313
 #: ui/CpuTab.ui:344 ui/CpuTab.ui:387 ui/CpuTab.ui:450 ui/CpuTab.ui:465
-#: ui/DiskDetailsWindow.ui:208 ui/DiskDetailsWindow.ui:223
-#: ui/DiskDetailsWindow.ui:238 ui/DiskDetailsWindow.ui:253
-#: ui/DiskDetailsWindow.ui:268 ui/DiskDetailsWindow.ui:283
-#: ui/DiskDetailsWindow.ui:298 ui/DiskDetailsWindow.ui:313
-#: ui/DiskDetailsWindow.ui:328 ui/DiskDetailsWindow.ui:343
-#: ui/DiskDetailsWindow.ui:358 ui/DiskDetailsWindow.ui:374
-#: ui/DiskDetailsWindow.ui:390 ui/DiskDetailsWindow.ui:432
-#: ui/DiskDetailsWindow.ui:448 ui/DiskDetailsWindow.ui:502
-#: ui/DiskDetailsWindow.ui:517 ui/DiskDetailsWindow.ui:532 ui/DiskTab.ui:66
+#: ui/DiskDetailsWindow.ui:195 ui/DiskDetailsWindow.ui:210
+#: ui/DiskDetailsWindow.ui:225 ui/DiskDetailsWindow.ui:240
+#: ui/DiskDetailsWindow.ui:255 ui/DiskDetailsWindow.ui:270
+#: ui/DiskDetailsWindow.ui:285 ui/DiskDetailsWindow.ui:300
+#: ui/DiskDetailsWindow.ui:315 ui/DiskDetailsWindow.ui:330
+#: ui/DiskDetailsWindow.ui:345 ui/DiskDetailsWindow.ui:361
+#: ui/DiskDetailsWindow.ui:377 ui/DiskDetailsWindow.ui:419
+#: ui/DiskDetailsWindow.ui:435 ui/DiskDetailsWindow.ui:489
+#: ui/DiskDetailsWindow.ui:504 ui/DiskDetailsWindow.ui:519 ui/DiskTab.ui:66
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:185 ui/DiskTab.ui:202 ui/DiskTab.ui:219
 #: ui/DiskTab.ui:236 ui/DiskTab.ui:279 ui/DiskTab.ui:309 ui/DiskTab.ui:357
 #: ui/DiskTab.ui:395 ui/DiskTab.ui:436 ui/DiskTab.ui:466
@@ -1004,7 +1005,7 @@ msgstr ""
 "Ön Bellek (L1d-L1i),\n"
 "Ön Bellek (L2-L3)"
 
-#: ui/CpuTab.ui:463 ui/DiskDetailsWindow.ui:169 ui/DiskTab.ui:79
+#: ui/CpuTab.ui:463 ui/DiskDetailsWindow.ui:156 ui/DiskTab.ui:79
 #: ui/GpuTab.ui:401 ui/NetworkTab.ui:462
 msgid "Vendor-Model"
 msgstr "Marka-Model"
@@ -1026,52 +1027,44 @@ msgid "System Disk"
 msgstr "Sistem Diski"
 
 #: ui/DiskDetailsWindow.ui:91
-msgid "Transport Type"
-msgstr "Aktarma Türü"
-
-#: ui/DiskDetailsWindow.ui:104
 msgid "File System"
 msgstr "Dosya Sistemi"
 
 #: ui/DiskDetailsWindow.ui:117
-msgid "Total Size"
-msgstr "Toplam Boyut"
-
-#: ui/DiskDetailsWindow.ui:130
-msgid "Free Space"
-msgstr "Boş Alan"
+msgid "Free"
+msgstr "Boş"
 
 #: ui/DiskDetailsWindow.ui:143
-msgid "Used Space"
-msgstr "Kullanılan Alan"
+msgid "Used%"
+msgstr "Kullanılan%"
 
-#: ui/DiskDetailsWindow.ui:156
-msgid "Used Space%"
-msgstr "Kullanılan %Alan"
-
-#: ui/DiskDetailsWindow.ui:182
+#: ui/DiskDetailsWindow.ui:169
 msgid "Label (File System)"
 msgstr "Etiket (Dosya Sistemi)"
 
-#: ui/DiskDetailsWindow.ui:195
+#: ui/DiskDetailsWindow.ui:182
 msgid "Partition Label"
 msgstr "Disk Bölümü Etiketi"
 
-#: ui/DiskDetailsWindow.ui:406
+#: ui/DiskDetailsWindow.ui:393
 msgid "Mount Point"
 msgstr "Bağlantı Noktası"
 
-#: ui/DiskDetailsWindow.ui:463
+#: ui/DiskDetailsWindow.ui:450
 msgid "Revision"
 msgstr "Revizyon"
 
-#: ui/DiskDetailsWindow.ui:476
+#: ui/DiskDetailsWindow.ui:463
 msgid "Serial Number"
 msgstr "Seri Numarası"
 
-#: ui/DiskDetailsWindow.ui:489
+#: ui/DiskDetailsWindow.ui:476
 msgid "UUID"
 msgstr "UUID"
+
+#: ui/DiskDetailsWindow.ui:768
+msgid "Transport Type"
+msgstr "Aktarma Türü"
 
 #: ui/DiskMenus.ui:237 ui/NetworkMenus.ui:237
 #: ui/ProcessesMenuCustomizations.ui:945 ui/RamMenus.ui:259
@@ -2110,6 +2103,18 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Total Size"
+#~ msgstr "Toplam Boyut"
+
+#~ msgid "Free Space"
+#~ msgstr "Boş Alan"
+
+#~ msgid "Used Space"
+#~ msgstr "Kullanılan Alan"
+
+#~ msgid "Used Space%"
+#~ msgstr "Kullanılan %Alan"
 
 #~ msgid "WWN"
 #~ msgstr "WWN"
