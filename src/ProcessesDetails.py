@@ -156,6 +156,8 @@ def processes_details_tab_switch_control_func():
         current_page = None
     current_page = notebook2101w.get_current_page()
     if current_page != previous_page and previous_page != None:                               # Check if tab is switched
+        global update_interval                                                                # This definiton is made here because this value may be deleted if a process details window is opened after closing a previous one and this causes "NameError: name 'update_interval' is not defined" error.
+        update_interval = Config.update_interval
         process_details_loop_func()                                                           # Update the data on the tab
     previous_page = current_page
     if window2101w.get_visible() == True:
@@ -167,11 +169,10 @@ def process_details_initial_func():
 
     processes_details_define_data_unit_converter_variables_func()                             # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
-    global process_status_list, global_process_cpu_times_prev, disk_read_write_data_prev, fd_mode_dict
+    global process_status_list, global_process_cpu_times_prev, disk_read_write_data_prev
     process_status_list = Processes.process_status_list
     global_process_cpu_times_prev = []
     disk_read_write_data_prev = []
-    fd_mode_dict = {32768: "r", 32769: "w", 33793: "a", 32770: "w+", 33794: "a+"}
 
     # Get system boot time
     global system_boot_time
@@ -558,20 +559,7 @@ def process_details_loop_func():
                 try:
                     path = os.readlink("/proc/" + selected_process_pid + "/fd/" + file)
                     if os.path.isfile(path) == True:
-                        selected_process_open_files_path = path
-                        selected_process_open_files_fd = file
-                        with open("/proc/" + selected_process_pid + "/fdinfo/" + file) as reader:
-                            proc_pid_fdinfo_lines = reader.read().split("\n")
-                        for fdinfo in proc_pid_fdinfo_lines:
-                            if "pos:" in fdinfo:
-                                selected_process_open_files_position = fdinfo.split(":")[1].strip()            # File offset (for more information, see: https://man7.org/linux/man-pages/man5/proc.5.html)
-                            if "flags:" in fdinfo:
-                                selected_process_open_files_flags = int(fdinfo.split(":")[1].strip(), 8)       # Convert octal value into decimal integer. Flags is file access mode and file status mode  (for more information, see: https://man7.org/linux/man-pages/man5/proc.5.html).
-                                try:
-                                    selected_process_open_files_mode = fd_mode_dict[selected_process_open_files_flags]
-                                except KeyError:
-                                    selected_process_open_files_mode = selected_process_open_files_flags       # It gives error for Python process with "557057" file decriptor mode. No information is found for "557057" file descriptor mode integer value so far. Integer value is shown in this situation.
-                        selected_process_open_files.append(f'Path: {selected_process_open_files_path}, File Descriptor: {selected_process_open_files_fd}, Position: {selected_process_open_files_position}, Mode: {selected_process_open_files_mode}, Flags: {selected_process_open_files_flags}')
+                        selected_process_open_files.append(path)
                 except FileNotFoundError:
                     continue
         except PermissionError:
@@ -607,10 +595,10 @@ def process_details_run_func():
 
     if "update_interval" not in globals():
         GLib.idle_add(process_details_initial_func)
-    if window2101w.get_visible() is True:
-        GLib.idle_add(process_details_loop_func)
+    if window2101w.get_visible() == True:
         global update_interval
         update_interval = Config.update_interval
+        GLib.idle_add(process_details_loop_func)
         GLib.timeout_add(update_interval * 1000, process_details_run_func)
 
 
