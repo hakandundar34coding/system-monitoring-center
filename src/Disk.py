@@ -381,51 +381,36 @@ def disk_get_device_partition_model_name_mount_point_func():
                 disk_parent_name = check_disk_dir
     # Get disk vendor and model
     if disk_type == _tr("Disk"):
-        # Get disk vendor if selected disk is a disk
-        try:
-            with open("/sys/class/block/" + selected_disk_name + "/device/vendor") as reader:
-                disk_vendor = reader.read().strip()
-        except FileNotFoundError:                                                             # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + selected_disk_name + "/device" directory. They have this file under "/sys/class/block/" + selected_disk_name + "/device/device/vendor" directory.
-            try:
-                with open("/sys/class/block/" + selected_disk_name + "/device/device/vendor") as reader:
-                    disk_vendor_id = reader.read().strip().split("x")[-1]
-                if disk_vendor_id in pci_ids_output:                                          # "vendor" information may not be present in the pci.ids file.
-                    rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id, 1)[1]    # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
-                    disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-                if disk_vendor_id not in pci_ids_output:
-                    disk_vendor = f'[{_tr("Unknown")}]'
-            except:
-                disk_vendor = f'[{_tr("Unknown")}]'
-        # Get disk model if selected disk is a disk
-        try:
-            with open("/sys/class/block/" + selected_disk_name + "/device/model") as reader:
-                disk_model = reader.read().strip()
-        except:
-            disk_model = f'[{_tr("Unknown")}]'
-        disk_vendor_model = disk_vendor + " - " +  disk_model
+        disk_or_parent_disk_name = selected_disk_name
     if disk_type == _tr("Partition"):
-        # Get disk vendor if selected disk is a partition
+        disk_or_parent_disk_name = disk_parent_name
+    # Get disk vendor
+    try:
+        with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/vendor") as reader:
+            disk_vendor = reader.read().strip()
+        if disk_vendor.startswith("0x"):
+            disk_vendor = disk_vendor.split("0x")[-1]
+    except FileNotFoundError:                                                                 # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + selected_disk_name + "/device" directory. They have this file under "/sys/class/block/" + selected_disk_name + "/device/device/vendor" directory.
         try:
-            with open("/sys/class/block/" + disk_parent_name + "/device/vendor") as reader:
-                disk_vendor = reader.read().strip()
-        except FileNotFoundError:                                                             # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + disk_parent_name + "/device" directory. They have this file under "/sys/class/block/" + disk_parent_name + "/device/device/vendor" directory.
-            try:
-                with open("/sys/class/block/" + disk_parent_name + "/device/device/vendor") as reader:
-                    disk_vendor_id = reader.read().strip().split("x")[-1]
-                if disk_vendor_id in pci_ids_output:                                          # "vendor" information may not be present in the pci.ids file.
-                    rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id, 1)[1]    # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
-                    disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-                if disk_vendor_id not in pci_ids_output:
-                    disk_vendor = "-"
-            except:
-                disk_vendor = "-"
-        # Get disk model if selected disk is a partition
-        try:
-            with open("/sys/class/block/" + disk_parent_name + "/device/model") as reader:
-                disk_model = reader.read().strip()
+            with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/vendor") as reader:
+                disk_vendor_id = reader.read().strip().split("x")[-1]
+            if disk_vendor_id in pci_ids_output:                                              # "vendor" information may not be present in the pci.ids file.
+                rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id, 1)[1]       # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
+                disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+            if disk_vendor_id not in pci_ids_output:
+                disk_vendor = f'[{_tr("Unknown")}]'
         except:
-            disk_model = "-"
-        disk_vendor_model = disk_vendor + " - " +  disk_model
+            disk_vendor = f'[{_tr("Unknown")}]'
+    # Get disk model
+    try:
+        with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
+            disk_model = reader.read().strip()
+        if disk_model.startswith("0x"):
+            disk_model = disk_model.split("0x")[-1]
+    except:
+        disk_model = f'[{_tr("Unknown")}]'
+    disk_vendor_model = disk_vendor + " - " +  disk_model
+    # Get disk vendor and model if disk is loop device or swap disk.
     if "loop" in selected_disk_name:
         disk_vendor_model = "[Loop Device]"
     if "zram" in selected_disk_name:
