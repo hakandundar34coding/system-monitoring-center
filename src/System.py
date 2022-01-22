@@ -11,7 +11,10 @@ def system_import_func():
     import subprocess
     import os
     import platform
-    import pkg_resources
+    try:                                                                                      # "pkg_resources" module may not be installed on some systems. This package is installed if "setuptools" is installed.
+        import pkg_resources
+    except ModuleNotFoundError:
+        pass
 
 
     global Config, MainGUI
@@ -62,7 +65,6 @@ def system_gui_func():
     # System tab GUI functions
     def on_button8101_clicked(widget):                                                        # "Refresh" button
         system_initial_func()
-        system_loop_func()
 
 
     # System tab GUI functions - connect
@@ -338,7 +340,10 @@ def system_initial_func():
         number_of_installed_flatpak_packages = "-"
 
     # Get number of installed Python packages (including built-in packages)
-    number_of_installed_python_packages = len([d.project_name for d in pkg_resources.working_set])
+    try:                                                                                      # "pkg_resources" module may not be installed on some systems. This package is installed if "setuptools" is installed.
+        number_of_installed_python_packages = len([d.project_name for d in pkg_resources.working_set])
+    except NameError:
+        number_of_installed_python_packages = "-"
 
 
     # Set label texts to show information

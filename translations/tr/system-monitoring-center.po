@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 11:21+0300\n"
-"PO-Revision-Date: 2022-01-21 11:22+0300\n"
+"POT-Creation-Date: 2022-01-22 13:07+0300\n"
+"PO-Revision-Date: 2022-01-22 13:07+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -44,7 +44,7 @@ msgstr "Bilinmiyor"
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
-#: src/Disk.py:238 src/Disk.py:432 src/Storage.py:342 src/StorageDetails.py:264
+#: src/Disk.py:238 src/Disk.py:430 src/Storage.py:342 src/StorageDetails.py:264
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
@@ -64,7 +64,7 @@ msgstr "Evet"
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:378 src/Disk.py:406 src/RamSwapDetails.py:63 src/Storage.py:269
+#: src/Disk.py:378 src/Disk.py:385 src/RamSwapDetails.py:63 src/Storage.py:269
 #: src/Storage.py:274 src/StorageDetails.py:200 src/StorageDetails.py:210
 #: src/StorageMenuRightClick.py:182
 msgid "Partition"
@@ -76,7 +76,7 @@ msgstr "Disk bölümü"
 #: src/StorageDetails.py:318 src/StorageDetails.py:356
 #: src/StorageDetails.py:364 src/StorageDetails.py:373
 #: src/StorageDetails.py:380 src/StorageDetails.py:394
-#: src/StorageDetails.py:408 ui/DiskTab.ui:22 ui/MainWindow.ui:266
+#: src/StorageDetails.py:408 ui/DiskTab.ui:22 ui/MainWindow.ui:262
 msgid "Disk"
 msgstr "Disk"
 
@@ -132,7 +132,7 @@ msgstr "Wi-Fi"
 msgid "Process Name"
 msgstr "İşlem Adı"
 
-#: src/Processes.py:155 src/ProcessesDetails.py:244 src/ProcessesDetails.py:656
+#: src/Processes.py:155 src/ProcessesDetails.py:245 src/ProcessesDetails.py:644
 #: ui/ProcessesDetailsWindow.ui:55 ui/ProcessesMenuCustomizations.ui:379
 msgid "PID"
 msgstr "PID"
@@ -262,11 +262,11 @@ msgstr ""
 "Toplam: AAAA işlem (BBBB bu kullanıcıdan, CCCC diğer kullanıcılardan/"
 "sistemden)"
 
-#: src/ProcessesDetails.py:244 ui/ProcessesDetailsWindow.ui:8
+#: src/ProcessesDetails.py:245 ui/ProcessesDetailsWindow.ui:8
 msgid "Process Details"
 msgstr "İşlem Detayları"
 
-#: src/ProcessesDetails.py:655
+#: src/ProcessesDetails.py:643
 msgid "This process is not running anymore:"
 msgstr "Bu işlem artık çalışmıyor:"
 
@@ -471,57 +471,57 @@ msgstr "Toplam: AAAA servis (BBBB yüklenmiş, CCCC yüklenmemiş)"
 msgid "Information"
 msgstr "Bilgi"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:579
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:565
 msgid "Performance"
 msgstr "Performans"
 
-#: src/SettingsGUI.py:292 src/Users.py:119 ui/MainWindow.ui:628
+#: src/SettingsGUI.py:292 src/Users.py:119 ui/MainWindow.ui:614
 #: ui/ProcessesTab.ui:228 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:290
 msgid "Processes"
 msgstr "İşlemler"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:677 ui/UsersTab.ui:56
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:663 ui/UsersTab.ui:56
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:726 ui/StorageTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:712 ui/StorageTab.ui:44
 msgid "Storage"
 msgstr "Depolama"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:775 ui/StartupTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:761 ui/StartupTab.ui:44
 msgid "Startup"
 msgstr "Başlangıç"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:824 ui/ServicesTab.ui:44
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:810 ui/ServicesTab.ui:44
 msgid "Services"
 msgstr "Servisler"
 
-#: src/SettingsGUI.py:292 ui/MainWindow.ui:873 ui/SystemTab.ui:67
+#: src/SettingsGUI.py:292 ui/MainWindow.ui:859 ui/SystemTab.ui:67
 msgid "System"
 msgstr "Sistem"
 
-#: src/SettingsGUI.py:309 ui/CpuTab.ui:488 ui/MainWindow.ui:170
+#: src/SettingsGUI.py:309 ui/CpuTab.ui:488 ui/MainWindow.ui:166
 #: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesDetailsWindow.ui:737
 #: ui/SettingsWindow.ui:291
 msgid "CPU"
 msgstr "MİB"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:218
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:214
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52 ui/RamTab.ui:411
 #: ui/SettingsWindow.ui:305
 msgid "RAM"
 msgstr "RAM"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:314 ui/NetworkTab.ui:405
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:310 ui/NetworkTab.ui:405
 msgid "Network"
 msgstr "Ağ"
 
-#: src/SettingsGUI.py:309 ui/GpuTab.ui:344 ui/MainWindow.ui:362
+#: src/SettingsGUI.py:309 ui/GpuTab.ui:344 ui/MainWindow.ui:358
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:410 ui/SensorsTab.ui:183
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:406 ui/SensorsTab.ui:183
 msgid "Sensors"
 msgstr "Algılayıcı"
 
@@ -1370,11 +1370,11 @@ msgstr "Hakkında"
 msgid "Quit"
 msgstr "Çık"
 
-#: ui/MainWindow.ui:902
+#: ui/MainWindow.ui:888
 msgid "System Monitoring Center"
 msgstr "Sistem Gözlem Merkezi"
 
-#: ui/MainWindow.ui:910
+#: ui/MainWindow.ui:896
 msgid "Main Menu"
 msgstr "Ana Menü"
 
