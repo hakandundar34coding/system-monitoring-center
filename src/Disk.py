@@ -388,14 +388,19 @@ def disk_get_device_partition_model_name_mount_point_func():
     try:
         with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/vendor") as reader:
             disk_vendor = reader.read().strip()
-        if disk_vendor.startswith("0x"):
-            disk_vendor = disk_vendor.split("0x")[-1]
+        if disk_vendor.startswith("0x"):                                                      # Disk vendor information may be in octal form on some cases (such as on QEMU virtual machines).
+            disk_vendor_id = disk_vendor.split("x")[-1]
+            if disk_vendor_id in pci_ids_output:                                              # "vendor" information may not be present in the pci.ids file.
+                rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id, 1)[1]       # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
+                disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+            if disk_vendor_id not in pci_ids_output:
+                disk_vendor = f'[{_tr("Unknown")}]'
     except FileNotFoundError:                                                                 # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + selected_disk_name + "/device" directory. They have this file under "/sys/class/block/" + selected_disk_name + "/device/device/vendor" directory.
         try:
             with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/vendor") as reader:
                 disk_vendor_id = reader.read().strip().split("x")[-1]
             if disk_vendor_id in pci_ids_output:                                              # "vendor" information may not be present in the pci.ids file.
-                rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id, 1)[1]       # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
+                rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id, 1)[1]
                 disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
             if disk_vendor_id not in pci_ids_output:
                 disk_vendor = f'[{_tr("Unknown")}]'
@@ -405,8 +410,16 @@ def disk_get_device_partition_model_name_mount_point_func():
     try:
         with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
             disk_model = reader.read().strip()
-        if disk_model.startswith("0x"):
-            disk_model = disk_model.split("0x")[-1]
+        if disk_model.startswith("0x"):                                                       # Disk vendor information may be in octal form on some cases (such as on QEMU virtual machines).
+            disk_model_id = disk_model.split("x")[-1]
+            if disk_vendor != f'[{_tr("Unknown")}]':
+                if disk_model_id in rest_of_the_pci_ids_output:                               # "device name" information may not be present in the pci.ids file.
+                    rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(disk_model_id, 1)[1]
+                    disk_model = rest_of_the_rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+                else:
+                    disk_model = f'[{_tr("Unknown")}]'
+            else:
+                disk_model = f'[{_tr("Unknown")}]'
     except:
         disk_model = f'[{_tr("Unknown")}]'
     disk_vendor_model = disk_vendor + " - " +  disk_model
