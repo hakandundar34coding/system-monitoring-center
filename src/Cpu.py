@@ -284,6 +284,13 @@ def cpu_loop_func():
     selected_cpu_core_number = Performance.selected_cpu_core_number
     selected_cpu_core = Performance.selected_cpu_core
     selected_cpu_core_number_only = selected_cpu_core.split("cpu")[1]
+    global selected_cpu_core_prev
+    try:                                                                                      # try-except is used in order to avoid error if this is first loop of the function. Because "selected_cpu_core_prev" variable is not defined in this situation.
+        if selected_cpu_core_prev != selected_cpu_core:                                       # Run "cpu_initial_func" if selected CPU core is changed since the last loop.
+            cpu_initial_func()
+    except NameError:
+        pass
+    selected_cpu_core_prev = selected_cpu_core
 
     drawingarea1101.queue_draw()
 

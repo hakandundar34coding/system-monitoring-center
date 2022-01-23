@@ -212,13 +212,14 @@ def disk_initial_func():
 
     disk_define_data_unit_converter_variables_func()                                          # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
-    global disk_list, selected_disk_number                                                    # These variables are defined as global variables because they will be used in "disk_loop_func" function and also they will be used by "disk_get_device_partition_model_name_mount_point_func" function.
+    global disk_list, selected_disk
     disk_list = Performance.disk_list
     selected_disk_number = Performance.selected_disk_number
+    selected_disk = disk_list[selected_disk_number]
 
     # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
     try:
-        check_value = "/sys/class/block/" + disk_list[selected_disk_number]
+        check_value = "/sys/class/block/" + selected_disk
     except:
         return
     # Read pci.ids file. Some disks such as NVMe SSDs have "vendor" file with device id content. pci.ids file will be used for getting disk vendor name by using these ids.
@@ -235,7 +236,7 @@ def disk_initial_func():
     with open("/proc/mounts") as reader:                                                      # Get file systems for mounted disks
         proc_mounts_output_lines = reader.read().strip().split("\n")
         for line in proc_mounts_output_lines:
-            if line.split()[0].strip() == ("/dev/" + disk_list[selected_disk_number]):
+            if line.split()[0].strip() == ("/dev/" + selected_disk):
                 disk_file_system = line.split()[2].strip()
                 break
             else:
@@ -246,11 +247,11 @@ def disk_initial_func():
         for line in proc_swaps_output_lines:
             if line.split()[1].strip() == "partition":
                 swap_disk_list.append(line.split()[0].strip().split("/")[-1])
-    if len(swap_disk_list) > 0 and disk_list[selected_disk_number] in swap_disk_list:
+    if len(swap_disk_list) > 0 and selected_disk in swap_disk_list:
         disk_file_system = _tr("[SWAP]")
     if disk_file_system  == "fuseblk":                                                        # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
         try:
-            disk_for_file_system = "/dev/" + disk_list[selected_disk_number]
+            disk_for_file_system = "/dev/" + selected_disk
             disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
         except:
             pass
@@ -262,12 +263,23 @@ def disk_initial_func():
 
     # Set Disk tab label texts by using information get
     label1301.set_text(disk_vendor_model)
-    label1302.set_text(f'{disk_list[selected_disk_number]} ({disk_type})')
+    label1302.set_text(f'{selected_disk} ({disk_type})')
     label1307.set_text(if_system_disk)
 
 
 # ----------------------------------- Disk - Get Disk Data Function -----------------------------------
 def disk_loop_func():
+
+    global disk_list, selected_disk, selected_disk_prev
+    disk_list = Performance.disk_list
+    selected_disk_number = Performance.selected_disk_number
+    selected_disk = disk_list[selected_disk_number]
+    try:                                                                                      # try-except is used in order to avoid error if this is first loop of the function. Because "selected_disk_prev" variable is not defined in this situation.
+        if selected_disk_prev != selected_disk:                                               # Run "disk_initial_func" if selected disk is changed since the last loop.
+            disk_initial_func()
+    except NameError:
+        pass
+    selected_disk_prev = selected_disk
 
     disk_read_speed = Performance.disk_read_speed
     disk_write_speed = Performance.disk_write_speed
@@ -282,7 +294,7 @@ def disk_loop_func():
 
     # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
     try:
-        if os.path.isdir("/sys/class/block/" + disk_list[selected_disk_number]) == False:
+        if os.path.isdir("/sys/class/block/" + selected_disk) == False:
             return
     except:
         return
@@ -290,7 +302,7 @@ def disk_loop_func():
     with open("/proc/diskstats") as reader:
         proc_diskstats_lines = reader.read().strip().split("\n")
         for line in proc_diskstats_lines:
-            if line.split()[2].strip() == disk_list[selected_disk_number]:
+            if line.split()[2].strip() == selected_disk:
                 disk_read_time = int(line.split()[6])
                 disk_write_time = int(line.split()[10])
     # Get disk_size, disk_available, disk_free, disk_used, disk_usage_percent
@@ -371,7 +383,7 @@ def disk_get_device_partition_model_name_mount_point_func():
 
     global disk_type, disk_vendor_model, disk_mount_point
     # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
-    selected_disk_name = disk_list[selected_disk_number]                                      # This definition is made in order to reduce CPU usage because this value is used multiple times in this function.
+    selected_disk_name = selected_disk
     try:
         if os.path.isdir("/sys/class/block/" + selected_disk_name) == False:
             return
