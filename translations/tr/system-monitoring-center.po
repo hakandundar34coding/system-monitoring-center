@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-23 10:28+0300\n"
-"PO-Revision-Date: 2022-01-23 10:28+0300\n"
+"POT-Creation-Date: 2022-01-23 15:43+0300\n"
+"PO-Revision-Date: 2022-01-23 15:44+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -26,43 +26,43 @@ msgstr "MİB Kullanımı (Ortalama):"
 msgid "CPU Usage (Per Core):"
 msgstr "MİB Kullanımı (Çekirdek Başına):"
 
-#: src/Cpu.py:330 src/RamHardwareInformation.py:60
+#: src/Cpu.py:337 src/RamHardwareInformation.py:60
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-#: src/Disk.py:242 src/Disk.py:309 src/Disk.py:310 src/Disk.py:311
-#: src/Disk.py:312 src/DiskDetails.py:163 src/DiskDetails.py:215
-#: src/DiskDetails.py:304 src/DiskDetails.py:305 src/DiskDetails.py:306
-#: src/DiskDetails.py:307
-msgid "[Not mounted]"
-msgstr "[Bağlı değil]"
-
-#: src/Disk.py:250 src/Disk.py:441 src/DiskDetails.py:205
-msgid "[SWAP]"
-msgstr "[TAKAS]"
-
-#: src/Disk.py:259 src/DiskDetails.py:176 src/DiskDetails.py:191 src/Gpu.py:236
-#: src/Network.py:251 src/Network.py:273 src/Services.py:146
+#: src/Disk.py:237 src/DiskDetails.py:176 src/DiskDetails.py:191 src/Gpu.py:236
+#: src/Network.py:263 src/Network.py:285 src/Services.py:146
 #: src/ServicesDetails.py:148 src/UsersDetails.py:244
 msgid "Yes"
 msgstr "Evet"
 
-#: src/Disk.py:261 src/DiskDetails.py:169 src/Gpu.py:238 src/Gpu.py:323
-#: src/Network.py:253 src/Services.py:146 src/ServicesDetails.py:148
+#: src/Disk.py:239 src/DiskDetails.py:169 src/Gpu.py:238 src/Gpu.py:323
+#: src/Network.py:265 src/Services.py:146 src/ServicesDetails.py:148
 #: src/UsersDetails.py:246
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:389 src/Disk.py:396 src/DiskDetails.py:158
+#: src/Disk.py:298 src/Disk.py:299 src/Disk.py:300 src/Disk.py:301
+#: src/DiskDetails.py:163 src/DiskDetails.py:193 src/DiskDetails.py:198
+#: src/DiskDetails.py:222 src/DiskDetails.py:311 src/DiskDetails.py:312
+#: src/DiskDetails.py:313 src/DiskDetails.py:314
+msgid "[Not mounted]"
+msgstr "[Bağlı değil]"
+
+#: src/Disk.py:378 src/Disk.py:385 src/DiskDetails.py:158
 #: src/RamSwapDetails.py:63
 msgid "Partition"
 msgstr "Disk bölümü"
 
-#: src/Disk.py:394 src/DiskDetails.py:234 src/DiskDetails.py:271
-#: src/DiskDetails.py:279 src/SettingsGUI.py:309 ui/DiskTab.ui:22
+#: src/Disk.py:383 src/DiskDetails.py:241 src/DiskDetails.py:278
+#: src/DiskDetails.py:286 src/SettingsGUI.py:309 ui/DiskTab.ui:22
 #: ui/MainWindow.ui:262
 msgid "Disk"
 msgstr "Disk"
+
+#: src/Disk.py:430 src/DiskDetails.py:206
+msgid "[SWAP]"
+msgstr "[TAKAS]"
 
 #: src/DiskDetails.py:117
 msgid "Disk Details"
@@ -108,11 +108,11 @@ msgstr ""
 "Uyarı! Uygulama root ayrıcalıklarıyla ile çalıştırıldı, sisteminize zarar "
 "verebilirsiniz."
 
-#: src/Network.py:203
+#: src/Network.py:204
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: src/Network.py:205
+#: src/Network.py:206
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
@@ -298,7 +298,7 @@ msgstr "Kapasite"
 
 #: src/RamHardwareInformation.py:125 src/RamHardwareInformation.py:144
 #: src/RamSwapDetails.py:90 ui/DiskDetailsWindow.ui:78
-#: ui/ServicesDetailsWindow.ui:245
+#: ui/ServicesDetailsWindow.ui:245 ui/StartupNewItemWindow.ui:282
 msgid "Type"
 msgstr "Tür"
 
@@ -947,9 +947,8 @@ msgid "Cache (L1d-L1i):"
 msgstr "Ön Bellek (L1d-L1i):"
 
 #: ui/CpuTab.ui:258
-msgid "Number of physical CPU cores and number of online logical CPU cores"
-msgstr ""
-"Fiziksel MİB çekirdek sayısı ve çevrim içi mantıksal MİB çekirdek sayısı"
+msgid "Number of online physical and logical CPU cores"
+msgstr "Çevrim içi fiziksel ve mantıksal MİB çekirdek sayıları"
 
 #: ui/CpuTab.ui:260
 msgid "Cores (Physical-Logical):"
@@ -1399,9 +1398,9 @@ msgstr "Ağ İndirme+Yükleme Hızı"
 msgid "Network:"
 msgstr "Ağ:"
 
-#: ui/ProcessesCustomPriorityWindow.ui:13
-msgid "Set Process Priority (Nice)"
-msgstr "İşlemin Önceliğini (Nice) Ayarla"
+#: ui/ProcessesCustomPriorityWindow.ui:13 ui/ProcessesMenuRightClick.ui:92
+msgid "Change Priority (Nice)"
+msgstr "Önceliği Değiştir (Nice)"
 
 #: ui/ProcessesCustomPriorityWindow.ui:32
 msgid ""
@@ -1584,10 +1583,6 @@ msgstr "İşlemi Sonlandır"
 #: ui/ProcessesMenuRightClick.ui:77
 msgid "Kill Process"
 msgstr "İşlemi Öldür"
-
-#: ui/ProcessesMenuRightClick.ui:92
-msgid "Change Priority (Nice)"
-msgstr "Önceliği Değiştir (Nice)"
 
 #: ui/ProcessesMenuRightClick.ui:105
 msgid "Very High"
@@ -1942,15 +1937,11 @@ msgstr "Başlangıç Bildirimi"
 
 #: ui/StartupNewItemWindow.ui:249
 msgid "User-specific (for current user only)"
-msgstr "Kullanıcıya Özgü (sadece bu kullanıcı için)"
+msgstr "Kullanıcıya özgü (sadece bu kullanıcı için)"
 
 #: ui/StartupNewItemWindow.ui:263
 msgid "System-wide (for all users)"
 msgstr "Sistem geneli (tüm kullanıcılar için)"
-
-#: ui/StartupNewItemWindow.ui:282
-msgid "Type of the startup item:"
-msgstr "Başlangıç Ögesi Türü:"
 
 #: ui/StartupNewItemWindow.ui:297
 msgid "Note: Name and Command fields cannot be left blank."
@@ -2107,6 +2098,12 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Set Process Priority (Nice)"
+#~ msgstr "İşlemin Önceliğini (Nice) Ayarla"
+
+#~ msgid "Type of the startup item:"
+#~ msgstr "Başlangıç Ögesi Türü:"
 
 #~ msgid "Reserved Swap Memory: "
 #~ msgstr "Ayrılmış Takas Belleği: "

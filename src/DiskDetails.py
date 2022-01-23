@@ -190,27 +190,34 @@ def disk_details_loop_func():
                 if system_disk == disk:
                     disk_system_disk = _tr("Yes")
     # Get disk file system
-    disk_file_system = "-"                                                                    # Initial value of "disk_file_system" variable. This value will be used if disk file system could not be detected.
+    disk_file_system = _tr("[Not mounted]")                                                   # Initial value of the variable.
     for line in proc_mounts_lines:
-        line_split = line.split()
-        if line_split[0].split("/")[-1] == disk:
-            disk_file_system = line_split[2]
+        if line.split()[0].strip() == ("/dev/" + disk):
+            disk_file_system = line.split()[2].strip()
+            break
+    if disk_file_system == _tr("[Not mounted]"):
+        with open("/proc/swaps") as reader:                                                   # Show "[SWAP]" information for swap disks (if selected swap area is partition (not file))
+            proc_swaps_output_lines = reader.read().strip().split("\n")
+        swap_disk_list = []
+        for line in proc_swaps_output_lines:
+            if line.split()[1].strip() == "partition":
+                swap_disk_list.append(line.split()[0].strip().split("/")[-1])
+        if len(swap_disk_list) > 0 and disk in swap_disk_list:
+            disk_file_system = _tr("[SWAP]")
     if disk_file_system  == "fuseblk":                                                        # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
         try:
             disk_for_file_system = "/dev/" + disk
             disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
         except:
             pass
-    if disk in swap_disk_list:
-        disk_file_system = _tr("[SWAP]")
-    # Get capacity (mass storage)
+    # Get disk capacity (mass storage)
     try:
         with open("/sys/class/block/" + disk + "/size") as reader:
             disk_capacity_mass_storage = int(reader.read()) * disk_sector_size
     except FileNotFoundError:
         window1301w.hide()
         return
-    # Get disk capacity, free, available, used space
+    # Get disk capacity, free, available and used space
     try:
         if disk_mount_point != _tr("[Not mounted]"):
             statvfs_disk_usage_values = os.statvfs(disk_mount_point)

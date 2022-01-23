@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-23 10:28+0300\n"
+"POT-Creation-Date: 2022-01-23 15:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,42 +25,42 @@ msgstr ""
 msgid "CPU Usage (Per Core):"
 msgstr ""
 
-#: src/Cpu.py:330 src/RamHardwareInformation.py:60
+#: src/Cpu.py:337 src/RamHardwareInformation.py:60
 msgid "Unknown"
 msgstr ""
 
-#: src/Disk.py:242 src/Disk.py:309 src/Disk.py:310 src/Disk.py:311
-#: src/Disk.py:312 src/DiskDetails.py:163 src/DiskDetails.py:215
-#: src/DiskDetails.py:304 src/DiskDetails.py:305 src/DiskDetails.py:306
-#: src/DiskDetails.py:307
-msgid "[Not mounted]"
-msgstr ""
-
-#: src/Disk.py:250 src/Disk.py:441 src/DiskDetails.py:205
-msgid "[SWAP]"
-msgstr ""
-
-#: src/Disk.py:259 src/DiskDetails.py:176 src/DiskDetails.py:191 src/Gpu.py:236
-#: src/Network.py:251 src/Network.py:273 src/Services.py:146
+#: src/Disk.py:237 src/DiskDetails.py:176 src/DiskDetails.py:191 src/Gpu.py:236
+#: src/Network.py:263 src/Network.py:285 src/Services.py:146
 #: src/ServicesDetails.py:148 src/UsersDetails.py:244
 msgid "Yes"
 msgstr ""
 
-#: src/Disk.py:261 src/DiskDetails.py:169 src/Gpu.py:238 src/Gpu.py:323
-#: src/Network.py:253 src/Services.py:146 src/ServicesDetails.py:148
+#: src/Disk.py:239 src/DiskDetails.py:169 src/Gpu.py:238 src/Gpu.py:323
+#: src/Network.py:265 src/Services.py:146 src/ServicesDetails.py:148
 #: src/UsersDetails.py:246
 msgid "No"
 msgstr ""
 
-#: src/Disk.py:389 src/Disk.py:396 src/DiskDetails.py:158
+#: src/Disk.py:298 src/Disk.py:299 src/Disk.py:300 src/Disk.py:301
+#: src/DiskDetails.py:163 src/DiskDetails.py:193 src/DiskDetails.py:198
+#: src/DiskDetails.py:222 src/DiskDetails.py:311 src/DiskDetails.py:312
+#: src/DiskDetails.py:313 src/DiskDetails.py:314
+msgid "[Not mounted]"
+msgstr ""
+
+#: src/Disk.py:378 src/Disk.py:385 src/DiskDetails.py:158
 #: src/RamSwapDetails.py:63
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:394 src/DiskDetails.py:234 src/DiskDetails.py:271
-#: src/DiskDetails.py:279 src/SettingsGUI.py:309 ui/DiskTab.ui:22
+#: src/Disk.py:383 src/DiskDetails.py:241 src/DiskDetails.py:278
+#: src/DiskDetails.py:286 src/SettingsGUI.py:309 ui/DiskTab.ui:22
 #: ui/MainWindow.ui:262
 msgid "Disk"
+msgstr ""
+
+#: src/Disk.py:430 src/DiskDetails.py:206
+msgid "[SWAP]"
 msgstr ""
 
 #: src/DiskDetails.py:117
@@ -105,11 +105,11 @@ msgid ""
 "your system."
 msgstr ""
 
-#: src/Network.py:203
+#: src/Network.py:204
 msgid "Ethernet"
 msgstr ""
 
-#: src/Network.py:205
+#: src/Network.py:206
 msgid "Wi-Fi"
 msgstr ""
 
@@ -293,7 +293,7 @@ msgstr ""
 
 #: src/RamHardwareInformation.py:125 src/RamHardwareInformation.py:144
 #: src/RamSwapDetails.py:90 ui/DiskDetailsWindow.ui:78
-#: ui/ServicesDetailsWindow.ui:245
+#: ui/ServicesDetailsWindow.ui:245 ui/StartupNewItemWindow.ui:282
 msgid "Type"
 msgstr ""
 
@@ -930,7 +930,7 @@ msgid "Cache (L1d-L1i):"
 msgstr ""
 
 #: ui/CpuTab.ui:258
-msgid "Number of physical CPU cores and number of online logical CPU cores"
+msgid "Number of online physical and logical CPU cores"
 msgstr ""
 
 #: ui/CpuTab.ui:260
@@ -1354,8 +1354,8 @@ msgstr ""
 msgid "Network:"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:13
-msgid "Set Process Priority (Nice)"
+#: ui/ProcessesCustomPriorityWindow.ui:13 ui/ProcessesMenuRightClick.ui:92
+msgid "Change Priority (Nice)"
 msgstr ""
 
 #: ui/ProcessesCustomPriorityWindow.ui:32
@@ -1534,10 +1534,6 @@ msgstr ""
 
 #: ui/ProcessesMenuRightClick.ui:77
 msgid "Kill Process"
-msgstr ""
-
-#: ui/ProcessesMenuRightClick.ui:92
-msgid "Change Priority (Nice)"
 msgstr ""
 
 #: ui/ProcessesMenuRightClick.ui:105
@@ -1889,10 +1885,6 @@ msgstr ""
 
 #: ui/StartupNewItemWindow.ui:263
 msgid "System-wide (for all users)"
-msgstr ""
-
-#: ui/StartupNewItemWindow.ui:282
-msgid "Type of the startup item:"
 msgstr ""
 
 #: ui/StartupNewItemWindow.ui:297

@@ -232,29 +232,6 @@ def disk_initial_func():
             pci_ids_output = reader.read()
     # Get disk_vendor_model, disk_parent_name, disk_mount_point
     disk_get_device_partition_model_name_mount_point_func()
-    # Get disk_file_system
-    with open("/proc/mounts") as reader:                                                      # Get file systems for mounted disks
-        proc_mounts_output_lines = reader.read().strip().split("\n")
-        for line in proc_mounts_output_lines:
-            if line.split()[0].strip() == ("/dev/" + selected_disk):
-                disk_file_system = line.split()[2].strip()
-                break
-            else:
-                disk_file_system = _tr("[Not mounted]")
-    with open("/proc/swaps") as reader:                                                       # Show "[SWAP]" information for swap disks (if selected swap area is partition (not file))
-        proc_swaps_output_lines = reader.read().strip().split("\n")
-        swap_disk_list = []
-        for line in proc_swaps_output_lines:
-            if line.split()[1].strip() == "partition":
-                swap_disk_list.append(line.split()[0].strip().split("/")[-1])
-    if len(swap_disk_list) > 0 and selected_disk in swap_disk_list:
-        disk_file_system = _tr("[SWAP]")
-    if disk_file_system  == "fuseblk":                                                        # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
-        try:
-            disk_for_file_system = "/dev/" + selected_disk
-            disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
-        except:
-            pass
     # Get if_system_disk
     if disk_mount_point == "/":
         if_system_disk = _tr("Yes")

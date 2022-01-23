@@ -279,7 +279,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Type of the startup item:</property>
+                <property name="label" translatable="yes">Type</property>
               </object>
             </child>
           </object>
