@@ -111,7 +111,7 @@ def disk_details_initial_func():
 def disk_details_loop_func():
 
     global disk
-    disk = Disk.disk_list[Disk.selected_disk_number]                                          # Get right clicked disk name
+    disk = Disk.selected_disk                                                                 # Get right clicked disk name
 
     # Set Disk Details window title
     window1301w.set_title(_tr("Disk Details") + ": " + disk)                                  # Set window title
