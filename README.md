@@ -67,8 +67,6 @@ Note2: For RPM based distributions:
 
 ![System Monitoring Center](screenshots/processes_list_view_dark_system_theme.png)
 
-![System Monitoring Center](screenshots/processes_tree_view_dark_system_theme.png)
-
 ![System Monitoring Center](screenshots/startup_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/services_tab_dark_system_theme.png)

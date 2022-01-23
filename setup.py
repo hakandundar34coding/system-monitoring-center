@@ -91,8 +91,10 @@ if PREFIX == "RPM":
 
 if PREFIX != "/app" and PREFIX != "RPM":
     for file in files_in_folder("ui/"):
-        if file.endswith(".ui"):
-            os.chmod(file, 0o644)
+        os.chmod(file, 0o644)
+    for file in files_in_folder("icons/actions/"):
+        os.chmod(file, 0o644)
+    os.chmod("icons/apps/system-monitoring-center.svg", 0o644)
     os.chmod("translations/tr/system-monitoring-center.mo", 0o644)
     os.chmod("integration/com.github.hakand34.system-monitoring-center.policy", 0o644)
     os.chmod("src/__version__", 0o644)
