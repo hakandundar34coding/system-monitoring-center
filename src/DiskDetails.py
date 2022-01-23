@@ -106,9 +106,6 @@ def disk_details_initial_func():
     global disk_sector_size
     disk_sector_size = 512                                                                    # Disk data values from "/sys/class/block/[DISK_NAME]/" are multiplied by 512 in order to find values in the form of byte. Disk sector size for all disk device could be found in "/sys/block/[disk device name such as sda]/queue/hw_sector_size". Linux uses 512 value for all disks without regarding device real block size (source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121).
 
-    global disk_image_ssd_hdd
-    disk_image_ssd_hdd = "system-monitoring-center-disk-hdd-symbolic"
-
 
 # ----------------------------------- Disk - Disk Details Foreground Function -----------------------------------
 def disk_details_loop_func():

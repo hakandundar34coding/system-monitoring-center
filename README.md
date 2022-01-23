@@ -15,11 +15,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 </p>
 
 
-<a href="https://sourceforge.net/projects/system-monitoring-center/files/latest/download"><img alt="Download System Monitoring Center" src="https://a.fsdn.com/con/app/sf-download-button" width=276 height=48 srcset="https://a.fsdn.com/con/app/sf-download-button?button_size=2x 2x"></a>
-</a>
-
-
-<a href="https://sourceforge.net/projects/system-monitoring-center/files"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Download%20Now-Debian%20|%20RPM%20|%20pacman-brightgreen?style=for-the-badge"></a>
+<a href="https://github.com/hakandundar34coding/system-monitoring-center/releases/latest"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Download%20Now-Debian%20|%20RPM%20|%20pacman-brightgreen?style=for-the-badge"></a>
 </a>
 
 <a href="https://repology.org/project/system-monitoring-center/versions">
