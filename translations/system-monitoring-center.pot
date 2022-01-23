@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-22 20:14+0300\n"
+"POT-Creation-Date: 2022-01-23 10:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,40 +30,40 @@ msgid "Unknown"
 msgstr ""
 
 #: src/Disk.py:242 src/Disk.py:309 src/Disk.py:310 src/Disk.py:311
-#: src/Disk.py:312 src/DiskDetails.py:166 src/DiskDetails.py:225
-#: src/DiskDetails.py:236 src/DiskDetails.py:249 src/DiskDetails.py:336
-#: src/DiskDetails.py:337 src/DiskDetails.py:338
+#: src/Disk.py:312 src/DiskDetails.py:163 src/DiskDetails.py:215
+#: src/DiskDetails.py:304 src/DiskDetails.py:305 src/DiskDetails.py:306
+#: src/DiskDetails.py:307
 msgid "[Not mounted]"
 msgstr ""
 
-#: src/Disk.py:250 src/Disk.py:441 src/DiskDetails.py:215
+#: src/Disk.py:250 src/Disk.py:441 src/DiskDetails.py:205
 msgid "[SWAP]"
 msgstr ""
 
-#: src/Disk.py:259 src/DiskDetails.py:179 src/DiskDetails.py:194 src/Gpu.py:236
+#: src/Disk.py:259 src/DiskDetails.py:176 src/DiskDetails.py:191 src/Gpu.py:236
 #: src/Network.py:251 src/Network.py:273 src/Services.py:146
 #: src/ServicesDetails.py:148 src/UsersDetails.py:244
 msgid "Yes"
 msgstr ""
 
-#: src/Disk.py:261 src/DiskDetails.py:172 src/Gpu.py:238 src/Gpu.py:323
+#: src/Disk.py:261 src/DiskDetails.py:169 src/Gpu.py:238 src/Gpu.py:323
 #: src/Network.py:253 src/Services.py:146 src/ServicesDetails.py:148
 #: src/UsersDetails.py:246
 msgid "No"
 msgstr ""
 
-#: src/Disk.py:389 src/Disk.py:396 src/DiskDetails.py:161
+#: src/Disk.py:389 src/Disk.py:396 src/DiskDetails.py:158
 #: src/RamSwapDetails.py:63
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:394 src/DiskDetails.py:265 src/DiskDetails.py:302
-#: src/DiskDetails.py:310 src/SettingsGUI.py:309 ui/DiskTab.ui:22
+#: src/Disk.py:394 src/DiskDetails.py:234 src/DiskDetails.py:271
+#: src/DiskDetails.py:279 src/SettingsGUI.py:309 ui/DiskTab.ui:22
 #: ui/MainWindow.ui:262
 msgid "Disk"
 msgstr ""
 
-#: src/DiskDetails.py:120
+#: src/DiskDetails.py:117
 msgid "Disk Details"
 msgstr ""
 
@@ -202,7 +202,7 @@ msgstr ""
 msgid "GID"
 msgstr ""
 
-#: src/Processes.py:171 ui/DiskDetailsWindow.ui:406
+#: src/Processes.py:171 ui/DiskDetailsWindow.ui:392
 #: ui/ProcessesDetailsWindow.ui:1762 ui/ProcessesMenuCustomizations.ui:505
 #: ui/ServicesDetailsWindow.ui:69
 msgid "Path"
@@ -266,11 +266,11 @@ msgid "Directory of this process could not be get:"
 msgstr ""
 
 #: src/Ram.py:216
-msgid "Total Physical RAM: "
+msgid "Total Physical RAM:"
 msgstr ""
 
-#: src/Ram.py:217
-msgid "Reserved Swap Memory: "
+#: src/Ram.py:217 ui/RamTab.ui:308
+msgid "Swap Memory:"
 msgstr ""
 
 #: src/RamHardwareInformation.py:60 src/StartupMenuRightClick.py:430
@@ -772,15 +772,15 @@ msgstr ""
 msgid "Select CPU Core:"
 msgstr ""
 
-#: ui/CpuMenus.ui:389 ui/DiskDetailsWindow.ui:534 ui/DiskDetailsWindow.ui:547
-#: ui/DiskDetailsWindow.ui:560 ui/DiskDetailsWindow.ui:573
-#: ui/DiskDetailsWindow.ui:586 ui/DiskDetailsWindow.ui:599
-#: ui/DiskDetailsWindow.ui:612 ui/DiskDetailsWindow.ui:625
-#: ui/DiskDetailsWindow.ui:638 ui/DiskDetailsWindow.ui:651
-#: ui/DiskDetailsWindow.ui:664 ui/DiskDetailsWindow.ui:677
-#: ui/DiskDetailsWindow.ui:690 ui/DiskDetailsWindow.ui:703
-#: ui/DiskDetailsWindow.ui:716 ui/DiskDetailsWindow.ui:729
-#: ui/DiskDetailsWindow.ui:742 ui/DiskDetailsWindow.ui:755
+#: ui/CpuMenus.ui:389 ui/DiskDetailsWindow.ui:520 ui/DiskDetailsWindow.ui:533
+#: ui/DiskDetailsWindow.ui:546 ui/DiskDetailsWindow.ui:559
+#: ui/DiskDetailsWindow.ui:572 ui/DiskDetailsWindow.ui:585
+#: ui/DiskDetailsWindow.ui:598 ui/DiskDetailsWindow.ui:611
+#: ui/DiskDetailsWindow.ui:624 ui/DiskDetailsWindow.ui:637
+#: ui/DiskDetailsWindow.ui:650 ui/DiskDetailsWindow.ui:663
+#: ui/DiskDetailsWindow.ui:676 ui/DiskDetailsWindow.ui:689
+#: ui/DiskDetailsWindow.ui:702 ui/DiskDetailsWindow.ui:715
+#: ui/DiskDetailsWindow.ui:728 ui/DiskDetailsWindow.ui:741
 #: ui/ProcessesDetailsWindow.ui:463 ui/ProcessesDetailsWindow.ui:476
 #: ui/ProcessesDetailsWindow.ui:489 ui/ProcessesDetailsWindow.ui:502
 #: ui/ProcessesDetailsWindow.ui:515 ui/ProcessesDetailsWindow.ui:528
@@ -838,15 +838,15 @@ msgstr ""
 #: ui/CpuTab.ui:101 ui/CpuTab.ui:118 ui/CpuTab.ui:135 ui/CpuTab.ui:191
 #: ui/CpuTab.ui:208 ui/CpuTab.ui:225 ui/CpuTab.ui:242 ui/CpuTab.ui:313
 #: ui/CpuTab.ui:344 ui/CpuTab.ui:387 ui/CpuTab.ui:450 ui/CpuTab.ui:465
-#: ui/DiskDetailsWindow.ui:195 ui/DiskDetailsWindow.ui:210
-#: ui/DiskDetailsWindow.ui:225 ui/DiskDetailsWindow.ui:240
-#: ui/DiskDetailsWindow.ui:255 ui/DiskDetailsWindow.ui:270
-#: ui/DiskDetailsWindow.ui:285 ui/DiskDetailsWindow.ui:300
-#: ui/DiskDetailsWindow.ui:315 ui/DiskDetailsWindow.ui:330
-#: ui/DiskDetailsWindow.ui:345 ui/DiskDetailsWindow.ui:361
-#: ui/DiskDetailsWindow.ui:377 ui/DiskDetailsWindow.ui:419
-#: ui/DiskDetailsWindow.ui:435 ui/DiskDetailsWindow.ui:489
-#: ui/DiskDetailsWindow.ui:504 ui/DiskDetailsWindow.ui:519 ui/DiskTab.ui:66
+#: ui/DiskDetailsWindow.ui:196 ui/DiskDetailsWindow.ui:211
+#: ui/DiskDetailsWindow.ui:226 ui/DiskDetailsWindow.ui:241
+#: ui/DiskDetailsWindow.ui:256 ui/DiskDetailsWindow.ui:271
+#: ui/DiskDetailsWindow.ui:286 ui/DiskDetailsWindow.ui:301
+#: ui/DiskDetailsWindow.ui:316 ui/DiskDetailsWindow.ui:331
+#: ui/DiskDetailsWindow.ui:347 ui/DiskDetailsWindow.ui:363
+#: ui/DiskDetailsWindow.ui:405 ui/DiskDetailsWindow.ui:421
+#: ui/DiskDetailsWindow.ui:475 ui/DiskDetailsWindow.ui:490
+#: ui/DiskDetailsWindow.ui:505 ui/DiskDetailsWindow.ui:768 ui/DiskTab.ui:66
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:185 ui/DiskTab.ui:202 ui/DiskTab.ui:219
 #: ui/DiskTab.ui:236 ui/DiskTab.ui:279 ui/DiskTab.ui:309 ui/DiskTab.ui:357
 #: ui/DiskTab.ui:395 ui/DiskTab.ui:436 ui/DiskTab.ui:466
@@ -980,7 +980,7 @@ msgid ""
 "Cache (L2-L3)"
 msgstr ""
 
-#: ui/CpuTab.ui:463 ui/DiskDetailsWindow.ui:156 ui/DiskTab.ui:79
+#: ui/CpuTab.ui:463 ui/DiskDetailsWindow.ui:157 ui/DiskTab.ui:79
 #: ui/GpuTab.ui:401 ui/NetworkTab.ui:462
 msgid "Vendor-Model"
 msgstr ""
@@ -1010,35 +1010,39 @@ msgid "Free"
 msgstr ""
 
 #: ui/DiskDetailsWindow.ui:143
-msgid "Used%"
+msgid ""
+"Used\n"
+"(Mass Storage)"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:169
+#: ui/DiskDetailsWindow.ui:170
 msgid "Label (File System)"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:182
+#: ui/DiskDetailsWindow.ui:183
 msgid "Partition Label"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:393
+#: ui/DiskDetailsWindow.ui:379
 msgid "Mount Point"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:450
+#: ui/DiskDetailsWindow.ui:436
 msgid "Revision"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:463
+#: ui/DiskDetailsWindow.ui:449
 msgid "Serial Number"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:476
+#: ui/DiskDetailsWindow.ui:462
 msgid "UUID"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:768
-msgid "Transport Type"
+#: ui/DiskDetailsWindow.ui:754
+msgid ""
+"Capacity\n"
+"(Mass Storage)"
 msgstr ""
 
 #: ui/DiskMenus.ui:237 ui/NetworkMenus.ui:237
@@ -1119,7 +1123,7 @@ msgid "Capacity:"
 msgstr ""
 
 #: ui/DiskTab.ui:417 ui/RamTab.ui:343 ui/RamTab.ui:380
-msgid "Query..."
+msgid "Show..."
 msgstr ""
 
 #: ui/DiskTab.ui:478
@@ -1631,10 +1635,6 @@ msgstr ""
 
 #: ui/RamTab.ui:260
 msgid "Swap Mem. Usg. %:"
-msgstr ""
-
-#: ui/RamTab.ui:308
-msgid "Swap Memory:"
 msgstr ""
 
 #: ui/RamTab.ui:325

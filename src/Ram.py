@@ -213,8 +213,8 @@ def ram_initial_func():
             swap_total = int(line.split()[1]) * 1024
 
     # Set RAM tab label texts by using information get
-    label1201.set_text(_tr("Total Physical RAM: ") + str(ram_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
-    label1202.set_text(_tr("Reserved Swap Memory: ") + str(ram_data_unit_converter_func(swap_total, 0, 1)))
+    label1201.set_text(_tr("Total Physical RAM:") + " " + str(ram_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+    label1202.set_text(_tr("Swap Memory:") + " " + str(ram_data_unit_converter_func(swap_total, 0, 1)))
     label1205.set_text(ram_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
 

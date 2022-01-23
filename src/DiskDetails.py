@@ -121,7 +121,7 @@ def disk_details_loop_func():
     performance_disk_usage_data_precision = Config.performance_disk_usage_data_precision
     performance_disk_usage_data_unit = Config.performance_disk_usage_data_unit
 
-    # Get all disks (disks and partitions) including physical, optical and virtual disks
+    # Get all disks (disks and partitions)
     with open("/proc/partitions") as reader:
         proc_partitions_lines = reader.read().split("\n")[2:-1]                               # Get without first 2 lines (header line and an empty line).
     disk_list = []
@@ -189,13 +189,6 @@ def disk_details_loop_func():
                     system_disk = os.path.realpath("/dev/disk/by-partuuid/" + disk_uuid_partuuid).split("/")[-1].strip()
                 if system_disk == disk:
                     disk_system_disk = _tr("Yes")
-    # Get disk transport type
-    disk_transport_type = "-"                                                                 # Initial value of "disk_transport_type" variable. This value will be used if disk transport type could not be detected.
-    if disk in disk_device_path_disk_list:
-        if "-ata-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:
-            disk_transport_type = "SATA"
-        if "-usb-" in disk_device_path_list[disk_device_path_disk_list.index(disk)]:
-            disk_transport_type = "USB"
     # Get disk file system
     disk_file_system = "-"                                                                    # Initial value of "disk_file_system" variable. This value will be used if disk file system could not be detected.
     for line in proc_mounts_lines:
@@ -210,50 +203,29 @@ def disk_details_loop_func():
             pass
     if disk in swap_disk_list:
         disk_file_system = _tr("[SWAP]")
-    # Get disk total size
+    # Get capacity (mass storage)
     try:
         with open("/sys/class/block/" + disk + "/size") as reader:
-            disk_total_size = int(reader.read()) * disk_sector_size
+            disk_capacity_mass_storage = int(reader.read()) * disk_sector_size
     except FileNotFoundError:
         window1301w.hide()
         return
-    # Get disk free space
+    # Get disk capacity, free, available, used space
     try:
         if disk_mount_point != _tr("[Not mounted]"):
             statvfs_disk_usage_values = os.statvfs(disk_mount_point)
             fragment_size = statvfs_disk_usage_values.f_frsize
+            disk_capacity = statvfs_disk_usage_values.f_blocks * fragment_size
+            disk_free = statvfs_disk_usage_values.f_bfree * fragment_size
             disk_available = statvfs_disk_usage_values.f_bavail * fragment_size
+            disk_used = disk_capacity - disk_free
+            disk_usage_percent = disk_used / (disk_available + disk_used) * 100               # disk_usage_percent value is calculated as "used disk space / available disk space" in terms of filesystem values (same with "df" command output values). This is real usage percent.
+            disk_usage_percent_mass_storage = disk_used / disk_capacity * 100                 # Gives same result with "lsblk" command (mass storage values)
         else:
             disk_available = -9999                                                            # "-9999" value is used as "disk_available" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
-    except:
-        window1301w.hide()
-        return
-    # Get disk used space
-    try:
-        if disk_mount_point != _tr("[Not mounted]"):
-            statvfs_disk_usage_values = os.statvfs(disk_mount_point)
-            fragment_size = statvfs_disk_usage_values.f_frsize
-            disk_size = statvfs_disk_usage_values.f_blocks * fragment_size
-            disk_free = statvfs_disk_usage_values.f_bfree * fragment_size
-            disk_used = disk_size - disk_free
-        else:
-            disk_used = -9999                                                                 # "-9999" value is used as "disk_used" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
-    except:
-        window1301w.hide()
-        return
-    # Get disk used space percentage
-    try:
-        if disk_mount_point != _tr("[Not mounted]"):
-            statvfs_disk_usage_values = os.statvfs(disk_mount_point)
-            fragment_size = statvfs_disk_usage_values.f_frsize
-            disk_size = statvfs_disk_usage_values.f_blocks * fragment_size
-            # disk_available = statvfs_disk_usage_values.f_bavail * fragment_size
-            disk_free = statvfs_disk_usage_values.f_bfree * fragment_size
-            disk_used = disk_size - disk_free
-#             disk_usage_percent = disk_used / disk_size * 100                                  # Gives same result with "lsblk" command (mass storage values)
-            disk_usage_percent = disk_used / (disk_available + disk_used) * 100             # disk_usage_percent value is calculated as "used disk space / available disk space" in terms of filesystem values (same with "df" command output values). This is real usage percent.
-        else:
-            disk_usage_percent = -9999                                                        # "-9999" value is used as "disk_usage_percent" value if disk is not mounted. Code will recognize this valu e and show "[Not mounted]" information in this situation.
+            disk_used = -9999
+            disk_usage_percent = -9999
+            disk_usage_percent_mass_storage = -9999
     except:
         window1301w.hide()
         return
@@ -326,17 +298,18 @@ def disk_details_loop_func():
     label1302w.set_text(disk_parent_name)
     label1303w.set_text(disk_system_disk)
     label1304w.set_text(disk_type)
-    label1305w.set_text(disk_transport_type)
+    label1305w.set_text(f'{disk_data_unit_converter_func(disk_capacity_mass_storage, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
     label1306w.set_text(disk_file_system)
-    label1307w.set_text(f'{disk_data_unit_converter_func(disk_total_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
     if disk_available == -9999:
+        label1307w.set_text(_tr("[Not mounted]"))
         label1308w.set_text(_tr("[Not mounted]"))
         label1309w.set_text(_tr("[Not mounted]"))
         label1310w.set_text(_tr("[Not mounted]"))
     if disk_available != -9999:
+        label1307w.set_text(f'{disk_data_unit_converter_func(disk_capacity, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
         label1308w.set_text(f'{disk_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
-        label1309w.set_text(f'{disk_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
-        label1310w.set_text(f'{disk_usage_percent:.1f}%')
+        label1309w.set_text(f'{disk_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision)} - {disk_usage_percent:.1f}%')
+        label1310w.set_text(f'{disk_usage_percent_mass_storage:.1f}%')
     label1311w.set_text(disk_vendor_model)
     label1312w.set_text(disk_label)
     label1313w.set_text(disk_partition_label)
@@ -357,6 +330,7 @@ def disk_details_run_func():
         global update_interval
         update_interval = Config.update_interval
         GLib.timeout_add(update_interval * 1000, disk_details_run_func)
+
 
 # ----------------------------------- Disk - Define Data Unit Converter Variables Function -----------------------------------
 def disk_define_data_unit_converter_variables_func():
