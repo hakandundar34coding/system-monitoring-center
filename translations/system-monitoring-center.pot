@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-23 15:43+0300\n"
+"POT-Creation-Date: 2022-01-24 14:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,13 +31,13 @@ msgstr ""
 
 #: src/Disk.py:237 src/DiskDetails.py:176 src/DiskDetails.py:191 src/Gpu.py:236
 #: src/Network.py:263 src/Network.py:285 src/Services.py:146
-#: src/ServicesDetails.py:148 src/UsersDetails.py:244
+#: src/ServicesDetails.py:148 src/UsersDetails.py:226
 msgid "Yes"
 msgstr ""
 
 #: src/Disk.py:239 src/DiskDetails.py:169 src/Gpu.py:238 src/Gpu.py:323
 #: src/Network.py:265 src/Services.py:146 src/ServicesDetails.py:148
-#: src/UsersDetails.py:246
+#: src/UsersDetails.py:228
 msgid "No"
 msgstr ""
 
@@ -618,87 +618,11 @@ msgstr ""
 msgid "Started"
 msgstr ""
 
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Jan"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Feb"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Mar"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Apr"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "May"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Jun"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Jul"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Aug"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Sep"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Oct"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Nov"
-msgstr ""
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Dec"
-msgstr ""
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Mon"
-msgstr ""
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Tue"
-msgstr ""
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Wed"
-msgstr ""
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Thu"
-msgstr ""
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Fri"
-msgstr ""
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Sat"
-msgstr ""
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Sun"
-msgstr ""
-
-#: src/Users.py:525
+#: src/Users.py:516
 msgid "Total: AAAA users (BBBB logged in users, CCCC logged out users)"
 msgstr ""
 
-#: src/UsersDetails.py:79 src/UsersDetails.py:309 ui/UsersDetailsWindow.ui:8
+#: src/UsersDetails.py:79 src/UsersDetails.py:285 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
 msgstr ""
 

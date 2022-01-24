@@ -156,9 +156,6 @@ def users_initial_func():
 
     user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("system-monitoring-center-user-symbolic", 16, 0)
 
-    date_month_names_list = [_tr("Jan"), _tr("Feb"), _tr("Mar"), _tr("Apr"), _tr("May"), _tr("Jun"), _tr("Jul"), _tr("Aug"), _tr("Sep"), _tr("Oct"), _tr("Nov"), _tr("Dec")]    # This list is defined in order to make English month names (get from /var/log/auth.log file) to be translated into other languages.
-    date_day_names_list = [_tr("Mon"), _tr("Tue"), _tr("Wed"), _tr("Thu"), _tr("Fri"), _tr("Sat"), _tr("Sun")]    # This list is defined in order to make English day names (get from "lslogins") to be translated into other languages.
-
     global filter_column
     filter_column = users_data_list[0][2] - 1                                                 # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
@@ -258,7 +255,7 @@ def users_loop_func():
             all_process_memory_usages.append(int(proc_pid_stat_lines[-29]) * memory_page_size)    # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
     # Get all users last log in and last failed log in times
     if 9 in users_treeview_columns_shown or 10 in users_treeview_columns_shown:
-        lslogins_command_lines = (subprocess.check_output(["lslogins", "--notruncate", "-e", "--newline", "--time-format=full", "-u", "-o", "=USER,LAST-LOGIN,FAILED-LOGIN"], shell=False)).decode().strip().split("\n")
+        lslogins_command_lines = (subprocess.check_output(["lslogins", "--notruncate", "-e", "--newline", "--time-format=iso", "-u", "-o", "=USER,LAST-LOGIN,FAILED-LOGIN"], shell=False)).decode().strip().split("\n")
 
     # Get and append data per user
     for line in etc_passwd_lines:
@@ -320,26 +317,20 @@ def users_loop_func():
                 users_data_row.append(user_terminal)
             # Get user last log in time
             if 9 in users_treeview_columns_shown:
-                for i, line in enumerate(lslogins_command_lines):                             # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
+                for i, line in enumerate(lslogins_command_lines):
                     if line.split("=")[1].strip('"') == username:
-                        user_last_log_in_time_split = lslogins_command_lines[i+1].split("=")[1].strip('"').split()    # For using translated strings (day and month names)
-                        for i, string in enumerate(user_last_log_in_time_split):
-                            user_last_log_in_time_split[i] = _tr(string)
-                        user_last_log_in_time = " ".join(user_last_log_in_time_split)
+                        user_last_log_in_time = lslogins_command_lines[i+1].split("=")[1].strip('"').split("+")[0].replace("T", " ")
                         break
-                if user_last_log_in_time == "":                                               # Use "-" as "user_last_log_in_time" value if it could not be detected.
+                if user_last_log_in_time == "":
                     user_last_log_in_time = "-"
                 users_data_row.append(user_last_log_in_time)
             # Get user last failed log in time
             if 10 in users_treeview_columns_shown:
-                for i, line in enumerate(lslogins_command_lines):                             # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
+                for i, line in enumerate(lslogins_command_lines):
                     if line.split("=")[1].strip('"') == username:
-                        user_last_failed_log_in_time_split = lslogins_command_lines[i+2].split("=")[1].strip('"').split()    # For using translated strings (day and month names)
-                        for i, string in enumerate(user_last_failed_log_in_time_split):
-                            user_last_failed_log_in_time_split[i] = _tr(string)
-                        user_last_failed_log_in_time = " ".join(user_last_failed_log_in_time_split)
+                        user_last_failed_log_in_time = lslogins_command_lines[i+2].split("=")[1].strip('"').split("+")[0].replace("T", " ")
                         break
-                if user_last_failed_log_in_time == "":                                        # Use "-" as "user_last_failed_log_in_time" value if it could not be detected.
+                if user_last_failed_log_in_time == "":
                     user_last_failed_log_in_time = "-"
                 users_data_row.append(user_last_failed_log_in_time)
             # Get user process start time

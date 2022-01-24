@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-23 15:43+0300\n"
-"PO-Revision-Date: 2022-01-23 15:44+0300\n"
+"POT-Creation-Date: 2022-01-24 14:04+0300\n"
+"PO-Revision-Date: 2022-01-24 14:04+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -32,13 +32,13 @@ msgstr "Bilinmiyor"
 
 #: src/Disk.py:237 src/DiskDetails.py:176 src/DiskDetails.py:191 src/Gpu.py:236
 #: src/Network.py:263 src/Network.py:285 src/Services.py:146
-#: src/ServicesDetails.py:148 src/UsersDetails.py:244
+#: src/ServicesDetails.py:148 src/UsersDetails.py:226
 msgid "Yes"
 msgstr "Evet"
 
 #: src/Disk.py:239 src/DiskDetails.py:169 src/Gpu.py:238 src/Gpu.py:323
 #: src/Network.py:265 src/Services.py:146 src/ServicesDetails.py:148
-#: src/UsersDetails.py:246
+#: src/UsersDetails.py:228
 msgid "No"
 msgstr "Hayır"
 
@@ -631,89 +631,13 @@ msgstr "Son Hatalı Giriş"
 msgid "Started"
 msgstr "Başlama"
 
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Jan"
-msgstr "Oca"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Feb"
-msgstr "Şub"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Mar"
-msgstr "Mar"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Apr"
-msgstr "Nis"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "May"
-msgstr "May"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Jun"
-msgstr "Haz"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Jul"
-msgstr "Tem"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Aug"
-msgstr "Ağu"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Sep"
-msgstr "Eyl"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Oct"
-msgstr "Eki"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Nov"
-msgstr "Kas"
-
-#: src/Users.py:159 src/UsersDetails.py:135
-msgid "Dec"
-msgstr "Ara"
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Mon"
-msgstr "Pzt"
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Tue"
-msgstr "Sal"
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Wed"
-msgstr "Çar"
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Thu"
-msgstr "Per"
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Fri"
-msgstr "Cum"
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Sat"
-msgstr "Cmt"
-
-#: src/Users.py:160 src/UsersDetails.py:136
-msgid "Sun"
-msgstr "Paz"
-
-#: src/Users.py:525
+#: src/Users.py:516
 msgid "Total: AAAA users (BBBB logged in users, CCCC logged out users)"
 msgstr ""
 "Toplam: AAAA kullanıcı (BBBB giriş yapmış kullanıcı, CCCC çıkış yapmış "
 "kullanıcı)"
 
-#: src/UsersDetails.py:79 src/UsersDetails.py:309 ui/UsersDetailsWindow.ui:8
+#: src/UsersDetails.py:79 src/UsersDetails.py:285 ui/UsersDetailsWindow.ui:8
 msgid "User Details"
 msgstr "Kullanıcı Detayları"
 
@@ -2098,6 +2022,63 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Jan"
+#~ msgstr "Oca"
+
+#~ msgid "Feb"
+#~ msgstr "Şub"
+
+#~ msgid "Mar"
+#~ msgstr "Mar"
+
+#~ msgid "Apr"
+#~ msgstr "Nis"
+
+#~ msgid "May"
+#~ msgstr "May"
+
+#~ msgid "Jun"
+#~ msgstr "Haz"
+
+#~ msgid "Jul"
+#~ msgstr "Tem"
+
+#~ msgid "Aug"
+#~ msgstr "Ağu"
+
+#~ msgid "Sep"
+#~ msgstr "Eyl"
+
+#~ msgid "Oct"
+#~ msgstr "Eki"
+
+#~ msgid "Nov"
+#~ msgstr "Kas"
+
+#~ msgid "Dec"
+#~ msgstr "Ara"
+
+#~ msgid "Mon"
+#~ msgstr "Pzt"
+
+#~ msgid "Tue"
+#~ msgstr "Sal"
+
+#~ msgid "Wed"
+#~ msgstr "Çar"
+
+#~ msgid "Thu"
+#~ msgstr "Per"
+
+#~ msgid "Fri"
+#~ msgstr "Cum"
+
+#~ msgid "Sat"
+#~ msgstr "Cmt"
+
+#~ msgid "Sun"
+#~ msgstr "Paz"
 
 #~ msgid "Set Process Priority (Nice)"
 #~ msgstr "İşlemin Önceliğini (Nice) Ayarla"

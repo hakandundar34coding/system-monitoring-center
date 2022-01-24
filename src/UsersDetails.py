@@ -94,21 +94,6 @@ def users_details_gui_reset_function():
     label3114w.set_text("--")
 
 
-# # ----------------------------------- Users - Users Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
-# def users_details_tab_switch_control_func():
-# 
-#     global previous_page
-#     if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
-#         previous_page = None
-#         current_page = None
-#     current_page = notebook3101w.get_current_page()
-#     if current_page != previous_page and previous_page != None:                               # Check if tab is switched
-#         UsersDetails.user_details_foreground_func()                                           # Update the data on the tab
-#     previous_page = current_page
-#     if window3101w.get_visible() == True:
-#         GLib.timeout_add(200, users_details_tab_switch_control_func)                          # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
-
-
 # ----------------------------------- Users - Users Details Function -----------------------------------
 def users_details_initial_func():
 
@@ -131,9 +116,6 @@ def users_details_initial_func():
             system_boot_time = int(line.split()[1].strip())
 
     user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("system-monitoring-center-user-symbolic", 24, 0)
-
-    date_month_names_list = [_tr("Jan"), _tr("Feb"), _tr("Mar"), _tr("Apr"), _tr("May"), _tr("Jun"), _tr("Jul"), _tr("Aug"), _tr("Sep"), _tr("Oct"), _tr("Nov"), _tr("Dec")]    # This list is defined in order to make English month names (get from /var/log/auth.log file) to be translated into other languages.
-    date_day_names_list = [_tr("Mon"), _tr("Tue"), _tr("Wed"), _tr("Thu"), _tr("Fri"), _tr("Sat"), _tr("Sun")]    # This list is defined in order to make English day names (get from "lslogins") to be translated into other languages.
 
 
 # ----------------------------------- Users - Users Details Foreground Function -----------------------------------
@@ -220,7 +202,7 @@ def users_details_loop_func():
         # Get RAM memory (RSS) usage percent of all processes
         all_process_memory_usages.append(int(proc_pid_stat_lines[-29]) * memory_page_size)    # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
     # Get all users last log in and last failed log in times
-    lslogins_command_lines = (subprocess.check_output(["lslogins", "--notruncate", "-e", "--newline", "--time-format=full", "-u", "-o", "=USER,LAST-LOGIN,FAILED-LOGIN"], shell=False)).decode().strip().split("\n")
+    lslogins_command_lines = (subprocess.check_output(["lslogins", "--notruncate", "-e", "--newline", "--time-format=iso", "-u", "-o", "=USER,LAST-LOGIN,FAILED-LOGIN"], shell=False)).decode().strip().split("\n")
 
     for line in etc_passwd_lines:
         line_split = line.split(":")
@@ -259,23 +241,17 @@ def users_details_loop_func():
     selected_user_group_name = user_group_names[user_group_ids.index(selected_user_gid)]
 
     # Get user last log in time
-    for i, line in enumerate(lslogins_command_lines):                                         # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
+    for i, line in enumerate(lslogins_command_lines):
         if line.split("=")[1].strip('"') == selected_user_username:
-            selected_user_last_log_in_time_split = lslogins_command_lines[i+1].split("=")[1].strip('"').split()    # For using translated strings (day and month names)
-            for i, string in enumerate(selected_user_last_log_in_time_split):
-                selected_user_last_log_in_time_split[i] = _tr(string)
-            selected_user_last_log_in_time = " ".join(selected_user_last_log_in_time_split)
+            selected_user_last_log_in_time = lslogins_command_lines[i+1].split("=")[1].strip('"').split("+")[0].replace("T", " ")
             break
     if selected_user_last_log_in_time == "":
         selected_user_last_log_in_time = "-"
 
     # Get user last failed log in time
     for i, line in enumerate(lslogins_command_lines):
-        if line.split("=")[1].strip('"') == selected_user_username:                           # Search for username of current loop (user data row). Finally, data is split by using "empty space" and joined again for translating English month and day names into other languages. Strings which will be translated are defined in lists (date_month_names_list, date_day_names_list) and are exported by "gettext".
-            selected_user_last_failed_log_in_time_split = lslogins_command_lines[i+2].split("=")[1].strip('"').split()    # For using translated strings (day and month names)
-            for i, string in enumerate(selected_user_last_failed_log_in_time_split):
-                selected_user_last_failed_log_in_time_split[i] = _tr(string)
-            selected_user_last_failed_log_in_time = " ".join(selected_user_last_failed_log_in_time_split)
+        if line.split("=")[1].strip('"') == selected_user_username:
+            selected_user_last_failed_log_in_time = lslogins_command_lines[i+2].split("=")[1].strip('"').split("+")[0].replace("T", " ")
             break
     if selected_user_last_failed_log_in_time == "":
         selected_user_last_failed_log_in_time = "-"
@@ -306,7 +282,7 @@ def users_details_loop_func():
 
 
     # Set Users Details window title and window icon image
-    window3101w.set_title(_tr("User Details") + ": " + selected_user_username)                     # Set window title
+    window3101w.set_title(_tr("User Details") + ": " + selected_user_username)                # Set window title
     window3101w.set_icon(selected_user_account_image)                                         # Set UsersDetails window icon
 
     # Set label text by using storage/disk data
