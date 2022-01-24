@@ -1,3 +1,15 @@
+system-monitoring-center (1.2.0) unstable; urgency=medium
+
+  * Removed Storage tab and moved Disk details to Disk tab
+  * Removed Environment Variables tab and GUI design changes
+  * Fix: disk vendor-model information on VMs (Disk tab)
+  * Fix: selecting hardware automatically (CPU,Disk,Network tabs
+  * Minor improvements for GUI and System tab
+  * Translation improvements
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 24 Jan 2022 09:29:25 +0300
+
 system-monitoring-center (1.1.0) unstable; urgency=medium
 
   * Support for ARM devices
