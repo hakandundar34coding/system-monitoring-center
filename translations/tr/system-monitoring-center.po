@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-24 20:15+0300\n"
-"PO-Revision-Date: 2022-01-24 20:15+0300\n"
+"POT-Creation-Date: 2022-01-24 20:28+0300\n"
+"PO-Revision-Date: 2022-01-24 20:28+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -1344,8 +1344,8 @@ msgid "Cancel"
 msgstr "İptal"
 
 #: ui/ProcessesDetailsWindow.ui:133
-msgid "Disk Read / Write Speed"
-msgstr "Disk Okuma / Yazma Hızı"
+msgid "Disk Read - Write Speed"
+msgstr "Disk Okuma - Yazma Hızı"
 
 #: ui/ProcessesDetailsWindow.ui:146
 msgid "Start Time"

@@ -402,9 +402,9 @@ def process_details_loop_func():
         label2106w.set_text(f'{selected_process_cpu_percent:.{processes_cpu_usage_percent_precision}f} %')
         label2107w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_rss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
         if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            label2108w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)} / {processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            label2108w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s - {processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
         if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":
-            label2108w.set_text("- / -")
+            label2108w.set_text("- - -")
         label2109w.set_text(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
         label2110w.set_text(selected_process_exe)
         label2111w.set_text(f'{selected_process_ppid}')
