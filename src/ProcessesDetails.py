@@ -568,8 +568,8 @@ def process_details_loop_func():
             selected_process_open_files = "-"
         # Set label text by using process data
         if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            label2128w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            label2129w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
+            label2128w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
+            label2129w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
             label2130w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
             label2131w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
             label2132w.set_text(f'{selected_process_read_count}')

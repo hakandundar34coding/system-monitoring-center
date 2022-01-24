@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-24 14:04+0300\n"
+"POT-Creation-Date: 2022-01-24 20:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,23 +43,23 @@ msgstr ""
 
 #: src/Disk.py:298 src/Disk.py:299 src/Disk.py:300 src/Disk.py:301
 #: src/DiskDetails.py:163 src/DiskDetails.py:193 src/DiskDetails.py:198
-#: src/DiskDetails.py:222 src/DiskDetails.py:311 src/DiskDetails.py:312
-#: src/DiskDetails.py:313 src/DiskDetails.py:314
+#: src/DiskDetails.py:222 src/DiskDetails.py:349 src/DiskDetails.py:350
+#: src/DiskDetails.py:351 src/DiskDetails.py:352
 msgid "[Not mounted]"
 msgstr ""
 
 #: src/Disk.py:378 src/Disk.py:385 src/DiskDetails.py:158
-#: src/RamSwapDetails.py:63
+#: src/DiskDetails.py:242 src/RamSwapDetails.py:63
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:383 src/DiskDetails.py:241 src/DiskDetails.py:278
-#: src/DiskDetails.py:286 src/SettingsGUI.py:309 ui/DiskTab.ui:22
+#: src/Disk.py:383 src/DiskDetails.py:240 src/DiskDetails.py:316
+#: src/DiskDetails.py:324 src/SettingsGUI.py:309 ui/DiskTab.ui:22
 #: ui/MainWindow.ui:262
 msgid "Disk"
 msgstr ""
 
-#: src/Disk.py:430 src/DiskDetails.py:206
+#: src/Disk.py:430 src/DiskDetails.py:206 src/DiskDetails.py:287
 msgid "[SWAP]"
 msgstr ""
 
@@ -192,13 +192,14 @@ msgid "PPID"
 msgstr ""
 
 #: src/Processes.py:169 src/Users.py:117 src/UsersMenuRightClick.py:76
-#: ui/ProcessesMenuCustomizations.ui:589 ui/UsersDetailsWindow.ui:78
-#: ui/UsersMenuCustomizations.ui:262
+#: ui/ProcessesDetailsWindow.ui:407 ui/ProcessesMenuCustomizations.ui:589
+#: ui/UsersDetailsWindow.ui:78 ui/UsersMenuCustomizations.ui:262
 msgid "UID"
 msgstr ""
 
-#: src/Processes.py:170 src/Users.py:118 ui/ProcessesMenuCustomizations.ui:603
-#: ui/UsersDetailsWindow.ui:91 ui/UsersMenuCustomizations.ui:276
+#: src/Processes.py:170 src/Users.py:118 ui/ProcessesDetailsWindow.ui:420
+#: ui/ProcessesMenuCustomizations.ui:603 ui/UsersDetailsWindow.ui:91
+#: ui/UsersMenuCustomizations.ui:276
 msgid "GID"
 msgstr ""
 
@@ -457,7 +458,7 @@ msgid "Performance"
 msgstr ""
 
 #: src/SettingsGUI.py:292 src/Users.py:119 ui/MainWindow.ui:601
-#: ui/ProcessesTab.ui:228 ui/UsersDetailsWindow.ui:104
+#: ui/ProcessesTab.ui:227 ui/UsersDetailsWindow.ui:104
 #: ui/UsersMenuCustomizations.ui:290
 msgid "Processes"
 msgstr ""
@@ -639,7 +640,7 @@ msgstr ""
 #: ui/CpuMenus.ui:20 ui/CpuTab.ui:416 ui/DiskMenus.ui:20 ui/DiskTab.ui:38
 #: ui/GpuMenus.ui:20 ui/GpuTab.ui:360 ui/NetworkMenus.ui:20
 #: ui/NetworkTab.ui:421 ui/ProcessesMenuCustomizations.ui:20
-#: ui/ProcessesTab.ui:244 ui/RamMenus.ui:20 ui/RamTab.ui:427
+#: ui/ProcessesTab.ui:243 ui/RamMenus.ui:20 ui/RamTab.ui:427
 #: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:60
 #: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:60
 #: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:72
@@ -807,7 +808,7 @@ msgstr ""
 #: ui/ProcessesDetailsWindow.ui:1453 ui/ProcessesDetailsWindow.ui:1468
 #: ui/ProcessesDetailsWindow.ui:1566 ui/ProcessesDetailsWindow.ui:1581
 #: ui/ProcessesDetailsWindow.ui:1596 ui/ProcessesDetailsWindow.ui:1611
-#: ui/ProcessesTab.ui:267 ui/RamHardwareWindow.ui:41
+#: ui/ProcessesTab.ui:266 ui/RamHardwareWindow.ui:41
 #: ui/RamSwapDetailsWindow.ui:41 ui/RamTab.ui:69 ui/RamTab.ui:86
 #: ui/RamTab.ui:129 ui/RamTab.ui:146 ui/RamTab.ui:176 ui/RamTab.ui:206
 #: ui/RamTab.ui:237 ui/RamTab.ui:284 ui/RamTab.ui:454 ui/RamTab.ui:468
@@ -1318,14 +1319,6 @@ msgid ""
 "(Not recursively)"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:407
-msgid "UIDs"
-msgstr ""
-
-#: ui/ProcessesDetailsWindow.ui:420
-msgid "GIDs"
-msgstr ""
-
 #: ui/ProcessesDetailsWindow.ui:664 ui/ProcessesDetailsWindow.ui:708
 msgid "Summary"
 msgstr ""
@@ -1502,28 +1495,28 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
-#: ui/ProcessesTab.ui:65 ui/SensorsTab.ui:55 ui/ServicesTab.ui:151
+#: ui/ProcessesTab.ui:64 ui/SensorsTab.ui:55 ui/ServicesTab.ui:151
 #: ui/StartupTab.ui:129 ui/UsersTab.ui:141
 msgid "Show all"
 msgstr ""
 
-#: ui/ProcessesTab.ui:87
+#: ui/ProcessesTab.ui:86
 msgid "Show processes from this user"
 msgstr ""
 
-#: ui/ProcessesTab.ui:109
+#: ui/ProcessesTab.ui:108
 msgid "Show processes from other users"
 msgstr ""
 
-#: ui/ProcessesTab.ui:144
+#: ui/ProcessesTab.ui:143
 msgid "User defined expand"
 msgstr ""
 
-#: ui/ProcessesTab.ui:166
+#: ui/ProcessesTab.ui:165
 msgid "Expand all"
 msgstr ""
 
-#: ui/ProcessesTab.ui:188
+#: ui/ProcessesTab.ui:187
 msgid "Collapse all"
 msgstr ""
 

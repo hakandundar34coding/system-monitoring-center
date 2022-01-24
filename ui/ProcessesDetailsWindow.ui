@@ -404,7 +404,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">UIDs</property>
+                        <property name="label" translatable="yes">UID</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -417,7 +417,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">GIDs</property>
+                        <property name="label" translatable="yes">GID</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
