@@ -237,16 +237,54 @@ def disk_details_loop_func():
         window1301w.hide()
         return
     # Get disk vendor and model
-    disk_vendor_model = "-"                                                                   # Initial value of "disk_vendor_model" variable. This value will be used if disk vendor and model could not be detected. The same value is also used for disk partitions.
     if disk_type == _tr("Disk"):
+        disk_or_parent_disk_name = disk
+    if disk_type == _tr("Partition"):
+        disk_or_parent_disk_name = disk_parent_name
+    # Get disk vendor
+    try:
+        with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/vendor") as reader:
+            disk_vendor = reader.read().strip()
+        if disk_vendor.startswith("0x"):                                                      # Disk vendor information may be available as vendor id on some cases (such as on QEMU virtual machines).
+            disk_vendor_id = "\n" + disk_vendor.split("x")[-1].strip() + "  "
+            if disk_vendor_id in pci_ids_output:                                              # "vendor" information may not be present in the pci.ids file.
+                rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id, 1)[1]       # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
+                disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+            if disk_vendor_id not in pci_ids_output:
+                disk_vendor = f'[{_tr("Unknown")}]'
+    except FileNotFoundError:                                                                 # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + disk + "/device" directory. They have this file under "/sys/class/block/" + disk + "/device/device/vendor" directory.
         try:
-            with open("/sys/class/block/" + disk + "/device/vendor") as reader:
-                disk_vendor = reader.read().strip()
-            with open("/sys/class/block/" + disk + "/device/model") as reader:
-                disk_model = reader.read().strip()
-            disk_vendor_model = disk_vendor + " - " +  disk_model
+            with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/vendor") as reader:
+                disk_vendor_id = "\n" + reader.read().strip().split("x")[-1] + "  "
+            if disk_vendor_id in pci_ids_output:                                              # "vendor" information may not be present in the pci.ids file.
+                rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id, 1)[1]
+                disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+            if disk_vendor_id not in pci_ids_output:
+                disk_vendor = f'[{_tr("Unknown")}]'
         except:
-            disk_vendor_model = "-"
+            disk_vendor = f'[{_tr("Unknown")}]'
+    # Get disk model
+    try:
+        with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
+            disk_model = reader.read().strip()
+        if disk_model.startswith("0x"):                                                       # Disk model information may be available as model id on some cases (such as on QEMU virtual machines).
+            disk_model_id = "\n\t" + disk_model.split("x")[-1] + "  "
+            if disk_vendor != f'[{_tr("Unknown")}]':
+                if disk_model_id in rest_of_the_pci_ids_output:                               # "device name" information may not be present in the pci.ids file.
+                    rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(disk_model_id, 1)[1]
+                    disk_model = rest_of_the_rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+                else:
+                    disk_model = f'[{_tr("Unknown")}]'
+            else:
+                disk_model = f'[{_tr("Unknown")}]'
+    except:
+        disk_model = f'[{_tr("Unknown")}]'
+    disk_vendor_model = disk_vendor + " - " +  disk_model
+    # Get disk vendor and model if disk is loop device or swap disk.
+    if "loop" in disk:
+        disk_vendor_model = "[Loop Device]"
+    if "zram" in disk:
+        disk_vendor_model = _tr("[SWAP]")
     # Get disk label
     disk_label = "-"                                                                          # Initial value of "disk_label" variable. This value will be used if disk label could not be detected.
     try:
