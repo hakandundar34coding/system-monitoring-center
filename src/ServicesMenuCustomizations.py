@@ -28,7 +28,6 @@ def services_menu_customizations_gui_func():
     global checkbutton6101p, checkbutton6102p, checkbutton6103p, checkbutton6104p, checkbutton6105p, checkbutton6106p
     global checkbutton6107p, checkbutton6108p
     global button6101p, button6102p
-    global combobox6101p, combobox6102p
 
     # ********************** Get object names for Services tab customizations popover **********************
     popover6101p = builder.get_object('popover6101p')
@@ -42,8 +41,6 @@ def services_menu_customizations_gui_func():
     checkbutton6108p = builder.get_object('checkbutton6108p')
     button6101p = builder.get_object('button6101p')
     button6102p = builder.get_object('button6102p')
-    combobox6101p = builder.get_object('combobox6101p')
-    combobox6102p = builder.get_object('combobox6102p')
 
     # ********************** Define object functions for Services tab customizations popover Common GUI Objects **********************
     def on_button6101p_clicked(widget):                                                       # "Reset All" button
@@ -78,15 +75,6 @@ def services_menu_customizations_gui_func():
     def on_checkbutton6108p_toggled(widget):                                                  # "Description" checkbutton
         services_add_remove_columns_function()
 
-    # ********************** Define object functions for Services tab customizations popover Precision/Data Tab **********************
-    def on_combobox6101p_changed(widget):                                                     # "RAM Usage" combobox (precision)
-        Config.services_ram_swap_data_precision = Config.number_precision_list[combobox6101p.get_active()][2]
-        Config.config_save_func()
-
-    def on_combobox6102p_changed(widget):                                                     # "RAM Usage" combobox (data unit)
-        Config.services_ram_swap_data_unit = Config.data_unit_list[combobox6102p.get_active()][2]
-        Config.config_save_func()
-
     # ********************** Connect signals to GUI objects for Services tab customizations popover Common GUI Objects **********************
     button6101p.connect("clicked", on_button6101p_clicked)
     # ********************** Connect signals to GUI objects for Services tab customizations popover View Tab **********************
@@ -109,9 +97,6 @@ def services_menu_customizations_gui_func():
         checkbutton6106p.connect("toggled", on_checkbutton6106p_toggled)
         checkbutton6107p.connect("toggled", on_checkbutton6107p_toggled)
         checkbutton6108p.connect("toggled", on_checkbutton6108p_toggled)
-        # ********************** Connect signals to GUI objects for Services tab customizations popover Precision/Data Units Tab **********************
-        combobox6101p.connect("changed", on_combobox6101p_changed)
-        combobox6102p.connect("changed", on_combobox6102p_changed)
 
 
     # ********************** Define function for disconnecting Services tab customizations popover GUI signals **********************
@@ -125,9 +110,6 @@ def services_menu_customizations_gui_func():
         checkbutton6106p.disconnect_by_func(on_checkbutton6106p_toggled)
         checkbutton6107p.disconnect_by_func(on_checkbutton6107p_toggled)
         checkbutton6108p.disconnect_by_func(on_checkbutton6108p_toggled)
-        # ********************** Connect signals to GUI objects for Services tab customizations popover Precision/Data Units Tab **********************
-        combobox6101p.disconnect_by_func(on_combobox6101p_changed)
-        combobox6102p.disconnect_by_func(on_combobox6102p_changed)
 
 
     services_tab_popover_set_gui()
@@ -169,33 +151,6 @@ def services_tab_popover_set_gui():
         checkbutton6108p.set_active(True)
     if 7 not in Config.services_treeview_columns_shown:
         checkbutton6108p.set_active(False)
-    # Set Services tab customizations popover menu Precision/Data Units tab GUI object data/selections appropriate for settings
-    # Add RAM usage data precision data into combobox
-    if "liststore6101p" not in globals():                                                 # Check if "liststore6101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
-        global liststore6101p
-        liststore6101p = Gtk.ListStore()
-        liststore6101p.set_column_types([str, int])
-        combobox6101p.set_model(liststore6101p)
-        renderer_text = Gtk.CellRendererText()
-        combobox6101p.pack_start(renderer_text, True)
-        combobox6101p.add_attribute(renderer_text, "text", 0)
-        for data in Config.number_precision_list:
-            liststore6101p.append([data[1], data[2]])
-    combobox6101p.set_active(Config.services_ram_swap_data_precision)
-    # Add RAM usage data unit data into combobox
-    if "liststore6102p" not in globals():
-        global liststore6102p
-        liststore6102p = Gtk.ListStore()
-        liststore6102p.set_column_types([str, int])
-        combobox6102p.set_model(liststore6102p)
-        renderer_text = Gtk.CellRendererText()
-        combobox6102p.pack_start(renderer_text, True)
-        combobox6102p.add_attribute(renderer_text, "text", 0)
-        for data in Config.data_unit_list:
-            liststore6102p.append([data[1], data[2]])
-    for data_list in Config.data_unit_list:
-        if data_list[2] == Config.services_ram_swap_data_unit:      
-            combobox6102p.set_active(data_list[0])
 
 
 # ----------------------------------- Services - Services Add/Remove Columns Function (adds/removes services treeview columns) -----------------------------------

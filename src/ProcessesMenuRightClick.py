@@ -31,7 +31,7 @@ def processes_menu_right_click_gui_func():
 
     # ********************** Define object names for Processes tab right click menu **********************
     global menu2101m
-    global menuitem2101m, menuitem2102m, menuitem2103m, menuitem2104m, menuitem2106m, menuitem2107m, menuitem2108m
+    global menuitem2101m, menuitem2102m, menuitem2103m, menuitem2104m, menuitem2106m
     global radiomenuitem2101m, radiomenuitem2102m, radiomenuitem2103m, radiomenuitem2104m, radiomenuitem2105m, normalmenuitem2101m
 
     # ********************** Get object names for Processes tab right click menu **********************
@@ -41,8 +41,6 @@ def processes_menu_right_click_gui_func():
     menuitem2103m = builder.get_object('menuitem2103m')
     menuitem2104m = builder.get_object('menuitem2104m')
     menuitem2106m = builder.get_object('menuitem2106m')
-    menuitem2107m = builder.get_object('menuitem2107m')
-    menuitem2108m = builder.get_object('menuitem2108m')
     radiomenuitem2101m = builder.get_object('radiomenuitem2101m')
     radiomenuitem2102m = builder.get_object('radiomenuitem2102m')
     radiomenuitem2103m = builder.get_object('radiomenuitem2103m')
@@ -117,31 +115,7 @@ def processes_menu_right_click_gui_func():
                 except subprocess.CalledProcessError:
                     pass
 
-    def on_menuitem2106m_activate(widget):                                                    # "Copy Name" item on the right click menu
-        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
-        clipboard.set_text(Processes.processes_data_rows[Processes.pid_list.index(Common.selected_process_pid)][2], -1)
-        clipboard.store()
-
-    def on_menuitem2107m_activate(widget):                                                    # "Open Location" item on the right click menu
-        selected_process_pid = Common.selected_process_pid
-        selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
-        try:                                                                                  # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
-            full_path = os.path.realpath("/proc/" + selected_process_pid + "/exe")
-        except:
-            try:
-                with open("/proc/" + selected_process_pid + "/cmdline") as reader:
-                    full_path = reader.read()
-            except:
-                full_path = "-"
-        if full_path == "":
-            full_path = "-"
-        if full_path == "-":
-            processes_no_path_error_dialog(selected_process_name, selected_process_pid)
-            return
-        path_only, file_name_only = os.path.split(os.path.abspath(full_path))
-        (subprocess.check_output(["xdg-open", path_only], shell=False)).decode()
-
-    def on_menuitem2108m_activate(widget):                                                    # "Details" item on the right click menu
+    def on_menuitem2106m_activate(widget):                                                    # "Details" item on the right click menu
         if 'ProcessesDetails' not in globals():                                               # Check if "ProcessesDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetails" name is in globals().
             global ProcessesDetails
             import ProcessesDetails
@@ -215,8 +189,6 @@ def processes_menu_right_click_gui_func():
     menuitem2103m.connect("activate", on_menuitem2103m_activate)
     menuitem2104m.connect("activate", on_menuitem2104m_activate)
     menuitem2106m.connect("activate", on_menuitem2106m_activate)
-    menuitem2107m.connect("activate", on_menuitem2107m_activate)
-    menuitem2108m.connect("activate", on_menuitem2108m_activate)
     normalmenuitem2101m.connect("activate", on_normalmenuitem2101m_activate)
     global radiomenuitem2101m_handler_id, radiomenuitem2102m_handler_id, radiomenuitem2103m_handler_id, radiomenuitem2104m_handler_id, radiomenuitem2105m_handler_id
     radiomenuitem2101m_handler_id = radiomenuitem2101m.connect("activate", on_radiomenuitem2101m_activate)
@@ -280,13 +252,3 @@ def processes_kill_process_warning_dialog(process_name, process_pid):
     global warning_dialog2102_response
     warning_dialog2102_response = warning_dialog2102.run()
     warning_dialog2102.destroy()
-
-
-# ----------------------------------- Processes - Processes No Path Error Dialog Function -----------------------------------
-def processes_no_path_error_dialog(process_name, process_pid):
-
-    error_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Directory of this process could not be get:"), )
-    error_dialog2102.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
-    error_dialog2102.run()
-    error_dialog2102.destroy()

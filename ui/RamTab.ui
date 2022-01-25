@@ -22,7 +22,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">RAM:</property>
+            <property name="label" translatable="yes">RAM</property>
             <property name="ellipsize">end</property>
             <attributes>
               <attribute name="weight" value="bold"/>
@@ -305,7 +305,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Swap Memory:</property>
+            <property name="label" translatable="yes">Swap Memory</property>
             <property name="ellipsize">end</property>
             <attributes>
               <attribute name="weight" value="bold"/>
@@ -513,7 +513,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">RAM Usage:</property>
+            <property name="label" translatable="yes">RAM Usage</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

@@ -8,7 +8,7 @@
     <property name="title" translatable="yes">User Details</property>
     <property name="modal">True</property>
     <property name="default-width">350</property>
-    <property name="default-height">380</property>
+    <property name="default-height">340</property>
     <property name="destroy-with-parent">True</property>
     <property name="icon-name">system-monitoring-center-user-symbolic</property>
     <property name="type-hint">dialog</property>
@@ -23,7 +23,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
-              <!-- n-columns=3 n-rows=14 -->
+              <!-- n-columns=3 n-rows=12 -->
               <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -153,7 +153,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">Last Login</property>
+                    <property name="label" translatable="yes">Started</property>
                   </object>
                   <packing>
                     <property name="left-attach">0</property>
@@ -166,37 +166,11 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">Last Failed Login</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">0</property>
-                    <property name="top-attach">10</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="valign">start</property>
-                    <property name="label" translatable="yes">Started</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">0</property>
-                    <property name="top-attach">11</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="valign">start</property>
                     <property name="label" translatable="yes">CPU%</property>
                   </object>
                   <packing>
                     <property name="left-attach">0</property>
-                    <property name="top-attach">12</property>
+                    <property name="top-attach">10</property>
                   </packing>
                 </child>
                 <child>
@@ -341,6 +315,7 @@
                     <property name="halign">start</property>
                     <property name="valign">start</property>
                     <property name="label" translatable="yes">--</property>
+                    <property name="wrap">True</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -366,6 +341,19 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="valign">start</property>
+                    <property name="label" translatable="yes">Memory (RSS)</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">0</property>
+                    <property name="top-attach">11</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkLabel" id="label3112w">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -379,51 +367,6 @@
                   <packing>
                     <property name="left-attach">2</property>
                     <property name="top-attach">11</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label3113w">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
-                    <property name="wrap">True</property>
-                    <property name="selectable">True</property>
-                    <property name="ellipsize">end</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">2</property>
-                    <property name="top-attach">12</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="valign">start</property>
-                    <property name="label" translatable="yes">Memory (RSS)</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">0</property>
-                    <property name="top-attach">13</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label3114w">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
-                    <property name="wrap">True</property>
-                    <property name="selectable">True</property>
-                    <property name="ellipsize">end</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">2</property>
-                    <property name="top-attach">13</property>
                   </packing>
                 </child>
                 <child>
@@ -580,32 +523,6 @@
                   <packing>
                     <property name="left-attach">1</property>
                     <property name="top-attach">11</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">12</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">13</property>
                   </packing>
                 </child>
               </object>

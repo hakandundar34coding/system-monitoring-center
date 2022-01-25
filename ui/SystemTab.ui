@@ -665,7 +665,6 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Name of the display manager (login manager)</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Display Manager:</property>
                     <property name="ellipsize">end</property>

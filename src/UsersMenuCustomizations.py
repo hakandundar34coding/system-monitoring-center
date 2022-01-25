@@ -27,8 +27,7 @@ def users_menu_customizations_gui_func():
     global popover3101p
     global button3101p, button3102p
     global checkbutton3101p, checkbutton3102p, checkbutton3103p, checkbutton3104p, checkbutton3105p, checkbutton3106p, checkbutton3107p
-    global checkbutton3108p, checkbutton3109p, checkbutton3110p, checkbutton3111p, checkbutton3112p, checkbutton3113p, checkbutton3114p
-    global combobox3101p, combobox3102p, combobox3103p
+    global checkbutton3108p, checkbutton3109p, checkbutton3110p, checkbutton3111p, checkbutton3112p
 
     # ********************** Get object names for Users tab customizations popover **********************
     popover3101p = builder.get_object('popover3101p')
@@ -46,11 +45,6 @@ def users_menu_customizations_gui_func():
     checkbutton3110p = builder.get_object('checkbutton3110p')
     checkbutton3111p = builder.get_object('checkbutton3111p')
     checkbutton3112p = builder.get_object('checkbutton3112p')
-    checkbutton3113p = builder.get_object('checkbutton3113p')
-    checkbutton3114p = builder.get_object('checkbutton3114p')
-    combobox3101p = builder.get_object('combobox3101p')
-    combobox3102p = builder.get_object('combobox3102p')
-    combobox3103p = builder.get_object('combobox3103p')
 
     # ********************** Define object functions for Users tab customizations popover Common GUI Objects **********************
     def on_button3101p_clicked(widget):                                                       # "Reset All" button
@@ -86,29 +80,12 @@ def users_menu_customizations_gui_func():
         users_add_remove_columns_function()
     def on_checkbutton3109p_toggled(widget):                                                  # "Terminal" checkbutton
         users_add_remove_columns_function()
-    def on_checkbutton3110p_toggled(widget):                                                  # "Last Login" checkbutton
+    def on_checkbutton3110p_toggled(widget):                                                  # "Started" checkbutton
         users_add_remove_columns_function()
-    def on_checkbutton3111p_toggled(widget):                                                  # "Last Failed Login" checkbutton
+    def on_checkbutton3111p_toggled(widget):                                                  # "CPU%" checkbutton
         users_add_remove_columns_function()
-    def on_checkbutton3112p_toggled(widget):                                                  # "Started" checkbutton
+    def on_checkbutton3112p_toggled(widget):                                                  # "RAM (RSS)" checkbutton
         users_add_remove_columns_function()
-    def on_checkbutton3113p_toggled(widget):                                                  # "CPU%" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3114p_toggled(widget):                                                  # "RAM (RSS)" checkbutton
-        users_add_remove_columns_function()
-
-    # ********************** Define object functions for Users tab customizations popover Precision/Data Tab **********************
-    def on_combobox3101p_changed(widget):                                                     # "CPU Percent" combobox
-        Config.users_cpu_usage_percent_precision = Config.number_precision_list[combobox3101p.get_active()][2]
-        Config.config_save_func()
-
-    def on_combobox3102p_changed(widget):                                                     # "RAM & Swap Usage" combobox for "precision"
-        Config.users_ram_swap_data_precision = Config.number_precision_list[combobox1202p.get_active()][2]
-        Config.config_save_func()
-
-    def on_combobox3103p_changed(widget):                                                     # "RAM & Swap Usage" combobox for "data unit"
-        Config.users_ram_swap_data_unit = Config.data_unit_list[combobox3103p.get_active()][2]
-        Config.config_save_func()
 
     # ********************** Connect signals to GUI objects for Users tab customizations popover Common GUI Objects **********************
     button3101p.connect("clicked", on_button3101p_clicked)
@@ -136,12 +113,6 @@ def users_menu_customizations_gui_func():
         checkbutton3110p.connect("toggled", on_checkbutton3110p_toggled)
         checkbutton3111p.connect("toggled", on_checkbutton3111p_toggled)
         checkbutton3112p.connect("toggled", on_checkbutton3112p_toggled)
-        checkbutton3113p.connect("toggled", on_checkbutton3113p_toggled)
-        checkbutton3114p.connect("toggled", on_checkbutton3114p_toggled)
-        # ********************** Connect signals to GUI objects for Users tab customizations popover Precision/Data Units Tab **********************
-        combobox3101p.connect("changed", on_combobox3101p_changed)
-        combobox3102p.connect("changed", on_combobox3102p_changed)
-        combobox3103p.connect("changed", on_combobox3103p_changed)
 
 
     # ********************** Define function for disconnecting Users tab customizations popover GUI signals **********************
@@ -159,12 +130,6 @@ def users_menu_customizations_gui_func():
         checkbutton3110p.disconnect_by_func(on_checkbutton3110p_toggled)
         checkbutton3111p.disconnect_by_func(on_checkbutton3111p_toggled)
         checkbutton3112p.disconnect_by_func(on_checkbutton3112p_toggled)
-        checkbutton3113p.disconnect_by_func(on_checkbutton3113p_toggled)
-        checkbutton3114p.disconnect_by_func(on_checkbutton3114p_toggled)
-        # ********************** Disconnect signals of GUI objects for Users tab customizations popover Precision/Data Units Tab **********************
-        combobox3101p.disconnect_by_func(on_combobox3101p_changed)
-        combobox3102p.disconnect_by_func(on_combobox3102p_changed)
-        combobox3103p.disconnect_by_func(on_combobox3103p_changed)
 
 
     users_tab_popover_set_gui()
@@ -210,65 +175,18 @@ def users_tab_popover_set_gui():
         checkbutton3109p.set_active(True)
     if 8 not in Config.users_treeview_columns_shown:
         checkbutton3109p.set_active(False)
-    if 9 in Config.users_treeview_columns_shown:
-        checkbutton3110p.set_active(True)
-    if 9 not in Config.users_treeview_columns_shown:
-        checkbutton3110p.set_active(False)
-    if 10 in Config.users_treeview_columns_shown:
-        checkbutton3111p.set_active(True)
-    if 10 not in Config.users_treeview_columns_shown:
-        checkbutton3111p.set_active(False)
     if 11 in Config.users_treeview_columns_shown:
-        checkbutton3112p.set_active(True)
+        checkbutton3110p.set_active(True)
     if 11 not in Config.users_treeview_columns_shown:
-        checkbutton3112p.set_active(False)
+        checkbutton3110p.set_active(False)
     if 12 in Config.users_treeview_columns_shown:
-        checkbutton3113p.set_active(True)
+        checkbutton3111p.set_active(True)
     if 12 not in Config.users_treeview_columns_shown:
-        checkbutton3113p.set_active(False)
+        checkbutton3111p.set_active(False)
     if 13 in Config.users_treeview_columns_shown:
-        checkbutton3114p.set_active(True)
+        checkbutton3112p.set_active(True)
     if 13 not in Config.users_treeview_columns_shown:
-        checkbutton3114p.set_active(False)
-    # Set Users tab customizations popover menu Precision/Data Units tab GUI object data/selections appropriate for settings
-    # Add CPU usage percent data into combobox
-    if "liststore3101p" not in globals():                                                 # Check if "liststore3101p" is in global variables list (Python's own list = globals()) in order to prevent readdition of items to the listbox and combobox.
-        global liststore3101p
-        liststore3101p = Gtk.ListStore()
-        liststore3101p.set_column_types([str, int])
-        combobox3101p.set_model(liststore3101p)
-        renderer_text = Gtk.CellRendererText()
-        combobox3101p.pack_start(renderer_text, True)
-        combobox3101p.add_attribute(renderer_text, "text", 0)
-        for data in Config.number_precision_list:
-            liststore3101p.append([data[1], data[2]])
-    combobox3101p.set_active(Config.users_cpu_usage_percent_precision)
-    # Add RAM usage data precision data into combobox
-    if "liststore3102p" not in globals():
-        global liststore3102p
-        liststore3102p = Gtk.ListStore()
-        liststore3102p.set_column_types([str, int])
-        combobox3102p.set_model(liststore3102p)
-        renderer_text = Gtk.CellRendererText()
-        combobox3102p.pack_start(renderer_text, True)
-        combobox3102p.add_attribute(renderer_text, "text", 0)
-        for data in Config.number_precision_list:
-            liststore3102p.append([data[1], data[2]])
-    combobox3102p.set_active(Config.users_ram_swap_data_precision)
-    # Add RAM usage data unit data into combobox
-    if "liststore3103p" not in globals():
-        global liststore3103p
-        liststore3103p = Gtk.ListStore()
-        liststore3103p.set_column_types([str, int])
-        combobox3103p.set_model(liststore3103p)
-        renderer_text = Gtk.CellRendererText()
-        combobox3103p.pack_start(renderer_text, True)
-        combobox3103p.add_attribute(renderer_text, "text", 0)
-        for data in Config.data_unit_list:
-            liststore3103p.append([data[1], data[2]])
-    for data_list in Config.data_unit_list:
-        if data_list[2] == Config.users_ram_swap_data_unit:      
-            combobox3103p.set_active(data_list[0])
+        checkbutton3112p.set_active(False)
 
 
 # ----------------------------------- Users - Users Add/Remove Columns Function (adds/removes users treeview columns) -----------------------------------
@@ -295,13 +213,9 @@ def users_add_remove_columns_function():
     if checkbutton3109p.get_active() is True:
         Config.users_treeview_columns_shown.append(8)
     if checkbutton3110p.get_active() is True:
-        Config.users_treeview_columns_shown.append(9)
-    if checkbutton3111p.get_active() is True:
-        Config.users_treeview_columns_shown.append(10)
-    if checkbutton3112p.get_active() is True:
         Config.users_treeview_columns_shown.append(11)
-    if checkbutton3113p.get_active() is True:
+    if checkbutton3111p.get_active() is True:
         Config.users_treeview_columns_shown.append(12)
-    if checkbutton3114p.get_active() is True:
+    if checkbutton3112p.get_active() is True:
         Config.users_treeview_columns_shown.append(13)
     Config.config_save_func()

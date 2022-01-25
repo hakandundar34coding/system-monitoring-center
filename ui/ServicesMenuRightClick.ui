@@ -32,11 +32,6 @@
     <property name="can-focus">False</property>
     <property name="icon-name">system-monitoring-center-apply-symbolic</property>
   </object>
-  <object class="GtkImage" id="menuitem6108mimage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-copy-symbolic</property>
-  </object>
   <object class="GtkImage" id="menuitem6109mimage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -115,21 +110,6 @@
     </child>
     <child>
       <object class="GtkImageMenuItem" id="menuitem6108m">
-        <property name="label" translatable="yes">Copy Name</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">menuitem6108mimage</property>
-        <property name="use-stock">False</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkSeparatorMenuItem">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="menuitem6109m">
         <property name="label" translatable="yes">Details</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>

@@ -31,7 +31,6 @@ def services_menu_right_click_gui_func():
     # ********************** Define object names for Services tab right click menu **********************
     global menu6101m
     global menuitem6101m, menuitem6102m, menuitem6103m, menuitem6104m, menuitem6105m, menuitem6106m, checkmenuitem6107m, menuitem6108m
-    global menuitem6109m
 
     # ********************** Get object names for Services tab right click menu **********************
     menu6101m = builder.get_object('menu6101m')
@@ -43,7 +42,6 @@ def services_menu_right_click_gui_func():
     menuitem6106m = builder.get_object('menuitem6106m')
     checkmenuitem6107m = builder.get_object('checkmenuitem6107m')
     menuitem6108m = builder.get_object('menuitem6108m')
-    menuitem6109m = builder.get_object('menuitem6109m')
 
     # ********************** Define object functions for Services tab right click menu **********************
     def on_menuitem6101m_activate(widget):                                                    # "Start" item on the right click menu
@@ -104,13 +102,7 @@ def services_menu_right_click_gui_func():
         except subprocess.CalledProcessError as e:
             services_action_warning_dialog(e.output.decode("utf-8").strip())
 
-    def on_menuitem6108m_activate(widget):                                                    # "Copy Name" item on the right click menu
-        service_name = Common.selected_service_name
-        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
-        clipboard.set_text(service_name, -1)
-        clipboard.store()                                                                     # Stores copied text in the clipboard. Therefore text stays in the clipboard after application has quit.
-
-    def on_menuitem6109m_activate(widget):                                                    # "Details" item on the right click menu
+    def on_menuitem6108m_activate(widget):                                                    # "Details" item on the right click menu
         if 'ServicesDetails' not in globals():                                                # Check if "ServicesDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ServicesDetails" name is in globals().
             global ServicesDetails
             import ServicesDetails
@@ -127,7 +119,6 @@ def services_menu_right_click_gui_func():
     global checkmenuitem6107m_handler_id
     checkmenuitem6107m_handler_id = checkmenuitem6107m.connect("toggled", on_checkmenuitem6107m_toggled)    # Handler id is defined in order to block signals of the checkmenuitem. Because checkmenuitem is set as "activated/deactivated" appropriate with relevant service status when right click and mouse button release action is finished. This action triggers unwanted event signals.
     menuitem6108m.connect("activate", on_menuitem6108m_activate)
-    menuitem6109m.connect("activate", on_menuitem6109m_activate)
 
 
 # ----------------------------------- Services - Set Checkmenuitems (acivates/deactivates checkmenuitem (Enable/Disable checkbox for service status (enabled/disabled, masked/unmasked)) on the popup menu when right click operation is performed on service row on the treeview) -----------------------------------

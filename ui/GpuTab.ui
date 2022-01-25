@@ -141,7 +141,6 @@ FPS counting does not continue when window is minimized.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">If selected GPU has unified memory (reserved from RAM)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Unified Memory:</property>
             <property name="ellipsize">end</property>
@@ -466,7 +465,7 @@ FPS counting does not continue when window is minimized.</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
-                <property name="label" translatable="yes">FPS:</property>
+                <property name="label" translatable="yes">FPS</property>
               </object>
               <packing>
                 <property name="left-attach">0</property>

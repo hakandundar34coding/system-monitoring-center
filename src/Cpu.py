@@ -264,9 +264,9 @@ def cpu_initial_func():
     # Set CPU tab label texts by using information get
     show_cpu_usage_per_core = Config.show_cpu_usage_per_core
     if show_cpu_usage_per_core == 0:
-        label1113.set_text(_tr("CPU Usage (Average):"))
+        label1113.set_text(_tr("CPU Usage (Average)"))
     if show_cpu_usage_per_core == 1:
-        label1113.set_text(_tr("CPU Usage (Per Core):"))
+        label1113.set_text(_tr("CPU Usage (Per Core)"))
     label1108.set_text(cpu_architecture)
     if isinstance(cpu_max_frequency_selected_core, str) is False:
         label1105.set_text(f'{cpu_min_frequency_selected_core:.2f} - {cpu_max_frequency_selected_core:.2f} GHz')

@@ -45,7 +45,6 @@ Note2: For RPM based distributions:
     * An always on top and semi-transparent floating summary window for performance monitoring
     * Monitoring and managing processes, users, startup applications and services (systemd)
     * Monitoring sensors and general system information
-* Customization options per-tab
 * Language support (more languages will be added if translations are provided by contributors):
     * English, Turkish
 * Adapts to system theme

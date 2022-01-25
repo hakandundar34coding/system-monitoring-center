@@ -74,8 +74,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Network connection on the selected network card
-(Wi-Fi or Ethernet)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Connection Type:</property>
             <property name="ellipsize">end</property>
@@ -365,7 +363,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Network Download (-) &amp; Upload (--) Speed:</property>
+            <property name="label" translatable="yes">Network Download (-) &amp; Upload (--) Speed</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

@@ -61,7 +61,10 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Precision:</property>
+                <property name="label" translatable="yes">Precision</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -173,7 +176,10 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Chart - Set Color:</property>
+                <property name="label" translatable="yes">Chart - Set Color</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -256,7 +262,10 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Data Unit:</property>
+                <property name="label" translatable="yes">Data Unit</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left-attach">1</property>

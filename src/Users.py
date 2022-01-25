@@ -120,8 +120,8 @@ def users_initial_func():
                       [6, _tr('Home Directory'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [7, _tr('Group'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [8, _tr('Terminal'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                      [9, _tr('Last Login'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                      [10, _tr('Last Failed Login'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                      [9, 'Last Login', 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                      [10, 'Last Failed Login', 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [11, _tr('Started'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_started]],
                       [12, _tr('CPU%'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
                       [13, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]]
@@ -315,24 +315,6 @@ def users_loop_func():
             if 8 in users_treeview_columns_shown:
                 user_terminal = line_split[6]
                 users_data_row.append(user_terminal)
-            # Get user last log in time
-            if 9 in users_treeview_columns_shown:
-                for i, line in enumerate(lslogins_command_lines):
-                    if line.split("=")[1].strip('"') == username:
-                        user_last_log_in_time = lslogins_command_lines[i+1].split("=")[1].strip('"').split("+")[0].replace("T", " ")
-                        break
-                if user_last_log_in_time == "":
-                    user_last_log_in_time = "-"
-                users_data_row.append(user_last_log_in_time)
-            # Get user last failed log in time
-            if 10 in users_treeview_columns_shown:
-                for i, line in enumerate(lslogins_command_lines):
-                    if line.split("=")[1].strip('"') == username:
-                        user_last_failed_log_in_time = lslogins_command_lines[i+2].split("=")[1].strip('"').split("+")[0].replace("T", " ")
-                        break
-                if user_last_failed_log_in_time == "":
-                    user_last_failed_log_in_time = "-"
-                users_data_row.append(user_last_failed_log_in_time)
             # Get user process start time
             if 11 in users_treeview_columns_shown:
                 if user_process_pid == 0:

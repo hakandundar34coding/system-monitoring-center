@@ -114,21 +114,6 @@ def services_details_gui_reset_function():
     label6122w.set_text("--")
 
 
-# # ----------------------------------- Services - Services Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
-# def services_details_tab_switch_control_func():
-# 
-#     global previous_page
-#     if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
-#         previous_page = None
-#         current_page = None
-#     current_page = notebook6101w.get_current_page()
-#     if current_page != previous_page and previous_page != None:                               # Check if tab is switched
-#         ServicesDetails.service_details_foreground_func()                                     # Update the data on the tab
-#     previous_page = current_page
-#     if window6101w.get_visible() == True:
-#         GLib.timeout_add(200, services_details_tab_switch_control_func)                       # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
-
-
 # ----------------------------------- Services - Services Details Function (the code of this module in order to avoid running them during module import and defines "Services" tab GUI objects and functions/signals) -----------------------------------
 def services_details_initial_func():
 
@@ -220,16 +205,16 @@ def services_details_loop_func():
                     selected_service_memory_current = "-"
             continue
         if "Requires=" in line:
-            selected_service_requires = line.split("=")[1].split()
+            selected_service_requires = sorted(line.split("=")[1].split())
             continue
         if "Conflicts=" in line:
-            selected_service_conflicts = line.split("=")[1].split()
+            selected_service_conflicts = sorted(line.split("=")[1].split())
             continue
         if "After=" in line:
-            selected_service_after = line.split("=")[1].split()
+            selected_service_after = sorted(line.split("=")[1].split())
             continue
         if "Before=" in line:
-            selected_service_before = line.split("=")[1].split()
+            selected_service_before = sorted(line.split("=")[1].split())
             continue
         if "TriggeredBy=" in line:
             selected_service_triggered_by = line.split("=")[1]

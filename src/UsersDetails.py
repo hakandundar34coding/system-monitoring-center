@@ -28,7 +28,7 @@ def users_details_gui_function():
     # Users Details window GUI objects
     global builder3101w, window3101w
     global label3101w, label3102w, label3103w, label3104w, label3105w, label3106w, label3107w, label3108w, label3109w, label3110w
-    global label3111w, label3112w, label3113w, label3114w
+    global label3111w, label3112w
 
 
     # Users Details window GUI objects - get
@@ -51,8 +51,6 @@ def users_details_gui_function():
     label3110w = builder3101w.get_object('label3110w')
     label3111w = builder3101w.get_object('label3111w')
     label3112w = builder3101w.get_object('label3112w')
-    label3113w = builder3101w.get_object('label3113w')
-    label3114w = builder3101w.get_object('label3114w')
 
 
     # Users Details window GUI functions
@@ -90,8 +88,6 @@ def users_details_gui_reset_function():
     label3110w.set_text("--")
     label3111w.set_text("--")
     label3112w.set_text("--")
-    label3113w.set_text("--")
-    label3114w.set_text("--")
 
 
 # ----------------------------------- Users - Users Details Function -----------------------------------
@@ -240,22 +236,6 @@ def users_details_loop_func():
     # Get user group
     selected_user_group_name = user_group_names[user_group_ids.index(selected_user_gid)]
 
-    # Get user last log in time
-    for i, line in enumerate(lslogins_command_lines):
-        if line.split("=")[1].strip('"') == selected_user_username:
-            selected_user_last_log_in_time = lslogins_command_lines[i+1].split("=")[1].strip('"').split("+")[0].replace("T", " ")
-            break
-    if selected_user_last_log_in_time == "":
-        selected_user_last_log_in_time = "-"
-
-    # Get user last failed log in time
-    for i, line in enumerate(lslogins_command_lines):
-        if line.split("=")[1].strip('"') == selected_user_username:
-            selected_user_last_failed_log_in_time = lslogins_command_lines[i+2].split("=")[1].strip('"').split("+")[0].replace("T", " ")
-            break
-    if selected_user_last_failed_log_in_time == "":
-        selected_user_last_failed_log_in_time = "-"
-
     # Get user process start time
     if user_process_pid == 0:
         selected_user_process_start_time = 0                                                  # User process start time is "0" if it is not alive (if user is not logged in)
@@ -295,14 +275,12 @@ def users_details_loop_func():
     label3107w.set_text(selected_user_home_dir)
     label3108w.set_text(selected_user_group_name)
     label3109w.set_text(selected_user_terminal)
-    label3110w.set_text(selected_user_last_log_in_time)
-    label3111w.set_text(selected_user_last_failed_log_in_time)
     if selected_user_process_start_time != 0:
-        label3112w.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
+        label3110w.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
     if selected_user_process_start_time == 0:
-        label3112w.set_text("-")
-    label3113w.set_text(f'{selected_user_cpu_percent:.{users_cpu_usage_percent_precision}f} %')
-    label3114w.set_text(f'{users_data_unit_converter_func(selected_user_ram_percent, users_ram_swap_data_unit, users_ram_swap_data_precision)}')
+        label3110w.set_text("-")
+    label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_usage_percent_precision}f} %')
+    label3112w.set_text(f'{users_data_unit_converter_func(selected_user_ram_percent, users_ram_swap_data_unit, users_ram_swap_data_precision)}')
 
 
 # ----------------------------------- Users Details - Run Function -----------------------------------
