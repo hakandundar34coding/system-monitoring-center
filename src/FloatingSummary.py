@@ -113,21 +113,21 @@ def floating_summary_loop_func():
 
     # Set label text for showing peformance data
     if 0 in floating_summary_data_shown:
-        label3001.set_text(_tr("CPU: ") + f'{Performance.cpu_usage_percent_ave[-1]:.0f} %')
+        label3001.set_text(_tr("CPU") + ": " + f'{Performance.cpu_usage_percent_ave[-1]:.0f} %')
     if 1 in floating_summary_data_shown:
-        label3002.set_text(_tr("RAM: ") + f'{Performance.ram_usage_percent[-1]:.0f} %')
+        label3002.set_text(_tr("RAM") + ": " + f'{Performance.ram_usage_percent[-1]:.0f} %')
     if 2 in floating_summary_data_shown:
-        label3003.set_text(_tr("Disk R+W: ") + f'{floating_summary_data_unit_converter_func((Performance.disk_read_speed[Performance.selected_disk_number][-1] + Performance.disk_write_speed[Performance.selected_disk_number][-1]), 0, 2)}/s')
+        label3003.set_text(_tr("Disk R+W") + ": " + f'{floating_summary_data_unit_converter_func((Performance.disk_read_speed[Performance.selected_disk_number][-1] + Performance.disk_write_speed[Performance.selected_disk_number][-1]), 0, 2)}/s')
     if 3 in floating_summary_data_shown:
-        label3004.set_text(_tr("Disk R: ") + f'{floating_summary_data_unit_converter_func(Performance.disk_read_speed[Performance.selected_disk_number][-1], 0, 2)}/s')
+        label3004.set_text(_tr("Disk R") + ": " + f'{floating_summary_data_unit_converter_func(Performance.disk_read_speed[Performance.selected_disk_number][-1], 0, 2)}/s')
     if 4 in floating_summary_data_shown:
-        label3005.set_text(_tr("Disk W: ") + f'{floating_summary_data_unit_converter_func(Performance.disk_write_speed[Performance.selected_disk_number][-1], 0, 2)}/s')
+        label3005.set_text(_tr("Disk W") + ": " + f'{floating_summary_data_unit_converter_func(Performance.disk_write_speed[Performance.selected_disk_number][-1], 0, 2)}/s')
     if 5 in floating_summary_data_shown:
-        label3006.set_text(_tr("Network D+U: ") + f'{floating_summary_data_unit_converter_func((Performance.network_receive_speed[Performance.selected_network_card_number][-1] + Performance.network_send_speed[Performance.selected_network_card_number][-1]), 0, 2)}/s')
+        label3006.set_text(_tr("Network D+U") + ": " + f'{floating_summary_data_unit_converter_func((Performance.network_receive_speed[Performance.selected_network_card_number][-1] + Performance.network_send_speed[Performance.selected_network_card_number][-1]), 0, 2)}/s')
     if 6 in floating_summary_data_shown:
-        label3007.set_text(_tr("Network R: ") + f'{floating_summary_data_unit_converter_func(Performance.network_receive_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
+        label3007.set_text(_tr("Network D") + ": " + f'{floating_summary_data_unit_converter_func(Performance.network_receive_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
     if 7 in floating_summary_data_shown:
-        label3008.set_text(_tr("Network W: ") + f'{floating_summary_data_unit_converter_func(Performance.network_send_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
+        label3008.set_text(_tr("Network U") + ": " + f'{floating_summary_data_unit_converter_func(Performance.network_send_speed[Performance.selected_network_card_number][-1], 0, 2)}/s')
 
 
 # ----------------------------------- FloatingSummary - Run Function -----------------------------------

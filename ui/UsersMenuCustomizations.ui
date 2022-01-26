@@ -224,7 +224,7 @@
                     <property name="column-homogeneous">True</property>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton3101p">
-                        <property name="label" translatable="yes">User Name</property>
+                        <property name="label" translatable="yes">User</property>
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can-focus">True</property>

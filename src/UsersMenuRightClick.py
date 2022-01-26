@@ -72,7 +72,7 @@ def users_end_user_session_warning_dialog(selected_username, selected_user_uid):
     warning_dialog3102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to end session of this user?"), )
     warning_dialog3102.format_secondary_text(_tr("This action will end all processes of the user immediately and may cause data loss.") +
-                                             "\n\n    " + _tr("User Name") + ": " + selected_username +
+                                             "\n\n    " + _tr("User") + ": " + selected_username +
                                              "\n    " + _tr("UID") + ": " + selected_user_uid)
     global warning_dialog3102_response
     warning_dialog3102_response = warning_dialog3102.run()

@@ -28,7 +28,7 @@ def services_details_gui_function():
     # Services Details window GUI objects
     global builder6101w, window6101w, notebook6101w
     global label6101w, label6102w, label6103w, label6104w, label6105w, label6106w, label6107w, label6108w, label6109w, label6110w
-    global label6111w, label6112w, label6113w, label6114w, label6115w, label6116w, label6117w, label6118w, label6119w, label6120w
+    global label6111w, label6112w, label6114w, label6115w, label6117w, label6118w, label6119w, label6120w
     global label6121w, label6122w
 
 
@@ -53,10 +53,8 @@ def services_details_gui_function():
     label6110w = builder6101w.get_object('label6110w')
     label6111w = builder6101w.get_object('label6111w')
     label6112w = builder6101w.get_object('label6112w')
-    label6113w = builder6101w.get_object('label6113w')
     label6114w = builder6101w.get_object('label6114w')
     label6115w = builder6101w.get_object('label6115w')
-    label6116w = builder6101w.get_object('label6116w')
     label6117w = builder6101w.get_object('label6117w')
     label6118w = builder6101w.get_object('label6118w')
 
@@ -102,10 +100,8 @@ def services_details_gui_reset_function():
     label6110w.set_text("--")
     label6111w.set_text("--")
     label6112w.set_text("--")
-    label6113w.set_text("--")
     label6114w.set_text("--")
     label6115w.set_text("--")
-    label6116w.set_text("--")
     label6117w.set_text("--")
     label6118w.set_text("--")
     label6119w.set_text("--")
@@ -143,10 +139,8 @@ def services_details_loop_func():
 
     selected_service_type = "-"                                                               # Initial value of "selected_service_type" variable. This value will be used if "selected_service_type" could not be detected.
     selected_service_main_pid = "-"
-    selected_service_control_pid = "-"
     selected_service_exec_main_start_times_stamp_monotonic = "-"
     selected_service_exec_main_exit_times_stamp_monotonic ="-"
-    selected_service_exec_main_pid = "-"
     selected_service_memory_current = "-"
     selected_service_requires = "-"
     selected_service_conflicts = "-"
@@ -172,9 +166,6 @@ def services_details_loop_func():
         if "MainPID=" in line:
             selected_service_main_pid = line.split("=")[1]
             continue
-        if "ControlPID=" in line:
-            selected_service_control_pid = line.split("=")[1]
-            continue
         if "ExecMainStartTimestampMonotonic=" in line:
             line_split = line.split("=")[1]
             if line_split != "0":
@@ -190,9 +181,6 @@ def services_details_loop_func():
                 selected_service_exec_main_exit_times_stamp_monotonic = datetime.fromtimestamp(selected_service_exec_main_exit_times_stamp_monotonic).strftime("%d.%m.%Y %H:%M:%S")
             if line_split == "0":
                 selected_service_exec_main_exit_times_stamp_monotonic = "-"
-            continue
-        if "ExecMainPID=" in line:
-            selected_service_exec_main_pid = line.split("=")[1]
             continue
         if "MemoryCurrent=" in line:
             selected_service_memory_current = line.split("=")[1]
@@ -272,10 +260,8 @@ def services_details_loop_func():
     label6110w.set_text(selected_service_main_pid)
     label6111w.set_text(f'{selected_service_can_start} - {selected_service_can_stop}')
     label6112w.set_text(selected_service_can_reload)
-    label6113w.set_text(selected_service_exec_main_pid)
     label6114w.set_text(selected_service_exec_main_start_times_stamp_monotonic)
     label6115w.set_text(selected_service_exec_main_exit_times_stamp_monotonic)
-    label6116w.set_text(selected_service_control_pid)
     label6117w.set_text(selected_service_type)
     label6118w.set_text(selected_service_memory_current)
     label6119w.set_text(',\n'.join(selected_service_requires))
