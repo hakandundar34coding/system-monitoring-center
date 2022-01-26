@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 10:37+0300\n"
-"PO-Revision-Date: 2022-01-26 10:37+0300\n"
+"POT-Creation-Date: 2022-01-26 19:19+0300\n"
+"PO-Revision-Date: 2022-01-26 19:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -55,8 +55,8 @@ msgid "Partition"
 msgstr "Disk bölümü"
 
 #: src/Disk.py:383 src/DiskDetails.py:240 src/DiskDetails.py:316
-#: src/DiskDetails.py:324 src/SettingsGUI.py:309 ui/DiskTab.ui:22
-#: ui/MainWindow.ui:262 ui/ProcessesDetailsWindow.ui:1469
+#: src/DiskDetails.py:324 src/SettingsGUI.py:309 ui/DiskDetailsWindow.ui:39
+#: ui/DiskTab.ui:22 ui/MainWindow.ui:262 ui/ProcessesDetailsWindow.ui:1469
 msgid "Disk"
 msgstr "Disk"
 
@@ -196,8 +196,8 @@ msgstr "Öncelik"
 
 #: src/Processes.py:167 ui/ProcessesDetailsWindow.ui:722
 #: ui/ProcessesMenuCustomizations.ui:470
-msgid "Number of Threads"
-msgstr "İşlem Parçacığı Sayısı"
+msgid "Threads"
+msgstr "İşlem Parçacıkları"
 
 #: src/Processes.py:168 ui/ProcessesDetailsWindow.ui:172
 #: ui/ProcessesMenuCustomizations.ui:484
@@ -285,8 +285,7 @@ msgstr "Fiziksel RAM"
 msgid "Swap Memory"
 msgstr "Takas Belleği"
 
-#: src/RamHardwareInformation.py:60 src/StartupMenuRightClick.py:430
-#: src/StartupMenuRightClick.py:436
+#: src/RamHardwareInformation.py:60
 msgid "None"
 msgstr "Yok"
 
@@ -544,14 +543,14 @@ msgstr ""
 "silmek istiyor musunuz?"
 
 #: src/StartupMenuRightClick.py:427 src/StartupMenuRightClick.py:430
-#: ui/StartupMenuRightClick.ui:153
-msgid "System-wide values file: "
-msgstr "Sistem geneli değerler dosyası: "
+#: ui/StartupMenuRightClick.ui:90 ui/StartupMenuRightClick.ui:153
+msgid "System-Wide Values File"
+msgstr "Sistem Geneli Değerler Dosyası"
 
 #: src/StartupMenuRightClick.py:433 src/StartupMenuRightClick.py:436
-#: ui/StartupMenuRightClick.ui:162
-msgid "User-specific values file: "
-msgstr "Kullanıcıya özgü değerler dosyası: "
+#: ui/StartupMenuRightClick.ui:99 ui/StartupMenuRightClick.ui:162
+msgid "User-Specific Values File"
+msgstr "Kullanıcıya Özgü Değerler Dosyası"
 
 #: src/StartupMenuRightClick.py:443
 msgid "Do you want to run this startup item now?"
@@ -599,10 +598,10 @@ msgstr "Grup"
 msgid "Terminal"
 msgstr "Uçbirim"
 
-#: src/Users.py:125 ui/UsersDetailsWindow.ui:156
-#: ui/UsersMenuCustomizations.ui:369
-msgid "Started"
-msgstr "Başlama"
+#: src/Users.py:125 ui/ProcessesDetailsWindow.ui:146
+#: ui/UsersDetailsWindow.ui:156 ui/UsersMenuCustomizations.ui:369
+msgid "Start Time"
+msgstr "Başlama Zamanı"
 
 #: src/Users.py:498
 msgid "Total: AAAA users (BBBB logged in users, CCCC logged out users)"
@@ -880,10 +879,6 @@ msgstr "Marka-Model"
 #: ui/DiskDetailsWindow.ui:8
 msgid "Storage Details"
 msgstr "Depolama Detayları"
-
-#: ui/DiskDetailsWindow.ui:39
-msgid "Disk Name"
-msgstr "Disk Adı"
 
 #: ui/DiskDetailsWindow.ui:52
 msgid "Parent Name"
@@ -1245,9 +1240,9 @@ msgstr ""
 "Bu işlemin önceliğini değiştir:\n"
 "(Daha küçük değer daha yüksek işlem önceliği anlamına gelir)"
 
-#: ui/ProcessesCustomPriorityWindow.ui:94
-msgid "Apply"
-msgstr "Uygula"
+#: ui/ProcessesCustomPriorityWindow.ui:94 ui/StartupNewItemWindow.ui:59
+msgid "Save"
+msgstr "Kaydet"
 
 #: ui/ProcessesCustomPriorityWindow.ui:139 ui/StartupNewItemWindow.ui:104
 msgid "Cancel"
@@ -1256,10 +1251,6 @@ msgstr "İptal"
 #: ui/ProcessesDetailsWindow.ui:133
 msgid "Disk Read - Write Speed"
 msgstr "Disk Okuma - Yazma Hızı"
-
-#: ui/ProcessesDetailsWindow.ui:146
-msgid "Start Time"
-msgstr "Başlama Zamanı"
 
 #: ui/ProcessesDetailsWindow.ui:159 ui/ProcessesDetailsWindow.ui:1486
 msgid "Exe"
@@ -1282,8 +1273,8 @@ msgid "Summary"
 msgstr "Özet"
 
 #: ui/ProcessesDetailsWindow.ui:735
-msgid "Threads"
-msgstr "İşlem Parçacıkları"
+msgid "Threads (TID)"
+msgstr "İşlem Parçacıkları (TID)"
 
 #: ui/ProcessesDetailsWindow.ui:748
 msgid "Used CPU Core(s)"
@@ -1466,14 +1457,6 @@ msgstr "Tümünü daralt"
 #: ui/RamHardwareWindow.ui:8
 msgid "RAM Hardware Information"
 msgstr "RAM Donanım Bilgisi"
-
-#: ui/RamHardwareWindow.ui:59
-msgid ""
-"Note: RAM hardware information may be get partially or may not be get at all "
-"on some systems."
-msgstr ""
-"Not: Bazı sistemlerde RAM donanım bilgisi kısmi olarak elde edilebilir veya "
-"hiç elde edilemeyebilir."
 
 #: ui/RamSwapDetailsWindow.ui:8
 msgid "Swap Memory Details"
@@ -1699,14 +1682,6 @@ msgstr "Ekle"
 msgid "Delete"
 msgstr "Sil"
 
-#: ui/StartupMenuRightClick.ui:90
-msgid "Delete System-Wide Values File"
-msgstr "Sistem Geneli Değerler Dosyasını Sil"
-
-#: ui/StartupMenuRightClick.ui:99
-msgid "Delete User-Specific Values File"
-msgstr "Kullanıcıya Özgü Değerler Dosyasını Sil"
-
 #: ui/StartupMenuRightClick.ui:108
 msgid "Delete Both Files"
 msgstr "Her İki Dosyayı Sil"
@@ -1722,10 +1697,6 @@ msgstr "'.desktop' Dosyasını Aç..."
 #: ui/StartupNewItemWindow.ui:8
 msgid "Add New Startup Item"
 msgstr "Yeni Başlangıç Ögesi Ekle"
-
-#: ui/StartupNewItemWindow.ui:59
-msgid "Save"
-msgstr "Kaydet"
 
 #: ui/StartupNewItemWindow.ui:189
 msgid "Icon"
@@ -1764,8 +1735,8 @@ msgid "Operating System Name and Version"
 msgstr "İşletim Sistemi Adı ve Sürümü"
 
 #: ui/SystemTab.ui:134
-msgid "Operating System (OS):"
-msgstr "İşletim Sistemi (İ.S.):"
+msgid "Operating System (OS)"
+msgstr "İşletim Sistemi (İ.S.)"
 
 #: ui/SystemTab.ui:151
 msgid "Name:"
@@ -1796,8 +1767,8 @@ msgid "Kernel Release:"
 msgstr "Kernel Sürümü:"
 
 #: ui/SystemTab.ui:316
-msgid "Computer:"
-msgstr "Bilgisayar:"
+msgid "Computer"
+msgstr "Bilgisayar"
 
 #: ui/SystemTab.ui:351
 msgid "Vendor:"
@@ -1820,12 +1791,12 @@ msgid "Number Of Monitors:"
 msgstr "Ekran Sayısı:"
 
 #: ui/SystemTab.ui:558
-msgid "Graphical User Interface (GUI):"
-msgstr "Grafiksel Kullanıcı Arayüzü (GUI):"
+msgid "Graphical User Interface (GUI)"
+msgstr "Grafiksel Kullanıcı Arayüzü (GUI)"
 
 #: ui/SystemTab.ui:575
-msgid "Packages:"
-msgstr "Paketler:"
+msgid "Packages"
+msgstr "Paketler"
 
 #: ui/SystemTab.ui:592
 msgid "Desktop Environment:"
@@ -1894,6 +1865,34 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Apply"
+#~ msgstr "Uygula"
+
+#~ msgid "Number of Threads"
+#~ msgstr "İşlem Parçacığı Sayısı"
+
+#~ msgid "Number Of Threads"
+#~ msgstr "İşlem Parçacığı Sayısı"
+
+#~ msgid "Disk Name"
+#~ msgstr "Disk Adı"
+
+#~ msgid "Started"
+#~ msgstr "Başlama"
+
+#~ msgid "System-wide values file: "
+#~ msgstr "Sistem geneli değerler dosyası: "
+
+#~ msgid "User-specific values file: "
+#~ msgstr "Kullanıcıya özgü değerler dosyası: "
+
+#~ msgid ""
+#~ "Note: RAM hardware information may be get partially or may not be get at "
+#~ "all on some systems."
+#~ msgstr ""
+#~ "Not: Bazı sistemlerde RAM donanım bilgisi kısmi olarak elde edilebilir "
+#~ "veya hiç elde edilemeyebilir."
 
 #~ msgid "CPU: "
 #~ msgstr "MİB: "

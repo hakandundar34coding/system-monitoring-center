@@ -91,7 +91,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Apply</property>
+                        <property name="label" translatable="yes">Save</property>
                         <property name="ellipsize">end</property>
                       </object>
                       <packing>

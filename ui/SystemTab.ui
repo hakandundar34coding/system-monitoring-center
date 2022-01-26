@@ -131,7 +131,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Operating System (OS):</property>
+                    <property name="label" translatable="yes">Operating System (OS)</property>
                     <property name="ellipsize">end</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
@@ -313,7 +313,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Computer:</property>
+                    <property name="label" translatable="yes">Computer</property>
                     <property name="ellipsize">end</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
@@ -555,7 +555,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Graphical User Interface (GUI):</property>
+                    <property name="label" translatable="yes">Graphical User Interface (GUI)</property>
                     <property name="ellipsize">end</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
@@ -572,7 +572,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Packages:</property>
+                    <property name="label" translatable="yes">Packages</property>
                     <property name="ellipsize">end</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>

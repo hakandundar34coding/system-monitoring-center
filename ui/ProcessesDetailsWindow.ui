@@ -719,7 +719,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Number of Threads</property>
+                        <property name="label" translatable="yes">Threads</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -732,7 +732,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Threads</property>
+                        <property name="label" translatable="yes">Threads (TID)</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>

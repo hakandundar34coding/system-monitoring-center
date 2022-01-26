@@ -424,16 +424,16 @@ def startup_set_menu_labels_func():
     # Set sub-menu item labels (System-wide values file: and User-specific values file:  items) as "sensitive" (also set label texts as file names) if related desktop files exist. Otherwise sensitivities are set as "False".
     if os.path.exists(desktop_file_system_full_path) == True:
         sub_menuitem5101m.set_sensitive(True)
-        sub_menuitem5101m.set_label(_tr("System-wide values file: ") + desktop_file_system_full_path)
+        sub_menuitem5101m.set_label(_tr("System-Wide Values File") + ": " + desktop_file_system_full_path)
     if os.path.exists(desktop_file_system_full_path) == False:
         sub_menuitem5101m.set_sensitive(False)
-        sub_menuitem5101m.set_label(_tr("System-wide values file: ") + _tr("None"))
+        sub_menuitem5101m.set_label(_tr("System-Wide Values File") + ": "  + " -")
     if os.path.exists(desktop_file_user_full_path) == True:
         sub_menuitem5102m.set_sensitive(True)
-        sub_menuitem5102m.set_label(_tr("User-specific values file: ") + desktop_file_user_full_path)
+        sub_menuitem5102m.set_label(_tr("User-Specific Values File") + ": "  + desktop_file_user_full_path)
     if os.path.exists(desktop_file_user_full_path) == False:
         sub_menuitem5102m.set_sensitive(False)
-        sub_menuitem5102m.set_label(_tr("User-specific values file: ") + _tr("None"))
+        sub_menuitem5102m.set_label(_tr("User-Specific Values File") + ": "  + " -")
 
 
 # ----------------------------------- Startup - Startup Run Startup Item Warning Dialog Function -----------------------------------

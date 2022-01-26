@@ -14,7 +14,7 @@
     <property name="type-hint">dialog</property>
     <property name="skip-taskbar-hint">True</property>
     <child>
-      <!-- n-columns=1 n-rows=2 -->
+      <!-- n-columns=1 n-rows=1 -->
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
@@ -49,19 +49,6 @@
           <packing>
             <property name="left-attach">0</property>
             <property name="top-attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Note: RAM hardware information may be get partially or may not be get at all on some systems.</property>
-            <property name="wrap">True</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">1</property>
           </packing>
         </child>
       </object>

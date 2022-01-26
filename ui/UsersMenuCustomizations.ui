@@ -366,7 +366,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton3110p">
-                        <property name="label" translatable="yes">Started</property>
+                        <property name="label" translatable="yes">Start Time</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>

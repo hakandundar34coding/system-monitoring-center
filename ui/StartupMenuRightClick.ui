@@ -87,7 +87,7 @@ For more detailed control, '.desktop' file may be edited manually.</property>
             <property name="can-focus">False</property>
             <child>
               <object class="GtkImageMenuItem" id="sub_menuitem5103m">
-                <property name="label" translatable="yes">Delete System-Wide Values File</property>
+                <property name="label" translatable="yes">System-Wide Values File</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="image">image3</property>
@@ -96,7 +96,7 @@ For more detailed control, '.desktop' file may be edited manually.</property>
             </child>
             <child>
               <object class="GtkImageMenuItem" id="sub_menuitem5104m">
-                <property name="label" translatable="yes">Delete User-Specific Values File</property>
+                <property name="label" translatable="yes">User-Specific Values File</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="image">image4</property>
@@ -150,7 +150,7 @@ For more detailed control, '.desktop' file may be edited manually.</property>
             <property name="can-focus">False</property>
             <child>
               <object class="GtkImageMenuItem" id="sub_menuitem5101m">
-                <property name="label" translatable="yes">System-wide values file: </property>
+                <property name="label" translatable="yes">System-Wide Values File</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="image">sub_menuitem5101mimage</property>
@@ -159,7 +159,7 @@ For more detailed control, '.desktop' file may be edited manually.</property>
             </child>
             <child>
               <object class="GtkImageMenuItem" id="sub_menuitem5102m">
-                <property name="label" translatable="yes">User-specific values file: </property>
+                <property name="label" translatable="yes">User-Specific Values File</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="image">sub_menuitem5102mimage</property>

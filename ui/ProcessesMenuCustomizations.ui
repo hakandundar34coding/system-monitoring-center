@@ -467,7 +467,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2119p">
-                        <property name="label" translatable="yes">Number of Threads</property>
+                        <property name="label" translatable="yes">Threads</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
