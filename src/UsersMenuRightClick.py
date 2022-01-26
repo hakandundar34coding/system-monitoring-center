@@ -52,7 +52,7 @@ def users_menu_right_click_gui_func():
             return
 
     def on_menuitem3102m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'UsersDetails' not in globals():                                                   # Check if "UsersDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on right click menu if "UsersDetails" name is in globals().
+        if 'UsersDetails' not in globals():
             global UsersDetails
             import UsersDetails
             UsersDetails.users_details_import_func()

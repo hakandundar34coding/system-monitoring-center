@@ -116,7 +116,7 @@ def processes_menu_right_click_gui_func():
                     pass
 
     def on_menuitem2106m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'ProcessesDetails' not in globals():                                               # Check if "ProcessesDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ProcessesDetails" name is in globals().
+        if 'ProcessesDetails' not in globals():
             global ProcessesDetails
             import ProcessesDetails
             ProcessesDetails.processes_details_import_func()

@@ -65,7 +65,7 @@ def processes_gui_func():
         processes_treeview_filter_search_func()
 
     def on_button2101_clicked(widget):                                                        # "Processes Tab Customizations" button
-        if 'ProcessesMenuCustomizations' not in globals():                                    # Check if "ProcessesMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
+        if 'ProcessesMenuCustomizations' not in globals():
             global ProcessesMenuCustomizations
             import ProcessesMenuCustomizations
             ProcessesMenuCustomizations.processes_menu_customizations_import_func()

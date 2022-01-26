@@ -51,7 +51,7 @@ def common_mouse_actions_on_treeview_func(event, current_tab, current_treeview, 
 def common_right_click_menu_function(event, current_tab):
 
     if current_tab == "Processes":
-        if 'ProcessesMenuRightClick' not in globals():                                        # Check if "ProcessesMenuRightClick" module is imported. Therefore it is not reimported on every right click operation.
+        if 'ProcessesMenuRightClick' not in globals():
             global ProcessesMenuRightClick
             import ProcessesMenuRightClick
             ProcessesMenuRightClick.processes_menu_right_click_import_func()

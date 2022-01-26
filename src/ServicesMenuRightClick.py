@@ -103,7 +103,7 @@ def services_menu_right_click_gui_func():
             services_action_warning_dialog(e.output.decode("utf-8").strip())
 
     def on_menuitem6108m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'ServicesDetails' not in globals():                                                # Check if "ServicesDetails" module is imported. Therefore it is not reimported for every click on "Details" menu item on the right click menu if "ServicesDetails" name is in globals().
+        if 'ServicesDetails' not in globals():
             global ServicesDetails
             import ServicesDetails
             ServicesDetails.services_details_import_func()

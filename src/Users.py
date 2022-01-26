@@ -61,7 +61,7 @@ def users_gui_func():
         users_treeview_filter_search_func()
 
     def on_button3101_clicked(widget):                                                        # "Users Tab Customizations" button
-        if 'UsersMenuCustomizations' not in globals():                                        # Check if "UsersMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
+        if 'UsersMenuCustomizations' not in globals():
             global UsersMenuCustomizations
             import UsersMenuCustomizations
             UsersMenuCustomizations.users_menu_customizations_import_func()

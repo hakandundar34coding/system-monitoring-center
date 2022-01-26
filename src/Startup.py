@@ -60,7 +60,7 @@ def startup_gui_func():
         startup_treeview_filter_search_func()
 
     def on_button5101_clicked(widget):                                                        # "Startup Tab Customizations" button
-        if 'StartupMenuCustomizations' not in globals():                                      # Check if "StartupMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
+        if 'StartupMenuCustomizations' not in globals():
             global StartupMenuCustomizations
             import StartupMenuCustomizations
             StartupMenuCustomizations.startup_menu_customizations_import_func()

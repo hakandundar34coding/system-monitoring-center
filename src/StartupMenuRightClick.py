@@ -210,7 +210,7 @@ def startup_menu_right_click_gui_func():
             treestore5101.set_value(Startup.piter_list[Startup.all_autostart_applications_list.index(selected_startup_application_file_name)], 1, False)
 
     def on_menuitem5102m_activate(widget):                                                    # "Add" item on the right click menu
-        if 'StartupNewItem' not in globals():                                                 # Check if "StartupNewItem" module is imported. Therefore it is not reimported for every click on "Add" menu item if "StartupNewItem" name is in globals().
+        if 'StartupNewItem' not in globals():
             global StartupNewItem
             import StartupNewItem
             StartupNewItem.startup_new_item_import_func()
