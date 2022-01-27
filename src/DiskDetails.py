@@ -110,8 +110,9 @@ def disk_details_initial_func():
 # ----------------------------------- Disk - Disk Details Foreground Function -----------------------------------
 def disk_details_loop_func():
 
-    global disk
+    global disk, pci_ids_output
     disk = Disk.selected_disk                                                                 # Get right clicked disk name
+    pci_ids_output = Disk.pci_ids_output
 
     # Set Disk Details window title
     window1301w.set_title(_tr("Disk Details") + ": " + disk)                                  # Set window title
