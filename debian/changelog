@@ -1,3 +1,13 @@
+system-monitoring-center (1.2.1) unstable; urgency=medium
+
+  * Fix: disk vendor-model information (Disk Details)
+  * Fix: disk read/write speed (Process Details window)
+  * Minor improvements (Users tab)
+  * Minor improvements (GUI, translation, etc)
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 27 Jan 2022 10:02:00 +0300
+
 system-monitoring-center (1.2.0) unstable; urgency=medium
 
   * Removed Storage tab and moved Disk details to Disk tab
