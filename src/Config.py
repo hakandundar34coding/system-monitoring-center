@@ -31,7 +31,7 @@ def config_read_func():
 
     try:
         global reset_all_settings_with_new_release_value                                      # This value is used for resetting all settings. This integer value is increased "1" in the new application release if resetting is wanted by the developer. Code reads this value from the config file and compares with the value in the code. All settings are reset if integer value of this value is bigger than the value in the config file. There is no action if integer value of this value is smaller than the value in the config file. There is no relationship between this value and application version.
-        reset_all_settings_with_new_release_value = 2
+        reset_all_settings_with_new_release_value = 3
         global config_lines
         with open(config_file_path) as reader:
             config_lines = reader.read().split("\n")
