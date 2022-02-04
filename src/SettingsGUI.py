@@ -530,14 +530,12 @@ def settings_gui_default_tab_func():
         Config.default_main_tab = 1
     if MainGUI.radiobutton3.get_active() == True:
         Config.default_main_tab = 2
-    if MainGUI.radiobutton4.get_active() == True:
-        Config.default_main_tab = 3
     if MainGUI.radiobutton5.get_active() == True:
-        Config.default_main_tab = 4
+        Config.default_main_tab = 3
     if MainGUI.radiobutton6.get_active() == True:
-        Config.default_main_tab = 5
+        Config.default_main_tab = 4
     if MainGUI.radiobutton8.get_active() == True:
-        Config.default_main_tab = 7
+        Config.default_main_tab = 5
     if MainGUI.radiobutton1001.get_active() == True:
         Config.performance_tab_default_sub_tab = 0
     if MainGUI.radiobutton1002.get_active() == True:

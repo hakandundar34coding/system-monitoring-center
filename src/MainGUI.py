@@ -226,11 +226,11 @@ def main_gui_default_main_tab_func():
          radiobutton2.set_active(True)
     if default_main_tab == 2:
          radiobutton3.set_active(True)
-    if default_main_tab == 4:
+    if default_main_tab == 3:
          radiobutton5.set_active(True)
-    if default_main_tab == 5:
+    if default_main_tab == 4:
          radiobutton6.set_active(True)
-    if default_main_tab == 7:
+    if default_main_tab == 5:
          radiobutton8.set_active(True)
 
 
@@ -371,7 +371,7 @@ def main_gui_tab_switch_func():
     if radiobutton5.get_active() == True:                                                     # It switches to "Startup" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid5)
         if remember_last_opened_tabs_on_application_start == 1:
-            Config.default_main_tab = 4
+            Config.default_main_tab = 3
             Config.config_save_func()
         if 'Startup' not in globals():
             global Startup
@@ -385,7 +385,7 @@ def main_gui_tab_switch_func():
     if radiobutton6.get_active() == True:                                                     # It switches to "Services" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid6)
         if remember_last_opened_tabs_on_application_start == 1:
-            Config.default_main_tab = 5
+            Config.default_main_tab = 4
             Config.config_save_func()
         if 'Services' not in globals():
             global Services
@@ -399,7 +399,7 @@ def main_gui_tab_switch_func():
     if radiobutton8.get_active() == True:                                                     # It switches to "System" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid8)
         if remember_last_opened_tabs_on_application_start == 1:
-            Config.default_main_tab = 7
+            Config.default_main_tab = 5
             Config.config_save_func()
         if 'System' not in globals():
             global System
