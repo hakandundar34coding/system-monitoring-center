@@ -4,7 +4,6 @@
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window2001">
     <property name="can-focus">False</property>
-    <property name="title" translatable="yes">General Settings</property>
     <property name="modal">True</property>
     <property name="destroy-with-parent">True</property>
     <property name="icon-name">system-monitoring-center</property>
@@ -16,7 +15,7 @@
         <property name="can-focus">True</property>
         <property name="border-width">10</property>
         <child>
-          <!-- n-columns=2 n-rows=12 -->
+          <!-- n-columns=2 n-rows=14 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -246,6 +245,36 @@
                     </child>
                   </object>
                 </child>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">13</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-top">5</property>
+                <property name="margin-bottom">5</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">12</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbutton2012">
+                <property name="label" translatable="yes">Use dark theme</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Whether the application prefers to use a dark theme.
+If a GTK+ theme includes a dark variant, it will be used instead of the configured theme.</property>
+                <property name="halign">start</property>
+                <property name="draw-indicator">True</property>
               </object>
               <packing>
                 <property name="left-attach">0</property>
@@ -568,6 +597,14 @@
             <property name="tab-fill">False</property>
           </packing>
         </child>
+      </object>
+    </child>
+    <child type="titlebar">
+      <object class="GtkHeaderBar" id="headerbar">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="title" translatable="yes">General Settings</property>
+        <property name="show-close-button">True</property>
       </object>
     </child>
   </object>

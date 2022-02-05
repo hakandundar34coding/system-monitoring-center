@@ -31,7 +31,7 @@ def config_read_func():
 
     try:
         global reset_all_settings_with_new_release_value                                      # This value is used for resetting all settings. This integer value is increased "1" in the new application release if resetting is wanted by the developer. Code reads this value from the config file and compares with the value in the code. All settings are reset if integer value of this value is bigger than the value in the config file. There is no action if integer value of this value is smaller than the value in the config file. There is no relationship between this value and application version.
-        reset_all_settings_with_new_release_value = 2
+        reset_all_settings_with_new_release_value = 3
         global config_lines
         with open(config_file_path) as reader:
             config_lines = reader.read().split("\n")
@@ -71,6 +71,7 @@ def config_default_general_general_func():
     global update_interval, chart_data_history, default_main_tab, performance_tab_default_sub_tab
     global performance_summary_on_the_headerbar, remember_last_opened_tabs_on_application_start, chart_background_color_all_charts
     global remember_last_selected_hardware
+    global use_dark_theme
     reset_all_settings_with_new_release = reset_all_settings_with_new_release_value 
     update_interval = 0.75
     chart_data_history = 150
@@ -80,6 +81,7 @@ def config_default_general_general_func():
     remember_last_opened_tabs_on_application_start = 0
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     remember_last_selected_hardware = 0
+    use_dark_theme = 0
 
 # ----------------------------------- Config - Config Default Floating Summary Function -----------------------------------
 def config_default_general_floating_summary_func():
@@ -245,6 +247,7 @@ def config_get_values_func():
     global update_interval, chart_data_history, default_main_tab, performance_tab_default_sub_tab
     global performance_summary_on_the_headerbar, remember_last_opened_tabs_on_application_start, chart_background_color_all_charts
     global remember_last_selected_hardware
+    global use_dark_theme
 
     global show_floating_summary, floating_summary_window_transparency, floating_summary_data_shown
 
@@ -302,6 +305,9 @@ def config_get_values_func():
             continue
         if line.startswith("remember_last_selected_hardware = ") == True:
             remember_last_selected_hardware = int(line.split(" = ")[1])
+            continue
+        if line.startswith("use_dark_theme = ") == True:
+            use_dark_theme = int(line.split(" = ")[1])
             continue
 
         if line.startswith("show_floating_summary = ") == True:
@@ -540,6 +546,7 @@ def config_save_func():
         writer.write("remember_last_opened_tabs_on_application_start = " + str(remember_last_opened_tabs_on_application_start) + "\n")
         writer.write("chart_background_color_all_charts = " + str(chart_background_color_all_charts) + "\n")
         writer.write("remember_last_selected_hardware = " + str(remember_last_selected_hardware) + "\n")
+        writer.write("use_dark_theme = " + str(use_dark_theme) + "\n")
         writer.write("\n")
 
         writer.write("[General - Floating Summary]" + "\n")
