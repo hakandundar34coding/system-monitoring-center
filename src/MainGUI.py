@@ -114,6 +114,7 @@ def main_gui_func():
             headerbar1.add(PerformanceSummaryHeaderbar.grid101)                               # Add the grid to the window headerbar
             PerformanceSummaryHeaderbar.performance_summary_headerbar_run_func()
 
+        # Switch to dark theme if exists on the system and it is preferred from the application Settings.
         if Config.use_dark_theme == 1:
             Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = True
 

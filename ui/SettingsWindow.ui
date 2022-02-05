@@ -267,12 +267,10 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton2012">
-                <property name="label" translatable="yes">Use dark theme</property>
+                <property name="label" translatable="yes">Use dark theme (if exists on the system)</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Whether the application prefers to use a dark theme.
-If a GTK+ theme includes a dark variant, it will be used instead of the configured theme.</property>
                 <property name="halign">start</property>
                 <property name="draw-indicator">True</property>
               </object>
@@ -600,7 +598,7 @@ If a GTK+ theme includes a dark variant, it will be used instead of the configur
       </object>
     </child>
     <child type="titlebar">
-      <object class="GtkHeaderBar" id="headerbar">
+      <object class="GtkHeaderBar" id="headerbar2001">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="title" translatable="yes">General Settings</property>

@@ -510,8 +510,10 @@
         </child>
         <child>
           <object class="GtkButtonBox">
+            <property name="width-request">654</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="halign">center</property>
             <property name="homogeneous">True</property>
             <property name="layout-style">expand</property>
             <child>
