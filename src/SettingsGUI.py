@@ -526,27 +526,27 @@ def settings_gui_default_tab_func():
     # This function gets and saves default tabs if "Remember last opened tabs on application start" setting is enabled in order to get last opened tabs before the application is closed without any tab switches after enabling the option. Default tabs are also saved if tabs are switched during application runtime.
     if MainGUI.radiobutton1.get_active() == True:
         Config.default_main_tab = 0
-    if MainGUI.radiobutton2.get_active() == True:
+    elif MainGUI.radiobutton2.get_active() == True:
         Config.default_main_tab = 1
-    if MainGUI.radiobutton3.get_active() == True:
+    elif MainGUI.radiobutton3.get_active() == True:
         Config.default_main_tab = 2
-    if MainGUI.radiobutton5.get_active() == True:
+    elif MainGUI.radiobutton5.get_active() == True:
         Config.default_main_tab = 3
-    if MainGUI.radiobutton6.get_active() == True:
+    elif MainGUI.radiobutton6.get_active() == True:
         Config.default_main_tab = 4
-    if MainGUI.radiobutton8.get_active() == True:
+    elif MainGUI.radiobutton8.get_active() == True:
         Config.default_main_tab = 5
     if MainGUI.radiobutton1001.get_active() == True:
         Config.performance_tab_default_sub_tab = 0
-    if MainGUI.radiobutton1002.get_active() == True:
+    elif MainGUI.radiobutton1002.get_active() == True:
         Config.performance_tab_default_sub_tab = 1
-    if MainGUI.radiobutton1003.get_active() == True:
+    elif MainGUI.radiobutton1003.get_active() == True:
         Config.performance_tab_default_sub_tab = 2
-    if MainGUI.radiobutton1004.get_active() == True:
+    elif MainGUI.radiobutton1004.get_active() == True:
         Config.performance_tab_default_sub_tab = 3
-    if MainGUI.radiobutton1005.get_active() == True:
+    elif MainGUI.radiobutton1005.get_active() == True:
         Config.performance_tab_default_sub_tab = 4
-    if MainGUI.radiobutton1006.get_active() == True:
+    elif MainGUI.radiobutton1006.get_active() == True:
         Config.performance_tab_default_sub_tab = 5
 
 
