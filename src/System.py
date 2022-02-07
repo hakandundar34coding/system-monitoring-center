@@ -88,7 +88,7 @@ def system_initial_func():
             os_version = line.split("VERSION=")[1].strip(' "')
             continue
         if line.startswith("ID_LIKE="):
-            os_based_on = line.split("ID_LIKE=")[1].strip().title()
+            os_based_on = line.split("ID_LIKE=")[1].strip(' "').title()
             continue
     if os_based_on == "Debian":
         debian_version = "-"
