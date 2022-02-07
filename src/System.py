@@ -75,20 +75,17 @@ def system_gui_func():
 def system_initial_func():
 
     # Get OS name, version, version code name and OS based on information
-    os_based_on = "-"                                                                         # Initial value of "os_based_on" variable. This value will be used if "os_based_on" could not be detected.
+    os_name = "-"                                                                             # Initial value of "os_name" variable. This value will be used if "os_name" could not be detected.
+    os_based_on = "-"
     os_version = "-"
-    os_version_code_name = "-"
     with open("/etc/os-release") as reader:
         os_release_output_lines = reader.read().strip().split("\n")
     for line in os_release_output_lines:
-        if line.startswith("ID="):
-            os_name = line.split("ID=")[1].strip().title()
+        if line.startswith("NAME="):
+            os_name = line.split("NAME=")[1].strip(' "')
             continue
-        if line.startswith("VERSION_ID="):
-            os_version = line.split("VERSION_ID=")[1].strip(' "')
-            continue
-        if line.startswith("VERSION_CODENAME="):
-            os_version_code_name = line.split("VERSION_CODENAME=")[1].strip(' "')
+        if line.startswith("VERSION="):
+            os_version = line.split("VERSION=")[1].strip(' "')
             continue
         if line.startswith("ID_LIKE="):
             os_based_on = line.split("ID_LIKE=")[1].strip().title()
@@ -350,7 +347,7 @@ def system_initial_func():
     label8101.set_text(f'{os_name} - {os_version}')
     label8102.set_text(f'{computer_vendor} - {computer_model}')
     label8103.set_text(os_name)
-    label8104.set_text(f'{os_version} - {os_version_code_name}')
+    label8104.set_text(os_version)
     label8105.set_text(os_family)
     label8106.set_text(os_based_on)
     label8107.set_text(kernel_release)
