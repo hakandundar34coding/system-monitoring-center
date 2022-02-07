@@ -91,9 +91,17 @@ def system_initial_func():
             os_based_on = line.split("ID_LIKE=")[1].strip().title()
             continue
     if os_based_on == "Debian":
+        debian_version = "-"
         with open("/etc/debian_version") as reader:
             debian_version = reader.read().strip()
         os_based_on = os_based_on + " (" + debian_version + ")"
+    if os_based_on == "Ubuntu":
+        ubuntu_version = "-"
+        for line in os_release_output_lines:
+            if line.startswith("UBUNTU_CODENAME="):
+                ubuntu_version = line.split("UBUNTU_CODENAME=")[1].strip(' "')
+                break
+        os_based_on = os_based_on + " (" + ubuntu_version + ")"
 
     # Get os family
     os_family = platform.system()
