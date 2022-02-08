@@ -3,11 +3,11 @@
 # ----------------------------------- RAM - Swap Details Window GUI Import Function -----------------------------------
 def ram_swap_details_import_func():
 
-    global Gtk, os
+    global Gtk, GLib, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk
+    from gi.repository import Gtk, GLib
     import os
 
 
@@ -41,11 +41,6 @@ def ram_swap_details_gui_func():
 
     def on_window1201w2_show(widget):
         label1201w2.set_text("-")                                                             # Reset label text when window is shown.
-        global swap_details_text
-        try:
-            label1201w2.set_text(swap_details_text)
-        except NameError:
-            pass
 
 
     # Swap Details window GUI functions - connect
@@ -53,10 +48,10 @@ def ram_swap_details_gui_func():
     window1201w2.connect("show", on_window1201w2_show)
 
 
-# ----------------------------------- RAM - Swap Details Get Function -----------------------------------
-def ram_swap_details_get_func():
+# ----------------------------------- RAM - Swap Details Loop Function -----------------------------------
+def ram_swap_details_loop_func():
 
-    ram_define_data_unit_converter_variables_func()                                       # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
+    ram_define_data_unit_converter_variables_func()                                           # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
     performance_ram_swap_data_precision = Config.performance_ram_swap_data_precision
     performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
 
@@ -88,7 +83,7 @@ def ram_swap_details_get_func():
         swap_priority = line_split[4].strip()
         swap_details_text = swap_details_text + "\n" + _tr("Name") + " :    " + swap_name
         swap_details_text = swap_details_text + "\n" + _tr("Type") + " :    " + swap_type
-        swap_details_text = swap_details_text + "\n" + _tr("Size") + " :    " + swap_size
+        swap_details_text = swap_details_text + "\n" + _tr("Capacity") + " :    " + swap_size
         swap_details_text = swap_details_text + "\n" + _tr("Used") + " :    " + swap_used
         swap_details_text = swap_details_text + "\n" + _tr("Priority") + " :    " + swap_priority
         swap_details_text = swap_details_text + "\n"
@@ -99,6 +94,18 @@ def ram_swap_details_get_func():
 
     if swap_details_text.strip() == "":
         swap_details_text = _tr("This system has no swap memory.")
+
+    label1201w2.set_text(swap_details_text)
+
+
+# ----------------------------------- RAM - Swap Details - Run Function -----------------------------------
+def ram_swap_details_run_func():
+
+    if window1201w2.get_visible() == True:
+        global update_interval
+        update_interval = Config.update_interval
+        GLib.idle_add(ram_swap_details_loop_func)
+        GLib.timeout_add(update_interval * 1000, ram_swap_details_run_func)
 
 
 # ----------------------------------- RAM - Define Data Unit Converter Variables Function -----------------------------------

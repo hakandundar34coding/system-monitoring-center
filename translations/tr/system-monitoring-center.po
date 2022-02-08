@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-08 20:31+0300\n"
-"PO-Revision-Date: 2022-02-08 20:31+0300\n"
+"POT-Creation-Date: 2022-02-08 21:24+0300\n"
+"PO-Revision-Date: 2022-02-08 21:24+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -50,7 +50,7 @@ msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
 #: src/Disk.py:378 src/Disk.py:385 src/DiskDetails.py:159
-#: src/DiskDetails.py:243 src/RamSwapDetails.py:63
+#: src/DiskDetails.py:243 src/RamSwapDetails.py:58
 msgid "Partition"
 msgstr "Disk bölümü"
 
@@ -121,7 +121,7 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Processes.py:154 src/RamSwapDetails.py:89 src/Services.py:119
+#: src/Processes.py:154 src/RamSwapDetails.py:84 src/Services.py:119
 #: src/Startup.py:113 ui/ProcessesDetailsWindow.ui:42
 #: ui/ProcessesMenuCustomizations.ui:356 ui/ServicesDetailsWindow.ui:43
 #: ui/ServicesMenuCustomizations.ui:227 ui/StartupMenuCustomizations.ui:227
@@ -190,7 +190,7 @@ msgstr "Disk Okuma Hızı"
 msgid "Disk Write Speed"
 msgstr "Disk Yazma Hızı"
 
-#: src/Processes.py:166 src/RamSwapDetails.py:93
+#: src/Processes.py:166 src/RamSwapDetails.py:88
 #: ui/ProcessesDetailsWindow.ui:94 ui/ProcessesMenuCustomizations.ui:456
 msgid "Priority"
 msgstr "Öncelik"
@@ -299,12 +299,13 @@ msgid "Number Of Devices"
 msgstr "Aygıt Sayısı"
 
 #: src/RamHardwareInformation.py:124 src/RamHardwareInformation.py:143
-#: ui/DiskDetailsWindow.ui:104 ui/DiskDetailsWindow.ui:760
+#: src/RamSwapDetails.py:86 ui/DiskDetailsWindow.ui:104
+#: ui/DiskDetailsWindow.ui:760
 msgid "Capacity"
 msgstr "Kapasite"
 
 #: src/RamHardwareInformation.py:125 src/RamHardwareInformation.py:144
-#: src/RamSwapDetails.py:90 ui/DiskDetailsWindow.ui:78
+#: src/RamSwapDetails.py:85 ui/DiskDetailsWindow.ui:78
 #: ui/ServicesDetailsWindow.ui:219 ui/StartupNewItemWindow.ui:282
 msgid "Type"
 msgstr "Tür"
@@ -329,20 +330,16 @@ msgstr "Kimlik"
 msgid "Bank Locator"
 msgstr "Yuva Kimliği"
 
-#: src/RamSwapDetails.py:63
+#: src/RamSwapDetails.py:58
 msgid "File"
 msgstr "Dosya"
 
-#: src/RamSwapDetails.py:91
-msgid "Size"
-msgstr "Boyut"
-
-#: src/RamSwapDetails.py:92 ui/DiskDetailsWindow.ui:130
+#: src/RamSwapDetails.py:87 ui/DiskDetailsWindow.ui:130
 #: ui/DiskDetailsWindow.ui:797
 msgid "Used"
 msgstr "Kullanılan"
 
-#: src/RamSwapDetails.py:101
+#: src/RamSwapDetails.py:96
 msgid "This system has no swap memory."
 msgstr "Bu sistemde takas belleği yok."
 
@@ -786,7 +783,7 @@ msgstr "%0"
 #: ui/ProcessesDetailsWindow.ui:1463 ui/ProcessesDetailsWindow.ui:1561
 #: ui/ProcessesDetailsWindow.ui:1576 ui/ProcessesDetailsWindow.ui:1591
 #: ui/ProcessesDetailsWindow.ui:1606 ui/ProcessesTab.ui:266
-#: ui/RamHardwareWindow.ui:41 ui/RamSwapDetailsWindow.ui:41 ui/RamTab.ui:68
+#: ui/RamHardwareWindow.ui:41 ui/RamSwapDetailsWindow.ui:39 ui/RamTab.ui:68
 #: ui/RamTab.ui:85 ui/RamTab.ui:128 ui/RamTab.ui:145 ui/RamTab.ui:175
 #: ui/RamTab.ui:205 ui/RamTab.ui:235 ui/RamTab.ui:282 ui/RamTab.ui:452
 #: ui/RamTab.ui:466 ui/SensorsTab.ui:200 ui/ServicesDetailsWindow.ui:94
@@ -1456,10 +1453,6 @@ msgstr "RAM Donanım Bilgisi"
 msgid "Swap Memory Details"
 msgstr "Takas Belleği Detayları"
 
-#: ui/RamSwapDetailsWindow.ui:59
-msgid "Note: Information on this window is not reloaded automatically."
-msgstr "Not: Bu penceredeki bilgiler otomatik yenilenmez."
-
 #: ui/RamTab.ui:55 ui/RamTab.ui:115
 msgid "Available:"
 msgstr "Kullanılabilir:"
@@ -1855,6 +1848,12 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:185
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid "Note: Information on this window is not reloaded automatically."
+#~ msgstr "Not: Bu penceredeki bilgiler otomatik yenilenmez."
+
+#~ msgid "Size"
+#~ msgstr "Boyut"
 
 #~ msgid "Quit"
 #~ msgstr "Çık"

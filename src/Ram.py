@@ -78,8 +78,8 @@ def ram_gui_func():
                 import RamSwapDetails
                 RamSwapDetails.ram_swap_details_import_func()
                 RamSwapDetails.ram_swap_details_gui_func()
-            RamSwapDetails.ram_swap_details_get_func()                                        # Run this function in order to get RAM hardware information.
             RamSwapDetails.window1201w2.show()
+            RamSwapDetails.ram_swap_details_run_func()                                        # Run this function in order to get swap memory information.
 
 
     # ----------------------------------- RAM - Plot RAM usage data as a Line Chart ----------------------------------- 
