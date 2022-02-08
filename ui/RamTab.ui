@@ -51,7 +51,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Available and Free RAM memory values are different.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Available:</property>
             <property name="ellipsize">end</property>
@@ -219,7 +218,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Available and Free RAM memory values are different.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Free:</property>
             <property name="ellipsize">end</property>

@@ -49,11 +49,6 @@
     <property name="can-focus">False</property>
     <property name="icon-name">system-monitoring-center-info-about-symbolic</property>
   </object>
-  <object class="GtkImage" id="menuitem1006m_image">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-quit-symbolic</property>
-  </object>
   <object class="GtkMenu" id="menu1001m">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -84,15 +79,6 @@
         <property name="image">menuitem1005m_image</property>
         <property name="use-stock">False</property>
         <property name="always-show-image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="menuitem1006m">
-        <property name="label" translatable="yes">Quit</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">menuitem1006m_image</property>
-        <property name="use-stock">False</property>
       </object>
     </child>
   </object>

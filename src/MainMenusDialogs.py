@@ -25,7 +25,7 @@ def main_menus_gui_func():
 
     # ********************** Define object names for Main Menu GUI and About Dialog **********************
     global menu1001m
-    global menuitem1004m, menuitem1005m, menuitem1006m, checkmenuitem1001m
+    global menuitem1004m, menuitem1005m, checkmenuitem1001m
 
     global aboutdialog1001d
 
@@ -33,7 +33,6 @@ def main_menus_gui_func():
     menu1001m = builder.get_object('menu1001m')
     menuitem1004m = builder.get_object('menuitem1004m')
     menuitem1005m = builder.get_object('menuitem1005m')
-    menuitem1006m = builder.get_object('menuitem1006m')
     checkmenuitem1001m = builder.get_object('checkmenuitem1001m')
 
     aboutdialog1001d = builder.get_object('aboutdialog1001d')
@@ -72,13 +71,9 @@ def main_menus_gui_func():
         aboutdialog1001d.run()
         aboutdialog1001d.hide()
 
-    def on_menuitem1006m_activate(widget):                                                    # "Quit" menu item
-        Gtk.main_quit()
-
 
     # ********************** Connect signals to GUI objects for Main Menu GUI **********************
     global checkmenuitem1001m_handler_id
     checkmenuitem1001m_handler_id = checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)    # Define handler id for "checkmenuitem1001m" in order to block this signal when toggling the checkbox.
     menuitem1004m.connect("activate", on_menuitem1004m_activate)
     menuitem1005m.connect("activate", on_menuitem1005m_activate)
-    menuitem1006m.connect("activate", on_menuitem1006m_activate)

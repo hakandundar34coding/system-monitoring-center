@@ -29,7 +29,7 @@ def processes_details_gui_function():
     global label2101w, label2102w, label2103w, label2104w, label2105w, label2106w, label2107w, label2108w, label2109w, label2110w
     global label2111w, label2112w, label2113w, label2114w, label2115w, label2116w, label2117w, label2118w, label2119w, label2120w
     global label2121w, label2122w, label2123w, label2124w, label2125w, label2126w, label2127w, label2128w, label2129w, label2130w
-    global label2131w, label2132w, label2133w, label2134w, label2135w, label2136w, label2137w
+    global label2131w, label2132w, label2133w, label2134w, label2135w, label2136w, label2137w, label2138w
 
 
     # Processes Details window GUI objects - get
@@ -56,6 +56,7 @@ def processes_details_gui_function():
     label2113w = builder2101w.get_object('label2113w')
     label2114w = builder2101w.get_object('label2114w')
     label2115w = builder2101w.get_object('label2115w')
+    label2138w = builder2101w.get_object('label2138w')
 
     # Process Details window "CPU and RAM" tab GUI objects
     label2116w = builder2101w.get_object('label2116w')
@@ -145,6 +146,7 @@ def processes_details_gui_reset_function():
     label2135w.set_text("--")
     label2136w.set_text("--")
     label2137w.set_text("--")
+    label2138w.set_text("--")
 
 
 # ----------------------------------- Processes - Processes Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
@@ -401,10 +403,14 @@ def process_details_loop_func():
         label2105w.set_text(f'{selected_process_nice}')
         label2106w.set_text(f'{selected_process_cpu_percent:.{processes_cpu_usage_percent_precision}f} %')
         label2107w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_rss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-        if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            label2108w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s - {processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
-        if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":
-            label2108w.set_text("- - -")
+        if selected_process_read_bytes != "-":
+            label2108w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
+        if selected_process_read_bytes == "-":
+            label2108w.set_text("-")
+        if selected_process_write_bytes != "-":
+            label2138w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
+        if selected_process_write_bytes == "-":
+            label2138w.set_text("-")
         label2109w.set_text(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
         label2110w.set_text(selected_process_exe)
         label2111w.set_text(f'{selected_process_ppid}')
