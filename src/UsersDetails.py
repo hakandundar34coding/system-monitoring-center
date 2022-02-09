@@ -14,8 +14,8 @@ def users_details_import_func():
     import time
 
 
-    global Config, Users, MainGUI, Common
-    import Config, Users, MainGUI, Common
+    global Config, Users, Common
+    import Config, Users, Common
 
 
     global _tr

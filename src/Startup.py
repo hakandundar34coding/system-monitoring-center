@@ -11,8 +11,8 @@ def startup_import_func():
     import os
 
 
-    global Config, MainGUI
-    import Config, MainGUI
+    global Config
+    import Config
 
 
     global _tr
@@ -676,7 +676,7 @@ def startup_run_func(*args):
 
     if "startup_data_rows" not in globals():
         GLib.idle_add(startup_initial_func)
-    if MainGUI.radiobutton5.get_active() == True:
+    if Config.current_main_tab == 3:
         global startup_glib_source, update_interval
         try:
             startup_glib_source.destroy()

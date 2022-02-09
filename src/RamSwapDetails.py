@@ -11,8 +11,8 @@ def ram_swap_details_import_func():
     import os
 
 
-    global MainGUI, Config
-    import MainGUI, Config
+    global Config
+    import Config
 
 
     global _tr

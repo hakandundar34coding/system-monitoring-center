@@ -11,8 +11,8 @@ def sensors_import_func():
     import os
 
 
-    global Config, MainGUI
-    import Config, MainGUI
+    global Config
+    import Config
 
 
     global _tr
@@ -369,7 +369,7 @@ def sensors_run_func(*args):
 
     if "sensors_data_rows" not in globals():
         GLib.idle_add(sensors_initial_func)
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1006.get_active() == True:
+    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 5:
         global sensors_glib_source, update_interval
         try:
             sensors_glib_source.destroy()

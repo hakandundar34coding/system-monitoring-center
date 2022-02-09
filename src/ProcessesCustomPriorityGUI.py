@@ -12,12 +12,8 @@ def processes_custom_priority_import_func():
     import subprocess
 
 
-    global Processes, MainGUI, ProcessesMenuRightClick, Common
-    import Processes, MainGUI, ProcessesMenuRightClick, Common
-
-
-    global _tr
-    from locale import gettext as _tr
+    global Processes, ProcessesMenuRightClick, Common
+    import Processes, ProcessesMenuRightClick, Common
 
 
 # ----------------------------------- Processes - Processes Custom Priority Window GUI Function -----------------------------------

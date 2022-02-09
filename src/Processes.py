@@ -12,8 +12,8 @@ def processes_import_func():
     import time
 
 
-    global Config, MainGUI
-    import Config, MainGUI
+    global Config
+    import Config
 
 
     global _tr
@@ -615,7 +615,7 @@ def processes_run_func(*args):
 
     if "processes_data_rows" not in globals():
         GLib.idle_add(processes_initial_func)
-    if MainGUI.radiobutton2.get_active() == True:
+    if Config.current_main_tab == 1:
         global processes_glib_source, update_interval
         try:
             processes_glib_source.destroy()

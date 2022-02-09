@@ -12,8 +12,8 @@ def users_menu_right_click_import_func():
     import subprocess
 
 
-    global Users, MainGUI, Common
-    import Users, MainGUI, Common
+    global Users, Common
+    import Users, Common
 
 
     global _tr
@@ -69,7 +69,7 @@ def users_menu_right_click_gui_func():
 # ----------------------------------- Users - End User Session Warning Dialog Function -----------------------------------
 def users_end_user_session_warning_dialog(selected_username, selected_user_uid):
 
-    warning_dialog3102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
+    warning_dialog3102 = Gtk.MessageDialog(transient_for=Users.grid3101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to end session of this user?"), )
     warning_dialog3102.format_secondary_text(_tr("This action will end all processes of the user immediately and may cause data loss.") +
                                              "\n\n    " + _tr("User") + ": " + selected_username +

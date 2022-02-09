@@ -12,8 +12,8 @@ def disk_details_import_func():
     import subprocess
 
 
-    global Config, Disk, MainGUI
-    import Config, Disk, MainGUI
+    global Config, Disk
+    import Config, Disk
 
 
     global _tr

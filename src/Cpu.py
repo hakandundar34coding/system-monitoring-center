@@ -12,8 +12,8 @@ def cpu_import_func():
     import platform
 
 
-    global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+    global Config, Performance
+    import Config, Performance
 
 
     # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
@@ -390,7 +390,7 @@ def cpu_run_func(*args):                                                        
 
     if "update_interval" not in globals():                                                    # To be able to run initial function for only one time
         GLib.idle_add(cpu_initial_func)
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1001.get_active() == True:
+    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 0:
         global cpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
         try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
             cpu_glib_source.destroy()                                                         # Destroy GLib source for preventing it repeating the function.

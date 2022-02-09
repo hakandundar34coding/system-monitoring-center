@@ -12,8 +12,8 @@ def gpu_import_func():
     import subprocess
 
 
-    global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+    global Config, Performance
+    import Config, Performance
 
 
     global _tr
@@ -344,7 +344,7 @@ def gpu_run_func(*args):
 
     if "update_interval" not in globals():
         GLib.idle_add(gpu_initial_func)
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1005.get_active() == True:
+    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 4:
         global gpu_glib_source, update_interval
         try:
             gpu_glib_source.destroy()

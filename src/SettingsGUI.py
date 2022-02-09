@@ -503,7 +503,6 @@ def settings_gui_apply_settings_immediately_func():
             global System
             import System
         System.system_initial_func()
-        System.system_loop_func()
 
     # Show/Hide Floating Summary Window by reading reset settings.
     if "FloatingSummary" not in globals():

@@ -17,8 +17,8 @@ def system_import_func():
         pass
 
 
-    global Config, MainGUI
-    import Config, MainGUI
+    global Config
+    import Config
 
 
 # ----------------------------------- System - System GUI Function -----------------------------------
@@ -158,7 +158,7 @@ def system_initial_func():
         host_name = reader.read().strip()
 
     # Get number of monitors
-    current_screen = MainGUI.window1.get_screen()
+    current_screen = label8101.get_toplevel().get_screen()
     number_of_monitors = current_screen.get_n_monitors()
 
     # Get human and root user usernames and UIDs which will be used for determining username when "pkexec_uid" is get.

@@ -14,8 +14,8 @@ def users_import_func():
     import time
 
 
-    global Config, MainGUI
-    import Config, MainGUI
+    global Config
+    import Config
 
 
     global _tr
@@ -522,7 +522,7 @@ def users_run_func(*args):
 
     if "users_data_rows" not in globals():
         GLib.idle_add(users_initial_func)
-    if MainGUI.radiobutton3.get_active() == True:
+    if Config.current_main_tab == 2:
         global users_glib_source, update_interval
         try:
             users_glib_source.destroy()

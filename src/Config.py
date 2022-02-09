@@ -81,6 +81,11 @@ def config_default_general_general_func():
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     remember_last_selected_hardware = 0
 
+    # These settings are not saved. They are used for detecting selected tab without checking GUI objects for lower CPU usage.
+    global current_main_tab, performance_tab_current_sub_tab
+    current_main_tab = 0
+    performance_tab_current_sub_tab = 0
+
 # ----------------------------------- Config - Config Default Floating Summary Function -----------------------------------
 def config_default_general_floating_summary_func():
     global show_floating_summary, floating_summary_window_transparency, floating_summary_data_shown

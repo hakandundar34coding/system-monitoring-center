@@ -12,10 +12,6 @@ def ram_hardware_information_import_func():
     import subprocess
 
 
-    global MainGUI
-    import MainGUI
-
-
     global _tr
     from locale import gettext as _tr
 

@@ -13,8 +13,8 @@ def processes_menu_right_click_import_func():
     import subprocess
 
 
-    global Config, MainGUI, Processes, Common
-    import Config, MainGUI, Processes, Common
+    global Config, Processes, Common
+    import Config, Processes, Common
 
 
     global _tr
@@ -235,7 +235,7 @@ def processes_get_process_current_nice_func():
 # ----------------------------------- Processes - Processes Terminate Process Warning Dialog Function -----------------------------------
 def processes_terminate_process_warning_dialog(process_name, process_pid):
 
-    warning_dialog2101 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
+    warning_dialog2101 = Gtk.MessageDialog(transient_for=Processes.grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to terminate this process?"), )
     warning_dialog2101.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
     global warning_dialog2101_response
@@ -246,7 +246,7 @@ def processes_terminate_process_warning_dialog(process_name, process_pid):
 # ----------------------------------- Processes - Processes Kill Process Warning Dialog Function -----------------------------------
 def processes_kill_process_warning_dialog(process_name, process_pid):
 
-    warning_dialog2102 = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.WARNING,
+    warning_dialog2102 = Gtk.MessageDialog(transient_for=Processes.grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to kill this process?"), )
     warning_dialog2102.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
     global warning_dialog2102_response

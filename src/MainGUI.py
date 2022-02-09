@@ -261,11 +261,13 @@ def main_gui_tab_switch_func():
         stack1.set_visible_child(grid1)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 0                                                       # No need to save Config values after this value is defined. Because save operation is performed for Performance tab sub-tabs (CPU, RAM, Disk, Network, GPU, Sensors tabs).
+        Config.current_main_tab = 0
         if radiobutton1001.get_active() == True:
             stack1001.set_visible_child(grid1001)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 0
                 Config.config_save_func()
+            Config.performance_tab_current_sub_tab = 0                                        # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage.
             if 'Cpu' not in globals():                                                        # Check if "Cpu" module is imported. Therefore it is not reimported after switching "Cpu" tab off and on if "Cpu" name is in globals().
                 global Cpu
                 import Cpu
@@ -279,6 +281,7 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 1
                 Config.config_save_func()
+            Config.performance_tab_current_sub_tab = 1
             if 'Ram' not in globals():
                 global Ram
                 import Ram
@@ -292,6 +295,7 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 2
                 Config.config_save_func()
+            Config.performance_tab_current_sub_tab = 2
             if 'Disk' not in globals():
                 global Disk
                 import Disk
@@ -305,6 +309,7 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 3
                 Config.config_save_func()
+            Config.performance_tab_current_sub_tab = 3
             if 'Network' not in globals():
                 global Network
                 import Network
@@ -318,6 +323,7 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 4
                 Config.config_save_func()
+            Config.performance_tab_current_sub_tab = 4
             if 'Gpu' not in globals():
                 global Gpu
                 import Gpu
@@ -331,6 +337,7 @@ def main_gui_tab_switch_func():
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 5
                 Config.config_save_func()
+            Config.performance_tab_current_sub_tab = 5
             if 'Sensors' not in globals():
                 global Sensors
                 import Sensors
@@ -345,6 +352,7 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 1
             Config.config_save_func()
+        Config.current_main_tab = 1
         if 'Processes' not in globals():
             global Processes
             import Processes
@@ -359,6 +367,7 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 2
             Config.config_save_func()
+        Config.current_main_tab = 2
         if 'Users' not in globals():
             global Users
             import Users
@@ -373,6 +382,7 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 3
             Config.config_save_func()
+        Config.current_main_tab = 3
         if 'Startup' not in globals():
             global Startup
             import Startup
@@ -387,6 +397,7 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 4
             Config.config_save_func()
+        Config.current_main_tab = 4
         if 'Services' not in globals():
             global Services
             import Services
@@ -401,6 +412,7 @@ def main_gui_tab_switch_func():
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 5
             Config.config_save_func()
+        Config.current_main_tab = 5
         if 'System' not in globals():
             global System
             import System

@@ -12,8 +12,8 @@ def network_import_func():
     import subprocess
 
 
-    global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+    global Config, Performance
+    import Config, Performance
 
 
     global _tr
@@ -305,7 +305,7 @@ def network_run_func(*args):
 
     if "update_interval" not in globals():
         GLib.idle_add(network_initial_func)
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1004.get_active() == True:
+    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 3:
         global network_glib_source, update_interval
         try:
             network_glib_source.destroy()

@@ -10,8 +10,9 @@ def floating_summary_import_func():
     from gi.repository import Gtk, GLib
     import os
 
-    global Config, Performance, MainGUI
-    import Config, Performance, MainGUI
+
+    global Config, Performance
+    import Config, Performance
 
 
     global _tr

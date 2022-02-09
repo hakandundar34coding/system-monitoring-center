@@ -15,10 +15,6 @@ def processes_menu_customizations_import_func():
     import Config, Processes
 
 
-    global _tr
-    from locale import gettext as _tr
-
-
 # ----------------------------------- Processes - Processes Tab Customizations Popover GUI Function -----------------------------------
 def processes_menu_customizations_gui_func():
 

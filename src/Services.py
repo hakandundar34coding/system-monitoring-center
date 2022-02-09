@@ -12,8 +12,8 @@ def services_import_func():
     import os
 
 
-    global Config, MainGUI
-    import Config, MainGUI
+    global Config
+    import Config
 
 
     global _tr
@@ -453,19 +453,7 @@ def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
 # ----------------------------------- Services - Run Function -----------------------------------
 def services_run_func(*args):
 
-#     if "services_data_rows" not in globals():
     GLib.idle_add(services_initial_func)
-#     if MainGUI.radiobutton6.get_active() == True:
-#         global services_glib_source, update_interval
-#         try:
-#             services_glib_source.destroy()
-#         except NameError:
-#             pass
-#         update_interval = Config.update_interval
-#         services_glib_source = GLib.timeout_source_new(update_interval * 1000)
-#         GLib.idle_add(services_loop_func)
-#         services_glib_source.set_callback(services_run_func)
-#         services_glib_source.attach(GLib.MainContext.default())
 
 
 # ----------------------------------- Services - Treeview Filter Show All Function -----------------------------------

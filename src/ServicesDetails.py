@@ -14,8 +14,8 @@ def services_details_import_func():
     from datetime import datetime
 
 
-    global Config, Services, MainGUI, Common
-    import Config, Services, MainGUI, Common
+    global Config, Services, Common
+    import Config, Services, Common
 
 
     global _tr
