@@ -101,8 +101,7 @@ def main_gui_func():
         Performance.performance_import_func()
         Performance.performance_background_run_func()
 
-        main_gui_default_main_tab_func()                                                      # Run default tab function after initial showing of the main window. This function have to be called after "main_gui_tab_switch_func" function in order to avoid errors else "Performance" tab functions/variables/data will not be defined.
-        main_gui_peformance_tab_default_sub_tab_func()                                        # Run performance tab default sub-tab function after initial showing of the main window
+        main_gui_default_tab_func()                                                           # Run default tab function after initial showing of the main window. This function have to be called after "main_gui_tab_switch_func" function in order to avoid errors else "Performance" tab functions/variables/data will not be defined.
 
         main_gui_tab_switch_func()                                                            # Run main tab function after initial showing main window (this function is also called when main tab checkbuttons are toggled).
 
@@ -216,8 +215,8 @@ def main_gui_func():
     radiobutton1006.connect("toggled", on_radiobutton1006_toggled)
 
 
-# ----------------------------------- MainGUI - Main Set Default Tab Function (switches to default main tab ((Performance, Processes, Users, Storage, Startup, Services, Environment Variables, OS)) on initial run) -----------------------------------
-def main_gui_default_main_tab_func():
+# ----------------------------------- MainGUI - Default Tab Function (switches to default tab on initial run) -----------------------------------
+def main_gui_default_tab_func():
 
     default_main_tab = Config.default_main_tab                                                # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
     if default_main_tab == 0:
@@ -232,10 +231,6 @@ def main_gui_default_main_tab_func():
          radiobutton6.set_active(True)
     elif default_main_tab == 5:
          radiobutton8.set_active(True)
-
-
-# ----------------------------------- MainGUI - Set Performance Tab Default Sub-Tab Function (switches to performance tab default sub-tab ((CPU, RAM, Disk, Network, GPU, Sensors)) on initial run) -----------------------------------
-def main_gui_peformance_tab_default_sub_tab_func():
 
     performance_tab_default_sub_tab = Config.performance_tab_default_sub_tab                  # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
     if performance_tab_default_sub_tab == 0:
@@ -347,7 +342,7 @@ def main_gui_tab_switch_func():
             Sensors.sensors_run_func()
             return
 
-    elif radiobutton2.get_active() == True:                                                     # It switches to "Processes" tab if relevant radiobutton is clicked.
+    elif radiobutton2.get_active() == True:                                                   # It switches to "Processes" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid2)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 1
@@ -362,7 +357,7 @@ def main_gui_tab_switch_func():
         Processes.processes_run_func()
         return
 
-    elif radiobutton3.get_active() == True:                                                     # It switches to "Users" tab if relevant radiobutton is clicked.
+    elif radiobutton3.get_active() == True:                                                   # It switches to "Users" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid3)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 2
@@ -377,7 +372,7 @@ def main_gui_tab_switch_func():
         Users.users_run_func()
         return
 
-    elif radiobutton5.get_active() == True:                                                     # It switches to "Startup" tab if relevant radiobutton is clicked.
+    elif radiobutton5.get_active() == True:                                                   # It switches to "Startup" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid5)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 3
@@ -392,7 +387,7 @@ def main_gui_tab_switch_func():
         Startup.startup_run_func()
         return
 
-    elif radiobutton6.get_active() == True:                                                     # It switches to "Services" tab if relevant radiobutton is clicked.
+    elif radiobutton6.get_active() == True:                                                   # It switches to "Services" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid6)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 4
@@ -407,7 +402,7 @@ def main_gui_tab_switch_func():
         Services.services_run_func()
         return
 
-    elif radiobutton8.get_active() == True:                                                     # It switches to "System" tab if relevant radiobutton is clicked.
+    elif radiobutton8.get_active() == True:                                                   # It switches to "System" tab if relevant radiobutton is clicked.
         stack1.set_visible_child(grid8)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 5
