@@ -3,11 +3,11 @@
 # ----------------------------------- Settings - Settings GUI Import Function -----------------------------------
 def settings_gui_import_func():
 
-    global Gtk, Gdk, os
+    global Gtk, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Gdk
+    from gi.repository import Gtk
     import os
 
 

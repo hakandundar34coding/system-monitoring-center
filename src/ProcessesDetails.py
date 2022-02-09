@@ -13,8 +13,8 @@ def processes_details_import_func():
     from datetime import datetime
 
 
-    global Config, Processes, MainGUI, Common
-    import Config, Processes, MainGUI, Common
+    global Config, Processes, Common
+    import Config, Processes, Common
 
 
     global _tr
@@ -645,7 +645,7 @@ def processes_details_data_unit_converter_func(data, unit, precision):
 # ----------------------------------- Processes - Processes No Such Process Error Dialog Function -----------------------------------
 def processes_no_such_process_error_dialog():
 
-    error_dialog2101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title="", flags=0, message_type=Gtk.MessageType.ERROR,
+    error_dialog2101w = Gtk.MessageDialog(transient_for=Processes.grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.ERROR,
     buttons=Gtk.ButtonsType.CLOSE, text=_tr("This process is not running anymore:"), )
     error_dialog2101w.format_secondary_text(selected_process_name + " (" + _tr("PID") + ": " + selected_process_pid + ")", )
     error_dialog2101w.run()
