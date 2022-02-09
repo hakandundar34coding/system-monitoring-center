@@ -261,13 +261,13 @@ def main_gui_tab_switch_func():
         stack1.set_visible_child(grid1)
         if remember_last_opened_tabs_on_application_start == 1:
             Config.default_main_tab = 0                                                       # No need to save Config values after this value is defined. Because save operation is performed for Performance tab sub-tabs (CPU, RAM, Disk, Network, GPU, Sensors tabs).
-        Config.current_main_tab = 0
+        Config.current_main_tab = 0                                                           # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage. This value is not saved.
         if radiobutton1001.get_active() == True:
             stack1001.set_visible_child(grid1001)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.performance_tab_default_sub_tab = 0
                 Config.config_save_func()
-            Config.performance_tab_current_sub_tab = 0                                        # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage.
+            Config.performance_tab_current_sub_tab = 0                                        # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage. This value is not saved.
             if 'Cpu' not in globals():                                                        # Check if "Cpu" module is imported. Therefore it is not reimported after switching "Cpu" tab off and on if "Cpu" name is in globals().
                 global Cpu
                 import Cpu
