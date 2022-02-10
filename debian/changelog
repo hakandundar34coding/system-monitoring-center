@@ -1,3 +1,19 @@
+system-monitoring-center (1.2.2) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * New: Swap Details window is reloaded automatically
+  * Fix: Showing menu/details window for some processes
+  * Fix: disk vendor-model information (Disk Details))
+  * Minor changes for OS name and version information
+  * Minor improvements (GUI, translations, etc.)
+
+  [ Fatih Altun ]
+  * Fix wrong default_main_tab values
+  * Optimize screenshots using png optimization tools
+  * Update some if controls of main_tab and sub_tab for optimizing
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 10 Feb 2022 09:37:48 +0300
+
 system-monitoring-center (1.2.1) unstable; urgency=medium
 
   * Fix: disk vendor-model information (Disk Details)
