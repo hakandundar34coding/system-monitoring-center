@@ -7,7 +7,7 @@ pkgdesc="System performance and usage monitoring tool"
 arch=('any')
 url="https://github.com/hakandundar34coding/system-monitoring-center"
 license=('GPL3')
-depends=('bash' 'dmidecode' 'gtk3' 'hwdata' 'iproute2' 'mesa-demos'
+depends=('bash' 'dmidecode' 'gtk3' 'hwdata' 'iproute2' 'mesa-utils'
          'python-cairo' 'python-gobject' 'python-opengl' 'systemd' 'util-linux')
 makedepends=('python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$_pkgver.tar.gz")
