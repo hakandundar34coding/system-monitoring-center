@@ -28,15 +28,16 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 2) Browse /packaging_scripts folder
 3) Open terminal in this folder
 4) Run the required script without "sudo"
-   Command:
-   sh [script file name].sh
+   For DEB package:
+      sh debian_packaging.sh
+   For RPM package:
+      sh rpm_packaging.sh
+   For PACMAN package:
+      sh arch_linux_packaging.sh
 
-Note: If there are uninstalled dependency problems during installation:
-      Try installing the application after installing the dependencies.
-
-Note2: For RPM based distributions:
-       Generate RPM package by using the installation script and install it,
-       if the application is not run after installation of the downloaded RPM package.
+Note: If there are dependency problems during installation:
+      1) Install the dependencies 
+      2) Install the application
 ```
 
 ### Features:
