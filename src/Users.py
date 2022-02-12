@@ -27,7 +27,6 @@ def users_gui_func():
 
     global grid3101, treeview3101, searchentry3101, button3101
     global radiobutton3101, radiobutton3102, radiobutton3103
-    global label3101
 
     # Users tab GUI objects - get from file
     builder = Gtk.Builder()
@@ -41,7 +40,6 @@ def users_gui_func():
     radiobutton3101 = builder.get_object('radiobutton3101')
     radiobutton3102 = builder.get_object('radiobutton3102')
     radiobutton3103 = builder.get_object('radiobutton3103')
-    label3101 = builder.get_object('label3101')
 
 
     # Users tab GUI functions

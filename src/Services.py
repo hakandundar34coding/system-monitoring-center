@@ -26,7 +26,6 @@ def services_gui_func():
     # Services tab GUI objects
     global grid6101, treeview6101, searchentry6101, button6101, button6102
     global radiobutton6101, radiobutton6102, radiobutton6103
-    global label6101
 
 
     # Services tab GUI objects - get from file
@@ -42,7 +41,6 @@ def services_gui_func():
     radiobutton6101 = builder.get_object('radiobutton6101')
     radiobutton6102 = builder.get_object('radiobutton6102')
     radiobutton6103 = builder.get_object('radiobutton6103')
-    label6101 = builder.get_object('label6101')
 
 
     # Services tab GUI functions

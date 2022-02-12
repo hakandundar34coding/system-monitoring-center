@@ -29,7 +29,6 @@ def sensors_gui_func():
     # Sensors tab GUI objects
     global grid1601, treeview1601, searchentry1601
     global radiobutton1601, radiobutton1602, radiobutton1603, radiobutton1604
-    global label1601
 
     # Sensors tab GUI objects - get
     grid1601 = builder.get_object('grid1601')
@@ -39,7 +38,6 @@ def sensors_gui_func():
     radiobutton1602 = builder.get_object('radiobutton1602')
     radiobutton1603 = builder.get_object('radiobutton1603')
     radiobutton1604 = builder.get_object('radiobutton1604')
-    label1601 = builder.get_object('label1601')
 
 
     # Sensors tab GUI functions

@@ -24,7 +24,6 @@ def startup_gui_func():
 
     global grid5101, treeview5101, searchentry5101, button5101
     global radiobutton5101, radiobutton5102, radiobutton5103
-    global label5101
 
 
     # Startup tab GUI objects - get from file
@@ -39,7 +38,6 @@ def startup_gui_func():
     radiobutton5101 = builder.get_object('radiobutton5101')
     radiobutton5102 = builder.get_object('radiobutton5102')
     radiobutton5103 = builder.get_object('radiobutton5103')
-    label5101 = builder.get_object('label5101')
 
 
     # Startup tab GUI functions
@@ -277,7 +275,7 @@ def startup_loop_func():
 
     # In order to avoid errors, stop the loop function if current desktop session is not one of these in the "supported_desktop_environments_list" list. Currently other dektop environments are not tested for "Startup" tab. Dekstop environments may have specific lines in the ".desktop" files.
     if set(current_desktop_environment).intersection(supported_desktop_environments_list) == 0:
-        label5101.set_text(_tr("Currently following desktop environments are supported for listing startup items:") + "\n" + "XFCE, GNOME, CINNAMON, MATE, KDE (Plasma), LXQt, LXDE.")
+#         label5101.set_text(_tr("Currently following desktop environments are supported for listing startup items:") + "\n" + "XFCE, GNOME, CINNAMON, MATE, KDE (Plasma), LXQt, LXDE.")
         return
 
     # There are user startup applications and system wide startup applications in linux. They are in different directories. Modifications in directory of system wide startup applications require root access.

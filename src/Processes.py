@@ -26,7 +26,6 @@ def processes_gui_func():
     # Processes tab GUI objects
     global grid2101, treeview2101, searchentry2101, button2101
     global radiobutton2101, radiobutton2102, radiobutton2103, radiobutton2104, radiobutton2105, radiobutton2106
-    global label2101
 
 
     # Processes tab GUI objects - get from file
@@ -44,7 +43,6 @@ def processes_gui_func():
     radiobutton2104 = builder.get_object('radiobutton2104')
     radiobutton2105 = builder.get_object('radiobutton2105')
     radiobutton2106 = builder.get_object('radiobutton2106')
-    label2101 = builder.get_object('label2101')
 
 
     # Processes tab GUI functions
