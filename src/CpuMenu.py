@@ -65,6 +65,7 @@ def cpu_menus_gui_func():
             Config.show_cpu_usage_per_core = 1                                                # Make this definition before calling the following function in order to prevent problems because of the unchanged setting.
             try:
                 Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)           # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
+                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)           # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
             except TypeError:
                 pass
             Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)         # Connect "on_drawingarea1101_draw_per_core" function in order to draw cpu usage percent per core.

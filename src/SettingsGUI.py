@@ -181,6 +181,21 @@ def settings_gui_func():
             Performance.performance_set_selected_cpu_core_func()                              # Apply selected CPU core changes
             Performance.performance_set_selected_disk_func()                                  # Apply selected disk changes
             Performance.performance_set_selected_network_card_func()                          # Apply selected network card changes
+            if 'Cpu' not in globals():
+                global Cpu
+                import Cpu
+            try:
+                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)
+            except TypeError:
+                pass
+            try:
+                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw_per_core)
+            except TypeError:
+                pass
+            if Config.show_cpu_usage_per_core == 0:
+                Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw)
+            if Config.show_cpu_usage_per_core == 1:
+                Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)
             try:                                                                              # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
                 Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()                              # Apply selected GPU changes
             except NameError:
