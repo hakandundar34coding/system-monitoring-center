@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-12 11:42+0300\n"
-"PO-Revision-Date: 2022-02-12 11:42+0300\n"
+"POT-Creation-Date: 2022-02-12 15:27+0300\n"
+"PO-Revision-Date: 2022-02-12 15:28+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -31,13 +31,13 @@ msgid "Unknown"
 msgstr "Bilinmiyor"
 
 #: src/Disk.py:237 src/DiskDetails.py:177 src/DiskDetails.py:192 src/Gpu.py:236
-#: src/Network.py:263 src/Network.py:285 src/Services.py:174
+#: src/Network.py:263 src/Network.py:285 src/Services.py:172
 #: src/ServicesDetails.py:129 src/UsersDetails.py:222
 msgid "Yes"
 msgstr "Evet"
 
 #: src/Disk.py:239 src/DiskDetails.py:170 src/Gpu.py:238 src/Gpu.py:323
-#: src/Network.py:265 src/Services.py:174 src/ServicesDetails.py:129
+#: src/Network.py:265 src/Services.py:172 src/ServicesDetails.py:129
 #: src/UsersDetails.py:224
 msgid "No"
 msgstr "Hayır"
@@ -121,37 +121,37 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Processes.py:182 src/RamSwapDetails.py:84 src/Services.py:147
-#: src/Startup.py:134 ui/ProcessesDetailsWindow.ui:42
+#: src/Processes.py:180 src/RamSwapDetails.py:84 src/Services.py:145
+#: src/Startup.py:132 ui/ProcessesDetailsWindow.ui:42
 #: ui/ProcessesMenuCustomizations.ui:356 ui/ServicesDetailsWindow.ui:43
 #: ui/ServicesMenuCustomizations.ui:227 ui/StartupMenuCustomizations.ui:227
 #: ui/StartupNewItemWindow.ui:310
 msgid "Name"
 msgstr "İsim"
 
-#: src/Processes.py:183 src/ProcessesDetails.py:247 src/ProcessesDetails.py:650
+#: src/Processes.py:181 src/ProcessesDetails.py:247 src/ProcessesDetails.py:650
 #: ui/ProcessesDetailsWindow.ui:55 ui/ProcessesMenuCustomizations.ui:372
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:184 src/Users.py:142 src/UsersMenuRightClick.py:75
+#: src/Processes.py:182 src/Users.py:140 src/UsersMenuRightClick.py:75
 #: ui/ProcessesDetailsWindow.ui:81 ui/ProcessesMenuCustomizations.ui:386
 #: ui/UsersDetailsWindow.ui:39 ui/UsersMenuCustomizations.ui:227
 msgid "User"
 msgstr "Kullanıcı"
 
-#: src/Processes.py:185 ui/ProcessesDetailsWindow.ui:68
+#: src/Processes.py:183 ui/ProcessesDetailsWindow.ui:68
 #: ui/ProcessesMenuCustomizations.ui:400
 msgid "Status"
 msgstr "Durum"
 
-#: src/Processes.py:186 src/Users.py:154 ui/CpuMenus.ui:390
+#: src/Processes.py:184 src/Users.py:152 ui/CpuMenus.ui:390
 #: ui/ProcessesMenuCustomizations.ui:414 ui/ProcessesMenuCustomizations.ui:720
 #: ui/UsersDetailsWindow.ui:169 ui/UsersMenuCustomizations.ui:327
 msgid "CPU%"
 msgstr "%MİB"
 
-#: src/Processes.py:187 src/Services.py:153 src/Users.py:155
+#: src/Processes.py:185 src/Services.py:151 src/Users.py:153
 #: ui/ProcessesDetailsWindow.ui:120 ui/ProcessesDetailsWindow.ui:854
 #: ui/ProcessesMenuCustomizations.ui:428 ui/ServicesDetailsWindow.ui:232
 #: ui/ServicesMenuCustomizations.ui:313 ui/UsersDetailsWindow.ui:349
@@ -159,112 +159,112 @@ msgstr "%MİB"
 msgid "Memory (RSS)"
 msgstr "Bellek (RSS)"
 
-#: src/Processes.py:188 ui/ProcessesDetailsWindow.ui:867
+#: src/Processes.py:186 ui/ProcessesDetailsWindow.ui:867
 #: ui/ProcessesMenuCustomizations.ui:442
 msgid "Memory (VMS)"
 msgstr "Bellek (VMS)"
 
-#: src/Processes.py:189 ui/ProcessesDetailsWindow.ui:880
+#: src/Processes.py:187 ui/ProcessesDetailsWindow.ui:880
 #: ui/ProcessesMenuCustomizations.ui:512
 msgid "Memory (Shared)"
 msgstr "Bellek (Paylaşılan)"
 
-#: src/Processes.py:190 ui/ProcessesDetailsWindow.ui:1336
+#: src/Processes.py:188 ui/ProcessesDetailsWindow.ui:1336
 #: ui/ProcessesMenuCustomizations.ui:554
 msgid "Disk Read Data"
 msgstr "Disk Okunan Veri"
 
-#: src/Processes.py:191 ui/ProcessesDetailsWindow.ui:1349
+#: src/Processes.py:189 ui/ProcessesDetailsWindow.ui:1349
 #: ui/ProcessesMenuCustomizations.ui:568
 msgid "Disk Write Data"
 msgstr "Disk Yazılan Veri"
 
-#: src/Processes.py:192 ui/ProcessesDetailsWindow.ui:133
+#: src/Processes.py:190 ui/ProcessesDetailsWindow.ui:133
 #: ui/ProcessesDetailsWindow.ui:658 ui/ProcessesDetailsWindow.ui:1310
 #: ui/ProcessesMenuCustomizations.ui:526 ui/SettingsWindow.ui:320
 msgid "Disk Read Speed"
 msgstr "Disk Okuma Hızı"
 
-#: src/Processes.py:193 ui/ProcessesDetailsWindow.ui:1323
+#: src/Processes.py:191 ui/ProcessesDetailsWindow.ui:1323
 #: ui/ProcessesMenuCustomizations.ui:540 ui/SettingsWindow.ui:334
 msgid "Disk Write Speed"
 msgstr "Disk Yazma Hızı"
 
-#: src/Processes.py:194 src/RamSwapDetails.py:88
+#: src/Processes.py:192 src/RamSwapDetails.py:88
 #: ui/ProcessesDetailsWindow.ui:94 ui/ProcessesMenuCustomizations.ui:456
 msgid "Priority"
 msgstr "Öncelik"
 
-#: src/Processes.py:195 ui/ProcessesDetailsWindow.ui:745
+#: src/Processes.py:193 ui/ProcessesDetailsWindow.ui:745
 #: ui/ProcessesMenuCustomizations.ui:470
 msgid "Threads"
 msgstr "İşlem Parçacıkları"
 
-#: src/Processes.py:196 ui/ProcessesDetailsWindow.ui:172
+#: src/Processes.py:194 ui/ProcessesDetailsWindow.ui:172
 #: ui/ProcessesMenuCustomizations.ui:484
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:197 src/Users.py:145 src/UsersMenuRightClick.py:76
+#: src/Processes.py:195 src/Users.py:143 src/UsersMenuRightClick.py:76
 #: ui/ProcessesDetailsWindow.ui:407 ui/ProcessesMenuCustomizations.ui:582
 #: ui/UsersDetailsWindow.ui:78 ui/UsersMenuCustomizations.ui:271
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:198 src/Users.py:146 ui/ProcessesDetailsWindow.ui:420
+#: src/Processes.py:196 src/Users.py:144 ui/ProcessesDetailsWindow.ui:420
 #: ui/ProcessesMenuCustomizations.ui:596 ui/UsersDetailsWindow.ui:91
 #: ui/UsersMenuCustomizations.ui:285
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:199 ui/DiskDetailsWindow.ui:378
+#: src/Processes.py:197 ui/DiskDetailsWindow.ui:378
 #: ui/ProcessesDetailsWindow.ui:1752 ui/ProcessesMenuCustomizations.ui:498
 #: ui/ServicesDetailsWindow.ui:69
 msgid "Path"
 msgstr "Yol"
 
-#: src/Processes.py:218 src/Services.py:173 src/ServicesDetails.py:128
+#: src/Processes.py:216 src/Services.py:171 src/ServicesDetails.py:128
 msgid "Running"
 msgstr "Çalışıyor"
 
-#: src/Processes.py:218
+#: src/Processes.py:216
 msgid "Sleeping"
 msgstr "Uyuyor"
 
-#: src/Processes.py:218
+#: src/Processes.py:216
 msgid "Waiting"
 msgstr "Bekliyor"
 
-#: src/Processes.py:218
+#: src/Processes.py:216
 msgid "Idle"
 msgstr "Boşta"
 
-#: src/Processes.py:218
+#: src/Processes.py:216
 msgid "Zombie"
 msgstr "Zombi"
 
-#: src/Processes.py:218
+#: src/Processes.py:216
 msgid "Stopped"
 msgstr "Durdu"
 
-#: src/Processes.py:218
+#: src/Processes.py:216
 msgid "Tracing Stop"
 msgstr "Tracing Stop"
 
-#: src/Processes.py:218 src/Services.py:173 src/ServicesDetails.py:128
+#: src/Processes.py:216 src/Services.py:171 src/ServicesDetails.py:128
 msgid "Dead"
 msgstr "Sonlanmış"
 
-#: src/Processes.py:607 src/Sensors.py:356 src/Services.py:443
-#: src/Startup.py:687 src/Users.py:525 ui/ProcessesTab (kopya).ui:46
-#: ui/ProcessesTab.ui:219 ui/SensorsTab.ui:192 ui/ServicesTab.ui:175
-#: ui/StartupTab.ui:161 ui/UsersTab.ui:153
+#: src/Processes.py:605 src/Sensors.py:354 src/Services.py:441
+#: src/Startup.py:685 src/Users.py:523 ui/ProcessesTab.ui:219
+#: ui/SensorsTab.ui:192 ui/ServicesTab.ui:175 ui/StartupTab.ui:161
+#: ui/UsersTab.ui:153
 msgid "Search..."
 msgstr "Ara..."
 
-#: src/Processes.py:607 src/SettingsGUI.py:292 src/Users.py:147
-#: ui/MainWindow.ui:600 ui/ProcessesTab (kopya).ui:227 ui/ProcessesTab.ui:45
-#: ui/UsersDetailsWindow.ui:104 ui/UsersMenuCustomizations.ui:299
+#: src/Processes.py:605 src/SettingsGUI.py:292 src/Users.py:145
+#: ui/MainWindow.ui:600 ui/ProcessesTab.ui:45 ui/UsersDetailsWindow.ui:104
+#: ui/UsersMenuCustomizations.ui:299
 msgid "Processes"
 msgstr "İşlemler"
 
@@ -349,109 +349,109 @@ msgstr "Kullanılan"
 msgid "This system has no swap memory."
 msgstr "Bu sistemde takas belleği yok."
 
-#: src/Sensors.py:101
+#: src/Sensors.py:99
 msgid "Sensor Group"
 msgstr "Algılayıcı Grubu"
 
-#: src/Sensors.py:102
+#: src/Sensors.py:100
 msgid "Sensor Name"
 msgstr "Algılayıcı Adı"
 
-#: src/Sensors.py:103
+#: src/Sensors.py:101
 msgid "Current Value"
 msgstr "Şimdiki Değer"
 
-#: src/Sensors.py:104
+#: src/Sensors.py:102
 msgid "Critical Value"
 msgstr "Kritik Değer"
 
-#: src/Sensors.py:105
+#: src/Sensors.py:103
 msgid "Max Value"
 msgstr "Maks. Değer"
 
-#: src/Sensors.py:356 src/SettingsGUI.py:309 ui/MainWindow.ui:406
+#: src/Sensors.py:354 src/SettingsGUI.py:309 ui/MainWindow.ui:406
 #: ui/SensorsTab.ui:74
 msgid "Sensors"
 msgstr "Algılayıcı"
 
-#: src/Services.py:148 ui/ServicesMenuCustomizations.ui:243
+#: src/Services.py:146 ui/ServicesMenuCustomizations.ui:243
 msgid "State"
 msgstr "Durum"
 
-#: src/Services.py:149 ui/ServicesDetailsWindow.ui:422
+#: src/Services.py:147 ui/ServicesDetailsWindow.ui:422
 #: ui/ServicesMenuCustomizations.ui:257
 msgid "Main PID"
 msgstr "Ana PID"
 
-#: src/Services.py:150 ui/ServicesDetailsWindow.ui:271
+#: src/Services.py:148 ui/ServicesDetailsWindow.ui:271
 #: ui/ServicesMenuCustomizations.ui:271
 msgid "Active State"
 msgstr "Aktiflik Durumu"
 
-#: src/Services.py:151 ui/ServicesDetailsWindow.ui:258
+#: src/Services.py:149 ui/ServicesDetailsWindow.ui:258
 #: ui/ServicesMenuCustomizations.ui:285
 msgid "Load State"
 msgstr "Yüklenme Durumu"
 
-#: src/Services.py:152 ui/ServicesDetailsWindow.ui:284
+#: src/Services.py:150 ui/ServicesDetailsWindow.ui:284
 #: ui/ServicesMenuCustomizations.ui:299
 msgid "Sub-State"
 msgstr "Alt Durum"
 
-#: src/Services.py:154 ui/ServicesDetailsWindow.ui:56
+#: src/Services.py:152 ui/ServicesDetailsWindow.ui:56
 #: ui/ServicesMenuCustomizations.ui:327
 msgid "Description"
 msgstr "Açıklama"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Enabled"
 msgstr "Etkin"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Disabled"
 msgstr "Devre Dışı"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Masked"
 msgstr "Gizli"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Unmasked"
 msgstr "Gizli değil"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Static"
 msgstr "Statik"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Generated"
 msgstr "Oluşturulmuş"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Enabled-runtime"
 msgstr "Etkin-çalışma zamanı"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Indirect"
 msgstr "Dolaylı"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Active"
 msgstr "Aktif"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Inactive"
 msgstr "İnaktif"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Loaded"
 msgstr "Yüklenmiş"
 
-#: src/Services.py:173 src/ServicesDetails.py:128
+#: src/Services.py:171 src/ServicesDetails.py:128
 msgid "Exited"
 msgstr "Çıkmış"
 
-#: src/Services.py:443 src/SettingsGUI.py:292 ui/MainWindow.ui:747
+#: src/Services.py:441 src/SettingsGUI.py:292 ui/MainWindow.ui:747
 #: ui/ServicesTab.ui:58
 msgid "Services"
 msgstr "Servisler"
@@ -464,7 +464,7 @@ msgstr "Bilgi"
 msgid "Performance"
 msgstr "Performans"
 
-#: src/SettingsGUI.py:292 src/Users.py:525 ui/MainWindow.ui:649
+#: src/SettingsGUI.py:292 src/Users.py:523 ui/MainWindow.ui:649
 #: ui/UsersTab.ui:57
 msgid "Users"
 msgstr "Kullanıcılar"
@@ -489,24 +489,22 @@ msgstr "GPU"
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Tüm ayarları varsayılanlara sıfırlamak istiyor musunuz?"
 
-#: src/Startup.py:135 ui/StartupMenuCustomizations.ui:243
+#: src/Startup.py:133 ui/StartupMenuCustomizations.ui:243
 #: ui/StartupNewItemWindow.ui:165
 msgid "Comment"
 msgstr "Açıklama"
 
-#: src/Startup.py:136 src/StartupMenuRightClick.py:445
+#: src/Startup.py:134 src/StartupMenuRightClick.py:445
 #: src/StartupMenuRightClick.py:457 src/StartupMenuRightClick.py:469
 #: ui/StartupMenuCustomizations.ui:257 ui/StartupNewItemWindow.ui:177
 msgid "Command"
 msgstr "Komut"
 
-#: src/Startup.py:280
-msgid ""
-"Currently following desktop environments are supported for listing startup "
-"items:"
-msgstr "Şimdilik şu masaüstü ortamları destekleniyor:"
+#: src/Startup.py:278
+msgid "This desktop environment is not supported"
+msgstr "Bu masaüstü ortamı desteklenmiyor"
 
-#: src/Startup.py:687
+#: src/Startup.py:685
 msgid "Startup Items"
 msgstr "Başlangıç Ögeleri"
 
@@ -561,32 +559,32 @@ msgstr "Aynı isimde zaten bir '.desktop' dosyası var."
 msgid "'.desktop' File Name"
 msgstr "'.desktop' Dosyası Adı"
 
-#: src/Users.py:143 ui/UsersDetailsWindow.ui:52
+#: src/Users.py:141 ui/UsersDetailsWindow.ui:52
 #: ui/UsersMenuCustomizations.ui:243
 msgid "Full Name"
 msgstr "Tam Ad"
 
-#: src/Users.py:144 ui/UsersDetailsWindow.ui:65
+#: src/Users.py:142 ui/UsersDetailsWindow.ui:65
 #: ui/UsersMenuCustomizations.ui:257
 msgid "Logged In"
 msgstr "Giriş Yapmış"
 
-#: src/Users.py:148 ui/UsersDetailsWindow.ui:117
+#: src/Users.py:146 ui/UsersDetailsWindow.ui:117
 #: ui/UsersMenuCustomizations.ui:313
 msgid "Home Directory"
 msgstr "Ev Dizini"
 
-#: src/Users.py:149 ui/UsersDetailsWindow.ui:130
+#: src/Users.py:147 ui/UsersDetailsWindow.ui:130
 #: ui/UsersMenuCustomizations.ui:355
 msgid "Group"
 msgstr "Grup"
 
-#: src/Users.py:150 ui/StartupNewItemWindow.ui:223 ui/UsersDetailsWindow.ui:143
+#: src/Users.py:148 ui/StartupNewItemWindow.ui:223 ui/UsersDetailsWindow.ui:143
 #: ui/UsersMenuCustomizations.ui:383
 msgid "Terminal"
 msgstr "Uçbirim"
 
-#: src/Users.py:153 ui/ProcessesDetailsWindow.ui:146
+#: src/Users.py:151 ui/ProcessesDetailsWindow.ui:146
 #: ui/UsersDetailsWindow.ui:156 ui/UsersMenuCustomizations.ui:369
 msgid "Start Time"
 msgstr "Başlama Zamanı"
@@ -609,8 +607,8 @@ msgstr ""
 
 #: ui/CpuMenus.ui:20 ui/CpuTab.ui:357 ui/DiskMenus.ui:20 ui/DiskTab.ui:451
 #: ui/GpuMenus.ui:20 ui/GpuTab.ui:450 ui/NetworkMenus.ui:20
-#: ui/NetworkTab.ui:419 ui/ProcessesMenuCustomizations.ui:20 ui/ProcessesTab
-#: (kopya).ui:243 ui/ProcessesTab.ui:231 ui/RamMenus.ui:20 ui/RamTab.ui:489
+#: ui/NetworkTab.ui:419 ui/ProcessesMenuCustomizations.ui:20
+#: ui/ProcessesTab.ui:231 ui/RamMenus.ui:20 ui/RamTab.ui:489
 #: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:187
 #: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:139
 #: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:165
@@ -758,28 +756,28 @@ msgstr ""
 #: ui/ProcessesDetailsWindow.ui:1433 ui/ProcessesDetailsWindow.ui:1448
 #: ui/ProcessesDetailsWindow.ui:1463 ui/ProcessesDetailsWindow.ui:1561
 #: ui/ProcessesDetailsWindow.ui:1576 ui/ProcessesDetailsWindow.ui:1591
-#: ui/ProcessesDetailsWindow.ui:1606 ui/ProcessesTab (kopya).ui:266
-#: ui/RamHardwareWindow.ui:41 ui/RamSwapDetailsWindow.ui:39 ui/RamTab.ui:68
-#: ui/RamTab.ui:85 ui/RamTab.ui:128 ui/RamTab.ui:145 ui/RamTab.ui:175
-#: ui/RamTab.ui:205 ui/RamTab.ui:235 ui/RamTab.ui:282 ui/RamTab.ui:511
-#: ui/RamTab.ui:528 ui/ServicesDetailsWindow.ui:94
-#: ui/ServicesDetailsWindow.ui:108 ui/ServicesDetailsWindow.ui:122
-#: ui/ServicesDetailsWindow.ui:136 ui/ServicesDetailsWindow.ui:150
-#: ui/ServicesDetailsWindow.ui:164 ui/ServicesDetailsWindow.ui:178
-#: ui/ServicesDetailsWindow.ui:296 ui/ServicesDetailsWindow.ui:310
-#: ui/ServicesDetailsWindow.ui:324 ui/ServicesDetailsWindow.ui:338
-#: ui/ServicesDetailsWindow.ui:352 ui/ServicesDetailsWindow.ui:366
-#: ui/ServicesDetailsWindow.ui:380 ui/ServicesDetailsWindow.ui:407
-#: ui/ServicesDetailsWindow.ui:460 ui/ServicesDetailsWindow.ui:767
-#: ui/ServicesDetailsWindow.ui:781 ui/ServicesDetailsWindow.ui:795
-#: ui/ServicesDetailsWindow.ui:809 ui/SystemTab.ui:64 ui/SystemTab.ui:79
-#: ui/SystemTab.ui:168 ui/SystemTab.ui:185 ui/SystemTab.ui:230
-#: ui/SystemTab.ui:260 ui/SystemTab.ui:290 ui/SystemTab.ui:324
-#: ui/SystemTab.ui:355 ui/SystemTab.ui:372 ui/SystemTab.ui:415
-#: ui/SystemTab.ui:445 ui/SystemTab.ui:475 ui/SystemTab.ui:505
-#: ui/SystemTab.ui:596 ui/SystemTab.ui:613 ui/SystemTab.ui:630
-#: ui/SystemTab.ui:702 ui/SystemTab.ui:719 ui/SystemTab.ui:749
-#: ui/SystemTab.ui:766 ui/SystemTab.ui:783 ui/UsersDetailsWindow.ui:182
+#: ui/ProcessesDetailsWindow.ui:1606 ui/RamHardwareWindow.ui:41
+#: ui/RamSwapDetailsWindow.ui:39 ui/RamTab.ui:68 ui/RamTab.ui:85
+#: ui/RamTab.ui:128 ui/RamTab.ui:145 ui/RamTab.ui:175 ui/RamTab.ui:205
+#: ui/RamTab.ui:235 ui/RamTab.ui:282 ui/RamTab.ui:511 ui/RamTab.ui:528
+#: ui/ServicesDetailsWindow.ui:94 ui/ServicesDetailsWindow.ui:108
+#: ui/ServicesDetailsWindow.ui:122 ui/ServicesDetailsWindow.ui:136
+#: ui/ServicesDetailsWindow.ui:150 ui/ServicesDetailsWindow.ui:164
+#: ui/ServicesDetailsWindow.ui:178 ui/ServicesDetailsWindow.ui:296
+#: ui/ServicesDetailsWindow.ui:310 ui/ServicesDetailsWindow.ui:324
+#: ui/ServicesDetailsWindow.ui:338 ui/ServicesDetailsWindow.ui:352
+#: ui/ServicesDetailsWindow.ui:366 ui/ServicesDetailsWindow.ui:380
+#: ui/ServicesDetailsWindow.ui:407 ui/ServicesDetailsWindow.ui:460
+#: ui/ServicesDetailsWindow.ui:767 ui/ServicesDetailsWindow.ui:781
+#: ui/ServicesDetailsWindow.ui:795 ui/ServicesDetailsWindow.ui:809
+#: ui/SystemTab.ui:64 ui/SystemTab.ui:79 ui/SystemTab.ui:168
+#: ui/SystemTab.ui:185 ui/SystemTab.ui:230 ui/SystemTab.ui:260
+#: ui/SystemTab.ui:290 ui/SystemTab.ui:324 ui/SystemTab.ui:355
+#: ui/SystemTab.ui:372 ui/SystemTab.ui:415 ui/SystemTab.ui:445
+#: ui/SystemTab.ui:475 ui/SystemTab.ui:505 ui/SystemTab.ui:596
+#: ui/SystemTab.ui:613 ui/SystemTab.ui:630 ui/SystemTab.ui:702
+#: ui/SystemTab.ui:719 ui/SystemTab.ui:749 ui/SystemTab.ui:766
+#: ui/SystemTab.ui:783 ui/UsersDetailsWindow.ui:182
 #: ui/UsersDetailsWindow.ui:197 ui/UsersDetailsWindow.ui:212
 #: ui/UsersDetailsWindow.ui:227 ui/UsersDetailsWindow.ui:242
 #: ui/UsersDetailsWindow.ui:257 ui/UsersDetailsWindow.ui:272
@@ -1394,28 +1392,28 @@ msgstr "Özel Değer..."
 msgid "Details"
 msgstr "Detaylar"
 
-#: ui/ProcessesTab (kopya).ui:64 ui/ProcessesTab.ui:67 ui/SensorsTab.ui:96
-#: ui/ServicesTab.ui:101 ui/StartupTab.ui:67 ui/UsersTab.ui:79
+#: ui/ProcessesTab.ui:67 ui/SensorsTab.ui:96 ui/ServicesTab.ui:101
+#: ui/StartupTab.ui:67 ui/UsersTab.ui:79
 msgid "Show all"
 msgstr "Tümünü göster"
 
-#: ui/ProcessesTab (kopya).ui:86 ui/ProcessesTab.ui:89
+#: ui/ProcessesTab.ui:89
 msgid "Show processes from this user"
 msgstr "Bu kullanıcının işlemlerini göster"
 
-#: ui/ProcessesTab (kopya).ui:108 ui/ProcessesTab.ui:111
+#: ui/ProcessesTab.ui:111
 msgid "Show processes from other users"
 msgstr "Diğer kullanıcıların işlemlerini göster"
 
-#: ui/ProcessesTab (kopya).ui:143 ui/ProcessesTab.ui:145
+#: ui/ProcessesTab.ui:145
 msgid "User defined expand"
 msgstr "Kullanıcı tanımlı genişletme"
 
-#: ui/ProcessesTab (kopya).ui:165 ui/ProcessesTab.ui:167
+#: ui/ProcessesTab.ui:167
 msgid "Expand all"
 msgstr "Tümünü genişlet"
 
-#: ui/ProcessesTab (kopya).ui:187 ui/ProcessesTab.ui:189
+#: ui/ProcessesTab.ui:189
 msgid "Collapse all"
 msgstr "Tümünü daralt"
 
@@ -1822,6 +1820,11 @@ msgstr "Sadece giriş yapmış kullanıcıları göster"
 #: ui/UsersTab.ui:123
 msgid "Show only users logged out"
 msgstr "Sadece çıkış yapmış kullanıcıları göster"
+
+#~ msgid ""
+#~ "Currently following desktop environments are supported for listing "
+#~ "startup items:"
+#~ msgstr "Şimdilik şu masaüstü ortamları destekleniyor:"
 
 #~ msgid ""
 #~ "Total: AAAA processes (BBBB from this user, CCCC from other users/system)"
