@@ -3,13 +3,13 @@
 import sys
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gio, Gtk
+from gi.repository import Gtk
 
 from MainGUI import window1
 
 class Application(Gtk.Application):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, application_id="com.github.hakand34.system-monitoring-center", flags=Gio.ApplicationFlags.NON_UNIQUE, **kwargs)
+        super().__init__(*args, application_id="com.github.hakand34.system-monitoring-center", **kwargs)
         self.window = None
 
     def do_activate(self):

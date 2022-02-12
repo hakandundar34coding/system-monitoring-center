@@ -3,11 +3,11 @@
 # ----------------------------------- Processes - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_import_func():
 
-    global Gtk, GLib, GObject, os, time
+    global Gtk, Gdk, GLib, GObject, os, time
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, GLib, GObject
+    from gi.repository import Gtk, Gdk, GLib, GObject
     import os
     import time
 
@@ -49,11 +49,39 @@ def processes_gui_func():
 
     # Processes tab GUI functions
     def on_treeview2101_button_press_event(widget, event):
-        if "Common" not in globals():
-            global Common
-            import Common
-            Common.common_import_func()
-        Common.common_mouse_actions_on_treeview_func(event, "Processes", treeview2101, pid_list, processes_data_rows)
+        # Get right/double clicked row data
+        try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+            path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return
+        model = treeview2101.get_model()
+        treeiter = model.get_iter(path)
+        # Get right/double clicked process PID
+        if treeiter == None:
+            return
+        global selected_process_pid
+        try:
+            selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
+        except ValueError:                                                                # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+            return
+        # Open right click menu if right clicked on a row
+        if event.button == 3:
+            if 'ProcessesMenuRightClick' not in globals():
+                global ProcessesMenuRightClick
+                import ProcessesMenuRightClick
+                ProcessesMenuRightClick.processes_menu_right_click_import_func()
+                ProcessesMenuRightClick.processes_menu_right_click_gui_func()
+            ProcessesMenuRightClick.menu2101m.popup(None, None, None, None, event.button, event.time)
+            ProcessesMenuRightClick.processes_select_process_nice_option_func()
+        # Open details window if double clicked on a row
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
+            if 'ProcessesDetails' not in globals():
+                global ProcessesDetails
+                import ProcessesDetails
+                ProcessesDetails.processes_details_import_func()
+                ProcessesDetails.processes_details_gui_function()
+            ProcessesDetails.window2101w.show()
+            ProcessesDetails.process_details_run_func()
 
     def on_treeview2101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.

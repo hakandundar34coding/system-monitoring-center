@@ -196,10 +196,11 @@ def ram_initial_func():
         for file in files_in_sys_devices_system_memory:
             if os.path.isdir("/sys/devices/system/memory/" + file) and file.startswith("memory"):
                 with open("/sys/devices/system/memory/" + file + "/online") as reader:
-                    if reader.read().strip() == "1":
-                        total_online_memory = total_online_memory + block_size
-                    if reader.read().strip() == "0":
-                        total_offline_memory = total_offline_memory + block_size
+                    memory_online_offline_value = reader.read().strip()
+                if memory_online_offline_value == "1":
+                    total_online_memory = total_online_memory + block_size
+                if memory_online_offline_value == "0":
+                    total_offline_memory = total_offline_memory + block_size
         total_physical_ram = (total_online_memory + total_offline_memory)                     # Summation of total online and offline memories gives RAM hardware size. RAM harware size and total RAM value get from proc file system of by using "free" command are not same thing. Because some of the RAM may be reserved for harware and/or by the OS kernel.
     else:
         total_physical_ram = f'[{_tr("Unknown")}]'

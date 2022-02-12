@@ -12,8 +12,8 @@ def processes_custom_priority_import_func():
     import subprocess
 
 
-    global Processes, ProcessesMenuRightClick, Common
-    import Processes, ProcessesMenuRightClick, Common
+    global Processes, ProcessesMenuRightClick
+    import Processes, ProcessesMenuRightClick
 
 
 # ----------------------------------- Processes - Processes Custom Priority Window GUI Function -----------------------------------
@@ -43,9 +43,9 @@ def processes_custom_priority_gui_func():
 
     def on_window2101w2_show(widget):                                                         # Get process name and nice value (on window show) by using process PID.
         global selected_process_pid, selected_process_name, selected_process_nice
-        selected_process_pid = Common.selected_process_pid
+        selected_process_pid = Processes.selected_process_pid
         try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + Common.selected_process_pid + "/stat") as reader:            # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
+            with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:         # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
                 proc_pid_stat_lines = reader.read()
         except FileNotFoundError:
             window2101w2.hide()
@@ -86,7 +86,7 @@ def processes_custom_priority_gui_func():
             try:                                                                              # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
                 (subprocess.check_output(["pkexec", "renice", "-n", selected_process_nice, "-p", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
             except subprocess.CalledProcessError:
-                ProcessesMenuRightClick.processes_nice_error_dialog()
+                return
         window2101w2.hide()
 
 
@@ -101,7 +101,7 @@ def processes_custom_priority_gui_func():
 def processes_get_process_current_nice_func():
 
     try:                                                                                      # Process may be ended just after right click on the process row is performed. "try-catch" is used for avoiding errors in this situation.
-        with open("/proc/" + Common.selected_process_pid + "/stat") as reader:
+        with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:
             proc_pid_stat_lines_split = reader.read().split()
     except FileNotFoundError:
         return

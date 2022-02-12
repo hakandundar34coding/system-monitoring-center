@@ -12,8 +12,8 @@ def users_menu_right_click_import_func():
     import subprocess
 
 
-    global Users, Common
-    import Users, Common
+    global Users
+    import Users
 
 
     global _tr
@@ -40,8 +40,8 @@ def users_menu_right_click_gui_func():
 
     # ********************** Define object functions for Users tab right click menu **********************
     def on_menuitem3101m_activate(widget):                                                    # "End User Session" item on the right click menu
-        selected_username = str(Common.selected_username)                                     # Get right clicked username
-        selected_user_uid = str(Common.selected_user_uid)                                     # Get right clicked user UID
+        selected_username = str(Users.selected_username)                                      # Get right clicked username
+        selected_user_uid = str(Users.selected_user_uid)                                      # Get right clicked user UID
         users_end_user_session_warning_dialog(selected_username, selected_user_uid)
         if warning_dialog3102_response == Gtk.ResponseType.YES:
             try:

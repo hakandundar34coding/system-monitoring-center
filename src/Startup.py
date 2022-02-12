@@ -44,12 +44,33 @@ def startup_gui_func():
 
     # Startup tab GUI functions
     def on_treeview5101_button_press_event(widget, event):                                    # Mouse button press event (on the treeview)
-        if "Common" not in globals():
-            global Common
-            import Common
-            Common.common_import_func()
-        tab_data_list_list = [all_autostart_applications_list, startup_applications_visibility_list]
-        Common.common_mouse_actions_on_treeview_func(event, "Startup", treeview5101, tab_data_list_list, startup_data_rows)
+        # Get right/double clicked row data
+        try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+            path, _, _, _ = treeview5101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return
+        model = treeview5101.get_model()
+        treeiter = model.get_iter(path)
+        # Get right/double clicked startup item file name, visibility and name
+        if treeiter == None:
+            return
+        global selected_startup_application_file_name, selected_startup_application_visibility, selected_startup_application_name
+        try:
+            selected_startup_application_file_name = all_autostart_applications_list[startup_data_rows.index(model[treeiter][:])]
+            selected_startup_application_visibility = startup_applications_visibility_list[startup_data_rows.index(model[treeiter][:])]
+            selected_startup_application_name = model[treeiter][3]
+        except ValueError:
+            return
+        # Open right click menu if right clicked on a row
+        if event.button == 3:
+            if 'StartupMenuRightClick' not in globals():
+                global StartupMenuRightClick
+                import StartupMenuRightClick
+                StartupMenuRightClick.startup_menu_right_click_import_func()
+                StartupMenuRightClick.startup_menu_right_click_gui_func()
+            StartupMenuRightClick.menu5101m.popup(None, None, None, None, event.button, event.time)
+            StartupMenuRightClick.startup_set_checkmenuitem_func()
+            StartupMenuRightClick.startup_set_menu_labels_func()
 
     def on_treeview5101_button_release_event(widget, event):                                  # Mouse button press event (on the treeview)
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.

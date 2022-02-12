@@ -3,11 +3,11 @@
 # ----------------------------------- Services - Import Function -----------------------------------
 def services_import_func():
 
-    global Gtk, GLib, GObject, subprocess, os
+    global Gtk, Gdk, GLib, GObject, subprocess, os
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, GLib, GObject
+    from gi.repository import Gtk, Gdk, GLib, GObject
     import subprocess
     import os
 
@@ -47,11 +47,39 @@ def services_gui_func():
 
     # Services tab GUI functions
     def on_treeview6101_button_press_event(widget, event):
-        if "Common" not in globals():
-            global Common
-            import Common
-            Common.common_import_func()
-        Common.common_mouse_actions_on_treeview_func(event, "Services", treeview6101, service_list, services_data_rows)
+        # Get right/double clicked row data
+        try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+            path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return
+        model = treeview6101.get_model()
+        treeiter = model.get_iter(path)
+        # Get right/double clicked service name
+        if treeiter == None:
+            return
+        global selected_service_name
+        try:
+            selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]
+        except ValueError:
+            return
+        # Open right click menu if right clicked on a row
+        if event.button == 3:
+            if 'ServicesMenuRightClick' not in globals():
+                global ServicesMenuRightClick
+                import ServicesMenuRightClick
+                ServicesMenuRightClick.services_menu_right_click_import_func()
+                ServicesMenuRightClick.services_menu_right_click_gui_func()
+            ServicesMenuRightClick.menu6101m.popup(None, None, None, None, event.button, event.time)
+            ServicesMenuRightClick.services_set_checkmenuitem_func()
+        # Open details window if double clicked on a row
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
+            if 'ServicesDetails' not in globals():
+                global ServicesDetails
+                import ServicesDetails
+                ServicesDetails.services_details_import_func()
+                ServicesDetails.services_details_gui_function()
+            ServicesDetails.window6101w.show()
+            ServicesDetails.services_details_run_func()
 
     def on_treeview6101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
@@ -177,7 +205,7 @@ def services_loop_func():
 
     # Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories. But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
     service_unit_file_list = [filename for filename in os.listdir("/usr/lib/systemd/system/") if filename.endswith(".service")]    # Get file names which ends withs ".service".
-    service_files_from_run_systemd_list = [filename.split("invocation:")[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
+    service_files_from_run_systemd_list = [filename.split("invocation:", 1)[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
 
     for file in service_unit_file_list[:]:                                                    # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
         if os.path.islink("/usr/lib/systemd/system/" + file) == True and os.path.realpath("/usr/lib/systemd/system/" + file) != "/dev/null":    # Some service files are link to other ".service" files in the same directory. These links are removed from the list. Not all link files are removed. Link files with "/dev/null" are kept in the list.
@@ -188,7 +216,7 @@ def services_loop_func():
         if "@" not in service_unit_file:
             service_list.append(service_unit_file)
             continue
-        if "@" in service_unit_file:
+        else:
             service_unit_file_split = service_unit_file.split("@")[0]
             for service_loaded in service_files_from_run_systemd_list:
                 if "@" in service_loaded and service_unit_file_split == service_loaded.split("@")[0]:
@@ -221,67 +249,46 @@ def services_loop_func():
 
     # Get services data (specific information by processing the data get previously)
     for i, service in enumerate(service_list):
-        systemctl_show_command_lines_split = systemctl_show_command_lines[i].split("\n")
+        systemctl_show_command_lines_split = systemctl_show_command_lines[i]
         # Get service "loaded/not loaded" status. This data will be used for filtering (search, etc.) services.
         service_load_state = "-"                                                              # Initial value of "service_load_state" variable. This value will be used if "service_load_state" could not be detected.
-        for line in systemctl_show_command_lines_split:
-            if "LoadState=" in line:
-                service_load_state = _tr(line.split("=")[1].capitalize())                     # "_tr([value])" is used for using translated string.
-                if service_load_state == _tr("Loaded"):
-                    service_loaded_not_loaded_list.append(True)
-                if service_load_state != _tr("Loaded"):
-                    service_loaded_not_loaded_list.append(False)
-                break
+        service_load_state = systemctl_show_command_lines_split.split("LoadState=", 1)[1].split("\n", 1)[0].capitalize()
+        if service_load_state == "Loaded":
+            service_loaded_not_loaded_list.append(True)
+        else:
+            service_loaded_not_loaded_list.append(False)
         # Append service icon and service name
         services_data_row = [True, services_image, service]                                   # Service visibility data (on treeview) which is used for showing/hiding service when services in specific type (enabled/disabled) is preferred to be shown or service search feature is used from the GUI.
         # Append service unit file state
         if 1 in services_treeview_columns_shown:
-            for line in systemctl_show_command_lines_split:
-                if "UnitFileState=" in line:
-                    service_state = _tr(line.split("=")[1].capitalize())                      # "_tr([value])" is used for using translated string.
-                    break
+            service_state = _tr(systemctl_show_command_lines_split.split("UnitFileState=", 1)[1].split("\n", 1)[0].capitalize())    # "_tr([value])" is used for using translated string.
             services_data_row.append(service_state)
-        # Append service unit file state
+        # Append service main PID
         if 2 in services_treeview_columns_shown:
-            for line in systemctl_show_command_lines_split:
-                if "MainPID=" in line:
-                    service_main_pid = int(line.split("=")[1])
-                    break
+            service_main_pid = int(systemctl_show_command_lines_split.split("MainPID=", 1)[1].split("\n", 1)[0].capitalize())
             services_data_row.append(service_main_pid)
-        # Append service unit file state
+        # Append service active state
         if 3 in services_treeview_columns_shown:
-            for line in systemctl_show_command_lines_split:
-                if "ActiveState=" in line:
-                    service_active_state = _tr(line.split("=")[1].capitalize())               # "_tr([value])" is used for using translated string.
-                    break
+            service_active_state = _tr(systemctl_show_command_lines_split.split("ActiveState=", 1)[1].split("\n", 1)[0].capitalize())
             services_data_row.append(service_active_state)
-        # Append service unit file state (it has been get previously)
+        # Append service load state (it has been get previously)
         if 4 in services_treeview_columns_shown:
-            services_data_row.append(service_load_state)
-        # Append service unit file state
+            services_data_row.append(_tr(service_load_state))
+        # Append service substate
         if 5 in services_treeview_columns_shown:
-            for line in systemctl_show_command_lines_split:
-                if "SubState=" in line:
-                    service_sub_state = _tr(line.split("=")[1].capitalize())                  # "_tr([value])" is used for using translated string.
-                    break
+            service_sub_state = _tr(systemctl_show_command_lines_split.split("SubState=", 1)[1].split("\n", 1)[0].capitalize())
             services_data_row.append(service_sub_state)
-        # Append service unit file state
+        # Append service current memory
         if 6 in services_treeview_columns_shown:
-            for line in systemctl_show_command_lines_split:
-                if "MemoryCurrent=" in line:
-                    service_memory_current = line.split("=")[1]
-                    if service_memory_current.startswith("["):
-                        service_memory_current = -9999                                        # "-9999" value is used as "service_memory_current" value if memory value is get as "[not set]". Code will recognize this value and show "-" information in this situation. This negative integer value is used instead of string value because this data colmn of the treestore is an integer typed column.
-                    else:
-                        service_memory_current = int(service_memory_current)
-                    break
+            service_memory_current = systemctl_show_command_lines_split.split("MemoryCurrent=", 1)[1].split("\n", 1)[0].capitalize()
+            if service_memory_current.startswith("["):
+                service_memory_current = -9999                                                # "-9999" value is used as "service_memory_current" value if memory value is get as "[not set]". Code will recognize this value and show "-" information in this situation. This negative integer value is used instead of string value because this data colmn of the treestore is an integer typed column.
+            else:
+                service_memory_current = int(service_memory_current)
             services_data_row.append(service_memory_current)
-        # Append service unit file state
+        # Append service description
         if 7 in services_treeview_columns_shown:
-            for line in systemctl_show_command_lines_split:
-                if "Description=" in line:
-                    service_description = line.split("=")[1]
-                    break
+            service_description = systemctl_show_command_lines_split.split("Description=", 1)[1].split("\n", 1)[0].capitalize()
             services_data_row.append(service_description)
         # Append all data of the services into a list which will be appended into a treestore for showing the data on a treeview.
         services_data_rows.append(services_data_row)

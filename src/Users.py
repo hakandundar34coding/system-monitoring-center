@@ -3,11 +3,11 @@
 # ----------------------------------- Users - Import Function -----------------------------------
 def users_import_func():
 
-    global Gtk, GLib, GObject, GdkPixbuf, os, subprocess, datetime, time
+    global Gtk, Gdk, GLib, GObject, GdkPixbuf, os, subprocess, datetime, time
 
     import gi
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, GLib, GObject, GdkPixbuf
+    from gi.repository import Gtk, Gdk, GLib, GObject, GdkPixbuf
     import os
     import subprocess
     from datetime import datetime
@@ -46,11 +46,39 @@ def users_gui_func():
 
     # Users tab GUI functions
     def on_treeview3101_button_press_event(widget, event):
-        if "Common" not in globals():
-            global Common
-            import Common
-            Common.common_import_func()
-        Common.common_mouse_actions_on_treeview_func(event, "Users", treeview3101, uid_username_list, users_data_rows)
+        # Get right/double clicked row data
+        try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+            path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
+        except TypeError:
+            return
+        model = treeview3101.get_model()
+        treeiter = model.get_iter(path)
+        # Get right/double clicked user UID and user name
+        if treeiter == None:
+            return
+        global selected_user_uid, selected_username
+        try:
+            selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]
+            selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]
+        except ValueError:
+            return
+        # Open right click menu if right clicked on a row
+        if event.button == 3:
+            if 'UsersMenuRightClick' not in globals():
+                global UsersMenuRightClick
+                import UsersMenuRightClick
+                UsersMenuRightClick.users_menu_right_click_import_func()
+                UsersMenuRightClick.users_menu_right_click_gui_func()
+            UsersMenuRightClick.menu3101m.popup(None, None, None, None, event.button, event.time)
+        # Open details window if double clicked on a row
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
+            if 'UsersDetails' not in globals():
+                global UsersDetails
+                import UsersDetails
+                UsersDetails.users_details_import_func()
+                UsersDetails.users_details_gui_function()
+            UsersDetails.window3101w.show()
+            UsersDetails.users_details_run_func()
 
     def on_treeview3101_button_release_event(widget, event):
         if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.

@@ -14,8 +14,8 @@ def users_details_import_func():
     import time
 
 
-    global Config, Users, Common
-    import Config, Users, Common
+    global Config, Users
+    import Config, Users
 
 
     global _tr
@@ -118,8 +118,8 @@ def users_details_initial_func():
 def users_details_loop_func():
 
     global selected_user_uid, selected_username
-    selected_user_uid = str(Common.selected_user_uid)                                         # Get right clicked user UID
-    selected_username = Common.selected_username
+    selected_user_uid = str(Users.selected_user_uid)                                          # Get right clicked user UID
+    selected_username = Users.selected_username
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
     global users_cpu_usage_percent_precision

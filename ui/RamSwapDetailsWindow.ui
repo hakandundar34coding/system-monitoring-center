@@ -7,8 +7,8 @@
     <property name="border-width">10</property>
     <property name="title" translatable="yes">Swap Memory Details</property>
     <property name="modal">True</property>
-    <property name="default-width">400</property>
-    <property name="default-height">480</property>
+    <property name="default-width">320</property>
+    <property name="default-height">280</property>
     <property name="destroy-with-parent">True</property>
     <property name="icon-name">system-monitoring-center-ram-symbolic</property>
     <property name="type-hint">dialog</property>

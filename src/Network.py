@@ -259,14 +259,14 @@ def network_loop_func():
     # Get network_card_connected
     with open("/sys/class/net/" + selected_network_card + "/operstate") as reader:   # Get the information of if network card is connected by usng "/sys/class/net/" file.
         network_info = reader.read().strip()
-        if network_info == "up":
-            network_card_connected = _tr("Yes")
-        elif network_info == "down":
-            network_card_connected = _tr("No")
-        elif network_info == "unknown":
-            network_card_connected = f'[{_tr("Unknown")}]'
-        else:
-            network_card_connected = network_info
+    if network_info == "up":
+        network_card_connected = _tr("Yes")
+    elif network_info == "down":
+        network_card_connected = _tr("No")
+    elif network_info == "unknown":
+        network_card_connected = f'[{_tr("Unknown")}]'
+    else:
+        network_card_connected = network_info
     # Get network_ssid
     try:                                                                                      # "try-catch" is used in order to avoid errors because Network Manager (which is required for running "nmcli" command) may not be installed on all systems. This is a very rare sitution.
         nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")

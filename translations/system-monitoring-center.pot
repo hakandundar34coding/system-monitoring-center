@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-08 21:24+0300\n"
+"POT-Creation-Date: 2022-02-10 21:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "CPU Usage (Per Core)"
 msgstr ""
 
-#: src/Cpu.py:337 src/RamHardwareInformation.py:60
+#: src/Cpu.py:337 src/RamHardwareInformation.py:56
 msgid "Unknown"
 msgstr ""
 
@@ -67,44 +67,44 @@ msgstr ""
 msgid "Disk Details"
 msgstr ""
 
-#: src/FloatingSummary.py:116 src/SettingsGUI.py:309 ui/CpuTab.ui:482
+#: src/FloatingSummary.py:117 src/SettingsGUI.py:309 ui/CpuTab.ui:482
 #: ui/MainWindow.ui:166 ui/ProcessesDetailsWindow.ui:107
 #: ui/ProcessesDetailsWindow.ui:732 ui/ProcessesDetailsWindow.ui:837
 #: ui/SettingsWindow.ui:292
 msgid "CPU"
 msgstr ""
 
-#: src/FloatingSummary.py:118 src/SettingsGUI.py:309 ui/MainWindow.ui:214
+#: src/FloatingSummary.py:119 src/SettingsGUI.py:309 ui/MainWindow.ui:214
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52 ui/RamTab.ui:25 ui/RamTab.ui:409
 #: ui/SettingsWindow.ui:306
 msgid "RAM"
 msgstr ""
 
-#: src/FloatingSummary.py:120
+#: src/FloatingSummary.py:121
 msgid "Disk R+W"
 msgstr ""
 
-#: src/FloatingSummary.py:122
+#: src/FloatingSummary.py:123
 msgid "Disk R"
 msgstr ""
 
-#: src/FloatingSummary.py:124
+#: src/FloatingSummary.py:125
 msgid "Disk W"
 msgstr ""
 
-#: src/FloatingSummary.py:126
+#: src/FloatingSummary.py:127
 msgid "Network D+U"
 msgstr ""
 
-#: src/FloatingSummary.py:128
+#: src/FloatingSummary.py:129
 msgid "Network D"
 msgstr ""
 
-#: src/FloatingSummary.py:130
+#: src/FloatingSummary.py:131
 msgid "Network U"
 msgstr ""
 
-#: src/MainGUI.py:128
+#: src/MainGUI.py:127
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -273,55 +273,55 @@ msgstr ""
 msgid "Do you want to kill this process?"
 msgstr ""
 
-#: src/Ram.py:216
+#: src/Ram.py:217
 msgid "Physical RAM"
 msgstr ""
 
-#: src/Ram.py:217 ui/ProcessesDetailsWindow.ui:906 ui/RamTab.ui:306
+#: src/Ram.py:218 ui/ProcessesDetailsWindow.ui:906 ui/RamTab.ui:306
 msgid "Swap Memory"
 msgstr ""
 
-#: src/RamHardwareInformation.py:60
+#: src/RamHardwareInformation.py:56
 msgid "None"
 msgstr ""
 
-#: src/RamHardwareInformation.py:85
+#: src/RamHardwareInformation.py:81
 msgid "Maximum Capacity"
 msgstr ""
 
-#: src/RamHardwareInformation.py:86
+#: src/RamHardwareInformation.py:82
 msgid "Number Of Devices"
 msgstr ""
 
-#: src/RamHardwareInformation.py:124 src/RamHardwareInformation.py:143
+#: src/RamHardwareInformation.py:120 src/RamHardwareInformation.py:139
 #: src/RamSwapDetails.py:86 ui/DiskDetailsWindow.ui:104
 #: ui/DiskDetailsWindow.ui:760
 msgid "Capacity"
 msgstr ""
 
-#: src/RamHardwareInformation.py:125 src/RamHardwareInformation.py:144
+#: src/RamHardwareInformation.py:121 src/RamHardwareInformation.py:140
 #: src/RamSwapDetails.py:85 ui/DiskDetailsWindow.ui:78
 #: ui/ServicesDetailsWindow.ui:219 ui/StartupNewItemWindow.ui:282
 msgid "Type"
 msgstr ""
 
-#: src/RamHardwareInformation.py:126 src/RamHardwareInformation.py:145
+#: src/RamHardwareInformation.py:122 src/RamHardwareInformation.py:141
 msgid "Speed/Frequency"
 msgstr ""
 
-#: src/RamHardwareInformation.py:127 src/RamHardwareInformation.py:146
+#: src/RamHardwareInformation.py:123 src/RamHardwareInformation.py:142
 msgid "Manufacturer"
 msgstr ""
 
-#: src/RamHardwareInformation.py:128 src/RamHardwareInformation.py:147
+#: src/RamHardwareInformation.py:124 src/RamHardwareInformation.py:143
 msgid "Form Factor"
 msgstr ""
 
-#: src/RamHardwareInformation.py:129 src/RamHardwareInformation.py:148
+#: src/RamHardwareInformation.py:125 src/RamHardwareInformation.py:144
 msgid "Locator"
 msgstr ""
 
-#: src/RamHardwareInformation.py:130 src/RamHardwareInformation.py:149
+#: src/RamHardwareInformation.py:126 src/RamHardwareInformation.py:145
 msgid "Bank Locator"
 msgstr ""
 
@@ -476,7 +476,7 @@ msgstr ""
 msgid "System"
 msgstr ""
 
-#: src/SettingsGUI.py:309 ui/MainWindow.ui:310 ui/NetworkTab.ui:403
+#: src/SettingsGUI.py:309 ui/MainWindow.ui:310 ui/NetworkTab.ui:402
 msgid "Network"
 msgstr ""
 
@@ -488,7 +488,7 @@ msgstr ""
 msgid "Sensors"
 msgstr ""
 
-#: src/SettingsGUI.py:557
+#: src/SettingsGUI.py:556
 msgid "Do you want to reset all settings to defaults?"
 msgstr ""
 
@@ -608,7 +608,7 @@ msgstr ""
 
 #: ui/CpuMenus.ui:20 ui/CpuTab.ui:416 ui/DiskMenus.ui:20 ui/DiskTab.ui:38
 #: ui/GpuMenus.ui:20 ui/GpuTab.ui:359 ui/NetworkMenus.ui:20
-#: ui/NetworkTab.ui:419 ui/ProcessesMenuCustomizations.ui:20
+#: ui/NetworkTab.ui:418 ui/ProcessesMenuCustomizations.ui:20
 #: ui/ProcessesTab.ui:243 ui/RamMenus.ui:20 ui/RamTab.ui:425
 #: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:60
 #: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:60
@@ -742,8 +742,8 @@ msgstr ""
 #: ui/GpuTab.ui:438 ui/NetworkTab.ui:130 ui/NetworkTab.ui:147
 #: ui/NetworkTab.ui:164 ui/NetworkTab.ui:181 ui/NetworkTab.ui:198
 #: ui/NetworkTab.ui:215 ui/NetworkTab.ui:232 ui/NetworkTab.ui:249
-#: ui/NetworkTab.ui:279 ui/NetworkTab.ui:311 ui/NetworkTab.ui:354
-#: ui/NetworkTab.ui:447 ui/NetworkTab.ui:462
+#: ui/NetworkTab.ui:279 ui/NetworkTab.ui:310 ui/NetworkTab.ui:353
+#: ui/NetworkTab.ui:446 ui/NetworkTab.ui:461
 #: ui/PerformanceSummaryHeaderBarGrid.ui:85
 #: ui/PerformanceSummaryHeaderBarGrid.ui:100
 #: ui/ProcessesCustomPriorityWindow.ui:45 ui/ProcessesDetailsWindow.ui:212
@@ -854,7 +854,7 @@ msgid "Selected CPU Core"
 msgstr ""
 
 #: ui/CpuTab.ui:457 ui/DiskDetailsWindow.ui:143 ui/DiskTab.ui:79
-#: ui/GpuTab.ui:400 ui/NetworkTab.ui:460
+#: ui/GpuTab.ui:400 ui/NetworkTab.ui:459
 msgid "Vendor-Model"
 msgstr ""
 
@@ -986,7 +986,7 @@ msgstr ""
 msgid "Disk Read (-) & Write (--) Speed"
 msgstr ""
 
-#: ui/DiskTab.ui:490 ui/GpuTab.ui:450 ui/NetworkTab.ui:378
+#: ui/DiskTab.ui:490 ui/GpuTab.ui:450 ui/NetworkTab.ui:377
 msgid "0"
 msgstr ""
 
@@ -1151,20 +1151,18 @@ msgid "Connected-SSID:"
 msgstr ""
 
 #: ui/NetworkTab.ui:295
-msgid ""
-"Current signal strength of the connected network\n"
-"(link value)"
+msgid "Link value"
 msgstr ""
 
-#: ui/NetworkTab.ui:298
+#: ui/NetworkTab.ui:297
 msgid "Signal Strength:"
 msgstr ""
 
-#: ui/NetworkTab.ui:366
+#: ui/NetworkTab.ui:365
 msgid "Network Download (-) & Upload (--) Speed"
 msgstr ""
 
-#: ui/NetworkTab.ui:445
+#: ui/NetworkTab.ui:444
 msgid "Network Interface Controller (NIC) Name"
 msgstr ""
 
