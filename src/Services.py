@@ -438,14 +438,9 @@ def services_loop_func():
     services_data_column_order_prev = services_data_column_order
     services_data_column_widths_prev = services_data_column_widths
 
-    # Get number of visible services and number of all services and show these information on the GUI label
-    loaded_service_count = service_loaded_not_loaded_list.count(True)
+    # Get number of services and show this information on the searchentry as placeholder text
     number_of_all_services = len(service_loaded_not_loaded_list)
-    number_of_services_string = _tr("Total: AAAA services (BBBB loaded, CCCC non-loaded)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
-    number_of_services_string = number_of_services_string.replace("AAAA", str(number_of_all_services))
-    number_of_services_string = number_of_services_string.replace("BBBB", str(loaded_service_count))
-    number_of_services_string = number_of_services_string.replace("CCCC", str(number_of_all_services-loaded_service_count))
-    label6101.set_text(number_of_services_string)
+    searchentry6101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Services") + ": " + str(number_of_all_services) + ")")
 
 
 # ----------------------------------- Services - Treeview Cell Functions -----------------------------------

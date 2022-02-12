@@ -682,14 +682,9 @@ def startup_loop_func():
     startup_data_column_order_prev = startup_data_column_order
     startup_data_column_widths_prev = startup_data_column_widths
 
-    # Get number of visible startup applications and number of all startup applications and show these information on the GUI label
-    visible_startup_applications_count = startup_applications_visibility_list.count(True)
+    # Get number of startup items and show this information on the searchentry as placeholder text
     number_of_all_startup_applications = len(startup_applications_visibility_list)
-    number_of_startup_applications_string = _tr("Total: AAAA startup applications (BBBB visible, CCCC hidden)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
-    number_of_startup_applications_string = number_of_startup_applications_string.replace("AAAA", str(number_of_all_startup_applications))
-    number_of_startup_applications_string = number_of_startup_applications_string.replace("BBBB", str(visible_startup_applications_count))
-    number_of_startup_applications_string = number_of_startup_applications_string.replace("CCCC", str(number_of_all_startup_applications-visible_startup_applications_count))
-    label5101.set_text(number_of_startup_applications_string)
+    searchentry5101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Startup Items") + ": " + str(number_of_all_startup_applications) + ")")
 
 
 # ----------------------------------- Startup - Run Function -----------------------------------

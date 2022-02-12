@@ -520,14 +520,9 @@ def users_loop_func():
     users_data_column_order_prev = users_data_column_order
     users_data_column_widths_prev = users_data_column_widths
 
-    # Get number of logged in users and number of all users and show these information on the GUI label
-    logged_in_users_count = user_logged_in_list.count(True)
+    # Get number of users and show this information on the searchentry as placeholder text
     number_of_all_users = len(user_logged_in_list)
-    number_of_users_string = _tr("Total: AAAA users (BBBB logged in users, CCCC logged out users)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
-    number_of_users_string = number_of_users_string.replace("AAAA", str(number_of_all_users))
-    number_of_users_string = number_of_users_string.replace("BBBB", str(logged_in_users_count))
-    number_of_users_string = number_of_users_string.replace("CCCC", str(number_of_all_users-logged_in_users_count))
-    label3101.set_text(number_of_users_string)
+    searchentry3101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Users") + ": " + str(number_of_all_users) + ")")
 
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

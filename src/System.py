@@ -171,7 +171,6 @@ def system_initial_func():
         usernames_username_list.append(line_splitted[0])
         usernames_uid_list.append(line_splitted[2])
     # Get current username
-    global current_user_name
     current_user_name = os.environ.get('SUDO_USER')                                           # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
     if current_user_name is None:                                                             # Get username in the following way if current application has not been run by root privileges.
         current_user_name = os.environ.get('USER')
@@ -180,7 +179,6 @@ def system_initial_func():
         current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
 
     # Try to get windowing system. This value may be get as "None" if the application is run with root privileges. This value will be get by reading information of processes if it is get as "None".
-    global windowing_system                                                                   # Variable is defined as global because this variable will be used in another function.
     windowing_system = os.environ.get('XDG_SESSION_TYPE')
     if windowing_system != None:                                                              # "windowing_system" is get as "None" if application is run with root privileges.
         windowing_system = windowing_system.capitalize()
@@ -305,7 +303,6 @@ def system_initial_func():
             pass
 
     # Determine package types used on the system. This information will be used for getting number of installed packages on the system.
-    global apt_packages_available, rpm_packages_available, pacman_packages_available, flatpak_packages_available
     apt_packages_available = "-"                                                              # Initial value of the variable.
     rpm_packages_available = "-"
     pacman_packages_available = "-"

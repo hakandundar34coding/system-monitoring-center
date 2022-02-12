@@ -351,17 +351,9 @@ def sensors_loop_func():
     sensors_data_column_order_prev = sensors_data_column_order
     sensors_data_column_widths_prev = sensors_data_column_widths
 
-    # Get number of all/temperature/fan sensors and show these information on the GUI label
-    temperature_sensors_count = sensor_type_list.count(temperature_sensor_icon_name)
-    fan_sensors_count = sensor_type_list.count(fan_sensor_icon_name)
-    voltage_and_current_sensors_count = sensor_type_list.count(voltage_current_sensor_icon_name)
+    # Get number of sensors and show this information on the searchentry as placeholder text
     number_of_all_sensors = len(sensor_type_list)
-    number_of_sensors_string = _tr("Total: AAAA sensors (BBBB temperature, CCCC fan, DDDD voltage/current sensors)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
-    number_of_sensors_string = number_of_sensors_string.replace("AAAA", str(number_of_all_sensors))
-    number_of_sensors_string = number_of_sensors_string.replace("BBBB", str(temperature_sensors_count))
-    number_of_sensors_string = number_of_sensors_string.replace("CCCC", str(fan_sensors_count))
-    number_of_sensors_string = number_of_sensors_string.replace("DDDD", str(voltage_and_current_sensors_count))
-    label1601.set_text(number_of_sensors_string)
+    searchentry1601.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Sensors") + ": " + str(number_of_all_sensors) + ")")
 
 
 # ----------------------------------- Sensors - Run Function -----------------------------------

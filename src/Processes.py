@@ -602,14 +602,9 @@ def processes_loop_func():
     processes_data_column_order_prev = processes_data_column_order
     processes_data_column_widths_prev = processes_data_column_widths
 
-    # Get number of processes from current user and number of all processses and show these information on the GUI label
-    current_user_process_count = username_list.count(current_user_name)
+    # Get number of processes and show this information on the searchentry as placeholder text
     number_of_all_processes = len(username_list)
-    number_of_processes_string = _tr("Total: AAAA processes (BBBB from this user, CCCC from other users/system)")    # Translated string will be used instead of this string and strings like "AAAA" will be replaced by numbers.
-    number_of_processes_string = number_of_processes_string.replace("AAAA", str(number_of_all_processes))
-    number_of_processes_string = number_of_processes_string.replace("BBBB", str(current_user_process_count))
-    number_of_processes_string = number_of_processes_string.replace("CCCC", str(number_of_all_processes-current_user_process_count))
-    label2101.set_text(number_of_processes_string)
+    searchentry2101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Processes") + ": " + str(number_of_all_processes) + ")")
 
     # Show/Hide treeview expander arrows
     if show_processes_as_tree == 1:
