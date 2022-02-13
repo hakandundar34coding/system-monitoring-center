@@ -234,7 +234,6 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Measurement is made for filesystem and may differ from mass storage values.</property>
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Disk Usage:</property>
                 <property name="ellipsize">end</property>
@@ -283,7 +282,6 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Measurement is made for filesystem and may differ from mass storage values.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Capacity:</property>
             <property name="ellipsize">end</property>
