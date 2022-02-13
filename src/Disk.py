@@ -220,7 +220,7 @@ def disk_initial_func():
     # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
     try:
         check_value = "/sys/class/block/" + selected_disk
-    except:
+    except Exception:
         return
     # Read pci.ids file. Some disks such as NVMe SSDs have "vendor" file with device id content. pci.ids file will be used for getting disk vendor name by using these ids.
     global pci_ids_output
@@ -273,7 +273,7 @@ def disk_loop_func():
     try:
         if os.path.isdir("/sys/class/block/" + selected_disk) == False:
             return
-    except:
+    except Exception:
         return
     # Get disk_read_time, disk_write_time
     with open("/proc/diskstats") as reader:
@@ -364,7 +364,7 @@ def disk_get_device_partition_model_name_mount_point_func():
     try:
         if os.path.isdir("/sys/class/block/" + selected_disk_name) == False:
             return
-    except:
+    except Exception:
         return
     # Get disk type (Disk or Partition)
     with open("/sys/class/block/" + selected_disk_name + "/uevent") as reader:
@@ -404,7 +404,7 @@ def disk_get_device_partition_model_name_mount_point_func():
                 disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
             if disk_vendor_id not in pci_ids_output:
                 disk_vendor = f'[{_tr("Unknown")}]'
-        except:
+        except Exception:
             disk_vendor = f'[{_tr("Unknown")}]'
     # Get disk model
     try:
@@ -420,7 +420,7 @@ def disk_get_device_partition_model_name_mount_point_func():
                     disk_model = f'[{_tr("Unknown")}]'
             else:
                 disk_model = f'[{_tr("Unknown")}]'
-    except:
+    except Exception:
         disk_model = f'[{_tr("Unknown")}]'
     disk_vendor_model = disk_vendor + " - " +  disk_model
     # Get disk vendor and model if disk is loop device or swap disk.

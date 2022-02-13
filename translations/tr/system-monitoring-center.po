@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-13 15:38+0300\n"
-"PO-Revision-Date: 2022-02-13 15:38+0300\n"
+"POT-Creation-Date: 2022-02-13 17:24+0300\n"
+"PO-Revision-Date: 2022-02-13 17:24+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -134,7 +134,7 @@ msgstr "İsim"
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:182 src/Users.py:139 src/UsersMenuRightClick.py:75
+#: src/Processes.py:182 src/Users.py:139 src/UsersMenuRightClick.py:76
 #: ui/ProcessesDetailsWindow.ui:81 ui/ProcessesMenuCustomizations.ui:386
 #: ui/UsersDetailsWindow.ui:39 ui/UsersMenuCustomizations.ui:227
 msgid "User"
@@ -205,7 +205,7 @@ msgstr "İşlem Parçacıkları"
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:195 src/Users.py:142 src/UsersMenuRightClick.py:76
+#: src/Processes.py:195 src/Users.py:142 src/UsersMenuRightClick.py:77
 #: ui/ProcessesDetailsWindow.ui:407 ui/ProcessesMenuCustomizations.ui:582
 #: ui/UsersDetailsWindow.ui:78 ui/UsersMenuCustomizations.ui:271
 msgid "UID"
@@ -257,7 +257,7 @@ msgstr "Sonlanmış"
 
 #: src/Processes.py:605 src/Sensors.py:354 src/Services.py:441
 #: src/Startup.py:685 src/Users.py:519 ui/ProcessesTab.ui:219
-#: ui/SensorsTab.ui:192 ui/ServicesTab.ui:175 ui/StartupTab.ui:161
+#: ui/SensorsTab.ui:192 ui/ServicesTab.ui:174 ui/StartupTab.ui:161
 #: ui/UsersTab.ui:153
 msgid "Search..."
 msgstr "Ara..."
@@ -605,11 +605,19 @@ msgstr ""
 "Bu eylem kullanıcının tüm işlemlerini hemen sonlandıracak ve veri "
 "kayıplarına sebep olabilir."
 
+#: src/UsersMenuRightClick.py:75
+msgid ""
+"This operation may lock current user account on some systems. You can unlock "
+"it by entering user password."
+msgstr ""
+"Bu işlem şimdiki kullanıcı hesabını kilitleyebilir. Kullanıcı şifresini "
+"girerek kilidi açabilirsiniz."
+
 #: ui/CpuMenus.ui:20 ui/CpuTab.ui:357 ui/DiskMenus.ui:20 ui/DiskTab.ui:449
 #: ui/GpuMenus.ui:20 ui/GpuTab.ui:450 ui/NetworkMenus.ui:20
 #: ui/NetworkTab.ui:419 ui/ProcessesMenuCustomizations.ui:20
 #: ui/ProcessesTab.ui:231 ui/RamMenus.ui:20 ui/RamTab.ui:489
-#: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:187
+#: ui/ServicesMenuCustomizations.ui:20 ui/ServicesTab.ui:186
 #: ui/StartupMenuCustomizations.ui:20 ui/StartupTab.ui:139
 #: ui/UsersMenuCustomizations.ui:20 ui/UsersTab.ui:165
 msgid "Current Tab Customizations"
@@ -770,14 +778,14 @@ msgstr ""
 #: ui/ServicesDetailsWindow.ui:407 ui/ServicesDetailsWindow.ui:460
 #: ui/ServicesDetailsWindow.ui:767 ui/ServicesDetailsWindow.ui:781
 #: ui/ServicesDetailsWindow.ui:795 ui/ServicesDetailsWindow.ui:809
-#: ui/SystemTab.ui:64 ui/SystemTab.ui:79 ui/SystemTab.ui:168
-#: ui/SystemTab.ui:185 ui/SystemTab.ui:230 ui/SystemTab.ui:260
-#: ui/SystemTab.ui:290 ui/SystemTab.ui:324 ui/SystemTab.ui:355
-#: ui/SystemTab.ui:372 ui/SystemTab.ui:415 ui/SystemTab.ui:445
-#: ui/SystemTab.ui:475 ui/SystemTab.ui:505 ui/SystemTab.ui:596
-#: ui/SystemTab.ui:613 ui/SystemTab.ui:630 ui/SystemTab.ui:702
-#: ui/SystemTab.ui:719 ui/SystemTab.ui:749 ui/SystemTab.ui:766
-#: ui/SystemTab.ui:783 ui/UsersDetailsWindow.ui:182
+#: ui/SystemTab.ui:63 ui/SystemTab.ui:78 ui/SystemTab.ui:167
+#: ui/SystemTab.ui:184 ui/SystemTab.ui:229 ui/SystemTab.ui:259
+#: ui/SystemTab.ui:289 ui/SystemTab.ui:323 ui/SystemTab.ui:354
+#: ui/SystemTab.ui:371 ui/SystemTab.ui:414 ui/SystemTab.ui:444
+#: ui/SystemTab.ui:474 ui/SystemTab.ui:504 ui/SystemTab.ui:595
+#: ui/SystemTab.ui:612 ui/SystemTab.ui:629 ui/SystemTab.ui:701
+#: ui/SystemTab.ui:718 ui/SystemTab.ui:748 ui/SystemTab.ui:765
+#: ui/SystemTab.ui:782 ui/UsersDetailsWindow.ui:182
 #: ui/UsersDetailsWindow.ui:197 ui/UsersDetailsWindow.ui:212
 #: ui/UsersDetailsWindow.ui:227 ui/UsersDetailsWindow.ui:242
 #: ui/UsersDetailsWindow.ui:257 ui/UsersDetailsWindow.ui:272
@@ -831,7 +839,7 @@ msgstr "Tüm çekirdeklerin ortalama MİB kullanımı"
 msgid "Average Usage:"
 msgstr "Ortalama Kullanım:"
 
-#: ui/CpuTab.ui:285 ui/SystemTab.ui:432
+#: ui/CpuTab.ui:285 ui/SystemTab.ui:431
 msgid "Architecture:"
 msgstr "Mimari:"
 
@@ -1381,11 +1389,11 @@ msgid "Custom Value..."
 msgstr "Özel Değer..."
 
 #: ui/ProcessesMenuRightClick.ui:166 ui/ServicesMenuRightClick.ui:113
-#: ui/UsersMenuRightClick.ui:35
+#: ui/UsersMenuRightClick.ui:29
 msgid "Details"
 msgstr "Detaylar"
 
-#: ui/ProcessesTab.ui:67 ui/SensorsTab.ui:96 ui/ServicesTab.ui:101
+#: ui/ProcessesTab.ui:67 ui/SensorsTab.ui:96 ui/ServicesTab.ui:100
 #: ui/StartupTab.ui:67 ui/UsersTab.ui:79
 msgid "Show all"
 msgstr "Tümünü göster"
@@ -1541,18 +1549,14 @@ msgstr ""
 "Not: Bu sekme otomatik güncellenmez. Değişiklikler için elle güncelleyiniz."
 
 #: ui/ServicesTab.ui:74 ui/SystemTab.ui:40
-msgid ""
-"Refresh\n"
-"(Reloads data on this tab)"
-msgstr ""
-"Yenile\n"
-"(Bu sekmedeki verileri yeniden yükler)"
+msgid "Refresh the data on this tab"
+msgstr "Bu sekmedeki verileri yenile"
 
-#: ui/ServicesTab.ui:123
+#: ui/ServicesTab.ui:122
 msgid "Show all loaded services"
 msgstr "Tüm yüklenmiş servisleri göster"
 
-#: ui/ServicesTab.ui:145
+#: ui/ServicesTab.ui:144
 msgid "Show all non-loaded services"
 msgstr "Tüm yüklenmemiş servisleri göster"
 
@@ -1674,91 +1678,91 @@ msgstr "Tüm etkinleştirilmiş (görünür) başlangıç ögelerini göster"
 msgid "Show all disabled (hidden) startup items"
 msgstr "Tüm devre dışı bırakılmış (gizli) başlangıç ögelerini göster"
 
-#: ui/SystemTab.ui:62
+#: ui/SystemTab.ui:61
 msgid "Computer Name And Model"
 msgstr "Bilgisayar Adı ve Modeli"
 
-#: ui/SystemTab.ui:77
+#: ui/SystemTab.ui:76
 msgid "Operating System Name and Version"
 msgstr "İşletim Sistemi Adı ve Sürümü"
 
-#: ui/SystemTab.ui:125
+#: ui/SystemTab.ui:124
 msgid "Operating System (OS)"
 msgstr "İşletim Sistemi (İ.S.)"
 
-#: ui/SystemTab.ui:142
+#: ui/SystemTab.ui:141
 msgid "Name:"
 msgstr "Ad:"
 
-#: ui/SystemTab.ui:155
+#: ui/SystemTab.ui:154
 msgid "Version - Code Name:"
 msgstr "Sürüm - Kod Adı:"
 
-#: ui/SystemTab.ui:201 ui/SystemTab.ui:215 ui/SystemTab.ui:340
+#: ui/SystemTab.ui:200 ui/SystemTab.ui:214 ui/SystemTab.ui:339
 msgid "This information may not be present in all motherboards."
 msgstr "Bu bilgi tüm anakartlarda mevcut olmayabilir."
 
-#: ui/SystemTab.ui:203
+#: ui/SystemTab.ui:202
 msgid "Model:"
 msgstr "Model:"
 
-#: ui/SystemTab.ui:217
+#: ui/SystemTab.ui:216
 msgid "Computer Type:"
 msgstr "Bilgisayar Tipi:"
 
-#: ui/SystemTab.ui:247
+#: ui/SystemTab.ui:246
 msgid "Based On:"
 msgstr "Temeli:"
 
-#: ui/SystemTab.ui:277
+#: ui/SystemTab.ui:276
 msgid "Kernel Release:"
 msgstr "Kernel Sürümü:"
 
-#: ui/SystemTab.ui:307
+#: ui/SystemTab.ui:306
 msgid "Computer"
 msgstr "Bilgisayar"
 
-#: ui/SystemTab.ui:342
+#: ui/SystemTab.ui:341
 msgid "Vendor:"
 msgstr "Firma:"
 
-#: ui/SystemTab.ui:389
+#: ui/SystemTab.ui:388
 msgid "OS Family:"
 msgstr "İ.S. Ailesi:"
 
-#: ui/SystemTab.ui:402
+#: ui/SystemTab.ui:401
 msgid "Host Name:"
 msgstr "Bilgisayar Adı:"
 
-#: ui/SystemTab.ui:462
+#: ui/SystemTab.ui:461
 msgid "Kernel Version:"
 msgstr "Kernel Sürüm Numarası:"
 
-#: ui/SystemTab.ui:492
+#: ui/SystemTab.ui:491
 msgid "Number Of Monitors:"
 msgstr "Ekran Sayısı:"
 
-#: ui/SystemTab.ui:549
+#: ui/SystemTab.ui:548
 msgid "Graphical User Interface (GUI)"
 msgstr "Grafiksel Kullanıcı Arayüzü (GUI)"
 
-#: ui/SystemTab.ui:566
+#: ui/SystemTab.ui:565
 msgid "Packages"
 msgstr "Paketler"
 
-#: ui/SystemTab.ui:583
+#: ui/SystemTab.ui:582
 msgid "Desktop Environment:"
 msgstr "Masaüstü Ortamı:"
 
-#: ui/SystemTab.ui:647
+#: ui/SystemTab.ui:646
 msgid "Windowing System:"
 msgstr "Pencere Sistemi:"
 
-#: ui/SystemTab.ui:660
+#: ui/SystemTab.ui:659
 msgid "Display Manager:"
 msgstr "Ekran Yöneticisi:"
 
-#: ui/SystemTab.ui:672
+#: ui/SystemTab.ui:671
 msgid ""
 "Number of installed packages\n"
 "(APT, RPM or pacman)"
@@ -1766,35 +1770,35 @@ msgstr ""
 "Kurulu paket sayısı\n"
 "(APT, RPM veya pacman)"
 
-#: ui/SystemTab.ui:675
+#: ui/SystemTab.ui:674
 msgid "System:"
 msgstr "Sistem:"
 
-#: ui/SystemTab.ui:687
+#: ui/SystemTab.ui:686
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "Kurulu Flatpak uygulaması ve çalışma zamanı (runtime) sayısı"
 
-#: ui/SystemTab.ui:689
+#: ui/SystemTab.ui:688
 msgid "Flatpak:"
 msgstr "Flatpak:"
 
-#: ui/SystemTab.ui:736
+#: ui/SystemTab.ui:735
 msgid "Window Manager:"
 msgstr "Pencere Yöneticisi:"
 
-#: ui/SystemTab.ui:799
+#: ui/SystemTab.ui:798
 msgid "Version of Python which is running this application"
 msgstr "Bu uygulamayı çalıştıran Python'ın sürümü"
 
-#: ui/SystemTab.ui:801
+#: ui/SystemTab.ui:800
 msgid "Python Version:"
 msgstr "Python Sürümü:"
 
-#: ui/SystemTab.ui:813
+#: ui/SystemTab.ui:812
 msgid "Built-in Python packages are not counted."
 msgstr "Dahili (Built-in) Python paketleri sayılmaz."
 
-#: ui/SystemTab.ui:815
+#: ui/SystemTab.ui:814
 msgid "Python:"
 msgstr "Python:"
 

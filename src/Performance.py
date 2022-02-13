@@ -46,10 +46,10 @@ def performance_set_selected_disk_func():
             proc_cmdline = reader.read()
         if "root=UUID=" in proc_cmdline:
             disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
-            system_disk_list.append(os.path.realpath("/dev/disk/by-uuid/" + disk_uuid_partuuid).split("/")[-1].strip())
+            system_disk_list.append(os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip())
         if "root=PARTUUID=" in proc_cmdline:
             disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
-            system_disk_list.append(os.path.realpath("/dev/disk/by-partuuid/" + disk_uuid_partuuid).split("/")[-1].strip())
+            system_disk_list.append(os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip())
     global selected_disk_number
     if Config.selected_disk in disk_list:
         selected_disk = Config.selected_disk
@@ -67,7 +67,7 @@ def performance_set_selected_network_card_func():
     # Set selected network card
     connected_network_card_list = []
     for network_card in network_card_list:
-        with open("/sys/class/net/" + network_card + "/operstate") as reader:
+        with open(f'/sys/class/net/{network_card}/operstate') as reader:
             sys_class_net_output = reader.read().strip()
         if sys_class_net_output == "up":
             connected_network_card_list.append(network_card)
