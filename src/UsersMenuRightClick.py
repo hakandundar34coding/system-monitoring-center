@@ -46,7 +46,7 @@ def users_menu_right_click_gui_func():
         if warning_dialog3102_response == Gtk.ResponseType.YES:
             try:
                 (subprocess.check_output(["pkexec", "pkill", "-9", "--uid", selected_user_uid], stderr=subprocess.STDOUT, shell=False)).decode()    # End processes which has the specified UID.
-            except:
+            except Exception:
                 pass
         if warning_dialog3102_response == Gtk.ResponseType.NO:
             return

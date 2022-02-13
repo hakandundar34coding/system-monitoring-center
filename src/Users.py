@@ -3,13 +3,12 @@
 # ----------------------------------- Users - Import Function -----------------------------------
 def users_import_func():
 
-    global Gtk, Gdk, GLib, GObject, GdkPixbuf, os, subprocess, datetime, time
+    global Gtk, Gdk, GLib, GObject, GdkPixbuf, os, datetime, time
 
     import gi
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Gdk, GLib, GObject, GdkPixbuf
     import os
-    import subprocess
     from datetime import datetime
     import time
 
@@ -254,7 +253,7 @@ def users_loop_func():
                 with open("/proc/" + pid + "/stat") as reader:
                     global_cpu_time_all = time.time() * number_of_clock_ticks                 # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
                     proc_pid_stat_lines = reader.read().split()
-        except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
+        except (FileNotFoundError, ProcessLookupError) as me:                                 # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
             pid_list.remove(pid)
             continue
         for line in proc_pid_status_lines:
@@ -279,9 +278,6 @@ def users_loop_func():
         # Get RAM memory (RSS) usage percent of all processes
         if 13 in users_treeview_columns_shown:
             all_process_memory_usages.append(int(proc_pid_stat_lines[-29]) * memory_page_size)    # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
-    # Get all users last log in and last failed log in times
-    if 9 in users_treeview_columns_shown or 10 in users_treeview_columns_shown:
-        lslogins_command_lines = (subprocess.check_output(["lslogins", "--notruncate", "-e", "--newline", "--time-format=iso", "-u", "-o", "=USER,LAST-LOGIN,FAILED-LOGIN"], shell=False)).decode().strip().split("\n")
 
     # Get and append data per user
     for line in etc_passwd_lines:
