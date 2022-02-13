@@ -420,7 +420,7 @@ def processes_loop_func():
         if 17 in processes_treeview_columns_shown:
             try:                                                                              # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
                 process_executable_path = os.path.realpath(f'/proc/{pid}/exe')
-            except:
+            except Exception:
                 process_executable_path = "-"
             processes_data_row.append(process_executable_path)                                # Append process executable path
         # Append process data into a list (processes_data_rows)

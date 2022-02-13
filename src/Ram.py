@@ -86,7 +86,7 @@ def ram_gui_func():
     def on_drawingarea1201_draw(widget, chart1201):
 
         chart_data_history = Config.chart_data_history
-        chart_x_axis = list(range(0, chart_data_history))
+        chart_x_axis = list(range(chart_data_history))
 
         ram_usage_percent = Performance.ram_usage_percent
 

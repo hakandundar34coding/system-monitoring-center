@@ -101,8 +101,6 @@ def startup_new_item_gui_func():
         # Show a warning dialog if there is already a .desktop file with the same name.
         if os.path.isfile(system_or_current_user_autostart_directory + new_startup_application_file_name) == True:
             startup_overwrite_existing_startup_item_warning_dialog(new_startup_application_name, new_startup_application_file_name)
-            if warning_dialog5103_response == Gtk.ResponseType.YES:
-                pass                                                                          # Continue running the code if "Yes" is clicked on the dialog.
             if warning_dialog5103_response == Gtk.ResponseType.NO:
                 return                                                                        # Do nothing (stop running the code and close the dialog) if "No" is clicked.
         # Save ".desktop" file in order to add new startup item

@@ -203,7 +203,7 @@ def settings_gui_func():
             settings_gui_apply_settings_immediately_func()                                    # Apply changes immediately (without waiting update interval).
             try:                                                                              # "try-catch" is used in order to avoid errors because "ProcessesMenusGUI" may not be loaded.
                 ProcessesMenusGUI.processes_expand_collapse_button_preferences_func()
-            except:
+            except Exception:
                 pass
         if warning_dialog2001_response == Gtk.ResponseType.NO:
             pass                                                                              # Do nothing when "No" button is clicked. Dialog will be closed.

@@ -61,17 +61,19 @@ def cpu_menus_gui_func():
             Config.config_save_func()
 
     def on_radiobutton1102p_toggled(widget):                                                  # Option for drawing "CPU usage per core"
-        if radiobutton1102p.get_active() == True:
-            Config.show_cpu_usage_per_core = 1                                                # Make this definition before calling the following function in order to prevent problems because of the unchanged setting.
-            try:
-                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)           # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
-                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)           # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
-            except TypeError:
-                pass
-            Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)         # Connect "on_drawingarea1101_draw_per_core" function in order to draw cpu usage percent per core.
-            Cpu.cpu_initial_func()                                                            # Call this function in order to apply changes
-            Cpu.cpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
-            Config.config_save_func()
+        if radiobutton1102p.get_active() != True:
+            return
+
+        Config.show_cpu_usage_per_core = 1                                                # Make this definition before calling the following function in order to prevent problems because of the unchanged setting.
+        try:
+            Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)           # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
+            Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)           # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
+        except TypeError:
+            pass
+        Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)         # Connect "on_drawingarea1101_draw_per_core" function in order to draw cpu usage percent per core.
+        Cpu.cpu_initial_func()                                                            # Call this function in order to apply changes
+        Cpu.cpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
+        Config.config_save_func()
 
     def on_button1101p_clicked(widget):                                                       # For setting chart foreground color
         red, blue, green, alpha = Config.chart_line_color_cpu_percent                         # Get current foreground color of the chart

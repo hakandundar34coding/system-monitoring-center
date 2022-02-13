@@ -44,8 +44,8 @@ def processes_custom_priority_gui_func():
     def on_window2101w2_show(widget):                                                         # Get process name and nice value (on window show) by using process PID.
         global selected_process_pid, selected_process_name, selected_process_nice
         selected_process_pid = Processes.selected_process_pid
-        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:         # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
+        try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+            with open(f'/proc/{Processes.selected_process_pid}/stat') as reader:          # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
                 proc_pid_stat_lines = reader.read()
         except FileNotFoundError:
             window2101w2.hide()
@@ -56,9 +56,9 @@ def processes_custom_priority_gui_func():
         second_parentheses = proc_pid_stat_lines.rfind(")")                                   # Last parantheses ")" index is get by using "find()".
         process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]  # Process name is get from string by using the indexes get previously.
         selected_process_name = process_name_from_stat
-        if len(selected_process_name) == 15:                                                  # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
+        if len(selected_process_name) == 15:                                              # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
             try:
-                with open("/proc/" + selected_process_pid + "/cmdline") as reader:
+                with open(f'/proc/{selected_process_pid}/cmdline') as reader:
                     process_cmdline = reader.read()
                 selected_process_name = process_cmdline.split("/")[-1].split("\x00")[0]       # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
             except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
@@ -100,8 +100,8 @@ def processes_custom_priority_gui_func():
 # ----------------------------------- Processes - Get Process Current Nice Function (get process current nice value in order to check if root privileges are needed for nice changing operation) -----------------------------------
 def processes_get_process_current_nice_func():
 
-    try:                                                                                      # Process may be ended just after right click on the process row is performed. "try-catch" is used for avoiding errors in this situation.
-        with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:
+    try:                                                                                  # Process may be ended just after right click on the process row is performed. "try-catch" is used for avoiding errors in this situation.
+        with open(f'/proc/{Processes.selected_process_pid}/stat') as reader:
             proc_pid_stat_lines_split = reader.read().split()
     except FileNotFoundError:
         return

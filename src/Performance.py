@@ -41,22 +41,22 @@ def performance_set_selected_disk_func():
             if disk in disk_list:
                 system_disk_list.append(disk)
                 break
-    if system_disk_list == []:                                                                # The code below this statement is used because system disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
+    if not system_disk_list:                                                        # The code below this statement is used because system disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
         with open("/proc/cmdline") as reader:
             proc_cmdline = reader.read()
         if "root=UUID=" in proc_cmdline:
             disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
-            system_disk_list.append(os.path.realpath("/dev/disk/by-uuid/" + disk_uuid_partuuid).split("/")[-1].strip())
+            system_disk_list.append(os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip())
         if "root=PARTUUID=" in proc_cmdline:
             disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
-            system_disk_list.append(os.path.realpath("/dev/disk/by-partuuid/" + disk_uuid_partuuid).split("/")[-1].strip())
+            system_disk_list.append(os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip())
     global selected_disk_number
     if Config.selected_disk in disk_list:
         selected_disk = Config.selected_disk
     if Config.selected_disk not in disk_list:
         if system_disk_list != []:
             selected_disk = system_disk_list[0]
-        if system_disk_list == []:
+        if not system_disk_list:
             selected_disk = disk_list[0]
     selected_disk_number = disk_list_system_ordered.index(selected_disk)
 
@@ -67,14 +67,14 @@ def performance_set_selected_network_card_func():
     # Set selected network card
     connected_network_card_list = []
     for network_card in network_card_list:
-        with open("/sys/class/net/" + network_card + "/operstate") as reader:
+        with open(f'/sys/class/net/{network_card}/operstate') as reader:
             sys_class_net_output = reader.read().strip()
         if sys_class_net_output == "up":
             connected_network_card_list.append(network_card)
     global selected_network_card_number
     if connected_network_card_list != []:                                                     # This if statement is used in order to avoid error if there is no any network card that connected.
         selected_network_card = connected_network_card_list[0]
-    if connected_network_card_list == []:
+    if not connected_network_card_list:
         selected_network_card = network_card_list[0]
     if Config.selected_network_card == "":                                                    # "" is predefined network card name before release of the software. This statement is used in order to avoid error, if no network card selection is made since first run of the software.
         selected_network_card_number = network_card_list.index(selected_network_card)

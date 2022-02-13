@@ -7,19 +7,15 @@ if os.path.exists(changelog):
     head = open(changelog).readline()
     try:
         version = head.split("(")[1].split(")")[0]
-    except:
+    except Exception:
         print("debian/changelog format is wrong for get version")
         version = ""
-    f = open('src/__version__', 'w')
-    f.write(version)
-    f.close()
+    with open('src/__version__', 'w') as f:
+        f.write(version)
 
 
 def files_in_folder(folder):
-    file_paths = []
-    for file in [filename for filename in os.listdir(folder)]:
-        file_paths.append(folder + file)
-    return file_paths
+    return [folder + file for file in list(os.listdir(folder))]
 
 
 PREFIX = "/usr"

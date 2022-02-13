@@ -53,7 +53,7 @@ def services_gui_func():
         model = treeview6101.get_model()
         treeiter = model.get_iter(path)
         # Get right/double clicked service name
-        if treeiter == None:
+        if treeiter is None:
             return
         global selected_service_name
         try:

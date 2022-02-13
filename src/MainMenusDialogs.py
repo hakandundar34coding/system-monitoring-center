@@ -65,7 +65,7 @@ def main_menus_gui_func():
     def on_menuitem1005m_activate(widget):                                                    # "About" menu item
         try:
             software_version = open(os.path.dirname(os.path.abspath(__file__)) + "/__version__").readline()
-        except:
+        except Exception:
             pass
         aboutdialog1001d.set_version(software_version)
         aboutdialog1001d.run()

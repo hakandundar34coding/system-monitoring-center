@@ -80,8 +80,6 @@ def processes_menu_right_click_gui_func():
                         (subprocess.check_output(["pkexec", "kill", "-15", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
                     except subprocess.CalledProcessError:
                         pass
-            if warning_dialog2101_response == Gtk.ResponseType.NO:
-                pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
         if Config.warn_before_stopping_processes == 0:
             try:
                 os.kill(selected_process_pid, signal.SIGTERM)
@@ -104,8 +102,6 @@ def processes_menu_right_click_gui_func():
                         (subprocess.check_output(["pkexec", "kill", "-9", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
                     except subprocess.CalledProcessError:
                         pass
-            if warning_dialog2102_response == Gtk.ResponseType.NO:
-                pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
         if Config.warn_before_stopping_processes == 0:
             try:
                 os.kill(selected_process_pid, signal.SIGKILL)
@@ -201,8 +197,8 @@ def processes_menu_right_click_gui_func():
 # ----------------------------------- Processes - Select Process Nice Option Function (selects process nice option on the popup menu when right click operation is performed on process row on the treeview) -----------------------------------
 def processes_select_process_nice_option_func():
 
-    try:                                                                                      # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-        with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:             # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
+    try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+        with open(f'/proc/{Processes.selected_process_pid}/stat') as reader:             # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
             proc_pid_stat_lines = reader.read()
     except FileNotFoundError:
         return
@@ -223,8 +219,8 @@ def processes_select_process_nice_option_func():
 # ----------------------------------- Processes - Get Process Current Nice Function (get process current nice value in order to check if root privileges are needed for nice changing operation) -----------------------------------
 def processes_get_process_current_nice_func():
 
-    try:                                                                                      # Process may be ended just after right click on the process row is performed. "try-catch" is used for avoiding errors in this situation.
-        with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:
+    try:                                                                                  # Process may be ended just after right click on the process row is performed. "try-catch" is used for avoiding errors in this situation.
+        with open(f'/proc/{Processes.selected_process_pid}/stat') as reader:
             proc_pid_stat_lines_split = reader.read().split()
     except FileNotFoundError:
         return
@@ -237,7 +233,8 @@ def processes_terminate_process_warning_dialog(process_name, process_pid):
 
     warning_dialog2101 = Gtk.MessageDialog(transient_for=Processes.grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to terminate this process?"), )
-    warning_dialog2101.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
+    warning_dialog2101.format_secondary_text(f'{process_name} (PID: ' + str(process_pid) + ")")
+
     global warning_dialog2101_response
     warning_dialog2101_response = warning_dialog2101.run()
     warning_dialog2101.destroy()
@@ -248,7 +245,8 @@ def processes_kill_process_warning_dialog(process_name, process_pid):
 
     warning_dialog2102 = Gtk.MessageDialog(transient_for=Processes.grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
     buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to kill this process?"), )
-    warning_dialog2102.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
+    warning_dialog2102.format_secondary_text(f'{process_name} (PID: ' + str(process_pid) + ")")
+
     global warning_dialog2102_response
     warning_dialog2102_response = warning_dialog2102.run()
     warning_dialog2102.destroy()

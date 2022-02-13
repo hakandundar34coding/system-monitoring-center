@@ -209,7 +209,7 @@ def disk_details_loop_func():
         try:
             disk_for_file_system = "/dev/" + disk
             disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
-        except:
+        except Exception:
             pass
     # Get disk capacity (mass storage)
     try:
@@ -234,7 +234,7 @@ def disk_details_loop_func():
             disk_used = -9999
             disk_usage_percent = -9999
             disk_usage_percent_mass_storage = -9999
-    except:
+    except Exception:
         window1301w.hide()
         return
     # Get disk vendor and model
@@ -262,7 +262,7 @@ def disk_details_loop_func():
                 disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
             if disk_vendor_id not in pci_ids_output:
                 disk_vendor = f'[{_tr("Unknown")}]'
-        except:
+        except Exception:
             disk_vendor = f'[{_tr("Unknown")}]'
     # Get disk model
     try:
@@ -278,7 +278,7 @@ def disk_details_loop_func():
                     disk_model = f'[{_tr("Unknown")}]'
             else:
                 disk_model = f'[{_tr("Unknown")}]'
-    except:
+    except Exception:
         disk_model = f'[{_tr("Unknown")}]'
     disk_vendor_model = disk_vendor + " - " +  disk_model
     # Get disk vendor and model if disk is loop device or swap disk.
@@ -318,7 +318,7 @@ def disk_details_loop_func():
         try:
             with open("/sys/class/block/" + disk + "/device/rev") as reader:
                 disk_revision = reader.read().strip()
-        except:
+        except Exception:
             pass
     # Get disk serial number
     disk_serial_number = "-"                                                                  # Initial value of "disk_serial_number" variable. This value will be used if disk serial number could not be detected.

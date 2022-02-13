@@ -356,7 +356,7 @@ def cpu_loop_func():
         try:                                                                                  # try-except is used in order to skip to the next loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
             with open("/proc/" + pid + "/status") as reader:
                 proc_status_output = reader.read()
-        except (FileNotFoundError, ProcessLookupError) as me:
+        except (FileNotFoundError, ProcessLookupError):
             continue
         thread_count_list.append(int(proc_status_output.split("\nThreads:", 1)[1].split("\n", 1)[0].strip()))    # Append number of threads of the process
     number_of_total_processes = len(thread_count_list)

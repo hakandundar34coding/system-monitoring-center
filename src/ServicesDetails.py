@@ -189,7 +189,7 @@ def services_details_loop_func():
             else:
                 try:
                     selected_service_memory_current = f'{services_details_data_unit_converter_func(int(selected_service_memory_current), services_ram_swap_data_unit, services_ram_swap_data_precision)}'
-                except:
+                except Exception:
                     selected_service_memory_current = "-"
             continue
         if "Requires=" in line:
