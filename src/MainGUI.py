@@ -16,16 +16,10 @@ def main_gui_import_func():
     import locale
     from locale import gettext as _tr
 
-    # Define contstants for language translation support
-    global application_name
-    application_name = "system-monitoring-center"
-    translation_files_path = "/usr/share/locale"
-    system_current_language = os.environ.get("LANG")
-
     # Define functions for language translation support
-    locale.bindtextdomain(application_name, translation_files_path)
-    locale.textdomain(application_name)
-    locale.setlocale(locale.LC_ALL, system_current_language)
+    locale.bindtextdomain("system-monitoring-center", "/usr/share/locale")
+    locale.textdomain("system-monitoring-center")
+    locale.setlocale(locale.LC_ALL, os.environ.get("LANG"))
 
 
 # ----------------------------------- MainGUI - GUI Function (the code of this module in order to avoid running them during module import and defines GUI functions/signals) -----------------------------------
@@ -45,7 +39,6 @@ def main_gui_func():
 
     # Main GUI objects - get from file
     builder = Gtk.Builder()
-    builder.set_translation_domain(application_name)                                          # For showing translated texts onthe Glade generated GTK GUI
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainWindow.ui")
 
     # Main tab GUI objects - get
