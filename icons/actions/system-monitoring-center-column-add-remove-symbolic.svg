@@ -5,15 +5,11 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="512"
    height="512"
    viewBox="0 0 135.46667 135.46667"
    version="1.1"
-   id="svg8"
-   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="system-monitoring-center-column-add-remove-symbolic.svg">
+   id="svg8">
   <defs
      id="defs2">
     <rect
@@ -23,29 +19,6 @@
        height="51.982349"
        id="rect1121" />
   </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.46708185"
-     inkscape:cx="90.074165"
-     inkscape:cy="352.62308"
-     inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
-     inkscape:document-rotation="0"
-     showgrid="false"
-     inkscape:window-width="1366"
-     inkscape:window-height="696"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:snap-center="true"
-     inkscape:snap-page="true"
-     inkscape:snap-text-baseline="true"
-     units="px" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -59,8 +32,6 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Katman 1"
-     inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-67.064453,-96.116619)">
     <g

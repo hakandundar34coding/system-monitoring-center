@@ -181,10 +181,11 @@ def settings_gui_func():
             Performance.performance_set_selected_cpu_core_func()                              # Apply selected CPU core changes
             Performance.performance_set_selected_disk_func()                                  # Apply selected disk changes
             Performance.performance_set_selected_network_card_func()                          # Apply selected network card changes
+            # Reset CPU usage graph type (average/per core)
             if 'Cpu' not in globals():
                 global Cpu
                 import Cpu
-            try:
+            try:                                                                              # Try to disconnect current chart function
                 Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)
             except TypeError:
                 pass
@@ -192,7 +193,7 @@ def settings_gui_func():
                 Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw_per_core)
             except TypeError:
                 pass
-            if Config.show_cpu_usage_per_core == 0:
+            if Config.show_cpu_usage_per_core == 0:                                           # Connect default chart function
                 Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw)
             if Config.show_cpu_usage_per_core == 1:
                 Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)
