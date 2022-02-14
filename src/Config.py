@@ -29,19 +29,40 @@ def config_read_func():
                            [12, 'Gib/s', 12], [13, 'Tib/s', 13], [14, 'Pib/s', 14], [15, 'Eib/s', 15]]
 
 
+    # Define variables to read config data
+    global reset_all_settings_with_new_release_value                                      # This value is used for resetting all settings. This integer value is increased "1" in the new application release if resetting is wanted by the developer. Code reads this value from the config file and compares with the value in the code. All settings are reset if integer value of this value is bigger than the value in the config file. There is no action if integer value of this value is smaller than the value in the config file. There is no relationship between this value and application version.
+    reset_all_settings_with_new_release_value = 2
+    global config_variables, config_values
+    config_variables = []
+    config_values = []
+    # Read config file
     try:
-        global reset_all_settings_with_new_release_value                                      # This value is used for resetting all settings. This integer value is increased "1" in the new application release if resetting is wanted by the developer. Code reads this value from the config file and compares with the value in the code. All settings are reset if integer value of this value is bigger than the value in the config file. There is no action if integer value of this value is smaller than the value in the config file. There is no relationship between this value and application version.
-        reset_all_settings_with_new_release_value = 2
-        global config_lines
         with open(config_file_path) as reader:
             config_lines = reader.read().split("\n")
-        config_get_values_func()
-        if 'reset_all_settings_with_new_release' not in globals() or reset_all_settings_with_new_release < reset_all_settings_with_new_release_value:
-            config_default_reset_all_func()
-            config_save_func()
     except Exception:
+        # Generate config folder
         if os.path.exists(config_folder_path) == False:
             os.makedirs(config_folder_path)
+        # Read/reset default config data and save to file
+        config_default_reset_all_func()
+        config_save_func()
+        return
+    # Add config names and values into separate lists
+    for line in config_lines:
+        if " = " in line:
+            line_split = line.split(" = ")
+            config_variables.append(line_split[0])
+            config_values.append(line_split[1])
+    # Read/reset default config data before getting values from the lists which is read from file because some new settings may be added and they may not be present in the config file.
+    # Default values are read and modified by the user defined values if they are available.
+    config_default_reset_all_func()
+    # Get config data from the lists which is read from file
+    try:
+        config_get_values_func()
+    except Exception:
+        pass
+    # Reset user config data if relevant setting is changed by the developer
+    if 'reset_all_settings_with_new_release' not in globals() or reset_all_settings_with_new_release < reset_all_settings_with_new_release_value:
         config_default_reset_all_func()
         config_save_func()
 
@@ -81,12 +102,16 @@ def config_default_general_general_func():
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     remember_last_selected_hardware = 0
 
+# Adding a new setting
+#     global new_setting
+#     new_setting=1
+
 # ----------------------------------- Config - Config Default Floating Summary Function -----------------------------------
 def config_default_general_floating_summary_func():
     global show_floating_summary, floating_summary_window_transparency, floating_summary_data_shown
     show_floating_summary = 0
     floating_summary_window_transparency = 0.6
-    floating_summary_data_shown = [0, 1]                                     # floating_summary_data_shown all values = [0, 1, 2, 3, 4, 5, 6, 7] - [0: CPU, 1: RAM, 2: Disk Read+Write, 3: Disk Read, 4: Disk Write, 5: Network Receive+Send, 6: Network Receive, 7: Network Send]
+    floating_summary_data_shown = [0, 1]                                                      # floating_summary_data_shown all values = [0, 1, 2, 3, 4, 5, 6, 7] - [0: CPU, 1: RAM, 2: Disk Read+Write, 3: Disk Read, 4: Disk Write, 5: Network Receive+Send, 6: Network Receive, 7: Network Send]
 
 # ----------------------------------- Config - Config Default Performance Tab-CPU Tab Function -----------------------------------
 def config_default_performance_cpu_func():
@@ -135,10 +160,9 @@ def config_default_performance_network_func():
 
 # ----------------------------------- Config - Config Default Performance Tab-GPU Tab Function -----------------------------------
 def config_default_performance_gpu_func():
-    global chart_background_color_all_charts, chart_line_color_fps, continue_fps_counting_in_background, selected_gpu
+    global chart_background_color_all_charts, chart_line_color_fps, selected_gpu
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     chart_line_color_fps = [1.0, 0.09, 0.09, 1.0]
-    continue_fps_counting_in_background = 1
     selected_gpu = ""
 
 # ----------------------------------- Config - Config Default Performance Tab-Sensors Tab Row Sort Column Order Width Function -----------------------------------
@@ -258,7 +282,7 @@ def config_get_values_func():
     global chart_line_color_network_speed_data, performance_network_speed_data_precision, performance_network_data_data_precision
     global performance_network_speed_data_unit, performance_network_data_data_unit, plot_network_download_speed, plot_network_upload_speed, selected_network_card
 
-    global chart_line_color_fps, continue_fps_counting_in_background, selected_gpu
+    global chart_line_color_fps, selected_gpu
 
     global sensors_treeview_columns_shown, sensors_data_row_sorting_column, sensors_data_row_sorting_order, sensors_data_column_order, sensors_data_column_widths
 
@@ -275,372 +299,226 @@ def config_get_values_func():
     global services_ram_swap_data_precision, services_ram_swap_data_unit
     global services_treeview_columns_shown, services_data_row_sorting_column, services_data_row_sorting_order, services_data_column_order, services_data_column_widths
 
-    for line in config_lines:
-        if line.startswith("reset_all_settings_with_new_release = ") == True:
-            reset_all_settings_with_new_release = int(line.split(" = ")[1])
-            continue
-        if line.startswith("update_interval = ") == True:
-            update_interval = float(line.split(" = ")[1])
-            continue
-        if line.startswith("chart_data_history = ") == True:
-            chart_data_history = int(line.split(" = ")[1])
-            continue
-        if line.startswith("default_main_tab = ") == True:
-            default_main_tab = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_tab_default_sub_tab = ") == True:
-            performance_tab_default_sub_tab = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_summary_on_the_headerbar = ") == True:
-            performance_summary_on_the_headerbar = int(line.split(" = ")[1])
-            continue
-        if line.startswith("remember_last_opened_tabs_on_application_start = ") == True:
-            remember_last_opened_tabs_on_application_start = int(line.split(" = ")[1])
-            continue
-        if line.startswith("chart_background_color_all_charts = ") == True:
-            chart_background_color_all_charts = [float(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("remember_last_selected_hardware = ") == True:
-            remember_last_selected_hardware = int(line.split(" = ")[1])
-            continue
+    global config_variables, config_values
 
-        if line.startswith("show_floating_summary = ") == True:
-            show_floating_summary = int(line.split(" = ")[1])
-            continue
-        if line.startswith("floating_summary_window_transparency = ") == True:
-            floating_summary_window_transparency = float(line.split(" = ")[1])
-            continue
-        if line.startswith("floating_summary_data_shown = ") == True:
-            floating_summary_data_shown = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
+    reset_all_settings_with_new_release = int(config_values[config_variables.index("reset_all_settings_with_new_release")])
+    update_interval = float(config_values[config_variables.index("update_interval")])
+    chart_data_history = int(config_values[config_variables.index("chart_data_history")])
+    default_main_tab = int(config_values[config_variables.index("default_main_tab")])
+    performance_tab_default_sub_tab = int(config_values[config_variables.index("performance_tab_default_sub_tab")])
+    performance_summary_on_the_headerbar = int(config_values[config_variables.index("performance_summary_on_the_headerbar")])
+    remember_last_opened_tabs_on_application_start = int(config_values[config_variables.index("remember_last_opened_tabs_on_application_start")])
+    chart_background_color_all_charts = [float(value) for value in config_values[config_variables.index("chart_background_color_all_charts")].strip("[]").split(", ")]
+    remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
 
-        if line.startswith("chart_line_color_cpu_percent = ") == True:
-            chart_line_color_cpu_percent = [float(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("show_cpu_usage_per_core = ") == True:
-            show_cpu_usage_per_core = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_cpu_usage_percent_precision = ") == True:
-            performance_cpu_usage_percent_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("selected_cpu_core = ") == True:
-            selected_cpu_core = line.split(" = ")[1]
-            continue
+    show_floating_summary = int(config_values[config_variables.index("show_floating_summary")])
+    floating_summary_window_transparency = float(config_values[config_variables.index("floating_summary_window_transparency")])
+    floating_summary_data_shown = [int(value) for value in config_values[config_variables.index("floating_summary_data_shown")].strip("[]").split(", ")]
 
-        if line.startswith("chart_line_color_ram_swap_percent = ") == True:
-            chart_line_color_ram_swap_percent = [float(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("performance_ram_swap_data_precision = ") == True:
-            performance_ram_swap_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_ram_swap_data_unit = ") == True:
-            performance_ram_swap_data_unit = int(line.split(" = ")[1])
-            continue
+    chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
+    show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
+    performance_cpu_usage_percent_precision = int(config_values[config_variables.index("performance_cpu_usage_percent_precision")])
+    selected_cpu_core = config_values[config_variables.index("selected_cpu_core")]
 
-        if line.startswith("chart_line_color_disk_speed_usage = ") == True:
-            chart_line_color_disk_speed_usage = [float(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("performance_disk_speed_data_precision = ") == True:
-            performance_disk_speed_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_disk_usage_data_precision = ") == True:
-            performance_disk_usage_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_disk_speed_data_unit = ") == True:
-            performance_disk_speed_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_disk_usage_data_unit = ") == True:
-            performance_disk_usage_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("plot_disk_read_speed = ") == True:
-            plot_disk_read_speed = int(line.split(" = ")[1])
-            continue
-        if line.startswith("plot_disk_write_speed = ") == True:
-            plot_disk_write_speed = int(line.split(" = ")[1])
-            continue
-        if line.startswith("selected_disk = ") == True:
-            selected_disk = line.split(" = ")[1]
-            continue
+    chart_line_color_ram_swap_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_ram_swap_percent")].strip("[]").split(", ")]
+    performance_ram_swap_data_precision = int(config_values[config_variables.index("performance_ram_swap_data_precision")])
+    performance_ram_swap_data_unit = int(config_values[config_variables.index("performance_ram_swap_data_unit")])
 
-        if line.startswith("chart_line_color_network_speed_data = ") == True:
-            chart_line_color_network_speed_data = [float(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("performance_network_speed_data_precision = ") == True:
-            performance_network_speed_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_network_data_data_precision = ") == True:
-            performance_network_data_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_network_speed_data_unit = ") == True:
-            performance_network_speed_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("performance_network_data_data_unit = ") == True:
-            performance_network_data_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("plot_network_download_speed = ") == True:
-            plot_network_download_speed = int(line.split(" = ")[1])
-            continue
-        if line.startswith("plot_network_upload_speed = ") == True:
-            plot_network_upload_speed = int(line.split(" = ")[1])
-            continue
-        if line.startswith("selected_network_card = ") == True:
-            selected_network_card = line.split(" = ")[1]
-            continue
+    chart_line_color_disk_speed_usage = [float(value) for value in config_values[config_variables.index("chart_line_color_disk_speed_usage")].strip("[]").split(", ")]
+    performance_disk_speed_data_precision = int(config_values[config_variables.index("performance_disk_speed_data_precision")])
+    performance_disk_usage_data_precision = int(config_values[config_variables.index("performance_disk_usage_data_precision")])
+    performance_disk_speed_data_unit = int(config_values[config_variables.index("performance_disk_speed_data_unit")])
+    performance_disk_usage_data_unit = int(config_values[config_variables.index("performance_disk_usage_data_unit")])
+    plot_disk_read_speed = int(config_values[config_variables.index("plot_disk_read_speed")])
+    plot_disk_write_speed = int(config_values[config_variables.index("plot_disk_write_speed")])
+    selected_disk = config_values[config_variables.index("selected_disk")]
 
-        if line.startswith("chart_line_color_fps = ") == True:
-            chart_line_color_fps = [float(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("continue_fps_counting_in_background = ") == True:
-            continue_fps_counting_in_background = int(line.split(" = ")[1])
-            continue
-        if line.startswith("selected_gpu = ") == True:
-            selected_gpu = line.split(" = ")[1]
-            continue
+    chart_line_color_network_speed_data = [float(value) for value in config_values[config_variables.index("chart_line_color_network_speed_data")].strip("[]").split(", ")]
+    performance_network_speed_data_precision = int(config_values[config_variables.index("performance_network_speed_data_precision")])
+    performance_network_data_data_precision = int(config_values[config_variables.index("performance_network_data_data_precision")])
+    performance_network_speed_data_unit = int(config_values[config_variables.index("performance_network_speed_data_unit")])
+    performance_network_data_data_unit = int(config_values[config_variables.index("performance_network_data_data_unit")])
+    plot_network_download_speed = int(config_values[config_variables.index("plot_network_download_speed")])
+    plot_network_upload_speed = int(config_values[config_variables.index("plot_network_upload_speed")])
+    selected_network_card = config_values[config_variables.index("selected_network_card")]
 
-        if line.startswith("sensors_treeview_columns_shown = ") == True:
-            sensors_treeview_columns_shown = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("sensors_data_row_sorting_column = ") == True:
-            sensors_data_row_sorting_column = int(line.split(" = ")[1])
-            continue
-        if line.startswith("sensors_data_row_sorting_order = ") == True:
-            sensors_data_row_sorting_order = int(line.split(" = ")[1])
-            continue
-        if line.startswith("sensors_data_column_order = ") == True:
-            sensors_data_column_order = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("sensors_data_column_widths = ") == True:
-            sensors_data_column_widths = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
+    chart_line_color_fps = [float(value) for value in config_values[config_variables.index("chart_line_color_fps")].strip("[]").split(", ")]
+    selected_gpu = config_values[config_variables.index("selected_gpu")]
 
-        if line.startswith("show_processes_of_all_users = ") == True:
-            show_processes_of_all_users = int(line.split(" = ")[1])
-            continue
-        if line.startswith("show_processes_as_tree = ") == True:
-            show_processes_as_tree = int(line.split(" = ")[1])
-            continue
-        if line.startswith("show_tree_lines = ") == True:
-            show_tree_lines = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_cpu_usage_percent_precision = ") == True:
-            processes_cpu_usage_percent_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_ram_swap_data_precision = ") == True:
-            processes_ram_swap_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_ram_swap_data_unit = ") == True:
-            processes_ram_swap_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_disk_speed_data_precision = ") == True:
-            processes_disk_speed_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_disk_usage_data_precision = ") == True:
-            processes_disk_usage_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_disk_speed_data_unit = ") == True:
-            processes_disk_speed_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_disk_usage_data_unit = ") == True:
-            processes_disk_usage_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("warn_before_stopping_processes = ") == True:
-            warn_before_stopping_processes = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_treeview_columns_shown = ") == True:
-            processes_treeview_columns_shown = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("processes_data_row_sorting_column = ") == True:
-            processes_data_row_sorting_column = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_data_row_sorting_order = ") == True:
-            processes_data_row_sorting_order = int(line.split(" = ")[1])
-            continue
-        if line.startswith("processes_data_column_order = ") == True:
-            processes_data_column_order = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("processes_data_column_widths = ") == True:
-            processes_data_column_widths = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
+    sensors_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("sensors_treeview_columns_shown")].strip("[]").split(", ")]
+    sensors_data_row_sorting_column = int(config_values[config_variables.index("sensors_data_row_sorting_column")])
+    sensors_data_row_sorting_order = int(config_values[config_variables.index("sensors_data_row_sorting_order")])
+    sensors_data_column_order = [int(value) for value in config_values[config_variables.index("sensors_data_column_order")].strip("[]").split(", ")]
+    sensors_data_column_widths = [int(value) for value in config_values[config_variables.index("sensors_data_column_widths")].strip("[]").split(", ")]
 
-        if line.startswith("users_cpu_usage_percent_precision = ") == True:
-            users_cpu_usage_percent_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("users_ram_swap_data_precision = ") == True:
-            users_ram_swap_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("users_ram_swap_data_unit = ") == True:
-            users_ram_swap_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("users_treeview_columns_shown = ") == True:
-            users_treeview_columns_shown = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("users_data_row_sorting_column = ") == True:
-            users_data_row_sorting_column = int(line.split(" = ")[1])
-            continue
-        if line.startswith("users_data_row_sorting_order = ") == True:
-            users_data_row_sorting_order = int(line.split(" = ")[1])
-            continue
-        if line.startswith("users_data_column_order = ") == True:
-            users_data_column_order = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("users_data_column_widths = ") == True:
-            users_data_column_widths = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
+    show_processes_of_all_users = int(config_values[config_variables.index("show_processes_of_all_users")])
+    show_processes_as_tree = int(config_values[config_variables.index("show_processes_as_tree")])
+    show_tree_lines = int(config_values[config_variables.index("show_tree_lines")])
+    processes_cpu_usage_percent_precision = int(config_values[config_variables.index("processes_cpu_usage_percent_precision")])
+    processes_ram_swap_data_precision = int(config_values[config_variables.index("processes_ram_swap_data_precision")])
+    processes_ram_swap_data_unit = int(config_values[config_variables.index("processes_ram_swap_data_unit")])
+    processes_disk_speed_data_precision = int(config_values[config_variables.index("processes_disk_speed_data_precision")])
+    processes_disk_usage_data_precision = int(config_values[config_variables.index("processes_disk_usage_data_precision")])
+    processes_disk_speed_data_unit = int(config_values[config_variables.index("processes_disk_speed_data_unit")])
+    processes_disk_usage_data_unit = int(config_values[config_variables.index("processes_disk_usage_data_unit")])
+    warn_before_stopping_processes = int(config_values[config_variables.index("warn_before_stopping_processes")])
+    processes_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("processes_treeview_columns_shown")].strip("[]").split(", ")]
+    processes_data_row_sorting_column = int(config_values[config_variables.index("processes_data_row_sorting_column")])
+    processes_data_row_sorting_order = int(config_values[config_variables.index("processes_data_row_sorting_order")])
+    processes_data_column_order = [int(value) for value in config_values[config_variables.index("processes_data_column_order")].strip("[]").split(", ")]
+    processes_data_column_widths = [int(value) for value in config_values[config_variables.index("processes_data_column_widths")].strip("[]").split(", ")]
 
-        if line.startswith("startup_treeview_columns_shown = ") == True:
-            startup_treeview_columns_shown = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("startup_data_row_sorting_column = ") == True:
-            startup_data_row_sorting_column = int(line.split(" = ")[1])
-            continue
-        if line.startswith("startup_data_row_sorting_order = ") == True:
-            startup_data_row_sorting_order = int(line.split(" = ")[1])
-            continue
-        if line.startswith("startup_data_column_order = ") == True:
-            startup_data_column_order = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("startup_data_column_widths = ") == True:
-            startup_data_column_widths = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
+    users_cpu_usage_percent_precision = int(config_values[config_variables.index("users_cpu_usage_percent_precision")])
+    users_ram_swap_data_precision = int(config_values[config_variables.index("users_ram_swap_data_precision")])
+    users_ram_swap_data_unit = int(config_values[config_variables.index("users_ram_swap_data_unit")])
+    users_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("users_treeview_columns_shown")].strip("[]").split(", ")]
+    users_data_row_sorting_column = int(config_values[config_variables.index("users_data_row_sorting_column")])
+    users_data_row_sorting_order = int(config_values[config_variables.index("users_data_row_sorting_order")])
+    users_data_column_order = [int(value) for value in config_values[config_variables.index("users_data_column_order")].strip("[]").split(", ")]
+    users_data_column_widths = [int(value) for value in config_values[config_variables.index("users_data_column_widths")].strip("[]").split(", ")]
 
-        if line.startswith("services_ram_swap_data_precision = ") == True:
-            services_ram_swap_data_precision = int(line.split(" = ")[1])
-            continue
-        if line.startswith("services_ram_swap_data_unit = ") == True:
-            services_ram_swap_data_unit = int(line.split(" = ")[1])
-            continue
-        if line.startswith("services_treeview_columns_shown = ") == True:
-            services_treeview_columns_shown = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("services_data_row_sorting_column = ") == True:
-            services_data_row_sorting_column = int(line.split(" = ")[1])
-            continue
-        if line.startswith("services_data_row_sorting_order = ") == True:
-            services_data_row_sorting_order = int(line.split(" = ")[1])
-            continue
-        if line.startswith("services_data_column_order = ") == True:
-            services_data_column_order = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
-        if line.startswith("services_data_column_widths = ") == True:
-            services_data_column_widths = [int(value) for value in line.split(" = ")[1].strip("[]").split(", ")]
-            continue
+    startup_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("startup_treeview_columns_shown")].strip("[]").split(", ")]
+    startup_data_row_sorting_column = int(config_values[config_variables.index("startup_data_row_sorting_column")])
+    startup_data_row_sorting_order = int(config_values[config_variables.index("startup_data_row_sorting_order")])
+    startup_data_column_order = [int(value) for value in config_values[config_variables.index("startup_data_column_order")].strip("[]").split(", ")]
+    startup_data_column_widths = [int(value) for value in config_values[config_variables.index("startup_data_column_widths")].strip("[]").split(", ")]
+
+    services_ram_swap_data_precision = int(config_values[config_variables.index("services_ram_swap_data_precision")])
+    services_ram_swap_data_unit = int(config_values[config_variables.index("services_ram_swap_data_unit")])
+    services_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("services_treeview_columns_shown")].strip("[]").split(", ")]
+    services_data_row_sorting_column = int(config_values[config_variables.index("services_data_row_sorting_column")])
+    services_data_row_sorting_order = int(config_values[config_variables.index("services_data_row_sorting_order")])
+    services_data_column_order = [int(value) for value in config_values[config_variables.index("services_data_column_order")].strip("[]").split(", ")]
+    services_data_column_widths = [int(value) for value in config_values[config_variables.index("services_data_column_widths")].strip("[]").split(", ")]
+
+# Adding a new setting
+#     global new_setting
+#     if "new_setting" in config_variables:
+#         new_setting = int(config_values[config_variables.index("new_setting")])
+#     else:
+#         pass
 
 
 # ----------------------------------- Config - Config Save Function (writes settings into configration file) -----------------------------------
 def config_save_func():
 
+    config_write_text = ""
+    config_write_text = config_write_text + "[General - General]" + "\n"
+    config_write_text = config_write_text + "reset_all_settings_with_new_release = " + str(reset_all_settings_with_new_release) + "\n"
+    config_write_text = config_write_text + "update_interval = " + str(update_interval) + "\n"
+    config_write_text = config_write_text + "chart_data_history = " + str(chart_data_history) + "\n"
+    config_write_text = config_write_text + "default_main_tab = " + str(default_main_tab) + "\n"
+    config_write_text = config_write_text + "performance_tab_default_sub_tab = " + str(performance_tab_default_sub_tab) + "\n"
+    config_write_text = config_write_text + "performance_summary_on_the_headerbar = " + str(performance_summary_on_the_headerbar) + "\n"
+    config_write_text = config_write_text + "remember_last_opened_tabs_on_application_start = " + str(remember_last_opened_tabs_on_application_start) + "\n"
+    config_write_text = config_write_text + "chart_background_color_all_charts = " + str(chart_background_color_all_charts) + "\n"
+    config_write_text = config_write_text + "remember_last_selected_hardware = " + str(remember_last_selected_hardware) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[General - Floating Summary]" + "\n"
+    config_write_text = config_write_text + "show_floating_summary = " + str(show_floating_summary) + "\n"
+    config_write_text = config_write_text + "floating_summary_window_transparency = " + str(floating_summary_window_transparency) + "\n"
+    config_write_text = config_write_text + "floating_summary_data_shown = " + str(floating_summary_data_shown) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Performance Tab - CPU]" + "\n"
+    config_write_text = config_write_text + "chart_line_color_cpu_percent = " + str(chart_line_color_cpu_percent) + "\n"
+    config_write_text = config_write_text + "show_cpu_usage_per_core = " + str(show_cpu_usage_per_core) + "\n"
+    config_write_text = config_write_text + "performance_cpu_usage_percent_precision = " + str(performance_cpu_usage_percent_precision) + "\n"
+    config_write_text = config_write_text + "selected_cpu_core = " + str(selected_cpu_core) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Performance Tab - RAM]" + "\n"
+    config_write_text = config_write_text + "chart_line_color_ram_swap_percent = " + str(chart_line_color_ram_swap_percent) + "\n"
+    config_write_text = config_write_text + "performance_ram_swap_data_precision = " + str(performance_ram_swap_data_precision) + "\n"
+    config_write_text = config_write_text + "performance_ram_swap_data_unit = " + str(performance_ram_swap_data_unit) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Performance Tab - Disk]" + "\n"
+    config_write_text = config_write_text + "chart_line_color_disk_speed_usage = " + str(chart_line_color_disk_speed_usage) + "\n"
+    config_write_text = config_write_text + "performance_disk_speed_data_precision = " + str(performance_disk_speed_data_precision) + "\n"
+    config_write_text = config_write_text + "performance_disk_usage_data_precision = " + str(performance_disk_usage_data_precision) + "\n"
+    config_write_text = config_write_text + "performance_disk_speed_data_unit = " + str(performance_disk_speed_data_unit) + "\n"
+    config_write_text = config_write_text + "performance_disk_usage_data_unit = " + str(performance_disk_usage_data_unit) + "\n"
+    config_write_text = config_write_text + "plot_disk_read_speed = " + str(plot_disk_read_speed) + "\n"
+    config_write_text = config_write_text + "plot_disk_write_speed = " + str(plot_disk_write_speed) + "\n"
+    config_write_text = config_write_text + "selected_disk = " + str(selected_disk) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Performance Tab - Network]" + "\n"
+    config_write_text = config_write_text + "chart_line_color_network_speed_data = " + str(chart_line_color_network_speed_data) + "\n"
+    config_write_text = config_write_text + "performance_network_speed_data_precision = " + str(performance_network_speed_data_precision) + "\n"
+    config_write_text = config_write_text + "performance_network_data_data_precision = " + str(performance_network_data_data_precision) + "\n"
+    config_write_text = config_write_text + "performance_network_speed_data_unit = " + str(performance_network_speed_data_unit) + "\n"
+    config_write_text = config_write_text + "performance_network_data_data_unit = " + str(performance_network_data_data_unit) + "\n"
+    config_write_text = config_write_text + "plot_network_download_speed = " + str(plot_network_download_speed) + "\n"
+    config_write_text = config_write_text + "plot_network_upload_speed = " + str(plot_network_upload_speed) + "\n"
+    config_write_text = config_write_text + "selected_network_card = " + str(selected_network_card) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Performance Tab - GPU]" + "\n"
+    config_write_text = config_write_text + "chart_line_color_fps = " + str(chart_line_color_fps) + "\n"
+    config_write_text = config_write_text + "selected_gpu = " + str(selected_gpu) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Performance Tab - Sensors]" + "\n"
+    config_write_text = config_write_text + "sensors_treeview_columns_shown = " + str(sensors_treeview_columns_shown) + "\n"
+    config_write_text = config_write_text + "sensors_data_row_sorting_column = " + str(sensors_data_row_sorting_column) + "\n"
+    config_write_text = config_write_text + "sensors_data_row_sorting_order = " + str(sensors_data_row_sorting_order) + "\n"
+    config_write_text = config_write_text + "sensors_data_column_order = " + str(sensors_data_column_order) + "\n"
+    config_write_text = config_write_text + "sensors_data_column_widths = " + str(sensors_data_column_widths) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Processes Tab]" + "\n"
+    config_write_text = config_write_text + "show_processes_of_all_users = " + str(show_processes_of_all_users) + "\n"
+    config_write_text = config_write_text + "show_processes_as_tree = " + str(show_processes_as_tree) + "\n"
+    config_write_text = config_write_text + "show_tree_lines = " + str(show_tree_lines) + "\n"
+    config_write_text = config_write_text + "processes_cpu_usage_percent_precision = " + str(processes_cpu_usage_percent_precision) + "\n"
+    config_write_text = config_write_text + "processes_ram_swap_data_precision = " + str(processes_ram_swap_data_precision) + "\n"
+    config_write_text = config_write_text + "processes_ram_swap_data_unit = " + str(processes_ram_swap_data_unit) + "\n"
+    config_write_text = config_write_text + "processes_disk_speed_data_precision = " + str(processes_disk_speed_data_precision) + "\n"
+    config_write_text = config_write_text + "processes_disk_usage_data_precision = " + str(processes_disk_usage_data_precision) + "\n"
+    config_write_text = config_write_text + "processes_disk_speed_data_unit = " + str(processes_disk_speed_data_unit) + "\n"
+    config_write_text = config_write_text + "processes_disk_usage_data_unit = " + str(processes_disk_usage_data_unit) + "\n"
+    config_write_text = config_write_text + "warn_before_stopping_processes = " + str(warn_before_stopping_processes) + "\n"
+    config_write_text = config_write_text + "processes_treeview_columns_shown = " + str(processes_treeview_columns_shown) + "\n"
+    config_write_text = config_write_text + "processes_data_row_sorting_column = " + str(processes_data_row_sorting_column) + "\n"
+    config_write_text = config_write_text + "processes_data_row_sorting_order = " + str(processes_data_row_sorting_order) + "\n"
+    config_write_text = config_write_text + "processes_data_column_order = " + str(processes_data_column_order) + "\n"
+    config_write_text = config_write_text + "processes_data_column_widths = " + str(processes_data_column_widths) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Users Tab]" + "\n"
+    config_write_text = config_write_text + "users_cpu_usage_percent_precision = " + str(users_cpu_usage_percent_precision) + "\n"
+    config_write_text = config_write_text + "users_ram_swap_data_precision = " + str(users_ram_swap_data_precision) + "\n"
+    config_write_text = config_write_text + "users_ram_swap_data_unit = " + str(users_ram_swap_data_unit) + "\n"
+    config_write_text = config_write_text + "users_treeview_columns_shown = " + str(users_treeview_columns_shown) + "\n"
+    config_write_text = config_write_text + "users_data_row_sorting_column = " + str(users_data_row_sorting_column) + "\n"
+    config_write_text = config_write_text + "users_data_row_sorting_order = " + str(users_data_row_sorting_order) + "\n"
+    config_write_text = config_write_text + "users_data_column_order = " + str(users_data_column_order) + "\n"
+    config_write_text = config_write_text + "users_data_column_widths = " + str(users_data_column_widths) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Startup Tab]" + "\n"
+    config_write_text = config_write_text + "startup_treeview_columns_shown = " + str(startup_treeview_columns_shown) + "\n"
+    config_write_text = config_write_text + "startup_data_row_sorting_column = " + str(startup_data_row_sorting_column) + "\n"
+    config_write_text = config_write_text + "startup_data_row_sorting_order = " + str(startup_data_row_sorting_order) + "\n"
+    config_write_text = config_write_text + "startup_data_column_order = " + str(startup_data_column_order) + "\n"
+    config_write_text = config_write_text + "startup_data_column_widths = " + str(startup_data_column_widths) + "\n"
+    config_write_text = config_write_text + "\n"
+
+    config_write_text = config_write_text + "[Services Tab]" + "\n"
+    config_write_text = config_write_text + "services_ram_swap_data_precision = " + str(services_ram_swap_data_precision) + "\n"
+    config_write_text = config_write_text + "services_ram_swap_data_unit = " + str(services_ram_swap_data_unit) + "\n"
+    config_write_text = config_write_text + "services_treeview_columns_shown = " + str(services_treeview_columns_shown) + "\n"
+    config_write_text = config_write_text + "services_data_row_sorting_column = " + str(services_data_row_sorting_column) + "\n"
+    config_write_text = config_write_text + "services_data_row_sorting_order = " + str(services_data_row_sorting_order) + "\n"
+    config_write_text = config_write_text + "services_data_column_order = " + str(services_data_column_order) + "\n"
+    config_write_text = config_write_text + "services_data_column_widths = " + str(services_data_column_widths) + "\n"
+    config_write_text = config_write_text + "\n"
+
+# Adding a new setting
+#     config_write_text = config_write_text + "new_setting = " + str("1") + "\n"
+
     with open(config_file_path, "w") as writer:
-        writer.write("[General - General]" + "\n")
-        writer.write("reset_all_settings_with_new_release = " + str(reset_all_settings_with_new_release) + "\n")
-        writer.write("update_interval = " + str(update_interval) + "\n")
-        writer.write("chart_data_history = " + str(chart_data_history) + "\n")
-        writer.write("default_main_tab = " + str(default_main_tab) + "\n")
-        writer.write("performance_tab_default_sub_tab = " + str(performance_tab_default_sub_tab) + "\n")
-        writer.write("performance_summary_on_the_headerbar = " + str(performance_summary_on_the_headerbar) + "\n")
-        writer.write("remember_last_opened_tabs_on_application_start = " + str(remember_last_opened_tabs_on_application_start) + "\n")
-        writer.write("chart_background_color_all_charts = " + str(chart_background_color_all_charts) + "\n")
-        writer.write("remember_last_selected_hardware = " + str(remember_last_selected_hardware) + "\n")
-        writer.write("\n")
-
-        writer.write("[General - Floating Summary]" + "\n")
-        writer.write("show_floating_summary = " + str(show_floating_summary) + "\n")
-        writer.write("floating_summary_window_transparency = " + str(floating_summary_window_transparency) + "\n")
-        writer.write("floating_summary_data_shown = " + str(floating_summary_data_shown) + "\n")
-        writer.write("\n")
-
-        writer.write("[Performance Tab - CPU]" + "\n")
-        writer.write("chart_line_color_cpu_percent = " + str(chart_line_color_cpu_percent) + "\n")
-        writer.write("show_cpu_usage_per_core = " + str(show_cpu_usage_per_core) + "\n")
-        writer.write("performance_cpu_usage_percent_precision = " + str(performance_cpu_usage_percent_precision) + "\n")
-        writer.write("selected_cpu_core = " + str(selected_cpu_core) + "\n")
-        writer.write("\n")
-
-        writer.write("[Performance Tab - RAM]" + "\n")
-        writer.write("chart_line_color_ram_swap_percent = " + str(chart_line_color_ram_swap_percent) + "\n")
-        writer.write("performance_ram_swap_data_precision = " + str(performance_ram_swap_data_precision) + "\n")
-        writer.write("performance_ram_swap_data_unit = " + str(performance_ram_swap_data_unit) + "\n")
-        writer.write("\n")
-
-        writer.write("[Performance Tab - Disk]" + "\n")
-        writer.write("chart_line_color_disk_speed_usage = " + str(chart_line_color_disk_speed_usage) + "\n")
-        writer.write("performance_disk_speed_data_precision = " + str(performance_disk_speed_data_precision) + "\n")
-        writer.write("performance_disk_usage_data_precision = " + str(performance_disk_usage_data_precision) + "\n")
-        writer.write("performance_disk_speed_data_unit = " + str(performance_disk_speed_data_unit) + "\n")
-        writer.write("performance_disk_usage_data_unit = " + str(performance_disk_usage_data_unit) + "\n")
-        writer.write("plot_disk_read_speed = " + str(plot_disk_read_speed) + "\n")
-        writer.write("plot_disk_write_speed = " + str(plot_disk_write_speed) + "\n")
-        writer.write("selected_disk = " + str(selected_disk) + "\n")
-        writer.write("\n")
-
-        writer.write("[Performance Tab - Network]" + "\n")
-        writer.write("chart_line_color_network_speed_data = " + str(chart_line_color_network_speed_data) + "\n")
-        writer.write("performance_network_speed_data_precision = " + str(performance_network_speed_data_precision) + "\n")
-        writer.write("performance_network_data_data_precision = " + str(performance_network_data_data_precision) + "\n")
-        writer.write("performance_network_speed_data_unit = " + str(performance_network_speed_data_unit) + "\n")
-        writer.write("performance_network_data_data_unit = " + str(performance_network_data_data_unit) + "\n")
-        writer.write("plot_network_download_speed = " + str(plot_network_download_speed) + "\n")
-        writer.write("plot_network_upload_speed = " + str(plot_network_upload_speed) + "\n")
-        writer.write("selected_network_card = " + str(selected_network_card) + "\n")
-        writer.write("\n")
-
-        writer.write("[Performance Tab - GPU]" + "\n")
-        writer.write("chart_line_color_fps = " + str(chart_line_color_fps) + "\n")
-        writer.write("continue_fps_counting_in_background = " + str(continue_fps_counting_in_background) + "\n")
-        writer.write("selected_gpu = " + str(selected_gpu) + "\n")
-        writer.write("\n")
-
-        writer.write("[Performance Tab - Sensors]" + "\n")
-        writer.write("sensors_treeview_columns_shown = " + str(sensors_treeview_columns_shown) + "\n")
-        writer.write("sensors_data_row_sorting_column = " + str(sensors_data_row_sorting_column) + "\n")
-        writer.write("sensors_data_row_sorting_order = " + str(sensors_data_row_sorting_order) + "\n")
-        writer.write("sensors_data_column_order = " + str(sensors_data_column_order) + "\n")
-        writer.write("sensors_data_column_widths = " + str(sensors_data_column_widths) + "\n")
-        writer.write("\n")
-
-        writer.write("[Processes Tab]" + "\n")
-        writer.write("show_processes_of_all_users = " + str(show_processes_of_all_users) + "\n")
-        writer.write("show_processes_as_tree = " + str(show_processes_as_tree) + "\n")
-        writer.write("show_tree_lines = " + str(show_tree_lines) + "\n")
-        writer.write("processes_cpu_usage_percent_precision = " + str(processes_cpu_usage_percent_precision) + "\n")
-        writer.write("processes_ram_swap_data_precision = " + str(processes_ram_swap_data_precision) + "\n")
-        writer.write("processes_ram_swap_data_unit = " + str(processes_ram_swap_data_unit) + "\n")
-        writer.write("processes_disk_speed_data_precision = " + str(processes_disk_speed_data_precision) + "\n")
-        writer.write("processes_disk_usage_data_precision = " + str(processes_disk_usage_data_precision) + "\n")
-        writer.write("processes_disk_speed_data_unit = " + str(processes_disk_speed_data_unit) + "\n")
-        writer.write("processes_disk_usage_data_unit = " + str(processes_disk_usage_data_unit) + "\n")
-        writer.write("warn_before_stopping_processes = " + str(warn_before_stopping_processes) + "\n")
-        writer.write("processes_treeview_columns_shown = " + str(processes_treeview_columns_shown) + "\n")
-        writer.write("processes_data_row_sorting_column = " + str(processes_data_row_sorting_column) + "\n")
-        writer.write("processes_data_row_sorting_order = " + str(processes_data_row_sorting_order) + "\n")
-        writer.write("processes_data_column_order = " + str(processes_data_column_order) + "\n")
-        writer.write("processes_data_column_widths = " + str(processes_data_column_widths) + "\n")
-        writer.write("\n")
-
-        writer.write("[Users Tab]" + "\n")
-        writer.write("users_cpu_usage_percent_precision = " + str(users_cpu_usage_percent_precision) + "\n")
-        writer.write("users_ram_swap_data_precision = " + str(users_ram_swap_data_precision) + "\n")
-        writer.write("users_ram_swap_data_unit = " + str(users_ram_swap_data_unit) + "\n")
-        writer.write("users_treeview_columns_shown = " + str(users_treeview_columns_shown) + "\n")
-        writer.write("users_data_row_sorting_column = " + str(users_data_row_sorting_column) + "\n")
-        writer.write("users_data_row_sorting_order = " + str(users_data_row_sorting_order) + "\n")
-        writer.write("users_data_column_order = " + str(users_data_column_order) + "\n")
-        writer.write("users_data_column_widths = " + str(users_data_column_widths) + "\n")
-        writer.write("\n")
-
-        writer.write("[Startup Tab]" + "\n")
-        writer.write("startup_treeview_columns_shown = " + str(startup_treeview_columns_shown) + "\n")
-        writer.write("startup_data_row_sorting_column = " + str(startup_data_row_sorting_column) + "\n")
-        writer.write("startup_data_row_sorting_order = " + str(startup_data_row_sorting_order) + "\n")
-        writer.write("startup_data_column_order = " + str(startup_data_column_order) + "\n")
-        writer.write("startup_data_column_widths = " + str(startup_data_column_widths) + "\n")
-        writer.write("\n")
-
-        writer.write("[Services Tab]" + "\n")
-        writer.write("services_ram_swap_data_precision = " + str(services_ram_swap_data_precision) + "\n")
-        writer.write("services_ram_swap_data_unit = " + str(services_ram_swap_data_unit) + "\n")
-        writer.write("services_treeview_columns_shown = " + str(services_treeview_columns_shown) + "\n")
-        writer.write("services_data_row_sorting_column = " + str(services_data_row_sorting_column) + "\n")
-        writer.write("services_data_row_sorting_order = " + str(services_data_row_sorting_order) + "\n")
-        writer.write("services_data_column_order = " + str(services_data_column_order) + "\n")
-        writer.write("services_data_column_widths = " + str(services_data_column_widths) + "\n")
-        writer.write("\n")
+        writer.write(config_write_text)

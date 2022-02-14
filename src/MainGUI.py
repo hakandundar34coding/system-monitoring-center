@@ -83,10 +83,11 @@ def main_gui_func():
         Gtk.main_quit()
 
     def on_window1_show(widget):                                                              # Some functions such a (hardware selection, performance backround function, main menu gui importing and setting popup menu (main menu) are run after main window is shown. This is due to decreasing window display delay.
+        # Import Config module (contains settings) and read config data
         global Config
-        import Config                                                                         # Import Config module which reads, saves and contains all read settings
-        Config.config_import_func()                                                           # Start import operations of the module
-        Config.config_read_func()                                                             # Start setting read operations of the module
+        import Config
+        Config.config_import_func()
+        Config.config_read_func()
 
         # Run "Performance" module in order to provide performance data to Performance tab, performance summary on the headerbar and Floating Summary window.
         global Performance                                                                    # This module is always imported after window show in order to track performance data in the background even if tabs are switched. Otherwise performance data such as CPU, RAM, etc. will be shown as intermitted on the charts (due to tab switches).
@@ -116,13 +117,12 @@ def main_gui_func():
 
         # Show information for warning the user if the application has been run with root privileges. Information is shown just below the application window headerbar.
         if os.geteuid() == 0:                                                                 # Check UID if it is "0". This means the application is run with root privileges.
-            from gi.repository import Gdk                                                     # Used for changing default label color
+            from gi.repository import Gdk
             label_root_warning = Gtk.Label(label=_tr("Warning! The application has been run with root privileges, you may harm your system."))    # Generate a new label for the information. This label does not exist in the ".ui" UI file.
-            # label_root_warning.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(0.0, 1.0, 0.0, 1.0))
-            label_root_warning.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))       # Set background color of the label.
-            grid10.insert_row(0)                                                              # Insert a row at top of the grid.
+            label_root_warning.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))
+            grid10.insert_row(0)
             grid10.attach(label_root_warning, 0, 0, 1, 1)                                     # Attach the label to the grid at (0, 0) position.
-            label_root_warning.set_visible(True)                                              # Set the label as visible.
+            label_root_warning.set_visible(True)
 
     def on_button1_clicked(widget):                                                           # "Main Menu" button
         if 'MainMenusDialogs' not in globals():
@@ -225,7 +225,7 @@ def main_gui_default_tab_func():
     elif default_main_tab == 5:
          radiobutton8.set_active(True)
 
-    performance_tab_default_sub_tab = Config.performance_tab_default_sub_tab                  # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
+    performance_tab_default_sub_tab = Config.performance_tab_default_sub_tab
     if performance_tab_default_sub_tab == 0:
          radiobutton1001.set_active(True)
     elif performance_tab_default_sub_tab == 1:
