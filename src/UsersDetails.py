@@ -244,7 +244,7 @@ def users_details_loop_func():
             with open("/proc/" + str(user_process_pid) + "/stat") as reader:
                 proc_pid_stat_lines = int(reader.read().split()[-31])                         # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
             selected_user_process_start_time = (proc_pid_stat_lines / number_of_clock_ticks) + system_boot_time
-        except:
+        except Exception:
             selected_user_process_start_time = 0
 
     # Get user processes CPU usage percent and RAM memory (RSS) usage percent

@@ -63,7 +63,7 @@ def startup_menu_right_click_gui_func():
                 desktop_file_system_lines = reader.read().strip("").split("\n")
             try:
                 desktop_file_system_lines.remove("")                                          # Remove empty lines (if exist)
-            except:
+            except Exception:
                 pass
             for line in desktop_file_system_lines:
                 if "Name=" in line:                                                           # Value of "Name=" entry is get to be used as application name.
@@ -95,7 +95,7 @@ def startup_menu_right_click_gui_func():
                 desktop_file_user_lines = reader.read().strip("").split("\n")
             try:
                 desktop_file_user_lines.remove("")                                            # Remove empty lines (if exist)
-            except:
+            except Exception:
                 pass
             for line in desktop_file_user_lines:
                 if "Name=" in line:                                                           # Value of "Name=" entry is get to be used as application name.
@@ -250,7 +250,7 @@ def startup_menu_right_click_gui_func():
             try:
                 (subprocess.check_output(["pkexec", "rm", desktop_file_system_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
                 os.remove(desktop_file_system_full_path)
-            except:
+            except Exception:
                 pass
         if warning_dialog5102_response == Gtk.ResponseType.NO:
             return                                                                            # Do nothing (close the dialog) if "No" is clicked.
@@ -271,7 +271,7 @@ def startup_menu_right_click_gui_func():
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
                 (subprocess.check_output(["rm", desktop_file_user_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
-            except:
+            except Exception:
                 pass
         if warning_dialog5102_response == Gtk.ResponseType.NO:
             return                                                                            # Do nothing (close the dialog) if "No" is clicked.
@@ -298,11 +298,11 @@ def startup_menu_right_click_gui_func():
         if warning_dialog5102_response == Gtk.ResponseType.YES:
             try:
                 (subprocess.check_output(["pkexec", "rm", desktop_file_system_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
-            except:
+            except Exception:
                 pass
             try:
                 (subprocess.check_output(["rm", desktop_file_user_full_path], stderr=subprocess.STDOUT, shell=False)).decode()
-            except:
+            except Exception:
                 pass
         if warning_dialog5102_response == Gtk.ResponseType.NO:
             return

@@ -60,7 +60,7 @@ def ram_hardware_information_get_func():
 
     try:
         dmidecode_output = (subprocess.check_output(["pkexec", "sudo", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()    # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
-    except:
+    except Exception:
         window1201w.hide()
         return
 

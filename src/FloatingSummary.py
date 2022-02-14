@@ -81,7 +81,7 @@ def floating_summary_loop_func():
             try:
                 label_to_remove = grid3001.get_child_at(0, i)
                 grid3001.remove(label_to_remove)
-            except:
+            except Exception:
                 pass
 
         grid_row_count = 0

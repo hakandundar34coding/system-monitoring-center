@@ -193,11 +193,11 @@ def gpu_initial_func():
     glxinfo_for_discrete_gpu = ["env", "DRI_PRIME=1", "glxinfo", "-B"]
     try:
         glxinfo_output_integrated_gpu = (subprocess.check_output(glxinfo_for_integrated_gpu, shell=False)).decode().strip()
-    except:
+    except Exception:
         glxinfo_output_integrated_gpu = ""
     try:
         glxinfo_output_discrete_gpu = (subprocess.check_output(glxinfo_for_discrete_gpu, shell=False)).decode().strip()
-    except:
+    except Exception:
         glxinfo_output_discrete_gpu = ""
     if "libGL error: failed to create dri screen" in glxinfo_output_discrete_gpu or "libGL error: failed to load driver:" in glxinfo_output_discrete_gpu:    # "libGL error: failed to create dri screen\nlibGL error: failed to load driver: nouveau" information may be printed when DRI_PRIME=1 glxinfo -B" command is used if closed sourced driver and GPU configurations are used for NVIDIA cards. Same output contains information of integrated GPU.
         glxinfo_output_discrete_gpu = "-"
@@ -269,7 +269,7 @@ def gpu_loop_func():
         current_monitor_number = current_screen.get_monitor_at_window(current_screen.get_active_window())
         current_display = Gdk.Display.get_default()
         current_refresh_rate = f'{(current_display.get_monitor(current_monitor_number).get_refresh_rate() / 1000):.2f} Hz'
-    except:
+    except Exception:
         current_refresh_rate = "[" + "Unknown" + "]"
 
 
