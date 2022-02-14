@@ -58,7 +58,6 @@ def floating_summary_gui_func():
     window3001.set_skip_taskbar_hint(True)                                                    # For hiding window on the taskbar.
     window3001.set_decorated(False)                                                           # For hiding window title, buttons on the title and window border.
     window3001.set_keep_above(True)                                                           # For keeping the window on top of all windows.
-    window3001.set_opacity(Config.floating_summary_window_transparency)                       # Set transperancy of the window.
 
     # Floating Summary window is closed when main window is closed (when application is run as running a desktop application). But it is not closed when main window is closed if application is run from an IDE for debugging/developing purposes.
 
@@ -72,7 +71,7 @@ def floating_summary_initial_func():
 # ----------------------------------- FloatingSummary - Loop Function -----------------------------------
 def floating_summary_loop_func():
 
-    window3001.set_opacity(Config.floating_summary_window_transparency)
+    window3001.set_opacity(Config.floating_summary_window_transparency)                       # Set transperancy of the window.
 
     floating_summary_data_shown_prev = []
     floating_summary_data_shown = Config.floating_summary_data_shown

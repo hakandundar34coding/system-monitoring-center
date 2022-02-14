@@ -82,7 +82,7 @@ def main_gui_func():
     def on_window1_destroy(widget):
         Gtk.main_quit()
 
-    def on_window1_show(widget):                                                              # Some functions such a (hardware selection, performance backround function, main menu gui importing and setting popup menu (main menu) are run after main window is shown. This is due to decreasing window display delay.
+    def on_window1_show(widget):                                                              # Some functions (such as hardware selection, performance backround function, main menu gui importing, etc.) are run after main window is shown in order to reduce window display delay.
         # Import Config module (contains settings) and read config data
         global Config
         import Config
@@ -104,11 +104,11 @@ def main_gui_func():
             import PerformanceSummaryHeaderbar
             PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
             PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
-            headerbar1.add(PerformanceSummaryHeaderbar.grid101)                               # Add the grid to the window headerbar
+            headerbar1.add(PerformanceSummaryHeaderbar.grid101)
             PerformanceSummaryHeaderbar.performance_summary_headerbar_run_func()
 
         # Show Floating Summary Window on application start if this setting is leaved as "Enabled" from the Main Menu.
-        if Config.show_floating_summary == 1:                                                 # Show Floating Summary window appropriate with user preferences. Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.
+        if Config.show_floating_summary == 1:                                                 # Code below this statement have to be used after "Performance" tab functions, variables, data are defined and functions are run in order to avoid errors.
             import FloatingSummary
             FloatingSummary.floating_summary_import_func()
             FloatingSummary.floating_summary_gui_func()
@@ -211,7 +211,7 @@ def main_gui_func():
 # ----------------------------------- MainGUI - Default Tab Function (switches to default tab on initial run) -----------------------------------
 def main_gui_default_tab_func():
 
-    default_main_tab = Config.default_main_tab                                                # Local definition of this variable is made for lower CPU usage becuse this variable is used multiple times.
+    default_main_tab = Config.default_main_tab
     if default_main_tab == 0:
          radiobutton1.set_active(True)
     elif default_main_tab == 1:
