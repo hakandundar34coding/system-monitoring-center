@@ -25,7 +25,7 @@ def settings_gui_func():
     # Settings tab GUI objects
     global builder2001, window2001
     global button2002, button2003, button2004
-    global combobox2001, combobox2002, combobox2003, combobox2004
+    global combobox2001, combobox2002, combobox2003, combobox2004, checkbutton2012
     global checkbutton2001, checkbutton2002, checkbutton2003, checkbutton2004, checkbutton2005, checkbutton2006
     global checkbutton2007, checkbutton2008, checkbutton2009, checkbutton2010, checkbutton2011
     global spinbutton2001
@@ -54,6 +54,7 @@ def settings_gui_func():
     checkbutton2009 = builder2001.get_object('checkbutton2009')
     checkbutton2010 = builder2001.get_object('checkbutton2010')
     checkbutton2011 = builder2001.get_object('checkbutton2011')
+    checkbutton2012 = builder2001.get_object('checkbutton2012')
     spinbutton2001 = builder2001.get_object('spinbutton2001')
 
 
@@ -122,6 +123,23 @@ def settings_gui_func():
             Config.remember_last_selected_hardware = 1
         if checkbutton2003.get_active() == False:
             Config.remember_last_selected_hardware = 0
+        Config.config_save_func()
+
+    def on_checkbutton2012_toggled(widget):                                                   # "Remember window size" GUI object signal
+        if checkbutton2012.get_active() == True:                                              # Get window state (if full screen or not), window size (width, height) and save
+            remember_window_size_value = 1
+            main_window_state = MainGUI.window1.is_maximized()
+            if main_window_state == True:
+                main_window_state = 1
+            if main_window_state == False:
+                main_window_state = 0
+            main_window_width, main_window_height = MainGUI.window1.get_size()
+            Config.remember_window_size = [remember_window_size_value, main_window_state, main_window_width, main_window_height]
+        if checkbutton2012.get_active() == False:                                             # Reset window size/state settings
+            remember_window_size_value = 0
+            main_window_state = 0
+            main_window_width, main_window_height = MainGUI.window1.get_default_size()
+            Config.remember_window_size = [remember_window_size_value, main_window_state, main_window_width, main_window_height]
         Config.config_save_func()
 
     def on_button2002_clicked(widget):                                                        # "Reset general settings to defaults" GUI object signal
@@ -235,6 +253,7 @@ def settings_gui_func():
         checkbutton2009.connect("toggled", on_checkbutton2009_toggled)
         checkbutton2010.connect("toggled", on_checkbutton2010_toggled)
         checkbutton2011.connect("toggled", on_checkbutton2011_toggled)
+        checkbutton2012.connect("toggled", on_checkbutton2012_toggled)
         spinbutton2001.connect("value-changed", spinbutton2001_on_value_changed)
 
 
@@ -255,6 +274,7 @@ def settings_gui_func():
         checkbutton2009.disconnect_by_func(on_checkbutton2009_toggled)
         checkbutton2010.disconnect_by_func(on_checkbutton2010_toggled)
         checkbutton2011.disconnect_by_func(on_checkbutton2011_toggled)
+        checkbutton2012.disconnect_by_func(on_checkbutton2012_toggled)
         spinbutton2001.disconnect_by_func(spinbutton2001_on_value_changed)
 
 
@@ -341,6 +361,11 @@ def settings_gui_general_settings_tab_set_func():
         checkbutton2003.set_active(True)
     if Config.remember_last_selected_hardware == 0:
         checkbutton2003.set_active(False)
+    # Set GUI preferences for "remember window size" setting
+    if Config.remember_window_size[0] == 1:
+        checkbutton2012.set_active(True)
+    if Config.remember_window_size[0] == 0:
+        checkbutton2012.set_active(False)
 
 
 # ----------------------------------- Settings - Settings GUI Floating Summary Settings Tab Set Function (sets Settings Window GUI objects appropriate with user preferences get from Config module) -----------------------------------

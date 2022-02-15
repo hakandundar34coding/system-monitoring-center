@@ -82,12 +82,37 @@ def main_gui_func():
     def on_window1_destroy(widget):
         Gtk.main_quit()
 
+    def on_window1_delete(widget, data=None):                                                 # Window size is get by this event in order to get current window size. It gives pre-defined window size (it can be defined in the window .ui files) if ".get_size()" is used in "window destroy event" function.
+        # Get window state (if full screen or not), window size (width, height) and save
+#         import time;times=time.time()
+        if Config.remember_window_size[0] == 1:
+            main_window_state = window1.is_maximized()
+            if main_window_state == True:
+                main_window_state = 1
+            if main_window_state == False:
+                main_window_state = 0
+            main_window_width, main_window_height = window1.get_size()
+            remember_window_size_value = Config.remember_window_size[0]
+            Config.remember_window_size = [remember_window_size_value, main_window_state, main_window_width, main_window_height]
+            Config.config_save_func()
+#         print(time.time()-times)
+
     def on_window1_show(widget):                                                              # Some functions (such as hardware selection, performance backround function, main menu gui importing, etc.) are run after main window is shown in order to reduce window display delay.
         # Import Config module (contains settings) and read config data
         global Config
         import Config
         Config.config_import_func()
         Config.config_read_func()
+
+#         import time;times=time.time()
+        # Resize/set state (full screen or not) of the main window if "remember window size" option is enabled.
+        remember_window_size = Config.remember_window_size
+        if remember_window_size[0] == 1:
+            if remember_window_size[1] == 1:
+                window1.maximize()
+            if remember_window_size[1] == 0:
+                window1.resize(remember_window_size[2], remember_window_size[3])
+#         print(time.time()-times)
 
         # Run "Performance" module in order to provide performance data to Performance tab, performance summary on the headerbar and Floating Summary window.
         global Performance                                                                    # This module is always imported after window show in order to track performance data in the background even if tabs are switched. Otherwise performance data such as CPU, RAM, etc. will be shown as intermitted on the charts (due to tab switches).
@@ -190,6 +215,7 @@ def main_gui_func():
 
     # Main GUI functions - connect
     window1.connect("destroy", on_window1_destroy)
+    window1.connect("delete_event", on_window1_delete)
     window1.connect("show", on_window1_show)
     button1.connect("clicked", on_button1_clicked)
     radiobutton1.connect("toggled", on_radiobutton1_toggled)

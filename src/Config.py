@@ -91,7 +91,7 @@ def config_default_general_general_func():
     global reset_all_settings_with_new_release
     global update_interval, chart_data_history, default_main_tab, performance_tab_default_sub_tab
     global performance_summary_on_the_headerbar, remember_last_opened_tabs_on_application_start, chart_background_color_all_charts
-    global remember_last_selected_hardware
+    global remember_last_selected_hardware, remember_window_size
     reset_all_settings_with_new_release = reset_all_settings_with_new_release_value 
     update_interval = 0.75
     chart_data_history = 150
@@ -101,6 +101,7 @@ def config_default_general_general_func():
     remember_last_opened_tabs_on_application_start = 0
     chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
     remember_last_selected_hardware = 0
+    remember_window_size = [0, 0, 0, 0]
 
 # Adding a new setting
 #     global new_setting
@@ -268,7 +269,7 @@ def config_get_values_func():
     global reset_all_settings_with_new_release
     global update_interval, chart_data_history, default_main_tab, performance_tab_default_sub_tab
     global performance_summary_on_the_headerbar, remember_last_opened_tabs_on_application_start, chart_background_color_all_charts
-    global remember_last_selected_hardware
+    global remember_last_selected_hardware, remember_window_size
 
     global show_floating_summary, floating_summary_window_transparency, floating_summary_data_shown
 
@@ -310,6 +311,10 @@ def config_get_values_func():
     remember_last_opened_tabs_on_application_start = int(config_values[config_variables.index("remember_last_opened_tabs_on_application_start")])
     chart_background_color_all_charts = [float(value) for value in config_values[config_variables.index("chart_background_color_all_charts")].strip("[]").split(", ")]
     remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
+    if "remember_window_size" in config_variables:
+        remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
+    else:
+        pass
 
     show_floating_summary = int(config_values[config_variables.index("show_floating_summary")])
     floating_summary_window_transparency = float(config_values[config_variables.index("floating_summary_window_transparency")])
@@ -413,6 +418,7 @@ def config_save_func():
     config_write_text = config_write_text + "remember_last_opened_tabs_on_application_start = " + str(remember_last_opened_tabs_on_application_start) + "\n"
     config_write_text = config_write_text + "chart_background_color_all_charts = " + str(chart_background_color_all_charts) + "\n"
     config_write_text = config_write_text + "remember_last_selected_hardware = " + str(remember_last_selected_hardware) + "\n"
+    config_write_text = config_write_text + "remember_window_size = " + str(remember_window_size) + "\n"
     config_write_text = config_write_text + "\n"
 
     config_write_text = config_write_text + "[General - Floating Summary]" + "\n"
