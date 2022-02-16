@@ -116,6 +116,8 @@ def services_menu_right_click_gui_func():
     menuitem6102m.connect("activate", on_menuitem6102m_activate)
     menuitem6103m.connect("activate", on_menuitem6103m_activate)
     menuitem6104m.connect("activate", on_menuitem6104m_activate)
+    menuitem6105m.connect("activate", on_menuitem6105m_activate)
+    menuitem6106m.connect("activate", on_menuitem6106m_activate)
     global checkmenuitem6107m_handler_id
     checkmenuitem6107m_handler_id = checkmenuitem6107m.connect("toggled", on_checkmenuitem6107m_toggled)    # Handler id is defined in order to block signals of the checkmenuitem. Because checkmenuitem is set as "activated/deactivated" appropriate with relevant service status when right click and mouse button release action is finished. This action triggers unwanted event signals.
     menuitem6108m.connect("activate", on_menuitem6108m_activate)
