@@ -285,8 +285,6 @@ def config_get_values_func():
 
     global chart_line_color_fps, selected_gpu
 
-    global sensors_treeview_columns_shown, sensors_data_row_sorting_column, sensors_data_row_sorting_order, sensors_data_column_order, sensors_data_column_widths
-
     global show_processes_of_all_users, show_processes_as_tree, show_tree_lines, processes_cpu_usage_percent_precision
     global processes_ram_swap_data_precision, processes_ram_swap_data_unit, processes_disk_speed_data_precision, processes_disk_usage_data_precision
     global processes_disk_speed_data_unit, processes_disk_usage_data_unit, warn_before_stopping_processes
@@ -350,12 +348,6 @@ def config_get_values_func():
     chart_line_color_fps = [float(value) for value in config_values[config_variables.index("chart_line_color_fps")].strip("[]").split(", ")]
     selected_gpu = config_values[config_variables.index("selected_gpu")]
 
-    sensors_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("sensors_treeview_columns_shown")].strip("[]").split(", ")]
-    sensors_data_row_sorting_column = int(config_values[config_variables.index("sensors_data_row_sorting_column")])
-    sensors_data_row_sorting_order = int(config_values[config_variables.index("sensors_data_row_sorting_order")])
-    sensors_data_column_order = [int(value) for value in config_values[config_variables.index("sensors_data_column_order")].strip("[]").split(", ")]
-    sensors_data_column_widths = [int(value) for value in config_values[config_variables.index("sensors_data_column_widths")].strip("[]").split(", ")]
-
     show_processes_of_all_users = int(config_values[config_variables.index("show_processes_of_all_users")])
     show_processes_as_tree = int(config_values[config_variables.index("show_processes_as_tree")])
     show_tree_lines = int(config_values[config_variables.index("show_tree_lines")])
@@ -373,9 +365,6 @@ def config_get_values_func():
     processes_data_column_order = [int(value) for value in config_values[config_variables.index("processes_data_column_order")].strip("[]").split(", ")]
     processes_data_column_widths = [int(value) for value in config_values[config_variables.index("processes_data_column_widths")].strip("[]").split(", ")]
 
-    users_cpu_usage_percent_precision = int(config_values[config_variables.index("users_cpu_usage_percent_precision")])
-    users_ram_swap_data_precision = int(config_values[config_variables.index("users_ram_swap_data_precision")])
-    users_ram_swap_data_unit = int(config_values[config_variables.index("users_ram_swap_data_unit")])
     users_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("users_treeview_columns_shown")].strip("[]").split(", ")]
     users_data_row_sorting_column = int(config_values[config_variables.index("users_data_row_sorting_column")])
     users_data_row_sorting_order = int(config_values[config_variables.index("users_data_row_sorting_order")])
@@ -388,8 +377,6 @@ def config_get_values_func():
     startup_data_column_order = [int(value) for value in config_values[config_variables.index("startup_data_column_order")].strip("[]").split(", ")]
     startup_data_column_widths = [int(value) for value in config_values[config_variables.index("startup_data_column_widths")].strip("[]").split(", ")]
 
-    services_ram_swap_data_precision = int(config_values[config_variables.index("services_ram_swap_data_precision")])
-    services_ram_swap_data_unit = int(config_values[config_variables.index("services_ram_swap_data_unit")])
     services_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("services_treeview_columns_shown")].strip("[]").split(", ")]
     services_data_row_sorting_column = int(config_values[config_variables.index("services_data_row_sorting_column")])
     services_data_row_sorting_order = int(config_values[config_variables.index("services_data_row_sorting_order")])
@@ -467,14 +454,6 @@ def config_save_func():
     config_write_text = config_write_text + "selected_gpu = " + str(selected_gpu) + "\n"
     config_write_text = config_write_text + "\n"
 
-    config_write_text = config_write_text + "[Performance Tab - Sensors]" + "\n"
-    config_write_text = config_write_text + "sensors_treeview_columns_shown = " + str(sensors_treeview_columns_shown) + "\n"
-    config_write_text = config_write_text + "sensors_data_row_sorting_column = " + str(sensors_data_row_sorting_column) + "\n"
-    config_write_text = config_write_text + "sensors_data_row_sorting_order = " + str(sensors_data_row_sorting_order) + "\n"
-    config_write_text = config_write_text + "sensors_data_column_order = " + str(sensors_data_column_order) + "\n"
-    config_write_text = config_write_text + "sensors_data_column_widths = " + str(sensors_data_column_widths) + "\n"
-    config_write_text = config_write_text + "\n"
-
     config_write_text = config_write_text + "[Processes Tab]" + "\n"
     config_write_text = config_write_text + "show_processes_of_all_users = " + str(show_processes_of_all_users) + "\n"
     config_write_text = config_write_text + "show_processes_as_tree = " + str(show_processes_as_tree) + "\n"
@@ -495,9 +474,6 @@ def config_save_func():
     config_write_text = config_write_text + "\n"
 
     config_write_text = config_write_text + "[Users Tab]" + "\n"
-    config_write_text = config_write_text + "users_cpu_usage_percent_precision = " + str(users_cpu_usage_percent_precision) + "\n"
-    config_write_text = config_write_text + "users_ram_swap_data_precision = " + str(users_ram_swap_data_precision) + "\n"
-    config_write_text = config_write_text + "users_ram_swap_data_unit = " + str(users_ram_swap_data_unit) + "\n"
     config_write_text = config_write_text + "users_treeview_columns_shown = " + str(users_treeview_columns_shown) + "\n"
     config_write_text = config_write_text + "users_data_row_sorting_column = " + str(users_data_row_sorting_column) + "\n"
     config_write_text = config_write_text + "users_data_row_sorting_order = " + str(users_data_row_sorting_order) + "\n"
@@ -514,8 +490,6 @@ def config_save_func():
     config_write_text = config_write_text + "\n"
 
     config_write_text = config_write_text + "[Services Tab]" + "\n"
-    config_write_text = config_write_text + "services_ram_swap_data_precision = " + str(services_ram_swap_data_precision) + "\n"
-    config_write_text = config_write_text + "services_ram_swap_data_unit = " + str(services_ram_swap_data_unit) + "\n"
     config_write_text = config_write_text + "services_treeview_columns_shown = " + str(services_treeview_columns_shown) + "\n"
     config_write_text = config_write_text + "services_data_row_sorting_column = " + str(services_data_row_sorting_column) + "\n"
     config_write_text = config_write_text + "services_data_row_sorting_order = " + str(services_data_row_sorting_order) + "\n"
