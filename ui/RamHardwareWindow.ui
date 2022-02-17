@@ -4,7 +4,6 @@
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="window1201w">
     <property name="can-focus">False</property>
-    <property name="border-width">10</property>
     <property name="title" translatable="yes">RAM Hardware Information</property>
     <property name="modal">True</property>
     <property name="default-width">400</property>
@@ -18,6 +17,10 @@
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
+        <property name="margin-start">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-top">10</property>
+        <property name="margin-bottom">10</property>
         <property name="row-spacing">10</property>
         <property name="column-homogeneous">True</property>
         <child>
@@ -31,7 +34,10 @@
               <object class="GtkViewport">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="border-width">10</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+                <property name="margin-top">10</property>
+                <property name="margin-bottom">10</property>
                 <child>
                   <object class="GtkLabel" id="label1201w">
                     <property name="visible">True</property>

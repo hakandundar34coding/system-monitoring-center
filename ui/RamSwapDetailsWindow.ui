@@ -4,7 +4,6 @@
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="window1201w2">
     <property name="can-focus">False</property>
-    <property name="border-width">10</property>
     <property name="title" translatable="yes">Swap Memory Details</property>
     <property name="modal">True</property>
     <property name="default-width">320</property>
@@ -18,6 +17,10 @@
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
+        <property name="margin-start">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-top">10</property>
+        <property name="margin-bottom">10</property>
         <child>
           <object class="GtkScrolledWindow">
             <property name="visible">True</property>
@@ -29,7 +32,10 @@
               <object class="GtkViewport">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="border-width">10</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+                <property name="margin-top">10</property>
+                <property name="margin-bottom">10</property>
                 <child>
                   <object class="GtkLabel" id="label1201w2">
                     <property name="visible">True</property>

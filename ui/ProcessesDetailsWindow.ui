@@ -4,7 +4,6 @@
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window2101w">
     <property name="can-focus">False</property>
-    <property name="border-width">10</property>
     <property name="title" translatable="yes">Process Details</property>
     <property name="modal">True</property>
     <property name="default-width">500</property>
@@ -16,6 +15,10 @@
       <object class="GtkNotebook" id="notebook2101w">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
+        <property name="margin-start">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-top">10</property>
+        <property name="margin-bottom">10</property>
         <child>
           <object class="GtkScrolledWindow">
             <property name="visible">True</property>
@@ -30,7 +33,10 @@
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="border-width">10</property>
+                    <property name="margin-start">10</property>
+                    <property name="margin-end">10</property>
+                    <property name="margin-top">10</property>
+                    <property name="margin-bottom">10</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">10</property>
                     <child>
@@ -720,7 +726,10 @@
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="border-width">10</property>
+                    <property name="margin-start">10</property>
+                    <property name="margin-end">10</property>
+                    <property name="margin-top">10</property>
+                    <property name="margin-bottom">10</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">10</property>
                     <child>
@@ -1298,7 +1307,10 @@
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="border-width">10</property>
+                    <property name="margin-start">10</property>
+                    <property name="margin-end">10</property>
+                    <property name="margin-top">10</property>
+                    <property name="margin-bottom">10</property>
                     <property name="row-spacing">5</property>
                     <property name="column-spacing">10</property>
                     <child>

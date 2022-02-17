@@ -15,14 +15,20 @@
       <object class="GtkNotebook">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="border-width">10</property>
+        <property name="margin-start">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-top">10</property>
+        <property name="margin-bottom">10</property>
         <child>
           <!-- n-columns=2 n-rows=14 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="margin-start">10</property>
+            <property name="margin-end">10</property>
+            <property name="margin-top">10</property>
+            <property name="margin-bottom">10</property>
             <property name="hexpand">True</property>
-            <property name="border-width">10</property>
             <property name="row-spacing">3</property>
             <child>
               <object class="GtkLabel">
@@ -299,7 +305,10 @@
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="border-width">10</property>
+            <property name="margin-start">10</property>
+            <property name="margin-end">10</property>
+            <property name="margin-top">10</property>
+            <property name="margin-bottom">10</property>
             <property name="row-spacing">7</property>
             <child>
               <object class="GtkFrame">
@@ -314,7 +323,10 @@
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="border-width">10</property>
+                    <property name="margin-start">10</property>
+                    <property name="margin-end">10</property>
+                    <property name="margin-top">10</property>
+                    <property name="margin-bottom">10</property>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2004">
                         <property name="label" translatable="yes">CPU</property>
@@ -533,7 +545,10 @@
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="border-width">10</property>
+            <property name="margin-start">10</property>
+            <property name="margin-end">10</property>
+            <property name="margin-top">10</property>
+            <property name="margin-bottom">10</property>
             <child>
               <object class="GtkButton" id="button2004">
                 <property name="visible">True</property>

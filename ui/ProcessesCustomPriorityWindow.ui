@@ -9,7 +9,6 @@
   </object>
   <object class="GtkWindow" id="window2101w2">
     <property name="can-focus">False</property>
-    <property name="border-width">10</property>
     <property name="title" translatable="yes">Change Priority (Nice)</property>
     <property name="modal">True</property>
     <property name="default-width">400</property>
@@ -22,6 +21,10 @@
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
+        <property name="margin-start">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-top">10</property>
+        <property name="margin-bottom">10</property>
         <property name="row-spacing">10</property>
         <property name="column-homogeneous">True</property>
         <child>
@@ -70,7 +73,10 @@
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="border-width">10</property>
+            <property name="margin-start">10</property>
+            <property name="margin-end">10</property>
+            <property name="margin-top">10</property>
+            <property name="margin-bottom">10</property>
             <property name="column-spacing">50</property>
             <property name="column-homogeneous">True</property>
             <child>
