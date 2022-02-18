@@ -7,6 +7,7 @@ def performance_summary_headerbar_import_func():
 
     import gi
     gi.require_version('Gtk', '3.0')
+    gi.require_version('GLib', '2.0')
     from gi.repository import Gtk, GLib
     import os
 

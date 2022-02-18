@@ -7,6 +7,8 @@ def users_details_import_func():
 
     import gi
     gi.require_version('Gtk', '3.0')
+    gi.require_version('GLib', '2.0')
+    gi.require_version('GdkPixbuf', '2.0')
     from gi.repository import Gtk, GLib, GdkPixbuf
     import os
     import subprocess

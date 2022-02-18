@@ -24,37 +24,48 @@ def main_menus_gui_func():
 
 
     # ********************** Define object names for Main Menu GUI and About Dialog **********************
-    global menu1001m
-    global menuitem1004m, menuitem1005m, checkmenuitem1001m
+    global popover1001p
+    global button1001p, button1002p, button1003p, checkbutton1001p
 
     global aboutdialog1001d
 
     # ********************** Get objects for Main Menu GUI and About Dialog **********************
-    menu1001m = builder.get_object('menu1001m')
-    menuitem1004m = builder.get_object('menuitem1004m')
-    menuitem1005m = builder.get_object('menuitem1005m')
-    checkmenuitem1001m = builder.get_object('checkmenuitem1001m')
+    popover1001p = builder.get_object('popover1001p')
+    button1001p = builder.get_object('button1001p')
+    button1002p = builder.get_object('button1002p')
+    button1003p = builder.get_object('button1003p')
+    checkbutton1001p = builder.get_object('checkbutton1001p')
 
     aboutdialog1001d = builder.get_object('aboutdialog1001d')
 
 
     # ********************** Define object functions for Main Menu GUI **********************
-    def on_checkmenuitem1001m_toggled(widget):                                                # "Floating Summary" menu item
-        if "FloatingSummary" not in globals():                                                # Floating Summary window might have been opened on the application start and user may want to hide it from the Main Menu of the application. Existance check of the "FloatingSummary" variable is performed before the "if checkmenuitem1001m.get_active() == False:" statement in order to avoid errors of FloatingSummary not defined.
+    def on_popover1001p_show(widget):                                                         # On popover show
+        if Config.show_floating_summary == 0:
+            checkbutton1001p.set_active(False)
+        else:                                                                                 # Do not use "if" here in order to avoid multiple "set_active" actions.
+            checkbutton1001p.set_active(True)
+
+    def on_button1003p_clicked(widget):                                                       # "Floating Summary" menu item
+        popover1001p.hide()
+        if "FloatingSummary" not in globals():                                                # Floating Summary window might have been opened on the application start and user may want to hide it from the Main Menu of the application. Existance check of the "FloatingSummary" variable is performed before the "if checkbutton1001p.get_active() == False:" statement in order to avoid errors of FloatingSummary not defined.
             global FloatingSummary
             import FloatingSummary
-        if checkmenuitem1001m.get_active() == True:
+        if Config.show_floating_summary == 0:
+            checkbutton1001p.set_active(True)
             FloatingSummary.floating_summary_import_func()
             FloatingSummary.floating_summary_gui_func()
             FloatingSummary.window3001.show()                                                 # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
             FloatingSummary.floating_summary_run_func()
             Config.show_floating_summary = 1
-        if checkmenuitem1001m.get_active() == False:
+        else:
+            checkbutton1001p.set_active(False)
             FloatingSummary.window3001.hide()
             Config.show_floating_summary = 0
         Config.config_save_func()
 
-    def on_menuitem1004m_activate(widget):                                                    # "Settings" menu item
+    def on_button1001p_clicked(widget):                                                       # "Settings" menu item
+        popover1001p.hide()
         if "SettingsGUI" not in globals():                                                    # Settings module is imported and the following functions are run only one time during application run. This statement is used in order to avoid them running on every window opening.
             global SettingsGUI
             import SettingsGUI
@@ -62,7 +73,8 @@ def main_menus_gui_func():
             SettingsGUI.settings_gui_func()
         SettingsGUI.window2001.show()
 
-    def on_menuitem1005m_activate(widget):                                                    # "About" menu item
+    def on_button1002p_clicked(widget):                                                       # "About" menu item
+        popover1001p.hide()
         try:
             software_version = open(os.path.dirname(os.path.abspath(__file__)) + "/__version__").readline()
         except Exception:
@@ -73,7 +85,7 @@ def main_menus_gui_func():
 
 
     # ********************** Connect signals to GUI objects for Main Menu GUI **********************
-    global checkmenuitem1001m_handler_id
-    checkmenuitem1001m_handler_id = checkmenuitem1001m.connect("toggled", on_checkmenuitem1001m_toggled)    # Define handler id for "checkmenuitem1001m" in order to block this signal when toggling the checkbox.
-    menuitem1004m.connect("activate", on_menuitem1004m_activate)
-    menuitem1005m.connect("activate", on_menuitem1005m_activate)
+    popover1001p.connect("show", on_popover1001p_show)
+    button1001p.connect("clicked", on_button1001p_clicked)
+    button1002p.connect("clicked", on_button1002p_clicked)
+    button1003p.connect("clicked", on_button1003p_clicked)

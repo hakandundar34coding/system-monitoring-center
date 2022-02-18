@@ -7,6 +7,10 @@ def users_import_func():
 
     import gi
     gi.require_version('Gtk', '3.0')
+    gi.require_version('GLib', '2.0')
+    gi.require_version('Gdk', '3.0')
+    gi.require_version('GObject', '2.0')
+    gi.require_version('GdkPixbuf', '2.0')
     from gi.repository import Gtk, Gdk, GLib, GObject, GdkPixbuf
     import os
     from datetime import datetime

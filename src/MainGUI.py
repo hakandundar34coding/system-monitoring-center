@@ -125,7 +125,7 @@ def main_gui_func():
             import PerformanceSummaryHeaderbar
             PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
             PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
-            headerbar1.add(PerformanceSummaryHeaderbar.grid101)
+            headerbar1.pack_start(PerformanceSummaryHeaderbar.grid101)
             PerformanceSummaryHeaderbar.performance_summary_headerbar_run_func()
 
         # Show Floating Summary Window on application start if this setting is leaved as "Enabled" from the Main Menu.
@@ -138,26 +138,24 @@ def main_gui_func():
 
         # Show information for warning the user if the application has been run with root privileges. Information is shown just below the application window headerbar.
         if os.geteuid() == 0:                                                                 # Check UID if it is "0". This means the application is run with root privileges.
-            from gi.repository import Gdk
             label_root_warning = Gtk.Label(label=_tr("Warning! The application has been run with root privileges, you may harm your system."))    # Generate a new label for the information. This label does not exist in the ".ui" UI file.
-            label_root_warning.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))
+            css = b"label {background: rgba(100%,0%,0%,1.0);}"
+            style_provider = Gtk.CssProvider()
+            style_provider.load_from_data(css)
+            label_root_warning.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
             grid10.insert_row(0)
             grid10.attach(label_root_warning, 0, 0, 1, 1)                                     # Attach the label to the grid at (0, 0) position.
             label_root_warning.set_visible(True)
 
     def on_button1_clicked(widget):                                                           # "Main Menu" button
         if 'MainMenusDialogs' not in globals():
-            global MainMenusDialogs, Gdk
+            global MainMenusDialogs
             import MainMenusDialogs
-            from gi.repository import Gdk
             MainMenusDialogs.main_menus_gui_import_func()
             MainMenusDialogs.main_menus_gui_func()
-        with MainMenusDialogs.checkmenuitem1001m.handler_block(MainMenusDialogs.checkmenuitem1001m_handler_id):    # Block signal of "checkmenuitem1001m" in order to toggle it without triggering the signal.
-            if Config.show_floating_summary == 0:
-                MainMenusDialogs.checkmenuitem1001m.set_active(False)
-            if Config.show_floating_summary == 1:
-                MainMenusDialogs.checkmenuitem1001m.set_active(True)
-        MainMenusDialogs.menu1001m.popup_at_widget(button1, Gdk.Gravity(7), Gdk.Gravity(1), None)
+            MainMenusDialogs.popover1001p.set_relative_to(button1)                            # Set widget that popover menu will display at the edge of.
+            MainMenusDialogs.popover1001p.set_position(Gtk.PositionType.BOTTOM)
+        MainMenusDialogs.popover1001p.popup()
 
     def on_radiobutton1_toggled(widget):                                                      # "Performance" radiobutton
         if radiobutton1.get_active() == True:

@@ -90,7 +90,7 @@ def settings_gui_func():
                 PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
                 PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
             PerformanceSummaryHeaderbar.performance_summary_headerbar_run_func()
-            MainGUI.headerbar1.add(PerformanceSummaryHeaderbar.grid101)                       # Add performance summary to the main window headerbar.
+            MainGUI.headerbar1.pack_start(PerformanceSummaryHeaderbar.grid101)                # Add performance summary to the main window headerbar.
         if checkbutton2001.get_active() == False:
             Config.performance_summary_on_the_headerbar = 0
             if 'PerformanceSummaryHeaderbar' not in globals():
