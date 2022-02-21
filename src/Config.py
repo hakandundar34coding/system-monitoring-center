@@ -293,8 +293,6 @@ def config_get_values_func():
     global users_cpu_usage_percent_precision, users_ram_swap_data_precision, users_ram_swap_data_unit
     global users_treeview_columns_shown, users_data_row_sorting_column, users_data_row_sorting_order, users_data_column_order, users_data_column_widths
 
-    global startup_treeview_columns_shown, startup_data_row_sorting_column, startup_data_row_sorting_order, startup_data_column_order, startup_data_column_widths
-
     global services_ram_swap_data_precision, services_ram_swap_data_unit
     global services_treeview_columns_shown, services_data_row_sorting_column, services_data_row_sorting_order, services_data_column_order, services_data_column_widths
 
@@ -370,12 +368,6 @@ def config_get_values_func():
     users_data_row_sorting_order = int(config_values[config_variables.index("users_data_row_sorting_order")])
     users_data_column_order = [int(value) for value in config_values[config_variables.index("users_data_column_order")].strip("[]").split(", ")]
     users_data_column_widths = [int(value) for value in config_values[config_variables.index("users_data_column_widths")].strip("[]").split(", ")]
-
-    startup_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("startup_treeview_columns_shown")].strip("[]").split(", ")]
-    startup_data_row_sorting_column = int(config_values[config_variables.index("startup_data_row_sorting_column")])
-    startup_data_row_sorting_order = int(config_values[config_variables.index("startup_data_row_sorting_order")])
-    startup_data_column_order = [int(value) for value in config_values[config_variables.index("startup_data_column_order")].strip("[]").split(", ")]
-    startup_data_column_widths = [int(value) for value in config_values[config_variables.index("startup_data_column_widths")].strip("[]").split(", ")]
 
     services_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("services_treeview_columns_shown")].strip("[]").split(", ")]
     services_data_row_sorting_column = int(config_values[config_variables.index("services_data_row_sorting_column")])
@@ -479,14 +471,6 @@ def config_save_func():
     config_write_text = config_write_text + "users_data_row_sorting_order = " + str(users_data_row_sorting_order) + "\n"
     config_write_text = config_write_text + "users_data_column_order = " + str(users_data_column_order) + "\n"
     config_write_text = config_write_text + "users_data_column_widths = " + str(users_data_column_widths) + "\n"
-    config_write_text = config_write_text + "\n"
-
-    config_write_text = config_write_text + "[Startup Tab]" + "\n"
-    config_write_text = config_write_text + "startup_treeview_columns_shown = " + str(startup_treeview_columns_shown) + "\n"
-    config_write_text = config_write_text + "startup_data_row_sorting_column = " + str(startup_data_row_sorting_column) + "\n"
-    config_write_text = config_write_text + "startup_data_row_sorting_order = " + str(startup_data_row_sorting_order) + "\n"
-    config_write_text = config_write_text + "startup_data_column_order = " + str(startup_data_column_order) + "\n"
-    config_write_text = config_write_text + "startup_data_column_widths = " + str(startup_data_column_widths) + "\n"
     config_write_text = config_write_text + "\n"
 
     config_write_text = config_write_text + "[Services Tab]" + "\n"

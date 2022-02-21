@@ -99,18 +99,18 @@ def users_gui_func():
 
     def on_radiobutton3101_toggled(widget):                                                   # "Show all users" radiobutton
         if radiobutton3101.get_active() == True:
-            searchentry3101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry3101.set_text("")
             users_treeview_filter_show_all_func()
 
     def on_radiobutton3102_toggled(widget):                                                   # "Show only users logged in" radiobutton
         if radiobutton3102.get_active() == True:
-            searchentry3101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry3101.set_text("")
             users_treeview_filter_show_all_func()
             users_treeview_filter_users_logged_in_only()
 
     def on_radiobutton3103_toggled(widget):                                                   # "Show only users logged out" radiobutton
         if radiobutton3103.get_active() == True:
-            searchentry3101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry3101.set_text("")
             users_treeview_filter_show_all_func()
             users_treeview_filter_users_logged_out_only()
 

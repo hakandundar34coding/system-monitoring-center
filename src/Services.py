@@ -103,18 +103,18 @@ def services_gui_func():
 
     def on_radiobutton6101_toggled(widget):                                                   # "Show all services" radiobutton
         if radiobutton6101.get_active() == True:
-            searchentry6101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry6101.set_text("")
             services_treeview_filter_show_all_func()
 
     def on_radiobutton6102_toggled(widget):                                                   # "Show all loaded services" radiobutton
         if radiobutton6102.get_active() == True:
-            searchentry6101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry6101.set_text("")
             services_treeview_filter_show_all_func()
             services_treeview_filter_services_loaded_only()
 
     def on_radiobutton6103_toggled(widget):                                                   # "Show all non-loaded services" radiobutton
         if radiobutton6103.get_active() == True:
-            searchentry6101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry6101.set_text("")
             services_treeview_filter_show_all_func()
             services_treeview_filter_services_not_loaded_only()
 

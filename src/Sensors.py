@@ -52,24 +52,24 @@ def sensors_gui_func():
 
     def on_radiobutton1601_toggled(widget):                                                   # "Show all sensors" radiobutton
         if radiobutton1601.get_active() == True:
-            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry1601.set_text("")
             sensors_treeview_filter_show_all_func()
 
     def on_radiobutton1602_toggled(widget):                                                   # "Show all temperature sensors" radiobutton
         if radiobutton1602.get_active() == True:
-            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry1601.set_text("")
             sensors_treeview_filter_show_all_func()
             sensors_treeview_filter_only_temperature_sensors_func()
 
     def on_radiobutton1603_toggled(widget):                                                   # "Show all fan sensors" radiobutton
         if radiobutton1603.get_active() == True:
-            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry1601.set_text("")
             sensors_treeview_filter_show_all_func()
             sensors_treeview_filter_only_fan_sensors_func()
 
     def on_radiobutton1604_toggled(widget):                                                   # "Show all voltage and current sensors" radiobutton
         if radiobutton1604.get_active() == True:
-            searchentry1601.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry1601.set_text("")
             sensors_treeview_filter_show_all_func()
             sensors_treeview_filter_only_voltage_current_sensors_func()
 

@@ -23,7 +23,7 @@ def startup_import_func():
 # ----------------------------------- Startup - Startup GUI Function -----------------------------------
 def startup_gui_func():
 
-    global grid5101, treeview5101, searchentry5101, button5101
+    global grid5101, treeview5101, searchentry5101
     global radiobutton5101, radiobutton5102, radiobutton5103
 
 
@@ -35,7 +35,6 @@ def startup_gui_func():
     grid5101 = builder.get_object('grid5101')
     treeview5101 = builder.get_object('treeview5101')
     searchentry5101 = builder.get_object('searchentry5101')
-    button5101 = builder.get_object('button5101')
     radiobutton5101 = builder.get_object('radiobutton5101')
     radiobutton5102 = builder.get_object('radiobutton5102')
     radiobutton5103 = builder.get_object('radiobutton5103')
@@ -53,10 +52,9 @@ def startup_gui_func():
         # Get right/double clicked startup item file name, visibility and name
         if treeiter == None:
             return
-        global selected_startup_application_file_name, selected_startup_application_visibility, selected_startup_application_name
+        global selected_startup_application_file_name, selected_startup_application_name
         try:
             selected_startup_application_file_name = all_autostart_applications_list[startup_data_rows.index(model[treeiter][:])]
-            selected_startup_application_visibility = startup_applications_visibility_list[startup_data_rows.index(model[treeiter][:])]
             selected_startup_application_name = model[treeiter][3]
         except ValueError:
             return
@@ -68,7 +66,6 @@ def startup_gui_func():
                 StartupMenuRightClick.startup_menu_right_click_import_func()
                 StartupMenuRightClick.startup_menu_right_click_gui_func()
             StartupMenuRightClick.menu5101m.popup(None, None, None, None, event.button, event.time)
-            StartupMenuRightClick.startup_set_checkmenuitem_func()
             StartupMenuRightClick.startup_set_menu_labels_func()
 
     def on_treeview5101_button_release_event(widget, event):                                  # Mouse button press event (on the treeview)
@@ -79,37 +76,28 @@ def startup_gui_func():
         radiobutton5101.set_active(True)
         startup_treeview_filter_search_func()
 
-    def on_button5101_clicked(widget):                                                        # "Startup Tab Customizations" button
-        if 'StartupMenuCustomizations' not in globals():
-            global StartupMenuCustomizations
-            import StartupMenuCustomizations
-            StartupMenuCustomizations.startup_menu_customizations_import_func()
-            StartupMenuCustomizations.startup_menu_customizations_gui_func()
-        StartupMenuCustomizations.popover5101p.popup()
-
     def on_radiobutton5101_toggled(widget):                                                   # "Show all startup items" radiobutton
         if radiobutton5101.get_active() == True:
-            searchentry5101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry5101.set_text("")
             startup_treeview_filter_show_all_func()
 
-    def on_radiobutton5102_toggled(widget):                                                   # "Show all enabled (visible) startup items" radiobutton
+    def on_radiobutton5102_toggled(widget):                                                   # "Show user-specific startup items" radiobutton
         if radiobutton5102.get_active() == True:
-            searchentry5101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry5101.set_text("")
             startup_treeview_filter_show_all_func()
-            startup_treeview_filter_startup_visible_only()
+            startup_treeview_filter_startup_user_specific_only()
 
-    def on_radiobutton5103_toggled(widget):                                                   # "Show all disabled (hidden) startup items" radiobutton
+    def on_radiobutton5103_toggled(widget):                                                   # "Show system-wide startup items" radiobutton
         if radiobutton5103.get_active() == True:
-            searchentry5101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
+            searchentry5101.set_text("")
             startup_treeview_filter_show_all_func()
-            startup_treeview_filter_startup_hidden_only()
+            startup_treeview_filter_startup_system_wide_only()
 
 
     # Startup tab GUI functions - connect
     treeview5101.connect("button-press-event", on_treeview5101_button_press_event)
     treeview5101.connect("button-release-event", on_treeview5101_button_release_event)
     searchentry5101.connect("changed", on_searchentry5101_changed)
-    button5101.connect("clicked", on_button5101_clicked)
     radiobutton5101.connect("toggled", on_radiobutton5101_toggled)
     radiobutton5102.connect("toggled", on_radiobutton5102_toggled)
     radiobutton5103.connect("toggled", on_radiobutton5103_toggled)
@@ -130,9 +118,9 @@ def startup_initial_func():
 
     global startup_data_list
     startup_data_list = [
-                        [0, _tr('Name'), 4, 3, 4, [bool, bool, str, str], ['internal_column', 'CellRendererToggle', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'active', 'icon_name', 'text'], [0, 1, 2, 3], ['no_cell_alignment', 0.0, 0.0, 0.0], ['no_set_expand', False, False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function', 'no_cell_function']],
+                        [0, _tr('Name'), 4, 3, 4, [bool, str, str, str], ['internal_column', 'internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'no_cell_attribute', 'icon_name', 'text'], [0, 1, 2, 3], ['no_cell_alignment', 'no_cell_alignment', 0.0, 0.0], ['no_set_expand', 'no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function', 'no_cell_function']],
                         [1, _tr('Comment'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [2, _tr('Command'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
+                        [2, _tr('Type'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                         ]
 
     global startup_data_rows_prev, all_autostart_applications_list_prev, piter_list, startup_treeview_columns_shown_prev, startup_data_row_sorting_column_prev, startup_data_row_sorting_order_prev, startup_data_column_order_prev, startup_data_column_widths_prev
@@ -148,79 +136,25 @@ def startup_initial_func():
     global startup_image_no_icon
     startup_image_no_icon = "system-monitoring-center-application-startup-symbolic"           # Will be used as image of the startup items that has no icons.
 
-    # Get current desktop environment
-    global supported_desktop_environments_list
-    supported_desktop_environments_list = ["XFCE", "GNOME", "X-CINNAMON", "CINNAMON", "MATE", "KDE", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME", "zorin:GNOME", "LXQT", "LXDE"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
-    global current_desktop_environment
-    current_desktop_environment = [os.environ.get('XDG_CURRENT_DESKTOP')]
-    if current_desktop_environment != [None]:
-        current_desktop_environment[0] = current_desktop_environment[0].strip().upper()       # "current_desktop_environment" is defined as list because some dektop environmens takes into account more than one name.
-    if current_desktop_environment == ["X-CINNAMON"] or current_desktop_environment == ["CINNAMON"]:
-        current_desktop_environment = ["X-CINNAMON", "CINNAMON", "GNOME"]                     # These names are taked into account by Cinnamon desktop environment.
-    if current_desktop_environment == ["UBUNTU:GNOME"]:
-        current_desktop_environment = ["GNOME", "UBUNTU:GNOME"]
-    if current_desktop_environment == ["GNOME-CLASSIC:GNOME"]:
-        current_desktop_environment = ["GNOME", "GNOME-CLASSIC:GNOME"]
-    if current_desktop_environment == ["zorin:GNOME"]:
-        current_desktop_environment = ["GNOME", "zorin:GNOME"]
-    if current_desktop_environment == [None]:
-        # Get human and root user usernames and UIDs only one time at the per loop in order to avoid running it per startup item loop (it is different than main loop = startup_loop_func) which increases CPU consumption. This data will be used if application is run with "pkexec" command.
-        usernames_username_list = []
-        usernames_uid_list = []
-        with open("/etc/passwd") as reader:                                                   # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
-            etc_passwd_lines = reader.read().strip().split("\n")                              # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
-        for line in etc_passwd_lines:
-            line_splitted = line.split(":", 3)
-            usernames_username_list.append(line_splitted[0])
-            usernames_uid_list.append(line_splitted[2])
-
-        # Get current username which will be used for determining current user home directory.
-        global current_user_name
-        current_user_name = os.environ.get('SUDO_USER')                                       # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
-        if current_user_name is None:                                                         # Get username in the following way if current application has not been run by root privileges.
-            current_user_name = os.environ.get('USER')
-        pkexec_uid = os.environ.get('PKEXEC_UID')
-        if current_user_name == "root" and pkexec_uid != None:                                # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-            current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
-
-        # Get "current_desktop_environment"
-        current_desktop_session = "-"                                                         # Set an initial string in order to avoid errors in case of undetected current desktop session.
-        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]      # Get process PID list.
-        for pid in pid_list:
-            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-                with open("/proc/" + pid + "/comm") as reader:
-                    process_name = reader.read().strip()
-                with open("/proc/" + pid + "/status") as reader:                              # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                    proc_pid_status_lines = reader.read().split("\n")
-            except FileNotFoundError:
-                continue
-            for line in proc_pid_status_lines:
-                if "Uid:\t" in line:
-                    real_user_id = line.split(":")[1].split()[0].strip()                      # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-            if process_username == current_user_name:
-                if process_name == "xfce4-session":
-                    current_desktop_session = ["XFCE"]
-                if process_name.startswith("gnome-session-b"):
-                    current_desktop_session = ["GNOME", "UBUNTU:GNOME", "GNOME-CLASSIC:GNOME", "zorin:GNOME"]
-                if process_name == "cinnamon-session":
-                    current_desktop_session = ["X-CINNAMON", "CINNAMON", "GNOME"]             # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
-                if process_name == "mate-session":
-                    current_desktop_session = ["MATE"]
-                if process_name == "plasmashell":
-                    current_desktop_session = ["KDE"]
-                if process_name == "lxqt-session":
-                    current_desktop_session = ["LXQT"]
-                if process_name == "lxsession":
-                    current_desktop_session = ["LXDE"]
-        current_desktop_environment = current_desktop_session
-
     global filter_column
-    filter_column = startup_data_list[0][2] - 1                                                # Search filter is "Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+    filter_column = startup_data_list[0][2] - 1                                               # Search filter is "Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
 
 # ----------------------------------- Startup - Get Startup Data Function -----------------------------------
 def startup_loop_func():
+
+    # Get current desktop environment, current user name, current user autostart applications directory, system autostart applications directory
+    global current_user_autostart_directory, system_autostart_directory
+    current_user_home_directory = os.environ.get('HOME')
+    current_user_autostart_directory = current_user_home_directory + "/.config/autostart/"
+    system_autostart_directory = "/etc/xdg/autostart/"
+    # Define application "name" and "comment" strings for searching in ".desktop" files in different locale formats. ".desktop" files for some applications do not contain localized name and comment information. Some of these data are avaible for only language (such as "[tr]". Some of them avaible for language and country (such as "[tr_TR]"). Following definitions are made in order to handle these data differences.
+    system_locale = os.environ.get("LANG")
+    system_language = system_locale.split("_")[0]
+    name_language_country = "Name[" + system_locale + "]="
+    name_language = "Name[" + system_language + "]="
+    comment_language_country = "Comment[" + system_locale + "]="
+    comment_language = "Comment[" + system_language + "]="
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
     global treeview5101
@@ -234,304 +168,103 @@ def startup_loop_func():
     startup_data_column_order = Config.startup_data_column_order
     startup_data_column_widths = Config.startup_data_column_widths
 
-    # Get human and root user usernames and UIDs only one time at the per loop in order to avoid running it per startup item loop (it is different than main loop = startup_loop_func) which increases CPU consumption. This data will be used if application is run with "pkexec" command.
-    usernames_username_list = []
-    usernames_uid_list = []
-    with open("/etc/passwd") as reader:                                                       # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
-        etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
-    for line in etc_passwd_lines:
-        line_splitted = line.split(":")
-        usernames_username_list.append(line_splitted[0])
-        usernames_uid_list.append(line_splitted[2])
-
-    # Get current username which will be used for determining current user home directory.
-    global current_user_name
-    current_user_name = os.environ.get('SUDO_USER')                                           # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
-    if current_user_name is None:                                                             # Get username in the following way if current application has not been run by root privileges.
-        current_user_name = os.environ.get('USER')
-    pkexec_uid = os.environ.get('PKEXEC_UID')
-    if current_user_name == "root" and pkexec_uid != None:                                    # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-        current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
-
     # Define global variables and empty lists for the current loop
-    global startup_data_rows, startup_data_rows_prev, all_autostart_applications_list, all_autostart_applications_list_prev, startup_applications_visibility_list
+    global startup_data_rows, startup_data_rows_prev, all_autostart_applications_list, all_autostart_applications_list_prev, startup_applications_type_list
     startup_data_rows = []
-    startup_applications_visibility_list = []
-
-    # Get startup item file directories. System default autostart directory is "system_autostart_directory". Startup items are copied into "current_user_autostart_directory" directory with modified values if user make modifications for the startup item. For the user, these values override system values for the user-modified startup item.
-    for line in etc_passwd_lines:
-        line_splitted = line.split(":")
-        if line_splitted[0] == current_user_name:
-            current_user_homedir = line_splitted[5]
-    current_user_autostart_directory = current_user_homedir + "/.config/autostart/"
-    system_autostart_directory = "/etc/xdg/autostart/"
-
-    # Define application "name" and "comment" strings for searching in ".desktop" files in different locale formats. ".desktop" files for some applications do not contain localized name and comment information. Some of these data are avaible for only language (such as "[tr]". Some of them avaible for language and country (such as "[tr_TR]"). Following definitions are made in order to handle these data differences.
-    system_locale = os.environ.get("LANG")
-    system_language = system_locale.split("_")[0]
-    name_language_country = "Name[" + system_locale + "]="
-    name_language = "Name[" + system_language + "]="
-    comment_language_country = "Comment[" + system_locale + "]="
-    comment_language = "Comment[" + system_language + "]="
-
-    # In order to avoid errors, stop the loop function if current desktop session is not one of these in the "supported_desktop_environments_list" list. Currently other dektop environments are not tested for "Startup" tab. Dekstop environments may have specific lines in the ".desktop" files.
-    if set(current_desktop_environment).intersection(supported_desktop_environments_list) == 0:
-        searchentry5101.set_placeholder_text(_tr("This desktop environment is not supported") + ": " + current_desktop_environment[0])
-        return
+    startup_applications_type_list = []
 
     # There are user startup applications and system wide startup applications in linux. They are in different directories. Modifications in directory of system wide startup applications require root access.
     # To be able to make system wide startup application preferences user specific, updates (enabling/disabling startup preferences) on the .desktop files are saved in user startup application directory.
     # If same file is in both directories, .desktop file settings in user startup application directory override system wide startup application settings. For more information about this multiple instance files behavior, see: https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html
-    system_autostart_directory_applications = [filename for filename in os.listdir(system_autostart_directory) if os.path.isfile(system_autostart_directory + filename)]
-    for filename in system_autostart_directory_applications[:]:                               # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
-        if filename.endswith(".desktop") == False:
-            system_autostart_directory_applications.remove(filename)
+    system_autostart_directory_applications = [system_autostart_directory + filename for filename in os.listdir(system_autostart_directory) if filename.endswith(".desktop") == True]
+    for desktop_file in system_autostart_directory_applications[:]:
+        if os.path.isfile(desktop_file) == False:
+            system_autostart_directory_applications.remove(desktop_file)
     current_user_autostart_directory_applications = []                                        # This list is defined in order to prevent errors while performing subtraction operations if current_user_autostart_directory does not exist.
     if os.path.isdir(current_user_autostart_directory) == True:                               # Check if current user autostart directory exists. By default, this directory does not exists if no modifications are made for startup items since system installation.
-        current_user_autostart_directory_applications = [filename for filename in os.listdir(current_user_autostart_directory) if os.path.isfile(current_user_autostart_directory + filename)]
-    for filename in current_user_autostart_directory_applications[:]:                         # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
-        if filename.endswith(".desktop") == False:
-            current_user_autostart_directory_applications.remove(filename)
-    system_autostart_applications = sorted(set(system_autostart_directory_applications) - set(current_user_autostart_directory_applications))          # Autostart application files (only unmodified system autostart applications - there is no another copy of these files in the user autostart directory)
-    current_user_autostart_applications = sorted(set(current_user_autostart_directory_applications) - set(system_autostart_directory_applications))    # Autostart application files (only user autostart applications - there is no another copy of these files in the system autostart directory)
-    modified_system_applications = sorted(set(system_autostart_directory_applications).intersection(current_user_autostart_directory_applications))    # Autostart application files (modified autostart applications - there is one copy of these application files in both system and user autostart directories)
-    all_autostart_applications = sorted(set(system_autostart_directory_applications + current_user_autostart_directory_applications))                  # Autostart application files (all files including the ones in system and user autostart directories)
+        current_user_autostart_directory_applications = [current_user_autostart_directory + filename for filename in os.listdir(current_user_autostart_directory) if filename.endswith(".desktop") == True]
+    for desktop_file in current_user_autostart_directory_applications[:]:
+        if os.path.isfile(desktop_file) == False:
+            current_user_autostart_directory_applications.remove(desktop_file)
+    system_autostart_applications = sorted(set(system_autostart_directory_applications) - set(current_user_autostart_directory_applications))          # Only unmodified system autostart applications - there is no another copy of these files in the user autostart directory
+    current_user_autostart_applications = sorted(set(current_user_autostart_directory_applications) - set(system_autostart_directory_applications))    # Only user autostart applications - there is no another copy of these files in the system autostart directory
+    all_autostart_applications = sorted(set(system_autostart_directory_applications + current_user_autostart_directory_applications))                  # All files including the ones in system and user autostart directories
 
     # Get autostart application data
     for desktop_file in all_autostart_applications:
         # Read files of the autostart application
-        if desktop_file in system_autostart_directory_applications:                           # Read autostart file content if it is in the system autostart directory
-            with open(system_autostart_directory + desktop_file) as input_file:
-                file_data_system_lines = input_file.read().strip().split("\n")
-        if desktop_file in current_user_autostart_directory_applications:                     # Read autostart file content if it is in the user autostart directory
-            with open(current_user_autostart_directory + desktop_file) as input_file:
-                file_data_user_lines = input_file.read().strip().split("\n")
+        try:
+            with open(desktop_file) as input_file:
+                file_data = input_file.read().strip().split("\n")
+        except FileNotFoundError:
+            all_autostart_applications.remove(desktop_file)
+        name_value = ""                                                                       # Initial value of "name_value_system" variable. This value will be used if "name_value_system" could not be detected. For more information about these files, see: https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
+        name_language_value = ""
+        name_language_country_value = ""
+        comment_value = ""
+        comment_language_value = ""
+        comment_language_country_value = ""
+        icon_value = startup_image_no_icon                                                    # Will be used as image of the startup items that has no icons.
+        exec_value = ""
+        for line in file_data:
+            if "Name=" in line:                                                               # Value of "Name=" entry is get to be used as application name.
+                name_value = line.split("=")[1]
+                continue
+            if name_language in line:                                                         # Value of "Name[language]=" entry is get to be used as application name (if it exists, otherwise English application name is used).
+                name_language_value = line.split("=")[1]
+                continue
+            if name_language_country in line:                                                 # Value of "Name[language_country]=" entry is get to be used as application name (if it exists, otherwise value of "Name[language]=" entry or English application name is used respectively).
+                name_language_country_value = line.split("=")[1]
+                continue
+            if "Comment=" in line:                                                            # Application "comment (explanation)" values are read in the same manner (name values).
+                comment_value = line.split("=")[1]
+                continue
+            if comment_language in line:
+                comment_language_value = line.split("=")[1]
+                continue
+            if comment_language_country in line:
+                comment_language_country_value = line.split("=")[1]
+                continue
+            if "Icon=" in line:                                                               # Application icon name
+                icon_value = line.split("=")[1]
+                continue
+            if "Exec=" in line:                                                               # Application executable (command) name
+                exec_value = line.split("=")[1]
+                continue
+        # Get startup application name
+        startup_application_name = name_language_country_value
+        if name_language_country_value == "":
+            startup_application_name = name_language_value
+        if name_language_value == "":
+            startup_application_name = name_value
+        # Get startup application comment
+        startup_application_comment = comment_language_country_value
+        if comment_language_country_value == "":
+            startup_application_comment = comment_language_value
+        if comment_language_value == "":
+            startup_application_comment = comment_value
+        # Get startup application exec
+        startup_application_exec = exec_value
+        # Get startup application icon
+        startup_application_icon = icon_value
+        if startup_application_icon == "":
+            startup_application_icon = startup_image_no_icon
 
-        # Perform loop operation per autostart application file in the system autostart directory and get information for appending into a list (startup_data_row).
-        if desktop_file in system_autostart_directory_applications:
-            # Data in the system autostart directory is read for the application. These are system-wide values. Data in the user autostart directory is read if same file name exists in this directory. Values in this file overwrite the values from system autostart directory. These values are valid only for the current user. Also values from user autostart directory are read if file name exits only in the user autostart directory. This means, this application is first appended by this user.
-            name_value_system = ""                                                            # Initial value of "name_value_system" variable. This value will be used if "name_value_system" could not be detected. For more information about these files, see: https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
-            name_language_value_system = ""
-            name_language_country_value_system = ""
-            comment_value_system = ""
-            comment_language_value_system = ""
-            comment_language_country_value_system = ""
-            icon_value_system = startup_image_no_icon                                         # Will be used as image of the startup items that has no icons.
-            exec_value_system = ""
-            hidden_value_system = ""
-            not_show_in_value_system = ""
-            only_show_in_value_system = ""
-            xfce_autostart_override_value_system = ""
-            gnome_autostart_enabled_value_system = ""
-            for line in file_data_system_lines:
-                if "Name=" in line:                                                           # Value of "Name=" entry is get to be used as application name.
-                    name_value_system = line.split("=")[1]
-                if name_language in line:                                                     # Value of "Name[language]=" entry is get to be used as application name (if it exists, otherwise English application name is used).
-                    name_language_value_system = line.split("=")[1]
-                if name_language_country in line:                                             # Value of "Name[language_country]=" entry is get to be used as application name (if it exists, otherwise value of "Name[language]=" entry or English application name is used respectively).
-                    name_language_country_value_system = line.split("=")[1]
-                if "Comment=" in line:                                                        # Application "comment (explanation)" values are read in the same manner (name values).
-                    comment_value_system = line.split("=")[1]
-                if comment_language in line:
-                    comment_language_value_system = line.split("=")[1]
-                if comment_language_country in line:
-                    comment_language_country_value_system = line.split("=")[1]
-                if "Icon=" in line:                                                           # Application icon name
-                    icon_value_system = line.split("=")[1]
-                if "Exec=" in line:                                                           # Application executable (command) name
-                    exec_value_system = line.split("=")[1]
-                if "Hidden=" in line:                                                         # Application "hidden" value. Application is not started on the system start if this value is "true". This value overrides "NotShowIn" and "OnlyShowIn" values.
-                    hidden_value_system = line.split("=")[1]
-                if "NotShowIn" in line:                                                       # Application "NotShowIn" value. Application is not started on the system start if name of the current desktop session (XFCE, GNOME, etc.) is in this value. Desktop session name may not exist in both "NotShowIn" and "OnlyShowIn" values. Application is not started on the system start in this situation.
-                    not_show_in_value_system = line.split("=")[1].strip(";").split(";")
-                if "OnlyShowIn" in line:                                                      # Application "OnlyShowIn" value. Application is started on the system start only if name of the current desktop session (XFCE, GNOME, etc.) is in this value. Desktop session name may not exist in both "NotShowIn" and "OnlyShowIn" values. Application is not started on the system start in this situation.
-                    only_show_in_value_system = line.split("=")[1].strip(";").split(";")
-                if "X-XFCE-Autostart-Override" in line:                                       # Application "X-XFCE-Autostart-Override". If this value is "true", application is started on the system start if current desktop session name is in "NotShowIn" value or not in "OnlyShowIn" value.
-                    xfce_autostart_override_value_system = line.split("=")[1]
-                if "X-GNOME-Autostart-enabled" in line:                                       # Application "X-GNOME-Autostart-enabled". If this value is "true", application is started on the system start if current desktop session name is in "NotShowIn" value or not in "OnlyShowIn" value.
-                    gnome_autostart_enabled_value_system = line.split("=")[1]
-        # Perform loop operation per autostart application file in the user autostart directory and get information for appending into a list (startup_data_row).
-        if desktop_file in current_user_autostart_directory_applications:
-            name_value_user = ""                                                              # Initial value of "name_value_system" variable. This value will be used if "name_value_system" could not be detected.
-            name_language_value_user = ""
-            name_language_country_value_user = ""
-            comment_value_user = ""
-            comment_language_value_user = ""
-            comment_language_country_value_user = ""
-            icon_value_user = startup_image_no_icon
-            exec_value_user = ""
-            hidden_value_user = ""
-            not_show_in_value_user = ""
-            only_show_in_value_user = ""
-            xfce_autostart_override_value_user = ""
-            gnome_autostart_enabled_value_user = ""
-            for line in file_data_user_lines:
-                if "Name=" in line:
-                    name_value_user = line.split("=")[1]
-                if name_language in line:
-                    name_language_value_user = line.split("=")[1]
-                if name_language_country in line:
-                    name_language_country_value_user = line.split("=")[1]
-                if "Comment=" in line:
-                    comment_value_user = line.split("=")[1]
-                if comment_language in line:
-                    comment_language_value_user = line.split("=")[1]
-                if comment_language_country in line:
-                    comment_language_country_value_user = line.split("=")[1]
-                if "Icon=" in line:
-                    icon_value_user = line.split("=")[1]
-                if "Exec=" in line:
-                    exec_value_user = line.split("=")[1]
-                if "Hidden=" in line:
-                    hidden_value_user = line.split("=")[1]
-                if "NotShowIn" in line:
-                    not_show_in_value_user = line.split("=")[1].strip(";").split(";")
-                if "OnlyShowIn" in line:
-                    only_show_in_value_user = line.split("=")[1].strip(";").split(";")
-                if "X-XFCE-Autostart-Override" in line:
-                    xfce_autostart_override_value_user = line.split("=")[1]
-                if "X-GNOME-Autostart-enabled" in line:
-                    gnome_autostart_enabled_value_user = line.split("=")[1]
-        # Process and get data of the startup application if it is in the system autostart directory. This data will be overwritten if same application name exists in the user autostart directory.
-        if desktop_file in system_autostart_directory_applications:
-            # Get startup application visibility (which is different from application data treeview row visibility data)
-            startup_application_visibility = True
-            if len(set(current_desktop_environment).intersection(only_show_in_value_system)) == 0 and only_show_in_value_system != "":
-                startup_application_visibility = False
-            if len(set(current_desktop_environment).intersection(not_show_in_value_system)) > 0 and len(set(current_desktop_environment).intersection(["X_CINNAMON", "CINNAMON"])) == 0:    # "Cinnamon" desktop environment takes into account "GNOME" desktop environment name but this is not valid for "NotShowIn" line in the .desktop file.
-                startup_application_visibility = False
-            if xfce_autostart_override_value_system == "true" and len(set(current_desktop_environment).intersection(["XFCE"])) > 0:
-                startup_application_visibility = True
-            if gnome_autostart_enabled_value_system == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "zorin:GNOME"])) > 0:
-                startup_application_visibility = False
-            if hidden_value_system == "true":
-                startup_application_visibility = False
-            # Get application icon
-            startup_application_icon = icon_value_system
-            # Get startup application name
-            startup_application_name = name_language_country_value_system
-            if name_language_country_value_system == "":
-                startup_application_name = name_language_value_system
-            if name_language_value_system == "":
-                startup_application_name = name_value_system
-            # Get startup application comment
-            startup_application_comment = comment_language_country_value_system
-            if comment_language_country_value_system == "":
-                startup_application_comment = comment_language_value_system
-            if comment_language_value_system == "":
-                startup_application_comment = comment_value_system
-            # Get startup application exec
-            startup_application_exec = exec_value_system
-        # Process and get data of the startup application if it is in the user autostart directory. This data will overwrite if same application name exists in the system autostart directory.
+        # Append autostart application type into a list which also will be used for filtering startup items.
+        if desktop_file in system_autostart_applications:
+            startup_applications_type = "System-Wide"
         if desktop_file in current_user_autostart_applications:
-            # Get startup application visibility (which is different from application data treeview row visibility data)
-            startup_application_visibility = True
-            if len(set(current_desktop_environment).intersection(only_show_in_value_user)) == 0 and only_show_in_value_user != "":
-                startup_application_visibility = False
-            if len(set(current_desktop_environment).intersection(not_show_in_value_user)) > 0 and len(set(current_desktop_environment).intersection(["X_CINNAMON", "CINNAMON"])) == 0:    # "Cinnamon" desktop environment takes into account "GNOME" desktop environment name but this is not valid for "NotShowIn" line in the .desktop file.
-                startup_application_visibility = False
-            if xfce_autostart_override_value_user == "true" and len(set(current_desktop_environment).intersection(["XFCE"])) > 0:
-                startup_application_visibility = True
-            if gnome_autostart_enabled_value_user == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "zorin:GNOME"])) > 0:
-                startup_application_visibility = False
-            if hidden_value_user == "true":
-                startup_application_visibility = False
-            # Get application icon
-            startup_application_icon = icon_value_user
-            # Get startup application name
-            startup_application_name = name_language_country_value_user
-            if name_language_country_value_user == "":
-                startup_application_name = name_language_value_user
-            if name_language_value_user == "":
-                startup_application_name = name_value_user
-            # Get startup application comment
-            startup_application_comment = comment_language_country_value_user
-            if comment_language_country_value_user == "":
-                startup_application_comment = comment_language_value_user
-            if comment_language_value_user == "":
-                startup_application_comment = comment_value_user
-            # Get startup application exec
-            startup_application_exec = exec_value_user
-        # Overwrite application data which is get from system autostart directory if same application name exists in both system and user autostart directories. New values are get from user autostart directory.
-        if desktop_file in modified_system_applications:
-            # Get startup application visibility (which is different from application data treeview row visibility data)
-            name_value_modified = name_value_system                                           # Initial value of "name_value_system" variable. This value will be used if "name_value_system" could not be detected.
-            name_language_value_modified = name_language_value_system
-            name_language_country_value_modified = name_language_country_value_system
-            comment_value_modified = comment_value_system
-            comment_language_value_modified = comment_language_value_system
-            comment_language_country_value_modified = comment_language_country_value_system
-            icon_value_modified = icon_value_system
-            exec_value_modified = exec_value_system
-            hidden_value_modified = hidden_value_system
-            not_show_in_value_modified = not_show_in_value_system
-            only_show_in_value_modified = only_show_in_value_system
-            xfce_autostart_override_value_modified = xfce_autostart_override_value_system
-            gnome_autostart_enabled_value_modified = gnome_autostart_enabled_value_system
-            if name_value_user != "":
-                name_value_modified = name_value_user
-            if name_language_value_user != "":
-                name_language_value_modified = name_language_value_user
-            if name_language_country_value_user != "":
-                name_language_country_value_modified = name_language_country_value_user
-            if comment_value_user != "":
-                comment_value_modified = comment_value_user
-            if comment_language_value_user != "":
-                comment_language_value_modified = comment_language_value_user
-            if comment_language_country_value_user != "":
-                comment_language_country_value_modified = comment_language_country_value_user
-            if icon_value_user != "" and icon_value_user != startup_image_no_icon:
-                icon_value_modified = icon_value_user
-            if exec_value_user != "":
-                exec_value_modified = exec_value_user
-            if hidden_value_user != "":
-                hidden_value_modified = hidden_value_user
-            if not_show_in_value_user != "":
-                not_show_in_value_modified = not_show_in_value_user
-            if only_show_in_value_user != "":
-                only_show_in_value_modified = only_show_in_value_user
-            if xfce_autostart_override_value_user != "":
-                xfce_autostart_override_value_modified = xfce_autostart_override_value_user
-            if gnome_autostart_enabled_value_user != "":
-                gnome_autostart_enabled_value_modified = gnome_autostart_enabled_value_user
-            # Get startup application visibility
-            startup_application_visibility = True
-            if len(set(current_desktop_environment).intersection(only_show_in_value_modified)) == 0 and only_show_in_value_modified != "":
-                startup_application_visibility = False
-            if len(set(current_desktop_environment).intersection(not_show_in_value_modified)) > 0 and len(set(current_desktop_environment).intersection(["X_CINNAMON", "CINNAMON"])) == 0:    # "Cinnamon" desktop environment takes into account "GNOME" desktop environment name but this is not valid for "NotShowIn" line in the .desktop file.
-                startup_application_visibility = False
-            if xfce_autostart_override_value_modified == "true" and len(set(current_desktop_environment).intersection(["XFCE"])) > 0:
-                startup_application_visibility = True
-            if gnome_autostart_enabled_value_modified == "false" and len(set(current_desktop_environment).intersection(["X-CINNAMON", "CINNAMON", "GNOME", "UBUNTU:GNOME", "zorin:GNOME"])) > 0:
-                startup_application_visibility = False
-            if hidden_value_modified == "true":
-                startup_application_visibility = False
-            # Get application icon
-            startup_application_icon = icon_value_modified
-            # Get startup application name
-            startup_application_name = name_language_country_value_modified
-            if name_language_country_value_modified == "":
-                startup_application_name = name_language_value_modified
-            if name_language_value_modified == "":
-                startup_application_name = name_value_modified
-            # Get startup application comment
-            startup_application_comment = comment_language_country_value_modified
-            if comment_language_country_value_modified == "":
-                startup_application_comment = comment_language_value_modified
-            if comment_language_value_modified == "":
-                startup_application_comment = comment_value_modified
-            # Get startup application exec
-            startup_application_exec = exec_value_modified
-        startup_applications_visibility_list.append(startup_application_visibility)
+            startup_applications_type = "User-Specific"
+        startup_applications_type_list.append(startup_applications_type)
 
-        # Append autostart application visibility data (which is different from row visibility data), application icon and application name
-        startup_data_row = [True, startup_application_visibility, startup_application_icon, startup_application_name]    # Startup application data treeview row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.
+        # Append autostart application icon and application name
+        startup_data_row = [True, desktop_file, startup_application_icon, startup_application_name]    # "desktop_file" is used in order to add an unique data for every row in for avoiding getting data of incorrect row.
         # Append autostart application comment
         if 1 in startup_treeview_columns_shown:
             startup_data_row.append(startup_application_comment)
-        # Append autostart application executable (commandline) data
+        # Append autostart application type
         if 2 in startup_treeview_columns_shown:
-            startup_data_row.append(startup_application_exec)
+            startup_data_row.append(_tr(startup_applications_type))
         # Append all data of the startup applications into a list which will be appended into a treestore for showing the data on a treeview.
         startup_data_rows.append(startup_data_row)
 
@@ -554,8 +287,6 @@ def startup_loop_func():
                     cell_renderer = Gtk.CellRendererPixbuf()
                 if cell_renderer_type == "CellRendererText":                                  # Define cell renderer
                     cell_renderer = Gtk.CellRendererText()
-                if cell_renderer_type == "CellRendererToggle":                                # Define cell renderer
-                    cell_renderer = Gtk.CellRendererToggle()
                 cell_renderer.set_alignment(startup_data_list[column][9][i], 0.5)             # Vertical alignment is set 0.5 in order to leave it as unchanged.
                 startup_treeview_column.pack_start(cell_renderer, startup_data_list[column][10][i])    # Set if column will allocate unused space
                 startup_treeview_column.add_attribute(cell_renderer, startup_data_list[column][7][i], cumulative_internal_data_id)
@@ -637,7 +368,7 @@ def startup_loop_func():
                    startup_treeview_columns[j].set_fixed_width(column_width)                  # Set column width in pixels. Fixed width is unset if value is "-1".
 
     # Get new/deleted(ended) startup applications for updating treestore/treeview
-    all_autostart_applications_list = all_autostart_applications                              # For consistency with other tabs treeview code (Processes, Startup, Storage, etc.)
+    all_autostart_applications_list = list(all_autostart_applications)                        # For consistency with other tabs treeview code (Processes, Startup, etc.)
     all_autostart_applications_list_prev_set = set(all_autostart_applications_list_prev)
     all_autostart_applications_list_set = set(all_autostart_applications_list)
     deleted_startup_application = sorted(list(all_autostart_applications_list_prev_set - all_autostart_applications_list_set))
@@ -660,17 +391,17 @@ def startup_loop_func():
             piter_list.remove(piter_list[all_autostart_applications_list_prev.index(startup_application)])
     if len(new_startup_application) > 0:
         for startup_application in new_startup_application:
-            # /// Start /// This block of code is used for determining if the newly added startup_application will be shown on the treeview (user search actions and/or search customizations and/or "Show all visible/hidden startup items" preference affect startup item visibility).
-            if radiobutton5102.get_active() == True and startup_applications_visibility_list[all_autostart_applications_list.index(startup_application)] != True:    # Hide startup_application (set the visibility value as "False") if "Show all visible startup items" option is selected on the GUI and startup_application visibility is not "True".
+            # /// Start /// This block of code is used for determining if the newly added startup_application will be shown on the treeview (user search actions and/or search customizations and/or "Show user-specific/system-wide startup items" preference affect startup item visibility).
+            if radiobutton5102.get_active() == True and startup_applications_type_list[all_autostart_applications_list.index(startup_application)] != True:    # Hide startup_application (set the visibility value as "False") if "Show user-specific startup items" option is selected on the GUI and startup_application type is not "User-Specific".
                 startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
-            if radiobutton5103.get_active() == True and startup_applications_visibility_list[all_autostart_applications_list.index(startup_application)] == True:    # Hide startup_application (set the visibility value as "False") if "Show all hidden startup items" option is selected on the GUI and startup_application visibility is "True".
+            if radiobutton5103.get_active() == True and startup_applications_type_list[all_autostart_applications_list.index(startup_application)] == True:    # Hide startup_application (set the visibility value as "False") if "Show system-wide startup items" option is selected on the GUI and startup_application type is "System-Wide".
                 startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
             if searchentry5101.get_text() != "":
                 startup_application_search_text = searchentry5101.get_text()
                 startup_item_data_text_in_model = startup_data_rows[all_autostart_applications_list.index(startup_application)][filter_column]
                 if startup_application_search_text not in str(startup_item_data_text_in_model).lower():    # Hide startup_application (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the startup_application data.
                     startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
-            # \\\ End \\\ This block of code is used for determining if the newly added startup_application will be shown on the treeview (user search actions and/or search customizations and/or "Show all visible/hidden startup items" preference affect startup_application visibility).
+            # \\\ End \\\ This block of code is used for determining if the newly added startup_application will be shown on the treeview (user search actions and/or search customizations and/or "Show user-specific/system-wide startup items" preference affect startup_application visibility).
             piter_list.insert(all_autostart_applications_list.index(startup_application), treestore5101.insert(None, all_autostart_applications_list.index(startup_application), startup_data_rows[all_autostart_applications_list.index(startup_application)]))    # "insert" have to be used for appending element into both "piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of ".desktop" file names (this sorting is performed for getting list differences).
     treeview5101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
     all_autostart_applications_list_prev = all_autostart_applications_list                    # For using values in the next loop
@@ -682,7 +413,7 @@ def startup_loop_func():
     startup_data_column_widths_prev = startup_data_column_widths
 
     # Get number of startup items and show this information on the searchentry as placeholder text
-    number_of_all_startup_applications = len(startup_applications_visibility_list)
+    number_of_all_startup_applications = len(startup_applications_type_list)
     searchentry5101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Startup Items") + ": " + str(number_of_all_startup_applications) + ")")
 
 
@@ -711,19 +442,19 @@ def startup_treeview_filter_show_all_func():
         treestore5101.set_value(piter, 0, True)
 
 
-# ----------------------------------- Startup - Treeview Filter Show All Enabled (Visible) Startup Items Function -----------------------------------
-def startup_treeview_filter_startup_visible_only():
+# ----------------------------------- Startup - Treeview Filter Show User-Specific Startup Items Function -----------------------------------
+def startup_treeview_filter_startup_user_specific_only():
 
     for piter in piter_list:
-        if startup_applications_visibility_list[piter_list.index(piter)] != True:
+        if startup_applications_type_list[piter_list.index(piter)] == "System-Wide":
             treestore5101.set_value(piter, 0, False)
 
 
-# ----------------------------------- Startup - Treeview Filter Show All Disabled (Hidden) Startup Items Function -----------------------------------
-def startup_treeview_filter_startup_hidden_only():
+# ----------------------------------- Startup - Treeview Filter Show System-Wide Startup Items Function -----------------------------------
+def startup_treeview_filter_startup_system_wide_only():
 
     for piter in piter_list:
-        if startup_applications_visibility_list[piter_list.index(piter)] == True:
+        if startup_applications_type_list[piter_list.index(piter)] == "User-Specific":
             treestore5101.set_value(piter, 0, False)
 
 
@@ -732,7 +463,7 @@ def startup_treeview_filter_search_func():
 
     global filter_column
     startup_application_search_text = searchentry5101.get_text().lower()
-    # Set visible/hidden startup items
+    # Set user-specific/system-wide startup items
     for piter in piter_list:
         treestore5101.set_value(piter, 0, False)
         startup_item_data_text_in_model = treestore5101.get_value(piter, filter_column)
