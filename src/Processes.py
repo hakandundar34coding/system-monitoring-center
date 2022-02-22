@@ -339,17 +339,15 @@ def processes_loop_func():
         if len(process_name) == 15:                                                           # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
             try:
                 with open(f'/proc/{pid}/cmdline') as reader:
-                    process_cmdline = reader.read()
-                process_name = process_cmdline.split("/")[-1].split("\x00")[0]                # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
+                    process_cmdline = reader.read().replace("\x00", " ")                      # Some process names which are obtained from "cmdline" contain "\x00" and these are replaced by " ".
             except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
                 pid_list.remove(pid)
                 continue
+            process_name = process_cmdline.split("/")[-1].split(" ")[0]
             if process_name.startswith(process_name_from_stat) == False:
-                process_name = process_cmdline.split(" ")[0].split("\x00")[0].strip()         # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
+                process_name = process_cmdline.split(" ")[0].split("/")[-1]
                 if process_name.startswith(process_name_from_stat) == False:
-                    process_name = process_cmdline.split("\x00")[0].split("/")[-1].strip()
-                    if process_name.startswith(process_name_from_stat) == False:
-                        process_name = process_name_from_stat                                 # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
+                    process_name = process_name_from_stat                                     # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
         process_icon = "system-monitoring-center-process-symbolic"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
         if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list.
             process_icon = application_icon_list[application_exec_list.index(process_name)]
