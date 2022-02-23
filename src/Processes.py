@@ -303,15 +303,17 @@ def processes_loop_func():
     disk_read_write_data = []
     pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]          # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
 
+    processes_treeview_columns_shown = set(processes_treeview_columns_shown)                  # For obtaining lower CPU usage (because "if [number] in processes_treeview_columns_shown:" check is repeated thousand of times).
+
     # Get user names of the processes
     for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
         try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open(f'/proc/{pid}/status') as reader:                                       # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+            with open(f'/proc/{pid}/status') as reader:                                       # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file.
                 proc_pid_status_output = reader.read()
         except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
             pid_list.remove(pid)
             continue
-        real_user_id = proc_pid_status_output.split("\nUid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0].strip()    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+        real_user_id = proc_pid_status_output.split("\nUid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0]    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
         try:
             username = usernames_username_list[usernames_uid_list.index(real_user_id)]
         except ValueError:
@@ -329,7 +331,7 @@ def processes_loop_func():
         try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
             with open(f'/proc/{pid}/stat') as reader:                                         # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
                 proc_pid_stat_lines = reader.read()
-        except (FileNotFoundError, ProcessLookupError) as me:                                 # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated (FileNotFoundError).
+        except (FileNotFoundError, ProcessLookupError) as me:
             pid_list.remove(pid)
             continue
         proc_pid_stat_lines_split = proc_pid_stat_lines.split()
@@ -340,20 +342,20 @@ def processes_loop_func():
             try:
                 with open(f'/proc/{pid}/cmdline') as reader:
                     process_cmdline = reader.read().replace("\x00", " ")                      # Some process names which are obtained from "cmdline" contain "\x00" and these are replaced by " ".
-            except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
+            except FileNotFoundError:
                 pid_list.remove(pid)
                 continue
             process_name = process_cmdline.split("/")[-1].split(" ")[0]
             if process_name.startswith(process_name_from_stat) == False:
                 process_name = process_cmdline.split(" ")[0].split("/")[-1]
                 if process_name.startswith(process_name_from_stat) == False:
-                    process_name = process_name_from_stat                                     # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
+                    process_name = process_name_from_stat
         process_icon = "system-monitoring-center-process-symbolic"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
         if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list.
             process_icon = application_icon_list[application_exec_list.index(process_name)]
         processes_data_row = [True, process_icon, process_name]                               # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
         if 1 in processes_treeview_columns_shown:
-            processes_data_row.append(int(pid))                                               # Get process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
+            processes_data_row.append(int(pid))                                               # Append process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
         if 2 in processes_treeview_columns_shown:
             processes_data_row.append(username)                                               # Append process username (this value is get before).
         if 3 in processes_treeview_columns_shown:
@@ -377,7 +379,7 @@ def processes_loop_func():
             try:
                 with open(f'/proc/{pid}/statm') as reader:                                   
                     processes_data_row.append(int(reader.read().split()[2]) * memory_page_size)   # Get shared memory pages and multiply with memory_page_size in order to convert the value into bytes.
-            except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
+            except FileNotFoundError:
                 pid_list.remove(pid)
                 continue
         if 8 in processes_treeview_columns_shown or 9 in processes_treeview_columns_shown or 10 in processes_treeview_columns_shown or 11 in processes_treeview_columns_shown:
@@ -417,7 +419,7 @@ def processes_loop_func():
         if 15 in processes_treeview_columns_shown:
             processes_data_row.append(int(real_user_id))                                      # Append process UID value
         if 16 in processes_treeview_columns_shown:
-            processes_data_row.append(int(proc_pid_status_output.split("\nGid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0].strip()))    # There are 4 values in the Gid line and first one (real GID) is get from this file.
+            processes_data_row.append(int(proc_pid_status_output.split("\nGid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0]))    # There are 4 values in the Gid line and first one (real GID) is get from this file.
         if 17 in processes_treeview_columns_shown:
             try:                                                                              # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
                 process_executable_path = os.path.realpath(f'/proc/{pid}/exe')
@@ -427,7 +429,9 @@ def processes_loop_func():
         # Append process data into a list (processes_data_rows)
         processes_data_rows.append(processes_data_row)
     global_process_cpu_times_prev = global_process_cpu_times                                  # For using values in the next loop
-    disk_read_write_data_prev = disk_read_write_data                                          # For using values in the next loop
+    disk_read_write_data_prev = disk_read_write_data
+
+    processes_treeview_columns_shown = sorted(list(processes_treeview_columns_shown))         # Convert set to list (it was set before getting process information)
 
     # Add/Remove treeview columns appropriate for user preferences
     treeview2101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
@@ -446,7 +450,7 @@ def processes_loop_func():
                     continue
                 if cell_renderer_type == "CellRendererPixbuf":                                # Define cell renderer
                     cell_renderer = Gtk.CellRendererPixbuf()
-                if cell_renderer_type == "CellRendererText":                                  # Define cell renderer
+                if cell_renderer_type == "CellRendererText":
                     cell_renderer = Gtk.CellRendererText()
                 cell_renderer.set_alignment(processes_data_list[column][9][i], 0.5)           # Vertical alignment is set 0.5 in order to leave it as unchanged.
                 processes_treeview_column.pack_start(cell_renderer, processes_data_list[column][10][i])    # Set if column will allocate unused space
@@ -601,21 +605,20 @@ def processes_loop_func():
     processes_data_column_order_prev = processes_data_column_order
     processes_data_column_widths_prev = processes_data_column_widths
 
-    # Get number of processes and show this information on the searchentry as placeholder text
-    number_of_all_processes = len(username_list)
-    searchentry2101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Processes") + ": " + str(number_of_all_processes) + ")")
+    # Show number of processes on the searchentry as placeholder text
+    searchentry2101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Processes") + ": " + str(len(username_list)) + ")")
 
-    # Show/Hide treeview expander arrows
+    # Show/Hide treeview expander arrows. If "child rows" are not used and there is no need for these expanders (they would be shown as empty spaces in this situation).
     if show_processes_as_tree == 1:
-        treeview2101.set_show_expanders(True)                                                 # Show expander arrows (default is True) if "Show processes as tree" option is preferred. If "child rows" are not used and there is no need for these expanders (they would be shown as empty spaces in this situation).
+        treeview2101.set_show_expanders(True)
     if show_processes_as_tree == 0:
-        treeview2101.set_show_expanders(False)                                                # Hide expander arrows (default is True) if "Show processes as tree" option is not preferred.
+        treeview2101.set_show_expanders(False)
 
     # Show/Hide treeview tree lines
     if Config.show_tree_lines == 1:
-        treeview2101.set_enable_tree_lines(True)                                              # Show tree lines for tree view of processes (default is False).
+        treeview2101.set_enable_tree_lines(True)
     if Config.show_tree_lines == 0:
-        treeview2101.set_enable_tree_lines(False)                                             # Hide tree lines for tree view of processes. There is no need for showing tree lines for list view of processes.
+        treeview2101.set_enable_tree_lines(False)
 
 
 # ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

@@ -17,7 +17,7 @@ def cpu_import_func():
     import Config, Performance
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (MainGUI) before importing this module.
+    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (Main GUI module) before importing this module.
     global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
     from locale import gettext as _tr
 

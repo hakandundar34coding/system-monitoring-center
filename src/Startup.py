@@ -412,9 +412,8 @@ def startup_loop_func():
     startup_data_column_order_prev = startup_data_column_order
     startup_data_column_widths_prev = startup_data_column_widths
 
-    # Get number of startup items and show this information on the searchentry as placeholder text
-    number_of_all_startup_applications = len(startup_applications_type_list)
-    searchentry5101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Startup Items") + ": " + str(number_of_all_startup_applications) + ")")
+    # Show number of startup items on the searchentry as placeholder text
+    searchentry5101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Startup Items") + ": " + str(len(startup_applications_type_list)) + ")")
 
 
 # ----------------------------------- Startup - Run Function -----------------------------------

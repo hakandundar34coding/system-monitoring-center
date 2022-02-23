@@ -350,9 +350,8 @@ def sensors_loop_func():
     sensors_data_column_order_prev = sensors_data_column_order
     sensors_data_column_widths_prev = sensors_data_column_widths
 
-    # Get number of sensors and show this information on the searchentry as placeholder text
-    number_of_all_sensors = len(sensor_type_list)
-    searchentry1601.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Sensors") + ": " + str(number_of_all_sensors) + ")")
+    # Show number of sensors on the searchentry as placeholder text
+    searchentry1601.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Sensors") + ": " + str(len(sensor_type_list)) + ")")
 
 
 # ----------------------------------- Sensors - Run Function -----------------------------------

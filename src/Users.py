@@ -518,9 +518,8 @@ def users_loop_func():
     users_data_column_order_prev = users_data_column_order
     users_data_column_widths_prev = users_data_column_widths
 
-    # Get number of users and show this information on the searchentry as placeholder text
-    number_of_all_users = len(user_logged_in_list)
-    searchentry3101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Users") + ": " + str(number_of_all_users) + ")")
+    # Show number of users on the searchentry as placeholder text
+    searchentry3101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Users") + ": " + str(len(user_logged_in_list)) + ")")
 
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

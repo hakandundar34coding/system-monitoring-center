@@ -439,9 +439,8 @@ def services_loop_func():
     services_data_column_order_prev = services_data_column_order
     services_data_column_widths_prev = services_data_column_widths
 
-    # Get number of services and show this information on the searchentry as placeholder text
-    number_of_all_services = len(service_loaded_not_loaded_list)
-    searchentry6101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Services") + ": " + str(number_of_all_services) + ")")
+    # Show number of services on the searchentry as placeholder text
+    searchentry6101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Services") + ": " + str(len(service_loaded_not_loaded_list)) + ")")
 
 
 # ----------------------------------- Services - Treeview Cell Functions -----------------------------------
