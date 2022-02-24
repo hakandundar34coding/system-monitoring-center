@@ -1,6 +1,6 @@
 # Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
 pkgname=system-monitoring-center
-_pkgver=1.3.0
+_pkgver=1.4.0
 pkgver=${_pkgver//-/.}
 pkgrel=1
 pkgdesc="System performance and usage monitoring tool"
