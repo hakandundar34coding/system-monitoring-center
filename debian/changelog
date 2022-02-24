@@ -2,11 +2,10 @@ system-monitoring-center (1.4.0) unstable; urgency=medium
 
   * Rewrite Startup tab code is (improved reliability)
   * Add: dependency (python3-gi-cairo)
-  * Several compability improvements
   * Minor improvements for process names > 15 characters
   * Several minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 24 Feb 2022 09:59:07 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 24 Feb 2022 10:02:50 +0300
 
 system-monitoring-center (1.3.0) unstable; urgency=medium
 
