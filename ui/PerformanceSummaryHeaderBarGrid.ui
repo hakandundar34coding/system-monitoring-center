@@ -10,12 +10,11 @@
     <property name="row-spacing">3</property>
     <property name="column-spacing">4</property>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkLabel" id="label103">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Average CPU usage of all cores</property>
         <property name="halign">start</property>
-        <property name="label" translatable="yes">CPU:</property>
+        <property name="label" translatable="yes">CPU</property>
         <attributes>
           <attribute name="size" value="10000"/>
         </attributes>
@@ -46,12 +45,11 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkLabel" id="label104">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">RAM</property>
         <property name="halign">start</property>
-        <property name="label" translatable="yes">RAM:</property>
+        <property name="label" translatable="yes">RAM</property>
         <attributes>
           <attribute name="size" value="10000"/>
         </attributes>
@@ -62,12 +60,12 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label103">
+      <object class="GtkLabel" id="label105">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="tooltip-text" translatable="yes">Disk Read+Write Speed</property>
         <property name="halign">start</property>
-        <property name="label" translatable="yes">Disk:</property>
+        <property name="label" translatable="yes">Disk</property>
         <attributes>
           <attribute name="size" value="10000"/>
         </attributes>
@@ -108,12 +106,12 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label104">
+      <object class="GtkLabel" id="label106">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="tooltip-text" translatable="yes">Network Download+Upload Speed</property>
         <property name="halign">start</property>
-        <property name="label" translatable="yes">Network:</property>
+        <property name="label" translatable="yes">Network</property>
         <attributes>
           <attribute name="size" value="10000"/>
         </attributes>

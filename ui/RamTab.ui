@@ -489,7 +489,6 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Current Tab Customizations</property>
             <property name="halign">end</property>
             <property name="hexpand">True</property>
             <child>

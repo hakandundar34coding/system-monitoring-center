@@ -28,7 +28,7 @@ def performance_summary_headerbar_gui_func():
     builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/PerformanceSummaryHeaderBarGrid.ui")
 
     # Performance Summary Headerbar Grid GUI objects
-    global grid101, drawingarea101, drawingarea102, label101, label102, label103, label104
+    global grid101, drawingarea101, drawingarea102, label101, label102, label103, label104, label105, label106
 
     # Performance Summary Headerbar Grid GUI objects - get
     grid101 = builder.get_object('grid101')
@@ -38,6 +38,8 @@ def performance_summary_headerbar_gui_func():
     label102 = builder.get_object('label102')
     label103 = builder.get_object('label103')
     label104 = builder.get_object('label104')
+    label105 = builder.get_object('label105')
+    label106 = builder.get_object('label106')
 
 
     # Performance Summary Headerbar Grid GUI functions
@@ -105,8 +107,11 @@ def performance_summary_headerbar_gui_func():
 # ----------------------------------- Performance Summary Headerbar - Initial Function -----------------------------------
 def performance_summary_headerbar_initial_func():
 
-    label103.set_text(f'{_tr("Disk:"):<9}')                                                   # Empty characters are placed at right side of the label by using "f'value:<9'" in order to prevent movement of the label when data numbers change. Total length of the string is set as 9 characters if actual length is smaller. This code has no effect if length of the string equals to 9 or more characters.
-    label104.set_text(f'{_tr("Network:"):<9}')
+    # Set empty characters at the right side of the labels
+    label103.set_text(f'{_tr("CPU"):<5}')
+    label104.set_text(f'{_tr("RAM"):<5}')
+    label105.set_text(f'{_tr("Disk"):<10}')                                                   # Empty characters are placed at right side of the label by using "f'value:<[number of characters]'" in order to prevent movement of the label when data numbers change. Total length of the string is set as [number of characters] characters if actual length is smaller. This code has no effect if length of the string equals to this value or bigger.
+    label106.set_text(f'{_tr("Network"):<10}')
 
     performance_summary_headerbar_define_data_unit_converter_variables_func()                 # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 

@@ -152,7 +152,7 @@ def users_initial_func():
                       [9, 'Last Login', 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [10, 'Last Failed Login', 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [11, _tr('Start Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_started]],
-                      [12, _tr('CPU%'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
+                      [12, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
                       [13, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]]
                       ]
 
@@ -401,7 +401,7 @@ def users_loop_func():
             users_treeview_column.set_sort_column_id(cumulative_sort_column_id)               # Be careful with lists contain same element more than one.
             users_treeview_column.set_resizable(True)                                         # Set columns resizable by the user when column title button edge handles are dragged.
             users_treeview_column.set_reorderable(True)                                       # Set columns reorderable by the user when column title buttons are dragged.
-            users_treeview_column.set_min_width(40)                                           # Set minimum column widths as "40 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
+            users_treeview_column.set_min_width(50)                                           # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
             users_treeview_column.connect("clicked", on_column_title_clicked)                 # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
             treeview3101.append_column(users_treeview_column)                                 # Append column into treeview
 

@@ -418,7 +418,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2110p">
-                        <property name="label" translatable="yes">CPU%</property>
+                        <property name="label" translatable="yes">CPU</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -717,33 +717,10 @@
                       </packing>
                     </child>
                     <child>
-                      <!-- n-columns=2 n-rows=1 -->
-                      <object class="GtkGrid">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="halign">center</property>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="label" translatable="yes">CPU%</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="label" translatable="yes">:</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
+                        <property name="label" translatable="yes">CPU</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -751,33 +728,10 @@
                       </packing>
                     </child>
                     <child>
-                      <!-- n-columns=2 n-rows=1 -->
-                      <object class="GtkGrid">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="halign">center</property>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="label" translatable="yes">Memory</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="label" translatable="yes">:</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
+                        <property name="label" translatable="yes">Memory</property>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -802,7 +756,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Disk Usage:</property>
+                        <property name="label" translatable="yes">Disk Usage</property>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -833,7 +787,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Disk Speed:</property>
+                        <property name="label" translatable="yes">Disk Speed</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -865,33 +819,10 @@
                       </packing>
                     </child>
                     <child>
-                      <!-- n-columns=2 n-rows=1 -->
-                      <object class="GtkGrid">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="halign">center</property>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="label" translatable="yes">Memory</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="label" translatable="yes">:</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
+                        <property name="label" translatable="yes">Memory</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -916,7 +847,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Disk Speed:</property>
+                        <property name="label" translatable="yes">Disk Speed</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -927,7 +858,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Disk Usage:</property>
+                        <property name="label" translatable="yes">Disk Usage</property>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>

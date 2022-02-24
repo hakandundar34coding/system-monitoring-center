@@ -9,7 +9,7 @@
     <property name="type-hint">dialog</property>
     <property name="program-name">System Monitoring Center</property>
     <property name="version">1.0.0</property>
-    <property name="copyright" translatable="yes">© 2022 Hakan DÜNDAR</property>
+    <property name="copyright">© 2022 Hakan DÜNDAR</property>
     <property name="comments" translatable="yes">GTK and Python based, system performance and usage monitoring tool.</property>
     <property name="website">https://github.com/hakandundar34coding/system-monitoring-center</property>
     <property name="website-label" translatable="yes">Web Page</property>

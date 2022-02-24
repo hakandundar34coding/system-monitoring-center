@@ -1,5 +1,5 @@
 Name:           system-monitoring-center
-Version:        1.3.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Provides information about system performance and usage.
 License:        GPLv3
@@ -25,7 +25,7 @@ Requires:       systemd
 Requires:       util-linux >= 2.33
 
 %description
-Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.
+Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, startup programs, services and system.
 
 %prep
 # pass

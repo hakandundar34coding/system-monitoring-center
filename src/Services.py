@@ -322,7 +322,7 @@ def services_loop_func():
             services_treeview_column.set_sort_column_id(cumulative_sort_column_id)            # Be careful with lists contain same element more than one.
             services_treeview_column.set_resizable(True)                                      # Set columns resizable by the user when column title button edge handles are dragged.
             services_treeview_column.set_reorderable(True)                                    # Set columns reorderable by the user when column title buttons are dragged.
-            services_treeview_column.set_min_width(40)                                        # Set minimum column widths as "40 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
+            services_treeview_column.set_min_width(50)                                        # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
             services_treeview_column.connect("clicked", on_column_title_clicked)              # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
             treeview6101.append_column(services_treeview_column)                              # Append column into treeview
 
