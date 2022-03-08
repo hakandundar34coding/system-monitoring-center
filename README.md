@@ -47,7 +47,7 @@ Note: If there are dependency problems during installation:
     * Monitoring and managing processes, users, startup applications and services (systemd)
     * Monitoring sensors and general system information
 * Language support (more languages will be added if translations are provided by contributors):
-    * English, Turkish
+    * English, Brazilian Portuguese, Turkish
 * Adapts to system theme
 * Free and open sourced
 
@@ -78,3 +78,9 @@ Note: If there are dependency problems during installation:
 * Python 3 (Programming language)
 * GTK3 (GUI)
 * python3-opengl (for FPS counting)
+
+
+### Note:
+* A simple FPS counter is shown on the GPU tab and may not be accurate in some situations.
+* FPS counting does not continue when window is minimized.
+

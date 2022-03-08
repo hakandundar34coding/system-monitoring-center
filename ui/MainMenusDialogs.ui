@@ -13,9 +13,9 @@
     <property name="comments" translatable="yes">GTK and Python based, system performance and usage monitoring tool.</property>
     <property name="website">https://github.com/hakandundar34coding/system-monitoring-center</property>
     <property name="website-label" translatable="yes">Web Page</property>
-    <property name="authors">Hakan DÜNDAR</property>
+    <property name="authors">Hakan Dündar</property>
     <property name="translator-credits">Bruno do Nascimento (português do Brasil)
-Hakan DÜNDAR (Türkçe)</property>
+Hakan Dündar (Türkçe)</property>
     <property name="logo-icon-name">system-monitoring-center</property>
     <property name="license-type">gpl-3-0</property>
     <child internal-child="vbox">
