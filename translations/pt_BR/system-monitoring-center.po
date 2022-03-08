@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-24 09:43+0300\n"
-"PO-Revision-Date: 2022-03-08 10:39+0300\n"
+"PO-Revision-Date: 2022-03-08 20:17+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: src/Cpu.py:268 ui/CpuMenus.ui:72 ui/CpuTab.ui:439
 msgid "CPU Usage (Average)"
@@ -319,7 +319,7 @@ msgstr "Velocidade/Frequência"
 
 #: src/RamHardwareInformation.py:123 src/RamHardwareInformation.py:142
 msgid "Manufacturer"
-msgstr "Velocidade/Frequência"
+msgstr "Fabricante"
 
 #: src/RamHardwareInformation.py:124 src/RamHardwareInformation.py:143
 msgid "Form Factor"
@@ -727,7 +727,7 @@ msgstr "Soquetes de CPU:"
 
 #: ui/CpuTab.ui:213
 msgid "Min-Max Frequency:"
-msgstr "Frequência Máxima e Mínima:"
+msgstr "Frequência Min/Max:"
 
 #: ui/CpuTab.ui:225
 msgid "Current frequency of the selected CPU core"
@@ -1093,7 +1093,7 @@ msgstr "Dados Baixados:"
 
 #: ui/NetworkTab.ui:68
 msgid "Uploaded Data:"
-msgstr "Dados Carregados"
+msgstr "Dados Carregados:"
 
 #: ui/NetworkTab.ui:81
 msgid "Connection Type:"
@@ -1638,7 +1638,7 @@ msgstr "Baseado Em:"
 
 #: ui/SystemTab.ui:280
 msgid "Kernel Release:"
-msgstr "Versão do Kernel:"
+msgstr "Release do Kernel:"
 
 #: ui/SystemTab.ui:310
 msgid "Computer"
@@ -1678,11 +1678,11 @@ msgstr "Ambiente de Trabalho:"
 
 #: ui/SystemTab.ui:649
 msgid "Windowing System:"
-msgstr "Servidor de Exibição:"
+msgstr "Sistema de janelas:"
 
 #: ui/SystemTab.ui:662
 msgid "Display Manager:"
-msgstr "Gerenciador de Janelas:"
+msgstr "Gerenciador de Exibição:"
 
 #: ui/SystemTab.ui:674
 msgid ""
