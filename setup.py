@@ -55,6 +55,7 @@ if PREFIX == "/app":
     data_files = [
         ("/app/share/applications/", ["integration/com.github.hakand34.system-monitoring-center.desktop"]),
         ("/app/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        ("/app/share/locale/pt_BR/LC_MESSAGES/", ["translations/pt_BR/system-monitoring-center.mo"]),
         ("/app/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         ("/app/share/system-monitoring-center/src/", files_in_folder("src/")),
         ("/app/share/system-monitoring-center/ui/", files_in_folder("ui/")),
@@ -67,6 +68,7 @@ if PREFIX == "/app":
 if PREFIX == "RPM":
     os.chmod("integration/com.github.hakand34.system-monitoring-center.desktop", 0o644)
     os.chmod("translations/tr/system-monitoring-center.mo", 0o644)
+    os.chmod("translations/pt_BR/system-monitoring-center.mo", 0o644)
     os.chmod("man/system-monitoring-center.1.gz", 0o644)
     for file in files_in_folder("src/"):
         os.chmod(file, 0o644)
@@ -80,6 +82,7 @@ if PREFIX == "RPM":
     data_files = [
         (build_root + "/usr/share/applications/", ["integration/com.github.hakand34.system-monitoring-center.desktop"]),
         (build_root + "/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        (build_root + "/usr/share/locale/pt_BR/LC_MESSAGES/", ["translations/pt_BR/system-monitoring-center.mo"]),
         (build_root + "/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         (build_root + "/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
         (build_root + "/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
@@ -96,11 +99,13 @@ if PREFIX != "/app" and PREFIX != "RPM":
         os.chmod(file, 0o644)
     os.chmod("icons/apps/system-monitoring-center.svg", 0o644)
     os.chmod("translations/tr/system-monitoring-center.mo", 0o644)
+    os.chmod("translations/pt_BR/system-monitoring-center.mo", 0o644)
     os.chmod("integration/com.github.hakand34.system-monitoring-center.policy", 0o644)
     os.chmod("src/__version__", 0o644)
     data_files = [
         ("/usr/share/applications/", ["integration/com.github.hakand34.system-monitoring-center.desktop"]),
         ("/usr/share/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+        ("/usr/share/locale/pt_BR/LC_MESSAGES/", ["translations/pt_BR/system-monitoring-center.mo"]),
         ("/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
         ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
