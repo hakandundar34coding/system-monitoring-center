@@ -1,6 +1,6 @@
 # Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
 pkgname=system-monitoring-center
-_pkgver=1.4.0
+_pkgver=1.5.0
 pkgver=${_pkgver//-/.}
 pkgrel=1
 pkgdesc="System performance and usage monitoring tool"
@@ -11,7 +11,7 @@ depends=('bash' 'dmidecode' 'gtk3' 'hwdata' 'iproute2' 'mesa-utils'
          'python-cairo' 'python-gobject' 'python-opengl' 'systemd' 'util-linux')
 makedepends=('python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$_pkgver.tar.gz")
-sha256sums=('2611090f7d2167a09f817999c234287a023291c6d37fcc5a5ce2caadf44bccc2')
+sha256sums=('07418ae8b51bcdae9ed6afe68d99ff3c34acd480783a8e654548fa80a0d715b9')
 
 build() {
   cd "$pkgname-$_pkgver"
