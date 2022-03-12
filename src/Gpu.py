@@ -13,6 +13,12 @@ def gpu_import_func():
     import os
     import subprocess
 
+#     # Import required OpenGL modules for measuring FPS (glarea will be used). Importing these OpenGL modules takes about 0.15 seconds on a 4-cored i7-2630QM notebook and this slows application start a bit.
+#     global glClearColor, glClear, GL_COLOR_BUFFER_BIT, glFlush
+#     import OpenGL
+#     # from OpenGL.GL import *                                                                 # This code could not be run in a module because of the "*". Need to be imported in a module when "GPU" tab is opened. Because importing this module consumes about 11 MiB of RAM.
+#     from OpenGL.GL import glClearColor, glClear, GL_COLOR_BUFFER_BIT, glFlush                 # This code is used instead of "from OpenGL.GL import *" to be able to import required module in a function otherwise, module could not be imported in a module because of the "*".
+
 
     global Config, Performance
     import Config, Performance
@@ -135,46 +141,41 @@ def gpu_gui_func():
         ctx.fill()
 
 
+    # ----------------------------------- GPU - Used for measuring FPS ----------------------------------- 
+    def on_glarea1501_realize(widget):
+
+        widget.make_current()
+        if (widget.get_error() != None):
+          return
+
+
+    # ----------------------------------- GPU - Plot OpenGL graphics for measuring FPS (Rendering is performed by using glarea in order to measure FPS. FPS on drawing area is counted. Lower FPS is obtained depending on the GPU load/performance.) ----------------------------------- 
+    def on_glarea1501_render(widget, ctx):
+
+        global frame_list
+        try:
+            frame_list.append(0)
+        except NameError:
+            return
+        widget.queue_draw()                                                               # "queue_draw()" is used in order to obtain higher FPS if screen refresh rate is not reached.
+        return True
+
+
     # GPU tab GUI functions - connect
     button1501.connect("clicked", on_button1501_clicked)
     drawingarea1501.connect("draw", on_drawingarea1501_draw)
+    glarea1501.connect('realize', on_glarea1501_realize)
+    glarea1501.connect('render', on_glarea1501_render)
 
 
 # ----------------------------------- GPU - Initial Function -----------------------------------
 def gpu_initial_func():
 
-    # Import required OpenGL modules for measuring FPS (glarea will be used).
-    if "OpenGL" not in globals():                                                             # Import modules if they have not been imported before. This modeles are imported here because importing them takes about 0.15 seconds on a 4-cored i7-2630QM notebook and this slows application start a bit.
-        import OpenGL
-        # from OpenGL.GL import *                                                             # This code could not be run in a module because of the "*". Need to be imported in a module when "GPU" tab is opened. Because importing this module consumes about 11 MiB of RAM.
-        from OpenGL.GL import glClearColor, glClear, GL_COLOR_BUFFER_BIT, glFlush             # This code is used instead of "from OpenGL.GL import *" to be able to import required module in a function otherwise, module could not be imported in a module because of the "*".
-
-    # Define initial values for fps_count and frame_latency values
-    global fps_count, frame_latency
+    # Define initial values
+    global fps_count, frame_latency, frame_list
     fps_count = [0] * Config.chart_data_history
     frame_latency = 0
-
-    # Measure FPS (Rendering is performed by using glarea in order to measure FPS. FPS on drawing area is counted. Lower FPS is obtained depending on the GPU load/performance.)
-    if "frame_list" not in globals():
-        global glarea1501, frame_list
-        frame_list = []
-
-        def on_glarea1501_realize(area):
-            area.make_current()
-            if (area.get_error() != None):
-              return
-
-        def on_glarea1501_render(area, context):
-            glClearColor(0.5, 0.5, 0.5, 1.0)                                                  # Arbitrary color
-            glClear(GL_COLOR_BUFFER_BIT)
-            glFlush()
-            global frame_list
-            frame_list.append(0)
-            glarea1501.queue_draw()
-            return True
-
-        glarea1501.connect('realize', on_glarea1501_realize)
-        glarea1501.connect('render', on_glarea1501_render)
+    frame_list = []
 
     # Get GPU information by using a function.
     gpu_get_gpu_list_and_set_selected_gpu_func()                                              # Get gpu/graphics card list and set selected gpu
@@ -266,7 +267,6 @@ def gpu_loop_func():
     # Get current resolution and current refresh rate
     current_screen = Gdk.Screen.get_default()
     current_resolution = str(current_screen.get_width()) + "x" + str(current_screen.get_height())
-
     try:
         current_monitor_number = current_screen.get_monitor_at_window(current_screen.get_active_window())
         current_display = Gdk.Display.get_default()

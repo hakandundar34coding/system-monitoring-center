@@ -8,7 +8,7 @@ arch=('any')
 url="https://github.com/hakandundar34coding/system-monitoring-center"
 license=('GPL3')
 depends=('bash' 'dmidecode' 'gtk3' 'hwdata' 'iproute2' 'mesa-utils'
-         'python-cairo' 'python-gobject' 'python-opengl' 'systemd' 'util-linux')
+         'python-cairo' 'python-gobject' 'systemd' 'util-linux')
 makedepends=('python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$_pkgver.tar.gz")
 sha256sums=('07418ae8b51bcdae9ed6afe68d99ff3c34acd480783a8e654548fa80a0d715b9')

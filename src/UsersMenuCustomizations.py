@@ -62,29 +62,7 @@ def users_menu_customizations_gui_func():
         users_tab_customization_popover_connect_signals_func()
 
     # ********************** Define object functions for Users tab customizations popover Add/Remove Columns Tab **********************
-    def on_checkbutton3101p_toggled(widget):                                                  # "User Name" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3102p_toggled(widget):                                                  # "Full Name" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3103p_toggled(widget):                                                  # "Logged In" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3104p_toggled(widget):                                                  # "UID" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3105p_toggled(widget):                                                  # "GID" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3106p_toggled(widget):                                                  # "Processes" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3107p_toggled(widget):                                                  # "Home Dir." checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3108p_toggled(widget):                                                  # "Group" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3109p_toggled(widget):                                                  # "Terminal" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3110p_toggled(widget):                                                  # "Started" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3111p_toggled(widget):                                                  # "CPU%" checkbutton
-        users_add_remove_columns_function()
-    def on_checkbutton3112p_toggled(widget):                                                  # "RAM (RSS)" checkbutton
+    def on_add_remove_checkbuttons_toggled(widget):                                           # "User Name, Full Name, UID, etc." checkbuttons
         users_add_remove_columns_function()
 
     # ********************** Connect signals to GUI objects for Users tab customizations popover Common GUI Objects **********************
@@ -101,35 +79,35 @@ def users_menu_customizations_gui_func():
     # ********************** Define function for connecting Users tab customizations popover GUI signals **********************
     def users_tab_customization_popover_connect_signals_func():
     # ********************** Connect signals to GUI objects for Users tab customizations popover Add/Remove Columns Tab **********************
-        checkbutton3101p.connect("toggled", on_checkbutton3101p_toggled)
-        checkbutton3102p.connect("toggled", on_checkbutton3102p_toggled)
-        checkbutton3103p.connect("toggled", on_checkbutton3103p_toggled)
-        checkbutton3104p.connect("toggled", on_checkbutton3104p_toggled)
-        checkbutton3105p.connect("toggled", on_checkbutton3105p_toggled)
-        checkbutton3106p.connect("toggled", on_checkbutton3106p_toggled)
-        checkbutton3107p.connect("toggled", on_checkbutton3107p_toggled)
-        checkbutton3108p.connect("toggled", on_checkbutton3108p_toggled)
-        checkbutton3109p.connect("toggled", on_checkbutton3109p_toggled)
-        checkbutton3110p.connect("toggled", on_checkbutton3110p_toggled)
-        checkbutton3111p.connect("toggled", on_checkbutton3111p_toggled)
-        checkbutton3112p.connect("toggled", on_checkbutton3112p_toggled)
+        checkbutton3101p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3102p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3103p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3104p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3105p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3106p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3107p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3108p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3109p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3110p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3111p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton3112p.connect("toggled", on_add_remove_checkbuttons_toggled)
 
 
     # ********************** Define function for disconnecting Users tab customizations popover GUI signals **********************
     def users_tab_customization_popover_disconnect_signals_func():
     # ********************** Disconnect signals of GUI objects for Users tab customizations popover Add/Remove Columns Tab **********************
-        checkbutton3101p.disconnect_by_func(on_checkbutton3101p_toggled)
-        checkbutton3102p.disconnect_by_func(on_checkbutton3102p_toggled)
-        checkbutton3103p.disconnect_by_func(on_checkbutton3103p_toggled)
-        checkbutton3104p.disconnect_by_func(on_checkbutton3104p_toggled)
-        checkbutton3105p.disconnect_by_func(on_checkbutton3105p_toggled)
-        checkbutton3106p.disconnect_by_func(on_checkbutton3106p_toggled)
-        checkbutton3107p.disconnect_by_func(on_checkbutton3107p_toggled)
-        checkbutton3108p.disconnect_by_func(on_checkbutton3108p_toggled)
-        checkbutton3109p.disconnect_by_func(on_checkbutton3109p_toggled)
-        checkbutton3110p.disconnect_by_func(on_checkbutton3110p_toggled)
-        checkbutton3111p.disconnect_by_func(on_checkbutton3111p_toggled)
-        checkbutton3112p.disconnect_by_func(on_checkbutton3112p_toggled)
+        checkbutton3101p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3102p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3103p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3104p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3105p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3106p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3107p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3108p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3109p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3110p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3111p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton3112p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
 
 
     users_tab_popover_set_gui()

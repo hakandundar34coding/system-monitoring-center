@@ -64,8 +64,9 @@ def disk_menus_gui_func():
                 checkbutton1301p.set_active(True)
                 return
             Config.plot_disk_read_speed = 0
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
         Config.config_save_func()
 
     def on_checkbutton1302p_toggled(widget):                                                  # Option for showing "disk write speed" on the chart
@@ -76,8 +77,9 @@ def disk_menus_gui_func():
                 checkbutton1302p.set_active(True)
                 return
             Config.plot_disk_write_speed = 0
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
         Config.config_save_func()
 
     def on_button1301p_clicked(widget):                                                       # For setting chart foreground color
@@ -91,8 +93,9 @@ def disk_menus_gui_func():
             Config.config_save_func()
         if dialog_response == Gtk.ResponseType.CANCEL:
             colorchooserdialog1001.hide()
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
 
     def on_button1302p_clicked(widget):                                                       # For setting chart background color
         red, blue, green, alpha = Config.chart_background_color_all_charts                    # Get current background color of the chart
@@ -105,39 +108,45 @@ def disk_menus_gui_func():
             Config.config_save_func()
         if dialog_response == Gtk.ResponseType.CANCEL:
             colorchooserdialog1001.hide()
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
 
     def on_combobox1301p_changed(widget):                                                     # Option for defining "disk read/write speed number precision" shown by using label
         Config.performance_disk_speed_data_precision = Config.number_precision_list[combobox1301p.get_active()][2]
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
         Config.config_save_func()
 
     def on_combobox1302p_changed(widget):                                                     # Option for defining "disk read/write data number precision" shown by using label
         Config.performance_disk_usage_data_precision = Config.data_unit_list[combobox1302p.get_active()][2]
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
         Config.config_save_func()
 
     def on_combobox1303p_changed(widget):                                                     # Option for defining "disk read/write speed data units" shown by using label
         Config.performance_disk_speed_data_unit = Config.data_speed_unit_list[combobox1303p.get_active()][2]
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
         Config.config_save_func()
 
     def on_combobox1304p_changed(widget):                                                     # Option for defining "disk read/write data units" shown by using label
         Config.performance_disk_usage_data_unit = Config.data_unit_list[combobox1304p.get_active()][2]
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
         Config.config_save_func()
 
     def on_combobox1305p_changed(widget):                                                     # Option for defining "selected disk" which affects information shown on the GUI
         Config.selected_disk = Performance.disk_list_system_ordered[combobox1305p.get_active()]
         Disk.selected_disk_number = Config.selected_disk
         Performance.performance_set_selected_disk_func()
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
         Config.config_save_func()
 
     def on_button1303p_clicked(widget):                                                       # For resetting all Disk tab settings
@@ -147,8 +156,9 @@ def disk_menus_gui_func():
         disk_tab_customization_popover_disconnect_signals_func()
         disk_tab_popover_set_gui()
         disk_tab_customization_popover_connect_signals_func()
-        Disk.disk_initial_func()                                                              # Call this function in order to apply changes immediately (without waiting update interval).
-        Disk.disk_loop_func()                                                                 # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
 
 
     # ********************** Connect signals to GUI objects for Disk tab **********************

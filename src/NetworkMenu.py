@@ -64,8 +64,9 @@ def network_menus_gui_func():
                 checkbutton1401p.set_active(True)
                 return
             Config.plot_network_download_speed = 0
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
         Config.config_save_func()
 
     def on_checkbutton1402p_toggled(widget):                                                  # Option for showing "network upload speed" on the chart
@@ -76,8 +77,9 @@ def network_menus_gui_func():
                 checkbutton1402p.set_active(True)
                 return
             Config.plot_network_upload_speed = 0
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
         Config.config_save_func()
 
     def on_button1401p_clicked(widget):                                                       # For setting chart foreground color
@@ -91,8 +93,9 @@ def network_menus_gui_func():
             Config.config_save_func()
         if dialog_response == Gtk.ResponseType.CANCEL:
             colorchooserdialog1001.hide()
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
 
     def on_button1402p_clicked(widget):                                                       # For setting chart background color
         red, blue, green, alpha = Config.chart_background_color_all_charts                    # Get current background color of the chart
@@ -105,39 +108,45 @@ def network_menus_gui_func():
             Config.config_save_func()
         if dialog_response == Gtk.ResponseType.CANCEL:
             colorchooserdialog1001.hide()
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
 
     def on_combobox1401p_changed(widget):                                                     # Option for defining "network download/upload speed number precision" shown by using label
         Config.performance_network_speed_data_precision = Config.number_precision_list[combobox1401p.get_active()][2]
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
         Config.config_save_func()
 
     def on_combobox1402p_changed(widget):                                                     # Option for defining "network download/upload data number precision" shown by using label
         Config.performance_network_data_data_precision = Config.number_precision_list[combobox1402p.get_active()][2]
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
         Config.config_save_func()
 
     def on_combobox1403p_changed(widget):                                                     # Option for defining "network download/upload speed data units" shown by using label
         Config.performance_network_speed_data_unit = Config.data_speed_unit_list[combobox1403p.get_active()][2]
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
         Config.config_save_func()
 
     def on_combobox1404p_changed(widget):                                                     # Option for defining "network download/upload data units" shown by using label
         Config.performance_network_data_data_unit = Config.data_unit_list[combobox1404p.get_active()][2]
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
         Config.config_save_func()
 
     def on_combobox1405p_changed(widget):                                                     # Option for defining "selected network card" which affects information shown on the GUI
         Config.selected_network_card = Performance.network_card_list[combobox1405p.get_active()]
         Performance.set_selected_network_card = Config.selected_network_card
-        Performance.performance_set_selected_network_card_func()                              # Call this function in order to apply changes
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Performance.performance_set_selected_network_card_func()
+        Network.network_initial_func()
+        Network.network_loop_func()
         Config.config_save_func()
 
     def on_button1403p_clicked(widget):                                                       # For resetting all Network tab settings
@@ -147,8 +156,9 @@ def network_menus_gui_func():
         network_tab_customization_popover_disconnect_signals_func()
         network_tab_popover_set_gui()
         network_tab_customization_popover_connect_signals_func()
-        Network.network_initial_func()                                                        # Call this function in order to apply changes immediately (without waiting update interval).
-        Network.network_loop_func()                                                           # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
 
 
     # ********************** Connect signals to GUI objects for Network tab **********************

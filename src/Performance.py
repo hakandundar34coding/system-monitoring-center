@@ -23,7 +23,7 @@ def performance_set_selected_cpu_core_func():
     global selected_cpu_core, selected_cpu_core_number
     if Config.selected_cpu_core in logical_core_list:
         selected_cpu_core = Config.selected_cpu_core
-    if Config.selected_cpu_core not in logical_core_list:
+    else:
         selected_cpu_core = first_core
     selected_cpu_core_number = logical_core_list_system_ordered.index(selected_cpu_core)
 
@@ -54,10 +54,10 @@ def performance_set_selected_disk_func():
     global selected_disk_number
     if Config.selected_disk in disk_list:
         selected_disk = Config.selected_disk
-    if Config.selected_disk not in disk_list:
+    else:
         if system_disk_list != []:
             selected_disk = system_disk_list[0]
-        if system_disk_list == []:
+        else:
             selected_disk = disk_list[0]
     selected_disk_number = disk_list_system_ordered.index(selected_disk)
 
@@ -75,13 +75,13 @@ def performance_set_selected_network_card_func():
     global selected_network_card_number
     if connected_network_card_list != []:                                                     # This if statement is used in order to avoid error if there is no any network card that connected.
         selected_network_card = connected_network_card_list[0]
-    if connected_network_card_list == []:
+    else:
         selected_network_card = network_card_list[0]
     if Config.selected_network_card == "":                                                    # "" is predefined network card name before release of the software. This statement is used in order to avoid error, if no network card selection is made since first run of the software.
         selected_network_card_number = network_card_list.index(selected_network_card)
     if Config.selected_network_card in network_card_list:
         selected_network_card_number = network_card_list.index(Config.selected_network_card)
-    if Config.selected_network_card not in network_card_list:
+    else:
         selected_network_card_number = network_card_list.index(selected_network_card)
 
 

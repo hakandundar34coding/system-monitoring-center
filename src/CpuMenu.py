@@ -57,8 +57,9 @@ def cpu_menus_gui_func():
             Config.show_cpu_usage_per_core = 0                                                # Make this definition before calling the following function in order to prevent problems because of the unchanged setting.
             Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw_per_core)      # Disconnect "on_drawingarea1101_draw_per_core" function in order to connect "on_drawingarea1101_draw" function which draws cpu usage percent average.
             Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw)                  # Connect "on_drawingarea1101_draw" function in order to draw cpu usage percent average.
-            Cpu.cpu_initial_func()                                                            # Call this function in order to apply changes
-            Cpu.cpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
+            # Apply changes immediately (without waiting update interval).
+            Cpu.cpu_initial_func()
+            Cpu.cpu_loop_func()
             Config.config_save_func()
 
     def on_radiobutton1102p_toggled(widget):                                                  # Option for drawing "CPU usage per core"
@@ -69,8 +70,9 @@ def cpu_menus_gui_func():
             except TypeError:
                 pass
             Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)         # Connect "on_drawingarea1101_draw_per_core" function in order to draw cpu usage percent per core.
-            Cpu.cpu_initial_func()                                                            # Call this function in order to apply changes
-            Cpu.cpu_loop_func()                                                               # Call this function in order to apply changes immediately (without waiting update interval).
+            # Apply changes immediately (without waiting update interval).
+            Cpu.cpu_initial_func()
+            Cpu.cpu_loop_func()
             Config.config_save_func()
 
     def on_button1101p_clicked(widget):                                                       # For setting chart foreground color
@@ -84,8 +86,9 @@ def cpu_menus_gui_func():
             Config.config_save_func()
         if dialog_response == Gtk.ResponseType.CANCEL:
             colorchooserdialog1001.hide()
-        Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes
-        Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Cpu.cpu_initial_func()
+        Cpu.cpu_loop_func()
 
     def on_button1102p_clicked(widget):                                                       # For setting chart background color
         red, blue, green, alpha = Config.chart_background_color_all_charts                    # Get current background color of the chart
@@ -98,21 +101,24 @@ def cpu_menus_gui_func():
             Config.config_save_func()
         if dialog_response == Gtk.ResponseType.CANCEL:
             colorchooserdialog1001.hide()
-        Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes
-        Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Cpu.cpu_initial_func()
+        Cpu.cpu_loop_func()
 
     def on_combobox1101p_changed(widget):                                                     # Option for defining "CPU usage number precision" shown by using a label
         Config.performance_cpu_usage_percent_precision = Config.number_precision_list[combobox1101p.get_active()][2]
-        Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes immediately (without waiting update interval).
-        Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Cpu.cpu_initial_func()
+        Cpu.cpu_loop_func()
         Config.config_save_func()
 
     def on_combobox1102p_changed(widget):                                                     # Option for defining "selected CPU core" which affects information shown on the GUI
         Config.selected_cpu_core = Performance.logical_core_list_system_ordered[combobox1102p.get_active()]
         Cpu.cpu_cpu_core_number = Config.selected_cpu_core
         Performance.performance_set_selected_cpu_core_func()                                  # Call this function in order to apply selected CPU core changes
-        Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes immediately (without waiting update interval).
-        Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Cpu.cpu_initial_func()
+        Cpu.cpu_loop_func()
         Config.config_save_func()
 
     def on_button1103p_clicked(widget):                                                       # For resetting all CPU tab settings
@@ -120,8 +126,9 @@ def cpu_menus_gui_func():
         Config.config_save_func()
         cpu_set_default_cpu_usage_type_func()
         Performance.performance_set_selected_cpu_core_func()                                  # Call this function in order to apply selected CPU core changes
-        Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes immediately (without waiting update interval).
-        Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Cpu.cpu_initial_func()
+        Cpu.cpu_loop_func()
         cpu_tab_customization_popover_disconnect_signals_func()
         cpu_tab_popover_set_gui()                                                             # Apply setting changes on the CPU tab popover GUI
         cpu_tab_customization_popover_connect_signals_func()
@@ -194,13 +201,15 @@ def cpu_set_default_cpu_usage_type_func():
         except TypeError:
             return                                                                            # Function run is stopped here if there is no "on_drawingarea1101_draw_per_core" signals connected to the widget which means "show_cpu_usage_per_core = 0".
         Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw)                      # Connect "on_drawingarea1101_draw" function in order to draw cpu usage percent average.
-        Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes
-        Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Cpu.cpu_initial_func()
+        Cpu.cpu_loop_func()
     if Config.show_cpu_usage_per_core == 1:
         try:
             Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)               # Disconnect "on_drawingarea1101_draw" function in order to connect "on_drawingarea1101_draw_per_core" function for drawing cpu usage percent per core.
         except TypeError:
             return                                                                            # Function run is stopped here if there is no "on_drawingarea1101_draw_per_core" signals connected to the widget which means "show_cpu_usage_per_core = 0".
         Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)             # Connect "on_drawingarea1101_draw_per_core" function in order to draw cpu usage percent per core.
-        Cpu.cpu_initial_func()                                                                # Call this function in order to apply changes
-        Cpu.cpu_loop_func()                                                                   # Call this function in order to apply changes immediately (without waiting update interval).
+        # Apply changes immediately (without waiting update interval).
+        Cpu.cpu_initial_func()
+        Cpu.cpu_loop_func()

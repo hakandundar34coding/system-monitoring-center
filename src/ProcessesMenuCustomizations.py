@@ -108,41 +108,7 @@ def processes_menu_customizations_gui_func():
         processes_tab_customization_popover_connect_signals_func()
 
     # ********************** Define object functions for Processes tab customizations popover Add/Remove Columns Tab **********************
-    def on_checkbutton2106p_toggled(widget):                                                  # "Name" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2107p_toggled(widget):                                                  # "PID" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2108p_toggled(widget):                                                  # "User Name" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2109p_toggled(widget):                                                  # "Status" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2110p_toggled(widget):                                                  # "CPU Usage Percent" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2111p_toggled(widget):                                                  # "RAM (RSS)" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2112p_toggled(widget):                                                  # "RAM (VMS)" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2113p_toggled(widget):                                                  # "RAM (Shared)" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2114p_toggled(widget):                                                  # "Disk Read Data" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2115p_toggled(widget):                                                  # "Disk Write Data" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2116p_toggled(widget):                                                  # "Disk Read Speed" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2117p_toggled(widget):                                                  # "Disk Write Speed" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2118p_toggled(widget):                                                  # "Priority" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2119p_toggled(widget):                                                  # "Number of Threads" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2120p_toggled(widget):                                                  # "PPID" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2121p_toggled(widget):                                                  # "UID" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2122p_toggled(widget):                                                  # "GID" checkbutton
-        processes_add_remove_columns_function()
-    def on_checkbutton2123p_toggled(widget):                                                  # "Path" checkbutton
+    def on_add_remove_checkbuttons_toggled(widget):                                           # "Name, PID, Username, CPU, etc." checkbuttons
         processes_add_remove_columns_function()
 
     # ********************** Define object functions for Processes tab customizations popover Precision/Data Tab **********************
@@ -192,24 +158,24 @@ def processes_menu_customizations_gui_func():
         checkbutton2102p.connect("toggled", on_checkbutton2102p_toggled)
         checkbutton2103p.connect("toggled", on_checkbutton2103p_toggled)
         # ********************** Connect signals to GUI objects for Processes tab customizations popover Add/Remove Columns Tab **********************
-        checkbutton2106p.connect("toggled", on_checkbutton2106p_toggled)
-        checkbutton2107p.connect("toggled", on_checkbutton2107p_toggled)
-        checkbutton2108p.connect("toggled", on_checkbutton2108p_toggled)
-        checkbutton2109p.connect("toggled", on_checkbutton2109p_toggled)
-        checkbutton2110p.connect("toggled", on_checkbutton2110p_toggled)
-        checkbutton2111p.connect("toggled", on_checkbutton2111p_toggled)
-        checkbutton2112p.connect("toggled", on_checkbutton2112p_toggled)
-        checkbutton2113p.connect("toggled", on_checkbutton2113p_toggled)
-        checkbutton2114p.connect("toggled", on_checkbutton2114p_toggled)
-        checkbutton2115p.connect("toggled", on_checkbutton2115p_toggled)
-        checkbutton2116p.connect("toggled", on_checkbutton2116p_toggled)
-        checkbutton2117p.connect("toggled", on_checkbutton2117p_toggled)
-        checkbutton2118p.connect("toggled", on_checkbutton2118p_toggled)
-        checkbutton2119p.connect("toggled", on_checkbutton2119p_toggled)
-        checkbutton2120p.connect("toggled", on_checkbutton2120p_toggled)
-        checkbutton2121p.connect("toggled", on_checkbutton2121p_toggled)
-        checkbutton2122p.connect("toggled", on_checkbutton2122p_toggled)
-        checkbutton2123p.connect("toggled", on_checkbutton2123p_toggled)
+        checkbutton2106p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2107p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2108p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2109p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2110p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2111p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2112p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2113p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2114p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2115p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2116p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2117p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2118p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2119p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2120p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2121p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2122p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2123p.connect("toggled", on_add_remove_checkbuttons_toggled)
         # ********************** Connect signals to GUI objects for Processes tab customizations popover Precision/Data Units Tab **********************
         combobox2101p.connect("changed", on_combobox2101p_changed)
         combobox2102p.connect("changed", on_combobox2102p_changed)
@@ -227,24 +193,24 @@ def processes_menu_customizations_gui_func():
         checkbutton2102p.disconnect_by_func(on_checkbutton2102p_toggled)
         checkbutton2103p.disconnect_by_func(on_checkbutton2103p_toggled)
         # ********************** Disconnect signals of GUI objects for Processes tab customizations popover Add/Remove Columns Tab **********************
-        checkbutton2106p.disconnect_by_func(on_checkbutton2106p_toggled)
-        checkbutton2107p.disconnect_by_func(on_checkbutton2107p_toggled)
-        checkbutton2108p.disconnect_by_func(on_checkbutton2108p_toggled)
-        checkbutton2109p.disconnect_by_func(on_checkbutton2109p_toggled)
-        checkbutton2110p.disconnect_by_func(on_checkbutton2110p_toggled)
-        checkbutton2111p.disconnect_by_func(on_checkbutton2111p_toggled)
-        checkbutton2112p.disconnect_by_func(on_checkbutton2112p_toggled)
-        checkbutton2113p.disconnect_by_func(on_checkbutton2113p_toggled)
-        checkbutton2114p.disconnect_by_func(on_checkbutton2114p_toggled)
-        checkbutton2115p.disconnect_by_func(on_checkbutton2115p_toggled)
-        checkbutton2116p.disconnect_by_func(on_checkbutton2116p_toggled)
-        checkbutton2117p.disconnect_by_func(on_checkbutton2117p_toggled)
-        checkbutton2118p.disconnect_by_func(on_checkbutton2118p_toggled)
-        checkbutton2119p.disconnect_by_func(on_checkbutton2119p_toggled)
-        checkbutton2120p.disconnect_by_func(on_checkbutton2120p_toggled)
-        checkbutton2121p.disconnect_by_func(on_checkbutton2121p_toggled)
-        checkbutton2122p.disconnect_by_func(on_checkbutton2122p_toggled)
-        checkbutton2123p.disconnect_by_func(on_checkbutton2123p_toggled)
+        checkbutton2106p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2107p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2108p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2109p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2110p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2111p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2112p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2113p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2114p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2115p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2116p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2117p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2118p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2119p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2120p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2121p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2122p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2123p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
         # ********************** Disconnect signals of GUI objects for Processes tab customizations popover Precision/Data Units Tab **********************
         combobox2101p.disconnect_by_func(on_combobox2101p_changed)
         combobox2102p.disconnect_by_func(on_combobox2102p_changed)

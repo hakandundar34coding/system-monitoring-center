@@ -58,21 +58,7 @@ def services_menu_customizations_gui_func():
         services_tab_customization_popover_connect_signals_func()
 
     # ********************** Define object functions for Services tab customizations popover Add/Remove Columns Tab **********************
-    def on_checkbutton6101p_toggled(widget):                                                  # "Service Name" checkbutton
-        services_add_remove_columns_function()
-    def on_checkbutton6102p_toggled(widget):                                                  # "State" checkbutton
-        services_add_remove_columns_function()
-    def on_checkbutton6103p_toggled(widget):                                                  # "Main PID" checkbutton
-        services_add_remove_columns_function()
-    def on_checkbutton6104p_toggled(widget):                                                  # "Active State" checkbutton
-        services_add_remove_columns_function()
-    def on_checkbutton6105p_toggled(widget):                                                  # "Load State" checkbutton
-        services_add_remove_columns_function()
-    def on_checkbutton6106p_toggled(widget):                                                  # "Sub-State" checkbutton
-        services_add_remove_columns_function()
-    def on_checkbutton6107p_toggled(widget):                                                  # "Memory (RSS)" checkbutton
-        services_add_remove_columns_function()
-    def on_checkbutton6108p_toggled(widget):                                                  # "Description" checkbutton
+    def on_add_remove_checkbuttons_toggled(widget):                                           # "Service Name, State, Main PID, etc." checkbuttons
         services_add_remove_columns_function()
 
     # ********************** Connect signals to GUI objects for Services tab customizations popover Common GUI Objects **********************
@@ -89,27 +75,27 @@ def services_menu_customizations_gui_func():
     # ********************** Define function for connecting Services tab customizations popover GUI signals **********************
     def services_tab_customization_popover_connect_signals_func():
         # ********************** Connect signals to GUI objects for Services tab customizations popover Add/Remove Columns Tab **********************
-        checkbutton6101p.connect("toggled", on_checkbutton6101p_toggled)
-        checkbutton6102p.connect("toggled", on_checkbutton6102p_toggled)
-        checkbutton6103p.connect("toggled", on_checkbutton6103p_toggled)
-        checkbutton6104p.connect("toggled", on_checkbutton6104p_toggled)
-        checkbutton6105p.connect("toggled", on_checkbutton6105p_toggled)
-        checkbutton6106p.connect("toggled", on_checkbutton6106p_toggled)
-        checkbutton6107p.connect("toggled", on_checkbutton6107p_toggled)
-        checkbutton6108p.connect("toggled", on_checkbutton6108p_toggled)
+        checkbutton6101p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton6102p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton6103p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton6104p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton6105p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton6106p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton6107p.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton6108p.connect("toggled", on_add_remove_checkbuttons_toggled)
 
 
     # ********************** Define function for disconnecting Services tab customizations popover GUI signals **********************
     def services_tab_customization_popover_disconnect_signals_func():
         # ********************** Connect signals to GUI objects for Services tab customizations popover Add/Remove Columns Tab **********************
-        checkbutton6101p.disconnect_by_func(on_checkbutton6101p_toggled)
-        checkbutton6102p.disconnect_by_func(on_checkbutton6102p_toggled)
-        checkbutton6103p.disconnect_by_func(on_checkbutton6103p_toggled)
-        checkbutton6104p.disconnect_by_func(on_checkbutton6104p_toggled)
-        checkbutton6105p.disconnect_by_func(on_checkbutton6105p_toggled)
-        checkbutton6106p.disconnect_by_func(on_checkbutton6106p_toggled)
-        checkbutton6107p.disconnect_by_func(on_checkbutton6107p_toggled)
-        checkbutton6108p.disconnect_by_func(on_checkbutton6108p_toggled)
+        checkbutton6101p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton6102p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton6103p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton6104p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton6105p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton6106p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton6107p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton6108p.disconnect_by_func(on_add_remove_checkbuttons_toggled)
 
 
     services_tab_popover_set_gui()

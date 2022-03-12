@@ -191,7 +191,6 @@ FPS counting does not continue when window is minimized.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">This information is available only on systems with X11 windowing system.</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Refresh Rate:</property>
             <property name="ellipsize">end</property>

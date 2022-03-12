@@ -47,7 +47,7 @@ Note: If there are dependency problems during installation:
     * Monitoring and managing processes, users, startup applications and services (systemd)
     * Monitoring sensors and general system information
 * Language support (more languages will be added if translations are provided by contributors):
-    * English, Brazilian Portuguese, Turkish
+    * Brazilian Portuguese, English, Turkish
 * Adapts to system theme
 * Free and open sourced
 
@@ -72,12 +72,6 @@ Note: If there are dependency problems during installation:
 ![System Monitoring Center](screenshots/services_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/system_tab_dark_system_theme.png)
-
-
-### Dependencies:
-* Python 3 (Programming language)
-* GTK3 (GUI)
-* python3-opengl (for FPS counting)
 
 
 ### Note:

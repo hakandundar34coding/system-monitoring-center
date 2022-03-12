@@ -160,28 +160,7 @@ def settings_gui_func():
         Config.floating_summary_window_transparency = spinbutton2001.get_value()
         Config.config_save_func()
 
-    def on_checkbutton2004_toggled(widget):                                                   # "Show/Hide Performance Information - CPU Usage Average" GUI object signal
-        settings_gui_add_remove_floating_summary_performance_information_func()
-
-    def on_checkbutton2005_toggled(widget):                                                   # "Show/Hide Performance Information - RAM Usage" GUI object signal
-        settings_gui_add_remove_floating_summary_performance_information_func()
-
-    def on_checkbutton2006_toggled(widget):                                                   # "Show/Hide Performance Information - Disk Read+Write Speed" GUI object signal
-        settings_gui_add_remove_floating_summary_performance_information_func()
-
-    def on_checkbutton2007_toggled(widget):                                                   # "Show/Hide Performance Information - Disk Read Speed" GUI object signal
-        settings_gui_add_remove_floating_summary_performance_information_func()
-
-    def on_checkbutton2008_toggled(widget):                                                   # "Show/Hide Performance Information - Disk Write Speed" GUI object signal
-        settings_gui_add_remove_floating_summary_performance_information_func()
-
-    def on_checkbutton2009_toggled(widget):                                                   # "Show/Hide Performance Information - Network Receive+Send Speed" GUI object signal
-        settings_gui_add_remove_floating_summary_performance_information_func()
-
-    def on_checkbutton2010_toggled(widget):                                                   # "Show/Hide Performance Information - Network Receive Speed" GUI object signal
-        settings_gui_add_remove_floating_summary_performance_information_func()
-
-    def on_checkbutton2011_toggled(widget):                                                   # "Show/Hide Performance Information - Network Send Speed" GUI object signal
+    def on_add_remove_checkbuttons_toggled(widget):                                           # "Show/Hide Performance Information - CPU Usage Average, RAM Usage, etc." GUI object signals
         settings_gui_add_remove_floating_summary_performance_information_func()
 
     def on_button2003_clicked(widget):                                                        # "Reset floating summary window settings to defaults" GUI object signal
@@ -245,14 +224,14 @@ def settings_gui_func():
         checkbutton2001.connect("toggled", on_checkbutton2001_toggled)
         checkbutton2002.connect("toggled", on_checkbutton2002_toggled)
         checkbutton2003.connect("toggled", on_checkbutton2003_toggled)
-        checkbutton2004.connect("toggled", on_checkbutton2004_toggled)
-        checkbutton2005.connect("toggled", on_checkbutton2005_toggled)
-        checkbutton2006.connect("toggled", on_checkbutton2006_toggled)
-        checkbutton2007.connect("toggled", on_checkbutton2007_toggled)
-        checkbutton2008.connect("toggled", on_checkbutton2008_toggled)
-        checkbutton2009.connect("toggled", on_checkbutton2009_toggled)
-        checkbutton2010.connect("toggled", on_checkbutton2010_toggled)
-        checkbutton2011.connect("toggled", on_checkbutton2011_toggled)
+        checkbutton2004.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2005.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2006.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2007.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2008.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2009.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2010.connect("toggled", on_add_remove_checkbuttons_toggled)
+        checkbutton2011.connect("toggled", on_add_remove_checkbuttons_toggled)
         checkbutton2012.connect("toggled", on_checkbutton2012_toggled)
         spinbutton2001.connect("value-changed", spinbutton2001_on_value_changed)
 
@@ -266,14 +245,14 @@ def settings_gui_func():
         checkbutton2001.disconnect_by_func(on_checkbutton2001_toggled)
         checkbutton2002.disconnect_by_func(on_checkbutton2002_toggled)
         checkbutton2003.disconnect_by_func(on_checkbutton2003_toggled)
-        checkbutton2004.disconnect_by_func(on_checkbutton2004_toggled)
-        checkbutton2005.disconnect_by_func(on_checkbutton2005_toggled)
-        checkbutton2006.disconnect_by_func(on_checkbutton2006_toggled)
-        checkbutton2007.disconnect_by_func(on_checkbutton2007_toggled)
-        checkbutton2008.disconnect_by_func(on_checkbutton2008_toggled)
-        checkbutton2009.disconnect_by_func(on_checkbutton2009_toggled)
-        checkbutton2010.disconnect_by_func(on_checkbutton2010_toggled)
-        checkbutton2011.disconnect_by_func(on_checkbutton2011_toggled)
+        checkbutton2004.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2005.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2006.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2007.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2008.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2009.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2010.disconnect_by_func(on_add_remove_checkbuttons_toggled)
+        checkbutton2011.disconnect_by_func(on_add_remove_checkbuttons_toggled)
         checkbutton2012.disconnect_by_func(on_checkbutton2012_toggled)
         spinbutton2001.disconnect_by_func(spinbutton2001_on_value_changed)
 
