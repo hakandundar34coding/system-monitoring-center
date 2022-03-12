@@ -16,7 +16,7 @@ def main_gui_import_func():
     import locale
     from locale import gettext as _tr
 
-    # Define functions for language translation support
+    # Configurations for language translation support
     locale.bindtextdomain("system-monitoring-center", "/usr/share/locale")
     locale.textdomain("system-monitoring-center")
     locale.setlocale(locale.LC_ALL, os.environ.get("LANG"))
@@ -429,11 +429,3 @@ def main_gui_tab_switch_func():
             grid8.attach(System.grid8101, 0, 0, 1, 1)
         System.system_run_func()
         return
-
-
-main_gui_import_func()
-main_gui_func()
-
-
-window1.show_all()                                                                            # Show main window
-Gtk.main()                                                                                    # Start main event which keeps GUI open until program is ended by user or programmatically.

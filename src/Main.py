@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 
-import sys
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
-from MainGUI import window1
 
 class Application(Gtk.Application):
     def __init__(self, *args, **kwargs):
@@ -13,9 +11,15 @@ class Application(Gtk.Application):
         self.window = None
 
     def do_activate(self):
-        self.window = window1
+        # Allow opening one instance of the application.
+        if not self.window:
+            import MainGUI
+            MainGUI.main_gui_import_func()
+            MainGUI.main_gui_func()
+            self.window = MainGUI.window1
+            self.window.set_application(self)
+            self.window.show_all()
+            Gtk.main()
 
-
-if __name__ == "__main__":
-    app = Application()
-    app.run(sys.argv)
+app = Application()
+app.run(None)
