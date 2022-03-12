@@ -41,7 +41,9 @@ def startup_gui_func():
 
 
     # Startup tab GUI functions
-    def on_treeview5101_button_press_event(widget, event):                                    # Mouse button press event (on the treeview)
+    # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
+    def on_treeview5101_button_press_event(widget, event):
+
         # Get right/double clicked row data
         try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
             path, _, _, _ = treeview5101.get_path_at_pos(int(event.x), int(event.y))
@@ -49,6 +51,7 @@ def startup_gui_func():
             return
         model = treeview5101.get_model()
         treeiter = model.get_iter(path)
+
         # Get right/double clicked startup item file name, visibility and name
         if treeiter == None:
             return
@@ -58,6 +61,7 @@ def startup_gui_func():
             selected_startup_application_name = model[treeiter][3]
         except ValueError:
             return
+
         # Open right click menu if right clicked on a row
         if event.button == 3:
             if 'StartupMenuRightClick' not in globals():
@@ -68,30 +72,64 @@ def startup_gui_func():
             StartupMenuRightClick.menu5101m.popup(None, None, None, None, event.button, event.time)
             StartupMenuRightClick.startup_set_menu_labels_func()
 
-    def on_treeview5101_button_release_event(widget, event):                                  # Mouse button press event (on the treeview)
-        if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
+
+    # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
+    def on_treeview5101_button_release_event(widget, event):
+
+        # Check if left mouse button is used
+        if event.button == 1:
             startup_treeview_column_order_width_row_sorting_func()
 
+
+    # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
     def on_searchentry5101_changed(widget):
+
         radiobutton5101.set_active(True)
-        startup_treeview_filter_search_func()
 
-    def on_radiobutton5101_toggled(widget):                                                   # "Show all startup items" radiobutton
-        if radiobutton5101.get_active() == True:
-            searchentry5101.set_text("")
-            startup_treeview_filter_show_all_func()
+        global filter_column
+        startup_application_search_text = searchentry5101.get_text().lower()
+        # Set user-specific/system-wide startup items
+        for piter in piter_list:
+            treestore5101.set_value(piter, 0, False)
+            startup_item_data_text_in_model = treestore5101.get_value(piter, filter_column)
+            if startup_application_search_text in str(startup_item_data_text_in_model).lower():
+                treestore5101.set_value(piter, 0, True)
 
-    def on_radiobutton5102_toggled(widget):                                                   # "Show user-specific startup items" radiobutton
-        if radiobutton5102.get_active() == True:
-            searchentry5101.set_text("")
-            startup_treeview_filter_show_all_func()
-            startup_treeview_filter_startup_user_specific_only()
 
-    def on_radiobutton5103_toggled(widget):                                                   # "Show system-wide startup items" radiobutton
-        if radiobutton5103.get_active() == True:
+    # --------------------------------- Called for filtering items when "Show all startup items" radiobutton is clicked ---------------------------------
+    def on_radiobutton5101_toggled(widget):
+
+        if widget.get_active() == True:
             searchentry5101.set_text("")
-            startup_treeview_filter_show_all_func()
-            startup_treeview_filter_startup_system_wide_only()
+            # Show all startup items
+            for piter in piter_list:
+                treestore5101.set_value(piter, 0, True)
+
+
+    # --------------------------------- Called for filtering items when "Show user-specific startup items" radiobutton is clicked ---------------------------------
+    def on_radiobutton5102_toggled(widget):
+
+        if widget.get_active() == True:
+            searchentry5101.set_text("")
+            for piter in piter_list:
+                # Show all startup items
+                treestore5101.set_value(piter, 0, True)
+                # Show if user-specific startup item
+                if startup_applications_type_list[piter_list.index(piter)] == "System-Wide":
+                    treestore5101.set_value(piter, 0, False)
+
+
+    # --------------------------------- Called for filtering items when "Show system-wide startup items" radiobutton is clicked ---------------------------------
+    def on_radiobutton5103_toggled(widget):
+
+        if widget.get_active() == True:
+            searchentry5101.set_text("")
+            for piter in piter_list:
+                # Show all startup items
+                treestore5101.set_value(piter, 0, True)
+                # Show if system-wide startup item
+                if startup_applications_type_list[piter_list.index(piter)] == "User-Specific":
+                    treestore5101.set_value(piter, 0, False)
 
 
     # Startup tab GUI functions - connect
@@ -432,42 +470,6 @@ def startup_run_func(*args):
         GLib.idle_add(startup_loop_func)
         startup_glib_source.set_callback(startup_run_func)
         startup_glib_source.attach(GLib.MainContext.default())
-
-
-# ----------------------------------- Startup - Treeview Filter Show All Function -----------------------------------
-def startup_treeview_filter_show_all_func():
-
-    for piter in piter_list:
-        treestore5101.set_value(piter, 0, True)
-
-
-# ----------------------------------- Startup - Treeview Filter Show User-Specific Startup Items Function -----------------------------------
-def startup_treeview_filter_startup_user_specific_only():
-
-    for piter in piter_list:
-        if startup_applications_type_list[piter_list.index(piter)] == "System-Wide":
-            treestore5101.set_value(piter, 0, False)
-
-
-# ----------------------------------- Startup - Treeview Filter Show System-Wide Startup Items Function -----------------------------------
-def startup_treeview_filter_startup_system_wide_only():
-
-    for piter in piter_list:
-        if startup_applications_type_list[piter_list.index(piter)] == "User-Specific":
-            treestore5101.set_value(piter, 0, False)
-
-
-# ----------------------------------- Startup - Treeview Filter Search Function -----------------------------------
-def startup_treeview_filter_search_func():
-
-    global filter_column
-    startup_application_search_text = searchentry5101.get_text().lower()
-    # Set user-specific/system-wide startup items
-    for piter in piter_list:
-        treestore5101.set_value(piter, 0, False)
-        startup_item_data_text_in_model = treestore5101.get_value(piter, filter_column)
-        if startup_application_search_text in str(startup_item_data_text_in_model).lower():
-            treestore5101.set_value(piter, 0, True)
 
 
 # ----------------------------------- Startup - Column Title Clicked Function -----------------------------------

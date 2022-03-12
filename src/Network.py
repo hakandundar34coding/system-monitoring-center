@@ -58,12 +58,12 @@ def network_gui_func():
             import NetworkMenu
             NetworkMenu.network_menus_import_func()
             NetworkMenu.network_menus_gui_func()
-            NetworkMenu.popover1401p.set_relative_to(button1401)                              # Set widget that popover menu will display at the edge of.
-            NetworkMenu.popover1401p.set_position(1)                                          # Show popover menu at the right edge of the caller button.
-        NetworkMenu.popover1401p.popup()                                                      # Show Network tab popover GUI
+            NetworkMenu.popover1401p.set_relative_to(button1401)
+            NetworkMenu.popover1401p.set_position(1)
+        NetworkMenu.popover1401p.popup()
 
     # ----------------------------------- Network - Plot Network download/upload speed data as a Line Chart ----------------------------------- 
-    def on_drawingarea1401_draw(drawingarea1401, chart1401):
+    def on_drawingarea1401_draw(widget, ctx):
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
@@ -77,23 +77,23 @@ def network_gui_func():
         chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
         chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
 
-        chart1401_width = Gtk.Widget.get_allocated_width(drawingarea1401)
-        chart1401_height = Gtk.Widget.get_allocated_height(drawingarea1401)
+        chart1401_width = Gtk.Widget.get_allocated_width(widget)
+        chart1401_height = Gtk.Widget.get_allocated_height(widget)
 
-        chart1401.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1401.rectangle(0, 0, chart1401_width, chart1401_height)
-        chart1401.fill()
+        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        ctx.rectangle(0, 0, chart1401_width, chart1401_height)
+        ctx.fill()
 
-        chart1401.set_line_width(1)
-        chart1401.set_dash([4, 3])
-        chart1401.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_line_width(1)
+        ctx.set_dash([4, 3])
+        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
         for i in range(3):
-            chart1401.move_to(0, chart1401_height/4*(i+1))
-            chart1401.line_to(chart1401_width, chart1401_height/4*(i+1))
+            ctx.move_to(0, chart1401_height/4*(i+1))
+            ctx.line_to(chart1401_width, chart1401_height/4*(i+1))
         for i in range(4):
-            chart1401.move_to(chart1401_width/5*(i+1), 0)
-            chart1401.line_to(chart1401_width/5*(i+1), chart1401_height)
-        chart1401.stroke()
+            ctx.move_to(chart1401_width/5*(i+1), 0)
+            ctx.line_to(chart1401_width/5*(i+1), chart1401_height)
+        ctx.stroke()
 
         chart1401_y_limit = 1.1 * ((max(max(network_receive_speed), max(network_send_speed))) + 0.0000001)
         if Config.plot_network_download_speed == 1 and Config.plot_network_upload_speed == 0:
@@ -119,40 +119,40 @@ def network_gui_func():
         chart1401_y_limit = (chart1401_y_limit * next_multiple / (chart1401_y_limit_float + 0.0000001) + 0.0000001)
         # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
-        chart1401.set_dash([], 0)
-        chart1401.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        chart1401.rectangle(0, 0, chart1401_width, chart1401_height)
-        chart1401.stroke()
+        ctx.set_dash([], 0)
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+        ctx.rectangle(0, 0, chart1401_width, chart1401_height)
+        ctx.stroke()
 
         if Config.plot_network_download_speed == 1:
-            chart1401.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-            chart1401.move_to(chart1401_width*chart_x_axis[0]/(chart_data_history-1), chart1401_height - chart1401_height*network_receive_speed[0]/chart1401_y_limit)
+            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+            ctx.move_to(chart1401_width*chart_x_axis[0]/(chart_data_history-1), chart1401_height - chart1401_height*network_receive_speed[0]/chart1401_y_limit)
             for i in range(len(chart_x_axis) - 1):
                 delta_x_chart1401a = (chart1401_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1401_width * chart_x_axis[i]/(chart_data_history-1))
                 delta_y_chart1401a = (chart1401_height*network_receive_speed[i+1]/chart1401_y_limit) - (chart1401_height*network_receive_speed[i]/chart1401_y_limit)
-                chart1401.rel_line_to(delta_x_chart1401a, -delta_y_chart1401a)
+                ctx.rel_line_to(delta_x_chart1401a, -delta_y_chart1401a)
 
-            chart1401.rel_line_to(10, 0)
-            chart1401.rel_line_to(0, chart1401_height+10)
-            chart1401.rel_line_to(-(chart1401_width+20), 0)
-            chart1401.rel_line_to(0, -(chart1401_height+10))
-            chart1401.close_path()
-            chart1401.stroke()
+            ctx.rel_line_to(10, 0)
+            ctx.rel_line_to(0, chart1401_height+10)
+            ctx.rel_line_to(-(chart1401_width+20), 0)
+            ctx.rel_line_to(0, -(chart1401_height+10))
+            ctx.close_path()
+            ctx.stroke()
 
         if Config.plot_network_upload_speed == 1:
-            chart1401.set_dash([3, 3])
-            chart1401.move_to(chart1401_width*chart_x_axis[0]/(chart_data_history-1), chart1401_height - chart1401_height*network_send_speed[0]/chart1401_y_limit)
+            ctx.set_dash([3, 3])
+            ctx.move_to(chart1401_width*chart_x_axis[0]/(chart_data_history-1), chart1401_height - chart1401_height*network_send_speed[0]/chart1401_y_limit)
             for i in range(len(chart_x_axis) - 1):
                 delta_x_chart1401b = (chart1401_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1401_width * chart_x_axis[i]/(chart_data_history-1))
                 delta_y_chart1401b = (chart1401_height*network_send_speed[i+1]/chart1401_y_limit) - (chart1401_height*network_send_speed[i]/chart1401_y_limit)
-                chart1401.rel_line_to(delta_x_chart1401b, -delta_y_chart1401b)
+                ctx.rel_line_to(delta_x_chart1401b, -delta_y_chart1401b)
 
-            chart1401.rel_line_to(10, 0)
-            chart1401.rel_line_to(0, chart1401_height+10)
-            chart1401.rel_line_to(-(chart1401_width+20), 0)
-            chart1401.rel_line_to(0, -(chart1401_height+10))
-            chart1401.close_path()
-            chart1401.stroke()
+            ctx.rel_line_to(10, 0)
+            ctx.rel_line_to(0, chart1401_height+10)
+            ctx.rel_line_to(-(chart1401_width+20), 0)
+            ctx.rel_line_to(0, -(chart1401_height+10))
+            ctx.close_path()
+            ctx.stroke()
 
 
     # Network tab GUI functions - connect

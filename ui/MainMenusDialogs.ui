@@ -14,7 +14,9 @@
     <property name="website">https://github.com/hakandundar34coding/system-monitoring-center</property>
     <property name="website-label" translatable="yes">Web Page</property>
     <property name="authors">Hakan Dündar</property>
-    <property name="translator-credits">Bruno do Nascimento (português do Brasil)
+    <property name="translator-credits"> (čeština)
+ (polski)
+Bruno do Nascimento (português do Brasil)
 Hakan Dündar (Türkçe)</property>
     <property name="logo-icon-name">system-monitoring-center</property>
     <property name="license-type">gpl-3-0</property>

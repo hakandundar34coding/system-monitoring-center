@@ -46,7 +46,9 @@ def users_gui_func():
 
 
     # Users tab GUI functions
+    # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
     def on_treeview3101_button_press_event(widget, event):
+
         # Get right/double clicked row data
         try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
             path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
@@ -54,6 +56,7 @@ def users_gui_func():
             return
         model = treeview3101.get_model()
         treeiter = model.get_iter(path)
+
         # Get right/double clicked user UID and user name
         if treeiter == None:
             return
@@ -63,6 +66,7 @@ def users_gui_func():
             selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]
         except ValueError:
             return
+
         # Open right click menu if right clicked on a row
         if event.button == 3:
             if 'UsersMenuRightClick' not in globals():
@@ -71,6 +75,7 @@ def users_gui_func():
                 UsersMenuRightClick.users_menu_right_click_import_func()
                 UsersMenuRightClick.users_menu_right_click_gui_func()
             UsersMenuRightClick.menu3101m.popup(None, None, None, None, event.button, event.time)
+
         # Open details window if double clicked on a row
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             if 'UsersDetails' not in globals():
@@ -81,15 +86,33 @@ def users_gui_func():
             UsersDetails.window3101w.show()
             UsersDetails.users_details_run_func()
 
+
+    # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
     def on_treeview3101_button_release_event(widget, event):
-        if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
+
+        # Check if left mouse button is used
+        if event.button == 1:
             users_treeview_column_order_width_row_sorting_func()
 
-    def on_searchentry3101_changed(widget):
-        radiobutton3101.set_active(True)
-        users_treeview_filter_search_func()
 
-    def on_button3101_clicked(widget):                                                        # "Users Tab Customizations" button
+    # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
+    def on_searchentry3101_changed(widget):
+
+        radiobutton3101.set_active(True)
+
+        global filter_column
+        user_search_text = searchentry3101.get_text().lower()
+        # Set visible/hidden users
+        for piter in piter_list:
+            treestore3101.set_value(piter, 0, False)
+            user_data_text_in_model = treestore3101.get_value(piter, filter_column)
+            if user_search_text in str(user_data_text_in_model).lower():
+                treestore3101.set_value(piter, 0, True)
+
+
+    # --------------------------------- Called for showing Users tab customization menu when button is clicked ---------------------------------
+    def on_button3101_clicked(widget):
+
         if 'UsersMenuCustomizations' not in globals():
             global UsersMenuCustomizations
             import UsersMenuCustomizations
@@ -97,22 +120,41 @@ def users_gui_func():
             UsersMenuCustomizations.users_menu_customizations_gui_func()
         UsersMenuCustomizations.popover3101p.popup()
 
-    def on_radiobutton3101_toggled(widget):                                                   # "Show all users" radiobutton
-        if radiobutton3101.get_active() == True:
-            searchentry3101.set_text("")
-            users_treeview_filter_show_all_func()
 
-    def on_radiobutton3102_toggled(widget):                                                   # "Show only users logged in" radiobutton
-        if radiobutton3102.get_active() == True:
-            searchentry3101.set_text("")
-            users_treeview_filter_show_all_func()
-            users_treeview_filter_users_logged_in_only()
+    # --------------------------------- Called for filtering items when "Show all users" radiobutton is clicked ---------------------------------
+    def on_radiobutton3101_toggled(widget):
 
-    def on_radiobutton3103_toggled(widget):                                                   # "Show only users logged out" radiobutton
-        if radiobutton3103.get_active() == True:
+        if widget.get_active() == True:
             searchentry3101.set_text("")
-            users_treeview_filter_show_all_func()
-            users_treeview_filter_users_logged_out_only()
+            # Show all users
+            for piter in piter_list:
+                treestore3101.set_value(piter, 0, True)
+
+
+    # --------------------------------- Called for filtering items when "Show only users logged in" radiobutton is clicked ---------------------------------
+    def on_radiobutton3102_toggled(widget):
+
+        if widget.get_active() == True:
+            searchentry3101.set_text("")
+            for piter in piter_list:
+                # Show all users
+                treestore3101.set_value(piter, 0, True)
+                # Show if logged in user
+                if user_logged_in_list[piter_list.index(piter)] != True:
+                    treestore3101.set_value(piter, 0, False)
+
+
+    # --------------------------------- Called for filtering items when "Show only users logged out" radiobutton is clicked ---------------------------------
+    def on_radiobutton3103_toggled(widget):
+
+        if widget.get_active() == True:
+            searchentry3101.set_text("")
+            for piter in piter_list:
+                # Show all users
+                treestore3101.set_value(piter, 0, True)
+                # Show if logged out user
+                if user_logged_in_list[piter_list.index(piter)] == True:
+                    treestore3101.set_value(piter, 0, False)
 
 
     # Users tab GUI functions - connect
@@ -553,42 +595,6 @@ def users_run_func(*args):
         GLib.idle_add(users_loop_func)
         users_glib_source.set_callback(users_run_func)
         users_glib_source.attach(GLib.MainContext.default())
-
-
-# ----------------------------------- Users - Treeview Filter Show All Function -----------------------------------
-def users_treeview_filter_show_all_func():
-
-    for piter in piter_list:
-        treestore3101.set_value(piter, 0, True)
-
-
-# ----------------------------------- Users - Treeview Filter This User Only Function -----------------------------------
-def users_treeview_filter_users_logged_in_only():
-
-    for piter in piter_list:
-        if user_logged_in_list[piter_list.index(piter)] != True:
-            treestore3101.set_value(piter, 0, False)
-
-
-# ----------------------------------- Users - Treeview Filter Other Users Only Function -----------------------------------
-def users_treeview_filter_users_logged_out_only():
-
-    for piter in piter_list:
-        if user_logged_in_list[piter_list.index(piter)] == True:
-            treestore3101.set_value(piter, 0, False)
-
-
-# ----------------------------------- Users - Treeview Filter Search Function -----------------------------------
-def users_treeview_filter_search_func():
-
-    global filter_column
-    user_search_text = searchentry3101.get_text().lower()
-    # Set visible/hidden users
-    for piter in piter_list:
-        treestore3101.set_value(piter, 0, False)
-        user_data_text_in_model = treestore3101.get_value(piter, filter_column)
-        if user_search_text in str(user_data_text_in_model).lower():
-            treestore3101.set_value(piter, 0, True)
 
 
 # ----------------------------------- Users - Column Title Clicked Function -----------------------------------

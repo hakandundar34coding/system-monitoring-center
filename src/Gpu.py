@@ -62,13 +62,13 @@ def gpu_gui_func():
             import GpuMenu
             GpuMenu.gpu_menus_import_func()
             GpuMenu.gpu_menus_gui_func()
-            GpuMenu.popover1501p.set_relative_to(button1501)                                  # Set widget that popover menu will display at the edge of.
-            GpuMenu.popover1501p.set_position(1)                                              # Show popover menu at the right edge of the caller button.
-        GpuMenu.popover1501p.popup()                                                          # Show GPU tab popover GUI
+            GpuMenu.popover1501p.set_relative_to(button1501)
+            GpuMenu.popover1501p.set_position(1)
+        GpuMenu.popover1501p.popup()
 
 
     # ----------------------------------- GPU - Plot FPS data as a Line Chart ----------------------------------- 
-    def on_drawingarea1501_draw(widget, chart1501):
+    def on_drawingarea1501_draw(widget, ctx):
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
@@ -84,23 +84,23 @@ def gpu_gui_func():
         chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
         chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
 
-        chart1501_width = Gtk.Widget.get_allocated_width(drawingarea1501)
-        chart1501_height = Gtk.Widget.get_allocated_height(drawingarea1501)
+        chart1501_width = Gtk.Widget.get_allocated_width(widget)
+        chart1501_height = Gtk.Widget.get_allocated_height(widget)
 
-        chart1501.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1501.rectangle(0, 0, chart1501_width, chart1501_height)
-        chart1501.fill()
+        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        ctx.rectangle(0, 0, chart1501_width, chart1501_height)
+        ctx.fill()
 
-        chart1501.set_line_width(1)
-        chart1501.set_dash([4, 3])
-        chart1501.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_line_width(1)
+        ctx.set_dash([4, 3])
+        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
         for i in range(3):
-            chart1501.move_to(0, chart1501_height/4*(i+1))
-            chart1501.line_to(chart1501_width, chart1501_height/4*(i+1))
+            ctx.move_to(0, chart1501_height/4*(i+1))
+            ctx.line_to(chart1501_width, chart1501_height/4*(i+1))
         for i in range(4):
-            chart1501.move_to(chart1501_width/5*(i+1), 0)
-            chart1501.line_to(chart1501_width/5*(i+1), chart1501_height)
-        chart1501.stroke()
+            ctx.move_to(chart1501_width/5*(i+1), 0)
+            ctx.line_to(chart1501_width/5*(i+1), chart1501_height)
+        ctx.stroke()
 
         chart1501_y_limit = 1.1 * (max(fps_count) + 0.0000001)                                # Maximum FPS value is multiplied by 1.1 in order to scale chart when FPS is increased or decreased for preventing the line being out of the chart border.
 
@@ -114,25 +114,25 @@ def gpu_gui_func():
         chart1501_y_limit = (chart1501_y_limit * next_multiple / (chart1501_y_limit_float + 0.0000001) + 0.0000001)
         # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
-        chart1501.set_dash([], 0)
-        chart1501.rectangle(0, 0, chart1501_width, chart1501_height)
-        chart1501.stroke()
+        ctx.set_dash([], 0)
+        ctx.rectangle(0, 0, chart1501_width, chart1501_height)
+        ctx.stroke()
 
-        chart1501.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        chart1501.move_to(chart1501_width*chart_x_axis[0]/(chart_data_history-1), chart1501_height - chart1501_height*fps_count[0]/chart1501_y_limit)
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+        ctx.move_to(chart1501_width*chart_x_axis[0]/(chart_data_history-1), chart1501_height - chart1501_height*fps_count[0]/chart1501_y_limit)
         for i in range(len(chart_x_axis) - 1):
             delta_x_chart1501 = (chart1501_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1501_width * chart_x_axis[i]/(chart_data_history-1))
             delta_y_chart1501 = (chart1501_height*fps_count[i+1]/chart1501_y_limit) - (chart1501_height*fps_count[i]/chart1501_y_limit)
-            chart1501.rel_line_to(delta_x_chart1501, -delta_y_chart1501)
+            ctx.rel_line_to(delta_x_chart1501, -delta_y_chart1501)
 
-        chart1501.rel_line_to(10, 0)
-        chart1501.rel_line_to(0, chart1501_height+10)
-        chart1501.rel_line_to(-(chart1501_width+20), 0)
-        chart1501.rel_line_to(0, -(chart1501_height+10))
-        chart1501.close_path()
-        chart1501.stroke_preserve()
-        chart1501.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
-        chart1501.fill()
+        ctx.rel_line_to(10, 0)
+        ctx.rel_line_to(0, chart1501_height+10)
+        ctx.rel_line_to(-(chart1501_width+20), 0)
+        ctx.rel_line_to(0, -(chart1501_height+10))
+        ctx.close_path()
+        ctx.stroke_preserve()
+        ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        ctx.fill()
 
 
     # GPU tab GUI functions - connect

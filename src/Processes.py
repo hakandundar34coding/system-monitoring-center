@@ -49,7 +49,9 @@ def processes_gui_func():
 
 
     # Processes tab GUI functions
+    # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
     def on_treeview2101_button_press_event(widget, event):
+
         # Get right/double clicked row data
         try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
             path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
@@ -57,6 +59,7 @@ def processes_gui_func():
             return
         model = treeview2101.get_model()
         treeiter = model.get_iter(path)
+
         # Get right/double clicked process PID
         if treeiter == None:
             return
@@ -65,6 +68,7 @@ def processes_gui_func():
             selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
         except ValueError:                                                                # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
             return
+
         # Open right click menu if right clicked on a row
         if event.button == 3:
             if 'ProcessesMenuRightClick' not in globals():
@@ -74,6 +78,7 @@ def processes_gui_func():
                 ProcessesMenuRightClick.processes_menu_right_click_gui_func()
             ProcessesMenuRightClick.menu2101m.popup(None, None, None, None, event.button, event.time)
             ProcessesMenuRightClick.processes_select_process_nice_option_func()
+
         # Open details window if double clicked on a row
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             if 'ProcessesDetails' not in globals():
@@ -84,16 +89,40 @@ def processes_gui_func():
             ProcessesDetails.window2101w.show()
             ProcessesDetails.process_details_run_func()
 
+
+    # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
     def on_treeview2101_button_release_event(widget, event):
-        if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
+
+        # Check if left mouse button is used
+        if event.button == 1:
             processes_treeview_column_order_width_row_sorting_func()
 
+
+    # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
     def on_searchentry2101_changed(widget):
+
         radiobutton2101.set_active(True)
         radiobutton2104.set_active(True)
-        processes_treeview_filter_search_func()
 
-    def on_button2101_clicked(widget):                                                        # "Processes Tab Customizations" button
+        global filter_column
+        process_search_text = searchentry2101.get_text().lower()
+        # Set visible/hidden processes
+        for piter in piter_list:
+            treestore2101.set_value(piter, 0, False)
+            process_data_text_in_model = treestore2101.get_value(piter, filter_column)
+            if process_search_text in str(process_data_text_in_model).lower():
+                treestore2101.set_value(piter, 0, True)
+                # Make parent processes visible if one of its children is visible.
+                piter_parent = treestore2101.iter_parent(piter)
+                while piter_parent != None:
+                    treestore2101.set_value(piter_parent, 0, True)
+                    piter_parent = treestore2101.iter_parent(piter_parent)
+        treeview2101.expand_all()                                                             # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
+
+
+    # --------------------------------- Called for showing Processes tab customization menu when button is clicked ---------------------------------
+    def on_button2101_clicked(widget):
+
         if 'ProcessesMenuCustomizations' not in globals():
             global ProcessesMenuCustomizations
             import ProcessesMenuCustomizations
@@ -101,36 +130,67 @@ def processes_gui_func():
             ProcessesMenuCustomizations.processes_menu_customizations_gui_func()
         ProcessesMenuCustomizations.popover2101p.popup()
 
-    def on_radiobutton2101_toggled(widget):                                                   # "Show all processes" radiobutton
-        if radiobutton2101.get_active() == True:
+
+    # --------------------------------- Called for filtering items when "Show all processes" radiobutton is clicked ---------------------------------
+    def on_radiobutton2101_toggled(widget):
+
+        if widget.get_active() == True:
             searchentry2101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
-            processes_treeview_filter_show_all_func()
+            for piter in piter_list:
+                # Show all processes
+                treestore2101.set_value(piter, 0, True)
+            treeview2101.expand_all()
             radiobutton2104.set_active(True)
 
-    def on_radiobutton2102_toggled(widget):                                                   # "Show processes from this user" radiobutton
-        if radiobutton2102.get_active() == True:
-            searchentry2101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
-            processes_treeview_filter_show_all_func()
-            processes_treeview_filter_this_user_only_func()
+
+    # --------------------------------- Called for filtering items when "Show processes from this user" radiobutton is clicked ---------------------------------
+    def on_radiobutton2102_toggled(widget):
+
+        if widget.get_active() == True:
+            searchentry2101.set_text("")
+            for piter in piter_list:
+                # Show all processes
+                treestore2101.set_value(piter, 0, True)
+                # Show if process of current user
+                if username_list[piter_list.index(piter)] != current_user_name:
+                    treestore2101.set_value(piter, 0, False)
+            treeview2101.expand_all()
             radiobutton2104.set_active(True)
 
-    def on_radiobutton2103_toggled(widget):                                                   # "Show processes from other users" radiobutton
-        if radiobutton2103.get_active() == True:
-            searchentry2101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
-            processes_treeview_filter_show_all_func()
-            processes_treeview_filter_other_users_only_func()
+
+    # --------------------------------- Called for filtering items when "Show processes from other users" radiobutton is clicked ---------------------------------
+    def on_radiobutton2103_toggled(widget):
+
+        if widget.get_active() == True:
+            searchentry2101.set_text("")
+            for piter in piter_list:
+                # Show all processes
+                treestore2101.set_value(piter, 0, True)
+                # Show if process of other users
+                if username_list[piter_list.index(piter)] == current_user_name:
+                    treestore2101.set_value(piter, 0, False)
+            treeview2101.expand_all()
             radiobutton2104.set_active(True)
 
-    def on_radiobutton2104_toggled(widget):                                                   # "User defined expand" radiobutton
-        if radiobutton2104.get_active() == True:
+
+    # --------------------------------- Called for unselecting expand/collapse radiobuttons when "User defined expand" radiobutton is clicked ---------------------------------
+    def on_radiobutton2104_toggled(widget):
+
+        if widget.get_active() == True:
             pass
 
-    def on_radiobutton2105_toggled(widget):                                                   # "Expand all" radiobutton
-        if radiobutton2105.get_active() == True:
+
+    # --------------------------------- Called for expanding items when "Expand all" radiobutton is clicked ---------------------------------
+    def on_radiobutton2105_toggled(widget):
+
+        if widget.get_active() == True:
             treeview2101.expand_all()
 
-    def on_radiobutton2106_toggled(widget):                                                   # "Collapse all" radiobutton
-        if radiobutton2106.get_active() == True:
+
+    # --------------------------------- Called for collapsing items when "Collapse all" radiobutton is clicked ---------------------------------
+    def on_radiobutton2106_toggled(widget):
+
+        if widget.get_active() == True:
             treeview2101.collapse_all()
 
 
@@ -653,51 +713,6 @@ def processes_run_func(*args):
         processes_glib_source.attach(GLib.MainContext.default())
 
 
-# ----------------------------------- Processes - Treeview Filter Show All Function (updates treeview shown rows when relevant button clicked) -----------------------------------
-def processes_treeview_filter_show_all_func():
-
-    for piter in piter_list:
-        treestore2101.set_value(piter, 0, True)
-    treeview2101.expand_all()
-
-
-# ----------------------------------- Processes - Treeview Filter This User Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
-def processes_treeview_filter_this_user_only_func():
-
-    for piter in piter_list:
-        if username_list[piter_list.index(piter)] != current_user_name:
-            treestore2101.set_value(piter, 0, False)
-    treeview2101.expand_all()
-
-
-# ----------------------------------- Processes - Treeview Filter Other Users Only Function (updates treeview shown rows when relevant button clicked) -----------------------------------
-def processes_treeview_filter_other_users_only_func():
-
-    for piter in piter_list:
-        if username_list[piter_list.index(piter)] == current_user_name:
-            treestore2101.set_value(piter, 0, False)
-    treeview2101.expand_all()
-
-
-# ----------------------------------- Processes - Treeview Filter Search Function (updates treeview shown rows when text typed into entry) -----------------------------------
-def processes_treeview_filter_search_func():
-
-    global filter_column
-    process_search_text = searchentry2101.get_text().lower()
-    # Set visible/hidden processes
-    for piter in piter_list:
-        treestore2101.set_value(piter, 0, False)
-        process_data_text_in_model = treestore2101.get_value(piter, filter_column)
-        if process_search_text in str(process_data_text_in_model).lower():
-            treestore2101.set_value(piter, 0, True)
-            # Make parent processes visible if one of its children is visible.
-            piter_parent = treestore2101.iter_parent(piter)
-            while piter_parent != None:
-                treestore2101.set_value(piter_parent, 0, True)
-                piter_parent = treestore2101.iter_parent(piter_parent)
-    treeview2101.expand_all()                                                                 # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
-
-
 # ----------------------------------- Processes - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
 def on_column_title_clicked(widget):
 
@@ -711,6 +726,7 @@ def on_column_title_clicked(widget):
 
 # ----------------------------------- Processes - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
 def processes_treeview_column_order_width_row_sorting_func():
+
     # Columns in the treeview are get one by one and appended into "processes_data_column_order". "processes_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "processes_data") are changed if column order/widths are changed.
     processes_treeview_columns = treeview2101.get_columns()
     treeview_column_titles = []

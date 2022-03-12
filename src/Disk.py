@@ -59,13 +59,13 @@ def disk_gui_func():
             import DiskMenu
             DiskMenu.disk_menus_import_func()
             DiskMenu.disk_menus_gui_func()
-            DiskMenu.popover1301p.set_relative_to(button1301)                                 # Set widget that popover menu will display at the edge of.
-            DiskMenu.popover1301p.set_position(1)                                             # Show popover menu at the right edge of the caller button.
-        DiskMenu.popover1301p.popup()                                                         # Show Disk tab popover GUI
+            DiskMenu.popover1301p.set_relative_to(button1301)
+            DiskMenu.popover1301p.set_position(1)
+        DiskMenu.popover1301p.popup()
 
-    def on_eventbox1301_button_click_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
+    def on_eventbox1301_button_click_event(widget, event):
         if event.button == 1:
-            if 'DiskDetails' not in globals():                                                # Check if "DiskDetails" module is imported. Therefore it is not reimported for every mouse click if "DiskDetails" name is in globals().
+            if 'DiskDetails' not in globals():
                 global DiskDetails
                 import DiskDetails
                 DiskDetails.disk_details_import_func()
@@ -75,7 +75,7 @@ def disk_gui_func():
 
 
     # ----------------------------------- Disk - Plot Disk read/write speed data as a Line Chart ----------------------------------- 
-    def on_drawingarea1301_draw(drawingarea1301, chart1301):
+    def on_drawingarea1301_draw(widget, ctx):
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
@@ -89,23 +89,23 @@ def disk_gui_func():
         chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
         chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
 
-        chart1301_width = Gtk.Widget.get_allocated_width(drawingarea1301)
-        chart1301_height = Gtk.Widget.get_allocated_height(drawingarea1301)
+        chart1301_width = Gtk.Widget.get_allocated_width(widget)
+        chart1301_height = Gtk.Widget.get_allocated_height(widget)
 
-        chart1301.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1301.rectangle(0, 0, chart1301_width, chart1301_height)
-        chart1301.fill()
+        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        ctx.rectangle(0, 0, chart1301_width, chart1301_height)
+        ctx.fill()
 
-        chart1301.set_line_width(1)
-        chart1301.set_dash([4, 3])
-        chart1301.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_line_width(1)
+        ctx.set_dash([4, 3])
+        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
         for i in range(3):
-            chart1301.move_to(0, chart1301_height/4*(i+1))
-            chart1301.line_to(chart1301_width, chart1301_height/4*(i+1))
+            ctx.move_to(0, chart1301_height/4*(i+1))
+            ctx.line_to(chart1301_width, chart1301_height/4*(i+1))
         for i in range(4):
-            chart1301.move_to(chart1301_width/5*(i+1), 0)
-            chart1301.line_to(chart1301_width/5*(i+1), chart1301_height)
-        chart1301.stroke()
+            ctx.move_to(chart1301_width/5*(i+1), 0)
+            ctx.line_to(chart1301_width/5*(i+1), chart1301_height)
+        ctx.stroke()
 
         chart1301_y_limit = 1.1 * ((max(max(disk_read_speed), max(disk_write_speed))) + 0.0000001)
         if Config.plot_disk_read_speed == 1 and Config.plot_disk_write_speed == 0:
@@ -135,44 +135,44 @@ def disk_gui_func():
         chart1301_y_limit = (chart1301_y_limit * next_multiple / (chart1301_y_limit_float + 0.0000001) + 0.0000001)    # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
         # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
-        chart1301.set_dash([], 0)
-        chart1301.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        chart1301.rectangle(0, 0, chart1301_width, chart1301_height)
-        chart1301.stroke()
+        ctx.set_dash([], 0)
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+        ctx.rectangle(0, 0, chart1301_width, chart1301_height)
+        ctx.stroke()
 
         if Config.plot_disk_read_speed == 1:
-            chart1301.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-            chart1301.move_to(chart1301_width*chart_x_axis[0]/(chart_data_history-1), chart1301_height - chart1301_height*disk_read_speed[0]/chart1301_y_limit)
+            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+            ctx.move_to(chart1301_width*chart_x_axis[0]/(chart_data_history-1), chart1301_height - chart1301_height*disk_read_speed[0]/chart1301_y_limit)
             for i in range(len(chart_x_axis) - 1):
                 delta_x_chart1301a = (chart1301_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1301_width * chart_x_axis[i]/(chart_data_history-1))
                 delta_y_chart1301a = (chart1301_height*disk_read_speed[i+1]/chart1301_y_limit) - (chart1301_height*disk_read_speed[i]/chart1301_y_limit)
-                chart1301.rel_line_to(delta_x_chart1301a, -delta_y_chart1301a)
+                ctx.rel_line_to(delta_x_chart1301a, -delta_y_chart1301a)
 
-            chart1301.rel_line_to(10, 0)
-            chart1301.rel_line_to(0, chart1301_height+10)
-            chart1301.rel_line_to(-(chart1301_width+20), 0)
-            chart1301.rel_line_to(0, -(chart1301_height+10))
-            chart1301.close_path()
-            chart1301.stroke()
+            ctx.rel_line_to(10, 0)
+            ctx.rel_line_to(0, chart1301_height+10)
+            ctx.rel_line_to(-(chart1301_width+20), 0)
+            ctx.rel_line_to(0, -(chart1301_height+10))
+            ctx.close_path()
+            ctx.stroke()
 
         if Config.plot_disk_write_speed == 1:
-            chart1301.set_dash([3, 3])
-            chart1301.move_to(chart1301_width*chart_x_axis[0]/(chart_data_history-1), chart1301_height - chart1301_height*disk_write_speed[0]/chart1301_y_limit)
+            ctx.set_dash([3, 3])
+            ctx.move_to(chart1301_width*chart_x_axis[0]/(chart_data_history-1), chart1301_height - chart1301_height*disk_write_speed[0]/chart1301_y_limit)
             for i in range(len(chart_x_axis) - 1):
                 delta_x_chart1301b = (chart1301_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1301_width * chart_x_axis[i]/(chart_data_history-1))
                 delta_y_chart1301b = (chart1301_height*disk_write_speed[i+1]/chart1301_y_limit) - (chart1301_height*disk_write_speed[i]/chart1301_y_limit)
-                chart1301.rel_line_to(delta_x_chart1301b, -delta_y_chart1301b)
+                ctx.rel_line_to(delta_x_chart1301b, -delta_y_chart1301b)
 
-            chart1301.rel_line_to(10, 0)
-            chart1301.rel_line_to(0, chart1301_height+10)
-            chart1301.rel_line_to(-(chart1301_width+20), 0)
-            chart1301.rel_line_to(0, -(chart1301_height+10))
-            chart1301.close_path()
-            chart1301.stroke()
+            ctx.rel_line_to(10, 0)
+            ctx.rel_line_to(0, chart1301_height+10)
+            ctx.rel_line_to(-(chart1301_width+20), 0)
+            ctx.rel_line_to(0, -(chart1301_height+10))
+            ctx.close_path()
+            ctx.stroke()
 
 
     # ----------------------------------- Disk - Plot Disk usage data as a Bar Chart ----------------------------------- 
-    def on_drawingarea1302_draw(drawingarea1302, chart1302):
+    def on_drawingarea1302_draw(widget, ctx):
 
         try:
             disk_usage_percent_check = disk_usage_percent                                     # "disk_usage_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
@@ -185,20 +185,20 @@ def disk_gui_func():
         chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
         chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3]]
 
-        chart1302_width = Gtk.Widget.get_allocated_width(drawingarea1302)
-        chart1302_height = Gtk.Widget.get_allocated_height(drawingarea1302)
+        chart1302_width = Gtk.Widget.get_allocated_width(widget)
+        chart1302_height = Gtk.Widget.get_allocated_height(widget)
 
-        chart1302.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1302.rectangle(0, 0, chart1302_width, chart1302_height)
-        chart1302.fill()
+        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        ctx.rectangle(0, 0, chart1302_width, chart1302_height)
+        ctx.fill()
 
-        chart1302.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
-        chart1302.rectangle(0, 0, chart1302_width, chart1302_height)
-        chart1302.stroke()
-        chart1302.set_line_width(1)
-        chart1302.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
-        chart1302.rectangle(0, 0, chart1302_width*disk_usage_percent/100, chart1302_height)
-        chart1302.fill()
+        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.rectangle(0, 0, chart1302_width, chart1302_height)
+        ctx.stroke()
+        ctx.set_line_width(1)
+        ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        ctx.rectangle(0, 0, chart1302_width*disk_usage_percent/100, chart1302_height)
+        ctx.fill()
 
 
     # Disk tab GUI functions - connect

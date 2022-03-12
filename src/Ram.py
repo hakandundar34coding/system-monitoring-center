@@ -58,13 +58,13 @@ def ram_gui_func():
             import RamMenu
             RamMenu.ram_menus_import_func()
             RamMenu.ram_menus_gui_func()
-            RamMenu.popover1201p.set_relative_to(button1201)                                  # Set widget that popover menu will display at the edge of.
-            RamMenu.popover1201p.set_position(1)                                              # Show popover menu at the right edge of the caller button.
-        RamMenu.popover1201p.popup()                                                          # Show RAM tab popover GUI
+            RamMenu.popover1201p.set_relative_to(button1201)
+            RamMenu.popover1201p.set_position(1)
+        RamMenu.popover1201p.popup()
 
     def on_eventbox1201_button_click_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
         if event.button == 1:
-            if 'RamHardwareInformation' not in globals():                                     # Check if "RamHardwareInformation" module is imported. Therefore it is not reimported for every mouse click on relevant GUI object on the RAM tab if "RamHardwareInformation" name is in globals().
+            if 'RamHardwareInformation' not in globals():
                 global RamHardwareInformation
                 import RamHardwareInformation
                 RamHardwareInformation.ram_hardware_information_import_func()
@@ -73,19 +73,19 @@ def ram_gui_func():
             if RamHardwareInformation.memory_hardware_information_text != "":                 # This statement is used in order to avoid errors if user closes polkit window without entering password.
                 RamHardwareInformation.window1201w.show()
 
-    def on_eventbox1202_button_click_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
+    def on_eventbox1202_button_click_event(widget, event):
         if event.button == 1:
-            if 'RamSwapDetails' not in globals():                                             # Check if "RamSwapDetails" module is imported. Therefore it is not reimported for every mouse click on relevant GUI object on the RAM tab if "RamSwapDetails" name is in globals().
+            if 'RamSwapDetails' not in globals():
                 global RamSwapDetails
                 import RamSwapDetails
                 RamSwapDetails.ram_swap_details_import_func()
                 RamSwapDetails.ram_swap_details_gui_func()
             RamSwapDetails.window1201w2.show()
-            RamSwapDetails.ram_swap_details_run_func()                                        # Run this function in order to get swap memory information.
+            RamSwapDetails.ram_swap_details_run_func()
 
 
     # ----------------------------------- RAM - Plot RAM usage data as a Line Chart ----------------------------------- 
-    def on_drawingarea1201_draw(widget, chart1201):
+    def on_drawingarea1201_draw(widget, ctx):
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
@@ -102,44 +102,44 @@ def ram_gui_func():
         chart1201_width = Gtk.Widget.get_allocated_width(drawingarea1201)
         chart1201_height = Gtk.Widget.get_allocated_height(drawingarea1201)
 
-        chart1201.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1201.rectangle(0, 0, chart1201_width, chart1201_height)
-        chart1201.fill()
+        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        ctx.rectangle(0, 0, chart1201_width, chart1201_height)
+        ctx.fill()
 
-        chart1201.set_line_width(1)
-        chart1201.set_dash([4, 3])
-        chart1201.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_line_width(1)
+        ctx.set_dash([4, 3])
+        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
         for i in range(3):
-            chart1201.move_to(0, chart1201_height/4*(i+1))
-            chart1201.line_to(chart1201_width, chart1201_height/4*(i+1))
+            ctx.move_to(0, chart1201_height/4*(i+1))
+            ctx.line_to(chart1201_width, chart1201_height/4*(i+1))
         for i in range(4):
-            chart1201.move_to(chart1201_width/5*(i+1), 0)
-            chart1201.line_to(chart1201_width/5*(i+1), chart1201_height)
-        chart1201.stroke()
+            ctx.move_to(chart1201_width/5*(i+1), 0)
+            ctx.line_to(chart1201_width/5*(i+1), chart1201_height)
+        ctx.stroke()
 
-        chart1201.set_dash([], 0)
-        chart1201.rectangle(0, 0, chart1201_width, chart1201_height)
-        chart1201.stroke()
+        ctx.set_dash([], 0)
+        ctx.rectangle(0, 0, chart1201_width, chart1201_height)
+        ctx.stroke()
 
-        chart1201.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        chart1201.move_to(chart1201_width*chart_x_axis[0]/(chart_data_history-1), chart1201_height - chart1201_height*ram_usage_percent[0]/100)
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+        ctx.move_to(chart1201_width*chart_x_axis[0]/(chart_data_history-1), chart1201_height - chart1201_height*ram_usage_percent[0]/100)
         for i in range(len(chart_x_axis) - 1):
             delta_x_chart1201 = (chart1201_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1201_width * chart_x_axis[i]/(chart_data_history-1))
             delta_y_chart1201 = (chart1201_height*ram_usage_percent[i+1]/100) - (chart1201_height*ram_usage_percent[i]/100)
-            chart1201.rel_line_to(delta_x_chart1201, -delta_y_chart1201)
+            ctx.rel_line_to(delta_x_chart1201, -delta_y_chart1201)
 
-        chart1201.rel_line_to(10, 0)
-        chart1201.rel_line_to(0, chart1201_height+10)
-        chart1201.rel_line_to(-(chart1201_width+20), 0)
-        chart1201.rel_line_to(0, -(chart1201_height+10))
-        chart1201.close_path()
-        chart1201.stroke_preserve()
-        chart1201.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
-        chart1201.fill()
+        ctx.rel_line_to(10, 0)
+        ctx.rel_line_to(0, chart1201_height+10)
+        ctx.rel_line_to(-(chart1201_width+20), 0)
+        ctx.rel_line_to(0, -(chart1201_height+10))
+        ctx.close_path()
+        ctx.stroke_preserve()
+        ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        ctx.fill()
 
 
     # ----------------------------------- RAM - Plot Swap usage data as a Bar Chart ----------------------------------- 
-    def on_drawingarea1202_draw(drawingarea1202, chart1202):
+    def on_drawingarea1202_draw(widget, ctx):
 
         try:
             swap_percent_check = swap_percent                                                 # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
@@ -152,20 +152,20 @@ def ram_gui_func():
         chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
         chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3]]
 
-        chart1202_width = Gtk.Widget.get_allocated_width(drawingarea1202)
-        chart1202_height = Gtk.Widget.get_allocated_height(drawingarea1202)
+        chart1202_width = Gtk.Widget.get_allocated_width(widget)
+        chart1202_height = Gtk.Widget.get_allocated_height(widget)
 
-        chart1202.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1202.rectangle(0, 0, chart1202_width, chart1202_height)
-        chart1202.fill()
+        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        ctx.rectangle(0, 0, chart1202_width, chart1202_height)
+        ctx.fill()
 
-        chart1202.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
-        chart1202.rectangle(0, 0, chart1202_width, chart1202_height)
-        chart1202.stroke()
-        chart1202.set_line_width(1)
-        chart1202.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
-        chart1202.rectangle(0, 0, chart1202_width*swap_percent/100, chart1202_height)
-        chart1202.fill()
+        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.rectangle(0, 0, chart1202_width, chart1202_height)
+        ctx.stroke()
+        ctx.set_line_width(1)
+        ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        ctx.rectangle(0, 0, chart1202_width*swap_percent/100, chart1202_height)
+        ctx.fill()
 
 
 

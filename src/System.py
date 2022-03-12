@@ -64,7 +64,9 @@ def system_gui_func():
 
 
     # System tab GUI functions
-    def on_button8101_clicked(widget):                                                        # "Refresh" button
+    # --------------------------------- Called for reloading the data on the System tab if "Refresh" button is clicked ---------------------------------
+    def on_button8101_clicked(widget):
+
         system_initial_func()
 
 

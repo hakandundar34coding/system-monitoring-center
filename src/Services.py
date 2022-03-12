@@ -47,7 +47,9 @@ def services_gui_func():
 
 
     # Services tab GUI functions
+    # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
     def on_treeview6101_button_press_event(widget, event):
+
         # Get right/double clicked row data
         try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
             path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
@@ -55,6 +57,7 @@ def services_gui_func():
             return
         model = treeview6101.get_model()
         treeiter = model.get_iter(path)
+
         # Get right/double clicked service name
         if treeiter == None:
             return
@@ -63,6 +66,7 @@ def services_gui_func():
             selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]
         except ValueError:
             return
+
         # Open right click menu if right clicked on a row
         if event.button == 3:
             if 'ServicesMenuRightClick' not in globals():
@@ -72,6 +76,7 @@ def services_gui_func():
                 ServicesMenuRightClick.services_menu_right_click_gui_func()
             ServicesMenuRightClick.menu6101m.popup(None, None, None, None, event.button, event.time)
             ServicesMenuRightClick.services_set_checkmenuitem_func()
+
         # Open details window if double clicked on a row
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             if 'ServicesDetails' not in globals():
@@ -82,41 +87,81 @@ def services_gui_func():
             ServicesDetails.window6101w.show()
             ServicesDetails.services_details_run_func()
 
+
+    # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
     def on_treeview6101_button_release_event(widget, event):
-        if event.button == 1:                                                                 # Run the following function if mouse is left clicked on the treeview and the mouse button is released.
+
+        # Check if left mouse button is used
+        if event.button == 1:
             services_treeview_column_order_width_row_sorting_func()
 
-    def on_searchentry6101_changed(widget):
-        radiobutton6101.set_active(True)
-        services_treeview_filter_search_func()
 
-    def on_button6101_clicked(widget):                                                        # "Services Tab Customizations" button
-        if 'ServicesMenuCustomizations' not in globals():                                     # Check if "ServicesMenuCustomizations" module is imported. Therefore it is not reimported on every right click operation.
+    # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
+    def on_searchentry6101_changed(widget):
+
+        radiobutton6101.set_active(True)
+
+        global filter_column
+        service_search_text = searchentry6101.get_text().lower()
+        # Set visible/hidden services
+        for piter in piter_list:
+            treestore6101.set_value(piter, 0, False)
+            service_data_text_in_model = treestore6101.get_value(piter, filter_column)
+            if service_search_text in str(service_data_text_in_model).lower():
+                treestore6101.set_value(piter, 0, True)
+
+
+    # --------------------------------- Called for showing Services tab customization menu when button is clicked ---------------------------------
+    def on_button6101_clicked(widget):
+
+        if 'ServicesMenuCustomizations' not in globals():
             global ServicesMenuCustomizations
             import ServicesMenuCustomizations
             ServicesMenuCustomizations.services_menu_customizations_import_func()
             ServicesMenuCustomizations.services_menu_customizations_gui_func()
         ServicesMenuCustomizations.popover6101p.popup()
 
-    def on_button6102_clicked(widget):                                                        # "Refresh" button
+
+    # --------------------------------- Called for reloading the data on the Services tab if "Refresh" button is clicked ---------------------------------
+    def on_button6102_clicked(widget):
+
         services_run_func()
 
-    def on_radiobutton6101_toggled(widget):                                                   # "Show all services" radiobutton
-        if radiobutton6101.get_active() == True:
-            searchentry6101.set_text("")
-            services_treeview_filter_show_all_func()
 
-    def on_radiobutton6102_toggled(widget):                                                   # "Show all loaded services" radiobutton
-        if radiobutton6102.get_active() == True:
-            searchentry6101.set_text("")
-            services_treeview_filter_show_all_func()
-            services_treeview_filter_services_loaded_only()
+    # --------------------------------- Called for filtering items when "Show all services" radiobutton is clicked ---------------------------------
+    def on_radiobutton6101_toggled(widget):
 
-    def on_radiobutton6103_toggled(widget):                                                   # "Show all non-loaded services" radiobutton
-        if radiobutton6103.get_active() == True:
+        if widget.get_active() == True:
             searchentry6101.set_text("")
-            services_treeview_filter_show_all_func()
-            services_treeview_filter_services_not_loaded_only()
+            # Show all services
+            for piter in piter_list:
+                treestore6101.set_value(piter, 0, True)
+
+
+    # --------------------------------- Called for filtering items when "Show all loaded services" radiobutton is clicked ---------------------------------
+    def on_radiobutton6102_toggled(widget):
+
+        if widget.get_active() == True:
+            searchentry6101.set_text("")
+            for piter in piter_list:
+                # Show all services
+                treestore6101.set_value(piter, 0, True)
+                # Show if loaded service
+                if service_loaded_not_loaded_list[piter_list.index(piter)] != True:
+                    treestore6101.set_value(piter, 0, False)
+
+
+    # --------------------------------- Called for filtering items when "Show all non-loaded services" radiobutton is clicked ---------------------------------
+    def on_radiobutton6103_toggled(widget):
+
+        if widget.get_active() == True:
+            searchentry6101.set_text("")
+            for piter in piter_list:
+                # Show all services
+                treestore6101.set_value(piter, 0, True)
+                # Show if non-loaded service
+                if service_loaded_not_loaded_list[piter_list.index(piter)] == True:
+                    treestore6101.set_value(piter, 0, False)
 
 
     # Services tab GUI functions - connect
@@ -456,42 +501,6 @@ def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
 def services_run_func(*args):
 
     GLib.idle_add(services_initial_func)
-
-
-# ----------------------------------- Services - Treeview Filter Show All Function -----------------------------------
-def services_treeview_filter_show_all_func():
-
-    for piter in piter_list:
-        treestore6101.set_value(piter, 0, True)
-
-
-# ----------------------------------- Services - Treeview Filter Show All Enabled (Visible) Services Items Function -----------------------------------
-def services_treeview_filter_services_loaded_only():
-
-    for piter in piter_list:
-        if service_loaded_not_loaded_list[piter_list.index(piter)] != True:
-            treestore6101.set_value(piter, 0, False)
-
-
-# ----------------------------------- Services - Treeview Filter Show All Disabled (Hidden) Services Items Function -----------------------------------
-def services_treeview_filter_services_not_loaded_only():
-
-    for piter in piter_list:
-        if service_loaded_not_loaded_list[piter_list.index(piter)] == True:
-            treestore6101.set_value(piter, 0, False)
-
-
-# ----------------------------------- Services - Treeview Filter Search Function -----------------------------------
-def services_treeview_filter_search_func():
-
-    global filter_column
-    service_search_text = searchentry6101.get_text().lower()
-    # Set visible/hidden services
-    for piter in piter_list:
-        treestore6101.set_value(piter, 0, False)
-        service_data_text_in_model = treestore6101.get_value(piter, filter_column)
-        if service_search_text in str(service_data_text_in_model).lower():
-            treestore6101.set_value(piter, 0, True)
 
 
 # ----------------------------------- Services - Column Title Clicked Function -----------------------------------

@@ -73,7 +73,7 @@ def cpu_gui_func():
 
 
 # ----------------------------------- CPU - Plot CPU usage average data as a Line Chart ----------------------------------- 
-def on_drawingarea1101_draw(widget, chart1101):
+def on_drawingarea1101_draw(widget, ctx):
 
     # Get values from "Config and Peformance" modules and use this defined values in order to avoid multiple uses of variables from another module since CPU usage is higher for this way.
     chart_data_history = Config.chart_data_history
@@ -91,41 +91,41 @@ def on_drawingarea1101_draw(widget, chart1101):
     chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
 
     # Get drawingarea width and height. Therefore chart width and height is updated dynamically by using these values when window size is changed by user.
-    chart1101_width = Gtk.Widget.get_allocated_width(drawingarea1101)
-    chart1101_height = Gtk.Widget.get_allocated_height(drawingarea1101)
+    chart1101_width = Gtk.Widget.get_allocated_width(widget)
+    chart1101_height = Gtk.Widget.get_allocated_height(widget)
 
     # Set color for chart background, draw chart background rectangle and fill the inner area.
     # Only one drawing style with multiple properties (color, line width, dash style) can be set at the same time.
     # As a result style should be set, drawing should be done and another style shpuld be set for next drawing.
-    chart1101.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-    chart1101.rectangle(0, 0, chart1101_width, chart1101_height)
-    chart1101.fill()
+    ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+    ctx.rectangle(0, 0, chart1101_width, chart1101_height)
+    ctx.fill()
 
     # Change line width, dash style (if [4, 3] is used, this means draw 4 pixels, skip 3 pixels) and color for chart gridlines.
-    chart1101.set_line_width(1)
-    chart1101.set_dash([4, 3])
-    chart1101.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+    ctx.set_line_width(1)
+    ctx.set_dash([4, 3])
+    ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
     # Draw horizontal gridlines (range(3) means 3 gridlines will be drawn)
     for i in range(3):
-        chart1101.move_to(0, chart1101_height/4*(i+1))
-        chart1101.line_to(chart1101_width, chart1101_height/4*(i+1))
+        ctx.move_to(0, chart1101_height/4*(i+1))
+        ctx.line_to(chart1101_width, chart1101_height/4*(i+1))
     # Draw vertical gridlines
     for i in range(4):
-        chart1101.move_to(chart1101_width/5*(i+1), 0)
-        chart1101.line_to(chart1101_width/5*(i+1), chart1101_height)
-    chart1101.stroke()    # "stroke" command draws line (line or closed shapes with empty inner area). "fill" command should be used for filling inner areas.
+        ctx.move_to(chart1101_width/5*(i+1), 0)
+        ctx.line_to(chart1101_width/5*(i+1), chart1101_height)
+    ctx.stroke()    # "stroke" command draws line (line or closed shapes with empty inner area). "fill" command should be used for filling inner areas.
 
     # Change line style (solid line) for chart foreground.
-    chart1101.set_dash([], 0)
+    ctx.set_dash([], 0)
     # Draw chart outer rectange.
-    chart1101.rectangle(0, 0, chart1101_width, chart1101_height)
-    chart1101.stroke()
+    ctx.rectangle(0, 0, chart1101_width, chart1101_height)
+    ctx.stroke()
 
     # Change the color for drawing data line (curve).
-    chart1101.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+    ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
     # Move drawing point (cairo context which is used for drawing on drawable objects) from data point to data point and connect them by a line in order to draw a curve.
     # First, move drawing point to the lower left corner of the chart and draw all data points one by one by going to the right direction.
-    chart1101.move_to(chart1101_width*chart_x_axis[0]/(chart_data_history-1), chart1101_height - chart1101_height*cpu_usage_percent_ave[0]/100)
+    ctx.move_to(chart1101_width*chart_x_axis[0]/(chart_data_history-1), chart1101_height - chart1101_height*cpu_usage_percent_ave[0]/100)
     # Move drawing point to the next data points and connect them by a line.
     for i in range(len(chart_x_axis) - 1):
         # Distance to move on the horizontal axis
@@ -133,28 +133,28 @@ def on_drawingarea1101_draw(widget, chart1101):
         # Distance to move on the vertical axis
         delta_y_chart1101 = (chart1101_height*cpu_usage_percent_ave[i+1]/100) - (chart1101_height*cpu_usage_percent_ave[i]/100)
         # Move
-        chart1101.rel_line_to(delta_x_chart1101, -delta_y_chart1101)
+        ctx.rel_line_to(delta_x_chart1101, -delta_y_chart1101)
 
     # Move drawing point 10 pixel right in order to go out of the visible drawing area for drawing a closed shape for filling the inner area.
-    chart1101.rel_line_to(10, 0)
+    ctx.rel_line_to(10, 0)
     # Move drawing point "chart_height+10" down in order to stay out of the visible drawing area for drawing a closed shape for filling the inner area.
-    chart1101.rel_line_to(0, chart1101_height+10)
+    ctx.rel_line_to(0, chart1101_height+10)
     # Move drawing point "chart1101_width+20" pixel left (by using a minus sign) in order to stay out of the visible drawing area for drawing a closed shape for filling the inner area.
-    chart1101.rel_line_to(-(chart1101_width+20), 0)
+    ctx.rel_line_to(-(chart1101_width+20), 0)
     # Move drawing point "chart_height+10" up in order to stay out of the visible drawing area for drawing a closed shape for filling the inner area.
-    chart1101.rel_line_to(0, -(chart1101_height+10))
+    ctx.rel_line_to(0, -(chart1101_height+10))
     # Finally close the curve in order to fill the inner area which will represent a curve with a filled "below" area.
-    chart1101.close_path()
+    ctx.close_path()
     # Use "stroke_preserve" in order to use the same area for filling. 
-    chart1101.stroke_preserve()
+    ctx.stroke_preserve()
     # Change the color for filling operation.
-    chart1101.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+    ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
     # Fill the area
-    chart1101.fill()
+    ctx.fill()
 
 
 # ----------------------------------- CPU - Plot CPU usage per core data as Bar Charts if "show cpu usage per core" setting is enabled. ----------------------------------- 
-def on_drawingarea1101_draw_per_core(widget, chart1101):
+def on_drawingarea1101_draw_per_core(widget, ctx):
 
     logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
 
@@ -167,29 +167,29 @@ def on_drawingarea1101_draw_per_core(widget, chart1101):
     chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.8 * chart_line_color[3]]
     chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
 
-    chart1101_width = Gtk.Widget.get_allocated_width(drawingarea1101)
-    chart1101_height = Gtk.Widget.get_allocated_height(drawingarea1101)
+    chart1101_width = Gtk.Widget.get_allocated_width(widget)
+    chart1101_height = Gtk.Widget.get_allocated_height(widget)
 
     chart1101_width_per_core = chart1101_width / Performance.number_of_logical_cores
     chart1101_height_per_core = chart1101_height                                              # Chart height and chart height per core is same because charts for all cores will be bars next to each other (like columns).
-    chart1101_width_per_core_w_spacing = chart1101_width_per_core - 10                        # Spacing 5 from left an right
-    chart1101_height_per_core_w_spacing = chart1101_height - 10                               # Spacing 5 from top an bottom
+    chart1101_width_per_core_w_spacing = chart1101_width_per_core - 10                        # Spacing 5 from left and right
+    chart1101_height_per_core_w_spacing = chart1101_height - 10                               # Spacing 5 from top and bottom
 
     for i, cpu_core in enumerate(logical_core_list_system_ordered):
-        chart1101.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1101.rectangle(i*chart1101_width_per_core, 0, chart1101_width_per_core, chart1101_height_per_core)
-        chart1101.fill()
+        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+        ctx.rectangle(i*chart1101_width_per_core, 0, chart1101_width_per_core, chart1101_height_per_core)
+        ctx.fill()
 
-        chart1101.set_line_width(1)
-        chart1101.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
-        chart1101.rectangle(i*chart1101_width_per_core+5, 5, chart1101_width_per_core_w_spacing, chart1101_height_per_core_w_spacing)
-        chart1101.stroke()
-        chart1101.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
-        chart1101.rectangle(i*chart1101_width_per_core+5, (chart1101_height_per_core_w_spacing-chart1101_height_per_core_w_spacing*cpu_usage_percent_per_core[logical_core_list.index(cpu_core)]/100)+5, chart1101_width_per_core_w_spacing, chart1101_height_per_core_w_spacing*cpu_usage_percent_per_core[logical_core_list.index(cpu_core)]/100)
-        chart1101.fill()
-        chart1101.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], 2*chart_foreground_color[3])
-        chart1101.move_to(i*chart1101_width_per_core+8, 16)
-        chart1101.show_text(f'{cpu_core.split("cpu")[-1]}')
+        ctx.set_line_width(1)
+        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.rectangle(i*chart1101_width_per_core+5, 5, chart1101_width_per_core_w_spacing, chart1101_height_per_core_w_spacing)
+        ctx.stroke()
+        ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        ctx.rectangle(i*chart1101_width_per_core+5, (chart1101_height_per_core_w_spacing-chart1101_height_per_core_w_spacing*cpu_usage_percent_per_core[logical_core_list.index(cpu_core)]/100)+5, chart1101_width_per_core_w_spacing, chart1101_height_per_core_w_spacing*cpu_usage_percent_per_core[logical_core_list.index(cpu_core)]/100)
+        ctx.fill()
+        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], 2*chart_foreground_color[3])
+        ctx.move_to(i*chart1101_width_per_core+8, 16)
+        ctx.show_text(f'{cpu_core.split("cpu")[-1]}')
 
 
 # ----------------------------------- CPU - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
