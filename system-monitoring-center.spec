@@ -1,5 +1,5 @@
 Name:           system-monitoring-center
-Version:        1.5.0
+Version:        1.6.0
 Release:        1%{?dist}
 Summary:        Provides information about system performance and usage.
 License:        GPLv3
