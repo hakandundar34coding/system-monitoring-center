@@ -47,7 +47,7 @@ Note: If there are dependency problems during installation:
     * Monitoring and managing processes, users, startup applications and services (systemd)
     * Monitoring sensors and general system information
 * Language support (more languages will be added if translations are provided by contributors):
-    * Brazilian Portuguese, English, Turkish
+    * Brazilian Portuguese, Czech, English, Polish (initial), Turkish
 * Adapts to system theme
 * Free and open sourced
 

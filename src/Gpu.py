@@ -13,12 +13,6 @@ def gpu_import_func():
     import os
     import subprocess
 
-#     # Import required OpenGL modules for measuring FPS (glarea will be used). Importing these OpenGL modules takes about 0.15 seconds on a 4-cored i7-2630QM notebook and this slows application start a bit.
-#     global glClearColor, glClear, GL_COLOR_BUFFER_BIT, glFlush
-#     import OpenGL
-#     # from OpenGL.GL import *                                                                 # This code could not be run in a module because of the "*". Need to be imported in a module when "GPU" tab is opened. Because importing this module consumes about 11 MiB of RAM.
-#     from OpenGL.GL import glClearColor, glClear, GL_COLOR_BUFFER_BIT, glFlush                 # This code is used instead of "from OpenGL.GL import *" to be able to import required module in a function otherwise, module could not be imported in a module because of the "*".
-
 
     global Config, Performance
     import Config, Performance

@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-24 09:43+0300\n"
+"POT-Creation-Date: 2022-03-14 11:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/Cpu.py:268 ui/CpuMenus.ui:72 ui/CpuTab.ui:439
@@ -29,14 +29,14 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: src/Disk.py:238 src/DiskDetails.py:178 src/DiskDetails.py:193 src/Gpu.py:238
-#: src/Network.py:264 src/Network.py:286 src/Services.py:175
+#: src/Disk.py:238 src/DiskDetails.py:178 src/DiskDetails.py:193 src/Gpu.py:233
+#: src/Network.py:264 src/Network.py:286 src/Services.py:220
 #: src/ServicesDetails.py:130 src/UsersDetails.py:224
 msgid "Yes"
 msgstr ""
 
-#: src/Disk.py:240 src/DiskDetails.py:171 src/Gpu.py:240 src/Gpu.py:325
-#: src/Network.py:266 src/Services.py:175 src/ServicesDetails.py:130
+#: src/Disk.py:240 src/DiskDetails.py:171 src/Gpu.py:235 src/Gpu.py:319
+#: src/Network.py:266 src/Services.py:220 src/ServicesDetails.py:130
 #: src/UsersDetails.py:226
 msgid "No"
 msgstr ""
@@ -54,7 +54,7 @@ msgid "Partition"
 msgstr ""
 
 #: src/Disk.py:384 src/DiskDetails.py:242 src/DiskDetails.py:318
-#: src/DiskDetails.py:326 src/SettingsGUI.py:345 ui/DiskDetailsWindow.ui:45
+#: src/DiskDetails.py:326 src/SettingsGUI.py:324 ui/DiskDetailsWindow.ui:45
 #: ui/DiskTab.ui:435 ui/MainWindow.ui:265
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
 msgid "Disk"
@@ -68,8 +68,8 @@ msgstr ""
 msgid "Disk Details"
 msgstr ""
 
-#: src/FloatingSummary.py:117 src/Processes.py:187 src/SettingsGUI.py:345
-#: src/Users.py:155 ui/CpuMenus.ui:387 ui/CpuTab.ui:343 ui/MainWindow.ui:169
+#: src/FloatingSummary.py:117 src/Processes.py:247 src/SettingsGUI.py:324
+#: src/Users.py:197 ui/CpuMenus.ui:387 ui/CpuTab.ui:343 ui/MainWindow.ui:169
 #: ui/PerformanceSummaryHeaderBarGrid.ui:17 ui/ProcessesDetailsWindow.ui:113
 #: ui/ProcessesDetailsWindow.ui:741 ui/ProcessesDetailsWindow.ui:846
 #: ui/ProcessesMenuCustomizations.ui:421 ui/ProcessesMenuCustomizations.ui:723
@@ -78,7 +78,7 @@ msgstr ""
 msgid "CPU"
 msgstr ""
 
-#: src/FloatingSummary.py:119 src/SettingsGUI.py:345 ui/MainWindow.ui:217
+#: src/FloatingSummary.py:119 src/SettingsGUI.py:324 ui/MainWindow.ui:217
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52 ui/RamTab.ui:28 ui/RamTab.ui:475
 #: ui/SettingsWindow.ui:346
 msgid "RAM"
@@ -122,30 +122,30 @@ msgstr ""
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Processes.py:183 src/RamSwapDetails.py:85 src/Services.py:148
-#: src/Startup.py:121 ui/ProcessesDetailsWindow.ui:48
+#: src/Processes.py:243 src/RamSwapDetails.py:85 src/Services.py:193
+#: src/Startup.py:159 ui/ProcessesDetailsWindow.ui:48
 #: ui/ProcessesMenuCustomizations.ui:363 ui/ServicesDetailsWindow.ui:49
 #: ui/ServicesMenuCustomizations.ui:234 ui/StartupNewItemWindow.ui:259
 msgid "Name"
 msgstr ""
 
-#: src/Processes.py:184 src/ProcessesDetails.py:247 src/ProcessesDetails.py:650
+#: src/Processes.py:244 src/ProcessesDetails.py:247 src/ProcessesDetails.py:650
 #: ui/ProcessesDetailsWindow.ui:61 ui/ProcessesMenuCustomizations.ui:379
 msgid "PID"
 msgstr ""
 
-#: src/Processes.py:185 src/Users.py:143 src/UsersMenuRightClick.py:76
+#: src/Processes.py:245 src/Users.py:185 src/UsersMenuRightClick.py:76
 #: ui/ProcessesDetailsWindow.ui:87 ui/ProcessesMenuCustomizations.ui:393
 #: ui/UsersDetailsWindow.ui:45 ui/UsersMenuCustomizations.ui:234
 msgid "User"
 msgstr ""
 
-#: src/Processes.py:186 ui/ProcessesDetailsWindow.ui:74
+#: src/Processes.py:246 ui/ProcessesDetailsWindow.ui:74
 #: ui/ProcessesMenuCustomizations.ui:407
 msgid "Status"
 msgstr ""
 
-#: src/Processes.py:188 src/Services.py:154 src/Users.py:156
+#: src/Processes.py:248 src/Services.py:199 src/Users.py:198
 #: ui/ProcessesDetailsWindow.ui:126 ui/ProcessesDetailsWindow.ui:863
 #: ui/ProcessesMenuCustomizations.ui:435 ui/ServicesDetailsWindow.ui:238
 #: ui/ServicesMenuCustomizations.ui:320 ui/UsersDetailsWindow.ui:355
@@ -153,110 +153,110 @@ msgstr ""
 msgid "Memory (RSS)"
 msgstr ""
 
-#: src/Processes.py:189 ui/ProcessesDetailsWindow.ui:876
+#: src/Processes.py:249 ui/ProcessesDetailsWindow.ui:876
 #: ui/ProcessesMenuCustomizations.ui:449
 msgid "Memory (VMS)"
 msgstr ""
 
-#: src/Processes.py:190 ui/ProcessesDetailsWindow.ui:889
+#: src/Processes.py:250 ui/ProcessesDetailsWindow.ui:889
 #: ui/ProcessesMenuCustomizations.ui:519
 msgid "Memory (Shared)"
 msgstr ""
 
-#: src/Processes.py:191 ui/ProcessesDetailsWindow.ui:1348
+#: src/Processes.py:251 ui/ProcessesDetailsWindow.ui:1348
 #: ui/ProcessesMenuCustomizations.ui:561
 msgid "Disk Read Data"
 msgstr ""
 
-#: src/Processes.py:192 ui/ProcessesDetailsWindow.ui:1361
+#: src/Processes.py:252 ui/ProcessesDetailsWindow.ui:1361
 #: ui/ProcessesMenuCustomizations.ui:575
 msgid "Disk Write Data"
 msgstr ""
 
-#: src/Processes.py:193 ui/ProcessesDetailsWindow.ui:139
+#: src/Processes.py:253 ui/ProcessesDetailsWindow.ui:139
 #: ui/ProcessesDetailsWindow.ui:664 ui/ProcessesDetailsWindow.ui:1322
 #: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:360
 msgid "Disk Read Speed"
 msgstr ""
 
-#: src/Processes.py:194 ui/ProcessesDetailsWindow.ui:1335
+#: src/Processes.py:254 ui/ProcessesDetailsWindow.ui:1335
 #: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:374
 msgid "Disk Write Speed"
 msgstr ""
 
-#: src/Processes.py:195 src/RamSwapDetails.py:89
+#: src/Processes.py:255 src/RamSwapDetails.py:89
 #: ui/ProcessesDetailsWindow.ui:100 ui/ProcessesMenuCustomizations.ui:463
 msgid "Priority"
 msgstr ""
 
-#: src/Processes.py:196 ui/ProcessesDetailsWindow.ui:754
+#: src/Processes.py:256 ui/ProcessesDetailsWindow.ui:754
 #: ui/ProcessesMenuCustomizations.ui:477
 msgid "Threads"
 msgstr ""
 
-#: src/Processes.py:197 ui/ProcessesDetailsWindow.ui:178
+#: src/Processes.py:257 ui/ProcessesDetailsWindow.ui:178
 #: ui/ProcessesMenuCustomizations.ui:491
 msgid "PPID"
 msgstr ""
 
-#: src/Processes.py:198 src/Users.py:146 src/UsersMenuRightClick.py:77
+#: src/Processes.py:258 src/Users.py:188 src/UsersMenuRightClick.py:77
 #: ui/ProcessesDetailsWindow.ui:413 ui/ProcessesMenuCustomizations.ui:589
 #: ui/UsersDetailsWindow.ui:84 ui/UsersMenuCustomizations.ui:278
 msgid "UID"
 msgstr ""
 
-#: src/Processes.py:199 src/Users.py:147 ui/ProcessesDetailsWindow.ui:426
+#: src/Processes.py:259 src/Users.py:189 ui/ProcessesDetailsWindow.ui:426
 #: ui/ProcessesMenuCustomizations.ui:603 ui/UsersDetailsWindow.ui:97
 #: ui/UsersMenuCustomizations.ui:292
 msgid "GID"
 msgstr ""
 
-#: src/Processes.py:200 ui/DiskDetailsWindow.ui:384
+#: src/Processes.py:260 ui/DiskDetailsWindow.ui:384
 #: ui/ProcessesDetailsWindow.ui:1764 ui/ProcessesMenuCustomizations.ui:505
 #: ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr ""
 
-#: src/Processes.py:219 src/Services.py:174 src/ServicesDetails.py:129
+#: src/Processes.py:279 src/Services.py:219 src/ServicesDetails.py:129
 msgid "Running"
 msgstr ""
 
-#: src/Processes.py:219
+#: src/Processes.py:279
 msgid "Sleeping"
 msgstr ""
 
-#: src/Processes.py:219
+#: src/Processes.py:279
 msgid "Waiting"
 msgstr ""
 
-#: src/Processes.py:219
+#: src/Processes.py:279
 msgid "Idle"
 msgstr ""
 
-#: src/Processes.py:219
+#: src/Processes.py:279
 msgid "Zombie"
 msgstr ""
 
-#: src/Processes.py:219
+#: src/Processes.py:279
 msgid "Stopped"
 msgstr ""
 
-#: src/Processes.py:219
+#: src/Processes.py:279
 msgid "Tracing Stop"
 msgstr ""
 
-#: src/Processes.py:219 src/Services.py:174 src/ServicesDetails.py:129
+#: src/Processes.py:279 src/Services.py:219 src/ServicesDetails.py:129
 msgid "Dead"
 msgstr ""
 
-#: src/Processes.py:609 src/Sensors.py:354 src/Services.py:443
-#: src/Startup.py:416 src/Users.py:522 ui/ProcessesTab.ui:222
+#: src/Processes.py:669 src/Sensors.py:393 src/Services.py:488
+#: src/Startup.py:454 src/Users.py:564 ui/ProcessesTab.ui:222
 #: ui/SensorsTab.ui:195 ui/ServicesTab.ui:177 ui/StartupTab.ui:144
 #: ui/UsersTab.ui:156
 msgid "Search..."
 msgstr ""
 
-#: src/Processes.py:609 src/SettingsGUI.py:328 src/Users.py:148
+#: src/Processes.py:669 src/SettingsGUI.py:307 src/Users.py:190
 #: ui/MainWindow.ui:603 ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:306
 msgid "Processes"
@@ -305,7 +305,7 @@ msgid "Capacity"
 msgstr ""
 
 #: src/RamHardwareInformation.py:121 src/RamHardwareInformation.py:140
-#: src/RamSwapDetails.py:86 src/Startup.py:123 ui/DiskDetailsWindow.ui:84
+#: src/RamSwapDetails.py:86 src/Startup.py:161 ui/DiskDetailsWindow.ui:84
 #: ui/ServicesDetailsWindow.ui:225
 msgid "Type"
 msgstr ""
@@ -343,109 +343,109 @@ msgstr ""
 msgid "This system has no swap memory."
 msgstr ""
 
-#: src/Sensors.py:100
+#: src/Sensors.py:139
 msgid "Sensor Group"
 msgstr ""
 
-#: src/Sensors.py:101
+#: src/Sensors.py:140
 msgid "Sensor Name"
 msgstr ""
 
-#: src/Sensors.py:102
+#: src/Sensors.py:141
 msgid "Current Value"
 msgstr ""
 
-#: src/Sensors.py:103
+#: src/Sensors.py:142
 msgid "Critical Value"
 msgstr ""
 
-#: src/Sensors.py:104
+#: src/Sensors.py:143
 msgid "Max Value"
 msgstr ""
 
-#: src/Sensors.py:354 src/SettingsGUI.py:345 ui/MainWindow.ui:409
+#: src/Sensors.py:393 src/SettingsGUI.py:324 ui/MainWindow.ui:409
 #: ui/SensorsTab.ui:77
 msgid "Sensors"
 msgstr ""
 
-#: src/Services.py:149 ui/ServicesMenuCustomizations.ui:250
+#: src/Services.py:194 ui/ServicesMenuCustomizations.ui:250
 msgid "State"
 msgstr ""
 
-#: src/Services.py:150 ui/ServicesDetailsWindow.ui:428
+#: src/Services.py:195 ui/ServicesDetailsWindow.ui:428
 #: ui/ServicesMenuCustomizations.ui:264
 msgid "Main PID"
 msgstr ""
 
-#: src/Services.py:151 ui/ServicesDetailsWindow.ui:277
+#: src/Services.py:196 ui/ServicesDetailsWindow.ui:277
 #: ui/ServicesMenuCustomizations.ui:278
 msgid "Active State"
 msgstr ""
 
-#: src/Services.py:152 ui/ServicesDetailsWindow.ui:264
+#: src/Services.py:197 ui/ServicesDetailsWindow.ui:264
 #: ui/ServicesMenuCustomizations.ui:292
 msgid "Load State"
 msgstr ""
 
-#: src/Services.py:153 ui/ServicesDetailsWindow.ui:290
+#: src/Services.py:198 ui/ServicesDetailsWindow.ui:290
 #: ui/ServicesMenuCustomizations.ui:306
 msgid "Sub-State"
 msgstr ""
 
-#: src/Services.py:155 ui/ServicesDetailsWindow.ui:62
+#: src/Services.py:200 ui/ServicesDetailsWindow.ui:62
 #: ui/ServicesMenuCustomizations.ui:334
 msgid "Description"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Enabled"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Disabled"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Masked"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Unmasked"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Static"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Generated"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Enabled-runtime"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Indirect"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Active"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Inactive"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Loaded"
 msgstr ""
 
-#: src/Services.py:174 src/ServicesDetails.py:129
+#: src/Services.py:219 src/ServicesDetails.py:129
 msgid "Exited"
 msgstr ""
 
-#: src/Services.py:443 src/SettingsGUI.py:328 ui/MainWindow.ui:750
+#: src/Services.py:488 src/SettingsGUI.py:307 ui/MainWindow.ui:750
 #: ui/ServicesTab.ui:61
 msgid "Services"
 msgstr ""
@@ -454,41 +454,41 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: src/SettingsGUI.py:328 ui/MainWindow.ui:554
+#: src/SettingsGUI.py:307 ui/MainWindow.ui:554
 msgid "Performance"
 msgstr ""
 
-#: src/SettingsGUI.py:328 src/Users.py:522 ui/MainWindow.ui:652
+#: src/SettingsGUI.py:307 src/Users.py:564 ui/MainWindow.ui:652
 #: ui/UsersTab.ui:60
 msgid "Users"
 msgstr ""
 
-#: src/SettingsGUI.py:328 ui/MainWindow.ui:701 ui/StartupTab.ui:48
+#: src/SettingsGUI.py:307 ui/MainWindow.ui:701 ui/StartupTab.ui:48
 msgid "Startup"
 msgstr ""
 
-#: src/SettingsGUI.py:328 ui/MainWindow.ui:799 ui/SystemTab.ui:26
+#: src/SettingsGUI.py:307 ui/MainWindow.ui:799 ui/SystemTab.ui:26
 msgid "System"
 msgstr ""
 
-#: src/SettingsGUI.py:345 ui/MainWindow.ui:313 ui/NetworkTab.ui:405
+#: src/SettingsGUI.py:324 ui/MainWindow.ui:313 ui/NetworkTab.ui:405
 #: ui/PerformanceSummaryHeaderBarGrid.ui:114
 msgid "Network"
 msgstr ""
 
-#: src/SettingsGUI.py:345 ui/GpuTab.ui:436 ui/MainWindow.ui:361
+#: src/SettingsGUI.py:324 ui/GpuTab.ui:435 ui/MainWindow.ui:361
 msgid "GPU"
 msgstr ""
 
-#: src/SettingsGUI.py:597
+#: src/SettingsGUI.py:576
 msgid "Do you want to reset all settings to defaults?"
 msgstr ""
 
-#: src/Startup.py:122 ui/StartupNewItemWindow.ui:171
+#: src/Startup.py:160 ui/StartupNewItemWindow.ui:171
 msgid "Comment"
 msgstr ""
 
-#: src/Startup.py:416
+#: src/Startup.py:454
 msgid "Startup Items"
 msgstr ""
 
@@ -518,32 +518,32 @@ msgstr ""
 msgid "There is already a '.desktop' file with the same name."
 msgstr ""
 
-#: src/Users.py:144 ui/UsersDetailsWindow.ui:58
+#: src/Users.py:186 ui/UsersDetailsWindow.ui:58
 #: ui/UsersMenuCustomizations.ui:250
 msgid "Full Name"
 msgstr ""
 
-#: src/Users.py:145 ui/UsersDetailsWindow.ui:71
+#: src/Users.py:187 ui/UsersDetailsWindow.ui:71
 #: ui/UsersMenuCustomizations.ui:264
 msgid "Logged In"
 msgstr ""
 
-#: src/Users.py:149 ui/UsersDetailsWindow.ui:123
+#: src/Users.py:191 ui/UsersDetailsWindow.ui:123
 #: ui/UsersMenuCustomizations.ui:320
 msgid "Home Directory"
 msgstr ""
 
-#: src/Users.py:150 ui/UsersDetailsWindow.ui:136
+#: src/Users.py:192 ui/UsersDetailsWindow.ui:136
 #: ui/UsersMenuCustomizations.ui:362
 msgid "Group"
 msgstr ""
 
-#: src/Users.py:151 ui/StartupNewItemWindow.ui:229 ui/UsersDetailsWindow.ui:149
+#: src/Users.py:193 ui/StartupNewItemWindow.ui:229 ui/UsersDetailsWindow.ui:149
 #: ui/UsersMenuCustomizations.ui:390
 msgid "Terminal"
 msgstr ""
 
-#: src/Users.py:154 ui/ProcessesDetailsWindow.ui:152
+#: src/Users.py:196 ui/ProcessesDetailsWindow.ui:152
 #: ui/UsersDetailsWindow.ui:162 ui/UsersMenuCustomizations.ui:376
 msgid "Start Time"
 msgstr ""
@@ -635,9 +635,9 @@ msgstr ""
 #: ui/FloatingSummaryWindow.ui:67 ui/FloatingSummaryWindow.ui:79
 #: ui/FloatingSummaryWindow.ui:91 ui/FloatingSummaryWindow.ui:103
 #: ui/GpuTab.ui:84 ui/GpuTab.ui:101 ui/GpuTab.ui:118 ui/GpuTab.ui:161
-#: ui/GpuTab.ui:178 ui/GpuTab.ui:209 ui/GpuTab.ui:239 ui/GpuTab.ui:256
-#: ui/GpuTab.ui:300 ui/GpuTab.ui:317 ui/GpuTab.ui:347 ui/GpuTab.ui:475
-#: ui/GpuTab.ui:493 ui/NetworkTab.ui:133 ui/NetworkTab.ui:150
+#: ui/GpuTab.ui:178 ui/GpuTab.ui:208 ui/GpuTab.ui:238 ui/GpuTab.ui:255
+#: ui/GpuTab.ui:299 ui/GpuTab.ui:316 ui/GpuTab.ui:346 ui/GpuTab.ui:474
+#: ui/GpuTab.ui:492 ui/NetworkTab.ui:133 ui/NetworkTab.ui:150
 #: ui/NetworkTab.ui:167 ui/NetworkTab.ui:184 ui/NetworkTab.ui:201
 #: ui/NetworkTab.ui:218 ui/NetworkTab.ui:235 ui/NetworkTab.ui:252
 #: ui/NetworkTab.ui:282 ui/NetworkTab.ui:313 ui/NetworkTab.ui:356
@@ -747,7 +747,7 @@ msgid "Cache (L2-L3):"
 msgstr ""
 
 #: ui/CpuTab.ui:380 ui/DiskDetailsWindow.ui:149 ui/DiskTab.ui:487
-#: ui/GpuTab.ui:473 ui/NetworkTab.ui:442
+#: ui/GpuTab.ui:472 ui/NetworkTab.ui:442
 msgid "Vendor-Model"
 msgstr ""
 
@@ -935,7 +935,7 @@ msgstr ""
 msgid "Disk Read (-) & Write (--) Speed"
 msgstr ""
 
-#: ui/DiskTab.ui:397 ui/GpuTab.ui:359 ui/NetworkTab.ui:380
+#: ui/DiskTab.ui:397 ui/GpuTab.ui:358 ui/NetworkTab.ui:380
 msgid "0"
 msgstr ""
 
@@ -976,38 +976,33 @@ msgstr ""
 msgid "Unified Memory:"
 msgstr ""
 
-#: ui/GpuTab.ui:194
-msgid ""
-"This information is available only on systems with X11 windowing system."
-msgstr ""
-
-#: ui/GpuTab.ui:196
+#: ui/GpuTab.ui:195
 msgid "Refresh Rate:"
 msgstr ""
 
-#: ui/GpuTab.ui:226
+#: ui/GpuTab.ui:225
 msgid "Driver:"
 msgstr ""
 
-#: ui/GpuTab.ui:272
+#: ui/GpuTab.ui:271
 msgid ""
 "If selected GPU is default on system boot and/or used for graphics "
 "processing by default"
 msgstr ""
 
-#: ui/GpuTab.ui:274
+#: ui/GpuTab.ui:273
 msgid "Default GPU:"
 msgstr ""
 
-#: ui/GpuTab.ui:287
+#: ui/GpuTab.ui:286
 msgid "Resolution:"
 msgstr ""
 
-#: ui/GpuTab.ui:377
+#: ui/GpuTab.ui:376
 msgid "FPS"
 msgstr ""
 
-#: ui/GpuTab.ui:491
+#: ui/GpuTab.ui:490
 msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
 msgstr ""
 
@@ -1019,19 +1014,15 @@ msgstr ""
 msgid "Web Page"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:17
-msgid "Hakan DÜNDAR"
-msgstr ""
-
-#: ui/MainMenusDialogs.ui:61 ui/SettingsWindow.ui:536
+#: ui/MainMenusDialogs.ui:64 ui/SettingsWindow.ui:536
 msgid "Floating Summary"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:104
+#: ui/MainMenusDialogs.ui:107
 msgid "Settings"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:149
+#: ui/MainMenusDialogs.ui:152
 msgid "About"
 msgstr ""
 
