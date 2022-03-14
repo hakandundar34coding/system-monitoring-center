@@ -1,3 +1,14 @@
+system-monitoring-center (1.6.0) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * New: Czech language translation
+  * New: Polish language translation (initial)
+  * Fix: application instance controls
+  * Removed: python3-opengl dependency
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 14 Mar 2022 11:35:44 +0300
+
 system-monitoring-center (1.5.0) unstable; urgency=medium
 
   * New: Brazilian Portuguese (pt_BR) translation
