@@ -14,8 +14,8 @@ def gpu_import_func():
     import subprocess
 
 
-    global Config, Performance
-    import Config, Performance
+    global Config
+    import Config
 
 
     global _tr
@@ -151,7 +151,7 @@ def gpu_gui_func():
             frame_list.append(0)
         except NameError:
             return
-        widget.queue_draw()                                                               # "queue_draw()" is used in order to obtain higher FPS if screen refresh rate is not reached.
+        widget.queue_draw()                                                                   # "queue_draw()" is used in order to obtain higher FPS if screen refresh rate is not reached.
         return True
 
 
@@ -249,7 +249,6 @@ def gpu_initial_func():
 def gpu_loop_func():
 
     global frame_list, fps_count, fps_count_list, frame_latency
-    #glarea1501.queue_draw()
     fps = len(frame_list) / update_interval
     del fps_count[0]
     fps_count.append(fps)
@@ -264,9 +263,10 @@ def gpu_loop_func():
     try:
         current_monitor_number = current_screen.get_monitor_at_window(current_screen.get_active_window())
         current_display = Gdk.Display.get_default()
-        current_refresh_rate = f'{(current_display.get_monitor(current_monitor_number).get_refresh_rate() / 1000):.2f} Hz'
+        current_refresh_rate = current_display.get_monitor(current_monitor_number).get_refresh_rate()
+        current_refresh_rate = f'{(current_refresh_rate / 1000):.2f} Hz'
     except Exception:
-        current_refresh_rate = "[" + "Unknown" + "]"
+        current_refresh_rate = f'[{_tr("Unknown")}]'
 
 
     # Set and update GPU tab label texts by using information get
