@@ -23,3 +23,4 @@ class Application(Gtk.Application):
 
 app = Application()
 app.run(None)
+

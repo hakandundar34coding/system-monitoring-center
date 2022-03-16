@@ -1,150 +1,165 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- RAM - RAM Tab Menus GUI Import Function -----------------------------------
-def ram_menus_import_func():
+# Import modules
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('Gdk', '3.0')
+from gi.repository import Gtk, Gdk
+import os
+import subprocess
 
-    global Gtk, Gdk, os, subprocess
-
-    import gi
-    gi.require_version('Gtk', '3.0')
-    gi.require_version('Gdk', '3.0')
-    from gi.repository import Gtk, Gdk
-    import os
-    import subprocess
-
-
-    global Config, Ram, Performance
-    import Config, Ram, Performance
+import Config
+import Performance
+import Ram
 
 
-# ----------------------------------- RAM - RAM Tab Menus GUI Function -----------------------------------
-def ram_menus_gui_func():
+# Define class
+class RamMenu:
 
-    # Define builder and get all objects (Performance tab RAM sub-tab customizations popovers) from GUI file.
-    builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamMenus.ui")
+    # ----------------------- Always called when object is generated -----------------------
+    def __init__(self):
+
+        # Get GUI objects from file
+        builder = Gtk.Builder()
+        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamMenus.ui")
+
+        # Get GUI objects
+        self.popover1201p = builder.get_object('popover1201p')
+        self.button1201p = builder.get_object('button1201p')
+        self.button1202p = builder.get_object('button1202p')
+        self.button1203p = builder.get_object('button1203p')
+        self.combobox1201p = builder.get_object('combobox1201p')
+        self.combobox1202p = builder.get_object('combobox1202p')
+        self.colorchooserdialog1201 = Gtk.ColorChooserDialog()
+
+        # Connect GUI signals
+        self.popover1201p.connect("show", self.on_popover1201p_show)
+        self.button1201p.connect("clicked", self.on_chart_color_buttons_clicked)
+        self.button1202p.connect("clicked", self.on_chart_color_buttons_clicked)
+        self.button1203p.connect("clicked", self.on_button1203p_clicked)
 
 
-    # Define a colorchooserdialog in order to set chart colors
-    global colorchooserdialog1001
-    colorchooserdialog1001 = Gtk.ColorChooserDialog()
+    # ----------------------- Called for connecting some of the signals in order to disconnect them for setting GUI -----------------------
+    def ram_tab_customization_popover_connect_signals_func(self):
 
-    # ********************** Define object names for RAM tab popover **********************
-    global popover1201p
-    global button1201p, button1202p, button1203p
-    global combobox1201p, combobox1202p
+        self.combobox1201p.connect("changed", self.on_combobox1201p_changed)
+        self.combobox1202p.connect("changed", self.on_combobox1202p_changed)
 
-    # ********************** Get objects for RAM tab popover **********************
-    popover1201p = builder.get_object('popover1201p')
-    button1201p = builder.get_object('button1201p')
-    button1202p = builder.get_object('button1202p')
-    button1203p = builder.get_object('button1203p')
-    combobox1201p = builder.get_object('combobox1201p')
-    combobox1202p = builder.get_object('combobox1202p')
 
-    # ********************** Define object functions for RAM tab popover **********************
-    def on_popover1201p_show(widget):                                                         # Perform following operations on popover menu show.
+    # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
+    def ram_tab_customization_popover_disconnect_signals_func(self):
+
+        self.combobox1201p.disconnect_by_func(self.on_combobox1201p_changed)
+        self.combobox1202p.disconnect_by_func(self.on_combobox1202p_changed)
+
+
+    # ----------------------- Called for running code/functions when menu is shown -----------------------
+    def on_popover1201p_show(self, widget):
+
         try:
-            ram_tab_customization_popover_disconnect_signals_func()
+            self.ram_tab_customization_popover_disconnect_signals_func()
         except TypeError:
             pass
-        ram_tab_popover_set_gui()
-        ram_tab_customization_popover_connect_signals_func()
+        self.ram_tab_popover_set_gui()
+        self.ram_tab_customization_popover_connect_signals_func()
 
-    def on_button1201p_clicked(widget):                                                       # For setting chart foreground color
-        red, blue, green, alpha = Config.chart_line_color_ram_swap_percent                    # Get current foreground color of the chart
-        colorchooserdialog1001.set_rgba(Gdk.RGBA(red, blue, green, alpha))                    # Set current chart foregorund color as selected color of the dialog on dialog run
-        dialog_response = colorchooserdialog1001.run()
+
+    # ----------------------- "foreground and background color" Buttons -----------------------
+    def on_chart_color_buttons_clicked(self, widget):
+
+        # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
+        if widget == self.button1201p:
+            red, blue, green, alpha = Config.chart_line_color_ram_swap_percent
+        if widget == self.button1202p:
+            red, blue, green, alpha = Config.chart_background_color_all_charts
+        self.colorchooserdialog1201.set_rgba(Gdk.RGBA(red, blue, green, alpha))
+
+        dialog_response = self.colorchooserdialog1201.run()
+
         if dialog_response == Gtk.ResponseType.OK:
-            selected_color = colorchooserdialog1001.get_rgba()
-            Config.chart_line_color_ram_swap_percent = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
-            colorchooserdialog1001.hide()
-            Config.config_save_func()
-        if dialog_response == Gtk.ResponseType.CANCEL:
-            colorchooserdialog1001.hide()
-        Ram.ram_initial_func()
-        Ram.ram_loop_func()
+            selected_color = self.colorchooserdialog1201.get_rgba()
+            if widget == self.button1201p:
+                Config.chart_line_color_ram_swap_percent = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
+            if widget == self.button1202p:
+                Config.chart_background_color_all_charts = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
-    def on_button1202p_clicked(widget):                                                       # For setting chart background color
-        red, blue, green, alpha = Config.chart_background_color_all_charts                    # Get current background color of the chart
-        colorchooserdialog1001.set_rgba(Gdk.RGBA(red, blue, green, alpha))                    # Set current chart backgorund color as selected color of the dialog on dialog run
-        dialog_response = colorchooserdialog1001.run()
-        if dialog_response == Gtk.ResponseType.OK:
-            selected_color = colorchooserdialog1001.get_rgba()
-            Config.chart_background_color_all_charts = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
-            colorchooserdialog1001.hide()
-            Config.config_save_func()
-        if dialog_response == Gtk.ResponseType.CANCEL:
-            colorchooserdialog1001.hide()
-        Ram.ram_initial_func()
-        Ram.ram_loop_func()
+        self.colorchooserdialog1201.hide()
 
-    def on_combobox1201p_changed(widget):                                                     # Option for defining "RAM/Swap data number precision" shown by using labels
-        Config.performance_ram_swap_data_precision = Config.number_precision_list[combobox1201p.get_active()][2]
+        # Apply changes immediately (without waiting update interval).
         Ram.ram_initial_func()
         Ram.ram_loop_func()
         Config.config_save_func()
 
-    def on_combobox1202p_changed(widget):                                                     # Option for defining "RAM/Swap data units" shown by using labels
-        Config.performance_ram_swap_data_unit = Config.data_unit_list[combobox1202p.get_active()][2]
+
+    # ----------------------- "RAM/Swap data number precision" Combobox -----------------------
+    def on_combobox1201p_changed(self, widget):
+
+        Config.performance_ram_swap_data_precision = Config.number_precision_list[self.widget.get_active()][2]
+
+        # Apply changes immediately (without waiting update interval).
         Ram.ram_initial_func()
         Ram.ram_loop_func()
         Config.config_save_func()
 
-    def on_button1203p_clicked(widget):                                                       # For resetting all RAM tab settings
+
+    # ----------------------- "RAM/Swap data units" Combobox -----------------------
+    def on_combobox1202p_changed(self, widget):
+
+        Config.performance_ram_swap_data_unit = Config.data_unit_list[self.widget.get_active()][2]
+
+        # Apply changes immediately (without waiting update interval).
+        Ram.ram_initial_func()
+        Ram.ram_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "Reset All" Button -----------------------
+    def on_button1203p_clicked(self, widget):
+
+        # Load default settings
         Config.config_default_performance_ram_func()
         Config.config_save_func()
-        ram_tab_customization_popover_disconnect_signals_func()
-        ram_tab_popover_set_gui()                                                             # Apply setting changes on the RAM tab popover GUI
-        ram_tab_customization_popover_connect_signals_func()
+
+        # Apply changes immediately (without waiting update interval).
         Ram.ram_initial_func()
         Ram.ram_loop_func()
+        self.ram_tab_customization_popover_disconnect_signals_func()
+        self.ram_tab_popover_set_gui()
+        self.ram_tab_customization_popover_connect_signals_func()
 
 
-    # ********************** Connect signals to GUI objects for RAM tab **********************
-    popover1201p.connect("show", on_popover1201p_show)
-    button1201p.connect("clicked", on_button1201p_clicked)
-    button1202p.connect("clicked", on_button1202p_clicked)
-    button1203p.connect("clicked", on_button1203p_clicked)
+    # ----------------------- Called for setting menu GUI items -----------------------
+    def ram_tab_popover_set_gui(self):
 
-    # ********************** Define function for connecting Performance tab RAM sub-tab customizations popover GUI signals **********************
-    def ram_tab_customization_popover_connect_signals_func():
-        combobox1201p_handler_id = combobox1201p.connect("changed", on_combobox1201p_changed)
-        combobox1202p_handler_id = combobox1202p.connect("changed", on_combobox1202p_changed)
-
-    # ********************** Define function for disconnecting Performance tab RAM sub-tab customizations popover GUI signals **********************
-    def ram_tab_customization_popover_disconnect_signals_func():
-        combobox1201p.disconnect_by_func(on_combobox1201p_changed)
-        combobox1202p.disconnect_by_func(on_combobox1202p_changed)
-
-
-# ********************** Set RAM tab popover menu GUI object data/selections appropriate for settings **********************
-def ram_tab_popover_set_gui():
-
-    # Add RAM usage data precision data into combobox on the RAM tab on the Performance tab
-    if "liststore1201p" not in globals():
-        global liststore1201p
+        # Add RAM usage data precision data into combobox
         liststore1201p = Gtk.ListStore()
         liststore1201p.set_column_types([str, int])
-        combobox1201p.set_model(liststore1201p)
+        self.combobox1201p.set_model(liststore1201p)
+        # Clear combobox in order to prevent adding the same items when the function is called again.
+        self.combobox1201p.clear()
         renderer_text = Gtk.CellRendererText()
-        combobox1201p.pack_start(renderer_text, True)
-        combobox1201p.add_attribute(renderer_text, "text", 0)
+        self.combobox1201p.pack_start(renderer_text, True)
+        self.combobox1201p.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
             liststore1201p.append([data[1], data[2]])
-    combobox1201p.set_active(Config.performance_ram_swap_data_precision)
+        self.combobox1201p.set_active(Config.performance_ram_swap_data_precision)
 
-    # Add RAM usage data unit data into combobox on the RAM tab on the Performance tab
-    if "liststore1202p" not in globals():
-        global liststore1202p
+        # Add RAM usage data unit data into combobox
         liststore1202p = Gtk.ListStore()
         liststore1202p.set_column_types([str, int])
-        combobox1202p.set_model(liststore1202p)
+        self.combobox1202p.set_model(liststore1202p)
+        # Clear combobox in order to prevent adding the same items when the function is called again.
+        self.combobox1202p.clear()
         renderer_text = Gtk.CellRendererText()
-        combobox1202p.pack_start(renderer_text, True)
-        combobox1202p.add_attribute(renderer_text, "text", 0)
+        self.combobox1202p.pack_start(renderer_text, True)
+        self.combobox1202p.add_attribute(renderer_text, "text", 0)
         for data in Config.data_unit_list:
             liststore1202p.append([data[1], data[2]])
-    for data_list in Config.data_unit_list:
-        if data_list[2] == Config.performance_ram_swap_data_unit:      
-            combobox1202p.set_active(data_list[0])
+        for data_list in Config.data_unit_list:
+            if data_list[2] == Config.performance_ram_swap_data_unit:      
+                self.combobox1202p.set_active(data_list[0])
+
+
+# Generate object
+RamMenu = RamMenu()
+

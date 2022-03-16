@@ -56,14 +56,11 @@ def gpu_gui_func():
 
     # GPU tab GUI functions
     def on_button1501_clicked(widget):
-        gpu_get_gpu_list_and_set_selected_gpu_func()                                          # Get gpu/graphics card list and set selected gpu
-        if 'GpuMenu' not in globals():
-            global GpuMenu
-            import GpuMenu
-            GpuMenu.gpu_menus_import_func()
-            GpuMenu.gpu_menus_gui_func()
-            GpuMenu.popover1501p.set_relative_to(button1501)
-            GpuMenu.popover1501p.set_position(1)
+        # Get gpu/graphics card list and set selected gpu
+        gpu_get_gpu_list_and_set_selected_gpu_func()
+        from GpuMenu import GpuMenu
+        GpuMenu.popover1501p.set_relative_to(button1501)
+        GpuMenu.popover1501p.set_position(1)
         GpuMenu.popover1501p.popup()
 
 

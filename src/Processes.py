@@ -19,7 +19,8 @@ def processes_import_func():
     import Config
 
 
-    global _tr
+    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (Main GUI module) before importing this module.
+    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
     from locale import gettext as _tr
 
 
@@ -123,11 +124,10 @@ def processes_gui_func():
     # --------------------------------- Called for showing Processes tab customization menu when button is clicked ---------------------------------
     def on_button2101_clicked(widget):
 
-        if 'ProcessesMenuCustomizations' not in globals():
-            global ProcessesMenuCustomizations
-            import ProcessesMenuCustomizations
-            ProcessesMenuCustomizations.processes_menu_customizations_import_func()
-            ProcessesMenuCustomizations.processes_menu_customizations_gui_func()
+        from ProcessesMenuCustomizations import ProcessesMenuCustomizations
+        # Set widget that popover menu will display at the edge of it, define popover position and show popover.
+        ProcessesMenuCustomizations.popover2101p.set_relative_to(button2101)
+        ProcessesMenuCustomizations.popover2101p.set_position(1)
         ProcessesMenuCustomizations.popover2101p.popup()
 
 
@@ -696,21 +696,21 @@ def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
 
 
 # ----------------------------------- Processes - Run Function (runs initial and loop functions) -----------------------------------
-def processes_run_func(*args):
+def processes_run_func(*args):                                                                # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
 
-    if "processes_data_rows" not in globals():
+    if "update_interval" not in globals():                                                    # To be able to run initial function for only one time
         GLib.idle_add(processes_initial_func)
     if Config.current_main_tab == 1:
-        global processes_glib_source, update_interval
-        try:
-            processes_glib_source.destroy()
+        global processes_glib_source, update_interval                                         # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
+        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
+            processes_glib_source.destroy()                                                   # Destroy GLib source for preventing it repeating the function.
         except NameError:
             pass
         update_interval = Config.update_interval
         processes_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(processes_loop_func)
         processes_glib_source.set_callback(processes_run_func)
-        processes_glib_source.attach(GLib.MainContext.default())
+        processes_glib_source.attach(GLib.MainContext.default())                              # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
 
 
 # ----------------------------------- Processes - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
@@ -745,7 +745,27 @@ def processes_treeview_column_order_width_row_sorting_func():
 def processes_define_data_unit_converter_variables_func():
 
     global data_unit_list
+
     # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
+
+    # Unit Name    Abbreviation    bytes   
+    # byte         B               1
+    # kilobyte     KB              1024
+    # megabyte     MB              1.04858E+06
+    # gigabyte     GB              1.07374E+09
+    # terabyte     TB              1.09951E+12
+    # petabyte     PB              1.12590E+15
+    # exabyte      EB              1.15292E+18
+
+    # Unit Name    Abbreviation    bytes    
+    # bit          b               8
+    # kilobit      Kb              8192
+    # megabit      Mb              8,38861E+06
+    # gigabit      Gb              8,58993E+09
+    # terabit      Tb              8,79609E+12
+    # petabit      Pb              9,00720E+15
+    # exabit       Eb              9,22337E+18
+
     data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
                       [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
                       [8, 0, "Auto-bit"], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
@@ -757,8 +777,8 @@ def processes_data_unit_converter_func(data, unit, precision):
 
     global data_unit_list
     if unit >= 8:
-        data = data * 8
-    if unit in [0, 8]:
+        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
+    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

@@ -88,7 +88,7 @@
             <property name="column-spacing">5</property>
             <property name="column-homogeneous">True</property>
             <child>
-              <object class="GtkButton" id="button1503p">
+              <object class="GtkButton" id="button1502p">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
@@ -106,7 +106,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button1502p">
+              <object class="GtkButton" id="button1501p">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
@@ -142,7 +142,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="button1504p">
+          <object class="GtkButton" id="button1503p">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
