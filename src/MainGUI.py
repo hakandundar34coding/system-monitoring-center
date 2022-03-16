@@ -148,13 +148,9 @@ def main_gui_func():
             label_root_warning.set_visible(True)
 
     def on_button1_clicked(widget):                                                           # "Main Menu" button
-        if 'MainMenusDialogs' not in globals():
-            global MainMenusDialogs
-            import MainMenusDialogs
-            MainMenusDialogs.main_menus_gui_import_func()
-            MainMenusDialogs.main_menus_gui_func()
-            MainMenusDialogs.popover1001p.set_relative_to(button1)                            # Set widget that popover menu will display at the edge of.
-            MainMenusDialogs.popover1001p.set_position(Gtk.PositionType.BOTTOM)
+        from MainMenusDialogs import MainMenusDialogs
+        MainMenusDialogs.popover1001p.set_relative_to(button1)
+        MainMenusDialogs.popover1001p.set_position(Gtk.PositionType.BOTTOM)
         MainMenusDialogs.popover1001p.popup()
 
     def on_radiobutton1_toggled(widget):                                                      # "Performance" radiobutton

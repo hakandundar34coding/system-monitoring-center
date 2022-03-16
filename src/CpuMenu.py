@@ -132,7 +132,7 @@ class CpuMenu:
     # ----------------------- "CPU usage percent precision" Combobox -----------------------
     def on_combobox1101p_changed(self, widget):
 
-        Config.performance_cpu_usage_percent_precision = Config.number_precision_list[self.widget.get_active()][2]
+        Config.performance_cpu_usage_percent_precision = Config.number_precision_list[widget.get_active()][2]
 
         # Apply changes immediately (without waiting update interval).
         Cpu.cpu_initial_func()
@@ -143,7 +143,7 @@ class CpuMenu:
     # ----------------------- "Selected Device" Combobox -----------------------
     def on_combobox1102p_changed(self, widget):
 
-        Config.selected_cpu_core = Performance.logical_core_list_system_ordered[self.widget.get_active()]
+        Config.selected_cpu_core = Performance.logical_core_list_system_ordered[widget.get_active()]
         Cpu.cpu_cpu_core_number = Config.selected_cpu_core
         Performance.performance_set_selected_cpu_core_func()
 

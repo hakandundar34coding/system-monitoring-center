@@ -113,11 +113,9 @@ def users_gui_func():
     # --------------------------------- Called for showing Users tab customization menu when button is clicked ---------------------------------
     def on_button3101_clicked(widget):
 
-        if 'UsersMenuCustomizations' not in globals():
-            global UsersMenuCustomizations
-            import UsersMenuCustomizations
-            UsersMenuCustomizations.users_menu_customizations_import_func()
-            UsersMenuCustomizations.users_menu_customizations_gui_func()
+        from UsersMenuCustomizations import UsersMenuCustomizations
+        UsersMenuCustomizations.popover3101p.set_relative_to(button3101)
+        UsersMenuCustomizations.popover3101p.set_position(1)
         UsersMenuCustomizations.popover3101p.popup()
 
 

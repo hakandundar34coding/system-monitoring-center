@@ -114,11 +114,9 @@ def services_gui_func():
     # --------------------------------- Called for showing Services tab customization menu when button is clicked ---------------------------------
     def on_button6101_clicked(widget):
 
-        if 'ServicesMenuCustomizations' not in globals():
-            global ServicesMenuCustomizations
-            import ServicesMenuCustomizations
-            ServicesMenuCustomizations.services_menu_customizations_import_func()
-            ServicesMenuCustomizations.services_menu_customizations_gui_func()
+        from ServicesMenuCustomizations import ServicesMenuCustomizations
+        ServicesMenuCustomizations.popover6101p.set_relative_to(button6101)
+        ServicesMenuCustomizations.popover6101p.set_position(1)
         ServicesMenuCustomizations.popover6101p.popup()
 
 
