@@ -55,10 +55,10 @@ def floating_summary_gui_func():
 
 
     # Set floating summary window properties
-    window3001.set_resizable(False)                                                           # For preventing window to be resized.
-    window3001.set_skip_taskbar_hint(True)                                                    # For hiding window on the taskbar.
-    window3001.set_decorated(False)                                                           # For hiding window title, buttons on the title and window border.
-    window3001.set_keep_above(True)                                                           # For keeping the window on top of all windows.
+    window3001.set_resizable(False)                                                           # Prevent window to be resized.
+    window3001.set_skip_taskbar_hint(True)                                                    # Hide window on the taskbar.
+    window3001.set_decorated(False)                                                           # Hide window title, buttons on the title and window border.
+    window3001.set_keep_above(True)                                                           # Keep the window on top of all windows.
 
     # Floating Summary window is closed when main window is closed (when application is run as running a desktop application). But it is not closed when main window is closed if application is run from an IDE for debugging/developing purposes.
 

@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-24 09:43+0300\n"
-"PO-Revision-Date: 2022-03-13 20:36+0100\n"
+"PO-Revision-Date: 2022-03-14 11:26+0300\n"
 "Last-Translator: K0RR <rdkracz@gmail.com>\n"
 "Language-Team: \n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10"
-" || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Lokalize 21.12.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: src/Cpu.py:268 ui/CpuMenus.ui:72 ui/CpuTab.ui:439
 msgid "CPU Usage (Average)"
@@ -272,7 +272,7 @@ msgstr "Szczegóły procesu"
 
 #: src/ProcessesDetails.py:649
 msgid "This process is not running anymore:"
-msgstr "Ten proces już nie jest uruchomiony"
+msgstr "Ten proces już nie jest uruchomiony:"
 
 #: src/ProcessesMenuRightClick.py:240
 msgid "Do you want to terminate this process?"
@@ -1097,7 +1097,7 @@ msgstr "Adres MAC:"
 
 #: ui/NetworkTab.ui:269
 msgid "Connected-SSID:"
-msgstr "SSID połączenia:"
+msgstr ""
 
 #: ui/NetworkTab.ui:298
 msgid "Link value"
@@ -1656,7 +1656,7 @@ msgstr "Serwer wyświetlania:"
 
 #: ui/SystemTab.ui:662
 msgid "Display Manager:"
-msgstr "Manager okien"
+msgstr "Manager okien:"
 
 #: ui/SystemTab.ui:674
 msgid ""
@@ -1690,7 +1690,7 @@ msgstr "Wersja Python:"
 
 #: ui/SystemTab.ui:815
 msgid "Built-in Python packages are not counted."
-msgstr "Wbudowane pakiety Python nie są wliczone"
+msgstr "Wbudowane pakiety Python nie są wliczone."
 
 #: ui/SystemTab.ui:817
 msgid "Python:"

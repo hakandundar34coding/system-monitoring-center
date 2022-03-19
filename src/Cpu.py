@@ -17,8 +17,7 @@ def cpu_import_func():
     import Config, Performance
 
 
-    # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (Main GUI module) before importing this module.
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
+    global _tr
     from locale import gettext as _tr
 
 
@@ -54,14 +53,10 @@ def cpu_gui_func():
 
     # CPU tab GUI functions
     def on_button1101_clicked(widget):                                                        # "CPU Tab Customizations" button
-        if 'CpuMenu' not in globals():
-            global CpuMenu
-            import CpuMenu
-            CpuMenu.cpu_menus_import_func()
-            CpuMenu.cpu_menus_gui_func()
-            CpuMenu.popover1101p.set_relative_to(button1101)                                  # Set widget that popover menu will display at the edge of.
-            CpuMenu.popover1101p.set_position(1)                                              # Show popover menu at the right edge of the caller button in order not to hide CPU usage percentage when menu is shown. Becuse there is CPU usage percentage precision setting and user may want to see visual changes just in time.
-        CpuMenu.popover1101p.popup()                                                          # Show CPU tab popover GUI
+        from CpuMenu import CpuMenu
+        CpuMenu.popover1101p.set_relative_to(button1101)
+        CpuMenu.popover1101p.set_position(1)
+        CpuMenu.popover1101p.popup()
 
     # CPU tab GUI functions - connect
     button1101.connect("clicked", on_button1101_clicked)
@@ -387,18 +382,18 @@ def cpu_loop_func():
 
 
 # ----------------------------------- CPU - Run Function (runs initial and loop functions) -----------------------------------
-def cpu_run_func(*args):                                                                      # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
+def cpu_run_func(*args):
 
-    if "update_interval" not in globals():                                                    # To be able to run initial function for only one time
+    if "update_interval" not in globals():
         GLib.idle_add(cpu_initial_func)
     if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 0:
-        global cpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            cpu_glib_source.destroy()                                                         # Destroy GLib source for preventing it repeating the function.
+        global cpu_glib_source, update_interval
+        try:
+            cpu_glib_source.destroy()
         except NameError:
             pass
         update_interval = Config.update_interval
         cpu_glib_source = GLib.timeout_source_new(update_interval * 1000)
         GLib.idle_add(cpu_loop_func)
         cpu_glib_source.set_callback(cpu_run_func)
-        cpu_glib_source.attach(GLib.MainContext.default())                                    # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+        cpu_glib_source.attach(GLib.MainContext.default())

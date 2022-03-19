@@ -53,13 +53,9 @@ def network_gui_func():
 
     # Network tab GUI functions
     def on_button1401_clicked(widget):
-        if 'NetworkMenu' not in globals():
-            global NetworkMenu
-            import NetworkMenu
-            NetworkMenu.network_menus_import_func()
-            NetworkMenu.network_menus_gui_func()
-            NetworkMenu.popover1401p.set_relative_to(button1401)
-            NetworkMenu.popover1401p.set_position(1)
+        from NetworkMenu import NetworkMenu
+        NetworkMenu.popover1401p.set_relative_to(button1401)
+        NetworkMenu.popover1401p.set_position(1)
         NetworkMenu.popover1401p.popup()
 
     # ----------------------------------- Network - Plot Network download/upload speed data as a Line Chart ----------------------------------- 

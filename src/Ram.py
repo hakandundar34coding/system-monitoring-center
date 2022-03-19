@@ -53,13 +53,9 @@ def ram_gui_func():
 
     # RAM tab GUI functions
     def on_button1201_clicked(widget):
-        if 'RamMenu' not in globals():
-            global RamMenu
-            import RamMenu
-            RamMenu.ram_menus_import_func()
-            RamMenu.ram_menus_gui_func()
-            RamMenu.popover1201p.set_relative_to(button1201)
-            RamMenu.popover1201p.set_position(1)
+        from RamMenu import RamMenu
+        RamMenu.popover1201p.set_relative_to(button1201)
+        RamMenu.popover1201p.set_position(1)
         RamMenu.popover1201p.popup()
 
     def on_eventbox1201_button_click_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
@@ -285,25 +281,6 @@ def ram_define_data_unit_converter_variables_func():
     global data_unit_list
 
     # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
-
-    # Unit Name    Abbreviation    bytes   
-    # byte         B               1
-    # kilobyte     KB              1024
-    # megabyte     MB              1.04858E+06
-    # gigabyte     GB              1.07374E+09
-    # terabyte     TB              1.09951E+12
-    # petabyte     PB              1.12590E+15
-    # exabyte      EB              1.15292E+18
-
-    # Unit Name    Abbreviation    bytes    
-    # bit          b               8
-    # kilobit      Kb              8192
-    # megabit      Mb              8,38861E+06
-    # gigabit      Gb              8,58993E+09
-    # terabit      Tb              8,79609E+12
-    # petabit      Pb              9,00720E+15
-    # exabit       Eb              9,22337E+18
-
     data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
                       [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
                       [8, 0, "Auto-bit"], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
@@ -317,8 +294,8 @@ def ram_data_unit_converter_func(data, unit, precision):
     if isinstance(data, str) is True:
         return data
     if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
+        data = data * 8
+    if unit in [0, 8]:
         unit_counter = unit + 1
         while data > 1024:
             unit_counter = unit_counter + 1

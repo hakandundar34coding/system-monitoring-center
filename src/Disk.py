@@ -54,13 +54,9 @@ def disk_gui_func():
 
     # Disk tab GUI functions
     def on_button1301_clicked(widget):
-        if 'DiskMenu' not in globals():
-            global DiskMenu
-            import DiskMenu
-            DiskMenu.disk_menus_import_func()
-            DiskMenu.disk_menus_gui_func()
-            DiskMenu.popover1301p.set_relative_to(button1301)
-            DiskMenu.popover1301p.set_position(1)
+        from DiskMenu import DiskMenu
+        DiskMenu.popover1301p.set_relative_to(button1301)
+        DiskMenu.popover1301p.set_position(1)
         DiskMenu.popover1301p.popup()
 
     def on_eventbox1301_button_click_event(widget, event):
