@@ -6,20 +6,20 @@ from gi.repository import Gtk
 
 
 class Application(Gtk.Application):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, application_id="com.github.hakand34.system-monitoring-center", **kwargs)
         self.window = None
 
     def do_activate(self):
-        # Allow opening one instance of the application.
+        # Allow opening single instance of the application.
         if not self.window:
-            import MainGUI
-            MainGUI.main_gui_import_func()
-            MainGUI.main_gui_func()
+            from MainGUI import MainGUI
             self.window = MainGUI.window1
             self.window.set_application(self)
             self.window.show_all()
             Gtk.main()
+
 
 app = Application()
 app.run(None)

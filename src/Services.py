@@ -16,7 +16,7 @@ def services_import_func():
 
 
     global Config
-    import Config
+    from Config import Config
 
 
     global _tr
@@ -123,7 +123,7 @@ def services_gui_func():
     # --------------------------------- Called for reloading the data on the Services tab if "Refresh" button is clicked ---------------------------------
     def on_button6102_clicked(widget):
 
-        services_run_func()
+        services_loop_func()
 
 
     # --------------------------------- Called for filtering items when "Show all services" radiobutton is clicked ---------------------------------
@@ -212,7 +212,6 @@ def services_initial_func():
 
     global services_image
     services_image = "system-monitoring-center-services-symbolic"                             # Will be used as image of the services
-    services_loop_func()
 
     service_state_list = [_tr("Enabled"), _tr("Disabled"), _tr("Masked"), _tr("Unmasked"), _tr("Static"), _tr("Generated"), _tr("Enabled-runtime"), _tr("Indirect"), _tr("Active"), _tr("Inactive"), _tr("Loaded"), _tr("Dead"), _tr("Exited"), _tr("Running")]    # This list is defined in order to make English service state names to be translated into other languages. String names are capitalized here as they are capitalized in the code by using ".capitalize()" in order to use translated strings.
     services_other_text_list = [_tr("Yes"), _tr("No")]                                        # This list is defined in order to make English service information to be translated into other languages.
@@ -220,9 +219,13 @@ def services_initial_func():
     global filter_column
     filter_column = services_data_list[0][2] - 1                                              # Search filter is "Service Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
+    services_loop_func()
+
 
 # ----------------------------------- Services - Get Services Data Function -----------------------------------
 def services_loop_func():
+
+    update_interval = Config.update_interval
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
     global treeview6101
@@ -495,12 +498,6 @@ def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
         cell.set_property('text', f'{services_data_unit_converter_func(cell_data, services_ram_swap_data_unit, services_ram_swap_data_precision)}')
 
 
-# ----------------------------------- Services - Run Function -----------------------------------
-def services_run_func(*args):
-
-    GLib.idle_add(services_initial_func)
-
-
 # ----------------------------------- Services - Column Title Clicked Function -----------------------------------
 def on_column_title_clicked(widget):
 
@@ -534,9 +531,9 @@ def services_define_data_unit_converter_variables_func():
     global data_unit_list
     # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
     data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                      [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                      [8, 0, "Auto-bit"], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
-                      [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
+                     [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
+                     [8, 0, "Auto-bit"], [9, 8, "b"], [10, 1024, "Kib"], [11, 1.04858E+06, "Mib"], [12, 1.07374E+09, "Gib"],
+                     [13, 1.09951E+12, "Tib"], [14, 1.12590E+15, "Pib"], [15, 1.15292E+18, "Eib"]]
 
 
 # ----------------------------------- Services - Data Unit Converter Function -----------------------------------

@@ -15,7 +15,8 @@ def processes_menu_right_click_import_func():
 
 
     global Config, Processes
-    import Config, Processes
+    from Config import Config
+    import Processes
 
 
     global _tr

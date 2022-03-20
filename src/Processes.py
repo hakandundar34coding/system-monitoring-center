@@ -16,7 +16,7 @@ def processes_import_func():
 
 
     global Config
-    import Config
+    from Config import Config
 
 
     # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (Main GUI module) before importing this module.
@@ -302,6 +302,8 @@ def processes_initial_func():
 
 # ----------------------------------- Processes - Get Process Data Function (gets processes data, adds into treeview and updates it) -----------------------------------
 def processes_loop_func():
+
+    update_interval = Config.update_interval
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
     global treeview2101
@@ -695,24 +697,6 @@ def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
 
 
-# ----------------------------------- Processes - Run Function (runs initial and loop functions) -----------------------------------
-def processes_run_func(*args):                                                                # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
-    if "update_interval" not in globals():                                                    # To be able to run initial function for only one time
-        GLib.idle_add(processes_initial_func)
-    if Config.current_main_tab == 1:
-        global processes_glib_source, update_interval                                         # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            processes_glib_source.destroy()                                                   # Destroy GLib source for preventing it repeating the function.
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        processes_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(processes_loop_func)
-        processes_glib_source.set_callback(processes_run_func)
-        processes_glib_source.attach(GLib.MainContext.default())                              # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
 # ----------------------------------- Processes - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
 def on_column_title_clicked(widget):
 
@@ -757,19 +741,21 @@ def processes_define_data_unit_converter_variables_func():
     # petabyte     PB              1.12590E+15
     # exabyte      EB              1.15292E+18
 
-    # Unit Name    Abbreviation    bytes    
-    # bit          b               8
-    # kilobit      Kb              8192
-    # megabit      Mb              8,38861E+06
-    # gigabit      Gb              8,58993E+09
-    # terabit      Tb              8,79609E+12
-    # petabit      Pb              9,00720E+15
-    # exabit       Eb              9,22337E+18
+    # Unit Name    Abbreviation    bits    
+    # bit          b               1
+    # kilobit      Kb              1024
+    # megabit      Mb              1.04858E+06
+    # gigabit      Gb              1.07374E+09
+    # terabit      Tb              1.09951E+12
+    # petabit      Pb              1.12590E+15
+    # exabit       Eb              1.15292E+18
+
+    # 1 byte = 8 bits
 
     data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                      [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                      [8, 0, "Auto-bit"], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
-                      [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
+                          [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
+                          [8, 0, "Auto-bit"], [9, 8, "b"], [10, 1024, "Kib"], [11, 1.04858E+06, "Mib"], [12, 1.07374E+09, "Gib"],
+                          [13, 1.09951E+12, "Tib"], [14, 1.12590E+15, "Pib"], [15, 1.15292E+18, "Eib"]]
 
 
 # ----------------------------------- Processes - Data Unit Converter Function (converts byte and bit data units) -----------------------------------

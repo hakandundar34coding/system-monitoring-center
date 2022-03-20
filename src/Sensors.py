@@ -13,7 +13,7 @@ def sensors_import_func():
 
 
     global Config
-    import Config
+    from Config import Config
 
 
     global _tr
@@ -162,6 +162,8 @@ def sensors_initial_func():
 
 # ----------------------------------- Sensors - Get Sensor Data Function -----------------------------------
 def sensors_loop_func():
+
+    update_interval = Config.update_interval
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
     global treeview1601
@@ -391,24 +393,6 @@ def sensors_loop_func():
 
     # Show number of sensors on the searchentry as placeholder text
     searchentry1601.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Sensors") + ": " + str(len(sensor_type_list)) + ")")
-
-
-# ----------------------------------- Sensors - Run Function -----------------------------------
-def sensors_run_func(*args):
-
-    if "sensors_data_rows" not in globals():
-        GLib.idle_add(sensors_initial_func)
-    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 5:
-        global sensors_glib_source, update_interval
-        try:
-            sensors_glib_source.destroy()
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        sensors_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(sensors_loop_func)
-        sensors_glib_source.set_callback(sensors_run_func)
-        sensors_glib_source.attach(GLib.MainContext.default())
 
 
 # ----------------------------------- Sensors - Column Title Clicked Function -----------------------------------

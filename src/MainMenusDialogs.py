@@ -6,7 +6,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import os
 
-import Config
+from Config import Config
 
 
 # Define class
@@ -48,15 +48,11 @@ class MainMenusDialogs:
     def on_button1003p_clicked(self, widget):
 
         self.popover1001p.hide()
-        if "FloatingSummary" not in globals():                                                # Floating Summary window might have been opened on the application start and user may want to hide it from the Main Menu of the application. Existance check of the "FloatingSummary" variable is performed before the "if checkbutton1001p.get_active() == False:" statement in order to avoid errors of FloatingSummary not defined.
-            global FloatingSummary
-            import FloatingSummary
+        from FloatingSummary import FloatingSummary
         if Config.show_floating_summary == 0:
             self.checkbutton1001p.set_active(True)
-            FloatingSummary.floating_summary_import_func()
-            FloatingSummary.floating_summary_gui_func()
-            FloatingSummary.window3001.show()                                                 # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
-            FloatingSummary.floating_summary_run_func()
+            # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
+            FloatingSummary.window3001.show()
             Config.show_floating_summary = 1
         else:
             self.checkbutton1001p.set_active(False)

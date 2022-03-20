@@ -8,10 +8,9 @@ import os
 
 from locale import gettext as _tr
 
-import Config
-import MainGUI
-import Performance
-import Gpu
+from Config import Config
+from MainGUI import MainGUI
+from Performance import Performance
 
 
 # Define class
@@ -112,7 +111,8 @@ class SettingsGUI:
             self.settings_disconnect_signals_func()
         except TypeError:
             pass
-        self.settings_gui_set_func()
+        self.settings_gui_general_settings_tab_set_func()
+        self.settings_gui_floating_summary_settings_tab_set_func()
         self.settings_connect_signals_func()
 
 
@@ -149,22 +149,16 @@ class SettingsGUI:
     # ----------------------- "Show performance summary on the headerbar" Checkbutton -----------------------
     def on_checkbutton2001_toggled(self, widget):
 
+        from PerformanceSummaryHeaderbar import PerformanceSummaryHeaderbar
+
         # Add performance summary to the main window headerbar if preferred.
         if widget.get_active() == True:
             Config.performance_summary_on_the_headerbar = 1
-            if 'PerformanceSummaryHeaderbar' not in globals():
-                global PerformanceSummaryHeaderbar
-                import PerformanceSummaryHeaderbar
-                PerformanceSummaryHeaderbar.performance_summary_headerbar_import_func()
-                PerformanceSummaryHeaderbar.performance_summary_headerbar_gui_func()
-            PerformanceSummaryHeaderbar.performance_summary_headerbar_run_func()
             MainGUI.headerbar1.pack_start(PerformanceSummaryHeaderbar.grid101)
 
         # Remove performance summary from the main window headerbar if preferred.
         if widget.get_active() == False:
             Config.performance_summary_on_the_headerbar = 0
-            if 'PerformanceSummaryHeaderbar' not in globals():
-                import PerformanceSummaryHeaderbar
             MainGUI.headerbar1.remove(PerformanceSummaryHeaderbar.grid101)
 
         Config.config_save_func()
@@ -246,9 +240,8 @@ class SettingsGUI:
 
         Config.config_default_general_general_func()
         Config.config_save_func()
-        self.settings_disconnect_signals_func()
+        # Set "General" tab of the Settings window without disconnecting signals of the widgets in order to use these signals to reset the settings.
         self.settings_gui_general_settings_tab_set_func()
-        self.settings_connect_signals_func()
 
         # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
         self.settings_gui_set_chart_data_history_func()
@@ -284,7 +277,10 @@ class SettingsGUI:
     # ----------------------- "Reset floating summary window settings to defaults" Button -----------------------
     def on_button2003_clicked(self, widget):
 
+        # Get current "show_floating_summary" setting, reset all Floating Summary settings and set "show_floating_summary" by using the get setting in order to reset only other settings of the Floating Summary.
+        show_floating_summary_current_setting = Config.show_floating_summary
         Config.config_default_general_floating_summary_func()
+        Config.show_floating_summary = show_floating_summary_current_setting
         Config.config_save_func()
         self.settings_disconnect_signals_func()
         self.settings_gui_floating_summary_settings_tab_set_func()
@@ -297,10 +293,12 @@ class SettingsGUI:
         self.settings_gui_reset_all_settings_warning_dialog()
 
         if self.warning_dialog2001_response == Gtk.ResponseType.YES:
+
             Config.config_default_reset_all_func()
             Config.config_save_func()
+            self.settings_gui_general_settings_tab_set_func()
             self.settings_disconnect_signals_func()
-            self.settings_gui_set_func()
+            self.settings_gui_floating_summary_settings_tab_set_func()
             self.settings_connect_signals_func()
 
             # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
@@ -310,25 +308,6 @@ class SettingsGUI:
             Performance.performance_set_selected_cpu_core_func()
             Performance.performance_set_selected_disk_func()
             Performance.performance_set_selected_network_card_func()
-
-            # Reset CPU usage graph type (average/per core)
-            if 'Cpu' not in globals():
-                global Cpu
-                import Cpu
-            # Try to disconnect current chart functions
-            try:
-                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)
-            except TypeError:
-                pass
-            try:
-                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw_per_core)
-            except TypeError:
-                pass
-            # Connect default chart function
-            if Config.show_cpu_usage_per_core == 0:
-                Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw)
-            if Config.show_cpu_usage_per_core == 1:
-                Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)
 
             # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
             try:
@@ -345,13 +324,6 @@ class SettingsGUI:
                 ProcessesMenusGUI.processes_expand_collapse_button_preferences_func()
             except Exception:
                 pass
-
-
-    # ----------------------- Called for setting window GUI items -----------------------
-    def settings_gui_set_func(self):
-
-        self.settings_gui_general_settings_tab_set_func()
-        self.settings_gui_floating_summary_settings_tab_set_func()
 
 
     # ----------------------- Called for setting "General" tab GUI items -----------------------
@@ -520,7 +492,7 @@ class SettingsGUI:
             Performance.cpu_usage_percent_ave = Performance.cpu_usage_percent_ave[chart_data_history_current-chart_data_history_new:]    # "cpu_usage_percent_ave" list has no sub-lists and trimming is performed in this way.
             Performance.ram_usage_percent = Performance.ram_usage_percent[chart_data_history_current-chart_data_history_new:]    # "ram_usage_percent" list has no sub-lists and trimming is performed in this way.
             if MainGUI.radiobutton1005.get_active() == True:
-                import Gpu
+                from Gpu import Gpu
                 Gpu.fps_count = Gpu.fps_count[chart_data_history_current-chart_data_history_new:]     # "fps_count" list has no sub-lists and trimming is performed in this way.
             disk_read_speed_len = len(Performance.disk_read_speed)
             for i in range(disk_read_speed_len):
@@ -535,7 +507,7 @@ class SettingsGUI:
             Performance.cpu_usage_percent_ave = list_to_add + Performance.cpu_usage_percent_ave   # "cpu_usage_percent_ave" list has no sub-lists and addition is performed in this way.
             Performance.ram_usage_percent = list_to_add + Performance.ram_usage_percent           # "ram_usage_percent" list has no sub-lists and addition is performed in this way.
             if MainGUI.radiobutton1005.get_active() == True:
-                import Gpu
+                from Gpu import Gpu
                 Gpu.fps_count = list_to_add + Gpu.fps_count                                       # "fps_count" list has no sub-lists and addition is performed in this way.
             disk_read_speed_len = len(Performance.disk_read_speed)
             for i in range(disk_read_speed_len):
@@ -550,94 +522,66 @@ class SettingsGUI:
     # ----------------------- Called for applying settings for all opened tabs (since application start) without waiting update interval -----------------------
     def settings_gui_apply_settings_immediately_func(self):
 
-        if 'Performance' not in globals():
-            global Performance
-            import Performance
-#        Performance.performance_background_initial_func()
-        Performance.performance_background_loop_func()
-
         if MainGUI.radiobutton1.get_active() == True:
 
             if MainGUI.radiobutton1001.get_active() == True:
-                if 'Cpu' not in globals():
-                    global Cpu
-                    import Cpu
+                from Cpu import Cpu
                 Cpu.cpu_initial_func()
-                Cpu.cpu_loop_func()
 
             if MainGUI.radiobutton1002.get_active() == True:
-                if 'Ram' not in globals():
-                    global Ram
-                    import Ram
+                from Ram import Ram
                 Ram.ram_initial_func()
-                Ram.ram_loop_func()
 
             if MainGUI.radiobutton1003.get_active() == True:
-                if 'Disk' not in globals():
-                    global Disk
-                    import Disk
+                from Disk import Disk
                 Disk.disk_initial_func()
-                Disk.disk_loop_func()
 
             if MainGUI.radiobutton1004.get_active() == True:
-                if 'Network' not in globals():
-                    global Network
-                    import Network
+                from Network import Network
                 Network.network_initial_func()
-                Network.network_loop_func()
 
             if MainGUI.radiobutton1005.get_active() == True:
-                if 'Gpu' not in globals():
-                    global Gpu
-                    import Gpu
+                from Gpu import Gpu
                 Gpu.gpu_initial_func()
-                Gpu.gpu_loop_func()
 
             if MainGUI.radiobutton1006.get_active() == True:
                 if 'Sensors' not in globals():
                     global Sensors
                     import Sensors
                 Sensors.sensors_initial_func()
-                Sensors.sensors_loop_func()
 
         if MainGUI.radiobutton2.get_active() == True:
             if 'Processes' not in globals():
                 global Processes
                 import Processes
             Processes.processes_initial_func()
-            Processes.processes_loop_func()
 
         if MainGUI.radiobutton3.get_active() == True:
             if 'Users' not in globals():
                 global Users
                 import Users
             Users.users_initial_func()
-            Users.users_loop_func()
 
         if MainGUI.radiobutton5.get_active() == True:
             if 'Startup' not in globals():
                 global Startup
                 import Startup
             Startup.startup_initial_func()
-            Startup.startup_loop_func()
 
         if MainGUI.radiobutton6.get_active() == True:
             if 'Services' not in globals():
                 global Services
                 import Services
             Services.services_initial_func()
-            Services.services_loop_func()
 
         if MainGUI.radiobutton8.get_active() == True:
-            if 'System' not in globals():
-                global System
-                import System
+            from System import System
             System.system_initial_func()
 
+        MainGUI.main_gui_tab_loop_func()
+
         # Show/Hide Floating Summary Window by reading reset settings.
-        if "FloatingSummary" not in globals():
-            global FloatingSummary
-            import FloatingSummary
+        from FloatingSummary import FloatingSummary
         # Floating Summary window is tried to be hidden in order to prevent opening a second window if default value for "show_floating_summary" is "1" and the Floating Summary window is already visible.
         try:
             FloatingSummary.window3001.hide()
@@ -645,12 +589,8 @@ class SettingsGUI:
             pass
         # Shown Floating Summary window if default value of "show_floating_summary" is "1".
         if Config.show_floating_summary == 1:
-            FloatingSummary.floating_summary_import_func()
-            FloatingSummary.floating_summary_gui_func()
             # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_run_func" function.
             FloatingSummary.window3001.show()
-            FloatingSummary.floating_summary_run_func()
-            Config.show_floating_summary = 1
 
 
     # ----------------------- Called for saving default main tab and performace tab sub-tab when "Remember last opened tabs" option is enabled -----------------------

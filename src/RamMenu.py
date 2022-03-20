@@ -8,9 +8,9 @@ from gi.repository import Gtk, Gdk
 import os
 import subprocess
 
-import Config
-import Performance
-import Ram
+from Config import Config
+from Performance import Performance
+from Ram import Ram
 
 
 # Define class
@@ -94,7 +94,7 @@ class RamMenu:
     # ----------------------- "RAM/Swap data number precision" Combobox -----------------------
     def on_combobox1201p_changed(self, widget):
 
-        Config.performance_ram_swap_data_precision = Config.number_precision_list[self.widget.get_active()][2]
+        Config.performance_ram_swap_data_precision = Config.number_precision_list[widget.get_active()][2]
 
         # Apply changes immediately (without waiting update interval).
         Ram.ram_initial_func()
@@ -105,7 +105,7 @@ class RamMenu:
     # ----------------------- "RAM/Swap data units" Combobox -----------------------
     def on_combobox1202p_changed(self, widget):
 
-        Config.performance_ram_swap_data_unit = Config.data_unit_list[self.widget.get_active()][2]
+        Config.performance_ram_swap_data_unit = Config.data_unit_list[widget.get_active()][2]
 
         # Apply changes immediately (without waiting update interval).
         Ram.ram_initial_func()

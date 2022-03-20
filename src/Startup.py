@@ -13,7 +13,7 @@ def startup_import_func():
 
 
     global Config
-    import Config
+    from Config import Config
 
 
     global _tr
@@ -180,6 +180,8 @@ def startup_initial_func():
 
 # ----------------------------------- Startup - Get Startup Data Function -----------------------------------
 def startup_loop_func():
+
+    update_interval = Config.update_interval
 
     # Get current desktop environment, current user name, current user autostart applications directory, system autostart applications directory
     global current_user_autostart_directory, system_autostart_directory
@@ -452,24 +454,6 @@ def startup_loop_func():
 
     # Show number of startup items on the searchentry as placeholder text
     searchentry5101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Startup Items") + ": " + str(len(startup_applications_type_list)) + ")")
-
-
-# ----------------------------------- Startup - Run Function -----------------------------------
-def startup_run_func(*args):
-
-    if "startup_data_rows" not in globals():
-        GLib.idle_add(startup_initial_func)
-    if Config.current_main_tab == 3:
-        global startup_glib_source, update_interval
-        try:
-            startup_glib_source.destroy()
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        startup_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(startup_loop_func)
-        startup_glib_source.set_callback(startup_run_func)
-        startup_glib_source.attach(GLib.MainContext.default())
 
 
 # ----------------------------------- Startup - Column Title Clicked Function -----------------------------------

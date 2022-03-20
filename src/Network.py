@@ -1,65 +1,65 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Network - Network Tab Import Function -----------------------------------
-def network_import_func():
+# Import modules
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+import os
+import subprocess
 
-    global Gtk, GLib, os, subprocess
+from locale import gettext as _tr
 
-    import gi
-    gi.require_version('Gtk', '3.0')
-    gi.require_version('GLib', '2.0')
-    from gi.repository import Gtk, GLib
-    import os
-    import subprocess
-
-
-    global Config, Performance
-    import Config, Performance
+from Config import Config
+from Performance import Performance
 
 
-    global _tr
-    from locale import gettext as _tr
+# Define class
+class Network:
+
+    # ----------------------- Always called when object is generated -----------------------
+    def __init__(self):
+
+        # Get GUI objects from file
+        builder = Gtk.Builder()
+        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/NetworkTab.ui")
+
+        # Get GUI objects
+        self.grid1401 = builder.get_object('grid1401')
+        self.drawingarea1401 = builder.get_object('drawingarea1401')
+        self.button1401 = builder.get_object('button1401')
+        self.label1401 = builder.get_object('label1401')
+        self.label1402 = builder.get_object('label1402')
+        self.label1403 = builder.get_object('label1403')
+        self.label1404 = builder.get_object('label1404')
+        self.label1405 = builder.get_object('label1405')
+        self.label1406 = builder.get_object('label1406')
+        self.label1407 = builder.get_object('label1407')
+        self.label1408 = builder.get_object('label1408')
+        self.label1409 = builder.get_object('label1409')
+        self.label1410 = builder.get_object('label1410')
+        self.label1411 = builder.get_object('label1411')
+        self.label1412 = builder.get_object('label1412')
+        self.label1413 = builder.get_object('label1413')
+
+        # Connect GUI signals
+        self.button1401.connect("clicked", self.on_button1401_clicked)
+        self.drawingarea1401.connect("draw", self.on_drawingarea1401_draw)
+
+        # Run initial function
+        self.network_initial_func()
 
 
-# ----------------------------------- Network - Network GUI Function -----------------------------------
-def network_gui_func():
+    # ----------------------- "customizations menu" Button -----------------------
+    def on_button1401_clicked(self, widget):
 
-    # Network tab GUI objects - get from file
-    builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/NetworkTab.ui")
-
-    # Network tab GUI objects
-    global grid1401, drawingarea1401, button1401, label1401, label1402
-    global label1403, label1404, label1405, label1406, label1407, label1408, label1409, label1410, label1411, label1412, label1413
-
-    # Network tab GUI objects - get
-    grid1401 = builder.get_object('grid1401')
-    drawingarea1401 = builder.get_object('drawingarea1401')
-    button1401 = builder.get_object('button1401')
-    label1401 = builder.get_object('label1401')
-    label1402 = builder.get_object('label1402')
-    label1403 = builder.get_object('label1403')
-    label1404 = builder.get_object('label1404')
-    label1405 = builder.get_object('label1405')
-    label1406 = builder.get_object('label1406')
-    label1407 = builder.get_object('label1407')
-    label1408 = builder.get_object('label1408')
-    label1409 = builder.get_object('label1409')
-    label1410 = builder.get_object('label1410')
-    label1411 = builder.get_object('label1411')
-    label1412 = builder.get_object('label1412')
-    label1413 = builder.get_object('label1413')
-
-
-    # Network tab GUI functions
-    def on_button1401_clicked(widget):
         from NetworkMenu import NetworkMenu
-        NetworkMenu.popover1401p.set_relative_to(button1401)
+        NetworkMenu.popover1401p.set_relative_to(widget)
         NetworkMenu.popover1401p.set_position(1)
         NetworkMenu.popover1401p.popup()
 
-    # ----------------------------------- Network - Plot Network download/upload speed data as a Line Chart ----------------------------------- 
-    def on_drawingarea1401_draw(widget, ctx):
+
+    # ----------------------- Called for drawing Network download/upload speed as line chart -----------------------
+    def on_drawingarea1401_draw(self, widget, ctx):
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
@@ -102,7 +102,7 @@ def network_gui_func():
         if Config.performance_network_speed_data_unit >= 8:
             data_unit_for_chart_y_limit = 8
         try:
-            chart1401_y_limit_str = f'{network_data_unit_converter_func(chart1401_y_limit, data_unit_for_chart_y_limit, 0)}/s'
+            chart1401_y_limit_str = f'{self.performance_data_unit_converter_func(chart1401_y_limit, data_unit_for_chart_y_limit, 0)}/s'
         except NameError:
             return
         chart1401_y_limit_split = chart1401_y_limit_str.split(" ")
@@ -111,7 +111,7 @@ def network_gui_func():
         multiple = 10 ** (number_of_digits - 1)
         number_to_get_next_multiple = chart1401_y_limit_float + (multiple - 0.0001)
         next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-        label1413.set_text(f'{next_multiple} {chart1401_y_limit_split[1]}')
+        self.label1413.set_text(f'{next_multiple} {chart1401_y_limit_split[1]}')
         chart1401_y_limit = (chart1401_y_limit * next_multiple / (chart1401_y_limit_float + 0.0000001) + 0.0000001)
         # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
@@ -151,201 +151,172 @@ def network_gui_func():
             ctx.stroke()
 
 
-    # Network tab GUI functions - connect
-    button1401.connect("clicked", on_button1401_clicked)
-    drawingarea1401.connect("draw", on_drawingarea1401_draw)
+    # ----------------------------------- Network - Initial Function -----------------------------------
+    def network_initial_func(self):
 
+        # Define data unit conversion function objects in for lower CPU usage.
+        self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
+        self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
 
-# ----------------------------------- Network - Initial Function -----------------------------------
-def network_initial_func():
+        # Define data unit conversion variables before they are used.
+        self.performance_define_data_unit_converter_variables_func()
 
-    network_define_data_unit_converter_variables_func()                                       # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
+        network_card_list = Performance.network_card_list
+        selected_network_card_number = Performance.selected_network_card_number
+        selected_network_card = network_card_list[selected_network_card_number]
 
-    global network_card_list, selected_network_card
-    network_card_list = Performance.network_card_list
-    selected_network_card_number = Performance.selected_network_card_number
-    selected_network_card = network_card_list[selected_network_card_number]
-
-    # Get network_card_device_name
-    network_card_vendor_name = "-"
-    network_card_device_name = "-"
-    if selected_network_card != "lo":
-        with open("/sys/class/net/" + selected_network_card + "/device/vendor") as reader:    # Get network card vendor id
-            network_card_vendor_id = "\n" + reader.read().split("x")[1].strip() + "  "
-        with open("/sys/class/net/" + selected_network_card + "/device/device") as reader:    # Get network card device id
-            network_card_device_id = "\n\t" + reader.read().split("x")[1].strip() + "  "
-        try:                                                                                  # Find network card device model from "pci.ids" file by using vendor id and device id.
-            with open("/usr/share/misc/pci.ids") as reader:                                   # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
-                pci_ids_output = reader.read()
-        except FileNotFoundError:
-            with open("/usr/share/hwdata/pci.ids") as reader:                                 # Read "pci.ids" file if it is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
-                pci_ids_output = reader.read()
-        if network_card_vendor_id in pci_ids_output:                                          # "vendor" information may not be present in the pci.ids file.
-            rest_of_the_pci_ids_output = pci_ids_output.split(network_card_vendor_id, 1)[1]    # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
-            network_card_vendor_name = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-        else:
-            network_card_vendor_name = f'[{_tr("Unknown")}]'
-        if network_card_vendor_name != f'[{_tr("Unknown")}]':
-            if network_card_device_id in rest_of_the_pci_ids_output:                          # "device name" information may not be present in the pci.ids file.
-                rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(network_card_device_id, 1)[1]
-                network_card_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+        # Get vendor and model names
+        network_card_vendor_name = "-"
+        network_card_device_name = "-"
+        if selected_network_card != "lo":
+            # Get network card vendor id
+            with open("/sys/class/net/" + selected_network_card + "/device/vendor") as reader:
+                network_card_vendor_id = "\n" + reader.read().split("x")[1].strip() + "  "
+            # Get network card device id
+            with open("/sys/class/net/" + selected_network_card + "/device/device") as reader:
+                network_card_device_id = "\n\t" + reader.read().split("x")[1].strip() + "  "
+            # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" (for Debian-like systems) or in "/usr/share/hwdata/pci.ids" (systems other than Debian-like systems).
+            try:
+                with open("/usr/share/misc/pci.ids") as reader:
+                    pci_ids_output = reader.read()
+            except FileNotFoundError:
+                with open("/usr/share/hwdata/pci.ids") as reader:
+                    pci_ids_output = reader.read()
+            # "vendor" information may not be present in the pci.ids file.
+            if network_card_vendor_id in pci_ids_output:
+                rest_of_the_pci_ids_output = pci_ids_output.split(network_card_vendor_id, 1)[1]
+                network_card_vendor_name = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+            else:
+                network_card_vendor_name = f'[{_tr("Unknown")}]'
+            if network_card_vendor_name != f'[{_tr("Unknown")}]':
+                # "device name" information may not be present in the pci.ids file.
+                if network_card_device_id in rest_of_the_pci_ids_output:
+                    rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(network_card_device_id, 1)[1]
+                    network_card_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+                else:
+                    network_card_device_name = f'[{_tr("Unknown")}]'
             else:
                 network_card_device_name = f'[{_tr("Unknown")}]'
+        network_card_device_model_name = f'{network_card_vendor_name} - {network_card_device_name}'
+        # lo (Loopback Device) is a system device and it is not a physical device. It could not be found in "pci.ids" file.
+        if selected_network_card == "lo":
+            network_card_device_model_name = "Loopback Device"
+
+        # Get connection_type
+        if selected_network_card.startswith("en"):
+            connection_type = _tr("Ethernet")
+        elif selected_network_card.startswith("wl"):
+            connection_type = _tr("Wi-Fi")
         else:
-            network_card_device_name = f'[{_tr("Unknown")}]'
-    network_card_device_model_name = f'{network_card_vendor_name} - {network_card_device_name}'
-    if selected_network_card == "lo":                                                         # lo (Loopback Device) is a system device and it is not a physical device. Therefore it could not be found in "pci.ids" file.
-        network_card_device_model_name = "Loopback Device"
-    # Get connection_type
-    if "en" in selected_network_card:
-        connection_type = _tr("Ethernet")
-    elif "wl" in selected_network_card:
-        connection_type = _tr("Wi-Fi")
-    else:
-        connection_type = "-"
-    # Get network_card_mac_address
-    with open("/sys/class/net/" + selected_network_card + "/address") as reader:
-        network_card_mac_address = reader.read().strip().upper()
-    # Get network_address_ipv4, network_address_ipv6
-    ip_output_lines = (subprocess.check_output(["ip", "a", "show", selected_network_card], shell=False)).decode().strip().split("\n")
-    for line in ip_output_lines:
-        if "inet " in line:
-            network_address_ipv4 = line.split()[1].split("/")[0]
-        if "inet6 " in line:
-            network_address_ipv6 = line.split()[1].split("/")[0]
-    if "network_address_ipv4" not in locals():
-        network_address_ipv4 = "-"
-    if "network_address_ipv6" not in locals():
-        network_address_ipv6 = "-"
+            connection_type = "-"
 
-    # Set Network tab label texts by using information get
-    label1401.set_text(network_card_device_model_name)
-    label1402.set_text(selected_network_card)
-    label1407.set_text(connection_type)
-    label1410.set_text(network_address_ipv4)
-    label1411.set_text(network_address_ipv6)
-    label1412.set_text(network_card_mac_address)
+        # Get network_card_mac_address
+        with open("/sys/class/net/" + selected_network_card + "/address") as reader:
+            network_card_mac_address = reader.read().strip().upper()
+
+        # Get network_address_ipv4, network_address_ipv6
+        ip_output_lines = (subprocess.check_output(["ip", "a", "show", selected_network_card], shell=False)).decode().strip().split("\n")
+        for line in ip_output_lines:
+            if "inet " in line:
+                network_address_ipv4 = line.split()[1].split("/")[0]
+            if "inet6 " in line:
+                network_address_ipv6 = line.split()[1].split("/")[0]
+        if "network_address_ipv4" not in locals():
+            network_address_ipv4 = "-"
+        if "network_address_ipv6" not in locals():
+            network_address_ipv6 = "-"
 
 
-# ----------------------------------- Network - Initial Function -----------------------------------
-def network_loop_func():
-
-    global network_card_list, selected_network_card, selected_network_card_prev
-    network_card_list = Performance.network_card_list
-    selected_network_card_number = Performance.selected_network_card_number
-    selected_network_card = network_card_list[selected_network_card_number]
-    try:                                                                                      # try-except is used in order to avoid error if this is first loop of the function. Because "selected_network_card_prev" variable is not defined in this situation.
-        if selected_network_card_prev != selected_network_card:                               # Run "disk_initial_func" if selected network card is changed since the last loop.
-            network_initial_func()
-    except NameError:
-        pass
-    selected_network_card_prev = selected_network_card
-
-    network_receive_speed = Performance.network_receive_speed
-    network_send_speed = Performance.network_send_speed
-    network_receive_bytes = Performance.network_receive_bytes
-    network_send_bytes = Performance.network_send_bytes
-
-    performance_network_speed_data_precision = Config.performance_network_speed_data_precision
-    performance_network_data_data_precision = Config.performance_network_data_data_precision
-    performance_network_speed_data_unit = Config.performance_network_speed_data_unit
-    performance_network_data_data_unit = Config.performance_network_data_data_unit
-
-    drawingarea1401.queue_draw()
-
-    # Get network_card_connected
-    with open("/sys/class/net/" + selected_network_card + "/operstate") as reader:   # Get the information of if network card is connected by usng "/sys/class/net/" file.
-        network_info = reader.read().strip()
-    if network_info == "up":
-        network_card_connected = _tr("Yes")
-    elif network_info == "down":
-        network_card_connected = _tr("No")
-    elif network_info == "unknown":
-        network_card_connected = f'[{_tr("Unknown")}]'
-    else:
-        network_card_connected = network_info
-    # Get network_ssid
-    try:                                                                                      # "try-catch" is used in order to avoid errors because Network Manager (which is required for running "nmcli" command) may not be installed on all systems. This is a very rare sitution.
-        nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
-    except FileNotFoundError:
-        network_ssid = f'[{_tr("Unknown")}]'
-    if "nmcli_output_lines" in locals():                                                      # Check if "nmcli_output_lines" value is get.
-        for line in nmcli_output_lines:
-            line_splitted = line.split(":")
-            if selected_network_card == line_splitted[0]:
-                network_ssid = line_splitted[1].strip()
-                break
-    if network_ssid == "":                                                                    # "network_ssid" value is get as "" if selected network card is not connected a Wi-Fi network.
-        network_ssid = "-"
-    # Get network_signal_strength
-    network_signal_strength = "-"                                                             # Initial value of the "network_signal_strength". This value will be used if value could not be get.
-    if "wl" in selected_network_card and network_card_connected == _tr("Yes"):                # Translated value have to be used by using gettext constant. Not "Yes".
-        with open("/proc/net/wireless") as reader:
-            proc_net_wireless_output_lines = reader.read().strip().split("\n")
-        for line in proc_net_wireless_output_lines:
-            line_splitted = line.split()
-            if selected_network_card == line_splitted[0].split(":")[0]:
-                network_signal_strength = line_splitted[2].split(".")[0]                      # "split(".")" is used in order to remove "." at the end of the signal value.
-                break
-
-    # Set and update Network tab label texts by using information get
-    label1403.set_text(f'{network_data_unit_converter_func(network_receive_speed[selected_network_card_number][-1], performance_network_speed_data_unit, performance_network_speed_data_precision)}/s')
-    label1404.set_text(f'{network_data_unit_converter_func(network_send_speed[selected_network_card_number][-1], performance_network_speed_data_unit, performance_network_speed_data_precision)}/s')
-    label1405.set_text(network_data_unit_converter_func(network_receive_bytes[selected_network_card_number], performance_network_data_data_unit, performance_network_data_data_precision))
-    label1406.set_text(network_data_unit_converter_func(network_send_bytes[selected_network_card_number], performance_network_data_data_unit, performance_network_data_data_precision))
-    label1408.set_text(f'{network_card_connected} - {network_ssid}')
-    label1409.set_text(network_signal_strength)
+        # Set Network tab label texts by using information get
+        self.label1401.set_text(network_card_device_model_name)
+        self.label1402.set_text(selected_network_card)
+        self.label1407.set_text(connection_type)
+        self.label1410.set_text(network_address_ipv4)
+        self.label1411.set_text(network_address_ipv6)
+        self.label1412.set_text(network_card_mac_address)
 
 
-# ----------------------------------- Network - Run Function -----------------------------------
-def network_run_func(*args):
+    # ----------------------------------- Network - Initial Function -----------------------------------
+    def network_loop_func(self):
 
-    if "update_interval" not in globals():
-        GLib.idle_add(network_initial_func)
-    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 3:
-        global network_glib_source, update_interval
+        network_card_list = Performance.network_card_list
+        selected_network_card_number = Performance.selected_network_card_number
+        selected_network_card = network_card_list[selected_network_card_number]
+
+        # Run "disk_initial_func" if selected network card is changed since the last loop.
         try:
-            network_glib_source.destroy()
-        except NameError:
+            if self.selected_network_card_prev != selected_network_card:
+                self.network_initial_func()
+        # Avoid errors if this is first loop of the function.
+        except AttributeError:
             pass
-        update_interval = Config.update_interval
-        network_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(network_loop_func)
-        network_glib_source.set_callback(network_run_func)
-        network_glib_source.attach(GLib.MainContext.default())
+        self.selected_network_card_prev = selected_network_card
+
+        network_receive_speed = Performance.network_receive_speed
+        network_send_speed = Performance.network_send_speed
+        network_receive_bytes = Performance.network_receive_bytes
+        network_send_bytes = Performance.network_send_bytes
+
+        performance_network_speed_data_precision = Config.performance_network_speed_data_precision
+        performance_network_data_data_precision = Config.performance_network_data_data_precision
+        performance_network_speed_data_unit = Config.performance_network_speed_data_unit
+        performance_network_data_data_unit = Config.performance_network_data_data_unit
+
+        self.drawingarea1401.queue_draw()
+
+        # Get network_card_connected
+        # Get the information of if network card is connected by usng "/sys/class/net/" file.
+        with open("/sys/class/net/" + selected_network_card + "/operstate") as reader:
+            network_info = reader.read().strip()
+        if network_info == "up":
+            network_card_connected = _tr("Yes")
+        elif network_info == "down":
+            network_card_connected = _tr("No")
+        elif network_info == "unknown":
+            network_card_connected = f'[{_tr("Unknown")}]'
+        else:
+            network_card_connected = network_info
+
+        # Get network_ssid
+        try:                                                                                      
+            nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
+        # Avoid errors because Network Manager (which is required for running "nmcli" command) may not be installed on all systems (very rare).
+        except FileNotFoundError:
+            network_ssid = f'[{_tr("Unknown")}]'
+        # Check if "nmcli_output_lines" value is get.
+        if "nmcli_output_lines" in locals():
+            for line in nmcli_output_lines:
+                line_splitted = line.split(":")
+                if selected_network_card == line_splitted[0]:
+                    network_ssid = line_splitted[1].strip()
+                    break
+        # "network_ssid" value is get as "" if selected network card is not connected a Wi-Fi network.
+        if network_ssid == "":
+            network_ssid = "-"
+
+        # Get network_signal_strength
+        network_signal_strength = "-"
+        # Translated value have to be used by using gettext constant. Not "Yes".
+        if "wl" in selected_network_card and network_card_connected == _tr("Yes"):
+            with open("/proc/net/wireless") as reader:
+                proc_net_wireless_output_lines = reader.read().strip().split("\n")
+            for line in proc_net_wireless_output_lines:
+                line_splitted = line.split()
+                if selected_network_card == line_splitted[0].split(":")[0]:
+                    # "split(".")" is used in order to remove "." at the end of the signal value.
+                    network_signal_strength = line_splitted[2].split(".")[0]
+                    break
 
 
-# ----------------------------------- Network - Define Data Unit Converter Variables Function -----------------------------------
-def network_define_data_unit_converter_variables_func():
-
-    global data_unit_list
-    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
-    data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                      [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                      [8, 0, "Auto-bit"], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
-                      [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
+        # Set and update Network tab label texts by using information get
+        self.label1403.set_text(f'{self.performance_data_unit_converter_func(network_receive_speed[selected_network_card_number][-1], performance_network_speed_data_unit, performance_network_speed_data_precision)}/s')
+        self.label1404.set_text(f'{self.performance_data_unit_converter_func(network_send_speed[selected_network_card_number][-1], performance_network_speed_data_unit, performance_network_speed_data_precision)}/s')
+        self.label1405.set_text(self.performance_data_unit_converter_func(network_receive_bytes[selected_network_card_number], performance_network_data_data_unit, performance_network_data_data_precision))
+        self.label1406.set_text(self.performance_data_unit_converter_func(network_send_bytes[selected_network_card_number], performance_network_data_data_unit, performance_network_data_data_precision))
+        self.label1408.set_text(f'{network_card_connected} - {network_ssid}')
+        self.label1409.set_text(network_signal_strength)
 
 
-# ----------------------------------- Network - Data Unit Converter Function -----------------------------------
-def network_data_unit_converter_func(data, unit, precision):
+# Generate object
+Network = Network()
 
-    global data_unit_list
-    if isinstance(data, str) is True:
-        return data
-    if unit >= 8:
-        data = data * 8
-    if unit in [0, 8]:
-        unit_counter = unit + 1
-        while data > 1024:
-            unit_counter = unit_counter + 1
-            data = data/1024
-        unit = data_unit_list[unit_counter][2]
-        if data == 0:
-            precision = 0
-        return f'{data:.{precision}f} {unit}'
-
-    data = data / data_unit_list[unit][1]
-    unit = data_unit_list[unit][2]
-    if data == 0:
-        precision = 0
-    return f'{data:.{precision}f} {unit}'

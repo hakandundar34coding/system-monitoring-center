@@ -6,7 +6,8 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import os
 
-import Config
+from Config import Config
+#from Processes import Processes
 import Processes
 
 

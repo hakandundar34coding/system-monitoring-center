@@ -18,7 +18,7 @@ def users_import_func():
 
 
     global Config
-    import Config
+    from Config import Config
 
 
     global _tr
@@ -231,6 +231,8 @@ def users_initial_func():
 
 # ----------------------------------- Users - Get User Data Function (gets user data, adds into treeview and updates it) -----------------------------------
 def users_loop_func():
+
+    update_interval = Config.update_interval
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
     global treeview3101
@@ -577,24 +579,6 @@ def cell_data_function_started(tree_column, cell, tree_model, iter, data):
         cell.set_property('text', "-")
 
 
-# ----------------------------------- Users - Run Function -----------------------------------
-def users_run_func(*args):
-
-    if "users_data_rows" not in globals():
-        GLib.idle_add(users_initial_func)
-    if Config.current_main_tab == 2:
-        global users_glib_source, update_interval
-        try:
-            users_glib_source.destroy()
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        users_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(users_loop_func)
-        users_glib_source.set_callback(users_run_func)
-        users_glib_source.attach(GLib.MainContext.default())
-
-
 # ----------------------------------- Users - Column Title Clicked Function -----------------------------------
 def on_column_title_clicked(widget):
 
@@ -628,9 +612,9 @@ def users_define_data_unit_converter_variables_func():
     global data_unit_list
     # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
     data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                      [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                      [8, 0, "Auto-bit"], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
-                      [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
+                     [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
+                     [8, 0, "Auto-bit"], [9, 8, "b"], [10, 1024, "Kib"], [11, 1.04858E+06, "Mib"], [12, 1.07374E+09, "Gib"],
+                     [13, 1.09951E+12, "Tib"], [14, 1.12590E+15, "Pib"], [15, 1.15292E+18, "Eib"]]
 
 
 # ----------------------------------- Users - Data Unit Converter Function -----------------------------------

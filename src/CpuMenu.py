@@ -7,9 +7,9 @@ gi.require_version('Gdk', '3.0')
 from gi.repository import Gtk, Gdk
 import os
 
-import Config
-import Performance
-import Cpu
+from Config import Config
+from Performance import Performance
+from Cpu import Cpu
 
 
 # Define class
@@ -73,10 +73,7 @@ class CpuMenu:
     def on_radiobutton1101p_toggled(self, widget):
 
         if widget.get_active() == True:
-            # Change the setting, disconnect function for drawing CPU usage per-core and connect the function for drawing average CPU usage.
             Config.show_cpu_usage_per_core = 0
-            Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw_per_core)
-            Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw)
 
             # Apply changes immediately (without waiting update interval).
             Cpu.cpu_initial_func()
@@ -88,13 +85,7 @@ class CpuMenu:
     def on_radiobutton1102p_toggled(self, widget):
 
         if widget.get_active() == True:
-            # Change the setting, disconnect function for drawing average CPU usage and connect the function for drawing CPU usage per-core.
             Config.show_cpu_usage_per_core = 1
-            try:
-                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)
-            except TypeError:
-                pass
-            Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)
 
             # Apply changes immediately (without waiting update interval).
             Cpu.cpu_initial_func()
@@ -159,7 +150,6 @@ class CpuMenu:
         # Load default settings
         Config.config_default_performance_cpu_func()
         Config.config_save_func()
-        self.cpu_set_default_cpu_usage_type_func()
         Performance.performance_set_selected_cpu_core_func()
 
         # Apply changes immediately (without waiting update interval).
@@ -204,32 +194,6 @@ class CpuMenu:
         for cpu_core in Performance.logical_core_list_system_ordered:
             liststore1102p.append([cpu_core])
         self.combobox1102p.set_active(Performance.selected_cpu_core_number)
-
-
-    # ----------------------- Called for setting default CPU usage type (sets default CPU usage type (average CPU usage or CPU usage per core) when user resets this settings) -----------------------
-    def cpu_set_default_cpu_usage_type_func(self):
-
-        # Disconnect function for drawing average CPU usage and connect the function for drawing CPU usage per-core.
-        if Config.show_cpu_usage_per_core == 0:
-            try:
-                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw_per_core)
-            except TypeError:
-                # Function run is stopped here if there is no "on_drawingarea1101_draw_per_core" signals connected to the widget.
-                return
-            Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw)
-
-        # Disconnect function for drawing average CPU usage and connect the function for drawing CPU usage per-core.
-        if Config.show_cpu_usage_per_core == 1:
-            try:
-                Cpu.drawingarea1101.disconnect_by_func(Cpu.on_drawingarea1101_draw)
-            except TypeError:
-                # Function run is stopped here if there is no "on_drawingarea1101_draw" signals connected to the widget.
-                return
-            Cpu.drawingarea1101.connect("draw", Cpu.on_drawingarea1101_draw_per_core)
-
-        # Apply changes immediately (without waiting update interval).
-        Cpu.cpu_initial_func()
-        Cpu.cpu_loop_func()
 
 
 # Generate object

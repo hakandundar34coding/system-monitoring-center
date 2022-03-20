@@ -7,9 +7,9 @@ gi.require_version('Gdk', '3.0')
 from gi.repository import Gtk, Gdk
 import os
 
-import Config
-import Performance
-import Disk
+from Config import Config
+from Performance import Performance
+from Disk import Disk
 
 
 # Define class

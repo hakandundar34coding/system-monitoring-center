@@ -1,93 +1,92 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- RAM - RAM Tab Import Function -----------------------------------
-def ram_import_func():
+# Import modules
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+import os
 
-    global Gtk, GLib, os, Gdk
+from locale import gettext as _tr
 
-    import gi
-    gi.require_version('Gtk', '3.0')
-    gi.require_version('GLib', '2.0')
-    gi.require_version('Gdk', '3.0')
-    from gi.repository import Gtk, GLib, Gdk
-    import os
-
-
-    global Config, Performance
-    import Config, Performance
+from Config import Config
+from Performance import Performance
 
 
-    global _tr
-    from locale import gettext as _tr
+# Define class
+class Ram:
+
+    # ----------------------- Always called when object is generated -----------------------
+    def __init__(self):
+
+        # Get GUI objects from file
+        builder = Gtk.Builder()
+        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamTab.ui")
+
+        # Get GUI objects
+        self.grid1201 = builder.get_object('grid1201')
+        self.drawingarea1201 = builder.get_object('drawingarea1201')
+        self.drawingarea1202 = builder.get_object('drawingarea1202')
+        self.button1201 = builder.get_object('button1201')
+        self.label1201 = builder.get_object('label1201')
+        self.label1202 = builder.get_object('label1202')
+        self.label1203 = builder.get_object('label1203')
+        self.label1204 = builder.get_object('label1204')
+        self.label1205 = builder.get_object('label1205')
+        self.label1206 = builder.get_object('label1206')
+        self.label1207 = builder.get_object('label1207')
+        self.label1208 = builder.get_object('label1208')
+        self.label1209 = builder.get_object('label1209')
+        self.label1210 = builder.get_object('label1210')
+        self.eventbox1201 = builder.get_object('eventbox1201')
+        self.eventbox1202 = builder.get_object('eventbox1202')
+
+        # Connect GUI signals
+        self.button1201.connect("clicked", self.on_button1201_clicked)
+        self.drawingarea1201.connect("draw", self.on_drawingarea1201_draw)
+        self.drawingarea1202.connect("draw", self.on_drawingarea1202_draw)
+        self.eventbox1201.connect("button-press-event", self.on_eventbox1201_button_click_event)
+        self.eventbox1202.connect("button-press-event", self.on_eventbox1202_button_click_event)
+
+        # Run initial function
+        self.ram_initial_func()
 
 
-# ----------------------------------- RAM - RAM GUI Function -----------------------------------
-def ram_gui_func():
+    # ----------------------- "customizations menu" Button -----------------------
+    def on_button1201_clicked(self, widget):
 
-    # RAM tab GUI objects - get from file
-    builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamTab.ui")
-
-    # RAM tab GUI objects
-    global grid1201, drawingarea1201, drawingarea1202, button1201, label1201, label1202
-    global label1203, label1204, label1205, label1206, label1207, label1208, label1209, label1210, eventbox1201, eventbox1202
-
-    # RAM tab GUI objects - get
-    grid1201 = builder.get_object('grid1201')
-    drawingarea1201 = builder.get_object('drawingarea1201')
-    drawingarea1202 = builder.get_object('drawingarea1202')
-    button1201 = builder.get_object('button1201')
-    label1201 = builder.get_object('label1201')
-    label1202 = builder.get_object('label1202')
-    label1203 = builder.get_object('label1203')
-    label1204 = builder.get_object('label1204')
-    label1205 = builder.get_object('label1205')
-    label1206 = builder.get_object('label1206')
-    label1207 = builder.get_object('label1207')
-    label1208 = builder.get_object('label1208')
-    label1209 = builder.get_object('label1209')
-    label1210 = builder.get_object('label1210')
-    eventbox1201 = builder.get_object('eventbox1201')
-    eventbox1202 = builder.get_object('eventbox1202')
-
-
-    # RAM tab GUI functions
-    def on_button1201_clicked(widget):
         from RamMenu import RamMenu
-        RamMenu.popover1201p.set_relative_to(button1201)
+        RamMenu.popover1201p.set_relative_to(widget)
         RamMenu.popover1201p.set_position(1)
         RamMenu.popover1201p.popup()
 
-    def on_eventbox1201_button_click_event(widget, event):                                    # Eventbox is used for defining signals for the widget ("Query..." label) placed on it.
+
+    # ----------------------- Called for opening RAM Hardware Window -----------------------
+    def on_eventbox1201_button_click_event(self, widget, event):
+
         if event.button == 1:
-            if 'RamHardwareInformation' not in globals():
-                global RamHardwareInformation
-                import RamHardwareInformation
-                RamHardwareInformation.ram_hardware_information_import_func()
-                RamHardwareInformation.ram_hardware_information_gui_func()
+            from RamHardwareInformation import RamHardwareInformation
+            # Run function to get RAM hardware information text (polkit dialog will be shown for getting this information).
             RamHardwareInformation.ram_hardware_information_get_func()
-            if RamHardwareInformation.memory_hardware_information_text != "":                 # This statement is used in order to avoid errors if user closes polkit window without entering password.
+            # This statement is used in order to avoid errors if user closes polkit window without entering password.
+            if RamHardwareInformation.memory_hardware_information_text != "":
                 RamHardwareInformation.window1201w.show()
 
-    def on_eventbox1202_button_click_event(widget, event):
+
+    # ----------------------- Called for opening RAM Hardware Window -----------------------
+    def on_eventbox1202_button_click_event(self, widget, event):
+
         if event.button == 1:
-            if 'RamSwapDetails' not in globals():
-                global RamSwapDetails
-                import RamSwapDetails
-                RamSwapDetails.ram_swap_details_import_func()
-                RamSwapDetails.ram_swap_details_gui_func()
+            from RamSwapDetails import RamSwapDetails
             RamSwapDetails.window1201w2.show()
-            RamSwapDetails.ram_swap_details_run_func()
 
 
-    # ----------------------------------- RAM - Plot RAM usage data as a Line Chart ----------------------------------- 
-    def on_drawingarea1201_draw(widget, ctx):
+    # ----------------------- Called for drawing RAM usage as line chart -----------------------
+    def on_drawingarea1201_draw(self, widget, ctx):
 
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
 
         ram_usage_percent = Performance.ram_usage_percent
-
 
         chart_line_color = Config.chart_line_color_ram_swap_percent
         chart_background_color = Config.chart_background_color_all_charts
@@ -95,8 +94,8 @@ def ram_gui_func():
         chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
         chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
 
-        chart1201_width = Gtk.Widget.get_allocated_width(drawingarea1201)
-        chart1201_height = Gtk.Widget.get_allocated_height(drawingarea1201)
+        chart1201_width = Gtk.Widget.get_allocated_width(widget)
+        chart1201_height = Gtk.Widget.get_allocated_height(widget)
 
         ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
         ctx.rectangle(0, 0, chart1201_width, chart1201_height)
@@ -134,12 +133,13 @@ def ram_gui_func():
         ctx.fill()
 
 
-    # ----------------------------------- RAM - Plot Swap usage data as a Bar Chart ----------------------------------- 
-    def on_drawingarea1202_draw(widget, ctx):
+    # ----------------------- Called for drawing Swap usage as bar chart -----------------------
+    def on_drawingarea1202_draw(self, widget, ctx):
 
         try:
-            swap_percent_check = swap_percent                                                 # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
-        except NameError:
+            swap_percent_check = self.swap_percent
+        # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
+        except AttributeError:
             return
 
         chart_line_color = Config.chart_line_color_ram_swap_percent
@@ -160,153 +160,110 @@ def ram_gui_func():
         ctx.stroke()
         ctx.set_line_width(1)
         ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
-        ctx.rectangle(0, 0, chart1202_width*swap_percent/100, chart1202_height)
+        ctx.rectangle(0, 0, chart1202_width*self.swap_percent/100, chart1202_height)
         ctx.fill()
 
 
+    # ----------------------------------- RAM - Initial Function -----------------------------------
+    def ram_initial_func(self):
 
-    # RAM tab GUI functions - connect
-    button1201.connect("clicked", on_button1201_clicked)
-    drawingarea1201.connect("draw", on_drawingarea1201_draw)
-    drawingarea1202.connect("draw", on_drawingarea1202_draw)
-    eventbox1201.connect("button-press-event", on_eventbox1201_button_click_event)
-    eventbox1202.connect("button-press-event", on_eventbox1202_button_click_event)
+        # Define data unit conversion function objects in for lower CPU usage.
+        self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
+        self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
 
+        # Define data unit conversion variables before they are used.
+        self.performance_define_data_unit_converter_variables_func()
 
-# ----------------------------------- RAM - Initial Function -----------------------------------
-def ram_initial_func():
+        performance_ram_swap_data_precision = Config.performance_ram_swap_data_precision
+        performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
 
-    ram_define_data_unit_converter_variables_func()                                           # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
-
-    performance_ram_swap_data_precision = Config.performance_ram_swap_data_precision
-    performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
-
-    # Get total_physical_ram value (this value is very similar to RAM hardware size which is a bit different than ram_total value)
-    try:                                                                                      # "block_size_bytes" file may not be present on some systems such as ARM CPU used systems. Currently kernel 5.10 does not have this feature but this feature will be included in the newer versions of the kernel.
-        with open("/sys/devices/system/memory/block_size_bytes") as reader:                   # "memory block size" is read from this file and size of the blocks depend on architecture (For more information see: https://www.kernel.org/doc/html/latest/admin-guide/mm/memory-hotplug.html).
-            block_size = int(reader.read().strip(), 16)                                       # Value in this file is in hex form and it is converted into integer (byte)
-    except FileNotFoundError:
-        block_size = "-"
-    if block_size != "-":
-        total_online_memory = 0
-        total_offline_memory = 0
-        files_in_sys_devices_system_memory = os.listdir("/sys/devices/system/memory/")        # Number of folders (of which name start with "memory") in this folder is multiplied with the integer value of "block_size_bytes" file content (hex value).
-        for file in files_in_sys_devices_system_memory:
-            if os.path.isdir("/sys/devices/system/memory/" + file) and file.startswith("memory"):
-                with open("/sys/devices/system/memory/" + file + "/online") as reader:
-                    memory_online_offline_value = reader.read().strip()
-                if memory_online_offline_value == "1":
-                    total_online_memory = total_online_memory + block_size
-                if memory_online_offline_value == "0":
-                    total_offline_memory = total_offline_memory + block_size
-        total_physical_ram = (total_online_memory + total_offline_memory)                     # Summation of total online and offline memories gives RAM hardware size. RAM harware size and total RAM value get from proc file system of by using "free" command are not same thing. Because some of the RAM may be reserved for harware and/or by the OS kernel.
-    else:
-        total_physical_ram = f'[{_tr("Unknown")}]'
-    # Get ram_total and swap_total values
-    with open("/proc/meminfo") as reader:
-        proc_memory_info_output_lines = reader.read().split("\n")
-    for line in proc_memory_info_output_lines:
-        if "MemTotal:" in line:
-            ram_total = int(line.split()[1]) * 1024                                           # Values in this file are in "KiB" unit. These values are multiplied with 1024 in order to obtain byte (nearly) values.
-        if "SwapTotal:" in line:
-            swap_total = int(line.split()[1]) * 1024
-
-    # Set RAM tab label texts by using information get
-    label1201.set_text(_tr("Physical RAM") + ": " + str(ram_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
-    label1202.set_text(_tr("Swap Memory") + ": " + str(ram_data_unit_converter_func(swap_total, 0, 1)))
-    label1205.set_text(ram_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-
-
-# ----------------------------------- RAM - Get RAM Data Function -----------------------------------
-def ram_loop_func():
-
-    ram_used = Performance.ram_used
-    ram_usage_percent = Performance.ram_usage_percent
-    ram_available = Performance.ram_available
-    ram_free = Performance.ram_free
-
-    performance_ram_swap_data_precision = Config.performance_ram_swap_data_precision
-    performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
-    global swap_percent
-
-    drawingarea1201.queue_draw()
-    drawingarea1202.queue_draw()
-
-    # Get RAM usage values
-    with open("/proc/meminfo") as reader:                                                     # Read total swap area and free swap area from /proc/meminfo file
-        memory_info = reader.read().split("\n")
-    for line in memory_info:
-        if line.startswith("SwapTotal:"):
-            swap_total = int(line.split()[1]) * 1024
-        if line.startswith("SwapFree:"):
-            swap_free = int(line.split()[1]) * 1024
-    if swap_free != 0:                                                                        # Calculate values if swap memory exists.
-        swap_used = swap_total - swap_free
-        swap_percent = swap_used / swap_total * 100
-    if swap_free == 0:                                                                        # Set values as "0" if swap memory does not exist.
-        swap_used = 0
-        swap_percent = 0
-
-    # Set and update RAM tab label texts by using information get
-    label1203.set_text(f'{ram_data_unit_converter_func(ram_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)} ({ram_usage_percent[-1]:.0f}%)')
-    label1204.set_text(ram_data_unit_converter_func(ram_available, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-    label1206.set_text(ram_data_unit_converter_func(ram_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-    label1207.set_text(f'{swap_percent:.0f}%')
-    label1208.set_text(f'{ram_data_unit_converter_func(swap_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}')
-    label1209.set_text(ram_data_unit_converter_func(swap_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-    label1210.set_text(ram_data_unit_converter_func((swap_total), performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-
-
-# ----------------------------------- RAM - Run Function -----------------------------------
-def ram_run_func(*args):
-
-    if "update_interval" not in globals():
-        GLib.idle_add(ram_initial_func)
-    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 1:
-        global ram_glib_source, update_interval
+        # Get total_physical_ram value (this value is very similar to RAM hardware size which is a bit different than ram_total value)
+        # "block_size_bytes" file may not be present on some systems such as ARM CPU used systems. Currently kernel 5.10 does not have this feature but this feature will be included in the newer versions of the kernel.
         try:
-            ram_glib_source.destroy()
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        ram_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(ram_loop_func)
-        ram_glib_source.set_callback(ram_run_func)
-        ram_glib_source.attach(GLib.MainContext.default())
+            # "memory block size" is read from this file and size of the blocks depend on architecture (For more information see: https://www.kernel.org/doc/html/latest/admin-guide/mm/memory-hotplug.html).
+            with open("/sys/devices/system/memory/block_size_bytes") as reader:
+                # Value in this file is in hex form and it is converted into integer (byte)
+                block_size = int(reader.read().strip(), 16)
+        except FileNotFoundError:
+            block_size = "-"
+        if block_size != "-":
+            total_online_memory = 0
+            total_offline_memory = 0
+            # Number of folders (of which name start with "memory") in this folder is multiplied with the integer value of "block_size_bytes" file content (hex value).
+            files_in_sys_devices_system_memory = os.listdir("/sys/devices/system/memory/")
+            for file in files_in_sys_devices_system_memory:
+                if os.path.isdir("/sys/devices/system/memory/" + file) and file.startswith("memory"):
+                    with open("/sys/devices/system/memory/" + file + "/online") as reader:
+                        memory_online_offline_value = reader.read().strip()
+                    if memory_online_offline_value == "1":
+                        total_online_memory = total_online_memory + block_size
+                    if memory_online_offline_value == "0":
+                        total_offline_memory = total_offline_memory + block_size
+            # Summation of total online and offline memories gives RAM hardware size. RAM harware size and total RAM value get from proc file system of by using "free" command are not same thing. Because some of the RAM may be reserved for harware and/or by the OS kernel.
+            total_physical_ram = (total_online_memory + total_offline_memory)
+        else:
+            total_physical_ram = f'[{_tr("Unknown")}]'
+
+        # Get ram_total and swap_total values
+        with open("/proc/meminfo") as reader:
+            proc_memory_info_output_lines = reader.read().split("\n")
+        for line in proc_memory_info_output_lines:
+            # Values in this file are in "KiB" unit. These values are multiplied with 1024 in order to obtain byte (nearly) values.
+            if "MemTotal:" in line:
+                ram_total = int(line.split()[1]) * 1024
+            if "SwapTotal:" in line:
+                swap_total = int(line.split()[1]) * 1024
 
 
-# ----------------------------------- RAM - Define Data Unit Converter Variables Function -----------------------------------
-def ram_define_data_unit_converter_variables_func():
-
-    global data_unit_list
-
-    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
-    data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                      [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                      [8, 0, "Auto-bit"], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
-                      [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
+        # Set RAM tab label texts by using information get
+        self.label1201.set_text(_tr("Physical RAM") + ": " + str(self.performance_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+        self.label1202.set_text(_tr("Swap Memory") + ": " + str(self.performance_data_unit_converter_func(swap_total, 0, 1)))
+        self.label1205.set_text(self.performance_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
 
-# ----------------------------------- RAM - Data Unit Converter Function -----------------------------------
-def ram_data_unit_converter_func(data, unit, precision):
+    # ----------------------------------- RAM - Get RAM Data Function -----------------------------------
+    def ram_loop_func(self):
 
-    global data_unit_list
-    if isinstance(data, str) is True:
-        return data
-    if unit >= 8:
-        data = data * 8
-    if unit in [0, 8]:
-        unit_counter = unit + 1
-        while data > 1024:
-            unit_counter = unit_counter + 1
-            data = data/1024
-        unit = data_unit_list[unit_counter][2]
-        if data == 0:
-            precision = 0
-        return f'{data:.{precision}f} {unit}'
+        ram_used = Performance.ram_used
+        ram_usage_percent = Performance.ram_usage_percent
+        ram_available = Performance.ram_available
+        ram_free = Performance.ram_free
 
-    data = data / data_unit_list[unit][1]
-    unit = data_unit_list[unit][2]
-    if data == 0:
-        precision = 0
-    return f'{data:.{precision}f} {unit}'
+        performance_ram_swap_data_precision = Config.performance_ram_swap_data_precision
+        performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
+
+        self.drawingarea1201.queue_draw()
+        self.drawingarea1202.queue_draw()
+
+        # Get RAM usage values
+        # Read total swap area and free swap area from /proc/meminfo file
+        with open("/proc/meminfo") as reader:
+            memory_info = reader.read().split("\n")
+        for line in memory_info:
+            if line.startswith("SwapTotal:"):
+                swap_total = int(line.split()[1]) * 1024
+            if line.startswith("SwapFree:"):
+                swap_free = int(line.split()[1]) * 1024
+        # Calculate values if swap memory exists.
+        if swap_free != 0:
+            swap_used = swap_total - swap_free
+            self.swap_percent = swap_used / swap_total * 100
+        # Set values as "0" if swap memory does not exist.
+        if swap_free == 0:
+            swap_used = 0
+            self.swap_percent = 0
+
+
+        # Set and update RAM tab label texts by using information get
+        self.label1203.set_text(f'{self.performance_data_unit_converter_func(ram_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)} ({ram_usage_percent[-1]:.0f}%)')
+        self.label1204.set_text(self.performance_data_unit_converter_func(ram_available, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+        self.label1206.set_text(self.performance_data_unit_converter_func(ram_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+        self.label1207.set_text(f'{self.swap_percent:.0f}%')
+        self.label1208.set_text(f'{self.performance_data_unit_converter_func(swap_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}')
+        self.label1209.set_text(self.performance_data_unit_converter_func(swap_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+        self.label1210.set_text(self.performance_data_unit_converter_func((swap_total), performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+
+
+# Generate object
+Ram = Ram()
+
