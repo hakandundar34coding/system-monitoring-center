@@ -522,61 +522,71 @@ class SettingsGUI:
     # ----------------------- Called for applying settings for all opened tabs (since application start) without waiting update interval -----------------------
     def settings_gui_apply_settings_immediately_func(self):
 
-        if MainGUI.radiobutton1.get_active() == True:
+        try:
+            from MainGUI import Cpu
+            Cpu.cpu_initial_func()
+        except ImportError:
+            pass
 
-            if MainGUI.radiobutton1001.get_active() == True:
-                from Cpu import Cpu
-                Cpu.cpu_initial_func()
+        try:
+            from MainGUI import Ram
+            Ram.ram_initial_func()
+        except ImportError:
+            pass
 
-            if MainGUI.radiobutton1002.get_active() == True:
-                from Ram import Ram
-                Ram.ram_initial_func()
+        try:
+            from MainGUI import Disk
+            Disk.disk_initial_func()
+        except ImportError:
+            pass
 
-            if MainGUI.radiobutton1003.get_active() == True:
-                from Disk import Disk
-                Disk.disk_initial_func()
+        try:
+            from MainGUI import Network
+            Network.network_initial_func()
+        except ImportError:
+            pass
 
-            if MainGUI.radiobutton1004.get_active() == True:
-                from Network import Network
-                Network.network_initial_func()
+        try:
+            from MainGUI import Gpu
+            Gpu.gpu_initial_func()
+        except ImportError:
+            pass
 
-            if MainGUI.radiobutton1005.get_active() == True:
-                from Gpu import Gpu
-                Gpu.gpu_initial_func()
+        try:
+            from MainGUI import Sensors
+            Sensors.sensors_initial_func()
+        except ImportError:
+            pass
 
-            if MainGUI.radiobutton1006.get_active() == True:
-                if 'Sensors' not in globals():
-                    global Sensors
-                    import Sensors
-                Sensors.sensors_initial_func()
-
-        if MainGUI.radiobutton2.get_active() == True:
-            if 'Processes' not in globals():
-                global Processes
-                import Processes
+        try:
+            from MainGUI import Processes
             Processes.processes_initial_func()
+        except ImportError:
+            pass
 
-        if MainGUI.radiobutton3.get_active() == True:
-            if 'Users' not in globals():
-                global Users
-                import Users
+        try:
+            from MainGUI import Users
             Users.users_initial_func()
+        except ImportError:
+            pass
 
-        if MainGUI.radiobutton5.get_active() == True:
-            if 'Startup' not in globals():
-                global Startup
-                import Startup
+        try:
+            from MainGUI import Startup
             Startup.startup_initial_func()
+        except ImportError:
+            pass
 
-        if MainGUI.radiobutton6.get_active() == True:
-            if 'Services' not in globals():
-                global Services
-                import Services
+        try:
+            from MainGUI import Services
             Services.services_initial_func()
+        except ImportError:
+            pass
 
-        if MainGUI.radiobutton8.get_active() == True:
-            from System import System
+        try:
+            from MainGUI import System
             System.system_initial_func()
+        except ImportError:
+            pass
 
         MainGUI.main_gui_tab_loop_func()
 
