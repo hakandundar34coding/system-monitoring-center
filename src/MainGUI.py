@@ -69,6 +69,12 @@ class MainGUI:
         self.window1.connect("delete_event", self.on_window1_delete)
         self.window1.connect("show", self.on_window1_show)
         self.button1.connect("clicked", self.on_button1_clicked)
+
+
+    # ----------------------- Called for connecting some of the signals in order to connect them after some code/functions to avoid running these signals -----------------------
+    def main_gui_radiobuttons_connect_signals_func(self):
+
+        # Connect Main GUI - Main tabs GUI signals
         self.radiobutton1.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
         self.radiobutton2.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
         self.radiobutton3.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
@@ -146,6 +152,9 @@ class MainGUI:
 
         # Run default tab function after main window is shown.
         self.main_gui_default_tab_func()
+
+        # Connect main gui radiobuttons signals after switching to default tab (by using "main_gui_default_tab_func") in order to avoid running functions during this switches.
+        self.main_gui_radiobuttons_connect_signals_func()
 
         # Run main tab function after main window is shown (this function is also called when main tab checkbuttons are toggled).
         self.main_gui_tab_switch_func()
@@ -442,12 +451,6 @@ class MainGUI:
             GLib.idle_add(Users.users_loop_func)
         if current_main_tab == 3:
             GLib.idle_add(Startup.startup_loop_func)
-        # if current_main_tab == 4:
-        #     pass
-        # if current_main_tab == 5:
-        #     pass
-
-        # GLib.timeout_add(Config.update_interval * 1000, self.main_gui_tab_loop_func)
 
         self.main_glib_source.set_callback(self.main_gui_tab_loop_func)
         # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
