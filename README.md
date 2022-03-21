@@ -46,8 +46,9 @@ Note: If there are dependency problems during installation:
     * An always on top and semi-transparent floating summary window for performance monitoring
     * Monitoring and managing processes, users, startup applications and services (systemd)
     * Monitoring sensors and general system information
-* Language support (more languages will be added if translations are provided by contributors):
+* Language support:
     * Brazilian Portuguese, Czech, English, Polish (initial), Turkish
+    * More languages will be added if translations are provided by contributors
 * Adapts to system theme
 * Free and open sourced
 

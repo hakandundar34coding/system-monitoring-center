@@ -251,10 +251,11 @@ class SettingsGUI:
         Performance.performance_set_selected_disk_func()
         Performance.performance_set_selected_network_card_func()
         # Apply selected GPU changes
-        # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
         try:
+            from MainGUI import Gpu
             Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()
-        except NameError:
+        # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
+        except ImportError:
             pass
 
         # Apply changes immediately (without waiting update interval).
@@ -308,12 +309,12 @@ class SettingsGUI:
             Performance.performance_set_selected_cpu_core_func()
             Performance.performance_set_selected_disk_func()
             Performance.performance_set_selected_network_card_func()
-
-            # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
+            # Apply selected GPU changes
             try:
-                # Apply selected GPU changes
+                from MainGUI import Gpu
                 Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()
-            except NameError:
+            # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
+            except ImportError:
                 pass
 
             # Apply changes immediately (without waiting update interval).

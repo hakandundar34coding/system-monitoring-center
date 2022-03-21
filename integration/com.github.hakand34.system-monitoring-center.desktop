@@ -14,7 +14,7 @@ Terminal=false
 Type=Application
 Categories=System;
 StartupNotify=true
-Keywords=system monitor;task manager;center;performance;speed;frequency;cpu usage;ram usage;swap memory;memory usage;storage;network usage;download speed;fps;frame ratio;processes;users;startup programs;services;environment variables;shell variables;os;
+Keywords=system monitor;task manager;center;performance;speed;frequency;cpu usage;ram usage;swap memory;memory usage;storage;network usage;download speed;fps;frame ratio;processes;users;startup programs;services;os;
 Keywords[pt_BR]=monitor do sistema;gerenciador de tarefas;desempenho;velocidade;frequência;uso de CPU;uso de ram;memória swap;uso de memória;armazenamento;uso de rede;velocidade de download;fps;processos;usuários;programas de inicialização;serviços;os;
-Keywords[tr]=sistem gözlemcisi;görev yöneticisi;performans;hız;frekans;cpu;mib;ram kullanımı;takas belleği;bellek kullanımı;depolama;indirme hızı;fps;kare oranı;işlemler;kullanıcılar;başlangıç programları;servisler;ortam değişkenleri;kabuk değişkenleri;os;is;
+Keywords[tr]=sistem gözlemcisi;görev yöneticisi;performans;hız;frekans;cpu;mib;ram kullanımı;takas belleği;bellek kullanımı;depolama;indirme hızı;fps;kare oranı;işlemler;kullanıcılar;başlangıç programları;servisler;os;is;
 
