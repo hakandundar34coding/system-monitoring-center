@@ -100,6 +100,6 @@ setup(
     author_email="hakandundar34coding@gmail.com",
     description="Provides information about system performance and usage.",
     license="GPLv3",
-    keywords="system monitor task manager center performance speed frequency cpu usage ram usage swap memory memory usage storage network usage download speed fps frame ratio processes users startup programs services environment variables shell variables os",
+    keywords="system monitor task manager center performance speed frequency cpu usage ram usage swap memory memory usage storage network usage download speed fps frame ratio processes users startup programs services os",
     url="https://github.com/hakandundar34coding/system-monitoring-center",
 )
