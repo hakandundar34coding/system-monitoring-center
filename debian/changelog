@@ -1,3 +1,16 @@
+system-monitoring-center (1.7.0) unstable; urgency=medium
+
+  * Code updates for OOP (menus, Performance, Settings)
+  * Improved performance for tab switches
+  * Improved FPS counter accuracy
+  * Fix: Resetting some fields for switched off tabs
+  * Fix: Showing error messages of startup item commands
+  * Fix: Closing color chooser dialogs on some systems
+  * Fix: Speed data conversions for bits/sec and orders
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 21 Mar 2022 09:19:44 +0300
+
 system-monitoring-center (1.6.0) unstable; urgency=medium
 
   [ Hakan Dündar ]
