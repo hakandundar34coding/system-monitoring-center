@@ -69,22 +69,13 @@ def users_gui_func():
 
         # Open right click menu if right clicked on a row
         if event.button == 3:
-            if 'UsersMenuRightClick' not in globals():
-                global UsersMenuRightClick
-                import UsersMenuRightClick
-                UsersMenuRightClick.users_menu_right_click_import_func()
-                UsersMenuRightClick.users_menu_right_click_gui_func()
+            from UsersMenuRightClick import UsersMenuRightClick
             UsersMenuRightClick.menu3101m.popup(None, None, None, None, event.button, event.time)
 
         # Open details window if double clicked on a row
         if event.type == Gdk.EventType._2BUTTON_PRESS:
-            if 'UsersDetails' not in globals():
-                global UsersDetails
-                import UsersDetails
-                UsersDetails.users_details_import_func()
-                UsersDetails.users_details_gui_function()
+            from UsersDetails import UsersDetails
             UsersDetails.window3101w.show()
-            UsersDetails.users_details_run_func()
 
 
     # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
