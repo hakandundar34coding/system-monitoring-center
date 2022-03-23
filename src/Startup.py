@@ -64,11 +64,7 @@ def startup_gui_func():
 
         # Open right click menu if right clicked on a row
         if event.button == 3:
-            if 'StartupMenuRightClick' not in globals():
-                global StartupMenuRightClick
-                import StartupMenuRightClick
-                StartupMenuRightClick.startup_menu_right_click_import_func()
-                StartupMenuRightClick.startup_menu_right_click_gui_func()
+            from StartupMenuRightClick import StartupMenuRightClick
             StartupMenuRightClick.menu5101m.popup(None, None, None, None, event.button, event.time)
             StartupMenuRightClick.startup_set_menu_labels_func()
 
