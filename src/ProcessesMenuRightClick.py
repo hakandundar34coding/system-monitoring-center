@@ -1,256 +1,207 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Processes - Processes Right Click Menu GUI Import Function -----------------------------------
-def processes_menu_right_click_import_func():
+# Import modules
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('Gdk', '3.0')
+from gi.repository import Gtk, Gdk
+import os
+import signal
+import subprocess
 
-    global Gtk, Gdk, os, signal, subprocess
+from locale import gettext as _tr
 
-    import gi
-    gi.require_version('Gtk', '3.0')
-    gi.require_version('Gdk', '3.0')
-    from gi.repository import Gtk, Gdk
-    import os
-    import signal
-    import subprocess
-
-
-    global Config, Processes
-    from Config import Config
-    import Processes
+from Config import Config
+import Processes
 
 
-    global _tr
-    from locale import gettext as _tr
+# Define class
+class ProcessesMenuRightClick:
+
+    # ----------------------- Always called when object is generated -----------------------
+    def __init__(self):
+
+        # Get GUI objects from file
+        builder = Gtk.Builder()
+        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesMenuRightClick.ui")
+
+        # Get GUI objects
+        self.menu2101m = builder.get_object('menu2101m')
+        self.menuitem2101m = builder.get_object('menuitem2101m')
+        self.menuitem2102m = builder.get_object('menuitem2102m')
+        self.menuitem2103m = builder.get_object('menuitem2103m')
+        self.menuitem2104m = builder.get_object('menuitem2104m')
+        self.menuitem2106m = builder.get_object('menuitem2106m')
+        self.radiomenuitem2101m = builder.get_object('radiomenuitem2101m')
+        self.radiomenuitem2102m = builder.get_object('radiomenuitem2102m')
+        self.radiomenuitem2103m = builder.get_object('radiomenuitem2103m')
+        self.radiomenuitem2104m = builder.get_object('radiomenuitem2104m')
+        self.radiomenuitem2105m = builder.get_object('radiomenuitem2105m')
+        self.normalmenuitem2101m = builder.get_object('normalmenuitem2101m')
+
+        # Connect GUI signals
+        self.menuitem2101m.connect("activate", self.on_process_manage_menuitems_activate)
+        self.menuitem2102m.connect("activate", self.on_process_manage_menuitems_activate)
+        self.menuitem2103m.connect("activate", self.on_process_manage_menuitems_activate)
+        self.menuitem2104m.connect("activate", self.on_process_manage_menuitems_activate)
+        self.menuitem2106m.connect("activate", self.on_menuitem2106m_activate)
+        self.normalmenuitem2101m.connect("activate", self.on_normalmenuitem2101m_activate)
+        # Connect some of the GUI signals by defining signal handler IDs for them to be able to block them during setting radiomenuitems.
+        self.radiomenuitem2101m_handler_id = self.radiomenuitem2101m.connect("activate", self.on_process_priority_radioitems_activate)
+        self.radiomenuitem2102m_handler_id = self.radiomenuitem2102m.connect("activate", self.on_process_priority_radioitems_activate)
+        self.radiomenuitem2103m_handler_id = self.radiomenuitem2103m.connect("activate", self.on_process_priority_radioitems_activate)
+        self.radiomenuitem2104m_handler_id = self.radiomenuitem2104m.connect("activate", self.on_process_priority_radioitems_activate)
+        self.radiomenuitem2105m_handler_id = self.radiomenuitem2105m.connect("activate", self.on_process_priority_radioitems_activate)
 
 
-# ----------------------------------- Processes - Right Click Menu GUI Function -----------------------------------
-def processes_menu_right_click_gui_func():
+    # ----------------------- Called for stopping, continuing, ending process -----------------------
+    def on_process_manage_menuitems_activate(self, widget):
 
-    # Define builder and get all objects (Processes Tab Right Click Menu) from GUI file.
-    builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesMenuRightClick.ui")
+        # Get right clicked process pid and name.
+        selected_process_pid = Processes.selected_process_pid
+        selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
 
+        # Define signal and command for the process by checking the clicked menu item (Stop Process).
+        if widget == self.menuitem2101m:
+            process_signal = signal.SIGSTOP
+            process_command = ["pkexec", "kill", "-19", selected_process_pid]
 
-    # ********************** Define object names for Processes tab right click menu **********************
-    global menu2101m
-    global menuitem2101m, menuitem2102m, menuitem2103m, menuitem2104m, menuitem2106m
-    global radiomenuitem2101m, radiomenuitem2102m, radiomenuitem2103m, radiomenuitem2104m, radiomenuitem2105m, normalmenuitem2101m
+        # Define signal and command for the process by checking the clicked menu item (Continue Process).
+        if widget == self.menuitem2102m:
+            process_signal = signal.SIGCONT
+            process_command = ["pkexec", "kill", "-18", selected_process_pid]
 
-    # ********************** Get object names for Processes tab right click menu **********************
-    menu2101m = builder.get_object('menu2101m')
-    menuitem2101m = builder.get_object('menuitem2101m')
-    menuitem2102m = builder.get_object('menuitem2102m')
-    menuitem2103m = builder.get_object('menuitem2103m')
-    menuitem2104m = builder.get_object('menuitem2104m')
-    menuitem2106m = builder.get_object('menuitem2106m')
-    radiomenuitem2101m = builder.get_object('radiomenuitem2101m')
-    radiomenuitem2102m = builder.get_object('radiomenuitem2102m')
-    radiomenuitem2103m = builder.get_object('radiomenuitem2103m')
-    radiomenuitem2104m = builder.get_object('radiomenuitem2104m')
-    radiomenuitem2105m = builder.get_object('radiomenuitem2105m')
-    normalmenuitem2101m = builder.get_object('normalmenuitem2101m')
+        # Define signal, command and dialog message text for the process by checking the clicked menu item (Terminate Process).
+        if widget == self.menuitem2103m:
+            process_signal = signal.SIGTERM
+            process_command = ["pkexec", "kill", "-15", selected_process_pid]
+            process_dialog_message = _tr("Do you want to terminate this process?")
 
-    # ********************** Define object functions for Processes tab right click menu **********************
-    def on_menuitem2101m_activate(widget):                                                    # "Stop Process" item on the right click menu
+        # Define signal, command and dialog message text for the process by checking the clicked menu item (Kill Process).
+        if widget == self.menuitem2104m:
+            process_signal = signal.SIGKILL
+            process_command = ["pkexec", "kill", "-9", selected_process_pid]
+            process_dialog_message = _tr("Do you want to kill this process?")
+
+        # Show warning dialog if process is tried to be ended.
+        if Config.warn_before_stopping_processes == 1 and (widget == self.menuitem2103m or widget == self.menuitem2104m):
+            self.processes_end_process_warning_dialog(process_dialog_message, selected_process_name, selected_process_pid)
+            if self.dialog2101_response != Gtk.ResponseType.YES:
+                return
+
+        # Try to end the process without using root privileges.
         try:
-            os.kill(int(Processes.selected_process_pid), signal.SIGSTOP)
+            os.kill(int(selected_process_pid), process_signal)
         except PermissionError:
+            # End the process if root privileges are given.
             try:
-                (subprocess.check_output(["pkexec", "kill", "-19", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
+                # Command output is not printed by using "stderr=subprocess.STDOUT".
+                (subprocess.check_output(process_command, stderr=subprocess.STDOUT, shell=False)).decode()
+            # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
             except subprocess.CalledProcessError:
                 pass
 
-    def on_menuitem2102m_activate(widget):                                                    # "Continue Process" item on the right click menu
+
+    # ----------------------- Called for changing priority (nice value) of process -----------------------
+    def on_process_priority_radioitems_activate(self, widget):
+
+        # Stop running the function if caller widget is not active in order to avoid calling this function twice on every priority change by using radiomenubuttons. Because activated and deactivated widgets call this function.
+        if widget.get_active() != True:
+            return
+
+        # Get right clicked process pid and name.
+        selected_process_pid = Processes.selected_process_pid
+
+        # Define commands for the process by checking the clicked menu item (Very High).
+        if self.radiomenuitem2101m.get_active() == True:
+            priority_command = ["renice", "-n", "-20", "-p", selected_process_pid]
+            priority_command_pkexec = ["pkexec", "renice", "-n", "-20", "-p", selected_process_pid]
+
+        # Define commands for the process by checking the clicked menu item (High).
+        if self.radiomenuitem2102m.get_active() == True:
+            priority_command = ["renice", "-n", "-10", "-p", selected_process_pid]
+            priority_command_pkexec = ["pkexec", "renice", "-n", "-10", "-p", selected_process_pid]
+
+        # Define commands for the process by checking the clicked menu item (Normal).
+        if self.radiomenuitem2103m.get_active() == True:
+            priority_command = ["renice", "-n", "-0", "-p", selected_process_pid]
+            priority_command_pkexec = ["pkexec", "renice", "-n", "0", "-p", selected_process_pid]
+
+        # Define commands for the process by checking the clicked menu item (Low).
+        if self.radiomenuitem2104m.get_active() == True:
+            priority_command = ["renice", "-n", "10", "-p", selected_process_pid]
+            priority_command_pkexec = ["pkexec", "renice", "-n", "10", "-p", selected_process_pid]
+
+        # Define commands for the process by checking the clicked menu item (Very Low).
+        if self.radiomenuitem2105m.get_active() == True:
+            priority_command = ["renice", "-n", "19", "-p", selected_process_pid]
+            priority_command_pkexec = ["pkexec", "renice", "-n", "19", "-p", selected_process_pid]
+
+        # Try to change priority of the process.
         try:
-            os.kill(int(Processes.selected_process_pid), signal.SIGCONT)
-        except PermissionError:
+            (subprocess.check_output(priority_command, stderr=subprocess.STDOUT, shell=False)).decode()
+            # Stop running the function if process priority is changed without root privileges.
+            return
+        except subprocess.CalledProcessError:
+            # Try to change priority of the process if root privileges are required.
             try:
-                (subprocess.check_output(["pkexec", "kill", "-18", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
+                (subprocess.check_output(priority_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
             except subprocess.CalledProcessError:
-                pass
+                return
 
-    def on_menuitem2103m_activate(widget):                                                    # "Terminate Process" item on the right click menu
-        selected_process_pid = Processes.selected_process_pid
-        selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
-        if Config.warn_before_stopping_processes == 1:
-            processes_terminate_process_warning_dialog(selected_process_name, selected_process_pid)
-            if warning_dialog2101_response == Gtk.ResponseType.YES:
-                try:
-                    os.kill(int(selected_process_pid), signal.SIGTERM)
-                except PermissionError:
-                    try:
-                        (subprocess.check_output(["pkexec", "kill", "-15", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-                    except subprocess.CalledProcessError:
-                        pass
-            if warning_dialog2101_response == Gtk.ResponseType.NO:
-                pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
-        if Config.warn_before_stopping_processes == 0:
-            try:
-                os.kill(selected_process_pid, signal.SIGTERM)
-            except PermissionError:
-                try:
-                    (subprocess.check_output(["pkexec", "kill", "-15", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-                except subprocess.CalledProcessError:
-                    pass
 
-    def on_menuitem2104m_activate(widget):                                                    # "Kill Process" item on the right click menu
-        selected_process_pid = Processes.selected_process_pid
-        selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
-        if Config.warn_before_stopping_processes == 1:
-            processes_kill_process_warning_dialog(selected_process_name, selected_process_pid)
-            if warning_dialog2102_response == Gtk.ResponseType.YES:
-                try:
-                    os.kill(int(selected_process_pid), signal.SIGKILL)
-                except PermissionError:
-                    try:
-                        (subprocess.check_output(["pkexec", "kill", "-9", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-                    except subprocess.CalledProcessError:
-                        pass
-            if warning_dialog2102_response == Gtk.ResponseType.NO:
-                pass                                                                          # Do nothing when "No" button is clicked. Dialog will be closed.
-        if Config.warn_before_stopping_processes == 0:
-            try:
-                os.kill(selected_process_pid, signal.SIGKILL)
-            except PermissionError:
-                try:
-                    (subprocess.check_output(["pkexec", "kill", "-9", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-                except subprocess.CalledProcessError:
-                    pass
+    # ----------------------- Called for showing Custom Priority Window -----------------------
+    def on_normalmenuitem2101m_activate(self, widget):
 
-    def on_menuitem2106m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'ProcessesDetails' not in globals():
-            global ProcessesDetails
-            import ProcessesDetails
-            ProcessesDetails.processes_details_import_func()
-            ProcessesDetails.processes_details_gui_function()
-        ProcessesDetails.window2101w.show()
-        ProcessesDetails.process_details_run_func()
-
-    def on_radiomenuitem2101m_activate(widget):                                               # "Very High" item on the right click menu under "Change Priorty (Nice)" item
-        if radiomenuitem2101m.get_active() == True:
-            try:
-                (subprocess.check_output(["renice", "-n", "-20", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()    # Command output is not printed by using "stderr=subprocess.STDOUT".
-            except subprocess.CalledProcessError:
-                try:                                                                          # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
-                    (subprocess.check_output(["pkexec", "renice", "-n", "-20", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
-                except subprocess.CalledProcessError:
-                    return
-
-    def on_radiomenuitem2102m_activate(widget):                                               # "High" item on the right click menu under "Change Priorty (Nice)" item
-        if radiomenuitem2102m.get_active() == True:
-            try:
-                (subprocess.check_output(["renice", "-n", "-10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
-            except subprocess.CalledProcessError:
-                try:
-                    (subprocess.check_output(["pkexec", "renice", "-n", "-10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
-                except subprocess.CalledProcessError:
-                    return
-
-    def on_radiomenuitem2103m_activate(widget):                                               # "Normal" item on the right click menu under "Change Priorty (Nice)" item
-        if radiomenuitem2103m.get_active() == True:
-            try:
-                (subprocess.check_output(["renice", "-n", "0", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
-            except subprocess.CalledProcessError:
-                try:
-                    (subprocess.check_output(["pkexec", "renice", "-n", "0", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
-                except subprocess.CalledProcessError:
-                    return
-
-    def on_radiomenuitem2104m_activate(widget):                                               # "Low" item on the right click menu under "Change Priorty (Nice)" item
-        if radiomenuitem2104m.get_active() == True:
-            try:
-                (subprocess.check_output(["renice", "-n", "10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
-            except subprocess.CalledProcessError:
-                try:
-                    (subprocess.check_output(["pkexec", "renice", "-n", "10", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
-                except subprocess.CalledProcessError:
-                    return
-
-    def on_radiomenuitem2105m_activate(widget):                                               # "Very Low" item on the right click menu under "Change Priorty (Nice)" item
-        if radiomenuitem2105m.get_active() == True:
-            try:
-                (subprocess.check_output(["renice", "-n", "19", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
-            except subprocess.CalledProcessError:
-                try:
-                    (subprocess.check_output(["pkexec", "renice", "-n", "19", "-p", Processes.selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
-                except subprocess.CalledProcessError:
-                    return
-
-    def on_normalmenuitem2101m_activate(widget):                                              # "Custom Value..." item on the right click menu under "Change Priorty (Nice)" item
-        if 'ProcessesCustomPriorityGUI' not in globals():                                     # Check if "ProcessesCustomPriorityGUI" module is imported. Therefore it is not reimported for every click on "Custom Value" sub-menu item on the rigth click menu if "ProcessesCustomPriorityGUI" name is in globals(). It is not recognized after tab switch if it is not imported as global.
-            global ProcessesCustomPriorityGUI
-            import ProcessesCustomPriorityGUI
-            ProcessesCustomPriorityGUI.processes_custom_priority_import_func()
-            ProcessesCustomPriorityGUI.processes_custom_priority_gui_func()
+        from ProcessesCustomPriorityGUI import ProcessesCustomPriorityGUI
         ProcessesCustomPriorityGUI.window2101w2.show()
 
 
-    # ********************** Connect signals to GUI objects for Processes tab right click menu **********************
-    menuitem2101m.connect("activate", on_menuitem2101m_activate)
-    menuitem2102m.connect("activate", on_menuitem2102m_activate)
-    menuitem2103m.connect("activate", on_menuitem2103m_activate)
-    menuitem2104m.connect("activate", on_menuitem2104m_activate)
-    menuitem2106m.connect("activate", on_menuitem2106m_activate)
-    normalmenuitem2101m.connect("activate", on_normalmenuitem2101m_activate)
-    global radiomenuitem2101m_handler_id, radiomenuitem2102m_handler_id, radiomenuitem2103m_handler_id, radiomenuitem2104m_handler_id, radiomenuitem2105m_handler_id
-    radiomenuitem2101m_handler_id = radiomenuitem2101m.connect("activate", on_radiomenuitem2101m_activate)
-    radiomenuitem2102m_handler_id = radiomenuitem2102m.connect("activate", on_radiomenuitem2102m_activate)
-    radiomenuitem2103m_handler_id = radiomenuitem2103m.connect("activate", on_radiomenuitem2103m_activate)
-    radiomenuitem2104m_handler_id = radiomenuitem2104m.connect("activate", on_radiomenuitem2104m_activate)
-    radiomenuitem2105m_handler_id = radiomenuitem2105m.connect("activate", on_radiomenuitem2105m_activate)
+    # ----------------------- Called for showing Process Details Window -----------------------
+    def on_menuitem2106m_activate(self, widget):
+
+        from ProcessesDetails import ProcessesDetails
+        ProcessesDetails.window2101w.show()
 
 
-# ----------------------------------- Processes - Select Process Nice Option Function (selects process nice option on the popup menu when right click operation is performed on process row on the treeview) -----------------------------------
-def processes_select_process_nice_option_func():
+    # ----------------------- Called for setting priority of the process on the right click menu -----------------------
+    def processes_select_process_nice_option_func(self):
 
-    try:                                                                                      # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-        with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:             # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
-            proc_pid_stat_lines = reader.read()
-    except FileNotFoundError:
-        return
-    selected_process_nice = int(proc_pid_stat_lines.split()[-34])
-    with radiomenuitem2101m.handler_block(radiomenuitem2101m_handler_id) as p1, radiomenuitem2102m.handler_block(radiomenuitem2102m_handler_id) as p2, radiomenuitem2103m.handler_block(radiomenuitem2103m_handler_id) as p3, radiomenuitem2104m.handler_block(radiomenuitem2104m_handler_id) as p4, radiomenuitem2105m.handler_block(radiomenuitem2105m_handler_id) as p5:    # Pause event signals while makiing changes on radiobutton selections.
-        if selected_process_nice <= -11 and selected_process_nice >= -20:
-            radiomenuitem2101m.set_active(True)
-        if selected_process_nice < 0 and selected_process_nice > -11:
-            radiomenuitem2102m.set_active(True)
-        if selected_process_nice == 0:
-            radiomenuitem2103m.set_active(True)
-        if selected_process_nice < 11 and selected_process_nice > 0:
-            radiomenuitem2104m.set_active(True)
-        if selected_process_nice <= 19 and selected_process_nice >= 11:
-            radiomenuitem2105m.set_active(True)
+        # Get right clicked process pid and name.
+        selected_process_pid = Processes.selected_process_pid
 
+        # Get priority (nice value) of the process.
+        try:
+            with open("/proc/" + selected_process_pid + "/stat") as reader:
+                selected_process_nice = int(reader.read().split()[-34])
+        # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+        except FileNotFoundError:
+            return
 
-# ----------------------------------- Processes - Get Process Current Nice Function (get process current nice value in order to check if root privileges are needed for nice changing operation) -----------------------------------
-def processes_get_process_current_nice_func():
-
-    try:                                                                                      # Process may be ended just after right click on the process row is performed. "try-catch" is used for avoiding errors in this situation.
-        with open("/proc/" + Processes.selected_process_pid + "/stat") as reader:
-            proc_pid_stat_lines_split = reader.read().split()
-    except FileNotFoundError:
-        return
-    global selected_process_current_nice
-    selected_process_current_nice = int(proc_pid_stat_lines_split[-34])                       # Get process nice value
+        # Pause event signals and make changes on radiobutton selections by using the process priority.
+        with self.radiomenuitem2101m.handler_block(self.radiomenuitem2101m_handler_id) as p1, self.radiomenuitem2102m.handler_block(self.radiomenuitem2102m_handler_id) as p2, self.radiomenuitem2103m.handler_block(self.radiomenuitem2103m_handler_id) as p3, self.radiomenuitem2104m.handler_block(self.radiomenuitem2104m_handler_id) as p4, self.radiomenuitem2105m.handler_block(self.radiomenuitem2105m_handler_id) as p5:
+            if selected_process_nice <= -11 and selected_process_nice >= -20:
+                self.radiomenuitem2101m.set_active(True)
+            if selected_process_nice < 0 and selected_process_nice > -11:
+                self.radiomenuitem2102m.set_active(True)
+            if selected_process_nice == 0:
+                self.radiomenuitem2103m.set_active(True)
+            if selected_process_nice < 11 and selected_process_nice > 0:
+                self.radiomenuitem2104m.set_active(True)
+            if selected_process_nice <= 19 and selected_process_nice >= 11:
+                self.radiomenuitem2105m.set_active(True)
 
 
-# ----------------------------------- Processes - Processes Terminate Process Warning Dialog Function -----------------------------------
-def processes_terminate_process_warning_dialog(process_name, process_pid):
+    # ----------------------------------- Processes - Processes Terminate Process Warning Dialog Function -----------------------------------
+    def processes_end_process_warning_dialog(self, process_dialog_message, process_name, process_pid):
 
-    warning_dialog2101 = Gtk.MessageDialog(transient_for=Processes.grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to terminate this process?"), )
-    warning_dialog2101.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
-    global warning_dialog2101_response
-    warning_dialog2101_response = warning_dialog2101.run()
-    warning_dialog2101.destroy()
+        dialog2101 = Gtk.MessageDialog(transient_for=Processes.grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
+        buttons=Gtk.ButtonsType.YES_NO, text=process_dialog_message)
+        dialog2101.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
+        self.dialog2101_response = dialog2101.run()
+        dialog2101.destroy()
 
 
-# ----------------------------------- Processes - Processes Kill Process Warning Dialog Function -----------------------------------
-def processes_kill_process_warning_dialog(process_name, process_pid):
+# Generate object
+ProcessesMenuRightClick = ProcessesMenuRightClick()
 
-    warning_dialog2102 = Gtk.MessageDialog(transient_for=Processes.grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.YES_NO, text=_tr("Do you want to kill this process?"), )
-    warning_dialog2102.format_secondary_text(process_name + " (" + "PID" + ": " + str(process_pid) + ")")
-    global warning_dialog2102_response
-    warning_dialog2102_response = warning_dialog2102.run()
-    warning_dialog2102.destroy()

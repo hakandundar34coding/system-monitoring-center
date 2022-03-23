@@ -72,23 +72,14 @@ def processes_gui_func():
 
         # Open right click menu if right clicked on a row
         if event.button == 3:
-            if 'ProcessesMenuRightClick' not in globals():
-                global ProcessesMenuRightClick
-                import ProcessesMenuRightClick
-                ProcessesMenuRightClick.processes_menu_right_click_import_func()
-                ProcessesMenuRightClick.processes_menu_right_click_gui_func()
+            from ProcessesMenuRightClick import ProcessesMenuRightClick
             ProcessesMenuRightClick.menu2101m.popup(None, None, None, None, event.button, event.time)
             ProcessesMenuRightClick.processes_select_process_nice_option_func()
 
         # Open details window if double clicked on a row
         if event.type == Gdk.EventType._2BUTTON_PRESS:
-            if 'ProcessesDetails' not in globals():
-                global ProcessesDetails
-                import ProcessesDetails
-                ProcessesDetails.processes_details_import_func()
-                ProcessesDetails.processes_details_gui_function()
+            from ProcessesDetails import ProcessesDetails
             ProcessesDetails.window2101w.show()
-            ProcessesDetails.process_details_run_func()
 
 
     # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
