@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-24 09:43+0300\n"
-"PO-Revision-Date: 2022-03-23 17:14-0300\n"
+"PO-Revision-Date: 2022-03-23 17:24-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -319,7 +319,7 @@ msgstr "Velocidade/Frequência"
 
 #: src/RamHardwareInformation.py:123 src/RamHardwareInformation.py:142
 msgid "Manufacturer"
-msgstr "Velocidade/Frequência"
+msgstr "Fabricante"
 
 #: src/RamHardwareInformation.py:124 src/RamHardwareInformation.py:143
 msgid "Form Factor"
@@ -344,7 +344,7 @@ msgstr "Em Uso"
 
 #: src/RamSwapDetails.py:97
 msgid "This system has no swap memory."
-msgstr "Este sistema não tem Memória Swap."
+msgstr "Este sistema não possui Memória Swap."
 
 #: src/Sensors.py:100
 msgid "Sensor Group"
@@ -731,7 +731,7 @@ msgstr "Freq. Min/Max:"
 
 #: ui/CpuTab.ui:225
 msgid "Current frequency of the selected CPU core"
-msgstr "Frequência atual do núcleo de CPU selecionado"
+msgstr "Frequência atual do Núcleo de CPU selecionado"
 
 #: ui/CpuTab.ui:227
 msgid "Frequency:"
