@@ -69,23 +69,14 @@ def services_gui_func():
 
         # Open right click menu if right clicked on a row
         if event.button == 3:
-            if 'ServicesMenuRightClick' not in globals():
-                global ServicesMenuRightClick
-                import ServicesMenuRightClick
-                ServicesMenuRightClick.services_menu_right_click_import_func()
-                ServicesMenuRightClick.services_menu_right_click_gui_func()
+            from ServicesMenuRightClick import ServicesMenuRightClick
             ServicesMenuRightClick.menu6101m.popup(None, None, None, None, event.button, event.time)
             ServicesMenuRightClick.services_set_checkmenuitem_func()
 
         # Open details window if double clicked on a row
         if event.type == Gdk.EventType._2BUTTON_PRESS:
-            if 'ServicesDetails' not in globals():
-                global ServicesDetails
-                import ServicesDetails
-                ServicesDetails.services_details_import_func()
-                ServicesDetails.services_details_gui_function()
+            from ServicesDetails import ServicesDetails
             ServicesDetails.window6101w.show()
-            ServicesDetails.services_details_run_func()
 
 
     # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------

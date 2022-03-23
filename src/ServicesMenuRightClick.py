@@ -1,147 +1,128 @@
 #!/usr/bin/env python3
 
-# ----------------------------------- Services - Services Menus GUI Import Function -----------------------------------
-def services_menu_right_click_import_func():
+# Import modules
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+import os
+import subprocess
 
-    global Gtk, Gdk, os, subprocess
+from locale import gettext as _tr
 
-    import gi
-    gi.require_version('Gtk', '3.0')
-    gi.require_version('Gdk', '3.0')
-    from gi.repository import Gtk, Gdk
-    import os
-    import subprocess
-
-
-    global Services
-    import Services
+from Config import Config
+import Services
 
 
-    global _tr
-    from locale import gettext as _tr
+# Define class
+class ServicesMenuRightClick:
+
+    # ----------------------- Always called when object is generated -----------------------
+    def __init__(self):
+
+        # Get GUI objects from file
+        builder = Gtk.Builder()
+        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesMenuRightClick.ui")
+
+        # Get GUI objects
+        self.menu6101m = builder.get_object('menu6101m')
+        self.menuitem6101m = builder.get_object('menuitem6101m')
+        self.menuitem6102m = builder.get_object('menuitem6102m')
+        self.menuitem6103m = builder.get_object('menuitem6103m')
+        self.menuitem6104m = builder.get_object('menuitem6104m')
+        self.menuitem6105m = builder.get_object('menuitem6105m')
+        self.menuitem6106m = builder.get_object('menuitem6106m')
+        self.checkmenuitem6107m = builder.get_object('checkmenuitem6107m')
+        self.menuitem6108m = builder.get_object('menuitem6108m')
+
+        # Connect GUI signals
+        self.menuitem6101m.connect("activate", self.on_service_manage_items_activate)
+        self.menuitem6102m.connect("activate", self.on_service_manage_items_activate)
+        self.menuitem6103m.connect("activate", self.on_service_manage_items_activate)
+        self.menuitem6104m.connect("activate", self.on_service_manage_items_activate)
+        self.menuitem6105m.connect("activate", self.on_service_manage_items_activate)
+        self.menuitem6106m.connect("activate", self.on_service_manage_items_activate)
+        # Handler id is defined in order to block signals of the checkmenuitem while setting menu item.
+        self.checkmenuitem6107m_handler_id = self.checkmenuitem6107m.connect("toggled", self.on_service_manage_items_activate)
+        self.menuitem6108m.connect("activate", self.on_menuitem6108m_activate)
 
 
-# ----------------------------------- Services - Services Menus GUI Function -----------------------------------
-def services_menu_right_click_gui_func():
+    # ----------------------- "Start" item -----------------------
+    def on_service_manage_items_activate(self, widget):
 
-    # Define builder and get all objects (Services tab right click menu) from GUI file.
-    builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ServicesMenuRightClick.ui")
-
-
-    # ********************** Define object names for Services tab right click menu **********************
-    global menu6101m
-    global menuitem6101m, menuitem6102m, menuitem6103m, menuitem6104m, menuitem6105m, menuitem6106m, checkmenuitem6107m, menuitem6108m
-
-    # ********************** Get object names for Services tab right click menu **********************
-    menu6101m = builder.get_object('menu6101m')
-    menuitem6101m = builder.get_object('menuitem6101m')
-    menuitem6102m = builder.get_object('menuitem6102m')
-    menuitem6103m = builder.get_object('menuitem6103m')
-    menuitem6104m = builder.get_object('menuitem6104m')
-    menuitem6105m = builder.get_object('menuitem6105m')
-    menuitem6106m = builder.get_object('menuitem6106m')
-    checkmenuitem6107m = builder.get_object('checkmenuitem6107m')
-    menuitem6108m = builder.get_object('menuitem6108m')
-
-    # ********************** Define object functions for Services tab right click menu **********************
-    def on_menuitem6101m_activate(widget):                                                    # "Start" item on the right click menu
+        # Get right clicked service name.
         service_name = Services.selected_service_name
+
+        # If "Start" item is clicked.
+        if widget == self.menuitem6101m:
+            service_manage_command = ["systemctl", "start", service_name]
+
+        # If "Stop" item is clicked.
+        if widget == self.menuitem6102m:
+            service_manage_command = ["systemctl", "stop", service_name]
+
+        # If "Restart" item is clicked.
+        if widget == self.menuitem6103m:
+            service_manage_command = ["systemctl", "restart", service_name]
+
+        # If "Reload" item is clicked.
+        if widget == self.menuitem6104m:
+            service_manage_command = ["systemctl", "reload", service_name]
+
+        # If "Enable" item is clicked.
+        if widget == self.menuitem6105m:
+            service_manage_command = ["systemctl", "enable", service_name]
+
+        # If "Disable" item is clicked.
+        if widget == self.menuitem6106m:
+            service_manage_command = ["systemctl", "disable", service_name]
+
+        # If "Mask" item is clicked and it is checked.
+        if widget == self.checkmenuitem6107m and widget.get_active() == True:
+            service_manage_command = ["systemctl", "mask", service_name]
+
+        # If "Mask" item is clicked and it is unchecked.
+        if widget == self.checkmenuitem6107m and widget.get_active() == False:
+            service_manage_command = ["systemctl", "unmask", service_name]
+
+        # Manage the right clicked service and show an information dialog if there is output messages (warnings/errors).
         try:
-            (subprocess.check_output(["systemctl", "start", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
+            (subprocess.check_output(service_manage_command, stderr=subprocess.STDOUT, shell=False)).decode()
         except subprocess.CalledProcessError as e:
-            services_action_warning_dialog(e.output.decode("utf-8").strip())
+            self.services_action_warning_dialog(e.output.decode("utf-8").strip())
         return
 
-    def on_menuitem6102m_activate(widget):                                                    # "Stop" item on the right click menu
-        service_name = Services.selected_service_name
-        try:
-            (subprocess.check_output(["systemctl", "stop", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
-        except subprocess.CalledProcessError as e:
-            services_action_warning_dialog(e.output.decode("utf-8").strip())
-        return
 
-    def on_menuitem6103m_activate(widget):                                                    # "Restart" item on the right click menu
-        service_name = Services.selected_service_name
-        try:
-            (subprocess.check_output(["systemctl", "restart", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
-        except subprocess.CalledProcessError as e:
-            services_action_warning_dialog(e.output.decode("utf-8").strip())
-        return
+    # ----------------------- "Details" item -----------------------
+    def on_menuitem6108m_activate(self, widget):
 
-    def on_menuitem6104m_activate(widget):                                                    # "Reload" item on the right click menu
-        service_name = Services.selected_service_name
-        try:
-            (subprocess.check_output(["systemctl", "reload", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
-        except subprocess.CalledProcessError as e:
-            services_action_warning_dialog(e.output.decode("utf-8").strip())
-        return
-
-    def on_menuitem6105m_activate(widget):                                                    # "Enable" item on the right click menu
-        service_name = Services.selected_service_name
-        try:
-            (subprocess.check_output(["systemctl", "enable", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
-        except subprocess.CalledProcessError as e:
-            services_action_warning_dialog(e.output.decode("utf-8").strip())
-        return
-
-    def on_menuitem6106m_activate(widget):                                                    # "Disable" item on the right click menu
-        service_name = Services.selected_service_name
-        try:
-            (subprocess.check_output(["systemctl", "disable", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
-        except subprocess.CalledProcessError as e:
-            services_action_warning_dialog(e.output.decode("utf-8").strip())
-        return
-
-    def on_checkmenuitem6107m_toggled(widget):                                                # "Mask" item on the right click menu
-        service_name = Services.selected_service_name
-        try:
-            if checkmenuitem6107m.get_active() == True:
-                (subprocess.check_output(["systemctl", "mask", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
-            if checkmenuitem6107m.get_active() == False:
-                (subprocess.check_output(["systemctl", "unmask", service_name], stderr=subprocess.STDOUT, shell=False)).decode()
-        except subprocess.CalledProcessError as e:
-            services_action_warning_dialog(e.output.decode("utf-8").strip())
-
-    def on_menuitem6108m_activate(widget):                                                    # "Details" item on the right click menu
-        if 'ServicesDetails' not in globals():
-            global ServicesDetails
-            import ServicesDetails
-            ServicesDetails.services_details_import_func()
-            ServicesDetails.services_details_gui_function()
+        from ServicesDetails import ServicesDetails
         ServicesDetails.window6101w.show()
-        ServicesDetails.services_details_run_func()
-
-    # ********************** Connect signals to GUI objects for Services tab right click menu **********************
-    menuitem6101m.connect("activate", on_menuitem6101m_activate)
-    menuitem6102m.connect("activate", on_menuitem6102m_activate)
-    menuitem6103m.connect("activate", on_menuitem6103m_activate)
-    menuitem6104m.connect("activate", on_menuitem6104m_activate)
-    menuitem6105m.connect("activate", on_menuitem6105m_activate)
-    menuitem6106m.connect("activate", on_menuitem6106m_activate)
-    global checkmenuitem6107m_handler_id
-    checkmenuitem6107m_handler_id = checkmenuitem6107m.connect("toggled", on_checkmenuitem6107m_toggled)    # Handler id is defined in order to block signals of the checkmenuitem. Because checkmenuitem is set as "activated/deactivated" appropriate with relevant service status when right click and mouse button release action is finished. This action triggers unwanted event signals.
-    menuitem6108m.connect("activate", on_menuitem6108m_activate)
 
 
-# ----------------------------------- Services - Set Checkmenuitems (acivates/deactivates checkmenuitem (Enable/Disable checkbox for service status (enabled/disabled, masked/unmasked)) on the popup menu when right click operation is performed on service row on the treeview) -----------------------------------
-def services_set_checkmenuitem_func():
+    # ----------------------- Called for activating/deactivating "Enable/Disable" checkmenuitem -----------------------
+    def services_set_checkmenuitem_func(self):
 
-    service_name = Services.selected_service_name
-    service_status = (subprocess.check_output(["systemctl", "show", service_name, "--property=UnitFileState"], shell=False)).decode().strip().split("=")[1]
-    with checkmenuitem6107m.handler_block(checkmenuitem6107m_handler_id):
-        if service_status == "masked":
-            checkmenuitem6107m.set_active(True)
-        if service_status != "masked":
-            checkmenuitem6107m.set_active(False)
+        service_name = Services.selected_service_name
+
+        service_status = (subprocess.check_output(["systemctl", "show", service_name, "--property=UnitFileState"], shell=False)).decode().strip().split("=")[1]
+
+        with self.checkmenuitem6107m.handler_block(self.checkmenuitem6107m_handler_id):
+            if service_status == "masked":
+                self.checkmenuitem6107m.set_active(True)
+            if service_status != "masked":
+                self.checkmenuitem6107m.set_active(False)
 
 
-# ----------------------------------- Services - Service Action Warning Dialog Function (shows a warning dialog when an output text is obtained during service actions (start, stop, reload, etc.)) -----------------------------------
-def services_action_warning_dialog(dialog_text):
+    # ----------------------------------- Services - Service Action Warning Dialog Function (shows a warning dialog when an output text is obtained during service actions (start, stop, reload, etc.)) -----------------------------------
+    def services_action_warning_dialog(self, dialog_text):
 
-    warning_dialog6101 = Gtk.MessageDialog(transient_for=Services.grid6101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"), )
-    warning_dialog6101.format_secondary_text(dialog_text)
-    global warning_dialog6101_response
-    warning_dialog6101_response = warning_dialog6101.run()
-    warning_dialog6101.destroy()
+        warning_dialog6101 = Gtk.MessageDialog(transient_for=Services.grid6101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.WARNING,
+        buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"))
+        warning_dialog6101.format_secondary_text(dialog_text)
+        self.warning_dialog6101_response = warning_dialog6101.run()
+        warning_dialog6101.destroy()
+
+
+# Generate object
+ServicesMenuRightClick = ServicesMenuRightClick()
+

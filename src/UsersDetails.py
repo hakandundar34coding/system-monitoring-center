@@ -60,7 +60,7 @@ class UsersDetails:
 
         try:
             # Delete "update_interval" variable in order to let the code to run initial function. Otherwise, data from previous user (if it was viewed) will be used.
-            self.update_interval
+            del self.update_interval
         except AttributeError:
             pass
 
