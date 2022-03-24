@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-24 09:43+0300\n"
-"PO-Revision-Date: 2022-03-08 20:17+0300\n"
+"PO-Revision-Date: 2022-03-24 10:36-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/Cpu.py:268 ui/CpuMenus.ui:72 ui/CpuTab.ui:439
 msgid "CPU Usage (Average)"
@@ -344,7 +344,7 @@ msgstr "Em Uso"
 
 #: src/RamSwapDetails.py:97
 msgid "This system has no swap memory."
-msgstr "Este sistema não tem Memória Swap."
+msgstr "Este sistema não possui Memória Swap."
 
 #: src/Sensors.py:100
 msgid "Sensor Group"
@@ -719,7 +719,7 @@ msgstr "Número de núcleos de CPU físicos e lógicos online"
 
 #: ui/CpuTab.ui:187
 msgid "Cores (Physical-Logical):"
-msgstr "Núcleos (Físicos e Lógicos):"
+msgstr "Núcleos (Físicos-Lógicos):"
 
 #: ui/CpuTab.ui:200
 msgid "CPU Sockets:"
@@ -727,11 +727,11 @@ msgstr "Soquetes de CPU:"
 
 #: ui/CpuTab.ui:213
 msgid "Min-Max Frequency:"
-msgstr "Frequência Min/Max:"
+msgstr "Frequência Min-Max:"
 
 #: ui/CpuTab.ui:225
 msgid "Current frequency of the selected CPU core"
-msgstr "Frequência atual do núcleo de CPU selecionado"
+msgstr "Frequência atual do Núcleo de CPU selecionado"
 
 #: ui/CpuTab.ui:227
 msgid "Frequency:"
@@ -1057,7 +1057,7 @@ msgstr "Sobre"
 
 #: ui/MainWindow.ui:828
 msgid "System Monitoring Center"
-msgstr "Centro de Monitoramento do Sistema"
+msgstr "Central de Monitoramento do Sistema"
 
 #: ui/MainWindow.ui:836
 msgid "Main Menu"
@@ -1622,7 +1622,7 @@ msgstr "Nome:"
 
 #: ui/SystemTab.ui:160
 msgid "Version - Code Name:"
-msgstr "Versão - 'Code Name':"
+msgstr "Versão - Codinome:"
 
 #: ui/SystemTab.ui:207
 msgid "Model:"
