@@ -83,6 +83,7 @@ class Ram:
     # ----------------------- Called for drawing RAM usage as line chart -----------------------
     def on_drawingarea1201_draw(self, widget, ctx):
 
+        # Get values from "Config and Peformance" modules and use this defined values in order to avoid multiple uses of variables from another module since CPU usage is higher for this way.
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
 
@@ -91,45 +92,72 @@ class Ram:
         chart_line_color = Config.chart_line_color_ram_swap_percent
         chart_background_color = Config.chart_background_color_all_charts
 
+        # Chart foreground and chart fill below line colors may be set different for charts in different style (line, bar, etc.) and different places (tab pages, headerbar, etc.).
+        # Set chart foreground color (chart outer frame and gridline colors) same as "chart_line_color" in multiplication with transparency factor "0.4".
         chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
+        # Set chart fill below line color same as "chart_line_color" in multiplication with transparency factor "0.15".
         chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
 
+        # Get drawingarea width and height. Therefore chart width and height is updated dynamically by using these values when window size is changed by user.
         chart1201_width = Gtk.Widget.get_allocated_width(widget)
         chart1201_height = Gtk.Widget.get_allocated_height(widget)
 
+        # Set color for chart background, draw chart background rectangle and fill the inner area.
+        # Only one drawing style with multiple properties (color, line width, dash style) can be set at the same time.
+        # As a result style should be set, drawing should be done and another style shpuld be set for next drawing.
         ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
         ctx.rectangle(0, 0, chart1201_width, chart1201_height)
         ctx.fill()
 
+        # Change line width, dash style (if [4, 3] is used, this means draw 4 pixels, skip 3 pixels) and color for chart gridlines.
         ctx.set_line_width(1)
         ctx.set_dash([4, 3])
         ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        # Draw horizontal gridlines (range(3) means 3 gridlines will be drawn)
         for i in range(3):
             ctx.move_to(0, chart1201_height/4*(i+1))
             ctx.line_to(chart1201_width, chart1201_height/4*(i+1))
+        # Draw vertical gridlines
         for i in range(4):
             ctx.move_to(chart1201_width/5*(i+1), 0)
             ctx.line_to(chart1201_width/5*(i+1), chart1201_height)
+        # "stroke" command draws line (line or closed shapes with empty inner area). "fill" command should be used for filling inner areas.
         ctx.stroke()
 
+        # Change line style (solid line) for chart foreground.
         ctx.set_dash([], 0)
+        # Draw chart outer rectange.
         ctx.rectangle(0, 0, chart1201_width, chart1201_height)
         ctx.stroke()
 
+        # Change the color for drawing data line (curve).
         ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
         ctx.move_to(chart1201_width*chart_x_axis[0]/(chart_data_history-1), chart1201_height - chart1201_height*ram_usage_percent[0]/100)
+        # Move drawing point (cairo context which is used for drawing on drawable objects) from data point to data point and connect them by a line in order to draw a curve.
+        # First, move drawing point to the lower left corner of the chart and draw all data points one by one by going to the right direction.
+        # Move drawing point to the next data points and connect them by a line.
         for i in range(len(chart_x_axis) - 1):
+            # Distance to move on the horizontal and vertical axes.
             delta_x_chart1201 = (chart1201_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1201_width * chart_x_axis[i]/(chart_data_history-1))
             delta_y_chart1201 = (chart1201_height*ram_usage_percent[i+1]/100) - (chart1201_height*ram_usage_percent[i]/100)
+            # Move
             ctx.rel_line_to(delta_x_chart1201, -delta_y_chart1201)
 
+        # Move drawing point 10 pixel right in order to go out of the visible drawing area for drawing a closed shape for filling the inner area.
         ctx.rel_line_to(10, 0)
+        # Move drawing point "chart_height+10" down in order to stay out of the visible drawing area for drawing a closed shape for filling the inner area.
         ctx.rel_line_to(0, chart1201_height+10)
+        # Move drawing point "chart1101_width+20" pixel left (by using a minus sign) in order to stay out of the visible drawing area for drawing a closed shape for filling the inner area.
         ctx.rel_line_to(-(chart1201_width+20), 0)
+        # Move drawing point "chart_height+10" up in order to stay out of the visible drawing area for drawing a closed shape for filling the inner area.
         ctx.rel_line_to(0, -(chart1201_height+10))
+        # Finally close the curve in order to fill the inner area which will represent a curve with a filled "below" area.
         ctx.close_path()
+        # Use "stroke_preserve" in order to use the same area for filling. 
         ctx.stroke_preserve()
+        # Change the color for filling operation.
         ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        # Fill the area
         ctx.fill()
 
 

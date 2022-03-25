@@ -246,9 +246,9 @@ def services_loop_func():
     if os.path.isdir("/usr/lib/systemd/system/") == True:
         service_unit_files_dir = "/usr/lib/systemd/system/"
     else:
-        service_unit_files_dir = "/lib/systemd/system/system/"
+        service_unit_files_dir = "/lib/systemd/system/"
 
-    service_unit_file_list = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]# Get file names which ends withs ".service".
+    service_unit_file_list = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]    # Get file names which ends withs ".service".
     service_files_from_run_systemd_list = [filename.split("invocation:", 1)[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
 
     for file in service_unit_file_list[:]:                                                    # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
