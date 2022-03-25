@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.38.2 -->
 <interface>
-  <requires lib="gtk+" version="3.24"/>
+  <requires lib="gtk+" version="3.22"/>
   <!-- n-columns=4 n-rows=2 -->
   <object class="GtkGrid" id="grid101">
     <property name="visible">True</property>
