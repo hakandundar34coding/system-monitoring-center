@@ -12,7 +12,6 @@ BuildRequires:  python3-setuptools
 Requires:       bash >= 4.4
 Requires:       dmidecode
 Requires:       glx-utils
-# hwdata package is installed on Fedora for pci.ids file.
 Requires:       hwdata
 Requires:       iproute
 Requires:       python3 >= 3.6
