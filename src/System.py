@@ -124,17 +124,28 @@ class System:
             if cpu_architecture == "":
                 cpu_architecture = "-"
 
-        # Get computer vendor, model, chassis information (These informations may not be available on some systems such as ARM CPU used motherboards).
+        # Get computer vendor ("/sys/devices/virtual/dmi" is used for UEFI/ACPI systems and not found on ARM systems)
+        #, model, chassis information (These informations may not be available on some systems such as ARM CPU used motherboards).
         try:
             with open("/sys/devices/virtual/dmi/id/sys_vendor") as reader:
                 computer_vendor = reader.read().strip()
         except FileNotFoundError:
             computer_vendor = "-"
+
+        # Get computer model ("/sys/devices/virtual/dmi" is used for UEFI/ACPI systems and not found on ARM systems)
         try:
             with open("/sys/devices/virtual/dmi/id/product_name") as reader:
                 computer_model = reader.read().strip()
         except FileNotFoundError:
-            computer_model = "-"
+            # Try to get computer model for ARM systems.
+            try:
+                # "/proc/device-tree/model" is a symlink to "/sys/firmware/devicetree/base/model" and using it is safer. For details: https://github.com/torvalds/linux/blob/v5.9/Documentation/ABI/testing/sysfs-firmware-ofw
+                with open("/proc/device-tree/model") as reader:
+                    computer_model = reader.read().strip()
+            except FileNotFoundError:
+                computer_model = "-"
+
+        # Get computer chassis ("/sys/devices/virtual/dmi" is used for UEFI/ACPI systems and not found on ARM systems)
         try:
             with open("/sys/devices/virtual/dmi/id/chassis_type") as reader:
                 computer_chassis_type_value = reader.read().strip()
