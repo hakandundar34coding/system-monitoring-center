@@ -242,15 +242,17 @@ def services_loop_func():
     service_loaded_not_loaded_list = []
 
     # Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories. But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
-    try:
-        service_unit_file_list = [filename for filename in os.listdir("/usr/lib/systemd/system/") if filename.endswith(".service")]# Get file names which ends withs ".service".
     # There is no "/usr/lib/systemd/system/" on some ARM systems and "/lib/systemd/system/" is used in this case. "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
-    except FileNotFoundError:
-        service_unit_file_list = [filename for filename in os.listdir("/lib/systemd/system/system/") if filename.endswith(".service")]    # Get file names which ends withs ".service".
+    if os.path.isdir("/usr/lib/systemd/system/") == True:
+        service_unit_files_dir = "/usr/lib/systemd/system/"
+    else:
+        service_unit_files_dir = "/lib/systemd/system/system/"
+
+    service_unit_file_list = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]# Get file names which ends withs ".service".
     service_files_from_run_systemd_list = [filename.split("invocation:", 1)[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
 
     for file in service_unit_file_list[:]:                                                    # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
-        if os.path.islink("/usr/lib/systemd/system/" + file) == True and os.path.realpath("/usr/lib/systemd/system/" + file) != "/dev/null":    # Some service files are link to other ".service" files in the same directory. These links are removed from the list. Not all link files are removed. Link files with "/dev/null" are kept in the list.
+        if os.path.islink(service_unit_files_dir + file) == True and os.path.realpath(service_unit_files_dir + file) != "/dev/null":    # Some service files are link to other ".service" files in the same directory. These links are removed from the list. Not all link files are removed. Link files with "/dev/null" are kept in the list.
             service_unit_file_list.remove(file)
 
     # Get all service names (joining service names from "systemctl list-unit-files ..." and "systemctl list-units ..."). Some services are run multiple times. For example there is one instance of "user@.service" from ""systemctl list-unit-files ..." command but there are two loaded services (user@1000.service and user@1001.service) per logged in user. There are several examples for this situation. "user@.service" is removed from list, "user@1000.service" and "user@1001.service" appended into list for getting information for all services correctly.
