@@ -9,18 +9,18 @@ BuildArch:      noarch
 
 BuildRequires:  python3-setuptools
 
-Requires:       bash >= 5.0
+Requires:       bash >= 4.4
 Requires:       dmidecode
 Requires:       glx-utils
 # hwdata package is installed on Fedora for pci.ids file.
 Requires:       hwdata
 Requires:       iproute
-Requires:       python3 >= 3.7
+Requires:       python3 >= 3.6
 Requires:       python3-cairo
 # python3-gobject is installed on Fedora (python3-gi on Debian-like systems)
 Requires:       python3-gobject
 Requires:       systemd
-Requires:       util-linux >= 2.33
+Requires:       util-linux >= 2.31
 
 %description
 Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, startup programs, services and system.
