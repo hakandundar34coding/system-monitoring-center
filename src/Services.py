@@ -242,7 +242,11 @@ def services_loop_func():
     service_loaded_not_loaded_list = []
 
     # Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories. But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
-    service_unit_file_list = [filename for filename in os.listdir("/usr/lib/systemd/system/") if filename.endswith(".service")]    # Get file names which ends withs ".service".
+    try:
+        service_unit_file_list = [filename for filename in os.listdir("/usr/lib/systemd/system/") if filename.endswith(".service")]# Get file names which ends withs ".service".
+    # There is no "/usr/lib/systemd/system/" on some ARM systems and "/lib/systemd/system/" is used in this case. "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
+    except FileNotFoundError:
+        service_unit_file_list = [filename for filename in os.listdir("/lib/systemd/system/system/") if filename.endswith(".service")]    # Get file names which ends withs ".service".
     service_files_from_run_systemd_list = [filename.split("invocation:", 1)[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
 
     for file in service_unit_file_list[:]:                                                    # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
