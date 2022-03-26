@@ -338,49 +338,57 @@ class Gpu:
         self.gpu_device_id_list = []
         # Initial value of "default_gpu" variable.
         self.default_gpu = ""
-        # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" (for Debian-like systems) or in "/usr/share/hwdata/pci.ids" (systems other than Debian-like systems).
+        # Read "pci.ids" file.
+        with open("/usr/share/hwdata/pci.ids") as reader:
+            ids_file_output = reader.read()
+
+        # Get GPU list from "/sys/class/drm/" directory which is used by many x86_64 desktop systems.
         try:
-            with open("/usr/share/misc/pci.ids") as reader:
-                pci_ids_output = reader.read()
+            self.gpu_list = [gpu_name for gpu_name in os.listdir("/dev/dri/") if gpu_name.rstrip("0123456789") == "card"]
+            gpu_card_directory = "/sys/class/drm/"
+        # Try to get GPU list from "/sys/devices/" folder which is used by some ARM systems.
         except FileNotFoundError:
-            with open("/usr/share/hwdata/pci.ids") as reader:
-                pci_ids_output = reader.read()
-        self.gpu_list = [gpu_name for gpu_name in os.listdir("/dev/dri/") if gpu_name.rstrip("0123456789") == "card"]
+            self.gpu_list = [gpu_name for gpu_name in os.listdir("/sys/devices/") if gpu_name.split(".")[0] == "gpu"]
+            gpu_card_directory = "/sys/devices/"
         for gpu in self.gpu_list:
             try:
-                with open("/sys/class/drm/" + gpu + "/device/boot_vga") as reader:
+                with open(gpu_card_directory + gpu + "/device/boot_vga") as reader:
                     if reader.read().strip() == "1":
                         self.default_gpu = gpu
             except FileNotFoundError:
                 pass
-            # "vendor" and "device" files may not be present on ARM systems even if there is a GPU.
-            try:
-                with open("/sys/class/drm/" + gpu + "/device/vendor") as reader:
-                    gpu_vendor_id = reader.read().split("x")[1].strip()
-                with open("/sys/class/drm/" + gpu + "/device/device") as reader:
-                    gpu_device_id = reader.read().split("x")[1].strip()
-            except FileNotFoundError:
-                gpu_vendor_id = "_unknown_vendor_"
-                gpu_device_id = "_unknown_device_"
-            gpu_vendor_id_for_search = "\n" + gpu_vendor_id + "  "
-            gpu_device_id_for_search = "\n\t" + gpu_device_id + "  "
-            # "vendor" information may not be present in the pci.ids file.
-            if gpu_vendor_id_for_search in pci_ids_output:
-                # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
-                rest_of_the_pci_ids_output = pci_ids_output.split(gpu_vendor_id_for_search, 1)[1]
-                gpu_vendor_name = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-            else:
-                gpu_vendor_name = f'[{_tr("Unknown")}]'
-            # "device name" information may not be present in the pci.ids file.
-            if gpu_device_id_for_search in rest_of_the_pci_ids_output and gpu_vendor_name != f'[{_tr("Unknown")}]':
-                rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(gpu_device_id_for_search, 1)[1]
-                gpu_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-            else:
-                gpu_device_name = f'[{_tr("Unknown")}]'
-            self.gpu_device_model_name.append(f'{gpu_vendor_name} - {gpu_device_name}')
+            # Read device vendor and model ids by reading "modalias" file.
+            with open(gpu_card_directory + gpu + "/device/modalias") as reader:
+                modalias_output = reader.read().strip()
+            # Determine device subtype.
+            device_subtype, device_alias = modalias_output.split(":", 1)
+            # Get device vendor and model ids and read "pci.ids" file if device subtype is "pci". Also trim "0000" characters by using [4:].
+            if device_subtype == "pci":
+                device_vendor_id = device_alias.split("v", 1)[-1].split("d", 1)[0].lower()[4:]
+                device_model_id = device_alias.split("d", 1)[-1].split("sv", 1)[0].lower()[4:]
+                # Search device vendor and model names in the pci.ids.
+                device_vendor_id = "\n" + device_vendor_id + "  "
+                device_model_id = "\n\t" + device_model_id + "  "
+                if device_vendor_id in ids_file_output:
+                    rest_of_the_ids_file_output = ids_file_output.split(device_vendor_id, 1)[1]
+                    device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0].strip()
+                    # "device name" information may not be present in the pci.ids file.
+                    if device_model_id in rest_of_the_ids_file_output:
+                        rest_of_the_rest_of_the_ids_file_output = rest_of_the_ids_file_output.split(device_model_id, 1)[1]
+                        device_model_name = rest_of_the_rest_of_the_ids_file_output.split("\n", 1)[0].strip()
+                    else:
+                        device_model_name = f'[{_tr("Unknown")}]'
+                else:
+                    device_vendor_name = f'[{_tr("Unknown")}]'
+                    device_model_name = f'[{_tr("Unknown")}]'
+            # Get device vendor and model ids and device vendor and model names if device subtype is "of".
+            if device_subtype == "of":
+                device_vendor_id = device_vendor_name = device_alias.split("C", 1)[-1].split("C", 1)[0].split(",")[0].title()
+                device_model_id = device_model_name = device_alias.split("C", 1)[-1].split("C", 1)[0].split(",")[1].title()
+            self.gpu_device_model_name.append(f'{device_vendor_name} - {device_model_name}')
             # These lists will be used for matching with GPU information from "glxinfo" command.
-            self.gpu_vendor_id_list.append(gpu_vendor_id)
-            self.gpu_device_id_list.append(gpu_device_id)
+            self.gpu_vendor_id_list.append(device_vendor_id.strip())
+            self.gpu_device_id_list.append(device_model_id.strip())
 
         # Set selected gpu/graphics card
         # "" is predefined gpu name before release of the software. This statement is used in order to avoid error, if no gpu selection is made since first run of the software.

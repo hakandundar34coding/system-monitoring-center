@@ -181,7 +181,7 @@ class Network:
                 # Read "pci.ids" file.
                 with open("/usr/share/hwdata/pci.ids") as reader:
                     ids_file_output = reader.read()
-            # Get device vendor and model ids and read "usb.ids" file if device subtype is "pci".
+            # Get device vendor and model ids and read "usb.ids" file if device subtype is "usb".
             if device_subtype == "usb":
                 device_vendor_id = device_alias.split("v", 1)[-1].split("p", 1)[0].lower()
                 device_model_id = device_alias.split("p", 1)[-1].split("d", 1)[0].lower()
