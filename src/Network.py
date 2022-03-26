@@ -166,38 +166,44 @@ class Network:
         selected_network_card = network_card_list[selected_network_card_number]
 
         # Get vendor and model names
-        network_card_vendor_name = "-"
-        network_card_device_name = "-"
+        device_vendor_name = "-"
+        device_model_name = "-"
         if selected_network_card != "lo":
-            # Get network card vendor id
-            with open("/sys/class/net/" + selected_network_card + "/device/vendor") as reader:
-                network_card_vendor_id = "\n" + reader.read().split("x")[1].strip() + "  "
-            # Get network card device id
-            with open("/sys/class/net/" + selected_network_card + "/device/device") as reader:
-                network_card_device_id = "\n\t" + reader.read().split("x")[1].strip() + "  "
-            # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" (for Debian-like systems) or in "/usr/share/hwdata/pci.ids" (systems other than Debian-like systems).
-            try:
-                with open("/usr/share/misc/pci.ids") as reader:
-                    pci_ids_output = reader.read()
-            except FileNotFoundError:
+            # Read device vendor and model ids by reading "modalias" file.
+            with open("/sys/class/net/" + selected_network_card + "/device/modalias") as reader:
+                modalias_output = reader.read().strip()
+            # Determine device subtype.
+            device_subtype, device_alias = modalias_output.split(":", 1)
+            # Get device vendor and model ids and read "pci.ids" file if device subtype is "pci". Also trim "0000" characters by using [4:].
+            if device_subtype == "pci":
+                device_vendor_id = device_alias.split("v", 1)[-1].split("d", 1)[0].lower()[4:]
+                device_model_id = device_alias.split("d", 1)[-1].split("sv", 1)[0].lower()[4:]
+                # Read "pci.ids" file.
                 with open("/usr/share/hwdata/pci.ids") as reader:
-                    pci_ids_output = reader.read()
-            # "vendor" information may not be present in the pci.ids file.
-            if network_card_vendor_id in pci_ids_output:
-                rest_of_the_pci_ids_output = pci_ids_output.split(network_card_vendor_id, 1)[1]
-                network_card_vendor_name = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-            else:
-                network_card_vendor_name = f'[{_tr("Unknown")}]'
-            if network_card_vendor_name != f'[{_tr("Unknown")}]':
+                    ids_file_output = reader.read()
+            # Get device vendor and model ids and read "usb.ids" file if device subtype is "pci".
+            if device_subtype == "usb":
+                device_vendor_id = device_alias.split("v", 1)[-1].split("p", 1)[0].lower()
+                device_model_id = device_alias.split("p", 1)[-1].split("d", 1)[0].lower()
+                # Read "usb.ids" file by specifying encoding method. Because this file has some characters in different encoding method.
+                with open("/usr/share/hwdata/usb.ids", encoding='ISO-8859-1') as reader:
+                    ids_file_output = reader.read()
+            # Search device vendor and model names in the pci.ids or usb.ids file.
+            device_vendor_id = "\n" + device_vendor_id + "  "
+            device_model_id = "\n\t" + device_model_id + "  "
+            if device_vendor_id in ids_file_output:
+                rest_of_the_ids_file_output = ids_file_output.split(device_vendor_id, 1)[1]
+                device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0].strip()
                 # "device name" information may not be present in the pci.ids file.
-                if network_card_device_id in rest_of_the_pci_ids_output:
-                    rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(network_card_device_id, 1)[1]
-                    network_card_device_name = rest_of_the_rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
+                if device_model_id in rest_of_the_ids_file_output:
+                    rest_of_the_rest_of_the_ids_file_output = rest_of_the_ids_file_output.split(device_model_id, 1)[1]
+                    device_model_name = rest_of_the_rest_of_the_ids_file_output.split("\n", 1)[0].strip()
                 else:
-                    network_card_device_name = f'[{_tr("Unknown")}]'
+                    device_model_name = f'[{_tr("Unknown")}]'
             else:
-                network_card_device_name = f'[{_tr("Unknown")}]'
-        network_card_device_model_name = f'{network_card_vendor_name} - {network_card_device_name}'
+                device_vendor_name = f'[{_tr("Unknown")}]'
+                device_model_name = f'[{_tr("Unknown")}]'
+        network_card_device_model_name = f'{device_vendor_name} - {device_model_name}'
         # lo (Loopback Device) is a system device and it is not a physical device. It could not be found in "pci.ids" file.
         if selected_network_card == "lo":
             network_card_device_model_name = "Loopback Device"
