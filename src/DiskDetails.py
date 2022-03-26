@@ -133,7 +133,7 @@ class DiskDetails:
 
         # Get disk path, mount point, file system and mode information
         with open("/proc/mounts") as reader:
-            proc_mounts_lines = reader.read().strip().split("\n")
+            proc_mounts_output_lines = reader.read().strip().split("\n")
         # Get swap disk information
         with open("/proc/swaps") as reader:
             # Get without first line (header line). 
@@ -170,27 +170,33 @@ class DiskDetails:
                 if os.path.isdir("/sys/class/block/" + check_disk_dir + "/" + disk) == True:
                     disk_parent_name = check_disk_dir
 
-        # Get disk mount point which will be used for getting disk free, used spaces, used space percentage and also will be shown on the label as "disk mount point" information.
+        # Get disk mount point
         disk_mount_point = _tr("[Not mounted]")
-        for line in proc_mounts_lines:
+        disk_mount_point_list_scratch = []
+        for line in proc_mounts_output_lines:
             line_split = line.split()
             if line_split[0].split("/")[-1] == disk:
                 # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
-                disk_mount_point = bytes(line_split[1], "utf-8").decode("unicode_escape")
+                disk_mount_point_list_scratch.append(bytes(line_split[1], "utf-8").decode("unicode_escape"))
+        if len(disk_mount_point_list_scratch) == 1:
+            disk_mount_point = disk_mount_point_list_scratch[0]
+        # System disk is listed twice with different mountpoints on some systems (such as systems use btrfs filsystem or chroot). "/" mountpoint information is used.
+        if len(disk_mount_point_list_scratch) > 1 and "/" in disk_mount_point_list_scratch:
+            disk_mount_point = "/"
 
         # Get if disk is system disk information
         disk_system_disk = _tr("No")
         # This variable (initial value) is defined here because system disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
-        disk_in_proc_mounts_lines = "no"
-        for line in proc_mounts_lines:
+        disk_in_proc_mounts_output_lines = "no"
+        for line in proc_mounts_output_lines:
             line_split = line.split(" ", 2)
             if line_split[0].split("/")[-1] == disk:
-                disk_in_proc_mounts_lines = "yes"
+                disk_in_proc_mounts_output_lines = "yes"
                 if line_split[1] == "/":
                     disk_system_disk = _tr("Yes")
                     break
-        if disk_in_proc_mounts_lines == "no":
-            for line in proc_mounts_lines:
+        if disk_in_proc_mounts_output_lines == "no":
+            for line in proc_mounts_output_lines:
                 line_split = line.split(" ", 1)
                 if line_split[0] == "dev/root":
                     with open("/proc/cmdline") as reader:
@@ -207,7 +213,7 @@ class DiskDetails:
         # Get disk file system
         # Initial value of the variable.
         disk_file_system = _tr("[Not mounted]")
-        for line in proc_mounts_lines:
+        for line in proc_mounts_output_lines:
             if line.split()[0].strip() == ("/dev/" + disk):
                 disk_file_system = line.split()[2].strip()
                 break
