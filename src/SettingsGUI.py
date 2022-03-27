@@ -491,10 +491,10 @@ class SettingsGUI:
         chart_data_history_new = Config.chart_data_history
         if chart_data_history_current > chart_data_history_new:                                   # Trim beginning part of the lists if new "chart_data_history" value is smaller than the old value.
             Performance.cpu_usage_percent_ave = Performance.cpu_usage_percent_ave[chart_data_history_current-chart_data_history_new:]    # "cpu_usage_percent_ave" list has no sub-lists and trimming is performed in this way.
+            cpu_usage_percent_per_core_len = len(Performance.cpu_usage_percent_per_core)
+            for i in range(cpu_usage_percent_per_core_len):
+                Performance.cpu_usage_percent_per_core[i] = Performance.cpu_usage_percent_per_core[i][chart_data_history_current-chart_data_history_new:]    # "cpu_usage_percent_per_core" list has sub-lists and trimming is performed for every sub-lists (for every CPU core).
             Performance.ram_usage_percent = Performance.ram_usage_percent[chart_data_history_current-chart_data_history_new:]    # "ram_usage_percent" list has no sub-lists and trimming is performed in this way.
-            if MainGUI.radiobutton1005.get_active() == True:
-                from Gpu import Gpu
-                Gpu.fps_count = Gpu.fps_count[chart_data_history_current-chart_data_history_new:]     # "fps_count" list has no sub-lists and trimming is performed in this way.
             disk_read_speed_len = len(Performance.disk_read_speed)
             for i in range(disk_read_speed_len):
                 Performance.disk_read_speed[i] = Performance.disk_read_speed[i][chart_data_history_current-chart_data_history_new:]    # "disk_read_speed" list has sub-lists and trimming is performed for every sub-lists (for every disk).
@@ -503,13 +503,16 @@ class SettingsGUI:
             for i in range(network_receive_speed_len):
                 Performance.network_receive_speed[i] = Performance.network_receive_speed[i][chart_data_history_current-chart_data_history_new:]    # "network_receive_speed" list has sub-lists and trimming is performed for every sub-lists (for every network card).
                 Performance.network_send_speed[i] = Performance.network_send_speed[i][chart_data_history_current-chart_data_history_new:]    # "network_send_speed" list has sub-lists and trimming is performed for every sub-lists (for every network card).
+            if MainGUI.radiobutton1005.get_active() == True:
+                from Gpu import Gpu
+                Gpu.fps_count = Gpu.fps_count[chart_data_history_current-chart_data_history_new:]     # "fps_count" list has no sub-lists and trimming is performed in this way.
         if chart_data_history_current < chart_data_history_new:                                   # Add list of zeroes to the beginning part of the lists if new "chart_data_history" value is bigger than the old value.
             list_to_add = [0] * (chart_data_history_new - chart_data_history_current)             # Generate list of zeroes for adding to the beginning of te lists.
             Performance.cpu_usage_percent_ave = list_to_add + Performance.cpu_usage_percent_ave   # "cpu_usage_percent_ave" list has no sub-lists and addition is performed in this way.
+            cpu_usage_percent_per_core_len = len(Performance.cpu_usage_percent_per_core)
+            for i in range(cpu_usage_percent_per_core_len):
+                Performance.cpu_usage_percent_per_core[i] = list_to_add + Performance.cpu_usage_percent_per_core[i]     # "cpu_usage_percent_per_core" list has sub-lists and addition is performed for every sub-lists (for every CPU core).
             Performance.ram_usage_percent = list_to_add + Performance.ram_usage_percent           # "ram_usage_percent" list has no sub-lists and addition is performed in this way.
-            if MainGUI.radiobutton1005.get_active() == True:
-                from Gpu import Gpu
-                Gpu.fps_count = list_to_add + Gpu.fps_count                                       # "fps_count" list has no sub-lists and addition is performed in this way.
             disk_read_speed_len = len(Performance.disk_read_speed)
             for i in range(disk_read_speed_len):
                 Performance.disk_read_speed[i] = list_to_add + Performance.disk_read_speed[i]     # "disk_read_speed" list has sub-lists and addition is performed for every sub-lists (for every disk).
@@ -518,6 +521,9 @@ class SettingsGUI:
             for i in range(network_receive_speed_len):
                 Performance.network_receive_speed[i] = list_to_add + Performance.network_receive_speed[i]    # "network_receive_speed" list has sub-lists and addition is performed for every sub-lists (for every network card).
                 Performance.network_send_speed[i] = list_to_add + Performance.network_send_speed[i]    # "network_send_speed" list has sub-lists and addition is performed for every sub-lists (for every network card).
+            if MainGUI.radiobutton1005.get_active() == True:
+                from Gpu import Gpu
+                Gpu.fps_count = list_to_add + Gpu.fps_count                                       # "fps_count" list has no sub-lists and addition is performed in this way.
 
 
     # ----------------------- Called for applying settings for all opened tabs (since application start) without waiting update interval -----------------------
