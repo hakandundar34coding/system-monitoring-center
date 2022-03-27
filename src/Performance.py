@@ -15,8 +15,7 @@ class Performance:
     # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
-        # Function is run directly without using "GLib.idle_add([function_name])" in order to avoid errors which are given if another threads (such as threads in CPU module) run before this function is finished.
-        self.performance_background_initial_func()
+        pass
 
 
     # ----------------------------------- Performance - Set Selected CPU Core Function -----------------------------------
@@ -156,65 +155,31 @@ class Performance:
                 cpu_time = proc_stat_lines[i].split()
                 self.cpu_time_all_prev.append(int(cpu_time[1]) + int(cpu_time[2]) + int(cpu_time[3]) + int(cpu_time[4]) + int(cpu_time[5]) + int(cpu_time[6]) + int(cpu_time[7]) + int(cpu_time[8]) + int(cpu_time[9]))
                 self.cpu_time_load_prev.append(self.cpu_time_all_prev[-1] - int(cpu_time[4]) - int(cpu_time[5]))
-
-
                 self.cpu_usage_percent_per_core.append([0] * self.chart_data_history)
-
-
         for cpu_core in self.logical_core_list[:]:                                            # Remove core number from logical_core_list if it is made offline. Also CPU time data related to offline-made the core is removed from lists.
             if cpu_core not in self.logical_core_list_system_ordered:
                 cpu_core_index_to_remove = self.logical_core_list.index(cpu_core)
                 del self.cpu_time_all_prev[cpu_core_index_to_remove]
                 del self.cpu_time_load_prev[cpu_core_index_to_remove]
-
-
-
                 del self.cpu_usage_percent_per_core[cpu_core_index_to_remove]
-
-
                 self.logical_core_list.remove(cpu_core)
         if logical_core_list_prev != self.logical_core_list:
             self.performance_set_selected_cpu_core_func()
         # Get cpu_usage_percent_per_core, cpu_usage_percent_ave
         cpu_time_all = []
         cpu_time_load = []
-#        self.cpu_usage_percent_per_core = []
         for i, cpu_core in enumerate(self.logical_core_list):                                 # Get CPU core times calculate CPU usage values and append usage values into lists in the core number order listed in logical_core_list.
             cpu_time = proc_stat_lines[self.logical_core_list_system_ordered.index(cpu_core)].split()
             cpu_time_all.append(int(cpu_time[1]) + int(cpu_time[2]) + int(cpu_time[3]) + int(cpu_time[4]) + int(cpu_time[5]) + int(cpu_time[6]) + int(cpu_time[7]) + int(cpu_time[8]) + int(cpu_time[9]))    # All time since boot for the cpu core
             cpu_time_load.append(cpu_time_all[-1] - int(cpu_time[4]) - int(cpu_time[5]))      # Time elapsed during core processing for the core
             if cpu_time_all[-1] - self.cpu_time_all_prev[i] == 0:
                 cpu_time_all[-1] = cpu_time_all[-1] + 1                                       # Append 1 CPU time (a negligible value) in order to avoid zeor division error in the first loop after application start or in the first loop of newly online-made CPU core. It is corrected in the next loop.
-
-
-
-
             self.cpu_usage_percent_per_core[i].append((cpu_time_load[-1] - self.cpu_time_load_prev[i]) / (cpu_time_all[-1] - self.cpu_time_all_prev[i]) * 100)
             del self.cpu_usage_percent_per_core[i][0]
-
-
-#            self.cpu_usage_percent_per_core.append((cpu_time_load[-1] - self.cpu_time_load_prev[i]) / (cpu_time_all[-1] - self.cpu_time_all_prev[i]) * 100)    # Calculate CPU usage precent for the core (load time difference / all time difference *100). Time difference is calculated as "value in this loop - value from previous loop". CPU times difference interval should be higher than 0.1 seconds in order to achieve an accurate CPU usage percent value. For many systems CPU ticks 100 times in a second and this value could be get by using "os.sysconf("SC_CLK_TCK")". If measurement is made in a lower time interval, "0" CPU usage could be get.
-#        self.cpu_usage_percent_ave.append(sum(self.cpu_usage_percent_per_core) / self.number_of_logical_cores)     # Calculate average CPU usage for all logical cores (summation of CPU usage per core / number of logical cores)
-
-
         cpu_usage_average = []
         for cpu_usage_per_core in self.cpu_usage_percent_per_core:
             cpu_usage_average.append(cpu_usage_per_core[-1])
         self.cpu_usage_percent_ave.append(sum(cpu_usage_average) / self.number_of_logical_cores)
-
-        """
-        print(len(self.cpu_usage_percent_per_core))
-        print(self.cpu_usage_percent_per_core[0][-1])
-        print(self.cpu_usage_percent_per_core[1][-1])
-        print(self.cpu_usage_percent_per_core[2][-1])
-        print(self.cpu_usage_percent_per_core[3][-1])
-        print(self.cpu_usage_percent_per_core[4][-1])
-        print(self.cpu_usage_percent_per_core[5][-1])
-        print(self.cpu_usage_percent_per_core[6][-1])
-        print(self.cpu_usage_percent_per_core[7][-1])
-        print("")
-        """
-
         del self.cpu_usage_percent_ave[0]                                                     # Delete the first CPU usage percent value from the list in order to keep list lenght same. Because a new value is appended in every loop. This list is used for CPU usage percent graphic.        
         self.cpu_time_all_prev = list(cpu_time_all)                                           # Use the values as "previous" data. This data will be used in the next loop for calculating time difference.
         self.cpu_time_load_prev = list(cpu_time_load)
