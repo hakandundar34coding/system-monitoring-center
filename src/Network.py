@@ -201,7 +201,7 @@ class Network:
             else:
                 device_vendor_name = f'[{_tr("Unknown")}]'
                 device_model_name = f'[{_tr("Unknown")}]'
-        network_card_device_model_name = f'{device_vendor_name} - {device_model_name}'
+            network_card_device_model_name = f'{device_vendor_name} - {device_model_name}'
         # Get device vendor and model names if it is a virtual device.
         else:
             # lo (Loopback Device) is a system device and it is not a physical device. It could not be found in "pci.ids" file.
