@@ -197,6 +197,7 @@ class Gpu:
         # INFORMATION ABOUT GPU/DRIVER CONFIGURATIONS:
         # "Extended renderer info (GLX_MESA_query_renderer):" information exists in the output of "glxinfo" command if open sourced driver of GPU is used.
         # "Extended renderer info (GL_NVX_gpu_memory_info):" information exists in the output of "glxinfo" command if closed sourced driver of GPU is used. Both "Extended renderer info (GLX_MESA_query_renderer):" and "Extended renderer info (GLX_MESA_query_renderer):" informations are printed if open sourced driver is used for AMD GPUs.
+        # "Extended renderer info (GLX_MESA_query_renderer):" information may not exist and "OpenGL vendor string:" may exist in the output of "glxinfo" command if closed sourced driver is used for some ARM devices (such as Nvidia Tegra devices).
         # Vendor and device id numbers (0x[id number]) are not printed in closed sourced drivers. Vendor and device IDs can be get from vendor and device files in "/sys/class/drm/card[card number]/device/" directories.
         # But IDs from these folders and IDs from drivers can not be matched when closed sourced drivers are used for the selected GPU.
         # IDs matching can be performed if there is 1 GPU on the system (with open or closed sourced drivers), if there are 2 GPUs (with both open sourced driver or 1 open sourced and 1 closed source driver) on the system.
@@ -207,7 +208,9 @@ class Gpu:
         if number_of_gpus == 1:
             if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu):
                 self.gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "open_sourced")
-            if number_of_gpus == 1 and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu) and ("Extended renderer info (GL_NVX_gpu_memory_info):" in glxinfo_output_integrated_gpu):
+            if ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu) and ("Extended renderer info (GL_NVX_gpu_memory_info):" in glxinfo_output_integrated_gpu):
+                self.gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
+            if ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu) and ("OpenGL vendor string:" in glxinfo_output_integrated_gpu):
                 self.gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
         if number_of_gpus >= 2:
             if glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu:
@@ -224,7 +227,10 @@ class Gpu:
         # Get if_default_gpu value
         if self.gpu_list[self.selected_gpu_number] == self.default_gpu:
             if_default_gpu = _tr("Yes")
-        if self.gpu_list[self.selected_gpu_number] != self.default_gpu:
+        # Set default GPU if there is only 1 GPU on the system and these is not "boot_vga" file (on some systems such as ARM devices) which means default_gpu = "".
+        if self.default_gpu == "" and len(self.gpu_list) == 1:
+            if_default_gpu = _tr("Yes")
+        else:
             if_default_gpu = _tr("No")
 
 
@@ -346,19 +352,21 @@ class Gpu:
         try:
             self.gpu_list = [gpu_name for gpu_name in os.listdir("/dev/dri/") if gpu_name.rstrip("0123456789") == "card"]
             gpu_card_directory = "/sys/class/drm/"
+            gpu_card_directory_sub = "/device/"
         # Try to get GPU list from "/sys/devices/" folder which is used by some ARM systems.
         except FileNotFoundError:
             self.gpu_list = [gpu_name for gpu_name in os.listdir("/sys/devices/") if gpu_name.split(".")[0] == "gpu"]
             gpu_card_directory = "/sys/devices/"
+            gpu_card_directory_sub = "/"
         for gpu in self.gpu_list:
             try:
-                with open(gpu_card_directory + gpu + "/device/boot_vga") as reader:
+                with open(gpu_card_directory + gpu + gpu_card_directory_sub + "boot_vga") as reader:
                     if reader.read().strip() == "1":
                         self.default_gpu = gpu
             except FileNotFoundError:
                 pass
             # Read device vendor and model ids by reading "modalias" file.
-            with open(gpu_card_directory + gpu + "/device/modalias") as reader:
+            with open(gpu_card_directory + gpu + gpu_card_directory_sub + "modalias") as reader:
                 modalias_output = reader.read().strip()
             # Determine device subtype.
             device_subtype, device_alias = modalias_output.split(":", 1)
