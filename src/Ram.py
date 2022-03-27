@@ -47,9 +47,6 @@ class Ram:
         self.eventbox1201.connect("button-press-event", self.on_eventbox1201_button_click_event)
         self.eventbox1202.connect("button-press-event", self.on_eventbox1202_button_click_event)
 
-        # Run initial function
-        self.ram_initial_func()
-
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1201_clicked(self, widget):
@@ -247,6 +244,8 @@ class Ram:
         self.label1201.set_text(_tr("Physical RAM") + ": " + str(self.performance_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
         self.label1202.set_text(_tr("Swap Memory") + ": " + str(self.performance_data_unit_converter_func(swap_total, 0, 1)))
         self.label1205.set_text(self.performance_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+
+        self.initial_already_run = 1
 
 
     # ----------------------------------- RAM - Get RAM Data Function -----------------------------------

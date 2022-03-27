@@ -15,8 +15,7 @@ class Performance:
     # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
-        # Function is run directly without using "GLib.idle_add([function_name])" in order to avoid errors which are given if another threads (such as threads in CPU module) run before this function is finished.
-        self.performance_background_initial_func()
+        pass
 
 
     # ----------------------------------- Performance - Set Selected CPU Core Function -----------------------------------

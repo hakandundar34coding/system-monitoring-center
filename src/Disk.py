@@ -48,9 +48,6 @@ class Disk:
         self.drawingarea1302.connect("draw", self.on_drawingarea1302_draw)
         self.eventbox1301.connect("button-press-event", self.on_eventbox1301_button_click_event)
 
-        # Run initial function
-        self.disk_initial_func()
-
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1301_clicked(self, widget):
@@ -119,7 +116,7 @@ class Disk:
         try:
             chart1301_y_limit_str = f'{self.performance_data_unit_converter_func(chart1301_y_limit, data_unit_for_chart_y_limit, 0)}/s'
         # try-except is used in order to prevent errors if first initial function is not finished and "performance_data_unit_converter_func" is not run.
-        except NameError:
+        except AttributeError:
             return
         chart1301_y_limit_split = chart1301_y_limit_str.split(" ")
         chart1301_y_limit_float = float(chart1301_y_limit_split[0])
@@ -245,6 +242,8 @@ class Disk:
         self.label1301.set_text(disk_vendor_model)
         self.label1302.set_text(f'{selected_disk} ({disk_type})')
         self.label1307.set_text(if_system_disk)
+
+        self.initial_already_run = 1
 
 
     # ----------------------------------- Disk - Get Disk Data Function -----------------------------------

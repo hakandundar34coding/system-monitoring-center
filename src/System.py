@@ -56,9 +56,6 @@ class System:
         # Connect GUI signals
         self.button8101.connect("clicked", self.on_button8101_clicked)
 
-        # Run initial function
-        GLib.idle_add(self.system_initial_func)
-
 
     # ----------------------- "Refresh" Button -----------------------
     def on_button8101_clicked(self, widget):
@@ -404,6 +401,8 @@ class System:
         self.label8120.set_text(f'{number_of_installed_flatpak_packages}')
         self.label8121.set_text(f'{number_of_installed_python_packages}')
         self.label8122.set_text(f'{current_python_version}')
+
+        self.initial_already_run = 1
 
 
 # Generate object

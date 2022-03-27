@@ -45,9 +45,6 @@ class Cpu:
         self.button1101.connect("clicked", self.on_button1101_clicked)
         self.drawingarea1101.connect("draw", self.on_drawingarea1101_draw)
 
-        # Run initial function
-        self.cpu_initial_func()
-
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1101_clicked(self, widget):
@@ -267,6 +264,8 @@ class Cpu:
         self.label1108.set_text(cpu_architecture)
         self.label1109.set_text(f'{cpu_l1i_cache_value_selected_core} - {cpu_l1d_cache_value_selected_core}')
         self.label1110.set_text(f'{cpu_l2_cache_value_selected_core} - {cpu_l3_cache_value_selected_core}')
+
+        self.initial_already_run = 1
 
 
     # ----------------------------------- CPU - Get CPU Data Function (gets CPU data, shows on the labels on the GUI) -----------------------------------

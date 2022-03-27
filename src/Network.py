@@ -45,9 +45,6 @@ class Network:
         self.button1401.connect("clicked", self.on_button1401_clicked)
         self.drawingarea1401.connect("draw", self.on_drawingarea1401_draw)
 
-        # Run initial function
-        self.network_initial_func()
-
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1401_clicked(self, widget):
@@ -103,7 +100,7 @@ class Network:
             data_unit_for_chart_y_limit = 8
         try:
             chart1401_y_limit_str = f'{self.performance_data_unit_converter_func(chart1401_y_limit, data_unit_for_chart_y_limit, 0)}/s'
-        except NameError:
+        except AttributeError:
             return
         chart1401_y_limit_split = chart1401_y_limit_str.split(" ")
         chart1401_y_limit_float = float(chart1401_y_limit_split[0])
@@ -240,6 +237,8 @@ class Network:
         self.label1410.set_text(network_address_ipv4)
         self.label1411.set_text(network_address_ipv6)
         self.label1412.set_text(network_card_mac_address)
+
+        self.initial_already_run = 1
 
 
     # ----------------------------------- Network - Initial Function -----------------------------------

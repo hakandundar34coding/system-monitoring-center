@@ -132,6 +132,8 @@ class MainGUI:
         # Run "Performance" module in order to provide performance data to Performance tab, performance summary on the headerbar and Floating Summary window.
         global Performance
         from Performance import Performance
+        # Function is run directly without using "GLib.idle_add([function_name])" in order to avoid errors which are given if another threads (such as threads in CPU module) run before this function is finished.
+        Performance.performance_background_initial_func()
 
         # Add performance summary widgets to the main window headerbar.
         if Config.performance_summary_on_the_headerbar == 1:
@@ -249,6 +251,9 @@ class MainGUI:
                     global Cpu
                     from Cpu import Cpu
                     self.grid1001.attach(Cpu.grid1101, 0, 0, 1, 1)
+                # Run initial function of the module if this is the first loop of the module.
+                if hasattr(Cpu, "initial_already_run") == False:
+                    GLib.idle_add(Cpu.cpu_initial_func)
                 # Run loop Cpu loop function in order to get data without waiting update interval.
                 GLib.idle_add(Cpu.cpu_loop_func)
                 return
@@ -264,6 +269,8 @@ class MainGUI:
                     global Ram
                     from Ram import Ram
                     self.grid1002.attach(Ram.grid1201, 0, 0, 1, 1)
+                if hasattr(Ram, "initial_already_run") == False:
+                    GLib.idle_add(Ram.ram_initial_func)
                 GLib.idle_add(Ram.ram_loop_func)
                 return
 
@@ -278,6 +285,8 @@ class MainGUI:
                     global Disk
                     from Disk import Disk
                     self.grid1003.attach(Disk.grid1301, 0, 0, 1, 1)
+                if hasattr(Disk, "initial_already_run") == False:
+                    GLib.idle_add(Disk.disk_initial_func)
                 GLib.idle_add(Disk.disk_loop_func)
                 return
 
@@ -292,6 +301,8 @@ class MainGUI:
                     global Network
                     from Network import Network
                     self.grid1004.attach(Network.grid1401, 0, 0, 1, 1)
+                if hasattr(Network, "initial_already_run") == False:
+                    GLib.idle_add(Network.network_initial_func)
                 GLib.idle_add(Network.network_loop_func)
                 return
 
@@ -306,6 +317,8 @@ class MainGUI:
                     global Gpu
                     from Gpu import Gpu
                     self.grid1005.attach(Gpu.grid1501, 0, 0, 1, 1)
+                if hasattr(Gpu, "initial_already_run") == False:
+                    GLib.idle_add(Gpu.gpu_initial_func)
                 GLib.idle_add(Gpu.gpu_loop_func)
                 return
 
@@ -404,6 +417,8 @@ class MainGUI:
                 global System
                 from System import System
                 self.grid8.attach(System.grid8101, 0, 0, 1, 1)
+            if hasattr(System, "initial_already_run") == False:
+                GLib.idle_add(System.system_initial_func)
             return
 
 

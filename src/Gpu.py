@@ -48,9 +48,6 @@ class Gpu:
         self.glarea1501.connect('realize', self.on_glarea1501_realize)
         self.glarea1501.connect('render', self.on_glarea1501_render)
 
-        # Run initial function
-        self.gpu_initial_func()
-
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1501_clicked(self, widget):
@@ -243,6 +240,8 @@ class Gpu:
         self.label1510.set_text(self.direct_rendering_list[self.selected_gpu_number])
         self.label1511.set_text(self.display_driver_list[self.selected_gpu_number])
         self.label1512.set_text(self.opengl_version_list[self.selected_gpu_number])
+
+        self.initial_already_run = 1
 
 
     # ----------------------------------- GPU - Get GPU Data Function -----------------------------------
