@@ -162,10 +162,11 @@ class Network:
         selected_network_card_number = Performance.selected_network_card_number
         selected_network_card = network_card_list[selected_network_card_number]
 
-        # Get vendor and model names
+        # Get device vendor and model names
         device_vendor_name = "-"
         device_model_name = "-"
-        if selected_network_card != "lo":
+        # Get device vendor and model names if it is not a virtual device.
+        if os.path.isdir("/sys/devices/virtual/net/" + selected_network_card) == False:
             # Read device vendor and model ids by reading "modalias" file.
             with open("/sys/class/net/" + selected_network_card + "/device/modalias") as reader:
                 modalias_output = reader.read().strip()
@@ -201,9 +202,13 @@ class Network:
                 device_vendor_name = f'[{_tr("Unknown")}]'
                 device_model_name = f'[{_tr("Unknown")}]'
         network_card_device_model_name = f'{device_vendor_name} - {device_model_name}'
-        # lo (Loopback Device) is a system device and it is not a physical device. It could not be found in "pci.ids" file.
-        if selected_network_card == "lo":
-            network_card_device_model_name = "Loopback Device"
+        # Get device vendor and model names if it is a virtual device.
+        else:
+            # lo (Loopback Device) is a system device and it is not a physical device. It could not be found in "pci.ids" file.
+            if selected_network_card == "lo":
+                network_card_device_model_name = "Loopback Device"
+            else:
+                network_card_device_model_name = "[" + _tr("Virtual Network Interface") + "]"
 
         # Get connection_type
         if selected_network_card.startswith("en"):
