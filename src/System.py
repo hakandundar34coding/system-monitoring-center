@@ -149,12 +149,14 @@ class System:
         except FileNotFoundError:
             computer_chassis_type_value = 2
 
-        # For more information about computer chassis types, see: "https://docs.microsoft.com/en-us/previous-versions/tn-archive/ee156537(v=technet.10)"
+        # For more information about computer chassis types, see: "https://www.dmtf.org/standards/SMBIOS"
         # "https://superuser.com/questions/877677/programatically-determine-if-an-script-is-being-executed-on-laptop-or-desktop"
         computer_chassis_types_dict = {1: "Other", 2: "Unknown", 3: "Desktop", 4: "Low Profile Desktop", 5: "Pizza Box", 6: "Mini Tower", 7: "Tower", 8: "Portable", 9: "Laptop",
                                        10: "Notebook", 11: "Hand Held", 12: "Docking Station", 13: "All in One", 14: "Sub Notebook", 15: "Space-Saving", 16: "Lunch Box",
                                        17: "Main System Chassis", 18: "Expansion Chassis", 19: "Sub Chassis", 20: "Bus Expansion Chassis", 21: "Peripheral Chassis",
-                                       22: "Storage Chassis", 23: "Rack Mount Chassis", 24: "Sealed-Case PC"}
+                                       22: "Storage Chassis", 23: "Rack Mount Chassis", 24: "Sealed-Case PC", 25: "Multi-system chassis", 26: "Compact PCI", 27: "Advanced TCA",
+                                       28: "Blade", 29: "Blade Enclosure", 30: "Tablet", 31: "Convertible", 32: "Detachable", 33: "IoT Gateway", 34: "Embedded PC",
+                                       35: "Mini PC", 36: "Stick PC"}
         computer_chassis_type = computer_chassis_types_dict[int(computer_chassis_type_value)]
 
         # Get host name
