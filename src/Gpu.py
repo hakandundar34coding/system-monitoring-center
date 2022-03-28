@@ -7,6 +7,7 @@ gi.require_version('Gdk', '3.0')
 from gi.repository import Gtk, Gdk
 import os
 import subprocess
+import cairo
 
 from locale import gettext as _tr
 
@@ -78,24 +79,23 @@ class Gpu:
         chart_background_color = Config.chart_background_color_all_charts
 
         chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
-        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
 
-        chart1501_width = Gtk.Widget.get_allocated_width(widget)
-        chart1501_height = Gtk.Widget.get_allocated_height(widget)
+        chart_width = Gtk.Widget.get_allocated_width(widget)
+        chart_height = Gtk.Widget.get_allocated_height(widget)
 
         ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        ctx.rectangle(0, 0, chart1501_width, chart1501_height)
+        ctx.rectangle(0, 0, chart_width, chart_height)
         ctx.fill()
 
         ctx.set_line_width(1)
         ctx.set_dash([4, 3])
         ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
         for i in range(3):
-            ctx.move_to(0, chart1501_height/4*(i+1))
-            ctx.line_to(chart1501_width, chart1501_height/4*(i+1))
+            ctx.move_to(0, chart_height/4*(i+1))
+            ctx.line_to(chart_width, chart_height/4*(i+1))
         for i in range(4):
-            ctx.move_to(chart1501_width/5*(i+1), 0)
-            ctx.line_to(chart1501_width/5*(i+1), chart1501_height)
+            ctx.move_to(chart_width/5*(i+1), 0)
+            ctx.line_to(chart_width/5*(i+1), chart_height)
         ctx.stroke()
 
         # Maximum FPS value is multiplied by 1.1 in order to scale chart when FPS is increased or decreased for preventing the line being out of the chart border.
@@ -112,23 +112,26 @@ class Gpu:
         # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
         ctx.set_dash([], 0)
-        ctx.rectangle(0, 0, chart1501_width, chart1501_height)
+        ctx.rectangle(0, 0, chart_width, chart_height)
         ctx.stroke()
 
         ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        ctx.move_to(chart1501_width*chart_x_axis[0]/(chart_data_history-1), chart1501_height - chart1501_height*self.fps_count[0]/chart1501_y_limit)
+        ctx.move_to(chart_width*chart_x_axis[0]/(chart_data_history-1), chart_height - chart_height*self.fps_count[0]/chart1501_y_limit)
         for i in range(len(chart_x_axis) - 1):
-            delta_x_chart1501 = (chart1501_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1501_width * chart_x_axis[i]/(chart_data_history-1))
-            delta_y_chart1501 = (chart1501_height*self.fps_count[i+1]/chart1501_y_limit) - (chart1501_height*self.fps_count[i]/chart1501_y_limit)
+            delta_x_chart1501 = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
+            delta_y_chart1501 = (chart_height*self.fps_count[i+1]/chart1501_y_limit) - (chart_height*self.fps_count[i]/chart1501_y_limit)
             ctx.rel_line_to(delta_x_chart1501, -delta_y_chart1501)
 
         ctx.rel_line_to(10, 0)
-        ctx.rel_line_to(0, chart1501_height+10)
-        ctx.rel_line_to(-(chart1501_width+20), 0)
-        ctx.rel_line_to(0, -(chart1501_height+10))
+        ctx.rel_line_to(0, chart_height+10)
+        ctx.rel_line_to(-(chart_width+20), 0)
+        ctx.rel_line_to(0, -(chart_height+10))
         ctx.close_path()
         ctx.stroke_preserve()
-        ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
+        gradient_pattern.add_color_stop_rgba(0, chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        gradient_pattern.add_color_stop_rgba(1, chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], 0.25 * chart_foreground_color[3])
+        ctx.set_source(gradient_pattern)
         ctx.fill()
 
 
