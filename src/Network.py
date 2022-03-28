@@ -167,36 +167,41 @@ class Network:
         device_model_name = "-"
         # Get device vendor and model names if it is not a virtual device.
         if os.path.isdir("/sys/devices/virtual/net/" + selected_network_card) == False:
-            # Read device vendor and model ids by reading "modalias" file.
-            with open("/sys/class/net/" + selected_network_card + "/device/modalias") as reader:
-                modalias_output = reader.read().strip()
-            # Determine device subtype.
-            device_subtype, device_alias = modalias_output.split(":", 1)
-            # Get device vendor and model ids and read "pci.ids" file if device subtype is "pci". Also trim "0000" characters by using [4:].
-            if device_subtype == "pci":
-                device_vendor_id = device_alias.split("v", 1)[-1].split("d", 1)[0].lower()[4:]
-                device_model_id = device_alias.split("d", 1)[-1].split("sv", 1)[0].lower()[4:]
-                # Read "pci.ids" file.
-                with open("/usr/share/hwdata/pci.ids") as reader:
-                    ids_file_output = reader.read()
-            # Get device vendor and model ids and read "usb.ids" file if device subtype is "usb".
-            if device_subtype == "usb":
-                device_vendor_id = device_alias.split("v", 1)[-1].split("p", 1)[0].lower()
-                device_model_id = device_alias.split("p", 1)[-1].split("d", 1)[0].lower()
-                # Read "usb.ids" file by specifying encoding method. Because this file has some characters in different encoding method.
-                with open("/usr/share/hwdata/usb.ids", encoding='ISO-8859-1') as reader:
-                    ids_file_output = reader.read()
-            # Search device vendor and model names in the pci.ids or usb.ids file.
-            device_vendor_id = "\n" + device_vendor_id + "  "
-            device_model_id = "\n\t" + device_model_id + "  "
-            if device_vendor_id in ids_file_output:
-                rest_of_the_ids_file_output = ids_file_output.split(device_vendor_id, 1)[1]
-                device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0].strip()
-                # "device name" information may not be present in the pci.ids file.
-                if device_model_id in rest_of_the_ids_file_output:
-                    rest_of_the_rest_of_the_ids_file_output = rest_of_the_ids_file_output.split(device_model_id, 1)[1]
-                    device_model_name = rest_of_the_rest_of_the_ids_file_output.split("\n", 1)[0].strip()
+            # Check if there is a "modalias" file. Some network interfaces (such as usb0, usb1, etc.) may not have this file.
+            if os.path.isfile("/sys/class/net/" + selected_network_card + "/device/modalias") == True:
+                # Read device vendor and model ids by reading "modalias" file.
+                with open("/sys/class/net/" + selected_network_card + "/device/modalias") as reader:
+                    modalias_output = reader.read().strip()
+                # Determine device subtype.
+                device_subtype, device_alias = modalias_output.split(":", 1)
+                # Get device vendor and model ids and read "pci.ids" file if device subtype is "pci". Also trim "0000" characters by using [4:].
+                if device_subtype == "pci":
+                    device_vendor_id = device_alias.split("v", 1)[-1].split("d", 1)[0].lower()[4:]
+                    device_model_id = device_alias.split("d", 1)[-1].split("sv", 1)[0].lower()[4:]
+                    # Read "pci.ids" file.
+                    with open("/usr/share/hwdata/pci.ids") as reader:
+                        ids_file_output = reader.read()
+                # Get device vendor and model ids and read "usb.ids" file if device subtype is "usb".
+                if device_subtype == "usb":
+                    device_vendor_id = device_alias.split("v", 1)[-1].split("p", 1)[0].lower()
+                    device_model_id = device_alias.split("p", 1)[-1].split("d", 1)[0].lower()
+                    # Read "usb.ids" file by specifying encoding method. Because this file has some characters in different encoding method.
+                    with open("/usr/share/hwdata/usb.ids", encoding='ISO-8859-1') as reader:
+                        ids_file_output = reader.read()
+                # Search device vendor and model names in the pci.ids or usb.ids file.
+                device_vendor_id = "\n" + device_vendor_id + "  "
+                device_model_id = "\n\t" + device_model_id + "  "
+                if device_vendor_id in ids_file_output:
+                    rest_of_the_ids_file_output = ids_file_output.split(device_vendor_id, 1)[1]
+                    device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0].strip()
+                    # "device name" information may not be present in the pci.ids file.
+                    if device_model_id in rest_of_the_ids_file_output:
+                        rest_of_the_rest_of_the_ids_file_output = rest_of_the_ids_file_output.split(device_model_id, 1)[1]
+                        device_model_name = rest_of_the_rest_of_the_ids_file_output.split("\n", 1)[0].strip()
+                    else:
+                        device_model_name = f'[{_tr("Unknown")}]'
                 else:
+                    device_vendor_name = f'[{_tr("Unknown")}]'
                     device_model_name = f'[{_tr("Unknown")}]'
             else:
                 device_vendor_name = f'[{_tr("Unknown")}]'
@@ -219,20 +224,22 @@ class Network:
             connection_type = "-"
 
         # Get network_card_mac_address
-        with open("/sys/class/net/" + selected_network_card + "/address") as reader:
-            network_card_mac_address = reader.read().strip().upper()
+        try:
+            with open("/sys/class/net/" + selected_network_card + "/address") as reader:
+                network_card_mac_address = reader.read().strip().upper()
+        # Some network interfaces (such as some of the virtual network interfaces) may not have a MAC address.
+        except FileNotFoundError:
+            network_card_mac_address = "-"
 
         # Get network_address_ipv4, network_address_ipv6
         ip_output_lines = (subprocess.check_output(["ip", "a", "show", selected_network_card], shell=False)).decode().strip().split("\n")
+        network_address_ipv4 = "-"
+        network_address_ipv6 = "-"
         for line in ip_output_lines:
             if "inet " in line:
                 network_address_ipv4 = line.split()[1].split("/")[0]
             if "inet6 " in line:
                 network_address_ipv6 = line.split()[1].split("/")[0]
-        if "network_address_ipv4" not in locals():
-            network_address_ipv4 = "-"
-        if "network_address_ipv6" not in locals():
-            network_address_ipv6 = "-"
 
 
         # Set Network tab label texts by using information get
