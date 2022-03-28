@@ -73,9 +73,6 @@ class Cpu:
             chart_line_color = Config.chart_line_color_cpu_percent
             chart_background_color = Config.chart_background_color_all_charts
 
-            # Get foreground color.
-            chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
-
             # Get drawingarea size.
             chart_width = Gtk.Widget.get_allocated_width(widget)
             chart_height = Gtk.Widget.get_allocated_height(widget)
@@ -85,25 +82,23 @@ class Cpu:
             ctx.rectangle(0, 0, chart_width, chart_height)
             ctx.fill()
 
-            # Draw horizontal and vertical dashed lines.
+            # Draw horizontal and vertical gridlines.
             ctx.set_line_width(1)
-            ctx.set_dash([4, 3])
-            ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
             for i in range(3):
                 ctx.move_to(0, chart_height/4*(i+1))
-                ctx.line_to(chart_width, chart_height/4*(i+1))
+                ctx.rel_line_to(chart_width, 0)
             for i in range(4):
                 ctx.move_to(chart_width/5*(i+1), 0)
-                ctx.line_to(chart_width/5*(i+1), chart_height)
+                ctx.rel_line_to(0, chart_height)
             ctx.stroke()
 
             # Draw outer border of the chart.
-            ctx.set_dash([], 0)
+            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
             ctx.rectangle(0, 0, chart_width, chart_height)
             ctx.stroke()
 
             # Draw performance data.
-            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
             ctx.move_to(0, chart_height)
             ctx.rel_move_to(0, -chart_height*cpu_usage_percent_ave[0]/100)
             for i in range(chart_data_history - 1):
@@ -123,8 +118,8 @@ class Cpu:
             # Fill the closed area.
             ctx.stroke_preserve()
             gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
-            gradient_pattern.add_color_stop_rgba(0, chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
-            gradient_pattern.add_color_stop_rgba(1, chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], 0.25 * chart_foreground_color[3])
+            gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
+            gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.1 * chart_line_color[3])
             ctx.set_source(gradient_pattern)
             ctx.fill()
 
@@ -144,15 +139,11 @@ class Cpu:
             chart_line_color = Config.chart_line_color_cpu_percent
             chart_background_color = Config.chart_background_color_all_charts
 
-            # Get foreground color.
-            chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
-
             # Get drawingarea size.
             chart_width = Gtk.Widget.get_allocated_width(widget)
             chart_height = Gtk.Widget.get_allocated_height(widget)
 
-
-            import math
+            from math import sqrt, ceil
             # Get number of horizontal and vertical charts (per-core).
             for i in range(1, 1000):
                 if number_of_logical_cores % i == 0:
@@ -160,7 +151,7 @@ class Cpu:
                     number_of_vertical_charts = number_of_logical_cores // i
                     if number_of_horizontal_charts >= number_of_vertical_charts:
                         if number_of_horizontal_charts > 2 * number_of_vertical_charts:
-                            number_of_horizontal_charts = number_of_vertical_charts = math.ceil(math.sqrt(number_of_logical_cores))
+                            number_of_horizontal_charts = number_of_vertical_charts = ceil(sqrt(number_of_logical_cores))
                         break
 
             # Get chart index list for horizontal and vertical charts.
@@ -185,14 +176,24 @@ class Cpu:
                 ctx.rectangle(0, 0, chart_width_per_core, chart_height_per_core)
                 ctx.fill()
 
+                # Draw horizontal and vertical gridlines.
+                ctx.set_line_width(1)
+                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
+                for i in range(3):
+                    ctx.move_to((chart_width_per_core+6)*chart_index_list[j][0], chart_index_list[j][1]*(chart_height_per_core+6) + chart_height_per_core/4*(i+1))
+                    ctx.rel_line_to(chart_width_per_core, 0)
+                for i in range(4):
+                    ctx.move_to((chart_width_per_core+6)*chart_index_list[j][0] + chart_width_per_core/5*(i+1), (chart_height_per_core+6)*chart_index_list[j][1])
+                    ctx.rel_line_to(0, chart_height_per_core)
+                ctx.stroke()
+
                 # Draw outer border of the chart.
                 ctx.set_line_width(1)
-                ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
                 ctx.rectangle(chart_index_list[j][0]*(chart_width_per_core+6), chart_index_list[j][1]*(chart_height_per_core+6), chart_width_per_core, chart_height_per_core)
                 ctx.stroke()
 
                 # Draw performance data.
-                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
                 ctx.move_to((chart_width_per_core+6)*chart_index_list[j][0], (chart_height_per_core)+(chart_height_per_core+6)*chart_index_list[j][1])
                 ctx.rel_move_to(0, -chart_height_per_core*cpu_usage_percent_per_core[0]/100)
                 for i in range(len(chart_x_axis) - 1):
@@ -212,13 +213,13 @@ class Cpu:
                 # Fill the closed area.
                 ctx.stroke_preserve()
                 gradient_pattern = cairo.LinearGradient(0, (chart_height_per_core+6)*chart_index_list[j][1], 0, (chart_height_per_core)+(chart_height_per_core+6)*chart_index_list[j][1])
-                gradient_pattern.add_color_stop_rgba(0, chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
-                gradient_pattern.add_color_stop_rgba(1, chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], 0.25 * chart_foreground_color[3])
+                gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
+                gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.1 * chart_line_color[3])
                 ctx.set_source(gradient_pattern)
                 ctx.fill()
 
                 # Draw core number per chart.
-                ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], 2*chart_foreground_color[3])
+                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
                 ctx.move_to(chart_index_list[j][0]*(chart_width_per_core+6)+4, chart_index_list[j][1]*(chart_height_per_core+6)+12)
                 ctx.show_text(f'{cpu_core.split("cpu")[-1]}')
 

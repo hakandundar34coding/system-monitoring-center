@@ -93,7 +93,6 @@ class Ram:
 
         # Chart foreground and chart fill below line colors may be set different for charts in different style (line, bar, etc.) and different places (tab pages, headerbar, etc.).
         # Set chart foreground color (chart outer frame and gridline colors) same as "chart_line_color" in multiplication with transparency factor "0.4".
-        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
         # Set chart fill below line color same as "chart_line_color" in multiplication with transparency factor "0.15".
 
         # Get drawingarea width and height. Therefore chart width and height is updated dynamically by using these values when window size is changed by user.
@@ -107,10 +106,9 @@ class Ram:
         ctx.rectangle(0, 0, chart_width, chart_height)
         ctx.fill()
 
-        # Change line width, dash style (if [4, 3] is used, this means draw 4 pixels, skip 3 pixels) and color for chart gridlines.
+        # Change line width and color for chart gridlines.
         ctx.set_line_width(1)
-        ctx.set_dash([4, 3])
-        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
         # Draw horizontal gridlines (range(3) means 3 gridlines will be drawn)
         for i in range(3):
             ctx.move_to(0, chart_height/4*(i+1))
@@ -122,14 +120,11 @@ class Ram:
         # "stroke" command draws line (line or closed shapes with empty inner area). "fill" command should be used for filling inner areas.
         ctx.stroke()
 
-        # Change line style (solid line) for chart foreground.
-        ctx.set_dash([], 0)
         # Draw chart outer rectange.
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
         ctx.rectangle(0, 0, chart_width, chart_height)
         ctx.stroke()
 
-        # Change the color for drawing data line (curve).
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
         ctx.move_to(chart_width*chart_x_axis[0]/(chart_data_history-1), chart_height - chart_height*ram_usage_percent[0]/100)
         # Move drawing point (cairo context which is used for drawing on drawable objects) from data point to data point and connect them by a line in order to draw a curve.
         # First, move drawing point to the lower left corner of the chart and draw all data points one by one by going to the right direction.
@@ -155,8 +150,8 @@ class Ram:
         ctx.stroke_preserve()
         # Change the color for filling operation.
         gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
-        gradient_pattern.add_color_stop_rgba(0, chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
-        gradient_pattern.add_color_stop_rgba(1, chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], 0.25 * chart_foreground_color[3])
+        gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
+        gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.1 * chart_line_color[3])
         ctx.set_source(gradient_pattern)
         # Fill the area
         ctx.fill()
@@ -174,7 +169,7 @@ class Ram:
         chart_line_color = Config.chart_line_color_ram_swap_percent
         chart_background_color = Config.chart_background_color_all_charts
 
-        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
+        chart_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
         chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3]]
 
         chart1202_width = Gtk.Widget.get_allocated_width(widget)
@@ -184,7 +179,7 @@ class Ram:
         ctx.rectangle(0, 0, chart1202_width, chart1202_height)
         ctx.fill()
 
-        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
         ctx.rectangle(0, 0, chart1202_width, chart1202_height)
         ctx.stroke()
         ctx.set_line_width(1)

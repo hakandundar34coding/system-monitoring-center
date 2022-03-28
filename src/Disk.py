@@ -78,9 +78,6 @@ class Disk:
         chart_line_color = Config.chart_line_color_disk_speed_usage
         chart_background_color = Config.chart_background_color_all_charts
 
-        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
-        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
-
         chart1301_width = Gtk.Widget.get_allocated_width(widget)
         chart1301_height = Gtk.Widget.get_allocated_height(widget)
 
@@ -89,8 +86,7 @@ class Disk:
         ctx.fill()
 
         ctx.set_line_width(1)
-        ctx.set_dash([4, 3])
-        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
         for i in range(3):
             ctx.move_to(0, chart1301_height/4*(i+1))
             ctx.line_to(chart1301_width, chart1301_height/4*(i+1))
@@ -130,13 +126,11 @@ class Disk:
         chart1301_y_limit = (chart1301_y_limit * next_multiple / (chart1301_y_limit_float + 0.0000001) + 0.0000001)
         # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
-        ctx.set_dash([], 0)
         ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
         ctx.rectangle(0, 0, chart1301_width, chart1301_height)
         ctx.stroke()
 
         if Config.plot_disk_read_speed == 1:
-            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
             ctx.move_to(chart1301_width*chart_x_axis[0]/(chart_data_history-1), chart1301_height - chart1301_height*disk_read_speed[0]/chart1301_y_limit)
             for i in range(len(chart_x_axis) - 1):
                 delta_x_chart1301a = (chart1301_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1301_width * chart_x_axis[i]/(chart_data_history-1))
@@ -178,7 +172,7 @@ class Disk:
         chart_line_color = Config.chart_line_color_disk_speed_usage
         chart_background_color = Config.chart_background_color_all_charts
 
-        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
+        chart_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
         chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3]]
 
         chart1302_width = Gtk.Widget.get_allocated_width(widget)
@@ -188,7 +182,7 @@ class Disk:
         ctx.rectangle(0, 0, chart1302_width, chart1302_height)
         ctx.fill()
 
-        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
         ctx.rectangle(0, 0, chart1302_width, chart1302_height)
         ctx.stroke()
         ctx.set_line_width(1)
