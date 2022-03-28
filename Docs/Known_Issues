@@ -1,5 +1,0 @@
-Following warnings are encountered when GTK treeview columns are dragged and reordered by user.
-This is a bug of GTK and have not been resolved yet (GTK 3.24).
-
-(Main.py:29359): Gtk-WARNING **: 13:11:52.573: Negative content width -9 (allocation 1, extents 5x5) while allocating gadget (node button, owner GtkButton)
-(Main.py:29359): Gtk-WARNING **: 13:11:52.573: Negative content height -1 (allocation 1, extents 1x1) while allocating gadget (node button, owner GtkButton)

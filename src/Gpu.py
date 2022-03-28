@@ -222,13 +222,14 @@ class Gpu:
                         self.gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
 
         # Get if_default_gpu value
-        if self.gpu_list[self.selected_gpu_number] == self.default_gpu:
-            if_default_gpu = _tr("Yes")
         # Set default GPU if there is only 1 GPU on the system and these is not "boot_vga" file (on some systems such as ARM devices) which means default_gpu = "".
-        if self.default_gpu == "" and len(self.gpu_list) == 1:
+        if len(self.gpu_list) == 1:
             if_default_gpu = _tr("Yes")
         else:
-            if_default_gpu = _tr("No")
+            if self.gpu_list[self.selected_gpu_number] == self.default_gpu:
+                if_default_gpu = _tr("Yes")
+            else:
+                if_default_gpu = _tr("No")
 
 
         # Set GPU tab label texts by using information get
@@ -279,8 +280,8 @@ class Gpu:
     def gpu_get_information_from_driver_func(self, output_to_search_gpu_information_from_driver, check_vendor_device_id_match, check_driver_open_sourced):
 
         # Define initial values of the variables. These values will be used if values can not be get.
-        gpu_vendor_in_driver = "-"
-        gpu_device_in_driver = "-"
+        gpu_vendor_id_in_driver = "-"
+        gpu_device_id_in_driver = "-"
         gpu_vendor_name_in_driver = "-"
         gpu_device_name_in_driver = "-"
         video_memory = "-"

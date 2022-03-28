@@ -179,7 +179,7 @@ class Performance:
         cpu_usage_average = []
         for cpu_usage_per_core in self.cpu_usage_percent_per_core:
             cpu_usage_average.append(cpu_usage_per_core[-1])
-        self.cpu_usage_percent_ave.append(sum(cpu_usage_average) / self.number_of_logical_cores)
+        self.cpu_usage_percent_ave.append(sum(cpu_usage_average) / self.number_of_logical_cores)    # Calculate average CPU usage for all logical cores (summation of CPU usage per core / number of logical cores)
         del self.cpu_usage_percent_ave[0]                                                     # Delete the first CPU usage percent value from the list in order to keep list lenght same. Because a new value is appended in every loop. This list is used for CPU usage percent graphic.        
         self.cpu_time_all_prev = list(cpu_time_all)                                           # Use the values as "previous" data. This data will be used in the next loop for calculating time difference.
         self.cpu_time_load_prev = list(cpu_time_load)
