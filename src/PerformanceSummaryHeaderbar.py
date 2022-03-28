@@ -50,9 +50,6 @@ class PerformanceSummaryHeaderbar:
         chart_line_color = Config.chart_line_color_cpu_percent
         chart_background_color = Config.chart_background_color_all_charts
 
-        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
-        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3]]
-
         chart101_width = Gtk.Widget.get_allocated_width(widget)
         chart101_height = Gtk.Widget.get_allocated_height(widget)
 
@@ -60,12 +57,12 @@ class PerformanceSummaryHeaderbar:
         ctx.rectangle(0, 0, chart101_width, chart101_height)
         ctx.fill()
 
-        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.7 * chart_line_color[3])
         ctx.rectangle(0, 0, chart101_width, chart101_height)
         ctx.stroke()
 
         ctx.set_line_width(1)
-        ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
         ctx.rectangle(0, 0, chart101_width*cpu_usage_percent_ave[-1]/100, chart101_height)
         ctx.fill()
 
@@ -78,9 +75,6 @@ class PerformanceSummaryHeaderbar:
         chart_line_color = Config.chart_line_color_ram_swap_percent
         chart_background_color = Config.chart_background_color_all_charts
 
-        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
-        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3]]
-
         chart102_width = Gtk.Widget.get_allocated_width(widget)
         chart102_height = Gtk.Widget.get_allocated_height(widget)
 
@@ -88,12 +82,12 @@ class PerformanceSummaryHeaderbar:
         ctx.rectangle(0, 0, chart102_width, chart102_height)
         ctx.fill()
 
-        ctx.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.7 * chart_line_color[3])
         ctx.rectangle(0, 0, chart102_width, chart102_height)
         ctx.stroke()
 
         ctx.set_line_width(1)
-        ctx.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
+        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
         ctx.rectangle(0, 0, chart102_width*ram_usage_percent[-1]/100, chart102_height)
         ctx.fill()
 
