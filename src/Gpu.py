@@ -373,9 +373,17 @@ class Gpu:
             if device_subtype == "pci":
                 device_vendor_id = device_alias.split("v", 1)[-1].split("d", 1)[0].lower()[4:]
                 device_model_id = device_alias.split("d", 1)[-1].split("sv", 1)[0].lower()[4:]
-                # Search device vendor and model names in the pci.ids.
                 device_vendor_id = "\n" + device_vendor_id + "  "
                 device_model_id = "\n\t" + device_model_id + "  "
+            if device_subtype == "virtio":
+                # Example virtio device modalias: "virtio:d00000001v00001AF4".
+                device_vendor_id = device_alias.split("v", 1)[-1].lower()[4:]
+                device_model_id = device_alias.split("d", 1)[-1].split("v", 1)[0].lower()[4:]
+                device_vendor_id = "\n" + device_vendor_id + "  "
+                # 1040 is added to device ID of virtio devices. For details: https://docs.oasis-open.org/virtio/virtio/v1.1/csprd01/virtio-v1.1-csprd01.html
+                device_model_id = "# virtio 1.0\n\t" + str(int(device_model_id) + 1040) + "  "
+                # Search device vendor and model names in the pci.ids.
+            if device_subtype in ["pci", "virtio"]:
                 if device_vendor_id in ids_file_output:
                     rest_of_the_ids_file_output = ids_file_output.split(device_vendor_id, 1)[1]
                     device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0].strip()
