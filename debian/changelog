@@ -1,3 +1,24 @@
+system-monitoring-center (1.8.0) unstable; urgency=medium
+
+  [ Hakan Dündar ]
+  * New: Plot CPU usage history per-core
+  * New: Gradient colors below line (CPU, RAM, GPU charts)
+  * Code updates for OOP (Several modules)
+  * Improved: Detection of computer model on ARM devices
+  * Replaced pci.ids dependency with hwdata
+  * Fix: getting services on some ARM devices
+  * Fix: USB network card vendor-model information
+  * Fix: Disk mount point for disks with multiple mount points
+  * Fix: GPU vendor-model names for ARM systems
+  * Fix: network card names for virtual network interfaces
+  * Fix: Showing some NICs (usb0) without device-vendor IDs
+  * Minor improvements and other bug fixes
+
+  [ eusouobn ]
+  * Updated pt_BR translation
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 29 Mar 2022 07:38:07 +0300
+
 system-monitoring-center (1.7.0) unstable; urgency=medium
 
   * Code updates for OOP (menus, Performance, Settings)
