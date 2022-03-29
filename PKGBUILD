@@ -11,7 +11,7 @@ depends=('bash' 'dmidecode' 'gtk3' 'hwdata' 'iproute2' 'mesa-utils'
          'python-cairo' 'python-gobject' 'systemd' 'util-linux')
 makedepends=('python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$_pkgver.tar.gz")
-sha256sums=('a3edf64f311c97f9b68c6231627e00458d17b38afb3702cfe8fef05f5ad690de')
+sha256sums=('f2b7b40c3aeedd9653fe82660944e117200d3e8c25d1ff7ec6708654ff17f9b9')
 
 build() {
   cd "$pkgname-$_pkgver"
