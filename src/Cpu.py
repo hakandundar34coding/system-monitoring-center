@@ -513,6 +513,7 @@ class Cpu:
     # ----------------------- Define register value dictionaries to get CPU information) -----------------------
     def cpu_arm_cpu_register_values_func(self):
 
+        # Source: several sources and https://github.com/util-linux/util-linux
         self.arm_cpu_implementer_dict = {
                                         "0x41": "ARM",
                                         "0x42": "Broadcom",
