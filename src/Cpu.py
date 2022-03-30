@@ -234,13 +234,13 @@ class Cpu:
         selected_cpu_core_number_only = selected_cpu_core.split("cpu")[1]
 
 
-        # Get information
+        # Get information.
         cpu_core_min_frequency, cpu_core_max_frequency = self.cpu_core_min_max_frequency_func(selected_cpu_core_number_only)
         cpu_core_l1d_cache, cpu_core_l1i_cache, cpu_core_l2_cache, cpu_core_l3_cache = self.cpu_core_l1_l2_l3_cache_func(selected_cpu_core)
         cpu_architecture = self.cpu_architecture_func()
 
 
-        # Set CPU tab label texts by using information get
+        # Show information on labels.
         show_cpu_usage_per_core = Config.show_cpu_usage_per_core
         if show_cpu_usage_per_core == 0:
             self.label1113.set_text(_tr("CPU Usage (Average)"))
@@ -277,14 +277,14 @@ class Cpu:
         self.drawingarea1101.queue_draw()
 
 
-        # Get information
+        # Get information.
         number_of_physical_cores, number_of_cpu_sockets, cpu_model_name = self.cpu_number_of_physical_cores_sockets_cpu_name_func(selected_cpu_core_number, number_of_logical_cores)
         cpu_core_current_frequency = self.cpu_core_current_frequency_func(selected_cpu_core_number_only)
         number_of_total_processes, number_of_total_threads = self.cpu_total_processes_threads_func()
         system_up_time = self.cpu_system_up_time_func()
 
 
-        # Set and update CPU tab label texts by using information get
+        # Show information on labels.
         self.label1101.set_text(cpu_model_name)
         self.label1102.set_text(selected_cpu_core)
         self.label1111.set_text(f'{number_of_total_processes} - {number_of_total_threads}')
