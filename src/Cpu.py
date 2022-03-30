@@ -430,11 +430,22 @@ class Cpu:
                 selected_cpu_core_number = 0
 
             # Get CPU information by using register values.
-            cpu_implementer = self.arm_cpu_implementer_dict[cpu_implementer_list[selected_cpu_core_number]]
-            cpu_architecture = self.arm_architecture_dict[cpu_architecture_list[selected_cpu_core_number]]
-            cpu_part = self.arm_part_dict[cpu_part_list[selected_cpu_core_number]]
-
-            cpu_model_name = f'{cpu_implementer} {cpu_part} ({cpu_architecture})'
+            try:
+                cpu_implementer = self.arm_cpu_implementer_dict[cpu_implementer_list[selected_cpu_core_number]]
+                cpu_architecture = self.arm_architecture_dict[cpu_architecture_list[selected_cpu_core_number]]
+                cpu_part = self.arm_part_dict[cpu_part_list[selected_cpu_core_number]]
+                cpu_model_name = f'{cpu_implementer} {cpu_part} ({cpu_architecture})'
+            except KeyError:
+                cpu_model_name = "-"
+                for line in proc_cpuinfo_output_lines:
+                    if line.startswith("model name"):
+                        cpu_model_name = line.split(":")[-1].strip()
+                if cpu_model_name == "-":
+                    for line in proc_cpuinfo_output_lines:
+                        if line.startswith("Processor"):
+                            cpu_model_name = line.split(":")[-1].strip()
+                if cpu_model_name == "-":
+                    cpu_model_name = "[" + _tr("Unknown") + "]"
 
         return number_of_physical_cores, number_of_cpu_sockets, cpu_model_name
 
@@ -502,9 +513,48 @@ class Cpu:
     # ----------------------- Define register value dictionaries to get CPU information) -----------------------
     def cpu_arm_cpu_register_values_func(self):
 
-        self.arm_cpu_implementer_dict = {"0x41": "ARM"}
-        self.arm_architecture_dict = {"7": "ARMv7", "8": "ARMv8"}
-        self.arm_part_dict = {"0xc0f": "Cortex-A15", "0xd07": "Cortex-A57"}
+        self.arm_cpu_implementer_dict = {
+                                        "0x41": "ARM",
+                                        "0x42": "Broadcom",
+                                        "0x51": "Qualcomm",
+                                        "0x53": "Samsung",
+                                        "0x56": "Marvell",
+                                        "0x61": "Apple",
+                                        "-1": "unknown"
+                                        }
+
+        self.arm_architecture_dict = {
+                                     "5TE": "ARMv5",
+                                     "6TEJ": "ARMv6",
+                                     "7": "ARMv7",
+                                     "8": "ARMv8"
+                                     }
+
+        self.arm_part_dict = {
+                             "0xc0f": "Cortex-A15",      # ARM CPUs
+                             "0xd03": "Cortex-A53",
+                             "0xd04": "Cortex-A35",
+                             "0xd05": "Cortex-A55",
+                             "0xd06": "Cortex-A65",
+                             "0xd07": "Cortex-A57",
+                             "0xd07": "Cortex-A57",
+                             "0xd08": "Cortex-A72",
+                             "0xd09": "Cortex-A73",
+                             "0xd0a": "Cortex-A75",
+                             "0xd0b": "Cortex-A76",
+                             "0xd41": "Cortex-A78",
+                             "0xd42": "Cortex-A78AE",
+                             "0xd44": "Cortex-X1",
+                             "0xd48": "Cortex-X2",
+                             "0xd4b": "Cortex-A78C",
+                             "0x04d": "Krait",           # Qualcomm CPUs
+                             "0x06f": "Krait",
+                             "0x201": "Kryo",
+                             "0x205": "Kryo",
+                             "0x211": "Kryo",
+                             "0x001": "Exynos-M1",       # Samsung CPUs
+                             "-1": "unknown"
+                             }
 
 
 # Generate object
