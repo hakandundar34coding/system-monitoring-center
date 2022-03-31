@@ -407,12 +407,57 @@ class Disk:
         disk_vendor_model = disk_vendor + " - " +  disk_model
 
         # Get disk vendor and model if disk is loop device or swap disk.
-        if "loop" in selected_disk:
+        if selected_disk.startswith("loop"):
             disk_vendor_model = "[Loop Device]"
-        if "zram" in selected_disk:
+        if selected_disk.startswith("zram"):
             disk_vendor_model = _tr("[SWAP]")
+        if selected_disk.startswith("mmcblk"):
+            self.disk_mmc_cid_values_func()
+            try:
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/manfid") as reader:
+                    disk_vendor_manfid = reader.read().strip()
+                disk_vendor = self.mmc_cid_values_dict[disk_vendor_manfid]
+            except Exception:
+                disk_vendor = "-"
+            try:
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/name") as reader:
+                    disk_name = reader.read().strip()
+                disk_model = disk_name
+            except FileNotFoundError:
+                disk_model = "-"
+            try:
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/type") as reader:
+                    disk_card_type = reader.read().strip()
+            except FileNotFoundError:
+                disk_card_type = "-"
+            try:
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/speed_class") as reader:
+                    disk_card_speed_class = reader.read().strip()
+            except FileNotFoundError:
+                disk_card_speed_class = "-"
+            disk_vendor_model = f'{disk_vendor} - {disk_model} ({disk_card_type} Card, Class {disk_card_speed_class})'
 
         return disk_vendor_model
+
+
+    # ----------------------- Define register value dictionaries to get CPU information) -----------------------
+    def disk_mmc_cid_values_func(self):
+
+        # Source: several sources and https://github.com/util-linux/util-linux
+        self.mmc_cid_values_dict = {
+                                    "0x000001": "Panasonic",
+                                    "0x000002": "Toshiba",
+                                    "0x000003": "SanDisk",
+                                    "0x00001b": "Samsung",
+                                    "0x00001d": "AData",
+                                    "0x000027": "Phison",
+                                    "0x000028": "Lexar",
+                                    "0x000031": "Silicon Power",
+                                    "0x000041": "Kingston",
+                                    "0x000074": "Transcend",
+                                    "0x000076": "Patriot",
+                                    "0x000082": "Sony"
+                                    }
 
 
     # ----------------------- Get disk mount point -----------------------
