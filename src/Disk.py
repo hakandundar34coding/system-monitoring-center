@@ -443,7 +443,8 @@ class Disk:
     # ----------------------- Define register value dictionaries to get CPU information) -----------------------
     def disk_mmc_cid_values_func(self):
 
-        # Source: several sources and https://github.com/util-linux/util-linux
+        # For more info about CIDs: https://www.kernel.org/doc/Documentation/mmc/mmc-dev-attrs.txt
+        # Source: several sources and https://www.cameramemoryspeed.com/sd-memory-card-faq/reading-sd-card-cid-serial-psn-internal-numbers/
         self.mmc_cid_values_dict = {
                                     "0x000001": "Panasonic",
                                     "0x000002": "Toshiba",
@@ -456,7 +457,8 @@ class Disk:
                                     "0x000041": "Kingston",
                                     "0x000074": "Transcend",
                                     "0x000076": "Patriot",
-                                    "0x000082": "Sony"
+                                    "0x000082": "Sony",
+                                    "0x000027": "Sony"
                                     }
 
 

@@ -170,8 +170,13 @@ class Network:
                 device_subtype, device_alias = modalias_output.split(":", 1)
                 # Get device vendor and model ids and read "pci.ids" file if device subtype is "pci". Also trim "0000" characters by using [4:].
                 if device_subtype == "pci":
-                    device_vendor_id = device_alias.split("v", 1)[-1].split("d", 1)[0].lower()[4:]
-                    device_model_id = device_alias.split("d", 1)[-1].split("sv", 1)[0].lower()[4:]
+                    # Example pci device modalias: "pci:v000010DEd00000DF4sv00001043sd00001642bc03sc00i00".
+                    first_index = device_alias.find("v") + 1
+                    last_index = first_index + 8
+                    device_vendor_id = device_alias[first_index:last_index].lower()[4:]
+                    first_index = device_alias.find("d") + 1
+                    last_index = first_index + 8
+                    device_model_id = device_alias[first_index:last_index].lower()[4:]
                     device_vendor_id = "\n" + device_vendor_id + "  "
                     device_model_id = "\n\t" + device_model_id + "  "
                     # Read "pci.ids" file.
@@ -189,12 +194,28 @@ class Network:
                         ids_file_output = reader.read()
                 # Get device vendor and model ids and read "usb.ids" file if device subtype is "usb".
                 if device_subtype == "usb":
+                    # Example usb device modalias: "usb:v0B95p1790d0100dcFFdscFFdp00icFFiscFFip00in00".
                     device_vendor_id = device_alias.split("v", 1)[-1].split("p", 1)[0].lower()
                     device_model_id = device_alias.split("p", 1)[-1].split("d", 1)[0].lower()
                     device_vendor_id = "\n" + device_vendor_id + "  "
                     device_model_id = "\n\t" + device_model_id + "  "
                     # Read "usb.ids" file by specifying encoding method. Because this file has some characters in different encoding method.
                     with open("/usr/share/hwdata/usb.ids", encoding='ISO-8859-1') as reader:
+                        ids_file_output = reader.read()
+                # Get device vendor and model ids and read "usb.ids" file if device subtype is "sdio" which is used for some ARM devices.
+                if device_subtype == "sdio":
+                    # Example sdio device modalias: "sdio:c00v02D0d4324".
+                    first_index = device_alias.find("v") + 1
+                    last_index = first_index + 4
+                    device_vendor_id = device_alias[first_index:last_index].lower()
+                    first_index = device_alias.find("d") + 1
+                    last_index = first_index + 4
+                    device_model_id = device_alias[first_index:last_index].lower()
+                    device_vendor_id = "\n" + device_vendor_id + "  "
+                    device_model_id = "\n\t" + device_model_id + "  "
+                    print(device_vendor_id, device_model_id)
+                    # Read "usb.ids" file by specifying encoding method. Because this file has some characters in different encoding method.
+                    with open(os.path.dirname(os.path.realpath(__file__)) + "/../database/sdio.ids") as reader:
                         ids_file_output = reader.read()
                 # Search device vendor and model names in the pci.ids or usb.ids file.
                 if device_vendor_id in ids_file_output:
