@@ -72,10 +72,6 @@ class UsersDetails:
     # ----------------------- Called for resetting window GUI -----------------------
     def users_details_gui_reset_function(self):
 
-        # Reset window title and icon
-        self.window3101w.set_title(_tr("User Details"))
-        self.window3101w.set_icon_name("system-monitoring-center-user-symbolic")
-
         self.label3101w.set_text("--")
         self.label3102w.set_text("--")
         self.label3103w.set_text("--")
@@ -114,8 +110,6 @@ class UsersDetails:
         for line in stat_lines:
             if "btime " in line:
                 self.system_boot_time = int(line.split()[1].strip())
-
-        self.user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("system-monitoring-center-user-symbolic", 24, 0)
 
 
     # ----------------------------------- Users - Users Details Foreground Function -----------------------------------
@@ -230,13 +224,6 @@ class UsersDetails:
         if user_process_pid == 0:                                                             # User is logged in if "user_process_pid" is get from "systemd" process of the user.
             selected_user_logged_in = _tr("No")
 
-        # Get user account image
-        user_image_path = "/var/lib/AccountsService/icons/" + selected_user_username
-        if os.path.isfile(user_image_path) == True:
-            selected_user_account_image = GdkPixbuf.Pixbuf.new_from_file_at_size(user_image_path, 24, 24)
-        else:
-            selected_user_account_image = self.user_image_unset_pixbuf
-
         # Get user process count
         selected_user_process_count = all_process_user_ids.count(selected_user_uid)
 
@@ -268,10 +255,6 @@ class UsersDetails:
         self.pid_list_prev = pid_list
         self.global_process_cpu_times_prev = global_process_cpu_times
 
-
-        # Set Users Details window title and window icon image
-        self.window3101w.set_title(_tr("User Details") + ": " + selected_user_username)
-        self.window3101w.set_icon(selected_user_account_image)
 
         # Set label text
         self.label3101w.set_text(selected_user_username)
