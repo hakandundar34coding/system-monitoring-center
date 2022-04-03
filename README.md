@@ -28,7 +28,9 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 <p align="center">
 <a href="https://pypi.org/project/system-monitoring-center/"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Install%20From-PYPI-brightgreen?style=for-the-badge"></a>
 </a>
+</p>
 
+<p align="center">
 <a href="https://repology.org/project/system-monitoring-center/versions">
     <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
 </a>
