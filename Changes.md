@@ -1,8 +1,18 @@
-system-monitoring-center (1.8.0) unstable; urgency=medium
+# System Monitoring Center
 
-  [ Hakan Dündar ]
+### v1.9.1
+  * Fix: System integration (shortcut, images) for some cases
+
+### v1.9.0
+  * Update: project structure for Python packaging type
+  * Improved: CPU model names for ARM CPUs
+  * Add hardware database files
+  * Minor improvements
+
+### v1.8.0
   * New: Plot CPU usage history per-core
   * New: Gradient colors below line (CPU, RAM, GPU charts)
+  * Updated pt_BR translation
   * Code updates for OOP (Several modules)
   * Improved: Detection of computer model on ARM devices
   * Replaced pci.ids dependency with hwdata
@@ -14,13 +24,7 @@ system-monitoring-center (1.8.0) unstable; urgency=medium
   * Fix: Showing some NICs (usb0) without device-vendor IDs
   * Minor improvements and other bug fixes
 
-  [ eusouobn ]
-  * Updated pt_BR translation
-
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 29 Mar 2022 07:38:07 +0300
-
-system-monitoring-center (1.7.0) unstable; urgency=medium
-
+### v1.7.0
   * Code updates for OOP (menus, Performance, Settings)
   * Improved performance for tab switches
   * Improved FPS counter accuracy
@@ -30,38 +34,25 @@ system-monitoring-center (1.7.0) unstable; urgency=medium
   * Fix: Speed data conversions for bits/sec and orders
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 21 Mar 2022 09:19:44 +0300
-
-system-monitoring-center (1.6.0) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v1.6.0
   * New: Czech language translation
   * New: Polish language translation (initial)
   * Fix: application instance controls
   * Removed: python3-opengl dependency
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 14 Mar 2022 11:39:13 +0300
-
-system-monitoring-center (1.5.0) unstable; urgency=medium
-
+### v1.5.0
   * New: Brazilian Portuguese (pt_BR) translation
   * Removed deleted translation lines
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 09 Mar 2022 08:26:39 +0300
-
-system-monitoring-center (1.4.0) unstable; urgency=medium
-
-  * Rewrite Startup tab code is (improved reliability)
+### v1.4.0
+  * Rewrite Startup tab code (improved reliability)
   * Add: dependency (python3-gi-cairo)
   * Minor improvements for process names > 15 characters
   * Several minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 24 Feb 2022 10:02:50 +0300
-
-system-monitoring-center (1.3.0) unstable; urgency=medium
-
+### v1.3.0
   * New: remember window size option (Settings)
   * Simplifications for the GUI (several tabs)
   * Improved: saving/reading configuration file
@@ -70,36 +61,24 @@ system-monitoring-center (1.3.0) unstable; urgency=medium
   * Fix: Enabling/Disabling service (Services tab)
   * Minor impovements and bug fixes
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 17 Feb 2022 09:07:17 +0300
-
-system-monitoring-center (1.2.2) unstable; urgency=medium
-
-  [ Hakan Dündar ]
-  * New: Swap Details window is reloaded automatically
+### v1.2.2
+  * Swap Details window is reloaded automatically
   * Fix: Showing menu/details window for some processes
-  * Fix: disk vendor-model information (Disk Details))
+  * Fix: wrong default_main_tab values
+  * Fix: disk vendor-model information (Disk Details)
+  * Update some if controls of main_tab and sub_tab for optimizing
   * Minor changes for OS name and version information
   * Minor improvements (GUI, translations, etc.)
-
-  [ Fatih Altun ]
-  * Fix wrong default_main_tab values
   * Optimize screenshots using png optimization tools
-  * Update some if controls of main_tab and sub_tab for optimizing
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 10 Feb 2022 09:37:48 +0300
-
-system-monitoring-center (1.2.1) unstable; urgency=medium
-
+### v1.2.1
   * Fix: disk vendor-model information (Disk Details)
   * Fix: disk read/write speed (Process Details window)
   * Minor improvements (Users tab)
   * Minor improvements (GUI, translation, etc)
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 27 Jan 2022 10:02:00 +0300
-
-system-monitoring-center (1.2.0) unstable; urgency=medium
-
+### v1.2.0
   * Removed Storage tab and moved Disk details to Disk tab
   * Removed Environment Variables tab and GUI design changes
   * Fix: disk vendor-model information on VMs (Disk tab)
@@ -108,25 +87,16 @@ system-monitoring-center (1.2.0) unstable; urgency=medium
   * Translation improvements
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 24 Jan 2022 09:29:25 +0300
-
-system-monitoring-center (1.1.0) unstable; urgency=medium
-
+### v1.1.0
   * Support for ARM devices
   * Minor improvements for application start speed
   * Bug fix and minor improvements (CPU tab)
   * Various improvements (bug fixes, performance, GUI, etc.
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 17 Jan 2022 11:52:11 +0300
-
-system-monitoring-center (1.0.0) unstable; urgency=medium
-
+### v1.0.0
   * Various improvements (bug fixes, performance, GUI, etc.
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 07 Jan 2022 09:26:01 +0300
-
-system-monitoring-center (0.3.2~beta1) unstable; urgency=medium
-
+### v0.3.2-beta1
   * Improvements for ARM device support
   * Fix: highligthing processes of clicked windows
   * Updated used RAM calculation method
@@ -134,30 +104,20 @@ system-monitoring-center (0.3.2~beta1) unstable; urgency=medium
   * Performance improvements (CPU tab)
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 29 Dec 2021 11:50:48 +0300
-
-system-monitoring-center (0.3.1~beta1) unstable; urgency=medium
-
+### v0.3.1-beta1
   * Fix: GPU model name matching problem (GPU tab)
   * Improvements for Flatpak packaging
   * Improvement: restarting the application with root privileges
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 19 Dec 2021 13:24:51 +0300
-
-system-monitoring-center (0.3.0~beta1) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.3.0-beta2
   * New: Support for voltage,current and more temp./fan sensors
   * Minor performance improvements for several tabs
   * Fix: sensor name (Sensors tab)
   * Updated package dependencies
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 11 Dec 2021 12:59:53 +0300
-
-system-monitoring-center (0.2.0~beta1) unstable; urgency=medium
-
+### v0.2.0-beta1
   * New: limited support for ARM CPUs (CPU tab)
   * New: limited support for ARM CPUs (System tab)
   * Improvements for detection of startup applications behavior
@@ -167,20 +127,14 @@ system-monitoring-center (0.2.0~beta1) unstable; urgency=medium
   * Improvements for getting Gnome DE version (System tab)
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 07 Dec 2021 09:49:25 +0300
-
-system-monitoring-center (0.1.21~beta19) unstable; urgency=medium
-
+### v0.1.21-beta19
   * Improvements for getting Gnome DE version
   * Improvements for packaging scripts
   * Improvements for opening default terminal application
   * Fixed a bug for NVMe SSDs (Disk tab)
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 03 Dec 2021 13:56:56 +0300
-
-system-monitoring-center (0.1.21~beta18) unstable; urgency=medium
-
+### v0.1.21-beta18
   * Security improvements for command running operations (GPU tab)
   * Fixed a bug for GPU vendor-device information (GPU tab)
   * Application category change: Settings category is removed
@@ -191,10 +145,7 @@ system-monitoring-center (0.1.21~beta18) unstable; urgency=medium
   * Fixed a bug for running terminal application (Main menu)
   * Minor GUI improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 25 Nov 2021 12:18:57 +0300
-
-system-monitoring-center (0.1.21~beta17) unstable; urgency=medium
-
+### v0.1.21-beta17
   * New: End User Session action is added (Users tab)
   * Visual improvements for Sensors and RAM tabs
   * Improvements for debian packaging and GUI
@@ -203,66 +154,40 @@ system-monitoring-center (0.1.21~beta17) unstable; urgency=medium
   * Various improvements (GUI, Readme file, etc.)
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 14 Nov 2021 10:18:12 +0300
-
-system-monitoring-center (0.1.21~beta16) unstable; urgency=medium
-
+### v0.1.21-beta16
   * Fixed a bug for RAM hardware information window
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 06 Nov 2021 16:49:34 +0300
-
-system-monitoring-center (0.1.21~beta15) unstable; urgency=medium
-
+### v0.1.21-beta15
   * Minor improvements and bug fixes
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 06 Nov 2021 11:11:31 +0300
-
-system-monitoring-center (0.1.21~beta14) unstable; urgency=medium
-
+### v0.1.21-beta14
   * New: RAM hardware information can be viewed (RAM tab)
   * New: Swap memory details can be viewed (RAM tab)
   * Improvements for Floating Summary window
   * Minor GUI improvements
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 05 Nov 2021 16:44:16 +0300
-
-system-monitoring-center (0.1.21~beta13) unstable; urgency=medium
-
+### v0.1.21-beta13
   * Fix a bug for RAM tab
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 30 Oct 2021 14:30:02 +0300
 
-system-monitoring-center (0.1.21~beta12) unstable; urgency=medium
-
+### v0.1.21-beta12
   * Improvements for Startup tab right click menu
   * Improvements for GUI and translations
   * Various minor improvements
   * Bug fixes for Environment Variables tab
   * Several improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 30 Oct 2021 14:23:06 +0300
-
-system-monitoring-center (0.1.21~beta11) unstable; urgency=medium
-
+### v0.1.21-beta11
   * Several improvements (functionality, bug fixes, etc)
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 24 Oct 2021 20:26:57 +0300
-
-system-monitoring-center (0.1.21~beta10) unstable; urgency=medium
-
+### v0.1.21-beta10
   * Several improvements (functionality, GUI design, bug fixes, etc)
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 24 Oct 2021 08:42:22 +0300
-
-system-monitoring-center (0.1.21~beta9) unstable; urgency=medium
-
+### v0.1.21-beta9
   * Several improvements (performance, security, bug fixes, etc)
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 22 Oct 2021 19:17:18 +0300
-
-system-monitoring-center (0.1.21~beta8) unstable; urgency=medium
-
+### v0.1.21-beta8
   * Improvements for error handling and dialogs (Startup tab)
   * Removed unused dialogs
   * Minor code comment changes
@@ -275,94 +200,53 @@ system-monitoring-center (0.1.21~beta8) unstable; urgency=medium
   * Fixed Processes tab right click menu bugs
   * Improvements for performance summary on the headerbar
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 17 Oct 2021 11:16:16 +0300
-
-system-monitoring-center (0.1.21~beta7) unstable; urgency=medium
-
+### v0.1.21-beta7
   * Minor updates for function repeating mechanism
   * Automatic data units are set for Floating Summary window
   * Minor internal and GUI improvements
   * Processes tab customizations menu simplifications
   * Reduced CPU load while application start and tab switch
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 14 Oct 2021 11:48:47 +0300
-
-system-monitoring-center (0.1.21~beta6) unstable; urgency=medium
-
+### v0.1.21-beta6
   * Update README.md
   * Minor GUI improvements
   * Removed Run Application window which needs more detailed work
   * Updated translation files
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 13 Oct 2021 10:16:03 +0300
-
-system-monitoring-center (0.1.21~beta5) unstable; urgency=medium
-
+### v0.1.21-beta5
   * Remove search customization features for simplicity
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 11 Oct 2021 07:43:57 +0300
-
-system-monitoring-center (0.1.21~beta4) unstable; urgency=medium
-
+### v0.1.21-beta4
   * Added support for viewing Arch Linux and pacman packages information
   * Minor design changes on GUI icons
   * Update README.md
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 09 Oct 2021 10:00:54 +0300
-
-system-monitoring-center (0.1.21~beta3) unstable; urgency=medium
-
+### v0.1.21-beta3
   * About %50 performance improvement for services data loading
   * Various bug fixes and minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 08 Oct 2021 14:53:46 +0300
-
-system-monitoring-center (0.1.21~beta2) unstable; urgency=medium
-
+### v0.1.21-beta2
   * Fixed bugs for double/right clicking on empty areas of the lists on several tabs
   * Improvements for Debian packaging
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 08 Oct 2021 09:44:59 +0300
-
-system-monitoring-center (0.1.21~beta1) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.21-beta1
   * Improved tab switch performance
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 07 Oct 2021 17:58:21 +0300
-
-system-monitoring-center (0.1.20~beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.20-beta
   * Removed unused code
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 07 Oct 2021 13:59:10 +0300
-
-system-monitoring-center (0.1.19~beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
-
+### v0.1.19-beta
   * Added support for showing Network and GPU device vendor and model information on RPM-based systems
   * Added support for showing number of installed RPM packages on RPM-based systems (System tab)
   * Fixed a bug for showing number of installed Flatpak packages
   * Minor performance improvements on Disk and System tab
   * Minor changes on application icon
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 07 Oct 2021 13:17:05 +0300
-
-system-monitoring-center (0.1.18-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
-
+### v0.1.18-beta
   * Fixed bugs for default tabs on application start
   * Fixed a bug for resetting selected disk (Disk tab)
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 03 Oct 2021 21:05:00 +0300
-
-system-monitoring-center (0.1.17-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
-
+### v0.1.17-beta
   * Application start speed is improved
   * Tab switch performance is improved
   * RAM usage of the application is decreased in most situations
@@ -372,12 +256,7 @@ system-monitoring-center (0.1.17-beta) unstable; urgency=medium
   * Selected hardware can be reset on relevant tab (CPU, Disk, etc.)
   * Fixed a bug which causes running multiple instances of same threads after repetitive tab switches
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 03 Oct 2021 14:35:00 +0300
-
-system-monitoring-center (0.1.16-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
-
+### v0.1.16-beta
   * Application start speed is improved
   * Improved response times of the application window after window focus changes
   * Minor improvements for reducing CPU usage on several tabs
@@ -385,51 +264,28 @@ system-monitoring-center (0.1.16-beta) unstable; urgency=medium
   * Default value of average CPU usage precision is changed to "0" to increase readability
   * Minor GUI improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 01 Oct 2021 08:28:00 +0300
-
-system-monitoring-center (0.1.15-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
-
+### v0.1.15-beta
   * Application start speed is improved
   * Tab switch performance is improved
   * Fixed a bug for showing process cmdline on Process Details window
   * Minor GUI improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 30 Sep 2021 20:01:00 +0300
-
-system-monitoring-center (0.1.14-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
-
+### v0.1.14-beta
   * Fixed a bug which causes displaying wrong process icons (Processes tab)
   * Minor performance improvements on System tab
   * Minor translation updates
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 30 Sep 2021 07:17:00 +0300
-
-system-monitoring-center (0.1.13-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
-
+### v0.1.13-beta
   * Start speed of the application is increased
   * RAM usage of the application is decreased in most situations
   * Icon images are recolored as "bebebeff" color instead of black (this does not affect icon appearances on the GUI)
   * Fixed a bug for trying to open Service Details window without waiting the services to be loaded and listed
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 28 Sep 2021 14:24:00 +0300
-
-system-monitoring-center (0.1.12-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.12-beta
   * Fixed a bug for showing right click menu on Services tab
   * Minor GUI improvements (CPU and GPU tabs)
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 27 Sep 2021 14:27:00 +0300
-
-system-monitoring-center (0.1.11-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.11-beta
   * Window manager information is added to the System tab
   * Added support for listing startup applications on systems with LXQt and LXDE desktop environments
   * Added support for showing desktop environment versions of MATE and LXQt desktop environments (System tab)
@@ -441,11 +297,7 @@ system-monitoring-center (0.1.11-beta) unstable; urgency=medium
   * Various bug fixes
   * Minor GUI improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 27 Sep 2021 10:54:00 +0300
-
-system-monitoring-center (0.1.10-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.10-beta
   * OS kernel version information is available on the GUI
   * Fixed a bug for showing CPU architecture on some systems
   * For getting CPU architecture, removed dependency of lscpu command (CPU tab)
@@ -453,22 +305,14 @@ system-monitoring-center (0.1.10-beta) unstable; urgency=medium
   * Various bug fixes
   * Minor GUI improvements (added tooltips for several objects on System tab, etc.)
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 23 Sep 2021 14:49:00 +0300
-
-system-monitoring-center (0.1.9-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.9-beta
   * User details can be viewed on a separate window (Users tab)
   * Child processes of a process can be viewed on Process Details window (Processes tab)
   * Fixed a bug for viewing storage details on systems if there is no disks with label since system installation.
   * Various bug fixes
   * Minor GUI improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 22 Sep 2021 13:22:00 +0300
-
-system-monitoring-center (0.1.8-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.8-beta
   * Improvements for listing environment/shell variables correctly
   * Add/Edit/Delete/Copy right click menu functions are added (Environment Variables tab)
   * Now double clicking on process/storage/service rows opens details window on relevant tab
@@ -477,30 +321,18 @@ system-monitoring-center (0.1.8-beta) unstable; urgency=medium
   * Various bug fixes
   * Minor GUI improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 18 Sep 2021 20:41:00 +0300
-
-system-monitoring-center (0.1.7-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.7-beta
   * Fixed bugs which cause incorrect startup item "Enabled/Disabled" behavior (Startup tab)
   * Minor GUI improvements (GUI object tooltip changes/updates)
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 14 Sep 2021 14:42:00 +0300
-
-system-monitoring-center (0.1.6-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.6-beta
   * Added support for listing startup items on systems with GNOME-Classic, Ubuntu-GNOME desktop environments (Startup tab).
   * Added "Run Now" and "Reset To System Values" items on the right click menu on Startup tab.
   * Fixed bugs which cause incorrect startup item "Enabled/Disabled" information (Startup tab)
   * Various bug fixes
   * Minor GUI improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 14 Sep 2021 09:08:00 +0300
-
-system-monitoring-center (0.1.5-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.5-beta
   * Added support for listing startup items on systems with Cinnamon, Mate, Kde desktop environments (Startup tab).
   * Improvements for listing processes with names longer than 15 characters (Processes tab)
   * Various bug fixes
@@ -508,11 +340,7 @@ system-monitoring-center (0.1.5-beta) unstable; urgency=medium
   * Minor GUI improvements
   * Error handling improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 11 Sep 2021 16:14:00 +0300
-
-system-monitoring-center (0.1.4-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.4-beta
   * Added support for detection of Wayland windowing system (System tab)
   * Added support for detection of Cinnamon, Mate, Kde Plasma desktop environments (System tab)
   * Fixed a bug which causes error when an application window is tried to be defined on systems run Wayland (Processes tab)
@@ -523,11 +351,7 @@ system-monitoring-center (0.1.4-beta) unstable; urgency=medium
   * Error handling improvements
   * Removed unused code
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 10 Sep 2021 14:17:00 +0300
-
-system-monitoring-center (0.1.3-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.3-beta
   * Performance improvements for more smooth tab switches
   * Minor performance improvements for application start speed
   * Implementations of functions for General Settings window
@@ -536,11 +360,7 @@ system-monitoring-center (0.1.3-beta) unstable; urgency=medium
   * Error handling improvements
   * Removed unused code
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 09 Sep 2021 18:08:20 +0300
-
-system-monitoring-center (0.1.2-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.2-beta
   * Implementations of functions for General Settings window
   * Removed unnecessary commandline functions which are used for getting hardware information.
   * 0 Byte values are shown as 0 B instead of 0.00 B.
@@ -551,21 +371,12 @@ system-monitoring-center (0.1.2-beta) unstable; urgency=medium
   * Some code changes for easier code readability
   * Removed unused code
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 08 Sep 2021 17:35:00 +0300
-
-system-monitoring-center (0.1.1-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.1-beta
   * Changed default settings for more user friendly view.
   * Changed some GTK GUI object properties which were deprecated.
   * Various bug fixes
   * Minor translation updates
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 06 Sep 2021 20:44:00 +0300
-
-system-monitoring-center (0.1.0-beta) unstable; urgency=medium
-
-  [ Hakan Dündar ]
+### v0.1.0-beta
   * Initial commit
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 05 Sep 2021 17:10:00 +0300

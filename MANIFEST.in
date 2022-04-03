@@ -1,0 +1,13 @@
+include LICENSE
+include README.md
+include icons/*
+include integration/com.github.hakand34.system-monitoring-center.desktop
+include database/*
+include src/*.py
+include src/__version__
+include translations/cs/*
+include translations/pl/*
+include translations/pt_BR/*
+include translations/tr/*
+include ui/*.ui
+include setup.py

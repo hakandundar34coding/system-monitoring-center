@@ -220,17 +220,16 @@ class Disk:
             with open("/usr/share/hwdata/pci.ids") as reader:
                 self.pci_ids_output = reader.read()
 
-        # Get disk_vendor_model, disk_parent_name, disk_mount_point
-        disk_type, disk_vendor_model, disk_mount_point = self.disk_get_device_partition_model_name_mount_point_func(disk_list, selected_disk)
 
-        # Get if_system_disk
-        if disk_mount_point == "/":
-            if_system_disk = _tr("Yes")
-        else:
-            if_system_disk = _tr("No")
+        # Get information.
+        disk_type = self.disk_type_func(selected_disk)
+        disk_parent_name = self.disk_parent_name_func(selected_disk, disk_type, disk_list)
+        disk_vendor_model = self.disk_vendor_model_func(selected_disk, disk_type, disk_parent_name)
+        disk_mount_point = self.disk_mount_point_func(selected_disk)
+        if_system_disk = self.disk_if_system_disk_func(disk_mount_point)
 
 
-        # Set Disk tab label texts by using information get
+        # Show information on labels.
         self.label1301.set_text(disk_vendor_model)
         self.label1302.set_text(f'{selected_disk} ({disk_type})')
         self.label1307.set_text(if_system_disk)
@@ -244,6 +243,7 @@ class Disk:
         disk_list = Performance.disk_list
         selected_disk_number = Performance.selected_disk_number
         selected_disk = disk_list[selected_disk_number]
+        disk_sector_size = Performance.disk_sector_size
 
         # Run "disk_initial_func" if selected disk is changed since the last loop.
         try:                                                                                      
@@ -272,44 +272,25 @@ class Disk:
         except Exception:
             return
 
-        # Get disk_read_time, disk_write_time
-        with open("/proc/diskstats") as reader:
-            proc_diskstats_lines = reader.read().strip().split("\n")
-            for line in proc_diskstats_lines:
-                if line.split()[2].strip() == selected_disk:
-                    disk_read_time = int(line.split()[6])
-                    disk_write_time = int(line.split()[10])
-
-        # Get disk_size, disk_available, disk_free, disk_used, disk_usage_percent
-        disk_type, disk_vendor_model, disk_mount_point = self.disk_get_device_partition_model_name_mount_point_func(disk_list, selected_disk)
-        if disk_mount_point != "":
-            # Values are calculated for filesystem size values (as df command does). lsblk command shows values of mass storage.
-            statvfs_disk_usage_values = os.statvfs(disk_mount_point)
-            fragment_size = statvfs_disk_usage_values.f_frsize
-            disk_size = statvfs_disk_usage_values.f_blocks * fragment_size
-            disk_available = statvfs_disk_usage_values.f_bavail * fragment_size
-            disk_free = statvfs_disk_usage_values.f_bfree * fragment_size
-            disk_used = disk_size - disk_free
-            # Gives same result with "lsblk" command
-            #self.disk_usage_percent = disk_used / disk_size * 100
-            # disk_usage_percent value is calculated as "used disk space / available disk space" in terms of filesystem values. This is real usage percent.
-            self.disk_usage_percent = disk_used / (disk_available + disk_used) * 100
-        if disk_mount_point == "":
-            disk_size = _tr("[Not mounted]")
-            disk_available = _tr("[Not mounted]")
-            disk_free = _tr("[Not mounted]")
-            disk_used = _tr("[Not mounted]")
-            self.disk_usage_percent = 0
+        # Get content of "/proc/mounts" file which is used by Disk and DiskDetails modules.
+        with open("/proc/mounts") as reader:
+            self.proc_mounts_output_lines = reader.read().strip().split("\n")
 
 
-        # Set and update Disk tab label texts by using information get
+        # Get information.
+        disk_read_time, disk_write_time = self.disk_read_write_time_func(selected_disk)
+        disk_mount_point = self.disk_mount_point_func(selected_disk)
+        disk_capacity, disk_size, disk_available, disk_free, disk_used, self.disk_usage_percent = self.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
+
+
+        # Show information on labels.
         self.label1303.set_text(f'{self.performance_data_unit_converter_func(disk_read_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
         self.label1304.set_text(f'{self.performance_data_unit_converter_func(disk_write_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
         self.label1305.set_text(f'{self.disk_time_unit_converter_func(disk_read_time)} ms')
         self.label1306.set_text(f'{self.disk_time_unit_converter_func(disk_write_time)} ms')
-        if disk_mount_point != "":
+        if disk_mount_point != "-":
             self.label1308.set_text(f'{self.disk_usage_percent:.0f}%')
-        if disk_mount_point == "":
+        if disk_mount_point == "-":
             self.label1308.set_text("-%")
         self.label1309.set_text(self.performance_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
         self.label1310.set_text(self.performance_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
@@ -341,35 +322,37 @@ class Disk:
             return f'{w_r_time_days_int:02}:{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}.{w_r_time_seconds_int:02}:{w_r_time_milliseconds_int:03}'
 
 
-    # ----------------------------------- Disk - Get disk_vendor_model, disk_parent_name, disk_mount_point Values Function -----------------------------------
-    def disk_get_device_partition_model_name_mount_point_func(self, disk_list, selected_disk):
+    # ----------------------- Get disk type (Disk or Partition) -----------------------
+    def disk_type_func(self, selected_disk):
 
-        # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
-        selected_disk_name = selected_disk
-        try:
-            if os.path.isdir("/sys/class/block/" + selected_disk_name) == False:
-                return
-        except Exception:
-            return
-
-        # Get disk type (Disk or Partition)
-        with open("/sys/class/block/" + selected_disk_name + "/uevent") as reader:
+        with open("/sys/class/block/" + selected_disk + "/uevent") as reader:
             sys_class_block_disk_uevent_lines = reader.read().split("\n")
+
         for line in sys_class_block_disk_uevent_lines:
             if "DEVTYPE" in line:
                 disk_type = _tr(line.split("=")[1].capitalize())
                 break
 
-        # Get parent disk name of the disk
-        disk_parent_name = ""
+        return disk_type
+
+
+    # ----------------------- Get disk parent name -----------------------
+    def disk_parent_name_func(self, selected_disk, disk_type, disk_list):
+
+        disk_parent_name = "-"
         if disk_type == _tr("Partition"):
             for check_disk_dir in disk_list:
-                if os.path.isdir("/sys/class/block/" + check_disk_dir + "/" + selected_disk_name) == True:
+                if os.path.isdir("/sys/class/block/" + check_disk_dir + "/" + selected_disk) == True:
                     disk_parent_name = check_disk_dir
 
-        # Get disk vendor and model
+        return disk_parent_name
+
+
+    # ----------------------- Get disk vendor and model -----------------------
+    def disk_vendor_model_func(self, selected_disk, disk_type, disk_parent_name):
+
         if disk_type == _tr("Disk"):
-            disk_or_parent_disk_name = selected_disk_name
+            disk_or_parent_disk_name = selected_disk
         if disk_type == _tr("Partition"):
             disk_or_parent_disk_name = disk_parent_name
 
@@ -387,7 +370,8 @@ class Disk:
                     disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
                 if disk_vendor_id not in self.pci_ids_output:
                     disk_vendor = f'[{_tr("Unknown")}]'
-        # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + selected_disk_name + "/device" directory. They have this file under "/sys/class/block/" + selected_disk_name + "/device/device/vendor" directory.
+
+        # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + selected_disk + "/device" directory. They have this file under "/sys/class/block/" + selected_disk + "/device/device/vendor" directory.
         except FileNotFoundError:
             try:
                 with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/vendor") as reader:
@@ -417,32 +401,283 @@ class Disk:
                         disk_model = f'[{_tr("Unknown")}]'
                 else:
                     disk_model = f'[{_tr("Unknown")}]'
+
         except Exception:
             disk_model = f'[{_tr("Unknown")}]'
         disk_vendor_model = disk_vendor + " - " +  disk_model
-        # Get disk vendor and model if disk is loop device or swap disk.
-        if "loop" in selected_disk_name:
-            disk_vendor_model = "[Loop Device]"
-        if "zram" in selected_disk_name:
-            disk_vendor_model = _tr("[SWAP]")
 
-        # Get disk mount point
+        # Get disk vendor and model if disk is loop device or swap disk.
+        if selected_disk.startswith("loop"):
+            disk_vendor_model = "[Loop Device]"
+        if selected_disk.startswith("zram"):
+            disk_vendor_model = _tr("[SWAP]")
+        if selected_disk.startswith("mmcblk"):
+            self.disk_mmc_cid_values_func()
+            try:
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/manfid") as reader:
+                    disk_vendor_manfid = reader.read().strip()
+                disk_vendor = self.mmc_cid_values_dict[disk_vendor_manfid]
+            except Exception:
+                disk_vendor = "-"
+            try:
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/name") as reader:
+                    disk_name = reader.read().strip()
+                disk_model = disk_name
+            except FileNotFoundError:
+                disk_model = "-"
+            try:
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/type") as reader:
+                    disk_card_type = reader.read().strip()
+            except FileNotFoundError:
+                disk_card_type = "-"
+            try:
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/speed_class") as reader:
+                    disk_card_speed_class = reader.read().strip()
+            except FileNotFoundError:
+                disk_card_speed_class = "-"
+            disk_vendor_model = f'{disk_vendor} - {disk_model} ({disk_card_type} Card, Class {disk_card_speed_class})'
+
+        return disk_vendor_model
+
+
+    # ----------------------- Define register value dictionaries to get CPU information) -----------------------
+    def disk_mmc_cid_values_func(self):
+
+        # For more info about CIDs: https://www.kernel.org/doc/Documentation/mmc/mmc-dev-attrs.txt
+        # Source: several sources and https://www.cameramemoryspeed.com/sd-memory-card-faq/reading-sd-card-cid-serial-psn-internal-numbers/
+        self.mmc_cid_values_dict = {
+                                    "0x000001": "Panasonic",
+                                    "0x000002": "Toshiba",
+                                    "0x000003": "SanDisk",
+                                    "0x00001b": "Samsung",
+                                    "0x00001d": "AData",
+                                    "0x000027": "Phison",
+                                    "0x000028": "Lexar",
+                                    "0x000031": "Silicon Power",
+                                    "0x000041": "Kingston",
+                                    "0x000074": "Transcend",
+                                    "0x000076": "Patriot",
+                                    "0x000082": "Sony",
+                                    "0x000027": "Sony"
+                                    }
+
+
+    # ----------------------- Get disk mount point -----------------------
+    def disk_mount_point_func(self, selected_disk):
+
         with open("/proc/mounts") as reader:
             proc_mounts_output_lines = reader.read().strip().split("\n")
-        disk_mount_point = ""
+
+        disk_mount_point = "-"
         disk_mount_point_list_scratch = []
         for line in proc_mounts_output_lines:
             line_split = line.split()
-            if line_split[0].split("/")[-1] == selected_disk_name:
+            if line_split[0].split("/")[-1] == selected_disk:
                 # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
                 disk_mount_point_list_scratch.append(bytes(line_split[1], "utf-8").decode("unicode_escape"))
+
         if len(disk_mount_point_list_scratch) == 1:
             disk_mount_point = disk_mount_point_list_scratch[0]
+
         # System disk is listed twice with different mountpoints on some systems (such as systems use btrfs filsystem or chroot). "/" mountpoint information is used.
         if len(disk_mount_point_list_scratch) > 1 and "/" in disk_mount_point_list_scratch:
             disk_mount_point = "/"
 
-        return disk_type, disk_vendor_model, disk_mount_point
+        return disk_mount_point
+
+
+    # ----------------------- Get if system disk -----------------------
+    def disk_if_system_disk_func(self, disk_mount_point):
+
+        if disk_mount_point == "/":
+            if_system_disk = _tr("Yes")
+        else:
+            if_system_disk = _tr("No")
+
+        # System disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
+        if if_system_disk == _tr("No"):
+            for line in self.proc_mounts_output_lines:
+                line_split = line.split(" ", 1)
+                if line_split[0] == "dev/root":
+                    with open("/proc/cmdline") as reader:
+                        proc_cmdline = reader.read()
+                    if "root=UUID=" in proc_cmdline:
+                        disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
+                        system_disk = os.path.realpath("/dev/disk/by-uuid/" + disk_uuid_partuuid).split("/")[-1].strip()
+                    if "root=PARTUUID=" in proc_cmdline:
+                        disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
+                        system_disk = os.path.realpath("/dev/disk/by-partuuid/" + disk_uuid_partuuid).split("/")[-1].strip()
+                    if system_disk == selected_disk:
+                        if_system_disk = _tr("Yes")
+
+        return if_system_disk
+
+
+    # ----------------------- Get disk file system -----------------------
+    def disk_file_system_func(self, selected_disk):
+
+        disk_file_system = _tr("[Not mounted]")
+        for line in self.proc_mounts_output_lines:
+            if line.split()[0].strip() == ("/dev/" + selected_disk):
+                disk_file_system = line.split()[2].strip()
+                break
+
+        if disk_file_system == _tr("[Not mounted]"):
+            # Show "[SWAP]" information for swap disks (if selected swap area is partition (not file))
+            with open("/proc/swaps") as reader:
+                proc_swaps_output_lines = reader.read().strip().split("\n")
+            swap_disk_list = []
+            for line in proc_swaps_output_lines:
+                if line.split()[1].strip() == "partition":
+                    swap_disk_list.append(line.split()[0].strip().split("/")[-1])
+            if len(swap_disk_list) > 0 and selected_disk in swap_disk_list:
+                disk_file_system = _tr("[SWAP]")
+
+        # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
+        if disk_file_system  == "fuseblk":
+            try:
+                disk_for_file_system = "/dev/" + selected_disk
+                disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
+            except Exception:
+                pass
+
+        return disk_file_system
+
+
+    # ----------------------- Get disk read time and disk write time -----------------------
+    def disk_read_write_time_func(self, selected_disk):
+
+        with open("/proc/diskstats") as reader:
+            proc_diskstats_lines = reader.read().strip().split("\n")
+
+            for line in proc_diskstats_lines:
+                if line.split()[2].strip() == selected_disk:
+                    disk_read_time = int(line.split()[6])
+                    disk_write_time = int(line.split()[10])
+
+        return disk_read_time, disk_write_time
+
+
+    # ----------------------- Get disk capacity, size, disk_available, disk_free, disk_used, disk_usage_percent -----------------------
+    def disk_disk_capacity_size_available_free_used_usage_percent_func(self, disk_mount_point):
+
+        if disk_mount_point != "-":
+            # Values are calculated for filesystem size values (as df command does). lsblk command shows values of mass storage.
+            statvfs_disk_usage_values = os.statvfs(disk_mount_point)
+            fragment_size = statvfs_disk_usage_values.f_frsize
+            disk_capacity = statvfs_disk_usage_values.f_blocks * fragment_size
+            disk_size = statvfs_disk_usage_values.f_blocks * fragment_size
+            disk_available = statvfs_disk_usage_values.f_bavail * fragment_size
+            disk_free = statvfs_disk_usage_values.f_bfree * fragment_size
+            disk_used = disk_size - disk_free
+            # Gives same result with "lsblk" command
+            #self.disk_usage_percent = disk_used / disk_size * 100
+            # disk_usage_percent value is calculated as "used disk space / available disk space" in terms of filesystem values. This is real usage percent.
+            self.disk_usage_percent = disk_used / (disk_available + disk_used) * 100
+
+        if disk_mount_point == "-":
+            disk_capacity = _tr("[Not mounted]")
+            disk_size = _tr("[Not mounted]")
+            disk_available = _tr("[Not mounted]")
+            disk_free = _tr("[Not mounted]")
+            disk_used = _tr("[Not mounted]")
+            self.disk_usage_percent = 0
+
+        return disk_capacity, disk_size, disk_available, disk_free, disk_used, self.disk_usage_percent
+
+
+    # ----------------------- Get disk capacity (mass storage) -----------------------
+    def disk_capacity_mass_storage_func(self, selected_disk, disk_mount_point, disk_sector_size):
+
+        with open("/sys/class/block/" + selected_disk + "/size") as reader:
+            disk_capacity_mass_storage = int(reader.read()) * disk_sector_size
+
+        return disk_capacity_mass_storage
+
+
+    # ----------------------- Get disk label -----------------------
+    def disk_label_func(self, selected_disk):
+
+        disk_label = "-"
+        try:
+            disk_label_list = os.listdir("/dev/disk/by-label/")
+            for label in disk_label_list:
+                if os.path.realpath("/dev/disk/by-label/" + label).split("/")[-1] == selected_disk:
+                    # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
+                    disk_label = bytes(label, "utf-8").decode("unicode_escape")
+        except FileNotFoundError:
+            pass
+
+        return disk_label
+
+
+    # ----------------------- Get disk partition label -----------------------
+    def disk_partition_label_func(self, selected_disk):
+
+        disk_partition_label = "-"
+        try:
+            disk_partition_label_list = os.listdir("/dev/disk/by-partlabel/")
+            for label in disk_partition_label_list:
+                if os.path.realpath("/dev/disk/by-partlabel/" + label).split("/")[-1] == selected_disk:
+                    disk_partition_label = label
+        except FileNotFoundError:
+            pass
+
+        return disk_partition_label
+
+
+    # ----------------------- Get disk path -----------------------
+    def disk_path_func(self, selected_disk):
+
+        disk_path = "-"
+        if os.path.exists("/dev/" + selected_disk) == True:
+            disk_path = "/dev/" + selected_disk
+
+        return disk_path
+
+
+    # ----------------------- Get disk revision -----------------------
+    def disk_revision_func(self, selected_disk, disk_type):
+
+        disk_revision = "-"
+        if disk_type == _tr("Disk"):
+            try:
+                with open("/sys/class/block/" + selected_disk + "/device/rev") as reader:
+                    disk_revision = reader.read().strip()
+            except Exception:
+                pass
+
+        return disk_revision
+
+
+    # ----------------------- Get disk serial number -----------------------
+    def disk_serial_number_func(self, selected_disk, disk_type):
+
+        disk_serial_number = "-"
+        if disk_type == _tr("Disk"):
+            disk_id_list = os.listdir("/dev/disk/by-id/")
+            for id in disk_id_list:
+                if os.path.realpath("/dev/disk/by-id/" + id).split("/")[-1] == selected_disk and ("/dev/disk/by-id/" + id).startswith("wwn-") == False:
+                    disk_serial_number = id.split("-")[-1]
+                    if "part" in disk_serial_number:
+                        disk_serial_number = id.split("-")[-2]
+
+        return disk_serial_number
+
+
+    # ----------------------- Get disk UUID -----------------------
+    def disk_uuid_func(self, selected_disk):
+
+        disk_uuid = "-"
+        try:
+            disk_uuid_list = os.listdir("/dev/disk/by-uuid/")
+            for uuid in disk_uuid_list:
+                if os.path.realpath("/dev/disk/by-uuid/" + uuid).split("/")[-1] == selected_disk:
+                    disk_uuid = uuid
+        except FileNotFoundError:
+            pass
+
+        return disk_uuid
 
 
 # Generate object

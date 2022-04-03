@@ -21,9 +21,12 @@ class MainGUI:
     def __init__(self):
 
         # Configurations for language translation support
-        locale.bindtextdomain("system-monitoring-center", "/usr/share/locale")
+        locale.bindtextdomain("system-monitoring-center", os.path.dirname(os.path.realpath(__file__)) + "/../locale")
         locale.textdomain("system-monitoring-center")
         locale.setlocale(locale.LC_ALL, os.environ.get("LANG"))
+
+        # Generate symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated.
+        self.main_gui_application_system_integration_func()
 
         # Get GUI objects from file
         builder = Gtk.Builder()
@@ -470,6 +473,68 @@ class MainGUI:
         self.main_glib_source.set_callback(self.main_gui_tab_loop_func)
         # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
         self.main_glib_source.attach(GLib.MainContext.default())
+
+
+    # ----------------------- Called for generating symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated. -----------------------
+    def main_gui_application_system_integration_func(self):
+
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        current_user_homedir = os.environ.get('HOME')
+
+        file_to_check_if_generated = current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop"
+
+
+        def remove_file(file):
+            try:
+                os.remove(file)
+            except Exception:
+                pass
+
+
+        def generate_folder(folder):
+            try:
+                os.makedirs(folder)
+            except Exception:
+                pass
+
+        def generate_symlink(source, target):
+            try:
+                os.symlink(source, target)
+            except Exception:
+                pass
+
+
+        if os.path.isfile(file_to_check_if_generated) == True:
+
+            generated_file_path_source = os.readlink(file_to_check_if_generated)
+
+            if current_dir.split("/")[1] != generated_file_path_source.split("/")[1]:
+                remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
+                remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
+                for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"):
+                    remove_file(file)
+
+
+        if os.path.isfile(file_to_check_if_generated) == False:
+
+            remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
+            remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
+            try:
+                for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"):
+                    remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file)
+            except Exception:
+                pass
+
+            generate_folder(current_user_homedir + "/.local/share/applications")
+            generate_folder(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps")
+            generate_folder(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions")
+
+            generate_symlink(current_dir + "/../integration/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
+            generate_symlink(current_dir + "/../icons/hicolor/scalable/apps/system-monitoring-center.svg", current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
+
+            target_path = current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"
+            for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions"):
+                generate_symlink(current_dir + "/../icons/hicolor/scalable/actions/" + file, target_path + "/" + file)
 
 
 # Generate object

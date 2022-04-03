@@ -214,7 +214,11 @@ def users_initial_func():
         if "btime " in line:
             system_boot_time = int(line.split()[1].strip())
 
-    user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("system-monitoring-center-user-symbolic", 16, 0)
+    try:
+        user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("system-monitoring-center-user-symbolic", 16, 0)
+    # Prevent "gi.repository.GLib.Error" if image is not found (occurs if the application is run from source code without installation). It gives this error because this image is set in the code.
+    except:
+        user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("image-missing", 16, 0)
 
     global filter_column
     filter_column = users_data_list[0][2] - 1                                                 # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.

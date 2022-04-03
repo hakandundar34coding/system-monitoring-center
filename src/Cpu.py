@@ -46,6 +46,8 @@ class Cpu:
         self.button1101.connect("clicked", self.on_button1101_clicked)
         self.drawingarea1101.connect("draw", self.on_drawingarea1101_draw)
 
+        self.cpu_arm_cpu_register_values_func()
+
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1101_clicked(self, widget):
@@ -231,83 +233,26 @@ class Cpu:
         selected_cpu_core = Performance.selected_cpu_core
         selected_cpu_core_number_only = selected_cpu_core.split("cpu")[1]
 
-        # Get maximum and minimum frequencies of the selected CPU core
-        try:
-            with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_max_freq") as reader:
-                cpu_max_frequency_selected_core = float(reader.read().strip()) / 1000000
-            with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_min_freq") as reader:
-                cpu_min_frequency_selected_core = float(reader.read().strip()) / 1000000
-        except FileNotFoundError:
-            cpu_max_frequency_selected_core = "-"
-            cpu_min_frequency_selected_core = "-"
 
-        # Get cache memory values of the selected CPU core
-        # Get l1d cache value
-        try:
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/level") as reader:
-                cache_level = reader.read().strip()
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/type") as reader:
-                cache_type = reader.read().strip()
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/size") as reader:
-                cache_size = reader.read().strip()
-            if cache_level == "1" and cache_type == "Data":
-                cpu_l1d_cache_value_selected_core = cache_size
-        except FileNotFoundError:
-            cpu_l1d_cache_value_selected_core = "-"
-        # Get li cache value
-        try:
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/level") as reader:
-                cache_level = reader.read().strip()
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/type") as reader:
-                cache_type = reader.read().strip()
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/size") as reader:
-                cache_size = reader.read().strip()
-            if cache_level == "1" and cache_type == "Instruction":
-                cpu_l1i_cache_value_selected_core = cache_size
-        except FileNotFoundError:
-            cpu_l1i_cache_value_selected_core = "-"
-        # Get l2 cache value
-        try:
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index2/level") as reader:
-                cache_level = reader.read().strip()
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index2/size") as reader:
-                cache_size = reader.read().strip()
-            if cache_level == "2":
-                cpu_l2_cache_value_selected_core = cache_size
-        except FileNotFoundError:
-            cpu_l2_cache_value_selected_core = "-"
-        # Get l3 cache value
-        try:
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index3/level") as reader:
-                cache_level = reader.read().strip()
-            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index3/size") as reader:
-                cache_size = reader.read().strip()
-            if cache_level == "3":
-                cpu_l3_cache_value_selected_core = cache_size
-        except FileNotFoundError:
-            cpu_l3_cache_value_selected_core = "-"
-
-        # Get CPU architecture
-        cpu_architecture = platform.processor()
-        if cpu_architecture == "":
-            cpu_architecture = platform.machine()
-            if cpu_architecture == "":
-                cpu_architecture = "-"
+        # Get information.
+        cpu_core_min_frequency, cpu_core_max_frequency = self.cpu_core_min_max_frequency_func(selected_cpu_core_number_only)
+        cpu_core_l1d_cache, cpu_core_l1i_cache, cpu_core_l2_cache, cpu_core_l3_cache = self.cpu_core_l1_l2_l3_cache_func(selected_cpu_core)
+        cpu_architecture = self.cpu_architecture_func()
 
 
-        # Set CPU tab label texts by using information get
+        # Show information on labels.
         show_cpu_usage_per_core = Config.show_cpu_usage_per_core
         if show_cpu_usage_per_core == 0:
             self.label1113.set_text(_tr("CPU Usage (Average)"))
         if show_cpu_usage_per_core == 1:
             self.label1113.set_text(_tr("CPU Usage (Per Core)"))
-        if isinstance(cpu_max_frequency_selected_core, str) is False:
-            self.label1105.set_text(f'{cpu_min_frequency_selected_core:.2f} - {cpu_max_frequency_selected_core:.2f} GHz')
+        if isinstance(cpu_core_max_frequency, str) is False:
+            self.label1105.set_text(f'{cpu_core_min_frequency:.2f} - {cpu_core_max_frequency:.2f} GHz')
         else:
-            self.label1105.set_text(f'{cpu_min_frequency_selected_core} - {cpu_max_frequency_selected_core}')
+            self.label1105.set_text(f'{cpu_core_min_frequency} - {cpu_core_max_frequency}')
         self.label1108.set_text(cpu_architecture)
-        self.label1109.set_text(f'{cpu_l1i_cache_value_selected_core} - {cpu_l1d_cache_value_selected_core}')
-        self.label1110.set_text(f'{cpu_l2_cache_value_selected_core} - {cpu_l3_cache_value_selected_core}')
+        self.label1109.set_text(f'{cpu_core_l1i_cache} - {cpu_core_l1d_cache}')
+        self.label1110.set_text(f'{cpu_core_l2_cache} - {cpu_core_l3_cache}')
 
         self.initial_already_run = 1
 
@@ -324,17 +269,120 @@ class Cpu:
         try:                                                                                      
             if self.selected_cpu_core_prev != selected_cpu_core:
                 self.cpu_initial_func()
-        # try-except is used in order to avoid error if this is first loop of the function. Because "selected_cpu_core_prev" variable is not defined in this situation.
+        # try-except is used in order to avoid error if this is first loop of the function.
         except AttributeError:
             pass
         self.selected_cpu_core_prev = selected_cpu_core
 
         self.drawingarea1101.queue_draw()
 
-        # Get number of physical cores, number_of_cpu_sockets, cpu_model_names
+
+        # Get information.
+        number_of_physical_cores, number_of_cpu_sockets, cpu_model_name = self.cpu_number_of_physical_cores_sockets_cpu_name_func(selected_cpu_core_number, number_of_logical_cores)
+        cpu_core_current_frequency = self.cpu_core_current_frequency_func(selected_cpu_core_number_only)
+        number_of_total_processes, number_of_total_threads = self.cpu_total_processes_threads_func()
+        system_up_time = self.cpu_system_up_time_func()
+
+
+        # Show information on labels.
+        self.label1101.set_text(cpu_model_name)
+        self.label1102.set_text(selected_cpu_core)
+        self.label1111.set_text(f'{number_of_total_processes} - {number_of_total_threads}')
+        self.label1112.set_text(system_up_time)
+        self.label1103.set_text(f'{cpu_usage_percent_ave[-1]:.{Config.performance_cpu_usage_percent_precision}f} %')
+        self.label1104.set_text(f'{cpu_core_current_frequency:.2f} GHz')
+        self.label1106.set_text(f'{number_of_cpu_sockets}')
+        self.label1107.set_text(f'{number_of_physical_cores} - {number_of_logical_cores}')
+
+
+    # ----------------------- Get minimum and maximum frequencies of the selected CPU core -----------------------
+    def cpu_core_min_max_frequency_func(self, selected_cpu_core_number_only):
+
+        try:
+            with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_max_freq") as reader:
+                cpu_core_max_frequency = float(reader.read().strip()) / 1000000
+            with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_min_freq") as reader:
+                cpu_core_min_frequency = float(reader.read().strip()) / 1000000
+        except FileNotFoundError:
+            cpu_core_max_frequency = "-"
+            cpu_core_min_frequency = "-"
+
+        return cpu_core_min_frequency, cpu_core_max_frequency
+
+
+    # ----------------------- Get cache memory values of the selected CPU core -----------------------
+    def cpu_core_l1_l2_l3_cache_func(self, selected_cpu_core):
+
+        # Get l1d cache
+        try:
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/level") as reader:
+                cache_level = reader.read().strip()
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/type") as reader:
+                cache_type = reader.read().strip()
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/size") as reader:
+                cache_size = reader.read().strip()
+            if cache_level == "1" and cache_type == "Data":
+                cpu_core_l1d_cache = cache_size
+        except FileNotFoundError:
+            cpu_core_l1d_cache = "-"
+
+        # Get li cache
+        try:
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/level") as reader:
+                cache_level = reader.read().strip()
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/type") as reader:
+                cache_type = reader.read().strip()
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/size") as reader:
+                cache_size = reader.read().strip()
+            if cache_level == "1" and cache_type == "Instruction":
+                cpu_core_l1i_cache = cache_size
+        except FileNotFoundError:
+            cpu_core_l1i_cache = "-"
+
+        # Get l2 cache
+        try:
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index2/level") as reader:
+                cache_level = reader.read().strip()
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index2/size") as reader:
+                cache_size = reader.read().strip()
+            if cache_level == "2":
+                cpu_core_l2_cache = cache_size
+        except FileNotFoundError:
+            cpu_core_l2_cache = "-"
+
+        # Get l3 cache
+        try:
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index3/level") as reader:
+                cache_level = reader.read().strip()
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index3/size") as reader:
+                cache_size = reader.read().strip()
+            if cache_level == "3":
+                cpu_core_l3_cache = cache_size
+        except FileNotFoundError:
+            cpu_core_l3_cache = "-"
+
+        return cpu_core_l1d_cache, cpu_core_l1i_cache, cpu_core_l2_cache, cpu_core_l3_cache
+
+
+    # ----------------------- Get CPU architecture -----------------------
+    def cpu_architecture_func(self):
+
+        cpu_architecture = platform.processor()
+        if cpu_architecture == "":
+            cpu_architecture = platform.machine()
+            if cpu_architecture == "":
+                cpu_architecture = "-"
+
+        return cpu_architecture
+
+
+    # ----------------------- Get number of physical cores, number_of_cpu_sockets, cpu_model_names -----------------------
+    def cpu_number_of_physical_cores_sockets_cpu_name_func(self, selected_cpu_core_number, number_of_logical_cores):
+
         with open("/proc/cpuinfo") as reader:
             proc_cpuinfo_output = reader.read()
         proc_cpuinfo_output_lines = proc_cpuinfo_output.split("\n")
+
         # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "x86_64" architecture. Physical and logical cores and model name per core information are tracked easily on this platform.
         if "physical id" in proc_cpuinfo_output:
             cpu_model_names = []
@@ -350,46 +398,82 @@ class Cpu:
                 if line.startswith("model name"):
                     cpu_model_names.append(line.split(":")[1].strip())
             number_of_cpu_sockets = int(physical_id) + 1
+            cpu_model_name = cpu_model_names[selected_cpu_core_number]
+
         # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "ARM" architecture. Physical and logical cores and model name per core information are not tracked easily on this platform. Different ARM processors (v6, v7, v8 or models of same ARM vX processors) may have different information in "/proc/cpuinfo" file.
-        if "physical id" not in proc_cpuinfo_output:
+        else:
             cpu_model_names = []
             number_of_physical_cores = number_of_logical_cores
-            # Initial value of "number_of_cpu_sockets". This value may not be detected on systems with ARM CPUs.
-            number_of_cpu_sockets = f'[{_tr("Unknown")}]'
-            # Some processors have "processor", some processors have "Processor" and some processors have both "processor" and "Processor". "processor" is used for core number and "Processor" is used for model name. But "model name" is used for model name on some ARM processors. Model name is repeated for all cores on these processors. "Processor" is used for one time for the processor.
-            if "model name" in proc_cpuinfo_output:
+            number_of_cpu_sockets = 1
+
+            cpu_implementer_list = []
+            cpu_architecture_list = []
+            cpu_part_list = []
+
+            # Get register values to get required information.
+            for line in proc_cpuinfo_output_lines:
+                # "CPU implementer" is used for getting vendor.
+                if line.startswith("CPU implementer"):
+                    cpu_implementer_list.append(line.split(":")[-1].strip())
+                # "CPU architecture" is used for getting architecture.
+                elif line.startswith("CPU architecture"):
+                    cpu_architecture_list.append(line.split(":")[-1].strip())
+                # "CPU part" is used for getting core model such as Cortex-A57.
+                elif line.startswith("CPU part"):
+                    cpu_part_list.append(line.split(":")[-1].strip())
+
+            # Redefine "selected_cpu_core_number" in order to get information of the selected CPU core.
+            if len(cpu_implementer_list) == number_of_logical_cores:
+                selected_cpu_core_number = selected_cpu_core_number
+            # There may be only one instance of register values even if CPU has multiple cores.
+            else:
+                selected_cpu_core_number = 0
+
+            # Get CPU information by using register values.
+            try:
+                cpu_implementer = self.arm_cpu_implementer_dict[cpu_implementer_list[selected_cpu_core_number]]
+                cpu_architecture = self.arm_architecture_dict[cpu_architecture_list[selected_cpu_core_number]]
+                cpu_part = self.arm_part_dict[cpu_part_list[selected_cpu_core_number]]
+                cpu_model_name = f'{cpu_implementer} {cpu_part} ({cpu_architecture})'
+            except KeyError:
+                cpu_model_name = "-"
                 for line in proc_cpuinfo_output_lines:
                     if line.startswith("model name"):
-                        cpu_model_names.append(line.split(":")[1].strip())
-            if "model name" not in proc_cpuinfo_output and "Processor" in proc_cpuinfo_output:
-                for line in proc_cpuinfo_output_lines:
-                    if line.startswith("Processor"):
-                        cpu_model_names.append(line.split(":")[1].strip())
-            if len(cpu_model_names) == 1:
-                cpu_model_names = cpu_model_names * number_of_logical_cores
-            if "Processor" in proc_cpuinfo_output:
-                number_of_cpu_sockets = 0
-                number_of_cpu_sockets = number_of_cpu_sockets + 1
-            # Some ARM processors do not have model name information in "/proc/cpuinfo" file.
-            if cpu_model_names == []:
-                cpu_model_names = [_tr("Unknown")]
+                        cpu_model_name = line.split(":")[-1].strip()
+                if cpu_model_name == "-":
+                    for line in proc_cpuinfo_output_lines:
+                        if line.startswith("Processor"):
+                            cpu_model_name = line.split(":")[-1].strip()
+                if cpu_model_name == "-":
+                    cpu_model_name = "[" + _tr("Unknown") + "]"
 
-        # Get current frequency of the selected CPU core
+        return number_of_physical_cores, number_of_cpu_sockets, cpu_model_name
+
+
+    # ----------------------- Get current frequency of the selected CPU core -----------------------
+    def cpu_core_current_frequency_func(self, selected_cpu_core_number_only):
+
         try:
             with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_cur_freq") as reader:
-                cpu_current_frequency_selected_core = float(reader.read().strip()) / 1000000
+                cpu_core_current_frequency = float(reader.read().strip()) / 1000000
         except FileNotFoundError:
             with open("/proc/cpuinfo") as reader:
                 proc_cpuinfo_all_cores = reader.read().strip().split("\n\n")
             proc_cpuinfo_all_cores_lines = proc_cpuinfo_all_cores[int(selected_cpu_core_number_only)].split("\n")
             for line in proc_cpuinfo_all_cores_lines:
                 if line.startswith("cpu MHz"):
-                    cpu_current_frequency_selected_core = float(line.split(":")[1].strip()) / 1000
+                    cpu_core_current_frequency = float(line.split(":")[1].strip()) / 1000
                     break
 
-        # Get number_of_total_threads and number_of_total_processes
+        return cpu_core_current_frequency
+
+
+    # ----------------------- Get number_of_total_threads and number_of_total_processes -----------------------
+    def cpu_total_processes_threads_func(self):
+
         thread_count_list = []
         pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
+
         for pid in pid_list:
             try:
                 with open("/proc/" + pid + "/status") as reader:
@@ -399,12 +483,19 @@ class Cpu:
                 continue
             # Append number of threads of the process
             thread_count_list.append(int(proc_status_output.split("\nThreads:", 1)[1].split("\n", 1)[0].strip()))
+
         number_of_total_processes = len(thread_count_list)
         number_of_total_threads = sum(thread_count_list)
 
-        # Get system up time (sut) information
+        return number_of_total_processes, number_of_total_threads
+
+
+    # ----------------------- Get system up time (sut) -----------------------
+    def cpu_system_up_time_func(self):
+
         with open("/proc/uptime") as reader:
             sut_read = float(reader.read().split(" ")[0].strip())
+
         sut_days = sut_read/60/60/24
         sut_days_int = int(sut_days)
         sut_hours = (sut_days -sut_days_int) * 24
@@ -414,16 +505,57 @@ class Cpu:
         sut_seconds = (sut_minutes - sut_minutes_int) * 60
         sut_seconds_int = int(sut_seconds)
 
+        system_up_time = f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}'
 
-        # Set and update CPU tab label texts by using information get
-        self.label1101.set_text(cpu_model_names[selected_cpu_core_number])
-        self.label1102.set_text(selected_cpu_core)
-        self.label1111.set_text(f'{number_of_total_processes} - {number_of_total_threads}')
-        self.label1112.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
-        self.label1103.set_text(f'{cpu_usage_percent_ave[-1]:.{Config.performance_cpu_usage_percent_precision}f} %')
-        self.label1104.set_text(f'{cpu_current_frequency_selected_core:.2f} GHz')
-        self.label1106.set_text(f'{number_of_cpu_sockets}')
-        self.label1107.set_text(f'{number_of_physical_cores} - {number_of_logical_cores}')
+        return system_up_time
+
+
+    # ----------------------- Define register value dictionaries to get CPU information) -----------------------
+    def cpu_arm_cpu_register_values_func(self):
+
+        # Source: several sources and https://github.com/util-linux/util-linux
+        self.arm_cpu_implementer_dict = {
+                                        "0x41": "ARM",
+                                        "0x42": "Broadcom",
+                                        "0x51": "Qualcomm",
+                                        "0x53": "Samsung",
+                                        "0x56": "Marvell",
+                                        "0x61": "Apple",
+                                        "-1": "unknown"
+                                        }
+
+        self.arm_architecture_dict = {
+                                     "5TE": "ARMv5",
+                                     "6TEJ": "ARMv6",
+                                     "7": "ARMv7",
+                                     "8": "ARMv8"
+                                     }
+
+        self.arm_part_dict = {
+                             "0xc0f": "Cortex-A15",      # ARM CPUs
+                             "0xd03": "Cortex-A53",
+                             "0xd04": "Cortex-A35",
+                             "0xd05": "Cortex-A55",
+                             "0xd06": "Cortex-A65",
+                             "0xd07": "Cortex-A57",
+                             "0xd07": "Cortex-A57",
+                             "0xd08": "Cortex-A72",
+                             "0xd09": "Cortex-A73",
+                             "0xd0a": "Cortex-A75",
+                             "0xd0b": "Cortex-A76",
+                             "0xd41": "Cortex-A78",
+                             "0xd42": "Cortex-A78AE",
+                             "0xd44": "Cortex-X1",
+                             "0xd48": "Cortex-X2",
+                             "0xd4b": "Cortex-A78C",
+                             "0x04d": "Krait",           # Qualcomm CPUs
+                             "0x06f": "Krait",
+                             "0x201": "Kryo",
+                             "0x205": "Kryo",
+                             "0x211": "Kryo",
+                             "0x001": "Exynos-M1",       # Samsung CPUs
+                             "-1": "unknown"
+                             }
 
 
 # Generate object
