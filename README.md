@@ -10,7 +10,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 </a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/hakandundar34coding/system-monitoring-center/total"></a>
 </a>
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/hakandundar34coding/system-monitoring-center"></a>
+<a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/release/hakandundar34coding/system-monitoring-center"></a>
 </a>
 </p>
 
@@ -23,8 +23,9 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 * First run:
   Run the application by using ```system-monitoring-center``` command,
   The application will prepare shortcut and GUI images automatically.
+  If command is not found, restart the system and run ```system-monitoring-center``` command again.
 
-<a href="https://pypi.org/project/system-monitoring-center/"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Download%20Now-PYPI-brightgreen?style=for-the-badge"></a>
+<a href="https://pypi.org/project/system-monitoring-center/"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Install%20From-PYPI-brightgreen?style=for-the-badge"></a>
 </a>
 
 <a href="https://repology.org/project/system-monitoring-center/versions">
