@@ -25,13 +25,18 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
   The application will prepare shortcut and GUI images automatically.
   If command is not found, restart the system and run ```system-monitoring-center``` command again.
 
+<p align="center">
 <a href="https://pypi.org/project/system-monitoring-center/"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Install%20From-PYPI-brightgreen?style=for-the-badge"></a>
 </a>
 
 <a href="https://repology.org/project/system-monitoring-center/versions">
     <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
 </a>
+</p>
 
+
+### Dependencies:
+* hwdata, mesa-utils (on some systems: glx-utils)
 
 ### Features:
 * Detailed system performance and usage usage monitoring/managing features:
@@ -43,6 +48,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
     * Brazilian Portuguese, Czech, English, Polish (initial), Turkish
     * More languages will be added if translations are provided by contributors
 * Adapts to system theme
+* Optimized for low CPU usage
 * Free and open sourced
 
 

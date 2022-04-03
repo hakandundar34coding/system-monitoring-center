@@ -7,6 +7,10 @@ with open(os.path.dirname(os.path.realpath(__file__)) + "/src/__version__") as r
     version = reader.read().strip()
 
 
+with open(os.path.dirname(os.path.realpath(__file__)) + "README.rst", encoding='utf-8') as reader:
+    long_description = reader.read()
+
+
 def files_in_folder(folder):
     file_paths = []
     for file in [filename for filename in os.listdir(folder)]:
@@ -32,15 +36,18 @@ data_files = [
 setup(
     name="system-monitoring-center",
     version=version,
-    packages=find_packages(),
-    install_requires=["PyGObject", "pycairo"],
-    data_files=data_files,
+    description="Provides information about system performance and usage.",
+    long_description=long_description,
     author="Hakan Dündar",
     author_email="hakandundar34coding@gmail.com",
-    description="Provides information about system performance and usage.",
-    long_description="""Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, 
-        processes, users, storage, startup programs, services, environment variables 
-        and system.""",
+    url="https://github.com/hakandundar34coding/system-monitoring-center",
+    keywords="system monitor task manager center performance speed frequency cpu usage ram usage swap memory memory usage storage network usage download speed fps frame ratio processes users startup programs services os",
+    license="GPLv3",
+    install_requires=["PyGObject", "pycairo"],
+    python_requires=">=3.6",
+    packages=find_packages(),
+    data_files=data_files,
+    entry_points={"gui_scripts": ["system-monitoring-center = systemmonitoringcenter.start:start_app"]},
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3",
@@ -52,10 +59,6 @@ setup(
         "Programming Language :: Python :: 3.11",
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
         "Operating System :: POSIX :: Linux",
+        "Topic :: System :: Monitoring",
     ],
-    python_requires=">=3.6",
-    license="GPLv3",
-    keywords="system monitor task manager center performance speed frequency cpu usage ram usage swap memory memory usage storage network usage download speed fps frame ratio processes users startup programs services os",
-    url="https://github.com/hakandundar34coding/system-monitoring-center",
-    entry_points={"gui_scripts": ["system-monitoring-center = systemmonitoringcenter.start:start_app"]},
 )
