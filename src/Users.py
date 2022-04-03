@@ -216,7 +216,7 @@ def users_initial_func():
 
     try:
         user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("system-monitoring-center-user-symbolic", 16, 0)
-    # Prevent "gi.repository.GLib.Error" if image is not found (occurs if the application is rn from source code without installation). It gives this error because this image is set in the code.
+    # Prevent "gi.repository.GLib.Error" if image is not found (occurs if the application is run from source code without installation). It gives this error because this image is set in the code.
     except:
         user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("image-missing", 16, 0)
 

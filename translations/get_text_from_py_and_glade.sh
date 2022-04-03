@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 current_directory=$(pwd)
 parent_directory="$(dirname "$current_directory")"

@@ -14,31 +14,23 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 </a>
 </p>
 
+### Installing:
+* System Monitoring Center is downloadable from PYPI as a Python package.
+* Remove older versions (v1.8.0 and older) in order to install from PYPI.
+* For current user account: ```sudo pip install system-monitoring-center```
+* For system-wide installation: ```sudo pip install system-monitoring-center```
+  (This method can be used for preventing source code modifications.)
+* First run:
+  Run the application by using ```system-monitoring-center``` command,
+  The application will prepare shortcut and GUI images automatically.
 
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/releases"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Download%20Now-Debian%20|%20RPM%20|%20pacman-brightgreen?style=for-the-badge"></a>
+<a href="https://pypi.org/project/system-monitoring-center/"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Download%20Now-PYPI-brightgreen?style=for-the-badge"></a>
 </a>
 
 <a href="https://repology.org/project/system-monitoring-center/versions">
     <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
 </a>
 
-### Generating Packages From Source Code:
-```
-1) Download the source code
-2) Browse /packaging_scripts folder
-3) Open terminal in this folder
-4) Run the required script without "sudo"
-   For DEB package:
-      sh debian_packaging.sh
-   For RPM package:
-      sh rpm_packaging.sh
-   For PACMAN package:
-      sh arch_linux_packaging.sh
-
-Note: If there are dependency problems during installation:
-      1) Install the dependencies 
-      2) Install the application
-```
 
 ### Features:
 * Detailed system performance and usage usage monitoring/managing features:
