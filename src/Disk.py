@@ -466,11 +466,11 @@ class Disk:
     def disk_mount_point_func(self, selected_disk):
 
         with open("/proc/mounts") as reader:
-            proc_mounts_output_lines = reader.read().strip().split("\n")
+            self.proc_mounts_output_lines = reader.read().strip().split("\n")
 
         disk_mount_point = "-"
         disk_mount_point_list_scratch = []
-        for line in proc_mounts_output_lines:
+        for line in self.proc_mounts_output_lines:
             line_split = line.split()
             if line_split[0].split("/")[-1] == selected_disk:
                 # String is decoded in order to convert string with escape characters such as "\\040" if they exist.

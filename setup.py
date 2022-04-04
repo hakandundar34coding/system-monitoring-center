@@ -20,10 +20,10 @@ def files_in_folder(folder):
 
 data_files = [
     ("/systemmonitoringcenter/applications/", ["integration/com.github.hakand34.system-monitoring-center.desktop"]),
-    ("/systemmonitoringcenter/locale/cs/LC_MESSAGES/", ["translations/cs/system-monitoring-center.mo"]),
-    ("/systemmonitoringcenter/locale/pl/LC_MESSAGES/", ["translations/pl/system-monitoring-center.mo"]),
-    ("/systemmonitoringcenter/locale/pt_BR/LC_MESSAGES/", ["translations/pt_BR/system-monitoring-center.mo"]),
-    ("/systemmonitoringcenter/locale/tr/LC_MESSAGES/", ["translations/tr/system-monitoring-center.mo"]),
+    ("/systemmonitoringcenter/locale/cs/LC_MESSAGES/", ["locale/cs/system-monitoring-center.mo"]),
+    ("/systemmonitoringcenter/locale/pl/LC_MESSAGES/", ["locale/pl/system-monitoring-center.mo"]),
+    ("/systemmonitoringcenter/locale/pt_BR/LC_MESSAGES/", ["locale/pt_BR/system-monitoring-center.mo"]),
+    ("/systemmonitoringcenter/locale/tr/LC_MESSAGES/", ["locale/tr/system-monitoring-center.mo"]),
     ("/systemmonitoringcenter/integration/", ["integration/com.github.hakand34.system-monitoring-center.desktop"]),
     ("/systemmonitoringcenter/database/", files_in_folder("database/")),
     ("/systemmonitoringcenter/src/", files_in_folder("src/")),

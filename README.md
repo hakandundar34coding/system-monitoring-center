@@ -15,25 +15,19 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 </p>
 
 ### Installing:
-* System Monitoring Center is downloadable from PyPI as a Python package.
+* System Monitoring Center is installable from PyPI as a Python package.
 * Remove older versions (v1.8.0 and older) in order to install from PyPI.
-* Install these dependencies: hwdata, mesa-utils (on some systems: glx-utils)
+* Install these dependencies: ```hwdata, mesa-utils (on some systems: glx-utils)```
 * Option-1) Installing for current user account: ```pip install system-monitoring-center```
-* Option-2) Installing for system-wide installation: ```sudo pip install system-monitoring-center```
+* Option-2) Installing for system-wide: ```sudo pip install system-monitoring-center```
   (This method can be used for preventing source code modifications.)
 * First run:
-  Run the application by using ```system-monitoring-center``` command,
+  Run the application by using ```system-monitoring-center``` command.
   The application will prepare shortcut and GUI images automatically.
   If command is not found, restart the system and run the command again.
 
 <p align="center">
 <a href="https://pypi.org/project/system-monitoring-center/"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Install%20From-PyPI-brightgreen?style=for-the-badge"></a>
-</a>
-</p>
-
-<p align="center">
-<a href="https://repology.org/project/system-monitoring-center/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
 </a>
 </p>
 
