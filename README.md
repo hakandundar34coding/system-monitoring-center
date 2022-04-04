@@ -15,18 +15,19 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 </p>
 
 ### Installing:
-* System Monitoring Center is downloadable from PYPI as a Python package.
-* Remove older versions (v1.8.0 and older) in order to install from PYPI.
-* For current user account: ```pip install system-monitoring-center```
-* For system-wide installation: ```sudo pip install system-monitoring-center```
+* System Monitoring Center is downloadable from PyPI as a Python package.
+* Remove older versions (v1.8.0 and older) in order to install from PyPI.
+* Install these dependencies: hwdata, mesa-utils (on some systems: glx-utils)
+* Option-1) Installing for current user account: ```pip install system-monitoring-center```
+* Option-2) Installing for system-wide installation: ```sudo pip install system-monitoring-center```
   (This method can be used for preventing source code modifications.)
 * First run:
   Run the application by using ```system-monitoring-center``` command,
   The application will prepare shortcut and GUI images automatically.
-  If command is not found, restart the system and run ```system-monitoring-center``` command again.
+  If command is not found, restart the system and run the command again.
 
 <p align="center">
-<a href="https://pypi.org/project/system-monitoring-center/"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Install%20From-PYPI-brightgreen?style=for-the-badge"></a>
+<a href="https://pypi.org/project/system-monitoring-center/"><img alt="Download System Monitoring Center" src="https://img.shields.io/badge/Install%20From-PyPI-brightgreen?style=for-the-badge"></a>
 </a>
 </p>
 
@@ -36,9 +37,6 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 </a>
 </p>
 
-
-### Dependencies:
-* hwdata, mesa-utils (on some systems: glx-utils)
 
 ### Features:
 * Detailed system performance and usage usage monitoring/managing features:

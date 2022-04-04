@@ -206,18 +206,8 @@ def processes_gui_func():
     treeview2101.set_search_column(2)                                                         # This command used for searching by using entry.
     treeview2101.set_tooltip_column(2)
 
-
-    # Set "User defined expand, Expand all, Collapse all" buttons as "insensitive" on the Processes tab if "show_processes_as_tree" option is disabled. Because expanding/collapsing treeview rows has no effects when treeview items are listed as "list".
-    if Config.show_processes_as_tree == 1:
-        radiobutton2104.set_sensitive(True)
-        radiobutton2105.set_sensitive(True)
-        radiobutton2106.set_sensitive(True)
-
-    # Set "User defined expand, Expand all, Collapse all" buttons as "sensitive" on the Processes tab if "show_processes_as_tree" option is enabled. Therefore, expanding/collapsing treeview rows functions will be available for using by the user.
-    if Config.show_processes_as_tree == 0:
-        radiobutton2104.set_sensitive(False)
-        radiobutton2105.set_sensitive(False)
-        radiobutton2106.set_sensitive(False)
+    # Settings for some radiobuttons
+    processes_expand_and_filter_radiobutton_preferences_func()
 
 
 # ----------------------------------- Processes - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -716,6 +706,38 @@ def processes_treeview_column_order_width_row_sorting_func():
     Config.config_save_func()
 
 
+# ----------------------- Called for setting sensitive/insensitive expand/collapse buttons when "show_processes_as_tree" is enabled/disabled -----------------------
+def processes_expand_and_filter_radiobutton_preferences_func():
+
+    # Reset selections
+    radiobutton2101.set_active(True)
+    radiobutton2104.set_active(True)
+
+    # Check if "show_processes_as_tree" option is enabled.
+    if Config.show_processes_as_tree == 1:
+
+        # Set "show procresses from..." filtering radiobuttons as "insensitive". Because some of these options do not show process when processes are listed as tree.
+        radiobutton2101.set_sensitive(False)
+        radiobutton2102.set_sensitive(False)
+        radiobutton2103.set_sensitive(False)
+        # Set "Expand/Collapse" radiobuttons as "sensitive" . Therefore, expanding/collapsing treeview rows functions will be available for using by the user.
+        radiobutton2104.set_sensitive(True)
+        radiobutton2105.set_sensitive(True)
+        radiobutton2106.set_sensitive(True)
+
+    # Check if "show_processes_as_tree" option is disabled.
+    if Config.show_processes_as_tree == 0:
+
+        # Set "show procresses from..." filtering radiobuttons as "sensitive". Therefore process filtering can be used.
+        radiobutton2101.set_sensitive(True)
+        radiobutton2102.set_sensitive(True)
+        radiobutton2103.set_sensitive(True)
+        # Set "Expand/Collapse" radiobuttons as "insensitive". Because expanding/collapsing treeview rows has no effects when treeview items are listed as "list".
+        radiobutton2104.set_sensitive(False)
+        radiobutton2105.set_sensitive(False)
+        radiobutton2106.set_sensitive(False)
+
+
 # ----------------------------------- Processes - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
 def processes_define_data_unit_converter_variables_func():
 
@@ -770,3 +792,4 @@ def processes_data_unit_converter_func(data, unit, precision):
     if data == 0:
         precision = 0
     return f'{data:.{precision}f} {unit}'
+

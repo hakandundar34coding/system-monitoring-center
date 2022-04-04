@@ -320,10 +320,11 @@ class SettingsGUI:
             # Apply changes immediately (without waiting update interval).
             self.settings_gui_apply_settings_immediately_func()
 
-            # "try-catch" is used in order to avoid errors because "ProcessesMenusGUI" may not be loaded.
+            # "try-catch" is used in order to avoid errors because "Processes" may not be loaded.
             try:
-                ProcessesMenusGUI.processes_expand_collapse_button_preferences_func()
-            except Exception:
+                from MainGUI import Processes
+                Processes.processes_expand_and_filter_radiobutton_preferences_func()
+            except ImportError:
                 pass
 
 

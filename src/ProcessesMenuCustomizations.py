@@ -143,7 +143,7 @@ class ProcessesMenuCustomizations:
         # Load default settings
         Config.config_default_processes_func()
         Config.config_save_func()
-        self.processes_expand_collapse_button_preferences_func()
+        Processes.processes_expand_and_filter_radiobutton_preferences_func()
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -177,7 +177,7 @@ class ProcessesMenuCustomizations:
             Config.show_processes_as_tree = 0
             self.checkbutton2103p.set_sensitive(False)
 
-        self.processes_expand_collapse_button_preferences_func()
+        Processes.processes_expand_and_filter_radiobutton_preferences_func()
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -531,20 +531,6 @@ class ProcessesMenuCustomizations:
         Processes.processes_initial_func()
         Processes.processes_loop_func()
         Config.config_save_func()
-
-
-    # ----------------------- Called for setting sensitive/insensitive expand/collapse buttons when "show_processes_as_tree" is enabled/disabled -----------------------
-    def processes_expand_collapse_button_preferences_func(self):
-
-        if self.checkbutton2102p.get_active() == True:
-            Processes.radiobutton2104.set_sensitive(True)
-            Processes.radiobutton2105.set_sensitive(True)
-            Processes.radiobutton2106.set_sensitive(True)
-
-        if self.checkbutton2102p.get_active() == False:
-            Processes.radiobutton2104.set_sensitive(False)
-            Processes.radiobutton2105.set_sensitive(False)
-            Processes.radiobutton2106.set_sensitive(False)
 
 
 # Generate object

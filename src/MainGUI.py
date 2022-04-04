@@ -478,45 +478,51 @@ class MainGUI:
     # ----------------------- Called for generating symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated. -----------------------
     def main_gui_application_system_integration_func(self):
 
+        # Get current directiory (which code of this application is in) and current user home directory (symlinks will be generated in).
         current_dir = os.path.dirname(os.path.realpath(__file__))
         current_user_homedir = os.environ.get('HOME')
 
+        # This file is used for checking if symlinks are copied before.
         file_to_check_if_generated = current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop"
 
-
+        # Called for removing files.
         def remove_file(file):
             try:
                 os.remove(file)
             except Exception:
                 pass
 
-
+        # Called for generating folders.
         def generate_folder(folder):
             try:
                 os.makedirs(folder)
             except Exception:
                 pass
 
+        # Called for generating symlinks.
         def generate_symlink(source, target):
             try:
                 os.symlink(source, target)
             except Exception:
                 pass
 
-
+        # Check if symlinks are copied before.
         if os.path.isfile(file_to_check_if_generated) == True:
 
+            # Get source path of the check file (symlink).
             generated_file_path_source = os.readlink(file_to_check_if_generated)
 
+            # If symlink targets are not for path of current application code files (system-wide location or user-specific location), remove previous files for avoiding errors during generating new ones.
             if current_dir.split("/")[1] != generated_file_path_source.split("/")[1]:
                 remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
                 remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
                 for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"):
                     remove_file(file)
 
-
+        # Check if symlinks are not copied before.
         if os.path.isfile(file_to_check_if_generated) == False:
 
+            # Try to remove previous symlinks ("isfile" check gives "False" if there are symlinks and targets are removed. Example cases: If the application is removed from user-specific directory and installed into system-wide directory or vice versa.).
             remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
             remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
             try:
@@ -525,13 +531,14 @@ class MainGUI:
             except Exception:
                 pass
 
+            # Generate folders.
             generate_folder(current_user_homedir + "/.local/share/applications")
             generate_folder(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps")
             generate_folder(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions")
 
+            # Generate symlinks.
             generate_symlink(current_dir + "/../integration/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
             generate_symlink(current_dir + "/../icons/hicolor/scalable/apps/system-monitoring-center.svg", current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
-
             target_path = current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"
             for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions"):
                 generate_symlink(current_dir + "/../icons/hicolor/scalable/actions/" + file, target_path + "/" + file)
