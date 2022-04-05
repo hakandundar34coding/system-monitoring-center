@@ -376,8 +376,8 @@ class Gpu:
             if device_model_name == "Unknown":
                 device_model_name = "[" + _tr("Unknown") + "]"
             self.gpu_device_model_name.append(f'{device_vendor_name} - {device_model_name}')
-            # These lists will be used for matching with GPU information from "glxinfo" command. First "d" and zeros trimmed by using ".lstrip("d0")".
-            self.gpu_vendor_id_list.append(device_vendor_id.lstrip("d0").lower())
+            # These lists will be used for matching with GPU information from "glxinfo" command. First "v" or "d" and zeros trimmed by using ".lstrip("d0")".
+            self.gpu_vendor_id_list.append(device_vendor_id.lstrip("v0").lower())
             self.gpu_device_id_list.append(device_model_id.lstrip("d0").lower())
 
         # Set selected gpu/graphics card
