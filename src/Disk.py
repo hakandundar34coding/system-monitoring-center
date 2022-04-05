@@ -368,7 +368,7 @@ class Disk:
                     # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
                     rest_of_the_pci_ids_output = self.pci_ids_output.split(disk_vendor_id, 1)[1]
                     disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-                if disk_vendor_id not in self.pci_ids_output:
+                else:
                     disk_vendor = f'[{_tr("Unknown")}]'
 
         # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + selected_disk + "/device" directory. They have this file under "/sys/class/block/" + selected_disk + "/device/device/vendor" directory.
@@ -380,7 +380,7 @@ class Disk:
                 if disk_vendor_id in self.pci_ids_output:
                     rest_of_the_pci_ids_output = self.pci_ids_output.split(disk_vendor_id, 1)[1]
                     disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-                if disk_vendor_id not in self.pci_ids_output:
+                else:
                     disk_vendor = f'[{_tr("Unknown")}]'
             except Exception:
                 disk_vendor = f'[{_tr("Unknown")}]'

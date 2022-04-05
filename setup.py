@@ -7,7 +7,7 @@ with open(os.path.dirname(os.path.realpath(__file__)) + "/src/__version__") as r
     version = reader.read().strip()
 
 
-with open(os.path.dirname(os.path.realpath(__file__)) + "README.rst", encoding='utf-8') as reader:
+with open(os.path.dirname(os.path.realpath(__file__)) + "/README.md", encoding='utf-8') as reader:
     long_description = reader.read()
 
 

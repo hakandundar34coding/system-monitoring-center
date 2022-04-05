@@ -12,6 +12,7 @@ import cairo
 from locale import gettext as _tr
 
 from Config import Config
+from Performance import Performance
 
 
 # Define class
@@ -369,41 +370,15 @@ class Gpu:
                 modalias_output = reader.read().strip()
             # Determine device subtype.
             device_subtype, device_alias = modalias_output.split(":", 1)
-            # Get device vendor and model ids and read "pci.ids" file if device subtype is "pci". Also trim "0000" characters by using [4:].
-            if device_subtype == "pci":
-                device_vendor_id = device_alias.split("v", 1)[-1].split("d", 1)[0].lower()[4:]
-                device_model_id = device_alias.split("d", 1)[-1].split("sv", 1)[0].lower()[4:]
-                device_vendor_id = "\n" + device_vendor_id + "  "
-                device_model_id = "\n\t" + device_model_id + "  "
-            if device_subtype == "virtio":
-                # Example virtio device modalias: "virtio:d00000001v00001AF4".
-                device_vendor_id = device_alias.split("v", 1)[-1].lower()[4:]
-                device_model_id = device_alias.split("d", 1)[-1].split("v", 1)[0].lower()[4:]
-                device_vendor_id = "\n" + device_vendor_id + "  "
-                # 1040 is added to device ID of virtio devices. For details: https://docs.oasis-open.org/virtio/virtio/v1.1/csprd01/virtio-v1.1-csprd01.html
-                device_model_id = "# virtio 1.0\n\t" + str(int(device_model_id) + 1040) + "  "
-                # Search device vendor and model names in the pci.ids.
-            if device_subtype in ["pci", "virtio"]:
-                if device_vendor_id in ids_file_output:
-                    rest_of_the_ids_file_output = ids_file_output.split(device_vendor_id, 1)[1]
-                    device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0].strip()
-                    # "device name" information may not be present in the pci.ids file.
-                    if device_model_id in rest_of_the_ids_file_output:
-                        rest_of_the_rest_of_the_ids_file_output = rest_of_the_ids_file_output.split(device_model_id, 1)[1]
-                        device_model_name = rest_of_the_rest_of_the_ids_file_output.split("\n", 1)[0].strip()
-                    else:
-                        device_model_name = f'[{_tr("Unknown")}]'
-                else:
-                    device_vendor_name = f'[{_tr("Unknown")}]'
-                    device_model_name = f'[{_tr("Unknown")}]'
-            # Get device vendor and model ids and device vendor and model names if device subtype is "of".
-            if device_subtype == "of":
-                device_vendor_id = device_vendor_name = device_alias.split("C", 1)[-1].split("C", 1)[0].split(",")[0].title()
-                device_model_id = device_model_name = device_alias.split("C", 1)[-1].split("C", 1)[0].split(",")[1].title()
+            device_vendor_name, device_model_name, device_vendor_id, device_model_id = Performance.performance_get_device_vendor_model_func(modalias_output)
+            if device_vendor_name == "Unknown":
+                device_vendor_name = "[" + _tr("Unknown") + "]"
+            if device_model_name == "Unknown":
+                device_model_name = "[" + _tr("Unknown") + "]"
             self.gpu_device_model_name.append(f'{device_vendor_name} - {device_model_name}')
-            # These lists will be used for matching with GPU information from "glxinfo" command.
-            self.gpu_vendor_id_list.append(device_vendor_id.strip())
-            self.gpu_device_id_list.append(device_model_id.strip())
+            # These lists will be used for matching with GPU information from "glxinfo" command. First "d" and zeros trimmed by using ".lstrip("d0")".
+            self.gpu_vendor_id_list.append(device_vendor_id.lstrip("d0").lower())
+            self.gpu_device_id_list.append(device_model_id.lstrip("d0").lower())
 
         # Set selected gpu/graphics card
         # "" is predefined gpu name before release of the software. This statement is used in order to avoid error, if no gpu selection is made since first run of the software.
