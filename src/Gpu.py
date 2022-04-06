@@ -344,9 +344,6 @@ class Gpu:
         self.gpu_device_id_list = []
         # Initial value of "default_gpu" variable.
         self.default_gpu = ""
-        # Read "pci.ids" file.
-        with open("/usr/share/hwdata/pci.ids") as reader:
-            ids_file_output = reader.read()
 
         # Get GPU list from "/sys/class/drm/" directory which is used by many x86_64 desktop systems.
         try:

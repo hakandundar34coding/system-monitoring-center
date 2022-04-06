@@ -211,26 +211,16 @@ class Disk:
         except Exception:
             return
 
-        # Read pci.ids file. Some disks such as NVMe SSDs have "vendor" file with device id content. pci.ids file will be used for getting disk vendor name by using these ids.
-        # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" (for Debian-like systems) or in "/usr/share/hwdata/pci.ids" (systems other than Debian-like systems).
-        try:
-            with open("/usr/share/misc/pci.ids") as reader:
-                self.pci_ids_output = reader.read()
-        except FileNotFoundError:
-            with open("/usr/share/hwdata/pci.ids") as reader:
-                self.pci_ids_output = reader.read()
-
-
         # Get information.
         disk_type = self.disk_type_func(selected_disk)
         disk_parent_name = self.disk_parent_name_func(selected_disk, disk_type, disk_list)
-        disk_vendor_model = self.disk_vendor_model_func(selected_disk, disk_type, disk_parent_name)
+        disk_device_model_name = self.disk_device_model_name_func(selected_disk, disk_type, disk_parent_name)
         disk_mount_point = self.disk_mount_point_func(selected_disk)
         if_system_disk = self.disk_if_system_disk_func(disk_mount_point)
 
 
         # Show information on labels.
-        self.label1301.set_text(disk_vendor_model)
+        self.label1301.set_text(disk_device_model_name)
         self.label1302.set_text(f'{selected_disk} ({disk_type})')
         self.label1307.set_text(if_system_disk)
 
@@ -349,68 +339,52 @@ class Disk:
 
 
     # ----------------------- Get disk vendor and model -----------------------
-    def disk_vendor_model_func(self, selected_disk, disk_type, disk_parent_name):
+    def disk_device_model_name_func(self, selected_disk, disk_type, disk_parent_name):
 
         if disk_type == _tr("Disk"):
             disk_or_parent_disk_name = selected_disk
         if disk_type == _tr("Partition"):
             disk_or_parent_disk_name = disk_parent_name
 
-        # Get disk vendor
+        # Get disk vendor and model.
+        device_vendor_name = "-"
+        device_model_name = "-"
+        # Try to get device vendor model if this is a NVMe SSD. These disks do not have "modalias" or "model" files under "/sys/class/block/" + selected_disk + "/device" directory.
         try:
-            with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/vendor") as reader:
-                disk_vendor = reader.read().strip()
-            # Disk vendor information may be available as vendor id on some cases (such as on QEMU virtual machines).
-            if disk_vendor.startswith("0x"):
-                disk_vendor_id = "\n" + disk_vendor.split("x")[-1].strip() + "  "
-                # "vendor" information may not be present in the pci.ids file.
-                if disk_vendor_id in self.pci_ids_output:
-                    # "1" in the ".split("[string", 1)" is used in order to split only the first instance in the whole text for faster split operation.
-                    rest_of_the_pci_ids_output = self.pci_ids_output.split(disk_vendor_id, 1)[1]
-                    disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-                else:
-                    disk_vendor = f'[{_tr("Unknown")}]'
-
-        # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + selected_disk + "/device" directory. They have this file under "/sys/class/block/" + selected_disk + "/device/device/vendor" directory.
-        except FileNotFoundError:
+            with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/modalias") as reader:
+                modalias_output = reader.read().strip()
+            device_vendor_name, device_model_name, _, _ = Performance.performance_get_device_vendor_model_func(modalias_output)
+        except (FileNotFoundError, NotADirectoryError) as me:
+            pass
+        # Try to get device vendor model if this is a SCSI, IDE or virtio device (on QEMU virtual machines).
+        try:
+            with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/modalias") as reader:
+                modalias_output = reader.read().strip()
+            device_vendor_name, device_model_name, _, _ = Performance.performance_get_device_vendor_model_func(modalias_output)
+        except (FileNotFoundError, NotADirectoryError) as me:
+            pass
+        # Try to get device vendor model if this is a SCSI or IDE disk.
+        if device_vendor_name == "[scsi_or_ide_disk]":
             try:
-                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/vendor") as reader:
-                    disk_vendor_id = "\n" + reader.read().strip().split("x")[-1] + "  "
-                # "vendor" information may not be present in the pci.ids file.
-                if disk_vendor_id in self.pci_ids_output:
-                    rest_of_the_pci_ids_output = self.pci_ids_output.split(disk_vendor_id, 1)[1]
-                    disk_vendor = rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-                else:
-                    disk_vendor = f'[{_tr("Unknown")}]'
-            except Exception:
-                disk_vendor = f'[{_tr("Unknown")}]'
-
-        # Get disk model
-        try:
-            with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
-                disk_model = reader.read().strip()
-            # Disk model information may be available as model id on some cases (such as on QEMU virtual machines).
-            if disk_model.startswith("0x"):
-                disk_model_id = "\n\t" + disk_model.split("x")[-1] + "  "
-                if disk_vendor != f'[{_tr("Unknown")}]':
-                    # "device name" information may not be present in the pci.ids file.
-                    if disk_model_id in rest_of_the_pci_ids_output:
-                        rest_of_the_rest_of_the_pci_ids_output = rest_of_the_pci_ids_output.split(disk_model_id, 1)[1]
-                        disk_model = rest_of_the_rest_of_the_pci_ids_output.split("\n", 1)[0].strip()
-                    else:
-                        disk_model = f'[{_tr("Unknown")}]'
-                else:
-                    disk_model = f'[{_tr("Unknown")}]'
-
-        except Exception:
-            disk_model = f'[{_tr("Unknown")}]'
-        disk_vendor_model = disk_vendor + " - " +  disk_model
-
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/vendor") as reader:
+                    device_vendor_name = reader.read().strip()
+            except (FileNotFoundError, NotADirectoryError) as me:
+                device_vendor_name = "Unknown"
+            try:
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
+                    device_model_name = reader.read().strip()
+            except (FileNotFoundError, NotADirectoryError) as me:
+                device_model_name = "Unknown"
+        if device_vendor_name == "Unknown":
+            device_vendor_name = "[" + _tr("Unknown") + "]"
+        if device_model_name == "Unknown":
+            device_model_name = "[" + _tr("Unknown") + "]"
+        disk_device_model_name = f'{device_vendor_name} - {device_model_name}'
         # Get disk vendor and model if disk is loop device or swap disk.
         if selected_disk.startswith("loop"):
-            disk_vendor_model = "[Loop Device]"
+            disk_device_model_name = "[Loop Device]"
         if selected_disk.startswith("zram"):
-            disk_vendor_model = _tr("[SWAP]")
+            disk_device_model_name = _tr("[SWAP]")
         if selected_disk.startswith("mmcblk"):
             self.disk_mmc_cid_values_func()
             try:
@@ -435,9 +409,9 @@ class Disk:
                     disk_card_speed_class = reader.read().strip()
             except FileNotFoundError:
                 disk_card_speed_class = "-"
-            disk_vendor_model = f'{disk_vendor} - {disk_model} ({disk_card_type} Card, Class {disk_card_speed_class})'
+            disk_device_model_name = f'{disk_vendor} - {disk_model} ({disk_card_type} Card, Class {disk_card_speed_class})'
 
-        return disk_vendor_model
+        return disk_device_model_name
 
 
     # ----------------------- Define register value dictionaries to get CPU information) -----------------------

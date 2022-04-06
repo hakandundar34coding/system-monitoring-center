@@ -299,6 +299,7 @@ class Performance:
         # modalias_output = "pci:v000010ECd00008168sv00001043sd000016D5bc02sc00i00"
         # modalias_output = "pci:v00008086d00000116sv00001043sd00001642bc03sc00i00"
         # modalias_output = "pci:v00001B85d00006018sv00001B85sd00006018bc01sc08i02"
+        # modalias_output = "pci:v0000144Dd0000A808sv0000144Dsd0000A801bc01sc08i02"
         # modalias_output = "of:NgpuT<NULL>Cnvidia,tegra210-gm20bCnvidia,gm20b"
         # modalias_output = "scsi:t-0x05"
         # modalias_output = "scsi:t-0x00"
@@ -448,9 +449,18 @@ class Performance:
             device_vendor_name = device_vendor_id = device_alias.split("C", 1)[-1].split("C", 1)[0].split(",")[0].title()
             device_model_name = device_model_id = device_alias.split("C", 1)[-1].split("C", 1)[0].split(",")[1].title()
 
+        # Get device vendor, model if device subtype is SCSI or IDE.
+        elif device_subtype in ["scsi", "ide"]:
+
+            # Example SCSI device modalias: "scsi:t-0x00".
+
+            device_vendor_name = device_vendor_id = "[scsi_or_ide_disk]"
+            device_model_name = device_model_id = "[scsi_or_ide_disk]"
+
+        # Set device vendor, model if device subtype is not known so far.
         else:
-            device_vendor_name = "Unknown"
-            device_model_name = "Unknown"
+            device_vendor_name = device_vendor_id = "Unknown"
+            device_model_name = device_model_id = "Unknown"
 
         return device_vendor_name, device_model_name, device_vendor_id, device_model_id
 
