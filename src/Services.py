@@ -249,7 +249,10 @@ def services_loop_func():
         service_unit_files_dir = "/lib/systemd/system/"
 
     service_unit_file_list = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]    # Get file names which ends withs ".service".
-    service_files_from_run_systemd_list = [filename.split("invocation:", 1)[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
+    try:
+        service_files_from_run_systemd_list = [filename.split("invocation:", 1)[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
+    except FileNotFoundError:
+        service_files_from_run_systemd_list = []
 
     for file in service_unit_file_list[:]:                                                    # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
         if os.path.islink(service_unit_files_dir + file) == True and os.path.realpath(service_unit_files_dir + file) != "/dev/null":    # Some service files are link to other ".service" files in the same directory. These links are removed from the list. Not all link files are removed. Link files with "/dev/null" are kept in the list.
@@ -289,7 +292,11 @@ def services_loop_func():
         unit_files_command.append(service)
 
     # Get service data per service file in one attempt in order to obtain lower CPU usage. Because information from all service files will be get by one commandline operation and will be parsed later.
-    systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
+    try:
+        systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
+    # Prevent errors if "systemd" is not used on the system.
+    except Exception:
+        return
 
     # Get services data (specific information by processing the data get previously)
     for i, service in enumerate(service_list):
