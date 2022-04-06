@@ -94,7 +94,6 @@ class DiskDetails:
 
         # Get selected disk name and pci.ids file content
         selected_disk = Disk.selected_disk
-        pci_ids_output = Disk.pci_ids_output
 
         disk_sector_size = Performance.disk_sector_size
 

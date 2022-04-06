@@ -386,11 +386,18 @@ class Disk:
         if selected_disk.startswith("zram"):
             disk_device_model_name = _tr("[SWAP]")
         if selected_disk.startswith("mmcblk"):
-            self.disk_mmc_cid_values_func()
+            # Read database file for MMC disk register values. For more info about CIDs: https://www.kernel.org/doc/Documentation/mmc/mmc-dev-attrs.txt
+            with open(os.path.dirname(os.path.realpath(__file__)) + "/../database/sdcard.ids") as reader:
+                ids_file_output = reader.read().strip()
+            # Get device vendor, model names from device ID file content.
             try:
                 with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/manfid") as reader:
                     disk_vendor_manfid = reader.read().strip()
-                disk_vendor = self.mmc_cid_values_dict[disk_vendor_manfid]
+                search_text1 = "MANFID " + disk_vendor_manfid.split("0x", 1)[-1]
+                if search_text1 in ids_file_output:
+                    disk_vendor = ids_file_output.split(search_text1, 1)[1].split("\n", 1)[0].strip()
+                else:
+                    disk_vendor = "-"
             except Exception:
                 disk_vendor = "-"
             try:
@@ -412,28 +419,6 @@ class Disk:
             disk_device_model_name = f'{disk_vendor} - {disk_model} ({disk_card_type} Card, Class {disk_card_speed_class})'
 
         return disk_device_model_name
-
-
-    # ----------------------- Define register value dictionaries to get CPU information) -----------------------
-    def disk_mmc_cid_values_func(self):
-
-        # For more info about CIDs: https://www.kernel.org/doc/Documentation/mmc/mmc-dev-attrs.txt
-        # Source: several sources and https://www.cameramemoryspeed.com/sd-memory-card-faq/reading-sd-card-cid-serial-psn-internal-numbers/
-        self.mmc_cid_values_dict = {
-                                    "0x000001": "Panasonic",
-                                    "0x000002": "Toshiba",
-                                    "0x000003": "SanDisk",
-                                    "0x00001b": "Samsung",
-                                    "0x00001d": "AData",
-                                    "0x000027": "Phison",
-                                    "0x000028": "Lexar",
-                                    "0x000031": "Silicon Power",
-                                    "0x000041": "Kingston",
-                                    "0x000074": "Transcend",
-                                    "0x000076": "Patriot",
-                                    "0x000082": "Sony",
-                                    "0x000027": "Sony"
-                                    }
 
 
     # ----------------------- Get disk mount point -----------------------

@@ -46,8 +46,6 @@ class Cpu:
         self.button1101.connect("clicked", self.on_button1101_clicked)
         self.drawingarea1101.connect("draw", self.on_drawingarea1101_draw)
 
-        self.cpu_arm_cpu_register_values_func()
-
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1101_clicked(self, widget):
@@ -429,13 +427,35 @@ class Cpu:
             else:
                 selected_cpu_core_number = 0
 
-            # Get CPU information by using register values.
+            # Get CPU model information by using register values.
+            cpu_implementer = "-"
+            cpu_architecture = "-"
+            cpu_part = "-"
+            # Read database file for ARM CPU register values.
+            with open(os.path.dirname(os.path.realpath(__file__)) + "/../database/arm.ids") as reader:
+                ids_file_output = reader.read().strip()
+            # Define ARM architecture dictionary.
+            arm_architecture_dict = {"5TE": "ARMv5", "6TEJ": "ARMv6", "7": "ARMv7", "8": "ARMv8"}
+            # Get device vendor, model names from device ID file content.
+            search_text1 = cpu_implementer_list[selected_cpu_core_number].split("0x", 1)[-1]
+            search_text2 = "\t" + cpu_part_list[selected_cpu_core_number].split("0x", 1)[-1]
+            if search_text1 in ids_file_output:
+                rest_of_the_ids_file_output = ids_file_output.split(search_text1, 1)[1]
+                cpu_implementer = rest_of_the_ids_file_output.split("\n", 1)[0].strip()
+                if search_text2 in ids_file_output:
+                    cpu_part = rest_of_the_ids_file_output.split(search_text2, 1)[1].split("\n", 1)[0].strip()
+                else:
+                    cpu_part = "-"
+            else:
+                cpu_implementer = "-"
+                cpu_part = "-"
             try:
-                cpu_implementer = self.arm_cpu_implementer_dict[cpu_implementer_list[selected_cpu_core_number]]
-                cpu_architecture = self.arm_architecture_dict[cpu_architecture_list[selected_cpu_core_number]]
-                cpu_part = self.arm_part_dict[cpu_part_list[selected_cpu_core_number]]
-                cpu_model_name = f'{cpu_implementer} {cpu_part} ({cpu_architecture})'
+                cpu_architecture = arm_architecture_dict[cpu_architecture_list[selected_cpu_core_number]]
             except KeyError:
+                cpu_architecture = "-"
+            cpu_model_name = f'{cpu_implementer} {cpu_part} ({cpu_architecture})'
+            # Get CPU model information by using "/proc/cpuinfo" file if CPU implementer or CPU part is not detected.
+            if cpu_implementer == "-" or cpu_part == "-":
                 cpu_model_name = "-"
                 for line in proc_cpuinfo_output_lines:
                     if line.startswith("model name"):
@@ -508,54 +528,6 @@ class Cpu:
         system_up_time = f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}'
 
         return system_up_time
-
-
-    # ----------------------- Define register value dictionaries to get CPU information) -----------------------
-    def cpu_arm_cpu_register_values_func(self):
-
-        # Source: several sources and https://github.com/util-linux/util-linux
-        self.arm_cpu_implementer_dict = {
-                                        "0x41": "ARM",
-                                        "0x42": "Broadcom",
-                                        "0x51": "Qualcomm",
-                                        "0x53": "Samsung",
-                                        "0x56": "Marvell",
-                                        "0x61": "Apple",
-                                        "-1": "unknown"
-                                        }
-
-        self.arm_architecture_dict = {
-                                     "5TE": "ARMv5",
-                                     "6TEJ": "ARMv6",
-                                     "7": "ARMv7",
-                                     "8": "ARMv8"
-                                     }
-
-        self.arm_part_dict = {
-                             "0xc0f": "Cortex-A15",      # ARM CPUs
-                             "0xd03": "Cortex-A53",
-                             "0xd04": "Cortex-A35",
-                             "0xd05": "Cortex-A55",
-                             "0xd06": "Cortex-A65",
-                             "0xd07": "Cortex-A57",
-                             "0xd07": "Cortex-A57",
-                             "0xd08": "Cortex-A72",
-                             "0xd09": "Cortex-A73",
-                             "0xd0a": "Cortex-A75",
-                             "0xd0b": "Cortex-A76",
-                             "0xd41": "Cortex-A78",
-                             "0xd42": "Cortex-A78AE",
-                             "0xd44": "Cortex-X1",
-                             "0xd48": "Cortex-X2",
-                             "0xd4b": "Cortex-A78C",
-                             "0x04d": "Krait",           # Qualcomm CPUs
-                             "0x06f": "Krait",
-                             "0x201": "Kryo",
-                             "0x205": "Kryo",
-                             "0x211": "Kryo",
-                             "0x001": "Exynos-M1",       # Samsung CPUs
-                             "-1": "unknown"
-                             }
 
 
 # Generate object
