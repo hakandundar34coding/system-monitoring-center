@@ -289,6 +289,9 @@ class Performance:
 
         # Define "udev" hardware database file directory.
         udev_hardware_database_dir = "/usr/lib/udev/hwdb.d/"
+        # Some older Linux distributions use "/lib/" instead of "/usr/lib/" but they are merged under "/usr/lib/" in newer versions.
+        if os.path.isdir(udev_hardware_database_dir) == False:
+            udev_hardware_database_dir = "/lib/udev/hwdb.d"
 
         # Example modalias file contents for testing.
         # modalias_output = "usb:v0B95p1790d0100dcFFdscFFdp00icFFiscFFip00in00"
