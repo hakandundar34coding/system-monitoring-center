@@ -478,9 +478,13 @@ class MainGUI:
     # ----------------------- Called for generating symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated. -----------------------
     def main_gui_application_system_integration_func(self):
 
-        # Get current directiory (which code of this application is in) and current user home directory (symlinks will be generated in).
+        # Get current directory (which code of this application is in) and current user home directory (symlinks will be generated in).
         current_dir = os.path.dirname(os.path.realpath(__file__))
         current_user_homedir = os.environ.get('HOME')
+
+        # Prevent running this function if the application code is in "/usr/lib/" folder which means the application is a Python application and packaged for a distribution package manager and it has a desktop file after installation.
+        if current_dir.startswith("/usr/lib/") == True:
+            return
 
         # This file is used for checking if symlinks are copied before.
         file_to_check_if_generated = current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop"

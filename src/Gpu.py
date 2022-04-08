@@ -257,16 +257,9 @@ class Gpu:
 
         self.drawingarea1501.queue_draw()
 
-        # Get current resolution and current refresh rate
-        current_screen = Gdk.Screen.get_default()
-        current_resolution = str(current_screen.get_width()) + "x" + str(current_screen.get_height())
-        try:
-            current_monitor_number = current_screen.get_monitor_at_window(current_screen.get_active_window())
-            current_display = Gdk.Display.get_default()
-            current_refresh_rate = current_display.get_monitor(current_monitor_number).get_refresh_rate()
-            current_refresh_rate = f'{(current_refresh_rate / 1000):.2f} Hz'
-        except Exception:
-            current_refresh_rate = f'[{_tr("Unknown")}]'
+
+        # Get information.
+        current_resolution, current_refresh_rate = self.gpu_resolution_refresh_rate_func()
 
 
         # Set and update GPU tab label texts by using information get
@@ -392,6 +385,45 @@ class Gpu:
             if self.default_gpu == "":
                 set_selected_gpu = self.gpu_list[0]
         self.selected_gpu_number = self.gpu_list.index(set_selected_gpu)
+
+
+    # ----------------------- Get screen resolution and refresh rate -----------------------
+    def gpu_resolution_refresh_rate_func(self):
+
+        # Get current resolution
+        current_screen = Gdk.Screen.get_default()
+        current_resolution = str(current_screen.get_width()) + "x" + str(current_screen.get_height())
+
+        # Get current refresh rate
+        try:
+            current_monitor_number = current_screen.get_monitor_at_window(current_screen.get_active_window())
+            current_display = Gdk.Display.get_default()
+            current_refresh_rate = current_display.get_monitor(current_monitor_number).get_refresh_rate()
+            current_refresh_rate = int(current_refresh_rate) / 1000
+        except Exception:
+            current_refresh_rate = "Unknown"
+        # If refresh rate is not get or it is smaller than 30 (incorrect values such as 1, 2.14 are get on some systems such as RB-Pi devices), get it by using xrandr (if there is only one monitor connected).
+        if current_refresh_rate == "Unknown" or current_refresh_rate < 30:
+            try:
+                xrandr_output = (subprocess.check_output(["xrandr"], shell=False)).decode().strip()
+                xrandr_output_lines = xrandr_output.split("\n")
+                number_of_monitors = xrandr_output.count(" connected")
+                if number_of_monitors == 1:
+                    for line in xrandr_output_lines:
+                        if "*" in line:
+                            line_split = line.split()
+                            for string_in_line in line_split:
+                                if "*" in string_in_line:
+                                    current_refresh_rate = float(string_in_line.strip().rstrip("*+"))
+                                    break
+            except Exception:
+                pass
+        if current_refresh_rate != "Unknown":
+            current_refresh_rate = f'{current_refresh_rate:.2f} Hz'
+        else:
+            current_refresh_rate = f'[{_tr("Unknown")}]'
+
+        return current_resolution, current_refresh_rate
 
 
 # Generate object
