@@ -4,27 +4,19 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 
 <p align="center">
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"/>
-</a>
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>
-</a>
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/hakandundar34coding/system-monitoring-center/total"></a>
-</a>
+<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"/></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/hakandundar34coding/system-monitoring-center"></a>
-</a>
-</p>
-<p align="center">
-<a href="https://pypi.org/project/system-monitoring-center/"><img src="https://img.shields.io/badge/-PyPI%20Page-lightgrey"/>
-</a>
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/Changes.md"><img src="https://img.shields.io/badge/-Changelog-lightgrey"></a>
-</a>
+<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>
+<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/hakandundar34coding/system-monitoring-center/total"></a>
+<a href="https://pypi.org/project/system-monitoring-center/"><img src="https://img.shields.io/badge/Visit-PyPI%20Page-b37840"/></a>
+<a href="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/Changes.md"><img src="https://img.shields.io/badge/View-Changelog-b37840"></a>
 </p>
 
 
 ### Installation:
 * System Monitoring Center is installable from PyPI as a Python package.
-* Remove older versions (v1.8.0 and older) in order to install from PyPI.
-* Install these dependencies: ```hwdata, mesa-utils (on some systems: glx-utils)```
+* Remove older versions (v1.8.0 and older).
+* Install this dependency: ```hwdata (on some systems: glx-utils)```
 * Option-1) Installing for current user account: ```pip install system-monitoring-center```
 * Option-2) Installing for system-wide: ```sudo pip install system-monitoring-center```
   (This method can be used for preventing source code modifications.)
@@ -34,9 +26,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
   If command is not found, restart the system and run the command again.
 
 
-<p align="center">
-<img src="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/icons/hicolor/scalable/apps/system-monitoring-center.svg" width="48">
-</p>
+------------------
 
 
 ### Features:

@@ -541,7 +541,7 @@ class MainGUI:
             generate_folder(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions")
 
             # Generate symlinks.
-            generate_symlink(current_dir + "/../integration/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
+            generate_symlink(current_dir + "/../applications/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
             generate_symlink(current_dir + "/../icons/hicolor/scalable/apps/system-monitoring-center.svg", current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
             target_path = current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"
             for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions"):
