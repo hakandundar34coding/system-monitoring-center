@@ -13,7 +13,6 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/hakandundar34coding/system-monitoring-center"></a>
 </a>
 </p>
-
 <p align="center">
 <a href="https://pypi.org/project/system-monitoring-center/"><img src="https://img.shields.io/badge/-PyPI%20Page-lightgrey"/>
 </a>
@@ -36,7 +35,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 
 <p align="center">
-![System Monitoring Center](icons/hicolor/scalable/apps/system-monitoring-center.svg)
+<img src="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/icons/hicolor/scalable/apps/system-monitoring-center.svg" width="48">
 </p>
 
 
