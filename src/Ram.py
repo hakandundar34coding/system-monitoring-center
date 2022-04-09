@@ -150,8 +150,8 @@ class Ram:
         ctx.stroke_preserve()
         # Change the color for filling operation.
         gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
-        gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
-        gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.1 * chart_line_color[3])
+        gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
+        gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.10 * chart_line_color[3])
         ctx.set_source(gradient_pattern)
         # Fill the area
         ctx.fill()

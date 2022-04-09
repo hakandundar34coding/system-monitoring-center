@@ -118,8 +118,8 @@ class Cpu:
             # Fill the closed area.
             ctx.stroke_preserve()
             gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
-            gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
-            gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.1 * chart_line_color[3])
+            gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
+            gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.10 * chart_line_color[3])
             ctx.set_source(gradient_pattern)
             ctx.fill()
 
@@ -213,8 +213,8 @@ class Cpu:
                 # Fill the closed area.
                 ctx.stroke_preserve()
                 gradient_pattern = cairo.LinearGradient(0, (chart_height_per_core+6)*chart_index_list[j][1], 0, (chart_height_per_core)+(chart_height_per_core+6)*chart_index_list[j][1])
-                gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
-                gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.1 * chart_line_color[3])
+                gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
+                gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.10 * chart_line_color[3])
                 ctx.set_source(gradient_pattern)
                 ctx.fill()
 
