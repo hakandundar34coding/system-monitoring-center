@@ -15,16 +15,18 @@ def files_in_folder(folder):
 
 
 data_files = [
-    ("/systemmonitoringcenter/applications/", ["integration/com.github.hakand34.system-monitoring-center.desktop"]),
-    ("/systemmonitoringcenter/locale/cs/LC_MESSAGES/", ["locale/cs/system-monitoring-center.mo"]),
-    ("/systemmonitoringcenter/locale/pl/LC_MESSAGES/", ["locale/pl/system-monitoring-center.mo"]),
-    ("/systemmonitoringcenter/locale/pt_BR/LC_MESSAGES/", ["locale/pt_BR/system-monitoring-center.mo"]),
-    ("/systemmonitoringcenter/locale/tr/LC_MESSAGES/", ["locale/tr/system-monitoring-center.mo"]),
-    ("/systemmonitoringcenter/database/", files_in_folder("database/")),
-    ("/systemmonitoringcenter/src/", files_in_folder("src/")),
-    ("/systemmonitoringcenter/ui/", files_in_folder("ui/")),
-    ("/systemmonitoringcenter/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
-    ("/systemmonitoringcenter/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/system-monitoring-center.svg"]),
+    ("/usr/share/applications/", ["integration/com.github.hakand34.system-monitoring-center.desktop"]),
+    ("/usr/share/system-monitoring-center/locale/cs/LC_MESSAGES/", ["locale/cs/system-monitoring-center.mo"]),
+    ("/usr/share/system-monitoring-center/locale/pl/LC_MESSAGES/", ["locale/pl/system-monitoring-center.mo"]),
+    ("/usr/share/system-monitoring-center/locale/pt_BR/LC_MESSAGES/", ["locale/pt_BR/system-monitoring-center.mo"]),
+    ("/usr/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/system-monitoring-center.mo"]),
+    ("/usr/share/system-monitoring-center/database/", files_in_folder("database/")),
+    ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
+    ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
+    ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
+    ("/usr/share/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/system-monitoring-center.svg"]),
+    ("/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
+    ("/usr/bin/", ["integration/system-monitoring-center"])
 ]
 
 
@@ -38,11 +40,10 @@ setup(
     url="https://github.com/hakandundar34coding/system-monitoring-center",
     keywords="system monitor task manager center performance speed frequency usage cpu ram swap memory storage network download fps ratio processes users startup services os",
     license="GPLv3",
-    install_requires=["PyGObject", "pycairo"],
+    install_requires=["PyGObject"],
     python_requires=">=3.6",
     packages=find_packages(),
     data_files=data_files,
-    entry_points={"gui_scripts": ["system-monitoring-center = systemmonitoringcenter.start:start_app"]},
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3",

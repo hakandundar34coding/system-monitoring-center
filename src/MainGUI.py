@@ -482,12 +482,14 @@ class MainGUI:
         current_dir = os.path.dirname(os.path.realpath(__file__))
         current_user_homedir = os.environ.get('HOME')
 
-        # Prevent running this function if the application code is in "/usr/lib/" folder which means the application is a Python application and packaged for a distribution package manager and it has a desktop file after installation.
-        if current_dir.startswith("/usr/lib/") == True:
-            return
-
         # This file is used for checking if symlinks are copied before.
         file_to_check_if_generated = current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop"
+
+        # Get icon list.
+        try:
+            icon_list = os.listdir(current_dir + "/../icons/hicolor/scalable/actions")
+        except FileNotFoundError:
+            icon_list = os.listdir("/usr/share/icons/hicolor/scalable/actions")
 
         # Called for removing files.
         def remove_file(file):
@@ -521,19 +523,25 @@ class MainGUI:
                 remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
                 remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
                 for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"):
-                    remove_file(file)
+                    if file in icon_list:
+                        remove_file(file)
 
         # Check if symlinks are not copied before.
-        if os.path.isfile(file_to_check_if_generated) == False:
+        else:
 
             # Try to remove previous symlinks ("isfile" check gives "False" if there are symlinks and targets are removed. Example cases: If the application is removed from user-specific directory and installed into system-wide directory or vice versa.).
             remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
             remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
             try:
                 for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"):
-                    remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file)
+                    if file in icon_list:
+                        remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file)
             except Exception:
                 pass
+
+            # Prevent running rest of this function if the application code is in "/usr/lib/" folder which means the application is a Python application and packaged for a distribution package manager and it has a desktop file after installation.
+            if current_dir.startswith("/usr/lib/") == True or current_dir.startswith("/usr/share/") == True:
+                return
 
             # Generate folders.
             generate_folder(current_user_homedir + "/.local/share/applications")
@@ -544,7 +552,7 @@ class MainGUI:
             generate_symlink(current_dir + "/../applications/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
             generate_symlink(current_dir + "/../icons/hicolor/scalable/apps/system-monitoring-center.svg", current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
             target_path = current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"
-            for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions"):
+            for file in icon_list:
                 generate_symlink(current_dir + "/../icons/hicolor/scalable/actions/" + file, target_path + "/" + file)
 
 
