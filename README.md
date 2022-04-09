@@ -16,7 +16,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 ### Installation:
 * System Monitoring Center is installable from PyPI as a Python package.
 * Remove older versions (v1.8.0 and older).
-* Install this dependency: ```hwdata (on some systems: glx-utils)```
+* Install this dependency: ```mesa-utils (on some systems: glx-utils)```
 * Option-1) Installing for current user account: ```pip install system-monitoring-center```
 * Option-2) Installing for system-wide: ```sudo pip install system-monitoring-center```
   (This method can be used for preventing source code modifications.)
