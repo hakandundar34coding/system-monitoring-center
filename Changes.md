@@ -1,5 +1,13 @@
 # System Monitoring Center
 
+### v1.10.0
+  * Improved: Getting ARM CPU model names
+  * Improved: Device vendor-model detection
+  * Fix: Detect window manager of GNOME DE
+  * Fix: Disk model name on QEMU virtual machines
+  * Fix: Error on systems with no systemd (Services tab)
+  * Fix: Scr. refresh rate on some systems with Wayland win.s.
+
 ### v1.9.1
   * Fix: System integration (shortcut, images) for some cases
 
