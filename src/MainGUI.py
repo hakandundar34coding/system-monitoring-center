@@ -489,6 +489,9 @@ class MainGUI:
         # This file is used for checking if symlinks are copied before.
         file_to_check_if_generated = current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop"
 
+        # Get icon list.
+        icon_list = os.listdir(current_dir + "/../icons/hicolor/scalable/actions")
+
         # Called for removing files.
         def remove_file(file):
             try:
@@ -521,7 +524,8 @@ class MainGUI:
                 remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
                 remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
                 for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"):
-                    remove_file(file)
+                    if file in icon_list:
+                        remove_file(file)
 
         # Check if symlinks are not copied before.
         if os.path.isfile(file_to_check_if_generated) == False:
@@ -531,7 +535,8 @@ class MainGUI:
             remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
             try:
                 for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"):
-                    remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file)
+                    if file in icon_list:
+                        remove_file(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file)
             except Exception:
                 pass
 
@@ -544,7 +549,7 @@ class MainGUI:
             generate_symlink(current_dir + "/../applications/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
             generate_symlink(current_dir + "/../icons/hicolor/scalable/apps/system-monitoring-center.svg", current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
             target_path = current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"
-            for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions"):
+            for file in icon_list:
                 generate_symlink(current_dir + "/../icons/hicolor/scalable/actions/" + file, target_path + "/" + file)
 
 

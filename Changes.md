@@ -1,6 +1,6 @@
 # System Monitoring Center
 
-### v1.10.1
+### v1.10.2
   * Improved: Getting ARM CPU model names
   * Improved: Device vendor-model detection
   * Fix: Detect window manager of GNOME DE
