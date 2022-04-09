@@ -7,10 +7,6 @@ with open(os.path.dirname(os.path.realpath(__file__)) + "/src/__version__") as r
     version = reader.read().strip()
 
 
-with open(os.path.dirname(os.path.realpath(__file__)) + "/README.md", encoding='utf-8') as reader:
-    long_description = reader.read()
-
-
 def files_in_folder(folder):
     file_paths = []
     for file in [filename for filename in os.listdir(folder)]:
@@ -36,7 +32,7 @@ setup(
     name="system-monitoring-center",
     version=version,
     description="Provides information about system performance and usage.",
-    long_description=long_description,
+    long_description="Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.",
     author="Hakan Dündar",
     author_email="hakandundar34coding@gmail.com",
     url="https://github.com/hakandundar34coding/system-monitoring-center",
