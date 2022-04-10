@@ -67,37 +67,43 @@ class Gpu:
     # ----------------------- Called for drawing FPS as line chart -----------------------
     def on_drawingarea1501_draw(self, widget, ctx):
 
+        # Get chart data history.
         chart_data_history = Config.chart_data_history
         chart_x_axis = list(range(0, chart_data_history))
 
+        # Get performance data to be drawn.
         try:
-            fps_count_check = self.fps_count
+            fps_count = self.fps_count
         # Handle errors because chart signals are connected before running relevant performance thread (in the GPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
         except AttributeError:
             return
 
+        # Get chart colors.
         chart_line_color = Config.chart_line_color_fps
         chart_background_color = Config.chart_background_color_all_charts
 
+        # Get drawingarea size. Therefore chart width and height is updated dynamically by using these values when window size is changed by user.
         chart_width = Gtk.Widget.get_allocated_width(widget)
         chart_height = Gtk.Widget.get_allocated_height(widget)
 
+        # Draw and fill chart background.
         ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
         ctx.rectangle(0, 0, chart_width, chart_height)
         ctx.fill()
 
+        # Draw horizontal and vertical gridlines.
         ctx.set_line_width(1)
         ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
         for i in range(3):
             ctx.move_to(0, chart_height/4*(i+1))
-            ctx.line_to(chart_width, chart_height/4*(i+1))
+            ctx.rel_line_to(chart_width, 0)
         for i in range(4):
             ctx.move_to(chart_width/5*(i+1), 0)
-            ctx.line_to(chart_width/5*(i+1), chart_height)
+            ctx.rel_line_to(0, chart_height)
         ctx.stroke()
 
-        # Maximum FPS value is multiplied by 1.1 in order to scale chart when FPS is increased or decreased for preventing the line being out of the chart border.
-        chart1501_y_limit = 1.1 * (max(self.fps_count) + 0.0000001)
+        # Maximum performance data value is multiplied by 1.1 in order to scale chart when performance data is increased or decreased for preventing the line being out of the chart border.
+        chart1501_y_limit = 1.1 * (max(fps_count) + 0.0000001)
 
         # ---------- Start - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
         chart1501_y_limit_float = chart1501_y_limit
@@ -109,21 +115,30 @@ class Gpu:
         chart1501_y_limit = (chart1501_y_limit * next_multiple / (chart1501_y_limit_float + 0.0000001) + 0.0000001)
         # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
+
+        # Draw outer border of the chart.
         ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
         ctx.rectangle(0, 0, chart_width, chart_height)
         ctx.stroke()
 
-        ctx.move_to(chart_width*chart_x_axis[0]/(chart_data_history-1), chart_height - chart_height*self.fps_count[0]/chart1501_y_limit)
-        for i in range(len(chart_x_axis) - 1):
-            delta_x_chart1501 = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-            delta_y_chart1501 = (chart_height*self.fps_count[i+1]/chart1501_y_limit) - (chart_height*self.fps_count[i]/chart1501_y_limit)
-            ctx.rel_line_to(delta_x_chart1501, -delta_y_chart1501)
+        # Draw performance data.
+        ctx.move_to(0, chart_height)
+        ctx.rel_move_to(0, -chart_height*fps_count[0]/chart1501_y_limit)
+        for i in range(chart_data_history - 1):
+            delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
+            delta_y = (chart_height*fps_count[i+1]/chart1501_y_limit) - (chart_height*fps_count[i]/chart1501_y_limit)
+            ctx.rel_line_to(delta_x, -delta_y)
 
-        ctx.rel_line_to(10, 0)
-        ctx.rel_line_to(0, chart_height+10)
-        ctx.rel_line_to(-(chart_width+20), 0)
-        ctx.rel_line_to(0, -(chart_height+10))
+        # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
+        ctx.stroke_preserve()
+        ctx.set_source_rgba(0, 0, 0, 0)
+
+        # Close the drawn line to fill inside area of it.
+        ctx.rel_line_to(0, chart_height*fps_count[-1]/chart1501_y_limit)
+        ctx.rel_line_to(-(chart_width), 0)
         ctx.close_path()
+
+        # Fill the closed area.
         ctx.stroke_preserve()
         gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
         gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
