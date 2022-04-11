@@ -1,0 +1,18 @@
+# ***************************************************************
+# Database:      arm.ids
+# Source:        https://github.com/bp0/armids
+# License:       GNU General Public License v2.0
+# Update time:   01.04.2022
+# Modification:  None
+# ***************************************************************
+
+
+# ***************************************************************
+# Database:      sdcard.ids
+# Source:        https://github.com/bp0/verbose-spork
+# License:       GNU General Public License v2.0
+# Update time:   01.04.2022
+# Modification:  None
+# ***************************************************************
+
+

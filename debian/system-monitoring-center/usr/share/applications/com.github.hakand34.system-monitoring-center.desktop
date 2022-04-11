@@ -1,0 +1,20 @@
+[Desktop Entry]
+Name=System Monitoring Center
+Name[pt_BR]=Central de Monitoramento do Sistema
+Name[tr]=Sistem Gözlem Merkezi
+GenericName=System Monitor
+GenericName[pt_BR]=Monitor do Sistema
+GenericName[tr]=Sistem Gözlemcisi
+Comment=Gets information about system performance and usage.
+Comment[pt_BR]=Obtenha informações sobre o desempenho e utilização do sistema.
+Comment[tr]=Sistem performansı ve kullanımı hakkında bilgi verir.
+Exec=system-monitoring-center
+Icon=system-monitoring-center
+Terminal=false
+Type=Application
+Categories=System;
+StartupNotify=true
+Keywords=system monitor;task manager;center;performance;speed;frequency;usage;cpu;ram;swap;memory;storage;network;download;fps;ratio;processes;users;startup;services;os;
+Keywords[pt_BR]=monitor do sistema;gerenciador de tarefas;desempenho;velocidade;frequência;uso de CPU;uso de ram;memória swap;uso de memória;armazenamento;uso de rede;velocidade de download;fps;processos;usuários;programas de inicialização;serviços;os;
+Keywords[tr]=sistem gözlemcisi;görev yöneticisi;performans;hız;frekans;kullanım;cpu;mib;ram;takas;bellek;depolama;indirme;fps;işlemler;kullanıcılar;başlangıç;servisler;os;is;
+

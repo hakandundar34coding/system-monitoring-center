@@ -1,0 +1,12 @@
+Package: system-monitoring-center
+Version: 1.10.2
+Architecture: all
+Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
+Installed-Size: 1986
+Depends: python3-gi, python3:any, bash (>= 4.4), dmidecode, iproute2, mesa-utils, python3 (>= 3.6), python3-cairo, python3-gi-cairo, util-linux (>= 2.31)
+Section: utils
+Priority: optional
+Homepage: https://github.com/hakandundar34coding/system-monitoring-center
+Description: Provides information about system performance and usage.
+ Provides information about CPU/RAM/Disk/Network/GPU performance, sensors,
+ processes, users, storage, startup programs, services, and system.

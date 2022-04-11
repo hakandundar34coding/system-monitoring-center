@@ -1,0 +1,23 @@
+Metadata-Version: 1.2
+Name: system-monitoring-center
+Version: 1.10.2
+Summary: Provides information about system performance and usage.
+Home-page: https://github.com/hakandundar34coding/system-monitoring-center
+Author: Hakan Dündar
+Author-email: hakandundar34coding@gmail.com
+License: GPLv3
+Description: Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.
+Keywords: system monitor task manager center performance speed frequency usage cpu ram swap memory storage network download fps ratio processes users startup services os
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Topic :: System :: Monitoring
+Requires-Python: >=3.6

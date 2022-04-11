@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.22"/>
+  <!-- n-columns=4 n-rows=2 -->
+  <object class="GtkGrid" id="grid101">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="valign">center</property>
+    <property name="row-spacing">3</property>
+    <property name="column-spacing">4</property>
+    <child>
+      <object class="GtkLabel" id="label103">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">CPU</property>
+        <attributes>
+          <attribute name="size" value="10000"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkDrawingArea" id="drawingarea101">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkDrawingArea" id="drawingarea102">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+      <packing>
+        <property name="left-attach">1</property>
+        <property name="top-attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label104">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">RAM</property>
+        <attributes>
+          <attribute name="size" value="10000"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left-attach">1</property>
+        <property name="top-attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label105">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="tooltip-text" translatable="yes">Disk Read+Write Speed</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">Disk</property>
+        <attributes>
+          <attribute name="size" value="10000"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left-attach">2</property>
+        <property name="top-attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label101">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">--</property>
+        <attributes>
+          <attribute name="size" value="9000"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left-attach">2</property>
+        <property name="top-attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label102">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">--</property>
+        <attributes>
+          <attribute name="size" value="9000"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left-attach">3</property>
+        <property name="top-attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label106">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="tooltip-text" translatable="yes">Network Download+Upload Speed</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">Network</property>
+        <attributes>
+          <attribute name="size" value="10000"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left-attach">3</property>
+        <property name="top-attach">0</property>
+      </packing>
+    </child>
+  </object>
+</interface>

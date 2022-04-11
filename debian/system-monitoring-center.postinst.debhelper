@@ -1,0 +1,17 @@
+
+# Automatically added by dh_python3
+if which py3compile >/dev/null 2>&1; then
+	py3compile -p system-monitoring-center 
+fi
+if which pypy3compile >/dev/null 2>&1; then
+	pypy3compile -p system-monitoring-center  || true
+fi
+
+if which py3compile >/dev/null 2>&1; then
+	py3compile -p system-monitoring-center /usr/share/system-monitoring-center
+fi
+if which pypy3compile >/dev/null 2>&1; then
+	pypy3compile -p system-monitoring-center /usr/share/system-monitoring-center || true
+fi
+
+# End automatically added section
