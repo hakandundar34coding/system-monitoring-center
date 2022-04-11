@@ -8,14 +8,14 @@ system-monitoring-center (1.10.2) unstable; urgency=medium
   * Fix: Error on systems with no systemd (Services tab)
   * Fix: Scr. refresh rate on some systems with Wayland win.s.
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 09 Apr 2022 12:00:00 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 09 Apr 2022 12:00:00 +0300
 
 system-monitoring-center (1.9.1) unstable; urgency=medium
 
   [ Hakan Dündar ]
   * Fix: System integration (shortcut, images) for some cases
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 03 Apr 2022 13:00:00 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 03 Apr 2022 13:00:00 +0300
 
 system-monitoring-center (1.9.0) unstable; urgency=medium
 
@@ -25,7 +25,7 @@ system-monitoring-center (1.9.0) unstable; urgency=medium
   * Add hardware database files
   * Minor improvements
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 03 Apr 2022 12:00:00 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 03 Apr 2022 12:00:00 +0300
 
 system-monitoring-center (1.8.0) unstable; urgency=medium
 
