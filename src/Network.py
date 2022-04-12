@@ -92,31 +92,31 @@ class Network:
         ctx.stroke()
 
         # Maximum performance data value is multiplied by 1.1 in order to scale chart when performance data is increased or decreased for preventing the line being out of the chart border.
-        chart1401_y_limit = 1.1 * ((max(max(network_receive_speed), max(network_send_speed))) + 0.0000001)
+        chart_y_limit = 1.1 * ((max(max(network_receive_speed), max(network_send_speed))) + 0.0000001)
         if Config.plot_network_download_speed == 1 and Config.plot_network_upload_speed == 0:
-            chart1401_y_limit = 1.1 * (max(network_receive_speed) + 0.0000001)
+            chart_y_limit = 1.1 * (max(network_receive_speed) + 0.0000001)
         if Config.plot_network_download_speed == 0 and Config.plot_network_upload_speed == 1:
-            chart1401_y_limit = 1.1 * (max(network_send_speed) + 0.0000001)
+            chart_y_limit = 1.1 * (max(network_send_speed) + 0.0000001)
 
         # ---------- Start - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
         data_unit_for_chart_y_limit = 0
         if Config.performance_network_speed_data_unit >= 8:
             data_unit_for_chart_y_limit = 8
         try:
-            chart1401_y_limit_str = f'{self.performance_data_unit_converter_func(chart1401_y_limit, data_unit_for_chart_y_limit, 0)}/s'
+            chart_y_limit_str = f'{self.performance_data_unit_converter_func(chart_y_limit, data_unit_for_chart_y_limit, 0)}/s'
         # try-except is used in order to prevent errors if first initial function is not finished and "performance_data_unit_converter_func" is not run.
         except AttributeError:
             return
-        chart1401_y_limit_split = chart1401_y_limit_str.split(" ")
-        chart1401_y_limit_float = float(chart1401_y_limit_split[0])
-        number_of_digits = len(str(int(chart1401_y_limit_split[0])))
+        chart_y_limit_split = chart_y_limit_str.split(" ")
+        chart_y_limit_float = float(chart_y_limit_split[0])
+        number_of_digits = len(str(int(chart_y_limit_split[0])))
         multiple = 10 ** (number_of_digits - 1)
         # "0.0001" is used in order to take decimal part of the numbers into account. For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
-        number_to_get_next_multiple = chart1401_y_limit_float + (multiple - 0.0001)
+        number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
         next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-        self.label1413.set_text(f'{next_multiple} {chart1401_y_limit_split[1]}')
+        self.label1413.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
         # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
-        chart1401_y_limit = (chart1401_y_limit * next_multiple / (chart1401_y_limit_float + 0.0000001) + 0.0000001)
+        chart_y_limit = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
         # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
         # Draw outer border of the chart.
@@ -128,10 +128,10 @@ class Network:
 
             # Draw performance data.
             ctx.move_to(0, chart_height)
-            ctx.rel_move_to(0, -chart_height*network_receive_speed[0]/chart1401_y_limit)
+            ctx.rel_move_to(0, -chart_height*network_receive_speed[0]/chart_y_limit)
             for i in range(chart_data_history - 1):
                 delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-                delta_y = (chart_height*network_receive_speed[i+1]/chart1401_y_limit) - (chart_height*network_receive_speed[i]/chart1401_y_limit)
+                delta_y = (chart_height*network_receive_speed[i+1]/chart_y_limit) - (chart_height*network_receive_speed[i]/chart_y_limit)
                 ctx.rel_line_to(delta_x, -delta_y)
 
             # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
@@ -139,7 +139,7 @@ class Network:
             ctx.set_source_rgba(0, 0, 0, 0)
 
             # Close the drawn line to fill inside area of it.
-            ctx.rel_line_to(0, chart_height*network_receive_speed[-1]/chart1401_y_limit)
+            ctx.rel_line_to(0, chart_height*network_receive_speed[-1]/chart_y_limit)
             ctx.rel_line_to(-(chart_width), 0)
             ctx.close_path()
 
@@ -158,10 +158,10 @@ class Network:
 
             # Draw performance data.
             ctx.move_to(0, chart_height)
-            ctx.rel_move_to(0, -chart_height*network_send_speed[0]/chart1401_y_limit)
+            ctx.rel_move_to(0, -chart_height*network_send_speed[0]/chart_y_limit)
             for i in range(chart_data_history - 1):
                 delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-                delta_y = (chart_height*network_send_speed[i+1]/chart1401_y_limit) - (chart_height*network_send_speed[i]/chart1401_y_limit)
+                delta_y = (chart_height*network_send_speed[i+1]/chart_y_limit) - (chart_height*network_send_speed[i]/chart_y_limit)
                 ctx.rel_line_to(delta_x, -delta_y)
 
             # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
@@ -169,7 +169,7 @@ class Network:
             ctx.set_source_rgba(0, 0, 0, 0)
 
             # Close the drawn line to fill inside area of it.
-            ctx.rel_line_to(0, chart_height*network_send_speed[-1]/chart1401_y_limit)
+            ctx.rel_line_to(0, chart_height*network_send_speed[-1]/chart_y_limit)
             ctx.rel_line_to(-(chart_width), 0)
             ctx.close_path()
 

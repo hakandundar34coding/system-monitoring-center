@@ -29,6 +29,11 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 ------------------
 
+These dependencies are already installed on many systems:
+```bash (>=4.4), dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, util-linux (>=2.31)```
+
+------------------
+
 
 ### Features:
 * Detailed system performance and usage usage monitoring/managing features:

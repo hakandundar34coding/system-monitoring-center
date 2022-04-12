@@ -103,16 +103,16 @@ class Gpu:
         ctx.stroke()
 
         # Maximum performance data value is multiplied by 1.1 in order to scale chart when performance data is increased or decreased for preventing the line being out of the chart border.
-        chart1501_y_limit = 1.1 * (max(fps_count) + 0.0000001)
+        chart_y_limit = 1.1 * (max(fps_count) + 0.0000001)
 
         # ---------- Start - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
-        chart1501_y_limit_float = chart1501_y_limit
-        number_of_digits = len(str(int(chart1501_y_limit)))
+        chart_y_limit_float = chart_y_limit
+        number_of_digits = len(str(int(chart_y_limit)))
         multiple = 10 ** (number_of_digits - 1)
-        number_to_get_next_multiple = chart1501_y_limit_float + (multiple - 0.0001)
+        number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
         next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
         self.label1513.set_text(f'{next_multiple} FPS')
-        chart1501_y_limit = (chart1501_y_limit * next_multiple / (chart1501_y_limit_float + 0.0000001) + 0.0000001)
+        chart_y_limit = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
         # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
 
 
@@ -123,10 +123,10 @@ class Gpu:
 
         # Draw performance data.
         ctx.move_to(0, chart_height)
-        ctx.rel_move_to(0, -chart_height*fps_count[0]/chart1501_y_limit)
+        ctx.rel_move_to(0, -chart_height*fps_count[0]/chart_y_limit)
         for i in range(chart_data_history - 1):
             delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-            delta_y = (chart_height*fps_count[i+1]/chart1501_y_limit) - (chart_height*fps_count[i]/chart1501_y_limit)
+            delta_y = (chart_height*fps_count[i+1]/chart_y_limit) - (chart_height*fps_count[i]/chart_y_limit)
             ctx.rel_line_to(delta_x, -delta_y)
 
         # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
@@ -134,7 +134,7 @@ class Gpu:
         ctx.set_source_rgba(0, 0, 0, 0)
 
         # Close the drawn line to fill inside area of it.
-        ctx.rel_line_to(0, chart_height*fps_count[-1]/chart1501_y_limit)
+        ctx.rel_line_to(0, chart_height*fps_count[-1]/chart_y_limit)
         ctx.rel_line_to(-(chart_width), 0)
         ctx.close_path()
 
