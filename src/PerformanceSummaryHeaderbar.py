@@ -34,62 +34,15 @@ class PerformanceSummaryHeaderbar:
         self.label105 = builder.get_object('label105')
         self.label106 = builder.get_object('label106')
 
+        # Get chart functions from another module and define as local objects for lower CPU usage.
+        self.performance_bar_charts_draw_func = Performance.performance_bar_charts_draw_func
+
         # Connect GUI signals
-        self.drawingarea101.connect("draw", self.on_drawingarea101_draw)
-        self.drawingarea102.connect("draw", self.on_drawingarea102_draw)
+        self.drawingarea101.connect("draw", self.performance_bar_charts_draw_func)
+        self.drawingarea102.connect("draw", self.performance_bar_charts_draw_func)
 
         # Run initial function
         self.performance_summary_headerbar_initial_func()
-
-
-    # ----------------------- Called for drawing average CPU usage as bar chart -----------------------
-    def on_drawingarea101_draw(self, widget, ctx):
-
-        cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
-
-        chart_line_color = Config.chart_line_color_cpu_percent
-        chart_background_color = Config.chart_background_color_all_charts
-
-        chart101_width = Gtk.Widget.get_allocated_width(widget)
-        chart101_height = Gtk.Widget.get_allocated_height(widget)
-
-        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        ctx.rectangle(0, 0, chart101_width, chart101_height)
-        ctx.fill()
-
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.7 * chart_line_color[3])
-        ctx.rectangle(0, 0, chart101_width, chart101_height)
-        ctx.stroke()
-
-        ctx.set_line_width(1)
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
-        ctx.rectangle(0, 0, chart101_width*cpu_usage_percent_ave[-1]/100, chart101_height)
-        ctx.fill()
-
-
-    # ----------------------- Called for drawing RAM usage as bar chart -----------------------
-    def on_drawingarea102_draw(self, widget, ctx):
-
-        ram_usage_percent = Performance.ram_usage_percent
-
-        chart_line_color = Config.chart_line_color_ram_swap_percent
-        chart_background_color = Config.chart_background_color_all_charts
-
-        chart102_width = Gtk.Widget.get_allocated_width(widget)
-        chart102_height = Gtk.Widget.get_allocated_height(widget)
-
-        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        ctx.rectangle(0, 0, chart102_width, chart102_height)
-        ctx.fill()
-
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.7 * chart_line_color[3])
-        ctx.rectangle(0, 0, chart102_width, chart102_height)
-        ctx.stroke()
-
-        ctx.set_line_width(1)
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.5 * chart_line_color[3])
-        ctx.rectangle(0, 0, chart102_width*ram_usage_percent[-1]/100, chart102_height)
-        ctx.fill()
 
 
     # ----------------------------------- Performance Summary Headerbar - Initial Function -----------------------------------

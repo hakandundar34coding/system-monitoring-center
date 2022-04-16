@@ -3,10 +3,10 @@
 # Import modules
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+gi.require_version('Gdk', '3.0')
+from gi.repository import Gtk, Gdk
 import os
 import platform
-import cairo
 
 from locale import gettext as _tr
 
@@ -42,9 +42,21 @@ class Cpu:
         self.label1112 = builder.get_object('label1112')
         self.label1113 = builder.get_object('label1113')
 
+        # Get chart functions from another module and define as local objects for lower CPU usage.
+        self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
+        self.performance_line_charts_enter_notify_event_func = Performance.performance_line_charts_enter_notify_event_func
+        self.performance_line_charts_leave_notify_event_func = Performance.performance_line_charts_leave_notify_event_func
+        self.performance_line_charts_motion_notify_event_func = Performance.performance_line_charts_motion_notify_event_func
+
         # Connect GUI signals
         self.button1101.connect("clicked", self.on_button1101_clicked)
-        self.drawingarea1101.connect("draw", self.on_drawingarea1101_draw)
+        self.drawingarea1101.connect("draw", self.performance_line_charts_draw_func)
+        self.drawingarea1101.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
+        self.drawingarea1101.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
+        self.drawingarea1101.connect("motion-notify-event", self.performance_line_charts_motion_notify_event_func)
+
+        # Set event masks for drawingarea in order to enable these events.
+        self.drawingarea1101.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
 
     # ----------------------- "customizations menu" Button -----------------------
@@ -54,174 +66,6 @@ class Cpu:
         CpuMenu.popover1101p.set_relative_to(widget)
         CpuMenu.popover1101p.set_position(1)
         CpuMenu.popover1101p.popup()
-
-
-    # ----------------------- Called for drawing average or per-core CPU usage as line/bar chart -----------------------
-    def on_drawingarea1101_draw(self, widget, ctx):
-
-        # Draw "average CPU usage" if preferred.
-        if Config.show_cpu_usage_per_core == 0:
-
-            # Get chart data history.
-            chart_data_history = Config.chart_data_history
-            chart_x_axis = list(range(0, chart_data_history))
-
-            # Get performance data to be drawn.
-            cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
-
-            # Get chart colors.
-            chart_line_color = Config.chart_line_color_cpu_percent
-            chart_background_color = Config.chart_background_color_all_charts
-
-            # Get drawingarea size.
-            chart_width = Gtk.Widget.get_allocated_width(widget)
-            chart_height = Gtk.Widget.get_allocated_height(widget)
-
-            # Draw and fill chart background.
-            ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-            ctx.rectangle(0, 0, chart_width, chart_height)
-            ctx.fill()
-
-            # Draw horizontal and vertical gridlines.
-            ctx.set_line_width(1)
-            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
-            for i in range(3):
-                ctx.move_to(0, chart_height/4*(i+1))
-                ctx.rel_line_to(chart_width, 0)
-            for i in range(4):
-                ctx.move_to(chart_width/5*(i+1), 0)
-                ctx.rel_line_to(0, chart_height)
-            ctx.stroke()
-
-            # Draw outer border of the chart.
-            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-            ctx.rectangle(0, 0, chart_width, chart_height)
-            ctx.stroke()
-
-            # Draw performance data.
-            ctx.move_to(0, chart_height)
-            ctx.rel_move_to(0, -chart_height*cpu_usage_percent_ave[0]/100)
-            for i in range(chart_data_history - 1):
-                delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-                delta_y = (chart_height*cpu_usage_percent_ave[i+1]/100) - (chart_height*cpu_usage_percent_ave[i]/100)
-                ctx.rel_line_to(delta_x, -delta_y)
-
-            # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
-            ctx.stroke_preserve()
-            ctx.set_source_rgba(0, 0, 0, 0)
-
-            # Close the drawn line to fill inside area of it.
-            ctx.rel_line_to(0, chart_height*cpu_usage_percent_ave[-1]/100)
-            ctx.rel_line_to(-(chart_width), 0)
-            ctx.close_path()
-
-            # Fill the closed area.
-            ctx.stroke_preserve()
-            gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
-            gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
-            gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.10 * chart_line_color[3])
-            ctx.set_source(gradient_pattern)
-            ctx.fill()
-
-        # Draw "per-core CPU usage" if preferred.
-        else:
-
-            # Get chart data history.
-            chart_data_history = Config.chart_data_history
-            chart_x_axis = list(range(0, chart_data_history))
-
-            # Get performance data to be drawn.
-            logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
-            number_of_logical_cores = Performance.number_of_logical_cores
-            cpu_usage_percent_per_core1 = Performance.cpu_usage_percent_per_core
-
-            # Get chart colors.
-            chart_line_color = Config.chart_line_color_cpu_percent
-            chart_background_color = Config.chart_background_color_all_charts
-
-            # Get drawingarea size.
-            chart_width = Gtk.Widget.get_allocated_width(widget)
-            chart_height = Gtk.Widget.get_allocated_height(widget)
-
-            from math import sqrt, ceil
-            # Get number of horizontal and vertical charts (per-core).
-            for i in range(1, 1000):
-                if number_of_logical_cores % i == 0:
-                    number_of_horizontal_charts = i
-                    number_of_vertical_charts = number_of_logical_cores // i
-                    if number_of_horizontal_charts >= number_of_vertical_charts:
-                        if number_of_horizontal_charts > 2 * number_of_vertical_charts:
-                            number_of_horizontal_charts = number_of_vertical_charts = ceil(sqrt(number_of_logical_cores))
-                        break
-
-            # Get chart index list for horizontal and vertical charts.
-            chart_index_list = []
-            for i in range(number_of_vertical_charts):
-                for j in range(number_of_horizontal_charts):
-                    chart_index_list.append([j, i])
-
-            # Spacing 3 from left and right.
-            chart_width_per_core = (chart_width / number_of_horizontal_charts) - 6
-            # Spacing 3 from top and bottom.
-            chart_height_per_core = (chart_height / number_of_vertical_charts) - 6
-
-            # Draw charts per-core.
-            for j, cpu_core in enumerate(logical_core_list_system_ordered):
-
-                # Get performance data for the current core.
-                cpu_usage_percent_per_core = cpu_usage_percent_per_core1[j]
-
-                # Draw and fill chart background.
-                ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-                ctx.rectangle(0, 0, chart_width_per_core, chart_height_per_core)
-                ctx.fill()
-
-                # Draw horizontal and vertical gridlines.
-                ctx.set_line_width(1)
-                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
-                for i in range(3):
-                    ctx.move_to((chart_width_per_core+6)*chart_index_list[j][0], chart_index_list[j][1]*(chart_height_per_core+6) + chart_height_per_core/4*(i+1))
-                    ctx.rel_line_to(chart_width_per_core, 0)
-                for i in range(4):
-                    ctx.move_to((chart_width_per_core+6)*chart_index_list[j][0] + chart_width_per_core/5*(i+1), (chart_height_per_core+6)*chart_index_list[j][1])
-                    ctx.rel_line_to(0, chart_height_per_core)
-                ctx.stroke()
-
-                # Draw outer border of the chart.
-                ctx.set_line_width(1)
-                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-                ctx.rectangle(chart_index_list[j][0]*(chart_width_per_core+6), chart_index_list[j][1]*(chart_height_per_core+6), chart_width_per_core, chart_height_per_core)
-                ctx.stroke()
-
-                # Draw performance data.
-                ctx.move_to((chart_width_per_core+6)*chart_index_list[j][0], (chart_height_per_core)+(chart_height_per_core+6)*chart_index_list[j][1])
-                ctx.rel_move_to(0, -chart_height_per_core*cpu_usage_percent_per_core[0]/100)
-                for i in range(len(chart_x_axis) - 1):
-                    delta_x = (chart_width_per_core * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width_per_core * chart_x_axis[i]/(chart_data_history-1))
-                    delta_y = (chart_height_per_core*cpu_usage_percent_per_core[i+1]/100) - (chart_height_per_core*cpu_usage_percent_per_core[i]/100)
-                    ctx.rel_line_to(delta_x, -delta_y)
-
-                # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
-                ctx.stroke_preserve()
-                ctx.set_source_rgba(0, 0, 0, 0)
-
-                # Close the drawn line to fill inside area of it.
-                ctx.rel_line_to(0, chart_height_per_core*cpu_usage_percent_per_core[-1]/100)
-                ctx.rel_line_to(-(chart_width_per_core), 0)
-                ctx.close_path()
-
-                # Fill the closed area.
-                ctx.stroke_preserve()
-                gradient_pattern = cairo.LinearGradient(0, (chart_height_per_core+6)*chart_index_list[j][1], 0, (chart_height_per_core)+(chart_height_per_core+6)*chart_index_list[j][1])
-                gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
-                gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.10 * chart_line_color[3])
-                ctx.set_source(gradient_pattern)
-                ctx.fill()
-
-                # Draw core number per chart.
-                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-                ctx.move_to(chart_index_list[j][0]*(chart_width_per_core+6)+4, chart_index_list[j][1]*(chart_height_per_core+6)+12)
-                ctx.show_text(f'{cpu_core.split("cpu")[-1]}')
 
 
     # ----------------------------------- CPU - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
