@@ -3,10 +3,9 @@
 # Import modules
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+gi.require_version('Gdk', '3.0')
+from gi.repository import Gtk, Gdk
 import os
-# Imported for using gradient colors
-import cairo
 
 from locale import gettext as _tr
 
@@ -42,12 +41,25 @@ class Ram:
         self.eventbox1201 = builder.get_object('eventbox1201')
         self.eventbox1202 = builder.get_object('eventbox1202')
 
+        # Get chart functions from another module and define as local objects for lower CPU usage.
+        self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
+        self.performance_line_charts_enter_notify_event_func = Performance.performance_line_charts_enter_notify_event_func
+        self.performance_line_charts_leave_notify_event_func = Performance.performance_line_charts_leave_notify_event_func
+        self.performance_line_charts_motion_notify_event_func = Performance.performance_line_charts_motion_notify_event_func
+        self.performance_bar_charts_draw_func = Performance.performance_bar_charts_draw_func
+
         # Connect GUI signals
         self.button1201.connect("clicked", self.on_button1201_clicked)
-        self.drawingarea1201.connect("draw", self.on_drawingarea1201_draw)
-        self.drawingarea1202.connect("draw", self.on_drawingarea1202_draw)
+        self.drawingarea1201.connect("draw", self.performance_line_charts_draw_func)
+        self.drawingarea1201.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
+        self.drawingarea1201.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
+        self.drawingarea1201.connect("motion-notify-event", self.performance_line_charts_motion_notify_event_func)
+        self.drawingarea1202.connect("draw", self.performance_bar_charts_draw_func)
         self.eventbox1201.connect("button-press-event", self.on_eventbox1201_button_click_event)
         self.eventbox1202.connect("button-press-event", self.on_eventbox1202_button_click_event)
+
+        # Set event masks for drawingarea in order to enable these events.
+        self.drawingarea1201.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
 
     # ----------------------- "customizations menu" Button -----------------------
@@ -77,99 +89,6 @@ class Ram:
         if event.button == 1:
             from RamSwapDetails import RamSwapDetails
             RamSwapDetails.window1201w2.show()
-
-
-    # ----------------------- Called for drawing RAM usage as line chart -----------------------
-    def on_drawingarea1201_draw(self, widget, ctx):
-
-        # Get chart data history.
-        chart_data_history = Config.chart_data_history
-        chart_x_axis = list(range(0, chart_data_history))
-
-        # Get performance data to be drawn.
-        ram_usage_percent = Performance.ram_usage_percent
-
-        # Get chart colors.
-        chart_line_color = Config.chart_line_color_ram_swap_percent
-        chart_background_color = Config.chart_background_color_all_charts
-
-        # Get drawingarea size. Therefore chart width and height is updated dynamically by using these values when window size is changed by user.
-        chart_width = Gtk.Widget.get_allocated_width(widget)
-        chart_height = Gtk.Widget.get_allocated_height(widget)
-
-        # Draw and fill chart background.
-        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        ctx.rectangle(0, 0, chart_width, chart_height)
-        ctx.fill()
-
-        # Draw horizontal and vertical gridlines.
-        ctx.set_line_width(1)
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
-        for i in range(3):
-            ctx.move_to(0, chart_height/4*(i+1))
-            ctx.rel_line_to(chart_width, 0)
-        for i in range(4):
-            ctx.move_to(chart_width/5*(i+1), 0)
-            ctx.rel_line_to(0, chart_height)
-        ctx.stroke()
-
-        # Draw outer border of the chart.
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        ctx.rectangle(0, 0, chart_width, chart_height)
-        ctx.stroke()
-
-        # Draw performance data.
-        ctx.move_to(0, chart_height)
-        ctx.rel_move_to(0, -chart_height*ram_usage_percent[0]/100)
-        for i in range(chart_data_history - 1):
-            delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-            delta_y = (chart_height*ram_usage_percent[i+1]/100) - (chart_height*ram_usage_percent[i]/100)
-            ctx.rel_line_to(delta_x, -delta_y)
-
-        # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
-        ctx.stroke_preserve()
-        ctx.set_source_rgba(0, 0, 0, 0)
-
-        # Close the drawn line to fill inside area of it.
-        ctx.rel_line_to(0, chart_height*ram_usage_percent[-1]/100)
-        ctx.rel_line_to(-(chart_width), 0)
-        ctx.close_path()
-
-        # Fill the closed area.
-        ctx.stroke_preserve()
-        gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
-        gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
-        gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.10 * chart_line_color[3])
-        ctx.set_source(gradient_pattern)
-        ctx.fill()
-
-
-    # ----------------------- Called for drawing Swap usage as bar chart -----------------------
-    def on_drawingarea1202_draw(self, widget, ctx):
-
-        try:
-            swap_percent_check = self.swap_percent
-        # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
-        except AttributeError:
-            return
-
-        chart_line_color = Config.chart_line_color_ram_swap_percent
-        chart_background_color = Config.chart_background_color_all_charts
-
-        chart1202_width = Gtk.Widget.get_allocated_width(widget)
-        chart1202_height = Gtk.Widget.get_allocated_height(widget)
-
-        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        ctx.rectangle(0, 0, chart1202_width, chart1202_height)
-        ctx.fill()
-
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.6 * chart_line_color[3])
-        ctx.rectangle(0, 0, chart1202_width, chart1202_height)
-        ctx.stroke()
-        ctx.set_line_width(1)
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3])
-        ctx.rectangle(0, 0, chart1202_width*self.swap_percent/100, chart1202_height)
-        ctx.fill()
 
 
     # ----------------------------------- RAM - Initial Function -----------------------------------

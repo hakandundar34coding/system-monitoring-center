@@ -3,10 +3,10 @@
 # Import modules
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+gi.require_version('Gdk', '3.0')
+from gi.repository import Gtk, Gdk
 import os
 import subprocess
-import cairo
 
 from locale import gettext as _tr
 
@@ -42,9 +42,21 @@ class Network:
         self.label1412 = builder.get_object('label1412')
         self.label1413 = builder.get_object('label1413')
 
+        # Get chart functions from another module and define as local objects for lower CPU usage.
+        self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
+        self.performance_line_charts_enter_notify_event_func = Performance.performance_line_charts_enter_notify_event_func
+        self.performance_line_charts_leave_notify_event_func = Performance.performance_line_charts_leave_notify_event_func
+        self.performance_line_charts_motion_notify_event_func = Performance.performance_line_charts_motion_notify_event_func
+
         # Connect GUI signals
         self.button1401.connect("clicked", self.on_button1401_clicked)
-        self.drawingarea1401.connect("draw", self.on_drawingarea1401_draw)
+        self.drawingarea1401.connect("draw", self.performance_line_charts_draw_func)
+        self.drawingarea1401.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
+        self.drawingarea1401.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
+        self.drawingarea1401.connect("motion-notify-event", self.performance_line_charts_motion_notify_event_func)
+
+        # Set event masks for drawingarea in order to enable these events.
+        self.drawingarea1401.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
 
     # ----------------------- "customizations menu" Button -----------------------
@@ -54,124 +66,6 @@ class Network:
         NetworkMenu.popover1401p.set_relative_to(widget)
         NetworkMenu.popover1401p.set_position(1)
         NetworkMenu.popover1401p.popup()
-
-
-    # ----------------------- Called for drawing Network download/upload speed as line chart -----------------------
-    def on_drawingarea1401_draw(self, widget, ctx):
-
-        # Get chart data history.
-        chart_data_history = Config.chart_data_history
-        chart_x_axis = list(range(0, chart_data_history))
-
-        # Get performance data to be drawn.
-        network_receive_speed = Performance.network_receive_speed[Performance.selected_network_card_number]
-        network_send_speed = Performance.network_send_speed[Performance.selected_network_card_number]
-
-        # Get chart colors.
-        chart_line_color = Config.chart_line_color_network_speed_data
-        chart_background_color = Config.chart_background_color_all_charts
-
-        # Get drawingarea size. Therefore chart width and height is updated dynamically by using these values when window size is changed by user.
-        chart_width = Gtk.Widget.get_allocated_width(widget)
-        chart_height = Gtk.Widget.get_allocated_height(widget)
-
-        # Draw and fill chart background.
-        ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        ctx.rectangle(0, 0, chart_width, chart_height)
-        ctx.fill()
-
-        # Draw horizontal and vertical gridlines.
-        ctx.set_line_width(1)
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
-        for i in range(3):
-            ctx.move_to(0, chart_height/4*(i+1))
-            ctx.rel_line_to(chart_width, 0)
-        for i in range(4):
-            ctx.move_to(chart_width/5*(i+1), 0)
-            ctx.rel_line_to(0, chart_height)
-        ctx.stroke()
-
-        # Maximum performance data value is multiplied by 1.1 in order to scale chart when performance data is increased or decreased for preventing the line being out of the chart border.
-        chart_y_limit = 1.1 * ((max(max(network_receive_speed), max(network_send_speed))) + 0.0000001)
-        if Config.plot_network_download_speed == 1 and Config.plot_network_upload_speed == 0:
-            chart_y_limit = 1.1 * (max(network_receive_speed) + 0.0000001)
-        if Config.plot_network_download_speed == 0 and Config.plot_network_upload_speed == 1:
-            chart_y_limit = 1.1 * (max(network_send_speed) + 0.0000001)
-
-        # ---------- Start - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
-        data_unit_for_chart_y_limit = 0
-        if Config.performance_network_speed_data_unit >= 8:
-            data_unit_for_chart_y_limit = 8
-        try:
-            chart_y_limit_str = f'{self.performance_data_unit_converter_func(chart_y_limit, data_unit_for_chart_y_limit, 0)}/s'
-        # try-except is used in order to prevent errors if first initial function is not finished and "performance_data_unit_converter_func" is not run.
-        except AttributeError:
-            return
-        chart_y_limit_split = chart_y_limit_str.split(" ")
-        chart_y_limit_float = float(chart_y_limit_split[0])
-        number_of_digits = len(str(int(chart_y_limit_split[0])))
-        multiple = 10 ** (number_of_digits - 1)
-        # "0.0001" is used in order to take decimal part of the numbers into account. For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
-        number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
-        next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-        self.label1413.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
-        # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
-        chart_y_limit = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
-        # ---------- End - This block of code is used in order to show maximum value of the chart as multiples of 1, 10, 100. ----------
-
-        # Draw outer border of the chart.
-        ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        ctx.rectangle(0, 0, chart_width, chart_height)
-        ctx.stroke()
-
-        if Config.plot_network_download_speed == 1:
-
-            # Draw performance data.
-            ctx.move_to(0, chart_height)
-            ctx.rel_move_to(0, -chart_height*network_receive_speed[0]/chart_y_limit)
-            for i in range(chart_data_history - 1):
-                delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-                delta_y = (chart_height*network_receive_speed[i+1]/chart_y_limit) - (chart_height*network_receive_speed[i]/chart_y_limit)
-                ctx.rel_line_to(delta_x, -delta_y)
-
-            # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
-            ctx.stroke_preserve()
-            ctx.set_source_rgba(0, 0, 0, 0)
-
-            # Close the drawn line to fill inside area of it.
-            ctx.rel_line_to(0, chart_height*network_receive_speed[-1]/chart_y_limit)
-            ctx.rel_line_to(-(chart_width), 0)
-            ctx.close_path()
-
-            # Fill the closed area.
-            ctx.stroke_preserve()
-            gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
-            gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
-            gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.10 * chart_line_color[3])
-            ctx.set_source(gradient_pattern)
-            ctx.fill()
-
-        if Config.plot_network_upload_speed == 1:
-
-            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-            ctx.set_dash([5, 3])
-
-            # Draw performance data.
-            ctx.move_to(0, chart_height)
-            ctx.rel_move_to(0, -chart_height*network_send_speed[0]/chart_y_limit)
-            for i in range(chart_data_history - 1):
-                delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-                delta_y = (chart_height*network_send_speed[i+1]/chart_y_limit) - (chart_height*network_send_speed[i]/chart_y_limit)
-                ctx.rel_line_to(delta_x, -delta_y)
-
-            # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
-            ctx.stroke_preserve()
-            ctx.set_source_rgba(0, 0, 0, 0)
-
-            # Close the drawn line to fill inside area of it.
-            ctx.rel_line_to(0, chart_height*network_send_speed[-1]/chart_y_limit)
-            ctx.rel_line_to(-(chart_width), 0)
-            ctx.close_path()
 
 
     # ----------------------------------- Network - Initial Function -----------------------------------
