@@ -75,3 +75,4 @@ These dependencies are already installed on many systems:
 * A simple FPS counter is shown on the GPU tab and may not be accurate in some situations.
 * FPS counting does not continue when window is minimized.
 
+* Some virtual machines does not provide CPU min-max frequencies, sensors and RAM hardware information.
