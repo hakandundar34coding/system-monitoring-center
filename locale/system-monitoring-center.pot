@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-29 07:31+0300\n"
+"POT-Creation-Date: 2022-04-15 20:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,58 +17,55 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/Cpu.py:301 ui/CpuMenus.ui:72 ui/CpuTab.ui:439
+#: src/Cpu.py:88 ui/CpuMenus.ui:72 ui/CpuTab.ui:439
 msgid "CPU Usage (Average)"
 msgstr ""
 
-#: src/Cpu.py:303 ui/CpuMenus.ui:86
+#: src/Cpu.py:90 ui/CpuMenus.ui:86
 msgid "CPU Usage (Per Core)"
 msgstr ""
 
-#: src/Cpu.py:375 src/RamHardwareInformation.py:56
+#: src/Cpu.py:312 src/Disk.py:270 src/Disk.py:272 src/Gpu.py:308 src/Gpu.py:310
+#: src/Network.py:97 src/Network.py:99 src/RamHardwareInformation.py:56
 msgid "Unknown"
 msgstr ""
 
-#: src/Disk.py:228 src/DiskDetails.py:196 src/DiskDetails.py:211 src/Gpu.py:226
-#: src/Gpu.py:229 src/Network.py:283 src/Network.py:311 src/Services.py:208
-#: src/ServicesDetails.py:132 src/UsersDetails.py:229
-msgid "Yes"
-msgstr ""
-
-#: src/Disk.py:230 src/DiskDetails.py:188 src/Gpu.py:231 src/Gpu.py:320
-#: src/Network.py:285 src/Services.py:208 src/ServicesDetails.py:132
-#: src/UsersDetails.py:231
-msgid "No"
-msgstr ""
-
-#: src/Disk.py:298 src/Disk.py:299 src/Disk.py:300 src/Disk.py:301
-#: src/DiskDetails.py:174 src/DiskDetails.py:215 src/DiskDetails.py:220
-#: src/DiskDetails.py:248 src/DiskDetails.py:395 src/DiskDetails.py:396
-#: src/DiskDetails.py:397 src/DiskDetails.py:398
-msgid "[Not mounted]"
-msgstr ""
-
-#: src/Disk.py:365 src/Disk.py:373 src/DiskDetails.py:168
-#: src/DiskDetails.py:272 src/RamSwapDetails.py:66
+#: src/Disk.py:224 src/Disk.py:237 src/RamSwapDetails.py:66
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:371 src/DiskDetails.py:270 src/DiskDetails.py:359
-#: src/DiskDetails.py:368 src/SettingsGUI.py:60 ui/DiskDetailsWindow.ui:45
-#: ui/DiskTab.ui:435 ui/MainWindow.ui:265
+#: src/Disk.py:235 src/Disk.py:493 src/Disk.py:507 src/SettingsGUI.py:60
+#: ui/DiskDetailsWindow.ui:45 ui/DiskTab.ui:435 ui/MainWindow.ui:265
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
 msgid "Disk"
 msgstr ""
 
-#: src/Disk.py:427 src/DiskDetails.py:229 src/DiskDetails.py:325
+#: src/Disk.py:278 src/Disk.py:384
 msgid "[SWAP]"
 msgstr ""
 
-#: src/DiskDetails.py:119
+#: src/Disk.py:343 src/Disk.py:361 src/Gpu.py:170 src/Gpu.py:173
+#: src/Network.py:180 src/Network.py:208 src/Services.py:208
+#: src/ServicesDetails.py:132 src/UsersDetails.py:223
+msgid "Yes"
+msgstr ""
+
+#: src/Disk.py:345 src/Disk.py:348 src/Gpu.py:175 src/Gpu.py:257
+#: src/Network.py:182 src/Services.py:208 src/ServicesDetails.py:132
+#: src/UsersDetails.py:225
+msgid "No"
+msgstr ""
+
+#: src/Disk.py:369 src/Disk.py:375 src/Disk.py:429 src/Disk.py:430
+#: src/Disk.py:431 src/Disk.py:432 src/Disk.py:433
+msgid "[Not mounted]"
+msgstr ""
+
+#: src/DiskDetails.py:101
 msgid "Disk Details"
 msgstr ""
 
-#: src/FloatingSummary.py:135 src/Processes.py:238 src/SettingsGUI.py:60
+#: src/FloatingSummary.py:135 src/Processes.py:228 src/SettingsGUI.py:60
 #: src/Users.py:186 ui/CpuMenus.ui:387 ui/CpuTab.ui:343 ui/MainWindow.ui:169
 #: ui/PerformanceSummaryHeaderBarGrid.ui:17 ui/ProcessesDetailsWindow.ui:113
 #: ui/ProcessesDetailsWindow.ui:741 ui/ProcessesDetailsWindow.ui:846
@@ -108,48 +105,48 @@ msgstr ""
 msgid "Network U"
 msgstr ""
 
-#: src/MainGUI.py:167
+#: src/MainGUI.py:170
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
 msgstr ""
 
-#: src/Network.py:210
+#: src/Network.py:107
 msgid "Virtual Network Interface"
 msgstr ""
 
-#: src/Network.py:214
+#: src/Network.py:111
 msgid "Ethernet"
 msgstr ""
 
-#: src/Network.py:216
+#: src/Network.py:113
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Processes.py:234 src/RamSwapDetails.py:95 src/Services.py:182
+#: src/Processes.py:224 src/RamSwapDetails.py:95 src/Services.py:182
 #: src/Startup.py:155 ui/ProcessesDetailsWindow.ui:48
 #: ui/ProcessesMenuCustomizations.ui:363 ui/ServicesDetailsWindow.ui:49
 #: ui/ServicesMenuCustomizations.ui:234 ui/StartupNewItemWindow.ui:259
 msgid "Name"
 msgstr ""
 
-#: src/Processes.py:235 src/ProcessesDetails.py:253 src/ProcessesDetails.py:674
+#: src/Processes.py:225 src/ProcessesDetails.py:253 src/ProcessesDetails.py:674
 #: ui/ProcessesDetailsWindow.ui:61 ui/ProcessesMenuCustomizations.ui:379
 msgid "PID"
 msgstr ""
 
-#: src/Processes.py:236 src/Users.py:174 src/UsersMenuRightClick.py:66
+#: src/Processes.py:226 src/Users.py:174 src/UsersMenuRightClick.py:66
 #: ui/ProcessesDetailsWindow.ui:87 ui/ProcessesMenuCustomizations.ui:393
 #: ui/UsersDetailsWindow.ui:45 ui/UsersMenuCustomizations.ui:234
 msgid "User"
 msgstr ""
 
-#: src/Processes.py:237 ui/ProcessesDetailsWindow.ui:74
+#: src/Processes.py:227 ui/ProcessesDetailsWindow.ui:74
 #: ui/ProcessesMenuCustomizations.ui:407
 msgid "Status"
 msgstr ""
 
-#: src/Processes.py:239 src/Services.py:188 src/Users.py:187
+#: src/Processes.py:229 src/Services.py:188 src/Users.py:187
 #: ui/ProcessesDetailsWindow.ui:126 ui/ProcessesDetailsWindow.ui:863
 #: ui/ProcessesMenuCustomizations.ui:435 ui/ServicesDetailsWindow.ui:238
 #: ui/ServicesMenuCustomizations.ui:320 ui/UsersDetailsWindow.ui:355
@@ -157,110 +154,110 @@ msgstr ""
 msgid "Memory (RSS)"
 msgstr ""
 
-#: src/Processes.py:240 ui/ProcessesDetailsWindow.ui:876
+#: src/Processes.py:230 ui/ProcessesDetailsWindow.ui:876
 #: ui/ProcessesMenuCustomizations.ui:449
 msgid "Memory (VMS)"
 msgstr ""
 
-#: src/Processes.py:241 ui/ProcessesDetailsWindow.ui:889
+#: src/Processes.py:231 ui/ProcessesDetailsWindow.ui:889
 #: ui/ProcessesMenuCustomizations.ui:519
 msgid "Memory (Shared)"
 msgstr ""
 
-#: src/Processes.py:242 ui/ProcessesDetailsWindow.ui:1348
+#: src/Processes.py:232 ui/ProcessesDetailsWindow.ui:1348
 #: ui/ProcessesMenuCustomizations.ui:561
 msgid "Disk Read Data"
 msgstr ""
 
-#: src/Processes.py:243 ui/ProcessesDetailsWindow.ui:1361
+#: src/Processes.py:233 ui/ProcessesDetailsWindow.ui:1361
 #: ui/ProcessesMenuCustomizations.ui:575
 msgid "Disk Write Data"
 msgstr ""
 
-#: src/Processes.py:244 ui/ProcessesDetailsWindow.ui:139
+#: src/Processes.py:234 ui/ProcessesDetailsWindow.ui:139
 #: ui/ProcessesDetailsWindow.ui:664 ui/ProcessesDetailsWindow.ui:1322
 #: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:360
 msgid "Disk Read Speed"
 msgstr ""
 
-#: src/Processes.py:245 ui/ProcessesDetailsWindow.ui:1335
+#: src/Processes.py:235 ui/ProcessesDetailsWindow.ui:1335
 #: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:374
 msgid "Disk Write Speed"
 msgstr ""
 
-#: src/Processes.py:246 src/RamSwapDetails.py:99
+#: src/Processes.py:236 src/RamSwapDetails.py:99
 #: ui/ProcessesDetailsWindow.ui:100 ui/ProcessesMenuCustomizations.ui:463
 msgid "Priority"
 msgstr ""
 
-#: src/Processes.py:247 ui/ProcessesDetailsWindow.ui:754
+#: src/Processes.py:237 ui/ProcessesDetailsWindow.ui:754
 #: ui/ProcessesMenuCustomizations.ui:477
 msgid "Threads"
 msgstr ""
 
-#: src/Processes.py:248 ui/ProcessesDetailsWindow.ui:178
+#: src/Processes.py:238 ui/ProcessesDetailsWindow.ui:178
 #: ui/ProcessesMenuCustomizations.ui:491
 msgid "PPID"
 msgstr ""
 
-#: src/Processes.py:249 src/Users.py:177 src/UsersMenuRightClick.py:67
+#: src/Processes.py:239 src/Users.py:177 src/UsersMenuRightClick.py:67
 #: ui/ProcessesDetailsWindow.ui:413 ui/ProcessesMenuCustomizations.ui:589
 #: ui/UsersDetailsWindow.ui:84 ui/UsersMenuCustomizations.ui:278
 msgid "UID"
 msgstr ""
 
-#: src/Processes.py:250 src/Users.py:178 ui/ProcessesDetailsWindow.ui:426
+#: src/Processes.py:240 src/Users.py:178 ui/ProcessesDetailsWindow.ui:426
 #: ui/ProcessesMenuCustomizations.ui:603 ui/UsersDetailsWindow.ui:97
 #: ui/UsersMenuCustomizations.ui:292
 msgid "GID"
 msgstr ""
 
-#: src/Processes.py:251 ui/DiskDetailsWindow.ui:384
+#: src/Processes.py:241 ui/DiskDetailsWindow.ui:369
 #: ui/ProcessesDetailsWindow.ui:1764 ui/ProcessesMenuCustomizations.ui:505
 #: ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr ""
 
-#: src/Processes.py:270 src/Services.py:207 src/ServicesDetails.py:131
+#: src/Processes.py:260 src/Services.py:207 src/ServicesDetails.py:131
 msgid "Running"
 msgstr ""
 
-#: src/Processes.py:270
+#: src/Processes.py:260
 msgid "Sleeping"
 msgstr ""
 
-#: src/Processes.py:270
+#: src/Processes.py:260
 msgid "Waiting"
 msgstr ""
 
-#: src/Processes.py:270
+#: src/Processes.py:260
 msgid "Idle"
 msgstr ""
 
-#: src/Processes.py:270
+#: src/Processes.py:260
 msgid "Zombie"
 msgstr ""
 
-#: src/Processes.py:270
+#: src/Processes.py:260
 msgid "Stopped"
 msgstr ""
 
-#: src/Processes.py:270
+#: src/Processes.py:260
 msgid "Tracing Stop"
 msgstr ""
 
-#: src/Processes.py:270 src/Services.py:207 src/ServicesDetails.py:131
+#: src/Processes.py:260 src/Services.py:207 src/ServicesDetails.py:131
 msgid "Dead"
 msgstr ""
 
-#: src/Processes.py:662 src/Sensors.py:395 src/Services.py:486
-#: src/Startup.py:452 src/Users.py:555 ui/ProcessesTab.ui:222
+#: src/Processes.py:652 src/Sensors.py:395 src/Services.py:493
+#: src/Startup.py:452 src/Users.py:559 ui/ProcessesTab.ui:222
 #: ui/SensorsTab.ui:195 ui/ServicesTab.ui:177 ui/StartupTab.ui:144
 #: ui/UsersTab.ui:156
 msgid "Search..."
 msgstr ""
 
-#: src/Processes.py:662 src/SettingsGUI.py:59 src/Users.py:179
+#: src/Processes.py:652 src/SettingsGUI.py:59 src/Users.py:179
 #: ui/MainWindow.ui:603 ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:306
 msgid "Processes"
@@ -282,11 +279,11 @@ msgstr ""
 msgid "Do you want to kill this process?"
 msgstr ""
 
-#: src/Ram.py:240
+#: src/Ram.py:146
 msgid "Physical RAM"
 msgstr ""
 
-#: src/Ram.py:241 ui/ProcessesDetailsWindow.ui:915 ui/RamTab.ui:309
+#: src/Ram.py:147 ui/ProcessesDetailsWindow.ui:915 ui/RamTab.ui:309
 msgid "Swap Memory"
 msgstr ""
 
@@ -304,7 +301,7 @@ msgstr ""
 
 #: src/RamHardwareInformation.py:126 src/RamHardwareInformation.py:146
 #: src/RamSwapDetails.py:97 ui/DiskDetailsWindow.ui:110
-#: ui/DiskDetailsWindow.ui:766
+#: ui/DiskDetailsWindow.ui:738
 msgid "Capacity"
 msgstr ""
 
@@ -339,7 +336,6 @@ msgid "File"
 msgstr ""
 
 #: src/RamSwapDetails.py:98 ui/DiskDetailsWindow.ui:136
-#: ui/DiskDetailsWindow.ui:803
 msgid "Used"
 msgstr ""
 
@@ -449,7 +445,7 @@ msgstr ""
 msgid "Exited"
 msgstr ""
 
-#: src/Services.py:486 src/SettingsGUI.py:59 ui/MainWindow.ui:750
+#: src/Services.py:493 src/SettingsGUI.py:59 ui/MainWindow.ui:750
 #: ui/ServicesTab.ui:61
 msgid "Services"
 msgstr ""
@@ -462,7 +458,7 @@ msgstr ""
 msgid "Performance"
 msgstr ""
 
-#: src/SettingsGUI.py:59 src/Users.py:555 ui/MainWindow.ui:652
+#: src/SettingsGUI.py:59 src/Users.py:559 ui/MainWindow.ui:652
 #: ui/UsersTab.ui:60
 msgid "Users"
 msgstr ""
@@ -484,7 +480,7 @@ msgstr ""
 msgid "GPU"
 msgstr ""
 
-#: src/SettingsGUI.py:647
+#: src/SettingsGUI.py:648
 msgid "Do you want to reset all settings to defaults?"
 msgstr ""
 
@@ -554,10 +550,6 @@ msgstr ""
 #: src/Users.py:185 ui/ProcessesDetailsWindow.ui:152
 #: ui/UsersDetailsWindow.ui:162 ui/UsersMenuCustomizations.ui:376
 msgid "Start Time"
-msgstr ""
-
-#: src/UsersDetails.py:76 src/UsersDetails.py:273 ui/UsersDetailsWindow.ui:7
-msgid "User Details"
 msgstr ""
 
 #: src/UsersMenuRightClick.py:63
@@ -630,26 +622,25 @@ msgstr ""
 #: ui/DiskDetailsWindow.ui:218 ui/DiskDetailsWindow.ui:233
 #: ui/DiskDetailsWindow.ui:248 ui/DiskDetailsWindow.ui:263
 #: ui/DiskDetailsWindow.ui:278 ui/DiskDetailsWindow.ui:293
-#: ui/DiskDetailsWindow.ui:308 ui/DiskDetailsWindow.ui:323
-#: ui/DiskDetailsWindow.ui:339 ui/DiskDetailsWindow.ui:355
-#: ui/DiskDetailsWindow.ui:397 ui/DiskDetailsWindow.ui:413
+#: ui/DiskDetailsWindow.ui:308 ui/DiskDetailsWindow.ui:324
+#: ui/DiskDetailsWindow.ui:340 ui/DiskDetailsWindow.ui:382
+#: ui/DiskDetailsWindow.ui:398 ui/DiskDetailsWindow.ui:452
 #: ui/DiskDetailsWindow.ui:467 ui/DiskDetailsWindow.ui:482
-#: ui/DiskDetailsWindow.ui:497 ui/DiskDetailsWindow.ui:746 ui/DiskTab.ui:94
-#: ui/DiskTab.ui:111 ui/DiskTab.ui:128 ui/DiskTab.ui:145 ui/DiskTab.ui:188
-#: ui/DiskTab.ui:218 ui/DiskTab.ui:265 ui/DiskTab.ui:302 ui/DiskTab.ui:343
-#: ui/DiskTab.ui:373 ui/DiskTab.ui:474 ui/DiskTab.ui:489
-#: ui/FloatingSummaryWindow.ui:19 ui/FloatingSummaryWindow.ui:31
-#: ui/FloatingSummaryWindow.ui:43 ui/FloatingSummaryWindow.ui:55
-#: ui/FloatingSummaryWindow.ui:67 ui/FloatingSummaryWindow.ui:79
-#: ui/FloatingSummaryWindow.ui:91 ui/FloatingSummaryWindow.ui:103
-#: ui/GpuTab.ui:84 ui/GpuTab.ui:101 ui/GpuTab.ui:118 ui/GpuTab.ui:161
-#: ui/GpuTab.ui:178 ui/GpuTab.ui:208 ui/GpuTab.ui:238 ui/GpuTab.ui:255
-#: ui/GpuTab.ui:299 ui/GpuTab.ui:316 ui/GpuTab.ui:346 ui/GpuTab.ui:474
-#: ui/GpuTab.ui:492 ui/NetworkTab.ui:133 ui/NetworkTab.ui:150
-#: ui/NetworkTab.ui:167 ui/NetworkTab.ui:184 ui/NetworkTab.ui:201
-#: ui/NetworkTab.ui:218 ui/NetworkTab.ui:235 ui/NetworkTab.ui:252
-#: ui/NetworkTab.ui:282 ui/NetworkTab.ui:313 ui/NetworkTab.ui:356
-#: ui/NetworkTab.ui:444 ui/NetworkTab.ui:462
+#: ui/DiskDetailsWindow.ui:718 ui/DiskTab.ui:94 ui/DiskTab.ui:111
+#: ui/DiskTab.ui:128 ui/DiskTab.ui:145 ui/DiskTab.ui:188 ui/DiskTab.ui:218
+#: ui/DiskTab.ui:265 ui/DiskTab.ui:302 ui/DiskTab.ui:343 ui/DiskTab.ui:373
+#: ui/DiskTab.ui:474 ui/DiskTab.ui:489 ui/FloatingSummaryWindow.ui:19
+#: ui/FloatingSummaryWindow.ui:31 ui/FloatingSummaryWindow.ui:43
+#: ui/FloatingSummaryWindow.ui:55 ui/FloatingSummaryWindow.ui:67
+#: ui/FloatingSummaryWindow.ui:79 ui/FloatingSummaryWindow.ui:91
+#: ui/FloatingSummaryWindow.ui:103 ui/GpuTab.ui:84 ui/GpuTab.ui:101
+#: ui/GpuTab.ui:118 ui/GpuTab.ui:161 ui/GpuTab.ui:178 ui/GpuTab.ui:208
+#: ui/GpuTab.ui:238 ui/GpuTab.ui:255 ui/GpuTab.ui:299 ui/GpuTab.ui:316
+#: ui/GpuTab.ui:346 ui/GpuTab.ui:474 ui/GpuTab.ui:492 ui/NetworkTab.ui:133
+#: ui/NetworkTab.ui:150 ui/NetworkTab.ui:167 ui/NetworkTab.ui:184
+#: ui/NetworkTab.ui:201 ui/NetworkTab.ui:218 ui/NetworkTab.ui:235
+#: ui/NetworkTab.ui:252 ui/NetworkTab.ui:282 ui/NetworkTab.ui:313
+#: ui/NetworkTab.ui:356 ui/NetworkTab.ui:444 ui/NetworkTab.ui:462
 #: ui/PerformanceSummaryHeaderBarGrid.ui:83
 #: ui/PerformanceSummaryHeaderBarGrid.ui:98
 #: ui/ProcessesCustomPriorityWindow.ui:48 ui/ProcessesDetailsWindow.ui:218
@@ -799,72 +790,72 @@ msgstr ""
 msgid "Partition Label"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:371
+#: ui/DiskDetailsWindow.ui:356
 msgid "Mount Point"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:428
+#: ui/DiskDetailsWindow.ui:413
 msgid "Revision"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:441
+#: ui/DiskDetailsWindow.ui:426
 msgid "Serial Number"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:454
+#: ui/DiskDetailsWindow.ui:439
 msgid "UUID"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:512 ui/DiskDetailsWindow.ui:525
-#: ui/DiskDetailsWindow.ui:538 ui/DiskDetailsWindow.ui:551
-#: ui/DiskDetailsWindow.ui:564 ui/DiskDetailsWindow.ui:577
-#: ui/DiskDetailsWindow.ui:590 ui/DiskDetailsWindow.ui:603
-#: ui/DiskDetailsWindow.ui:616 ui/DiskDetailsWindow.ui:629
-#: ui/DiskDetailsWindow.ui:642 ui/DiskDetailsWindow.ui:655
-#: ui/DiskDetailsWindow.ui:668 ui/DiskDetailsWindow.ui:681
-#: ui/DiskDetailsWindow.ui:694 ui/DiskDetailsWindow.ui:707
-#: ui/DiskDetailsWindow.ui:720 ui/DiskDetailsWindow.ui:733
-#: ui/ProcessesDetailsWindow.ui:469 ui/ProcessesDetailsWindow.ui:482
-#: ui/ProcessesDetailsWindow.ui:495 ui/ProcessesDetailsWindow.ui:508
-#: ui/ProcessesDetailsWindow.ui:521 ui/ProcessesDetailsWindow.ui:534
-#: ui/ProcessesDetailsWindow.ui:547 ui/ProcessesDetailsWindow.ui:560
-#: ui/ProcessesDetailsWindow.ui:573 ui/ProcessesDetailsWindow.ui:586
-#: ui/ProcessesDetailsWindow.ui:599 ui/ProcessesDetailsWindow.ui:612
-#: ui/ProcessesDetailsWindow.ui:625 ui/ProcessesDetailsWindow.ui:638
-#: ui/ProcessesDetailsWindow.ui:651 ui/ProcessesDetailsWindow.ui:677
-#: ui/ProcessesDetailsWindow.ui:1108 ui/ProcessesDetailsWindow.ui:1121
-#: ui/ProcessesDetailsWindow.ui:1134 ui/ProcessesDetailsWindow.ui:1147
-#: ui/ProcessesDetailsWindow.ui:1160 ui/ProcessesDetailsWindow.ui:1173
-#: ui/ProcessesDetailsWindow.ui:1186 ui/ProcessesDetailsWindow.ui:1199
-#: ui/ProcessesDetailsWindow.ui:1212 ui/ProcessesDetailsWindow.ui:1225
-#: ui/ProcessesDetailsWindow.ui:1238 ui/ProcessesDetailsWindow.ui:1251
-#: ui/ProcessesDetailsWindow.ui:1633 ui/ProcessesDetailsWindow.ui:1646
-#: ui/ProcessesDetailsWindow.ui:1659 ui/ProcessesDetailsWindow.ui:1672
-#: ui/ProcessesDetailsWindow.ui:1685 ui/ProcessesDetailsWindow.ui:1698
-#: ui/ProcessesDetailsWindow.ui:1711 ui/ProcessesDetailsWindow.ui:1724
-#: ui/ProcessesDetailsWindow.ui:1737 ui/ProcessesDetailsWindow.ui:1750
-#: ui/ServicesDetailsWindow.ui:481 ui/ServicesDetailsWindow.ui:494
-#: ui/ServicesDetailsWindow.ui:507 ui/ServicesDetailsWindow.ui:520
-#: ui/ServicesDetailsWindow.ui:533 ui/ServicesDetailsWindow.ui:546
-#: ui/ServicesDetailsWindow.ui:559 ui/ServicesDetailsWindow.ui:572
-#: ui/ServicesDetailsWindow.ui:585 ui/ServicesDetailsWindow.ui:598
-#: ui/ServicesDetailsWindow.ui:611 ui/ServicesDetailsWindow.ui:624
-#: ui/ServicesDetailsWindow.ui:637 ui/ServicesDetailsWindow.ui:650
-#: ui/ServicesDetailsWindow.ui:663 ui/ServicesDetailsWindow.ui:676
-#: ui/ServicesDetailsWindow.ui:833 ui/ServicesDetailsWindow.ui:846
-#: ui/ServicesDetailsWindow.ui:859 ui/ServicesDetailsWindow.ui:872
-#: ui/StartupNewItemWindow.ui:271 ui/StartupNewItemWindow.ui:283
-#: ui/StartupNewItemWindow.ui:295 ui/StartupNewItemWindow.ui:307
-#: ui/UsersDetailsWindow.ui:384 ui/UsersDetailsWindow.ui:397
-#: ui/UsersDetailsWindow.ui:410 ui/UsersDetailsWindow.ui:423
-#: ui/UsersDetailsWindow.ui:436 ui/UsersDetailsWindow.ui:449
-#: ui/UsersDetailsWindow.ui:462 ui/UsersDetailsWindow.ui:475
-#: ui/UsersDetailsWindow.ui:488 ui/UsersDetailsWindow.ui:501
-#: ui/UsersDetailsWindow.ui:514 ui/UsersDetailsWindow.ui:527
+#: ui/DiskDetailsWindow.ui:497 ui/DiskDetailsWindow.ui:510
+#: ui/DiskDetailsWindow.ui:523 ui/DiskDetailsWindow.ui:536
+#: ui/DiskDetailsWindow.ui:549 ui/DiskDetailsWindow.ui:562
+#: ui/DiskDetailsWindow.ui:575 ui/DiskDetailsWindow.ui:588
+#: ui/DiskDetailsWindow.ui:601 ui/DiskDetailsWindow.ui:614
+#: ui/DiskDetailsWindow.ui:627 ui/DiskDetailsWindow.ui:640
+#: ui/DiskDetailsWindow.ui:653 ui/DiskDetailsWindow.ui:666
+#: ui/DiskDetailsWindow.ui:679 ui/DiskDetailsWindow.ui:692
+#: ui/DiskDetailsWindow.ui:705 ui/ProcessesDetailsWindow.ui:469
+#: ui/ProcessesDetailsWindow.ui:482 ui/ProcessesDetailsWindow.ui:495
+#: ui/ProcessesDetailsWindow.ui:508 ui/ProcessesDetailsWindow.ui:521
+#: ui/ProcessesDetailsWindow.ui:534 ui/ProcessesDetailsWindow.ui:547
+#: ui/ProcessesDetailsWindow.ui:560 ui/ProcessesDetailsWindow.ui:573
+#: ui/ProcessesDetailsWindow.ui:586 ui/ProcessesDetailsWindow.ui:599
+#: ui/ProcessesDetailsWindow.ui:612 ui/ProcessesDetailsWindow.ui:625
+#: ui/ProcessesDetailsWindow.ui:638 ui/ProcessesDetailsWindow.ui:651
+#: ui/ProcessesDetailsWindow.ui:677 ui/ProcessesDetailsWindow.ui:1108
+#: ui/ProcessesDetailsWindow.ui:1121 ui/ProcessesDetailsWindow.ui:1134
+#: ui/ProcessesDetailsWindow.ui:1147 ui/ProcessesDetailsWindow.ui:1160
+#: ui/ProcessesDetailsWindow.ui:1173 ui/ProcessesDetailsWindow.ui:1186
+#: ui/ProcessesDetailsWindow.ui:1199 ui/ProcessesDetailsWindow.ui:1212
+#: ui/ProcessesDetailsWindow.ui:1225 ui/ProcessesDetailsWindow.ui:1238
+#: ui/ProcessesDetailsWindow.ui:1251 ui/ProcessesDetailsWindow.ui:1633
+#: ui/ProcessesDetailsWindow.ui:1646 ui/ProcessesDetailsWindow.ui:1659
+#: ui/ProcessesDetailsWindow.ui:1672 ui/ProcessesDetailsWindow.ui:1685
+#: ui/ProcessesDetailsWindow.ui:1698 ui/ProcessesDetailsWindow.ui:1711
+#: ui/ProcessesDetailsWindow.ui:1724 ui/ProcessesDetailsWindow.ui:1737
+#: ui/ProcessesDetailsWindow.ui:1750 ui/ServicesDetailsWindow.ui:481
+#: ui/ServicesDetailsWindow.ui:494 ui/ServicesDetailsWindow.ui:507
+#: ui/ServicesDetailsWindow.ui:520 ui/ServicesDetailsWindow.ui:533
+#: ui/ServicesDetailsWindow.ui:546 ui/ServicesDetailsWindow.ui:559
+#: ui/ServicesDetailsWindow.ui:572 ui/ServicesDetailsWindow.ui:585
+#: ui/ServicesDetailsWindow.ui:598 ui/ServicesDetailsWindow.ui:611
+#: ui/ServicesDetailsWindow.ui:624 ui/ServicesDetailsWindow.ui:637
+#: ui/ServicesDetailsWindow.ui:650 ui/ServicesDetailsWindow.ui:663
+#: ui/ServicesDetailsWindow.ui:676 ui/ServicesDetailsWindow.ui:833
+#: ui/ServicesDetailsWindow.ui:846 ui/ServicesDetailsWindow.ui:859
+#: ui/ServicesDetailsWindow.ui:872 ui/StartupNewItemWindow.ui:271
+#: ui/StartupNewItemWindow.ui:283 ui/StartupNewItemWindow.ui:295
+#: ui/StartupNewItemWindow.ui:307 ui/UsersDetailsWindow.ui:384
+#: ui/UsersDetailsWindow.ui:397 ui/UsersDetailsWindow.ui:410
+#: ui/UsersDetailsWindow.ui:423 ui/UsersDetailsWindow.ui:436
+#: ui/UsersDetailsWindow.ui:449 ui/UsersDetailsWindow.ui:462
+#: ui/UsersDetailsWindow.ui:475 ui/UsersDetailsWindow.ui:488
+#: ui/UsersDetailsWindow.ui:501 ui/UsersDetailsWindow.ui:514
+#: ui/UsersDetailsWindow.ui:527
 msgid ":"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:779 ui/DiskDetailsWindow.ui:816
+#: ui/DiskDetailsWindow.ui:751
 msgid "(Mass Storage)"
 msgstr ""
 
@@ -940,7 +931,7 @@ msgid "Show..."
 msgstr ""
 
 #: ui/DiskTab.ui:385
-msgid "Disk Read (-) & Write (--) Speed"
+msgid "Disk Read (-) & Write (-  -) Speed"
 msgstr ""
 
 #: ui/DiskTab.ui:397 ui/GpuTab.ui:358 ui/NetworkTab.ui:380
@@ -1103,7 +1094,7 @@ msgid "Signal Strength:"
 msgstr ""
 
 #: ui/NetworkTab.ui:368
-msgid "Network Download (-) & Upload (--) Speed"
+msgid "Network Download (-) & Upload (-  -) Speed"
 msgstr ""
 
 #: ui/NetworkTab.ui:460
@@ -1300,7 +1291,7 @@ msgid "Custom Value..."
 msgstr ""
 
 #: ui/ProcessesMenuRightClick.ui:166 ui/ServicesMenuRightClick.ui:113
-#: ui/UsersMenuRightClick.ui:29
+#: ui/UsersMenuRightClick.ui:35
 msgid "Details"
 msgstr ""
 
@@ -1689,6 +1680,10 @@ msgstr ""
 
 #: ui/SystemTab.ui:817
 msgid "Python:"
+msgstr ""
+
+#: ui/UsersDetailsWindow.ui:7
+msgid "User Details"
 msgstr ""
 
 #: ui/UsersMenuRightClick.ui:20
