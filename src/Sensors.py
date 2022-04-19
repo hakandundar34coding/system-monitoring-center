@@ -100,7 +100,7 @@ def sensors_gui_func():
                     treestore1601.set_value(piter, 0, False)
 
 
-    # --------------------------------- Called for filtering items when "Show all voltage and current sensors" radiobutton is clicked ---------------------------------
+    # --------------------------------- Called for filtering items when "Show all voltage, current and power sensors" radiobutton is clicked ---------------------------------
     def on_radiobutton1604_toggled(widget):
 
         if widget.get_active() == True:
@@ -108,8 +108,8 @@ def sensors_gui_func():
             for piter in piter_list:
                 # Show all sensors
                 treestore1601.set_value(piter, 0, True)
-                # Show if voltage and current sensor
-                if sensor_type_list[piter_list.index(piter)] != voltage_current_sensor_icon_name:
+                # Show if voltage, current and power sensor
+                if sensor_type_list[piter_list.index(piter)] != voltage_current_power_sensor_icon_name:
                     treestore1601.set_value(piter, 0, False)
 
 
@@ -151,10 +151,10 @@ def sensors_initial_func():
     sensors_data_column_order_prev = []
     sensors_data_column_widths_prev = []
 
-    global temperature_sensor_icon_name, fan_sensor_icon_name, voltage_current_sensor_icon_name
+    global temperature_sensor_icon_name, fan_sensor_icon_name, voltage_current_power_sensor_icon_name
     temperature_sensor_icon_name = "system-monitoring-center-temperature-symbolic"
     fan_sensor_icon_name = "system-monitoring-center-fan-symbolic"
-    voltage_current_sensor_icon_name = "system-monitoring-center-voltage-symbolic"
+    voltage_current_power_sensor_icon_name = "system-monitoring-center-voltage-symbolic"
 
     global filter_column
     filter_column = sensors_data_list[0][2] - 1                                               # Search filter is "Sensor Group". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
@@ -181,7 +181,7 @@ def sensors_loop_func():
     global sensors_data_rows, sensor_type_list
     sensors_data_rows = []
     sensor_type_list = []
-    supported_sensor_attributes = ["temp", "fan", "in", "curr"]
+    supported_sensor_attributes = ["temp", "fan", "in", "curr", "power"]
 
     # Get sensor data
     sensor_groups = sorted(os.listdir("/sys/class/hwmon/"))                                   # Get sensor group names. In some sensor directories there are a name file and multiple label files. For example, name: "coretemp", label: "Core 0", "Core 1", ... For easier grouping and understanding name is used as "Sensor Group" name and labels are used as "Sensor" names.
@@ -205,8 +205,8 @@ def sensors_loop_func():
                     sensor_type = temperature_sensor_icon_name
                 if attribute == "fan":
                     sensor_type = fan_sensor_icon_name
-                if attribute == "in" or attribute == "curr":
-                    sensor_type = voltage_current_sensor_icon_name
+                if attribute in ["in", "curr", "power"]:
+                    sensor_type = voltage_current_power_sensor_icon_name
                 # Get sensor name
                 try:
                     with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_label") as reader:
@@ -225,6 +225,8 @@ def sensors_loop_func():
                         current_value = f'{(current_value / 1000):.3f} V'                     # Convert millivolt to Volt and show 3 numbers after ".".
                     if attribute == "curr":
                         current_value = f'{(current_value / 1000):.3f} A'                     # Convert milliamper to Amper and show 3 numbers after ".".
+                    if attribute == "power":
+                        current_value = f'{(current_value / 1000):.3f} W'                     # Convert milliwatt to Watt and show 3 numbers after ".".
                 except OSError:
                     current_value = "-"
                 # Get sensor critical value
@@ -239,6 +241,8 @@ def sensors_loop_func():
                         critical_value = f'{(critical_value / 1000):.3f} V'
                     if attribute == "curr":
                         critical_value = f'{(critical_value / 1000):.3f} A'
+                    if attribute == "power":
+                        critical_value = f'{(critical_value / 1000):.3f} W'
                 except OSError:
                     critical_value = "-"
                 # Get sensor maximum value
@@ -253,6 +257,8 @@ def sensors_loop_func():
                         max_value = f'{(max_value / 1000):.3f} V'
                     if attribute == "curr":
                         max_value = f'{(max_value / 1000):.3f} A'
+                    if attribute == "power":
+                        max_value = f'{(max_value / 1000):.3f} W'
                 except OSError:
                     max_value = "-"
 
@@ -374,7 +380,7 @@ def sensors_loop_func():
             sensors_data_row[0] = False
         if radiobutton1603.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != fan_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show all fan sensors" option is selected on the GUI and sensor type is not fan.
             sensors_data_row[0] = False
-        if radiobutton1604.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != voltage_current_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show all voltage and current sensors" option is selected on the GUI and sensor type is not voltage or current.
+        if radiobutton1604.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != voltage_current_power_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show all voltage and current sensors" option is selected on the GUI and sensor type is not voltage, current or power.
             sensors_data_row[0] = False
         if searchentry1601.get_text() != "":
             sensor_search_text = searchentry1601.get_text()
@@ -420,3 +426,4 @@ def sensors_treeview_column_order_width_row_sorting_func():
                 Config.sensors_data_column_widths[i] = sensors_treeview_columns[j].get_width()
                 break
     Config.config_save_func()
+
