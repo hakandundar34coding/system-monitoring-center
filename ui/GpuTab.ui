@@ -23,13 +23,8 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">FPS (Frames Per Second)
-
-Counted by using a glarea and OpenGL library.
-This is a simple FPS counter and may not be accurate in some situations.
-FPS counting does not continue when window is minimized.</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">FPS:</property>
+            <property name="label" translatable="yes">GPU Load:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -42,7 +37,7 @@ FPS counting does not continue when window is minimized.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Frame Latency:</property>
+            <property name="label" translatable="yes">Video Memory:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -55,7 +50,7 @@ FPS counting does not continue when window is minimized.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Video Memory:</property>
+            <property name="label" translatable="yes">Power Usage:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -68,7 +63,7 @@ FPS counting does not continue when window is minimized.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Direct Rendering:</property>
+            <property name="label" translatable="yes">Driver:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -132,7 +127,7 @@ FPS counting does not continue when window is minimized.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">OpenGL Version:</property>
+            <property name="label" translatable="yes">Resolution:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -145,7 +140,7 @@ FPS counting does not continue when window is minimized.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Unified Memory:</property>
+            <property name="label" translatable="yes">Temperature:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -192,7 +187,7 @@ FPS counting does not continue when window is minimized.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Refresh Rate:</property>
+            <property name="label" translatable="yes">Frequency:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -222,7 +217,7 @@ FPS counting does not continue when window is minimized.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Driver:</property>
+            <property name="label" translatable="yes">Refresh Rate:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -268,9 +263,8 @@ FPS counting does not continue when window is minimized.</property>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">If selected GPU is default on system boot and/or used for graphics processing by default</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Default GPU:</property>
+            <property name="label" translatable="yes">Boot VGA:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -283,7 +277,7 @@ FPS counting does not continue when window is minimized.</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Resolution:</property>
+            <property name="label" translatable="yes">Min-Max Frequency:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -339,11 +333,11 @@ FPS counting does not continue when window is minimized.</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <child>
-          <object class="GtkLabel" id="label1513">
+          <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">end</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label" translatable="yes">100%</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
@@ -364,45 +358,6 @@ FPS counting does not continue when window is minimized.</property>
           </packing>
         </child>
         <child>
-          <!-- n-columns=2 n-rows=1 -->
-          <object class="GtkGrid">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">FPS</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkGLArea" id="glarea1501">
-                <property name="width-request">1</property>
-                <property name="height-request">1</property>
-                <property name="visible">True</property>
-                <property name="app-paintable">True</property>
-                <property name="can-focus">False</property>
-                <property name="halign">start</property>
-                <property name="valign">start</property>
-                <property name="margin-start">5</property>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">0</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkDrawingArea" id="drawingarea1501">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -413,6 +368,18 @@ FPS counting does not continue when window is minimized.</property>
             <property name="left-attach">0</property>
             <property name="top-attach">1</property>
             <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">GPU Load</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
           </packing>
         </child>
       </object>
@@ -487,7 +454,7 @@ FPS counting does not continue when window is minimized.</property>
           <object class="GtkLabel" id="label1502">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">GPU/Graphics Card Device Name Given By OS (And In Driver)</property>
+            <property name="tooltip-text" translatable="yes">GPU/Graphics Card Device Name Given By OS</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">--</property>
             <property name="selectable">True</property>
