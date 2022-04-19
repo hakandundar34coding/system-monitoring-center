@@ -162,7 +162,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Show all voltage and current sensors</property>
+                <property name="tooltip-text" translatable="yes">Show all voltage, current and power sensors</property>
                 <property name="draw-indicator">False</property>
                 <property name="group">radiobutton1601</property>
                 <child>
