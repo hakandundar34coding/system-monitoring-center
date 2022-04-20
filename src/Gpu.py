@@ -218,6 +218,7 @@ class Gpu:
         with open(gpu_device_path + gpu_device_sub_path + "uevent") as reader:
             uevent_output_lines = reader.read().strip().split("\n")
 
+        gpu_driver_name = "-"
         for line in uevent_output_lines:
             if line.startswith("DRIVER="):
                 gpu_driver_name = line.split("=")[-1]
@@ -262,6 +263,8 @@ class Gpu:
         with open(gpu_device_path + gpu_device_sub_path + "uevent") as reader:
             uevent_output_lines = reader.read().strip().split("\n")
 
+        # ARM GPUs does not have PCI address.
+        gpu_pci_address = "-"
         for line in uevent_output_lines:
             if line.startswith("PCI_SLOT_NAME="):
                 gpu_pci_address = line.split("=")[-1]
@@ -300,14 +303,18 @@ class Gpu:
             except FileNotFoundError:
                 gpu_min_frequency = "-"
 
-            # Get GPU min frequency.
+            if gpu_min_frequency != "-":
+                gpu_min_frequency = f'{gpu_min_frequency} MHz'
+
+            # Get GPU max frequency.
             try:
                 with open(gpu_device_path + "gt_max_freq_mhz") as reader:
                     gpu_max_frequency = reader.read().strip()
             except FileNotFoundError:
                 gpu_max_frequency = "-"
 
-            gpu_min_max_frequency = f'{gpu_min_frequency} - {gpu_max_frequency} MHz'
+            if gpu_max_frequency != "-":
+                gpu_max_frequency = f'{gpu_max_frequency} MHz'
 
             # Get GPU current frequency by reading "gt_cur_freq_mhz" file. This file may not be reliable because is contains a constant value on some systems. Actual value can be get by using "intel_gpu_top" tool by using root privileges.
             try:
@@ -315,6 +322,9 @@ class Gpu:
                     gpu_current_frequency = reader.read().strip()
             except FileNotFoundError:
                 gpu_current_frequency = "-"
+
+            if gpu_current_frequency != "-":
+                gpu_current_frequency = f'{gpu_current_frequency} MHz'
 
 
         # If selected GPU vendor is AMD.
@@ -386,8 +396,8 @@ class Gpu:
                 gpu_temperature = "-"
 
 
-        # If selected GPU vendor is NVIDIA.
-        if self.device_vendor_id == "v000010DE":
+        # If selected GPU vendor is NVIDIA and selected GPU is used on a PCI used system.
+        if self.device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/class/drm/") == True:
 
             # Define command for getting GPU usage information.
             gpu_tool_command = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
@@ -439,6 +449,49 @@ class Gpu:
                 gpu_temperature = f'{gpu_temperature:.0f} °C'
             except ValueError:
                 pass
+
+
+        # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
+        if self.device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/devices/") == True:
+
+            # Get GPU frequency folders list. NVIDIA Tegra GPU files are listed in "/sys/devices/gpu.0/devfreq/57000000.gpu/" folder.
+            gpu_frequency_files_list = os.listdir(gpu_device_path + "devfreq/")
+            gpu_frequency_folders_list = []
+            for file in gpu_frequency_files_list:
+                if file.endswith(".gpu") and os.path.isdir(gpu_device_path + "devfreq/" + file) == True:
+                    gpu_frequency_folders_list.append(gpu_device_path + "devfreq/" + file + "/")
+            gpu_frequency_folder = gpu_frequency_folders_list[0]
+
+            # Get GPU min frequency.
+            try:
+                with open(gpu_frequency_folder + "min_freq") as reader:
+                    gpu_min_frequency = reader.read().strip()
+            except FileNotFoundError:
+                gpu_min_frequency = "-"
+
+            if gpu_min_frequency != "-":
+                gpu_min_frequency = f'{(float(gpu_min_frequency) / 1000000):.0f}'
+
+            # Get GPU max frequency.
+            try:
+                with open(gpu_frequency_folder + "max_freq") as reader:
+                    gpu_max_frequency = reader.read().strip()
+            except FileNotFoundError:
+                gpu_max_frequency = "-"
+
+            if gpu_max_frequency != "-":
+                gpu_max_frequency = f'{(float(gpu_max_frequency) / 1000000):.0f} MHz'
+
+            # Get GPU current frequency.
+            try:
+                with open(gpu_frequency_folder + "cur_freq") as reader:
+                    gpu_current_frequency = reader.read().strip()
+            except FileNotFoundError:
+                gpu_current_frequency = "-"
+
+            if gpu_current_frequency != "-":
+                gpu_current_frequency = f'{(float(gpu_current_frequency) / 1000000):.0f} MHz'
+
 
         gpu_memory = f'{gpu_memory_used} / {gpu_memory_capacity}'
         gpu_min_max_frequency = f'{gpu_min_frequency} - {gpu_max_frequency}'
