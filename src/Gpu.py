@@ -389,11 +389,25 @@ class Gpu:
 
             # Get GPU temperature.
             try:
-                with open(gpu_device_path + "device/hwmon/hwmon*/temp1_input") as reader:
-                    gpu_temperature = reader.read().strip()
-                    gpu_temperature = f'{str(int(gpu_temperature) / 1000):.0f} °C'
-            except (FileNotFoundError, NotADirectoryError) as me:
+                gpu_sensor_list = os.listdir(gpu_device_path + "device/hwmon/")
+                for sensor in gpu_sensor_list:
+                    if os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/temp1_input") == True:
+                        with open(gpu_device_path + "device/hwmon/" + sensor + "/temp1_input") as reader:
+                            gpu_temperature = reader.read().strip()
+                        gpu_temperature = f'{(int(gpu_temperature) / 1000):.0f} °C'
+            except (FileNotFoundError, NotADirectoryError, OSError) as me:
                 gpu_temperature = "-"
+
+            # Get GPU power usage.
+            try:
+                gpu_sensor_list = os.listdir(gpu_device_path + "device/hwmon/")
+                for sensor in gpu_sensor_list:
+                    if os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") == True:
+                        with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") as reader:
+                            gpu_power = reader.read().strip()
+                        gpu_power = f'{(int(gpu_power) / 1000):.2f} W'
+            except (FileNotFoundError, NotADirectoryError, OSError) as me:
+                gpu_power = "-"
 
 
         # If selected GPU vendor is NVIDIA and selected GPU is used on a PCI used system.
