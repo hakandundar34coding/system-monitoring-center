@@ -34,6 +34,10 @@ These dependencies are already installed on many systems:
 
 ------------------
 
+<a href="https://repology.org/project/system-monitoring-center/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
+</a>
+
 
 ### Features:
 * Detailed system performance and usage usage monitoring/managing features:
