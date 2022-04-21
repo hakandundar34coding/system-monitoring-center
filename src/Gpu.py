@@ -506,6 +506,16 @@ class Gpu:
             if gpu_current_frequency != "-":
                 gpu_current_frequency = f'{(float(gpu_current_frequency) / 1000000):.0f} MHz'
 
+            # Get GPU load.
+            try:
+                with open(gpu_device_path + "load") as reader:
+                    gpu_load = reader.read().strip()
+            except FileNotFoundError:
+                gpu_load = "-"
+
+            if gpu_load != "-":
+                gpu_load = f'{(float(gpu_load) / 10):.0f} %'
+
 
         gpu_memory = f'{gpu_memory_used} / {gpu_memory_capacity}'
         gpu_min_max_frequency = f'{gpu_min_frequency} - {gpu_max_frequency}'
