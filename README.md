@@ -45,6 +45,8 @@ These dependencies are already installed on many systems:
     * Brazilian Portuguese, Czech, English, Polish (initial), Turkish
     * More languages will be added if translations are provided by contributors
 * Adapts to system theme
+* Supports PolicyKit. No need to run the application with "sudo"
+* GPU load, frequency and power usage will be supported in the next version (v1.12.0)
 * Optimized for low CPU usage
 * Free and open sourced
 
@@ -71,8 +73,7 @@ These dependencies are already installed on many systems:
 ![System Monitoring Center](screenshots/system_tab_dark_system_theme.png)
 
 
-### Note:
+### Notes:
 * A simple FPS counter is shown on the GPU tab and may not be accurate in some situations.
 * FPS counting does not continue when window is minimized.
-
 * Some virtual machines does not provide CPU min-max frequencies, sensors and RAM hardware information.
