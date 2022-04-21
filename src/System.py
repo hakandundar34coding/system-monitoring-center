@@ -228,8 +228,8 @@ class System:
                     process_name = reader.read().strip()
             except FileNotFoundError:
                 continue
-            # Get windowing system information
-            if windowing_system == "-":
+            # Get windowing system information. Windowing system may be get as "tty" (which is for non-graphical system) when "os.environ.get('XDG_SESSION_TYPE')" is used on Arch Linux.if environment variables are not set after installing a windowing system.
+            if windowing_system in ["-", "Tty"]:
                 if process_name.lower() == "xorg":
                     windowing_system = "X11"
                 if process_name.lower() == "xwayland":
