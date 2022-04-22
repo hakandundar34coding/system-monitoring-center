@@ -15,24 +15,25 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 
 ### Installation:
-* System Monitoring Center is installable from PyPI as a Python package.
-* Remove older versions (v1.8.0 and older).
-* Install this dependency: ```mesa-utils (on some systems: glx-utils)```
-* Option-1) Installing for current user account: ```pip install system-monitoring-center```
-* Option-2) Installing for system-wide: ```sudo pip install system-monitoring-center```
-  (This method can be used for preventing source code modifications.)
-* First run:
-  Run the application by using ```system-monitoring-center``` command.
-  The application will prepare shortcut and GUI images automatically.
-  If command is not found, restart the system and run the command again.
+- System Monitoring Center is installable from PyPI as a Python package.
+- Remove older versions (v1.8.0 and older).
+- Option-1) Installing for current user account: `pip install system-monitoring-center`
+- Option-2) Installing for system-wide: `sudo pip install system-monitoring-center`
+    (This method can be used for preventing source code modifications.)
+- First run:
+    Run the application by using `system-monitoring-center` command.
+    The application will prepare shortcut and GUI images automatically.
+    If command is not found, restart the system and run the command again.
 
 
-------------------
+### Dependencies:
 
 These dependencies are already installed on many systems:
-```bash (>=4.4), dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, util-linux (>=2.31)```
+`bash (>=4.4), dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, udev, util-linux (>=2.31)`
 
-------------------
+Following dependencies may be required on some systems:
+- For systems with .deb packages: `libcairo2-dev`, for Arch Linux: `polkit`
+
 
 <a href="https://repology.org/project/system-monitoring-center/versions">
     <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
@@ -40,19 +41,18 @@ These dependencies are already installed on many systems:
 
 
 ### Features:
-* Detailed system performance and usage usage monitoring/managing features:
-    * Monitoring CPU, RAM, Disk, Network, GPU hardware information/performance/usage
-    * An always on top and semi-transparent floating summary window for performance monitoring
-    * Monitoring and managing processes, users, startup applications and services (systemd)
-    * Monitoring sensors and general system information
-* Language support:
-    * Brazilian Portuguese, Czech, English, Polish (initial), Turkish
-    * More languages will be added if translations are provided by contributors
-* Adapts to system theme
-* Supports PolicyKit. No need to run the application with "sudo"
-* GPU load, frequency and power usage will be supported in the next version (v1.12.0)
-* Optimized for low CPU usage
-* Free and open sourced
+- Detailed system performance and usage usage monitoring/managing features:
+    - Monitoring CPU, RAM, Disk, Network, GPU hardware information/performance/usage
+    - An always on top and semi-transparent floating summary window for performance monitoring
+    - Monitoring and managing processes, users, startup applications and services (systemd)
+    - Monitoring sensors and general system information
+- Language support:
+    - Brazilian Portuguese, Czech, English, Polish (initial), Turkish
+    - More languages will be added if translations are provided by contributors
+- Adapts to system theme
+- Supports PolicyKit. No need to run the application with "sudo"
+- Optimized for low CPU usage
+- Free and open sourced
 
 
 ### Screenshots:
@@ -78,6 +78,5 @@ These dependencies are already installed on many systems:
 
 
 ### Notes:
-* A simple FPS counter is shown on the GPU tab and may not be accurate in some situations.
-* FPS counting does not continue when window is minimized.
-* Some virtual machines does not provide CPU min-max frequencies, sensors and RAM hardware information.
+- GPU usage information availability depends on vendor/driver.
+- Some virtual machines does not provide CPU min-max frequencies, sensors and RAM hardware information.
