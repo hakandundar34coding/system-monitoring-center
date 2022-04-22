@@ -40,8 +40,6 @@ class Gpu:
         self.label1510 = builder.get_object('label1510')
         self.label1511 = builder.get_object('label1511')
         self.label1512 = builder.get_object('label1512')
-        self.label1513 = builder.get_object('label1513')
-        self.glarea1501 = builder.get_object('glarea1501')
 
         # Get chart functions from another module and define as local objects for lower CPU usage.
         self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
@@ -55,8 +53,6 @@ class Gpu:
         self.drawingarea1501.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
         self.drawingarea1501.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
         self.drawingarea1501.connect("motion-notify-event", self.performance_line_charts_motion_notify_event_func)
-        self.glarea1501.connect('realize', self.on_glarea1501_realize)
-        self.glarea1501.connect('render', self.on_glarea1501_render)
 
         # Set event masks for drawingarea in order to enable these events.
         self.drawingarea1501.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
@@ -65,9 +61,6 @@ class Gpu:
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1501_clicked(self, widget):
 
-        # Get gpu/graphics card list and set selected gpu
-        self.gpu_get_gpu_list_and_set_selected_gpu_func()
-
         # Open customizations menu
         from GpuMenu import GpuMenu
         GpuMenu.popover1501p.set_relative_to(widget)
@@ -75,115 +68,27 @@ class Gpu:
         GpuMenu.popover1501p.popup()
 
 
-    # ----------------------- Called for measuring FPS -----------------------
-    def on_glarea1501_realize(self, widget):
-
-        widget.make_current()
-        if (widget.get_error() != None):
-          return
-
-
-    # ----------------------- Called for drawing OpenGL graphics for measuring FPS (Rendering is performed by using glarea in order to measure FPS. FPS on drawing area is counted. Lower FPS is obtained depending on the GPU load/performance.) -----------------------
-    def on_glarea1501_render(self, widget, ctx):
-
-        try:
-            self.frame_list.append(0)
-        except AttributeError:
-            return
-        # "queue_draw()" is used in order to obtain higher FPS if screen refresh rate is not reached. Otherwise it draws a few frames.
-        widget.queue_draw()
-        return True
-
-
     # ----------------------------------- GPU - Initial Function -----------------------------------
     def gpu_initial_func(self):
 
         # Define initial values
-        self.fps_count = [0] * Config.chart_data_history
-        self.frame_latency = 0
-        self.frame_list = []
+        self.chart_data_history = Config.chart_data_history
+        self.gpu_load_list = [0] * self.chart_data_history
 
-        # Get GPU information by using a function.
-        # Get gpu/graphics card list and set selected gpu
-        self.gpu_get_gpu_list_and_set_selected_gpu_func()
 
-        # Fill GPU information lists with "-" values for all GPUs. These informations will be get from driver (for example: glxinfo). Values of some GPUs will be left as "-" if information of these GPUs can not be get from drivers.
-        number_of_gpus = len(self.gpu_vendor_id_list)
-        self.gpu_vendor_name_in_driver_list = ["-"] * number_of_gpus
-        self.gpu_device_name_in_driver_list = ["-"] * number_of_gpus
-        self.video_memory_list = ["-"] * number_of_gpus
-        self.if_unified_memory_list = ["-"] * number_of_gpus
-        self.direct_rendering_list = ["-"] * number_of_gpus
-        self.opengl_version_list = ["-"] * number_of_gpus
-        self.display_driver_list = ["-"] * number_of_gpus
-
-        # Get video_memory, if_unified_memory, direct_rendering, opengl_version values of the GPU which is preferred for running this application. "DRI_PRIME=0 application-name" and "DRI_PRIME=1 application-name" could be used for running an application by using internal and external GPUs respectively.
-        # "env" command is used for running a program in a modified environment. "DRI_PRIME=1 application_name" does not work when "(subprocess.check_output(command, shell=False))" is used in order to prevent shell injection. "DRI_PRIME=1" is environment variable name, it is not an application/package name.
-        glxinfo_for_integrated_gpu = ["env", "DRI_PRIME=0", "glxinfo", "-B"]
-        glxinfo_for_discrete_gpu = ["env", "DRI_PRIME=1", "glxinfo", "-B"]
-        try:
-            glxinfo_output_integrated_gpu = (subprocess.check_output(glxinfo_for_integrated_gpu, shell=False)).decode().strip()
-        except Exception:
-            glxinfo_output_integrated_gpu = ""
-        try:
-            glxinfo_output_discrete_gpu = (subprocess.check_output(glxinfo_for_discrete_gpu, shell=False)).decode().strip()
-        except Exception:
-            glxinfo_output_discrete_gpu = ""
-        if "libGL error: failed to create dri screen" in glxinfo_output_discrete_gpu or "libGL error: failed to load driver:" in glxinfo_output_discrete_gpu:    # "libGL error: failed to create dri screen\nlibGL error: failed to load driver: nouveau" information may be printed when DRI_PRIME=1 glxinfo -B" command is used if closed sourced driver and GPU configurations are used for NVIDIA cards. Same output contains information of integrated GPU.
-            glxinfo_output_discrete_gpu = "-"
-        glxinfo_output_integrated_gpu_lines = glxinfo_output_integrated_gpu.split("\n")
-        glxinfo_output_discrete_gpu_lines = glxinfo_output_discrete_gpu.split("\n")
-        # Check GPU/driver configuration to be able to get GPU/Graphics Card information from drive without wrong information.
-        # INFORMATION ABOUT GPU/DRIVER CONFIGURATIONS:
-        # "Extended renderer info (GLX_MESA_query_renderer):" information exists in the output of "glxinfo" command if open sourced driver of GPU is used.
-        # "Extended renderer info (GL_NVX_gpu_memory_info):" information exists in the output of "glxinfo" command if closed sourced driver of GPU is used. Both "Extended renderer info (GLX_MESA_query_renderer):" and "Extended renderer info (GLX_MESA_query_renderer):" informations are printed if open sourced driver is used for AMD GPUs.
-        # "Extended renderer info (GLX_MESA_query_renderer):" information may not exist and "OpenGL vendor string:" may exist in the output of "glxinfo" command if closed sourced driver is used for some ARM devices (such as Nvidia Tegra devices).
-        # Vendor and device id numbers (0x[id number]) are not printed in closed sourced drivers. Vendor and device IDs can be get from vendor and device files in "/sys/class/drm/card[card number]/device/" directories.
-        # But IDs from these folders and IDs from drivers can not be matched when closed sourced drivers are used for the selected GPU.
-        # IDs matching can be performed if there is 1 GPU on the system (with open or closed sourced drivers), if there are 2 GPUs (with both open sourced driver or 1 open sourced and 1 closed source driver) on the system.
-        # IDs may be "0xffffffff" for vendor and device on virtual machines. ID matching is performed on these systems because there is 1 GPU on these systems (default configuration).
-        # "libGL error: failed to create dri screen\nlibGL error: failed to load driver: nouveau" lines may be printed if closed sourced drivers are used and some GPU configurations are made on some systems. For example some Asus ROG notebooks with "asusctl" utility.
-        # "prime-run" for NVIDIA GPUs and "progl" for AMD GPUs are used for running applications with discrete GPU if "DRI_PRIME=1" does not work on systems with closed sourced GPU drivers. Usage: "prime-run glxinfo -B", "progl glxinfo -B".
-        # But "prime-run" may not work on some systems (for example some Asus ROG notebooks with "asusctl" utility). More information is needed to know if same situation is valid for "progl".
-        if number_of_gpus == 1:
-            if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu):
-                self.gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "open_sourced")
-            if ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu) and ("Extended renderer info (GL_NVX_gpu_memory_info):" in glxinfo_output_integrated_gpu):
-                self.gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
-            if ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu) and ("OpenGL vendor string:" in glxinfo_output_integrated_gpu):
-                self.gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
-        if number_of_gpus >= 2:
-            if glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu:
-                if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu):
-                    self.gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "check", "open_sourced")
-                if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu):
-                    self.gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, "check", "open_sourced")
-                if number_of_gpus == 2:
-                    if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_discrete_gpu):
-                        self.gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, "no_check", "closed_sourced")
-                    if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu):
-                        self.gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
-
-        # Get if_default_gpu value
-        # Set default GPU if there is only 1 GPU on the system and these is not "boot_vga" file (on some systems such as ARM devices) which means default_gpu = "".
-        if len(self.gpu_list) == 1:
-            if_default_gpu = _tr("Yes")
-        else:
-            if self.gpu_list[self.selected_gpu_number] == self.default_gpu:
-                if_default_gpu = _tr("Yes")
-            else:
-                if_default_gpu = _tr("No")
+        # Get information.
+        self.gpu_get_gpu_list_and_boot_vga_func()
+        self.gpu_set_selected_gpu_func()
+        if_default_gpu = self.gpu_default_gpu_func()
+        gpu_device_model_name = self.gpu_device_model_name_vendor_id_func()
+        gpu_driver_name = self.gpu_driver_name_func()
 
 
         # Set GPU tab label texts by using information get
-        self.label1501.set_text(self.gpu_device_model_name[self.selected_gpu_number])
-        self.label1502.set_text(f'{self.gpu_list[self.selected_gpu_number]} ({self.gpu_vendor_name_in_driver_list[self.selected_gpu_number]} - {self.gpu_device_name_in_driver_list[self.selected_gpu_number]})')
+        self.label1501.set_text(gpu_device_model_name)
+        self.label1502.set_text(f'{self.gpu_list[self.selected_gpu_number]}')
         self.label1507.set_text(if_default_gpu)
-        self.label1508.set_text(self.video_memory_list[self.selected_gpu_number])
-        self.label1509.set_text(self.if_unified_memory_list[self.selected_gpu_number])
-        self.label1510.set_text(self.direct_rendering_list[self.selected_gpu_number])
-        self.label1511.set_text(self.display_driver_list[self.selected_gpu_number])
-        self.label1512.set_text(self.opengl_version_list[self.selected_gpu_number])
+        self.label1510.set_text(gpu_driver_name)
 
         self.initial_already_run = 1
 
@@ -191,129 +96,85 @@ class Gpu:
     # ----------------------------------- GPU - Get GPU Data Function -----------------------------------
     def gpu_loop_func(self):
 
-        fps = len(self.frame_list) / Config.update_interval
-        del self.fps_count[0]
-        self.fps_count.append(fps)
-        # Frame latency in milliseconds
-        self.frame_latency = 1 / (fps + 0.0000001) * 1000
-        self.frame_list = []
+        # Get information.
+        current_resolution, current_refresh_rate = self.gpu_resolution_refresh_rate_func()
+        gpu_pci_address = self.gpu_pci_address_func()
+        gpu_load, gpu_memory, gpu_current_frequency, gpu_min_max_frequency, gpu_temperature, gpu_power = self.gpu_load_memory_frequency_power_func(gpu_pci_address)
+
+        gpu_load = gpu_load.split()[0]
+        if gpu_load == "-":
+            self.gpu_load_list.append(0)
+            gpu_load = "-"
+        else:
+            self.gpu_load_list.append(float(gpu_load))
+            gpu_load = f'{gpu_load} %'
+        del self.gpu_load_list[0]
+
+        try:
+            gpu_temperature = float(gpu_temperature)
+            gpu_temperature = f'{gpu_temperature:.0f} °C'
+        except ValueError:
+            pass
 
         self.drawingarea1501.queue_draw()
 
 
-        # Get information.
-        current_resolution, current_refresh_rate = self.gpu_resolution_refresh_rate_func()
-
-
         # Set and update GPU tab label texts by using information get
-        self.label1503.set_text(f'{self.fps_count[-1]:.0f}')
-        self.label1504.set_text(f'{self.frame_latency:.1f} ms')
-        self.label1505.set_text(current_refresh_rate)
-        self.label1506.set_text(f'{current_resolution}')
+        self.label1503.set_text(gpu_load)
+        self.label1504.set_text(gpu_memory)
+        self.label1505.set_text(gpu_current_frequency)
+        self.label1506.set_text(gpu_min_max_frequency)
+        self.label1508.set_text(gpu_power)
+        self.label1509.set_text(gpu_temperature)
+        self.label1511.set_text(current_refresh_rate)
+        self.label1512.set_text(f'{current_resolution}')
 
 
-    # ----------------------------------- GPU - Get Information From Driver Function -----------------------------------
-    def gpu_get_information_from_driver_func(self, output_to_search_gpu_information_from_driver, check_vendor_device_id_match, check_driver_open_sourced):
+    # ----------------------- Get GPU list -----------------------
+    def gpu_get_gpu_list_and_boot_vga_func(self):
 
-        # Define initial values of the variables. These values will be used if values can not be get.
-        gpu_vendor_id_in_driver = "-"
-        gpu_device_id_in_driver = "-"
-        gpu_vendor_name_in_driver = "-"
-        gpu_device_name_in_driver = "-"
-        video_memory = "-"
-        if_unified_memory = "-"
-        direct_rendering = "-"
-        opengl_version = "-"
-        display_driver = "-"
-        # Get GPU/Graphic Card information
-        if check_driver_open_sourced == "open_sourced":
-            for line in output_to_search_gpu_information_from_driver:
-                if line.strip().startswith("Vendor:"):
-                    gpu_vendor_id_in_driver = line.split()[-1].strip("()").split("x")[1].strip()
-                if line.strip().startswith("Device:"):
-                    gpu_device_id_in_driver = line.split()[-1].strip("()").split("x")[1].strip()
-        number_of_gpus = len(self.gpu_vendor_id_list)
-        for i in range(number_of_gpus):
-            # Check if GPU from the "glxinfo" command and GPU from "/sys/class/drm/card[number]/device/device" file are same. Outputs from "DRI_PRIME=0 glxinfo -B" and "DRI_PRIME=1 glxinfo -B" commands may be reversed sometimes (very rare). ".lstrip("0")" is used in order to remove "0" (if exists) at the beginning at the device id. Checking GPU vendor and device id match between "/sys/class/drm/card[number]/device/..." files and driver is skipped if "check_vendor_device_id_match" value is "check". This check is not performed if there is only 1 GPU/Graphics Card on the system.
-            if gpu_vendor_id_in_driver != self.gpu_vendor_id_list[i] and gpu_device_id_in_driver != self.gpu_device_id_list[i].lstrip("0") and check_vendor_device_id_match == "check":
-                continue
-            for line in output_to_search_gpu_information_from_driver:
-                if line.strip().startswith("OpenGL vendor string:"):
-                    gpu_vendor_name_in_driver = line.split(":")[1].strip()
-                    continue
-                if line.strip().startswith("OpenGL renderer string:"):
-                    gpu_device_name_in_driver = line.split(":")[1].strip()
-                    continue
-                if check_driver_open_sourced == "open_sourced":
-                    if line.strip().startswith("Video memory:"):
-                        video_memory = line.split(":")[1].strip()
-                        continue
-                    if line.strip().startswith("Unified memory:"):
-                        if_unified_memory = _tr(line.split(":")[1].strip().capitalize())
-                        continue
-                if check_driver_open_sourced == "closed_sourced":
-                    if line.strip().startswith("Dedicated video memory:"):
-                        video_memory = line.split(":")[1].strip()
-                        if_unified_memory = _tr("No")
-                        continue
-                if line.strip().startswith("direct rendering:"):
-                    direct_rendering = _tr(line.split(":")[1].strip())
-                    continue
-                if line.strip().startswith("OpenGL version string:"):
-                    opengl_version, display_driver = line.split(":")[1].strip().split(" ", 1)
-                    continue
-            # Replace "-" values in the list with the values which are get from "glxinfo" output. Information of the selected GPU will be get from this list by using "selected_gpu_number" value. To be able to match GPU information from "/sys/class/drm/card[number]" and GPU information from "glxinfo" command are used. None of these informations contain the information of "integrated/discrete GPU". This matching is performed by using vendor and device ids.
-            self.gpu_vendor_name_in_driver_list[i] = gpu_vendor_name_in_driver
-            self.gpu_device_name_in_driver_list[i] = gpu_device_name_in_driver
-            self.video_memory_list[i] = video_memory
-            self.if_unified_memory_list[i] = if_unified_memory
-            self.direct_rendering_list[i] = direct_rendering
-            self.opengl_version_list[i] = opengl_version
-            self.display_driver_list[i] = display_driver
-
-
-    # ----------------------------------- GPU - Set Selected GPU/Graphics Card Function -----------------------------------
-    def gpu_get_gpu_list_and_set_selected_gpu_func(self):
-
-        self.gpu_device_model_name = []
-        self.gpu_vendor_id_list = []
-        self.gpu_device_id_list = []
-        # Initial value of "default_gpu" variable.
+        self.gpu_list = []
+        self.gpu_device_path_list = []
+        self.gpu_device_sub_path_list = []
         self.default_gpu = ""
 
         # Get GPU list from "/sys/class/drm/" directory which is used by many x86_64 desktop systems.
-        try:
-            self.gpu_list = [gpu_name for gpu_name in os.listdir("/dev/dri/") if gpu_name.rstrip("0123456789") == "card"]
-            gpu_card_directory = "/sys/class/drm/"
-            gpu_card_directory_sub = "/device/"
-        # Try to get GPU list from "/sys/devices/" folder which is used by some ARM systems.
-        except FileNotFoundError:
-            self.gpu_list = [gpu_name for gpu_name in os.listdir("/sys/devices/") if gpu_name.split(".")[0] == "gpu"]
-            gpu_card_directory = "/sys/devices/"
-            gpu_card_directory_sub = "/"
-        for gpu in self.gpu_list:
-            try:
-                with open(gpu_card_directory + gpu + gpu_card_directory_sub + "boot_vga") as reader:
-                    if reader.read().strip() == "1":
-                        self.default_gpu = gpu
-            except FileNotFoundError:
-                pass
-            # Read device vendor and model ids by reading "modalias" file.
-            with open(gpu_card_directory + gpu + gpu_card_directory_sub + "modalias") as reader:
-                modalias_output = reader.read().strip()
-            # Determine device subtype.
-            device_subtype, device_alias = modalias_output.split(":", 1)
-            device_vendor_name, device_model_name, device_vendor_id, device_model_id = Performance.performance_get_device_vendor_model_func(modalias_output)
-            if device_vendor_name == "Unknown":
-                device_vendor_name = "[" + _tr("Unknown") + "]"
-            if device_model_name == "Unknown":
-                device_model_name = "[" + _tr("Unknown") + "]"
-            self.gpu_device_model_name.append(f'{device_vendor_name} - {device_model_name}')
-            # These lists will be used for matching with GPU information from "glxinfo" command. First "v" or "d" and zeros trimmed by using ".lstrip("d0")".
-            self.gpu_vendor_id_list.append(device_vendor_id.lstrip("v0").lower())
-            self.gpu_device_id_list.append(device_model_id.lstrip("d0").lower())
+        if os.path.isdir("/dev/dri/") == True:
 
-        # Set selected gpu/graphics card
+            for file in os.listdir("/sys/class/drm/"):
+                if "-" not in file and file.split("-")[0].rstrip("0123456789") == "card":
+                    self.gpu_list.append(file)
+                    self.gpu_device_path_list.append("/sys/class/drm/" + file + "/")
+                    self.gpu_device_sub_path_list.append("/device/")
+
+                    # Get if default GPU information.
+                    try:
+                        with open("/sys/class/drm/" + file + "/device/" + "boot_vga") as reader:
+                            if reader.read().strip() == "1":
+                                self.default_gpu = file
+                    except (FileNotFoundError, NotADirectoryError) as me:
+                        pass
+
+        # Try to get GPU list from "/sys/devices/" folder which is used by some ARM systems with NVIDIA GPU.
+        for file in os.listdir("/sys/devices/"):
+
+            if file.split(".")[0] == "gpu":
+                self.gpu_list.append(file)
+                self.gpu_device_path_list.append("/sys/devices/" + file)
+                self.gpu_device_sub_path_list.append("/")
+
+                # Get if default GPU information
+                try:
+                    with open("/dev/dri/" + file + "/" + "boot_vga") as reader:
+                        if reader.read().strip() == "1":
+                            self.default_gpu = file
+                except (FileNotFoundError, NotADirectoryError) as me:
+                    pass
+
+
+    # ----------------------- Get default GPU -----------------------
+    def gpu_set_selected_gpu_func(self):
+
         # "" is predefined gpu name before release of the software. This statement is used in order to avoid error, if no gpu selection is made since first run of the software.
         if Config.selected_gpu == "":
             if self.default_gpu != "":
@@ -328,6 +189,338 @@ class Gpu:
             if self.default_gpu == "":
                 set_selected_gpu = self.gpu_list[0]
         self.selected_gpu_number = self.gpu_list.index(set_selected_gpu)
+
+
+    # ----------------------- Get if default GPU -----------------------
+    def gpu_default_gpu_func(self):
+
+        # Set default GPU if there is only 1 GPU on the system and these is not "boot_vga" file (on some systems such as ARM devices) which means default_gpu = "".
+        if len(self.gpu_list) == 1:
+            if_default_gpu = _tr("Yes")
+        else:
+            if self.gpu_list[self.selected_gpu_number] == self.default_gpu:
+                if_default_gpu = _tr("Yes")
+            else:
+                if_default_gpu = _tr("No")
+
+        return if_default_gpu
+
+
+    # ----------------------- Get GPU driver name -----------------------
+    def gpu_driver_name_func(self):
+
+        selected_gpu_number = self.selected_gpu_number
+        selected_gpu = self.gpu_list[selected_gpu_number]
+        gpu_device_path = self.gpu_device_path_list[selected_gpu_number]
+        gpu_device_sub_path = self.gpu_device_sub_path_list[selected_gpu_number]
+
+        # Read device driver name by reading "uevent" file.
+        with open(gpu_device_path + gpu_device_sub_path + "uevent") as reader:
+            uevent_output_lines = reader.read().strip().split("\n")
+
+        gpu_driver_name = "-"
+        for line in uevent_output_lines:
+            if line.startswith("DRIVER="):
+                gpu_driver_name = line.split("=")[-1]
+                break
+
+        return gpu_driver_name
+
+
+    # ----------------------- Get GPU device model name and vendor name -----------------------
+    def gpu_device_model_name_vendor_id_func(self):
+
+        selected_gpu_number = self.selected_gpu_number
+        selected_gpu = self.gpu_list[selected_gpu_number]
+        gpu_device_path = self.gpu_device_path_list[selected_gpu_number]
+        gpu_device_sub_path = self.gpu_device_sub_path_list[selected_gpu_number]
+
+        # Read device vendor and model ids by reading "modalias" file.
+        with open(gpu_device_path + gpu_device_sub_path + "modalias") as reader:
+            modalias_output = reader.read().strip()
+
+        # Determine device subtype.
+        device_subtype, device_alias = modalias_output.split(":", 1)
+        device_vendor_name, device_model_name, self.device_vendor_id, device_model_id = Performance.performance_get_device_vendor_model_func(modalias_output)
+        if device_vendor_name == "Unknown":
+            device_vendor_name = "[" + _tr("Unknown") + "]"
+        if device_model_name == "Unknown":
+            device_model_name = "[" + _tr("Unknown") + "]"
+        gpu_device_model_name = f'{device_vendor_name} - {device_model_name}'
+
+        return gpu_device_model_name
+
+
+    # ----------------------- Get GPU PCI address which will be used for detecting the selected GPU for processing GPU performance information -----------------------
+    def gpu_pci_address_func(self):
+
+        selected_gpu_number = self.selected_gpu_number
+        selected_gpu = self.gpu_list[selected_gpu_number]
+        gpu_device_path = self.gpu_device_path_list[selected_gpu_number]
+        gpu_device_sub_path = self.gpu_device_sub_path_list[selected_gpu_number]
+
+        # Read device driver name by reading "uevent" file.
+        with open(gpu_device_path + gpu_device_sub_path + "uevent") as reader:
+            uevent_output_lines = reader.read().strip().split("\n")
+
+        # ARM GPUs does not have PCI address.
+        gpu_pci_address = "-"
+        for line in uevent_output_lines:
+            if line.startswith("PCI_SLOT_NAME="):
+                gpu_pci_address = line.split("=")[-1]
+                break
+
+        return gpu_pci_address
+
+
+    # ----------------------- Get GPU load, memory, frequencies, power -----------------------
+    def gpu_load_memory_frequency_power_func(self, gpu_pci_address):
+
+        selected_gpu_number = self.selected_gpu_number
+        selected_gpu = self.gpu_list[selected_gpu_number]
+        gpu_device_path = self.gpu_device_path_list[selected_gpu_number]
+        gpu_device_sub_path = self.gpu_device_sub_path_list[selected_gpu_number]
+
+        # Define initial values. These values will be used if they can not be detected.
+        gpu_load = "-"
+        gpu_memory_used = "-"
+        gpu_memory_capacity = "-"
+        gpu_temperature = "-"
+        gpu_current_frequency = "-"
+        gpu_min_frequency = "-"
+        gpu_max_frequency = "-"
+        gpu_min_max_frequency = "-"
+        gpu_power = "-"
+
+
+        # If selected GPU vendor is Intel.
+        if self.device_vendor_id == "v00008086":
+
+            # Get GPU min frequency.
+            try:
+                with open(gpu_device_path + "gt_min_freq_mhz") as reader:
+                    gpu_min_frequency = reader.read().strip()
+            except FileNotFoundError:
+                gpu_min_frequency = "-"
+
+            if gpu_min_frequency != "-":
+                gpu_min_frequency = f'{gpu_min_frequency} MHz'
+
+            # Get GPU max frequency.
+            try:
+                with open(gpu_device_path + "gt_max_freq_mhz") as reader:
+                    gpu_max_frequency = reader.read().strip()
+            except FileNotFoundError:
+                gpu_max_frequency = "-"
+
+            if gpu_max_frequency != "-":
+                gpu_max_frequency = f'{gpu_max_frequency} MHz'
+
+            # Get GPU current frequency by reading "gt_cur_freq_mhz" file. This file may not be reliable because is contains a constant value on some systems. Actual value can be get by using "intel_gpu_top" tool by using root privileges.
+            try:
+                with open(gpu_device_path + "gt_cur_freq_mhz") as reader:
+                    gpu_current_frequency = reader.read().strip()
+            except FileNotFoundError:
+                gpu_current_frequency = "-"
+
+            if gpu_current_frequency != "-":
+                gpu_current_frequency = f'{gpu_current_frequency} MHz'
+
+
+        # If selected GPU vendor is AMD.
+        if self.device_vendor_id in ["v00001022", "v00001002"]:
+
+            # For more information about files under "/sys/class/drm/card[NUMBER]/device/" and their content for AMD GPUs: https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html
+
+            # Get GPU current, min, max frequencies (engine frequencies). This file contains all available frequencies of the GPU. There is no separate frequency information in files for video clock frequency for AMD GPUs.
+            try:
+                with open(gpu_device_path + "device/pp_dpm_sclk") as reader:
+                    gpu_frequency_file_output = reader.read().strip().split("\n")
+            except FileNotFoundError:
+                gpu_current_frequency = "-"
+                gpu_max_frequency = "-"
+
+            if gpu_frequency_file_output != "-":
+                for line in gpu_frequency_file_output:
+                    if "*" in line:
+                        gpu_current_frequency = line.rstrip("*").strip()
+                        # Add a space character between value and unit.
+                        if "Mhz" in gpu_current_frequency:
+                            gpu_current_frequency = gpu_current_frequency.split("Mhz")[0] + " MHz"
+                        break
+                gpu_min_frequency = gpu_frequency_file_output[0]
+                # Add a space character between value and unit.
+                if "Mhz" in gpu_min_frequency:
+                    gpu_min_frequency = gpu_min_frequency.split("Mhz")[0] + " MHz"
+                gpu_max_frequency = gpu_frequency_file_output[-1]
+                # Add a space character between value and unit.
+                if "Mhz" in gpu_max_frequency:
+                    gpu_max_frequency = gpu_max_frequency.split("Mhz")[0] + " MHz"
+
+            # Get GPU load. There is no "%" character in this file.
+            try:
+                with open(gpu_device_path + "device/gpu_busy_percent") as reader:
+                    gpu_load = reader.read().strip()
+            except FileNotFoundError:
+                gpu_load = "-"
+
+            if gpu_load != "-":
+                gpu_load = gpu_load + " %"
+
+            # Get GPU used memory (data in this file is in Bytes). There is also "mem_info_vis_vram_used" file for visible memory (can be shown on the "lspci" command) and "mem_info_gtt_used" file for reserved memory from system memory. gtt+vram=total video memory. Probably "mem_busy_percent" is for memory controller load.
+            try:
+                with open(gpu_device_path + "device/mem_info_vram_used") as reader:
+                    gpu_memory_used = reader.read().strip()
+            except FileNotFoundError:
+                gpu_memory_used = "-"
+
+            if gpu_memory_used != "-":
+                gpu_memory_used = f'{(int(gpu_memory_used) / 1024 / 1024):.0f} MiB'
+
+            # Get GPU memory capacity (data in this file is in Bytes).
+            try:
+                with open(gpu_device_path + "device/mem_info_vram_total") as reader:
+                    gpu_memory_capacity = reader.read().strip()
+            except FileNotFoundError:
+                gpu_memory_capacity = "-"
+
+            if gpu_memory_capacity != "-":
+                gpu_memory_capacity = f'{(int(gpu_memory_capacity) / 1024 / 1024):.0f} MiB'
+
+            # Get GPU temperature.
+            try:
+                gpu_sensor_list = os.listdir(gpu_device_path + "device/hwmon/")
+                for sensor in gpu_sensor_list:
+                    if os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/temp1_input") == True:
+                        with open(gpu_device_path + "device/hwmon/" + sensor + "/temp1_input") as reader:
+                            gpu_temperature = reader.read().strip()
+                        gpu_temperature = f'{(int(gpu_temperature) / 1000):.0f} °C'
+            except (FileNotFoundError, NotADirectoryError, OSError) as me:
+                gpu_temperature = "-"
+
+            # Get GPU power usage.
+            try:
+                gpu_sensor_list = os.listdir(gpu_device_path + "device/hwmon/")
+                for sensor in gpu_sensor_list:
+                    if os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") == True:
+                        with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") as reader:
+                            gpu_power = reader.read().strip()
+                        gpu_power = f'{(int(gpu_power) / 1000):.2f} W'
+            except (FileNotFoundError, NotADirectoryError, OSError) as me:
+                gpu_power = "-"
+
+
+        # If selected GPU vendor is NVIDIA and selected GPU is used on a PCI used system.
+        if self.device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/class/drm/") == True:
+
+            # Define command for getting GPU usage information.
+            gpu_tool_command = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
+
+            # Try to get GPU usage information.
+            gpu_tool_output = "-"
+            try:
+                gpu_tool_output = (subprocess.check_output(gpu_tool_command, shell=False)).decode().strip().split("\n")
+            # Prevent errors because nvidia-smi may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
+            except FileNotFoundError:
+                pass
+
+            # Get values from command output if there was no error when running the command.
+            if gpu_tool_output != "-":
+
+                # Get line number of the selected GPU by using its PCI address.
+                for i, line in enumerate(gpu_tool_output):
+                    if gpu_pci_address in line:
+                        gpu_info_line_no = i
+                        break
+
+                gpu_tool_output_for_selected_gpu = gpu_tool_output[gpu_info_line_no].split(",")
+
+                gpu_load = gpu_tool_output_for_selected_gpu[3].strip()
+                gpu_memory_capacity = gpu_tool_output_for_selected_gpu[5].strip()
+                gpu_memory_used = gpu_tool_output_for_selected_gpu[7].strip()
+                gpu_temperature = gpu_tool_output_for_selected_gpu[8].strip()
+                gpu_current_frequency = gpu_tool_output_for_selected_gpu[9].strip()
+                gpu_max_frequency = gpu_tool_output_for_selected_gpu[10].strip()
+                gpu_power = gpu_tool_output_for_selected_gpu[11].strip()
+
+                if gpu_load == "[Not Supported]":
+                    gpu_load = "-"
+                if gpu_memory_used == "[Not Supported]":
+                    gpu_memory_used = "-"
+                if gpu_memory_capacity == "[Not Supported]":
+                    gpu_memory_capacity = "-"
+                if gpu_temperature == "[Not Supported]":
+                    gpu_temperature = "-"
+                if gpu_current_frequency == "[Not Supported]":
+                    gpu_current_frequency = "-"
+                if gpu_max_frequency == "[Not Supported]":
+                    gpu_max_frequency = "-"
+                if gpu_power == "[Not Supported]":
+                    gpu_power = "-"
+
+            try:
+                gpu_temperature = float(gpu_temperature)
+                gpu_temperature = f'{gpu_temperature:.0f} °C'
+            except ValueError:
+                pass
+
+
+        # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
+        if self.device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/devices/") == True:
+
+            # Get GPU frequency folders list. NVIDIA Tegra GPU files are listed in "/sys/devices/gpu.0/devfreq/57000000.gpu/" folder.
+            gpu_frequency_files_list = os.listdir(gpu_device_path + "devfreq/")
+            gpu_frequency_folders_list = []
+            for file in gpu_frequency_files_list:
+                if file.endswith(".gpu") and os.path.isdir(gpu_device_path + "devfreq/" + file) == True:
+                    gpu_frequency_folders_list.append(gpu_device_path + "devfreq/" + file + "/")
+            gpu_frequency_folder = gpu_frequency_folders_list[0]
+
+            # Get GPU min frequency.
+            try:
+                with open(gpu_frequency_folder + "min_freq") as reader:
+                    gpu_min_frequency = reader.read().strip()
+            except FileNotFoundError:
+                gpu_min_frequency = "-"
+
+            if gpu_min_frequency != "-":
+                gpu_min_frequency = f'{(float(gpu_min_frequency) / 1000000):.0f}'
+
+            # Get GPU max frequency.
+            try:
+                with open(gpu_frequency_folder + "max_freq") as reader:
+                    gpu_max_frequency = reader.read().strip()
+            except FileNotFoundError:
+                gpu_max_frequency = "-"
+
+            if gpu_max_frequency != "-":
+                gpu_max_frequency = f'{(float(gpu_max_frequency) / 1000000):.0f} MHz'
+
+            # Get GPU current frequency.
+            try:
+                with open(gpu_frequency_folder + "cur_freq") as reader:
+                    gpu_current_frequency = reader.read().strip()
+            except FileNotFoundError:
+                gpu_current_frequency = "-"
+
+            if gpu_current_frequency != "-":
+                gpu_current_frequency = f'{(float(gpu_current_frequency) / 1000000):.0f} MHz'
+
+            # Get GPU load.
+            try:
+                with open(gpu_device_path + "load") as reader:
+                    gpu_load = reader.read().strip()
+            except FileNotFoundError:
+                gpu_load = "-"
+
+            if gpu_load != "-":
+                gpu_load = f'{(float(gpu_load) / 10):.0f} %'
+
+
+        gpu_memory = f'{gpu_memory_used} / {gpu_memory_capacity}'
+        gpu_min_max_frequency = f'{gpu_min_frequency} - {gpu_max_frequency}'
+
+        return gpu_load, gpu_memory, gpu_current_frequency, gpu_min_max_frequency, gpu_temperature, gpu_power
 
 
     # ----------------------- Get screen resolution and refresh rate -----------------------

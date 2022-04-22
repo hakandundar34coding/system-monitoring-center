@@ -48,6 +48,7 @@ class Performance:
             line_split = line.split(" ", 2)
             if line_split[1].strip() == "/":
                 disk = line_split[0].strip().split("/")[-1]
+                # "/dev/root" disk is not listed in "/proc/partitions" file.
                 if disk in self.disk_list:
                     system_disk_list.append(disk)
                     break
@@ -70,6 +71,7 @@ class Performance:
             else:
                 selected_disk = self.disk_list[0]
 
+        self.system_disk_list = system_disk_list
         self.selected_disk_number = self.disk_list_system_ordered.index(selected_disk)
 
 
@@ -628,7 +630,7 @@ class Performance:
             # Get performance data to be drawn.
             from Gpu import Gpu
             try:
-                performance_data1 = Gpu.fps_count
+                performance_data1 = Gpu.gpu_load_list
             # Handle errors because chart signals are connected before running relevant performance thread (in the GPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
             except AttributeError:
                 return
@@ -643,17 +645,8 @@ class Performance:
             draw_performance_data1 = 1
             draw_performance_data2 = 0
 
-            # Maximum performance data value is multiplied by 1.1 in order to scale chart when performance data is increased or decreased for preventing the line being out of the chart border.
-            chart_y_limit = 1.1 * (max(performance_data1) + 0.0000001)
-
             # Get chart y limit value in order to show maximum value of the chart as 100.
-            chart_y_limit_float = chart_y_limit
-            number_of_digits = len(str(int(chart_y_limit)))
-            multiple = 10 ** (number_of_digits - 1)
-            number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
-            next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-            Gpu.label1513.set_text(f'{next_multiple} FPS')
-            chart_y_limit = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
+            chart_y_limit = 100
 
 
         # Draw "average CPU usage" if preferred.
@@ -821,7 +814,7 @@ class Performance:
                         elif performance_tab_current_sub_tab == 3:
                             performance_data1_at_point_text = f'{Network.performance_data_unit_converter_func(performance_data1[chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
                         elif performance_tab_current_sub_tab == 4:
-                            performance_data1_at_point_text = f'{performance_data1[chart_point_highlight]:.0f} FPS'
+                            performance_data1_at_point_text = f'{performance_data1[chart_point_highlight]:.0f} %'
                         # Add "-" before the text if there are 2 performance data lines.
                         if len(loc_y_list) == 2:
                             performance_data1_at_point_text = f'-  {performance_data1_at_point_text}'
@@ -837,7 +830,7 @@ class Performance:
                         elif performance_tab_current_sub_tab == 3:
                             performance_data2_at_point_text = f'- -{Network.performance_data_unit_converter_func(performance_data2[chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
                         elif performance_tab_current_sub_tab == 4:
-                            performance_data2_at_point_text = f'- -{performance_data2[chart_point_highlight]:.0f} FPS'
+                            performance_data2_at_point_text = f'- -{performance_data2[chart_point_highlight]:.0f} %'
                         performance_data_at_point_text_list.append(performance_data2_at_point_text)
 
                     performance_data_at_point_text = '  |  '.join(performance_data_at_point_text_list)

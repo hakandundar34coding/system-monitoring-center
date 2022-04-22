@@ -92,7 +92,7 @@ class GpuMenu:
 
         Config.selected_gpu = Gpu.gpu_list[widget.get_active()]
         Gpu.set_selected_gpu = Config.selected_gpu
-        Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()
+        Gpu.gpu_get_gpu_list_and_boot_vga_func()
 
         # Apply changes immediately (without waiting update interval).
         Gpu.gpu_initial_func()
@@ -105,7 +105,7 @@ class GpuMenu:
 
         Config.config_default_performance_gpu_func()
         Config.config_save_func()
-        Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()
+        Gpu.gpu_set_selected_gpu_func()
 
         # Apply changes immediately (without waiting update interval).
         Gpu.gpu_initial_func()

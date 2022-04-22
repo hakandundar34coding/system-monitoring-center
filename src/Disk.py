@@ -107,7 +107,7 @@ class Disk:
         disk_parent_name = self.disk_parent_name_func(selected_disk, disk_type, disk_list)
         disk_device_model_name = self.disk_device_model_name_func(selected_disk, disk_type, disk_parent_name)
         disk_mount_point = self.disk_mount_point_func(selected_disk)
-        if_system_disk = self.disk_if_system_disk_func(disk_mount_point)
+        if_system_disk = self.disk_if_system_disk_func(selected_disk)
 
 
         # Show information on labels.
@@ -316,7 +316,8 @@ class Disk:
     def disk_mount_point_func(self, selected_disk):
 
         with open("/proc/mounts") as reader:
-            self.proc_mounts_output_lines = reader.read().strip().split("\n")
+            proc_mounts_output = reader.read().strip()
+        self.proc_mounts_output_lines = proc_mounts_output.split("\n")
 
         disk_mount_point = "-"
         disk_mount_point_list_scratch = []
@@ -333,32 +334,30 @@ class Disk:
         if len(disk_mount_point_list_scratch) > 1 and "/" in disk_mount_point_list_scratch:
             disk_mount_point = "/"
 
+        # System disks on some devices such as ARM devices may not be listed in "/proc/mounts" file.
+        if disk_mount_point == "-":
+            with open("/proc/cmdline") as reader:
+                proc_cmdline = reader.read()
+            if "root=UUID=" in proc_cmdline:
+                disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
+                system_disk = os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip()
+            if "root=PARTUUID=" in proc_cmdline:
+                disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
+                system_disk = os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip()
+            if system_disk == selected_disk:
+                if "/dev/root / " in proc_mounts_output:
+                    disk_mount_point = "/"
+
         return disk_mount_point
 
 
     # ----------------------- Get if system disk -----------------------
-    def disk_if_system_disk_func(self, disk_mount_point):
+    def disk_if_system_disk_func(self, selected_disk):
 
-        if disk_mount_point == "/":
+        if selected_disk in Performance.system_disk_list:
             if_system_disk = _tr("Yes")
         else:
             if_system_disk = _tr("No")
-
-        # System disk may not be detected by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
-        if if_system_disk == _tr("No"):
-            for line in self.proc_mounts_output_lines:
-                line_split = line.split(" ", 1)
-                if line_split[0] == "dev/root":
-                    with open("/proc/cmdline") as reader:
-                        proc_cmdline = reader.read()
-                    if "root=UUID=" in proc_cmdline:
-                        disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
-                        system_disk = os.path.realpath("/dev/disk/by-uuid/" + disk_uuid_partuuid).split("/")[-1].strip()
-                    if "root=PARTUUID=" in proc_cmdline:
-                        disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
-                        system_disk = os.path.realpath("/dev/disk/by-partuuid/" + disk_uuid_partuuid).split("/")[-1].strip()
-                    if system_disk == selected_disk:
-                        if_system_disk = _tr("Yes")
 
         return if_system_disk
 

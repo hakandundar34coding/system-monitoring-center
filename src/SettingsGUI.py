@@ -253,7 +253,7 @@ class SettingsGUI:
         # Apply selected GPU changes
         try:
             from MainGUI import Gpu
-            Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()
+            Gpu.gpu_set_selected_gpu_func()
         # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
         except ImportError:
             pass
@@ -312,7 +312,7 @@ class SettingsGUI:
             # Apply selected GPU changes
             try:
                 from MainGUI import Gpu
-                Gpu.gpu_get_gpu_list_and_set_selected_gpu_func()
+                Gpu.gpu_set_selected_gpu_func()
             # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
             except ImportError:
                 pass
