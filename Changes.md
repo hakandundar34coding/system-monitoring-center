@@ -1,5 +1,16 @@
 # System Monitoring Center
 
+### v1.12.0
+  * New: GPU load, memory, frequency, power, etc. (GPU tab)
+  * New: Support for power sensors
+  * Removed: mesa-utils (glx-utils) dependency
+  * Improved: Show RAM capacity if physical RAM is not detected
+  * Improved: Show Arch Linux image version for OS version
+  * Fix: GUI rendering problems after GPU tab is switched on
+  * Fix: Detecting disk mount points for some ARM devices
+  * Fix: Windowing system for Arch Linux if env.var. is not set
+  * Minor improvements
+
 ### v1.11.0
   * New: Interactive charts (CPU, RAM, Disk, Network, GPU tabs)
   * Fix: Application start if desktop file is modified
