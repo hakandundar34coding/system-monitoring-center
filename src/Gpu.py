@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#! /usr/bin/python3
 
 # Import modules
 import gi
@@ -160,12 +160,12 @@ class Gpu:
 
             if file.split(".")[0] == "gpu":
                 self.gpu_list.append(file)
-                self.gpu_device_path_list.append("/sys/devices/" + file)
+                self.gpu_device_path_list.append("/sys/devices/" + file + "/")
                 self.gpu_device_sub_path_list.append("/")
 
                 # Get if default GPU information
                 try:
-                    with open("/dev/dri/" + file + "/" + "boot_vga") as reader:
+                    with open("/sys/devices/" + file + "/" + "boot_vga") as reader:
                         if reader.read().strip() == "1":
                             self.default_gpu = file
                 except (FileNotFoundError, NotADirectoryError) as me:
@@ -466,7 +466,7 @@ class Gpu:
 
 
         # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
-        if self.device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/devices/") == True:
+        if self.device_vendor_id in ["v000010DE", "Nvidia"] and gpu_device_path.startswith("/sys/devices/") == True:
 
             # Get GPU frequency folders list. NVIDIA Tegra GPU files are listed in "/sys/devices/gpu.0/devfreq/57000000.gpu/" folder.
             gpu_frequency_files_list = os.listdir(gpu_device_path + "devfreq/")
