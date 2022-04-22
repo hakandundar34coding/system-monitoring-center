@@ -95,6 +95,11 @@ class System:
                     ubuntu_version = line.split("UBUNTU_CODENAME=")[1].strip(' "')
                     break
             os_based_on = os_based_on + " (" + ubuntu_version + ")"
+        if os_name.lower() == "arch linux":
+            for line in os_release_output_lines:
+                if line.startswith("IMAGE_VERSION="):
+                    os_version = "Image Version: " + line.split("IMAGE_VERSION=")[1].strip(' "')
+                    break
 
         # Get os family
         os_family = platform.system()
