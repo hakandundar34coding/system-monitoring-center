@@ -24,7 +24,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">GPU Load:</property>
+            <property name="label" translatable="yes">GPU Usage:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -375,7 +375,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">GPU Load</property>
+            <property name="label" translatable="yes">GPU Usage</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
