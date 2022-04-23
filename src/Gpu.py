@@ -453,19 +453,19 @@ class Gpu:
                 gpu_max_frequency = gpu_tool_output_for_selected_gpu[10].strip()
                 gpu_power = gpu_tool_output_for_selected_gpu[11].strip()
 
-                if gpu_load == "[Not Supported]":
+                if gpu_load in ["[Not Supported]", "[N/A]"]:
                     gpu_load = "-"
-                if gpu_memory_used == "[Not Supported]":
+                if gpu_memory_used in ["[Not Supported]", "[N/A]"]:
                     gpu_memory_used = "-"
-                if gpu_memory_capacity == "[Not Supported]":
+                if gpu_memory_capacity in ["[Not Supported]", "[N/A]"]:
                     gpu_memory_capacity = "-"
-                if gpu_temperature == "[Not Supported]":
+                if gpu_temperature in ["[Not Supported]", "[N/A]"]:
                     gpu_temperature = "-"
-                if gpu_current_frequency == "[Not Supported]":
+                if gpu_current_frequency in ["[Not Supported]", "[N/A]"]:
                     gpu_current_frequency = "-"
-                if gpu_max_frequency == "[Not Supported]":
+                if gpu_max_frequency in ["[Not Supported]", "[N/A]"]:
                     gpu_max_frequency = "-"
-                if gpu_power == "[Not Supported]":
+                if gpu_power in ["[Not Supported]", "[N/A]"]:
                     gpu_power = "-"
 
             try:
