@@ -24,6 +24,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
     Run the application by using `system-monitoring-center` command.
     The application will prepare shortcut and GUI images automatically.
     If command is not found, restart the system and run the command again.
+    If images are not shown on the GUI, restart the system.
 
 
 ### Dependencies:
