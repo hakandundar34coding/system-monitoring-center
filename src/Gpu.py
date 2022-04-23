@@ -396,6 +396,8 @@ class Gpu:
                         with open(gpu_device_path + "device/hwmon/" + sensor + "/temp1_input") as reader:
                             gpu_temperature = reader.read().strip()
                         gpu_temperature = f'{(int(gpu_temperature) / 1000):.0f} °C'
+                else:
+                    gpu_temperature = "-"
             except (FileNotFoundError, NotADirectoryError, OSError) as me:
                 gpu_temperature = "-"
 
@@ -406,7 +408,13 @@ class Gpu:
                     if os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") == True:
                         with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") as reader:
                             gpu_power = reader.read().strip()
-                        gpu_power = f'{(int(gpu_power) / 1000):.2f} W'
+                        gpu_power = f'{(int(gpu_power) / 1000000):.2f} W'
+                    elif os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_average") == True:
+                        with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_average") as reader:
+                            gpu_power = reader.read().strip()
+                        gpu_power = f'{(int(gpu_power) / 1000000):.2f} W'
+                    else:
+                        gpu_power = "-"
             except (FileNotFoundError, NotADirectoryError, OSError) as me:
                 gpu_power = "-"
 
