@@ -25,7 +25,7 @@ class MainGUI:
         locale.textdomain("system-monitoring-center")
         try:
             locale.setlocale(locale.LC_ALL, os.environ.get("LANG"))
-        # Prevent errors if there are problems with language installations on the system.
+        # Prevent errors if there are problems with language installations on the system. English language (language in the .ui files) is used in this situation.
         except Exception:
             pass
 
