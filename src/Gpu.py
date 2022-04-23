@@ -347,16 +347,16 @@ class Gpu:
             if gpu_frequency_file_output != "-":
                 for line in gpu_frequency_file_output:
                     if "*" in line:
-                        gpu_current_frequency = line.rstrip("*").strip()
+                        gpu_current_frequency = line.split(":")[1].rstrip("*").strip()
                         # Add a space character between value and unit. "Mhz" is used in the relevant file instead of "MHz".
                         if "Mhz" in gpu_current_frequency:
                             gpu_current_frequency = gpu_current_frequency.split("Mhz")[0] + " MHz"
                         break
-                gpu_min_frequency = gpu_frequency_file_output[0]
+                gpu_min_frequency = gpu_frequency_file_output[0].split(":")[1].strip()
                 # Add a space character between value and unit.
                 if "Mhz" in gpu_min_frequency:
                     gpu_min_frequency = gpu_min_frequency.split("Mhz")[0] + " MHz"
-                gpu_max_frequency = gpu_frequency_file_output[-1]
+                gpu_max_frequency = gpu_frequency_file_output[-1].split(":")[1].strip()
                 # Add a space character between value and unit.
                 if "Mhz" in gpu_max_frequency:
                     gpu_max_frequency = gpu_max_frequency.split("Mhz")[0] + " MHz"
