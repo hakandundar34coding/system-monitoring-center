@@ -396,8 +396,6 @@ class Gpu:
                         with open(gpu_device_path + "device/hwmon/" + sensor + "/temp1_input") as reader:
                             gpu_temperature = reader.read().strip()
                         gpu_temperature = f'{(int(gpu_temperature) / 1000):.0f} °C'
-                else:
-                    gpu_temperature = "-"
             except (FileNotFoundError, NotADirectoryError, OSError) as me:
                 gpu_temperature = "-"
 
@@ -535,7 +533,12 @@ class Gpu:
 
     # ----------------------- Get GPU load average for AMD GPUs -----------------------
     def amd_gpu_load_func(self, *args):
-
+        
+        selected_gpu_number = self.selected_gpu_number
+        selected_gpu = self.gpu_list[selected_gpu_number]
+        gpu_device_path = self.gpu_device_path_list[selected_gpu_number]
+        gpu_device_sub_path = self.gpu_device_sub_path_list[selected_gpu_number]
+        
         # Destroy GLib source for preventing it repeating the function.
         try:
             self.gpu_glib_source.destroy()
@@ -549,7 +552,7 @@ class Gpu:
             gpu_load = reader.read().strip()
 
         # Add GPU load data into a list in order to calculate average of the list.
-        self.amd_gpu_load_list.append(float(gpu_load)/1000)
+        self.amd_gpu_load_list.append(float(gpu_load))
         del self.amd_gpu_load_list[0]
 
         # Prevent running the function again if tab is GPU switched off.
