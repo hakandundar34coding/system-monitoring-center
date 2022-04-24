@@ -1,5 +1,12 @@
 # System Monitoring Center
 
+### v1.12.1
+  * Fix: Prevent app.crash if system locale problem is found
+  * Fix: GPU load, temperature, power for some GPUs (GPU tab)
+  * Fix: GPU frequency text for AMD GPUs (GPU tab)
+  * Fix: GPU usage information for some ARM devices
+  * Fix: Power sensor units (Sensors tab)
+
 ### v1.12.0
   * New: GPU load, memory, frequency, power, etc. (GPU tab)
   * New: Support for power sensors
