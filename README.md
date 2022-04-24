@@ -24,15 +24,18 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
     Run the application by using `system-monitoring-center` command.
     The application will prepare shortcut and GUI images automatically.
     If command is not found, restart the system and run the command again.
+    If images are not shown on the GUI, restart the system.
 
 
 ### Dependencies:
+- These dependencies are already installed on many systems: `bash (>=4.4), dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, udev, util-linux (>=2.31)`
+- Following dependencies may be required on some systems: for systems with .deb packages: `libcairo2-dev`, for Arch Linux: `polkit`
 
-- These dependencies are already installed on many systems:
-    - `bash (>=4.4), dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, udev, util-linux (>=2.31)`
 
-- Following dependencies may be required on some systems:
-    - For systems with .deb packages: `libcairo2-dev`, for Arch Linux: `polkit`
+### Updating:
+- Run one of these commands to update the application:
+    - If the application is istalled for current user account: `pip install --upgrade system-monitoring-center`
+    - If the application is istalled for system-wide: `sudo pip install --upgrade system-monitoring-center`
 
 
 <a href="https://repology.org/project/system-monitoring-center/versions">

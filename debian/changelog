@@ -1,3 +1,13 @@
+system-monitoring-center (1.12.1) unstable; urgency=medium
+
+  * Fix: Prevent app.crash if system locale problem is found
+  * Fix: GPU load, temperature, power for some GPUs (GPU tab)
+  * Fix: GPU frequency text for AMD GPUs (GPU tab)
+  * Fix: GPU usage information for some ARM devices
+  * Fix: Power sensor units (Sensors tab)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 24 Apr 2022 09:00:00 +0300
+
 system-monitoring-center (1.12.0) unstable; urgency=medium
 
   [ Hakan Dündar ]

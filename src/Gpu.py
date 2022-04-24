@@ -4,7 +4,8 @@
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
-from gi.repository import Gtk, Gdk
+gi.require_version('GLib', '2.0')
+from gi.repository import Gtk, Gdk, GLib
 import os
 import subprocess
 
@@ -74,6 +75,8 @@ class Gpu:
         # Define initial values
         self.chart_data_history = Config.chart_data_history
         self.gpu_load_list = [0] * self.chart_data_history
+        # Currently highest monitor refresh rate is 360. 370 is used in order to get GPU load for AMD GPUs precisely.
+        self.amd_gpu_load_list = [0] * 370
 
 
         # Get information.
@@ -160,12 +163,12 @@ class Gpu:
 
             if file.split(".")[0] == "gpu":
                 self.gpu_list.append(file)
-                self.gpu_device_path_list.append("/sys/devices/" + file)
+                self.gpu_device_path_list.append("/sys/devices/" + file + "/")
                 self.gpu_device_sub_path_list.append("/")
 
                 # Get if default GPU information
                 try:
-                    with open("/dev/dri/" + file + "/" + "boot_vga") as reader:
+                    with open("/sys/devices/" + file + "/" + "boot_vga") as reader:
                         if reader.read().strip() == "1":
                             self.default_gpu = file
                 except (FileNotFoundError, NotADirectoryError) as me:
@@ -333,6 +336,7 @@ class Gpu:
             # For more information about files under "/sys/class/drm/card[NUMBER]/device/" and their content for AMD GPUs: https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html
 
             # Get GPU current, min, max frequencies (engine frequencies). This file contains all available frequencies of the GPU. There is no separate frequency information in files for video clock frequency for AMD GPUs.
+            gpu_frequency_file_output = "-"
             try:
                 with open(gpu_device_path + "device/pp_dpm_sclk") as reader:
                     gpu_frequency_file_output = reader.read().strip().split("\n")
@@ -343,29 +347,26 @@ class Gpu:
             if gpu_frequency_file_output != "-":
                 for line in gpu_frequency_file_output:
                     if "*" in line:
-                        gpu_current_frequency = line.rstrip("*").strip()
-                        # Add a space character between value and unit.
+                        gpu_current_frequency = line.split(":")[1].rstrip("*").strip()
+                        # Add a space character between value and unit. "Mhz" is used in the relevant file instead of "MHz".
                         if "Mhz" in gpu_current_frequency:
                             gpu_current_frequency = gpu_current_frequency.split("Mhz")[0] + " MHz"
                         break
-                gpu_min_frequency = gpu_frequency_file_output[0]
+                gpu_min_frequency = gpu_frequency_file_output[0].split(":")[1].strip()
                 # Add a space character between value and unit.
                 if "Mhz" in gpu_min_frequency:
                     gpu_min_frequency = gpu_min_frequency.split("Mhz")[0] + " MHz"
-                gpu_max_frequency = gpu_frequency_file_output[-1]
+                gpu_max_frequency = gpu_frequency_file_output[-1].split(":")[1].strip()
                 # Add a space character between value and unit.
                 if "Mhz" in gpu_max_frequency:
                     gpu_max_frequency = gpu_max_frequency.split("Mhz")[0] + " MHz"
 
-            # Get GPU load. There is no "%" character in this file.
+            # Get GPU load average. There is no "%" character in "gpu_busy_percent" file. This file contains GPU load for a very small time.
             try:
-                with open(gpu_device_path + "device/gpu_busy_percent") as reader:
-                    gpu_load = reader.read().strip()
-            except FileNotFoundError:
+                self.amd_gpu_load_func()
+                gpu_load = f'{(sum(self.amd_gpu_load_list) / len(self.amd_gpu_load_list)):.0f} %'
+            except Exception:
                 gpu_load = "-"
-
-            if gpu_load != "-":
-                gpu_load = gpu_load + " %"
 
             # Get GPU used memory (data in this file is in Bytes). There is also "mem_info_vis_vram_used" file for visible memory (can be shown on the "lspci" command) and "mem_info_gtt_used" file for reserved memory from system memory. gtt+vram=total video memory. Probably "mem_busy_percent" is for memory controller load.
             try:
@@ -395,6 +396,8 @@ class Gpu:
                         with open(gpu_device_path + "device/hwmon/" + sensor + "/temp1_input") as reader:
                             gpu_temperature = reader.read().strip()
                         gpu_temperature = f'{(int(gpu_temperature) / 1000):.0f} °C'
+                else:
+                    gpu_temperature = "-"
             except (FileNotFoundError, NotADirectoryError, OSError) as me:
                 gpu_temperature = "-"
 
@@ -405,7 +408,14 @@ class Gpu:
                     if os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") == True:
                         with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") as reader:
                             gpu_power = reader.read().strip()
-                        gpu_power = f'{(int(gpu_power) / 1000):.2f} W'
+                        # Value in this file is in microwatts.
+                        gpu_power = f'{(int(gpu_power) / 1000000):.2f} W'
+                    elif os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_average") == True:
+                        with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_average") as reader:
+                            gpu_power = reader.read().strip()
+                        gpu_power = f'{(int(gpu_power) / 1000000):.2f} W'
+                    else:
+                        gpu_power = "-"
             except (FileNotFoundError, NotADirectoryError, OSError) as me:
                 gpu_power = "-"
 
@@ -443,19 +453,19 @@ class Gpu:
                 gpu_max_frequency = gpu_tool_output_for_selected_gpu[10].strip()
                 gpu_power = gpu_tool_output_for_selected_gpu[11].strip()
 
-                if gpu_load == "[Not Supported]":
+                if gpu_load in ["[Not Supported]", "[N/A]"]:
                     gpu_load = "-"
-                if gpu_memory_used == "[Not Supported]":
+                if gpu_memory_used in ["[Not Supported]", "[N/A]"]:
                     gpu_memory_used = "-"
-                if gpu_memory_capacity == "[Not Supported]":
+                if gpu_memory_capacity in ["[Not Supported]", "[N/A]"]:
                     gpu_memory_capacity = "-"
-                if gpu_temperature == "[Not Supported]":
+                if gpu_temperature in ["[Not Supported]", "[N/A]"]:
                     gpu_temperature = "-"
-                if gpu_current_frequency == "[Not Supported]":
+                if gpu_current_frequency in ["[Not Supported]", "[N/A]"]:
                     gpu_current_frequency = "-"
-                if gpu_max_frequency == "[Not Supported]":
+                if gpu_max_frequency in ["[Not Supported]", "[N/A]"]:
                     gpu_max_frequency = "-"
-                if gpu_power == "[Not Supported]":
+                if gpu_power in ["[Not Supported]", "[N/A]"]:
                     gpu_power = "-"
 
             try:
@@ -466,7 +476,7 @@ class Gpu:
 
 
         # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
-        if self.device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/devices/") == True:
+        if self.device_vendor_id in ["v000010DE", "Nvidia"] and gpu_device_path.startswith("/sys/devices/") == True:
 
             # Get GPU frequency folders list. NVIDIA Tegra GPU files are listed in "/sys/devices/gpu.0/devfreq/57000000.gpu/" folder.
             gpu_frequency_files_list = os.listdir(gpu_device_path + "devfreq/")
@@ -521,6 +531,34 @@ class Gpu:
         gpu_min_max_frequency = f'{gpu_min_frequency} - {gpu_max_frequency}'
 
         return gpu_load, gpu_memory, gpu_current_frequency, gpu_min_max_frequency, gpu_temperature, gpu_power
+
+
+    # ----------------------- Get GPU load average for AMD GPUs -----------------------
+    def amd_gpu_load_func(self, *args):
+
+        # Destroy GLib source for preventing it repeating the function.
+        try:
+            self.gpu_glib_source.destroy()
+        # "try-except" is used in order to prevent errors if this is first run of the function.
+        except AttributeError:
+            pass
+        self.gpu_glib_source = GLib.timeout_source_new(1000 / 370)
+
+        # Read file to get GPU load information. This information is calculated for a very small time (screen refresh rate or content (game, etc.) refresh rate?) and directly plotting this data gives spikes.
+        with open(gpu_device_path + "device/gpu_busy_percent") as reader:
+            gpu_load = reader.read().strip()
+
+        # Add GPU load data into a list in order to calculate average of the list.
+        self.amd_gpu_load_list.append(float(gpu_load)/1000)
+        del self.amd_gpu_load_list[0]
+
+        # Prevent running the function again if tab is GPU switched off.
+        if Config.current_main_tab != 0 or Config.performance_tab_current_sub_tab != 4:
+            return
+
+        self.gpu_glib_source.set_callback(self.amd_gpu_load_func)
+        # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+        self.gpu_glib_source.attach(GLib.MainContext.default())
 
 
     # ----------------------- Get screen resolution and refresh rate -----------------------

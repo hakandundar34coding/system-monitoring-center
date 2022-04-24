@@ -226,7 +226,7 @@ def sensors_loop_func():
                     if attribute == "curr":
                         current_value = f'{(current_value / 1000):.3f} A'                     # Convert milliamper to Amper and show 3 numbers after ".".
                     if attribute == "power":
-                        current_value = f'{(current_value / 1000):.3f} W'                     # Convert milliwatt to Watt and show 3 numbers after ".".
+                        current_value = f'{(current_value / 1000000):.3f} W'                  # Convert microwatt to Watt and show 3 numbers after ".".
                 except OSError:
                     current_value = "-"
                 # Get sensor critical value
@@ -242,7 +242,7 @@ def sensors_loop_func():
                     if attribute == "curr":
                         critical_value = f'{(critical_value / 1000):.3f} A'
                     if attribute == "power":
-                        critical_value = f'{(critical_value / 1000):.3f} W'
+                        critical_value = f'{(critical_value / 1000000):.3f} W'
                 except OSError:
                     critical_value = "-"
                 # Get sensor maximum value
@@ -258,7 +258,7 @@ def sensors_loop_func():
                     if attribute == "curr":
                         max_value = f'{(max_value / 1000):.3f} A'
                     if attribute == "power":
-                        max_value = f'{(max_value / 1000):.3f} W'
+                        max_value = f'{(max_value / 1000000):.3f} W'
                 except OSError:
                     max_value = "-"
 

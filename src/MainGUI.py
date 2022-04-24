@@ -23,7 +23,11 @@ class MainGUI:
         # Configurations for language translation support
         locale.bindtextdomain("system-monitoring-center", os.path.dirname(os.path.realpath(__file__)) + "/../locale")
         locale.textdomain("system-monitoring-center")
-        locale.setlocale(locale.LC_ALL, os.environ.get("LANG"))
+        try:
+            locale.setlocale(locale.LC_ALL, os.environ.get("LANG"))
+        # Prevent errors if there are problems with language installations on the system. English language (language in the .ui files) is used in this situation.
+        except Exception:
+            pass
 
         # Generate symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated.
         self.main_gui_application_system_integration_func()
