@@ -16,26 +16,25 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 ### Installation:
 - System Monitoring Center is installable from PyPI as a Python package.
-- Remove older versions (v1.8.0 and older).
 - Option-1) Installing for current user account: `pip install system-monitoring-center`
 - Option-2) Installing for system-wide: `sudo pip install system-monitoring-center`
     (This method can be used for preventing source code modifications.)
 - First run:
-    Run the application by using `system-monitoring-center` command.
-    The application will prepare shortcut and GUI images automatically.
-    If command is not found, restart the system and run the command again.
-    If images are not shown on the GUI, restart the system.
+    - Run the application by using `system-monitoring-center` command.
+    - The application will prepare shortcut and GUI images automatically.
+    - If command is not found, restart the system and run the command again.
+    - If images are not shown on the GUI, run `touch ~/.local/share/*` or restart the system.
 
 
 ### Dependencies:
-- These dependencies are already installed on many systems: `bash (>=4.4), dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, udev, util-linux (>=2.31)`
+- These dependencies are already installed on many systems: `bash, dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, udev, util-linux`
 - Following dependencies may be required on some systems: for systems with .deb packages: `libcairo2-dev`, for Arch Linux: `polkit`
 
 
 ### Updating:
 - Run one of these commands to update the application:
-    - If the application is istalled for current user account: `pip install --upgrade system-monitoring-center`
-    - If the application is istalled for system-wide: `sudo pip install --upgrade system-monitoring-center`
+    - If the application is installed for current user account: `pip install --upgrade system-monitoring-center`
+    - If the application is installed for system-wide: `sudo pip install --upgrade system-monitoring-center`
 
 
 <a href="https://repology.org/project/system-monitoring-center/versions">
@@ -48,12 +47,15 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
     - An always on top and semi-transparent floating summary window for performance monitoring
     - Monitoring and managing processes, users, startup applications and services (systemd)
     - Monitoring sensors and general system information
+- Supports PolicyKit. No need to run the application with "sudo"
+- Hardware selection options (selecting  different CPU cores, disks, network cards, GPUs)
+- Interactive charts for querying performance data on any point
+- Option for showing processes as tree or list
 - Language support:
     - Brazilian Portuguese, Czech, English, Polish (initial), Turkish
     - More languages will be added if translations are provided by contributors
+- Optimized for low CPU usage and fast start
 - Adapts to system theme
-- Supports PolicyKit. No need to run the application with "sudo"
-- Optimized for low CPU usage
 - Free and open sourced
 
 
