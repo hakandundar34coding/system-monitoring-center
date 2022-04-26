@@ -67,7 +67,7 @@ def processes_gui_func():
         global selected_process_pid
         try:
             selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
-        except ValueError:                                                                # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+        except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
             return
 
         # Open right click menu if right clicked on a row
@@ -238,7 +238,8 @@ def processes_initial_func():
                           [14, _tr('PPID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                           [15, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                           [16, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                          [17, _tr('Path'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
+                          [17, _tr('Path'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                          [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
                           ]
 
     processes_define_data_unit_converter_variables_func()                                     # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
@@ -469,6 +470,13 @@ def processes_loop_func():
             except Exception:
                 process_executable_path = "-"
             processes_data_row.append(process_executable_path)                                # Append process executable path
+        if 18 in processes_treeview_columns_shown:
+            try:
+                with open(f'/proc/{pid}/cmdline') as reader:
+                    process_commandline = ' '.join(reader.read().split("\x00"))
+            except Exception:
+                process_commandline = "-"
+            processes_data_row.append(process_commandline)                                    # Append process command line
         # Append process data into a list (processes_data_rows)
         processes_data_rows.append(processes_data_row)
     global_process_cpu_times_prev = global_process_cpu_times                                  # For using values in the next loop

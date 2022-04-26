@@ -42,7 +42,7 @@ class Config:
         # Code reads this value from the config file and compares with the value in the code.
         # All settings are reset if integer value of this value is bigger than the value in the config file.
         # There is no action if integer value of this value is smaller than the value in the config file.
-        self.reset_all_settings_with_new_release_value = 2
+        self.reset_all_settings_with_new_release_value = 3
         self.config_variables = []
         self.config_values = []
 
@@ -208,8 +208,8 @@ class Config:
         self.processes_treeview_columns_shown = [0, 1, 2, 4, 5, 10, 11]
         self.processes_data_row_sorting_column = 0
         self.processes_data_row_sorting_order = 0
-        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
-        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
     # ----------------------- Called for default Processes Tab Row Sort Column Order Width settings -----------------------
@@ -217,8 +217,8 @@ class Config:
 
         self.processes_data_row_sorting_column = 0
         self.processes_data_row_sorting_order = 0
-        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
-        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
     # ----------------------- Called for default Users Tab settings -----------------------
@@ -298,14 +298,8 @@ class Config:
         self.remember_last_opened_tabs_on_application_start = int(config_values[config_variables.index("remember_last_opened_tabs_on_application_start")])
         self.chart_background_color_all_charts = [float(value) for value in config_values[config_variables.index("chart_background_color_all_charts")].strip("[]").split(", ")]
         self.remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
-        if "remember_window_size" in config_variables:
-            self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
-        else:
-            pass
-        if "check_for_updates_automatically" in config_variables:
-            self.check_for_updates_automatically = int(config_values[config_variables.index("check_for_updates_automatically")])
-        else:
-            pass
+        self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
+        self.check_for_updates_automatically = int(config_values[config_variables.index("check_for_updates_automatically")])
 
         self.show_floating_summary = int(config_values[config_variables.index("show_floating_summary")])
         self.floating_summary_window_transparency = float(config_values[config_variables.index("floating_summary_window_transparency")])

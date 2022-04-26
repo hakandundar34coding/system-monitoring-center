@@ -648,7 +648,7 @@ class ProcessesDetails:
                 self.label2133w.set_text("-")
             self.label2134w.set_text(selected_process_exe)
             self.label2135w.set_text(selected_process_cwd)
-            self.label2136w.set_text(',\n'.join(selected_process_cmdline))
+            self.label2136w.set_text(' '.join(selected_process_cmdline))
             if selected_process_open_files != "-":
                 self.label2137w.set_text(',\n'.join(selected_process_open_files))
             if selected_process_open_files == "-":
