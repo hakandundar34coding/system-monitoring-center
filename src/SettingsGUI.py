@@ -44,6 +44,7 @@ class SettingsGUI:
         self.checkbutton2010 = builder2001.get_object('checkbutton2010')
         self.checkbutton2011 = builder2001.get_object('checkbutton2011')
         self.checkbutton2012 = builder2001.get_object('checkbutton2012')
+        self.checkbutton2013 = builder2001.get_object('checkbutton2013')
         self.spinbutton2001 = builder2001.get_object('spinbutton2001')
 
         # Connect GUI signals
@@ -79,6 +80,7 @@ class SettingsGUI:
         self.checkbutton2010.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2011.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2012.connect("toggled", self.on_checkbutton2012_toggled)
+        self.checkbutton2013.connect("toggled", self.on_checkbutton2013_toggled)
         self.spinbutton2001.connect("value-changed", self.on_spinbutton2001_value_changed)
 
 
@@ -101,6 +103,7 @@ class SettingsGUI:
         self.checkbutton2010.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2011.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2012.disconnect_by_func(self.on_checkbutton2012_toggled)
+        self.checkbutton2013.disconnect_by_func(self.on_checkbutton2013_toggled)
         self.spinbutton2001.disconnect_by_func(self.on_spinbutton2001_value_changed)
 
 
@@ -231,6 +234,18 @@ class SettingsGUI:
             main_window_state = 0
             main_window_width, main_window_height = MainGUI.window1.get_default_size()
             Config.remember_window_size = [remember_window_size_value, main_window_state, main_window_width, main_window_height]
+
+        Config.config_save_func()
+
+
+    # ----------------------- "Check for updates" Checkbutton -----------------------
+    def on_checkbutton2013_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.check_for_updates_automatically = 1
+
+        if widget.get_active() == False:
+            Config.check_for_updates_automatically = 0
 
         Config.config_save_func()
 
@@ -414,6 +429,12 @@ class SettingsGUI:
             self.checkbutton2012.set_active(True)
         if Config.remember_window_size[0] == 0:
             self.checkbutton2012.set_active(False)
+
+        # Set GUI preferences for "check for updates automatically" setting
+        if Config.check_for_updates_automatically == 1:
+            self.checkbutton2013.set_active(True)
+        if Config.check_for_updates_automatically == 0:
+            self.checkbutton2013.set_active(False)
 
 
     # ----------------------- Called for setting "Floating Summary" tab GUI items -----------------------

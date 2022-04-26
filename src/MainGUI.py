@@ -181,6 +181,57 @@ class MainGUI:
             self.grid10.attach(label_root_warning, 0, 0, 1, 1)
             label_root_warning.set_visible(True)
 
+        # Check if there is a newer version of the software if relevant setting is enabled and the application is a Python package (directory is in "/usr/local/lib/..." or in "/home/[user_name]/.local/lib/...".
+        # New version can not be checked if the application is run with root privileges. BEcause "pip" does not run "index" command in this situation.
+        if Config.check_for_updates_automatically == 1:
+
+            # Get current directory (which code of this application is in) and current user home directory (symlinks will be generated in).
+            current_dir = os.path.dirname(os.path.realpath(__file__))
+            current_user_homedir = os.environ.get('HOME')
+
+            # Check if the application is a Python package.
+            if current_dir.startswith("/usr/local/lib/") == True or current_dir.startswith(current_user_homedir + "/.local/lib/") == True:
+                # Run the function in a separate thread in order to avoid blocking the GUI because "pip ..." command runs about 1 seconds.
+                from threading import Thread
+                Thread(target=self.main_update_check_func).start()
+
+
+    # ----------------------- Check if there is a newer version on PyPI -----------------------
+    def main_update_check_func(self):
+
+        import time, subprocess
+
+        # Wait 5 seconds before running the command in order to avoid high CPU usage at the beginning of the measurement.
+        time.sleep(5)
+
+        # Run the command to get installed and latest versions of the application.
+        try:
+            pip_index_output = (subprocess.check_output(["pip", "index", "versions", "system-monitoring-center"], stderr=subprocess.STDOUT, shell=False)).decode().strip().split("\n")
+        except Exception:
+            return
+
+        # Get installed and latest versions of the application by processing the command output.
+        current_version = "-"
+        last_version = "-"
+        for line in pip_index_output:
+            if "INSTALLED" in line:
+                current_version = line.split("INSTALLED:")[1].strip()
+            if "LATEST" in line:
+                last_version = line.split("LATEST:")[1].strip()
+
+        # Show an information label with a green background just below the headerbar if there is a newer version on PyPI.
+        if current_version != last_version:
+            # Generate a new label for the information. This label does not exist in the ".ui" UI file.
+            label_new_version_information = Gtk.Label(label=_tr("There is a newer version on PyPI."))
+            css = b"label {background: rgba(24%,70%,45%,1.0);}"
+            style_provider = Gtk.CssProvider()
+            style_provider.load_from_data(css)
+            label_new_version_information.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+            self.grid10.insert_row(0)
+            # Attach the label to the grid at (0, 0) position.
+            self.grid10.attach(label_new_version_information, 0, 0, 1, 1)
+            label_new_version_information.set_visible(True)
+
 
     # ----------------------- "Main Menu" Button -----------------------
     def on_button1_clicked(self, widget):

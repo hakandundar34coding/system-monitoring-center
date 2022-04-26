@@ -116,6 +116,7 @@ class Config:
         self.chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
         self.remember_last_selected_hardware = 0
         self.remember_window_size = [0, 0, 0, 0]
+        self.check_for_updates_automatically = 1
 
 
     # ----------------------- Called for default Floating Summary settings -----------------------
@@ -301,6 +302,10 @@ class Config:
             self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
         else:
             pass
+        if "check_for_updates_automatically" in config_variables:
+            self.check_for_updates_automatically = int(config_values[config_variables.index("check_for_updates_automatically")])
+        else:
+            pass
 
         self.show_floating_summary = int(config_values[config_variables.index("show_floating_summary")])
         self.floating_summary_window_transparency = float(config_values[config_variables.index("floating_summary_window_transparency")])
@@ -387,6 +392,7 @@ class Config:
         config_write_text = config_write_text + "chart_background_color_all_charts = " + str(self.chart_background_color_all_charts) + "\n"
         config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
         config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
+        config_write_text = config_write_text + "check_for_updates_automatically = " + str(self.check_for_updates_automatically) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[General - Floating Summary]" + "\n"
