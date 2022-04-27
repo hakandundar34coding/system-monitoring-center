@@ -276,6 +276,8 @@ class Disk:
             disk_device_model_name = "[Loop Device]"
         if selected_disk.startswith("zram"):
             disk_device_model_name = _tr("[SWAP]")
+        if selected_disk.startswith("dm-"):
+            disk_device_model_name = "[Device Mapper]"
         if selected_disk.startswith("mmcblk"):
             # Read database file for MMC disk register values. For more info about CIDs: https://www.kernel.org/doc/Documentation/mmc/mmc-dev-attrs.txt
             with open(os.path.dirname(os.path.realpath(__file__)) + "/../database/sdcard.ids") as reader:
@@ -336,6 +338,7 @@ class Disk:
 
         # System disks on some devices such as ARM devices may not be listed in "/proc/mounts" file.
         if disk_mount_point == "-":
+            system_disk = "-"
             with open("/proc/cmdline") as reader:
                 proc_cmdline = reader.read()
             if "root=UUID=" in proc_cmdline:
@@ -344,7 +347,7 @@ class Disk:
             if "root=PARTUUID=" in proc_cmdline:
                 disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
                 system_disk = os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip()
-            if system_disk == selected_disk:
+            if system_disk != "-" and system_disk == selected_disk:
                 if "/dev/root / " in proc_mounts_output:
                     disk_mount_point = "/"
 
