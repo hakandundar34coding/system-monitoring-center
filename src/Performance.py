@@ -864,7 +864,7 @@ class Performance:
                     # Draw a line between the highlighted point and the box under the text.
                     ctx.set_source_rgba(0.5, 0.5, 0.5, 0.5)
                     for loc_y in loc_y_list:
-                        ctx.move_to(loc_x, loc_y-10)
+                        ctx.move_to(loc_x, loc_y-5)
                         ctx.line_to(box_under_text_start+box_under_text_location_correction, origin_for_text+text_start_y+15)
                         ctx.rel_line_to(text_extends.width+2*text_border_margin, 0)
                         ctx.stroke()
