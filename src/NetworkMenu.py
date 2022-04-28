@@ -34,6 +34,8 @@ class NetworkMenu:
         self.combobox1405p = builder.get_object('combobox1405p')
         self.checkbutton1401p = builder.get_object('checkbutton1401p')
         self.checkbutton1402p = builder.get_object('checkbutton1402p')
+        self.radiobutton1401p = builder.get_object('radiobutton1401p')
+        self.radiobutton1402p = builder.get_object('radiobutton1402p')
         self.colorchooserdialog1401 = Gtk.ColorChooserDialog()
 
         # Connect GUI signals
@@ -48,6 +50,8 @@ class NetworkMenu:
 
         self.checkbutton1401p.connect("toggled", self.on_checkbutton1401p_toggled)
         self.checkbutton1402p.connect("toggled", self.on_checkbutton1402p_toggled)
+        self.radiobutton1401p.connect("toggled", self.on_radiobutton1401p_toggled)
+        self.radiobutton1402p.connect("toggled", self.on_radiobutton1402p_toggled)
         self.combobox1401p.connect("changed", self.on_combobox1401p_changed)
         self.combobox1402p.connect("changed", self.on_combobox1402p_changed)
         self.combobox1403p.connect("changed", self.on_combobox1403p_changed)
@@ -60,6 +64,8 @@ class NetworkMenu:
 
         self.checkbutton1401p.disconnect_by_func(self.on_checkbutton1401p_toggled)
         self.checkbutton1402p.disconnect_by_func(self.on_checkbutton1402p_toggled)
+        self.radiobutton1401p.disconnect_by_func(self.on_radiobutton1401p_toggled)
+        self.radiobutton1402p.disconnect_by_func(self.on_radiobutton1402p_toggled)
         self.combobox1401p.disconnect_by_func(self.on_combobox1401p_changed)
         self.combobox1402p.disconnect_by_func(self.on_combobox1402p_changed)
         self.combobox1403p.disconnect_by_func(self.on_combobox1403p_changed)
@@ -105,6 +111,30 @@ class NetworkMenu:
                 widget.set_active(True)
                 return
             Config.plot_network_upload_speed = 0
+
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "Selected Device" Radiobutton -----------------------
+    def on_radiobutton1401p_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.show_network_usage_per_network_card = 0
+
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "All Devices" Radiobutton -----------------------
+    def on_radiobutton1402p_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.show_network_usage_per_network_card = 1
 
         # Apply changes immediately (without waiting update interval).
         Network.network_initial_func()
@@ -224,6 +254,12 @@ class NetworkMenu:
             self.checkbutton1402p.set_active(True)
         if Config.plot_network_upload_speed == 0:
             self.checkbutton1402p.set_active(False)
+
+        # Select radiobutton appropriate for seleted/all devices chart setting
+        if Config.show_network_usage_per_network_card == 0:
+            self.radiobutton1401p.set_active(True)
+        if Config.show_network_usage_per_network_card == 1:
+            self.radiobutton1402p.set_active(True)
 
         # Add Network speed data precision data into combobox
         liststore1401p = Gtk.ListStore()

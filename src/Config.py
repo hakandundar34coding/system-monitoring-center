@@ -151,6 +151,7 @@ class Config:
 
         self.chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
         self.chart_line_color_disk_speed_usage = [1.0, 0.44, 0.17, 1.0]
+        self.show_disk_usage_per_disk = 0
         self.performance_disk_speed_data_precision = 1
         self.performance_disk_usage_data_precision = 1
         self.performance_disk_speed_data_unit = 0
@@ -165,6 +166,7 @@ class Config:
 
         self.chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
         self.chart_line_color_network_speed_data = [0.56, 0.30, 0.78, 1.0]
+        self.show_network_usage_per_network_card = 0
         self.performance_network_speed_data_precision = 1
         self.performance_network_data_data_precision = 2
         self.performance_network_speed_data_unit = 0
@@ -315,6 +317,7 @@ class Config:
         self.performance_ram_swap_data_unit = int(config_values[config_variables.index("performance_ram_swap_data_unit")])
 
         self.chart_line_color_disk_speed_usage = [float(value) for value in config_values[config_variables.index("chart_line_color_disk_speed_usage")].strip("[]").split(", ")]
+        self.show_disk_usage_per_disk = int(config_values[config_variables.index("show_disk_usage_per_disk")])
         self.performance_disk_speed_data_precision = int(config_values[config_variables.index("performance_disk_speed_data_precision")])
         self.performance_disk_usage_data_precision = int(config_values[config_variables.index("performance_disk_usage_data_precision")])
         self.performance_disk_speed_data_unit = int(config_values[config_variables.index("performance_disk_speed_data_unit")])
@@ -324,6 +327,7 @@ class Config:
         self.selected_disk = config_values[config_variables.index("selected_disk")]
 
         self.chart_line_color_network_speed_data = [float(value) for value in config_values[config_variables.index("chart_line_color_network_speed_data")].strip("[]").split(", ")]
+        self.show_network_usage_per_network_card = int(config_values[config_variables.index("show_network_usage_per_network_card")])
         self.performance_network_speed_data_precision = int(config_values[config_variables.index("performance_network_speed_data_precision")])
         self.performance_network_data_data_precision = int(config_values[config_variables.index("performance_network_data_data_precision")])
         self.performance_network_speed_data_unit = int(config_values[config_variables.index("performance_network_speed_data_unit")])
@@ -410,6 +414,7 @@ class Config:
 
         config_write_text = config_write_text + "[Performance Tab - Disk]" + "\n"
         config_write_text = config_write_text + "chart_line_color_disk_speed_usage = " + str(self.chart_line_color_disk_speed_usage) + "\n"
+        config_write_text = config_write_text + "show_disk_usage_per_disk = " + str(self.show_disk_usage_per_disk) + "\n"
         config_write_text = config_write_text + "performance_disk_speed_data_precision = " + str(self.performance_disk_speed_data_precision) + "\n"
         config_write_text = config_write_text + "performance_disk_usage_data_precision = " + str(self.performance_disk_usage_data_precision) + "\n"
         config_write_text = config_write_text + "performance_disk_speed_data_unit = " + str(self.performance_disk_speed_data_unit) + "\n"
@@ -421,6 +426,7 @@ class Config:
 
         config_write_text = config_write_text + "[Performance Tab - Network]" + "\n"
         config_write_text = config_write_text + "chart_line_color_network_speed_data = " + str(self.chart_line_color_network_speed_data) + "\n"
+        config_write_text = config_write_text + "show_network_usage_per_network_card = " + str(self.show_network_usage_per_network_card) + "\n"
         config_write_text = config_write_text + "performance_network_speed_data_precision = " + str(self.performance_network_speed_data_precision) + "\n"
         config_write_text = config_write_text + "performance_network_data_data_precision = " + str(self.performance_network_data_data_precision) + "\n"
         config_write_text = config_write_text + "performance_network_speed_data_unit = " + str(self.performance_network_speed_data_unit) + "\n"
