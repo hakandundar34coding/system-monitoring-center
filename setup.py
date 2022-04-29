@@ -36,7 +36,7 @@ setup(
     author="Hakan Dündar",
     author_email="hakandundar34coding@gmail.com",
     url="https://github.com/hakandundar34coding/system-monitoring-center",
-    keywords="system monitor task manager center performance speed frequency usage cpu ram swap memory storage network download fps ratio processes users startup services os",
+    keywords="system monitor task manager center performance speed frequency usage cpu ram swap memory storage network download gpu ratio processes users startup services os",
     license="GPLv3",
     install_requires=["PyGObject", "pycairo"],
     python_requires=">=3.6",
