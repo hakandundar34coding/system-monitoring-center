@@ -45,7 +45,8 @@ Hakan Dündar (Türkçe)</property>
   <object class="GtkPopover" id="popover1001p">
     <property name="can-focus">False</property>
     <child>
-      <object class="GtkButtonBox">
+      <!-- n-columns=1 n-rows=2 -->
+      <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="margin-start">5</property>
@@ -53,7 +54,6 @@ Hakan Dündar (Türkçe)</property>
         <property name="margin-top">5</property>
         <property name="margin-bottom">5</property>
         <property name="orientation">vertical</property>
-        <property name="layout-style">expand</property>
         <child>
           <object class="GtkButton" id="button1001p">
             <property name="visible">True</property>
@@ -94,9 +94,8 @@ Hakan Dündar (Türkçe)</property>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
           </packing>
         </child>
         <child>
@@ -139,11 +138,13 @@ Hakan Dündar (Türkçe)</property>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="left-attach">0</property>
+            <property name="top-attach">1</property>
           </packing>
         </child>
+        <style>
+          <class name="linked"/>
+        </style>
       </object>
     </child>
   </object>

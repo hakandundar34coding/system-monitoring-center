@@ -43,9 +43,6 @@ class SettingsGUI:
         self.button2002.connect("clicked", self.on_button2002_clicked)
         self.button2004.connect("clicked", self.on_button2004_clicked)
 
-        # Set button color as "red" (this color may be changed by different Linux distributions).
-        self.button2004.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION)
-
         # Define data lists in order to add them into comboboxes.
         self.update_interval_list = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 5.0, 10.0]
         self.chart_data_history_list = [30, 60, 90, 120, 150, 180, 300, 600, 1200]

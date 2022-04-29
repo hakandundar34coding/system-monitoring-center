@@ -365,6 +365,9 @@
                 </child>
               </object>
             </child>
+            <style>
+              <class name="destructive-action"/>
+            </style>
           </object>
           <packing>
             <property name="left-attach">0</property>
