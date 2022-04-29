@@ -55,27 +55,6 @@ Hakan Dündar (Türkçe)</property>
         <property name="orientation">vertical</property>
         <property name="layout-style">expand</property>
         <child>
-          <object class="GtkButton" id="button1003p">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <child>
-              <object class="GtkCheckButton" id="checkbutton1001p">
-                <property name="label" translatable="yes">Floating Summary</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="draw-indicator">True</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkButton" id="button1001p">
             <property name="visible">True</property>
             <property name="can-focus">True</property>

@@ -136,7 +136,7 @@ class MainGUI:
             if remember_window_size[1] == 0:
                 widget.resize(remember_window_size[2], remember_window_size[3])
 
-        # Run "Performance" module in order to provide performance data to Performance tab, performance summary on the headerbar and Floating Summary window.
+        # Run "Performance" module in order to provide performance data to Performance tab and performance summary on the headerbar.
         global Performance
         from Performance import Performance
         # Function is run directly without using "GLib.idle_add([function_name])" in order to avoid errors which are given if another threads (such as threads in CPU module) run before this function is finished.
@@ -146,11 +146,6 @@ class MainGUI:
         if Config.performance_summary_on_the_headerbar == 1:
             from PerformanceSummaryHeaderbar import PerformanceSummaryHeaderbar
             self.headerbar1.pack_start(PerformanceSummaryHeaderbar.grid101)
-
-        # Show Floating Summary Window on application start.
-        if Config.show_floating_summary == 1:
-            from FloatingSummary import FloatingSummary
-            FloatingSummary.window3001.show()
 
         # Define these settings (they are not saved to file) in order to avoid error on the first call of "main_gui_tab_loop_func" function.
         Config.current_main_tab = -1
@@ -500,10 +495,6 @@ class MainGUI:
         if Config.performance_summary_on_the_headerbar == 1:
             from PerformanceSummaryHeaderbar import PerformanceSummaryHeaderbar
             GLib.idle_add(PerformanceSummaryHeaderbar.performance_summary_headerbar_loop_func)
-
-        if Config.show_floating_summary == 1:
-            from FloatingSummary import FloatingSummary
-            GLib.idle_add(FloatingSummary.floating_summary_loop_func)
 
         if current_main_tab == 0:
             if performance_tab_current_sub_tab == 0:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 09:52+0300\n"
+"POT-Creation-Date: 2022-04-29 12:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Partition"
 msgstr ""
 
-#: src/Disk.py:235 src/Disk.py:495 src/Disk.py:509 src/SettingsGUI.py:61
+#: src/Disk.py:235 src/Disk.py:495 src/Disk.py:509 src/SettingsGUI.py:53
 #: ui/DiskDetailsWindow.ui:45 ui/DiskTab.ui:435 ui/MainWindow.ui:265
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
 msgid "Disk"
@@ -64,53 +64,13 @@ msgstr ""
 msgid "Disk Details"
 msgstr ""
 
-#: src/FloatingSummary.py:135 src/Processes.py:228 src/SettingsGUI.py:61
-#: src/Users.py:186 ui/CpuMenus.ui:387 ui/CpuTab.ui:343 ui/MainWindow.ui:169
-#: ui/PerformanceSummaryHeaderBarGrid.ui:17 ui/ProcessesDetailsWindow.ui:113
-#: ui/ProcessesDetailsWindow.ui:741 ui/ProcessesDetailsWindow.ui:846
-#: ui/ProcessesMenuCustomizations.ui:421 ui/ProcessesMenuCustomizations.ui:734
-#: ui/SettingsWindow.ui:373 ui/UsersDetailsWindow.ui:175
-#: ui/UsersMenuCustomizations.ui:334
-msgid "CPU"
-msgstr ""
-
-#: src/FloatingSummary.py:137 src/Performance.py:536 src/Ram.py:147
-#: src/SettingsGUI.py:61 ui/PerformanceSummaryHeaderBarGrid.ui:52
-#: ui/RamMenus.ui:314 ui/RamTab.ui:28 ui/SettingsWindow.ui:387
-msgid "RAM"
-msgstr ""
-
-#: src/FloatingSummary.py:139
-msgid "Disk R+W"
-msgstr ""
-
-#: src/FloatingSummary.py:141
-msgid "Disk R"
-msgstr ""
-
-#: src/FloatingSummary.py:143
-msgid "Disk W"
-msgstr ""
-
-#: src/FloatingSummary.py:145
-msgid "Network D+U"
-msgstr ""
-
-#: src/FloatingSummary.py:147
-msgid "Network D"
-msgstr ""
-
-#: src/FloatingSummary.py:149
-msgid "Network U"
-msgstr ""
-
-#: src/MainGUI.py:174
+#: src/MainGUI.py:169
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
 msgstr ""
 
-#: src/MainGUI.py:225
+#: src/MainGUI.py:220
 msgid "There is a newer version on PyPI."
 msgstr ""
 
@@ -124,6 +84,11 @@ msgstr ""
 
 #: src/Network.py:113
 msgid "Wi-Fi"
+msgstr ""
+
+#: src/Performance.py:536 src/Ram.py:147 src/SettingsGUI.py:53
+#: ui/PerformanceSummaryHeaderBarGrid.ui:52 ui/RamMenus.ui:314 ui/RamTab.ui:28
+msgid "RAM"
 msgstr ""
 
 #: src/Performance.py:536 src/Ram.py:174 ui/ProcessesDetailsWindow.ui:915
@@ -152,6 +117,15 @@ msgstr ""
 #: src/Processes.py:227 ui/ProcessesDetailsWindow.ui:74
 #: ui/ProcessesMenuCustomizations.ui:407
 msgid "Status"
+msgstr ""
+
+#: src/Processes.py:228 src/SettingsGUI.py:53 src/Users.py:186
+#: ui/CpuMenus.ui:387 ui/CpuTab.ui:343 ui/MainWindow.ui:169
+#: ui/PerformanceSummaryHeaderBarGrid.ui:17 ui/ProcessesDetailsWindow.ui:113
+#: ui/ProcessesDetailsWindow.ui:741 ui/ProcessesDetailsWindow.ui:846
+#: ui/ProcessesMenuCustomizations.ui:421 ui/ProcessesMenuCustomizations.ui:734
+#: ui/UsersDetailsWindow.ui:175 ui/UsersMenuCustomizations.ui:334
+msgid "CPU"
 msgstr ""
 
 #: src/Processes.py:229 src/Services.py:188 src/Users.py:187
@@ -184,12 +158,12 @@ msgstr ""
 
 #: src/Processes.py:234 ui/ProcessesDetailsWindow.ui:139
 #: ui/ProcessesDetailsWindow.ui:664 ui/ProcessesDetailsWindow.ui:1322
-#: ui/ProcessesMenuCustomizations.ui:533 ui/SettingsWindow.ui:401
+#: ui/ProcessesMenuCustomizations.ui:533
 msgid "Disk Read Speed"
 msgstr ""
 
 #: src/Processes.py:235 ui/ProcessesDetailsWindow.ui:1335
-#: ui/ProcessesMenuCustomizations.ui:547 ui/SettingsWindow.ui:415
+#: ui/ProcessesMenuCustomizations.ui:547
 msgid "Disk Write Speed"
 msgstr ""
 
@@ -270,7 +244,7 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
-#: src/Processes.py:660 src/SettingsGUI.py:60 src/Users.py:179
+#: src/Processes.py:660 src/SettingsGUI.py:52 src/Users.py:179
 #: ui/MainWindow.ui:603 ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:306
 msgid "Processes"
@@ -372,7 +346,7 @@ msgstr ""
 msgid "Max Value"
 msgstr ""
 
-#: src/Sensors.py:401 src/SettingsGUI.py:61 ui/MainWindow.ui:409
+#: src/Sensors.py:401 src/SettingsGUI.py:53 ui/MainWindow.ui:409
 #: ui/SensorsTab.ui:77
 msgid "Sensors"
 msgstr ""
@@ -454,7 +428,7 @@ msgstr ""
 msgid "Exited"
 msgstr ""
 
-#: src/Services.py:493 src/SettingsGUI.py:60 ui/MainWindow.ui:750
+#: src/Services.py:493 src/SettingsGUI.py:52 ui/MainWindow.ui:750
 #: ui/ServicesTab.ui:61
 msgid "Services"
 msgstr ""
@@ -463,33 +437,33 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: src/SettingsGUI.py:60 ui/MainWindow.ui:554
+#: src/SettingsGUI.py:52 ui/MainWindow.ui:554
 msgid "Performance"
 msgstr ""
 
-#: src/SettingsGUI.py:60 src/Users.py:559 ui/MainWindow.ui:652
+#: src/SettingsGUI.py:52 src/Users.py:559 ui/MainWindow.ui:652
 #: ui/UsersTab.ui:60
 msgid "Users"
 msgstr ""
 
-#: src/SettingsGUI.py:60 ui/MainWindow.ui:701 ui/StartupTab.ui:48
+#: src/SettingsGUI.py:52 ui/MainWindow.ui:701 ui/StartupTab.ui:48
 msgid "Startup"
 msgstr ""
 
-#: src/SettingsGUI.py:60 ui/MainWindow.ui:799 ui/SystemTab.ui:26
+#: src/SettingsGUI.py:52 ui/MainWindow.ui:799 ui/SystemTab.ui:26
 msgid "System"
 msgstr ""
 
-#: src/SettingsGUI.py:61 ui/MainWindow.ui:313 ui/NetworkTab.ui:405
+#: src/SettingsGUI.py:53 ui/MainWindow.ui:313 ui/NetworkTab.ui:405
 #: ui/PerformanceSummaryHeaderBarGrid.ui:114
 msgid "Network"
 msgstr ""
 
-#: src/SettingsGUI.py:61 ui/GpuTab.ui:402 ui/MainWindow.ui:361
+#: src/SettingsGUI.py:53 ui/GpuTab.ui:402 ui/MainWindow.ui:361
 msgid "GPU"
 msgstr ""
 
-#: src/SettingsGUI.py:669
+#: src/SettingsGUI.py:534
 msgid "Do you want to reset all settings to defaults?"
 msgstr ""
 
@@ -616,7 +590,7 @@ msgstr ""
 #: ui/CpuMenus.ui:298 ui/DiskMenus.ui:113 ui/GpuMenus.ui:162
 #: ui/NetworkMenus.ui:113 ui/ProcessesMenuCustomizations.ui:994
 #: ui/RamMenus.ui:135 ui/ServicesMenuCustomizations.ui:429
-#: ui/SettingsWindow.ui:649 ui/UsersMenuCustomizations.ui:485
+#: ui/SettingsWindow.ui:229 ui/UsersMenuCustomizations.ui:485
 msgid "Reset All"
 msgstr ""
 
@@ -639,11 +613,7 @@ msgstr ""
 #: ui/DiskDetailsWindow.ui:718 ui/DiskTab.ui:94 ui/DiskTab.ui:111
 #: ui/DiskTab.ui:128 ui/DiskTab.ui:145 ui/DiskTab.ui:188 ui/DiskTab.ui:218
 #: ui/DiskTab.ui:265 ui/DiskTab.ui:302 ui/DiskTab.ui:343 ui/DiskTab.ui:373
-#: ui/DiskTab.ui:474 ui/DiskTab.ui:489 ui/FloatingSummaryWindow.ui:19
-#: ui/FloatingSummaryWindow.ui:31 ui/FloatingSummaryWindow.ui:43
-#: ui/FloatingSummaryWindow.ui:55 ui/FloatingSummaryWindow.ui:67
-#: ui/FloatingSummaryWindow.ui:79 ui/FloatingSummaryWindow.ui:91
-#: ui/FloatingSummaryWindow.ui:103 ui/GpuTab.ui:79 ui/GpuTab.ui:96
+#: ui/DiskTab.ui:474 ui/DiskTab.ui:489 ui/GpuTab.ui:79 ui/GpuTab.ui:96
 #: ui/GpuTab.ui:113 ui/GpuTab.ui:156 ui/GpuTab.ui:173 ui/GpuTab.ui:203
 #: ui/GpuTab.ui:233 ui/GpuTab.ui:250 ui/GpuTab.ui:293 ui/GpuTab.ui:310
 #: ui/GpuTab.ui:441 ui/GpuTab.ui:459 ui/NetworkTab.ui:133 ui/NetworkTab.ui:150
@@ -1004,15 +974,11 @@ msgstr ""
 msgid "Web Page"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:64 ui/SettingsWindow.ui:577
-msgid "Floating Summary"
-msgstr ""
-
-#: ui/MainMenusDialogs.ui:107
+#: ui/MainMenusDialogs.ui:86
 msgid "Settings"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:152
+#: ui/MainMenusDialogs.ui:131
 msgid "About"
 msgstr ""
 
@@ -1098,11 +1064,11 @@ msgstr ""
 msgid "Network Interface Controller (NIC) Name"
 msgstr ""
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:66 ui/SettingsWindow.ui:429
+#: ui/PerformanceSummaryHeaderBarGrid.ui:66
 msgid "Disk Read+Write Speed"
 msgstr ""
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:112 ui/SettingsWindow.ui:443
+#: ui/PerformanceSummaryHeaderBarGrid.ui:112
 msgid "Network Download+Upload Speed"
 msgstr ""
 
@@ -1218,7 +1184,6 @@ msgid "Row Sorting,"
 msgstr ""
 
 #: ui/ProcessesMenuCustomizations.ui:231 ui/ServicesMenuCustomizations.ui:139
-#: ui/SettingsWindow.ui:234 ui/SettingsWindow.ui:528
 #: ui/UsersMenuCustomizations.ui:139
 msgid "Reset"
 msgstr ""
@@ -1380,7 +1345,7 @@ msgstr ""
 msgid "Can Reload?"
 msgstr ""
 
-#: ui/ServicesDetailsWindow.ui:693 ui/SettingsWindow.ui:338
+#: ui/ServicesDetailsWindow.ui:693
 msgid "General"
 msgstr ""
 
@@ -1453,63 +1418,47 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
-#: ui/SettingsWindow.ui:38
+#: ui/SettingsWindow.ui:32
 msgid "Update interval (seconds):"
 msgstr ""
 
-#: ui/SettingsWindow.ui:60
+#: ui/SettingsWindow.ui:54
 msgid "Default main tab:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:79
+#: ui/SettingsWindow.ui:73
 msgid "Remember last opened tabs"
 msgstr ""
 
-#: ui/SettingsWindow.ui:97
+#: ui/SettingsWindow.ui:91
 msgid "Performance tab default sub-tab:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:116
+#: ui/SettingsWindow.ui:110
 msgid "Show performance summary on the headerbar"
 msgstr ""
 
-#: ui/SettingsWindow.ui:134
+#: ui/SettingsWindow.ui:128
 msgid "Chart data history:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:153
+#: ui/SettingsWindow.ui:147
 msgid "Remember last selected hardware"
 msgstr ""
 
-#: ui/SettingsWindow.ui:265
+#: ui/SettingsWindow.ui:260
 msgid "Remember window size"
 msgstr ""
 
-#: ui/SettingsWindow.ui:306
+#: ui/SettingsWindow.ui:301
 msgid "Check for updates automatically"
 msgstr ""
 
-#: ui/SettingsWindow.ui:324
+#: ui/SettingsWindow.ui:319
 msgid "(If the application is run without root privileges.)"
 msgstr ""
 
-#: ui/SettingsWindow.ui:457
-msgid "Network Download Speed"
-msgstr ""
-
-#: ui/SettingsWindow.ui:471
-msgid "Network Upload Speed"
-msgstr ""
-
-#: ui/SettingsWindow.ui:489
-msgid "Show/Hide Performance Information"
-msgstr ""
-
-#: ui/SettingsWindow.ui:549
-msgid "Window transparency:"
-msgstr ""
-
-#: ui/SettingsWindow.ui:614
+#: ui/SettingsWindow.ui:348
 msgid "Reset all settings of the application to defaults"
 msgstr ""
 

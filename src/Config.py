@@ -86,7 +86,6 @@ class Config:
     def config_default_reset_all_func(self):
 
         self.config_default_general_general_func()
-        self.config_default_general_floating_summary_func()
         self.config_default_performance_cpu_func()
         self.config_default_performance_ram_func()
         self.config_default_performance_disk_func()
@@ -117,14 +116,6 @@ class Config:
         self.remember_last_selected_hardware = 0
         self.remember_window_size = [0, 0, 0, 0]
         self.check_for_updates_automatically = 1
-
-
-    # ----------------------- Called for default Floating Summary settings -----------------------
-    def config_default_general_floating_summary_func(self):
-
-        self.show_floating_summary = 0
-        self.floating_summary_window_transparency = 0.6
-        self.floating_summary_data_shown = [0, 1]
 
 
     # ----------------------- Called for default CPU Tab settings -----------------------
@@ -304,10 +295,6 @@ class Config:
         self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
         self.check_for_updates_automatically = int(config_values[config_variables.index("check_for_updates_automatically")])
 
-        self.show_floating_summary = int(config_values[config_variables.index("show_floating_summary")])
-        self.floating_summary_window_transparency = float(config_values[config_variables.index("floating_summary_window_transparency")])
-        self.floating_summary_data_shown = [int(value) for value in config_values[config_variables.index("floating_summary_data_shown")].strip("[]").split(", ")]
-
         self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
         self.performance_cpu_usage_percent_precision = int(config_values[config_variables.index("performance_cpu_usage_percent_precision")])
@@ -393,12 +380,6 @@ class Config:
         config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
         config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
         config_write_text = config_write_text + "check_for_updates_automatically = " + str(self.check_for_updates_automatically) + "\n"
-        config_write_text = config_write_text + "\n"
-
-        config_write_text = config_write_text + "[General - Floating Summary]" + "\n"
-        config_write_text = config_write_text + "show_floating_summary = " + str(self.show_floating_summary) + "\n"
-        config_write_text = config_write_text + "floating_summary_window_transparency = " + str(self.floating_summary_window_transparency) + "\n"
-        config_write_text = config_write_text + "floating_summary_data_shown = " + str(self.floating_summary_data_shown) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - CPU]" + "\n"
