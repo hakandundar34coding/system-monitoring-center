@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-26 18:19+0300\n"
-"PO-Revision-Date: 2022-04-26 18:24+0300\n"
+"POT-Creation-Date: 2022-04-29 09:52+0300\n"
+"PO-Revision-Date: 2022-04-29 09:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -35,29 +35,29 @@ msgstr "Bilinmiyor"
 msgid "Partition"
 msgstr "Disk bölümü"
 
-#: src/Disk.py:235 src/Disk.py:492 src/Disk.py:506 src/SettingsGUI.py:61
+#: src/Disk.py:235 src/Disk.py:495 src/Disk.py:509 src/SettingsGUI.py:61
 #: ui/DiskDetailsWindow.ui:45 ui/DiskTab.ui:435 ui/MainWindow.ui:265
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
 msgid "Disk"
 msgstr "Disk"
 
-#: src/Disk.py:278 src/Disk.py:383
+#: src/Disk.py:278 src/Disk.py:386
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
-#: src/Disk.py:358 src/Gpu.py:202 src/Gpu.py:205 src/Network.py:180
+#: src/Disk.py:361 src/Gpu.py:202 src/Gpu.py:205 src/Network.py:180
 #: src/Network.py:208 src/Services.py:208 src/ServicesDetails.py:132
 #: src/UsersDetails.py:223
 msgid "Yes"
 msgstr "Evet"
 
-#: src/Disk.py:360 src/Gpu.py:207 src/Network.py:182 src/Services.py:208
+#: src/Disk.py:363 src/Gpu.py:207 src/Network.py:182 src/Services.py:208
 #: src/ServicesDetails.py:132 src/UsersDetails.py:225
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:368 src/Disk.py:374 src/Disk.py:428 src/Disk.py:429
-#: src/Disk.py:430 src/Disk.py:431 src/Disk.py:432
+#: src/Disk.py:371 src/Disk.py:377 src/Disk.py:431 src/Disk.py:432
+#: src/Disk.py:433 src/Disk.py:434 src/Disk.py:435
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
@@ -75,9 +75,9 @@ msgstr "Disk Detayları"
 msgid "CPU"
 msgstr "MİB"
 
-#: src/FloatingSummary.py:137 src/Ram.py:149 src/SettingsGUI.py:61
-#: ui/MainWindow.ui:217 ui/PerformanceSummaryHeaderBarGrid.ui:52
-#: ui/RamTab.ui:28 ui/RamTab.ui:475 ui/SettingsWindow.ui:387
+#: src/FloatingSummary.py:137 src/Performance.py:536 src/Ram.py:147
+#: src/SettingsGUI.py:61 ui/PerformanceSummaryHeaderBarGrid.ui:52
+#: ui/RamMenus.ui:314 ui/RamTab.ui:28 ui/SettingsWindow.ui:387
 msgid "RAM"
 msgstr "RAM"
 
@@ -128,6 +128,11 @@ msgstr "Ethernet"
 #: src/Network.py:113
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
+
+#: src/Performance.py:536 src/Ram.py:174 ui/ProcessesDetailsWindow.ui:915
+#: ui/RamTab.ui:309
+msgid "Swap Memory"
+msgstr "Takas Belleği"
 
 #: src/Processes.py:224 src/RamSwapDetails.py:95 src/Services.py:182
 #: src/Startup.py:155 ui/ProcessesDetailsWindow.ui:48
@@ -290,19 +295,15 @@ msgstr "Bu işlemi sonlandırmak istiyor musunuz?"
 msgid "Do you want to kill this process?"
 msgstr "Bu işlemi öldürmek istiyor musunuz?"
 
-#: src/Ram.py:147
+#: src/Ram.py:145
 msgid "Physical RAM"
 msgstr "Fiziksel RAM"
 
-#: src/Ram.py:149 src/RamHardwareInformation.py:126
+#: src/Ram.py:147 src/RamHardwareInformation.py:126
 #: src/RamHardwareInformation.py:146 src/RamSwapDetails.py:97
 #: ui/DiskDetailsWindow.ui:110 ui/DiskDetailsWindow.ui:738
 msgid "Capacity"
 msgstr "Kapasite"
-
-#: src/Ram.py:150 ui/ProcessesDetailsWindow.ui:915 ui/RamTab.ui:309
-msgid "Swap Memory"
-msgstr "Takas Belleği"
 
 #: src/RamHardwareInformation.py:56
 msgid "None"
@@ -590,6 +591,7 @@ msgid "Current Tab Customizations"
 msgstr "Geçerli Sekme Özelleştirmeleri"
 
 #: ui/CpuMenus.ui:54 ui/DiskMenus.ui:419 ui/NetworkMenus.ui:419
+#: ui/RamMenus.ui:379
 msgid "Chart - Show"
 msgstr "Grafik - Göster"
 
@@ -625,8 +627,8 @@ msgstr "Önplan"
 msgid "Reset All"
 msgstr "Hepsini Sıfırla"
 
-#: ui/CpuMenus.ui:346 ui/DiskMenus.ui:495 ui/GpuMenus.ui:210
-#: ui/NetworkMenus.ui:507
+#: ui/CpuMenus.ui:346 ui/DiskMenus.ui:495 ui/DiskMenus.ui:552
+#: ui/GpuMenus.ui:210 ui/NetworkMenus.ui:507 ui/NetworkMenus.ui:552
 msgid "Selected Device"
 msgstr "Seçilen Aygıt"
 
@@ -897,6 +899,10 @@ msgstr "Okuma Hızı"
 msgid "Write Speed"
 msgstr "Yazma Hızı"
 
+#: ui/DiskMenus.ui:566 ui/NetworkMenus.ui:566
+msgid "All Devices"
+msgstr "Tüm Aygıtlar"
+
 #: ui/DiskTab.ui:27
 msgid "Read Speed:"
 msgstr "Okuma Hızı:"
@@ -1016,6 +1022,12 @@ msgstr "Ayarlar"
 #: ui/MainMenusDialogs.ui:152
 msgid "About"
 msgstr "Hakkında"
+
+#: ui/MainWindow.ui:217 ui/ProcessesDetailsWindow.ui:1265
+#: ui/ProcessesMenuCustomizations.ui:745 ui/ProcessesMenuCustomizations.ui:836
+#: ui/RamMenus.ui:328 ui/RamTab.ui:475
+msgid "Memory"
+msgstr "Bellek"
 
 #: ui/MainWindow.ui:828
 msgid "System Monitoring Center"
@@ -1164,11 +1176,6 @@ msgstr "İçerik Değiştirmeleri"
 #: ui/ProcessesDetailsWindow.ui:902
 msgid "Memory (USS)"
 msgstr "Bellek (USS)"
-
-#: ui/ProcessesDetailsWindow.ui:1265 ui/ProcessesMenuCustomizations.ui:745
-#: ui/ProcessesMenuCustomizations.ui:836
-msgid "Memory"
-msgstr "Bellek"
 
 #: ui/ProcessesDetailsWindow.ui:1289
 msgid "CPU and Memory"

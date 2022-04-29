@@ -138,8 +138,6 @@ class Ram:
             # Values in this file are in "KiB" unit. These values are multiplied with 1024 in order to obtain byte (nearly) values.
             if "MemTotal:" in line:
                 ram_total = int(line.split()[1]) * 1024
-            if "SwapTotal:" in line:
-                swap_total = int(line.split()[1]) * 1024
 
 
         # Set RAM tab label texts by using information get
@@ -147,8 +145,6 @@ class Ram:
             self.label1201.set_text(_tr("Physical RAM") + ": " + str(self.performance_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
         else:
              self.label1201.set_text(_tr("RAM") + " - " + _tr("Capacity") + ": " + self.performance_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-        self.label1202.set_text(_tr("Swap Memory") + ": " + str(self.performance_data_unit_converter_func(swap_total, 0, 1)))
-        self.label1205.set_text(self.performance_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
         self.initial_already_run = 1
 
@@ -160,6 +156,12 @@ class Ram:
         ram_usage_percent = Performance.ram_usage_percent
         ram_available = Performance.ram_available
         ram_free = Performance.ram_free
+        ram_total = Performance.ram_total
+
+        self.swap_usage_percent = Performance.swap_usage_percent
+        swap_used = Performance.swap_used
+        swap_free = Performance.swap_free
+        swap_total = Performance.swap_total
 
         performance_ram_swap_data_precision = Config.performance_ram_swap_data_precision
         performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
@@ -167,33 +169,17 @@ class Ram:
         self.drawingarea1201.queue_draw()
         self.drawingarea1202.queue_draw()
 
-        # Get RAM usage values
-        # Read total swap area and free swap area from /proc/meminfo file
-        with open("/proc/meminfo") as reader:
-            memory_info = reader.read().split("\n")
-        for line in memory_info:
-            if line.startswith("SwapTotal:"):
-                swap_total = int(line.split()[1]) * 1024
-            if line.startswith("SwapFree:"):
-                swap_free = int(line.split()[1]) * 1024
-        # Calculate values if swap memory exists.
-        if swap_free != 0:
-            swap_used = swap_total - swap_free
-            self.swap_percent = swap_used / swap_total * 100
-        # Set values as "0" if swap memory does not exist.
-        if swap_free == 0:
-            swap_used = 0
-            self.swap_percent = 0
-
 
         # Set and update RAM tab label texts by using information get
+        self.label1202.set_text(_tr("Swap Memory") + ": " + str(self.performance_data_unit_converter_func(swap_total, 0, 1)))
         self.label1203.set_text(f'{self.performance_data_unit_converter_func(ram_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)} ({ram_usage_percent[-1]:.0f}%)')
         self.label1204.set_text(self.performance_data_unit_converter_func(ram_available, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+        self.label1205.set_text(self.performance_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
         self.label1206.set_text(self.performance_data_unit_converter_func(ram_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-        self.label1207.set_text(f'{self.swap_percent:.0f}%')
+        self.label1207.set_text(f'{self.swap_usage_percent[-1]:.0f}%')
         self.label1208.set_text(f'{self.performance_data_unit_converter_func(swap_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}')
         self.label1209.set_text(self.performance_data_unit_converter_func(swap_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-        self.label1210.set_text(self.performance_data_unit_converter_func((swap_total), performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+        self.label1210.set_text(self.performance_data_unit_converter_func(swap_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
 
 
 # Generate object

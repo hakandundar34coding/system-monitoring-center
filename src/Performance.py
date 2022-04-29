@@ -9,6 +9,8 @@ import os
 import cairo
 from math import sqrt, ceil
 
+from locale import gettext as _tr
+
 from Config import Config
 
 
@@ -115,8 +117,9 @@ class Performance:
         self.cpu_usage_percent_per_core = []
         self.cpu_usage_percent_ave = [0] * self.chart_data_history
 
-        # Define initial values for RAM usage percent
+        # Define initial values for RAM usage percent and swap usage percent
         self.ram_usage_percent = [0] * self.chart_data_history
+        self.swap_usage_percent = [0] * self.chart_data_history
 
         # Define initial values for disk read speed and write speed
         # Disk data from /proc/diskstats are multiplied by 512 in order to find values in the form of byte. Disk sector size for all disk device could be found in "/sys/block/[disk device name such as sda]/queue/hw_sector_size". Linux uses 512 value for all disks without regarding device real block size (source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121).
@@ -200,6 +203,18 @@ class Performance:
         self.ram_used = self.ram_total - self.ram_available
         self.ram_usage_percent.append(self.ram_used / self.ram_total * 100)
         del self.ram_usage_percent[0]
+        # Get swap_usage_percent
+        self.swap_total = int(memory_info.split("\nSwapTotal:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
+        self.swap_free = int(memory_info.split("\nSwapFree:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
+        # Calculate values if swap memory exists.
+        if self.swap_free != 0:
+            self.swap_used = self.swap_total - self.swap_free
+            self.swap_usage_percent.append(self.swap_used / self.swap_total * 100)
+        # Set values as "0" if swap memory does not exist.
+        else:
+            self.swap_used = 0
+            self.swap_usage_percent.append(0)
+        del self.swap_usage_percent[0]
 
         # Get disk_list
         self.disk_list_system_ordered = []
@@ -511,9 +526,14 @@ class Performance:
             chart_line_color = Config.chart_line_color_ram_swap_percent
 
             # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
-            draw_per_device = 0
-            performance_data1 = [self.ram_usage_percent]
-            device_name_list = [""]
+            if Config.show_memory_usage_per_memory == 0:
+                draw_per_device = 0
+                performance_data1 = [self.ram_usage_percent]
+                device_name_list = [""]
+            else:
+                draw_per_device = 1
+                performance_data1 = [self.ram_usage_percent, self.swap_usage_percent]
+                device_name_list = [_tr("RAM"), _tr("Swap Memory")]
 
             # Get which performance data will be drawn.
             draw_performance_data1 = 1
@@ -1019,7 +1039,7 @@ class Performance:
             # Get performance data to be drawn.
             from Ram import Ram
             try:
-                performance_data1 = Ram.swap_percent
+                performance_data1 = Ram.swap_usage_percent[-1]
             # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
             except AttributeError:
                 return

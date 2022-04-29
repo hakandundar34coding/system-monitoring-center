@@ -30,6 +30,8 @@ class RamMenu:
         self.button1203p = builder.get_object('button1203p')
         self.combobox1201p = builder.get_object('combobox1201p')
         self.combobox1202p = builder.get_object('combobox1202p')
+        self.radiobutton1201p = builder.get_object('radiobutton1201p')
+        self.radiobutton1202p = builder.get_object('radiobutton1202p')
         self.colorchooserdialog1201 = Gtk.ColorChooserDialog()
 
         # Connect GUI signals
@@ -42,6 +44,8 @@ class RamMenu:
     # ----------------------- Called for connecting some of the signals in order to disconnect them for setting GUI -----------------------
     def ram_tab_customization_popover_connect_signals_func(self):
 
+        self.radiobutton1201p.connect("toggled", self.on_radiobutton1201p_toggled)
+        self.radiobutton1202p.connect("toggled", self.on_radiobutton1202p_toggled)
         self.combobox1201p.connect("changed", self.on_combobox1201p_changed)
         self.combobox1202p.connect("changed", self.on_combobox1202p_changed)
 
@@ -49,6 +53,8 @@ class RamMenu:
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
     def ram_tab_customization_popover_disconnect_signals_func(self):
 
+        self.radiobutton1201p.disconnect_by_func(self.on_radiobutton1201p_toggled)
+        self.radiobutton1202p.disconnect_by_func(self.on_radiobutton1202p_toggled)
         self.combobox1201p.disconnect_by_func(self.on_combobox1201p_changed)
         self.combobox1202p.disconnect_by_func(self.on_combobox1202p_changed)
 
@@ -62,6 +68,30 @@ class RamMenu:
             pass
         self.ram_tab_popover_set_gui()
         self.ram_tab_customization_popover_connect_signals_func()
+
+
+    # ----------------------- "RAM" Radiobutton -----------------------
+    def on_radiobutton1201p_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.show_memory_usage_per_memory = 0
+
+        # Apply changes immediately (without waiting update interval).
+        Ram.ram_initial_func()
+        Ram.ram_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "Memory" Radiobutton -----------------------
+    def on_radiobutton1202p_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.show_memory_usage_per_memory = 1
+
+        # Apply changes immediately (without waiting update interval).
+        Ram.ram_initial_func()
+        Ram.ram_loop_func()
+        Config.config_save_func()
 
 
     # ----------------------- "foreground and background color" Buttons -----------------------
@@ -130,6 +160,12 @@ class RamMenu:
 
     # ----------------------- Called for setting menu GUI items -----------------------
     def ram_tab_popover_set_gui(self):
+
+        # Select radiobutton appropriate for seleted/all devices chart setting
+        if Config.show_memory_usage_per_memory == 0:
+            self.radiobutton1201p.set_active(True)
+        if Config.show_memory_usage_per_memory == 1:
+            self.radiobutton1202p.set_active(True)
 
         # Add RAM usage data precision data into combobox
         liststore1201p = Gtk.ListStore()
