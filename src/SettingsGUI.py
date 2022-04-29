@@ -428,33 +428,34 @@ class SettingsGUI:
     # ----------------------- Called for applying settings for all opened tabs (since application start) without waiting update interval -----------------------
     def settings_gui_apply_settings_immediately_func(self):
 
+        # If "initial_already_run" variable is set as "0", initial and loop functions of the relevant tab will be run in the next main loop if the tab is already opened or these functions will be run immediately when the relevant tab is switched on even if it is opened before the reset.
         try:
             from MainGUI import Cpu
-            Cpu.cpu_initial_func()
+            Cpu.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Ram
-            Ram.ram_initial_func()
+            Ram.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Disk
-            Disk.disk_initial_func()
+            Disk.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Network
-            Network.network_initial_func()
+            Network.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Gpu
-            Gpu.gpu_initial_func()
+            Gpu.initial_already_run = 0
         except ImportError:
             pass
 
@@ -490,7 +491,7 @@ class SettingsGUI:
 
         try:
             from MainGUI import System
-            System.system_initial_func()
+            System.initial_already_run = 0
         except ImportError:
             pass
 
