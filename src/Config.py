@@ -115,7 +115,7 @@ class Config:
         self.chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
         self.remember_last_selected_hardware = 0
         self.remember_window_size = [0, 0, 0, 0]
-        self.check_for_updates_automatically = 1
+        self.check_for_updates_automatically = 0
 
 
     # ----------------------- Called for default CPU Tab settings -----------------------
