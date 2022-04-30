@@ -7,7 +7,7 @@
   * Removed: Floating Summary window
   * Fix: Temperature and GPU usage for AMD GPUs
   * Fix: Several chart plotting problems
-  * Minor improvements (GUI, perfomance, etc.)
+  * Minor improvements (GUI, performance, etc.)
 
 ### v1.12.1
   * Fix: Prevent app.crash if system locale problem is found
