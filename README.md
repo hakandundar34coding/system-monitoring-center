@@ -55,7 +55,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
     - Brazilian Portuguese, Czech, English, Polish (initial), Turkish
     - More languages will be added if translations are provided by contributors
 - Optimized for low CPU usage and fast start
-- Shows notification if update is available on PyPI
+- Shows notification if update is available on PyPI (disabled by default)
 - Supports ARM architecture
 - Adapts to system theme
 - Free and open sourced
