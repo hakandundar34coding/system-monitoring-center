@@ -44,17 +44,19 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 ### Features:
 - Detailed system performance and usage usage monitoring/managing features:
     - Monitoring CPU, RAM, Disk, Network, GPU hardware information/performance/usage
-    - An always on top and semi-transparent floating summary window for performance monitoring
     - Monitoring and managing processes, users, startup applications and services (systemd)
     - Monitoring sensors and general system information
 - Supports PolicyKit. No need to run the application with "sudo"
 - Hardware selection options (selecting  different CPU cores, disks, network cards, GPUs)
+- Plotting performance data of multiple devices at the same time
 - Interactive charts for querying performance data on any point
 - Option for showing processes as tree or list
 - Language support:
     - Brazilian Portuguese, Czech, English, Polish (initial), Turkish
     - More languages will be added if translations are provided by contributors
 - Optimized for low CPU usage and fast start
+- Shows notification if update is available on PyPI
+- Supports ARM architecture
 - Adapts to system theme
 - Free and open sourced
 
@@ -83,4 +85,5 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 ### Notes:
 - GPU usage information availability depends on vendor/driver.
+- GPU load is not tracked if GPU tab is switched off (for lower CPU usage).
 - Some virtual machines does not provide CPU min-max frequencies, sensors and RAM hardware information.
