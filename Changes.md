@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v1.13.0
+  * New: Plot memory/disk/network usage/speed of all devices
+  * New: Option for process command line column (Processes tab)
+  * New: Check for updates (from PyPI) option
+  * Removed: Floating Summary window
+  * Fix: Temperature and GPU usage for AMD GPUs
+  * Fix: Several chart plotting problems
+  * Minor improvements (GUI, perfomance, etc.)
+
 ### v1.12.1
   * Fix: Prevent app.crash if system locale problem is found
   * Fix: GPU load, temperature, power for some GPUs (GPU tab)

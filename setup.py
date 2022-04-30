@@ -14,12 +14,29 @@ def files_in_folder(folder):
     return file_paths
 
 
+os.chmod("integration/com.github.hakand34.system-monitoring-center.desktop", 0o644)
+os.chmod("locale/cs/LC_MESSAGES/system-monitoring-center.mo", 0o644)
+os.chmod("locale/pl/LC_MESSAGES/system-monitoring-center.mo", 0o644)
+os.chmod("locale/pt_BR/LC_MESSAGES/system-monitoring-center.mo", 0o644)
+os.chmod("locale/tr/LC_MESSAGES/system-monitoring-center.mo", 0o644)
+for file in files_in_folder("database/"):
+    os.chmod(file, 0o644)
+for file in files_in_folder("src/"):
+    os.chmod(file, 0o644)
+for file in files_in_folder("ui/"):
+    os.chmod(file, 0o644)
+for file in files_in_folder("icons/hicolor/scalable/actions/"):
+    os.chmod(file, 0o644)
+os.chmod("icons/hicolor/scalable/apps/system-monitoring-center.svg", 0o644)
+
+
 data_files = [
     ("/usr/share/applications/", ["integration/com.github.hakand34.system-monitoring-center.desktop"]),
-    ("/usr/share/system-monitoring-center/locale/cs/LC_MESSAGES/", ["locale/cs/system-monitoring-center.mo"]),
-    ("/usr/share/system-monitoring-center/locale/pl/LC_MESSAGES/", ["locale/pl/system-monitoring-center.mo"]),
-    ("/usr/share/system-monitoring-center/locale/pt_BR/LC_MESSAGES/", ["locale/pt_BR/system-monitoring-center.mo"]),
-    ("/usr/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/system-monitoring-center.mo"]),
+    ("/usr/share/polkit-1/actions/", ["integration/com.github.hakand34.system-monitoring-center.policy"]),
+    ("/usr/share/system-monitoring-center/locale/cs/LC_MESSAGES/", ["locale/cs/LC_MESSAGES/system-monitoring-center.mo"]),
+    ("/usr/share/system-monitoring-center/locale/pl/LC_MESSAGES/", ["locale/pl/LC_MESSAGES/system-monitoring-center.mo"]),
+    ("/usr/share/system-monitoring-center/locale/pt_BR/LC_MESSAGES/", ["locale/pt_BR/LC_MESSAGES/system-monitoring-center.mo"]),
+    ("/usr/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/usr/share/system-monitoring-center/database/", files_in_folder("database/")),
     ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
     ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
@@ -38,7 +55,7 @@ setup(
     author="Hakan Dündar",
     author_email="hakandundar34coding@gmail.com",
     url="https://github.com/hakandundar34coding/system-monitoring-center",
-    keywords="system monitor task manager center performance speed frequency usage cpu ram swap memory storage network download fps ratio processes users startup services os",
+    keywords="system monitor task manager center performance speed frequency usage cpu ram swap memory storage network download gpu ratio processes users startup services os",
     license="GPLv3",
     install_requires=["PyGObject"],
     python_requires=">=3.6",

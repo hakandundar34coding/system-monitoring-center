@@ -42,7 +42,7 @@ class Config:
         # Code reads this value from the config file and compares with the value in the code.
         # All settings are reset if integer value of this value is bigger than the value in the config file.
         # There is no action if integer value of this value is smaller than the value in the config file.
-        self.reset_all_settings_with_new_release_value = 2
+        self.reset_all_settings_with_new_release_value = 3
         self.config_variables = []
         self.config_values = []
 
@@ -86,7 +86,6 @@ class Config:
     def config_default_reset_all_func(self):
 
         self.config_default_general_general_func()
-        self.config_default_general_floating_summary_func()
         self.config_default_performance_cpu_func()
         self.config_default_performance_ram_func()
         self.config_default_performance_disk_func()
@@ -116,14 +115,7 @@ class Config:
         self.chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
         self.remember_last_selected_hardware = 0
         self.remember_window_size = [0, 0, 0, 0]
-
-
-    # ----------------------- Called for default Floating Summary settings -----------------------
-    def config_default_general_floating_summary_func(self):
-
-        self.show_floating_summary = 0
-        self.floating_summary_window_transparency = 0.6
-        self.floating_summary_data_shown = [0, 1]
+        self.check_for_updates_automatically = 0
 
 
     # ----------------------- Called for default CPU Tab settings -----------------------
@@ -141,6 +133,7 @@ class Config:
 
         self.chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
         self.chart_line_color_ram_swap_percent = [0.27, 0.49, 1.0, 1.0]
+        self.show_memory_usage_per_memory = 0
         self.performance_ram_swap_data_precision = 1
         self.performance_ram_swap_data_unit = 0
 
@@ -150,6 +143,7 @@ class Config:
 
         self.chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
         self.chart_line_color_disk_speed_usage = [1.0, 0.44, 0.17, 1.0]
+        self.show_disk_usage_per_disk = 0
         self.performance_disk_speed_data_precision = 1
         self.performance_disk_usage_data_precision = 1
         self.performance_disk_speed_data_unit = 0
@@ -164,6 +158,7 @@ class Config:
 
         self.chart_background_color_all_charts = [0.0, 0.0, 0.0, 0.0]
         self.chart_line_color_network_speed_data = [0.56, 0.30, 0.78, 1.0]
+        self.show_network_usage_per_network_card = 0
         self.performance_network_speed_data_precision = 1
         self.performance_network_data_data_precision = 2
         self.performance_network_speed_data_unit = 0
@@ -207,8 +202,8 @@ class Config:
         self.processes_treeview_columns_shown = [0, 1, 2, 4, 5, 10, 11]
         self.processes_data_row_sorting_column = 0
         self.processes_data_row_sorting_order = 0
-        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
-        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
     # ----------------------- Called for default Processes Tab Row Sort Column Order Width settings -----------------------
@@ -216,8 +211,8 @@ class Config:
 
         self.processes_data_row_sorting_column = 0
         self.processes_data_row_sorting_order = 0
-        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
-        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
     # ----------------------- Called for default Users Tab settings -----------------------
@@ -297,14 +292,8 @@ class Config:
         self.remember_last_opened_tabs_on_application_start = int(config_values[config_variables.index("remember_last_opened_tabs_on_application_start")])
         self.chart_background_color_all_charts = [float(value) for value in config_values[config_variables.index("chart_background_color_all_charts")].strip("[]").split(", ")]
         self.remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
-        if "remember_window_size" in config_variables:
-            self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
-        else:
-            pass
-
-        self.show_floating_summary = int(config_values[config_variables.index("show_floating_summary")])
-        self.floating_summary_window_transparency = float(config_values[config_variables.index("floating_summary_window_transparency")])
-        self.floating_summary_data_shown = [int(value) for value in config_values[config_variables.index("floating_summary_data_shown")].strip("[]").split(", ")]
+        self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
+        self.check_for_updates_automatically = int(config_values[config_variables.index("check_for_updates_automatically")])
 
         self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
@@ -312,10 +301,12 @@ class Config:
         self.selected_cpu_core = config_values[config_variables.index("selected_cpu_core")]
 
         self.chart_line_color_ram_swap_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_ram_swap_percent")].strip("[]").split(", ")]
+        self.show_memory_usage_per_memory = int(config_values[config_variables.index("show_memory_usage_per_memory")])
         self.performance_ram_swap_data_precision = int(config_values[config_variables.index("performance_ram_swap_data_precision")])
         self.performance_ram_swap_data_unit = int(config_values[config_variables.index("performance_ram_swap_data_unit")])
 
         self.chart_line_color_disk_speed_usage = [float(value) for value in config_values[config_variables.index("chart_line_color_disk_speed_usage")].strip("[]").split(", ")]
+        self.show_disk_usage_per_disk = int(config_values[config_variables.index("show_disk_usage_per_disk")])
         self.performance_disk_speed_data_precision = int(config_values[config_variables.index("performance_disk_speed_data_precision")])
         self.performance_disk_usage_data_precision = int(config_values[config_variables.index("performance_disk_usage_data_precision")])
         self.performance_disk_speed_data_unit = int(config_values[config_variables.index("performance_disk_speed_data_unit")])
@@ -325,6 +316,7 @@ class Config:
         self.selected_disk = config_values[config_variables.index("selected_disk")]
 
         self.chart_line_color_network_speed_data = [float(value) for value in config_values[config_variables.index("chart_line_color_network_speed_data")].strip("[]").split(", ")]
+        self.show_network_usage_per_network_card = int(config_values[config_variables.index("show_network_usage_per_network_card")])
         self.performance_network_speed_data_precision = int(config_values[config_variables.index("performance_network_speed_data_precision")])
         self.performance_network_data_data_precision = int(config_values[config_variables.index("performance_network_data_data_precision")])
         self.performance_network_speed_data_unit = int(config_values[config_variables.index("performance_network_speed_data_unit")])
@@ -387,12 +379,7 @@ class Config:
         config_write_text = config_write_text + "chart_background_color_all_charts = " + str(self.chart_background_color_all_charts) + "\n"
         config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
         config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
-        config_write_text = config_write_text + "\n"
-
-        config_write_text = config_write_text + "[General - Floating Summary]" + "\n"
-        config_write_text = config_write_text + "show_floating_summary = " + str(self.show_floating_summary) + "\n"
-        config_write_text = config_write_text + "floating_summary_window_transparency = " + str(self.floating_summary_window_transparency) + "\n"
-        config_write_text = config_write_text + "floating_summary_data_shown = " + str(self.floating_summary_data_shown) + "\n"
+        config_write_text = config_write_text + "check_for_updates_automatically = " + str(self.check_for_updates_automatically) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - CPU]" + "\n"
@@ -404,12 +391,14 @@ class Config:
 
         config_write_text = config_write_text + "[Performance Tab - RAM]" + "\n"
         config_write_text = config_write_text + "chart_line_color_ram_swap_percent = " + str(self.chart_line_color_ram_swap_percent) + "\n"
+        config_write_text = config_write_text + "show_memory_usage_per_memory = " + str(self.show_memory_usage_per_memory) + "\n"
         config_write_text = config_write_text + "performance_ram_swap_data_precision = " + str(self.performance_ram_swap_data_precision) + "\n"
         config_write_text = config_write_text + "performance_ram_swap_data_unit = " + str(self.performance_ram_swap_data_unit) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - Disk]" + "\n"
         config_write_text = config_write_text + "chart_line_color_disk_speed_usage = " + str(self.chart_line_color_disk_speed_usage) + "\n"
+        config_write_text = config_write_text + "show_disk_usage_per_disk = " + str(self.show_disk_usage_per_disk) + "\n"
         config_write_text = config_write_text + "performance_disk_speed_data_precision = " + str(self.performance_disk_speed_data_precision) + "\n"
         config_write_text = config_write_text + "performance_disk_usage_data_precision = " + str(self.performance_disk_usage_data_precision) + "\n"
         config_write_text = config_write_text + "performance_disk_speed_data_unit = " + str(self.performance_disk_speed_data_unit) + "\n"
@@ -421,6 +410,7 @@ class Config:
 
         config_write_text = config_write_text + "[Performance Tab - Network]" + "\n"
         config_write_text = config_write_text + "chart_line_color_network_speed_data = " + str(self.chart_line_color_network_speed_data) + "\n"
+        config_write_text = config_write_text + "show_network_usage_per_network_card = " + str(self.show_network_usage_per_network_card) + "\n"
         config_write_text = config_write_text + "performance_network_speed_data_precision = " + str(self.performance_network_speed_data_precision) + "\n"
         config_write_text = config_write_text + "performance_network_data_data_precision = " + str(self.performance_network_data_data_precision) + "\n"
         config_write_text = config_write_text + "performance_network_speed_data_unit = " + str(self.performance_network_speed_data_unit) + "\n"

@@ -26,7 +26,6 @@ class SettingsGUI:
         # Get GUI objects
         self.window2001 = builder2001.get_object('window2001')
         self.button2002 = builder2001.get_object('button2002')
-        self.button2003 = builder2001.get_object('button2003')
         self.button2004 = builder2001.get_object('button2004')
         self.combobox2001 = builder2001.get_object('combobox2001')
         self.combobox2002 = builder2001.get_object('combobox2002')
@@ -35,22 +34,13 @@ class SettingsGUI:
         self.checkbutton2001 = builder2001.get_object('checkbutton2001')
         self.checkbutton2002 = builder2001.get_object('checkbutton2002')
         self.checkbutton2003 = builder2001.get_object('checkbutton2003')
-        self.checkbutton2004 = builder2001.get_object('checkbutton2004')
-        self.checkbutton2005 = builder2001.get_object('checkbutton2005')
-        self.checkbutton2006 = builder2001.get_object('checkbutton2006')
-        self.checkbutton2007 = builder2001.get_object('checkbutton2007')
-        self.checkbutton2008 = builder2001.get_object('checkbutton2008')
-        self.checkbutton2009 = builder2001.get_object('checkbutton2009')
-        self.checkbutton2010 = builder2001.get_object('checkbutton2010')
-        self.checkbutton2011 = builder2001.get_object('checkbutton2011')
         self.checkbutton2012 = builder2001.get_object('checkbutton2012')
-        self.spinbutton2001 = builder2001.get_object('spinbutton2001')
+        self.checkbutton2013 = builder2001.get_object('checkbutton2013')
 
         # Connect GUI signals
         self.window2001.connect("delete-event", self.on_window2001_delete_event)
         self.window2001.connect("show", self.on_window2001_show)
         self.button2002.connect("clicked", self.on_button2002_clicked)
-        self.button2003.connect("clicked", self.on_button2003_clicked)
         self.button2004.connect("clicked", self.on_button2004_clicked)
 
         # Define data lists in order to add them into comboboxes.
@@ -70,16 +60,8 @@ class SettingsGUI:
         self.checkbutton2001.connect("toggled", self.on_checkbutton2001_toggled)
         self.checkbutton2002.connect("toggled", self.on_checkbutton2002_toggled)
         self.checkbutton2003.connect("toggled", self.on_checkbutton2003_toggled)
-        self.checkbutton2004.connect("toggled", self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2005.connect("toggled", self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2006.connect("toggled", self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2007.connect("toggled", self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2008.connect("toggled", self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2009.connect("toggled", self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2010.connect("toggled", self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2011.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2012.connect("toggled", self.on_checkbutton2012_toggled)
-        self.spinbutton2001.connect("value-changed", self.on_spinbutton2001_value_changed)
+        self.checkbutton2013.connect("toggled", self.on_checkbutton2013_toggled)
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
@@ -92,16 +74,8 @@ class SettingsGUI:
         self.checkbutton2001.disconnect_by_func(self.on_checkbutton2001_toggled)
         self.checkbutton2002.disconnect_by_func(self.on_checkbutton2002_toggled)
         self.checkbutton2003.disconnect_by_func(self.on_checkbutton2003_toggled)
-        self.checkbutton2004.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2005.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2006.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2007.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2008.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2009.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2010.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton2011.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2012.disconnect_by_func(self.on_checkbutton2012_toggled)
-        self.spinbutton2001.disconnect_by_func(self.on_spinbutton2001_value_changed)
+        self.checkbutton2013.disconnect_by_func(self.on_checkbutton2013_toggled)
 
 
     # ----------------------- Called for running code/functions when GUI is shown -----------------------
@@ -112,7 +86,6 @@ class SettingsGUI:
         except TypeError:
             pass
         self.settings_gui_general_settings_tab_set_func()
-        self.settings_gui_floating_summary_settings_tab_set_func()
         self.settings_connect_signals_func()
 
 
@@ -235,6 +208,18 @@ class SettingsGUI:
         Config.config_save_func()
 
 
+    # ----------------------- "Check for updates" Checkbutton -----------------------
+    def on_checkbutton2013_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.check_for_updates_automatically = 1
+
+        if widget.get_active() == False:
+            Config.check_for_updates_automatically = 0
+
+        Config.config_save_func()
+
+
     # ----------------------- "Reset general settings to defaults" Button -----------------------
     def on_button2002_clicked(self, widget):
 
@@ -262,32 +247,6 @@ class SettingsGUI:
         self.settings_gui_apply_settings_immediately_func()
 
 
-    # ----------------------- "Floating Summary - Window transparency" Spinbutton -----------------------
-    def on_spinbutton2001_value_changed(self, widget):
-
-        Config.floating_summary_window_transparency = widget.get_value()
-        Config.config_save_func()
-
-
-    # ----------------------- "Floating Summary - Show/Hide Performance Information - CPU Usage Average, RAM Usage, etc." Checkbuttons -----------------------
-    def on_add_remove_checkbuttons_toggled(self, widget):
-
-        self.settings_gui_add_remove_floating_summary_performance_information_func()
-
-
-    # ----------------------- "Reset floating summary window settings to defaults" Button -----------------------
-    def on_button2003_clicked(self, widget):
-
-        # Get current "show_floating_summary" setting, reset all Floating Summary settings and set "show_floating_summary" by using the get setting in order to reset only other settings of the Floating Summary.
-        show_floating_summary_current_setting = Config.show_floating_summary
-        Config.config_default_general_floating_summary_func()
-        Config.show_floating_summary = show_floating_summary_current_setting
-        Config.config_save_func()
-        self.settings_disconnect_signals_func()
-        self.settings_gui_floating_summary_settings_tab_set_func()
-        self.settings_connect_signals_func()
-
-
     # ----------------------- "Reset all settings of the application to defaults" Button -----------------------
     def on_button2004_clicked(self, widget):
 
@@ -299,7 +258,6 @@ class SettingsGUI:
             Config.config_save_func()
             self.settings_gui_general_settings_tab_set_func()
             self.settings_disconnect_signals_func()
-            self.settings_gui_floating_summary_settings_tab_set_func()
             self.settings_connect_signals_func()
 
             # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
@@ -415,74 +373,11 @@ class SettingsGUI:
         if Config.remember_window_size[0] == 0:
             self.checkbutton2012.set_active(False)
 
-
-    # ----------------------- Called for setting "Floating Summary" tab GUI items -----------------------
-    def settings_gui_floating_summary_settings_tab_set_func(self):
-
-        # Set GUI preferences for "window transparency" setting
-        adjustment2001 = Gtk.Adjustment().new(Config.floating_summary_window_transparency, 0.0, 1.0, 0.05, 0.1, 0.0)
-        self.spinbutton2001.set_digits(2)
-        self.spinbutton2001.set_adjustment(adjustment2001)
-        adjustment2001.set_value(Config.floating_summary_window_transparency)
-
-        # Set GUI preferences for "show/hide information" setting
-        if 0 in Config.floating_summary_data_shown:
-            self.checkbutton2004.set_active(True)
-        else:
-            self.checkbutton2004.set_active(False)
-        if 1 in Config.floating_summary_data_shown:
-            self.checkbutton2005.set_active(True)
-        else:
-            self.checkbutton2005.set_active(False)
-        if 2 in Config.floating_summary_data_shown:
-            self.checkbutton2006.set_active(True)
-        else:
-            self.checkbutton2006.set_active(False)
-        if 3 in Config.floating_summary_data_shown:
-            self.checkbutton2007.set_active(True)
-        else:
-            self.checkbutton2007.set_active(False)
-        if 4 in Config.floating_summary_data_shown:
-            self.checkbutton2008.set_active(True)
-        else:
-            self.checkbutton2008.set_active(False)
-        if 5 in Config.floating_summary_data_shown:
-            self.checkbutton2009.set_active(True)
-        else:
-            self.checkbutton2009.set_active(False)
-        if 6 in Config.floating_summary_data_shown:
-            self.checkbutton2010.set_active(True)
-        else:
-            self.checkbutton2010.set_active(False)
-        if 7 in Config.floating_summary_data_shown:
-            self.checkbutton2011.set_active(True)
-        else:
-            self.checkbutton2011.set_active(False)
-
-
-    # ----------------------- Called for adding/removing Floating Summary performance information -----------------------
-    def settings_gui_add_remove_floating_summary_performance_information_func(self):
-
-        Config.floating_summary_data_shown = []
-
-        if self.checkbutton2004.get_active() == True:
-            Config.floating_summary_data_shown.append(0)
-        if self.checkbutton2005.get_active() == True:
-            Config.floating_summary_data_shown.append(1)
-        if self.checkbutton2006.get_active() == True:
-            Config.floating_summary_data_shown.append(2)
-        if self.checkbutton2007.get_active() == True:
-            Config.floating_summary_data_shown.append(3)
-        if self.checkbutton2008.get_active() == True:
-            Config.floating_summary_data_shown.append(4)
-        if self.checkbutton2009.get_active() == True:
-            Config.floating_summary_data_shown.append(5)
-        if self.checkbutton2010.get_active() == True:
-            Config.floating_summary_data_shown.append(6)
-        if self.checkbutton2011.get_active() == True:
-            Config.floating_summary_data_shown.append(7)
-
-        Config.config_save_func()
+        # Set GUI preferences for "check for updates automatically" setting
+        if Config.check_for_updates_automatically == 1:
+            self.checkbutton2013.set_active(True)
+        if Config.check_for_updates_automatically == 0:
+            self.checkbutton2013.set_active(False)
 
 
     # ----------------------- Called for trimming/adding performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...) for chart data history when "chart_data_history" preference is changed -----------------------
@@ -530,33 +425,34 @@ class SettingsGUI:
     # ----------------------- Called for applying settings for all opened tabs (since application start) without waiting update interval -----------------------
     def settings_gui_apply_settings_immediately_func(self):
 
+        # If "initial_already_run" variable is set as "0", initial and loop functions of the relevant tab will be run in the next main loop if the tab is already opened or these functions will be run immediately when the relevant tab is switched on even if it is opened before the reset.
         try:
             from MainGUI import Cpu
-            Cpu.cpu_initial_func()
+            Cpu.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Ram
-            Ram.ram_initial_func()
+            Ram.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Disk
-            Disk.disk_initial_func()
+            Disk.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Network
-            Network.network_initial_func()
+            Network.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Gpu
-            Gpu.gpu_initial_func()
+            Gpu.initial_already_run = 0
         except ImportError:
             pass
 
@@ -592,23 +488,11 @@ class SettingsGUI:
 
         try:
             from MainGUI import System
-            System.system_initial_func()
+            System.initial_already_run = 0
         except ImportError:
             pass
 
         MainGUI.main_gui_tab_loop_func()
-
-        # Show/Hide Floating Summary Window by reading reset settings.
-        from FloatingSummary import FloatingSummary
-        # Floating Summary window is tried to be hidden in order to prevent opening a second window if default value for "show_floating_summary" is "1" and the Floating Summary window is already visible.
-        try:
-            FloatingSummary.window3001.hide()
-        except AttributeError:
-            pass
-        # Shown Floating Summary window if default value of "show_floating_summary" is "1".
-        if Config.show_floating_summary == 1:
-            # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_run_func" function.
-            FloatingSummary.window3001.show()
 
 
     # ----------------------- Called for saving default main tab and performace tab sub-tab when "Remember last opened tabs" option is enabled -----------------------

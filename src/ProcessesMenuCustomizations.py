@@ -46,6 +46,7 @@ class ProcessesMenuCustomizations:
         self.checkbutton2121p = builder.get_object('checkbutton2121p')
         self.checkbutton2122p = builder.get_object('checkbutton2122p')
         self.checkbutton2123p = builder.get_object('checkbutton2123p')
+        self.checkbutton2124p = builder.get_object('checkbutton2124p')
         self.combobox2101p = builder.get_object('combobox2101p')
         self.combobox2102p = builder.get_object('combobox2102p')
         self.combobox2103p = builder.get_object('combobox2103p')
@@ -84,6 +85,7 @@ class ProcessesMenuCustomizations:
         self.checkbutton2121p.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2122p.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2123p.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.checkbutton2124p.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.combobox2101p.connect("changed", self.on_combobox2101p_changed)
         self.combobox2102p.connect("changed", self.on_combobox2102p_changed)
         self.combobox2103p.connect("changed", self.on_combobox2103p_changed)
@@ -117,6 +119,7 @@ class ProcessesMenuCustomizations:
         self.checkbutton2121p.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2122p.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.checkbutton2123p.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.checkbutton2124p.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.combobox2101p.disconnect_by_func(self.on_combobox2101p_changed)
         self.combobox2102p.disconnect_by_func(self.on_combobox2102p_changed)
         self.combobox2103p.disconnect_by_func(self.on_combobox2103p_changed)
@@ -385,6 +388,10 @@ class ProcessesMenuCustomizations:
             self.checkbutton2123p.set_active(True)
         else:
             self.checkbutton2123p.set_active(False)
+        if 18 in Config.processes_treeview_columns_shown:
+            self.checkbutton2124p.set_active(True)
+        else:
+            self.checkbutton2124p.set_active(False)
 
         # Set GUI objects on Precision/Data Units tab 
         # Add CPU usage percent data into combobox
@@ -526,6 +533,8 @@ class ProcessesMenuCustomizations:
             Config.processes_treeview_columns_shown.append(16)
         if self.checkbutton2123p.get_active() == True:
             Config.processes_treeview_columns_shown.append(17)
+        if self.checkbutton2124p.get_active() == True:
+            Config.processes_treeview_columns_shown.append(18)
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()

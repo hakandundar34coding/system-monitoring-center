@@ -7,6 +7,9 @@ gi.require_version('GLib', '2.0')
 from gi.repository import Gtk, GLib
 import os
 import cairo
+from math import sqrt, ceil
+
+from locale import gettext as _tr
 
 from Config import Config
 
@@ -114,8 +117,9 @@ class Performance:
         self.cpu_usage_percent_per_core = []
         self.cpu_usage_percent_ave = [0] * self.chart_data_history
 
-        # Define initial values for RAM usage percent
+        # Define initial values for RAM usage percent and swap usage percent
         self.ram_usage_percent = [0] * self.chart_data_history
+        self.swap_usage_percent = [0] * self.chart_data_history
 
         # Define initial values for disk read speed and write speed
         # Disk data from /proc/diskstats are multiplied by 512 in order to find values in the form of byte. Disk sector size for all disk device could be found in "/sys/block/[disk device name such as sda]/queue/hw_sector_size". Linux uses 512 value for all disks without regarding device real block size (source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121).
@@ -199,6 +203,18 @@ class Performance:
         self.ram_used = self.ram_total - self.ram_available
         self.ram_usage_percent.append(self.ram_used / self.ram_total * 100)
         del self.ram_usage_percent[0]
+        # Get swap_usage_percent
+        self.swap_total = int(memory_info.split("\nSwapTotal:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
+        self.swap_free = int(memory_info.split("\nSwapFree:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
+        # Calculate values if swap memory exists.
+        if self.swap_free != 0:
+            self.swap_used = self.swap_total - self.swap_free
+            self.swap_usage_percent.append(self.swap_used / self.swap_total * 100)
+        # Set values as "0" if swap memory does not exist.
+        else:
+            self.swap_used = 0
+            self.swap_usage_percent.append(0)
+        del self.swap_usage_percent[0]
 
         # Get disk_list
         self.disk_list_system_ordered = []
@@ -249,13 +265,13 @@ class Performance:
         self.disk_write_data_prev = list(disk_write_data)
 
         # Get network card list
-        network_card_list_system_ordered = []
+        self.network_card_list_system_ordered = []
         with open("/proc/net/dev") as reader:
             proc_net_dev_lines = reader.read().strip().split("\n")[2:]
         for line in proc_net_dev_lines:
-            network_card_list_system_ordered.append(line.split(":", 1)[0].strip())
+            self.network_card_list_system_ordered.append(line.split(":", 1)[0].strip())
         network_card_list_prev = self.network_card_list[:]
-        for i, network_card in enumerate(network_card_list_system_ordered):
+        for i, network_card in enumerate(self.network_card_list_system_ordered):
             if network_card not in self.network_card_list:
                 self.network_card_list.append(network_card)
                 network_data = proc_net_dev_lines[i].split()
@@ -266,7 +282,7 @@ class Performance:
                 self.network_receive_speed.append([0] * self.chart_data_history)
                 self.network_send_speed.append([0] * self.chart_data_history)
         for network_card in reversed(self.network_card_list[:]):
-            if network_card not in network_card_list_system_ordered:
+            if network_card not in self.network_card_list_system_ordered:
                 network_card_index_to_remove = self.network_card_list.index(network_card)
                 del self.network_receive_bytes_prev[network_card_index_to_remove]
                 del self.network_send_bytes_prev[network_card_index_to_remove]
@@ -279,7 +295,7 @@ class Performance:
         self.network_receive_bytes = []
         self.network_send_bytes = []
         for i, network_card in enumerate(self.network_card_list):
-            network_data = proc_net_dev_lines[network_card_list_system_ordered.index(network_card)].split()
+            network_data = proc_net_dev_lines[self.network_card_list_system_ordered.index(network_card)].split()
             self.network_receive_bytes.append(int(network_data[1]))
             self.network_send_bytes.append(int(network_data[9]))
             self.network_receive_speed[i].append((self.network_receive_bytes[-1] - self.network_receive_bytes_prev[i]) / update_interval)
@@ -481,59 +497,72 @@ class Performance:
         performance_tab_current_sub_tab = Config.performance_tab_current_sub_tab
         if performance_tab_current_sub_tab == 0:
 
-            # Get performance data to be drawn.
-            performance_data1 = self.cpu_usage_percent_ave
-
             # Get chart colors.
             chart_line_color = Config.chart_line_color_cpu_percent
 
-            # Check if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices.
+            # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
             if Config.show_cpu_usage_per_core == 0:
                 draw_per_device = 0
+                performance_data1 = [self.cpu_usage_percent_ave]
+                device_name_list = [""]
             else:
                 draw_per_device = 1
+                performance_data1 = self.cpu_usage_percent_per_core
+                device_name_list = self.logical_core_list_system_ordered
 
-            # Check which performance data will be drawn.
+            # Get which performance data will be drawn.
             draw_performance_data1 = 1
             draw_performance_data2 = 0
 
-            # Get chart y limit value in order to show maximum value of the chart as 100.
-            chart_y_limit = 100
-
+            # Get chart y limit values in order to show maximum values of the charts as 100.
+            chart_y_limit_list = []
+            for device_name in device_name_list:
+                chart_y_limit_list.append(100)
 
         # Check if drawing will be for RAM tab.
         elif performance_tab_current_sub_tab == 1:
 
-            # Get performance data to be drawn.
-            performance_data1 = self.ram_usage_percent
-
             # Get chart colors.
             chart_line_color = Config.chart_line_color_ram_swap_percent
 
-            # Check if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices.
-            draw_per_device = 0
+            # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
+            if Config.show_memory_usage_per_memory == 0:
+                draw_per_device = 0
+                performance_data1 = [self.ram_usage_percent]
+                device_name_list = [""]
+            else:
+                draw_per_device = 1
+                performance_data1 = [self.ram_usage_percent, self.swap_usage_percent]
+                device_name_list = [_tr("RAM"), _tr("Swap Memory")]
 
-            # Check which performance data will be drawn.
+            # Get which performance data will be drawn.
             draw_performance_data1 = 1
             draw_performance_data2 = 0
 
-            # Get chart y limit value in order to show maximum value of the chart as 100.
-            chart_y_limit = 100
+            # Get chart y limit values in order to show maximum values of the charts as 100.
+            chart_y_limit_list = []
+            for device_name in device_name_list:
+                chart_y_limit_list.append(100)
 
         # Check if drawing will be for Disk tab.
         elif performance_tab_current_sub_tab == 2:
 
-            # Get performance data to be drawn.
-            performance_data1 = self.disk_read_speed[self.selected_disk_number]
-            performance_data2 = self.disk_write_speed[self.selected_disk_number]
-
             # Get chart colors.
             chart_line_color = Config.chart_line_color_disk_speed_usage
 
-            # Check if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices.
-            draw_per_device = 0
+            # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
+            if Config.show_disk_usage_per_disk == 0:
+                draw_per_device = 0
+                performance_data1 = [self.disk_read_speed[self.selected_disk_number]]
+                performance_data2 = [self.disk_write_speed[self.selected_disk_number]]
+                device_name_list = [""]
+            else:
+                draw_per_device = 1
+                performance_data1 = self.disk_read_speed
+                performance_data2 = self.disk_write_speed
+                device_name_list = self.disk_list_system_ordered
 
-            # Check which performance data will be drawn.
+            # Get which performance data will be drawn.
             if Config.plot_disk_read_speed == 1:
                 draw_performance_data1 = 1
             else:
@@ -545,17 +574,22 @@ class Performance:
                 draw_performance_data2 = 0
 
             # Maximum performance data value is multiplied by 1.1 in order to scale chart when performance data is increased or decreased for preventing the line being out of the chart border.
-            chart_y_limit = 1.1 * ((max(max(performance_data1), max(performance_data2))) + 0.0000001)
-            if draw_performance_data1 == 1 and draw_performance_data2 == 0:
-                chart_y_limit = 1.1 * (max(performance_data1) + 0.0000001)
-            if draw_performance_data1 == 0 and draw_performance_data2 == 1:
-                chart_y_limit = 1.1 * (max(performance_data2) + 0.0000001)
+            chart_y_limit_list = []
+            for i, device_name in enumerate(device_name_list):
+                chart_y_limit = 1.1 * ((max(max(performance_data1[i]), max(performance_data2[i]))) + 0.0000001)
+                if draw_performance_data1 == 1 and draw_performance_data2 == 0:
+                    chart_y_limit = 1.1 * (max(performance_data1[i]) + 0.0000001)
+                if draw_performance_data1 == 0 and draw_performance_data2 == 1:
+                    chart_y_limit = 1.1 * (max(performance_data2[i]) + 0.0000001)
+                chart_y_limit_list.append(chart_y_limit)
 
             # Get chart y limit value in order to show maximum value of the chart as multiples of 1, 10, 100.
             from Disk import Disk
             data_unit_for_chart_y_limit = 0
             if Config.performance_disk_speed_data_unit >= 8:
                 data_unit_for_chart_y_limit = 8
+            # Get biggest chart_y_limit value in the chart_y_limit_list to show it on a label if all performance data is drawn for all devices.
+            chart_y_limit = max(chart_y_limit_list)
             try:
                 chart_y_limit_str = f'{Disk.performance_data_unit_converter_func(chart_y_limit, data_unit_for_chart_y_limit, 0)}/s'
             # try-except is used in order to prevent errors if first initial function is not finished and "performance_data_unit_converter_func" is not run.
@@ -575,17 +609,25 @@ class Performance:
         # Check if drawing will be for Network tab.
         elif performance_tab_current_sub_tab == 3:
 
-            # Get performance data to be drawn.
-            performance_data1 = self.network_receive_speed[self.selected_network_card_number]
-            performance_data2 = self.network_send_speed[self.selected_network_card_number]
-
             # Get chart colors.
             chart_line_color = Config.chart_line_color_network_speed_data
+
+            # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
+            if Config.show_network_usage_per_network_card == 0:
+                draw_per_device = 0
+                performance_data1 = [self.network_receive_speed[self.selected_network_card_number]]
+                performance_data2 = [self.network_send_speed[self.selected_network_card_number]]
+                device_name_list = [""]
+            else:
+                draw_per_device = 1
+                performance_data1 = self.network_receive_speed
+                performance_data2 = self.network_send_speed
+                device_name_list = self.network_card_list_system_ordered
 
             # Check if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices.
             draw_per_device = 0
 
-            # Check which performance data will be drawn.
+            # Get which performance data will be drawn.
             if Config.plot_network_download_speed == 1:
                 draw_performance_data1 = 1
             else:
@@ -597,17 +639,22 @@ class Performance:
                 draw_performance_data2 = 0
 
             # Maximum performance data value is multiplied by 1.1 in order to scale chart when performance data is increased or decreased for preventing the line being out of the chart border.
-            chart_y_limit = 1.1 * ((max(max(performance_data1), max(performance_data2))) + 0.0000001)
-            if draw_performance_data1 == 1 and draw_performance_data2 == 0:
-                chart_y_limit = 1.1 * (max(performance_data1) + 0.0000001)
-            if draw_performance_data1 == 0 and draw_performance_data2 == 1:
-                chart_y_limit = 1.1 * (max(performance_data2) + 0.0000001)
+            chart_y_limit_list = []
+            for i, device_name in enumerate(device_name_list):
+                chart_y_limit = 1.1 * ((max(max(performance_data1[i]), max(performance_data2[i]))) + 0.0000001)
+                if draw_performance_data1 == 1 and draw_performance_data2 == 0:
+                    chart_y_limit = 1.1 * (max(performance_data1[i]) + 0.0000001)
+                if draw_performance_data1 == 0 and draw_performance_data2 == 1:
+                    chart_y_limit = 1.1 * (max(performance_data2[i]) + 0.0000001)
+                chart_y_limit_list.append(chart_y_limit)
 
             # Get chart y limit value in order to show maximum value of the chart as multiples of 1, 10, 100.
             from Network import Network
             data_unit_for_chart_y_limit = 0
             if Config.performance_network_speed_data_unit >= 8:
                 data_unit_for_chart_y_limit = 8
+            # Get biggest chart_y_limit value in the chart_y_limit_list to show it on a label if all performance data is drawn for all devices.
+            chart_y_limit = max(chart_y_limit_list)
             try:
                 chart_y_limit_str = f'{Network.performance_data_unit_converter_func(chart_y_limit, data_unit_for_chart_y_limit, 0)}/s'
             # try-except is used in order to prevent errors if first initial function is not finished and "performance_data_unit_converter_func" is not run.
@@ -627,85 +674,135 @@ class Performance:
         # Check if drawing will be for GPU tab.
         elif performance_tab_current_sub_tab == 4:
 
-            # Get performance data to be drawn.
-            from Gpu import Gpu
-            try:
-                performance_data1 = Gpu.gpu_load_list
-            # Handle errors because chart signals are connected before running relevant performance thread (in the GPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-            except AttributeError:
-                return
-
             # Get chart colors.
             chart_line_color = Config.chart_line_color_fps
 
-            # Check if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices.
+            # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
             draw_per_device = 0
+            from Gpu import Gpu
+            try:
+                performance_data1 = [Gpu.gpu_load_list]
+            # Handle errors because chart signals are connected before running relevant performance thread (in the GPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            except AttributeError:
+                return
+            device_name_list = [""]
 
-            # Check which performance data will be drawn.
+            # Get which performance data will be drawn.
             draw_performance_data1 = 1
             draw_performance_data2 = 0
 
-            # Get chart y limit value in order to show maximum value of the chart as 100.
-            chart_y_limit = 100
+            # Get chart y limit values in order to show maximum values of the charts as 100.
+            chart_y_limit_list = []
+            for device_name in device_name_list:
+                chart_y_limit_list.append(100)
 
 
-        # Draw "average CPU usage" if preferred.
-        if draw_per_device == 0:
+        # Start drawing the performance data.
+        # Get chart data history.
+        chart_data_history = Config.chart_data_history
+        chart_x_axis = list(range(0, chart_data_history))
 
-            # Get chart data history.
-            chart_data_history = Config.chart_data_history
-            chart_x_axis = list(range(0, chart_data_history))
+        # Get chart background color.
+        chart_background_color = Config.chart_background_color_all_charts
 
-            # Get chart background color.
-            chart_background_color = Config.chart_background_color_all_charts
+        # Get drawingarea size.
+        chart_width = Gtk.Widget.get_allocated_width(widget)
+        chart_height = Gtk.Widget.get_allocated_height(widget)
 
-            # Get drawingarea size.
-            chart_width = Gtk.Widget.get_allocated_width(widget)
-            chart_height = Gtk.Widget.get_allocated_height(widget)
+        # Get number of charts.
+        number_of_charts = len(device_name_list)
+
+        # Get number of horizontal and vertical charts (per-core).
+        for i in range(1, 1000):
+            if number_of_charts % i == 0:
+                number_of_horizontal_charts = i
+                number_of_vertical_charts = number_of_charts // i
+                if number_of_horizontal_charts >= number_of_vertical_charts:
+                    if number_of_horizontal_charts > 2 * number_of_vertical_charts:
+                        number_of_horizontal_charts = number_of_vertical_charts = ceil(sqrt(number_of_charts))
+                    break
+
+        # Get chart index list for horizontal and vertical charts. THis data will be used for tiling charts.
+        chart_index_list = []
+        for i in range(number_of_vertical_charts):
+            for j in range(number_of_horizontal_charts):
+                chart_index_list.append([j, i])
+
+        # Set chart border spacing value.
+        if number_of_charts == 1:
+            chart_spacing = 0
+        else:
+            chart_spacing = 6
+        chart_spacing_half = chart_spacing / 2
+
+        # Get chart width and height per-device.
+        chart_width_per_device = chart_width / number_of_horizontal_charts
+        chart_height_per_device = chart_height / number_of_vertical_charts
+
+        # Get chart width and height per-device.
+        chart_width_per_device_wo_borders = (chart_width / number_of_horizontal_charts) - chart_spacing
+        chart_height_per_device_wo_borders = (chart_height / number_of_vertical_charts) - chart_spacing
+
+        # Set antialiasing level as "BEST" in order to avoid low quality chart line because of the highlight effect (more than one line will be overlayed for this appearance).
+        ctx.set_antialias(cairo.Antialias.BEST)
+
+        # Set line joining style as "LINE_JOIN_ROUND" in order to avoid spikes at the line joints due to high antialiasing level.
+        ctx.set_line_join(cairo.LINE_JOIN_ROUND)
+
+        # Performance data line paths will be used for highlighting the line.
+        performance_data1_line_path_list = []
+        performance_data2_line_path_list = []
+
+        # Draw charts per-device.
+        for j, device_name in enumerate(device_name_list):
 
             # Draw and fill chart background.
+            ctx.rectangle((chart_width_per_device*chart_index_list[j][0])+chart_spacing_half, (chart_height_per_device*chart_index_list[j][1])+chart_spacing_half, chart_width_per_device, chart_height_per_device)
             ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-            ctx.rectangle(0, 0, chart_width, chart_height)
             ctx.fill()
 
             # Draw horizontal and vertical gridlines.
-            ctx.set_line_width(1)
-            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
             for i in range(3):
-                ctx.move_to(0, chart_height/4*(i+1))
-                ctx.rel_line_to(chart_width, 0)
+                ctx.move_to((chart_width_per_device*chart_index_list[j][0])+chart_spacing_half, (chart_height_per_device*chart_index_list[j][1])+chart_spacing_half + chart_height_per_device/4*(i+1))
+                ctx.rel_line_to(chart_width_per_device-chart_spacing, 0)
             for i in range(4):
-                ctx.move_to(chart_width/5*(i+1), 0)
-                ctx.rel_line_to(0, chart_height)
+                ctx.move_to(chart_width_per_device/5*(i+1), 0)
+                ctx.move_to((chart_width_per_device*chart_index_list[j][0])+chart_spacing_half + chart_width_per_device/5*(i+1), (chart_height_per_device*chart_index_list[j][1])+chart_spacing_half)
+                ctx.rel_line_to(0, chart_height_per_device-chart_spacing)
+            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
+            ctx.set_line_width(1)
             ctx.stroke()
 
             # Draw outer border of the chart.
+            ctx.rectangle((chart_width_per_device*chart_index_list[j][0])+chart_spacing_half, (chart_height_per_device*chart_index_list[j][1])+chart_spacing_half, chart_width_per_device-chart_spacing, chart_height_per_device-chart_spacing)
             ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-            ctx.rectangle(0, 0, chart_width, chart_height)
+            ctx.set_line_width(1)
             ctx.stroke()
 
             if draw_performance_data1 == 1:
 
+                performance_data1_current = performance_data1[j]
+
                 # Draw performance data.
-                ctx.move_to(0, chart_height)
-                ctx.rel_move_to(0, -chart_height*performance_data1[0]/chart_y_limit)
+                ctx.move_to((chart_width_per_device*chart_index_list[j][0])+chart_spacing_half, chart_height_per_device+(chart_height_per_device*chart_index_list[j][1])-chart_spacing_half)
+                ctx.rel_move_to(0, -chart_height_per_device_wo_borders*performance_data1_current[0]/chart_y_limit_list[j])
                 for i in range(chart_data_history - 1):
-                    delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-                    delta_y = (chart_height*performance_data1[i+1]/chart_y_limit) - (chart_height*performance_data1[i]/chart_y_limit)
+                    delta_x = (chart_width_per_device_wo_borders*chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width_per_device_wo_borders*chart_x_axis[i]/(chart_data_history-1))
+                    delta_y = (chart_height_per_device_wo_borders*performance_data1_current[i+1]/chart_y_limit_list[j]) - (chart_height_per_device_wo_borders*performance_data1_current[i]/chart_y_limit_list[j])
                     ctx.rel_line_to(delta_x, -delta_y)
                 ctx.stroke_preserve()
 
                 # Set line color (full transparent in order to prevent drawing bolder lines due to overlapping), close the drawn line to fill inside area of it and copy the performance line path to use it for highlighting.
-                ctx.set_source_rgba(0, 0, 0, 0)
-                ctx.rel_line_to(0, chart_height*performance_data1[-1]/chart_y_limit)
-                ctx.rel_line_to(-(chart_width), 0)
+                ctx.rel_line_to(0, chart_height_per_device_wo_borders*performance_data1_current[-1]/chart_y_limit_list[j])
+                ctx.rel_line_to(-(chart_width_per_device_wo_borders), 0)
                 ctx.close_path()
-                performance_data1_line_path = ctx.copy_path()
+                performance_data1_line_path_list.append(ctx.copy_path())
+                ctx.set_source_rgba(0, 0, 0, 0)
                 ctx.stroke()
 
                 # Use previously copied performance line path and fill the closed area (area below the performance data line).
-                ctx.append_path(performance_data1_line_path)  
-                gradient_pattern = cairo.LinearGradient(0, 0, 0, chart_height)
+                ctx.append_path(performance_data1_line_path_list[-1])  
+                gradient_pattern = cairo.LinearGradient(0, (chart_height_per_device*chart_index_list[j][1])-chart_spacing_half, 0, (chart_height_per_device*chart_index_list[j][1])-chart_spacing_half+chart_height_per_device_wo_borders)
                 gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
                 gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.10 * chart_line_color[3])
                 ctx.set_source(gradient_pattern)
@@ -713,261 +810,198 @@ class Performance:
 
             if draw_performance_data2 == 1:
 
+                performance_data2_current = performance_data2[j]
+
                 # Set color and line dash style for this performance data line.
                 ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
                 ctx.set_dash([5, 3])
 
                 # Draw performance data.
-                ctx.move_to(0, chart_height)
-                ctx.rel_move_to(0, -chart_height*performance_data2[0]/chart_y_limit)
+                ctx.move_to((chart_width_per_device*chart_index_list[j][0])+chart_spacing_half, chart_height_per_device+(chart_height_per_device*chart_index_list[j][1])-chart_spacing_half)
+                ctx.rel_move_to(0, -chart_height_per_device_wo_borders*performance_data2_current[0]/chart_y_limit_list[j])
                 for i in range(chart_data_history - 1):
-                    delta_x = (chart_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width * chart_x_axis[i]/(chart_data_history-1))
-                    delta_y = (chart_height*performance_data2[i+1]/chart_y_limit) - (chart_height*performance_data2[i]/chart_y_limit)
+                    delta_x = (chart_width_per_device_wo_borders*chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width_per_device_wo_borders*chart_x_axis[i]/(chart_data_history-1))
+                    delta_y = (chart_height_per_device_wo_borders*performance_data2_current[i+1]/chart_y_limit_list[j]) - (chart_height_per_device_wo_borders*performance_data2_current[i]/chart_y_limit_list[j])
                     ctx.rel_line_to(delta_x, -delta_y)
                 ctx.stroke_preserve()
 
                 # Set line color (full transparent in order to prevent drawing bolder lines due to overlapping), close the drawn line to fill inside area of it and copy the performance line path to use it for highlighting.
-                ctx.set_source_rgba(0, 0, 0, 0)
-                ctx.rel_line_to(0, chart_height*performance_data2[-1]/chart_y_limit)
-                ctx.rel_line_to(-(chart_width), 0)
+                ctx.rel_line_to(0, chart_height_per_device_wo_borders*performance_data2_current[-1]/chart_y_limit_list[j])
+                ctx.rel_line_to(-(chart_width_per_device_wo_borders), 0)
                 ctx.close_path()
-                performance_data2_line_path = ctx.copy_path()
+                performance_data2_line_path_list.append(ctx.copy_path())
+                ctx.set_source_rgba(0, 0, 0, 0)
                 ctx.stroke()
 
                 # Set line style as solid line.
                 ctx.set_dash([])
 
-            # Check if chart line will be highlighted.
-            if self.chart_line_highlight == 1:
+            # Draw core number per chart.
+            ctx.move_to((chart_width_per_device*chart_index_list[j][0])+chart_spacing_half+3, (chart_height_per_device*chart_index_list[j][1])+chart_spacing_half+12)
+            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+            ctx.show_text(f'{device_name}')
 
-                # Set antialiasing level as "BEST" in order to avoid low quality chart line because of the highlight effect (more than one line will be overlayed for this appearance).
-                ctx.set_antialias(cairo.Antialias.BEST)
 
-                # Set line joining style as "LINE_JOIN_ROUND" in order to avoid spikes at the line joints due to high antialiasing level.
-                ctx.set_line_join(cairo.LINE_JOIN_ROUND)
+        # Check if chart line will be highlighted.
+        if self.chart_line_highlight == 1:
 
-                # Use previously copied performance line path(s).
-                if draw_performance_data1 == 1:
-                    ctx.append_path(performance_data1_line_path)
+            # Define local variables for maouse position for lower CPU usage.
+            try:
+                mouse_position_x = self.mouse_position_x
+                mouse_position_y = self.mouse_position_y
+            # It gives error at the beginning of the mouse move on the chart.
+            except AttributeError:
+                return
 
-                    # Set line features and append the path (draw it).
-                    ctx.set_line_width(2.5)
-                    ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-                    ctx.stroke_preserve()
-
-                    # Set line features (white and semi-transparent color in order to overlay with the previous line and generate highlight effect) and append the path (draw it).
-                    ctx.set_line_width(2.5)
-                    ctx.set_source_rgba(1, 1, 1, 0.3)
-                    ctx.stroke()
-
-                if draw_performance_data2 == 1:
-                    ctx.append_path(performance_data2_line_path)
-
-                    # Set line style as solid line for this performance data line.
-                    ctx.set_dash([5, 3])
-
-                    # Set line features and append the path (draw it).
-                    ctx.set_line_width(2.5)
-                    ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-                    ctx.stroke_preserve()
-
-                    # Set line features (white and semi-transparent color in order to overlay with the previous line and generate highlight effect) and append the path (draw it).
-                    ctx.set_line_width(2.5)
-                    ctx.set_source_rgba(1, 1, 1, 0.3)
-                    ctx.stroke()
-
-                    # Set line style as solid line.
-                    ctx.set_dash([])
-
-                # Check if chart point(s) will be highlighted.
-                chart_point_highlight = self.chart_point_highlight
-                if chart_point_highlight != -1:
-
-                    # Set color for the point to be highlighted.
-                    ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-
-                    # Get location of the point(s) to be highlighted.
-                    loc_x = chart_width * chart_x_axis[chart_point_highlight]/(chart_data_history-1)
-                    loc_y_list =[]
-                    if draw_performance_data1 == 1:
-                        loc_y1 = chart_height - (chart_height*performance_data1[chart_point_highlight]/chart_y_limit)
-                        loc_y_list.append(loc_y1)
-                    if draw_performance_data2 == 1:
-                        loc_y2 = chart_height - (chart_height*performance_data2[chart_point_highlight]/chart_y_limit)
-                        loc_y_list.append(loc_y2)
-
-                    # Draw a big point and fill it.
-                    for loc_y in loc_y_list:
-                        ctx.arc(loc_x, loc_y, 5, 0, 2*3.14)
-                        ctx.fill()
-
-                    # Set font size and text for showing performance data of the highlighted point and get its location data in order to use it for showing a centered box under the text.
-                    ctx.set_font_size(13)
-                    performance_data_at_point_text_list =[]
-                    if draw_performance_data1 == 1:
-                        if performance_tab_current_sub_tab == 0:
-                            performance_data1_at_point_text = f'{performance_data1[chart_point_highlight]:.{Config.performance_cpu_usage_percent_precision}f} %'
-                        elif performance_tab_current_sub_tab == 1:
-                            performance_data1_at_point_text = f'{performance_data1[chart_point_highlight]:.{Config.performance_ram_swap_data_precision}f} %'
-                        elif performance_tab_current_sub_tab == 2:
-                            performance_data1_at_point_text = f'{Disk.performance_data_unit_converter_func(performance_data1[chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
-                        elif performance_tab_current_sub_tab == 3:
-                            performance_data1_at_point_text = f'{Network.performance_data_unit_converter_func(performance_data1[chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
-                        elif performance_tab_current_sub_tab == 4:
-                            performance_data1_at_point_text = f'{performance_data1[chart_point_highlight]:.0f} %'
-                        # Add "-" before the text if there are 2 performance data lines.
-                        if len(loc_y_list) == 2:
-                            performance_data1_at_point_text = f'-  {performance_data1_at_point_text}'
-                        performance_data_at_point_text_list.append(performance_data1_at_point_text)
-
-                    if draw_performance_data2 == 1:
-                        if performance_tab_current_sub_tab == 0:
-                            performance_data2_at_point_text = f'- -{performance_data2[chart_point_highlight]:.{Config.performance_cpu_usage_percent_precision}f} %'
-                        elif performance_tab_current_sub_tab == 1:
-                            performance_data2_at_point_text = f'- -{performance_data2[chart_point_highlight]:.{Config.performance_ram_swap_data_precision}f} %'
-                        elif performance_tab_current_sub_tab == 2:
-                            performance_data2_at_point_text = f'- -{Disk.performance_data_unit_converter_func(performance_data2[chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
-                        elif performance_tab_current_sub_tab == 3:
-                            performance_data2_at_point_text = f'- -{Network.performance_data_unit_converter_func(performance_data2[chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
-                        elif performance_tab_current_sub_tab == 4:
-                            performance_data2_at_point_text = f'- -{performance_data2[chart_point_highlight]:.0f} %'
-                        performance_data_at_point_text_list.append(performance_data2_at_point_text)
-
-                    performance_data_at_point_text = '  |  '.join(performance_data_at_point_text_list)
-
-                    text_extends = ctx.text_extents(performance_data_at_point_text)
-                    text_start_x = text_extends.width / 2
-                    text_start_y = text_extends.height / 2
-                    text_border_margin = 10
-                    origin_for_text =  chart_height*0.35
-
-                    # Calculate correction value for x location of the text, box under the text and line between box and highligthed data point(s) in order to prevent them going out of the visible area (drawingara) when mouse is close to beginning/end of the drawingarea.
-                    box_under_text_location_correction = 0
-                    box_under_text_start = loc_x-text_start_x-text_border_margin
-                    box_under_text_end = loc_x+text_start_x+text_border_margin
-                    if box_under_text_start < 0:
-                        box_under_text_location_correction = -1 * box_under_text_start
-                    if box_under_text_end > chart_width:
-                        box_under_text_location_correction = chart_width - box_under_text_end
-
-                    # Set grey color for the box under the text and draw the box.
-                    ctx.set_source_rgba(0.5, 0.5, 0.5, 0.5)
-                    ctx.rectangle(box_under_text_start+box_under_text_location_correction,origin_for_text-text_start_y-text_border_margin, text_extends.width+2*text_border_margin, text_extends.height+2*text_border_margin)
-                    ctx.fill()
-
-                    # Set color for the text and show the text.
-                    ctx.set_line_width(1)
-                    ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
-                    ctx.move_to(loc_x-text_start_x+box_under_text_location_correction,origin_for_text+text_start_y)
-                    ctx.show_text(performance_data_at_point_text)
-
-                    # Draw a line between the highlighted point and the box under the text.
-                    ctx.set_source_rgba(0.5, 0.5, 0.5, 0.5)
-                    for loc_y in loc_y_list:
-                        ctx.move_to(loc_x, loc_y-10)
-                        ctx.line_to(box_under_text_start+box_under_text_location_correction, origin_for_text+text_start_y+15)
-                        ctx.rel_line_to(text_extends.width+2*text_border_margin, 0)
-                        ctx.stroke()
-
-        # Draw "per-core CPU usage" if preferred.
-        else:
-
-            # Get chart data history.
-            chart_data_history = Config.chart_data_history
-            chart_x_axis = list(range(0, chart_data_history))
-
-            # Get performance data to be drawn.
-            logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
-            number_of_logical_cores = Performance.number_of_logical_cores
-            cpu_usage_percent_per_core1 = Performance.cpu_usage_percent_per_core
-
-            # Get chart colors.
-            chart_line_color = Config.chart_line_color_cpu_percent
-            chart_background_color = Config.chart_background_color_all_charts
-
-            # Get drawingarea size.
-            chart_width = Gtk.Widget.get_allocated_width(widget)
-            chart_height = Gtk.Widget.get_allocated_height(widget)
-
-            from math import sqrt, ceil
-            # Get number of horizontal and vertical charts (per-core).
-            for i in range(1, 1000):
-                if number_of_logical_cores % i == 0:
-                    number_of_horizontal_charts = i
-                    number_of_vertical_charts = number_of_logical_cores // i
-                    if number_of_horizontal_charts >= number_of_vertical_charts:
-                        if number_of_horizontal_charts > 2 * number_of_vertical_charts:
-                            number_of_horizontal_charts = number_of_vertical_charts = ceil(sqrt(number_of_logical_cores))
+            # Get the chart which mouse cursor in moved on.
+            chart_number_to_highlight = -1
+            for j in range(number_of_charts):
+                if mouse_position_x > (chart_width_per_device*chart_index_list[j][0])+chart_spacing_half and mouse_position_x < (chart_width_per_device*chart_index_list[j][0])+chart_spacing_half+chart_width_per_device_wo_borders:
+                    if mouse_position_y > (chart_height_per_device*chart_index_list[j][1])+chart_spacing_half and mouse_position_y < (chart_height_per_device*chart_index_list[j][1])+chart_spacing_half+chart_height_per_device_wo_borders:
+                        chart_number_to_highlight = j
                         break
 
-            # Get chart index list for horizontal and vertical charts.
-            chart_index_list = []
-            for i in range(number_of_vertical_charts):
-                for j in range(number_of_horizontal_charts):
-                    chart_index_list.append([j, i])
+            # Prevent errors if mouse cursor on the empty area (chart spacing) between charts (if multiple charts are drawn).
+            if chart_number_to_highlight == -1:
+                return
 
-            # Spacing 3 from left and right.
-            chart_width_per_core = (chart_width / number_of_horizontal_charts) - 6
-            # Spacing 3 from top and bottom.
-            chart_height_per_core = (chart_height / number_of_vertical_charts) - 6
+            # Use previously copied performance line path(s).
+            if draw_performance_data1 == 1:
+                ctx.append_path(performance_data1_line_path_list[chart_number_to_highlight])
 
-            # Draw charts per-core.
-            for j, cpu_core in enumerate(logical_core_list_system_ordered):
+                # Set line features and append the path (draw it).
+                ctx.set_line_width(2.5)
+                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+                ctx.stroke_preserve()
 
-                # Get performance data for the current core.
-                cpu_usage_percent_per_core = cpu_usage_percent_per_core1[j]
-
-                # Draw and fill chart background.
-                ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-                ctx.rectangle(0, 0, chart_width_per_core, chart_height_per_core)
-                ctx.fill()
-
-                # Draw horizontal and vertical gridlines.
-                ctx.set_line_width(1)
-                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.25 * chart_line_color[3])
-                for i in range(3):
-                    ctx.move_to((chart_width_per_core+6)*chart_index_list[j][0], chart_index_list[j][1]*(chart_height_per_core+6) + chart_height_per_core/4*(i+1))
-                    ctx.rel_line_to(chart_width_per_core, 0)
-                for i in range(4):
-                    ctx.move_to((chart_width_per_core+6)*chart_index_list[j][0] + chart_width_per_core/5*(i+1), (chart_height_per_core+6)*chart_index_list[j][1])
-                    ctx.rel_line_to(0, chart_height_per_core)
+                # Set line features (white and semi-transparent color in order to overlay with the previous line and generate highlight effect) and append the path (draw it).
+                ctx.set_line_width(2.5)
+                ctx.set_source_rgba(1, 1, 1, 0.3)
                 ctx.stroke()
 
-                # Draw outer border of the chart.
-                ctx.set_line_width(1)
+            if draw_performance_data2 == 1:
+                ctx.append_path(performance_data2_line_path_list[chart_number_to_highlight])
+
+                # Set line style as solid line for this performance data line.
+                ctx.set_dash([5, 3])
+
+                # Set line features and append the path (draw it).
+                ctx.set_line_width(2.5)
                 ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-                ctx.rectangle(chart_index_list[j][0]*(chart_width_per_core+6), chart_index_list[j][1]*(chart_height_per_core+6), chart_width_per_core, chart_height_per_core)
+                ctx.stroke_preserve()
+
+                # Set line features (white and semi-transparent color in order to overlay with the previous line and generate highlight effect) and append the path (draw it).
+                ctx.set_line_width(2.5)
+                ctx.set_source_rgba(1, 1, 1, 0.3)
                 ctx.stroke()
 
-                # Draw performance data.
-                ctx.move_to((chart_width_per_core+6)*chart_index_list[j][0], (chart_height_per_core)+(chart_height_per_core+6)*chart_index_list[j][1])
-                ctx.rel_move_to(0, -chart_height_per_core*cpu_usage_percent_per_core[0]/100)
-                for i in range(len(chart_x_axis) - 1):
-                    delta_x = (chart_width_per_core * chart_x_axis[i+1]/(chart_data_history-1)) - (chart_width_per_core * chart_x_axis[i]/(chart_data_history-1))
-                    delta_y = (chart_height_per_core*cpu_usage_percent_per_core[i+1]/100) - (chart_height_per_core*cpu_usage_percent_per_core[i]/100)
-                    ctx.rel_line_to(delta_x, -delta_y)
+                # Set line style as solid line.
+                ctx.set_dash([])
 
-                # Change line color before drawing lines for closing the drawn line in order to revent drawing bolder lines due to overlapping.
-                ctx.stroke_preserve()
-                ctx.set_source_rgba(0, 0, 0, 0)
 
-                # Close the drawn line to fill inside area of it.
-                ctx.rel_line_to(0, chart_height_per_core*cpu_usage_percent_per_core[-1]/100)
-                ctx.rel_line_to(-(chart_width_per_core), 0)
-                ctx.close_path()
+            # Highlight chart point(s).
+            # Calculate the length between chart data points.
+            data_point_width = chart_width_per_device_wo_borders / (chart_data_history - 1)
 
-                # Fill the closed area.
-                ctx.stroke_preserve()
-                gradient_pattern = cairo.LinearGradient(0, (chart_height_per_core+6)*chart_index_list[j][1], 0, (chart_height_per_core)+(chart_height_per_core+6)*chart_index_list[j][1])
-                gradient_pattern.add_color_stop_rgba(0, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.55 * chart_line_color[3])
-                gradient_pattern.add_color_stop_rgba(1, chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.10 * chart_line_color[3])
-                ctx.set_source(gradient_pattern)
+            # Calculate number of data points from start (left) to the mouse cursor position and fraction after the last (first data point before the mouse cursor) data point.
+            total_length_of_left_charts = (chart_width_per_device*chart_index_list[chart_number_to_highlight][0])+chart_spacing_half
+            total_length_of_upper_charts = (chart_height_per_device*chart_index_list[chart_number_to_highlight][1])+chart_spacing_half
+            mouse_position_x_current_chart = mouse_position_x-total_length_of_left_charts
+            data_point_count_until_mouse_cursor = mouse_position_x_current_chart / data_point_width
+            data_point_count_int = int(data_point_count_until_mouse_cursor)
+            fraction = data_point_count_until_mouse_cursor - data_point_count_int
+
+            # Determine the data point to be highlighted when mouse cursor is between two data points.
+            if fraction > 0.5:
+                chart_point_highlight = data_point_count_int + 1
+            # if fraction <= 0.5:
+            else:
+                chart_point_highlight = data_point_count_int
+
+            # Get location of the point(s) to be highlighted.
+            loc_x = total_length_of_left_charts + chart_width_per_device_wo_borders * chart_x_axis[chart_point_highlight]/(chart_data_history-1)
+            loc_y_list =[]
+            if draw_performance_data1 == 1:
+                loc_y1 = total_length_of_upper_charts + chart_height_per_device_wo_borders - (chart_height_per_device_wo_borders*performance_data1[chart_number_to_highlight][chart_point_highlight]/chart_y_limit_list[chart_number_to_highlight])
+                loc_y_list.append(loc_y1)
+            if draw_performance_data2 == 1:
+                loc_y2 = total_length_of_upper_charts + chart_height_per_device_wo_borders - (chart_height_per_device_wo_borders*performance_data2[chart_number_to_highlight][chart_point_highlight]/chart_y_limit_list[chart_number_to_highlight])
+                loc_y_list.append(loc_y2)
+
+            # Draw a big point and fill it.
+            # Set color for the point to be highlighted.
+            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+            for loc_y in loc_y_list:
+                ctx.arc(loc_x, loc_y, 5, 0, 2*3.14)
                 ctx.fill()
 
-                # Draw core number per chart.
-                ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-                ctx.move_to(chart_index_list[j][0]*(chart_width_per_core+6)+4, chart_index_list[j][1]*(chart_height_per_core+6)+12)
-                ctx.show_text(f'{cpu_core.split("cpu")[-1]}')
+            # Set font size and text for showing performance data of the highlighted point and get its location data in order to use it for showing a centered box under the text.
+            ctx.set_font_size(13)
+            performance_data_at_point_text_list =[]
+            if draw_performance_data1 == 1:
+                if performance_tab_current_sub_tab == 0:
+                    performance_data1_at_point_text = f'{performance_data1[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_cpu_usage_percent_precision}f} %'
+                elif performance_tab_current_sub_tab == 1:
+                    performance_data1_at_point_text = f'{performance_data1[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_ram_swap_data_precision}f} %'
+                elif performance_tab_current_sub_tab == 2:
+                    performance_data1_at_point_text = f'{Disk.performance_data_unit_converter_func(performance_data1[chart_number_to_highlight][chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
+                elif performance_tab_current_sub_tab == 3:
+                    performance_data1_at_point_text = f'{Network.performance_data_unit_converter_func(performance_data1[chart_number_to_highlight][chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
+                elif performance_tab_current_sub_tab == 4:
+                    performance_data1_at_point_text = f'{performance_data1[chart_number_to_highlight][chart_point_highlight]:.0f} %'
+                # Add "-" before the text if there are 2 performance data lines.
+                if len(loc_y_list) == 2:
+                    performance_data1_at_point_text = f'-  {performance_data1_at_point_text}'
+                performance_data_at_point_text_list.append(performance_data1_at_point_text)
+
+            if draw_performance_data2 == 1:
+                if performance_tab_current_sub_tab == 0:
+                    performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_cpu_usage_percent_precision}f} %'
+                elif performance_tab_current_sub_tab == 1:
+                    performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_ram_swap_data_precision}f} %'
+                elif performance_tab_current_sub_tab == 2:
+                    performance_data2_at_point_text = f'- -{Disk.performance_data_unit_converter_func(performance_data2[chart_number_to_highlight][chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
+                elif performance_tab_current_sub_tab == 3:
+                    performance_data2_at_point_text = f'- -{Network.performance_data_unit_converter_func(performance_data2[chart_number_to_highlight][chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
+                elif performance_tab_current_sub_tab == 4:
+                    performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.0f} %'
+                performance_data_at_point_text_list.append(performance_data2_at_point_text)
+
+            performance_data_at_point_text = '  |  '.join(performance_data_at_point_text_list)
+
+            text_extends = ctx.text_extents(performance_data_at_point_text)
+            text_start_x = text_extends.width / 2
+            text_start_y = text_extends.height / 2
+            text_border_margin = 10
+            origin_for_text =  (chart_height_per_device*chart_index_list[j][1])+chart_spacing_half + chart_height_per_device_wo_borders*0.35
+
+            # Calculate correction value for x location of the text, box under the text and line between box and highligthed data point(s) in order to prevent them going out of the visible area (drawingara) when mouse is close to beginning/end of the drawingarea.
+            box_under_text_location_correction = 0
+            box_under_text_start = loc_x-text_start_x-text_border_margin
+            box_under_text_end = loc_x+text_start_x+text_border_margin
+            if box_under_text_start < 0 + chart_spacing_half:
+                box_under_text_location_correction = -1 * box_under_text_start + chart_spacing_half
+            if box_under_text_end > chart_width - chart_spacing_half:
+                box_under_text_location_correction = chart_width - chart_spacing_half - box_under_text_end
+
+            # Set grey color for the box under the text and draw the box.
+            ctx.rectangle(box_under_text_start+box_under_text_location_correction,origin_for_text-text_start_y-text_border_margin, text_extends.width+2*text_border_margin, text_extends.height+2*text_border_margin)
+            ctx.set_source_rgba(0.5, 0.5, 0.5, 0.5)
+            ctx.fill()
+
+            # Set color for the text and show the text.
+            ctx.move_to(loc_x-text_start_x+box_under_text_location_correction,origin_for_text+text_start_y)
+            ctx.set_line_width(1)
+            ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+            ctx.show_text(performance_data_at_point_text)
+
+            # Draw a line between the highlighted point and the box under the text.
+            ctx.set_source_rgba(0.5, 0.5, 0.5, 0.5)
+            for loc_y in loc_y_list:
+                ctx.move_to(loc_x, loc_y-5)
+                ctx.line_to(box_under_text_start+box_under_text_location_correction, origin_for_text+text_start_y+15)
+                ctx.rel_line_to(text_extends.width+2*text_border_margin, 0)
+                ctx.stroke()
 
 
     # ----------------------- Highlight performance chart line if mouse is moved onto the drawingarea -----------------------
@@ -987,29 +1021,9 @@ class Performance:
     # ----------------------- Highlight performance chart point and show performance data text if mouse is moved on the drawingarea -----------------------
     def performance_line_charts_motion_notify_event_func(self, widget, event):
 
-        # Get chart data history.
-        chart_data_history = Config.chart_data_history
-
-        # Get drawingarea size.
-        chart_width = Gtk.Widget.get_allocated_width(widget)
-
         # Get mouse position on the x coordinate on the drawingarea.
-        mouse_position_x = event.x
-
-        # Calculate the length between chart data points.
-        data_point_width = chart_width / (chart_data_history - 1)
-
-        # Calculate number of data points from start (left) to the mouse cursor position and fraction after the last (first data point before the mouse cursor) data point.
-        data_point_count_until_mouse_cursor = mouse_position_x / data_point_width
-        data_point_count_int = int(data_point_count_until_mouse_cursor)
-        fraction = data_point_count_until_mouse_cursor - data_point_count_int
-
-        # Determine the data point to be highlighted when mouse cursor is between two data points.
-        if fraction > 0.5:
-            self.chart_point_highlight = data_point_count_int + 1
-        # if fraction <= 0.5:
-        else:
-            self.chart_point_highlight = data_point_count_int
+        self.mouse_position_x = event.x
+        self.mouse_position_y = event.y
 
         # Update the chart in order to show visual changes.
         widget.queue_draw()
@@ -1025,7 +1039,7 @@ class Performance:
             # Get performance data to be drawn.
             from Ram import Ram
             try:
-                performance_data1 = Ram.swap_percent
+                performance_data1 = Ram.swap_usage_percent[-1]
             # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
             except AttributeError:
                 return

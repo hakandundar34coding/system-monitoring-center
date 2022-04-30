@@ -23,7 +23,6 @@ class MainMenusDialogs:
         self.popover1001p = builder.get_object('popover1001p')
         self.button1001p = builder.get_object('button1001p')
         self.button1002p = builder.get_object('button1002p')
-        self.button1003p = builder.get_object('button1003p')
         self.checkbutton1001p = builder.get_object('checkbutton1001p')
         self.aboutdialog1001d = builder.get_object('aboutdialog1001d')
 
@@ -31,34 +30,12 @@ class MainMenusDialogs:
         self.popover1001p.connect("show", self.on_popover1001p_show)
         self.button1001p.connect("clicked", self.on_button1001p_clicked)
         self.button1002p.connect("clicked", self.on_button1002p_clicked)
-        self.button1003p.connect("clicked", self.on_button1003p_clicked)
 
 
     # ----------------------- Called for running code/functions when menu is shown -----------------------
     def on_popover1001p_show(self, widget):
 
-        if Config.show_floating_summary == 0:
-            self.checkbutton1001p.set_active(False)
-        # Do not use "if" here in order to avoid multiple "set_active" actions.
-        else:
-            self.checkbutton1001p.set_active(True)
-
-
-    # ----------------------- "Floating Summary" menu item -----------------------
-    def on_button1003p_clicked(self, widget):
-
-        self.popover1001p.hide()
-        from FloatingSummary import FloatingSummary
-        if Config.show_floating_summary == 0:
-            self.checkbutton1001p.set_active(True)
-            # Window has to be shown before running loop thread of the Floating Summary window. Because window visibility data is controlled to continue repeating "floating_summary_thread_run_func" function.
-            FloatingSummary.window3001.show()
-            Config.show_floating_summary = 1
-        else:
-            self.checkbutton1001p.set_active(False)
-            FloatingSummary.window3001.hide()
-            Config.show_floating_summary = 0
-        Config.config_save_func()
+        pass
 
 
     # ----------------------- "Settings" menu item -----------------------

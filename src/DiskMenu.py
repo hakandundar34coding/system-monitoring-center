@@ -34,6 +34,8 @@ class DiskMenu:
         self.combobox1305p = builder.get_object('combobox1305p')
         self.checkbutton1301p = builder.get_object('checkbutton1301p')
         self.checkbutton1302p = builder.get_object('checkbutton1302p')
+        self.radiobutton1301p = builder.get_object('radiobutton1301p')
+        self.radiobutton1302p = builder.get_object('radiobutton1302p')
         self.colorchooserdialog1301 = Gtk.ColorChooserDialog()
 
         # Connect GUI signals
@@ -48,6 +50,8 @@ class DiskMenu:
 
         self.checkbutton1301p.connect("toggled", self.on_checkbutton1301p_toggled)
         self.checkbutton1302p.connect("toggled", self.on_checkbutton1302p_toggled)
+        self.radiobutton1301p.connect("toggled", self.on_radiobutton1301p_toggled)
+        self.radiobutton1302p.connect("toggled", self.on_radiobutton1302p_toggled)
         self.combobox1301p.connect("changed", self.on_combobox1301p_changed)
         self.combobox1302p.connect("changed", self.on_combobox1302p_changed)
         self.combobox1303p.connect("changed", self.on_combobox1303p_changed)
@@ -60,6 +64,8 @@ class DiskMenu:
 
         self.checkbutton1301p.disconnect_by_func(self.on_checkbutton1301p_toggled)
         self.checkbutton1302p.disconnect_by_func(self.on_checkbutton1302p_toggled)
+        self.radiobutton1301p.disconnect_by_func(self.on_radiobutton1301p_toggled)
+        self.radiobutton1302p.disconnect_by_func(self.on_radiobutton1302p_toggled)
         self.combobox1301p.disconnect_by_func(self.on_combobox1301p_changed)
         self.combobox1302p.disconnect_by_func(self.on_combobox1302p_changed)
         self.combobox1303p.disconnect_by_func(self.on_combobox1303p_changed)
@@ -105,6 +111,30 @@ class DiskMenu:
                 widget.set_active(True)
                 return
             Config.plot_disk_write_speed = 0
+
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "Selected Device" Radiobutton -----------------------
+    def on_radiobutton1301p_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.show_disk_usage_per_disk = 0
+
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "All Devices" Radiobutton -----------------------
+    def on_radiobutton1302p_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.show_disk_usage_per_disk = 1
 
         # Apply changes immediately (without waiting update interval).
         Disk.disk_initial_func()
@@ -224,6 +254,12 @@ class DiskMenu:
             self.checkbutton1302p.set_active(True)
         if Config.plot_disk_write_speed == 0:
             self.checkbutton1302p.set_active(False)
+
+        # Select radiobutton appropriate for seleted/all devices chart setting
+        if Config.show_disk_usage_per_disk == 0:
+            self.radiobutton1301p.set_active(True)
+        if Config.show_disk_usage_per_disk == 1:
+            self.radiobutton1302p.set_active(True)
 
         # Add Disk speed data precision data into combobox
         liststore1301p = Gtk.ListStore()

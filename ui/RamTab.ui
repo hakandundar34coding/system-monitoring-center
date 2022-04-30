@@ -472,7 +472,7 @@
             <property name="can-focus">False</property>
             <property name="halign">start</property>
             <property name="margin-end">60</property>
-            <property name="label" translatable="yes">RAM</property>
+            <property name="label" translatable="yes">Memory</property>
             <attributes>
               <attribute name="weight" value="bold"/>
               <attribute name="scale" value="2"/>

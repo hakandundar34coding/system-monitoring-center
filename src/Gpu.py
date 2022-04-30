@@ -75,8 +75,8 @@ class Gpu:
         # Define initial values
         self.chart_data_history = Config.chart_data_history
         self.gpu_load_list = [0] * self.chart_data_history
-        # Currently highest monitor refresh rate is 360. 370 is used in order to get GPU load for AMD GPUs precisely.
-        self.amd_gpu_load_list = [0] * 370
+        # Currently highest monitor refresh rate is 360. 365 is used in order to get GPU load for AMD GPUs precisely.
+        self.amd_gpu_load_list = [0] * 365
 
 
         # Get information.
@@ -141,7 +141,7 @@ class Gpu:
         self.gpu_device_sub_path_list = []
         self.default_gpu = ""
 
-        # Get GPU list from "/sys/class/drm/" directory which is used by many x86_64 desktop systems.
+        # Get GPU list from "/sys/class/drm/" directory which is used by x86_64 desktop systems.
         if os.path.isdir("/dev/dri/") == True:
 
             for file in os.listdir("/sys/class/drm/"):
@@ -363,7 +363,7 @@ class Gpu:
 
             # Get GPU load average. There is no "%" character in "gpu_busy_percent" file. This file contains GPU load for a very small time.
             try:
-                self.amd_gpu_load_func()
+                self.gpu_load_amd_func()
                 gpu_load = f'{(sum(self.amd_gpu_load_list) / len(self.amd_gpu_load_list)):.0f} %'
             except Exception:
                 gpu_load = "-"
@@ -396,8 +396,7 @@ class Gpu:
                         with open(gpu_device_path + "device/hwmon/" + sensor + "/temp1_input") as reader:
                             gpu_temperature = reader.read().strip()
                         gpu_temperature = f'{(int(gpu_temperature) / 1000):.0f} °C'
-                else:
-                    gpu_temperature = "-"
+                        break
             except (FileNotFoundError, NotADirectoryError, OSError) as me:
                 gpu_temperature = "-"
 
@@ -534,7 +533,12 @@ class Gpu:
 
 
     # ----------------------- Get GPU load average for AMD GPUs -----------------------
-    def amd_gpu_load_func(self, *args):
+    def gpu_load_amd_func(self, *args):
+
+        selected_gpu_number = self.selected_gpu_number
+        selected_gpu = self.gpu_list[selected_gpu_number]
+        gpu_device_path = self.gpu_device_path_list[selected_gpu_number]
+        gpu_device_sub_path = self.gpu_device_sub_path_list[selected_gpu_number]
 
         # Destroy GLib source for preventing it repeating the function.
         try:
@@ -542,21 +546,21 @@ class Gpu:
         # "try-except" is used in order to prevent errors if this is first run of the function.
         except AttributeError:
             pass
-        self.gpu_glib_source = GLib.timeout_source_new(1000 / 370)
+        self.gpu_glib_source = GLib.timeout_source_new(1000 / 365)
 
         # Read file to get GPU load information. This information is calculated for a very small time (screen refresh rate or content (game, etc.) refresh rate?) and directly plotting this data gives spikes.
         with open(gpu_device_path + "device/gpu_busy_percent") as reader:
             gpu_load = reader.read().strip()
 
         # Add GPU load data into a list in order to calculate average of the list.
-        self.amd_gpu_load_list.append(float(gpu_load)/1000)
+        self.amd_gpu_load_list.append(float(gpu_load))
         del self.amd_gpu_load_list[0]
 
         # Prevent running the function again if tab is GPU switched off.
         if Config.current_main_tab != 0 or Config.performance_tab_current_sub_tab != 4:
             return
 
-        self.gpu_glib_source.set_callback(self.amd_gpu_load_func)
+        self.gpu_glib_source.set_callback(self.gpu_load_amd_func)
         # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
         self.gpu_glib_source.attach(GLib.MainContext.default())
 
@@ -576,6 +580,7 @@ class Gpu:
             current_refresh_rate = int(current_refresh_rate) / 1000
         except Exception:
             current_refresh_rate = "Unknown"
+
         # If refresh rate is not get or it is smaller than 30 (incorrect values such as 1, 2.14 are get on some systems such as RB-Pi devices), get it by using xrandr (if there is only one monitor connected).
         if current_refresh_rate == "Unknown" or current_refresh_rate < 30:
             try:
@@ -592,6 +597,7 @@ class Gpu:
                                     break
             except Exception:
                 pass
+
         if current_refresh_rate != "Unknown":
             current_refresh_rate = f'{current_refresh_rate:.2f} Hz'
         else:
