@@ -3,13 +3,14 @@
 #
 # FIRST AUTHOR macszymk@outlook.com, 2022.
 # K0RR <rdkracz@gmail.com>, 2022.
+# ski007 <ski007@linux.pl>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-24 09:43+0300\n"
 "PO-Revision-Date: 2022-03-14 11:26+0300\n"
-"Last-Translator: K0RR <rdkracz@gmail.com>\n"
+"Last-Translator: ski007 <ski007@linux.pl>\n"
 "Language-Team: \n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
