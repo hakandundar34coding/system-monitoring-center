@@ -120,7 +120,7 @@ msgstr ""
 
 #: src/Network.py:205
 msgid "Ethernet"
-msgstr "Ethernet"
+msgstr "Sieć przewodowa"
 
 #: src/Network.py:207
 msgid "Wi-Fi"
@@ -247,7 +247,7 @@ msgstr "Zatrzymany"
 
 #: src/Processes.py:219
 msgid "Tracing Stop"
-msgstr ""
+msgstr "Zatrzymanie śledzenia"
 
 #: src/Processes.py:219 src/Services.py:174 src/ServicesDetails.py:129
 msgid "Dead"
@@ -341,31 +341,31 @@ msgstr "Plik"
 #: src/RamSwapDetails.py:88 ui/DiskDetailsWindow.ui:136
 #: ui/DiskDetailsWindow.ui:803
 msgid "Used"
-msgstr ""
+msgstr "Używany"
 
 #: src/RamSwapDetails.py:97
 msgid "This system has no swap memory."
-msgstr ""
+msgstr "Ten system nie ma pamięci wymiany."
 
 #: src/Sensors.py:100
 msgid "Sensor Group"
-msgstr ""
+msgstr "Grupa czujników"
 
 #: src/Sensors.py:101
 msgid "Sensor Name"
-msgstr ""
+msgstr "Nazwa czujnika"
 
 #: src/Sensors.py:102
 msgid "Current Value"
-msgstr ""
+msgstr "Bieżąca wartość"
 
 #: src/Sensors.py:103
 msgid "Critical Value"
-msgstr ""
+msgstr "Krytyczna wartość"
 
 #: src/Sensors.py:104
 msgid "Max Value"
-msgstr ""
+msgstr "Maksymalna wartość"
 
 #: src/Sensors.py:354 src/SettingsGUI.py:345 ui/MainWindow.ui:409
 #: ui/SensorsTab.ui:77
@@ -374,27 +374,27 @@ msgstr "Czujniki"
 
 #: src/Services.py:149 ui/ServicesMenuCustomizations.ui:250
 msgid "State"
-msgstr ""
+msgstr "Stan"
 
 #: src/Services.py:150 ui/ServicesDetailsWindow.ui:428
 #: ui/ServicesMenuCustomizations.ui:264
 msgid "Main PID"
-msgstr ""
+msgstr "Główny PID"
 
 #: src/Services.py:151 ui/ServicesDetailsWindow.ui:277
 #: ui/ServicesMenuCustomizations.ui:278
 msgid "Active State"
-msgstr ""
+msgstr "Stan aktywny"
 
 #: src/Services.py:152 ui/ServicesDetailsWindow.ui:264
 #: ui/ServicesMenuCustomizations.ui:292
 msgid "Load State"
-msgstr ""
+msgstr "Stan obciążenia"
 
 #: src/Services.py:153 ui/ServicesDetailsWindow.ui:290
 #: ui/ServicesMenuCustomizations.ui:306
 msgid "Sub-State"
-msgstr ""
+msgstr "Pod-stan"
 
 #: src/Services.py:155 ui/ServicesDetailsWindow.ui:62
 #: ui/ServicesMenuCustomizations.ui:334
@@ -411,27 +411,27 @@ msgstr "Wyłączony"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Masked"
-msgstr ""
+msgstr "Ukryty"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Unmasked"
-msgstr ""
+msgstr "Jawny"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Static"
-msgstr ""
+msgstr "Statyczny"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Generated"
-msgstr ""
+msgstr "Wygenerowane"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Enabled-runtime"
-msgstr ""
+msgstr "Włączone środowisko wykonawcze"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Indirect"
-msgstr ""
+msgstr "Pośredni"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Active"
@@ -447,7 +447,7 @@ msgstr "Załadowany"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Exited"
-msgstr ""
+msgstr "Wyjście"
 
 #: src/Services.py:443 src/SettingsGUI.py:328 ui/MainWindow.ui:750
 #: ui/ServicesTab.ui:61
@@ -486,7 +486,7 @@ msgstr "GPU"
 
 #: src/SettingsGUI.py:597
 msgid "Do you want to reset all settings to defaults?"
-msgstr ""
+msgstr "Czy chcesz zresetować wszystkie ustawienia do wartości domyślnych?"
 
 #: src/Startup.py:122 ui/StartupNewItemWindow.ui:171
 msgid "Comment"
@@ -494,11 +494,11 @@ msgstr "Komentarz"
 
 #: src/Startup.py:416
 msgid "Startup Items"
-msgstr ""
+msgstr "Elementy startowe"
 
 #: src/StartupMenuRightClick.py:63
 msgid "Do you want to delete this startup item?"
-msgstr ""
+msgstr "Czy chcesz usunąć ten element startowy?"
 
 #: src/StartupMenuRightClick.py:126
 msgid "Do you want to run this startup item now?"
