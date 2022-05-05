@@ -559,26 +559,26 @@ class MainGUI:
             if os.path.isdir(folder) == False:
                 generate_folder(folder)
 
-        # Copy .desktop file if it is not copied before.
-        if os.path.isfile(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop") == False:
-
-            # Try to remove if there is a broken symlink of the file (symlink was generated in previous versions of the application).
-            remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
-
-            # Import module for copying files
-            import shutil
-
-            copy_file(current_dir + "/../integration/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/")
-
         # Get icon file paths in the home directory.
         icon_list_actions = [current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/") if file.startswith("system-monitoring-center-")]
         icon_list_apps = [current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/" + file for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/") if file.startswith("system-monitoring-center.svg")]
         icon_list_home = sorted(icon_list_actions + icon_list_apps)
 
-        # Get icon file paths in the installation directory.
-        icon_list_actions = [current_dir + "/../icons/hicolor/scalable/actions/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions/") if file.startswith("system-monitoring-center-")]
-        icon_list_apps = [current_dir + "/../icons/hicolor/scalable/apps/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/apps/") if file.startswith("system-monitoring-center.svg")]
-        icon_list_current = sorted(icon_list_actions + icon_list_apps)
+        # Get icon file paths in the installation directory. These files are copied under this statement in order to avoid copying them if this is a system package which copies GUI images into "/usr/share/icons/..." folder during installation.
+        try:
+            icon_list_actions = [current_dir + "/../icons/hicolor/scalable/actions/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions/") if file.startswith("system-monitoring-center-")]
+            icon_list_apps = [current_dir + "/../icons/hicolor/scalable/apps/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/apps/") if file.startswith("system-monitoring-center.svg")]
+            icon_list_current = sorted(icon_list_actions + icon_list_apps)
+
+            # Copy .desktop file if it is not copied before.
+            if os.path.isfile(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop") == False:
+                # Try to remove if there is a broken symlink of the file (symlink was generated in previous versions of the application).
+                remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
+                # Import module for copying files
+                import shutil
+                copy_file(current_dir + "/../integration/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/")
+        except Exception:
+            icon_list_current = []
 
         # Check if number of icon files are different. Remove the files in the home directory and copy the files in the installation directory if they are different.
         if len(icon_list_home) != len(icon_list_current):
