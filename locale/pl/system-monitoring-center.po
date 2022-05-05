@@ -721,11 +721,11 @@ msgstr "Rdzenie (fizyczne-logiczne)"
 
 #: ui/CpuTab.ui:200
 msgid "CPU Sockets:"
-msgstr "Gniazda procesora"
+msgstr "Gniazda procesora:"
 
 #: ui/CpuTab.ui:213
 msgid "Min-Max Frequency:"
-msgstr "Min-Max Częstotliwość"
+msgstr "Min-Max Częstotliwość:"
 
 #: ui/CpuTab.ui:225
 msgid "Current frequency of the selected CPU core"
