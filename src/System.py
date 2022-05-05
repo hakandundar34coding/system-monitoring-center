@@ -14,8 +14,6 @@ try:
 except ModuleNotFoundError:
     pass
 
-import Config
-
 
 # Define class
 class System:

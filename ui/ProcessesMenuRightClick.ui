@@ -2,73 +2,57 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
-  <object class="GtkImage" id="menuitem2101mimage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-pause-symbolic</property>
-  </object>
-  <object class="GtkImage" id="menuitem2102mimage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-start-symbolic</property>
-  </object>
-  <object class="GtkImage" id="menuitem2103mimage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-stop-symbolic</property>
-  </object>
-  <object class="GtkImage" id="menuitem2104mimage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-stop-symbolic</property>
-  </object>
-  <object class="GtkImage" id="menuitem2105mimage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-services-symbolic</property>
-  </object>
-  <object class="GtkImage" id="menuitem2108mimage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-monitoring-center-details-symbolic</property>
-  </object>
   <object class="GtkMenu" id="menu2101m">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <child>
-      <object class="GtkImageMenuItem" id="menuitem2101m">
+      <object class="GtkMenuItem" id="menuitem2107m">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Expand All</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitem2108m">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Collapse All</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="menuitem2109m">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitem2101m">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
         <property name="label" translatable="yes">Stop Process</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">menuitem2101mimage</property>
-        <property name="use-stock">False</property>
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="menuitem2102m">
+      <object class="GtkMenuItem" id="menuitem2102m">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
         <property name="label" translatable="yes">Continue Process</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">menuitem2102mimage</property>
-        <property name="use-stock">False</property>
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="menuitem2103m">
+      <object class="GtkMenuItem" id="menuitem2103m">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
         <property name="label" translatable="yes">Terminate Process</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">menuitem2103mimage</property>
-        <property name="use-stock">False</property>
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="menuitem2104m">
-        <property name="label" translatable="yes">Kill Process</property>
+      <object class="GtkMenuItem" id="menuitem2104m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="image">menuitem2104mimage</property>
-        <property name="use-stock">False</property>
+        <property name="label" translatable="yes">Kill Process</property>
       </object>
     </child>
     <child>
@@ -78,12 +62,10 @@
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="menuitem2105m">
-        <property name="label" translatable="yes">Change Priority (Nice)</property>
+      <object class="GtkMenuItem" id="menuitem2105m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="image">menuitem2105mimage</property>
-        <property name="use-stock">False</property>
+        <property name="label" translatable="yes">Change Priority (Nice)</property>
         <child type="submenu">
           <object class="GtkMenu">
             <property name="visible">True</property>
@@ -162,12 +144,10 @@
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="menuitem2106m">
-        <property name="label" translatable="yes">Details</property>
+      <object class="GtkMenuItem" id="menuitem2106m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="image">menuitem2108mimage</property>
-        <property name="use-stock">False</property>
+        <property name="label" translatable="yes">Details</property>
       </object>
     </child>
   </object>

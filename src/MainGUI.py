@@ -521,15 +521,8 @@ class MainGUI:
         self.main_glib_source.attach(GLib.MainContext.default())
 
 
-    # ----------------------- Called for generating symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated. -----------------------
+    # ----------------------- Called for copying files for GUI icons and application shortcut (.desktop file) in user folders if they are not copied before. -----------------------
     def main_gui_application_system_integration_func(self):
-
-        # Get current directory (which code of this application is in) and current user home directory (symlinks will be generated in).
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        current_user_homedir = os.environ.get('HOME')
-
-        # This file is used for checking if symlinks are copied before. ".desktop" file is not checked because user may replace the symlink with a modified ".desktop" file.
-        file_to_check_if_generated = current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg"
 
         # Called for removing files.
         def remove_file(file):
@@ -545,71 +538,59 @@ class MainGUI:
             except Exception:
                 pass
 
-        # Called for generating symlinks.
-        def generate_symlink(source, target):
+        # Called for copying files.
+        def copy_file(source, target):
             try:
-                os.symlink(source, target)
+                shutil.copy2(source, target)
             except Exception:
                 pass
 
-        # Check if symlinks are copied before.
-        if os.path.isfile(file_to_check_if_generated) == True:
+        # Get current directory (which code of this application is in) and current user home directory (files will be copied in).
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        current_user_homedir = os.environ.get('HOME')
 
-            # Get source path of the check file (symlink).
-            generated_file_path_source = os.readlink(file_to_check_if_generated)
+        # Define folder list in the home directory for copying files in it.
+        home_dir_folder_list = [current_user_homedir + "/.local/share/applications/",
+                                current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/",
+                                current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/"]
 
-            # If symlink targets are not for path of current application code files (system-wide location or user-specific location), remove previous files for avoiding errors during generating new ones.
-            if current_dir.split("/")[1] != generated_file_path_source.split("/")[1]:
+        # Generate folders to copy files in them if they are not generated before.
+        for folder in home_dir_folder_list:
+            if os.path.isdir(folder) == False:
+                generate_folder(folder)
 
-                # Get icon list.
-                try:
-                    icon_list = os.listdir(current_dir + "/../icons/hicolor/scalable/actions")
-                except FileNotFoundError:
-                    icon_list = os.listdir("/usr/share/icons/hicolor/scalable/actions")
+        # Get icon file paths in the home directory.
+        icon_list_actions = [current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/") if file.startswith("system-monitoring-center-")]
+        icon_list_apps = [current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/" + file for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/") if file.startswith("system-monitoring-center.svg")]
+        icon_list_home = sorted(icon_list_actions + icon_list_apps)
 
-                file_list_in_target = []
-                file_list_in_target.append(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
-                file_list_in_target.append(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
-                for file in icon_list:
-                    file_list_in_target.append(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file)
-                for file in file_list_in_target:
-                    if os.path.islink(file) == True:
-                        remove_file(file)
+        # Get icon file paths in the installation directory. These files are copied under this statement in order to avoid copying them if this is a system package which copies GUI images into "/usr/share/icons/..." folder during installation.
+        try:
+            icon_list_actions = [current_dir + "/../icons/hicolor/scalable/actions/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions/") if file.startswith("system-monitoring-center-")]
+            icon_list_apps = [current_dir + "/../icons/hicolor/scalable/apps/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/apps/") if file.startswith("system-monitoring-center.svg")]
+            icon_list_current = sorted(icon_list_actions + icon_list_apps)
 
-        # Check if symlinks are not copied before.
-        else:
+            # Copy .desktop file if it is not copied before.
+            if os.path.isfile(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop") == False:
+                # Try to remove if there is a broken symlink of the file (symlink was generated in previous versions of the application).
+                remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
+                # Import module for copying files
+                import shutil
+                copy_file(current_dir + "/../integration/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/")
+        except Exception:
+            icon_list_current = []
 
-            # Get icon list.
-            try:
-                icon_list = os.listdir(current_dir + "/../icons/hicolor/scalable/actions")
-            except FileNotFoundError:
-                icon_list = os.listdir("/usr/share/icons/hicolor/scalable/actions")
+        # Check if number of icon files are different. Remove the files in the home directory and copy the files in the installation directory if they are different.
+        if len(icon_list_home) != len(icon_list_current):
 
-            # Try to remove previous symlinks ("isfile" check gives "False" if there are symlinks and targets are removed. Example cases: If the application is removed from user-specific directory and installed into system-wide directory or vice versa.).
-            file_list_in_target = []
-            file_list_in_target.append(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
-            file_list_in_target.append(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
-            for file in icon_list:
-                file_list_in_target.append(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file)
-            for file in file_list_in_target:
-                if os.path.islink(file) == True:
-                    remove_file(file)
+            # Import module for copying files
+            import shutil
 
-            # Prevent running rest of this function if the application code is in "/usr/lib/" folder which means the application is a Python application and packaged for a distribution package manager and it has a desktop file after installation.
-            if current_dir.startswith("/usr/lib/") == True or current_dir.startswith("/usr/share/") == True:
-                return
+            for file in icon_list_home:
+                remove_file(file)
 
-            # Generate folders.
-            generate_folder(current_user_homedir + "/.local/share/applications")
-            generate_folder(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps")
-            generate_folder(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions")
-
-            # Generate symlinks.
-            generate_symlink(current_dir + "/../applications/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
-            generate_symlink(current_dir + "/../icons/hicolor/scalable/apps/system-monitoring-center.svg", current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/system-monitoring-center.svg")
-            target_path = current_user_homedir + "/.local/share/icons/hicolor/scalable/actions"
-            for file in icon_list:
-                generate_symlink(current_dir + "/../icons/hicolor/scalable/actions/" + file, target_path + "/" + file)
+            for file in icon_list_current:
+                copy_file(file, current_user_homedir + "/.local/share/icons/hicolor/scalable/" + file.split("/")[-2] + "/")
 
 
 # Generate object

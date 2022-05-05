@@ -29,8 +29,6 @@ def processes_gui_func():
 
     # Processes tab GUI objects
     global grid2101, treeview2101, searchentry2101, button2101
-    global radiobutton2101, radiobutton2102, radiobutton2103, radiobutton2104, radiobutton2105, radiobutton2106
-
 
     # Processes tab GUI objects - get from file
     builder = Gtk.Builder()
@@ -41,12 +39,6 @@ def processes_gui_func():
     treeview2101 = builder.get_object('treeview2101')
     searchentry2101 = builder.get_object('searchentry2101')
     button2101 = builder.get_object('button2101')
-    radiobutton2101 = builder.get_object('radiobutton2101')
-    radiobutton2102 = builder.get_object('radiobutton2102')
-    radiobutton2103 = builder.get_object('radiobutton2103')
-    radiobutton2104 = builder.get_object('radiobutton2104')
-    radiobutton2105 = builder.get_object('radiobutton2105')
-    radiobutton2106 = builder.get_object('radiobutton2106')
 
 
     # Processes tab GUI functions
@@ -73,8 +65,9 @@ def processes_gui_func():
         # Open right click menu if right clicked on a row
         if event.button == 3:
             from ProcessesMenuRightClick import ProcessesMenuRightClick
-            ProcessesMenuRightClick.menu2101m.popup(None, None, None, None, event.button, event.time)
+            ProcessesMenuRightClick.processes_add_remove_expand_collapse_menuitems_func()
             ProcessesMenuRightClick.processes_select_process_nice_option_func()
+            ProcessesMenuRightClick.menu2101m.popup_at_pointer()
 
         # Open details window if double clicked on a row
         if event.type == Gdk.EventType._2BUTTON_PRESS:
@@ -92,9 +85,6 @@ def processes_gui_func():
 
     # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
     def on_searchentry2101_changed(widget):
-
-        radiobutton2101.set_active(True)
-        radiobutton2104.set_active(True)
 
         global filter_column
         process_search_text = searchentry2101.get_text().lower()
@@ -122,80 +112,11 @@ def processes_gui_func():
         ProcessesMenuCustomizations.popover2101p.popup()
 
 
-    # --------------------------------- Called for filtering items when "Show all processes" radiobutton is clicked ---------------------------------
-    def on_radiobutton2101_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry2101.set_text("")                                                      # Changing "Show all ..." radiobuttons override treestore row visibilities. Searchentry text is reset in order to avoid frustrations.
-            for piter in piter_list:
-                # Show all processes
-                treestore2101.set_value(piter, 0, True)
-            treeview2101.expand_all()
-            radiobutton2104.set_active(True)
-
-
-    # --------------------------------- Called for filtering items when "Show processes from this user" radiobutton is clicked ---------------------------------
-    def on_radiobutton2102_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry2101.set_text("")
-            for piter in piter_list:
-                # Show all processes
-                treestore2101.set_value(piter, 0, True)
-                # Show if process of current user
-                if username_list[piter_list.index(piter)] != current_user_name:
-                    treestore2101.set_value(piter, 0, False)
-            treeview2101.expand_all()
-            radiobutton2104.set_active(True)
-
-
-    # --------------------------------- Called for filtering items when "Show processes from other users" radiobutton is clicked ---------------------------------
-    def on_radiobutton2103_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry2101.set_text("")
-            for piter in piter_list:
-                # Show all processes
-                treestore2101.set_value(piter, 0, True)
-                # Show if process of other users
-                if username_list[piter_list.index(piter)] == current_user_name:
-                    treestore2101.set_value(piter, 0, False)
-            treeview2101.expand_all()
-            radiobutton2104.set_active(True)
-
-
-    # --------------------------------- Called for unselecting expand/collapse radiobuttons when "User defined expand" radiobutton is clicked ---------------------------------
-    def on_radiobutton2104_toggled(widget):
-
-        if widget.get_active() == True:
-            pass
-
-
-    # --------------------------------- Called for expanding items when "Expand all" radiobutton is clicked ---------------------------------
-    def on_radiobutton2105_toggled(widget):
-
-        if widget.get_active() == True:
-            treeview2101.expand_all()
-
-
-    # --------------------------------- Called for collapsing items when "Collapse all" radiobutton is clicked ---------------------------------
-    def on_radiobutton2106_toggled(widget):
-
-        if widget.get_active() == True:
-            treeview2101.collapse_all()
-
-
     # Processes tab GUI functions - connect
     treeview2101.connect("button-press-event", on_treeview2101_button_press_event)
     treeview2101.connect("button-release-event", on_treeview2101_button_release_event)
     searchentry2101.connect("changed", on_searchentry2101_changed)
     button2101.connect("clicked", on_button2101_clicked)
-    radiobutton2101.connect("toggled", on_radiobutton2101_toggled)
-    radiobutton2102.connect("toggled", on_radiobutton2102_toggled)
-    radiobutton2103.connect("toggled", on_radiobutton2103_toggled)
-    radiobutton2104.connect("toggled", on_radiobutton2104_toggled)
-    radiobutton2105.connect("toggled", on_radiobutton2105_toggled)
-    radiobutton2106.connect("toggled", on_radiobutton2106_toggled)
 
 
     # Processes Tab - Treeview Properties
@@ -205,9 +126,6 @@ def processes_gui_func():
     treeview2101.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
     treeview2101.set_search_column(2)                                                         # This command used for searching by using entry.
     treeview2101.set_tooltip_column(2)
-
-    # Settings for some radiobuttons
-    processes_expand_and_filter_radiobutton_preferences_func()
 
 
 # ----------------------------------- Processes - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -618,11 +536,7 @@ def processes_loop_func():
             piter_list.remove(piter_list[pid_list_prev.index(process)])
     if len(new_processes) > 0:
         for process in new_processes:
-            # /// Start /// This block of code is used for determining if the newly added process will be shown on the treeview (user search actions and/or search customizations and/or "Show processes from this user/other users ..." preference affect process visibility).
-            if radiobutton2102.get_active() == True and username_list[pid_list.index(process)] != current_user_name:    # Hide process (set the visibility value as "False") if "Show processes from this user" option is selected on the GUI and process username is not same as name of current user.
-                processes_data_rows[pid_list.index(process)][0] = False
-            if radiobutton2103.get_active() == True and username_list[pid_list.index(process)] == current_user_name:    # Hide process (set the visibility value as "False") if "Show processes from other users" option is selected on the GUI and process username is same as name of current user.
-                processes_data_rows[pid_list.index(process)][0] = False
+            # /// Start /// This block of code is used for determining if the newly added process will be shown on the treeview (user search actions affect process visibility).
             if searchentry2101.get_text() != "":
                 process_search_text = searchentry2101.get_text()
                 process_data_text_in_model = processes_data_rows[pid_list.index(process)][filter_column]
@@ -657,7 +571,7 @@ def processes_loop_func():
     processes_data_column_widths_prev = processes_data_column_widths
 
     # Show number of processes on the searchentry as placeholder text
-    searchentry2101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Processes") + ": " + str(len(username_list)) + ")")
+    searchentry2101.set_placeholder_text(_tr("Search...") + "                    " + "(" + _tr("Processes") + ": " + str(len(username_list)) + ")")
 
     # Show/Hide treeview expander arrows. If "child rows" are not used and there is no need for these expanders (they would be shown as empty spaces in this situation).
     if show_processes_as_tree == 1:
@@ -712,38 +626,6 @@ def processes_treeview_column_order_width_row_sorting_func():
                 Config.processes_data_column_widths[i] = processes_treeview_columns[j].get_width()
                 break
     Config.config_save_func()
-
-
-# ----------------------- Called for setting sensitive/insensitive expand/collapse buttons when "show_processes_as_tree" is enabled/disabled -----------------------
-def processes_expand_and_filter_radiobutton_preferences_func():
-
-    # Reset selections
-    radiobutton2101.set_active(True)
-    radiobutton2104.set_active(True)
-
-    # Check if "show_processes_as_tree" option is enabled.
-    if Config.show_processes_as_tree == 1:
-
-        # Set "show procresses from..." filtering radiobuttons as "insensitive". Because some of these options do not show process when processes are listed as tree.
-        radiobutton2101.set_sensitive(False)
-        radiobutton2102.set_sensitive(False)
-        radiobutton2103.set_sensitive(False)
-        # Set "Expand/Collapse" radiobuttons as "sensitive" . Therefore, expanding/collapsing treeview rows functions will be available for using by the user.
-        radiobutton2104.set_sensitive(True)
-        radiobutton2105.set_sensitive(True)
-        radiobutton2106.set_sensitive(True)
-
-    # Check if "show_processes_as_tree" option is disabled.
-    if Config.show_processes_as_tree == 0:
-
-        # Set "show procresses from..." filtering radiobuttons as "sensitive". Therefore process filtering can be used.
-        radiobutton2101.set_sensitive(True)
-        radiobutton2102.set_sensitive(True)
-        radiobutton2103.set_sensitive(True)
-        # Set "Expand/Collapse" radiobuttons as "insensitive". Because expanding/collapsing treeview rows has no effects when treeview items are listed as "list".
-        radiobutton2104.set_sensitive(False)
-        radiobutton2105.set_sensitive(False)
-        radiobutton2106.set_sensitive(False)
 
 
 # ----------------------------------- Processes - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------

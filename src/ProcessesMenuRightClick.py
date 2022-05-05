@@ -32,6 +32,9 @@ class ProcessesMenuRightClick:
         self.menuitem2103m = builder.get_object('menuitem2103m')
         self.menuitem2104m = builder.get_object('menuitem2104m')
         self.menuitem2106m = builder.get_object('menuitem2106m')
+        self.menuitem2107m = builder.get_object('menuitem2107m')
+        self.menuitem2108m = builder.get_object('menuitem2108m')
+        self.menuitem2109m = builder.get_object('menuitem2109m')
         self.radiomenuitem2101m = builder.get_object('radiomenuitem2101m')
         self.radiomenuitem2102m = builder.get_object('radiomenuitem2102m')
         self.radiomenuitem2103m = builder.get_object('radiomenuitem2103m')
@@ -45,6 +48,8 @@ class ProcessesMenuRightClick:
         self.menuitem2103m.connect("activate", self.on_process_manage_menuitems_activate)
         self.menuitem2104m.connect("activate", self.on_process_manage_menuitems_activate)
         self.menuitem2106m.connect("activate", self.on_menuitem2106m_activate)
+        self.menuitem2107m.connect("activate", self.on_expand_collapse_menuitems_activate)
+        self.menuitem2108m.connect("activate", self.on_expand_collapse_menuitems_activate)
         self.normalmenuitem2101m.connect("activate", self.on_normalmenuitem2101m_activate)
         # Connect some of the GUI signals by defining signal handler IDs for them to be able to block them during setting radiomenuitems.
         self.radiomenuitem2101m_handler_id = self.radiomenuitem2101m.connect("activate", self.on_process_priority_radioitems_activate)
@@ -162,6 +167,30 @@ class ProcessesMenuRightClick:
 
         from ProcessesDetails import ProcessesDetails
         ProcessesDetails.window2101w.show()
+
+
+    # ----------------------- Called for expanding/collapsing items when "Expand All/Collapse All" menuitems are clicked -----------------------
+    def on_expand_collapse_menuitems_activate(self, widget):
+
+        if widget == self.menuitem2107m:
+            Processes.treeview2101.expand_all()
+
+        if widget == self.menuitem2108m:
+            Processes.treeview2101.collapse_all()
+
+
+    # ----------------------- Called for setting priority of the process on the right click menu -----------------------
+    def processes_add_remove_expand_collapse_menuitems_func(self):
+
+        if Config.show_processes_as_tree == 1:
+            self.menuitem2107m.show()
+            self.menuitem2108m.show()
+            self.menuitem2109m.show()
+
+        if Config.show_processes_as_tree == 0:
+            self.menuitem2107m.hide()
+            self.menuitem2108m.hide()
+            self.menuitem2109m.hide()
 
 
     # ----------------------- Called for setting priority of the process on the right click menu -----------------------

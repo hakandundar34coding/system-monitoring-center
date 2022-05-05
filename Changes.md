@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v1.14.0
+  * Removed: Images on several menus for a simpler GUI
+  * Removed: Filtering buttons on several tabs for a simpler GUI
+  * Fix: Right click menu position for some multp. monitor setups
+  * Minor improvements for reducing RAM usage of the application
+  * Minor improvements for reducing start speed of the application
+  * Improvements for showing GUI images after installation
+  * Several improvements (GUI, translations, etc.)
+
 ### v1.13.0
   * New: Plot memory/disk/network usage/speed of all devices
   * New: Option for process command line column (Processes tab)

@@ -146,7 +146,6 @@ class ProcessesMenuCustomizations:
         # Load default settings
         Config.config_default_processes_func()
         Config.config_save_func()
-        Processes.processes_expand_and_filter_radiobutton_preferences_func()
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -180,7 +179,7 @@ class ProcessesMenuCustomizations:
             Config.show_processes_as_tree = 0
             self.checkbutton2103p.set_sensitive(False)
 
-        Processes.processes_expand_and_filter_radiobutton_preferences_func()
+        Processes.processes_expand_and_filter_button_preferences_func()
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()

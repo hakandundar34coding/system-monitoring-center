@@ -116,7 +116,7 @@ Hakan Dündar (Türkçe)</property>
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center-info-about-symbolic</property>
+                    <property name="icon-name">system-monitoring-center</property>
                   </object>
                   <packing>
                     <property name="left-attach">0</property>
