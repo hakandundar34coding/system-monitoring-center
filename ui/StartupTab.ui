@@ -34,7 +34,7 @@
       </packing>
     </child>
     <child>
-      <!-- n-columns=3 n-rows=1 -->
+      <!-- n-columns=2 n-rows=1 -->
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
@@ -57,84 +57,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButtonBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="homogeneous">True</property>
-            <property name="layout-style">expand</property>
-            <child>
-              <object class="GtkRadioButton" id="radiobutton5101">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Show all</property>
-                <property name="active">True</property>
-                <property name="draw-indicator">False</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center-show-all-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="radiobutton5102">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Show user-specific startup items</property>
-                <property name="draw-indicator">False</property>
-                <property name="group">radiobutton5101</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center-user-current-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="radiobutton5103">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Show system-wide startup items</property>
-                <property name="draw-indicator">False</property>
-                <property name="group">radiobutton5101</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center-system-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">0</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkSearchEntry" id="searchentry5101">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -144,7 +66,7 @@
             <property name="placeholder-text" translatable="yes">Search...</property>
           </object>
           <packing>
-            <property name="left-attach">2</property>
+            <property name="left-attach">1</property>
             <property name="top-attach">0</property>
           </packing>
         </child>

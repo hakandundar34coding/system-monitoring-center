@@ -29,16 +29,11 @@ def sensors_gui_func():
 
     # Sensors tab GUI objects
     global grid1601, treeview1601, searchentry1601
-    global radiobutton1601, radiobutton1602, radiobutton1603, radiobutton1604
 
     # Sensors tab GUI objects - get
     grid1601 = builder.get_object('grid1601')
     treeview1601 = builder.get_object('treeview1601')
     searchentry1601 = builder.get_object('searchentry1601')
-    radiobutton1601 = builder.get_object('radiobutton1601')
-    radiobutton1602 = builder.get_object('radiobutton1602')
-    radiobutton1603 = builder.get_object('radiobutton1603')
-    radiobutton1604 = builder.get_object('radiobutton1604')
 
 
     # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
@@ -52,8 +47,6 @@ def sensors_gui_func():
     # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
     def on_searchentry1601_changed(widget):
 
-        # Reset sensor filtering
-        radiobutton1601.set_active(True)
         # Get search text
         sensor_search_text = searchentry1601.get_text().lower()
         # Set visible/hidden sensor data
@@ -64,61 +57,8 @@ def sensors_gui_func():
                 treestore1601.set_value(piter, 0, True)
 
 
-    # --------------------------------- Called for filtering items when "Show all sensors" radiobutton is clicked ---------------------------------
-    def on_radiobutton1601_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry1601.set_text("")
-            for piter in piter_list:
-                # Show all sensors
-                treestore1601.set_value(piter, 0, True)
-
-
-    # --------------------------------- Called for filtering items when "Show all temperature sensors" radiobutton is clicked ---------------------------------
-    def on_radiobutton1602_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry1601.set_text("")
-            for piter in piter_list:
-                # Show all sensors
-                treestore1601.set_value(piter, 0, True)
-                # Show if temperature sensor
-                if sensor_type_list[piter_list.index(piter)] != temperature_sensor_icon_name:
-                    treestore1601.set_value(piter, 0, False)
-
-
-    # --------------------------------- Called for filtering items when "Show all fan sensors" radiobutton is clicked ---------------------------------
-    def on_radiobutton1603_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry1601.set_text("")
-            for piter in piter_list:
-                # Show all sensors
-                treestore1601.set_value(piter, 0, True)
-                # Show if fan sensor
-                if sensor_type_list[piter_list.index(piter)] != fan_sensor_icon_name:
-                    treestore1601.set_value(piter, 0, False)
-
-
-    # --------------------------------- Called for filtering items when "Show all voltage, current and power sensors" radiobutton is clicked ---------------------------------
-    def on_radiobutton1604_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry1601.set_text("")
-            for piter in piter_list:
-                # Show all sensors
-                treestore1601.set_value(piter, 0, True)
-                # Show if voltage, current and power sensor
-                if sensor_type_list[piter_list.index(piter)] != voltage_current_power_sensor_icon_name:
-                    treestore1601.set_value(piter, 0, False)
-
-
     # Sensors tab GUI functions - connect
     searchentry1601.connect("changed", on_searchentry1601_changed)
-    radiobutton1601.connect("toggled", on_radiobutton1601_toggled)
-    radiobutton1602.connect("toggled", on_radiobutton1602_toggled)
-    radiobutton1603.connect("toggled", on_radiobutton1603_toggled)
-    radiobutton1604.connect("toggled", on_radiobutton1604_toggled)
 
 
     # Sensors Tab on Sensors Tab - Treeview Properties
@@ -375,13 +315,7 @@ def sensors_loop_func():
     treestore1601.clear()
     # Append sensor data into treeview
     for sensors_data_row in sensors_data_rows:
-        # /// Start /// This block of code is used for determining if the newly added sensor will be shown on the treeview (sensor search actions and/or search customizations and/or "Show only temperature/fan sensors" preference affect sensor visibility).
-        if radiobutton1602.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != temperature_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show all temperature sensors" option is selected on the GUI and sensor type is not temperature.
-            sensors_data_row[0] = False
-        if radiobutton1603.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != fan_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show all fan sensors" option is selected on the GUI and sensor type is not fan.
-            sensors_data_row[0] = False
-        if radiobutton1604.get_active() == True and sensor_type_list[sensors_data_rows.index(sensors_data_row)] != voltage_current_power_sensor_icon_name:    # Hide sensor (set the visibility value as "False") if "Show all voltage and current sensors" option is selected on the GUI and sensor type is not voltage, current or power.
-            sensors_data_row[0] = False
+        # /// Start /// This block of code is used for determining if the newly added sensor will be shown on the treeview (sensor search actions affect sensor visibility).
         if searchentry1601.get_text() != "":
             sensor_search_text = searchentry1601.get_text()
             sensor_data_text_in_model = sensors_data_row[filter_column]
@@ -398,7 +332,7 @@ def sensors_loop_func():
     sensors_data_column_widths_prev = sensors_data_column_widths
 
     # Show number of sensors on the searchentry as placeholder text
-    searchentry1601.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Sensors") + ": " + str(len(sensor_type_list)) + ")")
+    searchentry1601.set_placeholder_text(_tr("Search...") + "                    " + "(" + _tr("Sensors") + ": " + str(len(sensor_type_list)) + ")")
 
 
 # ----------------------------------- Sensors - Column Title Clicked Function -----------------------------------

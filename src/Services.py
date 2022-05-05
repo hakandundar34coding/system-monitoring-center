@@ -28,8 +28,6 @@ def services_gui_func():
 
     # Services tab GUI objects
     global grid6101, treeview6101, searchentry6101, button6101, button6102
-    global radiobutton6101, radiobutton6102, radiobutton6103
-
 
     # Services tab GUI objects - get from file
     builder = Gtk.Builder()
@@ -41,9 +39,6 @@ def services_gui_func():
     searchentry6101 = builder.get_object('searchentry6101')
     button6101 = builder.get_object('button6101')
     button6102 = builder.get_object('button6102')
-    radiobutton6101 = builder.get_object('radiobutton6101')
-    radiobutton6102 = builder.get_object('radiobutton6102')
-    radiobutton6103 = builder.get_object('radiobutton6103')
 
 
     # Services tab GUI functions
@@ -70,7 +65,7 @@ def services_gui_func():
         # Open right click menu if right clicked on a row
         if event.button == 3:
             from ServicesMenuRightClick import ServicesMenuRightClick
-            ServicesMenuRightClick.menu6101m.popup(None, None, None, None, event.button, event.time)
+            ServicesMenuRightClick.menu6101m.popup_at_pointer()
             ServicesMenuRightClick.services_set_checkmenuitem_func()
 
         # Open details window if double clicked on a row
@@ -89,8 +84,6 @@ def services_gui_func():
 
     # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
     def on_searchentry6101_changed(widget):
-
-        radiobutton6101.set_active(True)
 
         global filter_column
         service_search_text = searchentry6101.get_text().lower()
@@ -117,51 +110,12 @@ def services_gui_func():
         services_loop_func()
 
 
-    # --------------------------------- Called for filtering items when "Show all services" radiobutton is clicked ---------------------------------
-    def on_radiobutton6101_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry6101.set_text("")
-            # Show all services
-            for piter in piter_list:
-                treestore6101.set_value(piter, 0, True)
-
-
-    # --------------------------------- Called for filtering items when "Show all loaded services" radiobutton is clicked ---------------------------------
-    def on_radiobutton6102_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry6101.set_text("")
-            for piter in piter_list:
-                # Show all services
-                treestore6101.set_value(piter, 0, True)
-                # Show if loaded service
-                if service_loaded_not_loaded_list[piter_list.index(piter)] != True:
-                    treestore6101.set_value(piter, 0, False)
-
-
-    # --------------------------------- Called for filtering items when "Show all non-loaded services" radiobutton is clicked ---------------------------------
-    def on_radiobutton6103_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry6101.set_text("")
-            for piter in piter_list:
-                # Show all services
-                treestore6101.set_value(piter, 0, True)
-                # Show if non-loaded service
-                if service_loaded_not_loaded_list[piter_list.index(piter)] == True:
-                    treestore6101.set_value(piter, 0, False)
-
-
     # Services tab GUI functions - connect
     treeview6101.connect("button-press-event", on_treeview6101_button_press_event)
     treeview6101.connect("button-release-event", on_treeview6101_button_release_event)
     searchentry6101.connect("changed", on_searchentry6101_changed)
     button6101.connect("clicked", on_button6101_clicked)
     button6102.connect("clicked", on_button6102_clicked)
-    radiobutton6101.connect("toggled", on_radiobutton6101_toggled)
-    radiobutton6102.connect("toggled", on_radiobutton6102_toggled)
-    radiobutton6103.connect("toggled", on_radiobutton6103_toggled)
 
 
     # Services Tab - Treeview Properties
@@ -467,11 +421,7 @@ def services_loop_func():
             piter_list.remove(piter_list[service_list_prev.index(service)])
     if len(new_services) > 0:
         for service in new_services:
-            # /// Start /// This block of code is used for determining if the newly added service will be shown on the treeview (user search actions and/or search customizations and/or "Show all loaded/non-loaded services" preference affect service visibility).
-            if radiobutton6102.get_active() == True and service_loaded_not_loaded_list[service_list.index(service)] != True:    # Hide service (set the visibility value as "False") if "Show all loaded/non-loaded services" option is selected on the GUI and service visibility is not "True".
-                services_data_rows[service_list.index(service)][0] = False
-            if radiobutton6103.get_active() == True and service_loaded_not_loaded_list[service_list.index(service)] == True:    # Hide service (set the visibility value as "False") if "Show all loaded/non-loaded services" option is selected on the GUI and service visibility is "True".
-                services_data_rows[service_list.index(service)][0] = False
+            # /// Start /// This block of code is used for determining if the newly added service will be shown on the treeview (service search actions affect service visibility).
             if searchentry6101.get_text() != "":
                 service_search_text = searchentry6101.get_text()
                 service_data_text_in_model = services_data_rows[service_list.index(service)][filter_column]
@@ -490,7 +440,7 @@ def services_loop_func():
     services_data_column_widths_prev = services_data_column_widths
 
     # Show number of services on the searchentry as placeholder text
-    searchentry6101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Services") + ": " + str(len(service_loaded_not_loaded_list)) + ")")
+    searchentry6101.set_placeholder_text(_tr("Search...") + "                    " + "(" + _tr("Services") + ": " + str(len(service_loaded_not_loaded_list)) + ")")
 
 
 # ----------------------------------- Services - Treeview Cell Functions -----------------------------------

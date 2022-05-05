@@ -36,6 +36,7 @@ class SettingsGUI:
         self.checkbutton2003 = builder2001.get_object('checkbutton2003')
         self.checkbutton2012 = builder2001.get_object('checkbutton2012')
         self.checkbutton2013 = builder2001.get_object('checkbutton2013')
+        self.grid2001 = builder2001.get_object('grid2001')
 
         # Connect GUI signals
         self.window2001.connect("delete-event", self.on_window2001_delete_event)
@@ -81,6 +82,15 @@ class SettingsGUI:
     # ----------------------- Called for running code/functions when GUI is shown -----------------------
     def on_window2001_show(self, widget):
 
+        # Get current directory (which code of this application is in) and current user home directory (symlinks will be generated in).
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        current_user_homedir = os.environ.get('HOME')
+
+        # Check if the application is a Python package and hide "update check setting widgets" if it is not a Python package.
+        if current_dir.startswith("/usr/local/lib/") == False and current_dir.startswith(current_user_homedir + "/.local/lib/") == False:
+            self.grid2001.hide()
+
+        # Set GUI widgets for showing current preferences of settings.
         try:
             self.settings_disconnect_signals_func()
         except TypeError:
@@ -277,13 +287,6 @@ class SettingsGUI:
 
             # Apply changes immediately (without waiting update interval).
             self.settings_gui_apply_settings_immediately_func()
-
-            # "try-catch" is used in order to avoid errors because "Processes" may not be loaded.
-            try:
-                from MainGUI import Processes
-                Processes.processes_expand_and_filter_radiobutton_preferences_func()
-            except ImportError:
-                pass
 
 
     # ----------------------- Called for setting "General" tab GUI items -----------------------

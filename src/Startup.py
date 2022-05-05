@@ -24,8 +24,6 @@ def startup_import_func():
 def startup_gui_func():
 
     global grid5101, treeview5101, searchentry5101
-    global radiobutton5101, radiobutton5102, radiobutton5103
-
 
     # Startup tab GUI objects - get from file
     builder = Gtk.Builder()
@@ -35,9 +33,6 @@ def startup_gui_func():
     grid5101 = builder.get_object('grid5101')
     treeview5101 = builder.get_object('treeview5101')
     searchentry5101 = builder.get_object('searchentry5101')
-    radiobutton5101 = builder.get_object('radiobutton5101')
-    radiobutton5102 = builder.get_object('radiobutton5102')
-    radiobutton5103 = builder.get_object('radiobutton5103')
 
 
     # Startup tab GUI functions
@@ -65,7 +60,7 @@ def startup_gui_func():
         # Open right click menu if right clicked on a row
         if event.button == 3:
             from StartupMenuRightClick import StartupMenuRightClick
-            StartupMenuRightClick.menu5101m.popup(None, None, None, None, event.button, event.time)
+            StartupMenuRightClick.menu5101m.popup_at_pointer()
             StartupMenuRightClick.startup_set_menu_labels_func()
 
 
@@ -80,8 +75,6 @@ def startup_gui_func():
     # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
     def on_searchentry5101_changed(widget):
 
-        radiobutton5101.set_active(True)
-
         global filter_column
         startup_application_search_text = searchentry5101.get_text().lower()
         # Set user-specific/system-wide startup items
@@ -92,49 +85,10 @@ def startup_gui_func():
                 treestore5101.set_value(piter, 0, True)
 
 
-    # --------------------------------- Called for filtering items when "Show all startup items" radiobutton is clicked ---------------------------------
-    def on_radiobutton5101_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry5101.set_text("")
-            # Show all startup items
-            for piter in piter_list:
-                treestore5101.set_value(piter, 0, True)
-
-
-    # --------------------------------- Called for filtering items when "Show user-specific startup items" radiobutton is clicked ---------------------------------
-    def on_radiobutton5102_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry5101.set_text("")
-            for piter in piter_list:
-                # Show all startup items
-                treestore5101.set_value(piter, 0, True)
-                # Show if user-specific startup item
-                if startup_applications_type_list[piter_list.index(piter)] == "System-Wide":
-                    treestore5101.set_value(piter, 0, False)
-
-
-    # --------------------------------- Called for filtering items when "Show system-wide startup items" radiobutton is clicked ---------------------------------
-    def on_radiobutton5103_toggled(widget):
-
-        if widget.get_active() == True:
-            searchentry5101.set_text("")
-            for piter in piter_list:
-                # Show all startup items
-                treestore5101.set_value(piter, 0, True)
-                # Show if system-wide startup item
-                if startup_applications_type_list[piter_list.index(piter)] == "User-Specific":
-                    treestore5101.set_value(piter, 0, False)
-
-
     # Startup tab GUI functions - connect
     treeview5101.connect("button-press-event", on_treeview5101_button_press_event)
     treeview5101.connect("button-release-event", on_treeview5101_button_release_event)
     searchentry5101.connect("changed", on_searchentry5101_changed)
-    radiobutton5101.connect("toggled", on_radiobutton5101_toggled)
-    radiobutton5102.connect("toggled", on_radiobutton5102_toggled)
-    radiobutton5103.connect("toggled", on_radiobutton5103_toggled)
 
 
     # Startup Tab - Treeview Properties
@@ -168,7 +122,7 @@ def startup_initial_func():
     startup_data_column_widths_prev = []
 
     global startup_image_no_icon
-    startup_image_no_icon = "system-monitoring-center-application-startup-symbolic"           # Will be used as image of the startup items that has no icons.
+    startup_image_no_icon = "system-monitoring-center-startup-symbolic"                       # Will be used as image of the startup items that has no icons.
 
     global filter_column
     filter_column = startup_data_list[0][2] - 1                                               # Search filter is "Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
@@ -427,11 +381,7 @@ def startup_loop_func():
             piter_list.remove(piter_list[all_autostart_applications_list_prev.index(startup_application)])
     if len(new_startup_application) > 0:
         for startup_application in new_startup_application:
-            # /// Start /// This block of code is used for determining if the newly added startup_application will be shown on the treeview (user search actions and/or search customizations and/or "Show user-specific/system-wide startup items" preference affect startup item visibility).
-            if radiobutton5102.get_active() == True and startup_applications_type_list[all_autostart_applications_list.index(startup_application)] != True:    # Hide startup_application (set the visibility value as "False") if "Show user-specific startup items" option is selected on the GUI and startup_application type is not "User-Specific".
-                startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
-            if radiobutton5103.get_active() == True and startup_applications_type_list[all_autostart_applications_list.index(startup_application)] == True:    # Hide startup_application (set the visibility value as "False") if "Show system-wide startup items" option is selected on the GUI and startup_application type is "System-Wide".
-                startup_data_rows[all_autostart_applications_list.index(startup_application)][0] = False
+            # /// Start /// This block of code is used for determining if the newly added startup_application will be shown on the treeview (startup item search actions affect startup item visibility).
             if searchentry5101.get_text() != "":
                 startup_application_search_text = searchentry5101.get_text()
                 startup_item_data_text_in_model = startup_data_rows[all_autostart_applications_list.index(startup_application)][filter_column]
@@ -449,7 +399,7 @@ def startup_loop_func():
     startup_data_column_widths_prev = startup_data_column_widths
 
     # Show number of startup items on the searchentry as placeholder text
-    searchentry5101.set_placeholder_text(_tr("Search...") + "          " + "(" + _tr("Startup Items") + ": " + str(len(startup_applications_type_list)) + ")")
+    searchentry5101.set_placeholder_text(_tr("Search...") + "                    " + "(" + _tr("Startup Items") + ": " + str(len(startup_applications_type_list)) + ")")
 
 
 # ----------------------------------- Startup - Column Title Clicked Function -----------------------------------

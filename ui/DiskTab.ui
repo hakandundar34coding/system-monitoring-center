@@ -469,7 +469,7 @@
           <object class="GtkLabel" id="label1302">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Disk Kernel Name (and if selected disk is a disk or partition)</property>
+            <property name="tooltip-text" translatable="yes">Disk Kernel Name (and disk type)</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">--</property>
             <property name="selectable">True</property>
