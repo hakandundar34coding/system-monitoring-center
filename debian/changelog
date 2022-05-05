@@ -1,3 +1,27 @@
+system-monitoring-center (1.14.0) unstable; urgency=medium
+
+  * Removed: Images on several menus for a simpler GUI
+  * Removed: Filtering buttons on several tabs for a simpler GUI
+  * Fix: Right click menu position for some multp. monitor setups
+  * Minor improvements for reducing RAM usage of the application
+  * Minor improvements for reducing start speed of the application
+  * Improvements for showing GUI images after installation
+  * Several improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 05 May 2022 10:00:00 +0300
+
+system-monitoring-center (1.13.0) unstable; urgency=medium
+
+  * New: Plot memory/disk/network usage/speed of all devices
+  * New: Option for process command line column (Processes tab)
+  * New: Check for updates (from PyPI) option
+  * Removed: Floating Summary window
+  * Fix: Temperature and GPU usage for AMD GPUs
+  * Fix: Several chart plotting problems
+  * Minor improvements (GUI, performance, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 30 Apr 2022 09:00:00 +0300
+
 system-monitoring-center (1.12.1) unstable; urgency=medium
 
   * Fix: Prevent app.crash if system locale problem is found
