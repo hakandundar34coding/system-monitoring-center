@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-04 17:41+0300\n"
-"PO-Revision-Date: 2022-05-04 17:45+0300\n"
+"POT-Creation-Date: 2022-05-06 17:27+0300\n"
+"PO-Revision-Date: 2022-05-06 17:28+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -1131,7 +1131,7 @@ msgstr ""
 "Processos Filhos\n"
 "(Not recursively)"
 
-#: ui/ProcessesDetailsWindow.ui:709
+#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:693
 msgid "Summary"
 msgstr "Resumo"
 
@@ -1336,10 +1336,6 @@ msgstr "Pode Iniciar - Parar?"
 #: ui/ServicesDetailsWindow.ui:454
 msgid "Can Reload?"
 msgstr "Pode Recarregar?"
-
-#: ui/ServicesDetailsWindow.ui:693
-msgid "General"
-msgstr "Geral"
 
 #: ui/ServicesDetailsWindow.ui:725
 msgid "Requires"
@@ -1610,12 +1606,16 @@ msgid "Python Version:"
 msgstr "Versão do Python:"
 
 #: ui/SystemTab.ui:815
-msgid "Built-in Python packages are not counted."
-msgstr "Pacotes Python integrados não são contados."
+#, fuzzy
+#| msgid "Version of Python which is running this application"
+msgid "Version of Gtk which is running this application"
+msgstr "Versão do Python que está executando este aplicativo"
 
 #: ui/SystemTab.ui:817
-msgid "Python:"
-msgstr "Python:"
+#, fuzzy
+#| msgid "Python Version:"
+msgid "Gtk Version:"
+msgstr "Versão do Python:"
 
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
@@ -1629,6 +1629,15 @@ msgstr "Encerrar Sessão do Usuário"
 msgid "Note: User-specific performance data is approximative."
 msgstr ""
 "Observação: os dados de desempenho específicos do usuário são aproximados."
+
+#~ msgid "General"
+#~ msgstr "Geral"
+
+#~ msgid "Built-in Python packages are not counted."
+#~ msgstr "Pacotes Python integrados não são contados."
+
+#~ msgid "Python:"
+#~ msgstr "Python:"
 
 #~ msgid "Disk R+W"
 #~ msgstr "Disco L+E"

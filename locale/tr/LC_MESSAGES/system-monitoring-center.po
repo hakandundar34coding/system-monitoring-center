@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-04 17:41+0300\n"
-"PO-Revision-Date: 2022-05-04 17:44+0300\n"
+"POT-Creation-Date: 2022-05-06 17:27+0300\n"
+"PO-Revision-Date: 2022-05-06 17:28+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -1115,7 +1115,7 @@ msgstr ""
 "Çocuk İşlemler\n"
 "(Tekrarlı değil)"
 
-#: ui/ProcessesDetailsWindow.ui:709
+#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:693
 msgid "Summary"
 msgstr "Özet"
 
@@ -1316,10 +1316,6 @@ msgstr "Başlayabilir - Durabilir?"
 #: ui/ServicesDetailsWindow.ui:454
 msgid "Can Reload?"
 msgstr "Yeniden Yükleyebilir?"
-
-#: ui/ServicesDetailsWindow.ui:693
-msgid "General"
-msgstr "Genel"
 
 #: ui/ServicesDetailsWindow.ui:725
 msgid "Requires"
@@ -1582,12 +1578,12 @@ msgid "Python Version:"
 msgstr "Python Sürümü:"
 
 #: ui/SystemTab.ui:815
-msgid "Built-in Python packages are not counted."
-msgstr "Dahili (Built-in) Python paketleri sayılmaz."
+msgid "Version of Gtk which is running this application"
+msgstr "Bu uygulamayı çalıştıran Gtk'nin sürümü"
 
 #: ui/SystemTab.ui:817
-msgid "Python:"
-msgstr "Python:"
+msgid "Gtk Version:"
+msgstr "Gtk Sürümü:"
 
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
@@ -1600,84 +1596,3 @@ msgstr "Kullanıcı Oturumunu Sonlandır"
 #: ui/UsersTab.ui:41
 msgid "Note: User-specific performance data is approximative."
 msgstr "Not: Kullanıcıya özgü performans bilgisi yaklaşıktır."
-
-#~ msgid "Column Reordering,"
-#~ msgstr "Sütun Sıralaması,"
-
-#~ msgid "Row Sorting,"
-#~ msgstr "Satır Sıralaması,"
-
-#~ msgid "Column Widths"
-#~ msgstr "Sütun Genişlikleri"
-
-#~ msgid "Show all"
-#~ msgstr "Tümünü göster"
-
-#~ msgid "Show processes from this user"
-#~ msgstr "Bu kullanıcının işlemlerini göster"
-
-#~ msgid "Show processes from other users"
-#~ msgstr "Diğer kullanıcıların işlemlerini göster"
-
-#~ msgid "User defined expand"
-#~ msgstr "Kullanıcı tanımlı genişletme"
-
-#~ msgid "Show all temperature sensors"
-#~ msgstr "Tüm sıcaklık algılayıcılarını göster"
-
-#~ msgid "Show all fan sensors"
-#~ msgstr "Tüm fan algılayıcılarını göster"
-
-#~ msgid "Show all voltage, current and power sensors"
-#~ msgstr "Tüm voltaj, akım ve güç algılayıcılarını göster"
-
-#~ msgid "Show all loaded services"
-#~ msgstr "Tüm yüklenmiş servisleri göster"
-
-#~ msgid "Show all non-loaded services"
-#~ msgstr "Tüm yüklenmemiş servisleri göster"
-
-#~ msgid "Show user-specific startup items"
-#~ msgstr "Kullanıcıya özgü başlangıç ögelerini göster"
-
-#~ msgid "Show system-wide startup items"
-#~ msgstr "Sistem geneli başlangıç ögelerini göster"
-
-#~ msgid "Show only users logged in"
-#~ msgstr "Sadece giriş yapmış kullanıcıları göster"
-
-#~ msgid "Show only users logged out"
-#~ msgstr "Sadece çıkış yapmış kullanıcıları göster"
-
-#~ msgid "Disk R+W"
-#~ msgstr "Disk O+Y"
-
-#~ msgid "Disk R"
-#~ msgstr "Disk O"
-
-#~ msgid "Disk W"
-#~ msgstr "Disk Y"
-
-#~ msgid "Network D+U"
-#~ msgstr "Ağ İ+Y"
-
-#~ msgid "Network D"
-#~ msgstr "Ağ İ"
-
-#~ msgid "Network U"
-#~ msgstr "Ağ Y"
-
-#~ msgid "Floating Summary"
-#~ msgstr "Yüzen Özet"
-
-#~ msgid "Network Download Speed"
-#~ msgstr "Ağ İndirme Hızı"
-
-#~ msgid "Network Upload Speed"
-#~ msgstr "Ağ Yükleme Hızı"
-
-#~ msgid "Show/Hide Performance Information"
-#~ msgstr "Performans Bilgilerini Göster/Gizle"
-
-#~ msgid "Window transparency:"
-#~ msgstr "Pencere şeffaflığı:"

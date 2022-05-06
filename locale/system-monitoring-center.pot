@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-04 17:41+0300\n"
+"POT-Creation-Date: 2022-05-06 17:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1104,7 +1104,7 @@ msgid ""
 "(Not recursively)"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:709
+#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:693
 msgid "Summary"
 msgstr ""
 
@@ -1304,10 +1304,6 @@ msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:454
 msgid "Can Reload?"
-msgstr ""
-
-#: ui/ServicesDetailsWindow.ui:693
-msgid "General"
 msgstr ""
 
 #: ui/ServicesDetailsWindow.ui:725
@@ -1565,11 +1561,11 @@ msgid "Python Version:"
 msgstr ""
 
 #: ui/SystemTab.ui:815
-msgid "Built-in Python packages are not counted."
+msgid "Version of Gtk which is running this application"
 msgstr ""
 
 #: ui/SystemTab.ui:817
-msgid "Python:"
+msgid "Gtk Version:"
 msgstr ""
 
 #: ui/UsersDetailsWindow.ui:7

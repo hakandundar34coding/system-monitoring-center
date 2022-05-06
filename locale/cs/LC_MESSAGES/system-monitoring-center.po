@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-04 17:41+0300\n"
-"PO-Revision-Date: 2022-05-04 17:44+0300\n"
+"POT-Creation-Date: 2022-05-06 17:27+0300\n"
+"PO-Revision-Date: 2022-05-06 17:28+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -1126,7 +1126,7 @@ msgstr ""
 "Dětské procesy\n"
 "(není rekurzivní)"
 
-#: ui/ProcessesDetailsWindow.ui:709
+#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:693
 msgid "Summary"
 msgstr "Souhrn"
 
@@ -1331,10 +1331,6 @@ msgstr "Muže Start-Stop?"
 #: ui/ServicesDetailsWindow.ui:454
 msgid "Can Reload?"
 msgstr "Může znovunačtení?"
-
-#: ui/ServicesDetailsWindow.ui:693
-msgid "General"
-msgstr "Obecné"
 
 #: ui/ServicesDetailsWindow.ui:725
 msgid "Requires"
@@ -1602,12 +1598,16 @@ msgid "Python Version:"
 msgstr "Verze Pythonu:"
 
 #: ui/SystemTab.ui:815
-msgid "Built-in Python packages are not counted."
-msgstr "Vestavěné Pythonové balíčky nejsou započítány."
+#, fuzzy
+#| msgid "Version of Python which is running this application"
+msgid "Version of Gtk which is running this application"
+msgstr "Verze Pythonu ve které běží tato aplikace"
 
 #: ui/SystemTab.ui:817
-msgid "Python:"
-msgstr ""
+#, fuzzy
+#| msgid "Python Version:"
+msgid "Gtk Version:"
+msgstr "Verze Pythonu:"
 
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
@@ -1620,6 +1620,12 @@ msgstr "Ukončit sezení uživatele"
 #: ui/UsersTab.ui:41
 msgid "Note: User-specific performance data is approximative."
 msgstr "Poznámka: Uživatelsky specifické data o výkonu jsou odhad."
+
+#~ msgid "General"
+#~ msgstr "Obecné"
+
+#~ msgid "Built-in Python packages are not counted."
+#~ msgstr "Vestavěné Pythonové balíčky nejsou započítány."
 
 #~ msgid "Network D+U"
 #~ msgstr "Síť D+U"

@@ -7,6 +7,7 @@ from gi.repository import Gtk
 import os
 
 from Config import Config
+from MainGUI import MainGUI
 
 
 # Define class
@@ -55,6 +56,7 @@ class MainMenusDialogs:
         except Exception:
             pass
         self.aboutdialog1001d.set_version(software_version)
+        self.aboutdialog1001d.set_transient_for(MainGUI.window1)
         self.aboutdialog1001d.run()
         self.aboutdialog1001d.hide()
 

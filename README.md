@@ -52,7 +52,7 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 - Interactive charts for querying performance data on any point
 - Option for showing processes as tree or list
 - Language support:
-    - Brazilian Portuguese, Czech, English, Polish (initial), Turkish
+    - Brazilian Portuguese, Czech, English, Polish, Turkish
     - More languages will be added if translations are provided by contributors
 - Optimized for low CPU usage and fast start
 - Shows notification if update is available on PyPI (disabled by default)

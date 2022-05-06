@@ -812,9 +812,9 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Built-in Python packages are not counted.</property>
+                    <property name="tooltip-text" translatable="yes">Version of Gtk which is running this application</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Python:</property>
+                    <property name="label" translatable="yes">Gtk Version:</property>
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>
