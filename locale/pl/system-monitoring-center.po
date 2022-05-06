@@ -3,13 +3,14 @@
 #
 # FIRST AUTHOR macszymk@outlook.com, 2022.
 # K0RR <rdkracz@gmail.com>, 2022.
+# ski007 <ski007@linux.pl>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-24 09:43+0300\n"
 "PO-Revision-Date: 2022-03-14 11:26+0300\n"
-"Last-Translator: K0RR <rdkracz@gmail.com>\n"
+"Last-Translator: ski007 <ski007@linux.pl>\n"
 "Language-Team: \n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +121,7 @@ msgstr ""
 
 #: src/Network.py:205
 msgid "Ethernet"
-msgstr "Ethernet"
+msgstr "Sieć przewodowa"
 
 #: src/Network.py:207
 msgid "Wi-Fi"
@@ -247,7 +248,7 @@ msgstr "Zatrzymany"
 
 #: src/Processes.py:219
 msgid "Tracing Stop"
-msgstr ""
+msgstr "Zatrzymanie śledzenia"
 
 #: src/Processes.py:219 src/Services.py:174 src/ServicesDetails.py:129
 msgid "Dead"
@@ -341,31 +342,31 @@ msgstr "Plik"
 #: src/RamSwapDetails.py:88 ui/DiskDetailsWindow.ui:136
 #: ui/DiskDetailsWindow.ui:803
 msgid "Used"
-msgstr ""
+msgstr "Używany"
 
 #: src/RamSwapDetails.py:97
 msgid "This system has no swap memory."
-msgstr ""
+msgstr "Ten system nie ma pamięci wymiany."
 
 #: src/Sensors.py:100
 msgid "Sensor Group"
-msgstr ""
+msgstr "Grupa czujników"
 
 #: src/Sensors.py:101
 msgid "Sensor Name"
-msgstr ""
+msgstr "Nazwa czujnika"
 
 #: src/Sensors.py:102
 msgid "Current Value"
-msgstr ""
+msgstr "Bieżąca wartość"
 
 #: src/Sensors.py:103
 msgid "Critical Value"
-msgstr ""
+msgstr "Krytyczna wartość"
 
 #: src/Sensors.py:104
 msgid "Max Value"
-msgstr ""
+msgstr "Maksymalna wartość"
 
 #: src/Sensors.py:354 src/SettingsGUI.py:345 ui/MainWindow.ui:409
 #: ui/SensorsTab.ui:77
@@ -374,27 +375,27 @@ msgstr "Czujniki"
 
 #: src/Services.py:149 ui/ServicesMenuCustomizations.ui:250
 msgid "State"
-msgstr ""
+msgstr "Stan"
 
 #: src/Services.py:150 ui/ServicesDetailsWindow.ui:428
 #: ui/ServicesMenuCustomizations.ui:264
 msgid "Main PID"
-msgstr ""
+msgstr "Główny PID"
 
 #: src/Services.py:151 ui/ServicesDetailsWindow.ui:277
 #: ui/ServicesMenuCustomizations.ui:278
 msgid "Active State"
-msgstr ""
+msgstr "Stan aktywny"
 
 #: src/Services.py:152 ui/ServicesDetailsWindow.ui:264
 #: ui/ServicesMenuCustomizations.ui:292
 msgid "Load State"
-msgstr ""
+msgstr "Stan obciążenia"
 
 #: src/Services.py:153 ui/ServicesDetailsWindow.ui:290
 #: ui/ServicesMenuCustomizations.ui:306
 msgid "Sub-State"
-msgstr ""
+msgstr "Pod-stan"
 
 #: src/Services.py:155 ui/ServicesDetailsWindow.ui:62
 #: ui/ServicesMenuCustomizations.ui:334
@@ -411,27 +412,27 @@ msgstr "Wyłączony"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Masked"
-msgstr ""
+msgstr "Ukryty"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Unmasked"
-msgstr ""
+msgstr "Jawny"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Static"
-msgstr ""
+msgstr "Statyczny"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Generated"
-msgstr ""
+msgstr "Wygenerowane"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Enabled-runtime"
-msgstr ""
+msgstr "Włączone środowisko wykonawcze"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Indirect"
-msgstr ""
+msgstr "Pośredni"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Active"
@@ -447,7 +448,7 @@ msgstr "Załadowany"
 
 #: src/Services.py:174 src/ServicesDetails.py:129
 msgid "Exited"
-msgstr ""
+msgstr "Wyjście"
 
 #: src/Services.py:443 src/SettingsGUI.py:328 ui/MainWindow.ui:750
 #: ui/ServicesTab.ui:61
@@ -486,7 +487,7 @@ msgstr "GPU"
 
 #: src/SettingsGUI.py:597
 msgid "Do you want to reset all settings to defaults?"
-msgstr ""
+msgstr "Czy chcesz zresetować wszystkie ustawienia do wartości domyślnych?"
 
 #: src/Startup.py:122 ui/StartupNewItemWindow.ui:171
 msgid "Comment"
@@ -494,20 +495,20 @@ msgstr "Komentarz"
 
 #: src/Startup.py:416
 msgid "Startup Items"
-msgstr ""
+msgstr "Elementy startowe"
 
 #: src/StartupMenuRightClick.py:63
 msgid "Do you want to delete this startup item?"
-msgstr ""
+msgstr "Czy chcesz usunąć ten element startowy?"
 
 #: src/StartupMenuRightClick.py:126
 msgid "Do you want to run this startup item now?"
-msgstr ""
+msgstr "Czy chcesz teraz uruchomić ten element startowy?"
 
 #: src/StartupMenuRightClick.py:127 src/StartupMenuRightClick.py:139
 #: src/StartupMenuRightClick.py:151 src/StartupNewItem.py:136
 msgid "Startup Item"
-msgstr ""
+msgstr "Element startowy"
 
 #: src/StartupMenuRightClick.py:128 src/StartupMenuRightClick.py:140
 #: src/StartupMenuRightClick.py:152 ui/StartupNewItemWindow.ui:183
@@ -550,7 +551,7 @@ msgstr "Terminal"
 #: src/Users.py:154 ui/ProcessesDetailsWindow.ui:152
 #: ui/UsersDetailsWindow.ui:162 ui/UsersMenuCustomizations.ui:376
 msgid "Start Time"
-msgstr ""
+msgstr "Czas rozpoczęcia"
 
 #: src/UsersDetails.py:79 src/UsersDetails.py:267 ui/UsersDetailsWindow.ui:7
 msgid "User Details"
@@ -558,25 +559,25 @@ msgstr "Szczegóły"
 
 #: src/UsersMenuRightClick.py:73
 msgid "Do you want to end session of this user?"
-msgstr ""
+msgstr "Czy chcesz zakończyć sesję tego użytkownika?"
 
 #: src/UsersMenuRightClick.py:74
 msgid ""
 "This action will end all processes of the user immediately and may cause "
 "data loss."
-msgstr ""
-
+msgstr "Ta akcja natychmiast zakończy wszystkie procesy użytkownika i może "
+"spowodować utratę danych."
 #: src/UsersMenuRightClick.py:75
 msgid ""
 "This operation may lock current user account on some systems. You can unlock "
 "it by entering user password."
-msgstr ""
-
+msgstr "Ta operacja może zablokować bieżące konto użytkownika w niektórych systemach. " 
+"możesz odblokować wpisując hasło użytkownika."
 #: ui/CpuMenus.ui:23 ui/DiskMenus.ui:23 ui/GpuMenus.ui:23 ui/NetworkMenus.ui:23
 #: ui/ProcessesMenuCustomizations.ui:23 ui/RamMenus.ui:23
 #: ui/ServicesMenuCustomizations.ui:23 ui/UsersMenuCustomizations.ui:23
 msgid "Current Tab Customizations"
-msgstr ""
+msgstr "Bieżące dostosowanie zakładek"
 
 #: ui/CpuMenus.ui:54 ui/DiskMenus.ui:419 ui/NetworkMenus.ui:419
 msgid "Chart - Show"
@@ -590,7 +591,7 @@ msgstr "Wykres - ustaw kolor"
 #: ui/CpuMenus.ui:139 ui/DiskMenus.ui:37 ui/GpuMenus.ui:74
 #: ui/NetworkMenus.ui:37 ui/RamMenus.ui:37
 msgid "Note: Same background color is used for all charts."
-msgstr ""
+msgstr "Uwaga: ten sam kolor tła jest używany dla wszystkich wykresów."
 
 #: ui/CpuMenus.ui:169 ui/DiskMenus.ui:67 ui/NetworkMenus.ui:67
 #: ui/ProcessesMenuCustomizations.ui:675 ui/RamMenus.ui:67
@@ -700,35 +701,35 @@ msgstr "--"
 
 #: ui/CpuTab.ui:79
 msgid "Up Time:"
-msgstr ""
+msgstr "Czas pracy:"
 
 #: ui/CpuTab.ui:92
 msgid "Processes-Threads:"
-msgstr ""
+msgstr "Procesy-wątki:"
 
 #: ui/CpuTab.ui:105
 msgid "Cache (L1d-L1i):"
-msgstr ""
+msgstr "Pamięć podręczna (L1d-L1i):"
 
 #: ui/CpuTab.ui:185
 msgid "Number of online physical and logical CPU cores"
-msgstr ""
+msgstr "Liczba fizycznych i logicznych rdzeni procesora"
 
 #: ui/CpuTab.ui:187
 msgid "Cores (Physical-Logical):"
-msgstr ""
+msgstr "Rdzenie (fizyczne-logiczne)"
 
 #: ui/CpuTab.ui:200
 msgid "CPU Sockets:"
-msgstr ""
+msgstr "Gniazda procesora:"
 
 #: ui/CpuTab.ui:213
 msgid "Min-Max Frequency:"
-msgstr ""
+msgstr "Min-Max Częstotliwość:"
 
 #: ui/CpuTab.ui:225
 msgid "Current frequency of the selected CPU core"
-msgstr ""
+msgstr "Aktualna częstotliwość wybranego rdzenia procesora"
 
 #: ui/CpuTab.ui:227
 msgid "Frequency:"
@@ -748,7 +749,7 @@ msgstr "Architektura:"
 
 #: ui/CpuTab.ui:301
 msgid "Cache (L2-L3):"
-msgstr ""
+msgstr "Pamięć podręczna (L2-L3):"
 
 #: ui/CpuTab.ui:380 ui/DiskDetailsWindow.ui:149 ui/DiskTab.ui:487
 #: ui/GpuTab.ui:473 ui/NetworkTab.ui:442
@@ -757,7 +758,7 @@ msgstr "Producent-Model"
 
 #: ui/CpuTab.ui:398
 msgid "Selected CPU Core"
-msgstr ""
+msgstr "Wybrany rdzeń procesora"
 
 #: ui/CpuTab.ui:427 ui/RamTab.ui:413
 msgid "100%"
@@ -769,11 +770,11 @@ msgstr "0%"
 
 #: ui/DiskDetailsWindow.ui:7
 msgid "Storage Details"
-msgstr ""
+msgstr "Szczegóły przechowywania"
 
 #: ui/DiskDetailsWindow.ui:58
 msgid "Parent Name"
-msgstr ""
+msgstr "Nazwa źródłowa"
 
 #: ui/DiskDetailsWindow.ui:71
 msgid "System Disk"
@@ -867,7 +868,7 @@ msgstr "(Pamięć)"
 #: ui/DiskMenus.ui:246 ui/NetworkMenus.ui:246
 #: ui/ProcessesMenuCustomizations.ui:927 ui/RamMenus.ui:268
 msgid "Data Unit"
-msgstr ""
+msgstr "Jednostka danych"
 
 #: ui/DiskMenus.ui:298 ui/DiskMenus.ui:385
 #: ui/ProcessesMenuCustomizations.ui:790 ui/ProcessesMenuCustomizations.ui:850
@@ -897,7 +898,7 @@ msgstr "Prędkość zapisu:"
 
 #: ui/DiskTab.ui:52 ui/DiskTab.ui:79 ui/NetworkTab.ui:52 ui/NetworkTab.ui:66
 msgid "Measured value since last system start"
-msgstr ""
+msgstr "Wartość mierzona od ostatniego uruchomienia systemu"
 
 #: ui/DiskTab.ui:54
 msgid "Read Time:"
@@ -937,7 +938,7 @@ msgstr "Pokaż..."
 
 #: ui/DiskTab.ui:385
 msgid "Disk Read (-) & Write (--) Speed"
-msgstr ""
+msgstr "Dysk Odczyt (-) & Zapis (--) Prędkość"
 
 #: ui/DiskTab.ui:397 ui/GpuTab.ui:359 ui/NetworkTab.ui:380
 msgid "0"
@@ -945,7 +946,7 @@ msgstr "0"
 
 #: ui/DiskTab.ui:472
 msgid "Disk Kernel Name (and if selected disk is a disk or partition)"
-msgstr ""
+msgstr "Nazwa jądra dysku (jeśli wybrany dysk jest dyskiem lub partycją)"
 
 #: ui/GpuTab.ui:26
 msgid ""
@@ -954,7 +955,11 @@ msgid ""
 "Counted by using a glarea and OpenGL library.\n"
 "This is a simple FPS counter and may not be accurate in some situations.\n"
 "FPS counting does not continue when window is minimized."
-msgstr ""
+msgstr "FPS (klatki na sekundę)\n"
+"\n"
+"Liczone przy użyciu biblioteki glarea i OpenGL.\n"
+"To prosty licznik FPS i może nie być dokładny w niektórych sytuacjach.\n”
+"Liczenie klatek na sekundę nie jest kontynuowane po zminimalizowaniu okna.”
 
 #: ui/GpuTab.ui:32
 msgid "FPS:"
@@ -970,20 +975,20 @@ msgstr "Pamięć video:"
 
 #: ui/GpuTab.ui:71
 msgid "Direct Rendering:"
-msgstr ""
+msgstr "Renderowanie bezpośrednie:"
 
 #: ui/GpuTab.ui:135
 msgid "OpenGL Version:"
-msgstr ""
+msgstr "Wersja OpenGL:"
 
 #: ui/GpuTab.ui:148
 msgid "Unified Memory:"
-msgstr ""
+msgstr "Pamięć ujednolicona:"
 
 #: ui/GpuTab.ui:194
 msgid ""
 "This information is available only on systems with X11 windowing system."
-msgstr ""
+msgstr "Ta informacja jest dostępna tylko z systemem okienkowym X11."
 
 #: ui/GpuTab.ui:196
 msgid "Refresh Rate:"
@@ -997,7 +1002,8 @@ msgstr "Sterownik:"
 msgid ""
 "If selected GPU is default on system boot and/or used for graphics "
 "processing by default"
-msgstr ""
+msgstr "Jeśli wybrany GPU jest domyślnie używany podczas uruchamiania " 
+"systemu i/lub używany do przetwarzania grafiki"
 
 #: ui/GpuTab.ui:274
 msgid "Default GPU:"
@@ -1013,11 +1019,12 @@ msgstr "FPS"
 
 #: ui/GpuTab.ui:491
 msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
-msgstr ""
+msgstr "Nazwa urządzenia GPU/karty graficznej nadana przez system " 
+"operacyjny (oraz sterownik)"
 
 #: ui/MainMenusDialogs.ui:13
 msgid "GTK and Python based, system performance and usage monitoring tool."
-msgstr ""
+msgstr "Oparte na GTK/Pythonie narzędzie do monitorowania wydajności i użytkowania systemu."
 
 #: ui/MainMenusDialogs.ui:15
 msgid "Web Page"
@@ -1025,11 +1032,11 @@ msgstr "Strona internetowa"
 
 #: ui/MainMenusDialogs.ui:17
 msgid "Hakan DÜNDAR"
-msgstr ""
+msgstr "Hakan DÜNDAR"
 
 #: ui/MainMenusDialogs.ui:61 ui/SettingsWindow.ui:536
 msgid "Floating Summary"
-msgstr ""
+msgstr "Pływające podsumowanie"
 
 #: ui/MainMenusDialogs.ui:104
 msgid "Settings"
@@ -1037,7 +1044,7 @@ msgstr "Ustawienia"
 
 #: ui/MainMenusDialogs.ui:149
 msgid "About"
-msgstr "O"
+msgstr "O programie"
 
 #: ui/MainWindow.ui:828
 msgid "System Monitoring Center"
@@ -1045,7 +1052,7 @@ msgstr "Centrum monitorowania systemu"
 
 #: ui/MainWindow.ui:836
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu główne"
 
 #: ui/NetworkMenus.ui:298 ui/NetworkMenus.ui:385
 msgid "Network Speed"
@@ -1053,15 +1060,15 @@ msgstr "Prędkość internetu"
 
 #: ui/NetworkMenus.ui:309 ui/NetworkMenus.ui:354
 msgid "Network Data"
-msgstr ""
+msgstr "Dane sieciowe"
 
 #: ui/NetworkMenus.ui:443
 msgid "Download Speed"
-msgstr ""
+msgstr "Prędkość pobierania"
 
 #: ui/NetworkMenus.ui:456
 msgid "Upload Speed"
-msgstr ""
+msgstr "Prędkość wysyłania"
 
 #: ui/NetworkTab.ui:27
 msgid "Download Speed:"
@@ -1073,15 +1080,15 @@ msgstr "Prędkość wysyłania:"
 
 #: ui/NetworkTab.ui:54
 msgid "Downloaded Data:"
-msgstr ""
+msgstr "Pobrane dane:"
 
 #: ui/NetworkTab.ui:68
 msgid "Uploaded Data:"
-msgstr ""
+msgstr "Wysłane dane:"
 
 #: ui/NetworkTab.ui:81
 msgid "Connection Type:"
-msgstr ""
+msgstr "Rodzaj połączenia:"
 
 #: ui/NetworkTab.ui:94
 msgid "IPv4 Address:"
@@ -1097,41 +1104,42 @@ msgstr "Adres MAC:"
 
 #: ui/NetworkTab.ui:269
 msgid "Connected-SSID:"
-msgstr ""
+msgstr "Połączony-SSID:"
 
 #: ui/NetworkTab.ui:298
 msgid "Link value"
-msgstr ""
+msgstr "Wartość łącza"
 
 #: ui/NetworkTab.ui:300
 msgid "Signal Strength:"
-msgstr ""
+msgstr "Siła sygnału:"
 
 #: ui/NetworkTab.ui:368
 msgid "Network Download (-) & Upload (--) Speed"
-msgstr ""
+msgstr "Sieć Pobieranie (-) &  Wysyłanie (--) Prędkość"
 
 #: ui/NetworkTab.ui:460
 msgid "Network Interface Controller (NIC) Name"
-msgstr ""
+msgstr "Nazwa kontrolera interfejsu sieciowego (NIC)"
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:66 ui/SettingsWindow.ui:388
 msgid "Disk Read+Write Speed"
-msgstr ""
+msgstr "Dysk Odczyt+Zapis Szybkość"
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:112 ui/SettingsWindow.ui:402
 msgid "Network Download+Upload Speed"
-msgstr ""
+msgstr "Sieć Pobieranie+Wysyłanie Szybkość"
 
 #: ui/ProcessesCustomPriorityWindow.ui:12 ui/ProcessesMenuRightClick.ui:82
 msgid "Change Priority (Nice)"
-msgstr ""
+msgstr "Zmień priorytet (Nice)"
 
 #: ui/ProcessesCustomPriorityWindow.ui:35
 msgid ""
 "Change priority of this process:\n"
 "(Smaller value means higher process priority)"
-msgstr ""
+msgstr "Zmień priorytet tego procesu:\n"
+"(mniejsza wartość oznacza wyższy priorytet procesu)"
 
 #: ui/ProcessesCustomPriorityWindow.ui:100 ui/StartupNewItemWindow.ui:65
 msgid "Save"
@@ -1147,13 +1155,14 @@ msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:191
 msgid "Parent Processes"
-msgstr ""
+msgstr "Procesy źródłowe"
 
 #: ui/ProcessesDetailsWindow.ui:204
 msgid ""
 "Children Processes\n"
 "(Not recursively)"
-msgstr ""
+msgstr "Procesy potomne\n"
+"(Nie rekurencyjnie)”
 
 #: ui/ProcessesDetailsWindow.ui:709
 msgid "Summary"
@@ -1165,11 +1174,11 @@ msgstr "Wątki (TID)"
 
 #: ui/ProcessesDetailsWindow.ui:780
 msgid "Used CPU Core(s)"
-msgstr ""
+msgstr "Użycie rdzeni procesora"
 
 #: ui/ProcessesDetailsWindow.ui:793
 msgid "CPU Affinity"
-msgstr ""
+msgstr "Pokrewieństwo procesora"
 
 #: ui/ProcessesDetailsWindow.ui:806
 msgid "CPU Times"
@@ -1177,7 +1186,7 @@ msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:819
 msgid "Context Switches"
-msgstr ""
+msgstr "Przełączniki kontekstowe"
 
 #: ui/ProcessesDetailsWindow.ui:902
 msgid "Memory (USS)"
@@ -1194,15 +1203,15 @@ msgstr "CPU i pamięć"
 
 #: ui/ProcessesDetailsWindow.ui:1374
 msgid "Disk Read Count"
-msgstr ""
+msgstr "Liczba odczytów dysku"
 
 #: ui/ProcessesDetailsWindow.ui:1387
 msgid "Disk Write Count"
-msgstr ""
+msgstr "Liczba zapisów na dysku"
 
 #: ui/ProcessesDetailsWindow.ui:1534
 msgid "Current Working Directory"
-msgstr ""
+msgstr "Aktualny katalog roboczy"
 
 #: ui/ProcessesDetailsWindow.ui:1547
 msgid "Command Line"
@@ -1210,11 +1219,11 @@ msgstr "Wiersz poleceń"
 
 #: ui/ProcessesDetailsWindow.ui:1560
 msgid "Opened Files"
-msgstr ""
+msgstr "Otwarte pliki"
 
 #: ui/ProcessesDetailsWindow.ui:1788
 msgid "Disk and Path"
-msgstr ""
+msgstr "Dysk i ścieżka"
 
 #: ui/ProcessesMenuCustomizations.ui:68 ui/ProcessesMenuCustomizations.ui:300
 #: ui/ServicesMenuCustomizations.ui:208 ui/UsersMenuCustomizations.ui:208
@@ -1231,17 +1240,17 @@ msgstr "Pokaż procesy jako drzewo"
 
 #: ui/ProcessesMenuCustomizations.ui:114
 msgid "Show tree lines"
-msgstr ""
+msgstr "Pokaż linie drzwa"
 
 #: ui/ProcessesMenuCustomizations.ui:148 ui/ServicesMenuCustomizations.ui:68
 #: ui/UsersMenuCustomizations.ui:68
 msgid "Column Reordering,"
-msgstr ""
+msgstr "Zmiana kolejności kolumn,"
 
 #: ui/ProcessesMenuCustomizations.ui:185 ui/ServicesMenuCustomizations.ui:105
 #: ui/UsersMenuCustomizations.ui:105
 msgid "Row Sorting,"
-msgstr ""
+msgstr "Sortowanie wierszy,"
 
 #: ui/ProcessesMenuCustomizations.ui:231 ui/ServicesMenuCustomizations.ui:139
 #: ui/SettingsWindow.ui:234 ui/SettingsWindow.ui:487
@@ -1262,7 +1271,7 @@ msgstr "Dodaj/Usuń kolumny"
 
 #: ui/ProcessesMenuCustomizations.ui:952
 msgid "Precision/Data Units"
-msgstr ""
+msgstr "Precyzja/jednostek danych"
 
 #: ui/ProcessesMenuRightClick.ui:40
 msgid "Stop Process"
@@ -1302,7 +1311,7 @@ msgstr "Bardzo niski"
 
 #: ui/ProcessesMenuRightClick.ui:150
 msgid "Custom Value..."
-msgstr ""
+msgstr "Wartość niestandardowa..."
 
 #: ui/ProcessesMenuRightClick.ui:166 ui/ServicesMenuRightClick.ui:113
 #: ui/UsersMenuRightClick.ui:29
@@ -1312,15 +1321,15 @@ msgstr "Szczegóły"
 #: ui/ProcessesTab.ui:70 ui/SensorsTab.ui:99 ui/ServicesTab.ui:103
 #: ui/StartupTab.ui:70 ui/UsersTab.ui:82
 msgid "Show all"
-msgstr ""
+msgstr "Pokaż wszystko"
 
 #: ui/ProcessesTab.ui:92
 msgid "Show processes from this user"
-msgstr ""
+msgstr "Pokaż procesy tego użytkownika"
 
 #: ui/ProcessesTab.ui:114
 msgid "Show processes from other users"
-msgstr ""
+msgstr "Pokaż procesy innych użytkowników"
 
 #: ui/ProcessesTab.ui:148
 msgid "User defined expand"
@@ -1328,19 +1337,19 @@ msgstr ""
 
 #: ui/ProcessesTab.ui:170
 msgid "Expand all"
-msgstr ""
+msgstr "Rozwiń wszystkie"
 
 #: ui/ProcessesTab.ui:192
 msgid "Collapse all"
-msgstr ""
+msgstr "Zwinąć wszystkie"
 
 #: ui/RamHardwareWindow.ui:7
 msgid "RAM Hardware Information"
-msgstr ""
+msgstr "Informacje o sprzęcie RAM"
 
 #: ui/RamSwapDetailsWindow.ui:7
 msgid "Swap Memory Details"
-msgstr ""
+msgstr "Szczegóły pamięci SWAP"
 
 #: ui/RamTab.ui:58 ui/RamTab.ui:118
 msgid "Available:"
@@ -1348,7 +1357,7 @@ msgstr "Dostępne:"
 
 #: ui/RamTab.ui:261
 msgid "Swap Mem. Usg. %:"
-msgstr ""
+msgstr "SWAP pam. Usg. %:"
 
 #: ui/RamTab.ui:326
 msgid "Hardware:"
@@ -1360,23 +1369,23 @@ msgstr "Użycie RAM"
 
 #: ui/SensorsTab.ui:19
 msgid "Note: Some sensors may not provide correct values!"
-msgstr ""
+msgstr "Uwaga: Niektóre czujniki mogą nie podawać prawidłowych wartości!"
 
 #: ui/SensorsTab.ui:121
 msgid "Show all temperature sensors"
-msgstr ""
+msgstr "Pokaż wszystkie czujniki temperatury"
 
 #: ui/SensorsTab.ui:143
 msgid "Show all fan sensors"
-msgstr ""
+msgstr "Pokaż wszystkie czujniki wentylatorów"
 
 #: ui/SensorsTab.ui:165
 msgid "Show all voltage and current sensors"
-msgstr ""
+msgstr "Pokaż wszystkie czujniki napięcia i prądu"
 
 #: ui/ServicesDetailsWindow.ui:7
 msgid "Service Details"
-msgstr ""
+msgstr "Szczegóły usługi"
 
 #: ui/ServicesDetailsWindow.ui:88
 msgid "Documentation"
@@ -1384,27 +1393,27 @@ msgstr "Dokumentacja"
 
 #: ui/ServicesDetailsWindow.ui:199
 msgid "Main Process Start Time"
-msgstr ""
+msgstr "Czas rozpoczęcia procesu"
 
 #: ui/ServicesDetailsWindow.ui:212
 msgid "Main Process End Time"
-msgstr ""
+msgstr "Czas zakończenia procesu"
 
 #: ui/ServicesDetailsWindow.ui:251
 msgid "Unit File State - Preset"
-msgstr ""
+msgstr "Stan pliku jednostki — ustawienie wstępne"
 
 #: ui/ServicesDetailsWindow.ui:401
 msgid "Triggered By"
-msgstr ""
+msgstr "Wyzwolone przez"
 
 #: ui/ServicesDetailsWindow.ui:441
 msgid "Can Start - Stop?"
-msgstr ""
+msgstr "Czy można uruchomić - zatrzymać?"
 
 #: ui/ServicesDetailsWindow.ui:454
 msgid "Can Reload?"
-msgstr ""
+msgstr "Czy można przeładować?"
 
 #: ui/ServicesDetailsWindow.ui:693 ui/SettingsWindow.ui:297
 msgid "General"
@@ -1456,40 +1465,41 @@ msgstr "Wyłącz"
 
 #: ui/ServicesMenuRightClick.ui:101
 msgid "Mask"
-msgstr ""
+msgstr "Ukryj"
 
 #: ui/ServicesTab.ui:41
 msgid ""
 "Note: This tab is not reloaded automatically. Manually reload for changes."
-msgstr ""
+msgstr "Uwaga: ta karta nie jest ponownie ładowana automatycznie." 
+"Wczytaj ponownie ręcznie w celu wprowadzenia zmian.”
 
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
-msgstr ""
+msgstr "Odśwież dane w tej zakładce"
 
 #: ui/ServicesTab.ui:125
 msgid "Show all loaded services"
-msgstr ""
+msgstr "Pokaż wszystkie załadowane usługi"
 
 #: ui/ServicesTab.ui:147
 msgid "Show all non-loaded services"
-msgstr ""
+msgstr "Pokaż wszystkie niezaładowane usługi"
 
 #: ui/SettingsWindow.ui:7
 msgid "General Settings"
-msgstr ""
+msgstr "Główne Ustawienia"
 
 #: ui/SettingsWindow.ui:38
 msgid "Update interval (seconds):"
-msgstr ""
+msgstr "Interwał aktualizacji (sekundy):"
 
 #: ui/SettingsWindow.ui:60
 msgid "Default main tab:"
-msgstr ""
+msgstr "Domyślna zakładka główna:"
 
 #: ui/SettingsWindow.ui:79
 msgid "Remember last opened tabs"
-msgstr ""
+msgstr "Zapamiętaj ostatnio otwarte karty"
 
 #: ui/SettingsWindow.ui:97
 msgid "Performance tab default sub-tab:"
@@ -1497,31 +1507,31 @@ msgstr ""
 
 #: ui/SettingsWindow.ui:116
 msgid "Show performance summary on the headerbar"
-msgstr ""
+msgstr "Pokaż podsumowanie wydajności na pasku nagłówka"
 
 #: ui/SettingsWindow.ui:134
 msgid "Chart data history:"
-msgstr ""
+msgstr "Historia danych wykresu:"
 
 #: ui/SettingsWindow.ui:153
 msgid "Remember last selected hardware"
-msgstr ""
+msgstr "Zapamiętaj ostatnio wybrany sprzęt"
 
 #: ui/SettingsWindow.ui:265
 msgid "Remember window size"
-msgstr ""
+msgstr "Zapamiętaj rozmiar okna"
 
 #: ui/SettingsWindow.ui:416
 msgid "Network Download Speed"
-msgstr ""
+msgstr "Szybkość pobierania w sieci"
 
 #: ui/SettingsWindow.ui:430
 msgid "Network Upload Speed"
-msgstr ""
+msgstr "Szybkość wysyłania w sieci"
 
 #: ui/SettingsWindow.ui:448
 msgid "Show/Hide Performance Information"
-msgstr ""
+msgstr "Pokaż/ukryj informacje o wydajności"
 
 #: ui/SettingsWindow.ui:508
 msgid "Window transparency:"
@@ -1529,7 +1539,7 @@ msgstr "Przezroczystość okna:"
 
 #: ui/SettingsWindow.ui:573
 msgid "Reset all settings of the application to defaults"
-msgstr ""
+msgstr "Zresetuj wszystkie ustawienia aplikacji do wartości domyślnych"
 
 #: ui/StartupMenuRightClick.ui:35
 msgid "Add"
@@ -1549,7 +1559,7 @@ msgstr "Otwórz plik '.desktop'..."
 
 #: ui/StartupNewItemWindow.ui:7
 msgid "Add New Startup Item"
-msgstr ""
+msgstr "Dodaj nowy element startowy"
 
 #: ui/StartupNewItemWindow.ui:195
 msgid "Icon"
@@ -1557,19 +1567,19 @@ msgstr "Ikona"
 
 #: ui/StartupNewItemWindow.ui:215
 msgid "Startup Notify"
-msgstr ""
+msgstr "Powiadomienie o uruchomieniu"
 
 #: ui/StartupNewItemWindow.ui:246
 msgid "Note: Name and Command fields cannot be left blank."
-msgstr ""
+msgstr "Uwaga: Pola Nazwa i Komenda nie mogą być puste."
 
 #: ui/StartupTab.ui:92
 msgid "Show user-specific startup items"
-msgstr ""
+msgstr "Pokaż elementy startowe specyficzne dla użytkownika"
 
 #: ui/StartupTab.ui:114
 msgid "Show system-wide startup items"
-msgstr ""
+msgstr "Pokaż ogólnosystemowe elementy startowe"
 
 #: ui/StartupTab.ui:162
 msgid ""
@@ -1580,11 +1590,11 @@ msgstr ""
 
 #: ui/SystemTab.ui:64
 msgid "Computer Name And Model"
-msgstr ""
+msgstr "Nazwa i model komputera"
 
 #: ui/SystemTab.ui:79
 msgid "Operating System Name and Version"
-msgstr ""
+msgstr "Nazwa i wersja systemu operacyjnego"
 
 #: ui/SystemTab.ui:130
 msgid "Operating System (OS)"
@@ -1616,7 +1626,7 @@ msgstr "Wydanie Jądra:"
 
 #: ui/SystemTab.ui:310
 msgid "Computer"
-msgstr "Urządzenie"
+msgstr "Komputer"
 
 #: ui/SystemTab.ui:344
 msgid "Vendor:"
@@ -1648,7 +1658,7 @@ msgstr "Pakiety"
 
 #: ui/SystemTab.ui:585
 msgid "Desktop Environment:"
-msgstr "Środowisku pulpitu:"
+msgstr "Środowisko pulpitu:"
 
 #: ui/SystemTab.ui:649
 msgid "Windowing System:"
@@ -1656,13 +1666,13 @@ msgstr "Serwer wyświetlania:"
 
 #: ui/SystemTab.ui:662
 msgid "Display Manager:"
-msgstr "Manager okien:"
+msgstr "Menedżer wyświetlania:"
 
 #: ui/SystemTab.ui:674
 msgid ""
 "Number of installed packages\n"
 "(APT, RPM or pacman)"
-msgstr "Ilość zainstalowanych pakietów (APT, RPM, lub pacman)"
+msgstr "Liczba zainstalowanych pakietów (APT, RPM, lub pacman)"
 
 #: ui/SystemTab.ui:677
 msgid "System:"
@@ -1670,7 +1680,7 @@ msgstr "System:"
 
 #: ui/SystemTab.ui:689
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr "Ilość zainstalowanych aplikacji i podstawowych zależności Flatpak"
+msgstr "Liczba zainstalowanych aplikacji Flatpak i środowisk wykonawczych"
 
 #: ui/SystemTab.ui:691
 msgid "Flatpak:"
@@ -1682,15 +1692,15 @@ msgstr "Menedżer okien:"
 
 #: ui/SystemTab.ui:801
 msgid "Version of Python which is running this application"
-msgstr "Wersja Python, która uruchamia tę aplikację"
+msgstr "Wersja Pythona, na której działa ta aplikacja"
 
 #: ui/SystemTab.ui:803
 msgid "Python Version:"
-msgstr "Wersja Python:"
+msgstr "Wersja Pythona:"
 
 #: ui/SystemTab.ui:815
 msgid "Built-in Python packages are not counted."
-msgstr "Wbudowane pakiety Python nie są wliczone."
+msgstr "Wbudowane pakiety Pythona nie są liczone."
 
 #: ui/SystemTab.ui:817
 msgid "Python:"
@@ -1702,7 +1712,7 @@ msgstr "Zakończ sesję użytkownika"
 
 #: ui/UsersTab.ui:41
 msgid "Note: User-specific performance data is approximative."
-msgstr ""
+msgstr "Uwaga: dane dotyczące specyficznych wydajności użytkownika są przybliżone."
 
 #: ui/UsersTab.ui:104
 msgid "Show only users logged in"
