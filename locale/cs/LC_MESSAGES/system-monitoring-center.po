@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-10 10:28+0300\n"
-"PO-Revision-Date: 2022-05-10 11:59+0300\n"
+"POT-Creation-Date: 2022-05-10 19:31+0300\n"
+"PO-Revision-Date: 2022-05-10 19:32+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -26,38 +26,38 @@ msgstr "Využití CPU (Průměr)"
 msgid "CPU Usage (Per Core)"
 msgstr "Využití CPU (jednotlivá jádra)"
 
-#: src/Cpu.py:326 src/Disk.py:287 src/Disk.py:289 src/Gpu.py:268 src/Gpu.py:270
+#: src/Cpu.py:326 src/Disk.py:262 src/Disk.py:264 src/Gpu.py:268 src/Gpu.py:270
 #: src/Network.py:100 src/Network.py:102 src/RamHardwareInformation.py:56
 msgid "Unknown"
 msgstr "Neznámo"
 
-#: src/Disk.py:241 src/Disk.py:254 src/RamSwapDetails.py:66
+#: src/Disk.py:216 src/Disk.py:229 src/RamSwapDetails.py:66
 msgid "Partition"
 msgstr "Oddíl"
 
-#: src/Disk.py:252 src/Disk.py:512 src/Disk.py:526 src/SettingsGUI.py:51
+#: src/Disk.py:227 src/Disk.py:482 src/Disk.py:496 src/SettingsGUI.py:51
 #: ui/DiskDetailsWindow.ui:45 ui/DiskTab.ui:435 ui/MainWindow.ui:265
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
 msgid "Disk"
 msgstr ""
 
-#: src/Disk.py:295 src/Disk.py:403
+#: src/Disk.py:270 src/Disk.py:378
 msgid "[SWAP]"
 msgstr ""
 
-#: src/Disk.py:378 src/Gpu.py:221 src/Gpu.py:224 src/Network.py:194
+#: src/Disk.py:353 src/Gpu.py:221 src/Gpu.py:224 src/Network.py:194
 #: src/Network.py:222 src/Services.py:162 src/ServicesDetails.py:132
 #: src/UsersDetails.py:223
 msgid "Yes"
 msgstr "Ano"
 
-#: src/Disk.py:380 src/Gpu.py:226 src/Network.py:196 src/Services.py:162
+#: src/Disk.py:355 src/Gpu.py:226 src/Network.py:196 src/Services.py:162
 #: src/ServicesDetails.py:132 src/UsersDetails.py:225
 msgid "No"
 msgstr "Ne"
 
-#: src/Disk.py:388 src/Disk.py:394 src/Disk.py:448 src/Disk.py:449
-#: src/Disk.py:450 src/Disk.py:451 src/Disk.py:452
+#: src/Disk.py:363 src/Disk.py:369 src/Disk.py:418 src/Disk.py:419
+#: src/Disk.py:420 src/Disk.py:421 src/Disk.py:422
 msgid "[Not mounted]"
 msgstr "[Nepřipojeno]"
 
@@ -162,24 +162,27 @@ msgstr "Paměť (Sdílená)"
 
 #: src/Processes.py:150 ui/ProcessesDetailsWindow.ui:1348
 #: ui/ProcessesMenuCustomizations.ui:406
-msgid "Disk Read Data"
+#, fuzzy
+#| msgid "Disk Read Data"
+msgid "Read Data"
 msgstr "Disk - čtení dat"
 
 #: src/Processes.py:151 ui/ProcessesDetailsWindow.ui:1361
 #: ui/ProcessesMenuCustomizations.ui:420
-msgid "Disk Write Data"
+#, fuzzy
+#| msgid "Disk Write Data"
+msgid "Write Data"
 msgstr "Disk - zápis dat"
 
-#: src/Processes.py:152 ui/ProcessesDetailsWindow.ui:139
-#: ui/ProcessesDetailsWindow.ui:664 ui/ProcessesDetailsWindow.ui:1322
-#: ui/ProcessesMenuCustomizations.ui:378
-msgid "Disk Read Speed"
-msgstr "Rychlost čtení disku"
+#: src/Processes.py:152 ui/DiskMenus.ui:295 ui/ProcessesDetailsWindow.ui:139
+#: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesMenuCustomizations.ui:378
+msgid "Read Speed"
+msgstr "Rychlost čtení"
 
-#: src/Processes.py:153 ui/ProcessesDetailsWindow.ui:1335
-#: ui/ProcessesMenuCustomizations.ui:392
-msgid "Disk Write Speed"
-msgstr "Rychlost zápisu disku"
+#: src/Processes.py:153 ui/DiskMenus.ui:308 ui/ProcessesDetailsWindow.ui:664
+#: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesMenuCustomizations.ui:392
+msgid "Write Speed"
+msgstr "Rychlost zápisu"
 
 #: src/Processes.py:154 src/RamSwapDetails.py:99
 #: ui/ProcessesDetailsWindow.ui:100 ui/ProcessesMenuCustomizations.ui:308
@@ -348,13 +351,15 @@ msgstr "Skupina senzorů"
 msgid "Current Value"
 msgstr "Současná hodnota"
 
-#: src/Sensors.py:82
-msgid "Critical Value"
-msgstr "Kritická hodnota"
+#: src/Sensors.py:82 ui/ProcessesMenuRightClick.ui:87
+msgid "High"
+msgstr "Vysoko"
 
 #: src/Sensors.py:83
-msgid "Max Value"
-msgstr "Maximální hodnota"
+#, fuzzy
+#| msgid "Critical Value"
+msgid "Critical"
+msgstr "Kritická hodnota"
 
 #: src/Sensors.py:335 src/SettingsGUI.py:51 ui/MainWindow.ui:409
 #: ui/SensorsTab.ui:77
@@ -707,14 +712,6 @@ msgstr "Rychlost disku"
 msgid "Disk Usage"
 msgstr "Využití disku"
 
-#: ui/DiskMenus.ui:295
-msgid "Read Speed"
-msgstr "Rychlost čtení"
-
-#: ui/DiskMenus.ui:308
-msgid "Write Speed"
-msgstr "Rychlost zápisu"
-
 #: ui/DiskMenus.ui:345 ui/NetworkMenus.ui:345
 msgid "Selected Device"
 msgstr "Vybrané zařízení"
@@ -743,32 +740,33 @@ msgid "Measured value since last system start"
 msgstr "Změřená hodnota od posledního spuštění systému"
 
 #: ui/DiskTab.ui:54
-msgid "Read Time:"
-msgstr "Čas čtení:"
+#, fuzzy
+#| msgid "Disk Read Data"
+msgid "Read Data:"
+msgstr "Disk - čtení dat"
 
 #: ui/DiskTab.ui:67
 msgid "System Disk:"
 msgstr "Systémový disk:"
 
 #: ui/DiskTab.ui:81
-msgid "Write Time:"
-msgstr "Čas zápisu:"
+#, fuzzy
+#| msgid "Disk Write Data"
+msgid "Write Data:"
+msgstr "Disk - zápis dat"
 
 #: ui/DiskTab.ui:162 ui/RamTab.ui:225
 msgid "Free:"
 msgstr "Volno:"
 
-#: ui/DiskTab.ui:175 ui/RamTab.ui:45 ui/RamTab.ui:105
+#: ui/DiskTab.ui:175 ui/DiskTab.ui:241 ui/RamTab.ui:45 ui/RamTab.ui:105
+#: ui/RamTab.ui:261
 msgid "Used:"
 msgstr "Použito:"
 
 #: ui/DiskTab.ui:205 ui/RamTab.ui:363
 msgid "Details:"
 msgstr "Detaily:"
-
-#: ui/DiskTab.ui:241
-msgid "Disk Usage:"
-msgstr "Využití disku:"
 
 #: ui/DiskTab.ui:289 ui/RamTab.ui:165 ui/RamTab.ui:195
 msgid "Capacity:"
@@ -990,11 +988,15 @@ msgid "CPU and Memory"
 msgstr "CPU a Paměť"
 
 #: ui/ProcessesDetailsWindow.ui:1374
-msgid "Disk Read Count"
+#, fuzzy
+#| msgid "Disk Read Count"
+msgid "Read Count"
 msgstr "Počet čtení disku"
 
 #: ui/ProcessesDetailsWindow.ui:1387
-msgid "Disk Write Count"
+#, fuzzy
+#| msgid "Disk Write Count"
+msgid "Write Count"
 msgstr "Počet zápisu disku"
 
 #: ui/ProcessesDetailsWindow.ui:1534
@@ -1078,10 +1080,6 @@ msgstr "Zabít proces"
 msgid "Very High"
 msgstr "Velmi vysoko"
 
-#: ui/ProcessesMenuRightClick.ui:87
-msgid "High"
-msgstr "Vysoko"
-
 #: ui/ProcessesMenuRightClick.ui:97
 msgid "Normal"
 msgstr "Normálně"
@@ -1114,10 +1112,6 @@ msgstr "Podrobnosti o SWAPu"
 #: ui/RamTab.ui:58 ui/RamTab.ui:118
 msgid "Available:"
 msgstr "K dispozici:"
-
-#: ui/RamTab.ui:261
-msgid "Swap Mem. Usg. %:"
-msgstr "Využití swapu %:"
 
 #: ui/RamTab.ui:326
 msgid "Hardware:"
@@ -1447,6 +1441,27 @@ msgstr "Podrobnosti o uživateli"
 #: ui/UsersTab.ui:41
 msgid "Note: User-specific performance data is approximative."
 msgstr "Poznámka: Uživatelsky specifické data o výkonu jsou odhad."
+
+#~ msgid "Read Time:"
+#~ msgstr "Čas čtení:"
+
+#~ msgid "Write Time:"
+#~ msgstr "Čas zápisu:"
+
+#~ msgid "Disk Usage:"
+#~ msgstr "Využití disku:"
+
+#~ msgid "Swap Mem. Usg. %:"
+#~ msgstr "Využití swapu %:"
+
+#~ msgid "Disk Read Speed"
+#~ msgstr "Rychlost čtení disku"
+
+#~ msgid "Disk Write Speed"
+#~ msgstr "Rychlost zápisu disku"
+
+#~ msgid "Max Value"
+#~ msgstr "Maximální hodnota"
 
 #~ msgid "Sensor Name"
 #~ msgstr "Jméno senzoru"

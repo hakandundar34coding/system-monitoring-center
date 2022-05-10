@@ -51,7 +51,7 @@
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Measured value since last system start</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Read Time:</property>
+            <property name="label" translatable="yes">Read Data:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -78,7 +78,7 @@
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Measured value since last system start</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Write Time:</property>
+            <property name="label" translatable="yes">Write Data:</property>
             <property name="ellipsize">end</property>
           </object>
           <packing>
@@ -238,7 +238,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">end</property>
-                <property name="label" translatable="yes">Disk Usage:</property>
+                <property name="label" translatable="yes">Used:</property>
                 <property name="ellipsize">end</property>
               </object>
               <packing>

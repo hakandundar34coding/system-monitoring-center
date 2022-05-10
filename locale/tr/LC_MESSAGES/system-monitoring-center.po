@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-10 10:28+0300\n"
-"PO-Revision-Date: 2022-05-10 10:28+0300\n"
+"POT-Creation-Date: 2022-05-10 19:31+0300\n"
+"PO-Revision-Date: 2022-05-10 19:31+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -26,38 +26,38 @@ msgstr "MİB Kullanımı (Ortalama)"
 msgid "CPU Usage (Per Core)"
 msgstr "MİB Kullanımı (Çekirdek Başına)"
 
-#: src/Cpu.py:326 src/Disk.py:287 src/Disk.py:289 src/Gpu.py:268 src/Gpu.py:270
+#: src/Cpu.py:326 src/Disk.py:262 src/Disk.py:264 src/Gpu.py:268 src/Gpu.py:270
 #: src/Network.py:100 src/Network.py:102 src/RamHardwareInformation.py:56
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-#: src/Disk.py:241 src/Disk.py:254 src/RamSwapDetails.py:66
+#: src/Disk.py:216 src/Disk.py:229 src/RamSwapDetails.py:66
 msgid "Partition"
 msgstr "Disk bölümü"
 
-#: src/Disk.py:252 src/Disk.py:512 src/Disk.py:526 src/SettingsGUI.py:51
+#: src/Disk.py:227 src/Disk.py:482 src/Disk.py:496 src/SettingsGUI.py:51
 #: ui/DiskDetailsWindow.ui:45 ui/DiskTab.ui:435 ui/MainWindow.ui:265
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
 msgid "Disk"
 msgstr "Disk"
 
-#: src/Disk.py:295 src/Disk.py:403
+#: src/Disk.py:270 src/Disk.py:378
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
-#: src/Disk.py:378 src/Gpu.py:221 src/Gpu.py:224 src/Network.py:194
+#: src/Disk.py:353 src/Gpu.py:221 src/Gpu.py:224 src/Network.py:194
 #: src/Network.py:222 src/Services.py:162 src/ServicesDetails.py:132
 #: src/UsersDetails.py:223
 msgid "Yes"
 msgstr "Evet"
 
-#: src/Disk.py:380 src/Gpu.py:226 src/Network.py:196 src/Services.py:162
+#: src/Disk.py:355 src/Gpu.py:226 src/Network.py:196 src/Services.py:162
 #: src/ServicesDetails.py:132 src/UsersDetails.py:225
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:388 src/Disk.py:394 src/Disk.py:448 src/Disk.py:449
-#: src/Disk.py:450 src/Disk.py:451 src/Disk.py:452
+#: src/Disk.py:363 src/Disk.py:369 src/Disk.py:418 src/Disk.py:419
+#: src/Disk.py:420 src/Disk.py:421 src/Disk.py:422
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
@@ -162,24 +162,23 @@ msgstr "Bellek (Paylaşılan)"
 
 #: src/Processes.py:150 ui/ProcessesDetailsWindow.ui:1348
 #: ui/ProcessesMenuCustomizations.ui:406
-msgid "Disk Read Data"
-msgstr "Disk Okunan Veri"
+msgid "Read Data"
+msgstr "Okunan Veri"
 
 #: src/Processes.py:151 ui/ProcessesDetailsWindow.ui:1361
 #: ui/ProcessesMenuCustomizations.ui:420
-msgid "Disk Write Data"
-msgstr "Disk Yazılan Veri"
+msgid "Write Data"
+msgstr "Yazılan Veri"
 
-#: src/Processes.py:152 ui/ProcessesDetailsWindow.ui:139
-#: ui/ProcessesDetailsWindow.ui:664 ui/ProcessesDetailsWindow.ui:1322
-#: ui/ProcessesMenuCustomizations.ui:378
-msgid "Disk Read Speed"
-msgstr "Disk Okuma Hızı"
+#: src/Processes.py:152 ui/DiskMenus.ui:295 ui/ProcessesDetailsWindow.ui:139
+#: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesMenuCustomizations.ui:378
+msgid "Read Speed"
+msgstr "Okuma Hızı"
 
-#: src/Processes.py:153 ui/ProcessesDetailsWindow.ui:1335
-#: ui/ProcessesMenuCustomizations.ui:392
-msgid "Disk Write Speed"
-msgstr "Disk Yazma Hızı"
+#: src/Processes.py:153 ui/DiskMenus.ui:308 ui/ProcessesDetailsWindow.ui:664
+#: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesMenuCustomizations.ui:392
+msgid "Write Speed"
+msgstr "Yazma Hızı"
 
 #: src/Processes.py:154 src/RamSwapDetails.py:99
 #: ui/ProcessesDetailsWindow.ui:100 ui/ProcessesMenuCustomizations.ui:308
@@ -348,13 +347,13 @@ msgstr "Algılayıcı Grubu"
 msgid "Current Value"
 msgstr "Şimdiki Değer"
 
-#: src/Sensors.py:82
-msgid "Critical Value"
-msgstr "Kritik Değer"
+#: src/Sensors.py:82 ui/ProcessesMenuRightClick.ui:87
+msgid "High"
+msgstr "Yüksek"
 
 #: src/Sensors.py:83
-msgid "Max Value"
-msgstr "Maks. Değer"
+msgid "Critical"
+msgstr "Kritik"
 
 #: src/Sensors.py:335 src/SettingsGUI.py:51 ui/MainWindow.ui:409
 #: ui/SensorsTab.ui:77
@@ -643,7 +642,7 @@ msgstr "Marka-Model"
 
 #: ui/CpuTab.ui:397 ui/DiskTab.ui:472 ui/GpuTab.ui:457 ui/NetworkTab.ui:460
 msgid "Device Name In Kernel"
-msgstr "İşletim Sistemi Çekirdeğindeki (Kernel) Aygıt Adı"
+msgstr "Aygıtın İşletim Sistemi Çekirdeğindeki (Kernel) Adı"
 
 #: ui/CpuTab.ui:426 ui/GpuTab.ui:340 ui/RamTab.ui:413
 msgid "100%"
@@ -707,14 +706,6 @@ msgstr "Disk Hızı"
 msgid "Disk Usage"
 msgstr "Disk Kullanımı"
 
-#: ui/DiskMenus.ui:295
-msgid "Read Speed"
-msgstr "Okuma Hızı"
-
-#: ui/DiskMenus.ui:308
-msgid "Write Speed"
-msgstr "Yazma Hızı"
-
 #: ui/DiskMenus.ui:345 ui/NetworkMenus.ui:345
 msgid "Selected Device"
 msgstr "Seçilen Aygıt"
@@ -741,32 +732,29 @@ msgid "Measured value since last system start"
 msgstr "Sistem başlangıcından sonra ölçülen değer"
 
 #: ui/DiskTab.ui:54
-msgid "Read Time:"
-msgstr "Okuma Süresi:"
+msgid "Read Data:"
+msgstr "Okunan Veri:"
 
 #: ui/DiskTab.ui:67
 msgid "System Disk:"
 msgstr "Sistem Diski:"
 
 #: ui/DiskTab.ui:81
-msgid "Write Time:"
-msgstr "Yazma Süresi:"
+msgid "Write Data:"
+msgstr "Yazılan Veri:"
 
 #: ui/DiskTab.ui:162 ui/RamTab.ui:225
 msgid "Free:"
 msgstr "Boş:"
 
-#: ui/DiskTab.ui:175 ui/RamTab.ui:45 ui/RamTab.ui:105
+#: ui/DiskTab.ui:175 ui/DiskTab.ui:241 ui/RamTab.ui:45 ui/RamTab.ui:105
+#: ui/RamTab.ui:261
 msgid "Used:"
 msgstr "Kullanılan:"
 
 #: ui/DiskTab.ui:205 ui/RamTab.ui:363
 msgid "Details:"
 msgstr "Detaylar:"
-
-#: ui/DiskTab.ui:241
-msgid "Disk Usage:"
-msgstr "Disk Kullanımı:"
 
 #: ui/DiskTab.ui:289 ui/RamTab.ui:165 ui/RamTab.ui:195
 msgid "Capacity:"
@@ -981,12 +969,12 @@ msgid "CPU and Memory"
 msgstr "MİB ve Bellek"
 
 #: ui/ProcessesDetailsWindow.ui:1374
-msgid "Disk Read Count"
-msgstr "Diskten Okuma Sayısı"
+msgid "Read Count"
+msgstr "Okuma Sayısı"
 
 #: ui/ProcessesDetailsWindow.ui:1387
-msgid "Disk Write Count"
-msgstr "Diske Yazma Sayısı"
+msgid "Write Count"
+msgstr "Yazma Sayısı"
 
 #: ui/ProcessesDetailsWindow.ui:1534
 msgid "Current Working Directory"
@@ -1065,10 +1053,6 @@ msgstr "İşlemi Öldür"
 msgid "Very High"
 msgstr "Çok Yüksek"
 
-#: ui/ProcessesMenuRightClick.ui:87
-msgid "High"
-msgstr "Yüksek"
-
 #: ui/ProcessesMenuRightClick.ui:97
 msgid "Normal"
 msgstr "Normal"
@@ -1101,10 +1085,6 @@ msgstr "Takas Belleği Detayları"
 #: ui/RamTab.ui:58 ui/RamTab.ui:118
 msgid "Available:"
 msgstr "Kullanılabilir:"
-
-#: ui/RamTab.ui:261
-msgid "Swap Mem. Usg. %:"
-msgstr "Takas Bell. Kul. %:"
 
 #: ui/RamTab.ui:326
 msgid "Hardware:"
@@ -1425,6 +1405,33 @@ msgstr "Kullanıcı Detayları"
 #: ui/UsersTab.ui:41
 msgid "Note: User-specific performance data is approximative."
 msgstr "Not: Kullanıcıya özgü performans bilgisi yaklaşıktır."
+
+#~ msgid "Read Time:"
+#~ msgstr "Okuma Süresi:"
+
+#~ msgid "Write Time:"
+#~ msgstr "Yazma Süresi:"
+
+#~ msgid "Disk Usage:"
+#~ msgstr "Disk Kullanımı:"
+
+#~ msgid "Swap Mem. Usg. %:"
+#~ msgstr "Takas Bell. Kul. %:"
+
+#~ msgid "Disk Read Speed"
+#~ msgstr "Disk Okuma Hızı"
+
+#~ msgid "Disk Write Speed"
+#~ msgstr "Disk Yazma Hızı"
+
+#~ msgid "Disk Read Data"
+#~ msgstr "Disk Okunan Veri"
+
+#~ msgid "Disk Write Data"
+#~ msgstr "Disk Yazılan Veri"
+
+#~ msgid "Max Value"
+#~ msgstr "Maks. Değer"
 
 #~ msgid "Sensor Name"
 #~ msgstr "Algılayıcı Adı"

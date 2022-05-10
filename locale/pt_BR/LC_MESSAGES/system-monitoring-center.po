@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-10 10:28+0300\n"
-"PO-Revision-Date: 2022-05-10 11:58+0300\n"
+"POT-Creation-Date: 2022-05-10 19:31+0300\n"
+"PO-Revision-Date: 2022-05-10 19:31+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -26,38 +26,38 @@ msgstr "Uso de CPU (Média)"
 msgid "CPU Usage (Per Core)"
 msgstr "Uso de CPU (Por Núcleo)"
 
-#: src/Cpu.py:326 src/Disk.py:287 src/Disk.py:289 src/Gpu.py:268 src/Gpu.py:270
+#: src/Cpu.py:326 src/Disk.py:262 src/Disk.py:264 src/Gpu.py:268 src/Gpu.py:270
 #: src/Network.py:100 src/Network.py:102 src/RamHardwareInformation.py:56
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: src/Disk.py:241 src/Disk.py:254 src/RamSwapDetails.py:66
+#: src/Disk.py:216 src/Disk.py:229 src/RamSwapDetails.py:66
 msgid "Partition"
 msgstr "Partição"
 
-#: src/Disk.py:252 src/Disk.py:512 src/Disk.py:526 src/SettingsGUI.py:51
+#: src/Disk.py:227 src/Disk.py:482 src/Disk.py:496 src/SettingsGUI.py:51
 #: ui/DiskDetailsWindow.ui:45 ui/DiskTab.ui:435 ui/MainWindow.ui:265
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
 msgid "Disk"
 msgstr "Disco"
 
-#: src/Disk.py:295 src/Disk.py:403
+#: src/Disk.py:270 src/Disk.py:378
 msgid "[SWAP]"
 msgstr "[SWAP]"
 
-#: src/Disk.py:378 src/Gpu.py:221 src/Gpu.py:224 src/Network.py:194
+#: src/Disk.py:353 src/Gpu.py:221 src/Gpu.py:224 src/Network.py:194
 #: src/Network.py:222 src/Services.py:162 src/ServicesDetails.py:132
 #: src/UsersDetails.py:223
 msgid "Yes"
 msgstr "Sim"
 
-#: src/Disk.py:380 src/Gpu.py:226 src/Network.py:196 src/Services.py:162
+#: src/Disk.py:355 src/Gpu.py:226 src/Network.py:196 src/Services.py:162
 #: src/ServicesDetails.py:132 src/UsersDetails.py:225
 msgid "No"
 msgstr "Não"
 
-#: src/Disk.py:388 src/Disk.py:394 src/Disk.py:448 src/Disk.py:449
-#: src/Disk.py:450 src/Disk.py:451 src/Disk.py:452
+#: src/Disk.py:363 src/Disk.py:369 src/Disk.py:418 src/Disk.py:419
+#: src/Disk.py:420 src/Disk.py:421 src/Disk.py:422
 msgid "[Not mounted]"
 msgstr "[Não Montado]"
 
@@ -162,24 +162,27 @@ msgstr "Memória (Compartilhada)"
 
 #: src/Processes.py:150 ui/ProcessesDetailsWindow.ui:1348
 #: ui/ProcessesMenuCustomizations.ui:406
-msgid "Disk Read Data"
+#, fuzzy
+#| msgid "Disk Read Data"
+msgid "Read Data"
 msgstr "Dados de Leitura do Disco"
 
 #: src/Processes.py:151 ui/ProcessesDetailsWindow.ui:1361
 #: ui/ProcessesMenuCustomizations.ui:420
-msgid "Disk Write Data"
+#, fuzzy
+#| msgid "Disk Write Data"
+msgid "Write Data"
 msgstr "Dados de Escrita de Disco"
 
-#: src/Processes.py:152 ui/ProcessesDetailsWindow.ui:139
-#: ui/ProcessesDetailsWindow.ui:664 ui/ProcessesDetailsWindow.ui:1322
-#: ui/ProcessesMenuCustomizations.ui:378
-msgid "Disk Read Speed"
-msgstr "Velocidade de Leitura do Disco"
+#: src/Processes.py:152 ui/DiskMenus.ui:295 ui/ProcessesDetailsWindow.ui:139
+#: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesMenuCustomizations.ui:378
+msgid "Read Speed"
+msgstr "Velocidade de Leitura"
 
-#: src/Processes.py:153 ui/ProcessesDetailsWindow.ui:1335
-#: ui/ProcessesMenuCustomizations.ui:392
-msgid "Disk Write Speed"
-msgstr "Velocidade de Escrita do Disco"
+#: src/Processes.py:153 ui/DiskMenus.ui:308 ui/ProcessesDetailsWindow.ui:664
+#: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesMenuCustomizations.ui:392
+msgid "Write Speed"
+msgstr "Velocidade de Escrita"
 
 #: src/Processes.py:154 src/RamSwapDetails.py:99
 #: ui/ProcessesDetailsWindow.ui:100 ui/ProcessesMenuCustomizations.ui:308
@@ -348,13 +351,15 @@ msgstr "Grupo de Sensores"
 msgid "Current Value"
 msgstr "Valor Atual"
 
-#: src/Sensors.py:82
-msgid "Critical Value"
-msgstr "Valor Crítico"
+#: src/Sensors.py:82 ui/ProcessesMenuRightClick.ui:87
+msgid "High"
+msgstr "Alto"
 
 #: src/Sensors.py:83
-msgid "Max Value"
-msgstr "Valor Máximo"
+#, fuzzy
+#| msgid "Critical Value"
+msgid "Critical"
+msgstr "Valor Crítico"
 
 #: src/Sensors.py:335 src/SettingsGUI.py:51 ui/MainWindow.ui:409
 #: ui/SensorsTab.ui:77
@@ -707,14 +712,6 @@ msgstr "Velocidade do Disco"
 msgid "Disk Usage"
 msgstr "Uso de Disco"
 
-#: ui/DiskMenus.ui:295
-msgid "Read Speed"
-msgstr "Velocidade de Leitura"
-
-#: ui/DiskMenus.ui:308
-msgid "Write Speed"
-msgstr "Velocidade de Escrita"
-
 #: ui/DiskMenus.ui:345 ui/NetworkMenus.ui:345
 msgid "Selected Device"
 msgstr "Dispositivo Selecionado"
@@ -743,32 +740,33 @@ msgid "Measured value since last system start"
 msgstr "Valor medido desde a última inicialização do sistema"
 
 #: ui/DiskTab.ui:54
-msgid "Read Time:"
-msgstr "Tempo de Leitura:"
+#, fuzzy
+#| msgid "Disk Read Data"
+msgid "Read Data:"
+msgstr "Dados de Leitura do Disco"
 
 #: ui/DiskTab.ui:67
 msgid "System Disk:"
 msgstr "Disco do Sistema:"
 
 #: ui/DiskTab.ui:81
-msgid "Write Time:"
-msgstr "Tempo de Escrita:"
+#, fuzzy
+#| msgid "Disk Write Data"
+msgid "Write Data:"
+msgstr "Dados de Escrita de Disco"
 
 #: ui/DiskTab.ui:162 ui/RamTab.ui:225
 msgid "Free:"
 msgstr "Livre:"
 
-#: ui/DiskTab.ui:175 ui/RamTab.ui:45 ui/RamTab.ui:105
+#: ui/DiskTab.ui:175 ui/DiskTab.ui:241 ui/RamTab.ui:45 ui/RamTab.ui:105
+#: ui/RamTab.ui:261
 msgid "Used:"
 msgstr "Em Uso:"
 
 #: ui/DiskTab.ui:205 ui/RamTab.ui:363
 msgid "Details:"
 msgstr "Detalhes:"
-
-#: ui/DiskTab.ui:241
-msgid "Disk Usage:"
-msgstr "Uso de Disco:"
 
 #: ui/DiskTab.ui:289 ui/RamTab.ui:165 ui/RamTab.ui:195
 msgid "Capacity:"
@@ -991,11 +989,15 @@ msgid "CPU and Memory"
 msgstr "CPU e Memória"
 
 #: ui/ProcessesDetailsWindow.ui:1374
-msgid "Disk Read Count"
+#, fuzzy
+#| msgid "Disk Read Count"
+msgid "Read Count"
 msgstr "Contagem de Leitura de Disco"
 
 #: ui/ProcessesDetailsWindow.ui:1387
-msgid "Disk Write Count"
+#, fuzzy
+#| msgid "Disk Write Count"
+msgid "Write Count"
 msgstr "Contagem de Escrita de Disco"
 
 #: ui/ProcessesDetailsWindow.ui:1534
@@ -1079,10 +1081,6 @@ msgstr "Matar Processo"
 msgid "Very High"
 msgstr "Muito Alto"
 
-#: ui/ProcessesMenuRightClick.ui:87
-msgid "High"
-msgstr "Alto"
-
 #: ui/ProcessesMenuRightClick.ui:97
 msgid "Normal"
 msgstr "Normal"
@@ -1115,10 +1113,6 @@ msgstr "Informações da Memória Swap"
 #: ui/RamTab.ui:58 ui/RamTab.ui:118
 msgid "Available:"
 msgstr "Disponível:"
-
-#: ui/RamTab.ui:261
-msgid "Swap Mem. Usg. %:"
-msgstr "Uso de Mem. Swap %:"
 
 #: ui/RamTab.ui:326
 msgid "Hardware:"
@@ -1452,6 +1446,27 @@ msgstr "Detalhes do Usuário"
 msgid "Note: User-specific performance data is approximative."
 msgstr ""
 "Observação: os dados de desempenho específicos do usuário são aproximados."
+
+#~ msgid "Read Time:"
+#~ msgstr "Tempo de Leitura:"
+
+#~ msgid "Write Time:"
+#~ msgstr "Tempo de Escrita:"
+
+#~ msgid "Disk Usage:"
+#~ msgstr "Uso de Disco:"
+
+#~ msgid "Swap Mem. Usg. %:"
+#~ msgstr "Uso de Mem. Swap %:"
+
+#~ msgid "Disk Read Speed"
+#~ msgstr "Velocidade de Leitura do Disco"
+
+#~ msgid "Disk Write Speed"
+#~ msgstr "Velocidade de Escrita do Disco"
+
+#~ msgid "Max Value"
+#~ msgstr "Valor Máximo"
 
 #~ msgid "Sensor Name"
 #~ msgstr "Nome do Sensor"

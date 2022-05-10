@@ -136,7 +136,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Disk Read Speed</property>
+                        <property name="label" translatable="yes">Read Speed</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -661,7 +661,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Disk Read Speed</property>
+                        <property name="label" translatable="yes">Write Speed</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -1319,7 +1319,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Disk Read Speed</property>
+                        <property name="label" translatable="yes">Read Speed</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -1332,7 +1332,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Disk Write Speed</property>
+                        <property name="label" translatable="yes">Write Speed</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -1345,7 +1345,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Disk Read Data</property>
+                        <property name="label" translatable="yes">Read Data</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -1358,7 +1358,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Disk Write Data</property>
+                        <property name="label" translatable="yes">Write Data</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -1371,7 +1371,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Disk Read Count</property>
+                        <property name="label" translatable="yes">Read Count</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -1384,7 +1384,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">Disk Write Count</property>
+                        <property name="label" translatable="yes">Write Count</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
