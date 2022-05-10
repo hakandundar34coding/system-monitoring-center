@@ -127,13 +127,13 @@
                   </packing>
                 </child>
                 <child>
-                  <!-- n-columns=1 n-rows=6 -->
-                  <object class="GtkGrid">
+                  <!-- n-columns=1 n-rows=11 -->
+                  <object class="GtkGrid" id="grid1010">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="valign">center</property>
+                    <property name="valign">start</property>
+                    <property name="margin-top">35</property>
                     <property name="orientation">vertical</property>
-                    <property name="row-homogeneous">True</property>
                     <child>
                       <object class="GtkRadioButton" id="radiobutton1001">
                         <property name="visible">True</property>
@@ -226,7 +226,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">1</property>
+                        <property name="top-attach">2</property>
                       </packing>
                     </child>
                     <child>
@@ -274,7 +274,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">2</property>
+                        <property name="top-attach">4</property>
                       </packing>
                     </child>
                     <child>
@@ -322,7 +322,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">3</property>
+                        <property name="top-attach">6</property>
                       </packing>
                     </child>
                     <child>
@@ -370,7 +370,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">4</property>
+                        <property name="top-attach">8</property>
                       </packing>
                     </child>
                     <child>
@@ -418,8 +418,23 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">5</property>
+                        <property name="top-attach">10</property>
                       </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
                     </child>
                     <style>
                       <class name="linked"/>

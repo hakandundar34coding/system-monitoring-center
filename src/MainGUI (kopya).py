@@ -508,11 +508,11 @@ class MainGUI:
             device_list = Performance.logical_core_list_system_ordered
             selected_device_number = Performance.selected_cpu_core_number
             listbox_row_number = 1
-            tooltip_text = _tr("CPU core selection affects only frequency and cache memory information.")
+            tooltip_text = "CPU core selection affects only core frequency and cache memory information."
 
         # Check if Memory tab is selected.
         if performance_tab_current_sub_tab == 1:
-            device_list = [_tr("RAM") + "-" + _tr("Swap Memory")]
+            device_list = [_tr("Memory")]
             selected_device_number = 0
             listbox_row_number = 3
             tooltip_text = ""
@@ -563,6 +563,7 @@ class MainGUI:
             if performance_tab_current_sub_tab == 0:
                 # Set selected device.
                 Config.selected_cpu_core = selected_device
+                Cpu.cpu_cpu_core_number = Config.selected_cpu_core
                 Performance.performance_set_selected_cpu_core_func()
 
                 # Apply changes immediately (without waiting update interval).
@@ -577,6 +578,7 @@ class MainGUI:
             # Check if Disk tab is selected.
             elif performance_tab_current_sub_tab == 2:
                 Config.selected_disk = selected_device
+                Disk.selected_disk_number = Config.selected_disk
                 Performance.performance_set_selected_disk_func()
 
                 # Apply changes immediately (without waiting update interval).
@@ -587,6 +589,7 @@ class MainGUI:
             # Check if Network tab is selected.
             elif performance_tab_current_sub_tab == 3:
                 Config.selected_network_card = selected_device
+                Performance.set_selected_network_card = Config.selected_network_card
                 Performance.performance_set_selected_network_card_func()
 
                 # Apply changes immediately (without waiting update interval).
@@ -597,6 +600,7 @@ class MainGUI:
             # Check if GPU tab is selected.
             elif performance_tab_current_sub_tab == 4:
                 Config.selected_gpu = selected_device
+                Gpu.set_selected_gpu = Config.selected_gpu
                 Gpu.gpu_get_gpu_list_and_boot_vga_func()
 
                 # Apply changes immediately (without waiting update interval).
@@ -608,6 +612,38 @@ class MainGUI:
             elif performance_tab_current_sub_tab == 5:
                 pass
 
+        # Draw disk usage percentage bar.
+        def drawingarea_func(widget, ctx):
+
+            # Get chart colors.
+            chart_line_color = Config.chart_line_color_disk_speed_usage
+
+            # Get chart y limit value in order to show maximum value of the chart as 100.
+            chart_y_limit = 100
+
+            # Get chart background color.
+            chart_background_color = Config.chart_background_color_all_charts
+
+            # Get drawingarea size.
+            chart_width = Gtk.Widget.get_allocated_width(widget)
+            chart_height = Gtk.Widget.get_allocated_height(widget)
+
+            # Draw and fill chart background.
+            ctx.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
+            ctx.rectangle(0, 0, chart_width, chart_height)
+            ctx.fill()
+
+            # Draw outer border of the chart.
+            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.6 * chart_line_color[3])
+            ctx.rectangle(0, 0, chart_width, chart_height)
+            ctx.stroke()
+
+            # Draw performance data.
+            ctx.set_line_width(1)
+            ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3])
+            ctx.rectangle(0, 0, chart_width*15/chart_y_limit, chart_height)
+            ctx.fill()
+
         # Add devices into listbox.
         for device in device_list:
             row = Gtk.ListBoxRow()
@@ -615,17 +651,13 @@ class MainGUI:
             label = Gtk.Label()
             label.set_label(device)
             grid.attach(label, 0, 0, 1, 1)
-            # Also add disk usage percentage label next to device name if this is Disk tab.
             if performance_tab_current_sub_tab == 2:
                 disk_mount_point = Disk.disk_mount_point_func(device)
                 _, _, _, _, _, disk_usage_percent = Disk.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
-                label = Gtk.Label()
-                label.set_sensitive(False)
-                if disk_mount_point == "-":
-                    label.set_label(f'  (-%)')
-                else:
-                    label.set_label(f'  ({disk_usage_percent:.0f}%)')
-                grid.attach(label, 1, 0, 1, 1)
+                drawingarea = Gtk.DrawingArea()
+                drawingarea.connect("draw", drawingarea_func)
+                grid.attach(drawingarea, 0, 1, 1, 1)
+                drawingarea.set_size_request(50, -1)
             row.add(grid)
             listbox1001.add(row)
 

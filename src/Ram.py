@@ -61,6 +61,9 @@ class Ram:
         # Set event masks for drawingarea in order to enable these events.
         self.drawingarea1201.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
+        # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
+        self.initial_already_run = 0
+
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1201_clicked(self, widget):

@@ -62,6 +62,9 @@ class Disk:
         # Set event masks for drawingarea in order to enable these events.
         self.drawingarea1301.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
+        # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
+        self.initial_already_run = 0
+
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1301_clicked(self, widget):
@@ -145,6 +148,20 @@ class Disk:
 
         self.drawingarea1301.queue_draw()
         self.drawingarea1302.queue_draw()
+
+        # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
+        disk_list_system_ordered = Performance.disk_list_system_ordered
+        try:                                                                                      
+            if self.disk_list_system_ordered_prev != disk_list_system_ordered:
+                from MainGUI import MainGUI
+                MainGUI.main_gui_device_selection_list_func()
+        # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
+        except AttributeError:
+            pass
+        self.disk_list_system_ordered_prev = disk_list_system_ordered
+
+        # Update disk usage percentages on disk list between Performance tab sub-tabs.
+        self.disk_update_disk_usage_percentages_on_disk_list_func()
 
         # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
         try:
@@ -530,6 +547,29 @@ class Disk:
             pass
 
         return disk_uuid
+
+
+    # ----------------------- Update disk usage percentages on disk list between Performance tab sub-tabs -----------------------
+    def disk_update_disk_usage_percentages_on_disk_list_func(self):
+
+        # Get disk usage percentages.
+        device_list = Performance.disk_list_system_ordered
+        disk_usage_percentage_list = []
+        for device in device_list:
+            disk_mount_point = self.disk_mount_point_func(device)
+            _, _, _, _, _, disk_usage_percent = self.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
+            # Append percentage number with no fractions in order to avoid updating the list very frequently.
+            disk_usage_percentage_list.append(f'{disk_usage_percent:.0f}')
+
+        # Update disk usage percentages on disk list if disk usage percentages are changed since the last loop.
+        try:                                                                                      
+            if self.disk_usage_percentage_list_prev != disk_usage_percentage_list:
+                from MainGUI import MainGUI
+                MainGUI.main_gui_device_selection_list_func()
+        # try-except is used in order to avoid error if this is first loop of the function.
+        except AttributeError:
+            pass
+        self.disk_usage_percentage_list_prev = disk_usage_percentage_list
 
 
 # Generate object

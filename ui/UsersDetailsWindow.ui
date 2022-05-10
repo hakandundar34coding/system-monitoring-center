@@ -185,7 +185,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -200,7 +200,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -215,7 +215,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -230,7 +230,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -245,7 +245,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -260,7 +260,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -275,7 +275,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -290,7 +290,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -305,7 +305,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -320,8 +320,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
-                    <property name="wrap">True</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -336,8 +335,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
-                    <property name="wrap">True</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -365,8 +363,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">--</property>
-                    <property name="wrap">True</property>
+                    <property name="label">--</property>
                     <property name="selectable">True</property>
                     <property name="ellipsize">end</property>
                   </object>
@@ -381,7 +378,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -394,7 +391,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -407,7 +404,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -420,7 +417,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -433,7 +430,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -446,7 +443,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -459,7 +456,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -472,7 +469,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -485,7 +482,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -498,7 +495,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -511,7 +508,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -524,7 +521,7 @@
                     <property name="can-focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="label" translatable="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>

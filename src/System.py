@@ -49,6 +49,9 @@ class System:
         # Connect GUI signals
         self.button8101.connect("clicked", self.on_button8101_clicked)
 
+        # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
+        self.initial_already_run = 0
+
 
     # ----------------------- "Refresh" Button -----------------------
     def on_button8101_clicked(self, widget):

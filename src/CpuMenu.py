@@ -10,6 +10,7 @@ import os
 from Config import Config
 from Performance import Performance
 from Cpu import Cpu
+from MainGUI import MainGUI
 
 
 # Define class
@@ -30,7 +31,6 @@ class CpuMenu:
         self.button1102p = builder.get_object('button1102p')
         self.button1103p = builder.get_object('button1103p')
         self.combobox1101p = builder.get_object('combobox1101p')
-        self.combobox1102p = builder.get_object('combobox1102p')
         self.colorchooserdialog1101 = Gtk.ColorChooserDialog()
 
         # Connect GUI signals
@@ -46,7 +46,6 @@ class CpuMenu:
         self.radiobutton1101p.connect("toggled", self.on_radiobutton1101p_toggled)
         self.radiobutton1102p.connect("toggled", self.on_radiobutton1102p_toggled)
         self.combobox1101p.connect("changed", self.on_combobox1101p_changed)
-        self.combobox1102p.connect("changed", self.on_combobox1102p_changed)
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
@@ -55,7 +54,6 @@ class CpuMenu:
         self.radiobutton1101p.disconnect_by_func(self.on_radiobutton1101p_toggled)
         self.radiobutton1102p.disconnect_by_func(self.on_radiobutton1102p_toggled)
         self.combobox1101p.disconnect_by_func(self.on_combobox1101p_changed)
-        self.combobox1102p.disconnect_by_func(self.on_combobox1102p_changed)
 
 
     # ----------------------- Called for running code/functions when menu is shown -----------------------
@@ -131,19 +129,6 @@ class CpuMenu:
         Config.config_save_func()
 
 
-    # ----------------------- "Selected Device" Combobox -----------------------
-    def on_combobox1102p_changed(self, widget):
-
-        Config.selected_cpu_core = Performance.logical_core_list_system_ordered[widget.get_active()]
-        Cpu.cpu_cpu_core_number = Config.selected_cpu_core
-        Performance.performance_set_selected_cpu_core_func()
-
-        # Apply changes immediately (without waiting update interval).
-        Cpu.cpu_initial_func()
-        Cpu.cpu_loop_func()
-        Config.config_save_func()
-
-
     # ----------------------- "Reset All" Button -----------------------
     def on_button1103p_clicked(self, widget):
 
@@ -151,6 +136,9 @@ class CpuMenu:
         Config.config_default_performance_cpu_func()
         Config.config_save_func()
         Performance.performance_set_selected_cpu_core_func()
+
+        # Reset device list between Performance tab sub-tabs because selected device is reset.
+        MainGUI.main_gui_device_selection_list_func()
 
         # Apply changes immediately (without waiting update interval).
         Cpu.cpu_initial_func()
@@ -181,19 +169,6 @@ class CpuMenu:
         for data in Config.number_precision_list:
             liststore1101p.append([data[1], data[2]])
         self.combobox1101p.set_active(Config.performance_cpu_usage_percent_precision)
-
-        # Add CPU core list into combobox
-        liststore1102p = Gtk.ListStore()
-        liststore1102p.set_column_types([str])
-        self.combobox1102p.set_model(liststore1102p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox1102p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox1102p.pack_start(renderer_text, True)
-        self.combobox1102p.add_attribute(renderer_text, "text", 0)
-        for cpu_core in Performance.logical_core_list_system_ordered:
-            liststore1102p.append([cpu_core])
-        self.combobox1102p.set_active(Performance.selected_cpu_core_number)
 
 
 # Generate object

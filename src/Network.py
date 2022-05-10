@@ -58,6 +58,9 @@ class Network:
         # Set event masks for drawingarea in order to enable these events.
         self.drawingarea1401.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
+        # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
+        self.initial_already_run = 0
+
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1401_clicked(self, widget):
@@ -171,6 +174,17 @@ class Network:
         performance_network_data_data_unit = Config.performance_network_data_data_unit
 
         self.drawingarea1401.queue_draw()
+
+        # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
+        network_card_list_system_ordered = Performance.network_card_list_system_ordered
+        try:                                                                                      
+            if self.network_card_list_system_ordered_prev != network_card_list_system_ordered:
+                from MainGUI import MainGUI
+                MainGUI.main_gui_device_selection_list_func()
+        # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
+        except AttributeError:
+            pass
+        self.network_card_list_system_ordered_prev = network_card_list_system_ordered
 
         # Get network_card_connected
         # Get the information of if network card is connected by usng "/sys/class/net/" file.

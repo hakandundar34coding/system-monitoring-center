@@ -10,6 +10,7 @@ import os
 from Config import Config
 from Performance import Performance
 from Disk import Disk
+from MainGUI import MainGUI
 
 
 # Define class
@@ -31,7 +32,6 @@ class DiskMenu:
         self.combobox1302p = builder.get_object('combobox1302p')
         self.combobox1303p = builder.get_object('combobox1303p')
         self.combobox1304p = builder.get_object('combobox1304p')
-        self.combobox1305p = builder.get_object('combobox1305p')
         self.checkbutton1301p = builder.get_object('checkbutton1301p')
         self.checkbutton1302p = builder.get_object('checkbutton1302p')
         self.radiobutton1301p = builder.get_object('radiobutton1301p')
@@ -56,7 +56,6 @@ class DiskMenu:
         self.combobox1302p.connect("changed", self.on_combobox1302p_changed)
         self.combobox1303p.connect("changed", self.on_combobox1303p_changed)
         self.combobox1304p.connect("changed", self.on_combobox1304p_changed)
-        self.combobox1305p.connect("changed", self.on_combobox1305p_changed)
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
@@ -70,7 +69,6 @@ class DiskMenu:
         self.combobox1302p.disconnect_by_func(self.on_combobox1302p_changed)
         self.combobox1303p.disconnect_by_func(self.on_combobox1303p_changed)
         self.combobox1304p.disconnect_by_func(self.on_combobox1304p_changed)
-        self.combobox1305p.disconnect_by_func(self.on_combobox1305p_changed)
 
 
     # ----------------------- Called for running code/functions when menu is shown -----------------------
@@ -213,19 +211,6 @@ class DiskMenu:
         Config.config_save_func()
 
 
-    # ----------------------- "Selected Device" Combobox -----------------------
-    def on_combobox1305p_changed(self, widget):
- 
-        Config.selected_disk = Performance.disk_list_system_ordered[widget.get_active()]
-        Disk.selected_disk_number = Config.selected_disk
-        Performance.performance_set_selected_disk_func()
-
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
-
-
     # ----------------------- "Reset All" Button -----------------------
     def on_button1303p_clicked(self, widget):
 
@@ -233,6 +218,9 @@ class DiskMenu:
         Config.config_default_performance_disk_func()
         Config.config_save_func()
         Performance.performance_set_selected_disk_func()
+
+        # Reset device list between Performance tab sub-tabs because selected device is reset.
+        MainGUI.main_gui_device_selection_list_func()
 
         # Apply changes immediately (without waiting update interval).
         Disk.disk_initial_func()
@@ -316,20 +304,6 @@ class DiskMenu:
         for data_list in Config.data_unit_list:
             if data_list[2] == Config.performance_disk_usage_data_unit:      
                 self.combobox1304p.set_active(data_list[0])
-
-        # Add Disk list into combobox
-        liststore1305p = Gtk.ListStore()
-        liststore1305p.set_column_types([str])
-        self.combobox1305p.set_model(liststore1305p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox1305p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox1305p.pack_start(renderer_text, True)
-        self.combobox1305p.add_attribute(renderer_text, "text", 0)
-        liststore1305p.clear()
-        for disk in Performance.disk_list_system_ordered:
-            liststore1305p.append([disk])
-        self.combobox1305p.set_active(Performance.selected_disk_number)
 
 
 # Generate object
