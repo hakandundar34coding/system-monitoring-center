@@ -5,7 +5,7 @@
   <object class="GtkPopover" id="popover1501p">
     <property name="can-focus">False</property>
     <child>
-      <!-- n-columns=1 n-rows=9 -->
+      <!-- n-columns=1 n-rows=6 -->
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
@@ -19,7 +19,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">center</property>
-            <property name="margin-bottom">15</property>
+            <property name="margin-bottom">10</property>
             <property name="label" translatable="yes">Current Tab Customizations</property>
             <attributes>
               <attribute name="weight" value="bold"/>
@@ -40,7 +40,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">6</property>
+            <property name="top-attach">3</property>
           </packing>
         </child>
         <child>
@@ -89,7 +89,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">5</property>
+            <property name="top-attach">2</property>
           </packing>
         </child>
         <child>
@@ -101,7 +101,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">7</property>
+            <property name="top-attach">4</property>
           </packing>
         </child>
         <child>
@@ -145,44 +145,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">8</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="margin-top">5</property>
-            <property name="margin-bottom">5</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkComboBox" id="combobox1501p">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Selected Device</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">1</property>
+            <property name="top-attach">5</property>
           </packing>
         </child>
         <child>
@@ -197,7 +160,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">4</property>
+            <property name="top-attach">1</property>
           </packing>
         </child>
       </object>

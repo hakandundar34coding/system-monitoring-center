@@ -111,7 +111,7 @@ class DiskDetails:
         disk_parent_name = Disk.disk_parent_name_func(selected_disk, disk_type, disk_list)
         disk_mount_point = Disk.disk_mount_point_func(selected_disk)
         disk_file_system = Disk.disk_file_system_func(selected_disk)
-        disk_if_system_disk = Disk.disk_if_system_disk_func(disk_mount_point)
+        disk_if_system_disk = Disk.disk_if_system_disk_func(selected_disk)
         disk_capacity_mass_storage = Disk.disk_capacity_mass_storage_func(selected_disk, disk_mount_point, disk_sector_size)
         disk_capacity, disk_size, disk_available, disk_free, disk_used, disk_usage_percent = Disk.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
         disk_device_model_name = Disk.disk_device_model_name_func(selected_disk, disk_type, disk_parent_name)

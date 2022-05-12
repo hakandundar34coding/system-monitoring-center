@@ -10,6 +10,7 @@ import os
 from Config import Config
 from Performance import Performance
 from Network import Network
+from MainGUI import MainGUI
 
 
 # Define class
@@ -31,7 +32,6 @@ class NetworkMenu:
         self.combobox1402p = builder.get_object('combobox1402p')
         self.combobox1403p = builder.get_object('combobox1403p')
         self.combobox1404p = builder.get_object('combobox1404p')
-        self.combobox1405p = builder.get_object('combobox1405p')
         self.checkbutton1401p = builder.get_object('checkbutton1401p')
         self.checkbutton1402p = builder.get_object('checkbutton1402p')
         self.radiobutton1401p = builder.get_object('radiobutton1401p')
@@ -56,7 +56,6 @@ class NetworkMenu:
         self.combobox1402p.connect("changed", self.on_combobox1402p_changed)
         self.combobox1403p.connect("changed", self.on_combobox1403p_changed)
         self.combobox1404p.connect("changed", self.on_combobox1404p_changed)
-        self.combobox1405p.connect("changed", self.on_combobox1405p_changed)
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
@@ -70,7 +69,6 @@ class NetworkMenu:
         self.combobox1402p.disconnect_by_func(self.on_combobox1402p_changed)
         self.combobox1403p.disconnect_by_func(self.on_combobox1403p_changed)
         self.combobox1404p.disconnect_by_func(self.on_combobox1404p_changed)
-        self.combobox1405p.disconnect_by_func(self.on_combobox1405p_changed)
 
 
     # ----------------------- Called for running code/functions when menu is shown -----------------------
@@ -213,19 +211,6 @@ class NetworkMenu:
         Config.config_save_func()
 
 
-    # ----------------------- "Selected Device" Combobox -----------------------
-    def on_combobox1405p_changed(self, widget):
-
-        Config.selected_network_card = Performance.network_card_list[widget.get_active()]
-        Performance.set_selected_network_card = Config.selected_network_card
-        Performance.performance_set_selected_network_card_func()
-
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
-
-
     # ----------------------- "Reset All" Button -----------------------
     def on_button1403p_clicked(self, widget):
 
@@ -233,6 +218,9 @@ class NetworkMenu:
         Config.config_default_performance_network_func()
         Config.config_save_func()
         Performance.performance_set_selected_network_card_func()
+
+        # Reset device list between Performance tab sub-tabs because selected device is reset.
+        MainGUI.main_gui_device_selection_list_func()
 
         # Apply changes immediately (without waiting update interval).
         Network.network_initial_func()
@@ -316,20 +304,6 @@ class NetworkMenu:
         for data_list in Config.data_unit_list:
             if data_list[2] == Config.performance_network_data_data_unit:      
                 self.combobox1404p.set_active(data_list[0])
-
-        # Add Network Card list into combobox
-        liststore1405p = Gtk.ListStore()
-        liststore1405p.set_column_types([str])
-        self.combobox1405p.set_model(liststore1405p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox1405p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox1405p.pack_start(renderer_text, True)
-        self.combobox1405p.add_attribute(renderer_text, "text", 0)
-        liststore1405p.clear()
-        for network_card in Performance.network_card_list:
-            liststore1405p.append([network_card])
-        self.combobox1405p.set_active(Performance.selected_network_card_number)
 
 
 # Generate object

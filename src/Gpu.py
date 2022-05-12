@@ -58,6 +58,9 @@ class Gpu:
         # Set event masks for drawingarea in order to enable these events.
         self.drawingarea1501.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
+        # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
+        self.initial_already_run = 0
+
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1501_clicked(self, widget):
@@ -99,6 +102,10 @@ class Gpu:
     # ----------------------------------- GPU - Get GPU Data Function -----------------------------------
     def gpu_loop_func(self):
 
+        # Run "gpu_initial_func" if "initial_already_run variable is "0" which means all settings of the application is reset and initial function has be be run in order to avoid errors. This check is required only for GPU tab (not required for other Performance tab sub-tabs).
+        if self.initial_already_run == 0:
+            self.gpu_initial_func()
+
         # Get information.
         current_resolution, current_refresh_rate = self.gpu_resolution_refresh_rate_func()
         gpu_pci_address = self.gpu_pci_address_func()
@@ -120,6 +127,18 @@ class Gpu:
             pass
 
         self.drawingarea1501.queue_draw()
+
+        # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
+        gpu_list = self.gpu_list
+        try:                                                                                      
+            if self.gpu_list_prev != gpu_list:
+                from MainGUI import MainGUI
+                MainGUI.main_gui_device_selection_list_func()
+        # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
+        except AttributeError:
+            from MainGUI import MainGUI
+            MainGUI.main_gui_device_selection_list_func()
+        self.gpu_list_prev = gpu_list
 
 
         # Set and update GPU tab label texts by using information get

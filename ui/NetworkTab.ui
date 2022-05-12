@@ -130,7 +130,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -147,7 +147,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -164,7 +164,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -181,7 +181,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -198,7 +198,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -215,7 +215,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -232,7 +232,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -249,7 +249,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -279,7 +279,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -310,7 +310,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -353,7 +353,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">end</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
@@ -377,7 +377,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">end</property>
-            <property name="label" translatable="yes">0</property>
+            <property name="label">0</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -441,7 +441,7 @@
             <property name="can-focus">False</property>
             <property name="tooltip-text" translatable="yes">Vendor-Model</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
             <attributes>
@@ -457,9 +457,9 @@
           <object class="GtkLabel" id="label1402">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Network Interface Controller (NIC) Name</property>
+            <property name="tooltip-text" translatable="yes">Device Name In Kernel</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">--</property>
+            <property name="label">--</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
           </object>

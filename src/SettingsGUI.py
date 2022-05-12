@@ -266,8 +266,8 @@ class SettingsGUI:
 
             Config.config_default_reset_all_func()
             Config.config_save_func()
-            self.settings_gui_general_settings_tab_set_func()
             self.settings_disconnect_signals_func()
+            self.settings_gui_general_settings_tab_set_func()
             self.settings_connect_signals_func()
 
             # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
@@ -284,6 +284,9 @@ class SettingsGUI:
             # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
             except ImportError:
                 pass
+
+            # Reset selected device on the list between Performance tab sub-tab list.
+            MainGUI.main_gui_device_selection_list_func()
 
             # Apply changes immediately (without waiting update interval).
             self.settings_gui_apply_settings_immediately_func()

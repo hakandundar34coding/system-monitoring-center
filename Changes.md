@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v1.15.0
+  * New: Unified tab and device selector (Performance tab)
+  * Replaced disk read/write time with read/write data (Disk tab)
+  * Peak RAM usage is reduced (about 10 MiB)
+  * Updated translations for Polish and Turkish languages
+  * Fix: System disk information on Disk Details window
+  * Minor improvements for start speed of the application
+  * Minor improvements (GUI, performance, etc.)
+
 ### v1.14.0
   * Removed: Images on several menus for a simpler GUI
   * Removed: Filtering buttons on several tabs for a simpler GUI

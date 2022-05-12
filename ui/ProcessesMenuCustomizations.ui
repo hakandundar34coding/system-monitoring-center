@@ -375,7 +375,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2116p">
-                        <property name="label" translatable="yes">Disk Read Speed</property>
+                        <property name="label" translatable="yes">Read Speed</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -389,7 +389,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2117p">
-                        <property name="label" translatable="yes">Disk Write Speed</property>
+                        <property name="label" translatable="yes">Write Speed</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -403,7 +403,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2114p">
-                        <property name="label" translatable="yes">Disk Read Data</property>
+                        <property name="label" translatable="yes">Read Data</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -417,7 +417,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2115p">
-                        <property name="label" translatable="yes">Disk Write Data</property>
+                        <property name="label" translatable="yes">Write Data</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>

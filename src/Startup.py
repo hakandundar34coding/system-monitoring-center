@@ -227,6 +227,9 @@ def startup_loop_func():
             startup_application_name = name_language_value
         if name_language_value == "":
             startup_application_name = name_value
+        # Use file name of the startup item if there is not "Name=" information in the .desktop file.
+        if startup_application_name == "":
+            startup_application_name = desktop_file.split("/")[-1].rstrip(".desktop")
         # Get startup application comment
         startup_application_comment = comment_language_country_value
         if comment_language_country_value == "":

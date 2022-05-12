@@ -62,6 +62,9 @@ class Disk:
         # Set event masks for drawingarea in order to enable these events.
         self.drawingarea1301.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
+        # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
+        self.initial_already_run = 0
+
 
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1301_clicked(self, widget):
@@ -146,6 +149,20 @@ class Disk:
         self.drawingarea1301.queue_draw()
         self.drawingarea1302.queue_draw()
 
+        # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
+        disk_list_system_ordered = Performance.disk_list_system_ordered
+        try:                                                                                      
+            if self.disk_list_system_ordered_prev != disk_list_system_ordered:
+                from MainGUI import MainGUI
+                MainGUI.main_gui_device_selection_list_func()
+        # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
+        except AttributeError:
+            pass
+        self.disk_list_system_ordered_prev = disk_list_system_ordered
+
+        # Update disk usage percentages on disk list between Performance tab sub-tabs.
+        self.disk_update_disk_usage_percentages_on_disk_list_func()
+
         # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
         try:
             if os.path.isdir("/sys/class/block/" + selected_disk) == False:
@@ -159,7 +176,7 @@ class Disk:
 
 
         # Get information.
-        disk_read_time, disk_write_time = self.disk_read_write_time_func(selected_disk)
+        disk_read_data, disk_write_data = self.disk_read_write_data_func(selected_disk, disk_list)
         disk_mount_point = self.disk_mount_point_func(selected_disk)
         disk_capacity, disk_size, disk_available, disk_free, disk_used, self.disk_usage_percent = self.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
 
@@ -167,8 +184,8 @@ class Disk:
         # Show information on labels.
         self.label1303.set_text(f'{self.performance_data_unit_converter_func(disk_read_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
         self.label1304.set_text(f'{self.performance_data_unit_converter_func(disk_write_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
-        self.label1305.set_text(f'{self.disk_time_unit_converter_func(disk_read_time)} ms')
-        self.label1306.set_text(f'{self.disk_time_unit_converter_func(disk_write_time)} ms')
+        self.label1305.set_text(self.performance_data_unit_converter_func(disk_read_data, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
+        self.label1306.set_text(self.performance_data_unit_converter_func(disk_write_data, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
         if disk_mount_point != "-":
             self.label1308.set_text(f'{self.disk_usage_percent:.0f}%')
         if disk_mount_point == "-":
@@ -176,31 +193,6 @@ class Disk:
         self.label1309.set_text(self.performance_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
         self.label1310.set_text(self.performance_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
         self.label1311.set_text(self.performance_data_unit_converter_func(disk_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
-
-
-    # ----------------------------------- Disk - Define Time Unit Converter Variables Function -----------------------------------
-    def disk_time_unit_converter_func(self, time):
-
-        w_r_time_days = time / 24 / 60 / 60 / 1000
-        w_r_time_days_int = int(w_r_time_days)
-        w_r_time_hours = (w_r_time_days - w_r_time_days_int) * 24
-        w_r_time_hours_int = int(w_r_time_hours)
-        w_r_time_minutes = (w_r_time_hours - w_r_time_hours_int) * 60
-        w_r_time_minutes_int = int(w_r_time_minutes)
-        w_r_time_seconds = (w_r_time_minutes - w_r_time_minutes_int) * 60
-        w_r_time_seconds_int = int(w_r_time_seconds)
-        w_r_time_milliseconds = (w_r_time_seconds - w_r_time_seconds_int) * 1000
-        w_r_time_milliseconds_int = int(w_r_time_milliseconds)
-
-        # Return time in the following format if time is less than 1 hour.
-        if time < 3600000:
-            return f'{w_r_time_minutes_int:02}:{w_r_time_seconds_int:02}.{w_r_time_milliseconds_int:03}'
-        # Return time in the following format if time is more than 1 hour and less than 1 day.
-        if time >= 3600000 and time < 86400000:
-            return f'{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}:{w_r_time_seconds_int:02}.{w_r_time_milliseconds_int:03}'
-        # Return time in the following format if time is more than 1 day.
-        if time >= 86400000:
-            return f'{w_r_time_days_int:02}:{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}.{w_r_time_seconds_int:02}:{w_r_time_milliseconds_int:03}'
 
 
     # ----------------------- Get disk type (Disk or Partition) -----------------------
@@ -396,18 +388,13 @@ class Disk:
         return disk_file_system
 
 
-    # ----------------------- Get disk read time and disk write time -----------------------
-    def disk_read_write_time_func(self, selected_disk):
+    # ----------------------- Get disk read data and disk write data -----------------------
+    def disk_read_write_data_func(self, selected_disk, disk_list):
 
-        with open("/proc/diskstats") as reader:
-            proc_diskstats_lines = reader.read().strip().split("\n")
+        disk_read_data = Performance.disk_read_data[disk_list.index(selected_disk)]
+        disk_write_data = Performance.disk_write_data[disk_list.index(selected_disk)]
 
-            for line in proc_diskstats_lines:
-                if line.split()[2].strip() == selected_disk:
-                    disk_read_time = int(line.split()[6])
-                    disk_write_time = int(line.split()[10])
-
-        return disk_read_time, disk_write_time
+        return disk_read_data, disk_write_data
 
 
     # ----------------------- Get disk capacity, size, disk_available, disk_free, disk_used, disk_usage_percent -----------------------
@@ -530,6 +517,29 @@ class Disk:
             pass
 
         return disk_uuid
+
+
+    # ----------------------- Update disk usage percentages on disk list between Performance tab sub-tabs -----------------------
+    def disk_update_disk_usage_percentages_on_disk_list_func(self):
+
+        # Get disk usage percentages.
+        device_list = Performance.disk_list_system_ordered
+        disk_usage_percentage_list = []
+        for device in device_list:
+            disk_mount_point = self.disk_mount_point_func(device)
+            _, _, _, _, _, disk_usage_percent = self.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
+            # Append percentage number with no fractions in order to avoid updating the list very frequently.
+            disk_usage_percentage_list.append(f'{disk_usage_percent:.0f}')
+
+        # Update disk usage percentages on disk list if disk usage percentages are changed since the last loop.
+        try:                                                                                      
+            if self.disk_usage_percentage_list_prev != disk_usage_percentage_list:
+                from MainGUI import MainGUI
+                MainGUI.main_gui_device_selection_list_func()
+        # try-except is used in order to avoid error if this is first loop of the function.
+        except AttributeError:
+            pass
+        self.disk_usage_percentage_list_prev = disk_usage_percentage_list
 
 
 # Generate object

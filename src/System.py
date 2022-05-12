@@ -8,11 +8,6 @@ from gi.repository import Gtk, GLib
 import subprocess
 import os
 import platform
-# "pkg_resources" module may not be installed on some systems. This package is installed if "setuptools" is installed.
-try:
-    import pkg_resources
-except ModuleNotFoundError:
-    pass
 
 
 # Define class
@@ -53,6 +48,9 @@ class System:
 
         # Connect GUI signals
         self.button8101.connect("clicked", self.on_button8101_clicked)
+
+        # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
+        self.initial_already_run = 0
 
 
     # ----------------------- "Refresh" Button -----------------------
@@ -381,12 +379,8 @@ class System:
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
             number_of_installed_flatpak_packages = "-"
 
-        # Get number of installed Python packages (including built-in packages)
-        # "pkg_resources" module may not be installed on some systems. This package is installed if "setuptools" is installed.
-        try:
-            number_of_installed_python_packages = len([d.project_name for d in pkg_resources.working_set])
-        except NameError:
-            number_of_installed_python_packages = "-"
+        # Get Gtk version which is used for this application.
+        current_gtk_version = f'{Gtk.get_major_version()}.{Gtk.get_minor_version()}.{Gtk.get_micro_version()}'
 
 
         # Set label texts to show information
@@ -410,7 +404,7 @@ class System:
         self.label8118.set_text(f'{number_of_monitors}')
         self.label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
         self.label8120.set_text(f'{number_of_installed_flatpak_packages}')
-        self.label8121.set_text(f'{number_of_installed_python_packages}')
+        self.label8121.set_text(current_gtk_version)
         self.label8122.set_text(f'{current_python_version}')
 
         self.initial_already_run = 1

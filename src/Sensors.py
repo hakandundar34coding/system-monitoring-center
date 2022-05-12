@@ -77,10 +77,10 @@ def sensors_initial_func():
     global sensors_data_list
     sensors_data_list = [
                         [0, _tr('Sensor Group'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
-                        [1, _tr('Sensor Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                        [1, _tr('Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                         [2, _tr('Current Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [3, _tr('Critical Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [4, _tr('Max Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']]
+                        [3, _tr('High'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [4, _tr('Critical'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']]
                         ]
 
     global sensors_data_rows_prev, sensors_treeview_columns_shown_prev, sensors_data_row_sorting_column_prev, sensors_data_row_sorting_order_prev, sensors_data_column_order_prev, sensors_data_column_widths_prev
@@ -169,6 +169,22 @@ def sensors_loop_func():
                         current_value = f'{(current_value / 1000000):.3f} W'                  # Convert microwatt to Watt and show 3 numbers after ".".
                 except OSError:
                     current_value = "-"
+                # Get sensor high value
+                try:
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_max") as reader:
+                        max_value = int(reader.read().strip())
+                    if attribute == "temp":
+                        max_value = f'{(max_value / 1000):.0f} °C'
+                    if attribute == "fan":
+                        max_value = f'{max_value} RPM'
+                    if attribute == "in":
+                        max_value = f'{(max_value / 1000):.3f} V'
+                    if attribute == "curr":
+                        max_value = f'{(max_value / 1000):.3f} A'
+                    if attribute == "power":
+                        max_value = f'{(max_value / 1000000):.3f} W'
+                except OSError:
+                    max_value = "-"
                 # Get sensor critical value
                 try:
                     with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_crit") as reader:
@@ -185,26 +201,10 @@ def sensors_loop_func():
                         critical_value = f'{(critical_value / 1000000):.3f} W'
                 except OSError:
                     critical_value = "-"
-                # Get sensor maximum value
-                try:
-                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_max") as reader:
-                        max_value = int(reader.read().strip())
-                    if attribute == "temp":
-                        max_value = f'{(max_value / 1000):.0f} °C'
-                    if attribute == "fan":
-                        max_value = f'{max_value} RPM'
-                    if attribute == "in":
-                        max_value = f'{(max_value / 1000):.3f} V'
-                    if attribute == "curr":
-                        max_value = f'{(max_value / 1000):.3f} A'
-                    if attribute == "power":
-                        max_value = f'{(max_value / 1000000):.3f} W'
-                except OSError:
-                    max_value = "-"
 
 
                 sensor_type_list.append(sensor_type)                                          # Append sensor type. This information will be used for filtering sensors by type when "Show all temperature/fan/voltage and current sensors" radiobuttons are clicked.
-                sensors_data_row = [True, sensor_type, sensor_group_name, sensor_name, current_value, critical_value, max_value]    # Append sensor visibility data (on treeview) which is used for showing/hiding sensor when sensor data of specific sensor type (temperature or fan sensor) is preferred to be shown or sensor search feature is used from the GUI.
+                sensors_data_row = [True, sensor_type, sensor_group_name, sensor_name, current_value, max_value, critical_value]    # Append sensor visibility data (on treeview) which is used for showing/hiding sensor when sensor data of specific sensor type (temperature or fan sensor) is preferred to be shown or sensor search feature is used from the GUI.
 
                 # Append sensor data list into main list
                 sensors_data_rows.append(sensors_data_row)

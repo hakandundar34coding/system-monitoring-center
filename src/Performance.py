@@ -251,18 +251,18 @@ class Performance:
         if disk_list_prev != self.disk_list:
             self.performance_set_selected_disk_func()
         # Get disk_read_speed, disk_write_speed
-        disk_read_data = []
-        disk_write_data = []
+        self.disk_read_data = []
+        self.disk_write_data = []
         for i, disk in enumerate(self.disk_list):
             disk_data = proc_diskstats_lines_filtered[self.disk_list_system_ordered.index(disk)].split()
-            disk_read_data.append(int(disk_data[5]) * self.disk_sector_size)
-            disk_write_data.append(int(disk_data[9]) * self.disk_sector_size)
-            self.disk_read_speed[i].append((disk_read_data[-1] - self.disk_read_data_prev[i]) / update_interval)
-            self.disk_write_speed[i].append((disk_write_data[-1] - self.disk_write_data_prev[i]) / update_interval)
+            self.disk_read_data.append(int(disk_data[5]) * self.disk_sector_size)
+            self.disk_write_data.append(int(disk_data[9]) * self.disk_sector_size)
+            self.disk_read_speed[i].append((self.disk_read_data[-1] - self.disk_read_data_prev[i]) / update_interval)
+            self.disk_write_speed[i].append((self.disk_write_data[-1] - self.disk_write_data_prev[i]) / update_interval)
             del self.disk_read_speed[i][0]
             del self.disk_write_speed[i][0]
-        self.disk_read_data_prev = list(disk_read_data)
-        self.disk_write_data_prev = list(disk_write_data)
+        self.disk_read_data_prev = list(self.disk_read_data)
+        self.disk_write_data_prev = list(self.disk_write_data)
 
         # Get network card list
         self.network_card_list_system_ordered = []

@@ -5,9 +5,9 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   width="135.46666mm"
-   height="135.46666mm"
-   viewBox="0 0 135.46665 135.46667"
+   width="512"
+   height="512"
+   viewBox="0 0 135.46665 135.46668"
    version="1.1"
    id="svg8">
   <defs
@@ -20,17 +20,12 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <g
-     id="layer1"
-     transform="translate(-120.2562,75.121374)">
-    <path
-       id="path18-1"
-       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.928226;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000"
-       d="M 216.99219,0 C 208.13388,0 201,7.1325584 201,15.992188 v 36.921874 c -17.38609,4.708082 -34.09566,11.62928 -49.71875,20.59375 L 125.17188,47.398438 c -6.26525,-6.26521 -16.35274,-6.26521 -22.61719,0 L 47.398438,102.5625 c -6.265248,6.26521 -6.265248,16.34477 0,22.60938 l 26.109374,26.10937 C 64.54338,166.90431 57.622182,183.61391 52.914062,201 H 15.992188 C 7.1338812,201 0,208.13313 0,216.99219 V 295 c 0,8.85827 7.1325206,15.99219 15.992188,15.99219 h 36.921874 c 4.70812,17.38613 11.629318,34.09569 20.59375,49.71875 l -26.109374,26.10937 c -6.265248,6.26521 -6.265248,16.3527 0,22.61719 l 55.156252,55.16406 c 6.26524,6.26506 16.35273,6.26506 22.61719,0 l 26.10937,-26.10937 c 15.62309,8.96447 32.33266,15.88563 49.71875,20.59375 v 36.92187 C 201,504.86612 208.1332,512 216.99219,512 H 295 c 8.85831,0 15.99219,-7.13301 15.99219,-15.99219 v -36.92187 c 17.38609,-4.70812 34.09569,-11.62928 49.71875,-20.59375 l 26.10937,26.10937 c 6.26525,6.26525 16.35277,6.26525 22.61719,0 l 55.16406,-55.16406 c 6.26521,-6.26521 6.26521,-16.35262 0,-22.61719 l -26.10937,-26.10937 c 8.96447,-15.62306 15.88563,-32.33262 20.59375,-49.71875 h 36.92187 C 504.86612,310.99219 512,303.8591 512,295 V 216.99219 C 512,208.13388 504.86695,201 496.00781,201 h -36.92187 c -4.70812,-17.38609 -11.62928,-34.09569 -20.59375,-49.71875 l 26.10937,-26.10937 c 6.26521,-6.26525 6.26521,-16.34496 0,-22.60938 L 409.4375,47.398438 c -6.26521,-6.26521 -16.35277,-6.26521 -22.61719,0 L 360.71094,73.507812 C 345.08788,64.543342 328.37828,57.622144 310.99219,52.914062 V 15.992188 C 310.99219,7.1339568 303.85895,0 295,0 Z m 38.40625,139.45508 a 116.54575,116.54575 0 0 1 0.60156,0 A 116.54575,116.54575 0 0 1 372.54492,256 116.54575,116.54575 0 0 1 256,372.54492 116.54575,116.54575 0 0 1 139.45508,256 116.54575,116.54575 0 0 1 255.39844,139.45508 Z"
-       transform="matrix(0.26458333,0,0,0.26458333,120.2562,-75.121374)" />
-  </g>
+  <path
+     id="path1169"
+     style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.1664;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000"
+     d="M 51.166903,2.4999992e-6 V 0.58394614 16.50287 C 43.857381,18.865742 37.230358,22.747425 31.660601,27.779184 L 17.357599,19.52129 0.79220291,48.213594 1.2965649,48.504533 15.084353,56.465287 c -0.774413,3.634044 -1.185457,7.402432 -1.185457,11.26701 0,3.865436 0.411226,7.634748 1.185974,11.269596 L 0.79168614,87.254104 17.357082,115.94641 l 0.505913,-0.29198 13.79864,-7.96643 c 5.569543,5.03155 12.196207,8.91291 19.505268,11.27579 v 16.50287 h 33.132343 v -0.58394 -15.91893 c 7.309175,-2.36291 13.935672,-6.24465 19.505264,-11.27631 l 14.30404,8.25841 16.5654,-28.691786 -0.50436,-0.291457 -13.78831,-7.960754 c 0.77475,-3.634848 1.18597,-7.404158 1.18597,-11.269596 0,-3.864578 -0.41104,-7.632966 -1.18545,-11.26701 l 14.29318,-8.252209 -16.5654,-28.692305 -0.50591,0.291972 -13.79812,7.966439 C 98.235791,22.747425 91.60877,18.865742 84.299246,16.50287 V 2.4999992e-6 Z M 67.733332,35.97248 c 17.541115,0 31.760852,14.219737 31.760852,31.760852 0,17.541115 -14.219737,31.760852 -31.760852,31.760852 -17.541112,-3e-6 -31.760848,-14.219737 -31.760848,-31.760852 0,-17.541115 14.219736,-31.760849 31.760848,-31.760852 z" />
 </svg>

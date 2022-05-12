@@ -1,3 +1,15 @@
+system-monitoring-center (1.15.0) unstable; urgency=medium
+
+  * New: Unified tab and device selector (Performance tab)
+  * Replaced disk read/write time with read/write data (Disk tab)
+  * Peak RAM usage is reduced (about 10 MiB)
+  * Updated translations for Polish and Turkish languages
+  * Fix: System disk information on Disk Details window
+  * Minor improvements for start speed of the application
+  * Minor improvements (GUI, performance, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 12 May 2022 09:00:00 +0300
+
 system-monitoring-center (1.14.0) unstable; urgency=medium
 
   * Removed: Images on several menus for a simpler GUI
