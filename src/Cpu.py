@@ -42,6 +42,39 @@ class Cpu:
         self.label1112 = builder.get_object('label1112')
         self.label1113 = builder.get_object('label1113')
 
+
+
+
+        import time
+        time1 = time.time()
+
+        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
+        css = b"viewport {border-radius: 8px 8px 8px 8px;}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.viewport1101 = builder.get_object('viewport1101')
+        self.viewport1101.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.viewport1102 = builder.get_object('viewport1102')
+        self.viewport1102.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
+        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.separator1101 = builder.get_object('separator1101')
+        self.separator1101.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1102 = builder.get_object('separator1102')
+        self.separator1102.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1103 = builder.get_object('separator1103')
+        self.separator1103.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1104 = builder.get_object('separator1104')
+        self.separator1104.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        print(time.time() - time1)
+
+
+
+
         # Get chart functions from another module and define as local objects for lower CPU usage.
         self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
         self.performance_line_charts_enter_notify_event_func = Performance.performance_line_charts_enter_notify_event_func

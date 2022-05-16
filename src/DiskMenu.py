@@ -26,22 +26,20 @@ class DiskMenu:
         # Get GUI objects
         self.popover1301p = builder.get_object('popover1301p')
         self.button1301p = builder.get_object('button1301p')
-        self.button1302p = builder.get_object('button1302p')
         self.button1303p = builder.get_object('button1303p')
         self.combobox1301p = builder.get_object('combobox1301p')
-        self.combobox1302p = builder.get_object('combobox1302p')
-        self.combobox1303p = builder.get_object('combobox1303p')
-        self.combobox1304p = builder.get_object('combobox1304p')
         self.checkbutton1301p = builder.get_object('checkbutton1301p')
         self.checkbutton1302p = builder.get_object('checkbutton1302p')
+        self.checkbutton1304p = builder.get_object('checkbutton1304p')
         self.radiobutton1301p = builder.get_object('radiobutton1301p')
         self.radiobutton1302p = builder.get_object('radiobutton1302p')
+        self.radiobutton1303p = builder.get_object('radiobutton1303p')
+        self.radiobutton1304p = builder.get_object('radiobutton1304p')
         self.colorchooserdialog1301 = Gtk.ColorChooserDialog()
 
         # Connect GUI signals
         self.popover1301p.connect("show", self.on_popover1301p_show)
         self.button1301p.connect("clicked", self.on_chart_color_buttons_clicked)
-        self.button1302p.connect("clicked", self.on_chart_color_buttons_clicked)
         self.button1303p.connect("clicked", self.on_button1303p_clicked)
 
 
@@ -50,12 +48,12 @@ class DiskMenu:
 
         self.checkbutton1301p.connect("toggled", self.on_checkbutton1301p_toggled)
         self.checkbutton1302p.connect("toggled", self.on_checkbutton1302p_toggled)
+        self.checkbutton1304p.connect("toggled", self.on_checkbutton1304p_toggled)
         self.radiobutton1301p.connect("toggled", self.on_radiobutton1301p_toggled)
         self.radiobutton1302p.connect("toggled", self.on_radiobutton1302p_toggled)
+        self.radiobutton1303p.connect("toggled", self.on_data_unit_radiobuttons_toggled)
+        self.radiobutton1304p.connect("toggled", self.on_data_unit_radiobuttons_toggled)
         self.combobox1301p.connect("changed", self.on_combobox1301p_changed)
-        self.combobox1302p.connect("changed", self.on_combobox1302p_changed)
-        self.combobox1303p.connect("changed", self.on_combobox1303p_changed)
-        self.combobox1304p.connect("changed", self.on_combobox1304p_changed)
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
@@ -63,12 +61,12 @@ class DiskMenu:
 
         self.checkbutton1301p.disconnect_by_func(self.on_checkbutton1301p_toggled)
         self.checkbutton1302p.disconnect_by_func(self.on_checkbutton1302p_toggled)
+        self.checkbutton1304p.disconnect_by_func(self.on_checkbutton1304p_toggled)
         self.radiobutton1301p.disconnect_by_func(self.on_radiobutton1301p_toggled)
         self.radiobutton1302p.disconnect_by_func(self.on_radiobutton1302p_toggled)
+        self.radiobutton1303p.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
+        self.radiobutton1304p.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
         self.combobox1301p.disconnect_by_func(self.on_combobox1301p_changed)
-        self.combobox1302p.disconnect_by_func(self.on_combobox1302p_changed)
-        self.combobox1303p.disconnect_by_func(self.on_combobox1303p_changed)
-        self.combobox1304p.disconnect_by_func(self.on_combobox1304p_changed)
 
 
     # ----------------------- Called for running code/functions when menu is shown -----------------------
@@ -140,14 +138,51 @@ class DiskMenu:
         Config.config_save_func()
 
 
+    # ----------------------- "Precision" Combobox -----------------------
+    def on_combobox1301p_changed(self, widget):
+
+        Config.performance_disk_data_precision = Config.number_precision_list[widget.get_active()][2]
+
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "Show units as powers of: 1024 or 1000" Radiobuttons -----------------------
+    def on_data_unit_radiobuttons_toggled(self, widget):
+
+        if self.radiobutton1303p.get_active() == True:
+            Config.performance_disk_data_unit = 0
+        elif self.radiobutton1304p.get_active() == True:
+            Config.performance_disk_data_unit = 1
+
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "Show speed units as multiples of  bits" Checkbutton -----------------------
+    def on_checkbutton1304p_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.performance_disk_speed_bit = 1
+        else:
+            Config.performance_disk_speed_bit = 0
+
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
+        Config.config_save_func()
+
+
     # ----------------------- "foreground and background color" Buttons -----------------------
     def on_chart_color_buttons_clicked(self, widget):
 
         # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
         if widget == self.button1301p:
             red, blue, green, alpha = Config.chart_line_color_disk_speed_usage
-        if widget == self.button1302p:
-            red, blue, green, alpha = Config.chart_background_color_all_charts
         self.colorchooserdialog1301.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1301.run()
@@ -156,54 +191,8 @@ class DiskMenu:
             selected_color = self.colorchooserdialog1301.get_rgba()
             if widget == self.button1301p:
                 Config.chart_line_color_disk_speed_usage = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
-            if widget == self.button1302p:
-                Config.chart_background_color_all_charts = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
         self.colorchooserdialog1301.hide()
-
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "disk read/write speed number precision" Combobox -----------------------
-    def on_combobox1301p_changed(self, widget):
-
-        Config.performance_disk_speed_data_precision = Config.number_precision_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "disk read/write data number precision" Combobox -----------------------
-    def on_combobox1302p_changed(self, widget):
-
-        Config.performance_disk_usage_data_precision = Config.data_unit_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "disk read/write speed data units" Combobox -----------------------
-    def on_combobox1303p_changed(self, widget):
-
-        Config.performance_disk_speed_data_unit = Config.data_speed_unit_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "disk read/write data units" Combobox -----------------------
-    def on_combobox1304p_changed(self, widget):
-
-        Config.performance_disk_usage_data_unit = Config.data_unit_list[widget.get_active()][2]
 
         # Apply changes immediately (without waiting update interval).
         Disk.disk_initial_func()
@@ -249,7 +238,17 @@ class DiskMenu:
         if Config.show_disk_usage_per_disk == 1:
             self.radiobutton1302p.set_active(True)
 
-        # Add Disk speed data precision data into combobox
+        # Set data unit checkboxes.
+        if Config.performance_disk_data_unit == 0:
+            self.radiobutton1303p.set_active(True)
+        if Config.performance_disk_data_unit == 1:
+            self.radiobutton1304p.set_active(True)
+        if Config.performance_disk_speed_bit == 1:
+            self.checkbutton1304p.set_active(True)
+        if Config.performance_disk_speed_bit == 0:
+            self.checkbutton1304p.set_active(False)
+
+        # Add Disk data precision data into combobox
         liststore1301p = Gtk.ListStore()
         liststore1301p.set_column_types([str, int])
         self.combobox1301p.set_model(liststore1301p)
@@ -260,50 +259,7 @@ class DiskMenu:
         self.combobox1301p.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
             liststore1301p.append([data[1], data[2]])
-        self.combobox1301p.set_active(Config.performance_disk_speed_data_precision)
-
-        # Add Disk usage data precision data into combobox
-        liststore1302p = Gtk.ListStore()
-        liststore1302p.set_column_types([str, int])
-        self.combobox1302p.set_model(liststore1302p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox1302p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox1302p.pack_start(renderer_text, True)
-        self.combobox1302p.add_attribute(renderer_text, "text", 0)
-        for data in Config.number_precision_list:
-            liststore1302p.append([data[1], data[2]])
-        self.combobox1302p.set_active(Config.performance_disk_usage_data_precision)
-
-        # Add Disk speed data unit data into combobox
-        liststore1303p = Gtk.ListStore()
-        liststore1303p.set_column_types([str, int])
-        self.combobox1303p.set_model(liststore1303p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox1303p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox1303p.pack_start(renderer_text, True)
-        self.combobox1303p.add_attribute(renderer_text, "text", 0)
-        for data in Config.data_speed_unit_list:
-            liststore1303p.append([data[1], data[2]])
-        for data_list in Config.data_speed_unit_list:
-            if data_list[2] == Config.performance_disk_speed_data_unit:      
-                self.combobox1303p.set_active(data_list[0])
-
-        # Add Disk usage data unit data into combobox
-        liststore1304p = Gtk.ListStore()
-        liststore1304p.set_column_types([str, int])
-        self.combobox1304p.set_model(liststore1304p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox1304p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox1304p.pack_start(renderer_text, True)
-        self.combobox1304p.add_attribute(renderer_text, "text", 0)
-        for data in Config.data_unit_list:
-            liststore1304p.append([data[1], data[2]])
-        for data_list in Config.data_unit_list:
-            if data_list[2] == Config.performance_disk_usage_data_unit:      
-                self.combobox1304p.set_active(data_list[0])
+        self.combobox1301p.set_active(Config.performance_disk_data_precision)
 
 
 # Generate object

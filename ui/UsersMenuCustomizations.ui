@@ -19,8 +19,8 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">center</property>
-            <property name="margin-bottom">15</property>
-            <property name="label" translatable="yes">Current Tab Customizations</property>
+            <property name="margin-bottom">10</property>
+            <property name="label" translatable="yes">Users</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
@@ -39,49 +39,18 @@
               <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="margin-start">10</property>
-                <property name="margin-end">10</property>
-                <property name="margin-top">20</property>
-                <property name="margin-bottom">10</property>
+                <property name="margin-start">5</property>
+                <property name="margin-end">5</property>
+                <property name="margin-top">15</property>
+                <property name="margin-bottom">5</property>
                 <property name="row-spacing">5</property>
                 <child>
                   <object class="GtkButton" id="button3102p">
+                    <property name="label" translatable="yes">Reset</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="halign">start</property>
-                    <child>
-                      <!-- n-columns=2 n-rows=1 -->
-                      <object class="GtkGrid">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">center</property>
-                        <property name="valign">center</property>
-                        <property name="column-spacing">5</property>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="label" translatable="yes">Reset</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="icon-name">system-monitoring-center-reload-symbolic</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
                   </object>
                   <packing>
                     <property name="left-attach">0</property>
@@ -120,10 +89,10 @@
               <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="margin-start">10</property>
-                <property name="margin-end">10</property>
-                <property name="margin-top">20</property>
-                <property name="margin-bottom">10</property>
+                <property name="margin-start">5</property>
+                <property name="margin-end">5</property>
+                <property name="margin-top">15</property>
+                <property name="margin-bottom">5</property>
                 <property name="row-spacing">5</property>
                 <property name="column-homogeneous">True</property>
                 <child>
@@ -248,20 +217,6 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton3112p">
-                        <property name="label" translatable="yes">Memory (RSS)</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">False</property>
-                        <property name="halign">start</property>
-                        <property name="draw-indicator">True</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkCheckButton" id="checkbutton3108p">
                         <property name="label" translatable="yes">Group</property>
                         <property name="visible">True</property>
@@ -302,6 +257,9 @@
                         <property name="left-attach">1</property>
                         <property name="top-attach">2</property>
                       </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
                     </child>
                   </object>
                   <packing>
@@ -394,8 +352,6 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-top">8</property>
-            <property name="margin-bottom">8</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

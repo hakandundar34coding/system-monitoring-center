@@ -135,8 +135,8 @@ class ServicesDetails:
     # ----------------------------------- Services - Services Details Foreground Function -----------------------------------
     def services_details_loop_func(self):
 
-        services_ram_swap_data_precision = Config.services_ram_swap_data_precision
-        services_ram_swap_data_unit = Config.services_ram_swap_data_unit
+        services_memory_data_precision = Config.services_memory_data_precision
+        services_memory_data_unit = Config.services_memory_data_unit
 
         # Get all information of the service.
         systemctl_show_lines = (subprocess.check_output(["systemctl", "show", self.selected_service_name], shell=False)).decode().strip().split("\n")
@@ -196,7 +196,7 @@ class ServicesDetails:
                     selected_service_memory_current = "-"
                 else:
                     try:
-                        selected_service_memory_current = f'{self.performance_data_unit_converter_func(int(selected_service_memory_current), services_ram_swap_data_unit, services_ram_swap_data_precision)}'
+                        selected_service_memory_current = f'{self.performance_data_unit_converter_func("data", "none", int(selected_service_memory_current), services_memory_data_unit, services_memory_data_precision)}'
                     except Exception:
                         selected_service_memory_current = "-"
                 continue

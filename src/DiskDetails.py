@@ -101,8 +101,8 @@ class DiskDetails:
         self.window1301w.set_title(_tr("Disk Details") + ": " + selected_disk)
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
-        performance_disk_usage_data_precision = Config.performance_disk_usage_data_precision
-        performance_disk_usage_data_unit = Config.performance_disk_usage_data_unit
+        performance_disk_data_precision = Config.performance_disk_data_precision
+        performance_disk_data_unit = Config.performance_disk_data_unit
         disk_list = Performance.disk_list
 
 
@@ -128,11 +128,11 @@ class DiskDetails:
         self.label1302w.set_text(disk_parent_name)
         self.label1303w.set_text(disk_if_system_disk)
         self.label1304w.set_text(disk_type)
-        self.label1305w.set_text(f'{Performance.performance_data_unit_converter_func(disk_capacity_mass_storage, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
+        self.label1305w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity_mass_storage, performance_disk_data_unit, performance_disk_data_precision)}')
         self.label1306w.set_text(disk_file_system)
-        self.label1307w.set_text(f'{Performance.performance_data_unit_converter_func(disk_capacity, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
-        self.label1308w.set_text(f'{Performance.performance_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
-        self.label1309w.set_text(f'{Performance.performance_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision)} - {disk_usage_percent:.1f}%')
+        self.label1307w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.label1308w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_available, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.label1309w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)} - {disk_usage_percent:.1f}%')
         self.label1311w.set_text(disk_device_model_name)
         self.label1312w.set_text(disk_label)
         self.label1313w.set_text(disk_partition_label)

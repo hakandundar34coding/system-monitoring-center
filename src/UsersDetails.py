@@ -41,7 +41,6 @@ class UsersDetails:
         self.label3109w = builder3101w.get_object('label3109w')
         self.label3110w = builder3101w.get_object('label3110w')
         self.label3111w = builder3101w.get_object('label3111w')
-        self.label3112w = builder3101w.get_object('label3112w')
 
         # Connect GUI signals
         self.window3101w.connect("delete-event", self.on_window3101w_delete_event)
@@ -83,7 +82,6 @@ class UsersDetails:
         self.label3109w.set_text("--")
         self.label3110w.set_text("--")
         self.label3111w.set_text("--")
-        self.label3112w.set_text("--")
 
 
     # ----------------------------------- Users - Users Details Function -----------------------------------
@@ -101,8 +99,6 @@ class UsersDetails:
 
         # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
         self.number_of_clock_ticks = os.sysconf("SC_CLK_TCK")
-        # This value is used for converting memory page values into byte values. This value depends on architecture (also sometimes depends on machine model). Default value is 4096 Bytes (4 KiB) for most processors.
-        self.memory_page_size = os.sysconf("SC_PAGE_SIZE")
 
         # Get system boot time which will be used for obtaining user process start time
         with open("/proc/stat") as reader:
@@ -121,8 +117,6 @@ class UsersDetails:
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         users_cpu_usage_percent_precision = Config.users_cpu_usage_percent_precision
-        users_ram_swap_data_precision = Config.users_ram_swap_data_precision
-        users_ram_swap_data_unit = Config.users_ram_swap_data_unit
 
         # Define empty lists for the current loop
         global_process_cpu_times = []
@@ -160,11 +154,10 @@ class UsersDetails:
 
         # Get all process PIDs to be able to search "systemd" process (user account process) and check username of it if it is correct "systemd" file. User logged in information and start time (first log in time since system boot) will be get by using this process.
         pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
-        # Get process names (will be used for checking "systemd" named processes to be able to get user process, user first log in time since system boot), usernames (will be used for determining number of processes of the users), CPU% and memory usage of all processes
+        # Get process names (will be used for checking "systemd" named processes to be able to get user process, user first log in time since system boot), usernames (will be used for determining number of processes of the users), CPU% usage of all processes
         all_process_names = []
         all_process_user_ids = []
         all_process_cpu_usages = []
-        all_process_memory_usages = []
         for pid in pid_list[:]:                                                               # "[:]" is used for iterating over copy of the list because element are removed during iteration. Otherwise incorrect operations (incorrect element removal) are performed on the list.
             try:
                 with open("/proc/" + pid + "/status") as reader:
@@ -194,9 +187,6 @@ class UsersDetails:
             process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
             global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
             all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
-
-            # Get RAM memory (RSS) usage percent of all processes
-            all_process_memory_usages.append(int(proc_pid_stat_lines[-29]) * self.memory_page_size)    # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
 
         # Get all users last log in and last failed log in times
         lslogins_command_lines = (subprocess.check_output(["lslogins", "--notruncate", "-e", "--newline", "--time-format=iso", "-u", "-o", "=USER,LAST-LOGIN,FAILED-LOGIN"], shell=False)).decode().strip().split("\n")
@@ -241,15 +231,11 @@ class UsersDetails:
             except Exception:
                 selected_user_process_start_time = 0
 
-        # Get user processes CPU usage percent and RAM memory (RSS) usage percent
+        # Get user processes CPU usage percent
         selected_user_cpu_percent = 0
         for pid in pid_list:
             if all_process_user_ids[pid_list.index(pid)] == selected_user_uid:
                 selected_user_cpu_percent = selected_user_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
-        selected_user_ram_percent = 0
-        for pid in pid_list:
-            if all_process_user_ids[pid_list.index(pid)] == selected_user_uid:
-                selected_user_ram_percent = selected_user_ram_percent + all_process_memory_usages[pid_list.index(pid)]
 
         # For using values in the next loop
         self.pid_list_prev = pid_list
@@ -271,7 +257,6 @@ class UsersDetails:
         if selected_user_process_start_time == 0:
             self.label3110w.set_text("-")
         self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_usage_percent_precision}f} %')
-        self.label3112w.set_text(f'{self.performance_data_unit_converter_func(selected_user_ram_percent, users_ram_swap_data_unit, users_ram_swap_data_precision)}')
 
 
     # ----------------------------------- Users Details - Run Function -----------------------------------

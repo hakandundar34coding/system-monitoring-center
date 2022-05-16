@@ -41,6 +41,28 @@ class Ram:
         self.eventbox1201 = builder.get_object('eventbox1201')
         self.eventbox1202 = builder.get_object('eventbox1202')
 
+        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
+        css = b"viewport {border-radius: 8px 8px 8px 8px;}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.viewport1201 = builder.get_object('viewport1201')
+        self.viewport1201.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.viewport1202 = builder.get_object('viewport1202')
+        self.viewport1202.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
+        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.separator1201 = builder.get_object('separator1201')
+        self.separator1201.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1202 = builder.get_object('separator1202')
+        self.separator1202.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1203 = builder.get_object('separator1203')
+        self.separator1203.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1204 = builder.get_object('separator1204')
+        self.separator1204.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
         # Get chart functions from another module and define as local objects for lower CPU usage.
         self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
         self.performance_line_charts_enter_notify_event_func = Performance.performance_line_charts_enter_notify_event_func
@@ -104,8 +126,8 @@ class Ram:
         # Define data unit conversion variables before they are used.
         self.performance_define_data_unit_converter_variables_func()
 
-        performance_ram_swap_data_precision = Config.performance_ram_swap_data_precision
-        performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
+        performance_memory_data_precision = Config.performance_memory_data_precision
+        performance_memory_data_unit = Config.performance_memory_data_unit
 
         # Get total_physical_ram value (this value is very similar to RAM hardware size which is a bit different than ram_total value)
         # "block_size_bytes" file may not be present on some systems such as ARM CPU used systems. Currently kernel 5.10 does not have this feature but this feature will be included in the newer versions of the kernel.
@@ -145,9 +167,9 @@ class Ram:
 
         # Set RAM tab label texts by using information get
         if total_physical_ram != f'[{_tr("Unknown")}]':
-            self.label1201.set_text(_tr("Physical RAM") + ": " + str(self.performance_data_unit_converter_func(total_physical_ram, 0, 1)))    # f strings have lower CPU usage than joining method but strings are joinied by by this method because gettext could not be worked with Python f strings.
+            self.label1201.set_text(_tr("Physical RAM") + ": " + str(self.performance_data_unit_converter_func("data", "none", total_physical_ram, 0, 1)))
         else:
-             self.label1201.set_text(_tr("RAM") + " - " + _tr("Capacity") + ": " + self.performance_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+             self.label1201.set_text(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(self.performance_data_unit_converter_func("data", "none", ram_total, 0, 1)))
 
         self.initial_already_run = 1
 
@@ -166,23 +188,23 @@ class Ram:
         swap_free = Performance.swap_free
         swap_total = Performance.swap_total
 
-        performance_ram_swap_data_precision = Config.performance_ram_swap_data_precision
-        performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
+        performance_memory_data_precision = Config.performance_memory_data_precision
+        performance_memory_data_unit = Config.performance_memory_data_unit
 
         self.drawingarea1201.queue_draw()
         self.drawingarea1202.queue_draw()
 
 
         # Set and update RAM tab label texts by using information get
-        self.label1202.set_text(_tr("Swap Memory") + ": " + str(self.performance_data_unit_converter_func(swap_total, 0, 1)))
-        self.label1203.set_text(f'{self.performance_data_unit_converter_func(ram_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)} ({ram_usage_percent[-1]:.0f}%)')
-        self.label1204.set_text(self.performance_data_unit_converter_func(ram_available, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-        self.label1205.set_text(self.performance_data_unit_converter_func(ram_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-        self.label1206.set_text(self.performance_data_unit_converter_func(ram_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+        self.label1202.set_text(_tr("Swap Memory") + ": " + str(self.performance_data_unit_converter_func("data", "none", swap_total, 0, 1)))
+        self.label1203.set_text(f'{self.performance_data_unit_converter_func("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)} ({ram_usage_percent[-1]:.0f}%)')
+        self.label1204.set_text(self.performance_data_unit_converter_func("data", "none", ram_available, performance_memory_data_unit, performance_memory_data_precision))
+        self.label1205.set_text(self.performance_data_unit_converter_func("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
+        self.label1206.set_text(self.performance_data_unit_converter_func("data", "none", ram_free, performance_memory_data_unit, performance_memory_data_precision))
         self.label1207.set_text(f'{self.swap_usage_percent[-1]:.0f}%')
-        self.label1208.set_text(f'{self.performance_data_unit_converter_func(swap_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}')
-        self.label1209.set_text(self.performance_data_unit_converter_func(swap_free, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
-        self.label1210.set_text(self.performance_data_unit_converter_func(swap_total, performance_ram_swap_data_unit, performance_ram_swap_data_precision))
+        self.label1208.set_text(f'{self.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}')
+        self.label1209.set_text(self.performance_data_unit_converter_func("data", "none", swap_free, performance_memory_data_unit, performance_memory_data_precision))
+        self.label1210.set_text(self.performance_data_unit_converter_func("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
 
 
 # Generate object

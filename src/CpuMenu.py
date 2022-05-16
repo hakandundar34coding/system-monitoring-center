@@ -28,7 +28,6 @@ class CpuMenu:
         self.radiobutton1101p = builder.get_object('radiobutton1101p')
         self.radiobutton1102p = builder.get_object('radiobutton1102p')
         self.button1101p = builder.get_object('button1101p')
-        self.button1102p = builder.get_object('button1102p')
         self.button1103p = builder.get_object('button1103p')
         self.combobox1101p = builder.get_object('combobox1101p')
         self.colorchooserdialog1101 = Gtk.ColorChooserDialog()
@@ -36,7 +35,6 @@ class CpuMenu:
         # Connect GUI signals
         self.popover1101p.connect("show", self.on_popover1101p_show)
         self.button1101p.connect("clicked", self.on_chart_color_buttons_clicked)
-        self.button1102p.connect("clicked", self.on_chart_color_buttons_clicked)
         self.button1103p.connect("clicked", self.on_button1103p_clicked)
 
 
@@ -97,8 +95,6 @@ class CpuMenu:
         # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
         if widget == self.button1101p:
             red, blue, green, alpha = Config.chart_line_color_cpu_percent
-        if widget == self.button1102p:
-            red, blue, green, alpha = Config.chart_background_color_all_charts
         self.colorchooserdialog1101.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1101.run()
@@ -107,8 +103,6 @@ class CpuMenu:
             selected_color = self.colorchooserdialog1101.get_rgba()
             if widget == self.button1101p:
                 Config.chart_line_color_cpu_percent = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
-            if widget == self.button1102p:
-                Config.chart_background_color_all_charts = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
         self.colorchooserdialog1101.hide()
 

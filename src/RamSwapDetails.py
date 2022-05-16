@@ -59,8 +59,8 @@ class RamSwapDetails:
         # Define data unit conversion variables before they are used.
         self.performance_define_data_unit_converter_variables_func()
 
-        performance_ram_swap_data_precision = Config.performance_ram_swap_data_precision
-        performance_ram_swap_data_unit = Config.performance_ram_swap_data_unit
+        performance_memory_data_precision = Config.performance_memory_data_precision
+        performance_memory_data_unit = Config.performance_memory_data_unit
 
         # This list is defined in order to make some command output strings to be translated into other languages.
         ram_hardware_information_text_list = [_tr("Partition"), _tr("File")]
@@ -88,9 +88,9 @@ class RamSwapDetails:
             swap_type = line_split[1].strip().title()
             # Values in this file are in KiB. They are converted to Bytes.
             swap_size = int(line_split[2].strip()) * 1024
-            swap_size = f'{self.performance_data_unit_converter_func(swap_size, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}'
+            swap_size = f'{self.performance_data_unit_converter_func("data", "none", swap_size, performance_memory_data_unit, performance_memory_data_precision)}'
             swap_used = int(line_split[3].strip()) * 1024
-            swap_used = f'{self.performance_data_unit_converter_func(swap_used, performance_ram_swap_data_unit, performance_ram_swap_data_precision)}'
+            swap_used = f'{self.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}'
             swap_priority = line_split[4].strip()
             swap_details_text = swap_details_text + "\n" + _tr("Name") + " :    " + swap_name
             swap_details_text = swap_details_text + "\n" + _tr("Type") + " :    " + _tr(swap_type)

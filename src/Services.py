@@ -15,9 +15,9 @@ def services_import_func():
     import os
 
 
-    global Config
+    global Config, Performance
     from Config import Config
-
+    from Performance import Performance
 
     global _tr
     from locale import gettext as _tr
@@ -135,15 +135,21 @@ def services_initial_func():
     services_data_list = [
                          [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
                          [1, _tr('State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                         [1, _tr('Main PID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                         [1, _tr('Active State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                         [1, _tr('Load State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                         [1, _tr('Sub-State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                         [1, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram]],
-                         [1, _tr('Description'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
+                         [2, _tr('Main PID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                         [3, _tr('Active State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                         [4, _tr('Load State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                         [5, _tr('Sub-State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                         [6, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram]],
+                         [7, _tr('Description'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
                          ]
 
-    services_define_data_unit_converter_variables_func()                                      # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
+    # Define data unit conversion function objects in for lower CPU usage.
+    global performance_define_data_unit_converter_variables_func, performance_define_data_unit_converter_variables_func, performance_data_unit_converter_func
+    performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
+    performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
+
+    # Define data unit conversion variables before they are used.
+    performance_define_data_unit_converter_variables_func()
 
     global services_data_rows_prev, service_list_prev, piter_list, services_treeview_columns_shown_prev, services_data_row_sorting_column_prev, services_data_row_sorting_order_prev, services_data_column_order_prev, services_data_column_widths_prev
     services_data_rows_prev = []
@@ -176,9 +182,9 @@ def services_loop_func():
     global treeview6101
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
-    global services_ram_swap_data_precision, services_ram_swap_data_unit
-    services_ram_swap_data_precision = Config.services_ram_swap_data_precision
-    services_ram_swap_data_unit = Config.services_ram_swap_data_unit
+    global services_memory_data_precision, services_memory_data_unit
+    services_memory_data_precision = Config.services_memory_data_precision
+    services_memory_data_unit = Config.services_memory_data_unit
 
     # Define global variables and get treeview columns, sort column/order, column widths, etc.
     global services_treeview_columns_shown
@@ -449,7 +455,7 @@ def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
     if cell_data == -9999:
         cell.set_property('text', "-")
     if cell_data != -9999:
-        cell.set_property('text', f'{services_data_unit_converter_func(cell_data, services_ram_swap_data_unit, services_ram_swap_data_precision)}')
+        cell.set_property('text', f'{performance_data_unit_converter_func("data", "none", cell_data, services_memory_data_unit, services_memory_data_precision)}')
 
 
 # ----------------------------------- Services - Column Title Clicked Function -----------------------------------
@@ -478,36 +484,3 @@ def services_treeview_column_order_width_row_sorting_func():
                 break
     Config.config_save_func()
 
-
-# ----------------------------------- Services - Define Data Unit Converter Variables Function -----------------------------------
-def services_define_data_unit_converter_variables_func():
-
-    global data_unit_list
-    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
-    data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                     [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                     [8, 0, "Auto-bit"], [9, 8, "b"], [10, 1024, "Kib"], [11, 1.04858E+06, "Mib"], [12, 1.07374E+09, "Gib"],
-                     [13, 1.09951E+12, "Tib"], [14, 1.12590E+15, "Pib"], [15, 1.15292E+18, "Eib"]]
-
-
-# ----------------------------------- Services - Data Unit Converter Function -----------------------------------
-def services_data_unit_converter_func(data, unit, precision):
-
-    global data_unit_list
-    if unit >= 8:
-        data = data * 8
-    if unit in [0, 8]:
-        unit_counter = unit + 1
-        while data > 1024:
-            unit_counter = unit_counter + 1
-            data = data/1024
-        unit = data_unit_list[unit_counter][2]
-        if data == 0:
-            precision = 0
-        return f'{data:.{precision}f} {unit}'
-
-    data = data / data_unit_list[unit][1]
-    unit = data_unit_list[unit][2]
-    if data == 0:
-        precision = 0
-    return f'{data:.{precision}f} {unit}'

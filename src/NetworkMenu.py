@@ -26,22 +26,20 @@ class NetworkMenu:
         # Get GUI objects
         self.popover1401p = builder.get_object('popover1401p')
         self.button1401p = builder.get_object('button1401p')
-        self.button1402p = builder.get_object('button1402p')
         self.button1403p = builder.get_object('button1403p')
         self.combobox1401p = builder.get_object('combobox1401p')
-        self.combobox1402p = builder.get_object('combobox1402p')
-        self.combobox1403p = builder.get_object('combobox1403p')
-        self.combobox1404p = builder.get_object('combobox1404p')
         self.checkbutton1401p = builder.get_object('checkbutton1401p')
         self.checkbutton1402p = builder.get_object('checkbutton1402p')
         self.radiobutton1401p = builder.get_object('radiobutton1401p')
         self.radiobutton1402p = builder.get_object('radiobutton1402p')
+        self.radiobutton1403p = builder.get_object('radiobutton1403p')
+        self.radiobutton1404p = builder.get_object('radiobutton1404p')
+        self.checkbutton1404p = builder.get_object('checkbutton1404p')
         self.colorchooserdialog1401 = Gtk.ColorChooserDialog()
 
         # Connect GUI signals
         self.popover1401p.connect("show", self.on_popover1401p_show)
         self.button1401p.connect("clicked", self.on_chart_color_buttons_clicked)
-        self.button1402p.connect("clicked", self.on_chart_color_buttons_clicked)
         self.button1403p.connect("clicked", self.on_button1403p_clicked)
 
 
@@ -52,10 +50,10 @@ class NetworkMenu:
         self.checkbutton1402p.connect("toggled", self.on_checkbutton1402p_toggled)
         self.radiobutton1401p.connect("toggled", self.on_radiobutton1401p_toggled)
         self.radiobutton1402p.connect("toggled", self.on_radiobutton1402p_toggled)
+        self.radiobutton1403p.connect("toggled", self.on_data_unit_radiobuttons_toggled)
+        self.radiobutton1404p.connect("toggled", self.on_data_unit_radiobuttons_toggled)
+        self.checkbutton1404p.connect("toggled", self.on_checkbutton1404p_toggled)
         self.combobox1401p.connect("changed", self.on_combobox1401p_changed)
-        self.combobox1402p.connect("changed", self.on_combobox1402p_changed)
-        self.combobox1403p.connect("changed", self.on_combobox1403p_changed)
-        self.combobox1404p.connect("changed", self.on_combobox1404p_changed)
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
@@ -65,10 +63,10 @@ class NetworkMenu:
         self.checkbutton1402p.disconnect_by_func(self.on_checkbutton1402p_toggled)
         self.radiobutton1401p.disconnect_by_func(self.on_radiobutton1401p_toggled)
         self.radiobutton1402p.disconnect_by_func(self.on_radiobutton1402p_toggled)
+        self.radiobutton1403p.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
+        self.radiobutton1404p.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
+        self.checkbutton1404p.disconnect_by_func(self.on_checkbutton1404p_toggled)
         self.combobox1401p.disconnect_by_func(self.on_combobox1401p_changed)
-        self.combobox1402p.disconnect_by_func(self.on_combobox1402p_changed)
-        self.combobox1403p.disconnect_by_func(self.on_combobox1403p_changed)
-        self.combobox1404p.disconnect_by_func(self.on_combobox1404p_changed)
 
 
     # ----------------------- Called for running code/functions when menu is shown -----------------------
@@ -140,14 +138,51 @@ class NetworkMenu:
         Config.config_save_func()
 
 
+    # ----------------------- "network data precision" Combobox -----------------------
+    def on_combobox1401p_changed(self, widget):
+
+        Config.performance_network_data_precision = Config.number_precision_list[widget.get_active()][2]
+
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "Show units as powers of: 1024 or 1000" Radiobuttons -----------------------
+    def on_data_unit_radiobuttons_toggled(self, widget):
+
+        if self.radiobutton1403p.get_active() == True:
+            Config.performance_network_data_unit = 0
+        elif self.radiobutton1404p.get_active() == True:
+            Config.performance_network_data_unit = 1
+
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
+        Config.config_save_func()
+
+
+    # ----------------------- "Show speed units as multiples of  bits" Checkbutton -----------------------
+    def on_checkbutton1404p_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.performance_network_speed_bit = 1
+        else:
+            Config.performance_network_speed_bit = 0
+
+        # Apply changes immediately (without waiting update interval).
+        Network.network_initial_func()
+        Network.network_loop_func()
+        Config.config_save_func()
+
+
     # ----------------------- "foreground and background color" Buttons -----------------------
     def on_chart_color_buttons_clicked(self, widget):
 
         # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
         if widget == self.button1401p:
             red, blue, green, alpha = Config.chart_line_color_network_speed_data
-        if widget == self.button1402p:
-            red, blue, green, alpha = Config.chart_background_color_all_charts
         self.colorchooserdialog1401.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1401.run()
@@ -156,54 +191,8 @@ class NetworkMenu:
             selected_color = self.colorchooserdialog1401.get_rgba()
             if widget == self.button1401p:
                 Config.chart_line_color_network_speed_data = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
-            if widget == self.button1402p:
-                Config.chart_background_color_all_charts = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
         self.colorchooserdialog1401.hide()
-
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "network download/upload speed number precision" Combobox -----------------------
-    def on_combobox1401p_changed(self, widget):
-
-        Config.performance_network_speed_data_precision = Config.number_precision_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "network download/upload data number precision" Combobox -----------------------
-    def on_combobox1402p_changed(self, widget):
-
-        Config.performance_network_data_data_precision = Config.number_precision_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "network download/upload speed data units" Combobox -----------------------
-    def on_combobox1403p_changed(self, widget):
-
-        Config.performance_network_speed_data_unit = Config.data_speed_unit_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "network download/upload data units" Combobox -----------------------
-    def on_combobox1404p_changed(self, widget):
-
-        Config.performance_network_data_data_unit = Config.data_unit_list[widget.get_active()][2]
 
         # Apply changes immediately (without waiting update interval).
         Network.network_initial_func()
@@ -249,7 +238,17 @@ class NetworkMenu:
         if Config.show_network_usage_per_network_card == 1:
             self.radiobutton1402p.set_active(True)
 
-        # Add Network speed data precision data into combobox
+        # Set data unit checkboxes.
+        if Config.performance_network_data_unit == 0:
+            self.radiobutton1403p.set_active(True)
+        if Config.performance_network_data_unit == 1:
+            self.radiobutton1404p.set_active(True)
+        if Config.performance_network_speed_bit == 1:
+            self.checkbutton1404p.set_active(True)
+        if Config.performance_network_speed_bit == 0:
+            self.checkbutton1404p.set_active(False)
+
+        # Add Network data precision data into combobox
         liststore1401p = Gtk.ListStore()
         liststore1401p.set_column_types([str, int])
         self.combobox1401p.set_model(liststore1401p)
@@ -260,50 +259,7 @@ class NetworkMenu:
         self.combobox1401p.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
             liststore1401p.append([data[1], data[2]])
-        self.combobox1401p.set_active(Config.performance_network_speed_data_precision)
-
-        # Add Network data data precision data into combobox
-        liststore1402p = Gtk.ListStore()
-        liststore1402p.set_column_types([str, int])
-        self.combobox1402p.set_model(liststore1402p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox1402p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox1402p.pack_start(renderer_text, True)
-        self.combobox1402p.add_attribute(renderer_text, "text", 0)
-        for data in Config.number_precision_list:
-            liststore1402p.append([data[1], data[2]])
-        self.combobox1402p.set_active(Config.performance_network_data_data_precision)
-
-        # Add Network speed data unit data into combobox
-        liststore1403p = Gtk.ListStore()
-        liststore1403p.set_column_types([str, int])
-        self.combobox1403p.set_model(liststore1403p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox1403p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox1403p.pack_start(renderer_text, True)
-        self.combobox1403p.add_attribute(renderer_text, "text", 0)
-        for data in Config.data_speed_unit_list:
-            liststore1403p.append([data[1], data[2]])
-        for data_list in Config.data_speed_unit_list:
-            if data_list[2] == Config.performance_network_speed_data_unit:      
-                self.combobox1403p.set_active(data_list[0])
-
-        # Add Network data data unit data into combobox
-        liststore1404p = Gtk.ListStore()
-        liststore1404p.set_column_types([str, int])
-        self.combobox1404p.set_model(liststore1404p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox1404p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox1404p.pack_start(renderer_text, True)
-        self.combobox1404p.add_attribute(renderer_text, "text", 0)
-        for data in Config.data_unit_list:
-            liststore1404p.append([data[1], data[2]])
-        for data_list in Config.data_unit_list:
-            if data_list[2] == Config.performance_network_data_data_unit:      
-                self.combobox1404p.set_active(data_list[0])
+        self.combobox1401p.set_active(Config.performance_network_data_precision)
 
 
 # Generate object

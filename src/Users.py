@@ -135,14 +135,9 @@ def users_initial_func():
                       [6, _tr('Home Directory'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [7, _tr('Group'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [8, _tr('Terminal'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                      [9, 'Last Login', 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                      [10, 'Last Failed Login', 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                      [11, _tr('Start Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_started]],
-                      [12, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
-                      [13, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]]
+                      [9, _tr('Start Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_started]],
+                      [10, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
                       ]
-
-    users_define_data_unit_converter_variables_func()                                         # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
 
     global users_data_rows_prev, users_treeview_columns_shown_prev, users_data_row_sorting_column_prev, users_data_row_sorting_order_prev, users_data_column_order_prev, users_data_column_widths_prev
     global pid_list_prev, global_process_cpu_times_prev, uid_username_list_prev
@@ -157,10 +152,9 @@ def users_initial_func():
     users_data_column_widths_prev = []
 
 
-    global number_of_clock_ticks, memory_page_size, system_boot_time, user_image_unset_pixbuf
+    global number_of_clock_ticks, system_boot_time, user_image_unset_pixbuf
 
     number_of_clock_ticks = os.sysconf("SC_CLK_TCK")                                          # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
-    memory_page_size = os.sysconf("SC_PAGE_SIZE")                                             # This value is used for converting memory page values into byte values. This value depends on architecture (also sometimes depends on machine model). Default value is 4096 Bytes (4 KiB) for most processors.
 
     # Get system boot time which will be used for obtaining user process start time
     with open("/proc/stat") as reader:
@@ -188,11 +182,8 @@ def users_loop_func():
     global treeview3101
 
     # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
-    global users_cpu_usage_percent_precision
-    global users_ram_swap_data_precision, users_ram_swap_data_unit
-    users_cpu_usage_percent_precision = Config.users_cpu_usage_percent_precision
-    users_ram_swap_data_precision = Config.users_ram_swap_data_precision
-    users_ram_swap_data_unit = Config.users_ram_swap_data_unit
+    global users_cpu_precision
+    users_cpu_precision = Config.users_cpu_precision
 
     # Define global variables and get treeview columns, sort column/order, column widths, etc.
     global users_treeview_columns_shown
@@ -236,16 +227,15 @@ def users_loop_func():
         user_group_ids.append(line_split[2])
     # Get all process PIDs to be able to search "systemd" process (user account process) and check username of it if it is correct "systemd" file. User logged in information and start time (first log in time since system boot) will be get by using this process.
     pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
-    # Get process names (will be used for checking "systemd" named processes to be able to get user process, user first log in time since system boot), usernames (will be used for determining number of processes of the users), CPU% and memory usage of all processes
+    # Get process names (will be used for checking "systemd" named processes to be able to get user process, user first log in time since system boot), usernames (will be used for determining number of processes of the users), CPU% usage of all processes
     all_process_names = []
     all_process_user_ids = []
     all_process_cpu_usages = []
-    all_process_memory_usages = []
     for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because element are removed during iteration. Otherwise incorrect operations (incorrect element removal) are performed on the list.
         try:
             with open("/proc/" + pid + "/status") as reader:
                 proc_pid_status_lines = reader.read().split("\n")
-            if 11 in users_treeview_columns_shown or 12 in users_treeview_columns_shown or 13 in users_treeview_columns_shown:
+            if 9 in users_treeview_columns_shown or 10 in users_treeview_columns_shown:
                 with open("/proc/" + pid + "/stat") as reader:
                     global_cpu_time_all = time.time() * number_of_clock_ticks                 # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
                     proc_pid_stat_lines = reader.read().split()
@@ -260,7 +250,7 @@ def users_loop_func():
             if "Uid:\t" in line:
                 all_process_user_ids.append(line.split(":")[1].split()[0].strip())            # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
         # Get CPU usage percent of all processes
-        if 12 in users_treeview_columns_shown:
+        if 10 in users_treeview_columns_shown:
             process_cpu_time = int(proc_pid_stat_lines[-39]) + int(proc_pid_stat_lines[-38])  # Get process cpu time in user mode (utime + stime)
             global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))          # While appending multiple elements into a list "append((value1, value2))" is faster than "append([value1, value2])".
             try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are use in these situations.
@@ -271,9 +261,6 @@ def users_loop_func():
             process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
             global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
             all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
-        # Get RAM memory (RSS) usage percent of all processes
-        if 13 in users_treeview_columns_shown:
-            all_process_memory_usages.append(int(proc_pid_stat_lines[-29]) * memory_page_size)    # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
 
     # Get and append data per user
     for line in etc_passwd_lines:
@@ -334,7 +321,7 @@ def users_loop_func():
                 user_terminal = line_split[6]
                 users_data_row.append(user_terminal)
             # Get user process start time
-            if 11 in users_treeview_columns_shown:
+            if 9 in users_treeview_columns_shown:
                 if user_process_pid == 0:
                     user_process_start_time = 0                                               # User process start time is "0" if it is not alive (if user is not logged in)
                 if user_process_pid != 0:                                                     # User process start time is get if it is alive (if user is logged in)
@@ -345,19 +332,13 @@ def users_loop_func():
                     except Exception:
                         user_process_start_time = 0
                 users_data_row.append(user_process_start_time)
-            # Get user processes CPU usage percent and RAM memory (RSS) usage percent
-            if 12 in users_treeview_columns_shown:
+            # Get user processes CPU usage percentages
+            if 10 in users_treeview_columns_shown:
                 user_users_cpu_percent = 0
                 for pid in pid_list:
                     if all_process_user_ids[pid_list.index(pid)] == user_uid:
                         user_users_cpu_percent = user_users_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
                 users_data_row.append(user_users_cpu_percent)
-            if 13 in users_treeview_columns_shown:
-                user_users_ram_percent = 0
-                for pid in pid_list:
-                    if all_process_user_ids[pid_list.index(pid)] == user_uid:
-                        user_users_ram_percent = user_users_ram_percent + all_process_memory_usages[pid_list.index(pid)]
-                users_data_row.append(user_users_ram_percent)
             # Append all data of the users into a list which will be appended into a treestore for showing the data on a treeview.
             users_data_rows.append(users_data_row)
     pid_list_prev = pid_list                                                                  # For using values in the next loop
@@ -512,10 +493,7 @@ def users_loop_func():
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
 def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{users_cpu_usage_percent_precision}f} %')
-
-def cell_data_function_ram_swap(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', f'{users_data_unit_converter_func(tree_model.get(iter, data)[0], users_ram_swap_data_unit, users_ram_swap_data_precision)}')
+    cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{users_cpu_precision}f} %')
 
 def cell_data_function_started(tree_column, cell, tree_model, iter, data):
     cell_data = tree_model.get(iter, data)[0]
@@ -551,36 +529,3 @@ def users_treeview_column_order_width_row_sorting_func():
                 break
     Config.config_save_func()
 
-
-# ----------------------------------- Users - Define Data Unit Converter Variables Function -----------------------------------
-def users_define_data_unit_converter_variables_func():
-
-    global data_unit_list
-    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
-    data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                     [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                     [8, 0, "Auto-bit"], [9, 8, "b"], [10, 1024, "Kib"], [11, 1.04858E+06, "Mib"], [12, 1.07374E+09, "Gib"],
-                     [13, 1.09951E+12, "Tib"], [14, 1.12590E+15, "Pib"], [15, 1.15292E+18, "Eib"]]
-
-
-# ----------------------------------- Users - Data Unit Converter Function -----------------------------------
-def users_data_unit_converter_func(data, unit, precision):
-
-    global data_unit_list
-    if unit >= 8:
-        data = data * 8
-    if unit in [0, 8]:
-        unit_counter = unit + 1
-        while data > 1024:
-            unit_counter = unit_counter + 1
-            data = data/1024
-        unit = data_unit_list[unit_counter][2]
-        if data == 0:
-            precision = 0
-        return f'{data:.{precision}f} {unit}'
-
-    data = data / data_unit_list[unit][1]
-    unit = data_unit_list[unit][2]
-    if data == 0:
-        precision = 0
-    return f'{data:.{precision}f} {unit}'
