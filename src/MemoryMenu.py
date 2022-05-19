@@ -10,18 +10,18 @@ import subprocess
 
 from Config import Config
 from Performance import Performance
-from Ram import Ram
+from Memory import Memory
 
 
 # Define class
-class RamMenu:
+class MemoryMenu:
 
     # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
         builder = Gtk.Builder()
-        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamMenus.ui")
+        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MemoryMenus.ui")
 
         # Get GUI objects
         self.popover1201p = builder.get_object('popover1201p')
@@ -41,7 +41,7 @@ class RamMenu:
 
 
     # ----------------------- Called for connecting some of the signals in order to disconnect them for setting GUI -----------------------
-    def ram_tab_customization_popover_connect_signals_func(self):
+    def memory_tab_customization_popover_connect_signals_func(self):
 
         self.radiobutton1201p.connect("toggled", self.on_radiobutton1201p_toggled)
         self.radiobutton1202p.connect("toggled", self.on_radiobutton1202p_toggled)
@@ -51,7 +51,7 @@ class RamMenu:
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
-    def ram_tab_customization_popover_disconnect_signals_func(self):
+    def memory_tab_customization_popover_disconnect_signals_func(self):
 
         self.radiobutton1201p.disconnect_by_func(self.on_radiobutton1201p_toggled)
         self.radiobutton1202p.disconnect_by_func(self.on_radiobutton1202p_toggled)
@@ -64,11 +64,11 @@ class RamMenu:
     def on_popover1201p_show(self, widget):
 
         try:
-            self.ram_tab_customization_popover_disconnect_signals_func()
+            self.memory_tab_customization_popover_disconnect_signals_func()
         except TypeError:
             pass
-        self.ram_tab_popover_set_gui()
-        self.ram_tab_customization_popover_connect_signals_func()
+        self.memory_tab_popover_set_gui()
+        self.memory_tab_customization_popover_connect_signals_func()
 
 
     # ----------------------- "RAM" Radiobutton -----------------------
@@ -78,8 +78,8 @@ class RamMenu:
             Config.show_memory_usage_per_memory = 0
 
         # Apply changes immediately (without waiting update interval).
-        Ram.ram_initial_func()
-        Ram.ram_loop_func()
+        Memory.memory_initial_func()
+        Memory.memory_loop_func()
         Config.config_save_func()
 
 
@@ -90,8 +90,8 @@ class RamMenu:
             Config.show_memory_usage_per_memory = 1
 
         # Apply changes immediately (without waiting update interval).
-        Ram.ram_initial_func()
-        Ram.ram_loop_func()
+        Memory.memory_initial_func()
+        Memory.memory_loop_func()
         Config.config_save_func()
 
 
@@ -101,8 +101,8 @@ class RamMenu:
         Config.performance_memory_data_precision = Config.number_precision_list[widget.get_active()][2]
 
         # Apply changes immediately (without waiting update interval).
-        Ram.ram_initial_func()
-        Ram.ram_loop_func()
+        Memory.memory_initial_func()
+        Memory.memory_loop_func()
         Config.config_save_func()
 
 
@@ -115,17 +115,17 @@ class RamMenu:
             Config.performance_memory_data_unit = 1
 
         # Apply changes immediately (without waiting update interval).
-        Ram.ram_initial_func()
-        Ram.ram_loop_func()
+        Memory.memory_initial_func()
+        Memory.memory_loop_func()
         Config.config_save_func()
 
 
-    # ----------------------- "foreground and background color" Buttons -----------------------
+    # ----------------------- "Graph Color" Button -----------------------
     def on_chart_color_buttons_clicked(self, widget):
 
-        # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
+        # Get current foreground color of the chart and set it as selected color of the dialog when dialog is shown.
         if widget == self.button1201p:
-            red, blue, green, alpha = Config.chart_line_color_ram_swap_percent
+            red, blue, green, alpha = Config.chart_line_color_memory_percent
         self.colorchooserdialog1201.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1201.run()
@@ -133,13 +133,13 @@ class RamMenu:
         if dialog_response == Gtk.ResponseType.OK:
             selected_color = self.colorchooserdialog1201.get_rgba()
             if widget == self.button1201p:
-                Config.chart_line_color_ram_swap_percent = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
+                Config.chart_line_color_memory_percent = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
         self.colorchooserdialog1201.hide()
 
         # Apply changes immediately (without waiting update interval).
-        Ram.ram_initial_func()
-        Ram.ram_loop_func()
+        Memory.memory_initial_func()
+        Memory.memory_loop_func()
         Config.config_save_func()
 
 
@@ -147,19 +147,19 @@ class RamMenu:
     def on_button1203p_clicked(self, widget):
 
         # Load default settings
-        Config.config_default_performance_ram_func()
+        Config.config_default_performance_memory_func()
         Config.config_save_func()
 
         # Apply changes immediately (without waiting update interval).
-        Ram.ram_initial_func()
-        Ram.ram_loop_func()
-        self.ram_tab_customization_popover_disconnect_signals_func()
-        self.ram_tab_popover_set_gui()
-        self.ram_tab_customization_popover_connect_signals_func()
+        Memory.memory_initial_func()
+        Memory.memory_loop_func()
+        self.memory_tab_customization_popover_disconnect_signals_func()
+        self.memory_tab_popover_set_gui()
+        self.memory_tab_customization_popover_connect_signals_func()
 
 
     # ----------------------- Called for setting menu GUI items -----------------------
-    def ram_tab_popover_set_gui(self):
+    def memory_tab_popover_set_gui(self):
 
         # Select radiobutton appropriate for seleted/all devices chart setting
         if Config.show_memory_usage_per_memory == 0:
@@ -173,7 +173,7 @@ class RamMenu:
         if Config.performance_memory_data_unit == 1:
             self.radiobutton1204p.set_active(True)
 
-        # Add RAM usage data precision data into combobox
+        # Add Memory usage data precision data into combobox
         liststore1201p = Gtk.ListStore()
         liststore1201p.set_column_types([str, int])
         self.combobox1201p.set_model(liststore1201p)
@@ -188,5 +188,5 @@ class RamMenu:
 
 
 # Generate object
-RamMenu = RamMenu()
+MemoryMenu = MemoryMenu()
 

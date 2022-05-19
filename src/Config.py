@@ -77,7 +77,7 @@ class Config:
 
         self.config_default_general_general_func()
         self.config_default_performance_cpu_func()
-        self.config_default_performance_ram_func()
+        self.config_default_performance_memory_func()
         self.config_default_performance_disk_func()
         self.config_default_performance_network_func()
         self.config_default_performance_gpu_func()
@@ -116,10 +116,10 @@ class Config:
         self.selected_cpu_core = ""
 
 
-    # ----------------------- Called for default RAM Tab settings -----------------------
-    def config_default_performance_ram_func(self):
+    # ----------------------- Called for default Memory Tab settings -----------------------
+    def config_default_performance_memory_func(self):
 
-        self.chart_line_color_ram_swap_percent = [0.27, 0.49, 1.0, 1.0]
+        self.chart_line_color_memory_percent = [0.27, 0.49, 1.0, 1.0]
         self.show_memory_usage_per_memory = 0
         self.performance_memory_data_precision = 1
         self.performance_memory_data_unit = 0
@@ -278,7 +278,7 @@ class Config:
         self.performance_cpu_usage_percent_precision = int(config_values[config_variables.index("performance_cpu_usage_percent_precision")])
         self.selected_cpu_core = config_values[config_variables.index("selected_cpu_core")]
 
-        self.chart_line_color_ram_swap_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_ram_swap_percent")].strip("[]").split(", ")]
+        self.chart_line_color_memory_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_memory_percent")].strip("[]").split(", ")]
         self.show_memory_usage_per_memory = int(config_values[config_variables.index("show_memory_usage_per_memory")])
         self.performance_memory_data_precision = int(config_values[config_variables.index("performance_memory_data_precision")])
         self.performance_memory_data_unit = int(config_values[config_variables.index("performance_memory_data_unit")])
@@ -363,8 +363,8 @@ class Config:
         config_write_text = config_write_text + "selected_cpu_core = " + str(self.selected_cpu_core) + "\n"
         config_write_text = config_write_text + "\n"
 
-        config_write_text = config_write_text + "[Performance Tab - RAM]" + "\n"
-        config_write_text = config_write_text + "chart_line_color_ram_swap_percent = " + str(self.chart_line_color_ram_swap_percent) + "\n"
+        config_write_text = config_write_text + "[Performance Tab - Memory]" + "\n"
+        config_write_text = config_write_text + "chart_line_color_memory_percent = " + str(self.chart_line_color_memory_percent) + "\n"
         config_write_text = config_write_text + "show_memory_usage_per_memory = " + str(self.show_memory_usage_per_memory) + "\n"
         config_write_text = config_write_text + "performance_memory_data_precision = " + str(self.performance_memory_data_precision) + "\n"
         config_write_text = config_write_text + "performance_memory_data_unit = " + str(self.performance_memory_data_unit) + "\n"

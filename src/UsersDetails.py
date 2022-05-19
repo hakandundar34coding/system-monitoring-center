@@ -116,7 +116,7 @@ class UsersDetails:
         selected_username = Users.selected_username
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
-        users_cpu_usage_percent_precision = Config.users_cpu_usage_percent_precision
+        users_cpu_precision = Config.users_cpu_precision
 
         # Define empty lists for the current loop
         global_process_cpu_times = []
@@ -256,7 +256,7 @@ class UsersDetails:
             self.label3110w.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
         if selected_user_process_start_time == 0:
             self.label3110w.set_text("-")
-        self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_usage_percent_precision}f} %')
+        self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f} %')
 
 
     # ----------------------------------- Users Details - Run Function -----------------------------------

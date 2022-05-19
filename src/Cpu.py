@@ -42,12 +42,6 @@ class Cpu:
         self.label1112 = builder.get_object('label1112')
         self.label1113 = builder.get_object('label1113')
 
-
-
-
-        import time
-        time1 = time.time()
-
         # Add viewports for showing borders around some the performance data and round the corners of the viewports.
         css = b"viewport {border-radius: 8px 8px 8px 8px;}"
         style_provider = Gtk.CssProvider()
@@ -69,11 +63,6 @@ class Cpu:
         self.separator1103.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         self.separator1104 = builder.get_object('separator1104')
         self.separator1104.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
-        print(time.time() - time1)
-
-
-
 
         # Get chart functions from another module and define as local objects for lower CPU usage.
         self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func

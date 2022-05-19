@@ -41,9 +41,6 @@ class DiskDetails:
         self.label1313w = builder1301w.get_object('label1313w')
         self.label1314w = builder1301w.get_object('label1314w')
         self.label1315w = builder1301w.get_object('label1315w')
-        self.label1316w = builder1301w.get_object('label1316w')
-        self.label1317w = builder1301w.get_object('label1317w')
-        self.label1322w = builder1301w.get_object('label1322w')
 
         # Connect GUI signals
         self.window1301w.connect("delete-event", self.on_window1301w_delete_event)
@@ -84,9 +81,6 @@ class DiskDetails:
         self.label1313w.set_text("--")
         self.label1314w.set_text("--")
         self.label1315w.set_text("--")
-        self.label1316w.set_text("--")
-        self.label1317w.set_text("--")
-        self.label1322w.set_text("--")
 
 
     # ----------------------------------- Disk - Disk Details Foreground Function -----------------------------------
@@ -118,9 +112,6 @@ class DiskDetails:
         disk_label = Disk.disk_label_func(selected_disk)
         disk_partition_label = Disk.disk_partition_label_func(selected_disk)
         disk_path = Disk.disk_path_func(selected_disk)
-        disk_revision = Disk.disk_revision_func(selected_disk, disk_type)
-        disk_serial_number = Disk.disk_serial_number_func(selected_disk, disk_type)
-        disk_uuid = Disk.disk_uuid_func(selected_disk)
 
 
         # Set label text by using storage/disk data
@@ -138,9 +129,6 @@ class DiskDetails:
         self.label1313w.set_text(disk_partition_label)
         self.label1314w.set_text(disk_mount_point)
         self.label1315w.set_text(disk_path)
-        self.label1316w.set_text(disk_revision)
-        self.label1317w.set_text(disk_serial_number)
-        self.label1322w.set_text(disk_uuid)
 
 
     # ----------------------------------- Disk Details - Run Function -----------------------------------

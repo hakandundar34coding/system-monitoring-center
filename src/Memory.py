@@ -14,14 +14,14 @@ from Performance import Performance
 
 
 # Define class
-class Ram:
+class Memory:
 
     # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
         builder = Gtk.Builder()
-        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamTab.ui")
+        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MemoryTab.ui")
 
         # Get GUI objects
         self.grid1201 = builder.get_object('grid1201')
@@ -90,34 +90,34 @@ class Ram:
     # ----------------------- "customizations menu" Button -----------------------
     def on_button1201_clicked(self, widget):
 
-        from RamMenu import RamMenu
-        RamMenu.popover1201p.set_relative_to(widget)
-        RamMenu.popover1201p.set_position(1)
-        RamMenu.popover1201p.popup()
+        from MemoryMenu import MemoryMenu
+        MemoryMenu.popover1201p.set_relative_to(widget)
+        MemoryMenu.popover1201p.set_position(1)
+        MemoryMenu.popover1201p.popup()
 
 
-    # ----------------------- Called for opening RAM Hardware Window -----------------------
+    # ----------------------- Called for opening RAM Hardware Information Window -----------------------
     def on_eventbox1201_button_click_event(self, widget, event):
 
         if event.button == 1:
-            from RamHardwareInformation import RamHardwareInformation
+            from MemoryRamHardware import MemoryRamHardware
             # Run function to get RAM hardware information text (polkit dialog will be shown for getting this information).
-            RamHardwareInformation.ram_hardware_information_get_func()
+            MemoryRamHardware.memory_ram_hardware_information_get_func()
             # This statement is used in order to avoid errors if user closes polkit window without entering password.
-            if RamHardwareInformation.memory_hardware_information_text != "":
-                RamHardwareInformation.window1201w.show()
+            if MemoryRamHardware.memory_ram_hardware_information_text != "":
+                MemoryRamHardware.window1201w.show()
 
 
-    # ----------------------- Called for opening RAM Hardware Window -----------------------
+    # ----------------------- Called for opening Swap Details Window -----------------------
     def on_eventbox1202_button_click_event(self, widget, event):
 
         if event.button == 1:
-            from RamSwapDetails import RamSwapDetails
-            RamSwapDetails.window1201w2.show()
+            from MemorySwapDetails import MemorySwapDetails
+            MemorySwapDetails.window1201w2.show()
 
 
-    # ----------------------------------- RAM - Initial Function -----------------------------------
-    def ram_initial_func(self):
+    # ----------------------------------- Memory - Initial Function -----------------------------------
+    def memory_initial_func(self):
 
         # Define data unit conversion function objects in for lower CPU usage.
         self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
@@ -165,7 +165,7 @@ class Ram:
                 ram_total = int(line.split()[1]) * 1024
 
 
-        # Set RAM tab label texts by using information get
+        # Set Memory tab label texts by using information get
         if total_physical_ram != f'[{_tr("Unknown")}]':
             self.label1201.set_text(_tr("Physical RAM") + ": " + str(self.performance_data_unit_converter_func("data", "none", total_physical_ram, 0, 1)))
         else:
@@ -174,8 +174,8 @@ class Ram:
         self.initial_already_run = 1
 
 
-    # ----------------------------------- RAM - Get RAM Data Function -----------------------------------
-    def ram_loop_func(self):
+    # ----------------------------------- Memory - Get Memory Data Function -----------------------------------
+    def memory_loop_func(self):
 
         ram_used = Performance.ram_used
         ram_usage_percent = Performance.ram_usage_percent
@@ -195,7 +195,7 @@ class Ram:
         self.drawingarea1202.queue_draw()
 
 
-        # Set and update RAM tab label texts by using information get
+        # Set and update Memory tab label texts by using information get
         self.label1202.set_text(_tr("Swap Memory") + ": " + str(self.performance_data_unit_converter_func("data", "none", swap_total, 0, 1)))
         self.label1203.set_text(f'{self.performance_data_unit_converter_func("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)} ({ram_usage_percent[-1]:.0f}%)')
         self.label1204.set_text(self.performance_data_unit_converter_func("data", "none", ram_available, performance_memory_data_unit, performance_memory_data_precision))
@@ -208,5 +208,5 @@ class Ram:
 
 
 # Generate object
-Ram = Ram()
+Memory = Memory()
 

@@ -14,14 +14,14 @@ from Performance import Performance
 
 
 # Define class
-class RamSwapDetails:
+class MemorySwapDetails:
 
     # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
         builder = Gtk.Builder()
-        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamSwapDetailsWindow.ui")
+        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MemorySwapDetailsWindow.ui")
 
         # Get GUI objects
         self.window1201w2 = builder.get_object('window1201w2')
@@ -46,11 +46,11 @@ class RamSwapDetails:
         self.label1201w2.set_text("-")
 
         # Get and show swap memory information.
-        self.ram_swap_details_run_func()
+        self.memory_swap_details_run_func()
 
 
-    # ----------------------------------- RAM - Swap Details Loop Function -----------------------------------
-    def ram_swap_details_loop_func(self):
+    # ----------------------------------- Memory - Swap Details Loop Function -----------------------------------
+    def memory_swap_details_loop_func(self):
 
         # Define data unit conversion function objects in for lower CPU usage.
         self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
@@ -63,7 +63,7 @@ class RamSwapDetails:
         performance_memory_data_unit = Config.performance_memory_data_unit
 
         # This list is defined in order to make some command output strings to be translated into other languages.
-        ram_hardware_information_text_list = [_tr("Partition"), _tr("File")]
+        memory_swap_details_text_list = [_tr("Partition"), _tr("File")]
 
         # Set initial value of "memory_hardware_information_text". Hardware information will be appended to this string.
         swap_details_text = ""
@@ -111,14 +111,14 @@ class RamSwapDetails:
         self.label1201w2.set_text(swap_details_text)
 
 
-    # ----------------------------------- RAM - Swap Details - Run Function -----------------------------------
-    def ram_swap_details_run_func(self):
+    # ----------------------------------- Memory - Swap Details - Run Function -----------------------------------
+    def memory_swap_details_run_func(self):
 
         if self.window1201w2.get_visible() == True:
-            GLib.idle_add(self.ram_swap_details_loop_func)
-            GLib.timeout_add(Config.update_interval * 1000, self.ram_swap_details_run_func)
+            GLib.idle_add(self.memory_swap_details_loop_func)
+            GLib.timeout_add(Config.update_interval * 1000, self.memory_swap_details_run_func)
 
 
 # Generate object
-RamSwapDetails = RamSwapDetails()
+MemorySwapDetails = MemorySwapDetails()
 

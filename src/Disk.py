@@ -496,50 +496,6 @@ class Disk:
         return disk_path
 
 
-    # ----------------------- Get disk revision -----------------------
-    def disk_revision_func(self, selected_disk, disk_type):
-
-        disk_revision = "-"
-        if disk_type == _tr("Disk"):
-            try:
-                with open("/sys/class/block/" + selected_disk + "/device/rev") as reader:
-                    disk_revision = reader.read().strip()
-            except Exception:
-                pass
-
-        return disk_revision
-
-
-    # ----------------------- Get disk serial number -----------------------
-    def disk_serial_number_func(self, selected_disk, disk_type):
-
-        disk_serial_number = "-"
-        if disk_type == _tr("Disk"):
-            disk_id_list = os.listdir("/dev/disk/by-id/")
-            for id in disk_id_list:
-                if os.path.realpath("/dev/disk/by-id/" + id).split("/")[-1] == selected_disk and ("/dev/disk/by-id/" + id).startswith("wwn-") == False:
-                    disk_serial_number = id.split("-")[-1]
-                    if "part" in disk_serial_number:
-                        disk_serial_number = id.split("-")[-2]
-
-        return disk_serial_number
-
-
-    # ----------------------- Get disk UUID -----------------------
-    def disk_uuid_func(self, selected_disk):
-
-        disk_uuid = "-"
-        try:
-            disk_uuid_list = os.listdir("/dev/disk/by-uuid/")
-            for uuid in disk_uuid_list:
-                if os.path.realpath("/dev/disk/by-uuid/" + uuid).split("/")[-1] == selected_disk:
-                    disk_uuid = uuid
-        except FileNotFoundError:
-            pass
-
-        return disk_uuid
-
-
     # ----------------------- Update disk usage percentages on disk list between Performance tab sub-tabs -----------------------
     def disk_update_disk_usage_percentages_on_disk_list_func(self):
 

@@ -248,6 +248,8 @@ class Network:
                 if selected_network_card == line_splitted[0].split(":")[0]:
                     # "split(".")" is used in order to remove "." at the end of the signal value.
                     network_signal_strength = line_splitted[2].split(".")[0]
+                    if network_signal_strength != "-":
+                        network_signal_strength = f'{network_signal_strength} (link)'
                     break
 
 

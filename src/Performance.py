@@ -145,7 +145,7 @@ class Performance:
             Config.selected_gpu = ""
 
 
-    # ----------------------------------- Performance - Background Function (gets basic CPU, RAM, disk and network usage data in the background in order to assure uninterrupted data for charts) -----------------------------------
+    # ----------------------------------- Performance - Background Function (gets basic CPU, memory, disk and network usage data in the background in order to assure uninterrupted data for charts) -----------------------------------
     def performance_background_loop_func(self):
 
         # Definition for lower CPU usage because this variable is used multiple times in this function.
@@ -521,11 +521,11 @@ class Performance:
             for device_name in device_name_list:
                 chart_y_limit_list.append(100)
 
-        # Check if drawing will be for RAM tab.
+        # Check if drawing will be for Memory tab.
         elif performance_tab_current_sub_tab == 1:
 
             # Get chart colors.
-            chart_line_color = Config.chart_line_color_ram_swap_percent
+            chart_line_color = Config.chart_line_color_memory_percent
 
             # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
             if Config.show_memory_usage_per_memory == 0:
@@ -995,7 +995,7 @@ class Performance:
                 if performance_tab_current_sub_tab == 0:
                     performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_cpu_usage_percent_precision}f} %'
                 elif performance_tab_current_sub_tab == 1:
-                    performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_ram_swap_data_precision}f} %'
+                    performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_memory_swap_data_precision}f} %'
                 elif performance_tab_current_sub_tab == 2:
                     performance_data2_at_point_text = f'- -{Disk.performance_data_unit_converter_func("speed", performance_disk_speed_bit, performance_data2[chart_number_to_highlight][chart_point_highlight], performance_disk_data_unit, performance_disk_data_precision)}/s'
                 elif performance_tab_current_sub_tab == 3:
@@ -1069,20 +1069,20 @@ class Performance:
     # ----------------------- Called for drawing performance data as bar chart -----------------------
     def performance_bar_charts_draw_func(self, widget, ctx):
 
-        # Check if drawing will be for RAM tab.
+        # Check if drawing will be for Memory tab.
         performance_tab_current_sub_tab = Config.performance_tab_current_sub_tab
         if performance_tab_current_sub_tab == 1:
 
             # Get performance data to be drawn.
-            from Ram import Ram
+            from Memory import Memory
             try:
-                performance_data1 = Ram.swap_usage_percent[-1]
+                performance_data1 = Memory.swap_usage_percent[-1]
             # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
             except AttributeError:
                 return
 
             # Get chart colors.
-            chart_line_color = Config.chart_line_color_ram_swap_percent
+            chart_line_color = Config.chart_line_color_memory_percent
 
             # Get chart y limit value in order to show maximum value of the chart as 100.
             chart_y_limit = 100
@@ -1125,7 +1125,7 @@ class Performance:
             performance_data1 = self.ram_usage_percent[-1]
 
             # Get chart colors.
-            chart_line_color = Config.chart_line_color_ram_swap_percent
+            chart_line_color = Config.chart_line_color_memory_percent
 
             # Get chart y limit value in order to show maximum value of the chart as 100.
             chart_y_limit = 100
