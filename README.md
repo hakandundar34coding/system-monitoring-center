@@ -76,8 +76,6 @@ GTK3 and Python 3 based, system performance and usage monitoring tool.
 
 ![System Monitoring Center](screenshots/processes_list_view_dark_system_theme.png)
 
-![System Monitoring Center](screenshots/startup_tab_dark_system_theme.png)
-
 ![System Monitoring Center](screenshots/services_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/system_tab_dark_system_theme.png)
