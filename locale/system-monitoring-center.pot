@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-19 11:43+0300\n"
+"POT-Creation-Date: 2022-05-19 15:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,7 +61,7 @@ msgstr ""
 msgid "[Not mounted]"
 msgstr ""
 
-#: src/DiskDetails.py:95
+#: src/DiskDetails.py:91
 msgid "Disk Details"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr ""
 
 #: src/Memory.py:172 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
-#: ui/DiskDetailsWindow.ui:615
+#: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
 msgstr ""
 
@@ -260,9 +260,8 @@ msgstr ""
 msgid "GID"
 msgstr ""
 
-#: src/Processes.py:159 ui/DiskDetailsWindow.ui:369
-#: ui/ProcessesDetailsWindow.ui:1764 ui/ProcessesMenuCustomizations.ui:319
-#: ui/ServicesDetailsWindow.ui:75
+#: src/Processes.py:159 ui/ProcessesDetailsWindow.ui:1764
+#: ui/ProcessesMenuCustomizations.ui:319 ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr ""
 
@@ -651,15 +650,11 @@ msgstr ""
 msgid "Label (File System)"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:175
-msgid "Partition Label"
-msgstr ""
-
-#: ui/DiskDetailsWindow.ui:356
+#: ui/DiskDetailsWindow.ui:327
 msgid "Mount Point"
 msgstr ""
 
-#: ui/DiskDetailsWindow.ui:628
+#: ui/DiskDetailsWindow.ui:545
 msgid "(Mass Storage)"
 msgstr ""
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-19 11:43+0300\n"
-"PO-Revision-Date: 2022-05-19 11:44+0300\n"
+"POT-Creation-Date: 2022-05-19 15:48+0300\n"
+"PO-Revision-Date: 2022-05-19 15:49+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -62,7 +62,7 @@ msgstr "Hayır"
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
-#: src/DiskDetails.py:95
+#: src/DiskDetails.py:91
 msgid "Disk Details"
 msgstr "Disk Detayları"
 
@@ -99,7 +99,7 @@ msgstr "Fiziksel RAM"
 
 #: src/Memory.py:172 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
-#: ui/DiskDetailsWindow.ui:615
+#: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
 msgstr "Kapasite"
 
@@ -263,9 +263,8 @@ msgstr "UID"
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:159 ui/DiskDetailsWindow.ui:369
-#: ui/ProcessesDetailsWindow.ui:1764 ui/ProcessesMenuCustomizations.ui:319
-#: ui/ServicesDetailsWindow.ui:75
+#: src/Processes.py:159 ui/ProcessesDetailsWindow.ui:1764
+#: ui/ProcessesMenuCustomizations.ui:319 ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr "Yol"
 
@@ -654,15 +653,11 @@ msgstr "Boş"
 msgid "Label (File System)"
 msgstr "Etiket (Dosya Sistemi)"
 
-#: ui/DiskDetailsWindow.ui:175
-msgid "Partition Label"
-msgstr "Disk Bölümü Etiketi"
-
-#: ui/DiskDetailsWindow.ui:356
+#: ui/DiskDetailsWindow.ui:327
 msgid "Mount Point"
 msgstr "Bağlantı Noktası"
 
-#: ui/DiskDetailsWindow.ui:628
+#: ui/DiskDetailsWindow.ui:545
 msgid "(Mass Storage)"
 msgstr "(Yığın Depolama)"
 
@@ -1319,6 +1314,9 @@ msgstr "Gtk Sürümü:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Kullanıcı Detayları"
+
+#~ msgid "Partition Label"
+#~ msgstr "Disk Bölümü Etiketi"
 
 #~ msgid "Computer Name And Model"
 #~ msgstr "Bilgisayar Adı ve Modeli"
