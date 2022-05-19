@@ -34,6 +34,9 @@ def startup_gui_func():
     treeview5101 = builder.get_object('treeview5101')
     searchentry5101 = builder.get_object('searchentry5101')
 
+    global initial_already_run
+    initial_already_run = 0
+
 
     # Startup tab GUI functions
     # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
@@ -126,6 +129,9 @@ def startup_initial_func():
 
     global filter_column
     filter_column = startup_data_list[0][2] - 1                                               # Search filter is "Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+
+    global initial_already_run
+    initial_already_run = 1
 
 
 # ----------------------------------- Startup - Get Startup Data Function -----------------------------------

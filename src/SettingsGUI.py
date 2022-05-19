@@ -464,31 +464,31 @@ class SettingsGUI:
 
         try:
             from MainGUI import Sensors
-            Sensors.sensors_initial_func()
+            Sensors.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Processes
-            Processes.processes_initial_func()
+            Processes.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Users
-            Users.users_initial_func()
+            Users.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Startup
-            Startup.startup_initial_func()
+            Startup.initial_already_run = 0
         except ImportError:
             pass
 
         try:
             from MainGUI import Services
-            Services.services_initial_func()
+            Services.initial_already_run = 0
         except ImportError:
             pass
 

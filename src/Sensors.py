@@ -35,6 +35,9 @@ def sensors_gui_func():
     treeview1601 = builder.get_object('treeview1601')
     searchentry1601 = builder.get_object('searchentry1601')
 
+    global initial_already_run
+    initial_already_run = 0
+
 
     # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
     def on_treeview1601_button_release_event(widget, event):
@@ -98,6 +101,9 @@ def sensors_initial_func():
 
     global filter_column
     filter_column = sensors_data_list[0][2] - 1                                               # Search filter is "Sensor Group". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+
+    global initial_already_run
+    initial_already_run = 1
 
 
 # ----------------------------------- Sensors - Get Sensor Data Function -----------------------------------

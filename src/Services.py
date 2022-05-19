@@ -40,6 +40,9 @@ def services_gui_func():
     button6101 = builder.get_object('button6101')
     button6102 = builder.get_object('button6102')
 
+    global initial_already_run
+    initial_already_run = 0
+
 
     # Services tab GUI functions
     # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
@@ -169,6 +172,9 @@ def services_initial_func():
 
     global filter_column
     filter_column = services_data_list[0][2] - 1                                              # Search filter is "Service Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+
+    global initial_already_run
+    initial_already_run = 1
 
     services_loop_func()
 

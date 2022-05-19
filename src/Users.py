@@ -40,6 +40,9 @@ def users_gui_func():
     searchentry3101 = builder.get_object('searchentry3101')
     button3101 = builder.get_object('button3101')
 
+    global initial_already_run
+    initial_already_run = 0
+
 
     # Users tab GUI functions
     # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
@@ -171,6 +174,9 @@ def users_initial_func():
 
     global filter_column
     filter_column = users_data_list[0][2] - 1                                                 # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+
+    global initial_already_run
+    initial_already_run = 1
 
 
 # ----------------------------------- Users - Get User Data Function (gets user data, adds into treeview and updates it) -----------------------------------
