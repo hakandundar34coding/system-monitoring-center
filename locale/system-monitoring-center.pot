@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-18 11:08+0300\n"
+"POT-Creation-Date: 2022-05-19 11:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1197,15 +1197,11 @@ msgid ""
 "environment."
 msgstr ""
 
-#: ui/SystemTab.ui:64
-msgid "Computer Name And Model"
+#: ui/SystemTab.ui:64 ui/SystemTab.ui:310
+msgid "Computer"
 msgstr ""
 
-#: ui/SystemTab.ui:79
-msgid "Operating System Name and Version"
-msgstr ""
-
-#: ui/SystemTab.ui:130
+#: ui/SystemTab.ui:79 ui/SystemTab.ui:130
 msgid "Operating System (OS)"
 msgstr ""
 
@@ -1231,10 +1227,6 @@ msgstr ""
 
 #: ui/SystemTab.ui:280
 msgid "Kernel Release:"
-msgstr ""
-
-#: ui/SystemTab.ui:310
-msgid "Computer"
 msgstr ""
 
 #: ui/SystemTab.ui:344

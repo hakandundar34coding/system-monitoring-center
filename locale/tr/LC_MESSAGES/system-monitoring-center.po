@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-18 11:08+0300\n"
-"PO-Revision-Date: 2022-05-18 11:08+0300\n"
+"POT-Creation-Date: 2022-05-19 11:43+0300\n"
+"PO-Revision-Date: 2022-05-19 11:44+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -1208,15 +1208,11 @@ msgstr ""
 "başlangıç ögesinin otomatik başlatılması onun '.desktop' dosyalarındaki bazı "
 "değerlerine ve masaüstü ortamına bağlıdır."
 
-#: ui/SystemTab.ui:64
-msgid "Computer Name And Model"
-msgstr "Bilgisayar Adı ve Modeli"
+#: ui/SystemTab.ui:64 ui/SystemTab.ui:310
+msgid "Computer"
+msgstr "Bilgisayar"
 
-#: ui/SystemTab.ui:79
-msgid "Operating System Name and Version"
-msgstr "İşletim Sistemi Adı ve Sürümü"
-
-#: ui/SystemTab.ui:130
+#: ui/SystemTab.ui:79 ui/SystemTab.ui:130
 msgid "Operating System (OS)"
 msgstr "İşletim Sistemi (İ.S.)"
 
@@ -1243,10 +1239,6 @@ msgstr "Temeli:"
 #: ui/SystemTab.ui:280
 msgid "Kernel Release:"
 msgstr "Kernel Sürümü:"
-
-#: ui/SystemTab.ui:310
-msgid "Computer"
-msgstr "Bilgisayar"
 
 #: ui/SystemTab.ui:344
 msgid "Vendor:"
@@ -1327,6 +1319,12 @@ msgstr "Gtk Sürümü:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Kullanıcı Detayları"
+
+#~ msgid "Computer Name And Model"
+#~ msgstr "Bilgisayar Adı ve Modeli"
+
+#~ msgid "Operating System Name and Version"
+#~ msgstr "İşletim Sistemi Adı ve Sürümü"
 
 #~ msgid "Revision"
 #~ msgstr "Revizyon"

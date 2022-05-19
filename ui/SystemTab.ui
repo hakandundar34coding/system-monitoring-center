@@ -61,7 +61,7 @@
           <object class="GtkLabel" id="label8102">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Computer Name And Model</property>
+            <property name="tooltip-text" translatable="yes">Computer</property>
             <property name="halign">start</property>
             <property name="label">--</property>
             <property name="selectable">True</property>
@@ -76,7 +76,7 @@
           <object class="GtkLabel" id="label8101">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Operating System Name and Version</property>
+            <property name="tooltip-text" translatable="yes">Operating System (OS)</property>
             <property name="halign">start</property>
             <property name="label">--</property>
             <property name="selectable">True</property>
