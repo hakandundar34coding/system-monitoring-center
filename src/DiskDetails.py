@@ -41,9 +41,6 @@ class DiskDetails:
         self.label1313w = builder1301w.get_object('label1313w')
         self.label1314w = builder1301w.get_object('label1314w')
         self.label1315w = builder1301w.get_object('label1315w')
-        self.label1316w = builder1301w.get_object('label1316w')
-        self.label1317w = builder1301w.get_object('label1317w')
-        self.label1322w = builder1301w.get_object('label1322w')
 
         # Connect GUI signals
         self.window1301w.connect("delete-event", self.on_window1301w_delete_event)
@@ -84,9 +81,6 @@ class DiskDetails:
         self.label1313w.set_text("--")
         self.label1314w.set_text("--")
         self.label1315w.set_text("--")
-        self.label1316w.set_text("--")
-        self.label1317w.set_text("--")
-        self.label1322w.set_text("--")
 
 
     # ----------------------------------- Disk - Disk Details Foreground Function -----------------------------------
@@ -101,8 +95,8 @@ class DiskDetails:
         self.window1301w.set_title(_tr("Disk Details") + ": " + selected_disk)
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
-        performance_disk_usage_data_precision = Config.performance_disk_usage_data_precision
-        performance_disk_usage_data_unit = Config.performance_disk_usage_data_unit
+        performance_disk_data_precision = Config.performance_disk_data_precision
+        performance_disk_data_unit = Config.performance_disk_data_unit
         disk_list = Performance.disk_list
 
 
@@ -118,9 +112,6 @@ class DiskDetails:
         disk_label = Disk.disk_label_func(selected_disk)
         disk_partition_label = Disk.disk_partition_label_func(selected_disk)
         disk_path = Disk.disk_path_func(selected_disk)
-        disk_revision = Disk.disk_revision_func(selected_disk, disk_type)
-        disk_serial_number = Disk.disk_serial_number_func(selected_disk, disk_type)
-        disk_uuid = Disk.disk_uuid_func(selected_disk)
 
 
         # Set label text by using storage/disk data
@@ -128,19 +119,16 @@ class DiskDetails:
         self.label1302w.set_text(disk_parent_name)
         self.label1303w.set_text(disk_if_system_disk)
         self.label1304w.set_text(disk_type)
-        self.label1305w.set_text(f'{Performance.performance_data_unit_converter_func(disk_capacity_mass_storage, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
+        self.label1305w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity_mass_storage, performance_disk_data_unit, performance_disk_data_precision)}')
         self.label1306w.set_text(disk_file_system)
-        self.label1307w.set_text(f'{Performance.performance_data_unit_converter_func(disk_capacity, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
-        self.label1308w.set_text(f'{Performance.performance_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision)}')
-        self.label1309w.set_text(f'{Performance.performance_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision)} - {disk_usage_percent:.1f}%')
+        self.label1307w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.label1308w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_available, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.label1309w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)} - {disk_usage_percent:.1f}%')
         self.label1311w.set_text(disk_device_model_name)
         self.label1312w.set_text(disk_label)
         self.label1313w.set_text(disk_partition_label)
         self.label1314w.set_text(disk_mount_point)
         self.label1315w.set_text(disk_path)
-        self.label1316w.set_text(disk_revision)
-        self.label1317w.set_text(disk_serial_number)
-        self.label1322w.set_text(disk_uuid)
 
 
     # ----------------------------------- Disk Details - Run Function -----------------------------------

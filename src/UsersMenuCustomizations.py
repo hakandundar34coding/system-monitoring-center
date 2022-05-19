@@ -36,7 +36,6 @@ class UsersMenuCustomizations:
         self.checkbutton3109p = builder.get_object('checkbutton3109p')
         self.checkbutton3110p = builder.get_object('checkbutton3110p')
         self.checkbutton3111p = builder.get_object('checkbutton3111p')
-        self.checkbutton3112p = builder.get_object('checkbutton3112p')
 
         # Connect GUI signals
         self.popover3101p.connect("show", self.on_popover3101p_show)
@@ -58,7 +57,6 @@ class UsersMenuCustomizations:
         self.checkbutton3109p.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.checkbutton3110p.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.checkbutton3111p.connect("toggled", self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton3112p.connect("toggled", self.on_add_remove_checkbuttons_toggled)
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
@@ -75,7 +73,6 @@ class UsersMenuCustomizations:
         self.checkbutton3109p.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.checkbutton3110p.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.checkbutton3111p.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
-        self.checkbutton3112p.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
 
 
     # ----------------------- Called for running code/functions when menu is shown -----------------------
@@ -161,18 +158,14 @@ class UsersMenuCustomizations:
             self.checkbutton3109p.set_active(True)
         else:
             self.checkbutton3109p.set_active(False)
-        if 11 in Config.users_treeview_columns_shown:
+        if 9 in Config.users_treeview_columns_shown:
             self.checkbutton3110p.set_active(True)
         else:
             self.checkbutton3110p.set_active(False)
-        if 12 in Config.users_treeview_columns_shown:
+        if 10 in Config.users_treeview_columns_shown:
             self.checkbutton3111p.set_active(True)
         else:
             self.checkbutton3111p.set_active(False)
-        if 13 in Config.users_treeview_columns_shown:
-            self.checkbutton3112p.set_active(True)
-        else:
-            self.checkbutton3112p.set_active(False)
 
 
     # ----------------------- Called for adding/removing treeview columns -----------------------
@@ -199,11 +192,9 @@ class UsersMenuCustomizations:
         if self.checkbutton3109p.get_active() == True:
             Config.users_treeview_columns_shown.append(8)
         if self.checkbutton3110p.get_active() == True:
-            Config.users_treeview_columns_shown.append(11)
+            Config.users_treeview_columns_shown.append(9)
         if self.checkbutton3111p.get_active() == True:
-            Config.users_treeview_columns_shown.append(12)
-        if self.checkbutton3112p.get_active() == True:
-            Config.users_treeview_columns_shown.append(13)
+            Config.users_treeview_columns_shown.append(10)
 
         # Apply changes immediately (without waiting update interval).
         Users.users_initial_func()

@@ -43,6 +43,28 @@ class Disk:
         self.label1313 = builder.get_object('label1313')
         self.eventbox1301 = builder.get_object('eventbox1301')
 
+        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
+        css = b"viewport {border-radius: 8px 8px 8px 8px;}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.viewport1301 = builder.get_object('viewport1301')
+        self.viewport1301.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.viewport1302 = builder.get_object('viewport1302')
+        self.viewport1302.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
+        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.separator1301 = builder.get_object('separator1301')
+        self.separator1301.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1302 = builder.get_object('separator1302')
+        self.separator1302.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1303 = builder.get_object('separator1303')
+        self.separator1303.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1304 = builder.get_object('separator1304')
+        self.separator1304.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
         # Get chart functions from another module and define as local objects for lower CPU usage.
         self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
         self.performance_line_charts_enter_notify_event_func = Performance.performance_line_charts_enter_notify_event_func
@@ -141,10 +163,9 @@ class Disk:
         disk_read_speed = Performance.disk_read_speed
         disk_write_speed = Performance.disk_write_speed
 
-        performance_disk_speed_data_precision = Config.performance_disk_speed_data_precision
-        performance_disk_usage_data_precision = Config.performance_disk_usage_data_precision
-        performance_disk_speed_data_unit = Config.performance_disk_speed_data_unit
-        performance_disk_usage_data_unit = Config.performance_disk_usage_data_unit
+        performance_disk_data_precision = Config.performance_disk_data_precision
+        performance_disk_data_unit = Config.performance_disk_data_unit
+        performance_disk_speed_bit = Config.performance_disk_speed_bit
 
         self.drawingarea1301.queue_draw()
         self.drawingarea1302.queue_draw()
@@ -182,17 +203,17 @@ class Disk:
 
 
         # Show information on labels.
-        self.label1303.set_text(f'{self.performance_data_unit_converter_func(disk_read_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
-        self.label1304.set_text(f'{self.performance_data_unit_converter_func(disk_write_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
-        self.label1305.set_text(self.performance_data_unit_converter_func(disk_read_data, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
-        self.label1306.set_text(self.performance_data_unit_converter_func(disk_write_data, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
+        self.label1303.set_text(f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_read_speed[selected_disk_number][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.label1304.set_text(f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_write_speed[selected_disk_number][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.label1305.set_text(self.performance_data_unit_converter_func("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
+        self.label1306.set_text(self.performance_data_unit_converter_func("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
         if disk_mount_point != "-":
             self.label1308.set_text(f'{self.disk_usage_percent:.0f}%')
         if disk_mount_point == "-":
             self.label1308.set_text("-%")
-        self.label1309.set_text(self.performance_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
-        self.label1310.set_text(self.performance_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
-        self.label1311.set_text(self.performance_data_unit_converter_func(disk_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
+        self.label1309.set_text(self.performance_data_unit_converter_func("data", "none", disk_available, performance_disk_data_unit, performance_disk_data_precision))
+        self.label1310.set_text(self.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision))
+        self.label1311.set_text(self.performance_data_unit_converter_func("data", "none", disk_size, performance_disk_data_unit, performance_disk_data_precision))
 
 
     # ----------------------- Get disk type (Disk or Partition) -----------------------
@@ -473,50 +494,6 @@ class Disk:
             disk_path = "/dev/" + selected_disk
 
         return disk_path
-
-
-    # ----------------------- Get disk revision -----------------------
-    def disk_revision_func(self, selected_disk, disk_type):
-
-        disk_revision = "-"
-        if disk_type == _tr("Disk"):
-            try:
-                with open("/sys/class/block/" + selected_disk + "/device/rev") as reader:
-                    disk_revision = reader.read().strip()
-            except Exception:
-                pass
-
-        return disk_revision
-
-
-    # ----------------------- Get disk serial number -----------------------
-    def disk_serial_number_func(self, selected_disk, disk_type):
-
-        disk_serial_number = "-"
-        if disk_type == _tr("Disk"):
-            disk_id_list = os.listdir("/dev/disk/by-id/")
-            for id in disk_id_list:
-                if os.path.realpath("/dev/disk/by-id/" + id).split("/")[-1] == selected_disk and ("/dev/disk/by-id/" + id).startswith("wwn-") == False:
-                    disk_serial_number = id.split("-")[-1]
-                    if "part" in disk_serial_number:
-                        disk_serial_number = id.split("-")[-2]
-
-        return disk_serial_number
-
-
-    # ----------------------- Get disk UUID -----------------------
-    def disk_uuid_func(self, selected_disk):
-
-        disk_uuid = "-"
-        try:
-            disk_uuid_list = os.listdir("/dev/disk/by-uuid/")
-            for uuid in disk_uuid_list:
-                if os.path.realpath("/dev/disk/by-uuid/" + uuid).split("/")[-1] == selected_disk:
-                    disk_uuid = uuid
-        except FileNotFoundError:
-            pass
-
-        return disk_uuid
 
 
     # ----------------------- Update disk usage percentages on disk list between Performance tab sub-tabs -----------------------

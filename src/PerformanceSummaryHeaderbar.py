@@ -70,8 +70,8 @@ class PerformanceSummaryHeaderbar:
         selected_network_card_number = Performance.selected_network_card_number
         self.drawingarea101.queue_draw()
         self.drawingarea102.queue_draw()
-        self.label101.set_text(f'{self.performance_data_unit_converter_func((Performance.disk_read_speed[selected_disk_number][-1] + Performance.disk_write_speed[selected_disk_number][-1]), 0, 0)}/s')
-        self.label102.set_text(f'{self.performance_data_unit_converter_func((Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), 0, 0)}/s')
+        self.label101.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk_number][-1] + Performance.disk_write_speed[selected_disk_number][-1]), Config.performance_disk_data_unit, 0)}/s')
+        self.label102.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), Config.performance_network_data_unit, 0)}/s')
 
 
 # Generate object

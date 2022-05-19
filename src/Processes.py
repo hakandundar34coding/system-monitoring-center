@@ -15,9 +15,9 @@ def processes_import_func():
     import time
 
 
-    global Config
+    global Config, Performance
     from Config import Config
-
+    from Performance import Performance
 
     # Import gettext module for defining translation texts which will be recognized by gettext application. These lines of code are enough to define this variable if another values are defined in another module (Main GUI module) before importing this module.
     global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
@@ -160,7 +160,14 @@ def processes_initial_func():
                           [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
                           ]
 
-    processes_define_data_unit_converter_variables_func()                                     # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
+    # Define data unit conversion function objects in for lower CPU usage.
+    global performance_define_data_unit_converter_variables_func, performance_define_data_unit_converter_variables_func, performance_data_unit_converter_func
+    performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
+    performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
+
+    # Define data unit conversion variables before they are used.
+    performance_define_data_unit_converter_variables_func()
+
 
     global processes_data_rows_prev, pid_list_prev, piter_list, global_process_cpu_times_prev, disk_read_write_data_prev, show_processes_as_tree_prev, processes_treeview_columns_shown_prev, processes_data_row_sorting_column_prev, processes_data_row_sorting_order_prev, processes_data_column_order_prev, processes_data_column_widths_prev
     processes_data_rows_prev = []
@@ -209,16 +216,15 @@ def processes_loop_func():
     global treeview2101
 
     # Get configrations one time per floop instead of getting them multiple times (hundreds of times for many of them) in every loop which causes high CPU usage.
-    global processes_cpu_usage_percent_precision
-    global processes_ram_swap_data_precision, processes_ram_swap_data_unit
-    global processes_disk_usage_data_precision, processes_disk_usage_data_unit, processes_disk_speed_data_precision, processes_disk_speed_data_unit
-    processes_cpu_usage_percent_precision = Config.processes_cpu_usage_percent_precision
-    processes_ram_swap_data_precision = Config.processes_ram_swap_data_precision
-    processes_ram_swap_data_unit = Config.processes_ram_swap_data_unit
-    processes_disk_usage_data_precision = Config.processes_disk_usage_data_precision
-    processes_disk_usage_data_unit = Config.processes_disk_usage_data_unit
-    processes_disk_speed_data_precision = Config.processes_disk_speed_data_precision
-    processes_disk_speed_data_unit = Config.processes_disk_speed_data_unit
+    global processes_cpu_precision
+    global processes_memory_data_precision, processes_memory_data_unit
+    global processes_disk_data_precision, processes_disk_data_unit, processes_disk_speed_bit
+    processes_cpu_precision = Config.processes_cpu_precision
+    processes_memory_data_precision = Config.processes_memory_data_precision
+    processes_memory_data_unit = Config.processes_memory_data_unit
+    processes_disk_data_precision = Config.processes_disk_data_precision
+    processes_disk_data_unit = Config.processes_disk_data_unit
+    processes_disk_speed_bit = Config.processes_disk_speed_bit
 
     # Define global variables and get treeview columns, sort column/order, column widths, etc.
     global processes_treeview_columns_shown, show_processes_of_all_users
@@ -588,16 +594,16 @@ def processes_loop_func():
 
 # ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
 def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{processes_cpu_usage_percent_precision}f} %')
+    cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{processes_cpu_precision}f} %')
 
 def cell_data_function_ram_swap(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_ram_swap_data_unit, processes_ram_swap_data_precision))
+    cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_memory_data_unit, processes_memory_data_precision))
 
 def cell_data_function_disk_usage(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_disk_usage_data_unit, processes_disk_usage_data_precision))
+    cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision))
 
 def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', f'{processes_data_unit_converter_func(tree_model.get(iter, data)[0], processes_disk_speed_data_unit, processes_disk_speed_data_precision)}/s')
+    cell.set_property('text', f'{performance_data_unit_converter_func("speed", processes_disk_speed_bit, tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision)}/s')
 
 
 # ----------------------------------- Processes - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
@@ -626,60 +632,4 @@ def processes_treeview_column_order_width_row_sorting_func():
                 Config.processes_data_column_widths[i] = processes_treeview_columns[j].get_width()
                 break
     Config.config_save_func()
-
-
-# ----------------------------------- Processes - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
-def processes_define_data_unit_converter_variables_func():
-
-    global data_unit_list
-
-    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
-
-    # Unit Name    Abbreviation    bytes   
-    # byte         B               1
-    # kilobyte     KB              1024
-    # megabyte     MB              1.04858E+06
-    # gigabyte     GB              1.07374E+09
-    # terabyte     TB              1.09951E+12
-    # petabyte     PB              1.12590E+15
-    # exabyte      EB              1.15292E+18
-
-    # Unit Name    Abbreviation    bits    
-    # bit          b               1
-    # kilobit      Kb              1024
-    # megabit      Mb              1.04858E+06
-    # gigabit      Gb              1.07374E+09
-    # terabit      Tb              1.09951E+12
-    # petabit      Pb              1.12590E+15
-    # exabit       Eb              1.15292E+18
-
-    # 1 byte = 8 bits
-
-    data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                          [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                          [8, 0, "Auto-bit"], [9, 8, "b"], [10, 1024, "Kib"], [11, 1.04858E+06, "Mib"], [12, 1.07374E+09, "Gib"],
-                          [13, 1.09951E+12, "Tib"], [14, 1.12590E+15, "Pib"], [15, 1.15292E+18, "Eib"]]
-
-
-# ----------------------------------- Processes - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
-def processes_data_unit_converter_func(data, unit, precision):
-
-    global data_unit_list
-    if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
-        unit_counter = unit + 1
-        while data > 1024:
-            unit_counter = unit_counter + 1
-            data = data/1024
-        unit = data_unit_list[unit_counter][2]
-        if data == 0:
-            precision = 0
-        return f'{data:.{precision}f} {unit}'
-
-    data = data / data_unit_list[unit][1]
-    unit = data_unit_list[unit][2]
-    if data == 0:
-        precision = 0
-    return f'{data:.{precision}f} {unit}'
 

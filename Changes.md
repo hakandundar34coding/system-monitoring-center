@@ -1,5 +1,13 @@
 # System Monitoring Center
 
+### v1.16.0
+  * New: Updated GUI design (CPU, RAM, Disk, Network, GPU tabs)
+  * New: Highlighting selected device graph between other devices
+  * New: Option for showing disk/network speed as powers of 1000
+  * Simplified several customization menus
+  * Fix: Graph scaling (Disk and Network tabs)
+  * Minor improvements (GUI, performance, etc.)
+
 ### v1.15.0
   * New: Unified tab and device selector (Performance tab)
   * Replaced disk read/write time with read/write data (Disk tab)

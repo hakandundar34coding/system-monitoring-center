@@ -25,14 +25,12 @@ class GpuMenu:
         # Get GUI objects
         self.popover1501p = builder.get_object('popover1501p')
         self.button1501p = builder.get_object('button1501p')
-        self.button1502p = builder.get_object('button1502p')
         self.button1503p = builder.get_object('button1503p')
 
         self.colorchooserdialog1501 = Gtk.ColorChooserDialog()
 
         # Connect GUI signals
         self.button1501p.connect("clicked", self.on_chart_color_buttons_clicked)
-        self.button1502p.connect("clicked", self.on_chart_color_buttons_clicked)
         self.button1503p.connect("clicked", self.on_button1503p_clicked)
 
 
@@ -42,8 +40,6 @@ class GpuMenu:
         # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
         if widget == self.button1501p:
             red, blue, green, alpha = Config.chart_line_color_fps
-        if widget == self.button1502p:
-            red, blue, green, alpha = Config.chart_background_color_all_charts
         self.colorchooserdialog1501.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1501.run()
@@ -52,8 +48,6 @@ class GpuMenu:
             selected_color = self.colorchooserdialog1501.get_rgba()
             if widget == self.button1501p:
                 Config.chart_line_color_fps = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
-            if widget == self.button1502p:
-                Config.chart_background_color_all_charts = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
         self.colorchooserdialog1501.hide()
 

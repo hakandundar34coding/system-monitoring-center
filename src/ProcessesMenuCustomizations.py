@@ -50,10 +50,11 @@ class ProcessesMenuCustomizations:
         self.combobox2101p = builder.get_object('combobox2101p')
         self.combobox2102p = builder.get_object('combobox2102p')
         self.combobox2103p = builder.get_object('combobox2103p')
-        self.combobox2104p = builder.get_object('combobox2104p')
-        self.combobox2105p = builder.get_object('combobox2105p')
-        self.combobox2106p = builder.get_object('combobox2106p')
-        self.combobox2107p = builder.get_object('combobox2107p')
+        self.radiobutton2101p = builder.get_object('radiobutton2101p')
+        self.radiobutton2102p = builder.get_object('radiobutton2102p')
+        self.radiobutton2103p = builder.get_object('radiobutton2103p')
+        self.radiobutton2104p = builder.get_object('radiobutton2104p')
+        self.checkbutton2128p = builder.get_object('checkbutton2128p')
 
         # Connect GUI signals
         self.popover2101p.connect("show", self.on_popover2101p_show)
@@ -89,10 +90,11 @@ class ProcessesMenuCustomizations:
         self.combobox2101p.connect("changed", self.on_combobox2101p_changed)
         self.combobox2102p.connect("changed", self.on_combobox2102p_changed)
         self.combobox2103p.connect("changed", self.on_combobox2103p_changed)
-        self.combobox2104p.connect("changed", self.on_combobox2104p_changed)
-        self.combobox2105p.connect("changed", self.on_combobox2105p_changed)
-        self.combobox2106p.connect("changed", self.on_combobox2106p_changed)
-        self.combobox2107p.connect("changed", self.on_combobox2107p_changed)
+        self.radiobutton2101p.connect("toggled", self.on_memory_data_unit_radiobuttons_toggled)
+        self.radiobutton2102p.connect("toggled", self.on_memory_data_unit_radiobuttons_toggled)
+        self.radiobutton2103p.connect("toggled", self.on_disk_data_unit_radiobuttons_toggled)
+        self.radiobutton2104p.connect("toggled", self.on_disk_data_unit_radiobuttons_toggled)
+        self.checkbutton2128p.connect("toggled", self.on_checkbutton2128p_toggled)
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
@@ -123,10 +125,11 @@ class ProcessesMenuCustomizations:
         self.combobox2101p.disconnect_by_func(self.on_combobox2101p_changed)
         self.combobox2102p.disconnect_by_func(self.on_combobox2102p_changed)
         self.combobox2103p.disconnect_by_func(self.on_combobox2103p_changed)
-        self.combobox2104p.disconnect_by_func(self.on_combobox2104p_changed)
-        self.combobox2105p.disconnect_by_func(self.on_combobox2105p_changed)
-        self.combobox2106p.disconnect_by_func(self.on_combobox2106p_changed)
-        self.combobox2107p.disconnect_by_func(self.on_combobox2107p_changed)
+        self.radiobutton2101p.disconnect_by_func(self.on_memory_data_unit_radiobuttons_toggled)
+        self.radiobutton2102p.disconnect_by_func(self.on_memory_data_unit_radiobuttons_toggled)
+        self.radiobutton2103p.disconnect_by_func(self.on_disk_data_unit_radiobuttons_toggled)
+        self.radiobutton2104p.disconnect_by_func(self.on_disk_data_unit_radiobuttons_toggled)
+        self.checkbutton2128p.disconnect_by_func(self.on_checkbutton2128p_toggled)
 
 
     # ----------------------- Called for running code/functions when menu is shown -----------------------
@@ -218,10 +221,10 @@ class ProcessesMenuCustomizations:
         self.processes_add_remove_columns_function()
 
 
-    # ----------------------- "CPU Percent precision" Combobox -----------------------
+    # ----------------------- "CPU precision" Combobox -----------------------
     def on_combobox2101p_changed(self, widget):
 
-        Config.processes_cpu_usage_percent_precision = Config.number_precision_list[widget.get_active()][2]
+        Config.processes_cpu_precision = Config.number_precision_list[widget.get_active()][2]
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -229,10 +232,10 @@ class ProcessesMenuCustomizations:
         Config.config_save_func()
 
 
-    # ----------------------- "RAM & Swap Usage precision" Combobox -----------------------
+    # ----------------------- "Memory precision" Combobox -----------------------
     def on_combobox2102p_changed(self, widget):
 
-        Config.processes_ram_swap_data_precision = Config.number_precision_list[widget.get_active()][2]
+        Config.processes_memory_data_precision = Config.number_precision_list[widget.get_active()][2]
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -240,10 +243,10 @@ class ProcessesMenuCustomizations:
         Config.config_save_func()
 
 
-    # ----------------------- "Disk Speed precision" Combobox -----------------------
+    # ----------------------- "Disk precision" Combobox -----------------------
     def on_combobox2103p_changed(self, widget):
 
-        Config.processes_disk_speed_data_precision = Config.number_precision_list[widget.get_active()][2]
+        Config.processes_disk_data_precision = Config.number_precision_list[widget.get_active()][2]
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -251,21 +254,13 @@ class ProcessesMenuCustomizations:
         Config.config_save_func()
 
 
-    # ----------------------- "Disk Usage precision" Combobox -----------------------
-    def on_combobox2104p_changed(self, widget):
+    # ----------------------- "Show units as powers of: 1024 or 1000 (for Memory)" Radiobuttons -----------------------
+    def on_memory_data_unit_radiobuttons_toggled(self, widget):
 
-        Config.processes_disk_usage_data_precision = Config.number_precision_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "RAM & Swap Usage data unit" Combobox -----------------------
-    def on_combobox2105p_changed(self, widget):
-
-        Config.processes_ram_swap_data_unit = Config.data_unit_list[widget.get_active()][2]
+        if self.radiobutton2101p.get_active() == True:
+            Config.processes_memory_data_unit = 0
+        elif self.radiobutton2102p.get_active() == True:
+            Config.processes_memory_data_unit = 1
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -273,10 +268,13 @@ class ProcessesMenuCustomizations:
         Config.config_save_func()
 
 
-    # ----------------------- "Disk Speed data unit" Combobox -----------------------
-    def on_combobox2106p_changed(self, widget):
+    # ----------------------- "Show units as powers of: 1024 or 1000 (for Disk)" Radiobuttons -----------------------
+    def on_disk_data_unit_radiobuttons_toggled(self, widget):
 
-        Config.processes_disk_speed_data_unit = Config.data_speed_unit_list[widget.get_active()][2]
+        if self.radiobutton2103p.get_active() == True:
+            Config.processes_disk_data_unit = 0
+        elif self.radiobutton2104p.get_active() == True:
+            Config.processes_disk_data_unit = 1
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -284,10 +282,13 @@ class ProcessesMenuCustomizations:
         Config.config_save_func()
 
 
-    # ----------------------- "Disk Usage data unit" Combobox -----------------------
-    def on_combobox2107p_changed(self, widget):
+    # ----------------------- "Show speed units as multiples of  bits (for Disk)" Checkbutton -----------------------
+    def on_checkbutton2128p_toggled(self, widget):
 
-        Config.processes_disk_usage_data_unit = Config.data_unit_list[widget.get_active()][2]
+        if widget.get_active() == True:
+            Config.processes_disk_speed_bit = 1
+        else:
+            Config.processes_disk_speed_bit = 0
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -393,7 +394,21 @@ class ProcessesMenuCustomizations:
             self.checkbutton2124p.set_active(False)
 
         # Set GUI objects on Precision/Data Units tab 
-        # Add CPU usage percent data into combobox
+        # Set data unit checkboxes.
+        if Config.processes_memory_data_unit == 0:
+            self.radiobutton2101p.set_active(True)
+        if Config.processes_memory_data_unit == 1:
+            self.radiobutton2102p.set_active(True)
+        if Config.processes_disk_data_unit == 0:
+            self.radiobutton2103p.set_active(True)
+        if Config.processes_disk_data_unit == 1:
+            self.radiobutton2104p.set_active(True)
+        if Config.processes_disk_speed_bit == 1:
+            self.checkbutton2128p.set_active(True)
+        if Config.processes_disk_speed_bit == 0:
+            self.checkbutton2128p.set_active(False)
+
+        # Add CPU usage precision data into combobox
         liststore2101p = Gtk.ListStore()
         liststore2101p.set_column_types([str, int])
         self.combobox2101p.set_model(liststore2101p)
@@ -404,9 +419,9 @@ class ProcessesMenuCustomizations:
         self.combobox2101p.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
             liststore2101p.append([data[1], data[2]])
-        self.combobox2101p.set_active(Config.processes_cpu_usage_percent_precision)
+        self.combobox2101p.set_active(Config.processes_cpu_precision)
 
-        # Add RAM usage data precision data into combobox
+        # Add Memory data precision data into combobox
         liststore2102p = Gtk.ListStore()
         liststore2102p.set_column_types([str, int])
         self.combobox2102p.set_model(liststore2102p)
@@ -417,9 +432,9 @@ class ProcessesMenuCustomizations:
         self.combobox2102p.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
             liststore2102p.append([data[1], data[2]])
-        self.combobox2102p.set_active(Config.processes_ram_swap_data_precision)
+        self.combobox2102p.set_active(Config.processes_memory_data_precision)
 
-        # Add Disk speed data precision data into combobox
+        # Add Disk data precision data into combobox
         liststore2103p = Gtk.ListStore()
         liststore2103p.set_column_types([str, int])
         self.combobox2103p.set_model(liststore2103p)
@@ -430,65 +445,7 @@ class ProcessesMenuCustomizations:
         self.combobox2103p.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
             liststore2103p.append([data[1], data[2]])
-        self.combobox2103p.set_active(Config.processes_disk_speed_data_precision)
-
-        # Add Disk usage data precision data into combobox
-        liststore2104p = Gtk.ListStore()
-        liststore2104p.set_column_types([str, int])
-        self.combobox2104p.set_model(liststore2104p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox2104p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox2104p.pack_start(renderer_text, True)
-        self.combobox2104p.add_attribute(renderer_text, "text", 0)
-        for data in Config.number_precision_list:
-            liststore2104p.append([data[1], data[2]])
-        self.combobox2104p.set_active(Config.processes_disk_usage_data_precision)
-
-        # Add RAM usage data unit data into combobox
-        liststore2105p = Gtk.ListStore()
-        liststore2105p.set_column_types([str, int])
-        self.combobox2105p.set_model(liststore2105p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox2105p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox2105p.pack_start(renderer_text, True)
-        self.combobox2105p.add_attribute(renderer_text, "text", 0)
-        for data in Config.data_unit_list:
-            liststore2105p.append([data[1], data[2]])
-        for data_list in Config.data_unit_list:
-            if data_list[2] == Config.processes_ram_swap_data_unit:      
-                self.combobox2105p.set_active(data_list[0])
-
-        # Add Disk speed data unit data into combobox
-        liststore2106p = Gtk.ListStore()
-        liststore2106p.set_column_types([str, int])
-        self.combobox2106p.set_model(liststore2106p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox2106p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox2106p.pack_start(renderer_text, True)
-        self.combobox2106p.add_attribute(renderer_text, "text", 0)
-        for data in Config.data_speed_unit_list:
-            liststore2106p.append([data[1], data[2]])
-        for data_list in Config.data_speed_unit_list:
-            if data_list[2] == Config.processes_disk_speed_data_unit:      
-                self.combobox2106p.set_active(data_list[0])
-
-        # Add Disk usage data unit data into combobox
-        liststore2107p = Gtk.ListStore()
-        liststore2107p.set_column_types([str, int])
-        self.combobox2107p.set_model(liststore2107p)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.combobox2107p.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.combobox2107p.pack_start(renderer_text, True)
-        self.combobox2107p.add_attribute(renderer_text, "text", 0)
-        for data in Config.data_unit_list:
-            liststore2107p.append([data[1], data[2]])
-        for data_list in Config.data_unit_list:
-            if data_list[2] == Config.processes_disk_usage_data_unit:      
-                self.combobox2107p.set_active(data_list[0])
+        self.combobox2103p.set_active(Config.processes_disk_data_precision)
 
 
     # ----------------------- Called for adding/removing treeview columns -----------------------

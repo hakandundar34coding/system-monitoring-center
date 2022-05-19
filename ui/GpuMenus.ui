@@ -5,7 +5,7 @@
   <object class="GtkPopover" id="popover1501p">
     <property name="can-focus">False</property>
     <child>
-      <!-- n-columns=1 n-rows=6 -->
+      <!-- n-columns=1 n-rows=4 -->
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
@@ -20,7 +20,7 @@
             <property name="can-focus">False</property>
             <property name="halign">center</property>
             <property name="margin-bottom">10</property>
-            <property name="label" translatable="yes">Current Tab Customizations</property>
+            <property name="label" translatable="yes">GPU</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
@@ -28,68 +28,6 @@
           <packing>
             <property name="left-attach">0</property>
             <property name="top-attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="label" translatable="yes">Note: Same background color is used for all charts.</property>
-            <property name="wrap">True</property>
-            <property name="max-width-chars">25</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">3</property>
-          </packing>
-        </child>
-        <child>
-          <!-- n-columns=2 n-rows=1 -->
-          <object class="GtkGrid">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="column-spacing">5</property>
-            <property name="column-homogeneous">True</property>
-            <child>
-              <object class="GtkButton" id="button1502p">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Background</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button1501p">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Foreground</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">2</property>
           </packing>
         </child>
         <child>
@@ -101,7 +39,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">4</property>
+            <property name="top-attach">2</property>
           </packing>
         </child>
         <child>
@@ -145,18 +83,15 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">5</property>
+            <property name="top-attach">3</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkButton" id="button1501p">
+            <property name="label" translatable="yes">Graph Color</property>
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Chart - Set Color</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

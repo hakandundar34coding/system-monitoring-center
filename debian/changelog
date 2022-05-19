@@ -1,3 +1,14 @@
+system-monitoring-center (1.16.0) unstable; urgency=medium
+
+  * New: Updated GUI design (CPU, RAM, Disk, Network, GPU tabs)
+  * New: Highlighting selected device graph between other devices
+  * New: Option for showing disk/network speed as powers of 1000
+  * Simplified several customization menus
+  * Fix: Graph scaling (Disk and Network tabs)
+  * Minor improvements (GUI, performance, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 19 May 2022 08:30:00 +0300
+
 system-monitoring-center (1.15.0) unstable; urgency=medium
 
   * New: Unified tab and device selector (Performance tab)

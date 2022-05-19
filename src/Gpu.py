@@ -42,6 +42,28 @@ class Gpu:
         self.label1511 = builder.get_object('label1511')
         self.label1512 = builder.get_object('label1512')
 
+        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
+        css = b"viewport {border-radius: 8px 8px 8px 8px;}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.viewport1501 = builder.get_object('viewport1501')
+        self.viewport1501.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.viewport1502 = builder.get_object('viewport1502')
+        self.viewport1502.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
+        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.separator1501 = builder.get_object('separator1501')
+        self.separator1501.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1502 = builder.get_object('separator1502')
+        self.separator1502.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1503 = builder.get_object('separator1503')
+        self.separator1503.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1504 = builder.get_object('separator1504')
+        self.separator1504.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
         # Get chart functions from another module and define as local objects for lower CPU usage.
         self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
         self.performance_line_charts_enter_notify_event_func = Performance.performance_line_charts_enter_notify_event_func

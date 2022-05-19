@@ -48,7 +48,7 @@ class SettingsGUI:
         self.update_interval_list = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 5.0, 10.0]
         self.chart_data_history_list = [30, 60, 90, 120, 150, 180, 300, 600, 1200]
         self.default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Startup"), _tr("Services"), _tr("System")]
-        self.performance_tab_default_sub_tab_list = [_tr("CPU"), _tr("RAM"), _tr("Disk"), _tr("Network"), _tr("GPU"), _tr("Sensors")]
+        self.performance_tab_default_sub_tab_list = [_tr("CPU"), _tr("Memory"), _tr("Disk"), _tr("Network"), _tr("GPU"), _tr("Sensors")]
 
 
     # ----------------------- Called for connecting some of the signals in order to disconnect them for setting GUI -----------------------
@@ -439,8 +439,8 @@ class SettingsGUI:
             pass
 
         try:
-            from MainGUI import Ram
-            Ram.initial_already_run = 0
+            from MainGUI import Memory
+            Memory.initial_already_run = 0
         except ImportError:
             pass
 

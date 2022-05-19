@@ -11,14 +11,14 @@ from locale import gettext as _tr
 
 
 # Define class
-class RamHardwareInformation:
+class MemoryRamHardware:
 
     # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
         builder = Gtk.Builder()
-        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/RamHardwareWindow.ui")
+        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MemoryRamHardwareWindow.ui")
 
         # Get GUI objects
         self.window1201w = builder.get_object('window1201w')
@@ -43,21 +43,21 @@ class RamHardwareInformation:
         self.label1201w.set_text("-")
         # Set label text for showing RAM hardware information.
         try:
-            self.label1201w.set_text(self.memory_hardware_information_text)
+            self.label1201w.set_text(self.memory_ram_hardware_information_text)
         # "try-except" is used in order to avoid errors if user closed polkit dialog without entering password.
         except AttributeError:
             pass
 
 
     # ----------------------- Called for getting RAM hardware information -----------------------
-    def ram_hardware_information_get_func(self):
+    def memory_ram_hardware_information_get_func(self):
 
         # This list is defined in order to make some command output strings to be translated into other languages.
-        ram_hardware_information_text_list = [_tr("Unknown"), _tr("None")]
+        memory_ram_hardware_information_text_list = [_tr("Unknown"), _tr("None")]
 
-        # Set initial value of "memory_hardware_information_text". Hardware information will be appended to this string.
+        # Set initial value of "memory_ram_hardware_information_text". Hardware information will be appended to this string.
         # This value will also be used for preventing showing RAM hardware Information window if user closes polkit window without entering password.
-        self.memory_hardware_information_text = ""
+        self.memory_ram_hardware_information_text = ""
 
         # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
         try:
@@ -82,8 +82,8 @@ class RamHardwareInformation:
                 if line.startswith("Number Of Devices:"):
                     number_of_devices = line.split(":")[1].strip()
                     continue
-        self.memory_hardware_information_text = self.memory_hardware_information_text + _tr("Maximum Capacity") + " :    " + maximum_capacity
-        self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Number Of Devices") + " :    " + number_of_devices + "\n"
+        self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + _tr("Maximum Capacity") + " :    " + maximum_capacity
+        self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Number Of Devices") + " :    " + number_of_devices + "\n"
 
         # Perform the following operations if "Memory Device" is found in "dmidecode_output" output. This information may not be available on some systems.
         if "Memory Device" in dmidecode_output:
@@ -122,15 +122,15 @@ class RamHardwareInformation:
                     if line.startswith("Manufacturer:"):
                         memory_manufacturer = line.split(":")[1].strip()
                         continue
-                self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
-                self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Capacity") + " :    " + memory_size
-                self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Type") + " :    " + memory_type
-                self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Speed/Frequency") + " :    " + memory_speed
-                self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
-                self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
-                self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator
-                self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
-                self.memory_hardware_information_text = self.memory_hardware_information_text + "\n"
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Capacity") + " :    " + memory_size
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Type") + " :    " + memory_type
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Speed/Frequency") + " :    " + memory_speed
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n"
 
         # Perform the following operations if "Memory Device" is not found in "dmidecode_output" output. This information may not be available on some systems.
         if "Memory Device" not in dmidecode_output:
@@ -142,16 +142,16 @@ class RamHardwareInformation:
             memory_speed = "-"
             memory_manufacturer = "-"
 
-            self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
-            self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Capacity") + " :    " + memory_size
-            self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Type") + " :    " + memory_type
-            self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Speed/Frequency") + " :    " + memory_speed
-            self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
-            self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
-            self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator
-            self.memory_hardware_information_text = self.memory_hardware_information_text + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
+            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
+            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Capacity") + " :    " + memory_size
+            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Type") + " :    " + memory_type
+            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Speed/Frequency") + " :    " + memory_speed
+            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
+            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
+            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator
+            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
 
 
 # Generate object
-RamHardwareInformation = RamHardwareInformation()
+MemoryRamHardware = MemoryRamHardware()
 

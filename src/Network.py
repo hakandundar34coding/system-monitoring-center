@@ -42,6 +42,28 @@ class Network:
         self.label1412 = builder.get_object('label1412')
         self.label1413 = builder.get_object('label1413')
 
+        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
+        css = b"viewport {border-radius: 8px 8px 8px 8px;}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.viewport1401 = builder.get_object('viewport1401')
+        self.viewport1401.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.viewport1402 = builder.get_object('viewport1402')
+        self.viewport1402.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
+        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        self.separator1401 = builder.get_object('separator1401')
+        self.separator1401.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1402 = builder.get_object('separator1402')
+        self.separator1402.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1403 = builder.get_object('separator1403')
+        self.separator1403.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.separator1404 = builder.get_object('separator1404')
+        self.separator1404.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
         # Get chart functions from another module and define as local objects for lower CPU usage.
         self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
         self.performance_line_charts_enter_notify_event_func = Performance.performance_line_charts_enter_notify_event_func
@@ -168,10 +190,9 @@ class Network:
         network_receive_bytes = Performance.network_receive_bytes
         network_send_bytes = Performance.network_send_bytes
 
-        performance_network_speed_data_precision = Config.performance_network_speed_data_precision
-        performance_network_data_data_precision = Config.performance_network_data_data_precision
-        performance_network_speed_data_unit = Config.performance_network_speed_data_unit
-        performance_network_data_data_unit = Config.performance_network_data_data_unit
+        performance_network_data_precision = Config.performance_network_data_precision
+        performance_network_data_unit = Config.performance_network_data_unit
+        performance_network_speed_bit = Config.performance_network_speed_bit
 
         self.drawingarea1401.queue_draw()
 
@@ -227,14 +248,16 @@ class Network:
                 if selected_network_card == line_splitted[0].split(":")[0]:
                     # "split(".")" is used in order to remove "." at the end of the signal value.
                     network_signal_strength = line_splitted[2].split(".")[0]
+                    if network_signal_strength != "-":
+                        network_signal_strength = f'{network_signal_strength} (link)'
                     break
 
 
         # Set and update Network tab label texts by using information get
-        self.label1403.set_text(f'{self.performance_data_unit_converter_func(network_receive_speed[selected_network_card_number][-1], performance_network_speed_data_unit, performance_network_speed_data_precision)}/s')
-        self.label1404.set_text(f'{self.performance_data_unit_converter_func(network_send_speed[selected_network_card_number][-1], performance_network_speed_data_unit, performance_network_speed_data_precision)}/s')
-        self.label1405.set_text(self.performance_data_unit_converter_func(network_receive_bytes[selected_network_card_number], performance_network_data_data_unit, performance_network_data_data_precision))
-        self.label1406.set_text(self.performance_data_unit_converter_func(network_send_bytes[selected_network_card_number], performance_network_data_data_unit, performance_network_data_data_precision))
+        self.label1403.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_receive_speed[selected_network_card_number][-1], performance_network_data_unit, performance_network_data_precision)}/s')
+        self.label1404.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_send_speed[selected_network_card_number][-1], performance_network_data_unit, performance_network_data_precision)}/s')
+        self.label1405.set_text(self.performance_data_unit_converter_func("data", "none", network_receive_bytes[selected_network_card_number], performance_network_data_unit, performance_network_data_precision))
+        self.label1406.set_text(self.performance_data_unit_converter_func("data", "none", network_send_bytes[selected_network_card_number], performance_network_data_unit, performance_network_data_precision))
         self.label1408.set_text(f'{network_card_connected} - {network_ssid}')
         self.label1409.set_text(network_signal_strength)
 

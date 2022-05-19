@@ -240,7 +240,7 @@ class MainGUI:
         MainMenusDialogs.popover1001p.popup()
 
 
-    # ----------------------- "Performance, Processes, Users, Startup, Services, System, CPU, RAM, Disk, Network, GPU, Sensors" Radiobuttons -----------------------
+    # ----------------------- "Performance, Processes, Users, Startup, Services, System, CPU, Memory, Disk, Network, GPU, Sensors" Radiobuttons -----------------------
     def on_main_gui_tab_radiobuttons_toggled(self, widget):
 
         if widget.get_active() == True:
@@ -289,7 +289,7 @@ class MainGUI:
         if self.radiobutton1.get_active() == True:
             self.stack1.set_visible_child(self.grid1)
             if remember_last_opened_tabs_on_application_start == 1:
-                # No need to save Config values after this value is defined. Because save operation is performed for Performance tab sub-tabs (CPU, RAM, Disk, Network, GPU, Sensors tabs).
+                # No need to save Config values after this value is defined. Because save operation is performed for Performance tab sub-tabs (CPU, Memory, Disk, Network, GPU, Sensors tabs).
                 Config.default_main_tab = 0
             # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage. This value is not saved.
             Config.current_main_tab = 0
@@ -316,7 +316,7 @@ class MainGUI:
                 self.main_gui_device_selection_list_func()
                 return
 
-            # Switch to "RAM" tab
+            # Switch to "Memory" tab
             elif self.radiobutton1002.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1002)
                 if remember_last_opened_tabs_on_application_start == 1:
@@ -324,12 +324,12 @@ class MainGUI:
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 1
                 if self.grid1002.get_child_at(0,0) == None:
-                    global Ram
-                    from Ram import Ram
-                    self.grid1002.attach(Ram.grid1201, 0, 0, 1, 1)
-                if Ram.initial_already_run == 0:
-                    GLib.idle_add(Ram.ram_initial_func)
-                GLib.idle_add(Ram.ram_loop_func)
+                    global Memory
+                    from Memory import Memory
+                    self.grid1002.attach(Memory.grid1201, 0, 0, 1, 1)
+                if Memory.initial_already_run == 0:
+                    GLib.idle_add(Memory.memory_initial_func)
+                GLib.idle_add(Memory.memory_loop_func)
                 self.main_gui_device_selection_list_func()
                 return
 
@@ -665,7 +665,7 @@ class MainGUI:
             if performance_tab_current_sub_tab == 0:
                 GLib.idle_add(Cpu.cpu_loop_func)
             if performance_tab_current_sub_tab == 1:
-                GLib.idle_add(Ram.ram_loop_func)
+                GLib.idle_add(Memory.memory_loop_func)
             if performance_tab_current_sub_tab == 2:
                 GLib.idle_add(Disk.disk_loop_func)
             if performance_tab_current_sub_tab == 3:

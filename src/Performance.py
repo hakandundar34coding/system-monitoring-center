@@ -145,7 +145,7 @@ class Performance:
             Config.selected_gpu = ""
 
 
-    # ----------------------------------- Performance - Background Function (gets basic CPU, RAM, disk and network usage data in the background in order to assure uninterrupted data for charts) -----------------------------------
+    # ----------------------------------- Performance - Background Function (gets basic CPU, memory, disk and network usage data in the background in order to assure uninterrupted data for charts) -----------------------------------
     def performance_background_loop_func(self):
 
         # Definition for lower CPU usage because this variable is used multiple times in this function.
@@ -505,10 +505,12 @@ class Performance:
                 draw_per_device = 0
                 performance_data1 = [self.cpu_usage_percent_ave]
                 device_name_list = [""]
+                selected_device_number = None
             else:
                 draw_per_device = 1
                 performance_data1 = self.cpu_usage_percent_per_core
                 device_name_list = self.logical_core_list_system_ordered
+                selected_device_number = self.selected_cpu_core_number
 
             # Get which performance data will be drawn.
             draw_performance_data1 = 1
@@ -519,21 +521,23 @@ class Performance:
             for device_name in device_name_list:
                 chart_y_limit_list.append(100)
 
-        # Check if drawing will be for RAM tab.
+        # Check if drawing will be for Memory tab.
         elif performance_tab_current_sub_tab == 1:
 
             # Get chart colors.
-            chart_line_color = Config.chart_line_color_ram_swap_percent
+            chart_line_color = Config.chart_line_color_memory_percent
 
             # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
             if Config.show_memory_usage_per_memory == 0:
                 draw_per_device = 0
                 performance_data1 = [self.ram_usage_percent]
                 device_name_list = [""]
+                selected_device_number = None
             else:
                 draw_per_device = 1
                 performance_data1 = [self.ram_usage_percent, self.swap_usage_percent]
                 device_name_list = [_tr("RAM"), _tr("Swap Memory")]
+                selected_device_number = None
 
             # Get which performance data will be drawn.
             draw_performance_data1 = 1
@@ -556,11 +560,13 @@ class Performance:
                 performance_data1 = [self.disk_read_speed[self.selected_disk_number]]
                 performance_data2 = [self.disk_write_speed[self.selected_disk_number]]
                 device_name_list = [""]
+                selected_device_number = None
             else:
                 draw_per_device = 1
                 performance_data1 = self.disk_read_speed
                 performance_data2 = self.disk_write_speed
                 device_name_list = self.disk_list_system_ordered
+                selected_device_number = self.selected_disk_number
 
             # Get which performance data will be drawn.
             if Config.plot_disk_read_speed == 1:
@@ -585,26 +591,36 @@ class Performance:
 
             # Get chart y limit value in order to show maximum value of the chart as multiples of 1, 10, 100.
             from Disk import Disk
-            data_unit_for_chart_y_limit = 0
-            if Config.performance_disk_speed_data_unit >= 8:
-                data_unit_for_chart_y_limit = 8
+            performance_disk_data_precision = Config.performance_disk_data_precision
+            performance_disk_data_unit = Config.performance_disk_data_unit
+            performance_disk_speed_bit = Config.performance_disk_speed_bit
             # Get biggest chart_y_limit value in the chart_y_limit_list to show it on a label if all performance data is drawn for all devices.
-            chart_y_limit = max(chart_y_limit_list)
+            # Get chart_y_limit value if multiple charts (devices) are drawn.
+            if selected_device_number != None:
+                chart_y_limit = chart_y_limit_list[selected_device_number]
+            # Get chart_y_limit value if single chart (device) is drawn.
+            else:
+                chart_y_limit = max(chart_y_limit_list)
             try:
-                chart_y_limit_str = f'{Disk.performance_data_unit_converter_func(chart_y_limit, data_unit_for_chart_y_limit, 0)}/s'
+                chart_y_limit_str = f'{Disk.performance_data_unit_converter_func("speed", performance_disk_speed_bit, chart_y_limit, performance_disk_data_unit, performance_disk_data_precision)}/s'
             # try-except is used in order to prevent errors if first initial function is not finished and "performance_data_unit_converter_func" is not run.
             except AttributeError:
                 return
             chart_y_limit_split = chart_y_limit_str.split(" ")
             chart_y_limit_float = float(chart_y_limit_split[0])
-            number_of_digits = len(str(int(chart_y_limit_split[0])))
+            number_of_digits = len(str(int(chart_y_limit_float)))
             multiple = 10 ** (number_of_digits - 1)
             # "0.0001" is used in order to take decimal part of the numbers into account. For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
             number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
             next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
             Disk.label1313.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
             # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
-            chart_y_limit = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
+            # Update chart_y_limit_list if multiple charts (devices) are drawn.
+            if selected_device_number != None:
+                chart_y_limit_list[selected_device_number] = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
+            # Update chart_y_limit_list if single chart (device) is drawn.
+            else:
+                chart_y_limit_list[chart_y_limit_list.index(chart_y_limit)] = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
 
         # Check if drawing will be for Network tab.
         elif performance_tab_current_sub_tab == 3:
@@ -618,14 +634,13 @@ class Performance:
                 performance_data1 = [self.network_receive_speed[self.selected_network_card_number]]
                 performance_data2 = [self.network_send_speed[self.selected_network_card_number]]
                 device_name_list = [""]
+                selected_device_number = None
             else:
                 draw_per_device = 1
                 performance_data1 = self.network_receive_speed
                 performance_data2 = self.network_send_speed
                 device_name_list = self.network_card_list_system_ordered
-
-            # Check if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices.
-            draw_per_device = 0
+                selected_device_number = self.selected_network_card_number
 
             # Get which performance data will be drawn.
             if Config.plot_network_download_speed == 1:
@@ -650,26 +665,36 @@ class Performance:
 
             # Get chart y limit value in order to show maximum value of the chart as multiples of 1, 10, 100.
             from Network import Network
-            data_unit_for_chart_y_limit = 0
-            if Config.performance_network_speed_data_unit >= 8:
-                data_unit_for_chart_y_limit = 8
+            performance_network_data_precision = Config.performance_network_data_precision
+            performance_network_data_unit = Config.performance_network_data_unit
+            performance_network_speed_bit = Config.performance_network_speed_bit
             # Get biggest chart_y_limit value in the chart_y_limit_list to show it on a label if all performance data is drawn for all devices.
-            chart_y_limit = max(chart_y_limit_list)
+            # Get chart_y_limit value if multiple charts (devices) are drawn.
+            if selected_device_number != None:
+                chart_y_limit = chart_y_limit_list[selected_device_number]
+            # Get chart_y_limit value if single chart (device) is drawn.
+            else:
+                chart_y_limit = max(chart_y_limit_list)
             try:
-                chart_y_limit_str = f'{Network.performance_data_unit_converter_func(chart_y_limit, data_unit_for_chart_y_limit, 0)}/s'
+                chart_y_limit_str = f'{Network.performance_data_unit_converter_func("speed", performance_network_speed_bit, chart_y_limit, performance_network_data_unit, performance_network_data_precision)}/s'
             # try-except is used in order to prevent errors if first initial function is not finished and "performance_data_unit_converter_func" is not run.
             except AttributeError:
                 return
             chart_y_limit_split = chart_y_limit_str.split(" ")
             chart_y_limit_float = float(chart_y_limit_split[0])
-            number_of_digits = len(str(int(chart_y_limit_split[0])))
+            number_of_digits = len(str(int(chart_y_limit_float)))
             multiple = 10 ** (number_of_digits - 1)
             # "0.0001" is used in order to take decimal part of the numbers into account. For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
             number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
             next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
             Network.label1413.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
             # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
-            chart_y_limit = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
+            # Update chart_y_limit_list if multiple charts (devices) are drawn.
+            if selected_device_number != None:
+                chart_y_limit_list[selected_device_number] = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
+            # Update chart_y_limit_list if single chart (device) is drawn.
+            else:
+                chart_y_limit_list[chart_y_limit_list.index(chart_y_limit)] = (chart_y_limit * next_multiple / (chart_y_limit_float + 0.0000001) + 0.0000001)
 
         # Check if drawing will be for GPU tab.
         elif performance_tab_current_sub_tab == 4:
@@ -686,6 +711,7 @@ class Performance:
             except AttributeError:
                 return
             device_name_list = [""]
+            selected_device_number = None
 
             # Get which performance data will be drawn.
             draw_performance_data1 = 1
@@ -703,7 +729,7 @@ class Performance:
         chart_x_axis = list(range(0, chart_data_history))
 
         # Get chart background color.
-        chart_background_color = Config.chart_background_color_all_charts
+        chart_background_color = [0.0, 0.0, 0.0, 0.0]
 
         # Get drawingarea size.
         chart_width = Gtk.Widget.get_allocated_width(widget)
@@ -720,6 +746,10 @@ class Performance:
                 if number_of_horizontal_charts >= number_of_vertical_charts:
                     if number_of_horizontal_charts > 2 * number_of_vertical_charts:
                         number_of_horizontal_charts = number_of_vertical_charts = ceil(sqrt(number_of_charts))
+                        # Correction for 5 charts (devices) to avoid using 3*3 charts.
+                        if i == 5:
+                            number_of_horizontal_charts = 3
+                            number_of_vertical_charts = 2
                     break
 
         # Get chart index list for horizontal and vertical charts. THis data will be used for tiling charts.
@@ -776,8 +806,15 @@ class Performance:
             # Draw outer border of the chart.
             ctx.rectangle((chart_width_per_device*chart_index_list[j][0])+chart_spacing_half, (chart_height_per_device*chart_index_list[j][1])+chart_spacing_half, chart_width_per_device-chart_spacing, chart_height_per_device-chart_spacing)
             ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
+            # Draw outer border of the selected device by using thicker line if all devices are plotted.
+            if selected_device_number == j:
+                ctx.set_line_width(2)
+                ctx.stroke()
+            else:
+                ctx.set_line_width(1)
+                ctx.stroke()
+            # Set the line thickness as 1 again in oder to avoid using thick line for the next drawings.
             ctx.set_line_width(1)
-            ctx.stroke()
 
             if draw_performance_data1 == 1:
 
@@ -942,11 +979,11 @@ class Performance:
                 if performance_tab_current_sub_tab == 0:
                     performance_data1_at_point_text = f'{performance_data1[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_cpu_usage_percent_precision}f} %'
                 elif performance_tab_current_sub_tab == 1:
-                    performance_data1_at_point_text = f'{performance_data1[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_ram_swap_data_precision}f} %'
+                    performance_data1_at_point_text = f'{performance_data1[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_memory_data_precision}f} %'
                 elif performance_tab_current_sub_tab == 2:
-                    performance_data1_at_point_text = f'{Disk.performance_data_unit_converter_func(performance_data1[chart_number_to_highlight][chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
+                    performance_data1_at_point_text = f'{Disk.performance_data_unit_converter_func("speed", performance_disk_speed_bit, performance_data1[chart_number_to_highlight][chart_point_highlight], performance_disk_data_unit, performance_disk_data_precision)}/s'
                 elif performance_tab_current_sub_tab == 3:
-                    performance_data1_at_point_text = f'{Network.performance_data_unit_converter_func(performance_data1[chart_number_to_highlight][chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
+                    performance_data1_at_point_text = f'{Network.performance_data_unit_converter_func("speed", performance_network_speed_bit, performance_data1[chart_number_to_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'
                 elif performance_tab_current_sub_tab == 4:
                     performance_data1_at_point_text = f'{performance_data1[chart_number_to_highlight][chart_point_highlight]:.0f} %'
                 # Add "-" before the text if there are 2 performance data lines.
@@ -958,11 +995,11 @@ class Performance:
                 if performance_tab_current_sub_tab == 0:
                     performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_cpu_usage_percent_precision}f} %'
                 elif performance_tab_current_sub_tab == 1:
-                    performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_ram_swap_data_precision}f} %'
+                    performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.{Config.performance_memory_swap_data_precision}f} %'
                 elif performance_tab_current_sub_tab == 2:
-                    performance_data2_at_point_text = f'- -{Disk.performance_data_unit_converter_func(performance_data2[chart_number_to_highlight][chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
+                    performance_data2_at_point_text = f'- -{Disk.performance_data_unit_converter_func("speed", performance_disk_speed_bit, performance_data2[chart_number_to_highlight][chart_point_highlight], performance_disk_data_unit, performance_disk_data_precision)}/s'
                 elif performance_tab_current_sub_tab == 3:
-                    performance_data2_at_point_text = f'- -{Network.performance_data_unit_converter_func(performance_data2[chart_number_to_highlight][chart_point_highlight], data_unit_for_chart_y_limit, 0)}/s'
+                    performance_data2_at_point_text = f'- -{Network.performance_data_unit_converter_func("speed", performance_network_speed_bit, performance_data2[chart_number_to_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'
                 elif performance_tab_current_sub_tab == 4:
                     performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.0f} %'
                 performance_data_at_point_text_list.append(performance_data2_at_point_text)
@@ -1032,20 +1069,20 @@ class Performance:
     # ----------------------- Called for drawing performance data as bar chart -----------------------
     def performance_bar_charts_draw_func(self, widget, ctx):
 
-        # Check if drawing will be for RAM tab.
+        # Check if drawing will be for Memory tab.
         performance_tab_current_sub_tab = Config.performance_tab_current_sub_tab
         if performance_tab_current_sub_tab == 1:
 
             # Get performance data to be drawn.
-            from Ram import Ram
+            from Memory import Memory
             try:
-                performance_data1 = Ram.swap_usage_percent[-1]
+                performance_data1 = Memory.swap_usage_percent[-1]
             # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
             except AttributeError:
                 return
 
             # Get chart colors.
-            chart_line_color = Config.chart_line_color_ram_swap_percent
+            chart_line_color = Config.chart_line_color_memory_percent
 
             # Get chart y limit value in order to show maximum value of the chart as 100.
             chart_y_limit = 100
@@ -1088,14 +1125,14 @@ class Performance:
             performance_data1 = self.ram_usage_percent[-1]
 
             # Get chart colors.
-            chart_line_color = Config.chart_line_color_ram_swap_percent
+            chart_line_color = Config.chart_line_color_memory_percent
 
             # Get chart y limit value in order to show maximum value of the chart as 100.
             chart_y_limit = 100
 
 
         # Get chart background color.
-        chart_background_color = Config.chart_background_color_all_charts
+        chart_background_color = [0.0, 0.0, 0.0, 0.0]
 
         # Get drawingarea size.
         chart_width = Gtk.Widget.get_allocated_width(widget)
@@ -1121,58 +1158,60 @@ class Performance:
     # ----------------------- Called for defining values for converting data units and setting value precision (called from several modules) -----------------------
     def performance_define_data_unit_converter_variables_func(self):
 
-        # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently. [[index, calculated byte value, unit abbreviation], ...]
+        #       ISO UNITs (as powers of 1000)        -             IEC UNITs (as powers of 1024)
+        # Unit Name    Abbreviation     bytes        -       Unit Name    Abbreviation    bytes   
+        # byte         B                1            -       byte         B               1
+        # kilobyte     KB               1000         -       kibibyte     KiB             1024
+        # megabyte     MB               1000^2       -       mebibyte     MiB             1024^2
+        # gigabyte     GB               1000^3       -       gibibyte     GiB             1024^3
+        # terabyte     TB               1000^4       -       tebibyte     TiB             1024^4
+        # petabyte     PB               1000^5       -       pebibyte     PiB             1024^5
 
-        # Unit Name    Abbreviation    bytes   
-        # byte         B               1
-        # kilobyte     KB              1024
-        # megabyte     MB              1.04858E+06
-        # gigabyte     GB              1.07374E+09
-        # terabyte     TB              1.09951E+12
-        # petabyte     PB              1.12590E+15
-        # exabyte      EB              1.15292E+18
-
-        # Unit Name    Abbreviation    bits    
-        # bit          b               1
-        # kilobit      Kb              1024
-        # megabit      Mb              1.04858E+06
-        # gigabit      Gb              1.07374E+09
-        # terabit      Tb              1.09951E+12
-        # petabit      Pb              1.12590E+15
-        # exabit       Eb              1.15292E+18
+        # Unit Name    Abbreviation     bits         -       Unit Name    Abbreviation    bits    
+        # bit          b                1            -       bit          b               1
+        # kilobit      Kb               1000         -       kibibit      Kib             1024
+        # megabit      Mb               1000^2       -       mebibit      Mib             1024^2
+        # gigabit      Gb               1000^3       -       gibibit      Gib             1024^3
+        # terabit      Tb               1000^4       -       tebibit      Tib             1024^4
+        # petabit      Pb               1000^5       -       pebibit      Pib             1024^5
 
         # 1 byte = 8 bits
 
-        self.data_unit_list = [[0, 0, "Auto-Byte"], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                              [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                              [8, 0, "Auto-bit"], [9, 8, "b"], [10, 1024, "Kib"], [11, 1.04858E+06, "Mib"], [12, 1.07374E+09, "Gib"],
-                              [13, 1.09951E+12, "Tib"], [14, 1.12590E+15, "Pib"], [15, 1.15292E+18, "Eib"]]
+        self.data_unit_list = [[0, "B", "B", "b", "b"], [1, "KiB", "KB", "Kib", "Kb"], [2, "MiB", "MB", "Mib", "Mb"],
+                              [3, "GiB", "GB", "Gib", "Gb"], [4, "TiB", "TB", "Tib", "Tb"], [5, "PiB", "PB", "Pib", "Pb"]]
+
+        # Data unit options: 0: Bytes (ISO), 1: Bytes (IEC), 2: bits (ISO), 3: bits (IEC).
 
 
     # ----------------------- Called for converting data units and setting value precision (called from several modules) -----------------------
-    def performance_data_unit_converter_func(self, data, unit, precision):
+    def performance_data_unit_converter_func(self, data_type, data_type_option, data, unit, precision):
 
         data_unit_list = self.data_unit_list
         if isinstance(data, str) == True:
             return data
 
-        if unit >= 8:
-            data = data * 8
+        if unit == 0:
+            power_of_value = 1024
+            unit_text_index = 1
 
-        if unit in [0, 8]:
-            unit_counter = unit + 1
-            while data > 1024:
-                unit_counter = unit_counter + 1
-                data = data/1024
-            unit = data_unit_list[unit_counter][2]
-            if data == 0:
-                precision = 0
-            return f'{data:.{precision}f} {unit}'
+        if unit == 1:
+            power_of_value = 1000
+            unit_text_index = 2
 
-        data = data / data_unit_list[unit][1]
-        unit = data_unit_list[unit][2]
+        if data_type == "speed":
+            if data_type_option == 1:
+                data = data * 8
+                unit_text_index = unit_text_index + 2
+
+        unit_counter = 0
+        while data >= power_of_value:
+            unit_counter = unit_counter + 1
+            data = data/power_of_value
+        unit = data_unit_list[unit_counter][unit_text_index]
+
         if data == 0:
             precision = 0
+
         return f'{data:.{precision}f} {unit}'
 
 
