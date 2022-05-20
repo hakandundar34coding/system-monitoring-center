@@ -1,6 +1,6 @@
 # System Monitoring Center
 
-GTK3 and Python 3 based, system performance and usage monitoring tool.
+Multi-featured system monitor.
 
 
 <p align="center">
