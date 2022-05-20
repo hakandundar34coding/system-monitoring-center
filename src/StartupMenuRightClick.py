@@ -30,13 +30,11 @@ class StartupMenuRightClick:
         self.menuitem5102m = builder.get_object('menuitem5102m')
         self.menuitem5103m = builder.get_object('menuitem5103m')
         self.menuitem5105m = builder.get_object('menuitem5105m')
-        self.menuitem5106m = builder.get_object('menuitem5106m')
         self.sub_menuitem5101m = builder.get_object('sub_menuitem5101m')
 
         # Connect GUI signals
         self.menuitem5102m.connect("activate", self.on_menuitem5102m_activate)
         self.menuitem5103m.connect("activate", self.on_menuitem5103m_activate)
-        self.menuitem5106m.connect("activate", self.on_menuitem5106m_activate)
         self.sub_menuitem5101m.connect("activate", self.on_sub_menuitem5101m_activate)
 
 
@@ -71,34 +69,6 @@ class StartupMenuRightClick:
                 (subprocess.check_output(["rm", selected_startup_application_file_name], stderr=subprocess.STDOUT, shell=False)).decode()
             except Exception:
                 pass   
-
-
-    # ----------------------- "Run now" item -----------------------
-    def on_menuitem5106m_activate(self, widget):
-
-        # Get startup application file name and application name.
-        selected_startup_application_file_name = Startup.selected_startup_application_file_name
-        selected_startup_application_name = Startup.selected_startup_application_name
-
-        # Get startup application exec value
-        # Initial value of "selected_startup_application_exec_value". This value will be used if it can not be get.
-        selected_startup_application_exec_value = ""
-        with open(selected_startup_application_file_name) as reader:
-            desktop_file_system_lines = reader.read().strip("").split("\n")
-        for line in desktop_file_system_lines:
-            if "Exec=" in line:
-                selected_startup_application_exec_value = line.split("=")[1]
-
-        # Show a warning dialog before running command of the startup item.
-        message_text = _tr("Do you want to run this startup item now?")
-        self.startup_warning_dialog(message_text, selected_startup_application_name, selected_startup_application_exec_value)
-        if self.warning_dialog5101_response == Gtk.ResponseType.YES:
-            try:
-                # Run the command of the startup item. If "Yes" is clicked. "shell=False" is used in order to prevent "shell injection".
-                subprocess.Popen([selected_startup_application_exec_value], shell=False)
-            except FileNotFoundError:
-                message_text = _tr("An error has been encountered while running the command.")
-                self.startup_run_now_error_dialog(message_text, selected_startup_application_file_name, selected_startup_application_exec_value)
 
 
     # ----------------------- "Open .desktop File" item -----------------------
@@ -151,17 +121,6 @@ class StartupMenuRightClick:
                                                  "\n" + _tr("Command") + ": " + selected_startup_application_exec_value)
         self.warning_dialog5101_response = warning_dialog5101.run()
         warning_dialog5101.destroy()
-
-
-    # ----------------------------------- Startup - Startup Run Now Error Dialog Function -----------------------------------
-    def startup_run_now_error_dialog(self, message_text, selected_startup_application_name, selected_startup_application_exec_value):
-
-        error_dialog5101 = Gtk.MessageDialog(transient_for=Startup.grid5101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.ERROR,
-        buttons=Gtk.ButtonsType.CLOSE, text=message_text)
-        error_dialog5101.format_secondary_text(_tr("Startup Item") + ": " + selected_startup_application_name +
-                                               "\n" + _tr("Command") + ": " + selected_startup_application_exec_value)
-        error_dialog5101.run()
-        error_dialog5101.destroy()
 
 
 # Generate object
