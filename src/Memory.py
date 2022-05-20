@@ -155,6 +155,14 @@ class Memory:
             total_physical_ram = (total_online_memory + total_offline_memory)
         else:
             total_physical_ram = f'[{_tr("Unknown")}]'
+        # Get physical RAM for RB Pi devices. This information is get by using "vcgencmd" tool and it is not installed on the systems by default.
+        if total_physical_ram == f'[{_tr("Unknown")}]':
+            try:
+                total_physical_ram = (subprocess.check_output(["vcgencmd", "get_config", "total_mem"], shell=False)).decode().strip().split("=")[1]
+                total_physical_ram = float(total_physical_ram)*1024*1024
+            except Exception:
+                total_physical_ram = f'[{_tr("Unknown")}]'
+
 
         # Get ram_total and swap_total values
         with open("/proc/meminfo") as reader:
@@ -169,7 +177,7 @@ class Memory:
         if total_physical_ram != f'[{_tr("Unknown")}]':
             self.label1201.set_text(_tr("Physical RAM") + ": " + str(self.performance_data_unit_converter_func("data", "none", total_physical_ram, 0, 1)))
         else:
-             self.label1201.set_text(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(self.performance_data_unit_converter_func("data", "none", ram_total, 0, 1)))
+            self.label1201.set_text(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(self.performance_data_unit_converter_func("data", "none", ram_total, 0, 1)))
 
         self.initial_already_run = 1
 
