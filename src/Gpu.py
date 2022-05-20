@@ -460,6 +460,23 @@ class Gpu:
                 gpu_power = "-"
 
 
+        # If selected GPU vendor is Broadcom (for RB-Pi ARM devices).
+        if self.device_vendor_id in ["Brcm"]:
+
+            # Get GPU memory capacity. This information is get by using "vcgencmd" tool and it is not installed on the systems by default.
+            try:
+                gpu_memory_capacity = (subprocess.check_output(["vcgencmd", "get_mem", "gpu"], shell=False)).decode().strip().split("=")[1]
+            except Exception:
+                gpu_memory_capacity = "-"
+
+            # Get GPU current frequency. This information is get by using "vcgencmd" tool and it is not installed on the systems by default.
+            try:
+                gpu_current_frequency = (subprocess.check_output(["vcgencmd", "measure_clock", "core"], shell=False)).decode().strip().split("=")[1]
+                gpu_current_frequency = f'{float(gpu_current_frequency)/1000000:.0f} MHz'
+            except Exception:
+                gpu_current_frequency = "-"
+
+
         # If selected GPU vendor is NVIDIA and selected GPU is used on a PCI used system.
         if self.device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/class/drm/") == True:
 
