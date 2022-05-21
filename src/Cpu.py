@@ -353,9 +353,12 @@ class Cpu:
     # ----------------------- Get current frequency of the selected CPU core -----------------------
     def cpu_core_current_frequency_func(self, selected_cpu_core_number_only):
 
+        cpu_core_current_frequency = "-"
+
         try:
             with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_cur_freq") as reader:
                 cpu_core_current_frequency = float(reader.read().strip()) / 1000000
+        # CPU core current frequency may not be available in "/sys/devices/system/cpu/cpufreq/policy..." folders on virtual machines (x86_64). Get it by reading "/proc/cpuinfo" file.
         except FileNotFoundError:
             with open("/proc/cpuinfo") as reader:
                 proc_cpuinfo_all_cores = reader.read().strip().split("\n\n")
@@ -364,6 +367,14 @@ class Cpu:
                 if line.startswith("cpu MHz"):
                     cpu_core_current_frequency = float(line.split(":")[1].strip()) / 1000
                     break
+
+        # CPU core current frequencies may be same for all cores on RB_Pi devices and "scaling_cur_freq" file may be available for only 0th core. Use this value for the other cores.
+        if cpu_core_current_frequency == "-":
+            try:
+                with open("/sys/devices/system/cpu/cpufreq/policy" + "0" + "/scaling_cur_freq") as reader:
+                    cpu_core_current_frequency = float(reader.read().strip()) / 1000000
+            except FileNotFoundError:
+                cpu_core_current_frequency = "-"
 
         return cpu_core_current_frequency
 
