@@ -154,12 +154,16 @@ class Memory:
             # Summation of total online and offline memories gives RAM hardware size. RAM harware size and total RAM value get from proc file system of by using "free" command are not same thing. Because some of the RAM may be reserved for harware and/or by the OS kernel.
             total_physical_ram = (total_online_memory + total_offline_memory)
         else:
+            print(1)
             # Try to get physical RAM for RB Pi devices. This information is get by using "vcgencmd" tool and it is not installed on the systems by default.
             try:
                 total_physical_ram = (subprocess.check_output(["vcgencmd", "get_config", "total_mem"], shell=False)).decode().strip().split("=")[1]
+                print(total_physical_ram, 2)
                 # The value get by "vcgencmd get_config total_mem" command is in MiB unit.
                 total_physical_ram = float(total_physical_ram)*1024*1024
+                print(total_physical_ram, 3)
             except Exception:
+                print(4)
                 total_physical_ram = "-"
 
 

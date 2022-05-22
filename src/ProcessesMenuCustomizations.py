@@ -182,8 +182,6 @@ class ProcessesMenuCustomizations:
             Config.show_processes_as_tree = 0
             self.checkbutton2103p.set_sensitive(False)
 
-        Processes.processes_expand_and_filter_button_preferences_func()
-
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
         Processes.processes_loop_func()
