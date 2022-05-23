@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-19 19:29+0300\n"
-"PO-Revision-Date: 2022-05-19 19:30+0300\n"
+"POT-Creation-Date: 2022-05-23 10:27+0300\n"
+"PO-Revision-Date: 2022-05-23 10:27+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -82,22 +82,22 @@ msgstr "PyPI'da daha güncel bir sürüm var."
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "MİB çekirdeği seçimi sadece frekans ve önbellek bilgilerini etkiler."
 
-#: src/MainGUI.py:520 src/Memory.py:172 src/Performance.py:539
+#: src/MainGUI.py:520 src/Memory.py:179 src/Performance.py:540
 #: ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:520 src/Memory.py:199 src/Performance.py:539
+#: src/MainGUI.py:520 src/Memory.py:206 src/Performance.py:540
 #: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:915
 msgid "Swap Memory"
 msgstr "Takas Belleği"
 
-#: src/Memory.py:170
+#: src/Memory.py:177
 msgid "Physical RAM"
 msgstr "Fiziksel RAM"
 
-#: src/Memory.py:172 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
+#: src/Memory.py:179 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
 #: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
@@ -313,7 +313,7 @@ msgid "Search..."
 msgstr "Ara..."
 
 #: src/Processes.py:586 src/SettingsGUI.py:50 src/Users.py:137
-#: ui/MainWindow.ui:619 ui/ProcessesMenuCustomizations.ui:23
+#: ui/MainWindow.ui:617 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:179
 msgid "Processes"
@@ -433,7 +433,7 @@ msgstr "Yüklenmiş"
 msgid "Exited"
 msgstr "Çıkmış"
 
-#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:763
+#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:758
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Servisler"
@@ -442,20 +442,20 @@ msgstr "Servisler"
 msgid "Information"
 msgstr "Bilgi"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:571
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:570
 msgid "Performance"
 msgstr "Performans"
 
-#: src/SettingsGUI.py:50 src/Users.py:497 ui/MainWindow.ui:667
+#: src/SettingsGUI.py:50 src/Users.py:497 ui/MainWindow.ui:664
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:715 ui/StartupTab.ui:48
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:711 ui/StartupTab.ui:48
 msgid "Startup"
 msgstr "Başlangıç"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:811 ui/SystemTab.ui:26
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:805 ui/SystemTab.ui:26
 msgid "System"
 msgstr "Sistem"
 
@@ -755,11 +755,11 @@ msgstr "Ayarlar"
 msgid "About"
 msgstr "Hakkında"
 
-#: ui/MainWindow.ui:842
+#: ui/MainWindow.ui:836
 msgid "System Monitoring Center"
 msgstr "Sistem Gözlem Merkezi"
 
-#: ui/MainWindow.ui:850
+#: ui/MainWindow.ui:844
 msgid "Main Menu"
 msgstr "Ana Menü"
 
