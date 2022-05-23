@@ -7,8 +7,8 @@ Multi-featured system monitor.
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"/></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/hakandundar34coding/system-monitoring-center"></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/system-monitoring-center"></a>
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/hakandundar34coding/system-monitoring-center/total"></a>
+<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>
 <a href="https://pypi.org/project/system-monitoring-center/"><img src="https://img.shields.io/badge/Visit-PyPI%20Page-b37840"/></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/Changes.md"><img src="https://img.shields.io/badge/View-Changelog-b37840"></a>
 </p>

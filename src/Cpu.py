@@ -118,7 +118,7 @@ class Cpu:
         else:
             self.label1105.set_text(f'{cpu_core_min_frequency} - {cpu_core_max_frequency}')
         self.label1108.set_text(cpu_architecture)
-        self.label1109.set_text(f'{cpu_core_l1i_cache} - {cpu_core_l1d_cache}')
+        self.label1109.set_text(f'{cpu_core_l1d_cache} - {cpu_core_l1i_cache}')
         self.label1110.set_text(f'{cpu_core_l2_cache} - {cpu_core_l3_cache}')
 
         self.initial_already_run = 1
