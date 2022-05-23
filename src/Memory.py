@@ -155,12 +155,12 @@ class Memory:
             total_physical_ram = (total_online_memory + total_offline_memory)
         else:
             # Try to get physical RAM for RB Pi devices. This information is get by using "vcgencmd" tool and it is not installed on the systems by default.
-            try:
-                total_physical_ram = (subprocess.check_output(["vcgencmd", "get_config", "total_mem"], shell=False)).decode().strip().split("=")[1]
-                # The value get by "vcgencmd get_config total_mem" command is in MiB unit.
-                total_physical_ram = float(total_physical_ram)*1024*1024
-            except Exception:
-                total_physical_ram = "-"
+            #try:
+            total_physical_ram = (subprocess.check_output(["vcgencmd", "get_config", "total_mem"], shell=False)).decode().strip().split("=")[1]
+            # The value get by "vcgencmd get_config total_mem" command is in MiB unit.
+            total_physical_ram = float(total_physical_ram)*1024*1024
+            #except Exception:
+            #total_physical_ram = "-"
 
 
         # Get ram_total and swap_total values
