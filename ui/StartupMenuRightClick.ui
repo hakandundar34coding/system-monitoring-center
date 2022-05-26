@@ -26,19 +26,6 @@
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem" id="menuitem5106m">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="label" translatable="yes">Run Now</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkSeparatorMenuItem">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-      </object>
-    </child>
-    <child>
       <object class="GtkMenuItem" id="menuitem5105m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>

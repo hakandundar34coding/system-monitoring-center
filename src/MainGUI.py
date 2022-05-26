@@ -400,6 +400,7 @@ class MainGUI:
                     Sensors.sensors_import_func()
                     Sensors.sensors_gui_func()
                     self.grid1006.attach(Sensors.grid1601, 0, 0, 1, 1)
+                if Sensors.initial_already_run == 0:
                     Sensors.sensors_initial_func()
                 Sensors.sensors_loop_func()
                 self.main_gui_device_selection_list_func()
@@ -418,6 +419,7 @@ class MainGUI:
                 Processes.processes_import_func()
                 Processes.processes_gui_func()
                 self.grid2.attach(Processes.grid2101, 0, 0, 1, 1)
+            if Processes.initial_already_run == 0:
                 Processes.processes_initial_func()
             Processes.processes_loop_func()
             return
@@ -435,6 +437,7 @@ class MainGUI:
                 Users.users_import_func()
                 Users.users_gui_func()
                 self.grid3.attach(Users.grid3101, 0, 0, 1, 1)
+            if Users.initial_already_run == 0:
                 Users.users_initial_func()
             Users.users_loop_func()
             return
@@ -452,6 +455,7 @@ class MainGUI:
                 Startup.startup_import_func()
                 Startup.startup_gui_func()
                 self.grid5.attach(Startup.grid5101, 0, 0, 1, 1)
+            if Startup.initial_already_run == 0:
                 Startup.startup_initial_func()
             Startup.startup_loop_func()
             return
@@ -469,6 +473,7 @@ class MainGUI:
                 Services.services_import_func()
                 Services.services_gui_func()
                 self.grid6.attach(Services.grid6101, 0, 0, 1, 1)
+            if Services.initial_already_run == 0:
                 Services.services_initial_func()
             return
 

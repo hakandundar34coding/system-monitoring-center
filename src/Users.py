@@ -40,6 +40,9 @@ def users_gui_func():
     searchentry3101 = builder.get_object('searchentry3101')
     button3101 = builder.get_object('button3101')
 
+    global initial_already_run
+    initial_already_run = 0
+
 
     # Users tab GUI functions
     # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
@@ -171,6 +174,9 @@ def users_initial_func():
 
     global filter_column
     filter_column = users_data_list[0][2] - 1                                                 # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+
+    global initial_already_run
+    initial_already_run = 1
 
 
 # ----------------------------------- Users - Get User Data Function (gets user data, adds into treeview and updates it) -----------------------------------
@@ -453,7 +459,11 @@ def users_loop_func():
     new_users = sorted(list(uid_username_list_set - uid_username_list_prev_set))
     existing_users = sorted(list(uid_username_list_set.intersection(uid_username_list_prev_set)))
     updated_existing_user_index = [[uid_username_list.index(list(i)), uid_username_list_prev.index(list(i))] for i in existing_users]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
-    users_data_rows_row_length = len(users_data_rows[0])
+    try:
+        users_data_rows_row_length = len(users_data_rows[0])
+    # Prevent errors if there is no user account on the system. An user account may not be found on an OS if the OS is run from the installation disk without installation.
+    except IndexError:
+        return
     # Append/Remove/Update users data into treestore
     treeview3101.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     global user_search_text, filter_column

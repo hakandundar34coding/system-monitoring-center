@@ -471,31 +471,6 @@ class Disk:
         return disk_label
 
 
-    # ----------------------- Get disk partition label -----------------------
-    def disk_partition_label_func(self, selected_disk):
-
-        disk_partition_label = "-"
-        try:
-            disk_partition_label_list = os.listdir("/dev/disk/by-partlabel/")
-            for label in disk_partition_label_list:
-                if os.path.realpath("/dev/disk/by-partlabel/" + label).split("/")[-1] == selected_disk:
-                    disk_partition_label = label
-        except FileNotFoundError:
-            pass
-
-        return disk_partition_label
-
-
-    # ----------------------- Get disk path -----------------------
-    def disk_path_func(self, selected_disk):
-
-        disk_path = "-"
-        if os.path.exists("/dev/" + selected_disk) == True:
-            disk_path = "/dev/" + selected_disk
-
-        return disk_path
-
-
     # ----------------------- Update disk usage percentages on disk list between Performance tab sub-tabs -----------------------
     def disk_update_disk_usage_percentages_on_disk_list_func(self):
 

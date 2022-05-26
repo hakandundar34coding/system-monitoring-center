@@ -326,6 +326,7 @@ class Performance:
         # modalias_output = "pci:v00001B85d00006018sv00001B85sd00006018bc01sc08i02"
         # modalias_output = "pci:v0000144Dd0000A808sv0000144Dsd0000A801bc01sc08i02"
         # modalias_output = "of:NgpuT<NULL>Cnvidia,tegra210-gm20bCnvidia,gm20b"
+        # modalias_output = "of:NgpuT(null)Cbrcm,bcm2835-vc4"
         # modalias_output = "scsi:t-0x05"
         # modalias_output = "scsi:t-0x00"
 

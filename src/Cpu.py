@@ -102,7 +102,7 @@ class Cpu:
 
 
         # Get information.
-        cpu_core_min_frequency, cpu_core_max_frequency = self.cpu_core_min_max_frequency_func(selected_cpu_core_number_only)
+        cpu_core_min_frequency, cpu_core_max_frequency = self.cpu_core_min_max_frequency_func(selected_cpu_core)
         cpu_core_l1d_cache, cpu_core_l1i_cache, cpu_core_l2_cache, cpu_core_l3_cache = self.cpu_core_l1_l2_l3_cache_func(selected_cpu_core)
         cpu_architecture = self.cpu_architecture_func()
 
@@ -118,7 +118,7 @@ class Cpu:
         else:
             self.label1105.set_text(f'{cpu_core_min_frequency} - {cpu_core_max_frequency}')
         self.label1108.set_text(cpu_architecture)
-        self.label1109.set_text(f'{cpu_core_l1i_cache} - {cpu_core_l1d_cache}')
+        self.label1109.set_text(f'{cpu_core_l1d_cache} - {cpu_core_l1i_cache}')
         self.label1110.set_text(f'{cpu_core_l2_cache} - {cpu_core_l3_cache}')
 
         self.initial_already_run = 1
@@ -157,7 +157,7 @@ class Cpu:
 
         # Get information.
         number_of_physical_cores, number_of_cpu_sockets, cpu_model_name = self.cpu_number_of_physical_cores_sockets_cpu_name_func(selected_cpu_core_number, number_of_logical_cores)
-        cpu_core_current_frequency = self.cpu_core_current_frequency_func(selected_cpu_core_number_only)
+        cpu_core_current_frequency = self.cpu_core_current_frequency_func(selected_cpu_core)
         number_of_total_processes, number_of_total_threads = self.cpu_total_processes_threads_func()
         system_up_time = self.cpu_system_up_time_func()
 
@@ -174,12 +174,12 @@ class Cpu:
 
 
     # ----------------------- Get minimum and maximum frequencies of the selected CPU core -----------------------
-    def cpu_core_min_max_frequency_func(self, selected_cpu_core_number_only):
+    def cpu_core_min_max_frequency_func(self, selected_cpu_core):
 
         try:
-            with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_max_freq") as reader:
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cpufreq/scaling_max_freq") as reader:
                 cpu_core_max_frequency = float(reader.read().strip()) / 1000000
-            with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_min_freq") as reader:
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cpufreq/scaling_min_freq") as reader:
                 cpu_core_min_frequency = float(reader.read().strip()) / 1000000
         except FileNotFoundError:
             cpu_core_max_frequency = "-"
@@ -351,15 +351,19 @@ class Cpu:
 
 
     # ----------------------- Get current frequency of the selected CPU core -----------------------
-    def cpu_core_current_frequency_func(self, selected_cpu_core_number_only):
+    def cpu_core_current_frequency_func(self, selected_cpu_core):
 
+        cpu_core_current_frequency = "-"
+
+        # "/sys/devices/system/cpu/cpu[NUMBER]/cpufreq" is used instead of "/sys/devices/system/cpu/cpufreq/policy[NUMBER]" because CPU core current frequencies may be same for all cores on RB_Pi devices and "scaling_cur_freq" file may be available for only 0th core of the relevant CPU group (little cores , big cores).
         try:
-            with open("/sys/devices/system/cpu/cpufreq/policy" + selected_cpu_core_number_only + "/scaling_cur_freq") as reader:
+            with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cpufreq/scaling_cur_freq") as reader:
                 cpu_core_current_frequency = float(reader.read().strip()) / 1000000
+        # CPU core current frequency may not be available in "/sys/devices/system/cpu/cpufreq/policy..." folders on virtual machines (x86_64). Get it by reading "/proc/cpuinfo" file.
         except FileNotFoundError:
             with open("/proc/cpuinfo") as reader:
                 proc_cpuinfo_all_cores = reader.read().strip().split("\n\n")
-            proc_cpuinfo_all_cores_lines = proc_cpuinfo_all_cores[int(selected_cpu_core_number_only)].split("\n")
+            proc_cpuinfo_all_cores_lines = proc_cpuinfo_all_cores[int(selected_cpu_core.split("cpu")[1])].split("\n")
             for line in proc_cpuinfo_all_cores_lines:
                 if line.startswith("cpu MHz"):
                     cpu_core_current_frequency = float(line.split(":")[1].strip()) / 1000

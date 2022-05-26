@@ -6,6 +6,7 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
 from gi.repository import Gtk, Gdk
 import os
+import subprocess
 
 from locale import gettext as _tr
 
@@ -154,7 +155,14 @@ class Memory:
             # Summation of total online and offline memories gives RAM hardware size. RAM harware size and total RAM value get from proc file system of by using "free" command are not same thing. Because some of the RAM may be reserved for harware and/or by the OS kernel.
             total_physical_ram = (total_online_memory + total_offline_memory)
         else:
-            total_physical_ram = f'[{_tr("Unknown")}]'
+            # Try to get physical RAM for RB Pi devices. This information is get by using "vcgencmd" tool and it is not installed on the systems by default.
+            try:
+                total_physical_ram = (subprocess.check_output(["vcgencmd", "get_config", "total_mem"], shell=False)).decode().strip().split("=")[1]
+                # The value get by "vcgencmd get_config total_mem" command is in MiB unit.
+                total_physical_ram = float(total_physical_ram)*1024*1024
+            except Exception:
+                total_physical_ram = "-"
+
 
         # Get ram_total and swap_total values
         with open("/proc/meminfo") as reader:
@@ -166,10 +174,10 @@ class Memory:
 
 
         # Set Memory tab label texts by using information get
-        if total_physical_ram != f'[{_tr("Unknown")}]':
+        if total_physical_ram != "-":
             self.label1201.set_text(_tr("Physical RAM") + ": " + str(self.performance_data_unit_converter_func("data", "none", total_physical_ram, 0, 1)))
         else:
-             self.label1201.set_text(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(self.performance_data_unit_converter_func("data", "none", ram_total, 0, 1)))
+            self.label1201.set_text(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(self.performance_data_unit_converter_func("data", "none", ram_total, 0, 1)))
 
         self.initial_already_run = 1
 

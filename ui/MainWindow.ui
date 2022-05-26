@@ -550,7 +550,6 @@
                     <property name="can-focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="column-spacing">3</property>
                     <property name="row-homogeneous">True</property>
                     <child>
                       <object class="GtkImage">
@@ -598,7 +597,6 @@
                     <property name="can-focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="column-spacing">3</property>
                     <property name="row-homogeneous">True</property>
                     <child>
                       <object class="GtkImage">
@@ -646,7 +644,6 @@
                     <property name="can-focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="column-spacing">3</property>
                     <property name="row-homogeneous">True</property>
                     <child>
                       <object class="GtkImage">
@@ -694,7 +691,6 @@
                     <property name="can-focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="column-spacing">3</property>
                     <property name="row-homogeneous">True</property>
                     <child>
                       <object class="GtkImage">
@@ -742,7 +738,6 @@
                     <property name="can-focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="column-spacing">3</property>
                     <property name="row-homogeneous">True</property>
                     <child>
                       <object class="GtkImage">
@@ -790,7 +785,6 @@
                     <property name="can-focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="column-spacing">3</property>
                     <property name="row-homogeneous">True</property>
                     <child>
                       <object class="GtkImage">

@@ -18,6 +18,6 @@ Depends: ${misc:Depends},
          python3-gi,
          python3-gi-cairo,
          util-linux (>=2.31)
-Description: Provides information about system performance and usage.
- Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, 
- processes, users, storage, startup programs, services and system.
+Description: Multi-featured system monitor.
+ Provides information about CPU/RAM/Disk/Network/GPU performance, sensors,
+ processes, users, startup programs, services and system.

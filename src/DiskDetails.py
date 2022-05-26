@@ -38,9 +38,7 @@ class DiskDetails:
         self.label1309w = builder1301w.get_object('label1309w')
         self.label1311w = builder1301w.get_object('label1311w')
         self.label1312w = builder1301w.get_object('label1312w')
-        self.label1313w = builder1301w.get_object('label1313w')
         self.label1314w = builder1301w.get_object('label1314w')
-        self.label1315w = builder1301w.get_object('label1315w')
 
         # Connect GUI signals
         self.window1301w.connect("delete-event", self.on_window1301w_delete_event)
@@ -78,9 +76,7 @@ class DiskDetails:
         self.label1309w.set_text("--")
         self.label1311w.set_text("--")
         self.label1312w.set_text("--")
-        self.label1313w.set_text("--")
         self.label1314w.set_text("--")
-        self.label1315w.set_text("--")
 
 
     # ----------------------------------- Disk - Disk Details Foreground Function -----------------------------------
@@ -110,8 +106,6 @@ class DiskDetails:
         disk_capacity, disk_size, disk_available, disk_free, disk_used, disk_usage_percent = Disk.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
         disk_device_model_name = Disk.disk_device_model_name_func(selected_disk, disk_type, disk_parent_name)
         disk_label = Disk.disk_label_func(selected_disk)
-        disk_partition_label = Disk.disk_partition_label_func(selected_disk)
-        disk_path = Disk.disk_path_func(selected_disk)
 
 
         # Set label text by using storage/disk data
@@ -126,9 +120,7 @@ class DiskDetails:
         self.label1309w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)} - {disk_usage_percent:.1f}%')
         self.label1311w.set_text(disk_device_model_name)
         self.label1312w.set_text(disk_label)
-        self.label1313w.set_text(disk_partition_label)
         self.label1314w.set_text(disk_mount_point)
-        self.label1315w.set_text(disk_path)
 
 
     # ----------------------------------- Disk Details - Run Function -----------------------------------

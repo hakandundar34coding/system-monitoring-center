@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.17.0
+  * New: Frequency and memory information of Broadcom (ARM) GPUs
+  * Updated translations for Brazilian Portuguese
+  * Fix: L1d-L1i cache memory order of CPU cores (CPU tab)
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.16.0
   * New: Updated GUI design (CPU, RAM, Disk, Network, GPU tabs)
   * New: Highlighting selected device graph between other devices
