@@ -29,6 +29,7 @@ Multi-featured system monitor.
 ### Dependencies:
 - These dependencies are already installed on many systems: `bash, dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, udev, util-linux`
 - Following dependencies may be required on some systems: for systems with .deb packages: `libcairo2-dev`, for Arch Linux: `polkit`
+- Optional dependencies: `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
 
 
 ### Updating:
