@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-23 10:27+0300\n"
-"PO-Revision-Date: 2022-05-29 17:54+0300\n"
+"PO-Revision-Date: 2022-05-29 19:46+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -642,7 +642,7 @@ msgstr "Свободно"
 
 #: ui/DiskDetailsWindow.ui:162
 msgid "Label (File System)"
-msgstr ""
+msgstr "Метка (файловая система)"
 
 #: ui/DiskDetailsWindow.ui:327
 msgid "Mount Point"
@@ -650,7 +650,7 @@ msgstr "Точка монтирования"
 
 #: ui/DiskDetailsWindow.ui:545
 msgid "(Mass Storage)"
-msgstr ""
+msgstr "(массовое хранилище)"
 
 #: ui/DiskMenus.ui:171 ui/NetworkMenus.ui:171
 msgid "Selected Device"
@@ -926,11 +926,11 @@ msgstr "Диск и путь"
 
 #: ui/ProcessesMenuCustomizations.ui:49
 msgid "Show processes of all users"
-msgstr "Показать процессы всех пользователей"
+msgstr "Показывать процессы всех пользователей"
 
 #: ui/ProcessesMenuCustomizations.ui:63
 msgid "Show processes as tree"
-msgstr "Показать процессы в виде дерева"
+msgstr "Показывать процессы в виде дерева"
 
 #: ui/ProcessesMenuCustomizations.ui:77
 msgid "Show tree lines"
@@ -1112,7 +1112,7 @@ msgstr "Общие настройки"
 
 #: ui/SettingsWindow.ui:30
 msgid "Update interval (seconds):"
-msgstr "Интервал обновлений (секунда):"
+msgstr "Интервал обновлений (секунды):"
 
 #: ui/SettingsWindow.ui:52
 msgid "Default main tab:"
@@ -1144,7 +1144,7 @@ msgstr "Запоминать размер окон"
 
 #: ui/SettingsWindow.ui:233
 msgid "Check for updates automatically (PyPI only)"
-msgstr "Автоматически проверять обновления (только PyPi)"
+msgstr "Автоматически проверять обновления (только PyPI)"
 
 #: ui/SettingsWindow.ui:250
 msgid "(If the application is run without root privileges.)"
