@@ -227,7 +227,7 @@ class Performance:
             proc_diskstats_lines = reader.read().strip().split("\n")
         for line in proc_diskstats_lines:
             if line.split()[2] in self.disk_list_system_ordered:
-                # Disk information of some disks (such a loop devices) exist in "/proc/diskstats" file even if these dvice are unmounted. "proc_diskstats_lines_filtered" list is used in order to use disk list without these remaining information.
+                # Disk information of some disks (such a loop devices) exist in "/proc/diskstats" file even if these devices are unmounted. "proc_diskstats_lines_filtered" list is used in order to use disk list without these remaining information.
                 proc_diskstats_lines_filtered.append(line)
         disk_list_prev = self.disk_list[:]
         for i, disk in enumerate(self.disk_list_system_ordered):
