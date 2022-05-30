@@ -99,8 +99,9 @@ class MemorySwapDetails:
             swap_details_text = swap_details_text + "\n" + _tr("Priority") + " :    " + swap_priority
             swap_details_text = swap_details_text + "\n"
             swap_details_text = swap_details_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
-            # In order to remove this string from the last line.
-            swap_details_text = swap_details_text.strip("\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n")
+
+        # In order to remove this string from the last line.
+        swap_details_text = swap_details_text.strip("\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n")
 
         # Delete empty lines at the beginning and end of the string.
         swap_details_text = swap_details_text.strip()

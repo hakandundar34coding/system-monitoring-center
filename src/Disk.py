@@ -300,6 +300,8 @@ class Disk:
             disk_device_model_name = "[Loop Device]"
         if selected_disk.startswith("zram"):
             disk_device_model_name = _tr("[SWAP]")
+        if selected_disk.startswith("ram"):
+            disk_device_model_name = "[Ramdisk]"
         if selected_disk.startswith("dm-"):
             disk_device_model_name = "[Device Mapper]"
         if selected_disk.startswith("mmcblk"):

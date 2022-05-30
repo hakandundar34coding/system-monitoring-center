@@ -41,8 +41,6 @@ class ServicesDetails:
         self.label6108w = builder6101w.get_object('label6108w')
         self.label6109w = builder6101w.get_object('label6109w')
         self.label6110w = builder6101w.get_object('label6110w')
-        self.label6111w = builder6101w.get_object('label6111w')
-        self.label6112w = builder6101w.get_object('label6112w')
         self.label6114w = builder6101w.get_object('label6114w')
         self.label6115w = builder6101w.get_object('label6115w')
         self.label6117w = builder6101w.get_object('label6117w')
@@ -95,8 +93,6 @@ class ServicesDetails:
         self.label6108w.set_text("--")
         self.label6109w.set_text("--")
         self.label6110w.set_text("--")
-        self.label6111w.set_text("--")
-        self.label6112w.set_text("--")
         self.label6114w.set_text("--")
         self.label6115w.set_text("--")
         self.label6117w.set_text("--")
@@ -160,9 +156,6 @@ class ServicesDetails:
         selected_service_fragment_path = "-"
         selected_service_unit_file_state = "-"
         selected_service_unit_file_preset = "-"
-        selected_service_can_start = "-"
-        selected_service_can_stop = "-"
-        selected_service_can_reload = "-"
 
         for line in systemctl_show_lines:
             if "Type=" in line:
@@ -244,15 +237,6 @@ class ServicesDetails:
             if "UnitFilePreset=" in line:
                 selected_service_unit_file_preset = _tr(line.split("=")[1].capitalize())
                 continue
-            if "CanStart=" in line:
-                selected_service_can_start = _tr(line.split("=")[1].capitalize())
-                continue
-            if "CanStop=" in line:
-                selected_service_can_stop = _tr(line.split("=")[1].capitalize())
-                continue
-            if "CanReload=" in line:
-                selected_service_can_reload = _tr(line.split("=")[1].capitalize())
-                continue
 
 
         # Set label text by using service data
@@ -266,8 +250,6 @@ class ServicesDetails:
         self.label6108w.set_text(',\n'.join(selected_service_documentation))
         self.label6109w.set_text(selected_service_triggered_by)
         self.label6110w.set_text(selected_service_main_pid)
-        self.label6111w.set_text(f'{selected_service_can_start} - {selected_service_can_stop}')
-        self.label6112w.set_text(selected_service_can_reload)
         self.label6114w.set_text(selected_service_exec_main_start_times_stamp_monotonic)
         self.label6115w.set_text(selected_service_exec_main_exit_times_stamp_monotonic)
         self.label6117w.set_text(selected_service_type)

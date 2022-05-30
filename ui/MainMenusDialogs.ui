@@ -12,7 +12,6 @@
     <property name="copyright">© 2022 Hakan DÜNDAR</property>
     <property name="comments" translatable="yes">Multi-featured system monitor.</property>
     <property name="website">https://github.com/hakandundar34coding/system-monitoring-center</property>
-    <property name="website-label" translatable="yes">Web Page</property>
     <property name="authors">Hakan Dündar</property>
     <property name="translator-credits">panmourovaty (čeština)
 ski007, K0RR, sdorpl (polski)
