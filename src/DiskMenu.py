@@ -208,11 +208,12 @@ class DiskMenu:
 
         if widget.get_active() == True:
             Config.hide_loop_ramdisk_zram_disks = 1
-            # Reset selected device in order to update selected disk on disk list between Performance tab sub-tabs for avoiding no disk selection situation if selected disk are hidden after the option is changed.
-            Config.selected_disk = ""
-            Performance.performance_set_selected_disk_func()
         else:
             Config.hide_loop_ramdisk_zram_disks = 0
+
+        # Reset selected device in order to update selected disk on disk list between Performance tab sub-tabs for avoiding no disk selection or wrong disk selection situation if selected disk is hidden or new disks are shown after the option is changed.
+        Config.selected_disk = ""
+        Performance.performance_set_selected_disk_func()
 
         # Apply changes immediately (without waiting update interval).
         Disk.disk_initial_func()
