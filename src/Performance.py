@@ -564,9 +564,17 @@ class Performance:
                 selected_device_number = None
             else:
                 draw_per_device = 1
-                performance_data1 = self.disk_read_speed
-                performance_data2 = self.disk_write_speed
-                device_name_list = self.disk_list_system_ordered
+                performance_data1 = list(self.disk_read_speed)
+                performance_data2 = list(self.disk_write_speed)
+                device_name_list = list(self.disk_list_system_ordered)
+                # Remove the device from the list if "hide_loop_ramdisk_zram_disks" option is enabled.
+                if Config.hide_loop_ramdisk_zram_disks == 1:
+                    for device in self.disk_list_system_ordered:
+                        if device.startswith("loop") == True or device.startswith("ram") == True or device.startswith("zram") == True:
+                            device_index = device_name_list.index(device)
+                            del device_name_list[device_index]
+                            del performance_data1[device_index]
+                            del performance_data2[device_index]
                 selected_device_number = self.selected_disk_number
 
             # Get which performance data will be drawn.
