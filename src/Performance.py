@@ -755,18 +755,23 @@ class Performance:
                 if number_of_horizontal_charts >= number_of_vertical_charts:
                     if number_of_horizontal_charts > 2 * number_of_vertical_charts:
                         number_of_horizontal_charts = number_of_vertical_charts = ceil(sqrt(number_of_charts))
-                        # Correction for 5 charts (devices) to avoid using 3*3 charts.
-                        if number_of_charts == 5:
-                            number_of_horizontal_charts = 3
-                            number_of_vertical_charts = 2
                     break
 
-        # Get chart index list for horizontal and vertical charts. THis data will be used for tiling charts.
+        # Get chart index list for horizontal and vertical charts. This data will be used for tiling charts.
         chart_index_list = []
         for i in range(number_of_vertical_charts):
             for j in range(number_of_horizontal_charts):
                 chart_index_list.append([j, i])
 
+        # Correction for some number of charts (devices) to avoid using empty last chart row.
+        if len(chart_index_list) - number_of_horizontal_charts > number_of_charts:
+            #number_of_horizontal_charts = number_of_horizontal_charts + 1
+            number_of_vertical_charts = number_of_vertical_charts - 1
+            # Get chart index list again for horizontal and vertical charts. This data will be used for tiling charts.
+            chart_index_list = []
+            for i in range(number_of_vertical_charts):
+                for j in range(number_of_horizontal_charts):
+                    chart_index_list.append([j, i])
         # Set chart border spacing value.
         if number_of_charts == 1:
             chart_spacing = 0
