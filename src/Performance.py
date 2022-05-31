@@ -73,6 +73,10 @@ class Performance:
                 selected_disk = system_disk_list[0]
             else:
                 selected_disk = self.disk_list[0]
+                for disk in self.disk_list:
+                    if disk.startswith("loop") == False and disk.startswith("ram") == False and disk.startswith("zram") == False:
+                        selected_disk = disk
+                        break
 
         self.system_disk_list = system_disk_list
         self.selected_disk_number = self.disk_list_system_ordered.index(selected_disk)
@@ -575,7 +579,7 @@ class Performance:
                             del device_name_list[device_index]
                             del performance_data1[device_index]
                             del performance_data2[device_index]
-                selected_device_number = self.selected_disk_number
+                selected_device_number = device_name_list.index(self.disk_list_system_ordered[self.selected_disk_number])
 
             # Get which performance data will be drawn.
             if Config.plot_disk_read_speed == 1:

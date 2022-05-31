@@ -532,7 +532,7 @@ class MainGUI:
                     if device.startswith("loop") == True or device.startswith("ram") == True or device.startswith("zram") == True:
                         continue
                 device_list.append(device)
-            selected_device_number = Performance.selected_disk_number
+            selected_device_number = device_list.index(Performance.disk_list_system_ordered[Performance.selected_disk_number])
             listbox_row_number = 5
             tooltip_text = ""
 
