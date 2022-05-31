@@ -163,7 +163,7 @@ class NetworkMenu:
         Config.config_save_func()
 
 
-    # ----------------------- "Show speed units as multiples of  bits" Checkbutton -----------------------
+    # ----------------------- "Show speed units as multiples of bits" Checkbutton -----------------------
     def on_checkbutton1404p_toggled(self, widget):
 
         if widget.get_active() == True:
@@ -222,7 +222,7 @@ class NetworkMenu:
     # ----------------------- Called for setting menu GUI items -----------------------
     def network_tab_popover_set_gui(self):
 
-        # Set active comboboxes if network download speed/network upload speed values are "1"
+        # Set active checkbuttons if network download speed/network upload speed values are "1"
         if Config.plot_network_download_speed == 1:
             self.checkbutton1401p.set_active(True)
         if Config.plot_network_download_speed == 0:
@@ -238,7 +238,7 @@ class NetworkMenu:
         if Config.show_network_usage_per_network_card == 1:
             self.radiobutton1402p.set_active(True)
 
-        # Set data unit checkboxes.
+        # Set data unit radiobuttons and checkbuttons.
         if Config.performance_network_data_unit == 0:
             self.radiobutton1403p.set_active(True)
         if Config.performance_network_data_unit == 1:

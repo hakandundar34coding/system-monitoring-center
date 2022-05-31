@@ -73,6 +73,7 @@ class Performance:
                 selected_disk = system_disk_list[0]
             else:
                 selected_disk = self.disk_list[0]
+                # Try to not to set selected disk a loop, ram, zram disk in order to avoid errors if "hide_loop_ramdisk_zram_disks" option is enabled and performance data of all disks are plotted at the same time. loop device may be the first disk on some systems if they are run without installation.
                 for disk in self.disk_list:
                     if disk.startswith("loop") == False and disk.startswith("ram") == False and disk.startswith("zram") == False:
                         selected_disk = disk
@@ -579,6 +580,7 @@ class Performance:
                             del device_name_list[device_index]
                             del performance_data1[device_index]
                             del performance_data2[device_index]
+                # "selected_device_number" for Disk tab is get in a different way. Because device list may be changed if "hide_loop_ramdisk_zram_disks" option is enabled.
                 selected_device_number = device_name_list.index(self.disk_list_system_ordered[self.selected_disk_number])
 
             # Get which performance data will be drawn.
@@ -751,7 +753,7 @@ class Performance:
         # Get number of charts.
         number_of_charts = len(device_name_list)
 
-        # Get number of horizontal and vertical charts (per-core).
+        # Get number of horizontal and vertical charts (per-device).
         for i in range(1, 1000):
             if number_of_charts % i == 0:
                 number_of_horizontal_charts = i
@@ -769,13 +771,9 @@ class Performance:
 
         # Correction for some number of charts (devices) to avoid using empty last chart row.
         if len(chart_index_list) - number_of_horizontal_charts > number_of_charts:
-            #number_of_horizontal_charts = number_of_horizontal_charts + 1
             number_of_vertical_charts = number_of_vertical_charts - 1
-            # Get chart index list again for horizontal and vertical charts. This data will be used for tiling charts.
-            chart_index_list = []
-            for i in range(number_of_vertical_charts):
-                for j in range(number_of_horizontal_charts):
-                    chart_index_list.append([j, i])
+            chart_index_list = chart_index_list[:-number_of_horizontal_charts]
+
         # Set chart border spacing value.
         if number_of_charts == 1:
             chart_spacing = 0

@@ -532,6 +532,7 @@ class MainGUI:
                     if device.startswith("loop") == True or device.startswith("ram") == True or device.startswith("zram") == True:
                         continue
                 device_list.append(device)
+            # "selected_device_number" for Disk tab is get in a different way. Because device list may be changed if "hide_loop_ramdisk_zram_disks" option is enabled.
             selected_device_number = device_list.index(Performance.disk_list_system_ordered[Performance.selected_disk_number])
             listbox_row_number = 5
             tooltip_text = ""
