@@ -575,7 +575,7 @@ class Performance:
                             del device_name_list[device_index]
                             del performance_data1[device_index]
                             del performance_data2[device_index]
-                selected_device_number = self.selected_disk_number
+                selected_device_number = device_name_list.index(self.disk_list_system_ordered[self.selected_disk_number])
 
             # Get which performance data will be drawn.
             if Config.plot_disk_read_speed == 1:
