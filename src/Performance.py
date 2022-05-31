@@ -575,7 +575,7 @@ class Performance:
                             del device_name_list[device_index]
                             del performance_data1[device_index]
                             del performance_data2[device_index]
-                selected_device_number = device_name_list.index(self.disk_list_system_ordered[self.selected_disk_number])
+                selected_device_number = self.selected_disk_number
 
             # Get which performance data will be drawn.
             if Config.plot_disk_read_speed == 1:
@@ -756,7 +756,7 @@ class Performance:
                     if number_of_horizontal_charts > 2 * number_of_vertical_charts:
                         number_of_horizontal_charts = number_of_vertical_charts = ceil(sqrt(number_of_charts))
                         # Correction for 5 charts (devices) to avoid using 3*3 charts.
-                        if i == 5:
+                        if number_of_charts == 5:
                             number_of_horizontal_charts = 3
                             number_of_vertical_charts = 2
                     break
