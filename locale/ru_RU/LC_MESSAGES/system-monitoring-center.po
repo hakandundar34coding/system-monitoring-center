@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-30 20:05+0300\n"
-"PO-Revision-Date: 2022-05-31 09:41+0300\n"
+"PO-Revision-Date: 2022-06-01 17:09+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/Cpu.py:113 ui/CpuMenus.ui:35 ui/CpuTab.ui:549
 msgid "CPU Usage (Average)"
-msgstr "Нагрузка CPU (средняя)"
+msgstr "Средняя нагрузка на CPU"
 
 #: src/Cpu.py:115 ui/CpuMenus.ui:49
 msgid "CPU Usage (Per Core)"
-msgstr "Нагрузка CPU (на ядро)"
+msgstr "Нагрузка на ядра CPU"
 
 #: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:290 src/Gpu.py:292
 #: src/MemoryRamHardware.py:56 src/Network.py:122 src/Network.py:124
@@ -77,7 +77,7 @@ msgstr ""
 
 #: src/MainGUI.py:223
 msgid "There is a newer version on PyPI."
-msgstr ""
+msgstr "В PyPI доступна более новая версия."
 
 #: src/MainGUI.py:516
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -92,7 +92,7 @@ msgstr "Оперативная память"
 #: src/MainGUI.py:520 src/Memory.py:207 src/Performance.py:540
 #: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:915
 msgid "Swap Memory"
-msgstr "Раздел подкачки"
+msgstr "Подкачка"
 
 #: src/Memory.py:178
 msgid "Physical RAM"
@@ -165,7 +165,7 @@ msgstr "Приоритет"
 
 #: src/MemorySwapDetails.py:110
 msgid "This system has no swap memory."
-msgstr "У этой системы нет раздела подкачки."
+msgstr "У этой системы нет подкачки."
 
 #: src/Network.py:132
 msgid "Virtual Network Interface"
@@ -296,7 +296,7 @@ msgstr "Зомби"
 
 #: src/Processes.py:189
 msgid "Stopped"
-msgstr "Остановливается"
+msgstr "Остановился"
 
 #: src/Processes.py:189
 msgid "Tracing Stop"
@@ -379,7 +379,7 @@ msgstr "Состояние загрузки"
 #: src/Services.py:144 ui/ServicesDetailsWindow.ui:290
 #: ui/ServicesMenuCustomizations.ui:179
 msgid "Sub-State"
-msgstr ""
+msgstr "Субсостояние"
 
 #: src/Services.py:146 ui/ServicesDetailsWindow.ui:62
 #: ui/ServicesMenuCustomizations.ui:207
@@ -396,27 +396,27 @@ msgstr "Выключен"
 
 #: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Masked"
-msgstr ""
+msgstr "Замаксирован"
 
 #: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Unmasked"
-msgstr ""
+msgstr "Незамаскирован"
 
 #: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Static"
-msgstr ""
+msgstr "Статический"
 
 #: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Generated"
-msgstr ""
+msgstr "Сгенерированный"
 
 #: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Enabled-runtime"
-msgstr ""
+msgstr "Включен во время работы"
 
 #: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Indirect"
-msgstr ""
+msgstr "Непрямой"
 
 #: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Active"
@@ -547,7 +547,7 @@ msgstr "Сбросить всё"
 #: ui/CpuMenus.ui:167 ui/DiskMenus.ui:239 ui/MemoryMenus.ui:180
 #: ui/NetworkMenus.ui:208
 msgid "Chart - Show"
-msgstr "Диаграмма - показать"
+msgstr "Вид графика"
 
 #: ui/CpuMenus.ui:182 ui/DiskMenus.ui:209 ui/MemoryMenus.ui:195
 #: ui/NetworkMenus.ui:223 ui/ProcessesMenuCustomizations.ui:588
@@ -561,11 +561,11 @@ msgstr "Цвет графика"
 
 #: ui/CpuTab.ui:44
 msgid "Average CPU usage of all cores"
-msgstr "Среднее загрузка CPU среди всех ядер"
+msgstr "Среднее нагрузка на CPU среди всех ядер"
 
 #: ui/CpuTab.ui:45
 msgid "Average Usage"
-msgstr "Средняя загрузка"
+msgstr "Средняя нагрузка"
 
 #: ui/CpuTab.ui:57 ui/GpuTab.ui:371
 msgid "Frequency"
@@ -601,7 +601,7 @@ msgstr "Количество включенных физических и лог
 
 #: ui/CpuTab.ui:374
 msgid "Cores (Physical-Logical):"
-msgstr "Ядра (Физические-Логические):"
+msgstr "Ядра (Физ.-Лог.):"
 
 #: ui/CpuTab.ui:404 ui/SystemTab.ui:434
 msgid "Architecture:"
@@ -618,7 +618,7 @@ msgstr "Название устройства в ядре ОС"
 
 #: ui/CpuTab.ui:537 ui/GpuTab.ui:449 ui/MemoryTab.ui:533
 msgid "100%"
-msgstr "100%"
+msgstr ""
 
 #: ui/DiskDetailsWindow.ui:7
 msgid "Storage Details"
@@ -677,7 +677,7 @@ msgstr "Показывать данные как степень:"
 
 #: ui/DiskMenus.ui:349
 msgid "Hide loop, ramdisk, zram disks"
-msgstr ""
+msgstr "Спрятать loop, ramdisk, zram диски"
 
 #: ui/DiskTab.ui:175 ui/DiskTab.ui:188 ui/NetworkTab.ui:207
 #: ui/NetworkTab.ui:220
@@ -698,7 +698,7 @@ msgstr "Свободно:"
 
 #: ui/DiskTab.ui:320 ui/MemoryTab.ui:159 ui/MemoryTab.ui:425
 msgid "Capacity:"
-msgstr "Емкость:"
+msgstr "Ёмкость:"
 
 #: ui/DiskTab.ui:333 ui/MemoryTab.ui:485
 msgid "Details:"
@@ -770,7 +770,7 @@ msgstr "Аппаратная информация RAM"
 
 #: ui/MemorySwapDetailsWindow.ui:7
 msgid "Swap Memory Details"
-msgstr "Параметры раздела подкачки"
+msgstr "Параметры подкачки"
 
 #: ui/MemoryTab.ui:97
 msgid "Available"
@@ -782,7 +782,7 @@ msgstr "Аппаратное обеспечение:"
 
 #: ui/MemoryTab.ui:545
 msgid "RAM Usage"
-msgstr "Загрузка RAM"
+msgstr "Используемый объем оперативной памяти"
 
 #: ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
 msgid "Download Speed"
@@ -806,7 +806,7 @@ msgstr "Тип подключения:"
 
 #: ui/NetworkTab.ui:281
 msgid "Connected-SSID:"
-msgstr "Подключенный-SSID:"
+msgstr "Подключен-SSID:"
 
 #: ui/NetworkTab.ui:294
 msgid "Signal Strength:"
@@ -886,11 +886,11 @@ msgstr "Использованное(ые) ядро(а) CPU"
 
 #: ui/ProcessesDetailsWindow.ui:793
 msgid "CPU Affinity"
-msgstr ""
+msgstr "Привязка к ядру CPU"
 
 #: ui/ProcessesDetailsWindow.ui:806
 msgid "CPU Times"
-msgstr ""
+msgstr "Процессорное время"
 
 #: ui/ProcessesDetailsWindow.ui:819
 msgid "Context Switches"
@@ -939,7 +939,7 @@ msgstr "Показать линии дерева"
 #: ui/ProcessesMenuCustomizations.ui:104 ui/ServicesMenuCustomizations.ui:49
 #: ui/SettingsWindow.ui:292 ui/UsersMenuCustomizations.ui:49
 msgid "Reset"
-msgstr "Переустановить"
+msgstr "Вернуть настройки по умолчанию"
 
 #: ui/ProcessesMenuCustomizations.ui:120 ui/ProcessesMenuCustomizations.ui:151
 #: ui/ServicesMenuCustomizations.ui:81 ui/UsersMenuCustomizations.ui:81
@@ -1013,7 +1013,7 @@ msgstr "Параметры"
 #: ui/SensorsTab.ui:19
 msgid "Note: Some sensors may not provide correct values!"
 msgstr ""
-"Примечание: некоторые сенсоры могу предоставлять некорректные значения!"
+"Примечание: некоторые датчики могу предоставлять некорректные значения!"
 
 #: ui/ServicesDetailsWindow.ui:7
 msgid "Service Details"
@@ -1069,7 +1069,7 @@ msgstr "Оставновка"
 
 #: ui/ServicesMenuRightClick.ui:26
 msgid "Restart"
-msgstr "Перезагрузка"
+msgstr "Перезапуск"
 
 #: ui/ServicesMenuRightClick.ui:33
 msgid "Reload"
@@ -1127,10 +1127,8 @@ msgid "Chart data history:"
 msgstr "История данных графиков:"
 
 #: ui/SettingsWindow.ui:145
-#, fuzzy
-#| msgid "Remember last selected hardware"
 msgid "Remember last selected devices"
-msgstr "Запоминать последнее выбранное аппаратное обеспечение"
+msgstr "Запоминать последние выбранные устройства"
 
 #: ui/SettingsWindow.ui:199
 msgid "Remember window size"
