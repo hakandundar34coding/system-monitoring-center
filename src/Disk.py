@@ -181,6 +181,17 @@ class Disk:
             pass
         self.disk_list_system_ordered_prev = disk_list_system_ordered
 
+        # Run "main_gui_device_selection_list_func" if "hide_loop_ramdisk_zram_disks" option is changed since the last loop.
+        hide_loop_ramdisk_zram_disks = Config.hide_loop_ramdisk_zram_disks
+        try:                                                                                      
+            if self.hide_loop_ramdisk_zram_disks_prev != hide_loop_ramdisk_zram_disks:
+                from MainGUI import MainGUI
+                MainGUI.main_gui_device_selection_list_func()
+        # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
+        except AttributeError:
+            pass
+        self.hide_loop_ramdisk_zram_disks_prev = hide_loop_ramdisk_zram_disks
+
         # Update disk usage percentages on disk list between Performance tab sub-tabs.
         self.disk_update_disk_usage_percentages_on_disk_list_func()
 
@@ -289,6 +300,8 @@ class Disk:
             disk_device_model_name = "[Loop Device]"
         if selected_disk.startswith("zram"):
             disk_device_model_name = _tr("[SWAP]")
+        if selected_disk.startswith("ram"):
+            disk_device_model_name = "[Ramdisk]"
         if selected_disk.startswith("dm-"):
             disk_device_model_name = "[Device Mapper]"
         if selected_disk.startswith("mmcblk"):

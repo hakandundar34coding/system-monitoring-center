@@ -280,7 +280,7 @@ class ProcessesMenuCustomizations:
         Config.config_save_func()
 
 
-    # ----------------------- "Show speed units as multiples of  bits (for Disk)" Checkbutton -----------------------
+    # ----------------------- "Show speed units as multiples of bits (for Disk)" Checkbutton -----------------------
     def on_checkbutton2128p_toggled(self, widget):
 
         if widget.get_active() == True:

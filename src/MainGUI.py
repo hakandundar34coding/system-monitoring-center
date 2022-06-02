@@ -524,8 +524,16 @@ class MainGUI:
 
         # Check if Disk tab is selected.
         if performance_tab_current_sub_tab == 2:
-            device_list = Performance.disk_list_system_ordered
-            selected_device_number = Performance.selected_disk_number
+            device_list_full = Performance.disk_list_system_ordered
+            device_list = []
+            for device in device_list_full:
+                # Do not add the device into the listbox and skip to the next loop if "hide_loop_ramdisk_zram_disks" option is enabled and device is a loop, ramdisk or zram device.
+                if Config.hide_loop_ramdisk_zram_disks == 1:
+                    if device.startswith("loop") == True or device.startswith("ram") == True or device.startswith("zram") == True:
+                        continue
+                device_list.append(device)
+            # "selected_device_number" for Disk tab is get in a different way. Because device list may be changed if "hide_loop_ramdisk_zram_disks" option is enabled.
+            selected_device_number = device_list.index(Performance.disk_list_system_ordered[Performance.selected_disk_number])
             listbox_row_number = 5
             tooltip_text = ""
 
@@ -641,7 +649,11 @@ class MainGUI:
         viewport1001.add(listbox1001)
         scrolledwindow1001.add(viewport1001)
         self.grid1010.attach(scrolledwindow1001, 0, listbox_row_number, 1, 1)
-        listbox1001.select_row(listbox1001.get_children()[selected_device_number])
+        try:
+            listbox1001.select_row(listbox1001.get_children()[selected_device_number])
+        # Prevent error if a disk is hidden by changing the relevant option while it was selected. There is no need to update the list from this function because it will be set as hidden in the list by another function (in Disk module) immediately.
+        except IndexError:
+            pass
         scrolledwindow1001.show_all()
 
 

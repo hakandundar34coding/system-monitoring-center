@@ -73,6 +73,11 @@ class Performance:
                 selected_disk = system_disk_list[0]
             else:
                 selected_disk = self.disk_list[0]
+                # Try to not to set selected disk a loop, ram, zram disk in order to avoid errors if "hide_loop_ramdisk_zram_disks" option is enabled and performance data of all disks are plotted at the same time. loop device may be the first disk on some systems if they are run without installation.
+                for disk in self.disk_list:
+                    if disk.startswith("loop") == False and disk.startswith("ram") == False and disk.startswith("zram") == False:
+                        selected_disk = disk
+                        break
 
         self.system_disk_list = system_disk_list
         self.selected_disk_number = self.disk_list_system_ordered.index(selected_disk)
@@ -227,7 +232,7 @@ class Performance:
             proc_diskstats_lines = reader.read().strip().split("\n")
         for line in proc_diskstats_lines:
             if line.split()[2] in self.disk_list_system_ordered:
-                # Disk information of some disks (such a loop devices) exist in "/proc/diskstats" file even if these dvice are unmounted. "proc_diskstats_lines_filtered" list is used in order to use disk list without these remaining information.
+                # Disk information of some disks (such a loop devices) exist in "/proc/diskstats" file even if these devices are unmounted. "proc_diskstats_lines_filtered" list is used in order to use disk list without these remaining information.
                 proc_diskstats_lines_filtered.append(line)
         disk_list_prev = self.disk_list[:]
         for i, disk in enumerate(self.disk_list_system_ordered):
@@ -564,10 +569,19 @@ class Performance:
                 selected_device_number = None
             else:
                 draw_per_device = 1
-                performance_data1 = self.disk_read_speed
-                performance_data2 = self.disk_write_speed
-                device_name_list = self.disk_list_system_ordered
-                selected_device_number = self.selected_disk_number
+                performance_data1 = list(self.disk_read_speed)
+                performance_data2 = list(self.disk_write_speed)
+                device_name_list = list(self.disk_list_system_ordered)
+                # Remove the device from the list if "hide_loop_ramdisk_zram_disks" option is enabled.
+                if Config.hide_loop_ramdisk_zram_disks == 1:
+                    for device in self.disk_list_system_ordered:
+                        if device.startswith("loop") == True or device.startswith("ram") == True or device.startswith("zram") == True:
+                            device_index = device_name_list.index(device)
+                            del device_name_list[device_index]
+                            del performance_data1[device_index]
+                            del performance_data2[device_index]
+                # "selected_device_number" for Disk tab is get in a different way. Because device list may be changed if "hide_loop_ramdisk_zram_disks" option is enabled.
+                selected_device_number = device_name_list.index(self.disk_list_system_ordered[self.selected_disk_number])
 
             # Get which performance data will be drawn.
             if Config.plot_disk_read_speed == 1:
@@ -739,7 +753,7 @@ class Performance:
         # Get number of charts.
         number_of_charts = len(device_name_list)
 
-        # Get number of horizontal and vertical charts (per-core).
+        # Get number of horizontal and vertical charts (per-device).
         for i in range(1, 1000):
             if number_of_charts % i == 0:
                 number_of_horizontal_charts = i
@@ -747,17 +761,18 @@ class Performance:
                 if number_of_horizontal_charts >= number_of_vertical_charts:
                     if number_of_horizontal_charts > 2 * number_of_vertical_charts:
                         number_of_horizontal_charts = number_of_vertical_charts = ceil(sqrt(number_of_charts))
-                        # Correction for 5 charts (devices) to avoid using 3*3 charts.
-                        if i == 5:
-                            number_of_horizontal_charts = 3
-                            number_of_vertical_charts = 2
                     break
 
-        # Get chart index list for horizontal and vertical charts. THis data will be used for tiling charts.
+        # Get chart index list for horizontal and vertical charts. This data will be used for tiling charts.
         chart_index_list = []
         for i in range(number_of_vertical_charts):
             for j in range(number_of_horizontal_charts):
                 chart_index_list.append([j, i])
+
+        # Correction for some number of charts (devices) to avoid using empty last chart row.
+        if len(chart_index_list) - number_of_horizontal_charts > number_of_charts:
+            number_of_vertical_charts = number_of_vertical_charts - 1
+            chart_index_list = chart_index_list[:-number_of_horizontal_charts]
 
         # Set chart border spacing value.
         if number_of_charts == 1:

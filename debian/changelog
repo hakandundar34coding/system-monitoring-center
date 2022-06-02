@@ -1,3 +1,12 @@
+system-monitoring-center (1.18.0) unstable; urgency=medium
+
+  * New: Option for hiding loop, ramdisk, zram disks (Disk tab)
+  * New: Translations for Russian language
+  * Fix: Disk read/write speed drawing/graph errors (Disk tab)
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 02 Jun 2022 08:30:00 +0300
+
 system-monitoring-center (1.17.0) unstable; urgency=medium
 
   * New: Frequency and memory information of Broadcom (ARM) GPUs

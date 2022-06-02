@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-23 10:27+0300\n"
-"PO-Revision-Date: 2022-05-23 11:03-0300\n"
+"POT-Creation-Date: 2022-05-30 20:05+0300\n"
+"PO-Revision-Date: 2022-05-31 09:42+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: src/Cpu.py:113 ui/CpuMenus.ui:35 ui/CpuTab.ui:549
 msgid "CPU Usage (Average)"
@@ -26,39 +26,39 @@ msgstr "Uso de CPU (Média)"
 msgid "CPU Usage (Per Core)"
 msgstr "Uso de CPU (Por Núcleo)"
 
-#: src/Cpu.py:348 src/Disk.py:283 src/Disk.py:285 src/Gpu.py:290 src/Gpu.py:292
+#: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:290 src/Gpu.py:292
 #: src/MemoryRamHardware.py:56 src/Network.py:122 src/Network.py:124
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: src/Disk.py:237 src/Disk.py:250 src/MemorySwapDetails.py:66
+#: src/Disk.py:248 src/Disk.py:261 src/MemorySwapDetails.py:66
 msgid "Partition"
 msgstr "Partição"
 
-#: src/Disk.py:248 src/SettingsGUI.py:51 ui/DiskDetailsWindow.ui:45
+#: src/Disk.py:259 src/SettingsGUI.py:51 ui/DiskDetailsWindow.ui:45
 #: ui/DiskMenus.ui:23 ui/DiskTab.ui:543 ui/MainWindow.ui:265
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
 #: ui/ProcessesMenuCustomizations.ui:558 ui/ProcessesMenuCustomizations.ui:636
 msgid "Disk"
 msgstr "Disco"
 
-#: src/Disk.py:291 src/Disk.py:399
+#: src/Disk.py:302 src/Disk.py:412
 msgid "[SWAP]"
 msgstr "[SWAP]"
 
-#: src/Disk.py:374 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:215
-#: src/Network.py:243 src/Services.py:171 src/ServicesDetails.py:132
+#: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:215
+#: src/Network.py:243 src/Services.py:171 src/ServicesDetails.py:128
 #: src/UsersDetails.py:213
 msgid "Yes"
 msgstr "Sim"
 
-#: src/Disk.py:376 src/Gpu.py:248 src/Network.py:217 src/Services.py:171
-#: src/ServicesDetails.py:132 src/UsersDetails.py:215
+#: src/Disk.py:389 src/Gpu.py:248 src/Network.py:217 src/Services.py:171
+#: src/ServicesDetails.py:128 src/UsersDetails.py:215
 msgid "No"
 msgstr "Não"
 
-#: src/Disk.py:384 src/Disk.py:390 src/Disk.py:439 src/Disk.py:440
-#: src/Disk.py:441 src/Disk.py:442 src/Disk.py:443
+#: src/Disk.py:397 src/Disk.py:403 src/Disk.py:452 src/Disk.py:453
+#: src/Disk.py:454 src/Disk.py:455 src/Disk.py:456
 msgid "[Not mounted]"
 msgstr "[Não Montado]"
 
@@ -84,22 +84,22 @@ msgstr ""
 "A seleção do núcleo de CPU afeta apenas as informações de frequência e "
 "memória cache."
 
-#: src/MainGUI.py:520 src/Memory.py:179 src/Performance.py:540
+#: src/MainGUI.py:520 src/Memory.py:180 src/Performance.py:540
 #: ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:520 src/Memory.py:206 src/Performance.py:540
+#: src/MainGUI.py:520 src/Memory.py:207 src/Performance.py:540
 #: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:915
 msgid "Swap Memory"
 msgstr "Memória Swap"
 
-#: src/Memory.py:177
+#: src/Memory.py:178
 msgid "Physical RAM"
 msgstr "RAM Física"
 
-#: src/Memory.py:179 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
+#: src/Memory.py:180 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
 #: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
@@ -164,7 +164,7 @@ msgstr "Utilizado"
 msgid "Priority"
 msgstr "Prioridade"
 
-#: src/MemorySwapDetails.py:109
+#: src/MemorySwapDetails.py:110
 msgid "This system has no swap memory."
 msgstr "Este sistema não possui Memória Swap."
 
@@ -275,7 +275,7 @@ msgstr "Caminho"
 msgid "Command Line"
 msgstr "Linha de Comando"
 
-#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:131
+#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:127
 msgid "Running"
 msgstr "Executando"
 
@@ -303,12 +303,12 @@ msgstr "Parado"
 msgid "Tracing Stop"
 msgstr "Tentando Parar"
 
-#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:131
+#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:127
 msgid "Dead"
 msgstr "Morto"
 
 #: src/Processes.py:586 src/Sensors.py:341 src/Services.py:455
-#: src/Startup.py:411 src/Users.py:497 ui/ProcessesTab.ui:66
+#: src/Startup.py:411 src/Users.py:501 ui/ProcessesTab.ui:66
 #: ui/SensorsTab.ui:95 ui/ServicesTab.ui:99 ui/StartupTab.ui:66
 #: ui/UsersTab.ui:66
 msgid "Search..."
@@ -362,7 +362,7 @@ msgstr "Sensores"
 msgid "State"
 msgstr "Estado"
 
-#: src/Services.py:141 ui/ServicesDetailsWindow.ui:428
+#: src/Services.py:141 ui/ServicesDetailsWindow.ui:400
 #: ui/ServicesMenuCustomizations.ui:137
 msgid "Main PID"
 msgstr "PID Principal"
@@ -387,51 +387,51 @@ msgstr "Subestado"
 msgid "Description"
 msgstr "Descrição"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Disabled"
 msgstr "Desabilitado"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Masked"
 msgstr "Mascarado"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Unmasked"
 msgstr "Desmascarado"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Static"
 msgstr "Estático"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Generated"
 msgstr "Gerado"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Enabled-runtime"
 msgstr "Tempo de Execução ativado"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Indirect"
 msgstr "Indireto"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Active"
 msgstr "Ativo"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Inactive"
 msgstr "Inativo"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Loaded"
 msgstr "Carregado"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Exited"
 msgstr "Saiu"
 
@@ -448,7 +448,7 @@ msgstr "Informações"
 msgid "Performance"
 msgstr "Desempenho"
 
-#: src/SettingsGUI.py:50 src/Users.py:497 ui/MainWindow.ui:664
+#: src/SettingsGUI.py:50 src/Users.py:501 ui/MainWindow.ui:664
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
 msgstr "Usuários"
@@ -676,6 +676,10 @@ msgstr "Mostrar unidades de velocidade como múltiplos de bits"
 msgid "Show data as powers of:"
 msgstr "Mostrar dados como potências de:"
 
+#: ui/DiskMenus.ui:349
+msgid "Hide loop, ramdisk, zram disks"
+msgstr ""
+
 #: ui/DiskTab.ui:175 ui/DiskTab.ui:188 ui/NetworkTab.ui:207
 #: ui/NetworkTab.ui:220
 msgid "Measured value since last system start"
@@ -745,15 +749,11 @@ msgstr "Temperatura"
 msgid "Multi-featured system monitor."
 msgstr "Monitor de Sistema com vários recursos."
 
-#: ui/MainMenusDialogs.ui:15
-msgid "Web Page"
-msgstr "Página da Web"
-
-#: ui/MainMenusDialogs.ui:86
+#: ui/MainMenusDialogs.ui:85
 msgid "Settings"
 msgstr "Configurações"
 
-#: ui/MainMenusDialogs.ui:130
+#: ui/MainMenusDialogs.ui:129
 msgid "About"
 msgstr "Sobre"
 
@@ -873,7 +873,7 @@ msgstr ""
 "Processos Filhos\n"
 "(Não Recorrentes)"
 
-#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:693
+#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:613
 msgid "Summary"
 msgstr "Resumo"
 
@@ -1035,35 +1035,27 @@ msgstr "Hora de Término do Processo Principal"
 msgid "Unit File State - Preset"
 msgstr "Estado do Arquivo da Unidade - Predefinição"
 
-#: ui/ServicesDetailsWindow.ui:401
+#: ui/ServicesDetailsWindow.ui:373
 msgid "Triggered By"
 msgstr "Acionado Por"
 
-#: ui/ServicesDetailsWindow.ui:441
-msgid "Can Start - Stop?"
-msgstr "Pode Iniciar - Parar?"
-
-#: ui/ServicesDetailsWindow.ui:454
-msgid "Can Reload?"
-msgstr "Pode Recarregar?"
-
-#: ui/ServicesDetailsWindow.ui:725
+#: ui/ServicesDetailsWindow.ui:645
 msgid "Requires"
 msgstr "Requer"
 
-#: ui/ServicesDetailsWindow.ui:738
+#: ui/ServicesDetailsWindow.ui:658
 msgid "Conflicts"
 msgstr "Conflita com"
 
-#: ui/ServicesDetailsWindow.ui:751
+#: ui/ServicesDetailsWindow.ui:671
 msgid "After"
 msgstr "Depois"
 
-#: ui/ServicesDetailsWindow.ui:764
+#: ui/ServicesDetailsWindow.ui:684
 msgid "Before"
 msgstr "Antes"
 
-#: ui/ServicesDetailsWindow.ui:892
+#: ui/ServicesDetailsWindow.ui:812
 msgid "Dependencies"
 msgstr "Dependências"
 
@@ -1135,7 +1127,9 @@ msgid "Chart data history:"
 msgstr "Histórico de dados do gráfico:"
 
 #: ui/SettingsWindow.ui:145
-msgid "Remember last selected hardware"
+#, fuzzy
+#| msgid "Remember last selected hardware"
+msgid "Remember last selected devices"
 msgstr "Lembrar o último hardware selecionado"
 
 #: ui/SettingsWindow.ui:199
@@ -1304,6 +1298,15 @@ msgstr "Versão do GTK:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Detalhes do Usuário"
+
+#~ msgid "Web Page"
+#~ msgstr "Página da Web"
+
+#~ msgid "Can Start - Stop?"
+#~ msgstr "Pode Iniciar - Parar?"
+
+#~ msgid "Can Reload?"
+#~ msgstr "Pode Recarregar?"
 
 #~ msgid "Do you want to run this startup item now?"
 #~ msgstr "Deseja executar este item de inicialização agora?"

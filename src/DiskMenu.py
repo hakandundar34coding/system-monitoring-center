@@ -31,6 +31,7 @@ class DiskMenu:
         self.checkbutton1301p = builder.get_object('checkbutton1301p')
         self.checkbutton1302p = builder.get_object('checkbutton1302p')
         self.checkbutton1304p = builder.get_object('checkbutton1304p')
+        self.checkbutton1305p = builder.get_object('checkbutton1305p')
         self.radiobutton1301p = builder.get_object('radiobutton1301p')
         self.radiobutton1302p = builder.get_object('radiobutton1302p')
         self.radiobutton1303p = builder.get_object('radiobutton1303p')
@@ -49,6 +50,7 @@ class DiskMenu:
         self.checkbutton1301p.connect("toggled", self.on_checkbutton1301p_toggled)
         self.checkbutton1302p.connect("toggled", self.on_checkbutton1302p_toggled)
         self.checkbutton1304p.connect("toggled", self.on_checkbutton1304p_toggled)
+        self.checkbutton1305p.connect("toggled", self.on_checkbutton1305p_toggled)
         self.radiobutton1301p.connect("toggled", self.on_radiobutton1301p_toggled)
         self.radiobutton1302p.connect("toggled", self.on_radiobutton1302p_toggled)
         self.radiobutton1303p.connect("toggled", self.on_data_unit_radiobuttons_toggled)
@@ -62,6 +64,7 @@ class DiskMenu:
         self.checkbutton1301p.disconnect_by_func(self.on_checkbutton1301p_toggled)
         self.checkbutton1302p.disconnect_by_func(self.on_checkbutton1302p_toggled)
         self.checkbutton1304p.disconnect_by_func(self.on_checkbutton1304p_toggled)
+        self.checkbutton1305p.disconnect_by_func(self.on_checkbutton1305p_toggled)
         self.radiobutton1301p.disconnect_by_func(self.on_radiobutton1301p_toggled)
         self.radiobutton1302p.disconnect_by_func(self.on_radiobutton1302p_toggled)
         self.radiobutton1303p.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
@@ -163,7 +166,7 @@ class DiskMenu:
         Config.config_save_func()
 
 
-    # ----------------------- "Show speed units as multiples of  bits" Checkbutton -----------------------
+    # ----------------------- "Show speed units as multiples of bits" Checkbutton -----------------------
     def on_checkbutton1304p_toggled(self, widget):
 
         if widget.get_active() == True:
@@ -200,6 +203,24 @@ class DiskMenu:
         Config.config_save_func()
 
 
+    # ----------------------- "Hide loop, ramdisk, zram disks" Checkbutton -----------------------
+    def on_checkbutton1305p_toggled(self, widget):
+
+        if widget.get_active() == True:
+            Config.hide_loop_ramdisk_zram_disks = 1
+        else:
+            Config.hide_loop_ramdisk_zram_disks = 0
+
+        # Reset selected device in order to update selected disk on disk list between Performance tab sub-tabs for avoiding no disk selection or wrong disk selection situation if selected disk is hidden or new disks are shown after the option is changed.
+        Config.selected_disk = ""
+        Performance.performance_set_selected_disk_func()
+
+        # Apply changes immediately (without waiting update interval).
+        Disk.disk_initial_func()
+        Disk.disk_loop_func()
+        Config.config_save_func()
+
+
     # ----------------------- "Reset All" Button -----------------------
     def on_button1303p_clicked(self, widget):
 
@@ -222,7 +243,7 @@ class DiskMenu:
     # ----------------------- Called for setting menu GUI items -----------------------
     def disk_tab_popover_set_gui(self):
 
-        # Set active comboboxes if disk read speed/disk write speed values are "1"
+        # Set active checkbuttons if disk read speed/disk write speed values are "1".
         if Config.plot_disk_read_speed == 1:
             self.checkbutton1301p.set_active(True)
         if Config.plot_disk_read_speed == 0:
@@ -232,13 +253,19 @@ class DiskMenu:
         if Config.plot_disk_write_speed == 0:
             self.checkbutton1302p.set_active(False)
 
+        # Set active checkbutton if "Hide loop, ramdisk, zram disks" option is enabled.
+        if Config.hide_loop_ramdisk_zram_disks == 1:
+            self.checkbutton1305p.set_active(True)
+        if Config.hide_loop_ramdisk_zram_disks == 0:
+            self.checkbutton1305p.set_active(False)
+
         # Select radiobutton appropriate for seleted/all devices chart setting
         if Config.show_disk_usage_per_disk == 0:
             self.radiobutton1301p.set_active(True)
         if Config.show_disk_usage_per_disk == 1:
             self.radiobutton1302p.set_active(True)
 
-        # Set data unit checkboxes.
+        # Set data unit checkbuttons and radiobuttons.
         if Config.performance_disk_data_unit == 0:
             self.radiobutton1303p.set_active(True)
         if Config.performance_disk_data_unit == 1:
@@ -248,7 +275,7 @@ class DiskMenu:
         if Config.performance_disk_speed_bit == 0:
             self.checkbutton1304p.set_active(False)
 
-        # Add Disk data precision data into combobox
+        # Add Disk data precision data into combobox.
         liststore1301p = Gtk.ListStore()
         liststore1301p.set_column_types([str, int])
         self.combobox1301p.set_model(liststore1301p)

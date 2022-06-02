@@ -135,6 +135,7 @@ class Config:
         self.performance_disk_speed_bit = 0
         self.plot_disk_read_speed = 1
         self.plot_disk_write_speed = 1
+        self.hide_loop_ramdisk_zram_disks = 1
         self.selected_disk = ""
 
 
@@ -291,6 +292,10 @@ class Config:
         self.plot_disk_read_speed = int(config_values[config_variables.index("plot_disk_read_speed")])
         self.plot_disk_write_speed = int(config_values[config_variables.index("plot_disk_write_speed")])
         self.selected_disk = config_values[config_variables.index("selected_disk")]
+        if "hide_loop_ramdisk_zram_disks" in config_variables:
+            self.hide_loop_ramdisk_zram_disks = int(config_values[config_variables.index("hide_loop_ramdisk_zram_disks")])
+        else:
+            pass
 
         self.chart_line_color_network_speed_data = [float(value) for value in config_values[config_variables.index("chart_line_color_network_speed_data")].strip("[]").split(", ")]
         self.show_network_usage_per_network_card = int(config_values[config_variables.index("show_network_usage_per_network_card")])
@@ -379,6 +384,7 @@ class Config:
         config_write_text = config_write_text + "plot_disk_read_speed = " + str(self.plot_disk_read_speed) + "\n"
         config_write_text = config_write_text + "plot_disk_write_speed = " + str(self.plot_disk_write_speed) + "\n"
         config_write_text = config_write_text + "selected_disk = " + str(self.selected_disk) + "\n"
+        config_write_text = config_write_text + "hide_loop_ramdisk_zram_disks = " + str(self.hide_loop_ramdisk_zram_disks) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - Network]" + "\n"

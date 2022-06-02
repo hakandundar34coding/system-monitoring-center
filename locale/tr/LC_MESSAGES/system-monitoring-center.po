@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-23 10:27+0300\n"
-"PO-Revision-Date: 2022-05-23 10:27+0300\n"
+"POT-Creation-Date: 2022-05-30 20:05+0300\n"
+"PO-Revision-Date: 2022-05-30 20:05+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -26,39 +26,39 @@ msgstr "MİB Kullanımı (Ortalama)"
 msgid "CPU Usage (Per Core)"
 msgstr "MİB Kullanımı (Çekirdek Başına)"
 
-#: src/Cpu.py:348 src/Disk.py:283 src/Disk.py:285 src/Gpu.py:290 src/Gpu.py:292
+#: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:290 src/Gpu.py:292
 #: src/MemoryRamHardware.py:56 src/Network.py:122 src/Network.py:124
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-#: src/Disk.py:237 src/Disk.py:250 src/MemorySwapDetails.py:66
+#: src/Disk.py:248 src/Disk.py:261 src/MemorySwapDetails.py:66
 msgid "Partition"
 msgstr "Disk bölümü"
 
-#: src/Disk.py:248 src/SettingsGUI.py:51 ui/DiskDetailsWindow.ui:45
+#: src/Disk.py:259 src/SettingsGUI.py:51 ui/DiskDetailsWindow.ui:45
 #: ui/DiskMenus.ui:23 ui/DiskTab.ui:543 ui/MainWindow.ui:265
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
 #: ui/ProcessesMenuCustomizations.ui:558 ui/ProcessesMenuCustomizations.ui:636
 msgid "Disk"
 msgstr "Disk"
 
-#: src/Disk.py:291 src/Disk.py:399
+#: src/Disk.py:302 src/Disk.py:412
 msgid "[SWAP]"
 msgstr "[TAKAS]"
 
-#: src/Disk.py:374 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:215
-#: src/Network.py:243 src/Services.py:171 src/ServicesDetails.py:132
+#: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:215
+#: src/Network.py:243 src/Services.py:171 src/ServicesDetails.py:128
 #: src/UsersDetails.py:213
 msgid "Yes"
 msgstr "Evet"
 
-#: src/Disk.py:376 src/Gpu.py:248 src/Network.py:217 src/Services.py:171
-#: src/ServicesDetails.py:132 src/UsersDetails.py:215
+#: src/Disk.py:389 src/Gpu.py:248 src/Network.py:217 src/Services.py:171
+#: src/ServicesDetails.py:128 src/UsersDetails.py:215
 msgid "No"
 msgstr "Hayır"
 
-#: src/Disk.py:384 src/Disk.py:390 src/Disk.py:439 src/Disk.py:440
-#: src/Disk.py:441 src/Disk.py:442 src/Disk.py:443
+#: src/Disk.py:397 src/Disk.py:403 src/Disk.py:452 src/Disk.py:453
+#: src/Disk.py:454 src/Disk.py:455 src/Disk.py:456
 msgid "[Not mounted]"
 msgstr "[Bağlı değil]"
 
@@ -82,22 +82,22 @@ msgstr "PyPI'da daha güncel bir sürüm var."
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "MİB çekirdeği seçimi sadece frekans ve önbellek bilgilerini etkiler."
 
-#: src/MainGUI.py:520 src/Memory.py:179 src/Performance.py:540
+#: src/MainGUI.py:520 src/Memory.py:180 src/Performance.py:540
 #: ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:520 src/Memory.py:206 src/Performance.py:540
+#: src/MainGUI.py:520 src/Memory.py:207 src/Performance.py:540
 #: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:915
 msgid "Swap Memory"
 msgstr "Takas Belleği"
 
-#: src/Memory.py:177
+#: src/Memory.py:178
 msgid "Physical RAM"
 msgstr "Fiziksel RAM"
 
-#: src/Memory.py:179 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
+#: src/Memory.py:180 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
 #: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
@@ -162,7 +162,7 @@ msgstr "Kullanılan"
 msgid "Priority"
 msgstr "Öncelik"
 
-#: src/MemorySwapDetails.py:109
+#: src/MemorySwapDetails.py:110
 msgid "This system has no swap memory."
 msgstr "Bu sistemde takas belleği yok."
 
@@ -273,7 +273,7 @@ msgstr "Yol"
 msgid "Command Line"
 msgstr "Komut Satırı"
 
-#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:131
+#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:127
 msgid "Running"
 msgstr "Çalışıyor"
 
@@ -301,12 +301,12 @@ msgstr "Durdu"
 msgid "Tracing Stop"
 msgstr "Tracing Stop"
 
-#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:131
+#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:127
 msgid "Dead"
 msgstr "Sonlanmış"
 
 #: src/Processes.py:586 src/Sensors.py:341 src/Services.py:455
-#: src/Startup.py:411 src/Users.py:497 ui/ProcessesTab.ui:66
+#: src/Startup.py:411 src/Users.py:501 ui/ProcessesTab.ui:66
 #: ui/SensorsTab.ui:95 ui/ServicesTab.ui:99 ui/StartupTab.ui:66
 #: ui/UsersTab.ui:66
 msgid "Search..."
@@ -360,7 +360,7 @@ msgstr "Algılayıcı"
 msgid "State"
 msgstr "Durum"
 
-#: src/Services.py:141 ui/ServicesDetailsWindow.ui:428
+#: src/Services.py:141 ui/ServicesDetailsWindow.ui:400
 #: ui/ServicesMenuCustomizations.ui:137
 msgid "Main PID"
 msgstr "Ana PID"
@@ -385,51 +385,51 @@ msgstr "Alt Durum"
 msgid "Description"
 msgstr "Açıklama"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Enabled"
 msgstr "Etkin"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Disabled"
 msgstr "Devre Dışı"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Masked"
 msgstr "Gizli"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Unmasked"
 msgstr "Gizli değil"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Static"
 msgstr "Statik"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Generated"
 msgstr "Oluşturulmuş"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Enabled-runtime"
 msgstr "Etkin-çalışma zamanı"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Indirect"
 msgstr "Dolaylı"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Active"
 msgstr "Aktif"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Inactive"
 msgstr "İnaktif"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Loaded"
 msgstr "Yüklenmiş"
 
-#: src/Services.py:170 src/ServicesDetails.py:131
+#: src/Services.py:170 src/ServicesDetails.py:127
 msgid "Exited"
 msgstr "Çıkmış"
 
@@ -446,7 +446,7 @@ msgstr "Bilgi"
 msgid "Performance"
 msgstr "Performans"
 
-#: src/SettingsGUI.py:50 src/Users.py:497 ui/MainWindow.ui:664
+#: src/SettingsGUI.py:50 src/Users.py:501 ui/MainWindow.ui:664
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
 msgstr "Kullanıcılar"
@@ -674,6 +674,10 @@ msgstr "Hız birimlerini bit katları olarak göster"
 msgid "Show data as powers of:"
 msgstr "Verileri katları olarak göster:"
 
+#: ui/DiskMenus.ui:349
+msgid "Hide loop, ramdisk, zram disks"
+msgstr "Loop, ramdisk ve zram disklerini gizle"
+
 #: ui/DiskTab.ui:175 ui/DiskTab.ui:188 ui/NetworkTab.ui:207
 #: ui/NetworkTab.ui:220
 msgid "Measured value since last system start"
@@ -743,15 +747,11 @@ msgstr "Sıcaklık"
 msgid "Multi-featured system monitor."
 msgstr "Çok özellikli sistem gözlemcisi."
 
-#: ui/MainMenusDialogs.ui:15
-msgid "Web Page"
-msgstr "Web Sayfası"
-
-#: ui/MainMenusDialogs.ui:86
+#: ui/MainMenusDialogs.ui:85
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: ui/MainMenusDialogs.ui:130
+#: ui/MainMenusDialogs.ui:129
 msgid "About"
 msgstr "Hakkında"
 
@@ -871,7 +871,7 @@ msgstr ""
 "Çocuk İşlemler\n"
 "(Tekrarlı değil)"
 
-#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:693
+#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:613
 msgid "Summary"
 msgstr "Özet"
 
@@ -1033,35 +1033,27 @@ msgstr "Ana İşlem Sonlanma Zamanı"
 msgid "Unit File State - Preset"
 msgstr "Unit Dosyası Durumu - Ön Ayar"
 
-#: ui/ServicesDetailsWindow.ui:401
+#: ui/ServicesDetailsWindow.ui:373
 msgid "Triggered By"
 msgstr "Tetikleyen"
 
-#: ui/ServicesDetailsWindow.ui:441
-msgid "Can Start - Stop?"
-msgstr "Başlayabilir - Durabilir?"
-
-#: ui/ServicesDetailsWindow.ui:454
-msgid "Can Reload?"
-msgstr "Yeniden Yükleyebilir?"
-
-#: ui/ServicesDetailsWindow.ui:725
+#: ui/ServicesDetailsWindow.ui:645
 msgid "Requires"
 msgstr "Gerektirir"
 
-#: ui/ServicesDetailsWindow.ui:738
+#: ui/ServicesDetailsWindow.ui:658
 msgid "Conflicts"
 msgstr "Çakışmalar"
 
-#: ui/ServicesDetailsWindow.ui:751
+#: ui/ServicesDetailsWindow.ui:671
 msgid "After"
 msgstr "Sonrasında"
 
-#: ui/ServicesDetailsWindow.ui:764
+#: ui/ServicesDetailsWindow.ui:684
 msgid "Before"
 msgstr "Öncesinde"
 
-#: ui/ServicesDetailsWindow.ui:892
+#: ui/ServicesDetailsWindow.ui:812
 msgid "Dependencies"
 msgstr "Bağımlılıklar"
 
@@ -1132,8 +1124,8 @@ msgid "Chart data history:"
 msgstr "Grafik veri geçmişi:"
 
 #: ui/SettingsWindow.ui:145
-msgid "Remember last selected hardware"
-msgstr "Son seçilen donanımı hatırla"
+msgid "Remember last selected devices"
+msgstr "Son seçilen aygıtları hatırla"
 
 #: ui/SettingsWindow.ui:199
 msgid "Remember window size"
@@ -1300,6 +1292,15 @@ msgstr "Gtk Sürümü:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Kullanıcı Detayları"
+
+#~ msgid "Web Page"
+#~ msgstr "Web Sayfası"
+
+#~ msgid "Can Start - Stop?"
+#~ msgstr "Başlayabilir - Durabilir?"
+
+#~ msgid "Can Reload?"
+#~ msgstr "Yeniden Yükleyebilir?"
 
 #~ msgid "Do you want to run this startup item now?"
 #~ msgstr "Şu başlangıç ögesini şimdi çalıştırmak istiyor musunuz?"
