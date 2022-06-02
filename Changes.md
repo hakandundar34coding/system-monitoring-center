@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.18.0
+  * New: Option for hiding loop, ramdisk, zram disks (Disk tab)
+  * New: Translations for Russian language
+  * Fix: Disk read/write speed drawing/graph errors (Disk tab)
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.17.0
   * New: Frequency and memory information of Broadcom (ARM) GPUs
   * Updated translations for Brazilian Portuguese
