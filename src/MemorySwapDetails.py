@@ -107,7 +107,7 @@ class MemorySwapDetails:
         swap_details_text = swap_details_text.strip()
 
         if swap_details_text.strip() == "":
-            swap_details_text = _tr("This system has no swap memory.")
+            swap_details_text = "-"
 
         self.label1201w2.set_text(swap_details_text)
 

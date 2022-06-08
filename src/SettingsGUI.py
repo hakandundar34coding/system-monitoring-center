@@ -48,7 +48,7 @@ class SettingsGUI:
         self.update_interval_list = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 5.0, 10.0]
         self.chart_data_history_list = [30, 60, 90, 120, 150, 180, 300, 600, 1200]
         self.default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Startup"), _tr("Services"), _tr("System")]
-        self.performance_tab_default_sub_tab_list = [_tr("CPU"), _tr("Memory"), _tr("Disk"), _tr("Network"), _tr("GPU"), _tr("Sensors")]
+        self.performance_tab_default_sub_tab_list = [_tr("Summary"), _tr("CPU"), _tr("Memory"), _tr("Disk"), _tr("Network"), _tr("GPU"), _tr("Sensors")]
 
 
     # ----------------------- Called for connecting some of the signals in order to disconnect them for setting GUI -----------------------
@@ -433,6 +433,12 @@ class SettingsGUI:
 
         # If "initial_already_run" variable is set as "0", initial and loop functions of the relevant tab will be run in the next main loop if the tab is already opened or these functions will be run immediately when the relevant tab is switched on even if it is opened before the reset.
         try:
+            from MainGUI import Summary
+            Summary.initial_already_run = 0
+        except ImportError:
+            pass
+
+        try:
             from MainGUI import Cpu
             Cpu.initial_already_run = 0
         except ImportError:
@@ -517,18 +523,20 @@ class SettingsGUI:
         elif MainGUI.radiobutton8.get_active() == True:
             Config.default_main_tab = 5
 
-        if MainGUI.radiobutton1001.get_active() == True:
+        if MainGUI.radiobutton1007.get_active() == True:
             Config.performance_tab_default_sub_tab = 0
-        elif MainGUI.radiobutton1002.get_active() == True:
+        elif MainGUI.radiobutton1001.get_active() == True:
             Config.performance_tab_default_sub_tab = 1
-        elif MainGUI.radiobutton1003.get_active() == True:
+        elif MainGUI.radiobutton1002.get_active() == True:
             Config.performance_tab_default_sub_tab = 2
-        elif MainGUI.radiobutton1004.get_active() == True:
+        elif MainGUI.radiobutton1003.get_active() == True:
             Config.performance_tab_default_sub_tab = 3
-        elif MainGUI.radiobutton1005.get_active() == True:
+        elif MainGUI.radiobutton1004.get_active() == True:
             Config.performance_tab_default_sub_tab = 4
-        elif MainGUI.radiobutton1006.get_active() == True:
+        elif MainGUI.radiobutton1005.get_active() == True:
             Config.performance_tab_default_sub_tab = 5
+        elif MainGUI.radiobutton1006.get_active() == True:
+            Config.performance_tab_default_sub_tab = 6
 
 
     # ----------------------- Called for showing a warning dialog for resetting all settings -----------------------
