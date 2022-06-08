@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-30 20:05+0300\n"
-"PO-Revision-Date: 2022-06-01 19:44+0300\n"
+"POT-Creation-Date: 2022-06-08 13:29+0300\n"
+"PO-Revision-Date: 2022-06-08 13:29+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -37,15 +37,16 @@ msgid "Partition"
 msgstr "Раздел"
 
 #: src/Disk.py:259 src/SettingsGUI.py:51 ui/DiskDetailsWindow.ui:45
-#: ui/DiskMenus.ui:23 ui/DiskTab.ui:543 ui/MainWindow.ui:265
-#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1504
-#: ui/ProcessesMenuCustomizations.ui:558 ui/ProcessesMenuCustomizations.ui:636
+#: ui/DiskMenus.ui:23 ui/DiskMenus.ui:365 ui/DiskTab.ui:543
+#: ui/MainWindow.ui:323 ui/PerformanceSummaryHeaderBarGrid.ui:68
+#: ui/ProcessesDetailsWindow.ui:1504 ui/ProcessesMenuCustomizations.ui:558
+#: ui/ProcessesMenuCustomizations.ui:636
 msgid "Disk"
 msgstr "Диск"
 
-#: src/Disk.py:302 src/Disk.py:412
-msgid "[SWAP]"
-msgstr "[Подкачка]"
+#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1026
+msgid "Swap"
+msgstr "Подкачка"
 
 #: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:215
 #: src/Network.py:243 src/Services.py:171 src/ServicesDetails.py:128
@@ -67,7 +68,7 @@ msgstr "[Не смонтирован]"
 msgid "Disk Details"
 msgstr "Параметры диска"
 
-#: src/MainGUI.py:172
+#: src/MainGUI.py:173
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -75,21 +76,27 @@ msgstr ""
 "Внимание! Приложение было запущенно с правами администратора, это может "
 "навредить системе."
 
-#: src/MainGUI.py:223
+#: src/MainGUI.py:224
 msgid "There is a newer version on PyPI."
 msgstr "В PyPI доступна более новая версия."
 
-#: src/MainGUI.py:516
+#: src/MainGUI.py:538 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:613
+#: ui/SummaryTab.ui:21
+msgid "Summary"
+msgstr "Сводка"
+
+#: src/MainGUI.py:548
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "Выбор ядра CPU влияет только на информацию о частоте и кэше."
 
-#: src/MainGUI.py:520 src/Memory.py:180 src/Performance.py:540
-#: ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
+#: src/MainGUI.py:552 src/Memory.py:180 src/Performance.py:1006
+#: src/Performance.py:1316 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM"
 msgstr "Оперативная память"
 
-#: src/MainGUI.py:520 src/Memory.py:207 src/Performance.py:540
+#: src/MainGUI.py:552 src/Memory.py:207 src/Performance.py:1316
 #: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:915
 msgid "Swap Memory"
 msgstr "Подкачка"
@@ -163,10 +170,6 @@ msgstr "Использовано"
 msgid "Priority"
 msgstr "Приоритет"
 
-#: src/MemorySwapDetails.py:110
-msgid "This system has no swap memory."
-msgstr "У этой системы нет подкачки."
-
 #: src/Network.py:132
 msgid "Virtual Network Interface"
 msgstr "Виртуальный сетевой интерфейс"
@@ -178,6 +181,43 @@ msgstr ""
 #: src/Network.py:138
 msgid "Wi-Fi"
 msgstr ""
+
+#: src/Performance.py:996 src/Processes.py:149 src/SettingsGUI.py:51
+#: src/Users.py:142 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
+#: ui/MainWindow.ui:229 ui/PerformanceSummaryHeaderBarGrid.ui:17
+#: ui/ProcessesDetailsWindow.ui:113 ui/ProcessesDetailsWindow.ui:741
+#: ui/ProcessesDetailsWindow.ui:846 ui/ProcessesMenuCustomizations.ui:235
+#: ui/ProcessesMenuCustomizations.ui:526 ui/UsersDetailsWindow.ui:175
+#: ui/UsersMenuCustomizations.ui:207
+msgid "CPU"
+msgstr ""
+
+#: src/Performance.py:1016 src/Processes.py:586 src/SettingsGUI.py:50
+#: src/Users.py:137 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
+#: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
+#: ui/UsersMenuCustomizations.ui:179
+msgid "Processes"
+msgstr "Процессы"
+
+#: src/Performance.py:1167 src/Processes.py:155 ui/DiskMenus.ui:121
+#: ui/DiskTab.ui:69 ui/ProcessesDetailsWindow.ui:139
+#: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesMenuCustomizations.ui:347
+msgid "Read Speed"
+msgstr "Скорость чтения"
+
+#: src/Performance.py:1174 src/Processes.py:156 ui/DiskMenus.ui:134
+#: ui/DiskTab.ui:81 ui/ProcessesDetailsWindow.ui:664
+#: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesMenuCustomizations.ui:361
+msgid "Write Speed"
+msgstr "Скорость записи"
+
+#: src/Performance.py:1181 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
+msgid "Download Speed"
+msgstr "Скорость скачивания"
+
+#: src/Performance.py:1188 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
+msgid "Upload Speed"
+msgstr "Скорость загрузки"
 
 #: src/Processes.py:146 src/ProcessesDetails.py:254 src/ProcessesDetails.py:675
 #: ui/ProcessesDetailsWindow.ui:61 ui/ProcessesMenuCustomizations.ui:193
@@ -194,15 +234,6 @@ msgstr "Пользователь"
 #: ui/ProcessesMenuCustomizations.ui:221
 msgid "Status"
 msgstr "Статус"
-
-#: src/Processes.py:149 src/SettingsGUI.py:51 src/Users.py:142
-#: ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453 ui/MainWindow.ui:169
-#: ui/PerformanceSummaryHeaderBarGrid.ui:17 ui/ProcessesDetailsWindow.ui:113
-#: ui/ProcessesDetailsWindow.ui:741 ui/ProcessesDetailsWindow.ui:846
-#: ui/ProcessesMenuCustomizations.ui:235 ui/ProcessesMenuCustomizations.ui:526
-#: ui/UsersDetailsWindow.ui:175 ui/UsersMenuCustomizations.ui:207
-msgid "CPU"
-msgstr ""
 
 #: src/Processes.py:150 src/Services.py:145 ui/ProcessesDetailsWindow.ui:126
 #: ui/ProcessesDetailsWindow.ui:863 ui/ProcessesMenuCustomizations.ui:249
@@ -229,18 +260,6 @@ msgstr "Прочитано данных"
 #: ui/ProcessesMenuCustomizations.ui:389
 msgid "Write Data"
 msgstr "Записано данных"
-
-#: src/Processes.py:155 ui/DiskMenus.ui:121 ui/DiskTab.ui:69
-#: ui/ProcessesDetailsWindow.ui:139 ui/ProcessesDetailsWindow.ui:1322
-#: ui/ProcessesMenuCustomizations.ui:347
-msgid "Read Speed"
-msgstr "Скорость чтения"
-
-#: src/Processes.py:156 ui/DiskMenus.ui:134 ui/DiskTab.ui:81
-#: ui/ProcessesDetailsWindow.ui:664 ui/ProcessesDetailsWindow.ui:1335
-#: ui/ProcessesMenuCustomizations.ui:361
-msgid "Write Speed"
-msgstr "Скорость записи"
 
 #: src/Processes.py:158 ui/ProcessesDetailsWindow.ui:754
 #: ui/ProcessesMenuCustomizations.ui:291
@@ -313,13 +332,6 @@ msgstr "Умер"
 msgid "Search..."
 msgstr "Поиск..."
 
-#: src/Processes.py:586 src/SettingsGUI.py:50 src/Users.py:137
-#: ui/MainWindow.ui:617 ui/ProcessesMenuCustomizations.ui:23
-#: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
-#: ui/UsersMenuCustomizations.ui:179
-msgid "Processes"
-msgstr "Процессы"
-
 #: src/ProcessesDetails.py:254 ui/ProcessesDetailsWindow.ui:7
 msgid "Process Details"
 msgstr "Параметры процесса"
@@ -352,7 +364,7 @@ msgstr "Высокое"
 msgid "Critical"
 msgstr "Критическое"
 
-#: src/Sensors.py:341 src/SettingsGUI.py:51 ui/MainWindow.ui:409
+#: src/Sensors.py:341 src/SettingsGUI.py:51 ui/MainWindow.ui:464
 #: ui/SensorsTab.ui:77
 msgid "Sensors"
 msgstr "Датчики"
@@ -434,7 +446,7 @@ msgstr "Загружен"
 msgid "Exited"
 msgstr "Вышел"
 
-#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:758
+#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:816
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Сервисы"
@@ -443,40 +455,40 @@ msgstr "Сервисы"
 msgid "Information"
 msgstr "Информация"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:570
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:628
 msgid "Performance"
 msgstr "Производительность"
 
-#: src/SettingsGUI.py:50 src/Users.py:501 ui/MainWindow.ui:664
+#: src/SettingsGUI.py:50 src/Users.py:501 ui/MainWindow.ui:722
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
 msgstr "Пользователи"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:711 ui/StartupTab.ui:48
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:769 ui/StartupTab.ui:48
 msgid "Startup"
 msgstr "Автозагрузка"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:805 ui/SystemTab.ui:26
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:863 ui/SystemTab.ui:26
 msgid "System"
 msgstr "Система"
 
-#: src/SettingsGUI.py:51 ui/MainWindow.ui:217 ui/MemoryMenus.ui:23
+#: src/SettingsGUI.py:51 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
 #: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1265
 #: ui/ProcessesMenuCustomizations.ui:537 ui/ProcessesMenuCustomizations.ui:625
 msgid "Memory"
 msgstr "Память"
 
-#: src/SettingsGUI.py:51 ui/MainWindow.ui:313 ui/NetworkMenus.ui:23
+#: src/SettingsGUI.py:51 ui/MainWindow.ui:370 ui/NetworkMenus.ui:23
 #: ui/NetworkTab.ui:513 ui/PerformanceSummaryHeaderBarGrid.ui:114
 msgid "Network"
 msgstr "Сеть"
 
 #: src/SettingsGUI.py:51 ui/GpuMenus.ui:23 ui/GpuTab.ui:511
-#: ui/MainWindow.ui:361
+#: ui/MainWindow.ui:417
 msgid "GPU"
 msgstr ""
 
-#: src/SettingsGUI.py:538
+#: src/SettingsGUI.py:546
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Хотите ли вы откатить все настройки до настроек по умолчанию?"
 
@@ -748,19 +760,19 @@ msgstr "Темература"
 msgid "Multi-featured system monitor."
 msgstr "Многофункциональный системный монитор."
 
-#: ui/MainMenusDialogs.ui:85
+#: ui/MainMenusDialogs.ui:86
 msgid "Settings"
 msgstr "Настройки"
 
-#: ui/MainMenusDialogs.ui:129
+#: ui/MainMenusDialogs.ui:130
 msgid "About"
 msgstr "О программе"
 
-#: ui/MainWindow.ui:836
+#: ui/MainWindow.ui:894
 msgid "System Monitoring Center"
 msgstr "Центр мониторинга системы"
 
-#: ui/MainWindow.ui:844
+#: ui/MainWindow.ui:902
 msgid "Main Menu"
 msgstr "Основное меню"
 
@@ -783,14 +795,6 @@ msgstr "Аппаратное обеспечение:"
 #: ui/MemoryTab.ui:545
 msgid "RAM Usage"
 msgstr "Используемый объем оперативной памяти"
-
-#: ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
-msgid "Download Speed"
-msgstr "Скорость скачивания"
-
-#: ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
-msgid "Upload Speed"
-msgstr "Скорость загрузки"
 
 #: ui/NetworkTab.ui:208
 msgid "Downloaded Data"
@@ -871,10 +875,6 @@ msgid ""
 msgstr ""
 "Процесс-ребёнок\n"
 "(Не рекурсивно)"
-
-#: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:613
-msgid "Summary"
-msgstr "Сводка"
 
 #: ui/ProcessesDetailsWindow.ui:767
 msgid "Threads (TID)"
@@ -1295,6 +1295,12 @@ msgstr "Версия Gtk:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Параметры пользователя"
+
+#~ msgid "This system has no swap memory."
+#~ msgstr "У этой системы нет подкачки."
+
+#~ msgid "[SWAP]"
+#~ msgstr "[Подкачка]"
 
 #~ msgid "Web Page"
 #~ msgstr "Веб-страница"
