@@ -299,7 +299,7 @@ class Disk:
         if selected_disk.startswith("loop"):
             disk_device_model_name = "[Loop Device]"
         if selected_disk.startswith("zram"):
-            disk_device_model_name = _tr("[SWAP]")
+            disk_device_model_name = "[" + _tr("Swap").upper() + "]"
         if selected_disk.startswith("ram"):
             disk_device_model_name = "[Ramdisk]"
         if selected_disk.startswith("dm-"):
@@ -409,7 +409,7 @@ class Disk:
                 if line.split()[1].strip() == "partition":
                     swap_disk_list.append(line.split()[0].strip().split("/")[-1])
             if len(swap_disk_list) > 0 and selected_disk in swap_disk_list:
-                disk_file_system = _tr("[SWAP]")
+                disk_file_system = "[" + _tr("Swap").upper() + "]"
 
         # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
         if disk_file_system  == "fuseblk":

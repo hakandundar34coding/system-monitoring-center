@@ -496,7 +496,7 @@ class Gpu:
 
                 # Get line number of the selected GPU by using its PCI address.
                 for i, line in enumerate(gpu_tool_output):
-                    if gpu_pci_address in line:
+                    if gpu_pci_address in line or gpu_pci_address.upper() in line:
                         gpu_info_line_no = i
                         break
 

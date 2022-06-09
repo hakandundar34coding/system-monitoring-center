@@ -62,6 +62,7 @@ class MainGUI:
         self.radiobutton1004 = builder.get_object('radiobutton1004')
         self.radiobutton1005 = builder.get_object('radiobutton1005')
         self.radiobutton1006 = builder.get_object('radiobutton1006')
+        self.radiobutton1007 = builder.get_object('radiobutton1007')
         self.grid1001 = builder.get_object('grid1001')
         self.grid1002 = builder.get_object('grid1002')
         self.grid1003 = builder.get_object('grid1003')
@@ -69,7 +70,6 @@ class MainGUI:
         self.grid1005 = builder.get_object('grid1005')
         self.grid1006 = builder.get_object('grid1006')
         self.grid1007 = builder.get_object('grid1007')
-        self.grid1008 = builder.get_object('grid1008')
 
         self.grid1010 = builder.get_object('grid1010')
         #self.listbox1001 = builder.get_object('listbox1001')
@@ -98,6 +98,7 @@ class MainGUI:
         self.radiobutton1004.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
         self.radiobutton1005.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
         self.radiobutton1006.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
+        self.radiobutton1007.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
 
 
     # ----------------------- Called for running code/functions when window is closed -----------------------
@@ -266,16 +267,18 @@ class MainGUI:
 
         performance_tab_default_sub_tab = Config.performance_tab_default_sub_tab
         if performance_tab_default_sub_tab == 0:
-             self.radiobutton1001.set_active(True)
+             self.radiobutton1007.set_active(True)
         elif performance_tab_default_sub_tab == 1:
-             self.radiobutton1002.set_active(True)
+             self.radiobutton1001.set_active(True)
         elif performance_tab_default_sub_tab == 2:
-             self.radiobutton1003.set_active(True)
+             self.radiobutton1002.set_active(True)
         elif performance_tab_default_sub_tab == 3:
-             self.radiobutton1004.set_active(True)
+             self.radiobutton1003.set_active(True)
         elif performance_tab_default_sub_tab == 4:
-             self.radiobutton1005.set_active(True)
+             self.radiobutton1004.set_active(True)
         elif performance_tab_default_sub_tab == 5:
+             self.radiobutton1005.set_active(True)
+        elif performance_tab_default_sub_tab == 6:
              self.radiobutton1006.set_active(True)
 
 
@@ -294,14 +297,36 @@ class MainGUI:
             # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage. This value is not saved.
             Config.current_main_tab = 0
 
-            # Switch to "CPU" tab
-            if self.radiobutton1001.get_active() == True:
-                self.stack1001.set_visible_child(self.grid1001)
+            # Switch to "Summary" tab
+            if self.radiobutton1007.get_active() == True:
+                self.stack1001.set_visible_child(self.grid1007)
                 if remember_last_opened_tabs_on_application_start == 1:
                     Config.performance_tab_default_sub_tab = 0
                     Config.config_save_func()
                 # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage. This value is not saved.
                 Config.performance_tab_current_sub_tab = 0
+                # Attach the grid to the grid (on the Main Window) at (0, 0) position if not attached.
+                if self.grid1007.get_child_at(0,0) == None:
+                    global Summary
+                    from Summary import Summary
+                    self.grid1007.attach(Summary.grid1701, 0, 0, 1, 1)
+                # Run initial function of the module if this is the first loop of the module.
+                if Summary.initial_already_run == 0:
+                    GLib.idle_add(Summary.summary_initial_func)
+                # Run loop Summary loop function in order to get data without waiting update interval.
+                GLib.idle_add(Summary.summary_loop_func)
+                # Show device selection list on a listbox between radiobuttons of Performance tab sub-tabs.
+                self.main_gui_device_selection_list_func()
+                return
+
+            # Switch to "CPU" tab
+            if self.radiobutton1001.get_active() == True:
+                self.stack1001.set_visible_child(self.grid1001)
+                if remember_last_opened_tabs_on_application_start == 1:
+                    Config.performance_tab_default_sub_tab = 1
+                    Config.config_save_func()
+                # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage. This value is not saved.
+                Config.performance_tab_current_sub_tab = 1
                 # Attach the grid to the grid (on the Main Window) at (0, 0) position if not attached.
                 if self.grid1001.get_child_at(0,0) == None:
                     global Cpu
@@ -312,7 +337,7 @@ class MainGUI:
                     GLib.idle_add(Cpu.cpu_initial_func)
                 # Run loop Cpu loop function in order to get data without waiting update interval.
                 GLib.idle_add(Cpu.cpu_loop_func)
-                # Show device selection list on a listbox between radibuttons of Performance tab sub-tabs.
+                # Show device selection list on a listbox between radiobuttons of Performance tab sub-tabs.
                 self.main_gui_device_selection_list_func()
                 return
 
@@ -320,9 +345,9 @@ class MainGUI:
             elif self.radiobutton1002.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1002)
                 if remember_last_opened_tabs_on_application_start == 1:
-                    Config.performance_tab_default_sub_tab = 1
+                    Config.performance_tab_default_sub_tab = 2
                     Config.config_save_func()
-                Config.performance_tab_current_sub_tab = 1
+                Config.performance_tab_current_sub_tab = 2
                 if self.grid1002.get_child_at(0,0) == None:
                     global Memory
                     from Memory import Memory
@@ -337,9 +362,9 @@ class MainGUI:
             elif self.radiobutton1003.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1003)
                 if remember_last_opened_tabs_on_application_start == 1:
-                    Config.performance_tab_default_sub_tab = 2
+                    Config.performance_tab_default_sub_tab = 3
                     Config.config_save_func()
-                Config.performance_tab_current_sub_tab = 2
+                Config.performance_tab_current_sub_tab = 3
                 if self.grid1003.get_child_at(0,0) == None:
                     global Disk
                     from Disk import Disk
@@ -354,9 +379,9 @@ class MainGUI:
             elif self.radiobutton1004.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1004)
                 if remember_last_opened_tabs_on_application_start == 1:
-                    Config.performance_tab_default_sub_tab = 3
+                    Config.performance_tab_default_sub_tab = 4
                     Config.config_save_func()
-                Config.performance_tab_current_sub_tab = 3
+                Config.performance_tab_current_sub_tab = 4
                 if self.grid1004.get_child_at(0,0) == None:
                     global Network
                     from Network import Network
@@ -371,9 +396,9 @@ class MainGUI:
             elif self.radiobutton1005.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1005)
                 if remember_last_opened_tabs_on_application_start == 1:
-                    Config.performance_tab_default_sub_tab = 4
+                    Config.performance_tab_default_sub_tab = 5
                     Config.config_save_func()
-                Config.performance_tab_current_sub_tab = 4
+                Config.performance_tab_current_sub_tab = 5
                 if self.grid1005.get_child_at(0,0) == None:
                     global Gpu
                     from Gpu import Gpu
@@ -391,9 +416,9 @@ class MainGUI:
             elif self.radiobutton1006.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1006)
                 if remember_last_opened_tabs_on_application_start == 1:
-                    Config.performance_tab_default_sub_tab = 5
+                    Config.performance_tab_default_sub_tab = 6
                     Config.config_save_func()
-                Config.performance_tab_current_sub_tab = 5
+                Config.performance_tab_current_sub_tab = 6
                 if 'Sensors' not in globals():
                     global Sensors
                     import Sensors
@@ -508,22 +533,29 @@ class MainGUI:
 
         # Define variables for device list, selected device number and row number to be used for adding scrolledwindow into the grid.
         performance_tab_current_sub_tab = Config.performance_tab_current_sub_tab
-        # Check if CPU tab is selected.
+        # Check if Summary tab is selected.
         if performance_tab_current_sub_tab == 0:
+            device_list = [_tr("Summary")]
+            selected_device_number = 0
+            listbox_row_number = 1
+            tooltip_text = ""
+
+        # Check if CPU tab is selected.
+        elif performance_tab_current_sub_tab == 1:
             device_list = Performance.logical_core_list_system_ordered
             selected_device_number = Performance.selected_cpu_core_number
-            listbox_row_number = 1
+            listbox_row_number = 3
             tooltip_text = _tr("CPU core selection affects only frequency and cache memory information.")
 
         # Check if Memory tab is selected.
-        if performance_tab_current_sub_tab == 1:
+        elif performance_tab_current_sub_tab == 2:
             device_list = [_tr("RAM") + "-" + _tr("Swap Memory")]
             selected_device_number = 0
-            listbox_row_number = 3
+            listbox_row_number = 5
             tooltip_text = ""
 
         # Check if Disk tab is selected.
-        if performance_tab_current_sub_tab == 2:
+        elif performance_tab_current_sub_tab == 3:
             device_list_full = Performance.disk_list_system_ordered
             device_list = []
             for device in device_list_full:
@@ -534,25 +566,25 @@ class MainGUI:
                 device_list.append(device)
             # "selected_device_number" for Disk tab is get in a different way. Because device list may be changed if "hide_loop_ramdisk_zram_disks" option is enabled.
             selected_device_number = device_list.index(Performance.disk_list_system_ordered[Performance.selected_disk_number])
-            listbox_row_number = 5
-            tooltip_text = ""
-
-        # Check if Network tab is selected.
-        if performance_tab_current_sub_tab == 3:
-            device_list = Performance.network_card_list
-            selected_device_number = Performance.selected_network_card_number
             listbox_row_number = 7
             tooltip_text = ""
 
-        # Check if GPU tab is selected.
-        if performance_tab_current_sub_tab == 4:
-            device_list = Gpu.gpu_list
-            selected_device_number = Gpu.selected_gpu_number
+        # Check if Network tab is selected.
+        elif performance_tab_current_sub_tab == 4:
+            device_list = Performance.network_card_list
+            selected_device_number = Performance.selected_network_card_number
             listbox_row_number = 9
             tooltip_text = ""
 
+        # Check if GPU tab is selected.
+        elif performance_tab_current_sub_tab == 5:
+            device_list = Gpu.gpu_list
+            selected_device_number = Gpu.selected_gpu_number
+            listbox_row_number = 11
+            tooltip_text = ""
+
         # Check if Sensors tab is selected.
-        if performance_tab_current_sub_tab == 5:
+        elif performance_tab_current_sub_tab == 6:
             return
 
         # Generate new widgets.
@@ -572,8 +604,12 @@ class MainGUI:
             # Get selected device name.
             selected_device = device_list[row.get_index()]
 
-            # Check if CPU tab is selected.
+            # Check if Summary tab is selected.
             if performance_tab_current_sub_tab == 0:
+                pass
+
+            # Check if CPU tab is selected.
+            elif performance_tab_current_sub_tab == 1:
                 # Set selected device.
                 Config.selected_cpu_core = selected_device
                 Performance.performance_set_selected_cpu_core_func()
@@ -584,11 +620,11 @@ class MainGUI:
                 Config.config_save_func()
 
             # Check if Memory tab is selected.
-            elif performance_tab_current_sub_tab == 1:
+            elif performance_tab_current_sub_tab == 2:
                 pass
 
             # Check if Disk tab is selected.
-            elif performance_tab_current_sub_tab == 2:
+            elif performance_tab_current_sub_tab == 3:
                 Config.selected_disk = selected_device
                 Performance.performance_set_selected_disk_func()
 
@@ -598,7 +634,7 @@ class MainGUI:
                 Config.config_save_func()
 
             # Check if Network tab is selected.
-            elif performance_tab_current_sub_tab == 3:
+            elif performance_tab_current_sub_tab == 4:
                 Config.selected_network_card = selected_device
                 Performance.performance_set_selected_network_card_func()
 
@@ -608,7 +644,7 @@ class MainGUI:
                 Config.config_save_func()
 
             # Check if GPU tab is selected.
-            elif performance_tab_current_sub_tab == 4:
+            elif performance_tab_current_sub_tab == 5:
                 Config.selected_gpu = selected_device
                 Gpu.gpu_get_gpu_list_and_boot_vga_func()
 
@@ -618,7 +654,7 @@ class MainGUI:
                 Config.config_save_func()
 
             # Check if Sensors tab is selected.
-            elif performance_tab_current_sub_tab == 5:
+            elif performance_tab_current_sub_tab == 6:
                 pass
 
         # Add devices into listbox.
@@ -629,7 +665,7 @@ class MainGUI:
             label.set_label(device)
             grid.attach(label, 0, 0, 1, 1)
             # Also add disk usage percentage label next to device name if this is Disk tab.
-            if performance_tab_current_sub_tab == 2:
+            if performance_tab_current_sub_tab == 3:
                 disk_mount_point = Disk.disk_mount_point_func(device)
                 _, _, _, _, _, disk_usage_percent = Disk.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
                 label = Gtk.Label()
@@ -680,16 +716,18 @@ class MainGUI:
 
         if current_main_tab == 0:
             if performance_tab_current_sub_tab == 0:
+                GLib.idle_add(Summary.summary_loop_func)
+            elif performance_tab_current_sub_tab == 1:
                 GLib.idle_add(Cpu.cpu_loop_func)
-            if performance_tab_current_sub_tab == 1:
+            elif performance_tab_current_sub_tab == 2:
                 GLib.idle_add(Memory.memory_loop_func)
-            if performance_tab_current_sub_tab == 2:
+            elif performance_tab_current_sub_tab == 3:
                 GLib.idle_add(Disk.disk_loop_func)
-            if performance_tab_current_sub_tab == 3:
+            elif performance_tab_current_sub_tab == 4:
                 GLib.idle_add(Network.network_loop_func)
-            if performance_tab_current_sub_tab == 4:
+            elif performance_tab_current_sub_tab == 5:
                 GLib.idle_add(Gpu.gpu_loop_func)
-            if performance_tab_current_sub_tab == 5:
+            elif performance_tab_current_sub_tab == 6:
                 GLib.idle_add(Sensors.sensors_loop_func)
         if current_main_tab == 1:
             GLib.idle_add(Processes.processes_loop_func)

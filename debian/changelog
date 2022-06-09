@@ -1,3 +1,12 @@
+system-monitoring-center (1.19.0) unstable; urgency=medium
+
+  * New: Summary tab for showing performance summary
+  * Updated translations for Czech language
+  * Fix: GPU PCI address upper-lower case problem
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 09 Jun 2022 09:00:00 +0300
+
 system-monitoring-center (1.18.0) unstable; urgency=medium
 
   * New: Option for hiding loop, ramdisk, zram disks (Disk tab)
