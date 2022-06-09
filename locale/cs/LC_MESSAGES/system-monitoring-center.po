@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-08 13:29+0300\n"
-"PO-Revision-Date: 2022-06-08 13:30+0300\n"
+"POT-Creation-Date: 2022-06-09 19:06+0300\n"
+"PO-Revision-Date: 2022-06-09 19:08+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -38,12 +38,12 @@ msgstr "Oddíl"
 #: src/Disk.py:259 src/SettingsGUI.py:51 ui/DiskDetailsWindow.ui:45
 #: ui/DiskMenus.ui:23 ui/DiskMenus.ui:365 ui/DiskTab.ui:543
 #: ui/MainWindow.ui:323 ui/PerformanceSummaryHeaderBarGrid.ui:68
-#: ui/ProcessesDetailsWindow.ui:1504 ui/ProcessesMenuCustomizations.ui:558
+#: ui/ProcessesDetailsWindow.ui:1463 ui/ProcessesMenuCustomizations.ui:558
 #: ui/ProcessesMenuCustomizations.ui:636
 msgid "Disk"
 msgstr "Disk"
 
-#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1026
+#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1007
 msgid "Swap"
 msgstr "Swap"
 
@@ -89,14 +89,14 @@ msgstr "Souhrn"
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "Výběr CPU jádra ovlivňuje pouze informace o frekvenci a paměti cache."
 
-#: src/MainGUI.py:552 src/Memory.py:180 src/Performance.py:1006
-#: src/Performance.py:1316 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
+#: src/MainGUI.py:552 src/Memory.py:180 src/Performance.py:989
+#: src/Performance.py:1292 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:552 src/Memory.py:207 src/Performance.py:1316
-#: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:915
+#: src/MainGUI.py:552 src/Memory.py:207 src/Performance.py:1292
+#: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:902
 msgid "Swap Memory"
 msgstr "SWAP paměť"
 
@@ -181,44 +181,44 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:996 src/Processes.py:149 src/SettingsGUI.py:51
+#: src/Performance.py:980 src/Processes.py:149 src/SettingsGUI.py:51
 #: src/Users.py:142 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
 #: ui/MainWindow.ui:229 ui/PerformanceSummaryHeaderBarGrid.ui:17
 #: ui/ProcessesDetailsWindow.ui:113 ui/ProcessesDetailsWindow.ui:741
-#: ui/ProcessesDetailsWindow.ui:846 ui/ProcessesMenuCustomizations.ui:235
+#: ui/ProcessesDetailsWindow.ui:833 ui/ProcessesMenuCustomizations.ui:235
 #: ui/ProcessesMenuCustomizations.ui:526 ui/UsersDetailsWindow.ui:175
 #: ui/UsersMenuCustomizations.ui:207
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Performance.py:1016 src/Processes.py:586 src/SettingsGUI.py:50
+#: src/Performance.py:998 src/Processes.py:586 src/SettingsGUI.py:50
 #: src/Users.py:137 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:179
 msgid "Processes"
 msgstr "Procesy"
 
-#: src/Performance.py:1167 src/Processes.py:155 ui/DiskMenus.ui:121
+#: src/Performance.py:1143 src/Processes.py:155 ui/DiskMenus.ui:121
 #: ui/DiskTab.ui:69 ui/ProcessesDetailsWindow.ui:139
-#: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesMenuCustomizations.ui:347
+#: ui/ProcessesDetailsWindow.ui:1281 ui/ProcessesMenuCustomizations.ui:347
 msgid "Read Speed"
 msgstr "Rychlost čtení"
 
-#: src/Performance.py:1174 src/Processes.py:156 ui/DiskMenus.ui:134
+#: src/Performance.py:1150 src/Processes.py:156 ui/DiskMenus.ui:134
 #: ui/DiskTab.ui:81 ui/ProcessesDetailsWindow.ui:664
-#: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesMenuCustomizations.ui:361
+#: ui/ProcessesDetailsWindow.ui:1294 ui/ProcessesMenuCustomizations.ui:361
 msgid "Write Speed"
 msgstr "Rychlost zápisu"
 
-#: src/Performance.py:1181 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
+#: src/Performance.py:1157 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
 msgid "Download Speed"
 msgstr "Rychlost stahování"
 
-#: src/Performance.py:1188 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
+#: src/Performance.py:1164 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
 msgid "Upload Speed"
 msgstr "Rychlost nahrávání"
 
-#: src/Processes.py:146 src/ProcessesDetails.py:254 src/ProcessesDetails.py:675
+#: src/Processes.py:146 src/ProcessesDetails.py:252 src/ProcessesDetails.py:668
 #: ui/ProcessesDetailsWindow.ui:61 ui/ProcessesMenuCustomizations.ui:193
 msgid "PID"
 msgstr "PID"
@@ -235,27 +235,27 @@ msgid "Status"
 msgstr "Stav"
 
 #: src/Processes.py:150 src/Services.py:145 ui/ProcessesDetailsWindow.ui:126
-#: ui/ProcessesDetailsWindow.ui:863 ui/ProcessesMenuCustomizations.ui:249
+#: ui/ProcessesDetailsWindow.ui:850 ui/ProcessesMenuCustomizations.ui:249
 #: ui/ServicesDetailsWindow.ui:238 ui/ServicesMenuCustomizations.ui:193
 msgid "Memory (RSS)"
 msgstr "Paměť (RSS)"
 
-#: src/Processes.py:151 ui/ProcessesDetailsWindow.ui:876
+#: src/Processes.py:151 ui/ProcessesDetailsWindow.ui:863
 #: ui/ProcessesMenuCustomizations.ui:263
 msgid "Memory (VMS)"
 msgstr "Paměť (VMS)"
 
-#: src/Processes.py:152 ui/ProcessesDetailsWindow.ui:889
+#: src/Processes.py:152 ui/ProcessesDetailsWindow.ui:876
 #: ui/ProcessesMenuCustomizations.ui:333
 msgid "Memory (Shared)"
 msgstr "Paměť (Sdílená)"
 
-#: src/Processes.py:153 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1348
+#: src/Processes.py:153 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1307
 #: ui/ProcessesMenuCustomizations.ui:375
 msgid "Read Data"
 msgstr "Disk - čtení dat"
 
-#: src/Processes.py:154 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1361
+#: src/Processes.py:154 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1320
 #: ui/ProcessesMenuCustomizations.ui:389
 msgid "Write Data"
 msgstr "Disk - zápis dat"
@@ -282,12 +282,12 @@ msgstr "UID"
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:162 ui/ProcessesDetailsWindow.ui:1764
+#: src/Processes.py:162 ui/ProcessesDetailsWindow.ui:1723
 #: ui/ProcessesMenuCustomizations.ui:319 ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr "Cesta"
 
-#: src/Processes.py:163 ui/ProcessesDetailsWindow.ui:1547
+#: src/Processes.py:163 ui/ProcessesDetailsWindow.ui:1506
 #: ui/ProcessesMenuCustomizations.ui:431
 msgid "Command Line"
 msgstr "Příkazový řádek"
@@ -326,16 +326,16 @@ msgstr "Mrtvý"
 
 #: src/Processes.py:586 src/Sensors.py:341 src/Services.py:455
 #: src/Startup.py:411 src/Users.py:501 ui/ProcessesTab.ui:66
-#: ui/SensorsTab.ui:95 ui/ServicesTab.ui:99 ui/StartupTab.ui:66
+#: ui/SensorsTab.ui:66 ui/ServicesTab.ui:99 ui/StartupTab.ui:66
 #: ui/UsersTab.ui:66
 msgid "Search..."
 msgstr "Hledat..."
 
-#: src/ProcessesDetails.py:254 ui/ProcessesDetailsWindow.ui:7
+#: src/ProcessesDetails.py:252 ui/ProcessesDetailsWindow.ui:7
 msgid "Process Details"
 msgstr "Detail procesu"
 
-#: src/ProcessesDetails.py:674
+#: src/ProcessesDetails.py:667
 msgid "This process is not running anymore:"
 msgstr "Tento proces už neběží:"
 
@@ -364,7 +364,7 @@ msgid "Critical"
 msgstr "Kritická hodnota"
 
 #: src/Sensors.py:341 src/SettingsGUI.py:51 ui/MainWindow.ui:464
-#: ui/SensorsTab.ui:77
+#: ui/SensorsTab.ui:48
 msgid "Sensors"
 msgstr "Senzory"
 
@@ -472,7 +472,7 @@ msgid "System"
 msgstr "Systém"
 
 #: src/SettingsGUI.py:51 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
-#: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1265
+#: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1224
 #: ui/ProcessesMenuCustomizations.ui:537 ui/ProcessesMenuCustomizations.ui:625
 msgid "Memory"
 msgstr "Paměť"
@@ -550,10 +550,12 @@ msgid "Start Time"
 msgstr "Doba spuštění"
 
 #: ui/CpuMenus.ui:125 ui/DiskMenus.ui:63 ui/GpuMenus.ui:63 ui/MemoryMenus.ui:85
-#: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:804
-#: ui/ServicesMenuCustomizations.ui:280 ui/UsersMenuCustomizations.ui:325
-msgid "Reset All"
-msgstr "Resetovat vše"
+#: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:104
+#: ui/ProcessesMenuCustomizations.ui:804 ui/ServicesMenuCustomizations.ui:49
+#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:292
+#: ui/UsersMenuCustomizations.ui:49 ui/UsersMenuCustomizations.ui:325
+msgid "Reset"
+msgstr "Resetovat"
 
 #: ui/CpuMenus.ui:167 ui/DiskMenus.ui:239 ui/MemoryMenus.ui:180
 #: ui/NetworkMenus.ui:208
@@ -859,7 +861,7 @@ msgstr "Uložit"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ui/ProcessesDetailsWindow.ui:165 ui/ProcessesDetailsWindow.ui:1521
+#: ui/ProcessesDetailsWindow.ui:165 ui/ProcessesDetailsWindow.ui:1480
 msgid "Exe"
 msgstr "Exe"
 
@@ -884,42 +886,38 @@ msgid "Used CPU Core(s)"
 msgstr "Využívaná jádra CPU"
 
 #: ui/ProcessesDetailsWindow.ui:793
-msgid "CPU Affinity"
-msgstr "Afinita CPU"
-
-#: ui/ProcessesDetailsWindow.ui:806
 msgid "CPU Times"
 msgstr "CPU časy"
 
-#: ui/ProcessesDetailsWindow.ui:819
+#: ui/ProcessesDetailsWindow.ui:806
 msgid "Context Switches"
 msgstr "Kontextové přepínače"
 
-#: ui/ProcessesDetailsWindow.ui:902
+#: ui/ProcessesDetailsWindow.ui:889
 msgid "Memory (USS)"
 msgstr "Paměť (USS)"
 
-#: ui/ProcessesDetailsWindow.ui:1289
+#: ui/ProcessesDetailsWindow.ui:1248
 msgid "CPU and Memory"
 msgstr "CPU a Paměť"
 
-#: ui/ProcessesDetailsWindow.ui:1374
+#: ui/ProcessesDetailsWindow.ui:1333
 msgid "Read Count"
 msgstr "Počet čtení disku"
 
-#: ui/ProcessesDetailsWindow.ui:1387
+#: ui/ProcessesDetailsWindow.ui:1346
 msgid "Write Count"
 msgstr "Počet zápisu disku"
 
-#: ui/ProcessesDetailsWindow.ui:1534
+#: ui/ProcessesDetailsWindow.ui:1493
 msgid "Current Working Directory"
 msgstr "Aktuální pracovní adresář"
 
-#: ui/ProcessesDetailsWindow.ui:1560
+#: ui/ProcessesDetailsWindow.ui:1519
 msgid "Opened Files"
 msgstr "Otevřené soubory"
 
-#: ui/ProcessesDetailsWindow.ui:1788
+#: ui/ProcessesDetailsWindow.ui:1747
 msgid "Disk and Path"
 msgstr "Disk a cesta"
 
@@ -934,11 +932,6 @@ msgstr "Zobrazit procesy jako strom"
 #: ui/ProcessesMenuCustomizations.ui:77
 msgid "Show tree lines"
 msgstr "Zobrazit linie stromu"
-
-#: ui/ProcessesMenuCustomizations.ui:104 ui/ServicesMenuCustomizations.ui:49
-#: ui/SettingsWindow.ui:292 ui/UsersMenuCustomizations.ui:49
-msgid "Reset"
-msgstr "Resetovat"
 
 #: ui/ProcessesMenuCustomizations.ui:120 ui/ProcessesMenuCustomizations.ui:151
 #: ui/ServicesMenuCustomizations.ui:81 ui/UsersMenuCustomizations.ui:81
@@ -1008,10 +1001,6 @@ msgstr "Vlastní hodnota..."
 #: ui/UsersMenuRightClick.ui:12
 msgid "Details"
 msgstr "Detaily"
-
-#: ui/SensorsTab.ui:19
-msgid "Note: Some sensors may not provide correct values!"
-msgstr "Poznámka: Některé senzory nemusí poskytovat přesné hodnoty!"
 
 #: ui/ServicesDetailsWindow.ui:7
 msgid "Service Details"
@@ -1291,6 +1280,15 @@ msgstr "Verze Gtk:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Podrobnosti o uživateli"
+
+#~ msgid "Reset All"
+#~ msgstr "Resetovat vše"
+
+#~ msgid "CPU Affinity"
+#~ msgstr "Afinita CPU"
+
+#~ msgid "Note: Some sensors may not provide correct values!"
+#~ msgstr "Poznámka: Některé senzory nemusí poskytovat přesné hodnoty!"
 
 #~ msgid "This system has no swap memory."
 #~ msgstr "Tento systém nemá paměť SWAP."

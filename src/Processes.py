@@ -362,7 +362,7 @@ def processes_loop_func():
                     proc_pid_io_lines = reader.read().split("\n")
                 process_read_bytes = int(proc_pid_io_lines[4].split(":")[1])
                 process_write_bytes = int(proc_pid_io_lines[5].split(":")[1])
-            except PermissionError:
+            except (PermissionError, ProcessLookupError) as me:
                 process_read_bytes = 0
                 process_write_bytes = 0
             disk_read_write_data.append((process_read_bytes, process_write_bytes))

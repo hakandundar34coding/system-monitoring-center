@@ -663,9 +663,9 @@ class Performance:
         ctx.save()
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         angle1 = (90+40)*pi_number/180
-        ctx.move_to(0*cos(angle1)+gauge_right_outer_radius*sin(angle1), -0*sin(angle1)+gauge_right_outer_radius*cos(angle1))
+        ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
         angle1 = (90-40)*pi_number/180
-        ctx.line_to(0*cos(angle1)+gauge_right_outer_radius*sin(angle1), -0*sin(angle1)+gauge_right_outer_radius*cos(angle1))
+        ctx.line_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
         ctx.rel_line_to(-gauge_right_outer_radius, 0)
         ctx.rel_line_to(0, -0*sin(angle1)-2*gauge_right_outer_radius*cos(angle1))
         ctx.set_source_rgba(34/255, 52/255, 71/255, 1)
@@ -684,8 +684,6 @@ class Performance:
         gradient_pattern.add_color_stop_rgba(0.93, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.94, 20/255, 26/255, 35/255, 1)
         gradient_pattern.add_color_stop_rgba(0.95, 44/255, 60/255, 79/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.92, 57/255, 68/255, 104/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.94, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.98, 20/255, 26/255, 35/255, 1)
         gradient_pattern.add_color_stop_rgba(0.99, 44/255, 60/255, 79/255, 1)
         gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
@@ -700,7 +698,7 @@ class Performance:
         ctx.save()
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         angle1 = (90+40)*pi_number/180
-        ctx.move_to(0*cos(angle1)+gauge_right_outer_radius*sin(angle1), -0*sin(angle1)+gauge_right_outer_radius*cos(angle1))
+        ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
         ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
         ctx.rel_line_to(-gauge_right_outer_radius, 0)
         ctx.rel_line_to(0, -gauge_right_outer_radius*0.07)
@@ -709,8 +707,6 @@ class Performance:
         gradient_pattern.add_color_stop_rgba(0.93, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.94, 20/255, 26/255, 35/255, 1)
         gradient_pattern.add_color_stop_rgba(0.95, 44/255, 60/255, 79/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.92, 57/255, 68/255, 104/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.94, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.98, 20/255, 26/255, 35/255, 1)
         gradient_pattern.add_color_stop_rgba(0.99, 44/255, 60/255, 79/255, 1)
         gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
@@ -723,7 +719,7 @@ class Performance:
         ctx.save()
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         angle1 = (90-40)*pi_number/180
-        ctx.move_to(0*cos(angle1)+gauge_right_outer_radius*sin(angle1), -0*sin(angle1)+gauge_right_outer_radius*cos(angle1))
+        ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
         ctx.rel_move_to(0, -gauge_right_outer_radius*0.07)
         ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
         ctx.rel_line_to(-gauge_right_outer_radius, 0)
@@ -733,8 +729,6 @@ class Performance:
         gradient_pattern.add_color_stop_rgba(0.93, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.94, 20/255, 26/255, 35/255, 1)
         gradient_pattern.add_color_stop_rgba(0.95, 44/255, 60/255, 79/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.92, 57/255, 68/255, 104/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.94, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.98, 20/255, 26/255, 35/255, 1)
         gradient_pattern.add_color_stop_rgba(0.99, 44/255, 60/255, 79/255, 1)
         gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
@@ -767,7 +761,7 @@ class Performance:
         ctx.move_to(gauge_separator_line_horizontal_start, 0)
         ctx.rel_line_to(gauge_separator_line_horizontal_length, 0)
         ctx.set_line_width(1.5)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.3)
+        ctx.set_source_rgba(100/255, 113/255, 126/255, 1.0)
         ctx.stroke()
         ctx.restore()
 
@@ -800,15 +794,11 @@ class Performance:
 
         # Draw background and outer circle of the circular gauge.
         ctx.arc(gauge_circular_center_x, chart_height / 2, gauge_outer_radius, 0, 2*pi_number)
-        #ctx.set_source_rgba(28/255, 33/255, 39/255, 1.0)
-        #gradient_pattern = cairo.RadialGradient(0, 0, 10, 0, 0, gauge_circular_center_x)
         gradient_pattern = cairo.RadialGradient(gauge_circular_center_x, chart_height / 2, 0, gauge_circular_center_x, chart_height / 2, gauge_outer_radius)
         gradient_pattern.add_color_stop_rgba(0, 32/255, 41/255, 49/255, 1)
         gradient_pattern.add_color_stop_rgba(0.86, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.88, 20/255, 26/255, 35/255, 1)
         gradient_pattern.add_color_stop_rgba(0.90, 44/255, 60/255, 79/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.92, 57/255, 68/255, 104/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.94, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.96, 20/255, 26/255, 35/255, 1)
         gradient_pattern.add_color_stop_rgba(0.98, 44/255, 60/255, 79/255, 1)
         gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
@@ -818,15 +808,9 @@ class Performance:
 
         # Draw background and inner circle of the circular gauge.
         ctx.arc(gauge_circular_center_x, chart_height / 2, gauge_inner_radius, 0, 2*pi_number)
-        #ctx.set_source_rgba(28/255, 33/255, 39/255, 1.0)
-        #gradient_pattern = cairo.RadialGradient(0, 0, 10, 0, 0, gauge_circular_center_x)
         gradient_pattern = cairo.RadialGradient(gauge_circular_center_x, chart_height / 2, 0, gauge_circular_center_x, chart_height / 2, gauge_inner_radius)
         gradient_pattern.add_color_stop_rgba(0, 32/255, 41/255, 49/255, 1)
         gradient_pattern.add_color_stop_rgba(0.94, 34/255, 52/255, 71/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.88, 20/255, 26/255, 35/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.90, 44/255, 60/255, 79/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.92, 57/255, 68/255, 104/255, 1)
-        #gradient_pattern.add_color_stop_rgba(0.94, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.96, 20/255, 26/255, 35/255, 1)
         gradient_pattern.add_color_stop_rgba(0.98, 44/255, 60/255, 79/255, 1)
         gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
@@ -937,7 +921,7 @@ class Performance:
                 ctx.save()
                 ctx.translate((gauge_circular_center_x)-gauge_indicator_text_correction, (chart_height / 2)+gauge_indicator_text_correction)
                 angle1 = -((i*15)+15)*pi_number/180
-                ctx.move_to(0*cos(angle1)+(gauge_indicator_text_radius-gauge_indicator_text_move)*sin(angle1), -0*sin(angle1)+(gauge_indicator_text_radius-gauge_indicator_text_move)*cos(angle1))
+                ctx.move_to((gauge_indicator_text_radius-gauge_indicator_text_move)*sin(angle1), (gauge_indicator_text_radius-gauge_indicator_text_move)*cos(angle1))
                 ctx.set_font_size(gauge_indicator_text_size)
                 ctx.set_source_rgba(1.0, 1.0, 1.0, 1.0)
                 ctx.show_text(f'{angle}')
@@ -964,7 +948,7 @@ class Performance:
                 ctx.save()
                 ctx.translate((gauge_circular_center_x)-gauge_indicator_text_correction, (chart_height / 2)+gauge_indicator_text_correction)
                 angle1 = ((i*15)+15)*pi_number/180
-                ctx.move_to(0*cos(angle1)+(gauge_indicator_text_radius-gauge_indicator_text_move)*sin(angle1), -0*sin(angle1)+(gauge_indicator_text_radius-gauge_indicator_text_move)*cos(angle1))
+                ctx.move_to((gauge_indicator_text_radius-gauge_indicator_text_move)*sin(angle1), (gauge_indicator_text_radius-gauge_indicator_text_move)*cos(angle1))
                 ctx.set_font_size(gauge_indicator_text_size)
                 ctx.set_source_rgba(1.0, 1.0, 1.0, 1.0)
                 ctx.show_text(f'{angle}')
@@ -976,19 +960,19 @@ class Performance:
         ctx.translate(gauge_circular_center_x, chart_height / 2)
         ctx.move_to(0, -gauge_separator_line_vertical_center_length / 2)
         ctx.rel_line_to(0, gauge_separator_line_vertical_center_length)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.3)
+        ctx.set_source_rgba(100/255, 113/255, 126/255, 1.0)
         ctx.stroke()
 
         # Draw vertical separator line on the center of the outer circle of the circular gauge (upper side).
         ctx.move_to(0, -gauge_separator_line_vertical_upper_start)
         ctx.rel_line_to(0, gauge_separator_line_vertical_upper_length)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.3)
+        ctx.set_source_rgba(100/255, 113/255, 126/255, 1.0)
         ctx.stroke()
 
         # Draw vertical separator line on the center of the outer circle of the circular gauge (lower side).
         ctx.move_to(0, gauge_separator_line_vertical_lower_start)
         ctx.rel_line_to(0, gauge_separator_line_vertical_lower_length)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.3)
+        ctx.set_source_rgba(100/255, 113/255, 126/255, 1.0)
         ctx.stroke()
 
 
@@ -997,9 +981,8 @@ class Performance:
         ctx.set_font_size(gauge_indicator_text_size)
         text_extends = ctx.text_extents(cpu_text)
         text_start_x = text_extends.width
-        text_start_y = text_extends.height
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_label_text_move)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(cpu_text)
 
         # Draw "RAM" label on the upper-right side of the inner circle of the circular gauge.
@@ -1007,9 +990,8 @@ class Performance:
         ctx.set_font_size(gauge_indicator_text_size)
         text_extends = ctx.text_extents(ram_text)
         text_start_x = text_extends.width
-        text_start_y = text_extends.height
         ctx.move_to(gauge_cpu_ram_label_text_margin, -gauge_cpu_ram_label_text_move)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(ram_text)
 
         # Draw "Processes" label on the lower-left side of the inner circle of the circular gauge.
@@ -1017,9 +999,8 @@ class Performance:
         ctx.set_font_size(gauge_processes_swap_label_text_size)
         text_extends = ctx.text_extents(cpu_text)
         text_start_x = text_extends.width
-        text_start_y = text_extends.height
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_label_text_move)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(cpu_text)
 
         # Draw "Swap" label on the upper-right side of the inner circle of the circular gauge.
@@ -1027,9 +1008,8 @@ class Performance:
         ctx.set_font_size(gauge_processes_swap_label_text_size)
         text_extends = ctx.text_extents(ram_text)
         text_start_x = text_extends.width
-        text_start_y = text_extends.height
         ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_processes_swap_label_text_move)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(ram_text)
 
 
@@ -1037,7 +1017,6 @@ class Performance:
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         text_extends = ctx.text_extents(cpu_usage_text)
         text_start_x = text_extends.width
-        text_start_y = text_extends.height
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), 2 * gauge_cpu_ram_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(cpu_usage_text)
@@ -1050,7 +1029,7 @@ class Performance:
 
         # Draw CPU usage percentage label on the left side of the inner circle of the circular gauge.
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), 0)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.9)
+        ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         ctx.show_text(cpu_usage_text)
 
@@ -1058,7 +1037,6 @@ class Performance:
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         text_extends = ctx.text_extents(ram_usage_text)
         text_start_x = text_extends.width
-        text_start_y = text_extends.height
         ctx.move_to(gauge_cpu_ram_label_text_margin, 2 * gauge_cpu_ram_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(ram_usage_text)
@@ -1071,7 +1049,7 @@ class Performance:
 
         # Draw RAM usage percentage label on the left side of the inner circle of the circular gauge.
         ctx.move_to(gauge_cpu_ram_label_text_margin, 0)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.9)
+        ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         ctx.show_text(ram_usage_text)
 
@@ -1079,7 +1057,6 @@ class Performance:
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
         text_extends = ctx.text_extents(processes_text)
         text_start_x = text_extends.width
-        text_start_y = text_extends.height
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_usage_text_move + 2 * gauge_processes_swap_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(processes_text)
@@ -1092,7 +1069,7 @@ class Performance:
 
         # Draw Processes label on the left side of the inner circle of the circular gauge.
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_usage_text_move)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.9)
+        ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
         ctx.show_text(processes_text)
 
@@ -1100,7 +1077,6 @@ class Performance:
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
         text_extends = ctx.text_extents(swap_usage_text)
         text_start_x = text_extends.width
-        text_start_y = text_extends.height
         ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_processes_swap_usage_text_move + 2 * gauge_processes_swap_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(swap_usage_text)
@@ -1113,7 +1089,7 @@ class Performance:
 
         # Draw Swap usage percentage label on the left side of the inner circle of the circular gauge.
         ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_processes_swap_usage_text_move)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.9)
+        ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
         ctx.show_text(swap_usage_text)
 
@@ -1167,28 +1143,28 @@ class Performance:
         read_speed_text = _tr("Read Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
         ctx.move_to(gauge_disk_read_speed_label_text_move_x, -gauge_disk_read_speed_label_text_move_y)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(read_speed_text)
 
         # Draw "Write Speed" label on the upper-left side of the inner circle of the circular gauge.
         read_speed_text = _tr("Write Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
         ctx.move_to(gauge_disk_write_speed_label_text_move_x, -gauge_disk_write_speed_label_text_move_y)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(read_speed_text)
 
         # Draw "Download Speed" label on the upper-left side of the inner circle of the circular gauge.
         read_speed_text = _tr("Download Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
         ctx.move_to(gauge_network_download_speed_label_text_move_x, gauge_network_download_speed_label_text_move_y)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(read_speed_text)
 
         # Draw "Upload Speed" label on the upper-left side of the inner circle of the circular gauge.
         read_speed_text = _tr("Upload Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
         ctx.move_to(gauge_network_upload_speed_label_text_move_x, gauge_network_upload_speed_label_text_move_y)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(read_speed_text)
 
 
@@ -1206,7 +1182,7 @@ class Performance:
 
         # Draw Disk Read Speed label on the right gauge.
         ctx.move_to(gauge_disk_read_speed_label_text_move_x, -gauge_disk_read_speed_label_text_move_y + gauge_disk_network_usage_text_move_y)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.9)
+        ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_disk_network_usage_text_size)
         ctx.show_text(disk_read_speed_text)
 
@@ -1224,7 +1200,7 @@ class Performance:
 
         # Draw Disk Write Speed label on the right gauge.
         ctx.move_to(gauge_disk_write_speed_label_text_move_x, -gauge_disk_write_speed_label_text_move_y + gauge_disk_network_usage_text_move_y)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.9)
+        ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_disk_network_usage_text_size)
         ctx.show_text(disk_write_speed_text)
 
@@ -1242,7 +1218,7 @@ class Performance:
 
         # Draw Network Download Speed label on the right gauge.
         ctx.move_to(gauge_network_download_speed_label_text_move_x, gauge_network_download_speed_label_text_move_y + gauge_disk_network_usage_text_move_y)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.9)
+        ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_disk_network_usage_text_size)
         ctx.show_text(network_download_speed_text)
 
@@ -1260,7 +1236,7 @@ class Performance:
 
         # Draw Network Upload Speed label on the right gauge.
         ctx.move_to(gauge_network_upload_speed_label_text_move_x, gauge_network_upload_speed_label_text_move_y + gauge_disk_network_usage_text_move_y)
-        ctx.set_source_rgba(1.0, 1.0, 1.0, 0.9)
+        ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_disk_network_usage_text_size)
         ctx.show_text(network_upload_speed_text)
 

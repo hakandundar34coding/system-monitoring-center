@@ -722,7 +722,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <!-- n-columns=3 n-rows=15 -->
+                  <!-- n-columns=3 n-rows=14 -->
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -790,7 +790,7 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">CPU Affinity</property>
+                        <property name="label" translatable="yes">CPU Times</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
@@ -803,24 +803,11 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label" translatable="yes">CPU Times</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">0</property>
-                        <property name="top-attach">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="valign">start</property>
                         <property name="label" translatable="yes">Context Switches</property>
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">7</property>
+                        <property name="top-attach">6</property>
                       </packing>
                     </child>
                     <child>
@@ -832,7 +819,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">8</property>
+                        <property name="top-attach">7</property>
                         <property name="width">3</property>
                       </packing>
                     </child>
@@ -864,7 +851,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">10</property>
+                        <property name="top-attach">9</property>
                       </packing>
                     </child>
                     <child>
@@ -877,7 +864,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">11</property>
+                        <property name="top-attach">10</property>
                       </packing>
                     </child>
                     <child>
@@ -890,7 +877,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">12</property>
+                        <property name="top-attach">11</property>
                       </packing>
                     </child>
                     <child>
@@ -903,7 +890,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">13</property>
+                        <property name="top-attach">12</property>
                       </packing>
                     </child>
                     <child>
@@ -916,7 +903,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">14</property>
+                        <property name="top-attach">13</property>
                       </packing>
                     </child>
                     <child>
@@ -965,7 +952,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label2120w">
+                      <object class="GtkLabel" id="label2121w">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
@@ -980,7 +967,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label2121w">
+                      <object class="GtkLabel" id="label2122w">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
@@ -995,21 +982,6 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label2122w">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="valign">start</property>
-                        <property name="label">--</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">2</property>
-                        <property name="top-attach">7</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkLabel" id="label2123w">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -1021,7 +993,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">2</property>
-                        <property name="top-attach">10</property>
+                        <property name="top-attach">9</property>
                       </packing>
                     </child>
                     <child>
@@ -1036,7 +1008,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">2</property>
-                        <property name="top-attach">11</property>
+                        <property name="top-attach">10</property>
                       </packing>
                     </child>
                     <child>
@@ -1051,7 +1023,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">2</property>
-                        <property name="top-attach">12</property>
+                        <property name="top-attach">11</property>
                       </packing>
                     </child>
                     <child>
@@ -1066,7 +1038,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">2</property>
-                        <property name="top-attach">13</property>
+                        <property name="top-attach">12</property>
                       </packing>
                     </child>
                     <child>
@@ -1081,7 +1053,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">2</property>
-                        <property name="top-attach">14</property>
+                        <property name="top-attach">13</property>
                       </packing>
                     </child>
                     <child>
@@ -1187,7 +1159,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
-                        <property name="top-attach">7</property>
+                        <property name="top-attach">9</property>
                       </packing>
                     </child>
                     <child>
@@ -1248,19 +1220,6 @@
                         <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
-                        <property name="label">:</property>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">14</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="valign">start</property>
                         <property name="margin-bottom">5</property>
                         <property name="label" translatable="yes">Memory</property>
                         <attributes>
@@ -1269,7 +1228,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">9</property>
+                        <property name="top-attach">8</property>
                         <property name="width">3</property>
                       </packing>
                     </child>
