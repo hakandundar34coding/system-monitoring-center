@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.19.0
+  * New: Summary tab for showing performance summary
+  * Updated translations for Czech language
+  * Fix: GPU PCI address upper-lower case problem
+  * Minor improvements
+
 ### v1.18.0
   * New: Option for hiding loop, ramdisk, zram disks (Disk tab)
   * New: Translations for Russian language
