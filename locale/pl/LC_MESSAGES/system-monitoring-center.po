@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-09 19:06+0300\n"
-"PO-Revision-Date: 2022-06-09 19:08+0300\n"
+"PO-Revision-Date: 2022-06-10 15:55+0300\n"
 "Last-Translator: ski007 <ski007@linux.pl>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -74,7 +74,7 @@ msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
 msgstr ""
-"Ostrzeżenie! Aplikacja została uruchomiona z uprawnieniami root'a, możesz "
+"Ostrzeżenie ! Aplikacja została uruchomiona z uprawnieniami root'a, możesz "
 "uszkodzić swój system."
 
 #: src/MainGUI.py:224
@@ -90,12 +90,14 @@ msgstr "Podsumowanie"
 #: src/MainGUI.py:548
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
+"Wybór rdzenia procesora wpływa tylko na informacje o częstotliwości i "
+"pamięci podręcznej."
 
 #: src/MainGUI.py:552 src/Memory.py:180 src/Performance.py:989
 #: src/Performance.py:1292 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM"
-msgstr ""
+msgstr "RAM"
 
 #: src/MainGUI.py:552 src/Memory.py:207 src/Performance.py:1292
 #: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:902
@@ -104,7 +106,7 @@ msgstr "Pamięć SWAP"
 
 #: src/Memory.py:178
 msgid "Physical RAM"
-msgstr ""
+msgstr "Pamięć RAM (fizyczna)"
 
 #: src/Memory.py:180 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
@@ -254,17 +256,13 @@ msgstr "Pamięć (współdzielona)"
 
 #: src/Processes.py:153 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1307
 #: ui/ProcessesMenuCustomizations.ui:375
-#, fuzzy
-#| msgid "Disk Read Data"
 msgid "Read Data"
-msgstr "Dysk odczyt danych"
+msgstr "Odczyt danych"
 
 #: src/Processes.py:154 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1320
 #: ui/ProcessesMenuCustomizations.ui:389
-#, fuzzy
-#| msgid "Disk Write Data"
 msgid "Write Data"
-msgstr "Dysk zapis danych"
+msgstr "Zapis danych"
 
 #: src/Processes.py:158 ui/ProcessesDetailsWindow.ui:754
 #: ui/ProcessesMenuCustomizations.ui:291
@@ -347,11 +345,11 @@ msgstr "Ten proces już nie jest uruchomiony:"
 
 #: src/ProcessesMenuRightClick.py:83
 msgid "Do you want to terminate this process?"
-msgstr "Czy chcesz zakończyć ten proces?"
+msgstr "Czy chcesz zakończyć ten proces ?"
 
 #: src/ProcessesMenuRightClick.py:89
 msgid "Do you want to kill this process?"
-msgstr "Czy chcesz zabić ten proces?"
+msgstr "Czy chcesz zabić ten proces ?"
 
 #: src/Sensors.py:82
 msgid "Sensor Group"
@@ -363,13 +361,11 @@ msgstr "Bieżąca wartość"
 
 #: src/Sensors.py:85 ui/ProcessesMenuRightClick.ui:87
 msgid "High"
-msgstr "Wysoki"
+msgstr "Wysoka"
 
 #: src/Sensors.py:86
-#, fuzzy
-#| msgid "Critical Value"
 msgid "Critical"
-msgstr "Krytyczna wartość"
+msgstr "Krytyczna"
 
 #: src/Sensors.py:341 src/SettingsGUI.py:51 ui/MainWindow.ui:464
 #: ui/SensorsTab.ui:48
@@ -497,7 +493,7 @@ msgstr "GPU"
 
 #: src/SettingsGUI.py:546
 msgid "Do you want to reset all settings to defaults?"
-msgstr "Czy chcesz zresetować wszystkie ustawienia do wartości domyślnych?"
+msgstr "Czy chcesz zresetować wszystkie ustawienia do wartości domyślnych ?"
 
 #: src/Startup.py:113 ui/StartupNewItemWindow.ui:105
 msgid "Comment"
@@ -509,7 +505,7 @@ msgstr "Elementy startowe"
 
 #: src/StartupMenuRightClick.py:65
 msgid "Do you want to delete this startup item?"
-msgstr "Czy chcesz usunąć ten element startowy?"
+msgstr "Czy chcesz usunąć ten element startowy ?"
 
 #: src/StartupMenuRightClick.py:120 src/StartupNewItem.py:136
 msgid "Startup Item"
@@ -521,7 +517,7 @@ msgstr "Komenda"
 
 #: src/StartupNewItem.py:134
 msgid "Do you want to overwrite the existing file?"
-msgstr "Czy chcesz nadpisać istniejący plik?"
+msgstr "Czy chcesz nadpisać istniejący plik ?"
 
 #: src/StartupNewItem.py:135
 msgid "There is already a '.desktop' file with the same name."
@@ -578,7 +574,7 @@ msgstr "Dokładność"
 #: ui/CpuMenus.ui:194 ui/DiskMenus.ui:274 ui/GpuMenus.ui:91
 #: ui/MemoryMenus.ui:222 ui/NetworkMenus.ui:273
 msgid "Graph Color"
-msgstr ""
+msgstr "Kolor wykresu"
 
 #: ui/CpuTab.ui:44
 msgid "Average CPU usage of all cores"
@@ -635,7 +631,7 @@ msgstr "Producent-Model"
 
 #: ui/CpuTab.ui:508 ui/DiskTab.ui:580 ui/GpuTab.ui:566 ui/NetworkTab.ui:568
 msgid "Device Name In Kernel"
-msgstr ""
+msgstr "Nazwa urządzenia w jądrze"
 
 #: ui/CpuTab.ui:537 ui/GpuTab.ui:449 ui/MemoryTab.ui:533
 msgid "100%"
@@ -689,16 +685,16 @@ msgstr "Jednostka danych"
 #: ui/DiskMenus.ui:261 ui/NetworkMenus.ui:260
 #: ui/ProcessesMenuCustomizations.ui:645
 msgid "Show speed units as multiples of bits"
-msgstr ""
+msgstr "Pokaż jednostki prędkości jako wielokrotność bitów"
 
 #: ui/DiskMenus.ui:321 ui/MemoryMenus.ui:270 ui/NetworkMenus.ui:320
 #: ui/ProcessesMenuCustomizations.ui:693 ui/ProcessesMenuCustomizations.ui:744
 msgid "Show data as powers of:"
-msgstr ""
+msgstr "Pokaż dane jako: binarne / dziesiętne:"
 
 #: ui/DiskMenus.ui:349
 msgid "Hide loop, ramdisk, zram disks"
-msgstr ""
+msgstr "Ukryj loop, ramdysk, dyski zram"
 
 #: ui/DiskTab.ui:175 ui/DiskTab.ui:188 ui/NetworkTab.ui:207
 #: ui/NetworkTab.ui:220
@@ -731,7 +727,7 @@ msgstr "Pokaż..."
 
 #: ui/DiskTab.ui:493
 msgid "Disk Read (-) & Write (-  -) Speed"
-msgstr "Dysk Odczyt (-) & Zapis (- -) Prędkość"
+msgstr "Dysk Odczyt (-) & Zapis (-  -) Prędkość"
 
 #: ui/GpuTab.ui:69 ui/GpuTab.ui:487
 msgid "GPU Usage"
@@ -743,7 +739,7 @@ msgstr "Pamięć video"
 
 #: ui/GpuTab.ui:143
 msgid "Boot VGA:"
-msgstr "Złącze VGA:"
+msgstr "Boot VGA:"
 
 #: ui/GpuTab.ui:173
 msgid "Driver:"
@@ -767,7 +763,7 @@ msgstr "Temperatura"
 
 #: ui/MainMenusDialogs.ui:13
 msgid "Multi-featured system monitor."
-msgstr ""
+msgstr "Wielofunkcyjny monitor systemu."
 
 #: ui/MainMenusDialogs.ui:86
 msgid "Settings"
@@ -839,7 +835,7 @@ msgstr "Adres MAC:"
 
 #: ui/NetworkTab.ui:476
 msgid "Network Download (-) & Upload (-  -) Speed"
-msgstr "Sieć Pobieranie (-) & Wysyłanie (- -) Prędkość"
+msgstr "Sieć Pobieranie (-) & Wysyłanie (-  -) Prędkość"
 
 #: ui/PerformanceSummaryHeaderBarGrid.ui:66
 msgid "Disk Read+Write Speed"
@@ -871,7 +867,7 @@ msgstr "Anuluj"
 
 #: ui/ProcessesDetailsWindow.ui:165 ui/ProcessesDetailsWindow.ui:1480
 msgid "Exe"
-msgstr "Uruchamiany przez"
+msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:191
 msgid "Parent Processes"
@@ -908,16 +904,12 @@ msgid "CPU and Memory"
 msgstr "CPU i pamięć"
 
 #: ui/ProcessesDetailsWindow.ui:1333
-#, fuzzy
-#| msgid "Disk Read Count"
 msgid "Read Count"
-msgstr "Liczba odczytów dysku"
+msgstr "Liczba odczytu"
 
 #: ui/ProcessesDetailsWindow.ui:1346
-#, fuzzy
-#| msgid "Disk Write Count"
 msgid "Write Count"
-msgstr "Liczba zapisów na dysku"
+msgstr "Liczba zapisu"
 
 #: ui/ProcessesDetailsWindow.ui:1493
 msgid "Current Working Directory"
@@ -951,7 +943,7 @@ msgstr "Pokaż"
 #: ui/ProcessesMenuCustomizations.ui:135 ui/ServicesMenuCustomizations.ui:65
 #: ui/UsersMenuCustomizations.ui:65
 msgid "Reordering/Sorting/Widths"
-msgstr "Zmiana kolejności/sortowanie/szerokości"
+msgstr "Orientacja/sortowanie/szerokości"
 
 #: ui/ProcessesMenuCustomizations.ui:457 ui/ProcessesMenuCustomizations.ui:476
 #: ui/ServicesMenuCustomizations.ui:230 ui/ServicesMenuCustomizations.ui:249
@@ -960,10 +952,8 @@ msgid "Add/Remove Columns"
 msgstr "Dodaj/Usuń kolumny"
 
 #: ui/ProcessesMenuCustomizations.ui:773
-#, fuzzy
-#| msgid "Serial Number"
 msgid "Numbers"
-msgstr "Nr. seryjny"
+msgstr "Liczby"
 
 #: ui/ProcessesMenuRightClick.ui:12
 msgid "Expand All"
@@ -1089,7 +1079,7 @@ msgstr "Ukryj"
 #: ui/ServicesTab.ui:41
 msgid ""
 "Note: This tab is not reloaded automatically. Manually reload for changes."
-msgstr "Uwaga: ta karta nie jest ponownie ładowana automatycznie."
+msgstr "Uwaga: Ta karta nie jest ponownie automatycznie ładowana."
 
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
@@ -1124,10 +1114,8 @@ msgid "Chart data history:"
 msgstr "Historia danych wykresu:"
 
 #: ui/SettingsWindow.ui:145
-#, fuzzy
-#| msgid "Remember last selected hardware"
 msgid "Remember last selected devices"
-msgstr "Zapamiętaj ostatnio wybrany sprzęt"
+msgstr "Zapamiętaj ostatnio wybrane urządzenia"
 
 #: ui/SettingsWindow.ui:199
 msgid "Remember window size"
@@ -1179,7 +1167,7 @@ msgid ""
 "an startup item depend on some values in its '.desktop' files and desktop "
 "environment."
 msgstr ""
-"Uwaga: Można dodawać/usuwać tylko elementy startowe specyficzne dla "
+"Uwaga: Można dodawać / usuwać tylko elementy startowe specyficzne dla "
 "użytkownika. Automatyczne uruchamianie elementu startowego zależy od pewnych "
 "wartości w jego plikach '.desktop' i środowisku pulpitu."
 
@@ -1293,6 +1281,12 @@ msgstr "Wersja Gtk:"
 msgid "User Details"
 msgstr "Szczegóły"
 
+#~ msgid "[SWAP]"
+#~ msgstr "[SWAP]"
+
+#~ msgid "This system has no swap memory."
+#~ msgstr "Ten system nie ma pamięci wymiany."
+
 #~ msgid "Reset All"
 #~ msgstr "Zresetuj wszystkie"
 
@@ -1300,13 +1294,7 @@ msgstr "Szczegóły"
 #~ msgstr "Pokrewieństwo procesora"
 
 #~ msgid "Note: Some sensors may not provide correct values!"
-#~ msgstr "Uwaga: Niektóre czujniki mogą nie podawać prawidłowych wartości!"
-
-#~ msgid "This system has no swap memory."
-#~ msgstr "Ten system nie ma pamięci wymiany."
-
-#~ msgid "[SWAP]"
-#~ msgstr "[SWAP]"
+#~ msgstr "Uwaga: Niektóre czujniki mogą podawać nieprawidłowe wartości !"
 
 #~ msgid "Web Page"
 #~ msgstr "Strona internetowa"
