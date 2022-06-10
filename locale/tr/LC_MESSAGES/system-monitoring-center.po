@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-09 19:06+0300\n"
-"PO-Revision-Date: 2022-06-09 19:06+0300\n"
+"POT-Creation-Date: 2022-06-10 17:40+0300\n"
+"PO-Revision-Date: 2022-06-10 17:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -27,7 +27,7 @@ msgid "CPU Usage (Per Core)"
 msgstr "MİB Kullanımı (Çekirdek Başına)"
 
 #: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:290 src/Gpu.py:292
-#: src/MemoryRamHardware.py:56 src/Network.py:122 src/Network.py:124
+#: src/Network.py:122 src/Network.py:124
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -37,7 +37,7 @@ msgstr "Disk bölümü"
 
 #: src/Disk.py:259 src/SettingsGUI.py:51 ui/DiskDetailsWindow.ui:45
 #: ui/DiskMenus.ui:23 ui/DiskMenus.ui:365 ui/DiskTab.ui:543
-#: ui/MainWindow.ui:323 ui/PerformanceSummaryHeaderBarGrid.ui:68
+#: ui/MainWindow.ui:323 ui/PerformanceSummaryHeaderBarGrid.ui:67
 #: ui/ProcessesDetailsWindow.ui:1463 ui/ProcessesMenuCustomizations.ui:558
 #: ui/ProcessesMenuCustomizations.ui:636
 msgid "Disk"
@@ -104,47 +104,43 @@ msgstr "Takas Belleği"
 msgid "Physical RAM"
 msgstr "Fiziksel RAM"
 
-#: src/Memory.py:180 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
+#: src/Memory.py:180 src/MemoryRamHardware.py:137 src/MemoryRamHardware.py:157
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
 #: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
 msgstr "Kapasite"
 
-#: src/MemoryRamHardware.py:56
-msgid "None"
-msgstr "Yok"
-
-#: src/MemoryRamHardware.py:85
+#: src/MemoryRamHardware.py:82
 msgid "Maximum Capacity"
 msgstr "Maksimum Kapasite"
 
-#: src/MemoryRamHardware.py:86
+#: src/MemoryRamHardware.py:83
 msgid "Number Of Devices"
 msgstr "Aygıt Sayısı"
 
-#: src/MemoryRamHardware.py:127 src/MemoryRamHardware.py:147
+#: src/MemoryRamHardware.py:138 src/MemoryRamHardware.py:158
 #: src/MemorySwapDetails.py:96 src/Startup.py:114 ui/DiskDetailsWindow.ui:84
 #: ui/ServicesDetailsWindow.ui:225
 msgid "Type"
 msgstr "Tür"
 
-#: src/MemoryRamHardware.py:128 src/MemoryRamHardware.py:148
+#: src/MemoryRamHardware.py:139 src/MemoryRamHardware.py:159
 msgid "Speed/Frequency"
 msgstr "Hız/Frekans"
 
-#: src/MemoryRamHardware.py:129 src/MemoryRamHardware.py:149
+#: src/MemoryRamHardware.py:140 src/MemoryRamHardware.py:160
 msgid "Manufacturer"
 msgstr "Üretici"
 
-#: src/MemoryRamHardware.py:130 src/MemoryRamHardware.py:150
+#: src/MemoryRamHardware.py:141 src/MemoryRamHardware.py:161
 msgid "Form Factor"
 msgstr "Şekil Faktörü"
 
-#: src/MemoryRamHardware.py:131 src/MemoryRamHardware.py:151
+#: src/MemoryRamHardware.py:142 src/MemoryRamHardware.py:162
 msgid "Locator"
 msgstr "Kimlik"
 
-#: src/MemoryRamHardware.py:132 src/MemoryRamHardware.py:152
+#: src/MemoryRamHardware.py:143 src/MemoryRamHardware.py:163
 msgid "Bank Locator"
 msgstr "Yuva Kimliği"
 
@@ -478,7 +474,7 @@ msgid "Memory"
 msgstr "Bellek"
 
 #: src/SettingsGUI.py:51 ui/MainWindow.ui:370 ui/NetworkMenus.ui:23
-#: ui/NetworkTab.ui:513 ui/PerformanceSummaryHeaderBarGrid.ui:114
+#: ui/NetworkTab.ui:513 ui/PerformanceSummaryHeaderBarGrid.ui:112
 msgid "Network"
 msgstr "Ağ"
 
@@ -628,10 +624,6 @@ msgstr "Marka-Model"
 #: ui/CpuTab.ui:508 ui/DiskTab.ui:580 ui/GpuTab.ui:566 ui/NetworkTab.ui:568
 msgid "Device Name In Kernel"
 msgstr "Aygıtın İşletim Sistemi Çekirdeğindeki (Kernel) Adı"
-
-#: ui/CpuTab.ui:537 ui/GpuTab.ui:449 ui/MemoryTab.ui:533
-msgid "100%"
-msgstr "%100"
 
 #: ui/DiskDetailsWindow.ui:7
 msgid "Storage Details"
@@ -832,14 +824,6 @@ msgstr "MAC Adresi:"
 #: ui/NetworkTab.ui:476
 msgid "Network Download (-) & Upload (-  -) Speed"
 msgstr "Ağ İndirme (-) & Yükleme (-  -) Hızı"
-
-#: ui/PerformanceSummaryHeaderBarGrid.ui:66
-msgid "Disk Read+Write Speed"
-msgstr "Disk Okuma+Yazma Hızı"
-
-#: ui/PerformanceSummaryHeaderBarGrid.ui:112
-msgid "Network Download+Upload Speed"
-msgstr "Ağ İndirme+Yükleme Hızı"
 
 #: ui/ProcessesCustomPriorityWindow.ui:12 ui/ProcessesMenuRightClick.ui:68
 msgid "Change Priority (Nice)"
@@ -1238,232 +1222,38 @@ msgstr "Pencere Sistemi:"
 msgid "Display Manager:"
 msgstr "Ekran Yöneticisi:"
 
-#: ui/SystemTab.ui:674
-msgid ""
-"Number of installed packages\n"
-"(APT, RPM or pacman)"
-msgstr ""
-"Kurulu paket sayısı\n"
-"(APT, RPM veya pacman)"
-
-#: ui/SystemTab.ui:677
+#: ui/SystemTab.ui:675
 msgid "System:"
 msgstr "Sistem:"
 
-#: ui/SystemTab.ui:689
+#: ui/SystemTab.ui:687
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "Kurulu Flatpak uygulaması ve çalışma zamanı (runtime) sayısı"
 
-#: ui/SystemTab.ui:691
+#: ui/SystemTab.ui:689
 msgid "Flatpak:"
 msgstr "Flatpak:"
 
-#: ui/SystemTab.ui:738
+#: ui/SystemTab.ui:736
 msgid "Window Manager:"
 msgstr "Pencere Yöneticisi:"
 
-#: ui/SystemTab.ui:801
+#: ui/SystemTab.ui:799
 msgid "Version of Python which is running this application"
 msgstr "Bu uygulamayı çalıştıran Python'ın sürümü"
 
-#: ui/SystemTab.ui:803
+#: ui/SystemTab.ui:801
 msgid "Python Version:"
 msgstr "Python Sürümü:"
 
-#: ui/SystemTab.ui:815
+#: ui/SystemTab.ui:813
 msgid "Version of Gtk which is running this application"
 msgstr "Bu uygulamayı çalıştıran Gtk'nin sürümü"
 
-#: ui/SystemTab.ui:817
+#: ui/SystemTab.ui:815
 msgid "Gtk Version:"
 msgstr "Gtk Sürümü:"
 
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Kullanıcı Detayları"
-
-#~ msgid "CPU Affinity"
-#~ msgstr "MİB Bağlılığı"
-
-#~ msgid "Reset All"
-#~ msgstr "Hepsini Sıfırla"
-
-#~ msgid "Note: Some sensors may not provide correct values!"
-#~ msgstr "Not: Bazı algılayıcılar doğru değerler sağlamayabilir!"
-
-#~ msgid "This system has no swap memory."
-#~ msgstr "Bu sistemde takas belleği yok."
-
-#~ msgid "[SWAP]"
-#~ msgstr "[TAKAS]"
-
-#~ msgid "Web Page"
-#~ msgstr "Web Sayfası"
-
-#~ msgid "Can Start - Stop?"
-#~ msgstr "Başlayabilir - Durabilir?"
-
-#~ msgid "Can Reload?"
-#~ msgstr "Yeniden Yükleyebilir?"
-
-#~ msgid "Do you want to run this startup item now?"
-#~ msgstr "Şu başlangıç ögesini şimdi çalıştırmak istiyor musunuz?"
-
-#~ msgid "An error has been encountered while running the command."
-#~ msgstr "Komutu çalıştırırken bir hata ile karşılaşıldı."
-
-#~ msgid "Run Now"
-#~ msgstr "Şimdi Çalıştır"
-
-#~ msgid "Partition Label"
-#~ msgstr "Disk Bölümü Etiketi"
-
-#~ msgid "Computer Name And Model"
-#~ msgstr "Bilgisayar Adı ve Modeli"
-
-#~ msgid "Operating System Name and Version"
-#~ msgstr "İşletim Sistemi Adı ve Sürümü"
-
-#~ msgid "Revision"
-#~ msgstr "Revizyon"
-
-#~ msgid "Serial Number"
-#~ msgstr "Seri Numarası"
-
-#~ msgid "UUID"
-#~ msgstr "UUID"
-
-#~ msgid "Link value"
-#~ msgstr "Link değeri"
-
-#~ msgid "Host Name:"
-#~ msgstr "Bilgisayar Adı:"
-
-#~ msgid "Precision/Data Units"
-#~ msgstr "Hassasiyet/Veri Birimleri"
-
-#~ msgid "Chart - Set Color"
-#~ msgstr "Grafik - Renk Ayarla"
-
-#~ msgid "GTK and Python based, system performance and usage monitoring tool."
-#~ msgstr ""
-#~ "GTK ve Python temelli, sistem performansı ve kullanımı izleme aracı."
-
-#~ msgid "Current Tab Customizations"
-#~ msgstr "Geçerli Sekme Özelleştirmeleri"
-
-#~ msgid "Note: Same background color is used for all charts."
-#~ msgstr "Not: Aynı arkaplan rengi tüm grafikler için kullanılır."
-
-#~ msgid "Background"
-#~ msgstr "Arkaplan"
-
-#~ msgid "Foreground"
-#~ msgstr "Önplan"
-
-#~ msgid "Disk Speed"
-#~ msgstr "Disk Hızı"
-
-#~ msgid "Disk Usage"
-#~ msgstr "Disk Kullanımı"
-
-#~ msgid "Network Speed"
-#~ msgstr "Ağ Hızı"
-
-#~ msgid "Network Data"
-#~ msgstr "Ağ Verisi"
-
-#~ msgid "Note: User-specific performance data is approximative."
-#~ msgstr "Not: Kullanıcıya özgü performans bilgisi yaklaşıktır."
-
-#~ msgid "Available:"
-#~ msgstr "Kullanılabilir:"
-
-#~ msgid "Read Speed:"
-#~ msgstr "Okuma Hızı:"
-
-#~ msgid "Write Speed:"
-#~ msgstr "Yazma Hızı:"
-
-#~ msgid "Read Data:"
-#~ msgstr "Okunan Veri:"
-
-#~ msgid "Write Data:"
-#~ msgstr "Yazılan Veri:"
-
-#~ msgid "GPU Usage:"
-#~ msgstr "GPU Kullanımı:"
-
-#~ msgid "Download Speed:"
-#~ msgstr "İndirme Hızı:"
-
-#~ msgid "Upload Speed:"
-#~ msgstr "Yükleme Hızı:"
-
-#~ msgid "Read Time:"
-#~ msgstr "Okuma Süresi:"
-
-#~ msgid "Write Time:"
-#~ msgstr "Yazma Süresi:"
-
-#~ msgid "Disk Usage:"
-#~ msgstr "Disk Kullanımı:"
-
-#~ msgid "Swap Mem. Usg. %:"
-#~ msgstr "Takas Bell. Kul. %:"
-
-#~ msgid "Disk Read Speed"
-#~ msgstr "Disk Okuma Hızı"
-
-#~ msgid "Disk Write Speed"
-#~ msgstr "Disk Yazma Hızı"
-
-#~ msgid "Disk Read Data"
-#~ msgstr "Disk Okunan Veri"
-
-#~ msgid "Disk Write Data"
-#~ msgstr "Disk Yazılan Veri"
-
-#~ msgid "Max Value"
-#~ msgstr "Maks. Değer"
-
-#~ msgid "Sensor Name"
-#~ msgstr "Algılayıcı Adı"
-
-#~ msgid "Current frequency of the selected CPU core"
-#~ msgstr "Seçilen MİB çekirdeğinin şimdiki frekansı"
-
-#~ msgid "Do you want to end session of this user?"
-#~ msgstr "Bu kullanıcının oturumunu sonlandırmak istiyor musunuz?"
-
-#~ msgid ""
-#~ "This action will end all processes of the user immediately and may cause "
-#~ "data loss."
-#~ msgstr ""
-#~ "Bu eylem kullanıcının tüm işlemlerini hemen sonlandıracak ve veri "
-#~ "kayıplarına sebep olabilir."
-
-#~ msgid ""
-#~ "This operation may lock current user account on some systems. You can "
-#~ "unlock it by entering user password."
-#~ msgstr ""
-#~ "Bu işlem şimdiki kullanıcı hesabını kilitleyebilir. Kullanıcı şifresini "
-#~ "girerek kilidi açabilirsiniz."
-
-#~ msgid "End User Session"
-#~ msgstr "Kullanıcı Oturumunu Sonlandır"
-
-#~ msgid "Selected CPU Core"
-#~ msgstr "Seçilen MİB Çekirdeği"
-
-#~ msgid "Disk Kernel Name (and disk type)"
-#~ msgstr "Kernel'deki Disk Adı (ve disk türü)"
-
-#~ msgid "GPU/Graphics Card Device Name Given By OS"
-#~ msgstr "İ.S. Tarafından Verilen GPU/Grafik Kartı Adı"
-
-#~ msgid "Network Interface Controller (NIC) Name"
-#~ msgstr "Ağ Arayüz Kontrolcüsü (NIC) Adı"
-
-#~ msgid "0%"
-#~ msgstr "%0"

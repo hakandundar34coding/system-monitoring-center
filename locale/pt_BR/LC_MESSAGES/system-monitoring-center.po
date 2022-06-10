@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-09 19:06+0300\n"
-"PO-Revision-Date: 2022-06-09 19:08+0300\n"
+"POT-Creation-Date: 2022-06-10 17:57+0300\n"
+"PO-Revision-Date: 2022-06-10 17:58+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -27,7 +27,7 @@ msgid "CPU Usage (Per Core)"
 msgstr "Uso de CPU (Por Núcleo)"
 
 #: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:290 src/Gpu.py:292
-#: src/MemoryRamHardware.py:56 src/Network.py:122 src/Network.py:124
+#: src/Network.py:122 src/Network.py:124
 msgid "Unknown"
 msgstr "Desconhecido"
 
@@ -37,7 +37,7 @@ msgstr "Partição"
 
 #: src/Disk.py:259 src/SettingsGUI.py:51 ui/DiskDetailsWindow.ui:45
 #: ui/DiskMenus.ui:23 ui/DiskMenus.ui:365 ui/DiskTab.ui:543
-#: ui/MainWindow.ui:323 ui/PerformanceSummaryHeaderBarGrid.ui:68
+#: ui/MainWindow.ui:323 ui/PerformanceSummaryHeaderBarGrid.ui:67
 #: ui/ProcessesDetailsWindow.ui:1463 ui/ProcessesMenuCustomizations.ui:558
 #: ui/ProcessesMenuCustomizations.ui:636
 msgid "Disk"
@@ -106,47 +106,43 @@ msgstr "Memória Swap"
 msgid "Physical RAM"
 msgstr "RAM Física"
 
-#: src/Memory.py:180 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
+#: src/Memory.py:180 src/MemoryRamHardware.py:123 src/MemoryRamHardware.py:143
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
 #: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
 msgstr "Capacidade"
 
-#: src/MemoryRamHardware.py:56
-msgid "None"
-msgstr "Nenhum"
-
-#: src/MemoryRamHardware.py:85
+#: src/MemoryRamHardware.py:82
 msgid "Maximum Capacity"
 msgstr "Capacidade Máxima"
 
-#: src/MemoryRamHardware.py:86
+#: src/MemoryRamHardware.py:83
 msgid "Number Of Devices"
 msgstr "Número de Dispositivos"
 
-#: src/MemoryRamHardware.py:127 src/MemoryRamHardware.py:147
+#: src/MemoryRamHardware.py:124 src/MemoryRamHardware.py:144
 #: src/MemorySwapDetails.py:96 src/Startup.py:114 ui/DiskDetailsWindow.ui:84
 #: ui/ServicesDetailsWindow.ui:225
 msgid "Type"
 msgstr "Tipo"
 
-#: src/MemoryRamHardware.py:128 src/MemoryRamHardware.py:148
+#: src/MemoryRamHardware.py:125 src/MemoryRamHardware.py:145
 msgid "Speed/Frequency"
 msgstr "Velocidade/Frequência"
 
-#: src/MemoryRamHardware.py:129 src/MemoryRamHardware.py:149
+#: src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 msgid "Manufacturer"
 msgstr "Fabricante"
 
-#: src/MemoryRamHardware.py:130 src/MemoryRamHardware.py:150
+#: src/MemoryRamHardware.py:127 src/MemoryRamHardware.py:147
 msgid "Form Factor"
 msgstr "Fator de Forma"
 
-#: src/MemoryRamHardware.py:131 src/MemoryRamHardware.py:151
+#: src/MemoryRamHardware.py:128 src/MemoryRamHardware.py:148
 msgid "Locator"
 msgstr "Localizador"
 
-#: src/MemoryRamHardware.py:132 src/MemoryRamHardware.py:152
+#: src/MemoryRamHardware.py:129 src/MemoryRamHardware.py:149
 msgid "Bank Locator"
 msgstr "Localizador de Banco"
 
@@ -480,7 +476,7 @@ msgid "Memory"
 msgstr "Memória"
 
 #: src/SettingsGUI.py:51 ui/MainWindow.ui:370 ui/NetworkMenus.ui:23
-#: ui/NetworkTab.ui:513 ui/PerformanceSummaryHeaderBarGrid.ui:114
+#: ui/NetworkTab.ui:513 ui/PerformanceSummaryHeaderBarGrid.ui:112
 msgid "Network"
 msgstr "Rede"
 
@@ -630,10 +626,6 @@ msgstr "Fabricante"
 #: ui/CpuTab.ui:508 ui/DiskTab.ui:580 ui/GpuTab.ui:566 ui/NetworkTab.ui:568
 msgid "Device Name In Kernel"
 msgstr "Nome do Dispositivo no Kernel"
-
-#: ui/CpuTab.ui:537 ui/GpuTab.ui:449 ui/MemoryTab.ui:533
-msgid "100%"
-msgstr "100%"
 
 #: ui/DiskDetailsWindow.ui:7
 msgid "Storage Details"
@@ -834,14 +826,6 @@ msgstr "Endereço MAC:"
 #: ui/NetworkTab.ui:476
 msgid "Network Download (-) & Upload (-  -) Speed"
 msgstr "Velocidade de Download (-) & Upload (-  -) da Rede"
-
-#: ui/PerformanceSummaryHeaderBarGrid.ui:66
-msgid "Disk Read+Write Speed"
-msgstr "Velocidade de Leitura + Escrita do Disco"
-
-#: ui/PerformanceSummaryHeaderBarGrid.ui:112
-msgid "Network Download+Upload Speed"
-msgstr "Rede: Velocidade de Download + Upload"
 
 #: ui/ProcessesCustomPriorityWindow.ui:12 ui/ProcessesMenuRightClick.ui:68
 msgid "Change Priority (Nice)"
@@ -1244,49 +1228,60 @@ msgstr "Sistema de janelas:"
 msgid "Display Manager:"
 msgstr "Gerenciador de Exibição:"
 
-#: ui/SystemTab.ui:674
-msgid ""
-"Number of installed packages\n"
-"(APT, RPM or pacman)"
-msgstr ""
-"Número de pacotes instalados\n"
-"(APT, RPM ou Pacman)"
-
-#: ui/SystemTab.ui:677
+#: ui/SystemTab.ui:675
 msgid "System:"
 msgstr "Sistema:"
 
-#: ui/SystemTab.ui:689
+#: ui/SystemTab.ui:687
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "Número de Aplicativos e Runtimes Flatpak instalados"
 
-#: ui/SystemTab.ui:691
+#: ui/SystemTab.ui:689
 msgid "Flatpak:"
 msgstr "Flatpak:"
 
-#: ui/SystemTab.ui:738
+#: ui/SystemTab.ui:736
 msgid "Window Manager:"
 msgstr "Gerenciador de Janelas:"
 
-#: ui/SystemTab.ui:801
+#: ui/SystemTab.ui:799
 msgid "Version of Python which is running this application"
 msgstr "Versão do Python que está executando este aplicativo"
 
-#: ui/SystemTab.ui:803
+#: ui/SystemTab.ui:801
 msgid "Python Version:"
 msgstr "Versão do Python:"
 
-#: ui/SystemTab.ui:815
+#: ui/SystemTab.ui:813
 msgid "Version of Gtk which is running this application"
 msgstr "Versão do GTK que está executando este aplicativo"
 
-#: ui/SystemTab.ui:817
+#: ui/SystemTab.ui:815
 msgid "Gtk Version:"
 msgstr "Versão do GTK:"
 
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Detalhes do Usuário"
+
+#~ msgid "None"
+#~ msgstr "Nenhum"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "Disk Read+Write Speed"
+#~ msgstr "Velocidade de Leitura + Escrita do Disco"
+
+#~ msgid "Network Download+Upload Speed"
+#~ msgstr "Rede: Velocidade de Download + Upload"
+
+#~ msgid ""
+#~ "Number of installed packages\n"
+#~ "(APT, RPM or pacman)"
+#~ msgstr ""
+#~ "Número de pacotes instalados\n"
+#~ "(APT, RPM ou Pacman)"
 
 #~ msgid "Reset All"
 #~ msgstr "Redefinir Todos"
