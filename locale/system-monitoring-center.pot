@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-10 17:57+0300\n"
+"POT-Creation-Date: 2022-06-11 09:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -545,7 +545,7 @@ msgstr ""
 #: ui/CpuMenus.ui:125 ui/DiskMenus.ui:63 ui/GpuMenus.ui:63 ui/MemoryMenus.ui:85
 #: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:104
 #: ui/ProcessesMenuCustomizations.ui:804 ui/ServicesMenuCustomizations.ui:49
-#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:292
+#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:248
 #: ui/UsersMenuCustomizations.ui:49 ui/UsersMenuCustomizations.ui:325
 msgid "Reset"
 msgstr ""
@@ -1068,44 +1068,40 @@ msgstr ""
 msgid "Update interval (seconds):"
 msgstr ""
 
-#: ui/SettingsWindow.ui:52
-msgid "Default main tab:"
-msgstr ""
-
-#: ui/SettingsWindow.ui:71
+#: ui/SettingsWindow.ui:49
 msgid "Remember last opened tabs"
 msgstr ""
 
-#: ui/SettingsWindow.ui:89
-msgid "Performance tab default sub-tab:"
-msgstr ""
-
-#: ui/SettingsWindow.ui:108
+#: ui/SettingsWindow.ui:64
 msgid "Show performance summary on the headerbar"
 msgstr ""
 
-#: ui/SettingsWindow.ui:126
+#: ui/SettingsWindow.ui:82
 msgid "Chart data history:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:145
+#: ui/SettingsWindow.ui:101
 msgid "Remember last selected devices"
 msgstr ""
 
-#: ui/SettingsWindow.ui:199
+#: ui/SettingsWindow.ui:155
 msgid "Remember window size"
 msgstr ""
 
-#: ui/SettingsWindow.ui:233
+#: ui/SettingsWindow.ui:189
 msgid "Check for updates automatically (PyPI only)"
 msgstr ""
 
-#: ui/SettingsWindow.ui:250
+#: ui/SettingsWindow.ui:206
 msgid "(If the application is run without root privileges.)"
 msgstr ""
 
-#: ui/SettingsWindow.ui:339
+#: ui/SettingsWindow.ui:295
 msgid "Reset all settings of the application to defaults"
+msgstr ""
+
+#: ui/SettingsWindow.ui:330
+msgid "Default main tab and sub-tab:"
 msgstr ""
 
 #: ui/StartupMenuRightClick.ui:12

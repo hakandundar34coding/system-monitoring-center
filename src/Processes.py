@@ -86,6 +86,45 @@ def processes_gui_func():
             processes_treeview_column_order_width_row_sorting_func()
 
 
+    # --------------------------------- Called for running code/functions when keyboard buttons (shortcuts such as Ctrl+C) is pressed on the treeview ---------------------------------
+    def on_treeview2101_key_press_event(widget, event):
+
+        # Get selected row data.
+        selection = treeview2101.get_selection()
+        model, treeiter = selection.get_selected()
+
+        # Get right/double clicked process PID
+        if treeiter == None:
+            return
+        global selected_process_pid
+        try:
+            selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
+        except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+            return
+
+        from ProcessesMenuRightClick import ProcessesMenuRightClick
+
+        # Check if Ctrl and S keys are pressed at the same time.
+        if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_s:
+            ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2101m)
+            return
+
+        # Check if Ctrl and C keys are pressed at the same time.
+        if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_c:
+            ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2102m)
+            return
+
+        # Check if Ctrl and T keys are pressed at the same time.
+        if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_t:
+            ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2103m)
+            return
+
+        # Check if Ctrl and K keys are pressed at the same time.
+        if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_k:
+            ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2104m)
+            return
+
+
     # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
     def on_searchentry2101_changed(widget):
 
@@ -118,6 +157,7 @@ def processes_gui_func():
     # Processes tab GUI functions - connect
     treeview2101.connect("button-press-event", on_treeview2101_button_press_event)
     treeview2101.connect("button-release-event", on_treeview2101_button_release_event)
+    treeview2101.connect("key-press-event", on_treeview2101_key_press_event)
     searchentry2101.connect("changed", on_searchentry2101_changed)
     button2101.connect("clicked", on_button2101_clicked)
 

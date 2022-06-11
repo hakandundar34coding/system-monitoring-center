@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-10 17:40+0300\n"
-"PO-Revision-Date: 2022-06-10 17:40+0300\n"
+"POT-Creation-Date: 2022-06-11 09:50+0300\n"
+"PO-Revision-Date: 2022-06-11 09:50+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -104,7 +104,7 @@ msgstr "Takas Belleği"
 msgid "Physical RAM"
 msgstr "Fiziksel RAM"
 
-#: src/Memory.py:180 src/MemoryRamHardware.py:137 src/MemoryRamHardware.py:157
+#: src/Memory.py:180 src/MemoryRamHardware.py:123 src/MemoryRamHardware.py:143
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
 #: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
@@ -118,29 +118,29 @@ msgstr "Maksimum Kapasite"
 msgid "Number Of Devices"
 msgstr "Aygıt Sayısı"
 
-#: src/MemoryRamHardware.py:138 src/MemoryRamHardware.py:158
+#: src/MemoryRamHardware.py:124 src/MemoryRamHardware.py:144
 #: src/MemorySwapDetails.py:96 src/Startup.py:114 ui/DiskDetailsWindow.ui:84
 #: ui/ServicesDetailsWindow.ui:225
 msgid "Type"
 msgstr "Tür"
 
-#: src/MemoryRamHardware.py:139 src/MemoryRamHardware.py:159
+#: src/MemoryRamHardware.py:125 src/MemoryRamHardware.py:145
 msgid "Speed/Frequency"
 msgstr "Hız/Frekans"
 
-#: src/MemoryRamHardware.py:140 src/MemoryRamHardware.py:160
+#: src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 msgid "Manufacturer"
 msgstr "Üretici"
 
-#: src/MemoryRamHardware.py:141 src/MemoryRamHardware.py:161
+#: src/MemoryRamHardware.py:127 src/MemoryRamHardware.py:147
 msgid "Form Factor"
 msgstr "Şekil Faktörü"
 
-#: src/MemoryRamHardware.py:142 src/MemoryRamHardware.py:162
+#: src/MemoryRamHardware.py:128 src/MemoryRamHardware.py:148
 msgid "Locator"
 msgstr "Kimlik"
 
-#: src/MemoryRamHardware.py:143 src/MemoryRamHardware.py:163
+#: src/MemoryRamHardware.py:129 src/MemoryRamHardware.py:149
 msgid "Bank Locator"
 msgstr "Yuva Kimliği"
 
@@ -548,7 +548,7 @@ msgstr "Başlama Zamanı"
 #: ui/CpuMenus.ui:125 ui/DiskMenus.ui:63 ui/GpuMenus.ui:63 ui/MemoryMenus.ui:85
 #: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:104
 #: ui/ProcessesMenuCustomizations.ui:804 ui/ServicesMenuCustomizations.ui:49
-#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:292
+#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:248
 #: ui/UsersMenuCustomizations.ui:49 ui/UsersMenuCustomizations.ui:325
 msgid "Reset"
 msgstr "Sıfırla"
@@ -1076,45 +1076,41 @@ msgstr "Genel Ayarlar"
 msgid "Update interval (seconds):"
 msgstr "Güncelleme aralığı (saniye):"
 
-#: ui/SettingsWindow.ui:52
-msgid "Default main tab:"
-msgstr "Varsayılan ana sekme:"
-
-#: ui/SettingsWindow.ui:71
+#: ui/SettingsWindow.ui:49
 msgid "Remember last opened tabs"
 msgstr "Son açılan sekmeleri hatırla"
 
-#: ui/SettingsWindow.ui:89
-msgid "Performance tab default sub-tab:"
-msgstr "Performans sekmesinin varsayılan alt-sekmesi:"
-
-#: ui/SettingsWindow.ui:108
+#: ui/SettingsWindow.ui:64
 msgid "Show performance summary on the headerbar"
 msgstr "Performans özetini başlık çubuğunda göster"
 
-#: ui/SettingsWindow.ui:126
+#: ui/SettingsWindow.ui:82
 msgid "Chart data history:"
 msgstr "Grafik veri geçmişi:"
 
-#: ui/SettingsWindow.ui:145
+#: ui/SettingsWindow.ui:101
 msgid "Remember last selected devices"
 msgstr "Son seçilen aygıtları hatırla"
 
-#: ui/SettingsWindow.ui:199
+#: ui/SettingsWindow.ui:155
 msgid "Remember window size"
 msgstr "Pencere ölçülerini hatırla"
 
-#: ui/SettingsWindow.ui:233
+#: ui/SettingsWindow.ui:189
 msgid "Check for updates automatically (PyPI only)"
 msgstr "Güncellemeleri otomatik olarak denetle (Sadece PyPI)"
 
-#: ui/SettingsWindow.ui:250
+#: ui/SettingsWindow.ui:206
 msgid "(If the application is run without root privileges.)"
 msgstr "(Eğer uygulama root ayrıcalıklarıyla çalıştırılmamışsa.)"
 
-#: ui/SettingsWindow.ui:339
+#: ui/SettingsWindow.ui:295
 msgid "Reset all settings of the application to defaults"
 msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırla"
+
+#: ui/SettingsWindow.ui:330
+msgid "Default main tab and sub-tab:"
+msgstr "Varsayılan ana sekme ve alt sekme:"
 
 #: ui/StartupMenuRightClick.ui:12
 msgid "Add"
@@ -1257,3 +1253,6 @@ msgstr "Gtk Sürümü:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Kullanıcı Detayları"
+
+#~ msgid "Performance tab default sub-tab:"
+#~ msgstr "Performans sekmesinin varsayılan alt-sekmesi:"
