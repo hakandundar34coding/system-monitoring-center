@@ -78,8 +78,8 @@ class Memory:
         self.drawingarea1201.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
         self.drawingarea1201.connect("motion-notify-event", self.performance_line_charts_motion_notify_event_func)
         self.drawingarea1202.connect("draw", self.performance_bar_charts_draw_func)
-        self.eventbox1201.connect("button-press-event", self.on_eventbox1201_button_click_event)
-        self.eventbox1202.connect("button-press-event", self.on_eventbox1202_button_click_event)
+        self.eventbox1201.connect("button-release-event", self.on_eventbox1201_button_release_event)
+        self.eventbox1202.connect("button-release-event", self.on_eventbox1202_button_release_event)
 
         # Set event masks for drawingarea in order to enable these events.
         self.drawingarea1201.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
@@ -98,7 +98,7 @@ class Memory:
 
 
     # ----------------------- Called for opening RAM Hardware Information Window -----------------------
-    def on_eventbox1201_button_click_event(self, widget, event):
+    def on_eventbox1201_button_release_event(self, widget, event):
 
         if event.button == 1:
             from MemoryRamHardware import MemoryRamHardware
@@ -110,7 +110,7 @@ class Memory:
 
 
     # ----------------------- Called for opening Swap Details Window -----------------------
-    def on_eventbox1202_button_click_event(self, widget, event):
+    def on_eventbox1202_button_release_event(self, widget, event):
 
         if event.button == 1:
             from MemorySwapDetails import MemorySwapDetails
