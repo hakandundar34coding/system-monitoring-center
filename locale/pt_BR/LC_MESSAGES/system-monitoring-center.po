@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-10 17:57+0300\n"
-"PO-Revision-Date: 2022-06-10 17:58+0300\n"
+"POT-Creation-Date: 2022-06-11 09:50+0300\n"
+"PO-Revision-Date: 2022-06-11 19:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -550,7 +550,7 @@ msgstr "Hora de Início"
 #: ui/CpuMenus.ui:125 ui/DiskMenus.ui:63 ui/GpuMenus.ui:63 ui/MemoryMenus.ui:85
 #: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:104
 #: ui/ProcessesMenuCustomizations.ui:804 ui/ServicesMenuCustomizations.ui:49
-#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:292
+#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:248
 #: ui/UsersMenuCustomizations.ui:49 ui/UsersMenuCustomizations.ui:325
 msgid "Reset"
 msgstr "Resetar"
@@ -1079,47 +1079,45 @@ msgstr "Configurações Gerais"
 msgid "Update interval (seconds):"
 msgstr "Intervalo de Atualização (segundos):"
 
-#: ui/SettingsWindow.ui:52
-msgid "Default main tab:"
-msgstr "Aba principal predefinida:"
-
-#: ui/SettingsWindow.ui:71
+#: ui/SettingsWindow.ui:49
 msgid "Remember last opened tabs"
 msgstr "Lembrar das últimas abas abertas"
 
-#: ui/SettingsWindow.ui:89
-msgid "Performance tab default sub-tab:"
-msgstr "Sub-aba padrão da aba Desempenho:"
-
-#: ui/SettingsWindow.ui:108
+#: ui/SettingsWindow.ui:64
 msgid "Show performance summary on the headerbar"
 msgstr "Mostrar resumo de desempenho na barra de cabeçalho"
 
-#: ui/SettingsWindow.ui:126
+#: ui/SettingsWindow.ui:82
 msgid "Chart data history:"
 msgstr "Histórico de dados do gráfico:"
 
-#: ui/SettingsWindow.ui:145
+#: ui/SettingsWindow.ui:101
 #, fuzzy
 #| msgid "Remember last selected hardware"
 msgid "Remember last selected devices"
 msgstr "Lembrar o último hardware selecionado"
 
-#: ui/SettingsWindow.ui:199
+#: ui/SettingsWindow.ui:155
 msgid "Remember window size"
 msgstr "Lembrar o tamanho da janela"
 
-#: ui/SettingsWindow.ui:233
+#: ui/SettingsWindow.ui:189
 msgid "Check for updates automatically (PyPI only)"
 msgstr "Verificar automaticamente se há atualizações (apenas PyPI)"
 
-#: ui/SettingsWindow.ui:250
+#: ui/SettingsWindow.ui:206
 msgid "(If the application is run without root privileges.)"
 msgstr "(Se a aplicação for executada sem privilégios de root)."
 
-#: ui/SettingsWindow.ui:339
+#: ui/SettingsWindow.ui:295
 msgid "Reset all settings of the application to defaults"
 msgstr "Redefinir todas as configurações do aplicativo para os padrões"
+
+#: ui/SettingsWindow.ui:330
+#, fuzzy
+#| msgid "Default main tab:"
+msgid "Default main tab and sub-tab:"
+msgstr "Aba principal predefinida:"
 
 #: ui/StartupMenuRightClick.ui:12
 msgid "Add"
@@ -1263,6 +1261,9 @@ msgstr "Versão do GTK:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Detalhes do Usuário"
+
+#~ msgid "Performance tab default sub-tab:"
+#~ msgstr "Sub-aba padrão da aba Desempenho:"
 
 #~ msgid "None"
 #~ msgstr "Nenhum"

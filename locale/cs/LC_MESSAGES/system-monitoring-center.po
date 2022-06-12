@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-10 17:57+0300\n"
-"PO-Revision-Date: 2022-06-10 17:59+0300\n"
+"POT-Creation-Date: 2022-06-11 09:50+0300\n"
+"PO-Revision-Date: 2022-06-11 19:12+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -548,7 +548,7 @@ msgstr "Doba spuštění"
 #: ui/CpuMenus.ui:125 ui/DiskMenus.ui:63 ui/GpuMenus.ui:63 ui/MemoryMenus.ui:85
 #: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:104
 #: ui/ProcessesMenuCustomizations.ui:804 ui/ServicesMenuCustomizations.ui:49
-#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:292
+#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:248
 #: ui/UsersMenuCustomizations.ui:49 ui/UsersMenuCustomizations.ui:325
 msgid "Reset"
 msgstr "Resetovat"
@@ -1076,45 +1076,43 @@ msgstr "Obecné nastavení"
 msgid "Update interval (seconds):"
 msgstr "Interval aktualizace (sekundy):"
 
-#: ui/SettingsWindow.ui:52
-msgid "Default main tab:"
-msgstr "Výchozí hlavní záložka:"
-
-#: ui/SettingsWindow.ui:71
+#: ui/SettingsWindow.ui:49
 msgid "Remember last opened tabs"
 msgstr "Pamatovat poslední otevřenou záložku"
 
-#: ui/SettingsWindow.ui:89
-msgid "Performance tab default sub-tab:"
-msgstr "Výchozí sub-záložka záložky Výkon:"
-
-#: ui/SettingsWindow.ui:108
+#: ui/SettingsWindow.ui:64
 msgid "Show performance summary on the headerbar"
 msgstr "Zobrazit souhrn výkonu v headerbaru"
 
-#: ui/SettingsWindow.ui:126
+#: ui/SettingsWindow.ui:82
 msgid "Chart data history:"
 msgstr "Historie dat v grafu:"
 
-#: ui/SettingsWindow.ui:145
+#: ui/SettingsWindow.ui:101
 msgid "Remember last selected devices"
 msgstr "Pamatovat poslední vybraný hardware"
 
-#: ui/SettingsWindow.ui:199
+#: ui/SettingsWindow.ui:155
 msgid "Remember window size"
 msgstr "Pamatovat velikost okna"
 
-#: ui/SettingsWindow.ui:233
+#: ui/SettingsWindow.ui:189
 msgid "Check for updates automatically (PyPI only)"
 msgstr "Kontrolovat aktualizace automaticky (pouze PyPI)"
 
-#: ui/SettingsWindow.ui:250
+#: ui/SettingsWindow.ui:206
 msgid "(If the application is run without root privileges.)"
 msgstr "(Jestli běží aplikace bez práv roota.)"
 
-#: ui/SettingsWindow.ui:339
+#: ui/SettingsWindow.ui:295
 msgid "Reset all settings of the application to defaults"
 msgstr "Resetovat všechna nastavení do výchozího stavu"
+
+#: ui/SettingsWindow.ui:330
+#, fuzzy
+#| msgid "Default main tab:"
+msgid "Default main tab and sub-tab:"
+msgstr "Výchozí hlavní záložka:"
 
 #: ui/StartupMenuRightClick.ui:12
 msgid "Add"
@@ -1256,6 +1254,9 @@ msgstr "Verze Gtk:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Podrobnosti o uživateli"
+
+#~ msgid "Performance tab default sub-tab:"
+#~ msgstr "Výchozí sub-záložka záložky Výkon:"
 
 #~ msgid "None"
 #~ msgstr "Žádný"

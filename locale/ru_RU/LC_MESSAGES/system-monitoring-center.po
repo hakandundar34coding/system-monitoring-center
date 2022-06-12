@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-10 17:57+0300\n"
-"PO-Revision-Date: 2022-06-10 17:57+0300\n"
+"POT-Creation-Date: 2022-06-11 09:50+0300\n"
+"PO-Revision-Date: 2022-06-11 19:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -549,7 +549,7 @@ msgstr "Время запуска"
 #: ui/CpuMenus.ui:125 ui/DiskMenus.ui:63 ui/GpuMenus.ui:63 ui/MemoryMenus.ui:85
 #: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:104
 #: ui/ProcessesMenuCustomizations.ui:804 ui/ServicesMenuCustomizations.ui:49
-#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:292
+#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:248
 #: ui/UsersMenuCustomizations.ui:49 ui/UsersMenuCustomizations.ui:325
 msgid "Reset"
 msgstr "Вернуть настройки по умолчанию"
@@ -1078,45 +1078,43 @@ msgstr "Общие настройки"
 msgid "Update interval (seconds):"
 msgstr "Интервал обновлений (секунды):"
 
-#: ui/SettingsWindow.ui:52
-msgid "Default main tab:"
-msgstr "Главная вкладка по умолчанию:"
-
-#: ui/SettingsWindow.ui:71
+#: ui/SettingsWindow.ui:49
 msgid "Remember last opened tabs"
 msgstr "Запоминать последние открытые вкладки"
 
-#: ui/SettingsWindow.ui:89
-msgid "Performance tab default sub-tab:"
-msgstr "Под-вкладка по умолчанию вкладки \"Производительность\":"
-
-#: ui/SettingsWindow.ui:108
+#: ui/SettingsWindow.ui:64
 msgid "Show performance summary on the headerbar"
 msgstr "Показывать сводку производительности вверху окна"
 
-#: ui/SettingsWindow.ui:126
+#: ui/SettingsWindow.ui:82
 msgid "Chart data history:"
 msgstr "История данных графиков:"
 
-#: ui/SettingsWindow.ui:145
+#: ui/SettingsWindow.ui:101
 msgid "Remember last selected devices"
 msgstr "Запоминать последние выбранные устройства"
 
-#: ui/SettingsWindow.ui:199
+#: ui/SettingsWindow.ui:155
 msgid "Remember window size"
 msgstr "Запоминать размер окон"
 
-#: ui/SettingsWindow.ui:233
+#: ui/SettingsWindow.ui:189
 msgid "Check for updates automatically (PyPI only)"
 msgstr "Автоматически проверять обновления (только PyPI)"
 
-#: ui/SettingsWindow.ui:250
+#: ui/SettingsWindow.ui:206
 msgid "(If the application is run without root privileges.)"
 msgstr "(Если приложение запущено без прав суперпользователя)"
 
-#: ui/SettingsWindow.ui:339
+#: ui/SettingsWindow.ui:295
 msgid "Reset all settings of the application to defaults"
 msgstr "Установить все настройки по умолчанию"
+
+#: ui/SettingsWindow.ui:330
+#, fuzzy
+#| msgid "Default main tab:"
+msgid "Default main tab and sub-tab:"
+msgstr "Главная вкладка по умолчанию:"
 
 #: ui/StartupMenuRightClick.ui:12
 msgid "Add"
@@ -1259,6 +1257,9 @@ msgstr "Версия Gtk:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Параметры пользователя"
+
+#~ msgid "Performance tab default sub-tab:"
+#~ msgstr "Под-вкладка по умолчанию вкладки \"Производительность\":"
 
 #~ msgid "None"
 #~ msgstr "Нет"

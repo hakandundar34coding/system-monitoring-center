@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-11 09:50+0300\n"
-"PO-Revision-Date: 2022-06-11 20:36+0200\n"
+"PO-Revision-Date: 2022-06-12 09:37+0300\n"
+"Last-Translator: Kálmán „KAMI” Szalai <kami911@gmail.com>\n"
+"Language-Team: \n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Kálmán „KAMI” Szalai <kami911@gmail.com>\n"
-"Language-Team: \n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: src/Cpu.py:113 ui/CpuMenus.ui:35 ui/CpuTab.ui:549
 msgid "CPU Usage (Average)"
@@ -808,7 +808,7 @@ msgstr "Kapcsolattípus:"
 
 #: ui/NetworkTab.ui:281
 msgid "Connected-SSID:"
-msgstr "Csatlakoztatott SSID:"
+msgstr "Csatlakoztatott-SSID:"
 
 #: ui/NetworkTab.ui:294
 msgid "Signal Strength:"
