@@ -568,10 +568,13 @@ class Performance:
         gauge_indicator_text_correction = gauge_outer_radius * 0.047
         gauge_indicator_text_move = gauge_outer_radius * 0.027
         gauge_indicator_text_size = gauge_outer_radius * 0.09
-        gauge_cpu_ram_label_text_move = gauge_outer_radius * 0.24
+        gauge_cpu_ram_label_text_move = gauge_outer_radius * 0.27
         gauge_cpu_ram_label_text_margin = gauge_outer_radius * 0.07
         gauge_cpu_ram_usage_text_size = gauge_outer_radius * 0.25
         gauge_cpu_ram_usage_text_shadow_move = gauge_outer_radius * 0.014
+        gauge_cpu_ram_usage_text_move = gauge_outer_radius * 0.03
+        gauge_percentage_label_text_below_cpu_ram_move = gauge_outer_radius * 0.07
+        gauge_percentage_label_text_below_cpu_ram_size = gauge_outer_radius * 0.08
         gauge_processes_swap_label_text_size = gauge_indicator_text_size * 0.88
         gauge_processes_swap_label_text_move = gauge_outer_radius * 0.22
         gauge_processes_swap_usage_text_size = gauge_cpu_ram_usage_text_size * 0.45
@@ -1111,22 +1114,35 @@ class Performance:
         ctx.show_text(ram_text)
 
 
+        # Draw "%" labels below the CPU and RAM percentages on the inner circle of the circular gauge.
+        percentage_text = _tr("%")
+        ctx.set_font_size(gauge_percentage_label_text_below_cpu_ram_size)
+        text_extends = ctx.text_extents(percentage_text)
+        text_start_x = text_extends.width
+        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_percentage_label_text_below_cpu_ram_move)
+        ctx.set_source_rgba(180/255, 180/255, 180/255, 1.0)
+        ctx.show_text(percentage_text)
+        ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_percentage_label_text_below_cpu_ram_move)
+        ctx.set_source_rgba(180/255, 180/255, 180/255, 1.0)
+        ctx.show_text(percentage_text)
+
+
         # Draw lowest layer of the shadow of the CPU usage percentage label on the left side of the inner circle of the circular gauge.
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         text_extends = ctx.text_extents(cpu_usage_text)
         text_start_x = text_extends.width
-        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), 2 * gauge_cpu_ram_usage_text_shadow_move)
+        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_usage_text_move + 2 * gauge_cpu_ram_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(cpu_usage_text)
 
         # Draw shadow of the CPU usage percentage label on the left side of the inner circle of the circular gauge.
-        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_cpu_ram_usage_text_shadow_move)
+        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_usage_text_move + gauge_cpu_ram_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.7)
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         ctx.show_text(cpu_usage_text)
 
         # Draw CPU usage percentage label on the left side of the inner circle of the circular gauge.
-        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), 0)
+        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_usage_text_move)
         ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         ctx.show_text(cpu_usage_text)
@@ -1135,18 +1151,18 @@ class Performance:
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         text_extends = ctx.text_extents(ram_usage_text)
         text_start_x = text_extends.width
-        ctx.move_to(gauge_cpu_ram_label_text_margin, 2 * gauge_cpu_ram_usage_text_shadow_move)
+        ctx.move_to(gauge_cpu_ram_label_text_margin, -gauge_cpu_ram_usage_text_move + 2 * gauge_cpu_ram_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(ram_usage_text)
 
         # Draw shadow of the RAM usage percentage label on the left side of the inner circle of the circular gauge.
-        ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_cpu_ram_usage_text_shadow_move)
+        ctx.move_to(gauge_cpu_ram_label_text_margin, -gauge_cpu_ram_usage_text_move + gauge_cpu_ram_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.7)
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         ctx.show_text(ram_usage_text)
 
         # Draw RAM usage percentage label on the left side of the inner circle of the circular gauge.
-        ctx.move_to(gauge_cpu_ram_label_text_margin, 0)
+        ctx.move_to(gauge_cpu_ram_label_text_margin, -gauge_cpu_ram_usage_text_move)
         ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
         ctx.show_text(ram_usage_text)
