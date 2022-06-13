@@ -585,6 +585,7 @@ class Performance:
         gauge_right_outer_radius = gauge_outer_radius * 1.05
         gauge_right_move = gauge_outer_radius * 0.938
         gauge_right_upper_lower_edge_thickness = gauge_outer_radius * 0.07
+        gauge_right_upper_lower_edge_move_horizontal = gauge_right_outer_radius * 0.027
         gauge_separator_line_horizontal_start = gauge_outer_radius * 0.23
         gauge_separator_line_horizontal_length = gauge_outer_radius * 0.6
         gauge_disk_network_label_text_size = gauge_indicator_text_size * 0.88
@@ -667,7 +668,7 @@ class Performance:
         angle1 = (90-40)*pi_number/180
         ctx.line_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
         ctx.rel_line_to(-gauge_right_outer_radius, 0)
-        ctx.rel_line_to(0, -0*sin(angle1)-2*gauge_right_outer_radius*cos(angle1))
+        ctx.rel_line_to(0, -2*gauge_right_outer_radius*cos(angle1))
         ctx.set_source_rgba(34/255, 52/255, 71/255, 1)
         ctx.fill()
         ctx.restore()
@@ -698,7 +699,8 @@ class Performance:
         ctx.save()
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         angle1 = (90+40)*pi_number/180
-        ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
+        # "gauge_right_upper_lower_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
+        ctx.move_to(gauge_right_outer_radius*sin(angle1)-gauge_right_upper_lower_edge_move_horizontal, gauge_right_outer_radius*cos(angle1))
         ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
         ctx.rel_line_to(-gauge_right_outer_radius, 0)
         ctx.rel_line_to(0, -gauge_right_outer_radius*0.07)
@@ -719,7 +721,8 @@ class Performance:
         ctx.save()
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         angle1 = (90-40)*pi_number/180
-        ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
+        # "gauge_right_upper_lower_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
+        ctx.move_to(gauge_right_outer_radius*sin(angle1)-gauge_right_upper_lower_edge_move_horizontal, gauge_right_outer_radius*cos(angle1))
         ctx.rel_move_to(0, -gauge_right_outer_radius*0.07)
         ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
         ctx.rel_line_to(-gauge_right_outer_radius, 0)
@@ -734,6 +737,101 @@ class Performance:
         gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
         ctx.set_source(gradient_pattern)
         ctx.fill()
+        ctx.restore()
+
+
+        # Draw fillet on the connection point of the upper right corner of the right gauge for continuous gauge edge.
+        ctx.save()
+        ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
+        start_angle = -90*pi_number/180
+        end_angle = -55*pi_number/180
+        angle1 = (90-40)*pi_number/180
+        ctx.translate(gauge_right_outer_radius*sin(angle1), -gauge_right_outer_radius*cos(angle1))
+        ctx.translate(-gauge_right_outer_radius*0.03, gauge_right_outer_radius*0.07)
+        gradient_pattern = cairo.RadialGradient(0, 0, 0, 0, 0, gauge_right_outer_radius*0.07)
+        scale_value = 1-0.93
+        gradient_pattern.add_color_stop_rgba(0, 32/255, 41/255, 49/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.93 - 0.93) / scale_value, 34/255, 52/255, 71/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.94 - 0.93) / scale_value, 20/255, 26/255, 35/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.95 - 0.93) / scale_value, 44/255, 60/255, 79/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.98 - 0.93) / scale_value, 20/255, 26/255, 35/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.99 - 0.93) / scale_value, 44/255, 60/255, 79/255, 1)
+        gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
+        ctx.set_source(gradient_pattern)
+        ctx.arc(0, 0, gauge_right_outer_radius*0.07, start_angle, end_angle)
+        ctx.line_to(0, 0)
+        ctx.fill()
+        ctx.restore()
+
+
+        # Draw fillet on the connection point of the lower right corner of the right gauge for continuous gauge edge.
+        ctx.save()
+        ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
+        start_angle = 55*pi_number/180
+        end_angle = 90*pi_number/180
+        angle1 = (90+40)*pi_number/180
+        ctx.translate(gauge_right_outer_radius*sin(angle1), -gauge_right_outer_radius*cos(angle1))
+        ctx.translate(-gauge_right_outer_radius*0.03, -gauge_right_outer_radius*0.07)
+        gradient_pattern = cairo.RadialGradient(0, 0, 0, 0, 0, gauge_right_outer_radius*0.07)
+        scale_value = 1-0.93
+        gradient_pattern.add_color_stop_rgba(0, 32/255, 41/255, 49/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.93 - 0.93) / scale_value, 34/255, 52/255, 71/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.94 - 0.93) / scale_value, 20/255, 26/255, 35/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.95 - 0.93) / scale_value, 44/255, 60/255, 79/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.98 - 0.93) / scale_value, 20/255, 26/255, 35/255, 1)
+        gradient_pattern.add_color_stop_rgba((0.99 - 0.93) / scale_value, 44/255, 60/255, 79/255, 1)
+        gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
+        ctx.set_source(gradient_pattern)
+        ctx.arc(0, 0, gauge_right_outer_radius*0.07, start_angle, end_angle)
+        ctx.line_to(0, 0)
+        ctx.fill()
+        ctx.restore()
+
+
+        ctx.save()
+        ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
+
+        # Draw white reflection on upper right area of the circular edge of the right gauge.
+        for i in range(2):
+            start_angle = (305+15)*pi_number/180
+            end_angle = (305+25+i)*pi_number/180
+            ctx.arc_negative(0, 0, gauge_right_outer_radius, end_angle, start_angle)
+            ctx.arc(0, 0, gauge_right_outer_radius*0.992, start_angle, end_angle)
+            gradient_pattern = cairo.RadialGradient(0, 0, gauge_right_outer_radius*0.992, 0, 0, gauge_right_outer_radius*1)
+            gradient_pattern.add_color_stop_rgba(0, 1.0, 1.0, 1.0, 0.0)
+            gradient_pattern.add_color_stop_rgba(1, 1.0, 1.0, 1.0, 0.13)
+            ctx.set_source(gradient_pattern)
+            ctx.fill()
+
+        # Draw white reflection on upper area of the upper edge of the right gauge.
+        for i in range(2):
+            angle1 = (90+40)*pi_number/180
+            # "gauge_right_upper_lower_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
+            ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
+            ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
+            ctx.rel_line_to(-gauge_right_outer_radius, 0)
+            ctx.rel_line_to(0, -gauge_right_outer_radius*0.07)
+            gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(angle1)*0.98, 0, gauge_right_outer_radius*cos(angle1))
+            gradient_pattern.add_color_stop_rgba(0, 1.0, 1.0, 1.0, 0.0)
+            gradient_pattern.add_color_stop_rgba(1, 1.0, 1.0, 1.0, 0.13)
+            ctx.set_source(gradient_pattern)
+            ctx.fill()
+
+        # Draw white reflection on lower area of the lower edge of the right gauge.
+        for i in range(2):
+            angle1 = (90-40)*pi_number/180
+            # "gauge_right_upper_lower_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
+            ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
+            ctx.rel_move_to(0, -gauge_right_outer_radius*0.07)
+            ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
+            ctx.rel_line_to(-gauge_right_outer_radius, 0)
+            ctx.rel_line_to(0, -gauge_right_outer_radius*0.07)
+            gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(angle1)*0.98, 0, gauge_right_outer_radius*cos(angle1))
+            gradient_pattern.add_color_stop_rgba(0, 1.0, 1.0, 1.0, 0.0)
+            gradient_pattern.add_color_stop_rgba(1, 1.0, 1.0, 1.0, 0.13)
+            ctx.set_source(gradient_pattern)
+            ctx.fill()
+
         ctx.restore()
 
 
