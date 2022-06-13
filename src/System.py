@@ -62,13 +62,60 @@ class System:
     # ----------------------- System - Initial Function -----------------------
     def system_initial_func(self):
 
-        # Get OS name, version, version code name and OS based on information
+        # Get information.
+        os_name, os_version, os_based_on = self.system_os_name_version_codename_based_on_func()
+        os_family = self.system_os_family_func()
+        kernel_release, kernel_version = self.system_kernel_release_kernel_version_func()
+        cpu_architecture = self.system_cpu_architecture_func()
+        computer_vendor, computer_model, computer_chassis_type = self.system_computer_vendor_model_chassis_type_func()
+        host_name = self.system_host_name_func()
+        number_of_monitors = self.system_number_of_monitors_func()
+        number_of_installed_flatpak_packages = self.system_installed_flatpak_packages_func()
+        current_python_version, current_gtk_version = self.system_current_python_version_gtk_version_func()
+        number_of_installed_apt_or_rpm_or_pacman_packages = self.system_installed_apt_rpm_pacman_packages_func()
+        current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager = self.system_desktop_environment_and_version_windowing_system_window_manager_display_manager_func()
+
+
+        # Set label texts to show information
+        self.label8101.set_text(f'{os_name} - {os_version}')
+        self.label8102.set_text(f'{computer_vendor} - {computer_model}')
+        self.label8103.set_text(os_name)
+        self.label8104.set_text(os_version)
+        self.label8105.set_text(os_family)
+        self.label8106.set_text(os_based_on)
+        self.label8107.set_text(kernel_release)
+        self.label8108.set_text(kernel_version)
+        self.label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
+        self.label8110.set_text(windowing_system)
+        self.label8111.set_text(window_manager)
+        self.label8112.set_text(current_display_manager)
+        self.label8113.set_text(computer_vendor)
+        self.label8114.set_text(computer_model)
+        self.label8115.set_text(computer_chassis_type)
+        self.label8116.set_text(host_name)
+        self.label8117.set_text(cpu_architecture)
+        self.label8118.set_text(f'{number_of_monitors}')
+        self.label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
+        self.label8120.set_text(f'{number_of_installed_flatpak_packages}')
+        self.label8121.set_text(current_gtk_version)
+        self.label8122.set_text(f'{current_python_version}')
+
+        self.initial_already_run = 1
+
+
+
+    # ----------------------- Get OS name, version, version code name and OS based on information -----------------------
+    def system_os_name_version_codename_based_on_func(self):
+
         # Initial value of "os_name" variable. This value will be used if "os_name" could not be detected.
         os_name = "-"
         os_based_on = "-"
         os_version = "-"
+
+        # Get OS name, version and based on information.
         with open("/etc/os-release") as reader:
             os_release_output_lines = reader.read().strip().split("\n")
+
         for line in os_release_output_lines:
             if line.startswith("NAME="):
                 os_name = line.split("NAME=")[1].strip(' "')
@@ -79,11 +126,15 @@ class System:
             if line.startswith("ID_LIKE="):
                 os_based_on = line.split("ID_LIKE=")[1].strip(' "').title()
                 continue
+
+        # Append Debian version to the based on information if OS is based on Debian.
         if os_based_on == "Debian":
             debian_version = "-"
             with open("/etc/debian_version") as reader:
                 debian_version = reader.read().strip()
             os_based_on = os_based_on + " (" + debian_version + ")"
+
+        # Append Ubuntu version to the based on information if OS is based on Ubuntu.
         if os_based_on == "Ubuntu":
             ubuntu_version = "-"
             for line in os_release_output_lines:
@@ -91,16 +142,30 @@ class System:
                     ubuntu_version = line.split("UBUNTU_CODENAME=")[1].strip(' "')
                     break
             os_based_on = os_based_on + " (" + ubuntu_version + ")"
+
+        # Get Image version and use it as OS version for ArchLinux.
         if os_name.lower() == "arch linux":
             for line in os_release_output_lines:
                 if line.startswith("IMAGE_VERSION="):
                     os_version = "Image Version: " + line.split("IMAGE_VERSION=")[1].strip(' "')
                     break
 
+        return os_name, os_version, os_based_on
+
+
+    # ----------------------- Get OS family -----------------------
+    def system_os_family_func(self):
+
         # Get os family
         os_family = platform.system()
         if os_family == "":
             os_family = "-"
+
+        return os_family
+
+
+    # ----------------------- Get kernel release (base version of kernel) and kernel version (package version of kernel) -----------------------
+    def system_kernel_release_kernel_version_func(self):
 
         # Get kernel release (base version of kernel)
         kernel_release = platform.release()
@@ -112,15 +177,23 @@ class System:
         if kernel_version == "":
             kernel_version = "-"
 
-        # Get current Python version (Python which is running this code)
-        current_python_version = platform.python_version()
+        return kernel_release, kernel_version
 
-        # Get CPU architecture
+
+    # ----------------------- Get CPU architecture -----------------------
+    def system_cpu_architecture_func(self):
+
         cpu_architecture = platform.processor()
         if cpu_architecture == "":
             cpu_architecture = platform.machine()
             if cpu_architecture == "":
                 cpu_architecture = "-"
+
+        return cpu_architecture
+
+
+    # ----------------------- Get computer vendor, model and chassis type -----------------------
+    def system_computer_vendor_model_chassis_type_func(self):
 
         # Get computer vendor ("/sys/devices/virtual/dmi" is used for UEFI/ACPI systems and not found on ARM systems)
         #, model, chassis information (These informations may not be available on some systems such as ARM CPU used motherboards).
@@ -160,13 +233,99 @@ class System:
                                        35: "Mini PC", 36: "Stick PC"}
         computer_chassis_type = computer_chassis_types_dict[int(computer_chassis_type_value)]
 
-        # Get host name
+        return computer_vendor, computer_model, computer_chassis_type
+
+
+    # ----------------------- Get host name -----------------------
+    def system_host_name_func(self):
+
         with open("/proc/sys/kernel/hostname") as reader:
             host_name = reader.read().strip()
 
-        # Get number of monitors
+        return host_name
+
+
+    # ----------------------- Get number of monitors -----------------------
+    def system_number_of_monitors_func(self):
+
         current_screen = self.label8101.get_toplevel().get_screen()
         number_of_monitors = current_screen.get_n_monitors()
+
+        return number_of_monitors
+
+
+    # ----------------------- Get number of installed Flatpak packages (and runtimes) -----------------------
+    def system_installed_flatpak_packages_func(self):
+
+        number_of_installed_flatpak_packages = "-"
+        try:
+            flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
+            # Differentiate empty line count
+            number_of_installed_flatpak_packages = len(flatpak_packages_available) - flatpak_packages_available.count("")
+        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+            number_of_installed_flatpak_packages = "-"
+
+        return number_of_installed_flatpak_packages
+
+
+    # ----------------------- Get current Python version and GTK version -----------------------
+    def system_current_python_version_gtk_version_func(self):
+
+        # Get current Python version (Python which is running this code)
+        current_python_version = platform.python_version()
+
+        # Get Gtk version which is used for this application.
+        current_gtk_version = f'{Gtk.get_major_version()}.{Gtk.get_minor_version()}.{Gtk.get_micro_version()}'
+
+        return current_python_version, current_gtk_version
+
+
+    # ----------------------- Get number of installed APT, RPM or pacman packages -----------------------
+    def system_installed_apt_rpm_pacman_packages_func(self):
+
+        # Initial value of the variables.
+        apt_packages_available = "-"
+        rpm_packages_available = "-"
+        pacman_packages_available = "-"
+        number_of_installed_apt_or_rpm_or_pacman_packages = "-"
+
+        try:
+            # Check if "python3" is installed in order to determine package type of the system.
+            apt_packages_available = (subprocess.check_output(["dpkg", "-s", "python3"], shell=False)).decode().strip()
+            if "Package: python3" in apt_packages_available:
+                number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
+                number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_apt_packages} (APT)'
+        # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
+        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+            apt_packages_available = "-"
+
+        if apt_packages_available == "-":
+            try:
+                rpm_packages_available = (subprocess.check_output(["rpm", "-q", "python3"], shell=False)).decode().strip()
+                if rpm_packages_available.startswith("python3-3."):
+                    number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
+                    # Differentiate empty line count
+                    number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")
+                    number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
+            except (FileNotFoundError, subprocess.CalledProcessError) as me:
+                rpm_packages_available = "-"
+
+        if apt_packages_available == "-" and rpm_packages_available == "-":
+            try:
+                pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
+                if pacman_packages_available.startswith("python 3."):
+                    number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
+                    # Differentiate empty line count
+                    number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")
+                    number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
+            except (FileNotFoundError, subprocess.CalledProcessError) as me:
+                pacman_packages_available = "-"
+
+        return number_of_installed_apt_or_rpm_or_pacman_packages
+
+
+    # ----------------------- Get current desktop environment, windowing_system, window_manager, current_display_manager -----------------------
+    def system_desktop_environment_and_version_windowing_system_window_manager_display_manager_func(self):
 
         # Get human and root user usernames and UIDs which will be used for determining username when "pkexec_uid" is get.
         usernames_username_list = []
@@ -334,80 +493,7 @@ class System:
                 if current_desktop_environment_version.split(".")[0] in ["3", "40", "41", "42"]:
                     window_manager = "mutter"
 
-        # Determine package types used on the system. This information will be used for getting number of installed packages on the system.
-        # Initial value of the variables.
-        apt_packages_available = "-"
-        rpm_packages_available = "-"
-        pacman_packages_available = "-"
-        number_of_installed_apt_or_rpm_or_pacman_packages = "-"
-        number_of_installed_flatpak_packages = "-"
-        try:
-            # Check if "python3" is installed in order to determine package type of the system.
-            apt_packages_available = (subprocess.check_output(["dpkg", "-s", "python3"], shell=False)).decode().strip()
-            if "Package: python3" in apt_packages_available:
-                number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
-                number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_apt_packages} (APT)'
-        # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
-        except (FileNotFoundError, subprocess.CalledProcessError) as me:
-            apt_packages_available = "-"
-        if apt_packages_available == "-":
-            try:
-                rpm_packages_available = (subprocess.check_output(["rpm", "-q", "python3"], shell=False)).decode().strip()
-                if rpm_packages_available.startswith("python3-3."):
-                    number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
-                    # Differentiate empty line count
-                    number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")
-                    number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
-            except (FileNotFoundError, subprocess.CalledProcessError) as me:
-                rpm_packages_available = "-"
-        if apt_packages_available == "-" and rpm_packages_available == "-":
-            try:
-                pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
-                if pacman_packages_available.startswith("python 3."):
-                    number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
-                    # Differentiate empty line count
-                    number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")
-                    number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
-            except (FileNotFoundError, subprocess.CalledProcessError) as me:
-                pacman_packages_available = "-"
-
-        # Get number of installed Flatpak packages (and runtimes)
-        try:
-            flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
-            # Differentiate empty line count
-            number_of_installed_flatpak_packages = len(flatpak_packages_available) - flatpak_packages_available.count("")
-        except (FileNotFoundError, subprocess.CalledProcessError) as me:
-            number_of_installed_flatpak_packages = "-"
-
-        # Get Gtk version which is used for this application.
-        current_gtk_version = f'{Gtk.get_major_version()}.{Gtk.get_minor_version()}.{Gtk.get_micro_version()}'
-
-
-        # Set label texts to show information
-        self.label8101.set_text(f'{os_name} - {os_version}')
-        self.label8102.set_text(f'{computer_vendor} - {computer_model}')
-        self.label8103.set_text(os_name)
-        self.label8104.set_text(os_version)
-        self.label8105.set_text(os_family)
-        self.label8106.set_text(os_based_on)
-        self.label8107.set_text(kernel_release)
-        self.label8108.set_text(kernel_version)
-        self.label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
-        self.label8110.set_text(windowing_system)
-        self.label8111.set_text(window_manager)
-        self.label8112.set_text(current_display_manager)
-        self.label8113.set_text(computer_vendor)
-        self.label8114.set_text(computer_model)
-        self.label8115.set_text(computer_chassis_type)
-        self.label8116.set_text(host_name)
-        self.label8117.set_text(cpu_architecture)
-        self.label8118.set_text(f'{number_of_monitors}')
-        self.label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
-        self.label8120.set_text(f'{number_of_installed_flatpak_packages}')
-        self.label8121.set_text(current_gtk_version)
-        self.label8122.set_text(f'{current_python_version}')
-
-        self.initial_already_run = 1
+        return current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager
 
 
 # Generate object

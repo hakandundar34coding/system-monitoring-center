@@ -568,12 +568,12 @@ class Performance:
         gauge_indicator_text_correction = gauge_outer_radius * 0.047
         gauge_indicator_text_move = gauge_outer_radius * 0.027
         gauge_indicator_text_size = gauge_outer_radius * 0.09
-        gauge_cpu_ram_label_text_move = gauge_outer_radius * 0.27
+        gauge_cpu_ram_label_text_move = gauge_outer_radius * 0.266
         gauge_cpu_ram_label_text_margin = gauge_outer_radius * 0.07
         gauge_cpu_ram_usage_text_size = gauge_outer_radius * 0.25
         gauge_cpu_ram_usage_text_shadow_move = gauge_outer_radius * 0.014
-        gauge_cpu_ram_usage_text_move = gauge_outer_radius * 0.03
-        gauge_percentage_label_text_below_cpu_ram_move = gauge_outer_radius * 0.07
+        gauge_cpu_ram_usage_text_move = gauge_outer_radius * 0.026
+        gauge_percentage_label_text_below_cpu_ram_move = gauge_outer_radius * 0.074
         gauge_percentage_label_text_below_cpu_ram_size = gauge_outer_radius * 0.08
         gauge_processes_swap_label_text_size = gauge_indicator_text_size * 0.88
         gauge_processes_swap_label_text_move = gauge_outer_radius * 0.22
