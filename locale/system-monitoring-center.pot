@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-12 11:25+0300\n"
+"POT-Creation-Date: 2022-06-14 13:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "CPU Usage (Per Core)"
 msgstr ""
 
 #: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:290 src/Gpu.py:292
-#: src/Network.py:122 src/Network.py:124
+#: src/Network.py:198 src/Network.py:200
 msgid "Unknown"
 msgstr ""
 
@@ -42,17 +42,17 @@ msgstr ""
 msgid "Disk"
 msgstr ""
 
-#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1007
+#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1108
 msgid "Swap"
 msgstr ""
 
-#: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:215
-#: src/Network.py:243 src/Services.py:171 src/ServicesDetails.py:128
+#: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:260
+#: src/Network.py:300 src/Services.py:171 src/ServicesDetails.py:128
 #: src/UsersDetails.py:213
 msgid "Yes"
 msgstr ""
 
-#: src/Disk.py:389 src/Gpu.py:248 src/Network.py:217 src/Services.py:171
+#: src/Disk.py:389 src/Gpu.py:248 src/Network.py:262 src/Services.py:171
 #: src/ServicesDetails.py:128 src/UsersDetails.py:215
 msgid "No"
 msgstr ""
@@ -66,33 +66,33 @@ msgstr ""
 msgid "Disk Details"
 msgstr ""
 
-#: src/MainGUI.py:173
+#: src/MainGUI.py:171
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
 msgstr ""
 
-#: src/MainGUI.py:224
+#: src/MainGUI.py:222
 msgid "There is a newer version on PyPI."
 msgstr ""
 
-#: src/MainGUI.py:538 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: src/MainGUI.py:516 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:21
 msgid "Summary"
 msgstr ""
 
-#: src/MainGUI.py:548
+#: src/MainGUI.py:526
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 
-#: src/MainGUI.py:552 src/Memory.py:180 src/Performance.py:989
-#: src/Performance.py:1292 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
+#: src/MainGUI.py:530 src/Memory.py:180 src/Performance.py:1090
+#: src/Performance.py:1406 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM"
 msgstr ""
 
-#: src/MainGUI.py:552 src/Memory.py:207 src/Performance.py:1292
+#: src/MainGUI.py:530 src/Memory.py:207 src/Performance.py:1406
 #: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:902
 msgid "Swap Memory"
 msgstr ""
@@ -116,7 +116,7 @@ msgid "Number Of Devices"
 msgstr ""
 
 #: src/MemoryRamHardware.py:124 src/MemoryRamHardware.py:144
-#: src/MemorySwapDetails.py:96 src/Startup.py:114 ui/DiskDetailsWindow.ui:84
+#: src/MemorySwapDetails.py:96 ui/DiskDetailsWindow.ui:84
 #: ui/ServicesDetailsWindow.ui:225
 msgid "Type"
 msgstr ""
@@ -141,14 +141,14 @@ msgstr ""
 msgid "Bank Locator"
 msgstr ""
 
-#: src/MemorySwapDetails.py:66 src/StartupNewItem.py:137
+#: src/MemorySwapDetails.py:66
 msgid "File"
 msgstr ""
 
 #: src/MemorySwapDetails.py:95 src/Processes.py:185 src/Sensors.py:83
-#: src/Services.py:139 src/Startup.py:112 ui/ProcessesDetailsWindow.ui:48
+#: src/Services.py:139 ui/ProcessesDetailsWindow.ui:48
 #: ui/ProcessesMenuCustomizations.ui:177 ui/ServicesDetailsWindow.ui:49
-#: ui/ServicesMenuCustomizations.ui:107 ui/StartupNewItemWindow.ui:193
+#: ui/ServicesMenuCustomizations.ui:107
 msgid "Name"
 msgstr ""
 
@@ -162,19 +162,19 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
-#: src/Network.py:132
+#: src/Network.py:208
 msgid "Virtual Network Interface"
 msgstr ""
 
-#: src/Network.py:136
+#: src/Network.py:217
 msgid "Ethernet"
 msgstr ""
 
-#: src/Network.py:138
+#: src/Network.py:219
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Performance.py:980 src/Processes.py:189 src/SettingsGUI.py:51
+#: src/Performance.py:1081 src/Processes.py:189 src/SettingsGUI.py:51
 #: src/Users.py:142 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
 #: ui/MainWindow.ui:229 ui/PerformanceSummaryHeaderBarGrid.ui:17
 #: ui/ProcessesDetailsWindow.ui:113 ui/ProcessesDetailsWindow.ui:741
@@ -184,30 +184,30 @@ msgstr ""
 msgid "CPU"
 msgstr ""
 
-#: src/Performance.py:998 src/Processes.py:626 src/SettingsGUI.py:50
+#: src/Performance.py:1099 src/Processes.py:626 src/SettingsGUI.py:50
 #: src/Users.py:137 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:179
 msgid "Processes"
 msgstr ""
 
-#: src/Performance.py:1143 src/Processes.py:195 ui/DiskMenus.ui:121
+#: src/Performance.py:1257 src/Processes.py:195 ui/DiskMenus.ui:121
 #: ui/DiskTab.ui:69 ui/ProcessesDetailsWindow.ui:139
 #: ui/ProcessesDetailsWindow.ui:1281 ui/ProcessesMenuCustomizations.ui:347
 msgid "Read Speed"
 msgstr ""
 
-#: src/Performance.py:1150 src/Processes.py:196 ui/DiskMenus.ui:134
+#: src/Performance.py:1264 src/Processes.py:196 ui/DiskMenus.ui:134
 #: ui/DiskTab.ui:81 ui/ProcessesDetailsWindow.ui:664
 #: ui/ProcessesDetailsWindow.ui:1294 ui/ProcessesMenuCustomizations.ui:361
 msgid "Write Speed"
 msgstr ""
 
-#: src/Performance.py:1157 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
+#: src/Performance.py:1271 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
 msgid "Download Speed"
 msgstr ""
 
-#: src/Performance.py:1164 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
+#: src/Performance.py:1278 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
 msgid "Upload Speed"
 msgstr ""
 
@@ -317,9 +317,8 @@ msgstr ""
 msgid "Dead"
 msgstr ""
 
-#: src/Processes.py:626 src/Sensors.py:341 src/Services.py:455
-#: src/Startup.py:411 src/Users.py:501 ui/ProcessesTab.ui:66
-#: ui/SensorsTab.ui:66 ui/ServicesTab.ui:99 ui/StartupTab.ui:66
+#: src/Processes.py:626 src/Sensors.py:341 src/Services.py:455 src/Users.py:501
+#: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:99
 #: ui/UsersTab.ui:66
 msgid "Search..."
 msgstr ""
@@ -438,7 +437,7 @@ msgstr ""
 msgid "Exited"
 msgstr ""
 
-#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:816
+#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr ""
@@ -456,11 +455,7 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:769 ui/StartupTab.ui:48
-msgid "Startup"
-msgstr ""
-
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:863 ui/SystemTab.ui:26
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:816 ui/SystemTab.ui:26
 msgid "System"
 msgstr ""
 
@@ -480,36 +475,8 @@ msgstr ""
 msgid "GPU"
 msgstr ""
 
-#: src/SettingsGUI.py:546
+#: src/SettingsGUI.py:538
 msgid "Do you want to reset all settings to defaults?"
-msgstr ""
-
-#: src/Startup.py:113 ui/StartupNewItemWindow.ui:105
-msgid "Comment"
-msgstr ""
-
-#: src/Startup.py:411
-msgid "Startup Items"
-msgstr ""
-
-#: src/StartupMenuRightClick.py:65
-msgid "Do you want to delete this startup item?"
-msgstr ""
-
-#: src/StartupMenuRightClick.py:120 src/StartupNewItem.py:136
-msgid "Startup Item"
-msgstr ""
-
-#: src/StartupMenuRightClick.py:121 ui/StartupNewItemWindow.ui:117
-msgid "Command"
-msgstr ""
-
-#: src/StartupNewItem.py:134
-msgid "Do you want to overwrite the existing file?"
-msgstr ""
-
-#: src/StartupNewItem.py:135
-msgid "There is already a '.desktop' file with the same name."
 msgstr ""
 
 #: src/Users.py:133 ui/UsersDetailsWindow.ui:58
@@ -532,7 +499,7 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
-#: src/Users.py:140 ui/StartupNewItemWindow.ui:163 ui/UsersDetailsWindow.ui:149
+#: src/Users.py:140 ui/UsersDetailsWindow.ui:149
 #: ui/UsersMenuCustomizations.ui:249
 msgid "Terminal"
 msgstr ""
@@ -750,19 +717,19 @@ msgstr ""
 msgid "Multi-featured system monitor."
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:86
+#: ui/MainMenusDialogs.ui:87
 msgid "Settings"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:130
+#: ui/MainMenusDialogs.ui:131
 msgid "About"
 msgstr ""
 
-#: ui/MainWindow.ui:894
+#: ui/MainWindow.ui:847
 msgid "System Monitoring Center"
 msgstr ""
 
-#: ui/MainWindow.ui:902
+#: ui/MainWindow.ui:855
 msgid "Main Menu"
 msgstr ""
 
@@ -832,11 +799,11 @@ msgid ""
 "(Smaller value means higher process priority)"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:84 ui/StartupNewItemWindow.ui:49
+#: ui/ProcessesCustomPriorityWindow.ui:84
 msgid "Save"
 msgstr ""
 
-#: ui/ProcessesCustomPriorityWindow.ui:96 ui/StartupNewItemWindow.ui:61
+#: ui/ProcessesCustomPriorityWindow.ui:96
 msgid "Cancel"
 msgstr ""
 
@@ -1102,41 +1069,6 @@ msgstr ""
 
 #: ui/SettingsWindow.ui:330
 msgid "Default main tab and sub-tab:"
-msgstr ""
-
-#: ui/StartupMenuRightClick.ui:12
-msgid "Add"
-msgstr ""
-
-#: ui/StartupMenuRightClick.ui:19
-msgid "Delete"
-msgstr ""
-
-#: ui/StartupMenuRightClick.ui:32
-msgid "Open '.desktop' File..."
-msgstr ""
-
-#: ui/StartupNewItemWindow.ui:7
-msgid "Add New Startup Item"
-msgstr ""
-
-#: ui/StartupNewItemWindow.ui:129
-msgid "Icon"
-msgstr ""
-
-#: ui/StartupNewItemWindow.ui:149
-msgid "Startup Notify"
-msgstr ""
-
-#: ui/StartupNewItemWindow.ui:180
-msgid "Note: Name and Command fields cannot be left blank."
-msgstr ""
-
-#: ui/StartupTab.ui:84
-msgid ""
-"Note: Only user-specific startup items can be added/deleted. Auto-start of "
-"an startup item depend on some values in its '.desktop' files and desktop "
-"environment."
 msgstr ""
 
 #: ui/SystemTab.ui:64 ui/SystemTab.ui:310

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-11 09:50+0300\n"
-"PO-Revision-Date: 2022-06-12 09:37+0300\n"
+"POT-Creation-Date: 2022-06-14 13:12+0300\n"
+"PO-Revision-Date: 2022-06-14 13:14+0300\n"
 "Last-Translator: Kálmán „KAMI” Szalai <kami911@gmail.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -26,7 +26,7 @@ msgid "CPU Usage (Per Core)"
 msgstr "CPU használat (CPU magonként)"
 
 #: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:290 src/Gpu.py:292
-#: src/Network.py:122 src/Network.py:124
+#: src/Network.py:198 src/Network.py:200
 msgid "Unknown"
 msgstr "Ismeretlen"
 
@@ -42,17 +42,17 @@ msgstr "Partíció"
 msgid "Disk"
 msgstr "Lemez"
 
-#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1007
+#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1108
 msgid "Swap"
 msgstr "Cserehely"
 
-#: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:215
-#: src/Network.py:243 src/Services.py:171 src/ServicesDetails.py:128
+#: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:260
+#: src/Network.py:300 src/Services.py:171 src/ServicesDetails.py:128
 #: src/UsersDetails.py:213
 msgid "Yes"
 msgstr "Igen"
 
-#: src/Disk.py:389 src/Gpu.py:248 src/Network.py:217 src/Services.py:171
+#: src/Disk.py:389 src/Gpu.py:248 src/Network.py:262 src/Services.py:171
 #: src/ServicesDetails.py:128 src/UsersDetails.py:215
 msgid "No"
 msgstr "Nem"
@@ -66,7 +66,7 @@ msgstr "[Nincs felcsatolva]"
 msgid "Disk Details"
 msgstr "Lemez részletek"
 
-#: src/MainGUI.py:173
+#: src/MainGUI.py:171
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -74,29 +74,29 @@ msgstr ""
 "Figyelmeztetés! Az alkalmazás rendszergazdai jogosultsággal fut, ami kárt "
 "okozhat a rendszerben."
 
-#: src/MainGUI.py:224
+#: src/MainGUI.py:222
 msgid "There is a newer version on PyPI."
 msgstr "Újabb verzió érhető el a PyPI csomagból."
 
-#: src/MainGUI.py:538 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: src/MainGUI.py:516 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:21
 msgid "Summary"
 msgstr "Összegzés"
 
-#: src/MainGUI.py:548
+#: src/MainGUI.py:526
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "A CPU-mag kiválasztása csak a frekvencia és gyorsítótár-memória "
 "információkat érinti."
 
-#: src/MainGUI.py:552 src/Memory.py:180 src/Performance.py:989
-#: src/Performance.py:1292 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
+#: src/MainGUI.py:530 src/Memory.py:180 src/Performance.py:1090
+#: src/Performance.py:1406 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:552 src/Memory.py:207 src/Performance.py:1292
+#: src/MainGUI.py:530 src/Memory.py:207 src/Performance.py:1406
 #: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:902
 msgid "Swap Memory"
 msgstr "Cserehely"
@@ -120,7 +120,7 @@ msgid "Number Of Devices"
 msgstr "Eszközök száma"
 
 #: src/MemoryRamHardware.py:124 src/MemoryRamHardware.py:144
-#: src/MemorySwapDetails.py:96 src/Startup.py:114 ui/DiskDetailsWindow.ui:84
+#: src/MemorySwapDetails.py:96 ui/DiskDetailsWindow.ui:84
 #: ui/ServicesDetailsWindow.ui:225
 msgid "Type"
 msgstr "Típus"
@@ -145,14 +145,14 @@ msgstr "Helye"
 msgid "Bank Locator"
 msgstr "Modul helye"
 
-#: src/MemorySwapDetails.py:66 src/StartupNewItem.py:137
+#: src/MemorySwapDetails.py:66
 msgid "File"
 msgstr "Fájl"
 
-#: src/MemorySwapDetails.py:95 src/Processes.py:145 src/Sensors.py:83
-#: src/Services.py:139 src/Startup.py:112 ui/ProcessesDetailsWindow.ui:48
+#: src/MemorySwapDetails.py:95 src/Processes.py:185 src/Sensors.py:83
+#: src/Services.py:139 ui/ProcessesDetailsWindow.ui:48
 #: ui/ProcessesMenuCustomizations.ui:177 ui/ServicesDetailsWindow.ui:49
-#: ui/ServicesMenuCustomizations.ui:107 ui/StartupNewItemWindow.ui:193
+#: ui/ServicesMenuCustomizations.ui:107
 msgid "Name"
 msgstr "Név"
 
@@ -161,24 +161,24 @@ msgstr "Név"
 msgid "Used"
 msgstr "Használt"
 
-#: src/MemorySwapDetails.py:99 src/Processes.py:157
+#: src/MemorySwapDetails.py:99 src/Processes.py:197
 #: ui/ProcessesDetailsWindow.ui:100 ui/ProcessesMenuCustomizations.ui:277
 msgid "Priority"
 msgstr "Prioritás"
 
-#: src/Network.py:132
+#: src/Network.py:208
 msgid "Virtual Network Interface"
 msgstr "Virtuális hálózati csatoló"
 
-#: src/Network.py:136
+#: src/Network.py:217
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: src/Network.py:138
+#: src/Network.py:219
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:980 src/Processes.py:149 src/SettingsGUI.py:51
+#: src/Performance.py:1081 src/Processes.py:189 src/SettingsGUI.py:51
 #: src/Users.py:142 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
 #: ui/MainWindow.ui:229 ui/PerformanceSummaryHeaderBarGrid.ui:17
 #: ui/ProcessesDetailsWindow.ui:113 ui/ProcessesDetailsWindow.ui:741
@@ -188,142 +188,141 @@ msgstr "Wi-Fi"
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Performance.py:998 src/Processes.py:586 src/SettingsGUI.py:50
+#: src/Performance.py:1099 src/Processes.py:626 src/SettingsGUI.py:50
 #: src/Users.py:137 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:179
 msgid "Processes"
 msgstr "Folyamatok"
 
-#: src/Performance.py:1143 src/Processes.py:155 ui/DiskMenus.ui:121
+#: src/Performance.py:1257 src/Processes.py:195 ui/DiskMenus.ui:121
 #: ui/DiskTab.ui:69 ui/ProcessesDetailsWindow.ui:139
 #: ui/ProcessesDetailsWindow.ui:1281 ui/ProcessesMenuCustomizations.ui:347
 msgid "Read Speed"
 msgstr "Olvasási sebesség"
 
-#: src/Performance.py:1150 src/Processes.py:156 ui/DiskMenus.ui:134
+#: src/Performance.py:1264 src/Processes.py:196 ui/DiskMenus.ui:134
 #: ui/DiskTab.ui:81 ui/ProcessesDetailsWindow.ui:664
 #: ui/ProcessesDetailsWindow.ui:1294 ui/ProcessesMenuCustomizations.ui:361
 msgid "Write Speed"
 msgstr "Írási sebesség"
 
-#: src/Performance.py:1157 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
+#: src/Performance.py:1271 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
 msgid "Download Speed"
 msgstr "Letöltési sebesség"
 
-#: src/Performance.py:1164 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
+#: src/Performance.py:1278 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
 msgid "Upload Speed"
 msgstr "Feltöltési sebesség"
 
-#: src/Processes.py:146 src/ProcessesDetails.py:252 src/ProcessesDetails.py:668
+#: src/Processes.py:186 src/ProcessesDetails.py:252 src/ProcessesDetails.py:668
 #: ui/ProcessesDetailsWindow.ui:61 ui/ProcessesMenuCustomizations.ui:193
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:147 src/Users.py:132 ui/ProcessesDetailsWindow.ui:87
+#: src/Processes.py:187 src/Users.py:132 ui/ProcessesDetailsWindow.ui:87
 #: ui/ProcessesMenuCustomizations.ui:207 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:107
 msgid "User"
 msgstr "Felhasználó"
 
-#: src/Processes.py:148 ui/ProcessesDetailsWindow.ui:74
+#: src/Processes.py:188 ui/ProcessesDetailsWindow.ui:74
 #: ui/ProcessesMenuCustomizations.ui:221
 msgid "Status"
 msgstr "Állapot"
 
-#: src/Processes.py:150 src/Services.py:145 ui/ProcessesDetailsWindow.ui:126
+#: src/Processes.py:190 src/Services.py:145 ui/ProcessesDetailsWindow.ui:126
 #: ui/ProcessesDetailsWindow.ui:850 ui/ProcessesMenuCustomizations.ui:249
 #: ui/ServicesDetailsWindow.ui:238 ui/ServicesMenuCustomizations.ui:193
 msgid "Memory (RSS)"
 msgstr "Memória (RSS)"
 
-#: src/Processes.py:151 ui/ProcessesDetailsWindow.ui:863
+#: src/Processes.py:191 ui/ProcessesDetailsWindow.ui:863
 #: ui/ProcessesMenuCustomizations.ui:263
 msgid "Memory (VMS)"
 msgstr "Memória (VMS)"
 
-#: src/Processes.py:152 ui/ProcessesDetailsWindow.ui:876
+#: src/Processes.py:192 ui/ProcessesDetailsWindow.ui:876
 #: ui/ProcessesMenuCustomizations.ui:333
 msgid "Memory (Shared)"
 msgstr "Memória (megosztott)"
 
-#: src/Processes.py:153 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1307
+#: src/Processes.py:193 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1307
 #: ui/ProcessesMenuCustomizations.ui:375
 msgid "Read Data"
 msgstr "Olvasott adatméret"
 
-#: src/Processes.py:154 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1320
+#: src/Processes.py:194 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1320
 #: ui/ProcessesMenuCustomizations.ui:389
 msgid "Write Data"
 msgstr "Írt adatméret"
 
-#: src/Processes.py:158 ui/ProcessesDetailsWindow.ui:754
+#: src/Processes.py:198 ui/ProcessesDetailsWindow.ui:754
 #: ui/ProcessesMenuCustomizations.ui:291
 msgid "Threads"
 msgstr "Szálak"
 
-#: src/Processes.py:159 ui/ProcessesDetailsWindow.ui:178
+#: src/Processes.py:199 ui/ProcessesDetailsWindow.ui:178
 #: ui/ProcessesMenuCustomizations.ui:305
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:160 src/Users.py:135 ui/ProcessesDetailsWindow.ui:413
+#: src/Processes.py:200 src/Users.py:135 ui/ProcessesDetailsWindow.ui:413
 #: ui/ProcessesMenuCustomizations.ui:403 ui/UsersDetailsWindow.ui:84
 #: ui/UsersMenuCustomizations.ui:151
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:161 src/Users.py:136 ui/ProcessesDetailsWindow.ui:426
+#: src/Processes.py:201 src/Users.py:136 ui/ProcessesDetailsWindow.ui:426
 #: ui/ProcessesMenuCustomizations.ui:417 ui/UsersDetailsWindow.ui:97
 #: ui/UsersMenuCustomizations.ui:165
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:162 ui/ProcessesDetailsWindow.ui:1723
+#: src/Processes.py:202 ui/ProcessesDetailsWindow.ui:1723
 #: ui/ProcessesMenuCustomizations.ui:319 ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr "Útvonal"
 
-#: src/Processes.py:163 ui/ProcessesDetailsWindow.ui:1506
+#: src/Processes.py:203 ui/ProcessesDetailsWindow.ui:1506
 #: ui/ProcessesMenuCustomizations.ui:431
 msgid "Command Line"
 msgstr "Parancssor"
 
-#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:127
+#: src/Processes.py:229 src/Services.py:170 src/ServicesDetails.py:127
 msgid "Running"
 msgstr "Folyamatban"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Sleeping"
 msgstr "Alszik"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Waiting"
 msgstr "Várakozás"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Idle"
 msgstr "Tétlen"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Zombie"
 msgstr "Zombi"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Stopped"
 msgstr "Leállítva"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Tracing Stop"
 msgstr "Hibakövetés leállítása"
 
-#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:127
+#: src/Processes.py:229 src/Services.py:170 src/ServicesDetails.py:127
 msgid "Dead"
 msgstr "Üzemképtelen"
 
-#: src/Processes.py:586 src/Sensors.py:341 src/Services.py:455
-#: src/Startup.py:411 src/Users.py:501 ui/ProcessesTab.ui:66
-#: ui/SensorsTab.ui:66 ui/ServicesTab.ui:99 ui/StartupTab.ui:66
+#: src/Processes.py:626 src/Sensors.py:341 src/Services.py:455 src/Users.py:501
+#: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:99
 #: ui/UsersTab.ui:66
 msgid "Search..."
 msgstr "Keresés…"
@@ -352,7 +351,7 @@ msgstr "Érzékelőcsoport"
 msgid "Current Value"
 msgstr "Jelenlegi érték"
 
-#: src/Sensors.py:85 ui/ProcessesMenuRightClick.ui:87
+#: src/Sensors.py:85 ui/ProcessesMenuRightClick.ui:91
 msgid "High"
 msgstr "Magas"
 
@@ -442,7 +441,7 @@ msgstr "Betöltve"
 msgid "Exited"
 msgstr "Kilépett"
 
-#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:816
+#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Szolgáltatások"
@@ -460,11 +459,7 @@ msgstr "Teljesítmény"
 msgid "Users"
 msgstr "Felhasználók"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:769 ui/StartupTab.ui:48
-msgid "Startup"
-msgstr "Indítás"
-
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:863 ui/SystemTab.ui:26
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:816 ui/SystemTab.ui:26
 msgid "System"
 msgstr "Rendszer"
 
@@ -484,41 +479,11 @@ msgstr "Hálózat"
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:546
+#: src/SettingsGUI.py:538
 msgid "Do you want to reset all settings to defaults?"
 msgstr ""
 "Valóban vissza kívánja állítani az összes beállítást az alapértelmezett "
 "értékekre?"
-
-#: src/Startup.py:113 ui/StartupNewItemWindow.ui:105
-msgid "Comment"
-msgstr "Megjegyzés"
-
-#: src/Startup.py:411
-msgid "Startup Items"
-msgstr "Indítópult elemek"
-
-#: src/StartupMenuRightClick.py:65
-msgid "Do you want to delete this startup item?"
-msgstr ""
-"Valóban törölni kívánja ezt a rendszerindításkor elinduló alkalmazás-"
-"bejegyzést?"
-
-#: src/StartupMenuRightClick.py:120 src/StartupNewItem.py:136
-msgid "Startup Item"
-msgstr "Indítópult elem"
-
-#: src/StartupMenuRightClick.py:121 ui/StartupNewItemWindow.ui:117
-msgid "Command"
-msgstr "Parancs"
-
-#: src/StartupNewItem.py:134
-msgid "Do you want to overwrite the existing file?"
-msgstr "Valóban felül akarja írni a már létező fájlt?"
-
-#: src/StartupNewItem.py:135
-msgid "There is already a '.desktop' file with the same name."
-msgstr "Már létezik ilyen nevű régebbi „.desktop” fájl."
 
 #: src/Users.py:133 ui/UsersDetailsWindow.ui:58
 #: ui/UsersMenuCustomizations.ui:123
@@ -540,7 +505,7 @@ msgstr "Saját mappa"
 msgid "Group"
 msgstr "Csoport"
 
-#: src/Users.py:140 ui/StartupNewItemWindow.ui:163 ui/UsersDetailsWindow.ui:149
+#: src/Users.py:140 ui/UsersDetailsWindow.ui:149
 #: ui/UsersMenuCustomizations.ui:249
 msgid "Terminal"
 msgstr "Terminál"
@@ -702,19 +667,19 @@ msgstr "Rendszerlemez:"
 msgid "Used:"
 msgstr "Használt:"
 
-#: ui/DiskTab.ui:294 ui/MemoryTab.ui:172 ui/MemoryTab.ui:438
+#: ui/DiskTab.ui:294 ui/MemoryTab.ui:172 ui/MemoryTab.ui:414
 msgid "Free:"
 msgstr "Szabad:"
 
-#: ui/DiskTab.ui:320 ui/MemoryTab.ui:159 ui/MemoryTab.ui:425
+#: ui/DiskTab.ui:320 ui/MemoryTab.ui:159 ui/MemoryTab.ui:401
 msgid "Capacity:"
 msgstr "Kapacitás:"
 
-#: ui/DiskTab.ui:333 ui/MemoryTab.ui:485
+#: ui/DiskTab.ui:333 ui/MemoryTab.ui:461
 msgid "Details:"
 msgstr "Részletek:"
 
-#: ui/DiskTab.ui:402 ui/MemoryTab.ui:237 ui/MemoryTab.ui:406
+#: ui/DiskTab.ui:402 ui/MemoryTab.ui:237 ui/MemoryTab.ui:479
 msgid "Show..."
 msgstr "Megjelenítés…"
 
@@ -758,19 +723,19 @@ msgstr "Hőmérséklet"
 msgid "Multi-featured system monitor."
 msgstr "Többcélú rendszerfigyelő."
 
-#: ui/MainMenusDialogs.ui:86
+#: ui/MainMenusDialogs.ui:87
 msgid "Settings"
 msgstr "Beállítások"
 
-#: ui/MainMenusDialogs.ui:130
+#: ui/MainMenusDialogs.ui:131
 msgid "About"
 msgstr "Névjegy"
 
-#: ui/MainWindow.ui:894
+#: ui/MainWindow.ui:847
 msgid "System Monitoring Center"
 msgstr "Rendszermegfigyelő központ"
 
-#: ui/MainWindow.ui:902
+#: ui/MainWindow.ui:855
 msgid "Main Menu"
 msgstr "Főmenü"
 
@@ -830,7 +795,7 @@ msgstr "MAC cím:"
 msgid "Network Download (-) & Upload (-  -) Speed"
 msgstr "Hálózat Letöltési (-) és Feltöltési (-  -) Sebesség"
 
-#: ui/ProcessesCustomPriorityWindow.ui:12 ui/ProcessesMenuRightClick.ui:68
+#: ui/ProcessesCustomPriorityWindow.ui:12 ui/ProcessesMenuRightClick.ui:72
 msgid "Change Priority (Nice)"
 msgstr "Prioritás megváltoztatása (nice)"
 
@@ -842,11 +807,11 @@ msgstr ""
 "A folyamat prioritásának megváltoztatása:\n"
 "(Alacsonyabb érték magasabb prioritást jelent)"
 
-#: ui/ProcessesCustomPriorityWindow.ui:84 ui/StartupNewItemWindow.ui:49
+#: ui/ProcessesCustomPriorityWindow.ui:84
 msgid "Save"
 msgstr "Mentés"
 
-#: ui/ProcessesCustomPriorityWindow.ui:96 ui/StartupNewItemWindow.ui:61
+#: ui/ProcessesCustomPriorityWindow.ui:96
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -954,39 +919,39 @@ msgstr "Összes összecsukása"
 msgid "Stop Process"
 msgstr "Folyamat megállítása"
 
-#: ui/ProcessesMenuRightClick.ui:41
+#: ui/ProcessesMenuRightClick.ui:42
 msgid "Continue Process"
 msgstr "Folyamat folytatása"
 
-#: ui/ProcessesMenuRightClick.ui:48
+#: ui/ProcessesMenuRightClick.ui:50
 msgid "Terminate Process"
 msgstr "Folyamat leállítása"
 
-#: ui/ProcessesMenuRightClick.ui:55
+#: ui/ProcessesMenuRightClick.ui:58
 msgid "Kill Process"
 msgstr "Folyamat kilövése"
 
-#: ui/ProcessesMenuRightClick.ui:77
+#: ui/ProcessesMenuRightClick.ui:81
 msgid "Very High"
 msgstr "Nagyon magas"
 
-#: ui/ProcessesMenuRightClick.ui:97
+#: ui/ProcessesMenuRightClick.ui:101
 msgid "Normal"
 msgstr "Normál"
 
-#: ui/ProcessesMenuRightClick.ui:107
+#: ui/ProcessesMenuRightClick.ui:111
 msgid "Low"
 msgstr "Alacsony"
 
-#: ui/ProcessesMenuRightClick.ui:117
+#: ui/ProcessesMenuRightClick.ui:121
 msgid "Very Low"
 msgstr "Nagyon alacsony"
 
-#: ui/ProcessesMenuRightClick.ui:132
+#: ui/ProcessesMenuRightClick.ui:136
 msgid "Custom Value..."
 msgstr "Egyedi érték…"
 
-#: ui/ProcessesMenuRightClick.ui:150 ui/ServicesMenuRightClick.ui:68
+#: ui/ProcessesMenuRightClick.ui:154 ui/ServicesMenuRightClick.ui:68
 #: ui/UsersMenuRightClick.ui:12
 msgid "Details"
 msgstr "Részletek"
@@ -1118,44 +1083,6 @@ msgstr "Összes beállítás visszaállítása az alapértelmezett értékekre"
 msgid "Default main tab and sub-tab:"
 msgstr "Alapértelmezett főlap és allap:"
 
-#: ui/StartupMenuRightClick.ui:12
-msgid "Add"
-msgstr "Hozzáadás"
-
-#: ui/StartupMenuRightClick.ui:19
-msgid "Delete"
-msgstr "Törlés"
-
-#: ui/StartupMenuRightClick.ui:32
-msgid "Open '.desktop' File..."
-msgstr "A „.desktop” fájl megnyitása…"
-
-#: ui/StartupNewItemWindow.ui:7
-msgid "Add New Startup Item"
-msgstr "Új Indítópult elem hozzáadása"
-
-#: ui/StartupNewItemWindow.ui:129
-msgid "Icon"
-msgstr "Ikon"
-
-#: ui/StartupNewItemWindow.ui:149
-msgid "Startup Notify"
-msgstr "Indítási értesítés"
-
-#: ui/StartupNewItemWindow.ui:180
-msgid "Note: Name and Command fields cannot be left blank."
-msgstr "Megjegyzés: A Név és a Parancs mező nem lehet üres."
-
-#: ui/StartupTab.ui:84
-msgid ""
-"Note: Only user-specific startup items can be added/deleted. Auto-start of "
-"an startup item depend on some values in its '.desktop' files and desktop "
-"environment."
-msgstr ""
-"Megjegyzés: Kizárólag a felhasználót érintő indítópult-elemek adhatóak hozzá "
-"és törölhetőek le. Az indítópult-elem automatikus indítása függ a „.desktop” "
-"fájlokban megadott és az asztali környezetben található értékektől is."
-
 #: ui/SystemTab.ui:64 ui/SystemTab.ui:310
 msgid "Computer"
 msgstr "Számítógép"
@@ -1259,3 +1186,60 @@ msgstr "GTK verzió:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Felhasználói adatok"
+
+#~ msgid "Startup"
+#~ msgstr "Indítás"
+
+#~ msgid "Comment"
+#~ msgstr "Megjegyzés"
+
+#~ msgid "Startup Items"
+#~ msgstr "Indítópult elemek"
+
+#~ msgid "Do you want to delete this startup item?"
+#~ msgstr ""
+#~ "Valóban törölni kívánja ezt a rendszerindításkor elinduló alkalmazás-"
+#~ "bejegyzést?"
+
+#~ msgid "Startup Item"
+#~ msgstr "Indítópult elem"
+
+#~ msgid "Command"
+#~ msgstr "Parancs"
+
+#~ msgid "Do you want to overwrite the existing file?"
+#~ msgstr "Valóban felül akarja írni a már létező fájlt?"
+
+#~ msgid "There is already a '.desktop' file with the same name."
+#~ msgstr "Már létezik ilyen nevű régebbi „.desktop” fájl."
+
+#~ msgid "Add"
+#~ msgstr "Hozzáadás"
+
+#~ msgid "Delete"
+#~ msgstr "Törlés"
+
+#~ msgid "Open '.desktop' File..."
+#~ msgstr "A „.desktop” fájl megnyitása…"
+
+#~ msgid "Add New Startup Item"
+#~ msgstr "Új Indítópult elem hozzáadása"
+
+#~ msgid "Icon"
+#~ msgstr "Ikon"
+
+#~ msgid "Startup Notify"
+#~ msgstr "Indítási értesítés"
+
+#~ msgid "Note: Name and Command fields cannot be left blank."
+#~ msgstr "Megjegyzés: A Név és a Parancs mező nem lehet üres."
+
+#~ msgid ""
+#~ "Note: Only user-specific startup items can be added/deleted. Auto-start "
+#~ "of an startup item depend on some values in its '.desktop' files and "
+#~ "desktop environment."
+#~ msgstr ""
+#~ "Megjegyzés: Kizárólag a felhasználót érintő indítópult-elemek adhatóak "
+#~ "hozzá és törölhetőek le. Az indítópult-elem automatikus indítása függ a „."
+#~ "desktop” fájlokban megadott és az asztali környezetben található "
+#~ "értékektől is."

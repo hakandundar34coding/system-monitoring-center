@@ -20,9 +20,9 @@ Terminal=false
 Type=Application
 Categories=System;
 StartupNotify=true
-Keywords=system monitor;task manager;performance;cpu;ram;swap;memory;disk;network;processes;users;startup;services;
-Keywords[hu]=rendszerfigyelő;feladatkezelő;teljesítmény;cpu;ram;cserehely;memória;lemez;hálózat;folyamatok;felhasználók;indítás;szolgáltatások;
-Keywords[pt_BR]=monitor do sistema;gerenciador de tarefas;desempenho;uso de CPU;uso de ram;memória swap;uso de memória;armazenamento;uso de rede;processos;usuários;programas de inicialização;serviços;
-Keywords[tr]=sistem gözlemcisi;görev yöneticisi;performans;cpu;mib;ram;takas;bellek;disk;işlemler;kullanıcılar;başlangıç;servisler;
-Keywords[ru_RU]=системный монитор;менеджер задач;производительность;cpu;ram;подкачка;память;диск;сеть;процессы;пользователи;автозагрузка;сервисы;
+Keywords=system monitor;task manager;performance;cpu;ram;swap;memory;disk;network;processes;users;services;
+Keywords[hu]=rendszerfigyelő;feladatkezelő;teljesítmény;cpu;ram;cserehely;memória;lemez;hálózat;folyamatok;felhasználók;szolgáltatások;
+Keywords[pt_BR]=monitor do sistema;gerenciador de tarefas;desempenho;uso de CPU;uso de ram;memória swap;uso de memória;armazenamento;uso de rede;processos;usuários;serviços;
+Keywords[tr]=sistem gözlemcisi;görev yöneticisi;performans;cpu;mib;ram;takas;bellek;disk;işlemler;kullanıcılar;servisler;
+Keywords[ru_RU]=системный монитор;менеджер задач;производительность;cpu;ram;подкачка;память;диск;сеть;процессы;пользователи;сервисы;
 

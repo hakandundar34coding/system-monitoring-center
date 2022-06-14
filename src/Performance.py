@@ -1115,7 +1115,7 @@ class Performance:
 
 
         # Draw "%" labels below the CPU and RAM percentages on the inner circle of the circular gauge.
-        percentage_text = _tr("%")
+        percentage_text = "%"
         ctx.set_font_size(gauge_percentage_label_text_below_cpu_ram_size)
         text_extends = ctx.text_extents(percentage_text)
         text_start_x = text_extends.width
