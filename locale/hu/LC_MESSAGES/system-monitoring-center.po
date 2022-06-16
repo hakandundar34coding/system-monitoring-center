@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-14 13:12+0300\n"
-"PO-Revision-Date: 2022-06-14 13:14+0300\n"
+"PO-Revision-Date: 2022-06-14 15:44+0300\n"
 "Last-Translator: Kálmán „KAMI” Szalai <kami911@gmail.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -1186,60 +1186,3 @@ msgstr "GTK verzió:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Felhasználói adatok"
-
-#~ msgid "Startup"
-#~ msgstr "Indítás"
-
-#~ msgid "Comment"
-#~ msgstr "Megjegyzés"
-
-#~ msgid "Startup Items"
-#~ msgstr "Indítópult elemek"
-
-#~ msgid "Do you want to delete this startup item?"
-#~ msgstr ""
-#~ "Valóban törölni kívánja ezt a rendszerindításkor elinduló alkalmazás-"
-#~ "bejegyzést?"
-
-#~ msgid "Startup Item"
-#~ msgstr "Indítópult elem"
-
-#~ msgid "Command"
-#~ msgstr "Parancs"
-
-#~ msgid "Do you want to overwrite the existing file?"
-#~ msgstr "Valóban felül akarja írni a már létező fájlt?"
-
-#~ msgid "There is already a '.desktop' file with the same name."
-#~ msgstr "Már létezik ilyen nevű régebbi „.desktop” fájl."
-
-#~ msgid "Add"
-#~ msgstr "Hozzáadás"
-
-#~ msgid "Delete"
-#~ msgstr "Törlés"
-
-#~ msgid "Open '.desktop' File..."
-#~ msgstr "A „.desktop” fájl megnyitása…"
-
-#~ msgid "Add New Startup Item"
-#~ msgstr "Új Indítópult elem hozzáadása"
-
-#~ msgid "Icon"
-#~ msgstr "Ikon"
-
-#~ msgid "Startup Notify"
-#~ msgstr "Indítási értesítés"
-
-#~ msgid "Note: Name and Command fields cannot be left blank."
-#~ msgstr "Megjegyzés: A Név és a Parancs mező nem lehet üres."
-
-#~ msgid ""
-#~ "Note: Only user-specific startup items can be added/deleted. Auto-start "
-#~ "of an startup item depend on some values in its '.desktop' files and "
-#~ "desktop environment."
-#~ msgstr ""
-#~ "Megjegyzés: Kizárólag a felhasználót érintő indítópult-elemek adhatóak "
-#~ "hozzá és törölhetőek le. Az indítópult-elem automatikus indítása függ a „."
-#~ "desktop” fájlokban megadott és az asztali környezetben található "
-#~ "értékektől is."

@@ -93,7 +93,7 @@ def processes_gui_func():
         selection = treeview2101.get_selection()
         model, treeiter = selection.get_selected()
 
-        # Get right/double clicked process PID
+        # Get selected process PID
         if treeiter == None:
             return
         global selected_process_pid

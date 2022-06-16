@@ -11,7 +11,6 @@
     <property name="margin-top">2</property>
     <property name="margin-bottom">2</property>
     <property name="row-spacing">10</property>
-    <property name="column-homogeneous">True</property>
     <child>
       <object class="GtkLabel">
         <property name="visible">True</property>

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-14 13:12+0300\n"
-"PO-Revision-Date: 2022-06-14 13:13+0300\n"
+"PO-Revision-Date: 2022-06-14 15:46+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -1186,101 +1186,3 @@ msgstr "Версия Gtk:"
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Параметры пользователя"
-
-#~ msgid "Startup"
-#~ msgstr "Автозагрузка"
-
-#~ msgid "Comment"
-#~ msgstr "Комментарий"
-
-#~ msgid "Startup Items"
-#~ msgstr "Элементы автозагрузки"
-
-#~ msgid "Do you want to delete this startup item?"
-#~ msgstr "Хотите ли вы убрать этот элемент автозагрузки?"
-
-#~ msgid "Startup Item"
-#~ msgstr "Элемент автозагрузки"
-
-#~ msgid "Command"
-#~ msgstr "Команда"
-
-#~ msgid "Do you want to overwrite the existing file?"
-#~ msgstr "Хотите ли вы перезаписать существующий файл?"
-
-#~ msgid "There is already a '.desktop' file with the same name."
-#~ msgstr "Файл \".desktop\" с таким именем уже существует."
-
-#~ msgid "Add"
-#~ msgstr "Добавить"
-
-#~ msgid "Delete"
-#~ msgstr "Удалить"
-
-#~ msgid "Open '.desktop' File..."
-#~ msgstr "Открыть \".desktop\" файл..."
-
-#~ msgid "Add New Startup Item"
-#~ msgstr "Добавить новый элемент автозагрузки"
-
-#~ msgid "Icon"
-#~ msgstr "Иконка"
-
-#~ msgid "Startup Notify"
-#~ msgstr "Уведомлять о запуске"
-
-#~ msgid "Note: Name and Command fields cannot be left blank."
-#~ msgstr "Примечание: Поля \"Имя\" и \"Команда\" обязательны."
-
-#~ msgid ""
-#~ "Note: Only user-specific startup items can be added/deleted. Auto-start "
-#~ "of an startup item depend on some values in its '.desktop' files and "
-#~ "desktop environment."
-#~ msgstr ""
-#~ "Примечание: Могут быть добавлены или удалены только пользовательские "
-#~ "элементы автозагрузки. Автозагрузка элементов зависит от некоторых "
-#~ "параметров \".desktop\" файла и среды рабочего стола."
-
-#~ msgid "Performance tab default sub-tab:"
-#~ msgstr "Под-вкладка по умолчанию вкладки \"Производительность\":"
-
-#~ msgid "None"
-#~ msgstr "Нет"
-
-#~ msgid "Disk Read+Write Speed"
-#~ msgstr "Скорость чтения+записи диска"
-
-#~ msgid "Network Download+Upload Speed"
-#~ msgstr "Скорость скачивания+загрузки"
-
-#~ msgid ""
-#~ "Number of installed packages\n"
-#~ "(APT, RPM or pacman)"
-#~ msgstr ""
-#~ "Кол-во установленных пакетов:\n"
-#~ "(APT, RPM or pacman)"
-
-#~ msgid "Reset All"
-#~ msgstr "Сбросить всё"
-
-#~ msgid "CPU Affinity"
-#~ msgstr "Привязка к ядру CPU"
-
-#~ msgid "Note: Some sensors may not provide correct values!"
-#~ msgstr ""
-#~ "Примечание: некоторые датчики могу предоставлять некорректные значения!"
-
-#~ msgid "This system has no swap memory."
-#~ msgstr "У этой системы нет подкачки."
-
-#~ msgid "[SWAP]"
-#~ msgstr "[Подкачка]"
-
-#~ msgid "Web Page"
-#~ msgstr "Веб-страница"
-
-#~ msgid "Can Start - Stop?"
-#~ msgstr "Может запуститься или остановиться?"
-
-#~ msgid "Can Reload?"
-#~ msgstr "Может перезагрузиться?"

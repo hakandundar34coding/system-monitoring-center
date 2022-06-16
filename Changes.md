@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v1.20.0
+  * New: Keyboard shortcuts for Processes tab actions
+  * New: Hungarian translations
+  * Removed: Startup tab
+  * Updated: Polish translations
+  * Fix: RAM hardware details window is not shown
+  * Fix: Copying some translations during installation
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.19.0
   * New: Summary tab for showing performance summary
   * Updated translations for Czech language
