@@ -107,55 +107,12 @@ class Network:
         selected_network_card_number = Performance.selected_network_card_number
         selected_network_card = network_card_list[selected_network_card_number]
 
-        # Get device vendor and model names
-        device_vendor_name = "-"
-        device_model_name = "-"
-        # Get device vendor and model names if it is not a virtual device.
-        if os.path.isdir("/sys/devices/virtual/net/" + selected_network_card) == False:
-            # Check if there is a "modalias" file. Some network interfaces (such as usb0, usb1, etc.) may not have this file.
-            if os.path.isfile("/sys/class/net/" + selected_network_card + "/device/modalias") == True:
-                # Read device vendor and model ids by reading "modalias" file.
-                with open("/sys/class/net/" + selected_network_card + "/device/modalias") as reader:
-                    modalias_output = reader.read().strip()
-                device_vendor_name, device_model_name, _, _ = Performance.performance_get_device_vendor_model_func(modalias_output)
-                if device_vendor_name == "Unknown":
-                    device_vendor_name = "[" + _tr("Unknown") + "]"
-                if device_model_name == "Unknown":
-                    device_model_name = "[" + _tr("Unknown") + "]"
-            network_card_device_model_name = f'{device_vendor_name} - {device_model_name}'
-        # Get device vendor and model names if it is a virtual device.
-        else:
-            # lo (Loopback Device) is a system device and it is not a physical device. It could not be found in "pci.ids" file.
-            if selected_network_card == "lo":
-                network_card_device_model_name = "Loopback Device"
-            else:
-                network_card_device_model_name = "[" + _tr("Virtual Network Interface") + "]"
 
-        # Get connection_type
-        if selected_network_card.startswith("en"):
-            connection_type = _tr("Ethernet")
-        elif selected_network_card.startswith("wl"):
-            connection_type = _tr("Wi-Fi")
-        else:
-            connection_type = "-"
-
-        # Get network_card_mac_address
-        try:
-            with open("/sys/class/net/" + selected_network_card + "/address") as reader:
-                network_card_mac_address = reader.read().strip().upper()
-        # Some network interfaces (such as some of the virtual network interfaces) may not have a MAC address.
-        except FileNotFoundError:
-            network_card_mac_address = "-"
-
-        # Get network_address_ipv4, network_address_ipv6
-        ip_output_lines = (subprocess.check_output(["ip", "a", "show", selected_network_card], shell=False)).decode().strip().split("\n")
-        network_address_ipv4 = "-"
-        network_address_ipv6 = "-"
-        for line in ip_output_lines:
-            if "inet " in line:
-                network_address_ipv4 = line.split()[1].split("/")[0]
-            if "inet6 " in line:
-                network_address_ipv6 = line.split()[1].split("/")[0]
+        # Get information.
+        network_card_device_model_name = self.network_device_model_name_func(selected_network_card)
+        connection_type = self.network_connection_type_func(selected_network_card)
+        network_card_mac_address = self.network_card_mac_address_func(selected_network_card)
+        network_address_ipv4, network_address_ipv6 = self.network_address_ipv4_ipv6_func(selected_network_card)
 
 
         # Set Network tab label texts by using information get
@@ -207,8 +164,96 @@ class Network:
             pass
         self.network_card_list_system_ordered_prev = network_card_list_system_ordered
 
-        # Get network_card_connected
-        # Get the information of if network card is connected by usng "/sys/class/net/" file.
+
+        # Get information.
+        network_card_connected = self.network_card_connected_func(selected_network_card)
+        network_ssid = self.network_ssid_func(selected_network_card)
+        network_signal_strength = self.network_signal_strength_func(selected_network_card, network_card_connected)
+
+
+        # Set and update Network tab label texts by using information get
+        self.label1403.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_receive_speed[selected_network_card_number][-1], performance_network_data_unit, performance_network_data_precision)}/s')
+        self.label1404.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_send_speed[selected_network_card_number][-1], performance_network_data_unit, performance_network_data_precision)}/s')
+        self.label1405.set_text(self.performance_data_unit_converter_func("data", "none", network_receive_bytes[selected_network_card_number], performance_network_data_unit, performance_network_data_precision))
+        self.label1406.set_text(self.performance_data_unit_converter_func("data", "none", network_send_bytes[selected_network_card_number], performance_network_data_unit, performance_network_data_precision))
+        self.label1408.set_text(f'{network_card_connected} - {network_ssid}')
+        self.label1409.set_text(network_signal_strength)
+
+
+    # ----------------------- Get network card vendor and model -----------------------
+    def network_device_model_name_func(self, selected_network_card):
+
+        # Get device vendor and model names
+        device_vendor_name = "-"
+        device_model_name = "-"
+        # Get device vendor and model names if it is not a virtual device.
+        if os.path.isdir("/sys/devices/virtual/net/" + selected_network_card) == False:
+            # Check if there is a "modalias" file. Some network interfaces (such as usb0, usb1, etc.) may not have this file.
+            if os.path.isfile("/sys/class/net/" + selected_network_card + "/device/modalias") == True:
+                # Read device vendor and model ids by reading "modalias" file.
+                with open("/sys/class/net/" + selected_network_card + "/device/modalias") as reader:
+                    modalias_output = reader.read().strip()
+                device_vendor_name, device_model_name, _, _ = Performance.performance_get_device_vendor_model_func(modalias_output)
+                if device_vendor_name == "Unknown":
+                    device_vendor_name = "[" + _tr("Unknown") + "]"
+                if device_model_name == "Unknown":
+                    device_model_name = "[" + _tr("Unknown") + "]"
+            network_card_device_model_name = f'{device_vendor_name} - {device_model_name}'
+        # Get device vendor and model names if it is a virtual device.
+        else:
+            # lo (Loopback Device) is a system device and it is not a physical device. It could not be found in "pci.ids" file.
+            if selected_network_card == "lo":
+                network_card_device_model_name = "Loopback Device"
+            else:
+                network_card_device_model_name = "[" + _tr("Virtual Network Interface") + "]"
+
+        return network_card_device_model_name
+
+
+    # ----------------------- Get network card connection type -----------------------
+    def network_connection_type_func(self, selected_network_card):
+
+        if selected_network_card.startswith("en"):
+            connection_type = _tr("Ethernet")
+        elif selected_network_card.startswith("wl"):
+            connection_type = _tr("Wi-Fi")
+        else:
+            connection_type = "-"
+
+        return connection_type
+
+
+    # ----------------------- Get network card MAC address -----------------------
+    def network_card_mac_address_func(self, selected_network_card):
+
+        try:
+            with open("/sys/class/net/" + selected_network_card + "/address") as reader:
+                network_card_mac_address = reader.read().strip().upper()
+        # Some network interfaces (such as some of the virtual network interfaces) may not have a MAC address.
+        except FileNotFoundError:
+            network_card_mac_address = "-"
+
+        return network_card_mac_address
+
+
+    # ----------------------- Get network card IPv4 and IPv6 addresses -----------------------
+    def network_address_ipv4_ipv6_func(self, selected_network_card):
+
+        ip_output_lines = (subprocess.check_output(["ip", "a", "show", selected_network_card], shell=False)).decode().strip().split("\n")
+        network_address_ipv4 = "-"
+        network_address_ipv6 = "-"
+        for line in ip_output_lines:
+            if "inet " in line:
+                network_address_ipv4 = line.split()[1].split("/")[0]
+            if "inet6 " in line:
+                network_address_ipv6 = line.split()[1].split("/")[0]
+
+        return network_address_ipv4, network_address_ipv6
+
+
+    # ----------------------- Get network card connected information -----------------------
+    def network_card_connected_func(self, selected_network_card):
+
         with open("/sys/class/net/" + selected_network_card + "/operstate") as reader:
             network_info = reader.read().strip()
         if network_info == "up":
@@ -220,12 +265,18 @@ class Network:
         else:
             network_card_connected = network_info
 
-        # Get network_ssid
+        return network_card_connected
+
+
+    # ----------------------- Get network name (SSID) -----------------------
+    def network_ssid_func(self, selected_network_card):
+
         try:                                                                                      
             nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
         # Avoid errors because Network Manager (which is required for running "nmcli" command) may not be installed on all systems (very rare).
         except FileNotFoundError:
             network_ssid = f'[{_tr("Unknown")}]'
+
         # Check if "nmcli_output_lines" value is get.
         if "nmcli_output_lines" in locals():
             for line in nmcli_output_lines:
@@ -233,14 +284,20 @@ class Network:
                 if selected_network_card == line_splitted[0]:
                     network_ssid = line_splitted[1].strip()
                     break
+
         # "network_ssid" value is get as "" if selected network card is not connected a Wi-Fi network.
         if network_ssid == "":
             network_ssid = "-"
 
-        # Get network_signal_strength
+        return network_ssid
+
+
+    # ----------------------- Get network signal strength (link value) -----------------------
+    def network_signal_strength_func(self, selected_network_card, network_card_connected):
+
         network_signal_strength = "-"
         # Translated value have to be used by using gettext constant. Not "Yes".
-        if "wl" in selected_network_card and network_card_connected == _tr("Yes"):
+        if selected_network_card.startswith("wl") == True and network_card_connected == _tr("Yes"):
             with open("/proc/net/wireless") as reader:
                 proc_net_wireless_output_lines = reader.read().strip().split("\n")
             for line in proc_net_wireless_output_lines:
@@ -252,14 +309,7 @@ class Network:
                         network_signal_strength = f'{network_signal_strength} (link)'
                     break
 
-
-        # Set and update Network tab label texts by using information get
-        self.label1403.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_receive_speed[selected_network_card_number][-1], performance_network_data_unit, performance_network_data_precision)}/s')
-        self.label1404.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_send_speed[selected_network_card_number][-1], performance_network_data_unit, performance_network_data_precision)}/s')
-        self.label1405.set_text(self.performance_data_unit_converter_func("data", "none", network_receive_bytes[selected_network_card_number], performance_network_data_unit, performance_network_data_precision))
-        self.label1406.set_text(self.performance_data_unit_converter_func("data", "none", network_send_bytes[selected_network_card_number], performance_network_data_unit, performance_network_data_precision))
-        self.label1408.set_text(f'{network_card_connected} - {network_ssid}')
-        self.label1409.set_text(network_signal_strength)
+        return network_signal_strength
 
 
 # Generate object

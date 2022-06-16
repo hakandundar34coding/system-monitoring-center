@@ -79,7 +79,7 @@ class Disk:
         self.drawingarea1301.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
         self.drawingarea1301.connect("motion-notify-event", self.performance_line_charts_motion_notify_event_func)
         self.drawingarea1302.connect("draw", self.performance_bar_charts_draw_func)
-        self.eventbox1301.connect("button-press-event", self.on_eventbox1301_button_click_event)
+        self.eventbox1301.connect("button-release-event", self.on_eventbox1301_button_release_event)
 
         # Set event masks for drawingarea in order to enable these events.
         self.drawingarea1301.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
@@ -98,7 +98,7 @@ class Disk:
 
 
     # ----------------------- Called for opening Disk Details Window -----------------------
-    def on_eventbox1301_button_click_event(self, widget, event):
+    def on_eventbox1301_button_release_event(self, widget, event):
 
         if event.button == 1:
             from DiskDetails import DiskDetails

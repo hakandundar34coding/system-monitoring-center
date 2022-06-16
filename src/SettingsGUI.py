@@ -47,7 +47,7 @@ class SettingsGUI:
         # Define data lists in order to add them into comboboxes.
         self.update_interval_list = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 5.0, 10.0]
         self.chart_data_history_list = [30, 60, 90, 120, 150, 180, 300, 600, 1200]
-        self.default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Startup"), _tr("Services"), _tr("System")]
+        self.default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Services"), _tr("System")]
         self.performance_tab_default_sub_tab_list = [_tr("Summary"), _tr("CPU"), _tr("Memory"), _tr("Disk"), _tr("Network"), _tr("GPU"), _tr("Sensors")]
 
 
@@ -487,12 +487,6 @@ class SettingsGUI:
             pass
 
         try:
-            from MainGUI import Startup
-            Startup.initial_already_run = 0
-        except ImportError:
-            pass
-
-        try:
             from MainGUI import Services
             Services.initial_already_run = 0
         except ImportError:
@@ -516,12 +510,10 @@ class SettingsGUI:
             Config.default_main_tab = 1
         elif MainGUI.radiobutton3.get_active() == True:
             Config.default_main_tab = 2
-        elif MainGUI.radiobutton5.get_active() == True:
-            Config.default_main_tab = 3
         elif MainGUI.radiobutton6.get_active() == True:
-            Config.default_main_tab = 4
+            Config.default_main_tab = 3
         elif MainGUI.radiobutton8.get_active() == True:
-            Config.default_main_tab = 5
+            Config.default_main_tab = 4
 
         if MainGUI.radiobutton1007.get_active() == True:
             Config.performance_tab_default_sub_tab = 0

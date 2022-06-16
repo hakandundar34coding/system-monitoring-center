@@ -1,3 +1,15 @@
+system-monitoring-center (1.20.0) unstable; urgency=medium
+
+  * New: Keyboard shortcuts for Processes tab actions
+  * New: Hungarian translations
+  * Removed: Startup tab
+  * Updated: Polish translations
+  * Fix: RAM hardware details window is not shown
+  * Fix: Copying some translations during installation
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 16 Jun 2022 08:00:00 +0300
+
 system-monitoring-center (1.19.0) unstable; urgency=medium
 
   * New: Summary tab for showing performance summary

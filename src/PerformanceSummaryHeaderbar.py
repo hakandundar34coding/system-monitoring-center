@@ -54,6 +54,10 @@ class PerformanceSummaryHeaderbar:
         self.label105.set_text(f'{_tr("Disk"):<10}')
         self.label106.set_text(f'{_tr("Network"):<10}')
 
+        # Define tooltip text in order to use multiple translated texts (combine them) to avoid additional texts.
+        self.label105.set_tooltip_text(f'{_tr("Read Speed")}+{_tr("Write Speed")}')
+        self.label106.set_tooltip_text(f'{_tr("Download Speed")}+{_tr("Upload Speed")}')
+
         # Define data unit conversion function objects in for lower CPU usage.
         self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
         self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func

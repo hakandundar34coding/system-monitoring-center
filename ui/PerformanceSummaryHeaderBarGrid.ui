@@ -63,7 +63,6 @@
       <object class="GtkLabel" id="label105">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Disk Read+Write Speed</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">Disk</property>
         <attributes>
@@ -109,7 +108,6 @@
       <object class="GtkLabel" id="label106">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Network Download+Upload Speed</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">Network</property>
         <attributes>

@@ -45,7 +45,6 @@ class MainGUI:
         self.radiobutton1 = builder.get_object('radiobutton1')
         self.radiobutton2 = builder.get_object('radiobutton2')
         self.radiobutton3 = builder.get_object('radiobutton3')
-        self.radiobutton5 = builder.get_object('radiobutton5')
         self.radiobutton6 = builder.get_object('radiobutton6')
         self.radiobutton8 = builder.get_object('radiobutton8')
         self.grid1 = builder.get_object('grid1')
@@ -88,7 +87,6 @@ class MainGUI:
         self.radiobutton1.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
         self.radiobutton2.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
         self.radiobutton3.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
-        self.radiobutton5.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
         self.radiobutton6.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
         self.radiobutton8.connect("toggled", self.on_main_gui_tab_radiobuttons_toggled)
         # Connect Main GUI - Performance tab GUI signals
@@ -241,7 +239,7 @@ class MainGUI:
         MainMenusDialogs.popover1001p.popup()
 
 
-    # ----------------------- "Performance, Processes, Users, Startup, Services, System, CPU, Memory, Disk, Network, GPU, Sensors" Radiobuttons -----------------------
+    # ----------------------- "Performance, Processes, Users, Services, System, CPU, Memory, Disk, Network, GPU, Sensors" Radiobuttons -----------------------
     def on_main_gui_tab_radiobuttons_toggled(self, widget):
 
         if widget.get_active() == True:
@@ -259,10 +257,8 @@ class MainGUI:
         elif default_main_tab == 2:
              self.radiobutton3.set_active(True)
         elif default_main_tab == 3:
-             self.radiobutton5.set_active(True)
-        elif default_main_tab == 4:
              self.radiobutton6.set_active(True)
-        elif default_main_tab == 5:
+        elif default_main_tab == 4:
              self.radiobutton8.set_active(True)
 
         performance_tab_default_sub_tab = Config.performance_tab_default_sub_tab
@@ -467,31 +463,13 @@ class MainGUI:
             Users.users_loop_func()
             return
 
-        # Switch to "Startup" tab
-        elif self.radiobutton5.get_active() == True:
-            self.stack1.set_visible_child(self.grid5)
-            if remember_last_opened_tabs_on_application_start == 1:
-                Config.default_main_tab = 3
-                Config.config_save_func()
-            Config.current_main_tab = 3
-            if 'Startup' not in globals():
-                global Startup
-                import Startup
-                Startup.startup_import_func()
-                Startup.startup_gui_func()
-                self.grid5.attach(Startup.grid5101, 0, 0, 1, 1)
-            if Startup.initial_already_run == 0:
-                Startup.startup_initial_func()
-            Startup.startup_loop_func()
-            return
-
         # Switch to "Services" tab
         elif self.radiobutton6.get_active() == True:
             self.stack1.set_visible_child(self.grid6)
             if remember_last_opened_tabs_on_application_start == 1:
-                Config.default_main_tab = 4
+                Config.default_main_tab = 3
                 Config.config_save_func()
-            Config.current_main_tab = 4
+            Config.current_main_tab = 3
             if 'Services' not in globals():
                 global Services
                 import Services
@@ -506,9 +484,9 @@ class MainGUI:
         elif self.radiobutton8.get_active() == True:
             self.stack1.set_visible_child(self.grid8)
             if remember_last_opened_tabs_on_application_start == 1:
-                Config.default_main_tab = 5
+                Config.default_main_tab = 4
                 Config.config_save_func()
-            Config.current_main_tab = 5
+            Config.current_main_tab = 4
             if self.grid8.get_child_at(0,0) == None:
                 global System
                 from System import System
@@ -733,8 +711,6 @@ class MainGUI:
             GLib.idle_add(Processes.processes_loop_func)
         if current_main_tab == 2:
             GLib.idle_add(Users.users_loop_func)
-        if current_main_tab == 3:
-            GLib.idle_add(Startup.startup_loop_func)
 
         self.main_glib_source.set_callback(self.main_gui_tab_loop_func)
         # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.

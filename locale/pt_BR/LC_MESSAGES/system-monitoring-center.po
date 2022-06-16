@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-08 13:29+0300\n"
-"PO-Revision-Date: 2022-06-08 13:29+0300\n"
+"POT-Creation-Date: 2022-06-14 13:12+0300\n"
+"PO-Revision-Date: 2022-06-14 15:46+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -27,7 +27,7 @@ msgid "CPU Usage (Per Core)"
 msgstr "Uso de CPU (Por Núcleo)"
 
 #: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:290 src/Gpu.py:292
-#: src/MemoryRamHardware.py:56 src/Network.py:122 src/Network.py:124
+#: src/Network.py:198 src/Network.py:200
 msgid "Unknown"
 msgstr "Desconhecido"
 
@@ -37,23 +37,23 @@ msgstr "Partição"
 
 #: src/Disk.py:259 src/SettingsGUI.py:51 ui/DiskDetailsWindow.ui:45
 #: ui/DiskMenus.ui:23 ui/DiskMenus.ui:365 ui/DiskTab.ui:543
-#: ui/MainWindow.ui:323 ui/PerformanceSummaryHeaderBarGrid.ui:68
-#: ui/ProcessesDetailsWindow.ui:1504 ui/ProcessesMenuCustomizations.ui:558
+#: ui/MainWindow.ui:323 ui/PerformanceSummaryHeaderBarGrid.ui:67
+#: ui/ProcessesDetailsWindow.ui:1463 ui/ProcessesMenuCustomizations.ui:558
 #: ui/ProcessesMenuCustomizations.ui:636
 msgid "Disk"
 msgstr "Disco"
 
-#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1026
+#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1108
 msgid "Swap"
 msgstr "Swap"
 
-#: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:215
-#: src/Network.py:243 src/Services.py:171 src/ServicesDetails.py:128
+#: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:260
+#: src/Network.py:300 src/Services.py:171 src/ServicesDetails.py:128
 #: src/UsersDetails.py:213
 msgid "Yes"
 msgstr "Sim"
 
-#: src/Disk.py:389 src/Gpu.py:248 src/Network.py:217 src/Services.py:171
+#: src/Disk.py:389 src/Gpu.py:248 src/Network.py:262 src/Services.py:171
 #: src/ServicesDetails.py:128 src/UsersDetails.py:215
 msgid "No"
 msgstr "Não"
@@ -67,7 +67,7 @@ msgstr "[Não Montado]"
 msgid "Disk Details"
 msgstr "Detalhes do Disco"
 
-#: src/MainGUI.py:173
+#: src/MainGUI.py:171
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -75,30 +75,30 @@ msgstr ""
 "Aviso! O aplicativo está sendo executado com privilégios de root, você pode "
 "danificar Seu sistema."
 
-#: src/MainGUI.py:224
+#: src/MainGUI.py:222
 msgid "There is a newer version on PyPI."
 msgstr "Existe uma versão mais recente no PyPI."
 
-#: src/MainGUI.py:538 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: src/MainGUI.py:516 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:21
 msgid "Summary"
 msgstr "Resumo"
 
-#: src/MainGUI.py:548
+#: src/MainGUI.py:526
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "A seleção do núcleo de CPU afeta apenas as informações de frequência e "
 "memória cache."
 
-#: src/MainGUI.py:552 src/Memory.py:180 src/Performance.py:1006
-#: src/Performance.py:1316 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
+#: src/MainGUI.py:530 src/Memory.py:180 src/Performance.py:1090
+#: src/Performance.py:1406 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:52
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:552 src/Memory.py:207 src/Performance.py:1316
-#: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:915
+#: src/MainGUI.py:530 src/Memory.py:207 src/Performance.py:1406
+#: ui/MemoryTab.ui:504 ui/ProcessesDetailsWindow.ui:902
 msgid "Swap Memory"
 msgstr "Memória Swap"
 
@@ -106,58 +106,54 @@ msgstr "Memória Swap"
 msgid "Physical RAM"
 msgstr "RAM Física"
 
-#: src/Memory.py:180 src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
+#: src/Memory.py:180 src/MemoryRamHardware.py:123 src/MemoryRamHardware.py:143
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
 #: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
 msgstr "Capacidade"
 
-#: src/MemoryRamHardware.py:56
-msgid "None"
-msgstr "Nenhum"
-
-#: src/MemoryRamHardware.py:85
+#: src/MemoryRamHardware.py:82
 msgid "Maximum Capacity"
 msgstr "Capacidade Máxima"
 
-#: src/MemoryRamHardware.py:86
+#: src/MemoryRamHardware.py:83
 msgid "Number Of Devices"
 msgstr "Número de Dispositivos"
 
-#: src/MemoryRamHardware.py:127 src/MemoryRamHardware.py:147
-#: src/MemorySwapDetails.py:96 src/Startup.py:114 ui/DiskDetailsWindow.ui:84
+#: src/MemoryRamHardware.py:124 src/MemoryRamHardware.py:144
+#: src/MemorySwapDetails.py:96 ui/DiskDetailsWindow.ui:84
 #: ui/ServicesDetailsWindow.ui:225
 msgid "Type"
 msgstr "Tipo"
 
-#: src/MemoryRamHardware.py:128 src/MemoryRamHardware.py:148
+#: src/MemoryRamHardware.py:125 src/MemoryRamHardware.py:145
 msgid "Speed/Frequency"
 msgstr "Velocidade/Frequência"
 
-#: src/MemoryRamHardware.py:129 src/MemoryRamHardware.py:149
+#: src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 msgid "Manufacturer"
 msgstr "Fabricante"
 
-#: src/MemoryRamHardware.py:130 src/MemoryRamHardware.py:150
+#: src/MemoryRamHardware.py:127 src/MemoryRamHardware.py:147
 msgid "Form Factor"
 msgstr "Fator de Forma"
 
-#: src/MemoryRamHardware.py:131 src/MemoryRamHardware.py:151
+#: src/MemoryRamHardware.py:128 src/MemoryRamHardware.py:148
 msgid "Locator"
 msgstr "Localizador"
 
-#: src/MemoryRamHardware.py:132 src/MemoryRamHardware.py:152
+#: src/MemoryRamHardware.py:129 src/MemoryRamHardware.py:149
 msgid "Bank Locator"
 msgstr "Localizador de Banco"
 
-#: src/MemorySwapDetails.py:66 src/StartupNewItem.py:137
+#: src/MemorySwapDetails.py:66
 msgid "File"
 msgstr "Arquivo"
 
-#: src/MemorySwapDetails.py:95 src/Processes.py:145 src/Sensors.py:83
-#: src/Services.py:139 src/Startup.py:112 ui/ProcessesDetailsWindow.ui:48
+#: src/MemorySwapDetails.py:95 src/Processes.py:185 src/Sensors.py:83
+#: src/Services.py:139 ui/ProcessesDetailsWindow.ui:48
 #: ui/ProcessesMenuCustomizations.ui:177 ui/ServicesDetailsWindow.ui:49
-#: ui/ServicesMenuCustomizations.ui:107 ui/StartupNewItemWindow.ui:193
+#: ui/ServicesMenuCustomizations.ui:107
 msgid "Name"
 msgstr "Nome"
 
@@ -166,178 +162,177 @@ msgstr "Nome"
 msgid "Used"
 msgstr "Utilizado"
 
-#: src/MemorySwapDetails.py:99 src/Processes.py:157
+#: src/MemorySwapDetails.py:99 src/Processes.py:197
 #: ui/ProcessesDetailsWindow.ui:100 ui/ProcessesMenuCustomizations.ui:277
 msgid "Priority"
 msgstr "Prioridade"
 
-#: src/Network.py:132
+#: src/Network.py:208
 msgid "Virtual Network Interface"
 msgstr "Interface de Rede Virtual"
 
-#: src/Network.py:136
+#: src/Network.py:217
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: src/Network.py:138
+#: src/Network.py:219
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:996 src/Processes.py:149 src/SettingsGUI.py:51
+#: src/Performance.py:1081 src/Processes.py:189 src/SettingsGUI.py:51
 #: src/Users.py:142 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
 #: ui/MainWindow.ui:229 ui/PerformanceSummaryHeaderBarGrid.ui:17
 #: ui/ProcessesDetailsWindow.ui:113 ui/ProcessesDetailsWindow.ui:741
-#: ui/ProcessesDetailsWindow.ui:846 ui/ProcessesMenuCustomizations.ui:235
+#: ui/ProcessesDetailsWindow.ui:833 ui/ProcessesMenuCustomizations.ui:235
 #: ui/ProcessesMenuCustomizations.ui:526 ui/UsersDetailsWindow.ui:175
 #: ui/UsersMenuCustomizations.ui:207
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Performance.py:1016 src/Processes.py:586 src/SettingsGUI.py:50
+#: src/Performance.py:1099 src/Processes.py:626 src/SettingsGUI.py:50
 #: src/Users.py:137 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:179
 msgid "Processes"
 msgstr "Processos"
 
-#: src/Performance.py:1167 src/Processes.py:155 ui/DiskMenus.ui:121
+#: src/Performance.py:1257 src/Processes.py:195 ui/DiskMenus.ui:121
 #: ui/DiskTab.ui:69 ui/ProcessesDetailsWindow.ui:139
-#: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesMenuCustomizations.ui:347
+#: ui/ProcessesDetailsWindow.ui:1281 ui/ProcessesMenuCustomizations.ui:347
 msgid "Read Speed"
 msgstr "Velocidade de Leitura"
 
-#: src/Performance.py:1174 src/Processes.py:156 ui/DiskMenus.ui:134
+#: src/Performance.py:1264 src/Processes.py:196 ui/DiskMenus.ui:134
 #: ui/DiskTab.ui:81 ui/ProcessesDetailsWindow.ui:664
-#: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesMenuCustomizations.ui:361
+#: ui/ProcessesDetailsWindow.ui:1294 ui/ProcessesMenuCustomizations.ui:361
 msgid "Write Speed"
 msgstr "Velocidade de Escrita"
 
-#: src/Performance.py:1181 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
+#: src/Performance.py:1271 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
 msgid "Download Speed"
 msgstr "Velocidade de Download"
 
-#: src/Performance.py:1188 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
+#: src/Performance.py:1278 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
 msgid "Upload Speed"
 msgstr "Velocidade de Upload"
 
-#: src/Processes.py:146 src/ProcessesDetails.py:254 src/ProcessesDetails.py:675
+#: src/Processes.py:186 src/ProcessesDetails.py:252 src/ProcessesDetails.py:668
 #: ui/ProcessesDetailsWindow.ui:61 ui/ProcessesMenuCustomizations.ui:193
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:147 src/Users.py:132 ui/ProcessesDetailsWindow.ui:87
+#: src/Processes.py:187 src/Users.py:132 ui/ProcessesDetailsWindow.ui:87
 #: ui/ProcessesMenuCustomizations.ui:207 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:107
 msgid "User"
 msgstr "Usuário"
 
-#: src/Processes.py:148 ui/ProcessesDetailsWindow.ui:74
+#: src/Processes.py:188 ui/ProcessesDetailsWindow.ui:74
 #: ui/ProcessesMenuCustomizations.ui:221
 msgid "Status"
 msgstr "Status"
 
-#: src/Processes.py:150 src/Services.py:145 ui/ProcessesDetailsWindow.ui:126
-#: ui/ProcessesDetailsWindow.ui:863 ui/ProcessesMenuCustomizations.ui:249
+#: src/Processes.py:190 src/Services.py:145 ui/ProcessesDetailsWindow.ui:126
+#: ui/ProcessesDetailsWindow.ui:850 ui/ProcessesMenuCustomizations.ui:249
 #: ui/ServicesDetailsWindow.ui:238 ui/ServicesMenuCustomizations.ui:193
 msgid "Memory (RSS)"
 msgstr "Memória (RSS)"
 
-#: src/Processes.py:151 ui/ProcessesDetailsWindow.ui:876
+#: src/Processes.py:191 ui/ProcessesDetailsWindow.ui:863
 #: ui/ProcessesMenuCustomizations.ui:263
 msgid "Memory (VMS)"
 msgstr "Memória (VMS)"
 
-#: src/Processes.py:152 ui/ProcessesDetailsWindow.ui:889
+#: src/Processes.py:192 ui/ProcessesDetailsWindow.ui:876
 #: ui/ProcessesMenuCustomizations.ui:333
 msgid "Memory (Shared)"
 msgstr "Memória (Compartilhada)"
 
-#: src/Processes.py:153 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1348
+#: src/Processes.py:193 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1307
 #: ui/ProcessesMenuCustomizations.ui:375
 msgid "Read Data"
 msgstr "Dados de Leitura"
 
-#: src/Processes.py:154 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1361
+#: src/Processes.py:194 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1320
 #: ui/ProcessesMenuCustomizations.ui:389
 msgid "Write Data"
 msgstr "Dados de Escrita"
 
-#: src/Processes.py:158 ui/ProcessesDetailsWindow.ui:754
+#: src/Processes.py:198 ui/ProcessesDetailsWindow.ui:754
 #: ui/ProcessesMenuCustomizations.ui:291
 msgid "Threads"
 msgstr "Threads"
 
-#: src/Processes.py:159 ui/ProcessesDetailsWindow.ui:178
+#: src/Processes.py:199 ui/ProcessesDetailsWindow.ui:178
 #: ui/ProcessesMenuCustomizations.ui:305
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:160 src/Users.py:135 ui/ProcessesDetailsWindow.ui:413
+#: src/Processes.py:200 src/Users.py:135 ui/ProcessesDetailsWindow.ui:413
 #: ui/ProcessesMenuCustomizations.ui:403 ui/UsersDetailsWindow.ui:84
 #: ui/UsersMenuCustomizations.ui:151
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:161 src/Users.py:136 ui/ProcessesDetailsWindow.ui:426
+#: src/Processes.py:201 src/Users.py:136 ui/ProcessesDetailsWindow.ui:426
 #: ui/ProcessesMenuCustomizations.ui:417 ui/UsersDetailsWindow.ui:97
 #: ui/UsersMenuCustomizations.ui:165
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:162 ui/ProcessesDetailsWindow.ui:1764
+#: src/Processes.py:202 ui/ProcessesDetailsWindow.ui:1723
 #: ui/ProcessesMenuCustomizations.ui:319 ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr "Caminho"
 
-#: src/Processes.py:163 ui/ProcessesDetailsWindow.ui:1547
+#: src/Processes.py:203 ui/ProcessesDetailsWindow.ui:1506
 #: ui/ProcessesMenuCustomizations.ui:431
 msgid "Command Line"
 msgstr "Linha de Comando"
 
-#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:127
+#: src/Processes.py:229 src/Services.py:170 src/ServicesDetails.py:127
 msgid "Running"
 msgstr "Executando"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Sleeping"
 msgstr "Dormindo"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Waiting"
 msgstr "Aguardando"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Idle"
 msgstr "Ocioso"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Zombie"
 msgstr "Zumbi"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Stopped"
 msgstr "Parado"
 
-#: src/Processes.py:189
+#: src/Processes.py:229
 msgid "Tracing Stop"
 msgstr "Tentando Parar"
 
-#: src/Processes.py:189 src/Services.py:170 src/ServicesDetails.py:127
+#: src/Processes.py:229 src/Services.py:170 src/ServicesDetails.py:127
 msgid "Dead"
 msgstr "Morto"
 
-#: src/Processes.py:586 src/Sensors.py:341 src/Services.py:455
-#: src/Startup.py:411 src/Users.py:501 ui/ProcessesTab.ui:66
-#: ui/SensorsTab.ui:95 ui/ServicesTab.ui:99 ui/StartupTab.ui:66
+#: src/Processes.py:626 src/Sensors.py:341 src/Services.py:455 src/Users.py:501
+#: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:99
 #: ui/UsersTab.ui:66
 msgid "Search..."
 msgstr "Procurar..."
 
-#: src/ProcessesDetails.py:254 ui/ProcessesDetailsWindow.ui:7
+#: src/ProcessesDetails.py:252 ui/ProcessesDetailsWindow.ui:7
 msgid "Process Details"
 msgstr "Detalhes do Processo"
 
-#: src/ProcessesDetails.py:674
+#: src/ProcessesDetails.py:667
 msgid "This process is not running anymore:"
 msgstr "Este processo não está mais em execução:"
 
@@ -357,7 +352,7 @@ msgstr "Grupo de Sensores"
 msgid "Current Value"
 msgstr "Valor Atual"
 
-#: src/Sensors.py:85 ui/ProcessesMenuRightClick.ui:87
+#: src/Sensors.py:85 ui/ProcessesMenuRightClick.ui:91
 msgid "High"
 msgstr "Alto"
 
@@ -366,7 +361,7 @@ msgid "Critical"
 msgstr "Crítico"
 
 #: src/Sensors.py:341 src/SettingsGUI.py:51 ui/MainWindow.ui:464
-#: ui/SensorsTab.ui:77
+#: ui/SensorsTab.ui:48
 msgid "Sensors"
 msgstr "Sensores"
 
@@ -447,7 +442,7 @@ msgstr "Carregado"
 msgid "Exited"
 msgstr "Saiu"
 
-#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:816
+#: src/Services.py:455 src/SettingsGUI.py:50 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Serviços"
@@ -465,22 +460,18 @@ msgstr "Desempenho"
 msgid "Users"
 msgstr "Usuários"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:769 ui/StartupTab.ui:48
-msgid "Startup"
-msgstr "Inicialização"
-
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:863 ui/SystemTab.ui:26
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:816 ui/SystemTab.ui:26
 msgid "System"
 msgstr "Sistema"
 
 #: src/SettingsGUI.py:51 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
-#: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1265
+#: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1224
 #: ui/ProcessesMenuCustomizations.ui:537 ui/ProcessesMenuCustomizations.ui:625
 msgid "Memory"
 msgstr "Memória"
 
 #: src/SettingsGUI.py:51 ui/MainWindow.ui:370 ui/NetworkMenus.ui:23
-#: ui/NetworkTab.ui:513 ui/PerformanceSummaryHeaderBarGrid.ui:114
+#: ui/NetworkTab.ui:513 ui/PerformanceSummaryHeaderBarGrid.ui:112
 msgid "Network"
 msgstr "Rede"
 
@@ -489,37 +480,9 @@ msgstr "Rede"
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:546
+#: src/SettingsGUI.py:538
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Deseja redefinir todas as configurações para os padrões?"
-
-#: src/Startup.py:113 ui/StartupNewItemWindow.ui:105
-msgid "Comment"
-msgstr "Comentário"
-
-#: src/Startup.py:411
-msgid "Startup Items"
-msgstr "Itens de Inicialização"
-
-#: src/StartupMenuRightClick.py:65
-msgid "Do you want to delete this startup item?"
-msgstr "Deseja excluir este item de inicialização?"
-
-#: src/StartupMenuRightClick.py:120 src/StartupNewItem.py:136
-msgid "Startup Item"
-msgstr "Item de Inicialização"
-
-#: src/StartupMenuRightClick.py:121 ui/StartupNewItemWindow.ui:117
-msgid "Command"
-msgstr "Comando"
-
-#: src/StartupNewItem.py:134
-msgid "Do you want to overwrite the existing file?"
-msgstr "Deseja substituir o arquivo existente?"
-
-#: src/StartupNewItem.py:135
-msgid "There is already a '.desktop' file with the same name."
-msgstr "Já existe um arquivo '.desktop' com o mesmo nome."
 
 #: src/Users.py:133 ui/UsersDetailsWindow.ui:58
 #: ui/UsersMenuCustomizations.ui:123
@@ -541,7 +504,7 @@ msgstr "Diretório Home"
 msgid "Group"
 msgstr "Grupo"
 
-#: src/Users.py:140 ui/StartupNewItemWindow.ui:163 ui/UsersDetailsWindow.ui:149
+#: src/Users.py:140 ui/UsersDetailsWindow.ui:149
 #: ui/UsersMenuCustomizations.ui:249
 msgid "Terminal"
 msgstr "Terminal"
@@ -552,10 +515,12 @@ msgid "Start Time"
 msgstr "Hora de Início"
 
 #: ui/CpuMenus.ui:125 ui/DiskMenus.ui:63 ui/GpuMenus.ui:63 ui/MemoryMenus.ui:85
-#: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:804
-#: ui/ServicesMenuCustomizations.ui:280 ui/UsersMenuCustomizations.ui:325
-msgid "Reset All"
-msgstr "Redefinir Todos"
+#: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:104
+#: ui/ProcessesMenuCustomizations.ui:804 ui/ServicesMenuCustomizations.ui:49
+#: ui/ServicesMenuCustomizations.ui:280 ui/SettingsWindow.ui:248
+#: ui/UsersMenuCustomizations.ui:49 ui/UsersMenuCustomizations.ui:325
+msgid "Reset"
+msgstr "Resetar"
 
 #: ui/CpuMenus.ui:167 ui/DiskMenus.ui:239 ui/MemoryMenus.ui:180
 #: ui/NetworkMenus.ui:208
@@ -629,10 +594,6 @@ msgstr "Fabricante"
 msgid "Device Name In Kernel"
 msgstr "Nome do Dispositivo no Kernel"
 
-#: ui/CpuTab.ui:537 ui/GpuTab.ui:449 ui/MemoryTab.ui:533
-msgid "100%"
-msgstr "100%"
-
 #: ui/DiskDetailsWindow.ui:7
 msgid "Storage Details"
 msgstr "Detalhes de Armazenamento"
@@ -705,19 +666,19 @@ msgstr "Disco do Sistema:"
 msgid "Used:"
 msgstr "Em Uso:"
 
-#: ui/DiskTab.ui:294 ui/MemoryTab.ui:172 ui/MemoryTab.ui:438
+#: ui/DiskTab.ui:294 ui/MemoryTab.ui:172 ui/MemoryTab.ui:414
 msgid "Free:"
 msgstr "Livre:"
 
-#: ui/DiskTab.ui:320 ui/MemoryTab.ui:159 ui/MemoryTab.ui:425
+#: ui/DiskTab.ui:320 ui/MemoryTab.ui:159 ui/MemoryTab.ui:401
 msgid "Capacity:"
 msgstr "Capacidade:"
 
-#: ui/DiskTab.ui:333 ui/MemoryTab.ui:485
+#: ui/DiskTab.ui:333 ui/MemoryTab.ui:461
 msgid "Details:"
 msgstr "Detalhes:"
 
-#: ui/DiskTab.ui:402 ui/MemoryTab.ui:237 ui/MemoryTab.ui:406
+#: ui/DiskTab.ui:402 ui/MemoryTab.ui:237 ui/MemoryTab.ui:479
 msgid "Show..."
 msgstr "Exibir..."
 
@@ -761,19 +722,19 @@ msgstr "Temperatura"
 msgid "Multi-featured system monitor."
 msgstr "Monitor de Sistema com vários recursos."
 
-#: ui/MainMenusDialogs.ui:86
+#: ui/MainMenusDialogs.ui:87
 msgid "Settings"
 msgstr "Configurações"
 
-#: ui/MainMenusDialogs.ui:130
+#: ui/MainMenusDialogs.ui:131
 msgid "About"
 msgstr "Sobre"
 
-#: ui/MainWindow.ui:894
+#: ui/MainWindow.ui:847
 msgid "System Monitoring Center"
 msgstr "Central de Monitoramento do Sistema"
 
-#: ui/MainWindow.ui:902
+#: ui/MainWindow.ui:855
 msgid "Main Menu"
 msgstr "Menu Principal"
 
@@ -833,15 +794,7 @@ msgstr "Endereço MAC:"
 msgid "Network Download (-) & Upload (-  -) Speed"
 msgstr "Velocidade de Download (-) & Upload (-  -) da Rede"
 
-#: ui/PerformanceSummaryHeaderBarGrid.ui:66
-msgid "Disk Read+Write Speed"
-msgstr "Velocidade de Leitura + Escrita do Disco"
-
-#: ui/PerformanceSummaryHeaderBarGrid.ui:112
-msgid "Network Download+Upload Speed"
-msgstr "Rede: Velocidade de Download + Upload"
-
-#: ui/ProcessesCustomPriorityWindow.ui:12 ui/ProcessesMenuRightClick.ui:68
+#: ui/ProcessesCustomPriorityWindow.ui:12 ui/ProcessesMenuRightClick.ui:72
 msgid "Change Priority (Nice)"
 msgstr "Alterar Prioridade (Nice)"
 
@@ -853,15 +806,15 @@ msgstr ""
 "Alterar prioridade deste processo:\n"
 "(Valor menor significa maior prioridade do processo)"
 
-#: ui/ProcessesCustomPriorityWindow.ui:84 ui/StartupNewItemWindow.ui:49
+#: ui/ProcessesCustomPriorityWindow.ui:84
 msgid "Save"
 msgstr "Salvar"
 
-#: ui/ProcessesCustomPriorityWindow.ui:96 ui/StartupNewItemWindow.ui:61
+#: ui/ProcessesCustomPriorityWindow.ui:96
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ui/ProcessesDetailsWindow.ui:165 ui/ProcessesDetailsWindow.ui:1521
+#: ui/ProcessesDetailsWindow.ui:165 ui/ProcessesDetailsWindow.ui:1480
 msgid "Exe"
 msgstr "Exe"
 
@@ -886,42 +839,38 @@ msgid "Used CPU Core(s)"
 msgstr "Núcleo(s) de CPU Utilizado(s)"
 
 #: ui/ProcessesDetailsWindow.ui:793
-msgid "CPU Affinity"
-msgstr "Afinidade de CPU"
-
-#: ui/ProcessesDetailsWindow.ui:806
 msgid "CPU Times"
 msgstr "Tempos de CPU"
 
-#: ui/ProcessesDetailsWindow.ui:819
+#: ui/ProcessesDetailsWindow.ui:806
 msgid "Context Switches"
 msgstr "Chaves de Contexto"
 
-#: ui/ProcessesDetailsWindow.ui:902
+#: ui/ProcessesDetailsWindow.ui:889
 msgid "Memory (USS)"
 msgstr "Memória (USS)"
 
-#: ui/ProcessesDetailsWindow.ui:1289
+#: ui/ProcessesDetailsWindow.ui:1248
 msgid "CPU and Memory"
 msgstr "CPU e Memória"
 
-#: ui/ProcessesDetailsWindow.ui:1374
+#: ui/ProcessesDetailsWindow.ui:1333
 msgid "Read Count"
 msgstr "Contagem de Leitura de Disco"
 
-#: ui/ProcessesDetailsWindow.ui:1387
+#: ui/ProcessesDetailsWindow.ui:1346
 msgid "Write Count"
 msgstr "Contagem de Escrita de Disco"
 
-#: ui/ProcessesDetailsWindow.ui:1534
+#: ui/ProcessesDetailsWindow.ui:1493
 msgid "Current Working Directory"
 msgstr "Diretório de Trabalho Atual"
 
-#: ui/ProcessesDetailsWindow.ui:1560
+#: ui/ProcessesDetailsWindow.ui:1519
 msgid "Opened Files"
 msgstr "Arquivos Abertos"
 
-#: ui/ProcessesDetailsWindow.ui:1788
+#: ui/ProcessesDetailsWindow.ui:1747
 msgid "Disk and Path"
 msgstr "Disco e Caminho"
 
@@ -936,11 +885,6 @@ msgstr "Mostrar processos como árvore"
 #: ui/ProcessesMenuCustomizations.ui:77
 msgid "Show tree lines"
 msgstr "Mostrar linhas de árvore"
-
-#: ui/ProcessesMenuCustomizations.ui:104 ui/ServicesMenuCustomizations.ui:49
-#: ui/SettingsWindow.ui:292 ui/UsersMenuCustomizations.ui:49
-msgid "Reset"
-msgstr "Resetar"
 
 #: ui/ProcessesMenuCustomizations.ui:120 ui/ProcessesMenuCustomizations.ui:151
 #: ui/ServicesMenuCustomizations.ui:81 ui/UsersMenuCustomizations.ui:81
@@ -974,46 +918,42 @@ msgstr "Recolher Todos"
 msgid "Stop Process"
 msgstr "Parar processo"
 
-#: ui/ProcessesMenuRightClick.ui:41
+#: ui/ProcessesMenuRightClick.ui:42
 msgid "Continue Process"
 msgstr "Continuar Processo"
 
-#: ui/ProcessesMenuRightClick.ui:48
+#: ui/ProcessesMenuRightClick.ui:50
 msgid "Terminate Process"
 msgstr "Terminar Processo"
 
-#: ui/ProcessesMenuRightClick.ui:55
+#: ui/ProcessesMenuRightClick.ui:58
 msgid "Kill Process"
 msgstr "Matar Processo"
 
-#: ui/ProcessesMenuRightClick.ui:77
+#: ui/ProcessesMenuRightClick.ui:81
 msgid "Very High"
 msgstr "Muito Alto"
 
-#: ui/ProcessesMenuRightClick.ui:97
+#: ui/ProcessesMenuRightClick.ui:101
 msgid "Normal"
 msgstr "Normal"
 
-#: ui/ProcessesMenuRightClick.ui:107
+#: ui/ProcessesMenuRightClick.ui:111
 msgid "Low"
 msgstr "Baixo"
 
-#: ui/ProcessesMenuRightClick.ui:117
+#: ui/ProcessesMenuRightClick.ui:121
 msgid "Very Low"
 msgstr "Muito Baixo"
 
-#: ui/ProcessesMenuRightClick.ui:132
+#: ui/ProcessesMenuRightClick.ui:136
 msgid "Custom Value..."
 msgstr "Valor Personalizado..."
 
-#: ui/ProcessesMenuRightClick.ui:150 ui/ServicesMenuRightClick.ui:68
+#: ui/ProcessesMenuRightClick.ui:154 ui/ServicesMenuRightClick.ui:68
 #: ui/UsersMenuRightClick.ui:12
 msgid "Details"
 msgstr "Detalhes"
-
-#: ui/SensorsTab.ui:19
-msgid "Note: Some sensors may not provide correct values!"
-msgstr "Nota: Alguns sensores podem não fornecer valores corretos!"
 
 #: ui/ServicesDetailsWindow.ui:7
 msgid "Service Details"
@@ -1106,86 +1046,45 @@ msgstr "Configurações Gerais"
 msgid "Update interval (seconds):"
 msgstr "Intervalo de Atualização (segundos):"
 
-#: ui/SettingsWindow.ui:52
-msgid "Default main tab:"
-msgstr "Aba principal predefinida:"
-
-#: ui/SettingsWindow.ui:71
+#: ui/SettingsWindow.ui:49
 msgid "Remember last opened tabs"
 msgstr "Lembrar das últimas abas abertas"
 
-#: ui/SettingsWindow.ui:89
-msgid "Performance tab default sub-tab:"
-msgstr "Sub-aba padrão da aba Desempenho:"
-
-#: ui/SettingsWindow.ui:108
+#: ui/SettingsWindow.ui:64
 msgid "Show performance summary on the headerbar"
 msgstr "Mostrar resumo de desempenho na barra de cabeçalho"
 
-#: ui/SettingsWindow.ui:126
+#: ui/SettingsWindow.ui:82
 msgid "Chart data history:"
 msgstr "Histórico de dados do gráfico:"
 
-#: ui/SettingsWindow.ui:145
+#: ui/SettingsWindow.ui:101
 #, fuzzy
 #| msgid "Remember last selected hardware"
 msgid "Remember last selected devices"
 msgstr "Lembrar o último hardware selecionado"
 
-#: ui/SettingsWindow.ui:199
+#: ui/SettingsWindow.ui:155
 msgid "Remember window size"
 msgstr "Lembrar o tamanho da janela"
 
-#: ui/SettingsWindow.ui:233
+#: ui/SettingsWindow.ui:189
 msgid "Check for updates automatically (PyPI only)"
 msgstr "Verificar automaticamente se há atualizações (apenas PyPI)"
 
-#: ui/SettingsWindow.ui:250
+#: ui/SettingsWindow.ui:206
 msgid "(If the application is run without root privileges.)"
-msgstr "(Se a aplicação for executada sem privilégios de root)."
+msgstr "(Se a aplicação for executada sem privilégios de root)"
 
-#: ui/SettingsWindow.ui:339
+#: ui/SettingsWindow.ui:295
 msgid "Reset all settings of the application to defaults"
 msgstr "Redefinir todas as configurações do aplicativo para os padrões"
 
-#: ui/StartupMenuRightClick.ui:12
-msgid "Add"
-msgstr "Adicionar"
-
-#: ui/StartupMenuRightClick.ui:19
-msgid "Delete"
-msgstr "Excluir"
-
-#: ui/StartupMenuRightClick.ui:32
-msgid "Open '.desktop' File..."
-msgstr "Abrir arquivo '.desktop'..."
-
-#: ui/StartupNewItemWindow.ui:7
-msgid "Add New Startup Item"
-msgstr "Adicionar Novo Item de Inicialização"
-
-#: ui/StartupNewItemWindow.ui:129
-msgid "Icon"
-msgstr "Ícone"
-
-#: ui/StartupNewItemWindow.ui:149
-msgid "Startup Notify"
-msgstr "Notificação de Inicialização"
-
-#: ui/StartupNewItemWindow.ui:180
-msgid "Note: Name and Command fields cannot be left blank."
-msgstr ""
-"Observação: Os campos 'Nome' e 'Comando' não podem ser deixados em branco."
-
-#: ui/StartupTab.ui:84
-msgid ""
-"Note: Only user-specific startup items can be added/deleted. Auto-start of "
-"an startup item depend on some values in its '.desktop' files and desktop "
-"environment."
-msgstr ""
-"Nota: Apenas itens de inicialização específicos do usuário podem ser "
-"adicionados/excluídos. A inicialização automática de um item depende de "
-"alguns valores em seus arquivos '.desktop' e Ambiente de Desktop."
+#: ui/SettingsWindow.ui:330
+#, fuzzy
+#| msgid "Default main tab:"
+msgid "Default main tab and sub-tab:"
+msgstr "Aba principal predefinida:"
 
 #: ui/SystemTab.ui:64 ui/SystemTab.ui:310
 msgid "Computer"
@@ -1255,377 +1154,38 @@ msgstr "Sistema de janelas:"
 msgid "Display Manager:"
 msgstr "Gerenciador de Exibição:"
 
-#: ui/SystemTab.ui:674
-msgid ""
-"Number of installed packages\n"
-"(APT, RPM or pacman)"
-msgstr ""
-"Número de pacotes instalados\n"
-"(APT, RPM ou Pacman)"
-
-#: ui/SystemTab.ui:677
+#: ui/SystemTab.ui:675
 msgid "System:"
 msgstr "Sistema:"
 
-#: ui/SystemTab.ui:689
+#: ui/SystemTab.ui:687
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "Número de Aplicativos e Runtimes Flatpak instalados"
 
-#: ui/SystemTab.ui:691
+#: ui/SystemTab.ui:689
 msgid "Flatpak:"
 msgstr "Flatpak:"
 
-#: ui/SystemTab.ui:738
+#: ui/SystemTab.ui:736
 msgid "Window Manager:"
 msgstr "Gerenciador de Janelas:"
 
-#: ui/SystemTab.ui:801
+#: ui/SystemTab.ui:799
 msgid "Version of Python which is running this application"
 msgstr "Versão do Python que está executando este aplicativo"
 
-#: ui/SystemTab.ui:803
+#: ui/SystemTab.ui:801
 msgid "Python Version:"
 msgstr "Versão do Python:"
 
-#: ui/SystemTab.ui:815
+#: ui/SystemTab.ui:813
 msgid "Version of Gtk which is running this application"
 msgstr "Versão do GTK que está executando este aplicativo"
 
-#: ui/SystemTab.ui:817
+#: ui/SystemTab.ui:815
 msgid "Gtk Version:"
 msgstr "Versão do GTK:"
 
 #: ui/UsersDetailsWindow.ui:7
 msgid "User Details"
 msgstr "Detalhes do Usuário"
-
-#~ msgid "This system has no swap memory."
-#~ msgstr "Este sistema não possui Memória Swap."
-
-#~ msgid "[SWAP]"
-#~ msgstr "[SWAP]"
-
-#~ msgid "Web Page"
-#~ msgstr "Página da Web"
-
-#~ msgid "Can Start - Stop?"
-#~ msgstr "Pode Iniciar - Parar?"
-
-#~ msgid "Can Reload?"
-#~ msgstr "Pode Recarregar?"
-
-#~ msgid "Do you want to run this startup item now?"
-#~ msgstr "Deseja executar este item de inicialização agora?"
-
-#~ msgid "Partition Label"
-#~ msgstr "Etiqueta da Partição"
-
-#~ msgid "Run Now"
-#~ msgstr "Executar Agora"
-
-#~ msgid "Computer Name And Model"
-#~ msgstr "Nome e Modelo do Computador"
-
-#~ msgid "Operating System Name and Version"
-#~ msgstr "Nome e Versão do Sistema Operacional"
-
-#~ msgid "Revision"
-#~ msgstr "Revisão"
-
-#~ msgid "Serial Number"
-#~ msgstr "Número de Série"
-
-#~ msgid "UUID"
-#~ msgstr "UUID"
-
-#~ msgid "Link value"
-#~ msgstr "Link"
-
-#~ msgid "Host Name:"
-#~ msgstr "Nome do Host:"
-
-#~ msgid "Current Tab Customizations"
-#~ msgstr "Personalizações da Aba Atual"
-
-#~ msgid "Note: Same background color is used for all charts."
-#~ msgstr "Nota: A mesma cor de fundo é usada para todos os gráficos."
-
-#~ msgid "Background"
-#~ msgstr "Fundo"
-
-#~ msgid "Foreground"
-#~ msgstr "Primeiro Plano"
-
-#~ msgid "Chart - Set Color"
-#~ msgstr "Gráfico - Definir Cor"
-
-#~ msgid "Disk Speed"
-#~ msgstr "Velocidade do Disco"
-
-#~ msgid "Disk Usage"
-#~ msgstr "Uso de Disco"
-
-#~ msgid "Read Speed:"
-#~ msgstr "Velocidade de Leitura:"
-
-#~ msgid "Write Speed:"
-#~ msgstr "Velocidade de Escrita:"
-
-#, fuzzy
-#~| msgid "Disk Read Data"
-#~ msgid "Read Data:"
-#~ msgstr "Dados de Leitura do Disco"
-
-#, fuzzy
-#~| msgid "Disk Write Data"
-#~ msgid "Write Data:"
-#~ msgstr "Dados de Escrita de Disco"
-
-#, fuzzy
-#~| msgid "Disk Usage:"
-#~ msgid "GPU Usage:"
-#~ msgstr "Uso de Disco:"
-
-#~ msgid "GTK and Python based, system performance and usage monitoring tool."
-#~ msgstr ""
-#~ "Ferramenta de monitoramento de uso e desempenho do sistema baseada em GTK "
-#~ "e Python."
-
-#~ msgid "Network Speed"
-#~ msgstr "Velocidade da Rede"
-
-#~ msgid "Network Data"
-#~ msgstr "Dados de Rede"
-
-#~ msgid "Download Speed:"
-#~ msgstr "Velocidade de Download:"
-
-#~ msgid "Upload Speed:"
-#~ msgstr "Velocidade de Upload:"
-
-#~ msgid "Precision/Data Units"
-#~ msgstr "Unidades de Precisão/Dados"
-
-#~ msgid "Note: User-specific performance data is approximative."
-#~ msgstr ""
-#~ "Observação: os dados de desempenho específicos do usuário são aproximados."
-
-#~ msgid "Read Time:"
-#~ msgstr "Tempo de Leitura:"
-
-#~ msgid "Write Time:"
-#~ msgstr "Tempo de Escrita:"
-
-#~ msgid "Disk Usage:"
-#~ msgstr "Uso de Disco:"
-
-#~ msgid "Swap Mem. Usg. %:"
-#~ msgstr "Uso de Mem. Swap %:"
-
-#~ msgid "Disk Read Speed"
-#~ msgstr "Velocidade de Leitura do Disco"
-
-#~ msgid "Disk Write Speed"
-#~ msgstr "Velocidade de Escrita do Disco"
-
-#~ msgid "Max Value"
-#~ msgstr "Valor Máximo"
-
-#~ msgid "Sensor Name"
-#~ msgstr "Nome do Sensor"
-
-#~ msgid "Do you want to end session of this user?"
-#~ msgstr "Deseja encerrar a sessão deste usuário?"
-
-#~ msgid ""
-#~ "This action will end all processes of the user immediately and may cause "
-#~ "data loss."
-#~ msgstr ""
-#~ "Esta ação encerrará todos os processos do usuário imediatamente e poderá "
-#~ "causar perda de dados."
-
-#~ msgid ""
-#~ "This operation may lock current user account on some systems. You can "
-#~ "unlock it by entering user password."
-#~ msgstr ""
-#~ "Esta operação pode bloquear a conta de usuário atual em alguns sistemas. "
-#~ "Você pode desbloqueá-lo digitando a senha do usuário."
-
-#~ msgid "--"
-#~ msgstr "--"
-
-#~ msgid "Current frequency of the selected CPU core"
-#~ msgstr "Frequência atual do Núcleo de CPU selecionado"
-
-#~ msgid "Selected CPU Core"
-#~ msgstr "Núcleo de CPU Selecionado"
-
-#~ msgid "0%"
-#~ msgstr "0%"
-
-#~ msgid ":"
-#~ msgstr ":"
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#, fuzzy
-#~| msgid "Disk Kernel Name (and if selected disk is a disk or partition)"
-#~ msgid "Disk Kernel Name (and disk type)"
-#~ msgstr ""
-#~ "Nome do Kernel do Disco (e se o disco selecionado for um disco ou "
-#~ "partição)"
-
-#, fuzzy
-#~| msgid "GPU/Graphics Card Device Name Given By OS (And In Driver)"
-#~ msgid "GPU/Graphics Card Device Name Given By OS"
-#~ msgstr ""
-#~ "Nome da GPU/Placa de Vídeo fornecido pelo sistema operacional (e pelo "
-#~ "driver)"
-
-#~ msgid "Network Interface Controller (NIC) Name"
-#~ msgstr "Nome do Controlador de Rede (NIC)"
-
-#~ msgid "End User Session"
-#~ msgstr "Encerrar Sessão do Usuário"
-
-#~ msgid "General"
-#~ msgstr "Geral"
-
-#~ msgid "Built-in Python packages are not counted."
-#~ msgstr "Pacotes Python integrados não são contados."
-
-#~ msgid "Python:"
-#~ msgstr "Python:"
-
-#~ msgid "Disk R+W"
-#~ msgstr "Disco L+E"
-
-#~ msgid "Disk R"
-#~ msgstr "Disco L"
-
-#~ msgid "Disk W"
-#~ msgstr "Disk E"
-
-#~ msgid "Network D+U"
-#~ msgstr "Rede D+U"
-
-#~ msgid "Network D"
-#~ msgstr "Rede D"
-
-#~ msgid "Network U"
-#~ msgstr "Rede U"
-
-#~ msgid ""
-#~ "FPS (Frames Per Second)\n"
-#~ "\n"
-#~ "Counted by using a glarea and OpenGL library.\n"
-#~ "This is a simple FPS counter and may not be accurate in some situations.\n"
-#~ "FPS counting does not continue when window is minimized."
-#~ msgstr ""
-#~ "FPS (Quadros Por Segundo)\n"
-#~ "\n"
-#~ "Contado usando uma biblioteca de OpenGL.\n"
-#~ "Este é um contador FPS simples e pode não ser preciso em algumas "
-#~ "situações.\n"
-#~ "A contagem de FPS não continua quando a janela é minimizada."
-
-#~ msgid "FPS:"
-#~ msgstr "FPS:"
-
-#~ msgid "Frame Latency:"
-#~ msgstr "Latência do Quadro:"
-
-#~ msgid "Direct Rendering:"
-#~ msgstr "Renderização Direta:"
-
-#~ msgid "OpenGL Version:"
-#~ msgstr "Versão do OpenGL:"
-
-#~ msgid "Unified Memory:"
-#~ msgstr "Memória Unificada:"
-
-#~ msgid ""
-#~ "If selected GPU is default on system boot and/or used for graphics "
-#~ "processing by default"
-#~ msgstr ""
-#~ "Se a GPU selecionada for padrão na inicialização do sistema e/ou "
-#~ "utilizada como padrão"
-
-#~ msgid "Default GPU:"
-#~ msgstr "GPU Padrão:"
-
-#~ msgid "FPS"
-#~ msgstr "FPS"
-
-#~ msgid "Floating Summary"
-#~ msgstr "Resumo Flutuante"
-
-#~ msgid "Column Reordering,"
-#~ msgstr "Reordenação de Colunas,"
-
-#~ msgid "Row Sorting,"
-#~ msgstr "Reordenação de Colunas,"
-
-#~ msgid "Column Widths"
-#~ msgstr "Larguras das Colunas"
-
-#~ msgid "Show all"
-#~ msgstr "Mostrar Todos"
-
-#~ msgid "Show processes from this user"
-#~ msgstr "Mostrar processos deste usuário"
-
-#~ msgid "Show processes from other users"
-#~ msgstr "Mostrar processos de outros usuários"
-
-#~ msgid "User defined expand"
-#~ msgstr "Expandir Definidos Pelo Usuário"
-
-#~ msgid "Show all temperature sensors"
-#~ msgstr "Mostrar todos os sensores de Temperatura"
-
-#~ msgid "Show all fan sensors"
-#~ msgstr "Mostrar todos os sensores de Fans"
-
-#~ msgid "Show all voltage and current sensors"
-#~ msgstr "Mostrar todos os sensores de Tensão e Corrente"
-
-#~ msgid "Show all loaded services"
-#~ msgstr "Mostrar todos os serviços carregados"
-
-#~ msgid "Show all non-loaded services"
-#~ msgstr "Mostrar todos os serviços não carregados"
-
-#~ msgid "Network Download Speed"
-#~ msgstr "Velocidade de Download da Rede"
-
-#~ msgid "Network Upload Speed"
-#~ msgstr "Velocidade de Upload da Rede"
-
-#~ msgid "Show/Hide Performance Information"
-#~ msgstr "Mostrar/Ocultar Informações de Desempenho"
-
-#~ msgid "Window transparency:"
-#~ msgstr "Transparência da janela:"
-
-#~ msgid "Show user-specific startup items"
-#~ msgstr "Mostrar itens de inicialização específicos do usuário"
-
-#~ msgid "Show system-wide startup items"
-#~ msgstr "Mostrar itens de inicialização em todo o sistema"
-
-#~ msgid "Show only users logged in"
-#~ msgstr "Mostrar apenas usuários logados"
-
-#~ msgid "Show only users logged out"
-#~ msgstr "Mostrar apenas usuários desconectados"
-
-#~ msgid ""
-#~ "This information is available only on systems with X11 windowing system."
-#~ msgstr ""
-#~ "Esta informação está disponível apenas em sistemas com sistema de janelas "
-#~ "X11."
-
-#~ msgid "Hakan DÜNDAR"
-#~ msgstr "Hakan DÜNDAR"

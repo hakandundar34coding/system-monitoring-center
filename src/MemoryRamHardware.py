@@ -52,9 +52,6 @@ class MemoryRamHardware:
     # ----------------------- Called for getting RAM hardware information -----------------------
     def memory_ram_hardware_information_get_func(self):
 
-        # This list is defined in order to make some command output strings to be translated into other languages.
-        memory_ram_hardware_information_text_list = [_tr("Unknown"), _tr("None")]
-
         # Set initial value of "memory_ram_hardware_information_text". Hardware information will be appended to this string.
         # This value will also be used for preventing showing RAM hardware Information window if user closes polkit window without entering password.
         self.memory_ram_hardware_information_text = ""

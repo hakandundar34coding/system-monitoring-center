@@ -86,8 +86,6 @@ class Config:
         self.config_default_processes_row_sort_column_order_func()
         self.config_default_users_func()
         self.config_default_users_row_sort_column_order_func()
-        self.config_default_startup_func()
-        self.config_default_startup_row_sort_column_order_func()
         self.config_default_services_func()
         self.config_default_services_row_sort_column_order_func()
 
@@ -215,25 +213,6 @@ class Config:
         self.users_data_row_sorting_order = 0
         self.users_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
         self.users_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-
-
-    # ----------------------- Called for default Startup Tab settings -----------------------
-    def config_default_startup_func(self):
-
-        self.startup_treeview_columns_shown = [0, 1, 2]
-        self.startup_data_row_sorting_column = 0
-        self.startup_data_row_sorting_order = 0
-        self.startup_data_column_order = [0, 1, 2]
-        self.startup_data_column_widths = [-1, -1, -1]
-
-
-    # ----------------------- Called for default Startup Tab Row Sort Column Order Width settings -----------------------
-    def config_default_startup_row_sort_column_order_func(self):
-
-        self.startup_data_row_sorting_column = 0
-        self.startup_data_row_sorting_order = 0
-        self.startup_data_column_order = [0, 1, 2]
-        self.startup_data_column_widths = [-1, -1, -1]
 
 
     # ----------------------- Called for default Services Tab settings -----------------------

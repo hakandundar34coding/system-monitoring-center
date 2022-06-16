@@ -20,4 +20,4 @@ Depends: ${misc:Depends},
          util-linux (>=2.31)
 Description: Multi-featured system monitor.
  Provides information about CPU/RAM/Disk/Network/GPU performance, sensors,
- processes, users, startup programs, services and system.
+ processes, users, services and system.

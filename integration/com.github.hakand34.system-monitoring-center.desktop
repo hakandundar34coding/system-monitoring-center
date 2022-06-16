@@ -1,13 +1,16 @@
 [Desktop Entry]
 Name=System Monitoring Center
+Name[hu]=Rendszermegfigyelő központ
 Name[pt_BR]=Central de Monitoramento do Sistema
 Name[tr]=Sistem Gözlem Merkezi
 Name[ru_RU]=Центр мониторинга системы
 GenericName=System Monitor
+GenericName[hu]=Rendszerfigyelő
 GenericName[pt_BR]=Monitor do Sistema
 GenericName[tr]=Sistem Gözlemcisi
 GenericName[ru_RU]=Системный монитор
 Comment=Multi-featured system monitor.
+Comment[hu]=Többcélú rendszerfigyelő.
 Comment[pt_BR]=Obtenha informações sobre o desempenho e utilização do sistema.
 Comment[tr]=Çok özellikli sistem gözlemcisi.
 Comment[ru_RU]=Многофункциональный системный мониторю
@@ -17,8 +20,9 @@ Terminal=false
 Type=Application
 Categories=System;
 StartupNotify=true
-Keywords=system monitor;task manager;performance;cpu;ram;swap;memory;disk;network;processes;users;startup;services;
-Keywords[pt_BR]=monitor do sistema;gerenciador de tarefas;desempenho;uso de CPU;uso de ram;memória swap;uso de memória;armazenamento;uso de rede;processos;usuários;programas de inicialização;serviços;
-Keywords[tr]=sistem gözlemcisi;görev yöneticisi;performans;cpu;mib;ram;takas;bellek;disk;işlemler;kullanıcılar;başlangıç;servisler;
-Keywords[ru_RU]=системный монитор;менеджер задач;производительность;cpu;ram;подкачка;память;диск;сеть;процессы;пользователи;автозагрузка;сервисы;
+Keywords=system monitor;task manager;performance;cpu;ram;swap;memory;disk;network;processes;users;services;
+Keywords[hu]=rendszerfigyelő;feladatkezelő;teljesítmény;cpu;ram;cserehely;memória;lemez;hálózat;folyamatok;felhasználók;szolgáltatások;
+Keywords[pt_BR]=monitor do sistema;gerenciador de tarefas;desempenho;uso de CPU;uso de ram;memória swap;uso de memória;armazenamento;uso de rede;processos;usuários;serviços;
+Keywords[tr]=sistem gözlemcisi;görev yöneticisi;performans;cpu;mib;ram;takas;bellek;disk;işlemler;kullanıcılar;servisler;
+Keywords[ru_RU]=системный монитор;менеджер задач;производительность;cpu;ram;подкачка;память;диск;сеть;процессы;пользователи;сервисы;
 

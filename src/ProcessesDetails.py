@@ -51,7 +51,6 @@ class ProcessesDetails:
         self.label2117w = builder2101w.get_object('label2117w')
         self.label2118w = builder2101w.get_object('label2118w')
         self.label2119w = builder2101w.get_object('label2119w')
-        self.label2120w = builder2101w.get_object('label2120w')
         self.label2121w = builder2101w.get_object('label2121w')
         self.label2122w = builder2101w.get_object('label2122w')
         self.label2123w = builder2101w.get_object('label2123w')
@@ -123,7 +122,6 @@ class ProcessesDetails:
         self.label2117w.set_text("--")
         self.label2118w.set_text("--")
         self.label2119w.set_text("--")
-        self.label2120w.set_text("--")
         self.label2121w.set_text("--")
         self.label2122w.set_text("--")
         self.label2123w.set_text("--")
@@ -486,7 +484,14 @@ class ProcessesDetails:
             # Get the last CPU core number which process executed on
             selected_process_cpu_num = proc_pid_stat_lines_split[-14]
 
-            # Get CPU cores that process run allowed on
+            # Get CPU times of the process
+            selected_process_cpu_times_user = proc_pid_stat_lines_split[-39]
+            selected_process_cpu_times_kernel = proc_pid_stat_lines_split[-38]
+            selected_process_cpu_times_children_user = proc_pid_stat_lines_split[-37]
+            selected_process_cpu_times_children_kernel = proc_pid_stat_lines_split[-36]
+            selected_process_cpu_times_io_wait = proc_pid_stat_lines_split[-11]
+
+            # Get context switches.
             try:
                 with open("/proc/" + selected_process_pid + "/status") as reader:
                     proc_pid_status_lines = reader.read().split("\n")
@@ -496,20 +501,9 @@ class ProcessesDetails:
                 self.processes_no_such_process_error_dialog(selected_process_name, selected_process_pid)
                 return
             for line in proc_pid_status_lines:
-                if "Cpus_allowed_list:" in line:
-                    selected_process_cpus_allowed = line.split(":")[1].strip()
-
-            # Get CPU times of the process
-            selected_process_cpu_times_user = proc_pid_stat_lines_split[-39]
-            selected_process_cpu_times_kernel = proc_pid_stat_lines_split[-38]
-            selected_process_cpu_times_children_user = proc_pid_stat_lines_split[-37]
-            selected_process_cpu_times_children_kernel = proc_pid_stat_lines_split[-36]
-            selected_process_cpu_times_io_wait = proc_pid_stat_lines_split[-11]
-            for line in proc_pid_status_lines:
-                if "voluntary_ctxt_switches:" in line:
+                if line.startswith("voluntary_ctxt_switches:"):
                     selected_process_num_ctx_switches_voluntary = line.split(":")[1].strip()
-            for line in proc_pid_status_lines:
-                if "nonvoluntary_ctxt_switches:" in line:
+                if line.startswith("nonvoluntary_ctxt_switches:"):
                     selected_process_num_ctx_switches_nonvoluntary = line.split(":")[1].strip()
 
             # Get RAM (RSS) data and multiply with memory_page_size in order to convert the value into bytes.
@@ -548,7 +542,6 @@ class ProcessesDetails:
             self.label2117w.set_text(f'{selected_process_num_threads}')
             self.label2118w.set_text(',\n'.join(selected_process_threads))
             self.label2119w.set_text(f'{selected_process_cpu_num}')
-            self.label2120w.set_text(selected_process_cpus_allowed)
             self.label2121w.set_text(f'User: {selected_process_cpu_times_user}, System: {selected_process_cpu_times_kernel}, Children User: {selected_process_cpu_times_children_user}, Children System: {selected_process_cpu_times_children_kernel}, IO Wait: {selected_process_cpu_times_io_wait}')
             self.label2122w.set_text(f'Voluntary: {selected_process_num_ctx_switches_voluntary}, Involuntary: {selected_process_num_ctx_switches_nonvoluntary}')
             self.label2123w.set_text(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
