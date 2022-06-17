@@ -365,7 +365,6 @@ def services_loop_func():
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if services_treeview_columns_shown_prev != services_treeview_columns_shown or services_data_column_order_prev != services_data_column_order:
         services_treeview_columns = treeview6101.get_columns()                                # Get shown columns on the treeview in order to use this data for reordering the columns.
-        services_treeview_columns_modified = treeview6101.get_columns()
         treeview_column_titles = []
         for column in services_treeview_columns:
             treeview_column_titles.append(column.get_title())

@@ -513,7 +513,6 @@ def processes_loop_func():
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if processes_treeview_columns_shown_prev != processes_treeview_columns_shown or processes_data_column_order_prev != processes_data_column_order:
         processes_treeview_columns = treeview2101.get_columns()                               # Get shown columns on the treeview in order to use this data for reordering the columns.
-        processes_treeview_columns_modified = treeview2101.get_columns()
         treeview_column_titles = []
         for column in processes_treeview_columns:
             treeview_column_titles.append(column.get_title())

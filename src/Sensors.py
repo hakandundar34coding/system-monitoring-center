@@ -271,7 +271,6 @@ def sensors_loop_func():
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if sensors_treeview_columns_shown_prev != sensors_treeview_columns_shown or sensors_data_column_order_prev != sensors_data_column_order:
         sensors_treeview_columns = treeview1601.get_columns()                                 # Get shown columns on the treeview in order to use this data for reordering the columns.
-        sensors_treeview_columns_modified = treeview1601.get_columns()
         treeview_column_titles = []
         for column in sensors_treeview_columns:
             treeview_column_titles.append(column.get_title())
