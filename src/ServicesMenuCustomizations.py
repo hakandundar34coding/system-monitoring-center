@@ -32,12 +32,10 @@ class ServicesMenuCustomizations:
         self.checkbutton6107p = builder.get_object('checkbutton6107p')
         self.checkbutton6108p = builder.get_object('checkbutton6108p')
         self.button6101p = builder.get_object('button6101p')
-        self.button6102p = builder.get_object('button6102p')
 
         # Connect GUI signals
         self.popover6101p.connect("show", self.on_popover6101p_show)
         self.button6101p.connect("clicked", self.on_button6101p_clicked)
-        self.button6102p.connect("clicked", self.on_button6102p_clicked)
 
 
     # ----------------------- Called for connecting some of the signals in order to disconnect them for setting GUI -----------------------
@@ -90,17 +88,6 @@ class ServicesMenuCustomizations:
         self.services_tab_customization_popover_disconnect_signals_func()
         self.services_tab_popover_set_gui()
         self.services_tab_customization_popover_connect_signals_func()
-
-
-    # ----------------------- "Add/Remove Columns (Name, PID, Username, etc.)" Checkbuttons -----------------------
-    def on_button6102p_clicked(self, widget):
-
-        Config.config_default_services_row_sort_column_order_func()
-
-        # Apply changes immediately (without waiting update interval).
-#        Services.services_initial_func()
-#        Services.Config.services_loop_func()
-        Config.config_save_func()
 
 
     # ----------------------- "Add/Remove Columns (Service Name, State, Main PID, etc.)" Checkbuttons -----------------------
@@ -169,6 +156,7 @@ class ServicesMenuCustomizations:
             Config.services_treeview_columns_shown.append(7)
 
         # Apply changes immediately (without waiting update interval).
+        Services.services_treeview_column_order_width_row_sorting_func()
 #        Services.services_initial_func()
 #        Services.services_loop_func()
         Config.config_save_func()

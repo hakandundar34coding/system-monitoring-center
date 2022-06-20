@@ -24,7 +24,6 @@ class UsersMenuCustomizations:
         # Get GUI objects
         self.popover3101p = builder.get_object('popover3101p')
         self.button3101p = builder.get_object('button3101p')
-        self.button3102p = builder.get_object('button3102p')
         self.checkbutton3101p = builder.get_object('checkbutton3101p')
         self.checkbutton3102p = builder.get_object('checkbutton3102p')
         self.checkbutton3103p = builder.get_object('checkbutton3103p')
@@ -40,7 +39,6 @@ class UsersMenuCustomizations:
         # Connect GUI signals
         self.popover3101p.connect("show", self.on_popover3101p_show)
         self.button3101p.connect("clicked", self.on_button3101p_clicked)
-        self.button3102p.connect("clicked", self.on_button3102p_clicked)
 
 
     # ----------------------- Called for connecting some of the signals in order to disconnect them for setting GUI -----------------------
@@ -99,17 +97,6 @@ class UsersMenuCustomizations:
         self.users_tab_customization_popover_disconnect_signals_func()
         self.users_tab_popover_set_gui()
         self.users_tab_customization_popover_connect_signals_func()
-
-
-    # ----------------------- "Reset column width, row sorting, etc." Button -----------------------
-    def on_button3102p_clicked(self, widget):
-
-        Config.config_default_users_row_sort_column_order_func()
-
-        # Apply changes immediately (without waiting update interval).
-        Users.users_initial_func()
-        Users.users_loop_func()
-        Config.config_save_func()
 
 
     # ----------------------- "Add/Remove Columns (User Name, Full Name,, etc.)" Checkbuttons -----------------------
@@ -197,6 +184,7 @@ class UsersMenuCustomizations:
             Config.users_treeview_columns_shown.append(10)
 
         # Apply changes immediately (without waiting update interval).
+        Users.users_treeview_column_order_width_row_sorting_func()
         Users.users_initial_func()
         Users.users_loop_func()
         Config.config_save_func()

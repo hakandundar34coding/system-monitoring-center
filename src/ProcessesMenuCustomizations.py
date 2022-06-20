@@ -27,7 +27,6 @@ class ProcessesMenuCustomizations:
         self.checkbutton2102p = builder.get_object('checkbutton2102p')
         self.checkbutton2103p = builder.get_object('checkbutton2103p')
         self.button2102p = builder.get_object('button2102p')
-        self.button2103p = builder.get_object('button2103p')
         self.checkbutton2106p = builder.get_object('checkbutton2106p')
         self.checkbutton2107p = builder.get_object('checkbutton2107p')
         self.checkbutton2108p = builder.get_object('checkbutton2108p')
@@ -59,7 +58,6 @@ class ProcessesMenuCustomizations:
         # Connect GUI signals
         self.popover2101p.connect("show", self.on_popover2101p_show)
         self.button2102p.connect("clicked", self.on_button2102p_clicked)
-        self.button2103p.connect("clicked", self.on_button2103p_clicked)
 
 
     # ----------------------- Called for connecting some of the signals in order to disconnect them for setting GUI -----------------------
@@ -195,17 +193,6 @@ class ProcessesMenuCustomizations:
             Config.show_tree_lines = 1
         if widget.get_active() == False:
             Config.show_tree_lines = 0
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "Reset column width, row sorting, etc." Button -----------------------
-    def on_button2103p_clicked(self, widget):
-
-        Config.config_default_processes_row_sort_column_order_func()
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -491,6 +478,7 @@ class ProcessesMenuCustomizations:
             Config.processes_treeview_columns_shown.append(18)
 
         # Apply changes immediately (without waiting update interval).
+        Processes.processes_treeview_column_order_width_row_sorting_func()
         Processes.processes_initial_func()
         Processes.processes_loop_func()
         Config.config_save_func()
