@@ -626,9 +626,22 @@ class Gpu:
     # ----------------------- Get screen resolution and refresh rate -----------------------
     def gpu_resolution_refresh_rate_func(self):
 
-        # Get current resolution
+        # Get current screen.
         current_screen = Gdk.Screen.get_default()
-        current_resolution = str(current_screen.get_width()) + "x" + str(current_screen.get_height())
+
+        # Get current screen resolution.
+        try:
+            xrandr_output = (subprocess.check_output(["xrandr"], shell=False)).decode().strip()
+            xrandr_output_lines = xrandr_output.split("\n")
+            if "Screen 1:" not in xrandr_output:
+                for line in xrandr_output_lines:
+                    if "Screen 0:" in line:
+                        current_resolution = ''.join(line.split("current")[1].split(",")[0].strip().split(" "))
+        except Exception:
+            xrandr_output = "-"
+            current_resolution = "-"
+        if current_resolution == "-":
+            current_resolution = str(current_screen.get_width()) + "x" + str(current_screen.get_height())
 
         # Get current refresh rate
         try:
@@ -642,8 +655,9 @@ class Gpu:
         # If refresh rate is not get or it is smaller than 30 (incorrect values such as 1, 2.14 are get on some systems such as RB-Pi devices), get it by using xrandr (if there is only one monitor connected).
         if current_refresh_rate == "Unknown" or current_refresh_rate < 30:
             try:
-                xrandr_output = (subprocess.check_output(["xrandr"], shell=False)).decode().strip()
-                xrandr_output_lines = xrandr_output.split("\n")
+                if xrandr_output == "-":
+                    xrandr_output = (subprocess.check_output(["xrandr"], shell=False)).decode().strip()
+                    xrandr_output_lines = xrandr_output.split("\n")
                 number_of_monitors = xrandr_output.count(" connected")
                 if number_of_monitors == 1:
                     for line in xrandr_output_lines:
