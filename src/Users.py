@@ -411,15 +411,16 @@ def users_loop_func():
         treeview_column_titles = []
         for column in users_treeview_columns:
             treeview_column_titles.append(column.get_title())
-        for order in reversed(sorted(users_data_column_order)):                               # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
-            if users_data_column_order.index(order) <= len(users_treeview_columns) - 1 and users_data_column_order.index(order) in users_treeview_columns_shown:
+        users_data_column_order_scratch = []
+        for column_order in users_data_column_order:
+            if column_order != -1:
+                users_data_column_order_scratch.append(column_order)
+        for order in reversed(sorted(users_data_column_order_scratch)):                       # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
+            if users_data_column_order.index(order) in users_treeview_columns_shown:
                 column_number_to_move = users_data_column_order.index(order)
                 column_title_to_move = users_data_list[column_number_to_move][1]
                 column_to_move = users_treeview_columns[treeview_column_titles.index(column_title_to_move)]
-                column_title_to_move = column_to_move.get_title()
-                for data in users_data_list:
-                    if data[1] == column_title_to_move:
-                        treeview3101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
+                treeview3101.move_column_after(column_to_move, None)                          # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort user rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if users_treeview_columns_shown_prev != users_treeview_columns_shown or users_data_row_sorting_column_prev != users_data_row_sorting_column or users_data_row_sorting_order != users_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
@@ -530,11 +531,21 @@ def users_treeview_column_order_width_row_sorting_func():
     treeview_column_titles = []
     for column in users_treeview_columns:
         treeview_column_titles.append(column.get_title())
+
+    users_data_column_order = [-1] * len(users_data_list)
+    users_data_column_widths = [-1] * len(users_data_list)
+
+    users_treeview_columns_last_index = len(users_treeview_columns)-1
+
     for i, users_data in enumerate(users_data_list):
         for j, column_title in enumerate(treeview_column_titles):
             if column_title == users_data[1]:
-                Config.users_data_column_order[i] = j
-                Config.users_data_column_widths[i] = users_treeview_columns[j].get_width()
-                break
+                column_index = treeview_column_titles.index(users_data[1])
+                users_data_column_order[i] = column_index
+                if j != users_treeview_columns_last_index:
+                    users_data_column_widths[i] = users_treeview_columns[column_index].get_width()
+
+    Config.users_data_column_order = list(users_data_column_order)
+    Config.users_data_column_widths = list(users_data_column_widths)
     Config.config_save_func()
 

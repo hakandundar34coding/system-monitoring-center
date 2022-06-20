@@ -81,13 +81,10 @@ class Config:
         self.config_default_performance_disk_func()
         self.config_default_performance_network_func()
         self.config_default_performance_gpu_func()
-        self.config_default_performance_sensors_row_column_func()
+        self.config_default_performance_sensors_func()
         self.config_default_processes_func()
-        self.config_default_processes_row_sort_column_order_func()
         self.config_default_users_func()
-        self.config_default_users_row_sort_column_order_func()
         self.config_default_services_func()
-        self.config_default_services_row_sort_column_order_func()
 
 
     # ----------------------- Called for default general settings -----------------------
@@ -157,7 +154,7 @@ class Config:
 
 
     # ----------------------- Called for default Sensors Tab Row Sort Column Order Width settings -----------------------
-    def config_default_performance_sensors_row_column_func(self):
+    def config_default_performance_sensors_func(self):
 
         self.sensors_treeview_columns_shown = [0, 1, 2, 3, 4]
         self.sensors_data_row_sorting_column = 0
@@ -182,16 +179,7 @@ class Config:
         self.processes_treeview_columns_shown = [0, 1, 2, 4, 5, 10, 11]
         self.processes_data_row_sorting_column = 0
         self.processes_data_row_sorting_order = 0
-        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-
-
-    # ----------------------- Called for default Processes Tab Row Sort Column Order Width settings -----------------------
-    def config_default_processes_row_sort_column_order_func(self):
-
-        self.processes_data_row_sorting_column = 0
-        self.processes_data_row_sorting_order = 0
-        self.processes_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+        self.processes_data_column_order = [0, 1, 2, -1, 3, 4, -1, -1, -1, -1, 5, 6, -1, -1, -1, -1, -1, -1, -1]
         self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
@@ -202,17 +190,8 @@ class Config:
         self.users_treeview_columns_shown = [0, 2, 3, 5, 6, 7, 10]
         self.users_data_row_sorting_column = 0
         self.users_data_row_sorting_order = 0
-        self.users_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        self.users_data_column_order = [0, -1, 1, 2, -1, 3, 4, 5, -1, -1, 6]
         self.users_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-
-
-    # ----------------------- Called for default Users Tab Row Sort Column Order Width settings -----------------------
-    def config_default_users_row_sort_column_order_func(self):
-
-        self.users_data_row_sorting_column = 0
-        self.users_data_row_sorting_order = 0
-        self.users_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-        self.users_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
     # ----------------------- Called for default Services Tab settings -----------------------
@@ -221,15 +200,6 @@ class Config:
         self.services_memory_data_precision = 1
         self.services_memory_data_unit = 0
         self.services_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7]
-        self.services_data_row_sorting_column = 0
-        self.services_data_row_sorting_order = 0
-        self.services_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7]
-        self.services_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1]
-
-
-    # ----------------------- Called for default Services Tab Row Sort Column Order Width settings -----------------------
-    def config_default_services_row_sort_column_order_func(self):
-
         self.services_data_row_sorting_column = 0
         self.services_data_row_sorting_order = 0
         self.services_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7]

@@ -100,7 +100,7 @@ def sensors_initial_func():
     voltage_current_power_sensor_icon_name = "system-monitoring-center-voltage-symbolic"
 
     global filter_column
-    filter_column = sensors_data_list[0][2] - 1                                               # Search filter is "Sensor Group". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+    filter_column = sensors_data_list[0][2] - 1                                               # Search filter is "Sensor Group". "-1" is used because "sensors_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
     global initial_already_run
     initial_already_run = 1
@@ -274,15 +274,16 @@ def sensors_loop_func():
         treeview_column_titles = []
         for column in sensors_treeview_columns:
             treeview_column_titles.append(column.get_title())
-        for order in reversed(sorted(sensors_data_column_order)):                             # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
-            if sensors_data_column_order.index(order) <= len(sensors_treeview_columns) - 1 and sensors_data_column_order.index(order) in sensors_treeview_columns_shown:
+        sensors_data_column_order_scratch = []
+        for column_order in sensors_data_column_order:
+            if column_order != -1:
+                sensors_data_column_order_scratch.append(column_order)
+        for order in reversed(sorted(sensors_data_column_order_scratch)):                     # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
+            if sensors_data_column_order.index(order) in sensors_treeview_columns_shown:
                 column_number_to_move = sensors_data_column_order.index(order)
                 column_title_to_move = sensors_data_list[column_number_to_move][1]
                 column_to_move = sensors_treeview_columns[treeview_column_titles.index(column_title_to_move)]
-                column_title_to_move = column_to_move.get_title()
-                for data in sensors_data_list:
-                    if data[1] == column_title_to_move:
-                        treeview1601.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
+                treeview1601.move_column_after(column_to_move, None)                          # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort sensor rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if sensors_treeview_columns_shown_prev != sensors_treeview_columns_shown or sensors_data_row_sorting_column_prev != sensors_data_row_sorting_column or sensors_data_row_sorting_order != sensors_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
@@ -358,11 +359,21 @@ def sensors_treeview_column_order_width_row_sorting_func():
     treeview_column_titles = []
     for column in sensors_treeview_columns:
         treeview_column_titles.append(column.get_title())
+
+    sensors_data_column_order = [-1] * len(sensors_data_list)
+    sensors_data_column_widths = [-1] * len(sensors_data_list)
+
+    sensors_treeview_columns_last_index = len(sensors_treeview_columns)-1
+
     for i, sensors_data in enumerate(sensors_data_list):
         for j, column_title in enumerate(treeview_column_titles):
             if column_title == sensors_data[1]:
-                Config.sensors_data_column_order[i] = j
-                Config.sensors_data_column_widths[i] = sensors_treeview_columns[j].get_width()
-                break
+                column_index = treeview_column_titles.index(sensors_data[1])
+                sensors_data_column_order[i] = column_index
+                if j != sensors_treeview_columns_last_index:
+                    sensors_data_column_widths[i] = sensors_treeview_columns[column_index].get_width()
+
+    Config.sensors_data_column_order = list(sensors_data_column_order)
+    Config.sensors_data_column_widths = list(sensors_data_column_widths)
     Config.config_save_func()
 
