@@ -8,38 +8,9 @@ Multi-featured system monitor.
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/hakandundar34coding/system-monitoring-center"></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/system-monitoring-center"></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/hakandundar34coding/system-monitoring-center/total"></a>
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="Download System Monitoring Center" src="https://img.shields.io/sourceforge/dt/system-monitoring-center.svg" ></a>
 <a href="https://pypi.org/project/system-monitoring-center/"><img src="https://img.shields.io/badge/Visit-PyPI%20Page-b37840"/></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/Changes.md"><img src="https://img.shields.io/badge/View-Changelog-b37840"></a>
 </p>
-
-
-### Installation:
-- System Monitoring Center is installable from PyPI as a Python package.
-- Option-1) Installing for current user account: `pip install system-monitoring-center`
-- Option-2) Installing for system-wide: `sudo pip install system-monitoring-center`
-    (This method can be used for preventing source code modifications.)
-- First run:
-    - Run the application by using `system-monitoring-center` command.
-    - The application will prepare shortcut and GUI images automatically.
-    - If command is not found, restart the system and run the command again.
-    - If images are not shown on the GUI, run `touch ~/.local/share/*` or restart the system.
-
-
-### Dependencies:
-- These dependencies are already installed on many systems: `bash, dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, udev, util-linux`
-- Following dependencies may be required on some systems: for systems with .deb packages: `libcairo2-dev`, for Arch Linux: `polkit`
-- Optional dependencies: `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
-
-
-### Updating:
-- Run one of these commands to update the application:
-    - If the application is installed for current user account: `pip install --upgrade system-monitoring-center`
-    - If the application is installed for system-wide: `sudo pip install --upgrade system-monitoring-center`
-
-
-<a href="https://repology.org/project/system-monitoring-center/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status"></a>
 
 
 ### Features:
@@ -59,7 +30,40 @@ Multi-featured system monitor.
 - Shows notification if update is available on PyPI (disabled by default)
 - Supports ARM architecture
 - Adapts to system theme
-- Free and open sourced
+- Free and open source
+
+
+### Installation:
+- System Monitoring Center is installable from PyPI as a Python package.
+- Option-1) Installing for current user account: `pip install system-monitoring-center`
+- Option-2) Installing for system-wide: `sudo pip install system-monitoring-center`
+    (This method can be used for preventing source code modifications.)
+- First run:
+    - Run the application by using `system-monitoring-center` command.
+    - The application will prepare shortcut and GUI images automatically.
+    - If command is not found, restart the system and run the command again.
+    - If images are not shown on the GUI, run `touch ~/.local/share/*` or restart the system.
+
+
+<a href="https://repology.org/project/system-monitoring-center/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status"></a>
+
+
+### Dependencies:
+- These dependencies are already installed on many systems: 
+    - `bash, dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, udev, util-linux`
+- Following dependencies may be required on some systems:
+    - `libcairo2-dev` (for systems with .deb packages)
+    - `polkit` (for Arch Linux)
+- Optional dependencies:
+    - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection)
+    - `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
+
+
+### Updating:
+- Run one of these commands to update the application:
+    - If the application is installed for current user account: `pip install --upgrade system-monitoring-center`
+    - If the application is installed for system-wide: `sudo pip install --upgrade system-monitoring-center`
 
 
 ### Screenshots:
