@@ -374,7 +374,7 @@ class Gpu:
         # If selected GPU vendor is AMD.
         if self.device_vendor_id in ["v00001022", "v00001002"]:
 
-            # For more information about files under "/sys/class/drm/card[NUMBER]/device/" and their content for AMD GPUs: https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html
+            # For more information about files under "/sys/class/drm/card[NUMBER]/device/" and their content for AMD GPUs: https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html and https://wiki.archlinux.org/title/AMDGPU.
 
             # Get GPU current, min, max frequencies (engine frequencies). This file contains all available frequencies of the GPU. There is no separate frequency information in files for video clock frequency for AMD GPUs.
             gpu_frequency_file_output = "-"
