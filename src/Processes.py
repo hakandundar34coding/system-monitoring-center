@@ -62,7 +62,8 @@ def processes_gui_func():
         global selected_process_pid
         try:
             selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
-        except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+        # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+        except ValueError:
             return
 
         # Open right click menu if right clicked on a row
@@ -99,7 +100,8 @@ def processes_gui_func():
         global selected_process_pid
         try:
             selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
-        except ValueError:                                                                    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+        # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+        except ValueError:
             return
 
         from ProcessesMenuRightClick import ProcessesMenuRightClick
@@ -141,7 +143,8 @@ def processes_gui_func():
                 while piter_parent != None:
                     treestore2101.set_value(piter_parent, 0, True)
                     piter_parent = treestore2101.iter_parent(piter_parent)
-        treeview2101.expand_all()                                                             # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
+        # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
+        treeview2101.expand_all()
 
 
     # --------------------------------- Called for showing Processes tab customization menu when button is clicked ---------------------------------
@@ -499,10 +502,6 @@ def processes_loop_func():
         treestore2101.set_column_types(processes_data_column_types)                           # Set column types of the columns which will be appended into treestore
         treemodelfilter2101 = treestore2101.filter_new()
         treemodelfilter2101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
-        #treeview2101.set_model(treemodelfilter2101)                                          # If sorting will not be used, this command could be used instead of "treeview3101.set_model(Gtk.TreeModelSort(model=treemodelfilter3101))".
-        #treemodelsort2101 = Gtk.TreeModelSort.new_with_model(treemodelfilter2101)
-        #treeview2101.set_model(treemodelsort2101)                                            # If one model is added, previous one is removed. In order to avoid from this behavior, treemodelfilter is added instead of standalone treestore. A treestore also is added into a treemodelfilter. This command is used instead of "PerformanceGUI.treeview2101.set_model(treemodelfilter2101)" in order to prevent "Gtk-CRITICAL **: ... gtk_tree_sortable_set_sort_column_id: assertion 'GTK_IS_TREE_SORTABLE (sortable)' failed" warnings.
-        #treeview2101.set_model(treestore2101)
         treemodelsort2101 = Gtk.TreeModelSort(treemodelfilter2101)
         treeview2101.set_model(treemodelsort2101)
         pid_list_prev = []                                                                    # Redefine (clear) "pid_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
@@ -513,19 +512,19 @@ def processes_loop_func():
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if processes_treeview_columns_shown_prev != processes_treeview_columns_shown or processes_data_column_order_prev != processes_data_column_order:
         processes_treeview_columns = treeview2101.get_columns()                               # Get shown columns on the treeview in order to use this data for reordering the columns.
-        processes_treeview_columns_modified = treeview2101.get_columns()
         treeview_column_titles = []
         for column in processes_treeview_columns:
             treeview_column_titles.append(column.get_title())
-        for order in reversed(sorted(processes_data_column_order)):                           # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
-            if processes_data_column_order.index(order) <= len(processes_treeview_columns) - 1 and processes_data_column_order.index(order) in processes_treeview_columns_shown:
+        processes_data_column_order_scratch = []
+        for column_order in processes_data_column_order:
+            if column_order != -1:
+                processes_data_column_order_scratch.append(column_order)
+        for order in reversed(sorted(processes_data_column_order_scratch)):                   # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
+            if processes_data_column_order.index(order) in processes_treeview_columns_shown:
                 column_number_to_move = processes_data_column_order.index(order)
                 column_title_to_move = processes_data_list[column_number_to_move][1]
                 column_to_move = processes_treeview_columns[treeview_column_titles.index(column_title_to_move)]
-                column_title_to_move = column_to_move.get_title()
-                for data in processes_data_list:
-                    if data[1] == column_title_to_move:
-                        treeview2101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
+                treeview2101.move_column_after(column_to_move, None)                          # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort process rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if processes_treeview_columns_shown_prev != processes_treeview_columns_shown or processes_data_row_sorting_column_prev != processes_data_row_sorting_column or processes_data_row_sorting_order != processes_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
@@ -671,11 +670,21 @@ def processes_treeview_column_order_width_row_sorting_func():
     treeview_column_titles = []
     for column in processes_treeview_columns:
         treeview_column_titles.append(column.get_title())
+
+    processes_data_column_order = [-1] * len(processes_data_list)
+    processes_data_column_widths = [-1] * len(processes_data_list)
+
+    processes_treeview_columns_last_index = len(processes_treeview_columns)-1
+
     for i, processes_data in enumerate(processes_data_list):
         for j, column_title in enumerate(treeview_column_titles):
             if column_title == processes_data[1]:
-                Config.processes_data_column_order[i] = j
-                Config.processes_data_column_widths[i] = processes_treeview_columns[j].get_width()
-                break
+                column_index = treeview_column_titles.index(processes_data[1])
+                processes_data_column_order[i] = column_index
+                if j != processes_treeview_columns_last_index:
+                    processes_data_column_widths[i] = processes_treeview_columns[column_index].get_width()
+
+    Config.processes_data_column_order = list(processes_data_column_order)
+    Config.processes_data_column_widths = list(processes_data_column_widths)
     Config.config_save_func()
 

@@ -16,8 +16,10 @@ def files_in_folder(folder):
 
 os.chmod("integration/com.github.hakand34.system-monitoring-center.desktop", 0o644)
 os.chmod("locale/cs/LC_MESSAGES/system-monitoring-center.mo", 0o644)
+os.chmod("locale/hu/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 os.chmod("locale/pl/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 os.chmod("locale/pt_BR/LC_MESSAGES/system-monitoring-center.mo", 0o644)
+os.chmod("locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 os.chmod("locale/tr/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 for file in files_in_folder("database/"):
     os.chmod(file, 0o644)

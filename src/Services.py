@@ -365,19 +365,19 @@ def services_loop_func():
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if services_treeview_columns_shown_prev != services_treeview_columns_shown or services_data_column_order_prev != services_data_column_order:
         services_treeview_columns = treeview6101.get_columns()                                # Get shown columns on the treeview in order to use this data for reordering the columns.
-        services_treeview_columns_modified = treeview6101.get_columns()
         treeview_column_titles = []
         for column in services_treeview_columns:
             treeview_column_titles.append(column.get_title())
-        for order in reversed(sorted(services_data_column_order)):                            # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
-            if services_data_column_order.index(order) <= len(services_treeview_columns) - 1 and services_data_column_order.index(order) in services_treeview_columns_shown:
+        services_data_column_order_scratch = []
+        for column_order in services_data_column_order:
+            if column_order != -1:
+                services_data_column_order_scratch.append(column_order)
+        for order in reversed(sorted(services_data_column_order_scratch)):                    # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
+            if services_data_column_order.index(order) in services_treeview_columns_shown:
                 column_number_to_move = services_data_column_order.index(order)
                 column_title_to_move = services_data_list[column_number_to_move][1]
                 column_to_move = services_treeview_columns[treeview_column_titles.index(column_title_to_move)]
-                column_title_to_move = column_to_move.get_title()
-                for data in services_data_list:
-                    if data[1] == column_title_to_move:
-                        treeview6101.move_column_after(column_to_move, None)                  # Column is moved at the beginning of the treeview if "None" is used.
+                treeview6101.move_column_after(column_to_move, None)                          # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort service rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if services_treeview_columns_shown_prev != services_treeview_columns_shown or services_data_row_sorting_column_prev != services_data_row_sorting_column or services_data_row_sorting_order != services_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
@@ -482,11 +482,21 @@ def services_treeview_column_order_width_row_sorting_func():
     treeview_column_titles = []
     for column in services_treeview_columns:
         treeview_column_titles.append(column.get_title())
+
+    services_data_column_order = [-1] * len(services_data_list)
+    services_data_column_widths = [-1] * len(services_data_list)
+
+    services_treeview_columns_last_index = len(services_treeview_columns)-1
+
     for i, services_data in enumerate(services_data_list):
         for j, column_title in enumerate(treeview_column_titles):
             if column_title == services_data[1]:
-                Config.services_data_column_order[i] = j
-                Config.services_data_column_widths[i] = services_treeview_columns[j].get_width()
-                break
+                column_index = treeview_column_titles.index(services_data[1])
+                services_data_column_order[i] = column_index
+                if j != services_treeview_columns_last_index:
+                    services_data_column_widths[i] = services_treeview_columns[column_index].get_width()
+
+    Config.services_data_column_order = list(services_data_column_order)
+    Config.services_data_column_widths = list(services_data_column_widths)
     Config.config_save_func()
 
