@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.21.0
+  * Removed: Unused translations
+  * Fix: Incorrect column ordering (Processes,Users,Services tabs)
+  * Fix: Screen resolution for modified screen scale factors
+  * Minor improvements (GUI, etc.)
+
 ### v1.20.0
   * New: Keyboard shortcuts for Processes tab actions
   * New: Hungarian translations
