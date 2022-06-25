@@ -127,10 +127,13 @@ class MainGUI:
     def on_window1_show(self, widget):
 
         # Hide Services tab if systemd is not used on the system.
-        with open("/proc/1/comm") as reader:
-            process_name = reader.read().strip()
-        if process_name == "systemd":
-            self.radiobutton6.set_visible(False)
+        try:
+            with open("/proc/1/comm") as reader:
+                process_name = reader.read().strip()
+            if process_name == "systemd":
+                self.radiobutton6.set_visible(False)
+        except Exception:
+            pass
 
         # Read and get config data
         global Config
