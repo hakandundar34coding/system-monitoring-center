@@ -126,6 +126,12 @@ class MainGUI:
     # Some functions (such as hardware selection, performance backround function, main menu gui importing, etc.) are run after main window is shown in order to reduce window display delay.
     def on_window1_show(self, widget):
 
+        # Hide Services tab if systemd is not used on the system.
+        with open("/proc/1/comm") as reader:
+            process_name = reader.read().strip()
+        if process_name == "systemd":
+            self.radiobutton6.set_visible(False)
+
         # Read and get config data
         global Config
         from Config import Config
