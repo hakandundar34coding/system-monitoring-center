@@ -239,7 +239,12 @@ class Network:
     # ----------------------- Get network card IPv4 and IPv6 addresses -----------------------
     def network_address_ipv4_ipv6_func(self, selected_network_card):
 
-        ip_output_lines = (subprocess.check_output(["ip", "a", "show", selected_network_card], shell=False)).decode().strip().split("\n")
+        try:
+            ip_output = (subprocess.check_output(["ip", "a", "show", selected_network_card], shell=False)).decode()
+        # "ip" program is in "/sbin/" on some systems (such as Slackware based distributions).
+        except FileNotFoundError:
+            ip_output = (subprocess.check_output(["/sbin/ip", "a", "show", selected_network_card], shell=False)).decode()
+        ip_output_lines = ip_output.strip().split("\n")
         network_address_ipv4 = "-"
         network_address_ipv6 = "-"
         for line in ip_output_lines:
