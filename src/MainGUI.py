@@ -32,6 +32,9 @@ class MainGUI:
         # Generate symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated.
         self.main_gui_application_system_integration_func()
 
+        # Adapt to system color scheme (light/dark) on systems with newer versions than GTK3.
+        self.main_gui_adapt_color_scheme_for_gtk4_based_systems_func()
+
         # Get GUI objects from file
         builder = Gtk.Builder()
         builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/MainWindow.ui")
@@ -71,7 +74,6 @@ class MainGUI:
         self.grid1007 = builder.get_object('grid1007')
 
         self.grid1010 = builder.get_object('grid1010')
-        #self.listbox1001 = builder.get_object('listbox1001')
 
         # Connect GUI signals
         self.window1.connect("destroy", self.on_window1_destroy)
@@ -200,6 +202,26 @@ class MainGUI:
                 # Run the function in a separate thread in order to avoid blocking the GUI because "pip ..." command runs about 1 seconds.
                 from threading import Thread
                 Thread(target=self.main_update_check_func).start()
+
+
+    # ----------------------- Called for adapting to system color scheme on systems with newer versions than GTK3. -----------------------
+    def main_gui_adapt_color_scheme_for_gtk4_based_systems_func(self):
+
+        gi.require_version('Gio', '2.0')
+        from gi.repository import Gio
+
+        schema_source =  Gio.SettingsSchemaSource.get_default()
+        if_scheme_installed = Gio.SettingsSchemaSource.lookup(schema_source, "org.gnome.desktop.interface", False)
+
+        # Check if "org.gnome.desktop.interface" scheme ("gsettings-desktop-schemas" package) is installed on the system. It gives error, it can not be prevent by using "try-except" and GUI is not shown if it is not installed.
+        if if_scheme_installed != None:
+            gio_settings = Gio.Settings.new("org.gnome.desktop.interface")
+            # Check if "color-scheme" is in the settings. This value is not in the settings if the system uses a desktop environment based on GTK4. It gives error, it can not be prevent by using "try-except" and GUI is not shown if it is not installed.
+            if "color-scheme" in gio_settings:
+                system_scheme = gio_settings.get_string("color-scheme")
+                # Switch to dark theme if the system uses it.
+                if system_scheme == "prefer-dark":
+                    Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = True
 
 
     # ----------------------- Check if there is a newer version on PyPI -----------------------
@@ -510,9 +532,6 @@ class MainGUI:
 
         # Delete previous scrolledwindow and widgets in it in order to add new one again. Otherwise, removing all of the listbox rows requires removing them one by one.
         try:
-            #for row in self.listbox1001.get_children():
-            #    self.listbox1001.remove(row)
-            #self.grid1010.remove(self.listbox1001)
             self.scrolledwindow1001.destroy()
         # Prevent error if this is the first tab switch and there is no scrolledwindow.
         except AttributeError:
