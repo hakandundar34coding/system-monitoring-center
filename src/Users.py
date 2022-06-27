@@ -40,79 +40,11 @@ def users_gui_func():
     searchentry3101 = builder.get_object('searchentry3101')
     button3101 = builder.get_object('button3101')
 
-    global initial_already_run
-    initial_already_run = 0
-
-
-    # Users tab GUI functions
-    # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
-    def on_treeview3101_button_press_event(widget, event):
-
-        # Get right/double clicked row data
-        try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
-            path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
-        except TypeError:
-            return
-        model = treeview3101.get_model()
-        treeiter = model.get_iter(path)
-
-        # Get right/double clicked user UID and user name
-        if treeiter == None:
-            return
-        global selected_user_uid, selected_username
-        try:
-            selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]
-            selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]
-        except ValueError:
-            return
-
-        # Open right click menu if right clicked on a row
-        if event.button == 3:
-            from UsersMenuRightClick import UsersMenuRightClick
-            UsersMenuRightClick.menu3101m.popup_at_pointer()
-
-        # Open details window if double clicked on a row
-        if event.type == Gdk.EventType._2BUTTON_PRESS:
-            from UsersDetails import UsersDetails
-            UsersDetails.window3101w.show()
-
-
-    # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
-    def on_treeview3101_button_release_event(widget, event):
-
-        # Check if left mouse button is used
-        if event.button == 1:
-            users_treeview_column_order_width_row_sorting_func()
-
-
-    # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
-    def on_searchentry3101_changed(widget):
-
-        global filter_column
-        user_search_text = searchentry3101.get_text().lower()
-        # Set visible/hidden users
-        for piter in piter_list:
-            treestore3101.set_value(piter, 0, False)
-            user_data_text_in_model = treestore3101.get_value(piter, filter_column)
-            if user_search_text in str(user_data_text_in_model).lower():
-                treestore3101.set_value(piter, 0, True)
-
-
-    # --------------------------------- Called for showing Users tab customization menu when button is clicked ---------------------------------
-    def on_button3101_clicked(widget):
-
-        from UsersMenuCustomizations import UsersMenuCustomizations
-        UsersMenuCustomizations.popover3101p.set_relative_to(button3101)
-        UsersMenuCustomizations.popover3101p.set_position(1)
-        UsersMenuCustomizations.popover3101p.popup()
-
-
     # Users tab GUI functions - connect
     treeview3101.connect("button-press-event", on_treeview3101_button_press_event)
     treeview3101.connect("button-release-event", on_treeview3101_button_release_event)
     searchentry3101.connect("changed", on_searchentry3101_changed)
     button3101.connect("clicked", on_button3101_clicked)
-
 
     # Users Tab - Treeview Properties
     treeview3101.set_activate_on_single_click(True)
@@ -122,6 +54,71 @@ def users_gui_func():
     treeview3101.set_enable_search(True)
     treeview3101.set_search_column(2)
     treeview3101.set_tooltip_column(2)
+
+    global initial_already_run
+    initial_already_run = 0
+
+
+# --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
+def on_treeview3101_button_press_event(widget, event):
+
+    # Get right/double clicked row data
+    try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview3101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
+    model = treeview3101.get_model()
+    treeiter = model.get_iter(path)
+
+    # Get right/double clicked user UID and user name
+    if treeiter == None:
+        return
+    global selected_user_uid, selected_username
+    try:
+        selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]
+        selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]
+    except ValueError:
+        return
+
+    # Open right click menu if right clicked on a row
+    if event.button == 3:
+        from UsersMenuRightClick import UsersMenuRightClick
+        UsersMenuRightClick.menu3101m.popup_at_pointer()
+
+    # Open details window if double clicked on a row
+    if event.type == Gdk.EventType._2BUTTON_PRESS:
+        from UsersDetails import UsersDetails
+        UsersDetails.window3101w.show()
+
+
+# --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
+def on_treeview3101_button_release_event(widget, event):
+
+    # Check if left mouse button is used
+    if event.button == 1:
+        users_treeview_column_order_width_row_sorting_func()
+
+
+# --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
+def on_searchentry3101_changed(widget):
+
+    global filter_column
+    user_search_text = searchentry3101.get_text().lower()
+    # Set visible/hidden users
+    for piter in piter_list:
+        treestore3101.set_value(piter, 0, False)
+        user_data_text_in_model = treestore3101.get_value(piter, filter_column)
+        if user_search_text in str(user_data_text_in_model).lower():
+            treestore3101.set_value(piter, 0, True)
+
+
+# --------------------------------- Called for showing Users tab customization menu when button is clicked ---------------------------------
+def on_button3101_clicked(widget):
+
+    from UsersMenuCustomizations import UsersMenuCustomizations
+    UsersMenuCustomizations.popover3101p.set_relative_to(button3101)
+    UsersMenuCustomizations.popover3101p.set_position(1)
+    UsersMenuCustomizations.popover3101p.popup()
 
 
 # ----------------------------------- Users - Initial Function -----------------------------------
@@ -477,16 +474,11 @@ def users_loop_func():
         for user in reversed(sorted(list(deleted_users))):
             treestore3101.remove(piter_list[uid_username_list_prev.index(list(user))])        # ".index(list(user))" have to used with "list()" because it was converted into "set". This behavior is valid for list of multiple elemented sub-lists.
             piter_list.remove(piter_list[uid_username_list_prev.index(list(user))])
+        on_searchentry3101_changed(searchentry3101)                                           # Update search results.
     if len(new_users) > 0:
         for i, user in enumerate(new_users):
-            # /// Start /// This block of code is used for determining if the newly added user will be shown on the treeview (user search actions affect user visibility).
-            if searchentry3101.get_text() != "":
-                user_search_text = searchentry3101.get_text()
-                user_data_text_in_model = users_data_rows[uid_username_list.index(list(user))][filter_column]
-                if user_search_text not in str(user_data_text_in_model).lower():              # Hide user (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the user.
-                    users_data_rows[uid_username_list.index(list(user))][0] = False
-            # \\\ End \\\ This block of code is used for determining if the newly added user will be shown on the treeview (user search actions and/or search customizations and/or "Show only logged in/logged out users ..." preference affect user visibility).
             piter_list.append(treestore3101.append(None, users_data_rows[uid_username_list.index(list(user))]))
+        on_searchentry3101_changed(searchentry3101)                                           # Update search results.
     treeview3101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     uid_username_list_prev = uid_username_list

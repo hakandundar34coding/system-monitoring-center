@@ -35,34 +35,8 @@ def sensors_gui_func():
     treeview1601 = builder.get_object('treeview1601')
     searchentry1601 = builder.get_object('searchentry1601')
 
-    global initial_already_run
-    initial_already_run = 0
-
-
-    # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
-    def on_treeview1601_button_release_event(widget, event):
-
-        # Check if left mouse button is used
-        if event.button == 1:
-            sensors_treeview_column_order_width_row_sorting_func()
-
-
-    # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
-    def on_searchentry1601_changed(widget):
-
-        # Get search text
-        sensor_search_text = searchentry1601.get_text().lower()
-        # Set visible/hidden sensor data
-        for piter in piter_list:
-            treestore1601.set_value(piter, 0, False)
-            sensor_data_text_in_model = treestore1601.get_value(piter, filter_column)
-            if sensor_search_text in str(sensor_data_text_in_model).lower():
-                treestore1601.set_value(piter, 0, True)
-
-
     # Sensors tab GUI functions - connect
     searchentry1601.connect("changed", on_searchentry1601_changed)
-
 
     # Sensors Tab on Sensors Tab - Treeview Properties
     treeview1601.set_activate_on_single_click(True)
@@ -72,6 +46,30 @@ def sensors_gui_func():
     treeview1601.set_enable_search(True)
     treeview1601.set_search_column(2)
     treeview1601.set_tooltip_column(2)
+
+    global initial_already_run
+    initial_already_run = 0
+
+
+# --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
+def on_treeview1601_button_release_event(widget, event):
+
+    # Check if left mouse button is used
+    if event.button == 1:
+        sensors_treeview_column_order_width_row_sorting_func()
+
+
+# --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
+def on_searchentry1601_changed(widget):
+
+    # Get search text
+    sensor_search_text = searchentry1601.get_text().lower()
+    # Set visible/hidden sensor data
+    for piter in piter_list:
+        treestore1601.set_value(piter, 0, False)
+        sensor_data_text_in_model = treestore1601.get_value(piter, filter_column)
+        if sensor_search_text in str(sensor_data_text_in_model).lower():
+            treestore1601.set_value(piter, 0, True)
 
 
 # ----------------------------------- Sensors - Initial Function -----------------------------------
@@ -321,14 +319,8 @@ def sensors_loop_func():
     treestore1601.clear()
     # Append sensor data into treeview
     for sensors_data_row in sensors_data_rows:
-        # /// Start /// This block of code is used for determining if the newly added sensor will be shown on the treeview (sensor search actions affect sensor visibility).
-        if searchentry1601.get_text() != "":
-            sensor_search_text = searchentry1601.get_text()
-            sensor_data_text_in_model = sensors_data_row[filter_column]
-            if sensor_search_text not in str(sensor_data_text_in_model).lower():              # Hide sensor (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the sensor.
-                sensors_data_row[0] = False
-        # \\\ End \\\ This block of code is used for determining if the newly added sensor will be shown on the treeview (user search actions and/or search customizations and/or "Show onlt temperature/fan sensors" preference affect sensor visibility).
         piter_list.append(treestore1601.append(None, sensors_data_row))                       # All sensors are appended into treeview as tree root for listing sensor data as list (there is no tree view option for sensors tab).
+    on_searchentry1601_changed(searchentry1601)                                           # Update search results.
     treeview1601.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     sensors_treeview_columns_shown_prev = sensors_treeview_columns_shown

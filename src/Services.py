@@ -40,86 +40,12 @@ def services_gui_func():
     button6101 = builder.get_object('button6101')
     button6102 = builder.get_object('button6102')
 
-    global initial_already_run
-    initial_already_run = 0
-
-
-    # Services tab GUI functions
-    # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
-    def on_treeview6101_button_press_event(widget, event):
-
-        # Get right/double clicked row data
-        try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
-            path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
-        except TypeError:
-            return
-        model = treeview6101.get_model()
-        treeiter = model.get_iter(path)
-
-        # Get right/double clicked service name
-        if treeiter == None:
-            return
-        global selected_service_name
-        try:
-            selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]
-        except ValueError:
-            return
-
-        # Open right click menu if right clicked on a row
-        if event.button == 3:
-            from ServicesMenuRightClick import ServicesMenuRightClick
-            ServicesMenuRightClick.menu6101m.popup_at_pointer()
-            ServicesMenuRightClick.services_set_checkmenuitem_func()
-
-        # Open details window if double clicked on a row
-        if event.type == Gdk.EventType._2BUTTON_PRESS:
-            from ServicesDetails import ServicesDetails
-            ServicesDetails.window6101w.show()
-
-
-    # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
-    def on_treeview6101_button_release_event(widget, event):
-
-        # Check if left mouse button is used
-        if event.button == 1:
-            services_treeview_column_order_width_row_sorting_func()
-
-
-    # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
-    def on_searchentry6101_changed(widget):
-
-        global filter_column
-        service_search_text = searchentry6101.get_text().lower()
-        # Set visible/hidden services
-        for piter in piter_list:
-            treestore6101.set_value(piter, 0, False)
-            service_data_text_in_model = treestore6101.get_value(piter, filter_column)
-            if service_search_text in str(service_data_text_in_model).lower():
-                treestore6101.set_value(piter, 0, True)
-
-
-    # --------------------------------- Called for showing Services tab customization menu when button is clicked ---------------------------------
-    def on_button6101_clicked(widget):
-
-        from ServicesMenuCustomizations import ServicesMenuCustomizations
-        ServicesMenuCustomizations.popover6101p.set_relative_to(button6101)
-        ServicesMenuCustomizations.popover6101p.set_position(1)
-        ServicesMenuCustomizations.popover6101p.popup()
-
-
-    # --------------------------------- Called for reloading the data on the Services tab if "Refresh" button is clicked ---------------------------------
-    def on_button6102_clicked(widget):
-
-        services_loop_func()
-
-
     # Services tab GUI functions - connect
     treeview6101.connect("button-press-event", on_treeview6101_button_press_event)
     treeview6101.connect("button-release-event", on_treeview6101_button_release_event)
     searchentry6101.connect("changed", on_searchentry6101_changed)
     button6101.connect("clicked", on_button6101_clicked)
     button6102.connect("clicked", on_button6102_clicked)
-
 
     # Services Tab - Treeview Properties
     treeview6101.set_activate_on_single_click(True)
@@ -129,6 +55,77 @@ def services_gui_func():
     treeview6101.set_enable_search(True)
     treeview6101.set_search_column(2)
     treeview6101.set_tooltip_column(2)
+
+    global initial_already_run
+    initial_already_run = 0
+
+
+# --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
+def on_treeview6101_button_press_event(widget, event):
+
+    # Get right/double clicked row data
+    try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview6101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
+    model = treeview6101.get_model()
+    treeiter = model.get_iter(path)
+
+    # Get right/double clicked service name
+    if treeiter == None:
+        return
+    global selected_service_name
+    try:
+        selected_service_name = service_list[services_data_rows.index(model[treeiter][:])]
+    except ValueError:
+        return
+
+    # Open right click menu if right clicked on a row
+    if event.button == 3:
+        from ServicesMenuRightClick import ServicesMenuRightClick
+        ServicesMenuRightClick.menu6101m.popup_at_pointer()
+        ServicesMenuRightClick.services_set_checkmenuitem_func()
+
+    # Open details window if double clicked on a row
+    if event.type == Gdk.EventType._2BUTTON_PRESS:
+        from ServicesDetails import ServicesDetails
+        ServicesDetails.window6101w.show()
+
+
+# --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
+def on_treeview6101_button_release_event(widget, event):
+
+    # Check if left mouse button is used
+    if event.button == 1:
+        services_treeview_column_order_width_row_sorting_func()
+
+
+# --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
+def on_searchentry6101_changed(widget):
+
+    global filter_column
+    service_search_text = searchentry6101.get_text().lower()
+    # Set visible/hidden services
+    for piter in piter_list:
+        treestore6101.set_value(piter, 0, False)
+        service_data_text_in_model = treestore6101.get_value(piter, filter_column)
+        if service_search_text in str(service_data_text_in_model).lower():
+            treestore6101.set_value(piter, 0, True)
+
+
+# --------------------------------- Called for showing Services tab customization menu when button is clicked ---------------------------------
+def on_button6101_clicked(widget):
+
+    from ServicesMenuCustomizations import ServicesMenuCustomizations
+    ServicesMenuCustomizations.popover6101p.set_relative_to(button6101)
+    ServicesMenuCustomizations.popover6101p.set_position(1)
+    ServicesMenuCustomizations.popover6101p.popup()
+
+
+# --------------------------------- Called for reloading the data on the Services tab if "Refresh" button is clicked ---------------------------------
+def on_button6102_clicked(widget):
+
+    services_loop_func()
 
 
 # ----------------------------------- Services - Initial Function -----------------------------------
@@ -431,16 +428,11 @@ def services_loop_func():
         for service in reversed(sorted(list(deleted_services))):
             treestore6101.remove(piter_list[service_list_prev.index(service)])
             piter_list.remove(piter_list[service_list_prev.index(service)])
+        on_searchentry6101_changed(searchentry6101)                                           # Update search results.
     if len(new_services) > 0:
         for service in new_services:
-            # /// Start /// This block of code is used for determining if the newly added service will be shown on the treeview (service search actions affect service visibility).
-            if searchentry6101.get_text() != "":
-                service_search_text = searchentry6101.get_text()
-                service_data_text_in_model = services_data_rows[service_list.index(service)][filter_column]
-                if service_search_text not in str(service_data_text_in_model).lower():        # Hide service (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the service data.
-                    services_data_rows[service_list.index(service)][0] = False
-            # \\\ End \\\ This block of code is used for determining if the newly added service will be shown on the treeview (user search actions and/or search customizations and/or "Show all loaded/non-loaded services" preference affect service visibility).
             piter_list.insert(service_list.index(service), treestore6101.insert(None, service_list.index(service), services_data_rows[service_list.index(service)]))    # "insert" have to be used for appending element into both "piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of ".service" file names (this sorting is performed for getting list differences).
+        on_searchentry6101_changed(searchentry6101)                                           # Update search results.
     treeview6101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     service_list_prev = service_list                                                          # For using values in the next loop

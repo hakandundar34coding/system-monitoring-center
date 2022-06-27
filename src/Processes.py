@@ -40,130 +40,12 @@ def processes_gui_func():
     searchentry2101 = builder.get_object('searchentry2101')
     button2101 = builder.get_object('button2101')
 
-    global initial_already_run
-    initial_already_run = 0
-
-
-    # Processes tab GUI functions
-    # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
-    def on_treeview2101_button_press_event(widget, event):
-
-        # Get right/double clicked row data
-        try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
-            path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
-        except TypeError:
-            return
-        model = treeview2101.get_model()
-        treeiter = model.get_iter(path)
-
-        # Get right/double clicked process PID
-        if treeiter == None:
-            return
-        global selected_process_pid
-        try:
-            selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
-        # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
-        except ValueError:
-            return
-
-        # Open right click menu if right clicked on a row
-        if event.button == 3:
-            from ProcessesMenuRightClick import ProcessesMenuRightClick
-            ProcessesMenuRightClick.processes_add_remove_expand_collapse_menuitems_func()
-            ProcessesMenuRightClick.processes_select_process_nice_option_func()
-            ProcessesMenuRightClick.menu2101m.popup_at_pointer()
-
-        # Open details window if double clicked on a row
-        if event.type == Gdk.EventType._2BUTTON_PRESS:
-            from ProcessesDetails import ProcessesDetails
-            ProcessesDetails.window2101w.show()
-
-
-    # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
-    def on_treeview2101_button_release_event(widget, event):
-
-        # Check if left mouse button is used
-        if event.button == 1:
-            processes_treeview_column_order_width_row_sorting_func()
-
-
-    # --------------------------------- Called for running code/functions when keyboard buttons (shortcuts such as Ctrl+C) is pressed on the treeview ---------------------------------
-    def on_treeview2101_key_press_event(widget, event):
-
-        # Get selected row data.
-        selection = treeview2101.get_selection()
-        model, treeiter = selection.get_selected()
-
-        # Get selected process PID
-        if treeiter == None:
-            return
-        global selected_process_pid
-        try:
-            selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
-        # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
-        except ValueError:
-            return
-
-        from ProcessesMenuRightClick import ProcessesMenuRightClick
-
-        # Check if Ctrl and S keys are pressed at the same time.
-        if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_s:
-            ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2101m)
-            return
-
-        # Check if Ctrl and C keys are pressed at the same time.
-        if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_c:
-            ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2102m)
-            return
-
-        # Check if Ctrl and T keys are pressed at the same time.
-        if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_t:
-            ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2103m)
-            return
-
-        # Check if Ctrl and K keys are pressed at the same time.
-        if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_k:
-            ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2104m)
-            return
-
-
-    # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
-    def on_searchentry2101_changed(widget):
-
-        global filter_column
-        process_search_text = searchentry2101.get_text().lower()
-        # Set visible/hidden processes
-        for piter in piter_list:
-            treestore2101.set_value(piter, 0, False)
-            process_data_text_in_model = treestore2101.get_value(piter, filter_column)
-            if process_search_text in str(process_data_text_in_model).lower():
-                treestore2101.set_value(piter, 0, True)
-                # Make parent processes visible if one of its children is visible.
-                piter_parent = treestore2101.iter_parent(piter)
-                while piter_parent != None:
-                    treestore2101.set_value(piter_parent, 0, True)
-                    piter_parent = treestore2101.iter_parent(piter_parent)
-        # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
-        treeview2101.expand_all()
-
-
-    # --------------------------------- Called for showing Processes tab customization menu when button is clicked ---------------------------------
-    def on_button2101_clicked(widget):
-
-        from ProcessesMenuCustomizations import ProcessesMenuCustomizations
-        # Set widget that popover menu will display at the edge of it, define popover position and show popover.
-        ProcessesMenuCustomizations.popover2101p.set_relative_to(button2101)
-        ProcessesMenuCustomizations.popover2101p.set_position(1)
-        ProcessesMenuCustomizations.popover2101p.popup()
-
-
     # Processes tab GUI functions - connect
     treeview2101.connect("button-press-event", on_treeview2101_button_press_event)
     treeview2101.connect("button-release-event", on_treeview2101_button_release_event)
     treeview2101.connect("key-press-event", on_treeview2101_key_press_event)
     searchentry2101.connect("changed", on_searchentry2101_changed)
     button2101.connect("clicked", on_button2101_clicked)
-
 
     # Processes Tab - Treeview Properties
     treeview2101.set_activate_on_single_click(True)                                           # This command used for activating rows and column header buttons on single click. Column headers have to clicked twice (or clicked() command have to be used twice) for the first sorting operation if this is not used.
@@ -172,6 +54,122 @@ def processes_gui_func():
     treeview2101.set_enable_search(True)                                                      # This command is used for searching by pressing on a key on keyboard or by using "Ctrl + F" shortcut.
     treeview2101.set_search_column(2)                                                         # This command used for searching by using entry.
     treeview2101.set_tooltip_column(2)
+
+    global initial_already_run
+    initial_already_run = 0
+
+
+
+# --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
+def on_treeview2101_button_press_event(widget, event):
+
+    # Get right/double clicked row data
+    try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
+        path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
+    except TypeError:
+        return
+    model = treeview2101.get_model()
+    treeiter = model.get_iter(path)
+
+    # Get right/double clicked process PID
+    if treeiter == None:
+        return
+    global selected_process_pid
+    try:
+        selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
+    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+    except ValueError:
+        return
+
+    # Open right click menu if right clicked on a row
+    if event.button == 3:
+        from ProcessesMenuRightClick import ProcessesMenuRightClick
+        ProcessesMenuRightClick.processes_add_remove_expand_collapse_menuitems_func()
+        ProcessesMenuRightClick.processes_select_process_nice_option_func()
+        ProcessesMenuRightClick.menu2101m.popup_at_pointer()
+
+    # Open details window if double clicked on a row
+    if event.type == Gdk.EventType._2BUTTON_PRESS:
+        from ProcessesDetails import ProcessesDetails
+        ProcessesDetails.window2101w.show()
+
+
+# --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
+def on_treeview2101_button_release_event(widget, event):
+
+    # Check if left mouse button is used
+    if event.button == 1:
+        processes_treeview_column_order_width_row_sorting_func()
+
+
+# --------------------------------- Called for running code/functions when keyboard buttons (shortcuts such as Ctrl+C) is pressed on the treeview ---------------------------------
+def on_treeview2101_key_press_event(widget, event):
+
+    # Get selected row data.
+    selection = treeview2101.get_selection()
+    model, treeiter = selection.get_selected()
+
+    # Get selected process PID
+    if treeiter == None:
+        return
+    global selected_process_pid
+    try:
+        selected_process_pid = pid_list[processes_data_rows.index(model[treeiter][:])]
+    # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'asush', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely. It is handled in this situation.
+    except ValueError:
+        return
+
+    from ProcessesMenuRightClick import ProcessesMenuRightClick
+
+    # Check if Ctrl and S keys are pressed at the same time.
+    if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_s:
+        ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2101m)
+        return
+
+    # Check if Ctrl and C keys are pressed at the same time.
+    if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_c:
+        ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2102m)
+        return
+
+    # Check if Ctrl and T keys are pressed at the same time.
+    if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_t:
+        ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2103m)
+        return
+
+    # Check if Ctrl and K keys are pressed at the same time.
+    if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_k:
+        ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2104m)
+        return
+
+
+# --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
+def on_searchentry2101_changed(widget):
+
+    global filter_column
+    process_search_text = searchentry2101.get_text().lower()
+    # Set visible/hidden processes
+    for piter in piter_list:
+        treestore2101.set_value(piter, 0, False)
+        process_data_text_in_model = treestore2101.get_value(piter, filter_column)
+        if process_search_text in str(process_data_text_in_model).lower():
+            treestore2101.set_value(piter, 0, True)
+            # Make parent processes visible if one of its children is visible.
+            piter_parent = treestore2101.iter_parent(piter)
+            while piter_parent != None:
+                treestore2101.set_value(piter_parent, 0, True)
+                piter_parent = treestore2101.iter_parent(piter_parent)
+    # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
+    treeview2101.expand_all()
+
+
+# --------------------------------- Called for showing Processes tab customization menu when button is clicked ---------------------------------
+def on_button2101_clicked(widget):
+
+    from ProcessesMenuCustomizations import ProcessesMenuCustomizations
+    # Set widget that popover menu will display at the edge of it, define popover position and show popover.
+    ProcessesMenuCustomizations.popover2101p.set_relative_to(button2101)
+    ProcessesMenuCustomizations.popover2101p.set_position(1)
+    ProcessesMenuCustomizations.popover2101p.popup()
 
 
 # ----------------------------------- Processes - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -585,15 +583,9 @@ def processes_loop_func():
         for process in reversed(sorted(list(deleted_processes), key=int)):
             treestore2101.remove(piter_list[pid_list_prev.index(process)])
             piter_list.remove(piter_list[pid_list_prev.index(process)])
+        on_searchentry2101_changed(searchentry2101)                                           # Update search results.
     if len(new_processes) > 0:
         for process in new_processes:
-            # /// Start /// This block of code is used for determining if the newly added process will be shown on the treeview (user search actions affect process visibility).
-            if searchentry2101.get_text() != "":
-                process_search_text = searchentry2101.get_text()
-                process_data_text_in_model = processes_data_rows[pid_list.index(process)][filter_column]
-                if process_search_text not in str(process_data_text_in_model).lower():        # Hide process (set the visibility value as "False") if search text (typed into the search entry) is not in the appropriate column of the process data.
-                    processes_data_rows[pid_list.index(process)][0] = False
-            # \\\ End \\\ This block of code is used for determining if the newly added process will be shown on the treeview (user search actions and/or search customizations and/or "Show processes from this user/other users ..." preference affect process visibility).
             if show_processes_as_tree == 1:
                 if ppid_list[pid_list.index(process)] == "0":                                 # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
                     piter_list.append(treestore2101.append(None, processes_data_rows[pid_list.index(process)]))
@@ -607,6 +599,7 @@ def processes_loop_func():
                         piter_list.append(treestore2101.append(piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
             if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
                 piter_list.insert(pid_list.index(process), treestore2101.insert(None, pid_list.index(process), processes_data_rows[pid_list.index(process)]))
+        on_searchentry2101_changed(searchentry2101)                                           # Update search results.
     treeview2101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     if pid_list_prev == []:                                                                   # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made. "First loop" control is made by checking if pid_list_prev is empty.
