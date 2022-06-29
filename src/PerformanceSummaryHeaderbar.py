@@ -49,10 +49,10 @@ class PerformanceSummaryHeaderbar:
     def performance_summary_headerbar_initial_func(self):
 
         # Set empty characters at the right side of the labels by using "f'value:<[number of characters]'" in order to prevent movement of the label when data numbers change. Total length of the string is set as [number of characters] characters if actual length is smaller. This code has no effect if length of the string equals to this value or bigger.
-        self.label103.set_text(f'{_tr("CPU"):<5}')
-        self.label104.set_text(f'{_tr("RAM"):<5}')
-        self.label105.set_text(f'{_tr("Disk"):<10}')
-        self.label106.set_text(f'{_tr("Network"):<10}')
+        self.label103.set_text(f'{_tr("CPU"):<6}')
+        self.label104.set_text(f'{_tr("RAM"):<6}')
+        self.label105.set_text(f'{_tr("Disk"):<13}')
+        self.label106.set_text(f'{_tr("Network"):<13}')
 
         # Define tooltip text in order to use multiple translated texts (combine them) to avoid additional texts.
         self.label105.set_tooltip_text(f'{_tr("Read Speed")}+{_tr("Write Speed")}')
@@ -74,8 +74,8 @@ class PerformanceSummaryHeaderbar:
         selected_network_card_number = Performance.selected_network_card_number
         self.drawingarea101.queue_draw()
         self.drawingarea102.queue_draw()
-        self.label101.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk_number][-1] + Performance.disk_write_speed[selected_disk_number][-1]), Config.performance_disk_data_unit, 0)}/s')
-        self.label102.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), Config.performance_network_data_unit, 0)}/s')
+        self.label101.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk_number][-1] + Performance.disk_write_speed[selected_disk_number][-1]), Config.performance_disk_data_unit, 1)}/s')
+        self.label102.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), Config.performance_network_data_unit, 1)}/s')
 
 
 # Generate object
