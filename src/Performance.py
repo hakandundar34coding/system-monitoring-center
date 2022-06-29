@@ -511,7 +511,7 @@ class Performance:
         cpu_usage_text = f'{self.cpu_usage_percent_ave[-1]:.{performance_cpu_usage_percent_precision}f}'
         performance_memory_data_precision = 0
         ram_usage_text = f'{self.ram_usage_percent[-1]:.{performance_memory_data_precision}f}'
-        processes_text = f'{len([filename for filename in os.listdir("/proc/") if filename.isdigit()])}'
+        processes_number_text = f'{len([filename for filename in os.listdir("/proc/") if filename.isdigit()])}'
         swap_usage_text = f'{self.swap_usage_percent[-1]:.0f}%'
         selected_disk_number = self.selected_disk_number
         performance_disk_data_precision = 1
@@ -567,7 +567,8 @@ class Performance:
         gauge_indicator_text_radius = gauge_outer_radius * 0.73
         gauge_indicator_text_correction = gauge_outer_radius * 0.047
         gauge_indicator_text_move = gauge_outer_radius * 0.027
-        gauge_indicator_text_size = gauge_outer_radius * 0.09
+        gauge_indicator_text_size = gauge_outer_radius * 0.091
+        gauge_indicator_text_size_smaller = gauge_indicator_text_size * 0.78
         gauge_cpu_ram_label_text_move = gauge_outer_radius * 0.266
         gauge_cpu_ram_label_text_margin = gauge_outer_radius * 0.07
         gauge_cpu_ram_usage_text_size = gauge_outer_radius * 0.25
@@ -1096,17 +1097,21 @@ class Performance:
         ctx.show_text(ram_text)
 
         # Draw "Processes" label on the lower-left side of the inner circle of the circular gauge.
-        cpu_text = _tr("Processes")
+        processes_text = _tr("Processes")
         ctx.set_font_size(gauge_processes_swap_label_text_size)
-        text_extends = ctx.text_extents(cpu_text)
+        if len(processes_text) > 9:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
+        text_extends = ctx.text_extents(processes_text)
         text_start_x = text_extends.width
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_label_text_move)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        ctx.show_text(cpu_text)
+        ctx.show_text(processes_text)
 
         # Draw "Swap" label on the upper-right side of the inner circle of the circular gauge.
         ram_text = _tr("Swap")
         ctx.set_font_size(gauge_processes_swap_label_text_size)
+        if len(ram_text) > 9:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
         text_extends = ctx.text_extents(ram_text)
         text_start_x = text_extends.width
         ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_processes_swap_label_text_move)
@@ -1169,23 +1174,23 @@ class Performance:
 
         # Draw lowest layer of the shadow of the Processes label on the left side of the inner circle of the circular gauge.
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
-        text_extends = ctx.text_extents(processes_text)
+        text_extends = ctx.text_extents(processes_number_text)
         text_start_x = text_extends.width
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_usage_text_move + 2 * gauge_processes_swap_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
-        ctx.show_text(processes_text)
+        ctx.show_text(processes_number_text)
 
         # Draw shadow of the Processes label on the left side of the inner circle of the circular gauge.
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_usage_text_move + gauge_processes_swap_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.7)
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
-        ctx.show_text(processes_text)
+        ctx.show_text(processes_number_text)
 
         # Draw Processes label on the left side of the inner circle of the circular gauge.
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_usage_text_move)
         ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
-        ctx.show_text(processes_text)
+        ctx.show_text(processes_number_text)
 
         # Draw lowest layer of the shadow of the Swap usage percentage label on the left side of the inner circle of the circular gauge.
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
@@ -1256,30 +1261,38 @@ class Performance:
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         read_speed_text = _tr("Read Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
+        if len(read_speed_text) > 16:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
         ctx.move_to(gauge_disk_read_speed_label_text_move_x, -gauge_disk_read_speed_label_text_move_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(read_speed_text)
 
         # Draw "Write Speed" label on the upper-left side of the inner circle of the circular gauge.
-        read_speed_text = _tr("Write Speed")
+        write_speed_text = _tr("Write Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
+        if len(write_speed_text) > 16:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
         ctx.move_to(gauge_disk_write_speed_label_text_move_x, -gauge_disk_write_speed_label_text_move_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        ctx.show_text(read_speed_text)
+        ctx.show_text(write_speed_text)
 
         # Draw "Download Speed" label on the upper-left side of the inner circle of the circular gauge.
-        read_speed_text = _tr("Download Speed")
+        download_speed_text = _tr("Download Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
+        if len(download_speed_text) > 16:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
         ctx.move_to(gauge_network_download_speed_label_text_move_x, gauge_network_download_speed_label_text_move_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        ctx.show_text(read_speed_text)
+        ctx.show_text(download_speed_text)
 
         # Draw "Upload Speed" label on the upper-left side of the inner circle of the circular gauge.
-        read_speed_text = _tr("Upload Speed")
+        upload_speed_text = _tr("Upload Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
+        if len(upload_speed_text) > 16:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
         ctx.move_to(gauge_network_upload_speed_label_text_move_x, gauge_network_upload_speed_label_text_move_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        ctx.show_text(read_speed_text)
+        ctx.show_text(upload_speed_text)
 
 
         # Draw lowest layer of the shadow of the Disk Read Speed label on the right gauge.

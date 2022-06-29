@@ -1,3 +1,14 @@
+system-monitoring-center (1.22.0) unstable; urgency=medium
+
+  * Changed main menu button location and appearance
+  * Hide Services tab if systemd is not used
+  * Fix: Updating search results after list changes on some tabs
+  * Fix: Getting IP addresses on some distributions
+  * Fix: Using dark theme on some newer desktop environments
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 30 Jun 2022 08:00:00 +0300
+
 system-monitoring-center (1.21.0) unstable; urgency=medium
 
   * Removed: Unused translations

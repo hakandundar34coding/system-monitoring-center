@@ -88,7 +88,7 @@ class DiskDetails:
         disk_sector_size = Performance.disk_sector_size
 
         # Set Disk Details window title
-        self.window1301w.set_title(_tr("Disk Details") + ": " + selected_disk)
+        self.window1301w.set_title(_tr("Disk") + ": " + selected_disk)
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         performance_disk_data_precision = Config.performance_disk_data_precision

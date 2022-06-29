@@ -852,16 +852,17 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Main Menu</property>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="icon-name">system-monitoring-center</property>
-                <property name="icon_size">3</property>
+                <property name="icon-name">open-menu-symbolic</property>
               </object>
             </child>
           </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
         </child>
         <child>
           <placeholder/>

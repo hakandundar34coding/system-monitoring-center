@@ -1,5 +1,13 @@
 # System Monitoring Center
 
+### v1.22.0
+  * Changed main menu button location and appearance
+  * Hide Services tab if systemd is not used
+  * Fix: Updating search results after list changes on some tabs
+  * Fix: Getting IP addresses on some distributions
+  * Fix: Using dark theme on some newer desktop environments
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.21.0
   * Removed: Unused translations
   * Fix: Incorrect column ordering (Processes,Users,Services tabs)
