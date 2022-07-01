@@ -8,6 +8,7 @@ from gi.repository import Gtk, GLib
 import subprocess
 import os
 import platform
+import threading
 
 
 # Define class
@@ -45,6 +46,7 @@ class System:
         self.label8120 = builder.get_object('label8120')
         self.label8121 = builder.get_object('label8121')
         self.label8122 = builder.get_object('label8122')
+        self.spinner8101 = builder.get_object('spinner8101')
 
         # Connect GUI signals
         self.button8101.connect("clicked", self.on_button8101_clicked)
@@ -56,6 +58,9 @@ class System:
     # ----------------------- "Refresh" Button -----------------------
     def on_button8101_clicked(self, widget):
 
+        # Start spinner animation and show it before running the function for getting information.
+        self.spinner8101.start()
+        self.spinner8101.show()
         GLib.idle_add(self.system_initial_func)
 
 
@@ -72,8 +77,9 @@ class System:
         number_of_monitors = self.system_number_of_monitors_func()
         number_of_installed_flatpak_packages = self.system_installed_flatpak_packages_func()
         current_python_version, current_gtk_version = self.system_current_python_version_gtk_version_func()
-        number_of_installed_apt_or_rpm_or_pacman_packages = self.system_installed_apt_rpm_pacman_packages_func()
         current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager = self.system_desktop_environment_and_version_windowing_system_window_manager_display_manager_func()
+        # Run this function in a separate thread because it may take a long time (2-3 seconds) to get the information on some systems (such as rpm based systems) and it blocks the GUI during this process if a separate thread is not used.
+        threading.Thread(target=self.system_installed_apt_rpm_pacman_packages_func, daemon=True).start()
 
 
         # Set label texts to show information
@@ -95,13 +101,21 @@ class System:
         self.label8116.set_text(host_name)
         self.label8117.set_text(cpu_architecture)
         self.label8118.set_text(f'{number_of_monitors}')
-        self.label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
+        #self.label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
         self.label8120.set_text(f'{number_of_installed_flatpak_packages}')
         self.label8121.set_text(current_gtk_version)
         self.label8122.set_text(f'{current_python_version}')
 
         self.initial_already_run = 1
 
+
+    # ----------------------- Set spinner properties and show "number_of_installed_apt_or_rpm_or_pacman_packages" information on the label -----------------------
+    def system_set_number_of_installed_apt_or_rpm_or_pacman_packages_label_func(self, number_of_installed_apt_or_rpm_or_pacman_packages):
+
+        # Stop spinner animation and hide it after running the function for getting information.
+        self.spinner8101.stop()
+        self.spinner8101.hide()
+        self.label8119.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
 
 
     # ----------------------- Get OS name, version, version code name and OS based on information -----------------------
@@ -320,6 +334,9 @@ class System:
                     number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
             except (FileNotFoundError, subprocess.CalledProcessError) as me:
                 pacman_packages_available = "-"
+
+        # Show the information on the label by using "GLib.idle_add" in order to avoid problems (bugs, data corruption, etc.) because of threading (GTK is not thread-safe).
+        GLib.idle_add(self.system_set_number_of_installed_apt_or_rpm_or_pacman_packages_label_func, number_of_installed_apt_or_rpm_or_pacman_packages)
 
         return number_of_installed_apt_or_rpm_or_pacman_packages
 
