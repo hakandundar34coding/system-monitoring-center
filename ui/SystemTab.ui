@@ -779,7 +779,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Version of Python which is running this application</property>
+                    <property name="tooltip-text" translatable="yes">Version for the currently running software</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Python Version:</property>
                     <property name="ellipsize">end</property>
@@ -793,7 +793,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Version of Gtk which is running this application</property>
+                    <property name="tooltip-text" translatable="yes">Version for the currently running software</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Gtk Version:</property>
                     <property name="ellipsize">end</property>

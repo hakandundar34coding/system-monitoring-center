@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 10:29+0300\n"
-"PO-Revision-Date: 2022-06-29 10:31+0300\n"
+"POT-Creation-Date: 2022-07-04 15:45+0300\n"
+"PO-Revision-Date: 2022-07-04 15:48+0300\n"
 "Last-Translator: Kálmán „KAMI” Szalai <kami911@gmail.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -48,12 +48,12 @@ msgstr "Cserehely"
 
 #: src/Disk.py:387 src/Gpu.py:243 src/Gpu.py:246 src/Network.py:265
 #: src/Network.py:305 src/Services.py:168 src/ServicesDetails.py:128
-#: src/UsersDetails.py:213
+#: src/UsersDetails.py:216
 msgid "Yes"
 msgstr "Igen"
 
 #: src/Disk.py:389 src/Gpu.py:248 src/Network.py:267 src/Services.py:168
-#: src/ServicesDetails.py:128 src/UsersDetails.py:215
+#: src/ServicesDetails.py:128 src/UsersDetails.py:218
 msgid "No"
 msgstr "Nem"
 
@@ -70,29 +70,29 @@ msgstr ""
 "Figyelmeztetés! Az alkalmazás rendszergazdai jogosultsággal fut, ami kárt "
 "okozhat a rendszerben."
 
-#: src/MainGUI.py:253
+#: src/MainGUI.py:260
 msgid "There is a newer version on PyPI."
 msgstr "Újabb verzió érhető el a PyPI csomagból."
 
-#: src/MainGUI.py:544 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: src/MainGUI.py:551 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:709 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
 msgstr "Összegzés"
 
-#: src/MainGUI.py:554
+#: src/MainGUI.py:561
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "A CPU-mag kiválasztása csak a frekvencia és gyorsítótár-memória "
 "információkat érinti."
 
-#: src/MainGUI.py:558 src/Memory.py:180 src/Performance.py:1091
+#: src/MainGUI.py:565 src/Memory.py:180 src/Performance.py:1091
 #: src/Performance.py:1419 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:53
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:558 src/Memory.py:207 src/Performance.py:1419
+#: src/MainGUI.py:565 src/Memory.py:207 src/Performance.py:1419
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:504
 #: ui/ProcessesDetailsWindow.ui:902
 msgid "Swap Memory"
@@ -217,8 +217,9 @@ msgstr "Feltöltési sebesség"
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:188 src/Users.py:129 ui/ProcessesDetailsWindow.ui:87
-#: ui/ProcessesMenuCustomizations.ui:179 ui/UsersDetailsWindow.ui:45
+#: src/Processes.py:188 src/Users.py:129 src/UsersDetails.py:122
+#: ui/ProcessesDetailsWindow.ui:87 ui/ProcessesMenuCustomizations.ui:179
+#: ui/UsersDetailsWindow.ui:7 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:57
 msgid "User"
 msgstr "Felhasználó"
@@ -318,7 +319,7 @@ msgstr "Hibakövetés leállítása"
 msgid "Dead"
 msgstr "Üzemképtelen"
 
-#: src/Processes.py:618 src/Sensors.py:333 src/Services.py:447 src/Users.py:493
+#: src/Processes.py:618 src/Sensors.py:333 src/Services.py:464 src/Users.py:493
 #: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:99
 #: ui/UsersTab.ui:66
 msgid "Search..."
@@ -438,7 +439,7 @@ msgstr "Betöltve"
 msgid "Exited"
 msgstr "Kilépett"
 
-#: src/Services.py:447 src/SettingsGUI.py:50 ui/MainWindow.ui:769
+#: src/Services.py:464 src/SettingsGUI.py:50 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Szolgáltatások"
@@ -1137,26 +1138,18 @@ msgstr "Telepített Flatpak alkalmazások és futtatókörnyezetek száma"
 msgid "Flatpak:"
 msgstr "Flatpak:"
 
-#: ui/SystemTab.ui:736
+#: ui/SystemTab.ui:719
 msgid "Window Manager:"
 msgstr "Ablakkezelő:"
 
-#: ui/SystemTab.ui:799
-msgid "Version of Python which is running this application"
-msgstr "Az alkalmazást futtató Python értelmező verziója"
+#: ui/SystemTab.ui:782 ui/SystemTab.ui:796
+msgid "Version for the currently running software"
+msgstr ""
 
-#: ui/SystemTab.ui:801
+#: ui/SystemTab.ui:784
 msgid "Python Version:"
 msgstr "Python verzió:"
 
-#: ui/SystemTab.ui:813
-msgid "Version of Gtk which is running this application"
-msgstr "Az alkalmazás által használt GTK alkalmazáskönyvtár verziója"
-
-#: ui/SystemTab.ui:815
+#: ui/SystemTab.ui:798
 msgid "Gtk Version:"
 msgstr "GTK verzió:"
-
-#: ui/UsersDetailsWindow.ui:7
-msgid "User Details"
-msgstr "Felhasználói adatok"
