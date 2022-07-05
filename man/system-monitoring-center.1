@@ -1,15 +1,21 @@
 .\" Manpage for system-monitoring-center.
 .\" Author: Hakan Dündar <hakandundar34coding@gmail.com>
-.\" Date: 12/11/2021
+.\" Date: 05/07/2022
 .\" Language: English
 .TH "system-monitoring-center" "1" "" "system-monitoring-center" "man page"
 .SH NAME
-system-monitoring-center \- Provides information about system performance and usage.
+system-monitoring-center \- Multi-featured system monitor.
 .SH SYNOPSIS
 system-monitoring-center
 .SH DESCRIPTION
-Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, storage, startup programs, services, environment variables and system.
+Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, services and system.
 .SH OPTIONS
 system-monitoring-center has no command line options.
 .SH MORE INFORMATION
-Perform mouse hover action on GUI objects (such as labels, menu items, buttons, etc.) to get explanatory information.
+Some labels provide explanatory information when mouse hovering action is performed.
+
+GPU usage information availability depends on vendor/driver.
+
+GPU load is not tracked if GPU tab is switched off (for lower CPU usage).
+
+Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.
