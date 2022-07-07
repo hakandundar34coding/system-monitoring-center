@@ -18,7 +18,7 @@ Multi-featured system monitor.
     - Monitoring and managing processes and services (systemd)
     - Monitoring users, sensors and general system information
 - Supports PolicyKit. No need to run the application with "sudo"
-- Hardware selection options (selecting  different CPU cores, disks, network cards, GPUs)
+- Hardware selection options (selecting CPU cores, disks, network cards, GPUs)
 - Plotting performance data of multiple devices at the same time
 - Interactive charts for querying performance data on any point
 - Option for showing processes as tree or list
