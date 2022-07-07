@@ -8,6 +8,7 @@ gi.require_version('GLib', '2.0')
 from gi.repository import Gtk, Gdk, GLib
 import os
 import subprocess
+from threading import Thread
 
 from locale import gettext as _tr
 
@@ -480,15 +481,14 @@ class Gpu:
         # If selected GPU vendor is NVIDIA and selected GPU is used on a PCI used system.
         if self.device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/class/drm/") == True:
 
-            # Define command for getting GPU usage information.
-            gpu_tool_command = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
-
-            # Try to get GPU usage information.
+            # Try to get GPU usage information in a separate thread in order to prevent this function from blocking the main thread and GUI for a very small time which stops the GUI for a very small time.
             gpu_tool_output = "-"
+            Thread(target=self.gpu_load_nvidia_func, daemon=True).start()
+
             try:
-                gpu_tool_output = (subprocess.check_output(gpu_tool_command, shell=False)).decode().strip().split("\n")
-            # Prevent errors because nvidia-smi may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
-            except FileNotFoundError:
+                gpu_tool_output = self.gpu_tool_output
+            # Prevent error if thread is not finished before using the output variable "gpu_tool_output".
+            except AttributeError:
                 pass
 
             # Get values from command output if there was no error when running the command.
@@ -588,6 +588,20 @@ class Gpu:
         gpu_min_max_frequency = f'{gpu_min_frequency} - {gpu_max_frequency}'
 
         return gpu_load, gpu_memory, gpu_current_frequency, gpu_min_max_frequency, gpu_temperature, gpu_power
+
+
+    # ----------------------- Get GPU load average for NVIDIA (PCI) GPUs -----------------------
+    def gpu_load_nvidia_func(self):
+
+        # Define command for getting GPU usage information.
+        gpu_tool_command = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
+
+        # Try to get GPU usage information.
+        try:
+            self.gpu_tool_output = (subprocess.check_output(gpu_tool_command, shell=False)).decode().strip().split("\n")
+        # Prevent errors because nvidia-smi may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
+        except FileNotFoundError:
+            pass
 
 
     # ----------------------- Get GPU load average for AMD GPUs -----------------------

@@ -1,5 +1,12 @@
 # System Monitoring Center
 
+### v1.23.0
+  * Improved start speed of Services tab on several systems
+  * Improved information show speed on some systems (System tab)
+  * Improvements for preventing GUI blocking (GPU tab)
+  * Improvements for thread safety (MainGUI)
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.22.0
   * Changed main menu button location and appearance
   * Hide Services tab if systemd is not used

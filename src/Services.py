@@ -254,12 +254,29 @@ def services_loop_func():
     for service in service_list:
         unit_files_command.append(service)
 
-    # Get service data per service file in one attempt in order to obtain lower CPU usage. Because information from all service files will be get by one commandline operation and will be parsed later.
+    # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user.
     try:
-        systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
-    # Prevent errors if "systemd" is not used on the system.
-    except Exception:
-        return
+        number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")                           # To be able to get number of online logical CPU cores first try  a faster way: using "SC_NPROCESSORS_ONLN" variable.
+    except ValueError:
+        with open("/proc/cpuinfo") as reader:                                                 # As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+            proc_cpuinfo_lines = reader.read().split("\n")
+        number_of_logical_cores = 0
+        for line in proc_cpuinfo_lines:
+            if line.startswith("processor"):
+                number_of_logical_cores = number_of_logical_cores + 1
+
+    # Get services bu using single process (instead of multiprocessing) if the system has 1 or 2 CPU cores.
+    if number_of_logical_cores in [1, 2]:
+        # Get service data per service file in one attempt in order to obtain lower CPU usage. Because information from all service files will be get by one commandline operation and will be parsed later.
+        try:
+            systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
+        # Prevent errors if "systemd" is not used on the system.
+        except Exception:
+            return
+    # Get services bu using multiple processes (multiprocessing) if the system has more than 2 CPU cores.
+    if number_of_logical_cores > 2:
+        import ServicesGetMultProc
+        systemctl_show_command_lines = ServicesGetMultProc.start_processes_func(number_of_logical_cores, unit_files_command)
 
     # Get services data (specific information by processing the data get previously)
     for i, service in enumerate(service_list):

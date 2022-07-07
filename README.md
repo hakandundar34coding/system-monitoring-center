@@ -6,7 +6,6 @@ Multi-featured system monitor.
 <p align="center">
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"/></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/hakandundar34coding/system-monitoring-center"></a>
-<a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/system-monitoring-center"></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/hakandundar34coding/system-monitoring-center/total"></a>
 <a href="https://pypi.org/project/system-monitoring-center/"><img src="https://static.pepy.tech/personalized-badge/system-monitoring-center?period=total&units=international_system&left_color=grey&right_color=green&left_text=downloads"/></a>
 <a href="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/Changes.md"><img src="https://img.shields.io/badge/View-Changelog-b37840"></a>
@@ -19,7 +18,7 @@ Multi-featured system monitor.
     - Monitoring and managing processes and services (systemd)
     - Monitoring users, sensors and general system information
 - Supports PolicyKit. No need to run the application with "sudo"
-- Hardware selection options (selecting  different CPU cores, disks, network cards, GPUs)
+- Hardware selection options (selecting CPU cores, disks, network cards, GPUs)
 - Plotting performance data of multiple devices at the same time
 - Interactive charts for querying performance data on any point
 - Option for showing processes as tree or list
@@ -89,4 +88,4 @@ Multi-featured system monitor.
 ### Notes:
 - GPU usage information availability depends on vendor/driver.
 - GPU load is not tracked if GPU tab is switched off (for lower CPU usage).
-- Some virtual machines does not provide CPU min-max frequencies, sensors and RAM hardware information.
+- Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.

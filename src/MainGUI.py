@@ -201,7 +201,7 @@ class MainGUI:
             if current_dir.startswith("/usr/local/lib/") == True or current_dir.startswith(current_user_homedir + "/.local/lib/") == True:
                 # Run the function in a separate thread in order to avoid blocking the GUI because "pip ..." command runs about 1 seconds.
                 from threading import Thread
-                Thread(target=self.main_update_check_func).start()
+                Thread(target=self.main_update_check_func, daemon=True).start()
 
 
     # ----------------------- Called for adapting to system color scheme on systems with newer versions than GTK3. -----------------------
@@ -249,16 +249,23 @@ class MainGUI:
 
         # Show an information label with a green background just below the headerbar if there is a newer version on PyPI.
         if current_version != last_version:
-            # Generate a new label for the information. This label does not exist in the ".ui" UI file.
-            label_new_version_information = Gtk.Label(label=_tr("There is a newer version on PyPI."))
-            css = b"label {background: rgba(24%,70%,45%,1.0);}"
-            style_provider = Gtk.CssProvider()
-            style_provider.load_from_data(css)
-            label_new_version_information.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-            self.grid10.insert_row(0)
-            # Attach the label to the grid at (0, 0) position.
-            self.grid10.attach(label_new_version_information, 0, 0, 1, 1)
-            label_new_version_information.set_visible(True)
+            # Show the notification information on the label by using "GLib.idle_add" in order to avoid problems (bugs, data corruption, etc.) because of threading (GTK is not thread-safe).
+            GLib.idle_add(self.main_update_check_gui_notification_func)
+
+
+    # ----------------------- Show a notification label on the GUI if there is a newer version on PyPI -----------------------
+    def main_update_check_gui_notification_func(self):
+
+        # Generate a new label for the information. This label does not exist in the ".ui" UI file.
+        label_new_version_information = Gtk.Label(label=_tr("There is a newer version on PyPI."))
+        css = b"label {background: rgba(24%,70%,45%,1.0);}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        label_new_version_information.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.grid10.insert_row(0)
+        # Attach the label to the grid at (0, 0) position.
+        self.grid10.attach(label_new_version_information, 0, 0, 1, 1)
+        label_new_version_information.set_visible(True)
 
 
     # ----------------------- "Main Menu" Button -----------------------

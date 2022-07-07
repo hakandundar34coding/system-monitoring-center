@@ -1,3 +1,13 @@
+system-monitoring-center (1.23.0) unstable; urgency=medium
+
+  * Improved start speed of Services tab on several systems
+  * Improved information show speed on some systems (System tab)
+  * Improvements for preventing GUI blocking (GPU tab)
+  * Improvements for thread safety (MainGUI)
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 07 Jul 2022 08:00:00 +0300
+
 system-monitoring-center (1.22.0) unstable; urgency=medium
 
   * Changed main menu button location and appearance

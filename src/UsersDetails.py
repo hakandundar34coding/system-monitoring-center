@@ -118,6 +118,9 @@ class UsersDetails:
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         users_cpu_precision = Config.users_cpu_precision
 
+
+        self.window3101w.set_title(_tr("User") + ": " + selected_username)
+
         # Define empty lists for the current loop
         global_process_cpu_times = []
 

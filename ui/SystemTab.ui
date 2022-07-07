@@ -695,23 +695,6 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label8119">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="label">--</property>
-                    <property name="selectable">True</property>
-                    <property name="ellipsize">end</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left-attach">3</property>
-                    <property name="top-attach">1</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkLabel" id="label8120">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -796,7 +779,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Version of Python which is running this application</property>
+                    <property name="tooltip-text" translatable="yes">Version for the currently running software</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Python Version:</property>
                     <property name="ellipsize">end</property>
@@ -810,7 +793,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="tooltip-text" translatable="yes">Version of Gtk which is running this application</property>
+                    <property name="tooltip-text" translatable="yes">Version for the currently running software</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Gtk Version:</property>
                     <property name="ellipsize">end</property>
@@ -818,6 +801,46 @@
                   <packing>
                     <property name="left-attach">2</property>
                     <property name="top-attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <!-- n-columns=2 n-rows=1 -->
+                  <object class="GtkGrid">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="column-spacing">2</property>
+                    <child>
+                      <object class="GtkLabel" id="label8119">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="label">--</property>
+                        <property name="selectable">True</property>
+                        <property name="ellipsize">end</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinner" id="spinner8101">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left-attach">3</property>
+                    <property name="top-attach">1</property>
                   </packing>
                 </child>
               </object>
