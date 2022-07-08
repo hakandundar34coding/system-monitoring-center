@@ -205,13 +205,20 @@ def services_loop_func():
     service_loaded_not_loaded_list = []
 
     # Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories. But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
-    # There is no "/usr/lib/systemd/system/" on some ARM systems and "/lib/systemd/system/" is used in this case. "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
+    # There is no "/usr/lib/systemd/system/" on some ARM systems (and also on older distributions) and "/lib/systemd/system/" is used in this case. On newer distributions "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
+    # On ARM systems, also "/usr/lib/systemd/system/" folder may be used after installling some applications. In this situation this folder will be a real path.
+    service_unit_file_list_usr_lib_systemd = []
+    service_unit_file_list_lib_systemd = []
     if os.path.isdir("/usr/lib/systemd/system/") == True:
         service_unit_files_dir = "/usr/lib/systemd/system/"
-    else:
+        service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]    # Get file names which ends withs ".service".
+    if os.path.realpath("/lib/systemd/system/") == "/usr/lib/systemd/system/":
         service_unit_files_dir = "/lib/systemd/system/"
+        service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]    # Get file names which ends withs ".service".
 
-    service_unit_file_list = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]    # Get file names which ends withs ".service".
+    # Merge service file lists from different folders.
+    service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd
+
     try:
         service_files_from_run_systemd_list = [filename.split("invocation:", 1)[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
     except FileNotFoundError:
