@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-04 15:45+0300\n"
-"PO-Revision-Date: 2022-07-11 01:55+0100\n"
-"Last-Translator: Ricardo Simões - XM Corporation <xm.corporation@gmail.com>\n"
+"PO-Revision-Date: 2022-07-13 00:48+0100\n"
+"Last-Translator: Ricardo Simões <xmcorporation@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
@@ -68,8 +68,8 @@ msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
 msgstr ""
-"Aviso! O aplicativo está sendo executado com privilégios de root, você pode "
-"danificar Seu sistema."
+"Aviso! A aplicação está a ser executada com privilégios de root, você pode "
+"danificar o seu sistema."
 
 #: src/MainGUI.py:260
 msgid "There is a newer version on PyPI."
@@ -133,7 +133,7 @@ msgstr "Fabricante"
 
 #: src/MemoryRamHardware.py:127 src/MemoryRamHardware.py:147
 msgid "Form Factor"
-msgstr "Fator de Forma"
+msgstr "Formato de Forma"
 
 #: src/MemoryRamHardware.py:128 src/MemoryRamHardware.py:148
 msgid "Locator"
@@ -145,7 +145,7 @@ msgstr "Localizador de Banco"
 
 #: src/MemorySwapDetails.py:66
 msgid "File"
-msgstr "Arquivo"
+msgstr "Ficheiro"
 
 #: src/MemorySwapDetails.py:95 src/Processes.py:186 src/Sensors.py:81
 #: src/Services.py:136 ui/ProcessesDetailsWindow.ui:48
@@ -223,12 +223,12 @@ msgstr "PID"
 #: ui/UsersDetailsWindow.ui:7 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:57
 msgid "User"
-msgstr "Usuário"
+msgstr "Utilizador"
 
 #: src/Processes.py:189 ui/ProcessesDetailsWindow.ui:74
 #: ui/ProcessesMenuCustomizations.ui:193
 msgid "Status"
-msgstr "Status"
+msgstr "Estado"
 
 #: src/Processes.py:191 src/Services.py:142 ui/ProcessesDetailsWindow.ui:126
 #: ui/ProcessesDetailsWindow.ui:850 ui/ProcessesMenuCustomizations.ui:221
@@ -244,17 +244,17 @@ msgstr "Memória (VMS)"
 #: src/Processes.py:193 ui/ProcessesDetailsWindow.ui:876
 #: ui/ProcessesMenuCustomizations.ui:305
 msgid "Memory (Shared)"
-msgstr "Memória (Compartilhada)"
+msgstr "Memória (Partilhada)"
 
 #: src/Processes.py:194 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1307
 #: ui/ProcessesMenuCustomizations.ui:347
 msgid "Read Data"
-msgstr "Dados de Leitura"
+msgstr "Ler Dados"
 
 #: src/Processes.py:195 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1320
 #: ui/ProcessesMenuCustomizations.ui:361
 msgid "Write Data"
-msgstr "Dados de Escrita"
+msgstr "Escrever Dados"
 
 #: src/Processes.py:199 ui/ProcessesDetailsWindow.ui:754
 #: ui/ProcessesMenuCustomizations.ui:263
@@ -290,15 +290,15 @@ msgstr "Linha de Comando"
 
 #: src/Processes.py:230 src/Services.py:167 src/ServicesDetails.py:127
 msgid "Running"
-msgstr "Executando"
+msgstr "A executar"
 
 #: src/Processes.py:230
 msgid "Sleeping"
-msgstr "Dormindo"
+msgstr "A dormir"
 
 #: src/Processes.py:230
 msgid "Waiting"
-msgstr "Aguardando"
+msgstr "A aguardar"
 
 #: src/Processes.py:230
 msgid "Idle"
@@ -306,7 +306,7 @@ msgstr "Ocioso"
 
 #: src/Processes.py:230
 msgid "Zombie"
-msgstr "Zumbi"
+msgstr "Zombi"
 
 #: src/Processes.py:230
 msgid "Stopped"
@@ -314,7 +314,7 @@ msgstr "Parado"
 
 #: src/Processes.py:230
 msgid "Tracing Stop"
-msgstr "Tentando Parar"
+msgstr "Paragem de Rastreamento"
 
 #: src/Processes.py:230 src/Services.py:167 src/ServicesDetails.py:127
 msgid "Dead"
@@ -332,7 +332,7 @@ msgstr "Detalhes do Processo"
 
 #: src/ProcessesDetails.py:667
 msgid "This process is not running anymore:"
-msgstr "Este processo não está mais em execução:"
+msgstr "Este processo já não está em execução:"
 
 #: src/ProcessesMenuRightClick.py:83
 msgid "Do you want to terminate this process?"
@@ -385,7 +385,7 @@ msgstr "Estado de Carga"
 #: src/Services.py:141 ui/ServicesDetailsWindow.ui:290
 #: ui/ServicesMenuCustomizations.ui:129
 msgid "Sub-State"
-msgstr "Subestado"
+msgstr "Sub-estado"
 
 #: src/Services.py:143 ui/ServicesDetailsWindow.ui:62
 #: ui/ServicesMenuCustomizations.ui:157
@@ -447,7 +447,7 @@ msgstr "Serviços"
 
 #: src/ServicesMenuRightClick.py:120
 msgid "Information"
-msgstr "Informações"
+msgstr "Informação"
 
 #: src/SettingsGUI.py:50 ui/MainWindow.ui:628
 msgid "Performance"
@@ -456,7 +456,7 @@ msgstr "Desempenho"
 #: src/SettingsGUI.py:50 src/Users.py:493 ui/MainWindow.ui:722
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
-msgstr "Usuários"
+msgstr "Utilizadores"
 
 #: src/SettingsGUI.py:50 ui/MainWindow.ui:816 ui/SystemTab.ui:26
 msgid "System"
@@ -517,7 +517,7 @@ msgstr "Hora de Início"
 #: ui/ServicesMenuCustomizations.ui:226 ui/SettingsWindow.ui:248
 #: ui/UsersMenuCustomizations.ui:271
 msgid "Reset"
-msgstr "Resetar"
+msgstr "Repor"
 
 #: ui/CpuMenus.ui:167 ui/DiskMenus.ui:239 ui/MemoryMenus.ui:180
 #: ui/NetworkMenus.ui:208
@@ -568,7 +568,7 @@ msgstr "Cache (L2-L3):"
 
 #: ui/CpuTab.ui:343
 msgid "CPU Sockets:"
-msgstr "Soquetes de CPU:"
+msgstr "Sockets de CPU:"
 
 #: ui/CpuTab.ui:372
 msgid "Number of online physical and logical CPU cores"
@@ -585,7 +585,7 @@ msgstr "Arquitetura:"
 #: ui/CpuTab.ui:490 ui/DiskDetailsWindow.ui:149 ui/DiskTab.ui:595
 #: ui/GpuTab.ui:548 ui/NetworkTab.ui:550
 msgid "Vendor-Model"
-msgstr "Fabricante"
+msgstr "Fabricante-Modelo"
 
 #: ui/CpuTab.ui:508 ui/DiskTab.ui:580 ui/GpuTab.ui:566 ui/NetworkTab.ui:568
 msgid "Device Name In Kernel"
@@ -593,7 +593,7 @@ msgstr "Nome do Dispositivo no Kernel"
 
 #: ui/DiskDetailsWindow.ui:58
 msgid "Parent Name"
-msgstr "Nome do Processo Pai"
+msgstr "Nome do Pai"
 
 #: ui/DiskDetailsWindow.ui:71
 msgid "System Disk"
@@ -601,7 +601,7 @@ msgstr "Disco do Sistema"
 
 #: ui/DiskDetailsWindow.ui:97
 msgid "File System"
-msgstr "Sistema de Arquivos"
+msgstr "Sistema de Ficheiros"
 
 #: ui/DiskDetailsWindow.ui:123
 msgid "Free"
@@ -609,7 +609,7 @@ msgstr "Livre"
 
 #: ui/DiskDetailsWindow.ui:162
 msgid "Label (File System)"
-msgstr "Etiqueta (Sistema de Arquivos)"
+msgstr "Etiqueta (Sistema de Ficheiros)"
 
 #: ui/DiskDetailsWindow.ui:327
 msgid "Mount Point"
@@ -673,7 +673,7 @@ msgstr "Detalhes:"
 
 #: ui/DiskTab.ui:402 ui/MemoryTab.ui:237 ui/MemoryTab.ui:479
 msgid "Show..."
-msgstr "Exibir..."
+msgstr "Mostrar..."
 
 #: ui/DiskTab.ui:493
 msgid "Disk Read (-) & Write (-  -) Speed"
@@ -713,7 +713,7 @@ msgstr "Temperatura"
 
 #: ui/MainMenusDialogs.ui:13
 msgid "Multi-featured system monitor."
-msgstr "Monitor de Sistema com vários recursos."
+msgstr "Monitor de Sistema multi-recursos."
 
 #: ui/MainMenusDialogs.ui:87
 msgid "Settings"
@@ -725,7 +725,7 @@ msgstr "Sobre"
 
 #: ui/MainWindow.ui:847
 msgid "System Monitoring Center"
-msgstr "Central de Monitoramento do Sistema"
+msgstr "Centro de Monitorização do Sistema"
 
 #: ui/MemoryTab.ui:97
 msgid "Available"
@@ -741,7 +741,7 @@ msgstr "Uso de RAM"
 
 #: ui/NetworkTab.ui:208
 msgid "Downloaded Data"
-msgstr "Dados Baixados"
+msgstr "Dados Descarregados"
 
 #: ui/NetworkTab.ui:221
 msgid "Uploaded Data"
@@ -753,7 +753,7 @@ msgstr "Tipo de Conexão:"
 
 #: ui/NetworkTab.ui:281
 msgid "Connected-SSID:"
-msgstr "SSID Conectado:"
+msgstr "SSID-Conetado:"
 
 #: ui/NetworkTab.ui:294
 msgid "Signal Strength:"
@@ -809,7 +809,7 @@ msgid ""
 "(Not recursively)"
 msgstr ""
 "Processos Filhos\n"
-"(Não Recorrentes)"
+"(Não recursivamente)"
 
 #: ui/ProcessesDetailsWindow.ui:767
 msgid "Threads (TID)"
@@ -825,7 +825,7 @@ msgstr "Tempos de CPU"
 
 #: ui/ProcessesDetailsWindow.ui:806
 msgid "Context Switches"
-msgstr "Chaves de Contexto"
+msgstr "Interruptores de Contexto"
 
 #: ui/ProcessesDetailsWindow.ui:889
 msgid "Memory (USS)"
@@ -837,11 +837,11 @@ msgstr "CPU e Memória"
 
 #: ui/ProcessesDetailsWindow.ui:1333
 msgid "Read Count"
-msgstr "Contagem de Leitura de Disco"
+msgstr "Contagem de Leitura"
 
 #: ui/ProcessesDetailsWindow.ui:1346
 msgid "Write Count"
-msgstr "Contagem de Escrita de Disco"
+msgstr "Contagem de Escrita"
 
 #: ui/ProcessesDetailsWindow.ui:1493
 msgid "Current Working Directory"
@@ -849,7 +849,7 @@ msgstr "Diretório de Trabalho Atual"
 
 #: ui/ProcessesDetailsWindow.ui:1519
 msgid "Opened Files"
-msgstr "Arquivos Abertos"
+msgstr "Ficheiros Abertos"
 
 #: ui/ProcessesDetailsWindow.ui:1747
 msgid "Disk and Path"
@@ -857,7 +857,7 @@ msgstr "Disco e Caminho"
 
 #: ui/ProcessesMenuCustomizations.ui:49
 msgid "Show processes of all users"
-msgstr "Mostrar processos de todos os usuários"
+msgstr "Mostrar processos de todos os utilizadores"
 
 #: ui/ProcessesMenuCustomizations.ui:63
 msgid "Show processes as tree"
@@ -887,7 +887,7 @@ msgstr "Expandir Todos"
 
 #: ui/ProcessesMenuRightClick.ui:20
 msgid "Collapse All"
-msgstr "Recolher Todos"
+msgstr "Colapsar Todos"
 
 #: ui/ProcessesMenuRightClick.ui:34
 msgid "Stop Process"
@@ -948,7 +948,7 @@ msgstr "Hora de Término do Processo Principal"
 
 #: ui/ServicesDetailsWindow.ui:251
 msgid "Unit File State - Preset"
-msgstr "Estado do Arquivo da Unidade - Predefinição"
+msgstr "Estado do Ficheiro da Unidade - Predefinição"
 
 #: ui/ServicesDetailsWindow.ui:373
 msgid "Triggered By"
@@ -960,7 +960,7 @@ msgstr "Requer"
 
 #: ui/ServicesDetailsWindow.ui:658
 msgid "Conflicts"
-msgstr "Conflita com"
+msgstr "Entra em conflito com"
 
 #: ui/ServicesDetailsWindow.ui:671
 msgid "After"
@@ -1007,7 +1007,7 @@ msgid ""
 "Note: This tab is not reloaded automatically. Manually reload for changes."
 msgstr ""
 "Nota: Esta aba não é recarregada automaticamente. Recarregue manualmente "
-"para que as modificações tenham efeito."
+"para alterações."
 
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
@@ -1023,7 +1023,7 @@ msgstr "Intervalo de Atualização (segundos):"
 
 #: ui/SettingsWindow.ui:49
 msgid "Remember last opened tabs"
-msgstr "Lembrar das últimas abas abertas"
+msgstr "Lembrar últimas abas abertas"
 
 #: ui/SettingsWindow.ui:64
 msgid "Show performance summary on the headerbar"
@@ -1035,11 +1035,11 @@ msgstr "Histórico de dados do gráfico:"
 
 #: ui/SettingsWindow.ui:101
 msgid "Remember last selected devices"
-msgstr "Lembrar os últimos dispositivos selecionados"
+msgstr "Lembrar últimos dispositivos selecionados"
 
 #: ui/SettingsWindow.ui:155
 msgid "Remember window size"
-msgstr "Lembrar o tamanho da janela"
+msgstr "Lembrar tamanho da janela"
 
 #: ui/SettingsWindow.ui:189
 msgid "Check for updates automatically (PyPI only)"
@@ -1051,7 +1051,7 @@ msgstr "(Se a aplicação for executada sem privilégios de root)"
 
 #: ui/SettingsWindow.ui:295
 msgid "Reset all settings of the application to defaults"
-msgstr "Redefinir todas as configurações do aplicativo para os padrões"
+msgstr "Redefinir todas as configurações da aplicação para os padrões"
 
 #: ui/SettingsWindow.ui:330
 msgid "Default main tab and sub-tab:"
@@ -1063,7 +1063,7 @@ msgstr "Computador"
 
 #: ui/SystemTab.ui:79 ui/SystemTab.ui:130
 msgid "Operating System (OS)"
-msgstr "Sistema Operacional (S.O.)"
+msgstr "Sistema Operativo (S.O.)"
 
 #: ui/SystemTab.ui:147 ui/SystemTab.ui:404
 msgid "Name:"
@@ -1071,7 +1071,7 @@ msgstr "Nome:"
 
 #: ui/SystemTab.ui:160
 msgid "Version - Code Name:"
-msgstr "Versão - Codinome:"
+msgstr "Versão - Nome de Código:"
 
 #: ui/SystemTab.ui:207
 msgid "Model:"
@@ -1103,7 +1103,7 @@ msgstr "Versão do Kernel:"
 
 #: ui/SystemTab.ui:494
 msgid "Number Of Monitors:"
-msgstr "Número de Monitores (Telas):"
+msgstr "Número de Ecrãs:"
 
 #: ui/SystemTab.ui:551
 msgid "Graphical User Interface (GUI)"
@@ -1119,11 +1119,11 @@ msgstr "Ambiente de Trabalho:"
 
 #: ui/SystemTab.ui:649
 msgid "Windowing System:"
-msgstr "Sistema de janelas:"
+msgstr "Sistema de Janelas:"
 
 #: ui/SystemTab.ui:662
 msgid "Display Manager:"
-msgstr "Gerenciador de Exibição:"
+msgstr "Gestor de Visualização:"
 
 #: ui/SystemTab.ui:675
 msgid "System:"
@@ -1131,7 +1131,7 @@ msgstr "Sistema:"
 
 #: ui/SystemTab.ui:687
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr "Número de Aplicativos e Runtimes Flatpak instalados"
+msgstr "Número de runtimes e aplicações Flatpak instaladas"
 
 #: ui/SystemTab.ui:689
 msgid "Flatpak:"
@@ -1139,7 +1139,7 @@ msgstr "Flatpak:"
 
 #: ui/SystemTab.ui:719
 msgid "Window Manager:"
-msgstr "Gerenciador de Janelas:"
+msgstr "Gestor de Janelas:"
 
 #: ui/SystemTab.ui:782 ui/SystemTab.ui:796
 msgid "Version for the currently running software"
@@ -1147,8 +1147,8 @@ msgstr "Versão para o software atualmente a correr"
 
 #: ui/SystemTab.ui:784
 msgid "Python Version:"
-msgstr "Versão do Python:"
+msgstr "Versão Python:"
 
 #: ui/SystemTab.ui:798
 msgid "Gtk Version:"
-msgstr "Versão do GTK:"
+msgstr "Versão GTK:"
