@@ -28,6 +28,7 @@ class ProcessesDetails:
 
         # Get GUI objects
         self.window2101w = builder2101w.get_object('window2101w')
+        self.grid2101w = builder2101w.get_object('grid2101w')
         self.notebook2101w = builder2101w.get_object('notebook2101w')
         # Get "Summary" tab GUI objects
         self.label2101w = builder2101w.get_object('label2101w')
@@ -90,6 +91,9 @@ class ProcessesDetails:
             del self.update_interval
         except AttributeError:
             pass
+
+        # THis value is checked for repeating the function for getting the process data.
+        self.update_window_value = 1
 
         # Call this function in order to reset Processes Details window GUI.
         self.processes_details_gui_reset_function()
@@ -215,10 +219,10 @@ class ProcessesDetails:
             # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
             with open("/proc/" + selected_process_pid + "/stat") as reader:
                 proc_pid_stat_lines = reader.read()
-        # Process may be ended. "try-catch" is used for avoiding errors in this situation.
+        # Process may be ended. "try-except" is used for avoiding errors in this situation.
         except FileNotFoundError:
-            self.window2101w.hide()
-            self.processes_no_such_process_error_dialog(selected_process_name, selected_process_pid)
+            self.update_window_value = 0
+            self.process_details_process_end_label_func()
             return
 
         # Get process name            
@@ -234,8 +238,8 @@ class ProcessesDetails:
                 selected_process_name = process_cmdline.split("/")[-1].split("\x00")[0]       # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
             except FileNotFoundError:
-                self.window2101w.hide()
-                self.processes_no_such_process_error_dialog(selected_process_name, selected_process_pid)
+                self.update_window_value = 0
+                self.process_details_process_end_label_func()
                 return
             selected_process_name = process_cmdline.split("/")[-1].split(" ")[0]
             if selected_process_name.startswith(process_name_from_stat) == False:
@@ -255,7 +259,7 @@ class ProcessesDetails:
 
         # Show and update process details on the "Summary" tab
         if self.notebook2101w.get_current_page() == 0:
-        
+
             # Get process status
             selected_process_status = self.process_status_list[proc_pid_stat_lines_split[-50]]
 
@@ -264,10 +268,10 @@ class ProcessesDetails:
                 # User name of the process owner is get from "/proc/status" file because it is present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
                 with open("/proc/" + selected_process_pid + "/status") as reader:
                     proc_pid_status_lines = reader.read().split("\n")
-            # Process may be ended. "try-catch" is used for avoiding errors in this situation.
+            # Process may be ended. "try-except" is used for avoiding errors in this situation.
             except FileNotFoundError:
-                self.window2101w.hide()
-                self.processes_no_such_process_error_dialog(selected_process_name, selected_process_pid)
+                self.update_window_value = 0
+                self.process_details_process_end_label_func()
                 return
             for line in proc_pid_status_lines:
                 if "Uid:\t" in line:
@@ -328,8 +332,8 @@ class ProcessesDetails:
                 with open("/proc/" + selected_process_pid + "/stat") as reader:
                     proc_pid_stat_lines = int(reader.read().split()[-31])                     # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
             except Exception:
-                self.window2101w.hide()
-                self.processes_no_such_process_error_dialog(selected_process_name, selected_process_pid)
+                self.update_window_value = 0
+                self.process_details_process_end_label_func()
                 return
             selected_process_start_time = (proc_pid_stat_lines / number_of_clock_ticks) + self.system_boot_time
 
@@ -368,7 +372,7 @@ class ProcessesDetails:
             pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
             ppid_list = []
             for pid in pid_list[:]:                                                           # "[:]" is used for iterating over copy of the list because element are removed during iteration. Otherwise incorrect operations (incorrect element removal) are performed on the list.
-                try:                                                                          # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+                try:                                                                          # Process may be ended just after pid_list is generated. "try-except" is used for avoiding errors in this situation.
                     with open("/proc/" + pid + "/stat") as reader:                            # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
                         proc_pid_stat_lines = reader.read()
                 # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
@@ -386,7 +390,7 @@ class ProcessesDetails:
                 try:
                     with open("/proc/" + pid + "/stat") as reader:                            # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
                         proc_pid_stat_lines = reader.read()
-                # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+                # Process may be ended just after pid_list is generated. "try-except" is used for avoiding errors in this situation.
                 # Removed pid from "selected_process_child_process_pids" and skip to next loop (pid) if process is ended just after selected_process_child_process_pids is generated.
                 except FileNotFoundError:
                     selected_process_child_process_pids.remove(pid)
@@ -495,10 +499,10 @@ class ProcessesDetails:
             try:
                 with open("/proc/" + selected_process_pid + "/status") as reader:
                     proc_pid_status_lines = reader.read().split("\n")
-            # Process may be ended. "try-catch" is used for avoiding errors in this situation.
+            # Process may be ended. "try-except" is used for avoiding errors in this situation.
             except FileNotFoundError:
-                self.window2101w.hide()
-                self.processes_no_such_process_error_dialog(selected_process_name, selected_process_pid)
+                self.update_window_value = 0
+                self.process_details_process_end_label_func()
                 return
             for line in proc_pid_status_lines:
                 if line.startswith("voluntary_ctxt_switches:"):
@@ -654,21 +658,25 @@ class ProcessesDetails:
 
         if hasattr(ProcessesDetails, "update_interval") == False:
             GLib.idle_add(self.process_details_initial_func)
-        if self.window2101w.get_visible() == True:
+        if self.update_window_value == 1:
             self.update_interval = Config.update_interval
             GLib.idle_add(self.process_details_loop_func)
             GLib.timeout_add(self.update_interval * 1000, self.process_details_run_func)
 
 
-    # ----------------------------------- Processes - Processes No Such Process Error Dialog Function -----------------------------------
-    def processes_no_such_process_error_dialog(self, selected_process_name, selected_process_pid):
+    # ----------------------- Called for showing information label if the process is ended. -----------------------
+    def process_details_process_end_label_func(self):
 
-        error_dialog2101w = Gtk.MessageDialog(transient_for=Processes.grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.ERROR,
-        buttons=Gtk.ButtonsType.CLOSE, text=_tr("This process is not running anymore:"))
-        error_dialog2101w.format_secondary_text(selected_process_name + " (" + _tr("PID") + ": " + selected_process_pid + ")")
-        error_dialog2101w.run()
-        error_dialog2101w.destroy()
-
+        # Generate a new label for the information. This label does not exist in the ".ui" UI file.
+        label_process_end_warning = Gtk.Label(label=_tr("This process is not running anymore."))
+        css = b"label {background: rgba(100%,0%,0%,1.0);}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+        label_process_end_warning.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.grid2101w.insert_row(0)
+        # Attach the label to the grid at (0, 0) position.
+        self.grid2101w.attach(label_process_end_warning, 0, 0, 1, 1)
+        label_process_end_warning.set_visible(True)
 
 # Generate object
 ProcessesDetails = ProcessesDetails()
