@@ -674,6 +674,12 @@ class ProcessesDetails:
     # ----------------------- Called for showing information label if the process is ended. -----------------------
     def process_details_process_end_label_func(self):
 
+        # Prevent adding more than one label (if there is already a label).
+        widget_in_first_row = self.grid2101w.get_child_at(0, 0)
+        widget_name_in_first_row = widget_in_first_row.get_name()
+        if widget_name_in_first_row == "GtkLabel":
+            return
+
         # Generate a new label for the information. This label does not exist in the ".ui" UI file.
         label_process_end_warning = Gtk.Label(label=_tr("This process is not running anymore."))
         css = b"label {background: rgba(100%,0%,0%,1.0);}"
