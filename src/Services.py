@@ -212,7 +212,7 @@ def services_loop_func():
     if os.path.isdir("/usr/lib/systemd/system/") == True:
         service_unit_files_dir = "/usr/lib/systemd/system/"
         service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]    # Get file names which ends withs ".service".
-    if os.path.realpath("/lib/systemd/system/") == "/lib/systemd/system/":
+    if os.path.realpath("/lib/systemd/system/") + "/" == "/lib/systemd/system/":
         service_unit_files_dir = "/lib/systemd/system/"
         service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]    # Get file names which ends withs ".service".
 
