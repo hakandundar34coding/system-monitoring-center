@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.24.0
+  * New: European Portuguese translations
+  * Changed process details window behavior when process is ended
+  * Fix: Getting services on older distributions (Services tab)
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.23.0
   * Improved start speed of Services tab on several systems
   * Improved information show speed on some systems (System tab)

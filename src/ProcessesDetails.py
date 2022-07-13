@@ -92,7 +92,14 @@ class ProcessesDetails:
         except AttributeError:
             pass
 
-        # THis value is checked for repeating the function for getting the process data.
+        # Delete first row of the grid and widget in it if it is a label. This widget can be a label if a process is ended when its window is opened. An information label is added into the first row of the grid in this situation and it stays here if a window of another process is opened.
+        widget_in_first_row = self.grid2101w.get_child_at(0, 0)
+        widget_name_in_first_row = widget_in_first_row.get_name()
+        if widget_name_in_first_row == "GtkLabel":
+            self.grid2101w.remove_row(0)
+            widget_in_first_row.destroy()
+
+        # This value is checked for repeating the function for getting the process data.
         self.update_window_value = 1
 
         # Call this function in order to reset Processes Details window GUI.
