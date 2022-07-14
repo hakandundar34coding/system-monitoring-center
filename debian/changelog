@@ -1,3 +1,12 @@
+system-monitoring-center (1.24.0) unstable; urgency=medium
+
+  * New: European Portuguese translations
+  * Changed process details window behavior when process is ended
+  * Fix: Getting services on older distributions (Services tab)
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 14 Jul 2022 08:00:00 +0300
+
 system-monitoring-center (1.23.0) unstable; urgency=medium
 
   * Improved start speed of Services tab on several systems
