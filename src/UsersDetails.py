@@ -50,6 +50,7 @@ class UsersDetails:
     # ----------------------- Called for running code/functions when window is closed -----------------------
     def on_window3101w_delete_event(self, widget, event):
 
+        self.update_window_value = 0
         self.window3101w.hide()
         return True
 
@@ -62,6 +63,9 @@ class UsersDetails:
             del self.update_interval
         except AttributeError:
             pass
+
+        # This value is checked for repeating the function for getting the user data.
+        self.update_window_value = 1
 
         # Call this function in order to reset Users Details window GUI.
         self.users_details_gui_reset_function()
@@ -142,6 +146,7 @@ class UsersDetails:
             etc_passwd_output = reader.read().strip()
         etc_passwd_lines = etc_passwd_output.split("\n")
         if ":" + selected_user_uid + ":" not in etc_passwd_output:
+            self.update_window_value = 0
             self.window3101w.hide()
             return
 
@@ -263,14 +268,26 @@ class UsersDetails:
 
 
     # ----------------------------------- Users Details - Run Function -----------------------------------
-    def users_details_run_func(self):
+    # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and run the loop again without waiting ending the previous update interval.
+    def users_details_run_func(self, *args):
 
         if hasattr(UsersDetails, "update_interval") == False:
             GLib.idle_add(self.users_details_initial_func)
-        if self.window3101w.get_visible() == True:
-            self.update_interval = Config.update_interval
+
+        # Destroy GLib source for preventing it repeating the function.
+        try:
+            self.main_glib_source.destroy()
+        # "try-except" is used in order to prevent errors if this is first run of the function.
+        except AttributeError:
+            pass
+        self.update_interval = Config.update_interval
+        self.main_glib_source = GLib.timeout_source_new(self.update_interval * 1000)
+
+        if self.update_window_value == 1:
             GLib.idle_add(self.users_details_loop_func)
-            GLib.timeout_add(self.update_interval * 1000, self.users_details_run_func)
+            self.main_glib_source.set_callback(self.users_details_run_func)
+            # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+            self.main_glib_source.attach(GLib.MainContext.default())
 
 
 # Generate object
