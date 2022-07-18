@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-17 12:35+0300\n"
+"POT-Creation-Date: 2022-07-18 11:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/Cpu.py:113 ui/CpuMenus.ui:35 ui/CpuTab.ui:549
-#: ui/ProcessesDetailsWindow.ui:766
+#: ui/ProcessesDetailsWindow.ui:765
 msgid "CPU Usage (Average)"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgstr ""
 #: src/Disk.py:259 src/DiskDetails.py:91 src/SettingsGUI.py:51
 #: ui/DiskDetailsWindow.ui:7 ui/DiskDetailsWindow.ui:45 ui/DiskMenus.ui:23
 #: ui/DiskMenus.ui:365 ui/DiskTab.ui:590 ui/MainWindow.ui:323
-#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1758
+#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1768
 #: ui/ProcessesMenuCustomizations.ui:530 ui/ProcessesMenuCustomizations.ui:608
 msgid "Disk"
 msgstr ""
@@ -48,13 +48,13 @@ msgid "Swap"
 msgstr ""
 
 #: src/Disk.py:387 src/Gpu.py:244 src/Gpu.py:247 src/Network.py:265
-#: src/Network.py:305 src/Services.py:168 src/ServicesDetails.py:128
-#: src/UsersDetails.py:216
+#: src/Network.py:305 src/Services.py:168 src/ServicesDetails.py:132
+#: src/UsersDetails.py:221
 msgid "Yes"
 msgstr ""
 
 #: src/Disk.py:389 src/Gpu.py:249 src/Network.py:267 src/Services.py:168
-#: src/ServicesDetails.py:128 src/UsersDetails.py:218
+#: src/ServicesDetails.py:132 src/UsersDetails.py:223
 msgid "No"
 msgstr ""
 
@@ -84,14 +84,14 @@ msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 
 #: src/MainGUI.py:565 src/Memory.py:180 src/Performance.py:1091
-#: src/Performance.py:1585 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
+#: src/Performance.py:1421 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:53
 msgid "RAM"
 msgstr ""
 
-#: src/MainGUI.py:565 src/Memory.py:207 src/Performance.py:1585
+#: src/MainGUI.py:565 src/Memory.py:207 src/Performance.py:1421
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:504
-#: ui/ProcessesDetailsWindow.ui:1141
+#: ui/ProcessesDetailsWindow.ui:1149
 msgid "Swap Memory"
 msgstr ""
 
@@ -175,8 +175,8 @@ msgstr ""
 #: src/Performance.py:1082 src/Processes.py:190 src/SettingsGUI.py:51
 #: src/Users.py:139 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
 #: ui/MainWindow.ui:229 ui/PerformanceSummaryHeaderBarGrid.ui:18
-#: ui/ProcessesDetailsWindow.ui:120 ui/ProcessesDetailsWindow.ui:1045
-#: ui/ProcessesDetailsWindow.ui:1065 ui/ProcessesMenuCustomizations.ui:207
+#: ui/ProcessesDetailsWindow.ui:120 ui/ProcessesDetailsWindow.ui:1044
+#: ui/ProcessesDetailsWindow.ui:1064 ui/ProcessesMenuCustomizations.ui:207
 #: ui/ProcessesMenuCustomizations.ui:498 ui/UsersDetailsWindow.ui:175
 #: ui/UsersMenuCustomizations.ui:157
 msgid "CPU"
@@ -191,14 +191,14 @@ msgstr ""
 
 #: src/Performance.py:1262 src/Processes.py:196 ui/DiskMenus.ui:121
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:524 ui/ProcessesDetailsWindow.ui:146
-#: ui/ProcessesDetailsWindow.ui:1394 ui/ProcessesDetailsWindow.ui:1689
+#: ui/ProcessesDetailsWindow.ui:1405 ui/ProcessesDetailsWindow.ui:1699
 #: ui/ProcessesMenuCustomizations.ui:319
 msgid "Read Speed"
 msgstr ""
 
 #: src/Performance.py:1271 src/Processes.py:197 ui/DiskMenus.ui:134
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:547 ui/ProcessesDetailsWindow.ui:671
-#: ui/ProcessesDetailsWindow.ui:1407 ui/ProcessesDetailsWindow.ui:1712
+#: ui/ProcessesDetailsWindow.ui:1418 ui/ProcessesDetailsWindow.ui:1722
 #: ui/ProcessesMenuCustomizations.ui:333
 msgid "Write Speed"
 msgstr ""
@@ -218,7 +218,7 @@ msgstr ""
 msgid "PID"
 msgstr ""
 
-#: src/Processes.py:188 src/Users.py:129 src/UsersDetails.py:122
+#: src/Processes.py:188 src/Users.py:129 src/UsersDetails.py:126
 #: ui/ProcessesDetailsWindow.ui:94 ui/ProcessesMenuCustomizations.ui:179
 #: ui/UsersDetailsWindow.ui:7 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:57
@@ -231,33 +231,33 @@ msgid "Status"
 msgstr ""
 
 #: src/Processes.py:191 src/Services.py:142 ui/ProcessesDetailsWindow.ui:133
-#: ui/ProcessesDetailsWindow.ui:1089 ui/ProcessesDetailsWindow.ui:1312
+#: ui/ProcessesDetailsWindow.ui:1097 ui/ProcessesDetailsWindow.ui:1319
 #: ui/ProcessesMenuCustomizations.ui:221 ui/ServicesDetailsWindow.ui:238
 #: ui/ServicesMenuCustomizations.ui:143
 msgid "Memory (RSS)"
 msgstr ""
 
-#: src/Processes.py:192 ui/ProcessesDetailsWindow.ui:1102
+#: src/Processes.py:192 ui/ProcessesDetailsWindow.ui:1110
 #: ui/ProcessesMenuCustomizations.ui:235
 msgid "Memory (VMS)"
 msgstr ""
 
-#: src/Processes.py:193 ui/ProcessesDetailsWindow.ui:1115
+#: src/Processes.py:193 ui/ProcessesDetailsWindow.ui:1123
 #: ui/ProcessesMenuCustomizations.ui:305
 msgid "Memory (Shared)"
 msgstr ""
 
-#: src/Processes.py:194 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1420
+#: src/Processes.py:194 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1431
 #: ui/ProcessesMenuCustomizations.ui:347
 msgid "Read Data"
 msgstr ""
 
-#: src/Processes.py:195 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1433
+#: src/Processes.py:195 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1444
 #: ui/ProcessesMenuCustomizations.ui:361
 msgid "Write Data"
 msgstr ""
 
-#: src/Processes.py:199 ui/ProcessesDetailsWindow.ui:1032
+#: src/Processes.py:199 ui/ProcessesDetailsWindow.ui:1031
 #: ui/ProcessesMenuCustomizations.ui:263
 msgid "Threads"
 msgstr ""
@@ -279,17 +279,17 @@ msgstr ""
 msgid "GID"
 msgstr ""
 
-#: src/Processes.py:203 ui/ProcessesDetailsWindow.ui:1949
+#: src/Processes.py:203 ui/ProcessesDetailsWindow.ui:1972
 #: ui/ProcessesMenuCustomizations.ui:291 ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr ""
 
-#: src/Processes.py:204 ui/ProcessesDetailsWindow.ui:1808
+#: src/Processes.py:204 ui/ProcessesDetailsWindow.ui:1827
 #: ui/ProcessesMenuCustomizations.ui:403
 msgid "Command Line"
 msgstr ""
 
-#: src/Processes.py:230 src/Services.py:167 src/ServicesDetails.py:127
+#: src/Processes.py:230 src/Services.py:167 src/ServicesDetails.py:131
 msgid "Running"
 msgstr ""
 
@@ -323,7 +323,7 @@ msgstr ""
 msgid "Process Details"
 msgstr ""
 
-#: src/ProcessesDetails.py:409
+#: src/ProcessesDetails.py:407
 msgid "This process is not running anymore."
 msgstr ""
 
@@ -385,55 +385,55 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Enabled"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Disabled"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Masked"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Unmasked"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Static"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Generated"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Enabled-runtime"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Indirect"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Active"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Inactive"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Loaded"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Dead"
 msgstr ""
 
-#: src/Services.py:167 src/ServicesDetails.py:127
+#: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Exited"
 msgstr ""
 
@@ -460,7 +460,7 @@ msgid "System"
 msgstr ""
 
 #: src/SettingsGUI.py:51 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
-#: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1361
+#: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1372
 #: ui/ProcessesMenuCustomizations.ui:509 ui/ProcessesMenuCustomizations.ui:597
 msgid "Memory"
 msgstr ""
@@ -782,7 +782,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:172 ui/ProcessesDetailsWindow.ui:1782
+#: ui/ProcessesDetailsWindow.ui:172 ui/ProcessesDetailsWindow.ui:1801
 msgid "Exe"
 msgstr ""
 
@@ -796,39 +796,39 @@ msgid ""
 "(Not recursively)"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:980
+#: ui/ProcessesDetailsWindow.ui:979
 msgid "Context Switches"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:993
+#: ui/ProcessesDetailsWindow.ui:992
 msgid "CPU Times"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:1006
+#: ui/ProcessesDetailsWindow.ui:1005
 msgid "Used CPU Core(s)"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:1019
+#: ui/ProcessesDetailsWindow.ui:1018
 msgid "Threads (TID)"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:1128
+#: ui/ProcessesDetailsWindow.ui:1136
 msgid "Memory (USS)"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:1446
+#: ui/ProcessesDetailsWindow.ui:1457
 msgid "Read Count"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:1459
+#: ui/ProcessesDetailsWindow.ui:1470
 msgid "Write Count"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:1795
+#: ui/ProcessesDetailsWindow.ui:1814
 msgid "Current Working Directory"
 msgstr ""
 
-#: ui/ProcessesDetailsWindow.ui:1821
+#: ui/ProcessesDetailsWindow.ui:1840
 msgid "Opened Files"
 msgstr ""
 
