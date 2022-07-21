@@ -59,7 +59,6 @@ def processes_gui_func():
     initial_already_run = 0
 
 
-
 # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
 def on_treeview2101_button_press_event(widget, event):
 
