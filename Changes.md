@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v1.25.0
+  * New: CPU, RAM, Disk graphs on process details window
+  * Fix: Repeating functions multiple times (User,Service details)
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.24.0
   * New: European Portuguese translations
   * Changed process details window behavior when process is ended

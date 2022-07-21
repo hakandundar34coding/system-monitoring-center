@@ -59,6 +59,7 @@ class ServicesDetails:
     # ----------------------- Called for running code/functions when window is closed -----------------------
     def on_window6101w_delete_event(self, widget, event):
 
+        self.update_window_value = 0
         self.window6101w.hide()
         return True
 
@@ -71,6 +72,9 @@ class ServicesDetails:
             del self.update_interval
         except AttributeError:
             pass
+
+        # This value is checked for repeating the function for getting the service data.
+        self.update_window_value = 1
 
         # Call this function in order to reset Services Details window GUI.
         self.services_details_gui_reset_function()
@@ -261,14 +265,26 @@ class ServicesDetails:
 
 
     # ----------------------------------- Services Details - Run Function -----------------------------------
-    def services_details_run_func(self):
+    # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and run the loop again without waiting ending the previous update interval.
+    def services_details_run_func(self, *args):
 
         if hasattr(ServicesDetails, "update_interval") == False:
             GLib.idle_add(self.services_details_initial_func)
-        if self.window6101w.get_visible() == True:
-            self.update_interval = Config.update_interval
+
+        # Destroy GLib source for preventing it repeating the function.
+        try:
+            self.main_glib_source.destroy()
+        # "try-except" is used in order to prevent errors if this is first run of the function.
+        except AttributeError:
+            pass
+        self.update_interval = Config.update_interval
+        self.main_glib_source = GLib.timeout_source_new(self.update_interval * 1000)
+
+        if self.update_window_value == 1:
             GLib.idle_add(self.services_details_loop_func)
-            GLib.timeout_add(self.update_interval * 1000, self.services_details_run_func)
+            self.main_glib_source.set_callback(self.services_details_run_func)
+            # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+            self.main_glib_source.attach(GLib.MainContext.default())
 
 
 # Generate object

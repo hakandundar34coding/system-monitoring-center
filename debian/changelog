@@ -1,3 +1,12 @@
+system-monitoring-center (1.25.0) unstable; urgency=medium
+
+  * New: CPU, RAM, Disk graphs on process details window
+  * Fix: Repeating functions multiple times (User,Service details)
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 21 Jul 2022 08:00:00 +0300
+
+
 system-monitoring-center (1.24.0) unstable; urgency=medium
 
   * New: European Portuguese translations
