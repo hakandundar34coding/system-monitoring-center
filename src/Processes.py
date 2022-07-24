@@ -140,6 +140,11 @@ def on_treeview2101_key_press_event(widget, event):
         ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2104m)
         return
 
+    # Check if Enter key is pressed.
+    if event.keyval == Gdk.KEY_Return:
+        ProcessesMenuRightClick.on_menuitem2106m_activate(ProcessesMenuRightClick.menuitem2106m)
+        return
+
 
 # --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
 def on_searchentry2101_changed(widget):

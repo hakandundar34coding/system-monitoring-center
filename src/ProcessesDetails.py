@@ -244,7 +244,6 @@ class ProcessesDetails:
         selected_process_name = self.process_details_process_name_func(selected_process_pid, proc_pid_stat_lines, proc_pid_stat_lines_split)
         selected_process_icon = self.process_details_process_icon_func(selected_process_name)
         proc_pid_status_lines = self.process_details_process_status_data_func(selected_process_pid)
-        # Stop running functions in order to prevent errors.
         if self.update_window_value == 0:
             return
         selected_process_username = self.process_details_process_user_name_func(selected_process_pid, proc_pid_status_lines, usernames_username_list, usernames_uid_list)
@@ -269,11 +268,15 @@ class ProcessesDetails:
         selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary = self.process_details_process_context_switches_func(proc_pid_status_lines)
         selected_process_memory_vms = self.process_details_process_memory_vms_func(proc_pid_stat_lines_split)
         selected_process_memory_shared = self.process_details_process_memory_shared_func(selected_process_pid)
+        if self.update_window_value == 0:
+            return
         selected_process_memory_uss, selected_process_memory_swap = self.process_details_process_memory_uss_and_swap_func(selected_process_pid)
         selected_process_read_count, selected_process_write_count = self.process_details_process_read_write_counts_func(proc_pid_io_lines)
         selected_process_exe = self.process_details_process_exe_func(selected_process_pid)
         selected_process_cwd = self.process_details_process_cwd_func(selected_process_pid)
         selected_process_cmdline = self.process_details_process_cmdline_func(selected_process_pid)
+        if self.update_window_value == 0:
+            return
         selected_process_open_files = self.process_details_process_open_files_func(selected_process_pid)
 
 
@@ -809,9 +812,14 @@ class ProcessesDetails:
     # ----------------------- Get process memory (Shared) -----------------------
     def process_details_process_memory_shared_func(self, selected_process_pid):
 
-        # Multiply with memory_page_size in order to convert the value into bytes.
-        with open("/proc/" + selected_process_pid + "/statm") as reader:                                   
-            selected_process_memory_shared = int(reader.read().split()[2]) * Processes.memory_page_size
+        try:
+            # Multiply with memory_page_size in order to convert the value into bytes.
+           with open("/proc/" + selected_process_pid + "/statm") as reader:                                   
+                selected_process_memory_shared = int(reader.read().split()[2]) * Processes.memory_page_size
+        except FileNotFoundError:
+            selected_process_memory_shared = 0
+            self.update_window_value = 0
+            self.process_details_process_end_label_func()
 
         return selected_process_memory_shared
 
@@ -882,8 +890,14 @@ class ProcessesDetails:
     # ----------------------- Get process cmdline -----------------------
     def process_details_process_cmdline_func(self, selected_process_pid):
 
-        with open("/proc/" + selected_process_pid + "/cmdline") as reader:
-            selected_process_cmdline = reader.read().split("\x00")
+        try:
+            with open("/proc/" + selected_process_pid + "/cmdline") as reader:
+                selected_process_cmdline = reader.read().split("\x00")
+        except FileNotFoundError:
+            selected_process_cmdline = "-"
+            self.update_window_value = 0
+            self.process_details_process_end_label_func()
+
         if selected_process_cmdline == [""]:
             selected_process_cmdline = "-"
 
@@ -903,8 +917,9 @@ class ProcessesDetails:
                         selected_process_open_files.append(path)
                 except FileNotFoundError:
                     continue
-        except PermissionError:
+        except (FileNotFoundError, PermissionError) as multiple_exception:
             pass
+
         if selected_process_open_files == []:
             selected_process_open_files = "-"
 

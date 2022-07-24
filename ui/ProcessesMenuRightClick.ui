@@ -69,7 +69,7 @@
       <object class="GtkMenuItem" id="menuitem2105m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="label" translatable="yes">Change Priority (Nice)</property>
+        <property name="label" translatable="yes">Change Priority</property>
         <child type="submenu">
           <object class="GtkMenu">
             <property name="visible">True</property>
@@ -152,6 +152,7 @@
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="label" translatable="yes">Details</property>
+        <accelerator key="Return" signal="activate"/>
       </object>
     </child>
   </object>
