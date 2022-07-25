@@ -21,7 +21,7 @@ from Performance import Performance
 class ProcessesDetails:
 
     # ----------------------- Always called when object is generated -----------------------
-    def __init__(self):
+    def __init__(self, selected_process_pid):
 
         # Get GUI objects from file
         builder = Gtk.Builder()
@@ -111,11 +111,19 @@ class ProcessesDetails:
         self.drawingarea2103w.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
 
+        # Get selected_process_pid for using it for the current process object instance.
+        self.selected_process_pid = selected_process_pid
+
+
     # ----------------------- Called for running code/functions when window is closed -----------------------
     def on_window2101w_delete_event(self, widget, event):
 
         self.update_window_value = 0
         self.window2101w.hide()
+        # Remove the current process object instance from the list if the window is closed.
+        processes_details_object_list.remove(self)
+        # Delete the current process object instance if the window is closed.
+        del self
         return True
 
 
@@ -232,7 +240,7 @@ class ProcessesDetails:
         processes_disk_speed_bit = Config.processes_disk_speed_bit
 
         # Get "selected_process_pid".
-        selected_process_pid = Processes.selected_process_pid
+        selected_process_pid = self.selected_process_pid
 
         # Get information.
         usernames_username_list, usernames_uid_list = self.processes_details_usernames_uids_func()
@@ -378,7 +386,7 @@ class ProcessesDetails:
     # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and run the loop again without waiting ending the previous update interval.
     def process_details_run_func(self, *args):
 
-        if hasattr(ProcessesDetails, "update_interval") == False:
+        if hasattr(self, "update_interval") == False:
             GLib.idle_add(self.process_details_initial_func)
 
         # Destroy GLib source for preventing it repeating the function.
@@ -926,6 +934,15 @@ class ProcessesDetails:
         return selected_process_open_files
 
 
-# Generate object
-ProcessesDetails = ProcessesDetails()
+processes_details_object_list = []
+
+# Generate object for every process because more than one process window can be opened on Processes tab.
+def processes_details_show_process_details():
+
+    # Prevent opening more than 10 windows in order to avoid very high CPU usage.
+    if len(processes_details_object_list) == 10:
+        return
+
+    processes_details_object_list.append(ProcessesDetails(Processes.selected_process_pid))
+    processes_details_object_list[-1].window2101w.show()
 

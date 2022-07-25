@@ -165,8 +165,11 @@ class ProcessesMenuRightClick:
     # ----------------------- Called for showing Process Details Window -----------------------
     def on_menuitem2106m_activate(self, widget):
 
-        from ProcessesDetails import ProcessesDetails
-        ProcessesDetails.window2101w.show()
+        """from ProcessesDetails import ProcessesDetails
+        ProcessesDetails.window2101w.show()"""
+
+        import ProcessesDetails
+        ProcessesDetails.processes_details_show_process_details()
 
 
     # ----------------------- Called for expanding/collapsing items when "Expand All/Collapse All" menuitems are clicked -----------------------

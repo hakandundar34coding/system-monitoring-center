@@ -1621,10 +1621,12 @@ class Performance:
 
             # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
             draw_per_device = 0
-            from ProcessesDetails import ProcessesDetails
-            if ProcessesDetails.drawingarea2101w == widget:
-                pass
-            performance_data1 = [ProcessesDetails.process_cpu_usage_list]
+            import ProcessesDetails
+            # There may be more than one instance of object (per process). Search for the current one by checking the widget.
+            for process_object in ProcessesDetails.processes_details_object_list:
+                if process_object.drawingarea2101w == widget:
+                    current_process_object = process_object
+            performance_data1 = [current_process_object.process_cpu_usage_list]
             device_name_list = [""]
             selected_device_number = None
 
@@ -1645,21 +1647,18 @@ class Performance:
 
             # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
             draw_per_device = 0
-            from ProcessesDetails import ProcessesDetails
-            if ProcessesDetails.drawingarea2101w == widget:
-                pass
-            performance_data1 = [ProcessesDetails.process_ram_usage_list]
+            import ProcessesDetails
+            # There may be more than one instance of object (per process). Search for the current one by checking the widget.
+            for process_object in ProcessesDetails.processes_details_object_list:
+                if process_object.drawingarea2102w == widget:
+                    current_process_object = process_object
+            performance_data1 = [current_process_object.process_ram_usage_list]
             device_name_list = [""]
             selected_device_number = None
 
             # Get which performance data will be drawn.
             draw_performance_data1 = 1
             draw_performance_data2 = 0
-
-            """# Get chart y limit values in order to show maximum values of the charts as 100.
-            chart_y_limit_list = []
-            for device_name in device_name_list:
-                chart_y_limit_list.append(100)"""
 
             # Maximum performance data value is multiplied by 1.1 in order to scale chart when performance data is increased or decreased for preventing the line being out of the chart border.
             chart_y_limit_list = []
@@ -1683,7 +1682,7 @@ class Performance:
             else:
                 chart_y_limit = max(chart_y_limit_list)
             try:
-                chart_y_limit_str = f'{ProcessesDetails.performance_data_unit_converter_func("data", "none", chart_y_limit, processes_memory_data_unit, processes_memory_data_precision)}'
+                chart_y_limit_str = f'{current_process_object.performance_data_unit_converter_func("data", "none", chart_y_limit, processes_memory_data_unit, processes_memory_data_precision)}'
             # try-except is used in order to prevent errors if first initial function is not finished and "performance_data_unit_converter_func" is not run.
             except AttributeError:
                 return
@@ -1694,7 +1693,7 @@ class Performance:
             # "0.0001" is used in order to take decimal part of the numbers into account. For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
             number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
             next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-            ProcessesDetails.label2139w.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
+            current_process_object.label2139w.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
             # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
             # Update chart_y_limit_list if multiple charts (devices) are drawn.
             if selected_device_number != None:
@@ -1711,11 +1710,13 @@ class Performance:
 
             # Get if drawing will be for the current device (CPU core, disk, network card, etc.) or all devices, get performance data to be drawn and device list.
             draw_per_device = 0
-            from ProcessesDetails import ProcessesDetails
-            if ProcessesDetails.drawingarea2101w == widget:
-                pass
-            performance_data1 = [ProcessesDetails.process_disk_read_speed_list]
-            performance_data2 = [ProcessesDetails.process_disk_write_speed_list]
+            import ProcessesDetails
+            # There may be more than one instance of object (per process). Search for the current one by checking the widget.
+            for process_object in ProcessesDetails.processes_details_object_list:
+                if process_object.drawingarea2103w == widget:
+                    current_process_object = process_object
+            performance_data1 = [current_process_object.process_disk_read_speed_list]
+            performance_data2 = [current_process_object.process_disk_write_speed_list]
             device_name_list = [""]
             selected_device_number = None
 
@@ -1746,7 +1747,7 @@ class Performance:
             else:
                 chart_y_limit = max(chart_y_limit_list)
             try:
-                chart_y_limit_str = f'{ProcessesDetails.performance_data_unit_converter_func("speed", processes_disk_speed_bit, chart_y_limit, processes_disk_data_unit, processes_disk_data_precision)}/s'
+                chart_y_limit_str = f'{current_process_object.performance_data_unit_converter_func("speed", processes_disk_speed_bit, chart_y_limit, processes_disk_data_unit, processes_disk_data_precision)}/s'
             # try-except is used in order to prevent errors if first initial function is not finished and "performance_data_unit_converter_func" is not run.
             except AttributeError:
                 return
@@ -1757,7 +1758,7 @@ class Performance:
             # "0.0001" is used in order to take decimal part of the numbers into account. For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
             number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
             next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-            ProcessesDetails.label2140w.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
+            current_process_object.label2140w.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
             # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
             # Update chart_y_limit_list if multiple charts (devices) are drawn.
             if selected_device_number != None:
@@ -2034,9 +2035,9 @@ class Performance:
                 elif widget_id == "drawingarea2101w":
                     performance_data1_at_point_text = f'{performance_data1[chart_number_to_highlight][chart_point_highlight]:.{Config.processes_cpu_precision}f} %'
                 elif widget_id == "drawingarea2102w":
-                    performance_data1_at_point_text = f'{ProcessesDetails.performance_data_unit_converter_func("data", "none", performance_data1[chart_number_to_highlight][chart_point_highlight], processes_memory_data_unit, processes_memory_data_precision)}'
+                    performance_data1_at_point_text = f'{current_process_object.performance_data_unit_converter_func("data", "none", performance_data1[chart_number_to_highlight][chart_point_highlight], processes_memory_data_unit, processes_memory_data_precision)}'
                 elif widget_id == "drawingarea2103w":
-                    performance_data1_at_point_text = f'{ProcessesDetails.performance_data_unit_converter_func("speed", processes_disk_speed_bit, performance_data1[chart_number_to_highlight][chart_point_highlight], processes_disk_data_unit, processes_disk_data_precision)}/s'
+                    performance_data1_at_point_text = f'{current_process_object.performance_data_unit_converter_func("speed", processes_disk_speed_bit, performance_data1[chart_number_to_highlight][chart_point_highlight], processes_disk_data_unit, processes_disk_data_precision)}/s'
                 # Add "-" before the text if there are 2 performance data lines.
                 if len(loc_y_list) == 2:
                     performance_data1_at_point_text = f'-  {performance_data1_at_point_text}'
@@ -2054,7 +2055,7 @@ class Performance:
                 elif widget_id == "drawingarea1501":
                     performance_data2_at_point_text = f'- -{performance_data2[chart_number_to_highlight][chart_point_highlight]:.0f} %'
                 elif widget_id == "drawingarea2103w":
-                    performance_data2_at_point_text = f'- -{ProcessesDetails.performance_data_unit_converter_func("speed", processes_disk_speed_bit, performance_data2[chart_number_to_highlight][chart_point_highlight], processes_disk_data_unit, processes_disk_data_precision)}/s'
+                    performance_data2_at_point_text = f'- -{current_process_object.performance_data_unit_converter_func("speed", processes_disk_speed_bit, performance_data2[chart_number_to_highlight][chart_point_highlight], processes_disk_data_unit, processes_disk_data_precision)}/s'
                 performance_data_at_point_text_list.append(performance_data2_at_point_text)
 
             performance_data_at_point_text = '  |  '.join(performance_data_at_point_text_list)

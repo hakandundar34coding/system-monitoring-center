@@ -89,8 +89,11 @@ def on_treeview2101_button_press_event(widget, event):
 
     # Open details window if double clicked on a row
     if event.type == Gdk.EventType._2BUTTON_PRESS:
-        from ProcessesDetails import ProcessesDetails
-        ProcessesDetails.window2101w.show()
+        """from ProcessesDetails import ProcessesDetails
+        ProcessesDetails.window2101w.show()"""
+
+        import ProcessesDetails
+        ProcessesDetails.processes_details_show_process_details()
 
 
 # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
