@@ -20,8 +20,8 @@ class Performance:
     # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
-        # Set chart performance data line and point highligting off. "chart_line_highlight" takes 0/1 values for highlighting or not. "chart_point_highlight" takes data point index or "-1" for not highlighting.
-        self.chart_line_highlight = 0
+        # Set chart performance data line and point highligting off. "chart_line_highlight" takes chart name or "" for highlighting or not. "chart_point_highlight" takes data point index or "-1" for not highlighting.
+        self.chart_line_highlight = ""
         self.chart_point_highlight = -1
 
 
@@ -1926,7 +1926,7 @@ class Performance:
 
 
         # Check if chart line will be highlighted.
-        if self.chart_line_highlight == 1:
+        if self.chart_line_highlight == widget:
 
             # Define local variables for maouse position for lower CPU usage.
             try:
@@ -2098,14 +2098,17 @@ class Performance:
     # ----------------------- Highlight performance chart line if mouse is moved onto the drawingarea -----------------------
     def performance_line_charts_enter_notify_event_func(self, widget, event):
 
-        self.chart_line_highlight = 1
+        self.chart_line_highlight = widget
         widget.queue_draw()
 
 
     # ----------------------- Revert highlighted performance chart line if mouse is moved out of the drawingarea -----------------------
     def performance_line_charts_leave_notify_event_func(self, widget, event):
 
-        self.chart_line_highlight = 0
+        try:
+            self.chart_line_highlight = ""
+        except ValueError:
+            pass
         widget.queue_draw()
 
 

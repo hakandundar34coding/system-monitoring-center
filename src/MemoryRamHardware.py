@@ -122,7 +122,7 @@ class MemoryRamHardware:
                 self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
                 self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Capacity") + " :    " + memory_size
                 self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Type") + " :    " + memory_type
-                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Speed/Frequency") + " :    " + memory_speed
+                self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Speed") + " :    " + memory_speed
                 self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
                 self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
                 self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator
@@ -142,7 +142,7 @@ class MemoryRamHardware:
             self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
             self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Capacity") + " :    " + memory_size
             self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Type") + " :    " + memory_type
-            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Speed/Frequency") + " :    " + memory_speed
+            self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Speed") + " :    " + memory_speed
             self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
             self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
             self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Locator") + " :    " + memory_locator
