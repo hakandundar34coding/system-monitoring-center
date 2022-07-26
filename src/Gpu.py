@@ -629,7 +629,7 @@ class Gpu:
         del self.amd_gpu_load_list[0]
 
         # Prevent running the function again if tab is GPU switched off.
-        if Config.current_main_tab != 0 or Config.performance_tab_current_sub_tab != 4:
+        if Config.current_main_tab != 0 or Config.performance_tab_current_sub_tab != 5:
             return
 
         self.gpu_glib_source.set_callback(self.gpu_load_amd_func)
