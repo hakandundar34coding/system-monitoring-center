@@ -1,0 +1,1142 @@
+# Persian Translation.
+# Copyright (C) 2022
+# This file is distributed under the same license as the PACKAGE package.
+# @MasterKia <https://github.com/MasterKia>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-24 12:08+0300\n"
+"PO-Revision-Date: 2022-07-26 07:27+0430\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: src/Cpu.py:113 ui/CpuMenus.ui:35 ui/CpuTab.ui:549
+#: ui/ProcessesDetailsWindow.ui:765
+msgid "CPU Usage (Average)"
+msgstr "مصرف پردازنده (میانگین)"
+
+#: src/Cpu.py:115 ui/CpuMenus.ui:49
+msgid "CPU Usage (Per Core)"
+msgstr "مصرف پردازنده (به ازای هر هسته)"
+
+#: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:291 src/Gpu.py:293
+#: src/Network.py:198 src/Network.py:200
+msgid "Unknown"
+msgstr "ناشناخته"
+
+#: src/Disk.py:248 src/Disk.py:261 src/MemorySwapDetails.py:66
+msgid "Partition"
+msgstr "پارتیشن"
+
+#: src/Disk.py:259 src/DiskDetails.py:91 src/SettingsGUI.py:51
+#: ui/DiskDetailsWindow.ui:7 ui/DiskDetailsWindow.ui:45 ui/DiskMenus.ui:23
+#: ui/DiskMenus.ui:365 ui/DiskTab.ui:590 ui/MainWindow.ui:323
+#: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1768
+#: ui/ProcessesMenuCustomizations.ui:530 ui/ProcessesMenuCustomizations.ui:608
+msgid "Disk"
+msgstr "دیسک"
+
+#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1111
+msgid "Swap"
+msgstr "سواپ"
+
+#: src/Disk.py:387 src/Gpu.py:244 src/Gpu.py:247 src/Network.py:265
+#: src/Network.py:305 src/Services.py:168 src/ServicesDetails.py:132
+#: src/UsersDetails.py:221
+msgid "Yes"
+msgstr "بله"
+
+#: src/Disk.py:389 src/Gpu.py:249 src/Network.py:267 src/Services.py:168
+#: src/ServicesDetails.py:132 src/UsersDetails.py:223
+msgid "No"
+msgstr "خیر"
+
+#: src/Disk.py:397 src/Disk.py:403 src/Disk.py:452 src/Disk.py:453
+#: src/Disk.py:454 src/Disk.py:455 src/Disk.py:456
+msgid "[Not mounted]"
+msgstr "[متصل نشده]"
+
+#: src/MainGUI.py:182
+msgid ""
+"Warning! The application has been run with root privileges, you may harm "
+"your system."
+msgstr ""
+"هشدار! این برنامه با دسترسی روت اجرا شده است، ممکن است به سیستمتان آسیب "
+"برسانید."
+
+#: src/MainGUI.py:260
+msgid "There is a newer version on PyPI."
+msgstr "نسخه جدیدتری در PyPI وجود دارد."
+
+#: src/MainGUI.py:551 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: ui/ProcessesDetailsWindow.ui:716 ui/ServicesDetailsWindow.ui:613
+#: ui/SummaryTab.ui:20
+msgid "Summary"
+msgstr "چکیده"
+
+#: src/MainGUI.py:561
+msgid "CPU core selection affects only frequency and cache memory information."
+msgstr ""
+"انتخاب هسته پردازنده فقط باعث تغییر اطلاعات مربوط به فرکانس و حافظه کش "
+"(حافظه پنهان) میشود."
+
+#: src/MainGUI.py:565 src/Memory.py:180 src/Performance.py:1091
+#: src/Performance.py:1421 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
+#: ui/PerformanceSummaryHeaderBarGrid.ui:53
+msgid "RAM"
+msgstr "رم"
+
+#: src/MainGUI.py:565 src/Memory.py:207 src/Performance.py:1421
+#: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:504
+#: ui/ProcessesDetailsWindow.ui:1149
+msgid "Swap Memory"
+msgstr "حافظه سواپ"
+
+#: src/Memory.py:178 ui/MemoryRamHardwareWindow.ui:7
+msgid "Physical RAM"
+msgstr "رم فیزیکی"
+
+#: src/Memory.py:180 src/MemoryRamHardware.py:123 src/MemoryRamHardware.py:143
+#: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
+#: ui/DiskDetailsWindow.ui:532
+msgid "Capacity"
+msgstr "گنجایش"
+
+#: src/MemoryRamHardware.py:82
+msgid "Maximum Capacity"
+msgstr "بیشینه (حداکثر) گنجایش"
+
+#: src/MemoryRamHardware.py:83
+msgid "Number Of Devices"
+msgstr "تعداد دستگاه ها"
+
+#: src/MemoryRamHardware.py:124 src/MemoryRamHardware.py:144
+#: src/MemorySwapDetails.py:96 ui/DiskDetailsWindow.ui:84
+#: ui/ServicesDetailsWindow.ui:225
+msgid "Type"
+msgstr "نوع"
+
+#: src/MemoryRamHardware.py:125 src/MemoryRamHardware.py:145
+msgid "Speed/Frequency"
+msgstr "سرعت/فرکانس"
+
+#: src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
+msgid "Manufacturer"
+msgstr "سازنده"
+
+#: src/MemoryRamHardware.py:127 src/MemoryRamHardware.py:147
+msgid "Form Factor"
+msgstr "شکل طراحی"
+
+#: src/MemoryRamHardware.py:128 src/MemoryRamHardware.py:148
+msgid "Locator"
+msgstr "مکان‌یاب"
+
+#: src/MemoryRamHardware.py:129 src/MemoryRamHardware.py:149
+msgid "Bank Locator"
+msgstr "مخزن مکان‌یاب"
+
+#: src/MemorySwapDetails.py:66
+msgid "File"
+msgstr "فایل"
+
+#: src/MemorySwapDetails.py:95 src/Processes.py:190 src/Sensors.py:81
+#: src/Services.py:136 ui/ProcessesDetailsWindow.ui:55
+#: ui/ProcessesMenuCustomizations.ui:149 ui/ServicesDetailsWindow.ui:49
+#: ui/ServicesMenuCustomizations.ui:57
+msgid "Name"
+msgstr "نام"
+
+#: src/MemorySwapDetails.py:98 ui/DiskDetailsWindow.ui:136 ui/MemoryTab.ui:85
+#: ui/MemoryTab.ui:346 ui/MemoryTab.ui:371
+msgid "Used"
+msgstr "مصرف شده"
+
+#: src/MemorySwapDetails.py:99 src/Processes.py:202
+#: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesMenuCustomizations.ui:249
+msgid "Priority"
+msgstr "اولویت"
+
+#: src/Network.py:208
+msgid "Virtual Network Interface"
+msgstr "رابط شبکه مجازی"
+
+#: src/Network.py:217
+msgid "Ethernet"
+msgstr "اترنت"
+
+#: src/Network.py:219
+msgid "Wi-Fi"
+msgstr "وایفای"
+
+#: src/Performance.py:1082 src/Processes.py:194 src/SettingsGUI.py:51
+#: src/Users.py:139 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
+#: ui/MainWindow.ui:229 ui/PerformanceSummaryHeaderBarGrid.ui:18
+#: ui/ProcessesDetailsWindow.ui:120 ui/ProcessesDetailsWindow.ui:1044
+#: ui/ProcessesDetailsWindow.ui:1064 ui/ProcessesMenuCustomizations.ui:207
+#: ui/ProcessesMenuCustomizations.ui:498 ui/UsersDetailsWindow.ui:175
+#: ui/UsersMenuCustomizations.ui:157
+msgid "CPU"
+msgstr "پردازنده"
+
+#: src/Performance.py:1100 src/Processes.py:622 src/SettingsGUI.py:50
+#: src/Users.py:134 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
+#: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
+#: ui/UsersMenuCustomizations.ui:129
+msgid "Processes"
+msgstr "فرآیند ها"
+
+#: src/Performance.py:1262 src/Processes.py:200 ui/DiskMenus.ui:121
+#: ui/DiskTab.ui:69 ui/DiskTab.ui:524 ui/ProcessesDetailsWindow.ui:146
+#: ui/ProcessesDetailsWindow.ui:1405 ui/ProcessesDetailsWindow.ui:1699
+#: ui/ProcessesMenuCustomizations.ui:319
+msgid "Read Speed"
+msgstr "سرعت خواندن"
+
+#: src/Performance.py:1271 src/Processes.py:201 ui/DiskMenus.ui:134
+#: ui/DiskTab.ui:81 ui/DiskTab.ui:547 ui/ProcessesDetailsWindow.ui:671
+#: ui/ProcessesDetailsWindow.ui:1418 ui/ProcessesDetailsWindow.ui:1722
+#: ui/ProcessesMenuCustomizations.ui:333
+msgid "Write Speed"
+msgstr "سرعت نوشتن"
+
+#: src/Performance.py:1280 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
+#: ui/NetworkTab.ui:494
+msgid "Download Speed"
+msgstr "سرعت دریافت (دانلود)"
+
+#: src/Performance.py:1289 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
+#: ui/NetworkTab.ui:517
+msgid "Upload Speed"
+msgstr "سرعت بارگذاری (آپلود)"
+
+#: src/Processes.py:191 src/ProcessesDetails.py:284
+#: ui/ProcessesDetailsWindow.ui:68 ui/ProcessesMenuCustomizations.ui:165
+msgid "PID"
+msgstr "شناسه فرآیند"
+
+#: src/Processes.py:192 src/Users.py:129 src/UsersDetails.py:126
+#: ui/ProcessesDetailsWindow.ui:94 ui/ProcessesMenuCustomizations.ui:179
+#: ui/UsersDetailsWindow.ui:7 ui/UsersDetailsWindow.ui:45
+#: ui/UsersMenuCustomizations.ui:57
+msgid "User"
+msgstr "کاربر"
+
+#: src/Processes.py:193 ui/ProcessesDetailsWindow.ui:81
+#: ui/ProcessesMenuCustomizations.ui:193
+msgid "Status"
+msgstr "وضعیت"
+
+#: src/Processes.py:195 src/Services.py:142 ui/ProcessesDetailsWindow.ui:133
+#: ui/ProcessesDetailsWindow.ui:1097 ui/ProcessesDetailsWindow.ui:1319
+#: ui/ProcessesMenuCustomizations.ui:221 ui/ServicesDetailsWindow.ui:238
+#: ui/ServicesMenuCustomizations.ui:143
+#, fuzzy
+msgid "Memory (RSS)"
+msgstr "رم (RSS)"
+
+#: src/Processes.py:196 ui/ProcessesDetailsWindow.ui:1110
+#: ui/ProcessesMenuCustomizations.ui:235
+#, fuzzy
+msgid "Memory (VMS)"
+msgstr "رم (VMS)"
+
+#: src/Processes.py:197 ui/ProcessesDetailsWindow.ui:1123
+#: ui/ProcessesMenuCustomizations.ui:305
+#, fuzzy
+msgid "Memory (Shared)"
+msgstr "رم (اشتراکی)"
+
+#: src/Processes.py:198 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1431
+#: ui/ProcessesMenuCustomizations.ui:347
+#, fuzzy
+msgid "Read Data"
+msgstr "داده های خوانده شده"
+
+#: src/Processes.py:199 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1444
+#: ui/ProcessesMenuCustomizations.ui:361
+#, fuzzy
+msgid "Write Data"
+msgstr "داده های نوشته شده"
+
+#: src/Processes.py:203 ui/ProcessesDetailsWindow.ui:1031
+#: ui/ProcessesMenuCustomizations.ui:263
+msgid "Threads"
+msgstr "ریسمان ها"
+
+#: src/Processes.py:204 ui/ProcessesDetailsWindow.ui:185
+#: ui/ProcessesMenuCustomizations.ui:277
+msgid "PPID"
+msgstr "شناسه فرآیند والد"
+
+#: src/Processes.py:205 src/Users.py:132 ui/ProcessesDetailsWindow.ui:420
+#: ui/ProcessesMenuCustomizations.ui:375 ui/UsersDetailsWindow.ui:84
+#: ui/UsersMenuCustomizations.ui:101
+msgid "UID"
+msgstr "شناسه کاربر"
+
+#: src/Processes.py:206 src/Users.py:133 ui/ProcessesDetailsWindow.ui:433
+#: ui/ProcessesMenuCustomizations.ui:389 ui/UsersDetailsWindow.ui:97
+#: ui/UsersMenuCustomizations.ui:115
+msgid "GID"
+msgstr "شناسه گروه"
+
+#: src/Processes.py:207 ui/ProcessesDetailsWindow.ui:1972
+#: ui/ProcessesMenuCustomizations.ui:291 ui/ServicesDetailsWindow.ui:75
+msgid "Path"
+msgstr "مسیر"
+
+#: src/Processes.py:208 ui/ProcessesDetailsWindow.ui:1827
+#: ui/ProcessesMenuCustomizations.ui:403
+msgid "Command Line"
+msgstr "دستور خط فرمان"
+
+#: src/Processes.py:234 src/Services.py:167 src/ServicesDetails.py:131
+msgid "Running"
+msgstr "در حال اجرا"
+
+#: src/Processes.py:234
+msgid "Sleeping"
+msgstr "معلق"
+
+#: src/Processes.py:234
+msgid "Waiting"
+msgstr "در انتظار"
+
+#: src/Processes.py:234
+msgid "Idle"
+msgstr "آزاد (بیکار)"
+
+#: src/Processes.py:234
+msgid "Zombie"
+msgstr "زامبی (نیمه مُرده)"
+
+#: src/Processes.py:234
+msgid "Stopped"
+msgstr "متوقف شده"
+
+#: src/Processes.py:622 src/Sensors.py:333 src/Services.py:471 src/Users.py:493
+#: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:99
+#: ui/UsersTab.ui:66
+msgid "Search..."
+msgstr "جستجو..."
+
+#: src/ProcessesDetails.py:284 ui/ProcessesDetailsWindow.ui:7
+msgid "Process Details"
+msgstr "جزییات فرآیند"
+
+#: src/ProcessesDetails.py:410
+msgid "This process is not running anymore."
+msgstr "این فرآیند دیگر در حال اجرا نیست."
+
+#: src/ProcessesMenuRightClick.py:83
+msgid "Do you want to terminate this process?"
+msgstr "آیا میخواهید به این فرآیند دستور توقف بدهید؟"
+
+#: src/ProcessesMenuRightClick.py:89
+msgid "Do you want to kill this process?"
+msgstr "آیا میخواهید این فرآیند را بکُشید؟"
+
+#: src/Sensors.py:80
+msgid "Sensor Group"
+msgstr "گروه حسگر ها"
+
+#: src/Sensors.py:82
+msgid "Current Value"
+msgstr "مقدار کنونی"
+
+#: src/Sensors.py:83 ui/ProcessesMenuRightClick.ui:91
+msgid "High"
+msgstr "مقدار بیشینه (حداکثر)"
+
+#: src/Sensors.py:84
+msgid "Critical"
+msgstr "مقدار بحرانی"
+
+#: src/Sensors.py:333 src/SettingsGUI.py:51 ui/MainWindow.ui:464
+#: ui/SensorsTab.ui:48
+msgid "Sensors"
+msgstr "حسگر ها"
+
+#: src/Services.py:137 ui/ServicesMenuCustomizations.ui:73
+msgid "State"
+msgstr "وضعیت"
+
+#: src/Services.py:138 ui/ServicesDetailsWindow.ui:400
+#: ui/ServicesMenuCustomizations.ui:87
+msgid "Main PID"
+msgstr "شناسه فرآیند اصلی"
+
+#: src/Services.py:139 ui/ServicesDetailsWindow.ui:277
+#: ui/ServicesMenuCustomizations.ui:101
+msgid "Active State"
+msgstr "وضعیت فعّالیت"
+
+#: src/Services.py:140 ui/ServicesDetailsWindow.ui:264
+#: ui/ServicesMenuCustomizations.ui:115
+msgid "Load State"
+msgstr "وضعیت بارگذاری"
+
+#: src/Services.py:141 ui/ServicesDetailsWindow.ui:290
+#: ui/ServicesMenuCustomizations.ui:129
+msgid "Sub-State"
+msgstr "زیر-وضعیت"
+
+#: src/Services.py:143 ui/ServicesDetailsWindow.ui:62
+#: ui/ServicesMenuCustomizations.ui:157
+msgid "Description"
+msgstr "توضیحات"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Enabled"
+msgstr "فعّال"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Disabled"
+msgstr "غیرفعّال"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Masked"
+msgstr "پوشانده شده"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Unmasked"
+msgstr "پوشانده نشده"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Static"
+msgstr "پایدار"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Generated"
+msgstr "تولید شده"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Enabled-runtime"
+msgstr "فعّال شده در هنگام اجرا"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Indirect"
+msgstr "غیرمستقیم"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Active"
+msgstr "فعّال"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Inactive"
+msgstr "غیرفعّال"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Loaded"
+msgstr "بارگذاری شده"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Dead"
+msgstr "مُرده"
+
+#: src/Services.py:167 src/ServicesDetails.py:131
+msgid "Exited"
+msgstr "خارج شده"
+
+#: src/Services.py:471 src/SettingsGUI.py:50 ui/MainWindow.ui:769
+#: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
+msgid "Services"
+msgstr "سرویس ها"
+
+#: src/ServicesMenuRightClick.py:120
+msgid "Information"
+msgstr "اطلاعات"
+
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:628
+msgid "Performance"
+msgstr "کارکرد"
+
+#: src/SettingsGUI.py:50 src/Users.py:493 ui/MainWindow.ui:722
+#: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
+msgid "Users"
+msgstr "کاربران"
+
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:816 ui/SystemTab.ui:26
+msgid "System"
+msgstr "سیستم"
+
+#: src/SettingsGUI.py:51 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
+#: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1372
+#: ui/ProcessesMenuCustomizations.ui:509 ui/ProcessesMenuCustomizations.ui:597
+msgid "Memory"
+msgstr "رم"
+
+#: src/SettingsGUI.py:51 ui/MainWindow.ui:370 ui/NetworkMenus.ui:23
+#: ui/NetworkTab.ui:560 ui/PerformanceSummaryHeaderBarGrid.ui:113
+msgid "Network"
+msgstr "شبکه"
+
+#: src/SettingsGUI.py:51 ui/GpuMenus.ui:23 ui/GpuTab.ui:511
+#: ui/MainWindow.ui:417
+msgid "GPU"
+msgstr "گرافیک"
+
+#: src/SettingsGUI.py:538
+msgid "Do you want to reset all settings to defaults?"
+msgstr "آیا میخواهید همه تنظیمات را به حالت اولیه بازنشانی کنید؟"
+
+#: src/Users.py:130 ui/UsersDetailsWindow.ui:58
+#: ui/UsersMenuCustomizations.ui:73
+msgid "Full Name"
+msgstr "نام کامل"
+
+#: src/Users.py:131 ui/UsersDetailsWindow.ui:71
+#: ui/UsersMenuCustomizations.ui:87
+msgid "Logged In"
+msgstr "وارد شده"
+
+#: src/Users.py:135 ui/UsersDetailsWindow.ui:123
+#: ui/UsersMenuCustomizations.ui:143
+msgid "Home Directory"
+msgstr "مسیر خانه"
+
+#: src/Users.py:136 ui/UsersDetailsWindow.ui:136
+#: ui/UsersMenuCustomizations.ui:171
+msgid "Group"
+msgstr "گروه"
+
+#: src/Users.py:137 ui/UsersDetailsWindow.ui:149
+#: ui/UsersMenuCustomizations.ui:199
+msgid "Terminal"
+msgstr "ترمینال"
+
+#: src/Users.py:138 ui/ProcessesDetailsWindow.ui:159
+#: ui/UsersDetailsWindow.ui:162 ui/UsersMenuCustomizations.ui:185
+msgid "Start Time"
+msgstr "زمان ورود"
+
+#: ui/CpuMenus.ui:125 ui/DiskMenus.ui:63 ui/GpuMenus.ui:63 ui/MemoryMenus.ui:85
+#: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:776
+#: ui/ServicesMenuCustomizations.ui:226 ui/SettingsWindow.ui:248
+#: ui/UsersMenuCustomizations.ui:271
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: ui/CpuMenus.ui:167 ui/DiskMenus.ui:239 ui/MemoryMenus.ui:180
+#: ui/NetworkMenus.ui:208
+msgid "Chart - Show"
+msgstr "نمایش در نمودار"
+
+#: ui/CpuMenus.ui:182 ui/DiskMenus.ui:209 ui/MemoryMenus.ui:195
+#: ui/NetworkMenus.ui:223 ui/ProcessesMenuCustomizations.ui:560
+msgid "Precision"
+msgstr "دقت"
+
+#: ui/CpuMenus.ui:194 ui/DiskMenus.ui:274 ui/GpuMenus.ui:91
+#: ui/MemoryMenus.ui:222 ui/NetworkMenus.ui:273
+msgid "Graph Color"
+msgstr "رنگ نمودار"
+
+#: ui/CpuTab.ui:44
+msgid "Average CPU usage of all cores"
+msgstr "میانگین مصرف پردازنده در همه هسته ها"
+
+#: ui/CpuTab.ui:45
+msgid "Average Usage"
+msgstr "میانگین مصرف"
+
+#: ui/CpuTab.ui:57 ui/GpuTab.ui:371
+msgid "Frequency"
+msgstr "فرکانس"
+
+#: ui/CpuTab.ui:179
+msgid "Processes-Threads"
+msgstr "فرآیند ها-ریسمان ها"
+
+#: ui/CpuTab.ui:191
+msgid "Up Time"
+msgstr "زمان روشن بودن"
+
+#: ui/CpuTab.ui:253 ui/GpuTab.ui:293
+msgid "Min-Max Frequency:"
+msgstr "کمینه-بیشینه فرکانس:"
+
+#: ui/CpuTab.ui:283
+msgid "Cache (L1d-L1i):"
+msgstr "حافظه پنهان (L1d-L1i):"
+
+#: ui/CpuTab.ui:313
+msgid "Cache (L2-L3):"
+msgstr "حافظه پنهان (L2-L3):"
+
+#: ui/CpuTab.ui:343
+msgid "CPU Sockets:"
+msgstr "سوکت های پردازنده:"
+
+#: ui/CpuTab.ui:372
+msgid "Number of online physical and logical CPU cores"
+msgstr "تعداد هسته های فعّال فیزیکی و مجازی پردازنده"
+
+#: ui/CpuTab.ui:374
+msgid "Cores (Physical-Logical):"
+msgstr "هسته ها (فیزیکی-مجازی):"
+
+#: ui/CpuTab.ui:404 ui/SystemTab.ui:434
+msgid "Architecture:"
+msgstr "معماری:"
+
+#: ui/CpuTab.ui:490 ui/DiskDetailsWindow.ui:149 ui/DiskTab.ui:642
+#: ui/GpuTab.ui:548 ui/NetworkTab.ui:597
+msgid "Vendor-Model"
+msgstr "سازنده-مدل"
+
+#: ui/CpuTab.ui:508 ui/DiskTab.ui:627 ui/GpuTab.ui:566 ui/NetworkTab.ui:615
+msgid "Device Name In Kernel"
+msgstr "نام دستگاه در کرنل"
+
+#: ui/DiskDetailsWindow.ui:58
+msgid "Parent Name"
+msgstr "نام والد"
+
+#: ui/DiskDetailsWindow.ui:71
+msgid "System Disk"
+msgstr "دیسک سیستمی"
+
+#: ui/DiskDetailsWindow.ui:97
+msgid "File System"
+msgstr "فرمت"
+
+#: ui/DiskDetailsWindow.ui:123
+msgid "Free"
+msgstr "آزاد"
+
+#: ui/DiskDetailsWindow.ui:162
+msgid "Label (File System)"
+msgstr "برچسب (فرمت)"
+
+#: ui/DiskDetailsWindow.ui:327
+msgid "Mount Point"
+msgstr "محل اتصال"
+
+#: ui/DiskDetailsWindow.ui:545
+msgid "(Mass Storage)"
+msgstr "(حافظه انبوه)"
+
+#: ui/DiskMenus.ui:171 ui/NetworkMenus.ui:171
+msgid "Selected Device"
+msgstr "دستگاه انتخاب شده"
+
+#: ui/DiskMenus.ui:185 ui/NetworkMenus.ui:185
+msgid "All Devices"
+msgstr "همه دستگاه ها"
+
+#: ui/DiskMenus.ui:224 ui/MemoryMenus.ui:210 ui/NetworkMenus.ui:238
+#: ui/ProcessesMenuCustomizations.ui:575
+msgid "Data Unit"
+msgstr "یکای داده"
+
+#: ui/DiskMenus.ui:261 ui/NetworkMenus.ui:260
+#: ui/ProcessesMenuCustomizations.ui:617
+msgid "Show speed units as multiples of bits"
+msgstr "یکای سرعت را به شکل بیت نشان بده"
+
+#: ui/DiskMenus.ui:321 ui/MemoryMenus.ui:270 ui/NetworkMenus.ui:320
+#: ui/ProcessesMenuCustomizations.ui:665 ui/ProcessesMenuCustomizations.ui:716
+msgid "Show data as powers of:"
+msgstr "حجم را حاصلضربی از این عدد نشان بده:"
+
+#: ui/DiskMenus.ui:349
+msgid "Hide loop, ramdisk, zram disks"
+msgstr "دیسک های loop، ramdisk, zram را پنهان کن"
+
+#: ui/DiskTab.ui:175 ui/DiskTab.ui:188 ui/NetworkTab.ui:207
+#: ui/NetworkTab.ui:220
+msgid "Measured value since last system start"
+msgstr "این مقدار پس از آخرین ریستارت سیستم اندازه گیری شده"
+
+#: ui/DiskTab.ui:251
+msgid "System Disk:"
+msgstr "دیسک سیستمی:"
+
+#: ui/DiskTab.ui:281 ui/DiskTab.ui:307
+msgid "Used:"
+msgstr "مصرف شده:"
+
+#: ui/DiskTab.ui:294 ui/MemoryTab.ui:172 ui/MemoryTab.ui:414
+msgid "Free:"
+msgstr "آزاد:"
+
+#: ui/DiskTab.ui:320 ui/MemoryTab.ui:159 ui/MemoryTab.ui:401
+msgid "Capacity:"
+msgstr "گنجایش:"
+
+#: ui/DiskTab.ui:333 ui/MemoryTab.ui:461
+msgid "Details:"
+msgstr "جزییات:"
+
+#: ui/DiskTab.ui:402 ui/MemoryTab.ui:237 ui/MemoryTab.ui:479
+msgid "Show..."
+msgstr "نمایش..."
+
+#: ui/GpuTab.ui:69 ui/GpuTab.ui:487
+msgid "GPU Usage"
+msgstr "مصرف گرافیک"
+
+#: ui/GpuTab.ui:81
+msgid "Video Memory"
+msgstr "حافظه گرافیکی"
+
+#: ui/GpuTab.ui:143
+#, fuzzy
+msgid "Boot VGA:"
+msgstr "خروجی تصویر هنگام بالا آمدن سیستم:"
+
+#: ui/GpuTab.ui:173
+msgid "Driver:"
+msgstr "درایور:"
+
+#: ui/GpuTab.ui:203
+msgid "Refresh Rate:"
+msgstr "نرخ تازه‌سازی:"
+
+#: ui/GpuTab.ui:216
+msgid "Resolution:"
+msgstr "وضوح تصویر:"
+
+#: ui/GpuTab.ui:263
+msgid "Power Usage:"
+msgstr "مصرف نیرو:"
+
+#: ui/GpuTab.ui:399
+msgid "Temperature"
+msgstr "دما"
+
+#: ui/MainMenusDialogs.ui:13
+msgid "Multi-featured system monitor."
+msgstr ""
+
+#: ui/MainMenusDialogs.ui:88
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: ui/MainMenusDialogs.ui:132
+msgid "About"
+msgstr "درباره"
+
+#: ui/MainWindow.ui:847
+msgid "System Monitoring Center"
+msgstr "مرکز دیده‌ بانی رایانه"
+
+#: ui/MemoryTab.ui:97
+msgid "Available"
+msgstr "در دسترس"
+
+#: ui/MemoryTab.ui:185
+msgid "Hardware:"
+msgstr "سخت افزار:"
+
+#: ui/MemoryTab.ui:545
+msgid "RAM Usage"
+msgstr "مصرف رم"
+
+#: ui/NetworkTab.ui:208
+msgid "Downloaded Data"
+msgstr "داده های دریافت شده"
+
+#: ui/NetworkTab.ui:221
+msgid "Uploaded Data"
+msgstr "داده های بارگذاری شده"
+
+#: ui/NetworkTab.ui:251
+msgid "Connection Type:"
+msgstr "نوع اتصال:"
+
+#: ui/NetworkTab.ui:281
+msgid "Connected-SSID:"
+msgstr "آیا متصل است-نام شبکه (SSID):"
+
+#: ui/NetworkTab.ui:294
+msgid "Signal Strength:"
+msgstr "قدرت سیگنال:"
+
+#: ui/NetworkTab.ui:307
+msgid "IPv4 Address:"
+msgstr "نشانی IPv4:"
+
+#: ui/NetworkTab.ui:320
+msgid "IPv6 Address:"
+msgstr "نشانی IPv6:"
+
+#: ui/NetworkTab.ui:333
+msgid "MAC Address:"
+msgstr "نشانی MAC:"
+
+#: ui/ProcessesCustomPriorityWindow.ui:12
+#: ui/ProcessesCustomPriorityWindow.ui:84 ui/ProcessesMenuRightClick.ui:72
+msgid "Change Priority"
+msgstr "تغییر اهمیت"
+
+#: ui/ProcessesCustomPriorityWindow.ui:35
+msgid ""
+"Change priority of this process:\n"
+"(Smaller value means higher process priority)"
+msgstr ""
+"تغییر اهمیت این فرآیند:\n"
+"(عدد کوچکتر به معنای اهمیت بالاتر فرآیند می‌باشد)"
+
+#: ui/ProcessesCustomPriorityWindow.ui:96
+msgid "Cancel"
+msgstr "لغو"
+
+#: ui/ProcessesDetailsWindow.ui:172 ui/ProcessesDetailsWindow.ui:1801
+msgid "Exe"
+msgstr "مسیر فایل اجرایی"
+
+#: ui/ProcessesDetailsWindow.ui:198
+msgid "Parent Processes"
+msgstr "فرآیند های والد"
+
+#: ui/ProcessesDetailsWindow.ui:211
+msgid ""
+"Children Processes\n"
+"(Not recursively)"
+msgstr "فرآیند های فرزند (به طور غیر بازگشتی)"
+
+#: ui/ProcessesDetailsWindow.ui:979
+msgid "Context Switches"
+msgstr "تغییرات زمینه (بازدهی)"
+
+#: ui/ProcessesDetailsWindow.ui:992
+msgid "CPU Times"
+msgstr "زمان پردازش"
+
+#: ui/ProcessesDetailsWindow.ui:1005
+msgid "Used CPU Core(s)"
+msgstr "هسته (های) استفاده شده پردازنده"
+
+#: ui/ProcessesDetailsWindow.ui:1018
+msgid "Threads (TID)"
+msgstr "ریسمان ها (شناسه ریسمان)"
+
+#: ui/ProcessesDetailsWindow.ui:1136
+#, fuzzy
+msgid "Memory (USS)"
+msgstr "رم (USS)"
+
+#: ui/ProcessesDetailsWindow.ui:1457
+msgid "Read Count"
+msgstr "تعداد دفعات خواندن"
+
+#: ui/ProcessesDetailsWindow.ui:1470
+msgid "Write Count"
+msgstr "تعداد دفعات نوشتن"
+
+#: ui/ProcessesDetailsWindow.ui:1814
+msgid "Current Working Directory"
+msgstr "مسیر کنونی فعّالیت"
+
+#: ui/ProcessesDetailsWindow.ui:1840
+msgid "Opened Files"
+msgstr "فایل های باز شده"
+
+#: ui/ProcessesMenuCustomizations.ui:49
+msgid "Show processes of all users"
+msgstr "فرآیند های همه کاربران را نشان بده"
+
+#: ui/ProcessesMenuCustomizations.ui:63
+msgid "Show processes as tree"
+msgstr "فرآیند ها را به شکل درختی نشان بده"
+
+#: ui/ProcessesMenuCustomizations.ui:77
+msgid "Show tree lines"
+msgstr "شاخه های درخت را نشان بده"
+
+#: ui/ProcessesMenuCustomizations.ui:107 ui/ProcessesMenuCustomizations.ui:123
+msgid "View"
+msgstr "دیدن"
+
+#: ui/ProcessesMenuCustomizations.ui:429 ui/ProcessesMenuCustomizations.ui:448
+#: ui/ServicesMenuCustomizations.ui:180 ui/ServicesMenuCustomizations.ui:196
+#: ui/UsersMenuCustomizations.ui:225 ui/UsersMenuCustomizations.ui:241
+msgid "Add/Remove Columns"
+msgstr "افزودن/حذف ستون ها"
+
+#: ui/ProcessesMenuCustomizations.ui:745
+msgid "Numbers"
+msgstr "اعداد"
+
+#: ui/ProcessesMenuRightClick.ui:12
+msgid "Expand All"
+msgstr "همه را باز کن"
+
+#: ui/ProcessesMenuRightClick.ui:20
+msgid "Collapse All"
+msgstr "همه را جمع کن"
+
+#: ui/ProcessesMenuRightClick.ui:34
+msgid "Stop Process"
+msgstr "فرآیند را متوقف کن"
+
+#: ui/ProcessesMenuRightClick.ui:42
+msgid "Continue Process"
+msgstr "فرآیند را ادامه بده"
+
+#: ui/ProcessesMenuRightClick.ui:50
+msgid "Terminate Process"
+msgstr "به فرآیند دستور توقف بده"
+
+#: ui/ProcessesMenuRightClick.ui:58
+msgid "Kill Process"
+msgstr "فرآیند را بُکش"
+
+#: ui/ProcessesMenuRightClick.ui:81
+msgid "Very High"
+msgstr "خیلی زیاد"
+
+#: ui/ProcessesMenuRightClick.ui:101
+msgid "Normal"
+msgstr "عادی"
+
+#: ui/ProcessesMenuRightClick.ui:111
+msgid "Low"
+msgstr "پایین"
+
+#: ui/ProcessesMenuRightClick.ui:121
+msgid "Very Low"
+msgstr "خیلی پایین"
+
+#: ui/ProcessesMenuRightClick.ui:136
+msgid "Custom Value..."
+msgstr "مقدار دلخواه..."
+
+#: ui/ProcessesMenuRightClick.ui:154 ui/ServicesMenuRightClick.ui:68
+#: ui/UsersMenuRightClick.ui:12
+msgid "Details"
+msgstr "جزییات"
+
+#: ui/ServicesDetailsWindow.ui:7
+msgid "Service Details"
+msgstr "جزییات سرویس"
+
+#: ui/ServicesDetailsWindow.ui:88
+msgid "Documentation"
+msgstr "مستندات"
+
+#: ui/ServicesDetailsWindow.ui:199
+msgid "Main Process Start Time"
+msgstr "زمان آغاز فرآیند اصلی"
+
+#: ui/ServicesDetailsWindow.ui:212
+msgid "Main Process End Time"
+msgstr "زمان پایان فرآیند اصلی"
+
+#: ui/ServicesDetailsWindow.ui:251
+msgid "Unit File State - Preset"
+msgstr "وضعیت واحد فایل - پیش‌تنظیم"
+
+#: ui/ServicesDetailsWindow.ui:373
+msgid "Triggered By"
+msgstr "راه اندازی شده توسط"
+
+#: ui/ServicesDetailsWindow.ui:645
+msgid "Requires"
+msgstr "نیاز دارد به"
+
+#: ui/ServicesDetailsWindow.ui:658
+msgid "Conflicts"
+msgstr "در تداخل است با"
+
+#: ui/ServicesDetailsWindow.ui:671
+msgid "After"
+msgstr "پس از"
+
+#: ui/ServicesDetailsWindow.ui:684
+msgid "Before"
+msgstr "پیش از"
+
+#: ui/ServicesDetailsWindow.ui:812
+msgid "Dependencies"
+msgstr "وابستگی ها"
+
+#: ui/ServicesMenuRightClick.ui:12
+msgid "Start"
+msgstr "آغاز"
+
+#: ui/ServicesMenuRightClick.ui:19
+msgid "Stop"
+msgstr "پایان"
+
+#: ui/ServicesMenuRightClick.ui:26
+msgid "Restart"
+msgstr "راه‌اندازی دوباره"
+
+#: ui/ServicesMenuRightClick.ui:33
+msgid "Reload"
+msgstr "بارگذاری دوباره"
+
+#: ui/ServicesMenuRightClick.ui:40
+msgid "Enable"
+msgstr "فعّال کردن"
+
+#: ui/ServicesMenuRightClick.ui:47
+msgid "Disable"
+msgstr "غیرفعّال کردن"
+
+#: ui/ServicesMenuRightClick.ui:54
+msgid "Mask"
+msgstr "پوشاندن"
+
+#: ui/ServicesTab.ui:41
+msgid ""
+"Note: This tab is not reloaded automatically. Manually reload for changes."
+msgstr ""
+"هشدار: این زبانه به طور خودکار بروزرسانی نمیشود. برای دیدن تغییرات جدید به "
+"طور دستی بروزرسانی کنید."
+
+#: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
+msgid "Refresh the data on this tab"
+msgstr "داده های این زبانه را بروزرسانی کن"
+
+#: ui/SettingsWindow.ui:7
+msgid "General Settings"
+msgstr "تنظیمات عمومی"
+
+#: ui/SettingsWindow.ui:30
+msgid "Update interval (seconds):"
+msgstr "بازه زمانی بروزرسانی (به ثانیه):"
+
+#: ui/SettingsWindow.ui:49
+msgid "Remember last opened tabs"
+msgstr "آخرین زبانه های باز شده را به یاد داشته باش"
+
+#: ui/SettingsWindow.ui:64
+msgid "Show performance summary on the headerbar"
+msgstr "چکیده کارکرد را در سربرگ نشان بده"
+
+#: ui/SettingsWindow.ui:82
+msgid "Chart data history:"
+msgstr "تاریخچه داده های نمودار:"
+
+#: ui/SettingsWindow.ui:101
+msgid "Remember last selected devices"
+msgstr "آخرین دستگاه های انتخاب شده را به یاد داشته باش"
+
+#: ui/SettingsWindow.ui:155
+msgid "Remember window size"
+msgstr "اندازه پنجره را به یاد داشته باش"
+
+#: ui/SettingsWindow.ui:189
+msgid "Check for updates automatically (PyPI only)"
+msgstr "به طور خودکار برای بروزرسانی جدید بررسی کن (فقط در صورت نصب از PyPI)"
+
+#: ui/SettingsWindow.ui:206
+msgid "(If the application is run without root privileges.)"
+msgstr "(اگر برنامه بدون دسترسی روت اجرا شده باشد.)"
+
+#: ui/SettingsWindow.ui:295
+msgid "Reset all settings of the application to defaults"
+msgstr "همه تنظیمات برنامه را به مقادیر پیشفرض بازنشانی کن"
+
+#: ui/SettingsWindow.ui:330
+msgid "Default main tab and sub-tab:"
+msgstr "زبانه پیشفرض اصلی و فرعی:"
+
+#: ui/SystemTab.ui:64 ui/SystemTab.ui:310
+msgid "Computer"
+msgstr "رایانه"
+
+#: ui/SystemTab.ui:79 ui/SystemTab.ui:130
+msgid "Operating System (OS)"
+msgstr "سیستم عامل (OS)"
+
+#: ui/SystemTab.ui:147 ui/SystemTab.ui:404
+msgid "Name:"
+msgstr "نام:"
+
+#: ui/SystemTab.ui:160
+msgid "Version - Code Name:"
+msgstr "نسخه - اسم رمز:"
+
+#: ui/SystemTab.ui:207
+msgid "Model:"
+msgstr "مدل:"
+
+#: ui/SystemTab.ui:220
+msgid "Computer Type:"
+msgstr "نوع رایانه:"
+
+#: ui/SystemTab.ui:250
+msgid "Based On:"
+msgstr "بر پایه:"
+
+#: ui/SystemTab.ui:280
+msgid "Kernel Release:"
+msgstr "نسخه کرنل:"
+
+#: ui/SystemTab.ui:344
+msgid "Vendor:"
+msgstr "سازنده:"
+
+#: ui/SystemTab.ui:391
+msgid "OS Family:"
+msgstr "خانواده سیستم عامل:"
+
+#: ui/SystemTab.ui:464
+msgid "Kernel Version:"
+msgstr "جزییات کرنل:"
+
+#: ui/SystemTab.ui:494
+msgid "Number Of Monitors:"
+msgstr "تعداد نمایشگر ها:"
+
+#: ui/SystemTab.ui:551
+msgid "Graphical User Interface (GUI)"
+msgstr "رابط کاربری گرافیکی (GUI)"
+
+#: ui/SystemTab.ui:568
+msgid "Packages"
+msgstr "پکیج ها"
+
+#: ui/SystemTab.ui:585
+msgid "Desktop Environment:"
+msgstr "محیط دسکتاپ:"
+
+#: ui/SystemTab.ui:649
+msgid "Windowing System:"
+msgstr "سیستم پنجره‌بندی:"
+
+#: ui/SystemTab.ui:662
+msgid "Display Manager:"
+msgstr "مدیر نمایش:"
+
+#: ui/SystemTab.ui:675
+msgid "System:"
+msgstr "سیستمی:"
+
+#: ui/SystemTab.ui:687
+msgid "Number of installed Flatpak applications and runtimes"
+msgstr "تعداد فلت‌پک ها و حین‌اجرا های نصب شده"
+
+#: ui/SystemTab.ui:689
+msgid "Flatpak:"
+msgstr "فلت‌پک:"
+
+#: ui/SystemTab.ui:719
+msgid "Window Manager:"
+msgstr "مدیر پنجره:"
+
+#: ui/SystemTab.ui:782 ui/SystemTab.ui:796
+msgid "Version for the currently running software"
+msgstr "نسخه نرم افزار در حال اجرای کنونی"
+
+#: ui/SystemTab.ui:784
+msgid "Python Version:"
+msgstr "نسخه پایتون:"
+
+#: ui/SystemTab.ui:798
+msgid "Gtk Version:"
+msgstr "نسخه GTK:"

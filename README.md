@@ -23,7 +23,7 @@ Multi-featured system monitor.
 - Interactive charts for querying performance data on any point
 - Option for showing processes as tree or list
 - Language support:
-    - Brazilian Portuguese, Czech, English, European Portuguese, Hungarian, Polish, Russian, Turkish
+    - Brazilian Portuguese, Czech, English, European Portuguese, Hungarian, Polish, Russian, Turkish, Persian
 - Optimized for low CPU usage and fast start
 - Shows notification if update is available on PyPI (disabled by default)
 - Supports ARM architecture
