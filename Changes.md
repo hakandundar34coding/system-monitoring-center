@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.26.0
+  * New: Support for multiple process details windows
+  * New: Persian translations
+  * Fix: GPU usage for AMD GPUs
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.25.0
   * New: CPU, RAM, Disk graphs on process details window
   * Fix: Repeating functions multiple times (User,Service details)
