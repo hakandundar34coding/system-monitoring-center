@@ -89,8 +89,11 @@ def on_treeview2101_button_press_event(widget, event):
 
     # Open details window if double clicked on a row
     if event.type == Gdk.EventType._2BUTTON_PRESS:
-        from ProcessesDetails import ProcessesDetails
-        ProcessesDetails.window2101w.show()
+        """from ProcessesDetails import ProcessesDetails
+        ProcessesDetails.window2101w.show()"""
+
+        import ProcessesDetails
+        ProcessesDetails.processes_details_show_process_details()
 
 
 # --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
@@ -138,6 +141,11 @@ def on_treeview2101_key_press_event(widget, event):
     # Check if Ctrl and K keys are pressed at the same time.
     if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_k:
         ProcessesMenuRightClick.on_process_manage_menuitems_activate(ProcessesMenuRightClick.menuitem2104m)
+        return
+
+    # Check if Enter key is pressed.
+    if event.keyval == Gdk.KEY_Return:
+        ProcessesMenuRightClick.on_menuitem2106m_activate(ProcessesMenuRightClick.menuitem2106m)
         return
 
 

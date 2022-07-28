@@ -5,6 +5,7 @@ include database/*
 include src/*.py
 include src/__version__
 include locale/cs/LC_MESSAGES/*
+include locale/fa/LC_MESSAGES/*
 include locale/hu/LC_MESSAGES/*
 include locale/pl/LC_MESSAGES/*
 include locale/pt_BR/LC_MESSAGES/*
