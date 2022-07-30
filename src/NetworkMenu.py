@@ -91,10 +91,7 @@ class NetworkMenu:
                 return
             Config.plot_network_download_speed = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        self._network_init_loop_save()
 
 
     # ----------------------- "network upload speed" Checkbutton -----------------------
@@ -108,10 +105,7 @@ class NetworkMenu:
                 return
             Config.plot_network_upload_speed = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        self._network_init_loop_save()
 
 
     # ----------------------- "Selected Device" Radiobutton -----------------------
@@ -120,10 +114,7 @@ class NetworkMenu:
         if widget.get_active() == True:
             Config.show_network_usage_per_network_card = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        self._network_init_loop_save()
 
 
     # ----------------------- "All Devices" Radiobutton -----------------------
@@ -132,10 +123,7 @@ class NetworkMenu:
         if widget.get_active() == True:
             Config.show_network_usage_per_network_card = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        self._network_init_loop_save()
 
 
     # ----------------------- "network data precision" Combobox -----------------------
@@ -143,10 +131,7 @@ class NetworkMenu:
 
         Config.performance_network_data_precision = Config.number_precision_list[widget.get_active()][2]
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        self._network_init_loop_save()
 
 
     # ----------------------- "Show units as powers of: 1024 or 1000" Radiobuttons -----------------------
@@ -157,24 +142,14 @@ class NetworkMenu:
         elif self.radiobutton1404p.get_active() == True:
             Config.performance_network_data_unit = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        self._network_init_loop_save()
 
 
     # ----------------------- "Show speed units as multiples of bits" Checkbutton -----------------------
     def on_checkbutton1404p_toggled(self, widget):
 
-        if widget.get_active() == True:
-            Config.performance_network_speed_bit = 1
-        else:
-            Config.performance_network_speed_bit = 0
-
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        Config.performance_network_speed_bit = 1 if widget.get_active() == True else 0
+        self._network_init_loop_save()
 
 
     # ----------------------- "foreground and background color" Buttons -----------------------
@@ -194,7 +169,9 @@ class NetworkMenu:
 
         self.colorchooserdialog1401.hide()
 
-        # Apply changes immediately (without waiting update interval).
+        self._network_init_loop_save()
+
+    def _network_init_loop_save(self):
         Network.network_initial_func()
         Network.network_loop_func()
         Config.config_save_func()

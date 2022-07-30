@@ -2,6 +2,7 @@
 
 # Import modules
 import gi
+import pathlib
 gi.require_version('Gtk', '3.0')
 gi.require_version('GLib', '2.0')
 from gi.repository import Gtk, GLib
@@ -56,9 +57,8 @@ class Performance:
                     system_disk_list.append(disk)
                     break
         # Detect system disk by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
-        if system_disk_list == []:
-            with open("/proc/cmdline") as reader:
-                proc_cmdline = reader.read()
+        if not system_disk_list:
+            proc_cmdline = pathlib.Path("/proc/cmdline").read_text()
             if "root=UUID=" in proc_cmdline:
                 disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
                 system_disk_list.append(os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip())
@@ -68,16 +68,15 @@ class Performance:
 
         if Config.selected_disk in self.disk_list:
             selected_disk = Config.selected_disk
+        elif system_disk_list:
+            selected_disk = system_disk_list[0]
         else:
-            if system_disk_list != []:
-                selected_disk = system_disk_list[0]
-            else:
-                selected_disk = self.disk_list[0]
-                # Try to not to set selected disk a loop, ram, zram disk in order to avoid errors if "hide_loop_ramdisk_zram_disks" option is enabled and performance data of all disks are plotted at the same time. loop device may be the first disk on some systems if they are run without installation.
-                for disk in self.disk_list:
-                    if disk.startswith("loop") == False and disk.startswith("ram") == False and disk.startswith("zram") == False:
-                        selected_disk = disk
-                        break
+            selected_disk = self.disk_list[0]
+            # Try to not to set selected disk a loop, ram, zram disk in order to avoid errors if "hide_loop_ramdisk_zram_disks" option is enabled and performance data of all disks are plotted at the same time. loop device may be the first disk on some systems if they are run without installation.
+            for disk in self.disk_list:
+                if disk.startswith("loop") == False and disk.startswith("ram") == False and disk.startswith("zram") == False:
+                    selected_disk = disk
+                    break
 
         self.system_disk_list = system_disk_list
         self.selected_disk_number = self.disk_list_system_ordered.index(selected_disk)

@@ -72,7 +72,7 @@ def on_treeview6101_button_press_event(widget, event):
     treeiter = model.get_iter(path)
 
     # Get right/double clicked service name
-    if treeiter == None:
+    if not treeiter:
         return
     global selected_service_name
     try:

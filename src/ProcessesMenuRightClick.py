@@ -89,7 +89,7 @@ class ProcessesMenuRightClick:
             process_dialog_message = _tr("Do you want to kill this process?")
 
         # Show warning dialog if process is tried to be ended.
-        if Config.warn_before_stopping_processes == 1 and (widget == self.menuitem2103m or widget == self.menuitem2104m):
+        if Config.warn_before_stopping_processes == 1 and widget in [self.menuitem2103m, self.menuitem2104m]:
             self.processes_end_process_warning_dialog(process_dialog_message, selected_process_name, selected_process_pid)
             if self.dialog2101_response != Gtk.ResponseType.YES:
                 return

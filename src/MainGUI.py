@@ -112,16 +112,17 @@ class MainGUI:
     def on_window1_delete(self, widget, data=None):
 
         # Get window state (if full screen or not), window size (width, height) and save
-        if Config.remember_window_size[0] == 1:
-            main_window_state = widget.is_maximized()
-            if main_window_state == True:
-                main_window_state = 1
-            if main_window_state == False:
-                main_window_state = 0
-            main_window_width, main_window_height = widget.get_size()
-            remember_window_size_value = Config.remember_window_size[0]
-            Config.remember_window_size = [remember_window_size_value, main_window_state, main_window_width, main_window_height]
-            Config.config_save_func()
+        if Config.remember_window_size[0] != 1:
+            return
+        main_window_state = widget.is_maximized()
+        if main_window_state == True:
+            main_window_state = 1
+        if main_window_state == False:
+            main_window_state = 0
+        main_window_width, main_window_height = widget.get_size()
+        remember_window_size_value = Config.remember_window_size[0]
+        Config.remember_window_size = [remember_window_size_value, main_window_state, main_window_width, main_window_height]
+        Config.config_save_func()
 
 
     # ----------------------- Called for running code/functions when GUI is shown -----------------------
@@ -178,16 +179,7 @@ class MainGUI:
 
         # Show information for warning the user if the application has been run with root privileges (if UID=0). Information is shown just below the application window headerbar.
         if os.geteuid() == 0:
-            # Generate a new label for the information. This label does not exist in the ".ui" UI file.
-            label_root_warning = Gtk.Label(label=_tr("Warning! The application has been run with root privileges, you may harm your system."))
-            css = b"label {background: rgba(100%,0%,0%,1.0);}"
-            style_provider = Gtk.CssProvider()
-            style_provider.load_from_data(css)
-            label_root_warning.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-            self.grid10.insert_row(0)
-            # Attach the label to the grid at (0, 0) position.
-            self.grid10.attach(label_root_warning, 0, 0, 1, 1)
-            label_root_warning.set_visible(True)
+            self._extracted_from_main_update_check_gui_notification("Warning! The application has been run with root privileges, you may harm your system.", b"label {background: rgba(100%,0%,0%,1.0);}")
 
         # Check if there is a newer version of the software if relevant setting is enabled and the application is a Python package (directory is in "/usr/local/lib/..." or in "/home/[user_name]/.local/lib/...".
         # New version can not be checked if the application is run with root privileges. BEcause "pip" does not run "index" command in this situation.
@@ -256,16 +248,18 @@ class MainGUI:
     # ----------------------- Show a notification label on the GUI if there is a newer version on PyPI -----------------------
     def main_update_check_gui_notification_func(self):
 
-        # Generate a new label for the information. This label does not exist in the ".ui" UI file.
-        label_new_version_information = Gtk.Label(label=_tr("There is a newer version on PyPI."))
-        css = b"label {background: rgba(24%,70%,45%,1.0);}"
+        self._extracted_from_main_update_check_gui_notification("There is a newer version on PyPI.", b"label {background: rgba(24%,70%,45%,1.0);}")
+
+    def _extracted_from_main_update_check_gui_notification(self, arg0, arg1):
+        label_root_warning = Gtk.Label(label=_tr(arg0))
+        css = arg1
         style_provider = Gtk.CssProvider()
         style_provider.load_from_data(css)
-        label_new_version_information.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        label_root_warning.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
         self.grid10.insert_row(0)
-        # Attach the label to the grid at (0, 0) position.
-        self.grid10.attach(label_new_version_information, 0, 0, 1, 1)
-        label_new_version_information.set_visible(True)
+        self.grid10.attach(label_root_warning, 0, 0, 1, 1)
+        label_root_warning.set_visible(True)
 
 
     # ----------------------- "Main Menu" Button -----------------------
@@ -340,7 +334,7 @@ class MainGUI:
                 # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage. This value is not saved.
                 Config.performance_tab_current_sub_tab = 0
                 # Attach the grid to the grid (on the Main Window) at (0, 0) position if not attached.
-                if self.grid1007.get_child_at(0,0) == None:
+                if self.grid1007.get_child_at(0, 0) is None:
                     global Summary
                     from Summary import Summary
                     self.grid1007.attach(Summary.grid1701, 0, 0, 1, 1)
@@ -362,7 +356,7 @@ class MainGUI:
                 # This value is used in order to detect the current tab without checking GUI obejects for lower CPU usage. This value is not saved.
                 Config.performance_tab_current_sub_tab = 1
                 # Attach the grid to the grid (on the Main Window) at (0, 0) position if not attached.
-                if self.grid1001.get_child_at(0,0) == None:
+                if self.grid1001.get_child_at(0, 0) is None:
                     global Cpu
                     from Cpu import Cpu
                     self.grid1001.attach(Cpu.grid1101, 0, 0, 1, 1)
@@ -375,14 +369,13 @@ class MainGUI:
                 self.main_gui_device_selection_list_func()
                 return
 
-            # Switch to "Memory" tab
             elif self.radiobutton1002.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1002)
                 if remember_last_opened_tabs_on_application_start == 1:
                     Config.performance_tab_default_sub_tab = 2
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 2
-                if self.grid1002.get_child_at(0,0) == None:
+                if self.grid1002.get_child_at(0, 0) is None:
                     global Memory
                     from Memory import Memory
                     self.grid1002.attach(Memory.grid1201, 0, 0, 1, 1)
@@ -392,14 +385,13 @@ class MainGUI:
                 self.main_gui_device_selection_list_func()
                 return
 
-            # Switch to "Disk" tab
             elif self.radiobutton1003.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1003)
                 if remember_last_opened_tabs_on_application_start == 1:
                     Config.performance_tab_default_sub_tab = 3
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 3
-                if self.grid1003.get_child_at(0,0) == None:
+                if self.grid1003.get_child_at(0, 0) is None:
                     global Disk
                     from Disk import Disk
                     self.grid1003.attach(Disk.grid1301, 0, 0, 1, 1)
@@ -409,14 +401,13 @@ class MainGUI:
                 self.main_gui_device_selection_list_func()
                 return
 
-            # Switch to "Network" tab
             elif self.radiobutton1004.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1004)
                 if remember_last_opened_tabs_on_application_start == 1:
                     Config.performance_tab_default_sub_tab = 4
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 4
-                if self.grid1004.get_child_at(0,0) == None:
+                if self.grid1004.get_child_at(0, 0) is None:
                     global Network
                     from Network import Network
                     self.grid1004.attach(Network.grid1401, 0, 0, 1, 1)
@@ -426,14 +417,13 @@ class MainGUI:
                 self.main_gui_device_selection_list_func()
                 return
 
-            # Switch to "GPU" tab
             elif self.radiobutton1005.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1005)
                 if remember_last_opened_tabs_on_application_start == 1:
                     Config.performance_tab_default_sub_tab = 5
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 5
-                if self.grid1005.get_child_at(0,0) == None:
+                if self.grid1005.get_child_at(0, 0) is None:
                     global Gpu
                     from Gpu import Gpu
                     self.grid1005.attach(Gpu.grid1501, 0, 0, 1, 1)
@@ -446,7 +436,6 @@ class MainGUI:
                     pass
                 return
 
-            # Switch to "Sensors" tab
             elif self.radiobutton1006.get_active() == True:
                 self.stack1001.set_visible_child(self.grid1006)
                 if remember_last_opened_tabs_on_application_start == 1:
@@ -465,7 +454,6 @@ class MainGUI:
                 self.main_gui_device_selection_list_func()
                 return
 
-        # Switch to "Processes" tab
         elif self.radiobutton2.get_active() == True:
             self.stack1.set_visible_child(self.grid2)
             if remember_last_opened_tabs_on_application_start == 1:
@@ -483,7 +471,6 @@ class MainGUI:
             Processes.processes_loop_func()
             return
 
-        # Switch to "Users" tab
         elif self.radiobutton3.get_active() == True:
             self.stack1.set_visible_child(self.grid3)
             if remember_last_opened_tabs_on_application_start == 1:
@@ -501,7 +488,6 @@ class MainGUI:
             Users.users_loop_func()
             return
 
-        # Switch to "Services" tab
         elif self.radiobutton6.get_active() == True:
             self.stack1.set_visible_child(self.grid6)
             if remember_last_opened_tabs_on_application_start == 1:
@@ -518,14 +504,13 @@ class MainGUI:
                 Services.services_initial_func()
             return
 
-        # Switch to "System" tab
         elif self.radiobutton8.get_active() == True:
             self.stack1.set_visible_child(self.grid8)
             if remember_last_opened_tabs_on_application_start == 1:
                 Config.default_main_tab = 4
                 Config.config_save_func()
             Config.current_main_tab = 4
-            if self.grid8.get_child_at(0,0) == None:
+            if self.grid8.get_child_at(0, 0) is None:
                 global System
                 from System import System
                 self.grid8.attach(System.grid8101, 0, 0, 1, 1)
@@ -618,11 +603,7 @@ class MainGUI:
             selected_device = device_list[row.get_index()]
 
             # Check if Summary tab is selected.
-            if performance_tab_current_sub_tab == 0:
-                pass
-
-            # Check if CPU tab is selected.
-            elif performance_tab_current_sub_tab == 1:
+            if performance_tab_current_sub_tab == 1:
                 # Set selected device.
                 Config.selected_cpu_core = selected_device
                 Performance.performance_set_selected_cpu_core_func()
@@ -632,11 +613,6 @@ class MainGUI:
                 Cpu.cpu_loop_func()
                 Config.config_save_func()
 
-            # Check if Memory tab is selected.
-            elif performance_tab_current_sub_tab == 2:
-                pass
-
-            # Check if Disk tab is selected.
             elif performance_tab_current_sub_tab == 3:
                 Config.selected_disk = selected_device
                 Performance.performance_set_selected_disk_func()
@@ -646,7 +622,6 @@ class MainGUI:
                 Disk.disk_loop_func()
                 Config.config_save_func()
 
-            # Check if Network tab is selected.
             elif performance_tab_current_sub_tab == 4:
                 Config.selected_network_card = selected_device
                 Performance.performance_set_selected_network_card_func()
@@ -656,7 +631,6 @@ class MainGUI:
                 Network.network_loop_func()
                 Config.config_save_func()
 
-            # Check if GPU tab is selected.
             elif performance_tab_current_sub_tab == 5:
                 Config.selected_gpu = selected_device
                 Gpu.gpu_get_gpu_list_and_boot_vga_func()
@@ -665,10 +639,6 @@ class MainGUI:
                 Gpu.gpu_initial_func()
                 Gpu.gpu_loop_func()
                 Config.config_save_func()
-
-            # Check if Sensors tab is selected.
-            elif performance_tab_current_sub_tab == 6:
-                pass
 
         # Add devices into listbox.
         for device in device_list:

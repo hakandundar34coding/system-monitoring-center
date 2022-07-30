@@ -71,10 +71,7 @@ class CpuMenu:
         if widget.get_active() == True:
             Config.show_cpu_usage_per_core = 0
 
-            # Apply changes immediately (without waiting update interval).
-            Cpu.cpu_initial_func()
-            Cpu.cpu_loop_func()
-            Config.config_save_func()
+            self._cpu_init_loop_save()
 
 
     # ----------------------- "CPU usage per core" Radiobutton -----------------------
@@ -83,10 +80,7 @@ class CpuMenu:
         if widget.get_active() == True:
             Config.show_cpu_usage_per_core = 1
 
-            # Apply changes immediately (without waiting update interval).
-            Cpu.cpu_initial_func()
-            Cpu.cpu_loop_func()
-            Config.config_save_func()
+            self._cpu_init_loop_save()
 
 
     # ----------------------- "foreground and background color" Buttons -----------------------
@@ -106,10 +100,7 @@ class CpuMenu:
 
         self.colorchooserdialog1101.hide()
 
-        # Apply changes immediately (without waiting update interval).
-        Cpu.cpu_initial_func()
-        Cpu.cpu_loop_func()
-        Config.config_save_func()
+        self._cpu_init_loop_save()
 
 
     # ----------------------- "CPU usage percent precision" Combobox -----------------------
@@ -117,7 +108,9 @@ class CpuMenu:
 
         Config.performance_cpu_usage_percent_precision = Config.number_precision_list[widget.get_active()][2]
 
-        # Apply changes immediately (without waiting update interval).
+        self._cpu_init_loop_save()
+
+    def _cpu_init_loop_save(self):
         Cpu.cpu_initial_func()
         Cpu.cpu_loop_func()
         Config.config_save_func()
