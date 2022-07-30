@@ -94,10 +94,7 @@ class DiskMenu:
                 return
             Config.plot_disk_read_speed = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
+        self._disk_init_loop_save()
 
 
     # ----------------------- "disk write speed" Checkbutton -----------------------
@@ -111,10 +108,7 @@ class DiskMenu:
                 return
             Config.plot_disk_write_speed = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
+        self._disk_init_loop_save()
 
 
     # ----------------------- "Selected Device" Radiobutton -----------------------
@@ -123,10 +117,7 @@ class DiskMenu:
         if widget.get_active() == True:
             Config.show_disk_usage_per_disk = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
+        self._disk_init_loop_save()
 
 
     # ----------------------- "All Devices" Radiobutton -----------------------
@@ -135,10 +126,7 @@ class DiskMenu:
         if widget.get_active() == True:
             Config.show_disk_usage_per_disk = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
+        self._disk_init_loop_save()
 
 
     # ----------------------- "Precision" Combobox -----------------------
@@ -146,10 +134,7 @@ class DiskMenu:
 
         Config.performance_disk_data_precision = Config.number_precision_list[widget.get_active()][2]
 
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
+        self._disk_init_loop_save()
 
 
     # ----------------------- "Show units as powers of: 1024 or 1000" Radiobuttons -----------------------
@@ -160,24 +145,14 @@ class DiskMenu:
         elif self.radiobutton1304p.get_active() == True:
             Config.performance_disk_data_unit = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
+        self._disk_init_loop_save()
 
 
     # ----------------------- "Show speed units as multiples of bits" Checkbutton -----------------------
     def on_checkbutton1304p_toggled(self, widget):
 
-        if widget.get_active() == True:
-            Config.performance_disk_speed_bit = 1
-        else:
-            Config.performance_disk_speed_bit = 0
-
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
+        Config.performance_disk_speed_bit = 1 if widget.get_active() == True else 0
+        self._disk_init_loop_save()
 
 
     # ----------------------- "foreground and background color" Buttons -----------------------
@@ -197,25 +172,20 @@ class DiskMenu:
 
         self.colorchooserdialog1301.hide()
 
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
+        self._disk_init_loop_save()
 
 
     # ----------------------- "Hide loop, ramdisk, zram disks" Checkbutton -----------------------
     def on_checkbutton1305p_toggled(self, widget):
 
-        if widget.get_active() == True:
-            Config.hide_loop_ramdisk_zram_disks = 1
-        else:
-            Config.hide_loop_ramdisk_zram_disks = 0
-
+        Config.hide_loop_ramdisk_zram_disks = 1 if widget.get_active() == True else 0
         # Reset selected device in order to update selected disk on disk list between Performance tab sub-tabs for avoiding no disk selection or wrong disk selection situation if selected disk is hidden or new disks are shown after the option is changed.
         Config.selected_disk = ""
         Performance.performance_set_selected_disk_func()
 
-        # Apply changes immediately (without waiting update interval).
+        self._disk_init_loop_save()
+
+    def _disk_init_loop_save(self):
         Disk.disk_initial_func()
         Disk.disk_loop_func()
         Config.config_save_func()

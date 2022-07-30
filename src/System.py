@@ -150,11 +150,8 @@ class System:
 
         # Append Ubuntu version to the based on information if OS is based on Ubuntu.
         if os_based_on == "Ubuntu":
-            ubuntu_version = "-"
-            for line in os_release_output_lines:
-                if line.startswith("UBUNTU_CODENAME="):
-                    ubuntu_version = line.split("UBUNTU_CODENAME=")[1].strip(' "')
-                    break
+            ubuntu_version = next((line.split("UBUNTU_CODENAME=")[1].strip(' "') for line in os_release_output_lines if line.startswith("UBUNTU_CODENAME=")), "-")
+
             os_based_on = os_based_on + " (" + ubuntu_version + ")"
 
         # Get Image version and use it as OS version for ArchLinux.

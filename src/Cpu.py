@@ -2,6 +2,7 @@
 
 # Import modules
 import gi
+import pathlib
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
 from gi.repository import Gtk, Gdk
@@ -22,7 +23,7 @@ class Cpu:
 
         # Get GUI objects from file
         builder = Gtk.Builder()
-        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/CpuTab.ui")
+        builder.add_from_file(f"{os.path.dirname(os.path.realpath(__file__))}/../ui/CpuTab.ui")
 
         # Get GUI objects
         self.grid1101 = builder.get_object('grid1101')
@@ -113,7 +114,7 @@ class Cpu:
             self.label1113.set_text(_tr("CPU Usage (Average)"))
         if show_cpu_usage_per_core == 1:
             self.label1113.set_text(_tr("CPU Usage (Per Core)"))
-        if isinstance(cpu_core_max_frequency, str) is False:
+        if not isinstance(cpu_core_max_frequency, str):
             self.label1105.set_text(f'{cpu_core_min_frequency:.2f} - {cpu_core_max_frequency:.2f} GHz')
         else:
             self.label1105.set_text(f'{cpu_core_min_frequency} - {cpu_core_max_frequency}')
@@ -248,8 +249,8 @@ class Cpu:
         cpu_architecture = platform.processor()
         if cpu_architecture == "":
             cpu_architecture = platform.machine()
-            if cpu_architecture == "":
-                cpu_architecture = "-"
+        if cpu_architecture == "":
+            cpu_architecture = "-"
 
         return cpu_architecture
 
@@ -257,13 +258,12 @@ class Cpu:
     # ----------------------- Get number of physical cores, number_of_cpu_sockets, cpu_model_names -----------------------
     def cpu_number_of_physical_cores_sockets_cpu_name_func(self, selected_cpu_core_number, number_of_logical_cores):
 
-        with open("/proc/cpuinfo") as reader:
-            proc_cpuinfo_output = reader.read()
+        proc_cpuinfo_output = pathlib.Path("/proc/cpuinfo").read_text()
         proc_cpuinfo_output_lines = proc_cpuinfo_output.split("\n")
 
+        cpu_model_names = []
         # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "x86_64" architecture. Physical and logical cores and model name per core information are tracked easily on this platform.
         if "physical id" in proc_cpuinfo_output:
-            cpu_model_names = []
             number_of_physical_cores = 0
             physical_id = 0
             physical_id_prev = 0
@@ -278,9 +278,7 @@ class Cpu:
             number_of_cpu_sockets = int(physical_id) + 1
             cpu_model_name = cpu_model_names[selected_cpu_core_number]
 
-        # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "ARM" architecture. Physical and logical cores and model name per core information are not tracked easily on this platform. Different ARM processors (v6, v7, v8 or models of same ARM vX processors) may have different information in "/proc/cpuinfo" file.
         else:
-            cpu_model_names = []
             number_of_physical_cores = number_of_logical_cores
             number_of_cpu_sockets = 1
 
@@ -312,7 +310,7 @@ class Cpu:
             cpu_architecture = "-"
             cpu_part = "-"
             # Read database file for ARM CPU register values.
-            with open(os.path.dirname(os.path.realpath(__file__)) + "/../database/arm.ids") as reader:
+            with open(f"{os.path.dirname(os.path.realpath(__file__))}/../database/arm.ids") as reader:
                 ids_file_output = reader.read().strip()
             # Define ARM architecture dictionary.
             arm_architecture_dict = {"5TE": "ARMv5", "6TEJ": "ARMv6", "7": "ARMv7", "8": "ARMv8"}

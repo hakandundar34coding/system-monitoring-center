@@ -241,14 +241,9 @@ class Gpu:
 
         # Set default GPU if there is only 1 GPU on the system and these is not "boot_vga" file (on some systems such as ARM devices) which means default_gpu = "".
         if len(self.gpu_list) == 1:
-            if_default_gpu = _tr("Yes")
+            return _tr("Yes")
         else:
-            if self.gpu_list[self.selected_gpu_number] == self.default_gpu:
-                if_default_gpu = _tr("Yes")
-            else:
-                if_default_gpu = _tr("No")
-
-        return if_default_gpu
+            return _tr("Yes") if self.gpu_list[self.selected_gpu_number] == self.default_gpu else _tr("No")
 
 
     # ----------------------- Get GPU driver name -----------------------
@@ -291,9 +286,7 @@ class Gpu:
             device_vendor_name = "[" + _tr("Unknown") + "]"
         if device_model_name == "Unknown":
             device_model_name = "[" + _tr("Unknown") + "]"
-        gpu_device_model_name = f'{device_vendor_name} - {device_model_name}'
-
-        return gpu_device_model_name
+        return f'{device_vendor_name} - {device_model_name}'
 
 
     # ----------------------- Get GPU PCI address which will be used for detecting the selected GPU for processing GPU performance information -----------------------
@@ -309,13 +302,7 @@ class Gpu:
             uevent_output_lines = reader.read().strip().split("\n")
 
         # ARM GPUs does not have PCI address.
-        gpu_pci_address = "-"
-        for line in uevent_output_lines:
-            if line.startswith("PCI_SLOT_NAME="):
-                gpu_pci_address = line.split("=")[-1]
-                break
-
-        return gpu_pci_address
+        return next((line.split("=")[-1] for line in uevent_output_lines if line.startswith("PCI_SLOT_NAME=")), "-")
 
 
     # ----------------------- Get GPU load, memory, frequencies, power -----------------------

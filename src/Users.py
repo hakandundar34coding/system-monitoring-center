@@ -71,7 +71,7 @@ def on_treeview3101_button_press_event(widget, event):
     treeiter = model.get_iter(path)
 
     # Get right/double clicked user UID and user name
-    if treeiter == None:
+    if not treeiter:
         return
     global selected_user_uid, selected_username
     try:

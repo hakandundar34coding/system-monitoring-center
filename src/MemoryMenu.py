@@ -77,10 +77,7 @@ class MemoryMenu:
         if widget.get_active() == True:
             Config.show_memory_usage_per_memory = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Memory.memory_initial_func()
-        Memory.memory_loop_func()
-        Config.config_save_func()
+        self._memory_init_loop_save()
 
 
     # ----------------------- "Memory" Radiobutton -----------------------
@@ -89,10 +86,7 @@ class MemoryMenu:
         if widget.get_active() == True:
             Config.show_memory_usage_per_memory = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Memory.memory_initial_func()
-        Memory.memory_loop_func()
-        Config.config_save_func()
+        self._memory_init_loop_save()
 
 
     # ----------------------- "Precision" Combobox -----------------------
@@ -100,10 +94,7 @@ class MemoryMenu:
 
         Config.performance_memory_data_precision = Config.number_precision_list[widget.get_active()][2]
 
-        # Apply changes immediately (without waiting update interval).
-        Memory.memory_initial_func()
-        Memory.memory_loop_func()
-        Config.config_save_func()
+        self._memory_init_loop_save()
 
 
     # ----------------------- "Show units as powers of: 1024 or 1000" Radiobuttons -----------------------
@@ -114,10 +105,7 @@ class MemoryMenu:
         elif self.radiobutton1204p.get_active() == True:
             Config.performance_memory_data_unit = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Memory.memory_initial_func()
-        Memory.memory_loop_func()
-        Config.config_save_func()
+        self._memory_init_loop_save()
 
 
     # ----------------------- "Graph Color" Button -----------------------
@@ -137,7 +125,9 @@ class MemoryMenu:
 
         self.colorchooserdialog1201.hide()
 
-        # Apply changes immediately (without waiting update interval).
+        self._memory_init_loop_save()
+
+    def _memory_init_loop_save(self):
         Memory.memory_initial_func()
         Memory.memory_loop_func()
         Config.config_save_func()

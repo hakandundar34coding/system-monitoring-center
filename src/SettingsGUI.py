@@ -185,13 +185,7 @@ class SettingsGUI:
     # ----------------------- "Remember last selected hardware" Checkbutton -----------------------
     def on_checkbutton2003_toggled(self, widget):
 
-        if widget.get_active() == True:
-            Config.remember_last_selected_hardware = 1
-
-        if widget.get_active() == False:
-            Config.remember_last_selected_hardware = 0
-
-        Config.config_save_func()
+        Config.remember_last_selected_hardware = self.__widget_config_save(widget)
 
 
     # ----------------------- "Remember window size" Checkbutton -----------------------
@@ -221,13 +215,15 @@ class SettingsGUI:
     # ----------------------- "Check for updates" Checkbutton -----------------------
     def on_checkbutton2013_toggled(self, widget):
 
+        Config.check_for_updates_automatically = self.__widget_config_save(widget)
+
+    def __widget_config_save(self, widget):
         if widget.get_active() == True:
-            Config.check_for_updates_automatically = 1
-
+            result = 1
         if widget.get_active() == False:
-            Config.check_for_updates_automatically = 0
-
+            result = 0
         Config.config_save_func()
+        return result
 
 
     # ----------------------- "Reset general settings to defaults" Button -----------------------
@@ -238,21 +234,7 @@ class SettingsGUI:
         # Set "General" tab of the Settings window without disconnecting signals of the widgets in order to use these signals to reset the settings.
         self.settings_gui_general_settings_tab_set_func()
 
-        # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
-        self.settings_gui_set_chart_data_history_func()
-
-        # Apply selected CPU core, disk, network card changes
-        Performance.performance_set_selected_cpu_core_func()
-        Performance.performance_set_selected_disk_func()
-        Performance.performance_set_selected_network_card_func()
-        # Apply selected GPU changes
-        try:
-            from MainGUI import Gpu
-            Gpu.gpu_set_selected_gpu_func()
-        # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
-        except ImportError:
-            pass
-
+        self.__performance_set()
         # Apply changes immediately (without waiting update interval).
         self.settings_gui_apply_settings_immediately_func()
 
@@ -270,26 +252,23 @@ class SettingsGUI:
             self.settings_gui_general_settings_tab_set_func()
             self.settings_connect_signals_func()
 
-            # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
-            self.settings_gui_set_chart_data_history_func()
-
-            # Apply selected CPU core, disk, network card changes
-            Performance.performance_set_selected_cpu_core_func()
-            Performance.performance_set_selected_disk_func()
-            Performance.performance_set_selected_network_card_func()
-            # Apply selected GPU changes
-            try:
-                from MainGUI import Gpu
-                Gpu.gpu_set_selected_gpu_func()
-            # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
-            except ImportError:
-                pass
-
+            self.__performance_set()
             # Reset selected device on the list between Performance tab sub-tab list.
             MainGUI.main_gui_device_selection_list_func()
 
             # Apply changes immediately (without waiting update interval).
             self.settings_gui_apply_settings_immediately_func()
+
+    def __performance_set(self):
+        self.settings_gui_set_chart_data_history_func()
+        Performance.performance_set_selected_cpu_core_func()
+        Performance.performance_set_selected_disk_func()
+        Performance.performance_set_selected_network_card_func()
+        try:
+            from MainGUI import Gpu
+            Gpu.gpu_set_selected_gpu_func()
+        except ImportError:
+            pass
 
 
     # ----------------------- Called for setting "General" tab GUI items -----------------------

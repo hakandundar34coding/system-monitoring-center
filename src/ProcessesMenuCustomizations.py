@@ -132,7 +132,7 @@ class ProcessesMenuCustomizations:
 
     # ----------------------- Called for running code/functions when menu is shown -----------------------
     def on_popover2101p_show(self, widget):
- 
+
         try:
             self.processes_tab_customization_popover_disconnect_signals_func()
         except TypeError:
@@ -159,15 +159,7 @@ class ProcessesMenuCustomizations:
     # ----------------------- "Show processes of all users" Checkbutton -----------------------
     def on_checkbutton2101p_toggled(self, widget):
 
-        if widget.get_active() == True:
-            Config.show_processes_of_all_users = 1
-        if widget.get_active() == False:
-            Config.show_processes_of_all_users = 0
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Config.show_processes_of_all_users = self._extracted_from_on_checkbutton2103p_toggled_3(widget)
 
 
     # ----------------------- "Show processes as tree" Checkbutton -----------------------
@@ -180,24 +172,13 @@ class ProcessesMenuCustomizations:
             Config.show_processes_as_tree = 0
             self.checkbutton2103p.set_sensitive(False)
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        self._processes_init_loop_save()
 
 
     # ----------------------- "Show tree lines" Checkbutton -----------------------
     def on_checkbutton2103p_toggled(self, widget):
 
-        if widget.get_active() == True:
-            Config.show_tree_lines = 1
-        if widget.get_active() == False:
-            Config.show_tree_lines = 0
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Config.show_tree_lines = self._extracted_from_on_checkbutton2103p_toggled_3(widget)
 
 
     # ----------------------- "Add/Remove Columns (Name, PID, Username, etc.)" Checkbuttons -----------------------
@@ -207,78 +188,52 @@ class ProcessesMenuCustomizations:
 
 
     # ----------------------- "CPU precision" Combobox -----------------------
-    def on_combobox2101p_changed(self, widget):
-
-        Config.processes_cpu_precision = Config.number_precision_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+    def _extracted_from_on_checkbutton2103p_toggled_3(self, widget):
+        if widget.get_active() == True:
+            result = 1
+        if widget.get_active() == False:
+            result = 0
+        self._processes_init_loop_save()
+        return result
 
 
     # ----------------------- "Memory precision" Combobox -----------------------
-    def on_combobox2102p_changed(self, widget):
+    def on_combobox2101p_changed(self, widget):
+        Config.processes_cpu_precision = Config.number_precision_list[widget.get_active()][2]
 
-        Config.processes_memory_data_precision = Config.number_precision_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        self._processes_init_loop_save()
 
 
     # ----------------------- "Disk precision" Combobox -----------------------
-    def on_combobox2103p_changed(self, widget):
+    def on_combobox2102p_changed(self, widget):
+        Config.processes_memory_data_precision = Config.number_precision_list[widget.get_active()][2]
 
-        Config.processes_disk_data_precision = Config.number_precision_list[widget.get_active()][2]
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        self._processes_init_loop_save()
 
 
     # ----------------------- "Show units as powers of: 1024 or 1000 (for Memory)" Radiobuttons -----------------------
-    def on_memory_data_unit_radiobuttons_toggled(self, widget):
+    def on_combobox2103p_changed(self, widget):
+        Config.processes_disk_data_precision = Config.number_precision_list[widget.get_active()][2]
 
+        self._processes_init_loop_save()
+
+
+    # ----------------------- "Show units as powers of: 1024 or 1000 (for Disk)" Radiobuttons -----------------------
+    def on_memory_data_unit_radiobuttons_toggled(self, widget):
         if self.radiobutton2101p.get_active() == True:
             Config.processes_memory_data_unit = 0
         elif self.radiobutton2102p.get_active() == True:
             Config.processes_memory_data_unit = 1
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        self._processes_init_loop_save()
 
 
-    # ----------------------- "Show units as powers of: 1024 or 1000 (for Disk)" Radiobuttons -----------------------
+    # ----------------------- "Show speed units as multiples of bits (for Disk)" Checkbutton -----------------------
     def on_disk_data_unit_radiobuttons_toggled(self, widget):
-
         if self.radiobutton2103p.get_active() == True:
             Config.processes_disk_data_unit = 0
         elif self.radiobutton2104p.get_active() == True:
             Config.processes_disk_data_unit = 1
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
-
-
-    # ----------------------- "Show speed units as multiples of bits (for Disk)" Checkbutton -----------------------
-    def on_checkbutton2128p_toggled(self, widget):
-
-        if widget.get_active() == True:
-            Config.processes_disk_speed_bit = 1
-        else:
-            Config.processes_disk_speed_bit = 0
-
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        self._processes_init_loop_save()
 
 
     # ----------------------- Called for setting menu GUI items -----------------------
@@ -434,6 +389,10 @@ class ProcessesMenuCustomizations:
 
 
     # ----------------------- Called for adding/removing treeview columns -----------------------
+    def on_checkbutton2128p_toggled(self, widget):
+        Config.processes_disk_speed_bit = 1 if widget.get_active() == True else 0
+        self._processes_init_loop_save()
+
     def processes_add_remove_columns_function(self):
 
         Config.processes_treeview_columns_shown = []
@@ -479,6 +438,9 @@ class ProcessesMenuCustomizations:
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_treeview_column_order_width_row_sorting_func()
+        self._processes_init_loop_save()
+
+    def _processes_init_loop_save(self):
         Processes.processes_initial_func()
         Processes.processes_loop_func()
         Config.config_save_func()
