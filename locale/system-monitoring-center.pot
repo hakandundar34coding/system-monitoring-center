@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-26 16:31+0300\n"
+"POT-Creation-Date: 2022-08-03 11:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,12 +49,12 @@ msgstr ""
 
 #: src/Disk.py:387 src/Gpu.py:244 src/Gpu.py:247 src/Network.py:265
 #: src/Network.py:305 src/Services.py:168 src/ServicesDetails.py:132
-#: src/UsersDetails.py:221
+#: src/UsersDetails.py:214
 msgid "Yes"
 msgstr ""
 
 #: src/Disk.py:389 src/Gpu.py:249 src/Network.py:267 src/Services.py:168
-#: src/ServicesDetails.py:132 src/UsersDetails.py:223
+#: src/ServicesDetails.py:132 src/UsersDetails.py:216
 msgid "No"
 msgstr ""
 
@@ -218,7 +218,7 @@ msgstr ""
 msgid "PID"
 msgstr ""
 
-#: src/Processes.py:195 src/Users.py:129 src/UsersDetails.py:126
+#: src/Processes.py:195 src/Users.py:129 src/UsersDetails.py:119
 #: ui/ProcessesDetailsWindow.ui:93 ui/ProcessesMenuCustomizations.ui:179
 #: ui/UsersDetailsWindow.ui:7 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:57
@@ -708,11 +708,11 @@ msgstr ""
 msgid "Multi-featured system monitor."
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:88
+#: ui/MainMenusDialogs.ui:89
 msgid "Settings"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:132
+#: ui/MainMenusDialogs.ui:133
 msgid "About"
 msgstr ""
 

@@ -101,15 +101,8 @@ class UsersDetails:
         self.pid_list_prev = []
         self.global_process_cpu_times_prev = []
 
-        # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
-        self.number_of_clock_ticks = os.sysconf("SC_CLK_TCK")
-
-        # Get system boot time which will be used for obtaining user process start time
-        with open("/proc/stat") as reader:
-            stat_lines = reader.read().split("\n")
-        for line in stat_lines:
-            if "btime " in line:
-                self.system_boot_time = int(line.split()[1].strip())
+        self.system_boot_time = Users.system_boot_time
+        self.number_of_clock_ticks = Users.number_of_clock_ticks
 
 
     # ----------------------------------- Users - Users Details Foreground Function -----------------------------------
