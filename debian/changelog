@@ -1,3 +1,18 @@
+system-monitoring-center (1.26.1) unstable; urgency=medium
+
+  * Minor improvements (code, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 03 Aug 2022 11:00:00 +0300
+
+system-monitoring-center (1.26.0) unstable; urgency=medium
+
+  * New: Support for multiple process details windows
+  * New: Persian translations
+  * Fix: GPU usage for AMD GPUs
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 28 Jul 2022 08:00:00 +0300
+
 system-monitoring-center (1.25.0) unstable; urgency=medium
 
   * New: CPU, RAM, Disk graphs on process details window

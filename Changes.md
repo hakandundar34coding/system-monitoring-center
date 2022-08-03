@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v1.26.1
+  * Minor improvements (code, translations, etc.)
+
 ### v1.26.0
   * New: Support for multiple process details windows
   * New: Persian translations

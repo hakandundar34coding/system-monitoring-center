@@ -219,7 +219,7 @@ class ProcessesDetails:
         self.process_disk_read_speed_list = [0] * chart_data_history
         self.process_disk_write_speed_list = [0] * chart_data_history
 
-        # Get system boot time
+        # Get system boot time.
         with open("/proc/stat") as reader:
             stat_lines = reader.read().split("\n")
         for line in stat_lines:
