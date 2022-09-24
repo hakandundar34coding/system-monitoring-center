@@ -356,7 +356,8 @@ class Performance:
             search_text2 = "pci:" + device_vendor_id + device_model_id + "*" + "\n ID_MODEL_FROM_DATABASE="
 
             # Read database file for PCI devices.
-            with open(udev_hardware_database_dir + "20-pci-vendor-model.hwdb") as reader:
+            with open(udev_hardware_database_dir + "20-pci-vendor-model.hwdb", encoding="utf-8") as reader:
+                # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
                 ids_file_output = reader.read()
 
             # Get device vendor, model names from device ID file content.
