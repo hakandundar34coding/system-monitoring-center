@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v1.27.0
+  * New: German translations
+  * Fix: File read errors for C locale
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.26.1
   * Minor improvements (code, translations, etc.)
 
