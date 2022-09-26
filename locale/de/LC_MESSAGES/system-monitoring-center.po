@@ -2,39 +2,40 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Baumfinder <baumkartoffel@outlook.de>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-26 08:42+0300\n"
-"PO-Revision-Date: 2022-09-26 08:47+0300\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: cs\n"
+"PO-Revision-Date: 2022-09-26 08:46+0300\n"
+"Last-Translator: Baumfinder <baumkartoffel@outlook.de>\n"
+"Language-Team: German <baumkartoffel@outlook.de>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
 #: src/Cpu.py:113 ui/CpuMenus.ui:35 ui/CpuTab.ui:549
 #: ui/ProcessesDetailsWindow.ui:764
 msgid "CPU Usage (Average)"
-msgstr "Využití CPU (Průměr)"
+msgstr "CPU-Auslasatung (Durchschnitt)"
 
 #: src/Cpu.py:115 ui/CpuMenus.ui:49
 msgid "CPU Usage (Per Core)"
-msgstr "Využití CPU (jednotlivá jádra)"
+msgstr "CPU-Auslastung (Pro Kern)"
 
 #: src/Cpu.py:348 src/Disk.py:294 src/Disk.py:296 src/Gpu.py:291 src/Gpu.py:293
 #: src/Network.py:198 src/Network.py:200
 msgid "Unknown"
-msgstr "Neznámo"
+msgstr "Unbekannt"
 
 #: src/Disk.py:248 src/Disk.py:261 src/MemorySwapDetails.py:66
 msgid "Partition"
-msgstr "Oddíl"
+msgstr "Partition"
 
 #: src/Disk.py:259 src/DiskDetails.py:91 src/SettingsGUI.py:51
 #: ui/DiskDetailsWindow.ui:7 ui/DiskDetailsWindow.ui:45 ui/DiskMenus.ui:23
@@ -42,7 +43,7 @@ msgstr "Oddíl"
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1767
 #: ui/ProcessesMenuCustomizations.ui:530 ui/ProcessesMenuCustomizations.ui:608
 msgid "Disk"
-msgstr "Disk"
+msgstr "Festplatte"
 
 #: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1112
 msgid "Swap"
@@ -52,39 +53,41 @@ msgstr "Swap"
 #: src/Network.py:305 src/Services.py:168 src/ServicesDetails.py:132
 #: src/UsersDetails.py:214
 msgid "Yes"
-msgstr "Ano"
+msgstr "Ja"
 
 #: src/Disk.py:389 src/Gpu.py:249 src/Network.py:267 src/Services.py:168
 #: src/ServicesDetails.py:132 src/UsersDetails.py:216
 msgid "No"
-msgstr "Ne"
+msgstr "Nein"
 
 #: src/Disk.py:397 src/Disk.py:403 src/Disk.py:452 src/Disk.py:453
 #: src/Disk.py:454 src/Disk.py:455 src/Disk.py:456
 msgid "[Not mounted]"
-msgstr "[Nepřipojeno]"
+msgstr "[Nicht eingehängt]"
 
 #: src/MainGUI.py:182
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
 msgstr ""
-"Varování! Aplikace musí být spuštěna s právy roota a může poškodit váš "
-"systém."
+"Warnung! Die Applikation wurde mit root-Rechten ausgeführt, sie könnten ihr "
+"System beschädigen."
 
 #: src/MainGUI.py:260
 msgid "There is a newer version on PyPI."
-msgstr "Je dostupná nová verze PyPI."
+msgstr "Es ist eine neue Version von PyPl vorhanden."
 
 #: src/MainGUI.py:551 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:715 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
-msgstr "Souhrn"
+msgstr "Zusammenfassung"
 
 #: src/MainGUI.py:561
 msgid "CPU core selection affects only frequency and cache memory information."
-msgstr "Výběr CPU jádra ovlivňuje pouze informace o frekvenci a paměti cache."
+msgstr ""
+"Die Auswahl des CPU-Kerns beeinflusst nur die angezeigt Frequenz und Cache-"
+"Auslastung."
 
 #: src/MainGUI.py:565 src/Memory.py:180 src/Performance.py:1092
 #: src/Performance.py:1422 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
@@ -96,25 +99,25 @@ msgstr "RAM"
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:504
 #: ui/ProcessesDetailsWindow.ui:1148
 msgid "Swap Memory"
-msgstr "SWAP paměť"
+msgstr "Swapspeicher"
 
 #: src/Memory.py:178 ui/MemoryRamHardwareWindow.ui:7
 msgid "Physical RAM"
-msgstr "Fyzická RAM"
+msgstr "Physisches RAM"
 
 #: src/Memory.py:180 src/MemoryRamHardware.py:123 src/MemoryRamHardware.py:143
 #: src/MemorySwapDetails.py:97 ui/DiskDetailsWindow.ui:110
 #: ui/DiskDetailsWindow.ui:532
 msgid "Capacity"
-msgstr "Kapacita"
+msgstr "Kapazität"
 
 #: src/MemoryRamHardware.py:82
 msgid "Maximum Capacity"
-msgstr "Maximální kapacita"
+msgstr "Maximale Kapazität"
 
 #: src/MemoryRamHardware.py:83
 msgid "Number Of Devices"
-msgstr "Počet zařízení"
+msgstr "Anzahl an Geräten"
 
 #: src/MemoryRamHardware.py:124 src/MemoryRamHardware.py:144
 #: src/MemorySwapDetails.py:96 ui/DiskDetailsWindow.ui:84
@@ -124,48 +127,48 @@ msgstr "Typ"
 
 #: src/MemoryRamHardware.py:125 src/MemoryRamHardware.py:145
 msgid "Speed"
-msgstr "Rychlost"
+msgstr "Geschwindigkeit"
 
 #: src/MemoryRamHardware.py:126 src/MemoryRamHardware.py:146
 msgid "Manufacturer"
-msgstr "Výrobce"
+msgstr "Hersteller"
 
 #: src/MemoryRamHardware.py:127 src/MemoryRamHardware.py:147
 msgid "Form Factor"
-msgstr "Form Factor"
+msgstr "Formfaktor"
 
 #: src/MemoryRamHardware.py:128 src/MemoryRamHardware.py:148
 msgid "Locator"
-msgstr "Lokátor"
+msgstr "Lokator"
 
 #: src/MemoryRamHardware.py:129 src/MemoryRamHardware.py:149
 msgid "Bank Locator"
-msgstr "Lokátor bank"
+msgstr "Blanker Lokator"
 
 #: src/MemorySwapDetails.py:66
 msgid "File"
-msgstr "Soubor"
+msgstr "Datei"
 
 #: src/MemorySwapDetails.py:95 src/Processes.py:193 src/Sensors.py:81
 #: src/Services.py:136 ui/ProcessesDetailsWindow.ui:54
 #: ui/ProcessesMenuCustomizations.ui:149 ui/ServicesDetailsWindow.ui:49
 #: ui/ServicesMenuCustomizations.ui:57
 msgid "Name"
-msgstr "Jméno"
+msgstr "Name"
 
 #: src/MemorySwapDetails.py:98 ui/DiskDetailsWindow.ui:136 ui/MemoryTab.ui:85
 #: ui/MemoryTab.ui:346 ui/MemoryTab.ui:371
 msgid "Used"
-msgstr "Použito"
+msgstr "In Verwendung"
 
 #: src/MemorySwapDetails.py:99 src/Processes.py:205
 #: ui/ProcessesDetailsWindow.ui:106 ui/ProcessesMenuCustomizations.ui:249
 msgid "Priority"
-msgstr "Priorita"
+msgstr "Priorität"
 
 #: src/Network.py:208
 msgid "Virtual Network Interface"
-msgstr "Virtuální síťové rozhraní"
+msgstr "Virtuelle Netzwerkschnittstelle"
 
 #: src/Network.py:217
 msgid "Ethernet"
@@ -173,7 +176,7 @@ msgstr "Ethernet"
 
 #: src/Network.py:219
 msgid "Wi-Fi"
-msgstr "Wi-Fi"
+msgstr "Wlan"
 
 #: src/Performance.py:1083 src/Processes.py:197 src/SettingsGUI.py:51
 #: src/Users.py:139 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
@@ -190,31 +193,31 @@ msgstr "CPU"
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
 msgid "Processes"
-msgstr "Procesy"
+msgstr "Prozesse"
 
 #: src/Performance.py:1263 src/Processes.py:203 ui/DiskMenus.ui:121
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:524 ui/ProcessesDetailsWindow.ui:145
 #: ui/ProcessesDetailsWindow.ui:1404 ui/ProcessesDetailsWindow.ui:1698
 #: ui/ProcessesMenuCustomizations.ui:319
 msgid "Read Speed"
-msgstr "Rychlost čtení"
+msgstr "Lesegeschwindigkeit"
 
 #: src/Performance.py:1272 src/Processes.py:204 ui/DiskMenus.ui:134
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:547 ui/ProcessesDetailsWindow.ui:670
 #: ui/ProcessesDetailsWindow.ui:1417 ui/ProcessesDetailsWindow.ui:1721
 #: ui/ProcessesMenuCustomizations.ui:333
 msgid "Write Speed"
-msgstr "Rychlost zápisu"
+msgstr "Schreibgeschwindigkeit"
 
 #: src/Performance.py:1281 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
 #: ui/NetworkTab.ui:494
 msgid "Download Speed"
-msgstr "Rychlost stahování"
+msgstr "Downloadgeschwindigkeit"
 
 #: src/Performance.py:1290 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
 #: ui/NetworkTab.ui:517
 msgid "Upload Speed"
-msgstr "Rychlost nahrávání"
+msgstr "Uploadgeschwindigkeit"
 
 #: src/Processes.py:194 src/ProcessesDetails.py:292
 #: ui/ProcessesDetailsWindow.ui:67 ui/ProcessesMenuCustomizations.ui:165
@@ -226,44 +229,44 @@ msgstr "PID"
 #: ui/UsersDetailsWindow.ui:7 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:57
 msgid "User"
-msgstr "Uživatel"
+msgstr "Benutzer"
 
 #: src/Processes.py:196 ui/ProcessesDetailsWindow.ui:80
 #: ui/ProcessesMenuCustomizations.ui:193
 msgid "Status"
-msgstr "Stav"
+msgstr "Status"
 
 #: src/Processes.py:198 src/Services.py:142 ui/ProcessesDetailsWindow.ui:132
 #: ui/ProcessesDetailsWindow.ui:1096 ui/ProcessesDetailsWindow.ui:1318
 #: ui/ProcessesMenuCustomizations.ui:221 ui/ServicesDetailsWindow.ui:238
 #: ui/ServicesMenuCustomizations.ui:143
 msgid "Memory (RSS)"
-msgstr "Paměť (RSS)"
+msgstr "Speicher (RSS)"
 
 #: src/Processes.py:199 ui/ProcessesDetailsWindow.ui:1109
 #: ui/ProcessesMenuCustomizations.ui:235
 msgid "Memory (VMS)"
-msgstr "Paměť (VMS)"
+msgstr "Speicher (VMS)"
 
 #: src/Processes.py:200 ui/ProcessesDetailsWindow.ui:1122
 #: ui/ProcessesMenuCustomizations.ui:305
 msgid "Memory (Shared)"
-msgstr "Paměť (Sdílená)"
+msgstr "Speicher (geteilt)"
 
 #: src/Processes.py:201 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1430
 #: ui/ProcessesMenuCustomizations.ui:347
 msgid "Read Data"
-msgstr "Disk - čtení dat"
+msgstr "Lesedaten"
 
 #: src/Processes.py:202 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1443
 #: ui/ProcessesMenuCustomizations.ui:361
 msgid "Write Data"
-msgstr "Disk - zápis dat"
+msgstr "Schreibdaten"
 
 #: src/Processes.py:206 ui/ProcessesDetailsWindow.ui:1030
 #: ui/ProcessesMenuCustomizations.ui:263
 msgid "Threads"
-msgstr "Vlákna"
+msgstr "Threads"
 
 #: src/Processes.py:207 ui/ProcessesDetailsWindow.ui:184
 #: ui/ProcessesMenuCustomizations.ui:277
@@ -285,28 +288,28 @@ msgstr "GID"
 #: src/Processes.py:210 ui/ProcessesDetailsWindow.ui:1971
 #: ui/ProcessesMenuCustomizations.ui:291 ui/ServicesDetailsWindow.ui:75
 msgid "Path"
-msgstr "Cesta"
+msgstr "Pfad"
 
 #: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:1826
 #: ui/ProcessesMenuCustomizations.ui:403
 msgid "Command Line"
-msgstr "Příkazový řádek"
+msgstr "Kommandozeile"
 
 #: src/Processes.py:237 src/Services.py:167 src/ServicesDetails.py:131
 msgid "Running"
-msgstr "Běží"
+msgstr "Laufend"
 
 #: src/Processes.py:237
 msgid "Sleeping"
-msgstr "Spí"
+msgstr "Schlafend"
 
 #: src/Processes.py:237
 msgid "Waiting"
-msgstr "Čeká"
+msgstr "Wartend"
 
 #: src/Processes.py:237
 msgid "Idle"
-msgstr "Nečinný"
+msgstr "Leerlauf"
 
 #: src/Processes.py:237
 msgid "Zombie"
@@ -314,164 +317,164 @@ msgstr "Zombie"
 
 #: src/Processes.py:237
 msgid "Stopped"
-msgstr "Zastavený"
+msgstr "Gestoppt"
 
 #: src/Processes.py:625 src/Sensors.py:333 src/Services.py:471 src/Users.py:493
 #: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:99
 #: ui/UsersTab.ui:66
 msgid "Search..."
-msgstr "Hledat..."
+msgstr "Suche..."
 
 #: src/ProcessesDetails.py:292 ui/ProcessesDetailsWindow.ui:7
 msgid "Process Details"
-msgstr "Detail procesu"
+msgstr "Prozessdetails"
 
 #: src/ProcessesDetails.py:418
 msgid "This process is not running anymore."
-msgstr "Tento proces už neběží."
+msgstr "Dieser Prozess wird nicht mehr ausgeführt."
 
 #: src/ProcessesMenuRightClick.py:83
 msgid "Do you want to terminate this process?"
-msgstr "Chcete ukončit tento proces?"
+msgstr "Wollen sie diesen Prozess beenden?"
 
 #: src/ProcessesMenuRightClick.py:89
 msgid "Do you want to kill this process?"
-msgstr "Chcete zabít tento proces?"
+msgstr "Wollen sie diesen Prozess erzwungen beenden?"
 
 #: src/Sensors.py:80
 msgid "Sensor Group"
-msgstr "Skupina senzorů"
+msgstr "Sensorengruppe"
 
 #: src/Sensors.py:82
 msgid "Current Value"
-msgstr "Současná hodnota"
+msgstr "Aktueller Wert"
 
 #: src/Sensors.py:83 ui/ProcessesMenuRightClick.ui:91
 msgid "High"
-msgstr "Vysoko"
+msgstr "Hoch"
 
 #: src/Sensors.py:84
 msgid "Critical"
-msgstr "Kritická hodnota"
+msgstr "Kritisch"
 
 #: src/Sensors.py:333 src/SettingsGUI.py:51 ui/MainWindow.ui:464
 #: ui/SensorsTab.ui:48
 msgid "Sensors"
-msgstr "Senzory"
+msgstr "Sensoren"
 
 #: src/Services.py:137 ui/ServicesMenuCustomizations.ui:73
 msgid "State"
-msgstr "Stav"
+msgstr "Zustand"
 
 #: src/Services.py:138 ui/ServicesDetailsWindow.ui:400
 #: ui/ServicesMenuCustomizations.ui:87
 msgid "Main PID"
-msgstr "Hlavní PID"
+msgstr "Haupt-PID"
 
 #: src/Services.py:139 ui/ServicesDetailsWindow.ui:277
 #: ui/ServicesMenuCustomizations.ui:101
 msgid "Active State"
-msgstr "Aktivní status"
+msgstr "Aktiver Zustand"
 
 #: src/Services.py:140 ui/ServicesDetailsWindow.ui:264
 #: ui/ServicesMenuCustomizations.ui:115
 msgid "Load State"
-msgstr "Stav zátěže"
+msgstr "Laden-Status"
 
 #: src/Services.py:141 ui/ServicesDetailsWindow.ui:290
 #: ui/ServicesMenuCustomizations.ui:129
 msgid "Sub-State"
-msgstr "Sub status"
+msgstr "Sub-Zustand"
 
 #: src/Services.py:143 ui/ServicesDetailsWindow.ui:62
 #: ui/ServicesMenuCustomizations.ui:157
 msgid "Description"
-msgstr "Popisek"
+msgstr "Beschreibung"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Enabled"
-msgstr "Povoleno"
+msgstr "Aktiviert"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Disabled"
-msgstr "Zakázáno"
+msgstr "Deaktiviert"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Masked"
-msgstr "Maskovaný"
+msgstr "Maskiert"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Unmasked"
-msgstr "Nemaskovaný"
+msgstr "Unmaskiert"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Static"
-msgstr "Statický"
+msgstr "Statisch"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Generated"
-msgstr "Generovaný"
+msgstr "Generiert"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Enabled-runtime"
-msgstr "Povolený runtime"
+msgstr "Aktivierte Laufzeit"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Indirect"
-msgstr "Nepřímé"
+msgstr "Indirekt"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Active"
-msgstr "Aktivní"
+msgstr "Aktiv"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Inactive"
-msgstr "Neaktivní"
+msgstr "Inaktiv"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Loaded"
-msgstr "Načtený"
+msgstr "Geladen"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Dead"
-msgstr "Mrtvý"
+msgstr "Tot"
 
 #: src/Services.py:167 src/ServicesDetails.py:131
 msgid "Exited"
-msgstr "Opuštěný"
+msgstr "Verlassen"
 
 #: src/Services.py:471 src/SettingsGUI.py:50 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
-msgstr "Služby"
+msgstr "Dienste"
 
 #: src/ServicesMenuRightClick.py:120
 msgid "Information"
-msgstr "Informace"
+msgstr "Information"
 
 #: src/SettingsGUI.py:50 ui/MainWindow.ui:628
 msgid "Performance"
-msgstr "Výkon"
+msgstr "Leistung"
 
 #: src/SettingsGUI.py:50 src/Users.py:493 ui/MainWindow.ui:722
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
-msgstr "Uživatelé"
+msgstr "Benutzer"
 
 #: src/SettingsGUI.py:50 ui/MainWindow.ui:816 ui/SystemTab.ui:26
 msgid "System"
-msgstr "Systém"
+msgstr "System"
 
 #: src/SettingsGUI.py:51 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
 #: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1371
 #: ui/ProcessesMenuCustomizations.ui:509 ui/ProcessesMenuCustomizations.ui:597
 msgid "Memory"
-msgstr "Paměť"
+msgstr "Speicher"
 
 #: src/SettingsGUI.py:51 ui/MainWindow.ui:370 ui/NetworkMenus.ui:23
 #: ui/NetworkTab.ui:560 ui/PerformanceSummaryHeaderBarGrid.ui:113
 msgid "Network"
-msgstr "Síť"
+msgstr "Netzwerk"
 
 #: src/SettingsGUI.py:51 ui/GpuMenus.ui:23 ui/GpuTab.ui:511
 #: ui/MainWindow.ui:417
@@ -480,83 +483,83 @@ msgstr "GPU"
 
 #: src/SettingsGUI.py:538
 msgid "Do you want to reset all settings to defaults?"
-msgstr "Chcete resetovat výchozí nastavení?"
+msgstr "Wollen sie alle Einstellungen zum Standart zurücksetzten?"
 
 #: src/Users.py:130 ui/UsersDetailsWindow.ui:58
 #: ui/UsersMenuCustomizations.ui:73
 msgid "Full Name"
-msgstr "Celé jméno"
+msgstr "Ganzer Name"
 
 #: src/Users.py:131 ui/UsersDetailsWindow.ui:71
 #: ui/UsersMenuCustomizations.ui:87
 msgid "Logged In"
-msgstr "Přihlášený"
+msgstr "Eingeloggt"
 
 #: src/Users.py:135 ui/UsersDetailsWindow.ui:123
 #: ui/UsersMenuCustomizations.ui:143
 msgid "Home Directory"
-msgstr "Domovská složka"
+msgstr "Home-Ordner"
 
 #: src/Users.py:136 ui/UsersDetailsWindow.ui:136
 #: ui/UsersMenuCustomizations.ui:171
 msgid "Group"
-msgstr "Skupina"
+msgstr "Gruppe"
 
 #: src/Users.py:137 ui/UsersDetailsWindow.ui:149
 #: ui/UsersMenuCustomizations.ui:199
 msgid "Terminal"
-msgstr "Terminál"
+msgstr "Terminal"
 
 #: src/Users.py:138 ui/ProcessesDetailsWindow.ui:158
 #: ui/UsersDetailsWindow.ui:162 ui/UsersMenuCustomizations.ui:185
 msgid "Start Time"
-msgstr "Doba spuštění"
+msgstr "Startzeit"
 
 #: ui/CpuMenus.ui:125 ui/DiskMenus.ui:63 ui/GpuMenus.ui:63 ui/MemoryMenus.ui:85
 #: ui/NetworkMenus.ui:63 ui/ProcessesMenuCustomizations.ui:776
 #: ui/ServicesMenuCustomizations.ui:226 ui/SettingsWindow.ui:248
 #: ui/UsersMenuCustomizations.ui:271
 msgid "Reset"
-msgstr "Resetovat"
+msgstr "Zurücksetzen"
 
 #: ui/CpuMenus.ui:167 ui/DiskMenus.ui:239 ui/MemoryMenus.ui:180
 #: ui/NetworkMenus.ui:208
 msgid "Chart - Show"
-msgstr "Graf -Zobrazit"
+msgstr "Diagramm - Anzeigen"
 
 #: ui/CpuMenus.ui:182 ui/DiskMenus.ui:209 ui/MemoryMenus.ui:195
 #: ui/NetworkMenus.ui:223 ui/ProcessesMenuCustomizations.ui:560
 msgid "Precision"
-msgstr "Preciznost"
+msgstr "Präzision"
 
 #: ui/CpuMenus.ui:194 ui/DiskMenus.ui:274 ui/GpuMenus.ui:91
 #: ui/MemoryMenus.ui:222 ui/NetworkMenus.ui:273
 msgid "Graph Color"
-msgstr "Barva grafu"
+msgstr "Diagrammfarbe"
 
 #: ui/CpuTab.ui:44
 msgid "Average CPU usage of all cores"
-msgstr "Průměrné využití všech jader CPU"
+msgstr "Durchschnittliche CPU-Auslastung aller Kerne"
 
 #: ui/CpuTab.ui:45
 msgid "Average Usage"
-msgstr "Průměrné využití"
+msgstr "Durchschnittlihe Auslastung"
 
 #: ui/CpuTab.ui:57 ui/GpuTab.ui:371
 msgid "Frequency"
-msgstr "Frekvence"
+msgstr "Frequenz"
 
 #: ui/CpuTab.ui:179
 msgid "Processes-Threads"
-msgstr "Procesy-vlákna"
+msgstr "Prozesse-Threads"
 
 #: ui/CpuTab.ui:191
 msgid "Up Time"
-msgstr "Doba provozu"
+msgstr "Laufzeit"
 
 #: ui/CpuTab.ui:253 ui/GpuTab.ui:293
 msgid "Min-Max Frequency:"
-msgstr "Min-Max Frekvence:"
+msgstr "Min-Max Frequenz:"
 
 #: ui/CpuTab.ui:283
 msgid "Cache (L1d-L1i):"
@@ -568,120 +571,120 @@ msgstr "Cache (L2-L3):"
 
 #: ui/CpuTab.ui:343
 msgid "CPU Sockets:"
-msgstr "CPU Sockety:"
+msgstr "CPU Sockel:"
 
 #: ui/CpuTab.ui:372
 msgid "Number of online physical and logical CPU cores"
-msgstr "Počet fyzických a logických procesorových jader"
+msgstr "Anzahl an physischen und logischen CPU-Kernen"
 
 #: ui/CpuTab.ui:374
 msgid "Cores (Physical-Logical):"
-msgstr "Jáadra (Fyzická-Logická):"
+msgstr "Kerne (physisch-logisch)"
 
 #: ui/CpuTab.ui:404 ui/SystemTab.ui:434
 msgid "Architecture:"
-msgstr "Architektura:"
+msgstr "Architektur:"
 
 #: ui/CpuTab.ui:490 ui/DiskDetailsWindow.ui:149 ui/DiskTab.ui:642
 #: ui/GpuTab.ui:548 ui/NetworkTab.ui:597
 msgid "Vendor-Model"
-msgstr "Výrobce-Model"
+msgstr "Verkäufer-Modell"
 
 #: ui/CpuTab.ui:508 ui/DiskTab.ui:627 ui/GpuTab.ui:566 ui/NetworkTab.ui:615
 msgid "Device Name In Kernel"
-msgstr "Jméno zařízení v jádře"
+msgstr "Gerätename im Kernel"
 
 #: ui/DiskDetailsWindow.ui:58
 msgid "Parent Name"
-msgstr "Jméno rodiče"
+msgstr "Elternteil Name"
 
 #: ui/DiskDetailsWindow.ui:71
 msgid "System Disk"
-msgstr "Systémový disk"
+msgstr "Systemfestplatte"
 
 #: ui/DiskDetailsWindow.ui:97
 msgid "File System"
-msgstr "Souborový systém"
+msgstr "Dateisystem"
 
 #: ui/DiskDetailsWindow.ui:123
 msgid "Free"
-msgstr "Volno"
+msgstr "Frei"
 
 #: ui/DiskDetailsWindow.ui:162
 msgid "Label (File System)"
-msgstr "Štítek (Souborový systém)"
+msgstr "Beschriftung (Dateisystem)"
 
 #: ui/DiskDetailsWindow.ui:327
 msgid "Mount Point"
-msgstr "Přípojný bod"
+msgstr "Einhängepunkt"
 
 #: ui/DiskDetailsWindow.ui:545
 msgid "(Mass Storage)"
-msgstr "(Mass Storage)"
+msgstr "(Massenspeicher)"
 
 #: ui/DiskMenus.ui:171 ui/NetworkMenus.ui:171
 msgid "Selected Device"
-msgstr "Vybrané zařízení"
+msgstr "Ausgewähltes Gerät"
 
 #: ui/DiskMenus.ui:185 ui/NetworkMenus.ui:185
 msgid "All Devices"
-msgstr "Všechna zařízení"
+msgstr "Alle Geräte"
 
 #: ui/DiskMenus.ui:224 ui/MemoryMenus.ui:210 ui/NetworkMenus.ui:238
 #: ui/ProcessesMenuCustomizations.ui:575
 msgid "Data Unit"
-msgstr "Datová jednotka"
+msgstr "Dateneinheit"
 
 #: ui/DiskMenus.ui:261 ui/NetworkMenus.ui:260
 #: ui/ProcessesMenuCustomizations.ui:617
 msgid "Show speed units as multiples of bits"
-msgstr "Zobrazit jednotky rychlosti jako násobky bitů"
+msgstr "Geschwindigkeit als Vielfaches von bits anzeigen"
 
 #: ui/DiskMenus.ui:321 ui/MemoryMenus.ui:270 ui/NetworkMenus.ui:320
 #: ui/ProcessesMenuCustomizations.ui:665 ui/ProcessesMenuCustomizations.ui:716
 msgid "Show data as powers of:"
-msgstr "Zobrazit data jako mocniny:"
+msgstr "Daten anzeigen als Potenzen von:"
 
 #: ui/DiskMenus.ui:349
 msgid "Hide loop, ramdisk, zram disks"
-msgstr "Skrýt zařízení loop, ramdisk a zram"
+msgstr "Verstecke loop, ramdisk, zram Festplatten"
 
 #: ui/DiskTab.ui:175 ui/DiskTab.ui:188 ui/NetworkTab.ui:207
 #: ui/NetworkTab.ui:220
 msgid "Measured value since last system start"
-msgstr "Změřená hodnota od posledního spuštění systému"
+msgstr "Gemessener Wert seit letztem Systemstart"
 
 #: ui/DiskTab.ui:251
 msgid "System Disk:"
-msgstr "Systémový disk:"
+msgstr "Systemfestplatte:"
 
 #: ui/DiskTab.ui:281 ui/DiskTab.ui:307
 msgid "Used:"
-msgstr "Použito:"
+msgstr "In Verwendung:"
 
 #: ui/DiskTab.ui:294 ui/MemoryTab.ui:172 ui/MemoryTab.ui:414
 msgid "Free:"
-msgstr "Volno:"
+msgstr "Frei:"
 
 #: ui/DiskTab.ui:320 ui/MemoryTab.ui:159 ui/MemoryTab.ui:401
 msgid "Capacity:"
-msgstr "Kapacita:"
+msgstr "Kapazität:"
 
 #: ui/DiskTab.ui:333 ui/MemoryTab.ui:461
 msgid "Details:"
-msgstr "Detaily:"
+msgstr "Details:"
 
 #: ui/DiskTab.ui:402 ui/MemoryTab.ui:237 ui/MemoryTab.ui:479
 msgid "Show..."
-msgstr "Zobrazit..."
+msgstr "Anzeigen..."
 
 #: ui/GpuTab.ui:69 ui/GpuTab.ui:487
 msgid "GPU Usage"
-msgstr "Využití GPU"
+msgstr "GPU-Auslastung"
 
 #: ui/GpuTab.ui:81
 msgid "Video Memory"
-msgstr "Paměť GPU"
+msgstr "Videospeicher"
 
 #: ui/GpuTab.ui:143
 msgid "Boot VGA:"
@@ -689,43 +692,43 @@ msgstr "Boot VGA:"
 
 #: ui/GpuTab.ui:173
 msgid "Driver:"
-msgstr "Ovladač:"
+msgstr "Treiber:"
 
 #: ui/GpuTab.ui:203
 msgid "Refresh Rate:"
-msgstr "Obnovovací frekvence:"
+msgstr "Bildwiederholungsrate:"
 
 #: ui/GpuTab.ui:216
 msgid "Resolution:"
-msgstr "Rozlišení:"
+msgstr "Auflösung:"
 
 #: ui/GpuTab.ui:263
 msgid "Power Usage:"
-msgstr "Spotřeba energie:"
+msgstr "Stromverbrauch:"
 
 #: ui/GpuTab.ui:399
 msgid "Temperature"
-msgstr "Teplota"
+msgstr "Temperatur"
 
 #: ui/MainMenusDialogs.ui:13
 msgid "Multi-featured system monitor."
-msgstr "Multifunkční systémový monitor."
+msgstr "Multifunktioneller Systemmonitor."
 
 #: ui/MainMenusDialogs.ui:90
 msgid "Settings"
-msgstr "Nastavení"
+msgstr "Einstellungen"
 
 #: ui/MainMenusDialogs.ui:134
 msgid "About"
-msgstr "O programu"
+msgstr "Über"
 
 #: ui/MainWindow.ui:847
 msgid "System Monitoring Center"
-msgstr "Centrum monitorování systému"
+msgstr "Systemüberwachungszentrum"
 
 #: ui/MemoryTab.ui:97
 msgid "Available"
-msgstr "K dispozici"
+msgstr "Verfügbar"
 
 #: ui/MemoryTab.ui:185
 msgid "Hardware:"
@@ -733,56 +736,56 @@ msgstr "Hardware:"
 
 #: ui/MemoryTab.ui:545
 msgid "RAM Usage"
-msgstr "Využití RAM"
+msgstr "RAM-Auslastung"
 
 #: ui/NetworkTab.ui:208
 msgid "Downloaded Data"
-msgstr "Stažená data"
+msgstr "Heruntergeladene Daten"
 
 #: ui/NetworkTab.ui:221
 msgid "Uploaded Data"
-msgstr "Nahraná data"
+msgstr "Hochgeladene Daten"
 
 #: ui/NetworkTab.ui:251
 msgid "Connection Type:"
-msgstr "Typ spojení:"
+msgstr "Verbindungstyp:"
 
 #: ui/NetworkTab.ui:281
 msgid "Connected-SSID:"
-msgstr "Připojené SSID:"
+msgstr "Verbundene SSID:"
 
 #: ui/NetworkTab.ui:294
 msgid "Signal Strength:"
-msgstr "Síla signálu:"
+msgstr "Signalstärke:"
 
 #: ui/NetworkTab.ui:307
 msgid "IPv4 Address:"
-msgstr "IPv4 Adresa:"
+msgstr "IPv4-Adresse:"
 
 #: ui/NetworkTab.ui:320
 msgid "IPv6 Address:"
-msgstr "IPv6 Adresa:"
+msgstr "IPv6-Adresse:"
 
 #: ui/NetworkTab.ui:333
 msgid "MAC Address:"
-msgstr "MAC Adresa:"
+msgstr "MAC-Adresse:"
 
 #: ui/ProcessesCustomPriorityWindow.ui:12
 #: ui/ProcessesCustomPriorityWindow.ui:84 ui/ProcessesMenuRightClick.ui:72
 msgid "Change Priority"
-msgstr "Změnit prioritu"
+msgstr "Priorität verändern"
 
 #: ui/ProcessesCustomPriorityWindow.ui:35
 msgid ""
 "Change priority of this process:\n"
 "(Smaller value means higher process priority)"
 msgstr ""
-"Změnit prioritu tohoto procesu:\n"
-"(menší hodnota znamená vyšší prioritu)"
+"Priorität dieses Prozesses verändern:\n"
+"(Kleinere Zahl = höhere Priorität)"
 
 #: ui/ProcessesCustomPriorityWindow.ui:96
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr "Abbrechen"
 
 #: ui/ProcessesDetailsWindow.ui:171 ui/ProcessesDetailsWindow.ui:1800
 msgid "Exe"
@@ -790,330 +793,329 @@ msgstr "Exe"
 
 #: ui/ProcessesDetailsWindow.ui:197
 msgid "Parent Processes"
-msgstr "Rodičovské procesy"
+msgstr "Elternprozesse"
 
 #: ui/ProcessesDetailsWindow.ui:210
 msgid ""
 "Children Processes\n"
 "(Not recursively)"
 msgstr ""
-"Dětské procesy\n"
-"(není rekurzivní)"
+"Kinderprozesse\n"
+"(nicht rekursiv)"
 
 #: ui/ProcessesDetailsWindow.ui:978
 msgid "Context Switches"
-msgstr "Kontextové přepínače"
+msgstr "Kontextschalter"
 
 #: ui/ProcessesDetailsWindow.ui:991
 msgid "CPU Times"
-msgstr "CPU časy"
+msgstr "CPU-Zeiten"
 
 #: ui/ProcessesDetailsWindow.ui:1004
 msgid "Used CPU Core(s)"
-msgstr "Využívaná jádra CPU"
+msgstr "Verwendete CPU-Kerne"
 
 #: ui/ProcessesDetailsWindow.ui:1017
 msgid "Threads (TID)"
-msgstr "Vlákna (TID)"
+msgstr "Threads (TID)"
 
 #: ui/ProcessesDetailsWindow.ui:1135
 msgid "Memory (USS)"
-msgstr "Paměť (USS)"
+msgstr "Speicher (USS)"
 
 #: ui/ProcessesDetailsWindow.ui:1456
 msgid "Read Count"
-msgstr "Počet čtení disku"
+msgstr "Leseanzahl"
 
 #: ui/ProcessesDetailsWindow.ui:1469
 msgid "Write Count"
-msgstr "Počet zápisu disku"
+msgstr "Schreibanzahl"
 
 #: ui/ProcessesDetailsWindow.ui:1813
 msgid "Current Working Directory"
-msgstr "Aktuální pracovní adresář"
+msgstr "Aktuelles Arbeitsverzeichnis"
 
 #: ui/ProcessesDetailsWindow.ui:1839
 msgid "Opened Files"
-msgstr "Otevřené soubory"
+msgstr "Geöffnete Dateien"
 
 #: ui/ProcessesMenuCustomizations.ui:49
 msgid "Show processes of all users"
-msgstr "Zobrazit procesy všech uživatelů"
+msgstr "Prozesse aller Benutzer anzeigen"
 
 #: ui/ProcessesMenuCustomizations.ui:63
 msgid "Show processes as tree"
-msgstr "Zobrazit procesy jako strom"
+msgstr "Prozesse als Baum anzeigen"
 
 #: ui/ProcessesMenuCustomizations.ui:77
 msgid "Show tree lines"
-msgstr "Zobrazit linie stromu"
+msgstr "Baumlinien anzeigen"
 
 #: ui/ProcessesMenuCustomizations.ui:107 ui/ProcessesMenuCustomizations.ui:123
 msgid "View"
-msgstr "Zobrazit"
+msgstr "Ansicht"
 
 #: ui/ProcessesMenuCustomizations.ui:429 ui/ProcessesMenuCustomizations.ui:448
 #: ui/ServicesMenuCustomizations.ui:180 ui/ServicesMenuCustomizations.ui:196
 #: ui/UsersMenuCustomizations.ui:225 ui/UsersMenuCustomizations.ui:241
 msgid "Add/Remove Columns"
-msgstr "Přidat/Odstranit sloupce"
+msgstr "Spalten hinzufügen/entfernen"
 
 #: ui/ProcessesMenuCustomizations.ui:745
 msgid "Numbers"
-msgstr "Čísla"
+msgstr "Zahlen"
 
 #: ui/ProcessesMenuRightClick.ui:12
 msgid "Expand All"
-msgstr "Rozbalit vše"
+msgstr "Alle ausklappen"
 
 #: ui/ProcessesMenuRightClick.ui:20
 msgid "Collapse All"
-msgstr "Sbalit vše"
+msgstr "Alle einklappen"
 
 #: ui/ProcessesMenuRightClick.ui:34
 msgid "Stop Process"
-msgstr "Zastavit proces"
+msgstr "Prozess pausieren"
 
 #: ui/ProcessesMenuRightClick.ui:42
 msgid "Continue Process"
-msgstr "Pokračovat v procesu"
+msgstr "Prozess fortfahren"
 
 #: ui/ProcessesMenuRightClick.ui:50
 msgid "Terminate Process"
-msgstr "Terminovat proces"
+msgstr "Prozess beenden"
 
 #: ui/ProcessesMenuRightClick.ui:58
 msgid "Kill Process"
-msgstr "Zabít proces"
+msgstr "Prozess beenden erzwingen"
 
 #: ui/ProcessesMenuRightClick.ui:81
 msgid "Very High"
-msgstr "Velmi vysoko"
+msgstr "Sehr hoch"
 
 #: ui/ProcessesMenuRightClick.ui:101
 msgid "Normal"
-msgstr "Normálně"
+msgstr "Normal"
 
 #: ui/ProcessesMenuRightClick.ui:111
 msgid "Low"
-msgstr "Nízko"
+msgstr "Niedrig"
 
 #: ui/ProcessesMenuRightClick.ui:121
 msgid "Very Low"
-msgstr "Velmi nízko"
+msgstr "Sehr Niedrig"
 
 #: ui/ProcessesMenuRightClick.ui:136
 msgid "Custom Value..."
-msgstr "Vlastní hodnota..."
+msgstr "Anderer Wert..."
 
 #: ui/ProcessesMenuRightClick.ui:154 ui/ServicesMenuRightClick.ui:68
 #: ui/UsersMenuRightClick.ui:12
 msgid "Details"
-msgstr "Detaily"
+msgstr "Details"
 
 #: ui/ServicesDetailsWindow.ui:7
 msgid "Service Details"
-msgstr "Detaily služby"
+msgstr "Servicedetails"
 
 #: ui/ServicesDetailsWindow.ui:88
 msgid "Documentation"
-msgstr "Dokumentace"
+msgstr "Dokumentation"
 
 #: ui/ServicesDetailsWindow.ui:199
 msgid "Main Process Start Time"
-msgstr "Čas spuštění hlavního procesu"
+msgstr "Hauptprozess Startzeit"
 
 #: ui/ServicesDetailsWindow.ui:212
 msgid "Main Process End Time"
-msgstr "Čas ukončení hlavního procesu"
+msgstr "Hauptprozess Endzeit"
 
 #: ui/ServicesDetailsWindow.ui:251
 msgid "Unit File State - Preset"
-msgstr "Stav souboru jednotky - Přednastavení"
+msgstr "Unit File Status - Voreinstellung"
 
 #: ui/ServicesDetailsWindow.ui:373
 msgid "Triggered By"
-msgstr "Vyvoláno"
+msgstr "Ausgelöst von"
 
 #: ui/ServicesDetailsWindow.ui:645
 msgid "Requires"
-msgstr "Vyžaduje"
+msgstr "Benötigt"
 
 #: ui/ServicesDetailsWindow.ui:658
 msgid "Conflicts"
-msgstr "Konflikty"
+msgstr "Konflikte"
 
 #: ui/ServicesDetailsWindow.ui:671
 msgid "After"
-msgstr "Po"
+msgstr "Danach"
 
 #: ui/ServicesDetailsWindow.ui:684
 msgid "Before"
-msgstr "Před"
+msgstr "Davor"
 
 #: ui/ServicesDetailsWindow.ui:812
 msgid "Dependencies"
-msgstr "Závislosti"
+msgstr "Abhängigkeiten"
 
 #: ui/ServicesMenuRightClick.ui:12
 msgid "Start"
-msgstr "Start"
+msgstr "Starten"
 
 #: ui/ServicesMenuRightClick.ui:19
 msgid "Stop"
-msgstr "Stop"
+msgstr "Stoppen"
 
 #: ui/ServicesMenuRightClick.ui:26
 msgid "Restart"
-msgstr "Restartovat"
+msgstr "Neustarten"
 
 #: ui/ServicesMenuRightClick.ui:33
 msgid "Reload"
-msgstr "Znovu načíst"
+msgstr "Neu Laden"
 
 #: ui/ServicesMenuRightClick.ui:40
 msgid "Enable"
-msgstr "Povolit"
+msgstr "Aktivieren"
 
 #: ui/ServicesMenuRightClick.ui:47
 msgid "Disable"
-msgstr "Zakázat"
+msgstr "Deaktivieren"
 
 #: ui/ServicesMenuRightClick.ui:54
 msgid "Mask"
-msgstr "Maska"
+msgstr "Maskieren"
 
 #: ui/ServicesTab.ui:41
 msgid ""
 "Note: This tab is not reloaded automatically. Manually reload for changes."
 msgstr ""
-"Poznámka: Tato záložka není automaticky obnovována. Obnovujte manuálně."
+"Notiz: Dieser Tab wird nicht automatisch neu geladen. Für änderungen bitte "
+"neu laden."
 
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
-msgstr "Obnovit data na této záložce"
+msgstr "Daten in diesem Tab aktualisieren"
 
 #: ui/SettingsWindow.ui:7
 msgid "General Settings"
-msgstr "Obecné nastavení"
+msgstr "Allgemeine Einstellungen"
 
 #: ui/SettingsWindow.ui:30
 msgid "Update interval (seconds):"
-msgstr "Interval aktualizace (sekundy):"
+msgstr "Aktualisierungsinterval (Sekunden):"
 
 #: ui/SettingsWindow.ui:49
 msgid "Remember last opened tabs"
-msgstr "Pamatovat poslední otevřenou záložku"
+msgstr "Zuletzt geöffnete Tabs speichern"
 
 #: ui/SettingsWindow.ui:64
 msgid "Show performance summary on the headerbar"
-msgstr "Zobrazit souhrn výkonu v headerbaru"
+msgstr "Leistungszusammenfassung in der Kopfzeile anzeigen"
 
 #: ui/SettingsWindow.ui:82
 msgid "Chart data history:"
-msgstr "Historie dat v grafu:"
+msgstr "Verlauf der Diagrammdaten:"
 
 #: ui/SettingsWindow.ui:101
 msgid "Remember last selected devices"
-msgstr "Pamatovat poslední vybraný hardware"
+msgstr "Zuletzt ausgewählte Geräte speichern"
 
 #: ui/SettingsWindow.ui:155
 msgid "Remember window size"
-msgstr "Pamatovat velikost okna"
+msgstr "Fenstergröße speichern"
 
 #: ui/SettingsWindow.ui:189
 msgid "Check for updates automatically (PyPI only)"
-msgstr "Kontrolovat aktualizace automaticky (pouze PyPI)"
+msgstr "Automatisch nach Updates ausschau halten (nur PyPl)"
 
 #: ui/SettingsWindow.ui:206
 msgid "(If the application is run without root privileges.)"
-msgstr "(Jestli běží aplikace bez práv roota.)"
+msgstr "(Wenn das Programm ohne root-Rechte ausgeführt wurde)"
 
 #: ui/SettingsWindow.ui:295
 msgid "Reset all settings of the application to defaults"
-msgstr "Resetovat všechna nastavení do výchozího stavu"
+msgstr "Alle Einstellungen auf Standard zurücksetzen"
 
 #: ui/SettingsWindow.ui:330
-#, fuzzy
-#| msgid "Default main tab:"
 msgid "Default main tab and sub-tab:"
-msgstr "Výchozí hlavní záložka:"
+msgstr "Standart Haupt-Tab und Sub-Tab:"
 
 #: ui/SystemTab.ui:64 ui/SystemTab.ui:310
 msgid "Computer"
-msgstr "Počítač"
+msgstr "Computer"
 
 #: ui/SystemTab.ui:79 ui/SystemTab.ui:130
 msgid "Operating System (OS)"
-msgstr "Operační systém (OS)"
+msgstr "Betriebssystem (OS)"
 
 #: ui/SystemTab.ui:147 ui/SystemTab.ui:404
 msgid "Name:"
-msgstr "Jméno:"
+msgstr "Name:"
 
 #: ui/SystemTab.ui:160
 msgid "Version - Code Name:"
-msgstr "Verze-kódové jméno:"
+msgstr "Version - Codename:"
 
 #: ui/SystemTab.ui:207
 msgid "Model:"
-msgstr "Model:"
+msgstr "Modell:"
 
 #: ui/SystemTab.ui:220
 msgid "Computer Type:"
-msgstr "Typ počítače:"
+msgstr "Computertyp:"
 
 #: ui/SystemTab.ui:250
 msgid "Based On:"
-msgstr "Založeno na:"
+msgstr "Basiert auf:"
 
 #: ui/SystemTab.ui:280
 msgid "Kernel Release:"
-msgstr "Vydání kernelu:"
+msgstr "Kernel-Release:"
 
 #: ui/SystemTab.ui:344
 msgid "Vendor:"
-msgstr "Výrobce:"
+msgstr "Verkäufer:"
 
 #: ui/SystemTab.ui:391
 msgid "OS Family:"
-msgstr "Rodina OS:"
+msgstr "Betriebssystemfamilie:"
 
 #: ui/SystemTab.ui:464
 msgid "Kernel Version:"
-msgstr "Verze kernelu:"
+msgstr "Kernelversion:"
 
 #: ui/SystemTab.ui:494
 msgid "Number Of Monitors:"
-msgstr "Počet monitorů:"
+msgstr "Anzahl an Monitoren:"
 
 #: ui/SystemTab.ui:551
 msgid "Graphical User Interface (GUI)"
-msgstr "Grafické uživatelské rozhraní (GUI)"
+msgstr "Graphische Benutzeroberfläche (GUI)"
 
 #: ui/SystemTab.ui:568
 msgid "Packages"
-msgstr "Balíčky"
+msgstr "Pakete"
 
 #: ui/SystemTab.ui:585
 msgid "Desktop Environment:"
-msgstr "Desktopové prostředí:"
+msgstr "Desktopumgebung:"
 
 #: ui/SystemTab.ui:649
 msgid "Windowing System:"
-msgstr "Okenní systém:"
+msgstr "Windowing-System:"
 
 #: ui/SystemTab.ui:662
 msgid "Display Manager:"
-msgstr "Správce zobrazení:"
+msgstr "Display-Manager:"
 
 #: ui/SystemTab.ui:675
 msgid "System:"
-msgstr "Systém:"
+msgstr "System:"
 
 #: ui/SystemTab.ui:687
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr "Počet nainstalovaných Flatpaků"
+msgstr "Anzahl an installierten Flatpak-Applikationen und Laufzeiten"
 
 #: ui/SystemTab.ui:689
 msgid "Flatpak:"
@@ -1121,16 +1123,16 @@ msgstr "Flatpak:"
 
 #: ui/SystemTab.ui:719
 msgid "Window Manager:"
-msgstr "Správce oken:"
+msgstr "Window-Manager:"
 
 #: ui/SystemTab.ui:782 ui/SystemTab.ui:796
 msgid "Version for the currently running software"
-msgstr ""
+msgstr "Version dieser Software"
 
 #: ui/SystemTab.ui:784
 msgid "Python Version:"
-msgstr "Verze Pythonu:"
+msgstr "Python-Version:"
 
 #: ui/SystemTab.ui:798
 msgid "GTK Version:"
-msgstr "Verze GTK:"
+msgstr "GTK-Version:"

@@ -243,7 +243,7 @@ def processes_initial_func():
     application_icon_list = []
     application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]    # Get  ".desktop" file name
     for application in application_file_list:
-        with open("/usr/share/applications/" + application) as reader:
+        with open("/usr/share/applications/" + application, encoding="utf-8") as reader:      # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
             application_file_content = reader.read()
         if "Exec=" not in application_file_content or "Icon=" not in application_file_content:    # Do not include application name or icon name if any of them is not found in the .desktop file.
             continue

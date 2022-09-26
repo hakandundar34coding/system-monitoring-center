@@ -1,3 +1,11 @@
+system-monitoring-center (1.27.0) unstable; urgency=medium
+
+  * New: German translations
+  * Fix: File read errors for C locale
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 26 Sep 2022 09:00:00 +0300
+
 system-monitoring-center (1.26.1) unstable; urgency=medium
 
   * Minor improvements (code, translations, etc.)

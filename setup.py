@@ -15,6 +15,7 @@ def files_in_folder(folder):
 
 
 os.chmod("integration/com.github.hakand34.system-monitoring-center.desktop", 0o644)
+os.chmod("locale/de/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 os.chmod("locale/cs/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 os.chmod("locale/fa/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 os.chmod("locale/hu/LC_MESSAGES/system-monitoring-center.mo", 0o644)
@@ -37,6 +38,7 @@ os.chmod("icons/hicolor/scalable/apps/system-monitoring-center.svg", 0o644)
 data_files = [
     ("/usr/share/applications/", ["integration/com.github.hakand34.system-monitoring-center.desktop"]),
     ("/usr/share/polkit-1/actions/", ["integration/com.github.hakand34.system-monitoring-center.policy"]),
+    ("/usr/share/system-monitoring-center/locale/de/LC_MESSAGES/", ["locale/de/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/usr/share/system-monitoring-center/locale/cs/LC_MESSAGES/", ["locale/cs/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/usr/share/system-monitoring-center/locale/fa/LC_MESSAGES/", ["locale/fa/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/usr/share/system-monitoring-center/locale/hu/LC_MESSAGES/", ["locale/hu/LC_MESSAGES/system-monitoring-center.mo"]),
