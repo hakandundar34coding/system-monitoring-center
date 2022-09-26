@@ -4,6 +4,7 @@ include integration/com.github.hakand34.system-monitoring-center.desktop
 include database/*
 include src/*.py
 include src/__version__
+include locale/de/LC_MESSAGES/*
 include locale/cs/LC_MESSAGES/*
 include locale/fa/LC_MESSAGES/*
 include locale/hu/LC_MESSAGES/*

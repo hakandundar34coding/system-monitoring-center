@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-26 16:31+0300\n"
-"PO-Revision-Date: 2022-07-26 16:43+0300\n"
+"POT-Creation-Date: 2022-09-26 08:42+0300\n"
+"PO-Revision-Date: 2022-09-26 08:47+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -44,18 +44,18 @@ msgstr "Oddíl"
 msgid "Disk"
 msgstr "Disk"
 
-#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1111
+#: src/Disk.py:302 src/Disk.py:412 src/Performance.py:1112
 msgid "Swap"
 msgstr "Swap"
 
 #: src/Disk.py:387 src/Gpu.py:244 src/Gpu.py:247 src/Network.py:265
 #: src/Network.py:305 src/Services.py:168 src/ServicesDetails.py:132
-#: src/UsersDetails.py:221
+#: src/UsersDetails.py:214
 msgid "Yes"
 msgstr "Ano"
 
 #: src/Disk.py:389 src/Gpu.py:249 src/Network.py:267 src/Services.py:168
-#: src/ServicesDetails.py:132 src/UsersDetails.py:223
+#: src/ServicesDetails.py:132 src/UsersDetails.py:216
 msgid "No"
 msgstr "Ne"
 
@@ -86,13 +86,13 @@ msgstr "Souhrn"
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "Výběr CPU jádra ovlivňuje pouze informace o frekvenci a paměti cache."
 
-#: src/MainGUI.py:565 src/Memory.py:180 src/Performance.py:1091
-#: src/Performance.py:1421 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
+#: src/MainGUI.py:565 src/Memory.py:180 src/Performance.py:1092
+#: src/Performance.py:1422 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:53
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:565 src/Memory.py:207 src/Performance.py:1421
+#: src/MainGUI.py:565 src/Memory.py:207 src/Performance.py:1422
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:504
 #: ui/ProcessesDetailsWindow.ui:1148
 msgid "Swap Memory"
@@ -175,7 +175,7 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:1082 src/Processes.py:197 src/SettingsGUI.py:51
+#: src/Performance.py:1083 src/Processes.py:197 src/SettingsGUI.py:51
 #: src/Users.py:139 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
 #: ui/MainWindow.ui:229 ui/PerformanceSummaryHeaderBarGrid.ui:18
 #: ui/ProcessesDetailsWindow.ui:119 ui/ProcessesDetailsWindow.ui:1043
@@ -185,33 +185,33 @@ msgstr "Wi-Fi"
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Performance.py:1100 src/Processes.py:625 src/SettingsGUI.py:50
+#: src/Performance.py:1101 src/Processes.py:625 src/SettingsGUI.py:50
 #: src/Users.py:134 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
 msgid "Processes"
 msgstr "Procesy"
 
-#: src/Performance.py:1262 src/Processes.py:203 ui/DiskMenus.ui:121
+#: src/Performance.py:1263 src/Processes.py:203 ui/DiskMenus.ui:121
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:524 ui/ProcessesDetailsWindow.ui:145
 #: ui/ProcessesDetailsWindow.ui:1404 ui/ProcessesDetailsWindow.ui:1698
 #: ui/ProcessesMenuCustomizations.ui:319
 msgid "Read Speed"
 msgstr "Rychlost čtení"
 
-#: src/Performance.py:1271 src/Processes.py:204 ui/DiskMenus.ui:134
+#: src/Performance.py:1272 src/Processes.py:204 ui/DiskMenus.ui:134
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:547 ui/ProcessesDetailsWindow.ui:670
 #: ui/ProcessesDetailsWindow.ui:1417 ui/ProcessesDetailsWindow.ui:1721
 #: ui/ProcessesMenuCustomizations.ui:333
 msgid "Write Speed"
 msgstr "Rychlost zápisu"
 
-#: src/Performance.py:1280 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
+#: src/Performance.py:1281 ui/NetworkMenus.ui:121 ui/NetworkTab.ui:113
 #: ui/NetworkTab.ui:494
 msgid "Download Speed"
 msgstr "Rychlost stahování"
 
-#: src/Performance.py:1289 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
+#: src/Performance.py:1290 ui/NetworkMenus.ui:134 ui/NetworkTab.ui:101
 #: ui/NetworkTab.ui:517
 msgid "Upload Speed"
 msgstr "Rychlost nahrávání"
@@ -221,7 +221,7 @@ msgstr "Rychlost nahrávání"
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:195 src/Users.py:129 src/UsersDetails.py:126
+#: src/Processes.py:195 src/Users.py:129 src/UsersDetails.py:119
 #: ui/ProcessesDetailsWindow.ui:93 ui/ProcessesMenuCustomizations.ui:179
 #: ui/UsersDetailsWindow.ui:7 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:57
@@ -711,11 +711,11 @@ msgstr "Teplota"
 msgid "Multi-featured system monitor."
 msgstr "Multifunkční systémový monitor."
 
-#: ui/MainMenusDialogs.ui:88
+#: ui/MainMenusDialogs.ui:90
 msgid "Settings"
 msgstr "Nastavení"
 
-#: ui/MainMenusDialogs.ui:132
+#: ui/MainMenusDialogs.ui:134
 msgid "About"
 msgstr "O programu"
 
@@ -1132,5 +1132,5 @@ msgid "Python Version:"
 msgstr "Verze Pythonu:"
 
 #: ui/SystemTab.ui:798
-msgid "Gtk Version:"
-msgstr "Verze Gtk:"
+msgid "GTK Version:"
+msgstr "Verze GTK:"

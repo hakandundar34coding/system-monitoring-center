@@ -795,7 +795,7 @@
                     <property name="can-focus">False</property>
                     <property name="tooltip-text" translatable="yes">Version for the currently running software</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Gtk Version:</property>
+                    <property name="label" translatable="yes">GTK Version:</property>
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>
