@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-26 08:42+0300\n"
-"PO-Revision-Date: 2022-09-26 08:43+0300\n"
+"PO-Revision-Date: 2022-09-30 15:51+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -91,7 +91,7 @@ msgstr "Выбор ядра CPU влияет только на информац�
 #: src/Performance.py:1422 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
 #: ui/PerformanceSummaryHeaderBarGrid.ui:53
 msgid "RAM"
-msgstr "Оперативная память"
+msgstr ""
 
 #: src/MainGUI.py:565 src/Memory.py:207 src/Performance.py:1422
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:504
