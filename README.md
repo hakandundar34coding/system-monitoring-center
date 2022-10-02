@@ -66,7 +66,7 @@ Multi-featured system monitor.
 
 ### Screenshots:
 
-![System Monitoring Center](summary_tab_dark_system_theme.png)
+![System Monitoring Center](screenshots/summary_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/cpu_tab_dark_system_theme.png)
 
