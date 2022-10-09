@@ -2,7 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # ruojiner <ruojiner@hotmail.com, 2022
-# Luke Luo <njlyf2011@hotmail.com>
+# Luke Luo <njlyf2011@hotmail.com>, 2022
 #
 msgid ""
 msgstr ""
@@ -69,11 +69,11 @@ msgstr "[未挂载]"
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
-msgstr "警告！该应用程序以root权限运行，可能会损害你的系统。"
+msgstr "警告！该应用程序以 root 权限运行，可能会损害您的系统。"
 
 #: src/MainGUI.py:260
 msgid "There is a newer version on PyPI."
-msgstr "PyPI上有一个较新的版本。"
+msgstr "PyPI 上有一个较新的版本。"
 
 #: src/MainGUI.py:551 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:715 ui/ServicesDetailsWindow.ui:613
@@ -83,7 +83,7 @@ msgstr "摘要"
 
 #: src/MainGUI.py:561
 msgid "CPU core selection affects only frequency and cache memory information."
-msgstr "CPU内核选择只影响频率和缓存内存信息。"
+msgstr "CPU 内核选择只影响频率和缓存内存信息。"
 
 #: src/MainGUI.py:565 src/Memory.py:180 src/Performance.py:1092
 #: src/Performance.py:1422 ui/MemoryMenus.ui:131 ui/MemoryTab.ui:28
@@ -164,7 +164,7 @@ msgstr "未用"
 
 #: src/Network.py:208
 msgid "Virtual Network Interface"
-msgstr "虚拟网络界面"
+msgstr "虚拟网络接口"
 
 #: src/Network.py:217
 msgid "Ethernet"
@@ -273,13 +273,13 @@ msgstr "父进程ID"
 #: ui/ProcessesMenuCustomizations.ui:375 ui/UsersDetailsWindow.ui:84
 #: ui/UsersMenuCustomizations.ui:101
 msgid "UID"
-msgstr "用户ID"
+msgstr "用户 ID"
 
 #: src/Processes.py:209 src/Users.py:133 ui/ProcessesDetailsWindow.ui:432
 #: ui/ProcessesMenuCustomizations.ui:389 ui/UsersDetailsWindow.ui:97
 #: ui/UsersMenuCustomizations.ui:115
 msgid "GID"
-msgstr "用户组ID"
+msgstr "用户组 ID"
 
 #: src/Processes.py:210 ui/ProcessesDetailsWindow.ui:1971
 #: ui/ProcessesMenuCustomizations.ui:291 ui/ServicesDetailsWindow.ui:75
@@ -365,7 +365,7 @@ msgstr "状态"
 #: src/Services.py:138 ui/ServicesDetailsWindow.ui:400
 #: ui/ServicesMenuCustomizations.ui:87
 msgid "Main PID"
-msgstr "主进程ID"
+msgstr "主进程 ID"
 
 #: src/Services.py:139 ui/ServicesDetailsWindow.ui:277
 #: ui/ServicesMenuCustomizations.ui:101
@@ -479,7 +479,7 @@ msgstr "GPU"
 
 #: src/SettingsGUI.py:538
 msgid "Do you want to reset all settings to defaults?"
-msgstr "你想要重置所有设定吗？"
+msgstr "您想要重置所有设定吗？"
 
 #: src/Users.py:130 ui/UsersDetailsWindow.ui:58
 #: ui/UsersMenuCustomizations.ui:73
@@ -539,7 +539,7 @@ msgstr "CPU 所有核心平均使用率"
 
 #: ui/CpuTab.ui:45
 msgid "Average Usage"
-msgstr " 平均使用率"
+msgstr "平均使用率"
 
 #: ui/CpuTab.ui:57 ui/GpuTab.ui:371
 msgid "Frequency"
@@ -559,11 +559,11 @@ msgstr "最低-最高 频率："
 
 #: ui/CpuTab.ui:283
 msgid "Cache (L1d-L1i):"
-msgstr "L1缓存"
+msgstr "L1 缓存"
 
 #: ui/CpuTab.ui:313
 msgid "Cache (L2-L3):"
-msgstr "L2-L3缓存"
+msgstr "L2-L3 缓存"
 
 #: ui/CpuTab.ui:343
 msgid "CPU Sockets:"
@@ -708,7 +708,7 @@ msgstr "温度"
 
 #: ui/MainMenusDialogs.ui:13
 msgid "Multi-featured system monitor."
-msgstr "多功能系统监视器："
+msgstr "多功能系统监视器。"
 
 #: ui/MainMenusDialogs.ui:90
 msgid "Settings"
@@ -720,7 +720,7 @@ msgstr "关于"
 
 #: ui/MainWindow.ui:847
 msgid "System Monitoring Center"
-msgstr "系统监视中心"
+msgstr "系统监控中心"
 
 #: ui/MemoryTab.ui:97
 msgid "Available"
@@ -1109,7 +1109,7 @@ msgstr "系统："
 
 #: ui/SystemTab.ui:687
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr "已安装的Flatpak应用程序和Runtime的数量"
+msgstr "已安装的 Flatpak 应用程序和运行时的数量"
 
 #: ui/SystemTab.ui:689
 msgid "Flatpak:"
