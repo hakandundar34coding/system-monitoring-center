@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-26 08:42+0300\n"
-"PO-Revision-Date: 2022-10-09 15:58+0300\n"
+"PO-Revision-Date: 2022-10-09 17:59+0300\n"
 "Last-Translator: ruojiner <ruojiner@hotmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -160,7 +160,7 @@ msgstr "已使用"
 #: src/MemorySwapDetails.py:99 src/Processes.py:205
 #: ui/ProcessesDetailsWindow.ui:106 ui/ProcessesMenuCustomizations.ui:249
 msgid "Priority"
-msgstr "未用"
+msgstr "优先"
 
 #: src/Network.py:208
 msgid "Virtual Network Interface"
@@ -343,7 +343,7 @@ msgstr "传感器组"
 
 #: src/Sensors.py:82
 msgid "Current Value"
-msgstr "当前容量"
+msgstr "当前值"
 
 #: src/Sensors.py:83 ui/ProcessesMenuRightClick.ui:91
 msgid "High"
@@ -559,7 +559,7 @@ msgstr "最低-最高 频率："
 
 #: ui/CpuTab.ui:283
 msgid "Cache (L1d-L1i):"
-msgstr "L1 缓存:"
+msgstr "L1d-L1i 缓存:"
 
 #: ui/CpuTab.ui:313
 msgid "Cache (L2-L3):"
@@ -829,7 +829,7 @@ msgstr "写入总计"
 
 #: ui/ProcessesDetailsWindow.ui:1813
 msgid "Current Working Directory"
-msgstr "d昂前工作目录"
+msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:1839
 msgid "Opened Files"

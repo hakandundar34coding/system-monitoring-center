@@ -22,7 +22,7 @@ Bruno do Nascimento (português do Brasil)
 Ricardo Simões (português europeu)
 akorny (Русский)
 Hakan Dündar (Türkçe)
-Luke Luo ( 汉语)</property>
+ruojiner, Luo ( 汉语)</property>
     <property name="logo-icon-name">system-monitoring-center</property>
     <property name="license-type">gpl-3-0</property>
     <child internal-child="vbox">
