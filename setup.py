@@ -25,6 +25,7 @@ data_files = [
     ("/systemmonitoringcenter/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/systemmonitoringcenter/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/systemmonitoringcenter/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
+    ("/systemmonitoringcenter/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/systemmonitoringcenter/database/", files_in_folder("database/")),
     ("/systemmonitoringcenter/src/", files_in_folder("src/")),
     ("/systemmonitoringcenter/ui/", files_in_folder("ui/")),
