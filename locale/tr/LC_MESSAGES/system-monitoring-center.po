@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-10 17:26+0300\n"
-"PO-Revision-Date: 2022-10-10 17:28+0300\n"
+"POT-Creation-Date: 2022-10-10 17:37+0300\n"
+"PO-Revision-Date: 2022-10-10 17:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -1037,13 +1037,9 @@ msgstr "Uygulamanın tüm ayarlarını varsayılanlara sıfırla"
 msgid "Default main tab and sub-tab:"
 msgstr "Varsayılan ana sekme ve alt sekme:"
 
-#: ui/SettingsWindow.ui:405
-msgid "Language:"
-msgstr "Dil:"
-
-#: ui/SettingsWindow.ui:417
-msgid "(Restart the application for changes.)"
-msgstr "(Değişiklikler için uygulamayı yeniden başlatın.)"
+#: ui/SettingsWindow.ui:400
+msgid "Language (Requires restart):"
+msgstr "Dil (Yeniden başlatma gerektirir):"
 
 #: ui/SystemTab.ui:64 ui/SystemTab.ui:310
 msgid "Computer"

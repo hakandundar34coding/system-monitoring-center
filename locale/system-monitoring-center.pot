@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-10 17:26+0300\n"
+"POT-Creation-Date: 2022-10-10 17:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1029,12 +1029,8 @@ msgstr ""
 msgid "Default main tab and sub-tab:"
 msgstr ""
 
-#: ui/SettingsWindow.ui:405
-msgid "Language:"
-msgstr ""
-
-#: ui/SettingsWindow.ui:417
-msgid "(Restart the application for changes.)"
+#: ui/SettingsWindow.ui:400
+msgid "Language (Requires restart):"
 msgstr ""
 
 #: ui/SystemTab.ui:64 ui/SystemTab.ui:310

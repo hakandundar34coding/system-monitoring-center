@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-26 08:42+0300\n"
-"PO-Revision-Date: 2022-10-10 08:45+0300\n"
+"POT-Creation-Date: 2022-10-10 17:37+0300\n"
+"PO-Revision-Date: 2022-10-10 17:40+0300\n"
 "Last-Translator: ruojiner <ruojiner@hotmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -37,7 +37,7 @@ msgstr "未知"
 msgid "Partition"
 msgstr "分区"
 
-#: src/Disk.py:259 src/DiskDetails.py:91 src/SettingsGUI.py:51
+#: src/Disk.py:259 src/DiskDetails.py:90 src/SettingsGUI.py:52
 #: ui/DiskDetailsWindow.ui:7 ui/DiskDetailsWindow.ui:45 ui/DiskMenus.ui:23
 #: ui/DiskMenus.ui:365 ui/DiskTab.ui:590 ui/MainWindow.ui:323
 #: ui/PerformanceSummaryHeaderBarGrid.ui:68 ui/ProcessesDetailsWindow.ui:1767
@@ -51,12 +51,12 @@ msgstr "交换空间"
 
 #: src/Disk.py:387 src/Gpu.py:244 src/Gpu.py:247 src/Network.py:265
 #: src/Network.py:305 src/Services.py:168 src/ServicesDetails.py:132
-#: src/UsersDetails.py:214
+#: src/UsersDetails.py:210
 msgid "Yes"
 msgstr "是"
 
 #: src/Disk.py:389 src/Gpu.py:249 src/Network.py:267 src/Services.py:168
-#: src/ServicesDetails.py:132 src/UsersDetails.py:216
+#: src/ServicesDetails.py:132 src/UsersDetails.py:212
 msgid "No"
 msgstr "否"
 
@@ -75,7 +75,7 @@ msgstr "警告！该应用程序以 root 权限运行，可能会损害您的系
 msgid "There is a newer version on PyPI."
 msgstr "PyPI 上有一个较新的版本。"
 
-#: src/MainGUI.py:551 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: src/MainGUI.py:551 src/SettingsGUI.py:52 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:715 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
@@ -174,7 +174,7 @@ msgstr "以太网"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:1083 src/Processes.py:197 src/SettingsGUI.py:51
+#: src/Performance.py:1083 src/Processes.py:197 src/SettingsGUI.py:52
 #: src/Users.py:139 ui/CpuMenus.ui:23 ui/CpuMenus.ui:155 ui/CpuTab.ui:453
 #: ui/MainWindow.ui:229 ui/PerformanceSummaryHeaderBarGrid.ui:18
 #: ui/ProcessesDetailsWindow.ui:119 ui/ProcessesDetailsWindow.ui:1043
@@ -184,7 +184,7 @@ msgstr "Wi-Fi"
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Performance.py:1101 src/Processes.py:625 src/SettingsGUI.py:50
+#: src/Performance.py:1101 src/Processes.py:625 src/SettingsGUI.py:51
 #: src/Users.py:134 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
@@ -220,7 +220,7 @@ msgstr "上传速度"
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:195 src/Users.py:129 src/UsersDetails.py:119
+#: src/Processes.py:195 src/Users.py:129 src/UsersDetails.py:118
 #: ui/ProcessesDetailsWindow.ui:93 ui/ProcessesMenuCustomizations.ui:179
 #: ui/UsersDetailsWindow.ui:7 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:57
@@ -353,7 +353,7 @@ msgstr "高"
 msgid "Critical"
 msgstr "临界值"
 
-#: src/Sensors.py:333 src/SettingsGUI.py:51 ui/MainWindow.ui:464
+#: src/Sensors.py:333 src/SettingsGUI.py:52 ui/MainWindow.ui:464
 #: ui/SensorsTab.ui:48
 msgid "Sensors"
 msgstr "传感器"
@@ -439,7 +439,7 @@ msgstr "已死亡"
 msgid "Exited"
 msgstr "已退出"
 
-#: src/Services.py:471 src/SettingsGUI.py:50 ui/MainWindow.ui:769
+#: src/Services.py:471 src/SettingsGUI.py:51 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "服务"
@@ -448,36 +448,36 @@ msgstr "服务"
 msgid "Information"
 msgstr "信息"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:628
+#: src/SettingsGUI.py:51 ui/MainWindow.ui:628
 msgid "Performance"
 msgstr "性能"
 
-#: src/SettingsGUI.py:50 src/Users.py:493 ui/MainWindow.ui:722
+#: src/SettingsGUI.py:51 src/Users.py:493 ui/MainWindow.ui:722
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
 msgstr "用户"
 
-#: src/SettingsGUI.py:50 ui/MainWindow.ui:816 ui/SystemTab.ui:26
+#: src/SettingsGUI.py:51 ui/MainWindow.ui:816 ui/SystemTab.ui:26
 msgid "System"
 msgstr "系统"
 
-#: src/SettingsGUI.py:51 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
+#: src/SettingsGUI.py:52 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
 #: ui/MemoryMenus.ui:145 ui/MemoryTab.ui:595 ui/ProcessesDetailsWindow.ui:1371
 #: ui/ProcessesMenuCustomizations.ui:509 ui/ProcessesMenuCustomizations.ui:597
 msgid "Memory"
 msgstr "内存"
 
-#: src/SettingsGUI.py:51 ui/MainWindow.ui:370 ui/NetworkMenus.ui:23
+#: src/SettingsGUI.py:52 ui/MainWindow.ui:370 ui/NetworkMenus.ui:23
 #: ui/NetworkTab.ui:560 ui/PerformanceSummaryHeaderBarGrid.ui:113
 msgid "Network"
 msgstr "网络"
 
-#: src/SettingsGUI.py:51 ui/GpuMenus.ui:23 ui/GpuTab.ui:511
+#: src/SettingsGUI.py:52 ui/GpuMenus.ui:23 ui/GpuTab.ui:511
 #: ui/MainWindow.ui:417
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:538
+#: src/SettingsGUI.py:566
 msgid "Do you want to reset all settings to defaults?"
 msgstr "您想要重置所有设定吗？"
 
@@ -710,11 +710,11 @@ msgstr "温度"
 msgid "Multi-featured system monitor."
 msgstr "多功能系统监视器。"
 
-#: ui/MainMenusDialogs.ui:90
+#: ui/MainMenusDialogs.ui:91
 msgid "Settings"
 msgstr "设置"
 
-#: ui/MainMenusDialogs.ui:134
+#: ui/MainMenusDialogs.ui:135
 msgid "About"
 msgstr "关于"
 
@@ -751,8 +751,8 @@ msgid "Connected-SSID:"
 msgstr "已连接的-SSID："
 
 #: ui/NetworkTab.ui:294
-msgid "Signal Strength:"
-msgstr "信号强度："
+msgid "Link Quality:"
+msgstr ""
 
 #: ui/NetworkTab.ui:307
 msgid "IPv4 Address:"
@@ -1034,6 +1034,10 @@ msgstr "将应用程序的所有设置重置为默认值"
 #: ui/SettingsWindow.ui:330
 msgid "Default main tab and sub-tab:"
 msgstr "默认主选项卡和子选项卡："
+
+#: ui/SettingsWindow.ui:400
+msgid "Language (Requires restart):"
+msgstr ""
 
 #: ui/SystemTab.ui:64 ui/SystemTab.ui:310
 msgid "Computer"
