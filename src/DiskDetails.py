@@ -6,7 +6,6 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('GLib', '2.0')
 from gi.repository import Gtk, GLib
 import os
-import subprocess
 
 from locale import gettext as _tr
 

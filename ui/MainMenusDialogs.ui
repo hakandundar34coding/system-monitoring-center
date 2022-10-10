@@ -13,8 +13,8 @@
     <property name="comments" translatable="yes">Multi-featured system monitor.</property>
     <property name="website">https://github.com/hakandundar34coding/system-monitoring-center</property>
     <property name="authors">Hakan Dündar</property>
-    <property name="translator-credits">Baumfinder (Deutsch)
-panmourovaty (čeština)
+    <property name="translator-credits">panmourovaty (čeština)
+Baumfinder (Deutsch)
 MasterKia (فارسی)
 Kálmán Szalai (Magyar)
 ski007, K0RR, sdorpl (polski)

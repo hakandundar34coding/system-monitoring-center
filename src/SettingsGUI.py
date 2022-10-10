@@ -31,6 +31,7 @@ class SettingsGUI:
         self.combobox2002 = builder2001.get_object('combobox2002')
         self.combobox2003 = builder2001.get_object('combobox2003')
         self.combobox2004 = builder2001.get_object('combobox2004')
+        self.combobox2005 = builder2001.get_object('combobox2005')
         self.checkbutton2001 = builder2001.get_object('checkbutton2001')
         self.checkbutton2002 = builder2001.get_object('checkbutton2002')
         self.checkbutton2003 = builder2001.get_object('checkbutton2003')
@@ -58,6 +59,7 @@ class SettingsGUI:
         self.combobox2002.connect("changed", self.on_combobox2002_changed)
         self.combobox2003.connect("changed", self.on_combobox2003_changed)
         self.combobox2004.connect("changed", self.on_combobox2004_changed)
+        self.combobox2005.connect("changed", self.on_combobox2005_changed)
         self.checkbutton2001.connect("toggled", self.on_checkbutton2001_toggled)
         self.checkbutton2002.connect("toggled", self.on_checkbutton2002_toggled)
         self.checkbutton2003.connect("toggled", self.on_checkbutton2003_toggled)
@@ -72,6 +74,7 @@ class SettingsGUI:
         self.combobox2002.disconnect_by_func(self.on_combobox2002_changed)
         self.combobox2003.disconnect_by_func(self.on_combobox2003_changed)
         self.combobox2004.disconnect_by_func(self.on_combobox2004_changed)
+        self.combobox2005.disconnect_by_func(self.on_combobox2005_changed)
         self.checkbutton2001.disconnect_by_func(self.on_checkbutton2001_toggled)
         self.checkbutton2002.disconnect_by_func(self.on_checkbutton2002_toggled)
         self.checkbutton2003.disconnect_by_func(self.on_checkbutton2003_toggled)
@@ -179,6 +182,14 @@ class SettingsGUI:
 
         # Get selected tab as Performance tab default sub-tab and save it if preferred.
         Config.performance_tab_default_sub_tab = widget.get_active()
+        Config.config_save_func()
+
+
+    # ----------------------- "Language" Combobox -----------------------
+    def on_combobox2005_changed(self, widget):
+
+        # Set application language. This setting is applicaed after the application is restarted.
+        Config.language = list(Config.language_dict.keys())[widget.get_active()]
         Config.config_save_func()
 
 
@@ -366,6 +377,23 @@ class SettingsGUI:
             self.combobox2004.set_sensitive(False)
         if Config.remember_last_opened_tabs_on_application_start == 0:
             self.combobox2004.set_sensitive(True)
+
+        # Set GUI preferences for "language" setting
+        liststore2005 = Gtk.ListStore()
+        liststore2005.set_column_types([str])
+        self.combobox2005.set_model(liststore2005)
+        # Clear combobox in order to prevent adding the same items when the function is called again.
+        self.combobox2005.clear()
+        renderer_text = Gtk.CellRendererText()
+        self.combobox2005.pack_start(renderer_text, True)
+        self.combobox2005.add_attribute(renderer_text, "text", 0)
+        for value in Config.language_dict:
+            if value == "system":
+                value = _tr(Config.language_dict[value])
+            else:
+                value = Config.language_dict[value]
+            liststore2005.append([value])
+        self.combobox2005.set_active(list(Config.language_dict.keys()).index(Config.language))
 
         # Set GUI preferences for "remember last selected hardware" setting
         if Config.remember_last_selected_hardware == 1:

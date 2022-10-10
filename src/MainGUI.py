@@ -11,7 +11,7 @@ import os
 import locale
 from locale import gettext as _tr
 
-from Performance import Performance
+from Config import Config
 
 
 # Define class
@@ -23,8 +23,12 @@ class MainGUI:
         # Configurations for language translation support
         locale.bindtextdomain("system-monitoring-center", os.path.dirname(os.path.realpath(__file__)) + "/../locale")
         locale.textdomain("system-monitoring-center")
+        if Config.language == "system":
+            application_language = os.environ.get("LANG")
+        else:
+            application_language = Config.language
         try:
-            locale.setlocale(locale.LC_ALL, os.environ.get("LANG"))
+            locale.setlocale(locale.LC_ALL, application_language)
         # Prevent errors if there are problems with language installations on the system. English language (language in the .ui files) is used in this situation.
         except Exception:
             pass
@@ -136,10 +140,6 @@ class MainGUI:
                 self.radiobutton6.set_visible(False)
         except Exception:
             pass
-
-        # Read and get config data
-        global Config
-        from Config import Config
 
         # Resize/set state (full screen or not) of the main window if "remember window size" option is enabled.
         remember_window_size = Config.remember_window_size
