@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-26 08:42+0300\n"
-"PO-Revision-Date: 2022-10-09 17:59+0300\n"
+"PO-Revision-Date: 2022-10-10 08:45+0300\n"
 "Last-Translator: ruojiner <ruojiner@hotmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -584,7 +584,7 @@ msgstr "架构："
 #: ui/CpuTab.ui:490 ui/DiskDetailsWindow.ui:149 ui/DiskTab.ui:642
 #: ui/GpuTab.ui:548 ui/NetworkTab.ui:597
 msgid "Vendor-Model"
-msgstr "供应商标识"
+msgstr "供应商-型号"
 
 #: ui/CpuTab.ui:508 ui/DiskTab.ui:627 ui/GpuTab.ui:566 ui/NetworkTab.ui:615
 msgid "Device Name In Kernel"
@@ -748,7 +748,7 @@ msgstr "连接类型："
 
 #: ui/NetworkTab.ui:281
 msgid "Connected-SSID:"
-msgstr "已连接的SSID："
+msgstr "已连接的-SSID："
 
 #: ui/NetworkTab.ui:294
 msgid "Signal Strength:"
