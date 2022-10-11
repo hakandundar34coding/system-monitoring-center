@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v1.28.0
+  * New: Option for language selection
+  * New: Chinese (Simplified) translations
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.27.0
   * New: German translations
   * Fix: File read errors for C locale
