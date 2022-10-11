@@ -1,6 +1,16 @@
 # System Monitoring Center
 
-Multi-featured system monitor.
+<p align="center">
+    <a href="">
+        <img src="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/icons/hicolor/scalable/apps/system-monitoring-center.svg" alt="ss" width="100">
+    </a>
+</p>
+
+<p align="center">
+    <strong>
+        Multi-featured system monitor.
+    </strong>
+</p>
 
 
 <p align="center">
