@@ -7,7 +7,6 @@ gi.require_version('GLib', '2.0')
 gi.require_version('GdkPixbuf', '2.0')
 from gi.repository import Gtk, GLib, GdkPixbuf
 import os
-import subprocess
 from datetime import datetime
 import time
 
@@ -188,9 +187,6 @@ class UsersDetails:
             process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
             global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
             all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
-
-        # Get all users last log in and last failed log in times
-        lslogins_command_lines = (subprocess.check_output(["lslogins", "--notruncate", "-e", "--newline", "--time-format=iso", "-u", "-o", "=USER,LAST-LOGIN,FAILED-LOGIN"], shell=False)).decode().strip().split("\n")
 
         for line in etc_passwd_lines:
             line_split = line.split(":")

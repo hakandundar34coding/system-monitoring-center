@@ -13,15 +13,16 @@
     <property name="comments" translatable="yes">Multi-featured system monitor.</property>
     <property name="website">https://github.com/hakandundar34coding/system-monitoring-center</property>
     <property name="authors">Hakan Dündar</property>
-    <property name="translator-credits">Baumfinder (Deutsch)
-panmourovaty (čeština)
+    <property name="translator-credits">panmourovaty (čeština)
+Baumfinder (Deutsch)
 MasterKia (فارسی)
 Kálmán Szalai (Magyar)
 ski007, K0RR, sdorpl (polski)
 Bruno do Nascimento (português do Brasil)
 Ricardo Simões (português europeu)
 akorny (Русский)
-Hakan Dündar (Türkçe)</property>
+Hakan Dündar (Türkçe)
+ruojiner, Luo ( 汉语)</property>
     <property name="logo-icon-name">system-monitoring-center</property>
     <property name="license-type">gpl-3-0</property>
     <child internal-child="vbox">

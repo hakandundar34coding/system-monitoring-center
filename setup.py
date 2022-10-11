@@ -24,6 +24,7 @@ os.chmod("locale/pt_BR/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 os.chmod("locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 os.chmod("locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 os.chmod("locale/tr/LC_MESSAGES/system-monitoring-center.mo", 0o644)
+os.chmod("locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo", 0o644)
 for file in files_in_folder("database/"):
     os.chmod(file, 0o644)
 for file in files_in_folder("src/"):
@@ -47,6 +48,7 @@ data_files = [
     ("/usr/share/system-monitoring-center/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/usr/share/system-monitoring-center/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/usr/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
+    ("/usr/share/system-monitoring-center/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
     ("/usr/share/system-monitoring-center/database/", files_in_folder("database/")),
     ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
     ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),

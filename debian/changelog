@@ -1,3 +1,11 @@
+system-monitoring-center (1.28.0) unstable; urgency=medium
+
+  * New: Option for language selection
+  * New: Chinese (Simplified) translations
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 11 Oct 2022 09:00:00 +0300
+
 system-monitoring-center (1.27.0) unstable; urgency=medium
 
   * New: German translations

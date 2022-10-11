@@ -18,6 +18,7 @@ class Config:
         # Define read-only values
         # number_precision_list data info: [[ordering number, used in the code to get data, data unit, precision number], ...]
         self.number_precision_list = [[0, '0', 0], [1, '0.0', 1], [2, '0,00', 2], [3, '0,000', 3]]
+        self.language_dict = {"system":"System", "cs.UTF-8":"čeština", "de.UTF-8":"Deutsch", "en_US.UTF-8":"English (US)", "fa.UTF-8":"فارسی", "hu.UTF-8":"Magyar", "pl.UTF-8":"polski", "pt_BR.UTF-8":"português do Brasil", "pt_PT.UTF-8":"português europeu", "ru_RU.UTF-8":"Русский", "tr.UTF-8":"Türkçe", "zh_CN.UTF-8":"汉语"}
 
         # Read settings
         self.config_read_func()
@@ -91,6 +92,7 @@ class Config:
     def config_default_general_general_func(self):
 
         self.reset_all_settings_with_new_release = self.reset_all_settings_with_new_release_value 
+        self.language = "system"
         self.update_interval = 0.75
         self.chart_data_history = 150
         self.default_main_tab = 0
@@ -222,6 +224,10 @@ class Config:
         self.remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
         self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
         self.check_for_updates_automatically = int(config_values[config_variables.index("check_for_updates_automatically")])
+        if "language" in config_variables:
+            self.language = config_values[config_variables.index("language")]
+        else:
+            pass
 
         self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
@@ -299,6 +305,7 @@ class Config:
         config_write_text = ""
         config_write_text = config_write_text + "[General - General]" + "\n"
         config_write_text = config_write_text + "reset_all_settings_with_new_release = " + str(self.reset_all_settings_with_new_release) + "\n"
+        config_write_text = config_write_text + "language = " + str(self.language) + "\n"
         config_write_text = config_write_text + "update_interval = " + str(self.update_interval) + "\n"
         config_write_text = config_write_text + "chart_data_history = " + str(self.chart_data_history) + "\n"
         config_write_text = config_write_text + "default_main_tab = " + str(self.default_main_tab) + "\n"
