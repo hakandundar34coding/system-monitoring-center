@@ -4,6 +4,7 @@
     <img src="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/icons/hicolor/scalable/apps/system-monitoring-center.svg" alt="ss" width="100">
 </p>
 
+
 <p align="center">
     <strong>
         Multi-featured system monitor.
@@ -28,8 +29,9 @@
         <img src="https://img.shields.io/badge/View-Changelog-b37840">
     </a>
 </p>
+
+
 <p align="center">
-    </a>
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
         <img src="https://img.shields.io/badge/Code-Python3-52a381">
     </a>
@@ -38,8 +40,21 @@
     </a>
 </p>
 
-### Translations:
-Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian) | Portuguese(European) | Russian | Turkish | Chinese (Simplified)
+
+<p align="center">
+    <strong>
+        Translations:
+    </strong>
+    Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian) | Portuguese(European) | Russian | Turkish | Chinese (Simplified)
+</p>
+
+
+<p align="center">
+    <a href="https://repology.org/project/system-monitoring-center/versions">
+        <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
+    </a>
+</p>
+
 
 ### Features:
 - Detailed system performance and usage usage monitoring/managing features:
@@ -68,10 +83,6 @@ Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian)
     - The application will prepare shortcut and GUI images automatically.
     - If command is not found, restart the system and run the command again.
     - If images are not shown on the GUI, run `touch ~/.local/share/*` or restart the system.
-
-
-<a href="https://repology.org/project/system-monitoring-center/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status"></a>
 
 
 ### Dependencies:
