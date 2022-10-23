@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v1.29.0
+  * New: Support for Flatpak packaging
+  * Changed: Single project branch for all packaging types
+  * Minor code improvements
+
 ### v1.28.0
   * New: Option for language selection
   * New: Chinese (Simplified) translations

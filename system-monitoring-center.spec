@@ -1,7 +1,7 @@
 Name:           system-monitoring-center
-Version:        1.4.0
+Version:        1.29.0
 Release:        1%{?dist}
-Summary:        Provides information about system performance and usage.
+Summary:        Multi-featured system monitor.
 License:        GPLv3
 URL:            https://github.com/hakandundar34coding/system-monitoring-center
 
@@ -20,7 +20,7 @@ Requires:       systemd
 Requires:       util-linux >= 2.31
 
 %description
-Multi-featured system monitor.
+Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, services and system.
 
 %prep
 # pass
@@ -36,14 +36,15 @@ sudo chown -R $USER /usr/share/system-monitoring-center/src/Main.py
 
 %files
 %defattr(-,root,root,-)
-/usr/bin/system-monitoring-center
-/usr/share/applications/com.github.hakandundar34coding.system-monitoring-center.desktop
+/usr/share/applications/io.github.hakandundar34coding.system-monitoring-center.desktop
+/usr/share/polkit-1/actions/io.github.hakandundar34coding.system-monitoring-center.policy
+/usr/share/locale/*/LC_MESSAGES/system-monitoring-center.mo
+/usr/share/system-monitoring-center/database/*
+/usr/share/system-monitoring-center/*
 /usr/share/icons/hicolor/scalable/actions/system-monitoring-center*
 /usr/share/icons/hicolor/scalable/apps/system-monitoring-center*
-/usr/share/locale/*/LC_MESSAGES/system-monitoring-center.mo
 /usr/share/man/man1/system-monitoring-center.1.gz
-/usr/share/polkit-1/actions/com.github.hakandundar34coding.system-monitoring-center.policy
-/usr/share/system-monitoring-center/*
+/usr/bin/system-monitoring-center
 
 %changelog
 # pass
