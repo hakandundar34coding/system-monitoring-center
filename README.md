@@ -25,6 +25,9 @@
     <a href="https://pypi.org/project/system-monitoring-center/">
         <img src="https://static.pepy.tech/personalized-badge/system-monitoring-center?period=total&units=international_system&left_color=grey&right_color=green&left_text=downloads"/>
     </a>
+    <a href="https://flathub.org/apps/details/io.github.hakandundar34coding.system-monitoring-center">
+        <img alt="Flathub" src="https://img.shields.io/flathub/downloads/io.github.hakandundar34coding.system-monitoring-center">
+    </a>
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/Changes.md">
         <img src="https://img.shields.io/badge/View-Changelog-b37840">
     </a>
