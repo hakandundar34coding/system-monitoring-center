@@ -38,14 +38,17 @@ if "--flatpak_package" in sys.argv:
     sys.argv.remove("--flatpak_package")
 
 # Python package
-elif "egg_info" in sys.argv:
-    package_type_var = "python_package"
+elif "egg_info" in sys.argv or "sdist" in sys.argv or "bdist_wheel" in sys.argv:
+    for argv in sys.argv:
+        if "/in_process/_in_process.py" in argv:
+            package_type_var = "python_package"
 
 # Debian, RPM, Arch Linux another other package
 else:
     package_type_var = "debian_rpm_archlinux_or_another_package"
 
-print("_____Package Type: " + package_type_var + "_____")
+
+print("\n" + "_____package_type: " + package_type_var + "_____" + "\n")
 
 
 
