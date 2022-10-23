@@ -242,10 +242,16 @@ class UsersDetails:
         # Set label text
         self.label3101w.set_text(selected_user_username)
         self.label3102w.set_text(selected_user_full_name)
-        self.label3103w.set_text(selected_user_logged_in)
+        if Config.environment_type == "flatpak":
+            self.label3103w.set_text(f'{"[" + "!Flatpak" + "]"}')
+        else:
+            self.label3103w.set_text(selected_user_logged_in)
         self.label3104w.set_text(selected_user_uid)
         self.label3105w.set_text(selected_user_gid)
-        self.label3106w.set_text(f'{selected_user_process_count}')
+        if Config.environment_type == "flatpak":
+            self.label3106w.set_text(f'{"[" + "!Flatpak" + "]"}')
+        else:
+            self.label3106w.set_text(f'{selected_user_process_count}')
         self.label3107w.set_text(selected_user_home_dir)
         self.label3108w.set_text(selected_user_group_name)
         self.label3109w.set_text(selected_user_terminal)
@@ -253,7 +259,12 @@ class UsersDetails:
             self.label3110w.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
         if selected_user_process_start_time == 0:
             self.label3110w.set_text("-")
-        self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f} %')
+            if Config.environment_type == "flatpak":
+                self.label3110w.set_text(f'{"[" + "!Flatpak" + "]"}')
+        if Config.environment_type == "flatpak":
+            self.label3111w.set_text(f'{"[" + "!Flatpak" + "]"}')
+        else:
+            self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f}')
 
 
     # ----------------------------------- Users Details - Run Function -----------------------------------

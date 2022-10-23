@@ -46,7 +46,7 @@ class ServicesMenuRightClick:
         self.menuitem6108m.connect("activate", self.on_menuitem6108m_activate)
 
 
-    # ----------------------- "Start" item -----------------------
+    # ----------------------- "Start, Stop, Restart, Reload, Enable, Disable, Mark, Mask" items -----------------------
     def on_service_manage_items_activate(self, widget):
 
         # Get right clicked service name.
@@ -54,35 +54,59 @@ class ServicesMenuRightClick:
 
         # If "Start" item is clicked.
         if widget == self.menuitem6101m:
-            service_manage_command = ["systemctl", "start", service_name]
+            if Config.environment_type == "flatpak":
+                service_manage_command = ["flatpak-spawn", "--host", "systemctl", "start", service_name]
+            else:
+                service_manage_command = ["systemctl", "start", service_name]
 
         # If "Stop" item is clicked.
         if widget == self.menuitem6102m:
-            service_manage_command = ["systemctl", "stop", service_name]
+            if Config.environment_type == "flatpak":
+                service_manage_command = ["flatpak-spawn", "--host", "systemctl", "stop", service_name]
+            else:
+                service_manage_command = ["systemctl", "stop", service_name]
 
         # If "Restart" item is clicked.
         if widget == self.menuitem6103m:
-            service_manage_command = ["systemctl", "restart", service_name]
+            if Config.environment_type == "flatpak":
+                service_manage_command = ["flatpak-spawn", "--host", "systemctl", "restart", service_name]
+            else:
+                service_manage_command = ["systemctl", "restart", service_name]
 
         # If "Reload" item is clicked.
         if widget == self.menuitem6104m:
-            service_manage_command = ["systemctl", "reload", service_name]
+            if Config.environment_type == "flatpak":
+                service_manage_command = ["flatpak-spawn", "--host", "systemctl", "reload", service_name]
+            else:
+                service_manage_command = ["systemctl", "reload", service_name]
 
         # If "Enable" item is clicked.
         if widget == self.menuitem6105m:
-            service_manage_command = ["systemctl", "enable", service_name]
+            if Config.environment_type == "flatpak":
+                service_manage_command = ["flatpak-spawn", "--host", "systemctl", "enable", service_name]
+            else:
+                service_manage_command = ["systemctl", "enable", service_name]
 
         # If "Disable" item is clicked.
         if widget == self.menuitem6106m:
-            service_manage_command = ["systemctl", "disable", service_name]
+            if Config.environment_type == "flatpak":
+                service_manage_command = ["flatpak-spawn", "--host", "systemctl", "disable", service_name]
+            else:
+                service_manage_command = ["systemctl", "disable", service_name]
 
         # If "Mask" item is clicked and it is checked.
         if widget == self.checkmenuitem6107m and widget.get_active() == True:
-            service_manage_command = ["systemctl", "mask", service_name]
+            if Config.environment_type == "flatpak":
+                service_manage_command = ["flatpak-spawn", "--host", "systemctl", "mask", service_name]
+            else:
+                service_manage_command = ["systemctl", "mask", service_name]
 
         # If "Mask" item is clicked and it is unchecked.
         if widget == self.checkmenuitem6107m and widget.get_active() == False:
-            service_manage_command = ["systemctl", "unmask", service_name]
+            if Config.environment_type == "flatpak":
+                service_manage_command = ["flatpak-spawn", "--host", "systemctl", "unmask", service_name]
+            else:
+                service_manage_command = ["systemctl", "unmask", service_name]
 
         # Manage the right clicked service and show an information dialog if there is output messages (warnings/errors).
         try:
@@ -104,7 +128,10 @@ class ServicesMenuRightClick:
 
         service_name = Services.selected_service_name
 
-        service_status = (subprocess.check_output(["systemctl", "show", service_name, "--property=UnitFileState"], shell=False)).decode().strip().split("=")[1]
+        if Config.environment_type == "flatpak":
+            service_status = (subprocess.check_output(["flatpak-spawn", "--host", "systemctl", "show", service_name, "--property=UnitFileState"], shell=False)).decode().strip().split("=")[1]
+        else:
+            service_status = (subprocess.check_output(["systemctl", "show", service_name, "--property=UnitFileState"], shell=False)).decode().strip().split("=")[1]
 
         with self.checkmenuitem6107m.handler_block(self.checkmenuitem6107m_handler_id):
             if service_status == "masked":

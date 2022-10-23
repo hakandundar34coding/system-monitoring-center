@@ -319,6 +319,10 @@ class Performance:
         # Some older Linux distributions use "/lib/" instead of "/usr/lib/" but they are merged under "/usr/lib/" in newer versions.
         if os.path.isdir(udev_hardware_database_dir) == False:
             udev_hardware_database_dir = "/lib/udev/hwdb.d/"
+        if Config.environment_type == "flatpak":
+            udev_hardware_database_dir = "/etc/udev/hwdb.d/"
+        if Config.environment_type == "flatpak":
+            udev_hardware_database_dir = os.path.dirname(os.path.realpath(__file__)) + "/../../../etc/udev/hwdb.d/"
 
         # Example modalias file contents for testing.
         # modalias_output = "usb:v0B95p1790d0100dcFFdscFFdp00icFFiscFFip00in00"
@@ -512,7 +516,12 @@ class Performance:
         cpu_usage_text = f'{self.cpu_usage_percent_ave[-1]:.{performance_cpu_usage_percent_precision}f}'
         performance_memory_data_precision = 0
         ram_usage_text = f'{self.ram_usage_percent[-1]:.{performance_memory_data_precision}f}'
-        processes_number_text = f'{len([filename for filename in os.listdir("/proc/") if filename.isdigit()])}'
+        if Config.environment_type == "flatpak":
+            import subprocess
+            ls_proc_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "/proc/"], shell=False)).decode().strip().split()
+            processes_number_text = f'{len([filename for filename in ls_proc_list if filename.isdigit()])}'
+        else:
+            processes_number_text = f'{len([filename for filename in os.listdir("/proc/") if filename.isdigit()])}'
         swap_usage_text = f'{self.swap_usage_percent[-1]:.0f}%'
         selected_disk_number = self.selected_disk_number
         performance_disk_data_precision = 1

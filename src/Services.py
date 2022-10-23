@@ -209,24 +209,50 @@ def services_loop_func():
     # On ARM systems, also "/usr/lib/systemd/system/" folder may be used after installling some applications. In this situation this folder will be a real path.
     service_unit_file_list_usr_lib_systemd = []
     service_unit_file_list_lib_systemd = []
-    if os.path.isdir("/usr/lib/systemd/system/") == True:
-        service_unit_files_dir = "/usr/lib/systemd/system/"
-        service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]    # Get file names which ends withs ".service".
-    if os.path.realpath("/lib/systemd/system/") + "/" == "/lib/systemd/system/":
-        service_unit_files_dir = "/lib/systemd/system/"
-        service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]    # Get file names which ends withs ".service".
+    if Config.environment_type == "flatpak":
+        if os.path.isdir("/var/run/host/usr/lib/systemd/system/") == True:
+            service_unit_files_dir = "/var/run/host/usr/lib/systemd/system/"
+            service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
+        # There is no access to "/run" folder of the host OS in Flatpak environment.
+        if (subprocess.check_output(["flatpak-spawn", "--host", "realpath", "/lib/systemd/system/"], shell=False)).decode().strip() + "/" == "/lib/systemd/system/":
+            service_unit_files_dir = "/lib/systemd/system/"
+            service_unit_file_list_lib_systemd_scratch = (subprocess.check_output(["flatpak-spawn", "--host", "ls", service_unit_files_dir], shell=False)).decode().strip().split()
+            service_unit_file_list_lib_systemd = []
+            for file in service_unit_file_list_lib_systemd_scratch:
+                if file.endswith(".service") == True:
+                    service_unit_file_list_lib_systemd.append(file)
+    else:
+        if os.path.isdir("/usr/lib/systemd/system/") == True:
+            service_unit_files_dir = "/usr/lib/systemd/system/"
+            service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
+        if os.path.realpath("/lib/systemd/system/") + "/" == "/lib/systemd/system/":
+            service_unit_files_dir = "/lib/systemd/system/"
+            service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
 
     # Merge service file lists from different folders.
     service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd
 
     try:
-        service_files_from_run_systemd_list = [filename.split("invocation:", 1)[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
+        if Config.environment_type == "flatpak":
+            # There is no access to "/run" folder of the host OS in Flatpak environment.
+            service_files_from_run_systemd_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "/run/systemd/units/"], shell=False)).decode().strip().split()
+        else:
+            service_files_from_run_systemd_list = [filename.split("invocation:", 1)[1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
     except FileNotFoundError:
         service_files_from_run_systemd_list = []
 
-    for file in service_unit_file_list[:]:                                                    # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
-        if os.path.islink(service_unit_files_dir + file) == True and os.path.realpath(service_unit_files_dir + file) != "/dev/null":    # Some service files are link to other ".service" files in the same directory. These links are removed from the list. Not all link files are removed. Link files with "/dev/null" are kept in the list.
-            service_unit_file_list.remove(file)
+    if Config.environment_type == "flatpak":
+        service_unit_files_dir_scratch = service_unit_files_dir.split("/var/run/host")[-1]
+        service_unit_file_real_path_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "-l", service_unit_files_dir_scratch], shell=False)).decode().strip().split("\n")
+        for service_file in service_unit_file_real_path_list:
+            if " -> " in service_file and "/dev/null" not in service_file:
+                file = service_file.split(" -> ")[0].split()[-1].strip()
+                if file in service_unit_file_list:
+                    service_unit_file_list.remove(file)
+    else:
+        for file in service_unit_file_list[:]:                                                # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
+            if os.path.islink(service_unit_files_dir + file) == True and os.path.realpath(service_unit_files_dir + file) != "/dev/null":    # Some service files are link to other ".service" files in the same directory. These links are removed from the list. Not all link files are removed. Link files with "/dev/null" are kept in the list.
+                service_unit_file_list.remove(file)
 
     # Get all service names (joining service names from "systemctl list-unit-files ..." and "systemctl list-units ..."). Some services are run multiple times. For example there is one instance of "user@.service" from ""systemctl list-unit-files ..." command but there are two loaded services (user@1000.service and user@1001.service) per logged in user. There are several examples for this situation. "user@.service" is removed from list, "user@1000.service" and "user@1001.service" appended into list for getting information for all services correctly.
     for service_unit_file in service_unit_file_list:
@@ -236,9 +262,11 @@ def services_loop_func():
         else:
             service_unit_file_split = service_unit_file.split("@")[0]
             for service_loaded in service_files_from_run_systemd_list:
-                if "@" in service_loaded and service_unit_file_split == service_loaded.split("@")[0]:
-                    service_list.append(service_loaded)
-                    continue
+                if "@" in service_loaded:
+                    service_loaded = service_loaded.split("invocation:")[-1]
+                    if service_unit_file_split == service_loaded.split("@")[0]:
+                        service_list.append(service_loaded)
+                        continue
     service_list = sorted(service_list)
 
     # Generate "unit_files_command_parameter_list". This list will be used for constructing commandline for getting service data per service file.
@@ -257,7 +285,10 @@ def services_loop_func():
         unit_files_command_parameter_list.append("Description")
     unit_files_command_parameter_list = ",".join(unit_files_command_parameter_list)           # Join strings with "," between them.
     # Construct command for getting service information for all services
-    unit_files_command = ["systemctl", "show", "--property=" + unit_files_command_parameter_list]
+    if Config.environment_type == "flatpak":
+        unit_files_command = ["flatpak-spawn", "--host", "systemctl", "show", "--property=" + unit_files_command_parameter_list]
+    else:
+        unit_files_command = ["systemctl", "show", "--property=" + unit_files_command_parameter_list]
     for service in service_list:
         unit_files_command.append(service)
 
@@ -273,7 +304,7 @@ def services_loop_func():
                 number_of_logical_cores = number_of_logical_cores + 1
 
     # Get services bu using single process (instead of multiprocessing) if the system has 1 or 2 CPU cores.
-    if number_of_logical_cores in [1, 2]:
+    if number_of_logical_cores < 3:
         # Get service data per service file in one attempt in order to obtain lower CPU usage. Because information from all service files will be get by one commandline operation and will be parsed later.
         try:
             systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
@@ -281,7 +312,7 @@ def services_loop_func():
         except Exception:
             return
     # Get services bu using multiple processes (multiprocessing) if the system has more than 2 CPU cores.
-    if number_of_logical_cores > 2:
+    else:
         import ServicesGetMultProc
         systemctl_show_command_lines = ServicesGetMultProc.start_processes_func(number_of_logical_cores, unit_files_command)
 

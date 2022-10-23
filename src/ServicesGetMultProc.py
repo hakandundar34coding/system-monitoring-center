@@ -18,9 +18,10 @@ def services_number_of_cpu_cores_used_func(number_of_logical_cores):
 # ----------------------- Split service list into [number_of_cpu_cores_used] lists for using them to get service data by using multiprocessing -----------------------
 def services_unit_files_command_split_func(number_of_cpu_cores_used, unit_files_command):
 
-    # Get service list and unit file command parameters.
-    service_list = unit_files_command[3:]
-    unit_files_command = unit_files_command[:3]
+    # Get service list and unit file command parameters. "+1" for list slice index, "+2" for 2 elements after "systemctl" parameter to obtain index of element which starts with "--property=".
+    index_to_split_list = unit_files_command.index("systemctl") + 1 + 2
+    service_list = unit_files_command[index_to_split_list:]
+    unit_files_command = unit_files_command[:index_to_split_list]
 
     # Get number of services per process.
     number_of_services_per_process = len(service_list) // number_of_cpu_cores_used

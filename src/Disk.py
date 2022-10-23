@@ -415,7 +415,11 @@ class Disk:
         if disk_file_system  == "fuseblk":
             try:
                 disk_for_file_system = "/dev/" + selected_disk
-                disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
+                if Config.environment_type == "flatpak":
+                    import subprocess
+                    disk_file_system = (subprocess.check_output(["flatpak-spawn", "--host", "lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
+                else:
+                    disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
             except Exception:
                 pass
 

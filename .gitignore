@@ -1,3 +1,9 @@
+.flatpak-builder/
+build-dir/
+dist/
+*.egg-info/
+.git/
+
 #PyCharm
 *.idea
 

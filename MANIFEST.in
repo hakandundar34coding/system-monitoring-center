@@ -1,6 +1,6 @@
 include LICENSE
 include README.md
-include integration/com.github.hakand34.system-monitoring-center.desktop
+include integration/io.github.hakandundar34coding.system-monitoring-center.desktop
 include database/*
 include src/*.py
 include src/__version__

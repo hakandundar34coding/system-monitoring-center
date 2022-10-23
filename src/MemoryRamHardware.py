@@ -9,6 +9,8 @@ import subprocess
 
 from locale import gettext as _tr
 
+from Config import Config
+
 
 # Define class
 class MemoryRamHardware:
@@ -58,7 +60,10 @@ class MemoryRamHardware:
 
         # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
         try:
-            dmidecode_output = (subprocess.check_output(["pkexec", "sudo", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()
+            if Config.environment_type == "flatpak":
+                dmidecode_output = (subprocess.check_output(["flatpak-spawn", "--host", "pkexec", "sudo", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()
+            else:
+                dmidecode_output = (subprocess.check_output(["pkexec", "sudo", "dmidecode", "-t", "16,17"], stderr=subprocess.STDOUT, shell=False)).decode().strip()
         except Exception:
             self.window1201w.hide()
             return

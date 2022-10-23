@@ -139,7 +139,10 @@ class ServicesDetails:
         services_memory_data_unit = Config.services_memory_data_unit
 
         # Get all information of the service.
-        systemctl_show_lines = (subprocess.check_output(["systemctl", "show", self.selected_service_name], shell=False)).decode().strip().split("\n")
+        if Config.environment_type == "flatpak":
+            systemctl_show_lines = (subprocess.check_output(["flatpak-spawn", "--host", "systemctl", "show", self.selected_service_name], shell=False)).decode().strip().split("\n")
+        else:
+            systemctl_show_lines = (subprocess.check_output(["systemctl", "show", self.selected_service_name], shell=False)).decode().strip().split("\n")
 
         # Initial value of the variables. These values will be used if they could not be detected.
         selected_service_type = "-"

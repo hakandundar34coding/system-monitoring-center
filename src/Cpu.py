@@ -376,20 +376,30 @@ class Cpu:
     def cpu_total_processes_threads_func(self):
 
         thread_count_list = []
-        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
 
-        for pid in pid_list:
-            try:
-                with open("/proc/" + pid + "/status") as reader:
-                    proc_status_output = reader.read()
-            # try-except is used in order to skip to the next loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
-            except (FileNotFoundError, ProcessLookupError) as me:
-                continue
-            # Append number of threads of the process
-            thread_count_list.append(int(proc_status_output.split("\nThreads:", 1)[1].split("\n", 1)[0].strip()))
+        if Config.environment_type == "flatpak":
+            import subprocess
+            ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "thcount"], shell=False)).decode().strip().split("\n")
+            number_of_total_processes = len(ps_output_lines)
+            number_of_total_threads = 0
+            for line in ps_output_lines:
+                number_of_total_threads = number_of_total_threads + int(line.strip())
 
-        number_of_total_processes = len(thread_count_list)
-        number_of_total_threads = sum(thread_count_list)
+        else:
+            pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
+
+            for pid in pid_list:
+                try:
+                    with open("/proc/" + pid + "/status") as reader:
+                        proc_status_output = reader.read()
+                # try-except is used in order to skip to the next loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
+                except (FileNotFoundError, ProcessLookupError) as me:
+                    continue
+                # Append number of threads of the process
+                thread_count_list.append(int(proc_status_output.split("\nThreads:", 1)[1].split("\n", 1)[0].strip()))
+
+            number_of_total_processes = len(thread_count_list)
+            number_of_total_threads = sum(thread_count_list)
 
         return number_of_total_processes, number_of_total_threads
 

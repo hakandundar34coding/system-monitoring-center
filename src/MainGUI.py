@@ -33,6 +33,9 @@ class MainGUI:
         except Exception:
             pass
 
+        # Detect environment type (Flatpak or native). This information will be used for accessing host OS commands if the application is run in Flatpak environment.
+        self.main_gui_environment_type_detection_func()
+
         # Generate symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated.
         self.main_gui_application_system_integration_func()
 
@@ -134,8 +137,13 @@ class MainGUI:
 
         # Hide Services tab if systemd is not used on the system.
         try:
-            with open("/proc/1/comm") as reader:
-                process_name = reader.read().strip()
+            # Access host OS commands if the application is run in Flatpak environment.
+            if Config.environment_type == "flatpak":
+                import subprocess
+                process_name = (subprocess.check_output(["flatpak-spawn", "--host", "cat", "/proc/1/comm"], shell=False)).decode().strip()
+            else:
+                with open("/proc/1/comm") as reader:
+                    process_name = reader.read().strip()
             if process_name != "systemd":
                 self.radiobutton6.set_visible(False)
         except Exception:
@@ -752,8 +760,32 @@ class MainGUI:
         self.main_glib_source.attach(GLib.MainContext.default())
 
 
+    # ----------------------- Called for detecting environment type (Flatpak or native). This information will be used for accessing host OS commands if the application is run in Flatpak environment. -----------------------
+    def main_gui_environment_type_detection_func(self):
+
+        # Get OS version information.
+        os_version = "-"
+        with open("/etc/os-release") as reader:
+            os_release_output_lines = reader.read().strip().split("\n")
+
+        for line in os_release_output_lines:
+            if line.startswith("VERSION="):
+                os_version = line.split("VERSION=")[1].strip(' "')
+                break
+
+        if "flatpak runtime" in os_version.lower():
+            environment_type = "flatpak"
+        else:
+            environment_type = "native"
+
+        Config.environment_type = environment_type
+
+
     # ----------------------- Called for copying files for GUI icons and application shortcut (.desktop file) in user folders if they are not copied before. -----------------------
     def main_gui_application_system_integration_func(self):
+
+        if Config.environment_type == "flatpak":
+            return
 
         # Called for removing files.
         def remove_file(file):

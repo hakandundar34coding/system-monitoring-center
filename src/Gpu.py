@@ -466,13 +466,19 @@ class Gpu:
 
             # Get GPU memory capacity. This information is get by using "vcgencmd" tool and it is not installed on the systems by default.
             try:
-                gpu_memory_capacity = (subprocess.check_output(["vcgencmd", "get_mem", "gpu"], shell=False)).decode().strip().split("=")[1]
+                if Config.environment_type == "flatpak":
+                    gpu_memory_capacity = (subprocess.check_output(["flatpak-spawn", "--host", "vcgencmd", "get_mem", "gpu"], shell=False)).decode().strip().split("=")[1]
+                else:
+                    gpu_memory_capacity = (subprocess.check_output(["vcgencmd", "get_mem", "gpu"], shell=False)).decode().strip().split("=")[1]
             except Exception:
                 gpu_memory_capacity = "-"
 
             # Get GPU current frequency. This information is get by using "vcgencmd" tool and it is not installed on the systems by default.
             try:
-                gpu_current_frequency = (subprocess.check_output(["vcgencmd", "measure_clock", "core"], shell=False)).decode().strip().split("=")[1]
+                if Config.environment_type == "flatpak":
+                    gpu_current_frequency = (subprocess.check_output(["flatpak-spawn", "--host", "vcgencmd", "measure_clock", "core"], shell=False)).decode().strip().split("=")[1]
+                else:
+                    gpu_current_frequency = (subprocess.check_output(["vcgencmd", "measure_clock", "core"], shell=False)).decode().strip().split("=")[1]
                 gpu_current_frequency = f'{float(gpu_current_frequency)/1000000:.0f} MHz'
             except Exception:
                 gpu_current_frequency = "-"
@@ -594,7 +600,10 @@ class Gpu:
     def gpu_load_nvidia_func(self):
 
         # Define command for getting GPU usage information.
-        gpu_tool_command = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
+        if Config.environment_type == "flatpak":
+            gpu_tool_command = ["flatpak-spawn", "--host", "nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
+        else:
+            gpu_tool_command = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
 
         # Try to get GPU usage information.
         try:

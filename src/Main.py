@@ -8,7 +8,7 @@ from gi.repository import Gtk
 class Application(Gtk.Application):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, application_id="com.github.hakand34.system-monitoring-center", **kwargs)
+        super().__init__(*args, application_id="io.github.hakandundar34coding.system-monitoring-center", **kwargs)
         self.window = None
 
     def do_activate(self):

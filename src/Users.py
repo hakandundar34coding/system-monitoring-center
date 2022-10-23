@@ -128,10 +128,10 @@ def users_initial_func():
     users_data_list = [
                       [0, _tr('User'), 3, 2, 3, [bool, GdkPixbuf.Pixbuf, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'pixbuf', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
                       [1, _tr('Full Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                      [2, _tr('Logged In'), 1, 1, 1, [bool], ['CellRendererToggle'], ['active'], [0], [0.5], [False], ['no_cell_function']],
+                      [2, _tr('Logged In'), 1, 1, 1, [bool], ['CellRendererToggle'], ['active'], [0], [0.5], [False], [cell_data_function_user_logged_in]],
                       [3, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                       [4, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                      [5, _tr('Processes'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                      [5, _tr('Processes'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_user_process_count]],
                       [6, _tr('Home Directory'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [7, _tr('Group'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [8, _tr('Terminal'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
@@ -309,7 +309,10 @@ def users_loop_func():
                 users_data_row.append(int(user_gid))
             # Get user process count
             if 5 in users_treeview_columns_shown:
-                user_process_count = all_process_user_ids.count(user_uid)
+                if Config.environment_type == "flatpak":
+                    user_process_count = 0
+                else:
+                    user_process_count = all_process_user_ids.count(user_uid)
                 users_data_row.append(user_process_count)
             # Get user home directory
             if 6 in users_treeview_columns_shown:
@@ -325,22 +328,28 @@ def users_loop_func():
                 users_data_row.append(user_terminal)
             # Get user process start time
             if 9 in users_treeview_columns_shown:
-                if user_process_pid == 0:
-                    user_process_start_time = 0                                               # User process start time is "0" if it is not alive (if user is not logged in)
-                if user_process_pid != 0:                                                     # User process start time is get if it is alive (if user is logged in)
-                    try:
-                        with open("/proc/" + str(user_process_pid) + "/stat") as reader:
-                            proc_pid_stat_lines = int(reader.read().split()[-31])             # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
-                        user_process_start_time = (proc_pid_stat_lines / number_of_clock_ticks) + system_boot_time
-                    except Exception:
-                        user_process_start_time = 0
+                if Config.environment_type == "flatpak":
+                    user_process_start_time = 0
+                else:
+                    if user_process_pid == 0:
+                        user_process_start_time = 0                                               # User process start time is "0" if it is not alive (if user is not logged in)
+                    if user_process_pid != 0:                                                     # User process start time is get if it is alive (if user is logged in)
+                        try:
+                            with open("/proc/" + str(user_process_pid) + "/stat") as reader:
+                                proc_pid_stat_lines = int(reader.read().split()[-31])             # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
+                            user_process_start_time = (proc_pid_stat_lines / number_of_clock_ticks) + system_boot_time
+                        except Exception:
+                            user_process_start_time = 0
                 users_data_row.append(user_process_start_time)
             # Get user processes CPU usage percentages
             if 10 in users_treeview_columns_shown:
-                user_users_cpu_percent = 0
-                for pid in pid_list:
-                    if all_process_user_ids[pid_list.index(pid)] == user_uid:
-                        user_users_cpu_percent = user_users_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
+                if Config.environment_type == "flatpak":
+                    user_users_cpu_percent = 0
+                else:
+                    user_users_cpu_percent = 0
+                    for pid in pid_list:
+                        if all_process_user_ids[pid_list.index(pid)] == user_uid:
+                            user_users_cpu_percent = user_users_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
                 users_data_row.append(user_users_cpu_percent)
             # Append all data of the users into a list which will be appended into a treestore for showing the data on a treeview.
             users_data_rows.append(users_data_row)
@@ -495,14 +504,33 @@ def users_loop_func():
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
 def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{users_cpu_precision}f} %')
+    if Config.environment_type == "flatpak":
+        cell.set_property('text', "[" + "!Flatpak" + "]")
+    else:
+        cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{users_cpu_precision}f} %')
 
 def cell_data_function_started(tree_column, cell, tree_model, iter, data):
     cell_data = tree_model.get(iter, data)[0]
     if cell_data != 0:
         cell.set_property('text', datetime.fromtimestamp(tree_model.get(iter, data)[0]).strftime("%H:%M:%S %d.%m.%Y"))
     if cell_data == 0:
-        cell.set_property('text', "-")
+        if Config.environment_type == "flatpak":
+            cell.set_property('text', "[" + "!Flatpak" + "]")
+        else:
+            cell.set_property('text', "-")
+
+
+def cell_data_function_user_process_count(tree_column, cell, tree_model, iter, data):
+    if Config.environment_type == "flatpak":
+        cell.set_property('text', "[" + "!Flatpak" + "]")
+    else:
+        pass
+
+def cell_data_function_user_logged_in(tree_column, cell, tree_model, iter, data):
+    if Config.environment_type == "flatpak":
+        cell.set_property('inconsistent', True)
+    else:
+        pass
 
 
 # ----------------------------------- Users - Column Title Clicked Function -----------------------------------

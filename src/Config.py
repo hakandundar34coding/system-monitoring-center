@@ -10,9 +10,10 @@ class Config:
     # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
-        # Define configration file and directory
-        self.current_user_homedir = os.environ.get('HOME')
-        self.config_folder_path = self.current_user_homedir + "/.config/system-monitoring-center/"
+        # Define configration file and directory.
+        # "XDG_CONFIG_HOME" may not be defined on several distributions.
+        user_config_folder = config_dir = os.environ.get("XDG_CONFIG_HOME", os.environ.get("HOME") + "/.config")
+        self.config_folder_path = user_config_folder + "/system-monitoring-center/"
         self.config_file_path = self.config_folder_path + "config.txt"
 
         # Define read-only values

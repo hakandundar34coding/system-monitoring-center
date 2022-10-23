@@ -10,6 +10,8 @@ import os
 import platform
 import threading
 
+from Config import Config
+
 
 # Define class
 class System:
@@ -93,6 +95,8 @@ class System:
         self.label8108.set_text(kernel_version)
         self.label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
         self.label8110.set_text(windowing_system)
+        if Config.environment_type == "flatpak":
+            current_display_manager = "[" + "!Flatpak" + "]"
         self.label8111.set_text(window_manager)
         self.label8112.set_text(current_display_manager)
         self.label8113.set_text(computer_vendor)
@@ -126,10 +130,15 @@ class System:
         os_based_on = "-"
         os_version = "-"
 
-        # Get OS name, version and based on information.
-        with open("/etc/os-release") as reader:
-            os_release_output_lines = reader.read().strip().split("\n")
+        # Read "/etc/os-release" file for getting OS name, version and based on information.
+        if Config.environment_type == "flatpak":
+            with open("/var/run/host/etc/os-release") as reader:
+                os_release_output_lines = reader.read().strip().split("\n")
+        else:
+            with open("/etc/os-release") as reader:
+                os_release_output_lines = reader.read().strip().split("\n")
 
+        # Get OS name, version and based on information.
         for line in os_release_output_lines:
             if line.startswith("NAME="):
                 os_name = line.split("NAME=")[1].strip(' "')
@@ -144,8 +153,12 @@ class System:
         # Append Debian version to the based on information if OS is based on Debian.
         if os_based_on == "Debian":
             debian_version = "-"
-            with open("/etc/debian_version") as reader:
-                debian_version = reader.read().strip()
+            if Config.environment_type == "flatpak":
+                with open("/var/run/host/etc/debian_version") as reader:
+                    debian_version = reader.read().strip()
+            else:
+                with open("/etc/debian_version") as reader:
+                    debian_version = reader.read().strip()
             os_based_on = os_based_on + " (" + debian_version + ")"
 
         # Append Ubuntu version to the based on information if OS is based on Ubuntu.
@@ -272,8 +285,12 @@ class System:
     def system_installed_flatpak_packages_func(self):
 
         number_of_installed_flatpak_packages = "-"
+
         try:
-            flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
+            if Config.environment_type == "flatpak":
+                flatpak_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "flatpak", "list"], shell=False)).decode().strip().split("\n")
+            else:
+                flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
             # Differentiate empty line count
             number_of_installed_flatpak_packages = len(flatpak_packages_available) - flatpak_packages_available.count("")
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
@@ -303,32 +320,53 @@ class System:
         pacman_packages_available = "-"
         number_of_installed_apt_or_rpm_or_pacman_packages = "-"
 
+        # Get number of APT (deb) packages if available.
         try:
             # Check if "python3" is installed in order to determine package type of the system.
-            apt_packages_available = (subprocess.check_output(["dpkg", "-s", "python3"], shell=False)).decode().strip()
+            if Config.environment_type == "flatpak":
+                apt_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "dpkg", "-s", "python3"], shell=False)).decode().strip()
+            else:
+                apt_packages_available = (subprocess.check_output(["dpkg", "-s", "python3"], shell=False)).decode().strip()
             if "Package: python3" in apt_packages_available:
-                number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
+                if Config.environment_type == "flatpak":
+                    number_of_installed_apt_packages = (subprocess.check_output(["flatpak-spawn", "--host", "dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
+                else:
+                    number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
                 number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_apt_packages} (APT)'
         # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
             apt_packages_available = "-"
 
+        # Get number of RPM packages if available.
         if apt_packages_available == "-":
             try:
-                rpm_packages_available = (subprocess.check_output(["rpm", "-q", "python3"], shell=False)).decode().strip()
+                if Config.environment_type == "flatpak":
+                    rpm_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "rpm", "-q", "python3"], shell=False)).decode().strip()
+                else:
+                    rpm_packages_available = (subprocess.check_output(["rpm", "-q", "python3"], shell=False)).decode().strip()
                 if rpm_packages_available.startswith("python3-3."):
-                    number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
+                    if Config.environment_type == "flatpak":
+                        number_of_installed_rpm_packages = (subprocess.check_output(["flatpak-spawn", "--host", "rpm", "-qa"], shell=False)).decode().strip().split("\n")
+                    else:
+                        number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
                     # Differentiate empty line count
                     number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")
                     number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
             except (FileNotFoundError, subprocess.CalledProcessError) as me:
                 rpm_packages_available = "-"
 
+        # Get number of pacman (Arch Linux) packages if available.
         if apt_packages_available == "-" and rpm_packages_available == "-":
             try:
-                pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
+                if Config.environment_type == "flatpak":
+                    pacman_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "pacman", "-Q", "python3"], shell=False)).decode().strip()
+                else:
+                    pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
                 if pacman_packages_available.startswith("python 3."):
-                    number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
+                    if Config.environment_type == "flatpak":
+                        number_of_installed_pacman_packages = (subprocess.check_output(["flatpak-spawn", "--host", "pacman", "-Qq"], shell=False)).decode().strip().split("\n")
+                    else:
+                        number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
                     # Differentiate empty line count
                     number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")
                     number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
@@ -397,71 +435,76 @@ class System:
         current_display_manager = "-"                                                             
 
         # Try to detect windowing system, window manager, current desktop environment and current display manager by reading process names and other details.
-        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
-        for pid in pid_list:
-            # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            try:
-                with open("/proc/" + pid + "/comm") as reader:
-                    process_name = reader.read().strip()
-            except FileNotFoundError:
-                continue
-            # Get windowing system information. Windowing system may be get as "tty" (which is for non-graphical system) when "os.environ.get('XDG_SESSION_TYPE')" is used on Arch Linux.if environment variables are not set after installing a windowing system.
-            if windowing_system in ["-", "Tty"]:
-                if process_name.lower() == "xorg":
-                    windowing_system = "X11"
-                if process_name.lower() == "xwayland":
-                    windowing_system = "Wayland"
-            # Get window manager information
-            if window_manager == "-":
-                if process_name.lower() in supported_window_managers_list:
-                    try:
-                        # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                        with open("/proc/" + pid + "/status") as reader:
-                            proc_pid_status_lines = reader.read()
-                    except FileNotFoundError:
-                        continue
-                    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                    real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()
-                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-                    if process_username == current_user_name:
-                        window_manager = process_name.lower()
-            # Get current display manager information
-            if current_display_manager == "-":
-                if process_name in supported_display_managers_dict:
-                    try:
-                        # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                        with open("/proc/" + pid + "/status") as reader:
-                            proc_pid_status_lines = reader.read()
-                    except FileNotFoundError:
-                        continue
-                    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                    real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()
-                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-                    # Display manager processes are owned by root user.
-                    if process_username == "root":
-                        current_display_manager = supported_display_managers_dict[process_name]
-            # Get current desktop environment information
-            # "current_desktop_environment == "GNOME"" check is performed in order to detect if current DE is "Budgie DE". Because "budgie-panel" process is child process of "gnome-session-b" process.
-            if current_desktop_environment == "-" or current_desktop_environment == "GNOME":
-                if process_name in supported_desktop_environments_dict:
-                    try:
-                        # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                        with open("/proc/" + pid + "/status") as reader:
-                            proc_pid_status_lines = reader.read()
-                    except FileNotFoundError:
-                        continue
-                    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                    real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()
-                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-                    if process_username == current_user_name:
-                        current_desktop_environment = supported_desktop_environments_dict[process_name]
+        # Skip detection of windowing system, window manager, current desktop environment and current display manager by using process information in "/proc/[PID]/" files if the application is run in Flatpak environment. Because There is no access to "/proc/[PID]/" folders in Flatpak environment.
+        if Config.environment_type != "flatpak":
+            pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
+            for pid in pid_list:
+                # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
+                try:
+                    with open("/proc/" + pid + "/comm") as reader:
+                        process_name = reader.read().strip()
+                except FileNotFoundError:
+                    continue
+                # Get windowing system information. Windowing system may be get as "tty" (which is for non-graphical system) when "os.environ.get('XDG_SESSION_TYPE')" is used on Arch Linux.if environment variables are not set after installing a windowing system.
+                if windowing_system in ["-", "Tty"]:
+                    if process_name.lower() == "xorg":
+                        windowing_system = "X11"
+                    if process_name.lower() == "xwayland":
+                        windowing_system = "Wayland"
+                # Get window manager information
+                if window_manager == "-":
+                    if process_name.lower() in supported_window_managers_list:
+                        try:
+                            # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+                            with open("/proc/" + pid + "/status") as reader:
+                                proc_pid_status_lines = reader.read()
+                        except FileNotFoundError:
+                            continue
+                        # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                        real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()
+                        process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                        if process_username == current_user_name:
+                            window_manager = process_name.lower()
+                # Get current display manager information
+                if current_display_manager == "-":
+                    if process_name in supported_display_managers_dict:
+                        try:
+                            # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+                            with open("/proc/" + pid + "/status") as reader:
+                                proc_pid_status_lines = reader.read()
+                        except FileNotFoundError:
+                            continue
+                        # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                        real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()
+                        process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                        # Display manager processes are owned by root user.
+                        if process_username == "root":
+                            current_display_manager = supported_display_managers_dict[process_name]
+                # Get current desktop environment information
+                # "current_desktop_environment == "GNOME"" check is performed in order to detect if current DE is "Budgie DE". Because "budgie-panel" process is child process of "gnome-session-b" process.
+                if current_desktop_environment == "-" or current_desktop_environment == "GNOME":
+                    if process_name in supported_desktop_environments_dict:
+                        try:
+                            # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+                            with open("/proc/" + pid + "/status") as reader:
+                                proc_pid_status_lines = reader.read()
+                        except FileNotFoundError:
+                            continue
+                        # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+                        real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()
+                        process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                        if process_username == current_user_name:
+                            current_desktop_environment = supported_desktop_environments_dict[process_name]
 
         # Get current desktop environment version
         # Set initial value of the "current_desktop_environment_version". This value will be used if it could not be detected.
         current_desktop_environment_version = "-"
         if current_desktop_environment == "XFCE":
             try:
-                current_desktop_environment_version_lines = (subprocess.check_output(["xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
+                if Config.environment_type == "flatpak":
+                    current_desktop_environment_version_lines = (subprocess.check_output(["flatpak-spawn", "--host", "xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
+                else:
+                    current_desktop_environment_version_lines = (subprocess.check_output(["xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
                 for line in current_desktop_environment_version_lines:
                     if "xfce4-panel" in line:
                         current_desktop_environment_version = line.split(" ")[1]
@@ -469,7 +512,10 @@ class System:
                 pass
         if current_desktop_environment == "GNOME" or current_desktop_environment == "zorin:GNOME" or current_desktop_environment == "ubuntu:GNOME":
             try:
-                current_desktop_environment_version_lines = (subprocess.check_output(["gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
+                if Config.environment_type == "flatpak":
+                    current_desktop_environment_version_lines = (subprocess.check_output(["flatpak-spawn", "--host", "gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
+                else:
+                    current_desktop_environment_version_lines = (subprocess.check_output(["gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
                 for line in current_desktop_environment_version_lines:
                     if "GNOME Shell" in line:
                         current_desktop_environment_version = line.split(" ")[-1]
@@ -477,22 +523,34 @@ class System:
                 pass
         if current_desktop_environment == "X-Cinnamon" or current_desktop_environment == "CINNAMON":
             try:
-                current_desktop_environment_version = (subprocess.check_output(["cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
+                if Config.environment_type == "flatpak":
+                    current_desktop_environment_version = (subprocess.check_output(["flatpak-spawn", "--host", "cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
+                else:
+                    current_desktop_environment_version = (subprocess.check_output(["cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
             except FileNotFoundError:
                 pass
         if current_desktop_environment == "MATE":
             try:
-                current_desktop_environment_version = (subprocess.check_output(["mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
+                if Config.environment_type == "flatpak":
+                    current_desktop_environment_version = (subprocess.check_output(["flatpak-spawn", "--host", "mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
+                else:
+                    current_desktop_environment_version = (subprocess.check_output(["mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
             except FileNotFoundError:
                 pass
         if current_desktop_environment == "KDE":
             try:
-                current_desktop_environment_version = (subprocess.check_output(["plasmashell", "--version"], shell=False)).decode().strip()
+                if Config.environment_type == "flatpak":
+                    current_desktop_environment_version = (subprocess.check_output(["flatpak-spawn", "--host", "plasmashell", "--version"], shell=False)).decode().strip()
+                else:
+                    current_desktop_environment_version = (subprocess.check_output(["plasmashell", "--version"], shell=False)).decode().strip()
             except FileNotFoundError:
                 pass
         if current_desktop_environment == "LXQt":
             try:
-                current_desktop_environment_version_lines = (subprocess.check_output(["lxqt-about", "--version"], shell=False)).decode().strip()
+                if Config.environment_type == "flatpak":
+                    current_desktop_environment_version_lines = (subprocess.check_output(["flatpak-spawn", "--host", "lxqt-about", "--version"], shell=False)).decode().strip()
+                else:
+                    current_desktop_environment_version_lines = (subprocess.check_output(["lxqt-about", "--version"], shell=False)).decode().strip()
                 for line in current_desktop_environment_version_lines:
                     if "liblxqt" in line:
                         current_desktop_environment_version = line.split()[1].strip()
@@ -500,14 +558,17 @@ class System:
                 pass
         if current_desktop_environment == "Budgie" or current_desktop_environment == "Budgie:GNOME":
             try:
-                current_desktop_environment_version = (subprocess.check_output(["budgie-desktop", "--version"], shell=False)).decode().strip().split("\n")[0].strip().split(" ")[-1]
+                if Config.environment_type == "flatpak":
+                    current_desktop_environment_version = (subprocess.check_output(["flatpak-spawn", "--host", "budgie-desktop", "--version"], shell=False)).decode().strip().split("\n")[0].strip().split(" ")[-1]
+                else:
+                    current_desktop_environment_version = (subprocess.check_output(["budgie-desktop", "--version"], shell=False)).decode().strip().split("\n")[0].strip().split(" ")[-1]
             except FileNotFoundError:
                 pass
 
         # Get window manager for GNOME DE (GNOME DE uses mutter window manager and it not detected because it has no separate package or process.).
         if window_manager == "-":
             if current_desktop_environment.upper() == "GNOME":
-                if current_desktop_environment_version.split(".")[0] in ["3", "40", "41", "42"]:
+                if current_desktop_environment_version.split(".")[0] in ["3", "40", "41", "42", "43"]:
                     window_manager = "mutter"
 
         return current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager
