@@ -3,7 +3,7 @@
 # ----------------------------------- Users - Import Function -----------------------------------
 def users_import_func():
 
-    global Gtk, Gdk, GLib, GObject, GdkPixbuf, os, datetime, time
+    global Gtk, Gdk, GLib, GObject, GdkPixbuf, os, datetime, time, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
@@ -15,6 +15,7 @@ def users_import_func():
     import os
     from datetime import datetime
     import time
+    import subprocess
 
 
     global Config
@@ -128,10 +129,10 @@ def users_initial_func():
     users_data_list = [
                       [0, _tr('User'), 3, 2, 3, [bool, GdkPixbuf.Pixbuf, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'pixbuf', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
                       [1, _tr('Full Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                      [2, _tr('Logged In'), 1, 1, 1, [bool], ['CellRendererToggle'], ['active'], [0], [0.5], [False], [cell_data_function_user_logged_in]],
+                      [2, _tr('Logged In'), 1, 1, 1, [bool], ['CellRendererToggle'], ['active'], [0], [0.5], [False], ['no_cell_function']],
                       [3, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                       [4, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                      [5, _tr('Processes'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_user_process_count]],
+                      [5, _tr('Processes'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                       [6, _tr('Home Directory'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [7, _tr('Group'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [8, _tr('Terminal'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
@@ -198,95 +199,80 @@ def users_loop_func():
     users_data_column_widths = Config.users_data_column_widths
 
     # Define global variables and empty lists for the current loop
-    global users_data_rows, users_data_rows_prev, global_process_cpu_times_prev, pid_list, pid_list_prev, uid_username_list_prev, uid_username_list, user_logged_in_list
+    global users_data_rows, users_data_rows_prev, global_process_cpu_times_prev, pid_list, pid_list_prev, uid_username_list_prev, uid_username_list
     users_data_rows = []
     global_process_cpu_times = []
     uid_username_list = []                                                                    # For tracking new/removed user data rows. User UID and username information is appended per user. Because tracking only user UID and username may cause confusions. User UID may be given another user after a time if a user is deleted.
-    user_logged_in_list = []
 
     # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
     global number_of_logical_cores
-    try:
-        number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")                           # To be able to get number of online logical CPU cores first try  a faster way: using "SC_NPROCESSORS_ONLN" variable.
-    except ValueError:
-        with open("/proc/cpuinfo") as reader:                                                 # As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-            proc_cpuinfo_lines = reader.read().split("\n")
-        number_of_logical_cores = 0
-        for line in proc_cpuinfo_lines:
-            if line.startswith("processor"):
-                number_of_logical_cores = number_of_logical_cores + 1
+    number_of_logical_cores = users_number_of_logical_cores_func()
 
-    # Get all users
-    with open("/etc/passwd") as reader:
-        etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used for removing empty (last) line in the text
-    # Get all user groups
-    with open("/etc/group") as reader:
-        etc_group_lines = reader.read().strip().split("\n")
-    user_group_names = []
-    user_group_ids = []
-    for line in etc_group_lines:
-        line_split = line.split(":")
-        user_group_names.append(line_split[0])
-        user_group_ids.append(line_split[2])
-    # Get all process PIDs to be able to search "systemd" process (user account process) and check username of it if it is correct "systemd" file. User logged in information and start time (first log in time since system boot) will be get by using this process.
-    pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
-    # Get process names (will be used for checking "systemd" named processes to be able to get user process, user first log in time since system boot), usernames (will be used for determining number of processes of the users), CPU% usage of all processes
-    all_process_names = []
-    all_process_user_ids = []
-    all_process_cpu_usages = []
-    for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because element are removed during iteration. Otherwise incorrect operations (incorrect element removal) are performed on the list.
-        try:
-            with open("/proc/" + pid + "/status") as reader:
-                proc_pid_status_lines = reader.read().split("\n")
-            if 9 in users_treeview_columns_shown or 10 in users_treeview_columns_shown:
-                with open("/proc/" + pid + "/stat") as reader:
-                    global_cpu_time_all = time.time() * number_of_clock_ticks                 # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
-                    proc_pid_stat_lines = reader.read().split()
-        except (FileNotFoundError, ProcessLookupError) as me:                                 # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-            pid_list.remove(pid)
-            continue
-        for line in proc_pid_status_lines:
-            # Get names of all processes
-            if "Name:\t" in line:
-                all_process_names.append(line.split(":")[1].strip())
-            # Get user UIDs of all processes
-            if "Uid:\t" in line:
-                all_process_user_ids.append(line.split(":")[1].split()[0].strip())            # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-        # Get CPU usage percent of all processes
+    # Get all users and user groups.
+    etc_passwd_lines, user_group_names, user_group_ids = users_groups_func()
+
+    # Get all user process PIDs and elapsed times (seconds) since they are started.
+    if Config.environment_type == "flatpak":
+        ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "pid,user,etimes"], shell=False)).decode().strip().split("\n")
+    else:
+        ps_output_lines = (subprocess.check_output(["ps", "--no-headers", "-eo", "pid,user,etimes"], shell=False)).decode().strip().split("\n")
+
+    # Get user process PIDs, logged in users and user start times.
+    pid_list = []
+    logged_in_users_list = []
+    user_processes_start_times = []
+    for line in ps_output_lines:
+        line_split = line.split()
+        pid_list.append(line_split[0])
+        logged_in_users_list.append(line_split[1])
+        user_processes_start_times.append(int(line_split[-1]))
+
+    # Get CPU usage percent of all processes
+    if Config.environment_type != "flatpak":
+        all_process_cpu_usages = []
         if 10 in users_treeview_columns_shown:
-            process_cpu_time = int(proc_pid_stat_lines[-39]) + int(proc_pid_stat_lines[-38])  # Get process cpu time in user mode (utime + stime)
-            global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))          # While appending multiple elements into a list "append((value1, value2))" is faster than "append([value1, value2])".
-            try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are use in these situations.
-                global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(pid)]
-            except (ValueError, IndexError, UnboundLocalError) as me:
-                process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
-                global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process
-            process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
-            global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-            all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
+            for pid in pid_list[:]:
+                try:
+                    with open("/proc/" + pid + "/stat") as reader:
+                        global_cpu_time_all = time.time() * number_of_clock_ticks                 # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
+                        proc_pid_stat_lines = reader.read().split()
+                except (FileNotFoundError, ProcessLookupError) as e:                              # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
+                    index_to_remove = pid_list.index(pid)
+                    pid_list.remove(pid)
+                    del logged_in_users_list[index_to_remove]
+                    del user_processes_start_times[index_to_remove]
+                    continue
+                process_cpu_time = int(proc_pid_stat_lines[-39]) + int(proc_pid_stat_lines[-38])  # Get process cpu time in user mode (utime + stime)
+                global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))          # While appending multiple elements into a list "append((value1, value2))" is faster than "append([value1, value2])".
+                try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are use in these situations.
+                    global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(pid)]
+                except (ValueError, IndexError, UnboundLocalError) as me:
+                    process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
+                    global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process
+                process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
+                global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
+                all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
 
-    # Get and append data per user
+    # Get only logged in human user list.
+    user_logged_in_list = []
+    for line in etc_passwd_lines:
+        line_split = line.split(":")
+        username = line_split[0]
+        user_uid = line_split[2]
+        user_uid_int = int(user_uid)
+        if user_uid_int >= 1000 and user_uid_int != 65534:
+            if username in logged_in_users_list:
+                user_logged_in_list.append(username)
+
+    # Get and append data per user.
     for line in etc_passwd_lines:
         line_split = line.split(":")
         username = line_split[0]
         user_uid = line_split[2]
         user_gid = line_split[3]
-        user_uid_int = int(user_uid)                                                          # For lower CPU usage because it is repeated two times in the following line
+        user_uid_int = int(user_uid)
         if user_uid_int >= 1000 and user_uid_int != 65534:                                    # Human users have UID bigger than 999 (1000 =< UID) and lower than 65534. 
-            uid_username_list.append([int(user_uid), username])                               # "user_uid" have to be appended as integer because sorting list of multiple elemented sub-list operation will be performed. "sorted(a_list, key=int)" could not be used in this situation.
-            # Get user PID and logged in data (PID data is required for obtaining user logged in data. User PID and user logged in data will be appended later)
-            user_process_pid = 0                                                              # Initial value of "user_PID" value. This value will be left as "0" if user is not logged in.
-            for i, process_name in enumerate(all_process_names):
-                if process_name == "systemd":                                                 # "systemd" process per user is checked here (by checking real UID of the process). It is not system-wide "systemd" process which is owned by "root" user. User session process is specific to desktop session (for example xfce4-session for XFCE desktop environment) and checking "systemd" process of the user is easier and gives very similar start time.
-                    real_user_id = all_process_user_ids[i]
-                    if real_user_id == user_uid:
-                        user_process_pid = pid_list[i]
-                        break                                                                 # Exit this loop if real_user_id" is found in order to obtain faster code execution.
-            if user_process_pid != 0:                                                         # User is not logged in if "user_process_pid" is not get from "systemd" process of the user.
-                user_logged_in = True
-            if user_process_pid == 0:                                                         # User is logged in if "user_process_pid" is get from "systemd" process of the user.
-                user_logged_in = False
-            user_logged_in_list.append(user_logged_in)
+            uid_username_list.append([int(user_uid), username])                               # "user_uid" have to be appended as integer because sorting list of multiple elemented sub-list operation will be performed. "sorted(a_list, key=int)" could not be used in this situation.            
             # Append row visibility data, username (username has been get previously) and get user account image
             user_image_path = "/var/lib/AccountsService/icons/" + username
             if os.path.isfile(user_image_path) == True:
@@ -300,7 +286,10 @@ def users_loop_func():
                 users_data_row.append(user_full_name)
             # Get user logged in data (User logged in data has been get previously)
             if 2 in users_treeview_columns_shown:
-                users_data_row.append(user_logged_in)
+                if username in user_logged_in_list:
+                    users_data_row.append(True)
+                else:
+                    users_data_row.append(False)
             # Get user UID (UID value has been get previously)
             if 3 in users_treeview_columns_shown:
                 users_data_row.append(int(user_uid))
@@ -309,10 +298,7 @@ def users_loop_func():
                 users_data_row.append(int(user_gid))
             # Get user process count
             if 5 in users_treeview_columns_shown:
-                if Config.environment_type == "flatpak":
-                    user_process_count = 0
-                else:
-                    user_process_count = all_process_user_ids.count(user_uid)
+                user_process_count = logged_in_users_list.count(username)
                 users_data_row.append(user_process_count)
             # Get user home directory
             if 6 in users_treeview_columns_shown:
@@ -328,18 +314,14 @@ def users_loop_func():
                 users_data_row.append(user_terminal)
             # Get user process start time
             if 9 in users_treeview_columns_shown:
-                if Config.environment_type == "flatpak":
+                curent_user_process_start_time_list = []
+                for pid in pid_list:
+                    if logged_in_users_list[pid_list.index(pid)] == username:
+                        curent_user_process_start_time_list.append(user_processes_start_times[pid_list.index(pid)])
+                if curent_user_process_start_time_list == []:
                     user_process_start_time = 0
                 else:
-                    if user_process_pid == 0:
-                        user_process_start_time = 0                                               # User process start time is "0" if it is not alive (if user is not logged in)
-                    if user_process_pid != 0:                                                     # User process start time is get if it is alive (if user is logged in)
-                        try:
-                            with open("/proc/" + str(user_process_pid) + "/stat") as reader:
-                                proc_pid_stat_lines = int(reader.read().split()[-31])             # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
-                            user_process_start_time = (proc_pid_stat_lines / number_of_clock_ticks) + system_boot_time
-                        except Exception:
-                            user_process_start_time = 0
+                    user_process_start_time = time.time() - max(curent_user_process_start_time_list)
                 users_data_row.append(user_process_start_time)
             # Get user processes CPU usage percentages
             if 10 in users_treeview_columns_shown:
@@ -348,7 +330,7 @@ def users_loop_func():
                 else:
                     user_users_cpu_percent = 0
                     for pid in pid_list:
-                        if all_process_user_ids[pid_list.index(pid)] == user_uid:
+                        if logged_in_users_list[pid_list.index(pid)] == username:
                             user_users_cpu_percent = user_users_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
                 users_data_row.append(user_users_cpu_percent)
             # Append all data of the users into a list which will be appended into a treestore for showing the data on a treeview.
@@ -499,7 +481,7 @@ def users_loop_func():
     users_data_column_widths_prev = users_data_column_widths
 
     # Show number of users on the searchentry as placeholder text
-    searchentry3101.set_placeholder_text(_tr("Search...") + "                    " + "(" + _tr("Users") + ": " + str(len(user_logged_in_list)) + ")")
+    searchentry3101.set_placeholder_text(_tr("Search...") + "                    " + "(" + _tr("Users") + ": " + str(len(uid_username_list)) + ")")
 
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
@@ -514,23 +496,7 @@ def cell_data_function_started(tree_column, cell, tree_model, iter, data):
     if cell_data != 0:
         cell.set_property('text', datetime.fromtimestamp(tree_model.get(iter, data)[0]).strftime("%H:%M:%S %d.%m.%Y"))
     if cell_data == 0:
-        if Config.environment_type == "flatpak":
-            cell.set_property('text', "[" + "!Flatpak" + "]")
-        else:
-            cell.set_property('text', "-")
-
-
-def cell_data_function_user_process_count(tree_column, cell, tree_model, iter, data):
-    if Config.environment_type == "flatpak":
-        cell.set_property('text', "[" + "!Flatpak" + "]")
-    else:
-        pass
-
-def cell_data_function_user_logged_in(tree_column, cell, tree_model, iter, data):
-    if Config.environment_type == "flatpak":
-        cell.set_property('inconsistent', True)
-    else:
-        pass
+        cell.set_property('text', "-")
 
 
 # ----------------------------------- Users - Column Title Clicked Function -----------------------------------
@@ -568,4 +534,49 @@ def users_treeview_column_order_width_row_sorting_func():
     Config.users_data_column_order = list(users_data_column_order)
     Config.users_data_column_widths = list(users_data_column_widths)
     Config.config_save_func()
+
+
+# ----------------------- Get number of logical CPU cores. -----------------------
+def users_number_of_logical_cores_func():
+
+    try:
+        number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")                           # To be able to get number of online logical CPU cores first try  a faster way: using "SC_NPROCESSORS_ONLN" variable.
+    except ValueError:
+        with open("/proc/cpuinfo") as reader:                                                 # As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+            proc_cpuinfo_lines = reader.read().split("\n")
+        number_of_logical_cores = 0
+        for line in proc_cpuinfo_lines:
+            if line.startswith("processor"):
+                number_of_logical_cores = number_of_logical_cores + 1
+
+    return number_of_logical_cores
+
+
+# ----------------------- Get users and user groups. -----------------------
+def users_groups_func():
+
+    # Read all users
+    if Config.environment_type == "flatpak":
+        with open("/var/run/host/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+    else:
+        with open("/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+
+    # Read all user groups
+    if Config.environment_type == "flatpak":
+        with open("/var/run/host/etc/group") as reader:
+            etc_group_lines = reader.read().strip().split("\n")
+    else:
+        with open("/etc/group") as reader:
+            etc_group_lines = reader.read().strip().split("\n")
+
+    user_group_names = []
+    user_group_ids = []
+    for line in etc_group_lines:
+        line_split = line.split(":")
+        user_group_names.append(line_split[0])
+        user_group_ids.append(line_split[2])
+
+    return etc_passwd_lines, user_group_names, user_group_ids
 
