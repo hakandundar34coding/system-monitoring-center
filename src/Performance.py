@@ -2173,8 +2173,8 @@ class Performance:
             chart_y_limit = 100
 
         # Check if widget is the drawingarea on the headerbar for CPU usage and overwrite previous values (values which get during tab checks).
-        from PerformanceSummaryHeaderbar import PerformanceSummaryHeaderbar
-        if widget == PerformanceSummaryHeaderbar.drawingarea101:
+        from MainGUI import MainGUI
+        if widget == MainGUI.drawingarea101:
 
             # Get performance data to be drawn.
             performance_data1 = self.cpu_usage_percent_ave[-1]
@@ -2186,7 +2186,7 @@ class Performance:
             chart_y_limit = 100
 
         # Check if widget is the drawingarea on the headerbar for RAM usage and overwrite previous values (values which get during tab checks).
-        if widget == PerformanceSummaryHeaderbar.drawingarea102:
+        if widget == MainGUI.drawingarea102:
 
             # Get performance data to be drawn.
             performance_data1 = self.ram_usage_percent[-1]

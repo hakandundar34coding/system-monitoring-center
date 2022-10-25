@@ -12,6 +12,7 @@ import locale
 from locale import gettext as _tr
 
 from Config import Config
+from Performance import Performance
 
 
 # Define class
@@ -89,6 +90,26 @@ class MainGUI:
         self.button1.connect("clicked", self.on_button1_clicked)
 
 
+        # Get GUI objects for performance summary on the window headerbar.
+        self.grid101 = builder.get_object('grid101')
+        self.drawingarea101 = builder.get_object('drawingarea101')
+        self.drawingarea102 = builder.get_object('drawingarea102')
+        self.label101 = builder.get_object('label101')
+        self.label102 = builder.get_object('label102')
+        self.label103 = builder.get_object('label103')
+        self.label104 = builder.get_object('label104')
+        self.label105 = builder.get_object('label105')
+        self.label106 = builder.get_object('label106')
+        # Get chart functions from another module and define as local objects for lower CPU usage (for performance summary on the window headerbar).
+        self.performance_bar_charts_draw_func = Performance.performance_bar_charts_draw_func
+        # Connect GUI signals for performance summary on the window headerbar.
+        self.drawingarea101.connect("draw", self.performance_bar_charts_draw_func)
+        self.drawingarea102.connect("draw", self.performance_bar_charts_draw_func)
+
+        # Run initial function for performance summary on the window headerbar.
+        self.main_gui_performance_summary_headerbar_initial_func()
+
+
     # ----------------------- Called for connecting some of the signals in order to connect them after some code/functions to avoid running these signals -----------------------
     def main_gui_radiobuttons_connect_signals_func(self):
 
@@ -158,15 +179,12 @@ class MainGUI:
                 widget.resize(remember_window_size[2], remember_window_size[3])
 
         # Run "Performance" module in order to provide performance data to Performance tab and performance summary on the headerbar.
-        global Performance
-        from Performance import Performance
         # Function is run directly without using "GLib.idle_add([function_name])" in order to avoid errors which are given if another threads (such as threads in CPU module) run before this function is finished.
         Performance.performance_background_initial_func()
 
-        # Add performance summary widgets to the main window headerbar.
-        if Config.performance_summary_on_the_headerbar == 1:
-            from PerformanceSummaryHeaderbar import PerformanceSummaryHeaderbar
-            self.headerbar1.pack_start(PerformanceSummaryHeaderbar.grid101)
+        # Remove performance summary widgets to the main window headerbar.
+        if Config.performance_summary_on_the_headerbar == 0:
+            self.headerbar1.remove(self.grid101)
 
         # Define these settings (they are not saved to file) in order to avoid error on the first call of "main_gui_tab_loop_func" function.
         Config.current_main_tab = -1
@@ -210,6 +228,40 @@ class MainGUI:
                 # Run the function in a separate thread in order to avoid blocking the GUI because "pip ..." command runs about 1 seconds.
                 from threading import Thread
                 Thread(target=self.main_update_check_func, daemon=True).start()
+
+
+    # ----------------------------------- Main GUI - Performance Summary Headerbar - Initial Function -----------------------------------
+    def main_gui_performance_summary_headerbar_initial_func(self):
+
+        # Set empty characters at the right side of the labels by using "f'value:<[number of characters]'" in order to prevent movement of the label when data numbers change. Total length of the string is set as [number of characters] characters if actual length is smaller. This code has no effect if length of the string equals to this value or bigger.
+        self.label103.set_text(f'{_tr("CPU"):<6}')
+        self.label104.set_text(f'{_tr("RAM"):<6}')
+        self.label105.set_text(f'{_tr("Disk"):<13}')
+        self.label106.set_text(f'{_tr("Network"):<13}')
+
+        # Define tooltip text in order to use multiple translated texts (combine them) to avoid additional texts.
+        self.label105.set_tooltip_text(f'{_tr("Read Speed")}+{_tr("Write Speed")}')
+        self.label106.set_tooltip_text(f'{_tr("Download Speed")}+{_tr("Upload Speed")}')
+
+        # Define data unit conversion function objects in for lower CPU usage.
+        self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
+        self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
+
+        # Define data unit conversion variables before they are used.
+        self.performance_define_data_unit_converter_variables_func()
+
+
+    # ----------------------------------- Main GUI - Performance Summary Headerbar - Get Performance Summary Headerbar Data Function -----------------------------------
+    def main_gui_performance_summary_headerbar_loop_func(self):
+
+        # Update performance data on the headerbar
+        selected_disk_number = Performance.selected_disk_number
+        selected_network_card_number = Performance.selected_network_card_number
+        self.drawingarea101.queue_draw()
+        self.drawingarea102.queue_draw()
+        self.label101.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk_number][-1] + Performance.disk_write_speed[selected_disk_number][-1]), Config.performance_disk_data_unit, 1)}/s')
+        self.label102.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), Config.performance_network_data_unit, 1)}/s')
+
 
 
     # ----------------------- Called for adapting to system color scheme on systems with newer versions than GTK3. -----------------------
@@ -732,8 +784,7 @@ class MainGUI:
         Performance.performance_background_loop_func()
 
         if Config.performance_summary_on_the_headerbar == 1:
-            from PerformanceSummaryHeaderbar import PerformanceSummaryHeaderbar
-            GLib.idle_add(PerformanceSummaryHeaderbar.performance_summary_headerbar_loop_func)
+            GLib.idle_add(self.main_gui_performance_summary_headerbar_loop_func)
 
         if current_main_tab == 0:
             if performance_tab_current_sub_tab == 0:

@@ -375,8 +375,6 @@ class Cpu:
     # ----------------------- Get number_of_total_threads and number_of_total_processes -----------------------
     def cpu_total_processes_threads_func(self):
 
-        thread_count_list = []
-
         if Config.environment_type == "flatpak":
             import subprocess
             ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "thcount"], shell=False)).decode().strip().split("\n")
@@ -388,6 +386,7 @@ class Cpu:
         else:
             pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
 
+            thread_count_list = []
             for pid in pid_list:
                 try:
                     with open("/proc/" + pid + "/status") as reader:

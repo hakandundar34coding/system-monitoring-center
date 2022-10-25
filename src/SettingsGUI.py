@@ -135,17 +135,15 @@ class SettingsGUI:
     # ----------------------- "Show performance summary on the headerbar" Checkbutton -----------------------
     def on_checkbutton2001_toggled(self, widget):
 
-        from PerformanceSummaryHeaderbar import PerformanceSummaryHeaderbar
-
         # Add performance summary to the main window headerbar if preferred.
         if widget.get_active() == True:
             Config.performance_summary_on_the_headerbar = 1
-            MainGUI.headerbar1.pack_start(PerformanceSummaryHeaderbar.grid101)
+            MainGUI.headerbar1.pack_start(MainGUI.grid101)
 
         # Remove performance summary from the main window headerbar if preferred.
         if widget.get_active() == False:
             Config.performance_summary_on_the_headerbar = 0
-            MainGUI.headerbar1.remove(PerformanceSummaryHeaderbar.grid101)
+            MainGUI.headerbar1.remove(MainGUI.grid101)
 
         Config.config_save_func()
 
