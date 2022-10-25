@@ -95,8 +95,6 @@ class System:
         self.label8108.set_text(kernel_version)
         self.label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
         self.label8110.set_text(windowing_system)
-        if Config.environment_type == "flatpak":
-            current_display_manager = "[" + "!Flatpak" + "]"
         self.label8111.set_text(window_manager)
         self.label8112.set_text(current_display_manager)
         self.label8113.set_text(computer_vendor)
