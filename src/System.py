@@ -382,123 +382,135 @@ class System:
     # ----------------------- Get current desktop environment, windowing_system, window_manager, current_display_manager -----------------------
     def system_desktop_environment_and_version_windowing_system_window_manager_display_manager_func(self):
 
-        # Get human and root user usernames and UIDs which will be used for determining username when "pkexec_uid" is get.
-        usernames_username_list = []
-        usernames_uid_list = []
-        with open("/etc/passwd") as reader:
-            etc_passwd_lines = reader.read().strip().split("\n")
-        for line in etc_passwd_lines:
-            line_splitted = line.split(":", 3)
-            usernames_username_list.append(line_splitted[0])
-            usernames_uid_list.append(line_splitted[2])
         # Get current username
-        # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
+        # Get user name that gets root privileges.
+        # Othervise, username is get as "root" when root access is get.
         current_user_name = os.environ.get('SUDO_USER')
-        # Get username in the following way if current application has not been run by root privileges.
+        # Get username in the following way if current application has not
+        # been run by root privileges.
         if current_user_name is None:
             current_user_name = os.environ.get('USER')
-        pkexec_uid = os.environ.get('PKEXEC_UID')
-        # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-        if current_user_name == "root" and pkexec_uid != None:
-            current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
 
-        # Try to get windowing system. This value may be get as "None" if the application is run with root privileges. This value will be get by reading information of processes if it is get as "None".
+        # Try to get windowing system. This value may be get as "None" if the
+        # application is run with root privileges. This value will be get by
+        # reading information of processes if it is get as "None".
         windowing_system = os.environ.get('XDG_SESSION_TYPE')
         # "windowing_system" is get as "None" if application is run with root privileges.
         if windowing_system != None:
             windowing_system = windowing_system.capitalize()
 
-        # Try to get current desktop environment. This value may be get as "None" if the application is run with root privileges. This value will be get by reading information of processes if it is get as "None".
-        # This command may give Gnome DE based DEs as "[DE_name]:GNOME". For example, "Budgie:GNOME" value is get on Budgie DE.
+        # Try to get current desktop environment. This value may be get as
+        # "None" if the application is run with root privileges. This value
+        # will be get by reading information of processes if it is get as "None".
+        # This command may give Gnome DE based DEs as "[DE_name]:GNOME".
+        # For example, "Budgie:GNOME" value is get on Budgie DE.
         current_desktop_environment = os.environ.get('XDG_CURRENT_DESKTOP')
         if current_desktop_environment == None:
-            # Set an initial string in order to avoid errors in case of undetected current desktop environment (DE).
+            # Define initial value of "desktop environment".
             current_desktop_environment = "-"
 
-        # Define initial value of "windowing_system"
+        # Define initial value of "windowing_system".
         if windowing_system == None:
             windowing_system = "-"
 
-        # First values are process names of the DEs, second values are names of the DEs. Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
+        # Define initial value of "window_manager".
+        window_manager = "-"
+
+        # Define initial value of "current_display_manager".
+        current_display_manager = "-"
+
+        # First values are process names of the DEs, second values are names of
+        # the DEs. Cinnamon dektop environment accepts both "X-Cinnamon" and
+        # "CINNAMON" names in the .desktop files.
         supported_desktop_environments_dict = {"xfce4-session":"XFCE", "gnome-session-b":"GNOME", "cinnamon-session":"X-Cinnamon",
                                                "mate-session":"MATE", "plasmashell":"KDE", "lxqt-session":"LXQt", "lxsession":"LXDE",
                                                "budgie-panel":"Budgie", "dde-desktop":"Deepin"}
+        supported_window_managers_list = ["xfwm4", "mutter", "kwin", "kwin_x11", "cinnamon", "budgie-wm", "openbox", "metacity", 
+                                          "marco", "compiz", "englightenment", "fvwm2", "icewm", "sawfish", "awesome"]
+        # First values are process names of the display managers, second values
+        # are names of the display managers.
+        supported_display_managers_dict = {"lightdm":"lightdm", "gdm":"gdm", "gdm3":"gdm3", "sddm":"sddm", "xdm":"xdm", "lxdm-binary":"lxdm"}                                                       
 
-        # Define initial value of "window_manager"
-        window_manager = "-"
-        supported_window_managers_list = ["xfwm4", "mutter", "kwin", "kwin_x11", "cinnamon", "budgie-wm", "openbox", "metacity", "marco", "compiz", "englightenment", "fvwm2", "icewm", "sawfish", "awesome"]
+        # Try to detect windowing system, window manager, current desktop 
+        # environment and current display manager by reading process names and
+        # other details.
+        if Config.environment_type == "flatpak":
+            ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "comm,uname"], shell=False)).decode().strip().split("\n")
+        else:
+            ps_output_lines = (subprocess.check_output(["ps", "--no-headers", "-eo", "comm,uname"], shell=False)).decode().strip().split("\n")
 
-        # Define initial value of "current_display_manager"
-        # First values are process names of the display managers, second values are names of the display managers.
-        supported_display_managers_dict = {"lightdm":"lightdm", "gdm":"gdm", "gdm3":"gdm3", "sddm":"sddm", "xdm":"xdm", "lxdm-binary":"lxdm"}
-        # Set an initial string in order to avoid errors in case of undetected current display manager.
-        current_display_manager = "-"                                                             
+        process_name_list = []
+        username_list = []
 
-        # Try to detect windowing system, window manager, current desktop environment and current display manager by reading process names and other details.
-        # Skip detection of windowing system, window manager, current desktop environment and current display manager by using process information in "/proc/[PID]/" files if the application is run in Flatpak environment. Because There is no access to "/proc/[PID]/" folders in Flatpak environment.
-        if Config.environment_type != "flatpak":
-            pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
-            for pid in pid_list:
-                # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-                try:
-                    with open("/proc/" + pid + "/comm") as reader:
-                        process_name = reader.read().strip()
-                except FileNotFoundError:
-                    continue
-                # Get windowing system information. Windowing system may be get as "tty" (which is for non-graphical system) when "os.environ.get('XDG_SESSION_TYPE')" is used on Arch Linux.if environment variables are not set after installing a windowing system.
-                if windowing_system in ["-", "Tty"]:
-                    if process_name.lower() == "xorg":
-                        windowing_system = "X11"
-                    if process_name.lower() == "xwayland":
-                        windowing_system = "Wayland"
-                # Get window manager information
-                if window_manager == "-":
-                    if process_name.lower() in supported_window_managers_list:
-                        try:
-                            # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                            with open("/proc/" + pid + "/status") as reader:
-                                proc_pid_status_lines = reader.read()
-                        except FileNotFoundError:
-                            continue
-                        # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                        real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()
-                        process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-                        if process_username == current_user_name:
-                            window_manager = process_name.lower()
-                # Get current display manager information
-                if current_display_manager == "-":
-                    if process_name in supported_display_managers_dict:
-                        try:
-                            # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                            with open("/proc/" + pid + "/status") as reader:
-                                proc_pid_status_lines = reader.read()
-                        except FileNotFoundError:
-                            continue
-                        # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                        real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()
-                        process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-                        # Display manager processes are owned by root user.
-                        if process_username == "root":
-                            current_display_manager = supported_display_managers_dict[process_name]
-                # Get current desktop environment information
-                # "current_desktop_environment == "GNOME"" check is performed in order to detect if current DE is "Budgie DE". Because "budgie-panel" process is child process of "gnome-session-b" process.
-                if current_desktop_environment == "-" or current_desktop_environment == "GNOME":
-                    if process_name in supported_desktop_environments_dict:
-                        try:
-                            # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                            with open("/proc/" + pid + "/status") as reader:
-                                proc_pid_status_lines = reader.read()
-                        except FileNotFoundError:
-                            continue
-                        # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                        real_user_id = proc_pid_status_lines.split("\nUid:", 1)[1].split("\n", 1)[0].strip().split()[0].strip()
-                        process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-                        if process_username == current_user_name:
-                            current_desktop_environment = supported_desktop_environments_dict[process_name]
+        for line in ps_output_lines:
+            line_split = line.split()
+            process_name_list.append(line_split[0])
+            username_list.append(line_split[1])
+
+        # Get current desktop environment information
+        # "current_desktop_environment == "GNOME"" check is performed in order to
+        # detect if current DE is "Budgie DE". Because "budgie-panel" process is child
+        # process of "gnome-session-b" process.
+        for process_name in process_name_list:
+            if current_desktop_environment == "-" or current_desktop_environment == "GNOME":
+                if process_name in supported_desktop_environments_dict:
+                    process_username = username_list[process_name_list.index(process_name)]
+                    if process_username == current_user_name:
+                        current_desktop_environment = supported_desktop_environments_dict[process_name]
+                        break
 
         # Get current desktop environment version
-        # Set initial value of the "current_desktop_environment_version". This value will be used if it could not be detected.
+        current_desktop_environment_version = self.system_desktop_environment_version_func(current_desktop_environment)
+
+        # Get windowing system information.
+        # Windowing system may be get as "tty" (which is for non-graphical system) when
+        # "os.environ.get('XDG_SESSION_TYPE')" is used on Arch Linux if environment
+        # variables are not set after installing a windowing system.
+        for process_name in process_name_list:
+            if windowing_system in ["-", "Tty"]:
+                process_name = process_name.lower()
+                if process_name == "xorg":
+                    windowing_system = "X11"
+                    break
+                if process_name == "xwayland":
+                    windowing_system = "Wayland"
+                    break
+
+        # Get window manager information
+        for process_name in process_name_list:
+            if window_manager == "-":
+                if process_name.lower() in supported_window_managers_list:
+                    process_username = username_list[process_name_list.index(process_name)]
+                    if process_username == current_user_name:
+                        window_manager = process_name.lower()
+                        break
+
+        # Get window manager for GNOME DE (GNOME DE uses mutter window manager and
+        # it not detected because it has no separate package or process.).
+        if window_manager == "-":
+            if current_desktop_environment.upper() == "GNOME":
+                if current_desktop_environment_version.split(".")[0] in ["3", "40", "41", "42", "43"]:
+                    window_manager = "mutter"
+
+        # Get current display manager information
+        for process_name in process_name_list:
+            if current_display_manager == "-":
+                if process_name in supported_display_managers_dict:
+                    process_username = username_list[process_name_list.index(process_name)]
+                    # Display manager processes are owned by root user.
+                    if process_username == "root":
+                        current_display_manager = supported_display_managers_dict[process_name]
+                        break
+
+        return current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager
+
+
+    # ----------------------- Get current desktop environment version -----------------------
+    def system_desktop_environment_version_func(self, current_desktop_environment):
+
+        # Set initial value of the "current_desktop_environment_version".
         current_desktop_environment_version = "-"
+
         if current_desktop_environment == "XFCE":
             try:
                 if Config.environment_type == "flatpak":
@@ -510,6 +522,7 @@ class System:
                         current_desktop_environment_version = line.split(" ")[1]
             except FileNotFoundError:
                 pass
+
         if current_desktop_environment == "GNOME" or current_desktop_environment == "zorin:GNOME" or current_desktop_environment == "ubuntu:GNOME":
             try:
                 if Config.environment_type == "flatpak":
@@ -521,6 +534,7 @@ class System:
                         current_desktop_environment_version = line.split(" ")[-1]
             except FileNotFoundError:
                 pass
+
         if current_desktop_environment == "X-Cinnamon" or current_desktop_environment == "CINNAMON":
             try:
                 if Config.environment_type == "flatpak":
@@ -529,6 +543,7 @@ class System:
                     current_desktop_environment_version = (subprocess.check_output(["cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
             except FileNotFoundError:
                 pass
+
         if current_desktop_environment == "MATE":
             try:
                 if Config.environment_type == "flatpak":
@@ -537,6 +552,7 @@ class System:
                     current_desktop_environment_version = (subprocess.check_output(["mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
             except FileNotFoundError:
                 pass
+
         if current_desktop_environment == "KDE":
             try:
                 if Config.environment_type == "flatpak":
@@ -545,6 +561,7 @@ class System:
                     current_desktop_environment_version = (subprocess.check_output(["plasmashell", "--version"], shell=False)).decode().strip()
             except FileNotFoundError:
                 pass
+
         if current_desktop_environment == "LXQt":
             try:
                 if Config.environment_type == "flatpak":
@@ -556,6 +573,7 @@ class System:
                         current_desktop_environment_version = line.split()[1].strip()
             except FileNotFoundError:
                 pass
+
         if current_desktop_environment == "Budgie" or current_desktop_environment == "Budgie:GNOME":
             try:
                 if Config.environment_type == "flatpak":
@@ -565,13 +583,7 @@ class System:
             except FileNotFoundError:
                 pass
 
-        # Get window manager for GNOME DE (GNOME DE uses mutter window manager and it not detected because it has no separate package or process.).
-        if window_manager == "-":
-            if current_desktop_environment.upper() == "GNOME":
-                if current_desktop_environment_version.split(".")[0] in ["3", "40", "41", "42", "43"]:
-                    window_manager = "mutter"
-
-        return current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager
+        return current_desktop_environment_version
 
 
 # Generate object
