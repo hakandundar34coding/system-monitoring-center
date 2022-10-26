@@ -98,11 +98,12 @@ class DiskDetails:
         # Get information.
         disk_type = Disk.disk_type_func(selected_disk)
         disk_parent_name = Disk.disk_parent_name_func(selected_disk, disk_type, disk_list)
-        disk_mount_point = Disk.disk_mount_point_func(selected_disk)
-        disk_file_system = Disk.disk_file_system_func(selected_disk)
+        disk_file_system_information = Disk.disk_file_system_information_func(disk_list)
+        disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point  = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
+        if disk_file_system  == "fuseblk":
+            disk_file_system = Disk.disk_file_system_fuseblk_func(selected_disk)
         disk_if_system_disk = Disk.disk_if_system_disk_func(selected_disk)
         disk_capacity_mass_storage = Disk.disk_capacity_mass_storage_func(selected_disk, disk_mount_point, disk_sector_size)
-        disk_capacity, disk_size, disk_available, disk_free, disk_used, disk_usage_percent = Disk.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
         disk_device_model_name = Disk.disk_device_model_name_func(selected_disk, disk_type, disk_parent_name)
         disk_label = Disk.disk_label_func(selected_disk)
 
@@ -115,8 +116,8 @@ class DiskDetails:
         self.label1305w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity_mass_storage, performance_disk_data_unit, performance_disk_data_precision)}')
         self.label1306w.set_text(disk_file_system)
         self.label1307w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision)}')
-        self.label1308w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_available, performance_disk_data_unit, performance_disk_data_precision)}')
-        self.label1309w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)} - {disk_usage_percent:.1f}%')
+        self.label1308w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.label1309w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)} - {disk_usage_percentage:.0f}%')
         self.label1311w.set_text(disk_device_model_name)
         self.label1312w.set_text(disk_label)
         self.label1314w.set_text(disk_mount_point)

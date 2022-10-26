@@ -2161,8 +2161,8 @@ class Performance:
             # Get performance data to be drawn.
             from Disk import Disk
             try:
-                performance_data1 = Disk.disk_usage_percent
-            # "disk_usage_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
+                performance_data1 = Disk.disk_usage_percentage
+            # "disk_usage_percentage" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
             except AttributeError:
                 return
 

@@ -90,7 +90,7 @@ class UsersDetails:
 
     # ----------------------------------- Users - Users Details Function -----------------------------------
     def users_details_initial_func(self):
-
+        print(1)
         # Define data unit conversion function objects in for lower CPU usage.
         self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
         self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func

@@ -131,13 +131,12 @@ class Disk:
         disk_type = self.disk_type_func(selected_disk)
         disk_parent_name = self.disk_parent_name_func(selected_disk, disk_type, disk_list)
         disk_device_model_name = self.disk_device_model_name_func(selected_disk, disk_type, disk_parent_name)
-        disk_mount_point = self.disk_mount_point_func(selected_disk)
         if_system_disk = self.disk_if_system_disk_func(selected_disk)
 
 
         # Show information on labels.
         self.label1301.set_text(disk_device_model_name)
-        self.label1302.set_text(f'{selected_disk} ({disk_type})')
+        self.label1302.set_text(f'{selected_disk}  ({disk_type})')
         self.label1307.set_text(if_system_disk)
 
         self.initial_already_run = 1
@@ -202,15 +201,11 @@ class Disk:
         except Exception:
             return
 
-        # Get content of "/proc/mounts" file which is used by Disk and DiskDetails modules.
-        with open("/proc/mounts") as reader:
-            self.proc_mounts_output_lines = reader.read().strip().split("\n")
-
 
         # Get information.
         disk_read_data, disk_write_data = self.disk_read_write_data_func(selected_disk, disk_list)
-        disk_mount_point = self.disk_mount_point_func(selected_disk)
-        disk_capacity, disk_size, disk_available, disk_free, disk_used, self.disk_usage_percent = self.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
+        disk_file_system_information = self.disk_file_system_information_func(disk_list)
+        disk_file_system, disk_capacity, disk_used, disk_free, self.disk_usage_percentage, disk_mount_point  = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
 
 
         # Show information on labels.
@@ -219,12 +214,12 @@ class Disk:
         self.label1305.set_text(self.performance_data_unit_converter_func("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
         self.label1306.set_text(self.performance_data_unit_converter_func("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
         if disk_mount_point != "-":
-            self.label1308.set_text(f'{self.disk_usage_percent:.0f}%')
+            self.label1308.set_text(f'{self.disk_usage_percentage:.0f}%')
         if disk_mount_point == "-":
             self.label1308.set_text("-%")
-        self.label1309.set_text(self.performance_data_unit_converter_func("data", "none", disk_available, performance_disk_data_unit, performance_disk_data_precision))
+        self.label1309.set_text(self.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision))
         self.label1310.set_text(self.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision))
-        self.label1311.set_text(self.performance_data_unit_converter_func("data", "none", disk_size, performance_disk_data_unit, performance_disk_data_precision))
+        self.label1311.set_text(self.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision))
 
 
     # ----------------------- Get disk type (Disk or Partition) -----------------------
@@ -340,6 +335,61 @@ class Disk:
         return disk_device_model_name
 
 
+    # ----------------------- Get file system information (file systems, capacities, used, free, used percentages and mount points) of all disks -----------------------
+    def disk_file_system_information_func(self, disk_list):
+
+        # Get file system information of the mounted disks by using "df" command.
+        if Config.environment_type == "flatpak":
+            df_output_lines = (subprocess.run(["flatpak-spawn", "--host", "df", "--output=source,fstype,size,used,avail,pcent,target"], shell=False, capture_output=True)).stdout.decode().strip().split("\n")
+        else:
+            df_output_lines = (subprocess.run(["df", "--output=source,fstype,size,used,avail,pcent,target"], shell=False, capture_output=True)).stdout.decode().strip().split("\n")
+
+        # Remove command output title line. Only disk information will be left.
+        del df_output_lines[0]
+
+        # Get mounted disk list.
+        mounted_disk_list = []
+        for line in df_output_lines:
+            disk_name = line.split()[0]
+            mounted_disk_list.append(disk_name.split("/dev/")[-1])
+
+        # Get file system information of the mounted and unmounted disks.
+        disk_filesystem_information_list = []
+        for disk in disk_list:
+            if disk in mounted_disk_list:
+                index = mounted_disk_list.index(disk)
+                disk_file_system = df_output_lines[index].split()[1]
+                disk_capacity = int(df_output_lines[index].split()[2]) * 1024
+                disk_used = int(df_output_lines[index].split()[3]) * 1024
+                disk_free = int(df_output_lines[index].split()[4]) * 1024
+                disk_used_percentage = int(df_output_lines[index].split()[5].strip("%"))
+                disk_mount_point = df_output_lines[index].split("% ", 1)[-1]
+            else:
+                disk_file_system = _tr("[Not mounted]")
+                disk_capacity = _tr("[Not mounted]")
+                disk_used = _tr("[Not mounted]")
+                disk_free = _tr("[Not mounted]")
+                disk_used_percentage = 0
+                disk_mount_point = _tr("[Not mounted]")
+            disk_filesystem_information_list.append([disk, disk_file_system, disk_capacity, disk_used, disk_free, disk_used_percentage, disk_mount_point])
+
+        return disk_filesystem_information_list
+
+
+    # ----------------------- Get file file systems, capacities, used, free, used percentages and mount points of all disks -----------------------
+    def disk_file_system_capacity_used_free_used_percent_mount_point_func(self, disk_filesystem_information_list, disk_list, selected_disk):
+
+        disk_index = disk_list.index(selected_disk)
+        disk_file_system = disk_filesystem_information_list[disk_index][1]
+        disk_capacity = disk_filesystem_information_list[disk_index][2]
+        disk_used = disk_filesystem_information_list[disk_index][3]
+        disk_free = disk_filesystem_information_list[disk_index][4]
+        disk_usage_percentage = disk_filesystem_information_list[disk_index][5]
+        disk_mount_point = disk_filesystem_information_list[disk_index][6]
+
+        return disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point
+
+
     # ----------------------- Get disk mount point -----------------------
     def disk_mount_point_func(self, selected_disk):
 
@@ -380,6 +430,26 @@ class Disk:
         return disk_mount_point
 
 
+    # ----------------------- Get disk file system if it is detected as 'fuseblk'. -----------------------
+    def disk_file_system_fuseblk_func(self, selected_disk):
+
+        # Try to get actual file system by using "lsblk" tool if file system
+        # has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts"
+        # file contains file system information as in user space. To be able to get the
+        # actual file system, root access is needed for reading from some files or 
+        # "lsblk" tool could be used.
+        try:
+            disk_for_file_system = "/dev/" + selected_disk
+            if Config.environment_type == "flatpak":
+                disk_file_system = (subprocess.check_output(["flatpak-spawn", "--host", "lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
+            else:
+                disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
+        except Exception:
+            disk_file_system = "fuseblk"
+
+        return disk_file_system
+
+
     # ----------------------- Get if system disk -----------------------
     def disk_if_system_disk_func(self, selected_disk):
 
@@ -391,41 +461,6 @@ class Disk:
         return if_system_disk
 
 
-    # ----------------------- Get disk file system -----------------------
-    def disk_file_system_func(self, selected_disk):
-
-        disk_file_system = _tr("[Not mounted]")
-        for line in self.proc_mounts_output_lines:
-            if line.split()[0].strip() == ("/dev/" + selected_disk):
-                disk_file_system = line.split()[2].strip()
-                break
-
-        if disk_file_system == _tr("[Not mounted]"):
-            # Show "[SWAP]" information for swap disks (if selected swap area is partition (not file))
-            with open("/proc/swaps") as reader:
-                proc_swaps_output_lines = reader.read().strip().split("\n")
-            swap_disk_list = []
-            for line in proc_swaps_output_lines:
-                if line.split()[1].strip() == "partition":
-                    swap_disk_list.append(line.split()[0].strip().split("/")[-1])
-            if len(swap_disk_list) > 0 and selected_disk in swap_disk_list:
-                disk_file_system = "[" + _tr("Swap").upper() + "]"
-
-        # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
-        if disk_file_system  == "fuseblk":
-            try:
-                disk_for_file_system = "/dev/" + selected_disk
-                if Config.environment_type == "flatpak":
-                    import subprocess
-                    disk_file_system = (subprocess.check_output(["flatpak-spawn", "--host", "lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
-                else:
-                    disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
-            except Exception:
-                pass
-
-        return disk_file_system
-
-
     # ----------------------- Get disk read data and disk write data -----------------------
     def disk_read_write_data_func(self, selected_disk, disk_list):
 
@@ -433,34 +468,6 @@ class Disk:
         disk_write_data = Performance.disk_write_data[disk_list.index(selected_disk)]
 
         return disk_read_data, disk_write_data
-
-
-    # ----------------------- Get disk capacity, size, disk_available, disk_free, disk_used, disk_usage_percent -----------------------
-    def disk_disk_capacity_size_available_free_used_usage_percent_func(self, disk_mount_point):
-
-        if disk_mount_point != "-":
-            # Values are calculated for filesystem size values (as df command does). lsblk command shows values of mass storage.
-            statvfs_disk_usage_values = os.statvfs(disk_mount_point)
-            fragment_size = statvfs_disk_usage_values.f_frsize
-            disk_capacity = statvfs_disk_usage_values.f_blocks * fragment_size
-            disk_size = statvfs_disk_usage_values.f_blocks * fragment_size
-            disk_available = statvfs_disk_usage_values.f_bavail * fragment_size
-            disk_free = statvfs_disk_usage_values.f_bfree * fragment_size
-            disk_used = disk_size - disk_free
-            # Gives same result with "lsblk" command
-            #self.disk_usage_percent = disk_used / disk_size * 100
-            # disk_usage_percent value is calculated as "used disk space / available disk space" in terms of filesystem values. This is real usage percent.
-            self.disk_usage_percent = disk_used / (disk_available + disk_used) * 100
-
-        if disk_mount_point == "-":
-            disk_capacity = _tr("[Not mounted]")
-            disk_size = _tr("[Not mounted]")
-            disk_available = _tr("[Not mounted]")
-            disk_free = _tr("[Not mounted]")
-            disk_used = _tr("[Not mounted]")
-            self.disk_usage_percent = 0
-
-        return disk_capacity, disk_size, disk_available, disk_free, disk_used, self.disk_usage_percent
 
 
     # ----------------------- Get disk capacity (mass storage) -----------------------
@@ -495,10 +502,10 @@ class Disk:
         device_list = Performance.disk_list_system_ordered
         disk_usage_percentage_list = []
         for device in device_list:
-            disk_mount_point = self.disk_mount_point_func(device)
-            _, _, _, _, _, disk_usage_percent = self.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
+            disk_filesystem_information_list = self.disk_file_system_information_func(device_list)
+            _, _, _, _, disk_usage_percentage, disk_mount_point = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
             # Append percentage number with no fractions in order to avoid updating the list very frequently.
-            disk_usage_percentage_list.append(f'{disk_usage_percent:.0f}')
+            disk_usage_percentage_list.append(f'{disk_usage_percentage:.0f}')
 
         # Update disk usage percentages on disk list if disk usage percentages are changed since the last loop.
         try:                                                                                      

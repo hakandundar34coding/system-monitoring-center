@@ -739,14 +739,14 @@ class MainGUI:
             grid.attach(label, 0, 0, 1, 1)
             # Also add disk usage percentage label next to device name if this is Disk tab.
             if performance_tab_current_sub_tab == 3:
-                disk_mount_point = Disk.disk_mount_point_func(device)
-                _, _, _, _, _, disk_usage_percent = Disk.disk_disk_capacity_size_available_free_used_usage_percent_func(disk_mount_point)
+                disk_filesystem_information_list = Disk.disk_file_system_information_func(device_list)
+                _, _, _, _, disk_usage_percentage, disk_mount_point = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
                 label = Gtk.Label()
                 label.set_sensitive(False)
-                if disk_mount_point == "-":
+                if disk_mount_point == _tr("[Not mounted]"):
                     label.set_label(f'  (-%)')
                 else:
-                    label.set_label(f'  ({disk_usage_percent:.0f}%)')
+                    label.set_label(f'  ({disk_usage_percentage:.0f}%)')
                 grid.attach(label, 1, 0, 1, 1)
             row.add(grid)
             listbox1001.add(row)
