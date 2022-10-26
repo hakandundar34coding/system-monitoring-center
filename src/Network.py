@@ -277,13 +277,13 @@ class Network:
     def network_ssid_func(self, selected_network_card):
 
         try:                                                                                      
-            nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
+            if Config.environment_type == "flatpak":
+                nmcli_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
+            else:
+                nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
         # Avoid errors because Network Manager (which is required for running "nmcli" command) may not be installed on all systems (very rare).
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
-            if Config.environment_type == "flatpak":
-                network_ssid = "[" + "!Flatpak" + "]"
-            else:
-                network_ssid = f'[{_tr("Unknown")}]'
+            network_ssid = f'[{_tr("Unknown")}]'
 
         # Check if "nmcli_output_lines" value is get.
         if "nmcli_output_lines" in locals():
