@@ -90,7 +90,7 @@ class UsersDetails:
 
     # ----------------------------------- Users - Users Details Function -----------------------------------
     def users_details_initial_func(self):
-        print(1)
+
         # Define data unit conversion function objects in for lower CPU usage.
         self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
         self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
@@ -239,6 +239,13 @@ class UsersDetails:
         self.pid_list_prev = pid_list
         self.global_process_cpu_times_prev = global_process_cpu_times
 
+        # It gives "UnboundLocalError" error if "User Details" window is closed. The value is checked and window is closed in order to avoid errors.
+        try:
+            check_value = selected_user_username
+        except UnboundLocalError:
+            self.update_window_value = 0
+            self.window3101w.hide()
+            return
 
         # Set label text
         self.label3101w.set_text(selected_user_username)

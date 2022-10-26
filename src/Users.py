@@ -76,8 +76,9 @@ def on_treeview3101_button_press_event(widget, event):
         return
     global selected_user_uid, selected_username
     try:
-        selected_user_uid = uid_username_list[users_data_rows.index(model[treeiter][:])][0]
-        selected_username = uid_username_list[users_data_rows.index(model[treeiter][:])][1]
+        selected_uid_username = uid_username_list[users_data_rows.index(model[treeiter][:])]
+        selected_user_uid = selected_uid_username[0]
+        selected_username = selected_uid_username[1]
     except ValueError:
         return
 
@@ -277,7 +278,7 @@ def users_loop_func():
             user_image_path = "/var/lib/AccountsService/icons/" + username
             if os.path.isfile(user_image_path) == True:
                 user_account_image = GdkPixbuf.Pixbuf.new_from_file_at_size(user_image_path, 16, 16)
-            if os.path.isfile(user_image_path) == False:
+            else:
                 user_account_image = user_image_unset_pixbuf
             users_data_row = [True, user_account_image, username]                             # User data row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.
             # Get user full name
