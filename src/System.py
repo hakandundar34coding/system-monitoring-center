@@ -433,9 +433,9 @@ class System:
         # environment and current display manager by reading process names and
         # other details.
         if Config.environment_type == "flatpak":
-            ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "comm,uname"], shell=False)).decode().strip().split("\n")
+            ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "comm,user"], shell=False)).decode().strip().split("\n")
         else:
-            ps_output_lines = (subprocess.check_output(["ps", "--no-headers", "-eo", "comm,uname"], shell=False)).decode().strip().split("\n")
+            ps_output_lines = (subprocess.check_output(["ps", "--no-headers", "-eo", "comm,user"], shell=False)).decode().strip().split("\n")
 
         process_name_list = []
         username_list = []

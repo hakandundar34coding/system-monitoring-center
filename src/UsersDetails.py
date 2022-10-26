@@ -127,19 +127,19 @@ class UsersDetails:
 
         # Get all user process PIDs and elapsed times (seconds) since they are started.
         if Config.environment_type == "flatpak":
-            ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "pid,user,etimes"], shell=False)).decode().strip().split("\n")
+            ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "pid,etimes,user"], shell=False)).decode().strip().split("\n")
         else:
-            ps_output_lines = (subprocess.check_output(["ps", "--no-headers", "-eo", "pid,user,etimes"], shell=False)).decode().strip().split("\n")
+            ps_output_lines = (subprocess.check_output(["ps", "--no-headers", "-eo", "pid,etimes,user"], shell=False)).decode().strip().split("\n")
 
         # Get user process PIDs, logged in users and user start times.
         pid_list = []
-        logged_in_users_list = []
         user_processes_start_times = []
+        logged_in_users_list = []
         for line in ps_output_lines:
             line_split = line.split()
             pid_list.append(line_split[0])
-            logged_in_users_list.append(line_split[1])
-            user_processes_start_times.append(int(line_split[-1]))
+            user_processes_start_times.append(int(line_split[1]))
+            logged_in_users_list.append(line_split[-1])
 
         # Get CPU usage percent of all processes
         if Config.environment_type != "flatpak":
