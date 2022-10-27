@@ -263,25 +263,39 @@ class MainGUI:
         self.label102.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), Config.performance_network_data_unit, 1)}/s')
 
 
-
     # ----------------------- Called for adapting to system color scheme on systems with newer versions than GTK3. -----------------------
     def main_gui_adapt_color_scheme_for_gtk4_based_systems_func(self):
 
-        gi.require_version('Gio', '2.0')
-        from gi.repository import Gio
+        # This method works in Flatpak environment but "gir1.2-handy-1" may not be installed on systems with GTK3 only. Additionally, this method works about 10 times slower than the other method (Gio.Settings).
+        if Config.environment_type == "flatpak":
 
-        schema_source =  Gio.SettingsSchemaSource.get_default()
-        if_scheme_installed = Gio.SettingsSchemaSource.lookup(schema_source, "org.gnome.desktop.interface", False)
+            try:
+                gi.require_version('Handy', '1')
+                from gi.repository import Handy
+            except Exception:
+                return
 
-        # Check if "org.gnome.desktop.interface" scheme ("gsettings-desktop-schemas" package) is installed on the system. It gives error, it can not be prevent by using "try-except" and GUI is not shown if it is not installed.
-        if if_scheme_installed != None:
-            gio_settings = Gio.Settings.new("org.gnome.desktop.interface")
-            # Check if "color-scheme" is in the settings. This value is not in the settings if the system uses a desktop environment based on GTK4. It gives error, it can not be prevent by using "try-except" and GUI is not shown if it is not installed.
-            if "color-scheme" in gio_settings:
-                system_scheme = gio_settings.get_string("color-scheme")
-                # Switch to dark theme if the system uses it.
-                if system_scheme == "prefer-dark":
-                    Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = True
+            style_manager = Handy.StyleManager.get_default()
+            style_manager.set_color_scheme(Handy.ColorScheme.PREFER_LIGHT)
+
+        # This method does not work in Flatpak environment.
+        else:
+
+            gi.require_version('Gio', '2.0')
+            from gi.repository import Gio
+
+            schema_source =  Gio.SettingsSchemaSource.get_default()
+            if_scheme_installed = Gio.SettingsSchemaSource.lookup(schema_source, "org.gnome.desktop.interface", False)
+
+            # Check if "org.gnome.desktop.interface" scheme ("gsettings-desktop-schemas" package) is installed on the system. It gives error, it can not be prevent by using "try-except" and GUI is not shown if it is not installed.
+            if if_scheme_installed != None:
+                gio_settings = Gio.Settings.new("org.gnome.desktop.interface")
+                # Check if "color-scheme" is in the settings. This value is not in the settings if the system uses a desktop environment based on GTK4. It gives error, it can not be prevent by using "try-except" and GUI is not shown if it is not installed.
+                if "color-scheme" in gio_settings:
+                    system_scheme = gio_settings.get_string("color-scheme")
+                    # Switch to dark theme if the system uses it.
+                    if system_scheme == "prefer-dark":
+                        Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = True
 
 
     # ----------------------- Check if there is a newer version on PyPI -----------------------
