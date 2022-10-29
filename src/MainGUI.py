@@ -902,12 +902,12 @@ class MainGUI:
             icon_list_current = sorted(icon_list_actions + icon_list_apps)
 
             # Copy .desktop file if it is not copied before.
-            if os.path.isfile(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop") == False:
+            if os.path.isfile(current_user_homedir + "/.local/share/applications/io.github.hakandundar34coding.system-monitoring-center.desktop") == False:
                 # Try to remove if there is a broken symlink of the file (symlink was generated in previous versions of the application).
-                remove_file(current_user_homedir + "/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop")
+                remove_file(current_user_homedir + "/.local/share/applications/io.github.hakandundar34coding.system-monitoring-center.desktop")
                 # Import module for copying files
                 import shutil
-                copy_file(current_dir + "/../integration/com.github.hakand34.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/")
+                copy_file(current_dir + "/../integration/io.github.hakandundar34coding.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/")
         except Exception:
             icon_list_current = []
 
