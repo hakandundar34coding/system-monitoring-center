@@ -204,25 +204,6 @@ def on_button2101_clicked(widget):
 # ----------------------------------- Processes - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
 def processes_initial_func():
 
-    if Config.environment_type == "flatpak":
-        try:
-            global label_flatpak_information_shown
-            if label_flatpak_information_shown == 1:
-                return
-        except Exception:
-            pass
-        label_flatpak_information_shown = 1
-        label_flatpak_information = Gtk.Label(label=_tr("!Flatpak. Currently this tab is not supported for Flatpak."))
-        css = b"label {background: rgba(50%,50%,50%,1.0);}"
-        style_provider = Gtk.CssProvider()
-        style_provider.load_from_data(css)
-        label_flatpak_information.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        grid2101.insert_row(0)
-        # Attach the label to the grid at (0, 0) position.
-        grid2101.attach(label_flatpak_information, 0, 0, 1, 1)
-        label_flatpak_information.set_visible(True)
-        return
-
     # data list explanation:
     # processes_data_list = [
     #                       [treeview column number, treeview column title, internal column count, cell renderer count, treeview column sort column id, [data type 1, data type 2, ...], [cell renderer type 1, cell renderer type 2, ...], [cell attribute 1, cell attribute 2, ...], [cell renderer data 1, cell renderer data 2, ...], [cell left/right alignment 1, cell left/right alignment 2, ...], [set expand 1 {if cell will allocate unused space} cell expand 2, ...], [cell function 1, cell function 2, ...]]
@@ -304,9 +285,6 @@ def processes_initial_func():
 
 # ----------------------------------- Processes - Get Process Data Function (gets processes data, adds into treeview and updates it) -----------------------------------
 def processes_loop_func():
-
-    if Config.environment_type == "flatpak":
-        return
 
     update_interval = Config.update_interval
 
