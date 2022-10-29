@@ -1,6 +1,6 @@
 # System Monitoring Center
 
-### v1.30.0 (29.10.2022)
+### v1.30.1 (29.10.2022)
   * Fix: Application shortcut generation
 
 ### v1.30.0 (29.10.2022)
