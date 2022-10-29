@@ -28,7 +28,7 @@
       <li>Adapts to system theme</li>
       <li>Free and open source</li>
     </ul>
-    <p>Notes:</p>
+    <p>Limitation Notes:</p>
     <ul>
       <li>GPU usage information availability depends on vendor/driver.</li>
       <li>GPU load is not tracked if GPU tab is switched off (for lower CPU usage).</li>
