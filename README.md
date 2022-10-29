@@ -132,4 +132,5 @@
 - GPU usage information availability depends on vendor/driver.
 - GPU load is not tracked if GPU tab is switched off (for lower CPU usage).
 - Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.
+- Flatpak version of the application has slightly lower performance (start speed, CPU, RAM usage).
 

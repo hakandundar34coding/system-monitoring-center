@@ -1,3 +1,16 @@
+system-monitoring-center (1.30.0) unstable; urgency=medium
+
+  * Improved: Processes tab information support for Flatpak
+  * Improved: Disk usage data support for Flatpak
+  * Improved: User information support for Flatpak
+  * Improved: SSID name support for Flatpak
+  * Improved: Display manager info. support for Flatpak
+  * Fix: Closing user account details window if deleted
+  * Fix: Detection of dark system theme for Flatpak
+  * Minor improvements (start speed, code etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 29 Oct 2022 11:00:00 +0300
+
 system-monitoring-center (1.29.0) unstable; urgency=medium
 
   * New: Support for Flatpak packaging

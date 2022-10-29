@@ -1,5 +1,15 @@
 # System Monitoring Center
 
+### v1.30.0 (29.10.2022)
+  * Improved: Processes tab information support for Flatpak
+  * Improved: Disk usage data support for Flatpak
+  * Improved: User information support for Flatpak
+  * Improved: SSID name support for Flatpak
+  * Improved: Display manager info. support for Flatpak
+  * Fix: Closing user account details window if deleted
+  * Fix: Detection of dark system theme for Flatpak
+  * Minor improvements (start speed, code etc.)
+
 ### v1.29.0
   * New: Support for Flatpak packaging
   * Changed: Single project branch for all packaging types

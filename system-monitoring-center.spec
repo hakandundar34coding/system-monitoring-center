@@ -1,5 +1,5 @@
 Name:           system-monitoring-center
-Version:        1.29.0
+Version:        1.30.0
 Release:        1%{?dist}
 Summary:        Multi-featured system monitor.
 License:        GPLv3
@@ -16,7 +16,6 @@ Requires:       python3 >= 3.6
 Requires:       python3-cairo
 # python3-gobject is installed on Fedora (python3-gi on Debian-like systems)
 Requires:       python3-gobject
-Requires:       systemd
 Requires:       util-linux >= 2.31
 
 %description

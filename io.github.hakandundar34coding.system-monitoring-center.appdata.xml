@@ -34,13 +34,14 @@
       <li>GPU usage information availability depends on vendor/driver.</li>
       <li>GPU load is not tracked if GPU tab is switched off (for lower CPU usage).</li>
       <li>Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.</li>
+      <li>Flatpak version of the application has slightly lower performance (start speed, CPU, RAM usage).</li>
     </ul>
     <p>Notes for Flatpak Support:</p>
     <ul>
-      <li>Other packages of the application are suggested instead of FLatpak package due to security reasons.</li>
-      <li>FLatpak version of the application uses some permisions to access information of the host OS. THis may cause security problems.</li>
+      <li>Other packages of the application are suggested instead of Flatpak package due to security reasons.</li>
+      <li>Flatpak version of the application uses some permisions to access information of the host OS. This may cause security problems.</li>
       <li>Flatpak package of the application may be installed for system-wide instead of user-specific for avoiding source code modifications.</li>
-      <li>Currently, Flatpak package of the application has some limitations such as Processes tab and others. Work in progress for this packaging type.</li>
+      <li>Currently, Flatpak package of the application has some limitations. Work in progress for this packaging type.</li>
     </ul>
   </description>
   <screenshots>
@@ -76,6 +77,20 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="1.30.0" date="2022-10-29">
+      <description>
+        <p>
+          Improved: Processes tab information support for Flatpak
+          Improved: Disk usage data support for Flatpak
+          Improved: User information support for Flatpak
+          Improved: SSID name support for Flatpak
+          Improved: Display manager info. support for Flatpak
+          Fix: Closing user account details window if deleted
+          Fix: Detection of dark system theme for Flatpak
+          Minor improvements (start speed, code etc.)
+        </p>
+      </description>
+    </release>
     <release version="1.29.0" date="2022-10-23">
       <description>
         <p>
