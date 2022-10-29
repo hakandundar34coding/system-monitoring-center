@@ -3,7 +3,7 @@
 # ----------------------------------- Processes - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
 def processes_import_func():
 
-    global Gtk, Gdk, GLib, GObject, os, time
+    global Gtk, Gdk, GLib, GObject, os, time, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
@@ -13,6 +13,7 @@ def processes_import_func():
     from gi.repository import Gtk, Gdk, GLib, GObject
     import os
     import time
+    import subprocess
 
 
     global Config, Performance
@@ -62,6 +63,15 @@ def processes_gui_func():
 # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
 def on_treeview2101_button_press_event(widget, event):
 
+    if Config.environment_type == "flatpak":
+        dialog2105 = Gtk.MessageDialog(transient_for=grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.INFO,
+        buttons=Gtk.ButtonsType.OK, text="!Flatpak. Currently right click menu and process details window are not supported for Flatpak.")
+        dialog2105.format_secondary_text("")
+        dialog2105_response = dialog2105.run()
+        dialog2105.destroy()
+        return
+
+
     # Get right/double clicked row data
     try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
         path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
@@ -106,6 +116,18 @@ def on_treeview2101_button_release_event(widget, event):
 
 # --------------------------------- Called for running code/functions when keyboard buttons (shortcuts such as Ctrl+C) is pressed on the treeview ---------------------------------
 def on_treeview2101_key_press_event(widget, event):
+
+
+    if Config.environment_type == "flatpak":
+        dialog2105 = Gtk.MessageDialog(transient_for=grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.INFO,
+        buttons=Gtk.ButtonsType.OK, text="!Flatpak. Currently right click menu and process details window are not supported for Flatpak.")
+        dialog2105.format_secondary_text("")
+        dialog2105_response = dialog2105.run()
+        dialog2105.destroy()
+        return
+
+
+
 
     # Get selected row data.
     selection = treeview2101.get_selection()
@@ -216,7 +238,7 @@ def processes_initial_func():
                           [4, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
                           [5, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
                           [6, _tr('Memory (VMS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
-                          [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
+                          [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap_shared]],
                           [8, _tr('Read Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_usage]],
                           [9, _tr('Write Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_usage]],
                           [10, _tr('Read Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_speed]],
@@ -314,28 +336,9 @@ def processes_loop_func():
 
     # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
     global number_of_logical_cores
-    try:
-        number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")                           # To be able to get number of online logical CPU cores first try  a faster way: using "SC_NPROCESSORS_ONLN" variable.
-    except ValueError:
-        with open("/proc/cpuinfo") as reader:                                                 # As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-            proc_cpuinfo_lines = reader.read().split("\n")
-        number_of_logical_cores = 0
-        for line in proc_cpuinfo_lines:
-            if line.startswith("processor"):
-                number_of_logical_cores = number_of_logical_cores + 1
-
-    # Get human and root user usernames and UIDs only one time at the per loop in order to avoid running it per process loop (it is different than main loop = processes_loop_func) which increases CPU consumption.
-    usernames_username_list = []
-    usernames_uid_list = []
-    with open("/etc/passwd") as reader:
-        etc_passwd_lines = reader.read().strip().split("\n")
-    for line in etc_passwd_lines:
-        line_splitted = line.split(":", 3)
-        usernames_username_list.append(line_splitted[0])
-        usernames_uid_list.append(line_splitted[2])
+    number_of_logical_cores = processes_number_of_logical_cores_func()
 
     # Get current username which will be used for determining processes from only this user or other users.
-    global current_user_name
     current_user_name = os.environ.get('USER')
 
     # Get process PIDs and define global variables and empty lists for the current loop
@@ -345,138 +348,185 @@ def processes_loop_func():
     username_list = []
     global_process_cpu_times = []
     disk_read_write_data = []
-    pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]          # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
+    pid_list = []
 
     processes_treeview_columns_shown = set(processes_treeview_columns_shown)                  # For obtaining lower CPU usage (because "if [number] in processes_treeview_columns_shown:" check is repeated thousand of times).
 
-    # Get user names of the processes
-    for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
-        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open(f'/proc/{pid}/status') as reader:                                       # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file.
-                proc_pid_status_output = reader.read()
-        except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-            pid_list.remove(pid)
-            continue
-        real_user_id = proc_pid_status_output.split("\nUid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0]    # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-        try:
-            username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-        except ValueError:
-            username = real_user_id
-        username_list.append(username)
-        # Remove PIDs of processes from other than current user (show processes only from this user) if it is preferred by user
-        if show_processes_of_all_users == 0:
-            if username != current_user_name:
-                pid_list.remove(pid)
-                del username_list[-1]                                                         # Remove last username which has been appended in this loop. It is removed because its process PID has been removed (because it is not owned by current user).
-                continue
+    # Get process information by using "ps" command. "env" and "LANG=C" parameters are used in order to get column headers in English.
+    if Config.environment_type == "flatpak":
+        ps_output = (subprocess.check_output(["flatpak-spawn", "--host", "env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,exe:800,command=CMDLINE"], shell=False)).decode().strip()
+    else:
+        ps_output = (subprocess.check_output(["env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,exe:800,command=CMDLINE"], shell=False)).decode().strip()
+    ps_output_lines = ps_output.split("\n")
+    # Get first line (command output headers) for using it to determine column data locations. Because some columns (such as cmdline) may contain spaces.
+    ps_output_headers = ps_output_lines[0]
+    # Get column locations. "16" is subtracted because some column names may start after a few character on the right side. There is no need to use subtraction for "EXE" column because previous column "GID" is an integer data which is aligned to right.
+    pid_column_index = ps_output_headers.index("PID") - 16
+    exe_column_index = ps_output_headers.index("EXE")
+    cmdline_column_index = ps_output_headers.index("CMDLINE") - 16
 
-        # Get process data
-        global_cpu_time_all = time.time() * number_of_clock_ticks                             # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent. global_cpu_time_all value is get by using time module of Python instead of reading "/proc/stat" file for faster processing.
-        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open(f'/proc/{pid}/stat') as reader:                                         # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
-                proc_pid_stat_lines = reader.read()
-        except (FileNotFoundError, ProcessLookupError) as me:
-            pid_list.remove(pid)
+    # Deleted first line (command output headers).
+    del ps_output_lines[0]
+    # Get PIDs and user names of the processes from the current user (show processes only from this user)
+    # if it is preferred by user. PID values are appended as string values because they are used as string
+    # values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands
+    # of times integer to string conversion. Commandlines will be used for determining full names of the
+    # processes if their names are longer than 15 characters.
+    cmdline_list = []
+    for line in ps_output_lines:
+        line_split = line[pid_column_index:].split()
+        username = line_split[1]
+        if show_processes_of_all_users == 0 and username != current_user_name:
             continue
-        proc_pid_stat_lines_split = proc_pid_stat_lines.split()
-        ppid_list.append(proc_pid_stat_lines_split[-49])                                      # Process data is get by negative indexes because file content is split by " " (empty space) character and also process name could contain empty space character which may result confusion getting correct process data. In other words empty space character count may not be same for all process "stat" files and process name it at the second place in the file. Reading process data of which turn is later than process name by using negative index is a reliable method.
-        process_name_from_stat = proc_pid_stat_lines.split("(", 1)[1].rsplit(")", 1)[0]
+        else:
+            pid_list.append(line_split[0])
+            username_list.append(username)
+            ppid_list.append(line_split[8])
+            cmdline_list.append(line[cmdline_column_index:].strip())
+
+    # Get process data.
+    # Get process names, images and CPU times for calculating usage information.
+    global previous_line_process
+    previous_line_process = 0
+    # Read "" and "" files by using "cat" command for calculating process CPU usages and read/write speeds.
+    if Config.environment_type == "flatpak":
+        command_list = ["flatpak-spawn", "--host", "cat"]
+    else:
+        command_list = ["cat"]
+    for pid in pid_list:
+        command_list.append("/proc/" + pid + "/stat")
+        command_list.append("/proc/" + pid + "/io")
+    cat_output = (subprocess.run(command_list, shell=False, capture_output=True)).stdout.decode().strip()
+    global_cpu_time_all = time.time() * number_of_clock_ticks                                 # global_cpu_time_all value is get just after "/proc/[PID]/stat file is get in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
+    cat_output_lines = cat_output.split("\n")
+    process_cpu_time_list = []
+    pid_list_from_stat = []
+    for line in cat_output_lines:
+        line_split = line.split()
+        if line_split[0].isdigit():
+            process_pid = line_split[0]
+            if process_pid not in pid_list:
+                continue
+            if previous_line_process == 1:                                                    # Add "disk_read_write" data of the previous process if it has no readable "/proc/[PID]/io" file.
+                disk_read_write_data.append([0, 0])
+            pid_list_from_stat.append(process_pid)                                            # This information will be used for removing "cat" command output data of stopped processes.
+            process_cpu_time_list.append(int(line_split[-38]) + int(line_split[-39]))         # Get process cpu time in user mode (utime + stime)
+            previous_line_process = 1
+        else:
+            if line_split[0] == "read_bytes:":
+                disk_read_write_data.append([int(line_split[1])])
+            if line_split[0] == "write_bytes:":
+                disk_read_write_data[-1].append(int(line_split[1]))
+                previous_line_process = 0
+    if len(disk_read_write_data) < len(pid_list_from_stat):                                   # Append disk read/write data of the last process if it the line starts with digit number. This is skipped in the loop.
+        disk_read_write_data.append([0, 0])
+
+    # Get and append process data.
+    for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
+        index = pid_list.index(pid)
+        if pid not in pid_list_from_stat:
+            del pid_list[index]
+            del username_list[index]
+            del ppid_list[index]
+            del cmdline_list[index]
+            del ps_output_lines[index]
+            continue
+        index_from_stat = pid_list_from_stat.index(pid)
+        ps_output_line = ps_output_lines[index]
+        ps_output_line_split = ps_output_line[pid_column_index:].split()
+        # Get process full name.
+        process_name_from_stat = ps_output_line[:pid_column_index].strip()
         process_name = process_name_from_stat
         if len(process_name) == 15:                                                           # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
-            try:
-                with open(f'/proc/{pid}/cmdline') as reader:
-                    process_cmdline = reader.read().replace("\x00", " ")                      # Some process names which are obtained from "cmdline" contain "\x00" and these are replaced by " ".
-            except FileNotFoundError:
-                pid_list.remove(pid)
-                continue
+            process_cmdline = cmdline_list[index]
             process_name = process_cmdline.split("/")[-1].split(" ")[0]
             if process_name.startswith(process_name_from_stat) == False:
                 process_name = process_cmdline.split(" ")[0].split("/")[-1]
                 if process_name.startswith(process_name_from_stat) == False:
                     process_name = process_name_from_stat
+        # Get process image.
         process_icon = "system-monitoring-center-process-symbolic"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
         if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list.
             process_icon = application_icon_list[application_exec_list.index(process_name)]
         processes_data_row = [True, process_icon, process_name]                               # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
+        # Get process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
         if 1 in processes_treeview_columns_shown:
-            processes_data_row.append(int(pid))                                               # Append process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
+            processes_data_row.append(int(pid))
+        # Get process username.
         if 2 in processes_treeview_columns_shown:
-            processes_data_row.append(username)                                               # Append process username (this value is get before).
+            processes_data_row.append(username_list[index])
+        # Get process status.
         if 3 in processes_treeview_columns_shown:
-            processes_data_row.append(process_status_list[proc_pid_stat_lines_split[-50]])    # Get process status
+            processes_data_row.append(process_status_list[ps_output_line_split[2]])
+        # Get process CPU usage.
         if 4 in processes_treeview_columns_shown:
-            process_cpu_time = int(proc_pid_stat_lines_split[-39]) + int(proc_pid_stat_lines_split[-38])   # Get process cpu time in user mode (utime + stime)
+            process_cpu_time = process_cpu_time_list[index_from_stat]
             global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))          # While appending multiple elements into a list "append((value1, value2))" is faster than "append([value1, value2])".
             try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are used in these situations.
                 global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(pid)]
-            except (ValueError, IndexError, UnboundLocalError) as me:
+            except (ValueError, IndexError, UnboundLocalError) as e:
                 process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
                 global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process
             process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
             global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
             processes_data_row.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
+        # Get process RSS (resident set size) memory pages and multiply with 1024 in order to convert the value into bytes.
         if 5 in processes_treeview_columns_shown:
-            processes_data_row.append(int(proc_pid_stat_lines_split[-29]) * memory_page_size) # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
+            processes_data_row.append(int(ps_output_line_split[3]) * 1024)
+        # Get process VMS (virtual memory size) memory and multiply with 1024 in order to convert the value into bytes.
         if 6 in processes_treeview_columns_shown:
-            processes_data_row.append(int(proc_pid_stat_lines_split[-30]))                    # Get process VMS (virtual memory size) memory (this value is in bytes unit).
+            processes_data_row.append(int(ps_output_line_split[4]) * 1024)
+        # Get process shared memory size and multiply with 1024 in order to convert the value into bytes.
         if 7 in processes_treeview_columns_shown:
-            try:
-                with open(f'/proc/{pid}/statm') as reader:                                   
-                    processes_data_row.append(int(reader.read().split()[2]) * memory_page_size)   # Get shared memory pages and multiply with memory_page_size in order to convert the value into bytes.
-            except FileNotFoundError:
-                pid_list.remove(pid)
-                continue
+            processes_data_row.append(0)
+        # Get process read data, write data, read speed, write speed.
         if 8 in processes_treeview_columns_shown or 9 in processes_treeview_columns_shown or 10 in processes_treeview_columns_shown or 11 in processes_treeview_columns_shown:
-            try:                                                                              # Root access is needed for reading "/proc/[PID]/io" file else it gives error. "try-except" is used in order to avoid this error if user has no root privileges.
-                with open(f'/proc/{pid}/io') as reader:
-                    proc_pid_io_lines = reader.read().split("\n")
-                process_read_bytes = int(proc_pid_io_lines[4].split(":")[1])
-                process_write_bytes = int(proc_pid_io_lines[5].split(":")[1])
-            except (PermissionError, ProcessLookupError) as me:
-                process_read_bytes = 0
-                process_write_bytes = 0
-            disk_read_write_data.append((process_read_bytes, process_write_bytes))
+            process_read_bytes = disk_read_write_data[index_from_stat][0]
+            process_write_bytes = disk_read_write_data[index_from_stat][1]
+            try:
+                process_read_bytes_prev, process_write_bytes_prev = disk_read_write_data_prev[pid_list_prev.index(pid)]
+            except (ValueError, IndexError, UnboundLocalError) as e:
+                process_read_bytes_prev = process_read_bytes                                  # Make process_read_bytes_prev equal to process_read_bytes for giving "0" disk read speed value if this is first loop of the process
+                process_write_bytes_prev = process_write_bytes                                # Make process_write_bytes_prev equal to process_write_bytes for giving "0" disk write speed value if this is first loop of the process
             if pid not in pid_list_prev and disk_read_write_data_prev != []:
                 disk_read_write_data_prev.append((process_read_bytes, process_write_bytes))
+            # Get process read data.
             if 8 in processes_treeview_columns_shown:
                 processes_data_row.append(process_read_bytes)
+            # Get process write data.
             if 9 in processes_treeview_columns_shown:
                 processes_data_row.append(process_write_bytes)
+            # Get process read speed.
             if 10 in processes_treeview_columns_shown:
-                if disk_read_write_data_prev == []:
-                    process_read_bytes_prev = process_read_bytes                              # Make process_read_bytes_prev equal to process_read_bytes for giving "0" disk read speed value if this is first loop of the process
-                else:
-                    process_read_bytes_prev = disk_read_write_data_prev[pid_list.index(pid)][0]
-                processes_data_row.append((process_read_bytes - int(process_read_bytes_prev)) / update_interval)    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
+                processes_data_row.append((process_read_bytes - process_read_bytes_prev) / update_interval)    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
+            # Get process write speed.
             if 11 in processes_treeview_columns_shown:
-                if disk_read_write_data_prev == []:
-                    process_write_bytes_prev = process_write_bytes                            # Make process_write_bytes_prev equal to process_write_bytes for giving "0" disk write speed value if this is first loop of the process
-                else:
-                    process_write_bytes_prev = disk_read_write_data_prev[pid_list.index(pid)][1]
-                processes_data_row.append((process_write_bytes - int(process_write_bytes_prev)) / update_interval)    # Append process_write_bytes which will be used as "process_write_bytes_prev" value in the next loop and also append disk write speed. 
+                processes_data_row.append((process_write_bytes - process_write_bytes_prev) / update_interval)    # Append process_write_bytes which will be used as "process_write_bytes_prev" value in the next loop and also append disk write speed. 
+        # Get process nice value.
         if 12 in processes_treeview_columns_shown:
-            processes_data_row.append(int(proc_pid_stat_lines_split[-34]))                    # Get process nice value
+            process_nice = ps_output_line_split[6]
+            if process_nice == "-":
+                process_nice = "0"
+            processes_data_row.append(int(process_nice))
+        # Get process number of threads value.
         if 13 in processes_treeview_columns_shown:
-            processes_data_row.append(int(proc_pid_stat_lines_split[-33]))                    # Get process number of threads value
+            processes_data_row.append(int(ps_output_line_split[7]))
+        # Get process PPID.
         if 14 in processes_treeview_columns_shown:
-            processes_data_row.append(int(proc_pid_stat_lines_split[-49]))                    # Get process PPID
+            processes_data_row.append(int(ps_output_line_split[8]))
+        # Append process UID value.
         if 15 in processes_treeview_columns_shown:
-            processes_data_row.append(int(real_user_id))                                      # Append process UID value
+            processes_data_row.append(int(ps_output_line_split[9]))
+        # Append process GID value.
         if 16 in processes_treeview_columns_shown:
-            processes_data_row.append(int(proc_pid_status_output.split("\nGid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0]))    # There are 4 values in the Gid line and first one (real GID) is get from this file.
+            processes_data_row.append(int(ps_output_line_split[10]))
+        # Get process executable path.
         if 17 in processes_treeview_columns_shown:
-            try:                                                                              # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
-                process_executable_path = os.path.realpath(f'/proc/{pid}/exe')
-            except Exception:
-                process_executable_path = "-"
-            processes_data_row.append(process_executable_path)                                # Append process executable path
+            processes_data_row.append(ps_output_line[exe_column_index:cmdline_column_index].strip())
+        # Get process commandline.
         if 18 in processes_treeview_columns_shown:
-            try:
-                with open(f'/proc/{pid}/cmdline') as reader:
-                    process_commandline = ' '.join(reader.read().split("\x00"))
-            except Exception:
-                process_commandline = "-"
-            processes_data_row.append(process_commandline)                                    # Append process command line
+            processes_data_row.append(ps_output_line[cmdline_column_index:].strip())
+
         # Append process data into a list (processes_data_rows)
         processes_data_rows.append(processes_data_row)
     global_process_cpu_times_prev = global_process_cpu_times                                  # For using values in the next loop
@@ -673,6 +723,9 @@ def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{performance_data_unit_converter_func("speed", processes_disk_speed_bit, tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision)}/s')
 
 
+def cell_data_function_ram_swap_shared(tree_column, cell, tree_model, iter, data):
+    cell.set_property('text', "-")
+
 # ----------------------------------- Processes - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
 def on_column_title_clicked(widget):
 
@@ -709,4 +762,20 @@ def processes_treeview_column_order_width_row_sorting_func():
     Config.processes_data_column_order = list(processes_data_column_order)
     Config.processes_data_column_widths = list(processes_data_column_widths)
     Config.config_save_func()
+
+
+# ----------------------- Get number of logical CPU cores. -----------------------
+def processes_number_of_logical_cores_func():
+
+    try:
+        number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")                           # To be able to get number of online logical CPU cores first try  a faster way: using "SC_NPROCESSORS_ONLN" variable.
+    except ValueError:
+        with open("/proc/cpuinfo") as reader:                                                 # As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
+            proc_cpuinfo_lines = reader.read().split("\n")
+        number_of_logical_cores = 0
+        for line in proc_cpuinfo_lines:
+            if line.startswith("processor"):
+                number_of_logical_cores = number_of_logical_cores + 1
+
+    return number_of_logical_cores
 

@@ -266,7 +266,9 @@ class MainGUI:
     # ----------------------- Called for adapting to system color scheme on systems with newer versions than GTK3. -----------------------
     def main_gui_adapt_color_scheme_for_gtk4_based_systems_func(self):
 
-        # This method works in Flatpak environment but "gir1.2-handy-1" may not be installed on systems with GTK3 only. Additionally, this method works about 10 times slower than the other method (Gio.Settings).
+        # This method works in Flatpak environment if host OS DE is GTK4 based.
+        # "gir1.2-handy-1" may not be installed on systems with GTK3 only.
+        # Additionally, this method works about 10 times slower than the other method (Gio.Settings).
         if Config.environment_type == "flatpak":
 
             try:
@@ -279,6 +281,7 @@ class MainGUI:
             style_manager.set_color_scheme(Handy.ColorScheme.PREFER_LIGHT)
 
         # This method does not work in Flatpak environment.
+        # It works on systems with GTK3 and GTK4 based DEs.
         else:
 
             gi.require_version('Gio', '2.0')
