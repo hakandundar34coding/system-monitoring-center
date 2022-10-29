@@ -1,6 +1,9 @@
 # System Monitoring Center
 
 ### v1.30.0 (29.10.2022)
+  * Fix: Application shortcut generation
+
+### v1.30.0 (29.10.2022)
   * Improved: Processes tab information support for Flatpak
   * Improved: Disk usage data support for Flatpak
   * Improved: User information support for Flatpak
