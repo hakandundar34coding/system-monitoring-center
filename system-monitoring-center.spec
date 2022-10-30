@@ -9,7 +9,6 @@ BuildArch:      noarch
 
 BuildRequires:  python3-setuptools
 
-Requires:       bash >= 4.4
 Requires:       dmidecode
 Requires:       iproute
 Requires:       python3 >= 3.6

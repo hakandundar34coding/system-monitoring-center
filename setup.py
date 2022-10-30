@@ -108,9 +108,9 @@ if package_type_var == "flatpak_package":
     entry_points={}
 
     os.rename("icons/hicolor/scalable/apps/system-monitoring-center.svg", "icons/hicolor/scalable/apps/io.github.hakandundar34coding.system-monitoring-center.svg")
-    icon_list = os.listdir("icons/hicolor/scalable/actions/")
+    """icon_list = os.listdir("icons/hicolor/scalable/actions/")
     for icon in icon_list:
-        os.rename("icons/hicolor/scalable/actions/" + icon, "icons/hicolor/scalable/actions/io.github.hakandundar34coding.system-monitoring-center." + icon.split("system-monitoring-center-")[-1])
+        os.rename("icons/hicolor/scalable/actions/" + icon, "icons/hicolor/scalable/actions/io.github.hakandundar34coding.system-monitoring-center." + icon.split("system-monitoring-center-")[-1])"""
 
     with open("integration/io.github.hakandundar34coding.system-monitoring-center.desktop") as reader:
         desktop_file_content = reader.read()

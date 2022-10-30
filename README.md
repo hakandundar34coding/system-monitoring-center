@@ -53,6 +53,22 @@
 
 
 <p align="center">
+    <a href='https://pypi.org/project/system-monitoring-center'>
+        <img width='240' alt='Download from PyPI' src='https://github.com/hakandundar34coding/system-monitoring-center/raw/master/docs/download_image_pypi.svg'/>
+    </a>
+    <a href='https://flathub.org/apps/details/io.github.hakandundar34coding.system-monitoring-center'>
+        <img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.svg'/>
+    </a>
+    <a href='https://apps.pardus.org.tr/app/system-monitoring-center'>
+        <img width='240' alt='Install From Pardus Software Center' src='https://github.com/hakandundar34coding/system-monitoring-center/raw/master/docs/download_image_pardus.svg'/>
+    </a>
+    <a href='https://github.com/Botspot/pi-apps'>
+        <img width='240' alt='Install From Pi-Apps' src='https://github.com/Botspot/pi-apps/blob/master/icons/badge.png?raw=true'/>
+    </a>
+</p>
+
+
+<p align="center">
     <a href="https://repology.org/project/system-monitoring-center/versions">
         <img src="https://repology.org/badge/vertical-allrepos/system-monitoring-center.svg" alt="Packaging status">
     </a>
@@ -77,32 +93,16 @@
 
 
 ### Installation:
-- System Monitoring Center is installable from PyPI as a Python package.
-- Option-1) Installing for current user account: `pip install system-monitoring-center`
-- Option-2) Installing for system-wide: `sudo pip install system-monitoring-center`
-    (This method can be used for preventing source code modifications.)
-- First run:
-    - Run the application by using `system-monitoring-center` command.
-    - The application will prepare shortcut and GUI images automatically.
-    - If command is not found, restart the system and run the command again.
-    - If images are not shown on the GUI, run `touch ~/.local/share/*` or restart the system.
+- There are several options for using System Monitoring Center:
+    - Installing from PypI as a Python package ([Details](docs/pypi.md)).
+    - Installing from Flatpak ([Details](docs/flatpak.md)).
+    - Installing from several application stores (Pardus Application Center, Pi-Apps Store).
+    - Installing from repositories of distributions (currently a few distributions).
+    - Running from source code (in ```src/``` folder: ```python3 ./Main.py```).
 
 
 ### Dependencies:
-- These dependencies are already installed on many systems: 
-    - `bash, dmidecode, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, udev, util-linux`
-- Following dependencies may be required on some systems:
-    - `libcairo2-dev` (for systems with .deb packages)
-    - `polkit` (for Arch Linux)
-- Optional dependencies:
-    - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection)
-    - `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
-
-
-### Updating:
-- Run one of these commands to update the application:
-    - If the application is installed for current user account: `pip install --upgrade system-monitoring-center`
-    - If the application is installed for system-wide: `sudo pip install --upgrade system-monitoring-center`
+Dependency [list](docs/dependencies.md).
 
 
 ### Screenshots:

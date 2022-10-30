@@ -7,7 +7,7 @@ pkgdesc="Multi-featured system monitor."
 arch=('any')
 url="https://github.com/hakandundar34coding/system-monitoring-center"
 license=('GPL3')
-depends=('bash' 'dmidecode' 'gtk3' 'iproute2' 'polkit'
+depends=('dmidecode' 'gtk3' 'iproute2' 'polkit'
          'python-cairo' 'python-gobject' 'util-linux')
 makedepends=('python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$_pkgver.tar.gz")
