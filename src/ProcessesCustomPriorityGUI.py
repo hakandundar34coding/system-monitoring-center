@@ -7,6 +7,7 @@ from gi.repository import Gtk
 import os
 import subprocess
 
+from Config import Config
 import Processes
 from ProcessesMenuRightClick import ProcessesMenuRightClick
 
@@ -50,12 +51,18 @@ class ProcessesCustomPriorityGUI:
         selected_process_pid = Processes.selected_process_pid
         selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
 
+        # Get process stat file path.
+        selected_process_stat_file = "/proc/" + selected_process_pid + "/stat"
+
         # Get priority (nice value) of the process.
-        try:
-            with open("/proc/" + selected_process_pid + "/stat") as reader:
-                selected_process_nice = int(reader.read().split()[-34])
-        # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-        except FileNotFoundError:
+        if Config.environment_type == "flatpak":
+            cat_output = (subprocess.run(["flatpak-spawn", "--host", "cat", selected_process_stat_file], shell=False, capture_output=True)).stdout.decode().strip()
+        else:
+            cat_output = (subprocess.run(["cat", selected_process_stat_file], shell=False, capture_output=True)).stdout.decode().strip()
+        # Process may be ended just after pid_list is generated. "cat" command output is get as "" in this situation.
+        if cat_output != "":
+            selected_process_nice = int(cat_output.split()[-34])
+        else:
             return
 
         # Set adjustment widget by using process priority (nice value).
@@ -80,14 +87,22 @@ class ProcessesCustomPriorityGUI:
         # Get new priority (nice value) of the process.
         selected_process_nice = str(int(self.adjustment2101w2.get_value()))
 
+        # Define commands for the process.
+        priority_command = ["renice", "-n", selected_process_nice, "-p", selected_process_pid]
+        priority_command_pkexec = ["pkexec", "renice", "-n", selected_process_nice, "-p", selected_process_pid]
+
+        if Config.environment_type == "flatpak":
+            priority_command = ["flatpak-spawn", "--host"] + priority_command
+            priority_command_pkexec = ["flatpak-spawn", "--host"] + priority_command_pkexec
+
         # Try to change priority (nice value) of the process.
         try:
             # Command output is not printed by using "stderr=subprocess.STDOUT".
-            (subprocess.check_output(["renice", "-n", selected_process_nice, "-p", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+            (subprocess.check_output(priority_command, stderr=subprocess.STDOUT, shell=False)).decode()
         except subprocess.CalledProcessError:
             # Try to change priority (nice value) of the process if root privileges are required.
             try:
-                (subprocess.check_output(["pkexec", "renice", "-n", selected_process_nice, "-p", selected_process_pid], stderr=subprocess.STDOUT, shell=False)).decode()
+                (subprocess.check_output(priority_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
             # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
             except subprocess.CalledProcessError:
                 return

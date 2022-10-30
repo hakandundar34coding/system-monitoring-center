@@ -68,24 +68,24 @@ class ProcessesMenuRightClick:
 
         # Define signal and command for the process by checking the clicked menu item (Stop Process).
         if widget == self.menuitem2101m:
-            process_signal = signal.SIGSTOP
-            process_command = ["pkexec", "kill", "-19", selected_process_pid]
+            process_command = ["kill", "-19", selected_process_pid]
+            process_command_pkexec = ["pkexec", "kill", "-19", selected_process_pid]
 
         # Define signal and command for the process by checking the clicked menu item (Continue Process).
         if widget == self.menuitem2102m:
-            process_signal = signal.SIGCONT
-            process_command = ["pkexec", "kill", "-18", selected_process_pid]
+            process_command = ["kill", "-18", selected_process_pid]
+            process_command_pkexec = ["pkexec", "kill", "-18", selected_process_pid]
 
         # Define signal, command and dialog message text for the process by checking the clicked menu item (Terminate Process).
         if widget == self.menuitem2103m:
-            process_signal = signal.SIGTERM
-            process_command = ["pkexec", "kill", "-15", selected_process_pid]
+            process_command = ["kill", "-15", selected_process_pid]
+            process_command_pkexec = ["pkexec", "kill", "-15", selected_process_pid]
             process_dialog_message = _tr("Do you want to terminate this process?")
 
         # Define signal, command and dialog message text for the process by checking the clicked menu item (Kill Process).
         if widget == self.menuitem2104m:
-            process_signal = signal.SIGKILL
-            process_command = ["pkexec", "kill", "-9", selected_process_pid]
+            process_command = ["kill", "-9", selected_process_pid]
+            process_command_pkexec = ["pkexec", "kill", "-9", selected_process_pid]
             process_dialog_message = _tr("Do you want to kill this process?")
 
         # Show warning dialog if process is tried to be ended.
@@ -94,14 +94,18 @@ class ProcessesMenuRightClick:
             if self.dialog2101_response != Gtk.ResponseType.YES:
                 return
 
+        if Config.environment_type == "flatpak":
+            process_command = ["flatpak-spawn", "--host"] + process_command
+            process_command_pkexec = ["flatpak-spawn", "--host"] + process_command_pkexec
+
         # Try to end the process without using root privileges.
         try:
-            os.kill(int(selected_process_pid), process_signal)
-        except PermissionError:
+            (subprocess.check_output(process_command, stderr=subprocess.STDOUT, shell=False)).decode()
+        except subprocess.CalledProcessError:
             # End the process if root privileges are given.
             try:
                 # Command output is not printed by using "stderr=subprocess.STDOUT".
-                (subprocess.check_output(process_command, stderr=subprocess.STDOUT, shell=False)).decode()
+                (subprocess.check_output(process_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
             # This "try-catch" is used in order to prevent errors if wrong password is used or polkit dialog is closed by user.
             except subprocess.CalledProcessError:
                 pass
@@ -141,6 +145,10 @@ class ProcessesMenuRightClick:
         if self.radiomenuitem2105m.get_active() == True:
             priority_command = ["renice", "-n", "19", "-p", selected_process_pid]
             priority_command_pkexec = ["pkexec", "renice", "-n", "19", "-p", selected_process_pid]
+
+        if Config.environment_type == "flatpak":
+            priority_command = ["flatpak-spawn", "--host"] + priority_command
+            priority_command_pkexec = ["flatpak-spawn", "--host"] + priority_command_pkexec
 
         # Try to change priority of the process.
         try:
@@ -202,12 +210,18 @@ class ProcessesMenuRightClick:
         # Get right clicked process pid and name.
         selected_process_pid = Processes.selected_process_pid
 
+        # Get process stat file path.
+        selected_process_stat_file = "/proc/" + selected_process_pid + "/stat"
+
         # Get priority (nice value) of the process.
-        try:
-            with open("/proc/" + selected_process_pid + "/stat") as reader:
-                selected_process_nice = int(reader.read().split()[-34])
-        # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-        except FileNotFoundError:
+        if Config.environment_type == "flatpak":
+            cat_output = (subprocess.run(["flatpak-spawn", "--host", "cat", selected_process_stat_file], shell=False, capture_output=True)).stdout.decode().strip()
+        else:
+            cat_output = (subprocess.run(["cat", selected_process_stat_file], shell=False, capture_output=True)).stdout.decode().strip()
+        # Process may be ended just after pid_list is generated. "cat" command output is get as "" in this situation.
+        if cat_output != "":
+            selected_process_nice = int(cat_output.split()[-34])
+        else:
             return
 
         # Pause event signals and make changes on radiobutton selections by using the process priority.
