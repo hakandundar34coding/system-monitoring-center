@@ -8,12 +8,12 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="512"
-   height="512"
-   viewBox="0 0 480 479.99997"
+   height="173.48761"
+   viewBox="0 0 480 162.64462"
    id="svg9379"
    version="1.1"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="5.svg">
+   sodipodi:docname="download_image_pypi.svg">
   <defs
      id="defs9381" />
   <sodipodi:namedview
@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
+     inkscape:zoom="0.51923077"
      inkscape:cx="336.89966"
-     inkscape:cy="147.2217"
+     inkscape:cy="-22.034502"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,7 +56,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-369.55437,-142.38773)">
+     transform="translate(-369.55437,-301.06541)">
     <g
        id="g1337"
        transform="matrix(0.84628097,0,0,0.84628097,191.41096,471.42853)">
