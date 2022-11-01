@@ -48,7 +48,7 @@
     <strong>
         Translations:
     </strong>
-    Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian) | Portuguese(European) | Russian | Turkish | Chinese (Simplified)
+    Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian) | Portuguese(European) | Russian | Turkish | Chinese (Simplified) | [Notes for translators](docs/notes_for_translators.md).
 </p>
 
 
@@ -98,11 +98,11 @@
     - Installing from Flatpak ([Details](docs/flatpak.md)).
     - Installing from several application stores (Pardus Application Center, Pi-Apps Store).
     - Installing from repositories of distributions (currently a few distributions).
-    - Running from source code (in ```src/``` folder: ```python3 ./Main.py```).
+    - Running from source code (in ```src/``` folder run: ```python3 ./Main.py```).
 
 
 ### Dependencies:
-Dependency [list](docs/dependencies.md).
+- Dependency [list](docs/dependencies.md).
 
 
 ### Screenshots:
