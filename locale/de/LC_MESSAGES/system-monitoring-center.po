@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-10 17:37+0300\n"
-"PO-Revision-Date: 2022-11-02 10:57+0100\n"
+"PO-Revision-Date: 2022-11-02 16:14+0100\n"
 "Last-Translator: Baumfinder <baumkartoffel@outlook.de>\n"
 "Language-Team: German <baumkartoffel@outlook.de>\n"
 "Language: de\n"
@@ -483,7 +483,7 @@ msgstr "GPU"
 
 #: src/SettingsGUI.py:566
 msgid "Do you want to reset all settings to defaults?"
-msgstr "Wollen sie alle Einstellungen zurücksetzten?"
+msgstr "Wollen sie alle Einstellungen auf den Standard zurücksetzen?"
 
 #: src/Users.py:130 ui/UsersDetailsWindow.ui:58
 #: ui/UsersMenuCustomizations.ui:73
@@ -1039,7 +1039,7 @@ msgstr "Alle Einstellungen auf Standard zurücksetzen"
 
 #: ui/SettingsWindow.ui:330
 msgid "Default main tab and sub-tab:"
-msgstr "Standart Haupt-Tab und Sub-Tab:"
+msgstr "Standard Haupt-Tab und Sub-Tab:"
 
 #: ui/SettingsWindow.ui:400
 msgid "Language (Requires restart):"
