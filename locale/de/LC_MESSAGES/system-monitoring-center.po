@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-10 17:37+0300\n"
-"PO-Revision-Date: 2022-10-10 17:43+0300\n"
+"PO-Revision-Date: 2022-11-02 10:57+0100\n"
 "Last-Translator: Baumfinder <baumkartoffel@outlook.de>\n"
 "Language-Team: German <baumkartoffel@outlook.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Gtranslator 40.0\n"
 
 #: src/Cpu.py:113 ui/CpuMenus.ui:35 ui/CpuTab.ui:549
 #: ui/ProcessesDetailsWindow.ui:764
@@ -81,7 +81,7 @@ msgstr "Es ist eine neue Version von PyPl vorhanden."
 #: ui/ProcessesDetailsWindow.ui:715 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
-msgstr "Zusammenfassung"
+msgstr "Übersicht"
 
 #: src/MainGUI.py:561
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -483,7 +483,7 @@ msgstr "GPU"
 
 #: src/SettingsGUI.py:566
 msgid "Do you want to reset all settings to defaults?"
-msgstr "Wollen sie alle Einstellungen zum Standart zurücksetzten?"
+msgstr "Wollen sie alle Einstellungen zurücksetzten?"
 
 #: src/Users.py:130 ui/UsersDetailsWindow.ui:58
 #: ui/UsersMenuCustomizations.ui:73
@@ -543,7 +543,7 @@ msgstr "Durchschnittliche CPU-Auslastung aller Kerne"
 
 #: ui/CpuTab.ui:45
 msgid "Average Usage"
-msgstr "Durchschnittlihe Auslastung"
+msgstr "Durchschnittliche Auslastung"
 
 #: ui/CpuTab.ui:57 ui/GpuTab.ui:371
 msgid "Frequency"
@@ -756,7 +756,7 @@ msgstr "Verbundene SSID:"
 
 #: ui/NetworkTab.ui:294
 msgid "Link Quality:"
-msgstr ""
+msgstr "Link-Qualität:"
 
 #: ui/NetworkTab.ui:307
 msgid "IPv4 Address:"
@@ -1043,7 +1043,7 @@ msgstr "Standart Haupt-Tab und Sub-Tab:"
 
 #: ui/SettingsWindow.ui:400
 msgid "Language (Requires restart):"
-msgstr ""
+msgstr "Sprache (Neustart benötigt):"
 
 #: ui/SystemTab.ui:64 ui/SystemTab.ui:310
 msgid "Computer"
