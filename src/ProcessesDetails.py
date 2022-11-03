@@ -897,8 +897,8 @@ class ProcessesDetails:
 processes_details_object_list = []
 def processes_details_show_process_details():
 
-    # Prevent opening more than 10 windows in order to avoid very high CPU usage.
-    if len(processes_details_object_list) == 10:
+    # Prevent opening more than 8 windows in order to avoid very high CPU usage.
+    if len(processes_details_object_list) == 8:
         return
 
     processes_details_object_list.append(ProcessesDetails(Processes.selected_process_pid))
