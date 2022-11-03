@@ -64,12 +64,13 @@ ruojiner, Luo ( 汉语)</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="relief">none</property>
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
-                <property name="label" translatable="yes">Settings</property>
+                <property name="label" translatable="yes">General Settings</property>
               </object>
             </child>
           </object>
@@ -83,6 +84,7 @@ ruojiner, Luo ( 汉语)</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="relief">none</property>
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>
@@ -97,9 +99,6 @@ ruojiner, Luo ( 汉语)</property>
             <property name="top-attach">1</property>
           </packing>
         </child>
-        <style>
-          <class name="linked"/>
-        </style>
       </object>
     </child>
   </object>
