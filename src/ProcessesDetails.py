@@ -898,7 +898,13 @@ processes_details_object_list = []
 def processes_details_show_process_details():
 
     # Prevent opening more than 8 windows in order to avoid very high CPU usage.
-    if len(processes_details_object_list) == 8:
+    # This limit is 3 for Flatpak environment. Because CPU usage is higher in this environment.
+    if Config.environment_type == "flatpak":
+        max_number_of_windows = 3
+    else:
+        max_number_of_windows = 8
+
+    if len(processes_details_object_list) == max_number_of_windows:
         return
 
     processes_details_object_list.append(ProcessesDetails(Processes.selected_process_pid))
