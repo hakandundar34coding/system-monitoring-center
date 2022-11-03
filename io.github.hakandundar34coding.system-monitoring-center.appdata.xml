@@ -25,7 +25,6 @@
       <li>Optimized for low CPU usage and fast start</li>
       <li>Shows notification if update is available on PyPI (disabled by default)</li>
       <li>Supports ARM architecture</li>
-      <li>Adapts to system theme</li>
       <li>Free and open source</li>
     </ul>
     <p>Notes for Limitations:</p>
@@ -74,6 +73,21 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="1.31.0" date="2022-11-03">
+      <description>
+        <p>
+        <ul>
+          <li>Improved: Process details window support for Flatpak</li>
+          <li>Improved: Process right click menu for Flatpak</li>
+          <li>Changed: Process details windows count limit: 8 (Flatpak: 3)</li>
+          <li>Updated: German translations</li>
+          <li>Removed: Parent/child process list (Process details window)</li>
+          <li>Fix: GUI images for Flatpak</li>
+          <li>Minor improvements (GUI, translations, etc.)</li>
+        </ul>
+        </p>
+      </description>
+    </release>
     <release version="1.30.1" date="2022-10-29">
       <description>
         <p>

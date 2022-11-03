@@ -88,7 +88,6 @@
 - Optimized for low CPU usage and fast start
 - Shows notification if update is available on PyPI (disabled by default)
 - Supports ARM architecture
-- Adapts to system theme
 - Free and open source
 
 
