@@ -11,3 +11,6 @@ For installing from command line:
 ### Updating:
 - Run this command to update the application: `flatpak update io.github.hakandundar34coding.system-monitoring-center`
 
+### Notes For Flatpak Support:
+- Flatpak version of the application uses some permissions (like not sandboxed) to access performance/system information of the host OS.
+

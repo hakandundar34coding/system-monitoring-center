@@ -37,10 +37,8 @@
     </ul>
     <p>Notes for Flatpak Support:</p>
     <ul>
-      <li>Other packages of the application are suggested instead of Flatpak package due to security reasons.</li>
-      <li>Flatpak version of the application uses some permisions to access information of the host OS. This may cause security problems.</li>
+      <li>Flatpak version of the application uses some permissions (like not sandboxed) to access performance/system information of the host OS.</li>
       <li>Flatpak package of the application may be installed for system-wide instead of user-specific for avoiding source code modifications.</li>
-      <li>Currently, Flatpak package of the application has some limitations. Work in progress for this packaging type.</li>
     </ul>
   </description>
   <screenshots>
