@@ -65,36 +65,11 @@ ruojiner, Luo ( 汉语)</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <child>
-              <!-- n-columns=2 n-rows=1 -->
-              <object class="GtkGrid">
+              <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="margin-top">2</property>
-                <property name="margin-bottom">2</property>
-                <property name="column-spacing">3</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center-settings-symbolic</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">0</property>
-                    <property name="top-attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Settings</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">0</property>
-                  </packing>
-                </child>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Settings</property>
               </object>
             </child>
           </object>
@@ -109,36 +84,11 @@ ruojiner, Luo ( 汉语)</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <child>
-              <!-- n-columns=2 n-rows=1 -->
-              <object class="GtkGrid">
+              <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="margin-top">2</property>
-                <property name="margin-bottom">2</property>
-                <property name="column-spacing">3</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">system-monitoring-center</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">0</property>
-                    <property name="top-attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">About</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">0</property>
-                  </packing>
-                </child>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">About</property>
               </object>
             </child>
           </object>
