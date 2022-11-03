@@ -63,15 +63,6 @@ def processes_gui_func():
 # --------------------------------- Called for running code/functions when button is pressed on the treeview ---------------------------------
 def on_treeview2101_button_press_event(widget, event):
 
-    if Config.environment_type == "flatpak":
-        dialog2105 = Gtk.MessageDialog(transient_for=grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.INFO,
-        buttons=Gtk.ButtonsType.OK, text="!Flatpak. Currently right click menu and process details window are not supported for Flatpak.")
-        dialog2105.format_secondary_text("")
-        dialog2105_response = dialog2105.run()
-        dialog2105.destroy()
-        return
-
-
     # Get right/double clicked row data
     try:                                                                                  # "try-except" is used in order to prevent errors when right clicked on an empty area on the treeview.
         path, _, _, _ = treeview2101.get_path_at_pos(int(event.x), int(event.y))
@@ -116,18 +107,6 @@ def on_treeview2101_button_release_event(widget, event):
 
 # --------------------------------- Called for running code/functions when keyboard buttons (shortcuts such as Ctrl+C) is pressed on the treeview ---------------------------------
 def on_treeview2101_key_press_event(widget, event):
-
-
-    if Config.environment_type == "flatpak":
-        dialog2105 = Gtk.MessageDialog(transient_for=grid2101.get_toplevel(), title="", flags=0, message_type=Gtk.MessageType.INFO,
-        buttons=Gtk.ButtonsType.OK, text="!Flatpak. Currently right click menu and process details window are not supported for Flatpak.")
-        dialog2105.format_secondary_text("")
-        dialog2105_response = dialog2105.run()
-        dialog2105.destroy()
-        return
-
-
-
 
     # Get selected row data.
     selection = treeview2101.get_selection()
@@ -439,12 +418,12 @@ def processes_loop_func():
         # Get process CPU usage.
         if 4 in processes_treeview_columns_shown:
             process_cpu_time = process_cpu_time_list[index_from_stat]
-            global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))          # While appending multiple elements into a list "append((value1, value2))" is faster than "append([value1, value2])".
-            try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are used in these situations.
+            global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))
+            try:
                 global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(pid)]
             except (ValueError, IndexError, UnboundLocalError) as e:
-                process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
-                global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process
+                process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time" if this is first loop of the process.
+                global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
             process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
             global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
             processes_data_row.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)

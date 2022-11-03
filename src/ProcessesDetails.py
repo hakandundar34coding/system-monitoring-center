@@ -9,6 +9,7 @@ from gi.repository import Gtk, Gdk, GLib
 import os
 import time
 from datetime import datetime
+import subprocess
 
 from locale import gettext as _tr
 
@@ -43,8 +44,6 @@ class ProcessesDetails:
         self.label2109w = builder.get_object('label2109w')
         self.label2110w = builder.get_object('label2110w')
         self.label2111w = builder.get_object('label2111w')
-        self.label2112w = builder.get_object('label2112w')
-        self.label2113w = builder.get_object('label2113w')
         self.label2114w = builder.get_object('label2114w')
         self.label2115w = builder.get_object('label2115w')
         self.label2138w = builder.get_object('label2138w')
@@ -168,8 +167,6 @@ class ProcessesDetails:
         self.label2109w.set_text("--")
         self.label2110w.set_text("--")
         self.label2111w.set_text("--")
-        self.label2112w.set_text("--")
-        self.label2113w.set_text("--")
         self.label2114w.set_text("--")
         self.label2115w.set_text("--")
         self.label2116w.set_text("--")
@@ -244,49 +241,49 @@ class ProcessesDetails:
 
         # Get information.
         usernames_username_list, usernames_uid_list = self.processes_details_usernames_uids_func()
+        stat_output, status_output, statm_output, io_output, smaps_output, cmdline_output = self.processes_details_stat_status_statm_io_smaps_cmdline_outputs_func(selected_process_pid)
+        if stat_output == "-" or status_output == "-" or statm_output == "-":
+            self.update_window_value = 0
+            self.process_details_process_end_label_func()
+            return
         global_cpu_time_all = self.process_details_global_cpu_time_func()
-        proc_pid_stat_lines, proc_pid_stat_lines_split = self.process_details_process_stat_data_func(selected_process_pid)
+        stat_output_split = stat_output.split()
+        status_output_split = status_output.split("\n")
+        io_output_lines = io_output.split("\n")
+        fd_ls_output, task_ls_output = self.processes_details_fd_task_ls_output_func(selected_process_pid)
+        if task_ls_output == "-":
+            self.update_window_value = 0
+            self.process_details_process_end_label_func()
+            return
+        selected_process_name = self.process_details_process_name_func(selected_process_pid, stat_output, cmdline_output)
+        selected_process_icon = self.process_details_process_icon_func(selected_process_name)
+        selected_process_username = self.process_details_process_user_name_func(selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list)
+        selected_process_status = self.process_details_process_status_func(stat_output_split)
+        selected_process_nice = self.process_details_process_nice_func(stat_output_split)
+        selected_process_cpu_percent = self.process_details_process_cpu_usage_func(stat_output_split, global_cpu_time_all)
+        selected_process_memory_rss = self.process_details_process_memory_rss_func(stat_output_split)
+        selected_process_read_bytes, selected_process_write_bytes = self.process_details_process_disk_read_write_data_func(io_output_lines)
+        selected_process_read_speed, selected_process_write_speed = self.process_details_process_disk_read_write_speed_func(selected_process_read_bytes, selected_process_write_bytes)
+        selected_process_start_time = self.process_details_process_start_time_func(stat_output_split)
+        selected_process_ppid = self.process_details_process_ppid_func(stat_output_split)
+        selected_process_exe = self.process_details_process_exe_func(selected_process_pid)
+        selected_process_uid_real, selected_process_uid_effective, selected_process_uid_saved = self.process_details_process_real_effective_saved_uids_func(status_output_split)
+        selected_process_gid_real, selected_process_gid_effective, selected_process_gid_saved = self.process_details_process_real_effective_saved_gids_func(status_output_split)
+        selected_process_num_threads = self.process_details_process_number_of_threads_func(stat_output_split)
+        selected_process_threads = self.process_details_process_tids_func(task_ls_output)
+        selected_process_cpu_num = self.process_details_process_cpu_number_func(stat_output_split)
+        selected_process_cpu_times_user, selected_process_cpu_times_kernel, selected_process_cpu_times_children_user, selected_process_cpu_times_children_kernel, selected_process_cpu_times_io_wait = self.process_details_process_cpu_times_func(stat_output_split)
+        selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary = self.process_details_process_context_switches_func(status_output_split)
+        selected_process_memory_vms = self.process_details_process_memory_vms_func(stat_output_split)
+        selected_process_memory_shared = self.process_details_process_memory_shared_func(statm_output)
+        selected_process_memory_uss, selected_process_memory_swap = self.process_details_process_memory_uss_and_swap_func(smaps_output)
+        selected_process_read_count, selected_process_write_count = self.process_details_process_read_write_counts_func(io_output_lines)
+        selected_process_cmdline = self.process_details_process_cmdline_func(cmdline_output)
+        selected_process_cwd, selected_process_open_files = self.process_details_process_cwd_open_files_func(selected_process_pid, fd_ls_output)
+
         # Stop running functions in order to prevent errors.
         if self.update_window_value == 0:
             return
-        selected_process_name = self.process_details_process_name_func(selected_process_pid, proc_pid_stat_lines, proc_pid_stat_lines_split)
-        selected_process_icon = self.process_details_process_icon_func(selected_process_name)
-        proc_pid_status_lines = self.process_details_process_status_data_func(selected_process_pid)
-        if self.update_window_value == 0:
-            return
-        selected_process_username = self.process_details_process_user_name_func(selected_process_pid, proc_pid_status_lines, usernames_username_list, usernames_uid_list)
-        selected_process_status = self.process_details_process_status_func(proc_pid_stat_lines_split)
-        selected_process_nice = self.process_details_process_nice_func(proc_pid_stat_lines_split)
-        selected_process_cpu_percent = self.process_details_process_cpu_usage_func(proc_pid_stat_lines_split, global_cpu_time_all)
-        selected_process_memory_rss = self.process_details_process_memory_rss_func(proc_pid_stat_lines_split)
-        proc_pid_io_lines = self.process_details_process_io_data_func(selected_process_pid)
-        selected_process_read_bytes, selected_process_write_bytes = self.process_details_process_disk_read_write_data_func(proc_pid_io_lines)
-        selected_process_read_speed, selected_process_write_speed = self.process_details_process_disk_read_write_speed_func(selected_process_read_bytes, selected_process_write_bytes)
-        selected_process_start_time = self.process_details_process_start_time_func(proc_pid_stat_lines_split)
-        selected_process_ppid = self.process_details_process_ppid_func(proc_pid_stat_lines_split)
-        selected_process_exe = self.process_details_process_exe_func(selected_process_pid)
-        parent_process_names_pids = self.process_details_process_parent_processes_names_pids_func(selected_process_pid, proc_pid_stat_lines)
-        child_process_names_pids = self.process_details_process_child_processes_names_pids_func(selected_process_pid, proc_pid_stat_lines)
-        selected_process_uid_real, selected_process_uid_effective, selected_process_uid_saved = self.process_details_process_real_effective_saved_uids_func(proc_pid_status_lines)
-        selected_process_gid_real, selected_process_gid_effective, selected_process_gid_saved = self.process_details_process_real_effective_saved_gids_func(proc_pid_status_lines)
-        selected_process_num_threads = self.process_details_process_number_of_threads_func(proc_pid_stat_lines_split)
-        selected_process_threads = self.process_details_process_tids_func(selected_process_pid)
-        selected_process_cpu_num = self.process_details_process_cpu_number_func(proc_pid_stat_lines_split)
-        selected_process_cpu_times_user, selected_process_cpu_times_kernel, selected_process_cpu_times_children_user, selected_process_cpu_times_children_kernel, selected_process_cpu_times_io_wait = self.process_details_process_cpu_times_func(proc_pid_stat_lines_split)
-        selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary = self.process_details_process_context_switches_func(proc_pid_status_lines)
-        selected_process_memory_vms = self.process_details_process_memory_vms_func(proc_pid_stat_lines_split)
-        selected_process_memory_shared = self.process_details_process_memory_shared_func(selected_process_pid)
-        if self.update_window_value == 0:
-            return
-        selected_process_memory_uss, selected_process_memory_swap = self.process_details_process_memory_uss_and_swap_func(selected_process_pid)
-        selected_process_read_count, selected_process_write_count = self.process_details_process_read_write_counts_func(proc_pid_io_lines)
-        selected_process_exe = self.process_details_process_exe_func(selected_process_pid)
-        selected_process_cwd = self.process_details_process_cwd_func(selected_process_pid)
-        selected_process_cmdline = self.process_details_process_cmdline_func(selected_process_pid)
-        if self.update_window_value == 0:
-            return
-        selected_process_open_files = self.process_details_process_open_files_func(selected_process_pid)
-
 
         # Set window title and icon
         self.window2101w.set_title(_tr("Process Details") + ": " + selected_process_name + " - (" + _tr("PID") + ": " + selected_process_pid + ")")
@@ -326,14 +323,6 @@ class ProcessesDetails:
         self.label2109w.set_text(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
         self.label2110w.set_text(selected_process_exe)
         self.label2111w.set_text(f'{selected_process_ppid}')
-        if parent_process_names_pids != []:
-            self.label2112w.set_text(',\n'.join(parent_process_names_pids))
-        if parent_process_names_pids == []:
-            self.label2112w.set_text("-")
-        if child_process_names_pids != []:
-            self.label2113w.set_text(',\n'.join(child_process_names_pids))
-        if child_process_names_pids == []:
-            self.label2113w.set_text("-")
         self.label2114w.set_text(f'Real: {selected_process_uid_real}, Effective: {selected_process_uid_effective}, Saved: {selected_process_uid_saved}')
         self.label2115w.set_text(f'Real: {selected_process_gid_real}, Effective: {selected_process_gid_effective}, Saved: {selected_process_gid_saved}')
 
@@ -441,56 +430,114 @@ class ProcessesDetails:
         return usernames_username_list, usernames_uid_list
 
 
+    # ----------------------- Get stat, status, statm, io, smaps, cmdline file outputs. -----------------------
+    def processes_details_stat_status_statm_io_smaps_cmdline_outputs_func(self, selected_process_pid):
+
+        # Generate command for getting file outputs.
+        if Config.environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host", "cat"]
+        else:
+            command_list = ["cat"]
+        command_list.append("/proc/version")
+        command_list.append("/proc/" + selected_process_pid + "/stat")
+        command_list.append("/proc/version")
+        command_list.append("/proc/" + selected_process_pid + "/status")
+        command_list.append("/proc/version")
+        command_list.append("/proc/" + selected_process_pid + "/statm")
+        command_list.append("/proc/version")
+        command_list.append("/proc/" + selected_process_pid + "/io")
+        command_list.append("/proc/version")
+        command_list.append("/proc/" + selected_process_pid + "/smaps")
+        command_list.append("/proc/version")
+        command_list.append("/proc/" + selected_process_pid + "/cmdline")
+
+        cat_output = (subprocess.run(command_list, shell=False, capture_output=True)).stdout.decode().strip()
+
+        # Get split text by using the first line. This text will be used for splitting
+        # the outputs of different procfs files. Because output of some files may be ""
+        # and they are not shown in the output of command if multiple files are used as arguments.
+        cat_output_lines = cat_output.split("\n")
+        split_text = cat_output_lines[0].strip()
+        cat_output_split = cat_output.split(split_text)
+        del cat_output_split[0]
+        # Get output of procfs files.
+        stat_output = cat_output_split[0].strip()
+        status_output = cat_output_split[1].strip()
+        statm_output = cat_output_split[2].strip()
+        io_output = cat_output_split[3].strip()
+        smaps_output = cat_output_split[4].strip()
+        cmdline_output = cat_output_split[5].strip().replace("\x00", " ")                     # "\x00" characters in "cmdline" file are replaced with " ".
+
+        if stat_output == "":
+            stat_output = "-"
+        if status_output == "":
+            status_output = "-"
+        if statm_output == "":
+            statm_output = "-"
+        if io_output == "":
+            io_output = "-"
+        if smaps_output == "":
+            smaps_output = "-"
+        if cmdline_output == "":
+            cmdline_output = "-"
+
+        return stat_output, status_output, statm_output, io_output, smaps_output, cmdline_output
+
+
+    # ----------------------- Get fd and stat folder list outputs. -----------------------
+    def processes_details_fd_task_ls_output_func(self, selected_process_pid):
+
+        # Generate command for getting file outputs.
+        if Config.environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host", "ls"]
+        else:
+            command_list = ["ls"]
+        command_list.append("/proc/" + selected_process_pid + "/fd/")
+        command_list.append("/proc/" + selected_process_pid + "/task/")
+
+        ls_output = (subprocess.run(command_list, shell=False, capture_output=True)).stdout.decode().strip()
+
+        # Get output of procfs folders.
+        if "/fd/" in ls_output and "/task/" in ls_output:
+            fd_ls_output, task_ls_output = ls_output.split("\n\n")
+        elif "/fd/" in ls_output and "/task/" not in ls_output:
+            fd_ls_output = ls_output
+            task_ls_output = "-"
+        elif "/fd/" not in ls_output and "/task/" in ls_output:
+            fd_ls_output = "-"
+            task_ls_output = ls_output
+        else:
+            fd_ls_output = "-"
+            task_ls_output = "-"
+
+        return fd_ls_output, task_ls_output
+
+
     # ----------------------- Get global CPU time -----------------------
     def process_details_global_cpu_time_func(self):
 
-        # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent. global_cpu_time_all value is get by using time module of Python instead of reading "/proc/stat" file for faster processing.
+        # global_cpu_time_all value is get just after "/proc/[PID]/stat file is
+        # read in order to measure global an process specific CPU times at the
+        # same time (nearly) for ensuring accurate process CPU usage percent.
         global_cpu_time_all = time.time() * self.number_of_clock_ticks
 
         return global_cpu_time_all
 
 
-    # ----------------------- Get process data in stat file -----------------------
-    def process_details_process_stat_data_func(self, selected_process_pid):
-
-        try:
-            # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
-            with open("/proc/" + selected_process_pid + "/stat") as reader:
-                proc_pid_stat_lines = reader.read()
-        # Process may be ended. "try-except" is used for avoiding errors in this situation.
-        except FileNotFoundError:
-            proc_pid_stat_lines = "-"
-            self.update_window_value = 0
-            self.process_details_process_end_label_func()
-
-        proc_pid_stat_lines_split = proc_pid_stat_lines.split()
-
-        return proc_pid_stat_lines, proc_pid_stat_lines_split
-
-
     # ----------------------- Get process name -----------------------
-    def process_details_process_name_func(self, selected_process_pid, proc_pid_stat_lines, proc_pid_stat_lines_split):
+    def process_details_process_name_func(self, selected_process_pid, stat_output, cmdline_output):
 
-        first_parentheses = proc_pid_stat_lines.find("(")                                     # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
-        second_parentheses = proc_pid_stat_lines.rfind(")")                                   # Last parantheses ")" index is get by using "find()".
-        process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]    # Process name is get from string by using the indexes get previously.
+        first_parentheses = stat_output.find("(")                                             # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
+        second_parentheses = stat_output.rfind(")")                                           # Last parantheses ")" index is get by using "find()".
+        process_name_from_stat = stat_output[first_parentheses+1:second_parentheses]          # Process name is get from string by using the indexes get previously.
         selected_process_name = process_name_from_stat
 
         if len(selected_process_name) == 15:                                                  # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
-            try:
-                with open("/proc/" + selected_process_pid + "/cmdline") as reader:
-                    process_cmdline = reader.read().replace("\x00", " ")                      # Some process names which are obtained from "cmdline" contain "\x00" and these are replaced by " ".
-                selected_process_name = process_cmdline.split("/")[-1].split("\x00")[0]       # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
-            # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-            except FileNotFoundError:
-                self.update_window_value = 0
-                self.process_details_process_end_label_func()
-                return
-            selected_process_name = process_cmdline.split("/")[-1].split(" ")[0]
+            selected_process_name = cmdline_output.split("/")[-1].split(" ")[0]
             if selected_process_name.startswith(process_name_from_stat) == False:
-                selected_process_name = process_cmdline.split(" ")[0].split("/")[-1]
+                selected_process_name = cmdline_output.split(" ")[0].split("/")[-1]
                 if selected_process_name.startswith(process_name_from_stat) == False:
-                    selected_process_name = process_name_from_stat                            # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
+                    selected_process_name = process_name_from_stat
 
         return selected_process_name
 
@@ -498,41 +545,21 @@ class ProcessesDetails:
     # ----------------------- Get process icon -----------------------
     def process_details_process_icon_func(self, selected_process_name):
 
-        selected_process_icon = "system-monitoring-center-process-symbolic"                   # Initial value of the "selected_process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
-        if selected_process_name in Processes.application_exec_list:                          # Use process icon name from application file if process name is found in application exec list
+        # Define initial value of the "selected_process_icon". This icon will be shown
+        # for processes of which icon could not be found in default icon theme.
+        selected_process_icon = "system-monitoring-center-process-symbolic"
+
+        # Use process icon name from application file if process name is found in application exec list
+        if selected_process_name in Processes.application_exec_list:
             selected_process_icon = Processes.application_icon_list[Processes.application_exec_list.index(selected_process_name)]
 
         return selected_process_icon
 
 
-    # ----------------------- Get process status -----------------------
-    def process_details_process_status_func(self, proc_pid_stat_lines_split):
-
-        selected_process_status = self.process_status_list[proc_pid_stat_lines_split[-50]]
-
-        return selected_process_status
-
-
-    # ----------------------- Get process data in status file -----------------------
-    def process_details_process_status_data_func(self, selected_process_pid):
-
-        try:
-            # User name of the process owner is get from "/proc/status" file because it is present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-            with open("/proc/" + selected_process_pid + "/status") as reader:
-                proc_pid_status_lines = reader.read().split("\n")
-        # Process may be ended. "try-except" is used for avoiding errors in this situation.
-        except FileNotFoundError:
-            proc_pid_status_lines = "-"
-            self.update_window_value = 0
-            self.process_details_process_end_label_func()
-
-        return proc_pid_status_lines
-
-
     # ----------------------- Get process user name -----------------------
-    def process_details_process_user_name_func(self, selected_process_pid, proc_pid_status_lines, usernames_username_list, usernames_uid_list):
+    def process_details_process_user_name_func(self, selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list):
 
-        for line in proc_pid_status_lines:
+        for line in status_output_split:
             if "Uid:\t" in line:
                 # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
                 real_user_id = line.split(":")[1].split()[0].strip()
@@ -544,25 +571,34 @@ class ProcessesDetails:
         return selected_process_username
 
 
-    # ----------------------- Get process nice -----------------------
-    def process_details_process_nice_func(self, proc_pid_stat_lines_split):
+    # ----------------------- Get process status -----------------------
+    def process_details_process_status_func(self, stat_output_split):
 
-        selected_process_nice = int(proc_pid_stat_lines_split[-34])
+        selected_process_status = self.process_status_list[stat_output_split[-50]]
+
+        return selected_process_status
+
+
+    # ----------------------- Get process nice -----------------------
+    def process_details_process_nice_func(self, stat_output_split):
+
+        selected_process_nice = int(stat_output_split[-34])
 
         return selected_process_nice
 
 
     # ----------------------- Get process CPU usage -----------------------
-    def process_details_process_cpu_usage_func(self, proc_pid_stat_lines_split, global_cpu_time_all):
+    def process_details_process_cpu_usage_func(self, stat_output_split, global_cpu_time_all):
 
-        process_cpu_time = int(proc_pid_stat_lines_split[-39]) + int(proc_pid_stat_lines_split[-38])   # Get process cpu time in user mode (utime + stime)
+        # Get process cpu time in user mode (utime + stime)
+        process_cpu_time = int(stat_output_split[-39]) + int(stat_output_split[-38])
         global_process_cpu_times = [global_cpu_time_all, process_cpu_time]
         try:
             global_cpu_time_all_prev, process_cpu_time_prev = self.global_process_cpu_times_prev
         # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are used in these situations.
         except (ValueError, IndexError, UnboundLocalError) as me:
-            process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
-            global_cpu_time_all_prev = global_process_cpu_times[0] - 1                    # Subtract "1" CPU time (a negligible value) if this is first loop of the process
+            process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time" if this is first loop of the process.
+            global_cpu_time_all_prev = global_process_cpu_times[0] - 1                    # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
         process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
         global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
         selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Processes.number_of_logical_cores
@@ -572,32 +608,20 @@ class ProcessesDetails:
 
 
     # ----------------------- Get process memory (RSS) -----------------------
-    def process_details_process_memory_rss_func(self, proc_pid_stat_lines_split):
+    def process_details_process_memory_rss_func(self, stat_output_split):
 
-        selected_process_memory_rss = int(proc_pid_stat_lines_split[-29]) * Processes.memory_page_size    # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
+        # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
+        selected_process_memory_rss = int(stat_output_split[-29]) * Processes.memory_page_size
 
         return selected_process_memory_rss
 
 
-    # ----------------------- Get process data in io file -----------------------
-    def process_details_process_io_data_func(self, selected_process_pid):
-
-        try:
-            with open("/proc/" + selected_process_pid + "/io") as reader:
-                proc_pid_io_lines = reader.read().split("\n")
-        # Root access is needed for reading "/proc/[PID]/io" file else it gives error. "try-except" is used in order to avoid this error if user has no root privileges.
-        except PermissionError:
-            proc_pid_io_lines = "-"
-
-        return proc_pid_io_lines
-
-
     # ----------------------- Get process disk read data, disk write data -----------------------
-    def process_details_process_disk_read_write_data_func(self, proc_pid_io_lines):
+    def process_details_process_disk_read_write_data_func(self, io_output_lines):
 
-        if proc_pid_io_lines != "-":
-            selected_process_read_bytes = int(proc_pid_io_lines[4].split(":")[1])
-            selected_process_write_bytes = int(proc_pid_io_lines[5].split(":")[1])
+        if io_output_lines != ["-"]:
+            selected_process_read_bytes = int(io_output_lines[4].split(":")[1])
+            selected_process_write_bytes = int(io_output_lines[5].split(":")[1])
         else:
             selected_process_read_bytes = 0
             selected_process_write_bytes = 0
@@ -611,17 +635,19 @@ class ProcessesDetails:
         # Get disk read speed.
         disk_read_write_data = [selected_process_read_bytes, selected_process_write_bytes]
         if self.disk_read_write_data_prev == []:
-            selected_process_read_bytes_prev = selected_process_read_bytes                # Make process_read_bytes_prev equal to process_read_bytes for giving "0" disk read speed value if this is first loop of the process
+            # Make process_read_bytes_prev equal to process_read_bytes for giving "0" disk read speed value if this is first loop of the process.
+            selected_process_read_bytes_prev = selected_process_read_bytes
         else:
             selected_process_read_bytes_prev = self.disk_read_write_data_prev[0]
-        selected_process_read_speed = (selected_process_read_bytes - int(selected_process_read_bytes_prev)) / self.update_interval    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
+        selected_process_read_speed = (selected_process_read_bytes - int(selected_process_read_bytes_prev)) / self.update_interval
 
         # Get disk write speed.
         if self.disk_read_write_data_prev == []:
-            selected_process_write_bytes_prev = selected_process_write_bytes              # Make process_write_bytes_prev equal to process_write_bytes for giving "0" disk write speed value if this is first loop of the process
+            # Make process_write_bytes_prev equal to process_write_bytes for giving "0" disk write speed value if this is first loop of the process.
+            selected_process_write_bytes_prev = selected_process_write_bytes
         else:
             selected_process_write_bytes_prev = self.disk_read_write_data_prev[1]
-        selected_process_write_speed = (selected_process_write_bytes - int(selected_process_write_bytes_prev)) / self.update_interval    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
+        selected_process_write_speed = (selected_process_write_bytes - int(selected_process_write_bytes_prev)) / self.update_interval
 
         self.disk_read_write_data_prev = disk_read_write_data
 
@@ -629,19 +655,19 @@ class ProcessesDetails:
 
 
     # ----------------------- Get process start time -----------------------
-    def process_details_process_start_time_func(self, proc_pid_stat_lines_split):
+    def process_details_process_start_time_func(self, stat_output_split):
 
         # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
-        selected_process_start_time_raw = int(proc_pid_stat_lines_split[-31])
+        selected_process_start_time_raw = int(stat_output_split[-31])
         selected_process_start_time = (selected_process_start_time_raw / self.number_of_clock_ticks) + self.system_boot_time
 
         return selected_process_start_time
 
 
     # ----------------------- Get process PPID -----------------------
-    def process_details_process_ppid_func(self, proc_pid_stat_lines_split):
+    def process_details_process_ppid_func(self, stat_output_split):
 
-        selected_process_ppid = int(proc_pid_stat_lines_split[-49])
+        selected_process_ppid = int(stat_output_split[-49])
 
         return selected_process_ppid
 
@@ -649,95 +675,24 @@ class ProcessesDetails:
     # ----------------------- Get process exe -----------------------
     def process_details_process_exe_func(self, selected_process_pid):
 
+        if Config.environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host", "realpath"]
+        else:
+            command_list = ["realpath"]
+        command_list.append("/proc/" + selected_process_pid + "/exe")
+
         try:
-            selected_process_exe = os.path.realpath("/proc/" + selected_process_pid + "/exe")
-        # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
+            selected_process_exe = (subprocess.check_output(command_list, shell=False)).decode().strip()
         except Exception:
             selected_process_exe = "-"
 
         return selected_process_exe
 
 
-    # ----------------------- Get names and PIDs of parent processes -----------------------
-    def process_details_process_parent_processes_names_pids_func(self, selected_process_pid, proc_pid_stat_lines):
-
-        parent_process_names_pids = []
-        # Define "current_ppid" as "selected_process_pid". They are not same thing for the initial value but it is defined as initial value for proper working of the ppid loop code.
-        current_ppid = selected_process_pid
-        while current_ppid != 0:
-            with open("/proc/" + str(current_ppid) + "/stat") as reader:
-                current_ppid = int(reader.read().split()[-49])
-            if current_ppid != 0:
-                with open("/proc/" + str(current_ppid) + "/stat") as reader:
-                    proc_pid_stat_lines = reader.read()
-                first_parentheses = proc_pid_stat_lines.find("(")                         # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
-                second_parentheses = proc_pid_stat_lines.rfind(")")                       # Last parantheses ")" index is get by using "find()".
-                process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]    # Process name is get from string by using the indexes get previously.
-                process_name = process_name_from_stat
-                if len(process_name) >= 15:                                               # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name. "=15" is enough but this limit may be increased in the next releases of the kernel. ">=15" is used in order to handle this possible change.
-                    with open("/proc/" + str(current_ppid) + "/cmdline") as reader:
-                        process_name = ''.join(reader.read().split("/")[-1].split("\x00"))    # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()" and joined again without these characters.
-                    if process_name.startswith(process_name_from_stat) == False:
-                        process_name = process_name_from_stat
-                parent_process_names_pids.append(f'{process_name} (PID: {current_ppid})')
-
-        return parent_process_names_pids
-
-
-    # ----------------------- Get names and PIDs of child processes -----------------------
-    def process_details_process_child_processes_names_pids_func(self, selected_process_pid, proc_pid_stat_lines):
-
-        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
-        ppid_list = []
-        for pid in pid_list[:]:                                                           # "[:]" is used for iterating over copy of the list because element are removed during iteration. Otherwise incorrect operations (incorrect element removal) are performed on the list.
-            try:                                                                          # Process may be ended just after pid_list is generated. "try-except" is used for avoiding errors in this situation.
-                with open("/proc/" + pid + "/stat") as reader:                            # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
-                    proc_pid_stat_lines = reader.read()
-            # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-            except FileNotFoundError:
-                pid_list.remove(pid)
-                continue
-            proc_pid_stat_lines_split = proc_pid_stat_lines.split()
-            ppid_list.append(proc_pid_stat_lines_split[-49])
-        selected_process_child_process_pids = []
-        for i, ppid in enumerate(ppid_list):
-            if ppid == selected_process_pid:
-                selected_process_child_process_pids.append(pid_list[i])
-        selected_process_child_process_names = []
-        for pid in selected_process_child_process_pids:
-            try:
-                with open("/proc/" + pid + "/stat") as reader:                            # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
-                    proc_pid_stat_lines = reader.read()
-            # Process may be ended just after pid_list is generated. "try-except" is used for avoiding errors in this situation.
-            # Removed pid from "selected_process_child_process_pids" and skip to next loop (pid) if process is ended just after selected_process_child_process_pids is generated.
-            except FileNotFoundError:
-                selected_process_child_process_pids.remove(pid)
-                continue
-            first_parentheses = proc_pid_stat_lines.find("(")                             # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
-            second_parentheses = proc_pid_stat_lines.rfind(")")                           # Last parantheses ")" index is get by using "find()".
-            process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]  # Process name is get from string by using the indexes get previously.
-            process_name = process_name_from_stat
-            if len(process_name) == 15:                                                   # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
-                try:
-                    with open("/proc/" + pid + "/cmdline") as reader:
-                        process_name = reader.read().split("/")[-1].split("\x00")[0]      # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
-                except FileNotFoundError:                                                 # Removed pid from "selected_process_child_process_pids" and skip to next loop (pid) if process is ended just after selected_process_child_process_pids is generated.
-                    selected_process_child_process_pids.remove(pid)
-                    continue
-                if process_name.startswith(process_name_from_stat) == False:
-                    process_name = process_name_from_stat                                 # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
-            selected_process_child_process_names.append(process_name)
-        child_process_names_pids = []
-        for i, pid in enumerate(selected_process_child_process_pids):
-            child_process_names_pids.append(f'{selected_process_child_process_names[i]} (PID: {pid})')
-
-        return child_process_names_pids
-
-
     # ----------------------- Get process real, effective and saved UIDs -----------------------
-    def process_details_process_real_effective_saved_uids_func(self, proc_pid_status_lines):
+    def process_details_process_real_effective_saved_uids_func(self, status_output_split):
 
-        for line in proc_pid_status_lines:
+        for line in status_output_split:
             if "Uid:\t" in line:
                 line_split = line.split(":")[1].split()
                 # There are 4 values in the Uid line (real, effective, user, filesystem UIDs)
@@ -749,9 +704,9 @@ class ProcessesDetails:
 
 
     # ----------------------- Get process real, effective and saved GIDs -----------------------
-    def process_details_process_real_effective_saved_gids_func(self, proc_pid_status_lines):
+    def process_details_process_real_effective_saved_gids_func(self, status_output_split):
 
-        for line in proc_pid_status_lines:
+        for line in status_output_split:
             if "Gid:\t" in line:
                 line_split = line.split(":")[1].split()
                 # There are 4 values in the Gid line (real, effective, user, filesystem GIDs)
@@ -763,45 +718,47 @@ class ProcessesDetails:
 
 
     # ----------------------- Get number of threads of the process -----------------------
-    def process_details_process_number_of_threads_func(self, proc_pid_stat_lines_split):
+    def process_details_process_number_of_threads_func(self, stat_output_split):
 
-        selected_process_num_threads = proc_pid_stat_lines_split[-33]
+        selected_process_num_threads = stat_output_split[-33]
 
         return selected_process_num_threads
 
 
     # ----------------------- Get threads (TIDs) of the process -----------------------
-    def process_details_process_tids_func(self, selected_process_pid):
+    def process_details_process_tids_func(self, task_ls_output):
 
-        selected_process_threads = [filename for filename in os.listdir("/proc/" + selected_process_pid + "/task/") if filename.isdigit()]
+        task_ls_output_lines = task_ls_output.split("\n")
+        selected_process_threads = [filename for filename in task_ls_output_lines if filename.isdigit()]
+        selected_process_threads = sorted(selected_process_threads, key=int)
 
         return selected_process_threads
 
 
     # ----------------------- Get the last CPU core number which process executed on -----------------------
-    def process_details_process_cpu_number_func(self, proc_pid_stat_lines_split):
+    def process_details_process_cpu_number_func(self, stat_output_split):
 
-        selected_process_cpu_num = proc_pid_stat_lines_split[-14]
+        selected_process_cpu_num = stat_output_split[-14]
 
         return selected_process_cpu_num
 
 
     # ----------------------- Get CPU times of the process -----------------------
-    def process_details_process_cpu_times_func(self, proc_pid_stat_lines_split):
+    def process_details_process_cpu_times_func(self, stat_output_split):
 
-        selected_process_cpu_times_user = proc_pid_stat_lines_split[-39]
-        selected_process_cpu_times_kernel = proc_pid_stat_lines_split[-38]
-        selected_process_cpu_times_children_user = proc_pid_stat_lines_split[-37]
-        selected_process_cpu_times_children_kernel = proc_pid_stat_lines_split[-36]
-        selected_process_cpu_times_io_wait = proc_pid_stat_lines_split[-11]
+        selected_process_cpu_times_user = stat_output_split[-39]
+        selected_process_cpu_times_kernel = stat_output_split[-38]
+        selected_process_cpu_times_children_user = stat_output_split[-37]
+        selected_process_cpu_times_children_kernel = stat_output_split[-36]
+        selected_process_cpu_times_io_wait = stat_output_split[-11]
 
         return selected_process_cpu_times_user, selected_process_cpu_times_kernel, selected_process_cpu_times_children_user, selected_process_cpu_times_children_kernel, selected_process_cpu_times_io_wait
 
 
     # ----------------------- Get process context switches -----------------------
-    def process_details_process_context_switches_func(self, proc_pid_status_lines):
+    def process_details_process_context_switches_func(self, status_output_split):
 
-        for line in proc_pid_status_lines:
+        for line in status_output_split:
             if line.startswith("voluntary_ctxt_switches:"):
                 selected_process_num_ctx_switches_voluntary = line.split(":")[1].strip()
             if line.startswith("nonvoluntary_ctxt_switches:"):
@@ -809,60 +766,51 @@ class ProcessesDetails:
 
         return selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary
 
-    # ----------------------- Get process memory (VMS) -----------------------
-    def process_details_process_memory_vms_func(self, proc_pid_stat_lines_split):
 
-        selected_process_memory_vms = int(proc_pid_stat_lines_split[-30])
+    # ----------------------- Get process memory (VMS) -----------------------
+    def process_details_process_memory_vms_func(self, stat_output_split):
+
+        selected_process_memory_vms = int(stat_output_split[-30])
 
         return selected_process_memory_vms
 
 
     # ----------------------- Get process memory (Shared) -----------------------
-    def process_details_process_memory_shared_func(self, selected_process_pid):
+    def process_details_process_memory_shared_func(self, statm_output):
 
-        try:
-            # Multiply with memory_page_size in order to convert the value into bytes.
-           with open("/proc/" + selected_process_pid + "/statm") as reader:                                   
-                selected_process_memory_shared = int(reader.read().split()[2]) * Processes.memory_page_size
-        except FileNotFoundError:
-            selected_process_memory_shared = 0
-            self.update_window_value = 0
-            self.process_details_process_end_label_func()
+        selected_process_memory_shared = int(statm_output.split()[2]) * Processes.memory_page_size
 
         return selected_process_memory_shared
 
-    # ----------------------- Get process memory (USS - Unique Set Size) and swap memory -----------------------
-    def process_details_process_memory_uss_and_swap_func(self, selected_process_pid):
 
-        try:
-            private_clean = 0
-            private_dirty = 0
-            memory_swap = 0
-            with open("/proc/" + selected_process_pid + "/smaps") as reader:
-                proc_pid_smaps_lines = reader.read().split("\n")
-            for line in proc_pid_smaps_lines:
-                if "Private_Clean:" in line:
-                    private_clean = private_clean + int(line.split(":")[1].split()[0].strip())
-                if "Private_Dirty:" in line:
-                    private_dirty = private_dirty + int(line.split(":")[1].split()[0].strip())
-                if line.startswith("Swap:"):
-                    memory_swap = memory_swap + int(line.split(":")[1].split()[0].strip())
-            # Kilobytes value converted into bytes value (there is a negligible deviation in bytes unit)
-            selected_process_memory_uss = (private_clean + private_dirty) * 1024
-            selected_process_memory_swap = memory_swap * 1024
-        except Exception:
-            selected_process_memory_uss = "-"
-            selected_process_memory_swap = "-"
+    # ----------------------- Get process memory (USS - Unique Set Size) and swap memory -----------------------
+    def process_details_process_memory_uss_and_swap_func(self, smaps_output):
+
+        smaps_output_lines = smaps_output.split("\n")
+
+        private_clean = 0
+        private_dirty = 0
+        memory_swap = 0
+        for line in smaps_output_lines:
+            if "Private_Clean:" in line:
+                private_clean = private_clean + int(line.split(":")[1].split()[0].strip())
+            if "Private_Dirty:" in line:
+                private_dirty = private_dirty + int(line.split(":")[1].split()[0].strip())
+            if line.startswith("Swap:"):
+                memory_swap = memory_swap + int(line.split(":")[1].split()[0].strip())
+        # Kilobytes value converted into bytes value (there is a negligible deviation in bytes unit)
+        selected_process_memory_uss = (private_clean + private_dirty) * 1024
+        selected_process_memory_swap = memory_swap * 1024
 
         return selected_process_memory_uss, selected_process_memory_swap
 
 
     # ----------------------- Get process read count, write count -----------------------
-    def process_details_process_read_write_counts_func(self, proc_pid_io_lines):
+    def process_details_process_read_write_counts_func(self, io_output_lines):
 
-        if proc_pid_io_lines != "-":
-            selected_process_read_count = int(proc_pid_io_lines[2].split(":")[1])
-            selected_process_write_count = int(proc_pid_io_lines[3].split(":")[1])
+        if io_output_lines != ["-"]:
+            selected_process_read_count = int(io_output_lines[2].split(":")[1])
+            selected_process_write_count = int(io_output_lines[3].split(":")[1])
         # Root access is needed for reading "/proc/[PID]/io" file else it gives error.
         else:
             selected_process_read_count = 0
@@ -871,40 +819,10 @@ class ProcessesDetails:
         return selected_process_read_count, selected_process_write_count
 
 
-    # ----------------------- Get process exe -----------------------
-    def process_details_process_exe_func(self, selected_process_pid):
-
-        try:
-            selected_process_exe = os.path.realpath("/proc/" + selected_process_pid + "/exe")
-        # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
-        except Exception:
-            selected_process_exe = "-"
-
-        return selected_process_exe
-
-
-    # ----------------------- Get process cwd -----------------------
-    def process_details_process_cwd_func(self, selected_process_pid):
-
-        try:
-            selected_process_cwd = os.readlink("/proc/" + selected_process_pid + "/cwd")
-        # "PermissionError" is used for processes that require root privileges for "cwd data". "FileNotFoundError" is used for zombie processes which do not have a readable "cwd" file (it has the file but it is a broken link).
-        except (PermissionError, FileNotFoundError) as multiple_exception:
-            selected_process_cwd = "-"
-
-        return selected_process_cwd
-
-
     # ----------------------- Get process cmdline -----------------------
-    def process_details_process_cmdline_func(self, selected_process_pid):
+    def process_details_process_cmdline_func(self, cmdline_output):
 
-        try:
-            with open("/proc/" + selected_process_pid + "/cmdline") as reader:
-                selected_process_cmdline = reader.read().split("\x00")
-        except FileNotFoundError:
-            selected_process_cmdline = "-"
-            self.update_window_value = 0
-            self.process_details_process_end_label_func()
+        selected_process_cmdline = cmdline_output.split(" ")
 
         if selected_process_cmdline == [""]:
             selected_process_cmdline = "-"
@@ -912,31 +830,71 @@ class ProcessesDetails:
         return selected_process_cmdline
 
 
-    # ----------------------- Get process open files -----------------------
-    def process_details_process_open_files_func(self, selected_process_pid):
+    # ----------------------- Get process cwd and open files -----------------------
+    def process_details_process_cwd_open_files_func(self, selected_process_pid, fd_ls_output):
 
+        command_list = ["readlink"]
+        if Config.environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
+
+        # "/proc/self" folder will be used for splitting the "readlink" command output.
+        command_list.append("/proc/self")
+
+        # Get process cwd path.
+        selected_process_cwd_path = "/proc/" + selected_process_pid + "/cwd"
+        command_list.append(selected_process_cwd_path)
+
+        # Append command for process cwd.
+        command_list.append("/proc/self")
+
+        # Get process fd path list.
+        fd_ls_output_lines = fd_ls_output.split("\n")
+        selected_process_fds = [filename for filename in fd_ls_output_lines if filename.isdigit()]
+        selected_process_fds = sorted(selected_process_fds, key=int)
+
+        selected_process_fd_paths = []
+        for fd in selected_process_fds:
+            selected_process_fd_paths.append("/proc/" + selected_process_pid + "/fd/" + fd)
+
+        if selected_process_fd_paths == []:
+            selected_process_fd_paths = "-"
+
+        # Append command list for process open files.
+        if selected_process_fd_paths != "-":
+            for path in selected_process_fd_paths:
+                command_list.append(path)
+
+        # Get "readlink" command output.
+        readlink_output = (subprocess.run(command_list, shell=False, capture_output=True)).stdout.decode().strip()
+        readlink_output_lines = readlink_output.split("\n")
+
+        # Split the "readlink" command output.
+        split_text = readlink_output_lines[0].strip()
+        readlink_output_split = readlink_output.split(split_text)
+        del readlink_output_split[0]
+
+        # Get process cwd.
+        selected_process_cwd = readlink_output_split[0].strip()
+        if selected_process_cwd == "":
+            selected_process_cwd = "-"
+
+        # Get process open files list.
         selected_process_open_files = []
-        try:
-            files_in_fd = [filename for filename in os.listdir("/proc/" + selected_process_pid + "/fd")]
-            for file in files_in_fd:
-                try:
-                    path = os.readlink("/proc/" + selected_process_pid + "/fd/" + file)
-                    if os.path.isfile(path) == True:
-                        selected_process_open_files.append(path)
-                except FileNotFoundError:
-                    continue
-        except (FileNotFoundError, PermissionError) as multiple_exception:
-            pass
+        readlink_output_split = readlink_output_split[1].strip().split("\n")
+        for file in readlink_output_split:
+            file_strip = file.strip()
+            # Prevent adding lines which are not files.
+            if file_strip.count("/") > 1:
+                selected_process_open_files.append(file_strip)
 
         if selected_process_open_files == []:
             selected_process_open_files = "-"
 
-        return selected_process_open_files
+        return selected_process_cwd, selected_process_open_files
 
-
-processes_details_object_list = []
 
 # Generate object for every process because more than one process window can be opened on Processes tab.
+processes_details_object_list = []
 def processes_details_show_process_details():
 
     # Prevent opening more than 10 windows in order to avoid very high CPU usage.
