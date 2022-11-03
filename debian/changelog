@@ -1,3 +1,15 @@
+system-monitoring-center (1.31.0) unstable; urgency=medium
+
+  * Improved: Process details window support for Flatpak
+  * Improved: Process right click menu for Flatpak
+  * Changed: Process details windows count limit: 8 (Flatpak: 3)
+  * Updated: German translations
+  * Removed: Parent/child process list (Process details window)
+  * Fix: GUI images for Flatpak
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 03 Nov 2022 15:00:00 +0300
+
 system-monitoring-center (1.30.1) unstable; urgency=medium
 
   * Fix: Application shortcut generation

@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v1.31.0 (03.11.2022)
+  * Improved: Process details window support for Flatpak
+  * Improved: Process right click menu for Flatpak
+  * Changed: Process details windows count limit: 8 (Flatpak: 3)
+  * Updated: German translations
+  * Removed: Parent/child process list (Process details window)
+  * Fix: GUI images for Flatpak
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.30.1 (29.10.2022)
   * Fix: Application shortcut generation
 
