@@ -342,8 +342,8 @@ class Disk:
         command_list = ["df", "--output=source,fstype,size,used,avail,pcent,target"]
         if Config.environment_type == "flatpak":
             command_list = ["flatpak-spawn", "--host"] + command_list
-        else:
-            df_output_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
+
+        df_output_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
 
         # Remove command output title line. Only disk information will be left.
         del df_output_lines[0]
