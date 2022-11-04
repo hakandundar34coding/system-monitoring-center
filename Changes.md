@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.32.0 (04.11.2022)
+  * Simplified main menu
+  * Replaced several GUI images with built-in GTK images
+  * Fix: Getting disk/process information for old distributions
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.31.0 (03.11.2022)
   * Improved: Process details window support for Flatpak
   * Improved: Process right click menu for Flatpak

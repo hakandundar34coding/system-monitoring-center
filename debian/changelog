@@ -1,3 +1,12 @@
+system-monitoring-center (1.32.0) unstable; urgency=medium
+
+  * Simplified main menu
+  * Replaced several GUI images with built-in GTK images
+  * Fix: Getting disk/process information for old distributions
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 04 Nov 2022 15:00:00 +0300
+
 system-monitoring-center (1.31.0) unstable; urgency=medium
 
   * Improved: Process details window support for Flatpak

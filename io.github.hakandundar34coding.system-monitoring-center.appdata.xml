@@ -73,9 +73,20 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="1.32.0" date="2022-11-04">
+      <description>
+        <p>Changes for v1.32.0:</p>
+        <ul>
+          <li>Simplified main menu</li>
+          <li>Replaced several GUI images with built-in GTK images</li>
+          <li>Fix: Getting disk/process information for old distributions</li>
+          <li>Minor improvements (GUI, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.31.0" date="2022-11-03">
       <description>
-        <p>
+        <p>Changes for v1.31.0:</p>
         <ul>
           <li>Improved: Process details window support for Flatpak</li>
           <li>Improved: Process right click menu for Flatpak</li>
@@ -85,21 +96,19 @@
           <li>Fix: GUI images for Flatpak</li>
           <li>Minor improvements (GUI, translations, etc.)</li>
         </ul>
-        </p>
       </description>
     </release>
     <release version="1.30.1" date="2022-10-29">
       <description>
-        <p>
+        <p>Changes for v1.30.1:</p>
         <ul>
           <li>Fix: Application shortcut generation</li>
         </ul>
-        </p>
       </description>
     </release>
     <release version="1.30.0" date="2022-10-29">
       <description>
-        <p>
+        <p>Changes for v1.30.0:</p>
         <ul>
           <li>Improved: Processes tab information support for Flatpak</li>
           <li>Improved: Disk usage data support for Flatpak</li>
@@ -110,27 +119,24 @@
           <li>Fix: Detection of dark system theme for Flatpak</li>
           <li>Minor improvements (start speed, code etc.)</li>
         </ul>
-        </p>
       </description>
     </release>
     <release version="1.29.0" date="2022-10-23">
       <description>
-        <p>
+        <p>Changes for v1.29.0:</p>
         <ul>
           <li>New: Flatpak packaging</li>
         </ul>
-        </p>
       </description>
     </release>
     <release version="1.28.0" date="2022-10-11">
       <description>
-        <p>
+        <p>Changes for v1.28.0:</p>
         <ul>
           <li>New: Option for language selection</li>
           <li>New: Chinese (Simplified) translations</li>
           <li>Minor improvements (GUI, translations, etc.)</li>
         </ul>
-        </p>
       </description>
     </release>
   </releases>

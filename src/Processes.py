@@ -366,7 +366,7 @@ def processes_loop_func():
     for pid in pid_list:
         command_list.append("/proc/" + pid + "/stat")
         command_list.append("/proc/" + pid + "/io")
-    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()#stdout=PIPE
+    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
     global_cpu_time_all = time.time() * number_of_clock_ticks                                 # global_cpu_time_all value is get just after "/proc/[PID]/stat file is get in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
     cat_output_lines = cat_output.split("\n")
     process_cpu_time_list = []
