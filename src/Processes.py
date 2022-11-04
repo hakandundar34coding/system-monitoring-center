@@ -309,17 +309,30 @@ def processes_loop_func():
 
     processes_treeview_columns_shown = set(processes_treeview_columns_shown)                  # For obtaining lower CPU usage (because "if [number] in processes_treeview_columns_shown:" check is repeated thousand of times).
 
-    # Get process information by using "ps" command. "env" and "LANG=C" parameters are used in order to get column headers in English.
+
+    command_list = ["env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,exe:800,command=CMDLINE"]
+    command_list2 = ["env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,group:800,command=CMDLINE"]
     if Config.environment_type == "flatpak":
-        ps_output = (subprocess.check_output(["flatpak-spawn", "--host", "env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,exe:800,command=CMDLINE"], shell=False)).decode().strip()
-    else:
-        ps_output = (subprocess.check_output(["env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,exe:800,command=CMDLINE"], shell=False)).decode().strip()
+        command_list = ["flatpak-spawn", "--host"] + command_list
+        command_list2 = ["flatpak-spawn", "--host"] + command_list2
+    # Get process information by using "ps" command. "env" and "LANG=C" parameters are used in order to get column headers in English.
+    exe_column_get = 1
+    try:
+        # "stderr=subprocess.STDOUT" is used for not printing errors.
+        ps_output = (subprocess.check_output(command_list, stderr=subprocess.STDOUT, shell=False)).decode().strip()
+    except subprocess.CalledProcessError:
+        ps_output = (subprocess.check_output(command_list2, stderr=subprocess.STDOUT, shell=False)).decode().strip()
+        exe_column_get = 0
+
     ps_output_lines = ps_output.split("\n")
     # Get first line (command output headers) for using it to determine column data locations. Because some columns (such as cmdline) may contain spaces.
     ps_output_headers = ps_output_lines[0]
     # Get column locations. "16" is subtracted because some column names may start after a few character on the right side. There is no need to use subtraction for "EXE" column because previous column "GID" is an integer data which is aligned to right.
     pid_column_index = ps_output_headers.index("PID") - 16
-    exe_column_index = ps_output_headers.index("EXE")
+    if exe_column_get == 1:
+        exe_column_index = ps_output_headers.index("EXE")
+    else:
+        exe_column_index = ps_output_headers.index("GROUP")
     cmdline_column_index = ps_output_headers.index("CMDLINE") - 16
 
     # Deleted first line (command output headers).
@@ -353,7 +366,7 @@ def processes_loop_func():
     for pid in pid_list:
         command_list.append("/proc/" + pid + "/stat")
         command_list.append("/proc/" + pid + "/io")
-    cat_output = (subprocess.run(command_list, shell=False, capture_output=True)).stdout.decode().strip()
+    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()#stdout=PIPE
     global_cpu_time_all = time.time() * number_of_clock_ticks                                 # global_cpu_time_all value is get just after "/proc/[PID]/stat file is get in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
     cat_output_lines = cat_output.split("\n")
     process_cpu_time_list = []
@@ -479,7 +492,11 @@ def processes_loop_func():
             processes_data_row.append(int(ps_output_line_split[10]))
         # Get process executable path.
         if 17 in processes_treeview_columns_shown:
-            processes_data_row.append(ps_output_line[exe_column_index:cmdline_column_index].strip())
+            if exe_column_get == 1:
+                process_exe = ps_output_line[exe_column_index:cmdline_column_index].strip()
+            else:
+                process_exe = "[Not Supported]"
+            processes_data_row.append()
         # Get process commandline.
         if 18 in processes_treeview_columns_shown:
             processes_data_row.append(ps_output_line[cmdline_column_index:].strip())

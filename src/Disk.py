@@ -339,10 +339,11 @@ class Disk:
     def disk_file_system_information_func(self, disk_list):
 
         # Get file system information of the mounted disks by using "df" command.
+        command_list = ["df", "--output=source,fstype,size,used,avail,pcent,target"]
         if Config.environment_type == "flatpak":
-            df_output_lines = (subprocess.run(["flatpak-spawn", "--host", "df", "--output=source,fstype,size,used,avail,pcent,target"], shell=False, capture_output=True)).stdout.decode().strip().split("\n")
+            command_list = ["flatpak-spawn", "--host"] + command_list
         else:
-            df_output_lines = (subprocess.run(["df", "--output=source,fstype,size,used,avail,pcent,target"], shell=False, capture_output=True)).stdout.decode().strip().split("\n")
+            df_output_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
 
         # Remove command output title line. Only disk information will be left.
         del df_output_lines[0]

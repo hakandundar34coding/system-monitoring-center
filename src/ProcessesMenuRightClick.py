@@ -214,10 +214,10 @@ class ProcessesMenuRightClick:
         selected_process_stat_file = "/proc/" + selected_process_pid + "/stat"
 
         # Get priority (nice value) of the process.
+        command_list = ["cat", selected_process_stat_file]
         if Config.environment_type == "flatpak":
-            cat_output = (subprocess.run(["flatpak-spawn", "--host", "cat", selected_process_stat_file], shell=False, capture_output=True)).stdout.decode().strip()
-        else:
-            cat_output = (subprocess.run(["cat", selected_process_stat_file], shell=False, capture_output=True)).stdout.decode().strip()
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
         # Process may be ended just after pid_list is generated. "cat" command output is get as "" in this situation.
         if cat_output != "":
             selected_process_nice = int(cat_output.split()[-34])

@@ -1714,7 +1714,7 @@
                             <property name="can-focus">False</property>
                             <property name="halign">start</property>
                             <property name="valign">start</property>
-                            <property name="label" translatable="yes">File</property>
+                            <property name="label" translatable="yes">Path</property>
                           </object>
                           <packing>
                             <property name="left-attach">0</property>
@@ -1885,7 +1885,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Path</property>
+                <property name="label" translatable="yes">File</property>
               </object>
               <packing>
                 <property name="position">4</property>

@@ -451,7 +451,7 @@ class ProcessesDetails:
         command_list.append("/proc/version")
         command_list.append("/proc/" + selected_process_pid + "/cmdline")
 
-        cat_output = (subprocess.run(command_list, shell=False, capture_output=True)).stdout.decode().strip()
+        cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
 
         # Get split text by using the first line. This text will be used for splitting
         # the outputs of different procfs files. Because output of some files may be ""
@@ -495,7 +495,7 @@ class ProcessesDetails:
         command_list.append("/proc/" + selected_process_pid + "/fd/")
         command_list.append("/proc/" + selected_process_pid + "/task/")
 
-        ls_output = (subprocess.run(command_list, shell=False, capture_output=True)).stdout.decode().strip()
+        ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
 
         # Get output of procfs folders.
         if "/fd/" in ls_output and "/task/" in ls_output:
@@ -681,9 +681,8 @@ class ProcessesDetails:
             command_list = ["realpath"]
         command_list.append("/proc/" + selected_process_pid + "/exe")
 
-        try:
-            selected_process_exe = (subprocess.check_output(command_list, shell=False)).decode().strip()
-        except Exception:
+        selected_process_exe = (subprocess.run(command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)).stdout.decode().strip()
+        if selected_process_exe == "":
             selected_process_exe = "-"
 
         return selected_process_exe
@@ -865,7 +864,7 @@ class ProcessesDetails:
                 command_list.append(path)
 
         # Get "readlink" command output.
-        readlink_output = (subprocess.run(command_list, shell=False, capture_output=True)).stdout.decode().strip()
+        readlink_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
         readlink_output_lines = readlink_output.split("\n")
 
         # Split the "readlink" command output.
