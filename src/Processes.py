@@ -496,7 +496,7 @@ def processes_loop_func():
                 process_exe = ps_output_line[exe_column_index:cmdline_column_index].strip()
             else:
                 process_exe = "[Not Supported]"
-            processes_data_row.append()
+            processes_data_row.append(process_exe)
         # Get process commandline.
         if 18 in processes_treeview_columns_shown:
             processes_data_row.append(ps_output_line[cmdline_column_index:].strip())
