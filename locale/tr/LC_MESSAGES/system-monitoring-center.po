@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 13:09+0300\n"
-"PO-Revision-Date: 2022-11-03 13:11+0300\n"
+"POT-Creation-Date: 2022-11-04 10:25+0300\n"
+"PO-Revision-Date: 2022-11-04 10:34+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -710,11 +710,11 @@ msgstr "Sıcaklık"
 msgid "Multi-featured system monitor."
 msgstr "Çok özellikli sistem gözlemcisi."
 
-#: ui/MainMenusDialogs.ui:91
-msgid "Settings"
-msgstr "Ayarlar"
+#: ui/MainMenusDialogs.ui:73 ui/SettingsWindow.ui:7
+msgid "General Settings"
+msgstr "Genel Ayarlar"
 
-#: ui/MainMenusDialogs.ui:135
+#: ui/MainMenusDialogs.ui:93
 msgid "About"
 msgstr "Hakkında"
 
@@ -979,10 +979,6 @@ msgstr ""
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
 msgstr "Bu sekmedeki verileri yenile"
-
-#: ui/SettingsWindow.ui:7
-msgid "General Settings"
-msgstr "Genel Ayarlar"
 
 #: ui/SettingsWindow.ui:30
 msgid "Update interval (seconds):"

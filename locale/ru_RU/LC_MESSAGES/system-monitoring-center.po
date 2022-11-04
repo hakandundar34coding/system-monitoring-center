@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 13:09+0300\n"
-"PO-Revision-Date: 2022-11-03 13:12+0300\n"
+"POT-Creation-Date: 2022-11-04 10:35+0300\n"
+"PO-Revision-Date: 2022-11-04 10:35+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -143,7 +143,7 @@ msgstr ""
 msgid "Bank Locator"
 msgstr ""
 
-#: src/MemorySwapDetails.py:66
+#: src/MemorySwapDetails.py:66 ui/ProcessesDetailsWindow.ui:1717
 msgid "File"
 msgstr "Файл"
 
@@ -282,8 +282,9 @@ msgstr ""
 msgid "GID"
 msgstr ""
 
-#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:1888
-#: ui/ProcessesMenuCustomizations.ui:291 ui/ServicesDetailsWindow.ui:75
+#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:171
+#: ui/ProcessesDetailsWindow.ui:1888 ui/ProcessesMenuCustomizations.ui:291
+#: ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr "Путь"
 
@@ -711,11 +712,11 @@ msgstr "Темература"
 msgid "Multi-featured system monitor."
 msgstr "Многофункциональный системный монитор."
 
-#: ui/MainMenusDialogs.ui:91
-msgid "Settings"
-msgstr "Настройки"
+#: ui/MainMenusDialogs.ui:73 ui/SettingsWindow.ui:7
+msgid "General Settings"
+msgstr "Общие настройки"
 
-#: ui/MainMenusDialogs.ui:135
+#: ui/MainMenusDialogs.ui:93
 msgid "About"
 msgstr "О программе"
 
@@ -783,10 +784,6 @@ msgstr ""
 #: ui/ProcessesCustomPriorityWindow.ui:96
 msgid "Cancel"
 msgstr "Отменить"
-
-#: ui/ProcessesDetailsWindow.ui:171 ui/ProcessesDetailsWindow.ui:1717
-msgid "Exe"
-msgstr "Исполняемый файл"
 
 #: ui/ProcessesDetailsWindow.ui:895
 msgid "Context Switches"
@@ -981,10 +978,6 @@ msgstr ""
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
 msgstr "Обновить данные в этой вкладке"
-
-#: ui/SettingsWindow.ui:7
-msgid "General Settings"
-msgstr "Общие настройки"
 
 #: ui/SettingsWindow.ui:30
 msgid "Update interval (seconds):"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 13:09+0300\n"
+"POT-Creation-Date: 2022-11-04 10:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,7 +139,7 @@ msgstr ""
 msgid "Bank Locator"
 msgstr ""
 
-#: src/MemorySwapDetails.py:66
+#: src/MemorySwapDetails.py:66 ui/ProcessesDetailsWindow.ui:1717
 msgid "File"
 msgstr ""
 
@@ -278,8 +278,9 @@ msgstr ""
 msgid "GID"
 msgstr ""
 
-#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:1888
-#: ui/ProcessesMenuCustomizations.ui:291 ui/ServicesDetailsWindow.ui:75
+#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:171
+#: ui/ProcessesDetailsWindow.ui:1888 ui/ProcessesMenuCustomizations.ui:291
+#: ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr ""
 
@@ -707,11 +708,11 @@ msgstr ""
 msgid "Multi-featured system monitor."
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:91
-msgid "Settings"
+#: ui/MainMenusDialogs.ui:73 ui/SettingsWindow.ui:7
+msgid "General Settings"
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:135
+#: ui/MainMenusDialogs.ui:93
 msgid "About"
 msgstr ""
 
@@ -776,10 +777,6 @@ msgstr ""
 
 #: ui/ProcessesCustomPriorityWindow.ui:96
 msgid "Cancel"
-msgstr ""
-
-#: ui/ProcessesDetailsWindow.ui:171 ui/ProcessesDetailsWindow.ui:1717
-msgid "Exe"
 msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:895
@@ -972,10 +969,6 @@ msgstr ""
 
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
-msgstr ""
-
-#: ui/SettingsWindow.ui:7
-msgid "General Settings"
 msgstr ""
 
 #: ui/SettingsWindow.ui:30

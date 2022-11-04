@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 13:09+0300\n"
-"PO-Revision-Date: 2022-11-03 13:11+0300\n"
+"POT-Creation-Date: 2022-11-04 10:35+0300\n"
+"PO-Revision-Date: 2022-11-04 10:35+0300\n"
 "Last-Translator: ruojiner <ruojiner@hotmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -141,7 +141,7 @@ msgstr "定位器"
 msgid "Bank Locator"
 msgstr "Bank定位器"
 
-#: src/MemorySwapDetails.py:66
+#: src/MemorySwapDetails.py:66 ui/ProcessesDetailsWindow.ui:1717
 msgid "File"
 msgstr "文件"
 
@@ -280,8 +280,9 @@ msgstr "用户 ID"
 msgid "GID"
 msgstr "用户组 ID"
 
-#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:1888
-#: ui/ProcessesMenuCustomizations.ui:291 ui/ServicesDetailsWindow.ui:75
+#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:171
+#: ui/ProcessesDetailsWindow.ui:1888 ui/ProcessesMenuCustomizations.ui:291
+#: ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr "路径"
 
@@ -709,11 +710,11 @@ msgstr "温度"
 msgid "Multi-featured system monitor."
 msgstr "多功能系统监视器。"
 
-#: ui/MainMenusDialogs.ui:91
-msgid "Settings"
-msgstr "设置"
+#: ui/MainMenusDialogs.ui:73 ui/SettingsWindow.ui:7
+msgid "General Settings"
+msgstr "常规设置"
 
-#: ui/MainMenusDialogs.ui:135
+#: ui/MainMenusDialogs.ui:93
 msgid "About"
 msgstr "关于"
 
@@ -781,10 +782,6 @@ msgstr ""
 #: ui/ProcessesCustomPriorityWindow.ui:96
 msgid "Cancel"
 msgstr "返回"
-
-#: ui/ProcessesDetailsWindow.ui:171 ui/ProcessesDetailsWindow.ui:1717
-msgid "Exe"
-msgstr "执行"
 
 #: ui/ProcessesDetailsWindow.ui:895
 msgid "Context Switches"
@@ -977,10 +974,6 @@ msgstr "注意：这个选项卡不会自动重新加载，手动重新加载更
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
 msgstr "刷新标签页数据"
-
-#: ui/SettingsWindow.ui:7
-msgid "General Settings"
-msgstr "常规设置"
 
 #: ui/SettingsWindow.ui:30
 msgid "Update interval (seconds):"

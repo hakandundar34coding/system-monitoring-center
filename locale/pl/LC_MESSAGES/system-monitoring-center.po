@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 13:09+0300\n"
-"PO-Revision-Date: 2022-11-03 13:14+0300\n"
+"POT-Creation-Date: 2022-11-04 10:35+0300\n"
+"PO-Revision-Date: 2022-11-04 10:36+0300\n"
 "Last-Translator: ski007 <ski007@linux.pl>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -146,7 +146,7 @@ msgstr "Slot"
 msgid "Bank Locator"
 msgstr "Bank"
 
-#: src/MemorySwapDetails.py:66
+#: src/MemorySwapDetails.py:66 ui/ProcessesDetailsWindow.ui:1717
 msgid "File"
 msgstr "Plik"
 
@@ -285,8 +285,9 @@ msgstr "UID"
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:1888
-#: ui/ProcessesMenuCustomizations.ui:291 ui/ServicesDetailsWindow.ui:75
+#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:171
+#: ui/ProcessesDetailsWindow.ui:1888 ui/ProcessesMenuCustomizations.ui:291
+#: ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr "Ścieżka"
 
@@ -714,11 +715,11 @@ msgstr "Temperatura"
 msgid "Multi-featured system monitor."
 msgstr "Wielofunkcyjny monitor systemu."
 
-#: ui/MainMenusDialogs.ui:91
-msgid "Settings"
-msgstr "Ustawienia"
+#: ui/MainMenusDialogs.ui:73 ui/SettingsWindow.ui:7
+msgid "General Settings"
+msgstr "Główne Ustawienia"
 
-#: ui/MainMenusDialogs.ui:135
+#: ui/MainMenusDialogs.ui:93
 msgid "About"
 msgstr "O programie"
 
@@ -786,10 +787,6 @@ msgstr ""
 #: ui/ProcessesCustomPriorityWindow.ui:96
 msgid "Cancel"
 msgstr "Anuluj"
-
-#: ui/ProcessesDetailsWindow.ui:171 ui/ProcessesDetailsWindow.ui:1717
-msgid "Exe"
-msgstr ""
 
 #: ui/ProcessesDetailsWindow.ui:895
 msgid "Context Switches"
@@ -982,10 +979,6 @@ msgstr "Uwaga: Ta karta nie jest ponownie automatycznie ładowana."
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
 msgstr "Odśwież dane w tej zakładce"
-
-#: ui/SettingsWindow.ui:7
-msgid "General Settings"
-msgstr "Główne Ustawienia"
 
 #: ui/SettingsWindow.ui:30
 msgid "Update interval (seconds):"

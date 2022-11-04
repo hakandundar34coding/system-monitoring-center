@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 13:09+0300\n"
-"PO-Revision-Date: 2022-11-03 13:15+0300\n"
+"POT-Creation-Date: 2022-11-04 10:35+0300\n"
+"PO-Revision-Date: 2022-11-04 10:37+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa\n"
@@ -144,7 +144,7 @@ msgstr "مکان‌یاب"
 msgid "Bank Locator"
 msgstr "مخزن مکان‌یاب"
 
-#: src/MemorySwapDetails.py:66
+#: src/MemorySwapDetails.py:66 ui/ProcessesDetailsWindow.ui:1717
 msgid "File"
 msgstr "فایل"
 
@@ -288,8 +288,9 @@ msgstr "شناسه کاربر"
 msgid "GID"
 msgstr "شناسه گروه"
 
-#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:1888
-#: ui/ProcessesMenuCustomizations.ui:291 ui/ServicesDetailsWindow.ui:75
+#: src/Processes.py:211 ui/ProcessesDetailsWindow.ui:171
+#: ui/ProcessesDetailsWindow.ui:1888 ui/ProcessesMenuCustomizations.ui:291
+#: ui/ServicesDetailsWindow.ui:75
 msgid "Path"
 msgstr "مسیر"
 
@@ -717,11 +718,11 @@ msgstr "دما"
 msgid "Multi-featured system monitor."
 msgstr ""
 
-#: ui/MainMenusDialogs.ui:91
-msgid "Settings"
-msgstr "تنظیمات"
+#: ui/MainMenusDialogs.ui:73 ui/SettingsWindow.ui:7
+msgid "General Settings"
+msgstr "تنظیمات عمومی"
 
-#: ui/MainMenusDialogs.ui:135
+#: ui/MainMenusDialogs.ui:93
 msgid "About"
 msgstr "درباره"
 
@@ -789,10 +790,6 @@ msgstr ""
 #: ui/ProcessesCustomPriorityWindow.ui:96
 msgid "Cancel"
 msgstr "لغو"
-
-#: ui/ProcessesDetailsWindow.ui:171 ui/ProcessesDetailsWindow.ui:1717
-msgid "Exe"
-msgstr "مسیر فایل اجرایی"
 
 #: ui/ProcessesDetailsWindow.ui:895
 msgid "Context Switches"
@@ -988,10 +985,6 @@ msgstr ""
 #: ui/ServicesTab.ui:77 ui/SystemTab.ui:43
 msgid "Refresh the data on this tab"
 msgstr "داده های این زبانه را بروزرسانی کن"
-
-#: ui/SettingsWindow.ui:7
-msgid "General Settings"
-msgstr "تنظیمات عمومی"
 
 #: ui/SettingsWindow.ui:30
 msgid "Update interval (seconds):"
