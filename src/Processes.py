@@ -311,6 +311,8 @@ def processes_loop_func():
 
 
     command_list = ["env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,exe:800,command=CMDLINE"]
+    # "exe" parameter is not recognized by "ps" command in "coreuilts" package if version
+    # is lower than 8.30. "group" parameter is used instead of "exe as a placeholder.
     command_list2 = ["env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,group:800,command=CMDLINE"]
     if Config.environment_type == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list

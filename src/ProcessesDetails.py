@@ -266,7 +266,6 @@ class ProcessesDetails:
         selected_process_read_speed, selected_process_write_speed = self.process_details_process_disk_read_write_speed_func(selected_process_read_bytes, selected_process_write_bytes)
         selected_process_start_time = self.process_details_process_start_time_func(stat_output_split)
         selected_process_ppid = self.process_details_process_ppid_func(stat_output_split)
-        selected_process_exe = self.process_details_process_exe_func(selected_process_pid)
         selected_process_uid_real, selected_process_uid_effective, selected_process_uid_saved = self.process_details_process_real_effective_saved_uids_func(status_output_split)
         selected_process_gid_real, selected_process_gid_effective, selected_process_gid_saved = self.process_details_process_real_effective_saved_gids_func(status_output_split)
         selected_process_num_threads = self.process_details_process_number_of_threads_func(stat_output_split)
@@ -279,7 +278,7 @@ class ProcessesDetails:
         selected_process_memory_uss, selected_process_memory_swap = self.process_details_process_memory_uss_and_swap_func(smaps_output)
         selected_process_read_count, selected_process_write_count = self.process_details_process_read_write_counts_func(io_output_lines)
         selected_process_cmdline = self.process_details_process_cmdline_func(cmdline_output)
-        selected_process_cwd, selected_process_open_files = self.process_details_process_cwd_open_files_func(selected_process_pid, fd_ls_output)
+        selected_process_exe, selected_process_cwd, selected_process_open_files = self.process_details_process_exe_cwd_open_files_func(selected_process_pid, fd_ls_output)
 
         # Stop running functions in order to prevent errors.
         if self.update_window_value == 0:
@@ -672,22 +671,6 @@ class ProcessesDetails:
         return selected_process_ppid
 
 
-    # ----------------------- Get process exe -----------------------
-    def process_details_process_exe_func(self, selected_process_pid):
-
-        if Config.environment_type == "flatpak":
-            command_list = ["flatpak-spawn", "--host", "realpath"]
-        else:
-            command_list = ["realpath"]
-        command_list.append("/proc/" + selected_process_pid + "/exe")
-
-        selected_process_exe = (subprocess.run(command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)).stdout.decode().strip()
-        if selected_process_exe == "":
-            selected_process_exe = "-"
-
-        return selected_process_exe
-
-
     # ----------------------- Get process real, effective and saved UIDs -----------------------
     def process_details_process_real_effective_saved_uids_func(self, status_output_split):
 
@@ -830,7 +813,7 @@ class ProcessesDetails:
 
 
     # ----------------------- Get process cwd and open files -----------------------
-    def process_details_process_cwd_open_files_func(self, selected_process_pid, fd_ls_output):
+    def process_details_process_exe_cwd_open_files_func(self, selected_process_pid, fd_ls_output):
 
         command_list = ["readlink"]
         if Config.environment_type == "flatpak":
@@ -839,11 +822,18 @@ class ProcessesDetails:
         # "/proc/self" folder will be used for splitting the "readlink" command output.
         command_list.append("/proc/self")
 
+        # Get process exe path.
+        selected_process_exe_path = "/proc/" + selected_process_pid + "/exe"
+        command_list.append(selected_process_exe_path)
+
+        # Append command for splitting command output.
+        command_list.append("/proc/self")
+
         # Get process cwd path.
         selected_process_cwd_path = "/proc/" + selected_process_pid + "/cwd"
         command_list.append(selected_process_cwd_path)
 
-        # Append command for process cwd.
+        # Append command for splitting command output.
         command_list.append("/proc/self")
 
         # Get process fd path list.
@@ -872,14 +862,19 @@ class ProcessesDetails:
         readlink_output_split = readlink_output.split(split_text)
         del readlink_output_split[0]
 
+        # Get process exe.
+        selected_process_exe = readlink_output_split[0].strip()
+        if selected_process_exe == "":
+            selected_process_exe = "-"
+
         # Get process cwd.
-        selected_process_cwd = readlink_output_split[0].strip()
+        selected_process_cwd = readlink_output_split[1].strip()
         if selected_process_cwd == "":
             selected_process_cwd = "-"
 
         # Get process open files list.
         selected_process_open_files = []
-        readlink_output_split = readlink_output_split[1].strip().split("\n")
+        readlink_output_split = readlink_output_split[2].strip().split("\n")
         for file in readlink_output_split:
             file_strip = file.strip()
             # Prevent adding lines which are not files.
@@ -889,7 +884,7 @@ class ProcessesDetails:
         if selected_process_open_files == []:
             selected_process_open_files = "-"
 
-        return selected_process_cwd, selected_process_open_files
+        return selected_process_exe, selected_process_cwd, selected_process_open_files
 
 
 # Generate object for every process because more than one process window can be opened on Processes tab.
