@@ -229,30 +229,37 @@ def users_loop_func():
         logged_in_users_list.append(line_split[-1])
 
     # Get CPU usage percent of all processes
-    if Config.environment_type != "flatpak":
+    if 10 in users_treeview_columns_shown:
+        command_list = ["cat"]
+        if Config.environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        for pid in pid_list:
+            command_list.append("/proc/" + pid + "/stat")
+        cat_output_lines = (subprocess.run(command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)).stdout.decode().strip().split("\n")
+        global_cpu_time_all = time.time() * number_of_clock_ticks                             # global_cpu_time_all value is get just after "/proc/[PID]/stat file is get in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
         all_process_cpu_usages = []
-        if 10 in users_treeview_columns_shown:
-            for pid in pid_list[:]:
-                try:
-                    with open("/proc/" + pid + "/stat") as reader:
-                        global_cpu_time_all = time.time() * number_of_clock_ticks                 # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
-                        proc_pid_stat_lines = reader.read().split()
-                except (FileNotFoundError, ProcessLookupError) as e:                              # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-                    index_to_remove = pid_list.index(pid)
-                    pid_list.remove(pid)
-                    del logged_in_users_list[index_to_remove]
-                    del user_processes_start_times[index_to_remove]
-                    continue
-                process_cpu_time = int(proc_pid_stat_lines[-39]) + int(proc_pid_stat_lines[-38])  # Get process cpu time in user mode (utime + stime)
-                global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))          # While appending multiple elements into a list "append((value1, value2))" is faster than "append([value1, value2])".
-                try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are use in these situations.
-                    global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(pid)]
-                except (ValueError, IndexError, UnboundLocalError) as me:
-                    process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
-                    global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process
-                process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
-                global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-                all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
+        pid_list_from_stat = []
+        for line in cat_output_lines:
+            line_split = line.split()
+            process_pid = line_split[0]
+            pid_list_from_stat.append(process_pid)
+            process_cpu_time = int(line_split[-39]) + int(line_split[-38])                    # Get process cpu time in user mode (utime + stime)
+            global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))          # While appending multiple elements into a list "append((value1, value2))" is faster than "append([value1, value2])".
+            try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are use in these situations.
+                global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(process_pid)]
+            except (ValueError, IndexError, UnboundLocalError) as me:
+                process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
+                global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process
+            process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
+            global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
+            all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
+        for pid in pid_list[:]:
+            index_to_remove = pid_list.index(pid)
+            if pid not in pid_list_from_stat:
+                del pid_list[index_to_remove]
+                del user_processes_start_times[index_to_remove]
+                del logged_in_users_list[index_to_remove]
+            continue
 
     # Get only logged in human user list.
     user_logged_in_list = []
@@ -326,13 +333,10 @@ def users_loop_func():
                 users_data_row.append(user_process_start_time)
             # Get user processes CPU usage percentages
             if 10 in users_treeview_columns_shown:
-                if Config.environment_type == "flatpak":
-                    user_users_cpu_percent = 0
-                else:
-                    user_users_cpu_percent = 0
-                    for pid in pid_list:
-                        if logged_in_users_list[pid_list.index(pid)] == username:
-                            user_users_cpu_percent = user_users_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
+                user_users_cpu_percent = 0
+                for pid in pid_list:
+                    if logged_in_users_list[pid_list.index(pid)] == username:
+                        user_users_cpu_percent = user_users_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
                 users_data_row.append(user_users_cpu_percent)
             # Append all data of the users into a list which will be appended into a treestore for showing the data on a treeview.
             users_data_rows.append(users_data_row)

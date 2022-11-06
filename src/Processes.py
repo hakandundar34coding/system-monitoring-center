@@ -393,7 +393,7 @@ def processes_loop_func():
     if len(disk_read_write_data) < len(pid_list_from_stat):                                   # Append disk read/write data of the last process if it the line starts with digit number. This is skipped in the loop.
         disk_read_write_data.append([0, 0])
 
-    # Get process shared memory data fo rall processes. This information is not provided
+    # Get process shared memory data for all processes. This information is not provided
     # by "ps" command. "ps" command output is processes line-by-line and next line is
     # detected as process statm file if current line contains string value in the second element.
     if 7 in processes_treeview_columns_shown:
