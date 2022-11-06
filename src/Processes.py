@@ -198,7 +198,7 @@ def processes_initial_func():
                           [4, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
                           [5, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
                           [6, _tr('Memory (VMS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
-                          [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap_shared]],
+                          [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
                           [8, _tr('Read Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_usage]],
                           [9, _tr('Write Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_usage]],
                           [10, _tr('Read Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_speed]],
@@ -393,6 +393,35 @@ def processes_loop_func():
     if len(disk_read_write_data) < len(pid_list_from_stat):                                   # Append disk read/write data of the last process if it the line starts with digit number. This is skipped in the loop.
         disk_read_write_data.append([0, 0])
 
+    # Get process shared memory data fo rall processes. This information is not provided
+    # by "ps" command. "ps" command output is processes line-by-line and next line is
+    # detected as process statm file if current line contains string value in the second element.
+    if 7 in processes_treeview_columns_shown:
+        command_list = ["cat"]
+        if Config.environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        for pid in pid_list:
+            command_list.append("/proc/" + pid + "/stat")
+            command_list.append("/proc/" + pid + "/statm")
+        cat_output_lines = (subprocess.run(command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)).stdout.decode().strip().split("\n")
+        process_memory_shared_list = []
+        pid_list_from_stat_statm = []
+        for i, line in enumerate(cat_output_lines):
+            line_split = line.split()
+            if line_split[1].isdigit() == False:
+                process_pid = line_split[0]
+                if process_pid not in pid_list:
+                    continue
+                next_line = cat_output_lines[i+1]
+                next_line_split = next_line.split()
+                if next_line_split[1].isdigit() == True:
+                    process_memory_shared_list.append(int(next_line_split[2]) * memory_page_size)
+                else:
+                    process_memory_shared_list.append(0)
+                pid_list_from_stat_statm.append(process_pid)
+        if len(process_memory_shared_list) < len(pid_list_from_stat_statm):
+            process_memory_shared_list.append(0)
+
     # Get and append process data.
     for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
         index = pid_list.index(pid)
@@ -450,7 +479,12 @@ def processes_loop_func():
             processes_data_row.append(int(ps_output_line_split[4]) * 1024)
         # Get process shared memory size and multiply with 1024 in order to convert the value into bytes.
         if 7 in processes_treeview_columns_shown:
-            processes_data_row.append(0)
+            if pid in pid_list_from_stat_statm:
+                index_from_stat_statm = pid_list_from_stat_statm.index(pid)
+                process_shared_memory = process_memory_shared_list[index_from_stat_statm]
+            else:
+                process_shared_memory = 0
+            processes_data_row.append(process_shared_memory)
         # Get process read data, write data, read speed, write speed.
         if 8 in processes_treeview_columns_shown or 9 in processes_treeview_columns_shown or 10 in processes_treeview_columns_shown or 11 in processes_treeview_columns_shown:
             process_read_bytes = disk_read_write_data[index_from_stat][0]
@@ -698,9 +732,6 @@ def cell_data_function_disk_usage(tree_column, cell, tree_model, iter, data):
 def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{performance_data_unit_converter_func("speed", processes_disk_speed_bit, tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision)}/s')
 
-
-def cell_data_function_ram_swap_shared(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', "-")
 
 # ----------------------------------- Processes - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
 def on_column_title_clicked(widget):
