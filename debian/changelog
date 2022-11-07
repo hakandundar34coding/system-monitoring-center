@@ -1,3 +1,15 @@
+system-monitoring-center (1.33.0) unstable; urgency=medium
+
+  * Improved: CPU usage of user processes for Flatpak
+  * Improved: Process shared memory support for Flatpak
+  * Improved: Physical RAM of some ARM devices for Flatpak
+  * Improvements for lower CPU usage (Processes tab)
+  * Improvements for lower CPU usage (Process details)
+  * Fix: Disk information for Flatpak
+  * Minor improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 07 Nov 2022 09:00:00 +0300
+
 system-monitoring-center (1.32.0) unstable; urgency=medium
 
   * Simplified main menu

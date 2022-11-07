@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v1.33.0 (07.11.2022)
+  * Improved: CPU usage of user processes for Flatpak
+  * Improved: Process shared memory support for Flatpak
+  * Improved: Physical RAM of some ARM devices for Flatpak
+  * Improvements for lower CPU usage (Processes tab)
+  * Improvements for lower CPU usage (Process details)
+  * Fix: Disk information for Flatpak
+  * Minor improvements (GUI, translations, etc.)
+
 ### v1.32.0 (04.11.2022)
   * Simplified main menu
   * Replaced several GUI images with built-in GTK images
