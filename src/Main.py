@@ -17,7 +17,7 @@ class Application(Gtk.Application):
             from MainGUI import MainGUI
             self.window = MainGUI.window1
             self.window.set_application(self)
-            self.window.show_all()
+            self.window.present()
             Gtk.main()
 
 
