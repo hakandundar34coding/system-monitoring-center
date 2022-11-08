@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from setuptools import setup, find_packages, os
-import sys
+import sys, shutil
 
 
 with open(os.path.dirname(os.path.realpath(__file__)) + "/src/__version__") as reader:
@@ -107,10 +107,9 @@ if package_type_var == "flatpak_package":
     install_requires=["PyGObject"]
     entry_points={}
 
+    shutil.copy2("icons/hicolor/scalable/apps/system-monitoring-center.svg", "icons/hicolor/scalable/actions/system-monitoring-center.svg")
+
     os.rename("icons/hicolor/scalable/apps/system-monitoring-center.svg", "icons/hicolor/scalable/apps/io.github.hakandundar34coding.system-monitoring-center.svg")
-    """icon_list = os.listdir("icons/hicolor/scalable/actions/")
-    for icon in icon_list:
-        os.rename("icons/hicolor/scalable/actions/" + icon, "icons/hicolor/scalable/actions/io.github.hakandundar34coding.system-monitoring-center." + icon.split("system-monitoring-center-")[-1])"""
 
     with open("integration/io.github.hakandundar34coding.system-monitoring-center.desktop") as reader:
         desktop_file_content = reader.read()
