@@ -491,10 +491,7 @@ def users_loop_func():
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
 def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, data):
-    if Config.environment_type == "flatpak":
-        cell.set_property('text', "[" + "!Flatpak" + "]")
-    else:
-        cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{users_cpu_precision}f} %')
+    cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{users_cpu_precision}f} %')
 
 def cell_data_function_started(tree_column, cell, tree_model, iter, data):
     cell_data = tree_model.get(iter, data)[0]

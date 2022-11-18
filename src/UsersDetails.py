@@ -234,13 +234,10 @@ class UsersDetails:
                     selected_user_process_start_time = time.time() - max(curent_user_process_start_time_list)
 
                 # Get user processes CPU usage percentages
-                if Config.environment_type == "flatpak":
-                    selected_user_cpu_percent = 0
-                else:
-                    selected_user_cpu_percent = 0
-                    for pid in pid_list:
-                        if logged_in_users_list[pid_list.index(pid)] == username:
-                            selected_user_cpu_percent = selected_user_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
+                selected_user_cpu_percent = 0
+                for pid in pid_list:
+                    if logged_in_users_list[pid_list.index(pid)] == username:
+                        selected_user_cpu_percent = selected_user_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
 
         # For using values in the next loop
         self.pid_list_prev = pid_list
@@ -268,10 +265,7 @@ class UsersDetails:
             self.label3110w.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
         if selected_user_process_start_time == 0:
             self.label3110w.set_text("-")
-        if Config.environment_type == "flatpak":
-            self.label3111w.set_text(f'{"[" + "!Flatpak" + "]"}')
-        else:
-            self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f}')
+        self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f}')
 
 
     # ----------------------------------- Users Details - Run Function -----------------------------------
