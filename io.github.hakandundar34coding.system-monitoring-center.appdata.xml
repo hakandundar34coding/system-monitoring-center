@@ -73,6 +73,13 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.0.1" date="2022-11-20">
+      <description>
+        <ul>
+          <li>Fix: Application crash after changing remembering last tabs</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.0.0" date="2022-11-20">
       <description>
         <ul>

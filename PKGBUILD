@@ -1,6 +1,6 @@
 # Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
 pkgname=system-monitoring-center
-_pkgver=2.0.0
+_pkgver=2.0.1
 pkgver=${_pkgver//-/.}
 pkgrel=1
 pkgdesc="Multi-featured system monitor."

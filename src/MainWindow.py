@@ -16,7 +16,7 @@ from Config import Config
 from Performance import Performance
 
 
-class MainWindow(Gtk.ApplicationWindow):
+class MainWindow():
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -56,18 +56,6 @@ class MainWindow(Gtk.ApplicationWindow):
         # Connect GUI signals
         self.main_gui_connect_signals()
 
-        # Run main tab function after main window is shown (this function is also called when main tab togglebuttons are toggled).
-        self.main_gui_tab_switch()
-
-        # Start the main loop function
-        self.main_gui_tab_loop()
-
-        # Hide Services tab if systemd is not used on the system.
-        self.main_gui_hide_services_tab()
-
-        # Check for updates (Python package only)
-        self.main_gui_check_for_updates()
-
 
     def main_gui_main_window(self):
         """
@@ -75,7 +63,7 @@ class MainWindow(Gtk.ApplicationWindow):
         """
 
         # Application window
-        self.main_window = self
+        self.main_window = Gtk.ApplicationWindow()
         #self.main_window.set_default_size(670, 570)
         self.main_window.set_size_request(670, 570)
         self.main_window.set_title(_tr("System Monitoring Center"))
@@ -626,7 +614,18 @@ class MainWindow(Gtk.ApplicationWindow):
         Some functions (such as hardware selection, performance backround function, etc.)
         are run after main window is shown in order to reduce window display delay.
         """
-        pass
+
+        # Run main tab function after main window is shown (this function is also called when main tab togglebuttons are toggled).
+        self.main_gui_tab_switch()
+
+        # Start the main loop function
+        self.main_gui_tab_loop()
+
+        # Hide Services tab if systemd is not used on the system.
+        self.main_gui_hide_services_tab()
+
+        # Check for updates (Python package only)
+        self.main_gui_check_for_updates()
 
 
     def main_gui_main_menu(self):
@@ -1068,7 +1067,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Prevent error if this is the first tab switch and there is no scrolledwindow.
         except AttributeError:
             pass
-
+        tooltip_text = "-"
         # Define variables for device list, selected device number and row number to be used for
         # adding scrolledwindow into the grid.
         performance_tab_current_sub_tab = Config.performance_tab_current_sub_tab

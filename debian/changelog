@@ -1,3 +1,9 @@
+system-monitoring-center (2.0.1) unstable; urgency=medium
+
+  * Fix: Application crash after changing remembering last tabs
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 20 Nov 2022 16:30:00 +0300
+
 system-monitoring-center (2.0.0) unstable; urgency=medium
 
   * New: GTK4 GUI toolkit is used instead of GTK3

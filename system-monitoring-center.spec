@@ -1,5 +1,5 @@
 Name:           system-monitoring-center
-Version:        2.0.0
+Version:        2.0.1
 Release:        1%{?dist}
 Summary:        Multi-featured system monitor.
 License:        GPLv3
