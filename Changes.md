@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v2.0.1 (20.11.2022)
+  * Fix: Application crash after changing remembering last tabs
+
 ### v2.0.0 (20.11.2022)
   * New: GTK4 GUI toolkit is used instead of GTK3
   * New: Design changes for main/tab customization/right click menus
