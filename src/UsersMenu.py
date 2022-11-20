@@ -1,0 +1,349 @@
+#!/usr/bin/env python3
+
+import gi
+gi.require_version('Gtk', '4.0')
+gi.require_version('Pango', '1.0')
+from gi.repository import Gtk, Pango
+
+from locale import gettext as _tr
+
+from Config import Config
+from Users import Users
+from MainWindow import MainWindow
+
+
+class UsersMenu:
+
+    def __init__(self):
+
+        # Menu GUI
+        self.menu_gui()
+
+
+    def menu_gui(self):
+        """
+        Generate menu GUI.
+        """
+
+        # Popover
+        self.users_menu_po = Gtk.Popover()
+
+        # Main grid
+        main_grid = Gtk.Grid()
+        main_grid.set_row_spacing(5)
+        main_grid.set_margin_top(5)
+        main_grid.set_margin_bottom(5)
+        main_grid.set_margin_start(5)
+        main_grid.set_margin_end(5)
+        self.users_menu_po.set_child(main_grid)
+
+        # Bold label atributes
+        self.attribute_list_bold = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        self.attribute_list_bold.insert(attribute)
+
+        # Label - Menu title
+        label = Gtk.Label()
+        label.set_attributes(self.attribute_list_bold)
+        label.set_label(_tr("Users"))
+        label.set_halign(Gtk.Align.CENTER)
+        label.set_margin_bottom(10)
+        main_grid.attach(label, 0, 0, 1, 1)
+
+        # Notebook
+        notebook = Gtk.Notebook()
+        notebook.set_hexpand(True)
+        notebook.set_vexpand(True)
+        main_grid.attach(notebook, 0, 1, 1, 1)
+
+        # Tab pages and ScrolledWindow
+        # "Add/Remove Columns" tab
+        tab_title_label = Gtk.Label()
+        tab_title_label.set_label(_tr("Add/Remove Columns"))
+        self.grid_add_remove_columns_tab = Gtk.Grid()
+        self.grid_add_remove_columns_tab.set_margin_top(15)
+        self.grid_add_remove_columns_tab.set_margin_bottom(5)
+        self.grid_add_remove_columns_tab.set_margin_start(5)
+        self.grid_add_remove_columns_tab.set_margin_end(5)
+        self.grid_add_remove_columns_tab.set_row_spacing(5)
+        notebook.append_page(self.grid_add_remove_columns_tab, tab_title_label)
+
+        # Button (Reset)
+        self.reset_button = Gtk.Button()
+        self.reset_button.set_label(_tr("Reset"))
+        self.reset_button.set_halign(Gtk.Align.CENTER)
+        main_grid.attach(self.reset_button, 0, 2, 1, 1)
+
+        # "Add/Remove Columns" tab GUI
+        self.add_remove_columns_tab_gui()
+
+        # GUI signals
+        self.gui_signals()
+
+
+    def add_remove_columns_tab_gui(self):
+        """
+        Generate "Add/Remove Columns" tab GUI objects.
+        """
+
+        # Grid
+        grid = Gtk.Grid()
+        grid.set_margin_top(10)
+        grid.set_margin_bottom(10)
+        grid.set_margin_start(10)
+        grid.set_margin_end(10)
+        grid.set_column_spacing(10)
+        grid.set_row_spacing(5)
+        self.grid_add_remove_columns_tab.attach(grid, 0, 0, 1, 1)
+
+        # Label - Tab title
+        label = Gtk.Label()
+        label.set_attributes(self.attribute_list_bold)
+        label.set_label(_tr("Add/Remove Columns"))
+        label.set_halign(Gtk.Align.START)
+        label.set_margin_bottom(10)
+        grid.attach(label, 0, 0, 2, 1)
+
+        # Checkbutton (User)
+        self.user_cb = Gtk.CheckButton()
+        self.user_cb.set_label(_tr("User"))
+        self.user_cb.set_active(True)
+        self.user_cb.set_sensitive(False)
+        self.user_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.user_cb, 0, 1, 1, 1)
+
+        # Checkbutton (Full Name)
+        self.full_name_cb = Gtk.CheckButton()
+        self.full_name_cb.set_label(_tr("Full Name"))
+        self.full_name_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.full_name_cb, 0, 2, 1, 1)
+
+        # Checkbutton (Logged In)
+        self.logged_in_cb = Gtk.CheckButton()
+        self.logged_in_cb.set_label(_tr("Logged In"))
+        self.logged_in_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.logged_in_cb, 0, 3, 1, 1)
+
+        # Checkbutton (UID)
+        self.uid_cb = Gtk.CheckButton()
+        self.uid_cb.set_label(_tr("UID"))
+        self.uid_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.uid_cb, 0, 4, 1, 1)
+
+        # Checkbutton (GID)
+        self.gid_cb = Gtk.CheckButton()
+        self.gid_cb.set_label(_tr("GID"))
+        self.gid_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.gid_cb, 0, 5, 1, 1)
+
+        # Checkbutton (Processes)
+        self.processes_cb = Gtk.CheckButton()
+        self.processes_cb.set_label(_tr("Processes"))
+        self.processes_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.processes_cb, 0, 6, 1, 1)
+
+        # Checkbutton (Home Directory)
+        self.home_directory_cb = Gtk.CheckButton()
+        self.home_directory_cb.set_label(_tr("Home Directory"))
+        self.home_directory_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.home_directory_cb, 1, 1, 1, 1)
+
+        # Checkbutton (Group)
+        self.group_cb = Gtk.CheckButton()
+        self.group_cb.set_label(_tr("Group"))
+        self.group_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.group_cb, 1, 2, 1, 1)
+
+        # Checkbutton (Terminal)
+        self.terminal_cb = Gtk.CheckButton()
+        self.terminal_cb.set_label(_tr("Terminal"))
+        self.terminal_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.terminal_cb, 1, 3, 1, 1)
+
+        # Checkbutton (Start Time)
+        self.start_time_cb = Gtk.CheckButton()
+        self.start_time_cb.set_label(_tr("Start Time"))
+        self.start_time_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.start_time_cb, 1, 4, 1, 1)
+
+        # Checkbutton (CPU)
+        self.cpu_cb = Gtk.CheckButton()
+        self.cpu_cb.set_label(_tr("CPU"))
+        self.cpu_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.cpu_cb, 1, 5, 1, 1)
+
+
+    def gui_signals(self):
+        """
+        Connect GUI signals.
+        """
+
+        self.users_menu_po.connect("show", self.on_users_menu_po_show)
+        self.reset_button.connect("clicked", self.on_reset_button_clicked)
+
+
+    def gui_connect_signals_func(self):
+        """
+        Connect some of the signals to be able to disconnect them for setting GUI.
+        """
+
+        self.user_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.full_name_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.logged_in_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.uid_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.gid_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.processes_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.home_directory_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.group_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.terminal_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.start_time_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.cpu_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+
+
+    def gui_disconnect_signals_func(self):
+        """
+        Disconnect some of the signals for setting GUI.
+        """
+
+        self.user_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.full_name_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.logged_in_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.uid_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.gid_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.processes_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.home_directory_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.group_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.terminal_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.start_time_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.cpu_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+
+
+    def on_users_menu_po_show(self, widget):
+        """
+        Run code when customizations menu popover is shown.
+        """
+ 
+        try:
+            self.gui_disconnect_signals_func()
+        except TypeError:
+            pass
+        self.set_gui()
+        self.gui_connect_signals_func()
+
+
+    def on_reset_button_clicked(self, widget):
+        """
+        Reset customizations.
+        """
+
+        # Load default settings
+        Config.config_default_users_func()
+        Config.config_save_func()
+
+        # Apply changes immediately (without waiting update interval).
+        Users.users_initial_func()
+        Users.users_loop_func()
+        self.gui_disconnect_signals_func()
+        self.set_gui()
+        self.gui_connect_signals_func()
+
+
+    def on_add_remove_checkbuttons_toggled(self, widget):
+        """
+        Run a function for adding/removing columns to treeview.
+        """
+
+        self.users_add_remove_columns_function()
+
+
+    def set_gui(self):
+        """
+        Set GUI items.
+        """
+
+        # Set GUI objects on Add/Remove Column tab
+        if 0 in Config.users_treeview_columns_shown:
+            self.user_cb.set_active(True)
+        else:
+            self.user_cb.set_active(False)
+        if 1 in Config.users_treeview_columns_shown:
+            self.full_name_cb.set_active(True)
+        else:
+            self.full_name_cb.set_active(False)
+        if 2 in Config.users_treeview_columns_shown:
+            self.logged_in_cb.set_active(True)
+        else:
+            self.logged_in_cb.set_active(False)
+        if 3 in Config.users_treeview_columns_shown:
+            self.uid_cb.set_active(True)
+        else:
+            self.uid_cb.set_active(False)
+        if 4 in Config.users_treeview_columns_shown:
+            self.gid_cb.set_active(True)
+        else:
+            self.gid_cb.set_active(False)
+        if 5 in Config.users_treeview_columns_shown:
+            self.processes_cb.set_active(True)
+        else:
+            self.processes_cb.set_active(False)
+        if 6 in Config.users_treeview_columns_shown:
+            self.home_directory_cb.set_active(True)
+        else:
+            self.home_directory_cb.set_active(False)
+        if 7 in Config.users_treeview_columns_shown:
+            self.group_cb.set_active(True)
+        else:
+            self.group_cb.set_active(False)
+        if 8 in Config.users_treeview_columns_shown:
+            self.terminal_cb.set_active(True)
+        else:
+            self.terminal_cb.set_active(False)
+        if 9 in Config.users_treeview_columns_shown:
+            self.start_time_cb.set_active(True)
+        else:
+            self.start_time_cb.set_active(False)
+        if 10 in Config.users_treeview_columns_shown:
+            self.cpu_cb.set_active(True)
+        else:
+            self.cpu_cb.set_active(False)
+
+
+    def users_add_remove_columns_function(self):
+        """
+        Add/Remove columns to treeview.
+        """
+
+        Config.users_treeview_columns_shown = []
+
+        if self.user_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(0)
+        if self.full_name_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(1)
+        if self.logged_in_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(2)
+        if self.uid_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(3)
+        if self.gid_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(4)
+        if self.processes_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(5)
+        if self.home_directory_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(6)
+        if self.group_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(7)
+        if self.terminal_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(8)
+        if self.start_time_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(9)
+        if self.cpu_cb.get_active() == True:
+            Config.users_treeview_columns_shown.append(10)
+
+        # Apply changes immediately (without waiting update interval).
+        Users.treeview_column_order_width_row_sorting()
+        Users.users_initial_func()
+        Users.users_loop_func()
+        Config.config_save_func()
+
+
+UsersMenu = UsersMenu()
+

@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 
-# Import modules
 import os
 
 
-# Define class
 class Config:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Define configration file and directory.
@@ -19,14 +16,15 @@ class Config:
         # Define read-only values
         # number_precision_list data info: [[ordering number, used in the code to get data, data unit, precision number], ...]
         self.number_precision_list = [[0, '0', 0], [1, '0.0', 1], [2, '0,00', 2], [3, '0,000', 3]]
-        self.language_dict = {"system":"System", "cs.UTF-8":"čeština", "de.UTF-8":"Deutsch", "en_US.UTF-8":"English (US)", "fa.UTF-8":"فارسی", "hu.UTF-8":"Magyar", "pl.UTF-8":"polski", "pt_BR.UTF-8":"português do Brasil", "pt_PT.UTF-8":"português europeu", "ru_RU.UTF-8":"Русский", "tr.UTF-8":"Türkçe", "zh_CN.UTF-8":"汉语"}
 
         # Read settings
         self.config_read_func()
 
 
-    # ----------------------- Called for reading settings (when the application is started) from the configration file -----------------------
     def config_read_func(self):
+        """
+        Read settings (when the application is started) from the configration file.
+        """
 
         # Define variables to read config data
         # This value is used for resetting all settings. There is no relationship between this value and application version.
@@ -34,7 +32,7 @@ class Config:
         # Code reads this value from the config file and compares with the value in the code.
         # All settings are reset if integer value of this value is bigger than the value in the config file.
         # There is no action if integer value of this value is smaller than the value in the config file.
-        self.reset_all_settings_with_new_release_value = 4
+        self.reset_all_settings_with_new_release_value = 5
         self.config_variables = []
         self.config_values = []
 
@@ -74,8 +72,10 @@ class Config:
             self.config_save_func()
 
 
-    # ----------------------- Called for default all settings -----------------------
     def config_default_reset_all_func(self):
+        """
+        Run functions for all default settings.
+        """
 
         self.config_default_general_general_func()
         self.config_default_performance_cpu_func()
@@ -89,11 +89,14 @@ class Config:
         self.config_default_services_func()
 
 
-    # ----------------------- Called for default general settings -----------------------
     def config_default_general_general_func(self):
+        """
+        Set default settings (General).
+        """
 
         self.reset_all_settings_with_new_release = self.reset_all_settings_with_new_release_value 
         self.language = "system"
+        self.light_dark_theme = "system"
         self.update_interval = 0.75
         self.chart_data_history = 150
         self.default_main_tab = 0
@@ -105,17 +108,21 @@ class Config:
         self.check_for_updates_automatically = 0
 
 
-    # ----------------------- Called for default CPU Tab settings -----------------------
     def config_default_performance_cpu_func(self):
-        
+        """
+        Set default settings (CPU tab).
+        """
+
         self.chart_line_color_cpu_percent = [0.29, 0.78, 0.0, 1.0]
         self.show_cpu_usage_per_core = 0
         self.performance_cpu_usage_percent_precision = 0
         self.selected_cpu_core = ""
 
 
-    # ----------------------- Called for default Memory Tab settings -----------------------
     def config_default_performance_memory_func(self):
+        """
+        Set default settings (Memory tab).
+        """
 
         self.chart_line_color_memory_percent = [0.27, 0.49, 1.0, 1.0]
         self.show_memory_usage_per_memory = 0
@@ -123,8 +130,10 @@ class Config:
         self.performance_memory_data_unit = 0
 
 
-    # ----------------------- Called for default Disk Tab settings -----------------------
     def config_default_performance_disk_func(self):
+        """
+        Set default settings (Disk tab).
+        """
 
         self.chart_line_color_disk_speed_usage = [1.0, 0.44, 0.17, 1.0]
         self.show_disk_usage_per_disk = 0
@@ -137,8 +146,10 @@ class Config:
         self.selected_disk = ""
 
 
-    # ----------------------- Called for default Network Tab settings -----------------------
     def config_default_performance_network_func(self):
+        """
+        Set default settings (Network tab).
+        """
 
         self.chart_line_color_network_speed_data = [0.56, 0.30, 0.78, 1.0]
         self.show_network_usage_per_network_card = 0
@@ -149,15 +160,20 @@ class Config:
         self.plot_network_upload_speed = 1
         self.selected_network_card = ""
 
-    # ----------------------- Called for default GPU Tab settings -----------------------
+
     def config_default_performance_gpu_func(self):
+        """
+        Set default settings (GPU tab).
+        """
 
         self.chart_line_color_fps = [1.0, 0.09, 0.09, 1.0]
         self.selected_gpu = ""
 
 
-    # ----------------------- Called for default Sensors Tab Row Sort Column Order Width settings -----------------------
     def config_default_performance_sensors_func(self):
+        """
+        Set default settings (Sensors tab).
+        """
 
         self.sensors_treeview_columns_shown = [0, 1, 2, 3, 4]
         self.sensors_data_row_sorting_column = 0
@@ -166,8 +182,10 @@ class Config:
         self.sensors_data_column_widths = [-1, -1, -1, -1, -1]
 
 
-    # ----------------------- Called for default Processes Tab settings -----------------------
     def config_default_processes_func(self):
+        """
+        Set default settings (Processes tab).
+        """
 
         self.show_processes_of_all_users = 1
         self.show_processes_as_tree = 0
@@ -186,8 +204,10 @@ class Config:
         self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
-    # ----------------------- Called for default Users Tab settings -----------------------
     def config_default_users_func(self):
+        """
+        Set default settings (Users tab).
+        """
 
         self.users_cpu_precision = 0
         self.users_treeview_columns_shown = [0, 2, 3, 5, 6, 7, 10]
@@ -197,8 +217,10 @@ class Config:
         self.users_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
-    # ----------------------- Called for default Services Tab settings -----------------------
     def config_default_services_func(self):
+        """
+        Set default settings (Services tab).
+        """
 
         self.services_memory_data_precision = 1
         self.services_memory_data_unit = 0
@@ -209,13 +231,23 @@ class Config:
         self.services_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1]
 
 
-    # ----------------------- Called for reading settings from the configration file -----------------------
     def config_get_values_func(self):
+        """
+        Read settings from the configration file.
+        Adding a new setting:
+
+        if "new_setting" in config_variables:
+            self.new_setting = int(config_values[config_variables.index("new_setting")])
+        else:
+            pass
+        """
 
         config_variables = self.config_variables
         config_values = self.config_values
 
         self.reset_all_settings_with_new_release = int(config_values[config_variables.index("reset_all_settings_with_new_release")])
+        self.language = config_values[config_variables.index("language")]
+        self.light_dark_theme = config_values[config_variables.index("light_dark_theme")]
         self.update_interval = float(config_values[config_variables.index("update_interval")])
         self.chart_data_history = int(config_values[config_variables.index("chart_data_history")])
         self.default_main_tab = int(config_values[config_variables.index("default_main_tab")])
@@ -225,10 +257,6 @@ class Config:
         self.remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
         self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
         self.check_for_updates_automatically = int(config_values[config_variables.index("check_for_updates_automatically")])
-        if "language" in config_variables:
-            self.language = config_values[config_variables.index("language")]
-        else:
-            pass
 
         self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
@@ -247,11 +275,8 @@ class Config:
         self.performance_disk_speed_bit = int(config_values[config_variables.index("performance_disk_speed_bit")])
         self.plot_disk_read_speed = int(config_values[config_variables.index("plot_disk_read_speed")])
         self.plot_disk_write_speed = int(config_values[config_variables.index("plot_disk_write_speed")])
+        self.hide_loop_ramdisk_zram_disks = int(config_values[config_variables.index("hide_loop_ramdisk_zram_disks")])
         self.selected_disk = config_values[config_variables.index("selected_disk")]
-        if "hide_loop_ramdisk_zram_disks" in config_variables:
-            self.hide_loop_ramdisk_zram_disks = int(config_values[config_variables.index("hide_loop_ramdisk_zram_disks")])
-        else:
-            pass
 
         self.chart_line_color_network_speed_data = [float(value) for value in config_values[config_variables.index("chart_line_color_network_speed_data")].strip("[]").split(", ")]
         self.show_network_usage_per_network_card = int(config_values[config_variables.index("show_network_usage_per_network_card")])
@@ -293,20 +318,20 @@ class Config:
         self.services_data_column_order = [int(value) for value in config_values[config_variables.index("services_data_column_order")].strip("[]").split(", ")]
         self.services_data_column_widths = [int(value) for value in config_values[config_variables.index("services_data_column_widths")].strip("[]").split(", ")]
 
-        # Adding a new setting
-        #     if "new_setting" in config_variables:
-        #         self.new_setting = int(config_values[config_variables.index("new_setting")])
-        #     else:
-        #         pass
 
-
-    # ----------------------- Called for writing settings into the configration file -----------------------
     def config_save_func(self):
+        """
+        Write settings into the configration file.
+        Adding a new setting:
+
+        config_write_text = config_write_text + "new_setting = " + str(self.new_value) + "\n"
+        """
 
         config_write_text = ""
         config_write_text = config_write_text + "[General - General]" + "\n"
         config_write_text = config_write_text + "reset_all_settings_with_new_release = " + str(self.reset_all_settings_with_new_release) + "\n"
         config_write_text = config_write_text + "language = " + str(self.language) + "\n"
+        config_write_text = config_write_text + "light_dark_theme = " + str(self.light_dark_theme) + "\n"
         config_write_text = config_write_text + "update_interval = " + str(self.update_interval) + "\n"
         config_write_text = config_write_text + "chart_data_history = " + str(self.chart_data_history) + "\n"
         config_write_text = config_write_text + "default_main_tab = " + str(self.default_main_tab) + "\n"
@@ -394,13 +419,9 @@ class Config:
         config_write_text = config_write_text + "services_data_column_widths = " + str(self.services_data_column_widths) + "\n"
         config_write_text = config_write_text + "\n"
 
-        # Adding a new setting
-        #     config_write_text = config_write_text + "new_setting = " + str(self.new_value) + "\n"
-
         with open(self.config_file_path, "w") as writer:
             writer.write(config_write_text)
 
 
-# Generate object
 Config = Config()
 

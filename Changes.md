@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v2.0.0 (20.11.2022)
+  * New: GTK4 GUI toolkit is used instead of GTK3
+  * New: Design changes for main/tab customization/right click menus
+  * New: Light/Dark GUI option
+  * New: Monitor resolution and refresh rate for multiple monitors
+  * Fix: Several GTK3 bugs are removed by switching to GTK4
+  * Several code simplifications
+  * Several improvements (code, GUI, translations, etc.)
+
 ### v1.33.0 (07.11.2022)
   * Improved: CPU usage of user processes for Flatpak
   * Improved: Process shared memory support for Flatpak

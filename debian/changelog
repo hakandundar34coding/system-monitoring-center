@@ -1,3 +1,15 @@
+system-monitoring-center (2.0.0) unstable; urgency=medium
+
+  * New: GTK4 GUI toolkit is used instead of GTK3
+  * New: Design changes for main/tab customization/right click menus
+  * New: Light/Dark GUI option
+  * New: Monitor resolution and refresh rate for multiple monitors
+  * Fix: Several GTK3 bugs are removed by switching to GTK4
+  * Several code simplifications
+  * Several improvements (code, GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 20 Nov 2022 15:00:00 +0300
+
 system-monitoring-center (1.33.0) unstable; urgency=medium
 
   * Improved: CPU usage of user processes for Flatpak

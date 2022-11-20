@@ -32,7 +32,7 @@
       <li>GPU usage information availability depends on vendor/driver.</li>
       <li>GPU load is not tracked if GPU tab is switched off (for lower CPU usage).</li>
       <li>Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.</li>
-      <li>Flatpak version of the application has slightly lower performance (start speed, CPU, RAM usage).</li>
+      <li>Non-Flatpak versions of the application has higher performance (start speed, CPU, RAM usage).</li>
     </ul>
     <p>Notes for Flatpak Support:</p>
     <ul>
@@ -73,6 +73,19 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.0.0" date="2022-11-20">
+      <description>
+        <ul>
+          <li>New: GTK4 GUI toolkit is used instead of GTK3</li>
+          <li>New: Design changes for main/tab customization/right click menus</li>
+          <li>New: Light/Dark GUI option</li>
+          <li>New: Monitor resolution and refresh rate for multiple monitors</li>
+          <li>Fix: Several GTK3 bugs are removed by switching to GTK4</li>
+          <li>Several code simplifications</li>
+          <li>Several improvements (code, GUI, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.33.0" date="2022-11-07">
       <description>
         <ul>

@@ -15,23 +15,6 @@ def files_in_folder(folder):
     return file_paths
 
 
-"""
-# Debian package
-if "--debian_package" in sys.argv:
-    package_type_var = "debian_package"
-    sys.argv.remove("--debian_package")
-
-# RPM package
-if "--rpm_package" in sys.argv:
-    package_type_var = "rpm_package"
-    sys.argv.remove("--rpm_package")
-
-# Arch Linux package
-if "--arch_package" in sys.argv:
-    package_type_var = "arch_package"
-    sys.argv.remove("--arch_package")
-"""
-
 # Flatpak package
 if "--flatpak_package" in sys.argv:
     package_type_var = "flatpak_package"
@@ -72,8 +55,6 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
         os.chmod(file, 0o644)
     for file in files_in_folder("src/"):
         os.chmod(file, 0o644)
-    for file in files_in_folder("ui/"):
-        os.chmod(file, 0o644)
     for file in files_in_folder("icons/hicolor/scalable/actions/"):
         os.chmod(file, 0o644)
     os.chmod("icons/hicolor/scalable/apps/system-monitoring-center.svg", 0o644)
@@ -93,7 +74,6 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
         ("/usr/share/system-monitoring-center/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/usr/share/system-monitoring-center/database/", files_in_folder("database/")),
         ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
-        ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
         ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
         ("/usr/share/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/system-monitoring-center.svg"]),
         ("/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
@@ -138,7 +118,6 @@ if package_type_var == "flatpak_package":
         ("/app/share/system-monitoring-center/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/app/share/system-monitoring-center/database/", files_in_folder("database/")),
         ("/app/share/system-monitoring-center/src/", files_in_folder("src/")),
-        ("/app/share/system-monitoring-center/ui/", files_in_folder("ui/")),
         ("/app/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
         ("/app/share/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/io.github.hakandundar34coding.system-monitoring-center.svg"]),
         ("/app/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
@@ -167,7 +146,6 @@ if package_type_var == "python_package":
         ("/systemmonitoringcenter/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/systemmonitoringcenter/database/", files_in_folder("database/")),
         ("/systemmonitoringcenter/src/", files_in_folder("src/")),
-        ("/systemmonitoringcenter/ui/", files_in_folder("ui/")),
         ("/systemmonitoringcenter/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
         ("/systemmonitoringcenter/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/system-monitoring-center.svg"]),
     ]
@@ -197,6 +175,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
         "Operating System :: POSIX :: Linux",
         "Topic :: System :: Monitoring",

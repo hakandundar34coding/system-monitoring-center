@@ -1,26 +1,28 @@
 #!/usr/bin/env python3
 
 import gi
-gi.require_version('Gtk', '3.0')
+
+gi.require_version('Gtk', '4.0')
+#gi.require_version('Adw', '1')
 from gi.repository import Gtk
 
 
-class Application(Gtk.Application):
+class SMCApplication(Gtk.Application):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, application_id="io.github.hakandundar34coding.system-monitoring-center", **kwargs)
-        self.window = None
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs, application_id="io.github.hakandundar34coding.system-monitoring-center")
+        self.connect('activate', self.on_activate)
+        self.main_window = None
 
-    def do_activate(self):
+    def on_activate(self, app):
         # Allow opening single instance of the application.
-        if not self.window:
-            from MainGUI import MainGUI
-            self.window = MainGUI.window1
-            self.window.set_application(self)
-            self.window.present()
-            Gtk.main()
+        if not self.main_window:
+            from MainWindow import MainWindow
+            self.main_window = MainWindow.main_window
+            self.main_window.set_application(self)
+            self.main_window.present()
 
 
-app = Application()
+app = SMCApplication()
 app.run(None)
 

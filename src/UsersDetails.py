@@ -1,65 +1,335 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
-gi.require_version('Gtk', '3.0')
+gi.require_version('Gtk', '4.0')
 gi.require_version('GLib', '2.0')
-gi.require_version('GdkPixbuf', '2.0')
-from gi.repository import Gtk, GLib, GdkPixbuf
+gi.require_version('Pango', '1.0')
+from gi.repository import Gtk, GLib, Pango
+
 import os
-from datetime import datetime
 import time
 import subprocess
+from datetime import datetime
 
 from locale import gettext as _tr
 
 from Config import Config
-import Users
+from Users import Users
 from Performance import Performance
+from MainWindow import MainWindow
 
 
-# Define class
 class UsersDetails:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
-        # Get GUI objects from file
-        builder3101w = Gtk.Builder()
-        builder3101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/UsersDetailsWindow.ui")
-
-        # Get GUI objects
-        self.window3101w = builder3101w.get_object('window3101w')
-        self.label3101w = builder3101w.get_object('label3101w')
-        self.label3102w = builder3101w.get_object('label3102w')
-        self.label3103w = builder3101w.get_object('label3103w')
-        self.label3104w = builder3101w.get_object('label3104w')
-        self.label3105w = builder3101w.get_object('label3105w')
-        self.label3106w = builder3101w.get_object('label3106w')
-        self.label3107w = builder3101w.get_object('label3107w')
-        self.label3108w = builder3101w.get_object('label3108w')
-        self.label3109w = builder3101w.get_object('label3109w')
-        self.label3110w = builder3101w.get_object('label3110w')
-        self.label3111w = builder3101w.get_object('label3111w')
-
-        # Connect GUI signals
-        self.window3101w.connect("delete-event", self.on_window3101w_delete_event)
-        self.window3101w.connect("show", self.on_window3101w_show)
+        # Window GUI
+        self.window_gui()
 
 
-    # ----------------------- Called for running code/functions when window is closed -----------------------
-    def on_window3101w_delete_event(self, widget, event):
+    def window_gui(self):
+        """
+        Generate window GUI.
+        """
+
+        # Window
+        self.user_details_window = Gtk.Window()
+        self.user_details_window.set_default_size(350, 330)
+        self.user_details_window.set_title(_tr("User"))
+        self.user_details_window.set_icon_name("system-monitoring-center")
+        self.user_details_window.set_transient_for(MainWindow.main_window)
+        self.user_details_window.set_modal(True)
+        self.user_details_window.set_hide_on_close(True)
+
+        # "Summary" tab GUI
+        self.main_tab_gui()
+
+        # GUI signals
+        self.gui_signals()
+
+
+    def main_tab_gui(self):
+        """
+        Generate labels on the main (single) tab.
+        """
+
+        # Style provider for showing borders of scrolledwindow.
+        css = b"scrolledwindow {border-style: solid; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
+        style_provider_scrolledwindow = Gtk.CssProvider()
+        style_provider_scrolledwindow.load_from_data(css)
+
+        # ScrolledWindow
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_margin_top(10)
+        scrolledwindow.set_margin_bottom(10)
+        scrolledwindow.set_margin_start(10)
+        scrolledwindow.set_margin_end(10)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.user_details_window.set_child(scrolledwindow)
+
+        # Viewport
+        viewport = Gtk.Viewport()
+        scrolledwindow.set_child(viewport)
+
+        # Grid
+        grid = Gtk.Grid.new()
+        grid.set_margin_top(10)
+        grid.set_margin_bottom(10)
+        grid.set_margin_start(10)
+        grid.set_margin_end(10)
+        grid.set_column_spacing(10)
+        grid.set_row_spacing(5)
+        scrolledwindow.set_child(grid)
+
+        # Label "User"
+        label = Gtk.Label()
+        label.set_label(_tr("User"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 0, 1, 1)
+
+        # Label - Separator "User"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 0, 1, 1)
+
+        # Label - Variable "User"
+        self.user_label = Gtk.Label()
+        self.user_label.set_selectable(True)
+        self.user_label.set_label("--")
+        self.user_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.user_label.set_halign(Gtk.Align.START)
+        grid.attach(self.user_label, 2, 0, 1, 1)
+
+        # Label "Full Name"
+        label = Gtk.Label()
+        label.set_label(_tr("Full Name"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 1, 1, 1)
+
+        # Label - Separator "Full Name"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 1, 1, 1)
+
+        # Label - Variable "Full Name"
+        self.full_name_label = Gtk.Label()
+        self.full_name_label.set_selectable(True)
+        self.full_name_label.set_label("--")
+        self.full_name_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.full_name_label.set_halign(Gtk.Align.START)
+        grid.attach(self.full_name_label, 2, 1, 1, 1)
+
+        # Label "Logged In"
+        label = Gtk.Label()
+        label.set_label(_tr("Logged In"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 2, 1, 1)
+
+        # Label - Separator "Logged In"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 2, 1, 1)
+
+        # Label - Variable "User"
+        self.logged_in_label = Gtk.Label()
+        self.logged_in_label.set_selectable(True)
+        self.logged_in_label.set_label("--")
+        self.logged_in_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.logged_in_label.set_halign(Gtk.Align.START)
+        grid.attach(self.logged_in_label, 2, 2, 1, 1)
+
+        # Label "UID"
+        label = Gtk.Label()
+        label.set_label(_tr("UID"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 3, 1, 1)
+
+        # Label - Separator "UID"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 3, 1, 1)
+
+        # Label - Variable "UID"
+        self.uid_label = Gtk.Label()
+        self.uid_label.set_selectable(True)
+        self.uid_label.set_label("--")
+        self.uid_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.uid_label.set_halign(Gtk.Align.START)
+        grid.attach(self.uid_label, 2, 3, 1, 1)
+
+        # Label "GID"
+        label = Gtk.Label()
+        label.set_label(_tr("GID"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 4, 1, 1)
+
+        # Label - Separator "GID"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 4, 1, 1)
+
+        # Label - Variable "GID"
+        self.gid_label = Gtk.Label()
+        self.gid_label.set_selectable(True)
+        self.gid_label.set_label("--")
+        self.gid_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.gid_label.set_halign(Gtk.Align.START)
+        grid.attach(self.gid_label, 2, 4, 1, 1)
+
+        # Label "Processes"
+        label = Gtk.Label()
+        label.set_label(_tr("Processes"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 5, 1, 1)
+
+        # Label - Separator "Processes"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 5, 1, 1)
+
+        # Label - Variable "Processes"
+        self.processes_label = Gtk.Label()
+        self.processes_label.set_selectable(True)
+        self.processes_label.set_label("--")
+        self.processes_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.processes_label.set_halign(Gtk.Align.START)
+        grid.attach(self.processes_label, 2, 5, 1, 1)
+
+        # Label "Home Directory"
+        label = Gtk.Label()
+        label.set_label(_tr("Home Directory"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 6, 1, 1)
+
+        # Label - Separator "Home Directory"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 6, 1, 1)
+
+        # Label - Variable "Home Directory"
+        self.home_directory_label = Gtk.Label()
+        self.home_directory_label.set_selectable(True)
+        self.home_directory_label.set_label("--")
+        self.home_directory_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.home_directory_label.set_halign(Gtk.Align.START)
+        grid.attach(self.home_directory_label, 2, 6, 1, 1)
+
+        # Label "Group"
+        label = Gtk.Label()
+        label.set_label(_tr("Group"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 7, 1, 1)
+
+        # Label - Separator "Group"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 7, 1, 1)
+
+        # Label - Variable "Group"
+        self.group_label = Gtk.Label()
+        self.group_label.set_selectable(True)
+        self.group_label.set_label("--")
+        self.group_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.group_label.set_halign(Gtk.Align.START)
+        grid.attach(self.group_label, 2, 7, 1, 1)
+
+        # Label "Terminal"
+        label = Gtk.Label()
+        label.set_label(_tr("Terminal"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 8, 1, 1)
+
+        # Label - Separator "Terminal"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 8, 1, 1)
+
+        # Label - Variable "Terminal"
+        self.terminal_label = Gtk.Label()
+        self.terminal_label.set_selectable(True)
+        self.terminal_label.set_label("--")
+        self.terminal_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.terminal_label.set_halign(Gtk.Align.START)
+        grid.attach(self.terminal_label, 2, 8, 1, 1)
+
+        # Label "Start Time"
+        label = Gtk.Label()
+        label.set_label(_tr("Start Time"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 9, 1, 1)
+
+        # Label - Separator "Start Time"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 9, 1, 1)
+
+        # Label - Variable "Start Time"
+        self.start_time_label = Gtk.Label()
+        self.start_time_label.set_selectable(True)
+        self.start_time_label.set_label("--")
+        self.start_time_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.start_time_label.set_halign(Gtk.Align.START)
+        grid.attach(self.start_time_label, 2, 9, 1, 1)
+
+        # Label "CPU"
+        label = Gtk.Label()
+        label.set_label(_tr("CPU"))
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 0, 10, 1, 1)
+
+        # Label - Separator "CPU"
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        grid.attach(label, 1, 10, 1, 1)
+
+        # Label - Variable "CPU"
+        self.cpu_label = Gtk.Label()
+        self.cpu_label.set_selectable(True)
+        self.cpu_label.set_label("--")
+        self.cpu_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.cpu_label.set_halign(Gtk.Align.START)
+        grid.attach(self.cpu_label, 2, 10, 1, 1)
+
+
+    def gui_signals(self):
+        """
+        Connect GUI signals.
+        """
+
+        # Window signals
+        self.user_details_window.connect("close-request", self.on_user_details_window_delete_event)
+        self.user_details_window.connect("show", self.on_user_details_window_show)
+
+
+    def on_user_details_window_delete_event(self, widget):
+        """
+        Called when window close button (X) is clicked.
+        """
 
         self.update_window_value = 0
-        self.window3101w.hide()
+        self.user_details_window.hide()
         return True
 
 
-    # ----------------------- Called for running code/functions when GUI is shown -----------------------
-    def on_window3101w_show(self, widget):
+    def on_user_details_window_show(self, widget):
+        """
+        Run code after window is shown.
+        """
 
         try:
-            # Delete "update_interval" variable in order to let the code to run initial function. Otherwise, data from previous user (if it was viewed) will be used.
+            # Delete "update_interval" variable in order to let the code to run initial function.
+            # Otherwise, data from previous user (if it was viewed) will be used.
             del self.update_interval
         except AttributeError:
             pass
@@ -67,25 +337,7 @@ class UsersDetails:
         # This value is checked for repeating the function for getting the user data.
         self.update_window_value = 1
 
-        # Call this function in order to reset Users Details window GUI.
-        self.users_details_gui_reset_function()
         self.users_details_run_func()
-
-
-    # ----------------------- Called for resetting window GUI -----------------------
-    def users_details_gui_reset_function(self):
-
-        self.label3101w.set_text("--")
-        self.label3102w.set_text("--")
-        self.label3103w.set_text("--")
-        self.label3104w.set_text("--")
-        self.label3105w.set_text("--")
-        self.label3106w.set_text("--")
-        self.label3107w.set_text("--")
-        self.label3108w.set_text("--")
-        self.label3109w.set_text("--")
-        self.label3110w.set_text("--")
-        self.label3111w.set_text("--")
 
 
     # ----------------------------------- Users - Users Details Function -----------------------------------
@@ -116,11 +368,11 @@ class UsersDetails:
         users_cpu_precision = Config.users_cpu_precision
 
 
-        self.window3101w.set_title(_tr("User") + ": " + selected_username)
+        self.user_details_window.set_title(_tr("User") + ": " + selected_username)
 
         # Define empty lists for the current loop
         global_process_cpu_times = []
-        number_of_logical_cores = Users.users_number_of_logical_cores_func()
+        number_of_logical_cores = Users.users_number_of_logical_cores()
 
         # Get all users and user groups.
         etc_passwd_lines, user_group_names, user_group_ids = Users.users_groups_func()
@@ -234,10 +486,13 @@ class UsersDetails:
                     selected_user_process_start_time = time.time() - max(curent_user_process_start_time_list)
 
                 # Get user processes CPU usage percentages
-                selected_user_cpu_percent = 0
-                for pid in pid_list:
-                    if logged_in_users_list[pid_list.index(pid)] == username:
-                        selected_user_cpu_percent = selected_user_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
+                if Config.environment_type == "flatpak":
+                    selected_user_cpu_percent = 0
+                else:
+                    selected_user_cpu_percent = 0
+                    for pid in pid_list:
+                        if logged_in_users_list[pid_list.index(pid)] == username:
+                            selected_user_cpu_percent = selected_user_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
 
         # For using values in the next loop
         self.pid_list_prev = pid_list
@@ -248,24 +503,24 @@ class UsersDetails:
             check_value = selected_user_username
         except UnboundLocalError:
             self.update_window_value = 0
-            self.window3101w.hide()
+            self.user_details_window.hide()
             return
 
         # Set label text
-        self.label3101w.set_text(selected_user_username)
-        self.label3102w.set_text(selected_user_full_name)
-        self.label3103w.set_text(selected_user_logged_in)
-        self.label3104w.set_text(selected_user_uid)
-        self.label3105w.set_text(selected_user_gid)
-        self.label3106w.set_text(f'{selected_user_process_count}')
-        self.label3107w.set_text(selected_user_home_dir)
-        self.label3108w.set_text(selected_user_group_name)
-        self.label3109w.set_text(selected_user_terminal)
+        self.user_label.set_text(selected_user_username)
+        self.full_name_label.set_text(selected_user_full_name)
+        self.logged_in_label.set_text(selected_user_logged_in)
+        self.uid_label.set_text(selected_user_uid)
+        self.gid_label.set_text(selected_user_gid)
+        self.processes_label.set_text(f'{selected_user_process_count}')
+        self.home_directory_label.set_text(selected_user_home_dir)
+        self.group_label.set_text(selected_user_group_name)
+        self.terminal_label.set_text(selected_user_terminal)
         if selected_user_process_start_time != 0:
-            self.label3110w.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
+            self.start_time_label.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
         if selected_user_process_start_time == 0:
-            self.label3110w.set_text("-")
-        self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f}')
+            self.start_time_label.set_text("-")
+        self.cpu_label.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f}')
 
 
     # ----------------------------------- Users Details - Run Function -----------------------------------
@@ -291,6 +546,5 @@ class UsersDetails:
             self.main_glib_source.attach(GLib.MainContext.default())
 
 
-# Generate object
 UsersDetails = UsersDetails()
 

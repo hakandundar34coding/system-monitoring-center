@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
-gi.require_version('Gtk', '3.0')
-gi.require_version('Gdk', '3.0')
-from gi.repository import Gtk, Gdk
+gi.require_version('Gtk', '4.0')
+gi.require_version('Gdk', '4.0')
+gi.require_version('GLib', '2.0')
+gi.require_version('Pango', '1.0')
+from gi.repository import Gtk, Gdk, GLib, Pango
+
 import os
 import subprocess
 
@@ -12,108 +14,764 @@ from locale import gettext as _tr
 
 from Config import Config
 from Performance import Performance
+from MainWindow import MainWindow
 
 
-# Define class
 class Disk:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
-        # Get GUI objects from file
-        builder = Gtk.Builder()
-        builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/DiskTab.ui")
+        # Disk tab GUI
+        self.disk_tab_gui()
 
-        # Get GUI objects
-        self.grid1301 = builder.get_object('grid1301')
-        self.drawingarea1301 = builder.get_object('drawingarea1301')
-        self.drawingarea1302 = builder.get_object('drawingarea1302')
-        self.button1301 = builder.get_object('button1301')
-        self.label1301 = builder.get_object('label1301')
-        self.label1302 = builder.get_object('label1302')
-        self.label1303 = builder.get_object('label1303')
-        self.label1304 = builder.get_object('label1304')
-        self.label1305 = builder.get_object('label1305')
-        self.label1306 = builder.get_object('label1306')
-        self.label1307 = builder.get_object('label1307')
-        self.label1308 = builder.get_object('label1308')
-        self.label1309 = builder.get_object('label1309')
-        self.label1310 = builder.get_object('label1310')
-        self.label1311 = builder.get_object('label1311')
-        self.label1313 = builder.get_object('label1313')
-        self.eventbox1301 = builder.get_object('eventbox1301')
-
-        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
-        css = b"viewport {border-radius: 8px 8px 8px 8px;}"
-        style_provider = Gtk.CssProvider()
-        style_provider.load_from_data(css)
-        self.viewport1301 = builder.get_object('viewport1301')
-        self.viewport1301.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        self.viewport1302 = builder.get_object('viewport1302')
-        self.viewport1302.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
-        # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
-        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
-        style_provider = Gtk.CssProvider()
-        style_provider.load_from_data(css)
-        self.separator1301 = builder.get_object('separator1301')
-        self.separator1301.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        self.separator1302 = builder.get_object('separator1302')
-        self.separator1302.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        self.separator1303 = builder.get_object('separator1303')
-        self.separator1303.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        self.separator1304 = builder.get_object('separator1304')
-        self.separator1304.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
-        # Get chart functions from another module and define as local objects for lower CPU usage.
-        self.performance_line_charts_draw_func = Performance.performance_line_charts_draw_func
-        self.performance_line_charts_enter_notify_event_func = Performance.performance_line_charts_enter_notify_event_func
-        self.performance_line_charts_leave_notify_event_func = Performance.performance_line_charts_leave_notify_event_func
-        self.performance_line_charts_motion_notify_event_func = Performance.performance_line_charts_motion_notify_event_func
-        self.performance_bar_charts_draw_func = Performance.performance_bar_charts_draw_func
-
-        # Connect GUI signals
-        self.button1301.connect("clicked", self.on_button1301_clicked)
-        self.drawingarea1301.connect("draw", self.performance_line_charts_draw_func)
-        self.drawingarea1301.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
-        self.drawingarea1301.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
-        self.drawingarea1301.connect("motion-notify-event", self.performance_line_charts_motion_notify_event_func)
-        self.drawingarea1302.connect("draw", self.performance_bar_charts_draw_func)
-        self.eventbox1301.connect("button-release-event", self.on_eventbox1301_button_release_event)
-
-        # Set event masks for drawingarea in order to enable these events.
-        self.drawingarea1301.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
-
-        # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
+        # "0" value of "initial_already_run" variable means that initial function is not run before or
+        # tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
 
 
-    # ----------------------- "customizations menu" Button -----------------------
-    def on_button1301_clicked(self, widget):
+    def disk_tab_gui(self):
+        """
+        Generate Disk tab GUI.
+        """
 
-        from DiskMenu import DiskMenu
-        DiskMenu.popover1301p.set_relative_to(widget)
-        DiskMenu.popover1301p.set_position(1)
-        DiskMenu.popover1301p.popup()
+        # Disk tab grid
+        self.disk_tab_grid = Gtk.Grid()
+        self.disk_tab_grid.set_row_spacing(10)
+        self.disk_tab_grid.set_margin_top(2)
+        self.disk_tab_grid.set_margin_bottom(2)
+        self.disk_tab_grid.set_margin_start(2)
+        self.disk_tab_grid.set_margin_end(2)
+
+        # Bold and 2x label atributes
+        self.attribute_list_bold_2x = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        self.attribute_list_bold_2x.insert(attribute)
+        attribute = Pango.attr_scale_new(2.0)
+        self.attribute_list_bold_2x.insert(attribute)
+
+        # Bold and underlined label atributes
+        self.attribute_list_bold_underlined = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        self.attribute_list_bold_underlined.insert(attribute)
+        attribute = Pango.attr_underline_new(Pango.Underline.SINGLE)
+        self.attribute_list_bold_underlined.insert(attribute)
+
+        # Bold label atributes
+        self.attribute_list_bold = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        self.attribute_list_bold.insert(attribute)
+
+        # Tab name, device name labels
+        self.disk_gui_label_grid()
+
+        # Drawingarea and related information labels
+        self.disk_gui_da_grid()
+
+        # Performance information labels
+        self.disk_gui_performance_info_grid()
+
+        # Connect signals
+        self.disk_gui_signals()
 
 
-    # ----------------------- Called for opening Disk Details Window -----------------------
-    def on_eventbox1301_button_release_event(self, widget, event):
+    def disk_gui_label_grid(self):
+        """
+        Generate tab name, device name labels.
+        """
 
-        if event.button == 1:
-            from DiskDetails import DiskDetails
-            DiskDetails.window1301w.show()
+        # Tab name label grid
+        tab_name_label_grid = Gtk.Grid()
+        self.disk_tab_grid.attach(tab_name_label_grid, 0, 0, 1, 1)
+
+        # Tab name label
+        tab_name_label = Gtk.Label()
+        tab_name_label.set_halign(Gtk.Align.START)
+        tab_name_label.set_margin_end(60)
+        tab_name_label.set_attributes(self.attribute_list_bold_2x)
+        tab_name_label.set_label(_tr("Disk"))
+        tab_name_label_grid.attach(tab_name_label, 0, 0, 1, 2)
+
+        # Device vendor-model label
+        self.device_vendor_model_label = Gtk.Label()
+        self.device_vendor_model_label.set_halign(Gtk.Align.START)
+        self.device_vendor_model_label.set_selectable(True)
+        self.device_vendor_model_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.device_vendor_model_label.set_attributes(self.attribute_list_bold)
+        self.device_vendor_model_label.set_label("--")
+        self.device_vendor_model_label.set_tooltip_text(_tr("Vendor-Model"))
+        tab_name_label_grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
+
+        # Device kernel name label
+        self.device_kernel_name_label = Gtk.Label()
+        self.device_kernel_name_label.set_halign(Gtk.Align.START)
+        self.device_kernel_name_label.set_selectable(True)
+        self.device_kernel_name_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.device_kernel_name_label.set_label("--")
+        self.device_kernel_name_label.set_tooltip_text(_tr("Device Name In Kernel"))
+        tab_name_label_grid.attach(self.device_kernel_name_label, 1, 1, 1, 1)
+
+
+    def disk_gui_da_grid(self):
+        """
+        Generate tab drawingarea and related information labels.
+        """
+
+        # Drawingarea grid
+        da_disk_speed_grid = Gtk.Grid()
+        da_disk_speed_grid.set_hexpand(True)
+        da_disk_speed_grid.set_vexpand(True)
+        self.disk_tab_grid.attach(da_disk_speed_grid, 0, 1, 1, 1)
+
+        # Drawingarea upper-left label
+        da_upper_left_label = Gtk.Label()
+        da_upper_left_label.set_halign(Gtk.Align.START)
+        da_upper_left_label.set_label(_tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
+        da_disk_speed_grid.attach(da_upper_left_label, 0, 0, 1, 1)
+
+        # Drawingarea upper-right label
+        self.da_upper_right_label = Gtk.Label()
+        self.da_upper_right_label.set_halign(Gtk.Align.END)
+        self.da_upper_right_label.set_label("--")
+        da_disk_speed_grid.attach(self.da_upper_right_label, 1, 0, 1, 1)
+
+        # Drawingarea
+        self.da_disk_speed = Gtk.DrawingArea()
+        self.da_disk_speed.set_hexpand(True)
+        self.da_disk_speed.set_vexpand(True)
+        da_disk_speed_grid.attach(self.da_disk_speed, 0, 2, 2, 1)
+
+        # Drawingarea lower-right label
+        da_lower_right_label = Gtk.Label()
+        da_lower_right_label.set_halign(Gtk.Align.END)
+        da_lower_right_label.set_label("0")
+        da_disk_speed_grid.attach(da_lower_right_label, 0, 3, 2, 1)
+
+
+    def disk_gui_performance_info_grid(self):
+        """
+        Generate performance information labels.
+        """
+
+        # Performance information labels grid
+        performance_info_grid = Gtk.Grid()
+        performance_info_grid.set_column_homogeneous(True)
+        performance_info_grid.set_row_homogeneous(True)
+        performance_info_grid.set_column_spacing(12)
+        performance_info_grid.set_row_spacing(10)
+        self.disk_tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
+
+        # Performance information labels
+        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
+        css = b"viewport {border-style: solid; border-radius: 8px 8px 8px 8px; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
+        style_provider_viewport = Gtk.CssProvider()
+        style_provider_viewport.load_from_data(css)
+
+        # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
+        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
+        style_provider_separator = Gtk.CssProvider()
+        style_provider_separator.load_from_data(css)
+
+        # Styled information widgets (Read Speed and Write Speed)
+        # Styled information viewport
+        viewport = Gtk.Viewport()
+        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        performance_info_grid.attach(viewport, 0, 0, 1, 1)
+        # Styled information grid
+        grid = Gtk.Grid()
+        grid.set_column_homogeneous(True)
+        grid.set_row_spacing(3)
+        grid.set_margin_top(5)
+        grid.set_margin_bottom(5)
+        grid.set_margin_start(5)
+        grid.set_margin_end(5)
+        grid.set_valign(Gtk.Align.CENTER)
+        viewport.set_child(grid)
+        # Styled information label
+        label = Gtk.Label()
+        label.set_label(_tr("Read Speed"))
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(label, 0, 0, 1, 1)
+        # Styled information label
+        label = Gtk.Label()
+        label.set_label(_tr("Write Speed"))
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(label, 1, 0, 1, 1)
+        # Styled information separator
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator.set_halign(Gtk.Align.CENTER)
+        separator.set_valign(Gtk.Align.CENTER)
+        separator.set_size_request(60, -1)
+        separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        grid.attach(separator, 0, 1, 1, 1)
+        # Styled information separator
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator.set_halign(Gtk.Align.CENTER)
+        separator.set_valign(Gtk.Align.CENTER)
+        separator.set_size_request(60, -1)
+        separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        grid.attach(separator, 1, 1, 1, 1)
+        # Styled information label (Average Usage)
+        self.disk_read_speed_label = Gtk.Label()
+        self.disk_read_speed_label.set_selectable(True)
+        self.disk_read_speed_label.set_attributes(self.attribute_list_bold)
+        self.disk_read_speed_label.set_label("--")
+        self.disk_read_speed_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.disk_read_speed_label, 0, 2, 1, 1)
+        # Styled information label (Frequency)
+        self.disk_write_speed_label = Gtk.Label()
+        self.disk_write_speed_label.set_selectable(True)
+        self.disk_write_speed_label.set_attributes(self.attribute_list_bold)
+        self.disk_write_speed_label.set_label("--")
+        self.disk_write_speed_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.disk_write_speed_label, 1, 2, 1, 1)
+
+        # Styled information widgets (Read Data and Write Data)
+        # Styled information viewport
+        viewport = Gtk.Viewport()
+        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        performance_info_grid.attach(viewport, 0, 1, 1, 1)
+        # Styled information grid
+        grid = Gtk.Grid()
+        grid.set_column_homogeneous(True)
+        grid.set_row_spacing(3)
+        grid.set_margin_top(5)
+        grid.set_margin_bottom(5)
+        grid.set_margin_start(5)
+        grid.set_margin_end(5)
+        grid.set_valign(Gtk.Align.CENTER)
+        viewport.set_child(grid)
+        # Styled information label
+        label = Gtk.Label()
+        label.set_label(_tr("Read Data"))
+        label.set_tooltip_text(_tr("Measured value since last system start"))
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(label, 0, 0, 1, 1)
+        # Styled information label
+        label = Gtk.Label()
+        label.set_label(_tr("Write Data"))
+        label.set_tooltip_text(_tr("Measured value since last system start"))
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(label, 1, 0, 1, 1)
+        # Styled information separator
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator.set_halign(Gtk.Align.CENTER)
+        separator.set_valign(Gtk.Align.CENTER)
+        separator.set_size_request(60, -1)
+        separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        grid.attach(separator, 0, 1, 1, 1)
+        # Styled information separator
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator.set_halign(Gtk.Align.CENTER)
+        separator.set_valign(Gtk.Align.CENTER)
+        separator.set_size_request(60, -1)
+        separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        grid.attach(separator, 1, 1, 1, 1)
+        # Styled information label (Processes-Threads)
+        self.disk_read_data_label = Gtk.Label()
+        self.disk_read_data_label.set_selectable(True)
+        self.disk_read_data_label.set_attributes(self.attribute_list_bold)
+        self.disk_read_data_label.set_label("--")
+        self.disk_read_data_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.disk_read_data_label, 0, 2, 1, 1)
+        # Styled information label (Up Time)
+        self.disk_write_data_label = Gtk.Label()
+        self.disk_write_data_label.set_selectable(True)
+        self.disk_write_data_label.set_attributes(self.attribute_list_bold)
+        self.disk_write_data_label.set_label("--")
+        self.disk_write_data_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.disk_write_data_label, 1, 2, 1, 1)
+
+        # Right information label grid
+        performance_info_right_grid = Gtk.Grid()
+        performance_info_right_grid.set_column_homogeneous(True)
+        #performance_info_right_grid.set_row_homogeneous(True)
+        performance_info_right_grid.set_column_spacing(2)
+        performance_info_right_grid.set_row_spacing(4)
+        performance_info_grid.attach(performance_info_right_grid, 1, 0, 1, 2)
+
+        # Right information labels
+        # Right information label (System Disk)
+        label = Gtk.Label()
+        label.set_label(_tr("System Disk") + ":")
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(label, 0, 0, 1, 1)
+
+        # Right information label (System Disk)
+        self.disk_system_disk_label = Gtk.Label()
+        self.disk_system_disk_label.set_selectable(True)
+        self.disk_system_disk_label.set_attributes(self.attribute_list_bold)
+        self.disk_system_disk_label.set_label("--")
+        self.disk_system_disk_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_system_disk_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.disk_system_disk_label, 1, 0, 1, 1)
+
+        # Right information label (for Disk used percent)
+        label = Gtk.Label()
+        label.set_label(_tr("Used") + ":")
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(label, 0, 2, 1, 1)
+
+        # Right information grid (for Disk used percent label and drawingarea)
+        grid_label_and_da = Gtk.Grid()
+        grid_label_and_da.set_column_spacing(5)
+        performance_info_right_grid.attach(grid_label_and_da, 1, 2, 1, 1)
+
+        # Styled information drawingarea (for Disk used percent)
+        self.da_disk_usage = Gtk.DrawingArea()
+        self.da_disk_usage.set_hexpand(True)
+        grid_label_and_da.attach(self.da_disk_usage, 0, 0, 1, 1)
+
+        # Right information label (Used percent)
+        self.disk_used_percent_label = Gtk.Label()
+        self.disk_used_percent_label.set_selectable(True)
+        self.disk_used_percent_label.set_attributes(self.attribute_list_bold)
+        self.disk_used_percent_label.set_label("--")
+        self.disk_used_percent_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_used_percent_label.set_halign(Gtk.Align.START)
+        grid_label_and_da.attach(self.disk_used_percent_label, 1, 0, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(_tr("Free") + ":")
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(label, 0, 3, 1, 1)
+
+        # Right information label (Free))
+        self.disk_free_label = Gtk.Label()
+        self.disk_free_label.set_selectable(True)
+        self.disk_free_label.set_attributes(self.attribute_list_bold)
+        self.disk_free_label.set_label("--")
+        self.disk_free_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_free_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.disk_free_label, 1, 3, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(_tr("Used") + ":")
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(label, 0, 4, 1, 1)
+
+        # Right information label (Used)
+        self.disk_used_label = Gtk.Label()
+        self.disk_used_label.set_selectable(True)
+        self.disk_used_label.set_attributes(self.attribute_list_bold)
+        self.disk_used_label.set_label("--")
+        self.disk_used_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_used_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.disk_used_label, 1, 4, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(_tr("Capacity") + ":")
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(label, 0, 5, 1, 1)
+
+        # Right information label (Capacity)
+        self.disk_capacity_label = Gtk.Label()
+        self.disk_capacity_label.set_selectable(True)
+        self.disk_capacity_label.set_attributes(self.attribute_list_bold)
+        self.disk_capacity_label.set_label("--")
+        self.disk_capacity_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_capacity_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.disk_capacity_label, 1, 5, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(_tr("Details") + ":")
+        label.set_ellipsize(Pango.EllipsizeMode.END)
+        label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(label, 0, 6, 1, 1)
+
+        # Performance information lower right area label (for disk details)
+        self.disk_details_label = Gtk.Label()
+        self.disk_details_label.set_attributes(self.attribute_list_bold_underlined)
+        self.disk_details_label.set_label(_tr("Show..."))
+        self.disk_details_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_label.set_halign(Gtk.Align.START)
+        self.cursor_link = Gdk.Cursor.new_from_name("pointer")
+        self.disk_details_label.set_cursor(self.cursor_link)
+        performance_info_right_grid.attach(self.disk_details_label, 1, 6, 1, 1)
+
+
+    def disk_gui_signals(self):
+        """
+        Connect GUI signals.
+        """
+
+        self.da_disk_speed.set_draw_func(Performance.performance_line_charts_draw_func, "da_disk_speed_usage")
+        self.da_disk_usage.set_draw_func(Performance.performance_bar_charts_draw, "da_disk_usage")
+
+        # Drawingarea mouse events
+        drawing_area_mouse_event = Gtk.EventControllerMotion()
+        drawing_area_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
+        drawing_area_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
+        drawing_area_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
+        self.da_disk_speed.add_controller(drawing_area_mouse_event)
+
+        # "Show" label mouse events
+        show_label_mouse_event = Gtk.GestureClick()
+        show_label_mouse_event.connect("released", self.on_details_released)
+        self.disk_details_label.add_controller(show_label_mouse_event)
+
+
+    def on_details_released(self, event, count, x, y):
+        """
+        Show Disk details window.
+        """
+
+        widget = event.get_widget()
+
+        try:
+            self.disk_details_window.present()
+        except AttributeError:
+            # Avoid generating window multiple times on every button click.
+            self.disk_details_window_gui()
+            self.disk_details_window.present()
+        self.disk_details_info_get()
+        self.disk_details_update()
+
+
+    def disk_details_window_gui(self):
+        """
+        Disk details window GUI.
+        """
+
+        # Window
+        self.disk_details_window = Gtk.Window()
+        self.disk_details_window.set_default_size(400, 380)
+        self.disk_details_window.set_title(_tr("Disk"))
+        self.disk_details_window.set_icon_name("system-monitoring-center")
+        self.disk_details_window.set_transient_for(MainWindow.main_window)
+        self.disk_details_window.set_modal(True)
+        self.disk_details_window.set_hide_on_close(True)
+
+        # Style provider for showing borders of scrolledwindow.
+        css = b"scrolledwindow {border-style: solid; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
+        style_provider_scrolledwindow = Gtk.CssProvider()
+        style_provider_scrolledwindow.load_from_data(css)
+
+        # ScrolledWindow
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_margin_top(10)
+        scrolledwindow.set_margin_bottom(10)
+        scrolledwindow.set_margin_start(10)
+        scrolledwindow.set_margin_end(10)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.disk_details_window.set_child(scrolledwindow)
+
+        # Viewport
+        viewport = Gtk.Viewport()
+        scrolledwindow.set_child(viewport)
+
+        # Main grid
+        main_grid = Gtk.Grid.new()
+        main_grid.set_margin_top(10)
+        main_grid.set_margin_bottom(10)
+        main_grid.set_margin_start(10)
+        main_grid.set_margin_end(10)
+        main_grid.set_column_spacing(10)
+        main_grid.set_row_spacing(5)
+        scrolledwindow.set_child(main_grid)
+
+        # Information labels
+        # Information label (Disk)
+        label = Gtk.Label()
+        label.set_label(_tr("Disk"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 0, 1, 1)
+
+        # Information label (Disk)
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 0, 1, 1)
+
+        # Information label (Disk)
+        self.disk_details_disk_label = Gtk.Label()
+        self.disk_details_disk_label.set_selectable(True)
+        self.disk_details_disk_label.set_label("--")
+        self.disk_details_disk_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_disk_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_disk_label, 2, 0, 1, 1)
+
+        # Information label (Parent Name)
+        label = Gtk.Label()
+        label.set_label(_tr("Parent Name"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 1, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 1, 1, 1)
+
+        # Information label (Parent Name)
+        self.disk_details_parent_disk_label = Gtk.Label()
+        self.disk_details_parent_disk_label.set_selectable(True)
+        self.disk_details_parent_disk_label.set_label("--")
+        self.disk_details_parent_disk_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_parent_disk_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_parent_disk_label, 2, 1, 1, 1)
+
+        # Information label (System Disk)
+        label = Gtk.Label()
+        label.set_label(_tr("System Disk"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 2, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 2, 1, 1)
+
+        # Information label (System Disk)
+        self.disk_details_system_disk_label = Gtk.Label()
+        self.disk_details_system_disk_label.set_selectable(True)
+        self.disk_details_system_disk_label.set_label("--")
+        self.disk_details_system_disk_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_system_disk_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_system_disk_label, 2, 2, 1, 1)
+
+        # Information label (Type)
+        label = Gtk.Label()
+        label.set_label(_tr("Type"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 3, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 3, 1, 1)
+
+        # Information label (Type)
+        self.disk_details_disk_type_label = Gtk.Label()
+        self.disk_details_disk_type_label.set_selectable(True)
+        self.disk_details_disk_type_label.set_label("--")
+        self.disk_details_disk_type_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_disk_type_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_disk_type_label, 2, 3, 1, 1)
+
+        # Information label (File System)
+        label = Gtk.Label()
+        label.set_label(_tr("File System"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 4, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 4, 1, 1)
+
+        # Information label (File System)
+        self.disk_details_file_system_label = Gtk.Label()
+        self.disk_details_file_system_label.set_selectable(True)
+        self.disk_details_file_system_label.set_label("--")
+        self.disk_details_file_system_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_file_system_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_file_system_label, 2, 4, 1, 1)
+
+        # Information label (Capacity)
+        label = Gtk.Label()
+        label.set_label(_tr("Capacity"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 5, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 5, 1, 1)
+
+        # Information label (Capacity)
+        self.disk_details_capacity_label = Gtk.Label()
+        self.disk_details_capacity_label.set_selectable(True)
+        self.disk_details_capacity_label.set_label("--")
+        self.disk_details_capacity_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_capacity_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_capacity_label, 2, 5, 1, 1)
+
+        # Information label (Capacity (Mass Storage))
+        label = Gtk.Label()
+        label.set_label(_tr("Capacity") + "\n" + "(" + _tr("Mass Storage") + ")")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 6, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 6, 1, 1)
+
+        # Information label (Capacity (Mass Storage))
+        self.disk_details_capacity_mass_label = Gtk.Label()
+        self.disk_details_capacity_mass_label.set_selectable(True)
+        self.disk_details_capacity_mass_label.set_label("--")
+        self.disk_details_capacity_mass_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_capacity_mass_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_capacity_mass_label, 2, 6, 1, 1)
+
+        # Information label (Free)
+        label = Gtk.Label()
+        label.set_label(_tr("Free"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 7, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 7, 1, 1)
+
+        # Information label (Free)
+        self.disk_details_free_label = Gtk.Label()
+        self.disk_details_free_label.set_selectable(True)
+        self.disk_details_free_label.set_label("--")
+        self.disk_details_free_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_free_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_free_label, 2, 7, 1, 1)
+
+        # Information label (Used)
+        label = Gtk.Label()
+        label.set_label(_tr("Used"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 8, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 8, 1, 1)
+
+        # Information label (Used)
+        self.disk_details_used_label = Gtk.Label()
+        self.disk_details_used_label.set_selectable(True)
+        self.disk_details_used_label.set_label("--")
+        self.disk_details_used_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_used_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_used_label, 2, 8, 1, 1)
+
+        # Information label (Vendor-Model)
+        label = Gtk.Label()
+        label.set_label(_tr("Vendor-Model"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 9, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 9, 1, 1)
+
+        # Information label (Vendor-Model)
+        self.disk_details_vendor_model_label = Gtk.Label()
+        self.disk_details_vendor_model_label.set_selectable(True)
+        self.disk_details_vendor_model_label.set_label("--")
+        self.disk_details_vendor_model_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_vendor_model_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_vendor_model_label, 2, 9, 1, 1)
+
+        # Information label (Label (File System))
+        label = Gtk.Label()
+        label.set_label(_tr("Label (File System)"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 10, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 10, 1, 1)
+
+        # Information label (Label (File System))
+        self.disk_details_label_fs_label = Gtk.Label()
+        self.disk_details_label_fs_label.set_selectable(True)
+        self.disk_details_label_fs_label.set_label("--")
+        self.disk_details_label_fs_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_label_fs_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_label_fs_label, 2, 10, 1, 1)
+
+        # Information label (Mount Point)
+        label = Gtk.Label()
+        label.set_label(_tr("Mount Point"))
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 11, 1, 1)
+
+        label = Gtk.Label()
+        label.set_label(":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 1, 11, 1, 1)
+
+        # Information label (Mount Point)
+        self.disk_details_mount_point_label = Gtk.Label()
+        self.disk_details_mount_point_label.set_selectable(True)
+        self.disk_details_mount_point_label.set_label("--")
+        self.disk_details_mount_point_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.disk_details_mount_point_label.set_halign(Gtk.Align.START)
+        main_grid.attach(self.disk_details_mount_point_label, 2, 11, 1, 1)
+
+
+    def disk_details_info_get(self):
+        """
+        Get disk details information.
+        """
+
+        # Get selected disk name and pci.ids file content
+        selected_disk = self.selected_disk
+
+        disk_sector_size = Performance.disk_sector_size
+
+        # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
+        performance_disk_data_precision = Config.performance_disk_data_precision
+        performance_disk_data_unit = Config.performance_disk_data_unit
+        disk_list = Performance.disk_list
+
+        # Get information.
+        disk_type = Disk.disk_type_func(selected_disk)
+        disk_parent_name = Disk.disk_parent_name_func(selected_disk, disk_type, disk_list)
+        disk_file_system_information = Disk.disk_file_system_information_func(disk_list)
+        disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point  = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
+        if disk_file_system  == "fuseblk":
+            disk_file_system = Disk.disk_file_system_fuseblk_func(selected_disk)
+        disk_if_system_disk = Disk.disk_if_system_disk_func(selected_disk)
+        disk_capacity_mass_storage = Disk.disk_capacity_mass_storage_func(selected_disk, disk_mount_point, disk_sector_size)
+        disk_device_model_name = Disk.disk_device_model_name_func(selected_disk, disk_type, disk_parent_name)
+        disk_label = Disk.disk_label_func(selected_disk)
+
+        # Set Disk Details window title
+        self.disk_details_window.set_title(_tr("Disk") + ": " + selected_disk)
+
+        # Set label text by using storage/disk data
+        self.disk_details_disk_label.set_label(selected_disk)
+        self.disk_details_parent_disk_label.set_label(disk_parent_name)
+        self.disk_details_system_disk_label.set_label(disk_if_system_disk)
+        self.disk_details_disk_type_label.set_label(disk_type)
+        self.disk_details_file_system_label.set_label(disk_file_system)
+        self.disk_details_capacity_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity_mass_storage, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.disk_details_capacity_mass_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.disk_details_free_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.disk_details_used_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)} - {disk_usage_percentage:.0f}%')
+        self.disk_details_vendor_model_label.set_label(disk_device_model_name)
+        self.disk_details_label_fs_label.set_label(disk_label)
+        self.disk_details_mount_point_label.set_label(disk_mount_point)
+
+
+    def disk_details_update(self, *args):
+        """
+        Update swap memory information on the swap details window.
+        """
+
+        if self.disk_details_window.get_visible() == True:
+            # Destroy GLib source for preventing it repeating the function.
+            try:
+                self.main_glib_source.destroy()
+            # Prevent errors if this is first run of the function.
+            except AttributeError:
+                pass
+            self.main_glib_source = GLib.timeout_source_new(Config.update_interval * 1000)
+            self.disk_details_info_get()
+            self.main_glib_source.set_callback(self.disk_details_update)
+            # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed.
+            # A function may be attached to the MainContext multiple times.
+            self.main_glib_source.attach(GLib.MainContext.default())
 
 
     # ----------------------------------- Disk - Initial Function -----------------------------------
     def disk_initial_func(self):
-
-        # Define data unit conversion function objects in for lower CPU usage.
-        self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
-        self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
-
-        # Define data unit conversion variables before they are used.
-        self.performance_define_data_unit_converter_variables_func()
 
         disk_list = Performance.disk_list
         selected_disk_number = Performance.selected_disk_number
@@ -135,9 +793,9 @@ class Disk:
 
 
         # Show information on labels.
-        self.label1301.set_text(disk_device_model_name)
-        self.label1302.set_text(f'{selected_disk}  ({disk_type})')
-        self.label1307.set_text(if_system_disk)
+        self.device_vendor_model_label.set_text(disk_device_model_name)
+        self.device_kernel_name_label.set_text(f'{selected_disk}  ({disk_type})')
+        self.disk_system_disk_label.set_text(if_system_disk)
 
         self.initial_already_run = 1
 
@@ -166,27 +824,25 @@ class Disk:
         performance_disk_data_unit = Config.performance_disk_data_unit
         performance_disk_speed_bit = Config.performance_disk_speed_bit
 
-        self.drawingarea1301.queue_draw()
-        self.drawingarea1302.queue_draw()
+        self.da_disk_speed.queue_draw()
+        self.da_disk_usage.queue_draw()
 
-        # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
+        # Run "main_gui_device_selection_list" if selected device list is changed since the last loop.
         disk_list_system_ordered = Performance.disk_list_system_ordered
         try:                                                                                      
             if self.disk_list_system_ordered_prev != disk_list_system_ordered:
-                from MainGUI import MainGUI
-                MainGUI.main_gui_device_selection_list_func()
-        # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
+                MainWindow.main_gui_device_selection_list()
+        # try-except is used in order to avoid error and also run "main_gui_device_selection_list" if this is first loop of the function.
         except AttributeError:
             pass
         self.disk_list_system_ordered_prev = disk_list_system_ordered
 
-        # Run "main_gui_device_selection_list_func" if "hide_loop_ramdisk_zram_disks" option is changed since the last loop.
+        # Run "main_gui_device_selection_list" if "hide_loop_ramdisk_zram_disks" option is changed since the last loop.
         hide_loop_ramdisk_zram_disks = Config.hide_loop_ramdisk_zram_disks
         try:                                                                                      
             if self.hide_loop_ramdisk_zram_disks_prev != hide_loop_ramdisk_zram_disks:
-                from MainGUI import MainGUI
-                MainGUI.main_gui_device_selection_list_func()
-        # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
+                MainWindow.main_gui_device_selection_list()
+        # try-except is used in order to avoid error and also run "main_gui_device_selection_list" if this is first loop of the function.
         except AttributeError:
             pass
         self.hide_loop_ramdisk_zram_disks_prev = hide_loop_ramdisk_zram_disks
@@ -209,17 +865,17 @@ class Disk:
 
 
         # Show information on labels.
-        self.label1303.set_text(f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_read_speed[selected_disk_number][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
-        self.label1304.set_text(f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_write_speed[selected_disk_number][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
-        self.label1305.set_text(self.performance_data_unit_converter_func("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
-        self.label1306.set_text(self.performance_data_unit_converter_func("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
+        self.disk_read_speed_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_read_speed[selected_disk_number][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.disk_write_speed_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_write_speed[selected_disk_number][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.disk_read_data_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
+        self.disk_write_data_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
         if disk_mount_point != "-":
-            self.label1308.set_text(f'{self.disk_usage_percentage:.0f}%')
+            self.disk_used_percent_label.set_text(f'{self.disk_usage_percentage:.0f}%')
         if disk_mount_point == "-":
-            self.label1308.set_text("-%")
-        self.label1309.set_text(self.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision))
-        self.label1310.set_text(self.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision))
-        self.label1311.set_text(self.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision))
+            self.disk_used_percent_label.set_text("-%")
+        self.disk_free_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision))
+        self.disk_used_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision))
+        self.disk_capacity_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision))
 
 
     # ----------------------- Get disk type (Disk or Partition) -----------------------
@@ -366,12 +1022,12 @@ class Disk:
                 disk_used_percentage = int(df_output_lines[index].split()[5].strip("%"))
                 disk_mount_point = df_output_lines[index].split("% ", 1)[-1]
             else:
-                disk_file_system = _tr("[Not mounted]")
-                disk_capacity = _tr("[Not mounted]")
-                disk_used = _tr("[Not mounted]")
-                disk_free = _tr("[Not mounted]")
+                disk_file_system = "[" + _tr("Not mounted") + "]"
+                disk_capacity = "[" + _tr("Not mounted") + "]"
+                disk_used = "[" + _tr("Not mounted") + "]"
+                disk_free = "[" + _tr("Not mounted") + "]"
                 disk_used_percentage = 0
-                disk_mount_point = _tr("[Not mounted]")
+                disk_mount_point = "[" + _tr("Not mounted") + "]"
             disk_filesystem_information_list.append([disk, disk_file_system, disk_capacity, disk_used, disk_free, disk_used_percentage, disk_mount_point])
 
         return disk_filesystem_information_list
@@ -511,14 +1167,12 @@ class Disk:
         # Update disk usage percentages on disk list if disk usage percentages are changed since the last loop.
         try:                                                                                      
             if self.disk_usage_percentage_list_prev != disk_usage_percentage_list:
-                from MainGUI import MainGUI
-                MainGUI.main_gui_device_selection_list_func()
+                MainWindow.main_gui_device_selection_list()
         # try-except is used in order to avoid error if this is first loop of the function.
         except AttributeError:
             pass
         self.disk_usage_percentage_list_prev = disk_usage_percentage_list
 
 
-# Generate object
 Disk = Disk()
 

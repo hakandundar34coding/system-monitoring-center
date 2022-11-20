@@ -102,7 +102,7 @@
     - Installing from several application stores (Pardus Application Center, Pi-Apps Store).
     - Installing from repositories of distributions (currently a few distributions).
     - Running from source code (in ```src/``` folder run: ```python3 ./Main.py```).
-
+- Note: System Monitoring Center v2.x.x is only available for Flatpak and ArchLinux (AUR).
 
 ### Dependencies:
 - Dependency [list](docs/dependencies.md).

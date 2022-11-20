@@ -3,18 +3,17 @@
 # ----------------------------------- Sensors - Import Function -----------------------------------
 def sensors_import_func():
 
-    global Gtk, GLib, os
+    global Gtk, GLib, Pango, os
 
     import gi
-    gi.require_version('Gtk', '3.0')
+    gi.require_version('Gtk', '4.0')
     gi.require_version('GLib', '2.0')
-    from gi.repository import Gtk, GLib
+    gi.require_version('Pango', '1.0')
+    from gi.repository import Gtk, GLib, Pango
     import os
-
 
     global Config
     from Config import Config
-
 
     global _tr
     from locale import gettext as _tr
@@ -23,53 +22,102 @@ def sensors_import_func():
 # ----------------------------------- Sensors - Sensors GUI Function -----------------------------------
 def sensors_gui_func():
 
-    # Sensors tab GUI objects - get from file
-    builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/SensorsTab.ui")
+    global sensors_tab_grid, sensors_treeview, searchentry
 
-    # Sensors tab GUI objects
-    global grid1601, treeview1601, searchentry1601
+    """
+    Generate Sensors tab GUI.
+    """
 
-    # Sensors tab GUI objects - get
-    grid1601 = builder.get_object('grid1601')
-    treeview1601 = builder.get_object('treeview1601')
-    searchentry1601 = builder.get_object('searchentry1601')
+    # Sensors tab grid
+    sensors_tab_grid = Gtk.Grid()
+    sensors_tab_grid.set_row_spacing(7)
+    sensors_tab_grid.set_margin_top(2)
+    sensors_tab_grid.set_margin_bottom(2)
+    sensors_tab_grid.set_margin_start(2)
+    sensors_tab_grid.set_margin_end(2)
 
-    # Sensors tab GUI functions - connect
-    searchentry1601.connect("changed", on_searchentry1601_changed)
+    # Bold and 2x label atributes
+    attribute_list_bold_2x = Pango.AttrList()
+    attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+    attribute_list_bold_2x.insert(attribute)
+    attribute = Pango.attr_scale_new(2.0)
+    attribute_list_bold_2x.insert(attribute)
 
-    # Sensors Tab on Sensors Tab - Treeview Properties
-    treeview1601.set_activate_on_single_click(True)
-    treeview1601.set_show_expanders(False)
-    treeview1601.set_fixed_height_mode(True)
-    treeview1601.set_headers_clickable(True)
-    treeview1601.set_enable_search(True)
-    treeview1601.set_search_column(2)
-    treeview1601.set_tooltip_column(2)
+    """
+    Generate tab name label and searchentry.
+    """
+
+    # Tab name label grid
+    tab_name_label_grid = Gtk.Grid()
+    tab_name_label_grid.set_column_spacing(5)
+    sensors_tab_grid.attach(tab_name_label_grid, 0, 0, 1, 1)
+
+    # Tab name label
+    tab_name_label = Gtk.Label()
+    tab_name_label.set_halign(Gtk.Align.START)
+    tab_name_label.set_margin_end(60)
+    tab_name_label.set_attributes(attribute_list_bold_2x)
+    tab_name_label.set_label(_tr("Sensors"))
+    tab_name_label_grid.attach(tab_name_label, 0, 0, 1, 1)
+
+    # Searchentry
+    searchentry = Gtk.SearchEntry()
+    searchentry.props.placeholder_text = _tr("Search...")
+    searchentry.set_max_width_chars(100)
+    searchentry.set_hexpand(True)
+    searchentry.set_halign(Gtk.Align.CENTER)
+    searchentry.set_valign(Gtk.Align.CENTER)
+    tab_name_label_grid.attach(searchentry, 1, 0, 1, 1)
+
+    """
+    Generate performance information GUI objects.
+    """
+
+    # ScrolledWindow
+    scrolledwindow = Gtk.ScrolledWindow()
+    scrolledwindow.set_hexpand(True)
+    scrolledwindow.set_vexpand(True)
+    sensors_tab_grid.attach(scrolledwindow, 0, 1, 1, 1)
+
+    # TreeView
+    sensors_treeview = Gtk.TreeView()
+    sensors_treeview.set_activate_on_single_click(True)
+    sensors_treeview.set_show_expanders(False)
+    sensors_treeview.set_fixed_height_mode(True)
+    sensors_treeview.set_headers_clickable(True)
+    sensors_treeview.set_enable_search(True)
+    sensors_treeview.set_search_column(2)
+    sensors_treeview.set_tooltip_column(2)
+    scrolledwindow.set_child(sensors_treeview)
+
+    # Connect signals
+    searchentry.connect("changed", on_searchentry_changed)
 
     global initial_already_run
     initial_already_run = 0
 
 
-# --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
-def on_treeview1601_button_release_event(widget, event):
-
-    # Check if left mouse button is used
-    if event.button == 1:
-        sensors_treeview_column_order_width_row_sorting_func()
-
-
-# --------------------------------- Called for searching items when searchentry text is changed ---------------------------------
-def on_searchentry1601_changed(widget):
+def on_searchentry_changed(widget):
+    """
+    Called by searchentry when text is changed.
+    """
 
     # Get search text
-    sensor_search_text = searchentry1601.get_text().lower()
+    sensor_search_text = searchentry.get_text().lower()
     # Set visible/hidden sensor data
     for piter in piter_list:
         treestore1601.set_value(piter, 0, False)
         sensor_data_text_in_model = treestore1601.get_value(piter, filter_column)
         if sensor_search_text in str(sensor_data_text_in_model).lower():
             treestore1601.set_value(piter, 0, True)
+
+
+# --------------------------------- Called for running code/functions when button is released on the treeview ---------------------------------
+def on_sensors_treeview_button_release_event(widget, event):
+
+    # Check if left mouse button is used
+    if event.button == 1:
+        sensors_treeview_column_order_width_row_sorting_func()
 
 
 # ----------------------------------- Sensors - Initial Function -----------------------------------
@@ -110,7 +158,7 @@ def sensors_loop_func():
     update_interval = Config.update_interval
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
-    global treeview1601
+    global sensors_treeview
 
     # Define global variables and get treeview columns, sort column/order, column widths, etc.
     global sensors_treeview_columns_shown
@@ -216,12 +264,11 @@ def sensors_loop_func():
                 sensor_number = sensor_number + 1                                             # Increase sensor number by "1" in order to use this value for getting next file names of the sensor.
 
     # Add/Remove treeview columns appropriate for user preferences
-    treeview1601.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     if sensors_treeview_columns_shown != sensors_treeview_columns_shown_prev:                 # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
-        for column in treeview1601.get_columns():                                             # Remove all columns in the treeview.
-            treeview1601.remove_column(column)
+        for column in sensors_treeview.get_columns():                                             # Remove all columns in the treeview.
+            sensors_treeview.remove_column(column)
         for i, column in enumerate(sensors_treeview_columns_shown):
             if sensors_data_list[column][0] in sensors_treeview_columns_shown:
                 cumulative_sort_column_id = cumulative_sort_column_id + sensors_data_list[column][2]
@@ -239,13 +286,13 @@ def sensors_loop_func():
                 sensors_treeview_column.add_attribute(cell_renderer, sensors_data_list[column][7][i], cumulative_internal_data_id)
                 if sensors_data_list[column][11][i] != "no_cell_function":
                     sensors_treeview_column.set_cell_data_func(cell_renderer, sensors_data_list[column][11][i], func_data=cumulative_internal_data_id)    # Define cell function which sets cell data precision and/or data unit
-            sensors_treeview_column.set_sizing(2)                                             # Set column sizing (2 = auto sizing which is required for "treeview1601.set_fixed_height_mode(True)" command that is used for lower treeview CPU consumption because row heights are not calculated for every row).
+            sensors_treeview_column.set_sizing(2)                                             # Set column sizing (2 = auto sizing which is required for "sensors_treeview.set_fixed_height_mode(True)" command that is used for lower treeview CPU consumption because row heights are not calculated for every row).
             sensors_treeview_column.set_sort_column_id(cumulative_sort_column_id)             # Be careful with lists contain same element more than one.
             sensors_treeview_column.set_resizable(True)                                       # Set columns resizable by the user when column title button edge handles are dragged.
             sensors_treeview_column.set_reorderable(True)                                     # Set columns reorderable by the user when column title buttons are dragged.
             sensors_treeview_column.set_min_width(50)                                         # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
             sensors_treeview_column.connect("clicked", on_column_title_clicked)               # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-            treeview1601.append_column(sensors_treeview_column)                               # Append column into treeview
+            sensors_treeview.append_column(sensors_treeview_column)                               # Append column into treeview
 
         # Get column data types for appending sensors data into treestore
         sensors_data_column_types = []
@@ -260,15 +307,14 @@ def sensors_loop_func():
         treestore1601.set_column_types(sensors_data_column_types)                             # Set column types of the columns which will be appended into treestore
         treemodelfilter1601 = treestore1601.filter_new()
         treemodelfilter1601.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
-        treemodelsort1601 = Gtk.TreeModelSort(treemodelfilter1601)
-        treeview1601.set_model(treemodelsort1601)
+        treemodelsort1601 = Gtk.TreeModelSort().new_with_model(treemodelfilter1601)
+        sensors_treeview.set_model(treemodelsort1601)
         global piter_list
         piter_list = []
-    treeview1601.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
     if sensors_treeview_columns_shown_prev != sensors_treeview_columns_shown or sensors_data_column_order_prev != sensors_data_column_order:
-        sensors_treeview_columns = treeview1601.get_columns()                                 # Get shown columns on the treeview in order to use this data for reordering the columns.
+        sensors_treeview_columns = sensors_treeview.get_columns()                                 # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_column_titles = []
         for column in sensors_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -281,11 +327,11 @@ def sensors_loop_func():
                 column_number_to_move = sensors_data_column_order.index(order)
                 column_title_to_move = sensors_data_list[column_number_to_move][1]
                 column_to_move = sensors_treeview_columns[treeview_column_titles.index(column_title_to_move)]
-                treeview1601.move_column_after(column_to_move, None)                          # Column is moved at the beginning of the treeview if "None" is used.
+                sensors_treeview.move_column_after(column_to_move, None)                          # Column is moved at the beginning of the treeview if "None" is used.
 
     # Sort sensor rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
     if sensors_treeview_columns_shown_prev != sensors_treeview_columns_shown or sensors_data_row_sorting_column_prev != sensors_data_row_sorting_column or sensors_data_row_sorting_order != sensors_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
-        sensors_treeview_columns = treeview1601.get_columns()                                 # Get shown columns on the treeview in order to use this data for reordering the columns.
+        sensors_treeview_columns = sensors_treeview.get_columns()                                 # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_column_titles = []
         for column in sensors_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -303,7 +349,7 @@ def sensors_loop_func():
 
     # Set column widths if there are changes since last loop.
     if sensors_treeview_columns_shown_prev != sensors_treeview_columns_shown or sensors_data_column_widths_prev != sensors_data_column_widths:
-        sensors_treeview_columns = treeview1601.get_columns()
+        sensors_treeview_columns = sensors_treeview.get_columns()
         treeview_column_titles = []
         for column in sensors_treeview_columns:
             treeview_column_titles.append(column.get_title())
@@ -314,14 +360,12 @@ def sensors_loop_func():
                    sensors_treeview_columns[j].set_fixed_width(column_width)                  # Set column width in pixels. Fixed width is unset if value is "-1".
 
     # Clear piter_list and treestore because sensor data (new/removed) tracking is not performed. Because there may be same named sensors and tracking may not be successful while sensors have no unique identity (more computer examples are needed for understanding if sensors have unique information). PCI tree path could be get from sensor files but this may not be worth because code will be more complex and it may not be an exact solution for all sensors. Also CPU usage is very low (about 0.67-0.84%, tested on Core i7-2630QM 4-core notebook) even treestore is cleared and sensor data is appended from zero.
-    treeview1601.freeze_child_notify()                                                        # For lower CPU consumption by preventing treeview updates on content changes/updates.
     piter_list = []
     treestore1601.clear()
     # Append sensor data into treeview
     for sensors_data_row in sensors_data_rows:
         piter_list.append(treestore1601.append(None, sensors_data_row))                       # All sensors are appended into treeview as tree root for listing sensor data as list (there is no tree view option for sensors tab).
-    on_searchentry1601_changed(searchentry1601)                                           # Update search results.
-    treeview1601.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
+    on_searchentry_changed(searchentry)                                           # Update search results.
 
     sensors_treeview_columns_shown_prev = sensors_treeview_columns_shown
     sensors_data_row_sorting_column_prev = sensors_data_row_sorting_column
@@ -330,7 +374,7 @@ def sensors_loop_func():
     sensors_data_column_widths_prev = sensors_data_column_widths
 
     # Show number of sensors on the searchentry as placeholder text
-    searchentry1601.set_placeholder_text(_tr("Search...") + "                    " + "(" + _tr("Sensors") + ": " + str(len(sensor_type_list)) + ")")
+    searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Sensors") + ": " + str(len(sensor_type_list)) + ")"
 
 
 # ----------------------------------- Sensors - Column Title Clicked Function -----------------------------------
@@ -347,7 +391,7 @@ def on_column_title_clicked(widget):
 # ----------------------------------- Sensors - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def sensors_treeview_column_order_width_row_sorting_func():
 
-    sensors_treeview_columns = treeview1601.get_columns()
+    sensors_treeview_columns = sensors_treeview.get_columns()
     treeview_column_titles = []
     for column in sensors_treeview_columns:
         treeview_column_titles.append(column.get_title())
