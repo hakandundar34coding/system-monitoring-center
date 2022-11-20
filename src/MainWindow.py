@@ -39,6 +39,9 @@ class MainWindow():
         # Show root privileges warning
         self.root_privileges_warning()
 
+        # Hide Services tab if systemd is not used on the system.
+        self.main_gui_hide_services_tab()
+
         # Define initial variables for performance summary on the window headerbar
         self.main_gui_performance_summary_headerbar_initial()
 
@@ -49,9 +52,6 @@ class MainWindow():
         # on the first call of "main_gui_tab_loop" function.
         Config.current_main_tab = -1
         Config.performance_tab_current_sub_tab = -1
-
-        # Start loop function to run loop functions of opened tabs to get data of them.
-        self.main_gui_tab_loop()
 
         # Switch to default tab
         self.main_gui_default_tab_func()
@@ -67,8 +67,7 @@ class MainWindow():
 
         # Application window
         self.main_window = Gtk.ApplicationWindow()
-        #self.main_window.set_default_size(670, 570)
-        self.main_window.set_size_request(670, 570)
+        self.main_window.set_default_size(670, 570)
         self.main_window.set_title(_tr("System Monitoring Center"))
         self.main_window.set_icon_name("system-monitoring-center")
 
@@ -219,8 +218,8 @@ class MainWindow():
         main_tab_tb_grid = Gtk.Grid.new()
         main_tab_tb_grid.set_column_homogeneous(True)
         main_tab_tb_grid.set_halign(Gtk.Align.CENTER)
-        main_tab_tb_grid.set_size_request(660, -1)
         main_tab_tb_grid.add_css_class("linked")
+        main_tab_tb_grid.set_size_request(660, -1)  
         self.main_grid.attach(main_tab_tb_grid, 0, 0, 1, 1)
 
         # Performance togglebutton
@@ -324,7 +323,8 @@ class MainWindow():
         self.system_tb.set_child(system_tb_grid)
 
         # Separator between main tab togglebuttons and main tabs
-        main_tab_separator = Gtk.Separator()
+        main_tab_separator = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
+        main_tab_separator.set_size_request(660, -1)  
         self.main_grid.attach(main_tab_separator, 0, 1, 1, 1)
 
         # Main tab stack
@@ -519,7 +519,8 @@ class MainWindow():
         self.sensors_tb.set_child(sensors_tb_grid)
 
         # Separator between Performance tab sub-tab togglebuttons and sub-tabs
-        sub_tab_separator = Gtk.Separator()
+        sub_tab_separator = Gtk.Separator.new(Gtk.Orientation.VERTICAL)
+        sub_tab_separator.set_size_request(-1, 446)  
         self.performance_tab_main_grid.attach(sub_tab_separator, 1, 0, 1, 1)
 
         # Performance tab sub-tabs stack
@@ -623,9 +624,6 @@ class MainWindow():
 
         # Start the main loop function
         self.main_gui_tab_loop()
-
-        # Hide Services tab if systemd is not used on the system.
-        self.main_gui_hide_services_tab()
 
         # Check for updates (Python package only)
         self.main_gui_check_for_updates()
@@ -1070,7 +1068,6 @@ class MainWindow():
         # Prevent error if this is the first tab switch and there is no scrolledwindow.
         except AttributeError:
             pass
-        tooltip_text = "-"
         # Define variables for device list, selected device number and row number to be used for
         # adding scrolledwindow into the grid.
         performance_tab_current_sub_tab = Config.performance_tab_current_sub_tab

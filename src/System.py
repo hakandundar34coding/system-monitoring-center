@@ -535,28 +535,28 @@ class System:
 
 
         # Set label texts to show information
-        self.os_name_version_label.set_text(f'{os_name} - {os_version}')
-        self.computer_vendor_model_label.set_text(f'{computer_vendor} - {computer_model}')
-        self.system_os_name_label.set_text(os_name)
-        self.system_version_codename_label.set_text(os_version)
-        self.system_os_family_label.set_text(os_family)
-        self.system_based_on_label.set_text(os_based_on)
-        self.system_kernel_release_label.set_text(kernel_release)
-        self.system_kernel_version_label.set_text(kernel_version)
-        self.system_desktop_environment_label.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
-        self.system_windowing_system_label.set_text(windowing_system)
-        self.system_window_manager_label.set_text(window_manager)
-        self.system_display_manager_label.set_text(current_display_manager)
-        self.system_vendor_label.set_text(computer_vendor)
-        self.system_model_label.set_text(computer_model)
-        self.system_computer_type_label.set_text(computer_chassis_type)
-        self.system_computer_name_label.set_text(host_name)
-        self.system_architecture_label.set_text(cpu_architecture)
-        self.system_number_of_monitors_label.set_text(f'{number_of_monitors}')
-        #self.system_system_label.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
-        self.system_flatpak_label.set_text(f'{number_of_installed_flatpak_packages}')
-        self.system_gtk_version_label.set_text(current_gtk_version)
-        self.system_python_version_label.set_text(f'{current_python_version}')
+        self.os_name_version_label.set_label(f'{os_name} - {os_version}')
+        self.computer_vendor_model_label.set_label(f'{computer_vendor} - {computer_model}')
+        self.system_os_name_label.set_label(os_name)
+        self.system_version_codename_label.set_label(os_version)
+        self.system_os_family_label.set_label(os_family)
+        self.system_based_on_label.set_label(os_based_on)
+        self.system_kernel_release_label.set_label(kernel_release)
+        self.system_kernel_version_label.set_label(kernel_version)
+        self.system_desktop_environment_label.set_label(f'{current_desktop_environment} ({current_desktop_environment_version})')
+        self.system_windowing_system_label.set_label(windowing_system)
+        self.system_window_manager_label.set_label(window_manager)
+        self.system_display_manager_label.set_label(current_display_manager)
+        self.system_vendor_label.set_label(computer_vendor)
+        self.system_model_label.set_label(computer_model)
+        self.system_computer_type_label.set_label(computer_chassis_type)
+        self.system_computer_name_label.set_label(host_name)
+        self.system_architecture_label.set_label(cpu_architecture)
+        self.system_number_of_monitors_label.set_label(f'{number_of_monitors}')
+        #self.system_system_label.set_label(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
+        self.system_flatpak_label.set_label(f'{number_of_installed_flatpak_packages}')
+        self.system_gtk_version_label.set_label(current_gtk_version)
+        self.system_python_version_label.set_label(f'{current_python_version}')
 
         self.initial_already_run = 1
 
@@ -567,7 +567,7 @@ class System:
         # Stop spinner animation and hide it after running the function for getting information.
         self.system_spinner_system.stop()
         self.system_spinner_system.hide()
-        self.system_system_label.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
+        self.system_system_label.set_label(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
 
 
     # ----------------------- Get OS name, version, version code name and OS based on information -----------------------

@@ -551,7 +551,8 @@ class SettingsWindow:
             pass
 
         # Reset selected device on the list between Performance tab sub-tab list.
-        MainWindow.main_gui_device_selection_list()
+        if Config.performance_tab_current_sub_tab != -1:
+            MainWindow.main_gui_device_selection_list()
 
         # Apply changes immediately (without waiting update interval).
         self.settings_gui_apply_settings_immediately_func()
