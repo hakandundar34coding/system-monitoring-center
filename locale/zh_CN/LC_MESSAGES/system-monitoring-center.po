@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-20 13:21+0300\n"
-"PO-Revision-Date: 2022-11-20 13:22+0300\n"
+"PO-Revision-Date: 2022-11-20 21:49+0800\n"
 "Last-Translator: ruojiner <ruojiner@hotmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2\n"
 
 #: src/Cpu.py:83 src/CpuMenu.py:50 src/CpuMenu.py:102 src/MainWindow.py:153
 #: src/MainWindow.py:421 src/Performance.py:1092 src/Processes.py:704
@@ -62,44 +62,32 @@ msgid "Up Time"
 msgstr "运行时间"
 
 #: src/Cpu.py:285 src/Gpu.py:286
-#, fuzzy
-#| msgid "Min-Max Frequency:"
 msgid "Min-Max Frequency"
-msgstr "最低-最高 频率："
+msgstr "最低-最高 频率"
 
 #: src/Cpu.py:300
-#, fuzzy
-#| msgid "Cache (L1d-L1i):"
 msgid "Cache (L1d-L1i)"
-msgstr "L1d-L1i 缓存:"
+msgstr "L1 数据 -L1 指令 缓存"
 
 #: src/Cpu.py:315
-#, fuzzy
-#| msgid "Cache (L2-L3):"
 msgid "Cache (L2-L3)"
-msgstr "L2-L3 缓存:"
+msgstr "L2 - L3 缓存"
 
 #: src/Cpu.py:330
-#, fuzzy
-#| msgid "CPU Sockets:"
 msgid "CPU Sockets"
-msgstr "CPU 插槽："
+msgstr "CPU 插槽"
 
 #: src/Cpu.py:345
-#, fuzzy
-#| msgid "Cores (Physical-Logical):"
 msgid "Cores (Physical-Logical)"
-msgstr "核心（物理-逻辑）："
+msgstr "核心（物理-逻辑）"
 
 #: src/Cpu.py:346
 msgid "Number of online physical and logical CPU cores"
-msgstr "使用中的物理和逻辑CPu核心数量"
+msgstr "使用中的物理和逻辑CPU核心数量"
 
 #: src/Cpu.py:361 src/System.py:388
-#, fuzzy
-#| msgid "Architecture:"
 msgid "Architecture"
-msgstr "架构："
+msgstr "架构"
 
 #: src/Cpu.py:410 src/CpuMenu.py:72
 msgid "CPU Usage (Per Core)"
@@ -112,8 +100,6 @@ msgstr "未知"
 
 #: src/CpuMenu.py:58 src/DiskMenu.py:58 src/MemoryMenu.py:58
 #: src/NetworkMenu.py:58
-#, fuzzy
-#| msgid "Chart - Show"
 msgid "Graph - Show"
 msgstr "表格 - 显示"
 
@@ -210,10 +196,8 @@ msgid "File System"
 msgstr "文件系统"
 
 #: src/Disk.py:595
-#, fuzzy
-#| msgid "(Mass Storage)"
 msgid "Mass Storage"
-msgstr "（大容量存储设备）"
+msgstr "外置大容量存储设备"
 
 #: src/Disk.py:671
 msgid "Label (File System)"
@@ -233,10 +217,8 @@ msgstr "交换空间"
 
 #: src/Disk.py:1025 src/Disk.py:1026 src/Disk.py:1027 src/Disk.py:1028
 #: src/Disk.py:1030 src/MainWindow.py:1213
-#, fuzzy
-#| msgid "[Not mounted]"
 msgid "Not mounted"
-msgstr "[未挂载]"
+msgstr "未挂载"
 
 #: src/Disk.py:1114 src/Gpu.py:535 src/Gpu.py:538 src/Network.py:554
 #: src/Network.py:597 src/Services.py:473 src/ServicesDetails.py:549
@@ -264,10 +246,8 @@ msgstr "数据单元"
 
 #: src/DiskMenu.py:131 src/MemoryMenu.py:119 src/NetworkMenu.py:131
 #: src/ProcessesMenu.py:389 src/ProcessesMenu.py:415
-#, fuzzy
-#| msgid "Show data as powers of:"
 msgid "Show data as powers of"
-msgstr "显示数据的幂："
+msgstr "显示数据的幂"
 
 #: src/DiskMenu.py:152 src/NetworkMenu.py:152 src/ProcessesMenu.py:436
 msgid "Show speed units as multiples of bits"
@@ -295,34 +275,24 @@ msgid "Temperature"
 msgstr "温度"
 
 #: src/Gpu.py:301
-#, fuzzy
-#| msgid "Boot VGA:"
 msgid "Boot VGA"
-msgstr "Boot VGA："
+msgstr "启动 VGA"
 
 #: src/Gpu.py:316
-#, fuzzy
-#| msgid "Power Usage:"
 msgid "Power Usage"
-msgstr "电源 使用率（平均）："
+msgstr "电源使用率（平均）"
 
 #: src/Gpu.py:331
-#, fuzzy
-#| msgid "Driver:"
 msgid "Driver"
-msgstr "驱动程序："
+msgstr "驱动程序"
 
 #: src/Gpu.py:346
-#, fuzzy
-#| msgid "Refresh Rate:"
 msgid "Refresh Rate"
-msgstr "刷新率："
+msgstr "刷新率"
 
 #: src/Gpu.py:361
-#, fuzzy
-#| msgid "Resolution:"
 msgid "Resolution"
-msgstr "分辨率："
+msgstr "分辨率"
 
 #: src/MainWindow.py:81 src/MainWindow.py:709
 msgid "System Monitoring Center"
@@ -330,7 +300,7 @@ msgstr "系统监控中心"
 
 #: src/MainWindow.py:114
 msgid "Customization menu for the current tab"
-msgstr ""
+msgstr "当前选项卡的自定义菜单"
 
 #: src/MainWindow.py:160 src/MainWindow.py:1091 src/Memory.py:174
 #: src/Memory.py:813 src/MemoryMenu.py:65 src/Performance.py:1101
@@ -420,10 +390,8 @@ msgid "Available"
 msgstr "可用的"
 
 #: src/Memory.py:274
-#, fuzzy
-#| msgid "Hardware:"
 msgid "Hardware"
-msgstr "硬件："
+msgstr "硬件"
 
 #: src/Memory.py:478 src/Memory.py:811
 msgid "Physical RAM"
@@ -482,50 +450,36 @@ msgid "Upload Speed"
 msgstr "上传速度"
 
 #: src/Network.py:237
-#, fuzzy
-#| msgid "Downloaded Data"
 msgid "Download Data"
-msgstr "已下载数据"
+msgstr "下载数据"
 
 #: src/Network.py:243
-#, fuzzy
-#| msgid "Uploaded Data"
 msgid "Upload Data"
 msgstr "上传数据"
 
 #: src/Network.py:287
-#, fuzzy
-#| msgid "Connection Type:"
 msgid "Connection Type"
-msgstr "连接类型："
+msgstr "连接类型"
 
 #: src/Network.py:303
-#, fuzzy
-#| msgid "Connected-SSID:"
 msgid "Connected-SSID"
-msgstr "已连接的-SSID："
+msgstr "已连接的-SSID"
 
 #: src/Network.py:318
 msgid "Link Quality"
-msgstr ""
+msgstr "连接质量"
 
 #: src/Network.py:333
-#, fuzzy
-#| msgid "IPv4 Address:"
 msgid "IPv4 Address"
-msgstr "IPv4 地址："
+msgstr "IPv4 地址"
 
 #: src/Network.py:348
-#, fuzzy
-#| msgid "IPv6 Address:"
 msgid "IPv6 Address"
-msgstr "IPv6 地址："
+msgstr "IPv6 地址"
 
 #: src/Network.py:363
-#, fuzzy
-#| msgid "MAC Address:"
 msgid "MAC Address"
-msgstr "MAC 地址："
+msgstr "MAC 地址"
 
 #: src/Network.py:497
 msgid "Virtual Network Interface"
@@ -546,24 +500,20 @@ msgid "Search..."
 msgstr "搜索..."
 
 #: src/Processes.py:188
-#, fuzzy
-#| msgid "Continue Process"
 msgid "Pause Process"
-msgstr "继续进程"
+msgstr "暂停进程"
 
 #: src/Processes.py:189
 msgid "Continue Process"
 msgstr "继续进程"
 
 #: src/Processes.py:190
-#, fuzzy
-#| msgid "Processes"
 msgid "End Process"
-msgstr "进程"
+msgstr "结束进程"
 
 #: src/Processes.py:191
 msgid "End Process Immediately"
-msgstr ""
+msgstr "立即结束进程"
 
 #: src/Processes.py:197
 msgid "Very High"
@@ -606,16 +556,12 @@ msgid "Cancel"
 msgstr "返回"
 
 #: src/Processes.py:395
-#, fuzzy
-#| msgid "Do you want to kill this process?"
 msgid "Do you want to end this process?"
 msgstr "您是否想要结束此进程？"
 
 #: src/Processes.py:401
-#, fuzzy
-#| msgid "Do you want to terminate this process?"
 msgid "Do you want to end this process immediately?"
-msgstr "您是否想要终止此进程？"
+msgstr "您是否想要立即结束此进程？"
 
 #: src/Processes.py:701 src/ProcessesDetails.py:145
 #: src/ProcessesDetails.py:1167 src/ProcessesMenu.py:200
@@ -736,7 +682,7 @@ msgstr "写入总计"
 
 #: src/ProcessesDetails.py:937
 msgid "Current Working Directory"
-msgstr ""
+msgstr "当前工作目录"
 
 #: src/ProcessesDetails.py:979
 msgid "Opened Files"
@@ -942,31 +888,27 @@ msgstr "之前"
 
 #: src/SettingsWindow.py:22
 msgid "Light"
-msgstr ""
+msgstr "亮色"
 
 #: src/SettingsWindow.py:22
 msgid "Dark"
-msgstr ""
+msgstr "暗色"
 
 #: src/SettingsWindow.py:66
 msgid "Language (Requires restart)"
-msgstr ""
+msgstr "语言（需要重启）"
 
 #: src/SettingsWindow.py:76
 msgid "Light/Dark theme"
-msgstr ""
+msgstr "亮/暗色主题"
 
 #: src/SettingsWindow.py:92
-#, fuzzy
-#| msgid "Update interval (seconds):"
 msgid "Update interval (seconds)"
-msgstr "更新间隔（秒）："
+msgstr "更新间隔（秒）"
 
 #: src/SettingsWindow.py:102
-#, fuzzy
-#| msgid "Chart data history:"
 msgid "Graph data history"
-msgstr "图表数据历史："
+msgstr "图表数据历史"
 
 #: src/SettingsWindow.py:118
 msgid "Show performance summary on the headerbar"
@@ -977,10 +919,8 @@ msgid "Remember last opened tabs"
 msgstr "记住上次打开标签"
 
 #: src/SettingsWindow.py:142
-#, fuzzy
-#| msgid "Default main tab and sub-tab:"
 msgid "Default main tab and sub-tab"
-msgstr "默认主选项卡和子选项卡："
+msgstr "默认主选项卡和子选项卡"
 
 #: src/SettingsWindow.py:162
 msgid "Remember last selected devices"
@@ -999,8 +939,6 @@ msgid "(If the application is run without root privileges.)"
 msgstr "(如果应用程序在没有Root权限的情况下运行。)"
 
 #: src/SettingsWindow.py:220
-#, fuzzy
-#| msgid "Reset all settings of the application to defaults"
 msgid "Reset all settings of the application"
 msgstr "将应用程序的所有设置重置为默认值"
 
@@ -1021,116 +959,84 @@ msgid "Refresh the data on this tab"
 msgstr "刷新标签页数据"
 
 #: src/System.py:170
-#, fuzzy
-#| msgid "Version - Code Name:"
 msgid "Version - Code Name"
-msgstr "版本 - 代号："
+msgstr "版本 - 代号"
 
 #: src/System.py:185
-#, fuzzy
-#| msgid "OS Family:"
 msgid "OS Family"
-msgstr "OS 家族："
+msgstr "OS 家族"
 
 #: src/System.py:200
-#, fuzzy
-#| msgid "Based On:"
 msgid "Based On"
-msgstr "基于："
+msgstr "基于"
 
 #: src/System.py:215
-#, fuzzy
-#| msgid "Kernel Release:"
 msgid "Kernel Release"
-msgstr "内核发行："
+msgstr "内核发行"
 
 #: src/System.py:230
-#, fuzzy
-#| msgid "Kernel Version:"
 msgid "Kernel Version"
-msgstr "内核版本："
+msgstr "内核版本"
 
 #: src/System.py:254
 msgid "Graphical User Interface (GUI)"
 msgstr "图形用户界面（GUI）"
 
 #: src/System.py:260
-#, fuzzy
-#| msgid "Desktop Environment:"
 msgid "Desktop Environment"
-msgstr "桌面环境："
+msgstr "桌面环境"
 
 #: src/System.py:275
-#, fuzzy
-#| msgid "Windowing System:"
 msgid "Windowing System"
-msgstr "窗口系统："
+msgstr "窗口系统"
 
 #: src/System.py:290
-#, fuzzy
-#| msgid "Window Manager:"
 msgid "Window Manager"
-msgstr "窗口管理器："
+msgstr "窗口管理器"
 
 #: src/System.py:305
-#, fuzzy
-#| msgid "Display Manager:"
 msgid "Display Manager"
-msgstr "显示管理器："
+msgstr "显示管理器"
 
 #: src/System.py:328
-#, fuzzy
-#| msgid "Vendor:"
 msgid "Vendor"
-msgstr "供应商："
+msgstr "供应商"
 
 #: src/System.py:343
-#, fuzzy
-#| msgid "Model:"
 msgid "Model"
-msgstr "型号："
+msgstr "型号"
 
 #: src/System.py:358
-#, fuzzy
-#| msgid "Computer Type:"
 msgid "Computer Type"
-msgstr "计算机类型："
+msgstr "计算机类型"
 
 #: src/System.py:403
-#, fuzzy
-#| msgid "Number Of Monitors:"
 msgid "Number Of Monitors"
-msgstr "显示器数量："
+msgstr "显示器数量"
 
 #: src/System.py:422
 msgid "Packages"
 msgstr "软件包"
 
 #: src/System.py:452
-#, fuzzy
-#| msgid "Flatpak:"
 msgid "Flatpak"
-msgstr "Flatpak："
+msgstr "Flatpak"
 
 #: src/System.py:453
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "已安装的 Flatpak 应用程序和运行时的数量"
 
 #: src/System.py:468
-#, fuzzy
-#| msgid "GTK Version:"
 msgid "GTK Version"
-msgstr "GTK 版本："
+msgstr "GTK 版本"
 
 #: src/System.py:469 src/System.py:485
 msgid "Version for the currently running software"
 msgstr "当前运行软件版本"
 
 #: src/System.py:484
-#, fuzzy
-#| msgid "Python Version:"
 msgid "Python Version"
-msgstr "Python 版本："
+msgstr "Python 版本"
 
 #: src/Users.py:254 src/UsersDetails.py:106 src/UsersMenu.py:117
 msgid "Full Name"
