@@ -39,21 +39,24 @@ class MainWindow():
         # Show root privileges warning
         self.root_privileges_warning()
 
-        # Define these settings in order to avoid error
-        # on the first call of "main_gui_tab_loop" function.
-        Config.current_main_tab = -1
-        Config.performance_tab_current_sub_tab = -1
-
         # Define initial variables for performance summary on the window headerbar
         self.main_gui_performance_summary_headerbar_initial()
 
         # Run "Performance" module in order to provide performance data to Performance tab and performance summary on the headerbar.
         Performance.performance_background_initial_func()
 
+        # Define these settings in order to avoid error
+        # on the first call of "main_gui_tab_loop" function.
+        Config.current_main_tab = -1
+        Config.performance_tab_current_sub_tab = -1
+
+        # Start loop function to run loop functions of opened tabs to get data of them.
+        self.main_gui_tab_loop()
+
         # Switch to default tab
         self.main_gui_default_tab_func()
 
-        # Connect GUI signals
+        # Connect GUI signals after switching to default tab.
         self.main_gui_connect_signals()
 
 

@@ -700,7 +700,7 @@ class SettingsWindow:
             for i in range(network_receive_speed_len):
                 Performance.network_receive_speed[i] = Performance.network_receive_speed[i][chart_data_history_current-chart_data_history_new:]    # "network_receive_speed" list has sub-lists and trimming is performed for every sub-lists (for every network card).
                 Performance.network_send_speed[i] = Performance.network_send_speed[i][chart_data_history_current-chart_data_history_new:]    # "network_send_speed" list has sub-lists and trimming is performed for every sub-lists (for every network card).
-            if MainWindow.radiobutton1005.get_active() == True:
+            if MainWindow.gpu_tb.get_active() == True:
                 from Gpu import Gpu
                 Gpu.fps_count = Gpu.fps_count[chart_data_history_current-chart_data_history_new:]     # "fps_count" list has no sub-lists and trimming is performed in this way.
         if chart_data_history_current < chart_data_history_new:                                   # Add list of zeroes to the beginning part of the lists if new "chart_data_history" value is bigger than the old value.
@@ -718,7 +718,7 @@ class SettingsWindow:
             for i in range(network_receive_speed_len):
                 Performance.network_receive_speed[i] = list_to_add + Performance.network_receive_speed[i]    # "network_receive_speed" list has sub-lists and addition is performed for every sub-lists (for every network card).
                 Performance.network_send_speed[i] = list_to_add + Performance.network_send_speed[i]    # "network_send_speed" list has sub-lists and addition is performed for every sub-lists (for every network card).
-            if MainWindow.radiobutton1005.get_active() == True:
+            if MainWindow.gpu_tb.get_active() == True:
                 from Gpu import Gpu
                 Gpu.fps_count = list_to_add + Gpu.fps_count                                       # "fps_count" list has no sub-lists and addition is performed in this way.
 
