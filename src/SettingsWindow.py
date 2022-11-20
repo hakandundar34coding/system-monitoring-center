@@ -383,15 +383,15 @@ class SettingsWindow:
         # Get currently opened tabs and save them if preferred.
         if widget.get_active() == True:
             Config.remember_last_opened_tabs_on_application_start = 1
-            self.combobox2003.set_sensitive(False)
-            self.combobox2004.set_sensitive(False)
+            self.default_main_tab_cmb.set_sensitive(False)
+            self.default_sub_tab_cmb.set_sensitive(False)
             self.settings_gui_default_tab_func()
 
         # Set setting for not remembering las opened tabs if preferred.
         if widget.get_active() == False:
             Config.remember_last_opened_tabs_on_application_start = 0
-            self.combobox2003.set_sensitive(True)
-            self.combobox2004.set_sensitive(True)
+            self.default_main_tab_cmb.set_sensitive(True)
+            self.default_sub_tab_cmb.set_sensitive(True)
 
         Config.config_save_func()
 
@@ -799,30 +799,30 @@ class SettingsWindow:
     # ----------------------- Called for saving default main tab and performace tab sub-tab when "Remember last opened tabs" option is enabled -----------------------
     def settings_gui_default_tab_func(self):
 
-        if MainWindow.radiobutton1.get_active() == True:
+        if MainWindow.performance_tb.get_active() == True:
             Config.default_main_tab = 0
-        elif MainWindow.radiobutton2.get_active() == True:
+        elif MainWindow.processes_tb.get_active() == True:
             Config.default_main_tab = 1
-        elif MainWindow.radiobutton3.get_active() == True:
+        elif MainWindow.users_tb.get_active() == True:
             Config.default_main_tab = 2
-        elif MainWindow.radiobutton6.get_active() == True:
+        elif MainWindow.services_tb.get_active() == True:
             Config.default_main_tab = 3
-        elif MainWindow.radiobutton8.get_active() == True:
+        elif MainWindow.system_tb.get_active() == True:
             Config.default_main_tab = 4
 
-        if MainWindow.radiobutton1007.get_active() == True:
+        if MainWindow.summary_tb.get_active() == True:
             Config.performance_tab_default_sub_tab = 0
-        elif MainWindow.radiobutton1001.get_active() == True:
+        elif MainWindow.cpu_tb.get_active() == True:
             Config.performance_tab_default_sub_tab = 1
-        elif MainWindow.radiobutton1002.get_active() == True:
+        elif MainWindow.memory_tb.get_active() == True:
             Config.performance_tab_default_sub_tab = 2
-        elif MainWindow.radiobutton1003.get_active() == True:
+        elif MainWindow.disk_tb.get_active() == True:
             Config.performance_tab_default_sub_tab = 3
-        elif MainWindow.radiobutton1004.get_active() == True:
+        elif MainWindow.network_tb.get_active() == True:
             Config.performance_tab_default_sub_tab = 4
-        elif MainWindow.radiobutton1005.get_active() == True:
+        elif MainWindow.gpu_tb.get_active() == True:
             Config.performance_tab_default_sub_tab = 5
-        elif MainWindow.radiobutton1006.get_active() == True:
+        elif MainWindow.sensors_tb.get_active() == True:
             Config.performance_tab_default_sub_tab = 6
 
 
