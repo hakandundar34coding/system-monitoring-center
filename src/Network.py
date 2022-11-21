@@ -20,33 +20,24 @@ class Network:
 
     def __init__(self):
 
-        # Network tab GUI
-        self.network_tab_gui()
+        # Tab GUI
+        self.tab_gui()
 
-        # "0" value of "initial_already_run" variable means that initial function is not run before or
-        # tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
 
 
-    def network_tab_gui(self):
+    def tab_gui(self):
         """
-        Generate Network tab GUI.
+        Generate tab GUI.
         """
 
-        # Network tab grid
-        self.network_tab_grid = Gtk.Grid()
-        self.network_tab_grid.set_row_spacing(10)
-        self.network_tab_grid.set_margin_top(2)
-        self.network_tab_grid.set_margin_bottom(2)
-        self.network_tab_grid.set_margin_start(2)
-        self.network_tab_grid.set_margin_end(2)
-
-        # Bold and 2x label atributes
-        self.attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        self.attribute_list_bold_2x.insert(attribute)
+        # Grid (tab)
+        self.tab_grid = Gtk.Grid()
+        self.tab_grid.set_row_spacing(10)
+        self.tab_grid.set_margin_top(2)
+        self.tab_grid.set_margin_bottom(2)
+        self.tab_grid.set_margin_start(2)
+        self.tab_grid.set_margin_end(2)
 
         # Bold label atributes
         self.attribute_list_bold = Pango.AttrList()
@@ -54,36 +45,43 @@ class Network:
         self.attribute_list_bold.insert(attribute)
 
         # Tab name, device name labels
-        self.network_gui_label_grid()
+        self.tab_title_grid()
 
         # Drawingarea and related information labels
-        self.network_gui_da_grid()
+        self.da_grid()
 
-        # Performance information labels
-        self.network_gui_performance_info_grid()
+        # Performance/information labels
+        self.information_grid()
 
         # Connect signals
-        self.network_gui_signals()
+        self.connect_signals()
 
 
-    def network_gui_label_grid(self):
+    def tab_title_grid(self):
         """
         Generate tab name, device name labels.
         """
 
-        # Tab name label grid
-        tab_name_label_grid = Gtk.Grid()
-        self.network_tab_grid.attach(tab_name_label_grid, 0, 0, 1, 1)
+        # Grid (tab title)
+        grid = Gtk.Grid()
+        self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Tab name label
-        tab_name_label = Gtk.Label()
-        tab_name_label.set_halign(Gtk.Align.START)
-        tab_name_label.set_margin_end(60)
-        tab_name_label.set_attributes(self.attribute_list_bold_2x)
-        tab_name_label.set_label(_tr("Network"))
-        tab_name_label_grid.attach(tab_name_label, 0, 0, 1, 2)
+        # Bold and 2x label atributes
+        attribute_list_bold_2x = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        attribute_list_bold_2x.insert(attribute)
+        attribute = Pango.attr_scale_new(2.0)
+        attribute_list_bold_2x.insert(attribute)
 
-        # Device vendor-model label
+        # Label (Network)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.START)
+        label.set_margin_end(60)
+        label.set_attributes(attribute_list_bold_2x)
+        label.set_label(_tr("Network"))
+        grid.attach(label, 0, 0, 1, 2)
+
+        # Label (Device vendor-model label)
         self.device_vendor_model_label = Gtk.Label()
         self.device_vendor_model_label.set_halign(Gtk.Align.START)
         self.device_vendor_model_label.set_selectable(True)
@@ -91,66 +89,66 @@ class Network:
         self.device_vendor_model_label.set_attributes(self.attribute_list_bold)
         self.device_vendor_model_label.set_label("--")
         self.device_vendor_model_label.set_tooltip_text(_tr("Vendor-Model"))
-        tab_name_label_grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
+        grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
 
-        # Device kernel name label
+        # Label (device kernel name)
         self.device_kernel_name_label = Gtk.Label()
         self.device_kernel_name_label.set_halign(Gtk.Align.START)
         self.device_kernel_name_label.set_selectable(True)
         self.device_kernel_name_label.set_ellipsize(Pango.EllipsizeMode.END)
         self.device_kernel_name_label.set_label("--")
         self.device_kernel_name_label.set_tooltip_text(_tr("Device Name In Kernel"))
-        tab_name_label_grid.attach(self.device_kernel_name_label, 1, 1, 1, 1)
+        grid.attach(self.device_kernel_name_label, 1, 1, 1, 1)
 
 
-    def network_gui_da_grid(self):
+    def da_grid(self):
         """
         Generate tab drawingarea and related information labels.
         """
 
-        # Drawingarea grid
-        da_network_speed_grid = Gtk.Grid()
-        da_network_speed_grid.set_hexpand(True)
-        da_network_speed_grid.set_vexpand(True)
-        self.network_tab_grid.attach(da_network_speed_grid, 0, 1, 1, 1)
+        # Grid (drawingarea)
+        grid = Gtk.Grid()
+        grid.set_hexpand(True)
+        grid.set_vexpand(True)
+        self.tab_grid.attach(grid, 0, 1, 1, 1)
 
-        # Drawingarea upper-left label
-        da_upper_left_label = Gtk.Label()
-        da_upper_left_label.set_halign(Gtk.Align.START)
-        da_upper_left_label.set_label(_tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
-        da_network_speed_grid.attach(da_upper_left_label, 0, 0, 1, 1)
+        # Label (drawingarea upper-left)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.START)
+        label.set_label(_tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
+        grid.attach(label, 0, 0, 1, 1)
 
-        # Drawingarea upper-right label
+        # Label (drawingarea upper-right)
         self.da_upper_right_label = Gtk.Label()
         self.da_upper_right_label.set_halign(Gtk.Align.END)
         self.da_upper_right_label.set_label("--")
-        da_network_speed_grid.attach(self.da_upper_right_label, 1, 0, 1, 1)
+        grid.attach(self.da_upper_right_label, 1, 0, 1, 1)
 
-        # Drawingarea
+        # DrawingArea
         self.da_network_speed = Gtk.DrawingArea()
         self.da_network_speed.set_hexpand(True)
         self.da_network_speed.set_vexpand(True)
-        da_network_speed_grid.attach(self.da_network_speed, 0, 2, 2, 1)
+        grid.attach(self.da_network_speed, 0, 2, 2, 1)
 
-        # Drawingarea lower-right label
-        da_lower_right_label = Gtk.Label()
-        da_lower_right_label.set_halign(Gtk.Align.END)
-        da_lower_right_label.set_label("0")
-        da_network_speed_grid.attach(da_lower_right_label, 0, 3, 2, 1)
+        # Label (drawingarea lower-right)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.END)
+        label.set_label("0")
+        grid.attach(label, 0, 3, 2, 1)
 
 
-    def network_gui_performance_info_grid(self):
+    def information_grid(self):
         """
-        Generate performance information labels.
+        Generate performance/information labels.
         """
 
-        # Performance information labels grid
+        # Grid (performance/information labels)
         performance_info_grid = Gtk.Grid()
         performance_info_grid.set_column_homogeneous(True)
         performance_info_grid.set_row_homogeneous(True)
         performance_info_grid.set_column_spacing(12)
         performance_info_grid.set_row_spacing(10)
-        self.network_tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
+        self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
         # Performance information labels
         # Add viewports for showing borders around some the performance data and round the corners of the viewports.
@@ -375,7 +373,7 @@ class Network:
         performance_info_right_grid.attach(self.network_mac_address_label, 1, 5, 1, 1)
 
 
-    def network_gui_signals(self):
+    def connect_signals(self):
         """
         Connect GUI signals.
         """
@@ -383,15 +381,17 @@ class Network:
         self.da_network_speed.set_draw_func(Performance.performance_line_charts_draw_func, "da_network_speed")
 
         # Drawingarea mouse events
-        drawing_area_mouse_event = Gtk.EventControllerMotion()
-        drawing_area_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawing_area_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawing_area_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.da_network_speed.add_controller(drawing_area_mouse_event)
+        drawingarea_mouse_event = Gtk.EventControllerMotion()
+        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
+        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
+        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
+        self.da_network_speed.add_controller(drawingarea_mouse_event)
 
 
-    # ----------------------------------- Network - Initial Function -----------------------------------
     def network_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         network_card_list = Performance.network_card_list
         selected_network_card_number = Performance.selected_network_card_number
@@ -416,8 +416,10 @@ class Network:
         self.initial_already_run = 1
 
 
-    # ----------------------------------- Network - Initial Function -----------------------------------
     def network_loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
 
         network_card_list = Performance.network_card_list
         selected_network_card_number = Performance.selected_network_card_number

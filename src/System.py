@@ -22,67 +22,65 @@ class System:
 
     def __init__(self):
 
-        # System tab GUI
-        self.system_tab_gui()
+        # Tab GUI
+        self.tab_gui()
 
-        # "0" value of "initial_already_run" variable means that initial function is not run before or
-        # tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
 
 
-    def system_tab_gui(self):
+    def tab_gui(self):
         """
-        Generate System tab GUI.
+        Generate tab GUI.
         """
 
-        # System tab grid
-        self.system_tab_grid = Gtk.Grid()
-        self.system_tab_grid.set_row_spacing(10)
-        self.system_tab_grid.set_margin_top(2)
-        self.system_tab_grid.set_margin_bottom(2)
-        self.system_tab_grid.set_margin_start(2)
-        self.system_tab_grid.set_margin_end(2)
-
-        # Bold and 2x label atributes
-        self.attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        self.attribute_list_bold_2x.insert(attribute)
+        # Grid (tab)
+        self.tab_grid = Gtk.Grid()
+        self.tab_grid.set_row_spacing(10)
+        self.tab_grid.set_margin_top(2)
+        self.tab_grid.set_margin_bottom(2)
+        self.tab_grid.set_margin_start(2)
+        self.tab_grid.set_margin_end(2)
 
         # Bold label atributes
         self.attribute_list_bold = Pango.AttrList()
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
         self.attribute_list_bold.insert(attribute)
 
-        # Tab name, device name labels and menu button
-        self.system_gui_label_grid()
+        # Tab name, device name labels
+        self.tab_title_grid()
 
-        # Performance information labels
-        self.system_gui_performance_info_grid()
+        # Performance/information labels
+        self.information_grid()
 
         # Connect signals
-        self.system_gui_signals()
+        self.connect_signals()
 
 
-    def system_gui_label_grid(self):
+    def tab_title_grid(self):
         """
         Generate tab name, os name-version, computer vendor-model labels and refresh button.
         """
 
-        # Tab name label grid
-        tab_name_label_grid = Gtk.Grid()
-        self.system_tab_grid.attach(tab_name_label_grid, 0, 0, 1, 1)
+        # Grid (tab title)
+        grid = Gtk.Grid()
+        self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Tab name label
-        tab_name_label = Gtk.Label()
-        tab_name_label.set_halign(Gtk.Align.START)
-        tab_name_label.set_margin_end(60)
-        tab_name_label.set_attributes(self.attribute_list_bold_2x)
-        tab_name_label.set_label(_tr("System"))
-        tab_name_label_grid.attach(tab_name_label, 0, 0, 1, 2)
+        # Bold and 2x label atributes
+        attribute_list_bold_2x = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        attribute_list_bold_2x.insert(attribute)
+        attribute = Pango.attr_scale_new(2.0)
+        attribute_list_bold_2x.insert(attribute)
 
-        # OS name-version label
+        # Label (System)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.START)
+        label.set_margin_end(60)
+        label.set_attributes(attribute_list_bold_2x)
+        label.set_label(_tr("System"))
+        grid.attach(label, 0, 0, 1, 2)
+
+        # Label (OS name-version)
         self.os_name_version_label = Gtk.Label()
         self.os_name_version_label.set_halign(Gtk.Align.START)
         self.os_name_version_label.set_selectable(True)
@@ -90,30 +88,30 @@ class System:
         self.os_name_version_label.set_attributes(self.attribute_list_bold)
         self.os_name_version_label.set_label("--")
         self.os_name_version_label.set_tooltip_text(_tr("Operating System (OS)"))
-        tab_name_label_grid.attach(self.os_name_version_label, 1, 0, 1, 1)
+        grid.attach(self.os_name_version_label, 1, 0, 1, 1)
 
-        # Computer vendor-model label
+        # Label (computer vendor-model)
         self.computer_vendor_model_label = Gtk.Label()
         self.computer_vendor_model_label.set_halign(Gtk.Align.START)
         self.computer_vendor_model_label.set_selectable(True)
         self.computer_vendor_model_label.set_ellipsize(Pango.EllipsizeMode.END)
         self.computer_vendor_model_label.set_label("--")
         self.computer_vendor_model_label.set_tooltip_text(_tr("Computer"))
-        tab_name_label_grid.attach(self.computer_vendor_model_label, 1, 1, 1, 1)
+        grid.attach(self.computer_vendor_model_label, 1, 1, 1, 1)
 
-        # Tab refresh menu button
+        # Button (tab refresh)
         self.refresh_button = Gtk.Button()
         self.refresh_button.set_tooltip_text(_tr("Refresh the data on this tab"))
         self.refresh_button.set_hexpand(True)
         self.refresh_button.set_halign(Gtk.Align.END)
         self.refresh_button.set_valign(Gtk.Align.CENTER)
         self.refresh_button.set_icon_name("view-refresh-symbolic")
-        tab_name_label_grid.attach(self.refresh_button, 2, 0, 1, 2)
+        grid.attach(self.refresh_button, 2, 0, 1, 2)
 
 
-    def system_gui_performance_info_grid(self):
+    def information_grid(self):
         """
-        Generate performance information labels.
+        Generate performance/information labels.
         """
 
         # Add viewports for showing borders around some the performance data.
@@ -121,7 +119,7 @@ class System:
         style_provider_grid = Gtk.CssProvider()
         style_provider_grid.load_from_data(css)
 
-        # Performance information labels grid
+        # Grid (performance/information labels)
         performance_info_grid = Gtk.Grid()
         performance_info_grid.set_column_homogeneous(True)
         performance_info_grid.set_row_homogeneous(True)
@@ -129,9 +127,9 @@ class System:
         performance_info_grid.set_row_spacing(10)
         performance_info_grid.set_margin_top(5)
         performance_info_grid.get_style_context().add_provider(style_provider_grid, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        self.system_tab_grid.attach(performance_info_grid, 0, 1, 1, 1)
+        self.tab_grid.attach(performance_info_grid, 0, 1, 1, 1)
 
-        # Performance information labels inner grid
+        # Grid (information labels inner grid)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
         grid.set_row_homogeneous(True)
@@ -144,7 +142,7 @@ class System:
         performance_info_grid.attach(grid, 0, 0, 1, 1)
 
         # Performance information labels
-        # Title label (Operating System (OS))
+        # Label - Title (Operating System (OS))
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Operating System (OS)"))
@@ -152,95 +150,95 @@ class System:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 0, 2, 1)
 
+        # Label (Name)
         label = Gtk.Label()
         label.set_label(_tr("Name") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
+        # Label (Name)
+        self.os_name_label = Gtk.Label()
+        self.os_name_label.set_selectable(True)
+        self.os_name_label.set_attributes(self.attribute_list_bold)
+        self.os_name_label.set_label("--")
+        self.os_name_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.os_name_label.set_halign(Gtk.Align.START)
+        grid.attach(self.os_name_label, 1, 1, 1, 1)
 
-        # Information label (Name for OS)
-        self.system_os_name_label = Gtk.Label()
-        self.system_os_name_label.set_selectable(True)
-        self.system_os_name_label.set_attributes(self.attribute_list_bold)
-        self.system_os_name_label.set_label("--")
-        self.system_os_name_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_os_name_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_os_name_label, 1, 1, 1, 1)
-
+        # Label (Version - Code Name)
         label = Gtk.Label()
         label.set_label(_tr("Version - Code Name") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
+        # Label (Version - Code Name)
+        self.version_codename_label = Gtk.Label()
+        self.version_codename_label.set_selectable(True)
+        self.version_codename_label.set_attributes(self.attribute_list_bold)
+        self.version_codename_label.set_label("--")
+        self.version_codename_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.version_codename_label.set_halign(Gtk.Align.START)
+        grid.attach(self.version_codename_label, 1, 2, 1, 1)
 
-        # Information label (Version - Code Name)
-        self.system_version_codename_label = Gtk.Label()
-        self.system_version_codename_label.set_selectable(True)
-        self.system_version_codename_label.set_attributes(self.attribute_list_bold)
-        self.system_version_codename_label.set_label("--")
-        self.system_version_codename_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_version_codename_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_version_codename_label, 1, 2, 1, 1)
-
+        # Label (OS Family)
         label = Gtk.Label()
         label.set_label(_tr("OS Family") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 3, 1, 1)
+        # Label (OS Family)
+        self.os_family_label = Gtk.Label()
+        self.os_family_label.set_selectable(True)
+        self.os_family_label.set_attributes(self.attribute_list_bold)
+        self.os_family_label.set_label("--")
+        self.os_family_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.os_family_label.set_halign(Gtk.Align.START)
+        grid.attach(self.os_family_label, 1, 3, 1, 1)
 
-        # Information label (OS Family)
-        self.system_os_family_label = Gtk.Label()
-        self.system_os_family_label.set_selectable(True)
-        self.system_os_family_label.set_attributes(self.attribute_list_bold)
-        self.system_os_family_label.set_label("--")
-        self.system_os_family_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_os_family_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_os_family_label, 1, 3, 1, 1)
-
+        # Label (Based On)
         label = Gtk.Label()
         label.set_label(_tr("Based On") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 4, 1, 1)
+        # Label (Based On)
+        self.based_on_label = Gtk.Label()
+        self.based_on_label.set_selectable(True)
+        self.based_on_label.set_attributes(self.attribute_list_bold)
+        self.based_on_label.set_label("--")
+        self.based_on_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.based_on_label.set_halign(Gtk.Align.START)
+        grid.attach(self.based_on_label, 1, 4, 1, 1)
 
-        # Information label (Based On)
-        self.system_based_on_label = Gtk.Label()
-        self.system_based_on_label.set_selectable(True)
-        self.system_based_on_label.set_attributes(self.attribute_list_bold)
-        self.system_based_on_label.set_label("--")
-        self.system_based_on_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_based_on_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_based_on_label, 1, 4, 1, 1)
-
+        # Label (Kernel Release)
         label = Gtk.Label()
         label.set_label(_tr("Kernel Release") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 5, 1, 1)
+        # Label (Kernel Release)
+        self.kernel_release_label = Gtk.Label()
+        self.kernel_release_label.set_selectable(True)
+        self.kernel_release_label.set_attributes(self.attribute_list_bold)
+        self.kernel_release_label.set_label("--")
+        self.kernel_release_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.kernel_release_label.set_halign(Gtk.Align.START)
+        grid.attach(self.kernel_release_label, 1, 5, 1, 1)
 
-        # Information label (Kernel Release)
-        self.system_kernel_release_label = Gtk.Label()
-        self.system_kernel_release_label.set_selectable(True)
-        self.system_kernel_release_label.set_attributes(self.attribute_list_bold)
-        self.system_kernel_release_label.set_label("--")
-        self.system_kernel_release_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_kernel_release_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_kernel_release_label, 1, 5, 1, 1)
-
+        # Label (Kernel Version)
         label = Gtk.Label()
         label.set_label(_tr("Kernel Version") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 6, 1, 1)
-
-        # Information label (Kernel Version)
-        self.system_kernel_version_label = Gtk.Label()
-        self.system_kernel_version_label.set_selectable(True)
-        self.system_kernel_version_label.set_attributes(self.attribute_list_bold)
-        self.system_kernel_version_label.set_label("--")
-        self.system_kernel_version_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_kernel_version_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_kernel_version_label, 1, 6, 1, 1)
+        # Label (Kernel Version)
+        self.kernel_version_label = Gtk.Label()
+        self.kernel_version_label.set_selectable(True)
+        self.kernel_version_label.set_attributes(self.attribute_list_bold)
+        self.kernel_version_label.set_label("--")
+        self.kernel_version_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.kernel_version_label.set_halign(Gtk.Align.START)
+        grid.attach(self.kernel_version_label, 1, 6, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
@@ -249,7 +247,7 @@ class System:
         separator.set_valign(Gtk.Align.CENTER)
         grid.attach(separator, 0, 7, 4, 1)
 
-        # Title label (Operating System (OS))
+        # Label - Title (Graphical User Interface (GUI))
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Graphical User Interface (GUI)"))
@@ -257,67 +255,67 @@ class System:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 8, 2, 1)
 
+        # Label (Desktop Environment)
         label = Gtk.Label()
         label.set_label(_tr("Desktop Environment") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 9, 1, 1)
+        # Label (Desktop Environment)
+        self.desktop_environment_label = Gtk.Label()
+        self.desktop_environment_label.set_selectable(True)
+        self.desktop_environment_label.set_attributes(self.attribute_list_bold)
+        self.desktop_environment_label.set_label("--")
+        self.desktop_environment_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.desktop_environment_label.set_halign(Gtk.Align.START)
+        grid.attach(self.desktop_environment_label, 1, 9, 1, 1)
 
-        # Information label (Desktop Environment)
-        self.system_desktop_environment_label = Gtk.Label()
-        self.system_desktop_environment_label.set_selectable(True)
-        self.system_desktop_environment_label.set_attributes(self.attribute_list_bold)
-        self.system_desktop_environment_label.set_label("--")
-        self.system_desktop_environment_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_desktop_environment_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_desktop_environment_label, 1, 9, 1, 1)
-
+        # Label (Windowing System)
         label = Gtk.Label()
         label.set_label(_tr("Windowing System") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 10, 1, 1)
+        # Label (Windowing System)
+        self.windowing_system_label = Gtk.Label()
+        self.windowing_system_label.set_selectable(True)
+        self.windowing_system_label.set_attributes(self.attribute_list_bold)
+        self.windowing_system_label.set_label("--")
+        self.windowing_system_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.windowing_system_label.set_halign(Gtk.Align.START)
+        grid.attach(self.windowing_system_label, 1, 10, 1, 1)
 
-        # Information label (Windowing System)
-        self.system_windowing_system_label = Gtk.Label()
-        self.system_windowing_system_label.set_selectable(True)
-        self.system_windowing_system_label.set_attributes(self.attribute_list_bold)
-        self.system_windowing_system_label.set_label("--")
-        self.system_windowing_system_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_windowing_system_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_windowing_system_label, 1, 10, 1, 1)
-
+        # Label (Window Manager)
         label = Gtk.Label()
         label.set_label(_tr("Window Manager") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 11, 1, 1)
+        # Label (Window Manager)
+        self.window_manager_label = Gtk.Label()
+        self.window_manager_label.set_selectable(True)
+        self.window_manager_label.set_attributes(self.attribute_list_bold)
+        self.window_manager_label.set_label("--")
+        self.window_manager_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.window_manager_label.set_halign(Gtk.Align.START)
+        grid.attach(self.window_manager_label, 1, 11, 1, 1)
 
-        # Information label (Window Manager)
-        self.system_window_manager_label = Gtk.Label()
-        self.system_window_manager_label.set_selectable(True)
-        self.system_window_manager_label.set_attributes(self.attribute_list_bold)
-        self.system_window_manager_label.set_label("--")
-        self.system_window_manager_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_window_manager_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_window_manager_label, 1, 11, 1, 1)
-
+        # Label (Display Manager)
         label = Gtk.Label()
         label.set_label(_tr("Display Manager") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 12, 1, 1)
+        # Label (Display Manager)
+        self.display_manager_label = Gtk.Label()
+        self.display_manager_label.set_selectable(True)
+        self.display_manager_label.set_attributes(self.attribute_list_bold)
+        self.display_manager_label.set_label("--")
+        self.display_manager_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.display_manager_label.set_halign(Gtk.Align.START)
+        grid.attach(self.display_manager_label, 1, 12, 1, 1)
 
-        # Information label (Display Manager)
-        self.system_display_manager_label = Gtk.Label()
-        self.system_display_manager_label.set_selectable(True)
-        self.system_display_manager_label.set_attributes(self.attribute_list_bold)
-        self.system_display_manager_label.set_label("--")
-        self.system_display_manager_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_display_manager_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_display_manager_label, 1, 12, 1, 1)
-
-        # Title label (Computer)
+        # Label - Title (Computer)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Computer"))
@@ -325,99 +323,99 @@ class System:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 0, 2, 1)
 
+        # Label (Vendor)
         label = Gtk.Label()
         label.set_label(_tr("Vendor") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 1, 1, 1)
+        # Label (Vendor)
+        self.vendor_label = Gtk.Label()
+        self.vendor_label.set_selectable(True)
+        self.vendor_label.set_attributes(self.attribute_list_bold)
+        self.vendor_label.set_label("--")
+        self.vendor_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.vendor_label.set_halign(Gtk.Align.START)
+        grid.attach(self.vendor_label, 3, 1, 1, 1)
 
-        # Information label (Vendor)
-        self.system_vendor_label = Gtk.Label()
-        self.system_vendor_label.set_selectable(True)
-        self.system_vendor_label.set_attributes(self.attribute_list_bold)
-        self.system_vendor_label.set_label("--")
-        self.system_vendor_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_vendor_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_vendor_label, 3, 1, 1, 1)
-
+        # Label (Model)
         label = Gtk.Label()
         label.set_label(_tr("Model") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 2, 1, 1)
+        # Label (Model)
+        self.model_label = Gtk.Label()
+        self.model_label.set_selectable(True)
+        self.model_label.set_attributes(self.attribute_list_bold)
+        self.model_label.set_label("--")
+        self.model_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.model_label.set_halign(Gtk.Align.START)
+        grid.attach(self.model_label, 3, 2, 1, 1)
 
-        # Information label (Model)
-        self.system_model_label = Gtk.Label()
-        self.system_model_label.set_selectable(True)
-        self.system_model_label.set_attributes(self.attribute_list_bold)
-        self.system_model_label.set_label("--")
-        self.system_model_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_model_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_model_label, 3, 2, 1, 1)
-
+        # Label (Computer Type)
         label = Gtk.Label()
         label.set_label(_tr("Computer Type") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 3, 1, 1)
+        # Label (Computer Type)
+        self.computer_type_label = Gtk.Label()
+        self.computer_type_label.set_selectable(True)
+        self.computer_type_label.set_attributes(self.attribute_list_bold)
+        self.computer_type_label.set_label("--")
+        self.computer_type_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.computer_type_label.set_halign(Gtk.Align.START)
+        grid.attach(self.computer_type_label, 3, 3, 1, 1)
 
-        # Information label (Computer Type)
-        self.system_computer_type_label = Gtk.Label()
-        self.system_computer_type_label.set_selectable(True)
-        self.system_computer_type_label.set_attributes(self.attribute_list_bold)
-        self.system_computer_type_label.set_label("--")
-        self.system_computer_type_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_computer_type_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_computer_type_label, 3, 3, 1, 1)
-
+        # Label (Name)
         label = Gtk.Label()
         label.set_label(_tr("Name") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 4, 1, 1)
+        # Label (Name)
+        self.computer_name_label = Gtk.Label()
+        self.computer_name_label.set_selectable(True)
+        self.computer_name_label.set_attributes(self.attribute_list_bold)
+        self.computer_name_label.set_label("--")
+        self.computer_name_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.computer_name_label.set_halign(Gtk.Align.START)
+        grid.attach(self.computer_name_label, 3, 4, 1, 1)
 
-        # Information label (Name for computer)
-        self.system_computer_name_label = Gtk.Label()
-        self.system_computer_name_label.set_selectable(True)
-        self.system_computer_name_label.set_attributes(self.attribute_list_bold)
-        self.system_computer_name_label.set_label("--")
-        self.system_computer_name_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_computer_name_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_computer_name_label, 3, 4, 1, 1)
-
+        # Label (Architecture)
         label = Gtk.Label()
         label.set_label(_tr("Architecture") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 5, 1, 1)
+        # Label (Architecture)
+        self.architecture_label = Gtk.Label()
+        self.architecture_label.set_selectable(True)
+        self.architecture_label.set_attributes(self.attribute_list_bold)
+        self.architecture_label.set_label("--")
+        self.architecture_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.architecture_label.set_halign(Gtk.Align.START)
+        grid.attach(self.architecture_label, 3, 5, 1, 1)
 
-        # Information label (Architecture)
-        self.system_architecture_label = Gtk.Label()
-        self.system_architecture_label.set_selectable(True)
-        self.system_architecture_label.set_attributes(self.attribute_list_bold)
-        self.system_architecture_label.set_label("--")
-        self.system_architecture_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_architecture_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_architecture_label, 3, 5, 1, 1)
-
+        # Label (Number Of Monitors)
         label = Gtk.Label()
         label.set_label(_tr("Number Of Monitors") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 6, 1, 1)
-
-        # Information label (Number Of Monitors)
-        self.system_number_of_monitors_label = Gtk.Label()
-        self.system_number_of_monitors_label.set_selectable(True)
-        self.system_number_of_monitors_label.set_attributes(self.attribute_list_bold)
-        self.system_number_of_monitors_label.set_label("--")
-        self.system_number_of_monitors_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_number_of_monitors_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_number_of_monitors_label, 3, 6, 1, 1)
+        # Label (Number Of Monitors)
+        self.number_of_monitors_label = Gtk.Label()
+        self.number_of_monitors_label.set_selectable(True)
+        self.number_of_monitors_label.set_attributes(self.attribute_list_bold)
+        self.number_of_monitors_label.set_label("--")
+        self.number_of_monitors_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.number_of_monitors_label.set_halign(Gtk.Align.START)
+        grid.attach(self.number_of_monitors_label, 3, 6, 1, 1)
 
         # There is a separator between rows 6 and 7.
 
-        # Title label (Packages)
+        # Label - Title (Packages)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Packages"))
@@ -425,80 +423,79 @@ class System:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 8, 2, 1)
 
+        # Label (System)
         label = Gtk.Label()
         label.set_label(_tr("System") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 9, 1, 1)
-
+        # Grid (System)
         grid_system_packages = Gtk.Grid()
         grid_system_packages.set_column_spacing(2)
         grid.attach(grid_system_packages, 3, 9, 1, 1)
+        # Label (System)
+        self.system_label = Gtk.Label()
+        self.system_label.set_selectable(True)
+        self.system_label.set_attributes(self.attribute_list_bold)
+        self.system_label.set_label("--")
+        self.system_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.system_label.set_halign(Gtk.Align.START)
+        grid_system_packages.attach(self.system_label, 0, 0, 1, 1)
+        # Spinner (System)
+        self.spinner_system = Gtk.Spinner()
+        self.spinner_system.start()
+        grid_system_packages.attach(self.spinner_system, 1, 0, 1, 1)
 
-        # Information label (System)
-        self.system_system_label = Gtk.Label()
-        self.system_system_label.set_selectable(True)
-        self.system_system_label.set_attributes(self.attribute_list_bold)
-        self.system_system_label.set_label("--")
-        self.system_system_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_system_label.set_halign(Gtk.Align.START)
-        grid_system_packages.attach(self.system_system_label, 0, 0, 1, 1)
-
-        # Information spinner (System)
-        self.system_spinner_system = Gtk.Spinner()
-        self.system_spinner_system.start()
-        grid_system_packages.attach(self.system_spinner_system, 1, 0, 1, 1)
-
+        # Label (Flatpak)
         label = Gtk.Label()
         label.set_label(_tr("Flatpak") + ":")
         label.set_tooltip_text(_tr("Number of installed Flatpak applications and runtimes"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 10, 1, 1)
+        # Label (Flatpak)
+        self.flatpak_label = Gtk.Label()
+        self.flatpak_label.set_selectable(True)
+        self.flatpak_label.set_attributes(self.attribute_list_bold)
+        self.flatpak_label.set_label("--")
+        self.flatpak_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.flatpak_label.set_halign(Gtk.Align.START)
+        grid.attach(self.flatpak_label, 3, 10, 1, 1)
 
-        # Information label (Flatpak)
-        self.system_flatpak_label = Gtk.Label()
-        self.system_flatpak_label.set_selectable(True)
-        self.system_flatpak_label.set_attributes(self.attribute_list_bold)
-        self.system_flatpak_label.set_label("--")
-        self.system_flatpak_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_flatpak_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_flatpak_label, 3, 10, 1, 1)
-
+        # Label (GTK Version)
         label = Gtk.Label()
         label.set_label(_tr("GTK Version") + ":")
         label.set_tooltip_text(_tr("Version for the currently running software"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 11, 1, 1)
+        # Label (GTK Version)
+        self.gtk_version_label = Gtk.Label()
+        self.gtk_version_label.set_selectable(True)
+        self.gtk_version_label.set_attributes(self.attribute_list_bold)
+        self.gtk_version_label.set_label("--")
+        self.gtk_version_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.gtk_version_label.set_halign(Gtk.Align.START)
+        grid.attach(self.gtk_version_label, 3, 11, 1, 1)
 
-        # Information label (GTK Version)
-        self.system_gtk_version_label = Gtk.Label()
-        self.system_gtk_version_label.set_selectable(True)
-        self.system_gtk_version_label.set_attributes(self.attribute_list_bold)
-        self.system_gtk_version_label.set_label("--")
-        self.system_gtk_version_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_gtk_version_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_gtk_version_label, 3, 11, 1, 1)
-
+        # Label (Python Version)
         label = Gtk.Label()
         label.set_label(_tr("Python Version") + ":")
         label.set_tooltip_text(_tr("Version for the currently running software"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 2, 12, 1, 1)
+        # Label (Python Version)
+        self.python_version_label = Gtk.Label()
+        self.python_version_label.set_selectable(True)
+        self.python_version_label.set_attributes(self.attribute_list_bold)
+        self.python_version_label.set_label("--")
+        self.python_version_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.python_version_label.set_halign(Gtk.Align.START)
+        grid.attach(self.python_version_label, 3, 12, 1, 1)
 
-        # Information label (Python Version)
-        self.system_python_version_label = Gtk.Label()
-        self.system_python_version_label.set_selectable(True)
-        self.system_python_version_label.set_attributes(self.attribute_list_bold)
-        self.system_python_version_label.set_label("--")
-        self.system_python_version_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_python_version_label.set_halign(Gtk.Align.START)
-        grid.attach(self.system_python_version_label, 3, 12, 1, 1)
 
-
-    def system_gui_signals(self):
+    def connect_signals(self):
         """
         Connect GUI signals.
         """
@@ -512,67 +509,69 @@ class System:
         """
 
         # Start spinner animation and show it before running the function for getting information.
-        self.system_spinner_system.start()
-        self.system_spinner_system.show()
+        self.spinner_system.start()
+        self.spinner_system.show()
         GLib.idle_add(self.system_initial_func)
 
 
-    # ----------------------- System - Initial Function -----------------------
     def system_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         # Get information.
-        os_name, os_version, os_based_on = self.system_os_name_version_codename_based_on_func()
-        os_family = self.system_os_family_func()
-        kernel_release, kernel_version = self.system_kernel_release_kernel_version_func()
-        cpu_architecture = self.system_cpu_architecture_func()
-        computer_vendor, computer_model, computer_chassis_type = self.system_computer_vendor_model_chassis_type_func()
-        host_name = self.system_host_name_func()
-        number_of_monitors = self.system_number_of_monitors_func()
-        number_of_installed_flatpak_packages = self.system_installed_flatpak_packages_func()
-        current_python_version, current_gtk_version = self.system_current_python_version_gtk_version_func()
-        current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager = self.system_desktop_environment_and_version_windowing_system_window_manager_display_manager_func()
+        os_name, os_version, os_based_on = self.os_name_version_codename_based_on_func()
+        os_family = self.os_family_func()
+        kernel_release, kernel_version = self.kernel_release_kernel_version_func()
+        cpu_architecture = self.cpu_architecture_func()
+        computer_vendor, computer_model, computer_chassis_type = self.computer_vendor_model_chassis_type_func()
+        host_name = self.host_name_func()
+        number_of_monitors = self.number_of_monitors_func()
+        number_of_installed_flatpak_packages = self.installed_flatpak_packages_func()
+        current_python_version, current_gtk_version = self.current_python_version_gtk_version_func()
+        current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager = self.desktop_environment_and_version_windowing_system_window_manager_display_manager_func()
         # Run this function in a separate thread because it may take a long time (2-3 seconds) to get the information on some systems (such as rpm based systems) and it blocks the GUI during this process if a separate thread is not used.
-        threading.Thread(target=self.system_installed_apt_rpm_pacman_packages_func, daemon=True).start()
+        threading.Thread(target=self.installed_apt_rpm_pacman_packages_func, daemon=True).start()
 
 
         # Set label texts to show information
         self.os_name_version_label.set_label(f'{os_name} - {os_version}')
         self.computer_vendor_model_label.set_label(f'{computer_vendor} - {computer_model}')
-        self.system_os_name_label.set_label(os_name)
-        self.system_version_codename_label.set_label(os_version)
-        self.system_os_family_label.set_label(os_family)
-        self.system_based_on_label.set_label(os_based_on)
-        self.system_kernel_release_label.set_label(kernel_release)
-        self.system_kernel_version_label.set_label(kernel_version)
-        self.system_desktop_environment_label.set_label(f'{current_desktop_environment} ({current_desktop_environment_version})')
-        self.system_windowing_system_label.set_label(windowing_system)
-        self.system_window_manager_label.set_label(window_manager)
-        self.system_display_manager_label.set_label(current_display_manager)
-        self.system_vendor_label.set_label(computer_vendor)
-        self.system_model_label.set_label(computer_model)
-        self.system_computer_type_label.set_label(computer_chassis_type)
-        self.system_computer_name_label.set_label(host_name)
-        self.system_architecture_label.set_label(cpu_architecture)
-        self.system_number_of_monitors_label.set_label(f'{number_of_monitors}')
-        #self.system_system_label.set_label(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
-        self.system_flatpak_label.set_label(f'{number_of_installed_flatpak_packages}')
-        self.system_gtk_version_label.set_label(current_gtk_version)
-        self.system_python_version_label.set_label(f'{current_python_version}')
+        self.os_name_label.set_label(os_name)
+        self.version_codename_label.set_label(os_version)
+        self.os_family_label.set_label(os_family)
+        self.based_on_label.set_label(os_based_on)
+        self.kernel_release_label.set_label(kernel_release)
+        self.kernel_version_label.set_label(kernel_version)
+        self.desktop_environment_label.set_label(f'{current_desktop_environment} ({current_desktop_environment_version})')
+        self.windowing_system_label.set_label(windowing_system)
+        self.window_manager_label.set_label(window_manager)
+        self.display_manager_label.set_label(current_display_manager)
+        self.vendor_label.set_label(computer_vendor)
+        self.model_label.set_label(computer_model)
+        self.computer_type_label.set_label(computer_chassis_type)
+        self.computer_name_label.set_label(host_name)
+        self.architecture_label.set_label(cpu_architecture)
+        self.number_of_monitors_label.set_label(f'{number_of_monitors}')
+        #self.system_label.set_label(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
+        self.flatpak_label.set_label(f'{number_of_installed_flatpak_packages}')
+        self.gtk_version_label.set_label(current_gtk_version)
+        self.python_version_label.set_label(f'{current_python_version}')
 
         self.initial_already_run = 1
 
 
     # ----------------------- Set spinner properties and show "number_of_installed_apt_or_rpm_or_pacman_packages" information on the label -----------------------
-    def system_set_number_of_installed_apt_or_rpm_or_pacman_packages_label_func(self, number_of_installed_apt_or_rpm_or_pacman_packages):
+    def set_number_of_installed_apt_or_rpm_or_pacman_packages_label_func(self, number_of_installed_apt_or_rpm_or_pacman_packages):
 
         # Stop spinner animation and hide it after running the function for getting information.
-        self.system_spinner_system.stop()
-        self.system_spinner_system.hide()
-        self.system_system_label.set_label(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
+        self.spinner_system.stop()
+        self.spinner_system.hide()
+        self.system_label.set_label(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
 
 
     # ----------------------- Get OS name, version, version code name and OS based on information -----------------------
-    def system_os_name_version_codename_based_on_func(self):
+    def os_name_version_codename_based_on_func(self):
 
         # Initial value of "os_name" variable. This value will be used if "os_name" could not be detected.
         os_name = "-"
@@ -630,7 +629,7 @@ class System:
 
 
     # ----------------------- Get OS family -----------------------
-    def system_os_family_func(self):
+    def os_family_func(self):
 
         # Get os family
         os_family = platform.system()
@@ -641,7 +640,7 @@ class System:
 
 
     # ----------------------- Get kernel release (base version of kernel) and kernel version (package version of kernel) -----------------------
-    def system_kernel_release_kernel_version_func(self):
+    def kernel_release_kernel_version_func(self):
 
         # Get kernel release (base version of kernel)
         kernel_release = platform.release()
@@ -657,7 +656,7 @@ class System:
 
 
     # ----------------------- Get CPU architecture -----------------------
-    def system_cpu_architecture_func(self):
+    def cpu_architecture_func(self):
 
         cpu_architecture = platform.processor()
         if cpu_architecture == "":
@@ -669,7 +668,7 @@ class System:
 
 
     # ----------------------- Get computer vendor, model and chassis type -----------------------
-    def system_computer_vendor_model_chassis_type_func(self):
+    def computer_vendor_model_chassis_type_func(self):
 
         # Get computer vendor ("/sys/devices/virtual/dmi" is used for UEFI/ACPI systems and not found on ARM systems)
         #, model, chassis information (These informations may not be available on some systems such as ARM CPU used motherboards).
@@ -713,7 +712,7 @@ class System:
 
 
     # ----------------------- Get host name -----------------------
-    def system_host_name_func(self):
+    def host_name_func(self):
 
         with open("/proc/sys/kernel/hostname") as reader:
             host_name = reader.read().strip()
@@ -722,7 +721,7 @@ class System:
 
 
     # ----------------------- Get number of monitors -----------------------
-    def system_number_of_monitors_func(self):
+    def number_of_monitors_func(self):
 
         try:
             monitor_list = Gdk.Display().get_default().get_monitors()
@@ -734,7 +733,7 @@ class System:
 
 
     # ----------------------- Get number of installed Flatpak packages (and runtimes) -----------------------
-    def system_installed_flatpak_packages_func(self):
+    def installed_flatpak_packages_func(self):
 
         number_of_installed_flatpak_packages = "-"
 
@@ -752,7 +751,7 @@ class System:
 
 
     # ----------------------- Get current Python version and GTK version -----------------------
-    def system_current_python_version_gtk_version_func(self):
+    def current_python_version_gtk_version_func(self):
 
         # Get current Python version (Python which is running this code)
         current_python_version = platform.python_version()
@@ -764,7 +763,7 @@ class System:
 
 
     # ----------------------- Get number of installed APT, RPM or pacman packages -----------------------
-    def system_installed_apt_rpm_pacman_packages_func(self):
+    def installed_apt_rpm_pacman_packages_func(self):
 
         # Initial value of the variables.
         apt_packages_available = "-"
@@ -826,13 +825,13 @@ class System:
                 pacman_packages_available = "-"
 
         # Show the information on the label by using "GLib.idle_add" in order to avoid problems (bugs, data corruption, etc.) because of threading (GTK is not thread-safe).
-        GLib.idle_add(self.system_set_number_of_installed_apt_or_rpm_or_pacman_packages_label_func, number_of_installed_apt_or_rpm_or_pacman_packages)
+        GLib.idle_add(self.set_number_of_installed_apt_or_rpm_or_pacman_packages_label_func, number_of_installed_apt_or_rpm_or_pacman_packages)
 
         return number_of_installed_apt_or_rpm_or_pacman_packages
 
 
     # ----------------------- Get current desktop environment, windowing_system, window_manager, current_display_manager -----------------------
-    def system_desktop_environment_and_version_windowing_system_window_manager_display_manager_func(self):
+    def desktop_environment_and_version_windowing_system_window_manager_display_manager_func(self):
 
         # Get current username
         # Get user name that gets root privileges.
@@ -912,7 +911,7 @@ class System:
                         break
 
         # Get current desktop environment version
-        current_desktop_environment_version = self.system_desktop_environment_version_func(current_desktop_environment)
+        current_desktop_environment_version = self.desktop_environment_version_func(current_desktop_environment)
 
         # Get windowing system information.
         # Windowing system may be get as "tty" (which is for non-graphical system) when
@@ -958,7 +957,7 @@ class System:
 
 
     # ----------------------- Get current desktop environment version -----------------------
-    def system_desktop_environment_version_func(self, current_desktop_environment):
+    def desktop_environment_version_func(self, current_desktop_environment):
 
         # Set initial value of the "current_desktop_environment_version".
         current_desktop_environment_version = "-"

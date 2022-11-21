@@ -800,14 +800,22 @@ class MainWindow():
 
     def environment_type_detection(self):
         """
-        Detect environment type (Flatpak or native). This information will be used for accessing
-        host OS commands if the application is run in Flatpak environment.
+        Detect environment type (Flatpak, Python package or native).
+        This information will be used for accessing host OS commands if the application is
+        # run in Flatpak environment or for showing new version information, etc. if the application
+        # is a Python package.
         """
 
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        current_user_homedir = os.environ.get('HOME')
         application_flatpak_id = os.getenv('FLATPAK_ID')
 
         if application_flatpak_id != None:
             environment_type = "flatpak"
+
+        elif current_dir.startswith("/usr/local/lib/python") == True or current_dir.startswith(current_user_homedir + "/.local/lib/python") == True:
+            environment_type = "python_package"
+
         else:
             environment_type = "native"
 
@@ -849,7 +857,7 @@ class MainWindow():
                 if self.summary_tab_main_grid.get_child_at(0,0) == None:
                     global Summary
                     from Summary import Summary
-                    self.summary_tab_main_grid.attach(Summary.summary_tab_grid, 0, 0, 1, 1)
+                    self.summary_tab_main_grid.attach(Summary.tab_grid, 0, 0, 1, 1)
                 # Run initial function of the module if this is the first loop of the module.
                 if Summary.initial_already_run == 0:
                     GLib.idle_add(Summary.summary_initial_func)
@@ -870,7 +878,7 @@ class MainWindow():
                 if self.cpu_tab_main_grid.get_child_at(0,0) == None:
                     global Cpu
                     from Cpu import Cpu
-                    self.cpu_tab_main_grid.attach(Cpu.cpu_tab_grid, 0, 0, 1, 1)
+                    self.cpu_tab_main_grid.attach(Cpu.tab_grid, 0, 0, 1, 1)
                 if Cpu.initial_already_run == 0:
                     GLib.idle_add(Cpu.cpu_initial_func)
                 GLib.idle_add(Cpu.cpu_loop_func)
@@ -888,7 +896,7 @@ class MainWindow():
                 if self.memory_tab_main_grid.get_child_at(0,0) == None:
                     global Memory
                     from Memory import Memory
-                    self.memory_tab_main_grid.attach(Memory.memory_tab_grid, 0, 0, 1, 1)
+                    self.memory_tab_main_grid.attach(Memory.tab_grid, 0, 0, 1, 1)
                 if Memory.initial_already_run == 0:
                     GLib.idle_add(Memory.memory_initial_func)
                 GLib.idle_add(Memory.memory_loop_func)
@@ -906,7 +914,7 @@ class MainWindow():
                 if self.disk_tab_main_grid.get_child_at(0,0) == None:
                     global Disk
                     from Disk import Disk
-                    self.disk_tab_main_grid.attach(Disk.disk_tab_grid, 0, 0, 1, 1)
+                    self.disk_tab_main_grid.attach(Disk.tab_grid, 0, 0, 1, 1)
                 if Disk.initial_already_run == 0:
                     GLib.idle_add(Disk.disk_initial_func)
                 GLib.idle_add(Disk.disk_loop_func)
@@ -924,7 +932,7 @@ class MainWindow():
                 if self.network_tab_main_grid.get_child_at(0,0) == None:
                     global Network
                     from Network import Network
-                    self.network_tab_main_grid.attach(Network.network_tab_grid, 0, 0, 1, 1)
+                    self.network_tab_main_grid.attach(Network.tab_grid, 0, 0, 1, 1)
                 if Network.initial_already_run == 0:
                     GLib.idle_add(Network.network_initial_func)
                 GLib.idle_add(Network.network_loop_func)
@@ -942,7 +950,7 @@ class MainWindow():
                 if self.gpu_tab_main_grid.get_child_at(0,0) == None:
                     global Gpu
                     from Gpu import Gpu
-                    self.gpu_tab_main_grid.attach(Gpu.gpu_tab_grid, 0, 0, 1, 1)
+                    self.gpu_tab_main_grid.attach(Gpu.tab_grid, 0, 0, 1, 1)
                 if Gpu.initial_already_run == 0:
                     GLib.idle_add(Gpu.gpu_initial_func)
                 GLib.idle_add(Gpu.gpu_loop_func)
@@ -1034,7 +1042,7 @@ class MainWindow():
             if self.system_tab_main_grid.get_child_at(0,0) == None:
                 global System
                 from System import System
-                self.system_tab_main_grid.attach(System.system_tab_grid, 0, 0, 1, 1)
+                self.system_tab_main_grid.attach(System.tab_grid, 0, 0, 1, 1)
             if System.initial_already_run == 0:
                 GLib.idle_add(System.system_initial_func)
             self.tab_menu_menubutton.set_sensitive(False)
@@ -1246,10 +1254,13 @@ class MainWindow():
         """
 
         if os.geteuid() == 0:
-            # Generate a new label for the information. This label does not exist in the ".ui" UI file.
+
+            # Define label style
             css = b"label {background: rgba(100%,0%,0%,1.0);}"
             style_provider = Gtk.CssProvider()
             style_provider.load_from_data(css)
+
+            # Generate a new label for the information and attach it to the grid at (0, 0) position.
             label_root_warning = Gtk.Label(label=_tr("Warning! The application has been run with root privileges, you may harm your system."))
             label_root_warning.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
             self.main_grid.insert_row(0)
@@ -1266,17 +1277,149 @@ class MainWindow():
         Because "pip" does not run "index" command in this situation.
         """
 
+        if Config.environment_type!= "python_package":
+            return
+
         if Config.check_for_updates_automatically == 1:
 
             # Get current directory (which code of this application is in) and current user home directory (symlinks will be generated in).
             current_dir = os.path.dirname(os.path.realpath(__file__))
             current_user_homedir = os.environ.get('HOME')
 
-            # Check if the application is a Python package.
-            if current_dir.startswith("/usr/local/lib/") == True or current_dir.startswith(current_user_homedir + "/.local/lib/") == True:
-                # Run the function in a separate thread in order to avoid blocking the GUI because "pip ..." command runs about 1 seconds.
-                from threading import Thread
-                Thread(target=self.main_update_check_func, daemon=True).start()
+            # Run the function in a separate thread in order to avoid blocking the GUI because "pip ..." command runs about 1 seconds.
+            from threading import Thread
+            Thread(target=self.update_check_func, daemon=True).start()
+
+
+    def update_check_func(self):
+        """
+        Check if there is a newer version of the application on PyPI.
+        """
+
+        import time, subprocess
+
+        # Wait 5 seconds before running the command in order to avoid high CPU usage at the beginning of the measurement.
+        time.sleep(5)
+
+        # Get installed and latest versions of the application.
+        command_list = ["pip", "index", "versions", "system-monitoring-center"]
+        try:
+            pip_index_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
+        except Exception:
+            return
+
+        # Get installed and latest versions of the application by processing the command output.
+        current_version = "-"
+        last_version = "-"
+        for line in pip_index_output:
+            if "INSTALLED" in line:
+                current_version = line.split("INSTALLED:")[1].strip()
+            if "LATEST" in line:
+                last_version = line.split("LATEST:")[1].strip()
+
+        # Show an information label with a green background below the window headerbar if there is a newer version on PyPI.
+        if current_version != last_version:
+            # Show the notification information on the label by using "GLib.idle_add" in order to avoid
+            # problems (bugs, data corruption, etc.) because of threading.
+            GLib.idle_add(self.update_check_gui_notification)
+
+
+    def update_check_gui_notification(self):
+        """
+        Show a notification label below the window titlebar if there is a newer version of the application on PyPI.
+        """
+
+        # Define label style
+        css = b"label {background: rgba(24%,70%,45%,1.0);}"
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+
+        # Generate a new label for the information and attach it to the grid at (0, 0) position.
+        label_new_version_information = Gtk.Label(label=_tr("There is a newer version on PyPI."))
+        label_new_version_information.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.main_grid.insert_row(0)
+        self.main_grid.attach(label_new_version_information, 0, 0, 1, 1)
+        label_new_version_information.set_visible(True)
+
+
+    def main_gui_application_system_integration_func(self):
+        """
+        Copy files for GUI icons and application shortcut (.desktop file) in user folders if they are not copied before.
+        These files are required if the application is installed as a Python package. Because these files are not copied
+        # in system image folders in this situation. These images will not be recolorable if they are not in system or
+        # user image folders. This function is stopped if environment type is Flatpak.
+        """
+
+        if Config.environment_type == "flatpak":
+            return
+
+        # Called for removing files.
+        def remove_file(file):
+            try:
+                os.remove(file)
+            except Exception:
+                pass
+
+        # Called for generating folders.
+        def generate_folder(folder):
+            try:
+                os.makedirs(folder)
+            except Exception:
+                pass
+
+        # Called for copying files.
+        def copy_file(source, target):
+            try:
+                shutil.copy2(source, target)
+            except Exception:
+                pass
+
+        # Get current directory (which code of this application is in) and current user home directory (files will be copied in).
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        current_user_homedir = os.environ.get('HOME')
+
+        # Define folder list in the home directory for copying files.
+        home_dir_folder_list = [current_user_homedir + "/.local/share/applications/",
+                                current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/",
+                                current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/"]
+
+        # Generate folders to copy files in them if they are not generated before.
+        for folder in home_dir_folder_list:
+            if os.path.isdir(folder) == False:
+                generate_folder(folder)
+
+        # Get icon file paths in the home directory.
+        icon_list_actions = [current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/") if file.startswith("system-monitoring-center-")]
+        icon_list_apps = [current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/" + file for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/") if file.startswith("system-monitoring-center.svg")]
+        icon_list_home = sorted(icon_list_actions + icon_list_apps)
+
+        # Get icon file paths in the installation directory. These files are copied under this statement in order to avoid copying them if this is a system package which copies GUI images into "/usr/share/icons/..." folder during installation.
+        try:
+            icon_list_actions = [current_dir + "/../icons/hicolor/scalable/actions/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions/") if file.startswith("system-monitoring-center-")]
+            icon_list_apps = [current_dir + "/../icons/hicolor/scalable/apps/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/apps/") if file.startswith("system-monitoring-center.svg")]
+            icon_list_current = sorted(icon_list_actions + icon_list_apps)
+
+            # Copy .desktop file if it is not copied before.
+            if os.path.isfile(current_user_homedir + "/.local/share/applications/io.github.hakandundar34coding.system-monitoring-center.desktop") == False:
+                # Try to remove if there is a broken symlink of the file (symlink was generated in previous versions of the application).
+                remove_file(current_user_homedir + "/.local/share/applications/io.github.hakandundar34coding.system-monitoring-center.desktop")
+                # Import module for copying files
+                import shutil
+                copy_file(current_dir + "/../integration/io.github.hakandundar34coding.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/")
+        except Exception:
+            icon_list_current = []
+
+        # Check if number of icon files are different. Remove the files in the home directory and copy the files in the installation directory if they are different.
+        if len(icon_list_home) != len(icon_list_current):
+
+            # Import module for copying files
+            import shutil
+
+            for file in icon_list_home:
+                remove_file(file)
+
+            for file in icon_list_current:
+                copy_file(file, current_user_homedir + "/.local/share/icons/hicolor/scalable/" + file.split("/")[-2] + "/")
 
 
     def switch_to_default_tab(self):
