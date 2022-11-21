@@ -73,6 +73,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.0.2" date="2022-11-21">
+      <description>
+        <ul>
+          <li>Fix: Resetting all settings when GPU tab is opened</li>
+          <li>Fix: Window size when when default tab is changed</li>
+          <li>Fix: Hiding Services tab if systemd is not used</li>
+          <li>Several code simplifications</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.0.1" date="2022-11-20">
       <description>
         <ul>
