@@ -127,6 +127,7 @@ class System:
         performance_info_grid.set_row_homogeneous(True)
         performance_info_grid.set_column_spacing(12)
         performance_info_grid.set_row_spacing(10)
+        performance_info_grid.set_margin_top(5)
         performance_info_grid.get_style_context().add_provider(style_provider_grid, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         self.system_tab_grid.attach(performance_info_grid, 0, 1, 1, 1)
 

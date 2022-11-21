@@ -20,6 +20,9 @@ class Performance:
     # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
+        # Define data unit conversion variables before they are used.
+        self.performance_define_data_unit_converter_variables_func()
+
         # Set chart performance data line and point highligting off. "chart_line_highlight" takes chart name or "" for highlighting or not. "chart_point_highlight" takes data point index or "-1" for not highlighting.
         self.chart_line_highlight = ""
         self.chart_point_highlight = -1
@@ -2173,7 +2176,7 @@ class Performance:
             chart_y_limit = 100
 
         # Check if widget is the drawingarea on the headerbar for CPU usage.
-        if widget_name == "ps_hb_cpu_drawing_area":
+        if widget_name == "ps_hb_cpu_da":
 
             # Get performance data to be drawn.
             performance_data1 = self.cpu_usage_percent_ave[-1]
@@ -2185,7 +2188,7 @@ class Performance:
             chart_y_limit = 100
 
         # Check if widget is the drawingarea on the headerbar for RAM usage.
-        if widget_name == "ps_hb_ram_drawing_area":
+        if widget_name == "ps_hb_ram_da":
 
             # Get performance data to be drawn.
             performance_data1 = self.ram_usage_percent[-1]
