@@ -2,22 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # ruojiner <ruojiner@hotmail.com, 2022
-# Luke Luo <njlyf2011@hotmail.com>, 2022
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: system-monitoring-center\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-20 13:21+0300\n"
-"PO-Revision-Date: 2022-11-20 21:49+0800\n"
+"PO-Revision-Date: 2022-11-22 21:45+0800\n"
 "Last-Translator: ruojiner <ruojiner@hotmail.com>\n"
-"Language-Team: \n"
+"Language-Team: https://github.com/wenyinos/system-monitoring-center\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: src/Cpu.py:83 src/CpuMenu.py:50 src/CpuMenu.py:102 src/MainWindow.py:153
 #: src/MainWindow.py:421 src/Performance.py:1092 src/Processes.py:704
@@ -39,7 +38,7 @@ msgstr "内核中的设备名"
 
 #: src/Cpu.py:120 src/Cpu.py:408 src/CpuMenu.py:65
 msgid "CPU Usage (Average)"
-msgstr "CPU 使用率（平均）："
+msgstr "CPU 使用率（平均）"
 
 #: src/Cpu.py:183
 msgid "Average Usage"
@@ -91,7 +90,7 @@ msgstr "架构"
 
 #: src/Cpu.py:410 src/CpuMenu.py:72
 msgid "CPU Usage (Per Core)"
-msgstr "CPU 使用率（每核心）："
+msgstr "CPU 使用率（每核心）"
 
 #: src/Cpu.py:642 src/Disk.py:945 src/Disk.py:947 src/Gpu.py:582 src/Gpu.py:584
 #: src/Network.py:487 src/Network.py:489
