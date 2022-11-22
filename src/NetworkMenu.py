@@ -18,72 +18,71 @@ class NetworkMenu:
 
     def __init__(self):
 
-        # Menu GUI
-        self.network_menu_gui()
+        self.menu_gui()
 
 
-    def network_menu_gui(self):
+    def menu_gui(self):
         """
         Generate menu GUI.
         """
 
         # Popover
-        self.network_menu_po = Gtk.Popover()
+        self.menu_po = Gtk.Popover()
 
-        # Main grid
+        # Grid (main)
         menu_main_grid = Gtk.Grid()
         menu_main_grid.set_row_spacing(5)
         menu_main_grid.set_margin_top(5)
         menu_main_grid.set_margin_bottom(5)
         menu_main_grid.set_margin_start(5)
         menu_main_grid.set_margin_end(5)
-        self.network_menu_po.set_child(menu_main_grid)
+        self.menu_po.set_child(menu_main_grid)
 
         # Bold label atributes
-        self.attribute_list_bold = Pango.AttrList()
+        attribute_list_bold = Pango.AttrList()
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold.insert(attribute)
+        attribute_list_bold.insert(attribute)
 
-        # Menu title
+        # Label - menu title (Network)
         label = Gtk.Label()
-        label.set_attributes(self.attribute_list_bold)
+        label.set_attributes(attribute_list_bold)
         label.set_label(_tr("Network"))
         label.set_halign(Gtk.Align.CENTER)
         label.set_margin_bottom(10)
         menu_main_grid.attach(label, 0, 0, 2, 1)
 
-        # Label (Chart - Show)
+        # Label (Graph - Show)
         label = Gtk.Label()
-        label.set_attributes(self.attribute_list_bold)
+        label.set_attributes(attribute_list_bold)
         label.set_label(_tr("Graph - Show"))
         label.set_halign(Gtk.Align.START)
         menu_main_grid.attach(label, 0, 1, 2, 1)
 
-        # Checkbutton (Download Speed)
-        self.network_menu_download_speed_cb = Gtk.CheckButton()
-        self.network_menu_download_speed_cb.set_label(_tr("Download Speed"))
-        self.network_menu_download_speed_cb.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(self.network_menu_download_speed_cb, 0, 2, 1, 1)
+        # CheckButton (Download Speed)
+        self.download_speed_cb = Gtk.CheckButton()
+        self.download_speed_cb.set_label(_tr("Download Speed"))
+        self.download_speed_cb.set_halign(Gtk.Align.START)
+        menu_main_grid.attach(self.download_speed_cb, 0, 2, 1, 1)
 
-        # Checkbutton (Upload Speed)
-        self.network_menu_upload_speed_cb = Gtk.CheckButton()
-        self.network_menu_upload_speed_cb.set_label(_tr("Upload Speed"))
-        self.network_menu_upload_speed_cb.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(self.network_menu_upload_speed_cb, 1, 2, 1, 1)
+        # CheckButton (Upload Speed)
+        self.upload_speed_cb = Gtk.CheckButton()
+        self.upload_speed_cb.set_label(_tr("Upload Speed"))
+        self.upload_speed_cb.set_halign(Gtk.Align.START)
+        menu_main_grid.attach(self.upload_speed_cb, 1, 2, 1, 1)
 
-        # Checkbutton (Selected Device)
-        self.network_menu_selected_device_cb = Gtk.CheckButton()
-        self.network_menu_selected_device_cb.set_group(None)
-        self.network_menu_selected_device_cb.set_label(_tr("Selected Device"))
-        self.network_menu_selected_device_cb.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(self.network_menu_selected_device_cb, 0, 3, 1, 1)
+        # CheckButton (Selected Device)
+        self.selected_device_cb = Gtk.CheckButton()
+        self.selected_device_cb.set_group(None)
+        self.selected_device_cb.set_label(_tr("Selected Device"))
+        self.selected_device_cb.set_halign(Gtk.Align.START)
+        menu_main_grid.attach(self.selected_device_cb, 0, 3, 1, 1)
 
-        # Checkbutton (All Devices)
-        self.network_menu_all_devices_cb = Gtk.CheckButton()
-        self.network_menu_all_devices_cb.set_group(self.network_menu_selected_device_cb)
-        self.network_menu_all_devices_cb.set_label(_tr("All Devices"))
-        self.network_menu_all_devices_cb.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(self.network_menu_all_devices_cb, 1, 3, 1, 1)
+        # CheckButton (All Devices)
+        self.all_devices_cb = Gtk.CheckButton()
+        self.all_devices_cb.set_group(self.selected_device_cb)
+        self.all_devices_cb.set_label(_tr("All Devices"))
+        self.all_devices_cb.set_halign(Gtk.Align.START)
+        menu_main_grid.attach(self.all_devices_cb, 1, 3, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
@@ -92,9 +91,9 @@ class NetworkMenu:
         menu_main_grid.attach(separator, 0, 4, 2, 1)
 
         # Button (Graph Color)
-        self.network_menu_graph_color_button = Gtk.Button()
-        self.network_menu_graph_color_button.set_label(_tr("Graph Color"))
-        menu_main_grid.attach(self.network_menu_graph_color_button, 0, 5, 2, 1)
+        self.graph_color_button = Gtk.Button()
+        self.graph_color_button.set_label(_tr("Graph Color"))
+        menu_main_grid.attach(self.graph_color_button, 0, 5, 2, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
@@ -102,16 +101,16 @@ class NetworkMenu:
         separator.set_margin_bottom(5)
         menu_main_grid.attach(separator, 0, 6, 2, 1)
 
-        # Label for precision (Precision)
+        # Label - title (Precision)
         label = Gtk.Label()
-        label.set_attributes(self.attribute_list_bold)
+        label.set_attributes(attribute_list_bold)
         label.set_label(_tr("Precision"))
         label.set_halign(Gtk.Align.START)
         menu_main_grid.attach(label, 0, 7, 2, 1)
 
-        # ComboBox for precision (Network)
-        self.network_menu_network_precision_cb = Gtk.ComboBox()
-        menu_main_grid.attach(self.network_menu_network_precision_cb, 0, 8, 2, 1)
+        # ComboBox - precision (Network)
+        self.network_precision_cmb = Gtk.ComboBox()
+        menu_main_grid.attach(self.network_precision_cmb, 0, 8, 2, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
@@ -119,39 +118,39 @@ class NetworkMenu:
         separator.set_margin_bottom(5)
         menu_main_grid.attach(separator, 0, 9, 2, 1)
 
-        # Label for precision (Data Unit)
+        # Label - title (Data Unit)
         label = Gtk.Label()
-        label.set_attributes(self.attribute_list_bold)
+        label.set_attributes(attribute_list_bold)
         label.set_label(_tr("Data Unit"))
         label.set_halign(Gtk.Align.START)
         menu_main_grid.attach(label, 0, 10, 2, 1)
 
-        # Label for data unit (Show data as powers of:)
+        # Label (Show data as powers of:)
         label = Gtk.Label()
         label.set_label(_tr("Show data as powers of") + ":")
         label.set_halign(Gtk.Align.START)
         menu_main_grid.attach(label, 0, 11, 2, 1)
 
-        # Checkbutton (1024)
-        self.network_menu_data_power_of_1024_cb = Gtk.CheckButton()
-        self.network_menu_data_power_of_1024_cb.set_group(None)
-        self.network_menu_data_power_of_1024_cb.set_label("1024")
-        self.network_menu_data_power_of_1024_cb.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(self.network_menu_data_power_of_1024_cb, 0, 12, 1, 1)
+        # CheckButton (1024)
+        self.data_power_of_1024_cb = Gtk.CheckButton()
+        self.data_power_of_1024_cb.set_group(None)
+        self.data_power_of_1024_cb.set_label("1024")
+        self.data_power_of_1024_cb.set_halign(Gtk.Align.START)
+        menu_main_grid.attach(self.data_power_of_1024_cb, 0, 12, 1, 1)
 
-        # Checkbutton (1000)
-        self.network_menu_data_power_of_1000_cb = Gtk.CheckButton()
-        self.network_menu_data_power_of_1000_cb.set_group(self.network_menu_data_power_of_1024_cb)
-        self.network_menu_data_power_of_1000_cb.set_label("1000")
-        self.network_menu_data_power_of_1000_cb.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(self.network_menu_data_power_of_1000_cb, 1, 12, 1, 1)
+        # CheckButton (1000)
+        self.data_power_of_1000_cb = Gtk.CheckButton()
+        self.data_power_of_1000_cb.set_group(self.data_power_of_1024_cb)
+        self.data_power_of_1000_cb.set_label("1000")
+        self.data_power_of_1000_cb.set_halign(Gtk.Align.START)
+        menu_main_grid.attach(self.data_power_of_1000_cb, 1, 12, 1, 1)
 
-        # Checkbutton (Show speed units as multiples of bits)
-        self.network_menu_data_bits_cb = Gtk.CheckButton()
-        self.network_menu_data_bits_cb.set_group(None)
-        self.network_menu_data_bits_cb.set_label(_tr("Show speed units as multiples of bits"))
-        self.network_menu_data_bits_cb.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(self.network_menu_data_bits_cb, 0, 13, 2, 1)
+        # CheckButton (Show speed units as multiples of bits)
+        self.data_bits_cb = Gtk.CheckButton()
+        self.data_bits_cb.set_group(None)
+        self.data_bits_cb.set_label(_tr("Show speed units as multiples of bits"))
+        self.data_bits_cb.set_halign(Gtk.Align.START)
+        menu_main_grid.attach(self.data_bits_cb, 0, 13, 2, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
@@ -160,66 +159,66 @@ class NetworkMenu:
         menu_main_grid.attach(separator, 0, 14, 2, 1)
 
         # Button (Reset)
-        self.network_menu_reset_button = Gtk.Button()
-        self.network_menu_reset_button.set_label(_tr("Reset"))
-        self.network_menu_reset_button.set_halign(Gtk.Align.CENTER)
-        menu_main_grid.attach(self.network_menu_reset_button, 0, 18, 2, 1)
+        self.reset_button = Gtk.Button()
+        self.reset_button.set_label(_tr("Reset"))
+        self.reset_button.set_halign(Gtk.Align.CENTER)
+        menu_main_grid.attach(self.reset_button, 0, 18, 2, 1)
 
         # ColorChooserDialog
         self.colorchooserdialog = Gtk.ColorChooserDialog().new(title=None, parent=MainWindow.main_window)
         self.colorchooserdialog.set_transient_for(MainWindow.main_window)
 
         # Connect signals
-        self.network_menu_po.connect("show", self.on_network_menu_po_show)
-        self.network_menu_graph_color_button.connect("clicked", self.on_chart_color_buttons_clicked)
-        self.network_menu_reset_button.connect("clicked", self.on_network_menu_reset_button_clicked)
+        self.menu_po.connect("show", self.on_menu_po_show)
+        self.graph_color_button.connect("clicked", self.on_graph_color_button_clicked)
+        self.reset_button.connect("clicked", self.on_reset_button_clicked)
         self.colorchooserdialog.connect("response", self.on_colorchooserdialog_response)
 
 
-    def customization_popover_connect_signals(self):
+    def connect_signals(self):
         """
         Connect some of the signals to be able to disconnect them for setting GUI.
         """
 
-        self.network_menu_download_speed_cb.connect("toggled", self.on_network_menu_download_speed_cb_toggled)
-        self.network_menu_upload_speed_cb.connect("toggled", self.on_network_menu_upload_speed_cb_toggled)
-        self.network_menu_selected_device_cb.connect("toggled", self.on_network_menu_device_selection_cb)
-        self.network_menu_all_devices_cb.connect("toggled", self.on_network_menu_device_selection_cb)
-        self.network_menu_data_power_of_1024_cb.connect("toggled", self.on_data_unit_radiobuttons_toggled)
-        self.network_menu_data_power_of_1000_cb.connect("toggled", self.on_data_unit_radiobuttons_toggled)
-        self.network_menu_data_bits_cb.connect("toggled", self.on_network_menu_data_bits_cb_toggled)
-        self.network_menu_network_precision_cb.connect("changed", self.on_network_menu_network_precision_cb_changed)
+        self.download_speed_cb.connect("toggled", self.on_download_speed_cb_toggled)
+        self.upload_speed_cb.connect("toggled", self.on_upload_speed_cb_toggled)
+        self.selected_device_cb.connect("toggled", self.on_network_menu_device_selection_cb)
+        self.all_devices_cb.connect("toggled", self.on_network_menu_device_selection_cb)
+        self.data_power_of_1024_cb.connect("toggled", self.on_data_unit_radiobuttons_toggled)
+        self.data_power_of_1000_cb.connect("toggled", self.on_data_unit_radiobuttons_toggled)
+        self.data_bits_cb.connect("toggled", self.on_data_bits_cb_toggled)
+        self.network_precision_cmb.connect("changed", self.on_network_precision_cmb_changed)
 
 
-    def customization_popover_disconnect_signals(self):
+    def disconnect_signals(self):
         """
         Disconnect some of the signals for setting GUI.
         """
 
-        self.network_menu_download_speed_cb.disconnect_by_func(self.on_network_menu_download_speed_cb_toggled)
-        self.network_menu_upload_speed_cb.disconnect_by_func(self.on_network_menu_upload_speed_cb_toggled)
-        self.network_menu_selected_device_cb.disconnect_by_func(self.on_network_menu_device_selection_cb)
-        self.network_menu_all_devices_cb.disconnect_by_func(self.on_network_menu_device_selection_cb)
-        self.network_menu_data_power_of_1024_cb.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
-        self.network_menu_data_power_of_1000_cb.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
-        self.network_menu_data_bits_cb.disconnect_by_func(self.on_network_menu_data_bits_cb_toggled)
-        self.network_menu_network_precision_cb.disconnect_by_func(self.on_network_menu_network_precision_cb_changed)
+        self.download_speed_cb.disconnect_by_func(self.on_download_speed_cb_toggled)
+        self.upload_speed_cb.disconnect_by_func(self.on_upload_speed_cb_toggled)
+        self.selected_device_cb.disconnect_by_func(self.on_network_menu_device_selection_cb)
+        self.all_devices_cb.disconnect_by_func(self.on_network_menu_device_selection_cb)
+        self.data_power_of_1024_cb.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
+        self.data_power_of_1000_cb.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
+        self.data_bits_cb.disconnect_by_func(self.on_data_bits_cb_toggled)
+        self.network_precision_cmb.disconnect_by_func(self.on_network_precision_cmb_changed)
 
 
-    def on_network_menu_po_show(self, widget):
+    def on_menu_po_show(self, widget):
         """
         Run code when menu is shown.
         """
 
         try:
-            self.customization_popover_disconnect_signals()
+            self.disconnect_signals()
         except TypeError:
             pass
         self.popover_set_gui()
-        self.customization_popover_connect_signals()
+        self.connect_signals()
 
 
-    def on_network_menu_download_speed_cb_toggled(self, widget):
+    def on_download_speed_cb_toggled(self, widget):
         """
         Show/Hide network read speed line.
         """
@@ -227,7 +226,7 @@ class NetworkMenu:
         if widget.get_active() == True:
             Config.plot_network_download_speed = 1
         if widget.get_active() == False:
-            if self.network_menu_upload_speed_cb.get_active() == False:
+            if self.upload_speed_cb.get_active() == False:
                 widget.set_active(True)
                 return
             Config.plot_network_download_speed = 0
@@ -238,7 +237,7 @@ class NetworkMenu:
         Config.config_save_func()
 
 
-    def on_network_menu_upload_speed_cb_toggled(self, widget):
+    def on_upload_speed_cb_toggled(self, widget):
         """
         Show/Hide network write speed line.
         """
@@ -246,7 +245,7 @@ class NetworkMenu:
         if widget.get_active() == True:
             Config.plot_network_upload_speed = 1
         if widget.get_active() == False:
-            if self.network_menu_download_speed_cb.get_active() == False:
+            if self.download_speed_cb.get_active() == False:
                 widget.set_active(True)
                 return
             Config.plot_network_upload_speed = 0
@@ -263,9 +262,9 @@ class NetworkMenu:
         """
 
         if widget.get_active() == True:
-            if widget == self.network_menu_selected_device_cb:
+            if widget == self.selected_device_cb:
                 Config.show_network_usage_per_network_card = 0
-            if widget == self.network_menu_all_devices_cb:
+            if widget == self.all_devices_cb:
                 Config.show_network_usage_per_network_card = 1
 
         # Apply changes immediately (without waiting update interval).
@@ -274,7 +273,7 @@ class NetworkMenu:
         Config.config_save_func()
 
 
-    def on_network_menu_network_precision_cb_changed(self, widget):
+    def on_network_precision_cmb_changed(self, widget):
         """
         Change network speed precision.
         """
@@ -292,9 +291,9 @@ class NetworkMenu:
         Change data unit powers of (1024 or 1000) selection.
         """
 
-        if self.network_menu_data_power_of_1024_cb.get_active() == True:
+        if self.data_power_of_1024_cb.get_active() == True:
             Config.performance_network_data_unit = 0
-        elif self.network_menu_data_power_of_1000_cb.get_active() == True:
+        elif self.data_power_of_1000_cb.get_active() == True:
             Config.performance_network_data_unit = 1
 
         # Apply changes immediately (without waiting update interval).
@@ -303,7 +302,7 @@ class NetworkMenu:
         Config.config_save_func()
 
 
-    def on_network_menu_data_bits_cb_toggled(self, widget):
+    def on_data_bits_cb_toggled(self, widget):
         """
         Show speed units as multiples of bits/bytes.
         """
@@ -319,7 +318,7 @@ class NetworkMenu:
         Config.config_save_func()
 
 
-    def on_chart_color_buttons_clicked(self, widget):
+    def on_graph_color_button_clicked(self, widget):
         """
         Change graph foreground color.
         """
@@ -328,6 +327,7 @@ class NetworkMenu:
         red, blue, green, alpha = Config.chart_line_color_network_speed_data
         self.colorchooserdialog.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
+        self.menu_po.popdown()
         self.colorchooserdialog.present()
 
 
@@ -349,7 +349,7 @@ class NetworkMenu:
         Config.config_save_func()
 
 
-    def on_network_menu_reset_button_clicked(self, widget):
+    def on_reset_button_clicked(self, widget):
         """
         Reset all tab settings.
         """
@@ -365,9 +365,9 @@ class NetworkMenu:
         # Apply changes immediately (without waiting update interval).
         Network.network_initial_func()
         Network.network_loop_func()
-        self.customization_popover_connect_signals()
+        self.connect_signals()
         self.popover_set_gui()
-        self.customization_popover_disconnect_signals()
+        self.disconnect_signals()
 
 
     def popover_set_gui(self):
@@ -377,42 +377,42 @@ class NetworkMenu:
 
         # Set active checkbuttons if network download speed/network upload speed values are "1"
         if Config.plot_network_download_speed == 1:
-            self.network_menu_download_speed_cb.set_active(True)
+            self.download_speed_cb.set_active(True)
         if Config.plot_network_download_speed == 0:
-            self.network_menu_download_speed_cb.set_active(False)
+            self.download_speed_cb.set_active(False)
         if Config.plot_network_upload_speed == 1:
-            self.network_menu_upload_speed_cb.set_active(True)
+            self.upload_speed_cb.set_active(True)
         if Config.plot_network_upload_speed == 0:
-            self.network_menu_upload_speed_cb.set_active(False)
+            self.upload_speed_cb.set_active(False)
 
         # Select radiobutton appropriate for seleted/all devices chart setting
         if Config.show_network_usage_per_network_card == 0:
-            self.network_menu_selected_device_cb.set_active(True)
+            self.selected_device_cb.set_active(True)
         if Config.show_network_usage_per_network_card == 1:
-            self.network_menu_all_devices_cb.set_active(True)
+            self.all_devices_cb.set_active(True)
 
         # Set data unit radiobuttons and checkbuttons.
         if Config.performance_network_data_unit == 0:
-            self.network_menu_data_power_of_1024_cb.set_active(True)
+            self.data_power_of_1024_cb.set_active(True)
         if Config.performance_network_data_unit == 1:
-            self.network_menu_data_power_of_1000_cb.set_active(True)
+            self.data_power_of_1000_cb.set_active(True)
         if Config.performance_network_speed_bit == 1:
-            self.network_menu_data_bits_cb.set_active(True)
+            self.data_bits_cb.set_active(True)
         if Config.performance_network_speed_bit == 0:
-            self.network_menu_data_bits_cb.set_active(False)
+            self.data_bits_cb.set_active(False)
 
-        # Add Network data precision data into combobox
-        network_menu_network_precision_ls = Gtk.ListStore()
-        network_menu_network_precision_ls.set_column_types([str, int])
-        self.network_menu_network_precision_cb.set_model(network_menu_network_precision_ls)
+        # Add Network data precision data to combobox
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str, int])
+        self.network_precision_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.network_menu_network_precision_cb.clear()
+        self.network_precision_cmb.clear()
         renderer_text = Gtk.CellRendererText()
-        self.network_menu_network_precision_cb.pack_start(renderer_text, True)
-        self.network_menu_network_precision_cb.add_attribute(renderer_text, "text", 0)
+        self.network_precision_cmb.pack_start(renderer_text, True)
+        self.network_precision_cmb.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
-            network_menu_network_precision_ls.append([data[1], data[2]])
-        self.network_menu_network_precision_cb.set_active(Config.performance_network_data_precision)
+            liststore.append([data[1], data[2]])
+        self.network_precision_cmb.set_active(Config.performance_network_data_precision)
 
 
 NetworkMenu = NetworkMenu()

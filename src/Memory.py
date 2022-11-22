@@ -21,7 +21,6 @@ class Memory:
 
     def __init__(self):
 
-        # Tab GUI
         self.tab_gui()
 
         self.initial_already_run = 0
@@ -52,16 +51,12 @@ class Memory:
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
         self.attribute_list_bold.insert(attribute)
 
-        # Tab name, device name labels
         self.tab_title_grid()
 
-        # Drawingarea and related information labels
         self.da_grid()
 
-        # Performance/information labels
         self.information_grid()
 
-        # Connect signals
         self.connect_signals()
 
 
@@ -89,7 +84,7 @@ class Memory:
         label.set_label(_tr("Memory"))
         grid.attach(label, 0, 0, 1, 2)
 
-        # Label (Device vendor-model label)
+        # Label (device vendor-model label)
         self.device_vendor_model_label = Gtk.Label()
         self.device_vendor_model_label.set_halign(Gtk.Align.START)
         self.device_vendor_model_label.set_selectable(True)
@@ -270,7 +265,7 @@ class Memory:
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-        # Label (Hardware)
+        # Label (Show...)
         self.ram_hardware_label = Gtk.Label()
         self.ram_hardware_label.set_attributes(self.attribute_list_bold_underlined)
         self.ram_hardware_label.set_label(_tr("Show..."))
@@ -393,7 +388,7 @@ class Memory:
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-        # Label (Details (swap))
+        # Label (Show... (swap))
         self.swap_details_label = Gtk.Label()
         self.swap_details_label.set_attributes(self.attribute_list_bold_underlined)
         self.swap_details_label.set_label(_tr("Show..."))

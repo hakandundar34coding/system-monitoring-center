@@ -16,7 +16,6 @@ class UsersMenu:
 
     def __init__(self):
 
-        # Menu GUI
         self.menu_gui()
 
 
@@ -26,23 +25,23 @@ class UsersMenu:
         """
 
         # Popover
-        self.users_menu_po = Gtk.Popover()
+        self.menu_po = Gtk.Popover()
 
-        # Main grid
+        # Grid (main)
         main_grid = Gtk.Grid()
         main_grid.set_row_spacing(5)
         main_grid.set_margin_top(5)
         main_grid.set_margin_bottom(5)
         main_grid.set_margin_start(5)
         main_grid.set_margin_end(5)
-        self.users_menu_po.set_child(main_grid)
+        self.menu_po.set_child(main_grid)
 
         # Bold label atributes
         self.attribute_list_bold = Pango.AttrList()
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
         self.attribute_list_bold.insert(attribute)
 
-        # Label - Menu title
+        # Label - menu title (Users)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Users"))
@@ -58,15 +57,15 @@ class UsersMenu:
 
         # Tab pages and ScrolledWindow
         # "Add/Remove Columns" tab
-        tab_title_label = Gtk.Label()
-        tab_title_label.set_label(_tr("Add/Remove Columns"))
+        label = Gtk.Label()
+        label.set_label(_tr("Add/Remove Columns"))
         self.grid_add_remove_columns_tab = Gtk.Grid()
         self.grid_add_remove_columns_tab.set_margin_top(15)
         self.grid_add_remove_columns_tab.set_margin_bottom(5)
         self.grid_add_remove_columns_tab.set_margin_start(5)
         self.grid_add_remove_columns_tab.set_margin_end(5)
         self.grid_add_remove_columns_tab.set_row_spacing(5)
-        notebook.append_page(self.grid_add_remove_columns_tab, tab_title_label)
+        notebook.append_page(self.grid_add_remove_columns_tab, label)
 
         # Button (Reset)
         self.reset_button = Gtk.Button()
@@ -96,7 +95,7 @@ class UsersMenu:
         grid.set_row_spacing(5)
         self.grid_add_remove_columns_tab.attach(grid, 0, 0, 1, 1)
 
-        # Label - Tab title
+        # Label - tab title (Add/Remove Columns)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Add/Remove Columns"))
@@ -104,7 +103,7 @@ class UsersMenu:
         label.set_margin_bottom(10)
         grid.attach(label, 0, 0, 2, 1)
 
-        # Checkbutton (User)
+        # CheckButton (User)
         self.user_cb = Gtk.CheckButton()
         self.user_cb.set_label(_tr("User"))
         self.user_cb.set_active(True)
@@ -112,61 +111,61 @@ class UsersMenu:
         self.user_cb.set_halign(Gtk.Align.START)
         grid.attach(self.user_cb, 0, 1, 1, 1)
 
-        # Checkbutton (Full Name)
+        # CheckButton (Full Name)
         self.full_name_cb = Gtk.CheckButton()
         self.full_name_cb.set_label(_tr("Full Name"))
         self.full_name_cb.set_halign(Gtk.Align.START)
         grid.attach(self.full_name_cb, 0, 2, 1, 1)
 
-        # Checkbutton (Logged In)
+        # CheckButton (Logged In)
         self.logged_in_cb = Gtk.CheckButton()
         self.logged_in_cb.set_label(_tr("Logged In"))
         self.logged_in_cb.set_halign(Gtk.Align.START)
         grid.attach(self.logged_in_cb, 0, 3, 1, 1)
 
-        # Checkbutton (UID)
+        # CheckButton (UID)
         self.uid_cb = Gtk.CheckButton()
         self.uid_cb.set_label(_tr("UID"))
         self.uid_cb.set_halign(Gtk.Align.START)
         grid.attach(self.uid_cb, 0, 4, 1, 1)
 
-        # Checkbutton (GID)
+        # CheckButton (GID)
         self.gid_cb = Gtk.CheckButton()
         self.gid_cb.set_label(_tr("GID"))
         self.gid_cb.set_halign(Gtk.Align.START)
         grid.attach(self.gid_cb, 0, 5, 1, 1)
 
-        # Checkbutton (Processes)
+        # CheckButton (Processes)
         self.processes_cb = Gtk.CheckButton()
         self.processes_cb.set_label(_tr("Processes"))
         self.processes_cb.set_halign(Gtk.Align.START)
         grid.attach(self.processes_cb, 0, 6, 1, 1)
 
-        # Checkbutton (Home Directory)
+        # CheckButton (Home Directory)
         self.home_directory_cb = Gtk.CheckButton()
         self.home_directory_cb.set_label(_tr("Home Directory"))
         self.home_directory_cb.set_halign(Gtk.Align.START)
         grid.attach(self.home_directory_cb, 1, 1, 1, 1)
 
-        # Checkbutton (Group)
+        # CheckButton (Group)
         self.group_cb = Gtk.CheckButton()
         self.group_cb.set_label(_tr("Group"))
         self.group_cb.set_halign(Gtk.Align.START)
         grid.attach(self.group_cb, 1, 2, 1, 1)
 
-        # Checkbutton (Terminal)
+        # CheckButton (Terminal)
         self.terminal_cb = Gtk.CheckButton()
         self.terminal_cb.set_label(_tr("Terminal"))
         self.terminal_cb.set_halign(Gtk.Align.START)
         grid.attach(self.terminal_cb, 1, 3, 1, 1)
 
-        # Checkbutton (Start Time)
+        # CheckButton (Start Time)
         self.start_time_cb = Gtk.CheckButton()
         self.start_time_cb.set_label(_tr("Start Time"))
         self.start_time_cb.set_halign(Gtk.Align.START)
         grid.attach(self.start_time_cb, 1, 4, 1, 1)
 
-        # Checkbutton (CPU)
+        # CheckButton (CPU)
         self.cpu_cb = Gtk.CheckButton()
         self.cpu_cb.set_label(_tr("CPU"))
         self.cpu_cb.set_halign(Gtk.Align.START)
@@ -178,11 +177,11 @@ class UsersMenu:
         Connect GUI signals.
         """
 
-        self.users_menu_po.connect("show", self.on_users_menu_po_show)
+        self.menu_po.connect("show", self.on_menu_po_show)
         self.reset_button.connect("clicked", self.on_reset_button_clicked)
 
 
-    def gui_connect_signals_func(self):
+    def connect_signals(self):
         """
         Connect some of the signals to be able to disconnect them for setting GUI.
         """
@@ -200,7 +199,7 @@ class UsersMenu:
         self.cpu_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
 
 
-    def gui_disconnect_signals_func(self):
+    def disconnect_signals(self):
         """
         Disconnect some of the signals for setting GUI.
         """
@@ -218,17 +217,17 @@ class UsersMenu:
         self.cpu_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
 
 
-    def on_users_menu_po_show(self, widget):
+    def on_menu_po_show(self, widget):
         """
         Run code when customizations menu popover is shown.
         """
  
         try:
-            self.gui_disconnect_signals_func()
+            self.disconnect_signals()
         except TypeError:
             pass
         self.set_gui()
-        self.gui_connect_signals_func()
+        self.connect_signals()
 
 
     def on_reset_button_clicked(self, widget):
@@ -243,9 +242,9 @@ class UsersMenu:
         # Apply changes immediately (without waiting update interval).
         Users.users_initial_func()
         Users.users_loop_func()
-        self.gui_disconnect_signals_func()
+        self.disconnect_signals()
         self.set_gui()
-        self.gui_connect_signals_func()
+        self.connect_signals()
 
 
     def on_add_remove_checkbuttons_toggled(self, widget):
@@ -253,7 +252,7 @@ class UsersMenu:
         Run a function for adding/removing columns to treeview.
         """
 
-        self.users_add_remove_columns_function()
+        self.add_remove_columns()
 
 
     def set_gui(self):
@@ -308,7 +307,7 @@ class UsersMenu:
             self.cpu_cb.set_active(False)
 
 
-    def users_add_remove_columns_function(self):
+    def add_remove_columns(self):
         """
         Add/Remove columns to treeview.
         """

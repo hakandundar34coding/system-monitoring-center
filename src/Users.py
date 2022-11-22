@@ -24,11 +24,8 @@ class Users:
 
     def __init__(self):
 
-        # Tab GUI
         self.tab_gui()
 
-        # "0" value of "initial_already_run" variable means that initial function is not run before or
-        # tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
 
 
@@ -38,62 +35,58 @@ class Users:
         """
 
         # Tab grid
-        self.users_tab_grid = Gtk.Grid()
-        self.users_tab_grid.set_row_spacing(7)
-        self.users_tab_grid.set_margin_top(2)
-        self.users_tab_grid.set_margin_bottom(2)
-        self.users_tab_grid.set_margin_start(2)
-        self.users_tab_grid.set_margin_end(2)
+        self.tab_grid = Gtk.Grid()
+        self.tab_grid.set_row_spacing(7)
+        self.tab_grid.set_margin_top(2)
+        self.tab_grid.set_margin_bottom(2)
+        self.tab_grid.set_margin_start(2)
+        self.tab_grid.set_margin_end(2)
 
-        # Bold and 2x label atributes
-        self.attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        self.attribute_list_bold_2x.insert(attribute)
+        self.tab_title_grid()
 
-        # Tab name, device name labels
-        self.tab_gui_label_grid()
+        self.tab_info_grid()
 
-        # Information labels
-        self.tab_gui_info_grid()
-
-        # Connect signals
         self.gui_signals()
 
-        # Right click menu
         self.right_click_menu()
 
 
-    def tab_gui_label_grid(self):
+    def tab_title_grid(self):
         """
         Generate tab name label, searchentry.
         """
 
-        # Tab name label grid
-        tab_name_label_grid = Gtk.Grid()
-        tab_name_label_grid.set_column_spacing(5)
-        self.users_tab_grid.attach(tab_name_label_grid, 0, 0, 1, 1)
+        # Grid (tab title)
+        grid = Gtk.Grid()
+        grid.set_column_spacing(5)
+        self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Tab name label
-        tab_name_label = Gtk.Label()
-        tab_name_label.set_halign(Gtk.Align.START)
-        tab_name_label.set_margin_end(60)
-        tab_name_label.set_attributes(self.attribute_list_bold_2x)
-        tab_name_label.set_label(_tr("Users"))
-        tab_name_label_grid.attach(tab_name_label, 0, 0, 1, 1)
+        # Bold and 2x label atributes
+        attribute_list_bold_2x = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        attribute_list_bold_2x.insert(attribute)
+        attribute = Pango.attr_scale_new(2.0)
+        attribute_list_bold_2x.insert(attribute)
 
-        # Searchentry
+        # Label (Users)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.START)
+        label.set_margin_end(60)
+        label.set_attributes(attribute_list_bold_2x)
+        label.set_label(_tr("Users"))
+        grid.attach(label, 0, 0, 1, 1)
+
+        # SearchEntry
         self.searchentry = Gtk.SearchEntry()
         self.searchentry.props.placeholder_text = _tr("Search...")
         self.searchentry.set_max_width_chars(100)
         self.searchentry.set_hexpand(True)
         self.searchentry.set_halign(Gtk.Align.CENTER)
         self.searchentry.set_valign(Gtk.Align.CENTER)
-        tab_name_label_grid.attach(self.searchentry, 1, 0, 1, 1)
+        grid.attach(self.searchentry, 1, 0, 1, 1)
 
 
-    def tab_gui_info_grid(self):
+    def tab_info_grid(self):
         """
         Generate information GUI objects.
         """
@@ -102,7 +95,7 @@ class Users:
         scrolledwindow = Gtk.ScrolledWindow()
         scrolledwindow.set_hexpand(True)
         scrolledwindow.set_vexpand(True)
-        self.users_tab_grid.attach(scrolledwindow, 0, 1, 1, 1)
+        self.tab_grid.attach(scrolledwindow, 0, 1, 1, 1)
 
         # TreeView
         self.treeview = Gtk.TreeView()
@@ -136,9 +129,9 @@ class Users:
 
         # Right click menu actions
         # "Details" action
-        details_action = Gio.SimpleAction.new("users_details", None)
-        details_action.connect("activate", self.on_details_item_clicked)
-        MainWindow.main_window.add_action(details_action)
+        action = Gio.SimpleAction.new("users_details", None)
+        action.connect("activate", self.on_details_item_clicked)
+        MainWindow.main_window.add_action(action)
 
 
     def right_click_menu(self):
@@ -245,8 +238,10 @@ class Users:
             self.treeview_column_order_width_row_sorting()
 
 
-    # ----------------------------------- Users - Initial Function -----------------------------------
     def users_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         global users_data_list
         users_data_list = [
@@ -295,8 +290,10 @@ class Users:
         self.initial_already_run = 1
 
 
-    # ----------------------------------- Users - Get User Data Function (gets user data, adds into treeview and updates it) -----------------------------------
     def users_loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
 
         update_interval = Config.update_interval
 
