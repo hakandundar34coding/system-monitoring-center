@@ -21,33 +21,24 @@ class Disk:
 
     def __init__(self):
 
-        # Disk tab GUI
-        self.disk_tab_gui()
+        # Tab GUI
+        self.tab_gui()
 
-        # "0" value of "initial_already_run" variable means that initial function is not run before or
-        # tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
 
 
-    def disk_tab_gui(self):
+    def tab_gui(self):
         """
-        Generate Disk tab GUI.
+        Generate tab GUI.
         """
 
-        # Disk tab grid
-        self.disk_tab_grid = Gtk.Grid()
-        self.disk_tab_grid.set_row_spacing(10)
-        self.disk_tab_grid.set_margin_top(2)
-        self.disk_tab_grid.set_margin_bottom(2)
-        self.disk_tab_grid.set_margin_start(2)
-        self.disk_tab_grid.set_margin_end(2)
-
-        # Bold and 2x label atributes
-        self.attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        self.attribute_list_bold_2x.insert(attribute)
+        # Grid (tab)
+        self.tab_grid = Gtk.Grid()
+        self.tab_grid.set_row_spacing(10)
+        self.tab_grid.set_margin_top(2)
+        self.tab_grid.set_margin_bottom(2)
+        self.tab_grid.set_margin_start(2)
+        self.tab_grid.set_margin_end(2)
 
         # Bold and underlined label atributes
         self.attribute_list_bold_underlined = Pango.AttrList()
@@ -62,36 +53,43 @@ class Disk:
         self.attribute_list_bold.insert(attribute)
 
         # Tab name, device name labels
-        self.disk_gui_label_grid()
+        self.tab_title_grid()
 
         # Drawingarea and related information labels
-        self.disk_gui_da_grid()
+        self.da_grid()
 
-        # Performance information labels
-        self.disk_gui_performance_info_grid()
+        # Performance/information labels
+        self.information_grid()
 
         # Connect signals
-        self.disk_gui_signals()
+        self.connect_signals()
 
 
-    def disk_gui_label_grid(self):
+    def tab_title_grid(self):
         """
         Generate tab name, device name labels.
         """
 
-        # Tab name label grid
-        tab_name_label_grid = Gtk.Grid()
-        self.disk_tab_grid.attach(tab_name_label_grid, 0, 0, 1, 1)
+        # Grid (tab title)
+        grid = Gtk.Grid()
+        self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Tab name label
-        tab_name_label = Gtk.Label()
-        tab_name_label.set_halign(Gtk.Align.START)
-        tab_name_label.set_margin_end(60)
-        tab_name_label.set_attributes(self.attribute_list_bold_2x)
-        tab_name_label.set_label(_tr("Disk"))
-        tab_name_label_grid.attach(tab_name_label, 0, 0, 1, 2)
+        # Bold and 2x label atributes
+        attribute_list_bold_2x = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        attribute_list_bold_2x.insert(attribute)
+        attribute = Pango.attr_scale_new(2.0)
+        attribute_list_bold_2x.insert(attribute)
 
-        # Device vendor-model label
+        # Label (Disk)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.START)
+        label.set_margin_end(60)
+        label.set_attributes(attribute_list_bold_2x)
+        label.set_label(_tr("Disk"))
+        grid.attach(label, 0, 0, 1, 2)
+
+        # Label (Device vendor-model label)
         self.device_vendor_model_label = Gtk.Label()
         self.device_vendor_model_label.set_halign(Gtk.Align.START)
         self.device_vendor_model_label.set_selectable(True)
@@ -99,66 +97,66 @@ class Disk:
         self.device_vendor_model_label.set_attributes(self.attribute_list_bold)
         self.device_vendor_model_label.set_label("--")
         self.device_vendor_model_label.set_tooltip_text(_tr("Vendor-Model"))
-        tab_name_label_grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
+        grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
 
-        # Device kernel name label
+        # Label (device kernel name)
         self.device_kernel_name_label = Gtk.Label()
         self.device_kernel_name_label.set_halign(Gtk.Align.START)
         self.device_kernel_name_label.set_selectable(True)
         self.device_kernel_name_label.set_ellipsize(Pango.EllipsizeMode.END)
         self.device_kernel_name_label.set_label("--")
         self.device_kernel_name_label.set_tooltip_text(_tr("Device Name In Kernel"))
-        tab_name_label_grid.attach(self.device_kernel_name_label, 1, 1, 1, 1)
+        grid.attach(self.device_kernel_name_label, 1, 1, 1, 1)
 
 
-    def disk_gui_da_grid(self):
+    def da_grid(self):
         """
         Generate tab drawingarea and related information labels.
         """
 
-        # Drawingarea grid
-        da_disk_speed_grid = Gtk.Grid()
-        da_disk_speed_grid.set_hexpand(True)
-        da_disk_speed_grid.set_vexpand(True)
-        self.disk_tab_grid.attach(da_disk_speed_grid, 0, 1, 1, 1)
+        # Grid (drawingarea)
+        grid = Gtk.Grid()
+        grid.set_hexpand(True)
+        grid.set_vexpand(True)
+        self.tab_grid.attach(grid, 0, 1, 1, 1)
 
-        # Drawingarea upper-left label
-        da_upper_left_label = Gtk.Label()
-        da_upper_left_label.set_halign(Gtk.Align.START)
-        da_upper_left_label.set_label(_tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
-        da_disk_speed_grid.attach(da_upper_left_label, 0, 0, 1, 1)
+        # Label (drawingarea upper-left)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.START)
+        label.set_label(_tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
+        grid.attach(label, 0, 0, 1, 1)
 
-        # Drawingarea upper-right label
+        # Label (drawingarea upper-right)
         self.da_upper_right_label = Gtk.Label()
         self.da_upper_right_label.set_halign(Gtk.Align.END)
         self.da_upper_right_label.set_label("--")
-        da_disk_speed_grid.attach(self.da_upper_right_label, 1, 0, 1, 1)
+        grid.attach(self.da_upper_right_label, 1, 0, 1, 1)
 
-        # Drawingarea
+        # DrawingArea
         self.da_disk_speed = Gtk.DrawingArea()
         self.da_disk_speed.set_hexpand(True)
         self.da_disk_speed.set_vexpand(True)
-        da_disk_speed_grid.attach(self.da_disk_speed, 0, 2, 2, 1)
+        grid.attach(self.da_disk_speed, 0, 2, 2, 1)
 
-        # Drawingarea lower-right label
-        da_lower_right_label = Gtk.Label()
-        da_lower_right_label.set_halign(Gtk.Align.END)
-        da_lower_right_label.set_label("0")
-        da_disk_speed_grid.attach(da_lower_right_label, 0, 3, 2, 1)
+        # Label (drawingarea lower-right)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.END)
+        label.set_label("0")
+        grid.attach(label, 0, 3, 2, 1)
 
 
-    def disk_gui_performance_info_grid(self):
+    def information_grid(self):
         """
-        Generate performance information labels.
+        Generate performance/information labels.
         """
 
-        # Performance information labels grid
+        # Grid (performance/information labels)
         performance_info_grid = Gtk.Grid()
         performance_info_grid.set_column_homogeneous(True)
         performance_info_grid.set_row_homogeneous(True)
         performance_info_grid.set_column_spacing(12)
         performance_info_grid.set_row_spacing(10)
-        self.disk_tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
+        self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
         # Performance information labels
         # Add viewports for showing borders around some the performance data and round the corners of the viewports.
@@ -394,7 +392,7 @@ class Disk:
         performance_info_right_grid.attach(self.disk_details_label, 1, 6, 1, 1)
 
 
-    def disk_gui_signals(self):
+    def connect_signals(self):
         """
         Connect GUI signals.
         """
@@ -403,19 +401,19 @@ class Disk:
         self.da_disk_usage.set_draw_func(Performance.performance_bar_charts_draw, "da_disk_usage")
 
         # Drawingarea mouse events
-        drawing_area_mouse_event = Gtk.EventControllerMotion()
-        drawing_area_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawing_area_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawing_area_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.da_disk_speed.add_controller(drawing_area_mouse_event)
+        drawingarea_mouse_event = Gtk.EventControllerMotion()
+        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
+        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
+        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
+        self.da_disk_speed.add_controller(drawingarea_mouse_event)
 
         # "Show" label mouse events
         show_label_mouse_event = Gtk.GestureClick()
-        show_label_mouse_event.connect("released", self.on_details_released)
+        show_label_mouse_event.connect("released", self.on_details_label_released)
         self.disk_details_label.add_controller(show_label_mouse_event)
 
 
-    def on_details_released(self, event, count, x, y):
+    def on_details_label_released(self, event, count, x, y):
         """
         Show Disk details window.
         """
@@ -770,8 +768,10 @@ class Disk:
             self.main_glib_source.attach(GLib.MainContext.default())
 
 
-    # ----------------------------------- Disk - Initial Function -----------------------------------
     def disk_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         disk_list = Performance.disk_list
         selected_disk_number = Performance.selected_disk_number
@@ -800,8 +800,10 @@ class Disk:
         self.initial_already_run = 1
 
 
-    # ----------------------------------- Disk - Get Disk Data Function -----------------------------------
     def disk_loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
 
         disk_list = Performance.disk_list
         selected_disk_number = Performance.selected_disk_number

@@ -21,33 +21,24 @@ class Memory:
 
     def __init__(self):
 
-        # Memory tab GUI
-        self.memory_tab_gui()
+        # Tab GUI
+        self.tab_gui()
 
-        # "0" value of "initial_already_run" variable means that initial function is not run before or
-        # tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
 
 
-    def memory_tab_gui(self):
+    def tab_gui(self):
         """
-        Generate Memory tab GUI.
+        Generate tab GUI.
         """
 
-        # Memory tab grid
-        self.memory_tab_grid = Gtk.Grid()
-        self.memory_tab_grid.set_row_spacing(10)
-        self.memory_tab_grid.set_margin_top(2)
-        self.memory_tab_grid.set_margin_bottom(2)
-        self.memory_tab_grid.set_margin_start(2)
-        self.memory_tab_grid.set_margin_end(2)
-
-        # Bold and 2x label atributes
-        self.attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        self.attribute_list_bold_2x.insert(attribute)
+        # Grid (tab)
+        self.tab_grid = Gtk.Grid()
+        self.tab_grid.set_row_spacing(10)
+        self.tab_grid.set_margin_top(2)
+        self.tab_grid.set_margin_bottom(2)
+        self.tab_grid.set_margin_start(2)
+        self.tab_grid.set_margin_end(2)
 
         # Bold and underlined label atributes
         self.attribute_list_bold_underlined = Pango.AttrList()
@@ -62,102 +53,108 @@ class Memory:
         self.attribute_list_bold.insert(attribute)
 
         # Tab name, device name labels
-        self.memory_gui_label_grid()
+        self.tab_title_grid()
 
         # Drawingarea and related information labels
-        self.memory_gui_da_grid()
+        self.da_grid()
 
-        # Performance information labels
-        self.memory_gui_performance_info_grid()
+        # Performance/information labels
+        self.information_grid()
 
         # Connect signals
-        self.memory_gui_signals()
+        self.connect_signals()
 
 
-    def memory_gui_label_grid(self):
+    def tab_title_grid(self):
         """
         Generate tab name, device name labels.
         """
 
-        # Tab name label grid
-        tab_name_label_grid = Gtk.Grid()
-        self.memory_tab_grid.attach(tab_name_label_grid, 0, 0, 1, 1)
+        # Grid (tab title)
+        grid = Gtk.Grid()
+        self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Tab name label
-        tab_name_label = Gtk.Label()
-        tab_name_label.set_halign(Gtk.Align.START)
-        tab_name_label.set_margin_end(60)
-        tab_name_label.set_attributes(self.attribute_list_bold_2x)
-        tab_name_label.set_label(_tr("Memory"))
-        tab_name_label_grid.attach(tab_name_label, 0, 0, 1, 2)
+        # Bold and 2x label atributes
+        attribute_list_bold_2x = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        attribute_list_bold_2x.insert(attribute)
+        attribute = Pango.attr_scale_new(2.0)
+        attribute_list_bold_2x.insert(attribute)
 
-        # Device vendor-model label
+        # Label (Memory)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.START)
+        label.set_margin_end(60)
+        label.set_attributes(attribute_list_bold_2x)
+        label.set_label(_tr("Memory"))
+        grid.attach(label, 0, 0, 1, 2)
+
+        # Label (Device vendor-model label)
         self.device_vendor_model_label = Gtk.Label()
         self.device_vendor_model_label.set_halign(Gtk.Align.START)
         self.device_vendor_model_label.set_selectable(True)
         self.device_vendor_model_label.set_ellipsize(Pango.EllipsizeMode.END)
         self.device_vendor_model_label.set_attributes(self.attribute_list_bold)
         self.device_vendor_model_label.set_label("--")
-        tab_name_label_grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
+        grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
 
-        # Device kernel name label
+        # Label (device kernel name)
         self.device_kernel_name_label = Gtk.Label()
         self.device_kernel_name_label.set_halign(Gtk.Align.START)
         self.device_kernel_name_label.set_selectable(True)
         self.device_kernel_name_label.set_ellipsize(Pango.EllipsizeMode.END)
         self.device_kernel_name_label.set_label("--")
-        tab_name_label_grid.attach(self.device_kernel_name_label, 1, 1, 1, 1)
+        grid.attach(self.device_kernel_name_label, 1, 1, 1, 1)
 
 
-    def memory_gui_da_grid(self):
+    def da_grid(self):
         """
         Generate tab drawingarea and related information labels.
         """
 
-        # Drawingarea grid
-        da_memory_usage_grid = Gtk.Grid()
-        da_memory_usage_grid.set_hexpand(True)
-        da_memory_usage_grid.set_vexpand(True)
-        self.memory_tab_grid.attach(da_memory_usage_grid, 0, 1, 1, 1)
+        # Grid (drawingarea)
+        grid = Gtk.Grid()
+        grid.set_hexpand(True)
+        grid.set_vexpand(True)
+        self.tab_grid.attach(grid, 0, 1, 1, 1)
 
-        # Drawingarea upper-left label
+        # Label (drawingarea upper-left)
         self.da_upper_left_label = Gtk.Label()
         self.da_upper_left_label.set_halign(Gtk.Align.START)
         self.da_upper_left_label.set_label(_tr("RAM Usage"))
-        da_memory_usage_grid.attach(self.da_upper_left_label, 0, 0, 1, 1)
+        grid.attach(self.da_upper_left_label, 0, 0, 1, 1)
 
-        # Drawingarea upper-right label
-        da_upper_right_label = Gtk.Label()
-        da_upper_right_label.set_halign(Gtk.Align.END)
-        da_upper_right_label.set_label("100%")
-        da_memory_usage_grid.attach(da_upper_right_label, 1, 0, 1, 1)
+        # Label (drawingarea upper-right)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.END)
+        label.set_label("100%")
+        grid.attach(label, 1, 0, 1, 1)
 
-        # Drawingarea
+        # DrawingArea (RAM/Memory usage)
         self.da_memory_usage = Gtk.DrawingArea()
         self.da_memory_usage.set_hexpand(True)
         self.da_memory_usage.set_vexpand(True)
-        da_memory_usage_grid.attach(self.da_memory_usage, 0, 2, 2, 1)
+        grid.attach(self.da_memory_usage, 0, 2, 2, 1)
 
-        # Drawingarea lower-right label
-        da_lower_right_label = Gtk.Label()
-        da_lower_right_label.set_halign(Gtk.Align.END)
-        da_lower_right_label.set_label("0")
-        da_memory_usage_grid.attach(da_lower_right_label, 0, 3, 2, 1)
+        # Label (drawingarea lower-right)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.END)
+        label.set_label("0")
+        grid.attach(label, 0, 3, 2, 1)
 
 
-    def memory_gui_performance_info_grid(self):
+    def information_grid(self):
         """
-        Generate performance information labels.
+        Generate performance/information labels.
         """
 
-        # Performance information labels grid
+        # Grid (performance/information labels)
         performance_info_grid = Gtk.Grid()
         performance_info_grid.set_column_homogeneous(True)
         performance_info_grid.set_column_spacing(10)
         performance_info_grid.set_row_spacing(6)
-        self.memory_tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
+        self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
-        # Performance information labels
         # Add viewports for showing borders around some the performance data and round the corners of the viewports.
         css = b"viewport {border-style: solid; border-radius: 8px 8px 8px 8px; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
         style_provider_viewport = Gtk.CssProvider()
@@ -168,19 +165,19 @@ class Memory:
         style_provider_separator = Gtk.CssProvider()
         style_provider_separator.load_from_data(css)
 
-        # Performance information left area title label
+        # Label - Title (RAM)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("RAM"))
         label.set_halign(Gtk.Align.START)
         performance_info_grid.attach(label, 0, 0, 1, 1)
 
-        # Styled information widgets (for RAM used and available)
-        # Styled information viewport
+        # Styled information widgets (Used and Available)
+        # Viewport (Used and Available)
         viewport = Gtk.Viewport()
         viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         performance_info_grid.attach(viewport, 0, 1, 1, 1)
-        # Styled information grid
+        # Grid (Used and Available)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
         grid.set_row_spacing(3)
@@ -190,38 +187,38 @@ class Memory:
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
         viewport.set_child(grid)
-        # Styled information label
+        # Label (Used)
         label = Gtk.Label()
         label.set_label(_tr("Used"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(label, 0, 0, 1, 1)
-        # Styled information label
+        # Label (Available)
         label = Gtk.Label()
         label.set_label(_tr("Available"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(label, 1, 0, 1, 1)
-        # Styled information separator
+        # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_halign(Gtk.Align.CENTER)
         separator.set_valign(Gtk.Align.CENTER)
         separator.set_size_request(60, -1)
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 0, 1, 1, 1)
-        # Styled information separator
+        # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_halign(Gtk.Align.CENTER)
         separator.set_valign(Gtk.Align.CENTER)
         separator.set_size_request(60, -1)
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 1, 1, 1, 1)
-        # Styled information label (for RAM used)
+        # Label (Used)
         self.ram_used_label = Gtk.Label()
         self.ram_used_label.set_selectable(True)
         self.ram_used_label.set_attributes(self.attribute_list_bold)
         self.ram_used_label.set_label("--")
         self.ram_used_label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(self.ram_used_label, 0, 2, 1, 1)
-        # Styled information label (for RAM available)
+        # Label (Available)
         self.ram_available_label = Gtk.Label()
         self.ram_available_label.set_selectable(True)
         self.ram_available_label.set_attributes(self.attribute_list_bold)
@@ -229,7 +226,7 @@ class Memory:
         self.ram_available_label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(self.ram_available_label, 1, 2, 1, 1)
 
-        # Performance information lower left area grid
+        # Grid - Lower left information labels
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
         grid.set_row_homogeneous(True)
@@ -237,14 +234,13 @@ class Memory:
         grid.set_row_spacing(3)
         performance_info_grid.attach(grid, 0, 2, 1, 1)
 
-        # Performance information lower left area label
+        # Label (Capacity)
         label = Gtk.Label()
         label.set_label(_tr("Capacity"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 0, 1, 1)
-
-        # Performance information lower left area label (for RAM Capacity)
+        # Label (Capacity)
         self.ram_capacity_label = Gtk.Label()
         self.ram_capacity_label.set_selectable(True)
         self.ram_capacity_label.set_attributes(self.attribute_list_bold)
@@ -253,14 +249,13 @@ class Memory:
         self.ram_capacity_label.set_halign(Gtk.Align.START)
         grid.attach(self.ram_capacity_label, 1, 0, 1, 1)
 
-        # Performance information lower left area label
+        # Label (Free)
         label = Gtk.Label()
         label.set_label(_tr("Free"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Performance information lower left area label (for RAM Free)
+        # Label (Free)
         self.ram_free_label = Gtk.Label()
         self.ram_free_label.set_selectable(True)
         self.ram_free_label.set_attributes(self.attribute_list_bold)
@@ -269,14 +264,13 @@ class Memory:
         self.ram_free_label.set_halign(Gtk.Align.START)
         grid.attach(self.ram_free_label, 1, 1, 1, 1)
 
-        # Performance information lower left area label
+        # Label (Hardware)
         label = Gtk.Label()
         label.set_label(_tr("Hardware"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Performance information lower left area label (for RAM Hardware)
+        # Label (Hardware)
         self.ram_hardware_label = Gtk.Label()
         self.ram_hardware_label.set_attributes(self.attribute_list_bold_underlined)
         self.ram_hardware_label.set_label(_tr("Show..."))
@@ -286,19 +280,19 @@ class Memory:
         self.ram_hardware_label.set_cursor(self.cursor_link)
         grid.attach(self.ram_hardware_label, 1, 2, 1, 1)
 
-        # Performance information right area title label
+        # Label - Title (Swap Memory)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Swap Memory"))
         label.set_halign(Gtk.Align.START)
         performance_info_grid.attach(label, 1, 0, 1, 1)
 
-        # Styled information widgets (for Swap used percent and used)
-        # Styled information viewport
+        # Styled information widgets (Used and Used (percent))
+        # Viewport (Used and Used (percent))
         viewport = Gtk.Viewport()
         viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         performance_info_grid.attach(viewport, 1, 1, 1, 1)
-        # Styled information grid
+        # Grid (Used and Used (percent))
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
         grid.set_row_spacing(3)
@@ -308,46 +302,46 @@ class Memory:
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
         viewport.set_child(grid)
-        # Styled information label
+        # Label (Used)
         label = Gtk.Label()
         label.set_label(_tr("Used"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(label, 0, 0, 1, 1)
-        # Styled information label
+        # Label (Used (percent))
         label = Gtk.Label()
         label.set_label(_tr("Used"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(label, 1, 0, 1, 1)
-        # Styled information separator
+        # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_halign(Gtk.Align.CENTER)
         separator.set_valign(Gtk.Align.CENTER)
         separator.set_size_request(60, -1)
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 0, 1, 1, 1)
-        # Styled information separator
+        # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_halign(Gtk.Align.CENTER)
         separator.set_valign(Gtk.Align.CENTER)
         separator.set_size_request(60, -1)
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 1, 1, 1, 1)
-        # Styled information grid (for Swap used label and drawingarea)
+        # Grid (Used (swap) and drawingarea (swap))
         grid_label_and_da = Gtk.Grid()
         grid_label_and_da.set_column_spacing(5)
         grid.attach(grid_label_and_da, 0, 2, 1, 1)
-        # Styled information drawingarea (for Swap used)
+        # DrawingArea (Used (swap))
         self.da_swap_usage = Gtk.DrawingArea()
         self.da_swap_usage.set_hexpand(True)
         grid_label_and_da.attach(self.da_swap_usage, 0, 0, 1, 1)
-        # Styled information label (for Swap used)
+        # Label (Used (swap))
         self.swap_used_percent_label = Gtk.Label()
         self.swap_used_percent_label.set_selectable(True)
         self.swap_used_percent_label.set_attributes(self.attribute_list_bold)
         self.swap_used_percent_label.set_label("--")
         self.swap_used_percent_label.set_ellipsize(Pango.EllipsizeMode.END)
         grid_label_and_da.attach(self.swap_used_percent_label, 1, 0, 1, 1)
-        # Styled information label (for Swap free)
+        # Label (Free (swap))
         self.swap_used_label = Gtk.Label()
         self.swap_used_label.set_selectable(True)
         self.swap_used_label.set_attributes(self.attribute_list_bold)
@@ -355,7 +349,7 @@ class Memory:
         self.swap_used_label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(self.swap_used_label, 1, 2, 1, 1)
 
-        # Performance information lower right area grid
+        # Grid (lower right information labels)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
         grid.set_row_homogeneous(True)
@@ -363,14 +357,13 @@ class Memory:
         grid.set_row_spacing(3)
         performance_info_grid.attach(grid, 1, 2, 1, 1)
 
-        # Performance information lower right area label
+        # Label (Free (swap))
         label = Gtk.Label()
         label.set_label(_tr("Free"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 0, 1, 1)
-
-        # Performance information lower right area label (for RAM Capacity)
+        # Label (Free (swap))
         self.swap_free_label = Gtk.Label()
         self.swap_free_label.set_selectable(True)
         self.swap_free_label.set_attributes(self.attribute_list_bold)
@@ -379,14 +372,13 @@ class Memory:
         self.swap_free_label.set_halign(Gtk.Align.START)
         grid.attach(self.swap_free_label, 1, 0, 1, 1)
 
-        # Performance information lower right area label
+        # Label (Capacity (swap))
         label = Gtk.Label()
         label.set_label(_tr("Capacity"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Performance information lower right area label (for RAM Free)
+        # Label (Capacity (swap))
         self.swap_capacity_label = Gtk.Label()
         self.swap_capacity_label.set_selectable(True)
         self.swap_capacity_label.set_attributes(self.attribute_list_bold)
@@ -395,14 +387,13 @@ class Memory:
         self.swap_capacity_label.set_halign(Gtk.Align.START)
         grid.attach(self.swap_capacity_label, 1, 1, 1, 1)
 
-        # Performance information lower right area label
+        # Label (Details (swap))
         label = Gtk.Label()
         label.set_label(_tr("Details"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Performance information lower right area label (for RAM Hardware)
+        # Label (Details (swap))
         self.swap_details_label = Gtk.Label()
         self.swap_details_label.set_attributes(self.attribute_list_bold_underlined)
         self.swap_details_label.set_label(_tr("Show..."))
@@ -413,7 +404,7 @@ class Memory:
         grid.attach(self.swap_details_label, 1, 2, 1, 1)
 
 
-    def memory_gui_signals(self):
+    def connect_signals(self):
         """
         Connect GUI signals.
         """
@@ -422,22 +413,22 @@ class Memory:
         self.da_swap_usage.set_draw_func(Performance.performance_bar_charts_draw, "da_swap_usage")
 
         # Drawingarea mouse events
-        drawing_area_mouse_event = Gtk.EventControllerMotion()
-        drawing_area_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawing_area_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawing_area_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.da_memory_usage.add_controller(drawing_area_mouse_event)
+        drawingarea_mouse_event = Gtk.EventControllerMotion()
+        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
+        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
+        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
+        self.da_memory_usage.add_controller(drawingarea_mouse_event)
 
         # "Show" labels mouse events. Definition of separate events are required for different widgets.
         show_label_mouse_event = Gtk.GestureClick()
-        show_label_mouse_event.connect("released", self.on_details_released)
+        show_label_mouse_event.connect("released", self.on_details_label_released)
         self.ram_hardware_label.add_controller(show_label_mouse_event)
         show_label_mouse_event = Gtk.GestureClick()
-        show_label_mouse_event.connect("released", self.on_details_released)
+        show_label_mouse_event.connect("released", self.on_details_label_released)
         self.swap_details_label.add_controller(show_label_mouse_event)
 
 
-    def on_details_released(self, event, count, x, y):
+    def on_details_label_released(self, event, count, x, y):
         """
         Show RAM hardware window or swap details window.
         """
@@ -446,7 +437,7 @@ class Memory:
 
         # Show RAM hardware window
         if widget == self.ram_hardware_label:
-            memory_ram_hardware_info = self.memory_ram_hardware_info_get()
+            memory_ram_hardware_info = self.ram_hardware_info_get()
             try:
                 self.ram_hardware_window.present()
             except AttributeError:
@@ -463,8 +454,8 @@ class Memory:
                 # Avoid generating window multiple times on every button click.
                 self.swap_details_window_gui()
                 self.swap_details_window.present()
-            self.memory_swap_details_info_get()
-            self.memory_swap_details_update()
+            self.swap_details_info_get()
+            self.swap_details_update()
 
 
     def ram_hardware_window_gui(self):
@@ -501,7 +492,7 @@ class Memory:
         viewport = Gtk.Viewport()
         scrolledwindow.set_child(viewport)
 
-        # Main grid
+        # Grid (Main)
         main_grid = Gtk.Grid.new()
         main_grid.set_margin_top(10)
         main_grid.set_margin_bottom(10)
@@ -518,7 +509,7 @@ class Memory:
         main_grid.attach(self.ram_hardware_win_label, 0, 0, 1, 1)
 
 
-    def memory_ram_hardware_info_get(self):
+    def ram_hardware_info_get(self):
         """
         Get RAM hardware information by using "dmidecode" command.
         """
@@ -675,7 +666,7 @@ class Memory:
         main_grid.attach(self.swap_details_win_label, 0, 0, 1, 1)
 
 
-    def memory_swap_details_info_get(self):
+    def swap_details_info_get(self):
         """
         Get swap memory details information by reading "/proc/swaps" file.
         """
@@ -734,7 +725,7 @@ class Memory:
         self.swap_details_win_label.set_label(memory_swap_details_info)
 
 
-    def memory_swap_details_update(self, *args):
+    def swap_details_update(self, *args):
         """
         Update swap memory information on the swap details window.
         """
@@ -747,15 +738,17 @@ class Memory:
             except AttributeError:
                 pass
             self.main_glib_source = GLib.timeout_source_new(Config.update_interval * 1000)
-            self.memory_swap_details_info_get()
-            self.main_glib_source.set_callback(self.memory_swap_details_update)
+            self.swap_details_info_get()
+            self.main_glib_source.set_callback(self.swap_details_update)
             # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed.
             # A function may be attached to the MainContext multiple times.
             self.main_glib_source.attach(GLib.MainContext.default())
 
 
-    # ----------------------------------- Memory - Initial Function -----------------------------------
     def memory_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         performance_memory_data_precision = Config.performance_memory_data_precision
         performance_memory_data_unit = Config.performance_memory_data_unit
@@ -815,8 +808,10 @@ class Memory:
         self.initial_already_run = 1
 
 
-    # ----------------------------------- Memory - Get Memory Data Function -----------------------------------
     def memory_loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
 
         ram_used = Performance.ram_used
         ram_usage_percent = Performance.ram_usage_percent

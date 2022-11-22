@@ -1,4 +1,13 @@
-system-monitoring-center (2.0.1) unstable; urgency=medium
+system-monitoring-center (2.0.2) unstable; urgency=medium
+
+  * Fix: Resetting all settings when GPU tab is opened
+  * Fix: Window size when when default tab is changed
+  * Fix: Hiding Services tab if systemd is not used
+  * Several code simplifications
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 21 Nov 2022 11:30:00 +0300
+
+system-monitoring-center (2.0.2) unstable; urgency=medium
 
   * Fix: Application crash after changing remembering last tabs
 

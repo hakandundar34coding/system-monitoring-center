@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v2.0.2 (21.11.2022)
+  * Fix: Resetting all settings when GPU tab is opened
+  * Fix: Window size when when default tab is changed
+  * Fix: Hiding Services tab if systemd is not used
+  * Several code simplifications
+
 ### v2.0.1 (20.11.2022)
   * Fix: Application crash after changing remembering last tabs
 
