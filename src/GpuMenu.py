@@ -17,44 +17,43 @@ class GpuMenu:
 
     def __init__(self):
 
-        # Menu GUI
-        self.gpu_menu_gui()
+        self.menu_gui()
 
 
-    def gpu_menu_gui(self):
+    def menu_gui(self):
         """
         Generate menu GUI.
         """
 
         # Popover
-        self.gpu_menu_po = Gtk.Popover()
+        self.menu_po = Gtk.Popover()
 
-        # Main grid
+        # Grid (main)
         menu_main_grid = Gtk.Grid()
         menu_main_grid.set_row_spacing(5)
         menu_main_grid.set_margin_top(5)
         menu_main_grid.set_margin_bottom(5)
         menu_main_grid.set_margin_start(5)
         menu_main_grid.set_margin_end(5)
-        self.gpu_menu_po.set_child(menu_main_grid)
+        self.menu_po.set_child(menu_main_grid)
 
         # Bold label atributes
-        self.attribute_list_bold = Pango.AttrList()
+        attribute_list_bold = Pango.AttrList()
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold.insert(attribute)
+        attribute_list_bold.insert(attribute)
 
-        # Menu title
+        # Label - menu title (GPU)
         label = Gtk.Label()
-        label.set_attributes(self.attribute_list_bold)
+        label.set_attributes(attribute_list_bold)
         label.set_label(_tr("GPU"))
         label.set_halign(Gtk.Align.CENTER)
         label.set_margin_bottom(10)
         menu_main_grid.attach(label, 0, 0, 2, 1)
 
         # Button (Graph Color)
-        self.gpu_menu_graph_color_button = Gtk.Button()
-        self.gpu_menu_graph_color_button.set_label(_tr("Graph Color"))
-        menu_main_grid.attach(self.gpu_menu_graph_color_button, 0, 4, 2, 1)
+        self.graph_color_button = Gtk.Button()
+        self.graph_color_button.set_label(_tr("Graph Color"))
+        menu_main_grid.attach(self.graph_color_button, 0, 4, 2, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
@@ -63,22 +62,22 @@ class GpuMenu:
         menu_main_grid.attach(separator, 0, 5, 2, 1)
 
         # Button (Reset)
-        self.gpu_menu_reset_button = Gtk.Button()
-        self.gpu_menu_reset_button.set_label(_tr("Reset"))
-        self.gpu_menu_reset_button.set_halign(Gtk.Align.CENTER)
-        menu_main_grid.attach(self.gpu_menu_reset_button, 0, 14, 2, 1)
+        self.reset_button = Gtk.Button()
+        self.reset_button.set_label(_tr("Reset"))
+        self.reset_button.set_halign(Gtk.Align.CENTER)
+        menu_main_grid.attach(self.reset_button, 0, 14, 2, 1)
 
         # ColorChooserDialog
         self.colorchooserdialog = Gtk.ColorChooserDialog().new(title=None, parent=MainWindow.main_window)
         self.colorchooserdialog.set_transient_for(MainWindow.main_window)
 
         # Connect signals
-        self.gpu_menu_graph_color_button.connect("clicked", self.on_chart_color_buttons_clicked)
-        self.gpu_menu_reset_button.connect("clicked", self.on_gpu_menu_reset_button_clicked)
+        self.graph_color_button.connect("clicked", self.on_graph_color_button_clicked)
+        self.reset_button.connect("clicked", self.on_reset_button_clicked)
         self.colorchooserdialog.connect("response", self.on_colorchooserdialog_response)
 
 
-    def on_chart_color_buttons_clicked(self, widget):
+    def on_graph_color_button_clicked(self, widget):
         """
         Change graph foreground color.
         """
@@ -87,6 +86,7 @@ class GpuMenu:
         red, blue, green, alpha = Config.chart_line_color_fps
         self.colorchooserdialog.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
+        self.menu_po.popdown()
         self.colorchooserdialog.present()
 
 
@@ -108,7 +108,7 @@ class GpuMenu:
         Config.config_save_func()
 
 
-    def on_gpu_menu_reset_button_clicked(self, widget):
+    def on_reset_button_clicked(self, widget):
         """
         Reset all tab settings.
         """

@@ -20,7 +20,6 @@ class Cpu:
 
     def __init__(self):
 
-        # Tab GUI
         self.tab_gui()
 
         self.initial_already_run = 0
@@ -44,16 +43,12 @@ class Cpu:
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
         self.attribute_list_bold.insert(attribute)
 
-        # Tab name, device name labels
         self.tab_title_grid()
 
-        # Drawingarea and related information labels
         self.da_grid()
 
-        # Performance/information labels
         self.information_grid()
 
-        # Connect signals
         self.connect_signals()
 
 
@@ -81,7 +76,7 @@ class Cpu:
         label.set_label(_tr("CPU"))
         grid.attach(label, 0, 0, 1, 2)
 
-        # Label (Device vendor-model label)
+        # Label (device vendor-model label)
         self.device_vendor_model_label = Gtk.Label()
         self.device_vendor_model_label.set_halign(Gtk.Align.START)
         self.device_vendor_model_label.set_selectable(True)
@@ -201,19 +196,19 @@ class Cpu:
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 1, 1, 1, 1)
         # Label (Average Usage)
-        self.cpu_average_usage_label = Gtk.Label()
-        self.cpu_average_usage_label.set_selectable(True)
-        self.cpu_average_usage_label.set_attributes(self.attribute_list_bold)
-        self.cpu_average_usage_label.set_label("--")
-        self.cpu_average_usage_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.cpu_average_usage_label, 0, 2, 1, 1)
+        self.average_usage_label = Gtk.Label()
+        self.average_usage_label.set_selectable(True)
+        self.average_usage_label.set_attributes(self.attribute_list_bold)
+        self.average_usage_label.set_label("--")
+        self.average_usage_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.average_usage_label, 0, 2, 1, 1)
         # Label (Frequency)
-        self.cpu_frequency_label = Gtk.Label()
-        self.cpu_frequency_label.set_selectable(True)
-        self.cpu_frequency_label.set_attributes(self.attribute_list_bold)
-        self.cpu_frequency_label.set_label("--")
-        self.cpu_frequency_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.cpu_frequency_label, 1, 2, 1, 1)
+        self.frequency_label = Gtk.Label()
+        self.frequency_label.set_selectable(True)
+        self.frequency_label.set_attributes(self.attribute_list_bold)
+        self.frequency_label.set_label("--")
+        self.frequency_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.frequency_label, 1, 2, 1, 1)
 
         # Styled information widgets (Processes-Threads and Up Time)
         # Viewport (Processes-Threads and Up Time)
@@ -255,19 +250,19 @@ class Cpu:
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 1, 1, 1, 1)
         # Label (Processes-Threads)
-        self.cpu_processes_threads_label = Gtk.Label()
-        self.cpu_processes_threads_label.set_selectable(True)
-        self.cpu_processes_threads_label.set_attributes(self.attribute_list_bold)
-        self.cpu_processes_threads_label.set_label("--")
-        self.cpu_processes_threads_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.cpu_processes_threads_label, 0, 2, 1, 1)
+        self.processes_threads_label = Gtk.Label()
+        self.processes_threads_label.set_selectable(True)
+        self.processes_threads_label.set_attributes(self.attribute_list_bold)
+        self.processes_threads_label.set_label("--")
+        self.processes_threads_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.processes_threads_label, 0, 2, 1, 1)
         # Label (Up Time)
-        self.cpu_up_time_label = Gtk.Label()
-        self.cpu_up_time_label.set_selectable(True)
-        self.cpu_up_time_label.set_attributes(self.attribute_list_bold)
-        self.cpu_up_time_label.set_label("--")
-        self.cpu_up_time_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.cpu_up_time_label, 1, 2, 1, 1)
+        self.up_time_label = Gtk.Label()
+        self.up_time_label.set_selectable(True)
+        self.up_time_label.set_attributes(self.attribute_list_bold)
+        self.up_time_label.set_label("--")
+        self.up_time_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.up_time_label, 1, 2, 1, 1)
 
         # Grid - Right information labels
         performance_info_right_grid = Gtk.Grid()
@@ -285,13 +280,13 @@ class Cpu:
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 0, 1, 1)
         # Label (Min-Max Frequency)
-        self.cpu_min_max_frequency_label = Gtk.Label()
-        self.cpu_min_max_frequency_label.set_selectable(True)
-        self.cpu_min_max_frequency_label.set_attributes(self.attribute_list_bold)
-        self.cpu_min_max_frequency_label.set_label("--")
-        self.cpu_min_max_frequency_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.cpu_min_max_frequency_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.cpu_min_max_frequency_label, 1, 0, 1, 1)
+        self.min_max_frequency_label = Gtk.Label()
+        self.min_max_frequency_label.set_selectable(True)
+        self.min_max_frequency_label.set_attributes(self.attribute_list_bold)
+        self.min_max_frequency_label.set_label("--")
+        self.min_max_frequency_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.min_max_frequency_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.min_max_frequency_label, 1, 0, 1, 1)
 
         # Label (Cache (L1d-L1i))
         label = Gtk.Label()
@@ -300,28 +295,28 @@ class Cpu:
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 1, 1, 1)
         # Label (Cache (L1d-L1i))
-        self.cpu_cache_l1d_l1i_label = Gtk.Label()
-        self.cpu_cache_l1d_l1i_label.set_selectable(True)
-        self.cpu_cache_l1d_l1i_label.set_attributes(self.attribute_list_bold)
-        self.cpu_cache_l1d_l1i_label.set_label("--")
-        self.cpu_cache_l1d_l1i_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.cpu_cache_l1d_l1i_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.cpu_cache_l1d_l1i_label, 1, 1, 1, 1)
+        self.cache_l1d_l1i_label = Gtk.Label()
+        self.cache_l1d_l1i_label.set_selectable(True)
+        self.cache_l1d_l1i_label.set_attributes(self.attribute_list_bold)
+        self.cache_l1d_l1i_label.set_label("--")
+        self.cache_l1d_l1i_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.cache_l1d_l1i_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.cache_l1d_l1i_label, 1, 1, 1, 1)
 
-        # Labe (Cache (L2-L3))
+        # Label (Cache (L2-L3))
         label = Gtk.Label()
         label.set_label(_tr("Cache (L2-L3)") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 2, 1, 1)
-        # Labe (Cache (L2-L3))
-        self.cpu_cache_l2_l3_label = Gtk.Label()
-        self.cpu_cache_l2_l3_label.set_selectable(True)
-        self.cpu_cache_l2_l3_label.set_attributes(self.attribute_list_bold)
-        self.cpu_cache_l2_l3_label.set_label("--")
-        self.cpu_cache_l2_l3_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.cpu_cache_l2_l3_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.cpu_cache_l2_l3_label, 1, 2, 1, 1)
+        # Label (Cache (L2-L3))
+        self.cache_l2_l3_label = Gtk.Label()
+        self.cache_l2_l3_label.set_selectable(True)
+        self.cache_l2_l3_label.set_attributes(self.attribute_list_bold)
+        self.cache_l2_l3_label.set_label("--")
+        self.cache_l2_l3_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.cache_l2_l3_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.cache_l2_l3_label, 1, 2, 1, 1)
 
         # Label (CPU Sockets)
         label = Gtk.Label()
@@ -346,13 +341,13 @@ class Cpu:
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 4, 1, 1)
         # Label (Cores (Physical-Logical))
-        self.cpu_cores_phy_log_label = Gtk.Label()
-        self.cpu_cores_phy_log_label.set_selectable(True)
-        self.cpu_cores_phy_log_label.set_attributes(self.attribute_list_bold)
-        self.cpu_cores_phy_log_label.set_label("--")
-        self.cpu_cores_phy_log_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.cpu_cores_phy_log_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.cpu_cores_phy_log_label, 1, 4, 1, 1)
+        self.cores_phy_log_label = Gtk.Label()
+        self.cores_phy_log_label.set_selectable(True)
+        self.cores_phy_log_label.set_attributes(self.attribute_list_bold)
+        self.cores_phy_log_label.set_label("--")
+        self.cores_phy_log_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.cores_phy_log_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.cores_phy_log_label, 1, 4, 1, 1)
 
         # Label (Architecture)
         label = Gtk.Label()
@@ -361,13 +356,13 @@ class Cpu:
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 5, 1, 1)
         # Label (Architecture)
-        self.cpu_architecture_label = Gtk.Label()
-        self.cpu_architecture_label.set_selectable(True)
-        self.cpu_architecture_label.set_attributes(self.attribute_list_bold)
-        self.cpu_architecture_label.set_label("--")
-        self.cpu_architecture_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.cpu_architecture_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.cpu_architecture_label, 1, 5, 1, 1)
+        self.architecture_label = Gtk.Label()
+        self.architecture_label.set_selectable(True)
+        self.architecture_label.set_attributes(self.attribute_list_bold)
+        self.architecture_label.set_label("--")
+        self.architecture_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.architecture_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.architecture_label, 1, 5, 1, 1)
 
 
     def connect_signals(self):
@@ -408,12 +403,12 @@ class Cpu:
         if show_cpu_usage_per_core == 1:
             self.da_upper_left_label.set_label(_tr("CPU Usage (Per Core)"))
         if isinstance(cpu_core_max_frequency, str) is False:
-            self.cpu_min_max_frequency_label.set_label(f'{cpu_core_min_frequency:.2f} - {cpu_core_max_frequency:.2f} GHz')
+            self.min_max_frequency_label.set_label(f'{cpu_core_min_frequency:.2f} - {cpu_core_max_frequency:.2f} GHz')
         else:
-            self.cpu_min_max_frequency_label.set_label(f'{cpu_core_min_frequency} - {cpu_core_max_frequency}')
-        self.cpu_architecture_label.set_label(cpu_architecture)
-        self.cpu_cache_l1d_l1i_label.set_label(f'{cpu_core_l1d_cache} - {cpu_core_l1i_cache}')
-        self.cpu_cache_l2_l3_label.set_label(f'{cpu_core_l2_cache} - {cpu_core_l3_cache}')
+            self.min_max_frequency_label.set_label(f'{cpu_core_min_frequency} - {cpu_core_max_frequency}')
+        self.architecture_label.set_label(cpu_architecture)
+        self.cache_l1d_l1i_label.set_label(f'{cpu_core_l1d_cache} - {cpu_core_l1i_cache}')
+        self.cache_l2_l3_label.set_label(f'{cpu_core_l2_cache} - {cpu_core_l3_cache}')
 
         self.initial_already_run = 1
 
@@ -460,12 +455,12 @@ class Cpu:
         # Show information on labels.
         self.device_vendor_model_label.set_label(cpu_model_name)
         self.device_kernel_name_label.set_label(selected_cpu_core)
-        self.cpu_processes_threads_label.set_label(f'{number_of_total_processes} - {number_of_total_threads}')
-        self.cpu_up_time_label.set_label(system_up_time)
-        self.cpu_average_usage_label.set_label(f'{cpu_usage_percent_ave[-1]:.{Config.performance_cpu_usage_percent_precision}f} %')
-        self.cpu_frequency_label.set_label(f'{cpu_core_current_frequency:.2f} GHz')
+        self.processes_threads_label.set_label(f'{number_of_total_processes} - {number_of_total_threads}')
+        self.up_time_label.set_label(system_up_time)
+        self.average_usage_label.set_label(f'{cpu_usage_percent_ave[-1]:.{Config.performance_cpu_usage_percent_precision}f} %')
+        self.frequency_label.set_label(f'{cpu_core_current_frequency:.2f} GHz')
         self.cpu_sockets_label.set_label(f'{number_of_cpu_sockets}')
-        self.cpu_cores_phy_log_label.set_label(f'{number_of_physical_cores} - {number_of_logical_cores}')
+        self.cores_phy_log_label.set_label(f'{number_of_physical_cores} - {number_of_logical_cores}')
 
 
     def cpu_core_min_max_frequency_func(self, selected_cpu_core):

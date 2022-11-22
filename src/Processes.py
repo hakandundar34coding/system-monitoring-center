@@ -24,7 +24,6 @@ class Processes:
 
     def __init__(self):
 
-        # Tab GUI
         self.tab_gui()
 
         # "0" value of "initial_already_run" variable means that initial function is not run before or
@@ -38,62 +37,58 @@ class Processes:
         """
 
         # Tab grid
-        self.processes_tab_grid = Gtk.Grid()
-        self.processes_tab_grid.set_row_spacing(7)
-        self.processes_tab_grid.set_margin_top(2)
-        self.processes_tab_grid.set_margin_bottom(2)
-        self.processes_tab_grid.set_margin_start(2)
-        self.processes_tab_grid.set_margin_end(2)
+        self.tab_grid = Gtk.Grid()
+        self.tab_grid.set_row_spacing(7)
+        self.tab_grid.set_margin_top(2)
+        self.tab_grid.set_margin_bottom(2)
+        self.tab_grid.set_margin_start(2)
+        self.tab_grid.set_margin_end(2)
 
-        # Bold and 2x label atributes
-        self.attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        self.attribute_list_bold_2x.insert(attribute)
+        self.tab_title_grid()
 
-        # Tab name, device name labels
-        self.tab_gui_label_grid()
+        self.tab_info_grid()
 
-        # Information labels
-        self.tab_gui_info_grid()
-
-        # Connect signals
         self.gui_signals()
 
-        # Right click menu
         self.right_click_menu()
 
 
-    def tab_gui_label_grid(self):
+    def tab_title_grid(self):
         """
         Generate tab name label, searchentry.
         """
 
-        # Tab name label grid
-        tab_name_label_grid = Gtk.Grid()
-        tab_name_label_grid.set_column_spacing(5)
-        self.processes_tab_grid.attach(tab_name_label_grid, 0, 0, 1, 1)
+        # Grid (tab title)
+        grid = Gtk.Grid()
+        grid.set_column_spacing(5)
+        self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Tab name label
-        tab_name_label = Gtk.Label()
-        tab_name_label.set_halign(Gtk.Align.START)
-        tab_name_label.set_margin_end(60)
-        tab_name_label.set_attributes(self.attribute_list_bold_2x)
-        tab_name_label.set_label(_tr("Processes"))
-        tab_name_label_grid.attach(tab_name_label, 0, 0, 1, 1)
+        # Bold and 2x label atributes
+        attribute_list_bold_2x = Pango.AttrList()
+        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
+        attribute_list_bold_2x.insert(attribute)
+        attribute = Pango.attr_scale_new(2.0)
+        attribute_list_bold_2x.insert(attribute)
 
-        # Searchentry
+        # Label (Processes)
+        label = Gtk.Label()
+        label.set_halign(Gtk.Align.START)
+        label.set_margin_end(60)
+        label.set_attributes(attribute_list_bold_2x)
+        label.set_label(_tr("Processes"))
+        grid.attach(label, 0, 0, 1, 1)
+
+        # SearchEntry
         self.searchentry = Gtk.SearchEntry()
         self.searchentry.props.placeholder_text = _tr("Search...")
         self.searchentry.set_max_width_chars(100)
         self.searchentry.set_hexpand(True)
         self.searchentry.set_halign(Gtk.Align.CENTER)
         self.searchentry.set_valign(Gtk.Align.CENTER)
-        tab_name_label_grid.attach(self.searchentry, 1, 0, 1, 1)
+        grid.attach(self.searchentry, 1, 0, 1, 1)
 
 
-    def tab_gui_info_grid(self):
+    def tab_info_grid(self):
         """
         Generate information GUI objects.
         """
@@ -102,7 +97,7 @@ class Processes:
         scrolledwindow = Gtk.ScrolledWindow()
         scrolledwindow.set_hexpand(True)
         scrolledwindow.set_vexpand(True)
-        self.processes_tab_grid.attach(scrolledwindow, 0, 1, 1, 1)
+        self.tab_grid.attach(scrolledwindow, 0, 1, 1, 1)
 
         # TreeView
         self.treeview = Gtk.TreeView()
@@ -135,24 +130,24 @@ class Processes:
 
         # Right click menu actions
         # "Pause Process" action
-        pause_process_action = Gio.SimpleAction.new("processes_pause_process", None)
-        pause_process_action.connect("activate", self.on_process_manage_items_clicked)
-        MainWindow.main_window.add_action(pause_process_action)
+        action = Gio.SimpleAction.new("processes_pause_process", None)
+        action.connect("activate", self.on_process_manage_items_clicked)
+        MainWindow.main_window.add_action(action)
 
         # "Continue Process" action
-        continue_process_action = Gio.SimpleAction.new("processes_continue_process", None)
-        continue_process_action.connect("activate", self.on_process_manage_items_clicked)
-        MainWindow.main_window.add_action(continue_process_action)
+        action = Gio.SimpleAction.new("processes_continue_process", None)
+        action.connect("activate", self.on_process_manage_items_clicked)
+        MainWindow.main_window.add_action(action)
 
         # "End Process" action
-        end_process_action = Gio.SimpleAction.new("processes_end_process", None)
-        end_process_action.connect("activate", self.on_process_manage_items_clicked)
-        MainWindow.main_window.add_action(end_process_action)
+        action = Gio.SimpleAction.new("processes_end_process", None)
+        action.connect("activate", self.on_process_manage_items_clicked)
+        MainWindow.main_window.add_action(action)
 
         # "End Process Immediately" action
-        end_process_immediately_action = Gio.SimpleAction.new("processes_end_process_immediately", None)
-        end_process_immediately_action.connect("activate", self.on_process_manage_items_clicked)
-        MainWindow.main_window.add_action(end_process_immediately_action)
+        action = Gio.SimpleAction.new("processes_end_process_immediately", None)
+        action.connect("activate", self.on_process_manage_items_clicked)
+        MainWindow.main_window.add_action(action)
 
         # Priority actions. One option have to be chosen for radiobuttons. It is chosen by using "GLib.Variant("s", "[action_name]")".
         self.priority_action = Gio.SimpleAction.new_stateful("processes_priority_group", GLib.VariantType.new("s"), GLib.Variant("s", "processes_priority_normal"))
@@ -160,14 +155,14 @@ class Processes:
         MainWindow.main_window.add_action(self.priority_action)
 
         # "Priority - Custom Value" action
-        priority_custom_value_action = Gio.SimpleAction.new("processes_priority_custom_value", None)
-        priority_custom_value_action.connect("activate", self.on_change_priority_item_clicked)
-        MainWindow.main_window.add_action(priority_custom_value_action)
+        action = Gio.SimpleAction.new("processes_priority_custom_value", None)
+        action.connect("activate", self.on_change_priority_item_clicked)
+        MainWindow.main_window.add_action(action)
 
         # "Details" action
-        details_action = Gio.SimpleAction.new("processes_details", None)
-        details_action.connect("activate", self.on_details_item_clicked)
-        MainWindow.main_window.add_action(details_action)
+        action = Gio.SimpleAction.new("processes_details", None)
+        action.connect("activate", self.on_details_item_clicked)
+        MainWindow.main_window.add_action(action)
 
         # Accelerators for right click menu actions
         application = MainWindow.main_window.get_application()
@@ -284,7 +279,7 @@ class Processes:
         label.set_halign(Gtk.Align.START)
         main_grid.attach(label, 0, 0, 1, 1)
 
-        # Label (for process name and PID)
+        # Label (process name and PID)
         self.priority_process_name_and_pid_label = Gtk.Label()
         self.priority_process_name_and_pid_label.set_selectable(True)
         self.priority_process_name_and_pid_label.set_label("--")
@@ -302,7 +297,7 @@ class Processes:
         self.scale.set_digits(0)
         main_grid.attach(self.scale, 0, 2, 1, 1)
 
-        # Grid for buttons
+        # Grid (buttons)
         grid = Gtk.Grid.new()
         grid.set_column_homogeneous(True)
         grid.set_margin_top(10)
@@ -322,7 +317,7 @@ class Processes:
         self.priority_custom_value_change_priority_button.set_label(_tr("Change Priority"))
         grid.attach(self.priority_custom_value_change_priority_button, 1, 0, 1, 1)
 
-        # Button signals
+        # Signals (buttons)
         self.priority_custom_value_cancel_button.connect("clicked", self.on_priority_custom_value_window_buttons_clicked)
         self.priority_custom_value_change_priority_button.connect("clicked", self.on_priority_custom_value_window_buttons_clicked)
 
@@ -686,8 +681,10 @@ class Processes:
             self.treeview_column_order_width_row_sorting()
 
 
-    # ----------------------------------- Processes - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
     def processes_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         # data list explanation:
         # processes_data_list = [
@@ -772,8 +769,10 @@ class Processes:
         self.initial_already_run = 1
 
 
-    # ----------------------------------- Processes - Get Process Data Function (gets processes data, adds into treeview and updates it) -----------------------------------
     def processes_loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
 
         update_interval = Config.update_interval
 

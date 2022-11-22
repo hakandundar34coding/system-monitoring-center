@@ -16,7 +16,6 @@ class ProcessesMenu:
 
     def __init__(self):
 
-        # Menu GUI
         self.menu_gui()
 
 
@@ -26,23 +25,23 @@ class ProcessesMenu:
         """
 
         # Popover
-        self.processes_menu_po = Gtk.Popover()
+        self.menu_po = Gtk.Popover()
 
-        # Main grid
+        # Grid (main)
         main_grid = Gtk.Grid()
         main_grid.set_row_spacing(5)
         main_grid.set_margin_top(5)
         main_grid.set_margin_bottom(5)
         main_grid.set_margin_start(5)
         main_grid.set_margin_end(5)
-        self.processes_menu_po.set_child(main_grid)
+        self.menu_po.set_child(main_grid)
 
         # Bold label atributes
         self.attribute_list_bold = Pango.AttrList()
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
         self.attribute_list_bold.insert(attribute)
 
-        # Label - Menu title
+        # Label - menu title (Processes)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Processes"))
@@ -128,19 +127,19 @@ class ProcessesMenu:
         label.set_margin_bottom(10)
         grid.attach(label, 0, 0, 1, 1)
 
-        # Checkbutton (Show processes of all users)
+        # CheckButton (Show processes of all users)
         self.show_processes_of_all_users_cb = Gtk.CheckButton()
         self.show_processes_of_all_users_cb.set_label(_tr("Show processes of all users"))
         self.show_processes_of_all_users_cb.set_halign(Gtk.Align.START)
         grid.attach(self.show_processes_of_all_users_cb, 0, 1, 1, 1)
 
-        # Checkbutton (Show processes as tree)
+        # CheckButton (Show processes as tree)
         self.show_processes_as_tree_cb = Gtk.CheckButton()
         self.show_processes_as_tree_cb.set_label(_tr("Show processes as tree"))
         self.show_processes_as_tree_cb.set_halign(Gtk.Align.START)
         grid.attach(self.show_processes_as_tree_cb, 0, 2, 1, 1)
 
-        # Checkbutton (Show tree lines)
+        # CheckButton (Show tree lines)
         self.show_tree_lines_cb = Gtk.CheckButton()
         self.show_tree_lines_cb.set_label(_tr("Show tree lines"))
         self.show_tree_lines_cb.set_halign(Gtk.Align.START)
@@ -179,7 +178,7 @@ class ProcessesMenu:
         grid.set_row_spacing(5)
         self.grid_add_remove_columns_tab.attach(grid, 0, 0, 1, 1)
 
-        # Label - Tab title
+        # Label - title (Add/Remove Columns)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Add/Remove Columns"))
@@ -187,7 +186,7 @@ class ProcessesMenu:
         label.set_margin_bottom(10)
         grid.attach(label, 0, 0, 2, 1)
 
-        # Checkbutton (Name)
+        # CheckButton (Name)
         self.name_cb = Gtk.CheckButton()
         self.name_cb.set_label(_tr("Name"))
         self.name_cb.set_active(True)
@@ -195,109 +194,109 @@ class ProcessesMenu:
         self.name_cb.set_halign(Gtk.Align.START)
         grid.attach(self.name_cb, 0, 1, 1, 1)
 
-        # Checkbutton (PID)
+        # CheckButton (PID)
         self.pid_cb = Gtk.CheckButton()
         self.pid_cb.set_label(_tr("PID"))
         self.pid_cb.set_halign(Gtk.Align.START)
         grid.attach(self.pid_cb, 0, 2, 1, 1)
 
-        # Checkbutton (User)
+        # CheckButton (User)
         self.user_cb = Gtk.CheckButton()
         self.user_cb.set_label(_tr("User"))
         self.user_cb.set_halign(Gtk.Align.START)
         grid.attach(self.user_cb, 0, 3, 1, 1)
 
-        # Checkbutton (Status)
+        # CheckButton (Status)
         self.status_cb = Gtk.CheckButton()
         self.status_cb.set_label(_tr("Status"))
         self.status_cb.set_halign(Gtk.Align.START)
         grid.attach(self.status_cb, 0, 4, 1, 1)
 
-        # Checkbutton (CPU)
+        # CheckButton (CPU)
         self.cpu_cb = Gtk.CheckButton()
         self.cpu_cb.set_label(_tr("CPU"))
         self.cpu_cb.set_halign(Gtk.Align.START)
         grid.attach(self.cpu_cb, 0, 5, 1, 1)
 
-        # Checkbutton (Memory (RSS))
+        # CheckButton (Memory (RSS))
         self.memory_rss_cb = Gtk.CheckButton()
         self.memory_rss_cb.set_label(_tr("Memory (RSS)"))
         self.memory_rss_cb.set_halign(Gtk.Align.START)
         grid.attach(self.memory_rss_cb, 0, 6, 1, 1)
 
-        # Checkbutton (Memory (VMS))
+        # CheckButton (Memory (VMS))
         self.memory_vms_cb = Gtk.CheckButton()
         self.memory_vms_cb.set_label(_tr("Memory (VMS)"))
         self.memory_vms_cb.set_halign(Gtk.Align.START)
         grid.attach(self.memory_vms_cb, 0, 7, 1, 1)
 
-        # Checkbutton (Memory (Shared))
+        # CheckButton (Memory (Shared))
         self.memory_shared_cb = Gtk.CheckButton()
         self.memory_shared_cb.set_label(_tr("Memory (Shared)"))
         self.memory_shared_cb.set_halign(Gtk.Align.START)
         grid.attach(self.memory_shared_cb, 0, 8, 1, 1)
 
-        # Checkbutton (Read Data)
+        # CheckButton (Read Data)
         self.read_data_cb = Gtk.CheckButton()
         self.read_data_cb.set_label(_tr("Read Data"))
         self.read_data_cb.set_halign(Gtk.Align.START)
         grid.attach(self.read_data_cb, 0, 9, 1, 1)
 
-        # Checkbutton (Write Data)
+        # CheckButton (Write Data)
         self.write_data_cb = Gtk.CheckButton()
         self.write_data_cb.set_label(_tr("Write Data"))
         self.write_data_cb.set_halign(Gtk.Align.START)
         grid.attach(self.write_data_cb, 0, 10, 1, 1)
 
-        # Checkbutton (Read Speed)
+        # CheckButton (Read Speed)
         self.read_speed_cb = Gtk.CheckButton()
         self.read_speed_cb.set_label(_tr("Read Speed"))
         self.read_speed_cb.set_halign(Gtk.Align.START)
         grid.attach(self.read_speed_cb, 1, 1, 1, 1)
 
-        # Checkbutton (Write Speed)
+        # CheckButton (Write Speed)
         self.write_speed_cb = Gtk.CheckButton()
         self.write_speed_cb.set_label(_tr("Write Speed"))
         self.write_speed_cb.set_halign(Gtk.Align.START)
         grid.attach(self.write_speed_cb, 1, 2, 1, 1)
 
-        # Checkbutton (Priority)
+        # CheckButton (Priority)
         self.priority_cb = Gtk.CheckButton()
         self.priority_cb.set_label(_tr("Priority"))
         self.priority_cb.set_halign(Gtk.Align.START)
         grid.attach(self.priority_cb, 1, 3, 1, 1)
 
-        # Checkbutton (Threads)
+        # CheckButton (Threads)
         self.threads_cb = Gtk.CheckButton()
         self.threads_cb.set_label(_tr("Threads"))
         self.threads_cb.set_halign(Gtk.Align.START)
         grid.attach(self.threads_cb, 1, 4, 1, 1)
 
-        # Checkbutton (PPID)
+        # CheckButton (PPID)
         self.ppid_cb = Gtk.CheckButton()
         self.ppid_cb.set_label(_tr("PPID"))
         self.ppid_cb.set_halign(Gtk.Align.START)
         grid.attach(self.ppid_cb, 1, 5, 1, 1)
 
-        # Checkbutton (UID)
+        # CheckButton (UID)
         self.uid_cb = Gtk.CheckButton()
         self.uid_cb.set_label(_tr("UID"))
         self.uid_cb.set_halign(Gtk.Align.START)
         grid.attach(self.uid_cb, 1, 6, 1, 1)
 
-        # Checkbutton (GID)
+        # CheckButton (GID)
         self.gid_cb = Gtk.CheckButton()
         self.gid_cb.set_label(_tr("GID"))
         self.gid_cb.set_halign(Gtk.Align.START)
         grid.attach(self.gid_cb, 1, 7, 1, 1)
 
-        # Checkbutton (Path)
+        # CheckButton (Path)
         self.path_cb = Gtk.CheckButton()
         self.path_cb.set_label(_tr("Path"))
         self.path_cb.set_halign(Gtk.Align.START)
         grid.attach(self.path_cb, 1, 8, 1, 1)
 
-        # Checkbutton (Command Line)
+        # CheckButton (Command Line)
         self.commandline_cb = Gtk.CheckButton()
         self.commandline_cb.set_label(_tr("Command Line"))
         self.commandline_cb.set_halign(Gtk.Align.START)
@@ -326,7 +325,7 @@ class ProcessesMenu:
         precision_grid.set_column_homogeneous(True)
         grid.attach(precision_grid, 0, 0, 2, 1)
 
-        # Label - Title (Precision)
+        # Label - title (Precision)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Precision"))
@@ -334,7 +333,7 @@ class ProcessesMenu:
         label.set_margin_bottom(10)
         precision_grid.attach(label, 0, 0, 3, 1)
 
-        # Label "CPU"
+        # Label (CPU)
         label = Gtk.Label()
         label.set_label(_tr("CPU"))
         label.set_halign(Gtk.Align.START)
@@ -344,7 +343,7 @@ class ProcessesMenu:
         self.precision_cpu_cmb = Gtk.ComboBox()
         precision_grid.attach(self.precision_cpu_cmb, 0, 2, 1, 1)
 
-        # Label "Memory"
+        # Label (Memory)
         label = Gtk.Label()
         label.set_label(_tr("Memory"))
         label.set_halign(Gtk.Align.START)
@@ -354,7 +353,7 @@ class ProcessesMenu:
         self.precision_memory_cmb = Gtk.ComboBox()
         precision_grid.attach(self.precision_memory_cmb, 1, 2, 1, 1)
 
-        # Label "Disk"
+        # Label (Disk)
         label = Gtk.Label()
         label.set_label(_tr("Disk"))
         label.set_halign(Gtk.Align.START)
@@ -370,7 +369,7 @@ class ProcessesMenu:
         separator.set_margin_bottom(5)
         grid.attach(separator, 0, 3, 2, 1)
 
-        # Label - Title (Data Unit)
+        # Label - title (Data Unit)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Data Unit"))
@@ -378,59 +377,59 @@ class ProcessesMenu:
         label.set_margin_bottom(10)
         grid.attach(label, 0, 4, 2, 1)
 
-        # Label "Memory"
+        # Label (Memory)
         label = Gtk.Label()
         label.set_label(_tr("Memory"))
         label.set_halign(Gtk.Align.CENTER)
         grid.attach(label, 0, 5, 2, 1)
 
-        # Label - Memory "Show data as powers of:"
+        # Label - memory (Show data as powers of:)
         label = Gtk.Label()
         label.set_label(_tr("Show data as powers of") + ":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 6, 2, 1)
 
-        # Checkbutton - Memory (1024)
+        # CheckButton - memory (1024)
         self.memory_data_power_of_1024_cb = Gtk.CheckButton()
         self.memory_data_power_of_1024_cb.set_group(None)
         self.memory_data_power_of_1024_cb.set_label("1024")
         self.memory_data_power_of_1024_cb.set_halign(Gtk.Align.START)
         grid.attach(self.memory_data_power_of_1024_cb, 0, 7, 1, 1)
 
-        # Checkbutton - Memory (1000)
+        # CheckButton - memory (1000)
         self.memory_data_power_of_1000_cb = Gtk.CheckButton()
         self.memory_data_power_of_1000_cb.set_group(self.memory_data_power_of_1024_cb)
         self.memory_data_power_of_1000_cb.set_label("1000")
         self.memory_data_power_of_1000_cb.set_halign(Gtk.Align.START)
         grid.attach(self.memory_data_power_of_1000_cb, 1, 7, 1, 1)
 
-        # Label "Disk"
+        # Label (Disk)
         label = Gtk.Label()
         label.set_label(_tr("Disk"))
         label.set_halign(Gtk.Align.CENTER)
         grid.attach(label, 0, 8, 2, 1)
 
-        # Label - Disk "Show data as powers of:"
+        # Label - disk (Show data as powers of:)
         label = Gtk.Label()
         label.set_label(_tr("Show data as powers of") + ":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 9, 2, 1)
 
-        # Checkbutton - Disk (1024)
+        # CheckButton - disk (1024)
         self.disk_data_power_of_1024_cb = Gtk.CheckButton()
         self.disk_data_power_of_1024_cb.set_group(None)
         self.disk_data_power_of_1024_cb.set_label("1024")
         self.disk_data_power_of_1024_cb.set_halign(Gtk.Align.START)
         grid.attach(self.disk_data_power_of_1024_cb, 0, 10, 1, 1)
 
-        # Checkbutton - Disk (1000)
+        # CheckButton - Disk (1000)
         self.disk_data_power_of_1000_cb = Gtk.CheckButton()
         self.disk_data_power_of_1000_cb.set_group(self.disk_data_power_of_1024_cb)
         self.disk_data_power_of_1000_cb.set_label("1000")
         self.disk_data_power_of_1000_cb.set_halign(Gtk.Align.START)
         grid.attach(self.disk_data_power_of_1000_cb, 1, 10, 1, 1)
 
-        # Checkbutton "Show speed units as multiples of bits"
+        # CheckButton (Show speed units as multiples of bits)
         self.show_speed_units_bytes_cb = Gtk.CheckButton()
         self.show_speed_units_bytes_cb.set_group(None)
         self.show_speed_units_bytes_cb.set_label(_tr("Show speed units as multiples of bits"))
@@ -443,13 +442,13 @@ class ProcessesMenu:
         Connect GUI signals.
         """
 
-        self.processes_menu_po.connect("show", self.on_processes_menu_po_show)
+        self.menu_po.connect("show", self.on_menu_po_show)
         self.reset_button.connect("clicked", self.on_reset_button_clicked)
         self.expand_all_button.connect("clicked", self.on_expand_collapse_buttons_clicked)
         self.collapse_all_button.connect("clicked", self.on_expand_collapse_buttons_clicked)
 
 
-    def gui_connect_signals_func(self):
+    def connect_signals(self):
         """
         Connect some of the signals to be able to disconnect them for setting GUI.
         """
@@ -488,7 +487,7 @@ class ProcessesMenu:
         self.show_speed_units_bytes_cb.connect("toggled", self.on_show_speed_units_bytes_cb_toggled)
 
 
-    def gui_disconnect_signals_func(self):
+    def disconnect_signals(self):
         """
         Disconnect some of the signals for setting GUI.
         """
@@ -527,17 +526,17 @@ class ProcessesMenu:
         self.show_speed_units_bytes_cb.disconnect_by_func(self.on_show_speed_units_bytes_cb_toggled)
 
 
-    def on_processes_menu_po_show(self, widget):
+    def on_menu_po_show(self, widget):
         """
         Run code when customizations menu popover is shown.
         """
  
         try:
-            self.gui_disconnect_signals_func()
+            self.disconnect_signals()
         except TypeError:
             pass
         self.set_gui()
-        self.gui_connect_signals_func()
+        self.connect_signals()
 
 
     def on_expand_collapse_buttons_clicked(self, widget):
@@ -564,9 +563,9 @@ class ProcessesMenu:
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
         Processes.processes_loop_func()
-        self.gui_disconnect_signals_func()
+        self.disconnect_signals()
         self.set_gui()
-        self.gui_connect_signals_func()
+        self.connect_signals()
 
 
     def on_show_processes_of_all_users_cb_toggled(self, widget):
@@ -628,7 +627,7 @@ class ProcessesMenu:
         Run a function for adding/removing columns to treeview.
         """
 
-        self.processes_add_remove_columns_function()
+        self.add_remove_columns()
 
 
     def on_precision_cpu_cmb_changed(self, widget):
@@ -836,47 +835,47 @@ class ProcessesMenu:
         if Config.processes_disk_speed_bit == 0:
             self.show_speed_units_bytes_cb.set_active(False)
 
-        # Add CPU usage precision data into combobox
-        precision_cpu_ls = Gtk.ListStore()
-        precision_cpu_ls.set_column_types([str, int])
-        self.precision_cpu_cmb.set_model(precision_cpu_ls)
+        # Add CPU usage precision data to combobox
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str, int])
+        self.precision_cpu_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
         self.precision_cpu_cmb.clear()
         renderer_text = Gtk.CellRendererText()
         self.precision_cpu_cmb.pack_start(renderer_text, True)
         self.precision_cpu_cmb.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
-            precision_cpu_ls.append([data[1], data[2]])
+            liststore.append([data[1], data[2]])
         self.precision_cpu_cmb.set_active(Config.processes_cpu_precision)
 
-        # Add Memory data precision data into combobox
-        precision_memory_ls = Gtk.ListStore()
-        precision_memory_ls.set_column_types([str, int])
-        self.precision_memory_cmb.set_model(precision_memory_ls)
+        # Add Memory data precision data to combobox
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str, int])
+        self.precision_memory_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
         self.precision_memory_cmb.clear()
         renderer_text = Gtk.CellRendererText()
         self.precision_memory_cmb.pack_start(renderer_text, True)
         self.precision_memory_cmb.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
-            precision_memory_ls.append([data[1], data[2]])
+            liststore.append([data[1], data[2]])
         self.precision_memory_cmb.set_active(Config.processes_memory_data_precision)
 
-        # Add Disk data precision data into combobox
-        precision_disk_ls = Gtk.ListStore()
-        precision_disk_ls.set_column_types([str, int])
-        self.precision_disk_cmb.set_model(precision_disk_ls)
+        # Add Disk data precision data to combobox
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str, int])
+        self.precision_disk_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
         self.precision_disk_cmb.clear()
         renderer_text = Gtk.CellRendererText()
         self.precision_disk_cmb.pack_start(renderer_text, True)
         self.precision_disk_cmb.add_attribute(renderer_text, "text", 0)
         for data in Config.number_precision_list:
-            precision_disk_ls.append([data[1], data[2]])
+            liststore.append([data[1], data[2]])
         self.precision_disk_cmb.set_active(Config.processes_disk_data_precision)
 
 
-    def processes_add_remove_columns_function(self):
+    def add_remove_columns(self):
         """
         Add/Remove columns to treeview.
         """

@@ -726,38 +726,38 @@ class MainWindow():
 
             elif Config.performance_tab_current_sub_tab == 1:
                 from CpuMenu import CpuMenu
-                self.tab_menu_menubutton.set_popover(CpuMenu.cpu_menu_po)
+                self.tab_menu_menubutton.set_popover(CpuMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 2:
                 from MemoryMenu import MemoryMenu
-                self.tab_menu_menubutton.set_popover(MemoryMenu.memory_menu_po)
+                self.tab_menu_menubutton.set_popover(MemoryMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 3:
                 from DiskMenu import DiskMenu
-                self.tab_menu_menubutton.set_popover(DiskMenu.disk_menu_po)
+                self.tab_menu_menubutton.set_popover(DiskMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 4:
                 from NetworkMenu import NetworkMenu
-                self.tab_menu_menubutton.set_popover(NetworkMenu.network_menu_po)
+                self.tab_menu_menubutton.set_popover(NetworkMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 5:
                 from GpuMenu import GpuMenu
-                self.tab_menu_menubutton.set_popover(GpuMenu.gpu_menu_po)
+                self.tab_menu_menubutton.set_popover(GpuMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 6:
                 self.tab_menu_menubutton.set_popover(None)
 
         elif Config.current_main_tab == 1:
             from ProcessesMenu import ProcessesMenu
-            self.tab_menu_menubutton.set_popover(ProcessesMenu.processes_menu_po)
+            self.tab_menu_menubutton.set_popover(ProcessesMenu.menu_po)
 
         elif Config.current_main_tab == 2:
             from UsersMenu import UsersMenu
-            self.tab_menu_menubutton.set_popover(UsersMenu.users_menu_po)
+            self.tab_menu_menubutton.set_popover(UsersMenu.menu_po)
 
         elif Config.current_main_tab == 3:
             from ServicesMenu import ServicesMenu
-            self.tab_menu_menubutton.set_popover(ServicesMenu.services_menu_po)
+            self.tab_menu_menubutton.set_popover(ServicesMenu.menu_po)
 
         elif Config.current_main_tab == 4:
              self.tab_menu_menubutton.set_popover(None)
@@ -991,7 +991,7 @@ class MainWindow():
             if self.processes_tab_main_grid.get_child_at(0,0) == None:
                 global Processes
                 from Processes import Processes
-                self.processes_tab_main_grid.attach(Processes.processes_tab_grid, 0, 0, 1, 1)
+                self.processes_tab_main_grid.attach(Processes.tab_grid, 0, 0, 1, 1)
             if Processes.initial_already_run == 0:
                 GLib.idle_add(Processes.processes_initial_func)
             GLib.idle_add(Processes.processes_loop_func)
@@ -1008,7 +1008,7 @@ class MainWindow():
             if self.users_tab_main_grid.get_child_at(0,0) == None:
                 global Users
                 from Users import Users
-                self.users_tab_main_grid.attach(Users.users_tab_grid, 0, 0, 1, 1)
+                self.users_tab_main_grid.attach(Users.tab_grid, 0, 0, 1, 1)
             if Users.initial_already_run == 0:
                 GLib.idle_add(Users.users_initial_func)
             GLib.idle_add(Users.users_loop_func)
@@ -1025,7 +1025,7 @@ class MainWindow():
             if self.services_tab_main_grid.get_child_at(0,0) == None:
                 global Services
                 from Services import Services
-                self.services_tab_main_grid.attach(Services.services_tab_grid, 0, 0, 1, 1)
+                self.services_tab_main_grid.attach(Services.tab_grid, 0, 0, 1, 1)
             if Services.initial_already_run == 0:
                 GLib.idle_add(Services.services_initial_func)
             GLib.idle_add(Services.services_loop_func)
