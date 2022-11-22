@@ -22,7 +22,6 @@ class Gpu:
 
     def __init__(self):
 
-        # Tab GUI
         self.tab_gui()
 
         self.initial_already_run = 0
@@ -46,16 +45,12 @@ class Gpu:
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
         self.attribute_list_bold.insert(attribute)
 
-        # Tab name, device name labels
         self.tab_title_grid()
 
-        # Drawingarea and related information labels
         self.da_grid()
 
-        # Performance/information labels
         self.information_grid()
 
-        # Connect signals
         self.connect_signals()
 
 
@@ -83,7 +78,7 @@ class Gpu:
         label.set_label(_tr("GPU"))
         grid.attach(label, 0, 0, 1, 2)
 
-        # Label (Device vendor-model label)
+        # Label (device vendor-model label)
         self.device_vendor_model_label = Gtk.Label()
         self.device_vendor_model_label.set_halign(Gtk.Align.START)
         self.device_vendor_model_label.set_selectable(True)
@@ -152,7 +147,6 @@ class Gpu:
         performance_info_grid.set_row_spacing(10)
         self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
-        # Performance information labels
         # Add viewports for showing borders around some the performance data and round the corners of the viewports.
         css = b"viewport {border-style: solid; border-radius: 8px 8px 8px 8px; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
         style_provider_viewport = Gtk.CssProvider()
@@ -164,11 +158,11 @@ class Gpu:
         style_provider_separator.load_from_data(css)
 
         # Styled information widgets (GPU Usage and Video Memory)
-        # Styled information viewport
+        # Viewport (GPU Usage and Video Memory)
         viewport = Gtk.Viewport()
         viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         performance_info_grid.attach(viewport, 0, 0, 1, 1)
-        # Styled information grid
+        # Grid (GPU Usage and Video Memory)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
         grid.set_row_spacing(3)
@@ -178,51 +172,51 @@ class Gpu:
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
         viewport.set_child(grid)
-        # Styled information label
+        # Label (GPU Usage)
         label = Gtk.Label()
         label.set_label(_tr("GPU Usage"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(label, 0, 0, 1, 1)
-        # Styled information label
+        # Label (Video Memory)
         label = Gtk.Label()
         label.set_label(_tr("Video Memory"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(label, 1, 0, 1, 1)
-        # Styled information separator
+        # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_halign(Gtk.Align.CENTER)
         separator.set_valign(Gtk.Align.CENTER)
         separator.set_size_request(60, -1)
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 0, 1, 1, 1)
-        # Styled information separator
+        # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_halign(Gtk.Align.CENTER)
         separator.set_valign(Gtk.Align.CENTER)
         separator.set_size_request(60, -1)
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 1, 1, 1, 1)
-        # Styled information label (GPU Usage)
+        # Label (GPU Usage)
         self.gpu_usage_label = Gtk.Label()
         self.gpu_usage_label.set_selectable(True)
         self.gpu_usage_label.set_attributes(self.attribute_list_bold)
         self.gpu_usage_label.set_label("--")
         self.gpu_usage_label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(self.gpu_usage_label, 0, 2, 1, 1)
-        # Styled information label (Video Memory)
-        self.gpu_video_memory_label = Gtk.Label()
-        self.gpu_video_memory_label.set_selectable(True)
-        self.gpu_video_memory_label.set_attributes(self.attribute_list_bold)
-        self.gpu_video_memory_label.set_label("--")
-        self.gpu_video_memory_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.gpu_video_memory_label, 1, 2, 1, 1)
+        # Label (Video Memory)
+        self.video_memory_label = Gtk.Label()
+        self.video_memory_label.set_selectable(True)
+        self.video_memory_label.set_attributes(self.attribute_list_bold)
+        self.video_memory_label.set_label("--")
+        self.video_memory_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.video_memory_label, 1, 2, 1, 1)
 
         # Styled information widgets (Frequency and Temperature)
-        # Styled information viewport
+        # Viewport (Frequency and Temperature)
         viewport = Gtk.Viewport()
         viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         performance_info_grid.attach(viewport, 0, 1, 1, 1)
-        # Styled information grid
+        # Grid (Frequency and Temperature)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
         grid.set_row_spacing(3)
@@ -232,46 +226,46 @@ class Gpu:
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
         viewport.set_child(grid)
-        # Styled information label
+        # Label (Frequency)
         label = Gtk.Label()
         label.set_label(_tr("Frequency"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(label, 0, 0, 1, 1)
-        # Styled information label
+        # Label (Temperature)
         label = Gtk.Label()
         label.set_label(_tr("Temperature"))
         label.set_ellipsize(Pango.EllipsizeMode.END)
         grid.attach(label, 1, 0, 1, 1)
-        # Styled information separator
+        # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_halign(Gtk.Align.CENTER)
         separator.set_valign(Gtk.Align.CENTER)
         separator.set_size_request(60, -1)
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 0, 1, 1, 1)
-        # Styled information separator
+        # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_halign(Gtk.Align.CENTER)
         separator.set_valign(Gtk.Align.CENTER)
         separator.set_size_request(60, -1)
         separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         grid.attach(separator, 1, 1, 1, 1)
-        # Styled information label (Frequency)
-        self.gpu_frequency_label = Gtk.Label()
-        self.gpu_frequency_label.set_selectable(True)
-        self.gpu_frequency_label.set_attributes(self.attribute_list_bold)
-        self.gpu_frequency_label.set_label("--")
-        self.gpu_frequency_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.gpu_frequency_label, 0, 2, 1, 1)
-        # Styled information label (Temperature)
-        self.gpu_temperature_label = Gtk.Label()
-        self.gpu_temperature_label.set_selectable(True)
-        self.gpu_temperature_label.set_attributes(self.attribute_list_bold)
-        self.gpu_temperature_label.set_label("--")
-        self.gpu_temperature_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.gpu_temperature_label, 1, 2, 1, 1)
+        # Label (Frequency)
+        self.frequency_label = Gtk.Label()
+        self.frequency_label.set_selectable(True)
+        self.frequency_label.set_attributes(self.attribute_list_bold)
+        self.frequency_label.set_label("--")
+        self.frequency_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.frequency_label, 0, 2, 1, 1)
+        # Label (Temperature)
+        self.temperature_label = Gtk.Label()
+        self.temperature_label.set_selectable(True)
+        self.temperature_label.set_attributes(self.attribute_list_bold)
+        self.temperature_label.set_label("--")
+        self.temperature_label.set_ellipsize(Pango.EllipsizeMode.END)
+        grid.attach(self.temperature_label, 1, 2, 1, 1)
 
-        # Right information label grid
+        # Grid - Right information labels
         performance_info_right_grid = Gtk.Grid()
         performance_info_right_grid.set_column_homogeneous(True)
         performance_info_right_grid.set_row_homogeneous(True)
@@ -279,96 +273,95 @@ class Gpu:
         performance_info_right_grid.set_row_spacing(4)
         performance_info_grid.attach(performance_info_right_grid, 1, 0, 1, 2)
 
-        # Right information labels
+        # Label (Min-Max Frequency)
         label = Gtk.Label()
         label.set_label(_tr("Min-Max Frequency") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 0, 1, 1)
+        # Label (Min-Max Frequency)
+        self.min_max_frequency_label = Gtk.Label()
+        self.min_max_frequency_label.set_selectable(True)
+        self.min_max_frequency_label.set_attributes(self.attribute_list_bold)
+        self.min_max_frequency_label.set_label("--")
+        self.min_max_frequency_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.min_max_frequency_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.min_max_frequency_label, 1, 0, 1, 1)
 
-        # Right information label (Min-Max Frequency)
-        self.gpu_min_max_frequency_label = Gtk.Label()
-        self.gpu_min_max_frequency_label.set_selectable(True)
-        self.gpu_min_max_frequency_label.set_attributes(self.attribute_list_bold)
-        self.gpu_min_max_frequency_label.set_label("--")
-        self.gpu_min_max_frequency_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.gpu_min_max_frequency_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.gpu_min_max_frequency_label, 1, 0, 1, 1)
-
+        # Label (Boot VGA)
         label = Gtk.Label()
         label.set_label(_tr("Boot VGA") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 1, 1, 1)
+        # Label (Boot VGA)
+        self.boot_vga_label = Gtk.Label()
+        self.boot_vga_label.set_selectable(True)
+        self.boot_vga_label.set_attributes(self.attribute_list_bold)
+        self.boot_vga_label.set_label("--")
+        self.boot_vga_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.boot_vga_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.boot_vga_label, 1, 1, 1, 1)
 
-        # Right information label (Boot VGA)
-        self.gpu_boot_vga_label = Gtk.Label()
-        self.gpu_boot_vga_label.set_selectable(True)
-        self.gpu_boot_vga_label.set_attributes(self.attribute_list_bold)
-        self.gpu_boot_vga_label.set_label("--")
-        self.gpu_boot_vga_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.gpu_boot_vga_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.gpu_boot_vga_label, 1, 1, 1, 1)
-
+        # Label (Power Usage)
         label = Gtk.Label()
         label.set_label(_tr("Power Usage") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 2, 1, 1)
+        # Label (Power Usage)
+        self.power_usage_label = Gtk.Label()
+        self.power_usage_label.set_selectable(True)
+        self.power_usage_label.set_attributes(self.attribute_list_bold)
+        self.power_usage_label.set_label("--")
+        self.power_usage_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.power_usage_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.power_usage_label, 1, 2, 1, 1)
 
-        # Right information label (Power Usage)
-        self.gpu_power_usage_label = Gtk.Label()
-        self.gpu_power_usage_label.set_selectable(True)
-        self.gpu_power_usage_label.set_attributes(self.attribute_list_bold)
-        self.gpu_power_usage_label.set_label("--")
-        self.gpu_power_usage_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.gpu_power_usage_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.gpu_power_usage_label, 1, 2, 1, 1)
-
+        # Label (Driver)
         label = Gtk.Label()
         label.set_label(_tr("Driver") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 3, 1, 1)
+        # Label (Driver)
+        self.driver_label = Gtk.Label()
+        self.driver_label.set_selectable(True)
+        self.driver_label.set_attributes(self.attribute_list_bold)
+        self.driver_label.set_label("--")
+        self.driver_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.driver_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.driver_label, 1, 3, 1, 1)
 
-        # Right information label (Driver)
-        self.gpu_driver_label = Gtk.Label()
-        self.gpu_driver_label.set_selectable(True)
-        self.gpu_driver_label.set_attributes(self.attribute_list_bold)
-        self.gpu_driver_label.set_label("--")
-        self.gpu_driver_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.gpu_driver_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.gpu_driver_label, 1, 3, 1, 1)
-
+        # Label (Refresh Rate)
         label = Gtk.Label()
         label.set_label(_tr("Refresh Rate") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 4, 1, 1)
+        # Label (Refresh Rate)
+        self.refresh_rate_label = Gtk.Label()
+        self.refresh_rate_label.set_selectable(True)
+        self.refresh_rate_label.set_attributes(self.attribute_list_bold)
+        self.refresh_rate_label.set_label("--")
+        self.refresh_rate_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.refresh_rate_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.refresh_rate_label, 1, 4, 1, 1)
 
-        # Right information label (Refresh Rate)
-        self.gpu_refresh_rate_label = Gtk.Label()
-        self.gpu_refresh_rate_label.set_selectable(True)
-        self.gpu_refresh_rate_label.set_attributes(self.attribute_list_bold)
-        self.gpu_refresh_rate_label.set_label("--")
-        self.gpu_refresh_rate_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.gpu_refresh_rate_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.gpu_refresh_rate_label, 1, 4, 1, 1)
-
+        # Label (Resolution)
         label = Gtk.Label()
         label.set_label(_tr("Resolution") + ":")
         label.set_ellipsize(Pango.EllipsizeMode.END)
         label.set_halign(Gtk.Align.START)
         performance_info_right_grid.attach(label, 0, 5, 1, 1)
-
-        # Right information label (Resolution)
-        self.gpu_resolution_label = Gtk.Label()
-        self.gpu_resolution_label.set_selectable(True)
-        self.gpu_resolution_label.set_attributes(self.attribute_list_bold)
-        self.gpu_resolution_label.set_label("--")
-        self.gpu_resolution_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.gpu_resolution_label.set_halign(Gtk.Align.START)
-        performance_info_right_grid.attach(self.gpu_resolution_label, 1, 5, 1, 1)
+        # Label (Resolution)
+        self.resolution_label = Gtk.Label()
+        self.resolution_label.set_selectable(True)
+        self.resolution_label.set_attributes(self.attribute_list_bold)
+        self.resolution_label.set_label("--")
+        self.resolution_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.resolution_label.set_halign(Gtk.Align.START)
+        performance_info_right_grid.attach(self.resolution_label, 1, 5, 1, 1)
 
 
     def connect_signals(self):
@@ -399,18 +392,18 @@ class Gpu:
 
 
         # Get information.
-        self.gpu_get_gpu_list_and_boot_vga_func()
+        self.get_gpu_list_and_boot_vga_func()
         self.gpu_set_selected_gpu_func()
-        if_default_gpu = self.gpu_default_gpu_func()
-        gpu_device_model_name = self.gpu_device_model_name_vendor_id_func()
-        gpu_driver_name = self.gpu_driver_name_func()
+        if_default_gpu = self.default_gpu_func()
+        gpu_device_model_name = self.device_model_name_vendor_id_func()
+        gpu_driver_name = self.driver_name_func()
 
 
         # Set GPU tab label texts by using information get
         self.device_vendor_model_label.set_text(gpu_device_model_name)
         self.device_kernel_name_label.set_text(f'{self.gpu_list[self.selected_gpu_number]}')
-        self.gpu_boot_vga_label.set_text(if_default_gpu)
-        self.gpu_driver_label.set_text(gpu_driver_name)
+        self.boot_vga_label.set_text(if_default_gpu)
+        self.driver_label.set_text(gpu_driver_name)
 
         self.initial_already_run = 1
 
@@ -425,7 +418,7 @@ class Gpu:
             self.gpu_initial_func()
 
         # Get information.
-        current_resolution, current_refresh_rate = self.gpu_resolution_refresh_rate_func()
+        current_resolution, current_refresh_rate = self.resolution_refresh_rate_func()
         gpu_pci_address = self.gpu_pci_address_func()
         gpu_load, gpu_memory, gpu_current_frequency, gpu_min_max_frequency, gpu_temperature, gpu_power = self.gpu_load_memory_frequency_power_func(gpu_pci_address)
 
@@ -459,17 +452,19 @@ class Gpu:
 
         # Set and update GPU tab label texts by using information get
         self.gpu_usage_label.set_text(gpu_load)
-        self.gpu_video_memory_label.set_text(gpu_memory)
-        self.gpu_frequency_label.set_text(gpu_current_frequency)
-        self.gpu_temperature_label.set_text(gpu_temperature)
-        self.gpu_min_max_frequency_label.set_text(gpu_min_max_frequency)
-        self.gpu_power_usage_label.set_text(gpu_power)
-        self.gpu_refresh_rate_label.set_text(current_refresh_rate)
-        self.gpu_resolution_label.set_text(f'{current_resolution}')
+        self.video_memory_label.set_text(gpu_memory)
+        self.frequency_label.set_text(gpu_current_frequency)
+        self.temperature_label.set_text(gpu_temperature)
+        self.min_max_frequency_label.set_text(gpu_min_max_frequency)
+        self.power_usage_label.set_text(gpu_power)
+        self.refresh_rate_label.set_text(current_refresh_rate)
+        self.resolution_label.set_text(f'{current_resolution}')
 
 
-    # ----------------------- Get GPU list -----------------------
-    def gpu_get_gpu_list_and_boot_vga_func(self):
+    def get_gpu_list_and_boot_vga_func(self):
+        """
+        Get GPU list.
+        """
 
         self.gpu_list = []
         self.gpu_device_path_list = []
@@ -510,8 +505,10 @@ class Gpu:
                     pass
 
 
-    # ----------------------- Get default GPU -----------------------
     def gpu_set_selected_gpu_func(self):
+        """
+        Get default GPU.
+        """
 
         # "" is predefined gpu name before release of the software. This statement is used in order to avoid error, if no gpu selection is made since first run of the software.
         if Config.selected_gpu == "":
@@ -529,8 +526,10 @@ class Gpu:
         self.selected_gpu_number = self.gpu_list.index(set_selected_gpu)
 
 
-    # ----------------------- Get if default GPU -----------------------
-    def gpu_default_gpu_func(self):
+    def default_gpu_func(self):
+        """
+        Get if default GPU.
+        """
 
         # Set default GPU if there is only 1 GPU on the system and these is not "boot_vga" file (on some systems such as ARM devices) which means default_gpu = "".
         if len(self.gpu_list) == 1:
@@ -544,8 +543,10 @@ class Gpu:
         return if_default_gpu
 
 
-    # ----------------------- Get GPU driver name -----------------------
-    def gpu_driver_name_func(self):
+    def driver_name_func(self):
+        """
+        Get GPU driver name.
+        """
 
         selected_gpu_number = self.selected_gpu_number
         selected_gpu = self.gpu_list[selected_gpu_number]
@@ -565,8 +566,10 @@ class Gpu:
         return gpu_driver_name
 
 
-    # ----------------------- Get GPU device model name and vendor name -----------------------
-    def gpu_device_model_name_vendor_id_func(self):
+    def device_model_name_vendor_id_func(self):
+        """
+        Get GPU device model name and vendor name.
+        """
 
         selected_gpu_number = self.selected_gpu_number
         selected_gpu = self.gpu_list[selected_gpu_number]
@@ -589,8 +592,10 @@ class Gpu:
         return gpu_device_model_name
 
 
-    # ----------------------- Get GPU PCI address which will be used for detecting the selected GPU for processing GPU performance information -----------------------
     def gpu_pci_address_func(self):
+        """
+        Get GPU PCI address which will be used for detecting the selected GPU for processing GPU performance information.
+        """
 
         selected_gpu_number = self.selected_gpu_number
         selected_gpu = self.gpu_list[selected_gpu_number]
@@ -611,8 +616,10 @@ class Gpu:
         return gpu_pci_address
 
 
-    # ----------------------- Get GPU load, memory, frequencies, power -----------------------
     def gpu_load_memory_frequency_power_func(self, gpu_pci_address):
+        """
+        Get GPU load, memory, frequencies, power.
+        """
 
         selected_gpu_number = self.selected_gpu_number
         selected_gpu = self.gpu_list[selected_gpu_number]
@@ -889,8 +896,10 @@ class Gpu:
         return gpu_load, gpu_memory, gpu_current_frequency, gpu_min_max_frequency, gpu_temperature, gpu_power
 
 
-    # ----------------------- Get GPU load average for NVIDIA (PCI) GPUs -----------------------
     def gpu_load_nvidia_func(self):
+        """
+        Get GPU load average for NVIDIA (PCI) GPUs.
+        """
 
         # Define command for getting GPU usage information.
         if Config.environment_type == "flatpak":
@@ -906,8 +915,10 @@ class Gpu:
             pass
 
 
-    # ----------------------- Get GPU load average for AMD GPUs -----------------------
     def gpu_load_amd_func(self, *args):
+        """
+        Get GPU load average for AMD GPUs.
+        """
 
         selected_gpu_number = self.selected_gpu_number
         selected_gpu = self.gpu_list[selected_gpu_number]
@@ -939,8 +950,10 @@ class Gpu:
         self.gpu_glib_source.attach(GLib.MainContext.default())
 
 
-    # ----------------------- Get screen resolution and refresh rate -----------------------
-    def gpu_resolution_refresh_rate_func(self):
+    def resolution_refresh_rate_func(self):
+        """
+        Get current resolution and refresh rate of the monitor(s).
+        """
 
         resolution_list = []
         refresh_rate_list = []

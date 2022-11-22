@@ -16,7 +16,6 @@ class ServicesMenu:
 
     def __init__(self):
 
-        # Menu GUI
         self.menu_gui()
 
 
@@ -26,23 +25,23 @@ class ServicesMenu:
         """
 
         # Popover
-        self.services_menu_po = Gtk.Popover()
+        self.menu_po = Gtk.Popover()
 
-        # Main grid
+        # Grid (main)
         main_grid = Gtk.Grid()
         main_grid.set_row_spacing(5)
         main_grid.set_margin_top(5)
         main_grid.set_margin_bottom(5)
         main_grid.set_margin_start(5)
         main_grid.set_margin_end(5)
-        self.services_menu_po.set_child(main_grid)
+        self.menu_po.set_child(main_grid)
 
         # Bold label atributes
         self.attribute_list_bold = Pango.AttrList()
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
         self.attribute_list_bold.insert(attribute)
 
-        # Label - Menu title
+        # Label - menu title (Services)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Services"))
@@ -58,15 +57,15 @@ class ServicesMenu:
 
         # Tab pages and ScrolledWindow
         # "Add/Remove Columns" tab
-        tab_title_label = Gtk.Label()
-        tab_title_label.set_label(_tr("Add/Remove Columns"))
+        label = Gtk.Label()
+        label.set_label(_tr("Add/Remove Columns"))
         self.grid_add_remove_columns_tab = Gtk.Grid()
         self.grid_add_remove_columns_tab.set_margin_top(15)
         self.grid_add_remove_columns_tab.set_margin_bottom(5)
         self.grid_add_remove_columns_tab.set_margin_start(5)
         self.grid_add_remove_columns_tab.set_margin_end(5)
         self.grid_add_remove_columns_tab.set_row_spacing(5)
-        notebook.append_page(self.grid_add_remove_columns_tab, tab_title_label)
+        notebook.append_page(self.grid_add_remove_columns_tab, label)
 
         # Button (Reset)
         self.reset_button = Gtk.Button()
@@ -96,7 +95,7 @@ class ServicesMenu:
         grid.set_row_spacing(5)
         self.grid_add_remove_columns_tab.attach(grid, 0, 0, 1, 1)
 
-        # Label - Tab title
+        # Label - tab title (Add/Remove Columns)
         label = Gtk.Label()
         label.set_attributes(self.attribute_list_bold)
         label.set_label(_tr("Add/Remove Columns"))
@@ -104,7 +103,7 @@ class ServicesMenu:
         label.set_margin_bottom(10)
         grid.attach(label, 0, 0, 2, 1)
 
-        # Checkbutton (Name)
+        # CheckButton (Name)
         self.name_cb = Gtk.CheckButton()
         self.name_cb.set_label(_tr("Name"))
         self.name_cb.set_active(True)
@@ -112,43 +111,43 @@ class ServicesMenu:
         self.name_cb.set_halign(Gtk.Align.START)
         grid.attach(self.name_cb, 0, 1, 1, 1)
 
-        # Checkbutton (State)
+        # CheckButton (State)
         self.state_cb = Gtk.CheckButton()
         self.state_cb.set_label(_tr("State"))
         self.state_cb.set_halign(Gtk.Align.START)
         grid.attach(self.state_cb, 0, 2, 1, 1)
 
-        # Checkbutton (Main PID)
+        # CheckButton (Main PID)
         self.main_pid_cb = Gtk.CheckButton()
         self.main_pid_cb.set_label(_tr("Main PID"))
         self.main_pid_cb.set_halign(Gtk.Align.START)
         grid.attach(self.main_pid_cb, 0, 3, 1, 1)
 
-        # Checkbutton (Active State)
+        # CheckButton (Active State)
         self.active_state_cb = Gtk.CheckButton()
         self.active_state_cb.set_label(_tr("Active State"))
         self.active_state_cb.set_halign(Gtk.Align.START)
         grid.attach(self.active_state_cb, 0, 4, 1, 1)
 
-        # Checkbutton (Load State)
+        # CheckButton (Load State)
         self.load_state_cb = Gtk.CheckButton()
         self.load_state_cb.set_label(_tr("Load State"))
         self.load_state_cb.set_halign(Gtk.Align.START)
         grid.attach(self.load_state_cb, 1, 1, 1, 1)
 
-        # Checkbutton (Sub-State)
+        # CheckButton (Sub-State)
         self.sub_state_cb = Gtk.CheckButton()
         self.sub_state_cb.set_label(_tr("Sub-State"))
         self.sub_state_cb.set_halign(Gtk.Align.START)
         grid.attach(self.sub_state_cb, 1, 2, 1, 1)
 
-        # Checkbutton (Memory (RSS))
+        # CheckButton (Memory (RSS))
         self.memory_rss_cb = Gtk.CheckButton()
         self.memory_rss_cb.set_label(_tr("Memory (RSS)"))
         self.memory_rss_cb.set_halign(Gtk.Align.START)
         grid.attach(self.memory_rss_cb, 1, 3, 1, 1)
 
-        # Checkbutton (Description)
+        # CheckButton (Description)
         self.description_cb = Gtk.CheckButton()
         self.description_cb.set_label(_tr("Description"))
         self.description_cb.set_halign(Gtk.Align.START)
@@ -160,11 +159,11 @@ class ServicesMenu:
         Connect GUI signals.
         """
 
-        self.services_menu_po.connect("show", self.on_services_menu_po_show)
+        self.menu_po.connect("show", self.on_menu_po_show)
         self.reset_button.connect("clicked", self.on_reset_button_clicked)
 
 
-    def gui_connect_signals_func(self):
+    def connect_signals(self):
         """
         Connect some of the signals to be able to disconnect them for setting GUI.
         """
@@ -179,7 +178,7 @@ class ServicesMenu:
         self.description_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
 
 
-    def gui_disconnect_signals_func(self):
+    def disconnect_signals(self):
         """
         Disconnect some of the signals for setting GUI.
         """
@@ -194,17 +193,17 @@ class ServicesMenu:
         self.description_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
 
 
-    def on_services_menu_po_show(self, widget):
+    def on_menu_po_show(self, widget):
         """
         Run code when customizations menu popover is shown.
         """
  
         try:
-            self.gui_disconnect_signals_func()
+            self.disconnect_signals()
         except TypeError:
             pass
         self.set_gui()
-        self.gui_connect_signals_func()
+        self.connect_signals()
 
 
     def on_reset_button_clicked(self, widget):
@@ -219,9 +218,9 @@ class ServicesMenu:
         # Apply changes immediately (without waiting update interval).
         #Services.services_initial_func()
         #Services.services_loop_func()
-        self.gui_disconnect_signals_func()
+        self.disconnect_signals()
         self.set_gui()
-        self.gui_connect_signals_func()
+        self.connect_signals()
 
 
     def on_add_remove_checkbuttons_toggled(self, widget):
@@ -229,7 +228,7 @@ class ServicesMenu:
         Run a function for adding/removing columns to treeview.
         """
 
-        self.services_add_remove_columns_function()
+        self.add_remove_columns()
 
 
     def set_gui(self):
@@ -271,7 +270,7 @@ class ServicesMenu:
             self.description_cb.set_active(False)
 
 
-    def services_add_remove_columns_function(self):
+    def add_remove_columns(self):
         """
         Add/Remove columns to treeview.
         """

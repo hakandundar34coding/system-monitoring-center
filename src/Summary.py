@@ -14,7 +14,6 @@ class Summary:
 
     def __init__(self):
 
-        # Tab GUI
         self.tab_gui()
 
         self.initial_already_run = 0
@@ -53,7 +52,6 @@ class Summary:
         self.da_summary.set_vexpand(True)
         self.tab_grid.attach(self.da_summary, 0, 1, 1, 1)
 
-        # Connect functions
         self.da_summary.set_draw_func(Performance.performance_summary_chart_draw)
 
 

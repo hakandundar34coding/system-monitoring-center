@@ -22,7 +22,6 @@ class System:
 
     def __init__(self):
 
-        # Tab GUI
         self.tab_gui()
 
         self.initial_already_run = 0
@@ -46,13 +45,10 @@ class System:
         attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
         self.attribute_list_bold.insert(attribute)
 
-        # Tab name, device name labels
         self.tab_title_grid()
 
-        # Performance/information labels
         self.information_grid()
 
-        # Connect signals
         self.connect_signals()
 
 
@@ -561,19 +557,21 @@ class System:
         self.initial_already_run = 1
 
 
-    # ----------------------- Set spinner properties and show "number_of_installed_apt_or_rpm_or_pacman_packages" information on the label -----------------------
     def set_number_of_installed_apt_or_rpm_or_pacman_packages_label_func(self, number_of_installed_apt_or_rpm_or_pacman_packages):
+        """
+        Stop and hide spinner properties and show "number_of_installed_apt_or_rpm_or_pacman_packages" information on the label.
+        """
 
-        # Stop spinner animation and hide it after running the function for getting information.
         self.spinner_system.stop()
         self.spinner_system.hide()
         self.system_label.set_label(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
 
 
-    # ----------------------- Get OS name, version, version code name and OS based on information -----------------------
     def os_name_version_codename_based_on_func(self):
+        """
+        Get OS name, version, version code name and OS based on information.
+        """
 
-        # Initial value of "os_name" variable. This value will be used if "os_name" could not be detected.
         os_name = "-"
         os_based_on = "-"
         os_version = "-"
@@ -628,10 +626,11 @@ class System:
         return os_name, os_version, os_based_on
 
 
-    # ----------------------- Get OS family -----------------------
     def os_family_func(self):
+        """
+        Get OS family.
+        """
 
-        # Get os family
         os_family = platform.system()
         if os_family == "":
             os_family = "-"
@@ -639,8 +638,10 @@ class System:
         return os_family
 
 
-    # ----------------------- Get kernel release (base version of kernel) and kernel version (package version of kernel) -----------------------
     def kernel_release_kernel_version_func(self):
+        """
+        Get kernel release (base version of kernel) and kernel version (package version of kernel).
+        """
 
         # Get kernel release (base version of kernel)
         kernel_release = platform.release()
@@ -655,8 +656,10 @@ class System:
         return kernel_release, kernel_version
 
 
-    # ----------------------- Get CPU architecture -----------------------
     def cpu_architecture_func(self):
+        """
+        Get CPU architecture
+        """
 
         cpu_architecture = platform.processor()
         if cpu_architecture == "":
@@ -667,8 +670,10 @@ class System:
         return cpu_architecture
 
 
-    # ----------------------- Get computer vendor, model and chassis type -----------------------
     def computer_vendor_model_chassis_type_func(self):
+        """
+        Get computer vendor, model and chassis type
+        """
 
         # Get computer vendor ("/sys/devices/virtual/dmi" is used for UEFI/ACPI systems and not found on ARM systems)
         #, model, chassis information (These informations may not be available on some systems such as ARM CPU used motherboards).
@@ -711,8 +716,10 @@ class System:
         return computer_vendor, computer_model, computer_chassis_type
 
 
-    # ----------------------- Get host name -----------------------
     def host_name_func(self):
+        """
+        Get host name.
+        """
 
         with open("/proc/sys/kernel/hostname") as reader:
             host_name = reader.read().strip()
@@ -720,8 +727,10 @@ class System:
         return host_name
 
 
-    # ----------------------- Get number of monitors -----------------------
     def number_of_monitors_func(self):
+        """
+        Get number of monitors.
+        """
 
         try:
             monitor_list = Gdk.Display().get_default().get_monitors()
@@ -732,8 +741,10 @@ class System:
         return number_of_monitors
 
 
-    # ----------------------- Get number of installed Flatpak packages (and runtimes) -----------------------
     def installed_flatpak_packages_func(self):
+        """
+        Get number of installed Flatpak packages (and runtimes).
+        """
 
         number_of_installed_flatpak_packages = "-"
 
@@ -750,8 +761,10 @@ class System:
         return number_of_installed_flatpak_packages
 
 
-    # ----------------------- Get current Python version and GTK version -----------------------
     def current_python_version_gtk_version_func(self):
+        """
+        Get current Python version and GTK version.
+        """
 
         # Get current Python version (Python which is running this code)
         current_python_version = platform.python_version()
@@ -762,8 +775,10 @@ class System:
         return current_python_version, current_gtk_version
 
 
-    # ----------------------- Get number of installed APT, RPM or pacman packages -----------------------
     def installed_apt_rpm_pacman_packages_func(self):
+        """
+        Get number of installed APT, RPM or pacman packages.
+        """
 
         # Initial value of the variables.
         apt_packages_available = "-"
@@ -830,8 +845,10 @@ class System:
         return number_of_installed_apt_or_rpm_or_pacman_packages
 
 
-    # ----------------------- Get current desktop environment, windowing_system, window_manager, current_display_manager -----------------------
     def desktop_environment_and_version_windowing_system_window_manager_display_manager_func(self):
+        """
+        Get current desktop environment, windowing_system, window_manager, current_display_manager.
+        """
 
         # Get current username
         # Get user name that gets root privileges.
@@ -956,83 +973,62 @@ class System:
         return current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager
 
 
-    # ----------------------- Get current desktop environment version -----------------------
     def desktop_environment_version_func(self, current_desktop_environment):
+        """
+        Get current desktop environment version.
+        """
 
-        # Set initial value of the "current_desktop_environment_version".
+        desktop_environment_version_command_dict = {
+                                                    "XFCE":["xfce4-panel", "--version"],
+                                                    "GNOME":["gnome-shell", "--version"],
+                                                    "zorin:GNOME":["gnome-shell", "--version"],
+                                                    "ubuntu:GNOME":["gnome-shell", "--version"],
+                                                    "X-Cinnamon":["cinnamon", "--version"],
+                                                    "CINNAMON":["cinnamon", "--version"],
+                                                    "MATE":["mate-about", "--version"],
+                                                    "KDE":["plasmashell", "--version"],
+                                                    "LXQt":["lxqt-about", "--version"],
+                                                    "Budgie":["budgie-desktop", "--version"],
+                                                    "Budgie:GNOME":["budgie-desktop", "--version"]
+                                                    }
+
         current_desktop_environment_version = "-"
 
+        command_list = desktop_environment_version_command_dict[current_desktop_environment]
+        if Config.environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
+
+        try:
+            desktop_environment_version_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
+        except Exception:
+            desktop_environment_version_output = "-"
+
         if current_desktop_environment == "XFCE":
-            try:
-                if Config.environment_type == "flatpak":
-                    current_desktop_environment_version_lines = (subprocess.check_output(["flatpak-spawn", "--host", "xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
-                else:
-                    current_desktop_environment_version_lines = (subprocess.check_output(["xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
-                for line in current_desktop_environment_version_lines:
-                    if "xfce4-panel" in line:
-                        current_desktop_environment_version = line.split(" ")[1]
-            except FileNotFoundError:
-                pass
+            for line in desktop_environment_version_output.split("\n"):
+                if "xfce4-panel" in line:
+                    current_desktop_environment_version = line.split(" ")[1]
 
-        if current_desktop_environment == "GNOME" or current_desktop_environment == "zorin:GNOME" or current_desktop_environment == "ubuntu:GNOME":
-            try:
-                if Config.environment_type == "flatpak":
-                    current_desktop_environment_version_lines = (subprocess.check_output(["flatpak-spawn", "--host", "gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
-                else:
-                    current_desktop_environment_version_lines = (subprocess.check_output(["gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
-                for line in current_desktop_environment_version_lines:
-                    if "GNOME Shell" in line:
-                        current_desktop_environment_version = line.split(" ")[-1]
-            except FileNotFoundError:
-                pass
+        if current_desktop_environment in ["GNOME", "zorin:GNOME", "ubuntu:GNOME"]:
+            for line in desktop_environment_version_output.split("\n"):
+                if "GNOME Shell" in line:
+                    current_desktop_environment_version = line.split(" ")[-1]
 
-        if current_desktop_environment == "X-Cinnamon" or current_desktop_environment == "CINNAMON":
-            try:
-                if Config.environment_type == "flatpak":
-                    current_desktop_environment_version = (subprocess.check_output(["flatpak-spawn", "--host", "cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
-                else:
-                    current_desktop_environment_version = (subprocess.check_output(["cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
-            except FileNotFoundError:
-                pass
+        if current_desktop_environment in ["X-Cinnamon", "CINNAMON"]:
+            current_desktop_environment_version = desktop_environment_version_output.split(" ")[-1]
 
         if current_desktop_environment == "MATE":
-            try:
-                if Config.environment_type == "flatpak":
-                    current_desktop_environment_version = (subprocess.check_output(["flatpak-spawn", "--host", "mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
-                else:
-                    current_desktop_environment_version = (subprocess.check_output(["mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
-            except FileNotFoundError:
-                pass
+            current_desktop_environment_version = desktop_environment_version_output.split(" ")[-1]
 
         if current_desktop_environment == "KDE":
-            try:
-                if Config.environment_type == "flatpak":
-                    current_desktop_environment_version = (subprocess.check_output(["flatpak-spawn", "--host", "plasmashell", "--version"], shell=False)).decode().strip()
-                else:
-                    current_desktop_environment_version = (subprocess.check_output(["plasmashell", "--version"], shell=False)).decode().strip()
-            except FileNotFoundError:
-                pass
+            current_desktop_environment_version = desktop_environment_version_output
 
         if current_desktop_environment == "LXQt":
-            try:
-                if Config.environment_type == "flatpak":
-                    current_desktop_environment_version_lines = (subprocess.check_output(["flatpak-spawn", "--host", "lxqt-about", "--version"], shell=False)).decode().strip()
-                else:
-                    current_desktop_environment_version_lines = (subprocess.check_output(["lxqt-about", "--version"], shell=False)).decode().strip()
-                for line in current_desktop_environment_version_lines:
-                    if "liblxqt" in line:
-                        current_desktop_environment_version = line.split()[1].strip()
-            except FileNotFoundError:
-                pass
+            for line in desktop_environment_version_output:
+                if "liblxqt" in line:
+                    current_desktop_environment_version = line.split()[1].strip()
 
-        if current_desktop_environment == "Budgie" or current_desktop_environment == "Budgie:GNOME":
-            try:
-                if Config.environment_type == "flatpak":
-                    current_desktop_environment_version = (subprocess.check_output(["flatpak-spawn", "--host", "budgie-desktop", "--version"], shell=False)).decode().strip().split("\n")[0].strip().split(" ")[-1]
-                else:
-                    current_desktop_environment_version = (subprocess.check_output(["budgie-desktop", "--version"], shell=False)).decode().strip().split("\n")[0].strip().split(" ")[-1]
-            except FileNotFoundError:
-                pass
+        if current_desktop_environment == ["Budgie", "Budgie:GNOME"]:
+            desktop_environment_version_output.split("\n")[0].strip().split(" ")[-1]
 
         return current_desktop_environment_version
 
