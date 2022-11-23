@@ -123,12 +123,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 0, 1, 1)
         # Label (Name)
-        self.process_details_name_label = Gtk.Label()
-        self.process_details_name_label.set_selectable(True)
-        self.process_details_name_label.set_label("--")
-        self.process_details_name_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_name_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_name_label, 2, 0, 1, 1)
+        self.name_label = Gtk.Label()
+        self.name_label.set_selectable(True)
+        self.name_label.set_label("--")
+        self.name_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.name_label.set_halign(Gtk.Align.START)
+        grid.attach(self.name_label, 2, 0, 1, 1)
 
         # Label (PID)
         label = Gtk.Label()
@@ -141,12 +141,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
         # Label (PID)
-        self.process_details_pid_label = Gtk.Label()
-        self.process_details_pid_label.set_selectable(True)
-        self.process_details_pid_label.set_label("--")
-        self.process_details_pid_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_pid_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_pid_label, 2, 1, 1, 1)
+        self.pid_label = Gtk.Label()
+        self.pid_label.set_selectable(True)
+        self.pid_label.set_label("--")
+        self.pid_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.pid_label.set_halign(Gtk.Align.START)
+        grid.attach(self.pid_label, 2, 1, 1, 1)
 
         # Label (Status)
         label = Gtk.Label()
@@ -159,12 +159,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
         # Label (Status)
-        self.process_details_status_label = Gtk.Label()
-        self.process_details_status_label.set_selectable(True)
-        self.process_details_status_label.set_label("--")
-        self.process_details_status_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_status_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_status_label, 2, 2, 1, 1)
+        self.status_label = Gtk.Label()
+        self.status_label.set_selectable(True)
+        self.status_label.set_label("--")
+        self.status_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.status_label.set_halign(Gtk.Align.START)
+        grid.attach(self.status_label, 2, 2, 1, 1)
 
         # Label (User)
         label = Gtk.Label()
@@ -177,12 +177,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
         # Label (User)
-        self.process_details_user_label = Gtk.Label()
-        self.process_details_user_label.set_selectable(True)
-        self.process_details_user_label.set_label("--")
-        self.process_details_user_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_user_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_user_label, 2, 3, 1, 1)
+        self.user_label = Gtk.Label()
+        self.user_label.set_selectable(True)
+        self.user_label.set_label("--")
+        self.user_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.user_label.set_halign(Gtk.Align.START)
+        grid.attach(self.user_label, 2, 3, 1, 1)
 
         # Label (Priority)
         label = Gtk.Label()
@@ -195,12 +195,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
         # Label (Priority)
-        self.process_details_priority_label = Gtk.Label()
-        self.process_details_priority_label.set_selectable(True)
-        self.process_details_priority_label.set_label("--")
-        self.process_details_priority_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_priority_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_priority_label, 2, 4, 1, 1)
+        self.priority_label = Gtk.Label()
+        self.priority_label.set_selectable(True)
+        self.priority_label.set_label("--")
+        self.priority_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.priority_label.set_halign(Gtk.Align.START)
+        grid.attach(self.priority_label, 2, 4, 1, 1)
 
         # Label (CPU)
         label = Gtk.Label()
@@ -213,12 +213,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
         # Label (CPU)
-        self.process_details_cpu_label = Gtk.Label()
-        self.process_details_cpu_label.set_selectable(True)
-        self.process_details_cpu_label.set_label("--")
-        self.process_details_cpu_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_cpu_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_cpu_label, 2, 5, 1, 1)
+        self.cpu_label = Gtk.Label()
+        self.cpu_label.set_selectable(True)
+        self.cpu_label.set_label("--")
+        self.cpu_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.cpu_label.set_halign(Gtk.Align.START)
+        grid.attach(self.cpu_label, 2, 5, 1, 1)
 
         # Label (Memory (RSS))
         label = Gtk.Label()
@@ -231,12 +231,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 6, 1, 1)
         # Label (Memory (RSS))
-        self.process_details_memory_rss_label = Gtk.Label()
-        self.process_details_memory_rss_label.set_selectable(True)
-        self.process_details_memory_rss_label.set_label("--")
-        self.process_details_memory_rss_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_memory_rss_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_memory_rss_label, 2, 6, 1, 1)
+        self.memory_rss_label = Gtk.Label()
+        self.memory_rss_label.set_selectable(True)
+        self.memory_rss_label.set_label("--")
+        self.memory_rss_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.memory_rss_label.set_halign(Gtk.Align.START)
+        grid.attach(self.memory_rss_label, 2, 6, 1, 1)
 
         # Label (Read Speed)
         label = Gtk.Label()
@@ -249,12 +249,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 7, 1, 1)
         # Label (Read Speed)
-        self.process_details_read_speed_label = Gtk.Label()
-        self.process_details_read_speed_label.set_selectable(True)
-        self.process_details_read_speed_label.set_label("--")
-        self.process_details_read_speed_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_read_speed_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_read_speed_label, 2, 7, 1, 1)
+        self.read_speed_label = Gtk.Label()
+        self.read_speed_label.set_selectable(True)
+        self.read_speed_label.set_label("--")
+        self.read_speed_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.read_speed_label.set_halign(Gtk.Align.START)
+        grid.attach(self.read_speed_label, 2, 7, 1, 1)
 
         # Label (Write Speed)
         label = Gtk.Label()
@@ -267,12 +267,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 8, 1, 1)
         # Label (Write Speed)
-        self.process_details_write_speed_label = Gtk.Label()
-        self.process_details_write_speed_label.set_selectable(True)
-        self.process_details_write_speed_label.set_label("--")
-        self.process_details_write_speed_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_write_speed_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_write_speed_label, 2, 8, 1, 1)
+        self.write_speed_label = Gtk.Label()
+        self.write_speed_label.set_selectable(True)
+        self.write_speed_label.set_label("--")
+        self.write_speed_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.write_speed_label.set_halign(Gtk.Align.START)
+        grid.attach(self.write_speed_label, 2, 8, 1, 1)
 
         # Label (Start Time)
         label = Gtk.Label()
@@ -285,12 +285,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 9, 1, 1)
         # Label (Start Time)
-        self.process_details_start_time_label = Gtk.Label()
-        self.process_details_start_time_label.set_selectable(True)
-        self.process_details_start_time_label.set_label("--")
-        self.process_details_start_time_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_start_time_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_start_time_label, 2, 9, 1, 1)
+        self.start_time_label = Gtk.Label()
+        self.start_time_label.set_selectable(True)
+        self.start_time_label.set_label("--")
+        self.start_time_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.start_time_label.set_halign(Gtk.Align.START)
+        grid.attach(self.start_time_label, 2, 9, 1, 1)
 
         # Label (Path)
         label = Gtk.Label()
@@ -303,12 +303,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 10, 1, 1)
         # Label (Path)
-        self.process_details_path_label = Gtk.Label()
-        self.process_details_path_label.set_selectable(True)
-        self.process_details_path_label.set_label("--")
-        self.process_details_path_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_path_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_path_label, 2, 10, 1, 1)
+        self.path_label = Gtk.Label()
+        self.path_label.set_selectable(True)
+        self.path_label.set_label("--")
+        self.path_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.path_label.set_halign(Gtk.Align.START)
+        grid.attach(self.path_label, 2, 10, 1, 1)
 
         # Label (PPID)
         label = Gtk.Label()
@@ -321,12 +321,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 11, 1, 1)
         # Label (PPID)
-        self.process_details_ppid_label = Gtk.Label()
-        self.process_details_ppid_label.set_selectable(True)
-        self.process_details_ppid_label.set_label("--")
-        self.process_details_ppid_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_ppid_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_ppid_label, 2, 11, 1, 1)
+        self.ppid_label = Gtk.Label()
+        self.ppid_label.set_selectable(True)
+        self.ppid_label.set_label("--")
+        self.ppid_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.ppid_label.set_halign(Gtk.Align.START)
+        grid.attach(self.ppid_label, 2, 11, 1, 1)
 
         # Label (UID)
         label = Gtk.Label()
@@ -339,12 +339,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 12, 1, 1)
         # Label (UID)
-        self.process_details_uid_label = Gtk.Label()
-        self.process_details_uid_label.set_selectable(True)
-        self.process_details_uid_label.set_label("--")
-        self.process_details_uid_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_uid_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_uid_label, 2, 12, 1, 1)
+        self.uid_label = Gtk.Label()
+        self.uid_label.set_selectable(True)
+        self.uid_label.set_label("--")
+        self.uid_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.uid_label.set_halign(Gtk.Align.START)
+        grid.attach(self.uid_label, 2, 12, 1, 1)
 
         # Label (GID)
         label = Gtk.Label()
@@ -357,12 +357,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 13, 1, 1)
         # Label (GID)
-        self.process_details_gid_label = Gtk.Label()
-        self.process_details_gid_label.set_selectable(True)
-        self.process_details_gid_label.set_label("--")
-        self.process_details_gid_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_gid_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_gid_label, 2, 13, 1, 1)
+        self.gid_label = Gtk.Label()
+        self.gid_label.set_selectable(True)
+        self.gid_label.set_label("--")
+        self.gid_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.gid_label.set_halign(Gtk.Align.START)
+        grid.attach(self.gid_label, 2, 13, 1, 1)
 
 
     def cpu_tab_gui(self):
@@ -425,12 +425,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
         # Label (CPU)
-        self.process_details_cpu_label2 = Gtk.Label()
-        self.process_details_cpu_label2.set_selectable(True)
-        self.process_details_cpu_label2.set_label("--")
-        self.process_details_cpu_label2.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_cpu_label2.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_cpu_label2, 2, 1, 1, 1)
+        self.cpu_label2 = Gtk.Label()
+        self.cpu_label2.set_selectable(True)
+        self.cpu_label2.set_label("--")
+        self.cpu_label2.set_ellipsize(Pango.EllipsizeMode.END)
+        self.cpu_label2.set_halign(Gtk.Align.START)
+        grid.attach(self.cpu_label2, 2, 1, 1, 1)
 
         # Label (Threads)
         label = Gtk.Label()
@@ -443,12 +443,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
         # Label (Threads)
-        self.process_details_threads_label = Gtk.Label()
-        self.process_details_threads_label.set_selectable(True)
-        self.process_details_threads_label.set_label("--")
-        self.process_details_threads_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_threads_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_threads_label, 2, 2, 1, 1)
+        self.threads_label = Gtk.Label()
+        self.threads_label.set_selectable(True)
+        self.threads_label.set_label("--")
+        self.threads_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.threads_label.set_halign(Gtk.Align.START)
+        grid.attach(self.threads_label, 2, 2, 1, 1)
 
         # Label (Threads (TID))
         label = Gtk.Label()
@@ -463,12 +463,12 @@ class ProcessesDetails:
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
         # Label (Threads (TID))
-        self.process_details_tid_label = Gtk.Label()
-        self.process_details_tid_label.set_selectable(True)
-        self.process_details_tid_label.set_label("--")
-        self.process_details_tid_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_tid_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_tid_label, 2, 3, 1, 1)
+        self.tid_label = Gtk.Label()
+        self.tid_label.set_selectable(True)
+        self.tid_label.set_label("--")
+        self.tid_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.tid_label.set_halign(Gtk.Align.START)
+        grid.attach(self.tid_label, 2, 3, 1, 1)
 
         # Label (Used CPU Core(s))
         label = Gtk.Label()
@@ -481,12 +481,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
         # Label (Used CPU Core(s))
-        self.process_details_used_cpu_cores_label = Gtk.Label()
-        self.process_details_used_cpu_cores_label.set_selectable(True)
-        self.process_details_used_cpu_cores_label.set_label("--")
-        self.process_details_used_cpu_cores_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_used_cpu_cores_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_used_cpu_cores_label, 2, 4, 1, 1)
+        self.used_cpu_cores_label = Gtk.Label()
+        self.used_cpu_cores_label.set_selectable(True)
+        self.used_cpu_cores_label.set_label("--")
+        self.used_cpu_cores_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.used_cpu_cores_label.set_halign(Gtk.Align.START)
+        grid.attach(self.used_cpu_cores_label, 2, 4, 1, 1)
 
         # Label (CPU Times)
         label = Gtk.Label()
@@ -499,12 +499,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
         # Label (CPU Times)
-        self.process_details_cpu_times_label = Gtk.Label()
-        self.process_details_cpu_times_label.set_selectable(True)
-        self.process_details_cpu_times_label.set_label("--")
-        self.process_details_cpu_times_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_cpu_times_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_cpu_times_label, 2, 5, 1, 1)
+        self.cpu_times_label = Gtk.Label()
+        self.cpu_times_label.set_selectable(True)
+        self.cpu_times_label.set_label("--")
+        self.cpu_times_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.cpu_times_label.set_halign(Gtk.Align.START)
+        grid.attach(self.cpu_times_label, 2, 5, 1, 1)
 
         # Label (Context Switches)
         label = Gtk.Label()
@@ -517,12 +517,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 6, 1, 1)
         # Label (Context Switches)
-        self.process_details_context_switches_label = Gtk.Label()
-        self.process_details_context_switches_label.set_selectable(True)
-        self.process_details_context_switches_label.set_label("--")
-        self.process_details_context_switches_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_context_switches_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_context_switches_label, 2, 6, 1, 1)
+        self.context_switches_label = Gtk.Label()
+        self.context_switches_label.set_selectable(True)
+        self.context_switches_label.set_label("--")
+        self.context_switches_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.context_switches_label.set_halign(Gtk.Align.START)
+        grid.attach(self.context_switches_label, 2, 6, 1, 1)
 
 
     def memory_tab_gui(self):
@@ -585,12 +585,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
         # Label (Memory (RSS))
-        self.process_details_memory_rss_label2 = Gtk.Label()
-        self.process_details_memory_rss_label2.set_selectable(True)
-        self.process_details_memory_rss_label2.set_label("--")
-        self.process_details_memory_rss_label2.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_memory_rss_label2.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_memory_rss_label2, 2, 1, 1, 1)
+        self.memory_rss_label2 = Gtk.Label()
+        self.memory_rss_label2.set_selectable(True)
+        self.memory_rss_label2.set_label("--")
+        self.memory_rss_label2.set_ellipsize(Pango.EllipsizeMode.END)
+        self.memory_rss_label2.set_halign(Gtk.Align.START)
+        grid.attach(self.memory_rss_label2, 2, 1, 1, 1)
 
         # Label (Memory (VMS))
         label = Gtk.Label()
@@ -603,12 +603,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
         # Label (Memory (VMS))
-        self.process_details_memory_vms_label = Gtk.Label()
-        self.process_details_memory_vms_label.set_selectable(True)
-        self.process_details_memory_vms_label.set_label("--")
-        self.process_details_memory_vms_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_memory_vms_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_memory_vms_label, 2, 2, 1, 1)
+        self.memory_vms_label = Gtk.Label()
+        self.memory_vms_label.set_selectable(True)
+        self.memory_vms_label.set_label("--")
+        self.memory_vms_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.memory_vms_label.set_halign(Gtk.Align.START)
+        grid.attach(self.memory_vms_label, 2, 2, 1, 1)
 
         # Label (Memory (Shared))
         label = Gtk.Label()
@@ -621,12 +621,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
         # Label (Memory (Shared))
-        self.process_details_memory_shared_label = Gtk.Label()
-        self.process_details_memory_shared_label.set_selectable(True)
-        self.process_details_memory_shared_label.set_label("--")
-        self.process_details_memory_shared_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_memory_shared_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_memory_shared_label, 2, 3, 1, 1)
+        self.memory_shared_label = Gtk.Label()
+        self.memory_shared_label.set_selectable(True)
+        self.memory_shared_label.set_label("--")
+        self.memory_shared_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.memory_shared_label.set_halign(Gtk.Align.START)
+        grid.attach(self.memory_shared_label, 2, 3, 1, 1)
 
         # Label (Memory (USS))
         label = Gtk.Label()
@@ -639,12 +639,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
         # Label (Memory (USS))
-        self.process_details_memory_uss_label = Gtk.Label()
-        self.process_details_memory_uss_label.set_selectable(True)
-        self.process_details_memory_uss_label.set_label("--")
-        self.process_details_memory_uss_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_memory_uss_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_memory_uss_label, 2, 4, 1, 1)
+        self.memory_uss_label = Gtk.Label()
+        self.memory_uss_label.set_selectable(True)
+        self.memory_uss_label.set_label("--")
+        self.memory_uss_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.memory_uss_label.set_halign(Gtk.Align.START)
+        grid.attach(self.memory_uss_label, 2, 4, 1, 1)
 
         # Label (Swap Memory)
         label = Gtk.Label()
@@ -657,12 +657,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
         # Label (Swap Memory)
-        self.process_details_swap_memory_label = Gtk.Label()
-        self.process_details_swap_memory_label.set_selectable(True)
-        self.process_details_swap_memory_label.set_label("--")
-        self.process_details_swap_memory_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_swap_memory_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_swap_memory_label, 2, 5, 1, 1)
+        self.swap_memory_label = Gtk.Label()
+        self.swap_memory_label.set_selectable(True)
+        self.swap_memory_label.set_label("--")
+        self.swap_memory_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.swap_memory_label.set_halign(Gtk.Align.START)
+        grid.attach(self.swap_memory_label, 2, 5, 1, 1)
 
 
     def disk_tab_gui(self):
@@ -725,12 +725,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
         # Label (Read Speed)
-        self.process_details_read_speed_label2 = Gtk.Label()
-        self.process_details_read_speed_label2.set_selectable(True)
-        self.process_details_read_speed_label2.set_label("--")
-        self.process_details_read_speed_label2.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_read_speed_label2.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_read_speed_label2, 2, 1, 1, 1)
+        self.read_speed_label2 = Gtk.Label()
+        self.read_speed_label2.set_selectable(True)
+        self.read_speed_label2.set_label("--")
+        self.read_speed_label2.set_ellipsize(Pango.EllipsizeMode.END)
+        self.read_speed_label2.set_halign(Gtk.Align.START)
+        grid.attach(self.read_speed_label2, 2, 1, 1, 1)
 
         # Label (Write Speed)
         label = Gtk.Label()
@@ -743,12 +743,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
         # Label (Write Speed)
-        self.process_details_write_speed_label2 = Gtk.Label()
-        self.process_details_write_speed_label2.set_selectable(True)
-        self.process_details_write_speed_label2.set_label("--")
-        self.process_details_write_speed_label2.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_write_speed_label2.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_write_speed_label2, 2, 2, 1, 1)
+        self.write_speed_label2 = Gtk.Label()
+        self.write_speed_label2.set_selectable(True)
+        self.write_speed_label2.set_label("--")
+        self.write_speed_label2.set_ellipsize(Pango.EllipsizeMode.END)
+        self.write_speed_label2.set_halign(Gtk.Align.START)
+        grid.attach(self.write_speed_label2, 2, 2, 1, 1)
 
         # Label (Read Data)
         label = Gtk.Label()
@@ -761,12 +761,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
         # Label (Read Data)
-        self.process_details_read_data = Gtk.Label()
-        self.process_details_read_data.set_selectable(True)
-        self.process_details_read_data.set_label("--")
-        self.process_details_read_data.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_read_data.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_read_data, 2, 3, 1, 1)
+        self.read_data_label = Gtk.Label()
+        self.read_data_label.set_selectable(True)
+        self.read_data_label.set_label("--")
+        self.read_data_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.read_data_label.set_halign(Gtk.Align.START)
+        grid.attach(self.read_data_label, 2, 3, 1, 1)
 
         # Label (Write Data)
         label = Gtk.Label()
@@ -779,12 +779,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
         # Label (Write Data)
-        self.process_details_write_data = Gtk.Label()
-        self.process_details_write_data.set_selectable(True)
-        self.process_details_write_data.set_label("--")
-        self.process_details_write_data.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_write_data.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_write_data, 2, 4, 1, 1)
+        self.write_data_label = Gtk.Label()
+        self.write_data_label.set_selectable(True)
+        self.write_data_label.set_label("--")
+        self.write_data_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.write_data_label.set_halign(Gtk.Align.START)
+        grid.attach(self.write_data_label, 2, 4, 1, 1)
 
         # Label (Read Count)
         label = Gtk.Label()
@@ -797,12 +797,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
         # Label (Read Count)
-        self.process_details_read_count = Gtk.Label()
-        self.process_details_read_count.set_selectable(True)
-        self.process_details_read_count.set_label("--")
-        self.process_details_read_count.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_read_count.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_read_count, 2, 5, 1, 1)
+        self.read_count_label = Gtk.Label()
+        self.read_count_label.set_selectable(True)
+        self.read_count_label.set_label("--")
+        self.read_count_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.read_count_label.set_halign(Gtk.Align.START)
+        grid.attach(self.read_count_label, 2, 5, 1, 1)
 
         # Label (Write Count)
         label = Gtk.Label()
@@ -815,12 +815,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 6, 1, 1)
         # Label (Write Count)
-        self.process_details_write_count = Gtk.Label()
-        self.process_details_write_count.set_selectable(True)
-        self.process_details_write_count.set_label("--")
-        self.process_details_write_count.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_write_count.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_write_count, 2, 6, 1, 1)
+        self.write_count_label = Gtk.Label()
+        self.write_count_label.set_selectable(True)
+        self.write_count_label.set_label("--")
+        self.write_count_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.write_count_label.set_halign(Gtk.Align.START)
+        grid.attach(self.write_count_label, 2, 6, 1, 1)
 
 
     def file_tab_gui(self):
@@ -853,12 +853,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 0, 1, 1)
         # Label (Path)
-        self.process_details_path_label2 = Gtk.Label()
-        self.process_details_path_label2.set_selectable(True)
-        self.process_details_path_label2.set_label("--")
-        self.process_details_path_label2.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_path_label2.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_path_label2, 2, 0, 1, 1)
+        self.path_label2 = Gtk.Label()
+        self.path_label2.set_selectable(True)
+        self.path_label2.set_label("--")
+        self.path_label2.set_ellipsize(Pango.EllipsizeMode.END)
+        self.path_label2.set_halign(Gtk.Align.START)
+        grid.attach(self.path_label2, 2, 0, 1, 1)
 
         # Label (Current Working Directory)
         label = Gtk.Label()
@@ -871,12 +871,12 @@ class ProcessesDetails:
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
         # Label (Current Working Directory)
-        self.process_details_cwd_label = Gtk.Label()
-        self.process_details_cwd_label.set_selectable(True)
-        self.process_details_cwd_label.set_label("--")
-        self.process_details_cwd_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_cwd_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_cwd_label, 2, 1, 1, 1)
+        self.cwd_label = Gtk.Label()
+        self.cwd_label.set_selectable(True)
+        self.cwd_label.set_label("--")
+        self.cwd_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.cwd_label.set_halign(Gtk.Align.START)
+        grid.attach(self.cwd_label, 2, 1, 1, 1)
 
         # Label (Command Line)
         label = Gtk.Label()
@@ -891,12 +891,12 @@ class ProcessesDetails:
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
         # Label (Command Line)
-        self.process_details_commandline_label = Gtk.Label()
-        self.process_details_commandline_label.set_selectable(True)
-        self.process_details_commandline_label.set_label("--")
-        self.process_details_commandline_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_commandline_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_commandline_label, 2, 2, 1, 1)
+        self.commandline_label = Gtk.Label()
+        self.commandline_label.set_selectable(True)
+        self.commandline_label.set_label("--")
+        self.commandline_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.commandline_label.set_halign(Gtk.Align.START)
+        grid.attach(self.commandline_label, 2, 2, 1, 1)
 
         # Label (Opened Files)
         label = Gtk.Label()
@@ -911,12 +911,12 @@ class ProcessesDetails:
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
         # Label (Opened Files)
-        self.process_details_opened_files_label = Gtk.Label()
-        self.process_details_opened_files_label.set_selectable(True)
-        self.process_details_opened_files_label.set_label("--")
-        self.process_details_opened_files_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.process_details_opened_files_label.set_halign(Gtk.Align.START)
-        grid.attach(self.process_details_opened_files_label, 2, 3, 1, 1)
+        self.opened_files_label = Gtk.Label()
+        self.opened_files_label.set_selectable(True)
+        self.opened_files_label.set_label("--")
+        self.opened_files_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.opened_files_label.set_halign(Gtk.Align.START)
+        grid.attach(self.opened_files_label, 2, 3, 1, 1)
 
 
     def gui_signals(self):
@@ -1060,35 +1060,35 @@ class ProcessesDetails:
             self.update_window_value = 0
             self.process_details_process_end_label_func()
             return
-        selected_process_name = self.process_details_process_name_func(selected_process_pid, stat_output, cmdline_output)
-        selected_process_username = self.process_details_process_user_name_func(selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list)
-        selected_process_status = self.process_details_process_status_func(stat_output_split)
-        selected_process_nice = self.process_details_process_nice_func(stat_output_split)
-        selected_process_cpu_percent = self.process_details_process_cpu_usage_func(stat_output_split, global_cpu_time_all)
-        selected_process_memory_rss = self.process_details_process_memory_rss_func(stat_output_split)
-        selected_process_read_bytes, selected_process_write_bytes = self.process_details_process_disk_read_write_data_func(io_output_lines)
-        selected_process_read_speed, selected_process_write_speed = self.process_details_process_disk_read_write_speed_func(selected_process_read_bytes, selected_process_write_bytes)
-        selected_process_start_time = self.process_details_process_start_time_func(stat_output_split)
-        selected_process_ppid = self.process_details_process_ppid_func(stat_output_split)
-        selected_process_uid_real, selected_process_uid_effective, selected_process_uid_saved = self.process_details_process_real_effective_saved_uids_func(status_output_split)
-        selected_process_gid_real, selected_process_gid_effective, selected_process_gid_saved = self.process_details_process_real_effective_saved_gids_func(status_output_split)
-        selected_process_num_threads = self.process_details_process_number_of_threads_func(stat_output_split)
-        selected_process_threads = self.process_details_process_tids_func(task_ls_output)
-        selected_process_cpu_num = self.process_details_process_cpu_number_func(stat_output_split)
-        selected_process_cpu_times_user, selected_process_cpu_times_kernel, selected_process_cpu_times_children_user, selected_process_cpu_times_children_kernel, selected_process_cpu_times_io_wait = self.process_details_process_cpu_times_func(stat_output_split)
-        selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary = self.process_details_process_context_switches_func(status_output_split)
-        selected_process_memory_vms = self.process_details_process_memory_vms_func(stat_output_split)
-        selected_process_memory_shared = self.process_details_process_memory_shared_func(statm_output)
-        selected_process_memory_uss, selected_process_memory_swap = self.process_details_process_memory_uss_and_swap_func(smaps_output)
-        selected_process_read_count, selected_process_write_count = self.process_details_process_read_write_counts_func(io_output_lines)
-        selected_process_cmdline = self.process_details_process_cmdline_func(cmdline_output)
-        selected_process_exe, selected_process_cwd, selected_process_open_files = self.process_details_process_exe_cwd_open_files_func(selected_process_pid, fd_ls_output)
+        selected_process_name = self.process_name_func(selected_process_pid, stat_output, cmdline_output)
+        selected_process_username = self.process_user_name_func(selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list)
+        selected_process_status = self.process_status_func(stat_output_split)
+        selected_process_nice = self.process_nice_func(stat_output_split)
+        selected_process_cpu_percent = self.process_cpu_usage_func(stat_output_split, global_cpu_time_all)
+        selected_process_memory_rss = self.process_memory_rss_func(stat_output_split)
+        selected_process_read_bytes, selected_process_write_bytes = self.process_disk_read_write_data_func(io_output_lines)
+        selected_process_read_speed, selected_process_write_speed = self.process_disk_read_write_speed_func(selected_process_read_bytes, selected_process_write_bytes)
+        selected_process_start_time = self.process_start_time_func(stat_output_split)
+        selected_process_ppid = self.process_ppid_func(stat_output_split)
+        selected_process_uid_real, selected_process_uid_effective, selected_process_uid_saved = self.process_real_effective_saved_uids_func(status_output_split)
+        selected_process_gid_real, selected_process_gid_effective, selected_process_gid_saved = self.process_real_effective_saved_gids_func(status_output_split)
+        selected_process_num_threads = self.process_number_of_threads_func(stat_output_split)
+        selected_process_threads = self.process_tids_func(task_ls_output)
+        selected_process_cpu_num = self.process_cpu_number_func(stat_output_split)
+        selected_process_cpu_times_user, selected_process_cpu_times_kernel, selected_process_cpu_times_children_user, selected_process_cpu_times_children_kernel, selected_process_cpu_times_io_wait = self.process_cpu_times_func(stat_output_split)
+        selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary = self.process_context_switches_func(status_output_split)
+        selected_process_memory_vms = self.process_memory_vms_func(stat_output_split)
+        selected_process_memory_shared = self.process_memory_shared_func(statm_output)
+        selected_process_memory_uss, selected_process_memory_swap = self.process_memory_uss_and_swap_func(smaps_output)
+        selected_process_read_count, selected_process_write_count = self.process_read_write_counts_func(io_output_lines)
+        selected_process_cmdline = self.process_cmdline_func(cmdline_output)
+        selected_process_exe, selected_process_cwd, selected_process_open_files = self.process_exe_cwd_open_files_func(selected_process_pid, fd_ls_output)
 
         # Stop running functions in order to prevent errors.
         if self.update_window_value == 0:
             return
 
-        # Set window title and icon
+        # Set window title
         self.process_details_window.set_title(_tr("Process Details") + ": " + selected_process_name + " - (" + _tr("PID") + ": " + selected_process_pid + ")")
 
         # Update data lists for graphs.
@@ -1107,70 +1107,70 @@ class ProcessesDetails:
         self.processes_details_da_cpu_usage.queue_draw()
 
         # Show information on labels (Summary tab).
-        self.process_details_name_label.set_label(selected_process_name)
-        self.process_details_pid_label.set_label(f'{selected_process_pid}')
-        self.process_details_status_label.set_label(selected_process_status)
-        self.process_details_user_label.set_label(selected_process_username)
-        self.process_details_priority_label.set_label(f'{selected_process_nice}')
-        self.process_details_cpu_label.set_label(f'{selected_process_cpu_percent:.{processes_cpu_precision}f} %')
-        self.process_details_memory_rss_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.name_label.set_label(selected_process_name)
+        self.pid_label.set_label(f'{selected_process_pid}')
+        self.status_label.set_label(selected_process_status)
+        self.user_label.set_label(selected_process_username)
+        self.priority_label.set_label(f'{selected_process_nice}')
+        self.cpu_label.set_label(f'{selected_process_cpu_percent:.{processes_cpu_precision}f} %')
+        self.memory_rss_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
         if selected_process_read_bytes != "-":
-            self.process_details_read_speed_label.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.read_speed_label.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
         if selected_process_read_bytes == "-":
-            self.process_details_read_speed_label.set_label("-")
+            self.read_speed_label.set_label("-")
         if selected_process_write_bytes != "-":
-            self.process_details_write_speed_label.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.write_speed_label.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
         if selected_process_write_bytes == "-":
-            self.process_details_write_speed_label.set_label("-")
-        self.process_details_start_time_label.set_label(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
-        self.process_details_path_label.set_label(selected_process_exe)
-        self.process_details_ppid_label.set_label(f'{selected_process_ppid}')
-        self.process_details_uid_label.set_label(f'Real: {selected_process_uid_real}, Effective: {selected_process_uid_effective}, Saved: {selected_process_uid_saved}')
-        self.process_details_gid_label.set_label(f'Real: {selected_process_gid_real}, Effective: {selected_process_gid_effective}, Saved: {selected_process_gid_saved}')
+            self.write_speed_label.set_label("-")
+        self.start_time_label.set_label(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
+        self.path_label.set_label(selected_process_exe)
+        self.ppid_label.set_label(f'{selected_process_ppid}')
+        self.uid_label.set_label(f'Real: {selected_process_uid_real}, Effective: {selected_process_uid_effective}, Saved: {selected_process_uid_saved}')
+        self.gid_label.set_label(f'Real: {selected_process_gid_real}, Effective: {selected_process_gid_effective}, Saved: {selected_process_gid_saved}')
 
         # Show information on labels (CPU tab).
-        self.process_details_cpu_label2.set_label(f'{selected_process_cpu_percent:.{processes_cpu_precision}f} %')
-        self.process_details_threads_label.set_label(f'{selected_process_num_threads}')
-        self.process_details_tid_label.set_label(',\n'.join(selected_process_threads))
-        self.process_details_used_cpu_cores_label.set_label(f'{selected_process_cpu_num}')
-        self.process_details_cpu_times_label.set_label(f'User: {selected_process_cpu_times_user}, System: {selected_process_cpu_times_kernel}, Children User: {selected_process_cpu_times_children_user}, Children System: {selected_process_cpu_times_children_kernel}, IO Wait: {selected_process_cpu_times_io_wait}')
-        self.process_details_context_switches_label.set_label(f'Voluntary: {selected_process_num_ctx_switches_voluntary}, Involuntary: {selected_process_num_ctx_switches_nonvoluntary}')
+        self.cpu_label2.set_label(f'{selected_process_cpu_percent:.{processes_cpu_precision}f} %')
+        self.threads_label.set_label(f'{selected_process_num_threads}')
+        self.tid_label.set_label(',\n'.join(selected_process_threads))
+        self.used_cpu_cores_label.set_label(f'{selected_process_cpu_num}')
+        self.cpu_times_label.set_label(f'User: {selected_process_cpu_times_user}, System: {selected_process_cpu_times_kernel}, Children User: {selected_process_cpu_times_children_user}, Children System: {selected_process_cpu_times_children_kernel}, IO Wait: {selected_process_cpu_times_io_wait}')
+        self.context_switches_label.set_label(f'Voluntary: {selected_process_num_ctx_switches_voluntary}, Involuntary: {selected_process_num_ctx_switches_nonvoluntary}')
 
         # Show information on labels (Memory tab).
-        self.process_details_memory_rss_label2.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
-        self.process_details_memory_vms_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_vms, processes_memory_data_unit, processes_memory_data_precision)}')
-        self.process_details_memory_shared_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_shared, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_rss_label2.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_vms_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_vms, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_shared_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_shared, processes_memory_data_unit, processes_memory_data_precision)}')
         if selected_process_memory_uss != "-" and selected_process_memory_swap != "-":
-            self.process_details_memory_uss_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_uss, processes_memory_data_unit, processes_memory_data_precision)}')
-            self.process_details_swap_memory_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_swap, processes_memory_data_unit, processes_memory_data_precision)}')
+            self.memory_uss_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_uss, processes_memory_data_unit, processes_memory_data_precision)}')
+            self.swap_memory_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_swap, processes_memory_data_unit, processes_memory_data_precision)}')
         if selected_process_memory_uss == "-" and selected_process_memory_swap == "-":
-            self.process_details_memory_uss_label.set_label(selected_process_memory_uss)
-            self.process_details_swap_memory_label.set_label(selected_process_memory_swap)
+            self.memory_uss_label.set_label(selected_process_memory_uss)
+            self.swap_memory_label.set_label(selected_process_memory_swap)
 
         # Show information on labels (Disk tab).
         if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            self.process_details_read_speed_label2.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-            self.process_details_write_speed_label2.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-            self.process_details_read_data.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_read_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
-            self.process_details_write_data.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_write_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
-            self.process_details_read_count.set_label(f'{selected_process_read_count}')
-            self.process_details_write_count.set_label(f'{selected_process_write_count}')
+            self.read_speed_label2.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.write_speed_label2.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.read_data_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_read_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.write_data_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_write_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.read_count_label.set_label(f'{selected_process_read_count}')
+            self.write_count_label.set_label(f'{selected_process_write_count}')
         if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":
-            self.process_details_read_speed_label2.set_label("-")
-            self.process_details_write_speed_label2.set_label("-")
-            self.process_details_read_data.set_label("-")
-            self.process_details_write_data.set_label("-")
-            self.process_details_read_count.set_label("-")
-            self.process_details_write_count.set_label("-")
+            self.read_speed_label2.set_label("-")
+            self.write_speed_label2.set_label("-")
+            self.read_data_label.set_label("-")
+            self.write_data_label.set_label("-")
+            self.read_count_label.set_label("-")
+            self.write_count_label.set_label("-")
 
         # Show information on labels (Path tab).
-        self.process_details_path_label2.set_label(selected_process_exe)
-        self.process_details_cwd_label.set_label(selected_process_cwd)
-        self.process_details_commandline_label.set_label(' '.join(selected_process_cmdline))
+        self.path_label2.set_label(selected_process_exe)
+        self.cwd_label.set_label(selected_process_cwd)
+        self.commandline_label.set_label(' '.join(selected_process_cmdline))
         if selected_process_open_files != "-":
-            self.process_details_opened_files_label.set_label(',\n'.join(selected_process_open_files))
+            self.opened_files_label.set_label(',\n'.join(selected_process_open_files))
         if selected_process_open_files == "-":
-            self.process_details_opened_files_label.set_label("-")
+            self.opened_files_label.set_label("-")
 
 
     def process_details_run_func(self, *args):
@@ -1206,7 +1206,7 @@ class ProcessesDetails:
         """
 
         # Prevent adding more than one label (if there is already a label).
-        widget_in_first_row = self.grid2101w.get_child_at(0, 0)
+        widget_in_first_row = self.main_grid.get_child_at(0, 0)
         widget_name_in_first_row = widget_in_first_row.get_name()
         if widget_name_in_first_row == "GtkLabel":
             return
@@ -1217,9 +1217,9 @@ class ProcessesDetails:
         style_provider = Gtk.CssProvider()
         style_provider.load_from_data(css)
         label_process_end_warning.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        self.grid2101w.insert_row(0)
+        self.main_grid.insert_row(0)
         # Attach the label to the grid at (0, 0) position.
-        self.grid2101w.attach(label_process_end_warning, 0, 0, 1, 1)
+        self.main_grid.attach(label_process_end_warning, 0, 0, 1, 1)
         label_process_end_warning.set_visible(True)
 
 
@@ -1340,7 +1340,7 @@ class ProcessesDetails:
         return global_cpu_time_all
 
 
-    def process_details_process_name_func(self, selected_process_pid, stat_output, cmdline_output):
+    def process_name_func(self, selected_process_pid, stat_output, cmdline_output):
         """
         Get process name.
         """
@@ -1360,7 +1360,7 @@ class ProcessesDetails:
         return selected_process_name
 
 
-    def process_details_process_user_name_func(self, selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list):
+    def process_user_name_func(self, selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list):
         """
         Get process user name.
         """
@@ -1377,7 +1377,7 @@ class ProcessesDetails:
         return selected_process_username
 
 
-    def process_details_process_status_func(self, stat_output_split):
+    def process_status_func(self, stat_output_split):
         """
         Get process status.
         """
@@ -1387,7 +1387,7 @@ class ProcessesDetails:
         return selected_process_status
 
 
-    def process_details_process_nice_func(self, stat_output_split):
+    def process_nice_func(self, stat_output_split):
         """
         Get process nice.
         """
@@ -1397,7 +1397,7 @@ class ProcessesDetails:
         return selected_process_nice
 
 
-    def process_details_process_cpu_usage_func(self, stat_output_split, global_cpu_time_all):
+    def process_cpu_usage_func(self, stat_output_split, global_cpu_time_all):
         """
         Get process CPU usage.
         """
@@ -1419,7 +1419,7 @@ class ProcessesDetails:
         return selected_process_cpu_percent
 
 
-    def process_details_process_memory_rss_func(self, stat_output_split):
+    def process_memory_rss_func(self, stat_output_split):
         """
         Get process memory (RSS).
         """
@@ -1430,7 +1430,7 @@ class ProcessesDetails:
         return selected_process_memory_rss
 
 
-    def process_details_process_disk_read_write_data_func(self, io_output_lines):
+    def process_disk_read_write_data_func(self, io_output_lines):
         """
         Get process disk read data, disk write data.
         """
@@ -1445,7 +1445,7 @@ class ProcessesDetails:
         return selected_process_read_bytes, selected_process_write_bytes
 
 
-    def process_details_process_disk_read_write_speed_func(self, selected_process_read_bytes, selected_process_write_bytes):
+    def process_disk_read_write_speed_func(self, selected_process_read_bytes, selected_process_write_bytes):
         """
         Get process disk read speed, disk write speed.
         """
@@ -1472,7 +1472,7 @@ class ProcessesDetails:
         return selected_process_read_speed, selected_process_write_speed
 
 
-    def process_details_process_start_time_func(self, stat_output_split):
+    def process_start_time_func(self, stat_output_split):
         """
         Get process start time.
         """
@@ -1484,7 +1484,7 @@ class ProcessesDetails:
         return selected_process_start_time
 
 
-    def process_details_process_ppid_func(self, stat_output_split):
+    def process_ppid_func(self, stat_output_split):
         """
         Get process PPID.
         """
@@ -1494,7 +1494,7 @@ class ProcessesDetails:
         return selected_process_ppid
 
 
-    def process_details_process_real_effective_saved_uids_func(self, status_output_split):
+    def process_real_effective_saved_uids_func(self, status_output_split):
         """
         Get process real, effective and saved UIDs.
         """
@@ -1510,7 +1510,7 @@ class ProcessesDetails:
         return selected_process_uid_real, selected_process_uid_effective, selected_process_uid_saved
 
 
-    def process_details_process_real_effective_saved_gids_func(self, status_output_split):
+    def process_real_effective_saved_gids_func(self, status_output_split):
         """
         Get process real, effective and saved GIDs.
         """
@@ -1526,7 +1526,7 @@ class ProcessesDetails:
         return selected_process_gid_real, selected_process_gid_effective, selected_process_gid_saved
 
 
-    def process_details_process_number_of_threads_func(self, stat_output_split):
+    def process_number_of_threads_func(self, stat_output_split):
         """
         Get number of threads of the process.
         """
@@ -1536,7 +1536,7 @@ class ProcessesDetails:
         return selected_process_num_threads
 
 
-    def process_details_process_tids_func(self, task_ls_output):
+    def process_tids_func(self, task_ls_output):
         """
         Get threads (TIDs) of the process.
         """
@@ -1548,7 +1548,7 @@ class ProcessesDetails:
         return selected_process_threads
 
 
-    def process_details_process_cpu_number_func(self, stat_output_split):
+    def process_cpu_number_func(self, stat_output_split):
         """
         Get the last CPU core number which process executed on.
         """
@@ -1558,7 +1558,7 @@ class ProcessesDetails:
         return selected_process_cpu_num
 
 
-    def process_details_process_cpu_times_func(self, stat_output_split):
+    def process_cpu_times_func(self, stat_output_split):
         """
         Get CPU times of the process.
         """
@@ -1572,7 +1572,7 @@ class ProcessesDetails:
         return selected_process_cpu_times_user, selected_process_cpu_times_kernel, selected_process_cpu_times_children_user, selected_process_cpu_times_children_kernel, selected_process_cpu_times_io_wait
 
 
-    def process_details_process_context_switches_func(self, status_output_split):
+    def process_context_switches_func(self, status_output_split):
         """
         Get process context switches.
         """
@@ -1586,7 +1586,7 @@ class ProcessesDetails:
         return selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary
 
 
-    def process_details_process_memory_vms_func(self, stat_output_split):
+    def process_memory_vms_func(self, stat_output_split):
         """
         Get process memory (VMS).
         """
@@ -1596,7 +1596,7 @@ class ProcessesDetails:
         return selected_process_memory_vms
 
 
-    def process_details_process_memory_shared_func(self, statm_output):
+    def process_memory_shared_func(self, statm_output):
         """
         Get process memory (Shared).
         """
@@ -1606,7 +1606,7 @@ class ProcessesDetails:
         return selected_process_memory_shared
 
 
-    def process_details_process_memory_uss_and_swap_func(self, smaps_output):
+    def process_memory_uss_and_swap_func(self, smaps_output):
         """
         Get process memory (USS - Unique Set Size) and swap memory.
         """
@@ -1630,7 +1630,7 @@ class ProcessesDetails:
         return selected_process_memory_uss, selected_process_memory_swap
 
 
-    def process_details_process_read_write_counts_func(self, io_output_lines):
+    def process_read_write_counts_func(self, io_output_lines):
         """
         Get process read count, write count.
         """
@@ -1646,7 +1646,7 @@ class ProcessesDetails:
         return selected_process_read_count, selected_process_write_count
 
 
-    def process_details_process_cmdline_func(self, cmdline_output):
+    def process_cmdline_func(self, cmdline_output):
         """
         Get process cmdline.
         """
@@ -1659,7 +1659,7 @@ class ProcessesDetails:
         return selected_process_cmdline
 
 
-    def process_details_process_exe_cwd_open_files_func(self, selected_process_pid, fd_ls_output):
+    def process_exe_cwd_open_files_func(self, selected_process_pid, fd_ls_output):
         """
         Get process cwd and open files.
         """
