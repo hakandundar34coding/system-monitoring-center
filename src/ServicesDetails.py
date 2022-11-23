@@ -7,8 +7,8 @@ gi.require_version('Pango', '1.0')
 from gi.repository import Gtk, GLib, Pango
 
 import os
-import subprocess
 import time
+import subprocess
 from datetime import datetime
 
 from locale import gettext as _tr
@@ -23,7 +23,6 @@ class ServicesDetails:
 
     def __init__(self):
 
-        # Window GUI
         self.window_gui()
 
 
@@ -67,12 +66,9 @@ class ServicesDetails:
         self.scrolledwindow_dependencies_tab = Gtk.ScrolledWindow()
         notebook.append_page(self.scrolledwindow_dependencies_tab, tab_title_label)
 
-        # "Summary" tab GUI
         self.summary_tab_gui()
-        # "Dependencies" tab GUI
         self.dependencies_tab_gui()
 
-        # GUI signals
         self.gui_signals()
 
 
@@ -95,19 +91,17 @@ class ServicesDetails:
         grid.set_row_spacing(5)
         viewport.set_child(grid)
 
-        # Label "Name"
+        # Label (Name)
         label = Gtk.Label()
         label.set_label(_tr("Name"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 0, 1, 1)
-
-        # Label - Separator "Name"
+        # Label (Name)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 0, 1, 1)
-
-        # Label - Variable "Name"
+        # Label (Name)
         self.name_label = Gtk.Label()
         self.name_label.set_selectable(True)
         self.name_label.set_label("--")
@@ -115,19 +109,17 @@ class ServicesDetails:
         self.name_label.set_halign(Gtk.Align.START)
         grid.attach(self.name_label, 2, 0, 1, 1)
 
-        # Label "Description"
+        # Label (Description)
         label = Gtk.Label()
         label.set_label(_tr("Description"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Label - Separator "Description"
+        # Label (Description)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
-
-        # Label - Variable "Description"
+        # Label (Description)
         self.description_label = Gtk.Label()
         self.description_label.set_selectable(True)
         self.description_label.set_label("--")
@@ -135,19 +127,17 @@ class ServicesDetails:
         self.description_label.set_halign(Gtk.Align.START)
         grid.attach(self.description_label, 2, 1, 1, 1)
 
-        # Label "Unit File State - Preset"
+        # Label (Unit File State - Preset)
         label = Gtk.Label()
         label.set_label(_tr("Unit File State - Preset"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Label - Separator "Unit File State - Preset"
+        # Label (Unit File State - Preset)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
-
-        # Label - Variable "Name"
+        # Label (Unit File State - Preset)
         self.unit_file_state_label = Gtk.Label()
         self.unit_file_state_label.set_selectable(True)
         self.unit_file_state_label.set_label("--")
@@ -155,19 +145,17 @@ class ServicesDetails:
         self.unit_file_state_label.set_halign(Gtk.Align.START)
         grid.attach(self.unit_file_state_label, 2, 2, 1, 1)
 
-        # Label "Load State"
+        # Label (Load State)
         label = Gtk.Label()
         label.set_label(_tr("Load State"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 3, 1, 1)
-
-        # Label - Separator "Load State"
+        # Label (Load State)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
-
-        # Label - Variable "Load State"
+        # Label (Load State)
         self.load_state_label = Gtk.Label()
         self.load_state_label.set_selectable(True)
         self.load_state_label.set_label("--")
@@ -175,19 +163,17 @@ class ServicesDetails:
         self.load_state_label.set_halign(Gtk.Align.START)
         grid.attach(self.load_state_label, 2, 3, 1, 1)
 
-        # Label "Active State"
+        # Label (Active State)
         label = Gtk.Label()
         label.set_label(_tr("Active State"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 4, 1, 1)
-
-        # Label - Separator "Active State"
+        # Label (Active State)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
-
-        # Label - Variable "Active State"
+        # Label (Active State)
         self.active_state_label = Gtk.Label()
         self.active_state_label.set_selectable(True)
         self.active_state_label.set_label("--")
@@ -195,19 +181,17 @@ class ServicesDetails:
         self.active_state_label.set_halign(Gtk.Align.START)
         grid.attach(self.active_state_label, 2, 4, 1, 1)
 
-        # Label "Sub-State"
+        # Label (Sub-State)
         label = Gtk.Label()
         label.set_label(_tr("Sub-State"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 5, 1, 1)
-
-        # Label - Separator "Sub-State"
+        # Label (Sub-State)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
-
-        # Label - Variable "Sub-State"
+        # Label (Sub-State)
         self.sub_state_label = Gtk.Label()
         self.sub_state_label.set_selectable(True)
         self.sub_state_label.set_label("--")
@@ -215,19 +199,17 @@ class ServicesDetails:
         self.sub_state_label.set_halign(Gtk.Align.START)
         grid.attach(self.sub_state_label, 2, 5, 1, 1)
 
-        # Label "Path"
+        # Label (Path)
         label = Gtk.Label()
         label.set_label(_tr("Path"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 6, 1, 1)
-
-        # Label - Separator "Path"
+        # Label (Path)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 6, 1, 1)
-
-        # Label - Variable "Path"
+        # Label (Path)
         self.path_label = Gtk.Label()
         self.path_label.set_selectable(True)
         self.path_label.set_label("--")
@@ -235,21 +217,19 @@ class ServicesDetails:
         self.path_label.set_halign(Gtk.Align.START)
         grid.attach(self.path_label, 2, 6, 1, 1)
 
-        # Label "Documentation"
+        # Label (Documentation)
         label = Gtk.Label()
         label.set_label(_tr("Documentation"))
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 0, 7, 1, 1)
-
-        # Label - Separator "Documentation"
+        # Label (Documentation)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 7, 1, 1)
-
-        # Label - Variable "Documentation"
+        # Label (Documentation)
         self.documentation_label = Gtk.Label()
         self.documentation_label.set_selectable(True)
         self.documentation_label.set_label("--")
@@ -257,19 +237,17 @@ class ServicesDetails:
         self.documentation_label.set_halign(Gtk.Align.START)
         grid.attach(self.documentation_label, 2, 7, 1, 1)
 
-        # Label "Triggered By"
+        # Label (Triggered By)
         label = Gtk.Label()
         label.set_label(_tr("Triggered By"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 8, 1, 1)
-
-        # Label - Separator "Triggered By"
+        # Label (Triggered By)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 8, 1, 1)
-
-        # Label - Variable "Triggered By"
+        # Label (Triggered By)
         self.triggered_by_label = Gtk.Label()
         self.triggered_by_label.set_selectable(True)
         self.triggered_by_label.set_label("--")
@@ -277,19 +255,17 @@ class ServicesDetails:
         self.triggered_by_label.set_halign(Gtk.Align.START)
         grid.attach(self.triggered_by_label, 2, 8, 1, 1)
 
-        # Label "Main PID"
+        # Label (Main PID)
         label = Gtk.Label()
         label.set_label(_tr("Main PID"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 9, 1, 1)
-
-        # Label - Separator "Main PID"
+        # Label (Main PID)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 9, 1, 1)
-
-        # Label - Variable "Main PID"
+        # Label (Main PID)
         self.main_pid_label = Gtk.Label()
         self.main_pid_label.set_selectable(True)
         self.main_pid_label.set_label("--")
@@ -297,19 +273,17 @@ class ServicesDetails:
         self.main_pid_label.set_halign(Gtk.Align.START)
         grid.attach(self.main_pid_label, 2, 9, 1, 1)
 
-        # Label "Main Process Start Time"
+        # Label (Main Process Start Time)
         label = Gtk.Label()
         label.set_label(_tr("Main Process Start Time"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 10, 1, 1)
-
-        # Label - Separator "Main Process Start Time"
+        # Label (Main Process Start Time)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 10, 1, 1)
-
-        # Label - Variable "Main Process Start Time"
+        # Label (Main Process Start Time)
         self.main_process_start_time_label = Gtk.Label()
         self.main_process_start_time_label.set_selectable(True)
         self.main_process_start_time_label.set_label("--")
@@ -317,19 +291,17 @@ class ServicesDetails:
         self.main_process_start_time_label.set_halign(Gtk.Align.START)
         grid.attach(self.main_process_start_time_label, 2, 10, 1, 1)
 
-        # Label "Main Process End Time"
+        # Label (Main Process End Time)
         label = Gtk.Label()
         label.set_label(_tr("Main Process End Time"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 11, 1, 1)
-
-        # Label - Separator "Main Process End Time"
+        # Label (Main Process End Time)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 11, 1, 1)
-
-        # Label - Variable "Main Process End Time"
+        # Label (Main Process End Time)
         self.main_process_end_time_label = Gtk.Label()
         self.main_process_end_time_label.set_selectable(True)
         self.main_process_end_time_label.set_label("--")
@@ -337,19 +309,17 @@ class ServicesDetails:
         self.main_process_end_time_label.set_halign(Gtk.Align.START)
         grid.attach(self.main_process_end_time_label, 2, 11, 1, 1)
 
-        # Label "Type"
+        # Label (Type)
         label = Gtk.Label()
         label.set_label(_tr("Type"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 12, 1, 1)
-
-        # Label - Separator "Type"
+        # Label (Type)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 12, 1, 1)
-
-        # Label - Variable "Type"
+        # Label (Type)
         self.type_label = Gtk.Label()
         self.type_label.set_selectable(True)
         self.type_label.set_label("--")
@@ -357,19 +327,17 @@ class ServicesDetails:
         self.type_label.set_halign(Gtk.Align.START)
         grid.attach(self.type_label, 2, 12, 1, 1)
 
-        # Label "Memory (RSS)"
+        # Label (Memory (RSS))
         label = Gtk.Label()
         label.set_label(_tr("Memory (RSS)"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 13, 1, 1)
-
-        # Label - Separator "Memory (RSS)"
+        # Label (Memory (RSS))
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 13, 1, 1)
-
-        # Label - Variable "Memory (RSS)"
+        # Label (Memory (RSS))
         self.memory_rss_label = Gtk.Label()
         self.memory_rss_label.set_selectable(True)
         self.memory_rss_label.set_label("--")
@@ -397,21 +365,19 @@ class ServicesDetails:
         grid.set_row_spacing(5)
         viewport.set_child(grid)
 
-        # Label "Requires"
+        # Label (Requires)
         label = Gtk.Label()
         label.set_label(_tr("Requires"))
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 0, 0, 1, 1)
-
-        # Label - Separator "Requires"
+        # Label (Requires)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 0, 1, 1)
-
-        # Label - Variable "Requires"
+        # Label (Requires)
         self.requires_label = Gtk.Label()
         self.requires_label.set_selectable(True)
         self.requires_label.set_label("--")
@@ -419,21 +385,19 @@ class ServicesDetails:
         self.requires_label.set_halign(Gtk.Align.START)
         grid.attach(self.requires_label, 2, 0, 1, 1)
 
-        # Label "Conflicts"
+        # Label (Conflicts)
         label = Gtk.Label()
         label.set_label(_tr("Conflicts"))
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Label - Separator "Conflicts"
+        # Label (Conflicts)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
-
-        # Label - Variable "Conflicts"
+        # Label (Conflicts)
         self.conflicts_label = Gtk.Label()
         self.conflicts_label.set_selectable(True)
         self.conflicts_label.set_label("--")
@@ -441,21 +405,19 @@ class ServicesDetails:
         self.conflicts_label.set_halign(Gtk.Align.START)
         grid.attach(self.conflicts_label, 2, 1, 1, 1)
 
-        # Label "After"
+        # Label (After)
         label = Gtk.Label()
         label.set_label(_tr("After"))
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Label - Separator "After"
+        # Label (After)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
-
-        # Label - Variable "After"
+        # Label (After)
         self.after_label = Gtk.Label()
         self.after_label.set_selectable(True)
         self.after_label.set_label("--")
@@ -463,21 +425,19 @@ class ServicesDetails:
         self.after_label.set_halign(Gtk.Align.START)
         grid.attach(self.after_label, 2, 2, 1, 1)
 
-        # Label "Before"
+        # Label (Before)
         label = Gtk.Label()
         label.set_label(_tr("Before"))
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 0, 3, 1, 1)
-
-        # Label - Separator "Before"
+        # Label (Before)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
-
-        # Label - Variable "Before"
+        # Label (Before)
         self.before_label = Gtk.Label()
         self.before_label.set_selectable(True)
         self.before_label.set_label("--")
@@ -524,8 +484,10 @@ class ServicesDetails:
         self.services_details_run_func()
 
 
-    # ----------------------------------- Services - Services Details Function (the code of this module in order to avoid running them during module import and defines "Services" tab GUI objects and functions/signals) -----------------------------------
     def services_details_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         # Define data unit conversion function objects in for lower CPU usage.
         self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
@@ -549,8 +511,10 @@ class ServicesDetails:
         services_other_text_list = [_tr("Yes"), _tr("No")]
 
 
-    # ----------------------------------- Services - Services Details Foreground Function -----------------------------------
     def services_details_loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
 
         services_memory_data_precision = Config.services_memory_data_precision
         services_memory_data_unit = Config.services_memory_data_unit
@@ -686,9 +650,13 @@ class ServicesDetails:
         self.before_label.set_text(',\n'.join(selected_service_before))
 
 
-    # ----------------------------------- Services Details - Run Function -----------------------------------
-    # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and run the loop again without waiting ending the previous update interval.
     def services_details_run_func(self, *args):
+        """
+        Run initial and loop functions of service details window.
+        "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()".
+        "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and
+        run the loop again without waiting ending the previous update interval.
+        """
 
         if hasattr(ServicesDetails, "update_interval") == False:
             GLib.idle_add(self.services_details_initial_func)

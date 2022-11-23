@@ -23,7 +23,6 @@ class UsersDetails:
 
     def __init__(self):
 
-        # Window GUI
         self.window_gui()
 
 
@@ -41,10 +40,8 @@ class UsersDetails:
         self.user_details_window.set_modal(True)
         self.user_details_window.set_hide_on_close(True)
 
-        # "Summary" tab GUI
         self.main_tab_gui()
 
-        # GUI signals
         self.gui_signals()
 
 
@@ -81,19 +78,17 @@ class UsersDetails:
         grid.set_row_spacing(5)
         scrolledwindow.set_child(grid)
 
-        # Label "User"
+        # Label (User)
         label = Gtk.Label()
         label.set_label(_tr("User"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 0, 1, 1)
-
-        # Label - Separator "User"
+        # Label (User)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 0, 1, 1)
-
-        # Label - Variable "User"
+        # Label (User)
         self.user_label = Gtk.Label()
         self.user_label.set_selectable(True)
         self.user_label.set_label("--")
@@ -101,19 +96,17 @@ class UsersDetails:
         self.user_label.set_halign(Gtk.Align.START)
         grid.attach(self.user_label, 2, 0, 1, 1)
 
-        # Label "Full Name"
+        # Label (Full Name)
         label = Gtk.Label()
         label.set_label(_tr("Full Name"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Label - Separator "Full Name"
+        # Label (Full Name)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
-
-        # Label - Variable "Full Name"
+        # Label (Full Name)
         self.full_name_label = Gtk.Label()
         self.full_name_label.set_selectable(True)
         self.full_name_label.set_label("--")
@@ -121,19 +114,17 @@ class UsersDetails:
         self.full_name_label.set_halign(Gtk.Align.START)
         grid.attach(self.full_name_label, 2, 1, 1, 1)
 
-        # Label "Logged In"
+        # Label (Logged In)
         label = Gtk.Label()
         label.set_label(_tr("Logged In"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Label - Separator "Logged In"
+        # Label (Logged In)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
-
-        # Label - Variable "User"
+        # Label (Logged In)
         self.logged_in_label = Gtk.Label()
         self.logged_in_label.set_selectable(True)
         self.logged_in_label.set_label("--")
@@ -141,19 +132,17 @@ class UsersDetails:
         self.logged_in_label.set_halign(Gtk.Align.START)
         grid.attach(self.logged_in_label, 2, 2, 1, 1)
 
-        # Label "UID"
+        # Label (UID)
         label = Gtk.Label()
         label.set_label(_tr("UID"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 3, 1, 1)
-
-        # Label - Separator "UID"
+        # Label (UID)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
-
-        # Label - Variable "UID"
+        # Label (UID)
         self.uid_label = Gtk.Label()
         self.uid_label.set_selectable(True)
         self.uid_label.set_label("--")
@@ -161,19 +150,17 @@ class UsersDetails:
         self.uid_label.set_halign(Gtk.Align.START)
         grid.attach(self.uid_label, 2, 3, 1, 1)
 
-        # Label "GID"
+        # Label (GID)
         label = Gtk.Label()
         label.set_label(_tr("GID"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 4, 1, 1)
-
-        # Label - Separator "GID"
+        # Label (GID)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
-
-        # Label - Variable "GID"
+        # Label (GID)
         self.gid_label = Gtk.Label()
         self.gid_label.set_selectable(True)
         self.gid_label.set_label("--")
@@ -181,19 +168,17 @@ class UsersDetails:
         self.gid_label.set_halign(Gtk.Align.START)
         grid.attach(self.gid_label, 2, 4, 1, 1)
 
-        # Label "Processes"
+        # Label (Processes)
         label = Gtk.Label()
         label.set_label(_tr("Processes"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 5, 1, 1)
-
-        # Label - Separator "Processes"
+        # Label (Processes)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
-
-        # Label - Variable "Processes"
+        # Label (Processes)
         self.processes_label = Gtk.Label()
         self.processes_label.set_selectable(True)
         self.processes_label.set_label("--")
@@ -201,19 +186,17 @@ class UsersDetails:
         self.processes_label.set_halign(Gtk.Align.START)
         grid.attach(self.processes_label, 2, 5, 1, 1)
 
-        # Label "Home Directory"
+        # Label (Home Directory)
         label = Gtk.Label()
         label.set_label(_tr("Home Directory"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 6, 1, 1)
-
-        # Label - Separator "Home Directory"
+        # Label (Home Directory)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 6, 1, 1)
-
-        # Label - Variable "Home Directory"
+        # Label (Home Directory)
         self.home_directory_label = Gtk.Label()
         self.home_directory_label.set_selectable(True)
         self.home_directory_label.set_label("--")
@@ -221,19 +204,17 @@ class UsersDetails:
         self.home_directory_label.set_halign(Gtk.Align.START)
         grid.attach(self.home_directory_label, 2, 6, 1, 1)
 
-        # Label "Group"
+        # Label (Group)
         label = Gtk.Label()
         label.set_label(_tr("Group"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 7, 1, 1)
-
-        # Label - Separator "Group"
+        # Label (Group)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 7, 1, 1)
-
-        # Label - Variable "Group"
+        # Label (Group)
         self.group_label = Gtk.Label()
         self.group_label.set_selectable(True)
         self.group_label.set_label("--")
@@ -241,19 +222,17 @@ class UsersDetails:
         self.group_label.set_halign(Gtk.Align.START)
         grid.attach(self.group_label, 2, 7, 1, 1)
 
-        # Label "Terminal"
+        # Label (Terminal)
         label = Gtk.Label()
         label.set_label(_tr("Terminal"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 8, 1, 1)
-
-        # Label - Separator "Terminal"
+        # Label (Terminal)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 8, 1, 1)
-
-        # Label - Variable "Terminal"
+        # Label (Terminal)
         self.terminal_label = Gtk.Label()
         self.terminal_label.set_selectable(True)
         self.terminal_label.set_label("--")
@@ -261,19 +240,17 @@ class UsersDetails:
         self.terminal_label.set_halign(Gtk.Align.START)
         grid.attach(self.terminal_label, 2, 8, 1, 1)
 
-        # Label "Start Time"
+        # Label (Start Time)
         label = Gtk.Label()
         label.set_label(_tr("Start Time"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 9, 1, 1)
-
-        # Label - Separator "Start Time"
+        # Label (Start Time)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 9, 1, 1)
-
-        # Label - Variable "Start Time"
+        # Label (Start Time)
         self.start_time_label = Gtk.Label()
         self.start_time_label.set_selectable(True)
         self.start_time_label.set_label("--")
@@ -281,19 +258,17 @@ class UsersDetails:
         self.start_time_label.set_halign(Gtk.Align.START)
         grid.attach(self.start_time_label, 2, 9, 1, 1)
 
-        # Label "CPU"
+        # Label (CPU)
         label = Gtk.Label()
         label.set_label(_tr("CPU"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 10, 1, 1)
-
-        # Label - Separator "CPU"
+        # Label (CPU)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 10, 1, 1)
-
-        # Label - Variable "CPU"
+        # Label (CPU)
         self.cpu_label = Gtk.Label()
         self.cpu_label.set_selectable(True)
         self.cpu_label.set_label("--")
@@ -340,8 +315,10 @@ class UsersDetails:
         self.users_details_run_func()
 
 
-    # ----------------------------------- Users - Users Details Function -----------------------------------
     def users_details_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         # Define data unit conversion function objects in for lower CPU usage.
         self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
@@ -357,8 +334,10 @@ class UsersDetails:
         self.number_of_clock_ticks = Users.number_of_clock_ticks
 
 
-    # ----------------------------------- Users - Users Details Foreground Function -----------------------------------
     def users_details_loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
 
         # Get right clicked user UID and username
         selected_user_uid = str(Users.selected_user_uid)
@@ -367,7 +346,7 @@ class UsersDetails:
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         users_cpu_precision = Config.users_cpu_precision
 
-
+        # Set window title
         self.user_details_window.set_title(_tr("User") + ": " + selected_username)
 
         # Define empty lists for the current loop
@@ -486,13 +465,10 @@ class UsersDetails:
                     selected_user_process_start_time = time.time() - max(curent_user_process_start_time_list)
 
                 # Get user processes CPU usage percentages
-                if Config.environment_type == "flatpak":
-                    selected_user_cpu_percent = 0
-                else:
-                    selected_user_cpu_percent = 0
-                    for pid in pid_list:
-                        if logged_in_users_list[pid_list.index(pid)] == username:
-                            selected_user_cpu_percent = selected_user_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
+                selected_user_cpu_percent = 0
+                for pid in pid_list:
+                    if logged_in_users_list[pid_list.index(pid)] == username:
+                        selected_user_cpu_percent = selected_user_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
 
         # For using values in the next loop
         self.pid_list_prev = pid_list
@@ -523,9 +499,13 @@ class UsersDetails:
         self.cpu_label.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f}')
 
 
-    # ----------------------------------- Users Details - Run Function -----------------------------------
-    # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and run the loop again without waiting ending the previous update interval.
     def users_details_run_func(self, *args):
+        """
+        Run initial and loop functions of user details window.
+        "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()".
+        "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and
+        run the loop again without waiting ending the previous update interval.
+        """
 
         if hasattr(UsersDetails, "update_interval") == False:
             GLib.idle_add(self.users_details_initial_func)

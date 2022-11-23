@@ -2,10 +2,9 @@
 
 import gi
 gi.require_version('Gtk', '4.0')
-gi.require_version('Gdk', '4.0')
 gi.require_version('GLib', '2.0')
 gi.require_version('Pango', '1.0')
-from gi.repository import Gtk, Gdk, GLib, Pango
+from gi.repository import Gtk, GLib, Pango
 
 import os
 import time
@@ -24,7 +23,6 @@ class ProcessesDetails:
 
     def __init__(self, selected_process_pid):
 
-        # Window GUI
         self.window_gui()
 
         # Get selected_process_pid for using it for the current process object instance.
@@ -86,18 +84,12 @@ class ProcessesDetails:
         self.scrolledwindow_file_tab = Gtk.ScrolledWindow()
         notebook.append_page(self.scrolledwindow_file_tab, tab_title_label)
 
-        # "Summary" tab GUI
         self.summary_tab_gui()
-        # "CPU" tab GUI
         self.cpu_tab_gui()
-        # "Memory" tab GUI
         self.memory_tab_gui()
-        # "Disk" tab GUI
         self.disk_tab_gui()
-        # "File" tab GUI
         self.file_tab_gui()
 
-        # GUI signals
         self.gui_signals()
 
 
@@ -120,19 +112,17 @@ class ProcessesDetails:
         grid.set_row_spacing(5)
         viewport.set_child(grid)
 
-        # Label "Name"
+        # Label (Name)
         label = Gtk.Label()
         label.set_label(_tr("Name"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 0, 1, 1)
-
-        # Label - Separator "Name"
+        # Label (Name)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 0, 1, 1)
-
-        # Label - Variable "Name"
+        # Label (Name)
         self.process_details_name_label = Gtk.Label()
         self.process_details_name_label.set_selectable(True)
         self.process_details_name_label.set_label("--")
@@ -140,19 +130,17 @@ class ProcessesDetails:
         self.process_details_name_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_name_label, 2, 0, 1, 1)
 
-        # Label "PID"
+        # Label (PID)
         label = Gtk.Label()
         label.set_label(_tr("PID"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Label - Separator "PID"
+        # Label (PID)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
-
-        # Label - Variable "PID"
+        # Label (PID)
         self.process_details_pid_label = Gtk.Label()
         self.process_details_pid_label.set_selectable(True)
         self.process_details_pid_label.set_label("--")
@@ -160,19 +148,17 @@ class ProcessesDetails:
         self.process_details_pid_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_pid_label, 2, 1, 1, 1)
 
-        # Label "Status"
+        # Label (Status)
         label = Gtk.Label()
         label.set_label(_tr("Status"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Label - Separator "Status"
+        # Label (Status)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
-
-        # Label - Variable "Status"
+        # Label (Status)
         self.process_details_status_label = Gtk.Label()
         self.process_details_status_label.set_selectable(True)
         self.process_details_status_label.set_label("--")
@@ -180,19 +166,17 @@ class ProcessesDetails:
         self.process_details_status_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_status_label, 2, 2, 1, 1)
 
-        # Label "User"
+        # Label (User)
         label = Gtk.Label()
         label.set_label(_tr("User"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 3, 1, 1)
-
-        # Label - Separator "User"
+        # Label (User)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
-
-        # Label - Variable "User"
+        # Label (User)
         self.process_details_user_label = Gtk.Label()
         self.process_details_user_label.set_selectable(True)
         self.process_details_user_label.set_label("--")
@@ -200,19 +184,17 @@ class ProcessesDetails:
         self.process_details_user_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_user_label, 2, 3, 1, 1)
 
-        # Label "Priority"
+        # Label (Priority)
         label = Gtk.Label()
         label.set_label(_tr("Priority"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 4, 1, 1)
-
-        # Label - Separator "Priority"
+        # Label (Priority)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
-
-        # Label - Variable "Priority"
+        # Label (Priority)
         self.process_details_priority_label = Gtk.Label()
         self.process_details_priority_label.set_selectable(True)
         self.process_details_priority_label.set_label("--")
@@ -220,19 +202,17 @@ class ProcessesDetails:
         self.process_details_priority_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_priority_label, 2, 4, 1, 1)
 
-        # Label "CPU"
+        # Label (CPU)
         label = Gtk.Label()
         label.set_label(_tr("CPU"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 5, 1, 1)
-
-        # Label - Separator "CPU"
+        # Label (CPU)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
-
-        # Label - Variable "CPU"
+        # Label (CPU)
         self.process_details_cpu_label = Gtk.Label()
         self.process_details_cpu_label.set_selectable(True)
         self.process_details_cpu_label.set_label("--")
@@ -240,19 +220,17 @@ class ProcessesDetails:
         self.process_details_cpu_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_cpu_label, 2, 5, 1, 1)
 
-        # Label "Memory (RSS)"
+        # Label (Memory (RSS))
         label = Gtk.Label()
         label.set_label(_tr("Memory (RSS)"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 6, 1, 1)
-
-        # Label - Separator "Memory (RSS)"
+        # Label (Memory (RSS))
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 6, 1, 1)
-
-        # Label - Variable "Memory (RSS)"
+        # Label (Memory (RSS))
         self.process_details_memory_rss_label = Gtk.Label()
         self.process_details_memory_rss_label.set_selectable(True)
         self.process_details_memory_rss_label.set_label("--")
@@ -260,19 +238,17 @@ class ProcessesDetails:
         self.process_details_memory_rss_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_memory_rss_label, 2, 6, 1, 1)
 
-        # Label "Read Speed"
+        # Label (Read Speed)
         label = Gtk.Label()
         label.set_label(_tr("Read Speed"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 7, 1, 1)
-
-        # Label - Separator "Read Speed"
+        # Label (Read Speed)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 7, 1, 1)
-
-        # Label - Variable "Read Speed"
+        # Label (Read Speed)
         self.process_details_read_speed_label = Gtk.Label()
         self.process_details_read_speed_label.set_selectable(True)
         self.process_details_read_speed_label.set_label("--")
@@ -280,19 +256,17 @@ class ProcessesDetails:
         self.process_details_read_speed_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_read_speed_label, 2, 7, 1, 1)
 
-        # Label "Write Speed"
+        # Label (Write Speed)
         label = Gtk.Label()
         label.set_label(_tr("Write Speed"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 8, 1, 1)
-
-        # Label - Separator "Write Speed"
+        # Label (Write Speed)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 8, 1, 1)
-
-        # Label - Variable "Write Speed"
+        # Label (Write Speed)
         self.process_details_write_speed_label = Gtk.Label()
         self.process_details_write_speed_label.set_selectable(True)
         self.process_details_write_speed_label.set_label("--")
@@ -300,19 +274,17 @@ class ProcessesDetails:
         self.process_details_write_speed_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_write_speed_label, 2, 8, 1, 1)
 
-        # Label "Start Time"
+        # Label (Start Time)
         label = Gtk.Label()
         label.set_label(_tr("Start Time"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 9, 1, 1)
-
-        # Label - Separator "Start Time"
+        # Label (Start Time)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 9, 1, 1)
-
-        # Label - Variable "Start Time"
+        # Label (Start Time)
         self.process_details_start_time_label = Gtk.Label()
         self.process_details_start_time_label.set_selectable(True)
         self.process_details_start_time_label.set_label("--")
@@ -320,19 +292,17 @@ class ProcessesDetails:
         self.process_details_start_time_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_start_time_label, 2, 9, 1, 1)
 
-        # Label "Path"
+        # Label (Path)
         label = Gtk.Label()
         label.set_label(_tr("Path"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 10, 1, 1)
-
-        # Label - Separator "Path"
+        # Label (Path)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 10, 1, 1)
-
-        # Label - Variable "Path"
+        # Label (Path)
         self.process_details_path_label = Gtk.Label()
         self.process_details_path_label.set_selectable(True)
         self.process_details_path_label.set_label("--")
@@ -340,19 +310,17 @@ class ProcessesDetails:
         self.process_details_path_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_path_label, 2, 10, 1, 1)
 
-        # Label "PPID"
+        # Label (PPID)
         label = Gtk.Label()
         label.set_label(_tr("PPID"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 11, 1, 1)
-
-        # Label - Separator "PPID"
+        # Label (PPID)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 11, 1, 1)
-
-        # Label - Variable "PPID"
+        # Label (PPID)
         self.process_details_ppid_label = Gtk.Label()
         self.process_details_ppid_label.set_selectable(True)
         self.process_details_ppid_label.set_label("--")
@@ -360,19 +328,17 @@ class ProcessesDetails:
         self.process_details_ppid_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_ppid_label, 2, 11, 1, 1)
 
-        # Label "UID"
+        # Label (UID)
         label = Gtk.Label()
         label.set_label(_tr("UID"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 12, 1, 1)
-
-        # Label - Separator "UID"
+        # Label (UID)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 12, 1, 1)
-
-        # Label - Variable "UID"
+        # Label (UID)
         self.process_details_uid_label = Gtk.Label()
         self.process_details_uid_label.set_selectable(True)
         self.process_details_uid_label.set_label("--")
@@ -380,19 +346,17 @@ class ProcessesDetails:
         self.process_details_uid_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_uid_label, 2, 12, 1, 1)
 
-        # Label "GID"
+        # Label (GID)
         label = Gtk.Label()
         label.set_label(_tr("GID"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 13, 1, 1)
-
-        # Label - Separator "GID"
+        # Label (GID)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 13, 1, 1)
-
-        # Label - Variable "GID"
+        # Label (GID)
         self.process_details_gid_label = Gtk.Label()
         self.process_details_gid_label.set_selectable(True)
         self.process_details_gid_label.set_label("--")
@@ -425,7 +389,7 @@ class ProcessesDetails:
         drawingarea_grid.set_hexpand(True)
         grid.attach(drawingarea_grid, 0, 0, 3, 1)
 
-        # Label "CPU Usage (Average)"
+        # Label (CPU Usage (Average))
         label = Gtk.Label()
         label.set_label("CPU Usage (Average)")
         label.set_halign(Gtk.Align.START)
@@ -437,32 +401,30 @@ class ProcessesDetails:
         self.drawingarea_cpu_limit_label.set_label("100%")
         drawingarea_grid.attach(self.drawingarea_cpu_limit_label, 1, 0, 1, 1)
 
-        # Drawingarea
+        # DrawingArea
         self.processes_details_da_cpu_usage = Gtk.DrawingArea()
         self.processes_details_da_cpu_usage.set_hexpand(True)
         #self.processes_details_da_cpu_usage.set_vexpand(True)
         self.processes_details_da_cpu_usage.set_size_request(-1, 160)
         drawingarea_grid.attach(self.processes_details_da_cpu_usage, 0, 1, 2, 1)
 
-        # Label "0"
+        # Label (0)
         label = Gtk.Label()
         label.set_label("0")
         label.set_halign(Gtk.Align.END)
         drawingarea_grid.attach(label, 0, 2, 2, 1)
 
-        # Label "CPU"
+        # Label (CPU)
         label = Gtk.Label()
         label.set_label(_tr("CPU"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Label - Separator "CPU"
+        # Label (CPU)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
-
-        # Label - Variable "CPU"
+        # Label (CPU)
         self.process_details_cpu_label2 = Gtk.Label()
         self.process_details_cpu_label2.set_selectable(True)
         self.process_details_cpu_label2.set_label("--")
@@ -470,19 +432,17 @@ class ProcessesDetails:
         self.process_details_cpu_label2.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_cpu_label2, 2, 1, 1, 1)
 
-        # Label "Threads"
+        # Label (Threads)
         label = Gtk.Label()
         label.set_label(_tr("Threads"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Label - Separator "Threads"
+        # Label (Threads)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
-
-        # Label - Variable "Threads"
+        # Label (Threads)
         self.process_details_threads_label = Gtk.Label()
         self.process_details_threads_label.set_selectable(True)
         self.process_details_threads_label.set_label("--")
@@ -490,21 +450,19 @@ class ProcessesDetails:
         self.process_details_threads_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_threads_label, 2, 2, 1, 1)
 
-        # Label "Threads (TID)"
+        # Label (Threads (TID))
         label = Gtk.Label()
         label.set_label(_tr("Threads (TID)"))
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 0, 3, 1, 1)
-
-        # Label - Separator "Threads (TID)"
+        # Label (Threads (TID))
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
-
-        # Label - Variable "Threads (TID)"
+        # Label (Threads (TID))
         self.process_details_tid_label = Gtk.Label()
         self.process_details_tid_label.set_selectable(True)
         self.process_details_tid_label.set_label("--")
@@ -512,19 +470,17 @@ class ProcessesDetails:
         self.process_details_tid_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_tid_label, 2, 3, 1, 1)
 
-        # Label "Used CPU Core(s)"
+        # Label (Used CPU Core(s))
         label = Gtk.Label()
         label.set_label(_tr("Used CPU Core(s)"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 4, 1, 1)
-
-        # Label - Separator "Used CPU Core(s)"
+        # Label (Used CPU Core(s))
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
-
-        # Label - Variable "Used CPU Core(s)"
+        # Label (Used CPU Core(s))
         self.process_details_used_cpu_cores_label = Gtk.Label()
         self.process_details_used_cpu_cores_label.set_selectable(True)
         self.process_details_used_cpu_cores_label.set_label("--")
@@ -532,19 +488,17 @@ class ProcessesDetails:
         self.process_details_used_cpu_cores_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_used_cpu_cores_label, 2, 4, 1, 1)
 
-        # Label "CPU Times"
+        # Label (CPU Times)
         label = Gtk.Label()
         label.set_label(_tr("CPU Times"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 5, 1, 1)
-
-        # Label - Separator "CPU Times"
+        # Label (CPU Times)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
-
-        # Label - Variable "CPU Times"
+        # Label (CPU Times)
         self.process_details_cpu_times_label = Gtk.Label()
         self.process_details_cpu_times_label.set_selectable(True)
         self.process_details_cpu_times_label.set_label("--")
@@ -552,19 +506,17 @@ class ProcessesDetails:
         self.process_details_cpu_times_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_cpu_times_label, 2, 5, 1, 1)
 
-        # Label "Context Switches"
+        # Label (Context Switches)
         label = Gtk.Label()
         label.set_label(_tr("Context Switches"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 6, 1, 1)
-
-        # Label - Separator "Context Switches"
+        # Label (Context Switches)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 6, 1, 1)
-
-        # Label - Variable "Context Switches"
+        # Label (Context Switches)
         self.process_details_context_switches_label = Gtk.Label()
         self.process_details_context_switches_label.set_selectable(True)
         self.process_details_context_switches_label.set_label("--")
@@ -597,7 +549,7 @@ class ProcessesDetails:
         drawingarea_grid.set_hexpand(True)
         grid.attach(drawingarea_grid, 0, 0, 3, 1)
 
-        # Label "CPU Usage (Average)"
+        # Label (CPU Usage (Average))
         label = Gtk.Label()
         label.set_label("CPU Usage (Average)")
         label.set_halign(Gtk.Align.START)
@@ -609,32 +561,30 @@ class ProcessesDetails:
         self.drawingarea_memory_limit_label.set_label("100%")
         drawingarea_grid.attach(self.drawingarea_memory_limit_label, 1, 0, 1, 1)
 
-        # Drawingarea
+        # DrawingArea
         self.processes_details_da_memory_usage = Gtk.DrawingArea()
         self.processes_details_da_memory_usage.set_hexpand(True)
         #self.processes_details_da_memory_usage.set_vexpand(True)
         self.processes_details_da_memory_usage.set_size_request(-1, 160)
         drawingarea_grid.attach(self.processes_details_da_memory_usage, 0, 1, 2, 1)
 
-        # Label "0"
+        # Label (0)
         label = Gtk.Label()
         label.set_label("0")
         label.set_halign(Gtk.Align.END)
         drawingarea_grid.attach(label, 0, 2, 2, 1)
 
-        # Label "Memory (RSS)"
+        # Label (Memory (RSS))
         label = Gtk.Label()
         label.set_label(_tr("Memory (RSS)"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Label - Separator "Memory (RSS)"
+        # Label (Memory (RSS))
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
-
-        # Label - Variable "Memory (RSS)"
+        # Label (Memory (RSS))
         self.process_details_memory_rss_label2 = Gtk.Label()
         self.process_details_memory_rss_label2.set_selectable(True)
         self.process_details_memory_rss_label2.set_label("--")
@@ -642,19 +592,17 @@ class ProcessesDetails:
         self.process_details_memory_rss_label2.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_memory_rss_label2, 2, 1, 1, 1)
 
-        # Label "Memory (VMS)"
+        # Label (Memory (VMS))
         label = Gtk.Label()
         label.set_label(_tr("Memory (VMS)"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Label - Separator "Memory (VMS)"
+        # Label (Memory (VMS))
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
-
-        # Label - Variable "Memory (VMS)"
+        # Label (Memory (VMS))
         self.process_details_memory_vms_label = Gtk.Label()
         self.process_details_memory_vms_label.set_selectable(True)
         self.process_details_memory_vms_label.set_label("--")
@@ -662,19 +610,17 @@ class ProcessesDetails:
         self.process_details_memory_vms_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_memory_vms_label, 2, 2, 1, 1)
 
-        # Label "Memory (Shared)"
+        # Label (Memory (Shared))
         label = Gtk.Label()
         label.set_label(_tr("Memory (Shared)"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 3, 1, 1)
-
-        # Label - Separator "Memory (Shared)"
+        # Label (Memory (Shared))
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
-
-        # Label - Variable "Memory (Shared)"
+        # Label (Memory (Shared))
         self.process_details_memory_shared_label = Gtk.Label()
         self.process_details_memory_shared_label.set_selectable(True)
         self.process_details_memory_shared_label.set_label("--")
@@ -682,19 +628,17 @@ class ProcessesDetails:
         self.process_details_memory_shared_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_memory_shared_label, 2, 3, 1, 1)
 
-        # Label "Memory (USS)"
+        # Label (Memory (USS))
         label = Gtk.Label()
         label.set_label(_tr("Memory (USS)"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 4, 1, 1)
-
-        # Label - Separator "Memory (USS)"
+        # Label (Memory (USS))
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
-
-        # Label - Variable "Memory (USS)"
+        # Label (Memory (USS))
         self.process_details_memory_uss_label = Gtk.Label()
         self.process_details_memory_uss_label.set_selectable(True)
         self.process_details_memory_uss_label.set_label("--")
@@ -702,19 +646,17 @@ class ProcessesDetails:
         self.process_details_memory_uss_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_memory_uss_label, 2, 4, 1, 1)
 
-        # Label - Separator "Swap Memory"
+        # Label (Swap Memory)
         label = Gtk.Label()
         label.set_label(_tr("Swap Memory"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 5, 1, 1)
-
-        # Label - Separator "Swap Memory"
+        # Label (Swap Memory)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
-
-        # Label - Variable "Swap Memory"
+        # Label (Swap Memory)
         self.process_details_swap_memory_label = Gtk.Label()
         self.process_details_swap_memory_label.set_selectable(True)
         self.process_details_swap_memory_label.set_label("--")
@@ -747,7 +689,7 @@ class ProcessesDetails:
         drawingarea_grid.set_hexpand(True)
         grid.attach(drawingarea_grid, 0, 0, 3, 1)
 
-        # Label "Read Speed (-) & Write Speed (--)"
+        # Label (Read Speed (-) & Write Speed (--))
         label = Gtk.Label()
         label.set_label(_tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
         label.set_halign(Gtk.Align.START)
@@ -759,32 +701,30 @@ class ProcessesDetails:
         self.drawingarea_disk_limit_label.set_label("--")
         drawingarea_grid.attach(self.drawingarea_disk_limit_label, 1, 0, 1, 1)
 
-        # Drawingarea
+        # DrawingArea
         self.processes_details_da_disk_speed = Gtk.DrawingArea()
         self.processes_details_da_disk_speed.set_hexpand(True)
         #self.processes_details_da_disk_speed.set_vexpand(True)
         self.processes_details_da_disk_speed.set_size_request(-1, 160)
         drawingarea_grid.attach(self.processes_details_da_disk_speed, 0, 1, 2, 1)
 
-        # Label "0"
+        # Label (0)
         label = Gtk.Label()
         label.set_label("0")
         label.set_halign(Gtk.Align.END)
         drawingarea_grid.attach(label, 0, 2, 2, 1)
 
-        # Label "Read Speed"
+        # Label (Read Speed)
         label = Gtk.Label()
         label.set_label(_tr("Read Speed"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Label - Separator "Read Speed"
+        # Label (Read Speed)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
-
-        # Label - Variable "Read Speed"
+        # Label (Read Speed)
         self.process_details_read_speed_label2 = Gtk.Label()
         self.process_details_read_speed_label2.set_selectable(True)
         self.process_details_read_speed_label2.set_label("--")
@@ -792,19 +732,17 @@ class ProcessesDetails:
         self.process_details_read_speed_label2.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_read_speed_label2, 2, 1, 1, 1)
 
-        # Label "Write Speed"
+        # Label (Write Speed)
         label = Gtk.Label()
         label.set_label(_tr("Write Speed"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Label - Separator "Write Speed"
+        # Label (Write Speed)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
-
-        # Label - Variable "Write Speed"
+        # Label (Write Speed)
         self.process_details_write_speed_label2 = Gtk.Label()
         self.process_details_write_speed_label2.set_selectable(True)
         self.process_details_write_speed_label2.set_label("--")
@@ -812,19 +750,17 @@ class ProcessesDetails:
         self.process_details_write_speed_label2.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_write_speed_label2, 2, 2, 1, 1)
 
-        # Label "Read Data"
+        # Label (Read Data)
         label = Gtk.Label()
         label.set_label(_tr("Read Data"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 3, 1, 1)
-
-        # Label - Separator "Read Data"
+        # Label (Read Data)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
-
-        # Label - Variable "Read Data"
+        # Label (Read Data)
         self.process_details_read_data = Gtk.Label()
         self.process_details_read_data.set_selectable(True)
         self.process_details_read_data.set_label("--")
@@ -832,19 +768,17 @@ class ProcessesDetails:
         self.process_details_read_data.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_read_data, 2, 3, 1, 1)
 
-        # Label "Write Data"
+        # Label (Write Data)
         label = Gtk.Label()
         label.set_label(_tr("Write Data"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 4, 1, 1)
-
-        # Label - Separator "Write Data"
+        # Label (Write Data)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 4, 1, 1)
-
-        # Label - Variable "Write Data"
+        # Label (Write Data)
         self.process_details_write_data = Gtk.Label()
         self.process_details_write_data.set_selectable(True)
         self.process_details_write_data.set_label("--")
@@ -852,19 +786,17 @@ class ProcessesDetails:
         self.process_details_write_data.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_write_data, 2, 4, 1, 1)
 
-        # Label "Read Count"
+        # Label (Read Count)
         label = Gtk.Label()
         label.set_label(_tr("Read Count"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 5, 1, 1)
-
-        # Label - Separator "Read Count"
+        # Label (Read Count)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 5, 1, 1)
-
-        # Label - Variable "Read Count"
+        # Label (Read Count)
         self.process_details_read_count = Gtk.Label()
         self.process_details_read_count.set_selectable(True)
         self.process_details_read_count.set_label("--")
@@ -872,19 +804,17 @@ class ProcessesDetails:
         self.process_details_read_count.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_read_count, 2, 5, 1, 1)
 
-        # Label "Write Count"
+        # Label (Write Count)
         label = Gtk.Label()
         label.set_label(_tr("Write Count"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 6, 1, 1)
-
-        # Label - Separator "Write Count"
+        # Label (Write Count)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 6, 1, 1)
-
-        # Label - Variable "Write Count"
+        # Label (Write Count)
         self.process_details_write_count = Gtk.Label()
         self.process_details_write_count.set_selectable(True)
         self.process_details_write_count.set_label("--")
@@ -912,19 +842,17 @@ class ProcessesDetails:
         grid.set_row_spacing(5)
         viewport.set_child(grid)
 
-        # Label "Path"
+        # Label (Path)
         label = Gtk.Label()
         label.set_label(_tr("Path"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 0, 1, 1)
-
-        # Label - Separator "Path"
+        # Label (Path)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 0, 1, 1)
-
-        # Label - Variable "Path"
+        # Label (Path)
         self.process_details_path_label2 = Gtk.Label()
         self.process_details_path_label2.set_selectable(True)
         self.process_details_path_label2.set_label("--")
@@ -932,19 +860,17 @@ class ProcessesDetails:
         self.process_details_path_label2.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_path_label2, 2, 0, 1, 1)
 
-        # Label "Current Working Directory"
+        # Label (Current Working Directory)
         label = Gtk.Label()
         label.set_label(_tr("Current Working Directory"))
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 0, 1, 1, 1)
-
-        # Label - Separator "Current Working Directory"
+        # Label (Current Working Directory)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         grid.attach(label, 1, 1, 1, 1)
-
-        # Label - Variable "Current Working Directory"
+        # Label (Current Working Directory)
         self.process_details_cwd_label = Gtk.Label()
         self.process_details_cwd_label.set_selectable(True)
         self.process_details_cwd_label.set_label("--")
@@ -952,21 +878,19 @@ class ProcessesDetails:
         self.process_details_cwd_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_cwd_label, 2, 1, 1, 1)
 
-        # Label "Command Line"
+        # Label (Command Line)
         label = Gtk.Label()
         label.set_label(_tr("Command Line"))
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 0, 2, 1, 1)
-
-        # Label - Separator "Command Line"
+        # Label (Command Line)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 2, 1, 1)
-
-        # Label - Variable "Command Line"
+        # Label (Command Line)
         self.process_details_commandline_label = Gtk.Label()
         self.process_details_commandline_label.set_selectable(True)
         self.process_details_commandline_label.set_label("--")
@@ -974,21 +898,19 @@ class ProcessesDetails:
         self.process_details_commandline_label.set_halign(Gtk.Align.START)
         grid.attach(self.process_details_commandline_label, 2, 2, 1, 1)
 
-        # Label "Opened Files"
+        # Label (Opened Files)
         label = Gtk.Label()
         label.set_label(_tr("Opened Files"))
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 0, 3, 1, 1)
-
-        # Label - Separator "Opened Files"
+        # Label (Opened Files)
         label = Gtk.Label()
         label.set_label(":")
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)
         grid.attach(label, 1, 3, 1, 1)
-
-        # Label - Variable "Opened Files"
+        # Label (Opened Files)
         self.process_details_opened_files_label = Gtk.Label()
         self.process_details_opened_files_label.set_selectable(True)
         self.process_details_opened_files_label.set_label("--")
@@ -1007,25 +929,25 @@ class ProcessesDetails:
         self.processes_details_da_disk_speed.set_draw_func(Performance.performance_line_charts_draw_func, "processes_details_da_disk_speed")
 
         # Drawingarea mouse events (CPU usage drawingarea)
-        drawing_area_mouse_event = Gtk.EventControllerMotion()
-        drawing_area_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawing_area_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawing_area_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.processes_details_da_cpu_usage.add_controller(drawing_area_mouse_event)
+        drawingarea_mouse_event = Gtk.EventControllerMotion()
+        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
+        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
+        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
+        self.processes_details_da_cpu_usage.add_controller(drawingarea_mouse_event)
 
         # Drawingarea mouse events (Memory usage drawingarea)
-        drawing_area_mouse_event = Gtk.EventControllerMotion()
-        drawing_area_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawing_area_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawing_area_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.processes_details_da_memory_usage.add_controller(drawing_area_mouse_event)
+        drawingarea_mouse_event = Gtk.EventControllerMotion()
+        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
+        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
+        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
+        self.processes_details_da_memory_usage.add_controller(drawingarea_mouse_event)
 
         # Drawingarea mouse events (Disk speed drawingarea)
-        drawing_area_mouse_event = Gtk.EventControllerMotion()
-        drawing_area_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawing_area_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawing_area_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.processes_details_da_disk_speed.add_controller(drawing_area_mouse_event)
+        drawingarea_mouse_event = Gtk.EventControllerMotion()
+        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
+        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
+        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
+        self.processes_details_da_disk_speed.add_controller(drawingarea_mouse_event)
 
         # Window signals
         self.process_details_window.connect("close-request", self.on_process_details_window_delete_event)
@@ -1046,7 +968,6 @@ class ProcessesDetails:
         return True
 
 
-    # ----------------------- Called for running code/functions when GUI is shown -----------------------
     def on_process_details_window_show(self, widget):
         """
         Run code after window is shown.
@@ -1075,8 +996,10 @@ class ProcessesDetails:
         self.process_details_run_func()
 
 
-    # ----------------------------------- Processes - Processes Details Function -----------------------------------
     def process_details_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         # Define data unit conversion function objects in for lower CPU usage.
         self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
@@ -1106,8 +1029,10 @@ class ProcessesDetails:
         self.number_of_clock_ticks = Processes.number_of_clock_ticks
 
 
-    # ----------------------------------- Processes - Processes Details Foreground Function -----------------------------------
     def process_details_loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
 
         processes_cpu_precision = Config.processes_cpu_precision
         processes_memory_data_precision = Config.processes_memory_data_precision
@@ -1248,9 +1173,13 @@ class ProcessesDetails:
             self.process_details_opened_files_label.set_text("-")
 
 
-    # ----------------------------------- Processes Details - Run Function -----------------------------------
-    # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and run the loop again without waiting ending the previous update interval.
     def process_details_run_func(self, *args):
+        """
+        Run initial and loop functions of process details window.
+        "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()".
+        "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and
+        run the loop again without waiting ending the previous update interval.
+        """
 
         if hasattr(self, "update_interval") == False:
             GLib.idle_add(self.process_details_initial_func)
@@ -1271,8 +1200,10 @@ class ProcessesDetails:
             self.main_glib_source.attach(GLib.MainContext.default())
 
 
-    # ----------------------- Called for showing information label if the process is ended. -----------------------
     def process_details_process_end_label_func(self):
+        """
+        Show information label below window titlebar if the process is ended.
+        """
 
         # Prevent adding more than one label (if there is already a label).
         widget_in_first_row = self.grid2101w.get_child_at(0, 0)
@@ -1292,8 +1223,10 @@ class ProcessesDetails:
         label_process_end_warning.set_visible(True)
 
 
-    # ----------------------- Get usernames and UIDs -----------------------
     def processes_details_usernames_uids_func(self):
+        """
+        Get usernames and UIDs.
+        """
 
         usernames_username_list = []
         usernames_uid_list = []
@@ -1307,8 +1240,10 @@ class ProcessesDetails:
         return usernames_username_list, usernames_uid_list
 
 
-    # ----------------------- Get stat, status, statm, io, smaps, cmdline file outputs. -----------------------
     def processes_details_stat_status_statm_io_smaps_cmdline_outputs_func(self, selected_process_pid):
+        """
+        Get stat, status, statm, io, smaps, cmdline file outputs.
+        """
 
         # Generate command for getting file outputs.
         if Config.environment_type == "flatpak":
@@ -1361,8 +1296,10 @@ class ProcessesDetails:
         return stat_output, status_output, statm_output, io_output, smaps_output, cmdline_output
 
 
-    # ----------------------- Get fd and stat folder list outputs. -----------------------
     def processes_details_fd_task_ls_output_func(self, selected_process_pid):
+        """
+        Get fd and stat folder list outputs.
+        """
 
         # Generate command for getting file outputs.
         if Config.environment_type == "flatpak":
@@ -1390,8 +1327,10 @@ class ProcessesDetails:
         return fd_ls_output, task_ls_output
 
 
-    # ----------------------- Get global CPU time -----------------------
     def process_details_global_cpu_time_func(self):
+        """
+        Get global CPU time.
+        """
 
         # global_cpu_time_all value is get just after "/proc/[PID]/stat file is
         # read in order to measure global an process specific CPU times at the
@@ -1401,8 +1340,10 @@ class ProcessesDetails:
         return global_cpu_time_all
 
 
-    # ----------------------- Get process name -----------------------
     def process_details_process_name_func(self, selected_process_pid, stat_output, cmdline_output):
+        """
+        Get process name.
+        """
 
         first_parentheses = stat_output.find("(")                                             # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
         second_parentheses = stat_output.rfind(")")                                           # Last parantheses ")" index is get by using "find()".
@@ -1419,22 +1360,10 @@ class ProcessesDetails:
         return selected_process_name
 
 
-    # ----------------------- Get process icon -----------------------
-    def process_details_process_icon_func(self, selected_process_name):
-
-        # Define initial value of the "selected_process_icon". This icon will be shown
-        # for processes of which icon could not be found in default icon theme.
-        selected_process_icon = "system-monitoring-center-process-symbolic"
-
-        # Use process icon name from application file if process name is found in application exec list
-        if selected_process_name in Processes.application_exec_list:
-            selected_process_icon = Processes.application_icon_list[Processes.application_exec_list.index(selected_process_name)]
-
-        return selected_process_icon
-
-
-    # ----------------------- Get process user name -----------------------
     def process_details_process_user_name_func(self, selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list):
+        """
+        Get process user name.
+        """
 
         for line in status_output_split:
             if "Uid:\t" in line:
@@ -1448,24 +1377,30 @@ class ProcessesDetails:
         return selected_process_username
 
 
-    # ----------------------- Get process status -----------------------
     def process_details_process_status_func(self, stat_output_split):
+        """
+        Get process status.
+        """
 
         selected_process_status = self.process_status_list[stat_output_split[-50]]
 
         return selected_process_status
 
 
-    # ----------------------- Get process nice -----------------------
     def process_details_process_nice_func(self, stat_output_split):
+        """
+        Get process nice.
+        """
 
         selected_process_nice = int(stat_output_split[-34])
 
         return selected_process_nice
 
 
-    # ----------------------- Get process CPU usage -----------------------
     def process_details_process_cpu_usage_func(self, stat_output_split, global_cpu_time_all):
+        """
+        Get process CPU usage.
+        """
 
         # Get process cpu time in user mode (utime + stime)
         process_cpu_time = int(stat_output_split[-39]) + int(stat_output_split[-38])
@@ -1484,8 +1419,10 @@ class ProcessesDetails:
         return selected_process_cpu_percent
 
 
-    # ----------------------- Get process memory (RSS) -----------------------
     def process_details_process_memory_rss_func(self, stat_output_split):
+        """
+        Get process memory (RSS).
+        """
 
         # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
         selected_process_memory_rss = int(stat_output_split[-29]) * Processes.memory_page_size
@@ -1493,8 +1430,10 @@ class ProcessesDetails:
         return selected_process_memory_rss
 
 
-    # ----------------------- Get process disk read data, disk write data -----------------------
     def process_details_process_disk_read_write_data_func(self, io_output_lines):
+        """
+        Get process disk read data, disk write data.
+        """
 
         if io_output_lines != ["-"]:
             selected_process_read_bytes = int(io_output_lines[4].split(":")[1])
@@ -1506,8 +1445,10 @@ class ProcessesDetails:
         return selected_process_read_bytes, selected_process_write_bytes
 
 
-    # ----------------------- Get process disk read speed, disk write speed -----------------------
     def process_details_process_disk_read_write_speed_func(self, selected_process_read_bytes, selected_process_write_bytes):
+        """
+        Get process disk read speed, disk write speed.
+        """
 
         # Get disk read speed.
         disk_read_write_data = [selected_process_read_bytes, selected_process_write_bytes]
@@ -1531,8 +1472,10 @@ class ProcessesDetails:
         return selected_process_read_speed, selected_process_write_speed
 
 
-    # ----------------------- Get process start time -----------------------
     def process_details_process_start_time_func(self, stat_output_split):
+        """
+        Get process start time.
+        """
 
         # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
         selected_process_start_time_raw = int(stat_output_split[-31])
@@ -1541,16 +1484,20 @@ class ProcessesDetails:
         return selected_process_start_time
 
 
-    # ----------------------- Get process PPID -----------------------
     def process_details_process_ppid_func(self, stat_output_split):
+        """
+        Get process PPID.
+        """
 
         selected_process_ppid = int(stat_output_split[-49])
 
         return selected_process_ppid
 
 
-    # ----------------------- Get process real, effective and saved UIDs -----------------------
     def process_details_process_real_effective_saved_uids_func(self, status_output_split):
+        """
+        Get process real, effective and saved UIDs.
+        """
 
         for line in status_output_split:
             if "Uid:\t" in line:
@@ -1563,8 +1510,10 @@ class ProcessesDetails:
         return selected_process_uid_real, selected_process_uid_effective, selected_process_uid_saved
 
 
-    # ----------------------- Get process real, effective and saved GIDs -----------------------
     def process_details_process_real_effective_saved_gids_func(self, status_output_split):
+        """
+        Get process real, effective and saved GIDs.
+        """
 
         for line in status_output_split:
             if "Gid:\t" in line:
@@ -1577,16 +1526,20 @@ class ProcessesDetails:
         return selected_process_gid_real, selected_process_gid_effective, selected_process_gid_saved
 
 
-    # ----------------------- Get number of threads of the process -----------------------
     def process_details_process_number_of_threads_func(self, stat_output_split):
+        """
+        Get number of threads of the process.
+        """
 
         selected_process_num_threads = stat_output_split[-33]
 
         return selected_process_num_threads
 
 
-    # ----------------------- Get threads (TIDs) of the process -----------------------
     def process_details_process_tids_func(self, task_ls_output):
+        """
+        Get threads (TIDs) of the process.
+        """
 
         task_ls_output_lines = task_ls_output.split("\n")
         selected_process_threads = [filename for filename in task_ls_output_lines if filename.isdigit()]
@@ -1595,16 +1548,20 @@ class ProcessesDetails:
         return selected_process_threads
 
 
-    # ----------------------- Get the last CPU core number which process executed on -----------------------
     def process_details_process_cpu_number_func(self, stat_output_split):
+        """
+        Get the last CPU core number which process executed on.
+        """
 
         selected_process_cpu_num = stat_output_split[-14]
 
         return selected_process_cpu_num
 
 
-    # ----------------------- Get CPU times of the process -----------------------
     def process_details_process_cpu_times_func(self, stat_output_split):
+        """
+        Get CPU times of the process.
+        """
 
         selected_process_cpu_times_user = stat_output_split[-39]
         selected_process_cpu_times_kernel = stat_output_split[-38]
@@ -1615,8 +1572,10 @@ class ProcessesDetails:
         return selected_process_cpu_times_user, selected_process_cpu_times_kernel, selected_process_cpu_times_children_user, selected_process_cpu_times_children_kernel, selected_process_cpu_times_io_wait
 
 
-    # ----------------------- Get process context switches -----------------------
     def process_details_process_context_switches_func(self, status_output_split):
+        """
+        Get process context switches.
+        """
 
         for line in status_output_split:
             if line.startswith("voluntary_ctxt_switches:"):
@@ -1627,24 +1586,30 @@ class ProcessesDetails:
         return selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary
 
 
-    # ----------------------- Get process memory (VMS) -----------------------
     def process_details_process_memory_vms_func(self, stat_output_split):
+        """
+        Get process memory (VMS).
+        """
 
         selected_process_memory_vms = int(stat_output_split[-30])
 
         return selected_process_memory_vms
 
 
-    # ----------------------- Get process memory (Shared) -----------------------
     def process_details_process_memory_shared_func(self, statm_output):
+        """
+        Get process memory (Shared).
+        """
 
         selected_process_memory_shared = int(statm_output.split()[2]) * Processes.memory_page_size
 
         return selected_process_memory_shared
 
 
-    # ----------------------- Get process memory (USS - Unique Set Size) and swap memory -----------------------
     def process_details_process_memory_uss_and_swap_func(self, smaps_output):
+        """
+        Get process memory (USS - Unique Set Size) and swap memory.
+        """
 
         smaps_output_lines = smaps_output.split("\n")
 
@@ -1665,8 +1630,10 @@ class ProcessesDetails:
         return selected_process_memory_uss, selected_process_memory_swap
 
 
-    # ----------------------- Get process read count, write count -----------------------
     def process_details_process_read_write_counts_func(self, io_output_lines):
+        """
+        Get process read count, write count.
+        """
 
         if io_output_lines != ["-"]:
             selected_process_read_count = int(io_output_lines[2].split(":")[1])
@@ -1679,8 +1646,10 @@ class ProcessesDetails:
         return selected_process_read_count, selected_process_write_count
 
 
-    # ----------------------- Get process cmdline -----------------------
     def process_details_process_cmdline_func(self, cmdline_output):
+        """
+        Get process cmdline.
+        """
 
         selected_process_cmdline = cmdline_output.split(" ")
 
@@ -1690,8 +1659,10 @@ class ProcessesDetails:
         return selected_process_cmdline
 
 
-    # ----------------------- Get process cwd and open files -----------------------
     def process_details_process_exe_cwd_open_files_func(self, selected_process_pid, fd_ls_output):
+        """
+        Get process cwd and open files.
+        """
 
         command_list = ["readlink"]
         if Config.environment_type == "flatpak":
@@ -1765,9 +1736,11 @@ class ProcessesDetails:
         return selected_process_exe, selected_process_cwd, selected_process_open_files
 
 
-# Generate object for every process because more than one process window can be opened on Processes tab.
 processes_details_object_list = []
 def process_details_show_process_details():
+    """
+    Generate object for every process because more than one process window can be opened on Processes tab.
+    """
 
     # Prevent opening more than 8 windows in order to avoid very high CPU usage.
     # This limit is 3 for Flatpak environment. Because CPU usage is higher in this environment.

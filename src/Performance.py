@@ -17,19 +17,22 @@ from Config import Config
 
 class Performance:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Define data unit conversion variables before they are used.
         self.performance_define_data_unit_converter_variables_func()
 
-        # Set chart performance data line and point highligting off. "chart_line_highlight" takes chart name or "" for highlighting or not. "chart_point_highlight" takes data point index or "-1" for not highlighting.
+        # Set chart performance data line and point highligting off.
+        # "chart_line_highlight" takes chart name or "" for highlighting or not.
+        # "chart_point_highlight" takes data point index or "-1" for not highlighting.
         self.chart_line_highlight = ""
         self.chart_point_highlight = -1
 
 
-    # ----------------------------------- Performance - Set Selected CPU Core Function -----------------------------------
     def performance_set_selected_cpu_core_func(self):
+        """
+        Set selected CPU core.
+        """
 
         # Set selected CPU core
         first_core = self.logical_core_list[0]
@@ -43,8 +46,10 @@ class Performance:
         self.selected_cpu_core = selected_cpu_core
 
 
-    # ----------------------------------- Performance - Set Selected Disk Function -----------------------------------
     def performance_set_selected_disk_func(self):
+        """
+        Set selected disk.
+        """
 
         # Set selected disk
         with open("/proc/mounts") as reader:
@@ -58,7 +63,8 @@ class Performance:
                 if disk in self.disk_list:
                     system_disk_list.append(disk)
                     break
-        # Detect system disk by checking if mount point is "/" on some systems such as some ARM devices. "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
+        # Detect system disk by checking if mount point is "/" on some systems such as some ARM devices.
+        # "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
         if system_disk_list == []:
             with open("/proc/cmdline") as reader:
                 proc_cmdline = reader.read()
@@ -76,7 +82,9 @@ class Performance:
                 selected_disk = system_disk_list[0]
             else:
                 selected_disk = self.disk_list[0]
-                # Try to not to set selected disk a loop, ram, zram disk in order to avoid errors if "hide_loop_ramdisk_zram_disks" option is enabled and performance data of all disks are plotted at the same time. loop device may be the first disk on some systems if they are run without installation.
+                # Try to not to set selected disk a loop, ram, zram disk in order to avoid errors
+                # if "hide_loop_ramdisk_zram_disks" option is enabled and performance data of all disks are plotted
+                # at the same time. loop device may be the first disk on some systems if they are run without installation.
                 for disk in self.disk_list:
                     if disk.startswith("loop") == False and disk.startswith("ram") == False and disk.startswith("zram") == False:
                         selected_disk = disk
@@ -86,8 +94,10 @@ class Performance:
         self.selected_disk_number = self.disk_list_system_ordered.index(selected_disk)
 
 
-    # ----------------------------------- Performance - Set Selected Network Card Function -----------------------------------
     def performance_set_selected_network_card_func(self):
+        """
+        Set selected network card.
+        """
 
         # Set selected network card
         connected_network_card_list = []
@@ -113,8 +123,10 @@ class Performance:
         self.selected_network_card_number = selected_network_card_number
 
 
-    # ----------------------------------- Performance - Background Initial Function -----------------------------------
     def performance_background_initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
         self.chart_data_history = Config.chart_data_history
 
@@ -130,7 +142,9 @@ class Performance:
         self.swap_usage_percent = [0] * self.chart_data_history
 
         # Define initial values for disk read speed and write speed
-        # Disk data from /proc/diskstats are multiplied by 512 in order to find values in the form of byte. Disk sector size for all disk device could be found in "/sys/block/[disk device name such as sda]/queue/hw_sector_size". Linux uses 512 value for all disks without regarding device real block size (source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121).
+        # Disk data from /proc/diskstats are multiplied by 512 in order to find values in the form of byte.
+        # Disk sector size for all disk device could be found in "/sys/block/[disk device name such as sda]/queue/hw_sector_size".
+        # Linux uses 512 value for all disks without regarding device real block size (source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121).
         self.disk_sector_size = 512
         self.disk_list = []
         self.disk_read_data_prev = []
@@ -153,8 +167,10 @@ class Performance:
             Config.selected_gpu = ""
 
 
-    # ----------------------------------- Performance - Background Function (gets basic CPU, memory, disk and network usage data in the background in order to assure uninterrupted data for charts) -----------------------------------
     def performance_background_loop_func(self):
+        """
+        Get basic CPU, memory, disk and network usage data in the background in order to assure uninterrupted data for charts.
+        """
 
         # Definition for lower CPU usage because this variable is used multiple times in this function.
         update_interval = Config.update_interval
@@ -235,7 +251,9 @@ class Performance:
             proc_diskstats_lines = reader.read().strip().split("\n")
         for line in proc_diskstats_lines:
             if line.split()[2] in self.disk_list_system_ordered:
-                # Disk information of some disks (such a loop devices) exist in "/proc/diskstats" file even if these devices are unmounted. "proc_diskstats_lines_filtered" list is used in order to use disk list without these remaining information.
+                # Disk information of some disks (such a loop devices) exist in "/proc/diskstats" file
+                # even if these devices are unmounted. "proc_diskstats_lines_filtered" list is used in order to use
+                # disk list without these remaining information.
                 proc_diskstats_lines_filtered.append(line)
         disk_list_prev = self.disk_list[:]
         for i, disk in enumerate(self.disk_list_system_ordered):
@@ -314,8 +332,10 @@ class Performance:
         self.network_send_bytes_prev = list(self.network_send_bytes)
 
 
-    # ----------------------- Called for getting device vendor and model information -----------------------
     def performance_get_device_vendor_model_func(self, modalias_output):
+        """
+        Get device vendor and model information.
+        """
 
         # Define "udev" hardware database file directory.
         udev_hardware_database_dir = "/usr/lib/udev/hwdb.d/"
@@ -504,9 +524,10 @@ class Performance:
         return device_vendor_name, device_model_name, device_vendor_id, device_model_id
 
 
-
-    # ----------------------- Called for drawing performance summary data -----------------------
     def performance_summary_chart_draw(self, widget, ctx, width, height):
+        """
+        Draw performance summary data.
+        """
 
         # Get chart colors of performance tab sub-tab charts.
         chart_line_color_cpu_percent = Config.chart_line_color_cpu_percent
@@ -1383,8 +1404,10 @@ class Performance:
         ctx.restore()
 
 
-    # ----------------------- Called for drawing performance data as line chart -----------------------
     def performance_line_charts_draw_func(self, widget, ctx, width, height, widget_name):
+        """
+        Draw performance data as line chart.
+        """
 
         # Check if drawing will be for CPU tab.
         if widget_name == "da_cpu_usage":
@@ -2105,16 +2128,20 @@ class Performance:
                 ctx.stroke()
 
 
-    # ----------------------- Highlight performance chart line if mouse is moved onto the drawingarea -----------------------
     def performance_line_charts_enter_notify_event(self, event, x, y):
+        """
+        Highlight performance chart line if mouse is moved onto the drawingarea.
+        """
 
         widget = event.get_widget()
         self.chart_line_highlight = widget
         widget.queue_draw()
 
 
-    # ----------------------- Revert highlighted performance chart line if mouse is moved out of the drawingarea -----------------------
     def performance_line_charts_leave_notify_event(self, event):
+        """
+        Revert highlighted performance chart line if mouse is moved out of the drawingarea.
+        """
 
         widget = event.get_widget()
         try:
@@ -2124,8 +2151,10 @@ class Performance:
         widget.queue_draw()
 
 
-    # ----------------------- Highlight performance chart point and show performance data text if mouse is moved on the drawingarea -----------------------
     def performance_line_charts_motion_notify_event(self, event, x, y):
+        """
+        Highlight performance chart point and show performance data text if mouse is moved on the drawingarea.
+        """
 
         widget = event.get_widget()
 
@@ -2137,8 +2166,10 @@ class Performance:
         widget.queue_draw()
 
 
-    # ----------------------- Called for drawing performance data as bar chart -----------------------
     def performance_bar_charts_draw(self, widget, ctx, width, height, widget_name):
+        """
+        Draw performance data as bar chart.
+        """
 
         # Check if drawing will be for Memory tab.
         if widget_name == "da_swap_usage":
@@ -2224,27 +2255,31 @@ class Performance:
         ctx.fill()
 
 
-    # ----------------------- Called for defining values for converting data units and setting value precision (called from several modules) -----------------------
     def performance_define_data_unit_converter_variables_func(self):
+        """
+        Define values for converting data units and set value precision (called from several modules).
+        """
 
-        #       ISO UNITs (as powers of 1000)        -             IEC UNITs (as powers of 1024)
-        # Unit Name    Abbreviation     bytes        -       Unit Name    Abbreviation    bytes   
-        # byte         B                1            -       byte         B               1
-        # kilobyte     KB               1000         -       kibibyte     KiB             1024
-        # megabyte     MB               1000^2       -       mebibyte     MiB             1024^2
-        # gigabyte     GB               1000^3       -       gibibyte     GiB             1024^3
-        # terabyte     TB               1000^4       -       tebibyte     TiB             1024^4
-        # petabyte     PB               1000^5       -       pebibyte     PiB             1024^5
+        """
+              ISO UNITs (as powers of 1000)        -             IEC UNITs (as powers of 1024)
+        Unit Name    Abbreviation     bytes        -       Unit Name    Abbreviation    bytes   
+        byte         B                1            -       byte         B               1
+        kilobyte     KB               1000         -       kibibyte     KiB             1024
+        megabyte     MB               1000^2       -       mebibyte     MiB             1024^2
+        gigabyte     GB               1000^3       -       gibibyte     GiB             1024^3
+        terabyte     TB               1000^4       -       tebibyte     TiB             1024^4
+        petabyte     PB               1000^5       -       pebibyte     PiB             1024^5
 
-        # Unit Name    Abbreviation     bits         -       Unit Name    Abbreviation    bits    
-        # bit          b                1            -       bit          b               1
-        # kilobit      Kb               1000         -       kibibit      Kib             1024
-        # megabit      Mb               1000^2       -       mebibit      Mib             1024^2
-        # gigabit      Gb               1000^3       -       gibibit      Gib             1024^3
-        # terabit      Tb               1000^4       -       tebibit      Tib             1024^4
-        # petabit      Pb               1000^5       -       pebibit      Pib             1024^5
+        Unit Name    Abbreviation     bits         -       Unit Name    Abbreviation    bits    
+        bit          b                1            -       bit          b               1
+        kilobit      Kb               1000         -       kibibit      Kib             1024
+        megabit      Mb               1000^2       -       mebibit      Mib             1024^2
+        gigabit      Gb               1000^3       -       gibibit      Gib             1024^3
+        terabit      Tb               1000^4       -       tebibit      Tib             1024^4
+        petabit      Pb               1000^5       -       pebibit      Pib             1024^5
 
-        # 1 byte = 8 bits
+        1 byte = 8 bits
+        """
 
         self.data_unit_list = [[0, "B", "B", "b", "b"], [1, "KiB", "KB", "Kib", "Kb"], [2, "MiB", "MB", "Mib", "Mb"],
                               [3, "GiB", "GB", "Gib", "Gb"], [4, "TiB", "TB", "Tib", "Tb"], [5, "PiB", "PB", "Pib", "Pb"]]
@@ -2252,8 +2287,10 @@ class Performance:
         # Data unit options: 0: Bytes (ISO), 1: Bytes (IEC), 2: bits (ISO), 3: bits (IEC).
 
 
-    # ----------------------- Called for converting data units and setting value precision (called from several modules) -----------------------
     def performance_data_unit_converter_func(self, data_type, data_type_option, data, unit, precision):
+        """
+        Convert data units and set value precision (called from several modules).
+        """
 
         data_unit_list = self.data_unit_list
         if isinstance(data, str) == True:

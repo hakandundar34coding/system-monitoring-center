@@ -25,13 +25,10 @@ class SettingsWindow:
         self.default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Services"), _tr("System")]
         self.performance_tab_default_sub_tab_list = [_tr("Summary"), _tr("CPU"), _tr("Memory"), _tr("Disk"), _tr("Network"), _tr("GPU"), _tr("Sensors")]
 
-        # Window GUI
         self.window_gui()
 
-        # MessageDialog
         self.messagedialog_gui()
 
-        # GUI signals
         self.gui_signals()
 
 
@@ -60,23 +57,21 @@ class SettingsWindow:
         main_grid.set_margin_end(10)
         self.settings_window.set_child(main_grid)
 
-        # Label "Language"
+        # Label (Language)
         language_label = Gtk.Label()
         language_label.set_halign(Gtk.Align.START)
         language_label.set_label(_tr("Language (Requires restart)") + ":")
         main_grid.attach(language_label, 0, 0, 1, 1)
-
-        # ComboBox "Language"
+        # ComboBox (Language)
         self.language_cmb = Gtk.ComboBox()
         main_grid.attach(self.language_cmb, 1, 0, 1, 1)
 
-        # Label "Light/Dark theme"
+        # Label (Light/Dark theme)
         language_label = Gtk.Label()
         language_label.set_halign(Gtk.Align.START)
         language_label.set_label(_tr("Light/Dark theme") + ":")
         main_grid.attach(language_label, 0, 1, 1, 1)
-
-        # ComboBox "Light/Dark theme"
+        # ComboBox (Light/Dark theme)
         self.light_dark_theme_cmb = Gtk.ComboBox()
         main_grid.attach(self.light_dark_theme_cmb, 1, 1, 1, 1)
 
@@ -86,23 +81,21 @@ class SettingsWindow:
         separator.set_margin_bottom(5)
         main_grid.attach(separator, 0, 2, 2, 1)
 
-        # Label "Update interval"
+        # Label (Update interval)
         update_interval_label = Gtk.Label()
         update_interval_label.set_halign(Gtk.Align.START)
         update_interval_label.set_label(_tr("Update interval (seconds)") + ":")
         main_grid.attach(update_interval_label, 0, 3, 1, 1)
-
-        # ComboBox "Update interval"
+        # ComboBox (Update interval)
         self.update_interval_cmb = Gtk.ComboBox()
         main_grid.attach(self.update_interval_cmb, 1, 3, 1, 1)
 
-        # Label "Graph data history"
+        # Label (Graph data history)
         graph_data_history_label = Gtk.Label()
         graph_data_history_label.set_halign(Gtk.Align.START)
         graph_data_history_label.set_label(_tr("Graph data history") + ":")
         main_grid.attach(graph_data_history_label, 0, 4, 1, 1)
-
-        # ComboBox "Graph data history"
+        # ComboBox (Graph data history)
         self.graph_data_history_cmb = Gtk.ComboBox()
         main_grid.attach(self.graph_data_history_cmb, 1, 4, 1, 1)
 
@@ -112,7 +105,7 @@ class SettingsWindow:
         separator.set_margin_bottom(5)
         main_grid.attach(separator, 0, 5, 2, 1)
 
-        # CheckButton "Show performance summary on headerbar"
+        # CheckButton (Show performance summary on headerbar)
         self.show_performance_summary_on_hb_cb = Gtk.CheckButton()
         self.show_performance_summary_on_hb_cb.set_halign(Gtk.Align.START)
         self.show_performance_summary_on_hb_cb.set_label(_tr("Show performance summary on the headerbar"))
@@ -124,29 +117,26 @@ class SettingsWindow:
         separator.set_margin_bottom(5)
         main_grid.attach(separator, 0, 7, 2, 1)
 
-        # CheckButton "Remember last opened tabs"
+        # CheckButton (Remember last opened tabs"
         self.remember_last_opened_tabs_cb = Gtk.CheckButton()
         self.remember_last_opened_tabs_cb.set_halign(Gtk.Align.START)
         self.remember_last_opened_tabs_cb.set_label(_tr("Remember last opened tabs"))
         main_grid.attach(self.remember_last_opened_tabs_cb, 0, 8, 2, 1)
 
-        # Grid "Default main tab and sub-tab"
+        # Grid (Default main tab and sub-tab)
         default_main_sub_tab_grid = Gtk.Grid()
         default_main_sub_tab_grid.set_column_spacing(5)
         default_main_sub_tab_grid.set_column_homogeneous(True)
         main_grid.attach(default_main_sub_tab_grid, 0, 9, 2, 1)
-
-        # Label "Default main tab and sub-tab"
+        # Label (Default main tab and sub-tab)
         default_main_sub_tab_label = Gtk.Label()
         default_main_sub_tab_label.set_halign(Gtk.Align.START)
         default_main_sub_tab_label.set_label(_tr("Default main tab and sub-tab") + ":")
         default_main_sub_tab_grid.attach(default_main_sub_tab_label, 0, 0, 2, 1)
-
-        # ComboBox "Default main tab"
+        # ComboBox (Default main tab)
         self.default_main_tab_cmb = Gtk.ComboBox()
         default_main_sub_tab_grid.attach(self.default_main_tab_cmb, 0, 1, 1, 1)
-
-        # ComboBox "Default sub-tab"
+        # ComboBox (Default sub-tab)
         self.default_sub_tab_cmb = Gtk.ComboBox()
         default_main_sub_tab_grid.attach(self.default_sub_tab_cmb, 1, 1, 1, 1)
 
@@ -156,7 +146,7 @@ class SettingsWindow:
         separator.set_margin_bottom(5)
         main_grid.attach(separator, 0, 10, 2, 1)
 
-        # CheckButton "Remember last selected devices"
+        # CheckButton (Remember last selected devices)
         self.remember_last_selected_devices_cb = Gtk.CheckButton()
         self.remember_last_selected_devices_cb.set_halign(Gtk.Align.START)
         self.remember_last_selected_devices_cb.set_label(_tr("Remember last selected devices"))
@@ -168,7 +158,7 @@ class SettingsWindow:
         separator.set_margin_bottom(5)
         main_grid.attach(separator, 0, 12, 2, 1)
 
-        # CheckButton "Remember window size"
+        # CheckButton (Remember window size)
         self.remember_window_size_cb = Gtk.CheckButton()
         self.remember_window_size_cb.set_halign(Gtk.Align.START)
         self.remember_window_size_cb.set_label(_tr("Remember window size"))
@@ -180,29 +170,26 @@ class SettingsWindow:
         separator.set_margin_bottom(5)
         main_grid.attach(separator, 0, 14, 2, 1)
 
-        # Grid "Check for updates"
+        # Grid (Check for updates)
         self.check_for_updates_grid = Gtk.Grid()
         main_grid.attach(self.check_for_updates_grid, 0, 15, 2, 1)
-
-        # CheckButton "Check for updates"
+        # CheckButton (Check for updates)
         self.check_for_updates_cb = Gtk.CheckButton()
         self.check_for_updates_cb.set_halign(Gtk.Align.START)
         self.check_for_updates_cb.set_label(_tr("Check for updates automatically (PyPI only)"))
         self.check_for_updates_grid.attach(self.check_for_updates_cb, 0, 0, 1, 1)
-
-        # Label "Check for updates"
+        # Label (Check for updates)
         check_for_updates_label = Gtk.Label()
         check_for_updates_label.set_halign(Gtk.Align.START)
         check_for_updates_label.set_label(_tr("(If the application is run without root privileges.)"))
         self.check_for_updates_grid.attach(check_for_updates_label, 0, 1, 1, 1)
-
-        # Separator "Check for updates"
+        # Separator (Check for updates)
         separator = Gtk.Separator()
         separator.set_margin_top(5)
         separator.set_margin_bottom(5)
         self.check_for_updates_grid.attach(separator, 0, 16, 2, 1)
 
-        # Button "Reset"
+        # Button (Reset)
         self.reset_button = Gtk.Button()
         self.reset_button.set_halign(Gtk.Align.CENTER)
         self.reset_button.set_label(_tr("Reset"))
@@ -214,7 +201,7 @@ class SettingsWindow:
         separator.set_margin_bottom(5)
         main_grid.attach(separator, 0, 18, 2, 1)
 
-        # Button "Reset all settings of the application to defaults"
+        # Button (Reset all settings of the application to defaults)
         self.reset_all_settings_button = Gtk.Button()
         self.reset_all_settings_button.set_halign(Gtk.Align.CENTER)
         self.reset_all_settings_button.set_label(_tr("Reset all settings of the application"))
@@ -564,9 +551,9 @@ class SettingsWindow:
         """
 
         # Set GUI preferences for "language" setting
-        language_ls = Gtk.ListStore()
-        language_ls.set_column_types([str])
-        self.language_cmb.set_model(language_ls)
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str])
+        self.language_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
         self.language_cmb.clear()
         renderer_text = Gtk.CellRendererText()
@@ -574,13 +561,13 @@ class SettingsWindow:
         self.language_cmb.add_attribute(renderer_text, "text", 0)
         for value in self.language_dict:
             value = self.language_dict[value]
-            language_ls.append([value])
+            liststore.append([value])
         self.language_cmb.set_active(list(self.language_dict.keys()).index(Config.language))
 
         # Set GUI preferences for "Light/Dark theme" setting
-        light_dark_theme_ls = Gtk.ListStore()
-        light_dark_theme_ls.set_column_types([str])
-        self.light_dark_theme_cmb.set_model(light_dark_theme_ls)
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str])
+        self.light_dark_theme_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
         self.light_dark_theme_cmb.clear()
         renderer_text = Gtk.CellRendererText()
@@ -588,33 +575,33 @@ class SettingsWindow:
         self.light_dark_theme_cmb.add_attribute(renderer_text, "text", 0)
         for value in self.gui_theme_dict:
             value = self.gui_theme_dict[value]
-            light_dark_theme_ls.append([value])
+            liststore.append([value])
         self.light_dark_theme_cmb.set_active(list(self.gui_theme_dict.keys()).index(Config.light_dark_theme))
 
         # Set GUI preferences for "update interval" setting
-        update_interval_ls = Gtk.ListStore()
-        update_interval_ls.set_column_types([str])
-        self.update_interval_cmb.set_model(update_interval_ls)
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str])
+        self.update_interval_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
         self.update_interval_cmb.clear()
         renderer_text = Gtk.CellRendererText()
         self.update_interval_cmb.pack_start(renderer_text, True)
         self.update_interval_cmb.add_attribute(renderer_text, "text", 0)
         for value in self.update_interval_list:
-            update_interval_ls.append([str(value)])
+            liststore.append([str(value)])
         self.update_interval_cmb.set_active(self.update_interval_list.index(Config.update_interval))
 
         # Set GUI preferences for "chart data history" setting
-        graph_data_history_ls = Gtk.ListStore()
-        graph_data_history_ls.set_column_types([str])
-        self.graph_data_history_cmb.set_model(graph_data_history_ls)
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str])
+        self.graph_data_history_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
         self.graph_data_history_cmb.clear()
         renderer_text = Gtk.CellRendererText()
         self.graph_data_history_cmb.pack_start(renderer_text, True)
         self.graph_data_history_cmb.add_attribute(renderer_text, "text", 0)
         for value in self.chart_data_history_list:
-            graph_data_history_ls.append([str(value)])
+            liststore.append([str(value)])
         self.graph_data_history_cmb.set_active(self.chart_data_history_list.index(Config.chart_data_history))
 
         # Set GUI preferences for "show performance summary on the headerbar" setting
@@ -630,16 +617,16 @@ class SettingsWindow:
             self.remember_last_opened_tabs_cb.set_active(False)
 
         # Set GUI preferences for "defult main tab" setting
-        default_main_tab_ls = Gtk.ListStore()
-        default_main_tab_ls.set_column_types([str])
-        self.default_main_tab_cmb.set_model(default_main_tab_ls)
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str])
+        self.default_main_tab_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
         self.default_main_tab_cmb.clear()
         renderer_text = Gtk.CellRendererText()
         self.default_main_tab_cmb.pack_start(renderer_text, True)
         self.default_main_tab_cmb.add_attribute(renderer_text, "text", 0)
         for value in self.default_main_tab_list:
-            default_main_tab_ls.append([value])
+            liststore.append([value])
         self.default_main_tab_cmb.set_active(Config.default_main_tab)
         if Config.remember_last_opened_tabs_on_application_start == 1:
             self.default_main_tab_cmb.set_sensitive(False)
@@ -647,16 +634,16 @@ class SettingsWindow:
             self.default_main_tab_cmb.set_sensitive(True)
 
         # Set GUI preferences for "performance tab default sub-tab" setting
-        default_sub_tab_ls = Gtk.ListStore()
-        default_sub_tab_ls.set_column_types([str])
-        self.default_sub_tab_cmb.set_model(default_sub_tab_ls)
+        liststore = Gtk.ListStore()
+        liststore.set_column_types([str])
+        self.default_sub_tab_cmb.set_model(liststore)
         # Clear combobox in order to prevent adding the same items when the function is called again.
         self.default_sub_tab_cmb.clear()
         renderer_text = Gtk.CellRendererText()
         self.default_sub_tab_cmb.pack_start(renderer_text, True)
         self.default_sub_tab_cmb.add_attribute(renderer_text, "text", 0)
         for value in self.performance_tab_default_sub_tab_list:
-            default_sub_tab_ls.append([value])
+            liststore.append([value])
         self.default_sub_tab_cmb.set_active(Config.performance_tab_default_sub_tab)
         if Config.remember_last_opened_tabs_on_application_start == 1:
             self.default_sub_tab_cmb.set_sensitive(False)
@@ -682,8 +669,11 @@ class SettingsWindow:
             self.check_for_updates_cb.set_active(False)
 
 
-    # ----------------------- Called for trimming/adding performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...) for chart data history when "chart_data_history" preference is changed -----------------------
     def settings_gui_set_chart_data_history_func(self):
+        """
+        Trimming/Add performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...)
+        # for chart data history when "chart_data_history" preference is changed.
+        """
 
         chart_data_history_current = len(Performance.cpu_usage_percent_ave)                       # Get current chart_data_history length. This value is same for all performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...).
         chart_data_history_new = Config.chart_data_history
@@ -724,10 +714,14 @@ class SettingsWindow:
                 Gpu.gpu_load_list = list_to_add + Gpu.gpu_load_list                                       # "gpu_load_list" list has no sub-lists and addition is performed in this way.
 
 
-    # ----------------------- Called for applying settings for all opened tabs (since application start) without waiting update interval -----------------------
     def settings_gui_apply_settings_immediately_func(self):
+        """
+        Apply settings for all opened tabs (since application start) without waiting update interval.
+        If "initial_already_run" variable is set as "0", initial and loop functions of the relevant
+        tab will be run in the next main loop if the tab is already opened or these functionswill be run
+        immediately when the relevant tab is switched on even if it is opened before the reset.
+        """
 
-        # If "initial_already_run" variable is set as "0", initial and loop functions of the relevant tab will be run in the next main loop if the tab is already opened or these functions will be run immediately when the relevant tab is switched on even if it is opened before the reset.
         try:
             from MainWindow import Summary
             Summary.initial_already_run = 0
@@ -797,8 +791,10 @@ class SettingsWindow:
         MainWindow.main_gui_tab_loop()
 
 
-    # ----------------------- Called for saving default main tab and performace tab sub-tab when "Remember last opened tabs" option is enabled -----------------------
     def settings_gui_default_tab_func(self):
+        """
+        Save default main tab and performace tab sub-tab when "Remember last opened tabs" option is enabled.
+        """
 
         if MainWindow.performance_tb.get_active() == True:
             Config.default_main_tab = 0

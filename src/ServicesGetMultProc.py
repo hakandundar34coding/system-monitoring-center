@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-# ----------------------- Get number of CPU cores to be used at the same time for getting service data -----------------------
 def services_number_of_cpu_cores_used_func(number_of_logical_cores):
+    """
+    Get number of CPU cores to be used at the same time for getting service data.
+    """
 
     # 1 or 2 CPU cores are not used in order to avoid reducing performance of other processes or the system.
     # Using more than 5 CPU cores does not improve performance noticeably on a 4 physical (8 logical) core system.
@@ -15,8 +17,10 @@ def services_number_of_cpu_cores_used_func(number_of_logical_cores):
     return number_of_cpu_cores_used
 
 
-# ----------------------- Split service list into [number_of_cpu_cores_used] lists for using them to get service data by using multiprocessing -----------------------
 def services_unit_files_command_split_func(number_of_cpu_cores_used, unit_files_command):
+    """
+    Split service list into [number_of_cpu_cores_used] lists for using them to get service data by using multiprocessing.
+    """
 
     # Get service list and unit file command parameters. "+1" for list slice index, "+2" for 2 elements after "systemctl" parameter to obtain index of element which starts with "--property=".
     index_to_split_list = unit_files_command.index("systemctl") + 1 + 2
@@ -48,8 +52,10 @@ def services_unit_files_command_split_func(number_of_cpu_cores_used, unit_files_
     return unit_files_command_split
 
 
-# ----------------------- Get service data by using multiprocessing -----------------------
 def get_service_data_func(queue1, i, unit_files_command_split):
+    """
+    Get service data by using multiprocessing.
+    """
 
     try:
         systemctl_show_command_lines_split = (subprocess.check_output(unit_files_command_split, shell=False)).decode().strip().split("\n\n")
@@ -62,8 +68,10 @@ def get_service_data_func(queue1, i, unit_files_command_split):
     queue1.put([[i, systemctl_show_command_lines_split]])
 
 
-# ----------------------- Run the reuqired functions and start processes to get the service data by using multiprocessing -----------------------
 def start_processes_func(number_of_logical_cores, unit_files_command):
+    """
+    Run the reuqired functions and start processes to get the service data by using multiprocessing.
+    """
 
     # Import modules in this function because entire module is run separately by the all processes if multiprocessing is used.
     global subprocess
