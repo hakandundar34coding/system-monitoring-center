@@ -48,7 +48,7 @@
     <strong>
         Translations:
     </strong>
-    Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian) | Portuguese(European) | Russian | Turkish | Chinese (Simplified) | <a href="docs/notes_for_translators.md">Notes for translators</a>
+    Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian) | Portuguese(European) | Russian | Turkish | <a href="docs/notes_for_translators.md">Notes for translators</a>
 </p>
 
 

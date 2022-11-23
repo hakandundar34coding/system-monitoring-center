@@ -50,7 +50,6 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
     os.chmod("locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo", 0o644)
     os.chmod("locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo", 0o644)
     os.chmod("locale/tr/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo", 0o644)
     for file in files_in_folder("database/"):
         os.chmod(file, 0o644)
     for file in files_in_folder("src/"):
@@ -71,7 +70,6 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
         ("/usr/share/system-monitoring-center/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/usr/share/system-monitoring-center/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/usr/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/usr/share/system-monitoring-center/database/", files_in_folder("database/")),
         ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
         ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
@@ -115,7 +113,6 @@ if package_type_var == "flatpak_package":
         ("/app/share/system-monitoring-center/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/app/share/system-monitoring-center/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/app/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/app/share/system-monitoring-center/database/", files_in_folder("database/")),
         ("/app/share/system-monitoring-center/src/", files_in_folder("src/")),
         ("/app/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
@@ -143,7 +140,6 @@ if package_type_var == "python_package":
         ("/systemmonitoringcenter/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/systemmonitoringcenter/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/systemmonitoringcenter/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/systemmonitoringcenter/database/", files_in_folder("database/")),
         ("/systemmonitoringcenter/src/", files_in_folder("src/")),
         ("/systemmonitoringcenter/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),

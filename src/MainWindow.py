@@ -690,8 +690,7 @@ class MainWindow():
                             "Bruno do Nascimento (português do Brasil)",
                             "Ricardo Simões (português europeu)",
                             "akorny (Русский)",
-                            "Hakan Dündar (Türkçe)",
-                            "ruojiner, Luo ( 汉语)"
+                            "Hakan Dündar (Türkçe)"
                            ]
         translators_list = '\n'.join(translators_list)
 
