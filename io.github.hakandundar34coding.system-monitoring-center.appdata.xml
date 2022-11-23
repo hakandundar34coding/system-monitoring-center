@@ -73,6 +73,15 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.0.3" date="2022-11-23">
+      <description>
+        <ul>
+          <li>Fix: Disk capacity (mass storage) information</li>
+          <li>Fix: Info. when process stopped is (Process details window)</li>
+          <li>Several code simplifications</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.0.2" date="2022-11-21">
       <description>
         <ul>

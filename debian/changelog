@@ -1,3 +1,11 @@
+system-monitoring-center (2.0.3) unstable; urgency=medium
+
+  * Fix: Disk capacity (mass storage) information
+  * Fix: Info. when process stopped is (Process details window)
+  * Several code simplifications
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 23 Nov 2022 11:30:00 +0300
+
 system-monitoring-center (2.0.2) unstable; urgency=medium
 
   * Fix: Resetting all settings when GPU tab is opened

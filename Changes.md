@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v2.0.3 (23.11.2022)
+  * Fix: Disk capacity (mass storage) information
+  * Fix: Info. when process stopped is (Process details window)
+  * Several code simplifications
+
 ### v2.0.2 (21.11.2022)
   * Fix: Resetting all settings when GPU tab is opened
   * Fix: Window size when when default tab is changed
