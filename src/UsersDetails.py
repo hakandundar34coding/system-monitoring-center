@@ -483,20 +483,20 @@ class UsersDetails:
             return
 
         # Set label text
-        self.user_label.set_text(selected_user_username)
-        self.full_name_label.set_text(selected_user_full_name)
-        self.logged_in_label.set_text(selected_user_logged_in)
-        self.uid_label.set_text(selected_user_uid)
-        self.gid_label.set_text(selected_user_gid)
-        self.processes_label.set_text(f'{selected_user_process_count}')
-        self.home_directory_label.set_text(selected_user_home_dir)
-        self.group_label.set_text(selected_user_group_name)
-        self.terminal_label.set_text(selected_user_terminal)
+        self.user_label.set_label(selected_user_username)
+        self.full_name_label.set_label(selected_user_full_name)
+        self.logged_in_label.set_label(selected_user_logged_in)
+        self.uid_label.set_label(selected_user_uid)
+        self.gid_label.set_label(selected_user_gid)
+        self.processes_label.set_label(f'{selected_user_process_count}')
+        self.home_directory_label.set_label(selected_user_home_dir)
+        self.group_label.set_label(selected_user_group_name)
+        self.terminal_label.set_label(selected_user_terminal)
         if selected_user_process_start_time != 0:
-            self.start_time_label.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
+            self.start_time_label.set_label(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
         if selected_user_process_start_time == 0:
-            self.start_time_label.set_text("-")
-        self.cpu_label.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f}')
+            self.start_time_label.set_label("-")
+        self.cpu_label.set_label(f'{selected_user_cpu_percent:.{users_cpu_precision}f}')
 
 
     def users_details_run_func(self, *args):
