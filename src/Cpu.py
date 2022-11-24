@@ -145,10 +145,10 @@ class Cpu:
         performance_info_grid.set_row_spacing(10)
         self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
-        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
-        css = b"viewport {border-style: solid; border-radius: 8px 8px 8px 8px; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
-        style_provider_viewport = Gtk.CssProvider()
-        style_provider_viewport.load_from_data(css)
+        # Define style provider for scrolledwindow for border radius.
+        css = b"scrolledwindow {border-radius: 8px 8px 8px 8px;}"
+        style_provider_scrolledwindow = Gtk.CssProvider()
+        style_provider_scrolledwindow.load_from_data(css)
 
         # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
         css = b"separator {background: rgba(50%,50%,50%,0.6);}"
@@ -156,10 +156,12 @@ class Cpu:
         style_provider_separator.load_from_data(css)
 
         # Styled information widgets (Average Usage and Frequency)
-        # Viewport (Average Usage and Frequency)
-        viewport = Gtk.Viewport()
-        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        performance_info_grid.attach(viewport, 0, 0, 1, 1)
+        # ScrolledWindow (Average Usage and Frequency)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        performance_info_grid.attach(scrolledwindow, 0, 0, 1, 1)
         # Grid (Average Usage and Frequency)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
@@ -169,7 +171,7 @@ class Cpu:
         grid.set_margin_start(5)
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
-        viewport.set_child(grid)
+        scrolledwindow.set_child(grid)
         # Label (Average Usage)
         label = Gtk.Label()
         label.set_label(_tr("Average Usage"))
@@ -211,10 +213,12 @@ class Cpu:
         grid.attach(self.frequency_label, 1, 2, 1, 1)
 
         # Styled information widgets (Processes-Threads and Up Time)
-        # Viewport (Processes-Threads and Up Time)
-        viewport = Gtk.Viewport()
-        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        performance_info_grid.attach(viewport, 0, 1, 1, 1)
+        # ScrolledWindow (Processes-Threads and Up Time)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        performance_info_grid.attach(scrolledwindow, 0, 1, 1, 1)
         # Grid (Processes-Threads and Up Time)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
@@ -224,7 +228,7 @@ class Cpu:
         grid.set_margin_start(5)
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
-        viewport.set_child(grid)
+        scrolledwindow.set_child(grid)
         # Label (Processes-Threads)
         label = Gtk.Label()
         label.set_label(_tr("Processes-Threads"))

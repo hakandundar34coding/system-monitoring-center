@@ -150,10 +150,10 @@ class Memory:
         performance_info_grid.set_row_spacing(6)
         self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
-        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
-        css = b"viewport {border-style: solid; border-radius: 8px 8px 8px 8px; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
-        style_provider_viewport = Gtk.CssProvider()
-        style_provider_viewport.load_from_data(css)
+        # Define style provider for scrolledwindow for border radius.
+        css = b"scrolledwindow {border-radius: 8px 8px 8px 8px;}"
+        style_provider_scrolledwindow = Gtk.CssProvider()
+        style_provider_scrolledwindow.load_from_data(css)
 
         # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
         css = b"separator {background: rgba(50%,50%,50%,0.6);}"
@@ -168,10 +168,12 @@ class Memory:
         performance_info_grid.attach(label, 0, 0, 1, 1)
 
         # Styled information widgets (Used and Available)
-        # Viewport (Used and Available)
-        viewport = Gtk.Viewport()
-        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        performance_info_grid.attach(viewport, 0, 1, 1, 1)
+        # ScrolledWindow (Used and Available)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        performance_info_grid.attach(scrolledwindow, 0, 1, 1, 1)
         # Grid (Used and Available)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
@@ -181,7 +183,7 @@ class Memory:
         grid.set_margin_start(5)
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
-        viewport.set_child(grid)
+        scrolledwindow.set_child(grid)
         # Label (Used)
         label = Gtk.Label()
         label.set_label(_tr("Used"))
@@ -283,10 +285,12 @@ class Memory:
         performance_info_grid.attach(label, 1, 0, 1, 1)
 
         # Styled information widgets (Used and Used (percent))
-        # Viewport (Used and Used (percent))
-        viewport = Gtk.Viewport()
-        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        performance_info_grid.attach(viewport, 1, 1, 1, 1)
+        # ScrolledWindow (Used and Used (percent))
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        performance_info_grid.attach(scrolledwindow, 1, 1, 1, 1)
         # Grid (Used and Used (percent))
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
@@ -296,7 +300,7 @@ class Memory:
         grid.set_margin_start(5)
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
-        viewport.set_child(grid)
+        scrolledwindow.set_child(grid)
         # Label (Used)
         label = Gtk.Label()
         label.set_label(_tr("Used"))

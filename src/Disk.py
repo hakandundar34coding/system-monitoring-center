@@ -153,10 +153,10 @@ class Disk:
         performance_info_grid.set_row_spacing(10)
         self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
-        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
-        css = b"viewport {border-style: solid; border-radius: 8px 8px 8px 8px; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
-        style_provider_viewport = Gtk.CssProvider()
-        style_provider_viewport.load_from_data(css)
+        # Define style provider for scrolledwindow for border radius.
+        css = b"scrolledwindow {border-radius: 8px 8px 8px 8px;}"
+        style_provider_scrolledwindow = Gtk.CssProvider()
+        style_provider_scrolledwindow.load_from_data(css)
 
         # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
         css = b"separator {background: rgba(50%,50%,50%,0.6);}"
@@ -164,10 +164,12 @@ class Disk:
         style_provider_separator.load_from_data(css)
 
         # Styled information widgets (Read Speed and Write Speed)
-        # Viewport (Read Speed and Write Speed)
-        viewport = Gtk.Viewport()
-        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        performance_info_grid.attach(viewport, 0, 0, 1, 1)
+        # ScrolledWindow (Read Speed and Write Speed)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        performance_info_grid.attach(scrolledwindow, 0, 0, 1, 1)
         # Grid (Read Speed and Write Speed)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
@@ -177,7 +179,7 @@ class Disk:
         grid.set_margin_start(5)
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
-        viewport.set_child(grid)
+        scrolledwindow.set_child(grid)
         # Label (Read Speed)
         label = Gtk.Label()
         label.set_label(_tr("Read Speed"))
@@ -218,10 +220,12 @@ class Disk:
         grid.attach(self.write_speed_label, 1, 2, 1, 1)
 
         # Styled information widgets (Read Data and Write Data)
-        # Viewport (Read Data and Write Data)
-        viewport = Gtk.Viewport()
-        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        performance_info_grid.attach(viewport, 0, 1, 1, 1)
+        # ScrolledWindow (Read Data and Write Data)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        performance_info_grid.attach(scrolledwindow, 0, 1, 1, 1)
         # Grid (Read Data and Write Data)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
@@ -231,8 +235,8 @@ class Disk:
         grid.set_margin_start(5)
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
-        viewport.set_child(grid)
-        # LAbel (Read Data)
+        scrolledwindow.set_child(grid)
+        # Label (Read Data)
         label = Gtk.Label()
         label.set_label(_tr("Read Data"))
         label.set_tooltip_text(_tr("Measured value since last system start"))
@@ -460,7 +464,7 @@ class Disk:
         main_grid.set_margin_end(10)
         main_grid.set_column_spacing(10)
         main_grid.set_row_spacing(5)
-        scrolledwindow.set_child(main_grid)
+        viewport.set_child(main_grid)
 
         # Information labels
         # Label (Disk)

@@ -147,10 +147,10 @@ class Gpu:
         performance_info_grid.set_row_spacing(10)
         self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
-        # Add viewports for showing borders around some the performance data and round the corners of the viewports.
-        css = b"viewport {border-style: solid; border-radius: 8px 8px 8px 8px; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
-        style_provider_viewport = Gtk.CssProvider()
-        style_provider_viewport.load_from_data(css)
+        # Define style provider for scrolledwindow for border radius.
+        css = b"scrolledwindow {border-radius: 8px 8px 8px 8px;}"
+        style_provider_scrolledwindow = Gtk.CssProvider()
+        style_provider_scrolledwindow.load_from_data(css)
 
         # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
         css = b"separator {background: rgba(50%,50%,50%,0.6);}"
@@ -158,10 +158,12 @@ class Gpu:
         style_provider_separator.load_from_data(css)
 
         # Styled information widgets (GPU Usage and Video Memory)
-        # Viewport (GPU Usage and Video Memory)
-        viewport = Gtk.Viewport()
-        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        performance_info_grid.attach(viewport, 0, 0, 1, 1)
+        # ScrolledWindow (GPU Usage and Video Memory)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        performance_info_grid.attach(scrolledwindow, 0, 0, 1, 1)
         # Grid (GPU Usage and Video Memory)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
@@ -171,7 +173,7 @@ class Gpu:
         grid.set_margin_start(5)
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
-        viewport.set_child(grid)
+        scrolledwindow.set_child(grid)
         # Label (GPU Usage)
         label = Gtk.Label()
         label.set_label(_tr("GPU Usage"))
@@ -212,10 +214,12 @@ class Gpu:
         grid.attach(self.video_memory_label, 1, 2, 1, 1)
 
         # Styled information widgets (Frequency and Temperature)
-        # Viewport (Frequency and Temperature)
-        viewport = Gtk.Viewport()
-        viewport.get_style_context().add_provider(style_provider_viewport, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        performance_info_grid.attach(viewport, 0, 1, 1, 1)
+        # ScrolledWindow (Frequency and Temperature)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
+        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        performance_info_grid.attach(scrolledwindow, 0, 1, 1, 1)
         # Grid (Frequency and Temperature)
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
@@ -225,7 +229,7 @@ class Gpu:
         grid.set_margin_start(5)
         grid.set_margin_end(5)
         grid.set_valign(Gtk.Align.CENTER)
-        viewport.set_child(grid)
+        scrolledwindow.set_child(grid)
         # Label (Frequency)
         label = Gtk.Label()
         label.set_label(_tr("Frequency"))
