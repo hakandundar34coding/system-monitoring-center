@@ -110,7 +110,7 @@ class Network:
         # Label (drawingarea upper-left)
         label = Gtk.Label()
         label.set_halign(Gtk.Align.START)
-        label.set_label(_tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
+        label.set_label(_tr("Download Speed") + " (-) & " + _tr("Upload Speed") + " (-  -)")
         grid.attach(label, 0, 0, 1, 1)
 
         # Label (drawingarea upper-right)
