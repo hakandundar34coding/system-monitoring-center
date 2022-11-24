@@ -15,6 +15,20 @@ def files_in_folder(folder):
     return file_paths
 
 
+def files_in_locale_folder(folder):
+    file_paths = []
+    for file in [filename for filename in os.listdir(folder) if filename.split(".")[-1] not in ["pot", "sh"]]:
+        file_paths.append(folder + file + "/LC_MESSAGES/system-monitoring-center.mo")
+    return file_paths
+
+
+def data_files_in_locale_folder(target_folder, folder):
+    data_files_in_locale_folder = []
+    for file in [filename for filename in os.listdir(folder) if filename.split(".")[-1] not in ["pot", "sh"]]:
+        data_files_in_locale_folder.append((target_folder + file + "/LC_MESSAGES/", [folder + file + "/LC_MESSAGES/system-monitoring-center.mo"]))
+    return data_files_in_locale_folder
+
+
 # Flatpak package
 if "--flatpak_package" in sys.argv:
     package_type_var = "flatpak_package"
@@ -41,15 +55,8 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
     entry_points={}
 
     os.chmod("integration/io.github.hakandundar34coding.system-monitoring-center.desktop", 0o644)
-    os.chmod("locale/de/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/cs/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/fa/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/hu/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/pl/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/pt_BR/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/tr/LC_MESSAGES/system-monitoring-center.mo", 0o644)
+    for file in files_in_locale_folder("locale/"):
+        os.chmod(file, 0o644)
     for file in files_in_folder("database/"):
         os.chmod(file, 0o644)
     for file in files_in_folder("src/"):
@@ -61,22 +68,13 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
     data_files = [
         ("/usr/share/applications/", ["integration/io.github.hakandundar34coding.system-monitoring-center.desktop"]),
         ("/usr/share/polkit-1/actions/", ["integration/io.github.hakandundar34coding.system-monitoring-center.policy"]),
-        ("/usr/share/system-monitoring-center/locale/de/LC_MESSAGES/", ["locale/de/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/cs/LC_MESSAGES/", ["locale/cs/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/fa/LC_MESSAGES/", ["locale/fa/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/hu/LC_MESSAGES/", ["locale/hu/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/pl/LC_MESSAGES/", ["locale/pl/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/pt_BR/LC_MESSAGES/", ["locale/pt_BR/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/usr/share/system-monitoring-center/database/", files_in_folder("database/")),
         ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
         ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
         ("/usr/share/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/system-monitoring-center.svg"]),
         ("/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         ("/usr/bin/", ["integration/system-monitoring-center"])
-    ]
+        ] + data_files_in_locale_folder("/usr/share/system-monitoring-center/locale/", "locale/")
 
 
 
@@ -103,16 +101,8 @@ if package_type_var == "flatpak_package":
 
     data_files = [
         ("/app/share/applications/", ["integration/io.github.hakandundar34coding.system-monitoring-center.desktop"]),
-        #("/app/share/polkit-1/actions/", ["integration/io.github.hakandundar34coding.system-monitoring-center.policy"]),
-        ("/app/share/system-monitoring-center/locale/de/LC_MESSAGES/", ["locale/de/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/cs/LC_MESSAGES/", ["locale/cs/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/fa/LC_MESSAGES/", ["locale/fa/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/hu/LC_MESSAGES/", ["locale/hu/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/pl/LC_MESSAGES/", ["locale/pl/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/pt_BR/LC_MESSAGES/", ["locale/pt_BR/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
+        ("/app/share/polkit-1/actions/", ["integration/io.github.hakandundar34coding.system-monitoring-center.policy"]),
+
         ("/app/share/system-monitoring-center/database/", files_in_folder("database/")),
         ("/app/share/system-monitoring-center/src/", files_in_folder("src/")),
         ("/app/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
@@ -120,7 +110,7 @@ if package_type_var == "flatpak_package":
         ("/app/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         ("/app/share/appdata/", ["io.github.hakandundar34coding.system-monitoring-center.appdata.xml"]),
         ("/app/bin/", ["integration/system-monitoring-center"])
-    ]
+        ] + data_files_in_locale_folder("/app/share/system-monitoring-center/locale/", "locale/")
 
 
 
@@ -131,20 +121,11 @@ if package_type_var == "python_package":
 
     data_files = [
         ("/systemmonitoringcenter/integration/", ["integration/io.github.hakandundar34coding.system-monitoring-center.desktop"]),
-        ("/systemmonitoringcenter/locale/de/LC_MESSAGES/", ["locale/de/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/cs/LC_MESSAGES/", ["locale/cs/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/fa/LC_MESSAGES/", ["locale/fa/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/hu/LC_MESSAGES/", ["locale/hu/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/pl/LC_MESSAGES/", ["locale/pl/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/pt_BR/LC_MESSAGES/", ["locale/pt_BR/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/systemmonitoringcenter/database/", files_in_folder("database/")),
         ("/systemmonitoringcenter/src/", files_in_folder("src/")),
         ("/systemmonitoringcenter/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
         ("/systemmonitoringcenter/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/system-monitoring-center.svg"]),
-    ]
+        ] + data_files_in_locale_folder("/systemmonitoringcenter/locale/", "locale/")
 
 
 setup(
@@ -177,3 +158,4 @@ setup(
         "Topic :: System :: Monitoring",
     ],
 )
+
