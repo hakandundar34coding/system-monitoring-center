@@ -391,7 +391,7 @@ class ProcessesDetails:
 
         # Label (CPU Usage (Average))
         label = Gtk.Label()
-        label.set_label("CPU Usage (Average)")
+        label.set_label(_tr("CPU Usage (Average)"))
         label.set_halign(Gtk.Align.START)
         drawingarea_grid.attach(label, 0, 0, 1, 1)
 
@@ -549,9 +549,9 @@ class ProcessesDetails:
         drawingarea_grid.set_hexpand(True)
         grid.attach(drawingarea_grid, 0, 0, 3, 1)
 
-        # Label (CPU Usage (Average))
+        # Label (Memory (RSS))
         label = Gtk.Label()
-        label.set_label("CPU Usage (Average)")
+        label.set_label(_tr("Memory (RSS)"))
         label.set_halign(Gtk.Align.START)
         drawingarea_grid.attach(label, 0, 0, 1, 1)
 
@@ -1001,13 +1001,6 @@ class ProcessesDetails:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        # Define data unit conversion function objects in for lower CPU usage.
-        self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
-        self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
-
-        # Define data unit conversion variables before they are used.
-        self.performance_define_data_unit_converter_variables_func()
-
         self.process_status_list = Processes.process_status_list
         self.global_process_cpu_times_prev = []
         self.disk_read_write_data_prev = []
@@ -1103,8 +1096,8 @@ class ProcessesDetails:
 
         # Update graphs.
         self.processes_details_da_cpu_usage.queue_draw()
-        self.processes_details_da_cpu_usage.queue_draw()
-        self.processes_details_da_cpu_usage.queue_draw()
+        self.processes_details_da_memory_usage.queue_draw()
+        self.processes_details_da_disk_speed.queue_draw()
 
         # Show information on labels (Summary tab).
         self.name_label.set_label(selected_process_name)
@@ -1113,13 +1106,13 @@ class ProcessesDetails:
         self.user_label.set_label(selected_process_username)
         self.priority_label.set_label(f'{selected_process_nice}')
         self.cpu_label.set_label(f'{selected_process_cpu_percent:.{processes_cpu_precision}f} %')
-        self.memory_rss_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_rss_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
         if selected_process_read_bytes != "-":
-            self.read_speed_label.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.read_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
         if selected_process_read_bytes == "-":
             self.read_speed_label.set_label("-")
         if selected_process_write_bytes != "-":
-            self.write_speed_label.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.write_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
         if selected_process_write_bytes == "-":
             self.write_speed_label.set_label("-")
         self.start_time_label.set_label(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
@@ -1137,22 +1130,22 @@ class ProcessesDetails:
         self.context_switches_label.set_label(f'Voluntary: {selected_process_num_ctx_switches_voluntary}, Involuntary: {selected_process_num_ctx_switches_nonvoluntary}')
 
         # Show information on labels (Memory tab).
-        self.memory_rss_label2.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
-        self.memory_vms_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_vms, processes_memory_data_unit, processes_memory_data_precision)}')
-        self.memory_shared_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_shared, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_rss_label2.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_vms_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_vms, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_shared_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_shared, processes_memory_data_unit, processes_memory_data_precision)}')
         if selected_process_memory_uss != "-" and selected_process_memory_swap != "-":
-            self.memory_uss_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_uss, processes_memory_data_unit, processes_memory_data_precision)}')
-            self.swap_memory_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_memory_swap, processes_memory_data_unit, processes_memory_data_precision)}')
+            self.memory_uss_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_uss, processes_memory_data_unit, processes_memory_data_precision)}')
+            self.swap_memory_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_swap, processes_memory_data_unit, processes_memory_data_precision)}')
         if selected_process_memory_uss == "-" and selected_process_memory_swap == "-":
             self.memory_uss_label.set_label(selected_process_memory_uss)
             self.swap_memory_label.set_label(selected_process_memory_swap)
 
         # Show information on labels (Disk tab).
         if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            self.read_speed_label2.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-            self.write_speed_label2.set_label(f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-            self.read_data_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_read_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
-            self.write_data_label.set_label(f'{self.performance_data_unit_converter_func("data", "none", selected_process_write_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.read_speed_label2.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.write_speed_label2.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.read_data_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_read_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.write_data_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_write_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
             self.read_count_label.set_label(f'{selected_process_read_count}')
             self.write_count_label.set_label(f'{selected_process_write_count}')
         if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":

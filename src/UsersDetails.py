@@ -320,13 +320,6 @@ class UsersDetails:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        # Define data unit conversion function objects in for lower CPU usage.
-        self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
-        self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
-
-        # Define data unit conversion variables before they are used.
-        self.performance_define_data_unit_converter_variables_func()
-
         self.pid_list_prev = []
         self.global_process_cpu_times_prev = []
 

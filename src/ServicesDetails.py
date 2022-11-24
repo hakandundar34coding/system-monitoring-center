@@ -489,13 +489,6 @@ class ServicesDetails:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        # Define data unit conversion function objects in for lower CPU usage.
-        self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
-        self.performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
-
-        # Define data unit conversion variables before they are used.
-        self.performance_define_data_unit_converter_variables_func()
-
         # Get right clicked service name.
         self.selected_service_name = Services.selected_service_name
 
@@ -579,7 +572,7 @@ class ServicesDetails:
                     selected_service_memory_current = "-"
                 else:
                     try:
-                        selected_service_memory_current = f'{self.performance_data_unit_converter_func("data", "none", int(selected_service_memory_current), services_memory_data_unit, services_memory_data_precision)}'
+                        selected_service_memory_current = f'{Performance.performance_data_unit_converter_func("data", "none", int(selected_service_memory_current), services_memory_data_unit, services_memory_data_precision)}'
                     except Exception:
                         selected_service_memory_current = "-"
                 continue

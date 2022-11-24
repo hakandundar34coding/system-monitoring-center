@@ -24,22 +24,18 @@ class MainWindow():
         Run initial functions and generate main window.
         """
 
-        # Light/Dark theme
-        self.light_dark_theme()
-
-        # Configurations for language translation support
         self.language_translation_support()
 
-        # Detect environment type (Flatpak or native)
+        self.light_dark_theme()
+
         self.environment_type_detection()
 
-        # Generate main window GUI
+        self.application_system_integration()
+
         self.main_window_gui()
 
-        # Show root privileges warning
         self.root_privileges_warning()
 
-        # Hide "Services" tab if systemd is not used on the system.
         self.hide_services_tab()
 
         # Run "Performance" module in order to provide performance data
@@ -53,10 +49,8 @@ class MainWindow():
         Config.current_main_tab = -1
         Config.performance_tab_current_sub_tab = -1
 
-        # Switch to default tab
         self.switch_to_default_tab()
 
-        # Connect GUI signals after switching to default tab.
         self.connect_signals()
 
 
@@ -1309,18 +1303,23 @@ class MainWindow():
 
         # Get installed and latest versions of the application by processing the command output.
         current_version = "-"
-        last_version = "-"
+        latest_version = "-"
         for line in pip_index_output:
             if "INSTALLED" in line:
                 current_version = line.split("INSTALLED:")[1].strip()
             if "LATEST" in line:
-                last_version = line.split("LATEST:")[1].strip()
+                latest_version = line.split("LATEST:")[1].strip()
+
+        current_version_major_version, current_version_minor_version, current_version_patch_version = current_version.split(".")
+        latest_version_major_version, latest_version_minor_version, latest_version_patch_version = latest_version.split(".")
 
         # Show an information label with a green background below the window headerbar if there is a newer version on PyPI.
-        if current_version != last_version:
-            # Show the notification information on the label by using "GLib.idle_add" in order to avoid
-            # problems (bugs, data corruption, etc.) because of threading.
-            GLib.idle_add(self.update_check_gui_notification)
+        if latest_version_major_version >= current_version_major_version:
+            if latest_version_minor_version >= current_version_minor_version:
+                if latest_version_patch_version > current_version_patch_version:
+                    # Show the notification information on the label by using "GLib.idle_add" in order to avoid
+                    # problems (bugs, data corruption, etc.) because of threading.
+                    GLib.idle_add(self.update_check_gui_notification)
 
 
     def update_check_gui_notification(self):
@@ -1341,7 +1340,7 @@ class MainWindow():
         label_new_version_information.set_visible(True)
 
 
-    def main_gui_application_system_integration_func(self):
+    def application_system_integration(self):
         """
         Copy files for GUI icons and application shortcut (.desktop file) in user folders if they are not copied before.
         These files are required if the application is installed as a Python package. Because these files are not copied
