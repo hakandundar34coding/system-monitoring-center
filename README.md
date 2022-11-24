@@ -74,6 +74,9 @@
     </a>
 </p>
 <p align="center">
+    <a>
+        <img alt="Flathub" src="https://img.shields.io/flathub/v/io.github.hakandundar34coding.system-monitoring-center">
+    </a>
     <a href="https://github.com/Botspot/pi-apps">
         <img src="https://img.shields.io/badge/dynamic/json?color=c51a4a&label=Pi-Apps&query=%24..%5B%3F%28%40.Name%3D%3D%22System%20Monitoring%20Center%22%29%5D.Version&url=https%3A%2F%2Fraw.githubusercontent.com%2FBotspot%2Fpi-apps-analytics%2Fmain%2Fpackage_data.json" alt="Pi-Apps Packaging Status">
     </a>
