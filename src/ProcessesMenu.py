@@ -29,11 +29,11 @@ class ProcessesMenu:
 
         # Grid (main)
         main_grid = Gtk.Grid()
-        main_grid.set_row_spacing(3)
-        main_grid.set_margin_top(3)
-        main_grid.set_margin_bottom(3)
-        main_grid.set_margin_start(3)
-        main_grid.set_margin_end(3)
+        main_grid.set_row_spacing(2)
+        main_grid.set_margin_top(2)
+        main_grid.set_margin_bottom(2)
+        main_grid.set_margin_start(2)
+        main_grid.set_margin_end(2)
         self.menu_po.set_child(main_grid)
 
         # Bold label atributes
@@ -111,12 +111,12 @@ class ProcessesMenu:
 
         # Grid
         grid = Gtk.Grid()
-        grid.set_margin_top(10)
-        grid.set_margin_bottom(10)
-        grid.set_margin_start(10)
-        grid.set_margin_end(10)
+        grid.set_margin_top(5)
+        grid.set_margin_bottom(5)
+        grid.set_margin_start(5)
+        grid.set_margin_end(5)
         grid.set_column_spacing(10)
-        grid.set_row_spacing(5)
+        grid.set_row_spacing(3)
         self.grid_view_tab.attach(grid, 0, 0, 1, 1)
 
         # Label - Tab title
@@ -170,12 +170,12 @@ class ProcessesMenu:
 
         # Grid
         grid = Gtk.Grid()
-        grid.set_margin_top(10)
-        grid.set_margin_bottom(10)
-        grid.set_margin_start(10)
-        grid.set_margin_end(10)
+        grid.set_margin_top(5)
+        grid.set_margin_bottom(5)
+        grid.set_margin_start(5)
+        grid.set_margin_end(5)
         grid.set_column_spacing(10)
-        grid.set_row_spacing(5)
+        grid.set_row_spacing(3)
         self.grid_add_remove_columns_tab.attach(grid, 0, 0, 1, 1)
 
         # Label - title (Add/Remove Columns)
@@ -310,18 +310,18 @@ class ProcessesMenu:
 
         # Grid
         grid = Gtk.Grid()
-        grid.set_margin_top(10)
-        grid.set_margin_bottom(10)
-        grid.set_margin_start(10)
-        grid.set_margin_end(10)
+        grid.set_margin_top(5)
+        grid.set_margin_bottom(5)
+        grid.set_margin_start(5)
+        grid.set_margin_end(5)
         grid.set_column_spacing(10)
-        grid.set_row_spacing(5)
+        grid.set_row_spacing(3)
         self.grid_numbers_tab.attach(grid, 0, 0, 1, 1)
 
         # Grid (Precision)
         precision_grid = Gtk.Grid()
         precision_grid.set_column_spacing(5)
-        precision_grid.set_row_spacing(5)
+        precision_grid.set_row_spacing(3)
         precision_grid.set_column_homogeneous(True)
         grid.attach(precision_grid, 0, 0, 2, 1)
 
@@ -365,8 +365,8 @@ class ProcessesMenu:
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator.set_margin_top(3)
+        separator.set_margin_bottom(3)
         grid.attach(separator, 0, 3, 2, 1)
 
         # Label - title (Data Unit)

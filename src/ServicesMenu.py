@@ -29,11 +29,11 @@ class ServicesMenu:
 
         # Grid (main)
         main_grid = Gtk.Grid()
-        main_grid.set_row_spacing(3)
-        main_grid.set_margin_top(3)
-        main_grid.set_margin_bottom(3)
-        main_grid.set_margin_start(3)
-        main_grid.set_margin_end(3)
+        main_grid.set_row_spacing(2)
+        main_grid.set_margin_top(2)
+        main_grid.set_margin_bottom(2)
+        main_grid.set_margin_start(2)
+        main_grid.set_margin_end(2)
         self.menu_po.set_child(main_grid)
 
         # Bold label atributes
@@ -87,12 +87,12 @@ class ServicesMenu:
 
         # Grid
         grid = Gtk.Grid()
-        grid.set_margin_top(10)
-        grid.set_margin_bottom(10)
-        grid.set_margin_start(10)
-        grid.set_margin_end(10)
+        grid.set_margin_top(5)
+        grid.set_margin_bottom(5)
+        grid.set_margin_start(5)
+        grid.set_margin_end(5)
         grid.set_column_spacing(10)
-        grid.set_row_spacing(5)
+        grid.set_row_spacing(3)
         self.grid_add_remove_columns_tab.attach(grid, 0, 0, 1, 1)
 
         # Label - tab title (Add/Remove Columns)

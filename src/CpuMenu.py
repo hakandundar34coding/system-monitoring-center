@@ -31,11 +31,11 @@ class CpuMenu:
 
         # Grid (main)
         main_grid = Gtk.Grid()
-        main_grid.set_row_spacing(3)
-        main_grid.set_margin_top(3)
-        main_grid.set_margin_bottom(3)
-        main_grid.set_margin_start(3)
-        main_grid.set_margin_end(3)
+        main_grid.set_row_spacing(2)
+        main_grid.set_margin_top(2)
+        main_grid.set_margin_bottom(2)
+        main_grid.set_margin_start(2)
+        main_grid.set_margin_end(2)
         self.menu_po.set_child(main_grid)
 
         # Bold label atributes
@@ -74,8 +74,8 @@ class CpuMenu:
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator.set_margin_top(3)
+        separator.set_margin_bottom(3)
         main_grid.attach(separator, 0, 4, 1, 1)
 
         # Button (Graph Color)
@@ -85,8 +85,8 @@ class CpuMenu:
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator.set_margin_top(3)
+        separator.set_margin_bottom(3)
         main_grid.attach(separator, 0, 6, 1, 1)
 
         # Label - title (Precision)
@@ -108,8 +108,8 @@ class CpuMenu:
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator.set_margin_top(3)
+        separator.set_margin_bottom(3)
         main_grid.attach(separator, 0, 10, 1, 1)
 
         # Button (Reset)
