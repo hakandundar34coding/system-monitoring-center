@@ -16,7 +16,7 @@ def files_in_folder(folder):
 
 
 # Python package
-elif "egg_info" in sys.argv or "sdist" in sys.argv or "bdist_wheel" in sys.argv:
+if "egg_info" in sys.argv or "sdist" in sys.argv or "bdist_wheel" in sys.argv:
     for argv in sys.argv:
         if "/in_process/_in_process.py" in argv:
             package_type_var = "python_package"
