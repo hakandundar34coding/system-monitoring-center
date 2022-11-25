@@ -15,28 +15,6 @@ def files_in_folder(folder):
     return file_paths
 
 
-"""
-# Debian package
-if "--debian_package" in sys.argv:
-    package_type_var = "debian_package"
-    sys.argv.remove("--debian_package")
-
-# RPM package
-if "--rpm_package" in sys.argv:
-    package_type_var = "rpm_package"
-    sys.argv.remove("--rpm_package")
-
-# Arch Linux package
-if "--arch_package" in sys.argv:
-    package_type_var = "arch_package"
-    sys.argv.remove("--arch_package")
-"""
-
-# Flatpak package
-if "--flatpak_package" in sys.argv:
-    package_type_var = "flatpak_package"
-    sys.argv.remove("--flatpak_package")
-
 # Python package
 elif "egg_info" in sys.argv or "sdist" in sys.argv or "bdist_wheel" in sys.argv:
     for argv in sys.argv:
@@ -67,7 +45,6 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
     os.chmod("locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo", 0o644)
     os.chmod("locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo", 0o644)
     os.chmod("locale/tr/LC_MESSAGES/system-monitoring-center.mo", 0o644)
-    os.chmod("locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo", 0o644)
     for file in files_in_folder("database/"):
         os.chmod(file, 0o644)
     for file in files_in_folder("src/"):
@@ -90,7 +67,6 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
         ("/usr/share/system-monitoring-center/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/usr/share/system-monitoring-center/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/usr/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/usr/share/system-monitoring-center/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/usr/share/system-monitoring-center/database/", files_in_folder("database/")),
         ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
         ("/usr/share/system-monitoring-center/ui/", files_in_folder("ui/")),
@@ -99,53 +75,6 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
         ("/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         ("/usr/bin/", ["integration/system-monitoring-center"])
     ]
-
-
-
-if package_type_var == "flatpak_package":
-
-    install_requires=["PyGObject"]
-    entry_points={}
-
-    shutil.copy2("icons/hicolor/scalable/apps/system-monitoring-center.svg", "icons/hicolor/scalable/actions/system-monitoring-center.svg")
-
-    os.rename("icons/hicolor/scalable/apps/system-monitoring-center.svg", "icons/hicolor/scalable/apps/io.github.hakandundar34coding.system-monitoring-center.svg")
-
-    with open("integration/io.github.hakandundar34coding.system-monitoring-center.desktop") as reader:
-        desktop_file_content = reader.read()
-    desktop_file_content = desktop_file_content.replace("Icon=system-monitoring-center", "Icon=io.github.hakandundar34coding.system-monitoring-center")
-    with open("integration/io.github.hakandundar34coding.system-monitoring-center.desktop", "w") as writer:
-        writer.write(desktop_file_content)
-
-    with open("integration/system-monitoring-center") as reader:
-        script_file_content = reader.read()
-    script_file_content = script_file_content.replace("/usr/share/system-monitoring-center/src/", "/app/share/system-monitoring-center/src/")
-    with open("integration/system-monitoring-center", "w") as writer:
-        writer.write(script_file_content)
-
-    data_files = [
-        ("/app/share/applications/", ["integration/io.github.hakandundar34coding.system-monitoring-center.desktop"]),
-        #("/app/share/polkit-1/actions/", ["integration/io.github.hakandundar34coding.system-monitoring-center.policy"]),
-        ("/app/share/system-monitoring-center/locale/de/LC_MESSAGES/", ["locale/de/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/cs/LC_MESSAGES/", ["locale/cs/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/fa/LC_MESSAGES/", ["locale/fa/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/hu/LC_MESSAGES/", ["locale/hu/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/pl/LC_MESSAGES/", ["locale/pl/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/pt_BR/LC_MESSAGES/", ["locale/pt_BR/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/app/share/system-monitoring-center/database/", files_in_folder("database/")),
-        ("/app/share/system-monitoring-center/src/", files_in_folder("src/")),
-        ("/app/share/system-monitoring-center/ui/", files_in_folder("ui/")),
-        ("/app/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
-        ("/app/share/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/io.github.hakandundar34coding.system-monitoring-center.svg"]),
-        ("/app/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
-        ("/app/share/appdata/", ["io.github.hakandundar34coding.system-monitoring-center.appdata.xml"]),
-        ("/app/bin/", ["integration/system-monitoring-center"])
-    ]
-
 
 
 if package_type_var == "python_package":
@@ -164,7 +93,6 @@ if package_type_var == "python_package":
         ("/systemmonitoringcenter/locale/pt_PT/LC_MESSAGES/", ["locale/pt_PT/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/systemmonitoringcenter/locale/ru_RU/LC_MESSAGES/", ["locale/ru_RU/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/systemmonitoringcenter/locale/tr/LC_MESSAGES/", ["locale/tr/LC_MESSAGES/system-monitoring-center.mo"]),
-        ("/systemmonitoringcenter/locale/zh_CN/LC_MESSAGES/", ["locale/zh_CN/LC_MESSAGES/system-monitoring-center.mo"]),
         ("/systemmonitoringcenter/database/", files_in_folder("database/")),
         ("/systemmonitoringcenter/src/", files_in_folder("src/")),
         ("/systemmonitoringcenter/ui/", files_in_folder("ui/")),
@@ -197,6 +125,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
         "Operating System :: POSIX :: Linux",
         "Topic :: System :: Monitoring",

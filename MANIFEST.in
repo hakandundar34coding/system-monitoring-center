@@ -13,7 +13,6 @@ include locale/pt_BR/LC_MESSAGES/*
 include locale/pt_PT/LC_MESSAGES/*
 include locale/ru_RU/LC_MESSAGES/*
 include locale/tr/LC_MESSAGES/*
-include locale/zh_CN/LC_MESSAGES/*
 include ui/*.ui
 include setup.py
 recursive-include icons *
