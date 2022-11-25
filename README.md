@@ -17,7 +17,7 @@
         <img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"/>
     </a>
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
-        <img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/hakandundar34coding/system-monitoring-center">
+        <img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/v/tag/hakandundar34coding/system-monitoring-center?sort=semver">
     </a>
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
         <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/hakandundar34coding/system-monitoring-center/total">
