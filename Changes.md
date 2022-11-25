@@ -1,5 +1,32 @@
 # System Monitoring Center
 
+### v1.34.0 (25.11.2022)
+  * Fix: Resetting all settings when GPU tab is open
+  * Several improvements (code, setup files, etc.)
+
+### v2.0.3 (23.11.2022)
+  * Fix: Disk capacity (mass storage) information
+  * Fix: Info. when process stopped is (Process details window)
+  * Several code simplifications
+
+### v2.0.2 (21.11.2022)
+  * Fix: Resetting all settings when GPU tab is opened
+  * Fix: Window size when when default tab is changed
+  * Fix: Hiding Services tab if systemd is not used
+  * Several code simplifications
+
+### v2.0.1 (20.11.2022)
+  * Fix: Application crash after changing remembering last tabs
+
+### v2.0.0 (20.11.2022)
+  * New: GTK4 GUI toolkit is used instead of GTK3
+  * New: Design changes for main/tab customization/right click menus
+  * New: Light/Dark GUI option
+  * New: Monitor resolution and refresh rate for multiple monitors
+  * Fix: Several GTK3 bugs are removed by switching to GTK4
+  * Several code simplifications
+  * Several improvements (code, GUI, translations, etc.)
+
 ### v1.33.0 (07.11.2022)
   * Improved: CPU usage of user processes for Flatpak
   * Improved: Process shared memory support for Flatpak

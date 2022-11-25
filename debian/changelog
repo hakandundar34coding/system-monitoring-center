@@ -1,3 +1,10 @@
+system-monitoring-center (1.34.0) unstable; urgency=medium
+
+  * Fix: Resetting all settings when GPU tab is open
+  * Several improvements (code, setup files, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 25 Nov 2022 10:45:00 +0300
+
 system-monitoring-center (1.33.0) unstable; urgency=medium
 
   * Improved: CPU usage of user processes for Flatpak

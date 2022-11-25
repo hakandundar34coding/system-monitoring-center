@@ -21,8 +21,7 @@ ski007, K0RR, sdorpl (polski)
 Bruno do Nascimento (português do Brasil)
 Ricardo Simões (português europeu)
 akorny (Русский)
-Hakan Dündar (Türkçe)
-ruojiner, Luo ( 汉语)</property>
+Hakan Dündar (Türkçe)</property>
     <property name="logo-icon-name">system-monitoring-center</property>
     <property name="license-type">gpl-3-0</property>
     <child internal-child="vbox">
