@@ -30,13 +30,13 @@ class CpuMenu:
         self.menu_po = Gtk.Popover()
 
         # Grid (main)
-        menu_main_grid = Gtk.Grid()
-        menu_main_grid.set_row_spacing(5)
-        menu_main_grid.set_margin_top(5)
-        menu_main_grid.set_margin_bottom(5)
-        menu_main_grid.set_margin_start(5)
-        menu_main_grid.set_margin_end(5)
-        self.menu_po.set_child(menu_main_grid)
+        main_grid = Gtk.Grid()
+        main_grid.set_row_spacing(3)
+        main_grid.set_margin_top(3)
+        main_grid.set_margin_bottom(3)
+        main_grid.set_margin_start(3)
+        main_grid.set_margin_end(3)
+        self.menu_po.set_child(main_grid)
 
         # Bold label atributes
         attribute_list_bold = Pango.AttrList()
@@ -49,74 +49,74 @@ class CpuMenu:
         label.set_label(_tr("CPU"))
         label.set_halign(Gtk.Align.CENTER)
         label.set_margin_bottom(10)
-        menu_main_grid.attach(label, 0, 0, 1, 1)
+        main_grid.attach(label, 0, 0, 1, 1)
 
         # Label (Graph - Show)
         label = Gtk.Label()
         label.set_attributes(attribute_list_bold)
         label.set_label(_tr("Graph - Show"))
         label.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(label, 0, 1, 1, 1)
+        main_grid.attach(label, 0, 1, 1, 1)
 
         # CheckButton (CPU Usage (Average))
         self.cpu_usage_average_cb = Gtk.CheckButton()
         self.cpu_usage_average_cb.set_group(None)
         self.cpu_usage_average_cb.set_label(_tr("CPU Usage (Average)"))
         self.cpu_usage_average_cb.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(self.cpu_usage_average_cb, 0, 2, 1, 1)
+        main_grid.attach(self.cpu_usage_average_cb, 0, 2, 1, 1)
 
         # CheckButton (CPU Usage (Per Core))
         self.cpu_usage_per_core_cb = Gtk.CheckButton()
         self.cpu_usage_per_core_cb.set_group(self.cpu_usage_average_cb)
         self.cpu_usage_per_core_cb.set_label(_tr("CPU Usage (Per Core)"))
         self.cpu_usage_per_core_cb.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(self.cpu_usage_per_core_cb, 0, 3, 1, 1)
+        main_grid.attach(self.cpu_usage_per_core_cb, 0, 3, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_margin_top(5)
         separator.set_margin_bottom(5)
-        menu_main_grid.attach(separator, 0, 4, 1, 1)
+        main_grid.attach(separator, 0, 4, 1, 1)
 
         # Button (Graph Color)
         self.graph_color_button = Gtk.Button()
         self.graph_color_button.set_label(_tr("Graph Color"))
-        menu_main_grid.attach(self.graph_color_button, 0, 5, 1, 1)
+        main_grid.attach(self.graph_color_button, 0, 5, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_margin_top(5)
         separator.set_margin_bottom(5)
-        menu_main_grid.attach(separator, 0, 6, 1, 1)
+        main_grid.attach(separator, 0, 6, 1, 1)
 
         # Label - title (Precision)
         label = Gtk.Label()
         label.set_attributes(attribute_list_bold)
         label.set_label(_tr("Precision"))
         label.set_halign(Gtk.Align.START)
-        menu_main_grid.attach(label, 0, 7, 1, 1)
+        main_grid.attach(label, 0, 7, 1, 1)
 
         # Label - precision (CPU)
         label = Gtk.Label()
         label.set_label(_tr("CPU"))
         label.set_halign(Gtk.Align.CENTER)
-        menu_main_grid.attach(label, 0, 8, 1, 1)
+        main_grid.attach(label, 0, 8, 1, 1)
 
         # ComboBox - precision (CPU)
         self.cpu_precision_cmb = Gtk.ComboBox()
-        menu_main_grid.attach(self.cpu_precision_cmb, 0, 9, 1, 1)
+        main_grid.attach(self.cpu_precision_cmb, 0, 9, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_margin_top(5)
         separator.set_margin_bottom(5)
-        menu_main_grid.attach(separator, 0, 10, 1, 1)
+        main_grid.attach(separator, 0, 10, 1, 1)
 
         # Button (Reset)
         self.reset_button = Gtk.Button()
         self.reset_button.set_label(_tr("Reset"))
         self.reset_button.set_halign(Gtk.Align.CENTER)
-        menu_main_grid.attach(self.reset_button, 0, 11, 1, 1)
+        main_grid.attach(self.reset_button, 0, 11, 1, 1)
 
         # ColorChooserDialog
         self.colorchooserdialog = Gtk.ColorChooserDialog().new(title=None, parent=MainWindow.main_window)

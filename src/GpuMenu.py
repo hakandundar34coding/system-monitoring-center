@@ -29,13 +29,13 @@ class GpuMenu:
         self.menu_po = Gtk.Popover()
 
         # Grid (main)
-        menu_main_grid = Gtk.Grid()
-        menu_main_grid.set_row_spacing(5)
-        menu_main_grid.set_margin_top(5)
-        menu_main_grid.set_margin_bottom(5)
-        menu_main_grid.set_margin_start(5)
-        menu_main_grid.set_margin_end(5)
-        self.menu_po.set_child(menu_main_grid)
+        main_grid = Gtk.Grid()
+        main_grid.set_row_spacing(3)
+        main_grid.set_margin_top(3)
+        main_grid.set_margin_bottom(3)
+        main_grid.set_margin_start(3)
+        main_grid.set_margin_end(3)
+        self.menu_po.set_child(main_grid)
 
         # Bold label atributes
         attribute_list_bold = Pango.AttrList()
@@ -48,24 +48,24 @@ class GpuMenu:
         label.set_label(_tr("GPU"))
         label.set_halign(Gtk.Align.CENTER)
         label.set_margin_bottom(10)
-        menu_main_grid.attach(label, 0, 0, 2, 1)
+        main_grid.attach(label, 0, 0, 2, 1)
 
         # Button (Graph Color)
         self.graph_color_button = Gtk.Button()
         self.graph_color_button.set_label(_tr("Graph Color"))
-        menu_main_grid.attach(self.graph_color_button, 0, 4, 2, 1)
+        main_grid.attach(self.graph_color_button, 0, 4, 2, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_margin_top(5)
         separator.set_margin_bottom(5)
-        menu_main_grid.attach(separator, 0, 5, 2, 1)
+        main_grid.attach(separator, 0, 5, 2, 1)
 
         # Button (Reset)
         self.reset_button = Gtk.Button()
         self.reset_button.set_label(_tr("Reset"))
         self.reset_button.set_halign(Gtk.Align.CENTER)
-        menu_main_grid.attach(self.reset_button, 0, 14, 2, 1)
+        main_grid.attach(self.reset_button, 0, 14, 2, 1)
 
         # ColorChooserDialog
         self.colorchooserdialog = Gtk.ColorChooserDialog().new(title=None, parent=MainWindow.main_window)

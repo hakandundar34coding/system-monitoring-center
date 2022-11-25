@@ -29,11 +29,11 @@ class ServicesMenu:
 
         # Grid (main)
         main_grid = Gtk.Grid()
-        main_grid.set_row_spacing(5)
-        main_grid.set_margin_top(5)
-        main_grid.set_margin_bottom(5)
-        main_grid.set_margin_start(5)
-        main_grid.set_margin_end(5)
+        main_grid.set_row_spacing(3)
+        main_grid.set_margin_top(3)
+        main_grid.set_margin_bottom(3)
+        main_grid.set_margin_start(3)
+        main_grid.set_margin_end(3)
         self.menu_po.set_child(main_grid)
 
         # Bold label atributes

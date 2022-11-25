@@ -471,20 +471,15 @@ class Memory:
         self.ram_hardware_window.set_modal(True)
         self.ram_hardware_window.set_hide_on_close(True)
 
-        # Add viewports for showing borders around some the performance data.
-        css = b"scrolledwindow {border-style: solid; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
-        style_provider_scrolledwindow = Gtk.CssProvider()
-        style_provider_scrolledwindow.load_from_data(css)
-
         # ScrolledWindow
         scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
         scrolledwindow.set_hexpand(True)
         scrolledwindow.set_vexpand(True)
         scrolledwindow.set_margin_top(10)
         scrolledwindow.set_margin_bottom(10)
         scrolledwindow.set_margin_start(10)
         scrolledwindow.set_margin_end(10)
-        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         self.ram_hardware_window.set_child(scrolledwindow)
 
         # Viewport
@@ -628,20 +623,15 @@ class Memory:
         self.swap_details_window.set_modal(True)
         self.swap_details_window.set_hide_on_close(True)
 
-        # Add viewports for showing borders around some the performance data.
-        css = b"scrolledwindow {border-style: solid; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
-        style_provider_scrolledwindow = Gtk.CssProvider()
-        style_provider_scrolledwindow.load_from_data(css)
-
         # ScrolledWindow
         scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_has_frame(True)
         scrolledwindow.set_hexpand(True)
         scrolledwindow.set_vexpand(True)
         scrolledwindow.set_margin_top(10)
         scrolledwindow.set_margin_bottom(10)
         scrolledwindow.set_margin_start(10)
         scrolledwindow.set_margin_end(10)
-        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         self.swap_details_window.set_child(scrolledwindow)
 
         # Viewport
