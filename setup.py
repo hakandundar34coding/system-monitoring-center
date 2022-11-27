@@ -70,7 +70,8 @@ if package_type_var == "debian_rpm_archlinux_or_another_package":
         ("/usr/share/polkit-1/actions/", ["integration/io.github.hakandundar34coding.system-monitoring-center.policy"]),
         ("/usr/share/system-monitoring-center/database/", files_in_folder("database/")),
         ("/usr/share/system-monitoring-center/src/", files_in_folder("src/")),
-        ("/usr/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
+        ("/usr/share/system-monitoring-center/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
+        ("/usr/share/system-monitoring-center/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/system-monitoring-center.svg"]),
         ("/usr/share/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/system-monitoring-center.svg"]),
         ("/usr/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         ("/usr/bin/", ["integration/system-monitoring-center"])
@@ -83,9 +84,7 @@ if package_type_var == "flatpak_package":
     install_requires=["PyGObject"]
     entry_points={}
 
-    shutil.copy2("icons/hicolor/scalable/apps/system-monitoring-center.svg", "icons/hicolor/scalable/actions/system-monitoring-center.svg")
-
-    os.rename("icons/hicolor/scalable/apps/system-monitoring-center.svg", "icons/hicolor/scalable/apps/io.github.hakandundar34coding.system-monitoring-center.svg")
+    shutil.copy2("icons/hicolor/scalable/apps/system-monitoring-center.svg", "icons/hicolor/scalable/apps/io.github.hakandundar34coding.system-monitoring-center.svg")
 
     with open("integration/io.github.hakandundar34coding.system-monitoring-center.desktop") as reader:
         desktop_file_content = reader.read()
@@ -102,10 +101,10 @@ if package_type_var == "flatpak_package":
     data_files = [
         ("/app/share/applications/", ["integration/io.github.hakandundar34coding.system-monitoring-center.desktop"]),
         ("/app/share/polkit-1/actions/", ["integration/io.github.hakandundar34coding.system-monitoring-center.policy"]),
-
         ("/app/share/system-monitoring-center/database/", files_in_folder("database/")),
         ("/app/share/system-monitoring-center/src/", files_in_folder("src/")),
-        ("/app/share/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
+        ("/app/share/system-monitoring-center/icons/hicolor/scalable/actions/", files_in_folder("icons/hicolor/scalable/actions/")),
+        ("/app/share/system-monitoring-center/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/system-monitoring-center.svg"]),
         ("/app/share/icons/hicolor/scalable/apps/", ["icons/hicolor/scalable/apps/io.github.hakandundar34coding.system-monitoring-center.svg"]),
         ("/app/share/man/man1/", ["man/system-monitoring-center.1.gz"]),
         ("/app/share/appdata/", ["io.github.hakandundar34coding.system-monitoring-center.appdata.xml"]),
