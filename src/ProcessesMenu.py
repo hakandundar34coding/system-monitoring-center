@@ -323,6 +323,7 @@ class ProcessesMenu:
         precision_grid.set_column_spacing(5)
         precision_grid.set_row_spacing(3)
         precision_grid.set_column_homogeneous(True)
+        precision_grid.set_hexpand(True)
         grid.attach(precision_grid, 0, 0, 2, 1)
 
         # Label - title (Precision)
