@@ -467,10 +467,12 @@ class SettingsWindow:
 
         Config.config_default_general_general_func()
         Config.config_save_func()
-        # Set "General" tab of the Settings window without disconnecting signals of the widgets in order to use these signals to reset the settings.
+        # Set GUI objects of the Settings window without disconnecting signals
+        # of the widgets in order to use these signals to reset the settings.
         self.set_gui()
 
-        # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
+        # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...)
+        # have to be set after "chart_data_history" setting is reset in order to avoid errors.
         self.settings_gui_set_chart_data_history_func()
 
         # Apply selected CPU core, disk, network card changes
@@ -481,7 +483,8 @@ class SettingsWindow:
         try:
             from MainWindow import Gpu
             Gpu.gpu_set_selected_gpu_func()
-        # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
+        # Prevent errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires
+        # some modules in the Gpu module. They are imported if Gpu tab is switched on.
         except ImportError:
             pass
 
@@ -522,7 +525,8 @@ class SettingsWindow:
         # Reset "Light/Dark theme" setting.
         self.on_light_dark_theme_cmb_changed(self.light_dark_theme_cmb)
 
-        # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...) have to be set after "chart_data_history" setting is reset in order to avoid errors.
+        # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...)
+        # have to be set after "chart_data_history" setting is reset in order to avoid errors.
         self.settings_gui_set_chart_data_history_func()
 
         # Apply selected CPU core, disk, network card changes
@@ -533,7 +537,8 @@ class SettingsWindow:
         try:
             from MainWindow import Gpu
             Gpu.gpu_set_selected_gpu_func()
-        # "try-except" is used in order to avoid errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires some modules in the Gpu module they are imported if Gpu tab is switched on.
+        # Prevent errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires
+        # some modules in the Gpu module. They are imported if Gpu tab is switched on.
         except ImportError:
             pass
 
