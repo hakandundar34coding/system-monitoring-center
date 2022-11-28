@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-20 13:21+0300\n"
-"PO-Revision-Date: 2022-11-28 09:10+0300\n"
+"PO-Revision-Date: 2022-11-28 13:55+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2\n"
 
 #: src/Cpu.py:83 src/CpuMenu.py:50 src/CpuMenu.py:102 src/MainWindow.py:153
 #: src/MainWindow.py:421 src/Performance.py:1092 src/Processes.py:704
@@ -54,7 +54,7 @@ msgstr "Frequência"
 
 #: src/Cpu.py:238
 msgid "Processes-Threads"
-msgstr "Threads dos processos"
+msgstr "Processos-Threads"
 
 #: src/Cpu.py:243
 msgid "Up Time"
