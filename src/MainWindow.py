@@ -33,7 +33,7 @@ class MainWindow():
 
         self.application_system_integration()
 
-        # Add images to the image theme for using them for application GUI.
+        # Add images to the image theme. These images are used for application GUI.
         image_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
         image_theme.add_search_path(os.path.dirname(os.path.realpath(__file__)) + "/../icons")
 
@@ -691,7 +691,10 @@ class MainWindow():
                            "tr": "Hakan Dündar"
                            }
 
+        # Get GUI language for getting translator name
         application_language = Config.language
+        if application_language == "system":
+            application_language = os.environ.get("LANG")
         application_language_code = application_language.split(".")[0]
         application_language_code_split = application_language_code.split("_")[0]
 
@@ -810,9 +813,8 @@ class MainWindow():
     def environment_type_detection(self):
         """
         Detect environment type (Flatpak, Python package or native).
-        This information will be used for accessing host OS commands if the application is
-        # run in Flatpak environment or for showing new version information, etc. if the application
-        # is a Python package.
+        This information will be used for accessing host OS commands if the application is run in Flatpak
+        environment or for showing new version information, etc. if the application is a Python package.
         """
 
         current_dir = os.path.dirname(os.path.realpath(__file__))
