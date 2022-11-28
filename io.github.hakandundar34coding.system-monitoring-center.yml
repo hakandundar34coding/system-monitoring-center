@@ -5,19 +5,19 @@ sdk: org.gnome.Sdk
 command: system-monitoring-center
 
 finish-args:
-  # For X11 shared memory access (higher performance for X11).
+  # For X11 shared memory access (higher performance for X11)
   - --share=ipc
-  # For Wayland access.
+  # For Wayland access
   - --socket=wayland
-  # For X11 fallback.
+  # For X11 fallback
   - --socket=fallback-x11
-  # For monitoring data download/upload speed on network cards.
+  # For monitoring data download/upload speed on network cards
   - --device=all
-  # For monitoring data download/upload speed on network cards.
+  # For monitoring data download/upload speed on network cards
   - --share=network
-  # For host OS commands access (such as 'systemctl' for service details, 'ls /proc' for process list, 'ps' for process information, etc.).
+  # For host OS commands access (such as 'systemctl' for service details, 'ls /proc' for process list, 'ps' for process information, etc.)
   - --talk-name=org.freedesktop.Flatpak
-  # For reading several files (systemd service files, process information in '/proc' folder, etc.) of host OS.
+  # For reading several files (systemd service files, process information in '/proc' folder, etc.) of host OS
   - --filesystem=host:ro
 
 cleanup:
@@ -29,7 +29,7 @@ cleanup:
 
 modules:
 
-  # For using hardware database of "udev".
+  # For using hardware database of "udev"
   - name: eudev
     cleanup:
       - /bin
@@ -50,7 +50,7 @@ modules:
           stable-only: true
           url-template: https://github.com/eudev-project/eudev/releases/download/v$version/eudev-$version.tar.gz
 
-  # For getting IPv4 and IPv6 addresses by using 'ip a show [network_card]' command.
+  # For getting IPv4 and IPv6 addresses by using 'ip a show [network_card]' command
   - name: iproute2
     buildsystem: autotools
     make-install-args:
@@ -62,7 +62,7 @@ modules:
         url: https://github.com/shemminger/iproute2/archive/refs/tags/v5.11.0.tar.gz
         sha256: 16b79e6ce65d4d5fd425cef2fd92a58c403a93faeeed0e0a3202b36a8e857d1f
 
-  # For System Monitoring Center.
+  # For System Monitoring Center
   - name: system-monitoring-center
     buildsystem: simple
     build-commands:
