@@ -3,6 +3,7 @@
 ### v2.1.0 (28.11.2022)
   * New: Cell colors for process CPU,memory,disk data
   * Improvements for system integration
+  * Updated: Portuguese (Portugal) translations
   * Minor GUI improvements for menus
 
 ### v1.34.0 (25.11.2022)

@@ -2,6 +2,7 @@ system-monitoring-center (2.1.0) unstable; urgency=medium
 
   * New: Cell colors for process CPU,memory,disk data
   * Improvements for system integration
+  * Updated: Portuguese (Portugal) translations
   * Minor GUI improvements for menus
 
  -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 28 Nov 2022 09:00:00 +0300
