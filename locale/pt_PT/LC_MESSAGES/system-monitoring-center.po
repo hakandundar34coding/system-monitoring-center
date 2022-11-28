@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-20 13:21+0300\n"
-"PO-Revision-Date: 2022-11-27 22:40+0000\n"
+"PO-Revision-Date: 2022-11-28 09:10+0300\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: src/Cpu.py:83 src/CpuMenu.py:50 src/CpuMenu.py:102 src/MainWindow.py:153
 #: src/MainWindow.py:421 src/Performance.py:1092 src/Processes.py:704
@@ -560,7 +560,7 @@ msgstr "Cancelar"
 
 #: src/Processes.py:395
 msgid "Do you want to end this process?"
-msgstr "Matar este processo?"
+msgstr "Terminar este processo?"
 
 #: src/Processes.py:401
 msgid "Do you want to end this process immediately?"
@@ -1062,42 +1062,3 @@ msgstr "Grupo"
 #: src/Users.py:261 src/UsersDetails.py:246 src/UsersMenu.py:159
 msgid "Terminal"
 msgstr "Terminal"
-
-#~ msgid "There is a newer version on PyPI."
-#~ msgstr "Existe uma versão mais recente no PyPI."
-
-#~ msgid "System Disk:"
-#~ msgstr "Disco do sistema:"
-
-#~ msgid "Used:"
-#~ msgstr "Utilizado:"
-
-#~ msgid "Free:"
-#~ msgstr "Livre:"
-
-#~ msgid "Capacity:"
-#~ msgstr "Capacidade:"
-
-#~ msgid "Details:"
-#~ msgstr "Detalhes:"
-
-#~ msgid "Expand All"
-#~ msgstr "Expandir tudo"
-
-#~ msgid "Collapse All"
-#~ msgstr "Recolher tudo"
-
-#~ msgid "Stop Process"
-#~ msgstr "Parar processo"
-
-#~ msgid "Terminate Process"
-#~ msgstr "Terminar processo"
-
-#~ msgid "Kill Process"
-#~ msgstr "Matar processo"
-
-#~ msgid "Name:"
-#~ msgstr "Nome:"
-
-#~ msgid "System:"
-#~ msgstr "Sistema:"
