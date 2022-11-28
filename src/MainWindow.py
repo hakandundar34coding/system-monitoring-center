@@ -679,19 +679,30 @@ class MainWindow():
         with open(os.path.dirname(os.path.abspath(__file__)) + "/__version__") as reader:
             software_version = reader.read().strip()
 
+        # Define translators dictionary
+        translators_dic = {"cs": "panmourovaty",
+                           "de": "Baumfinder",
+                           "fa": "MasterKia",
+                           "hu": "Kálmán Szalai",
+                           "pl": "ski007, K0RR, sdorpl",
+                           "pt_BR": "Bruno do Nascimento",
+                           "pt_PT": "Hugo Carvalho, Ricardo Simões",
+                           "ru_RU": "akorny",
+                           "tr": "Hakan Dündar"
+                           }
+
+        application_language = Config.language
+        application_language_code = application_language.split(".")[0]
+        application_language_code_split = application_language_code.split("_")[0]
+
         # Define translators list
-        translators_list = [
-                            "panmourovaty (čeština)",
-                            "Baumfinder (Deutsch)",
-                            "MasterKia (فارسی)",
-                            "Kálmán Szalai (Magyar)",
-                            "ski007, K0RR, sdorpl (polski)",
-                            "Bruno do Nascimento (português do Brasil)",
-                            "Ricardo Simões (português europeu)",
-                            "akorny (Русский)",
-                            "Hakan Dündar (Türkçe)"
-                           ]
-        translators_list = '\n'.join(translators_list)
+        try:
+            translators = '\n'.join(translators_dic[application_language_code].split(", "))
+        except Exception:
+            try:
+                translators = '\n'.join(translators_dic[application_language_code_split].split(", "))
+            except Exception:
+                translators = "-"
 
         # AboutDialog
         self.about_dialog = Gtk.AboutDialog()
@@ -705,7 +716,7 @@ class MainWindow():
         self.about_dialog.set_copyright("© 2022 Hakan Dündar")
         self.about_dialog.set_website("https://github.com/hakandundar34coding/system-monitoring-center")
         self.about_dialog.set_license_type(Gtk.License.GPL_3_0)
-        self.about_dialog.set_translator_credits(translators_list)
+        self.about_dialog.set_translator_credits(translators)
         # Hide the window/dialog when it is closed. Otherwise, it is deleted.
         # But opening window/dialog multiple times without deleting it consumes more memory each time.
         self.about_dialog.set_hide_on_close(True)
