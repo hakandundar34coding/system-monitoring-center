@@ -758,7 +758,7 @@ class Processes:
                 application_exec_list.append(application_file_content.split("Exec=", 1)[1].split("\n", 1)[0])
             application_icon_list.append(application_file_content.split("Icon=", 1)[1].split("\n", 1)[0])    # Get application icon name data
 
-        self.filter_column = processes_data_list[0][2] - 1                                             # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+        self.filter_column = processes_data_list[0][2] - 1                                        # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
         self.process_status_list = process_status_list
         self.number_of_clock_ticks = number_of_clock_ticks
@@ -959,9 +959,12 @@ class Processes:
                     if process_name.startswith(process_name_from_stat) == False:
                         process_name = process_name_from_stat
             # Get process image.
-            process_icon = "system-monitoring-center-process-symbolic"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
-            if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list.
-                process_icon = application_icon_list[application_exec_list.index(process_name)]
+            if ppid_list[index] == "2" or pid == "2":
+                process_icon = "system-monitoring-center-process-symbolic"
+            else:
+                process_icon = "application-x-executable"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
+                if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list.
+                    process_icon = application_icon_list[application_exec_list.index(process_name)]
             processes_data_row = [True, process_icon, process_name]                               # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
             # Get process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
             if 1 in processes_treeview_columns_shown:
