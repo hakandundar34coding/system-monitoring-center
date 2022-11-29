@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-29 09:38+0300\n"
-"PO-Revision-Date: 2022-11-29 10:47+0300\n"
+"PO-Revision-Date: 2022-11-29 13:57+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2\n"
 
 #: src/Cpu.py:76 src/CpuMenu.py:49 src/CpuMenu.py:101 src/MainWindow.py:149
 #: src/MainWindow.py:409 src/Performance.py:1116 src/Processes.py:701
@@ -105,7 +105,7 @@ msgstr "Gráfico - Mostrar"
 #: src/GpuMenu.py:55 src/GpuMenu.py:71 src/MemoryMenu.py:83
 #: src/MemoryMenu.py:149 src/NetworkMenu.py:95 src/NetworkMenu.py:168
 msgid "Graph Color"
-msgstr "Cor do Gráfico"
+msgstr "Cor do gráfico"
 
 #: src/CpuMenu.py:95 src/DiskMenu.py:107 src/MemoryMenu.py:95
 #: src/NetworkMenu.py:107 src/ProcessesMenu.py:332
@@ -181,7 +181,7 @@ msgstr "Mostrar..."
 
 #: src/Disk.py:485
 msgid "Parent Name"
-msgstr "Nome acima"
+msgstr "Disco principal"
 
 #: src/Disk.py:521 src/Memory.py:582 src/Memory.py:602 src/Memory.py:698
 #: src/ServicesDetails.py:314
@@ -198,7 +198,7 @@ msgstr "Armazenamento em massa"
 
 #: src/Disk.py:647
 msgid "Label (File System)"
-msgstr "Etiqueta (sistema de ficheiros)"
+msgstr "Identificação (sistema de ficheiros)"
 
 #: src/Disk.py:665
 msgid "Mount Point"
@@ -252,7 +252,7 @@ msgstr "Mostrar unidades de velocidade como múltiplos de bits"
 
 #: src/DiskMenu.py:171
 msgid "Hide loop, ramdisk, zram disks"
-msgstr "Esconder ciclo, disco ram, discos zram"
+msgstr "Ocultar ciclo, disco ram, discos zram"
 
 #: src/Gpu.py:78 src/GpuMenu.py:48 src/MainWindow.py:493
 #: src/SettingsWindow.py:27
@@ -357,7 +357,7 @@ msgstr "Definições gerais"
 
 #: src/MainWindow.py:645
 msgid "About"
-msgstr "Sobre"
+msgstr "Acerca"
 
 #: src/MainWindow.py:717
 msgid "Multi-featured system monitor."
@@ -384,7 +384,7 @@ msgstr ""
 
 #: src/MainWindow.py:1358
 msgid "There is a newer version on PyPI."
-msgstr ""
+msgstr "Existe uma versão mais recente no PyPI."
 
 #: src/Memory.py:119
 msgid "RAM Usage"
@@ -449,7 +449,7 @@ msgstr "Prioridade"
 #: src/Network.py:113 src/Network.py:177 src/NetworkMenu.py:63
 #: src/Performance.py:1314
 msgid "Download Speed"
-msgstr "Velocidade de transferência"
+msgstr "Velocidade de recepção"
 
 #: src/Network.py:113 src/Network.py:182 src/NetworkMenu.py:69
 #: src/Performance.py:1323
@@ -706,7 +706,7 @@ msgstr "Ver"
 #: src/ProcessesMenu.py:71 src/ProcessesMenu.py:184 src/ServicesMenu.py:61
 #: src/ServicesMenu.py:101 src/UsersMenu.py:61 src/UsersMenu.py:101
 msgid "Add/Remove Columns"
-msgstr "Adicionar/Remover Colunas"
+msgstr "Adicionar/Remover colunas"
 
 #: src/ProcessesMenu.py:81
 msgid "Numbers"
@@ -761,11 +761,11 @@ msgstr "Recarregar"
 
 #: src/Services.py:191
 msgid "Enable"
-msgstr "Ativado"
+msgstr "Ativar"
 
 #: src/Services.py:192
 msgid "Disable"
-msgstr "Desativado"
+msgstr "Desativar"
 
 #: src/Services.py:195
 msgid "Mask"
@@ -845,11 +845,11 @@ msgstr "Carregado"
 
 #: src/Services.py:467 src/ServicesDetails.py:503
 msgid "Dead"
-msgstr "Morto"
+msgstr "Parado"
 
 #: src/Services.py:467 src/ServicesDetails.py:503
 msgid "Exited"
-msgstr "Saiu"
+msgstr "Terminado"
 
 #: src/ServicesDetails.py:37
 msgid "Service Details"
@@ -861,7 +861,7 @@ msgstr "Dependências"
 
 #: src/ServicesDetails.py:132
 msgid "Unit File State - Preset"
-msgstr "Estado do Ficheiro da Unidade - Predefinição"
+msgstr "Estado do ficheiro da unidade - Predefinição"
 
 #: src/ServicesDetails.py:222
 msgid "Documentation"
@@ -957,7 +957,7 @@ msgstr "Repor todas as definições para os padrões?"
 
 #: src/System.py:86 src/System.py:144
 msgid "Operating System (OS)"
-msgstr "Sistema Operativo (S.O.)"
+msgstr "Sistema Operativo (SO)"
 
 #: src/System.py:95 src/System.py:317
 msgid "Computer"
@@ -977,7 +977,7 @@ msgstr "Família do SO"
 
 #: src/System.py:196
 msgid "Based On"
-msgstr "Baseado em"
+msgstr "Baseado no"
 
 #: src/System.py:211
 msgid "Kernel Release"
@@ -1033,7 +1033,7 @@ msgstr "Flatpak"
 
 #: src/System.py:448
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr "Número de runtimes e aplicações Flatpak instaladas"
+msgstr "Número de tempos de execução e aplicações Flatpak instaladas"
 
 #: src/System.py:463
 msgid "GTK Version"
@@ -1057,7 +1057,7 @@ msgstr "Sessão iniciada"
 
 #: src/Users.py:254 src/UsersDetails.py:186 src/UsersMenu.py:146
 msgid "Home Directory"
-msgstr "Diretório Home"
+msgstr "Pasta pessoal"
 
 #: src/Users.py:255 src/UsersDetails.py:204 src/UsersMenu.py:152
 msgid "Group"
