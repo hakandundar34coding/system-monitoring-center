@@ -165,8 +165,8 @@ class NetworkMenu:
         main_grid.attach(self.reset_button, 0, 18, 2, 1)
 
         # ColorChooserDialog
-        self.colorchooserdialog = Gtk.ColorChooserDialog().new(title=None, parent=MainWindow.main_window)
-        self.colorchooserdialog.set_transient_for(MainWindow.main_window)
+        self.colorchooserdialog = Gtk.ColorChooserDialog().new(title=_tr("Graph Color"), parent=MainWindow.main_window)
+        self.colorchooserdialog.set_modal(True)
 
         # Connect signals
         self.menu_po.connect("show", self.on_menu_po_show)
