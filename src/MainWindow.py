@@ -6,7 +6,8 @@ gi.require_version('Gdk', '4.0')
 gi.require_version('GLib', '2.0')
 gi.require_version('Gio', '2.0')
 gi.require_version('Pango', '1.0')
-from gi.repository import Gtk, Gdk, GLib, Gio, Pango
+gi.require_version('Adw', '1')
+from gi.repository import Gtk, Gdk, GLib, Gio, Pango, Adw
 
 import os
 import locale
@@ -781,13 +782,16 @@ class MainWindow():
         """
 
         if Config.light_dark_theme == "system":
-            pass
+            Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.DEFAULT)
+            #pass
 
         elif Config.light_dark_theme == "light":
-            Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = False
+            Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.FORCE_LIGHT)
+            #Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = False
 
         elif Config.light_dark_theme == "dark":
-            Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = True
+            Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.FORCE_DARK)
+            #Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = True
 
 
     def language_translation_support(self):

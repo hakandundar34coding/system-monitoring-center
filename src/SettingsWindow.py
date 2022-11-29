@@ -2,7 +2,8 @@
 
 import gi
 gi.require_version('Gtk', '4.0')
-from gi.repository import Gtk
+gi.require_version('Adw', '1')
+from gi.repository import Gtk, Adw
 
 import os
 
@@ -307,12 +308,7 @@ class SettingsWindow:
         light_dark_theme = list(self.gui_theme_dict.keys())[widget.get_active()]
         Config.light_dark_theme = light_dark_theme
 
-        if light_dark_theme == "system":
-            Gtk.Settings.get_default().reset_property("gtk-application-prefer-dark-theme")
-        elif light_dark_theme == "light":
-            Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = False
-        elif light_dark_theme == "dark":
-            Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = True
+        MainWindow.light_dark_theme()
 
         Config.config_save_func()
 
