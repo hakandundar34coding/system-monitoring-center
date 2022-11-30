@@ -7,7 +7,6 @@ gi.require_version('GLib', '2.0')
 from gi.repository import Gtk, GLib
 import os
 
-# "_tr" arbitrary variable will be recognized by gettext application for extracting texts to be translated
 import locale
 from locale import gettext as _tr
 
@@ -36,6 +35,10 @@ class MainGUI:
 
         # Detect environment type (Flatpak or native). This information will be used for accessing host OS commands if the application is run in Flatpak environment.
         self.main_gui_environment_type_detection_func()
+
+        # Add images to the image theme. These images are used for application GUI.
+        image_theme = Gtk.IconTheme. get_default()
+        image_theme.append_search_path(os.path.dirname(os.path.realpath(__file__)) + "/../icons")
 
         # Generate symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated.
         self.main_gui_application_system_integration_func()
@@ -828,31 +831,38 @@ class MainGUI:
         self.main_glib_source.attach(GLib.MainContext.default())
 
 
-    # ----------------------- Called for detecting environment type (Flatpak or native). This information will be used for accessing host OS commands if the application is run in Flatpak environment. -----------------------
+    # ----------------------- Called for detecting environment type (Flatpak or native). -----------------------
     def main_gui_environment_type_detection_func(self):
+        """
+        Detect environment type (Flatpak, Python package or native).
+        This information will be used for accessing host OS commands if the application is run in Flatpak
+        environment or for showing new version information, etc. if the application is a Python package.
+        """
 
-        # Get OS version information.
-        os_version = "-"
-        with open("/etc/os-release") as reader:
-            os_release_output_lines = reader.read().strip().split("\n")
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        current_user_homedir = os.environ.get('HOME')
+        application_flatpak_id = os.getenv('FLATPAK_ID')
 
-        for line in os_release_output_lines:
-            if line.startswith("VERSION="):
-                os_version = line.split("VERSION=")[1].strip(' "')
-                break
-
-        if "flatpak runtime" in os_version.lower():
+        if application_flatpak_id != None:
             environment_type = "flatpak"
+
+        elif current_dir.startswith("/usr/local/lib/python") == True or current_dir.startswith(current_user_homedir + "/.local/lib/python") == True:
+            environment_type = "python_package"
+
         else:
             environment_type = "native"
 
         Config.environment_type = environment_type
 
 
-    # ----------------------- Called for copying files for GUI icons and application shortcut (.desktop file) in user folders if they are not copied before. -----------------------
+    # ----------------------- Called for copying application image and shortcut (.desktop file) in user folders if they are not copied before. -----------------------
     def main_gui_application_system_integration_func(self):
+        """
+        Copy files for application shortcut (.desktop file) in user folders if they are not copied before.
+        Because these files are not copied if the application is installed as a Python package.
+        """
 
-        if Config.environment_type == "flatpak":
+        if Config.environment_type != "python_package":
             return
 
         # Called for removing files.
@@ -876,52 +886,23 @@ class MainGUI:
             except Exception:
                 pass
 
-        # Get current directory (which code of this application is in) and current user home directory (files will be copied in).
+        # Get current directory (which the code is in) and current user home directory (files will be copied in).
         current_dir = os.path.dirname(os.path.realpath(__file__))
         current_user_homedir = os.environ.get('HOME')
 
-        # Define folder list in the home directory for copying files in it.
-        home_dir_folder_list = [current_user_homedir + "/.local/share/applications/",
-                                current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/",
-                                current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/"]
-
-        # Generate folders to copy files in them if they are not generated before.
-        for folder in home_dir_folder_list:
-            if os.path.isdir(folder) == False:
-                generate_folder(folder)
-
-        # Get icon file paths in the home directory.
-        icon_list_actions = [current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/" + file for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/actions/") if file.startswith("system-monitoring-center-")]
-        icon_list_apps = [current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/" + file for file in os.listdir(current_user_homedir + "/.local/share/icons/hicolor/scalable/apps/") if file.startswith("system-monitoring-center.svg")]
-        icon_list_home = sorted(icon_list_actions + icon_list_apps)
-
-        # Get icon file paths in the installation directory. These files are copied under this statement in order to avoid copying them if this is a system package which copies GUI images into "/usr/share/icons/..." folder during installation.
-        try:
-            icon_list_actions = [current_dir + "/../icons/hicolor/scalable/actions/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/actions/") if file.startswith("system-monitoring-center-")]
-            icon_list_apps = [current_dir + "/../icons/hicolor/scalable/apps/" + file for file in os.listdir(current_dir + "/../icons/hicolor/scalable/apps/") if file.startswith("system-monitoring-center.svg")]
-            icon_list_current = sorted(icon_list_actions + icon_list_apps)
-
-            # Copy .desktop file if it is not copied before.
-            if os.path.isfile(current_user_homedir + "/.local/share/applications/io.github.hakandundar34coding.system-monitoring-center.desktop") == False:
-                # Try to remove if there is a broken symlink of the file (symlink was generated in previous versions of the application).
-                remove_file(current_user_homedir + "/.local/share/applications/io.github.hakandundar34coding.system-monitoring-center.desktop")
-                # Import module for copying files
-                import shutil
-                copy_file(current_dir + "/../integration/io.github.hakandundar34coding.system-monitoring-center.desktop", current_user_homedir + "/.local/share/applications/")
-        except Exception:
-            icon_list_current = []
-
-        # Check if number of icon files are different. Remove the files in the home directory and copy the files in the installation directory if they are different.
-        if len(icon_list_home) != len(icon_list_current):
-
-            # Import module for copying files
+        # Copy .desktop file
+        file_name = "io.github.hakandundar34coding.system-monitoring-center.desktop"
+        sub_folder_name = "/.local/share/applications/"
+        if os.path.isfile(current_user_homedir + sub_folder_name + file_name) == False:
             import shutil
+            copy_file(current_dir + "/../integration/" + file_name, current_user_homedir + sub_folder_name)
 
-            for file in icon_list_home:
-                remove_file(file)
-
-            for file in icon_list_current:
-                copy_file(file, current_user_homedir + "/.local/share/icons/hicolor/scalable/" + file.split("/")[-2] + "/")
+        # Copy application image
+        file_name = "system-monitoring-center.svg"
+        sub_folder_name = "/.local/share/icons/hicolor/scalable/apps/"
+        if os.path.isfile(current_user_homedir + sub_folder_name + file_name) == False:
+            import shutil
+            copy_file(current_dir + "/../icons/hicolor/scalable/apps/" + file_name, current_user_homedir + sub_folder_name)
 
 
 # Generate object

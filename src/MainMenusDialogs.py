@@ -50,12 +50,43 @@ class MainMenusDialogs:
     # ----------------------- "About" menu item -----------------------
     def on_button1002p_clicked(self, widget):
 
+        # Get software version
         self.popover1001p.hide()
         try:
             software_version = open(os.path.dirname(os.path.abspath(__file__)) + "/__version__").readline()
         except Exception:
             pass
+
+        # Define translators dictionary
+        translators_dic = {"cs": "panmourovaty",
+                           "de": "Baumfinder",
+                           "fa": "MasterKia",
+                           "hu": "Kálmán Szalai",
+                           "pl": "ski007, K0RR, sdorpl",
+                           "pt_BR": "Bruno do Nascimento",
+                           "pt_PT": "Ricardo Simões",
+                           "ru_RU": "akorny",
+                           "tr": "Hakan Dündar"
+                           }
+
+        # Get GUI language for getting translator name
+        application_language = Config.language
+        if application_language == "system":
+            application_language = os.environ.get("LANG")
+        application_language_code = application_language.split(".")[0]
+        application_language_code_split = application_language_code.split("_")[0]
+
+        # Define translators list
+        try:
+            translators = '\n'.join(translators_dic[application_language_code].split(", "))
+        except Exception:
+            try:
+                translators = '\n'.join(translators_dic[application_language_code_split].split(", "))
+            except Exception:
+                translators = "-"
+
         self.aboutdialog1001d.set_version(software_version)
+        self.aboutdialog1001d.set_translator_credits(translators)
         self.aboutdialog1001d.set_transient_for(MainGUI.window1)
         self.aboutdialog1001d.run()
         self.aboutdialog1001d.hide()

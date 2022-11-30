@@ -501,9 +501,10 @@ class Performance:
         return device_vendor_name, device_model_name, device_vendor_id, device_model_id
 
 
-
-    # ----------------------- Called for drawing performance summary data -----------------------
     def performance_summary_chart_draw_func(self, widget, ctx):
+        """
+        Draw performance summary data.
+        """
 
         # Get chart colors of performance tab sub-tab charts.
         chart_line_color_cpu_percent = Config.chart_line_color_cpu_percent
@@ -616,14 +617,37 @@ class Performance:
         gauge_disk_network_usage_text_move_y = gauge_outer_radius * 0.11
 
 
-        # Save current (default) transformations (translation, rotation, scale, color, line thickness, etc.) to restore back.
-        ctx.save()
+        # Draw a rounded rectangle to use it as outer frame of the chart.
+        chart_bg_border_thickness = 0
+        chart_bg_width = chart_width - 2 * chart_bg_border_thickness
+        chart_bg_height = chart_height - 2 * chart_bg_border_thickness
+        chart_bg_radius = gauge_outer_radius * 0.06
+        ctx.arc(chart_bg_border_thickness+chart_bg_radius, chart_bg_border_thickness+chart_bg_radius, chart_bg_radius, pi_number, 3*pi_number/2)
+        ctx.arc(chart_bg_border_thickness+chart_bg_width-chart_bg_radius, chart_bg_border_thickness+chart_bg_radius, chart_bg_radius, 3*pi_number/2, 0)
+        ctx.arc(chart_bg_border_thickness+chart_bg_width-chart_bg_radius, chart_bg_border_thickness+chart_bg_height-chart_bg_radius, chart_bg_radius, 0, pi_number/2)
+        ctx.arc(chart_bg_border_thickness+chart_bg_radius, chart_bg_border_thickness+chart_bg_height-chart_bg_radius, chart_bg_radius, pi_number/2, pi_number)
+        ctx.set_source_rgba(0.5, 0.5, 0.5, 1.0)
+        ctx.fill()
+
+        # Generate a smaller second rounded rectangle for clipping the latter drawings.
+        # Drawings outside this shape will not be drawn/shown because of clipping.
+        chart_bg_border_thickness = gauge_outer_radius * 0.023
+        chart_bg_width = chart_width - 2 * chart_bg_border_thickness
+        chart_bg_height = chart_height - 2 * chart_bg_border_thickness
+        chart_bg_radius = gauge_outer_radius * 0.04
+        ctx.arc(chart_bg_border_thickness+chart_bg_radius, chart_bg_border_thickness+chart_bg_radius, chart_bg_radius, pi_number, 3*pi_number/2)
+        ctx.arc(chart_bg_border_thickness+chart_bg_width-chart_bg_radius, chart_bg_border_thickness+chart_bg_radius, chart_bg_radius, 3*pi_number/2, 0)
+        ctx.arc(chart_bg_border_thickness+chart_bg_width-chart_bg_radius, chart_bg_border_thickness+chart_bg_height-chart_bg_radius, chart_bg_radius, 0, pi_number/2)
+        ctx.arc(chart_bg_border_thickness+chart_bg_radius, chart_bg_border_thickness+chart_bg_height-chart_bg_radius, chart_bg_radius, pi_number/2, pi_number)
+        ctx.clip()
 
         # Draw and fill chart background.
         ctx.rectangle(0, 0, chart_width, chart_height)
         ctx.set_source_rgba(44/255, 60/255, 73/255, 1.0)
         ctx.fill()
 
+        # Save current (default) transformations (translation, rotation, scale, color, line thickness, etc.) to restore back.
+        ctx.save()
 
         # Draw background upper band.
         ctx.move_to(0, 0)
@@ -881,7 +905,7 @@ class Performance:
         # Draw circular (partial) line on the left of the disk read/write labels on the right gauge.
         ctx.save()
         ctx.translate(gauge_circular_center_x, chart_height / 2)
-        start_angle = -31*pi_number/180
+        start_angle = -30.5*pi_number/180
         end_angle = -4*pi_number/180
 
         ctx.set_line_width(1.5)
@@ -895,7 +919,7 @@ class Performance:
         ctx.save()
         ctx.translate(gauge_circular_center_x, chart_height / 2)
         start_angle = 4*pi_number/180
-        end_angle = 31*pi_number/180
+        end_angle = 30.5*pi_number/180
 
         ctx.set_line_width(1.5)
         ctx.set_source_rgba(chart_line_color_network_speed_data[0], chart_line_color_network_speed_data[1], chart_line_color_network_speed_data[2], chart_line_color_network_speed_data[3])

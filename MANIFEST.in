@@ -4,15 +4,7 @@ include integration/io.github.hakandundar34coding.system-monitoring-center.deskt
 include database/*
 include src/*.py
 include src/__version__
-include locale/de/LC_MESSAGES/*
-include locale/cs/LC_MESSAGES/*
-include locale/fa/LC_MESSAGES/*
-include locale/hu/LC_MESSAGES/*
-include locale/pl/LC_MESSAGES/*
-include locale/pt_BR/LC_MESSAGES/*
-include locale/pt_PT/LC_MESSAGES/*
-include locale/ru_RU/LC_MESSAGES/*
-include locale/tr/LC_MESSAGES/*
 include ui/*.ui
+include locale/*/LC_MESSAGES/*
 include setup.py
 recursive-include icons *
