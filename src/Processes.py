@@ -874,10 +874,9 @@ class Processes:
         global previous_line_process
         previous_line_process = 0
         # Read "" and "" files by using "cat" command for calculating process CPU usages and read/write speeds.
+        command_list = ["cat"]
         if Config.environment_type == "flatpak":
-            command_list = ["flatpak-spawn", "--host", "cat"]
-        else:
-            command_list = ["cat"]
+            command_list = command_list + ["flatpak-spawn", "--host"]
         for pid in pid_list:
             command_list.append(f'/proc/{pid}/stat')
             command_list.append(f'/proc/{pid}/io')
