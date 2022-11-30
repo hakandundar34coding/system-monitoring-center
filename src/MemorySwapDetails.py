@@ -11,6 +11,7 @@ from locale import gettext as _tr
 
 from Config import Config
 from Performance import Performance
+from MainGUI import MainGUI
 
 
 # Define class
@@ -26,6 +27,10 @@ class MemorySwapDetails:
         # Get GUI objects
         self.window1201w2 = builder.get_object('window1201w2')
         self.label1201w2 = builder.get_object('label1201w2')
+
+        # Set window properties
+        self.window1201w2.set_transient_for(MainGUI.window1)
+        self.window1201w2.set_modal(True)
 
         # Connect GUI signals
         self.window1201w2.connect("delete-event", self.on_window1201w2_delete_event)

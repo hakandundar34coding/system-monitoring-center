@@ -10,6 +10,7 @@ import subprocess
 from locale import gettext as _tr
 
 from Config import Config
+from MainGUI import MainGUI
 
 
 # Define class
@@ -25,6 +26,10 @@ class MemoryRamHardware:
         # Get GUI objects
         self.window1201w = builder.get_object('window1201w')
         self.label1201w = builder.get_object('label1201w')
+
+        # Set window properties
+        self.window1201w.set_transient_for(MainGUI.window1)
+        self.window1201w.set_modal(True)
 
         # Connect GUI signals
         self.window1201w.connect("delete-event", self.on_window1201w_delete_event)

@@ -11,6 +11,7 @@ from locale import gettext as _tr
 
 from Config import Config
 from Disk import Disk
+from MainGUI import MainGUI
 from Performance import Performance
 
 
@@ -38,6 +39,10 @@ class DiskDetails:
         self.label1311w = builder1301w.get_object('label1311w')
         self.label1312w = builder1301w.get_object('label1312w')
         self.label1314w = builder1301w.get_object('label1314w')
+
+        # Set window properties
+        self.window1301w.set_transient_for(MainGUI.window1)
+        self.window1301w.set_modal(True)
 
         # Connect GUI signals
         self.window1301w.connect("delete-event", self.on_window1301w_delete_event)

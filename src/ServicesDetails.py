@@ -15,6 +15,7 @@ from locale import gettext as _tr
 from Config import Config
 import Services
 from Performance import Performance
+from MainGUI import MainGUI
 
 
 # Define class
@@ -50,6 +51,10 @@ class ServicesDetails:
         self.label6120w = builder6101w.get_object('label6120w')
         self.label6121w = builder6101w.get_object('label6121w')
         self.label6122w = builder6101w.get_object('label6122w')
+
+        # Set window properties
+        self.window6101w.set_transient_for(MainGUI.window1)
+        self.window6101w.set_modal(True)
 
         # Connect GUI signals
         self.window6101w.connect("delete-event", self.on_window6101w_delete_event)

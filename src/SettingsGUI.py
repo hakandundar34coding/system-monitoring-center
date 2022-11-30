@@ -39,6 +39,10 @@ class SettingsGUI:
         self.checkbutton2013 = builder2001.get_object('checkbutton2013')
         self.grid2001 = builder2001.get_object('grid2001')
 
+        # Set window properties
+        self.window2001.set_transient_for(MainGUI.window1)
+        self.window2001.set_modal(True)
+
         # Connect GUI signals
         self.window2001.connect("delete-event", self.on_window2001_delete_event)
         self.window2001.connect("show", self.on_window2001_show)

@@ -16,6 +16,7 @@ from locale import gettext as _tr
 from Config import Config
 import Users
 from Performance import Performance
+from MainGUI import MainGUI
 
 
 # Define class
@@ -41,6 +42,10 @@ class UsersDetails:
         self.label3109w = builder3101w.get_object('label3109w')
         self.label3110w = builder3101w.get_object('label3110w')
         self.label3111w = builder3101w.get_object('label3111w')
+
+        # Set window properties
+        self.window3101w.set_transient_for(MainGUI.window1)
+        self.window3101w.set_modal(True)
 
         # Connect GUI signals
         self.window3101w.connect("delete-event", self.on_window3101w_delete_event)
