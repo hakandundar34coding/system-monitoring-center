@@ -291,6 +291,12 @@ def processes_loop_func():
     processes_data_column_widths = Config.processes_data_column_widths
     show_processes_of_all_users = Config.show_processes_of_all_users
 
+    # Define lists for appending some performance data for calculating max values to determine cell background color.
+    cpu_usage_list = []
+    memory_rss_list = []
+    disk_usage_list = []
+    disk_speed_list = []
+
     # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
     global number_of_logical_cores
     number_of_logical_cores = processes_number_of_logical_cores_func()
@@ -470,10 +476,14 @@ def processes_loop_func():
                 global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
             process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
             global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-            processes_data_row.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
+            cpu_usage = process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores
+            processes_data_row.append(cpu_usage)
+            cpu_usage_list.append(cpu_usage)
         # Get process RSS (resident set size) memory pages and multiply with 1024 in order to convert the value into bytes.
         if 5 in processes_treeview_columns_shown:
-            processes_data_row.append(int(ps_output_line_split[3]) * 1024)
+            memory_rss = int(ps_output_line_split[3]) * 1024
+            processes_data_row.append(memory_rss)
+            memory_rss_list.append(memory_rss)
         # Get process VMS (virtual memory size) memory and multiply with 1024 in order to convert the value into bytes.
         if 6 in processes_treeview_columns_shown:
             processes_data_row.append(int(ps_output_line_split[4]) * 1024)
@@ -499,15 +509,21 @@ def processes_loop_func():
             # Get process read data.
             if 8 in processes_treeview_columns_shown:
                 processes_data_row.append(process_read_bytes)
+                disk_usage_list.append(process_read_bytes)
             # Get process write data.
             if 9 in processes_treeview_columns_shown:
                 processes_data_row.append(process_write_bytes)
+                disk_usage_list.append(process_write_bytes)
             # Get process read speed.
             if 10 in processes_treeview_columns_shown:
-                processes_data_row.append((process_read_bytes - process_read_bytes_prev) / update_interval)    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
+                disk_speed = (process_read_bytes - process_read_bytes_prev) / update_interval
+                processes_data_row.append(disk_speed)    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
+                disk_speed_list.append(disk_speed)
             # Get process write speed.
             if 11 in processes_treeview_columns_shown:
-                processes_data_row.append((process_write_bytes - process_write_bytes_prev) / update_interval)    # Append process_write_bytes which will be used as "process_write_bytes_prev" value in the next loop and also append disk write speed. 
+                disk_speed = (process_write_bytes - process_write_bytes_prev) / update_interval
+                processes_data_row.append(disk_speed)    # Append process_write_bytes which will be used as "process_write_bytes_prev" value in the next loop and also append disk write speed. 
+                disk_speed_list.append(disk_speed)
         # Get process nice value.
         if 12 in processes_treeview_columns_shown:
             process_nice = ps_output_line_split[6]
@@ -703,6 +719,25 @@ def processes_loop_func():
     processes_data_column_order_prev = processes_data_column_order
     processes_data_column_widths_prev = processes_data_column_widths
 
+    # Get max values of some performance data for setting cell background colors depending on relative performance data.
+    global max_value_cpu_usage_list, max_value_memory_rss_list, max_value_disk_usage_list, max_value_disk_speed_list
+    try:
+        max_value_cpu_usage_list = max(cpu_usage_list)
+    except ValueError:
+        max_value_cpu_usage_list = 0
+    try:
+        max_value_memory_rss_list = max(memory_rss_list)
+    except ValueError:
+        max_value_memory_rss_list = 0
+    try:
+        max_value_disk_usage_list = max(disk_usage_list)
+    except ValueError:
+        max_value_disk_usage_list = 0
+    try:
+        max_value_disk_speed_list = max(disk_speed_list)
+    except ValueError:
+        max_value_disk_speed_list = 0
+
     # Show number of processes on the searchentry as placeholder text
     searchentry2101.set_placeholder_text(_tr("Search...") + "                    " + "(" + _tr("Processes") + ": " + str(len(username_list)) + ")")
 
@@ -722,15 +757,36 @@ def processes_loop_func():
 # ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
 def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{processes_cpu_precision}f} %')
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_cpu_usage_list)
 
 def cell_data_function_ram_swap(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_memory_data_unit, processes_memory_data_precision))
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_memory_rss_list)
 
 def cell_data_function_disk_usage(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision))
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_disk_usage_list)
 
 def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{performance_data_unit_converter_func("speed", processes_disk_speed_bit, tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision)}/s')
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_disk_speed_list)
+
+def cell_backround_color(cell, value, max_value):
+    if value > 0.7 * max_value:
+        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.45)
+    elif value <= 0.7 * max_value and value > 0.4 * max_value:
+        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.35)
+    elif value <= 0.4 * max_value and value > 0.2 * max_value:
+        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.25)
+    elif value <= 0.2 * max_value and value > 0.1 * max_value:
+        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.15)
+    elif value <= 0.1 * max_value:
+        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.0)
+    cell.set_property('background-rgba', color)
 
 
 # ----------------------------------- Processes - Column Title Clicked Function (gets treeview column number (id) and row sorting order by being triggered by Gtk signals) -----------------------------------
