@@ -8,6 +8,7 @@
     <property name="default-width">500</property>
     <property name="default-height">470</property>
     <property name="destroy-with-parent">True</property>
+    <property name="icon-name">system-monitoring-center</property>
     <property name="type-hint">dialog</property>
     <property name="skip-taskbar-hint">True</property>
     <child>
@@ -1357,7 +1358,7 @@
                             <property name="can-focus">False</property>
                             <property name="halign">start</property>
                             <property name="valign">start</property>
-                            <property name="label" translatable="yes">Write Data</property>
+                            <property name="label" translatable="yes">Written Data</property>
                           </object>
                           <packing>
                             <property name="left-attach">0</property>

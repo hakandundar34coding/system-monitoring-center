@@ -763,7 +763,7 @@ class MainGUI:
                 _, _, _, _, disk_usage_percentage, disk_mount_point = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
                 label = Gtk.Label()
                 label.set_sensitive(False)
-                if disk_mount_point == _tr("[Not mounted]"):
+                if disk_mount_point == "[" + _tr("Not mounted") + "]":
                     label.set_label(f'  (-%)')
                 else:
                     label.set_label(f'  ({disk_usage_percentage:.0f}%)')

@@ -80,13 +80,13 @@ class ProcessesMenuRightClick:
         if widget == self.menuitem2103m:
             process_command = ["kill", "-15", selected_process_pid]
             process_command_pkexec = ["pkexec", "kill", "-15", selected_process_pid]
-            process_dialog_message = _tr("Do you want to terminate this process?")
+            process_dialog_message = _tr("Do you want to end this process?")
 
         # Define signal, command and dialog message text for the process by checking the clicked menu item (Kill Process).
         if widget == self.menuitem2104m:
             process_command = ["kill", "-9", selected_process_pid]
             process_command_pkexec = ["pkexec", "kill", "-9", selected_process_pid]
-            process_dialog_message = _tr("Do you want to kill this process?")
+            process_dialog_message = _tr("Do you want to end this process immediately?")
 
         # Show warning dialog if process is tried to be ended.
         if Config.warn_before_stopping_processes == 1 and (widget == self.menuitem2103m or widget == self.menuitem2104m):

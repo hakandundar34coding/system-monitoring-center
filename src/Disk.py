@@ -366,12 +366,12 @@ class Disk:
                 disk_used_percentage = int(df_output_lines[index].split()[5].strip("%"))
                 disk_mount_point = df_output_lines[index].split("% ", 1)[-1]
             else:
-                disk_file_system = _tr("[Not mounted]")
-                disk_capacity = _tr("[Not mounted]")
-                disk_used = _tr("[Not mounted]")
-                disk_free = _tr("[Not mounted]")
+                disk_file_system = "[" + _tr("Not mounted") + "]"
+                disk_capacity = "[" + _tr("Not mounted") + "]"
+                disk_used = "[" + _tr("Not mounted") + "]"
+                disk_free = "[" + _tr("Not mounted") + "]"
                 disk_used_percentage = 0
-                disk_mount_point = _tr("[Not mounted]")
+                disk_mount_point = "[" + _tr("Not mounted") + "]"
             disk_filesystem_information_list.append([disk, disk_file_system, disk_capacity, disk_used, disk_free, disk_used_percentage, disk_mount_point])
 
         return disk_filesystem_information_list

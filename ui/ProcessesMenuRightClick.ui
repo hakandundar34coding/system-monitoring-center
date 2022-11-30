@@ -9,7 +9,7 @@
       <object class="GtkMenuItem" id="menuitem2107m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="label" translatable="yes">Expand All</property>
+        <property name="label" translatable="yes">Expand all</property>
         <property name="use-underline">True</property>
       </object>
     </child>
@@ -17,7 +17,7 @@
       <object class="GtkMenuItem" id="menuitem2108m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="label" translatable="yes">Collapse All</property>
+        <property name="label" translatable="yes">Collapse all</property>
         <property name="use-underline">True</property>
       </object>
     </child>
@@ -31,7 +31,7 @@
       <object class="GtkMenuItem" id="menuitem2101m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="label" translatable="yes">Stop Process</property>
+        <property name="label" translatable="yes">Pause Process</property>
         <accelerator key="s" signal="activate" modifiers="GDK_CONTROL_MASK"/>
       </object>
     </child>
@@ -47,7 +47,7 @@
       <object class="GtkMenuItem" id="menuitem2103m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="label" translatable="yes">Terminate Process</property>
+        <property name="label" translatable="yes">End Process</property>
         <accelerator key="t" signal="activate" modifiers="GDK_CONTROL_MASK"/>
       </object>
     </child>
@@ -55,7 +55,7 @@
       <object class="GtkMenuItem" id="menuitem2104m">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="label" translatable="yes">Kill Process</property>
+        <property name="label" translatable="yes">End Process Immediately</property>
         <accelerator key="k" signal="activate" modifiers="GDK_CONTROL_MASK"/>
       </object>
     </child>
