@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-30 11:30+0300\n"
-"PO-Revision-Date: 2022-11-30 11:31+0300\n"
+"PO-Revision-Date: 2022-11-30 21:51+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -148,10 +148,8 @@ msgstr "Valor medido desde o último arranque do sistema"
 
 #: src/Disk.py:247 src/Processes.py:706 src/ProcessesDetails.py:773
 #: src/ProcessesMenu.py:247
-#, fuzzy
-#| msgid "Write Data"
 msgid "Written Data"
-msgstr "Escrever dados"
+msgstr "Dados escritos"
 
 #: src/Disk.py:291 src/Disk.py:503
 msgid "System Disk"
@@ -459,14 +457,10 @@ msgid "Upload Speed"
 msgstr "Velocidade de envio"
 
 #: src/Network.py:233
-#, fuzzy
-#| msgid "Download Data"
 msgid "Downloaded Data"
-msgstr "Dados de transferência"
+msgstr "Dados transferidos"
 
 #: src/Network.py:239
-#, fuzzy
-#| msgid "Upload Data"
 msgid "Uploaded Data"
 msgstr "Dados enviados"
 
@@ -732,11 +726,11 @@ msgstr "Mostrar linhas de árvore"
 
 #: src/ProcessesMenu.py:157
 msgid "Expand all"
-msgstr ""
+msgstr "Expandir tudo"
 
 #: src/ProcessesMenu.py:162
 msgid "Collapse all"
-msgstr ""
+msgstr "Recolher tudo"
 
 #: src/Sensors.py:128
 msgid "Sensor Group"
