@@ -876,7 +876,7 @@ class Processes:
         # Read "" and "" files by using "cat" command for calculating process CPU usages and read/write speeds.
         command_list = ["cat"]
         if Config.environment_type == "flatpak":
-            command_list = command_list + ["flatpak-spawn", "--host"]
+            command_list = ["flatpak-spawn", "--host"] + command_list
         for pid in pid_list:
             command_list.append(f'/proc/{pid}/stat')
             command_list.append(f'/proc/{pid}/io')
