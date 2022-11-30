@@ -154,12 +154,12 @@ class ProcessesMenu:
 
         # Button (Expand all)
         self.expand_all_button = Gtk.Button()
-        self.expand_all_button.set_label("Expand all")
+        self.expand_all_button.set_label(_tr("Expand all"))
         grid_buttons.attach(self.expand_all_button, 0, 1, 1, 1)
 
         # Button (Collapse all)
         self.collapse_all_button = Gtk.Button()
-        self.collapse_all_button.set_label("Collapse all")
+        self.collapse_all_button.set_label(_tr("Collapse all"))
         grid_buttons.attach(self.collapse_all_button, 1, 1, 1, 1)
 
 
@@ -242,9 +242,9 @@ class ProcessesMenu:
         self.read_data_cb.set_halign(Gtk.Align.START)
         grid.attach(self.read_data_cb, 0, 9, 1, 1)
 
-        # CheckButton (Write Data)
+        # CheckButton (Written Data)
         self.write_data_cb = Gtk.CheckButton()
-        self.write_data_cb.set_label(_tr("Write Data"))
+        self.write_data_cb.set_label(_tr("Written Data"))
         self.write_data_cb.set_halign(Gtk.Align.START)
         grid.attach(self.write_data_cb, 0, 10, 1, 1)
 

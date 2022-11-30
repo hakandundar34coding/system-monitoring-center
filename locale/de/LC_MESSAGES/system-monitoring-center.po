@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-29 09:38+0300\n"
-"PO-Revision-Date: 2022-11-29 10:48+0300\n"
+"POT-Creation-Date: 2022-11-30 11:30+0300\n"
+"PO-Revision-Date: 2022-11-30 11:33+0300\n"
 "Last-Translator: Baumfinder <baumkartoffel@outlook.de>\n"
 "Language-Team: German <baumkartoffel@outlook.de>\n"
 "Language: de\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 
 #: src/Cpu.py:76 src/CpuMenu.py:49 src/CpuMenu.py:101 src/MainWindow.py:149
-#: src/MainWindow.py:409 src/Performance.py:1116 src/Processes.py:701
+#: src/MainWindow.py:409 src/Performance.py:1139 src/Processes.py:701
 #: src/ProcessesDetails.py:68 src/ProcessesDetails.py:207
 #: src/ProcessesDetails.py:419 src/ProcessesMenu.py:217
 #: src/ProcessesMenu.py:339 src/SettingsWindow.py:27 src/Users.py:258
@@ -140,13 +140,13 @@ msgstr "Zurücksetzen"
 msgid "Disk"
 msgstr "Festplatte"
 
-#: src/Disk.py:121 src/Disk.py:185 src/DiskMenu.py:63 src/Performance.py:1296
+#: src/Disk.py:121 src/Disk.py:185 src/DiskMenu.py:63 src/Performance.py:1319
 #: src/Processes.py:707 src/ProcessesDetails.py:243 src/ProcessesDetails.py:694
 #: src/ProcessesDetails.py:719 src/ProcessesMenu.py:253
 msgid "Read Speed"
 msgstr "Lesegeschwindigkeit"
 
-#: src/Disk.py:121 src/Disk.py:190 src/DiskMenu.py:69 src/Performance.py:1305
+#: src/Disk.py:121 src/Disk.py:190 src/DiskMenu.py:69 src/Performance.py:1328
 #: src/Processes.py:708 src/ProcessesDetails.py:261 src/ProcessesDetails.py:694
 #: src/ProcessesDetails.py:737 src/ProcessesMenu.py:259
 msgid "Write Speed"
@@ -163,7 +163,9 @@ msgstr "Gemessener Wert seit letztem Systemstart"
 
 #: src/Disk.py:247 src/Processes.py:706 src/ProcessesDetails.py:773
 #: src/ProcessesMenu.py:247
-msgid "Write Data"
+#, fuzzy
+#| msgid "Write Data"
+msgid "Written Data"
 msgstr "Schreibdaten"
 
 #: src/Disk.py:291 src/Disk.py:503
@@ -225,7 +227,7 @@ msgstr "Einhängepunkt"
 msgid "Partition"
 msgstr "Partition"
 
-#: src/Disk.py:937 src/Performance.py:1145
+#: src/Disk.py:937 src/Performance.py:1168
 msgid "Swap"
 msgstr "Swap"
 
@@ -331,8 +333,8 @@ msgid "Customization menu for the current tab"
 msgstr ""
 
 #: src/MainWindow.py:156 src/MainWindow.py:1099 src/Memory.py:166
-#: src/Memory.py:795 src/MemoryMenu.py:64 src/Performance.py:1125
-#: src/Performance.py:1454
+#: src/Memory.py:795 src/MemoryMenu.py:64 src/Performance.py:1148
+#: src/Performance.py:1477
 msgid "RAM"
 msgstr "RAM"
 
@@ -345,8 +347,8 @@ msgstr "Netzwerk"
 msgid "Performance"
 msgstr "Leistung"
 
-#: src/MainWindow.py:258 src/Performance.py:1134 src/Processes.py:78
-#: src/Processes.py:1247 src/ProcessesMenu.py:47 src/SettingsWindow.py:26
+#: src/MainWindow.py:258 src/Performance.py:1157 src/Processes.py:78
+#: src/Processes.py:1249 src/ProcessesMenu.py:47 src/SettingsWindow.py:26
 #: src/Users.py:253 src/UsersDetails.py:168 src/UsersMenu.py:140
 msgid "Processes"
 msgstr "Prozesse"
@@ -401,7 +403,7 @@ msgstr ""
 "Auslastung."
 
 #: src/MainWindow.py:1099 src/Memory.py:283 src/Memory.py:620 src/Memory.py:824
-#: src/Performance.py:1454 src/ProcessesDetails.py:651
+#: src/Performance.py:1477 src/ProcessesDetails.py:651
 msgid "Swap Memory"
 msgstr "Swapspeicher"
 
@@ -480,25 +482,25 @@ msgid "Priority"
 msgstr "Priorität"
 
 #: src/Network.py:113 src/Network.py:177 src/NetworkMenu.py:63
-#: src/Performance.py:1314
+#: src/Performance.py:1337
 msgid "Download Speed"
 msgstr "Downloadgeschwindigkeit"
 
 #: src/Network.py:113 src/Network.py:182 src/NetworkMenu.py:69
-#: src/Performance.py:1323
+#: src/Performance.py:1346
 msgid "Upload Speed"
 msgstr "Uploadgeschwindigkeit"
 
 #: src/Network.py:233
 #, fuzzy
 #| msgid "Downloaded Data"
-msgid "Download Data"
+msgid "Downloaded Data"
 msgstr "Heruntergeladene Daten"
 
 #: src/Network.py:239
 #, fuzzy
 #| msgid "Uploaded Data"
-msgid "Upload Data"
+msgid "Uploaded Data"
 msgstr "Hochgeladene Daten"
 
 #: src/Network.py:283
@@ -549,7 +551,7 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wlan"
 
-#: src/Processes.py:83 src/Processes.py:1247 src/Sensors.py:65
+#: src/Processes.py:83 src/Processes.py:1249 src/Sensors.py:65
 #: src/Sensors.py:377 src/Services.py:87 src/Services.py:791 src/Users.py:81
 #: src/Users.py:595
 msgid "Search..."
@@ -780,6 +782,14 @@ msgstr "Prozesse als Baum anzeigen"
 #: src/ProcessesMenu.py:144
 msgid "Show tree lines"
 msgstr "Baumlinien anzeigen"
+
+#: src/ProcessesMenu.py:157
+msgid "Expand all"
+msgstr ""
+
+#: src/ProcessesMenu.py:162
+msgid "Collapse all"
+msgstr ""
 
 #: src/Sensors.py:128
 msgid "Sensor Group"
