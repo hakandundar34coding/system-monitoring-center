@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GLib', '2.0')
@@ -14,10 +13,8 @@ from Config import Config
 from Performance import Performance
 
 
-# Define class
 class MainGUI:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Configurations for language translation support
@@ -905,6 +902,5 @@ class MainGUI:
             copy_file(current_dir + "/../icons/hicolor/scalable/apps/" + file_name, current_user_homedir + sub_folder_name)
 
 
-# Generate object
 MainGUI = MainGUI()
 

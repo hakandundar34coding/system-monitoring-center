@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -12,10 +11,8 @@ from Config import Config
 import Users
 
 
-# Define class
 class UsersMenuRightClick:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -37,6 +34,5 @@ class UsersMenuRightClick:
         UsersDetails.window3101w.show()
 
 
-# Generate object
 UsersMenuRightClick = UsersMenuRightClick()
 

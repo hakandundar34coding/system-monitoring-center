@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
@@ -15,10 +14,8 @@ from Config import Config
 import Processes
 
 
-# Define class
 class ProcessesMenuRightClick:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -248,6 +245,5 @@ class ProcessesMenuRightClick:
         dialog2101.destroy()
 
 
-# Generate object
 ProcessesMenuRightClick = ProcessesMenuRightClick()
 

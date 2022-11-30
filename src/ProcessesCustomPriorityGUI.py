@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -12,10 +11,8 @@ import Processes
 from ProcessesMenuRightClick import ProcessesMenuRightClick
 
 
-# Define class
 class ProcessesCustomPriorityGUI:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -110,6 +107,5 @@ class ProcessesCustomPriorityGUI:
         self.window2101w2.hide()
 
 
-# Generate object
 ProcessesCustomPriorityGUI = ProcessesCustomPriorityGUI()
 

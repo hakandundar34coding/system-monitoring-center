@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
@@ -14,10 +13,8 @@ from Config import Config
 from Performance import Performance
 
 
-# Define class
 class Memory:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -218,6 +215,5 @@ class Memory:
         self.label1210.set_text(self.performance_data_unit_converter_func("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
 
 
-# Generate object
 Memory = Memory()
 

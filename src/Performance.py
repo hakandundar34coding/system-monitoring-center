@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GLib', '2.0')
@@ -14,10 +13,8 @@ from locale import gettext as _tr
 from Config import Config
 
 
-# Define class
 class Performance:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Set chart performance data line and point highligting off. "chart_line_highlight" takes chart name or "" for highlighting or not. "chart_point_highlight" takes data point index or "-1" for not highlighting.
@@ -2306,6 +2303,5 @@ class Performance:
         return f'{data:.{precision}f} {unit}'
 
 
-# Generate object
 Performance = Performance()
 

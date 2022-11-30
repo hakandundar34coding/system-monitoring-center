@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -9,10 +8,8 @@ import os
 from Performance import Performance
 
 
-# Define class
 class Summary:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -46,6 +43,5 @@ class Summary:
         self.drawingarea1701.queue_draw()
 
 
-# Generate object
 Summary = Summary()
 

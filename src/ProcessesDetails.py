@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
@@ -18,10 +17,8 @@ import Processes
 from Performance import Performance
 
 
-# Define class
 class ProcessesDetails:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self, selected_process_pid):
 
         # Get GUI objects from file

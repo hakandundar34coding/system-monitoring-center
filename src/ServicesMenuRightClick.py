@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -13,10 +12,8 @@ from Config import Config
 import Services
 
 
-# Define class
 class ServicesMenuRightClick:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -150,6 +147,5 @@ class ServicesMenuRightClick:
         warning_dialog6101.destroy()
 
 
-# Generate object
 ServicesMenuRightClick = ServicesMenuRightClick()
 

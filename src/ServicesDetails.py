@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GLib', '2.0')
@@ -18,10 +17,8 @@ from Performance import Performance
 from MainGUI import MainGUI
 
 
-# Define class
 class ServicesDetails:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -295,6 +292,5 @@ class ServicesDetails:
             self.main_glib_source.attach(GLib.MainContext.default())
 
 
-# Generate object
 ServicesDetails = ServicesDetails()
 

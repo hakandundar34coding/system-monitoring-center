@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
@@ -13,10 +12,8 @@ from Cpu import Cpu
 from MainGUI import MainGUI
 
 
-# Define class
 class CpuMenu:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -165,6 +162,5 @@ class CpuMenu:
         self.combobox1101p.set_active(Config.performance_cpu_usage_percent_precision)
 
 
-# Generate object
 CpuMenu = CpuMenu()
 

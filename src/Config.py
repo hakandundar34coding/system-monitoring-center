@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 
-# Import modules
 import os
 
 
-# Define class
 class Config:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Define configration file and directory.
@@ -401,6 +398,5 @@ class Config:
             writer.write(config_write_text)
 
 
-# Generate object
 Config = Config()
 

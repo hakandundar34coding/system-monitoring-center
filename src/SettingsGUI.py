@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -13,10 +12,8 @@ from MainGUI import MainGUI
 from Performance import Performance
 
 
-# Define class
 class SettingsGUI:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -571,6 +568,5 @@ class SettingsGUI:
         warning_dialog2001.destroy()
 
 
-# Generate object
 SettingsGUI = SettingsGUI()
 

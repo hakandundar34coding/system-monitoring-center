@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GLib', '2.0')
@@ -15,10 +14,8 @@ from MainGUI import MainGUI
 from Performance import Performance
 
 
-# Define class
 class DiskDetails:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -142,6 +139,5 @@ class DiskDetails:
             GLib.timeout_add(Config.update_interval * 1000, self.disk_details_run_func)
 
 
-# Generate object
 DiskDetails = DiskDetails()
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
@@ -13,10 +12,8 @@ from Disk import Disk
 from MainGUI import MainGUI
 
 
-# Define class
 class DiskMenu:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -289,6 +286,5 @@ class DiskMenu:
         self.combobox1301p.set_active(Config.performance_disk_data_precision)
 
 
-# Generate object
 DiskMenu = DiskMenu()
 

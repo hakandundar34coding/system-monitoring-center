@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
@@ -13,10 +12,8 @@ from Network import Network
 from MainGUI import MainGUI
 
 
-# Define class
 class NetworkMenu:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -262,6 +259,5 @@ class NetworkMenu:
         self.combobox1401p.set_active(Config.performance_network_data_precision)
 
 
-# Generate object
 NetworkMenu = NetworkMenu()
 

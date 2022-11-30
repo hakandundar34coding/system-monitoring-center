@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GLib', '2.0')
@@ -13,10 +12,8 @@ import threading
 from Config import Config
 
 
-# Define class
 class System:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -584,6 +581,5 @@ class System:
         return current_desktop_environment_version
 
 
-# Generate object
 System = System()
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
@@ -14,10 +13,8 @@ from Config import Config
 from Performance import Performance
 
 
-# Define class
 class Cpu:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -423,6 +420,5 @@ class Cpu:
         return system_up_time
 
 
-# Generate object
 Cpu = Cpu()
 

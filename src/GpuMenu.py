@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
@@ -12,10 +11,8 @@ from Gpu import Gpu
 from MainGUI import MainGUI
 
 
-# Define class
 class GpuMenu:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -72,6 +69,5 @@ class GpuMenu:
         Gpu.gpu_loop_func()
 
 
-# Generate object
 GpuMenu = GpuMenu()
 

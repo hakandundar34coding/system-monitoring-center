@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GLib', '2.0')
@@ -14,10 +13,8 @@ from Performance import Performance
 from MainGUI import MainGUI
 
 
-# Define class
 class MemorySwapDetails:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -125,6 +122,5 @@ class MemorySwapDetails:
             GLib.timeout_add(Config.update_interval * 1000, self.memory_swap_details_run_func)
 
 
-# Generate object
 MemorySwapDetails = MemorySwapDetails()
 

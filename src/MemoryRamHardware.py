@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# Import modules
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -13,10 +12,8 @@ from Config import Config
 from MainGUI import MainGUI
 
 
-# Define class
 class MemoryRamHardware:
 
-    # ----------------------- Always called when object is generated -----------------------
     def __init__(self):
 
         # Get GUI objects from file
@@ -159,6 +156,5 @@ class MemoryRamHardware:
             self.memory_ram_hardware_information_text = self.memory_ram_hardware_information_text + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
 
 
-# Generate object
 MemoryRamHardware = MemoryRamHardware()
 
