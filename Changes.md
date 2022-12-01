@@ -1,5 +1,15 @@
 # System Monitoring Center
 
+### v1.35.1 (01.12.2022)
+  * Fix:  Fix: Application shortcut and image
+
+### v1.35.0 (01.12.2022)
+  * New: Cell colors for process CPU,memory,disk data
+  * Visual improvements for Processes tab list
+  * Visual improvements for Summary tab graphics
+  * Updated Portuguese (Portugal) translations
+  * Several improvements (GUI, translations, etc.)
+
 ### v2.1.0 (28.11.2022)
   * New: Cell colors for process CPU,memory,disk data
   * Improvements for system integration
