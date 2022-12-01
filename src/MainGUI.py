@@ -891,6 +891,7 @@ class MainGUI:
         file_name = "io.github.hakandundar34coding.system-monitoring-center.desktop"
         sub_folder_name = "/.local/share/applications/"
         if os.path.isfile(current_user_homedir + sub_folder_name + file_name) == False:
+            generate_folder(current_user_homedir + sub_folder_name)
             import shutil
             copy_file(current_dir + "/../integration/" + file_name, current_user_homedir + sub_folder_name)
 
@@ -898,6 +899,7 @@ class MainGUI:
         file_name = "system-monitoring-center.svg"
         sub_folder_name = "/.local/share/icons/hicolor/scalable/apps/"
         if os.path.isfile(current_user_homedir + sub_folder_name + file_name) == False:
+            generate_folder(current_user_homedir + sub_folder_name)
             import shutil
             copy_file(current_dir + "/../icons/hicolor/scalable/apps/" + file_name, current_user_homedir + sub_folder_name)
 
