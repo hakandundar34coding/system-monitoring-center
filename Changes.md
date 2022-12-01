@@ -4,6 +4,7 @@
   * New: Cell colors for process CPU,memory,disk data
   * Visual improvements for Processes tab list
   * Visual improvements for Summary tab graphics
+  * Updated Portuguese (Portugal) translations
   * Several improvements (GUI, translations, etc.)
 
 ### v2.1.0 (28.11.2022)
