@@ -994,13 +994,16 @@ class System:
 
         current_desktop_environment_version = "-"
 
-        command_list = desktop_environment_version_command_dict[current_desktop_environment]
-        if Config.environment_type == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
+        if current_desktop_environment in desktop_environment_version_command_dict:
+            command_list = desktop_environment_version_command_dict[current_desktop_environment]
+            if Config.environment_type == "flatpak":
+                command_list = ["flatpak-spawn", "--host"] + command_list
 
-        try:
-            desktop_environment_version_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
-        except Exception:
+            try:
+                desktop_environment_version_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
+            except Exception:
+                desktop_environment_version_output = "-"
+        else:
             desktop_environment_version_output = "-"
 
         if current_desktop_environment == "XFCE":
