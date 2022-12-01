@@ -572,10 +572,6 @@ class System:
         Get OS name, version, version code name and OS based on information.
         """
 
-        os_name = "-"
-        os_based_on = "-"
-        os_version = "-"
-
         # Read "/etc/os-release" file for getting OS name, version and based on information.
         if Config.environment_type == "flatpak":
             with open("/var/run/host/etc/os-release") as reader:
@@ -583,6 +579,11 @@ class System:
         else:
             with open("/etc/os-release") as reader:
                 os_release_output_lines = reader.read().strip().split("\n")
+
+        os_name = "-"
+        os_based_on = "-"
+        os_version = "-"
+        build_id = "-"
 
         # Get OS name, version and based on information.
         for line in os_release_output_lines:
@@ -595,6 +596,13 @@ class System:
             if line.startswith("ID_LIKE="):
                 os_based_on = line.split("ID_LIKE=")[1].strip(' "').title()
                 continue
+            if line.startswith("BUILD_ID="):
+                build_id = line.split("BUILD_ID=")[1].strip(' "').title()
+                continue
+
+        # Some Arch Linux based distributions may have "BUILD_ID" instead of "VERSION". For example: Endeavour OS.
+        if os_version == "-":
+            os_version = build_id
 
         # Append Debian version to the based on information if OS is based on Debian.
         if os_based_on == "Debian":
