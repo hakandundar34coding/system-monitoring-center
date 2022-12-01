@@ -1,3 +1,9 @@
+system-monitoring-center (1.35.1) unstable; urgency=medium
+
+  * Fix:  Fix: Application shortcut and image
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 01 Dec 2022 09:15:00 +0300
+
 system-monitoring-center (1.35.0) unstable; urgency=medium
 
   * New: Cell colors for process CPU,memory,disk data
