@@ -1,3 +1,12 @@
+system-monitoring-center (1.35.0) unstable; urgency=medium
+
+  * New: Cell colors for process CPU,memory,disk data
+  * Visual improvements for Processes tab list
+  * Visual improvements for Summary tab graphics
+  * Several improvements (GUI, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 01 Dec 2022 09:00:00 +0300
+
 system-monitoring-center (1.34.0) unstable; urgency=medium
 
   * Fix: Resetting all settings when GPU tab is open

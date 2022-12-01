@@ -890,16 +890,20 @@
             </child>
             <child>
               <object class="GtkDrawingArea" id="drawingarea101">
+                <property name="width-request">32</property>
+                <property name="height-request">10</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
               </object>
               <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">1</property>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
               </packing>
             </child>
             <child>
               <object class="GtkDrawingArea" id="drawingarea102">
+                <property name="width-request">32</property>
+                <property name="height-request">10</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
               </object>
@@ -919,8 +923,8 @@
                 </attributes>
               </object>
               <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
               </packing>
             </child>
             <child>
@@ -928,6 +932,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
+                <property name="margin-start">10</property>
                 <property name="label" translatable="yes">Disk</property>
                 <attributes>
                   <attribute name="size" value="10000"/>
@@ -945,12 +950,12 @@
                 <property name="halign">start</property>
                 <property name="label">--</property>
                 <attributes>
-                  <attribute name="size" value="9000"/>
+                  <attribute name="size" value="10000"/>
                 </attributes>
               </object>
               <packing>
-                <property name="left-attach">2</property>
-                <property name="top-attach">1</property>
+                <property name="left-attach">3</property>
+                <property name="top-attach">0</property>
               </packing>
             </child>
             <child>
@@ -960,7 +965,7 @@
                 <property name="halign">start</property>
                 <property name="label">--</property>
                 <attributes>
-                  <attribute name="size" value="9000"/>
+                  <attribute name="size" value="10000"/>
                 </attributes>
               </object>
               <packing>
@@ -973,14 +978,15 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
+                <property name="margin-start">10</property>
                 <property name="label" translatable="yes">Network</property>
                 <attributes>
                   <attribute name="size" value="10000"/>
                 </attributes>
               </object>
               <packing>
-                <property name="left-attach">3</property>
-                <property name="top-attach">0</property>
+                <property name="left-attach">2</property>
+                <property name="top-attach">1</property>
               </packing>
             </child>
           </object>

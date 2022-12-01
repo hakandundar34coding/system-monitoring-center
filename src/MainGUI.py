@@ -234,14 +234,14 @@ class MainGUI:
     def main_gui_performance_summary_headerbar_initial_func(self):
 
         # Set empty characters at the right side of the labels by using "f'value:<[number of characters]'" in order to prevent movement of the label when data numbers change. Total length of the string is set as [number of characters] characters if actual length is smaller. This code has no effect if length of the string equals to this value or bigger.
-        self.label103.set_text(f'{_tr("CPU"):<6}')
-        self.label104.set_text(f'{_tr("RAM"):<6}')
-        self.label105.set_text(f'{_tr("Disk"):<13}')
-        self.label106.set_text(f'{_tr("Network"):<13}')
+        self.label103.set_text(f'{_tr("CPU")}:')
+        self.label104.set_text(f'{_tr("RAM")}:')
+        self.label105.set_text(f'{_tr("Disk")}:')
+        self.label106.set_text(f'{_tr("Network")}:')
 
         # Define tooltip text in order to use multiple translated texts (combine them) to avoid additional texts.
-        self.label105.set_tooltip_text(f'{_tr("Read Speed")}+{_tr("Write Speed")}')
-        self.label106.set_tooltip_text(f'{_tr("Download Speed")}+{_tr("Upload Speed")}')
+        self.label105.set_tooltip_text(f'{_tr("Read Speed")} + {_tr("Write Speed")}')
+        self.label106.set_tooltip_text(f'{_tr("Download Speed")} + {_tr("Upload Speed")}')
 
         # Define data unit conversion function objects in for lower CPU usage.
         self.performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
