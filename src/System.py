@@ -902,7 +902,7 @@ class System:
                                                "mate-session":"MATE", "plasmashell":"KDE", "lxqt-session":"LXQt", "lxsession":"LXDE",
                                                "budgie-panel":"Budgie", "dde-desktop":"Deepin"}
         supported_window_managers_list = ["xfwm4", "mutter", "kwin", "kwin_x11", "cinnamon", "budgie-wm", "openbox", "metacity", 
-                                          "marco", "compiz", "englightenment", "fvwm2", "icewm", "sawfish", "awesome"]
+                                          "marco", "compiz", "englightenment", "fvwm2", "icewm", "sawfish", "awesome", "muffin"]
         # First values are process names of the display managers, second values
         # are names of the display managers.
         supported_display_managers_dict = {"lightdm":"lightdm", "gdm":"gdm", "gdm3":"gdm3", "sddm":"sddm", "xdm":"xdm", "lxdm-binary":"lxdm"}                                                       
@@ -910,10 +910,10 @@ class System:
         # Try to detect windowing system, window manager, current desktop 
         # environment and current display manager by reading process names and
         # other details.
+        command_list = ["ps", "--no-headers", "-eo", "comm,user"]
         if Config.environment_type == "flatpak":
-            ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "comm,user"], shell=False)).decode().strip().split("\n")
-        else:
-            ps_output_lines = (subprocess.check_output(["ps", "--no-headers", "-eo", "comm,user"], shell=False)).decode().strip().split("\n")
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        ps_output_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
 
         process_name_list = []
         username_list = []
