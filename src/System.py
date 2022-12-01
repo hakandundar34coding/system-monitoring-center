@@ -1038,7 +1038,7 @@ class System:
                 if "liblxqt" in line:
                     current_desktop_environment_version = line.split()[1].strip()
 
-        if current_desktop_environment == ["Budgie", "Budgie:GNOME"]:
+        if current_desktop_environment in ["Budgie", "Budgie:GNOME"]:
             desktop_environment_version_output.split("\n")[0].strip().split(" ")[-1]
 
         return current_desktop_environment_version
