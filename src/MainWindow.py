@@ -386,7 +386,6 @@ class MainWindow():
         # Label (Summary tab togglebutton)
         label = Gtk.Label()
         label.set_label(_tr("Summary"))
-        label.set_halign(Gtk.Align.CENTER)
         grid.attach(label, 1, 0, 1, 1)
 
         # ToggleButton (CPU tab)
@@ -408,7 +407,6 @@ class MainWindow():
         # Label (CPU tab togglebutton)
         label = Gtk.Label()
         label.set_label(_tr("CPU"))
-        label.set_halign(Gtk.Align.CENTER)
         grid.attach(label, 1, 0, 1, 1)
 
         # ToggleButton (Memory tab)
@@ -430,7 +428,6 @@ class MainWindow():
         # Label (Memory tab togglebutton)
         label = Gtk.Label()
         label.set_label(_tr("Memory"))
-        label.set_halign(Gtk.Align.CENTER)
         grid.attach(label, 1, 0, 1, 1)
 
         # ToggleButton (Disk tab)
@@ -452,7 +449,6 @@ class MainWindow():
         # Label (Disk tab togglebutton)
         label = Gtk.Label()
         label.set_label(_tr("Disk"))
-        label.set_halign(Gtk.Align.CENTER)
         grid.attach(label, 1, 0, 1, 1)
 
         # ToggleButton (Network tab)
@@ -474,7 +470,6 @@ class MainWindow():
         # Label (Network tab togglebutton)
         label = Gtk.Label()
         label.set_label(_tr("Network"))
-        label.set_halign(Gtk.Align.CENTER)
         grid.attach(label, 1, 0, 1, 1)
 
         # ToggleButton (GPU tab)
@@ -496,7 +491,6 @@ class MainWindow():
         # Label (GPU tab togglebutton)
         label = Gtk.Label()
         label.set_label(_tr("GPU"))
-        label.set_halign(Gtk.Align.CENTER)
         grid.attach(label, 1, 0, 1, 1)
 
         # ToggleButton (Sensors tab)
@@ -518,7 +512,6 @@ class MainWindow():
         # Label (Sensors tab togglebutton)
         label = Gtk.Label()
         label.set_label(_tr("Sensors"))
-        label.set_halign(Gtk.Align.CENTER)
         grid.attach(label, 1, 0, 1, 1)
 
         # Separator between Performance tab sub-tab togglebuttons and sub-tabs
