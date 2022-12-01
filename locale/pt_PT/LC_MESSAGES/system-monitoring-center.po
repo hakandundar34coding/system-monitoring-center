@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-30 11:35+0300\n"
-"PO-Revision-Date: 2022-11-30 13:31+0300\n"
+"PO-Revision-Date: 2022-12-01 08:28+0300\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -259,10 +259,8 @@ msgstr "Ler dados"
 
 #: src/Processes.py:203 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1361
 #: ui/ProcessesMenuCustomizations.ui:349
-#, fuzzy
-#| msgid "Write Data"
 msgid "Written Data"
-msgstr "Escrever dados"
+msgstr "Dados escritos"
 
 #: src/Processes.py:207 ui/ProcessesDetailsWindow.ui:948
 #: ui/ProcessesMenuCustomizations.ui:251
@@ -728,14 +726,10 @@ msgid "RAM Usage"
 msgstr "Utilização da RAM"
 
 #: ui/NetworkTab.ui:208
-#, fuzzy
-#| msgid "Download Data"
 msgid "Downloaded Data"
-msgstr "Dados de transferência"
+msgstr "Dados transferidos"
 
 #: ui/NetworkTab.ui:221
-#, fuzzy
-#| msgid "Upload Data"
 msgid "Uploaded Data"
 msgstr "Dados enviados"
 
@@ -844,11 +838,11 @@ msgstr "Números"
 
 #: ui/ProcessesMenuRightClick.ui:12
 msgid "Expand all"
-msgstr ""
+msgstr "Expandir tudo"
 
 #: ui/ProcessesMenuRightClick.ui:20
 msgid "Collapse all"
-msgstr ""
+msgstr "Recolher tudo"
 
 #: ui/ProcessesMenuRightClick.ui:34
 msgid "Pause Process"
