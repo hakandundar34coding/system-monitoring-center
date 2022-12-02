@@ -644,7 +644,7 @@ class Performance:
         chart_bg_border_thickness = 0
         chart_bg_width = chart_width - 2 * chart_bg_border_thickness
         chart_bg_height = chart_height - 2 * chart_bg_border_thickness
-        chart_bg_radius = gauge_outer_radius * 0.15
+        chart_bg_radius = gauge_outer_radius * 0.06
         ctx.arc(chart_bg_border_thickness+chart_bg_radius, chart_bg_border_thickness+chart_bg_radius, chart_bg_radius, pi_number, 3*pi_number/2)
         ctx.arc(chart_bg_border_thickness+chart_bg_width-chart_bg_radius, chart_bg_border_thickness+chart_bg_radius, chart_bg_radius, 3*pi_number/2, 0)
         ctx.arc(chart_bg_border_thickness+chart_bg_width-chart_bg_radius, chart_bg_border_thickness+chart_bg_height-chart_bg_radius, chart_bg_radius, 0, pi_number/2)
@@ -657,7 +657,7 @@ class Performance:
         chart_bg_border_thickness = gauge_outer_radius * 0.023
         chart_bg_width = chart_width - 2 * chart_bg_border_thickness
         chart_bg_height = chart_height - 2 * chart_bg_border_thickness
-        chart_bg_radius = gauge_outer_radius * 0.13
+        chart_bg_radius = gauge_outer_radius * 0.04
         ctx.arc(chart_bg_border_thickness+chart_bg_radius, chart_bg_border_thickness+chart_bg_radius, chart_bg_radius, pi_number, 3*pi_number/2)
         ctx.arc(chart_bg_border_thickness+chart_bg_width-chart_bg_radius, chart_bg_border_thickness+chart_bg_radius, chart_bg_radius, 3*pi_number/2, 0)
         ctx.arc(chart_bg_border_thickness+chart_bg_width-chart_bg_radius, chart_bg_border_thickness+chart_bg_height-chart_bg_radius, chart_bg_radius, 0, pi_number/2)
