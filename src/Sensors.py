@@ -3,17 +3,16 @@
 # ----------------------------------- Sensors - Import Function -----------------------------------
 def sensors_import_func():
 
-    global Gtk, GLib, Pango, os
+    global Gtk, os
 
     import gi
     gi.require_version('Gtk', '4.0')
-    gi.require_version('GLib', '2.0')
-    gi.require_version('Pango', '1.0')
-    from gi.repository import Gtk, GLib, Pango
+    from gi.repository import Gtk
     import os
 
-    global Config
+    global Config, Common
     from Config import Config
+    import Common
 
     global _tr
     from locale import gettext as _tr
@@ -28,20 +27,7 @@ def sensors_gui_func():
     Generate Sensors tab GUI.
     """
 
-    # Sensors tab grid
-    sensors_tab_grid = Gtk.Grid()
-    sensors_tab_grid.set_row_spacing(7)
-    sensors_tab_grid.set_margin_top(2)
-    sensors_tab_grid.set_margin_bottom(2)
-    sensors_tab_grid.set_margin_start(2)
-    sensors_tab_grid.set_margin_end(2)
-
-    # Bold and 2x label atributes
-    attribute_list_bold_2x = Pango.AttrList()
-    attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-    attribute_list_bold_2x.insert(attribute)
-    attribute = Pango.attr_scale_new(2.0)
-    attribute_list_bold_2x.insert(attribute)
+    sensors_tab_grid = Common.tab_grid()
 
     """
     Generate tab name label and searchentry.
@@ -53,20 +39,11 @@ def sensors_gui_func():
     sensors_tab_grid.attach(tab_name_label_grid, 0, 0, 1, 1)
 
     # Tab name label
-    tab_name_label = Gtk.Label()
-    tab_name_label.set_halign(Gtk.Align.START)
-    tab_name_label.set_margin_end(60)
-    tab_name_label.set_attributes(attribute_list_bold_2x)
-    tab_name_label.set_label(_tr("Sensors"))
-    tab_name_label_grid.attach(tab_name_label, 0, 0, 1, 1)
+    label = Common.tab_title_label(_tr("Sensors"))
+    tab_name_label_grid.attach(label, 0, 0, 1, 1)
 
     # Searchentry
-    searchentry = Gtk.SearchEntry()
-    searchentry.props.placeholder_text = _tr("Search...")
-    searchentry.set_max_width_chars(100)
-    searchentry.set_hexpand(True)
-    searchentry.set_halign(Gtk.Align.CENTER)
-    searchentry.set_valign(Gtk.Align.CENTER)
+    searchentry = Common.scrolledwindow_searchentry(_tr("Search..."))
     tab_name_label_grid.attach(searchentry, 1, 0, 1, 1)
 
     """

@@ -17,6 +17,7 @@ from Config import Config
 from Users import Users
 from Performance import Performance
 from MainWindow import MainWindow
+import Common
 
 
 class UsersDetails:
@@ -339,7 +340,6 @@ class UsersDetails:
 
         # Define empty lists for the current loop
         global_process_cpu_times = []
-        number_of_logical_cores = Users.users_number_of_logical_cores()
 
         # Get all users and user groups.
         etc_passwd_lines, user_group_names, user_group_ids = Users.users_groups_func()
@@ -383,7 +383,7 @@ class UsersDetails:
                 global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process
             process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
             global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-            all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
+            all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / Common.number_of_logical_cores())
         for pid in pid_list[:]:
             index_to_remove = pid_list.index(pid)
             if pid not in pid_list_from_stat:

@@ -2,10 +2,9 @@
 
 import gi
 gi.require_version('Gtk', '4.0')
-gi.require_version('Gdk', '4.0')
 gi.require_version('GLib', '2.0')
 gi.require_version('Pango', '1.0')
-from gi.repository import Gtk, Gdk, GLib, Pango
+from gi.repository import Gtk, GLib, Pango
 
 import os
 import subprocess
@@ -15,6 +14,7 @@ from locale import gettext as _tr
 from Config import Config
 from Performance import Performance
 from MainWindow import MainWindow
+import Common
 
 
 class Disk:
@@ -31,25 +31,7 @@ class Disk:
         Generate tab GUI.
         """
 
-        # Grid (tab)
-        self.tab_grid = Gtk.Grid()
-        self.tab_grid.set_row_spacing(10)
-        self.tab_grid.set_margin_top(2)
-        self.tab_grid.set_margin_bottom(2)
-        self.tab_grid.set_margin_start(2)
-        self.tab_grid.set_margin_end(2)
-
-        # Bold and underlined label atributes
-        self.attribute_list_bold_underlined = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold_underlined.insert(attribute)
-        attribute = Pango.attr_underline_new(Pango.Underline.SINGLE)
-        self.attribute_list_bold_underlined.insert(attribute)
-
-        # Bold label atributes
-        self.attribute_list_bold = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold.insert(attribute)
+        self.tab_grid = Common.tab_grid()
 
         self.tab_title_grid()
 
@@ -69,37 +51,17 @@ class Disk:
         grid = Gtk.Grid()
         self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Bold and 2x label atributes
-        attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        attribute_list_bold_2x.insert(attribute)
-
         # Label (Disk)
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.START)
-        label.set_margin_end(60)
-        label.set_attributes(attribute_list_bold_2x)
-        label.set_label(_tr("Disk"))
+        label = Common.tab_title_label(_tr("Disk"))
         grid.attach(label, 0, 0, 1, 2)
 
         # Label (device vendor-model label)
-        self.device_vendor_model_label = Gtk.Label()
-        self.device_vendor_model_label.set_halign(Gtk.Align.START)
-        self.device_vendor_model_label.set_selectable(True)
-        self.device_vendor_model_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.device_vendor_model_label.set_attributes(self.attribute_list_bold)
-        self.device_vendor_model_label.set_label("--")
+        self.device_vendor_model_label = Common.device_vendor_model_label()
         self.device_vendor_model_label.set_tooltip_text(_tr("Vendor-Model"))
         grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
 
         # Label (device kernel name)
-        self.device_kernel_name_label = Gtk.Label()
-        self.device_kernel_name_label.set_halign(Gtk.Align.START)
-        self.device_kernel_name_label.set_selectable(True)
-        self.device_kernel_name_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.device_kernel_name_label.set_label("--")
+        self.device_kernel_name_label = Common.device_kernel_name_label()
         self.device_kernel_name_label.set_tooltip_text(_tr("Device Name In Kernel"))
         grid.attach(self.device_kernel_name_label, 1, 1, 1, 1)
 
@@ -153,129 +115,15 @@ class Disk:
         performance_info_grid.set_row_spacing(10)
         self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
-        # Define style provider for scrolledwindow for border radius.
-        css = b"scrolledwindow {border-radius: 8px 8px 8px 8px;}"
-        style_provider_scrolledwindow = Gtk.CssProvider()
-        style_provider_scrolledwindow.load_from_data(css)
-
-        # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
-        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
-        style_provider_separator = Gtk.CssProvider()
-        style_provider_separator.load_from_data(css)
-
         # Styled information widgets (Read Speed and Write Speed)
         # ScrolledWindow (Read Speed and Write Speed)
-        scrolledwindow = Gtk.ScrolledWindow()
-        scrolledwindow.set_has_frame(True)
-        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        scrolledwindow, self.read_speed_label, self.write_speed_label = Common.styled_information_scrolledwindow(_tr("Read Speed"), None, _tr("Write Speed"), None)
         performance_info_grid.attach(scrolledwindow, 0, 0, 1, 1)
-        # Grid (Read Speed and Write Speed)
-        grid = Gtk.Grid()
-        grid.set_column_homogeneous(True)
-        grid.set_row_spacing(3)
-        grid.set_margin_top(5)
-        grid.set_margin_bottom(5)
-        grid.set_margin_start(5)
-        grid.set_margin_end(5)
-        grid.set_valign(Gtk.Align.CENTER)
-        scrolledwindow.set_child(grid)
-        # Label (Read Speed)
-        label = Gtk.Label()
-        label.set_label(_tr("Read Speed"))
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(label, 0, 0, 1, 1)
-        # Label (Write Speed)
-        label = Gtk.Label()
-        label.set_label(_tr("Write Speed"))
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(label, 1, 0, 1, 1)
-        # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_halign(Gtk.Align.CENTER)
-        separator.set_valign(Gtk.Align.CENTER)
-        separator.set_size_request(60, -1)
-        separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        grid.attach(separator, 0, 1, 1, 1)
-        # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_halign(Gtk.Align.CENTER)
-        separator.set_valign(Gtk.Align.CENTER)
-        separator.set_size_request(60, -1)
-        separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        grid.attach(separator, 1, 1, 1, 1)
-        # Label (Average Usage)
-        self.read_speed_label = Gtk.Label()
-        self.read_speed_label.set_selectable(True)
-        self.read_speed_label.set_attributes(self.attribute_list_bold)
-        self.read_speed_label.set_label("--")
-        self.read_speed_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.read_speed_label, 0, 2, 1, 1)
-        # Label (Frequency)
-        self.write_speed_label = Gtk.Label()
-        self.write_speed_label.set_selectable(True)
-        self.write_speed_label.set_attributes(self.attribute_list_bold)
-        self.write_speed_label.set_label("--")
-        self.write_speed_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.write_speed_label, 1, 2, 1, 1)
 
         # Styled information widgets (Read Data and Written Data)
         # ScrolledWindow (Read Data and Written Data)
-        scrolledwindow = Gtk.ScrolledWindow()
-        scrolledwindow.set_has_frame(True)
-        scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        scrolledwindow, self.read_data_label, self.write_data_label = Common.styled_information_scrolledwindow(_tr("Read Data"), _tr("Measured value since last system start"), _tr("Written Data"), _tr("Measured value since last system start"))
         performance_info_grid.attach(scrolledwindow, 0, 1, 1, 1)
-        # Grid (Read Data and Written Data)
-        grid = Gtk.Grid()
-        grid.set_column_homogeneous(True)
-        grid.set_row_spacing(3)
-        grid.set_margin_top(5)
-        grid.set_margin_bottom(5)
-        grid.set_margin_start(5)
-        grid.set_margin_end(5)
-        grid.set_valign(Gtk.Align.CENTER)
-        scrolledwindow.set_child(grid)
-        # Label (Read Data)
-        label = Gtk.Label()
-        label.set_label(_tr("Read Data"))
-        label.set_tooltip_text(_tr("Measured value since last system start"))
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(label, 0, 0, 1, 1)
-        # Label (Written Data)
-        label = Gtk.Label()
-        label.set_label(_tr("Written Data"))
-        label.set_tooltip_text(_tr("Measured value since last system start"))
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(label, 1, 0, 1, 1)
-        # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_halign(Gtk.Align.CENTER)
-        separator.set_valign(Gtk.Align.CENTER)
-        separator.set_size_request(60, -1)
-        separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        grid.attach(separator, 0, 1, 1, 1)
-        # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_halign(Gtk.Align.CENTER)
-        separator.set_valign(Gtk.Align.CENTER)
-        separator.set_size_request(60, -1)
-        separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        grid.attach(separator, 1, 1, 1, 1)
-        # Label (Processes-Threads)
-        self.read_data_label = Gtk.Label()
-        self.read_data_label.set_selectable(True)
-        self.read_data_label.set_attributes(self.attribute_list_bold)
-        self.read_data_label.set_label("--")
-        self.read_data_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.read_data_label, 0, 2, 1, 1)
-        # Label (Up Time)
-        self.write_data_label = Gtk.Label()
-        self.write_data_label.set_selectable(True)
-        self.write_data_label.set_attributes(self.attribute_list_bold)
-        self.write_data_label.set_label("--")
-        self.write_data_label.set_ellipsize(Pango.EllipsizeMode.END)
-        grid.attach(self.write_data_label, 1, 2, 1, 1)
 
         # Grid - Right information labels
         performance_info_right_grid = Gtk.Grid()
@@ -287,25 +135,14 @@ class Disk:
 
         # Labels - Right information labels
         # Label (System Disk)
-        label = Gtk.Label()
-        label.set_label(_tr("System Disk") + ":")
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        label.set_halign(Gtk.Align.START)
+        label = Common.static_information_label(_tr("System Disk") + ":")
         performance_info_right_grid.attach(label, 0, 0, 1, 1)
         # Label (System Disk)
-        self.system_disk_label = Gtk.Label()
-        self.system_disk_label.set_selectable(True)
-        self.system_disk_label.set_attributes(self.attribute_list_bold)
-        self.system_disk_label.set_label("--")
-        self.system_disk_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.system_disk_label.set_halign(Gtk.Align.START)
+        self.system_disk_label = Common.dynamic_information_label()
         performance_info_right_grid.attach(self.system_disk_label, 1, 0, 1, 1)
 
         # Label (Used)
-        label = Gtk.Label()
-        label.set_label(_tr("Used") + ":")
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        label.set_halign(Gtk.Align.START)
+        label = Common.static_information_label(_tr("Used") + ":")
         performance_info_right_grid.attach(label, 0, 2, 1, 1)
         # Label and DrawingArea (Used)
         grid_label_and_da = Gtk.Grid()
@@ -316,73 +153,35 @@ class Disk:
         self.da_disk_usage.set_hexpand(True)
         grid_label_and_da.attach(self.da_disk_usage, 0, 0, 1, 1)
         # Label (Used (percent))
-        self.used_percent_label = Gtk.Label()
-        self.used_percent_label.set_selectable(True)
-        self.used_percent_label.set_attributes(self.attribute_list_bold)
-        self.used_percent_label.set_label("--")
-        self.used_percent_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.used_percent_label.set_halign(Gtk.Align.START)
+        self.used_percent_label = Common.dynamic_information_label()
         grid_label_and_da.attach(self.used_percent_label, 1, 0, 1, 1)
 
         # Label (Free)
-        label = Gtk.Label()
-        label.set_label(_tr("Free") + ":")
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        label.set_halign(Gtk.Align.START)
+        label = Common.static_information_label(_tr("Free") + ":")
         performance_info_right_grid.attach(label, 0, 3, 1, 1)
         # Label (Free)
-        self.free_label = Gtk.Label()
-        self.free_label.set_selectable(True)
-        self.free_label.set_attributes(self.attribute_list_bold)
-        self.free_label.set_label("--")
-        self.free_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.free_label.set_halign(Gtk.Align.START)
+        self.free_label = Common.dynamic_information_label()
         performance_info_right_grid.attach(self.free_label, 1, 3, 1, 1)
 
         # Label (Used)
-        label = Gtk.Label()
-        label.set_label(_tr("Used") + ":")
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        label.set_halign(Gtk.Align.START)
+        label = Common.static_information_label(_tr("Used") + ":")
         performance_info_right_grid.attach(label, 0, 4, 1, 1)
         # Label (Used)
-        self.used_label = Gtk.Label()
-        self.used_label.set_selectable(True)
-        self.used_label.set_attributes(self.attribute_list_bold)
-        self.used_label.set_label("--")
-        self.used_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.used_label.set_halign(Gtk.Align.START)
+        self.used_label = Common.dynamic_information_label()
         performance_info_right_grid.attach(self.used_label, 1, 4, 1, 1)
 
         # Label (Capacity)
-        label = Gtk.Label()
-        label.set_label(_tr("Capacity") + ":")
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        label.set_halign(Gtk.Align.START)
+        label = Common.static_information_label(_tr("Capacity") + ":")
         performance_info_right_grid.attach(label, 0, 5, 1, 1)
         # Label (Capacity)
-        self.capacity_label = Gtk.Label()
-        self.capacity_label.set_selectable(True)
-        self.capacity_label.set_attributes(self.attribute_list_bold)
-        self.capacity_label.set_label("--")
-        self.capacity_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.capacity_label.set_halign(Gtk.Align.START)
+        self.capacity_label = Common.dynamic_information_label()
         performance_info_right_grid.attach(self.capacity_label, 1, 5, 1, 1)
 
         # Label (Details...)
-        label = Gtk.Label()
-        label.set_label(_tr("Details") + ":")
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        label.set_halign(Gtk.Align.START)
+        label = Common.static_information_label(_tr("Details") + ":")
         performance_info_right_grid.attach(label, 0, 6, 1, 1)
         # Label (Show...)
-        self.details_label = Gtk.Label()
-        self.details_label.set_attributes(self.attribute_list_bold_underlined)
-        self.details_label.set_label(_tr("Show..."))
-        self.details_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.details_label.set_halign(Gtk.Align.START)
-        self.cursor_link = Gdk.Cursor.new_from_name("pointer")
-        self.details_label.set_cursor(self.cursor_link)
+        self.details_label = Common.clickable_label(_tr("Show..."))
         performance_info_right_grid.attach(self.details_label, 1, 6, 1, 1)
 
 
@@ -903,14 +702,14 @@ class Disk:
         try:
             with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/modalias") as reader:
                 modalias_output = reader.read().strip()
-            device_vendor_name, device_model_name, _, _ = Performance.performance_get_device_vendor_model_func(modalias_output)
+            device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
         except (FileNotFoundError, NotADirectoryError) as me:
             pass
         # Try to get device vendor model if this is a SCSI, IDE or virtio device (on QEMU virtual machines).
         try:
             with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/modalias") as reader:
                 modalias_output = reader.read().strip()
-            device_vendor_name, device_model_name, _, _ = Performance.performance_get_device_vendor_model_func(modalias_output)
+            device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
         except (FileNotFoundError, NotADirectoryError) as me:
             pass
         # Try to get device vendor model if this is a SCSI or IDE disk.

@@ -18,6 +18,7 @@ from locale import gettext as _tr
 
 from Config import Config
 from MainWindow import MainWindow
+import Common
 
 
 class Users:
@@ -34,13 +35,7 @@ class Users:
         Generate tab GUI.
         """
 
-        # Tab grid
-        self.tab_grid = Gtk.Grid()
-        self.tab_grid.set_row_spacing(7)
-        self.tab_grid.set_margin_top(2)
-        self.tab_grid.set_margin_bottom(2)
-        self.tab_grid.set_margin_start(2)
-        self.tab_grid.set_margin_end(2)
+        self.tab_grid = Common.tab_grid()
 
         self.tab_title_grid()
 
@@ -61,28 +56,12 @@ class Users:
         grid.set_column_spacing(5)
         self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Bold and 2x label atributes
-        attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        attribute_list_bold_2x.insert(attribute)
-
         # Label (Users)
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.START)
-        label.set_margin_end(60)
-        label.set_attributes(attribute_list_bold_2x)
-        label.set_label(_tr("Users"))
+        label = Common.tab_title_label(_tr("Users"))
         grid.attach(label, 0, 0, 1, 1)
 
         # SearchEntry
-        self.searchentry = Gtk.SearchEntry()
-        self.searchentry.props.placeholder_text = _tr("Search...")
-        self.searchentry.set_max_width_chars(100)
-        self.searchentry.set_hexpand(True)
-        self.searchentry.set_halign(Gtk.Align.CENTER)
-        self.searchentry.set_valign(Gtk.Align.CENTER)
+        self.searchentry = Common.scrolledwindow_searchentry(_tr("Search..."))
         grid.attach(self.searchentry, 1, 0, 1, 1)
 
 
@@ -320,7 +299,7 @@ class Users:
         uid_username_list = []                                                                    # For tracking new/removed user data rows. User UID and username information is appended per user. Because tracking only user UID and username may cause confusions. User UID may be given another user after a time if a user is deleted.
 
         # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
-        number_of_logical_cores = self.users_number_of_logical_cores()
+        number_of_logical_cores = Common.number_of_logical_cores()
 
         # Get all users and user groups.
         etc_passwd_lines, user_group_names, user_group_ids = self.users_groups_func()
@@ -634,26 +613,6 @@ class Users:
         Config.users_data_column_order = list(users_data_column_order)
         Config.users_data_column_widths = list(users_data_column_widths)
         Config.config_save_func()
-
-
-    def users_number_of_logical_cores(self):
-        """
-        Get number of online logical cores.
-        """
-
-        try:
-            # First try a faster way: using "SC_NPROCESSORS_ONLN" variable.
-            number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")
-        except ValueError:
-            # As a second try, count by reading from "/proc/cpuinfo" file.
-            with open("/proc/cpuinfo") as reader:
-                proc_cpuinfo_lines = reader.read().split("\n")
-            number_of_logical_cores = 0
-            for line in proc_cpuinfo_lines:
-                if line.startswith("processor"):
-                    number_of_logical_cores = number_of_logical_cores + 1
-
-        return number_of_logical_cores
 
 
     def users_groups_func(self):

@@ -17,6 +17,7 @@ from locale import gettext as _tr
 from Config import Config
 from Performance import Performance
 from MainWindow import MainWindow
+import Common
 
 
 class Services:
@@ -33,13 +34,7 @@ class Services:
         Generate tab GUI.
         """
 
-        # Tab grid
-        self.tab_grid = Gtk.Grid()
-        self.tab_grid.set_row_spacing(7)
-        self.tab_grid.set_margin_top(2)
-        self.tab_grid.set_margin_bottom(2)
-        self.tab_grid.set_margin_start(2)
-        self.tab_grid.set_margin_end(2)
+        self.tab_grid = Common.tab_grid()
 
         self.tab_title_grid()
 
@@ -67,28 +62,12 @@ class Services:
         grid.set_column_spacing(5)
         self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Bold and 2x label atributes
-        attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        attribute_list_bold_2x.insert(attribute)
-
         # Label (Services)
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.START)
-        label.set_margin_end(60)
-        label.set_attributes(attribute_list_bold_2x)
-        label.set_label(_tr("Services"))
+        label = Common.tab_title_label(_tr("Services"))
         grid.attach(label, 0, 0, 1, 1)
 
         # SearchEntry
-        self.searchentry = Gtk.SearchEntry()
-        self.searchentry.props.placeholder_text = _tr("Search...")
-        self.searchentry.set_max_width_chars(100)
-        self.searchentry.set_hexpand(True)
-        self.searchentry.set_halign(Gtk.Align.CENTER)
-        self.searchentry.set_valign(Gtk.Align.CENTER)
+        self.searchentry = Common.scrolledwindow_searchentry(_tr("Search..."))
         grid.attach(self.searchentry, 1, 0, 1, 1)
 
         # Button (refresh tab)
@@ -593,7 +572,7 @@ class Services:
             unit_files_command.append(service)
 
         # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
-        number_of_logical_cores = self.services_number_of_logical_cores()
+        number_of_logical_cores = Common.number_of_logical_cores()
 
         # Get services bu using single process (instead of multiprocessing) if the system has 1 or 2 CPU cores.
         if number_of_logical_cores < 3:
@@ -830,26 +809,6 @@ class Services:
         Config.services_data_column_order = list(services_data_column_order)
         Config.services_data_column_widths = list(services_data_column_widths)
         Config.config_save_func()
-
-
-    def services_number_of_logical_cores(self):
-        """
-        Get number of online logical cores.
-        """
-
-        try:
-            # First try a faster way: using "SC_NPROCESSORS_ONLN" variable.
-            number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")
-        except ValueError:
-            # As a second try, count by reading from "/proc/cpuinfo" file.
-            with open("/proc/cpuinfo") as reader:
-                proc_cpuinfo_lines = reader.read().split("\n")
-            number_of_logical_cores = 0
-            for line in proc_cpuinfo_lines:
-                if line.startswith("processor"):
-                    number_of_logical_cores = number_of_logical_cores + 1
-
-        return number_of_logical_cores
 
 
 # ----------------------------------- Services - Treeview Cell Functions -----------------------------------

@@ -12,6 +12,7 @@ from locale import gettext as _tr
 from Config import Config
 from Performance import Performance
 from MainWindow import MainWindow
+import Common
 
 
 class SettingsWindow:
@@ -63,18 +64,20 @@ class SettingsWindow:
         language_label.set_halign(Gtk.Align.START)
         language_label.set_label(_tr("Language (Requires restart)") + ":")
         main_grid.attach(language_label, 0, 0, 1, 1)
-        # ComboBox (Language)
-        self.language_cmb = Gtk.ComboBox()
-        main_grid.attach(self.language_cmb, 1, 0, 1, 1)
+        # DropDown - precision (Language)
+        item_list = list(self.language_dict.values())
+        self.language_dd = Common.dropdown_and_model(item_list)
+        main_grid.attach(self.language_dd, 1, 0, 1, 1)
 
         # Label (Light/Dark theme)
         language_label = Gtk.Label()
         language_label.set_halign(Gtk.Align.START)
         language_label.set_label(_tr("Light/Dark theme") + ":")
         main_grid.attach(language_label, 0, 1, 1, 1)
-        # ComboBox (Light/Dark theme)
-        self.light_dark_theme_cmb = Gtk.ComboBox()
-        main_grid.attach(self.light_dark_theme_cmb, 1, 1, 1, 1)
+        # DropDown - precision (Light/Dark theme)
+        item_list = list(self.gui_theme_dict.values())
+        self.light_dark_theme_dd = Common.dropdown_and_model(item_list)
+        main_grid.attach(self.light_dark_theme_dd, 1, 1, 1, 1)
 
         # Separator
         separator = Gtk.Separator()
@@ -87,18 +90,20 @@ class SettingsWindow:
         update_interval_label.set_halign(Gtk.Align.START)
         update_interval_label.set_label(_tr("Update interval (seconds)") + ":")
         main_grid.attach(update_interval_label, 0, 3, 1, 1)
-        # ComboBox (Update interval)
-        self.update_interval_cmb = Gtk.ComboBox()
-        main_grid.attach(self.update_interval_cmb, 1, 3, 1, 1)
+        # DropDown - precision (Update interval)
+        item_list = self.update_interval_list
+        self.update_interval_dd = Common.dropdown_and_model(item_list)
+        main_grid.attach(self.update_interval_dd, 1, 3, 1, 1)
 
         # Label (Graph data history)
         graph_data_history_label = Gtk.Label()
         graph_data_history_label.set_halign(Gtk.Align.START)
         graph_data_history_label.set_label(_tr("Graph data history") + ":")
         main_grid.attach(graph_data_history_label, 0, 4, 1, 1)
-        # ComboBox (Graph data history)
-        self.graph_data_history_cmb = Gtk.ComboBox()
-        main_grid.attach(self.graph_data_history_cmb, 1, 4, 1, 1)
+        # DropDown - precision (Graph data history)
+        item_list = self.chart_data_history_list
+        self.graph_data_history_dd = Common.dropdown_and_model(item_list)
+        main_grid.attach(self.graph_data_history_dd, 1, 4, 1, 1)
 
         # Separator
         separator = Gtk.Separator()
@@ -134,12 +139,14 @@ class SettingsWindow:
         default_main_sub_tab_label.set_halign(Gtk.Align.START)
         default_main_sub_tab_label.set_label(_tr("Default main tab and sub-tab") + ":")
         default_main_sub_tab_grid.attach(default_main_sub_tab_label, 0, 0, 2, 1)
-        # ComboBox (Default main tab)
-        self.default_main_tab_cmb = Gtk.ComboBox()
-        default_main_sub_tab_grid.attach(self.default_main_tab_cmb, 0, 1, 1, 1)
-        # ComboBox (Default sub-tab)
-        self.default_sub_tab_cmb = Gtk.ComboBox()
-        default_main_sub_tab_grid.attach(self.default_sub_tab_cmb, 1, 1, 1, 1)
+        # DropDown - precision (Default main tab)
+        item_list = self.default_main_tab_list
+        self.default_main_tab_dd = Common.dropdown_and_model(item_list)
+        default_main_sub_tab_grid.attach(self.default_main_tab_dd, 0, 1, 1, 1)
+        # DropDown - precision (Default sub-tab)
+        item_list = self.performance_tab_default_sub_tab_list
+        self.default_sub_tab_dd = Common.dropdown_and_model(item_list)
+        default_main_sub_tab_grid.attach(self.default_sub_tab_dd, 1, 1, 1, 1)
 
         # Separator
         separator = Gtk.Separator()
@@ -191,9 +198,7 @@ class SettingsWindow:
         self.check_for_updates_grid.attach(separator, 0, 16, 2, 1)
 
         # Button (Reset)
-        self.reset_button = Gtk.Button()
-        self.reset_button.set_halign(Gtk.Align.CENTER)
-        self.reset_button.set_label(_tr("Reset"))
+        self.reset_button = Common.reset_button()
         main_grid.attach(self.reset_button, 0, 17, 2, 1)
 
         # Separator
@@ -202,7 +207,7 @@ class SettingsWindow:
         separator.set_margin_bottom(5)
         main_grid.attach(separator, 0, 18, 2, 1)
 
-        # Button (Reset all settings of the application to defaults)
+        # Button (Reset all settings of the application)
         self.reset_all_settings_button = Gtk.Button()
         self.reset_all_settings_button.set_halign(Gtk.Align.CENTER)
         self.reset_all_settings_button.set_label(_tr("Reset all settings of the application"))
@@ -229,14 +234,14 @@ class SettingsWindow:
         Connect some of the signals to be able to disconnect them for setting GUI.
         """
 
-        self.language_cmb.connect("changed", self.on_language_cmb_changed)
-        self.light_dark_theme_cmb.connect("changed", self.on_light_dark_theme_cmb_changed)
-        self.update_interval_cmb.connect("changed", self.on_update_interval_cmb_changed)
-        self.graph_data_history_cmb.connect("changed", self.on_graph_data_history_cmb_changed)
+        self.language_dd.connect("notify::selected-item", self.on_selected_item_notify)
+        self.light_dark_theme_dd.connect("notify::selected-item", self.on_selected_item_notify)
+        self.update_interval_dd.connect("notify::selected-item", self.on_selected_item_notify)
+        self.graph_data_history_dd.connect("notify::selected-item", self.on_selected_item_notify)
         self.show_performance_summary_on_hb_cb.connect("toggled", self.on_show_performance_summary_on_hb_cb_toggled)
         self.remember_last_opened_tabs_cb.connect("toggled", self.on_remember_last_opened_tabs_cb_toggled)
-        self.default_main_tab_cmb.connect("changed", self.on_default_main_tab_cmb_changed)
-        self.default_sub_tab_cmb.connect("changed", self.on_default_sub_tab_cmb_changed)
+        self.default_main_tab_dd.connect("notify::selected-item", self.on_selected_item_notify)
+        self.default_sub_tab_dd.connect("notify::selected-item", self.on_selected_item_notify)
         self.remember_last_selected_devices_cb.connect("toggled", self.on_remember_last_selected_devices_cb_toggled)
         self.remember_window_size_cb.connect("toggled", self.on_remember_window_size_cb_toggled)
         self.check_for_updates_cb.connect("toggled", self.on_check_for_updates_cb_toggled)
@@ -247,14 +252,14 @@ class SettingsWindow:
         Disconnect some of the signals for setting GUI.
         """
 
-        self.language_cmb.disconnect_by_func(self.on_language_cmb_changed)
-        self.light_dark_theme_cmb.disconnect_by_func(self.on_light_dark_theme_cmb_changed)
-        self.update_interval_cmb.disconnect_by_func(self.on_update_interval_cmb_changed)
-        self.graph_data_history_cmb.disconnect_by_func(self.on_graph_data_history_cmb_changed)
+        self.language_dd.disconnect_by_func(self.on_selected_item_notify)
+        self.light_dark_theme_dd.disconnect_by_func(self.on_selected_item_notify)
+        self.update_interval_dd.disconnect_by_func(self.on_selected_item_notify)
+        self.graph_data_history_dd.disconnect_by_func(self.on_selected_item_notify)
         self.show_performance_summary_on_hb_cb.disconnect_by_func(self.on_show_performance_summary_on_hb_cb_toggled)
         self.remember_last_opened_tabs_cb.disconnect_by_func(self.on_remember_last_opened_tabs_cb_toggled)
-        self.default_main_tab_cmb.disconnect_by_func(self.on_default_main_tab_cmb_changed)
-        self.default_sub_tab_cmb.disconnect_by_func(self.on_default_sub_tab_cmb_changed)
+        self.default_main_tab_dd.disconnect_by_func(self.on_selected_item_notify)
+        self.default_sub_tab_dd.disconnect_by_func(self.on_selected_item_notify)
         self.remember_last_selected_devices_cb.disconnect_by_func(self.on_remember_last_selected_devices_cb_toggled)
         self.remember_window_size_cb.disconnect_by_func(self.on_remember_window_size_cb_toggled)
         self.check_for_updates_cb.disconnect_by_func(self.on_check_for_updates_cb_toggled)
@@ -291,55 +296,6 @@ class SettingsWindow:
         self.settings_connect_signals_func()
 
 
-    def on_language_cmb_changed(self, widget):
-        """
-        Set GUI language. This setting is applied after the application is restarted.
-        """
-
-        Config.language = list(self.language_dict.keys())[widget.get_active()]
-        Config.config_save_func()
-
-
-    def on_light_dark_theme_cmb_changed(self, widget):
-        """
-        Set light/dark theme for GUI.
-        """
-
-        light_dark_theme = list(self.gui_theme_dict.keys())[widget.get_active()]
-        Config.light_dark_theme = light_dark_theme
-
-        MainWindow.light_dark_theme()
-
-        Config.config_save_func()
-
-
-    def on_update_interval_cmb_changed(self, widget):
-        """
-        Set update interval of the application.
-        """
-
-        Config.update_interval = self.update_interval_list[widget.get_active()]
-
-        Config.config_save_func()
-
-        # Apply changes immediately (without waiting update interval).
-        self.settings_gui_apply_settings_immediately_func()
-
-
-    def on_graph_data_history_cmb_changed(self, widget):
-        """
-        Set number of graph data points for graphs.
-        """
-
-        Config.chart_data_history = self.chart_data_history_list[widget.get_active()]
-
-        Config.config_save_func()
-
-        # Apply changes immediately (without waiting update interval).
-        self.settings_gui_set_chart_data_history_func()
-        self.settings_gui_apply_settings_immediately_func()
-
-
     def on_show_performance_summary_on_hb_cb_toggled(self, widget):
         """
         Show/Hide performance summary on the window title.
@@ -366,37 +322,55 @@ class SettingsWindow:
         # Get currently opened tabs and save them if preferred.
         if widget.get_active() == True:
             Config.remember_last_opened_tabs_on_application_start = 1
-            self.default_main_tab_cmb.set_sensitive(False)
-            self.default_sub_tab_cmb.set_sensitive(False)
+            self.default_main_tab_dd.set_sensitive(False)
+            self.default_sub_tab_dd.set_sensitive(False)
             self.settings_gui_default_tab_func()
 
         # Set setting for not remembering las opened tabs if preferred.
         if widget.get_active() == False:
             Config.remember_last_opened_tabs_on_application_start = 0
-            self.default_main_tab_cmb.set_sensitive(True)
-            self.default_sub_tab_cmb.set_sensitive(True)
+            self.default_main_tab_dd.set_sensitive(True)
+            self.default_sub_tab_dd.set_sensitive(True)
 
         Config.config_save_func()
 
 
-    def on_default_main_tab_cmb_changed(self, widget):
+    def on_selected_item_notify(self, widget, parameter):
         """
-        Set default main tab.
+        Change update interval of the application, number of graph data points for graphs, default main tab and default sub-tab.
+        Notify signal is sent when DropDown widget selection is changed.
+        Currently GtkExpression parameter for DropDown can not be used because of PyGObject.
         """
 
-        # Get selected tab as default main tab and save it if preferred.
-        Config.default_main_tab = widget.get_active()
+        if widget == self.language_dd:
+            Config.language = list(self.language_dict.keys())[widget.get_selected()]
+
+        if widget == self.light_dark_theme_dd:
+            Config.light_dark_theme = list(self.gui_theme_dict.keys())[widget.get_selected()]
+
+        if widget == self.update_interval_dd:
+            Config.update_interval = self.update_interval_list[widget.get_selected()]
+
+        if widget == self.graph_data_history_dd:
+            Config.chart_data_history = self.chart_data_history_list[widget.get_selected()]
+
+        if widget == self.default_main_tab_dd:
+            Config.default_main_tab = widget.get_selected()
+
+        if widget == self.default_sub_tab_dd:
+            Config.performance_tab_default_sub_tab = widget.get_selected()
+
         Config.config_save_func()
 
+        if widget == self.light_dark_theme_dd:
+            MainWindow.light_dark_theme()
 
-    def on_default_sub_tab_cmb_changed(self, widget):
-        """
-        Set default sub-tab.
-        """
+        if widget == self.update_interval_dd:
+            self.settings_gui_apply_settings_immediately_func()
 
-        # Get selected tab as Performance tab default sub-tab and save it if preferred.
-        Config.performance_tab_default_sub_tab = widget.get_active()
-        Config.config_save_func()
+        if widget == self.graph_data_history_dd:
+            self.settings_gui_set_chart_data_history_func()
+            self.settings_gui_apply_settings_immediately_func()
 
 
     def on_remember_last_selected_devices_cb_toggled(self, widget):
@@ -415,7 +389,6 @@ class SettingsWindow:
 
     def on_remember_window_size_cb_toggled(self, widget):
         """
-        
         Enable/Disable remembering window size.
         """
 
@@ -519,7 +492,7 @@ class SettingsWindow:
         self.settings_connect_signals_func()
 
         # Reset "Light/Dark theme" setting.
-        self.on_light_dark_theme_cmb_changed(self.light_dark_theme_cmb)
+        MainWindow.light_dark_theme()
 
         # Length of performance data lists (cpu_usage_percent_ave, ram_usage_percent_ave, ...)
         # have to be set after "chart_data_history" setting is reset in order to avoid errors.
@@ -551,59 +524,10 @@ class SettingsWindow:
         Set GUI items.
         """
 
-        # Set GUI preferences for "language" setting
-        liststore = Gtk.ListStore()
-        liststore.set_column_types([str])
-        self.language_cmb.set_model(liststore)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.language_cmb.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.language_cmb.pack_start(renderer_text, True)
-        self.language_cmb.add_attribute(renderer_text, "text", 0)
-        for value in self.language_dict:
-            value = self.language_dict[value]
-            liststore.append([value])
-        self.language_cmb.set_active(list(self.language_dict.keys()).index(Config.language))
-
-        # Set GUI preferences for "Light/Dark theme" setting
-        liststore = Gtk.ListStore()
-        liststore.set_column_types([str])
-        self.light_dark_theme_cmb.set_model(liststore)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.light_dark_theme_cmb.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.light_dark_theme_cmb.pack_start(renderer_text, True)
-        self.light_dark_theme_cmb.add_attribute(renderer_text, "text", 0)
-        for value in self.gui_theme_dict:
-            value = self.gui_theme_dict[value]
-            liststore.append([value])
-        self.light_dark_theme_cmb.set_active(list(self.gui_theme_dict.keys()).index(Config.light_dark_theme))
-
-        # Set GUI preferences for "update interval" setting
-        liststore = Gtk.ListStore()
-        liststore.set_column_types([str])
-        self.update_interval_cmb.set_model(liststore)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.update_interval_cmb.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.update_interval_cmb.pack_start(renderer_text, True)
-        self.update_interval_cmb.add_attribute(renderer_text, "text", 0)
-        for value in self.update_interval_list:
-            liststore.append([str(value)])
-        self.update_interval_cmb.set_active(self.update_interval_list.index(Config.update_interval))
-
-        # Set GUI preferences for "chart data history" setting
-        liststore = Gtk.ListStore()
-        liststore.set_column_types([str])
-        self.graph_data_history_cmb.set_model(liststore)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.graph_data_history_cmb.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.graph_data_history_cmb.pack_start(renderer_text, True)
-        self.graph_data_history_cmb.add_attribute(renderer_text, "text", 0)
-        for value in self.chart_data_history_list:
-            liststore.append([str(value)])
-        self.graph_data_history_cmb.set_active(self.chart_data_history_list.index(Config.chart_data_history))
+        self.language_dd.set_selected(list(self.language_dict.keys()).index(Config.language))
+        self.light_dark_theme_dd.set_selected(list(self.gui_theme_dict.keys()).index(Config.light_dark_theme))
+        self.update_interval_dd.set_selected(self.update_interval_list.index(Config.update_interval))
+        self.graph_data_history_dd.set_selected(self.chart_data_history_list.index(Config.chart_data_history))
 
         # Set GUI preferences for "show performance summary on the headerbar" setting
         if Config.performance_summary_on_the_headerbar == 1:
@@ -618,38 +542,18 @@ class SettingsWindow:
             self.remember_last_opened_tabs_cb.set_active(False)
 
         # Set GUI preferences for "defult main tab" setting
-        liststore = Gtk.ListStore()
-        liststore.set_column_types([str])
-        self.default_main_tab_cmb.set_model(liststore)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.default_main_tab_cmb.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.default_main_tab_cmb.pack_start(renderer_text, True)
-        self.default_main_tab_cmb.add_attribute(renderer_text, "text", 0)
-        for value in self.default_main_tab_list:
-            liststore.append([value])
-        self.default_main_tab_cmb.set_active(Config.default_main_tab)
+        self.default_main_tab_dd.set_selected(Config.default_main_tab)
         if Config.remember_last_opened_tabs_on_application_start == 1:
-            self.default_main_tab_cmb.set_sensitive(False)
+            self.default_main_tab_dd.set_sensitive(False)
         if Config.remember_last_opened_tabs_on_application_start == 0:
-            self.default_main_tab_cmb.set_sensitive(True)
+            self.default_main_tab_dd.set_sensitive(True)
 
         # Set GUI preferences for "performance tab default sub-tab" setting
-        liststore = Gtk.ListStore()
-        liststore.set_column_types([str])
-        self.default_sub_tab_cmb.set_model(liststore)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.default_sub_tab_cmb.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.default_sub_tab_cmb.pack_start(renderer_text, True)
-        self.default_sub_tab_cmb.add_attribute(renderer_text, "text", 0)
-        for value in self.performance_tab_default_sub_tab_list:
-            liststore.append([value])
-        self.default_sub_tab_cmb.set_active(Config.performance_tab_default_sub_tab)
+        self.default_sub_tab_dd.set_selected(Config.performance_tab_default_sub_tab)
         if Config.remember_last_opened_tabs_on_application_start == 1:
-            self.default_sub_tab_cmb.set_sensitive(False)
+            self.default_sub_tab_dd.set_sensitive(False)
         if Config.remember_last_opened_tabs_on_application_start == 0:
-            self.default_sub_tab_cmb.set_sensitive(True)
+            self.default_sub_tab_dd.set_sensitive(True)
 
         # Set GUI preferences for "remember last selected hardware" setting
         if Config.remember_last_selected_hardware == 1:

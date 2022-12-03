@@ -18,6 +18,7 @@ from locale import gettext as _tr
 from Config import Config
 from Performance import Performance
 from MainWindow import MainWindow
+import Common
 
 
 class Processes:
@@ -36,13 +37,7 @@ class Processes:
         Generate tab GUI.
         """
 
-        # Tab grid
-        self.tab_grid = Gtk.Grid()
-        self.tab_grid.set_row_spacing(7)
-        self.tab_grid.set_margin_top(2)
-        self.tab_grid.set_margin_bottom(2)
-        self.tab_grid.set_margin_start(2)
-        self.tab_grid.set_margin_end(2)
+        self.tab_grid = Common.tab_grid()
 
         self.tab_title_grid()
 
@@ -63,28 +58,12 @@ class Processes:
         grid.set_column_spacing(5)
         self.tab_grid.attach(grid, 0, 0, 1, 1)
 
-        # Bold and 2x label atributes
-        attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        attribute_list_bold_2x.insert(attribute)
-
         # Label (Processes)
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.START)
-        label.set_margin_end(60)
-        label.set_attributes(attribute_list_bold_2x)
-        label.set_label(_tr("Processes"))
+        label = Common.tab_title_label(_tr("Processes"))
         grid.attach(label, 0, 0, 1, 1)
 
         # SearchEntry
-        self.searchentry = Gtk.SearchEntry()
-        self.searchentry.props.placeholder_text = _tr("Search...")
-        self.searchentry.set_max_width_chars(100)
-        self.searchentry.set_hexpand(True)
-        self.searchentry.set_halign(Gtk.Align.CENTER)
-        self.searchentry.set_valign(Gtk.Align.CENTER)
+        self.searchentry = Common.scrolledwindow_searchentry(_tr("Search..."))
         grid.attach(self.searchentry, 1, 0, 1, 1)
 
 
@@ -806,7 +785,7 @@ class Processes:
         disk_speed_list = []
 
         # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
-        number_of_logical_cores = self.processes_number_of_logical_cores()
+        number_of_logical_cores = Common.number_of_logical_cores()
 
         # Get current username which will be used for determining processes from only this user or other users.
         current_user_name = os.environ.get('USER')
@@ -1303,26 +1282,6 @@ class Processes:
         Config.config_save_func()
 
 
-    def processes_number_of_logical_cores(self):
-        """
-        Get number of online logical cores.
-        """
-
-        try:
-            # First try a faster way: using "SC_NPROCESSORS_ONLN" variable.
-            number_of_logical_cores = os.sysconf("SC_NPROCESSORS_ONLN")
-        except ValueError:
-            # As a second try, count by reading from "/proc/cpuinfo" file.
-            with open("/proc/cpuinfo") as reader:
-                proc_cpuinfo_lines = reader.read().split("\n")
-            number_of_logical_cores = 0
-            for line in proc_cpuinfo_lines:
-                if line.startswith("processor"):
-                    number_of_logical_cores = number_of_logical_cores + 1
-
-        return number_of_logical_cores
-
-
 # ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
 def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{processes_cpu_precision}f} %')
@@ -1345,23 +1304,21 @@ def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
     cell_backround_color(cell, value, max_value_disk_speed_list)
 
 def cell_backround_color(cell, value, max_value):
+    color = Gdk.RGBA()
+    color.red = 0.7
+    color.green = 0.35
+    color.blue = 0.05
     if value > 0.7 * max_value:
-        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.45)
-        #color = "red"
+        color.alpha = 0.45
     elif value <= 0.7 * max_value and value > 0.4 * max_value:
-        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.35)
-        #color = "orange"
+        color.alpha = 0.35
     elif value <= 0.4 * max_value and value > 0.2 * max_value:
-        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.25)
-        #color = "yellow"
+        color.alpha = 0.25
     elif value <= 0.2 * max_value and value > 0.1 * max_value:
-        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.15)
-        #color = "blue"
+        color.alpha = 0.15
     elif value <= 0.1 * max_value:
-        color = Gdk.RGBA(0.7, 0.35, 0.05, 0.0)
-        #color = "green"
+        color.alpha = 0.0
     cell.set_property('background-rgba', color)
-    #cell.set_property('background', color)
 
 
 Processes = Processes()

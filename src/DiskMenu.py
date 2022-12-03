@@ -3,8 +3,7 @@
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Gdk', '4.0')
-gi.require_version('Pango', '1.0')
-from gi.repository import Gtk, Gdk, Pango
+from gi.repository import Gtk, Gdk
 
 from locale import gettext as _tr
 
@@ -12,6 +11,7 @@ from Config import Config
 from Performance import Performance
 from Disk import Disk
 from MainWindow import MainWindow
+import Common
 
 
 class DiskMenu:
@@ -30,32 +30,15 @@ class DiskMenu:
         self.menu_po = Gtk.Popover()
 
         # Grid (main)
-        main_grid = Gtk.Grid()
-        main_grid.set_row_spacing(2)
-        main_grid.set_margin_top(2)
-        main_grid.set_margin_bottom(2)
-        main_grid.set_margin_start(2)
-        main_grid.set_margin_end(2)
+        main_grid = Common.menu_main_grid()
         self.menu_po.set_child(main_grid)
 
-        # Bold label atributes
-        attribute_list_bold = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        attribute_list_bold.insert(attribute)
-
         # Label - menu title (Disk)
-        label = Gtk.Label()
-        label.set_attributes(attribute_list_bold)
-        label.set_label(_tr("Disk"))
-        label.set_halign(Gtk.Align.CENTER)
-        label.set_margin_bottom(10)
+        label = Common.menu_title_label(_tr("Disk"))
         main_grid.attach(label, 0, 0, 2, 1)
 
         # Label (Graph - Show)
-        label = Gtk.Label()
-        label.set_attributes(attribute_list_bold)
-        label.set_label(_tr("Graph - Show"))
-        label.set_halign(Gtk.Align.START)
+        label = Common.title_label(_tr("Graph - Show"))
         main_grid.attach(label, 0, 1, 2, 1)
 
         # Checkbutton (Read Speed)
@@ -102,15 +85,13 @@ class DiskMenu:
         main_grid.attach(separator, 0, 6, 2, 1)
 
         # Label - title (Precision)
-        label = Gtk.Label()
-        label.set_attributes(attribute_list_bold)
-        label.set_label(_tr("Precision"))
-        label.set_halign(Gtk.Align.START)
+        label = Common.title_label(_tr("Precision"))
         main_grid.attach(label, 0, 7, 2, 1)
 
-        # ComboBox - precision (Disk)
-        self.disk_precision_cmb = Gtk.ComboBox()
-        main_grid.attach(self.disk_precision_cmb, 0, 8, 2, 1)
+        # DropDown - precision (Disk)
+        item_list = ['0', '0.0', '0.00', '0.000']
+        self.disk_precision_dd = Common.dropdown_and_model(item_list)
+        main_grid.attach(self.disk_precision_dd, 0, 8, 2, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
@@ -119,10 +100,7 @@ class DiskMenu:
         main_grid.attach(separator, 0, 9, 2, 1)
 
         # Label - title (Data Unit)
-        label = Gtk.Label()
-        label.set_attributes(attribute_list_bold)
-        label.set_label(_tr("Data Unit"))
-        label.set_halign(Gtk.Align.START)
+        label = Common.title_label(_tr("Data Unit"))
         main_grid.attach(label, 0, 10, 2, 1)
 
         # Label (Show data as powers of:)
@@ -159,10 +137,7 @@ class DiskMenu:
         main_grid.attach(separator, 0, 14, 2, 1)
 
         # Label - title (Disk)
-        label = Gtk.Label()
-        label.set_attributes(attribute_list_bold)
-        label.set_label(_tr("Disk"))
-        label.set_halign(Gtk.Align.START)
+        label = Common.title_label(_tr("Disk"))
         main_grid.attach(label, 0, 15, 2, 1)
 
         # CheckButton (Hide loop, ramdisk, zram disks)
@@ -179,14 +154,11 @@ class DiskMenu:
         main_grid.attach(separator, 0, 17, 2, 1)
 
         # Button (Reset)
-        self.reset_button = Gtk.Button()
-        self.reset_button.set_label(_tr("Reset"))
-        self.reset_button.set_halign(Gtk.Align.CENTER)
+        self.reset_button = Common.reset_button()
         main_grid.attach(self.reset_button, 0, 18, 2, 1)
 
         # ColorChooserDialog
-        self.colorchooserdialog = Gtk.ColorChooserDialog().new(title=_tr("Graph Color"), parent=MainWindow.main_window)
-        self.colorchooserdialog.set_modal(True)
+        self.colorchooserdialog = Common.menu_colorchooserdialog(_tr("Graph Color"), MainWindow.main_window)
 
         # Connect signals
         self.menu_po.connect("show", self.on_menu_po_show)
@@ -208,7 +180,7 @@ class DiskMenu:
         self.data_power_of_1000_cb.connect("toggled", self.on_data_unit_radiobuttons_toggled)
         self.data_bits_cb.connect("toggled", self.on_data_bits_cb_toggled)
         self.hide_loop_ramdisk_zram_disks_cb.connect("toggled", self.on_hide_loop_ramdisk_zram_disks_cb_toggled)
-        self.disk_precision_cmb.connect("changed", self.on_disk_precision_cmb_changed)
+        self.disk_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
 
 
     def disconnect_signals(self):
@@ -224,7 +196,7 @@ class DiskMenu:
         self.data_power_of_1000_cb.disconnect_by_func(self.on_data_unit_radiobuttons_toggled)
         self.data_bits_cb.disconnect_by_func(self.on_data_bits_cb_toggled)
         self.hide_loop_ramdisk_zram_disks_cb.disconnect_by_func(self.on_hide_loop_ramdisk_zram_disks_cb_toggled)
-        self.disk_precision_cmb.disconnect_by_func(self.on_disk_precision_cmb_changed)
+        self.disk_precision_dd.disconnect_by_func(self.on_selected_item_notify)
 
 
     def on_menu_po_show(self, widget):
@@ -295,12 +267,14 @@ class DiskMenu:
         Config.config_save_func()
 
 
-    def on_disk_precision_cmb_changed(self, widget):
+    def on_selected_item_notify(self, widget, parameter):
         """
-        Change disk speed precision.
+        Change disk data/speed precision.
+        Notify signal is sent when DropDown widget selection is changed.
+        Currently GtkExpression parameter for DropDown can not be used because of PyGObject.
         """
 
-        Config.performance_disk_data_precision = Config.number_precision_list[widget.get_active()][2]
+        Config.performance_disk_data_precision = widget.get_selected()
 
         # Apply changes immediately (without waiting update interval).
         Disk.disk_initial_func()
@@ -343,11 +317,12 @@ class DiskMenu:
     def on_graph_color_button_clicked(self, widget):
         """
         Change graph foreground color.
+        Also get current foreground color of the graph and set it as selected color of the dialog.
         """
 
-        # Get current foreground color of the graph and set it as selected color of the dialog when dialog is shown.
-        red, blue, green, alpha = Config.chart_line_color_disk_speed_usage
-        self.colorchooserdialog.set_rgba(Gdk.RGBA(red, blue, green, alpha))
+        color = Gdk.RGBA()
+        color.red, color.green, color.blue, color.alpha = Config.chart_line_color_disk_speed_usage
+        self.colorchooserdialog.set_rgba(color)
 
         self.menu_po.popdown()
         self.colorchooserdialog.present()
@@ -449,18 +424,7 @@ class DiskMenu:
         if Config.hide_loop_ramdisk_zram_disks == 0:
             self.hide_loop_ramdisk_zram_disks_cb.set_active(False)
 
-        # Add Disk data precision data to combobox.
-        liststore = Gtk.ListStore()
-        liststore.set_column_types([str, int])
-        self.disk_precision_cmb.set_model(liststore)
-        # Clear combobox in order to prevent adding the same items when the function is called again.
-        self.disk_precision_cmb.clear()
-        renderer_text = Gtk.CellRendererText()
-        self.disk_precision_cmb.pack_start(renderer_text, True)
-        self.disk_precision_cmb.add_attribute(renderer_text, "text", 0)
-        for data in Config.number_precision_list:
-            liststore.append([data[1], data[2]])
-        self.disk_precision_cmb.set_active(Config.performance_disk_data_precision)
+        self.disk_precision_dd.set_selected(Config.performance_disk_data_precision)
 
 
 DiskMenu = DiskMenu()

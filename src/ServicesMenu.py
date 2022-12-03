@@ -2,14 +2,14 @@
 
 import gi
 gi.require_version('Gtk', '4.0')
-gi.require_version('Pango', '1.0')
-from gi.repository import Gtk, Pango
+from gi.repository import Gtk
 
 from locale import gettext as _tr
 
 from Config import Config
 from Services import Services
 from MainWindow import MainWindow
+import Common
 
 
 class ServicesMenu:
@@ -28,25 +28,11 @@ class ServicesMenu:
         self.menu_po = Gtk.Popover()
 
         # Grid (main)
-        main_grid = Gtk.Grid()
-        main_grid.set_row_spacing(2)
-        main_grid.set_margin_top(2)
-        main_grid.set_margin_bottom(2)
-        main_grid.set_margin_start(2)
-        main_grid.set_margin_end(2)
+        main_grid = Common.menu_main_grid()
         self.menu_po.set_child(main_grid)
 
-        # Bold label atributes
-        self.attribute_list_bold = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        self.attribute_list_bold.insert(attribute)
-
         # Label - menu title (Services)
-        label = Gtk.Label()
-        label.set_attributes(self.attribute_list_bold)
-        label.set_label(_tr("Services"))
-        label.set_halign(Gtk.Align.CENTER)
-        label.set_margin_bottom(10)
+        label = Common.menu_title_label(_tr("Services"))
         main_grid.attach(label, 0, 0, 1, 1)
 
         # Notebook
@@ -68,9 +54,7 @@ class ServicesMenu:
         notebook.append_page(self.grid_add_remove_columns_tab, label)
 
         # Button (Reset)
-        self.reset_button = Gtk.Button()
-        self.reset_button.set_label(_tr("Reset"))
-        self.reset_button.set_halign(Gtk.Align.CENTER)
+        self.reset_button = Common.reset_button()
         main_grid.attach(self.reset_button, 0, 2, 1, 1)
 
         # "Add/Remove Columns" tab GUI
@@ -96,11 +80,7 @@ class ServicesMenu:
         self.grid_add_remove_columns_tab.attach(grid, 0, 0, 1, 1)
 
         # Label - tab title (Add/Remove Columns)
-        label = Gtk.Label()
-        label.set_attributes(self.attribute_list_bold)
-        label.set_label(_tr("Add/Remove Columns"))
-        label.set_halign(Gtk.Align.START)
-        label.set_margin_bottom(10)
+        label = Common.title_label(_tr("Add/Remove Columns"))
         grid.attach(label, 0, 0, 2, 1)
 
         # CheckButton (Name)

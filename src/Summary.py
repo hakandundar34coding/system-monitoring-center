@@ -2,12 +2,12 @@
 
 import gi
 gi.require_version('Gtk', '4.0')
-gi.require_version('Pango', '1.0')
-from gi.repository import Gtk, Pango
+from gi.repository import Gtk
 
 from locale import gettext as _tr
 
 from Performance import Performance
+import Common
 
 
 class Summary:
@@ -24,26 +24,10 @@ class Summary:
         Generate tab GUI.
         """
 
-        # Grid (tab)
-        self.tab_grid = Gtk.Grid()
-        self.tab_grid.set_row_spacing(10)
-        self.tab_grid.set_margin_top(2)
-        self.tab_grid.set_margin_bottom(2)
-        self.tab_grid.set_margin_start(2)
-        self.tab_grid.set_margin_end(2)
-
-        # Bold and 2x label atributes
-        attribute_list_bold_2x = Pango.AttrList()
-        attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-        attribute_list_bold_2x.insert(attribute)
-        attribute = Pango.attr_scale_new(2.0)
-        attribute_list_bold_2x.insert(attribute)
+        self.tab_grid = Common.tab_grid()
 
         # Label (Summary)
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.START)
-        label.set_attributes(attribute_list_bold_2x)
-        label.set_label(_tr("Summary"))
+        label = Common.tab_title_label(_tr("Summary"))
         self.tab_grid.attach(label, 0, 0, 1, 1)
 
         # Summary tab drawingarea

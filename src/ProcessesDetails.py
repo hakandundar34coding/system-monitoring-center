@@ -17,6 +17,7 @@ from Config import Config
 from Processes import Processes
 from Performance import Performance
 from MainWindow import MainWindow
+import Common
 
 
 class ProcessesDetails:
@@ -1406,7 +1407,7 @@ class ProcessesDetails:
             global_cpu_time_all_prev = global_process_cpu_times[0] - 1                    # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
         process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
         global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-        selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Processes.number_of_logical_cores
+        selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Common.number_of_logical_cores()
         self.global_process_cpu_times_prev = global_process_cpu_times
 
         return selected_process_cpu_percent
