@@ -256,6 +256,7 @@ class System:
 
         # Label (Flatpak)
         label = Common.static_information_label(_tr("Flatpak") + ":")
+        label.set_tooltip_text(_tr("Number of installed Flatpak applications and runtimes"))
         grid.attach(label, 2, 10, 1, 1)
         # Label (Flatpak)
         self.flatpak_label = Common.dynamic_information_label()
@@ -263,6 +264,7 @@ class System:
 
         # Label (GTK Version)
         label = Common.static_information_label(_tr("GTK Version") + ":")
+        label.set_tooltip_text(_tr("Version for the currently running software"))
         grid.attach(label, 2, 11, 1, 1)
         # Label (GTK Version)
         self.gtk_version_label = Common.dynamic_information_label()
@@ -270,6 +272,7 @@ class System:
 
         # Label (Python Version)
         label = Common.static_information_label(_tr("Python Version") + ":")
+        label.set_tooltip_text(_tr("Version for the currently running software"))
         grid.attach(label, 2, 12, 1, 1)
         # Label (Python Version)
         self.python_version_label = Common.dynamic_information_label()

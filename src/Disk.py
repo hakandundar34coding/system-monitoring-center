@@ -409,7 +409,7 @@ class Disk:
         self.disk_details_capacity_mass_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity_mass_storage, performance_disk_data_unit, performance_disk_data_precision)}')
         self.disk_details_capacity_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision)}')
         self.disk_details_free_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision)}')
-        self.disk_details_used_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)} - {disk_usage_percentage:.0f}%')
+        self.disk_details_used_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)}  ( {disk_usage_percentage:.0f}% )')
         self.disk_details_vendor_model_label.set_label(disk_device_model_name)
         self.details_label_fs_label.set_label(disk_label)
         self.disk_details_mount_point_label.set_label(disk_mount_point)

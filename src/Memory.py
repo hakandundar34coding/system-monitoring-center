@@ -601,11 +601,11 @@ class Memory:
 
         # Set and update Memory tab label texts by using information get
         self.device_kernel_name_label.set_text(_tr("Swap Memory") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", swap_total, 0, 1)))
-        self.ram_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)}  ({ram_usage_percent[-1]:.0f}%)')
+        self.ram_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {ram_usage_percent[-1]:.0f}% )')
         self.ram_available_label.set_text(Performance.performance_data_unit_converter_func("data", "none", ram_available, performance_memory_data_unit, performance_memory_data_precision))
         self.ram_capacity_label.set_text(Performance.performance_data_unit_converter_func("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
         self.ram_free_label.set_text(Performance.performance_data_unit_converter_func("data", "none", ram_free, performance_memory_data_unit, performance_memory_data_precision))
-        self.swap_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}  ({self.swap_usage_percent[-1]:.0f}%)')
+        self.swap_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {self.swap_usage_percent[-1]:.0f}% )')
         self.swap_used_percent_label.set_text(f'{self.swap_usage_percent[-1]:.0f}%')
         self.swap_free_label.set_text(Performance.performance_data_unit_converter_func("data", "none", swap_free, performance_memory_data_unit, performance_memory_data_precision))
         self.swap_capacity_label.set_text(Performance.performance_data_unit_converter_func("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
