@@ -60,55 +60,43 @@ class SettingsWindow:
         self.settings_window.set_child(main_grid)
 
         # Label (Language)
-        language_label = Gtk.Label()
-        language_label.set_halign(Gtk.Align.START)
-        language_label.set_label(_tr("Language (Requires restart)") + ":")
-        main_grid.attach(language_label, 0, 0, 1, 1)
-        # DropDown - precision (Language)
+        label = Common.static_information_label_no_ellipsize(_tr("Language (Requires restart)") + ":")
+        main_grid.attach(label, 0, 0, 1, 1)
+        # DropDown (Language)
         item_list = list(self.language_dict.values())
         self.language_dd = Common.dropdown_and_model(item_list)
         main_grid.attach(self.language_dd, 1, 0, 1, 1)
 
         # Label (Light/Dark theme)
-        language_label = Gtk.Label()
-        language_label.set_halign(Gtk.Align.START)
-        language_label.set_label(_tr("Light/Dark theme") + ":")
-        main_grid.attach(language_label, 0, 1, 1, 1)
-        # DropDown - precision (Light/Dark theme)
+        label = Common.static_information_label_no_ellipsize(_tr("Light/Dark theme") + ":")
+        main_grid.attach(label, 0, 1, 1, 1)
+        # DropDown (Light/Dark theme)
         item_list = list(self.gui_theme_dict.values())
         self.light_dark_theme_dd = Common.dropdown_and_model(item_list)
         main_grid.attach(self.light_dark_theme_dd, 1, 1, 1, 1)
 
         # Separator
-        separator = Gtk.Separator()
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator = Common.settings_window_separator()
         main_grid.attach(separator, 0, 2, 2, 1)
 
         # Label (Update interval)
-        update_interval_label = Gtk.Label()
-        update_interval_label.set_halign(Gtk.Align.START)
-        update_interval_label.set_label(_tr("Update interval (seconds)") + ":")
-        main_grid.attach(update_interval_label, 0, 3, 1, 1)
-        # DropDown - precision (Update interval)
+        label = Common.static_information_label_no_ellipsize(_tr("Update interval (seconds)") + ":")
+        main_grid.attach(label, 0, 3, 1, 1)
+        # DropDown (Update interval)
         item_list = self.update_interval_list
         self.update_interval_dd = Common.dropdown_and_model(item_list)
         main_grid.attach(self.update_interval_dd, 1, 3, 1, 1)
 
         # Label (Graph data history)
-        graph_data_history_label = Gtk.Label()
-        graph_data_history_label.set_halign(Gtk.Align.START)
-        graph_data_history_label.set_label(_tr("Graph data history") + ":")
-        main_grid.attach(graph_data_history_label, 0, 4, 1, 1)
-        # DropDown - precision (Graph data history)
+        label = Common.static_information_label_no_ellipsize(_tr("Graph data history") + ":")
+        main_grid.attach(label, 0, 4, 1, 1)
+        # DropDown (Graph data history)
         item_list = self.chart_data_history_list
         self.graph_data_history_dd = Common.dropdown_and_model(item_list)
         main_grid.attach(self.graph_data_history_dd, 1, 4, 1, 1)
 
         # Separator
-        separator = Gtk.Separator()
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator = Common.settings_window_separator()
         main_grid.attach(separator, 0, 5, 2, 1)
 
         # CheckButton (Show performance summary on headerbar)
@@ -118,9 +106,7 @@ class SettingsWindow:
         main_grid.attach(self.show_performance_summary_on_hb_cb, 0, 6, 2, 1)
 
         # Separator
-        separator = Gtk.Separator()
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator = Common.settings_window_separator()
         main_grid.attach(separator, 0, 7, 2, 1)
 
         # CheckButton (Remember last opened tabs"
@@ -135,23 +121,19 @@ class SettingsWindow:
         default_main_sub_tab_grid.set_column_homogeneous(True)
         main_grid.attach(default_main_sub_tab_grid, 0, 9, 2, 1)
         # Label (Default main tab and sub-tab)
-        default_main_sub_tab_label = Gtk.Label()
-        default_main_sub_tab_label.set_halign(Gtk.Align.START)
-        default_main_sub_tab_label.set_label(_tr("Default main tab and sub-tab") + ":")
-        default_main_sub_tab_grid.attach(default_main_sub_tab_label, 0, 0, 2, 1)
-        # DropDown - precision (Default main tab)
+        label = Common.static_information_label_no_ellipsize(_tr("Default main tab and sub-tab") + ":")
+        default_main_sub_tab_grid.attach(label, 0, 0, 2, 1)
+        # DropDown (Default main tab)
         item_list = self.default_main_tab_list
         self.default_main_tab_dd = Common.dropdown_and_model(item_list)
         default_main_sub_tab_grid.attach(self.default_main_tab_dd, 0, 1, 1, 1)
-        # DropDown - precision (Default sub-tab)
+        # DropDown (Default sub-tab)
         item_list = self.performance_tab_default_sub_tab_list
         self.default_sub_tab_dd = Common.dropdown_and_model(item_list)
         default_main_sub_tab_grid.attach(self.default_sub_tab_dd, 1, 1, 1, 1)
 
         # Separator
-        separator = Gtk.Separator()
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator = Common.settings_window_separator()
         main_grid.attach(separator, 0, 10, 2, 1)
 
         # CheckButton (Remember last selected devices)
@@ -161,9 +143,7 @@ class SettingsWindow:
         main_grid.attach(self.remember_last_selected_devices_cb, 0, 11, 2, 1)
 
         # Separator
-        separator = Gtk.Separator()
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator = Common.settings_window_separator()
         main_grid.attach(separator, 0, 12, 2, 1)
 
         # CheckButton (Remember window size)
@@ -173,9 +153,7 @@ class SettingsWindow:
         main_grid.attach(self.remember_window_size_cb, 0, 13, 2, 1)
 
         # Separator
-        separator = Gtk.Separator()
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator = Common.settings_window_separator()
         main_grid.attach(separator, 0, 14, 2, 1)
 
         # Grid (Check for updates)
@@ -187,14 +165,10 @@ class SettingsWindow:
         self.check_for_updates_cb.set_label(_tr("Check for updates automatically (PyPI only)"))
         self.check_for_updates_grid.attach(self.check_for_updates_cb, 0, 0, 1, 1)
         # Label (Check for updates)
-        check_for_updates_label = Gtk.Label()
-        check_for_updates_label.set_halign(Gtk.Align.START)
-        check_for_updates_label.set_label(_tr("(If the application is run without root privileges.)"))
-        self.check_for_updates_grid.attach(check_for_updates_label, 0, 1, 1, 1)
+        label = Common.static_information_label_no_ellipsize(_tr("(If the application is run without root privileges.)"))
+        self.check_for_updates_grid.attach(label, 0, 1, 1, 1)
         # Separator (Check for updates)
-        separator = Gtk.Separator()
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator = Common.settings_window_separator()
         self.check_for_updates_grid.attach(separator, 0, 16, 2, 1)
 
         # Button (Reset)
@@ -202,9 +176,7 @@ class SettingsWindow:
         main_grid.attach(self.reset_button, 0, 17, 2, 1)
 
         # Separator
-        separator = Gtk.Separator()
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator = Common.settings_window_separator()
         main_grid.attach(separator, 0, 18, 2, 1)
 
         # Button (Reset all settings of the application)

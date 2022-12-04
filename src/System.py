@@ -65,12 +65,7 @@ class System:
         grid.attach(self.computer_vendor_model_label, 1, 1, 1, 1)
 
         # Button (tab refresh)
-        self.refresh_button = Gtk.Button()
-        self.refresh_button.set_tooltip_text(_tr("Refresh the data on this tab"))
-        self.refresh_button.set_hexpand(True)
-        self.refresh_button.set_halign(Gtk.Align.END)
-        self.refresh_button.set_valign(Gtk.Align.CENTER)
-        self.refresh_button.set_icon_name("view-refresh-symbolic")
+        self.refresh_button = Common.refresh_button()
         grid.attach(self.refresh_button, 2, 0, 1, 2)
 
 

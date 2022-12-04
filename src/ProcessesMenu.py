@@ -340,9 +340,7 @@ class ProcessesMenu:
         precision_grid.attach(self.disk_precision_dd, 2, 2, 1, 1)
 
         # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(3)
-        separator.set_margin_bottom(3)
+        separator = Common.menu_separator()
         grid.attach(separator, 0, 3, 2, 1)
 
         # Label - title (Data Unit)

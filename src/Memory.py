@@ -153,9 +153,9 @@ class Memory:
         label = Common.title_label(_tr("Swap Memory"))
         performance_info_grid.attach(label, 1, 0, 1, 1)
 
-        # Styled information widgets (Used and Used (percent))
-        # ScrolledWindow (Used and Used (percent))
-        scrolledwindow, self.swap_used_percent_label, self.swap_used_label = Common.styled_information_scrolledwindow(_tr("Used") + " %", None, _tr("Used"), None)
+        # Styled information widgets (Used and Free)
+        # ScrolledWindow (Used and Free)
+        scrolledwindow, self.swap_used_label, self.swap_free_label = Common.styled_information_scrolledwindow(_tr("Used"), None, _tr("Free"), None)
         performance_info_grid.attach(scrolledwindow, 1, 1, 1, 1)
 
         # Grid (lower right information labels)
@@ -166,12 +166,20 @@ class Memory:
         grid.set_row_spacing(3)
         performance_info_grid.attach(grid, 1, 2, 1, 1)
 
-        # Label (Free (swap))
-        label = Common.static_information_label(_tr("Free") + ":")
+        # Label (Used (swap percent))
+        label = Common.static_information_label(_tr("Used") + ":")
         grid.attach(label, 0, 0, 1, 1)
-        # Label (Free (swap))
-        self.swap_free_label = Common.dynamic_information_label()
-        grid.attach(self.swap_free_label, 1, 0, 1, 1)
+        # Label and DrawingArea (Used (swap percent))
+        grid_label_and_da = Gtk.Grid()
+        grid_label_and_da.set_column_spacing(5)
+        grid.attach(grid_label_and_da, 1, 0, 1, 1)
+        # DrawingArea (Used (swap percent))
+        self.da_swap_usage = Gtk.DrawingArea()
+        self.da_swap_usage.set_hexpand(True)
+        grid_label_and_da.attach(self.da_swap_usage, 0, 0, 1, 1)
+        # Label (Used (swap percent))
+        self.swap_used_percent_label = Common.dynamic_information_label()
+        grid_label_and_da.attach(self.swap_used_percent_label, 1, 0, 1, 1)
 
         # Label (Capacity (swap))
         label = Common.static_information_label(_tr("Capacity") + ":")
@@ -194,6 +202,7 @@ class Memory:
         """
 
         self.da_memory_usage.set_draw_func(Performance.performance_line_charts_draw_func, "da_memory_usage")
+        self.da_swap_usage.set_draw_func(Performance.performance_bar_charts_draw, "da_swap_usage")
 
         # Drawingarea mouse events
         drawingarea_mouse_event = Gtk.EventControllerMotion()
@@ -256,14 +265,7 @@ class Memory:
         self.ram_hardware_window.set_hide_on_close(True)
 
         # ScrolledWindow
-        scrolledwindow = Gtk.ScrolledWindow()
-        scrolledwindow.set_has_frame(True)
-        scrolledwindow.set_hexpand(True)
-        scrolledwindow.set_vexpand(True)
-        scrolledwindow.set_margin_top(10)
-        scrolledwindow.set_margin_bottom(10)
-        scrolledwindow.set_margin_start(10)
-        scrolledwindow.set_margin_end(10)
+        scrolledwindow = Common.window_main_scrolledwindow()
         self.ram_hardware_window.set_child(scrolledwindow)
 
         # Viewport
@@ -408,14 +410,7 @@ class Memory:
         self.swap_details_window.set_hide_on_close(True)
 
         # ScrolledWindow
-        scrolledwindow = Gtk.ScrolledWindow()
-        scrolledwindow.set_has_frame(True)
-        scrolledwindow.set_hexpand(True)
-        scrolledwindow.set_vexpand(True)
-        scrolledwindow.set_margin_top(10)
-        scrolledwindow.set_margin_bottom(10)
-        scrolledwindow.set_margin_start(10)
-        scrolledwindow.set_margin_end(10)
+        scrolledwindow = Common.window_main_scrolledwindow()
         self.swap_details_window.set_child(scrolledwindow)
 
         # Viewport
@@ -601,16 +596,17 @@ class Memory:
         performance_memory_data_unit = Config.performance_memory_data_unit
 
         self.da_memory_usage.queue_draw()
+        self.da_swap_usage.queue_draw()
 
 
         # Set and update Memory tab label texts by using information get
         self.device_kernel_name_label.set_text(_tr("Swap Memory") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", swap_total, 0, 1)))
-        self.ram_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)} ({ram_usage_percent[-1]:.0f}%)')
+        self.ram_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)}  ({ram_usage_percent[-1]:.0f}%)')
         self.ram_available_label.set_text(Performance.performance_data_unit_converter_func("data", "none", ram_available, performance_memory_data_unit, performance_memory_data_precision))
         self.ram_capacity_label.set_text(Performance.performance_data_unit_converter_func("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
         self.ram_free_label.set_text(Performance.performance_data_unit_converter_func("data", "none", ram_free, performance_memory_data_unit, performance_memory_data_precision))
+        self.swap_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}  ({self.swap_usage_percent[-1]:.0f}%)')
         self.swap_used_percent_label.set_text(f'{self.swap_usage_percent[-1]:.0f}%')
-        self.swap_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}')
         self.swap_free_label.set_text(Performance.performance_data_unit_converter_func("data", "none", swap_free, performance_memory_data_unit, performance_memory_data_precision))
         self.swap_capacity_label.set_text(Performance.performance_data_unit_converter_func("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
 

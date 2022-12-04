@@ -68,20 +68,15 @@ class NetworkMenu:
         main_grid.attach(self.all_devices_cb, 1, 3, 1, 1)
 
         # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(3)
-        separator.set_margin_bottom(3)
+        separator = Common.menu_separator()
         main_grid.attach(separator, 0, 4, 2, 1)
 
         # Button (Graph Color)
-        self.graph_color_button = Gtk.Button()
-        self.graph_color_button.set_label(_tr("Graph Color"))
+        self.graph_color_button = Common.graph_color_button()
         main_grid.attach(self.graph_color_button, 0, 5, 2, 1)
 
         # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(3)
-        separator.set_margin_bottom(3)
+        separator = Common.menu_separator()
         main_grid.attach(separator, 0, 6, 2, 1)
 
         # Label - title (Precision)
@@ -94,9 +89,7 @@ class NetworkMenu:
         main_grid.attach(self.network_precision_dd, 0, 8, 2, 1)
 
         # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(3)
-        separator.set_margin_bottom(3)
+        separator = Common.menu_separator()
         main_grid.attach(separator, 0, 9, 2, 1)
 
         # Label - title (Data Unit)
@@ -131,23 +124,16 @@ class NetworkMenu:
         main_grid.attach(self.data_bits_cb, 0, 13, 2, 1)
 
         # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(3)
-        separator.set_margin_bottom(3)
+        separator = Common.menu_separator()
         main_grid.attach(separator, 0, 14, 2, 1)
 
         # Button (Reset)
         self.reset_button = Common.reset_button()
         main_grid.attach(self.reset_button, 0, 18, 2, 1)
 
-        # ColorChooserDialog
-        self.colorchooserdialog = Common.menu_colorchooserdialog(_tr("Graph Color"), MainWindow.main_window)
-
         # Connect signals
         self.menu_po.connect("show", self.on_menu_po_show)
-        self.graph_color_button.connect("clicked", self.on_graph_color_button_clicked)
         self.reset_button.connect("clicked", self.on_reset_button_clicked)
-        self.colorchooserdialog.connect("response", self.on_colorchooserdialog_response)
 
 
     def connect_signals(self):
@@ -288,38 +274,6 @@ class NetworkMenu:
             Config.performance_network_speed_bit = 1
         else:
             Config.performance_network_speed_bit = 0
-
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
-
-
-    def on_graph_color_button_clicked(self, widget):
-        """
-        Change graph foreground color.
-        Also get current foreground color of the graph and set it as selected color of the dialog.
-        """
-
-        color = Gdk.RGBA()
-        color.red, color.green, color.blue, color.alpha = Config.chart_line_color_network_speed_data
-        self.colorchooserdialog.set_rgba(color)
-
-        self.menu_po.popdown()
-        self.colorchooserdialog.present()
-
-
-    def on_colorchooserdialog_response(self, widget, response):
-        """
-        Get selected color, apply it to graph and save it.
-        Dialog have to be hidden for "Cancel" response.
-        """
-
-        if response == Gtk.ResponseType.OK:
-            selected_color = self.colorchooserdialog.get_rgba()
-            Config.chart_line_color_network_speed_data = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
-
-        self.colorchooserdialog.hide()
 
         # Apply changes immediately (without waiting update interval).
         Network.network_initial_func()

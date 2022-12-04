@@ -136,7 +136,7 @@ def sub_tab_togglebutton(text, image_name):
 
 def reset_button():
     """
-    Generate "Reset" button for menus and windows.
+    Generate "Reset" button for menus and settings window.
     """
 
     button = Gtk.Button()
@@ -144,6 +144,135 @@ def reset_button():
     button.set_halign(Gtk.Align.CENTER)
 
     return button
+
+
+def refresh_button():
+    """
+    Generate "Refresh" button.
+    """
+
+    refresh_button = Gtk.Button()
+    refresh_button.set_tooltip_text(_tr("Refresh the data on this tab"))
+    refresh_button.set_hexpand(True)
+    refresh_button.set_halign(Gtk.Align.END)
+    refresh_button.set_valign(Gtk.Align.CENTER)
+    refresh_button.set_icon_name("view-refresh-symbolic")
+
+    return refresh_button
+
+
+def graph_color_button():
+    """
+    Generate "Graph Color" button for menus.
+    """
+
+    button = Gtk.Button()
+    button.set_label(_tr("Graph Color"))
+    button.set_halign(Gtk.Align.CENTER)
+
+    button.connect("clicked", on_graph_color_button_clicked)
+
+    return button
+
+
+def on_graph_color_button_clicked(widget):
+    """
+    Change graph foreground color.
+    Also get current foreground color of the graph and set it as selected color of the dialog.
+    """
+
+    # Generate a ColorChooserDialog
+    main_window = widget.get_root()
+    menu_colorchooserdialog(main_window)
+
+    # Get graph color of the tab
+    if Config.current_main_tab == 0:
+        if Config.performance_tab_current_sub_tab == 1:
+            tab_graph_color = Config.chart_line_color_cpu_percent
+            from CpuMenu import CpuMenu
+            current_menu_po = CpuMenu.menu_po
+        elif Config.performance_tab_current_sub_tab == 2:
+            tab_graph_color = Config.chart_line_color_memory_percent
+            from MemoryMenu import MemoryMenu
+            current_menu_po = MemoryMenu.menu_po
+        elif Config.performance_tab_current_sub_tab == 3:
+            tab_graph_color = Config.chart_line_color_disk_speed_usage
+            from DiskMenu import DiskMenu
+            current_menu_po = DiskMenu.menu_po
+        elif Config.performance_tab_current_sub_tab == 4:
+            tab_graph_color = Config.chart_line_color_network_speed_data
+            from NetworkMenu import NetworkMenu
+            current_menu_po = NetworkMenu.menu_po
+        elif Config.performance_tab_current_sub_tab == 5:
+            tab_graph_color = Config.chart_line_color_fps
+            from GpuMenu import GpuMenu
+            current_menu_po = GpuMenu.menu_po
+
+    # Set selected color on the ColorChooserDialog
+    color = Gdk.RGBA()
+    color.red, color.green, color.blue, color.alpha = tab_graph_color
+    colorchooserdialog.set_rgba(color)
+
+    # Show the ColorChooserDialog
+    current_menu_po.popdown()
+    colorchooserdialog.present()
+
+
+def menu_colorchooserdialog(main_window):
+    """
+    Generate ColorChooserDialog.
+    """
+
+    if 'colorchooserdialog' not in globals():
+        global colorchooserdialog
+        colorchooserdialog = Gtk.ColorChooserDialog().new(title=_tr("Graph Color"), parent=main_window)
+        colorchooserdialog.set_modal(True)
+
+        colorchooserdialog.connect("response", on_colorchooserdialog_response)
+
+
+def on_colorchooserdialog_response(widget, response):
+    """
+    Get selected color, apply it to graph and save it.
+    Dialog have to be hidden for "Cancel" response.
+    """
+
+    colorchooserdialog.hide()
+
+    if response == Gtk.ResponseType.OK:
+
+        # Get the selected color
+        selected_color = colorchooserdialog.get_rgba()
+        tab_graph_color = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
+
+        # Set graph color of the tab and apply changes immediately (without waiting update interval)
+        if Config.current_main_tab == 0:
+            if Config.performance_tab_current_sub_tab == 1:
+                Config.chart_line_color_cpu_percent = tab_graph_color
+                from Cpu import Cpu
+                Cpu.cpu_initial_func()
+                Cpu.cpu_loop_func()
+            elif Config.performance_tab_current_sub_tab == 2:
+                Config.chart_line_color_memory_percent = tab_graph_color
+                from Memory import Memory
+                Memory.memory_initial_func()
+                Memory.memory_loop_func()
+            elif Config.performance_tab_current_sub_tab == 3:
+                Config.chart_line_color_disk_speed_usage = tab_graph_color
+                from Disk import Disk
+                Disk.disk_initial_func()
+                Disk.disk_loop_func()
+            elif Config.performance_tab_current_sub_tab == 4:
+                Config.chart_line_color_network_speed_data = tab_graph_color
+                from Network import Network
+                Network.network_initial_func()
+                Network.network_loop_func()
+            elif Config.performance_tab_current_sub_tab == 5:
+                Config.chart_line_color_fps = tab_graph_color
+                from Gpu import Gpu
+                Gpu.gpu_initial_func()
+                Gpu.gpu_loop_func()
+        Config.config_save_func()
 
 
 def dropdown_and_model(item_list):
@@ -200,6 +329,19 @@ def text_attribute_bold_underlined():
     attribute_list_bold_underlined.insert(attribute)
     attribute = Pango.attr_underline_new(Pango.Underline.SINGLE)
     attribute_list_bold_underlined.insert(attribute)
+
+
+def text_attribute_small_size():
+    """
+    Define text attributes for small size (10000 point) labels.
+    """
+
+    global attribute_list_small_size
+
+    # Small label atributes
+    attribute_list_small_size = Pango.AttrList()
+    attribute = Pango.attr_size_new(10000)
+    attribute_list_small_size.insert(attribute)
 
 
 def tab_title_label(text):
@@ -298,10 +440,25 @@ def static_information_label(text):
     return label
 
 
+def static_information_label_no_ellipsize(text):
+    """
+    Generate static information Label. Information on this label is not changed after it is set.
+    """
+
+    label = Gtk.Label()
+    label.set_label(text)
+    label.set_halign(Gtk.Align.START)
+
+    return label
+
+
 def dynamic_information_label():
     """
     Generate dynamic information Label. Information on this label is changed by the code.
     """
+
+    if 'attribute_list_bold' not in globals():
+        text_attribute_bold()
 
     label = Gtk.Label()
     label.set_selectable(True)
@@ -315,7 +472,7 @@ def dynamic_information_label():
 
 def clickable_label(text):
     """
-    Generate clickable label. Mouse cursor is changed when mouse hover action is performed.
+    Generate clickable Label. Mouse cursor is changed when mouse hover action is performed.
     """
 
     if 'attribute_list_bold_underlined' not in globals():
@@ -330,6 +487,46 @@ def clickable_label(text):
     label.set_cursor(cursor_link)
 
     return label
+
+
+def performance_summary_headerbar_label(text):
+    """
+    Generate Label for performance summary on the window headerbar.
+    """
+
+    if 'attribute_list_small_size' not in globals():
+        text_attribute_small_size()
+
+    label = Gtk.Label()
+    label.set_attributes(attribute_list_small_size)
+    label.set_halign(Gtk.Align.START)
+    label.set_label(text)
+
+    return label
+
+
+def menu_separator():
+    """
+    Generate horizontal separator for menus.
+    """
+
+    separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    separator.set_margin_top(3)
+    separator.set_margin_bottom(3)
+
+    return separator
+
+
+def settings_window_separator():
+    """
+    Generate horizontal separator for menus.
+    """
+
+    separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    separator.set_margin_top(5)
+    separator.set_margin_bottom(5)
+
+    return separator
 
 
 def tab_grid():
@@ -349,7 +546,7 @@ def tab_grid():
 
 def menu_main_grid():
     """
-    Generate menu main grid.
+    Generate menu main Grid.
     """
 
     main_grid = Gtk.Grid()
@@ -360,6 +557,39 @@ def menu_main_grid():
     main_grid.set_margin_end(2)
 
     return main_grid
+
+
+def window_main_grid():
+    """
+    Generate window main Grid.
+    """
+
+    main_grid = Gtk.Grid.new()
+    main_grid.set_margin_top(10)
+    main_grid.set_margin_bottom(10)
+    main_grid.set_margin_start(10)
+    main_grid.set_margin_end(10)
+    main_grid.set_column_spacing(10)
+    main_grid.set_row_spacing(5)
+
+    return main_grid
+
+
+def window_main_scrolledwindow():
+    """
+    Generate window main ScroledWindow.
+    """
+
+    scrolledwindow = Gtk.ScrolledWindow()
+    scrolledwindow.set_has_frame(True)
+    scrolledwindow.set_hexpand(True)
+    scrolledwindow.set_vexpand(True)
+    scrolledwindow.set_margin_top(10)
+    scrolledwindow.set_margin_bottom(10)
+    scrolledwindow.set_margin_start(10)
+    scrolledwindow.set_margin_end(10)
+
+    return scrolledwindow
 
 
 def style_provider_scrolledwindow_separator():
@@ -446,16 +676,6 @@ def styled_information_scrolledwindow(text1, tooltip1, text2, tooltip2):
     grid.attach(label2, 1, 2, 1, 1)
 
     return scrolledwindow, label1, label2
-
-
-def menu_colorchooserdialog(title_text, parent_window):
-
-    if 'colorchooserdialog' not in globals():
-        global colorchooserdialog
-        colorchooserdialog = Gtk.ColorChooserDialog().new(title=title_text, parent=parent_window)
-        colorchooserdialog.set_modal(True)
-
-    return colorchooserdialog
 
 
 def scrolledwindow_searchentry(text):

@@ -71,11 +71,7 @@ class Services:
         grid.attach(self.searchentry, 1, 0, 1, 1)
 
         # Button (refresh tab)
-        self.refresh_button = Gtk.Button()
-        self.refresh_button.set_hexpand(True)
-        self.refresh_button.set_halign(Gtk.Align.END)
-        self.refresh_button.set_valign(Gtk.Align.CENTER)
-        self.refresh_button.set_icon_name("view-refresh-symbolic")
+        self.refresh_button = Common.refresh_button()
         grid.attach(self.refresh_button, 2, 0, 1, 1)
 
 

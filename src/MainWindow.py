@@ -138,40 +138,23 @@ class MainWindow():
         self.performance_summary_hb_grid.set_valign(Gtk.Align.CENTER)
         self.window_headerbar.pack_start(self.performance_summary_hb_grid)
 
-        # Small label atributes
-        attribute_list_small_size = Pango.AttrList()
-        attribute = Pango.attr_size_new(10000)
-        attribute_list_small_size.insert(attribute)
-
         # Label (CPU)
-        label = Gtk.Label()
-        label.set_attributes(attribute_list_small_size)
-        label.set_halign(Gtk.Align.START)
-        label.set_label(_tr("CPU") + ":")
+        label = Common.performance_summary_headerbar_label(_tr("CPU") + ":")
         self.performance_summary_hb_grid.attach(label, 0, 0, 1, 1)
 
         # Label (RAM)
-        label = Gtk.Label()
-        label.set_attributes(attribute_list_small_size)
-        label.set_halign(Gtk.Align.START)
-        label.set_label(_tr("RAM") + ":")
+        label = Common.performance_summary_headerbar_label(_tr("RAM") + ":")
         self.performance_summary_hb_grid.attach(label, 0, 1, 1, 1)
 
         # Label (Disk)
-        label = Gtk.Label()
-        label.set_attributes(attribute_list_small_size)
-        label.set_halign(Gtk.Align.START)
+        label = Common.performance_summary_headerbar_label(_tr("Disk") + ":")
         label.set_margin_start(10)
-        label.set_label(_tr("Disk") + ":")
         label.set_tooltip_text(f'{_tr("Read Speed")} + {_tr("Write Speed")}')
         self.performance_summary_hb_grid.attach(label, 2, 0, 1, 1)
 
         # Label (Network)
-        label = Gtk.Label()
-        label.set_attributes(attribute_list_small_size)
-        label.set_halign(Gtk.Align.START)
+        label = Common.performance_summary_headerbar_label(_tr("Network") + ":")
         label.set_margin_start(10)
-        label.set_label(_tr("Network") + ":")
         label.set_tooltip_text(f'{_tr("Download Speed")} + {_tr("Upload Speed")}')
         self.performance_summary_hb_grid.attach(label, 2, 1, 1, 1)
 
@@ -188,17 +171,11 @@ class MainWindow():
         self.performance_summary_hb_grid.attach(self.ps_hb_ram_da, 1, 1, 1, 1)
 
         # Label (disk speed)
-        self.ps_hb_disk_label = Gtk.Label()
-        self.ps_hb_disk_label.set_attributes(attribute_list_small_size)
-        self.ps_hb_disk_label.set_halign(Gtk.Align.START)
-        self.ps_hb_disk_label.set_label("--")
+        self.ps_hb_disk_label = Common.performance_summary_headerbar_label("-")
         self.performance_summary_hb_grid.attach(self.ps_hb_disk_label, 3, 0, 1, 1)
 
         # Label (network speed)
-        self.ps_hb_network_label = Gtk.Label()
-        self.ps_hb_network_label.set_attributes(attribute_list_small_size)
-        self.ps_hb_network_label.set_halign(Gtk.Align.START)
-        self.ps_hb_network_label.set_label("--")
+        self.ps_hb_network_label = Common.performance_summary_headerbar_label("-")
         self.performance_summary_hb_grid.attach(self.ps_hb_network_label, 3, 1, 1, 1)
 
         # Remove performance summary from the window headerbar

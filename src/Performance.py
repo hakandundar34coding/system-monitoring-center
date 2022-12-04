@@ -3,8 +3,7 @@
 # Import modules
 import gi
 gi.require_version('Gtk', '4.0')
-gi.require_version('GLib', '2.0')
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk
 
 import os
 import cairo
