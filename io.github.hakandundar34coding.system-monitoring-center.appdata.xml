@@ -73,6 +73,19 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.2.0" date="2022-12-05">
+      <description>
+        <ul>
+          <li>New: Adw. theme is set for the GUI</li>
+          <li>Visual improvements for Summary tab graphics</li>
+          <li>Visual improvements for Processes tab list</li>
+          <li>Updated Portuguese (Portugal) translations</li>
+          <li>Improvements for detecting desktop environment</li>
+          <li>Improvements for detecting window manager</li>
+          <li>Code simplifications, bug fixes, etc.</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.1.0" date="2022-11-28">
       <description>
         <ul>

@@ -1,3 +1,15 @@
+system-monitoring-center (2.2.0) unstable; urgency=medium
+
+  * New: Adw. theme is set for the GUI
+  * Visual improvements for Summary tab graphics
+  * Visual improvements for Processes tab list
+  * Updated Portuguese (Portugal) translations
+  * Improvements for detecting desktop environment
+  * Improvements for detecting window manager
+  * Code simplifications, bug fixes, etc.
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 05 Dec 2022 09:00:00 +0300
+
 system-monitoring-center (2.1.0) unstable; urgency=medium
 
   * New: Cell colors for process CPU,memory,disk data

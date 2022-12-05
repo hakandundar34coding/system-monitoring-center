@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v2.2.0 (05.12.2022)
+  * New: Adw. theme is set for the GUI
+  * Visual improvements for Summary tab graphics
+  * Visual improvements for Processes tab list
+  * Updated Portuguese (Portugal) translations
+  * Improvements for detecting desktop environment
+  * Improvements for detecting window manager
+  * Code simplifications, bug fixes, etc.
+
 ### v1.35.1 (01.12.2022)
   * Fix:  Fix: Application shortcut and image
 
