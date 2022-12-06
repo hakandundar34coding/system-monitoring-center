@@ -10,7 +10,7 @@
   * Code simplifications, bug fixes, etc.
 
 ### v1.35.1 (01.12.2022)
-  * Fix:  Fix: Application shortcut and image
+  * Fix: Application shortcut and image
 
 ### v1.35.0 (01.12.2022)
   * New: Cell colors for process CPU,memory,disk data

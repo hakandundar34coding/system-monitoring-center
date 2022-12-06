@@ -678,13 +678,13 @@ class Processes:
                               [2, _tr('User'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                               [3, _tr('Status'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                               [4, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
-                              [5, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
-                              [6, _tr('Memory (VMS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
-                              [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram_swap]],
-                              [8, _tr('Read Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_usage]],
-                              [9, _tr('Written Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_usage]],
-                              [10, _tr('Read Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_speed]],
-                              [11, _tr('Write Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_speed]],
+                              [5, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss]],
+                              [6, _tr('Memory (VMS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_vms]],
+                              [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_shared]],
+                              [8, _tr('Read Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_data]],
+                              [9, _tr('Written Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_data]],
+                              [10, _tr('Read Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_speed]],
+                              [11, _tr('Write Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_speed]],
                               [12, _tr('Priority'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                               [13, _tr('Threads'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                               [14, _tr('PPID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
@@ -781,8 +781,12 @@ class Processes:
         # Define lists for appending some performance data for calculating max values to determine cell background color.
         cpu_usage_list = []
         memory_rss_list = []
-        disk_usage_list = []
-        disk_speed_list = []
+        memory_vms_list = []
+        memory_shared_list = []
+        disk_read_data_list = []
+        disk_write_data_list = []
+        disk_read_speed_list = []
+        disk_write_speed_list = []
 
         # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
         number_of_logical_cores = Common.number_of_logical_cores()
@@ -974,15 +978,18 @@ class Processes:
                 memory_rss_list.append(memory_rss)
             # Get process VMS (virtual memory size) memory and multiply with 1024 in order to convert the value into bytes.
             if 6 in processes_treeview_columns_shown:
-                processes_data_row.append(int(ps_output_line_split[4]) * 1024)
+                memory_vms = int(ps_output_line_split[4]) * 1024
+                processes_data_row.append(memory_vms)
+                memory_vms_list.append(memory_vms)
             # Get process shared memory size and multiply with 1024 in order to convert the value into bytes.
             if 7 in processes_treeview_columns_shown:
                 if pid in pid_list_from_stat_statm:
                     index_from_stat_statm = pid_list_from_stat_statm.index(pid)
-                    process_shared_memory = process_memory_shared_list[index_from_stat_statm]
+                    process_memory_shared = process_memory_shared_list[index_from_stat_statm]
                 else:
-                    process_shared_memory = 0
-                processes_data_row.append(process_shared_memory)
+                    process_memory_shared = 0
+                processes_data_row.append(process_memory_shared)
+                memory_shared_list.append(process_memory_shared)
             # Get process read data, write data, read speed, write speed.
             if 8 in processes_treeview_columns_shown or 9 in processes_treeview_columns_shown or 10 in processes_treeview_columns_shown or 11 in processes_treeview_columns_shown:
                 process_read_bytes = disk_read_write_data[index_from_stat][0]
@@ -997,21 +1004,21 @@ class Processes:
                 # Get process read data.
                 if 8 in processes_treeview_columns_shown:
                     processes_data_row.append(process_read_bytes)
-                    disk_usage_list.append(process_read_bytes)
+                    disk_read_data_list.append(process_read_bytes)
                 # Get process write data.
                 if 9 in processes_treeview_columns_shown:
                     processes_data_row.append(process_write_bytes)
-                    disk_usage_list.append(process_write_bytes)
+                    disk_write_data_list.append(process_write_bytes)
                 # Get process read speed.
                 if 10 in processes_treeview_columns_shown:
-                    disk_speed = (process_read_bytes - process_read_bytes_prev) / update_interval
-                    processes_data_row.append(disk_speed)    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
-                    disk_speed_list.append(disk_speed)
+                    disk_read_speed = (process_read_bytes - process_read_bytes_prev) / update_interval
+                    processes_data_row.append(disk_read_speed)    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
+                    disk_read_speed_list.append(disk_read_speed)
                 # Get process write speed.
                 if 11 in processes_treeview_columns_shown:
-                    disk_speed = (process_write_bytes - process_write_bytes_prev) / update_interval
-                    processes_data_row.append(disk_speed)    # Append process_write_bytes which will be used as "process_write_bytes_prev" value in the next loop and also append disk write speed. 
-                    disk_speed_list.append(disk_speed)
+                    disk_write_speed = (process_write_bytes - process_write_bytes_prev) / update_interval
+                    processes_data_row.append(disk_write_speed)    # Append process_write_bytes which will be used as "process_write_bytes_prev" value in the next loop and also append disk write speed. 
+                    disk_write_speed_list.append(disk_write_speed)
             # Get process nice value.
             if 12 in processes_treeview_columns_shown:
                 process_nice = ps_output_line_split[6]
@@ -1206,7 +1213,8 @@ class Processes:
         self.number_of_logical_cores = number_of_logical_cores
 
         # Get max values of some performance data for setting cell background colors depending on relative performance data.
-        global max_value_cpu_usage_list, max_value_memory_rss_list, max_value_disk_usage_list, max_value_disk_speed_list
+        global max_value_cpu_usage_list, max_value_memory_rss_list, max_value_memory_vms_list, max_value_memory_shared_list
+        global max_value_disk_read_data_list, max_value_disk_write_data_list, max_value_disk_read_speed_list, max_value_disk_write_speed_list
         try:
             max_value_cpu_usage_list = max(cpu_usage_list)
         except ValueError:
@@ -1216,13 +1224,29 @@ class Processes:
         except ValueError:
             max_value_memory_rss_list = 0
         try:
-            max_value_disk_usage_list = max(disk_usage_list)
+            max_value_memory_vms_list = max(memory_vms_list)
         except ValueError:
-            max_value_disk_usage_list = 0
+            max_value_memory_vms_list = 0
         try:
-            max_value_disk_speed_list = max(disk_speed_list)
+            max_value_memory_shared_list = max(memory_shared_list)
         except ValueError:
-            max_value_disk_speed_list = 0
+            max_value_memory_shared_list = 0
+        try:
+            max_value_disk_read_data_list = max(disk_read_data_list)
+        except ValueError:
+            max_value_disk_read_data_list = 0
+        try:
+            max_value_disk_write_data_list = max(disk_write_data_list)
+        except ValueError:
+            max_value_disk_write_data_list = 0
+        try:
+            max_value_disk_read_speed_list = max(disk_read_speed_list)
+        except ValueError:
+            max_value_disk_read_speed_list = 0
+        try:
+            max_value_disk_write_speed_list = max(disk_write_speed_list)
+        except ValueError:
+            max_value_disk_write_speed_list = 0
 
         # Show number of processes on the searchentry as placeholder text
         self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Processes") + ": " + str(len(username_list)) + ")"
@@ -1288,20 +1312,40 @@ def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, da
     value = tree_model.get(iter, data)[0]
     cell_backround_color(cell, value, max_value_cpu_usage_list)
 
-def cell_data_function_ram_swap(tree_column, cell, tree_model, iter, data):
+def cell_data_function_memory_rss(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_memory_data_unit, processes_memory_data_precision))
     value = tree_model.get(iter, data)[0]
     cell_backround_color(cell, value, max_value_memory_rss_list)
 
-def cell_data_function_disk_usage(tree_column, cell, tree_model, iter, data):
+def cell_data_function_memory_vms(tree_column, cell, tree_model, iter, data):
+    cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_memory_data_unit, processes_memory_data_precision))
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_memory_vms_list)
+
+def cell_data_function_memory_shared(tree_column, cell, tree_model, iter, data):
+    cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_memory_data_unit, processes_memory_data_precision))
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_memory_shared_list)
+
+def cell_data_function_disk_read_data(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision))
     value = tree_model.get(iter, data)[0]
-    cell_backround_color(cell, value, max_value_disk_usage_list)
+    cell_backround_color(cell, value, max_value_disk_read_data_list)
 
-def cell_data_function_disk_speed(tree_column, cell, tree_model, iter, data):
+def cell_data_function_disk_write_data(tree_column, cell, tree_model, iter, data):
+    cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision))
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_disk_write_data_list)
+
+def cell_data_function_disk_read_speed(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', f'{performance_data_unit_converter_func("speed", processes_disk_speed_bit, tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision)}/s')
     value = tree_model.get(iter, data)[0]
-    cell_backround_color(cell, value, max_value_disk_speed_list)
+    cell_backround_color(cell, value, max_value_disk_read_speed_list)
+
+def cell_data_function_disk_write_speed(tree_column, cell, tree_model, iter, data):
+    cell.set_property('text', f'{performance_data_unit_converter_func("speed", processes_disk_speed_bit, tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision)}/s')
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_disk_write_speed_list)
 
 def cell_backround_color(cell, value, max_value):
     color = Gdk.RGBA()
