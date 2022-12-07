@@ -55,7 +55,7 @@ class MainMenusDialogs:
             pass
 
         # Define translators dictionary
-        translators_dic = {"cs": "panmourovaty",
+        translators_dict = {"cs": "panmourovaty",
                            "de": "Baumfinder",
                            "fa": "MasterKia",
                            "hu": "Kálmán Szalai",
@@ -75,10 +75,10 @@ class MainMenusDialogs:
 
         # Define translators list
         try:
-            translators = '\n'.join(translators_dic[application_language_code].split(", "))
+            translators = '\n'.join(translators_dict[application_language_code].split(", "))
         except Exception:
             try:
-                translators = '\n'.join(translators_dic[application_language_code_split].split(", "))
+                translators = '\n'.join(translators_dict[application_language_code_split].split(", "))
             except Exception:
                 translators = "-"
 

@@ -30,17 +30,14 @@ class MainGUI:
         except Exception:
             pass
 
-        # Detect environment type (Flatpak or native). This information will be used for accessing host OS commands if the application is run in Flatpak environment.
         self.main_gui_environment_type_detection_func()
 
         # Add images to the image theme. These images are used for application GUI.
         image_theme = Gtk.IconTheme. get_default()
         image_theme.append_search_path(os.path.dirname(os.path.realpath(__file__)) + "/../icons")
 
-        # Generate symbolic links for GUI icons and application shortcut (.desktop file) in user folders if they are not generated.
         self.main_gui_application_system_integration_func()
 
-        # Adapt to system color scheme (light/dark) on systems with newer versions than GTK3.
         self.main_gui_adapt_color_scheme_for_gtk4_based_systems_func()
 
         # Get GUI objects from file
@@ -91,7 +88,6 @@ class MainGUI:
         self.button1.connect("clicked", self.on_button1_clicked)
         self.button2.connect("clicked", self.on_button2_clicked)
 
-
         # Get GUI objects for performance summary on the window headerbar.
         self.grid101 = builder.get_object('grid101')
         self.drawingarea101 = builder.get_object('drawingarea101')
@@ -102,11 +98,10 @@ class MainGUI:
         self.label104 = builder.get_object('label104')
         self.label105 = builder.get_object('label105')
         self.label106 = builder.get_object('label106')
-        # Get chart functions from another module and define as local objects for lower CPU usage (for performance summary on the window headerbar).
-        self.performance_bar_charts_draw_func = Performance.performance_bar_charts_draw_func
+
         # Connect GUI signals for performance summary on the window headerbar.
-        self.drawingarea101.connect("draw", self.performance_bar_charts_draw_func)
-        self.drawingarea102.connect("draw", self.performance_bar_charts_draw_func)
+        self.drawingarea101.connect("draw", Performance.performance_bar_charts_draw_func)
+        self.drawingarea102.connect("draw", Performance.performance_bar_charts_draw_func)
 
         # Run initial function for performance summary on the window headerbar.
         self.main_gui_performance_summary_headerbar_initial_func()
@@ -192,16 +187,12 @@ class MainGUI:
         Config.current_main_tab = -1
         Config.performance_tab_current_sub_tab = -1
 
-        # Start loop function to run loop functions of opened tabs to get data of them.
         self.main_gui_tab_loop_func()
 
-        # Run default tab function after main window is shown.
         self.main_gui_default_tab_func()
 
-        # Connect main gui radiobuttons signals after switching to default tab (by using "main_gui_default_tab_func") in order to avoid running functions during this switches.
         self.main_gui_radiobuttons_connect_signals_func()
 
-        # Run main tab function after main window is shown (this function is also called when main tab checkbuttons are toggled).
         self.main_gui_tab_switch_func()
 
         # Show information for warning the user if the application has been run with root privileges (if UID=0). Information is shown just below the application window headerbar.
@@ -931,7 +922,6 @@ class MainGUI:
         Config.environment_type = environment_type
 
 
-    # ----------------------- Called for copying application image and shortcut (.desktop file) in user folders if they are not copied before. -----------------------
     def main_gui_application_system_integration_func(self):
         """
         Copy files for application shortcut (.desktop file) in user folders if they are not copied before.

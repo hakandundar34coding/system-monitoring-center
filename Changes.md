@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v1.36.0 (08.12.2022)
+  * New: Single menu button for all customization menus
+  * Minor visual simplifications for customization menus
+  * Code simplifications, bug fixes, etc.
+
 ### v2.2.0 (05.12.2022)
   * New: Adw. theme is set for the GUI
   * Visual improvements for Summary tab graphics
