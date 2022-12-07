@@ -32,7 +32,9 @@ class NetworkMenu:
         self.radiobutton1403p = builder.get_object('radiobutton1403p')
         self.radiobutton1404p = builder.get_object('radiobutton1404p')
         self.checkbutton1404p = builder.get_object('checkbutton1404p')
-        self.colorchooserdialog1401 = Gtk.ColorChooserDialog()
+        self.colorchooserdialog1401 = Gtk.ColorChooserDialog(parent=MainGUI.window1)
+
+        self.colorchooserdialog1401.set_modal(True)
 
         # Connect GUI signals
         self.popover1401p.connect("show", self.on_popover1401p_show)
@@ -177,9 +179,11 @@ class NetworkMenu:
     # ----------------------- "foreground and background color" Buttons -----------------------
     def on_chart_color_buttons_clicked(self, widget):
 
+        # Hide the customizations menu
+        self.popover1401p.popdown()
+
         # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
-        if widget == self.button1401p:
-            red, blue, green, alpha = Config.chart_line_color_network_speed_data
+        red, blue, green, alpha = Config.chart_line_color_network_speed_data
         self.colorchooserdialog1401.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1401.run()
@@ -189,12 +193,12 @@ class NetworkMenu:
             if widget == self.button1401p:
                 Config.chart_line_color_network_speed_data = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
-        self.colorchooserdialog1401.hide()
+            # Apply changes immediately (without waiting update interval).
+            Network.network_initial_func()
+            Network.network_loop_func()
+            Config.config_save_func()
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        self.colorchooserdialog1401.hide()
 
 
     # ----------------------- "Reset All" Button -----------------------

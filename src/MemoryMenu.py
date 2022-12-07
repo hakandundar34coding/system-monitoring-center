@@ -9,6 +9,7 @@ import os
 from Config import Config
 from Performance import Performance
 from Memory import Memory
+from MainGUI import MainGUI
 
 
 class MemoryMenu:
@@ -28,7 +29,9 @@ class MemoryMenu:
         self.radiobutton1202p = builder.get_object('radiobutton1202p')
         self.radiobutton1203p = builder.get_object('radiobutton1203p')
         self.radiobutton1204p = builder.get_object('radiobutton1204p')
-        self.colorchooserdialog1201 = Gtk.ColorChooserDialog()
+        self.colorchooserdialog1201 = Gtk.ColorChooserDialog(parent=MainGUI.window1)
+
+        self.colorchooserdialog1201.set_modal(True)
 
         # Connect GUI signals
         self.popover1201p.connect("show", self.on_popover1201p_show)
@@ -119,9 +122,11 @@ class MemoryMenu:
     # ----------------------- "Graph Color" Button -----------------------
     def on_chart_color_buttons_clicked(self, widget):
 
+        # Hide the customizations menu
+        self.popover1201p.popdown()
+
         # Get current foreground color of the chart and set it as selected color of the dialog when dialog is shown.
-        if widget == self.button1201p:
-            red, blue, green, alpha = Config.chart_line_color_memory_percent
+        red, blue, green, alpha = Config.chart_line_color_memory_percent
         self.colorchooserdialog1201.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1201.run()
@@ -131,12 +136,12 @@ class MemoryMenu:
             if widget == self.button1201p:
                 Config.chart_line_color_memory_percent = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
-        self.colorchooserdialog1201.hide()
+            # Apply changes immediately (without waiting update interval).
+            Memory.memory_initial_func()
+            Memory.memory_loop_func()
+            Config.config_save_func()
 
-        # Apply changes immediately (without waiting update interval).
-        Memory.memory_initial_func()
-        Memory.memory_loop_func()
-        Config.config_save_func()
+        self.colorchooserdialog1201.hide()
 
 
     # ----------------------- "Reset All" Button -----------------------

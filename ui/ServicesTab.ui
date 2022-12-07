@@ -47,7 +47,7 @@
       </packing>
     </child>
     <child>
-      <!-- n-columns=4 n-rows=1 -->
+      <!-- n-columns=3 n-rows=1 -->
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
@@ -70,6 +70,20 @@
           </packing>
         </child>
         <child>
+          <object class="GtkSearchEntry" id="searchentry6101">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="primary-icon-name">edit-find-symbolic</property>
+            <property name="primary-icon-activatable">False</property>
+            <property name="placeholder-text" translatable="yes">Search...</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">0</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkButton" id="button6102">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -85,40 +99,7 @@
             </child>
           </object>
           <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSearchEntry" id="searchentry6101">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="hexpand">True</property>
-            <property name="primary-icon-name">edit-find-symbolic</property>
-            <property name="primary-icon-activatable">False</property>
-            <property name="placeholder-text" translatable="yes">Search...</property>
-          </object>
-          <packing>
             <property name="left-attach">2</property>
-            <property name="top-attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="button6101">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="halign">end</property>
-            <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="icon-name">system-monitoring-center-settings-symbolic</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="left-attach">3</property>
             <property name="top-attach">0</property>
           </packing>
         </child>

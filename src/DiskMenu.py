@@ -33,7 +33,9 @@ class DiskMenu:
         self.radiobutton1302p = builder.get_object('radiobutton1302p')
         self.radiobutton1303p = builder.get_object('radiobutton1303p')
         self.radiobutton1304p = builder.get_object('radiobutton1304p')
-        self.colorchooserdialog1301 = Gtk.ColorChooserDialog()
+        self.colorchooserdialog1301 = Gtk.ColorChooserDialog(parent=MainGUI.window1)
+
+        self.colorchooserdialog1301.set_modal(True)
 
         # Connect GUI signals
         self.popover1301p.connect("show", self.on_popover1301p_show)
@@ -180,9 +182,11 @@ class DiskMenu:
     # ----------------------- "foreground and background color" Buttons -----------------------
     def on_chart_color_buttons_clicked(self, widget):
 
+        # Hide the customizations menu
+        self.popover1301p.popdown()
+
         # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
-        if widget == self.button1301p:
-            red, blue, green, alpha = Config.chart_line_color_disk_speed_usage
+        red, blue, green, alpha = Config.chart_line_color_disk_speed_usage
         self.colorchooserdialog1301.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1301.run()
@@ -192,12 +196,12 @@ class DiskMenu:
             if widget == self.button1301p:
                 Config.chart_line_color_disk_speed_usage = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
-        self.colorchooserdialog1301.hide()
+            # Apply changes immediately (without waiting update interval).
+            Disk.disk_initial_func()
+            Disk.disk_loop_func()
+            Config.config_save_func()
 
-        # Apply changes immediately (without waiting update interval).
-        Disk.disk_initial_func()
-        Disk.disk_loop_func()
-        Config.config_save_func()
+        self.colorchooserdialog1301.hide()
 
 
     # ----------------------- "Hide loop, ramdisk, zram disks" Checkbutton -----------------------

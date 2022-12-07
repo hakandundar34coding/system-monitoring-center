@@ -27,7 +27,7 @@ def services_import_func():
 def services_gui_func():
 
     # Services tab GUI objects
-    global grid6101, treeview6101, searchentry6101, button6101, button6102
+    global grid6101, treeview6101, searchentry6101, button6102
 
     # Services tab GUI objects - get from file
     builder = Gtk.Builder()
@@ -37,14 +37,12 @@ def services_gui_func():
     grid6101 = builder.get_object('grid6101')
     treeview6101 = builder.get_object('treeview6101')
     searchentry6101 = builder.get_object('searchentry6101')
-    button6101 = builder.get_object('button6101')
     button6102 = builder.get_object('button6102')
 
     # Services tab GUI functions - connect
     treeview6101.connect("button-press-event", on_treeview6101_button_press_event)
     treeview6101.connect("button-release-event", on_treeview6101_button_release_event)
     searchentry6101.connect("changed", on_searchentry6101_changed)
-    button6101.connect("clicked", on_button6101_clicked)
     button6102.connect("clicked", on_button6102_clicked)
 
     # Services Tab - Treeview Properties
@@ -111,15 +109,6 @@ def on_searchentry6101_changed(widget):
         service_data_text_in_model = treestore6101.get_value(piter, filter_column)
         if service_search_text in str(service_data_text_in_model).lower():
             treestore6101.set_value(piter, 0, True)
-
-
-# --------------------------------- Called for showing Services tab customization menu when button is clicked ---------------------------------
-def on_button6101_clicked(widget):
-
-    from ServicesMenuCustomizations import ServicesMenuCustomizations
-    ServicesMenuCustomizations.popover6101p.set_relative_to(button6101)
-    ServicesMenuCustomizations.popover6101p.set_position(1)
-    ServicesMenuCustomizations.popover6101p.popup()
 
 
 # --------------------------------- Called for reloading the data on the Services tab if "Refresh" button is clicked ---------------------------------

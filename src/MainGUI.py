@@ -51,6 +51,7 @@ class MainGUI:
         self.window1 = builder.get_object('window1')
         self.headerbar1 = builder.get_object('headerbar1')
         self.button1 = builder.get_object('button1')
+        self.button2 = builder.get_object('button2')
         self.grid10 = builder.get_object('grid10')
         self.stack1 = builder.get_object('stack1')
         self.radiobutton1 = builder.get_object('radiobutton1')
@@ -88,6 +89,7 @@ class MainGUI:
         self.window1.connect("delete_event", self.on_window1_delete)
         self.window1.connect("show", self.on_window1_show)
         self.button1.connect("clicked", self.on_button1_clicked)
+        self.button2.connect("clicked", self.on_button2_clicked)
 
 
         # Get GUI objects for performance summary on the window headerbar.
@@ -263,6 +265,72 @@ class MainGUI:
         self.label102.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), Config.performance_network_data_unit, 1)}/s')
 
 
+    def on_button2_clicked(self, widget):
+        """
+        Set menu popup function by checking the current main tab and the sub-tab.
+        Relevant menu is attached to the tab menu menubutton by checking tabs.
+        """
+
+        if Config.current_main_tab == 0:
+
+            if Config.performance_tab_current_sub_tab == 0:
+                pass
+
+            elif Config.performance_tab_current_sub_tab == 1:
+                from CpuMenu import CpuMenu
+                CpuMenu.popover1101p.set_relative_to(widget)
+                CpuMenu.popover1101p.set_position(Gtk.PositionType.BOTTOM)
+                CpuMenu.popover1101p.popup()
+
+            elif Config.performance_tab_current_sub_tab == 2:
+                from MemoryMenu import MemoryMenu
+                MemoryMenu.popover1201p.set_relative_to(widget)
+                MemoryMenu.popover1201p.set_position(Gtk.PositionType.BOTTOM)
+                MemoryMenu.popover1201p.popup()
+
+            elif Config.performance_tab_current_sub_tab == 3:
+                from DiskMenu import DiskMenu
+                DiskMenu.popover1301p.set_relative_to(widget)
+                DiskMenu.popover1301p.set_position(Gtk.PositionType.BOTTOM)
+                DiskMenu.popover1301p.popup()
+
+            elif Config.performance_tab_current_sub_tab == 4:
+                from NetworkMenu import NetworkMenu
+                NetworkMenu.popover1401p.set_relative_to(widget)
+                NetworkMenu.popover1401p.set_position(Gtk.PositionType.BOTTOM)
+                NetworkMenu.popover1401p.popup()
+
+            elif Config.performance_tab_current_sub_tab == 5:
+                from GpuMenu import GpuMenu
+                GpuMenu.popover1501p.set_relative_to(widget)
+                GpuMenu.popover1501p.set_position(Gtk.PositionType.BOTTOM)
+                GpuMenu.popover1501p.popup()
+
+            elif Config.performance_tab_current_sub_tab == 6:
+                pass
+
+        elif Config.current_main_tab == 1:
+            from ProcessesMenuCustomizations import ProcessesMenuCustomizations
+            ProcessesMenuCustomizations.popover2101p.set_relative_to(widget)
+            ProcessesMenuCustomizations.popover2101p.set_position(Gtk.PositionType.BOTTOM)
+            ProcessesMenuCustomizations.popover2101p.popup()
+
+        elif Config.current_main_tab == 2:
+            from UsersMenuCustomizations import UsersMenuCustomizations
+            UsersMenuCustomizations.popover3101p.set_relative_to(widget)
+            UsersMenuCustomizations.popover3101p.set_position(Gtk.PositionType.BOTTOM)
+            UsersMenuCustomizations.popover3101p.popup()
+
+        elif Config.current_main_tab == 3:
+            from ServicesMenuCustomizations import ServicesMenuCustomizations
+            ServicesMenuCustomizations.popover6101p.set_relative_to(widget)
+            ServicesMenuCustomizations.popover6101p.set_position(Gtk.PositionType.BOTTOM)
+            ServicesMenuCustomizations.popover6101p.popup()
+
+        elif Config.current_main_tab == 4:
+            pass
+
+
     # ----------------------- Called for adapting to system color scheme on systems with newer versions than GTK3. -----------------------
     def main_gui_adapt_color_scheme_for_gtk4_based_systems_func(self):
 
@@ -428,6 +496,7 @@ class MainGUI:
                 GLib.idle_add(Summary.summary_loop_func)
                 # Show device selection list on a listbox between radiobuttons of Performance tab sub-tabs.
                 self.main_gui_device_selection_list_func()
+                self.button2.set_sensitive(False)
                 return
 
             # Switch to "CPU" tab
@@ -450,6 +519,7 @@ class MainGUI:
                 GLib.idle_add(Cpu.cpu_loop_func)
                 # Show device selection list on a listbox between radiobuttons of Performance tab sub-tabs.
                 self.main_gui_device_selection_list_func()
+                self.button2.set_sensitive(True)
                 return
 
             # Switch to "Memory" tab
@@ -467,6 +537,7 @@ class MainGUI:
                     GLib.idle_add(Memory.memory_initial_func)
                 GLib.idle_add(Memory.memory_loop_func)
                 self.main_gui_device_selection_list_func()
+                self.button2.set_sensitive(True)
                 return
 
             # Switch to "Disk" tab
@@ -484,6 +555,7 @@ class MainGUI:
                     GLib.idle_add(Disk.disk_initial_func)
                 GLib.idle_add(Disk.disk_loop_func)
                 self.main_gui_device_selection_list_func()
+                self.button2.set_sensitive(True)
                 return
 
             # Switch to "Network" tab
@@ -501,6 +573,7 @@ class MainGUI:
                     GLib.idle_add(Network.network_initial_func)
                 GLib.idle_add(Network.network_loop_func)
                 self.main_gui_device_selection_list_func()
+                self.button2.set_sensitive(True)
                 return
 
             # Switch to "GPU" tab
@@ -521,6 +594,7 @@ class MainGUI:
                     self.main_gui_device_selection_list_func()
                 except AttributeError:
                     pass
+                self.button2.set_sensitive(True)
                 return
 
             # Switch to "Sensors" tab
@@ -540,6 +614,7 @@ class MainGUI:
                     Sensors.sensors_initial_func()
                 Sensors.sensors_loop_func()
                 self.main_gui_device_selection_list_func()
+                self.button2.set_sensitive(False)
                 return
 
         # Switch to "Processes" tab
@@ -558,6 +633,7 @@ class MainGUI:
             if Processes.initial_already_run == 0:
                 Processes.processes_initial_func()
             Processes.processes_loop_func()
+            self.button2.set_sensitive(True)
             return
 
         # Switch to "Users" tab
@@ -576,6 +652,7 @@ class MainGUI:
             if Users.initial_already_run == 0:
                 Users.users_initial_func()
             Users.users_loop_func()
+            self.button2.set_sensitive(True)
             return
 
         # Switch to "Services" tab
@@ -593,6 +670,7 @@ class MainGUI:
                 self.grid6.attach(Services.grid6101, 0, 0, 1, 1)
             if Services.initial_already_run == 0:
                 Services.services_initial_func()
+            self.button2.set_sensitive(True)
             return
 
         # Switch to "System" tab
@@ -608,6 +686,7 @@ class MainGUI:
                 self.grid8.attach(System.grid8101, 0, 0, 1, 1)
             if System.initial_already_run == 0:
                 GLib.idle_add(System.system_initial_func)
+            self.button2.set_sensitive(False)
             return
 
 

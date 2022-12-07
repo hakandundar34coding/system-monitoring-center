@@ -118,7 +118,7 @@ class UsersDetails:
         users_cpu_precision = Config.users_cpu_precision
 
 
-        self.window3101w.set_title(_tr("User") + ": " + selected_username)
+        self.window3101w.set_title(_tr("User") + ":  " + selected_username)
 
         # Define empty lists for the current loop
         global_process_cpu_times = []
@@ -267,7 +267,7 @@ class UsersDetails:
             self.label3110w.set_text(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
         if selected_user_process_start_time == 0:
             self.label3110w.set_text("-")
-        self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f}')
+        self.label3111w.set_text(f'{selected_user_cpu_percent:.{users_cpu_precision}f} %')
 
 
     # ----------------------------------- Users Details - Run Function -----------------------------------

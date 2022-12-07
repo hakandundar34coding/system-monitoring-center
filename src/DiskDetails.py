@@ -89,7 +89,7 @@ class DiskDetails:
         disk_sector_size = Performance.disk_sector_size
 
         # Set Disk Details window title
-        self.window1301w.set_title(_tr("Disk") + ": " + selected_disk)
+        self.window1301w.set_title(_tr("Disk") + ":  " + selected_disk)
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         performance_disk_data_precision = Config.performance_disk_data_precision
@@ -119,7 +119,7 @@ class DiskDetails:
         self.label1306w.set_text(disk_file_system)
         self.label1307w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision)}')
         self.label1308w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision)}')
-        self.label1309w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)} - {disk_usage_percentage:.0f}%')
+        self.label1309w.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)}  ( {disk_usage_percentage:.0f}% )')
         self.label1311w.set_text(disk_device_model_name)
         self.label1312w.set_text(disk_label)
         self.label1314w.set_text(disk_mount_point)

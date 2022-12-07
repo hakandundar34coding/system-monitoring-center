@@ -24,7 +24,6 @@ class Cpu:
         # Get GUI objects
         self.grid1101 = builder.get_object('grid1101')
         self.drawingarea1101 = builder.get_object('drawingarea1101')
-        self.button1101 = builder.get_object('button1101')
         self.label1101 = builder.get_object('label1101')
         self.label1102 = builder.get_object('label1102')
         self.label1103 = builder.get_object('label1103')
@@ -68,7 +67,6 @@ class Cpu:
         self.performance_line_charts_motion_notify_event_func = Performance.performance_line_charts_motion_notify_event_func
 
         # Connect GUI signals
-        self.button1101.connect("clicked", self.on_button1101_clicked)
         self.drawingarea1101.connect("draw", self.performance_line_charts_draw_func)
         self.drawingarea1101.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
         self.drawingarea1101.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
@@ -79,15 +77,6 @@ class Cpu:
 
         # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
-
-
-    # ----------------------- "customizations menu" Button -----------------------
-    def on_button1101_clicked(self, widget):
-
-        from CpuMenu import CpuMenu
-        CpuMenu.popover1101p.set_relative_to(widget)
-        CpuMenu.popover1101p.set_position(1)
-        CpuMenu.popover1101p.popup()
 
 
     # ----------------------------------- CPU - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------

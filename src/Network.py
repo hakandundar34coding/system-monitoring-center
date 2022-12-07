@@ -24,7 +24,6 @@ class Network:
         # Get GUI objects
         self.grid1401 = builder.get_object('grid1401')
         self.drawingarea1401 = builder.get_object('drawingarea1401')
-        self.button1401 = builder.get_object('button1401')
         self.label1401 = builder.get_object('label1401')
         self.label1402 = builder.get_object('label1402')
         self.label1403 = builder.get_object('label1403')
@@ -68,7 +67,6 @@ class Network:
         self.performance_line_charts_motion_notify_event_func = Performance.performance_line_charts_motion_notify_event_func
 
         # Connect GUI signals
-        self.button1401.connect("clicked", self.on_button1401_clicked)
         self.drawingarea1401.connect("draw", self.performance_line_charts_draw_func)
         self.drawingarea1401.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
         self.drawingarea1401.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
@@ -79,15 +77,6 @@ class Network:
 
         # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
-
-
-    # ----------------------- "customizations menu" Button -----------------------
-    def on_button1401_clicked(self, widget):
-
-        from NetworkMenu import NetworkMenu
-        NetworkMenu.popover1401p.set_relative_to(widget)
-        NetworkMenu.popover1401p.set_position(1)
-        NetworkMenu.popover1401p.popup()
 
 
     # ----------------------------------- Network - Initial Function -----------------------------------

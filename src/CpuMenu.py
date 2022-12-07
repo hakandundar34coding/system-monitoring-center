@@ -27,7 +27,9 @@ class CpuMenu:
         self.button1101p = builder.get_object('button1101p')
         self.button1103p = builder.get_object('button1103p')
         self.combobox1101p = builder.get_object('combobox1101p')
-        self.colorchooserdialog1101 = Gtk.ColorChooserDialog()
+        self.colorchooserdialog1101 = Gtk.ColorChooserDialog(parent=MainGUI.window1)
+
+        self.colorchooserdialog1101.set_modal(True)
 
         # Connect GUI signals
         self.popover1101p.connect("show", self.on_popover1101p_show)
@@ -89,9 +91,11 @@ class CpuMenu:
     # ----------------------- "foreground and background color" Buttons -----------------------
     def on_chart_color_buttons_clicked(self, widget):
 
+        # Hide the customizations menu
+        self.popover1101p.popdown()
+
         # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
-        if widget == self.button1101p:
-            red, blue, green, alpha = Config.chart_line_color_cpu_percent
+        red, blue, green, alpha = Config.chart_line_color_cpu_percent
         self.colorchooserdialog1101.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1101.run()
@@ -101,12 +105,12 @@ class CpuMenu:
             if widget == self.button1101p:
                 Config.chart_line_color_cpu_percent = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
-        self.colorchooserdialog1101.hide()
+            # Apply changes immediately (without waiting update interval).
+            Cpu.cpu_initial_func()
+            Cpu.cpu_loop_func()
+            Config.config_save_func()
 
-        # Apply changes immediately (without waiting update interval).
-        Cpu.cpu_initial_func()
-        Cpu.cpu_loop_func()
-        Config.config_save_func()
+        self.colorchooserdialog1101.hide()
 
 
     # ----------------------- "CPU usage percent precision" Combobox -----------------------

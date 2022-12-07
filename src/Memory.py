@@ -25,7 +25,6 @@ class Memory:
         self.grid1201 = builder.get_object('grid1201')
         self.drawingarea1201 = builder.get_object('drawingarea1201')
         self.drawingarea1202 = builder.get_object('drawingarea1202')
-        self.button1201 = builder.get_object('button1201')
         self.label1201 = builder.get_object('label1201')
         self.label1202 = builder.get_object('label1202')
         self.label1203 = builder.get_object('label1203')
@@ -69,7 +68,6 @@ class Memory:
         self.performance_bar_charts_draw_func = Performance.performance_bar_charts_draw_func
 
         # Connect GUI signals
-        self.button1201.connect("clicked", self.on_button1201_clicked)
         self.drawingarea1201.connect("draw", self.performance_line_charts_draw_func)
         self.drawingarea1201.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
         self.drawingarea1201.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
@@ -83,15 +81,6 @@ class Memory:
 
         # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
-
-
-    # ----------------------- "customizations menu" Button -----------------------
-    def on_button1201_clicked(self, widget):
-
-        from MemoryMenu import MemoryMenu
-        MemoryMenu.popover1201p.set_relative_to(widget)
-        MemoryMenu.popover1201p.set_position(1)
-        MemoryMenu.popover1201p.popup()
 
 
     # ----------------------- Called for opening RAM Hardware Information Window -----------------------

@@ -248,6 +248,9 @@ class ServicesDetails:
                 continue
 
 
+        # Set window title
+        self.window6101w.set_title(_tr("Service Details") + ":  " + self.selected_service_name)
+
         # Set label text by using service data
         self.label6101w.set_text(self.selected_service_name)
         self.label6102w.set_text(selected_service_description)

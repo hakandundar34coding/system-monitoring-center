@@ -24,7 +24,9 @@ class GpuMenu:
         self.button1501p = builder.get_object('button1501p')
         self.button1503p = builder.get_object('button1503p')
 
-        self.colorchooserdialog1501 = Gtk.ColorChooserDialog()
+        self.colorchooserdialog1501 = Gtk.ColorChooserDialog(parent=MainGUI.window1)
+
+        self.colorchooserdialog1501.set_modal(True)
 
         # Connect GUI signals
         self.button1501p.connect("clicked", self.on_chart_color_buttons_clicked)
@@ -34,9 +36,11 @@ class GpuMenu:
     # ----------------------- "foreground and background color" Buttons -----------------------
     def on_chart_color_buttons_clicked(self, widget):
 
+        # Hide the customizations menu
+        self.popover1501p.popdown()
+
         # Get current foreground/background color of the chart and set it as selected color of the dialog when dialog is shown.
-        if widget == self.button1501p:
-            red, blue, green, alpha = Config.chart_line_color_fps
+        red, blue, green, alpha = Config.chart_line_color_fps
         self.colorchooserdialog1501.set_rgba(Gdk.RGBA(red, blue, green, alpha))
 
         dialog_response = self.colorchooserdialog1501.run()
@@ -46,12 +50,12 @@ class GpuMenu:
             if widget == self.button1501p:
                 Config.chart_line_color_fps = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
-        self.colorchooserdialog1501.hide()
+            # Apply changes immediately (without waiting update interval).
+            Gpu.gpu_initial_func()
+            Gpu.gpu_loop_func()
+            Config.config_save_func()
 
-        # Apply changes immediately (without waiting update interval).
-        Gpu.gpu_initial_func()
-        Gpu.gpu_loop_func()
-        Config.config_save_func()
+        self.colorchooserdialog1501.hide()
 
 
     # ----------------------- "Reset All" Button -----------------------

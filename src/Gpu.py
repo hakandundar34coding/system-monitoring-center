@@ -26,7 +26,6 @@ class Gpu:
         # Get GUI objects
         self.grid1501 = builder.get_object('grid1501')
         self.drawingarea1501 = builder.get_object('drawingarea1501')
-        self.button1501 = builder.get_object('button1501')
         self.label1501 = builder.get_object('label1501')
         self.label1502 = builder.get_object('label1502')
         self.label1503 = builder.get_object('label1503')
@@ -69,7 +68,6 @@ class Gpu:
         self.performance_line_charts_motion_notify_event_func = Performance.performance_line_charts_motion_notify_event_func
 
         # Connect GUI signals
-        self.button1501.connect("clicked", self.on_button1501_clicked)
         self.drawingarea1501.connect("draw", self.performance_line_charts_draw_func)
         self.drawingarea1501.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
         self.drawingarea1501.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
@@ -80,16 +78,6 @@ class Gpu:
 
         # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
-
-
-    # ----------------------- "customizations menu" Button -----------------------
-    def on_button1501_clicked(self, widget):
-
-        # Open customizations menu
-        from GpuMenu import GpuMenu
-        GpuMenu.popover1501p.set_relative_to(widget)
-        GpuMenu.popover1501p.set_position(1)
-        GpuMenu.popover1501p.popup()
 
 
     # ----------------------------------- GPU - Initial Function -----------------------------------

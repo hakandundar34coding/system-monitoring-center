@@ -3,15 +3,14 @@
 # ----------------------------------- Users - Import Function -----------------------------------
 def users_import_func():
 
-    global Gtk, Gdk, GLib, GObject, GdkPixbuf, os, datetime, time, subprocess
+    global Gtk, Gdk, GLib, GObject, os, datetime, time, subprocess
 
     import gi
     gi.require_version('Gtk', '3.0')
     gi.require_version('GLib', '2.0')
     gi.require_version('Gdk', '3.0')
     gi.require_version('GObject', '2.0')
-    gi.require_version('GdkPixbuf', '2.0')
-    from gi.repository import Gtk, Gdk, GLib, GObject, GdkPixbuf
+    from gi.repository import Gtk, Gdk, GLib, GObject
     import os
     from datetime import datetime
     import time
@@ -29,7 +28,7 @@ def users_import_func():
 # ----------------------------------- Users - Users GUI Function -----------------------------------
 def users_gui_func():
 
-    global grid3101, treeview3101, searchentry3101, button3101
+    global grid3101, treeview3101, searchentry3101
 
     # Users tab GUI objects - get from file
     builder = Gtk.Builder()
@@ -39,13 +38,11 @@ def users_gui_func():
     grid3101 = builder.get_object('grid3101')
     treeview3101 = builder.get_object('treeview3101')
     searchentry3101 = builder.get_object('searchentry3101')
-    button3101 = builder.get_object('button3101')
 
     # Users tab GUI functions - connect
     treeview3101.connect("button-press-event", on_treeview3101_button_press_event)
     treeview3101.connect("button-release-event", on_treeview3101_button_release_event)
     searchentry3101.connect("changed", on_searchentry3101_changed)
-    button3101.connect("clicked", on_button3101_clicked)
 
     # Users Tab - Treeview Properties
     treeview3101.set_activate_on_single_click(True)
@@ -114,21 +111,12 @@ def on_searchentry3101_changed(widget):
             treestore3101.set_value(piter, 0, True)
 
 
-# --------------------------------- Called for showing Users tab customization menu when button is clicked ---------------------------------
-def on_button3101_clicked(widget):
-
-    from UsersMenuCustomizations import UsersMenuCustomizations
-    UsersMenuCustomizations.popover3101p.set_relative_to(button3101)
-    UsersMenuCustomizations.popover3101p.set_position(1)
-    UsersMenuCustomizations.popover3101p.popup()
-
-
 # ----------------------------------- Users - Initial Function -----------------------------------
 def users_initial_func():
 
     global users_data_list
     users_data_list = [
-                      [0, _tr('User'), 3, 2, 3, [bool, GdkPixbuf.Pixbuf, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'pixbuf', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
+                      [0, _tr('User'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
                       [1, _tr('Full Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                       [2, _tr('Logged In'), 1, 1, 1, [bool], ['CellRendererToggle'], ['active'], [0], [0.5], [False], ['no_cell_function']],
                       [3, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
@@ -154,7 +142,7 @@ def users_initial_func():
     users_data_column_widths_prev = []
 
 
-    global number_of_clock_ticks, system_boot_time, user_image_unset_pixbuf
+    global number_of_clock_ticks, system_boot_time
 
     number_of_clock_ticks = os.sysconf("SC_CLK_TCK")                                          # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
 
@@ -164,12 +152,6 @@ def users_initial_func():
     for line in stat_lines:
         if "btime " in line:
             system_boot_time = int(line.split()[1].strip())
-
-    try:
-        user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("system-monitoring-center-user-symbolic", 16, 0)
-    # Prevent "gi.repository.GLib.Error" if image is not found (occurs if the application is run from source code without installation). It gives this error because this image is set in the code.
-    except:
-        user_image_unset_pixbuf = Gtk.IconTheme.get_default().load_icon("image-missing", 16, 0)
 
     global filter_column
     filter_column = users_data_list[0][2] - 1                                                 # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
@@ -281,13 +263,8 @@ def users_loop_func():
         user_uid_int = int(user_uid)
         if user_uid_int >= 1000 and user_uid_int != 65534:                                    # Human users have UID bigger than 999 (1000 =< UID) and lower than 65534. 
             uid_username_list.append([int(user_uid), username])                               # "user_uid" have to be appended as integer because sorting list of multiple elemented sub-list operation will be performed. "sorted(a_list, key=int)" could not be used in this situation.            
-            # Append row visibility data, username (username has been get previously) and get user account image
-            user_image_path = "/var/lib/AccountsService/icons/" + username
-            if os.path.isfile(user_image_path) == True:
-                user_account_image = GdkPixbuf.Pixbuf.new_from_file_at_size(user_image_path, 16, 16)
-            else:
-                user_account_image = user_image_unset_pixbuf
-            users_data_row = [True, user_account_image, username]                             # User data row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.
+            # Append row visibility data, username (username has been get previously) and image
+            users_data_row = [True, "system-monitoring-center-user-symbolic", username]                             # User data row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.
             # Get user full name
             if 1 in users_treeview_columns_shown:
                 user_full_name = line_split[4]

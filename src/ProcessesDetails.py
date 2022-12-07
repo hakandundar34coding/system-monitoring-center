@@ -253,7 +253,6 @@ class ProcessesDetails:
             self.process_details_process_end_label_func()
             return
         selected_process_name = self.process_details_process_name_func(selected_process_pid, stat_output, cmdline_output)
-        selected_process_icon = self.process_details_process_icon_func(selected_process_name)
         selected_process_username = self.process_details_process_user_name_func(selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list)
         selected_process_status = self.process_details_process_status_func(stat_output_split)
         selected_process_nice = self.process_details_process_nice_func(stat_output_split)
@@ -281,9 +280,8 @@ class ProcessesDetails:
         if self.update_window_value == 0:
             return
 
-        # Set window title and icon
-        self.window2101w.set_title(_tr("Process Details") + ": " + selected_process_name + " - (" + _tr("PID") + ": " + selected_process_pid + ")")
-        self.window2101w.set_icon_name(selected_process_icon)
+        # Set window title
+        self.window2101w.set_title(_tr("Process Details") + ":  " + selected_process_name + " - (" + _tr("PID") + ": " + selected_process_pid + ")")
 
         # Update data lists for graphs.
         self.process_cpu_usage_list.append(selected_process_cpu_percent)
@@ -536,20 +534,6 @@ class ProcessesDetails:
                     selected_process_name = process_name_from_stat
 
         return selected_process_name
-
-
-    # ----------------------- Get process icon -----------------------
-    def process_details_process_icon_func(self, selected_process_name):
-
-        # Define initial value of the "selected_process_icon". This icon will be shown
-        # for processes of which icon could not be found in default icon theme.
-        selected_process_icon = "system-monitoring-center-process-symbolic"
-
-        # Use process icon name from application file if process name is found in application exec list
-        if selected_process_name in Processes.application_exec_list:
-            selected_process_icon = Processes.application_icon_list[Processes.application_exec_list.index(selected_process_name)]
-
-        return selected_process_icon
 
 
     # ----------------------- Get process user name -----------------------

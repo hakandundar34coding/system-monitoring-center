@@ -25,7 +25,6 @@ class Disk:
         self.grid1301 = builder.get_object('grid1301')
         self.drawingarea1301 = builder.get_object('drawingarea1301')
         self.drawingarea1302 = builder.get_object('drawingarea1302')
-        self.button1301 = builder.get_object('button1301')
         self.label1301 = builder.get_object('label1301')
         self.label1302 = builder.get_object('label1302')
         self.label1303 = builder.get_object('label1303')
@@ -70,7 +69,6 @@ class Disk:
         self.performance_bar_charts_draw_func = Performance.performance_bar_charts_draw_func
 
         # Connect GUI signals
-        self.button1301.connect("clicked", self.on_button1301_clicked)
         self.drawingarea1301.connect("draw", self.performance_line_charts_draw_func)
         self.drawingarea1301.connect("enter-notify-event", self.performance_line_charts_enter_notify_event_func)
         self.drawingarea1301.connect("leave-notify-event", self.performance_line_charts_leave_notify_event_func)
@@ -83,15 +81,6 @@ class Disk:
 
         # "0" value of "initial_already_run" variable means that initial function is not run before or tab settings are reset from general settings and initial function have to be run.
         self.initial_already_run = 0
-
-
-    # ----------------------- "customizations menu" Button -----------------------
-    def on_button1301_clicked(self, widget):
-
-        from DiskMenu import DiskMenu
-        DiskMenu.popover1301p.set_relative_to(widget)
-        DiskMenu.popover1301p.set_position(1)
-        DiskMenu.popover1301p.popup()
 
 
     # ----------------------- Called for opening Disk Details Window -----------------------
