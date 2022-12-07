@@ -17,7 +17,7 @@
         <img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"/>
     </a>
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
-        <img alt="GitHub tag (latest by date)" src="https://img.shields.io/github/v/tag/hakandundar34coding/system-monitoring-center">
+        <img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/v/tag/hakandundar34coding/system-monitoring-center?sort=semver">
     </a>
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
         <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/hakandundar34coding/system-monitoring-center/total">
@@ -78,7 +78,7 @@
         <img alt="Flathub" src="https://img.shields.io/flathub/v/io.github.hakandundar34coding.system-monitoring-center">
     </a>
     <a href="https://github.com/Botspot/pi-apps">
-        <img src="https://img.shields.io/badge/dynamic/json?color=c51a4a&label=Pi-Apps&query=%24..%5B%3F%28%40.Name%3D%3D%22System%20Monitoring%20Center%22%29%5D.Version&url=https%3A%2F%2Fraw.githubusercontent.com%2FBotspot%2Fpi-apps-analytics%2Fmain%2Fpackage_data.json" alt="Pi-Apps Packaging Status">
+        <img src="https://img.shields.io/badge/dynamic/json?color=blue&label=Pi-Apps&query=%24..%5B%3F%28%40.Name%3D%3D%22System%20Monitoring%20Center%22%29%5D.Version&url=https%3A%2F%2Fraw.githubusercontent.com%2FBotspot%2Fpi-apps-analytics%2Fmain%2Fpackage_data.json" alt="Pi-Apps Packaging Status">
     </a>
 </p>
 
@@ -104,7 +104,7 @@
     - Installing from Flatpak ([Details](docs/flatpak.md)).
     - Installing from several application stores (Pardus Application Center, Pi-Apps Store).
     - Installing from repositories of distributions (currently a few distributions).
-    - Running from source code (in ```src/``` folder run: ```python3 ./Main.py```).
+    - Running from source code (in ```src/``` folder, run: ```python3 ./Main.py```).
 <strong>
     - Note: System Monitoring Center v2.x.x is only available for Flatpak and ArchLinux (AUR).
 </strong>
