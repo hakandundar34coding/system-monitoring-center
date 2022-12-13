@@ -3,12 +3,10 @@
 import gi
 
 gi.require_version('Gtk', '4.0')
-gi.require_version('Adw', '1')
 from gi.repository import Gtk
-from gi.repository import Adw
 
 
-class SMCApplication(Adw.Application):
+class SMCApplication(Gtk.Application):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs, application_id="io.github.hakandundar34coding.system-monitoring-center")

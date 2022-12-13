@@ -185,7 +185,7 @@ class UsersDetails:
 
     def on_user_details_window_delete_event(self, widget):
         """
-        Called when window close button (X) is clicked.
+        Called when window is closed.
         """
 
         self.update_window_value = 0

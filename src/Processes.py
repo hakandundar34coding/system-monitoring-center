@@ -721,21 +721,9 @@ class Processes:
         number_of_clock_ticks = os.sysconf("SC_CLK_TCK")                                          # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
         memory_page_size = os.sysconf("SC_PAGE_SIZE")                                             # This value is used for converting memory page values into byte values. This value depends on architecture (also sometimes depends on machine model). Default value is 4096 Bytes (4 KiB) for most processors.
 
-        global application_exec_list, application_icon_list                                       # Process names will be checked if they are in these lists. If process names cold not be found in these lists, "application" icon will be shown.
-        application_exec_list = []
-        application_icon_list = []
-        application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]    # Get  ".desktop" file name
-        for application in application_file_list:
-            with open("/usr/share/applications/" + application, encoding="utf-8") as reader:      # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
-                application_file_content = reader.read()
-            if "Exec=" not in application_file_content or "Icon=" not in application_file_content:    # Do not include application name or icon name if any of them is not found in the .desktop file.
-                continue
-            application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0].split("/")[-1].split(" ")[0]    # Get application exec data
-            if application_exec != "sh":                                                          # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f"). This statement is used to avoid from this confusion.
-                application_exec_list.append(application_exec)
-            else:
-                application_exec_list.append(application_file_content.split("Exec=", 1)[1].split("\n", 1)[0])
-            application_icon_list.append(application_file_content.split("Icon=", 1)[1].split("\n", 1)[0])    # Get application icon name data
+        # Get application names, images and types.
+        global application_exec_list, application_icon_list, application_type_list
+        application_exec_list, application_icon_list, application_type_list = self.application_exec_icon_type_list()
 
         self.filter_column = processes_data_list[0][2] - 1                                        # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
@@ -1304,6 +1292,57 @@ class Processes:
         Config.processes_data_column_order = list(processes_data_column_order)
         Config.processes_data_column_widths = list(processes_data_column_widths)
         Config.config_save_func()
+
+
+    def application_exec_icon_type_list(self):
+        """
+        Get application names, images and types (desktop_application or application).
+        Process name will be searched in "application_exec_list" list and image/application type will be get.
+        """
+
+        application_exec_list = []
+        application_icon_list = []
+        application_type_list = []
+
+        # Get  ".desktop" file names
+        application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]
+
+        for application in application_file_list:
+
+            # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
+            with open("/usr/share/applications/" + application, encoding="utf-8") as reader:
+                application_file_content = reader.read()
+
+            # Do not include application name or icon name if any of them is not found in the .desktop file.
+            if "Exec=" not in application_file_content or "Icon=" not in application_file_content:
+                continue
+
+            # Get application exec data
+            application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0].split("/")[-1].split(" ")[0]
+            # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process
+            # and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f").
+            # This statement is used to avoid from this confusion.
+            if application_exec == "sh":
+                application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0]
+
+            # Get application icon name data
+            application_icon = application_file_content.split("Icon=", 1)[1].split("\n", 1)[0]
+
+            # Get "desktop_application/application" information
+            if "NoDisplay=" in application_file_content:
+                desktop_application_value = application_file_content.split("NoDisplay=", 1)[1].split("\n", 1)[0]
+                if desktop_application_value == "true":
+                    application_type = "application"
+                if desktop_application_value == "false":
+                    application_type = "desktop_application"
+            else:
+                application_type = "desktop_application"
+
+            application_exec_list.append(application_exec)
+            application_icon_list.append(application_icon)
+            application_type_list.append(application_type)
+
+        return application_exec_list, application_icon_list, application_type_list
 
 
 # ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

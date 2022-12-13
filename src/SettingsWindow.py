@@ -239,7 +239,7 @@ class SettingsWindow:
 
     def on_settings_window_close_request(self, widget):
         """
-        Called when window close button (X) is clicked.
+        Called when window is closed.
         """
 
         self.settings_window.hide()

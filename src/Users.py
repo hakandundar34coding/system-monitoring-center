@@ -373,7 +373,7 @@ class Users:
             user_uid_int = int(user_uid)
             if user_uid_int >= 1000 and user_uid_int != 65534:                                    # Human users have UID bigger than 999 (1000 =< UID) and lower than 65534. 
                 uid_username_list.append([int(user_uid), username])                               # "user_uid" have to be appended as integer because sorting list of multiple elemented sub-list operation will be performed. "sorted(a_list, key=int)" could not be used in this situation.            
-                # Append row visibility data, username (username has been get previously) and get user image
+                # Append row visibility data, username (username has been get previously) and image
                 users_data_row = [True, "system-monitoring-center-user-symbolic", username]                             # User data row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.
                 # Get user full name
                 if 1 in users_treeview_columns_shown:

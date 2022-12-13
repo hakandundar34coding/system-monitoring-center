@@ -5,9 +5,8 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Gdk', '4.0')
 gi.require_version('GLib', '2.0')
 gi.require_version('Gio', '2.0')
-gi.require_version('Pango', '1.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Gdk, GLib, Gio, Pango, Adw
+from gi.repository import Gtk, Gdk, GLib, Gio, Adw
 
 import os
 import locale
@@ -380,7 +379,7 @@ class MainWindow():
 
     def on_main_window_close_request(self, widget):
         """
-        Called when window close button (X) is clicked.
+        Called when window is closed.
         """
 
         # Get and save window state (if full screen or not), window size (width, height)
@@ -472,7 +471,7 @@ class MainWindow():
             software_version = reader.read().strip()
 
         # Define translators dictionary
-        translators_dic = {"cs": "panmourovaty",
+        translators_dict = {"cs": "panmourovaty",
                            "de": "Baumfinder",
                            "fa": "MasterKia",
                            "hu": "Kálmán Szalai",
@@ -492,10 +491,10 @@ class MainWindow():
 
         # Define translators list
         try:
-            translators = '\n'.join(translators_dic[application_language_code].split(", "))
+            translators = '\n'.join(translators_dict[application_language_code].split(", "))
         except Exception:
             try:
-                translators = '\n'.join(translators_dic[application_language_code_split].split(", "))
+                translators = '\n'.join(translators_dict[application_language_code_split].split(", "))
             except Exception:
                 translators = "-"
 
