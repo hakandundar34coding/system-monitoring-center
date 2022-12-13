@@ -401,7 +401,7 @@ class MainWindow():
 
     def on_main_window_show(self, widget):
         """
-        Called when window is shown.
+        Run code after window is shown.
         """
 
         # Start the main loop function
