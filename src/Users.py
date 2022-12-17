@@ -61,7 +61,7 @@ class Users:
         grid.attach(label, 0, 0, 1, 1)
 
         # SearchEntry
-        self.searchentry = Common.scrolledwindow_searchentry(_tr("Search..."))
+        self.searchentry = Common.scrolledwindow_searchentry()
         grid.attach(self.searchentry, 1, 0, 1, 1)
 
 

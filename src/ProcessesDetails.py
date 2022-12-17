@@ -278,9 +278,8 @@ class ProcessesDetails:
         drawingarea_grid.attach(self.drawingarea_cpu_limit_label, 1, 0, 1, 1)
 
         # DrawingArea
-        self.processes_details_da_cpu_usage = Gtk.DrawingArea()
-        self.processes_details_da_cpu_usage.set_hexpand(True)
-        #self.processes_details_da_cpu_usage.set_vexpand(True)
+        self.processes_details_da_cpu_usage = Common.drawingarea(Performance.performance_line_charts_draw, "processes_details_da_cpu_usage")
+        self.processes_details_da_cpu_usage.set_vexpand(False)
         self.processes_details_da_cpu_usage.set_size_request(-1, 160)
         drawingarea_grid.attach(self.processes_details_da_cpu_usage, 0, 1, 2, 1)
 
@@ -384,9 +383,8 @@ class ProcessesDetails:
         drawingarea_grid.attach(self.drawingarea_memory_limit_label, 1, 0, 1, 1)
 
         # DrawingArea
-        self.processes_details_da_memory_usage = Gtk.DrawingArea()
-        self.processes_details_da_memory_usage.set_hexpand(True)
-        #self.processes_details_da_memory_usage.set_vexpand(True)
+        self.processes_details_da_memory_usage = Common.drawingarea(Performance.performance_line_charts_draw, "processes_details_da_memory_usage")
+        self.processes_details_da_memory_usage.set_vexpand(False)
         self.processes_details_da_memory_usage.set_size_request(-1, 160)
         drawingarea_grid.attach(self.processes_details_da_memory_usage, 0, 1, 2, 1)
 
@@ -478,9 +476,8 @@ class ProcessesDetails:
         drawingarea_grid.attach(self.drawingarea_disk_limit_label, 1, 0, 1, 1)
 
         # DrawingArea
-        self.processes_details_da_disk_speed = Gtk.DrawingArea()
-        self.processes_details_da_disk_speed.set_hexpand(True)
-        #self.processes_details_da_disk_speed.set_vexpand(True)
+        self.processes_details_da_disk_speed = Common.drawingarea(Performance.performance_line_charts_draw, "processes_details_da_disk_speed")
+        self.processes_details_da_disk_speed.set_vexpand(False)
         self.processes_details_da_disk_speed.set_size_request(-1, 160)
         drawingarea_grid.attach(self.processes_details_da_disk_speed, 0, 1, 2, 1)
 
@@ -613,31 +610,6 @@ class ProcessesDetails:
         """
         Connect GUI signals.
         """
-
-        self.processes_details_da_cpu_usage.set_draw_func(Performance.performance_line_charts_draw_func, "processes_details_da_cpu_usage")
-        self.processes_details_da_memory_usage.set_draw_func(Performance.performance_line_charts_draw_func, "processes_details_da_memory_usage")
-        self.processes_details_da_disk_speed.set_draw_func(Performance.performance_line_charts_draw_func, "processes_details_da_disk_speed")
-
-        # Drawingarea mouse events (CPU usage drawingarea)
-        drawingarea_mouse_event = Gtk.EventControllerMotion()
-        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.processes_details_da_cpu_usage.add_controller(drawingarea_mouse_event)
-
-        # Drawingarea mouse events (Memory usage drawingarea)
-        drawingarea_mouse_event = Gtk.EventControllerMotion()
-        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.processes_details_da_memory_usage.add_controller(drawingarea_mouse_event)
-
-        # Drawingarea mouse events (Disk speed drawingarea)
-        drawingarea_mouse_event = Gtk.EventControllerMotion()
-        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.processes_details_da_disk_speed.add_controller(drawingarea_mouse_event)
 
         # Window signals
         self.process_details_window.connect("close-request", self.on_process_details_window_delete_event)

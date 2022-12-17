@@ -158,13 +158,13 @@ class MainWindow():
         self.performance_summary_hb_grid.attach(label, 2, 1, 1, 1)
 
         # DrawingArea (CPU)
-        self.ps_hb_cpu_da = Gtk.DrawingArea()
+        self.ps_hb_cpu_da = Common.drawingarea(Performance.performance_bar_charts_draw, "ps_hb_cpu_da")
         self.ps_hb_cpu_da.set_size_request(32, 10)
         self.ps_hb_cpu_da.set_halign(Gtk.Align.START)
         self.performance_summary_hb_grid.attach(self.ps_hb_cpu_da, 1, 0, 1, 1)
 
         # DrawingArea (RAM)
-        self.ps_hb_ram_da = Gtk.DrawingArea()
+        self.ps_hb_ram_da = Common.drawingarea(Performance.performance_bar_charts_draw, "ps_hb_ram_da")
         self.ps_hb_ram_da.set_size_request(32, 10)
         self.ps_hb_ram_da.set_halign(Gtk.Align.START)
         self.performance_summary_hb_grid.attach(self.ps_hb_ram_da, 1, 1, 1, 1)
@@ -371,10 +371,6 @@ class MainWindow():
         self.network_tb.connect("toggled", self.on_main_gui_togglebuttons_toggled)
         self.gpu_tb.connect("toggled", self.on_main_gui_togglebuttons_toggled)
         self.sensors_tb.connect("toggled", self.on_main_gui_togglebuttons_toggled)
-
-        # Performance summary drawingarea (on the window headerbar) functions
-        self.ps_hb_cpu_da.set_draw_func(Performance.performance_bar_charts_draw, "ps_hb_cpu_da")
-        self.ps_hb_ram_da.set_draw_func(Performance.performance_bar_charts_draw, "ps_hb_ram_da")
 
 
     def on_main_window_close_request(self, widget):

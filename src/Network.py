@@ -37,8 +37,6 @@ class Network:
 
         self.information_grid()
 
-        self.connect_signals()
-
 
     def tab_title_grid(self):
         """
@@ -88,9 +86,7 @@ class Network:
         grid.attach(self.da_upper_right_label, 1, 0, 1, 1)
 
         # DrawingArea
-        self.da_network_speed = Gtk.DrawingArea()
-        self.da_network_speed.set_hexpand(True)
-        self.da_network_speed.set_vexpand(True)
+        self.da_network_speed = Common.drawingarea(Performance.performance_line_charts_draw, "da_network_speed")
         grid.attach(self.da_network_speed, 0, 2, 2, 1)
 
         # Label (drawingarea lower-right)
@@ -173,21 +169,6 @@ class Network:
         # Label (MAC Address)
         self.mac_address_label = Common.dynamic_information_label()
         performance_info_right_grid.attach(self.mac_address_label, 1, 5, 1, 1)
-
-
-    def connect_signals(self):
-        """
-        Connect GUI signals.
-        """
-
-        self.da_network_speed.set_draw_func(Performance.performance_line_charts_draw_func, "da_network_speed")
-
-        # Drawingarea mouse events
-        drawingarea_mouse_event = Gtk.EventControllerMotion()
-        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.da_network_speed.add_controller(drawingarea_mouse_event)
 
 
     def network_initial_func(self):

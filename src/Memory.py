@@ -87,9 +87,7 @@ class Memory:
         grid.attach(label, 1, 0, 1, 1)
 
         # DrawingArea (RAM/Memory usage)
-        self.da_memory_usage = Gtk.DrawingArea()
-        self.da_memory_usage.set_hexpand(True)
-        self.da_memory_usage.set_vexpand(True)
+        self.da_memory_usage = Common.drawingarea(Performance.performance_line_charts_draw, "da_memory_usage")
         grid.attach(self.da_memory_usage, 0, 2, 2, 1)
 
         # Label (drawingarea lower-right)
@@ -174,8 +172,8 @@ class Memory:
         grid_label_and_da.set_column_spacing(5)
         grid.attach(grid_label_and_da, 1, 0, 1, 1)
         # DrawingArea (Used (swap percent))
-        self.da_swap_usage = Gtk.DrawingArea()
-        self.da_swap_usage.set_hexpand(True)
+        self.da_swap_usage = Common.drawingarea(Performance.performance_bar_charts_draw, "da_swap_usage")
+        self.da_swap_usage.set_vexpand(False)
         grid_label_and_da.attach(self.da_swap_usage, 0, 0, 1, 1)
         # Label (Used (swap percent))
         self.swap_used_percent_label = Common.dynamic_information_label()
@@ -200,16 +198,6 @@ class Memory:
         """
         Connect GUI signals.
         """
-
-        self.da_memory_usage.set_draw_func(Performance.performance_line_charts_draw_func, "da_memory_usage")
-        self.da_swap_usage.set_draw_func(Performance.performance_bar_charts_draw, "da_swap_usage")
-
-        # Drawingarea mouse events
-        drawingarea_mouse_event = Gtk.EventControllerMotion()
-        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.da_memory_usage.add_controller(drawingarea_mouse_event)
 
         # "Show" labels mouse events. Definition of separate events are required for different widgets.
         show_label_mouse_event = Gtk.GestureClick()

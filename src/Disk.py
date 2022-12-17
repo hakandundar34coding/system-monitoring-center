@@ -89,9 +89,7 @@ class Disk:
         grid.attach(self.da_upper_right_label, 1, 0, 1, 1)
 
         # DrawingArea
-        self.da_disk_speed = Gtk.DrawingArea()
-        self.da_disk_speed.set_hexpand(True)
-        self.da_disk_speed.set_vexpand(True)
+        self.da_disk_speed = Common.drawingarea(Performance.performance_line_charts_draw, "da_disk_speed_usage")
         grid.attach(self.da_disk_speed, 0, 2, 2, 1)
 
         # Label (drawingarea lower-right)
@@ -148,8 +146,8 @@ class Disk:
         grid_label_and_da.set_column_spacing(5)
         performance_info_right_grid.attach(grid_label_and_da, 1, 2, 1, 1)
         # DrawingArea (Used)
-        self.da_disk_usage = Gtk.DrawingArea()
-        self.da_disk_usage.set_hexpand(True)
+        self.da_disk_usage = Common.drawingarea(Performance.performance_bar_charts_draw, "da_disk_usage")
+        self.da_disk_usage.set_vexpand(False)
         grid_label_and_da.attach(self.da_disk_usage, 0, 0, 1, 1)
         # Label (Used (percent))
         self.used_percent_label = Common.dynamic_information_label()
@@ -189,7 +187,7 @@ class Disk:
         Connect GUI signals.
         """
 
-        self.da_disk_speed.set_draw_func(Performance.performance_line_charts_draw_func, "da_disk_speed_usage")
+        self.da_disk_speed.set_draw_func(Performance.performance_line_charts_draw, "da_disk_speed_usage")
         self.da_disk_usage.set_draw_func(Performance.performance_bar_charts_draw, "da_disk_usage")
 
         # Drawingarea mouse events

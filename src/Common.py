@@ -13,6 +13,7 @@ import os
 from locale import gettext as _tr
 
 from Config import Config
+from Performance import Performance
 
 
 class ListStoreItem(GObject.Object):
@@ -273,6 +274,33 @@ def on_colorchooserdialog_response(widget, response):
                 Gpu.gpu_initial_func()
                 Gpu.gpu_loop_func()
         Config.config_save_func()
+
+
+def drawingarea(drawing_function, drawingarea_tag):
+    """
+    Generate DrawingArea, set drawing function and connect mouse events.
+    """
+
+    drawingarea = Gtk.DrawingArea()
+    drawingarea.set_hexpand(True)
+    drawingarea.set_vexpand(True)
+
+    # Set drawing function
+    if drawingarea_tag == "da_summary":
+        drawingarea.set_draw_func(drawing_function)
+    else:
+        drawingarea.set_draw_func(drawing_function, drawingarea_tag)
+
+    # Drawingarea mouse events
+    if drawingarea_tag in ["da_cpu_usage", "da_memory_usage", "da_disk_speed_usage", "da_network_speed", "da_gpu_usage",
+                           "processes_details_da_cpu_usage", "processes_details_da_memory_usage", "processes_details_da_disk_speed"]:
+        drawingarea_mouse_event = Gtk.EventControllerMotion()
+        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
+        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
+        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
+        drawingarea.add_controller(drawingarea_mouse_event)
+
+    return drawingarea
 
 
 def dropdown_and_model(item_list):
@@ -678,13 +706,13 @@ def styled_information_scrolledwindow(text1, tooltip1, text2, tooltip2):
     return scrolledwindow, label1, label2
 
 
-def scrolledwindow_searchentry(text):
+def scrolledwindow_searchentry():
     """
     Generate SearchEntry.
     """
 
     searchentry = Gtk.SearchEntry()
-    searchentry.props.placeholder_text = text
+    searchentry.props.placeholder_text = _tr("Search...")
     searchentry.set_max_width_chars(100)
     searchentry.set_hexpand(True)
     searchentry.set_halign(Gtk.Align.CENTER)

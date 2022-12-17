@@ -37,8 +37,6 @@ class Cpu:
 
         self.information_grid()
 
-        self.connect_signals()
-
 
     def tab_title_grid(self):
         """
@@ -88,9 +86,7 @@ class Cpu:
         grid.attach(label, 1, 0, 1, 1)
 
         # DrawingArea (CPU usage)
-        self.da_cpu_usage = Gtk.DrawingArea()
-        self.da_cpu_usage.set_hexpand(True)
-        self.da_cpu_usage.set_vexpand(True)
+        self.da_cpu_usage = Common.drawingarea(Performance.performance_line_charts_draw, "da_cpu_usage")
         grid.attach(self.da_cpu_usage, 0, 2, 2, 1)
 
         # Label (drawingarea lower-right)
@@ -174,21 +170,6 @@ class Cpu:
         # Label (Architecture)
         self.architecture_label = Common.dynamic_information_label()
         performance_info_right_grid.attach(self.architecture_label, 1, 5, 1, 1)
-
-
-    def connect_signals(self):
-        """
-        Connect GUI signals.
-        """
-
-        self.da_cpu_usage.set_draw_func(Performance.performance_line_charts_draw_func, "da_cpu_usage")
-
-        # Drawingarea mouse events
-        drawingarea_mouse_event = Gtk.EventControllerMotion()
-        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.da_cpu_usage.add_controller(drawingarea_mouse_event)
 
 
     def cpu_initial_func(self):

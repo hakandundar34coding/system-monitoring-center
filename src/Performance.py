@@ -1234,7 +1234,7 @@ class Performance:
         ctx.restore()
 
 
-    def performance_line_charts_draw_func(self, widget, ctx, width, height, widget_name):
+    def performance_line_charts_draw(self, widget, ctx, width, height, widget_name):
         """
         Draw performance data as line chart.
         """

@@ -40,8 +40,6 @@ class Gpu:
 
         self.information_grid()
 
-        self.connect_signals()
-
 
     def tab_title_grid(self):
         """
@@ -91,9 +89,7 @@ class Gpu:
         grid.attach(label, 1, 0, 1, 1)
 
         # DrawingArea
-        self.da_gpu_usage = Gtk.DrawingArea()
-        self.da_gpu_usage.set_hexpand(True)
-        self.da_gpu_usage.set_vexpand(True)
+        self.da_gpu_usage = Common.drawingarea(Performance.performance_line_charts_draw, "da_gpu_usage")
         grid.attach(self.da_gpu_usage, 0, 2, 2, 1)
 
         # Label (drawingarea lower-right)
@@ -175,21 +171,6 @@ class Gpu:
         # Label (Resolution)
         self.resolution_label = Common.dynamic_information_label()
         performance_info_right_grid.attach(self.resolution_label, 1, 5, 1, 1)
-
-
-    def connect_signals(self):
-        """
-        Connect GUI signals.
-        """
-
-        self.da_gpu_usage.set_draw_func(Performance.performance_line_charts_draw_func, "da_gpu_usage")
-
-        # Drawingarea mouse events
-        drawingarea_mouse_event = Gtk.EventControllerMotion()
-        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.da_gpu_usage.add_controller(drawingarea_mouse_event)
 
 
     def gpu_initial_func(self):

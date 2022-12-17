@@ -31,12 +31,8 @@ class Summary:
         self.tab_grid.attach(label, 0, 0, 1, 1)
 
         # Summary tab drawingarea
-        self.da_summary = Gtk.DrawingArea()
-        self.da_summary.set_hexpand(True)
-        self.da_summary.set_vexpand(True)
+        self.da_summary = Common.drawingarea(Performance.performance_summary_chart_draw, "da_summary")
         self.tab_grid.attach(self.da_summary, 0, 1, 1, 1)
-
-        self.da_summary.set_draw_func(Performance.performance_summary_chart_draw)
 
 
     def summary_initial_func(self):

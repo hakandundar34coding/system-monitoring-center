@@ -6,8 +6,7 @@ gi.require_version('Gdk', '4.0')
 gi.require_version('GLib', '2.0')
 gi.require_version('Gio', '2.0')
 gi.require_version('GObject', '2.0')
-gi.require_version('Pango', '1.0')
-from gi.repository import Gtk, Gdk, GLib, Gio, GObject, Pango
+from gi.repository import Gtk, Gdk, GLib, Gio, GObject
 
 import os
 import subprocess
@@ -41,10 +40,7 @@ class Services:
         self.tab_info_grid()
 
         # Label (Note: This tab is not reloaded automatically. Manually reload for changes.)
-        label = Gtk.Label()
-        label.set_ellipsize(Pango.EllipsizeMode.END)
-        label.set_halign(Gtk.Align.START)
-        label.set_label(_tr("Note: This tab is not reloaded automatically. Manually reload for changes."))
+        label = Common.static_information_label_no_ellipsize(_tr("Note: This tab is not reloaded automatically. Manually reload for changes."))
         self.tab_grid.attach(label, 0, 2, 1, 1)
 
         self.gui_signals()
@@ -67,7 +63,7 @@ class Services:
         grid.attach(label, 0, 0, 1, 1)
 
         # SearchEntry
-        self.searchentry = Common.scrolledwindow_searchentry(_tr("Search..."))
+        self.searchentry = Common.scrolledwindow_searchentry()
         grid.attach(self.searchentry, 1, 0, 1, 1)
 
         # Button (refresh tab)
@@ -445,8 +441,6 @@ class Services:
         self.filter_column = services_data_list[0][2] - 1                                              # Search filter is "Service Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
         self.initial_already_run = 1
-
-        self.services_loop_func()
 
 
     def services_loop_func(self):

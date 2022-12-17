@@ -43,7 +43,7 @@ def sensors_gui_func():
     tab_name_label_grid.attach(label, 0, 0, 1, 1)
 
     # Searchentry
-    searchentry = Common.scrolledwindow_searchentry(_tr("Search..."))
+    searchentry = Common.scrolledwindow_searchentry()
     tab_name_label_grid.attach(searchentry, 1, 0, 1, 1)
 
     """
