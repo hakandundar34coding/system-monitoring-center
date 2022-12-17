@@ -38,8 +38,6 @@ class System:
 
         self.information_grid()
 
-        self.connect_signals()
-
 
     def tab_title_grid(self):
         """
@@ -65,7 +63,7 @@ class System:
         grid.attach(self.computer_vendor_model_label, 1, 1, 1, 1)
 
         # Button (tab refresh)
-        self.refresh_button = Common.refresh_button()
+        self.refresh_button = Common.refresh_button(self.on_refresh_button_clicked)
         grid.attach(self.refresh_button, 2, 0, 1, 2)
 
 
@@ -277,14 +275,6 @@ class System:
         # Label (Python Version)
         self.python_version_label = Common.dynamic_information_label()
         grid.attach(self.python_version_label, 3, 12, 1, 1)
-
-
-    def connect_signals(self):
-        """
-        Connect GUI signals.
-        """
-
-        self.refresh_button.connect("clicked", self.on_refresh_button_clicked)
 
 
     def on_refresh_button_clicked(self, widget):

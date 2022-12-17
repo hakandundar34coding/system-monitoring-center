@@ -147,7 +147,7 @@ def reset_button():
     return button
 
 
-def refresh_button():
+def refresh_button(function):
     """
     Generate "Refresh" button.
     """
@@ -158,6 +158,8 @@ def refresh_button():
     refresh_button.set_halign(Gtk.Align.END)
     refresh_button.set_valign(Gtk.Align.CENTER)
     refresh_button.set_icon_name("view-refresh-symbolic")
+
+    refresh_button.connect("clicked", function)
 
     return refresh_button
 
@@ -711,7 +713,7 @@ def styled_information_scrolledwindow(text1, tooltip1, text2, tooltip2):
     return scrolledwindow, label1, label2
 
 
-def scrolledwindow_searchentry():
+def scrolledwindow_searchentry(function):
     """
     Generate SearchEntry.
     """
@@ -722,6 +724,8 @@ def scrolledwindow_searchentry():
     searchentry.set_hexpand(True)
     searchentry.set_halign(Gtk.Align.CENTER)
     searchentry.set_valign(Gtk.Align.CENTER)
+
+    searchentry.connect("changed", function)
 
     return searchentry
 

@@ -43,7 +43,7 @@ def sensors_gui_func():
     tab_name_label_grid.attach(label, 0, 0, 1, 1)
 
     # Searchentry
-    searchentry = Common.scrolledwindow_searchentry()
+    searchentry = Common.scrolledwindow_searchentry(on_searchentry_changed)
     tab_name_label_grid.attach(searchentry, 1, 0, 1, 1)
 
     """
@@ -66,9 +66,6 @@ def sensors_gui_func():
     sensors_treeview.set_search_column(2)
     sensors_treeview.set_tooltip_column(2)
     scrolledwindow.set_child(sensors_treeview)
-
-    # Connect signals
-    searchentry.connect("changed", on_searchentry_changed)
 
     global initial_already_run
     initial_already_run = 0

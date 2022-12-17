@@ -63,11 +63,11 @@ class Services:
         grid.attach(label, 0, 0, 1, 1)
 
         # SearchEntry
-        self.searchentry = Common.scrolledwindow_searchentry()
+        self.searchentry = Common.scrolledwindow_searchentry(self.on_searchentry_changed)
         grid.attach(self.searchentry, 1, 0, 1, 1)
 
         # Button (refresh tab)
-        self.refresh_button = Common.refresh_button()
+        self.refresh_button = Common.refresh_button(self.on_refresh_button_clicked)
         grid.attach(self.refresh_button, 2, 0, 1, 1)
 
 
@@ -98,9 +98,6 @@ class Services:
         """
         Connect GUI signals.
         """
-
-        self.searchentry.connect("changed", self.on_searchentry_changed)
-        self.refresh_button.connect("clicked", self.on_refresh_button_clicked)
 
         # Treeview mouse events.
         treeview_mouse_event = Gtk.GestureClick()

@@ -63,7 +63,7 @@ class Processes:
         grid.attach(label, 0, 0, 1, 1)
 
         # SearchEntry
-        self.searchentry = Common.scrolledwindow_searchentry()
+        self.searchentry = Common.scrolledwindow_searchentry(self.on_searchentry_changed)
         grid.attach(self.searchentry, 1, 0, 1, 1)
 
 
@@ -93,8 +93,6 @@ class Processes:
         """
         Connect GUI signals.
         """
-
-        self.searchentry.connect("changed", self.on_searchentry_changed)
 
         # Treeview mouse events.
         treeview_mouse_event = Gtk.GestureClick()
