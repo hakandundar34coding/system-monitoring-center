@@ -187,16 +187,6 @@ class Disk:
         Connect GUI signals.
         """
 
-        self.da_disk_speed.set_draw_func(Performance.performance_line_charts_draw, "da_disk_speed_usage")
-        self.da_disk_usage.set_draw_func(Performance.performance_bar_charts_draw, "da_disk_usage")
-
-        # Drawingarea mouse events
-        drawingarea_mouse_event = Gtk.EventControllerMotion()
-        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        self.da_disk_speed.add_controller(drawingarea_mouse_event)
-
         # "Show" label mouse events
         show_label_mouse_event = Gtk.GestureClick()
         show_label_mouse_event.connect("released", self.on_details_label_released)
