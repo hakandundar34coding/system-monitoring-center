@@ -498,7 +498,7 @@ def dynamic_information_label():
     return label
 
 
-def clickable_label(text):
+def clickable_label(text, function):
     """
     Generate clickable Label. Mouse cursor is changed when mouse hover action is performed.
     """
@@ -513,6 +513,11 @@ def clickable_label(text):
     label.set_halign(Gtk.Align.START)
     cursor_link = Gdk.Cursor.new_from_name("pointer")
     label.set_cursor(cursor_link)
+
+    # Label mouse events. Definition of separate events are required for different widgets.
+    mouse_event = Gtk.GestureClick()
+    mouse_event.connect("released", function)
+    label.add_controller(mouse_event)
 
     return label
 

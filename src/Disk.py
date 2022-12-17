@@ -38,8 +38,6 @@ class Disk:
 
         self.information_grid()
 
-        self.connect_signals()
-
 
     def tab_title_grid(self):
         """
@@ -178,19 +176,8 @@ class Disk:
         label = Common.static_information_label(_tr("Details") + ":")
         performance_info_right_grid.attach(label, 0, 6, 1, 1)
         # Label (Show...)
-        self.details_label = Common.clickable_label(_tr("Show..."))
+        self.details_label = Common.clickable_label(_tr("Show..."), self.on_details_label_released)
         performance_info_right_grid.attach(self.details_label, 1, 6, 1, 1)
-
-
-    def connect_signals(self):
-        """
-        Connect GUI signals.
-        """
-
-        # "Show" label mouse events
-        show_label_mouse_event = Gtk.GestureClick()
-        show_label_mouse_event.connect("released", self.on_details_label_released)
-        self.details_label.add_controller(show_label_mouse_event)
 
 
     def on_details_label_released(self, event, count, x, y):

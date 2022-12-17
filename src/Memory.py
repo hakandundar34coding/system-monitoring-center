@@ -38,8 +38,6 @@ class Memory:
 
         self.information_grid()
 
-        self.connect_signals()
-
 
     def tab_title_grid(self):
         """
@@ -144,7 +142,7 @@ class Memory:
         label = Common.static_information_label(_tr("Hardware") + ":")
         grid.attach(label, 0, 2, 1, 1)
         # Label (Show...)
-        self.ram_hardware_label = Common.clickable_label(_tr("Show..."))
+        self.ram_hardware_label = Common.clickable_label(_tr("Show..."), self.on_details_label_released)
         grid.attach(self.ram_hardware_label, 1, 2, 1, 1)
 
         # Label - Title (Swap Memory)
@@ -190,22 +188,8 @@ class Memory:
         label = Common.static_information_label(_tr("Details") + ":")
         grid.attach(label, 0, 2, 1, 1)
         # Label (Show... (swap))
-        self.swap_details_label = Common.clickable_label(_tr("Show..."))
+        self.swap_details_label = Common.clickable_label(_tr("Show..."), self.on_details_label_released)
         grid.attach(self.swap_details_label, 1, 2, 1, 1)
-
-
-    def connect_signals(self):
-        """
-        Connect GUI signals.
-        """
-
-        # "Show" labels mouse events. Definition of separate events are required for different widgets.
-        show_label_mouse_event = Gtk.GestureClick()
-        show_label_mouse_event.connect("released", self.on_details_label_released)
-        self.ram_hardware_label.add_controller(show_label_mouse_event)
-        show_label_mouse_event = Gtk.GestureClick()
-        show_label_mouse_event.connect("released", self.on_details_label_released)
-        self.swap_details_label.add_controller(show_label_mouse_event)
 
 
     def on_details_label_released(self, event, count, x, y):
