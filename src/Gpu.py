@@ -207,7 +207,9 @@ class Gpu:
         Get and show information on the GUI on every loop.
         """
 
-        # Run "gpu_initial_func" if "initial_already_run variable is "0" which means all settings of the application is reset and initial function has be be run in order to avoid errors. This check is required only for GPU tab (not required for other Performance tab sub-tabs).
+        # Run "gpu_initial_func" if "initial_already_run variable is "0" which means all settings
+        # of the application is reset and initial function has to be run in order to avoid errors.
+        # This check is required only for GPU tab (not required for other Performance tab sub-tabs).
         if self.initial_already_run == 0:
             self.gpu_initial_func()
 
@@ -325,7 +327,8 @@ class Gpu:
         Get if default GPU.
         """
 
-        # Set default GPU if there is only 1 GPU on the system and these is not "boot_vga" file (on some systems such as ARM devices) which means default_gpu = "".
+        # Set default GPU if there is only 1 GPU on the system and
+        # there is not "boot_vga" file (such as ARM devices) which means default_gpu = "".
         if len(self.gpu_list) == 1:
             if_default_gpu = _tr("Yes")
         else:
