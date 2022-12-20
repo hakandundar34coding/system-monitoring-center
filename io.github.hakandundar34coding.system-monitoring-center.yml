@@ -59,8 +59,8 @@ modules:
       - CONFDIR=${FLATPAK_DEST}/etc/iproute2
     sources:
       - type: archive
-        url: https://github.com/shemminger/iproute2/archive/refs/tags/v5.11.0.tar.gz
-        sha256: 16b79e6ce65d4d5fd425cef2fd92a58c403a93faeeed0e0a3202b36a8e857d1f
+        url: https://github.com/shemminger/iproute2/archive/refs/tags/v6.1.0.tar.gz
+        sha256: 04e106550ad365458282c2e81f2286d92f00da64597a0799d2013d6c0e335647
 
   # For System Monitoring Center
   - name: system-monitoring-center

@@ -761,8 +761,6 @@ def device_vendor_model(modalias_output):
     if os.path.isdir(udev_hardware_database_dir) == False:
         udev_hardware_database_dir = "/lib/udev/hwdb.d/"
     if Config.environment_type == "flatpak":
-        udev_hardware_database_dir = "/etc/udev/hwdb.d/"
-    if Config.environment_type == "flatpak":
         udev_hardware_database_dir = os.path.dirname(os.path.realpath(__file__)) + "/../../../etc/udev/hwdb.d/"
 
     # Example modalias file contents for testing.
@@ -775,7 +773,7 @@ def device_vendor_model(modalias_output):
     # modalias_output = "pci:v00008086d00000116sv00001043sd00001642bc03sc00i00"
     # modalias_output = "pci:v00001B85d00006018sv00001B85sd00006018bc01sc08i02"
     # modalias_output = "pci:v0000144Dd0000A808sv0000144Dsd0000A801bc01sc08i02"
-    # modalias_output = "of:NgpuT<NULL>Cnvidia,tegra210-gm20bCnvidia,gm20b"
+    # modalias_output = "of:NgpuT<NULL>Cnvidia,tegra210-gm20bCnvidia,gm20b"    # NVIDIA Tegra GPU on N.Switch device
     # modalias_output = "of:NgpuT(null)Cbrcm,bcm2835-vc4"
     # modalias_output = "scsi:t-0x05"
     # modalias_output = "scsi:t-0x00"
@@ -785,8 +783,6 @@ def device_vendor_model(modalias_output):
 
     # Get device vendor, model if device subtype is PCI.
     if device_subtype == "pci":
-
-        # Example pci device modalias: "pci:v000010DEd00000DF4sv00001043sd00001642bc03sc00i00".
 
         # Get device IDs from modalias file content.
         first_index = device_alias.find("v")
@@ -802,7 +798,6 @@ def device_vendor_model(modalias_output):
 
         # Read database file for PCI devices.
         with open(udev_hardware_database_dir + "20-pci-vendor-model.hwdb", encoding="utf-8") as reader:
-            # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
             ids_file_output = reader.read()
 
         # Get device vendor, model names from device ID file content.
@@ -820,8 +815,6 @@ def device_vendor_model(modalias_output):
     # Get device vendor, model if device subtype is virtio.
     elif device_subtype == "virtio":
 
-        # Example virtio device modalias: "virtio:d00000001v00001AF4".
-
         # Get device IDs from modalias file content.
         first_index = device_alias.find("v")
         last_index = first_index + 8 + 1
@@ -829,7 +822,8 @@ def device_vendor_model(modalias_output):
         first_index = device_alias.find("d")
         last_index = first_index + 8 + 1
         device_model_id = device_alias[first_index:last_index]
-        # 1040 is added to device ID of virtio devices. For details: https://docs.oasis-open.org/virtio/virtio/v1.1/csprd01/virtio-v1.1-csprd01.html
+        # 1040 is added to device ID of virtio devices. 
+        # For details: https://docs.oasis-open.org/virtio/virtio/v1.1/csprd01/virtio-v1.1-csprd01.html
         device_model_id = "d0000" + str(int(device_model_id.strip("d")) + 1040)
 
         # Get search texts by using device IDs.
@@ -837,7 +831,7 @@ def device_vendor_model(modalias_output):
         search_text2 = "pci:" + device_vendor_id + device_model_id + "*" + "\n ID_MODEL_FROM_DATABASE="
 
         # Read database file for VIRTIO devices.
-        with open(udev_hardware_database_dir + "20-pci-vendor-model.hwdb") as reader:
+        with open(udev_hardware_database_dir + "20-pci-vendor-model.hwdb", encoding="utf-8") as reader:
             ids_file_output = reader.read()
 
         # Get device vendor, model names from device ID file content.
@@ -855,8 +849,6 @@ def device_vendor_model(modalias_output):
     # Get device vendor, model if device subtype is USB.
     elif device_subtype == "usb":
 
-        # Example usb device modalias: "usb:v0B95p1790d0100dcFFdscFFdp00icFFiscFFip00in00".
-
         # Get device IDs from modalias file content.
         first_index = device_alias.find("v")
         last_index = first_index + 4 + 1
@@ -870,7 +862,7 @@ def device_vendor_model(modalias_output):
         search_text2 = "usb:" + device_vendor_id + device_model_id + "*" + "\n ID_MODEL_FROM_DATABASE="
 
         # Read database file for USB devices.
-        with open(udev_hardware_database_dir + "20-usb-vendor-model.hwdb") as reader:
+        with open(udev_hardware_database_dir + "20-usb-vendor-model.hwdb", encoding="utf-8") as reader:
             ids_file_output = reader.read()
 
         # Get device vendor, model names from device ID file content.
@@ -888,8 +880,6 @@ def device_vendor_model(modalias_output):
     # Get device vendor, model if device subtype is SDIO.
     elif device_subtype == "sdio":
 
-        # Example sdio device modalias: "sdio:c00v02D0d4324".
-
         # Get device IDs from modalias file content.
         first_index = device_alias.find("v")
         last_index = first_index + 4 + 1
@@ -903,7 +893,7 @@ def device_vendor_model(modalias_output):
         search_text2 = "sdio:" + "c*" + device_vendor_id + device_model_id + "*" + "\n ID_MODEL_FROM_DATABASE="
 
         # Read database file for SDIO devices.
-        with open(udev_hardware_database_dir + "20-sdio-vendor-model.hwdb") as reader:
+        with open(udev_hardware_database_dir + "20-sdio-vendor-model.hwdb", encoding="utf-8") as reader:
             ids_file_output = reader.read()
 
         # Get device vendor, model names from device ID file content.
@@ -921,15 +911,11 @@ def device_vendor_model(modalias_output):
     # Get device vendor, model if device subtype is of.
     elif device_subtype == "of":
 
-        # Example sdio device modalias (NVIDIA Tegra GPU on N.Switch device: "of:NgpuT<NULL>Cnvidia,tegra210-gm20bCnvidia,gm20b".
-
         device_vendor_name = device_vendor_id = device_alias.split("C", 1)[-1].split("C", 1)[0].split(",")[0].title()
         device_model_name = device_model_id = device_alias.split("C", 1)[-1].split("C", 1)[0].split(",")[1].title()
 
     # Get device vendor, model if device subtype is SCSI or IDE.
     elif device_subtype in ["scsi", "ide"]:
-
-        # Example SCSI device modalias: "scsi:t-0x00".
 
         device_vendor_name = device_vendor_id = "[scsi_or_ide_disk]"
         device_model_name = device_model_id = "[scsi_or_ide_disk]"
