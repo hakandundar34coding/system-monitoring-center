@@ -701,48 +701,6 @@ class Disk:
         return disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point
 
 
-    def disk_mount_point_func(self, selected_disk):
-        """
-        Get disk mount point.
-        """
-
-        with open("/proc/mounts") as reader:
-            proc_mounts_output = reader.read().strip()
-        self.proc_mounts_output_lines = proc_mounts_output.split("\n")
-
-        disk_mount_point = "-"
-        disk_mount_point_list_scratch = []
-        for line in self.proc_mounts_output_lines:
-            line_split = line.split()
-            if line_split[0].split("/")[-1] == selected_disk:
-                # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
-                disk_mount_point_list_scratch.append(bytes(line_split[1], "utf-8").decode("unicode_escape"))
-
-        if len(disk_mount_point_list_scratch) == 1:
-            disk_mount_point = disk_mount_point_list_scratch[0]
-
-        # System disk is listed twice with different mountpoints on some systems (such as systems use btrfs filsystem or chroot). "/" mountpoint information is used.
-        if len(disk_mount_point_list_scratch) > 1 and "/" in disk_mount_point_list_scratch:
-            disk_mount_point = "/"
-
-        # System disks on some devices such as ARM devices may not be listed in "/proc/mounts" file.
-        if disk_mount_point == "-":
-            system_disk = "-"
-            with open("/proc/cmdline") as reader:
-                proc_cmdline = reader.read()
-            if "root=UUID=" in proc_cmdline:
-                disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
-                system_disk = os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip()
-            if "root=PARTUUID=" in proc_cmdline:
-                disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
-                system_disk = os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip()
-            if system_disk != "-" and system_disk == selected_disk:
-                if "/dev/root / " in proc_mounts_output:
-                    disk_mount_point = "/"
-
-        return disk_mount_point
-
-
     def disk_file_system_fuseblk_func(self, selected_disk):
         """
         Get disk file system if it is detected as 'fuseblk'.
