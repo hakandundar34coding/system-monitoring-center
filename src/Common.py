@@ -730,6 +730,20 @@ def scrolledwindow_searchentry(function):
     return searchentry
 
 
+def checkbutton(text, group_cb):
+    """
+    Generate CheckButton or RadioButton.
+    """
+
+    checkbutton = Gtk.CheckButton()
+    checkbutton.set_halign(Gtk.Align.START)
+    checkbutton.set_label(text)
+    if group_cb != None:
+        checkbutton.set_group(group_cb)
+
+    return checkbutton
+
+
 def number_of_logical_cores():
     """
     Get number of online logical cores.

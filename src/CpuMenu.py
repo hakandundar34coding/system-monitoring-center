@@ -42,17 +42,11 @@ class CpuMenu:
         main_grid.attach(label, 0, 1, 1, 1)
 
         # CheckButton (CPU Usage (Average))
-        self.cpu_usage_average_cb = Gtk.CheckButton()
-        self.cpu_usage_average_cb.set_group(None)
-        self.cpu_usage_average_cb.set_label(_tr("CPU Usage (Average)"))
-        self.cpu_usage_average_cb.set_halign(Gtk.Align.START)
+        self.cpu_usage_average_cb = Common.checkbutton(_tr("CPU Usage (Average)"), None)
         main_grid.attach(self.cpu_usage_average_cb, 0, 2, 1, 1)
 
         # CheckButton (CPU Usage (Per Core))
-        self.cpu_usage_per_core_cb = Gtk.CheckButton()
-        self.cpu_usage_per_core_cb.set_group(self.cpu_usage_average_cb)
-        self.cpu_usage_per_core_cb.set_label(_tr("CPU Usage (Per Core)"))
-        self.cpu_usage_per_core_cb.set_halign(Gtk.Align.START)
+        self.cpu_usage_per_core_cb = Common.checkbutton(_tr("CPU Usage (Per Core)"), self.cpu_usage_average_cb)
         main_grid.attach(self.cpu_usage_per_core_cb, 0, 3, 1, 1)
 
         # Separator

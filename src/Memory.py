@@ -493,50 +493,8 @@ class Memory:
         performance_memory_data_precision = Config.performance_memory_data_precision
         performance_memory_data_unit = Config.performance_memory_data_unit
 
-        # Get total_physical_ram value (this value is very similar to RAM hardware size which is a bit different than ram_total value)
-        # "block_size_bytes" file may not be present on some systems such as ARM CPU used systems. Currently kernel 5.10 does not have this feature but this feature will be included in the newer versions of the kernel.
-        try:
-            # "memory block size" is read from this file and size of the blocks depend on architecture (For more information see: https://www.kernel.org/doc/html/latest/admin-guide/mm/memory-hotplug.html).
-            with open("/sys/devices/system/memory/block_size_bytes") as reader:
-                # Value in this file is in hex form and it is converted into integer (byte)
-                block_size = int(reader.read().strip(), 16)
-        except FileNotFoundError:
-            block_size = "-"
-        if block_size != "-":
-            total_online_memory = 0
-            total_offline_memory = 0
-            # Number of folders (of which name start with "memory") in this folder is multiplied with the integer value of "block_size_bytes" file content (hex value).
-            files_in_sys_devices_system_memory = os.listdir("/sys/devices/system/memory/")
-            for file in files_in_sys_devices_system_memory:
-                if os.path.isdir("/sys/devices/system/memory/" + file) and file.startswith("memory"):
-                    with open("/sys/devices/system/memory/" + file + "/online") as reader:
-                        memory_online_offline_value = reader.read().strip()
-                    if memory_online_offline_value == "1":
-                        total_online_memory = total_online_memory + block_size
-                    if memory_online_offline_value == "0":
-                        total_offline_memory = total_offline_memory + block_size
-            # Summation of total online and offline memories gives RAM hardware size. RAM harware size and total RAM value get from proc file system of by using "free" command are not same thing. Because some of the RAM may be reserved for harware and/or by the OS kernel.
-            total_physical_ram = (total_online_memory + total_offline_memory)
-        else:
-            # Try to get physical RAM for RB Pi devices. This information is get by using "vcgencmd" tool and it is not installed on the systems by default.
-            command_list = ["vcgencmd", "get_config", "total_mem"]
-            if Config.environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
-            try:
-                total_physical_ram = (subprocess.check_output(command_list, shell=False)).decode().strip().split("=")[1]
-                # The value get by "vcgencmd get_config total_mem" command is in MiB unit.
-                total_physical_ram = float(total_physical_ram)*1024*1024
-            except Exception:
-                total_physical_ram = "-"
-
-
-        # Get ram_total and swap_total values
-        with open("/proc/meminfo") as reader:
-            proc_memory_info_output_lines = reader.read().split("\n")
-        for line in proc_memory_info_output_lines:
-            # Values in this file are in "KiB" unit. These values are multiplied with 1024 in order to obtain byte (nearly) values.
-            if "MemTotal:" in line:
-                ram_total = int(line.split()[1]) * 1024
+        total_physical_ram = self.physical_ram()
+        ram_total = self.ram_capacity()
 
 
         # Set Memory tab label texts by using information get
@@ -581,6 +539,75 @@ class Memory:
         self.swap_used_percent_label.set_text(f'{self.swap_usage_percent[-1]:.0f}%')
         self.swap_free_label.set_text(Performance.performance_data_unit_converter_func("data", "none", swap_free, performance_memory_data_unit, performance_memory_data_precision))
         self.swap_capacity_label.set_text(Performance.performance_data_unit_converter_func("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
+
+
+    def physical_ram(self):
+        """
+        Get physical ram value. Summation of total online and offline memories gives RAM hardware size.
+        This value is very similar to RAM hardware size which is a bit different than ram_total value.
+        RAM hardware size and total RAM value (get from proc file system by using "free" command) are not same thing.
+        Because some of the RAM may be reserved for hardware and/or by the OS kernel.
+        "block_size_bytes" file may not be present on some systems such as ARM CPU used systems.
+        Physical RAM can not be detected on these systems. "vcgencmd" Python module can be used for physical RAM of RB-Pi devices.
+        But this module is not installed on these systems by default.
+        Currently kernel 5.10 does not have this feature but this feature will be included in the newer versions of the kernel.
+        Size of the blocks (block_size_bytes) depend on architecture.
+        For more information see: https://www.kernel.org/doc/html/latest/admin-guide/mm/memory-hotplug.html
+        """
+
+        # Get "memory block size" and convert hex value to integer (byte).
+        try:
+            with open("/sys/devices/system/memory/block_size_bytes") as reader:
+                block_size = int(reader.read().strip(), 16)
+        except FileNotFoundError:
+            block_size = "-"
+
+        # Get physical RAM value
+        if block_size != "-":
+            total_online_memory = 0
+            total_offline_memory = 0
+            # Folder (of which name start with "memory") in this folder is multiplied with memory block size.
+            files_in_sys_devices_system_memory = os.listdir("/sys/devices/system/memory/")
+            for file in files_in_sys_devices_system_memory:
+                if os.path.isdir("/sys/devices/system/memory/" + file) and file.startswith("memory"):
+                    with open("/sys/devices/system/memory/" + file + "/online") as reader:
+                        memory_online_offline_value = reader.read().strip()
+                    if memory_online_offline_value == "1":
+                        total_online_memory = total_online_memory + block_size
+                    if memory_online_offline_value == "0":
+                        total_offline_memory = total_offline_memory + block_size
+            total_physical_ram = (total_online_memory + total_offline_memory)
+
+        # Try to get physical RAM for RB Pi devices.
+        else:
+            command_list = ["vcgencmd", "get_config", "total_mem"]
+            _environment_type = environment_type()
+            if _environment_type == "flatpak":
+                command_list = ["flatpak-spawn", "--host"] + command_list
+            try:
+                total_physical_ram = (subprocess.check_output(command_list, shell=False)).decode().strip().split("=")[1]
+                # Convert MiB value to bytes
+                total_physical_ram = float(total_physical_ram) * 1024 * 1024
+            except Exception:
+                total_physical_ram = "-"
+
+        return total_physical_ram
+
+
+    def ram_capacity(self):
+        """
+        Get RAM capacity.
+        """
+
+        with open("/proc/meminfo") as reader:
+            proc_memory_info_output_lines = reader.read().split("\n")
+
+        for line in proc_memory_info_output_lines:
+            if "MemTotal:" in line:
+                # Convert KiB value to bytes
+                ram_total = int(line.split()[1]) * 1024
+
+        return ram_total
 
 
 Memory = Memory()

@@ -42,29 +42,19 @@ class NetworkMenu:
         main_grid.attach(label, 0, 1, 2, 1)
 
         # CheckButton (Download Speed)
-        self.download_speed_cb = Gtk.CheckButton()
-        self.download_speed_cb.set_label(_tr("Download Speed"))
-        self.download_speed_cb.set_halign(Gtk.Align.START)
+        self.download_speed_cb = Common.checkbutton(_tr("Download Speed"), None)
         main_grid.attach(self.download_speed_cb, 0, 2, 1, 1)
 
         # CheckButton (Upload Speed)
-        self.upload_speed_cb = Gtk.CheckButton()
-        self.upload_speed_cb.set_label(_tr("Upload Speed"))
-        self.upload_speed_cb.set_halign(Gtk.Align.START)
+        self.upload_speed_cb = Common.checkbutton(_tr("Upload Speed"), None)
         main_grid.attach(self.upload_speed_cb, 1, 2, 1, 1)
 
         # CheckButton (Selected Device)
-        self.selected_device_cb = Gtk.CheckButton()
-        self.selected_device_cb.set_group(None)
-        self.selected_device_cb.set_label(_tr("Selected Device"))
-        self.selected_device_cb.set_halign(Gtk.Align.START)
+        self.selected_device_cb = Common.checkbutton(_tr("Selected Device"), None)
         main_grid.attach(self.selected_device_cb, 0, 3, 1, 1)
 
         # CheckButton (All Devices)
-        self.all_devices_cb = Gtk.CheckButton()
-        self.all_devices_cb.set_group(self.selected_device_cb)
-        self.all_devices_cb.set_label(_tr("All Devices"))
-        self.all_devices_cb.set_halign(Gtk.Align.START)
+        self.all_devices_cb = Common.checkbutton(_tr("All Devices"), self.selected_device_cb)
         main_grid.attach(self.all_devices_cb, 1, 3, 1, 1)
 
         # Separator
@@ -103,24 +93,15 @@ class NetworkMenu:
         main_grid.attach(label, 0, 11, 2, 1)
 
         # CheckButton (1024)
-        self.data_power_of_1024_cb = Gtk.CheckButton()
-        self.data_power_of_1024_cb.set_group(None)
-        self.data_power_of_1024_cb.set_label("1024")
-        self.data_power_of_1024_cb.set_halign(Gtk.Align.START)
+        self.data_power_of_1024_cb = Common.checkbutton(_tr("1024"), None)
         main_grid.attach(self.data_power_of_1024_cb, 0, 12, 1, 1)
 
         # CheckButton (1000)
-        self.data_power_of_1000_cb = Gtk.CheckButton()
-        self.data_power_of_1000_cb.set_group(self.data_power_of_1024_cb)
-        self.data_power_of_1000_cb.set_label("1000")
-        self.data_power_of_1000_cb.set_halign(Gtk.Align.START)
+        self.data_power_of_1000_cb = Common.checkbutton(_tr("1000"), self.data_power_of_1024_cb)
         main_grid.attach(self.data_power_of_1000_cb, 1, 12, 1, 1)
 
         # CheckButton (Show speed units as multiples of bits)
-        self.data_bits_cb = Gtk.CheckButton()
-        self.data_bits_cb.set_group(None)
-        self.data_bits_cb.set_label(_tr("Show speed units as multiples of bits"))
-        self.data_bits_cb.set_halign(Gtk.Align.START)
+        self.data_bits_cb = Common.checkbutton(_tr("Show speed units as multiples of bits"), None)
         main_grid.attach(self.data_bits_cb, 0, 13, 2, 1)
 
         # Separator

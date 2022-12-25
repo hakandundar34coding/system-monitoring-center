@@ -100,9 +100,7 @@ class SettingsWindow:
         main_grid.attach(separator, 0, 5, 2, 1)
 
         # CheckButton (Show performance summary on headerbar)
-        self.show_performance_summary_on_hb_cb = Gtk.CheckButton()
-        self.show_performance_summary_on_hb_cb.set_halign(Gtk.Align.START)
-        self.show_performance_summary_on_hb_cb.set_label(_tr("Show performance summary on the headerbar"))
+        self.show_performance_summary_on_hb_cb = Common.checkbutton(_tr("Show performance summary on the headerbar"), None)
         main_grid.attach(self.show_performance_summary_on_hb_cb, 0, 6, 2, 1)
 
         # Separator
@@ -110,9 +108,7 @@ class SettingsWindow:
         main_grid.attach(separator, 0, 7, 2, 1)
 
         # CheckButton (Remember last opened tabs"
-        self.remember_last_opened_tabs_cb = Gtk.CheckButton()
-        self.remember_last_opened_tabs_cb.set_halign(Gtk.Align.START)
-        self.remember_last_opened_tabs_cb.set_label(_tr("Remember last opened tabs"))
+        self.remember_last_opened_tabs_cb = Common.checkbutton(_tr("Remember last opened tabs"), None)
         main_grid.attach(self.remember_last_opened_tabs_cb, 0, 8, 2, 1)
 
         # Grid (Default main tab and sub-tab)
@@ -137,9 +133,7 @@ class SettingsWindow:
         main_grid.attach(separator, 0, 10, 2, 1)
 
         # CheckButton (Remember last selected devices)
-        self.remember_last_selected_devices_cb = Gtk.CheckButton()
-        self.remember_last_selected_devices_cb.set_halign(Gtk.Align.START)
-        self.remember_last_selected_devices_cb.set_label(_tr("Remember last selected devices"))
+        self.remember_last_selected_devices_cb = Common.checkbutton(_tr("Remember last selected devices"), None)
         main_grid.attach(self.remember_last_selected_devices_cb, 0, 11, 2, 1)
 
         # Separator
@@ -147,9 +141,7 @@ class SettingsWindow:
         main_grid.attach(separator, 0, 12, 2, 1)
 
         # CheckButton (Remember window size)
-        self.remember_window_size_cb = Gtk.CheckButton()
-        self.remember_window_size_cb.set_halign(Gtk.Align.START)
-        self.remember_window_size_cb.set_label(_tr("Remember window size"))
+        self.remember_window_size_cb = Common.checkbutton(_tr("Remember window size"), None)
         main_grid.attach(self.remember_window_size_cb, 0, 13, 2, 1)
 
         # Separator
@@ -160,9 +152,7 @@ class SettingsWindow:
         self.check_for_updates_grid = Gtk.Grid()
         main_grid.attach(self.check_for_updates_grid, 0, 15, 2, 1)
         # CheckButton (Check for updates)
-        self.check_for_updates_cb = Gtk.CheckButton()
-        self.check_for_updates_cb.set_halign(Gtk.Align.START)
-        self.check_for_updates_cb.set_label(_tr("Check for updates automatically (PyPI only)"))
+        self.check_for_updates_cb = Common.checkbutton(_tr("Check for updates automatically (PyPI only)"), None)
         self.check_for_updates_grid.attach(self.check_for_updates_cb, 0, 0, 1, 1)
         # Label (Check for updates)
         label = Common.static_information_label_no_ellipsize(_tr("(If the application is run without root privileges.)"))

@@ -42,17 +42,11 @@ class MemoryMenu:
         main_grid.attach(label, 0, 1, 2, 1)
 
         # CheckButton (RAM)
-        self.ram_usage_cb = Gtk.CheckButton()
-        self.ram_usage_cb.set_group(None)
-        self.ram_usage_cb.set_label(_tr("RAM"))
-        self.ram_usage_cb.set_halign(Gtk.Align.START)
+        self.ram_usage_cb = Common.checkbutton(_tr("RAM"), None)
         main_grid.attach(self.ram_usage_cb, 0, 2, 1, 1)
 
         # CheckButton (Memory)
-        self.memory_usage_cb = Gtk.CheckButton()
-        self.memory_usage_cb.set_group(self.ram_usage_cb)
-        self.memory_usage_cb.set_label(_tr("Memory"))
-        self.memory_usage_cb.set_halign(Gtk.Align.START)
+        self.memory_usage_cb = Common.checkbutton(_tr("Memory"), self.ram_usage_cb)
         main_grid.attach(self.memory_usage_cb, 1, 2, 1, 1)
 
         # Separator
@@ -91,17 +85,11 @@ class MemoryMenu:
         main_grid.attach(label, 0, 10, 2, 1)
 
         # CheckButton (1024)
-        self.data_power_of_1024_cb = Gtk.CheckButton()
-        self.data_power_of_1024_cb.set_group(None)
-        self.data_power_of_1024_cb.set_label("1024")
-        self.data_power_of_1024_cb.set_halign(Gtk.Align.START)
+        self.data_power_of_1024_cb = Common.checkbutton(_tr("1024"), None)
         main_grid.attach(self.data_power_of_1024_cb, 0, 11, 1, 1)
 
         # CheckButton (1000)
-        self.data_power_of_1000_cb = Gtk.CheckButton()
-        self.data_power_of_1000_cb.set_group(self.data_power_of_1024_cb)
-        self.data_power_of_1000_cb.set_label("1000")
-        self.data_power_of_1000_cb.set_halign(Gtk.Align.START)
+        self.data_power_of_1000_cb = Common.checkbutton(_tr("1000"), self.data_power_of_1024_cb)
         main_grid.attach(self.data_power_of_1000_cb, 1, 11, 1, 1)
 
         # Separator
