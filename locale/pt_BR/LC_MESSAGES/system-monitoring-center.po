@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-05 12:41+0300\n"
-"PO-Revision-Date: 2022-12-05 12:43+0300\n"
+"PO-Revision-Date: 2022-12-24 20:27-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/Common.py:143
 msgid "Reset"
@@ -72,44 +72,32 @@ msgid "Up Time"
 msgstr "Tempo de Atividade"
 
 #: src/Cpu.py:136 src/Gpu.py:138
-#, fuzzy
-#| msgid "Min-Max Frequency:"
 msgid "Min-Max Frequency"
-msgstr "Frequência Min-Max:"
+msgstr "Frequência Min-Max"
 
 #: src/Cpu.py:143
-#, fuzzy
-#| msgid "Cache (L1d-L1i):"
 msgid "Cache (L1d-L1i)"
-msgstr "Cache (L1d-L1i):"
+msgstr "Cache (L1d-L1i)"
 
 #: src/Cpu.py:150
-#, fuzzy
-#| msgid "Cache (L2-L3):"
 msgid "Cache (L2-L3)"
-msgstr "Cache (L2-L3):"
+msgstr "Cache (L2-L3)"
 
 #: src/Cpu.py:157
-#, fuzzy
-#| msgid "CPU Sockets:"
 msgid "CPU Sockets"
-msgstr "Soquetes de CPU:"
+msgstr "Soquetes de CPU"
 
 #: src/Cpu.py:164
-#, fuzzy
-#| msgid "Cores (Physical-Logical):"
 msgid "Cores (Physical-Logical)"
-msgstr "Núcleos (Físicos-Lógicos):"
+msgstr "Núcleos (Físicos-Lógicos)"
 
 #: src/Cpu.py:165
 msgid "Number of online physical and logical CPU cores"
 msgstr "Número de núcleos de CPU físicos e lógicos online"
 
 #: src/Cpu.py:172 src/System.py:223
-#, fuzzy
-#| msgid "Architecture:"
 msgid "Architecture"
-msgstr "Arquitetura:"
+msgstr "Arquitetura"
 
 #: src/Cpu.py:215 src/CpuMenu.py:54
 msgid "CPU Usage (Per Core)"
@@ -122,8 +110,6 @@ msgstr "Desconhecido"
 
 #: src/CpuMenu.py:41 src/DiskMenu.py:41 src/MemoryMenu.py:41
 #: src/NetworkMenu.py:41
-#, fuzzy
-#| msgid "Chart - Show"
 msgid "Graph - Show"
 msgstr "Gráfico - Mostrar"
 
@@ -162,8 +148,6 @@ msgstr "Valor medido desde a última inicialização do sistema"
 
 #: src/Disk.py:124 src/Processes.py:685 src/ProcessesDetails.py:524
 #: src/ProcessesMenu.py:223
-#, fuzzy
-#| msgid "Write Data"
 msgid "Written Data"
 msgstr "Dados de Escrita"
 
@@ -209,10 +193,8 @@ msgid "File System"
 msgstr "Sistema de Arquivos"
 
 #: src/Disk.py:313
-#, fuzzy
-#| msgid "(Mass Storage)"
 msgid "Mass Storage"
-msgstr "(Armazenamento em Massa)"
+msgstr "Armazenamento em Massa"
 
 #: src/Disk.py:353
 msgid "Label (File System)"
@@ -232,10 +214,8 @@ msgstr "Swap"
 
 #: src/Disk.py:702 src/Disk.py:703 src/Disk.py:704 src/Disk.py:705
 #: src/Disk.py:707 src/MainWindow.py:1012
-#, fuzzy
-#| msgid "[Not mounted]"
 msgid "Not mounted"
-msgstr "[Não Montado]"
+msgstr "Não Montado"
 
 #: src/Disk.py:799 src/Gpu.py:349 src/Gpu.py:352 src/Network.py:368
 #: src/Network.py:415 src/Services.py:443 src/ServicesDetails.py:348
@@ -263,10 +243,8 @@ msgstr "Unidade de Dados"
 
 #: src/DiskMenu.py:101 src/MemoryMenu.py:89 src/NetworkMenu.py:101
 #: src/ProcessesMenu.py:358 src/ProcessesMenu.py:384
-#, fuzzy
-#| msgid "Show data as powers of:"
 msgid "Show data as powers of"
-msgstr "Mostrar dados como potências de:"
+msgstr "Mostrar dados como potências de"
 
 #: src/DiskMenu.py:122 src/NetworkMenu.py:122 src/ProcessesMenu.py:405
 msgid "Show speed units as multiples of bits"
@@ -274,7 +252,7 @@ msgstr "Mostrar unidades de velocidade como múltiplos de bits"
 
 #: src/DiskMenu.py:137
 msgid "Hide loop, ramdisk, zram disks"
-msgstr ""
+msgstr "Ocultar discos de loop, ramdisk, zram"
 
 #: src/Gpu.py:56 src/GpuMenu.py:36 src/MainWindow.py:299
 #: src/SettingsWindow.py:28
@@ -294,34 +272,24 @@ msgid "Temperature"
 msgstr "Temperatura"
 
 #: src/Gpu.py:145
-#, fuzzy
-#| msgid "Boot VGA:"
 msgid "Boot VGA"
-msgstr "Inicialização VGA:"
+msgstr "Inicialização VGA"
 
 #: src/Gpu.py:152
-#, fuzzy
-#| msgid "Power Usage:"
 msgid "Power Usage"
-msgstr "Uso de Energia:"
+msgstr "Uso de Energia"
 
 #: src/Gpu.py:159
-#, fuzzy
-#| msgid "Driver:"
 msgid "Driver"
-msgstr "Driver:"
+msgstr "Driver"
 
 #: src/Gpu.py:166
-#, fuzzy
-#| msgid "Refresh Rate:"
 msgid "Refresh Rate"
-msgstr "Taxa de Atualização:"
+msgstr "Taxa de Atualização"
 
 #: src/Gpu.py:173
-#, fuzzy
-#| msgid "Resolution:"
 msgid "Resolution"
-msgstr "Resolução:"
+msgstr "Resolução"
 
 #: src/MainWindow.py:72 src/MainWindow.py:506
 msgid "System Monitoring Center"
@@ -329,7 +297,7 @@ msgstr "Central de Monitoramento do Sistema"
 
 #: src/MainWindow.py:112
 msgid "Customization menu for the current tab"
-msgstr ""
+msgstr "Menu de personalização para a guia atual"
 
 #: src/MainWindow.py:146 src/MainWindow.py:890 src/Memory.py:115
 #: src/Memory.py:574 src/MemoryMenu.py:47 src/Performance.py:955
@@ -427,10 +395,8 @@ msgid "Available"
 msgstr "Disponível"
 
 #: src/Memory.py:146
-#, fuzzy
-#| msgid "Hardware:"
 msgid "Hardware"
-msgstr "Hardware:"
+msgstr "Hardware"
 
 #: src/Memory.py:261 src/Memory.py:572
 msgid "Physical RAM"
@@ -491,50 +457,36 @@ msgid "Upload Speed"
 msgstr "Velocidade de Upload"
 
 #: src/Network.py:123
-#, fuzzy
-#| msgid "Downloaded Data"
 msgid "Downloaded Data"
 msgstr "Dados Baixados"
 
 #: src/Network.py:123
-#, fuzzy
-#| msgid "Uploaded Data"
 msgid "Uploaded Data"
 msgstr "Dados Carregados"
 
 #: src/Network.py:136
-#, fuzzy
-#| msgid "Connection Type:"
 msgid "Connection Type"
-msgstr "Tipo de Conexão:"
+msgstr "Tipo de Conexão"
 
 #: src/Network.py:143
-#, fuzzy
-#| msgid "Connected-SSID:"
 msgid "Connected-SSID"
-msgstr "SSID Conectado:"
+msgstr "SSID Conectado"
 
 #: src/Network.py:150
 msgid "Link Quality"
-msgstr ""
+msgstr "Qualidade do Link"
 
 #: src/Network.py:157
-#, fuzzy
-#| msgid "IPv4 Address:"
 msgid "IPv4 Address"
-msgstr "Endereço IPv4:"
+msgstr "Endereço IPv4"
 
 #: src/Network.py:164
-#, fuzzy
-#| msgid "IPv6 Address:"
 msgid "IPv6 Address"
-msgstr "Endereço IPv6:"
+msgstr "Endereço IPv6"
 
 #: src/Network.py:171
-#, fuzzy
-#| msgid "MAC Address:"
 msgid "MAC Address"
-msgstr "Endereço MAC:"
+msgstr "Endereço MAC"
 
 #: src/Network.py:303
 msgid "Virtual Network Interface"
@@ -555,24 +507,20 @@ msgid "Search..."
 msgstr "Procurar..."
 
 #: src/Processes.py:162
-#, fuzzy
-#| msgid "Continue Process"
 msgid "Pause Process"
-msgstr "Continuar Processo"
+msgstr "Pausar Processo"
 
 #: src/Processes.py:163
 msgid "Continue Process"
 msgstr "Continuar Processo"
 
 #: src/Processes.py:164
-#, fuzzy
-#| msgid "Processes"
 msgid "End Process"
-msgstr "Processos"
+msgstr "Finalizar Processo"
 
 #: src/Processes.py:165
 msgid "End Process Immediately"
-msgstr ""
+msgstr "Finalizar Processo Imediatamente"
 
 #: src/Processes.py:171
 msgid "Very High"
@@ -615,16 +563,12 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: src/Processes.py:369
-#, fuzzy
-#| msgid "Do you want to kill this process?"
 msgid "Do you want to end this process?"
-msgstr "Deseja matar este processo?"
+msgstr "Deseja finalizar este processo?"
 
 #: src/Processes.py:375
-#, fuzzy
-#| msgid "Do you want to terminate this process?"
 msgid "Do you want to end this process immediately?"
-msgstr "Deseja encerrar este processo?"
+msgstr "Deseja finalizar este processo imediatamente?"
 
 #: src/Processes.py:677 src/ProcessesDetails.py:120 src/ProcessesDetails.py:775
 #: src/ProcessesMenu.py:175
@@ -782,11 +726,11 @@ msgstr "Mostrar linhas de árvore"
 
 #: src/ProcessesMenu.py:137
 msgid "Expand all"
-msgstr ""
+msgstr "Expandir todos"
 
 #: src/ProcessesMenu.py:142
 msgid "Collapse all"
-msgstr ""
+msgstr "Recolher todos"
 
 #: src/Sensors.py:105
 msgid "Sensor Group"
@@ -961,31 +905,27 @@ msgstr "Antes"
 
 #: src/SettingsWindow.py:24
 msgid "Light"
-msgstr ""
+msgstr "Claro"
 
 #: src/SettingsWindow.py:24
 msgid "Dark"
-msgstr ""
+msgstr "Escuro"
 
 #: src/SettingsWindow.py:63
 msgid "Language (Requires restart)"
-msgstr ""
+msgstr "Idioma (requer reinicialização)"
 
 #: src/SettingsWindow.py:71
 msgid "Light/Dark theme"
-msgstr ""
+msgstr "Tema Claro/Escuro"
 
 #: src/SettingsWindow.py:83
-#, fuzzy
-#| msgid "Update interval (seconds):"
 msgid "Update interval (seconds)"
-msgstr "Intervalo de Atualização (segundos):"
+msgstr "Intervalo de Atualização (segundos)"
 
 #: src/SettingsWindow.py:91
-#, fuzzy
-#| msgid "Chart data history:"
 msgid "Graph data history"
-msgstr "Histórico de dados do gráfico:"
+msgstr "Histórico de dados do gráfico"
 
 #: src/SettingsWindow.py:105
 msgid "Show performance summary on the headerbar"
@@ -996,16 +936,13 @@ msgid "Remember last opened tabs"
 msgstr "Lembrar das últimas abas abertas"
 
 #: src/SettingsWindow.py:124
-#, fuzzy
-#| msgid "Default main tab:"
 msgid "Default main tab and sub-tab"
-msgstr "Aba principal predefinida:"
+msgstr "Aba principal predefinida"
 
 #: src/SettingsWindow.py:142
-#, fuzzy
 #| msgid "Remember last selected hardware"
 msgid "Remember last selected devices"
-msgstr "Lembrar o último hardware selecionado"
+msgstr "Lembrar os últimos dispositivos selecionados"
 
 #: src/SettingsWindow.py:152
 msgid "Remember window size"
@@ -1020,10 +957,8 @@ msgid "(If the application is run without root privileges.)"
 msgstr "(Se a aplicação for executada sem privilégios de root)"
 
 #: src/SettingsWindow.py:185
-#, fuzzy
-#| msgid "Reset all settings of the application to defaults"
 msgid "Reset all settings of the application"
-msgstr "Redefinir todas as configurações do aplicativo para os padrões"
+msgstr "Redefinir todas as configurações do aplicativo"
 
 #: src/SettingsWindow.py:713
 msgid "Do you want to reset all settings to defaults?"
@@ -1038,116 +973,84 @@ msgid "Computer"
 msgstr "Computador"
 
 #: src/System.py:117
-#, fuzzy
-#| msgid "Version - Code Name:"
 msgid "Version - Code Name"
-msgstr "Versão - Codinome:"
+msgstr "Versão - Codinome"
 
 #: src/System.py:124
-#, fuzzy
-#| msgid "OS Family:"
 msgid "OS Family"
-msgstr "Família do S.O.:"
+msgstr "Família do S.O."
 
 #: src/System.py:131
-#, fuzzy
-#| msgid "Based On:"
 msgid "Based On"
-msgstr "Baseado Em:"
+msgstr "Baseado Em"
 
 #: src/System.py:138
-#, fuzzy
-#| msgid "Kernel Release:"
 msgid "Kernel Release"
-msgstr "Release do Kernel:"
+msgstr "Release do Kernel"
 
 #: src/System.py:145
-#, fuzzy
-#| msgid "Kernel Version:"
 msgid "Kernel Version"
-msgstr "Versão do Kernel:"
+msgstr "Versão do Kernel"
 
 #: src/System.py:159
 msgid "Graphical User Interface (GUI)"
 msgstr "Interface Gráfica (GUI)"
 
 #: src/System.py:163
-#, fuzzy
-#| msgid "Desktop Environment:"
 msgid "Desktop Environment"
-msgstr "Ambiente de Trabalho:"
+msgstr "Ambiente de Trabalho"
 
 #: src/System.py:170
-#, fuzzy
-#| msgid "Windowing System:"
 msgid "Windowing System"
-msgstr "Sistema de janelas:"
+msgstr "Sistema de janelas"
 
 #: src/System.py:177
-#, fuzzy
-#| msgid "Window Manager:"
 msgid "Window Manager"
-msgstr "Gerenciador de Janelas:"
+msgstr "Gerenciador de Janelas"
 
 #: src/System.py:184
-#, fuzzy
-#| msgid "Display Manager:"
 msgid "Display Manager"
-msgstr "Gerenciador de Exibição:"
+msgstr "Gerenciador de Exibição"
 
 #: src/System.py:195
-#, fuzzy
-#| msgid "Vendor:"
 msgid "Vendor"
-msgstr "Fabricante:"
+msgstr "Fabricante"
 
 #: src/System.py:202
-#, fuzzy
-#| msgid "Model:"
 msgid "Model"
-msgstr "Modelo:"
+msgstr "Modelo"
 
 #: src/System.py:209
-#, fuzzy
-#| msgid "Computer Type:"
 msgid "Computer Type"
-msgstr "Tipo de Computador:"
+msgstr "Tipo de Computador"
 
 #: src/System.py:230
-#, fuzzy
-#| msgid "Number Of Monitors:"
 msgid "Number Of Monitors"
-msgstr "Número de Monitores (Telas):"
+msgstr "Número de Monitores (Telas)"
 
 #: src/System.py:239
 msgid "Packages"
 msgstr "Pacotes"
 
 #: src/System.py:258
-#, fuzzy
-#| msgid "Flatpak:"
 msgid "Flatpak"
-msgstr "Flatpak:"
+msgstr "Flatpak"
 
 #: src/System.py:259
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "Número de Aplicativos e Runtimes Flatpak instalados"
 
 #: src/System.py:266
-#, fuzzy
-#| msgid "GTK Version:"
 msgid "GTK Version"
-msgstr "Versão do GTK:"
+msgstr "Versão do GTK"
 
 #: src/System.py:267 src/System.py:275
 msgid "Version for the currently running software"
-msgstr ""
+msgstr "Versão para o software atualmente em execução"
 
 #: src/System.py:274
-#, fuzzy
-#| msgid "Python Version:"
 msgid "Python Version"
-msgstr "Versão do Python:"
+msgstr "Versão do Python"
 
 #: src/Users.py:228 src/UsersDetails.py:76 src/UsersMenu.py:96
 msgid "Full Name"
