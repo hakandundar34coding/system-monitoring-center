@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v1.37.0 (25.12.2022)
+  * Updated Portuguese (Brazilian) translations
+
 ### v1.36.0 (08.12.2022)
   * New: Single menu button for all customization menus
   * Minor visual simplifications for customization menus
