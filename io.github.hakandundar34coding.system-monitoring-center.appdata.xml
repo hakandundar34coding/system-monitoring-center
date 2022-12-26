@@ -73,6 +73,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.3.0" date="2022-12-26">
+      <description>
+        <ul>
+          <li>Updated Portuguese (Portugal) translations</li>
+          <li>Updated dependency version (Flatpak)</li>
+          <li>Fix: Show processes of current user</li>
+          <li>Minor improvements (bug fix, code simplifications, etc.)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.2.0" date="2022-12-05">
       <description>
         <ul>
