@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v1.37.1 (26.12.2022)
+  * Fix: Show processes of current user
+
 ### v1.37.0 (25.12.2022)
   * Updated Portuguese (Brazilian) translations
 

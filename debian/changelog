@@ -1,3 +1,9 @@
+system-monitoring-center (1.37.1) unstable; urgency=medium
+
+  * Fix: Show processes of current user
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 26 Dec 2022 09:20:00 +0300
+
 system-monitoring-center (1.37.0) unstable; urgency=medium
 
   * Updated Portuguese (Brazilian) translations
