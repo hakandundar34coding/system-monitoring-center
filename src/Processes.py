@@ -827,16 +827,17 @@ class Processes:
         # of times integer to string conversion. Commandlines will be used for determining full names of the
         # processes if their names are longer than 15 characters.
         cmdline_list = []
-        for line in ps_output_lines:
+        for line in ps_output_lines[:]:
             line_split = line[pid_column_index:].split()
             username = line_split[1]
             if show_processes_of_all_users == 0 and username != current_user_name:
+                # Remove the line from the list. Because "ps_output_lines" list will be used for getting process information.
+                ps_output_lines.remove(line)
                 continue
-            else:
-                pid_list.append(line_split[0])
-                username_list.append(username)
-                ppid_list.append(line_split[8])
-                cmdline_list.append(line[cmdline_column_index:].strip())
+            pid_list.append(line_split[0])
+            username_list.append(username)
+            ppid_list.append(line_split[8])
+            cmdline_list.append(line[cmdline_column_index:].strip())
 
         # Get process data.
         # Get process names, images and CPU times for calculating usage information.
