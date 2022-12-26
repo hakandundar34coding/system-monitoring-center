@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v2.3.0 (26.12.2022)
+  * Updated Portuguese (Brazilian) translations
+  * Updated dependency version (Flatpak)
+  * Fix: Show processes of current user
+  * Minor improvements (bug fix, code simplifications, etc.)
+
+### v1.37.1 (26.12.2022)
+  * Fix: Show processes of current user
+
 ### v1.37.0 (25.12.2022)
   * Updated Portuguese (Brazilian) translations
 

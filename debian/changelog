@@ -1,3 +1,12 @@
+system-monitoring-center (2.3.0) unstable; urgency=medium
+
+  * Updated Portuguese (Brazilian) translations
+  * Updated dependency version (Flatpak)
+  * Fix: Show processes of current user
+  * Minor improvements (bug fix, code simplifications, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 26 Dec 2022 10:00:00 +0300
+
 system-monitoring-center (2.2.0) unstable; urgency=medium
 
   * New: Adw. theme is set for the GUI
