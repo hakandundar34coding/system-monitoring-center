@@ -99,7 +99,7 @@ msgstr "Кэш (L2-L3)"
 #, fuzzy
 #| msgid "CPU Sockets:"
 msgid "CPU Sockets"
-msgstr "Сокеты CPU"
+msgstr "Сокеты ЦП"
 
 #: src/Cpu.py:160
 #, fuzzy
@@ -109,7 +109,7 @@ msgstr "Ядра (Физ.-Лог.):"
 
 #: src/Cpu.py:161
 msgid "Number of online physical and logical CPU cores"
-msgstr "Количество включенных физических и логических ядер CPU"
+msgstr "Количество включенных физических и логических ядер ЦП"
 
 #: src/Cpu.py:168 src/System.py:221
 #, fuzzy
@@ -403,7 +403,7 @@ msgstr "Многофункциональный системный монитор
 
 #: src/MainWindow.py:881
 msgid "CPU core selection affects only frequency and cache memory information."
-msgstr "Выбор ядра CPU влияет только на информацию о частоте и кэше."
+msgstr "Выбор ядра ЦП влияет только на информацию о частоте и кэше."
 
 #: src/MainWindow.py:885 src/Memory.py:149 src/Memory.py:378 src/Memory.py:575
 #: src/Performance.py:1283 src/ProcessesDetails.py:438
@@ -719,7 +719,7 @@ msgstr "Потоки (TID)"
 
 #: src/ProcessesDetails.py:325
 msgid "Used CPU Core(s)"
-msgstr "Использованное(ые) ядро(а) CPU"
+msgstr "Использованное(ые) ядро(а) ЦП"
 
 #: src/ProcessesDetails.py:335
 msgid "CPU Times"
