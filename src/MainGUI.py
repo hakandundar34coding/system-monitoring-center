@@ -129,7 +129,8 @@ class MainGUI:
     # ----------------------- Called for running code/functions when window is closed -----------------------
     def on_window1_destroy(self, widget):
 
-        Gtk.main_quit()
+        import sys
+        sys.exit()
 
 
     # ----------------------- Called for running code/functions when window is closed -----------------------
