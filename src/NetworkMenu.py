@@ -93,11 +93,11 @@ class NetworkMenu:
         main_grid.attach(label, 0, 11, 2, 1)
 
         # CheckButton (1024)
-        self.data_power_of_1024_cb = Common.checkbutton(_tr("1024"), None)
+        self.data_power_of_1024_cb = Common.checkbutton("1024", None)
         main_grid.attach(self.data_power_of_1024_cb, 0, 12, 1, 1)
 
         # CheckButton (1000)
-        self.data_power_of_1000_cb = Common.checkbutton(_tr("1000"), self.data_power_of_1024_cb)
+        self.data_power_of_1000_cb = Common.checkbutton("1000", self.data_power_of_1024_cb)
         main_grid.attach(self.data_power_of_1000_cb, 1, 12, 1, 1)
 
         # CheckButton (Show speed units as multiples of bits)

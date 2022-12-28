@@ -711,12 +711,12 @@ class Disk:
         # file contains file system information as in user space. To be able to get the
         # actual file system, root access is needed for reading from some files or 
         # "lsblk" tool could be used.
+        disk_for_file_system = "/dev/" + selected_disk
+        command_list = ["lsblk", "-no", "FSTYPE", disk_for_file_system]
+        if Config.environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
         try:
-            disk_for_file_system = "/dev/" + selected_disk
-            if Config.environment_type == "flatpak":
-                disk_file_system = (subprocess.check_output(["flatpak-spawn", "--host", "lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
-            else:
-                disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
+            disk_file_system = (subprocess.check_output(command_list, shell=False)).decode().strip()
         except Exception:
             disk_file_system = "fuseblk"
 

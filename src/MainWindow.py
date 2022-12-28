@@ -34,7 +34,7 @@ class MainWindow():
 
         self.application_system_integration()
 
-        # Add images to the image theme. These images are used for application GUI.
+        # Add GUI images to the image theme.
         image_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
         image_theme.add_search_path(os.path.dirname(os.path.realpath(__file__)) + "/../icons")
 
@@ -94,14 +94,11 @@ class MainWindow():
         self.main_grid.set_margin_end(5)
         self.main_window.set_child(self.main_grid)
 
-        # Main menu
-        self.main_menu_gui()
-
         # MenuButton (Main menu)
         self.main_menu_menubutton = Gtk.MenuButton()
         self.main_menu_menubutton.set_icon_name("open-menu-symbolic")
         self.main_menu_menubutton.set_has_frame(False)
-        self.main_menu_menubutton.set_popover(self.main_menu_po_menu)
+        self.main_menu_menubutton.set_create_popup_func(self.main_menu_gui)
         self.main_menu_menubutton.set_direction(Gtk.ArrowType.DOWN)
         self.window_headerbar.pack_end(self.main_menu_menubutton)
 
@@ -410,10 +407,14 @@ class MainWindow():
         self.check_for_updates()
 
 
-    def main_menu_gui(self):
+    def main_menu_gui(self, val=None):
         """
         Generate main menu GUI.
         """
+
+        # Prevent generating menu on every MenuButton click
+        if hasattr(self, "main_menu_po_menu") == True:
+            return
 
         # Menu actions
         # "General Settings" action
@@ -433,6 +434,9 @@ class MainWindow():
         # Popover menu
         self.main_menu_po_menu = Gtk.PopoverMenu()
         self.main_menu_po_menu.set_menu_model(main_menu_model)
+
+        # Set PopoverMenu of MenuButton
+        self.main_menu_menubutton.set_popover(self.main_menu_po_menu)
 
 
     def on_main_menu_settings_button_clicked(self, action, parameter):
@@ -508,7 +512,7 @@ class MainWindow():
         self.about_dialog.set_license_type(Gtk.License.GPL_3_0)
         self.about_dialog.set_translator_credits(translators)
         # Hide the window/dialog when it is closed. Otherwise, it is deleted.
-        # But opening window/dialog multiple times without deleting it consumes more memory each time.
+        # But opening window/dialog multiple times after deleting it consumes more memory each time.
         self.about_dialog.set_hide_on_close(True)
 
 
