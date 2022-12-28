@@ -57,12 +57,13 @@ class MainMenusDialogs:
         # Define translators dictionary
         translators_dict = {"cs": "panmourovaty",
                            "de": "Baumfinder",
+                           "es": "haggen88",
                            "fa": "MasterKia",
                            "hu": "Kálmán Szalai",
                            "pl": "ski007, K0RR, sdorpl",
                            "pt_BR": "Bruno do Nascimento",
-                           "pt_PT": "Ricardo Simões",
-                           "ru_RU": "akorny",
+                           "pt_PT": "Hugo Carvalho, Ricardo Simões",
+                           "ru_RU": "badcast, akorny",
                            "tr": "Hakan Dündar"
                            }
 

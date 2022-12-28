@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-25 10:02+0300\n"
+"POT-Creation-Date: 2022-12-28 16:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,7 +48,7 @@ msgid "Swap"
 msgstr ""
 
 #: src/Disk.py:355 src/Disk.py:356 src/Disk.py:357 src/Disk.py:358
-#: src/Disk.py:360 src/MainGUI.py:833
+#: src/Disk.py:360 src/MainGUI.py:848
 msgid "Not mounted"
 msgstr ""
 
@@ -63,33 +63,33 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/MainGUI.py:201
+#: src/MainGUI.py:216
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
 msgstr ""
 
-#: src/MainGUI.py:396
+#: src/MainGUI.py:411
 msgid "There is a newer version on PyPI."
 msgstr ""
 
-#: src/MainGUI.py:698 src/SettingsGUI.py:53 ui/MainWindow.ui:182
+#: src/MainGUI.py:713 src/SettingsGUI.py:53 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:633 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
 msgstr ""
 
-#: src/MainGUI.py:708
+#: src/MainGUI.py:723
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 
-#: src/MainGUI.py:712 src/Memory.py:169 src/Performance.py:1122
+#: src/MainGUI.py:727 src/Memory.py:169 src/Performance.py:1122
 #: src/Performance.py:1452 ui/MainWindow.ui:920 ui/MemoryMenus.ui:100
 #: ui/MemoryTab.ui:28
 msgid "RAM"
 msgstr ""
 
-#: src/MainGUI.py:712 src/Memory.py:196 src/Performance.py:1452
+#: src/MainGUI.py:727 src/Memory.py:196 src/Performance.py:1452
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:642
 #: ui/ProcessesDetailsWindow.ui:1066
 msgid "Swap Memory"
@@ -182,7 +182,7 @@ msgstr ""
 msgid "CPU"
 msgstr ""
 
-#: src/Performance.py:1131 src/Processes.py:757 src/SettingsGUI.py:52
+#: src/Performance.py:1131 src/Processes.py:758 src/SettingsGUI.py:52
 #: src/Users.py:124 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
@@ -314,7 +314,7 @@ msgstr ""
 msgid "Stopped"
 msgstr ""
 
-#: src/Processes.py:757 src/Sensors.py:333 src/Services.py:491 src/Users.py:466
+#: src/Processes.py:758 src/Sensors.py:333 src/Services.py:491 src/Users.py:466
 #: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:79
 #: ui/UsersTab.ui:66
 msgid "Search..."

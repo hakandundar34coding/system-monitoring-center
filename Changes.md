@@ -1,5 +1,15 @@
 # System Monitoring Center
 
+### v1.38.0 (28.12.2022)
+  * New: Spanish translations
+  * Fix: Close app. when process details window is open
+
+### v2.3.0 (26.12.2022)
+  * Updated Portuguese (Brazilian) translations
+  * Updated dependency version (Flatpak)
+  * Fix: Show processes of current user
+  * Minor improvements (bug fix, code simplifications, etc.)
+
 ### v1.37.1 (26.12.2022)
   * Fix: Show processes of current user
 

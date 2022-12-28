@@ -16,7 +16,10 @@ class Config:
         # Define read-only values
         # number_precision_list data info: [[ordering number, used in the code to get data, data unit, precision number], ...]
         self.number_precision_list = [[0, '0', 0], [1, '0.0', 1], [2, '0.00', 2], [3, '0.000', 3]]
-        self.language_dict = {"system":"System", "cs.UTF-8":"čeština", "de.UTF-8":"Deutsch", "en_US.UTF-8":"English (US)", "fa.UTF-8":"فارسی", "hu.UTF-8":"Magyar", "pl.UTF-8":"polski", "pt_BR.UTF-8":"português do Brasil", "pt_PT.UTF-8":"português europeu", "ru_RU.UTF-8":"Русский", "tr.UTF-8":"Türkçe"}
+        self.language_dict = {"system":"System", "cs.UTF-8":"čeština", "de.UTF-8":"Deutsch",
+                              "en_US.UTF-8":"English (US)", "es":"Español", "fa.UTF-8":"فارسی",
+                              "hu.UTF-8":"Magyar", "pl.UTF-8":"polski", "pt_BR.UTF-8":"português do Brasil",
+                              "pt_PT.UTF-8":"português europeu", "ru_RU.UTF-8":"Русский", "tr.UTF-8":"Türkçe"}
 
         # Read settings
         self.config_read_func()

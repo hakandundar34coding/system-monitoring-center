@@ -128,9 +128,23 @@ class MainGUI:
 
     # ----------------------- Called for running code/functions when window is closed -----------------------
     def on_window1_destroy(self, widget):
+        """
+        Hide all Process Details windows and delete objects of them.
+        More than one Process Details windows can be shown at the same time.
+        There may be user session problems if main window is closed without closing Process Details windows.
+        """
 
-        import sys
-        sys.exit()
+        # Check if Processes module is imported in order to prevent importing Processes and ProcessesDetails modules.
+        if "Processes" in globals():
+            try:
+                import ProcessesDetails
+                for process_details in ProcessesDetails.processes_details_object_list:
+                    process_details.window2101w.hide()
+                    del process_details
+            except Exception:
+                pass
+
+        Gtk.main_quit()
 
 
     # ----------------------- Called for running code/functions when window is closed -----------------------
