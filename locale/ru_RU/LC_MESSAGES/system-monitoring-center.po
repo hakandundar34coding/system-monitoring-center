@@ -43,7 +43,7 @@ msgstr "Поиск..."
 #: src/ProcessesMenu.py:311 src/SettingsWindow.py:28 src/Users.py:235
 #: src/UsersDetails.py:166 src/UsersMenu.py:150
 msgid "CPU"
-msgstr ""
+msgstr "ЦП"
 
 #: src/Cpu.py:56 src/Disk.py:57 src/Disk.py:318 src/Gpu.py:59 src/Network.py:56
 msgid "Vendor-Model"
@@ -55,7 +55,7 @@ msgstr "Название устройства в ядре ОС"
 
 #: src/Cpu.py:79 src/Cpu.py:194 src/CpuMenu.py:47 src/ProcessesDetails.py:270
 msgid "CPU Usage (Average)"
-msgstr "Средняя нагрузка на CPU"
+msgstr "Средняя нагрузка на ЦП"
 
 #: src/Cpu.py:114
 msgid "Average Usage"
@@ -63,9 +63,9 @@ msgstr "Средняя нагрузка"
 
 #: src/Cpu.py:114
 msgid "Average CPU usage of all cores"
-msgstr "Среднее нагрузка на CPU среди всех ядер"
+msgstr "Среднее нагрузка на ЦП среди всех ядер"
 
-#: src/Cpu.py:114 src/Gpu.py:122
+#: src/Cpu.py:114 src/Gpu.py:122"
 msgid "Frequency"
 msgstr "Частота"
 
@@ -99,7 +99,7 @@ msgstr "Кэш (L2-L3)"
 #, fuzzy
 #| msgid "CPU Sockets:"
 msgid "CPU Sockets"
-msgstr "Сокеты CPU:"
+msgstr "Сокеты ЦП"
 
 #: src/Cpu.py:160
 #, fuzzy
@@ -109,17 +109,17 @@ msgstr "Ядра (Физ.-Лог.):"
 
 #: src/Cpu.py:161
 msgid "Number of online physical and logical CPU cores"
-msgstr "Количество включенных физических и логических ядер CPU"
+msgstr "Количество включенных физических и логических ядер ЦП"
 
 #: src/Cpu.py:168 src/System.py:221
 #, fuzzy
 #| msgid "Architecture:"
 msgid "Architecture"
-msgstr "Архитектура:"
+msgstr "Архитектура"
 
 #: src/Cpu.py:196 src/CpuMenu.py:54
 msgid "CPU Usage (Per Core)"
-msgstr "Нагрузка на ядра CPU"
+msgstr "Нагрузка на ядра ЦП"
 
 #: src/Cpu.py:438 src/Disk.py:595 src/Disk.py:597 src/Gpu.py:384 src/Gpu.py:386
 #: src/Network.py:274 src/Network.py:276
@@ -285,11 +285,11 @@ msgstr "Спрятать loop, ramdisk, zram диски"
 #: src/Gpu.py:54 src/GpuMenu.py:36 src/MainWindow.py:298
 #: src/SettingsWindow.py:28
 msgid "GPU"
-msgstr ""
+msgstr "ГПУ"
 
 #: src/Gpu.py:82 src/Gpu.py:117
 msgid "GPU Usage"
-msgstr "Нагрузка GPU"
+msgstr "Нагрузка ГПУ"
 
 #: src/Gpu.py:117
 msgid "Video Memory"
@@ -303,7 +303,7 @@ msgstr "Темература"
 #, fuzzy
 #| msgid "Boot VGA:"
 msgid "Boot VGA"
-msgstr "Загрузочный VGA:"
+msgstr "Загрузочный VGA"
 
 #: src/Gpu.py:148
 #, fuzzy
@@ -335,13 +335,13 @@ msgstr "Центр мониторинга системы"
 
 #: src/MainWindow.py:111
 msgid "Customization menu for the current tab"
-msgstr ""
+msgstr "Пользовательское меню для текущей странницы"
 
 #: src/MainWindow.py:145 src/MainWindow.py:885 src/Memory.py:111
 #: src/Memory.py:546 src/MemoryMenu.py:47 src/Performance.py:954
 #: src/Performance.py:1283
 msgid "RAM"
-msgstr ""
+msgstr "ОЗУ"
 
 #: src/MainWindow.py:155 src/MainWindow.py:293 src/Network.py:51
 #: src/NetworkMenu.py:37 src/SettingsWindow.py:28
@@ -403,7 +403,7 @@ msgstr "Многофункциональный системный монитор
 
 #: src/MainWindow.py:881
 msgid "CPU core selection affects only frequency and cache memory information."
-msgstr "Выбор ядра CPU влияет только на информацию о частоте и кэше."
+msgstr "Выбор ядра ЦП влияет только на информацию о частоте и кэше."
 
 #: src/MainWindow.py:885 src/Memory.py:149 src/Memory.py:378 src/Memory.py:575
 #: src/Performance.py:1283 src/ProcessesDetails.py:438
@@ -434,7 +434,7 @@ msgstr "Доступно"
 #, fuzzy
 #| msgid "Hardware:"
 msgid "Hardware"
-msgstr "Аппаратное обеспечение:"
+msgstr "Аппаратное обеспечение"
 
 #: src/Memory.py:233 src/Memory.py:544
 msgid "Physical RAM"
@@ -462,11 +462,11 @@ msgstr "Форм-фактор"
 
 #: src/Memory.py:344 src/Memory.py:364
 msgid "Locator"
-msgstr ""
+msgstr "Местоположение"
 
 #: src/Memory.py:345 src/Memory.py:365
 msgid "Bank Locator"
-msgstr ""
+msgstr "Хранилище местоположения"
 
 #: src/Memory.py:418 src/ProcessesDetails.py:83
 msgid "File"
@@ -520,7 +520,7 @@ msgstr "Подключен-SSID:"
 
 #: src/Network.py:146
 msgid "Link Quality"
-msgstr ""
+msgstr "Качество соединение"
 
 #: src/Network.py:153
 #, fuzzy
@@ -570,7 +570,7 @@ msgstr "Процессы"
 
 #: src/Processes.py:163
 msgid "End Process Immediately"
-msgstr ""
+msgstr "Остановить процессы принудительно"
 
 #: src/Processes.py:169
 msgid "Very High"
@@ -719,7 +719,7 @@ msgstr "Потоки (TID)"
 
 #: src/ProcessesDetails.py:325
 msgid "Used CPU Core(s)"
-msgstr "Использованное(ые) ядро(а) CPU"
+msgstr "Использованное(ые) ядро(а) ЦП"
 
 #: src/ProcessesDetails.py:335
 msgid "CPU Times"
@@ -780,11 +780,11 @@ msgstr "Показать линии дерева"
 
 #: src/ProcessesMenu.py:137
 msgid "Expand all"
-msgstr ""
+msgstr "Расскрыть все"
 
 #: src/ProcessesMenu.py:142
 msgid "Collapse all"
-msgstr ""
+msgstr "Свернуть все"
 
 #: src/Sensors.py:102
 msgid "Sensor Group"
@@ -847,11 +847,11 @@ msgstr "Основной PID"
 
 #: src/Services.py:407 src/ServicesDetails.py:129 src/ServicesMenu.py:108
 msgid "Active State"
-msgstr "Активное состояние"
+msgstr "Активное Состояние"
 
 #: src/Services.py:408 src/ServicesDetails.py:119 src/ServicesMenu.py:114
 msgid "Load State"
-msgstr "Состояние загрузки"
+msgstr "Состояние Загрузки"
 
 #: src/Services.py:409 src/ServicesDetails.py:139 src/ServicesMenu.py:120
 msgid "Sub-State"
@@ -923,7 +923,7 @@ msgstr "Зависимости"
 
 #: src/ServicesDetails.py:109
 msgid "Unit File State - Preset"
-msgstr ""
+msgstr "Положение файла - Представление"
 
 #: src/ServicesDetails.py:159
 msgid "Documentation"
@@ -959,19 +959,19 @@ msgstr "До"
 
 #: src/SettingsWindow.py:24
 msgid "Light"
-msgstr ""
+msgstr "Светлый"
 
 #: src/SettingsWindow.py:24
 msgid "Dark"
-msgstr ""
+msgstr "Темный"
 
 #: src/SettingsWindow.py:63
 msgid "Language (Requires restart)"
-msgstr ""
+msgstr "Язык (Требуется перезапуск)"
 
 #: src/SettingsWindow.py:71
 msgid "Light/Dark theme"
-msgstr ""
+msgstr "Светлая/Темная тема"
 
 #: src/SettingsWindow.py:83
 #, fuzzy
@@ -1131,11 +1131,11 @@ msgstr "Количество установленный Flatpak приложен
 #, fuzzy
 #| msgid "GTK Version:"
 msgid "GTK Version"
-msgstr "Версия GTK:"
+msgstr "Версия GTK"
 
 #: src/System.py:265 src/System.py:273
 msgid "Version for the currently running software"
-msgstr ""
+msgstr "Текущая версия запускаемого ПО"
 
 #: src/System.py:272
 #, fuzzy
