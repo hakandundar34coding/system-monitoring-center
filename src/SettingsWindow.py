@@ -20,7 +20,10 @@ class SettingsWindow:
     def __init__(self):
 
         # Define data lists in order to add them into comboboxes.
-        self.language_dict = {"system":_tr("System"), "cs.UTF-8":"čeština", "de.UTF-8":"Deutsch", "en_US.UTF-8":"English (US)", "fa.UTF-8":"فارسی", "hu.UTF-8":"Magyar", "pl.UTF-8":"polski", "pt_BR.UTF-8":"português do Brasil", "pt_PT.UTF-8":"português europeu", "ru_RU.UTF-8":"Русский", "tr.UTF-8":"Türkçe"}
+        self.language_dict = {"system":_tr("System"), "cs.UTF-8":"čeština", "de.UTF-8":"Deutsch",
+                              "en_US.UTF-8":"English (US)", "es":"Español", "fa.UTF-8":"فارسی",
+                              "hu.UTF-8":"Magyar", "pl.UTF-8":"polski", "pt_BR.UTF-8":"português do Brasil",
+                              "pt_PT.UTF-8":"português europeu", "ru_RU.UTF-8":"Русский", "tr.UTF-8":"Türkçe"}
         self.gui_theme_dict = {"system":_tr("System"), "light":_tr("Light"), "dark":_tr("Dark")}
         self.update_interval_list = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 5.0, 10.0]
         self.chart_data_history_list = [30, 60, 90, 120, 150, 180, 300, 600, 1200]
