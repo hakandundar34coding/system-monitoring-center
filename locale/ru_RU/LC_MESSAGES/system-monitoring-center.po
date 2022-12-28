@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-28 10:42+0300\n"
-"PO-Revision-Date: 2022-12-28 11:03+0300\n"
+"POT-Creation-Date: 2022-12-28 15:20+0300\n"
+"PO-Revision-Date: 2022-12-28 15:21+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -219,7 +219,7 @@ msgid "Swap"
 msgstr "Подкачка"
 
 #: src/Disk.py:677 src/Disk.py:678 src/Disk.py:679 src/Disk.py:680
-#: src/Disk.py:682 src/MainWindow.py:1011
+#: src/Disk.py:682 src/MainWindow.py:1012
 msgid "Not mounted"
 msgstr "Не смонтирован"
 
@@ -297,7 +297,7 @@ msgstr "Частота обновления"
 msgid "Resolution"
 msgstr "Разрешение"
 
-#: src/MainWindow.py:71 src/MainWindow.py:505
+#: src/MainWindow.py:71 src/MainWindow.py:506
 msgid "System Monitoring Center"
 msgstr "Центр мониторинга системы"
 
@@ -305,7 +305,7 @@ msgstr "Центр мониторинга системы"
 msgid "Customization menu for the current tab"
 msgstr "Пользовательское меню для текущей вкладки"
 
-#: src/MainWindow.py:142 src/MainWindow.py:889 src/Memory.py:111
+#: src/MainWindow.py:142 src/MainWindow.py:890 src/Memory.py:111
 #: src/Memory.py:504 src/MemoryMenu.py:45 src/Performance.py:954
 #: src/Performance.py:1283
 msgid "RAM"
@@ -341,7 +341,7 @@ msgstr "Сервисы"
 msgid "System"
 msgstr "Система"
 
-#: src/MainWindow.py:270 src/MainWindow.py:875 src/ProcessesDetails.py:63
+#: src/MainWindow.py:270 src/MainWindow.py:876 src/ProcessesDetails.py:63
 #: src/ServicesDetails.py:60 src/SettingsWindow.py:28 src/Summary.py:30
 msgid "Summary"
 msgstr "Сводка"
@@ -365,20 +365,20 @@ msgstr "Общие настройки"
 msgid "About"
 msgstr "О программе"
 
-#: src/MainWindow.py:507
+#: src/MainWindow.py:508
 msgid "Multi-featured system monitor."
 msgstr "Многофункциональный системный монитор."
 
-#: src/MainWindow.py:885
+#: src/MainWindow.py:886
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "Выбор ядра ЦП влияет только на информацию о частоте и кэше."
 
-#: src/MainWindow.py:889 src/Memory.py:149 src/Memory.py:378 src/Memory.py:533
+#: src/MainWindow.py:890 src/Memory.py:149 src/Memory.py:378 src/Memory.py:533
 #: src/Performance.py:1283 src/ProcessesDetails.py:438
 msgid "Swap Memory"
 msgstr "Подкачка"
 
-#: src/MainWindow.py:1069
+#: src/MainWindow.py:1070
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -386,7 +386,7 @@ msgstr ""
 "Внимание! Приложение было запущенно с правами администратора, это может "
 "навредить системе."
 
-#: src/MainWindow.py:1148
+#: src/MainWindow.py:1149
 msgid "There is a newer version on PyPI."
 msgstr "В PyPI доступна более новая версия."
 
