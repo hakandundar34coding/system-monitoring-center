@@ -107,7 +107,7 @@ msgstr "Архитектура"
 
 #: src/Cpu.py:196 src/CpuMenu.py:49
 msgid "CPU Usage (Per Core)"
-msgstr "Нагрузка на ядра ЦП"
+msgstr "Использования ЦП (Для каждого ядра)"
 
 #: src/Cpu.py:438 src/Disk.py:595 src/Disk.py:597 src/Gpu.py:384 src/Gpu.py:386
 #: src/Network.py:274 src/Network.py:276
@@ -117,7 +117,7 @@ msgstr "Неизвестный"
 #: src/CpuMenu.py:41 src/DiskMenu.py:41 src/MemoryMenu.py:41
 #: src/NetworkMenu.py:41
 msgid "Graph - Show"
-msgstr ""
+msgstr "Отображение"
 
 #: src/CpuMenu.py:65 src/DiskMenu.py:73 src/MemoryMenu.py:65
 #: src/NetworkMenu.py:73 src/ProcessesMenu.py:262
@@ -200,7 +200,7 @@ msgstr "Файловая система"
 
 #: src/Disk.py:288
 msgid "Mass Storage"
-msgstr "массовое хранилище"
+msgstr "Массовое хранилище"
 
 #: src/Disk.py:328
 msgid "Label (File System)"
@@ -267,7 +267,7 @@ msgstr "ГПУ"
 
 #: src/Gpu.py:82 src/Gpu.py:117
 msgid "GPU Usage"
-msgstr "Нагрузка ГПУ"
+msgstr "Использования ГПУ"
 
 #: src/Gpu.py:117
 msgid "Video Memory"
@@ -303,7 +303,7 @@ msgstr "Центр мониторинга системы"
 
 #: src/MainWindow.py:108
 msgid "Customization menu for the current tab"
-msgstr "Пользовательское меню для текущей странницы"
+msgstr "Пользовательское меню для текущей вкладки"
 
 #: src/MainWindow.py:142 src/MainWindow.py:889 src/Memory.py:111
 #: src/Memory.py:504 src/MemoryMenu.py:45 src/Performance.py:954
@@ -474,7 +474,7 @@ msgstr "Тип подключения"
 
 #: src/Network.py:139
 msgid "Connected-SSID"
-msgstr "Подключен-SSID"
+msgstr "Подключенный-SSID"
 
 #: src/Network.py:146
 msgid "Link Quality"
@@ -506,7 +506,7 @@ msgstr ""
 
 #: src/Processes.py:160
 msgid "Pause Process"
-msgstr ""
+msgstr "Приостановить процесс"
 
 #: src/Processes.py:161
 msgid "Continue Process"
@@ -514,7 +514,7 @@ msgstr "Продолжить процесс"
 
 #: src/Processes.py:162
 msgid "End Process"
-msgstr ""
+msgstr "Остановить процесс"
 
 #: src/Processes.py:163
 msgid "End Process Immediately"
@@ -562,11 +562,11 @@ msgstr "Отменить"
 
 #: src/Processes.py:367
 msgid "Do you want to end this process?"
-msgstr ""
+msgstr "Вы уверены, что хотите остановить текущий процесс?"
 
 #: src/Processes.py:373
 msgid "Do you want to end this process immediately?"
-msgstr ""
+msgstr "Вы уверены, что хотите остановить текущий процесс принудительно?"
 
 #: src/Processes.py:675 src/ProcessesDetails.py:120 src/ProcessesDetails.py:747
 #: src/ProcessesMenu.py:166
@@ -667,7 +667,7 @@ msgstr "Использованное(ые) ядро(а) ЦП"
 
 #: src/ProcessesDetails.py:335
 msgid "CPU Times"
-msgstr "Процессорное время"
+msgstr "Продолжительность ЦП"
 
 #: src/ProcessesDetails.py:345
 msgid "Context Switches"
@@ -1055,7 +1055,7 @@ msgstr "Полное имя"
 
 #: src/Users.py:227 src/UsersDetails.py:86 src/UsersMenu.py:97
 msgid "Logged In"
-msgstr "Вошёл"
+msgstr "Вход выполнен"
 
 #: src/Users.py:231 src/UsersDetails.py:126 src/UsersMenu.py:113
 msgid "Home Directory"
