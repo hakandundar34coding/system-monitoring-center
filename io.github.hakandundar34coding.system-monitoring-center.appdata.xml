@@ -9,6 +9,7 @@
   <project_license>GPL-3.0</project_license>
   <summary>Multi-featured system monitor.</summary>
   <url type="homepage">https://github.com/hakandundar34coding/system-monitoring-center</url>
+  <url type="bugtracker">https://github.com/hakandundar34coding/system-monitoring-center/issues</url>
   <description>
     <p>Multi-featured system monitor.</p>
     <p>Features:</p>
