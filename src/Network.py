@@ -74,15 +74,11 @@ class Network:
         self.tab_grid.attach(grid, 0, 1, 1, 1)
 
         # Label (drawingarea upper-left)
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.START)
-        label.set_label(_tr("Download Speed") + " (-) & " + _tr("Upload Speed") + " (-  -)")
+        label = Common.da_upper_lower_label(_tr("Download Speed") + " (-) & " + _tr("Upload Speed") + " (-  -)", Gtk.Align.START)
         grid.attach(label, 0, 0, 1, 1)
 
         # Label (drawingarea upper-right)
-        self.da_upper_right_label = Gtk.Label()
-        self.da_upper_right_label.set_halign(Gtk.Align.END)
-        self.da_upper_right_label.set_label("--")
+        self.da_upper_right_label = Common.da_upper_lower_label("--", Gtk.Align.END)
         grid.attach(self.da_upper_right_label, 1, 0, 1, 1)
 
         # DrawingArea
@@ -90,9 +86,7 @@ class Network:
         grid.attach(self.da_network_speed, 0, 2, 2, 1)
 
         # Label (drawingarea lower-right)
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.END)
-        label.set_label("0")
+        label = Common.da_upper_lower_label("0", Gtk.Align.END)
         grid.attach(label, 0, 3, 2, 1)
 
 

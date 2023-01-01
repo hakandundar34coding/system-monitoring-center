@@ -241,24 +241,32 @@ class System:
         label = Common.static_information_label(_tr("System") + ":")
         grid.attach(label, 2, 9, 1, 1)
         # Grid (System)
-        grid_system_packages = Gtk.Grid()
-        grid_system_packages.set_column_spacing(2)
-        grid.attach(grid_system_packages, 3, 9, 1, 1)
+        system_packages_grid = Gtk.Grid()
+        system_packages_grid.set_column_spacing(2)
+        grid.attach(system_packages_grid, 3, 9, 1, 1)
         # Label (System)
-        self.system_label = Common.dynamic_information_label()
-        grid_system_packages.attach(self.system_label, 0, 0, 1, 1)
+        self.system_packages_label = Common.dynamic_information_label()
+        system_packages_grid.attach(self.system_packages_label, 0, 0, 1, 1)
         # Spinner (System)
-        self.spinner_system = Gtk.Spinner()
-        self.spinner_system.start()
-        grid_system_packages.attach(self.spinner_system, 1, 0, 1, 1)
+        self.system_packages_spinner = Gtk.Spinner()
+        self.system_packages_spinner.start()
+        system_packages_grid.attach(self.system_packages_spinner, 1, 0, 1, 1)
 
         # Label (Flatpak)
         label = Common.static_information_label(_tr("Flatpak") + ":")
         label.set_tooltip_text(_tr("Number of installed Flatpak applications and runtimes"))
         grid.attach(label, 2, 10, 1, 1)
+        # Grid (Flatpak)
+        flatpak_packages_grid = Gtk.Grid()
+        flatpak_packages_grid.set_column_spacing(2)
+        grid.attach(flatpak_packages_grid, 3, 10, 1, 1)
         # Label (Flatpak)
-        self.flatpak_label = Common.dynamic_information_label()
-        grid.attach(self.flatpak_label, 3, 10, 1, 1)
+        self.flatpak_packages_label = Common.dynamic_information_label()
+        flatpak_packages_grid.attach(self.flatpak_packages_label, 0, 0, 1, 1)
+        # Spinner (Flatpak)
+        self.flatpak_packages_spinner = Gtk.Spinner()
+        self.flatpak_packages_spinner.start()
+        flatpak_packages_grid.attach(self.flatpak_packages_spinner, 1, 0, 1, 1)
 
         # Label (GTK Version)
         label = Common.static_information_label(_tr("GTK Version") + ":")
@@ -282,9 +290,13 @@ class System:
         Refresh data on the tab.
         """
 
-        # Start spinner animation and show it before running the function for getting information.
-        self.spinner_system.start()
-        self.spinner_system.show()
+        # Show and start spinner animation before running the function for getting information.
+        self.system_packages_spinner.show()
+        self.system_packages_spinner.start()
+
+        self.flatpak_packages_spinner.show()
+        self.flatpak_packages_spinner.start()
+
         GLib.idle_add(self.system_initial_func)
 
 
@@ -301,11 +313,11 @@ class System:
         computer_vendor, computer_model, computer_chassis_type = self.computer_vendor_model_chassis_type_func()
         host_name = self.host_name_func()
         number_of_monitors = self.number_of_monitors_func()
-        number_of_installed_flatpak_packages = self.installed_flatpak_packages_func()
         current_python_version, current_gtk_version = self.current_python_version_gtk_version_func()
         current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager = self.desktop_environment_and_version_windowing_system_window_manager_display_manager_func()
         # Run this function in a separate thread because it may take a long time (2-3 seconds) to get the information on some systems (such as rpm based systems) and it blocks the GUI during this process if a separate thread is not used.
         threading.Thread(target=self.installed_apt_rpm_pacman_packages_func, daemon=True).start()
+        threading.Thread(target=self.installed_flatpak_packages_func, daemon=True).start()
 
 
         # Set label texts to show information
@@ -327,22 +339,12 @@ class System:
         self.computer_name_label.set_label(host_name)
         self.architecture_label.set_label(cpu_architecture)
         self.number_of_monitors_label.set_label(f'{number_of_monitors}')
-        #self.system_label.set_label(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
-        self.flatpak_label.set_label(f'{number_of_installed_flatpak_packages}')
+        #self.system_packages_label.set_label(f'{apt_or_rpm_or_pacman_packages_count}')
+        #self.flatpak_packages_label.set_label(f'{flatpak_packages_count}')
         self.gtk_version_label.set_label(current_gtk_version)
         self.python_version_label.set_label(f'{current_python_version}')
 
         self.initial_already_run = 1
-
-
-    def set_number_of_installed_apt_or_rpm_or_pacman_packages_label_func(self, number_of_installed_apt_or_rpm_or_pacman_packages):
-        """
-        Stop and hide spinner properties and show "number_of_installed_apt_or_rpm_or_pacman_packages" information on the label.
-        """
-
-        self.spinner_system.stop()
-        self.spinner_system.hide()
-        self.system_label.set_label(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
 
 
     def os_name_version_codename_based_on_func(self):
@@ -527,26 +529,6 @@ class System:
         return number_of_monitors
 
 
-    def installed_flatpak_packages_func(self):
-        """
-        Get number of installed Flatpak packages (and runtimes).
-        """
-
-        number_of_installed_flatpak_packages = "-"
-
-        try:
-            if Config.environment_type == "flatpak":
-                flatpak_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "flatpak", "list"], shell=False)).decode().strip().split("\n")
-            else:
-                flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
-            # Differentiate empty line count
-            number_of_installed_flatpak_packages = len(flatpak_packages_available) - flatpak_packages_available.count("")
-        except (FileNotFoundError, subprocess.CalledProcessError) as me:
-            number_of_installed_flatpak_packages = "-"
-
-        return number_of_installed_flatpak_packages
-
-
     def current_python_version_gtk_version_func(self):
         """
         Get current Python version and GTK version.
@@ -570,7 +552,7 @@ class System:
         apt_packages_available = "-"
         rpm_packages_available = "-"
         pacman_packages_available = "-"
-        number_of_installed_apt_or_rpm_or_pacman_packages = "-"
+        apt_or_rpm_or_pacman_packages_count = "-"
 
         # Get number of APT (deb) packages if available.
         try:
@@ -584,7 +566,7 @@ class System:
                     number_of_installed_apt_packages = (subprocess.check_output(["flatpak-spawn", "--host", "dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
                 else:
                     number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
-                number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_apt_packages} (APT)'
+                apt_or_rpm_or_pacman_packages_count = f'{number_of_installed_apt_packages} (APT)'
         # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
             apt_packages_available = "-"
@@ -603,7 +585,7 @@ class System:
                         number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
                     # Differentiate empty line count
                     number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")
-                    number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
+                    apt_or_rpm_or_pacman_packages_count = f'{number_of_installed_rpm_packages} (RPM)'
             except (FileNotFoundError, subprocess.CalledProcessError) as me:
                 rpm_packages_available = "-"
 
@@ -621,14 +603,37 @@ class System:
                         number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
                     # Differentiate empty line count
                     number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")
-                    number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
+                    apt_or_rpm_or_pacman_packages_count = f'{number_of_installed_pacman_packages} (pacman)'
             except (FileNotFoundError, subprocess.CalledProcessError) as me:
                 pacman_packages_available = "-"
 
-        # Show the information on the label by using "GLib.idle_add" in order to avoid problems (bugs, data corruption, etc.) because of threading (GTK is not thread-safe).
-        GLib.idle_add(self.set_number_of_installed_apt_or_rpm_or_pacman_packages_label_func, number_of_installed_apt_or_rpm_or_pacman_packages)
+        # Stop and hide spinner and set label text.
+        GLib.idle_add(Common.set_label_spinner, self.system_packages_label, self.system_packages_spinner, apt_or_rpm_or_pacman_packages_count)
 
-        return number_of_installed_apt_or_rpm_or_pacman_packages
+        return apt_or_rpm_or_pacman_packages_count
+
+
+    def installed_flatpak_packages_func(self):
+        """
+        Get number of installed Flatpak packages (and runtimes).
+        """
+
+        flatpak_packages_count = "-"
+
+        try:
+            if Config.environment_type == "flatpak":
+                flatpak_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "flatpak", "list"], shell=False)).decode().strip().split("\n")
+            else:
+                flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
+            # Differentiate empty line count
+            flatpak_packages_count = len(flatpak_packages_available) - flatpak_packages_available.count("")
+        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+            flatpak_packages_count = "-"
+
+        # Stop and hide spinner and set label text.
+        GLib.idle_add(Common.set_label_spinner, self.flatpak_packages_label, self.flatpak_packages_spinner, flatpak_packages_count)
+
+        return flatpak_packages_count
 
 
     def desktop_environment_and_version_windowing_system_window_manager_display_manager_func(self):

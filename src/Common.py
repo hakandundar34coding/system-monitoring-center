@@ -524,6 +524,18 @@ def clickable_label(text, function):
     return label
 
 
+def da_upper_lower_label(text, alignment):
+    """
+    Generate Label above or below DrawingArea.
+    """
+
+    label = Gtk.Label()
+    label.set_halign(alignment)
+    label.set_label(text)
+
+    return label
+
+
 def performance_summary_headerbar_label(text):
     """
     Generate Label for performance summary on the window headerbar.
@@ -742,6 +754,16 @@ def checkbutton(text, group_cb):
         checkbutton.set_group(group_cb)
 
     return checkbutton
+
+
+def set_label_spinner(label, spinner, label_data):
+    """
+    Stop and hide spinner and show set label text.
+    """
+
+    spinner.stop()
+    spinner.hide()
+    label.set_label(f'{label_data}')
 
 
 def number_of_logical_cores():

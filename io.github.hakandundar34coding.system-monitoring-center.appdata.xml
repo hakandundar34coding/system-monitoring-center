@@ -24,7 +24,6 @@
       <li>Interactive charts for querying performance data on any point</li>
       <li>Option for showing processes as tree or list</li>
       <li>Optimized for low CPU usage and fast start</li>
-      <li>Shows notification if update is available on PyPI (disabled by default)</li>
       <li>Supports ARM architecture</li>
       <li>Free and open source</li>
     </ul>

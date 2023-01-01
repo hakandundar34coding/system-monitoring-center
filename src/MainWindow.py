@@ -508,7 +508,7 @@ class MainWindow():
         self.about_dialog.set_comments(_tr("Multi-featured system monitor."))
         self.about_dialog.set_authors(["Hakan Dündar"])
         self.about_dialog.set_version(software_version)
-        self.about_dialog.set_copyright("© 2022 Hakan Dündar")
+        self.about_dialog.set_copyright("© 2023 Hakan Dündar")
         self.about_dialog.set_website("https://github.com/hakandundar34coding/system-monitoring-center")
         self.about_dialog.set_license_type(Gtk.License.GPL_3_0)
         self.about_dialog.set_translator_credits(translators)

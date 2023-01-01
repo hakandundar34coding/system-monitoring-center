@@ -74,15 +74,11 @@ class Cpu:
         self.tab_grid.attach(grid, 0, 1, 1, 1)
 
         # Label (drawingarea upper-left)
-        self.da_upper_left_label = Gtk.Label()
-        self.da_upper_left_label.set_halign(Gtk.Align.START)
-        self.da_upper_left_label.set_label(_tr("CPU Usage (Average)"))
+        self.da_upper_left_label = Common.da_upper_lower_label(_tr("CPU Usage (Average)"), Gtk.Align.START)
         grid.attach(self.da_upper_left_label, 0, 0, 1, 1)
 
         # Label (drawingarea upper-right)
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.END)
-        label.set_label("100%")
+        label = Common.da_upper_lower_label("100%", Gtk.Align.END)
         grid.attach(label, 1, 0, 1, 1)
 
         # DrawingArea (CPU usage)
@@ -90,9 +86,7 @@ class Cpu:
         grid.attach(self.da_cpu_usage, 0, 2, 2, 1)
 
         # Label (drawingarea lower-right)
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.END)
-        label.set_label("0")
+        label = Common.da_upper_lower_label("0", Gtk.Align.END)
         grid.attach(label, 0, 3, 2, 1)
 
 

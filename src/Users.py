@@ -272,8 +272,6 @@ class Users:
         Get and show information on the GUI on every loop.
         """
 
-        update_interval = Config.update_interval
-
         # Get GUI obejcts one time per floop instead of getting them multiple times
         global users_treeview
 
