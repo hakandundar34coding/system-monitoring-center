@@ -6,6 +6,7 @@ from gi.repository import Gtk
 
 import os
 import cairo
+import time
 from math import sqrt, ceil, sin, cos
 
 from locale import gettext as _tr
@@ -164,14 +165,13 @@ class Performance:
             Config.selected_network_card = ""
             Config.selected_gpu = ""
 
+        self.get_time_prev = time.time()
+
 
     def performance_background_loop_func(self):
         """
         Get basic CPU, memory, disk and network usage data in the background in order to assure uninterrupted data for charts.
         """
-
-        # Definition for lower CPU usage because this variable is used multiple times in this function.
-        update_interval = Config.update_interval
 
         # Get CPU core list
         self.logical_core_list_system_ordered = []                                            # "logical_core_list_system_ordered" contains online CPU core numbers in the order of "/proc/stats" file content which is in "ascending" online core number order.
@@ -238,6 +238,9 @@ class Performance:
             self.swap_usage_percent.append(0)
         del self.swap_usage_percent[0]
 
+        # Get time for calculating disk speeds and network card speeds.
+        get_time = time.time()
+
         # Get disk_list
         self.disk_list_system_ordered = []
         proc_diskstats_lines_filtered = []
@@ -281,8 +284,8 @@ class Performance:
             disk_data = proc_diskstats_lines_filtered[self.disk_list_system_ordered.index(disk)].split()
             self.disk_read_data.append(int(disk_data[5]) * self.disk_sector_size)
             self.disk_write_data.append(int(disk_data[9]) * self.disk_sector_size)
-            self.disk_read_speed[i].append((self.disk_read_data[-1] - self.disk_read_data_prev[i]) / update_interval)
-            self.disk_write_speed[i].append((self.disk_write_data[-1] - self.disk_write_data_prev[i]) / update_interval)
+            self.disk_read_speed[i].append((self.disk_read_data[-1] - self.disk_read_data_prev[i]) / (get_time - self.get_time_prev))
+            self.disk_write_speed[i].append((self.disk_write_data[-1] - self.disk_write_data_prev[i]) / (get_time - self.get_time_prev))
             del self.disk_read_speed[i][0]
             del self.disk_write_speed[i][0]
         self.disk_read_data_prev = list(self.disk_read_data)
@@ -322,12 +325,14 @@ class Performance:
             network_data = proc_net_dev_lines[self.network_card_list_system_ordered.index(network_card)].split()
             self.network_receive_bytes.append(int(network_data[1]))
             self.network_send_bytes.append(int(network_data[9]))
-            self.network_receive_speed[i].append((self.network_receive_bytes[-1] - self.network_receive_bytes_prev[i]) / update_interval)
-            self.network_send_speed[i].append((self.network_send_bytes[-1] - self.network_send_bytes_prev[i]) / update_interval)
+            self.network_receive_speed[i].append((self.network_receive_bytes[-1] - self.network_receive_bytes_prev[i]) / (get_time - self.get_time_prev))
+            self.network_send_speed[i].append((self.network_send_bytes[-1] - self.network_send_bytes_prev[i]) / (get_time - self.get_time_prev))
             del self.network_receive_speed[i][0]
             del self.network_send_speed[i][0]
         self.network_receive_bytes_prev = list(self.network_receive_bytes)
         self.network_send_bytes_prev = list(self.network_send_bytes)
+
+        self.get_time_prev = get_time
 
 
     def performance_summary_chart_draw(self, widget, ctx, width, height):
