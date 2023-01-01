@@ -75,6 +75,8 @@ class Disk:
         self.drawingarea1301.connect("motion-notify-event", self.performance_line_charts_motion_notify_event_func)
         self.drawingarea1302.connect("draw", self.performance_bar_charts_draw_func)
         self.eventbox1301.connect("button-release-event", self.on_eventbox1301_button_release_event)
+        self.eventbox1301.connect("enter-notify-event", self.on_eventbox1301_button_enter_notify_event)
+        self.eventbox1301.connect("leave-notify-event", self.on_eventbox1301_button_leave_notify_event)
 
         # Set event masks for drawingarea in order to enable these events.
         self.drawingarea1301.set_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
@@ -89,6 +91,32 @@ class Disk:
         if event.button == 1:
             from DiskDetails import DiskDetails
             DiskDetails.window1301w.show()
+
+
+    def on_eventbox1301_button_enter_notify_event(self, widget, event):
+        """
+        Set mouse cursor (pointer) when it is moved inside of the eventbox of "Show..." label.
+        """
+
+        cursor = Gdk.Cursor.new_from_name(Gdk.Display.get_default(), "pointer")
+        window = Gdk.Window.at_pointer()[0]
+        try:
+            window.set_cursor(cursor)
+        except Exception:
+            pass
+
+
+    def on_eventbox1301_button_leave_notify_event(self, widget, event):
+        """
+        Set mouse cursor (default) when it is moved outside of the eventbox of "Show..." label.
+        """
+
+        cursor = Gdk.Cursor.new_from_name(Gdk.Display.get_default(), "default")
+        window = Gdk.Window.at_pointer()[0]
+        try:
+            window.set_cursor(cursor)
+        except Exception:
+            pass
 
 
     # ----------------------------------- Disk - Initial Function -----------------------------------
