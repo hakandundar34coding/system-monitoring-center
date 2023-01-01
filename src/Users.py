@@ -163,8 +163,6 @@ def users_initial_func():
 # ----------------------------------- Users - Get User Data Function (gets user data, adds into treeview and updates it) -----------------------------------
 def users_loop_func():
 
-    update_interval = Config.update_interval
-
     # Get GUI obejcts one time per floop instead of getting them multiple times
     global treeview3101
 

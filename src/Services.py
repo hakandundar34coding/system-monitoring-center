@@ -168,8 +168,6 @@ def services_initial_func():
 # ----------------------------------- Services - Get Services Data Function -----------------------------------
 def services_loop_func():
 
-    update_interval = Config.update_interval
-
     # Get GUI obejcts one time per floop instead of getting them multiple times
     global treeview6101
 
