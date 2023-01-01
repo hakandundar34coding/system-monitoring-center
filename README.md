@@ -48,7 +48,7 @@
     <strong>
         Translations:
     </strong>
-    Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian) | Portuguese (Portugal) | Russian | Turkish | <a href="docs/notes_for_translators.md">Notes for translators</a>
+    Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian) | Portuguese (Portugal) | Russian | Spanish | Turkish | <a href="docs/notes_for_translators.md">Notes for translators</a>
 </p>
 
 
@@ -74,8 +74,11 @@
     </a>
 </p>
 <p align="center">
-    <a>
+    <a href="https://flathub.org/apps/details/io.github.hakandundar34coding.system-monitoring-center">
         <img alt="Flathub" src="https://img.shields.io/flathub/v/io.github.hakandundar34coding.system-monitoring-center">
+    </a>
+    <a href="https://pypi.org/project/system-monitoring-center/">
+        <img alt="PyPI" src="https://img.shields.io/pypi/v/system-monitoring-center">
     </a>
     <a href="https://github.com/Botspot/pi-apps">
         <img src="https://img.shields.io/badge/dynamic/json?color=blue&label=Pi-Apps&query=%24..%5B%3F%28%40.Name%3D%3D%22System%20Monitoring%20Center%22%29%5D.Version&url=https%3A%2F%2Fraw.githubusercontent.com%2FBotspot%2Fpi-apps-analytics%2Fmain%2Fpackage_data.json" alt="Pi-Apps Packaging Status">
@@ -93,7 +96,6 @@
 - Interactive charts for querying performance data on any point
 - Option for showing processes as tree or list
 - Optimized for low CPU usage and fast start
-- Shows notification if update is available on PyPI (disabled by default)
 - Supports ARM architecture
 - Free and open source
 
