@@ -1,6 +1,6 @@
 # System Monitoring Center
 
-### v2.3.0 (02.01.2023)
+### v2.4.0 (02.01.2023)
   * New: Spanish translations
   * Updated Russian translations
   * Improved read,write,download,upload speed accuracy
