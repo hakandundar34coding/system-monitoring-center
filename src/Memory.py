@@ -95,9 +95,8 @@ class Memory:
         """
 
         # Grid (performance/information labels)
-        performance_info_grid = Gtk.Grid()
-        performance_info_grid.set_column_homogeneous(True)
-        performance_info_grid.set_column_spacing(10)
+        performance_info_grid = Common.performance_info_grid()
+        performance_info_grid.set_row_homogeneous(False)
         performance_info_grid.set_row_spacing(6)
         self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 

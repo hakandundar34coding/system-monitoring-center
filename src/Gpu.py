@@ -99,11 +99,7 @@ class Gpu:
         """
 
         # Grid (performance/information labels)
-        performance_info_grid = Gtk.Grid()
-        performance_info_grid.set_column_homogeneous(True)
-        performance_info_grid.set_row_homogeneous(True)
-        performance_info_grid.set_column_spacing(12)
-        performance_info_grid.set_row_spacing(10)
+        performance_info_grid = Common.performance_info_grid()
         self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
         # Styled information widgets (GPU Usage and Video Memory)
@@ -117,11 +113,7 @@ class Gpu:
         performance_info_grid.attach(scrolledwindow, 0, 1, 1, 1)
 
         # Grid - Right information labels
-        performance_info_right_grid = Gtk.Grid()
-        performance_info_right_grid.set_column_homogeneous(True)
-        performance_info_right_grid.set_row_homogeneous(True)
-        performance_info_right_grid.set_column_spacing(2)
-        performance_info_right_grid.set_row_spacing(4)
+        performance_info_right_grid = Common.performance_info_right_grid()
         performance_info_grid.attach(performance_info_right_grid, 1, 0, 1, 2)
 
         # Label (Min-Max Frequency)

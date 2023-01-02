@@ -576,6 +576,34 @@ def settings_window_separator():
     return separator
 
 
+def performance_info_grid():
+    """
+    Generate grid for performance information labels, drawingareas (bar), etc. on CPU, Disk, Network, GPU tabs.
+    """
+
+    grid = Gtk.Grid()
+    grid.set_column_homogeneous(True)
+    grid.set_row_homogeneous(True)
+    grid.set_column_spacing(12)
+    grid.set_row_spacing(10)
+
+    return grid
+
+
+def performance_info_right_grid():
+    """
+    Generate grid for performance information labels (right side) on CPU, Disk, Network, GPU tabs.
+    """
+
+    grid = Gtk.Grid()
+    grid.set_column_homogeneous(True)
+    grid.set_row_homogeneous(True)
+    grid.set_column_spacing(2)
+    grid.set_row_spacing(4)
+
+    return grid
+
+
 def tab_grid():
     """
     Generate tab Grid (root widget of the tab in the tab module).

@@ -96,11 +96,7 @@ class Network:
         """
 
         # Grid (performance/information labels)
-        performance_info_grid = Gtk.Grid()
-        performance_info_grid.set_column_homogeneous(True)
-        performance_info_grid.set_row_homogeneous(True)
-        performance_info_grid.set_column_spacing(12)
-        performance_info_grid.set_row_spacing(10)
+        performance_info_grid = Common.performance_info_grid()
         self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
 
         # Styled information widgets (Download Speed and Upload Speed)
@@ -114,11 +110,7 @@ class Network:
         performance_info_grid.attach(scrolledwindow, 0, 1, 1, 1)
 
         # Grid - Right information labels
-        performance_info_right_grid = Gtk.Grid()
-        performance_info_right_grid.set_column_homogeneous(True)
-        performance_info_right_grid.set_row_homogeneous(True)
-        performance_info_right_grid.set_column_spacing(2)
-        performance_info_right_grid.set_row_spacing(4)
+        performance_info_right_grid = Common.performance_info_right_grid()
         performance_info_grid.attach(performance_info_right_grid, 1, 0, 1, 2)
 
         # Labels - Right information labels
@@ -227,7 +219,7 @@ class Network:
         try:                                                                                      
             if self.network_card_list_system_ordered_prev != network_card_list_system_ordered:
                 MainWindow.main_gui_device_selection_list_func()
-        # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
+        # Avoid error if this is first loop of the function.
         except AttributeError:
             pass
         self.network_card_list_system_ordered_prev = network_card_list_system_ordered
@@ -271,9 +263,9 @@ class Network:
             network_card_device_model_name = f'{device_vendor_name} - {device_model_name}'
         # Get device vendor and model names if it is a virtual device.
         else:
-            # lo (Loopback Device) is a system device and it is not a physical device. It could not be found in "pci.ids" file.
+            # lo (Loopback Device) is a system device and it is not a physical device.
             if selected_network_card == "lo":
-                network_card_device_model_name = "Loopback Device"
+                network_card_device_model_name = "[" + "Loopback Device" + "]"
             else:
                 network_card_device_model_name = "[" + _tr("Virtual Network Interface") + "]"
 
@@ -339,12 +331,13 @@ class Network:
 
         with open("/sys/class/net/" + selected_network_card + "/operstate") as reader:
             network_info = reader.read().strip()
+
         if network_info == "up":
             network_card_connected = _tr("Yes")
         elif network_info == "down":
             network_card_connected = _tr("No")
         elif network_info == "unknown":
-            network_card_connected = f'[{_tr("Unknown")}]'
+            network_card_connected = "[" + _tr("Unknown") + "]"
         else:
             network_card_connected = network_info
 
@@ -356,17 +349,18 @@ class Network:
         Get network name (SSID).
         """
 
-        try:                                                                                      
-            if Config.environment_type == "flatpak":
-                nmcli_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
-            else:
-                nmcli_output_lines = (subprocess.check_output(["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"], shell=False)).decode().strip().split("\n")
-        # Avoid errors because Network Manager (which is required for running "nmcli" command) may not be installed on all systems (very rare).
+        command_list = ["nmcli", "-get-values", "DEVICE,CONNECTION", "device", "status"]
+        if Config.environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        try:
+            nmcli_output_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+        # Avoid errors because Network Manager (required "nmcli" command) may not be installed (very rare).
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
-            network_ssid = f'[{_tr("Unknown")}]'
+            nmcli_output_lines = "-"
+            network_ssid = "[" + _tr("Unknown") + "]"
 
         # Check if "nmcli_output_lines" value is get.
-        if "nmcli_output_lines" in locals():
+        if nmcli_output_lines != "-":
             for line in nmcli_output_lines:
                 line_splitted = line.split(":")
                 if selected_network_card == line_splitted[0]:
@@ -393,7 +387,7 @@ class Network:
             for line in proc_net_wireless_output_lines:
                 line_splitted = line.split()
                 if selected_network_card == line_splitted[0].split(":")[0]:
-                    # "split(".")" is used in order to remove "." at the end of the signal value.
+                    # Remove "." at the end of the signal value.
                     network_link_quality = line_splitted[2].split(".")[0]
                     if network_link_quality != "-":
                         network_link_quality = f'{network_link_quality} (link)'
