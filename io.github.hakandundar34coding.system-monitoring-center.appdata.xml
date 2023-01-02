@@ -10,6 +10,7 @@
   <summary>Multi-featured system monitor.</summary>
   <url type="homepage">https://github.com/hakandundar34coding/system-monitoring-center</url>
   <url type="bugtracker">https://github.com/hakandundar34coding/system-monitoring-center/issues</url>
+  <content_rating type="oars-1.1"/>
   <description>
     <p>Multi-featured system monitor.</p>
     <p>Features:</p>
@@ -219,5 +220,4 @@
       </description>
     </release>
   </releases>
-  <content_rating type="oars-1.1"/>
 </component>

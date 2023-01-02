@@ -741,8 +741,6 @@ class Processes:
 
         update_interval = Config.update_interval
 
-        # Get GUI obejcts one time per floop instead of getting them multiple times
-
         # Get configrations one time per floop instead of getting them multiple times (hundreds of times for many of them) in every loop which causes high CPU usage.
         global processes_cpu_precision
         global processes_memory_data_precision, processes_memory_data_unit
@@ -791,7 +789,7 @@ class Processes:
 
         processes_treeview_columns_shown = set(processes_treeview_columns_shown)                  # For obtaining lower CPU usage (because "if [number] in processes_treeview_columns_shown:" check is repeated thousand of times).
 
-
+        # Get process information by using "ps" command. "env" and "LANG=C" parameters are used in order to get column headers in English.
         command_list = ["env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,exe:800,command=CMDLINE"]
         # "exe" parameter is not recognized by "ps" command in "coreutils" package if version
         # is lower than 8.32. "group" parameter is used instead of "exe as a placeholder.
@@ -799,7 +797,6 @@ class Processes:
         if Config.environment_type == "flatpak":
             command_list = ["flatpak-spawn", "--host"] + command_list
             command_list2 = ["flatpak-spawn", "--host"] + command_list2
-        # Get process information by using "ps" command. "env" and "LANG=C" parameters are used in order to get column headers in English.
         exe_column_get = 1
         try:
             # "stderr=subprocess.STDOUT" is used for not printing errors.
