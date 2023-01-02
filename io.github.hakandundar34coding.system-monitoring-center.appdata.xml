@@ -74,6 +74,17 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.4.0" date="2023-01-02">
+      <description>
+        <ul>
+          <li>New: Spanish translations</li>
+          <li>Updated Russian translations</li>
+          <li>Improved read,write,download,upload speed accuracy</li>
+          <li>Fix: GUI freeze when some online drives are connected</li>
+          <li>Minor improvements (code simplifications, project files, etc.)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.3.0" date="2022-12-26">
       <description>
         <ul>

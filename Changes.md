@@ -1,5 +1,12 @@
 # System Monitoring Center
 
+### v2.3.0 (02.01.2023)
+  * New: Spanish translations
+  * Updated Russian translations
+  * Improved read,write,download,upload speed accuracy
+  * Fix: GUI freeze when some online drives are connected
+  * Minor improvements (code simplifications, project files, etc.)
+
 ### v1.38.0 (28.12.2022)
   * New: Spanish translations
   * Fix: Close app. when process details window is open
