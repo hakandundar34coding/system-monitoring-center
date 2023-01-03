@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # ----------------------------------- Sensors - Import Function -----------------------------------
 def sensors_import_func():
 

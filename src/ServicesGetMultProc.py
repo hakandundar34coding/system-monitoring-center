@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 def services_number_of_cpu_cores_used_func(number_of_logical_cores):
     """
     Get number of CPU cores to be used at the same time for getting service data.
