@@ -89,6 +89,7 @@ if package_type_var == "flatpak_package":
     with open("integration/io.github.hakandundar34coding.system-monitoring-center.desktop") as reader:
         desktop_file_content = reader.read()
     desktop_file_content = desktop_file_content.replace("Icon=system-monitoring-center", "Icon=io.github.hakandundar34coding.system-monitoring-center")
+    desktop_file_content = desktop_file_content.replace("#!/usr/bin/env python3", "#!/usr/bin/python3")
     with open("integration/io.github.hakandundar34coding.system-monitoring-center.desktop", "w") as writer:
         writer.write(desktop_file_content)
 
@@ -152,7 +153,7 @@ setup(
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
-        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: POSIX :: Linux",
         "Topic :: System :: Monitoring",
     ],
