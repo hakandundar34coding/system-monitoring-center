@@ -1,5 +1,12 @@
 # System Monitoring Center
 
+### v1.39.0 (04.01.2023)
+  * Improved read,write,download,upload speed accuracy
+  * GUI improvements for Memory,Disk tab clickable labels
+  * Updated Russian translations
+  * Fix: GUI freeze when some online drives are connected
+  * Minor improvements (code simplifications, project files, etc.)
+
 ### v2.4.0 (02.01.2023)
   * New: Spanish translations
   * Updated Russian translations
