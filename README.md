@@ -143,5 +143,6 @@
 - GPU usage information availability depends on vendor/driver.
 - GPU load is not tracked if GPU tab is switched off (for lower CPU usage).
 - Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.
-- Flatpak version of the application has slightly lower performance (start speed, CPU, RAM usage).
+- Non-Flatpak versions of the application has higher performance (start speed, CPU, RAM usage).
+- GTK4 (used for SMC v2) uses about 2x RAM when compared to GTK3 (used for SMC v1).
 
