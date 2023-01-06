@@ -89,13 +89,13 @@ if package_type_var == "flatpak_package":
     with open("integration/io.github.hakandundar34coding.system-monitoring-center.desktop") as reader:
         desktop_file_content = reader.read()
     desktop_file_content = desktop_file_content.replace("Icon=system-monitoring-center", "Icon=io.github.hakandundar34coding.system-monitoring-center")
-    desktop_file_content = desktop_file_content.replace("#!/usr/bin/env python3", "#!/usr/bin/python3")
     with open("integration/io.github.hakandundar34coding.system-monitoring-center.desktop", "w") as writer:
         writer.write(desktop_file_content)
 
     with open("integration/system-monitoring-center") as reader:
         script_file_content = reader.read()
     script_file_content = script_file_content.replace("/usr/share/system-monitoring-center/src/", "/app/share/system-monitoring-center/src/")
+    script_file_content = script_file_content.replace("#!/usr/bin/env python3", "#!/usr/bin/python3")
     with open("integration/system-monitoring-center", "w") as writer:
         writer.write(script_file_content)
 
