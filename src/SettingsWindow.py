@@ -536,31 +536,33 @@ class SettingsWindow:
         # Trim beginning part of the lists if new "chart_data_history" value is smaller than the old value.
         if chart_data_history_current > chart_data_history_new:
 
+            length_difference = chart_data_history_current - chart_data_history_new
+
             # "cpu_usage_percent_ave" list
-            Performance.cpu_usage_percent_ave = Performance.cpu_usage_percent_ave[chart_data_history_current-chart_data_history_new:]
+            Performance.cpu_usage_percent_ave = Performance.cpu_usage_percent_ave[length_difference:]
 
             # "cpu_usage_percent_per_core" list
             for device in Performance.logical_core_list:
-                Performance.cpu_usage_percent_per_core[device] = Performance.cpu_usage_percent_per_core[device][chart_data_history_current-chart_data_history_new:]
+                Performance.cpu_usage_percent_per_core[device] = Performance.cpu_usage_percent_per_core[device][length_difference:]
 
             # "ram_usage_percent" and "swap_usage_percent" lists
-            Performance.ram_usage_percent = Performance.ram_usage_percent[chart_data_history_current-chart_data_history_new:]
-            Performance.swap_usage_percent = Performance.swap_usage_percent[chart_data_history_current-chart_data_history_new:]
+            Performance.ram_usage_percent = Performance.ram_usage_percent[length_difference:]
+            Performance.swap_usage_percent = Performance.swap_usage_percent[length_difference:]
 
             # "disk_read_speed" and "disk_write_speed" lists
             for device in Performance.disk_list:
-                Performance.disk_read_speed[device] = Performance.disk_read_speed[device][chart_data_history_current-chart_data_history_new:]
-                Performance.disk_write_speed[device] = Performance.disk_write_speed[device][chart_data_history_current-chart_data_history_new:]
+                Performance.disk_read_speed[device] = Performance.disk_read_speed[device][length_difference:]
+                Performance.disk_write_speed[device] = Performance.disk_write_speed[device][length_difference:]
 
             # "network_receive_speed" and "network_send_speed" lists
             for device in Performance.network_card_list:
-                Performance.network_receive_speed[device] = Performance.network_receive_speed[device][chart_data_history_current-chart_data_history_new:]
-                Performance.network_send_speed[device] = Performance.network_send_speed[device][chart_data_history_current-chart_data_history_new:]
+                Performance.network_receive_speed[device] = Performance.network_receive_speed[device][length_difference:]
+                Performance.network_send_speed[device] = Performance.network_send_speed[device][length_difference:]
 
             # "gpu_load_list" list
             if MainWindow.gpu_tb.get_active() == True:
                 from Gpu import Gpu
-                Gpu.gpu_load_list = Gpu.gpu_load_list[chart_data_history_current-chart_data_history_new:]
+                Gpu.gpu_load_list = Gpu.gpu_load_list[length_difference:]
 
         # Add list of zeroes to the beginning part of the lists if new "chart_data_history" value is bigger than the old value.
         if chart_data_history_current < chart_data_history_new:

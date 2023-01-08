@@ -256,7 +256,7 @@ class Performance:
         self.chart_data_history = Config.chart_data_history
 
         # Define initial values for CPU usage percent
-        self.core_list_prev = []
+        self.logical_core_list_prev = []
         self.cpu_times_prev = {}
         self.cpu_usage_percent_per_core = {}
         self.cpu_usage_percent_ave = {}
@@ -297,7 +297,7 @@ class Performance:
         cpu_times = self.cpu_times()
         self.logical_core_list = list(cpu_times.keys())
         for core in self.logical_core_list:
-            if core not in self.core_list_prev:
+            if core not in self.logical_core_list_prev:
                 self.cpu_usage_percent_per_core[core] = [0] * self.chart_data_history
             else:
                 cpu_time_load_difference = cpu_times[core]["load"] - self.cpu_times_prev[core]["load"]
@@ -309,7 +309,7 @@ class Performance:
                     _cpu_usage_percent_core = cpu_time_load_difference / cpu_time_all_difference * 100
                 self.cpu_usage_percent_per_core[core].append(_cpu_usage_percent_core)
                 del self.cpu_usage_percent_per_core[core][0]
-        for core in self.core_list_prev:
+        for core in self.logical_core_list_prev:
             if core not in self.logical_core_list:
                 self.cpu_usage_percent_per_core[core] = [0] * self.chart_data_history
         # Get average CPU usage percentage
@@ -320,10 +320,10 @@ class Performance:
         self.cpu_usage_percent_ave.append(_cpu_usage_percent_ave / self.number_of_logical_cores)
         del self.cpu_usage_percent_ave[0]
         # Set selected CPU core
-        if self.core_list_prev != self.logical_core_list:
+        if self.logical_core_list_prev != self.logical_core_list:
             self.performance_set_selected_cpu_core_func()
         # Define previous values
-        self.core_list_prev = list(self.logical_core_list)
+        self.logical_core_list_prev = list(self.logical_core_list)
         self.cpu_times_prev = dict(cpu_times)
 
         # Get RAM usage percentage
@@ -355,6 +355,10 @@ class Performance:
                 del self.disk_read_speed[disk][0]
                 self.disk_write_speed[disk].append(_disk_write_speed)
                 del self.disk_write_speed[disk][0]
+        for disk in self.disk_list_prev:
+            if disk not in self.disk_list:
+                self.disk_read_speed[disk] = [0] * self.chart_data_history
+                self.disk_write_speed[disk] = [0] * self.chart_data_history
         # Set selected disk
         if self.disk_list_prev != self.disk_list:
             self.performance_set_selected_disk_func()
@@ -378,6 +382,10 @@ class Performance:
                 del self.network_receive_speed[network_card][0]
                 self.network_send_speed[network_card].append(_network_send_speed)
                 del self.network_send_speed[network_card][0]
+        for network_card in self.network_card_list_prev:
+            if network_card not in self.network_card_list:
+                self.network_receive_speed[network_card] = [0] * self.chart_data_history
+                self.network_send_speed[network_card] = [0] * self.chart_data_history
         # Set selected network card
         if self.network_card_list_prev != self.network_card_list:
             self.performance_set_selected_network_card_func()
@@ -1691,6 +1699,7 @@ class Performance:
                 horizontal_counter = -1
                 vertical_counter = vertical_counter + 1
             horizontal_counter = horizontal_counter + 1
+        # Set "number_of_vertical_charts" value as "vertical_counter" value of the last chart.
         number_of_vertical_charts = list(chart_index_dict.values())[-1][1] + 1
 
         # Set chart border spacing value.
