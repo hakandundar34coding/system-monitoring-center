@@ -224,10 +224,10 @@ class Gpu:
         try:                                                                                      
             if self.gpu_list_prev != gpu_list:
                 MainWindow.main_gui_device_selection_list()
-        # Avoid errors and also run "main_gui_device_selection_list" if this is first loop of the function.
+        # Avoid error if this is first loop of the function.
         except AttributeError:
             MainWindow.main_gui_device_selection_list()
-        self.gpu_list_prev = gpu_list
+        self.gpu_list_prev = list(gpu_list)
 
 
         # Set and update GPU tab label texts by using information get

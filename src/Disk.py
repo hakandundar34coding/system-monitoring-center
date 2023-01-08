@@ -783,10 +783,10 @@ class Disk:
         try:                                                                                      
             if self.disk_usage_percentage_list_prev != disk_usage_percentage_list:
                 MainWindow.main_gui_device_selection_list()
-        # try-except is used in order to avoid error if this is first loop of the function.
+        # Avoid error if this is first loop of the function.
         except AttributeError:
             pass
-        self.disk_usage_percentage_list_prev = disk_usage_percentage_list
+        self.disk_usage_percentage_list_prev = list(disk_usage_percentage_list)
 
 
 Disk = Disk()

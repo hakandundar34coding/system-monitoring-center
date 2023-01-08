@@ -205,14 +205,14 @@ class Cpu:
 
         self.da_cpu_usage.queue_draw()
 
-        # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
+        # Run "main_gui_device_selection_list" if selected device list is changed since the last loop.
         try:                                                                                      
             if self.logical_core_list_prev != Performance.logical_core_list:
-                MainWindow.main_gui_device_selection_list_func()
-        # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
+                MainWindow.main_gui_device_selection_list()
+        # Avoid error if this is first loop of the function.
         except AttributeError:
             pass
-        self.logical_core_list_prev = Performance.logical_core_list
+        self.logical_core_list_prev = list(Performance.logical_core_list)
 
 
         # Get information.

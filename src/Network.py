@@ -208,15 +208,15 @@ class Network:
 
         self.da_network_speed.queue_draw()
 
-        # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
+        # Run "main_gui_device_selection_list" if selected device list is changed since the last loop.
         network_card_list = Performance.network_card_list
         try:                                                                                      
             if self.network_card_list_prev != network_card_list:
-                MainWindow.main_gui_device_selection_list_func()
+                MainWindow.main_gui_device_selection_list()
         # Avoid error if this is first loop of the function.
         except AttributeError:
             pass
-        self.network_card_list_prev = network_card_list
+        self.network_card_list_prev = list(network_card_list)
 
 
         # Get information.
