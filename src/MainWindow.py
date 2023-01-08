@@ -872,27 +872,27 @@ class MainWindow():
         # Check if Summary tab is selected.
         if Config.performance_tab_current_sub_tab == 0:
             device_list = [_tr("Summary")]
-            selected_device_number = 0
+            selected_device = device_list[0]
             listbox_row_number = 1
             tooltip_text = ""
 
         # Check if CPU tab is selected.
         elif Config.performance_tab_current_sub_tab == 1:
-            device_list = Performance.logical_core_list_system_ordered
-            selected_device_number = Performance.selected_cpu_core_number
+            device_list = Performance.logical_core_list
+            selected_device = Performance.selected_cpu_core
             listbox_row_number = 3
             tooltip_text = _tr("CPU core selection affects only frequency and cache memory information.")
 
         # Check if Memory tab is selected.
         elif Config.performance_tab_current_sub_tab == 2:
             device_list = [_tr("RAM") + "-" + _tr("Swap Memory")]
-            selected_device_number = 0
+            selected_device = device_list[0]
             listbox_row_number = 5
             tooltip_text = ""
 
         # Check if Disk tab is selected.
         elif Config.performance_tab_current_sub_tab == 3:
-            device_list_full = Performance.disk_list_system_ordered
+            device_list_full = Performance.disk_list
             device_list = []
             for device in device_list_full:
                 # Do not add the device into the listbox and skip to the next loop if
@@ -901,23 +901,23 @@ class MainWindow():
                     if device.startswith("loop") == True or device.startswith("ram") == True or device.startswith("zram") == True:
                         continue
                 device_list.append(device)
-            # "selected_device_number" for Disk tab is get in a different way.
+            # "selected_device" is get in a different way for Disk tab.
             # Because device list may be changed if "hide_loop_ramdisk_zram_disks" option is enabled.
-            selected_device_number = device_list.index(Performance.disk_list_system_ordered[Performance.selected_disk_number])
+            selected_device = Performance.selected_disk
             listbox_row_number = 7
             tooltip_text = ""
 
         # Check if Network tab is selected.
         elif Config.performance_tab_current_sub_tab == 4:
             device_list = Performance.network_card_list
-            selected_device_number = Performance.selected_network_card_number
+            selected_device = Performance.selected_network_card
             listbox_row_number = 9
             tooltip_text = ""
 
         # Check if GPU tab is selected.
         elif Config.performance_tab_current_sub_tab == 5:
             device_list = Gpu.gpu_list
-            selected_device_number = Gpu.selected_gpu_number
+            selected_device = Gpu.selected_gpu
             listbox_row_number = 11
             tooltip_text = ""
 
@@ -1022,6 +1022,8 @@ class MainWindow():
         viewport.set_child(listbox)
         self.device_list_sw.set_child(viewport)
         self.sub_tab_tb_grid.attach(self.device_list_sw, 0, listbox_row_number, 1, 1)
+
+        selected_device_number = device_list.index(selected_device)
 
         try:
             listbox.select_row(listbox.get_row_at_index(selected_device_number))
@@ -1287,12 +1289,12 @@ class MainWindow():
         Update performance data on the headerbar.
         """
 
-        selected_disk_number = Performance.selected_disk_number
-        selected_network_card_number = Performance.selected_network_card_number
+        selected_disk = Performance.selected_disk
+        selected_network_card = Performance.selected_network_card
         self.ps_hb_cpu_da.queue_draw()
         self.ps_hb_ram_da.queue_draw()
-        self.ps_hb_disk_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk_number][-1] + Performance.disk_write_speed[selected_disk_number][-1]), Config.performance_disk_data_unit, 1)}/s')
-        self.ps_hb_network_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), Config.performance_network_data_unit, 1)}/s')
+        self.ps_hb_disk_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk][-1] + Performance.disk_write_speed[selected_disk][-1]), Config.performance_disk_data_unit, 1)}/s')
+        self.ps_hb_network_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card][-1] + Performance.network_send_speed[selected_network_card][-1]), Config.performance_network_data_unit, 1)}/s')
 
 
 MainWindow = MainWindow()

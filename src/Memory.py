@@ -485,7 +485,6 @@ class Memory:
         performance_memory_data_unit = Config.performance_memory_data_unit
 
         total_physical_ram = self.physical_ram()
-        ram_total = self.ram_capacity()
 
 
         # Set Memory tab label texts by using information get
@@ -502,16 +501,18 @@ class Memory:
         Get and show information on the GUI on every loop.
         """
 
-        ram_used = Performance.ram_used
+        memory_info = Performance.memory_info()
+
+        ram_used = memory_info["ram_used"]
         ram_usage_percent = Performance.ram_usage_percent
-        ram_available = Performance.ram_available
-        ram_free = Performance.ram_free
-        ram_total = Performance.ram_total
+        ram_available = memory_info["ram_available"]
+        ram_free = memory_info["ram_free"]
+        ram_total = memory_info["ram_total"]
 
         self.swap_usage_percent = Performance.swap_usage_percent
-        swap_used = Performance.swap_used
-        swap_free = Performance.swap_free
-        swap_total = Performance.swap_total
+        swap_used = memory_info["swap_used"]
+        swap_free = memory_info["swap_free"]
+        swap_total = memory_info["swap_total"]
 
         performance_memory_data_precision = Config.performance_memory_data_precision
         performance_memory_data_unit = Config.performance_memory_data_unit
@@ -583,22 +584,6 @@ class Memory:
                 total_physical_ram = "-"
 
         return total_physical_ram
-
-
-    def ram_capacity(self):
-        """
-        Get RAM capacity.
-        """
-
-        with open("/proc/meminfo") as reader:
-            proc_memory_info_output_lines = reader.read().split("\n")
-
-        for line in proc_memory_info_output_lines:
-            if "MemTotal:" in line:
-                # Convert KiB value to bytes
-                ram_total = int(line.split()[1]) * 1024
-
-        return ram_total
 
 
 Memory = Memory()
