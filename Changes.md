@@ -1,7 +1,7 @@
 # System Monitoring Center
 
 ### v2.4.1 (09.01.2023)
-  * Fix: Update device list when devices enabled
+  * Fix: Update device list (unified tab-device list)
   * Fix: Process name of the application (Flatpak)
   * Code simplifications for Performance functions
 
