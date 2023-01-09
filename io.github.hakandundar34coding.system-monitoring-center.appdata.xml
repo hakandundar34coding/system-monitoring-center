@@ -74,6 +74,15 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.4.1" date="2023-01-09">
+      <description>
+        <ul>
+          <li>Fix: Update device list when devices enabled</li>
+          <li>Fix: Process name of the application (Flatpak)</li>
+          <li>Code simplifications for Performance functions</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.4.0" date="2023-01-02">
       <description>
         <ul>

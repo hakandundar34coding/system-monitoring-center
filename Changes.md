@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v2.4.1 (09.01.2023)
+  * Fix: Update device list when devices enabled
+  * Fix: Process name of the application (Flatpak)
+  * Code simplifications for Performance functions
+
 ### v1.39.0 (04.01.2023)
   * Improved read,write,download,upload speed accuracy
   * GUI improvements for Memory,Disk tab clickable labels

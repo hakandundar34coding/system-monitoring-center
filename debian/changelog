@@ -1,3 +1,11 @@
+system-monitoring-center (2.4.1) unstable; urgency=medium
+
+  * Fix: Update device list when devices enabled
+  * Fix: Process name of the application (Flatpak)
+  * Code simplifications for Performance functions
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 09 Jan 2023 09:20:00 +0300
+
 system-monitoring-center (2.4.0) unstable; urgency=medium
 
   * New: Spanish translations
