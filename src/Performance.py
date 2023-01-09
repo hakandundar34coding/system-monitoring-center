@@ -2185,16 +2185,6 @@ class Performance:
                 ctx.stroke()
 
 
-    def performance_line_charts_enter_notify_event(self, event, x, y):
-        """
-        Highlight performance chart line if mouse is moved onto the drawingarea.
-        """
-
-        widget = event.get_widget()
-        self.chart_line_highlight = widget
-        widget.queue_draw()
-
-
     # ----------------------- Highlight performance chart line if mouse is moved onto the drawingarea -----------------------
     def performance_line_charts_enter_notify_event_func(self, widget, event):
 
