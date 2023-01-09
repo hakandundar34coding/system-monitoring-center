@@ -90,8 +90,7 @@ class Network:
         self.performance_define_data_unit_converter_variables_func()
 
         network_card_list = Performance.network_card_list
-        selected_network_card_number = Performance.selected_network_card_number
-        selected_network_card = network_card_list[selected_network_card_number]
+        selected_network_card = Performance.selected_network_card
 
 
         # Get information.
@@ -116,8 +115,7 @@ class Network:
     def network_loop_func(self):
 
         network_card_list = Performance.network_card_list
-        selected_network_card_number = Performance.selected_network_card_number
-        selected_network_card = network_card_list[selected_network_card_number]
+        selected_network_card = Performance.selected_network_card
 
         # Run "network_initial_func" if selected network card is changed since the last loop.
         try:
@@ -130,8 +128,6 @@ class Network:
 
         network_receive_speed = Performance.network_receive_speed
         network_send_speed = Performance.network_send_speed
-        network_receive_bytes = Performance.network_receive_bytes
-        network_send_bytes = Performance.network_send_bytes
 
         performance_network_data_precision = Config.performance_network_data_precision
         performance_network_data_unit = Config.performance_network_data_unit
@@ -140,28 +136,29 @@ class Network:
         self.drawingarea1401.queue_draw()
 
         # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
-        network_card_list_system_ordered = Performance.network_card_list_system_ordered
+        network_card_list = Performance.network_card_list
         try:                                                                                      
-            if self.network_card_list_system_ordered_prev != network_card_list_system_ordered:
+            if self.network_card_list_prev != network_card_list:
                 from MainGUI import MainGUI
                 MainGUI.main_gui_device_selection_list_func()
         # Avoid error if this is first loop of the function.
         except AttributeError:
             pass
-        self.network_card_list_system_ordered_prev = network_card_list_system_ordered
+        self.network_card_list_prev = network_card_list
 
 
         # Get information.
+        network_send_bytes, network_receive_bytes = self.network_download_upload_data_func(selected_network_card)
         network_card_connected = self.network_card_connected_func(selected_network_card)
         network_ssid = self.network_ssid_func(selected_network_card)
         network_signal_strength = self.network_signal_strength_func(selected_network_card, network_card_connected)
 
 
         # Set and update Network tab label texts by using information get
-        self.label1403.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_receive_speed[selected_network_card_number][-1], performance_network_data_unit, performance_network_data_precision)}/s')
-        self.label1404.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_send_speed[selected_network_card_number][-1], performance_network_data_unit, performance_network_data_precision)}/s')
-        self.label1405.set_text(self.performance_data_unit_converter_func("data", "none", network_receive_bytes[selected_network_card_number], performance_network_data_unit, performance_network_data_precision))
-        self.label1406.set_text(self.performance_data_unit_converter_func("data", "none", network_send_bytes[selected_network_card_number], performance_network_data_unit, performance_network_data_precision))
+        self.label1403.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_receive_speed[selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s')
+        self.label1404.set_text(f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_send_speed[selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s')
+        self.label1405.set_text(self.performance_data_unit_converter_func("data", "none", network_receive_bytes, performance_network_data_unit, performance_network_data_precision))
+        self.label1406.set_text(self.performance_data_unit_converter_func("data", "none", network_send_bytes, performance_network_data_unit, performance_network_data_precision))
         self.label1408.set_text(f'{network_card_connected} - {network_ssid}')
         self.label1409.set_text(network_signal_strength)
 
@@ -240,6 +237,19 @@ class Network:
                 network_address_ipv6 = line.split()[1].split("/")[0]
 
         return network_address_ipv4, network_address_ipv6
+
+
+    def network_download_upload_data_func(self, selected_network_card):
+        """
+        Get network card download data and upload data.
+        """
+
+        network_io = Performance.network_io()
+
+        network_receive_bytes = network_io[selected_network_card]["download_bytes"]
+        network_send_bytes = network_io[selected_network_card]["upload_bytes"]
+
+        return network_send_bytes, network_receive_bytes
 
 
     # ----------------------- Get network card connected information -----------------------

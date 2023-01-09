@@ -219,6 +219,7 @@ class Gpu:
             if self.default_gpu == "":
                 set_selected_gpu = self.gpu_list[0]
         self.selected_gpu_number = self.gpu_list.index(set_selected_gpu)
+        self.selected_gpu = set_selected_gpu
 
 
     # ----------------------- Get if default GPU -----------------------

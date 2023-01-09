@@ -130,8 +130,7 @@ class Disk:
         self.performance_define_data_unit_converter_variables_func()
 
         disk_list = Performance.disk_list
-        selected_disk_number = Performance.selected_disk_number
-        selected_disk = disk_list[selected_disk_number]
+        selected_disk = Performance.selected_disk
         # Definition to access to this variable from "DiskDetails" module.
         self.selected_disk = selected_disk
 
@@ -160,8 +159,7 @@ class Disk:
     def disk_loop_func(self):
 
         disk_list = Performance.disk_list
-        selected_disk_number = Performance.selected_disk_number
-        selected_disk = disk_list[selected_disk_number]
+        selected_disk = Performance.selected_disk
         disk_sector_size = Performance.disk_sector_size
 
         # Run "disk_initial_func" if selected disk is changed since the last loop.
@@ -184,15 +182,15 @@ class Disk:
         self.drawingarea1302.queue_draw()
 
         # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
-        disk_list_system_ordered = Performance.disk_list_system_ordered
+        disk_list = Performance.disk_list
         try:                                                                                      
-            if self.disk_list_system_ordered_prev != disk_list_system_ordered:
+            if self.disk_list_prev != disk_list:
                 from MainGUI import MainGUI
                 MainGUI.main_gui_device_selection_list_func()
         # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
         except AttributeError:
             pass
-        self.disk_list_system_ordered_prev = disk_list_system_ordered
+        self.disk_list_prev = disk_list
 
         # Run "main_gui_device_selection_list_func" if "hide_loop_ramdisk_zram_disks" option is changed since the last loop.
         hide_loop_ramdisk_zram_disks = Config.hide_loop_ramdisk_zram_disks
@@ -217,14 +215,14 @@ class Disk:
 
 
         # Get information.
-        disk_read_data, disk_write_data = self.disk_read_write_data_func(selected_disk, disk_list)
+        disk_read_data, disk_write_data = self.disk_read_write_data_func(selected_disk)
         disk_file_system_information = self.disk_file_system_information_func(disk_list)
         disk_file_system, disk_capacity, disk_used, disk_free, self.disk_usage_percentage, disk_mount_point  = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
 
 
         # Show information on labels.
-        self.label1303.set_text(f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_read_speed[selected_disk_number][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
-        self.label1304.set_text(f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_write_speed[selected_disk_number][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.label1303.set_text(f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_read_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.label1304.set_text(f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_write_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
         self.label1305.set_text(self.performance_data_unit_converter_func("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
         self.label1306.set_text(self.performance_data_unit_converter_func("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
         if disk_mount_point != "-":
@@ -481,10 +479,12 @@ class Disk:
 
 
     # ----------------------- Get disk read data and disk write data -----------------------
-    def disk_read_write_data_func(self, selected_disk, disk_list):
+    def disk_read_write_data_func(self, selected_disk):
 
-        disk_read_data = Performance.disk_read_data[disk_list.index(selected_disk)]
-        disk_write_data = Performance.disk_write_data[disk_list.index(selected_disk)]
+        disk_io = Performance.disk_io()
+
+        disk_read_data = disk_io[selected_disk]["read_bytes"]
+        disk_write_data = disk_io[selected_disk]["write_bytes"]
 
         return disk_read_data, disk_write_data
 
@@ -518,7 +518,7 @@ class Disk:
     def disk_update_disk_usage_percentages_on_disk_list_func(self):
 
         # Get disk usage percentages.
-        device_list = Performance.disk_list_system_ordered
+        device_list = Performance.disk_list
         disk_usage_percentage_list = []
         for device in device_list:
             disk_filesystem_information_list = self.disk_file_system_information_func(device_list)

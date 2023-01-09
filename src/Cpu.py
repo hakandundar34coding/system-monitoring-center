@@ -82,10 +82,7 @@ class Cpu:
     # ----------------------------------- CPU - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
     def cpu_initial_func(self):
 
-        logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
         selected_cpu_core = Performance.selected_cpu_core
-        selected_cpu_core_number_only = selected_cpu_core.split("cpu")[1]
-
 
         # Get information.
         cpu_core_min_frequency, cpu_core_max_frequency = self.cpu_core_min_max_frequency_func(selected_cpu_core)
@@ -115,9 +112,7 @@ class Cpu:
 
         number_of_logical_cores = Performance.number_of_logical_cores
         cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
-        selected_cpu_core_number = Performance.selected_cpu_core_number
         selected_cpu_core = Performance.selected_cpu_core
-        selected_cpu_core_number_only = selected_cpu_core.split("cpu")[1]
         # Run "cpu_initial_func" if selected CPU core is changed since the last loop.
         try:                                                                                      
             if self.selected_cpu_core_prev != selected_cpu_core:
@@ -130,19 +125,19 @@ class Cpu:
         self.drawingarea1101.queue_draw()
 
         # Run "main_gui_device_selection_list_func" if selected device list is changed since the last loop.
-        logical_core_list_system_ordered = Performance.logical_core_list_system_ordered
+        logical_core_list = Performance.logical_core_list
         try:                                                                                      
-            if self.logical_core_list_system_ordered_prev != logical_core_list_system_ordered:
+            if self.logical_core_list_prev != logical_core_list:
                 from MainGUI import MainGUI
                 MainGUI.main_gui_device_selection_list_func()
         # try-except is used in order to avoid error and also run "main_gui_device_selection_list_func" if this is first loop of the function.
         except AttributeError:
             pass
-        self.logical_core_list_system_ordered_prev = logical_core_list_system_ordered
+        self.logical_core_list_prev = logical_core_list
 
 
         # Get information.
-        number_of_physical_cores, number_of_cpu_sockets, cpu_model_name = self.cpu_number_of_physical_cores_sockets_cpu_name_func(selected_cpu_core_number, number_of_logical_cores)
+        number_of_physical_cores, number_of_cpu_sockets, cpu_model_name = self.cpu_number_of_physical_cores_sockets_cpu_name_func(selected_cpu_core, number_of_logical_cores)
         cpu_core_current_frequency = self.cpu_core_current_frequency_func(selected_cpu_core)
         number_of_total_processes, number_of_total_threads = self.cpu_total_processes_threads_func()
         system_up_time = self.cpu_system_up_time_func()
@@ -241,7 +236,9 @@ class Cpu:
 
 
     # ----------------------- Get number of physical cores, number_of_cpu_sockets, cpu_model_names -----------------------
-    def cpu_number_of_physical_cores_sockets_cpu_name_func(self, selected_cpu_core_number, number_of_logical_cores):
+    def cpu_number_of_physical_cores_sockets_cpu_name_func(self, selected_cpu_core, number_of_logical_cores):
+
+        selected_cpu_core_number = Performance.logical_core_list.index(selected_cpu_core)
 
         with open("/proc/cpuinfo") as reader:
             proc_cpuinfo_output = reader.read()

@@ -263,12 +263,12 @@ class MainGUI:
     def main_gui_performance_summary_headerbar_loop_func(self):
 
         # Update performance data on the headerbar
-        selected_disk_number = Performance.selected_disk_number
-        selected_network_card_number = Performance.selected_network_card_number
+        selected_disk = Performance.selected_disk
+        selected_network_card = Performance.selected_network_card
         self.drawingarea101.queue_draw()
         self.drawingarea102.queue_draw()
-        self.label101.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk_number][-1] + Performance.disk_write_speed[selected_disk_number][-1]), Config.performance_disk_data_unit, 1)}/s')
-        self.label102.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card_number][-1] + Performance.network_send_speed[selected_network_card_number][-1]), Config.performance_network_data_unit, 1)}/s')
+        self.label101.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk][-1] + Performance.disk_write_speed[selected_disk][-1]), Config.performance_disk_data_unit, 1)}/s')
+        self.label102.set_text(f'{self.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card][-1] + Performance.network_send_speed[selected_network_card][-1]), Config.performance_network_data_unit, 1)}/s')
 
 
     def on_button2_clicked(self, widget):
@@ -706,60 +706,61 @@ class MainGUI:
         except AttributeError:
             pass
 
-        # Define variables for device list, selected device number and row number to be used for adding scrolledwindow into the grid.
-        performance_tab_current_sub_tab = Config.performance_tab_current_sub_tab
+        # Define variables for to be used for adding devices to list.
         # Check if Summary tab is selected.
-        if performance_tab_current_sub_tab == 0:
+        if Config.performance_tab_current_sub_tab == 0:
             device_list = [_tr("Summary")]
-            selected_device_number = 0
+            selected_device = device_list[0]
             listbox_row_number = 1
             tooltip_text = ""
 
         # Check if CPU tab is selected.
-        elif performance_tab_current_sub_tab == 1:
-            device_list = Performance.logical_core_list_system_ordered
-            selected_device_number = Performance.selected_cpu_core_number
+        elif Config.performance_tab_current_sub_tab == 1:
+            device_list = Performance.logical_core_list
+            selected_device = Performance.selected_cpu_core
             listbox_row_number = 3
             tooltip_text = _tr("CPU core selection affects only frequency and cache memory information.")
 
         # Check if Memory tab is selected.
-        elif performance_tab_current_sub_tab == 2:
+        elif Config.performance_tab_current_sub_tab == 2:
             device_list = [_tr("RAM") + "-" + _tr("Swap Memory")]
-            selected_device_number = 0
+            selected_device = device_list[0]
             listbox_row_number = 5
             tooltip_text = ""
 
         # Check if Disk tab is selected.
-        elif performance_tab_current_sub_tab == 3:
-            device_list_full = Performance.disk_list_system_ordered
+        elif Config.performance_tab_current_sub_tab == 3:
+            device_list_full = Performance.disk_list
             device_list = []
             for device in device_list_full:
-                # Do not add the device into the listbox and skip to the next loop if "hide_loop_ramdisk_zram_disks" option is enabled and device is a loop, ramdisk or zram device.
+                # Do not add the device into the listbox and skip to the next loop if
+                # "hide_loop_ramdisk_zram_disks" option is enabled and device is a loop, ramdisk or zram device.
                 if Config.hide_loop_ramdisk_zram_disks == 1:
                     if device.startswith("loop") == True or device.startswith("ram") == True or device.startswith("zram") == True:
                         continue
                 device_list.append(device)
-            # "selected_device_number" for Disk tab is get in a different way. Because device list may be changed if "hide_loop_ramdisk_zram_disks" option is enabled.
-            selected_device_number = device_list.index(Performance.disk_list_system_ordered[Performance.selected_disk_number])
+            # "selected_device" is get in a different way for Disk tab.
+            # Because device list may be changed if "hide_loop_ramdisk_zram_disks" option is enabled.
+            selected_device = Performance.selected_disk
             listbox_row_number = 7
             tooltip_text = ""
 
         # Check if Network tab is selected.
-        elif performance_tab_current_sub_tab == 4:
+        elif Config.performance_tab_current_sub_tab == 4:
             device_list = Performance.network_card_list
-            selected_device_number = Performance.selected_network_card_number
+            selected_device = Performance.selected_network_card
             listbox_row_number = 9
             tooltip_text = ""
 
         # Check if GPU tab is selected.
-        elif performance_tab_current_sub_tab == 5:
+        elif Config.performance_tab_current_sub_tab == 5:
             device_list = Gpu.gpu_list
-            selected_device_number = Gpu.selected_gpu_number
+            selected_device = Gpu.selected_gpu
             listbox_row_number = 11
             tooltip_text = ""
 
         # Check if Sensors tab is selected.
-        elif performance_tab_current_sub_tab == 6:
+        elif Config.performance_tab_current_sub_tab == 6:
             return
 
         # Generate new widgets.
@@ -780,11 +781,11 @@ class MainGUI:
             selected_device = device_list[row.get_index()]
 
             # Check if Summary tab is selected.
-            if performance_tab_current_sub_tab == 0:
+            if Config.performance_tab_current_sub_tab == 0:
                 pass
 
             # Check if CPU tab is selected.
-            elif performance_tab_current_sub_tab == 1:
+            elif Config.performance_tab_current_sub_tab == 1:
                 # Set selected device.
                 Config.selected_cpu_core = selected_device
                 Performance.performance_set_selected_cpu_core_func()
@@ -795,11 +796,11 @@ class MainGUI:
                 Config.config_save_func()
 
             # Check if Memory tab is selected.
-            elif performance_tab_current_sub_tab == 2:
+            elif Config.performance_tab_current_sub_tab == 2:
                 pass
 
             # Check if Disk tab is selected.
-            elif performance_tab_current_sub_tab == 3:
+            elif Config.performance_tab_current_sub_tab == 3:
                 Config.selected_disk = selected_device
                 Performance.performance_set_selected_disk_func()
 
@@ -809,7 +810,7 @@ class MainGUI:
                 Config.config_save_func()
 
             # Check if Network tab is selected.
-            elif performance_tab_current_sub_tab == 4:
+            elif Config.performance_tab_current_sub_tab == 4:
                 Config.selected_network_card = selected_device
                 Performance.performance_set_selected_network_card_func()
 
@@ -819,7 +820,7 @@ class MainGUI:
                 Config.config_save_func()
 
             # Check if GPU tab is selected.
-            elif performance_tab_current_sub_tab == 5:
+            elif Config.performance_tab_current_sub_tab == 5:
                 Config.selected_gpu = selected_device
                 Gpu.gpu_get_gpu_list_and_boot_vga_func()
 
@@ -829,7 +830,7 @@ class MainGUI:
                 Config.config_save_func()
 
             # Check if Sensors tab is selected.
-            elif performance_tab_current_sub_tab == 6:
+            elif Config.performance_tab_current_sub_tab == 6:
                 pass
 
         # Add devices into listbox.
@@ -840,7 +841,7 @@ class MainGUI:
             label.set_label(device)
             grid.attach(label, 0, 0, 1, 1)
             # Also add disk usage percentage label next to device name if this is Disk tab.
-            if performance_tab_current_sub_tab == 3:
+            if Config.performance_tab_current_sub_tab == 3:
                 disk_filesystem_information_list = Disk.disk_file_system_information_func(device_list)
                 _, _, _, _, disk_usage_percentage, disk_mount_point = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
                 label = Gtk.Label()
@@ -860,6 +861,7 @@ class MainGUI:
         viewport1001.add(listbox1001)
         scrolledwindow1001.add(viewport1001)
         self.grid1010.attach(scrolledwindow1001, 0, listbox_row_number, 1, 1)
+        selected_device_number = device_list.index(selected_device)
         try:
             listbox1001.select_row(listbox1001.get_children()[selected_device_number])
         # Prevent error if a disk is hidden by changing the relevant option while it was selected. There is no need to update the list from this function because it will be set as hidden in the list by another function (in Disk module) immediately.

@@ -204,16 +204,18 @@ class Memory:
     # ----------------------------------- Memory - Get Memory Data Function -----------------------------------
     def memory_loop_func(self):
 
-        ram_used = Performance.ram_used
+        memory_info = Performance.memory_info()
+
+        ram_used = memory_info["ram_used"]
         ram_usage_percent = Performance.ram_usage_percent
-        ram_available = Performance.ram_available
-        ram_free = Performance.ram_free
-        ram_total = Performance.ram_total
+        ram_available = memory_info["ram_available"]
+        ram_free = memory_info["ram_free"]
+        ram_total = memory_info["ram_total"]
 
         self.swap_usage_percent = Performance.swap_usage_percent
-        swap_used = Performance.swap_used
-        swap_free = Performance.swap_free
-        swap_total = Performance.swap_total
+        swap_used = memory_info["swap_used"]
+        swap_free = memory_info["swap_free"]
+        swap_total = memory_info["swap_total"]
 
         performance_memory_data_precision = Config.performance_memory_data_precision
         performance_memory_data_unit = Config.performance_memory_data_unit

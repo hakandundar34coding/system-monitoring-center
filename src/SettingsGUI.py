@@ -413,46 +413,78 @@ class SettingsGUI:
             self.checkbutton2013.set_active(False)
 
 
-    # ----------------------- Called for trimming/adding performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...) for chart data history when "chart_data_history" preference is changed -----------------------
     def settings_gui_set_chart_data_history_func(self):
+        """
+        Trim/Add performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...)
+        when "chart_data_history" preference is changed.
+        """
 
-        chart_data_history_current = len(Performance.cpu_usage_percent_ave)                       # Get current chart_data_history length. This value is same for all performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...).
+        # Get current chart_data_history length which is same for all performance data lists (cpu_usage_percent_ave, ram_usage_percent, ...).
+        chart_data_history_current = len(Performance.cpu_usage_percent_ave)
         chart_data_history_new = Config.chart_data_history
-        if chart_data_history_current > chart_data_history_new:                                   # Trim beginning part of the lists if new "chart_data_history" value is smaller than the old value.
-            Performance.cpu_usage_percent_ave = Performance.cpu_usage_percent_ave[chart_data_history_current-chart_data_history_new:]    # "cpu_usage_percent_ave" list has no sub-lists and trimming is performed in this way.
-            cpu_usage_percent_per_core_len = len(Performance.cpu_usage_percent_per_core)
-            for i in range(cpu_usage_percent_per_core_len):
-                Performance.cpu_usage_percent_per_core[i] = Performance.cpu_usage_percent_per_core[i][chart_data_history_current-chart_data_history_new:]    # "cpu_usage_percent_per_core" list has sub-lists and trimming is performed for every sub-lists (for every CPU core).
-            Performance.ram_usage_percent = Performance.ram_usage_percent[chart_data_history_current-chart_data_history_new:]    # "ram_usage_percent" list has no sub-lists and trimming is performed in this way.
-            disk_read_speed_len = len(Performance.disk_read_speed)
-            for i in range(disk_read_speed_len):
-                Performance.disk_read_speed[i] = Performance.disk_read_speed[i][chart_data_history_current-chart_data_history_new:]    # "disk_read_speed" list has sub-lists and trimming is performed for every sub-lists (for every disk).
-                Performance.disk_write_speed[i] = Performance.disk_write_speed[i][chart_data_history_current-chart_data_history_new:]    # "disk_write_speed" list has sub-lists and trimming is performed for every sub-lists (for every disk).
-            network_receive_speed_len = len(Performance.network_receive_speed)
-            for i in range(network_receive_speed_len):
-                Performance.network_receive_speed[i] = Performance.network_receive_speed[i][chart_data_history_current-chart_data_history_new:]    # "network_receive_speed" list has sub-lists and trimming is performed for every sub-lists (for every network card).
-                Performance.network_send_speed[i] = Performance.network_send_speed[i][chart_data_history_current-chart_data_history_new:]    # "network_send_speed" list has sub-lists and trimming is performed for every sub-lists (for every network card).
+
+        # Trim beginning part of the lists if new "chart_data_history" value is smaller than the old value.
+        if chart_data_history_current > chart_data_history_new:
+
+            length_difference = chart_data_history_current - chart_data_history_new
+
+            # "cpu_usage_percent_ave" list
+            Performance.cpu_usage_percent_ave = Performance.cpu_usage_percent_ave[length_difference:]
+
+            # "cpu_usage_percent_per_core" list
+            for device in Performance.logical_core_list:
+                Performance.cpu_usage_percent_per_core[device] = Performance.cpu_usage_percent_per_core[device][length_difference:]
+
+            # "ram_usage_percent" and "swap_usage_percent" lists
+            Performance.ram_usage_percent = Performance.ram_usage_percent[length_difference:]
+            Performance.swap_usage_percent = Performance.swap_usage_percent[length_difference:]
+
+            # "disk_read_speed" and "disk_write_speed" lists
+            for device in Performance.disk_list:
+                Performance.disk_read_speed[device] = Performance.disk_read_speed[device][length_difference:]
+                Performance.disk_write_speed[device] = Performance.disk_write_speed[device][length_difference:]
+
+            # "network_receive_speed" and "network_send_speed" lists
+            for device in Performance.network_card_list:
+                Performance.network_receive_speed[device] = Performance.network_receive_speed[device][length_difference:]
+                Performance.network_send_speed[device] = Performance.network_send_speed[device][length_difference:]
+
+            # "gpu_load_list" list
             if MainGUI.radiobutton1005.get_active() == True:
                 from Gpu import Gpu
-                Gpu.gpu_load_list = Gpu.gpu_load_list[chart_data_history_current-chart_data_history_new:]     # "gpu_load_list" list has no sub-lists and trimming is performed in this way.
-        if chart_data_history_current < chart_data_history_new:                                   # Add list of zeroes to the beginning part of the lists if new "chart_data_history" value is bigger than the old value.
-            list_to_add = [0] * (chart_data_history_new - chart_data_history_current)             # Generate list of zeroes for adding to the beginning of te lists.
-            Performance.cpu_usage_percent_ave = list_to_add + Performance.cpu_usage_percent_ave   # "cpu_usage_percent_ave" list has no sub-lists and addition is performed in this way.
-            cpu_usage_percent_per_core_len = len(Performance.cpu_usage_percent_per_core)
-            for i in range(cpu_usage_percent_per_core_len):
-                Performance.cpu_usage_percent_per_core[i] = list_to_add + Performance.cpu_usage_percent_per_core[i]     # "cpu_usage_percent_per_core" list has sub-lists and addition is performed for every sub-lists (for every CPU core).
-            Performance.ram_usage_percent = list_to_add + Performance.ram_usage_percent           # "ram_usage_percent" list has no sub-lists and addition is performed in this way.
-            disk_read_speed_len = len(Performance.disk_read_speed)
-            for i in range(disk_read_speed_len):
-                Performance.disk_read_speed[i] = list_to_add + Performance.disk_read_speed[i]     # "disk_read_speed" list has sub-lists and addition is performed for every sub-lists (for every disk).
-                Performance.disk_write_speed[i] = list_to_add + Performance.disk_write_speed[i]   # "disk_write_speed" list has sub-lists and addition is performed for every sub-lists (for every disk).
-            network_receive_speed_len = len(Performance.network_receive_speed)
-            for i in range(network_receive_speed_len):
-                Performance.network_receive_speed[i] = list_to_add + Performance.network_receive_speed[i]    # "network_receive_speed" list has sub-lists and addition is performed for every sub-lists (for every network card).
-                Performance.network_send_speed[i] = list_to_add + Performance.network_send_speed[i]    # "network_send_speed" list has sub-lists and addition is performed for every sub-lists (for every network card).
+                Gpu.gpu_load_list = Gpu.gpu_load_list[length_difference:]
+
+        # Add list of zeroes to the beginning part of the lists if new "chart_data_history" value is bigger than the old value.
+        if chart_data_history_current < chart_data_history_new:
+
+            # Generate list of zeroes for adding to the beginning of te lists.
+            list_to_add = [0] * (chart_data_history_new - chart_data_history_current)
+
+            # "cpu_usage_percent_ave" list
+            Performance.cpu_usage_percent_ave = list_to_add + Performance.cpu_usage_percent_ave
+
+            # "cpu_usage_percent_per_core" list
+            for device in Performance.logical_core_list:
+                Performance.cpu_usage_percent_per_core[device] = list_to_add + Performance.cpu_usage_percent_per_core[device]
+
+            # "ram_usage_percent" and "swap_usage_percent" lists
+            Performance.ram_usage_percent = list_to_add + Performance.ram_usage_percent
+            Performance.swap_usage_percent = list_to_add + Performance.swap_usage_percent
+
+            # "disk_read_speed" and "disk_write_speed" lists
+            for device in Performance.disk_list:
+                Performance.disk_read_speed[device] = list_to_add + Performance.disk_read_speed[device]
+                Performance.disk_write_speed[device] = list_to_add + Performance.disk_write_speed[device]
+
+            # "network_receive_speed" and "network_send_speed" lists
+            for device in Performance.network_card_list:
+                Performance.network_receive_speed[device] = list_to_add + Performance.network_receive_speed[device]
+                Performance.network_send_speed[device] = list_to_add + Performance.network_send_speed[device]
+
+            # "gpu_load_list" list
             if MainGUI.radiobutton1005.get_active() == True:
                 from Gpu import Gpu
-                Gpu.gpu_load_list = list_to_add + Gpu.gpu_load_list                                       # "gpu_load_list" list has no sub-lists and addition is performed in this way.
+                Gpu.gpu_load_list = list_to_add + Gpu.gpu_load_list
 
 
     # ----------------------- Called for applying settings for all opened tabs (since application start) without waiting update interval -----------------------
