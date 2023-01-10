@@ -310,7 +310,7 @@ def dropdown_and_model(item_list):
 
     dropdown = Gtk.DropDown()
 
-    # Model (DropDown) - precision (CPU)
+    # Model
     model = dropdown_model(item_list)
     factory = dropdown_signal_list_item_factory()
     dropdown.set_model(model)
@@ -457,7 +457,7 @@ def device_kernel_name_label():
 
 def static_information_label(text):
     """
-    Generate static information Label. Information on this label is not changed after it is set.
+    Generate static information Label. This label is not updated.
     """
 
     label = Gtk.Label()
@@ -470,7 +470,7 @@ def static_information_label(text):
 
 def static_information_label_no_ellipsize(text):
     """
-    Generate static information Label. Information on this label is not changed after it is set.
+    Generate static information Label. This label is not updated.
     """
 
     label = Gtk.Label()
@@ -482,7 +482,7 @@ def static_information_label_no_ellipsize(text):
 
 def dynamic_information_label():
     """
-    Generate dynamic information Label. Information on this label is changed by the code.
+    Generate dynamic information Label. This label is updated by the code.
     """
 
     if 'attribute_list_bold' not in globals():
@@ -529,6 +529,7 @@ def da_upper_lower_label(text, alignment):
 
     label = Gtk.Label()
     label.set_halign(alignment)
+    label.add_css_class("dim-label")
     label.set_label(text)
 
     return label

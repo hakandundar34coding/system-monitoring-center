@@ -264,15 +264,11 @@ class ProcessesDetails:
         grid.attach(drawingarea_grid, 0, 0, 3, 1)
 
         # Label (CPU Usage (Average))
-        label = Gtk.Label()
-        label.set_label(_tr("CPU Usage (Average)"))
-        label.set_halign(Gtk.Align.START)
+        label = Common.da_upper_lower_label(_tr("CPU Usage (Average)"), Gtk.Align.START)
         drawingarea_grid.attach(label, 0, 0, 1, 1)
 
         # Label (graphic limit)
-        self.drawingarea_cpu_limit_label = Gtk.Label()
-        self.drawingarea_cpu_limit_label.set_halign(Gtk.Align.END)
-        self.drawingarea_cpu_limit_label.set_label("100%")
+        self.drawingarea_cpu_limit_label = Common.da_upper_lower_label("100%", Gtk.Align.END)
         drawingarea_grid.attach(self.drawingarea_cpu_limit_label, 1, 0, 1, 1)
 
         # DrawingArea
@@ -282,9 +278,7 @@ class ProcessesDetails:
         drawingarea_grid.attach(self.processes_details_da_cpu_usage, 0, 1, 2, 1)
 
         # Label (0)
-        label = Gtk.Label()
-        label.set_label("0")
-        label.set_halign(Gtk.Align.END)
+        label = Common.da_upper_lower_label("0", Gtk.Align.END)
         drawingarea_grid.attach(label, 0, 2, 2, 1)
 
         # Label (CPU)
@@ -369,15 +363,11 @@ class ProcessesDetails:
         grid.attach(drawingarea_grid, 0, 0, 3, 1)
 
         # Label (Memory (RSS))
-        label = Gtk.Label()
-        label.set_label(_tr("Memory (RSS)"))
-        label.set_halign(Gtk.Align.START)
+        label = Common.da_upper_lower_label(_tr("Memory (RSS)"), Gtk.Align.START)
         drawingarea_grid.attach(label, 0, 0, 1, 1)
 
         # Label (graphic limit)
-        self.drawingarea_memory_limit_label = Gtk.Label()
-        self.drawingarea_memory_limit_label.set_halign(Gtk.Align.END)
-        self.drawingarea_memory_limit_label.set_label("100%")
+        self.drawingarea_memory_limit_label = Common.da_upper_lower_label("--", Gtk.Align.END)
         drawingarea_grid.attach(self.drawingarea_memory_limit_label, 1, 0, 1, 1)
 
         # DrawingArea
@@ -387,9 +377,7 @@ class ProcessesDetails:
         drawingarea_grid.attach(self.processes_details_da_memory_usage, 0, 1, 2, 1)
 
         # Label (0)
-        label = Gtk.Label()
-        label.set_label("0")
-        label.set_halign(Gtk.Align.END)
+        label = Common.da_upper_lower_label("0", Gtk.Align.END)
         drawingarea_grid.attach(label, 0, 2, 2, 1)
 
         # Label (Memory (RSS))
@@ -462,15 +450,11 @@ class ProcessesDetails:
         grid.attach(drawingarea_grid, 0, 0, 3, 1)
 
         # Label (Read Speed (-) & Write Speed (--))
-        label = Gtk.Label()
-        label.set_label(_tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
-        label.set_halign(Gtk.Align.START)
+        label = Common.da_upper_lower_label(_tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)", Gtk.Align.START)
         drawingarea_grid.attach(label, 0, 0, 1, 1)
 
         # Label (graphic limit)
-        self.drawingarea_disk_limit_label = Gtk.Label()
-        self.drawingarea_disk_limit_label.set_halign(Gtk.Align.END)
-        self.drawingarea_disk_limit_label.set_label("--")
+        self.drawingarea_disk_limit_label = Common.da_upper_lower_label("--", Gtk.Align.END)
         drawingarea_grid.attach(self.drawingarea_disk_limit_label, 1, 0, 1, 1)
 
         # DrawingArea
@@ -480,9 +464,7 @@ class ProcessesDetails:
         drawingarea_grid.attach(self.processes_details_da_disk_speed, 0, 1, 2, 1)
 
         # Label (0)
-        label = Gtk.Label()
-        label.set_label("0")
-        label.set_halign(Gtk.Align.END)
+        label = Common.da_upper_lower_label("0", Gtk.Align.END)
         drawingarea_grid.attach(label, 0, 2, 2, 1)
 
         # Label (Read Speed)

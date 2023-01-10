@@ -162,6 +162,8 @@ class Cpu:
         """
 
         selected_cpu_core = Performance.selected_cpu_core
+        self.selected_cpu_core_prev = selected_cpu_core
+        self.logical_core_list_prev = list(Performance.logical_core_list)
 
         # Get information.
         cpu_core_min_frequency, cpu_core_max_frequency = self.cpu_core_min_max_frequency_func(selected_cpu_core)
@@ -195,25 +197,16 @@ class Cpu:
         cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
         selected_cpu_core = Performance.selected_cpu_core
         # Run "cpu_initial_func" if selected CPU core is changed since the last loop.
-        try:                                                                                      
-            if self.selected_cpu_core_prev != selected_cpu_core:
-                self.cpu_initial_func()
-        # try-except is used in order to avoid error if this is first loop of the function.
-        except AttributeError:
-            pass
+        if self.selected_cpu_core_prev != selected_cpu_core:
+            self.cpu_initial_func()
         self.selected_cpu_core_prev = selected_cpu_core
 
-        self.da_cpu_usage.queue_draw()
-
         # Run "main_gui_device_selection_list" if selected device list is changed since the last loop.
-        try:                                                                                      
-            if self.logical_core_list_prev != Performance.logical_core_list:
-                MainWindow.main_gui_device_selection_list()
-        # Avoid error if this is first loop of the function.
-        except AttributeError:
-            pass
+        if self.logical_core_list_prev != Performance.logical_core_list:
+            MainWindow.main_gui_device_selection_list()
         self.logical_core_list_prev = list(Performance.logical_core_list)
 
+        self.da_cpu_usage.queue_draw()
 
         # Get information.
         number_of_physical_cores, number_of_cpu_sockets, cpu_model_name = self.number_of_physical_cores_sockets_cpu_name_func(selected_cpu_core, number_of_logical_cores)
@@ -235,7 +228,7 @@ class Cpu:
 
     def cpu_core_min_max_frequency_func(self, selected_cpu_core):
         """
-        Get minimum and maximum frequencies of the selected CPU core.
+        Get minimum and maximum frequencies of the CPU core.
         """
 
         try:
@@ -252,7 +245,7 @@ class Cpu:
 
     def cpu_core_l1_l2_l3_cache_func(self, selected_cpu_core):
         """
-        Get L1i, L1d, L2, L3 cache memory values of the selected CPU core.
+        Get L1i, L1d, L2, L3 cache memory values of the CPU core.
         """
 
         # Get l1d cache
@@ -331,7 +324,8 @@ class Cpu:
             proc_cpuinfo_output = reader.read()
         proc_cpuinfo_output_lines = proc_cpuinfo_output.split("\n")
 
-        # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "x86_64" architecture. Physical and logical cores and model name per core information are tracked easily on this platform.
+        # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "x86_64" architecture.
+        # Physical and logical cores and model name per core information are tracked easily on this platform.
         if "physical id" in proc_cpuinfo_output:
             cpu_model_names = []
             number_of_physical_cores = 0
@@ -348,7 +342,9 @@ class Cpu:
             number_of_cpu_sockets = int(physical_id) + 1
             cpu_model_name = cpu_model_names[selected_cpu_core_number]
 
-        # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "ARM" architecture. Physical and logical cores and model name per core information are not tracked easily on this platform. Different ARM processors (v6, v7, v8 or models of same ARM vX processors) may have different information in "/proc/cpuinfo" file.
+        # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "ARM" architecture.
+        #xPhysical and logical cores and model name per core information are not tracked easily on this platform.
+        # Different ARM processors (v6, v7, v8 or models of same ARM vX processors) may have different information in "/proc/cpuinfo" file.
         else:
             cpu_model_names = []
             number_of_physical_cores = number_of_logical_cores
@@ -422,16 +418,19 @@ class Cpu:
 
     def cpu_core_current_frequency_func(self, selected_cpu_core):
         """
-        Get current frequency of the selected CPU core.
+        Get current frequency of the CPU core.
+        '/sys/devices/system/cpu/cpu[NUMBER]/cpufreq' is used instead of '/sys/devices/system/cpu/cpufreq/policy[NUMBER]'.
+        Because CPU core current frequencies may be same for all cores on RB-Pi devices and "scaling_cur_freq" file may be available
+        # for only 0th core of the relevant CPU group (little cores , big cores).
         """
 
         cpu_core_current_frequency = "-"
 
-        # "/sys/devices/system/cpu/cpu[NUMBER]/cpufreq" is used instead of "/sys/devices/system/cpu/cpufreq/policy[NUMBER]" because CPU core current frequencies may be same for all cores on RB_Pi devices and "scaling_cur_freq" file may be available for only 0th core of the relevant CPU group (little cores , big cores).
         try:
             with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cpufreq/scaling_cur_freq") as reader:
                 cpu_core_current_frequency = float(reader.read().strip()) / 1000000
-        # CPU core current frequency may not be available in "/sys/devices/system/cpu/cpufreq/policy..." folders on virtual machines (x86_64). Get it by reading "/proc/cpuinfo" file.
+        # CPU core current frequency may not be available in "/sys/devices/system/cpu/cpufreq/policy..." folders on virtual machines (x86_64).
+        # Get it by reading "/proc/cpuinfo" file.
         except FileNotFoundError:
             with open("/proc/cpuinfo") as reader:
                 proc_cpuinfo_all_cores = reader.read().strip().split("\n\n")
@@ -465,7 +464,8 @@ class Cpu:
                 try:
                     with open("/proc/" + pid + "/status") as reader:
                         proc_status_output = reader.read()
-                # try-except is used in order to skip to the next loop without application error if a "FileNotFoundError" error is encountered when process is ended after process list is get.
+                # Skip to the next loop without application error if a "FileNotFoundError" error is encountered
+                # when process is ended after process list is get.
                 except (FileNotFoundError, ProcessLookupError) as me:
                     continue
                 # Append number of threads of the process

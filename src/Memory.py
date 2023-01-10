@@ -481,9 +481,6 @@ class Memory:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        performance_memory_data_precision = Config.performance_memory_data_precision
-        performance_memory_data_unit = Config.performance_memory_data_unit
-
         total_physical_ram = self.physical_ram()
 
 
