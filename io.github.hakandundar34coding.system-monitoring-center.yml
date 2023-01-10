@@ -68,9 +68,7 @@ modules:
     build-commands:
       - python3 setup.py install --flatpak_package --prefix=${FLATPAK_DEST}
     sources:
-      - type: dir
-        path: /home/asush/Masaüstü/DATA/files/python/system-monitoring-center/system-monitoring-center
-    post-install:
-      - python3 -m compileall /app/share/system-monitoring-center/src
-
+      - type: git
+        url: https://github.com/hakandundar34coding/system-monitoring-center.git
+        commit: d653d63a9bbb71904b6a4d5d774ccac950c7797b
 
