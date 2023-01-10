@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v1.39.1 (10.01.2023)
+  * Fix: Disk name match when loop devices are reconnected
+  * Fix: Negative disk speed when loop devices are reconnected
+  * Code simplifications for Performance functions
+
 ### v2.4.1 (09.01.2023)
   * Fix: Update device list (unified tab-device list)
   * Fix: Process name of the application (Flatpak)
