@@ -1006,7 +1006,7 @@ class MainWindow():
                 disk_filesystem_information_list = Disk.disk_file_system_information_func(device_list)
                 _, _, _, _, disk_usage_percentage, disk_mount_point = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
                 label = Gtk.Label()
-                label.set_sensitive(False)
+                label.add_css_class("dim-label")
                 if disk_mount_point == "[" + _tr("Not mounted") + "]":
                     label.set_label(f'  (-%)')
                 else:
