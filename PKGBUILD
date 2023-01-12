@@ -1,13 +1,13 @@
 # Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
 pkgname=system-monitoring-center
-_pkgver=2.0.3
+_pkgver=2.4.0
 pkgver=${_pkgver//-/.}
 pkgrel=1
 pkgdesc="Multi-featured system monitor."
 arch=('any')
 url="https://github.com/hakandundar34coding/system-monitoring-center"
 license=('GPL3')
-depends=('dmidecode' 'gtk4' 'iproute2' 'polkit'
+depends=('dmidecode' 'gtk4' 'hwdata' 'iproute2' 'polkit'
          'python-cairo' 'python-gobject' 'util-linux')
 makedepends=('python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$_pkgver.tar.gz")
