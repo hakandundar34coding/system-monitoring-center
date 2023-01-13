@@ -871,24 +871,24 @@ def device_vendor_model(modalias_output):
         device_model_id = device_alias[first_index:last_index]
 
         if udev_database == "no":
-            # Get search texts by using device IDs.
+            # Get search texts
             search_text1 = "\n" + device_vendor_id[5:].lower() + "  "
             search_text2 = "\n\t" + device_model_id[5:].lower() + "  "
 
-            # Read database file for PCI devices.
+            # Read database file
             with open(pci_usb_hardware_database_dir + "pci.ids", encoding="utf-8") as reader:
                 ids_file_output = reader.read()
 
         if udev_database == "yes":
-            # Get search texts by using device IDs.
+            # Get search texts
             search_text1 = "pci:" + device_vendor_id + "*" + "\n ID_VENDOR_FROM_DATABASE="
             search_text2 = "pci:" + device_vendor_id + device_model_id + "*" + "\n ID_MODEL_FROM_DATABASE="
 
-            # Read database file for PCI devices.
+            # Read database file
             with open(udev_hardware_database_dir + "20-pci-vendor-model.hwdb", encoding="utf-8") as reader:
                 ids_file_output = reader.read()
 
-        # Get device vendor, model names from device ID file content.
+        # Get device vendor, model names
         if search_text1 in ids_file_output:
             rest_of_the_ids_file_output = ids_file_output.split(search_text1, 1)[1]
             device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0]
@@ -915,24 +915,24 @@ def device_vendor_model(modalias_output):
         device_model_id = "d0000" + str(int(device_model_id.strip("d")) + 1040)
 
         if udev_database == "no":
-            # Get search texts by using device IDs.
+            # Get search texts
             search_text1 = "\n" + device_vendor_id[5:].lower() + "  "
             search_text2 = "\n\t" + device_model_id[5:].lower() + "  "
 
-            # Read database file for VIRTIO devices.
+            # Read database file
             with open(pci_usb_hardware_database_dir + "pci.ids", encoding="utf-8") as reader:
                 ids_file_output = reader.read()
 
         if udev_database == "yes":
-            # Get search texts by using device IDs.
+            # Get search texts
             search_text1 = "pci:" + device_vendor_id + "*" + "\n ID_VENDOR_FROM_DATABASE="
             search_text2 = "pci:" + device_vendor_id + device_model_id + "*" + "\n ID_MODEL_FROM_DATABASE="
 
-            # Read database file for VIRTIO devices.
+            # Read database file
             with open(udev_hardware_database_dir + "20-pci-vendor-model.hwdb", encoding="utf-8") as reader:
                 ids_file_output = reader.read()
 
-        # Get device vendor, model names from device ID file content.
+        # Get device vendor, model names
         if search_text1 in ids_file_output:
             rest_of_the_ids_file_output = ids_file_output.split(search_text1, 1)[1]
             device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0]
@@ -956,24 +956,24 @@ def device_vendor_model(modalias_output):
         device_model_id = device_alias[first_index:last_index]
 
         if udev_database == "no":
-            # Get search texts by using device IDs.
+            # Get search texts
             search_text1 = "\n" + device_vendor_id[1:].lower() + "  "
             search_text2 = "\n\t" + device_model_id[1:].lower() + "  "
 
-            # Read database file for USB devices.
+            # Read database file
             with open(pci_usb_hardware_database_dir + "usb.ids", encoding="utf-8", errors="ignore") as reader:
                 ids_file_output = reader.read()
 
         if udev_database == "yes":
-            # Get search texts by using device IDs.
+            # Get search texts
             search_text1 = "usb:" + device_vendor_id + "*" + "\n ID_VENDOR_FROM_DATABASE="
             search_text2 = "usb:" + device_vendor_id + device_model_id + "*" + "\n ID_MODEL_FROM_DATABASE="
 
-            # Read database file for USB devices.
+            # Read database file
             with open(udev_hardware_database_dir + "20-usb-vendor-model.hwdb", encoding="utf-8") as reader:
                 ids_file_output = reader.read()
 
-        # Get device vendor, model names from device ID file content.
+        # Get device vendor, model names
         if search_text1 in ids_file_output:
             rest_of_the_ids_file_output = ids_file_output.split(search_text1, 1)[1]
             device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0]
@@ -996,21 +996,21 @@ def device_vendor_model(modalias_output):
         last_index = first_index + 4 + 1
         device_model_id = device_alias[first_index:last_index]
 
-        # Get search texts by using device IDs.
+        # Get search texts
         search_text1 = "sdio:" + "c*" + device_vendor_id + "*" + "\n ID_VENDOR_FROM_DATABASE="
         search_text2 = "sdio:" + "c*" + device_vendor_id + device_model_id + "*" + "\n ID_MODEL_FROM_DATABASE="
 
         if udev_database == "no":
-            # Read database file for SDIO devices.
+            # Read database file
             with open(sdio_hardware_database_dir + "/20-sdio-vendor-model.hwdb", encoding="utf-8") as reader:
                 ids_file_output = reader.read()
 
         if udev_database == "yes":
-            # Read database file for SDIO devices.
+            # Read database file
             with open(udev_hardware_database_dir + "20-sdio-vendor-model.hwdb", encoding="utf-8") as reader:
                 ids_file_output = reader.read()
 
-        # Get device vendor, model names from device ID file content.
+        # Get device vendor, model names
         if search_text1 in ids_file_output:
             rest_of_the_ids_file_output = ids_file_output.split(search_text1, 1)[1]
             device_vendor_name = rest_of_the_ids_file_output.split("\n", 1)[0]
