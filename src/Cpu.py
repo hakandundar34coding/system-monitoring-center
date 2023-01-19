@@ -421,7 +421,7 @@ class Cpu:
         Get current frequency of the CPU core.
         '/sys/devices/system/cpu/cpu[NUMBER]/cpufreq' is used instead of '/sys/devices/system/cpu/cpufreq/policy[NUMBER]'.
         Because CPU core current frequencies may be same for all cores on RB-Pi devices and "scaling_cur_freq" file may be available
-        # for only 0th core of the relevant CPU group (little cores , big cores).
+        for only 0th core of the relevant CPU group (little cores , big cores).
         """
 
         cpu_core_current_frequency = "-"
