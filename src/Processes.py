@@ -691,12 +691,8 @@ class Processes:
                               ]
 
         # Define data unit conversion function objects in for lower CPU usage.
-        global performance_define_data_unit_converter_variables_func, performance_define_data_unit_converter_variables_func, performance_data_unit_converter_func
-        performance_define_data_unit_converter_variables_func = Performance.performance_define_data_unit_converter_variables_func
+        global performance_data_unit_converter_func
         performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
-
-        # Define data unit conversion variables before they are used.
-        performance_define_data_unit_converter_variables_func()
 
 
         global processes_data_rows_prev, pid_list_prev, global_process_cpu_times_prev, disk_read_write_data_prev, show_processes_as_tree_prev, processes_treeview_columns_shown_prev, processes_data_row_sorting_column_prev, processes_data_row_sorting_order_prev, processes_data_column_order_prev, processes_data_column_widths_prev
