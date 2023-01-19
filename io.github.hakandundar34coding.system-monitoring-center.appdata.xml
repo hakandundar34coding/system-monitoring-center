@@ -7,7 +7,16 @@
   <name>System Monitoring Center</name>
   <developer_name>Hakan Dündar</developer_name>
   <project_license>GPL-3.0</project_license>
-  <summary>Multi-featured system monitor.</summary>
+  <summary>Multi-featured system monitor</summary>
+  <summary xml:lang="cs">Multifunkční systémový monitor</summary>
+  <summary xml:lang="de">Multifunktioneller Systemmonitor</summary>
+  <summary xml:lang="es">Monitor del sistema con múltiples funciones</summary>
+  <summary xml:lang="hu">Többcélú rendszerfigyelő</summary>
+  <summary xml:lang="pl">Wielofunkcyjny monitor systemu</summary>
+  <summary xml:lang="pt_BR">Monitor de Sistema com vários recursos</summary>
+  <summary xml:lang="pt_PT">Monitor de sistema multi-recursos</summary>
+  <summary xml:lang="ru_RU">Многофункциональный системный монитор</summary>
+  <summary xml:lang="tr">Çok özellikli sistem gözlemcisi</summary>
   <url type="homepage">https://github.com/hakandundar34coding/system-monitoring-center</url>
   <url type="bugtracker">https://github.com/hakandundar34coding/system-monitoring-center/issues</url>
   <content_rating type="oars-1.1"/>
