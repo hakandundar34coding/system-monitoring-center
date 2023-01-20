@@ -560,11 +560,11 @@ class Disk:
             except (FileNotFoundError, NotADirectoryError) as me:
                 pass
 
-            if "-" not in [device_vendor_name, device_model_name]:
+            if "-" not in [device_vendor_name, device_model_name] or "Unknown" not in [device_vendor_name, device_model_name]:
                 disk_device_model_name = f'{device_vendor_name} - {device_model_name}'
 
             # Get device vendor-model if this is a NVMe SSD and vendor or model is not found in hardware database.
-            if "-" in [device_vendor_name, device_model_name]:
+            if "-" in [device_vendor_name, device_model_name] or "Unknown" in [device_vendor_name, device_model_name]:
                 device_vendor_name = "-"
                 device_model_name = "-"
                 try:
