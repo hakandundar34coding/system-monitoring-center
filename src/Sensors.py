@@ -178,7 +178,7 @@ def sensors_loop_func():
                     device_detailed_name = device_path.split("/")[-3]
                     if device_detailed_name.startswith("hwmon") == True:
                         device_detailed_name = "-"
-                if device_detailed_name != "-":
+                if device_detailed_name != "-" and device_detailed_name.startswith("0000:") == False:
                     sensor_group_name = device_detailed_name + " ( " + sensor_group_name + " )"
                 # Get sensor name
                 try:
