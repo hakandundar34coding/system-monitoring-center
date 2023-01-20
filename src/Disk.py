@@ -548,37 +548,66 @@ class Disk:
         # Get disk vendor and model.
         device_vendor_name = "-"
         device_model_name = "-"
-        # Try to get device vendor model if this is a NVMe SSD. These disks do not have "modalias" or "model" files under "/sys/class/block/" + selected_disk + "/device" directory.
-        try:
-            with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/modalias") as reader:
-                modalias_output = reader.read().strip()
-            device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
-        except (FileNotFoundError, NotADirectoryError) as me:
-            pass
-        # Try to get device vendor model if this is a SCSI, IDE or virtio device (on QEMU virtual machines).
-        try:
-            with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/modalias") as reader:
-                modalias_output = reader.read().strip()
-            device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
-        except (FileNotFoundError, NotADirectoryError) as me:
-            pass
-        # Try to get device vendor model if this is a SCSI or IDE disk.
-        if device_vendor_name == "[scsi_or_ide_disk]":
+        disk_device_model_name = "-"
+
+        # Get device vendor model if this is a NVMe SSD.
+        # These disks do not have "modalias" or "vendor" files under "/sys/class/block/" + selected_disk + "/device" directory.
+        if os.path.isdir("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/") == True:
             try:
-                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/vendor") as reader:
-                    device_vendor_name = reader.read().strip()
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/modalias") as reader:
+                    modalias_output = reader.read().strip()
+                device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
             except (FileNotFoundError, NotADirectoryError) as me:
-                device_vendor_name = "Unknown"
+                pass
+
+            if "-" not in [device_vendor_name, device_model_name]:
+                disk_device_model_name = f'{device_vendor_name} - {device_model_name}'
+
+            # Get device vendor-model if this is a NVMe SSD and vendor or model is not found in hardware database.
+            if "-" in [device_vendor_name, device_model_name]:
+                device_vendor_name = "-"
+                device_model_name = "-"
+                try:
+                    with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
+                        device_model_name = reader.read().strip()
+                except (FileNotFoundError, NotADirectoryError) as me:
+                    pass
+
+                if device_model_name != "-":
+                    disk_device_model_name = device_model_name
+                else:
+                    device_vendor_name = "[" + _tr("Unknown") + "]"
+                    device_model_name = "[" + _tr("Unknown") + "]"
+                    disk_device_model_name = f'{device_vendor_name} - {device_model_name}'
+
+        # Get device vendor model if this is a SCSI, IDE or virtio device (on QEMU virtual machines).
+        if os.path.isdir("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/") == False:
             try:
-                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
-                    device_model_name = reader.read().strip()
+                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/modalias") as reader:
+                    modalias_output = reader.read().strip()
+                device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
             except (FileNotFoundError, NotADirectoryError) as me:
-                device_model_name = "Unknown"
-        if device_vendor_name == "Unknown":
-            device_vendor_name = "[" + _tr("Unknown") + "]"
-        if device_model_name == "Unknown":
-            device_model_name = "[" + _tr("Unknown") + "]"
-        disk_device_model_name = f'{device_vendor_name} - {device_model_name}'
+                pass
+
+            # Get device vendor model if this is a SCSI or IDE disk.
+            if device_vendor_name == "[scsi_or_ide_disk]":
+                try:
+                    with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/vendor") as reader:
+                        device_vendor_name = reader.read().strip()
+                except (FileNotFoundError, NotADirectoryError) as me:
+                    device_vendor_name = "Unknown"
+                try:
+                    with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
+                        device_model_name = reader.read().strip()
+                except (FileNotFoundError, NotADirectoryError) as me:
+                    device_model_name = "Unknown"
+
+            if device_vendor_name == "Unknown":
+                device_vendor_name = "[" + _tr("Unknown") + "]"
+            if device_model_name == "Unknown":
+                device_model_name = "[" + _tr("Unknown") + "]"
+            disk_device_model_name = f'{device_vendor_name} - {device_model_name}'
+
         # Get disk vendor and model if disk is loop device or swap disk.
         if selected_disk.startswith("loop"):
             disk_device_model_name = "[Loop Device]"
