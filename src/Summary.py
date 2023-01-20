@@ -2,6 +2,8 @@ import gi
 gi.require_version('Gtk', '4.0')
 from gi.repository import Gtk
 
+import os
+
 import cairo
 from math import sin, cos
 
