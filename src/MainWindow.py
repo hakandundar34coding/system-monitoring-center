@@ -398,6 +398,8 @@ class MainWindow():
         # Start the main loop function
         self.main_gui_tab_loop()
 
+        self.unified_tab_device_list_width()
+
         # Run main tab function (It is also called when main tab togglebuttons are toggled).
         self.main_gui_tab_switch()
 
@@ -1051,6 +1053,21 @@ class MainWindow():
                 self.services_tb.set_visible(False)
         except Exception:
             pass
+
+
+    def unified_tab_device_list_width(self):
+        """
+        Set width of the unified tab name-device list width by checking disk name lenghts.
+        Some disks such as NVME disks may have very long names such as "nvme2n2p10".
+        """
+
+        disk_name_length_list = []
+        for disk in Performance.disk_list:
+            disk_name_length_list.append(len(disk))
+
+        max_disk_name_lenght = max(disk_name_length_list)
+        if max_disk_name_lenght > 6:
+            self.summary_tb.set_size_request(140, -1)
 
 
     def root_privileges_warning(self):
