@@ -617,6 +617,8 @@ class Disk:
             # Check if disk name is in "/proc/swaps" file in order to determine if it is used as swap disk.
             with open("/proc/swaps") as reader:
                 proc_swaps_lines = reader.read().split("\n")
+            # Delete header indormation which is get from "/proc/swaps" file.
+            del proc_swaps_lines[0]
             for line in proc_swaps_lines:
                 if line.split()[0].split("/")[-1] == selected_disk:
                     disk_device_model_name = "[" + "zram - " + _tr("Swap").upper() + "]"
