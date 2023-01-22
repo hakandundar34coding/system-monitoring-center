@@ -960,7 +960,7 @@ msgstr "Réinitialiser tous les paramètres de l'application"
 
 #: src/SettingsWindow.py:719
 msgid "Do you want to reset all settings to defaults?"
-msgstr"Voulez-vous réinitialiser tous les paramètres par défaut ?"
+msgstr "Voulez-vous réinitialiser tous les paramètres par défaut ?"
 
 #: src/System.py:55 src/System.py:102
 msgid "Operating System (OS)"
