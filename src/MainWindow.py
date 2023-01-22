@@ -256,13 +256,25 @@ class MainWindow():
         Generate Performance tab sub-tab (Summary, CPU, etc.) GUI.
         """
 
+        self.paned = Gtk.Paned.new(orientation=Gtk.Orientation.VERTICAL)
+        self.paned.set_shrink_start_child(False)
+        self.paned.set_shrink_end_child(False)
+        self.paned.set_resize_start_child(False)
+        self.performance_tab_main_grid.attach(self.paned, 0, 0, 1, 1)
+
         # Main Grid (Performance tab sub-tab togglebuttons)
         self.sub_tab_tb_grid = Gtk.Grid.new()
         self.sub_tab_tb_grid.set_orientation(Gtk.Orientation.VERTICAL)
         self.sub_tab_tb_grid.add_css_class("linked")
         self.sub_tab_tb_grid.set_valign(Gtk.Align.START)
         self.sub_tab_tb_grid.set_margin_top(35)
-        self.performance_tab_main_grid.attach(self.sub_tab_tb_grid, 0, 0, 1, 1)
+        self.sub_tab_tb_grid.set_vexpand(True)
+        self.sub_tab_tb_grid.set_valign(Gtk.Align.FILL)
+        self.paned.set_start_child(self.sub_tab_tb_grid)
+
+        # Grid (for adding end side of the Paned in order to prevent max. hight)
+        grid = Gtk.Grid()
+        self.paned.set_end_child(grid)
 
         # ToggleButton (Summary tab)
         self.summary_tb = Common.sub_tab_togglebutton(_tr("Summary"), "system-monitoring-center-performance-symbolic")
@@ -385,9 +397,6 @@ class MainWindow():
             remember_window_size_value = Config.remember_window_size[0]
             Config.remember_window_size = [remember_window_size_value, main_window_state, main_window_width, main_window_height]
             Config.config_save_func()
-
-        # Close the application
-        self.main_window.get_application().quit()
 
 
     def on_main_window_show(self, widget):
@@ -932,8 +941,11 @@ class MainWindow():
         viewport = Gtk.Viewport()
         listbox = Gtk.ListBox()
 
-        # Set properties of the scrolledwindow.
+        # Set properties of the ScrolledWindow.
+        # Define minimum size
         self.device_list_sw.set_size_request(-1, 130)
+        # Define vexpand property for resizable ScrolledWindow when user drags Paned handle.
+        self.device_list_sw.set_vexpand(True)
         self.device_list_sw.set_margin_start(8)
         self.device_list_sw.set_tooltip_text(tooltip_text)
 

@@ -7,7 +7,7 @@
 
 <p align="center">
     <strong>
-        Multi-featured system monitor.
+        Multi-featured system monitor
     </strong>
 </p>
 
