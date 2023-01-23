@@ -272,7 +272,7 @@ class MainWindow():
         self.sub_tab_tb_grid.set_valign(Gtk.Align.FILL)
         self.paned.set_start_child(self.sub_tab_tb_grid)
 
-        # Grid (for adding end side of the Paned in order to prevent max. hight)
+        # Grid (for adding end side of the Paned in order to prevent max. height)
         grid = Gtk.Grid()
         self.paned.set_end_child(grid)
 
