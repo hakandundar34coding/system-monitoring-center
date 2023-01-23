@@ -613,7 +613,7 @@ class Disk:
             disk_device_model_name = "[Loop Device]"
         if selected_disk.startswith("zram"):
             disk_device_model_name = "[" + "zram" + "]"
-            # zram disks may be used as swap disk, disk for tempoarary files (/tmp) or other.
+            # zram disks may be used as swap disk, disk for temporary files (/tmp), etc.
             # Check if disk name is in "/proc/swaps" file in order to determine if it is used as swap disk.
             with open("/proc/swaps") as reader:
                 proc_swaps_lines = reader.read().split("\n")
