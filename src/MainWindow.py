@@ -484,6 +484,7 @@ class MainWindow():
                            "de": "Baumfinder",
                            "es": "haggen88",
                            "fa": "MasterKia",
+                           "fr": "Metoto Sakamoto",
                            "hu": "Kálmán Szalai",
                            "pl": "ski007, K0RR, sdorpl",
                            "pt_BR": "Bruno do Nascimento",

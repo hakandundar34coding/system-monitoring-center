@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-19 11:49+0300\n"
-"PO-Revision-Date: 2023-01-19 11:55+0300\n"
+"PO-Revision-Date: 2023-01-23 11:22+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -70,7 +70,7 @@ msgstr "Fréquence"
 
 #: src/Cpu.py:107
 msgid "Processes-Threads"
-msgstr "Fils de processus"
+msgstr "Processus-Fils"
 
 #: src/Cpu.py:107
 msgid "Up Time"
@@ -186,7 +186,7 @@ msgstr "Afficher..."
 
 #: src/Disk.py:223
 msgid "Parent Name"
-msgstr "Disque principal"
+msgstr "Nom du parent"
 
 #: src/Disk.py:243 src/Memory.py:331 src/Memory.py:351 src/Memory.py:440
 #: src/ServicesDetails.py:209
@@ -328,7 +328,7 @@ msgstr "Processus"
 #: src/MainWindow.py:204 src/SettingsWindow.py:28 src/Users.py:58
 #: src/Users.py:568 src/UsersMenu.py:33
 msgid "Users"
-msgstr "Utilisateur"
+msgstr "Utilisateurs"
 
 #: src/MainWindow.py:209 src/Services.py:60 src/Services.py:750
 #: src/ServicesMenu.py:33 src/SettingsWindow.py:28
@@ -475,7 +475,7 @@ msgstr "Type de connexion"
 
 #: src/Network.py:123
 msgid "Connected-SSID"
-msgstr "SSID-conecté"
+msgstr "SSID-Connecté"
 
 #: src/Network.py:130
 msgid "Link Quality"
@@ -527,7 +527,7 @@ msgstr "Très élevé"
 
 #: src/Processes.py:172 src/Sensors.py:103
 msgid "High"
-msgstr "élevé"
+msgstr "Élevé"
 
 #: src/Processes.py:177
 msgid "Normal"
@@ -639,7 +639,7 @@ msgstr "En attente"
 
 #: src/Processes.py:712
 msgid "Idle"
-msgstr "inactif"
+msgstr "Inactif"
 
 #: src/Processes.py:712
 msgid "Zombie"
@@ -680,11 +680,11 @@ msgstr "Mémoire (USS)"
 
 #: src/ProcessesDetails.py:511
 msgid "Read Count"
-msgstr "nombre de lectures"
+msgstr "Nombre de lectures"
 
 #: src/ProcessesDetails.py:521
 msgid "Write Count"
-msgstr "nombre d'écritures"
+msgstr "Nombre d'écritures"
 
 #: src/ProcessesDetails.py:555
 msgid "Current Working Directory"
@@ -812,7 +812,7 @@ msgstr "Activé"
 
 #: src/Services.py:430 src/ServicesDetails.py:345
 msgid "Disabled"
-msgstr "Désactivé "
+msgstr "Désactivé"
 
 #: src/Services.py:430 src/ServicesDetails.py:345
 msgid "Masked"
@@ -832,7 +832,7 @@ msgstr "Généré"
 
 #: src/Services.py:430 src/ServicesDetails.py:345
 msgid "Enabled-runtime"
-msgstr "Temps d'exécution activé"
+msgstr "Activé-runtime"
 
 #: src/Services.py:430 src/ServicesDetails.py:345
 msgid "Indirect"
@@ -952,7 +952,7 @@ msgstr "Vérifier les mises à jour automatiquement (PyPI seulement)"
 
 #: src/SettingsWindow.py:159
 msgid "(If the application is run without root privileges.)"
-msgstr "(Si l'application est exécutée sans privilèges root)."
+msgstr "(Si l'application est exécutée sans privilèges root.)"
 
 #: src/SettingsWindow.py:176
 msgid "Reset all settings of the application"
@@ -1036,7 +1036,7 @@ msgstr "Flatpak"
 
 #: src/System.py:255
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr "Number of installed Flatpak applications and runtimes"
+msgstr ""
 
 #: src/System.py:270
 msgid "GTK Version"
@@ -1060,7 +1060,7 @@ msgstr "Connecté"
 
 #: src/Users.py:229 src/UsersDetails.py:124 src/UsersMenu.py:111
 msgid "Home Directory"
-msgstr "Répertoire Home"
+msgstr "Répertoire home"
 
 #: src/Users.py:230 src/UsersDetails.py:134 src/UsersMenu.py:115
 msgid "Group"
