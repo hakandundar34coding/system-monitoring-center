@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-19 11:49+0300\n"
-"PO-Revision-Date: 2023-01-19 11:55+0300\n"
+"POT-Creation-Date: 2023-01-24 09:38+0300\n"
+"PO-Revision-Date: 2023-01-24 15:12+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -30,16 +30,16 @@ msgstr "Refrescar los datos de esta pestaña"
 msgid "Graph Color"
 msgstr "Color del gráfico"
 
-#: src/Common.py:761 src/Processes.py:1230 src/Sensors.py:349
+#: src/Common.py:761 src/Processes.py:1230 src/Sensors.py:358
 #: src/Services.py:750 src/Users.py:568
 msgid "Search..."
 msgstr "Buscar..."
 
 #: src/Cpu.py:49 src/CpuMenu.py:35 src/CpuMenu.py:68 src/MainWindow.py:136
-#: src/MainWindow.py:273 src/Processes.py:676 src/ProcessesDetails.py:66
+#: src/MainWindow.py:285 src/Processes.py:676 src/ProcessesDetails.py:66
 #: src/ProcessesDetails.py:158 src/ProcessesDetails.py:285
-#: src/ProcessesMenu.py:176 src/ProcessesMenu.py:265 src/SettingsWindow.py:29
-#: src/Summary.py:666 src/Users.py:233 src/UsersDetails.py:164
+#: src/ProcessesMenu.py:176 src/ProcessesMenu.py:265 src/SettingsWindow.py:30
+#: src/Summary.py:668 src/Users.py:233 src/UsersDetails.py:164
 #: src/UsersMenu.py:127
 msgid "CPU"
 msgstr "CPU"
@@ -108,8 +108,9 @@ msgstr "Arquitectura"
 msgid "CPU Usage (Per Core)"
 msgstr "Uso de la CPU (por núcleo)"
 
-#: src/Cpu.py:414 src/Disk.py:578 src/Disk.py:580 src/Gpu.py:369 src/Gpu.py:371
-#: src/Network.py:255 src/Network.py:257 src/Network.py:348 src/Network.py:368
+#: src/Cpu.py:414 src/Disk.py:579 src/Disk.py:580 src/Disk.py:606
+#: src/Disk.py:608 src/Gpu.py:369 src/Gpu.py:371 src/Network.py:255
+#: src/Network.py:257 src/Network.py:348 src/Network.py:368
 msgid "Unknown"
 msgstr "Desconocido"
 
@@ -125,20 +126,20 @@ msgstr "Precisión"
 
 #: src/Disk.py:50 src/Disk.py:193 src/Disk.py:213 src/Disk.py:361
 #: src/Disk.py:543 src/DiskMenu.py:35 src/DiskMenu.py:110 src/MainWindow.py:144
-#: src/MainWindow.py:283 src/ProcessesDetails.py:76 src/ProcessesMenu.py:287
-#: src/ProcessesMenu.py:332 src/SettingsWindow.py:29
+#: src/MainWindow.py:295 src/ProcessesDetails.py:76 src/ProcessesMenu.py:287
+#: src/ProcessesMenu.py:332 src/SettingsWindow.py:30
 msgid "Disk"
 msgstr "Disco"
 
 #: src/Disk.py:76 src/Disk.py:103 src/DiskMenu.py:43 src/Processes.py:682
 #: src/ProcessesDetails.py:178 src/ProcessesDetails.py:453
-#: src/ProcessesDetails.py:471 src/ProcessesMenu.py:200 src/Summary.py:846
+#: src/ProcessesDetails.py:471 src/ProcessesMenu.py:200 src/Summary.py:848
 msgid "Read Speed"
 msgstr "Velocidad de lectura"
 
 #: src/Disk.py:76 src/Disk.py:103 src/DiskMenu.py:47 src/Processes.py:683
 #: src/ProcessesDetails.py:188 src/ProcessesDetails.py:453
-#: src/ProcessesDetails.py:481 src/ProcessesMenu.py:204 src/Summary.py:855
+#: src/ProcessesDetails.py:481 src/ProcessesMenu.py:204 src/Summary.py:857
 msgid "Write Speed"
 msgstr "Velocidad de escritura"
 
@@ -213,22 +214,22 @@ msgstr "Punto de montaje"
 msgid "Partition"
 msgstr "Partición"
 
-#: src/Disk.py:586 src/Summary.py:695
+#: src/Disk.py:624 src/Summary.py:697
 msgid "Swap"
 msgstr "Swap"
 
-#: src/Disk.py:664 src/Disk.py:665 src/Disk.py:666 src/Disk.py:667
-#: src/Disk.py:669 src/MainWindow.py:1010
+#: src/Disk.py:703 src/Disk.py:704 src/Disk.py:705 src/Disk.py:706
+#: src/Disk.py:708 src/MainWindow.py:1025
 msgid "Not mounted"
 msgstr "No montada"
 
-#: src/Disk.py:719 src/Gpu.py:318 src/Gpu.py:321 src/Network.py:344
+#: src/Disk.py:758 src/Gpu.py:318 src/Gpu.py:321 src/Network.py:344
 #: src/Network.py:392 src/Services.py:431 src/ServicesDetails.py:346
 #: src/UsersDetails.py:321
 msgid "Yes"
 msgstr "Si"
 
-#: src/Disk.py:721 src/Gpu.py:323 src/Network.py:346 src/Services.py:431
+#: src/Disk.py:760 src/Gpu.py:323 src/Network.py:346 src/Services.py:431
 #: src/ServicesDetails.py:346 src/UsersDetails.py:323
 msgid "No"
 msgstr "No"
@@ -259,8 +260,8 @@ msgstr "Mostrar las unidades de velocidad como múltiplos de bits"
 msgid "Hide loop, ramdisk, zram disks"
 msgstr "Ocultar bucle, ramdisk, discos zram"
 
-#: src/Gpu.py:52 src/GpuMenu.py:34 src/MainWindow.py:293
-#: src/SettingsWindow.py:29
+#: src/Gpu.py:52 src/GpuMenu.py:34 src/MainWindow.py:305
+#: src/SettingsWindow.py:30
 msgid "GPU"
 msgstr "GPU"
 
@@ -296,7 +297,7 @@ msgstr "Frecuencia de actualización"
 msgid "Resolution"
 msgstr "Resolución"
 
-#: src/MainWindow.py:69 src/MainWindow.py:504
+#: src/MainWindow.py:69 src/MainWindow.py:516
 msgid "System Monitoring Center"
 msgstr "Centro de Monitoreo del Sistema"
 
@@ -304,82 +305,82 @@ msgstr "Centro de Monitoreo del Sistema"
 msgid "Customization menu for the current tab"
 msgstr "Menú de personalización de la pestaña actual"
 
-#: src/MainWindow.py:140 src/MainWindow.py:888 src/Memory.py:102
+#: src/MainWindow.py:140 src/MainWindow.py:900 src/Memory.py:102
 #: src/Memory.py:491 src/MemoryMenu.py:43 src/Performance.py:433
-#: src/Performance.py:437 src/Summary.py:675
+#: src/Performance.py:437 src/Summary.py:677
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainWindow.py:150 src/MainWindow.py:288 src/Network.py:49
-#: src/NetworkMenu.py:35 src/SettingsWindow.py:29
+#: src/MainWindow.py:150 src/MainWindow.py:300 src/Network.py:49
+#: src/NetworkMenu.py:35 src/SettingsWindow.py:30
 msgid "Network"
 msgstr "Red"
 
-#: src/MainWindow.py:194 src/SettingsWindow.py:28
+#: src/MainWindow.py:194 src/SettingsWindow.py:29
 msgid "Performance"
 msgstr "Desempeño"
 
 #: src/MainWindow.py:199 src/Processes.py:60 src/Processes.py:1230
-#: src/ProcessesMenu.py:33 src/SettingsWindow.py:28 src/Summary.py:684
+#: src/ProcessesMenu.py:33 src/SettingsWindow.py:29 src/Summary.py:686
 #: src/Users.py:228 src/UsersDetails.py:114 src/UsersMenu.py:107
 msgid "Processes"
 msgstr "Procesos"
 
-#: src/MainWindow.py:204 src/SettingsWindow.py:28 src/Users.py:58
+#: src/MainWindow.py:204 src/SettingsWindow.py:29 src/Users.py:58
 #: src/Users.py:568 src/UsersMenu.py:33
 msgid "Users"
 msgstr "Usuarios"
 
 #: src/MainWindow.py:209 src/Services.py:60 src/Services.py:750
-#: src/ServicesMenu.py:33 src/SettingsWindow.py:28
+#: src/ServicesMenu.py:33 src/SettingsWindow.py:29
 msgid "Services"
 msgstr "Servicios"
 
-#: src/MainWindow.py:214 src/SettingsWindow.py:21 src/SettingsWindow.py:25
-#: src/SettingsWindow.py:28 src/System.py:50 src/System.py:239
+#: src/MainWindow.py:214 src/SettingsWindow.py:21 src/SettingsWindow.py:26
+#: src/SettingsWindow.py:29 src/System.py:50 src/System.py:239
 msgid "System"
 msgstr "Sistema"
 
-#: src/MainWindow.py:268 src/MainWindow.py:874 src/ProcessesDetails.py:61
-#: src/ServicesDetails.py:58 src/SettingsWindow.py:29 src/Summary.py:32
+#: src/MainWindow.py:280 src/MainWindow.py:886 src/ProcessesDetails.py:61
+#: src/ServicesDetails.py:58 src/SettingsWindow.py:30 src/Summary.py:34
 msgid "Summary"
 msgstr "Resumen"
 
-#: src/MainWindow.py:278 src/Memory.py:50 src/MemoryMenu.py:35
+#: src/MainWindow.py:290 src/Memory.py:50 src/MemoryMenu.py:35
 #: src/MemoryMenu.py:47 src/ProcessesDetails.py:71 src/ProcessesMenu.py:276
-#: src/ProcessesMenu.py:306 src/SettingsWindow.py:29
+#: src/ProcessesMenu.py:306 src/SettingsWindow.py:30
 msgid "Memory"
 msgstr "Memoria"
 
-#: src/MainWindow.py:298 src/Sensors.py:40 src/Sensors.py:349
-#: src/SettingsWindow.py:29
+#: src/MainWindow.py:310 src/Sensors.py:40 src/Sensors.py:358
+#: src/SettingsWindow.py:30
 msgid "Sensors"
 msgstr "Sensores"
 
-#: src/MainWindow.py:429 src/SettingsWindow.py:45
+#: src/MainWindow.py:440 src/SettingsWindow.py:49
 msgid "General Settings"
 msgstr "Ajustes generales"
 
-#: src/MainWindow.py:430
+#: src/MainWindow.py:441
 msgid "About"
 msgstr "Acerca de"
 
-#: src/MainWindow.py:506
+#: src/MainWindow.py:518
 msgid "Multi-featured system monitor"
 msgstr "Monitor del sistema con múltiples funciones"
 
-#: src/MainWindow.py:884
+#: src/MainWindow.py:896
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "La selección del núcleo de la CPU sólo afecta a la frecuencia y a la "
 "información de la memoria caché."
 
-#: src/MainWindow.py:888 src/Memory.py:140 src/Memory.py:369 src/Memory.py:522
+#: src/MainWindow.py:900 src/Memory.py:140 src/Memory.py:369 src/Memory.py:522
 #: src/Performance.py:437 src/ProcessesDetails.py:424
 msgid "Swap Memory"
 msgstr "Memoria Swap"
 
-#: src/MainWindow.py:1070
+#: src/MainWindow.py:1100
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -387,7 +388,7 @@ msgstr ""
 "Advertencia. La aplicación se ha ejecutado con privilegios de root, puede "
 "dañar su sistema."
 
-#: src/MainWindow.py:1149
+#: src/MainWindow.py:1179
 msgid "There is a newer version on PyPI."
 msgstr "Hay una versión más reciente en PyPI."
 
@@ -452,12 +453,12 @@ msgid "Priority"
 msgstr "Prioridad"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:43
-#: src/Summary.py:864
+#: src/Summary.py:866
 msgid "Download Speed"
 msgstr "Velocidad de descarga"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:47
-#: src/Summary.py:873
+#: src/Summary.py:875
 msgid "Upload Speed"
 msgstr "Velocidad de subida"
 
@@ -732,8 +733,8 @@ msgid "Collapse all"
 msgstr "Contraer todo"
 
 #: src/Sensors.py:100
-msgid "Sensor Group"
-msgstr "Grupo de sensores"
+msgid "Device"
+msgstr "Dispositivo"
 
 #: src/Sensors.py:102
 msgid "Current Value"
@@ -902,63 +903,71 @@ msgstr "Después"
 msgid "Before"
 msgstr "Antes"
 
-#: src/SettingsWindow.py:25
+#: src/SettingsWindow.py:26
 msgid "Light"
 msgstr "Claro"
 
-#: src/SettingsWindow.py:25
+#: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr "Oscuro"
 
-#: src/SettingsWindow.py:64
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Monitor del sistema"
+
+#: src/SettingsWindow.py:33
+msgid "Task Manager"
+msgstr "Administrador de tareas"
+
+#: src/SettingsWindow.py:68
 msgid "Language (Requires restart)"
 msgstr "Idioma (Requiere reiniciar)"
 
-#: src/SettingsWindow.py:72
+#: src/SettingsWindow.py:76
 msgid "Light/Dark theme"
 msgstr "Tema claro/oscuro"
 
-#: src/SettingsWindow.py:84
+#: src/SettingsWindow.py:88
 msgid "Update interval (seconds)"
 msgstr "Intervalo de actualización (segundos)"
 
-#: src/SettingsWindow.py:92
+#: src/SettingsWindow.py:96
 msgid "Graph data history"
 msgstr "Historial de datos gráficos"
 
-#: src/SettingsWindow.py:104
+#: src/SettingsWindow.py:108
 msgid "Show performance summary on the headerbar"
 msgstr "Mostrar el resumen de desempeño en la barra de cabecera"
 
-#: src/SettingsWindow.py:112
+#: src/SettingsWindow.py:116
 msgid "Remember last opened tabs"
 msgstr "Recordar últimas pestañas abiertas"
 
-#: src/SettingsWindow.py:121
+#: src/SettingsWindow.py:125
 msgid "Default main tab and sub-tab"
 msgstr "Pestaña principal y subpestaña por defecto"
 
-#: src/SettingsWindow.py:137
+#: src/SettingsWindow.py:141
 msgid "Remember last selected devices"
 msgstr "Recordar últimos dispositivos seleccionados"
 
-#: src/SettingsWindow.py:145
+#: src/SettingsWindow.py:149
 msgid "Remember window size"
 msgstr "Recordar el tamaño de la ventana"
 
-#: src/SettingsWindow.py:156
+#: src/SettingsWindow.py:160
 msgid "Check for updates automatically (PyPI only)"
 msgstr "Buscar actualizaciones automáticamente (sólo PyPI)"
 
-#: src/SettingsWindow.py:159
-msgid "(If the application is run without root privileges.)"
+#: src/SettingsWindow.py:163
+msgid "(If the application is run without root privileges)"
 msgstr "(Si la aplicación se ejecuta sin privilegios de root)"
 
-#: src/SettingsWindow.py:176
+#: src/SettingsWindow.py:180
 msgid "Reset all settings of the application"
 msgstr "Restablecer todos los ajustes de la aplicación"
 
-#: src/SettingsWindow.py:719
+#: src/SettingsWindow.py:723
 msgid "Do you want to reset all settings to defaults?"
 msgstr "¿Desea restablecer todos los ajustes a los valores predeterminados?"
 

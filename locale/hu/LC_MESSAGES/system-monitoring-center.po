@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-19 11:49+0300\n"
-"PO-Revision-Date: 2023-01-19 11:54+0300\n"
+"POT-Creation-Date: 2023-01-24 09:38+0300\n"
+"PO-Revision-Date: 2023-01-24 11:37+0300\n"
 "Last-Translator: Kálmán „KAMI” Szalai <kami911@gmail.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -29,16 +29,16 @@ msgstr "Ezen lap adatainak frissítése"
 msgid "Graph Color"
 msgstr "Grafikon szín"
 
-#: src/Common.py:761 src/Processes.py:1230 src/Sensors.py:349
+#: src/Common.py:761 src/Processes.py:1230 src/Sensors.py:358
 #: src/Services.py:750 src/Users.py:568
 msgid "Search..."
 msgstr "Keresés…"
 
 #: src/Cpu.py:49 src/CpuMenu.py:35 src/CpuMenu.py:68 src/MainWindow.py:136
-#: src/MainWindow.py:273 src/Processes.py:676 src/ProcessesDetails.py:66
+#: src/MainWindow.py:285 src/Processes.py:676 src/ProcessesDetails.py:66
 #: src/ProcessesDetails.py:158 src/ProcessesDetails.py:285
-#: src/ProcessesMenu.py:176 src/ProcessesMenu.py:265 src/SettingsWindow.py:29
-#: src/Summary.py:666 src/Users.py:233 src/UsersDetails.py:164
+#: src/ProcessesMenu.py:176 src/ProcessesMenu.py:265 src/SettingsWindow.py:30
+#: src/Summary.py:668 src/Users.py:233 src/UsersDetails.py:164
 #: src/UsersMenu.py:127
 msgid "CPU"
 msgstr "CPU"
@@ -76,32 +76,22 @@ msgid "Up Time"
 msgstr "Üzemidő"
 
 #: src/Cpu.py:116 src/Gpu.py:118
-#, fuzzy
-#| msgid "Min-Max Frequency:"
 msgid "Min-Max Frequency"
-msgstr "Min-Max frekvencia:"
+msgstr "Min-Max frekvencia"
 
 #: src/Cpu.py:123
-#, fuzzy
-#| msgid "Cache (L1d-L1i):"
 msgid "Cache (L1d-L1i)"
-msgstr "Gyorsítótár (L1d-L1i):"
+msgstr "Gyorsítótár (L1d-L1i)"
 
 #: src/Cpu.py:130
-#, fuzzy
-#| msgid "Cache (L2-L3):"
 msgid "Cache (L2-L3)"
-msgstr "Gyorsítótár (L2-L3):"
+msgstr "Gyorsítótár (L2-L3)"
 
 #: src/Cpu.py:137
-#, fuzzy
-#| msgid "CPU Sockets:"
 msgid "CPU Sockets"
-msgstr "CPU foglalatok:"
+msgstr "CPU foglalatok"
 
 #: src/Cpu.py:144
-#, fuzzy
-#| msgid "Cores (Physical-Logical):"
 msgid "Cores (Physical-Logical)"
 msgstr "CPU-magok (fizikai-logikai)"
 
@@ -110,26 +100,23 @@ msgid "Number of online physical and logical CPU cores"
 msgstr "Elérhető fizikai és logikai CPU-magok száma"
 
 #: src/Cpu.py:152 src/System.py:219
-#, fuzzy
-#| msgid "Architecture:"
 msgid "Architecture"
-msgstr "Architektúra:"
+msgstr "Architektúra"
 
 #: src/Cpu.py:179 src/CpuMenu.py:47
 msgid "CPU Usage (Per Core)"
 msgstr "CPU használat (CPU magonként)"
 
-#: src/Cpu.py:414 src/Disk.py:578 src/Disk.py:580 src/Gpu.py:369 src/Gpu.py:371
-#: src/Network.py:255 src/Network.py:257 src/Network.py:348 src/Network.py:368
+#: src/Cpu.py:414 src/Disk.py:579 src/Disk.py:580 src/Disk.py:606
+#: src/Disk.py:608 src/Gpu.py:369 src/Gpu.py:371 src/Network.py:255
+#: src/Network.py:257 src/Network.py:348 src/Network.py:368
 msgid "Unknown"
 msgstr "Ismeretlen"
 
 #: src/CpuMenu.py:39 src/DiskMenu.py:39 src/MemoryMenu.py:39
 #: src/NetworkMenu.py:39
-#, fuzzy
-#| msgid "Chart - Show"
 msgid "Graph - Show"
-msgstr "Diagram - Megjelenítés"
+msgstr ""
 
 #: src/CpuMenu.py:63 src/DiskMenu.py:71 src/MemoryMenu.py:63
 #: src/NetworkMenu.py:71 src/ProcessesMenu.py:260
@@ -138,20 +125,20 @@ msgstr "Pontosság"
 
 #: src/Disk.py:50 src/Disk.py:193 src/Disk.py:213 src/Disk.py:361
 #: src/Disk.py:543 src/DiskMenu.py:35 src/DiskMenu.py:110 src/MainWindow.py:144
-#: src/MainWindow.py:283 src/ProcessesDetails.py:76 src/ProcessesMenu.py:287
-#: src/ProcessesMenu.py:332 src/SettingsWindow.py:29
+#: src/MainWindow.py:295 src/ProcessesDetails.py:76 src/ProcessesMenu.py:287
+#: src/ProcessesMenu.py:332 src/SettingsWindow.py:30
 msgid "Disk"
 msgstr "Lemez"
 
 #: src/Disk.py:76 src/Disk.py:103 src/DiskMenu.py:43 src/Processes.py:682
 #: src/ProcessesDetails.py:178 src/ProcessesDetails.py:453
-#: src/ProcessesDetails.py:471 src/ProcessesMenu.py:200 src/Summary.py:846
+#: src/ProcessesDetails.py:471 src/ProcessesMenu.py:200 src/Summary.py:848
 msgid "Read Speed"
 msgstr "Olvasási sebesség"
 
 #: src/Disk.py:76 src/Disk.py:103 src/DiskMenu.py:47 src/Processes.py:683
 #: src/ProcessesDetails.py:188 src/ProcessesDetails.py:453
-#: src/ProcessesDetails.py:481 src/ProcessesMenu.py:204 src/Summary.py:855
+#: src/ProcessesDetails.py:481 src/ProcessesMenu.py:204 src/Summary.py:857
 msgid "Write Speed"
 msgstr "Írási sebesség"
 
@@ -166,10 +153,8 @@ msgstr "Előző rendszerindítás óta mért értékek"
 
 #: src/Disk.py:108 src/Processes.py:681 src/ProcessesDetails.py:501
 #: src/ProcessesMenu.py:196
-#, fuzzy
-#| msgid "Write Data"
 msgid "Written Data"
-msgstr "Írt adatméret"
+msgstr ""
 
 #: src/Disk.py:118 src/Disk.py:233
 msgid "System Disk"
@@ -213,10 +198,8 @@ msgid "File System"
 msgstr "Fájlrendszer"
 
 #: src/Disk.py:273
-#, fuzzy
-#| msgid "(Mass Storage)"
 msgid "Mass Storage"
-msgstr "(Tárolóeszköz)"
+msgstr "Tárolóeszköz"
 
 #: src/Disk.py:313
 msgid "Label (File System)"
@@ -230,24 +213,22 @@ msgstr "Csatolási pont"
 msgid "Partition"
 msgstr "Partíció"
 
-#: src/Disk.py:586 src/Summary.py:695
+#: src/Disk.py:624 src/Summary.py:697
 msgid "Swap"
 msgstr "Cserehely"
 
-#: src/Disk.py:664 src/Disk.py:665 src/Disk.py:666 src/Disk.py:667
-#: src/Disk.py:669 src/MainWindow.py:1010
-#, fuzzy
-#| msgid "[Not mounted]"
+#: src/Disk.py:703 src/Disk.py:704 src/Disk.py:705 src/Disk.py:706
+#: src/Disk.py:708 src/MainWindow.py:1025
 msgid "Not mounted"
-msgstr "[Nincs felcsatolva]"
+msgstr "Nincs felcsatolva"
 
-#: src/Disk.py:719 src/Gpu.py:318 src/Gpu.py:321 src/Network.py:344
+#: src/Disk.py:758 src/Gpu.py:318 src/Gpu.py:321 src/Network.py:344
 #: src/Network.py:392 src/Services.py:431 src/ServicesDetails.py:346
 #: src/UsersDetails.py:321
 msgid "Yes"
 msgstr "Igen"
 
-#: src/Disk.py:721 src/Gpu.py:323 src/Network.py:346 src/Services.py:431
+#: src/Disk.py:760 src/Gpu.py:323 src/Network.py:346 src/Services.py:431
 #: src/ServicesDetails.py:346 src/UsersDetails.py:323
 msgid "No"
 msgstr "Nem"
@@ -267,10 +248,8 @@ msgstr "Alapadat-egység"
 
 #: src/DiskMenu.py:89 src/MemoryMenu.py:81 src/NetworkMenu.py:89
 #: src/ProcessesMenu.py:312 src/ProcessesMenu.py:338
-#, fuzzy
-#| msgid "Show data as powers of:"
 msgid "Show data as powers of"
-msgstr "Adat-megjelenítés alapja:"
+msgstr "Adat-megjelenítés alapja"
 
 #: src/DiskMenu.py:102 src/NetworkMenu.py:102 src/ProcessesMenu.py:359
 msgid "Show speed units as multiples of bits"
@@ -280,8 +259,8 @@ msgstr "Sebesség egységek megjelenítése bitekben"
 msgid "Hide loop, ramdisk, zram disks"
 msgstr "A loop, a ramdisk, a zram lemezek elrejtése"
 
-#: src/Gpu.py:52 src/GpuMenu.py:34 src/MainWindow.py:293
-#: src/SettingsWindow.py:29
+#: src/Gpu.py:52 src/GpuMenu.py:34 src/MainWindow.py:305
+#: src/SettingsWindow.py:30
 msgid "GPU"
 msgstr "GPU"
 
@@ -298,36 +277,26 @@ msgid "Temperature"
 msgstr "Hőmérséklet"
 
 #: src/Gpu.py:125
-#, fuzzy
-#| msgid "Boot VGA:"
 msgid "Boot VGA"
-msgstr "Rendszerindító VGA:"
+msgstr "Rendszerindító VGA"
 
 #: src/Gpu.py:132
-#, fuzzy
-#| msgid "Power Usage:"
 msgid "Power Usage"
-msgstr "Energiahasználat:"
+msgstr "Energiahasználat"
 
 #: src/Gpu.py:139
-#, fuzzy
-#| msgid "Driver:"
 msgid "Driver"
-msgstr "Illesztőprogram:"
+msgstr "Illesztőprogram"
 
 #: src/Gpu.py:146
-#, fuzzy
-#| msgid "Refresh Rate:"
 msgid "Refresh Rate"
-msgstr "Frissítési gyakoriság:"
+msgstr "Frissítési gyakoriság"
 
 #: src/Gpu.py:153
-#, fuzzy
-#| msgid "Resolution:"
 msgid "Resolution"
-msgstr "Felbontás:"
+msgstr "Felbontás"
 
-#: src/MainWindow.py:69 src/MainWindow.py:504
+#: src/MainWindow.py:69 src/MainWindow.py:516
 msgid "System Monitoring Center"
 msgstr "Rendszermegfigyelő központ"
 
@@ -335,82 +304,82 @@ msgstr "Rendszermegfigyelő központ"
 msgid "Customization menu for the current tab"
 msgstr ""
 
-#: src/MainWindow.py:140 src/MainWindow.py:888 src/Memory.py:102
+#: src/MainWindow.py:140 src/MainWindow.py:900 src/Memory.py:102
 #: src/Memory.py:491 src/MemoryMenu.py:43 src/Performance.py:433
-#: src/Performance.py:437 src/Summary.py:675
+#: src/Performance.py:437 src/Summary.py:677
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainWindow.py:150 src/MainWindow.py:288 src/Network.py:49
-#: src/NetworkMenu.py:35 src/SettingsWindow.py:29
+#: src/MainWindow.py:150 src/MainWindow.py:300 src/Network.py:49
+#: src/NetworkMenu.py:35 src/SettingsWindow.py:30
 msgid "Network"
 msgstr "Hálózat"
 
-#: src/MainWindow.py:194 src/SettingsWindow.py:28
+#: src/MainWindow.py:194 src/SettingsWindow.py:29
 msgid "Performance"
 msgstr "Teljesítmény"
 
 #: src/MainWindow.py:199 src/Processes.py:60 src/Processes.py:1230
-#: src/ProcessesMenu.py:33 src/SettingsWindow.py:28 src/Summary.py:684
+#: src/ProcessesMenu.py:33 src/SettingsWindow.py:29 src/Summary.py:686
 #: src/Users.py:228 src/UsersDetails.py:114 src/UsersMenu.py:107
 msgid "Processes"
 msgstr "Folyamatok"
 
-#: src/MainWindow.py:204 src/SettingsWindow.py:28 src/Users.py:58
+#: src/MainWindow.py:204 src/SettingsWindow.py:29 src/Users.py:58
 #: src/Users.py:568 src/UsersMenu.py:33
 msgid "Users"
 msgstr "Felhasználók"
 
 #: src/MainWindow.py:209 src/Services.py:60 src/Services.py:750
-#: src/ServicesMenu.py:33 src/SettingsWindow.py:28
+#: src/ServicesMenu.py:33 src/SettingsWindow.py:29
 msgid "Services"
 msgstr "Szolgáltatások"
 
-#: src/MainWindow.py:214 src/SettingsWindow.py:21 src/SettingsWindow.py:25
-#: src/SettingsWindow.py:28 src/System.py:50 src/System.py:239
+#: src/MainWindow.py:214 src/SettingsWindow.py:21 src/SettingsWindow.py:26
+#: src/SettingsWindow.py:29 src/System.py:50 src/System.py:239
 msgid "System"
 msgstr "Rendszer"
 
-#: src/MainWindow.py:268 src/MainWindow.py:874 src/ProcessesDetails.py:61
-#: src/ServicesDetails.py:58 src/SettingsWindow.py:29 src/Summary.py:32
+#: src/MainWindow.py:280 src/MainWindow.py:886 src/ProcessesDetails.py:61
+#: src/ServicesDetails.py:58 src/SettingsWindow.py:30 src/Summary.py:34
 msgid "Summary"
 msgstr "Összegzés"
 
-#: src/MainWindow.py:278 src/Memory.py:50 src/MemoryMenu.py:35
+#: src/MainWindow.py:290 src/Memory.py:50 src/MemoryMenu.py:35
 #: src/MemoryMenu.py:47 src/ProcessesDetails.py:71 src/ProcessesMenu.py:276
-#: src/ProcessesMenu.py:306 src/SettingsWindow.py:29
+#: src/ProcessesMenu.py:306 src/SettingsWindow.py:30
 msgid "Memory"
 msgstr "Memória"
 
-#: src/MainWindow.py:298 src/Sensors.py:40 src/Sensors.py:349
-#: src/SettingsWindow.py:29
+#: src/MainWindow.py:310 src/Sensors.py:40 src/Sensors.py:358
+#: src/SettingsWindow.py:30
 msgid "Sensors"
 msgstr "Érzékelők"
 
-#: src/MainWindow.py:429 src/SettingsWindow.py:45
+#: src/MainWindow.py:440 src/SettingsWindow.py:49
 msgid "General Settings"
 msgstr "Általános beállítások"
 
-#: src/MainWindow.py:430
+#: src/MainWindow.py:441
 msgid "About"
 msgstr "Névjegy"
 
-#: src/MainWindow.py:506
+#: src/MainWindow.py:518
 msgid "Multi-featured system monitor"
 msgstr "Többcélú rendszerfigyelő"
 
-#: src/MainWindow.py:884
+#: src/MainWindow.py:896
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "A CPU-mag kiválasztása csak a frekvencia és gyorsítótár-memória "
 "információkat érinti."
 
-#: src/MainWindow.py:888 src/Memory.py:140 src/Memory.py:369 src/Memory.py:522
+#: src/MainWindow.py:900 src/Memory.py:140 src/Memory.py:369 src/Memory.py:522
 #: src/Performance.py:437 src/ProcessesDetails.py:424
 msgid "Swap Memory"
 msgstr "Cserehely"
 
-#: src/MainWindow.py:1070
+#: src/MainWindow.py:1100
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -418,7 +387,7 @@ msgstr ""
 "Figyelmeztetés! Az alkalmazás rendszergazdai jogosultsággal fut, ami kárt "
 "okozhat a rendszerben."
 
-#: src/MainWindow.py:1149
+#: src/MainWindow.py:1179
 msgid "There is a newer version on PyPI."
 msgstr "Újabb verzió érhető el a PyPI csomagból."
 
@@ -431,10 +400,8 @@ msgid "Available"
 msgstr "Elérhető"
 
 #: src/Memory.py:133
-#, fuzzy
-#| msgid "Hardware:"
 msgid "Hardware"
-msgstr "Hardver:"
+msgstr "Hardver"
 
 #: src/Memory.py:224 src/Memory.py:489
 msgid "Physical RAM"
@@ -485,60 +452,46 @@ msgid "Priority"
 msgstr "Prioritás"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:43
-#: src/Summary.py:864
+#: src/Summary.py:866
 msgid "Download Speed"
 msgstr "Letöltési sebesség"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:47
-#: src/Summary.py:873
+#: src/Summary.py:875
 msgid "Upload Speed"
 msgstr "Feltöltési sebesség"
 
 #: src/Network.py:107
-#, fuzzy
-#| msgid "Downloaded Data"
 msgid "Downloaded Data"
-msgstr "Letöltött adatmennyiség"
+msgstr "Letöltött adatok"
 
 #: src/Network.py:107
-#, fuzzy
-#| msgid "Uploaded Data"
 msgid "Uploaded Data"
-msgstr "Feltöltött adatmennyiség"
+msgstr ""
 
 #: src/Network.py:116
-#, fuzzy
-#| msgid "Connection Type:"
 msgid "Connection Type"
-msgstr "Kapcsolattípus:"
+msgstr "Kapcsolattípus"
 
 #: src/Network.py:123
-#, fuzzy
-#| msgid "Connected-SSID:"
 msgid "Connected-SSID"
-msgstr "Csatlakoztatott-SSID:"
+msgstr "Csatlakoztatott-SSID"
 
 #: src/Network.py:130
 msgid "Link Quality"
 msgstr ""
 
 #: src/Network.py:137
-#, fuzzy
-#| msgid "IPv4 Address:"
 msgid "IPv4 Address"
-msgstr "IPv4-cím:"
+msgstr "IPv4-cím"
 
 #: src/Network.py:144
-#, fuzzy
-#| msgid "IPv6 Address:"
 msgid "IPv6 Address"
-msgstr "IPv6-cím:"
+msgstr "IPv6-cím"
 
 #: src/Network.py:151
-#, fuzzy
-#| msgid "MAC Address:"
 msgid "MAC Address"
-msgstr "MAC cím:"
+msgstr "MAC cím"
 
 #: src/Network.py:265
 msgid "Virtual Network Interface"
@@ -553,20 +506,16 @@ msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
 #: src/Processes.py:158
-#, fuzzy
-#| msgid "Continue Process"
 msgid "Pause Process"
-msgstr "Folyamat folytatása"
+msgstr ""
 
 #: src/Processes.py:159
 msgid "Continue Process"
 msgstr "Folyamat folytatása"
 
 #: src/Processes.py:160
-#, fuzzy
-#| msgid "Processes"
 msgid "End Process"
-msgstr "Folyamatok"
+msgstr ""
 
 #: src/Processes.py:161
 msgid "End Process Immediately"
@@ -613,16 +562,12 @@ msgid "Cancel"
 msgstr "Mégse"
 
 #: src/Processes.py:365
-#, fuzzy
-#| msgid "Do you want to kill this process?"
 msgid "Do you want to end this process?"
-msgstr "Biztosan ki szeretné lőni a kijelölt folyamatot?"
+msgstr ""
 
 #: src/Processes.py:371
-#, fuzzy
-#| msgid "Do you want to terminate this process?"
 msgid "Do you want to end this process immediately?"
-msgstr "Biztosan be szeretné fejezni a kijelölt folyamatot?"
+msgstr ""
 
 #: src/Processes.py:673 src/ProcessesDetails.py:118 src/ProcessesDetails.py:727
 #: src/ProcessesMenu.py:164
@@ -787,8 +732,8 @@ msgid "Collapse all"
 msgstr ""
 
 #: src/Sensors.py:100
-msgid "Sensor Group"
-msgstr "Érzékelőcsoport"
+msgid "Device"
+msgstr "Eszköz"
 
 #: src/Sensors.py:102
 msgid "Current Value"
@@ -957,71 +902,71 @@ msgstr "Mögötte"
 msgid "Before"
 msgstr "Előtte"
 
-#: src/SettingsWindow.py:25
+#: src/SettingsWindow.py:26
 msgid "Light"
 msgstr ""
 
-#: src/SettingsWindow.py:25
+#: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr ""
 
-#: src/SettingsWindow.py:64
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Rendszerfigyelő"
+
+#: src/SettingsWindow.py:33
+msgid "Task Manager"
+msgstr "Feladatkezelő"
+
+#: src/SettingsWindow.py:68
 msgid "Language (Requires restart)"
 msgstr ""
 
-#: src/SettingsWindow.py:72
+#: src/SettingsWindow.py:76
 msgid "Light/Dark theme"
 msgstr ""
 
-#: src/SettingsWindow.py:84
-#, fuzzy
-#| msgid "Update interval (seconds):"
+#: src/SettingsWindow.py:88
 msgid "Update interval (seconds)"
-msgstr "Frissítési időköz másodpercben:"
+msgstr "Frissítési időköz másodpercben"
 
-#: src/SettingsWindow.py:92
-#, fuzzy
-#| msgid "Chart data history:"
+#: src/SettingsWindow.py:96
 msgid "Graph data history"
-msgstr "Diagram-adatok előzményei:"
+msgstr ""
 
-#: src/SettingsWindow.py:104
+#: src/SettingsWindow.py:108
 msgid "Show performance summary on the headerbar"
 msgstr "Teljesítmény-összefoglaló megjelenítése az alkalmazás címsorában"
 
-#: src/SettingsWindow.py:112
+#: src/SettingsWindow.py:116
 msgid "Remember last opened tabs"
 msgstr "Előzőleg megnyitott lapok megjegyzése"
 
-#: src/SettingsWindow.py:121
-#, fuzzy
-#| msgid "Default main tab and sub-tab:"
+#: src/SettingsWindow.py:125
 msgid "Default main tab and sub-tab"
-msgstr "Alapértelmezett főlap és allap:"
+msgstr "Alapértelmezett főlap és allap"
 
-#: src/SettingsWindow.py:137
+#: src/SettingsWindow.py:141
 msgid "Remember last selected devices"
 msgstr "Előzőleg kiválasztott eszközök megjegyzése"
 
-#: src/SettingsWindow.py:145
+#: src/SettingsWindow.py:149
 msgid "Remember window size"
 msgstr "Ablakméret megjegyzése"
 
-#: src/SettingsWindow.py:156
+#: src/SettingsWindow.py:160
 msgid "Check for updates automatically (PyPI only)"
 msgstr "Frissítések automatikus keresés (csak PyPI csomag esetén)"
 
-#: src/SettingsWindow.py:159
-msgid "(If the application is run without root privileges.)"
-msgstr "(Amennyiben az alkalamzás rendszergazdai jogkör nélkül fut.)"
+#: src/SettingsWindow.py:163
+msgid "(If the application is run without root privileges)"
+msgstr "(Amennyiben az alkalamzás rendszergazdai jogkör nélkül fut)"
 
-#: src/SettingsWindow.py:176
-#, fuzzy
-#| msgid "Reset all settings of the application to defaults"
+#: src/SettingsWindow.py:180
 msgid "Reset all settings of the application"
-msgstr "Összes beállítás visszaállítása az alapértelmezett értékekre"
+msgstr ""
 
-#: src/SettingsWindow.py:719
+#: src/SettingsWindow.py:723
 msgid "Do you want to reset all settings to defaults?"
 msgstr ""
 "Valóban vissza kívánja állítani az összes beállítást az alapértelmezett "
@@ -1036,116 +981,84 @@ msgid "Computer"
 msgstr "Számítógép"
 
 #: src/System.py:113
-#, fuzzy
-#| msgid "Version - Code Name:"
 msgid "Version - Code Name"
-msgstr "Verzió - Kódnév:"
+msgstr "Verzió - Kódnév"
 
 #: src/System.py:120
-#, fuzzy
-#| msgid "OS Family:"
 msgid "OS Family"
-msgstr "OS család:"
+msgstr "OS család"
 
 #: src/System.py:127
-#, fuzzy
-#| msgid "Based On:"
 msgid "Based On"
-msgstr "Alapja:"
+msgstr "Alapja"
 
 #: src/System.py:134
-#, fuzzy
-#| msgid "Kernel Release:"
 msgid "Kernel Release"
-msgstr "Kernel kiadás:"
+msgstr "Kernel kiadás"
 
 #: src/System.py:141
-#, fuzzy
-#| msgid "Kernel Version:"
 msgid "Kernel Version"
-msgstr "Kernel verzió:"
+msgstr "Kernel verzió"
 
 #: src/System.py:155
 msgid "Graphical User Interface (GUI)"
 msgstr "Grafikus Felhasználói Felület (GUI)"
 
 #: src/System.py:159
-#, fuzzy
-#| msgid "Desktop Environment:"
 msgid "Desktop Environment"
-msgstr "Asztali környezet:"
+msgstr "Asztali környezet"
 
 #: src/System.py:166
-#, fuzzy
-#| msgid "Windowing System:"
 msgid "Windowing System"
-msgstr "Ablakkezelő-rendszer:"
+msgstr "Ablakkezelő-rendszer"
 
 #: src/System.py:173
-#, fuzzy
-#| msgid "Window Manager:"
 msgid "Window Manager"
-msgstr "Ablakkezelő:"
+msgstr "Ablakkezelő"
 
 #: src/System.py:180
-#, fuzzy
-#| msgid "Display Manager:"
 msgid "Display Manager"
-msgstr "Bejelentkezéskezelő:"
+msgstr "Bejelentkezéskezelő"
 
 #: src/System.py:191
-#, fuzzy
-#| msgid "Vendor:"
 msgid "Vendor"
-msgstr "Gyártó:"
+msgstr "Gyártó"
 
 #: src/System.py:198
-#, fuzzy
-#| msgid "Model:"
 msgid "Model"
-msgstr "Modell:"
+msgstr "Modell"
 
 #: src/System.py:205
-#, fuzzy
-#| msgid "Computer Type:"
 msgid "Computer Type"
-msgstr "Számítógép típusa:"
+msgstr "Számítógép típusa"
 
 #: src/System.py:226
-#, fuzzy
-#| msgid "Number Of Monitors:"
 msgid "Number Of Monitors"
-msgstr "Kijelzők:"
+msgstr "Kijelzők"
 
 #: src/System.py:235
 msgid "Packages"
 msgstr "Csomagok"
 
 #: src/System.py:254
-#, fuzzy
-#| msgid "Flatpak:"
 msgid "Flatpak"
-msgstr "Flatpak:"
+msgstr "Flatpak"
 
 #: src/System.py:255
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "Telepített Flatpak alkalmazások és futtatókörnyezetek száma"
 
 #: src/System.py:270
-#, fuzzy
-#| msgid "GTK Version:"
 msgid "GTK Version"
-msgstr "GTK verzió:"
+msgstr "GTK verzió"
 
 #: src/System.py:271 src/System.py:279
 msgid "Version for the currently running software"
 msgstr ""
 
 #: src/System.py:278
-#, fuzzy
-#| msgid "Python Version:"
 msgid "Python Version"
-msgstr "Python verzió:"
+msgstr "Python verzió"
 
 #: src/Users.py:224 src/UsersDetails.py:74 src/UsersMenu.py:91
 msgid "Full Name"

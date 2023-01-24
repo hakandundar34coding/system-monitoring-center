@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-19 11:49+0300\n"
-"PO-Revision-Date: 2023-01-19 11:56+0300\n"
+"POT-Creation-Date: 2023-01-24 09:38+0300\n"
+"PO-Revision-Date: 2023-01-24 15:43+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -30,16 +30,16 @@ msgstr "Obnovit data na této záložce"
 msgid "Graph Color"
 msgstr "Barva grafu"
 
-#: src/Common.py:761 src/Processes.py:1230 src/Sensors.py:349
+#: src/Common.py:761 src/Processes.py:1230 src/Sensors.py:358
 #: src/Services.py:750 src/Users.py:568
 msgid "Search..."
 msgstr "Hledat..."
 
 #: src/Cpu.py:49 src/CpuMenu.py:35 src/CpuMenu.py:68 src/MainWindow.py:136
-#: src/MainWindow.py:273 src/Processes.py:676 src/ProcessesDetails.py:66
+#: src/MainWindow.py:285 src/Processes.py:676 src/ProcessesDetails.py:66
 #: src/ProcessesDetails.py:158 src/ProcessesDetails.py:285
-#: src/ProcessesMenu.py:176 src/ProcessesMenu.py:265 src/SettingsWindow.py:29
-#: src/Summary.py:666 src/Users.py:233 src/UsersDetails.py:164
+#: src/ProcessesMenu.py:176 src/ProcessesMenu.py:265 src/SettingsWindow.py:30
+#: src/Summary.py:668 src/Users.py:233 src/UsersDetails.py:164
 #: src/UsersMenu.py:127
 msgid "CPU"
 msgstr "CPU"
@@ -77,60 +77,47 @@ msgid "Up Time"
 msgstr "Doba provozu"
 
 #: src/Cpu.py:116 src/Gpu.py:118
-#, fuzzy
-#| msgid "Min-Max Frequency:"
 msgid "Min-Max Frequency"
-msgstr "Min-Max Frekvence:"
+msgstr "Min-Max Frekvence"
 
 #: src/Cpu.py:123
-#, fuzzy
-#| msgid "Cache (L1d-L1i):"
 msgid "Cache (L1d-L1i)"
-msgstr "Cache (L1d-L1i):"
+msgstr "Cache (L1d-L1i)"
 
 #: src/Cpu.py:130
-#, fuzzy
-#| msgid "Cache (L2-L3):"
 msgid "Cache (L2-L3)"
-msgstr "Cache (L2-L3):"
+msgstr "Cache (L2-L3)"
 
 #: src/Cpu.py:137
-#, fuzzy
-#| msgid "CPU Sockets:"
 msgid "CPU Sockets"
-msgstr "CPU Sockety:"
+msgstr "CPU Sockety"
 
 #: src/Cpu.py:144
-#, fuzzy
-#| msgid "Cores (Physical-Logical):"
 msgid "Cores (Physical-Logical)"
-msgstr "Jáadra (Fyzická-Logická):"
+msgstr "Jáadra (Fyzická-Logická)"
 
 #: src/Cpu.py:145
 msgid "Number of online physical and logical CPU cores"
 msgstr "Počet fyzických a logických procesorových jader"
 
 #: src/Cpu.py:152 src/System.py:219
-#, fuzzy
-#| msgid "Architecture:"
 msgid "Architecture"
-msgstr "Architektura:"
+msgstr "Architektura"
 
 #: src/Cpu.py:179 src/CpuMenu.py:47
 msgid "CPU Usage (Per Core)"
 msgstr "Využití CPU (jednotlivá jádra)"
 
-#: src/Cpu.py:414 src/Disk.py:578 src/Disk.py:580 src/Gpu.py:369 src/Gpu.py:371
-#: src/Network.py:255 src/Network.py:257 src/Network.py:348 src/Network.py:368
+#: src/Cpu.py:414 src/Disk.py:579 src/Disk.py:580 src/Disk.py:606
+#: src/Disk.py:608 src/Gpu.py:369 src/Gpu.py:371 src/Network.py:255
+#: src/Network.py:257 src/Network.py:348 src/Network.py:368
 msgid "Unknown"
 msgstr "Neznámo"
 
 #: src/CpuMenu.py:39 src/DiskMenu.py:39 src/MemoryMenu.py:39
 #: src/NetworkMenu.py:39
-#, fuzzy
-#| msgid "Chart - Show"
 msgid "Graph - Show"
-msgstr "Graf -Zobrazit"
+msgstr ""
 
 #: src/CpuMenu.py:63 src/DiskMenu.py:71 src/MemoryMenu.py:63
 #: src/NetworkMenu.py:71 src/ProcessesMenu.py:260
@@ -139,20 +126,20 @@ msgstr "Preciznost"
 
 #: src/Disk.py:50 src/Disk.py:193 src/Disk.py:213 src/Disk.py:361
 #: src/Disk.py:543 src/DiskMenu.py:35 src/DiskMenu.py:110 src/MainWindow.py:144
-#: src/MainWindow.py:283 src/ProcessesDetails.py:76 src/ProcessesMenu.py:287
-#: src/ProcessesMenu.py:332 src/SettingsWindow.py:29
+#: src/MainWindow.py:295 src/ProcessesDetails.py:76 src/ProcessesMenu.py:287
+#: src/ProcessesMenu.py:332 src/SettingsWindow.py:30
 msgid "Disk"
 msgstr "Disk"
 
 #: src/Disk.py:76 src/Disk.py:103 src/DiskMenu.py:43 src/Processes.py:682
 #: src/ProcessesDetails.py:178 src/ProcessesDetails.py:453
-#: src/ProcessesDetails.py:471 src/ProcessesMenu.py:200 src/Summary.py:846
+#: src/ProcessesDetails.py:471 src/ProcessesMenu.py:200 src/Summary.py:848
 msgid "Read Speed"
 msgstr "Rychlost čtení"
 
 #: src/Disk.py:76 src/Disk.py:103 src/DiskMenu.py:47 src/Processes.py:683
 #: src/ProcessesDetails.py:188 src/ProcessesDetails.py:453
-#: src/ProcessesDetails.py:481 src/ProcessesMenu.py:204 src/Summary.py:855
+#: src/ProcessesDetails.py:481 src/ProcessesMenu.py:204 src/Summary.py:857
 msgid "Write Speed"
 msgstr "Rychlost zápisu"
 
@@ -167,10 +154,8 @@ msgstr "Změřená hodnota od posledního spuštění systému"
 
 #: src/Disk.py:108 src/Processes.py:681 src/ProcessesDetails.py:501
 #: src/ProcessesMenu.py:196
-#, fuzzy
-#| msgid "Write Data"
 msgid "Written Data"
-msgstr "Disk - zápis dat"
+msgstr ""
 
 #: src/Disk.py:118 src/Disk.py:233
 msgid "System Disk"
@@ -214,10 +199,8 @@ msgid "File System"
 msgstr "Souborový systém"
 
 #: src/Disk.py:273
-#, fuzzy
-#| msgid "(Mass Storage)"
 msgid "Mass Storage"
-msgstr "(Mass Storage)"
+msgstr "Mass Storage"
 
 #: src/Disk.py:313
 msgid "Label (File System)"
@@ -231,24 +214,22 @@ msgstr "Přípojný bod"
 msgid "Partition"
 msgstr "Oddíl"
 
-#: src/Disk.py:586 src/Summary.py:695
+#: src/Disk.py:624 src/Summary.py:697
 msgid "Swap"
 msgstr "Swap"
 
-#: src/Disk.py:664 src/Disk.py:665 src/Disk.py:666 src/Disk.py:667
-#: src/Disk.py:669 src/MainWindow.py:1010
-#, fuzzy
-#| msgid "[Not mounted]"
+#: src/Disk.py:703 src/Disk.py:704 src/Disk.py:705 src/Disk.py:706
+#: src/Disk.py:708 src/MainWindow.py:1025
 msgid "Not mounted"
-msgstr "[Nepřipojeno]"
+msgstr "Nepřipojeno"
 
-#: src/Disk.py:719 src/Gpu.py:318 src/Gpu.py:321 src/Network.py:344
+#: src/Disk.py:758 src/Gpu.py:318 src/Gpu.py:321 src/Network.py:344
 #: src/Network.py:392 src/Services.py:431 src/ServicesDetails.py:346
 #: src/UsersDetails.py:321
 msgid "Yes"
 msgstr "Ano"
 
-#: src/Disk.py:721 src/Gpu.py:323 src/Network.py:346 src/Services.py:431
+#: src/Disk.py:760 src/Gpu.py:323 src/Network.py:346 src/Services.py:431
 #: src/ServicesDetails.py:346 src/UsersDetails.py:323
 msgid "No"
 msgstr "Ne"
@@ -268,10 +249,8 @@ msgstr "Datová jednotka"
 
 #: src/DiskMenu.py:89 src/MemoryMenu.py:81 src/NetworkMenu.py:89
 #: src/ProcessesMenu.py:312 src/ProcessesMenu.py:338
-#, fuzzy
-#| msgid "Show data as powers of:"
 msgid "Show data as powers of"
-msgstr "Zobrazit data jako mocniny:"
+msgstr "Zobrazit data jako mocniny"
 
 #: src/DiskMenu.py:102 src/NetworkMenu.py:102 src/ProcessesMenu.py:359
 msgid "Show speed units as multiples of bits"
@@ -281,8 +260,8 @@ msgstr "Zobrazit jednotky rychlosti jako násobky bitů"
 msgid "Hide loop, ramdisk, zram disks"
 msgstr "Skrýt zařízení loop, ramdisk a zram"
 
-#: src/Gpu.py:52 src/GpuMenu.py:34 src/MainWindow.py:293
-#: src/SettingsWindow.py:29
+#: src/Gpu.py:52 src/GpuMenu.py:34 src/MainWindow.py:305
+#: src/SettingsWindow.py:30
 msgid "GPU"
 msgstr "GPU"
 
@@ -299,36 +278,26 @@ msgid "Temperature"
 msgstr "Teplota"
 
 #: src/Gpu.py:125
-#, fuzzy
-#| msgid "Boot VGA:"
 msgid "Boot VGA"
-msgstr "Boot VGA:"
+msgstr "Boot VGA"
 
 #: src/Gpu.py:132
-#, fuzzy
-#| msgid "Power Usage:"
 msgid "Power Usage"
-msgstr "Spotřeba energie:"
+msgstr "Spotřeba energie"
 
 #: src/Gpu.py:139
-#, fuzzy
-#| msgid "Driver:"
 msgid "Driver"
-msgstr "Ovladač:"
+msgstr "Ovladač"
 
 #: src/Gpu.py:146
-#, fuzzy
-#| msgid "Refresh Rate:"
 msgid "Refresh Rate"
-msgstr "Obnovovací frekvence:"
+msgstr "Obnovovací frekvence"
 
 #: src/Gpu.py:153
-#, fuzzy
-#| msgid "Resolution:"
 msgid "Resolution"
-msgstr "Rozlišení:"
+msgstr "Rozlišení"
 
-#: src/MainWindow.py:69 src/MainWindow.py:504
+#: src/MainWindow.py:69 src/MainWindow.py:516
 msgid "System Monitoring Center"
 msgstr "Centrum monitorování systému"
 
@@ -336,80 +305,80 @@ msgstr "Centrum monitorování systému"
 msgid "Customization menu for the current tab"
 msgstr ""
 
-#: src/MainWindow.py:140 src/MainWindow.py:888 src/Memory.py:102
+#: src/MainWindow.py:140 src/MainWindow.py:900 src/Memory.py:102
 #: src/Memory.py:491 src/MemoryMenu.py:43 src/Performance.py:433
-#: src/Performance.py:437 src/Summary.py:675
+#: src/Performance.py:437 src/Summary.py:677
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainWindow.py:150 src/MainWindow.py:288 src/Network.py:49
-#: src/NetworkMenu.py:35 src/SettingsWindow.py:29
+#: src/MainWindow.py:150 src/MainWindow.py:300 src/Network.py:49
+#: src/NetworkMenu.py:35 src/SettingsWindow.py:30
 msgid "Network"
 msgstr "Síť"
 
-#: src/MainWindow.py:194 src/SettingsWindow.py:28
+#: src/MainWindow.py:194 src/SettingsWindow.py:29
 msgid "Performance"
 msgstr "Výkon"
 
 #: src/MainWindow.py:199 src/Processes.py:60 src/Processes.py:1230
-#: src/ProcessesMenu.py:33 src/SettingsWindow.py:28 src/Summary.py:684
+#: src/ProcessesMenu.py:33 src/SettingsWindow.py:29 src/Summary.py:686
 #: src/Users.py:228 src/UsersDetails.py:114 src/UsersMenu.py:107
 msgid "Processes"
 msgstr "Procesy"
 
-#: src/MainWindow.py:204 src/SettingsWindow.py:28 src/Users.py:58
+#: src/MainWindow.py:204 src/SettingsWindow.py:29 src/Users.py:58
 #: src/Users.py:568 src/UsersMenu.py:33
 msgid "Users"
 msgstr "Uživatelé"
 
 #: src/MainWindow.py:209 src/Services.py:60 src/Services.py:750
-#: src/ServicesMenu.py:33 src/SettingsWindow.py:28
+#: src/ServicesMenu.py:33 src/SettingsWindow.py:29
 msgid "Services"
 msgstr "Služby"
 
-#: src/MainWindow.py:214 src/SettingsWindow.py:21 src/SettingsWindow.py:25
-#: src/SettingsWindow.py:28 src/System.py:50 src/System.py:239
+#: src/MainWindow.py:214 src/SettingsWindow.py:21 src/SettingsWindow.py:26
+#: src/SettingsWindow.py:29 src/System.py:50 src/System.py:239
 msgid "System"
 msgstr "Systém"
 
-#: src/MainWindow.py:268 src/MainWindow.py:874 src/ProcessesDetails.py:61
-#: src/ServicesDetails.py:58 src/SettingsWindow.py:29 src/Summary.py:32
+#: src/MainWindow.py:280 src/MainWindow.py:886 src/ProcessesDetails.py:61
+#: src/ServicesDetails.py:58 src/SettingsWindow.py:30 src/Summary.py:34
 msgid "Summary"
 msgstr "Souhrn"
 
-#: src/MainWindow.py:278 src/Memory.py:50 src/MemoryMenu.py:35
+#: src/MainWindow.py:290 src/Memory.py:50 src/MemoryMenu.py:35
 #: src/MemoryMenu.py:47 src/ProcessesDetails.py:71 src/ProcessesMenu.py:276
-#: src/ProcessesMenu.py:306 src/SettingsWindow.py:29
+#: src/ProcessesMenu.py:306 src/SettingsWindow.py:30
 msgid "Memory"
 msgstr "Paměť"
 
-#: src/MainWindow.py:298 src/Sensors.py:40 src/Sensors.py:349
-#: src/SettingsWindow.py:29
+#: src/MainWindow.py:310 src/Sensors.py:40 src/Sensors.py:358
+#: src/SettingsWindow.py:30
 msgid "Sensors"
 msgstr "Senzory"
 
-#: src/MainWindow.py:429 src/SettingsWindow.py:45
+#: src/MainWindow.py:440 src/SettingsWindow.py:49
 msgid "General Settings"
 msgstr "Obecné nastavení"
 
-#: src/MainWindow.py:430
+#: src/MainWindow.py:441
 msgid "About"
 msgstr "O programu"
 
-#: src/MainWindow.py:506
+#: src/MainWindow.py:518
 msgid "Multi-featured system monitor"
 msgstr "Multifunkční systémový monitor"
 
-#: src/MainWindow.py:884
+#: src/MainWindow.py:896
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "Výběr CPU jádra ovlivňuje pouze informace o frekvenci a paměti cache."
 
-#: src/MainWindow.py:888 src/Memory.py:140 src/Memory.py:369 src/Memory.py:522
+#: src/MainWindow.py:900 src/Memory.py:140 src/Memory.py:369 src/Memory.py:522
 #: src/Performance.py:437 src/ProcessesDetails.py:424
 msgid "Swap Memory"
 msgstr "SWAP paměť"
 
-#: src/MainWindow.py:1070
+#: src/MainWindow.py:1100
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -417,7 +386,7 @@ msgstr ""
 "Varování! Aplikace musí být spuštěna s právy roota a může poškodit váš "
 "systém."
 
-#: src/MainWindow.py:1149
+#: src/MainWindow.py:1179
 msgid "There is a newer version on PyPI."
 msgstr "Je dostupná nová verze PyPI."
 
@@ -430,10 +399,8 @@ msgid "Available"
 msgstr "K dispozici"
 
 #: src/Memory.py:133
-#, fuzzy
-#| msgid "Hardware:"
 msgid "Hardware"
-msgstr "Hardware:"
+msgstr "Hardware"
 
 #: src/Memory.py:224 src/Memory.py:489
 msgid "Physical RAM"
@@ -484,60 +451,46 @@ msgid "Priority"
 msgstr "Priorita"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:43
-#: src/Summary.py:864
+#: src/Summary.py:866
 msgid "Download Speed"
 msgstr "Rychlost stahování"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:47
-#: src/Summary.py:873
+#: src/Summary.py:875
 msgid "Upload Speed"
 msgstr "Rychlost nahrávání"
 
 #: src/Network.py:107
-#, fuzzy
-#| msgid "Downloaded Data"
 msgid "Downloaded Data"
-msgstr "Stažená data"
+msgstr ""
 
 #: src/Network.py:107
-#, fuzzy
-#| msgid "Uploaded Data"
 msgid "Uploaded Data"
-msgstr "Nahraná data"
+msgstr ""
 
 #: src/Network.py:116
-#, fuzzy
-#| msgid "Connection Type:"
 msgid "Connection Type"
-msgstr "Typ spojení:"
+msgstr "Typ spojení"
 
 #: src/Network.py:123
-#, fuzzy
-#| msgid "Connected-SSID:"
 msgid "Connected-SSID"
-msgstr "Připojené SSID:"
+msgstr "Připojené-SSID"
 
 #: src/Network.py:130
 msgid "Link Quality"
 msgstr ""
 
 #: src/Network.py:137
-#, fuzzy
-#| msgid "IPv4 Address:"
 msgid "IPv4 Address"
-msgstr "IPv4 Adresa:"
+msgstr "IPv4 Adresa"
 
 #: src/Network.py:144
-#, fuzzy
-#| msgid "IPv6 Address:"
 msgid "IPv6 Address"
-msgstr "IPv6 Adresa:"
+msgstr "IPv6 Adresa"
 
 #: src/Network.py:151
-#, fuzzy
-#| msgid "MAC Address:"
 msgid "MAC Address"
-msgstr "MAC Adresa:"
+msgstr "MAC Adresa"
 
 #: src/Network.py:265
 msgid "Virtual Network Interface"
@@ -552,20 +505,16 @@ msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
 #: src/Processes.py:158
-#, fuzzy
-#| msgid "Continue Process"
 msgid "Pause Process"
-msgstr "Pokračovat v procesu"
+msgstr ""
 
 #: src/Processes.py:159
 msgid "Continue Process"
 msgstr "Pokračovat v procesu"
 
 #: src/Processes.py:160
-#, fuzzy
-#| msgid "Processes"
 msgid "End Process"
-msgstr "Procesy"
+msgstr ""
 
 #: src/Processes.py:161
 msgid "End Process Immediately"
@@ -612,16 +561,12 @@ msgid "Cancel"
 msgstr "Zrušit"
 
 #: src/Processes.py:365
-#, fuzzy
-#| msgid "Do you want to kill this process?"
 msgid "Do you want to end this process?"
-msgstr "Chcete zabít tento proces?"
+msgstr ""
 
 #: src/Processes.py:371
-#, fuzzy
-#| msgid "Do you want to terminate this process?"
 msgid "Do you want to end this process immediately?"
-msgstr "Chcete ukončit tento proces?"
+msgstr ""
 
 #: src/Processes.py:673 src/ProcessesDetails.py:118 src/ProcessesDetails.py:727
 #: src/ProcessesMenu.py:164
@@ -786,8 +731,8 @@ msgid "Collapse all"
 msgstr ""
 
 #: src/Sensors.py:100
-msgid "Sensor Group"
-msgstr "Skupina senzorů"
+msgid "Device"
+msgstr "Zařízení"
 
 #: src/Sensors.py:102
 msgid "Current Value"
@@ -955,71 +900,71 @@ msgstr "Po"
 msgid "Before"
 msgstr "Před"
 
-#: src/SettingsWindow.py:25
+#: src/SettingsWindow.py:26
 msgid "Light"
 msgstr ""
 
-#: src/SettingsWindow.py:25
+#: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr ""
 
-#: src/SettingsWindow.py:64
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Sledování systému"
+
+#: src/SettingsWindow.py:33
+msgid "Task Manager"
+msgstr "Správce úloh"
+
+#: src/SettingsWindow.py:68
 msgid "Language (Requires restart)"
 msgstr ""
 
-#: src/SettingsWindow.py:72
+#: src/SettingsWindow.py:76
 msgid "Light/Dark theme"
 msgstr ""
 
-#: src/SettingsWindow.py:84
-#, fuzzy
-#| msgid "Update interval (seconds):"
+#: src/SettingsWindow.py:88
 msgid "Update interval (seconds)"
-msgstr "Interval aktualizace (sekundy):"
+msgstr "Interval aktualizace (sekundy)"
 
-#: src/SettingsWindow.py:92
-#, fuzzy
-#| msgid "Chart data history:"
+#: src/SettingsWindow.py:96
 msgid "Graph data history"
-msgstr "Historie dat v grafu:"
+msgstr ""
 
-#: src/SettingsWindow.py:104
+#: src/SettingsWindow.py:108
 msgid "Show performance summary on the headerbar"
 msgstr "Zobrazit souhrn výkonu v headerbaru"
 
-#: src/SettingsWindow.py:112
+#: src/SettingsWindow.py:116
 msgid "Remember last opened tabs"
 msgstr "Pamatovat poslední otevřenou záložku"
 
-#: src/SettingsWindow.py:121
-#, fuzzy
-#| msgid "Default main tab:"
+#: src/SettingsWindow.py:125
 msgid "Default main tab and sub-tab"
-msgstr "Výchozí hlavní záložka:"
+msgstr ""
 
-#: src/SettingsWindow.py:137
+#: src/SettingsWindow.py:141
 msgid "Remember last selected devices"
 msgstr "Pamatovat poslední vybraný hardware"
 
-#: src/SettingsWindow.py:145
+#: src/SettingsWindow.py:149
 msgid "Remember window size"
 msgstr "Pamatovat velikost okna"
 
-#: src/SettingsWindow.py:156
+#: src/SettingsWindow.py:160
 msgid "Check for updates automatically (PyPI only)"
 msgstr "Kontrolovat aktualizace automaticky (pouze PyPI)"
 
-#: src/SettingsWindow.py:159
-msgid "(If the application is run without root privileges.)"
-msgstr "(Jestli běží aplikace bez práv roota.)"
+#: src/SettingsWindow.py:163
+msgid "(If the application is run without root privileges)"
+msgstr "(Jestli běží aplikace bez práv roota)"
 
-#: src/SettingsWindow.py:176
-#, fuzzy
-#| msgid "Reset all settings of the application to defaults"
+#: src/SettingsWindow.py:180
 msgid "Reset all settings of the application"
-msgstr "Resetovat všechna nastavení do výchozího stavu"
+msgstr ""
 
-#: src/SettingsWindow.py:719
+#: src/SettingsWindow.py:723
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Chcete resetovat výchozí nastavení?"
 
@@ -1032,116 +977,84 @@ msgid "Computer"
 msgstr "Počítač"
 
 #: src/System.py:113
-#, fuzzy
-#| msgid "Version - Code Name:"
 msgid "Version - Code Name"
-msgstr "Verze-kódové jméno:"
+msgstr "Verze-kódové jméno"
 
 #: src/System.py:120
-#, fuzzy
-#| msgid "OS Family:"
 msgid "OS Family"
-msgstr "Rodina OS:"
+msgstr "Rodina OS"
 
 #: src/System.py:127
-#, fuzzy
-#| msgid "Based On:"
 msgid "Based On"
-msgstr "Založeno na:"
+msgstr "Založeno na"
 
 #: src/System.py:134
-#, fuzzy
-#| msgid "Kernel Release:"
 msgid "Kernel Release"
-msgstr "Vydání kernelu:"
+msgstr "Vydání kernelu"
 
 #: src/System.py:141
-#, fuzzy
-#| msgid "Kernel Version:"
 msgid "Kernel Version"
-msgstr "Verze kernelu:"
+msgstr "Verze kernelu"
 
 #: src/System.py:155
 msgid "Graphical User Interface (GUI)"
 msgstr "Grafické uživatelské rozhraní (GUI)"
 
 #: src/System.py:159
-#, fuzzy
-#| msgid "Desktop Environment:"
 msgid "Desktop Environment"
-msgstr "Desktopové prostředí:"
+msgstr "Desktopové prostředí"
 
 #: src/System.py:166
-#, fuzzy
-#| msgid "Windowing System:"
 msgid "Windowing System"
-msgstr "Okenní systém:"
+msgstr "Okenní systém"
 
 #: src/System.py:173
-#, fuzzy
-#| msgid "Window Manager:"
 msgid "Window Manager"
-msgstr "Správce oken:"
+msgstr "Správce oken"
 
 #: src/System.py:180
-#, fuzzy
-#| msgid "Display Manager:"
 msgid "Display Manager"
-msgstr "Správce zobrazení:"
+msgstr "Správce zobrazení"
 
 #: src/System.py:191
-#, fuzzy
-#| msgid "Vendor:"
 msgid "Vendor"
-msgstr "Výrobce:"
+msgstr "Výrobce"
 
 #: src/System.py:198
-#, fuzzy
-#| msgid "Model:"
 msgid "Model"
-msgstr "Model:"
+msgstr "Model"
 
 #: src/System.py:205
-#, fuzzy
-#| msgid "Computer Type:"
 msgid "Computer Type"
-msgstr "Typ počítače:"
+msgstr "Typ počítače"
 
 #: src/System.py:226
-#, fuzzy
-#| msgid "Number Of Monitors:"
 msgid "Number Of Monitors"
-msgstr "Počet monitorů:"
+msgstr "Počet monitorů"
 
 #: src/System.py:235
 msgid "Packages"
 msgstr "Balíčky"
 
 #: src/System.py:254
-#, fuzzy
-#| msgid "Flatpak:"
 msgid "Flatpak"
-msgstr "Flatpak:"
+msgstr "Flatpak"
 
 #: src/System.py:255
 msgid "Number of installed Flatpak applications and runtimes"
 msgstr "Počet nainstalovaných Flatpaků"
 
 #: src/System.py:270
-#, fuzzy
-#| msgid "GTK Version:"
 msgid "GTK Version"
-msgstr "Verze GTK:"
+msgstr "Verze GTK"
 
 #: src/System.py:271 src/System.py:279
 msgid "Version for the currently running software"
 msgstr ""
 
 #: src/System.py:278
-#, fuzzy
-#| msgid "Python Version:"
 msgid "Python Version"
-msgstr "Verze Pythonu:"
+msgstr "Verze Pythonu"
 
 #: src/Users.py:224 src/UsersDetails.py:74 src/UsersMenu.py:91
 msgid "Full Name"

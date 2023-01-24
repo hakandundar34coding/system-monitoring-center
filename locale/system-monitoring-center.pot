@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-24 09:16+0300\n"
+"POT-Creation-Date: 2023-01-24 09:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -356,7 +356,7 @@ msgstr ""
 msgid "Sensors"
 msgstr ""
 
-#: src/MainWindow.py:440 src/SettingsWindow.py:46
+#: src/MainWindow.py:440 src/SettingsWindow.py:49
 msgid "General Settings"
 msgstr ""
 
@@ -365,7 +365,7 @@ msgid "About"
 msgstr ""
 
 #: src/MainWindow.py:518
-msgid "Multi-featured system monitor."
+msgid "Multi-featured system monitor"
 msgstr ""
 
 #: src/MainWindow.py:896
@@ -902,55 +902,63 @@ msgstr ""
 msgid "Dark"
 msgstr ""
 
-#: src/SettingsWindow.py:65
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr ""
+
+#: src/SettingsWindow.py:33
+msgid "Task Manager"
+msgstr ""
+
+#: src/SettingsWindow.py:68
 msgid "Language (Requires restart)"
 msgstr ""
 
-#: src/SettingsWindow.py:73
+#: src/SettingsWindow.py:76
 msgid "Light/Dark theme"
 msgstr ""
 
-#: src/SettingsWindow.py:85
+#: src/SettingsWindow.py:88
 msgid "Update interval (seconds)"
 msgstr ""
 
-#: src/SettingsWindow.py:93
+#: src/SettingsWindow.py:96
 msgid "Graph data history"
 msgstr ""
 
-#: src/SettingsWindow.py:105
+#: src/SettingsWindow.py:108
 msgid "Show performance summary on the headerbar"
 msgstr ""
 
-#: src/SettingsWindow.py:113
+#: src/SettingsWindow.py:116
 msgid "Remember last opened tabs"
 msgstr ""
 
-#: src/SettingsWindow.py:122
+#: src/SettingsWindow.py:125
 msgid "Default main tab and sub-tab"
 msgstr ""
 
-#: src/SettingsWindow.py:138
+#: src/SettingsWindow.py:141
 msgid "Remember last selected devices"
 msgstr ""
 
-#: src/SettingsWindow.py:146
+#: src/SettingsWindow.py:149
 msgid "Remember window size"
 msgstr ""
 
-#: src/SettingsWindow.py:157
+#: src/SettingsWindow.py:160
 msgid "Check for updates automatically (PyPI only)"
 msgstr ""
 
-#: src/SettingsWindow.py:160
-msgid "(If the application is run without root privileges.)"
+#: src/SettingsWindow.py:163
+msgid "(If the application is run without root privileges)"
 msgstr ""
 
-#: src/SettingsWindow.py:177
+#: src/SettingsWindow.py:180
 msgid "Reset all settings of the application"
 msgstr ""
 
-#: src/SettingsWindow.py:720
+#: src/SettingsWindow.py:723
 msgid "Do you want to reset all settings to defaults?"
 msgstr ""
 
