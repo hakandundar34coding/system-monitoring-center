@@ -1,3 +1,14 @@
+system-monitoring-center (2.5.0) unstable; urgency=medium
+
+  * New: Vertically resizable unified tab-device list
+  * New: French translations
+  * Improvements for detection of new device vendor-model
+  * GUI Improvements for showing long disk names (device list)
+  * GUI improvements for dimmed graph labels
+  * Improvements for zram device information (Disk tab)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 24 Jan 2023 09:30:00 +0300
+
 system-monitoring-center (2.4.1) unstable; urgency=medium
 
   * Fix: Update device list (unified tab-device list)

@@ -1,5 +1,13 @@
 # System Monitoring Center
 
+### v2.5.0 (24.01.2023)
+  * New: Vertically resizable unified tab-device list
+  * New: French translations
+  * Improvements for detection of new device vendor-model
+  * GUI Improvements for showing long disk names (device list)
+  * GUI improvements for dimmed graph labels
+  * Improvements for zram device information (Disk tab)
+
 ### v1.39.1 (10.01.2023)
   * Fix: Disk name match when loop devices are reconnected
   * Fix: Negative disk speed when loop devices are reconnected

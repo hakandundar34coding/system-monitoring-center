@@ -1,5 +1,7 @@
 # Notes For Translators:
 
+- A translation editor (for example: Poedit) may be used for translating the ```.po``` files.
+
 - Do not merge different information texts. For example: do not translate ```Connected - SSID``` 
 as ```Connected SSID```. The text contains two different information. 
 
