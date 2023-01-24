@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-19 11:49+0300\n"
-"PO-Revision-Date: 2023-01-23 11:22+0300\n"
+"PO-Revision-Date: 2023-01-24 11:22+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -1012,7 +1012,7 @@ msgstr "Gestionnaire d'affichage"
 
 #: src/System.py:191
 msgid "Vendor"
-msgstr "Marque"
+msgstr "Fabricant"
 
 #: src/System.py:198
 msgid "Model"
@@ -1036,7 +1036,7 @@ msgstr "Flatpak"
 
 #: src/System.py:255
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr ""
+msgstr "Nombre d'applications et de runtime Flatpak installés"
 
 #: src/System.py:270
 msgid "GTK Version"
