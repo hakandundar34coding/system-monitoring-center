@@ -1064,7 +1064,7 @@ msgstr "Répertoire home"
 
 #: src/Users.py:230 src/UsersDetails.py:134 src/UsersMenu.py:115
 msgid "Group"
-msgstr "Grupe"
+msgstr "Groupe"
 
 #: src/Users.py:231 src/UsersDetails.py:144 src/UsersMenu.py:119
 msgid "Terminal"
