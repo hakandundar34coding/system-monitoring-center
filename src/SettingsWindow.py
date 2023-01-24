@@ -160,7 +160,7 @@ class SettingsWindow:
         self.check_for_updates_cb = Common.checkbutton(_tr("Check for updates automatically (PyPI only)"), None)
         self.check_for_updates_grid.attach(self.check_for_updates_cb, 0, 0, 1, 1)
         # Label (Check for updates)
-        label = Common.static_information_label_no_ellipsize(_tr("(If the application is run without root privileges.)"))
+        label = Common.static_information_label_no_ellipsize(_tr("(If the application is run without root privileges)"))
         self.check_for_updates_grid.attach(label, 0, 1, 1, 1)
         # Separator (Check for updates)
         separator = Common.settings_window_separator()
