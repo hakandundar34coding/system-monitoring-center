@@ -11,8 +11,8 @@ as ```Connected SSID```. The text contains two different information.
 shortcut in the operation system menus (start menu, etc.). The ```.desktop``` file is in the ```integration``` folder.
 
 
-| Language Code  |  Language                | Percentage |
-| -------------- | ------------------------ |----------- |
+| Language Code  | Language                 | Percentage |
+| -------------- | ------------------------ | ---------- |
 |  cs            |  Czech                   |  91%       |
 |  de            |  German                  |  93%       |
 |  en            |  English                 |  100%      |
