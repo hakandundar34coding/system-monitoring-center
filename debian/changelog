@@ -1,3 +1,12 @@
+system-monitoring-center (1.40.0) unstable; urgency=medium
+
+  * New: French translations
+  * Improvements for detection of new device vendor-model
+  * Improvements for zram device information (Disk tab)
+  * Minor improvements (GUI, code, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 25 Jan 2023 12:30:00 +0300
+
 system-monitoring-center (1.39.1) unstable; urgency=medium
 
   * Fix: Disk name match when loop devices are reconnected

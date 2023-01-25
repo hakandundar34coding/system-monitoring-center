@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.40.0 (25.01.2023)
+  * New: French translations
+  * Improvements for detection of new device vendor-model
+  * Improvements for zram device information (Disk tab)
+  * Minor improvements (GUI, code, etc.)
+
 ### v2.5.0 (24.01.2023)
   * New: Vertically resizable unified tab-device list
   * New: French translations

@@ -11,12 +11,13 @@ Architecture: all
 Depends: ${misc:Depends},
          ${python3:Depends},
          dmidecode,
+         hwdata,
          iproute2,
          python3 (>=3.6),
          python3-cairo,
          python3-gi,
          python3-gi-cairo,
          util-linux (>=2.31)
-Description: Multi-featured system monitor.
+Description: Multi-featured system monitor
  Provides information about CPU/RAM/Disk/Network/GPU performance, sensors,
  processes, users, services and system.
