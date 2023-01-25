@@ -77,7 +77,7 @@ def sensors_initial_func():
 
     global sensors_data_list
     sensors_data_list = [
-                        [0, _tr('Sensor Group'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
+                        [0, _tr('Device'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
                         [1, _tr('Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                         [2, _tr('Current Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                         [3, _tr('High'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
@@ -142,7 +142,7 @@ def sensors_loop_func():
                         continue
                     if sensor_number > 0:                                                     # Number in sensor names may start from 0 or 1. Loop is broken if number is bigger than 1.
                         break
-                # Get sensor group name
+                # Get device name
                 with open("/sys/class/hwmon/" + sensor_group + "/name") as reader:
                     sensor_group_name = reader.read().strip()
                 if attribute == "temp":
@@ -151,6 +151,15 @@ def sensors_loop_func():
                     sensor_type = fan_sensor_icon_name
                 if attribute in ["in", "curr", "power"]:
                     sensor_type = voltage_current_power_sensor_icon_name
+                # Get device detailed name
+                device_path = os.readlink("/sys/class/hwmon/" + sensor_group)
+                device_detailed_name = device_path.split("/")[-2]
+                if device_detailed_name.startswith("hwmon") == True:
+                    device_detailed_name = device_path.split("/")[-3]
+                    if device_detailed_name.startswith("hwmon") == True:
+                        device_detailed_name = "-"
+                if device_detailed_name != "-" and device_detailed_name.startswith("0000:") == False:
+                    sensor_group_name = device_detailed_name + " ( " + sensor_group_name + " )"
                 # Get sensor name
                 try:
                     with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_label") as reader:
