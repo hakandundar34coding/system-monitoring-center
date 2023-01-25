@@ -7,7 +7,7 @@
 
 <p align="center">
     <strong>
-        Multi-featured system monitor.
+        Multi-featured system monitor
     </strong>
 </p>
 
@@ -48,7 +48,7 @@
     <strong>
         Translations:
     </strong>
-    Czech | German | English | Persian | Hungarian | Polish | Portuguese (Brazilian) | Portuguese (Portugal) | Russian | Spanish | Turkish | <a href="docs/notes_for_translators.md">Notes for translators</a>
+    Czech | German | English | Français | Hungarian | Persian | Polish | Portuguese (Brazilian) | Portuguese (Portugal) | Russian | Spanish | Turkish | <a href="docs/translations.md">Notes for translators</a>
 </p>
 
 
