@@ -281,7 +281,7 @@ class Disk:
             try:
                 with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/modalias") as reader:
                     modalias_output = reader.read().strip()
-                device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
+                device_vendor_name, device_model_name, _, _ = Performance.performance_get_device_vendor_model_func(modalias_output)
             except (FileNotFoundError, NotADirectoryError) as me:
                 pass
 
@@ -310,7 +310,7 @@ class Disk:
             try:
                 with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/modalias") as reader:
                     modalias_output = reader.read().strip()
-                device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
+                device_vendor_name, device_model_name, _, _ = Performance.performance_get_device_vendor_model_func(modalias_output)
             except (FileNotFoundError, NotADirectoryError) as me:
                 pass
 
