@@ -52,6 +52,9 @@ class SettingsGUI:
         self.default_main_tab_list = [_tr("Performance"), _tr("Processes"), _tr("Users"), _tr("Services"), _tr("System")]
         self.performance_tab_default_sub_tab_list = [_tr("Summary"), _tr("CPU"), _tr("Memory"), _tr("Disk"), _tr("Network"), _tr("GPU"), _tr("Sensors")]
 
+        # For translating the text that is used in ".desktop" file.
+        _text = [_tr("System Monitor"), _tr("Task Manager")]
+
 
     # ----------------------- Called for connecting some of the signals in order to disconnect them for setting GUI -----------------------
     def settings_connect_signals_func(self):

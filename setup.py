@@ -94,7 +94,7 @@ if package_type_var == "python_package":
 setup(
     name="system-monitoring-center",
     version=version,
-    description="Multi-featured system monitor.",
+    description="Multi-featured system monitor",
     long_description="Provides information about CPU/RAM/Disk/Network/GPU performance, sensors, processes, users, services and system.",
     author="Hakan Dündar",
     author_email="hakandundar34coding@gmail.com",
