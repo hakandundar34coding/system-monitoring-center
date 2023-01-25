@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-28 16:17+0300\n"
-"PO-Revision-Date: 2022-12-28 16:18+0300\n"
+"POT-Creation-Date: 2023-01-25 12:02+0300\n"
+"PO-Revision-Date: 2023-01-25 12:04+0300\n"
 "Last-Translator: ski007 <ski007@linux.pl>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -20,25 +20,26 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: src/Cpu.py:99 ui/CpuMenus.ui:35 ui/CpuTab.ui:666
+#: src/Cpu.py:96 ui/CpuMenus.ui:35 ui/CpuTab.ui:666
 #: ui/ProcessesDetailsWindow.ui:682
 msgid "CPU Usage (Average)"
 msgstr "Użycie CPU (średnie)"
 
-#: src/Cpu.py:101 ui/CpuMenus.ui:49
+#: src/Cpu.py:98 ui/CpuMenus.ui:49
 msgid "CPU Usage (Per Core)"
 msgstr "Użycie CPU (na rdzeń)"
 
-#: src/Cpu.py:334 src/Disk.py:275 src/Disk.py:277 src/Gpu.py:276 src/Gpu.py:278
-#: src/Network.py:184 src/Network.py:186
+#: src/Cpu.py:331 src/Disk.py:304 src/Disk.py:305 src/Disk.py:331
+#: src/Disk.py:333 src/Gpu.py:277 src/Gpu.py:279 src/Network.py:181
+#: src/Network.py:183 src/Network.py:266 src/Network.py:284
 msgid "Unknown"
 msgstr "Nieznane"
 
-#: src/Disk.py:229 src/Disk.py:242 src/MemorySwapDetails.py:68
+#: src/Disk.py:255 src/Disk.py:270 src/MemorySwapDetails.py:68
 msgid "Partition"
 msgstr "Partycja"
 
-#: src/Disk.py:240 src/DiskDetails.py:92 src/SettingsGUI.py:53
+#: src/Disk.py:268 src/DiskDetails.py:92 src/SettingsGUI.py:53
 #: ui/DiskDetailsWindow.ui:7 ui/DiskDetailsWindow.ui:45 ui/DiskMenus.ui:23
 #: ui/DiskMenus.ui:356 ui/DiskTab.ui:728 ui/MainWindow.ui:323
 #: ui/MainWindow.ui:936 ui/ProcessesDetailsWindow.ui:1685
@@ -46,24 +47,22 @@ msgstr "Partycja"
 msgid "Disk"
 msgstr "Dysk"
 
-#: src/Disk.py:283 src/Performance.py:1142
+#: src/Disk.py:349 src/Performance.py:1266
 msgid "Swap"
 msgstr "Swap"
 
-#: src/Disk.py:355 src/Disk.py:356 src/Disk.py:357 src/Disk.py:358
-#: src/Disk.py:360 src/MainGUI.py:848
-#, fuzzy
-#| msgid "[Not mounted]"
+#: src/Disk.py:426 src/Disk.py:427 src/Disk.py:428 src/Disk.py:429
+#: src/Disk.py:431 src/MainGUI.py:849
 msgid "Not mounted"
-msgstr "[Niezamontowany]"
+msgstr "Niezamontowany"
 
-#: src/Disk.py:444 src/Gpu.py:229 src/Gpu.py:232 src/Network.py:251
-#: src/Network.py:294 src/Services.py:157 src/ServicesDetails.py:134
+#: src/Disk.py:515 src/Gpu.py:230 src/Gpu.py:233 src/Network.py:262
+#: src/Network.py:306 src/Services.py:157 src/ServicesDetails.py:134
 #: src/UsersDetails.py:206
 msgid "Yes"
 msgstr "Tak"
 
-#: src/Disk.py:446 src/Gpu.py:234 src/Network.py:253 src/Services.py:157
+#: src/Disk.py:517 src/Gpu.py:235 src/Network.py:264 src/Services.py:157
 #: src/ServicesDetails.py:134 src/UsersDetails.py:208
 msgid "No"
 msgstr "Nie"
@@ -80,35 +79,35 @@ msgstr ""
 msgid "There is a newer version on PyPI."
 msgstr "Jest nowsza wersja programu przez PyPI."
 
-#: src/MainGUI.py:713 src/SettingsGUI.py:53 ui/MainWindow.ui:182
+#: src/MainGUI.py:712 src/SettingsGUI.py:53 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:633 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
 msgstr "Podsumowanie"
 
-#: src/MainGUI.py:723
+#: src/MainGUI.py:722
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "Wybór rdzenia procesora wpływa tylko na informacje o częstotliwości i "
 "pamięci podręcznej."
 
-#: src/MainGUI.py:727 src/Memory.py:169 src/Performance.py:1122
-#: src/Performance.py:1452 ui/MainWindow.ui:920 ui/MemoryMenus.ui:100
-#: ui/MemoryTab.ui:28
+#: src/MainGUI.py:726 src/Memory.py:199 src/Performance.py:1246
+#: src/Performance.py:1568 src/Performance.py:1572 ui/MainWindow.ui:920
+#: ui/MemoryMenus.ui:100 ui/MemoryTab.ui:28
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:727 src/Memory.py:196 src/Performance.py:1452
+#: src/MainGUI.py:726 src/Memory.py:228 src/Performance.py:1572
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:642
 #: ui/ProcessesDetailsWindow.ui:1066
 msgid "Swap Memory"
 msgstr "Pamięć SWAP"
 
-#: src/Memory.py:167 ui/MemoryRamHardwareWindow.ui:7
+#: src/Memory.py:197 ui/MemoryRamHardwareWindow.ui:7
 msgid "Physical RAM"
 msgstr "Pamięć RAM (fizyczna)"
 
-#: src/Memory.py:169 src/MemoryRamHardware.py:130 src/MemoryRamHardware.py:150
+#: src/Memory.py:199 src/MemoryRamHardware.py:130 src/MemoryRamHardware.py:150
 #: src/MemorySwapDetails.py:99 ui/DiskDetailsWindow.ui:110
 #: ui/DiskDetailsWindow.ui:532 ui/DiskTab.ui:532 ui/MemoryTab.ui:222
 #: ui/MemoryTab.ui:569
@@ -170,19 +169,19 @@ msgstr "Używane"
 msgid "Priority"
 msgstr "Priorytet"
 
-#: src/Network.py:194
+#: src/Network.py:191
 msgid "Virtual Network Interface"
 msgstr "Wirtualny interfejs sieci"
 
-#: src/Network.py:203
+#: src/Network.py:200
 msgid "Ethernet"
 msgstr "Sieć przewodowa"
 
-#: src/Network.py:205
+#: src/Network.py:202
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:1113 src/Processes.py:186 src/SettingsGUI.py:53
+#: src/Performance.py:1237 src/Processes.py:186 src/SettingsGUI.py:53
 #: src/Users.py:129 ui/CpuMenus.ui:23 ui/CpuMenus.ui:124 ui/CpuTab.ui:591
 #: ui/MainWindow.ui:229 ui/MainWindow.ui:881 ui/ProcessesDetailsWindow.ui:120
 #: ui/ProcessesDetailsWindow.ui:961 ui/ProcessesDetailsWindow.ui:981
@@ -191,33 +190,33 @@ msgstr "Wi-Fi"
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Performance.py:1131 src/Processes.py:758 src/SettingsGUI.py:52
+#: src/Performance.py:1255 src/Processes.py:758 src/SettingsGUI.py:52
 #: src/Users.py:124 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
 msgid "Processes"
 msgstr "Procesy"
 
-#: src/Performance.py:1293 src/Processes.py:192 ui/DiskMenus.ui:90
+#: src/Performance.py:1417 src/Processes.py:192 ui/DiskMenus.ui:90
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:662 ui/ProcessesDetailsWindow.ui:146
 #: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesDetailsWindow.ui:1616
 #: ui/ProcessesMenuCustomizations.ui:307
 msgid "Read Speed"
 msgstr "Prędkość odczytu"
 
-#: src/Performance.py:1302 src/Processes.py:193 ui/DiskMenus.ui:103
+#: src/Performance.py:1426 src/Processes.py:193 ui/DiskMenus.ui:103
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:685 ui/ProcessesDetailsWindow.ui:588
 #: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesDetailsWindow.ui:1639
 #: ui/ProcessesMenuCustomizations.ui:321
 msgid "Write Speed"
 msgstr "Prędkość zapisu"
 
-#: src/Performance.py:1311 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
+#: src/Performance.py:1435 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
 #: ui/NetworkTab.ui:632
 msgid "Download Speed"
 msgstr "Prędkość pobierania"
 
-#: src/Performance.py:1320 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
+#: src/Performance.py:1444 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
 #: ui/NetworkTab.ui:655
 msgid "Upload Speed"
 msgstr "Prędkość wysyłania"
@@ -263,10 +262,8 @@ msgstr "Odczyt danych"
 
 #: src/Processes.py:191 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1361
 #: ui/ProcessesMenuCustomizations.ui:349
-#, fuzzy
-#| msgid "Write Data"
 msgid "Written Data"
-msgstr "Zapis danych"
+msgstr "Zapisanych danych"
 
 #: src/Processes.py:195 ui/ProcessesDetailsWindow.ui:948
 #: ui/ProcessesMenuCustomizations.ui:251
@@ -325,7 +322,7 @@ msgstr "Zombie"
 msgid "Stopped"
 msgstr "Zatrzymany"
 
-#: src/Processes.py:758 src/Sensors.py:333 src/Services.py:491 src/Users.py:466
+#: src/Processes.py:758 src/Sensors.py:342 src/Services.py:489 src/Users.py:464
 #: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:79
 #: ui/UsersTab.ui:66
 msgid "Search..."
@@ -340,20 +337,16 @@ msgid "This process is not running anymore."
 msgstr "Ten proces już nie jest uruchomiony."
 
 #: src/ProcessesMenuRightClick.py:80
-#, fuzzy
-#| msgid "Do you want to kill this process?"
 msgid "Do you want to end this process?"
-msgstr "Czy chcesz zabić ten proces ?"
+msgstr ""
 
 #: src/ProcessesMenuRightClick.py:86
-#, fuzzy
-#| msgid "Do you want to terminate this process?"
 msgid "Do you want to end this process immediately?"
-msgstr "Czy chcesz zakończyć ten proces ?"
+msgstr ""
 
 #: src/Sensors.py:80
-msgid "Sensor Group"
-msgstr "Grupa czujników"
+msgid "Device"
+msgstr "Urządzenie"
 
 #: src/Sensors.py:82
 msgid "Current Value"
@@ -367,7 +360,7 @@ msgstr "Wysoka"
 msgid "Critical"
 msgstr "Krytyczna"
 
-#: src/Sensors.py:333 src/SettingsGUI.py:53 ui/MainWindow.ui:464
+#: src/Sensors.py:342 src/SettingsGUI.py:53 ui/MainWindow.ui:464
 #: ui/SensorsTab.ui:48
 msgid "Sensors"
 msgstr "Czujniki"
@@ -453,7 +446,7 @@ msgstr "Martwy"
 msgid "Exited"
 msgstr "Wyjście"
 
-#: src/Services.py:491 src/SettingsGUI.py:52 ui/MainWindow.ui:769
+#: src/Services.py:489 src/SettingsGUI.py:52 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Usługi"
@@ -470,7 +463,7 @@ msgstr "Informacja"
 msgid "Performance"
 msgstr "Wydajność"
 
-#: src/SettingsGUI.py:52 src/Users.py:466 ui/MainWindow.ui:722
+#: src/SettingsGUI.py:52 src/Users.py:464 ui/MainWindow.ui:722
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
 msgstr "Użytkownicy"
@@ -496,7 +489,15 @@ msgstr "Sieć"
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:565
+#: src/SettingsGUI.py:56
+msgid "System Monitor"
+msgstr "Monitor systemu"
+
+#: src/SettingsGUI.py:56
+msgid "Task Manager"
+msgstr "Menedżera zadań"
+
+#: src/SettingsGUI.py:600
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Czy chcesz zresetować wszystkie ustawienia do wartości domyślnych ?"
 
@@ -539,10 +540,8 @@ msgstr "Zresetuj"
 
 #: ui/CpuMenus.ui:136 ui/DiskMenus.ui:208 ui/MemoryMenus.ui:149
 #: ui/NetworkMenus.ui:177
-#, fuzzy
-#| msgid "Chart - Show"
 msgid "Graph - Show"
-msgstr "Wykres - pokaż"
+msgstr "Wykres - Pokaż"
 
 #: ui/CpuMenus.ui:151 ui/DiskMenus.ui:178 ui/MemoryMenus.ui:164
 #: ui/NetworkMenus.ui:192 ui/ProcessesMenuCustomizations.ui:548
@@ -575,10 +574,8 @@ msgid "Up Time"
 msgstr "Czas pracy"
 
 #: ui/CpuTab.ui:360 ui/GpuTab.ui:250
-#, fuzzy
-#| msgid "Min-Max Frequency:"
 msgid "Min-Max Frequency"
-msgstr "Min-Max Częstotliwość:"
+msgstr "Min-Max Częstotliwość"
 
 #: ui/CpuTab.ui:396
 msgid "Cache (L1d-L1i)"
@@ -589,18 +586,14 @@ msgid "Cache (L2-L3)"
 msgstr "Pamięć podręczna (L2-L3)"
 
 #: ui/CpuTab.ui:468
-#, fuzzy
-#| msgid "CPU Sockets:"
 msgid "CPU Sockets"
-msgstr "Gniazda procesora:"
+msgstr "Gniazda procesora"
 
 #: ui/CpuTab.ui:503
 msgid "Number of online physical and logical CPU cores"
 msgstr "Liczba fizycznych i logicznych rdzeni procesora"
 
 #: ui/CpuTab.ui:505
-#, fuzzy
-#| msgid "Cores (Physical-Logical):"
 msgid "Cores (Physical-Logical)"
 msgstr "Rdzenie (fizyczne-logiczne)"
 
@@ -643,10 +636,8 @@ msgid "Mount Point"
 msgstr "Punkt montowania"
 
 #: ui/DiskDetailsWindow.ui:550
-#, fuzzy
-#| msgid "(Mass Storage)"
 msgid "Mass Storage"
-msgstr "(Pamięć masowa)"
+msgstr "Pamięć masowa"
 
 #: ui/DiskMenus.ui:140 ui/NetworkMenus.ui:140
 msgid "Selected Device"
@@ -668,10 +659,8 @@ msgstr "Pokaż jednostki prędkości jako wielokrotność bitów"
 
 #: ui/DiskMenus.ui:295 ui/MemoryMenus.ui:244 ui/NetworkMenus.ui:294
 #: ui/ProcessesMenuCustomizations.ui:658 ui/ProcessesMenuCustomizations.ui:731
-#, fuzzy
-#| msgid "Show data as powers of:"
 msgid "Show data as powers of"
-msgstr "Pokaż dane jako: binarne / dziesiętne:"
+msgstr "Pokaż dane jako: binarne / dziesiętne"
 
 #: ui/DiskMenus.ui:340
 msgid "Hide loop, ramdisk, zram disks"
@@ -704,42 +693,34 @@ msgid "Boot VGA"
 msgstr "Boot VGA"
 
 #: ui/GpuTab.ui:322
-#, fuzzy
-#| msgid "Power Usage:"
 msgid "Power Usage"
-msgstr "Zużycie energii:"
+msgstr "Zużycie energii"
 
 #: ui/GpuTab.ui:358
-#, fuzzy
-#| msgid "Driver:"
 msgid "Driver"
-msgstr "Sterownik:"
+msgstr "Sterownik"
 
 #: ui/GpuTab.ui:394
-#, fuzzy
-#| msgid "Refresh Rate:"
 msgid "Refresh Rate"
-msgstr "Odświeżanie:"
+msgstr "Częstotliwość odświeżania"
 
 #: ui/GpuTab.ui:430
-#, fuzzy
-#| msgid "Resolution:"
 msgid "Resolution"
-msgstr "Rozdzielczość:"
+msgstr "Rozdzielczość"
 
 #: ui/GpuTab.ui:537
 msgid "Temperature"
 msgstr "Temperatura"
 
 #: ui/MainMenusDialogs.ui:13
-msgid "Multi-featured system monitor."
-msgstr "Wielofunkcyjny monitor systemu."
+msgid "Multi-featured system monitor"
+msgstr "Wielofunkcyjny monitor systemu"
 
-#: ui/MainMenusDialogs.ui:72 ui/SettingsWindow.ui:7
+#: ui/MainMenusDialogs.ui:63 ui/SettingsWindow.ui:7
 msgid "General Settings"
 msgstr "Główne Ustawienia"
 
-#: ui/MainMenusDialogs.ui:92
+#: ui/MainMenusDialogs.ui:83
 msgid "About"
 msgstr "O programie"
 
@@ -756,38 +737,28 @@ msgid "Available"
 msgstr "Dostępne"
 
 #: ui/MemoryTab.ui:294
-#, fuzzy
-#| msgid "Hardware:"
 msgid "Hardware"
-msgstr "Podzespoły:"
+msgstr "Podzespoły"
 
 #: ui/MemoryTab.ui:683
 msgid "RAM Usage"
 msgstr "Użycie RAM"
 
 #: ui/NetworkTab.ui:208
-#, fuzzy
-#| msgid "Downloaded Data"
 msgid "Downloaded Data"
 msgstr "Pobrane dane"
 
 #: ui/NetworkTab.ui:221
-#, fuzzy
-#| msgid "Uploaded Data"
 msgid "Uploaded Data"
-msgstr "Wysłane dane"
+msgstr "Przesłane dane"
 
 #: ui/NetworkTab.ui:358
-#, fuzzy
-#| msgid "Connection Type:"
 msgid "Connection Type"
-msgstr "Rodzaj połączenia:"
+msgstr "Rodzaj połączenia"
 
 #: ui/NetworkTab.ui:394
-#, fuzzy
-#| msgid "Connected-SSID:"
 msgid "Connected-SSID"
-msgstr "Połączony-SSID:"
+msgstr "Połączony-SSID"
 
 #: ui/NetworkTab.ui:430
 msgid "Link Quality"
@@ -893,20 +864,16 @@ msgid "Collapse all"
 msgstr ""
 
 #: ui/ProcessesMenuRightClick.ui:34
-#, fuzzy
-#| msgid "Continue Process"
 msgid "Pause Process"
-msgstr "Wznów proces"
+msgstr ""
 
 #: ui/ProcessesMenuRightClick.ui:42
 msgid "Continue Process"
 msgstr "Wznów proces"
 
 #: ui/ProcessesMenuRightClick.ui:50
-#, fuzzy
-#| msgid "Processes"
 msgid "End Process"
-msgstr "Procesy"
+msgstr "Zakończ proces"
 
 #: ui/ProcessesMenuRightClick.ui:58
 msgid "End Process Immediately"
@@ -1030,36 +997,28 @@ msgid "Check for updates automatically (PyPI only)"
 msgstr "Automatycznie sprawdzaj aktualizacje (tylko PyPI)"
 
 #: ui/SettingsWindow.ui:182
-msgid "(If the application is run without root privileges.)"
-msgstr "(Jeśli aplikacja jest uruchamiana bez uprawnień administratora.)"
+msgid "(If the application is run without root privileges)"
+msgstr "(Jeśli aplikacja jest uruchamiana bez uprawnień administratora)"
 
 #: ui/SettingsWindow.ui:263
-#, fuzzy
-#| msgid "Reset all settings of the application to defaults"
 msgid "Reset all settings of the application"
-msgstr "Zresetuj wszystkie ustawienia aplikacji do wartości domyślnych"
+msgstr ""
 
 #: ui/SettingsWindow.ui:344
 msgid "Language (Requires restart)"
 msgstr ""
 
 #: ui/SettingsWindow.ui:379
-#, fuzzy
-#| msgid "Update interval (seconds):"
 msgid "Update interval (seconds)"
-msgstr "Interwał aktualizacji (sekundy):"
+msgstr "Interwał aktualizacji (sekundy)"
 
 #: ui/SettingsWindow.ui:414
-#, fuzzy
-#| msgid "Chart data history:"
 msgid "Graph data history"
-msgstr "Historia danych wykresu:"
+msgstr "Historia danych wykresu"
 
 #: ui/SettingsWindow.ui:449
-#, fuzzy
-#| msgid "Default main tab:"
 msgid "Default main tab and sub-tab"
-msgstr "Domyślna zakładka główna:"
+msgstr ""
 
 #: ui/SystemTab.ui:64 ui/SystemTab.ui:232
 msgid "Computer"
@@ -1070,40 +1029,28 @@ msgid "Operating System (OS)"
 msgstr "System operacyjny (OS)"
 
 #: ui/SystemTab.ui:409
-#, fuzzy
-#| msgid "Version - Code Name:"
 msgid "Version - Code Name"
-msgstr "Wersja - Nazwa kodowa:"
+msgstr "Wersja - Nazwa kodowa"
 
 #: ui/SystemTab.ui:445
-#, fuzzy
-#| msgid "OS Family:"
 msgid "OS Family"
-msgstr "Rodzina systemów:"
+msgstr "Rodzina systemów"
 
 #: ui/SystemTab.ui:481
-#, fuzzy
-#| msgid "Based On:"
 msgid "Based On"
-msgstr "Oparty o:"
+msgstr "Oparty o"
 
 #: ui/SystemTab.ui:517
-#, fuzzy
-#| msgid "Kernel Release:"
 msgid "Kernel Release"
-msgstr "Wydanie Jądra:"
+msgstr "Wydanie Jądra"
 
 #: ui/SystemTab.ui:553
-#, fuzzy
-#| msgid "Kernel Version:"
 msgid "Kernel Version"
-msgstr "Kompilacja jądra:"
+msgstr "Kompilacja jądra"
 
 #: ui/SystemTab.ui:589
-#, fuzzy
-#| msgid "Vendor:"
 msgid "Vendor"
-msgstr "Producent:"
+msgstr "Producent"
 
 #: ui/SystemTab.ui:625
 msgid "Model"
@@ -1114,10 +1061,8 @@ msgid "Computer Type"
 msgstr "Typ komputera"
 
 #: ui/SystemTab.ui:769
-#, fuzzy
-#| msgid "Number Of Monitors:"
 msgid "Number Of Monitors"
-msgstr "Liczba monitorów:"
+msgstr "Liczba monitorów"
 
 #: ui/SystemTab.ui:827
 msgid "Graphical User Interface (GUI)"
@@ -1128,28 +1073,20 @@ msgid "Packages"
 msgstr "Pakiety"
 
 #: ui/SystemTab.ui:1025
-#, fuzzy
-#| msgid "Desktop Environment:"
 msgid "Desktop Environment"
-msgstr "Środowisko pulpitu:"
+msgstr "Środowisko pulpitu"
 
 #: ui/SystemTab.ui:1061
-#, fuzzy
-#| msgid "Windowing System:"
 msgid "Windowing System"
-msgstr "Serwer wyświetlania:"
+msgstr "Serwer wyświetlania"
 
 #: ui/SystemTab.ui:1097
-#, fuzzy
-#| msgid "Window Manager:"
 msgid "Window Manager"
-msgstr "Menedżer okien:"
+msgstr "Menedżer okien"
 
 #: ui/SystemTab.ui:1133
-#, fuzzy
-#| msgid "Display Manager:"
 msgid "Display Manager"
-msgstr "Menedżer wyświetlania:"
+msgstr "Menedżer wyświetlania"
 
 #: ui/SystemTab.ui:1204
 msgid "Number of installed Flatpak applications and runtimes"
@@ -1164,13 +1101,9 @@ msgid "Version for the currently running software"
 msgstr ""
 
 #: ui/SystemTab.ui:1243
-#, fuzzy
-#| msgid "GTK Version:"
 msgid "GTK Version"
-msgstr "Wersja GTK:"
+msgstr "Wersja GTK"
 
 #: ui/SystemTab.ui:1280
-#, fuzzy
-#| msgid "Python Version:"
 msgid "Python Version"
-msgstr "Wersja Pythona:"
+msgstr "Wersja Pythona"
