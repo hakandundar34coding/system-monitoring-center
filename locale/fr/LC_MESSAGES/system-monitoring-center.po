@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-24 09:38+0300\n"
-"PO-Revision-Date: 2023-01-24 11:51+0300\n"
+"PO-Revision-Date: 2023-01-25 21:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -46,7 +46,7 @@ msgstr "CPU"
 
 #: src/Cpu.py:54 src/Disk.py:55 src/Disk.py:303 src/Gpu.py:57 src/Network.py:54
 msgid "Vendor-Model"
-msgstr "Fabricant-Modèle"
+msgstr "Fournisseur-Modèle"
 
 #: src/Cpu.py:59 src/Disk.py:60 src/Gpu.py:62 src/Network.py:59
 msgid "Device Name In Kernel"
@@ -1021,7 +1021,7 @@ msgstr "Gestionnaire d'affichage"
 
 #: src/System.py:191
 msgid "Vendor"
-msgstr "Marque"
+msgstr "Fournisseur"
 
 #: src/System.py:198
 msgid "Model"
@@ -1045,7 +1045,7 @@ msgstr "Flatpak"
 
 #: src/System.py:255
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr ""
+msgstr "Nombre d'applications et de runtime Flatpak installés"
 
 #: src/System.py:270
 msgid "GTK Version"
@@ -1073,7 +1073,7 @@ msgstr "Répertoire home"
 
 #: src/Users.py:230 src/UsersDetails.py:134 src/UsersMenu.py:115
 msgid "Group"
-msgstr "Grupe"
+msgstr "Groupe"
 
 #: src/Users.py:231 src/UsersDetails.py:144 src/UsersMenu.py:119
 msgid "Terminal"
