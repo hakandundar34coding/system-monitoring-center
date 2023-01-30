@@ -1,3 +1,10 @@
+system-monitoring-center (2.6.0) unstable; urgency=medium
+
+  * Updated French translations
+  * Fix: Version number
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 30 Jan 2023 11:35:00 +0300
+
 system-monitoring-center (2.5.0) unstable; urgency=medium
 
   * New: Vertically resizable unified tab-device list

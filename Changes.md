@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v2.6.0 (30.01.2023)
+  * Updated French translations
+  * Fix: Version number
+
 ### v1.40.0 (25.01.2023)
   * New: French translations
   * Improvements for detection of new device vendor-model
