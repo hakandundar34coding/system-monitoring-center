@@ -31,7 +31,7 @@
   <summary xml:lang="tr">Çok özellikli sistem gözlemcisi</summary>
   <url type="homepage">https://github.com/hakandundar34coding/system-monitoring-center</url>
   <url type="bugtracker">https://github.com/hakandundar34coding/system-monitoring-center/issues</url>
-  <url type="translate">https://github.com/hakandundar34coding/system-monitoring-center/raw/master/docs/translations.md</url>
+  <url type="translate">https://github.com/hakandundar34coding/system-monitoring-center/blob/master/docs/translations.md</url>
   <content_rating type="oars-1.1"/>
   <description>
     <p>Multi-featured system monitor</p>
