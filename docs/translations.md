@@ -15,7 +15,7 @@ as ```Connected SSID```. The text contains two different information.
 | en             | English                | 100%       |
 | es             | Spanish                | 93%        |
 | fa             | Persian                | 90%        |
-| fr             | Français               | 100%       |
+| fr             | French                 | 100%       |
 | hu             | Hungarian              | 92%        |
 | pl             | Polish                 | 93%        |
 | pt_BR          | Portuguese (Brazilian) | 99%        |
