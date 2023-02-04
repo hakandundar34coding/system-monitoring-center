@@ -304,7 +304,7 @@ class ServicesDetails:
         """
 
         self.update_window_value = 0
-        self.service_details_window.hide()
+        self.service_details_window.set_visible(False)
         return True
 
 

@@ -602,7 +602,7 @@ class ProcessesDetails:
         """
 
         self.update_window_value = 0
-        self.process_details_window.hide()
+        self.process_details_window.set_visible(False)
         # Remove the current process object instance from the list if the window is closed.
         processes_details_object_list.remove(self)
         # Delete the current process object instance if the window is closed.
@@ -1388,5 +1388,5 @@ def process_details_show_process_details():
         return
 
     processes_details_object_list.append(ProcessesDetails(Processes.selected_process_pid))
-    processes_details_object_list[-1].process_details_window.show()
+    processes_details_object_list[-1].process_details_window.set_visible(True)
 

@@ -133,7 +133,7 @@ class Users:
         """
 
         from UsersDetails import UsersDetails
-        UsersDetails.user_details_window.show()
+        UsersDetails.user_details_window.set_visible(True)
 
 
     def on_searchentry_changed(self, widget):
@@ -199,7 +199,7 @@ class Users:
         # Show details window if double clicked on a row
         if int(event.get_button()) == 1 and int(count) == 2:
             from UsersDetails import UsersDetails
-            UsersDetails.user_details_window.show()
+            UsersDetails.user_details_window.set_visible(True)
 
 
     def on_treeview_released(self, event, count, x, y):

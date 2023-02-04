@@ -289,10 +289,10 @@ class System:
         """
 
         # Show and start spinner animation before running the function for getting information.
-        self.system_packages_spinner.show()
+        self.system_packages_spinner.set_visible(True)
         self.system_packages_spinner.start()
 
-        self.flatpak_packages_spinner.show()
+        self.flatpak_packages_spinner.set_visible(True)
         self.flatpak_packages_spinner.start()
 
         GLib.idle_add(self.system_initial_func)

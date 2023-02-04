@@ -238,7 +238,7 @@ class SettingsWindow:
 
         # Hide "Check for updates" setting if the application is not installed as Python package.
         if Config.environment_type != "python_package":
-            self.check_for_updates_grid.hide()
+            self.check_for_updates_grid.set_visible(False)
 
         # Set GUI widgets for showing current preferences of settings.
         try:
@@ -430,7 +430,7 @@ class SettingsWindow:
         if response == Gtk.ResponseType.YES:
             self.reset_all_settings_func()
 
-        self.messagedialog.hide()
+        self.messagedialog.set_visible(False)
 
 
     def reset_all_settings_func(self):

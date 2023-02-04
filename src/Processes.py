@@ -303,7 +303,7 @@ class Processes:
         """
 
         if widget == self.priority_custom_value_cancel_button:
-            self.priority_custom_value_window.hide()
+            self.priority_custom_value_window.set_visible(False)
 
         if widget == self.priority_custom_value_change_priority_button:
             # Get right clicked process pid and name.
@@ -331,7 +331,7 @@ class Processes:
                 except subprocess.CalledProcessError:
                     return
 
-            self.priority_custom_value_window.hide()
+            self.priority_custom_value_window.set_visible(False)
 
 
     def on_process_manage_items_clicked(self, action, parameter):
@@ -420,7 +420,7 @@ class Processes:
                     pass
 
         messagedialog = widget
-        messagedialog.hide()
+        messagedialog.set_visible(False)
 
 
     def set_priority_menu_option(self):

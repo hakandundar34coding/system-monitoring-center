@@ -238,7 +238,7 @@ def on_colorchooserdialog_response(widget, response):
     Dialog have to be hidden for "Cancel" response.
     """
 
-    colorchooserdialog.hide()
+    colorchooserdialog.set_visible(False)
 
     if response == Gtk.ResponseType.OK:
 
@@ -789,7 +789,7 @@ def set_label_spinner(label, spinner, label_data):
     """
 
     spinner.stop()
-    spinner.hide()
+    spinner.set_visible(False)
     label.set_label(f'{label_data}')
 
 

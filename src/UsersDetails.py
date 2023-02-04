@@ -187,7 +187,7 @@ class UsersDetails:
         """
 
         self.update_window_value = 0
-        self.user_details_window.hide()
+        self.user_details_window.set_visible(False)
         return True
 
 
@@ -365,7 +365,7 @@ class UsersDetails:
             check_value = selected_user_username
         except UnboundLocalError:
             self.update_window_value = 0
-            self.user_details_window.hide()
+            self.user_details_window.set_visible(False)
             return
 
         # Set label text

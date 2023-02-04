@@ -298,7 +298,7 @@ class Services:
             pass
 
         messagedialog = widget
-        messagedialog.hide()
+        messagedialog.set_visible(False)
 
 
     def on_service_details_item_activate(self, action, parameter):
