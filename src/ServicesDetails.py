@@ -43,26 +43,26 @@ class ServicesDetails:
         self.service_details_window.set_child(self.main_grid)
 
         # Notebook
-        notebook = Gtk.Notebook()
-        notebook.set_margin_top(10)
-        notebook.set_margin_bottom(10)
-        notebook.set_margin_start(10)
-        notebook.set_margin_end(10)
-        notebook.set_hexpand(True)
-        notebook.set_vexpand(True)
-        self.main_grid.attach(notebook, 0, 0, 1, 1)
+        self.notebook = Gtk.Notebook()
+        self.notebook.set_margin_top(10)
+        self.notebook.set_margin_bottom(10)
+        self.notebook.set_margin_start(10)
+        self.notebook.set_margin_end(10)
+        self.notebook.set_hexpand(True)
+        self.notebook.set_vexpand(True)
+        self.main_grid.attach(self.notebook, 0, 0, 1, 1)
 
         # Tab pages and ScrolledWindow
         # "Summary" tab
         tab_title_label = Gtk.Label()
         tab_title_label.set_label(_tr("Summary"))
         self.scrolledwindow_summary_tab = Gtk.ScrolledWindow()
-        notebook.append_page(self.scrolledwindow_summary_tab, tab_title_label)
+        self.notebook.append_page(self.scrolledwindow_summary_tab, tab_title_label)
         # "Dependencies" tab
         tab_title_label = Gtk.Label()
         tab_title_label.set_label(_tr("Dependencies"))
         self.scrolledwindow_dependencies_tab = Gtk.ScrolledWindow()
-        notebook.append_page(self.scrolledwindow_dependencies_tab, tab_title_label)
+        self.notebook.append_page(self.scrolledwindow_dependencies_tab, tab_title_label)
 
         self.summary_tab_gui()
         self.dependencies_tab_gui()
@@ -322,6 +322,8 @@ class ServicesDetails:
         # This value is checked for repeating the function for getting the service data.
         self.update_window_value = 1
 
+        # Select first tab of the notebook when the window is hidden and shown again.
+        self.notebook.set_current_page(0)
         self.services_details_run_func()
 
 
