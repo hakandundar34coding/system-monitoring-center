@@ -592,11 +592,11 @@ class ProcessesDetails:
         """
 
         # Window signals
-        self.process_details_window.connect("close-request", self.on_process_details_window_delete_event)
+        self.process_details_window.connect("close-request", self.on_process_details_window_close_request_event)
         self.process_details_window.connect("show", self.on_process_details_window_show)
 
 
-    def on_process_details_window_delete_event(self, widget):
+    def on_process_details_window_close_request_event(self, widget):
         """
         Called when window is closed.
         """
@@ -605,9 +605,8 @@ class ProcessesDetails:
         self.process_details_window.set_visible(False)
         # Remove the current process object instance from the list if the window is closed.
         processes_details_object_list.remove(self)
-        # Delete the current process object instance if the window is closed.
+        # Delete the current process object instance after the window is closed.
         del self
-        return True
 
 
     def on_process_details_window_show(self, widget):

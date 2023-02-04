@@ -294,18 +294,17 @@ class ServicesDetails:
         """
 
         # Window signals
-        self.service_details_window.connect("close-request", self.on_service_details_window_delete_event)
+        self.service_details_window.connect("close-request", self.on_service_details_window_close_request_event)
         self.service_details_window.connect("show", self.on_service_details_window_show)
 
 
-    def on_service_details_window_delete_event(self, widget):
+    def on_service_details_window_close_request_event(self, widget):
         """
         Called when window is closed.
         """
 
         self.update_window_value = 0
         self.service_details_window.set_visible(False)
-        return True
 
 
     def on_service_details_window_show(self, widget):
