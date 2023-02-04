@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-24 09:38+0300\n"
-"PO-Revision-Date: 2023-01-26 16:56+0300\n"
+"PO-Revision-Date: 2023-01-31 07:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -941,7 +941,7 @@ msgstr "Afficher le résumé des performances sur la barre d'en-tête"
 
 #: src/SettingsWindow.py:116
 msgid "Remember last opened tabs"
-msgstr "Garder les derniers onglets ouverts"
+msgstr "Restaurer les derniers onglets ouverts"
 
 #: src/SettingsWindow.py:125
 msgid "Default main tab and sub-tab"
@@ -949,11 +949,11 @@ msgstr "Onglet principal et sous-onglet par défaut"
 
 #: src/SettingsWindow.py:141
 msgid "Remember last selected devices"
-msgstr "Garder des derniers appareils sélectionnés"
+msgstr "Restaurer des derniers appareils sélectionnés"
 
 #: src/SettingsWindow.py:149
 msgid "Remember window size"
-msgstr "Garder de la taille de la fenêtre"
+msgstr "Restaurer la taille de la fenêtre"
 
 #: src/SettingsWindow.py:160
 msgid "Check for updates automatically (PyPI only)"
