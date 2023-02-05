@@ -784,15 +784,13 @@ class MainWindow():
                     Config.performance_tab_default_sub_tab = 6
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 6
-                if 'Sensors' not in globals():
+                if self.sensors_tab_main_grid.get_child_at(0,0) == None:
                     global Sensors
-                    import Sensors
-                    Sensors.sensors_import_func()
-                    Sensors.sensors_gui_func()
-                    self.sensors_tab_main_grid.attach(Sensors.sensors_tab_grid, 0, 0, 1, 1)
+                    from Sensors import Sensors
+                    self.sensors_tab_main_grid.attach(Sensors.tab_grid, 0, 0, 1, 1)
                 if Sensors.initial_already_run == 0:
-                    Sensors.sensors_initial_func()
-                Sensors.sensors_loop_func()
+                    GLib.idle_add(Sensors.sensors_initial_func)
+                GLib.idle_add(Sensors.sensors_loop_func)
                 self.main_gui_device_selection_list()
                 self.tab_menu_menubutton.set_sensitive(False)
                 return
