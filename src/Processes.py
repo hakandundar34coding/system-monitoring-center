@@ -61,7 +61,7 @@ class Processes:
         grid.attach(label, 0, 0, 1, 1)
 
         # SearchEntry
-        self.searchentry = Common.scrolledwindow_searchentry(self.on_searchentry_changed)
+        self.searchentry = Common.searchentry(self.on_searchentry_changed)
         grid.attach(self.searchentry, 1, 0, 1, 1)
 
 

@@ -753,7 +753,7 @@ def styled_information_scrolledwindow(text1, tooltip1, text2, tooltip2):
     return scrolledwindow, label1, label2
 
 
-def scrolledwindow_searchentry(function):
+def searchentry(function):
     """
     Generate SearchEntry.
     """
