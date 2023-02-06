@@ -7,6 +7,7 @@ gi.require_version('Pango', '1.0')
 from gi.repository import Gtk, Gdk, Gio, GObject, Pango
 
 import os
+import locale
 
 from locale import gettext as _tr
 
@@ -792,6 +793,192 @@ def set_label_spinner(label, spinner, label_data):
     spinner.set_visible(False)
     label.set_label(f'{label_data}')
 
+
+# ****************************************  ColumnView Functions  ****************************************
+
+def columnview_models(columnview, data_gobject, filter_func, filter_column):
+    """
+    Generate models (ListStore, TreeListModel, FilterListModel, TreeListRowSorter,
+    SortListModel, Selection, CustomFilter) for ColumnView.
+    """
+
+    # ListStore and TreeListModel (for tree structure)
+    liststore = Gio.ListStore(item_type=data_gobject)
+    treelistmodel = Gtk.TreeListModel.new(liststore, False, True, model_func)
+
+    # FilterListModel
+    filterlistmodel = Gtk.FilterListModel()
+    filterlistmodel.set_model(treelistmodel)
+
+    # TreeListRowSorter
+    columnview_sorter = columnview.get_sorter()
+    treelistrowsorter = Gtk.TreeListRowSorter.new(columnview_sorter)
+
+    # SortListModel
+    sorter_model = Gtk.SortListModel(model=treelistmodel, sorter=treelistrowsorter)
+    sorter_model.set_model(filterlistmodel)
+
+    # Selection
+    selection = Gtk.NoSelection.new(model=sorter_model)
+    columnview.set_model(selection)
+
+    # CustomSorter and CustomFilter
+    #sorter = Gtk.CustomSorter.new(sort_func, None)
+    row_filter = Gtk.CustomFilter.new(filter_func, filter_column)
+    filterlistmodel.set_filter(row_filter)
+
+    return liststore, selection
+
+
+def factory_string(cell_data):
+    """
+    Generate and connect column signals.
+    """
+
+    factory_string = Gtk.SignalListItemFactory()
+    factory_string.connect("setup", on_factory_string_setup)
+    factory_string.connect("bind", on_factory_string_bind, cell_data)
+    factory_string.connect("unbind", on_factory_string_unbind, cell_data)
+    factory_string.connect("teardown", on_factory_string_teardown)
+
+    return factory_string
+
+
+def on_factory_string_setup(factory, list_item):
+    """
+    Generate child widget of the list item.
+    """
+
+    label = Gtk.Label()
+    label.set_halign(Gtk.Align.START)
+    label._binding = None
+    list_item.set_child(label)
+
+
+def on_factory_string_bind(factory, list_item, cell_data):
+    """
+    Bind the list item to the row widget.
+    """
+
+    label = list_item.get_child()
+    # Second "get_item()" is used because "TreeListRowSorter" is used.
+    list_data = list_item.get_item().get_item()
+    #label.set_label(f'{list_data.device_name}')
+    label._binding = list_data.bind_property(cell_data, label, "label", GObject.BindingFlags.SYNC_CREATE)
+
+
+def on_factory_string_unbind(factory, list_item, cell_data):
+    """
+    Unbind the the row widget.
+    """
+
+    label = list_item.get_child()
+    if label._binding:
+        label._binding.unbind()
+        label._binding = None
+
+
+def on_factory_string_teardown(factory, list_item):
+    """
+    Teardown child widget of the list item.
+    """
+    return
+    label = list_item.get_child()
+    label._binding = None
+
+
+def factory_image_string(cell_data):
+    """
+    Generate and connect column signals.
+    """
+
+    factory_image_string = Gtk.SignalListItemFactory()
+    factory_image_string.connect("setup", on_factory_image_string_setup)
+    factory_image_string.connect("bind", on_factory_image_string_bind, cell_data)
+    factory_image_string.connect("unbind", on_factory_image_string_unbind, cell_data)
+    factory_image_string.connect("teardown", on_factory_image_string_teardown)
+
+    return factory_image_string
+
+
+def on_factory_image_string_setup(factory, list_item):
+    """
+    Generate child widget of the list item.
+    """
+
+    label = Gtk.Label()
+    label.set_halign(Gtk.Align.START)
+    image = Gtk.Image()
+    image.set_halign(Gtk.Align.START)
+    grid = Gtk.Grid(column_spacing=2)
+    grid.attach(image, 0, 0, 1, 1)
+    grid.attach(label, 1, 0, 1, 1)
+    list_item.set_child(grid)
+
+
+def on_factory_image_string_bind(factory, list_item, cell_data):
+    """
+    Bind the list item to the row widget.
+    """
+
+    grid = list_item.get_child()
+    image = grid.get_child_at(0, 0)
+    label = grid.get_child_at(1, 0)
+    # Second "get_item()" is used because "TreeListRowSorter" is used.
+    list_data = list_item.get_item().get_item()
+    #image.set_from_icon_name(list_data.sensor_image)
+    #label.set_label(list_data.sensor_name)
+    list_data.bind_property(cell_data[0], image, "icon-name", GObject.BindingFlags.SYNC_CREATE)
+    list_data.bind_property(cell_data[1], label, "label", GObject.BindingFlags.SYNC_CREATE)
+
+
+def on_factory_image_string_unbind(factory, list_item, cell_data):
+    """
+    Unbind the the row widget.
+    """
+    return
+    label = list_item.get_child()
+    if label._binding:
+        label._binding.unbind()
+        label._binding = None
+
+
+def on_factory_image_string_teardown(factory, list_item):
+    """
+    Teardown child widget of the list item.
+    """
+    return
+    label = list_item.get_child()
+    label._binding = None
+
+
+def model_func(item):
+
+    pass
+
+
+def sort_func(a, b, cell_data):
+    """
+    Sort values (integer, float, string, etc.).
+    "locale.strxfrm" function is used for locale-aware sorting.
+    """
+
+    first = a.get_property(cell_data)
+    second = b.get_property(cell_data)
+
+    if isinstance(first, str) == True:
+        first = locale.strxfrm(first.lower())
+        second = locale.strxfrm(second.lower())
+
+    if first > second:
+        return Gtk.Ordering.LARGER
+    elif first < second:
+        return Gtk.Ordering.SMALLER
+    else:
+        return Gtk.Ordering.EQUAL
+
+
+# ****************************************  Performance Information Functions  ****************************************
 
 def number_of_logical_cores():
     """

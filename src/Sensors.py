@@ -5,7 +5,6 @@ gi.require_version('GObject', '2.0')
 from gi.repository import Gtk, Gio, GObject
 
 import os
-import locale
 
 from locale import gettext as _tr
 
@@ -78,154 +77,6 @@ class Sensors:
         self.search_text = self.searchentry.get_text().lower()
 
 
-    def factory_string(self, cell_data):
-        """
-        Generate and connect column signals.
-        """
-
-        factory_string = Gtk.SignalListItemFactory()
-        factory_string.connect("setup", self.on_factory_string_setup)
-        factory_string.connect("bind", self.on_factory_string_bind, cell_data)
-        factory_string.connect("unbind", self.on_factory_string_unbind, cell_data)
-        factory_string.connect("teardown", self.on_factory_string_teardown)
-
-        return factory_string
-
-
-    def on_factory_string_setup(self, factory, list_item):
-        """
-        Generate child widget of the list item.
-        """
-
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.START)
-        label._binding = None
-        list_item.set_child(label)
-
-
-    def on_factory_string_bind(self, factory, list_item, cell_data):
-        """
-        Bind the list item to the row widget.
-        """
-
-        label = list_item.get_child()
-        # Second "get_item()" is used because "TreeListRowSorter" is used.
-        list_data = list_item.get_item().get_item()
-        #label.set_label(f'{list_data.device_name}')
-        label._binding = list_data.bind_property(cell_data, label, "label", GObject.BindingFlags.SYNC_CREATE)
-
-
-    def on_factory_string_unbind(self, factory, list_item, cell_data):
-        """
-        Unbind the the row widget.
-        """
-
-        label = list_item.get_child()
-        if label._binding:
-            label._binding.unbind()
-            label._binding = None
-
-
-    def on_factory_string_teardown(self, factory, list_item):
-        """
-        Teardown child widget of the list item.
-        """
-        return
-        label = list_item.get_child()
-        label._binding = None
-
-
-    def factory_image_string(self, cell_data):
-        """
-        Generate and connect column signals.
-        """
-
-        factory_image_string = Gtk.SignalListItemFactory()
-        factory_image_string.connect("setup", self.on_factory_image_string_setup)
-        factory_image_string.connect("bind", self.on_factory_image_string_bind, cell_data)
-        factory_image_string.connect("unbind", self.on_factory_image_string_unbind, cell_data)
-        factory_image_string.connect("teardown", self.on_factory_image_string_teardown)
-
-        return factory_image_string
-
-
-    def on_factory_image_string_setup(self, factory, list_item):
-        """
-        Generate child widget of the list item.
-        """
-
-        label = Gtk.Label()
-        label.set_halign(Gtk.Align.START)
-        image = Gtk.Image()
-        image.set_halign(Gtk.Align.START)
-        grid = Gtk.Grid(column_spacing=2)
-        grid.attach(image, 0, 0, 1, 1)
-        grid.attach(label, 1, 0, 1, 1)
-        list_item.set_child(grid)
-
-
-    def on_factory_image_string_bind(self, factory, list_item, cell_data):
-        """
-        Bind the list item to the row widget.
-        """
-
-        grid = list_item.get_child()
-        image = grid.get_child_at(0, 0)
-        label = grid.get_child_at(1, 0)
-        # Second "get_item()" is used because "TreeListRowSorter" is used.
-        list_data = list_item.get_item().get_item()
-        #image.set_from_icon_name(list_data.sensor_image)
-        #label.set_label(list_data.sensor_name)
-        list_data.bind_property(cell_data[0], image, "icon-name", GObject.BindingFlags.SYNC_CREATE)
-        list_data.bind_property(cell_data[1], label, "label", GObject.BindingFlags.SYNC_CREATE)
-
-
-    def on_factory_image_string_unbind(self, factory, list_item, cell_data):
-        """
-        Unbind the the row widget.
-        """
-        return
-        label = list_item.get_child()
-        if label._binding:
-            label._binding.unbind()
-            label._binding = None
-
-
-    def on_factory_image_string_teardown(self, factory, list_item):
-        """
-        Teardown child widget of the list item.
-        """
-        return
-        label = list_item.get_child()
-        label._binding = None
-
-
-    def model_func(self, item):
-
-        pass
-
-
-    def sort_func(self, a, b, cell_data):
-        """
-        Sort values (integer, float, string, etc.).
-        "locale.strxfrm" function is used for locale-aware sorting.
-        """
-
-        first = a.get_property(cell_data)
-        second = b.get_property(cell_data)
-
-        if isinstance(first, str) == True:
-            first = locale.strxfrm(first.lower())
-            second = locale.strxfrm(second.lower())
-
-        if first > second:
-            return Gtk.Ordering.LARGER
-        elif first < second:
-            return Gtk.Ordering.SMALLER
-        else:
-            return Gtk.Ordering.EQUAL
-
-
     def filter_func(self, item, cell_data):
         """
         Show/Hide rows by checking search text.
@@ -244,11 +95,11 @@ class Sensors:
 
         global sensors_data_list
         sensors_data_list = [
-                            [0, _tr('Device'), self.factory_image_string, ["sensor_image", "device_name"]],
-                            [1, _tr('Name'), self.factory_string, "sensor_name"],
-                            [2, _tr('Current Value'), self.factory_string, "sensor_current_value"],
-                            [3, _tr('High'), self.factory_string, "sensor_high"],
-                            [4, _tr('Critical'), self.factory_string, "sensor_critical"]
+                            [0, _tr('Device'), Common.factory_image_string, ["sensor_image", "device_name"]],
+                            [1, _tr('Name'), Common.factory_string, "sensor_name"],
+                            [2, _tr('Current Value'), Common.factory_string, "sensor_current_value"],
+                            [3, _tr('High'), Common.factory_string, "sensor_high"],
+                            [4, _tr('Critical'), Common.factory_string, "sensor_critical"]
                             ]
 
         global sensors_data_rows_prev, sensors_treeview_columns_shown_prev, sensors_data_row_sorting_column_prev, sensors_data_row_sorting_order_prev, sensors_data_column_order_prev, sensors_data_column_widths_prev
@@ -264,30 +115,7 @@ class Sensors:
         fan_sensor_icon_name = "system-monitoring-center-fan-symbolic"
         voltage_current_power_sensor_icon_name = "system-monitoring-center-voltage-symbolic"
 
-        # ListStore and TreeListModel (for tree structure)
-        self.liststore = Gio.ListStore(item_type=Sensor)
-        treelistmodel = Gtk.TreeListModel.new(self.liststore, False, True, self.model_func)
-
-        # FilterListModel
-        self.filterlistmodel = Gtk.FilterListModel()
-        self.filterlistmodel.set_model(treelistmodel)
-
-        # TreeListRowSorter
-        columnview_sorter = self.columnview.get_sorter()
-        treelistrowsorter = Gtk.TreeListRowSorter.new(columnview_sorter)
-
-        # SortListModel
-        sorter_model = Gtk.SortListModel(model=treelistmodel, sorter=treelistrowsorter)
-        sorter_model.set_model(self.filterlistmodel)
-
-        # Selection
-        self.selection = Gtk.NoSelection.new(model=sorter_model)
-        self.columnview.set_model(self.selection)
-
-        # CustomSorter and CustomFilter
-        #self.sorter = Gtk.CustomSorter.new(self.sort_func, None)
-        self.row_filter = Gtk.CustomFilter.new(self.filter_func, sensors_data_list[0][3][1])
-        self.filterlistmodel.set_filter(self.row_filter)
+        self.liststore, self.selection = Common.columnview_models(self.columnview, Sensor, self.filter_func, sensors_data_list[0][3][1])
 
         self.search_text = ""
 
@@ -423,9 +251,9 @@ class Sensors:
                 if sensors_data_list[column_data][0] in sensors_treeview_columns_shown:
                     factory = sensors_data_list[column_data][2](sensors_data_list[column_data][3])
                     if isinstance(sensors_data_list[column_data][3], list) == True:
-                        sorter = Gtk.CustomSorter.new(self.sort_func, sensors_data_list[column_data][3][1])
+                        sorter = Gtk.CustomSorter.new(Common.sort_func, sensors_data_list[column_data][3][1])
                     else:
-                        sorter = Gtk.CustomSorter.new(self.sort_func, sensors_data_list[column_data][3])
+                        sorter = Gtk.CustomSorter.new(Common.sort_func, sensors_data_list[column_data][3])
                     column = Gtk.ColumnViewColumn(title=sensors_data_list[column_data][1], factory=factory, sorter=sorter)
                     column.set_resizable(True)
                     #column.set_expand(True)
