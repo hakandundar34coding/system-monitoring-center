@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-25 12:02+0300\n"
+"POT-Creation-Date: 2023-02-18 09:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Disk"
 msgstr ""
 
-#: src/Disk.py:349 src/Performance.py:1266
+#: src/Disk.py:349 src/Performance.py:1268
 msgid "Swap"
 msgstr ""
 
@@ -84,13 +84,13 @@ msgstr ""
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 
-#: src/MainGUI.py:726 src/Memory.py:199 src/Performance.py:1246
-#: src/Performance.py:1568 src/Performance.py:1572 ui/MainWindow.ui:920
+#: src/MainGUI.py:726 src/Memory.py:199 src/Performance.py:1248
+#: src/Performance.py:1570 src/Performance.py:1574 ui/MainWindow.ui:920
 #: ui/MemoryMenus.ui:100 ui/MemoryTab.ui:28
 msgid "RAM"
 msgstr ""
 
-#: src/MainGUI.py:726 src/Memory.py:228 src/Performance.py:1572
+#: src/MainGUI.py:726 src/Memory.py:228 src/Performance.py:1574
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:642
 #: ui/ProcessesDetailsWindow.ui:1066
 msgid "Swap Memory"
@@ -174,7 +174,7 @@ msgstr ""
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Performance.py:1237 src/Processes.py:186 src/SettingsGUI.py:53
+#: src/Performance.py:1239 src/Processes.py:186 src/SettingsGUI.py:53
 #: src/Users.py:129 ui/CpuMenus.ui:23 ui/CpuMenus.ui:124 ui/CpuTab.ui:591
 #: ui/MainWindow.ui:229 ui/MainWindow.ui:881 ui/ProcessesDetailsWindow.ui:120
 #: ui/ProcessesDetailsWindow.ui:961 ui/ProcessesDetailsWindow.ui:981
@@ -183,33 +183,33 @@ msgstr ""
 msgid "CPU"
 msgstr ""
 
-#: src/Performance.py:1255 src/Processes.py:758 src/SettingsGUI.py:52
+#: src/Performance.py:1257 src/Processes.py:758 src/SettingsGUI.py:52
 #: src/Users.py:124 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
 msgid "Processes"
 msgstr ""
 
-#: src/Performance.py:1417 src/Processes.py:192 ui/DiskMenus.ui:90
+#: src/Performance.py:1419 src/Processes.py:192 ui/DiskMenus.ui:90
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:662 ui/ProcessesDetailsWindow.ui:146
 #: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesDetailsWindow.ui:1616
 #: ui/ProcessesMenuCustomizations.ui:307
 msgid "Read Speed"
 msgstr ""
 
-#: src/Performance.py:1426 src/Processes.py:193 ui/DiskMenus.ui:103
+#: src/Performance.py:1428 src/Processes.py:193 ui/DiskMenus.ui:103
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:685 ui/ProcessesDetailsWindow.ui:588
 #: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesDetailsWindow.ui:1639
 #: ui/ProcessesMenuCustomizations.ui:321
 msgid "Write Speed"
 msgstr ""
 
-#: src/Performance.py:1435 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
+#: src/Performance.py:1437 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
 #: ui/NetworkTab.ui:632
 msgid "Download Speed"
 msgstr ""
 
-#: src/Performance.py:1444 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
+#: src/Performance.py:1446 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
 #: ui/NetworkTab.ui:655
 msgid "Upload Speed"
 msgstr ""
@@ -490,7 +490,7 @@ msgstr ""
 msgid "Task Manager"
 msgstr ""
 
-#: src/SettingsGUI.py:600
+#: src/SettingsGUI.py:618
 msgid "Do you want to reset all settings to defaults?"
 msgstr ""
 

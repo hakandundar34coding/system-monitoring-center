@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-25 12:02+0300\n"
-"PO-Revision-Date: 2023-01-25 12:05+0300\n"
+"POT-Creation-Date: 2023-02-18 09:51+0300\n"
+"PO-Revision-Date: 2023-02-18 09:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -45,7 +45,7 @@ msgstr "Partition"
 msgid "Disk"
 msgstr "Disque"
 
-#: src/Disk.py:349 src/Performance.py:1266
+#: src/Disk.py:349 src/Performance.py:1268
 msgid "Swap"
 msgstr "Swap"
 
@@ -89,13 +89,13 @@ msgstr ""
 "La sélection du cœur du processeur n'affecte que la fréquence et les "
 "informations relatives à la mémoire cache."
 
-#: src/MainGUI.py:726 src/Memory.py:199 src/Performance.py:1246
-#: src/Performance.py:1568 src/Performance.py:1572 ui/MainWindow.ui:920
+#: src/MainGUI.py:726 src/Memory.py:199 src/Performance.py:1248
+#: src/Performance.py:1570 src/Performance.py:1574 ui/MainWindow.ui:920
 #: ui/MemoryMenus.ui:100 ui/MemoryTab.ui:28
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:726 src/Memory.py:228 src/Performance.py:1572
+#: src/MainGUI.py:726 src/Memory.py:228 src/Performance.py:1574
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:642
 #: ui/ProcessesDetailsWindow.ui:1066
 msgid "Swap Memory"
@@ -179,7 +179,7 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:1237 src/Processes.py:186 src/SettingsGUI.py:53
+#: src/Performance.py:1239 src/Processes.py:186 src/SettingsGUI.py:53
 #: src/Users.py:129 ui/CpuMenus.ui:23 ui/CpuMenus.ui:124 ui/CpuTab.ui:591
 #: ui/MainWindow.ui:229 ui/MainWindow.ui:881 ui/ProcessesDetailsWindow.ui:120
 #: ui/ProcessesDetailsWindow.ui:961 ui/ProcessesDetailsWindow.ui:981
@@ -188,33 +188,33 @@ msgstr "Wi-Fi"
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Performance.py:1255 src/Processes.py:758 src/SettingsGUI.py:52
+#: src/Performance.py:1257 src/Processes.py:758 src/SettingsGUI.py:52
 #: src/Users.py:124 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
 msgid "Processes"
 msgstr "Processus"
 
-#: src/Performance.py:1417 src/Processes.py:192 ui/DiskMenus.ui:90
+#: src/Performance.py:1419 src/Processes.py:192 ui/DiskMenus.ui:90
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:662 ui/ProcessesDetailsWindow.ui:146
 #: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesDetailsWindow.ui:1616
 #: ui/ProcessesMenuCustomizations.ui:307
 msgid "Read Speed"
 msgstr "Vitesse de lecture"
 
-#: src/Performance.py:1426 src/Processes.py:193 ui/DiskMenus.ui:103
+#: src/Performance.py:1428 src/Processes.py:193 ui/DiskMenus.ui:103
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:685 ui/ProcessesDetailsWindow.ui:588
 #: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesDetailsWindow.ui:1639
 #: ui/ProcessesMenuCustomizations.ui:321
 msgid "Write Speed"
 msgstr "Vitesse d'écriture"
 
-#: src/Performance.py:1435 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
+#: src/Performance.py:1437 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
 #: ui/NetworkTab.ui:632
 msgid "Download Speed"
 msgstr "Vitesse de téléchargement"
 
-#: src/Performance.py:1444 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
+#: src/Performance.py:1446 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
 #: ui/NetworkTab.ui:655
 msgid "Upload Speed"
 msgstr "Vitesse de téléchargement"
@@ -495,7 +495,7 @@ msgstr "Moniteur système"
 msgid "Task Manager"
 msgstr "Gestionnaire des tâches"
 
-#: src/SettingsGUI.py:600
+#: src/SettingsGUI.py:618
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Voulez-vous réinitialiser tous les paramètres par défaut ?"
 
@@ -517,7 +517,7 @@ msgstr "Répertoire home"
 #: src/Users.py:126 ui/UsersDetailsWindow.ui:136
 #: ui/UsersMenuCustomizations.ui:171
 msgid "Group"
-msgstr "Grupe"
+msgstr "Groupe"
 
 #: src/Users.py:127 ui/UsersDetailsWindow.ui:149
 #: ui/UsersMenuCustomizations.ui:199
@@ -602,7 +602,7 @@ msgstr "Architecture"
 #: ui/CpuTab.ui:607 ui/DiskDetailsWindow.ui:149 ui/DiskTab.ui:759
 #: ui/GpuTab.ui:665 ui/NetworkTab.ui:714
 msgid "Vendor-Model"
-msgstr "Fabricant-Modèle"
+msgstr "Fournisseur-Modèle"
 
 #: ui/CpuTab.ui:625 ui/DiskTab.ui:744 ui/GpuTab.ui:683 ui/NetworkTab.ui:732
 msgid "Device Name In Kernel"
@@ -978,7 +978,7 @@ msgstr "Rafraîchir les données de cet onglet"
 
 #: ui/SettingsWindow.ui:37
 msgid "Remember last opened tabs"
-msgstr "Garder les derniers onglets ouverts"
+msgstr "Restaurer les derniers onglets ouverts"
 
 #: ui/SettingsWindow.ui:52
 msgid "Show performance summary on the headerbar"
@@ -986,11 +986,11 @@ msgstr "Afficher le résumé des performances sur la barre d'en-tête"
 
 #: ui/SettingsWindow.ui:77
 msgid "Remember last selected devices"
-msgstr "Garder des derniers appareils sélectionnés"
+msgstr "Restaurer des derniers appareils sélectionnés"
 
 #: ui/SettingsWindow.ui:131
 msgid "Remember window size"
-msgstr "Garder de la taille de la fenêtre"
+msgstr "Restaurer la taille de la fenêtre"
 
 #: ui/SettingsWindow.ui:165
 msgid "Check for updates automatically (PyPI only)"
@@ -1050,7 +1050,7 @@ msgstr "Version du noyau"
 
 #: ui/SystemTab.ui:589
 msgid "Vendor"
-msgstr "Marque"
+msgstr "Fournisseur"
 
 #: ui/SystemTab.ui:625
 msgid "Model"
@@ -1090,7 +1090,7 @@ msgstr "Gestionnaire d'affichage"
 
 #: ui/SystemTab.ui:1204
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr ""
+msgstr "Nombre d'applications et de runtime Flatpak installés"
 
 #: ui/SystemTab.ui:1206
 msgid "Flatpak"
