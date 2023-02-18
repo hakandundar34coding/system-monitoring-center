@@ -1,3 +1,14 @@
+system-monitoring-center (2.7.0) unstable; urgency=medium
+
+  * New: Changing graph point count (Process Details)
+  * Minor improvements for graphics (Summary tab)
+  * Code changes for OOP (Sensors tab)
+  * Updated dependencies (Flatpak)
+  * Updated French translations
+  * Fix: Showing the previous notebook tab (Services tab)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 18 Feb 2023 09:00:00 +0300
+
 system-monitoring-center (2.6.0) unstable; urgency=medium
 
   * Updated French translations

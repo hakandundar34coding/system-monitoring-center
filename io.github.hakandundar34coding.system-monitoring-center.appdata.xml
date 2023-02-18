@@ -96,6 +96,18 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.7.0" date="2023-02-18">
+      <description>
+        <ul>
+          <li>New: Changing graph point count (Process Details)</li>
+          <li>Minor improvements for graphics (Summary tab)</li>
+          <li>Code changes for OOP (Sensors tab)</li>
+          <li>Updated dependencies (Flatpak)</li>
+          <li>Updated French translations</li>
+          <li>Fix: Showing the previous notebook tab (Services tab)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.6.0" date="2023-01-30">
       <description>
         <ul>

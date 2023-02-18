@@ -1,5 +1,13 @@
 # System Monitoring Center
 
+### v2.7.0 (18.02.2023)
+  * New: Changing graph point count (Process Details)
+  * Minor improvements for graphics (Summary tab)
+  * Code changes for OOP (Sensors tab)
+  * Updated dependencies (Flatpak)
+  * Updated French translations
+  * Fix: Showing the previous notebook tab (Services tab)
+
 ### v2.6.0 (30.01.2023)
   * Updated French translations
   * Fix: Version number
