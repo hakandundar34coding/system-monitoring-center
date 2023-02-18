@@ -457,6 +457,15 @@ class SettingsGUI:
                 from Gpu import Gpu
                 Gpu.gpu_load_list = Gpu.gpu_load_list[length_difference:]
 
+            # Process Details window CPU, memory (RSS), disk read speed and disk write speed lists
+            if MainGUI.grid2.get_child_at(0,0) != None:
+                import ProcessesDetails
+                for process_details_object in ProcessesDetails.processes_details_object_list:
+                    process_details_object.process_cpu_usage_list = process_details_object.process_cpu_usage_list[length_difference:]
+                    process_details_object.process_ram_usage_list = process_details_object.process_ram_usage_list[length_difference:]
+                    process_details_object.process_disk_read_speed_list = process_details_object.process_disk_read_speed_list[length_difference:]
+                    process_details_object.process_disk_write_speed_list = process_details_object.process_disk_write_speed_list[length_difference:]
+
         # Add list of zeroes to the beginning part of the lists if new "chart_data_history" value is bigger than the old value.
         if chart_data_history_current < chart_data_history_new:
 
@@ -488,6 +497,15 @@ class SettingsGUI:
             if MainGUI.radiobutton1005.get_active() == True:
                 from Gpu import Gpu
                 Gpu.gpu_load_list = list_to_add + Gpu.gpu_load_list
+
+            # Process Details window CPU, memory (RSS), disk read speed and disk write speed lists
+            if MainGUI.grid2.get_child_at(0,0) != None:
+                import ProcessesDetails
+                for process_details_object in ProcessesDetails.processes_details_object_list:
+                    process_details_object.process_cpu_usage_list = list_to_add + process_details_object.process_cpu_usage_list
+                    process_details_object.process_ram_usage_list = list_to_add + process_details_object.process_ram_usage_list
+                    process_details_object.process_disk_read_speed_list = list_to_add + process_details_object.process_disk_read_speed_list
+                    process_details_object.process_disk_write_speed_list = list_to_add + process_details_object.process_disk_write_speed_list
 
 
     # ----------------------- Called for applying settings for all opened tabs (since application start) without waiting update interval -----------------------
