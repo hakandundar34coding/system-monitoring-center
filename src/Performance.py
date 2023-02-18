@@ -724,6 +724,7 @@ class Performance:
         gauge_right_upper_lower_edge_move_horizontal = gauge_right_outer_radius * 0.027
         gauge_separator_line_horizontal_start = gauge_outer_radius * 0.23
         gauge_separator_line_horizontal_length = gauge_outer_radius * 0.6
+        gauge_separator_thickness = gauge_outer_radius * 0.00887
         gauge_disk_network_label_text_size = gauge_indicator_text_size * 0.88
         gauge_disk_read_speed_label_text_move_x = gauge_outer_radius * 0.09
         gauge_disk_read_speed_label_text_move_y = gauge_outer_radius * 0.5
@@ -1017,7 +1018,7 @@ class Performance:
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         ctx.move_to(gauge_separator_line_horizontal_start, 0)
         ctx.rel_line_to(gauge_separator_line_horizontal_length, 0)
-        ctx.set_line_width(1.5)
+        ctx.set_line_width(gauge_separator_thickness)
         ctx.set_source_rgba(100/255, 113/255, 126/255, 1.0)
         ctx.stroke()
         ctx.restore()
@@ -1029,7 +1030,7 @@ class Performance:
         start_angle = -30.5*pi_number/180
         end_angle = -4*pi_number/180
 
-        ctx.set_line_width(1.5)
+        ctx.set_line_width(gauge_separator_thickness)
         ctx.set_source_rgba(chart_line_color_disk_speed_usage[0], chart_line_color_disk_speed_usage[1], chart_line_color_disk_speed_usage[2], chart_line_color_disk_speed_usage[3])
         ctx.arc(0, 0, gauge_outer_radius * 1.07, start_angle, end_angle)
         ctx.stroke()
@@ -1042,7 +1043,7 @@ class Performance:
         start_angle = 4*pi_number/180
         end_angle = 30.5*pi_number/180
 
-        ctx.set_line_width(1.5)
+        ctx.set_line_width(gauge_separator_thickness)
         ctx.set_source_rgba(chart_line_color_network_speed_data[0], chart_line_color_network_speed_data[1], chart_line_color_network_speed_data[2], chart_line_color_network_speed_data[3])
         ctx.arc(0, 0, gauge_outer_radius * 1.07, start_angle, end_angle)
         ctx.stroke()
@@ -1217,6 +1218,7 @@ class Performance:
         ctx.translate(gauge_circular_center_x, chart_height / 2)
         ctx.move_to(0, -gauge_separator_line_vertical_center_length / 2)
         ctx.rel_line_to(0, gauge_separator_line_vertical_center_length)
+        ctx.set_line_width(gauge_separator_thickness)
         ctx.set_source_rgba(100/255, 113/255, 126/255, 1.0)
         ctx.stroke()
 
