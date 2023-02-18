@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v1.41.0 (18.02.2023)
+  * New: Changing graph point count (Process Details)
+  * Minor improvements for graphics (Summary tab)
+  * Updated French translations
+
 ### v2.7.0 (18.02.2023)
   * New: Changing graph point count (Process Details)
   * Minor improvements for graphics (Summary tab)
