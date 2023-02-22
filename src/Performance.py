@@ -1119,7 +1119,7 @@ class Performance:
 
         widget = event.get_widget()
 
-        # Get mouse position on the x and y coordinates on the drawingarea.
+        # Get mouse position on the x coordinate on the drawingarea.
         self.mouse_position_x = x
         self.mouse_position_y = y
 
