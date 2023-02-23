@@ -211,12 +211,66 @@ class MainGUI:
         self.main_gui_tab_switch_func()
 
         # Show information for warning about Python packages of the application.
-        if Config.environment_type == "python_package":
-            dialog = Gtk.MessageDialog(transient_for=self.window1, title="", flags=0, message_type=Gtk.MessageType.INFO,
+        if Config.environment_type != "python_package" and Config.python_package_dialog_dont_show == 0:
+
+            # For closing the window when close button on the title bar is clicked
+            def on_window_destroy(widget, checkbutton):
+                if checkbutton.get_active() == True:
+                    Config.python_package_dialog_dont_show = 1
+                    Config.config_save_func()
+                widget.destroy()
+
+            # For closing the window
+            def on_close_button_clicked(widget, checkbutton, window):
+                if checkbutton.get_active() == True:
+                    Config.python_package_dialog_dont_show = 1
+                    Config.config_save_func()
+                window.destroy()
+
+            # Generate Window
+            window = Gtk.Window()
+            window.set_destroy_with_parent(True)
+            window.set_resizable(False)
+            window.set_title(_tr("Information"))
+            window.set_icon_name("system-monitoring-center")
+            window.set_transient_for(self.window1)
+            window.set_modal(True)
+
+            # Generate Grid
+            grid = Gtk.Grid()
+            grid.set_margin_top(10)
+            grid.set_margin_bottom(10)
+            grid.set_margin_start(10)
+            grid.set_margin_end(10)
+            grid.set_row_spacing(10)
+            window.add(grid)
+
+            # Generate Label
+            label = Gtk.Label()
+            label.set_label(_tr("Note! New versions of the application will not be published/updated on PyPI.\nSystem Monitoring Center can be installed from other stores/repositories."))
+            grid.attach(label, 0, 0, 1, 1)
+
+            # Generate CheckButton
+            checkbutton = Gtk.CheckButton()
+            checkbutton.set_label(_tr("Do not show again"))
+            grid.attach(checkbutton, 0, 1, 1, 1)
+
+            # Generate Button
+            close_button = Gtk.Button()
+            close_button.set_label(_tr("Close"))
+            grid.attach(close_button, 0, 2, 1, 1)
+
+            # Connect signals
+            window.connect("destroy", on_window_destroy, checkbutton)
+            close_button.connect("clicked", on_close_button_clicked, checkbutton, window)
+
+            window.show_all()
+
+            """dialog = Gtk.MessageDialog(transient_for=self.window1, title="", flags=0, message_type=Gtk.MessageType.INFO,
             buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"))
             dialog.format_secondary_text(_tr("Note! New versions of the application will not be published/updated on PyPI.\nSystem Monitoring Center can be installed from other stores/repositories."))
             self.dialog_response = dialog.run()
-            dialog.destroy()
+            dialog.destroy()"""
 
         # Show information for warning the user if the application has been run with root privileges (if UID=0). Information is shown just below the application window headerbar.
         if os.geteuid() == 0:

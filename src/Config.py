@@ -104,6 +104,7 @@ class Config:
         self.remember_last_selected_hardware = 0
         self.remember_window_size = [0, 0, 0, 0]
         self.check_for_updates_automatically = 0
+        self.python_package_dialog_dont_show = 0
 
 
     # ----------------------- Called for default CPU Tab settings -----------------------
@@ -230,6 +231,10 @@ class Config:
             self.language = config_values[config_variables.index("language")]
         else:
             pass
+        if "python_package_dialog_dont_show" in config_variables:
+            self.python_package_dialog_dont_show = int(config_values[config_variables.index("python_package_dialog_dont_show")])
+        else:
+            pass
 
         self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
@@ -317,6 +322,7 @@ class Config:
         config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
         config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
         config_write_text = config_write_text + "check_for_updates_automatically = " + str(self.check_for_updates_automatically) + "\n"
+        config_write_text = config_write_text + "python_package_dialog_dont_show = " + str(self.python_package_dialog_dont_show) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - CPU]" + "\n"
