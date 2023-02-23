@@ -266,12 +266,6 @@ class MainGUI:
 
             window.show_all()
 
-            """dialog = Gtk.MessageDialog(transient_for=self.window1, title="", flags=0, message_type=Gtk.MessageType.INFO,
-            buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"))
-            dialog.format_secondary_text(_tr("Note! New versions of the application will not be published/updated on PyPI.\nSystem Monitoring Center can be installed from other stores/repositories."))
-            self.dialog_response = dialog.run()
-            dialog.destroy()"""
-
         # Show information for warning the user if the application has been run with root privileges (if UID=0). Information is shown just below the application window headerbar.
         if os.geteuid() == 0:
             # Generate a new label for the information. This label does not exist in the ".ui" UI file.
