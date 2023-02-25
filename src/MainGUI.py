@@ -858,21 +858,14 @@ class MainGUI:
     # ----------------------- Called for detecting environment type (Flatpak or native). -----------------------
     def main_gui_environment_type_detection_func(self):
         """
-        Detect environment type (Flatpak, Python package or native).
-        This information will be used for accessing host OS commands if the application is run in Flatpak
-        environment or for showing new version information, etc. if the application is a Python package.
+        Detect environment type (Flatpak or native).
+        This information will be used for accessing host OS commands if the application is run in Flatpak environment, etc.
         """
 
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        current_user_homedir = os.environ.get('HOME')
         application_flatpak_id = os.getenv('FLATPAK_ID')
 
         if application_flatpak_id != None:
             environment_type = "flatpak"
-
-        elif current_dir.startswith("/usr/local/lib/python") == True or current_dir.startswith(current_user_homedir + "/.local/lib/python") == True:
-            environment_type = "python_package"
-
         else:
             environment_type = "native"
 
