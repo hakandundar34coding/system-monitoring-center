@@ -211,7 +211,7 @@ class MainGUI:
         self.main_gui_tab_switch_func()
 
         # Show information for warning about Python packages of the application.
-        if Config.environment_type != "python_package" and Config.python_package_dialog_dont_show == 0:
+        if Config.environment_type == "python_package" and Config.python_package_dialog_dont_show == 0:
 
             # For closing the window when close button on the title bar is clicked
             def on_window_destroy(widget, checkbutton):
