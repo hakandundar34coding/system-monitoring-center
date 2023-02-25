@@ -102,7 +102,7 @@
 
 ### Installation:
 - There are several options for using System Monitoring Center:
-    - ~~Installing from PyPI as a Python package ([Details](docs/pypi.md)).~~ There will be no new packages on PyPI.
+    - ~~Installing from PyPI as a Python package ([Details](docs/pypi.md)).~~ There will be no new packages on PyPI ([Details](docs/uninstall_pypi_package.md)).
     - Installing from Flatpak ([Details](docs/flatpak.md)).
     - Installing from several application stores (Pardus Application Center, Pi-Apps Store).
     - Installing from repositories of distributions (currently a few distributions).
