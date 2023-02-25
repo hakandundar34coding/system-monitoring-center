@@ -103,8 +103,6 @@ class Config:
         self.remember_last_opened_tabs_on_application_start = 0
         self.remember_last_selected_hardware = 0
         self.remember_window_size = [0, 0, 0, 0]
-        self.check_for_updates_automatically = 0
-        self.python_package_dialog_dont_show = 0
 
 
     # ----------------------- Called for default CPU Tab settings -----------------------
@@ -226,13 +224,8 @@ class Config:
         self.remember_last_opened_tabs_on_application_start = int(config_values[config_variables.index("remember_last_opened_tabs_on_application_start")])
         self.remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
         self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
-        self.check_for_updates_automatically = int(config_values[config_variables.index("check_for_updates_automatically")])
         if "language" in config_variables:
             self.language = config_values[config_variables.index("language")]
-        else:
-            pass
-        if "python_package_dialog_dont_show" in config_variables:
-            self.python_package_dialog_dont_show = int(config_values[config_variables.index("python_package_dialog_dont_show")])
         else:
             pass
 
@@ -321,8 +314,6 @@ class Config:
         config_write_text = config_write_text + "remember_last_opened_tabs_on_application_start = " + str(self.remember_last_opened_tabs_on_application_start) + "\n"
         config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
         config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
-        config_write_text = config_write_text + "check_for_updates_automatically = " + str(self.check_for_updates_automatically) + "\n"
-        config_write_text = config_write_text + "python_package_dialog_dont_show = " + str(self.python_package_dialog_dont_show) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - CPU]" + "\n"

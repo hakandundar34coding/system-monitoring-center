@@ -36,8 +36,6 @@ class MainGUI:
         image_theme = Gtk.IconTheme. get_default()
         image_theme.append_search_path(os.path.dirname(os.path.realpath(__file__)) + "/../icons")
 
-        self.main_gui_application_system_integration_func()
-
         self.main_gui_adapt_color_scheme_for_gtk4_based_systems_func()
 
         # Get GUI objects from file
@@ -209,62 +207,6 @@ class MainGUI:
         self.main_gui_radiobuttons_connect_signals_func()
 
         self.main_gui_tab_switch_func()
-
-        # Show information for warning about Python packages of the application.
-        if Config.environment_type == "python_package" and Config.python_package_dialog_dont_show == 0:
-
-            # For closing the window when close button on the title bar is clicked
-            def on_window_destroy(widget, checkbutton):
-                if checkbutton.get_active() == True:
-                    Config.python_package_dialog_dont_show = 1
-                    Config.config_save_func()
-                widget.destroy()
-
-            # For closing the window
-            def on_close_button_clicked(widget, checkbutton, window):
-                if checkbutton.get_active() == True:
-                    Config.python_package_dialog_dont_show = 1
-                    Config.config_save_func()
-                window.destroy()
-
-            # Generate Window
-            window = Gtk.Window()
-            window.set_destroy_with_parent(True)
-            window.set_resizable(False)
-            window.set_title(_tr("Information"))
-            window.set_icon_name("system-monitoring-center")
-            window.set_transient_for(self.window1)
-            window.set_modal(True)
-
-            # Generate Grid
-            grid = Gtk.Grid()
-            grid.set_margin_top(10)
-            grid.set_margin_bottom(10)
-            grid.set_margin_start(10)
-            grid.set_margin_end(10)
-            grid.set_row_spacing(10)
-            window.add(grid)
-
-            # Generate Label
-            label = Gtk.Label()
-            label.set_label(_tr("Note! New versions of the application will not be published/updated on PyPI.\nSystem Monitoring Center can be installed from other stores/repositories."))
-            grid.attach(label, 0, 0, 1, 1)
-
-            # Generate CheckButton
-            checkbutton = Gtk.CheckButton()
-            checkbutton.set_label(_tr("Do not show again"))
-            grid.attach(checkbutton, 0, 1, 1, 1)
-
-            # Generate Button
-            close_button = Gtk.Button()
-            close_button.set_label(_tr("Close"))
-            grid.attach(close_button, 0, 2, 1, 1)
-
-            # Connect signals
-            window.connect("destroy", on_window_destroy, checkbutton)
-            close_button.connect("clicked", on_close_button_clicked, checkbutton, window)
-
-            window.show_all()
 
         # Show information for warning the user if the application has been run with root privileges (if UID=0). Information is shown just below the application window headerbar.
         if os.geteuid() == 0:
@@ -935,57 +877,6 @@ class MainGUI:
             environment_type = "native"
 
         Config.environment_type = environment_type
-
-
-    def main_gui_application_system_integration_func(self):
-        """
-        Copy files for application shortcut (.desktop file) in user folders if they are not copied before.
-        Because these files are not copied if the application is installed as a Python package.
-        """
-
-        if Config.environment_type != "python_package":
-            return
-
-        # Called for removing files.
-        def remove_file(file):
-            try:
-                os.remove(file)
-            except Exception:
-                pass
-
-        # Called for generating folders.
-        def generate_folder(folder):
-            try:
-                os.makedirs(folder)
-            except Exception:
-                pass
-
-        # Called for copying files.
-        def copy_file(source, target):
-            try:
-                shutil.copy2(source, target)
-            except Exception:
-                pass
-
-        # Get current directory (which the code is in) and current user home directory (files will be copied in).
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        current_user_homedir = os.environ.get('HOME')
-
-        # Copy .desktop file
-        file_name = "io.github.hakandundar34coding.system-monitoring-center.desktop"
-        sub_folder_name = "/.local/share/applications/"
-        if os.path.isfile(current_user_homedir + sub_folder_name + file_name) == False:
-            generate_folder(current_user_homedir + sub_folder_name)
-            import shutil
-            copy_file(current_dir + "/../integration/" + file_name, current_user_homedir + sub_folder_name)
-
-        # Copy application image
-        file_name = "system-monitoring-center.svg"
-        sub_folder_name = "/.local/share/icons/hicolor/scalable/apps/"
-        if os.path.isfile(current_user_homedir + sub_folder_name + file_name) == False:
-            generate_folder(current_user_homedir + sub_folder_name)
-            import shutil
-            copy_file(current_dir + "/../icons/hicolor/scalable/apps/" + file_name, current_user_homedir + sub_folder_name)
 
 
 MainGUI = MainGUI()

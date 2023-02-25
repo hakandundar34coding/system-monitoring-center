@@ -33,8 +33,6 @@ class SettingsGUI:
         self.checkbutton2002 = builder2001.get_object('checkbutton2002')
         self.checkbutton2003 = builder2001.get_object('checkbutton2003')
         self.checkbutton2012 = builder2001.get_object('checkbutton2012')
-        self.checkbutton2013 = builder2001.get_object('checkbutton2013')
-        self.grid2001 = builder2001.get_object('grid2001')
 
         # Set window properties
         self.window2001.set_transient_for(MainGUI.window1)
@@ -68,7 +66,6 @@ class SettingsGUI:
         self.checkbutton2002.connect("toggled", self.on_checkbutton2002_toggled)
         self.checkbutton2003.connect("toggled", self.on_checkbutton2003_toggled)
         self.checkbutton2012.connect("toggled", self.on_checkbutton2012_toggled)
-        self.checkbutton2013.connect("toggled", self.on_checkbutton2013_toggled)
 
 
     # ----------------------- Called for disconnecting some of the signals in order to connect them for setting GUI -----------------------
@@ -83,7 +80,6 @@ class SettingsGUI:
         self.checkbutton2002.disconnect_by_func(self.on_checkbutton2002_toggled)
         self.checkbutton2003.disconnect_by_func(self.on_checkbutton2003_toggled)
         self.checkbutton2012.disconnect_by_func(self.on_checkbutton2012_toggled)
-        self.checkbutton2013.disconnect_by_func(self.on_checkbutton2013_toggled)
 
 
     # ----------------------- Called for running code/functions when GUI is shown -----------------------
@@ -92,10 +88,6 @@ class SettingsGUI:
         # Get current directory (which code of this application is in) and current user home directory (symlinks will be generated in).
         current_dir = os.path.dirname(os.path.realpath(__file__))
         current_user_homedir = os.environ.get('HOME')
-
-        # Check if the application is a Python package and hide "update check setting widgets" if it is not a Python package.
-        if current_dir.startswith("/usr/local/lib/") == False and current_dir.startswith(current_user_homedir + "/.local/lib/") == False:
-            self.grid2001.hide()
 
         # Set GUI widgets for showing current preferences of settings.
         try:
@@ -227,18 +219,6 @@ class SettingsGUI:
             main_window_state = 0
             main_window_width, main_window_height = MainGUI.window1.get_default_size()
             Config.remember_window_size = [remember_window_size_value, main_window_state, main_window_width, main_window_height]
-
-        Config.config_save_func()
-
-
-    # ----------------------- "Check for updates" Checkbutton -----------------------
-    def on_checkbutton2013_toggled(self, widget):
-
-        if widget.get_active() == True:
-            Config.check_for_updates_automatically = 1
-
-        if widget.get_active() == False:
-            Config.check_for_updates_automatically = 0
 
         Config.config_save_func()
 
@@ -408,12 +388,6 @@ class SettingsGUI:
             self.checkbutton2012.set_active(True)
         if Config.remember_window_size[0] == 0:
             self.checkbutton2012.set_active(False)
-
-        # Set GUI preferences for "check for updates automatically" setting
-        if Config.check_for_updates_automatically == 1:
-            self.checkbutton2013.set_active(True)
-        if Config.check_for_updates_automatically == 0:
-            self.checkbutton2013.set_active(False)
 
 
     def settings_gui_set_chart_data_history_func(self):
