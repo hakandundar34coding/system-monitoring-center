@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v1.42.0 (25.02.2023)
+  * Added an info. dialog about PyPI package of the application
+  * Removed update check feature for PyPI
+
 ### v1.41.0 (18.02.2023)
   * New: Changing graph point count (Process Details)
   * Minor improvements for graphics (Summary tab)
