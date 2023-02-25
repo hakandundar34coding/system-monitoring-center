@@ -1,3 +1,10 @@
+system-monitoring-center (1.42.0) unstable; urgency=medium
+
+  * Added an info. dialog about PyPI package of the application
+  * Removed update check feature for PyPI
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 25 Feb 2023 10:00:00 +0300
+
 system-monitoring-center (1.41.0) unstable; urgency=medium
 
   * New: Changing graph point count (Process Details)
