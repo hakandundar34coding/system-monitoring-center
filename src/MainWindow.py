@@ -30,8 +30,6 @@ class MainWindow():
 
         self.environment_type_detection()
 
-        self.application_system_integration()
-
         # Add GUI images to the image theme.
         image_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
         image_theme.add_search_path(os.path.dirname(os.path.realpath(__file__)) + "/../icons")
@@ -412,9 +410,6 @@ class MainWindow():
         # Run main tab function (It is also called when main tab togglebuttons are toggled).
         self.main_gui_tab_switch()
 
-        # Check for updates (Python package only)
-        self.check_for_updates()
-
 
     def main_menu_gui(self, val=None):
         """
@@ -622,21 +617,14 @@ class MainWindow():
 
     def environment_type_detection(self):
         """
-        Detect environment type (Flatpak, Python package or native).
-        This information will be used for accessing host OS commands if the application is run in Flatpak
-        environment or for showing new version information, etc. if the application is a Python package.
+        Detect environment type (Flatpak or native).
+        This information will be used for accessing host OS commands if the application is run in Flatpak environment.
         """
 
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        current_user_homedir = os.environ.get('HOME')
         application_flatpak_id = os.getenv('FLATPAK_ID')
 
         if application_flatpak_id != None:
             environment_type = "flatpak"
-
-        elif current_dir.startswith("/usr/local/lib/python") == True or current_dir.startswith(current_user_homedir + "/.local/lib/python") == True:
-            environment_type = "python_package"
-
         else:
             environment_type = "native"
 
@@ -1106,133 +1094,6 @@ class MainWindow():
             # Attach the label to the grid at (0, 0) position.
             self.main_grid.attach(label_root_warning, 0, 0, 1, 1)
             label_root_warning.set_visible(True)
-
-
-    def check_for_updates(self):
-        """
-        Check if there is a newer version of the software if relevant setting is enabled and
-        the application is a Python package (directory is in "/usr/local/lib/..." or in "/home/[user_name]/.local/lib/...".
-        New version can not be checked if the application is run with root privileges.
-        Because "pip" does not run "index" command in this situation.
-        """
-
-        if Config.environment_type!= "python_package":
-            return
-
-        if Config.check_for_updates_automatically == 1:
-
-            # Get current directory (which code of this application is in) and current user home directory (symlinks will be generated in).
-            current_dir = os.path.dirname(os.path.realpath(__file__))
-            current_user_homedir = os.environ.get('HOME')
-
-            # Run the function in a separate thread in order to avoid blocking the GUI because "pip ..." command runs about 1 seconds.
-            from threading import Thread
-            Thread(target=self.update_check_func, daemon=True).start()
-
-
-    def update_check_func(self):
-        """
-        Check if there is a newer version of the application on PyPI.
-        """
-
-        import time, subprocess
-
-        # Wait 5 seconds before running the command in order to avoid high CPU usage at the beginning of the measurement.
-        time.sleep(5)
-
-        # Get installed and latest versions of the application.
-        command_list = ["pip", "index", "versions", "system-monitoring-center"]
-        try:
-            pip_index_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
-        except Exception:
-            return
-
-        # Get installed and latest versions of the application by processing the command output.
-        current_version = "-"
-        latest_version = "-"
-        for line in pip_index_output:
-            if "INSTALLED" in line:
-                current_version = line.split("INSTALLED:")[1].strip()
-            if "LATEST" in line:
-                latest_version = line.split("LATEST:")[1].strip()
-
-        current_version_major_version, current_version_minor_version, current_version_patch_version = current_version.split(".")
-        latest_version_major_version, latest_version_minor_version, latest_version_patch_version = latest_version.split(".")
-
-        # Show an information label with a green background below the window headerbar if there is a newer version on PyPI.
-        if latest_version_major_version >= current_version_major_version:
-            if latest_version_minor_version >= current_version_minor_version:
-                if latest_version_patch_version > current_version_patch_version:
-                    # Show the notification information on the label by using "GLib.idle_add" in order to avoid
-                    # problems (bugs, data corruption, etc.) because of threading.
-                    GLib.idle_add(self.update_check_gui_notification)
-
-
-    def update_check_gui_notification(self):
-        """
-        Show a notification label below the window titlebar if there is a newer version of the application on PyPI.
-        """
-
-        # Define label style
-        css = b"label {background: rgba(24%,70%,45%,1.0);}"
-        style_provider = Gtk.CssProvider()
-        style_provider.load_from_data(css)
-
-        # Generate a new label for the information and attach it to the grid at (0, 0) position.
-        label_new_version_information = Gtk.Label(label=_tr("There is a newer version on PyPI."))
-        label_new_version_information.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        self.main_grid.insert_row(0)
-        self.main_grid.attach(label_new_version_information, 0, 0, 1, 1)
-        label_new_version_information.set_visible(True)
-
-
-    def application_system_integration(self):
-        """
-        Copy files for application shortcut (.desktop file) in user folders if they are not copied before.
-        Because these files are not copied if the application is installed as a Python package.
-        """
-
-        if Config.environment_type != "python_package":
-            return
-
-        # Called for removing files.
-        def remove_file(file):
-            try:
-                os.remove(file)
-            except Exception:
-                pass
-
-        # Called for generating folders.
-        def generate_folder(folder):
-            try:
-                os.makedirs(folder)
-            except Exception:
-                pass
-
-        # Called for copying files.
-        def copy_file(source, target):
-            try:
-                shutil.copy2(source, target)
-            except Exception:
-                pass
-
-        # Get current directory (which the code is in) and current user home directory (files will be copied in).
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        current_user_homedir = os.environ.get('HOME')
-
-        # Copy .desktop file
-        file_name = "io.github.hakandundar34coding.system-monitoring-center.desktop"
-        sub_folder_name = "/.local/share/applications/"
-        if os.path.isfile(current_user_homedir + sub_folder_name + file_name) == False:
-            import shutil
-            copy_file(current_dir + "/../integration/" + file_name, current_user_homedir + sub_folder_name)
-
-        # Copy application image
-        file_name = "system-monitoring-center.svg"
-        sub_folder_name = "/.local/share/icons/hicolor/scalable/apps/"
-        if os.path.isfile(current_user_homedir + sub_folder_name + file_name) == False:
-            import shutil
-            copy_file(current_dir + "/../icons/hicolor/scalable/apps/" + file_name, current_user_homedir + sub_folder_name)
 
 
     def switch_to_default_tab(self):
