@@ -5,30 +5,9 @@
   <launchable type="desktop-id">io.github.hakandundar34coding.system-monitoring-center.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <name>System Monitoring Center</name>
-  <name xml:lang="cs">Centrum monitorování systému</name>
-  <name xml:lang="de">Systemüberwachungszentrum</name>
-  <name xml:lang="es">Centro de Monitoreo del Sistema</name>
-  <name xml:lang="fa">مرکز دیده‌ بانی رایانه</name>
-  <name xml:lang="fr">Centre de surveillance du système</name>
-  <name xml:lang="hu">Rendszermegfigyelő központ</name>
-  <name xml:lang="pl">Centrum Monitorowania Systemu</name>
-  <name xml:lang="pt_BR">Central de Monitoramento do Sistema</name>
-  <name xml:lang="pt_PT">Centro de Monitorização do Sistema</name>
-  <name xml:lang="ru_RU">Центр мониторинга системы</name>
-  <name xml:lang="tr">Sistem Gözlem Merkezi</name>
   <developer_name>Hakan Dündar</developer_name>
   <project_license>GPL-3.0</project_license>
   <summary>Multi-featured system monitor</summary>
-  <summary xml:lang="cs">Multifunkční systémový monitor</summary>
-  <summary xml:lang="de">Multifunktioneller Systemmonitor</summary>
-  <summary xml:lang="es">Monitor del sistema con múltiples funciones</summary>
-  <summary xml:lang="fr">Moniteur système multi-fonctions</summary>
-  <summary xml:lang="hu">Többcélú rendszerfigyelő</summary>
-  <summary xml:lang="pl">Wielofunkcyjny monitor systemu</summary>
-  <summary xml:lang="pt_BR">Monitor de Sistema com vários recursos</summary>
-  <summary xml:lang="pt_PT">Monitor de sistema multi-recursos</summary>
-  <summary xml:lang="ru_RU">Многофункциональный системный монитор</summary>
-  <summary xml:lang="tr">Çok özellikli sistem gözlemcisi</summary>
   <url type="homepage">https://github.com/hakandundar34coding/system-monitoring-center</url>
   <url type="bugtracker">https://github.com/hakandundar34coding/system-monitoring-center/issues</url>
   <url type="translate">https://github.com/hakandundar34coding/system-monitoring-center/blob/master/docs/translations.md</url>
