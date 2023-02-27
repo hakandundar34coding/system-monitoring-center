@@ -107,6 +107,7 @@
     - Installing from several application stores (Pardus Application Center, Pi-Apps Store).
     - Installing from repositories of distributions (currently a few distributions).
     - Running from source code (in ```src/``` folder, run: ```python3 ./run_from_source.py```).
+      - For SMC v1.x.x, in ```src/``` folder, run: ```python3 ./Main.py```.
 <strong>
     - Note: System Monitoring Center v2.x.x is only available for Flatpak and ArchLinux (AUR).
 </strong>
