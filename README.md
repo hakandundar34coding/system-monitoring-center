@@ -1,7 +1,7 @@
 # System Monitoring Center
 
 <p align="center">
-    <img src="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/icons/hicolor/scalable/apps/system-monitoring-center.svg" width="100">
+    <img src="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/data/icons/hicolor/scalable/apps/system-monitoring-center.svg" width="100">
 </p>
 
 
