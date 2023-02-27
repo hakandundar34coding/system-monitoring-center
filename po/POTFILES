@@ -1,5 +1,6 @@
 data/io.github.hakandundar34coding.system-monitoring-center.desktop.in
 
+src/__init__.py
 src/Common.py
 src/Config.py
 src/Cpu.py
@@ -18,6 +19,7 @@ src/Performance.py
 src/Processes.py
 src/ProcessesDetails.py
 src/ProcessesMenu.py
+src/run_from_source.py
 src/Sensors.py
 src/Services.py
 src/ServicesDetails.py
@@ -29,4 +31,5 @@ src/System.py
 src/Users.py
 src/UsersDetails.py
 src/UsersMenu.py
+src/__version__
 
