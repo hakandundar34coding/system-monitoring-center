@@ -103,7 +103,6 @@ class Config:
         self.remember_last_opened_tabs_on_application_start = 0
         self.remember_last_selected_hardware = 0
         self.remember_window_size = [0, 0, 0, 0]
-        self.check_for_updates_automatically = 0
 
 
     def config_default_performance_cpu_func(self):
@@ -254,7 +253,6 @@ class Config:
         self.remember_last_opened_tabs_on_application_start = int(config_values[config_variables.index("remember_last_opened_tabs_on_application_start")])
         self.remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
         self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
-        self.check_for_updates_automatically = int(config_values[config_variables.index("check_for_updates_automatically")])
 
         self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
@@ -338,7 +336,6 @@ class Config:
         config_write_text = config_write_text + "remember_last_opened_tabs_on_application_start = " + str(self.remember_last_opened_tabs_on_application_start) + "\n"
         config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
         config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
-        config_write_text = config_write_text + "check_for_updates_automatically = " + str(self.check_for_updates_automatically) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - CPU]" + "\n"

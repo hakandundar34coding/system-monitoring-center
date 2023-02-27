@@ -153,33 +153,20 @@ class SettingsWindow:
         separator = Common.settings_window_separator()
         main_grid.attach(separator, 0, 14, 2, 1)
 
-        # Grid (Check for updates)
-        self.check_for_updates_grid = Gtk.Grid()
-        main_grid.attach(self.check_for_updates_grid, 0, 15, 2, 1)
-        # CheckButton (Check for updates)
-        self.check_for_updates_cb = Common.checkbutton(_tr("Check for updates automatically (PyPI only)"), None)
-        self.check_for_updates_grid.attach(self.check_for_updates_cb, 0, 0, 1, 1)
-        # Label (Check for updates)
-        label = Common.static_information_label_no_ellipsize(_tr("(If the application is run without root privileges)"))
-        self.check_for_updates_grid.attach(label, 0, 1, 1, 1)
-        # Separator (Check for updates)
-        separator = Common.settings_window_separator()
-        self.check_for_updates_grid.attach(separator, 0, 16, 2, 1)
-
         # Button (Reset)
         self.reset_button = Common.reset_button()
-        main_grid.attach(self.reset_button, 0, 17, 2, 1)
+        main_grid.attach(self.reset_button, 0, 15, 2, 1)
 
         # Separator
         separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 18, 2, 1)
+        main_grid.attach(separator, 0, 16, 2, 1)
 
         # Button (Reset all settings of the application)
         self.reset_all_settings_button = Gtk.Button()
         self.reset_all_settings_button.set_halign(Gtk.Align.CENTER)
         self.reset_all_settings_button.set_label(_tr("Reset all settings of the application"))
         self.reset_all_settings_button.add_css_class("destructive-action")
-        main_grid.attach(self.reset_all_settings_button, 0, 19, 2, 1)
+        main_grid.attach(self.reset_all_settings_button, 0, 17, 2, 1)
 
 
     def gui_signals(self):
@@ -210,7 +197,6 @@ class SettingsWindow:
         self.default_sub_tab_dd.connect("notify::selected-item", self.on_selected_item_notify)
         self.remember_last_selected_devices_cb.connect("toggled", self.on_remember_last_selected_devices_cb_toggled)
         self.remember_window_size_cb.connect("toggled", self.on_remember_window_size_cb_toggled)
-        self.check_for_updates_cb.connect("toggled", self.on_check_for_updates_cb_toggled)
 
 
     def settings_disconnect_signals_func(self):
@@ -228,17 +214,12 @@ class SettingsWindow:
         self.default_sub_tab_dd.disconnect_by_func(self.on_selected_item_notify)
         self.remember_last_selected_devices_cb.disconnect_by_func(self.on_remember_last_selected_devices_cb_toggled)
         self.remember_window_size_cb.disconnect_by_func(self.on_remember_window_size_cb_toggled)
-        self.check_for_updates_cb.disconnect_by_func(self.on_check_for_updates_cb_toggled)
 
 
     def on_settings_window_show(self, widget):
         """
         Run code after window is shown.
         """
-
-        # Hide "Check for updates" setting if the application is not installed as Python package.
-        if Config.environment_type != "python_package":
-            self.check_for_updates_grid.set_visible(False)
 
         # Set GUI widgets for showing current preferences of settings.
         try:
@@ -364,20 +345,6 @@ class SettingsWindow:
             main_window_width = MainWindow.main_window.get_width()
             main_window_height = MainWindow.main_window.get_height()
             Config.remember_window_size = [remember_window_size_value, main_window_state, main_window_width, main_window_height]
-
-        Config.config_save_func()
-
-
-    def on_check_for_updates_cb_toggled(self, widget):
-        """
-        Enable/Disable checking updates.
-        """
-
-        if widget.get_active() == True:
-            Config.check_for_updates_automatically = 1
-
-        if widget.get_active() == False:
-            Config.check_for_updates_automatically = 0
 
         Config.config_save_func()
 
@@ -519,12 +486,6 @@ class SettingsWindow:
             self.remember_window_size_cb.set_active(True)
         if Config.remember_window_size[0] == 0:
             self.remember_window_size_cb.set_active(False)
-
-        # Set GUI preferences for "check for updates automatically" setting
-        if Config.check_for_updates_automatically == 1:
-            self.check_for_updates_cb.set_active(True)
-        if Config.check_for_updates_automatically == 0:
-            self.check_for_updates_cb.set_active(False)
 
 
     def settings_gui_set_chart_data_history_func(self):
