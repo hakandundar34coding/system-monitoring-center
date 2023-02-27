@@ -52,11 +52,9 @@ modules:
 
   # For System Monitoring Center
   - name: system-monitoring-center
-    buildsystem: simple
-    build-commands:
-      - python3 setup.py install --flatpak_package --prefix=${FLATPAK_DEST}
+    buildsystem: meson
     sources:
       - type: git
         url: https://github.com/hakandundar34coding/system-monitoring-center.git
-        commit: 131ec9e7d4733608993a0197a27d0d44d313e0bf
+        commit: 9a4d0027711f474ee059e47f33111a6fda29a8d7
 

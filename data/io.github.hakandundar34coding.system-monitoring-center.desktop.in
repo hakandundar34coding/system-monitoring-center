@@ -1,0 +1,20 @@
+[Desktop Entry]
+Name=System Monitoring Center
+GenericName=System Monitor
+Comment=Multi-featured system monitor
+Keywords=system monitor;task manager;performance;cpu;ram;swap;memory;disk;network;processes;users;services;
+Keywords[de]=Systemmonitor;Taskmanager;leistung;cpu;ram;swap;speicher;festplatte;netzwerk;prozesse;benutzer;dienste;
+Keywords[es]=monitor del sistema;gestor de tareas;desempeño;cpu;ram;swap;disco;red;procesos;usuarios;servicios;
+Keywords[fr]=moniteur système;gestionnaire de tâches;performance;cpu;ram;swap;mémoire;disque;réseau;processus;utilisateurs;services;
+Keywords[hu]=rendszerfigyelő;feladatkezelő;teljesítmény;cpu;ram;cserehely;memória;lemez;hálózat;folyamatok;felhasználók;szolgáltatások;
+Keywords[pt_BR]=monitor do sistema;gerenciador de tarefas;desempenho;uso de CPU;uso de ram;memória swap;uso de memória;armazenamento;uso de rede;processos;usuários;serviços;
+Keywords[pt_PT]=monitor do sistema;gestor de tarefas;desempenho;cpu;ram;memória;disco;rede;processos;utilizadores;serviços;
+Keywords[tr]=sistem gözlemcisi;görev yöneticisi;performans;cpu;mib;ram;takas;bellek;disk;işlemler;kullanıcılar;servisler;
+Keywords[ru_RU]=системный монитор;менеджер задач;производительность;cpu;ram;подкачка;память;диск;сеть;процессы;пользователи;сервисы;
+Keywords[fa]=دیده بانی رایانه;تسک منیجر;مرکز;کارکرد;سرعت;فرکانس;مصرف پردازنده;مصرف رم;حافظه سواپ;مصرف حافظه;حافظه;مصرف اینترنت;سرعت دانلود;fps;نسبت تصویر;فرآیند ها;کاربران;برنامه های استارت آپ;سرویس ها;سیستم عامل;
+Exec=system-monitoring-center
+Icon=io.github.hakandundar34coding.system-monitoring-center
+Terminal=false
+Type=Application
+Categories=System;
+StartupNotify=true

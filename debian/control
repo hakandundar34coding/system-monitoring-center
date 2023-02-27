@@ -2,8 +2,8 @@ Source: system-monitoring-center
 Section: utils
 Priority: optional
 Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
-Build-Depends: debhelper (>= 10), dh-python, python3-all, python3-setuptools
-Standards-Version: 4.3.0
+Build-Depends: debhelper (>= 10), meson (>=0.59), appstream-util (>=0.7.14), libglib2.0-dev-bin (>=2.58.3), itstool, python3-cairo, python3-gi (>=3.30.0)
+Standards-Version: 4.4.0
 Homepage: https://github.com/hakandundar34coding/system-monitoring-center
 
 Package: system-monitoring-center
