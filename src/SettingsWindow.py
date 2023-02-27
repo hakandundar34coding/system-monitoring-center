@@ -7,10 +7,10 @@ import os
 
 from locale import gettext as _tr
 
-from Config import Config
-from Performance import Performance
-from MainWindow import MainWindow
-import Common
+from .Config import Config
+from .Performance import Performance
+from .MainWindow import MainWindow
+from . import Common
 
 
 class SettingsWindow:
@@ -403,7 +403,7 @@ class SettingsWindow:
         Performance.performance_set_selected_network_card_func()
         # Apply selected GPU changes
         try:
-            from MainWindow import Gpu
+            from .MainWindow import Gpu
             Gpu.gpu_set_selected_gpu_func()
         # Prevent errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires
         # some modules in the Gpu module. They are imported if Gpu tab is switched on.
@@ -457,7 +457,7 @@ class SettingsWindow:
         Performance.performance_set_selected_network_card_func()
         # Apply selected GPU changes
         try:
-            from MainWindow import Gpu
+            from .MainWindow import Gpu
             Gpu.gpu_set_selected_gpu_func()
         # Prevent errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires
         # some modules in the Gpu module. They are imported if Gpu tab is switched on.
@@ -565,12 +565,12 @@ class SettingsWindow:
 
             # "gpu_load_list" list
             if MainWindow.gpu_tb.get_active() == True:
-                from Gpu import Gpu
+                from .Gpu import Gpu
                 Gpu.gpu_load_list = Gpu.gpu_load_list[length_difference:]
 
             # Process Details window CPU, memory (RSS), disk read speed and disk write speed lists
             if MainWindow.processes_tab_main_grid.get_child_at(0,0) != None:
-                import ProcessesDetails
+                from . import ProcessesDetails
                 for process_details_object in ProcessesDetails.processes_details_object_list:
                     process_details_object.process_cpu_usage_list = process_details_object.process_cpu_usage_list[length_difference:]
                     process_details_object.process_ram_usage_list = process_details_object.process_ram_usage_list[length_difference:]
@@ -606,12 +606,12 @@ class SettingsWindow:
 
             # "gpu_load_list" list
             if MainWindow.gpu_tb.get_active() == True:
-                from Gpu import Gpu
+                from .Gpu import Gpu
                 Gpu.gpu_load_list = list_to_add + Gpu.gpu_load_list
 
             # Process Details window CPU, memory (RSS), disk read speed and disk write speed lists
             if MainWindow.processes_tab_main_grid.get_child_at(0,0) != None:
-                import ProcessesDetails
+                from . import ProcessesDetails
                 for process_details_object in ProcessesDetails.processes_details_object_list:
                     process_details_object.process_cpu_usage_list = list_to_add + process_details_object.process_cpu_usage_list
                     process_details_object.process_ram_usage_list = list_to_add + process_details_object.process_ram_usage_list
@@ -628,67 +628,67 @@ class SettingsWindow:
         """
 
         try:
-            from MainWindow import Summary
+            from .MainWindow import Summary
             Summary.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import Cpu
+            from .MainWindow import Cpu
             Cpu.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import Memory
+            from .MainWindow import Memory
             Memory.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import Disk
+            from .MainWindow import Disk
             Disk.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import Network
+            from .MainWindow import Network
             Network.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import Gpu
+            from .MainWindow import Gpu
             Gpu.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import Sensors
+            from .MainWindow import Sensors
             Sensors.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import Processes
+            from .MainWindow import Processes
             Processes.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import Users
+            from .MainWindow import Users
             Users.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import Services
+            from .MainWindow import Services
             Services.initial_already_run = 0
         except ImportError:
             pass
 
         try:
-            from MainWindow import System
+            from .MainWindow import System
             System.initial_already_run = 0
         except ImportError:
             pass

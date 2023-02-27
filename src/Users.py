@@ -14,9 +14,9 @@ from datetime import datetime
 
 from locale import gettext as _tr
 
-from Config import Config
-from MainWindow import MainWindow
-import Common
+from .Config import Config
+from .MainWindow import MainWindow
+from . import Common
 
 
 class Users:
@@ -132,7 +132,7 @@ class Users:
         Show process details window.
         """
 
-        from UsersDetails import UsersDetails
+        from .UsersDetails import UsersDetails
         UsersDetails.user_details_window.set_visible(True)
 
 
@@ -198,7 +198,7 @@ class Users:
 
         # Show details window if double clicked on a row
         if int(event.get_button()) == 1 and int(count) == 2:
-            from UsersDetails import UsersDetails
+            from .UsersDetails import UsersDetails
             UsersDetails.user_details_window.set_visible(True)
 
 

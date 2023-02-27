@@ -11,10 +11,10 @@ import subprocess
 
 from locale import gettext as _tr
 
-from Config import Config
-from Performance import Performance
-from MainWindow import MainWindow
-import Common
+from .Config import Config
+from .Performance import Performance
+from .MainWindow import MainWindow
+from . import Common
 
 
 class Services:
@@ -306,7 +306,7 @@ class Services:
         Show process details window.
         """
 
-        from ServicesDetails import ServicesDetails
+        from .ServicesDetails import ServicesDetails
         ServicesDetails.service_details_window.present()
 
 
@@ -369,7 +369,7 @@ class Services:
 
         # Show details window if double clicked on a row
         if int(event.get_button()) == 1 and int(count) == 2:
-            from ServicesDetails import ServicesDetails
+            from .ServicesDetails import ServicesDetails
             ServicesDetails.service_details_window.present()
 
 
@@ -564,7 +564,7 @@ class Services:
                 return
         # Get services bu using multiple processes (multiprocessing) if the system has more than 2 CPU cores.
         else:
-            import ServicesGetMultProc
+            from . import ServicesGetMultProc
             systemctl_show_command_lines = ServicesGetMultProc.start_processes_func(number_of_logical_cores, unit_files_command)
 
         # Get services data (specific information by processing the data get previously)

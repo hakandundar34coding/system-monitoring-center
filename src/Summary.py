@@ -9,9 +9,9 @@ from math import sin, cos
 
 from locale import gettext as _tr
 
-from Config import Config
-from Performance import Performance
-import Common
+from .Config import Config
+from .Performance import Performance
+from . import Common
 
 
 class Summary:

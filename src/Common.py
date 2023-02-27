@@ -10,8 +10,8 @@ import os
 
 from locale import gettext as _tr
 
-from Config import Config
-from Performance import Performance
+from .Config import Config
+from .Performance import Performance
 
 
 class ListStoreItem(GObject.Object):
@@ -190,23 +190,23 @@ def on_graph_color_button_clicked(widget):
     if Config.current_main_tab == 0:
         if Config.performance_tab_current_sub_tab == 1:
             tab_graph_color = Config.chart_line_color_cpu_percent
-            from CpuMenu import CpuMenu
+            from .CpuMenu import CpuMenu
             current_menu_po = CpuMenu.menu_po
         elif Config.performance_tab_current_sub_tab == 2:
             tab_graph_color = Config.chart_line_color_memory_percent
-            from MemoryMenu import MemoryMenu
+            from .MemoryMenu import MemoryMenu
             current_menu_po = MemoryMenu.menu_po
         elif Config.performance_tab_current_sub_tab == 3:
             tab_graph_color = Config.chart_line_color_disk_speed_usage
-            from DiskMenu import DiskMenu
+            from .DiskMenu import DiskMenu
             current_menu_po = DiskMenu.menu_po
         elif Config.performance_tab_current_sub_tab == 4:
             tab_graph_color = Config.chart_line_color_network_speed_data
-            from NetworkMenu import NetworkMenu
+            from .NetworkMenu import NetworkMenu
             current_menu_po = NetworkMenu.menu_po
         elif Config.performance_tab_current_sub_tab == 5:
             tab_graph_color = Config.chart_line_color_fps
-            from GpuMenu import GpuMenu
+            from .GpuMenu import GpuMenu
             current_menu_po = GpuMenu.menu_po
 
     # Set selected color on the ColorChooserDialog
@@ -250,27 +250,27 @@ def on_colorchooserdialog_response(widget, response):
         if Config.current_main_tab == 0:
             if Config.performance_tab_current_sub_tab == 1:
                 Config.chart_line_color_cpu_percent = tab_graph_color
-                from Cpu import Cpu
+                from .Cpu import Cpu
                 Cpu.cpu_initial_func()
                 Cpu.cpu_loop_func()
             elif Config.performance_tab_current_sub_tab == 2:
                 Config.chart_line_color_memory_percent = tab_graph_color
-                from Memory import Memory
+                from .Memory import Memory
                 Memory.memory_initial_func()
                 Memory.memory_loop_func()
             elif Config.performance_tab_current_sub_tab == 3:
                 Config.chart_line_color_disk_speed_usage = tab_graph_color
-                from Disk import Disk
+                from .Disk import Disk
                 Disk.disk_initial_func()
                 Disk.disk_loop_func()
             elif Config.performance_tab_current_sub_tab == 4:
                 Config.chart_line_color_network_speed_data = tab_graph_color
-                from Network import Network
+                from .Network import Network
                 Network.network_initial_func()
                 Network.network_loop_func()
             elif Config.performance_tab_current_sub_tab == 5:
                 Config.chart_line_color_fps = tab_graph_color
-                from Gpu import Gpu
+                from .Gpu import Gpu
                 Gpu.gpu_initial_func()
                 Gpu.gpu_loop_func()
         Config.config_save_func()

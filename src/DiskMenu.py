@@ -5,11 +5,11 @@ from gi.repository import Gtk, Gdk
 
 from locale import gettext as _tr
 
-from Config import Config
-from Performance import Performance
-from Disk import Disk
-from MainWindow import MainWindow
-import Common
+from .Config import Config
+from .Performance import Performance
+from .Disk import Disk
+from .MainWindow import MainWindow
+from . import Common
 
 
 class DiskMenu:

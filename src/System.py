@@ -11,9 +11,9 @@ import threading
 
 from locale import gettext as _tr
 
-from Config import Config
-from MainWindow import MainWindow
-import Common
+from .Config import Config
+from .MainWindow import MainWindow
+from . import Common
 
 
 class System:

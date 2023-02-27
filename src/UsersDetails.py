@@ -10,11 +10,11 @@ from datetime import datetime
 
 from locale import gettext as _tr
 
-from Config import Config
-from Users import Users
-from Performance import Performance
-from MainWindow import MainWindow
-import Common
+from .Config import Config
+from .Users import Users
+from .Performance import Performance
+from .MainWindow import MainWindow
+from . import Common
 
 
 class UsersDetails:

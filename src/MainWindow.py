@@ -11,15 +11,15 @@ import locale
 
 from locale import gettext as _tr
 
-from Config import Config
-from Performance import Performance
-import Common
+from .Config import Config
+from .Performance import Performance
+from . import Common
 
 
 class MainWindow():
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         """
         Run initial functions and generate main window.
         """
@@ -453,7 +453,7 @@ class MainWindow():
         Generate and show settings window.
         """
 
-        from SettingsWindow import SettingsWindow
+        from .SettingsWindow import SettingsWindow
         SettingsWindow.settings_window.present()
 
 
@@ -539,38 +539,38 @@ class MainWindow():
                 self.tab_menu_menubutton.set_popover(None)
 
             elif Config.performance_tab_current_sub_tab == 1:
-                from CpuMenu import CpuMenu
+                from .CpuMenu import CpuMenu
                 self.tab_menu_menubutton.set_popover(CpuMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 2:
-                from MemoryMenu import MemoryMenu
+                from .MemoryMenu import MemoryMenu
                 self.tab_menu_menubutton.set_popover(MemoryMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 3:
-                from DiskMenu import DiskMenu
+                from .DiskMenu import DiskMenu
                 self.tab_menu_menubutton.set_popover(DiskMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 4:
-                from NetworkMenu import NetworkMenu
+                from .NetworkMenu import NetworkMenu
                 self.tab_menu_menubutton.set_popover(NetworkMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 5:
-                from GpuMenu import GpuMenu
+                from .GpuMenu import GpuMenu
                 self.tab_menu_menubutton.set_popover(GpuMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 6:
                 self.tab_menu_menubutton.set_popover(None)
 
         elif Config.current_main_tab == 1:
-            from ProcessesMenu import ProcessesMenu
+            from .ProcessesMenu import ProcessesMenu
             self.tab_menu_menubutton.set_popover(ProcessesMenu.menu_po)
 
         elif Config.current_main_tab == 2:
-            from UsersMenu import UsersMenu
+            from .UsersMenu import UsersMenu
             self.tab_menu_menubutton.set_popover(UsersMenu.menu_po)
 
         elif Config.current_main_tab == 3:
-            from ServicesMenu import ServicesMenu
+            from .ServicesMenu import ServicesMenu
             self.tab_menu_menubutton.set_popover(ServicesMenu.menu_po)
 
         elif Config.current_main_tab == 4:
@@ -600,7 +600,12 @@ class MainWindow():
         Configurations for language translation support.
         """
 
-        locale.bindtextdomain("system-monitoring-center", os.path.dirname(os.path.realpath(__file__)) + "/../locale")
+        from .Main import localedir
+        if localedir == None:
+            localedir = os.path.dirname(os.path.realpath(__file__)) + "/../po/locale"
+
+        #locale.bindtextdomain("system-monitoring-center", os.path.dirname(os.path.realpath(__file__)) + "/../locale")
+        locale.bindtextdomain("system-monitoring-center", localedir)
         locale.textdomain("system-monitoring-center")
 
         if Config.language == "system":
@@ -672,7 +677,7 @@ class MainWindow():
                 # Attach the grid to the grid (on the Main Window) at (0, 0) position if not attached.
                 if self.summary_tab_main_grid.get_child_at(0,0) == None:
                     global Summary
-                    from Summary import Summary
+                    from .Summary import Summary
                     self.summary_tab_main_grid.attach(Summary.tab_grid, 0, 0, 1, 1)
                 # Run initial function of the module if this is the first loop of the module.
                 if Summary.initial_already_run == 0:
@@ -693,7 +698,7 @@ class MainWindow():
                 Config.performance_tab_current_sub_tab = 1
                 if self.cpu_tab_main_grid.get_child_at(0,0) == None:
                     global Cpu
-                    from Cpu import Cpu
+                    from .Cpu import Cpu
                     self.cpu_tab_main_grid.attach(Cpu.tab_grid, 0, 0, 1, 1)
                 if Cpu.initial_already_run == 0:
                     GLib.idle_add(Cpu.cpu_initial_func)
@@ -711,7 +716,7 @@ class MainWindow():
                 Config.performance_tab_current_sub_tab = 2
                 if self.memory_tab_main_grid.get_child_at(0,0) == None:
                     global Memory
-                    from Memory import Memory
+                    from .Memory import Memory
                     self.memory_tab_main_grid.attach(Memory.tab_grid, 0, 0, 1, 1)
                 if Memory.initial_already_run == 0:
                     GLib.idle_add(Memory.memory_initial_func)
@@ -729,7 +734,7 @@ class MainWindow():
                 Config.performance_tab_current_sub_tab = 3
                 if self.disk_tab_main_grid.get_child_at(0,0) == None:
                     global Disk
-                    from Disk import Disk
+                    from .Disk import Disk
                     self.disk_tab_main_grid.attach(Disk.tab_grid, 0, 0, 1, 1)
                 if Disk.initial_already_run == 0:
                     GLib.idle_add(Disk.disk_initial_func)
@@ -747,7 +752,7 @@ class MainWindow():
                 Config.performance_tab_current_sub_tab = 4
                 if self.network_tab_main_grid.get_child_at(0,0) == None:
                     global Network
-                    from Network import Network
+                    from .Network import Network
                     self.network_tab_main_grid.attach(Network.tab_grid, 0, 0, 1, 1)
                 if Network.initial_already_run == 0:
                     GLib.idle_add(Network.network_initial_func)
@@ -765,7 +770,7 @@ class MainWindow():
                 Config.performance_tab_current_sub_tab = 5
                 if self.gpu_tab_main_grid.get_child_at(0,0) == None:
                     global Gpu
-                    from Gpu import Gpu
+                    from .Gpu import Gpu
                     self.gpu_tab_main_grid.attach(Gpu.tab_grid, 0, 0, 1, 1)
                 if Gpu.initial_already_run == 0:
                     GLib.idle_add(Gpu.gpu_initial_func)
@@ -786,7 +791,7 @@ class MainWindow():
                 Config.performance_tab_current_sub_tab = 6
                 if self.sensors_tab_main_grid.get_child_at(0,0) == None:
                     global Sensors
-                    from Sensors import Sensors
+                    from .Sensors import Sensors
                     self.sensors_tab_main_grid.attach(Sensors.tab_grid, 0, 0, 1, 1)
                 if Sensors.initial_already_run == 0:
                     GLib.idle_add(Sensors.sensors_initial_func)
@@ -804,7 +809,7 @@ class MainWindow():
             Config.current_main_tab = 1
             if self.processes_tab_main_grid.get_child_at(0,0) == None:
                 global Processes
-                from Processes import Processes
+                from .Processes import Processes
                 self.processes_tab_main_grid.attach(Processes.tab_grid, 0, 0, 1, 1)
             if Processes.initial_already_run == 0:
                 GLib.idle_add(Processes.processes_initial_func)
@@ -821,7 +826,7 @@ class MainWindow():
             Config.current_main_tab = 2
             if self.users_tab_main_grid.get_child_at(0,0) == None:
                 global Users
-                from Users import Users
+                from .Users import Users
                 self.users_tab_main_grid.attach(Users.tab_grid, 0, 0, 1, 1)
             if Users.initial_already_run == 0:
                 GLib.idle_add(Users.users_initial_func)
@@ -838,7 +843,7 @@ class MainWindow():
             Config.current_main_tab = 3
             if self.services_tab_main_grid.get_child_at(0,0) == None:
                 global Services
-                from Services import Services
+                from .Services import Services
                 self.services_tab_main_grid.attach(Services.tab_grid, 0, 0, 1, 1)
             if Services.initial_already_run == 0:
                 GLib.idle_add(Services.services_initial_func)
@@ -855,7 +860,7 @@ class MainWindow():
             Config.current_main_tab = 4
             if self.system_tab_main_grid.get_child_at(0,0) == None:
                 global System
-                from System import System
+                from .System import System
                 self.system_tab_main_grid.attach(System.tab_grid, 0, 0, 1, 1)
             if System.initial_already_run == 0:
                 GLib.idle_add(System.system_initial_func)

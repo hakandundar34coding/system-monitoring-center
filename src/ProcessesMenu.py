@@ -4,10 +4,10 @@ from gi.repository import Gtk
 
 from locale import gettext as _tr
 
-from Config import Config
-from Processes import Processes
-from MainWindow import MainWindow
-import Common
+from .Config import Config
+from .Processes import Processes
+from .MainWindow import MainWindow
+from . import Common
 
 
 class ProcessesMenu:

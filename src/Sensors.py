@@ -6,8 +6,8 @@ import os
 
 from locale import gettext as _tr
 
-from Config import Config
-import Common
+from .Config import Config
+from . import Common
 
 
 class Sensors:

@@ -13,10 +13,10 @@ import subprocess
 
 from locale import gettext as _tr
 
-from Config import Config
-from Performance import Performance
-from MainWindow import MainWindow
-import Common
+from .Config import Config
+from .Performance import Performance
+from .MainWindow import MainWindow
+from . import Common
 
 
 class Processes:
@@ -567,7 +567,7 @@ class Processes:
         if Config.current_main_tab != 1:
             return
 
-        import ProcessesDetails
+        from . import ProcessesDetails
         ProcessesDetails.process_details_show_process_details()
 
 
@@ -641,7 +641,7 @@ class Processes:
 
         # Show details window if double clicked on a row
         if int(event.get_button()) == 1 and int(count) == 2:
-            import ProcessesDetails
+            from . import ProcessesDetails
             ProcessesDetails.process_details_show_process_details()
 
 

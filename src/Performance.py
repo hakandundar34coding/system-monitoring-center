@@ -5,7 +5,7 @@ from math import sqrt, ceil
 
 from locale import gettext as _tr
 
-from Config import Config
+from .Config import Config
 
 
 class Performance:
@@ -494,7 +494,7 @@ class Performance:
                 chart_y_limit_dict[device_name] = chart_y_limit
 
             # Get chart y limit value in order to show maximum value of the chart as multiples of 1, 10, 100.
-            from Disk import Disk
+            from .Disk import Disk
             performance_disk_data_precision = Config.performance_disk_data_precision
             performance_disk_data_unit = Config.performance_disk_data_unit
             performance_disk_speed_bit = Config.performance_disk_speed_bit
@@ -564,7 +564,7 @@ class Performance:
                 chart_y_limit_dict[device_name] = chart_y_limit
 
             # Get chart y limit value in order to show maximum value of the chart as multiples of 1, 10, 100.
-            from Network import Network
+            from .Network import Network
             performance_network_data_precision = Config.performance_network_data_precision
             performance_network_data_unit = Config.performance_network_data_unit
             performance_network_speed_bit = Config.performance_network_speed_bit
@@ -600,7 +600,7 @@ class Performance:
             chart_line_color = Config.chart_line_color_fps
 
             # Get performance data and device list for current device or all devices.
-            from Gpu import Gpu
+            from .Gpu import Gpu
             try:
                 performance_data1 = {Gpu.selected_gpu: Gpu.gpu_load_list}
             # Handle errors because chart signals are connected before running relevant performance thread (in the GPU module)
@@ -626,7 +626,7 @@ class Performance:
             chart_line_color = Config.chart_line_color_cpu_percent
 
             # Get performance data and device list for current device or all devices.
-            import ProcessesDetails
+            from . import ProcessesDetails
             # There may be more than one instance of object (per process). Search for the current one by checking the widget.
             for process_object in ProcessesDetails.processes_details_object_list:
                 if process_object.processes_details_da_cpu_usage == widget:
@@ -651,7 +651,7 @@ class Performance:
             chart_line_color = Config.chart_line_color_memory_percent
 
             # Get performance data and device list for current device or all devices.
-            import ProcessesDetails
+            from . import ProcessesDetails
             # There may be more than one instance of object (per process). Search for the current one by checking the widget.
             for process_object in ProcessesDetails.processes_details_object_list:
                 if process_object.processes_details_da_memory_usage == widget:
@@ -705,7 +705,7 @@ class Performance:
             chart_line_color = Config.chart_line_color_disk_speed_usage
 
             # Get performance data and device list for current device or all devices.
-            import ProcessesDetails
+            from . import ProcessesDetails
             # There may be more than one instance of object (per process). Search for the current one by checking the widget.
             for process_object in ProcessesDetails.processes_details_object_list:
                 if process_object.processes_details_da_disk_speed == widget:
@@ -1136,7 +1136,7 @@ class Performance:
         if widget_name == "da_swap_usage":
 
             # Get performance data to be drawn.
-            from Memory import Memory
+            from .Memory import Memory
             try:
                 performance_data1 = Memory.swap_usage_percent[-1]
             # "swap_percent" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
@@ -1154,7 +1154,7 @@ class Performance:
         if widget_name == "da_disk_usage":
 
             # Get performance data to be drawn.
-            from Disk import Disk
+            from .Disk import Disk
             try:
                 performance_data1 = Disk.disk_usage_percentage
             # "disk_usage_percentage" value is get in this module and drawingarea may try to use this value before relevant function (which provides this value) is finished.
