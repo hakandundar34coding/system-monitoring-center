@@ -1,9 +1,0 @@
-include LICENSE
-include README.md
-include integration/io.github.hakandundar34coding.system-monitoring-center.desktop
-include database/*
-include src/*.py
-include src/__version__
-include locale/*/LC_MESSAGES/*
-include setup.py
-recursive-include icons *
