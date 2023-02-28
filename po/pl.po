@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:19+0300\n"
-"PO-Revision-Date: 2023-02-27 16:21+0300\n"
+"POT-Creation-Date: 2023-02-28 11:46+0300\n"
+"PO-Revision-Date: 2023-02-28 11:54+0300\n"
 "Last-Translator: ski007 <ski007@linux.pl>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -19,6 +19,27 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:67 src/MainWindow.py:511
+msgid "System Monitoring Center"
+msgstr "Centrum Monitorowania Systemu"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Monitor systemu"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
+#: src/MainWindow.py:513
+msgid "Multi-featured system monitor"
+msgstr "Wielofunkcyjny monitor systemu"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+msgid ""
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"Processes;Users;Services;"
+msgstr ""
 
 #: src/Common.py:142
 msgid "Reset"
@@ -299,10 +320,6 @@ msgstr "Częstotliwość odświeżania"
 msgid "Resolution"
 msgstr "Rozdzielczość"
 
-#: src/MainWindow.py:67 src/MainWindow.py:511
-msgid "System Monitoring Center"
-msgstr "Centrum Monitorowania Systemu"
-
 #: src/MainWindow.py:104
 msgid "Customization menu for the current tab"
 msgstr ""
@@ -366,10 +383,6 @@ msgstr "Główne Ustawienia"
 #: src/MainWindow.py:436
 msgid "About"
 msgstr "O programie"
-
-#: src/MainWindow.py:513
-msgid "Multi-featured system monitor"
-msgstr "Wielofunkcyjny monitor systemu"
 
 #: src/MainWindow.py:887
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -906,10 +919,6 @@ msgstr ""
 #: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr ""
-
-#: src/SettingsWindow.py:33
-msgid "System Monitor"
-msgstr "Monitor systemu"
 
 #: src/SettingsWindow.py:33
 msgid "Task Manager"

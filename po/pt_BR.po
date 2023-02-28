@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:19+0300\n"
-"PO-Revision-Date: 2023-02-27 16:21+0300\n"
+"POT-Creation-Date: 2023-02-28 11:46+0300\n"
+"PO-Revision-Date: 2023-02-28 11:53+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -17,6 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:67 src/MainWindow.py:511
+msgid "System Monitoring Center"
+msgstr "Central de Monitoramento do Sistema"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Monitor do sistema"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
+#: src/MainWindow.py:513
+msgid "Multi-featured system monitor"
+msgstr "Monitor de Sistema com vários recursos"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+msgid ""
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"Processes;Users;Services;"
+msgstr ""
+"monitor do sistema;gerenciador de tarefas;desempenho;uso de CPU;uso de ram;"
+"memória swap;uso de memória;armazenamento;uso de rede;processos;usuários;"
+"serviços;"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -297,10 +321,6 @@ msgstr "Taxa de Atualização"
 msgid "Resolution"
 msgstr "Resolução"
 
-#: src/MainWindow.py:67 src/MainWindow.py:511
-msgid "System Monitoring Center"
-msgstr "Central de Monitoramento do Sistema"
-
 #: src/MainWindow.py:104
 msgid "Customization menu for the current tab"
 msgstr "Menu de personalização para a guia atual"
@@ -364,10 +384,6 @@ msgstr "Configurações Gerais"
 #: src/MainWindow.py:436
 msgid "About"
 msgstr "Sobre"
-
-#: src/MainWindow.py:513
-msgid "Multi-featured system monitor"
-msgstr "Monitor de Sistema com vários recursos"
 
 #: src/MainWindow.py:887
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -906,10 +922,6 @@ msgstr "Claro"
 #: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr "Escuro"
-
-#: src/SettingsWindow.py:33
-msgid "System Monitor"
-msgstr "Monitor do sistema"
 
 #: src/SettingsWindow.py:33
 msgid "Task Manager"

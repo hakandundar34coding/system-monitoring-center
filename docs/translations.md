@@ -20,6 +20,6 @@ as ```Connected SSID```. The text contains two different information.
 | pl             | Polish                 | 93%        |
 | pt_BR          | Portuguese (Brazilian) | 99%        |
 | pt_PT          | Portuguese (Portugal)  | 100%       |
-| ru_RU          | Russian                | 99%        |
+| ru_RU          | Russian                | 100%       |
 | tr             | Turkish                | 100%       |
 

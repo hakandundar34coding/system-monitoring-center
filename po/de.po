@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:19+0300\n"
-"PO-Revision-Date: 2023-02-27 16:23+0300\n"
+"POT-Creation-Date: 2023-02-28 11:46+0300\n"
+"PO-Revision-Date: 2023-02-28 11:58+0300\n"
 "Last-Translator: Baumfinder <baumkartoffel@outlook.de>\n"
 "Language-Team: German <baumkartoffel@outlook.de>\n"
 "Language: de\n"
@@ -18,6 +18,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:67 src/MainWindow.py:511
+msgid "System Monitoring Center"
+msgstr "Systemüberwachungszentrum"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Systemüberwachung"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
+#: src/MainWindow.py:513
+msgid "Multi-featured system monitor"
+msgstr "Multifunktioneller Systemmonitor"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+msgid ""
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"Processes;Users;Services;"
+msgstr ""
+"Systemmonitor;Taskmanager;leistung;cpu;ram;swap;speicher;festplatte;netzwerk;"
+"prozesse;benutzer;dienste;"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -298,10 +321,6 @@ msgstr "Bildwiederholungsrate"
 msgid "Resolution"
 msgstr "Auflösung"
 
-#: src/MainWindow.py:67 src/MainWindow.py:511
-msgid "System Monitoring Center"
-msgstr "Systemüberwachungszentrum"
-
 #: src/MainWindow.py:104
 msgid "Customization menu for the current tab"
 msgstr ""
@@ -365,10 +384,6 @@ msgstr "Allgemeine Einstellungen"
 #: src/MainWindow.py:436
 msgid "About"
 msgstr "Über"
-
-#: src/MainWindow.py:513
-msgid "Multi-featured system monitor"
-msgstr "Multifunktioneller Systemmonitor"
 
 #: src/MainWindow.py:887
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -907,10 +922,6 @@ msgstr ""
 #: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr ""
-
-#: src/SettingsWindow.py:33
-msgid "System Monitor"
-msgstr "Systemüberwachung"
 
 #: src/SettingsWindow.py:33
 msgid "Task Manager"

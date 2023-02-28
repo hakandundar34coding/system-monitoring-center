@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:19+0300\n"
-"PO-Revision-Date: 2023-02-27 16:20+0300\n"
+"POT-Creation-Date: 2023-02-28 11:46+0300\n"
+"PO-Revision-Date: 2023-02-28 11:51+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -18,6 +18,29 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:67 src/MainWindow.py:511
+msgid "System Monitoring Center"
+msgstr "Центр мониторинга системы"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Системный монитор"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
+#: src/MainWindow.py:513
+msgid "Multi-featured system monitor"
+msgstr "Многофункциональный системный монитор"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+msgid ""
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"Processes;Users;Services;"
+msgstr ""
+"системный монитор;менеджер задач;производительность;cpu;ram;подкачка;память;"
+"диск;сеть;процессы;пользователи;сервисы;"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -298,10 +321,6 @@ msgstr "Частота обновления"
 msgid "Resolution"
 msgstr "Разрешение"
 
-#: src/MainWindow.py:67 src/MainWindow.py:511
-msgid "System Monitoring Center"
-msgstr "Центр мониторинга системы"
-
 #: src/MainWindow.py:104
 msgid "Customization menu for the current tab"
 msgstr "Пользовательское меню для текущей вкладки"
@@ -365,10 +384,6 @@ msgstr "Общие настройки"
 #: src/MainWindow.py:436
 msgid "About"
 msgstr "О программе"
-
-#: src/MainWindow.py:513
-msgid "Multi-featured system monitor"
-msgstr "Многофункциональный системный монитор"
 
 #: src/MainWindow.py:887
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -905,10 +920,6 @@ msgstr "Светлый"
 #: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr "Темный"
-
-#: src/SettingsWindow.py:33
-msgid "System Monitor"
-msgstr "Системный монитор"
 
 #: src/SettingsWindow.py:33
 msgid "Task Manager"

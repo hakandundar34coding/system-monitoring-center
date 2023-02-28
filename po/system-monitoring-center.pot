@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:19+0300\n"
+"POT-Creation-Date: 2023-02-28 11:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,27 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:67 src/MainWindow.py:511
+msgid "System Monitoring Center"
+msgstr ""
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr ""
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
+#: src/MainWindow.py:513
+msgid "Multi-featured system monitor"
+msgstr ""
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+msgid ""
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"Processes;Users;Services;"
+msgstr ""
 
 #: src/Common.py:142
 msgid "Reset"
@@ -296,10 +317,6 @@ msgstr ""
 msgid "Resolution"
 msgstr ""
 
-#: src/MainWindow.py:67 src/MainWindow.py:511
-msgid "System Monitoring Center"
-msgstr ""
-
 #: src/MainWindow.py:104
 msgid "Customization menu for the current tab"
 msgstr ""
@@ -362,10 +379,6 @@ msgstr ""
 
 #: src/MainWindow.py:436
 msgid "About"
-msgstr ""
-
-#: src/MainWindow.py:513
-msgid "Multi-featured system monitor"
 msgstr ""
 
 #: src/MainWindow.py:887
@@ -896,10 +909,6 @@ msgstr ""
 
 #: src/SettingsWindow.py:26
 msgid "Dark"
-msgstr ""
-
-#: src/SettingsWindow.py:33
-msgid "System Monitor"
 msgstr ""
 
 #: src/SettingsWindow.py:33

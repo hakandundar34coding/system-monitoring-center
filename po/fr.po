@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:19+0300\n"
-"PO-Revision-Date: 2023-02-27 16:22+0300\n"
+"POT-Creation-Date: 2023-02-28 11:46+0300\n"
+"PO-Revision-Date: 2023-02-28 11:55+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,6 +17,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:67 src/MainWindow.py:511
+msgid "System Monitoring Center"
+msgstr "Centre de surveillance du système"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Moniteur système"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
+#: src/MainWindow.py:513
+msgid "Multi-featured system monitor"
+msgstr "Moniteur système multi-fonctions"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+msgid ""
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"Processes;Users;Services;"
+msgstr ""
+"moniteur système;gestionnaire de tâches;performance;cpu;ram;swap;mémoire;"
+"disque;réseau;processus;utilisateurs;services;"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -297,10 +320,6 @@ msgstr "Taux de rafraîchissement"
 msgid "Resolution"
 msgstr "Résolution"
 
-#: src/MainWindow.py:67 src/MainWindow.py:511
-msgid "System Monitoring Center"
-msgstr "Centre de surveillance du système"
-
 #: src/MainWindow.py:104
 msgid "Customization menu for the current tab"
 msgstr "Menu de personnalisation pour l'onglet actuel"
@@ -364,10 +383,6 @@ msgstr "Paramètres généraux"
 #: src/MainWindow.py:436
 msgid "About"
 msgstr "A propos"
-
-#: src/MainWindow.py:513
-msgid "Multi-featured system monitor"
-msgstr "Moniteur système multi-fonctions"
 
 #: src/MainWindow.py:887
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -906,10 +921,6 @@ msgstr "Clair"
 #: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr "Sombre"
-
-#: src/SettingsWindow.py:33
-msgid "System Monitor"
-msgstr "Moniteur système"
 
 #: src/SettingsWindow.py:33
 msgid "Task Manager"

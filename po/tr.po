@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:19+0300\n"
-"PO-Revision-Date: 2023-02-27 16:19+0300\n"
+"POT-Creation-Date: 2023-02-28 11:46+0300\n"
+"PO-Revision-Date: 2023-02-28 11:49+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -17,6 +17,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:67 src/MainWindow.py:511
+msgid "System Monitoring Center"
+msgstr "Sistem Gözlem Merkezi"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Sistem Gözlemcisi"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
+#: src/MainWindow.py:513
+msgid "Multi-featured system monitor"
+msgstr "Çok özellikli sistem gözlemcisi"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+msgid ""
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"Processes;Users;Services;"
+msgstr ""
+"Sistem Gözlemcisi;Görev Yöneticisi;Performans;MİB;RAM;Takas;Bellek;Disk;"
+"İşlemler;Kullanıcılar;Servisler;"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -297,10 +320,6 @@ msgstr "Yenileme Oranı"
 msgid "Resolution"
 msgstr "Çözünürlük"
 
-#: src/MainWindow.py:67 src/MainWindow.py:511
-msgid "System Monitoring Center"
-msgstr "Sistem Gözlem Merkezi"
-
 #: src/MainWindow.py:104
 msgid "Customization menu for the current tab"
 msgstr "Şimdiki sekme için özelleştirme menüsü"
@@ -364,10 +383,6 @@ msgstr "Genel Ayarlar"
 #: src/MainWindow.py:436
 msgid "About"
 msgstr "Hakkında"
-
-#: src/MainWindow.py:513
-msgid "Multi-featured system monitor"
-msgstr "Çok özellikli sistem gözlemcisi"
 
 #: src/MainWindow.py:887
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -903,10 +918,6 @@ msgstr "Açık"
 #: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr "Koyu"
-
-#: src/SettingsWindow.py:33
-msgid "System Monitor"
-msgstr "Sistem Gözlemcisi"
 
 #: src/SettingsWindow.py:33
 msgid "Task Manager"

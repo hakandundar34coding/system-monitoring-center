@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:19+0300\n"
-"PO-Revision-Date: 2023-02-27 16:20+0300\n"
+"POT-Creation-Date: 2023-02-28 11:46+0300\n"
+"PO-Revision-Date: 2023-02-28 11:52+0300\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -17,6 +17,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:67 src/MainWindow.py:511
+msgid "System Monitoring Center"
+msgstr "Centro de Monitorização do Sistema"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "Monitor do sistema"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
+#: src/MainWindow.py:513
+msgid "Multi-featured system monitor"
+msgstr "Monitor de sistema multi-recursos"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+msgid ""
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"Processes;Users;Services;"
+msgstr ""
+"monitor do sistema;gestor de tarefas;desempenho;cpu;ram;memória;disco;rede;"
+"processos;utilizadores;serviços;"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -297,10 +320,6 @@ msgstr "Taxa de atualização"
 msgid "Resolution"
 msgstr "Resolução"
 
-#: src/MainWindow.py:67 src/MainWindow.py:511
-msgid "System Monitoring Center"
-msgstr "Centro de Monitorização do Sistema"
-
 #: src/MainWindow.py:104
 msgid "Customization menu for the current tab"
 msgstr "Menu de personalização para o separador atual"
@@ -364,10 +383,6 @@ msgstr "Definições gerais"
 #: src/MainWindow.py:436
 msgid "About"
 msgstr "Acerca"
-
-#: src/MainWindow.py:513
-msgid "Multi-featured system monitor"
-msgstr "Monitor de sistema multi-recursos"
 
 #: src/MainWindow.py:887
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -906,10 +921,6 @@ msgstr "Claro"
 #: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr "Escuro"
-
-#: src/SettingsWindow.py:33
-msgid "System Monitor"
-msgstr "Monitor do sistema"
 
 #: src/SettingsWindow.py:33
 msgid "Task Manager"

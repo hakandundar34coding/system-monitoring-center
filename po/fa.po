@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:19+0300\n"
-"PO-Revision-Date: 2023-02-27 16:22+0300\n"
+"POT-Creation-Date: 2023-02-28 11:46+0300\n"
+"PO-Revision-Date: 2023-02-28 11:56+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa\n"
@@ -17,6 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:67 src/MainWindow.py:511
+msgid "System Monitoring Center"
+msgstr "مرکز دیده‌ بانی رایانه"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/SettingsWindow.py:33
+msgid "System Monitor"
+msgstr "پایشگر سامانه"
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
+#: src/MainWindow.py:513
+msgid "Multi-featured system monitor"
+msgstr ""
+
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+msgid ""
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"Processes;Users;Services;"
+msgstr ""
 
 #: src/Common.py:142
 msgid "Reset"
@@ -297,10 +318,6 @@ msgstr "نرخ تازه‌سازی"
 msgid "Resolution"
 msgstr "وضوح تصویر"
 
-#: src/MainWindow.py:67 src/MainWindow.py:511
-msgid "System Monitoring Center"
-msgstr "مرکز دیده‌ بانی رایانه"
-
 #: src/MainWindow.py:104
 msgid "Customization menu for the current tab"
 msgstr ""
@@ -364,10 +381,6 @@ msgstr "تنظیمات عمومی"
 #: src/MainWindow.py:436
 msgid "About"
 msgstr "درباره"
-
-#: src/MainWindow.py:513
-msgid "Multi-featured system monitor"
-msgstr ""
 
 #: src/MainWindow.py:887
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -906,10 +919,6 @@ msgstr ""
 #: src/SettingsWindow.py:26
 msgid "Dark"
 msgstr ""
-
-#: src/SettingsWindow.py:33
-msgid "System Monitor"
-msgstr "پایشگر سامانه"
 
 #: src/SettingsWindow.py:33
 msgid "Task Manager"
