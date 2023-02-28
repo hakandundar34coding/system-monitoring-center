@@ -940,7 +940,7 @@ msgstr "Запоминать последние открытые вкладки"
 
 #: src/SettingsWindow.py:125
 msgid "Default main tab and sub-tab"
-msgstr ""
+msgstr "Открываемые вкладки по умолчанию"
 
 #: src/SettingsWindow.py:141
 msgid "Remember last selected devices"
@@ -956,7 +956,7 @@ msgstr "Установить все настройки по умолчанию"
 
 #: src/SettingsWindow.py:702
 msgid "Do you want to reset all settings to defaults?"
-msgstr "Хотите ли вы откатить все настройки до настроек по умолчанию?"
+msgstr "Хотите ли вы откатить все настройки по умолчанию?"
 
 #: src/System.py:55 src/System.py:102
 msgid "Operating System (OS)"
@@ -968,7 +968,7 @@ msgstr "Компьютер"
 
 #: src/System.py:113
 msgid "Version - Code Name"
-msgstr "Версия - кодовое имя"
+msgstr "Версия - Кодовое имя"
 
 #: src/System.py:120
 msgid "OS Family"
@@ -984,7 +984,7 @@ msgstr "Релиз ядра ОС"
 
 #: src/System.py:141
 msgid "Kernel Version"
-msgstr "Версия ядра ОС"
+msgstr "Версия ядра"
 
 #: src/System.py:155
 msgid "Graphical User Interface (GUI)"
@@ -1032,7 +1032,7 @@ msgstr "Flatpak"
 
 #: src/System.py:255
 msgid "Number of installed Flatpak applications and runtimes"
-msgstr "Количество установленный Flatpak приложений и время выполнения"
+msgstr "Количество установленных Flatpak приложений и запушенных"
 
 #: src/System.py:270
 msgid "GTK Version"
@@ -1040,7 +1040,7 @@ msgstr "Версия GTK"
 
 #: src/System.py:271 src/System.py:279
 msgid "Version for the currently running software"
-msgstr "Текущая версия запускаемого ПО"
+msgstr "Текущая версия запускаемого приложения"
 
 #: src/System.py:278
 msgid "Python Version"
