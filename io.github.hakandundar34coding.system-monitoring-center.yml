@@ -35,8 +35,8 @@ modules:
       - --datarootdir=/app/share
     sources:
       - type: archive
-        url: https://github.com/vcrhonek/hwdata/archive/refs/tags/v0.367.tar.gz
-        sha256: 7221ee5827775f7ff2cf1ff31008fbe07757c455c0a7c4ff9e8c797d4f382994
+        url: https://github.com/vcrhonek/hwdata/archive/refs/tags/v0.368.tar.gz
+        sha256: d3db5f4d08a0ba2e4d776fba507662399816e75a14af78bd25dd3c8f2fb8e951
 
   # For getting IPv4 and IPv6 addresses by using 'ip a show [network_card]' command
   - name: iproute2
@@ -56,5 +56,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/hakandundar34coding/system-monitoring-center.git
-        commit: 0d80ac62dc8444559494631c097dd6ded21f7a4b
+        commit: 2b2e491dd072585fcef17160b3dd5767c2b81e65
 
