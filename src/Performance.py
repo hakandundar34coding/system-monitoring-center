@@ -448,7 +448,7 @@ class Performance:
                 chart_y_limit_dict[device_name] = 100
 
         # Check if drawing will be for Disk tab.
-        elif widget_name == "da_disk_speed_usage":
+        elif widget_name == "da_disk_speed":
 
             # Get chart colors.
             chart_line_color = Config.chart_line_color_disk_speed_usage
@@ -1020,7 +1020,7 @@ class Performance:
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.{Config.performance_cpu_usage_percent_precision}f} %'
                 elif widget_name == "da_memory_usage":
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.{Config.performance_memory_data_precision}f} %'
-                elif widget_name == "da_disk_speed_usage":
+                elif widget_name == "da_disk_speed":
                     performance_data1_at_point_text = f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, performance_data1[device_name_to_line_highlight][chart_point_highlight], performance_disk_data_unit, performance_disk_data_precision)}/s'
                 elif widget_name == "da_network_speed":
                     performance_data1_at_point_text = f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, performance_data1[device_name_to_line_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'
@@ -1042,7 +1042,7 @@ class Performance:
                     performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.{Config.performance_cpu_usage_percent_precision}f} %'
                 elif widget_name == "da_memory_usage":
                     performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.{Config.performance_memory_swap_data_precision}f} %'
-                elif widget_name == "da_disk_speed_usage":
+                elif widget_name == "da_disk_speed":
                     performance_data2_at_point_text = f'- -{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], performance_disk_data_unit, performance_disk_data_precision)}/s'
                 elif widget_name == "da_network_speed":
                     performance_data2_at_point_text = f'- -{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'

@@ -81,7 +81,7 @@ class Disk:
         grid.attach(self.da_upper_right_label, 1, 0, 1, 1)
 
         # DrawingArea
-        self.da_disk_speed = Common.drawingarea(Performance.performance_line_charts_draw, "da_disk_speed_usage")
+        self.da_disk_speed = Common.drawingarea(Performance.performance_line_charts_draw, "da_disk_speed")
         grid.attach(self.da_disk_speed, 0, 2, 2, 1)
 
         # Label (drawingarea lower-right)
