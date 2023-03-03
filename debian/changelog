@@ -1,3 +1,13 @@
+system-monitoring-center (2.8.0) unstable; urgency=medium
+
+  * Changed build system and project structure
+  * Removed code for Python package of the application
+  * Updated dependencies (Flatpak)
+  * Updated Russian translations
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 03 Mar 2023 07:00:00 +0300
+
 system-monitoring-center (2.7.0) unstable; urgency=medium
 
   * New: Changing graph point count (Process Details)

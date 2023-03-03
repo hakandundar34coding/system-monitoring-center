@@ -75,6 +75,17 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.8.0" date="2023-03-03">
+      <description>
+        <ul>
+          <li>Changed build system and project structure</li>
+          <li>Removed code for Python package of the application</li>
+          <li>Updated dependencies (Flatpak)</li>
+          <li>Updated Russian translations</li>
+          <li>Minor improvements</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.7.0" date="2023-02-18">
       <description>
         <ul>

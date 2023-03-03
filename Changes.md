@@ -1,5 +1,12 @@
 # System Monitoring Center
 
+### v2.8.0 (03.03.2023)
+  * Changed build system and project structure
+  * Removed code for Python package of the application
+  * Updated dependencies (Flatpak)
+  * Updated Russian translations
+  * Minor improvements
+
 ### v1.42.0 (25.02.2023)
   * Added an info. dialog about PyPI package of the application
   * Removed update check feature for PyPI
