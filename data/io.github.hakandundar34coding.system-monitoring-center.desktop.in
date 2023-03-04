@@ -7,5 +7,5 @@ Exec=system-monitoring-center
 Icon=io.github.hakandundar34coding.system-monitoring-center
 Terminal=false
 Type=Application
-Categories=System;
+Categories=System;Utility;
 StartupNotify=true
