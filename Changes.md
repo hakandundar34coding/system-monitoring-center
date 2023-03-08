@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v2.8.1 (08.03.2023)
+  * Fix: Errors for style definitions (GTK 4.10)
+  * Fix: GUI images when app. is run from source code
+
 ### v2.8.0 (03.03.2023)
   * Changed build system and project structure
   * Removed code for Python package of the application

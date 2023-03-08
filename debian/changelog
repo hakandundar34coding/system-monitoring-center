@@ -1,3 +1,10 @@
+system-monitoring-center (2.8.1) unstable; urgency=medium
+
+  * Fix: Errors for style definitions (GTK 4.10)
+  * Fix: GUI images when app. is run from source code
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 08 Mar 2023 17:40:00 +0300
+
 system-monitoring-center (2.8.0) unstable; urgency=medium
 
   * Changed build system and project structure

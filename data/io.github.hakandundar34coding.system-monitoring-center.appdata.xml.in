@@ -75,6 +75,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.8.1" date="2023-03-08">
+      <description>
+        <ul>
+          <li>Fix: Errors for style definitions (GTK 4.10)</li>
+          <li>Fix: GUI images when app. is run from source code</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.8.0" date="2023-03-03">
       <description>
         <ul>
