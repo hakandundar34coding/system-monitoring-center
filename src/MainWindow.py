@@ -30,6 +30,7 @@ class MainWindow():
 
         self.environment_type_detection()
 
+        # Add GUI images to the image theme.
         from .Main import localedir
         if localedir == None:
             image_path = os.path.dirname(os.path.realpath(__file__)) + "/../data/icons"
