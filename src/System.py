@@ -71,9 +71,13 @@ class System:
         """
 
         # Add viewports for showing borders around some the performance data.
-        css = b"grid {border-style: solid; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
         style_provider_grid = Gtk.CssProvider()
-        style_provider_grid.load_from_data(css)
+        try:
+            css = b"grid {border-style: solid; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
+            style_provider_grid.load_from_data(css)
+        except Exception:
+            css = "grid {border-style: solid; border-width: 1px 1px 1px 1px; border-color: rgba(50%,50%,50%,0.6);}"
+            style_provider_grid.load_from_data(css, len(css))
 
         # Grid (performance/information labels)
         performance_info_grid = Gtk.Grid()

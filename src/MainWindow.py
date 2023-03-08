@@ -1088,9 +1088,13 @@ class MainWindow():
         if os.geteuid() == 0:
 
             # Define label style
-            css = b"label {background: rgba(100%,0%,0%,1.0);}"
             style_provider = Gtk.CssProvider()
-            style_provider.load_from_data(css)
+            try:
+                css = b"label {background: rgba(100%,0%,0%,1.0);}"
+                style_provider.load_from_data(css)
+            except Exception:
+                css = "label {background: rgba(100%,0%,0%,1.0);}"
+                style_provider.load_from_data(css, len(css))
 
             # Generate a new label for the information and attach it to the grid at (0, 0) position.
             label_root_warning = Gtk.Label(label=_tr("Warning! The application has been run with root privileges, you may harm your system."))

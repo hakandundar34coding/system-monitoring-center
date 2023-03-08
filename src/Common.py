@@ -674,14 +674,22 @@ def style_provider_scrolledwindow_separator():
     global style_provider_scrolledwindow, style_provider_separator
 
     # Define style provider for scrolledwindow for border radius.
-    css = b"scrolledwindow {border-radius: 8px 8px 8px 8px;}"
     style_provider_scrolledwindow = Gtk.CssProvider()
-    style_provider_scrolledwindow.load_from_data(css)
+    try:
+        css = b"scrolledwindow {border-radius: 8px 8px 8px 8px;}"
+        style_provider_scrolledwindow.load_from_data(css)
+    except Exception:
+        css = "scrolledwindow {border-radius: 8px 8px 8px 8px;}"
+        style_provider_scrolledwindow.load_from_data(css, len(css))
 
     # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
-    css = b"separator {background: rgba(50%,50%,50%,0.6);}"
     style_provider_separator = Gtk.CssProvider()
-    style_provider_separator.load_from_data(css)
+    try:
+        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
+        style_provider_separator.load_from_data(css)
+    except Exception:
+        css = "separator {background: rgba(50%,50%,50%,0.6);}"
+        style_provider_separator.load_from_data(css, len(css))
 
 
 def styled_information_scrolledwindow(text1, tooltip1, text2, tooltip2):

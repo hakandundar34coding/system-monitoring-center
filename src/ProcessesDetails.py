@@ -847,9 +847,13 @@ class ProcessesDetails:
 
         # Generate a new label for the information. This label does not exist in the ".ui" UI file.
         label_process_end_warning = Gtk.Label(label=_tr("This process is not running anymore."))
-        css = b"label {background: rgba(100%,0%,0%,1.0);}"
         style_provider = Gtk.CssProvider()
-        style_provider.load_from_data(css)
+        try:
+            css = b"label {background: rgba(100%,0%,0%,1.0);}"
+            style_provider.load_from_data(css)
+        except Exception:
+            css = "label {background: rgba(100%,0%,0%,1.0);}"
+            style_provider.load_from_data(css, len(css))
         label_process_end_warning.get_style_context().add_provider(style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         self.main_grid.insert_row(0)
         # Attach the label to the grid at (0, 0) position.
