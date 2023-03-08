@@ -30,9 +30,13 @@ class MainWindow():
 
         self.environment_type_detection()
 
-        # Add GUI images to the image theme.
+        from .Main import localedir
+        if localedir == None:
+            image_path = os.path.dirname(os.path.realpath(__file__)) + "/../data/icons"
+        else:
+            image_path = os.path.dirname(os.path.realpath(__file__)) + "/../icons"
         image_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
-        image_theme.add_search_path(os.path.dirname(os.path.realpath(__file__)) + "/../icons")
+        image_theme.add_search_path(image_path)
 
         self.main_window_gui()
 
