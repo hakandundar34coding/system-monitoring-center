@@ -53,9 +53,6 @@
 
 
 <p align="center">
-    <a href='https://pypi.org/project/system-monitoring-center'>
-        <img width='240' alt='Download from PyPI' src='https://github.com/hakandundar34coding/system-monitoring-center/raw/master/docs/download_image_pypi.svg'/>
-    </a>
     <a href='https://flathub.org/apps/details/io.github.hakandundar34coding.system-monitoring-center'>
         <img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.svg'/>
     </a>
