@@ -74,9 +74,6 @@
     <a href="https://flathub.org/apps/details/io.github.hakandundar34coding.system-monitoring-center">
         <img alt="Flathub" src="https://img.shields.io/flathub/v/io.github.hakandundar34coding.system-monitoring-center">
     </a>
-    <a href="https://pypi.org/project/system-monitoring-center/">
-        <img alt="PyPI" src="https://img.shields.io/pypi/v/system-monitoring-center">
-    </a>
     <a href="https://github.com/Botspot/pi-apps">
         <img src="https://img.shields.io/badge/dynamic/json?color=blue&label=Pi-Apps&query=%24..%5B%3F%28%40.Name%3D%3D%22System%20Monitoring%20Center%22%29%5D.Version&url=https%3A%2F%2Fraw.githubusercontent.com%2FBotspot%2Fpi-apps-analytics%2Fmain%2Fpackage_data.json" alt="Pi-Apps Packaging Status">
     </a>
@@ -99,7 +96,7 @@
 
 ### Installation:
 - There are several options for using System Monitoring Center:
-    - ~~Installing from PyPI as a Python package ([Details](docs/pypi.md)).~~ There will be no new packages on PyPI ([Details](docs/uninstall_pypi_package.md)).
+    - ~~Installing from PyPI as a Python package.~~ There will be no new packages on PyPI ([Details](docs/uninstall_pypi_package.md)).
     - Installing from Flatpak ([Details](docs/flatpak.md)).
     - Installing from several application stores (Pardus Application Center, Pi-Apps Store).
     - Installing from repositories of distributions (currently a few distributions).
