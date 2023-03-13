@@ -325,6 +325,9 @@ def processes_loop_func():
         exe_column_get = 0
 
     ps_output_lines = ps_output.split("\n")
+    # Delete the first line if there are errors because of some environment variables, libraries, etc.
+    if ps_output_lines[0].startswith("COMMAND      ") == False:
+        del ps_output_lines[0]
     # Get first line (command output headers) for using it to determine column data locations. Because some columns (such as cmdline) may contain spaces.
     ps_output_headers = ps_output_lines[0]
     # Get column locations. "16" is subtracted because some column names may start after a few character on the right side. There is no need to use subtraction for "EXE" column because previous column "GID" is an integer data which is aligned to right.

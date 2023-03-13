@@ -33,7 +33,7 @@ class MainGUI:
         self.main_gui_environment_type_detection_func()
 
         # Add images to the image theme. These images are used for application GUI.
-        image_theme = Gtk.IconTheme. get_default()
+        image_theme = Gtk.IconTheme.get_default()
         image_theme.append_search_path(os.path.dirname(os.path.realpath(__file__)) + "/../icons")
 
         self.main_gui_adapt_color_scheme_for_gtk4_based_systems_func()
