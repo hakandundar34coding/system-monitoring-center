@@ -1,1 +1,0 @@
-- Download images for Pardus Software Center and PyPI are not official images of these products.

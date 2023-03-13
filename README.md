@@ -1,7 +1,7 @@
 # System Monitoring Center
 
 <p align="center">
-    <img src="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/icons/hicolor/scalable/apps/system-monitoring-center.svg" width="100">
+    <img src="https://github.com/hakandundar34coding/system-monitoring-center/blob/master/data/icons/hicolor/scalable/apps/system-monitoring-center.svg" width="100">
 </p>
 
 
@@ -53,9 +53,6 @@
 
 
 <p align="center">
-    <a href='https://pypi.org/project/system-monitoring-center'>
-        <img width='240' alt='Download from PyPI' src='https://github.com/hakandundar34coding/system-monitoring-center/raw/master/docs/download_image_pypi.svg'/>
-    </a>
     <a href='https://flathub.org/apps/details/io.github.hakandundar34coding.system-monitoring-center'>
         <img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.svg'/>
     </a>
@@ -76,9 +73,6 @@
 <p align="center">
     <a href="https://flathub.org/apps/details/io.github.hakandundar34coding.system-monitoring-center">
         <img alt="Flathub" src="https://img.shields.io/flathub/v/io.github.hakandundar34coding.system-monitoring-center">
-    </a>
-    <a href="https://pypi.org/project/system-monitoring-center/">
-        <img alt="PyPI" src="https://img.shields.io/pypi/v/system-monitoring-center">
     </a>
     <a href="https://github.com/Botspot/pi-apps">
         <img src="https://img.shields.io/badge/dynamic/json?color=blue&label=Pi-Apps&query=%24..%5B%3F%28%40.Name%3D%3D%22System%20Monitoring%20Center%22%29%5D.Version&url=https%3A%2F%2Fraw.githubusercontent.com%2FBotspot%2Fpi-apps-analytics%2Fmain%2Fpackage_data.json" alt="Pi-Apps Packaging Status">
@@ -102,11 +96,12 @@
 
 ### Installation:
 - There are several options for using System Monitoring Center:
-    - ~~Installing from PyPI as a Python package ([Details](docs/pypi.md)).~~ There will be no new packages on PyPI.
+    - ~~Installing from PyPI as a Python package.~~ There will be no new packages on PyPI ([Details](docs/uninstall_pypi_package.md)).
     - Installing from Flatpak ([Details](docs/flatpak.md)).
     - Installing from several application stores (Pardus Application Center, Pi-Apps Store).
     - Installing from repositories of distributions (currently a few distributions).
-    - Running from source code (in ```src/``` folder, run: ```python3 ./Main.py```).
+    - Running from source code (in ```src/``` folder, run: ```python3 ./run_from_source.py```).
+      - For SMC v1.x.x, in ```src/``` folder, run: ```python3 ./Main.py```.
 <strong>
     - Note: System Monitoring Center v2.x.x is only available for Flatpak and ArchLinux (AUR).
 </strong>

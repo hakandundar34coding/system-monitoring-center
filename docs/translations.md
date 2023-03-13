@@ -13,13 +13,13 @@ as ```Connected SSID```. The text contains two different information.
 | cs             | Czech                  | 91%        |
 | de             | German                 | 93%        |
 | en             | English                | 100%       |
-| es             | Spanish                | 93%        |
+| es             | Spanish                | 100%       |
 | fa             | Persian                | 90%        |
-| fr             | Français               | 99%        |
+| fr             | French                 | 100%       |
 | hu             | Hungarian              | 92%        |
 | pl             | Polish                 | 93%        |
 | pt_BR          | Portuguese (Brazilian) | 99%        |
 | pt_PT          | Portuguese (Portugal)  | 100%       |
-| ru_RU          | Russian                | 99%        |
+| ru_RU          | Russian                | 100%       |
 | tr             | Turkish                | 100%       |
 

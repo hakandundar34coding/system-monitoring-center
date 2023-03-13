@@ -9,6 +9,7 @@ For other installation types:
     - `libcairo2-dev` (for systems with .deb packages)
     - `polkit` (for Arch Linux)
 - Optional dependencies:
+    - `hwdata` (for device vendor-model information of new devices)
     - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection)
     - `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
 
