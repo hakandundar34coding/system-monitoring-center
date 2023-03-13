@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-25 12:02+0300\n"
-"PO-Revision-Date: 2023-01-25 12:06+0300\n"
+"POT-Creation-Date: 2023-03-13 17:49+0300\n"
+"PO-Revision-Date: 2023-03-13 17:59+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -37,7 +37,7 @@ msgstr "Desconocido"
 msgid "Partition"
 msgstr "Partición"
 
-#: src/Disk.py:268 src/DiskDetails.py:92 src/SettingsGUI.py:53
+#: src/Disk.py:268 src/DiskDetails.py:92 src/SettingsGUI.py:51
 #: ui/DiskDetailsWindow.ui:7 ui/DiskDetailsWindow.ui:45 ui/DiskMenus.ui:23
 #: ui/DiskMenus.ui:356 ui/DiskTab.ui:728 ui/MainWindow.ui:323
 #: ui/MainWindow.ui:936 ui/ProcessesDetailsWindow.ui:1685
@@ -45,12 +45,12 @@ msgstr "Partición"
 msgid "Disk"
 msgstr "Disco"
 
-#: src/Disk.py:349 src/Performance.py:1266
+#: src/Disk.py:349 src/Performance.py:1268
 msgid "Swap"
 msgstr "Swap"
 
 #: src/Disk.py:426 src/Disk.py:427 src/Disk.py:428 src/Disk.py:429
-#: src/Disk.py:431 src/MainGUI.py:849
+#: src/Disk.py:431 src/MainGUI.py:789
 msgid "Not mounted"
 msgstr "No montada"
 
@@ -65,7 +65,7 @@ msgstr "Si"
 msgid "No"
 msgstr "No"
 
-#: src/MainGUI.py:216
+#: src/MainGUI.py:214
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -73,29 +73,25 @@ msgstr ""
 "Advertencia. La aplicación se ha ejecutado con privilegios de root, puede "
 "dañar su sistema."
 
-#: src/MainGUI.py:411
-msgid "There is a newer version on PyPI."
-msgstr "Hay una versión más reciente en PyPI."
-
-#: src/MainGUI.py:712 src/SettingsGUI.py:53 ui/MainWindow.ui:182
+#: src/MainGUI.py:652 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:633 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
 msgstr "Resumen"
 
-#: src/MainGUI.py:722
+#: src/MainGUI.py:662
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "La selección del núcleo de la CPU sólo afecta a la frecuencia y a la "
 "información de la memoria caché."
 
-#: src/MainGUI.py:726 src/Memory.py:199 src/Performance.py:1246
-#: src/Performance.py:1568 src/Performance.py:1572 ui/MainWindow.ui:920
+#: src/MainGUI.py:666 src/Memory.py:199 src/Performance.py:1248
+#: src/Performance.py:1570 src/Performance.py:1574 ui/MainWindow.ui:920
 #: ui/MemoryMenus.ui:100 ui/MemoryTab.ui:28
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:726 src/Memory.py:228 src/Performance.py:1572
+#: src/MainGUI.py:666 src/Memory.py:228 src/Performance.py:1574
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:642
 #: ui/ProcessesDetailsWindow.ui:1066
 msgid "Swap Memory"
@@ -179,7 +175,7 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:1237 src/Processes.py:186 src/SettingsGUI.py:53
+#: src/Performance.py:1239 src/Processes.py:186 src/SettingsGUI.py:51
 #: src/Users.py:129 ui/CpuMenus.ui:23 ui/CpuMenus.ui:124 ui/CpuTab.ui:591
 #: ui/MainWindow.ui:229 ui/MainWindow.ui:881 ui/ProcessesDetailsWindow.ui:120
 #: ui/ProcessesDetailsWindow.ui:961 ui/ProcessesDetailsWindow.ui:981
@@ -188,33 +184,33 @@ msgstr "Wi-Fi"
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Performance.py:1255 src/Processes.py:758 src/SettingsGUI.py:52
+#: src/Performance.py:1257 src/Processes.py:761 src/SettingsGUI.py:50
 #: src/Users.py:124 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
 msgid "Processes"
 msgstr "Procesos"
 
-#: src/Performance.py:1417 src/Processes.py:192 ui/DiskMenus.ui:90
+#: src/Performance.py:1419 src/Processes.py:192 ui/DiskMenus.ui:90
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:662 ui/ProcessesDetailsWindow.ui:146
 #: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesDetailsWindow.ui:1616
 #: ui/ProcessesMenuCustomizations.ui:307
 msgid "Read Speed"
 msgstr "Velocidad de lectura"
 
-#: src/Performance.py:1426 src/Processes.py:193 ui/DiskMenus.ui:103
+#: src/Performance.py:1428 src/Processes.py:193 ui/DiskMenus.ui:103
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:685 ui/ProcessesDetailsWindow.ui:588
 #: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesDetailsWindow.ui:1639
 #: ui/ProcessesMenuCustomizations.ui:321
 msgid "Write Speed"
 msgstr "Velocidad de escritura"
 
-#: src/Performance.py:1435 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
+#: src/Performance.py:1437 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
 #: ui/NetworkTab.ui:632
 msgid "Download Speed"
 msgstr "Velocidad de descarga"
 
-#: src/Performance.py:1444 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
+#: src/Performance.py:1446 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
 #: ui/NetworkTab.ui:655
 msgid "Upload Speed"
 msgstr "Velocidad de subida"
@@ -320,7 +316,7 @@ msgstr "Zombi"
 msgid "Stopped"
 msgstr "Detenido"
 
-#: src/Processes.py:758 src/Sensors.py:342 src/Services.py:489 src/Users.py:464
+#: src/Processes.py:761 src/Sensors.py:342 src/Services.py:489 src/Users.py:464
 #: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:79
 #: ui/UsersTab.ui:66
 msgid "Search..."
@@ -358,7 +354,7 @@ msgstr "Alta"
 msgid "Critical"
 msgstr "Crítica"
 
-#: src/Sensors.py:342 src/SettingsGUI.py:53 ui/MainWindow.ui:464
+#: src/Sensors.py:342 src/SettingsGUI.py:51 ui/MainWindow.ui:464
 #: ui/SensorsTab.ui:48
 msgid "Sensors"
 msgstr "Sensores"
@@ -444,7 +440,7 @@ msgstr "Muerto"
 msgid "Exited"
 msgstr "Terminado"
 
-#: src/Services.py:489 src/SettingsGUI.py:52 ui/MainWindow.ui:769
+#: src/Services.py:489 src/SettingsGUI.py:50 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Servicios"
@@ -457,45 +453,45 @@ msgstr "Detalles del servicio"
 msgid "Information"
 msgstr "Información"
 
-#: src/SettingsGUI.py:52 ui/MainWindow.ui:628
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:628
 msgid "Performance"
 msgstr "Desempeño"
 
-#: src/SettingsGUI.py:52 src/Users.py:464 ui/MainWindow.ui:722
+#: src/SettingsGUI.py:50 src/Users.py:464 ui/MainWindow.ui:722
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
 msgstr "Usuarios"
 
-#: src/SettingsGUI.py:52 ui/MainWindow.ui:816 ui/SystemTab.ui:26
+#: src/SettingsGUI.py:50 ui/MainWindow.ui:816 ui/SystemTab.ui:26
 #: ui/SystemTab.ui:1169
 msgid "System"
 msgstr "Sistema"
 
-#: src/SettingsGUI.py:53 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
+#: src/SettingsGUI.py:51 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
 #: ui/MemoryMenus.ui:114 ui/MemoryTab.ui:733 ui/ProcessesDetailsWindow.ui:1289
 #: ui/ProcessesMenuCustomizations.ui:497 ui/ProcessesMenuCustomizations.ui:585
 msgid "Memory"
 msgstr "Memoria"
 
-#: src/SettingsGUI.py:53 ui/MainWindow.ui:370 ui/MainWindow.ui:982
+#: src/SettingsGUI.py:51 ui/MainWindow.ui:370 ui/MainWindow.ui:982
 #: ui/NetworkMenus.ui:23 ui/NetworkTab.ui:698
 msgid "Network"
 msgstr "Red"
 
-#: src/SettingsGUI.py:53 ui/GpuMenus.ui:23 ui/GpuTab.ui:649
+#: src/SettingsGUI.py:51 ui/GpuMenus.ui:23 ui/GpuTab.ui:649
 #: ui/MainWindow.ui:417
 msgid "GPU"
 msgstr "GPU"
 
-#: src/SettingsGUI.py:56
+#: src/SettingsGUI.py:54
 msgid "System Monitor"
 msgstr "Monitor del sistema"
 
-#: src/SettingsGUI.py:56
+#: src/SettingsGUI.py:54
 msgid "Task Manager"
 msgstr "Administrador de tareas"
 
-#: src/SettingsGUI.py:600
+#: src/SettingsGUI.py:592
 msgid "Do you want to reset all settings to defaults?"
 msgstr "¿Desea restablecer todos los ajustes a los valores predeterminados?"
 
@@ -531,7 +527,7 @@ msgstr "Hora de inicio"
 
 #: ui/CpuMenus.ui:109 ui/DiskMenus.ui:47 ui/GpuMenus.ui:47 ui/MemoryMenus.ui:69
 #: ui/NetworkMenus.ui:47 ui/ProcessesMenuCustomizations.ui:792
-#: ui/ServicesMenuCustomizations.ui:210 ui/SettingsWindow.ui:224
+#: ui/ServicesMenuCustomizations.ui:210 ui/SettingsWindow.ui:172
 #: ui/UsersMenuCustomizations.ui:255
 msgid "Reset"
 msgstr "Restablecer"
@@ -992,31 +988,23 @@ msgstr "Recordar últimos dispositivos seleccionados"
 msgid "Remember window size"
 msgstr "Recordar el tamaño de la ventana"
 
-#: ui/SettingsWindow.ui:165
-msgid "Check for updates automatically (PyPI only)"
-msgstr "Buscar actualizaciones automáticamente (sólo PyPI)"
-
-#: ui/SettingsWindow.ui:182
-msgid "(If the application is run without root privileges)"
-msgstr "(Si la aplicación se ejecuta sin privilegios de root)"
-
-#: ui/SettingsWindow.ui:263
+#: ui/SettingsWindow.ui:211
 msgid "Reset all settings of the application"
 msgstr "Restablecer todos los ajustes de la aplicación"
 
-#: ui/SettingsWindow.ui:344
+#: ui/SettingsWindow.ui:292
 msgid "Language (Requires restart)"
 msgstr "Idioma (Requiere reiniciar)"
 
-#: ui/SettingsWindow.ui:379
+#: ui/SettingsWindow.ui:327
 msgid "Update interval (seconds)"
 msgstr "Intervalo de actualización (segundos)"
 
-#: ui/SettingsWindow.ui:414
+#: ui/SettingsWindow.ui:362
 msgid "Graph data history"
 msgstr "Historial de datos gráficos"
 
-#: ui/SettingsWindow.ui:449
+#: ui/SettingsWindow.ui:397
 msgid "Default main tab and sub-tab"
 msgstr "Pestaña principal y subpestaña por defecto"
 
