@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.43.0 (14.03.2023)
+  * Removed python package support
+  * Removed code for python package
+  * Updated translations
+  * Fix: Getting processes if error exists in shell output
+
 ### v2.8.1 (08.03.2023)
   * Fix: Errors for style definitions (GTK 4.10)
   * Fix: GUI images when app. is run from source code
