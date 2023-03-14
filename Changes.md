@@ -1,5 +1,22 @@
 # System Monitoring Center
 
+### v1.43.0 (14.03.2023)
+  * Removed python package support
+  * Removed code for python package
+  * Updated translations
+  * Fix: Getting processes if error exists in shell output
+
+### v2.8.1 (08.03.2023)
+  * Fix: Errors for style definitions (GTK 4.10)
+  * Fix: GUI images when app. is run from source code
+
+### v2.8.0 (03.03.2023)
+  * Changed build system and project structure
+  * Removed code for Python package of the application
+  * Updated dependencies (Flatpak)
+  * Updated Russian translations
+  * Minor improvements
+
 ### v1.42.0 (25.02.2023)
   * Added an info. dialog about PyPI package of the application
   * Removed update check feature for PyPI
