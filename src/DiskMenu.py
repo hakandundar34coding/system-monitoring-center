@@ -310,9 +310,9 @@ class DiskMenu:
         # Apply changes immediately (without waiting update interval).
         Disk.disk_initial_func()
         Disk.disk_loop_func()
-        self.connect_signals()
-        self.popover_set_gui()
         self.disconnect_signals()
+        self.popover_set_gui()
+        self.connect_signals()
 
 
     def popover_set_gui(self):
