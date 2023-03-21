@@ -774,6 +774,9 @@ class MainGUI:
                 pass
 
         # Add devices into listbox.
+        # For also adding disk usage percentage label next to device name if this is Disk tab.
+        if Config.performance_tab_current_sub_tab == 3:
+            disk_filesystem_information_list = Disk.disk_file_system_information_func(device_list)
         for device in device_list:
             row = Gtk.ListBoxRow()
             grid = Gtk.Grid()
@@ -782,7 +785,6 @@ class MainGUI:
             grid.attach(label, 0, 0, 1, 1)
             # Also add disk usage percentage label next to device name if this is Disk tab.
             if Config.performance_tab_current_sub_tab == 3:
-                disk_filesystem_information_list = Disk.disk_file_system_information_func(device_list)
                 _, _, _, _, disk_usage_percentage, disk_mount_point = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
                 label = Gtk.Label()
                 label.set_sensitive(False)
