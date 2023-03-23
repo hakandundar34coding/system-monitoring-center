@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v2.9.0 (23.03.2023)
+  * Reduced CPU usage for some cases (tab resets, etc.)
+  * Updated dependency versions (Flatpak)
+  * Fix: Getting processes if error exists in shell output
+  * Fix: Dependencies for .deb packaging
+
 ### v1.43.0 (14.03.2023)
   * Removed python package support
   * Removed code for python package

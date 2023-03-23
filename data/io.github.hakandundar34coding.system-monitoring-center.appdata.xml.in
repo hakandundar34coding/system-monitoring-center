@@ -75,6 +75,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.9.0" date="2023-03-23">
+      <description>
+        <ul>
+          <li>Reduced CPU usage for some cases (tab resets, etc.)</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Getting processes if error exists in shell output</li>
+          <li>Fix: Dependencies for .deb packaging</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.8.1" date="2023-03-08">
       <description>
         <ul>

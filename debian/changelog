@@ -1,3 +1,12 @@
+system-monitoring-center (2.9.0) unstable; urgency=medium
+
+  * Reduced CPU usage for some cases (tab resets, etc.)
+  * Updated dependency versions (Flatpak)
+  * Fix: Getting processes if error exists in shell output
+  * Fix: Dependencies for .deb packaging
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 23 Mar 2023 09:35:00 +0300
+
 system-monitoring-center (2.8.1) unstable; urgency=medium
 
   * Fix: Errors for style definitions (GTK 4.10)
