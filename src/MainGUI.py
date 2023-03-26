@@ -176,7 +176,10 @@ class MainGUI:
                 with open("/proc/1/comm") as reader:
                     process_name = reader.read().strip()
             if process_name != "systemd":
+                Config.init_system = "other"
                 self.radiobutton6.set_visible(False)
+            else:
+                Config.init_system = "systemd"
         except Exception:
             pass
 

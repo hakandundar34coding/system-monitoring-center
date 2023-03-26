@@ -15,9 +15,10 @@ def services_import_func():
     import os
 
 
-    global Config, Performance
+    global Config, Performance, MainGUI
     from Config import Config
     from Performance import Performance
+    from MainGUI import MainGUI
 
     global _tr
     from locale import gettext as _tr
@@ -167,6 +168,11 @@ def services_initial_func():
 
 # ----------------------------------- Services - Get Services Data Function -----------------------------------
 def services_loop_func():
+
+    # Switch to System tab and prevent errors if systemd is not used on the system.
+    if Config.init_system != "systemd":
+        MainGUI.radiobutton8.set_active(True)
+        return
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
     global treeview6101
