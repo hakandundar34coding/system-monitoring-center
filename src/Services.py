@@ -440,6 +440,11 @@ class Services:
         Get and show information on the GUI on every loop.
         """
 
+        # Switch to System tab and prevent errors if systemd is not used on the system.
+        if Config.init_system != "systemd":
+            MainWindow.services_tb.set_active(True)
+            return
+
         # Get GUI obejcts one time per floop instead of getting them multiple times
         global services_treeview
 

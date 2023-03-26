@@ -1061,7 +1061,10 @@ class MainWindow():
                 with open("/proc/1/comm") as reader:
                     process_name = reader.read().strip()
             if process_name != "systemd":
+                Config.init_system = "other"
                 self.services_tb.set_visible(False)
+            else:
+                Config.init_system = "systemd"
         except Exception:
             pass
 
