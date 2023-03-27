@@ -1,3 +1,12 @@
+system-monitoring-center (1.43.1) unstable; urgency=medium
+
+  * Fix: Resetting all settings if Perf.tab is not loaded
+  * Fix: Error when Services tab is open w/o systemd
+  * Fix: Empty service list on some systems
+  * Fix: Running disk file sys. function multiple times
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 27 Mar 2023 12:55:00 +0300
+
 system-monitoring-center (1.43.0) unstable; urgency=medium
 
   * Removed python package support
