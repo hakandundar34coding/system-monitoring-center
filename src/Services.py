@@ -171,7 +171,7 @@ def services_loop_func():
 
     # Switch to System tab and prevent errors if systemd is not used on the system.
     if Config.init_system != "systemd":
-        MainGUI.radiobutton8.set_active(True)
+        MainGUI.radiobutton1.set_active(True)
         return
 
     # Get GUI obejcts one time per floop instead of getting them multiple times
