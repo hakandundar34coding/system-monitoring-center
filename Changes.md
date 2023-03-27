@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.43.1 (27.03.2023)
+  * Fix: Resetting all settings if Perf.tab is not loaded
+  * Fix: Error when Services tab is open w/o systemd
+  * Fix: Empty service list on some systems
+  * Fix: Running disk file sys. function multiple times
+
 ### v2.9.0 (23.03.2023)
   * Reduced CPU usage for some cases (tab resets, etc.)
   * Updated dependency versions (Flatpak)
