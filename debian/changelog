@@ -1,3 +1,11 @@
+system-monitoring-center (2.10.0) unstable; urgency=medium
+
+  * Updated dependency versions (Flatpak)
+  * Fix: Error when Services tab is open w/o systemd
+  * Fix: Empty service list on some systems
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 01 Apr 2023 10:05:00 +0300
+
 system-monitoring-center (2.9.0) unstable; urgency=medium
 
   * Reduced CPU usage for some cases (tab resets, etc.)

@@ -75,6 +75,15 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.10.0" date="2023-04-01">
+      <description>
+        <ul>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Error when Services tab is open w/o systemd</li>
+          <li>Fix: Empty service list on some systems</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.9.0" date="2023-03-23">
       <description>
         <ul>

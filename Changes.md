@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v2.10.0 (01.04.2023)
+  * Updated dependency versions (Flatpak)
+  * Fix: Error when Services tab is open w/o systemd
+  * Fix: Empty service list on some systems
+
 ### v1.43.1 (27.03.2023)
   * Fix: Resetting all settings if Perf.tab is not loaded
   * Fix: Error when Services tab is open w/o systemd
