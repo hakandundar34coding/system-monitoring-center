@@ -68,13 +68,14 @@ class MainWindow():
 
         # Application window
         self.main_window = Gtk.ApplicationWindow()
-        self.main_window.set_default_size(670, 570)
         self.main_window.set_title(_tr("System Monitoring Center"))
         self.main_window.set_icon_name("system-monitoring-center")
 
-        # Resize/set state (full screen or not) of the main window if "remember window size" option is enabled.
+        # Set window size and state (full screen or not) of the main window if "remember window size" option is enabled.
         remember_window_size = Config.remember_window_size
-        if remember_window_size[0] == 1:
+        if remember_window_size[0] == 0:
+            self.main_window.set_default_size(670, 570)
+        elif remember_window_size[0] == 1:
             if remember_window_size[1] == 1:
                 self.main_window.maximize()
             else:
