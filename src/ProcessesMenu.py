@@ -162,6 +162,8 @@ class ProcessesMenu:
 
         # CheckButton (PID)
         self.pid_cb = Common.checkbutton(_tr("PID"), None)
+        self.pid_cb.set_active(True)
+        self.pid_cb.set_sensitive(False)
         grid.attach(self.pid_cb, 0, 2, 1, 1)
 
         # CheckButton (User)

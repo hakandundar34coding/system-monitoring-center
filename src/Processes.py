@@ -45,6 +45,16 @@ class Processes:
 
         self.right_click_menu()
 
+        # Set initial value for process searching.
+        self.process_search_type = "name"
+
+        # Add PID column (1) to shown columns in order to prevent errors during process search if PID column is hidden in
+        # previous versions (<=v2.10.0) of the application.
+        processes_treeview_columns_shown = Config.processes_treeview_columns_shown
+        if 1 not in processes_treeview_columns_shown:
+            processes_treeview_columns_shown.append(1)
+        Config.processes_treeview_columns_shown = sorted(processes_treeview_columns_shown)
+
 
     def tab_title_grid(self):
         """
@@ -60,9 +70,23 @@ class Processes:
         label = Common.tab_title_label(_tr("Processes"))
         grid.attach(label, 0, 0, 1, 1)
 
+        # Grid (search widgets)
+        search_grid = Gtk.Grid()
+        search_grid.set_column_spacing(3)
+        search_grid.add_css_class("linked")
+        grid.attach(search_grid, 1, 0, 1, 1)
+
         # SearchEntry
         self.searchentry = Common.searchentry(self.on_searchentry_changed)
-        grid.attach(self.searchentry, 1, 0, 1, 1)
+        search_grid.attach(self.searchentry, 0, 0, 1, 1)
+
+        # MenuButton (search customization)
+        self.search_customization_menubutton = Gtk.MenuButton()
+        self.search_customization_menubutton.set_icon_name("edit-find-symbolic")
+        self.search_customization_menubutton.set_valign(Gtk.Align.CENTER)
+        self.search_customization_menubutton.set_create_popup_func(self.search_customization_menu_gui)
+        self.search_customization_menubutton.set_direction(Gtk.ArrowType.DOWN)
+        search_grid.attach(self.search_customization_menubutton, 1, 0, 1, 1)
 
 
     def tab_info_grid(self):
@@ -222,6 +246,66 @@ class Processes:
         self.right_click_menu_po.set_parent(MainWindow.main_window)
         self.right_click_menu_po.set_position(Gtk.PositionType.BOTTOM)
         self.right_click_menu_po.set_has_arrow(False)
+
+
+    def search_customization_menu_gui(self, val=None):
+        """
+        Generate search customizations popover menu GUI.
+        """
+
+        # Prevent generating menu on every MenuButton click
+        if hasattr(self, "search_menu_po") == True:
+            return
+
+        # Popover
+        self.search_menu_po = Gtk.Popover()
+
+        # Grid (main)
+        main_grid = Common.menu_main_grid()
+        self.search_menu_po.set_child(main_grid)
+
+        # Label (Search:)
+        label = Common.title_label(_tr("Search...").strip("...") + ":")
+        main_grid.attach(label, 0, 0, 1, 1)
+
+        # CheckButton (Name)
+        self.search_process_name_cb = Common.checkbutton(_tr("Name"), None)
+        main_grid.attach(self.search_process_name_cb, 0, 1, 1, 1)
+
+        # CheckButton (Command Line)
+        self.search_process_command_line_cb = Common.checkbutton(_tr("Command Line"), self.search_process_name_cb)
+        main_grid.attach(self.search_process_command_line_cb, 0, 2, 1, 1)
+
+        # Set Popover of MenuButton
+        self.search_customization_menubutton.set_popover(self.search_menu_po)
+
+        # Set GUI once.
+        self.search_popover_set_gui()
+
+        # Connect signals
+        self.search_process_name_cb.connect("toggled", self.on_search_menu_cb_toggled)
+        self.search_process_command_line_cb.connect("toggled", self.on_search_menu_cb_toggled)
+
+
+    def search_popover_set_gui(self):
+        """
+        Select the default search option checkbutton.
+        """
+
+        self.search_process_name_cb.set_active(True)
+
+
+    def on_search_menu_cb_toggled(self, widget):
+        """
+        Search again if process search type (process name or command line) is changed.
+        """
+
+        if widget == self.search_process_name_cb:
+            self.process_search_type = "name"
+        if widget == self.search_process_command_line_cb:
+            self.process_search_type = "command_line"
+
+        self.on_searchentry_changed(self.searchentry)
 
 
     def priority_custom_value_gui(self):
@@ -578,17 +662,29 @@ class Processes:
 
         process_search_text = self.searchentry.get_text().lower()
 
-        # Set visible/hidden processes
-        for piter in self.piter_list:
-            self.treestore.set_value(piter, 0, False)
-            process_data_text_in_model = self.treestore.get_value(piter, self.filter_column)
-            if process_search_text in str(process_data_text_in_model).lower():
-                self.treestore.set_value(piter, 0, True)
-                # Make parent processes visible if one of its children is visible.
-                piter_parent = self.treestore.iter_parent(piter)
-                while piter_parent != None:
-                    self.treestore.set_value(piter_parent, 0, True)
-                    piter_parent = self.treestore.iter_parent(piter_parent)
+        global pid_list, cmdline_list
+
+        try:
+            # Set visible/hidden processes
+            for piter in self.piter_list:
+                self.treestore.set_value(piter, 0, False)
+                if self.process_search_type == "name":
+                    process_data_text_in_model = self.treestore.get_value(piter, self.filter_column)
+                elif self.process_search_type == "command_line":
+                    process_pid_in_model = str(self.treestore.get_value(piter, 3))
+                    process_data_text_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
+                # Prevent errors during CheckButton switches.
+                else:
+                    break
+                if process_search_text in str(process_data_text_in_model).lower():
+                    self.treestore.set_value(piter, 0, True)
+                    # Make parent processes visible if one of its children is visible.
+                    piter_parent = self.treestore.iter_parent(piter)
+                    while piter_parent != None:
+                        self.treestore.set_value(piter_parent, 0, True)
+                        piter_parent = self.treestore.iter_parent(piter_parent)
+        except AttributeError as e:
+            print(str(e))
         # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
         self.treeview.expand_all()
 
@@ -773,7 +869,7 @@ class Processes:
         current_user_name = os.environ.get('USER')
 
         # Get process PIDs and define global variables and empty lists for the current loop
-        global processes_data_rows_prev, global_process_cpu_times_prev, disk_read_write_data_prev, pid_list_prev
+        global processes_data_rows_prev, global_process_cpu_times_prev, disk_read_write_data_prev, pid_list_prev, pid_list
         processes_data_rows = []
         ppid_list = []
         username_list = []
@@ -820,6 +916,7 @@ class Processes:
         # values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands
         # of times integer to string conversion. Commandlines will be used for determining full names of the
         # processes if their names are longer than 15 characters.
+        global cmdline_list
         cmdline_list = []
         for line in ps_output_lines[:]:
             line_split = line[pid_column_index:].split()
