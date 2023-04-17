@@ -507,7 +507,7 @@ class System:
         # computer vendor is one of the known virtual machine vendors.
         if computer_chassis_type == "Other":
             if computer_vendor in ["QEMU", "innotek GmbH", "VMware, Inc."]:
-                computer_vendor = computer_vendor + " " + _tr("Virtual Machine")
+                computer_chassis_type = computer_chassis_type + " (" + _tr("Virtual Machine") + ")"
 
         return computer_vendor, computer_model, computer_chassis_type
 
