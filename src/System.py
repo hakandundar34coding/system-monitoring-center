@@ -503,6 +503,12 @@ class System:
                                        35: "Mini PC", 36: "Stick PC"}
         computer_chassis_type = computer_chassis_types_dict[int(computer_chassis_type_value)]
 
+        # Add "Virtual Machine" information if chasssis type is detected as "Other" and 
+        # computer vendor is one of the known virtual machine vendors.
+        if computer_chassis_type == "Other":
+            if computer_vendor in ["QEMU", "innotek GmbH", "VMware, Inc."]:
+                computer_vendor = computer_vendor + " " + _tr("Virtual Machine")
+
         return computer_vendor, computer_model, computer_chassis_type
 
 
