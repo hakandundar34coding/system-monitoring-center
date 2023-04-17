@@ -1256,7 +1256,7 @@ class Processes:
             for process in reversed(sorted(list(deleted_processes), key=int)):
                 self.treestore.remove(self.piter_list[pid_list_prev.index(process)])
                 self.piter_list.remove(self.piter_list[pid_list_prev.index(process)])
-            self.on_searchentry_changed(self.searchentry)                                           # Update search results.
+            #self.on_searchentry_changed(self.searchentry)                                           # Update search results.
         if len(new_processes) > 0:
             for process in new_processes:
                 if show_processes_as_tree == 1:
@@ -1272,7 +1272,7 @@ class Processes:
                             self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
                 if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
                     self.piter_list.insert(pid_list.index(process), self.treestore.insert(None, pid_list.index(process), processes_data_rows[pid_list.index(process)]))
-            self.on_searchentry_changed(self.searchentry)                                           # Update search results.
+            #self.on_searchentry_changed(self.searchentry)                                           # Update search results.
 
         if pid_list_prev == []:                                                                   # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made. "First loop" control is made by checking if pid_list_prev is empty.
             self.treeview.expand_all()
