@@ -1390,6 +1390,10 @@ def process_details_show_process_details():
     if len(processes_details_object_list) == max_number_of_windows:
         return
 
-    processes_details_object_list.append(ProcessesDetails(Processes.selected_process_pid))
+    try:
+        processes_details_object_list.append(ProcessesDetails(Processes.selected_process_pid))
+    # Prevent errors if Enter key is pressed without selecting a process.
+    except AttributeError:
+        return
     processes_details_object_list[-1].process_details_window.set_visible(True)
 
