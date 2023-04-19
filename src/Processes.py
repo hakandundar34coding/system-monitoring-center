@@ -686,13 +686,11 @@ class Processes:
                 if piter not in visible_piter_list:
                     self.treestore.set_value(piter, 0, False)
 
-
         try:
             if self.process_search_text_prev != process_search_text:
                 self.expand_first(visible_piter_list)
         except AttributeError:
             self.expand_first(visible_piter_list)
-
 
         try:
             if self.process_search_text_prev == process_search_text:
@@ -700,45 +698,7 @@ class Processes:
         except AttributeError:
             self.expand_back(expanded_list)
 
-
-
-
         self.process_search_text_prev = process_search_text
-
-
-
-        return
-        try:
-            # Set visible/hidden processes
-            for piter in self.piter_list:
-                self.treestore.set_value(piter, 0, False)
-                if self.process_search_type == "name":
-                    process_data_text_in_model = self.treestore.get_value(piter, self.filter_column)
-                elif self.process_search_type == "command_line":
-                    process_pid_in_model = str(self.treestore.get_value(piter, 3))
-                    process_data_text_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
-                # Prevent errors during CheckButton switches.
-                else:
-                    break
-                if process_search_text in str(process_data_text_in_model).lower():
-                    self.treestore.set_value(piter, 0, True)
-                    #self.treeview.expand_row(self.treestore.get_path(piter), True)
-                    self.treeview.expand_to_path(self.treestore.get_path(piter))
-                    # Make parent processes visible if one of its children is visible.
-                    piter_parent = self.treestore.iter_parent(piter)
-                    while piter_parent != None:
-                        self.treestore.set_value(piter_parent, 0, True)
-                        piter_parent = self.treestore.iter_parent(piter_parent)
-        except AttributeError as e:
-            print(str(e))
-        # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
-        try:
-            if self.process_search_text_prev != process_search_text:
-                self.treeview.expand_all()
-        except AttributeError:
-            self.treeview.expand_all()
-        self.process_search_text_prev = process_search_text
-
 
 
     def get_expanded(self):
@@ -758,14 +718,13 @@ class Processes:
             if piter == None:
                 continue
             self.treeview.expand_row(self.treestore.get_path(piter), True)
-            #self.treeview.expand_to_path(self.treestore.get_path(piter))
 
 
     def expand_back(self, expanded_list):
 
         for piter in expanded_list:
-            self.treeview.expand_row(self.treestore.get_path(piter), True)
-
+            #self.treeview.expand_row(self.treestore.get_path(piter), True)
+            self.treeview.expand_to_path(self.treestore.get_path(piter))
 
 
     def on_treeview_pressed(self, event, count, x, y):
