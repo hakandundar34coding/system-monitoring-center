@@ -662,8 +662,52 @@ class Processes:
 
         process_search_text = self.searchentry.get_text().lower()
 
+        expanded_list = self.get_expanded()
+
         global pid_list, cmdline_list
 
+        visible_piter_list = []
+        for piter in self.piter_list:
+            if self.process_search_type == "name":
+                process_data_text_in_model = self.treestore.get_value(piter, self.filter_column)
+            elif self.process_search_type == "command_line":
+                process_pid_in_model = str(self.treestore.get_value(piter, 3))
+                process_data_text_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
+            if process_search_text in str(process_data_text_in_model).lower():
+                self.treestore.set_value(piter, 0, True)
+                # Make parent processes visible if one of its children is visible.
+                piter_parent = self.treestore.iter_parent(piter)
+                visible_piter_list.append(piter)
+                while piter_parent != None:
+                    self.treestore.set_value(piter_parent, 0, True)
+                    piter_parent = self.treestore.iter_parent(piter_parent)
+                    visible_piter_list.append(piter_parent)
+            else:
+                if piter not in visible_piter_list:
+                    self.treestore.set_value(piter, 0, False)
+
+
+        try:
+            if self.process_search_text_prev != process_search_text:
+                self.expand_first(visible_piter_list)
+        except AttributeError:
+            self.expand_first(visible_piter_list)
+
+
+        try:
+            if self.process_search_text_prev == process_search_text:
+                self.expand_back(expanded_list)
+        except AttributeError:
+            self.expand_back(expanded_list)
+
+
+
+
+        self.process_search_text_prev = process_search_text
+
+
+
+        return
         try:
             # Set visible/hidden processes
             for piter in self.piter_list:
@@ -678,6 +722,8 @@ class Processes:
                     break
                 if process_search_text in str(process_data_text_in_model).lower():
                     self.treestore.set_value(piter, 0, True)
+                    #self.treeview.expand_row(self.treestore.get_path(piter), True)
+                    self.treeview.expand_to_path(self.treestore.get_path(piter))
                     # Make parent processes visible if one of its children is visible.
                     piter_parent = self.treestore.iter_parent(piter)
                     while piter_parent != None:
@@ -686,7 +732,40 @@ class Processes:
         except AttributeError as e:
             print(str(e))
         # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
-        self.treeview.expand_all()
+        try:
+            if self.process_search_text_prev != process_search_text:
+                self.treeview.expand_all()
+        except AttributeError:
+            self.treeview.expand_all()
+        self.process_search_text_prev = process_search_text
+
+
+
+    def get_expanded(self):
+
+        expanded_list = []
+        for piter in self.piter_list:
+            if_expanded = self.treeview.row_expanded(self.treestore.get_path(piter))
+            if if_expanded == True:
+                expanded_list.append(piter)
+
+        return expanded_list
+
+
+    def expand_first(self, visible_piter_list):
+
+        for piter in visible_piter_list:
+            if piter == None:
+                continue
+            self.treeview.expand_row(self.treestore.get_path(piter), True)
+            #self.treeview.expand_to_path(self.treestore.get_path(piter))
+
+
+    def expand_back(self, expanded_list):
+
+        for piter in expanded_list:
+            self.treeview.expand_row(self.treestore.get_path(piter), True)
+
 
 
     def on_treeview_pressed(self, event, count, x, y):
@@ -1256,7 +1335,7 @@ class Processes:
             for process in reversed(sorted(list(deleted_processes), key=int)):
                 self.treestore.remove(self.piter_list[pid_list_prev.index(process)])
                 self.piter_list.remove(self.piter_list[pid_list_prev.index(process)])
-            #self.on_searchentry_changed(self.searchentry)                                           # Update search results.
+            self.on_searchentry_changed(self.searchentry)                                           # Update search results.
         if len(new_processes) > 0:
             for process in new_processes:
                 if show_processes_as_tree == 1:
@@ -1272,7 +1351,7 @@ class Processes:
                             self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
                 if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
                     self.piter_list.insert(pid_list.index(process), self.treestore.insert(None, pid_list.index(process), processes_data_rows[pid_list.index(process)]))
-            #self.on_searchentry_changed(self.searchentry)                                           # Update search results.
+            self.on_searchentry_changed(self.searchentry)                                           # Update search results.
 
         if pid_list_prev == []:                                                                   # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made. "First loop" control is made by checking if pid_list_prev is empty.
             self.treeview.expand_all()
