@@ -1,3 +1,14 @@
+system-monitoring-center (2.11.0) unstable; urgency=medium
+
+  * New: Process search options (name and command line)
+  * Improvements for computer type on virtual machines
+  * Improvements for Summary tab graphics
+  * Updated dependency versions (Flatpak)
+  * Fix: Expanding process tree if a process starts/ends
+  * Fix: Window position after window size changes
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 21 Apr 2023 12:00:00 +0300
+
 system-monitoring-center (2.10.0) unstable; urgency=medium
 
   * Updated dependency versions (Flatpak)
