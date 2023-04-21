@@ -75,6 +75,18 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.11.0" date="2023-04-21">
+      <description>
+        <ul>
+          <li>New: Process search options (name and command line)</li>
+          <li>Improvements for computer type on virtual machines</li>
+          <li>Improvements for Summary tab graphics</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Expanding process tree if a process starts/ends</li>
+          <li>Fix: Window position after window size changes</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.10.0" date="2023-04-01">
       <description>
         <ul>
