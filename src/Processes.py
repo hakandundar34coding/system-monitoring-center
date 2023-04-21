@@ -662,12 +662,16 @@ class Processes:
 
         process_search_text = self.searchentry.get_text().lower()
 
-        expanded_list = self.get_expanded()
+        piter_list = self.piter_list[:]
+
+        # Get expanded iters (rows)
+        expanded_list = self.get_expanded(piter_list)
 
         global pid_list, cmdline_list
 
+        # Show/hide iters (rows) by using search text.
         visible_piter_list = []
-        for piter in self.piter_list:
+        for piter in piter_list:
             if self.process_search_type == "name":
                 process_data_text_in_model = self.treestore.get_value(piter, self.filter_column)
             elif self.process_search_type == "command_line":
@@ -686,12 +690,14 @@ class Processes:
                 if piter not in visible_piter_list:
                     self.treestore.set_value(piter, 0, False)
 
+        # Expand all matched iters if search text is changed.
         try:
             if self.process_search_text_prev != process_search_text:
                 self.expand_first(visible_piter_list)
         except AttributeError:
             self.expand_first(visible_piter_list)
 
+        # Expand iters back if new ones are listed without search text changes.
         try:
             if self.process_search_text_prev == process_search_text:
                 self.expand_back(expanded_list)
@@ -701,18 +707,43 @@ class Processes:
         self.process_search_text_prev = process_search_text
 
 
-    def get_expanded(self):
+    def get_expanded(self, piter_list):
+        """
+        Get expanded iters (rows).
+        """
+
+        sort_model = self.treeview.get_model()
+        filter_model = sort_model.get_model()
+        treestore = filter_model.get_model()
 
         expanded_list = []
-        for piter in self.piter_list:
-            if_expanded = self.treeview.row_expanded(self.treestore.get_path(piter))
-            if if_expanded == True:
-                expanded_list.append(piter)
+        for piter in piter_list:
+            if self.treestore.get_value(piter, 0) == True and piter != None:
+                if treestore.iter_is_valid(piter) == False:
+                    continue
+                filter_model_iter_result = filter_model.convert_child_iter_to_iter(piter)
+                if filter_model_iter_result[0] == False:
+                    continue
+                filter_model_iter = filter_model_iter_result[1]
+                sort_model_iter_result = sort_model.convert_child_iter_to_iter(filter_model_iter)
+                if sort_model_iter_result[0] == False:
+                    continue
+                sort_model_iter = sort_model_iter_result[1]
+                if sort_model.iter_is_valid(sort_model_iter) == False:
+                    continue
+                if sort_model.get_path(sort_model_iter) == None:
+                    continue
+                if_expanded = self.treeview.row_expanded(sort_model.get_path(sort_model_iter))
+                if if_expanded == True:
+                    expanded_list.append(piter)
 
         return expanded_list
 
 
     def expand_first(self, visible_piter_list):
+        """
+        Expand all matched iters if search text is changed.
+        """
 
         for piter in visible_piter_list:
             if piter == None:
@@ -721,10 +752,31 @@ class Processes:
 
 
     def expand_back(self, expanded_list):
+        """
+        Expand iters back if new ones are listed without search text changes.
+        """
+
+        sort_model = self.treeview.get_model()
+        filter_model = sort_model.get_model()
+        treestore = filter_model.get_model()
 
         for piter in expanded_list:
-            #self.treeview.expand_row(self.treestore.get_path(piter), True)
-            self.treeview.expand_to_path(self.treestore.get_path(piter))
+            if self.treestore.get_value(piter, 0) == True and piter != None:
+                if treestore.iter_is_valid(piter) == False:
+                    continue
+                filter_model_iter_result = filter_model.convert_child_iter_to_iter(piter)
+                if filter_model_iter_result[0] == False:
+                    continue
+                filter_model_iter = filter_model_iter_result[1]
+                sort_model_iter_result = sort_model.convert_child_iter_to_iter(filter_model_iter)
+                if sort_model_iter_result[0] == False:
+                    continue
+                sort_model_iter = sort_model_iter_result[1]
+                if sort_model.iter_is_valid(sort_model_iter) == False:
+                    continue
+                if sort_model.get_path(sort_model_iter) == None:
+                    continue
+                self.treeview.expand_to_path(sort_model.get_path(sort_model_iter))
 
 
     def on_treeview_pressed(self, event, count, x, y):
@@ -1060,8 +1112,8 @@ class Processes:
             if ppid_list[index] == "2" or pid == "2":
                 process_icon = "system-monitoring-center-process-symbolic"
             else:
-                process_icon = "application-x-executable"                            # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
-                if process_name in application_exec_list:                                             # Use process icon name from application file if process name is found in application exec list.
+                process_icon = "application-x-executable"                                         # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
+                if process_name in application_exec_list:                                         # Use process icon name from application file if process name is found in application exec list.
                     process_icon = application_icon_list[application_exec_list.index(process_name)]
             processes_data_row = [True, process_icon, process_name]                               # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
             # Get process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
@@ -1175,7 +1227,7 @@ class Processes:
         if processes_treeview_columns_shown != processes_treeview_columns_shown_prev:             # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
             cumulative_sort_column_id = -1
             cumulative_internal_data_id = -1
-            for column in self.treeview.get_columns():                                             # Remove all columns in the treeview.
+            for column in self.treeview.get_columns():                                            # Remove all columns in the treeview.
                 self.treeview.remove_column(column)
             for i, column in enumerate(processes_treeview_columns_shown):
                 if processes_data_list[column][0] in processes_treeview_columns_shown:
@@ -1211,7 +1263,7 @@ class Processes:
 
             # Define a treestore (for storing treeview data in it), a treemodelfilter (for search filtering), treemodelsort (for row sorting when column title buttons are clicked)
             self.treestore = Gtk.TreeStore()
-            self.treestore.set_column_types(processes_data_column_types)                           # Set column types of the columns which will be appended into treestore
+            self.treestore.set_column_types(processes_data_column_types)                          # Set column types of the columns which will be appended into treestore
             treemodelfilter2101 = self.treestore.filter_new()
             treemodelfilter2101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
             treemodelsort2101 = Gtk.TreeModelSort().new_with_model(treemodelfilter2101)
@@ -1271,7 +1323,7 @@ class Processes:
         show_processes_as_tree = Config.show_processes_as_tree
         if show_processes_as_tree != show_processes_as_tree_prev:                                 # Check if "show_processes_as_tree" setting has been changed since last loop and redefine "piter_list" in order to prevent resetting it in every loop which will cause high CPU consumption because piter_list and treestore content would have been appended/builded from zero.
             pid_list_prev = []                                                                    # Redefine (clear) "pid_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
-            self.treestore.clear()                                                                 # Clear treestore because items will be appended from zero (in tree or list structure).
+            self.treestore.clear()                                                                # Clear treestore because items will be appended from zero (in tree or list structure).
             self.piter_list = []
 
         # Get new/deleted(ended) processes for updating treestore/treeview
@@ -1294,7 +1346,7 @@ class Processes:
             for process in reversed(sorted(list(deleted_processes), key=int)):
                 self.treestore.remove(self.piter_list[pid_list_prev.index(process)])
                 self.piter_list.remove(self.piter_list[pid_list_prev.index(process)])
-            self.on_searchentry_changed(self.searchentry)                                           # Update search results.
+            self.on_searchentry_changed(self.searchentry)                                         # Update search results.
         if len(new_processes) > 0:
             for process in new_processes:
                 if show_processes_as_tree == 1:
@@ -1310,7 +1362,7 @@ class Processes:
                             self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
                 if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
                     self.piter_list.insert(pid_list.index(process), self.treestore.insert(None, pid_list.index(process), processes_data_rows[pid_list.index(process)]))
-            self.on_searchentry_changed(self.searchentry)                                           # Update search results.
+            self.on_searchentry_changed(self.searchentry)                                         # Update search results.
 
         if pid_list_prev == []:                                                                   # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made. "First loop" control is made by checking if pid_list_prev is empty.
             self.treeview.expand_all()
