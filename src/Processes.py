@@ -1450,7 +1450,7 @@ class Processes:
             self.treeview.set_enable_tree_lines(False)
 
 
-    def on_column_title_clicked(self, widget, caller=None):
+    def on_column_title_clicked(self, widget):
         """
         Get and save column sorting order.
         """
