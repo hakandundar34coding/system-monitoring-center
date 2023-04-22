@@ -54,7 +54,7 @@
 
 <p align="center">
     <a href='https://flathub.org/apps/details/io.github.hakandundar34coding.system-monitoring-center'>
-        <img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.svg'/>
+        <img width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.svg'/>
     </a>
     <a href='https://apps.pardus.org.tr/app/system-monitoring-center'>
         <img width='240' alt='Install From Pardus Software Center' src='https://github.com/hakandundar34coding/system-monitoring-center/raw/master/docs/download_image_pardus.svg'/>
