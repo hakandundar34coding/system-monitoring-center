@@ -91,6 +91,9 @@ class Users:
         Connect GUI signals.
         """
 
+        # Treeview signals
+        self.treeview.connect("columns-changed", self.on_columns_changed)
+
         # Treeview mouse events.
         treeview_mouse_event = Gtk.GestureClick()
         treeview_mouse_event.connect("pressed", self.on_treeview_pressed)
@@ -149,6 +152,19 @@ class Users:
             user_data_text_in_model = self.treestore.get_value(piter, self.filter_column)
             if user_search_text in str(user_data_text_in_model).lower():
                 self.treestore.set_value(piter, 0, True)
+
+
+    def on_columns_changed(self, widget):
+        """
+        Called if number of columns changed.
+        """
+
+        users_treeview_columns = self.treeview.get_columns()
+        if len(Config.users_treeview_columns_shown) != len(users_treeview_columns):
+            return
+        if users_treeview_columns[0].get_width() == 0:
+            return
+        self.treeview_column_order_width_row_sorting()
 
 
     def on_treeview_pressed(self, event, count, x, y):
@@ -210,7 +226,8 @@ class Users:
 
         # Check if left mouse button is used
         if int(event.get_button()) == 1:
-            self.treeview_column_order_width_row_sorting()
+            pass
+            #self.treeview_column_order_width_row_sorting()
 
 
     def users_initial_func(self):
@@ -455,6 +472,7 @@ class Users:
                 users_treeview_column.set_reorderable(True)                                       # Set columns reorderable by the user when column title buttons are dragged.
                 users_treeview_column.set_min_width(50)                                           # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
                 users_treeview_column.connect("clicked", self.on_column_title_clicked)            # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
+                users_treeview_column.connect("notify::width", self.treeview_column_order_width_row_sorting)
                 self.treeview.append_column(users_treeview_column)                                # Append column into treeview
 
             # Get column data types for appending users data into treestore
@@ -581,7 +599,7 @@ class Users:
         Config.config_save_func()
 
 
-    def treeview_column_order_width_row_sorting(self):
+    def treeview_column_order_width_row_sorting(self, widget=None, parameter=None):
         """
         Get and save column order/width, row sorting.
         """
