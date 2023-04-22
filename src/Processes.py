@@ -74,6 +74,7 @@ class Processes:
         search_grid = Gtk.Grid()
         search_grid.set_column_spacing(3)
         search_grid.add_css_class("linked")
+        search_grid.set_halign(Gtk.Align.CENTER)
         grid.attach(search_grid, 1, 0, 1, 1)
 
         # SearchEntry
@@ -83,6 +84,7 @@ class Processes:
         # MenuButton (search customization)
         self.search_customization_menubutton = Gtk.MenuButton()
         self.search_customization_menubutton.set_icon_name("edit-find-symbolic")
+        self.search_customization_menubutton.set_halign(Gtk.Align.START)
         self.search_customization_menubutton.set_valign(Gtk.Align.CENTER)
         self.search_customization_menubutton.set_create_popup_func(self.search_customization_menu_gui)
         self.search_customization_menubutton.set_direction(Gtk.ArrowType.DOWN)
