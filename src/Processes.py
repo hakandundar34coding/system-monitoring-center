@@ -109,7 +109,7 @@ class Processes:
         self.treeview.set_headers_clickable(True)
         self.treeview.set_enable_search(True)
         self.treeview.set_search_column(2)
-        self.treeview.set_tooltip_column(2)
+        self.treeview.set_tooltip_column(3)                                                       # "3" is used for process command line
         scrolledwindow.set_child(self.treeview)
 
 
@@ -680,7 +680,7 @@ class Processes:
             if self.process_search_type == "name":
                 process_data_text_in_model = self.treestore.get_value(piter, self.filter_column)
             elif self.process_search_type == "command_line":
-                process_pid_in_model = str(self.treestore.get_value(piter, 3))
+                process_pid_in_model = str(self.treestore.get_value(piter, 4))
                 process_data_text_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
             if process_search_text in str(process_data_text_in_model).lower():
                 self.treestore.set_value(piter, 0, True)
@@ -874,7 +874,7 @@ class Processes:
         #                       ]
         global processes_data_list
         processes_data_list = [
-                              [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
+                              [0, _tr('Name'), 3, 2, 3, [bool, str, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText', 'internal_column'], ['no_cell_attribute', 'icon_name', 'text', 'no_cell_attribute'], [0, 1, 2, 3], ['no_cell_alignment', 0.0, 0.0, 0.0], ['no_set_expand', False, False, 'no_set_expand'], ['no_cell_function', 'no_cell_function', 'no_cell_function', 'no_cell_function']],
                               [1, _tr('PID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                               [2, _tr('User'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                               [3, _tr('Status'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
@@ -1134,7 +1134,9 @@ class Processes:
                 process_icon = "application-x-executable"                                         # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
                 if process_name in application_exec_list:                                         # Use process icon name from application file if process name is found in application exec list.
                     process_icon = application_icon_list[application_exec_list.index(process_name)]
-            processes_data_row = [True, process_icon, process_name]                               # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
+            # Get process command line
+            process_commandline = ps_output_line[cmdline_column_index:].strip()
+            processes_data_row = [True, process_icon, process_name, process_commandline]          # Process row visibility data (True/False) which is used for showing/hiding process when processes of specific user is preferred to be shown or process search feature is used from the GUI.
             # Get process PID. Value is appended as integer for ensuring correct "PID" column sorting such as 1,2,10,101... Otherwise it would sort such as 1,10,101,2...
             if 1 in processes_treeview_columns_shown:
                 processes_data_row.append(int(pid))
@@ -1233,7 +1235,7 @@ class Processes:
                 processes_data_row.append(process_exe)
             # Get process commandline.
             if 18 in processes_treeview_columns_shown:
-                processes_data_row.append(ps_output_line[cmdline_column_index:].strip())
+                processes_data_row.append(process_commandline)
 
             # Append process data into a list (processes_data_rows)
             processes_data_rows.append(processes_data_row)
