@@ -1018,11 +1018,13 @@ class MainWindow():
             grid.attach(label, 0, 0, 1, 1)
             # Also add disk usage percentage label next to device name if this is Disk tab.
             if Config.performance_tab_current_sub_tab == 3:
-                _, _, _, _, disk_usage_percentage, disk_mount_point = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
+                _, _, _, _, disk_usage_percentage, disk_mount_point, encrypted_disk_name = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
                 label = Gtk.Label()
                 label.add_css_class("dim-label")
                 if disk_mount_point == "[" + _tr("Not mounted") + "]":
                     label.set_label(f'  (-%)')
+                elif encrypted_disk_name != "":
+                    label.set_label(f' - {encrypted_disk_name}  ({disk_usage_percentage:.0f}%)')
                 else:
                     label.set_label(f'  ({disk_usage_percentage:.0f}%)')
                 grid.attach(label, 1, 0, 1, 1)

@@ -349,7 +349,7 @@ class Disk:
         disk_type = Disk.disk_type_func(selected_disk)
         disk_parent_name = Disk.disk_parent_name_func(selected_disk, disk_type, disk_list)
         disk_file_system_information = Disk.disk_file_system_information_func(disk_list)
-        disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point  = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
+        disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point, encrypted_disk_name  = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
         if disk_file_system  == "fuseblk":
             disk_file_system = Disk.disk_file_system_fuseblk_func(selected_disk)
         disk_if_system_disk = Disk.disk_if_system_disk_func(selected_disk)
@@ -361,7 +361,10 @@ class Disk:
         self.disk_details_window.set_title(_tr("Disk") + ": " + selected_disk)
 
         # Set label text by using storage/disk data
-        self.disk_details_disk_label.set_label(selected_disk)
+        if encrypted_disk_name != "":
+            self.disk_details_disk_label.set_label(selected_disk + " - " + encrypted_disk_name)
+        else:
+            self.disk_details_disk_label.set_label(selected_disk)
         self.disk_details_parent_disk_label.set_label(disk_parent_name)
         self.disk_details_system_disk_label.set_label(disk_if_system_disk)
         self.disk_details_disk_type_label.set_label(disk_type)
@@ -488,7 +491,7 @@ class Disk:
         # Get information.
         disk_read_data, disk_write_data = self.disk_read_write_data_func(selected_disk)
         disk_file_system_information = self.disk_file_system_information_func(disk_list)
-        disk_file_system, disk_capacity, disk_used, disk_free, self.disk_usage_percentage, disk_mount_point  = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
+        disk_file_system, disk_capacity, disk_used, disk_free, self.disk_usage_percentage, disk_mount_point, encrypted_disk_name  = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
 
 
         # Show information on labels.
@@ -688,6 +691,9 @@ class Disk:
             disk_name = line.split()[0]
             mounted_disk_list.append(disk_name.split("/dev/")[-1])
 
+        encrypted_disk_filesystem_information_dict = self.get_encrypted_disk_information(df_output_lines)
+        encrypted_disk_list = list(encrypted_disk_filesystem_information_dict.keys())
+
         # Get file system information of the mounted and unmounted disks.
         disk_filesystem_information_list = []
         for disk in disk_list:
@@ -699,6 +705,15 @@ class Disk:
                 disk_free = int(df_output_lines[index].split()[4]) * 1024
                 disk_used_percentage = int(df_output_lines[index].split()[5].strip("%"))
                 disk_mount_point = df_output_lines[index].split("% ", 1)[-1]
+                encrypted_disk_name = ""
+            elif disk in encrypted_disk_list:
+                disk_file_system = encrypted_disk_filesystem_information_dict[disk]["disk_file_system"]
+                disk_capacity = encrypted_disk_filesystem_information_dict[disk]["disk_capacity"]
+                disk_used = encrypted_disk_filesystem_information_dict[disk]["disk_used"]
+                disk_free = encrypted_disk_filesystem_information_dict[disk]["disk_free"]
+                disk_used_percentage = encrypted_disk_filesystem_information_dict[disk]["disk_used_percentage"]
+                disk_mount_point = encrypted_disk_filesystem_information_dict[disk]["disk_mount_point"]
+                encrypted_disk_name = encrypted_disk_filesystem_information_dict[disk]["encrypted_disk_name"]
             else:
                 disk_file_system = "[" + _tr("Not mounted") + "]"
                 disk_capacity = "[" + _tr("Not mounted") + "]"
@@ -706,9 +721,50 @@ class Disk:
                 disk_free = "[" + _tr("Not mounted") + "]"
                 disk_used_percentage = 0
                 disk_mount_point = "[" + _tr("Not mounted") + "]"
-            disk_filesystem_information_list.append([disk, disk_file_system, disk_capacity, disk_used, disk_free, disk_used_percentage, disk_mount_point])
+                encrypted_disk_name = ""
+            disk_filesystem_information_list.append([disk, disk_file_system, disk_capacity, disk_used, disk_free, disk_used_percentage, disk_mount_point, encrypted_disk_name])
 
         return disk_filesystem_information_list
+
+
+    def get_encrypted_disk_information(self, df_output_lines):
+        """
+        Check if the selected disk is encrypted and get its file system information.
+        """
+
+        encrypted_disk_filesystem_information_dict = {}
+
+        for line in df_output_lines:
+            encrypted_disk_information = {}
+            disk_name = line.split()[0]
+            if disk_name.startswith("/dev/mapper/") == False:
+                continue
+            else:
+                encrypted_disk_name = disk_name.split("/dev/mapper/")[-1]
+                disk_file_system = line.split()[1]
+                disk_capacity = int(line.split()[2]) * 1024
+                disk_used = int(line.split()[3]) * 1024
+                disk_free = int(line.split()[4]) * 1024
+                disk_used_percentage = int(line.split()[5].strip("%"))
+                disk_mount_point = line.split("% ", 1)[-1]
+                encrypted_disk_information["encrypted_disk_name"] = encrypted_disk_name
+                encrypted_disk_information["disk_file_system"] = disk_file_system
+                encrypted_disk_information["disk_capacity"] = disk_capacity
+                encrypted_disk_information["disk_used"] = disk_used
+                encrypted_disk_information["disk_free"] = disk_free
+                encrypted_disk_information["disk_used_percentage"] = disk_used_percentage
+                encrypted_disk_information["disk_mount_point"] = disk_mount_point
+                # Get disk file in "/dev/mapper"
+                dev_mapper_disks = os.listdir("/dev/mapper/")
+                for dev_mapper_file in dev_mapper_disks:
+                    if os.path.isdir("/dev/mapper/" + dev_mapper_file) == True:
+                        continue
+                    disk_real_path = os.path.realpath("/dev/mapper/" + dev_mapper_file)
+                    disk_proc_name = disk_real_path.split("/")[-1]
+                    encrypted_disk_filesystem_information_dict[disk_proc_name] = encrypted_disk_information
+                    break
+
+        return encrypted_disk_filesystem_information_dict
 
 
     def disk_file_system_capacity_used_free_used_percent_mount_point_func(self, disk_filesystem_information_list, disk_list, selected_disk):
@@ -723,8 +779,9 @@ class Disk:
         disk_free = disk_filesystem_information_list[disk_index][4]
         disk_usage_percentage = disk_filesystem_information_list[disk_index][5]
         disk_mount_point = disk_filesystem_information_list[disk_index][6]
+        encrypted_disk_name = disk_filesystem_information_list[disk_index][7]
 
-        return disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point
+        return disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point, encrypted_disk_name
 
 
     def disk_file_system_fuseblk_func(self, selected_disk):
@@ -814,7 +871,7 @@ class Disk:
         disk_usage_percentage_list = []
         for device in device_list:
             disk_filesystem_information_list = self.disk_file_system_information_func(device_list)
-            _, _, _, _, disk_usage_percentage, disk_mount_point = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
+            _, _, _, _, disk_usage_percentage, disk_mount_point, _ = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
             # Append percentage number with no fractions in order to avoid updating the list very frequently.
             disk_usage_percentage_list.append(f'{disk_usage_percentage:.0f}')
 
