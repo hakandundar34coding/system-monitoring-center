@@ -79,6 +79,14 @@ class MainGUI:
 
         self.grid1010 = builder.get_object('grid1010')
 
+        # Resize/set state (full screen or not) of the main window if "remember window size" option is enabled.
+        remember_window_size = Config.remember_window_size
+        if remember_window_size[0] == 1:
+            if remember_window_size[1] == 1:
+                self.window1.maximize()
+            if remember_window_size[1] == 0:
+                self.window1.resize(remember_window_size[2], remember_window_size[3])
+
         # Connect GUI signals
         self.window1.connect("destroy", self.on_window1_destroy)
         self.window1.connect("delete_event", self.on_window1_delete)
@@ -182,14 +190,6 @@ class MainGUI:
                 Config.init_system = "systemd"
         except Exception:
             pass
-
-        # Resize/set state (full screen or not) of the main window if "remember window size" option is enabled.
-        remember_window_size = Config.remember_window_size
-        if remember_window_size[0] == 1:
-            if remember_window_size[1] == 1:
-                widget.maximize()
-            if remember_window_size[1] == 0:
-                widget.resize(remember_window_size[2], remember_window_size[3])
 
         # Run "Performance" module in order to provide performance data to Performance tab and performance summary on the headerbar.
         # Function is run directly without using "GLib.idle_add([function_name])" in order to avoid errors which are given if another threads (such as threads in CPU module) run before this function is finished.
