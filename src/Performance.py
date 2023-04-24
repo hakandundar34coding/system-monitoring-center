@@ -701,6 +701,7 @@ class Performance:
         gauge_indicator_text_move = gauge_outer_radius * 0.027
         gauge_indicator_text_size = gauge_outer_radius * 0.091
         gauge_indicator_text_size_smaller = gauge_indicator_text_size * 0.78
+        gauge_indicator_text_size_smallest = gauge_indicator_text_size * 0.64
         gauge_cpu_ram_label_text_move = gauge_outer_radius * 0.266
         gauge_cpu_ram_label_text_margin = gauge_outer_radius * 0.07
         gauge_cpu_ram_usage_text_size = gauge_outer_radius * 0.25
@@ -1418,8 +1419,11 @@ class Performance:
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         read_speed_text = _tr("Read Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
-        if len(read_speed_text) > 16:
+        text_length = len(read_speed_text)
+        if text_length > 16 and text_length < 20:
             ctx.set_font_size(gauge_indicator_text_size_smaller)
+        elif text_length >= 20:
+            ctx.set_font_size(gauge_indicator_text_size_smallest)
         ctx.move_to(gauge_disk_read_speed_label_text_move_x, -gauge_disk_read_speed_label_text_move_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(read_speed_text)
@@ -1427,8 +1431,11 @@ class Performance:
         # Draw "Write Speed" label on the upper-left side of the inner circle of the circular gauge.
         write_speed_text = _tr("Write Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
-        if len(write_speed_text) > 16:
+        text_length = len(write_speed_text)
+        if text_length > 16 and text_length < 20:
             ctx.set_font_size(gauge_indicator_text_size_smaller)
+        elif text_length >= 20:
+            ctx.set_font_size(gauge_indicator_text_size_smallest)
         ctx.move_to(gauge_disk_write_speed_label_text_move_x, -gauge_disk_write_speed_label_text_move_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(write_speed_text)
@@ -1436,8 +1443,11 @@ class Performance:
         # Draw "Download Speed" label on the upper-left side of the inner circle of the circular gauge.
         download_speed_text = _tr("Download Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
-        if len(download_speed_text) > 16:
+        text_length = len(download_speed_text)
+        if text_length > 16 and text_length < 20:
             ctx.set_font_size(gauge_indicator_text_size_smaller)
+        elif text_length >= 20:
+            ctx.set_font_size(gauge_indicator_text_size_smallest)
         ctx.move_to(gauge_network_download_speed_label_text_move_x, gauge_network_download_speed_label_text_move_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(download_speed_text)
@@ -1445,8 +1455,11 @@ class Performance:
         # Draw "Upload Speed" label on the upper-left side of the inner circle of the circular gauge.
         upload_speed_text = _tr("Upload Speed")
         ctx.set_font_size(gauge_disk_network_label_text_size)
-        if len(upload_speed_text) > 16:
+        text_length = len(upload_speed_text)
+        if text_length > 16 and text_length < 20:
             ctx.set_font_size(gauge_indicator_text_size_smaller)
+        elif text_length >= 20:
+            ctx.set_font_size(gauge_indicator_text_size_smallest)
         ctx.move_to(gauge_network_upload_speed_label_text_move_x, gauge_network_upload_speed_label_text_move_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(upload_speed_text)
