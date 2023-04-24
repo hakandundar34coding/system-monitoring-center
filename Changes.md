@@ -1,5 +1,18 @@
 # System Monitoring Center
 
+### v2.11.0 (21.04.2023)
+  * New: Process search options (name and command line)
+  * Improvements for computer type on virtual machines
+  * Improvements for Summary tab graphics
+  * Updated dependency versions (Flatpak)
+  * Fix: Expanding process tree if a process starts/ends
+  * Fix: Window position after window size changes
+
+### v2.10.0 (01.04.2023)
+  * Updated dependency versions (Flatpak)
+  * Fix: Error when Services tab is open w/o systemd
+  * Fix: Empty service list on some systems
+
 ### v1.43.1 (27.03.2023)
   * Fix: Resetting all settings if Perf.tab is not loaded
   * Fix: Error when Services tab is open w/o systemd
