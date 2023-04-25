@@ -867,8 +867,8 @@ class Disk:
         # Get disk usage percentages.
         device_list = Performance.disk_list
         disk_usage_percentage_list = []
+        disk_filesystem_information_list = self.disk_file_system_information_func(device_list)
         for device in device_list:
-            disk_filesystem_information_list = self.disk_file_system_information_func(device_list)
             _, _, _, _, disk_usage_percentage, disk_mount_point, _ = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
             # Append percentage number with no fractions in order to avoid updating the list very frequently.
             disk_usage_percentage_list.append(f'{disk_usage_percentage:.0f}')
