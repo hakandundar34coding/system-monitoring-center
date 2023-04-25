@@ -1,3 +1,13 @@
+system-monitoring-center (2.12.0) unstable; urgency=medium
+
+  * New: Support for encrypted disks (Disk tab)
+  * Performance improvements for Disk tab
+  * Changed: Process tooltip from commandline instead of name
+  * Fix: Remembering column order, width on several tabs
+  * Minor GUI improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 25 Apr 2023 17:25:00 +0300
+
 system-monitoring-center (2.11.0) unstable; urgency=medium
 
   * New: Process search options (name and command line)
