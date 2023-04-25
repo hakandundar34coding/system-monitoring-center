@@ -756,13 +756,11 @@ class Disk:
                 encrypted_disk_information["disk_mount_point"] = disk_mount_point
                 # Get disk file in "/dev/mapper"
                 dev_mapper_disks = os.listdir("/dev/mapper/")
-                for dev_mapper_file in dev_mapper_disks:
-                    if os.path.isdir("/dev/mapper/" + dev_mapper_file) == True:
-                        continue
-                    disk_real_path = os.path.realpath("/dev/mapper/" + dev_mapper_file)
-                    disk_proc_name = disk_real_path.split("/")[-1]
-                    encrypted_disk_filesystem_information_dict[disk_proc_name] = encrypted_disk_information
-                    break
+                if disk_name in dev_mapper_disks:
+                    if os.path.isdir("/dev/mapper/" + disk_name) != True:
+                        disk_real_path = os.path.realpath("/dev/mapper/" + disk_name)
+                        disk_proc_name = disk_real_path.split("/")[-1]
+                        encrypted_disk_filesystem_information_dict[disk_proc_name] = encrypted_disk_information
 
         return encrypted_disk_filesystem_information_dict
 
