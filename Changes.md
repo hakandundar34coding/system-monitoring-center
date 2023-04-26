@@ -1,5 +1,12 @@
 # System Monitoring Center
 
+### v1.43.2 (26.04.2023)
+  * Improvement for window position if size is remembered
+  * Improvements for Summary tab graphics
+  * Performance improvements for Disk tab
+  * Changed: Process search if process tree is enabled
+  * Fix: Window manager detection of some systems
+
 ### v2.12.0 (25.04.2023)
   * New: Support for encrypted disks (Disk tab)
   * Performance improvements for Disk tab
