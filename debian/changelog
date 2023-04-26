@@ -1,3 +1,13 @@
+system-monitoring-center (1.43.2) unstable; urgency=medium
+
+  * Improvement for window position if size is remembered
+  * Improvements for Summary tab graphics
+  * Performance improvements for Disk tab
+  * Changed: Process search if process tree is enabled
+  * Fix: Window manager detection of some systems
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 26 Apr 2023 15:10:00 +0300
+
 system-monitoring-center (1.43.1) unstable; urgency=medium
 
   * Fix: Resetting all settings if Perf.tab is not loaded
