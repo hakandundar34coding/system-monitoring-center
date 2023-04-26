@@ -54,6 +54,11 @@ def processes_gui_func():
     treeview2101.set_search_column(2)                                                         # This command used for searching by using entry.
     treeview2101.set_tooltip_column(2)
 
+    if Config.show_processes_as_tree == 1:
+        Config.temporary_show_processes_as_tree = 1
+    elif Config.show_processes_as_tree == 0:
+        Config.temporary_show_processes_as_tree = 0
+
     global initial_already_run
     initial_already_run = 0
 
@@ -153,19 +158,25 @@ def on_searchentry2101_changed(widget):
 
     global filter_column
     process_search_text = searchentry2101.get_text().lower()
+
+    if process_search_text != "":
+        if Config.show_processes_as_tree == 1 and Config.temporary_show_processes_as_tree == 1:
+            Config.temporary_show_processes_as_tree = 0
+            processes_initial_func()
+            processes_loop_func()
+    elif process_search_text == "":
+        if Config.show_processes_as_tree == 1 and Config.temporary_show_processes_as_tree == 0:
+            Config.temporary_show_processes_as_tree = 1
+            processes_initial_func()
+            processes_loop_func()
+
     # Set visible/hidden processes
     for piter in piter_list:
-        treestore2101.set_value(piter, 0, False)
         process_data_text_in_model = treestore2101.get_value(piter, filter_column)
         if process_search_text in str(process_data_text_in_model).lower():
             treestore2101.set_value(piter, 0, True)
-            # Make parent processes visible if one of its children is visible.
-            piter_parent = treestore2101.iter_parent(piter)
-            while piter_parent != None:
-                treestore2101.set_value(piter_parent, 0, True)
-                piter_parent = treestore2101.iter_parent(piter_parent)
-    # Expand all treeview rows (if tree view is preferred) after filtering is applied (after any text is typed into search entry).
-    treeview2101.expand_all()
+        else:
+            treestore2101.set_value(piter, 0, False)
 
 
 # ----------------------------------- Processes - Initial Function (contains initial code which defines some variables and gets data which is not wanted to be run in every loop) -----------------------------------
@@ -209,13 +220,14 @@ def processes_initial_func():
     performance_define_data_unit_converter_variables_func()
 
 
-    global processes_data_rows_prev, pid_list_prev, piter_list, global_process_cpu_times_prev, disk_read_write_data_prev, show_processes_as_tree_prev, processes_treeview_columns_shown_prev, processes_data_row_sorting_column_prev, processes_data_row_sorting_order_prev, processes_data_column_order_prev, processes_data_column_widths_prev
+    global processes_data_rows_prev, pid_list_prev, piter_list, global_process_cpu_times_prev, disk_read_write_data_prev, show_processes_as_tree_prev, temporary_show_processes_as_tree_prev, processes_treeview_columns_shown_prev, processes_data_row_sorting_column_prev, processes_data_row_sorting_order_prev, processes_data_column_order_prev, processes_data_column_widths_prev
     processes_data_rows_prev = []
     pid_list_prev = []
     piter_list = []
     global_process_cpu_times_prev = []
     disk_read_write_data_prev = []
     show_processes_as_tree_prev = Config.show_processes_as_tree
+    temporary_show_processes_as_tree_prev = Config.temporary_show_processes_as_tree
     processes_treeview_columns_shown_prev = []
     processes_data_row_sorting_column_prev = ""
     processes_data_row_sorting_order_prev = ""
@@ -669,6 +681,13 @@ def processes_loop_func():
         treestore2101.clear()                                                                 # Clear treestore because items will be appended from zero (in tree or list structure).
         piter_list = []
 
+    global temporary_show_processes_as_tree_prev
+    temporary_show_processes_as_tree = Config.temporary_show_processes_as_tree
+    if temporary_show_processes_as_tree != temporary_show_processes_as_tree_prev:
+        pid_list_prev = []
+        treestore2101.clear()
+        piter_list = []
+
     # Get new/deleted(ended) processes for updating treestore/treeview
     pid_list_prev_set = set(pid_list_prev)
     pid_list_set = set(pid_list)
@@ -693,7 +712,7 @@ def processes_loop_func():
         on_searchentry2101_changed(searchentry2101)                                           # Update search results.
     if len(new_processes) > 0:
         for process in new_processes:
-            if show_processes_as_tree == 1:
+            if show_processes_as_tree == 1 and temporary_show_processes_as_tree == 1:
                 if ppid_list[pid_list.index(process)] == "0":                                 # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
                     piter_list.append(treestore2101.append(None, processes_data_rows[pid_list.index(process)]))
                 if ppid_list[pid_list.index(process)] != "0":
@@ -704,7 +723,8 @@ def processes_loop_func():
                         piter_list.append(treestore2101.append(None, processes_data_rows[pid_list.index(process)]))
                     if show_processes_of_all_users == 0 and parent_process in pid_list:       # Process is appended into treeview under tree root process or another process if "Show processes of all users" is preferred and process ppid is in pid_list.
                         piter_list.append(treestore2101.append(piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
-            if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
+            #if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
+            else:
                 piter_list.insert(pid_list.index(process), treestore2101.insert(None, pid_list.index(process), processes_data_rows[pid_list.index(process)]))
         on_searchentry2101_changed(searchentry2101)                                           # Update search results.
     treeview2101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
@@ -715,6 +735,7 @@ def processes_loop_func():
     pid_list_prev = pid_list
     processes_data_rows_prev = processes_data_rows
     show_processes_as_tree_prev = show_processes_as_tree
+    temporary_show_processes_as_tree_prev = temporary_show_processes_as_tree
     processes_treeview_columns_shown_prev = processes_treeview_columns_shown
     processes_data_row_sorting_column_prev = processes_data_row_sorting_column
     processes_data_row_sorting_order_prev = processes_data_row_sorting_order
