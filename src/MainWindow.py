@@ -950,6 +950,11 @@ class MainWindow():
         # Run function when a listbox row is clicked.
         def on_row_activated(widget, row):
 
+            # Get current position of the horizontal scrollbar slider for restoring it after device selection.
+            # Because slider position is reset after every device selection and this is visible if device name is very long.
+            adjustment = self.device_list_sw.get_hadjustment()
+            adjustment_current_value = adjustment.get_value()
+
             # Get selected device name.
             selected_device = device_list[row.get_index()]
 
@@ -1006,15 +1011,22 @@ class MainWindow():
             elif Config.performance_tab_current_sub_tab == 6:
                 pass
 
+            # Restore position of the horizontal scrollbar slider position.
+            adjustment.set_value(adjustment_current_value)
+
         # Add devices to listbox.
         # For also adding disk usage percentage label next to device name if this is Disk tab.
         if Config.performance_tab_current_sub_tab == 3:
             disk_filesystem_information_list = Disk.disk_file_system_information_func(device_list)
-        for device in device_list:
+        number_of_devices = len(device_list)
+        for i, device in enumerate(device_list):
             row = Gtk.ListBoxRow()
             grid = Gtk.Grid()
             label = Gtk.Label()
             label.set_label(device)
+            # Add empty space at the bottom of the last row for preventing dynamic horizontal scrollbar overlapping.
+            if i == number_of_devices - 1 and number_of_devices > 4:
+                label.set_margin_bottom(4)
             grid.attach(label, 0, 0, 1, 1)
             # Also add disk usage percentage label next to device name if this is Disk tab.
             if Config.performance_tab_current_sub_tab == 3:
