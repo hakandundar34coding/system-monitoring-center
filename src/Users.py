@@ -105,6 +105,9 @@ class Users:
         treeview_mouse_event_right_click.connect("pressed", self.on_treeview_pressed)
         self.treeview.add_controller(treeview_mouse_event_right_click)
 
+        # SeachEntry focus action and accelerator
+        Common.searchentry_focus_action_and_accelerator(MainWindow)
+
         # Right click menu actions
         # "Details" action
         action = Gio.SimpleAction.new("users_details", None)

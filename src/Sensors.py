@@ -7,6 +7,7 @@ import os
 from locale import gettext as _tr
 
 from .Config import Config
+from .MainWindow import MainWindow
 from . import Common
 
 
@@ -84,6 +85,9 @@ class Sensors:
         treeview_mouse_event = Gtk.GestureClick()
         treeview_mouse_event.connect("released", self.on_treeview_released)
         self.treeview.add_controller(treeview_mouse_event)
+
+        # SeachEntry focus action and accelerator
+        Common.searchentry_focus_action_and_accelerator(MainWindow)
 
 
     def on_searchentry_changed(self, widget):

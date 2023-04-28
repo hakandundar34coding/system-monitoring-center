@@ -777,6 +777,53 @@ def searchentry(function):
     return searchentry
 
 
+def searchentry_focus_action_and_accelerator(main_window_object):
+    """
+    Define action and accelerator for SearchEntry widgets.
+    """
+
+    MainWindow = main_window_object
+
+    # Prevent defining action and accelerator if they were defined before.
+    action = MainWindow.main_window.lookup_action("searchentry_focus")
+    if action != None:
+        return
+
+    # SearchEntry focus action
+    action = Gio.SimpleAction.new("searchentry_focus", None)
+    action.connect("activate", searchentry_grab_focus)
+    MainWindow.main_window.add_action(action)
+
+    # Accelerator for SearchEntry focus action
+    application = MainWindow.main_window.get_application()
+    application.set_accels_for_action("win.searchentry_focus", ["<Control>F"])
+
+
+def searchentry_grab_focus(action, parameter):
+    """
+    Sets focus for the SearchEntry. This function is called if "Ctrl+F" buttons are pressed.
+    """
+
+    # Get SearchEntry for focusing. This function is called on veery tab.
+    # Because the accelerator is defined for window for a simpler code.
+    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
+        from .Sensors import Sensors
+        searchentry = Sensors.searchentry
+    elif Config.current_main_tab == 1:
+        from .Processes import Processes
+        searchentry = Processes.searchentry
+    elif Config.current_main_tab == 2:
+        from .Users import Users
+        searchentry = Users.searchentry
+    elif Config.current_main_tab == 3:
+        from .Services import Services
+        searchentry = Services.searchentry
+    else:
+        return
+
+    searchentry.grab_focus()
+
+
 def checkbutton(text, group_cb):
     """
     Generate CheckButton or RadioButton.
