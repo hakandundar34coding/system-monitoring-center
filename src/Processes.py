@@ -175,7 +175,7 @@ class Processes:
         application = MainWindow.main_window.get_application()
         application.set_accels_for_action("win.processes_pause_process", ["<Control>S"])
         application.set_accels_for_action("win.processes_continue_process", ["<Control>C"])
-        application.set_accels_for_action("win.processes_end_process", ["<Control>T"])
+        application.set_accels_for_action("win.processes_end_process", ["<Control>E"])
         application.set_accels_for_action("win.processes_end_process_immediately", ["<Control>K"])
         application.set_accels_for_action("win.processes_details", ["Return"])
 
@@ -877,8 +877,8 @@ class Processes:
         #                       ]
         global processes_data_list
         processes_data_list = [
-                              [0, _tr('Name'), 4, 2, 3, [bool, str, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText', 'internal_column'], ['no_cell_attribute', 'icon_name', 'text', 'no_cell_attribute'], [0, 1, 2, 3], ['no_cell_alignment', 0.0, 0.0, 0.0], ['no_set_expand', False, False, 'no_set_expand'], ['no_cell_function', 'no_cell_function', 'no_cell_function', 'no_cell_function']],
-                              [1, _tr('PID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                              [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
+                              [1, _tr('PID'), 2, 1, 2, [str, int], ['internal_column', 'CellRendererText'], ['no_cell_attribute', 'text'], [0, 1], ['no_cell_alignment', 1.0], [False, False], ['no_cell_function', 'no_cell_function']],
                               [2, _tr('User'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                               [3, _tr('Status'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                               [4, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
