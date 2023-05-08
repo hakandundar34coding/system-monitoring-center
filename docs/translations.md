@@ -22,4 +22,5 @@ as ```Connected SSID```. The text contains two different information.
 | pt_PT          | Portuguese (Portugal)  | 100%       |
 | ru_RU          | Russian                | 100%       |
 | tr             | Turkish                | 100%       |
+| zh_TW          | Chinese (Traditional)  | 98%        |
 

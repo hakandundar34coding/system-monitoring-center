@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-28 11:46+0300\n"
-"PO-Revision-Date: 2023-05-08 12:42+0800\n"
-"Last-Translator:  csc-chicken <k2205940@gmail.com>, 2023.\n"
-"Language-Team:  Traditional-Chinese(Taiwan num1)) <k2205940@gmail.com>, 2023.\n"
+"PO-Revision-Date: 2023-05-08 09:38+0300\n"
+"Last-Translator: csc-chicken <k2205940@gmail.com>, 2023.\n"
+"Language-Team: Traditional-Chinese(Taiwan num1)) <k2205940@gmail.com>, "
+"2023.\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
 #: src/MainWindow.py:67 src/MainWindow.py:511
@@ -39,8 +40,8 @@ msgid ""
 "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
 "Processes;Users;Services;"
 msgstr ""
-"系統監控：任務管理；效能；CPU；RAM；SWAP；記憶體；硬碟；網路；程序；使用者；"
-"服務"
+"系統監控；任務管理；效能；CPU；RAM；SWAP；記憶體；硬碟；網路；程序；使用者；"
+"服務；"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -70,7 +71,7 @@ msgstr "CPU"
 
 #: src/Cpu.py:54 src/Disk.py:55 src/Disk.py:303 src/Gpu.py:57 src/Network.py:54
 msgid "Vendor-Model"
-msgstr "製造商型號"
+msgstr "製造商-模型"
 
 #: src/Cpu.py:59 src/Disk.py:60 src/Gpu.py:62 src/Network.py:59
 msgid "Device Name In Kernel"
@@ -94,7 +95,7 @@ msgstr "頻率"
 
 #: src/Cpu.py:107
 msgid "Processes-Threads"
-msgstr "執行緒"
+msgstr "程序-執行緒"
 
 #: src/Cpu.py:107
 msgid "Up Time"
@@ -435,7 +436,7 @@ msgstr "製造商"
 
 #: src/Memory.py:334 src/Memory.py:354
 msgid "Form Factor"
-msgstr "製造因子（forem factor)"
+msgstr "製造因子（form factor)"
 
 #: src/Memory.py:335 src/Memory.py:355
 msgid "Locator"
@@ -485,7 +486,7 @@ msgstr "連線類型"
 
 #: src/Network.py:123
 msgid "Connected-SSID"
-msgstr "連線的 SSID"
+msgstr "連線的-SSID"
 
 #: src/Network.py:130
 msgid "Link Quality"
@@ -553,7 +554,7 @@ msgstr "非常低"
 
 #: src/Processes.py:195
 msgid "Custom Value..."
-msgstr "客製值"
+msgstr "客製值..."
 
 #: src/Processes.py:204 src/Processes.py:235 src/Processes.py:292
 msgid "Change Priority"
@@ -780,7 +781,7 @@ msgstr "允許（enable)"
 
 #: src/Services.py:158
 msgid "Disable"
-msgstr "不允許（disable)"
+msgstr "不允許(disable)"
 
 #: src/Services.py:161
 msgid "Mask"
@@ -1004,15 +1005,15 @@ msgstr "桌面環境"
 
 #: src/System.py:166
 msgid "Windowing System"
-msgstr "窗口系統 Windowing System"
+msgstr "窗口系統 (Windowing System)"
 
 #: src/System.py:173
 msgid "Window Manager"
-msgstr "窗口管理員 Window Manager"
+msgstr "窗口管理員 (Window Manager)"
 
 #: src/System.py:180
 msgid "Display Manager"
-msgstr "螢幕管理員 Display Manager"
+msgstr "螢幕管理員 (Display Manager)"
 
 #: src/System.py:191
 msgid "Vendor"

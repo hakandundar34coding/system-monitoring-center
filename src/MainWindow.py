@@ -491,7 +491,8 @@ class MainWindow():
                            "pt_BR": "Bruno do Nascimento",
                            "pt_PT": "Hugo Carvalho, Ricardo Simões",
                            "ru_RU": "badcast, akorny",
-                           "tr": "Hakan Dündar"
+                           "tr": "Hakan Dündar",
+                           "zh_TW": "csc-chicken"
                            }
 
         # Get GUI language for getting translator name
