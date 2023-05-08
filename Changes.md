@@ -1,5 +1,13 @@
 # System Monitoring Center
 
+### v2.13.0 (08.05.2023)
+  * New: Ctrl+F shortcut for focus of search entries
+  * New: Chinese (Traditional) translations
+  * Improvements for unified tab-device selection list behavior
+  * Updated dependency versions (Flatpak)
+  * Fix: Process sorting column (Processes tab)
+  * Fix: Sorting processes by name (Processes tab)
+
 ### v1.43.2 (26.04.2023)
   * Improvement for window position if size is remembered
   * Improvements for Summary tab graphics

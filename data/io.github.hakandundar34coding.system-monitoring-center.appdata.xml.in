@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2022 Hakan Dündar -->
+<!-- Copyright 2023 Hakan Dündar -->
 <component>
   <id type="desktop">io.github.hakandundar34coding.system-monitoring-center.desktop</id>
   <launchable type="desktop-id">io.github.hakandundar34coding.system-monitoring-center.desktop</launchable>
@@ -75,6 +75,18 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.13.0" date="2023-05-08">
+      <description>
+        <ul>
+          <li>New: Ctrl+F shortcut for focus of search entries</li>
+          <li>New: Chinese (Traditional) translations</li>
+          <li>Improvements for unified tab-device selection list behavior</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Process sorting column (Processes tab)</li>
+          <li>Fix: Sorting processes by name (Processes tab)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.12.0" date="2023-04-25">
       <description>
         <ul>
