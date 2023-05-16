@@ -303,64 +303,77 @@ class ProcessesMenu:
         label = Common.title_label(_tr("Data Unit"))
         grid.attach(label, 0, 4, 2, 1)
 
+        # Label (CPU)
+        label = Gtk.Label()
+        label.set_label(_tr("CPU"))
+        label.set_halign(Gtk.Align.CENTER)
+        grid.attach(label, 0, 5, 2, 1)
+
+        # CheckButton (Divide CPU usage by core count)
+        self.divide_cpu_usage_by_core_count_cb = Gtk.CheckButton()
+        self.divide_cpu_usage_by_core_count_cb.set_group(None)
+        self.divide_cpu_usage_by_core_count_cb.set_label(_tr("Divide CPU usage by core count"))
+        self.divide_cpu_usage_by_core_count_cb.set_halign(Gtk.Align.START)
+        grid.attach(self.divide_cpu_usage_by_core_count_cb, 0, 6, 2, 1)
+
         # Label (Memory)
         label = Gtk.Label()
         label.set_label(_tr("Memory"))
         label.set_halign(Gtk.Align.CENTER)
-        grid.attach(label, 0, 5, 2, 1)
+        grid.attach(label, 0, 7, 2, 1)
 
         # Label - memory (Show data as powers of:)
         label = Gtk.Label()
         label.set_label(_tr("Show data as powers of") + ":")
         label.set_halign(Gtk.Align.START)
-        grid.attach(label, 0, 6, 2, 1)
+        grid.attach(label, 0, 8, 2, 1)
 
         # CheckButton - memory (1024)
         self.memory_data_power_of_1024_cb = Gtk.CheckButton()
         self.memory_data_power_of_1024_cb.set_group(None)
         self.memory_data_power_of_1024_cb.set_label("1024")
         self.memory_data_power_of_1024_cb.set_halign(Gtk.Align.START)
-        grid.attach(self.memory_data_power_of_1024_cb, 0, 7, 1, 1)
+        grid.attach(self.memory_data_power_of_1024_cb, 0, 9, 1, 1)
 
         # CheckButton - memory (1000)
         self.memory_data_power_of_1000_cb = Gtk.CheckButton()
         self.memory_data_power_of_1000_cb.set_group(self.memory_data_power_of_1024_cb)
         self.memory_data_power_of_1000_cb.set_label("1000")
         self.memory_data_power_of_1000_cb.set_halign(Gtk.Align.START)
-        grid.attach(self.memory_data_power_of_1000_cb, 1, 7, 1, 1)
+        grid.attach(self.memory_data_power_of_1000_cb, 1, 9, 1, 1)
 
         # Label (Disk)
         label = Gtk.Label()
         label.set_label(_tr("Disk"))
         label.set_halign(Gtk.Align.CENTER)
-        grid.attach(label, 0, 8, 2, 1)
+        grid.attach(label, 0, 10, 2, 1)
 
         # Label - disk (Show data as powers of:)
         label = Gtk.Label()
         label.set_label(_tr("Show data as powers of") + ":")
         label.set_halign(Gtk.Align.START)
-        grid.attach(label, 0, 9, 2, 1)
+        grid.attach(label, 0, 11, 2, 1)
 
         # CheckButton - disk (1024)
         self.disk_data_power_of_1024_cb = Gtk.CheckButton()
         self.disk_data_power_of_1024_cb.set_group(None)
         self.disk_data_power_of_1024_cb.set_label("1024")
         self.disk_data_power_of_1024_cb.set_halign(Gtk.Align.START)
-        grid.attach(self.disk_data_power_of_1024_cb, 0, 10, 1, 1)
+        grid.attach(self.disk_data_power_of_1024_cb, 0, 12, 1, 1)
 
         # CheckButton - Disk (1000)
         self.disk_data_power_of_1000_cb = Gtk.CheckButton()
         self.disk_data_power_of_1000_cb.set_group(self.disk_data_power_of_1024_cb)
         self.disk_data_power_of_1000_cb.set_label("1000")
         self.disk_data_power_of_1000_cb.set_halign(Gtk.Align.START)
-        grid.attach(self.disk_data_power_of_1000_cb, 1, 10, 1, 1)
+        grid.attach(self.disk_data_power_of_1000_cb, 1, 12, 1, 1)
 
         # CheckButton (Show speed units as multiples of bits)
         self.show_speed_units_bytes_cb = Gtk.CheckButton()
         self.show_speed_units_bytes_cb.set_group(None)
         self.show_speed_units_bytes_cb.set_label(_tr("Show speed units as multiples of bits"))
         self.show_speed_units_bytes_cb.set_halign(Gtk.Align.START)
-        grid.attach(self.show_speed_units_bytes_cb, 0, 11, 2, 1)
+        grid.attach(self.show_speed_units_bytes_cb, 0, 13, 2, 1)
 
 
     def gui_signals(self):
@@ -406,6 +419,7 @@ class ProcessesMenu:
         self.cpu_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
         self.memory_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
         self.disk_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
+        self.divide_cpu_usage_by_core_count_cb.connect("toggled", self.on_divide_cpu_usage_by_core_count_cb_toggled)
         self.memory_data_power_of_1024_cb.connect("toggled", self.on_memory_data_unit_radiobuttons_toggled)
         self.memory_data_power_of_1000_cb.connect("toggled", self.on_memory_data_unit_radiobuttons_toggled)
         self.disk_data_power_of_1024_cb.connect("toggled", self.on_disk_data_unit_radiobuttons_toggled)
@@ -445,6 +459,7 @@ class ProcessesMenu:
         self.cpu_precision_dd.disconnect_by_func(self.on_selected_item_notify)
         self.memory_precision_dd.disconnect_by_func(self.on_selected_item_notify)
         self.disk_precision_dd.disconnect_by_func(self.on_selected_item_notify)
+        self.divide_cpu_usage_by_core_count_cb.disconnect_by_func(self.on_divide_cpu_usage_by_core_count_cb_toggled)
         self.memory_data_power_of_1024_cb.disconnect_by_func(self.on_memory_data_unit_radiobuttons_toggled)
         self.memory_data_power_of_1000_cb.disconnect_by_func(self.on_memory_data_unit_radiobuttons_toggled)
         self.disk_data_power_of_1024_cb.disconnect_by_func(self.on_disk_data_unit_radiobuttons_toggled)
@@ -571,6 +586,22 @@ class ProcessesMenu:
 
         if widget == self.disk_precision_dd:
             Config.processes_disk_data_precision = widget.get_selected()
+
+        # Apply changes immediately (without waiting update interval).
+        Processes.processes_initial_func()
+        Processes.processes_loop_func()
+        Config.config_save_func()
+
+
+    def on_divide_cpu_usage_by_core_count_cb_toggled(self, widget):
+        """
+        Divide CPU usage percentages by CPU core count.
+        """
+
+        if widget.get_active() == True:
+            Config.processes_cpu_divide_by_core = 1
+        elif widget.get_active() == False:
+            Config.processes_cpu_divide_by_core = 0
 
         # Apply changes immediately (without waiting update interval).
         Processes.processes_initial_func()
@@ -731,6 +762,8 @@ class ProcessesMenu:
 
         # Set GUI objects on Numbers tab 
         # Set data unit checkbuttons.
+        if Config.processes_cpu_divide_by_core == 1:
+            self.divide_cpu_usage_by_core_count_cb.set_active(True) 
         if Config.processes_memory_data_unit == 0:
             self.memory_data_power_of_1024_cb.set_active(True)
         if Config.processes_memory_data_unit == 1:

@@ -944,10 +944,11 @@ class Processes:
         update_interval = Config.update_interval
 
         # Get configrations one time per floop instead of getting them multiple times (hundreds of times for many of them) in every loop which causes high CPU usage.
-        global processes_cpu_precision
+        global processes_cpu_precision, processes_cpu_divide_by_core
         global processes_memory_data_precision, processes_memory_data_unit
         global processes_disk_data_precision, processes_disk_data_unit, processes_disk_speed_bit
         processes_cpu_precision = Config.processes_cpu_precision
+        processes_cpu_divide_by_core = Config.processes_cpu_divide_by_core
         processes_memory_data_precision = Config.processes_memory_data_precision
         processes_memory_data_unit = Config.processes_memory_data_unit
         processes_disk_data_precision = Config.processes_disk_data_precision
@@ -976,7 +977,11 @@ class Processes:
 
         # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
         number_of_logical_cores = Common.number_of_logical_cores()
-
+        # Redefine core count division number if "Divide CPU usage by core count" option is disabled.
+        if processes_cpu_divide_by_core == 0:
+            core_count_division_number = 1
+        elif processes_cpu_divide_by_core == 1:
+            core_count_division_number = number_of_logical_cores
         # Get current username which will be used for determining processes from only this user or other users.
         current_user_name = os.environ.get('USER')
 
@@ -1160,7 +1165,7 @@ class Processes:
                     global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
                 process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
                 global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-                cpu_usage = process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores
+                cpu_usage = process_cpu_time_difference / global_cpu_time_difference * 100 / core_count_division_number
                 processes_data_row.append(cpu_usage)
                 cpu_usage_list.append(cpu_usage)
             # Get process RSS (resident set size) memory pages and multiply with 1024 in order to convert the value into bytes.

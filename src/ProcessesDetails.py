@@ -1040,6 +1040,13 @@ class ProcessesDetails:
         Get process CPU usage.
         """
 
+        number_of_logical_cores = Common.number_of_logical_cores()
+        # Redefine number of online logical CPU cores if "Divide CPU usage by core count" option is disabled.
+        if Config.processes_cpu_divide_by_core == 0:
+            core_count_division_number = 1
+        elif Config.processes_cpu_divide_by_core == 1:
+            core_count_division_number = number_of_logical_cores
+
         # Get process cpu time in user mode (utime + stime)
         process_cpu_time = int(stat_output_split[-39]) + int(stat_output_split[-38])
         global_process_cpu_times = [global_cpu_time_all, process_cpu_time]
@@ -1051,7 +1058,7 @@ class ProcessesDetails:
             global_cpu_time_all_prev = global_process_cpu_times[0] - 1                    # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
         process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
         global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-        selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Common.number_of_logical_cores()
+        selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / core_count_division_number
         self.global_process_cpu_times_prev = global_process_cpu_times
 
         return selected_process_cpu_percent

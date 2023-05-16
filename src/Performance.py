@@ -640,9 +640,33 @@ class Performance:
             draw_performance_data2 = 0
 
             # Get chart y limit values in order to show maximum values of the charts as 100.
+            if Config.processes_cpu_divide_by_core == 0:
+                chart_y_limit_for_cpu_core = self.number_of_logical_cores * 100
+            else:
+                chart_y_limit_for_cpu_core = 100
             chart_y_limit_dict = {}
             for device_name in device_name_list:
-                chart_y_limit_dict[device_name] = 100
+                chart_y_limit_dict[device_name] = chart_y_limit_for_cpu_core
+
+            # Get chart y limit value in order to show maximum value of the chart as 100% or CPU core count x 100%.
+            if selected_device != "":
+                chart_y_limit = chart_y_limit_dict[selected_device]
+            # Get chart_y_limit value if single chart (device) is drawn.
+            else:
+                chart_y_limit = max(list(chart_y_limit_dict.values()))
+            chart_y_limit_str = f'{chart_y_limit_for_cpu_core}%'
+            chart_y_limit_split = chart_y_limit_str
+            current_process_object.drawingarea_cpu_limit_label.set_text(chart_y_limit_split)
+
+
+
+            """# Update chart_y_limit_dict if multiple charts (devices) are drawn.
+            if selected_device != "":
+                chart_y_limit_dict[selected_device] = chart_y_limit
+            # Update "chart_y_limit_dict" if single chart (device) is drawn.
+            else:
+                chart_y_limit_dict[list(chart_y_limit_dict.keys())[0]] = chart_y_limit"""
+
 
         # Check if drawing will be for Process Details window Memory tab.
         elif widget_name == "processes_details_da_memory_usage":

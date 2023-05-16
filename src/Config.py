@@ -188,6 +188,7 @@ class Config:
         self.show_processes_as_tree = 0
         self.show_tree_lines = 0
         self.processes_cpu_precision = 0
+        self.processes_cpu_divide_by_core = 1
         self.processes_memory_data_precision = 1
         self.processes_memory_data_unit = 0
         self.processes_disk_data_precision = 1
@@ -301,6 +302,10 @@ class Config:
         self.processes_data_row_sorting_order = int(config_values[config_variables.index("processes_data_row_sorting_order")])
         self.processes_data_column_order = [int(value) for value in config_values[config_variables.index("processes_data_column_order")].strip("[]").split(", ")]
         self.processes_data_column_widths = [int(value) for value in config_values[config_variables.index("processes_data_column_widths")].strip("[]").split(", ")]
+        if "processes_cpu_divide_by_core" in config_variables:
+            self.processes_cpu_divide_by_core = int(config_values[config_variables.index("processes_cpu_divide_by_core")])
+        else:
+            pass
 
         self.users_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("users_treeview_columns_shown")].strip("[]").split(", ")]
         self.users_data_row_sorting_column = int(config_values[config_variables.index("users_data_row_sorting_column")])
@@ -385,6 +390,7 @@ class Config:
         config_write_text = config_write_text + "show_processes_as_tree = " + str(self.show_processes_as_tree) + "\n"
         config_write_text = config_write_text + "show_tree_lines = " + str(self.show_tree_lines) + "\n"
         config_write_text = config_write_text + "processes_cpu_precision = " + str(self.processes_cpu_precision) + "\n"
+        config_write_text = config_write_text + "processes_cpu_divide_by_core = " + str(self.processes_cpu_divide_by_core) + "\n"
         config_write_text = config_write_text + "processes_memory_data_precision = " + str(self.processes_memory_data_precision) + "\n"
         config_write_text = config_write_text + "processes_memory_data_unit = " + str(self.processes_memory_data_unit) + "\n"
         config_write_text = config_write_text + "processes_disk_data_precision = " + str(self.processes_disk_data_precision) + "\n"
