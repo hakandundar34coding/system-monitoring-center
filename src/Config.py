@@ -198,8 +198,8 @@ class Config:
         self.processes_treeview_columns_shown = [0, 1, 2, 4, 5, 10, 11]
         self.processes_data_row_sorting_column = 0
         self.processes_data_row_sorting_order = 0
-        self.processes_data_column_order = [0, 1, 2, -1, 3, 4, -1, -1, -1, -1, 5, 6, -1, -1, -1, -1, -1, -1, -1]
-        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.processes_data_column_order = [0, 1, 2, -1, 3, 4, -1, -1, -1, -1, 5, 6, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
     def config_default_users_func(self):

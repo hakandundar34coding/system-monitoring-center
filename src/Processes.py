@@ -56,6 +56,13 @@ class Processes:
         Config.processes_treeview_columns_shown = sorted(processes_treeview_columns_shown)
 
 
+        processes_data_column_order = Config.processes_data_column_order
+        if len(processes_data_column_order) < 20:
+            processes_data_column_widths = Config.processes_data_column_widths
+            Config.processes_data_column_order = processes_data_column_order + [-1]
+            Config.processes_data_column_widths = processes_data_column_widths + [-1]
+
+
     def tab_title_grid(self):
         """
         Generate tab name label, searchentry.
@@ -895,7 +902,8 @@ class Processes:
                               [15, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                               [16, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                               [17, _tr('Path'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                              [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
+                              [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                              [19, _tr('CPU Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_time]]
                               ]
 
         # Define data unit conversion function objects in for lower CPU usage.
@@ -1244,6 +1252,8 @@ class Processes:
             # Get process commandline.
             if 18 in processes_treeview_columns_shown:
                 processes_data_row.append(process_commandline)
+            if 19 in processes_treeview_columns_shown:
+                processes_data_row.append(process_cpu_time_list[index_from_stat])
 
             # Append process data into a list (processes_data_rows)
             processes_data_rows.append(processes_data_row)
@@ -1598,6 +1608,23 @@ def cell_data_function_disk_write_speed(tree_column, cell, tree_model, iter, dat
     cell.set_property('text', f'{performance_data_unit_converter_func("speed", processes_disk_speed_bit, tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision)}/s')
     value = tree_model.get(iter, data)[0]
     cell_backround_color(cell, value, max_value_disk_write_speed_list)
+
+def cell_data_function_cpu_time(tree_column, cell, tree_model, iter, data):
+    global number_of_clock_ticks
+    time_days = tree_model.get(iter, data)[0]/number_of_clock_ticks/60/60/24
+    time_days_int = int(time_days)
+    time_hours = (time_days -time_days_int) * 24
+    time_hours_int = int(time_hours)
+    time_minutes = (time_hours - time_hours_int) * 60
+    time_minutes_int = int(time_minutes)
+    time_seconds = (time_minutes - time_minutes_int) * 60
+    if time_days_int == 0 and time_hours_int == 0:
+        cpu_time = f'{time_minutes_int:02}:{time_seconds:05.2f}'
+    elif time_days_int == 0:
+        cpu_time = f'{time_hours_int:02}:{time_minutes_int:02}:{time_seconds:05.2f}'
+    else:
+        cpu_time = f'{time_days_int:02}:{time_hours_int:02}:{time_minutes_int:02}:{time_seconds:05.2f}'
+    cell.set_property('text', cpu_time)
 
 def cell_backround_color(cell, value, max_value):
     color = Gdk.RGBA()

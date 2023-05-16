@@ -234,6 +234,10 @@ class ProcessesMenu:
         self.commandline_cb = Common.checkbutton(_tr("Command Line"), None)
         grid.attach(self.commandline_cb, 1, 9, 1, 1)
 
+        # CheckButton (CPU Time)
+        self.cpu_time_cb = Common.checkbutton(_tr("CPU Time"), None)
+        grid.attach(self.cpu_time_cb, 1, 10, 1, 1)
+
 
     def numbers_tab_gui(self):
         """
@@ -415,6 +419,7 @@ class ProcessesMenu:
         self.uid_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.path_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.commandline_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.cpu_time_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
 
         self.cpu_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
         self.memory_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
@@ -455,6 +460,7 @@ class ProcessesMenu:
         self.gid_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.path_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.commandline_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.cpu_time_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
 
         self.cpu_precision_dd.disconnect_by_func(self.on_selected_item_notify)
         self.memory_precision_dd.disconnect_by_func(self.on_selected_item_notify)
@@ -759,6 +765,10 @@ class ProcessesMenu:
             self.commandline_cb.set_active(True)
         else:
             self.commandline_cb.set_active(False)
+        if 19 in Config.processes_treeview_columns_shown:
+            self.cpu_time_cb.set_active(True)
+        else:
+            self.cpu_time_cb.set_active(False)
 
         # Set GUI objects on Numbers tab 
         # Set data unit checkbuttons.
@@ -827,6 +837,8 @@ class ProcessesMenu:
             Config.processes_treeview_columns_shown.append(17)
         if self.commandline_cb.get_active() == True:
             Config.processes_treeview_columns_shown.append(18)
+        if self.cpu_time_cb.get_active() == True:
+            Config.processes_treeview_columns_shown.append(19)
 
         # Apply changes immediately (without waiting update interval).
         Processes.treeview_column_order_width_row_sorting()
