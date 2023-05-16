@@ -658,16 +658,6 @@ class Performance:
             chart_y_limit_split = chart_y_limit_str
             current_process_object.drawingarea_cpu_limit_label.set_text(chart_y_limit_split)
 
-
-
-            """# Update chart_y_limit_dict if multiple charts (devices) are drawn.
-            if selected_device != "":
-                chart_y_limit_dict[selected_device] = chart_y_limit
-            # Update "chart_y_limit_dict" if single chart (device) is drawn.
-            else:
-                chart_y_limit_dict[list(chart_y_limit_dict.keys())[0]] = chart_y_limit"""
-
-
         # Check if drawing will be for Process Details window Memory tab.
         elif widget_name == "processes_details_da_memory_usage":
 
