@@ -814,9 +814,11 @@ class System:
             desktop_environment_version_output = "-"
 
         if current_desktop_environment == "XFCE":
+            # Example output: "xfce4-panel 4.18.2 (Xfce 4.18)"
             for line in desktop_environment_version_output.split("\n"):
-                if "xfce4-panel" in line:
-                    current_desktop_environment_version = line.split(" ")[1]
+                if line.startswith("xfce4-panel "):
+                    current_desktop_environment_version = line.split(" ")[-1].strip("()")
+                    break
 
         if current_desktop_environment in ["GNOME", "zorin:GNOME", "ubuntu:GNOME"]:
             for line in desktop_environment_version_output.split("\n"):
