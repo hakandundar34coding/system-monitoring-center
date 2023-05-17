@@ -355,19 +355,17 @@ class System:
         """
 
         # Read "/etc/os-release" file for getting OS name, version and based on information.
-        try:
-            if Config.environment_type == "flatpak":
+        if Config.environment_type == "flatpak":
+            try:
                 with open("/var/run/host/etc/os-release") as reader:
                     os_release_output = reader.read()
-            else:
-                with open("/etc/os-release") as reader:
+            except FileNotFoundError:
+                # Read "os-release" file on NixOS.
+                # It is not read by using "/var/run/host/etc/os-release" path even though there is a link of this file.
+                with open("/var/run/host/etc/static/os-release") as reader:
                     os_release_output = reader.read()
-        except FileNotFoundError:
-            os_release_output = "-"
-
-        # "/etc/static/os-release" file can not be read by adding "/var/run" at the beginnging of the path on NixOS. 
-        if os_release_output == "-":
-            with open("/etc/static/os-release") as reader:
+        else:
+            with open("/etc/os-release") as reader:
                 os_release_output = reader.read()
 
         os_release_output_lines = os_release_output.strip().split("\n")
