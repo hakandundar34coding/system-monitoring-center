@@ -677,49 +677,82 @@ class Processes:
 
         process_search_text = self.searchentry.get_text().lower()
 
-        piter_list = self.piter_list[:]
-
-        # Get expanded iters (rows)
-        expanded_list = self.get_expanded(piter_list)
+        treeview = self.treeview
+        sort_model = treeview.get_model()
+        filter_model = sort_model.get_model()
+        treestore = filter_model.get_model()
 
         global pid_list, cmdline_list
 
+        # Get PID, iter, shown, expanded information from sort model before changing search text.
+        pid_piter_sort_model_before_dict = self.get_sort_model_piter_information(treeview, sort_model)
+
         # Show/hide iters (rows) by using search text.
-        visible_piter_list = []
-        for piter in piter_list:
+        for piter in self.piter_list:
             if self.process_search_type == "name":
-                process_data_text_in_model = self.treestore.get_value(piter, self.filter_column)
+                process_data_text_in_model = treestore.get_value(piter, self.filter_column)
             elif self.process_search_type == "command_line":
-                process_pid_in_model = str(self.treestore.get_value(piter, 4))
+                process_pid_in_model = str(treestore.get_value(piter, 4))
                 process_data_text_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
             if process_search_text in str(process_data_text_in_model).lower():
-                self.treestore.set_value(piter, 0, True)
-                # Make parent processes visible if one of its children is visible.
-                piter_parent = self.treestore.iter_parent(piter)
-                visible_piter_list.append(piter)
-                while piter_parent != None:
-                    self.treestore.set_value(piter_parent, 0, True)
-                    piter_parent = self.treestore.iter_parent(piter_parent)
-                    visible_piter_list.append(piter_parent)
+                while piter != None:
+                    pid = treestore.get_value(piter, 4)
+                    treestore.set_value(piter, 0, True)
+                    piter = treestore.iter_parent(piter)
             else:
-                if piter not in visible_piter_list:
-                    self.treestore.set_value(piter, 0, False)
+                treestore.set_value(piter, 0, False)
 
-        # Expand all matched iters if search text is changed.
-        try:
-            if self.process_search_text_prev != process_search_text:
-                self.expand_first(visible_piter_list)
-        except AttributeError:
-            self.expand_first(visible_piter_list)
+        # Get PID, iter, shown, expanded information from sort model after changing search text.
+        pid_piter_sort_model_after_dict = self.get_sort_model_piter_information(treeview, sort_model)
 
-        # Expand iters back if new ones are listed without search text changes.
-        try:
-            if self.process_search_text_prev == process_search_text:
-                self.expand_back(expanded_list)
-        except AttributeError:
-            self.expand_back(expanded_list)
+        # Expand rows after search text change if if is expanded before or it is made shown again.
+        for pid in pid_piter_sort_model_after_dict:
+            piter = pid_piter_sort_model_after_dict[pid]["piter"]
+            if pid not in pid_piter_sort_model_before_dict:
+                treeview.expand_row(sort_model.get_path(piter), False)
+                continue
+            if pid_piter_sort_model_before_dict[pid]["expanded"] == True:
+                treeview.expand_row(sort_model.get_path(piter), False)
 
-        self.process_search_text_prev = process_search_text
+
+    def get_sort_model_piter_information(self, treeview, sort_model):
+        """
+        Get PID, iter, shown, expanded information from treeview sort model.
+        """
+
+        pid_piter_sort_model_dict = {}
+        # Get PID, iter, shown, expanded information for for root rows.
+        list_current = []
+        for i, row in enumerate(sort_model):
+            piter = sort_model.get_iter(i)
+            pid = sort_model.get_value(piter, 4)
+            sub_dict = {}
+            sub_dict["piter"] = piter
+            sub_dict["shown"] = sort_model.get_value(piter, 0)
+            sub_dict["expanded"] = treeview.row_expanded(sort_model.get_path(piter))
+            pid_piter_sort_model_dict[pid] = sub_dict
+            list_current.append(piter)
+        list_current = list(list_current)
+        list_next = []
+        # Get PID, iter, shown, expanded information for for children rows.
+        while list_current != []:
+            for piter in list_current:
+                children_count = sort_model.iter_n_children(piter)
+                for i in range(children_count):
+                    piter_child = sort_model.iter_nth_child(piter, i)
+                    if piter_child == None:
+                        continue
+                    pid = sort_model.get_value(piter_child, 4)
+                    sub_dict = {}
+                    sub_dict["piter"] = piter_child
+                    sub_dict["shown"] = sort_model.get_value(piter_child, 0)
+                    sub_dict["expanded"] = treeview.row_expanded(sort_model.get_path(piter_child))
+                    pid_piter_sort_model_dict[pid] = sub_dict
+                    list_next.append(piter_child)
+            list_current = list(list_next)
+            list_next = []
+
+        return pid_piter_sort_model_dict
 
 
     def get_expanded(self, piter_list):
