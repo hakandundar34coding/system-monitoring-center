@@ -75,6 +75,19 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.14.0" date="2023-05-19">
+      <description>
+        <ul>
+          <li>New: CPU time column option (Processes)</li>
+          <li>New: Divide CPU usage by core count option (Processes)</li>
+          <li>Improvements for OS information of some systems</li>
+          <li>Updated dependencies</li>
+          <li>Updated translations</li>
+          <li>Fix: Searching processes if processes are listed as tree</li>
+          <li>Fix: Showing processes if .desktop files are not read</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.13.0" date="2023-05-08">
       <description>
         <ul>

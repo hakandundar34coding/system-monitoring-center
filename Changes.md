@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v2.14.0 (19.05.2023)
+  * New: CPU time column option (Processes)
+  * New: Divide CPU usage by core count option (Processes)
+  * Improvements for OS information of some systems
+  * Updated dependencies
+  * Updated translations
+  * Fix: Searching processes if processes are listed as tree
+  * Fix: Showing processes if .desktop files are not read
+
 ### v2.13.0 (08.05.2023)
   * New: Ctrl+F shortcut for focus of search entries
   * New: Chinese (Traditional) translations

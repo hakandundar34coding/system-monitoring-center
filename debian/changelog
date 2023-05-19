@@ -1,3 +1,15 @@
+system-monitoring-center (2.14.0) unstable; urgency=medium
+
+  * New: CPU time column option (Processes)
+  * New: Divide CPU usage by core count option (Processes)
+  * Improvements for OS information of some systems
+  * Updated dependencies
+  * Updated translations
+  * Fix: Searching processes if processes are listed as tree
+  * Fix: Showing processes if .desktop files are not read
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 19 May 2023 10:40:00 +0300
+
 system-monitoring-center (2.13.0) unstable; urgency=medium
 
   * New: Ctrl+F shortcut for focus of search entries
