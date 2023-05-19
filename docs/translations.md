@@ -10,17 +10,17 @@ as ```Connected SSID```. The text contains two different information.
 
 | Language Code  | Language               | Percentage |
 | -------------- | ---------------------- | ---------- |
-| cs             | Czech                  | 91%        |
-| de             | German                 | 93%        |
+| cs             | Czech                  | 89%        |
+| de             | German                 | 92%        |
 | en             | English                | 100%       |
-| es             | Spanish                | 100%       |
-| fa             | Persian                | 90%        |
-| fr             | French                 | 100%       |
-| hu             | Hungarian              | 92%        |
-| pl             | Polish                 | 93%        |
-| pt_BR          | Portuguese (Brazilian) | 99%        |
-| pt_PT          | Portuguese (Portugal)  | 100%       |
-| ru_RU          | Russian                | 100%       |
+| es             | Spanish                | 98%        |
+| fa             | Persian                | 89%        |
+| fr             | French                 | 98%        |
+| hu             | Hungarian              | 91%        |
+| pl             | Polish                 | 92%        |
+| pt_BR          | Portuguese (Brazilian) | 98%        |
+| pt_PT          | Portuguese (Portugal)  | 98%        |
+| ru_RU          | Russian                | 98%        |
 | tr             | Turkish                | 100%       |
-| zh_TW          | Chinese (Traditional)  | 98%        |
+| zh_TW          | Chinese (Traditional)  | 97%        |
 
