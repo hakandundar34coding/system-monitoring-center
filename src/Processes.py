@@ -1533,8 +1533,11 @@ class Processes:
         for application in application_file_list:
 
             # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
-            with open("/usr/share/applications/" + application, encoding="utf-8") as reader:
-                application_file_content = reader.read()
+            try:
+                with open("/usr/share/applications/" + application, encoding="utf-8") as reader:
+                    application_file_content = reader.read()
+            except PermissionError:
+                continue
 
             # Do not include application name or icon name if any of them is not found in the .desktop file.
             if "Exec=" not in application_file_content or "Icon=" not in application_file_content:
