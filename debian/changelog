@@ -1,3 +1,10 @@
+system-monitoring-center (1.43.3) unstable; urgency=medium
+
+  * Fix: Showing processes if .desktop files are not read
+  * Fix: Desktop environment version of some systems
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 20 May 2023 11:10:00 +0300
+
 system-monitoring-center (1.43.2) unstable; urgency=medium
 
   * Improvement for window position if size is remembered
