@@ -48,7 +48,7 @@
     <strong>
         Translations:
     </strong>
-    Czech | German | English | Français | Hungarian | Persian | Polish | Portuguese (Brazilian) | Portuguese (Portugal) | Russian | Spanish | Turkish | <a href="docs/translations.md">Notes for translators</a>
+    Chinese (Traditional) | Czech | German | English | French | Hungarian | Persian | Polish | Portuguese (Brazilian) | Portuguese (Portugal) | Russian | Spanish | Turkish | <a href="docs/translations.md">Notes for translators</a>
 </p>
 
 
@@ -99,12 +99,9 @@
     - ~~Installing from PyPI as a Python package.~~ There will be no new packages on PyPI ([Details](docs/uninstall_pypi_package.md)).
     - Installing from Flatpak ([Details](docs/flatpak.md)).
     - Installing from several application stores (Pardus Application Center, Pi-Apps Store).
-    - Installing from repositories of distributions (currently a few distributions).
+    - Installing from repositories of distributions.
     - Running from source code (in ```src/``` folder, run: ```python3 ./run_from_source.py```).
       - For SMC v1.x.x, in ```src/``` folder, run: ```python3 ./Main.py```.
-<strong>
-    - Note: System Monitoring Center v2.x.x is only available for Flatpak and ArchLinux (AUR).
-</strong>
 
 
 ### Dependencies:
