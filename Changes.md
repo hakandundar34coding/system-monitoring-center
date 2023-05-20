@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v1.43.3 (20.05.2023)
+  * Fix: Showing processes if .desktop files are not read
+  * Fix: Desktop environment version of some systems
+
 ### v2.14.0 (19.05.2023)
   * New: CPU time column option (Processes)
   * New: Divide CPU usage by core count option (Processes)
