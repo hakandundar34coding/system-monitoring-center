@@ -507,14 +507,16 @@ class System:
         current_desktop_environment_version = "-"
 
         if current_desktop_environment == "XFCE":
+            # Example output: "xfce4-panel 4.18.2 (Xfce 4.18)"
             try:
                 if Config.environment_type == "flatpak":
                     current_desktop_environment_version_lines = (subprocess.check_output(["flatpak-spawn", "--host", "xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
                 else:
                     current_desktop_environment_version_lines = (subprocess.check_output(["xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
                 for line in current_desktop_environment_version_lines:
-                    if "xfce4-panel" in line:
-                        current_desktop_environment_version = line.split(" ")[1]
+                    if line.startswith("xfce4-panel "):
+                        current_desktop_environment_version = line.split(" ")[-1].strip("()")
+                        break
             except FileNotFoundError:
                 pass
 
