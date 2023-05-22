@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 15:23+0300\n"
-"PO-Revision-Date: 2023-05-19 15:29+0300\n"
+"PO-Revision-Date: 2023-05-22 09:49-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
 #: src/MainWindow.py:71 src/MainWindow.py:518
@@ -38,9 +38,8 @@ msgid ""
 "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
 "Processes;Users;Services;"
 msgstr ""
-"monitor do sistema;gerenciador de tarefas;desempenho;uso de CPU;uso de ram;"
-"memória swap;uso de memória;armazenamento;uso de rede;processos;usuários;"
-"serviços;"
+"Monitor de Sistema;Gerenciador de Tarefas;Desempenho;CPU;RAM;Swap;Memória;"
+"Disco;Rede;Processos;Usuários;Serviços;"
 
 #: src/Common.py:142
 msgid "Reset"
@@ -641,7 +640,7 @@ msgstr "Caminho"
 
 #: src/Processes.py:867 src/ProcessesMenu.py:238
 msgid "CPU Time"
-msgstr ""
+msgstr "Tempo de CPU"
 
 #: src/Processes.py:889 src/Services.py:450 src/ServicesDetails.py:346
 msgid "Running"
@@ -751,7 +750,7 @@ msgstr "Recolher todos"
 
 #: src/ProcessesMenu.py:319
 msgid "Divide CPU usage by core count"
-msgstr ""
+msgstr "Dividir o Uso de CPU por contagem de núcleos"
 
 #: src/Sensors.py:126
 msgid "Device"
@@ -962,7 +961,7 @@ msgstr "Lembrar das últimas abas abertas"
 
 #: src/SettingsWindow.py:125
 msgid "Default main tab and sub-tab"
-msgstr ""
+msgstr "Aba principal e sub-aba padrão"
 
 #: src/SettingsWindow.py:141
 msgid "Remember last selected devices"
@@ -994,7 +993,7 @@ msgstr "Versão - Codinome"
 
 #: src/System.py:124
 msgid "OS Family"
-msgstr "Família do S.O."
+msgstr "Família do SO"
 
 #: src/System.py:131
 msgid "Based On"
@@ -1070,7 +1069,7 @@ msgstr "Versão do Python"
 
 #: src/System.py:518
 msgid "Virtual Machine"
-msgstr ""
+msgstr "Máquina Virtual"
 
 #: src/Users.py:244 src/UsersDetails.py:74 src/UsersMenu.py:91
 msgid "Full Name"
