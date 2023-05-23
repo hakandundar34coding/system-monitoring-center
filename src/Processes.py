@@ -1370,7 +1370,7 @@ class Processes:
                 if show_processes_as_tree == 1:
                     if ppid_list[pid_list.index(process)] == "0":                                 # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
                         self.piter_list.append(self.treestore.append(None, processes_data_rows[pid_list.index(process)]))
-                    if ppid_list[pid_list.index(process)] != "0":
+                    else:
                         if show_processes_of_all_users == 1:                                      # Process appended under tree root process or another process if "Show processes as tree" option is preferred.
                             self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
                         parent_process = ppid_list[pid_list.index(process)]                       # Define parent process of the process in order to avoid calculating it multiple times for faster processing.
