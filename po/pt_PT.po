@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2022.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 15:23+0300\n"
-"PO-Revision-Date: 2023-05-19 15:28+0300\n"
+"PO-Revision-Date: 2023-05-22 20:28+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
 #: src/MainWindow.py:71 src/MainWindow.py:518
@@ -640,7 +640,7 @@ msgstr "Caminho"
 
 #: src/Processes.py:867 src/ProcessesMenu.py:238
 msgid "CPU Time"
-msgstr ""
+msgstr "Tempo de CPU"
 
 #: src/Processes.py:889 src/Services.py:450 src/ServicesDetails.py:346
 msgid "Running"
@@ -750,7 +750,7 @@ msgstr "Recolher tudo"
 
 #: src/ProcessesMenu.py:319
 msgid "Divide CPU usage by core count"
-msgstr ""
+msgstr "Dividir a utilização da CPU pelo número de núcleos"
 
 #: src/Sensors.py:126
 msgid "Device"
@@ -1069,7 +1069,7 @@ msgstr "Versão Python"
 
 #: src/System.py:518
 msgid "Virtual Machine"
-msgstr ""
+msgstr "Máquina virtual"
 
 #: src/Users.py:244 src/UsersDetails.py:74 src/UsersMenu.py:91
 msgid "Full Name"
