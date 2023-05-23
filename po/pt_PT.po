@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-19 15:23+0300\n"
-"PO-Revision-Date: 2023-05-22 20:28+0100\n"
+"POT-Creation-Date: 2023-05-23 09:05+0300\n"
+"PO-Revision-Date: 2023-05-23 09:08+0300\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
 #: src/MainWindow.py:71 src/MainWindow.py:518
@@ -53,15 +53,16 @@ msgstr "Atualizar os dados neste separador"
 msgid "Graph Color"
 msgstr "Cor do gráfico"
 
-#: src/Common.py:769 src/Processes.py:283 src/Processes.py:1421
+#: src/Common.py:769 src/Processes.py:283 src/Processes.py:1455
 #: src/Sensors.py:378 src/Services.py:776 src/Users.py:589
 msgid "Search..."
 msgstr "Procurar..."
 
 #: src/Cpu.py:49 src/CpuMenu.py:35 src/CpuMenu.py:68 src/MainWindow.py:140
-#: src/MainWindow.py:289 src/Processes.py:852 src/ProcessesDetails.py:66
-#: src/ProcessesDetails.py:158 src/ProcessesDetails.py:285
-#: src/ProcessesMenu.py:178 src/ProcessesMenu.py:271 src/ProcessesMenu.py:312
+#: src/MainWindow.py:289 src/Processes.py:852 src/Processes.py:869
+#: src/ProcessesDetails.py:66 src/ProcessesDetails.py:158
+#: src/ProcessesDetails.py:285 src/ProcessesMenu.py:178
+#: src/ProcessesMenu.py:246 src/ProcessesMenu.py:287 src/ProcessesMenu.py:328
 #: src/SettingsWindow.py:30 src/Summary.py:671 src/Users.py:253
 #: src/UsersDetails.py:164 src/UsersMenu.py:127
 msgid "CPU"
@@ -143,31 +144,31 @@ msgid "Graph - Show"
 msgstr "Gráfico - Mostrar"
 
 #: src/CpuMenu.py:63 src/DiskMenu.py:71 src/MemoryMenu.py:63
-#: src/NetworkMenu.py:71 src/ProcessesMenu.py:266
+#: src/NetworkMenu.py:71 src/ProcessesMenu.py:282
 msgid "Precision"
 msgstr "Precisão"
 
 #: src/Disk.py:50 src/Disk.py:193 src/Disk.py:213 src/Disk.py:361
 #: src/Disk.py:546 src/DiskMenu.py:35 src/DiskMenu.py:110 src/MainWindow.py:148
-#: src/MainWindow.py:299 src/ProcessesDetails.py:76 src/ProcessesMenu.py:293
-#: src/ProcessesMenu.py:351 src/SettingsWindow.py:30
+#: src/MainWindow.py:299 src/ProcessesDetails.py:76 src/ProcessesMenu.py:309
+#: src/ProcessesMenu.py:367 src/SettingsWindow.py:30
 msgid "Disk"
 msgstr "Disco"
 
 #: src/Disk.py:76 src/Disk.py:103 src/DiskMenu.py:43 src/Processes.py:858
 #: src/ProcessesDetails.py:178 src/ProcessesDetails.py:453
-#: src/ProcessesDetails.py:471 src/ProcessesMenu.py:202 src/Summary.py:851
+#: src/ProcessesDetails.py:471 src/ProcessesMenu.py:206 src/Summary.py:851
 msgid "Read Speed"
 msgstr "Velocidade de leitura"
 
 #: src/Disk.py:76 src/Disk.py:103 src/DiskMenu.py:47 src/Processes.py:859
 #: src/ProcessesDetails.py:188 src/ProcessesDetails.py:453
-#: src/ProcessesDetails.py:481 src/ProcessesMenu.py:206 src/Summary.py:863
+#: src/ProcessesDetails.py:481 src/ProcessesMenu.py:210 src/Summary.py:863
 msgid "Write Speed"
 msgstr "Velocidade de escrita"
 
 #: src/Disk.py:108 src/Processes.py:856 src/ProcessesDetails.py:491
-#: src/ProcessesMenu.py:194
+#: src/ProcessesMenu.py:198
 msgid "Read Data"
 msgstr "Ler dados"
 
@@ -176,7 +177,7 @@ msgid "Measured value since last system start"
 msgstr "Valor medido desde o último arranque do sistema"
 
 #: src/Disk.py:108 src/Processes.py:857 src/ProcessesDetails.py:501
-#: src/ProcessesMenu.py:198
+#: src/ProcessesMenu.py:202
 msgid "Written Data"
 msgstr "Dados escritos"
 
@@ -266,16 +267,16 @@ msgid "All Devices"
 msgstr "Todos os dispositivos"
 
 #: src/DiskMenu.py:84 src/MemoryMenu.py:76 src/NetworkMenu.py:84
-#: src/ProcessesMenu.py:307
+#: src/ProcessesMenu.py:323
 msgid "Data Unit"
 msgstr "Unidade de dados"
 
 #: src/DiskMenu.py:89 src/MemoryMenu.py:81 src/NetworkMenu.py:89
-#: src/ProcessesMenu.py:331 src/ProcessesMenu.py:357
+#: src/ProcessesMenu.py:347 src/ProcessesMenu.py:373
 msgid "Show data as powers of"
 msgstr "Mostrar dados como potências de"
 
-#: src/DiskMenu.py:102 src/NetworkMenu.py:102 src/ProcessesMenu.py:378
+#: src/DiskMenu.py:102 src/NetworkMenu.py:102 src/ProcessesMenu.py:394
 msgid "Show speed units as multiples of bits"
 msgstr "Mostrar unidades de velocidade como múltiplos de bits"
 
@@ -339,7 +340,7 @@ msgstr "Rede"
 msgid "Performance"
 msgstr "Desempenho"
 
-#: src/MainWindow.py:203 src/Processes.py:77 src/Processes.py:1421
+#: src/MainWindow.py:203 src/Processes.py:77 src/Processes.py:1455
 #: src/ProcessesMenu.py:33 src/SettingsWindow.py:29 src/Summary.py:689
 #: src/Users.py:248 src/UsersDetails.py:114 src/UsersMenu.py:107
 msgid "Processes"
@@ -366,8 +367,9 @@ msgid "Summary"
 msgstr "Resumo"
 
 #: src/MainWindow.py:294 src/Memory.py:50 src/MemoryMenu.py:35
-#: src/MemoryMenu.py:47 src/ProcessesDetails.py:71 src/ProcessesMenu.py:282
-#: src/ProcessesMenu.py:325 src/SettingsWindow.py:30
+#: src/MemoryMenu.py:47 src/Processes.py:868 src/Processes.py:871
+#: src/ProcessesDetails.py:71 src/ProcessesMenu.py:182 src/ProcessesMenu.py:254
+#: src/ProcessesMenu.py:298 src/ProcessesMenu.py:341 src/SettingsWindow.py:30
 msgid "Memory"
 msgstr "Memória"
 
@@ -459,7 +461,7 @@ msgid "Name"
 msgstr "Nome"
 
 #: src/Memory.py:443 src/Processes.py:860 src/ProcessesDetails.py:148
-#: src/ProcessesMenu.py:210
+#: src/ProcessesMenu.py:214
 msgid "Priority"
 msgstr "Prioridade"
 
@@ -562,7 +564,7 @@ msgid "Change Priority"
 msgstr "Alterar prioridade"
 
 #: src/Processes.py:291 src/Processes.py:866 src/ProcessesDetails.py:565
-#: src/ProcessesMenu.py:234
+#: src/ProcessesMenu.py:238
 msgid "Command Line"
 msgstr "Linha de comandos"
 
@@ -601,68 +603,74 @@ msgstr "Utilizador"
 msgid "Status"
 msgstr "Estado"
 
-#: src/Processes.py:853 src/ProcessesDetails.py:168 src/ProcessesDetails.py:366
-#: src/ProcessesDetails.py:384 src/ProcessesMenu.py:182 src/Services.py:428
+#: src/Processes.py:853 src/Processes.py:870 src/ProcessesDetails.py:168
+#: src/ProcessesDetails.py:366 src/ProcessesDetails.py:384
+#: src/ProcessesMenu.py:186 src/ProcessesMenu.py:250 src/Services.py:428
 #: src/ServicesDetails.py:219 src/ServicesMenu.py:111
 msgid "Memory (RSS)"
 msgstr "Memória (RSS)"
 
-#: src/Processes.py:854 src/ProcessesDetails.py:394 src/ProcessesMenu.py:186
+#: src/Processes.py:854 src/ProcessesDetails.py:394 src/ProcessesMenu.py:190
 msgid "Memory (VMS)"
 msgstr "Memória (VMS)"
 
-#: src/Processes.py:855 src/ProcessesDetails.py:404 src/ProcessesMenu.py:190
+#: src/Processes.py:855 src/ProcessesDetails.py:404 src/ProcessesMenu.py:194
 msgid "Memory (Shared)"
 msgstr "Memória (partilhada)"
 
-#: src/Processes.py:861 src/ProcessesDetails.py:295 src/ProcessesMenu.py:214
+#: src/Processes.py:861 src/ProcessesDetails.py:295 src/ProcessesMenu.py:218
 msgid "Threads"
 msgstr "Threads"
 
-#: src/Processes.py:862 src/ProcessesDetails.py:218 src/ProcessesMenu.py:218
+#: src/Processes.py:862 src/ProcessesDetails.py:218 src/ProcessesMenu.py:222
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:863 src/ProcessesDetails.py:228 src/ProcessesMenu.py:222
+#: src/Processes.py:863 src/ProcessesDetails.py:228 src/ProcessesMenu.py:226
 #: src/Users.py:246 src/UsersDetails.py:94 src/UsersMenu.py:99
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:864 src/ProcessesDetails.py:238 src/ProcessesMenu.py:226
+#: src/Processes.py:864 src/ProcessesDetails.py:238 src/ProcessesMenu.py:230
 #: src/Users.py:247 src/UsersDetails.py:104 src/UsersMenu.py:103
 msgid "GID"
 msgstr "GID"
 
 #: src/Processes.py:865 src/ProcessesDetails.py:208 src/ProcessesDetails.py:545
-#: src/ProcessesMenu.py:230 src/ServicesDetails.py:147
+#: src/ProcessesMenu.py:234 src/ServicesDetails.py:147
 msgid "Path"
 msgstr "Caminho"
 
-#: src/Processes.py:867 src/ProcessesMenu.py:238
+#: src/Processes.py:867 src/ProcessesMenu.py:242
 msgid "CPU Time"
 msgstr "Tempo de CPU"
 
-#: src/Processes.py:889 src/Services.py:450 src/ServicesDetails.py:346
+#: src/Processes.py:869 src/Processes.py:870 src/Processes.py:871
+#: src/ProcessesMenu.py:246 src/ProcessesMenu.py:250 src/ProcessesMenu.py:254
+msgid "Recursive"
+msgstr ""
+
+#: src/Processes.py:893 src/Services.py:450 src/ServicesDetails.py:346
 msgid "Running"
 msgstr "A executar"
 
-#: src/Processes.py:889
+#: src/Processes.py:893
 msgid "Sleeping"
 msgstr "A dormir"
 
-#: src/Processes.py:889
+#: src/Processes.py:893
 msgid "Waiting"
 msgstr "A aguardar"
 
-#: src/Processes.py:889
+#: src/Processes.py:893
 msgid "Idle"
 msgstr "Ocioso"
 
-#: src/Processes.py:889
+#: src/Processes.py:893
 msgid "Zombie"
 msgstr "Zombie"
 
-#: src/Processes.py:889
+#: src/Processes.py:893
 msgid "Stopped"
 msgstr "Parado"
 
@@ -748,7 +756,7 @@ msgstr "Expandir tudo"
 msgid "Collapse all"
 msgstr "Recolher tudo"
 
-#: src/ProcessesMenu.py:319
+#: src/ProcessesMenu.py:335
 msgid "Divide CPU usage by core count"
 msgstr "Dividir a utilização da CPU pelo número de núcleos"
 
