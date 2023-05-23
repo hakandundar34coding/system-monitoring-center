@@ -864,7 +864,11 @@ class Processes:
                               [16, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
                               [17, _tr('Path'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                               [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                              [19, _tr('CPU Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_time]]
+                              [19, _tr('CPU Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_time]],
+                              [20, _tr('Memory'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory]],
+                              [21, _tr('CPU') + " - " + _tr('Recursive'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent_recursive]],
+                              [22, _tr('Memory (RSS)') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss_recursive]],
+                              [23, _tr('Memory') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_recursive]]
                               ]
 
         # Define data unit conversion function objects in for lower CPU usage.
@@ -939,10 +943,14 @@ class Processes:
         memory_rss_list = []
         memory_vms_list = []
         memory_shared_list = []
+        memory_list = []
         disk_read_data_list = []
         disk_write_data_list = []
         disk_read_speed_list = []
         disk_write_speed_list = []
+        cpu_usage_recursive_list = []
+        memory_rss_recursive_list = []
+        memory_recursive_list = []
 
         # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
         number_of_logical_cores = Common.number_of_logical_cores()
@@ -1055,7 +1063,7 @@ class Processes:
         # Get process shared memory data for all processes. This information is not provided
         # by "ps" command. "ps" command output is processes line-by-line and next line is
         # detected as process statm file if current line contains string value in the second element.
-        if 7 in processes_treeview_columns_shown:
+        if 7 in processes_treeview_columns_shown or 20 in processes_treeview_columns_shown or 23 in processes_treeview_columns_shown:
             command_list = ["cat"]
             if Config.environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
@@ -1124,7 +1132,7 @@ class Processes:
             if 3 in processes_treeview_columns_shown:
                 processes_data_row.append(process_status_list[ps_output_line_split[2]])
             # Get process CPU usage.
-            if 4 in processes_treeview_columns_shown:
+            if 4 in processes_treeview_columns_shown or 21 in processes_treeview_columns_shown:
                 process_cpu_time = process_cpu_time_list[index_from_stat]
                 global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))
                 try:
@@ -1135,27 +1143,30 @@ class Processes:
                 process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
                 global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
                 cpu_usage = process_cpu_time_difference / global_cpu_time_difference * 100 / core_count_division_number
-                processes_data_row.append(cpu_usage)
                 cpu_usage_list.append(cpu_usage)
+                if 4 in processes_treeview_columns_shown:
+                    processes_data_row.append(cpu_usage)
             # Get process RSS (resident set size) memory pages and multiply with 1024 in order to convert the value into bytes.
-            if 5 in processes_treeview_columns_shown:
+            if 5 in processes_treeview_columns_shown or 20 in processes_treeview_columns_shown or 22 in processes_treeview_columns_shown or 23 in processes_treeview_columns_shown:
                 memory_rss = int(ps_output_line_split[3]) * 1024
-                processes_data_row.append(memory_rss)
                 memory_rss_list.append(memory_rss)
+                if 5 in processes_treeview_columns_shown:
+                    processes_data_row.append(memory_rss)
             # Get process VMS (virtual memory size) memory and multiply with 1024 in order to convert the value into bytes.
             if 6 in processes_treeview_columns_shown:
                 memory_vms = int(ps_output_line_split[4]) * 1024
                 processes_data_row.append(memory_vms)
                 memory_vms_list.append(memory_vms)
             # Get process shared memory size and multiply with 1024 in order to convert the value into bytes.
-            if 7 in processes_treeview_columns_shown:
+            if 7 in processes_treeview_columns_shown or 20 in processes_treeview_columns_shown or 23 in processes_treeview_columns_shown:
                 if pid in pid_list_from_stat_statm:
                     index_from_stat_statm = pid_list_from_stat_statm.index(pid)
-                    process_memory_shared = process_memory_shared_list[index_from_stat_statm]
+                    memory_shared = process_memory_shared_list[index_from_stat_statm]
                 else:
-                    process_memory_shared = 0
-                processes_data_row.append(process_memory_shared)
-                memory_shared_list.append(process_memory_shared)
+                    memory_shared = 0
+                memory_shared_list.append(memory_shared)
+                if 7 in processes_treeview_columns_shown:
+                    processes_data_row.append(memory_shared)
             # Get process read data, write data, read speed, write speed.
             if 8 in processes_treeview_columns_shown or 9 in processes_treeview_columns_shown or 10 in processes_treeview_columns_shown or 11 in processes_treeview_columns_shown:
                 process_read_bytes = disk_read_write_data[index_from_stat][0]
@@ -1215,9 +1226,15 @@ class Processes:
                 processes_data_row.append(process_commandline)
             if 19 in processes_treeview_columns_shown:
                 processes_data_row.append(process_cpu_time_list[index_from_stat])
+            if 20 in processes_treeview_columns_shown or 23 in processes_treeview_columns_shown:
+                memory = memory_rss - memory_shared
+                memory_list.append(memory)
+                if 20 in processes_treeview_columns_shown:
+                    processes_data_row.append(memory)
 
             # Append process data into a list (processes_data_rows)
             processes_data_rows.append(processes_data_row)
+        processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list = self.recursive_cpu_memory_usage(processes_data_rows, processes_treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list)
         global_process_cpu_times_prev = global_process_cpu_times                                  # For using values in the next loop
         disk_read_write_data_prev = disk_read_write_data
 
@@ -1382,8 +1399,9 @@ class Processes:
         self.number_of_logical_cores = number_of_logical_cores
 
         # Get max values of some performance data for setting cell background colors depending on relative performance data.
-        global max_value_cpu_usage_list, max_value_memory_rss_list, max_value_memory_vms_list, max_value_memory_shared_list
+        global max_value_cpu_usage_list, max_value_memory_rss_list, max_value_memory_vms_list, max_value_memory_shared_list, max_value_memory_list
         global max_value_disk_read_data_list, max_value_disk_write_data_list, max_value_disk_read_speed_list, max_value_disk_write_speed_list
+        global max_value_cpu_usage_recursive_list, max_value_memory_rss_recursive_list, max_value_memory_recursive_list
         try:
             max_value_cpu_usage_list = max(cpu_usage_list)
         except ValueError:
@@ -1401,6 +1419,10 @@ class Processes:
         except ValueError:
             max_value_memory_shared_list = 0
         try:
+            max_value_memory_list = max(memory_list)
+        except ValueError:
+            max_value_memory_list = 0
+        try:
             max_value_disk_read_data_list = max(disk_read_data_list)
         except ValueError:
             max_value_disk_read_data_list = 0
@@ -1416,6 +1438,18 @@ class Processes:
             max_value_disk_write_speed_list = max(disk_write_speed_list)
         except ValueError:
             max_value_disk_write_speed_list = 0
+        try:
+            max_value_cpu_usage_recursive_list = max(cpu_usage_recursive_list)
+        except ValueError:
+            max_value_cpu_usage_recursive_list = 0
+        try:
+            max_value_memory_rss_recursive_list = max(memory_rss_recursive_list)
+        except ValueError:
+            max_value_memory_rss_recursive_list = 0
+        try:
+            max_value_memory_recursive_list = max(memory_recursive_list)
+        except ValueError:
+            max_value_memory_recursive_list = 0
 
         # Show number of processes on the searchentry as placeholder text
         self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Processes") + ": " + str(len(username_list)) + ")"
@@ -1431,6 +1465,96 @@ class Processes:
             self.treeview.set_enable_tree_lines(True)
         if Config.show_tree_lines == 0:
             self.treeview.set_enable_tree_lines(False)
+
+
+    def recursive_cpu_memory_usage(self, processes_data_rows, processes_treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list):
+        """
+        Get recursive CPU usage percentage, recursive memory (RSS) and recursive memory information of processes.
+        """
+
+        # Define lists before rest of the function for avoiding errors.
+        cpu_usage_recursive_list = []
+        memory_rss_recursive_list = []
+        memory_recursive_list = []
+
+        # Do not run rest of the function for avoiding high CPU usage because of getting PID-child PID dictionary.
+        if 21 not in processes_treeview_columns_shown and \
+           22 not in processes_treeview_columns_shown and \
+           23 not in processes_treeview_columns_shown:
+            return processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
+
+        # Get PID-child PID dictionary
+        pid_child_pid_dict = {}
+        for i, ppid in enumerate(ppid_list):
+            pid = pid_list[i]
+            if ppid not in pid_child_pid_dict:
+                pid_child_pid_dict[ppid] = [pid]
+            else:
+                pid_child_pid_dict[ppid].append(pid)
+            child_of_pid_list = [pid]
+            while child_of_pid_list != []:
+                child_of_pid_list_next = []
+                for pid in child_of_pid_list:
+                    for i, child_of_ppid in enumerate(ppid_list):
+                        if child_of_ppid == pid:
+                            child_of_pid = pid_list[i]
+                            child_of_pid_list_next.append(child_of_pid)
+                            pid_child_pid_dict[ppid].append(child_of_pid)
+                child_of_pid_list = list(child_of_pid_list_next)
+
+        # Remove duplicated PIDs and information for 0th PID in the dictionary
+        pid_child_pid_dict_scratch = dict(pid_child_pid_dict)
+        pid_child_pid_dict = {}
+        for pid in pid_child_pid_dict_scratch:
+            if pid == "0":
+                continue
+            pid_child_pid_dict[pid] = sorted(list(set(pid_child_pid_dict_scratch[pid])), key=int)
+
+        processes_treeview_columns_shown = sorted(list(processes_treeview_columns_shown))
+
+        # Get recursive CPU usage percentage of processes
+        if 21 in processes_treeview_columns_shown:
+            cpu_total_data_column_index = processes_treeview_columns_shown.index(21) + 3
+            for i, pid in enumerate(pid_list):
+                process_cpu_usage_total = cpu_usage_list[i]
+                if pid in pid_child_pid_dict:
+                    pid_child_pid_index = pid_child_pid_dict[pid]
+                    for child_pid in pid_child_pid_index:
+                        child_pid_index = pid_list.index(child_pid)
+                        cpu_usage = cpu_usage_list[child_pid_index]
+                        process_cpu_usage_total = process_cpu_usage_total + cpu_usage
+                cpu_usage_recursive_list.append(process_cpu_usage_total)
+                processes_data_rows[i].insert(cpu_total_data_column_index, process_cpu_usage_total)
+
+        # Get recursive memory (RSS) usage of processes
+        if 22 in processes_treeview_columns_shown:
+            memory_rss_total_data_column_index = processes_treeview_columns_shown.index(22) + 3
+            for i, pid in enumerate(pid_list):
+                process_memory_rss_total = memory_rss_list[i]
+                if pid in pid_child_pid_dict:
+                    pid_child_pid_index = pid_child_pid_dict[pid]
+                    for child_pid in pid_child_pid_index:
+                        child_pid_index = pid_list.index(child_pid)
+                        memory_rss = memory_rss_list[child_pid_index]
+                        process_memory_rss_total = process_memory_rss_total + memory_rss
+                memory_rss_recursive_list.append(process_memory_rss_total)
+                processes_data_rows[i].insert(memory_rss_total_data_column_index, process_memory_rss_total)
+
+        # Get recursive memory usage of processes
+        if 23 in processes_treeview_columns_shown:
+            memory_total_data_column_index = processes_treeview_columns_shown.index(23) + 3
+            for i, pid in enumerate(pid_list):
+                process_memory_total = memory_list[i]
+                if pid in pid_child_pid_dict:
+                    pid_child_pid_index = pid_child_pid_dict[pid]
+                    for child_pid in pid_child_pid_index:
+                        child_pid_index = pid_list.index(child_pid)
+                        memory = memory_list[child_pid_index]
+                        process_memory_total = process_memory_total + memory
+                memory_recursive_list.append(process_memory_total)
+                processes_data_rows[i].insert(memory_total_data_column_index, process_memory_total)
+
+        return processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
 
 
     def on_column_title_clicked(self, widget):
@@ -1553,6 +1677,11 @@ def cell_data_function_memory_shared(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
     cell_backround_color(cell, value, max_value_memory_shared_list)
 
+def cell_data_function_memory(tree_column, cell, tree_model, iter, data):
+    cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_memory_data_unit, processes_memory_data_precision))
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_memory_list)
+
 def cell_data_function_disk_read_data(tree_column, cell, tree_model, iter, data):
     cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_disk_data_unit, processes_disk_data_precision))
     value = tree_model.get(iter, data)[0]
@@ -1589,6 +1718,21 @@ def cell_data_function_cpu_time(tree_column, cell, tree_model, iter, data):
     else:
         cpu_time = f'{time_days_int:02}:{time_hours_int:02}:{time_minutes_int:02}:{time_seconds:05.2f}'
     cell.set_property('text', cpu_time)
+
+def cell_data_function_cpu_usage_percent_recursive(tree_column, cell, tree_model, iter, data):
+    cell.set_property('text', f'{tree_model.get(iter, data)[0]:.{processes_cpu_precision}f} %')
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_cpu_usage_recursive_list)
+
+def cell_data_function_memory_rss_recursive(tree_column, cell, tree_model, iter, data):
+    cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_memory_data_unit, processes_memory_data_precision))
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_memory_rss_recursive_list)
+
+def cell_data_function_memory_recursive(tree_column, cell, tree_model, iter, data):
+    cell.set_property('text', performance_data_unit_converter_func("data", "none", tree_model.get(iter, data)[0], processes_memory_data_unit, processes_memory_data_precision))
+    value = tree_model.get(iter, data)[0]
+    cell_backround_color(cell, value, max_value_memory_recursive_list)
 
 def cell_backround_color(cell, value, max_value):
     color = Gdk.RGBA()
