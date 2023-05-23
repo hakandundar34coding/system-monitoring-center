@@ -1491,24 +1491,22 @@ class Processes:
                 pid_child_pid_dict[ppid] = [pid]
             else:
                 pid_child_pid_dict[ppid].append(pid)
-            child_of_pid_list = [pid]
-            while child_of_pid_list != []:
-                child_of_pid_list_next = []
-                for pid in child_of_pid_list:
-                    for i, child_of_ppid in enumerate(ppid_list):
-                        if child_of_ppid == pid:
-                            child_of_pid = pid_list[i]
-                            child_of_pid_list_next.append(child_of_pid)
-                            pid_child_pid_dict[ppid].append(child_of_pid)
-                child_of_pid_list = list(child_of_pid_list_next)
-
-        # Remove duplicated PIDs and information for 0th PID in the dictionary
-        pid_child_pid_dict_scratch = dict(pid_child_pid_dict)
-        pid_child_pid_dict = {}
-        for pid in pid_child_pid_dict_scratch:
-            if pid == "0":
-                continue
-            pid_child_pid_dict[pid] = sorted(list(set(pid_child_pid_dict_scratch[pid])), key=int)
+        # Append PIDs of sub-branches to PIDs of parent branches in order to
+        # generate branches from their roots to end of their all sub-branches.
+        pid_child_pid_dict_prev = {}
+        while pid_child_pid_dict != pid_child_pid_dict_prev:
+            pid_child_pid_dict_prev = dict(pid_child_pid_dict)
+            for ppid in pid_child_pid_dict:
+                for pid in pid_child_pid_dict[ppid][:]:
+                    if pid in pid_child_pid_dict:
+                        pid_child_pid_dict[ppid] = list(pid_child_pid_dict[ppid]) + list(pid_child_pid_dict[pid])
+                # Remove duplicated PIDs and information for 0th PID in the dictionary
+                pid_child_pid_dict_scratch = dict(pid_child_pid_dict)
+                pid_child_pid_dict = {}
+                for pid in pid_child_pid_dict_scratch:
+                    if pid == "0":
+                        continue
+                    pid_child_pid_dict[pid] = sorted(list(set(pid_child_pid_dict_scratch[pid])), key=int)
 
         processes_treeview_columns_shown = sorted(list(processes_treeview_columns_shown))
 
