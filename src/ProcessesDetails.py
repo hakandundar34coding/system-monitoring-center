@@ -1387,20 +1387,20 @@ def process_details_show_process_details():
     Generate object for every process because more than one process window can be opened on Processes tab.
     """
 
-    # Prevent opening more than 8 windows in order to avoid very high CPU usage.
-    # This limit is 3 for Flatpak environment. Because CPU usage is higher in this environment.
+    # Determine max. number of Process Details windows.
     if Config.environment_type == "flatpak":
         max_number_of_windows = 3
     else:
         max_number_of_windows = 8
 
-    if len(processes_details_object_list) == max_number_of_windows:
-        return
-
-    try:
-        processes_details_object_list.append(ProcessesDetails(Processes.selected_process_pid))
-    # Prevent errors if Enter key is pressed without selecting a process.
-    except AttributeError:
-        return
-    processes_details_object_list[-1].process_details_window.set_visible(True)
+    for selected_process_pid in Processes.selected_process_pid_list:
+        # Prevent opening more than 8 (3 for Flatpak environment) windows in order to avoid very high CPU usage.
+        if len(processes_details_object_list) == max_number_of_windows:
+            break
+        try:
+            processes_details_object_list.append(ProcessesDetails(selected_process_pid))
+        # Prevent errors if Enter key is pressed without selecting a process.
+        except AttributeError:
+            return
+        processes_details_object_list[-1].process_details_window.set_visible(True)
 

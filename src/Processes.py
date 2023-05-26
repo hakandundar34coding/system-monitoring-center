@@ -119,6 +119,10 @@ class Processes:
         self.treeview.set_tooltip_column(3)                                                       # "3" is used for process command line
         scrolledwindow.set_child(self.treeview)
 
+        # TreeSelection
+        self.selection = self.treeview.get_selection()
+        self.selection.set_mode(Gtk.SelectionMode.MULTIPLE)
+
 
     def gui_signals(self):
         """
@@ -131,13 +135,15 @@ class Processes:
         # Treeview mouse events
         treeview_mouse_event = Gtk.GestureClick()
         treeview_mouse_event.connect("pressed", self.on_treeview_pressed)
-        treeview_mouse_event.connect("released", self.on_treeview_released)
         self.treeview.add_controller(treeview_mouse_event)
 
         treeview_mouse_event_right_click = Gtk.GestureClick()
         treeview_mouse_event_right_click.set_button(3)
-        treeview_mouse_event_right_click.connect("pressed", self.on_treeview_pressed)
+        treeview_mouse_event_right_click.connect("released", self.on_treeview_released)
         self.treeview.add_controller(treeview_mouse_event_right_click)
+
+        # TreeSelection events
+        self.selection.connect("changed", self.treeview_selection_changed)
 
         # SeachEntry focus action and accelerator
         Common.searchentry_focus_action_and_accelerator(MainWindow)
@@ -353,13 +359,30 @@ class Processes:
         label.set_halign(Gtk.Align.START)
         main_grid.attach(label, 0, 0, 1, 1)
 
+        # ScrolledWindow (for process name and PID Label)
+        scrolledwindow = Common.window_main_scrolledwindow()
+        scrolledwindow.set_size_request(-1, 150)
+        main_grid.attach(scrolledwindow, 0, 1, 1, 1)
+
+        # Viewport (for process name and PID Label)
+        viewport = Gtk.Viewport()
+        scrolledwindow.set_child(viewport)
+
+        # Grid (for process name and PID Label)
+        grid = Gtk.Grid.new()
+        grid.set_margin_top(10)
+        grid.set_margin_bottom(10)
+        grid.set_margin_start(10)
+        grid.set_margin_end(10)
+        viewport.set_child(grid)
+
         # Label (process name and PID)
         self.priority_process_name_and_pid_label = Gtk.Label()
         self.priority_process_name_and_pid_label.set_selectable(True)
         self.priority_process_name_and_pid_label.set_label("--")
         self.priority_process_name_and_pid_label.set_ellipsize(Pango.EllipsizeMode.END)
         self.priority_process_name_and_pid_label.set_halign(Gtk.Align.START)
-        main_grid.attach(self.priority_process_name_and_pid_label, 0, 1, 1, 1)
+        grid.attach(self.priority_process_name_and_pid_label, 0, 0, 1, 1)
 
         # Adjustment (for scale)
         self.adjustment = Gtk.Adjustment()
@@ -443,30 +466,32 @@ class Processes:
         if Config.current_main_tab != 1:
             return
 
-        # Get right clicked process pid and name.
-        selected_process_pid = self.selected_process_pid
-        selected_process_name = self.processes_data_rows[self.pid_list.index(selected_process_pid)][2]
+        # Get right clicked process names.
+        selected_process_name_list = []
+        for selected_process_pid in self.selected_process_pid_list:
+            selected_process_name = self.processes_data_rows[self.pid_list.index(selected_process_pid)][2]
+            selected_process_name_list.append(selected_process_name)
 
         # Pause Process
         if action.get_name() == "processes_pause_process":
-            process_command = ["kill", "-19", selected_process_pid]
-            process_command_pkexec = ["pkexec", "kill", "-19", selected_process_pid]
+            process_command = ["kill", "-19"] + self.selected_process_pid_list
+            process_command_pkexec = ["pkexec", "kill", "-19"] + self.selected_process_pid_list
 
         # Continue Process
         if action.get_name() == "processes_continue_process":
-            process_command = ["kill", "-18", selected_process_pid]
-            process_command_pkexec = ["pkexec", "kill", "-18", selected_process_pid]
+            process_command = ["kill", "-18"] + self.selected_process_pid_list
+            process_command_pkexec = ["pkexec", "kill", "-18"] + self.selected_process_pid_list
 
         # End Process
         if action.get_name() == "processes_end_process":
-            process_command = ["kill", "-15", selected_process_pid]
-            process_command_pkexec = ["pkexec", "kill", "-15", selected_process_pid]
+            process_command = ["kill", "-15"] + self.selected_process_pid_list
+            process_command_pkexec = ["pkexec", "kill", "-15"] + self.selected_process_pid_list
             process_dialog_message = _tr("Do you want to end this process?")
 
         # End Process Immediately
         if action.get_name() == "processes_end_process_immediately":
-            process_command = ["kill", "-9", selected_process_pid]
-            process_command_pkexec = ["pkexec", "kill", "-9", selected_process_pid]
+            process_command = ["kill", "-9"] + self.selected_process_pid_list
+            process_command_pkexec = ["pkexec", "kill", "-9"] + self.selected_process_pid_list
             process_dialog_message = _tr("Do you want to end this process immediately?")
 
         if Config.environment_type == "flatpak":
@@ -489,13 +514,48 @@ class Processes:
 
         # Show warning dialog if process is tried to be ended.
         if Config.warn_before_stopping_processes == 1 and (action.get_name() == "processes_end_process" or action.get_name() == "processes_end_process_immediately"):
+            selected_process_pid_name_text = ""
+            for i, selected_process_pid in enumerate(self.selected_process_pid_list):
+                if selected_process_pid_name_text != "":
+                    selected_process_pid_name_text = selected_process_pid_name_text + "\n"
+                selected_process_pid_name_text = selected_process_pid_name_text + f'{selected_process_name_list[i]} - (PID: {selected_process_pid})'
             messagedialog = Gtk.MessageDialog(transient_for=MainWindow.main_window,
                                               modal=True,
                                               title="",
                                               message_type=Gtk.MessageType.WARNING,
                                               buttons=Gtk.ButtonsType.YES_NO,
                                               text=process_dialog_message,
-                                              secondary_text=selected_process_name + " (" + "PID" + ": " + str(selected_process_pid) + ")")
+                                              secondary_text="")
+
+            # Get Box widget of the MessageDialog for appending custom content (ScrolledWindow, etc.).
+            message_area = messagedialog.get_message_area()
+
+            # ScrolledWindow (for process name and PID Label)
+            scrolledwindow = Common.window_main_scrolledwindow()
+            scrolledwindow.set_size_request(-1, 150)
+            message_area.append(scrolledwindow)
+
+            # Viewport (for process name and PID Label)
+            viewport = Gtk.Viewport()
+            scrolledwindow.set_child(viewport)
+
+            # Grid (for process name and PID Label)
+            grid = Gtk.Grid.new()
+            grid.set_margin_top(10)
+            grid.set_margin_bottom(10)
+            grid.set_margin_start(10)
+            grid.set_margin_end(10)
+            viewport.set_child(grid)
+
+            # Label (process name and PID)
+            process_manage_process_name_and_pid_label = Gtk.Label()
+            process_manage_process_name_and_pid_label.set_selectable(True)
+            process_manage_process_name_and_pid_label.set_label("--")
+            process_manage_process_name_and_pid_label.set_ellipsize(Pango.EllipsizeMode.END)
+            process_manage_process_name_and_pid_label.set_halign(Gtk.Align.START)
+            grid.attach(process_manage_process_name_and_pid_label, 0, 0, 1, 1)
+
+            process_manage_process_name_and_pid_label.set_text(selected_process_pid_name_text)
 
             messagedialog.connect("response", self.on_messagedialog_response, process_command, process_command_pkexec)
             messagedialog.present()
@@ -527,11 +587,13 @@ class Processes:
         Set process priority (nice) option on the right click menu.
         """
 
-        # Get right clicked process pid and name.
-        selected_process_pid = self.selected_process_pid
+        # Unselect all priority option RadioButtons if multiple processes are selected.
+        if len(self.selected_process_pid_list) > 1:
+            self.priority_action.set_state(GLib.Variant("s", ""))
+            return
 
         # Get process stat file path.
-        selected_process_stat_file = "/proc/" + selected_process_pid + "/stat"
+        selected_process_stat_file = "/proc/" + self.selected_process_pid_list[0] + "/stat"
 
         # Get priority (nice value) of the process.
         command_list = ["cat", selected_process_stat_file]
@@ -569,40 +631,37 @@ class Processes:
         if Config.current_main_tab != 1:
             return
 
-        # Get right clicked process pid.
-        selected_process_pid = self.selected_process_pid
-
         if action.get_name() == "processes_priority_group":
 
             # Set priority (Very High)
             if parameter == GLib.Variant("s", "processes_priority_very_high"):
                 action.set_state(GLib.Variant("s", "processes_priority_very_high"))
-                priority_command = ["renice", "-n", "-20", "-p", selected_process_pid]
-                priority_command_pkexec = ["pkexec", "renice", "-n", "-20", "-p", selected_process_pid]
+                priority_command = ["renice", "-n", "-20", "-p"] + self.selected_process_pid_list
+                priority_command_pkexec = ["pkexec", "renice", "-n", "-20", "-p"] + self.selected_process_pid_list
 
             # Set priority (High)
             elif parameter == GLib.Variant("s", "processes_priority_high"):
                 action.set_state(GLib.Variant("s", "processes_priority_high"))
-                priority_command = ["renice", "-n", "-10", "-p", selected_process_pid]
-                priority_command_pkexec = ["pkexec", "renice", "-n", "-10", "-p", selected_process_pid]
+                priority_command = ["renice", "-n", "-10", "-p"] + self.selected_process_pid_list
+                priority_command_pkexec = ["pkexec", "renice", "-n", "-10", "-p"] + self.selected_process_pid_list
 
             # Set priority (Normal)
             elif parameter == GLib.Variant("s", "processes_priority_normal"):
                 action.set_state(GLib.Variant("s", "processes_priority_normal"))
-                priority_command = ["renice", "-n", "-0", "-p", selected_process_pid]
-                priority_command_pkexec = ["pkexec", "renice", "-n", "0", "-p", selected_process_pid]
+                priority_command = ["renice", "-n", "0", "-p"] + self.selected_process_pid_list
+                priority_command_pkexec = ["pkexec", "renice", "-n", "0", "-p"] + self.selected_process_pid_list
 
             # Set priority (Low)
             elif parameter == GLib.Variant("s", "processes_priority_low"):
                 action.set_state(GLib.Variant("s", "processes_priority_low"))
-                priority_command = ["renice", "-n", "10", "-p", selected_process_pid]
-                priority_command_pkexec = ["pkexec", "renice", "-n", "10", "-p", selected_process_pid]
+                priority_command = ["renice", "-n", "10", "-p"] + self.selected_process_pid_list
+                priority_command_pkexec = ["pkexec", "renice", "-n", "10", "-p"] + self.selected_process_pid_list
 
             # Set priority (Very Low)
             elif parameter == GLib.Variant("s", "processes_priority_very_low"):
                 action.set_state(GLib.Variant("s", "processes_priority_very_low"))
-                priority_command = ["renice", "-n", "19", "-p", selected_process_pid]
-                priority_command_pkexec = ["pkexec", "renice", "-n", "19", "-p", selected_process_pid]
+                priority_command = ["renice", "-n", "19", "-p"] + self.selected_process_pid_list
+                priority_command_pkexec = ["pkexec", "renice", "-n", "19", "-p"] + self.selected_process_pid_list
 
             if Config.environment_type == "flatpak":
                 priority_command = ["flatpak-spawn", "--host"] + priority_command
@@ -622,24 +681,29 @@ class Processes:
 
         if action.get_name() == "processes_priority_custom_value":
 
-            # Get right clicked process name.
-            selected_process_name = self.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
+            # Get right clicked process names.
+            selected_process_name_list = []
+            for selected_process_pid in self.selected_process_pid_list:
+                selected_process_name = self.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
+                selected_process_name_list.append(selected_process_name)
 
-            # Get process stat file path.
-            selected_process_stat_file = "/proc/" + selected_process_pid + "/stat"
+            # Get process stat file path for getting its current priority value if one process is selected.
+            if len(self.selected_process_pid_list) == 1:
+                selected_process_stat_file = "/proc/" + selected_process_pid + "/stat"
 
-            # Get priority (nice value) of the process.
-            command_list = ["cat", selected_process_stat_file]
-            if Config.environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
+                # Get priority (nice value) of the process.
+                command_list = ["cat", selected_process_stat_file]
+                if Config.environment_type == "flatpak":
+                    command_list = ["flatpak-spawn", "--host"] + command_list
+                cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
 
-            cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
-
-            # Process may be ended just after pid_list is generated. "cat" command output is get as "" in this situation.
-            if cat_output != "":
-                selected_process_nice = int(cat_output.split()[-34])
+                # Process may be ended just after pid_list is generated. "cat" command output is get as "" in this situation.
+                if cat_output != "":
+                    selected_process_nice = int(cat_output.split()[-34])
+                else:
+                    return
             else:
-                return
+                selected_process_nice = 0
 
             # Show process custom priority window.
             try:
@@ -653,7 +717,12 @@ class Processes:
             self.adjustment.configure(selected_process_nice, -20, 19, 1, 0, 0)
 
             # Show process name and PID on a label.
-            self.priority_process_name_and_pid_label.set_label(f'{selected_process_name} - (PID: {selected_process_pid})')
+            selected_process_pid_name_text = ""
+            for i, selected_process_pid in enumerate(self.selected_process_pid_list):
+                if selected_process_pid_name_text != "":
+                    selected_process_pid_name_text = selected_process_pid_name_text + "\n"
+                selected_process_pid_name_text = selected_process_pid_name_text + f'{selected_process_name_list[i]} - (PID: {selected_process_pid})'
+            self.priority_process_name_and_pid_label.set_label(selected_process_pid_name_text)
 
 
     def on_details_item_clicked(self, action, parameter):
@@ -768,33 +837,48 @@ class Processes:
         self.treeview_column_order_width_row_sorting()
 
 
+    def treeview_selection_changed(self, widget):
+        """
+        Get selected rows.
+        """
+
+        model, self.path_list = self.selection.get_selected_rows()
+
+        treeiter_list = []
+        for path in self.path_list:
+            treeiter = model.get_iter(path)
+            treeiter_list.append(treeiter)
+
+        self.selected_process_pid_list = []
+        for treeiter in treeiter_list:
+            if treeiter == None:
+                continue
+            try:
+                selected_process_pid = self.pid_list[self.processes_data_rows.index(model[treeiter][:])]
+            # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'user', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely.
+            # It is handled in this situation.
+            except ValueError:
+                continue
+            self.selected_process_pid_list.append(selected_process_pid)
+
+
     def on_treeview_pressed(self, event, count, x, y):
         """
         Mouse single right click and double left click events (button press).
-        Right click menu is opened when right clicked. Details window is shown when double clicked.
+        Details window is shown when double clicked.
         """
 
-        # Convert coordinates for getting path.
-        x_bin, y_bin = self.treeview.convert_widget_to_bin_window_coords(x,y)
+        # Show details window if double clicked on a row
+        if int(event.get_button()) == 1 and int(count) == 2:
+            from . import ProcessesDetails
+            ProcessesDetails.process_details_show_process_details()
 
-        # Get right/double clicked row data
-        try:
-            path, _, _, _ = self.treeview.get_path_at_pos(int(x_bin), int(y_bin))
-        # Prevent errors when right clicked on an empty area on the treeview.
-        except TypeError:
-            return
-        model = self.treeview.get_model()
-        treeiter = model.get_iter(path)
-        self.aaa=model
-        # Get right/double clicked process PID
-        if treeiter == None:
-            return
-        try:
-            self.selected_process_pid = self.pid_list[self.processes_data_rows.index(model[treeiter][:])]
-        # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'user', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely.
-        # It is handled in this situation.
-        except ValueError:
-            return
+
+    def on_treeview_released(self, event, count, x, y):
+        """
+        Mouse single right click event (button release).
+        Right click menu is opened.
+        """
 
         # Show right click menu if right clicked on a row
         if int(event.get_button()) == 3:
@@ -813,23 +897,6 @@ class Processes:
             self.right_click_menu_po.set_pointing_to(rectangle)
             self.right_click_menu_po.popup()
             self.set_priority_menu_option()
-
-        # Show details window if double clicked on a row
-        if int(event.get_button()) == 1 and int(count) == 2:
-            from . import ProcessesDetails
-            ProcessesDetails.process_details_show_process_details()
-
-
-    def on_treeview_released(self, event, count, x, y):
-        """
-        Mouse single left click event (button release).
-        Update teeview column/row width/sorting/order.
-        """
-
-        # Check if left mouse button is used
-        if int(event.get_button()) == 1:
-            pass
-            #self.treeview_column_order_width_row_sorting()
 
 
     def processes_initial_func(self):
@@ -959,6 +1026,7 @@ class Processes:
             core_count_division_number = 1
         elif processes_cpu_divide_by_core == 1:
             core_count_division_number = number_of_logical_cores
+
         # Get current username which will be used for determining processes from only this user or other users.
         current_user_name = os.environ.get('USER')
 
