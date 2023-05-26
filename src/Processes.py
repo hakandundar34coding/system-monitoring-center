@@ -461,6 +461,10 @@ class Processes:
         Pause, continue, end, end immediately processes.
         """
 
+        # Stop running the function if process managing keyboard shortcuts are pressed without selecting a process.
+        if len(self.selected_process_pid_list) == 0:
+            return
+
         # Stop running the function if the action is called by using keyboard shortcuts when another tab is opened.
         # Because keyboard shortcuts are defined for window instead of treeview for a simpler code.
         if Config.current_main_tab != 1:
