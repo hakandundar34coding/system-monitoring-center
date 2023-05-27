@@ -143,7 +143,7 @@ class Processes:
         self.treeview.add_controller(treeview_mouse_event_right_click)
 
         # TreeSelection events
-        self.selection.connect("changed", self.treeview_selection_changed)
+        self.selection_changed_signal_handler = self.selection.connect("changed", self.treeview_selection_changed)
 
         # SeachEntry focus action and accelerator
         Common.searchentry_focus_action_and_accelerator(MainWindow)
@@ -461,7 +461,8 @@ class Processes:
         Pause, continue, end, end immediately processes.
         """
 
-        # Stop running the function if process managing keyboard shortcuts are pressed without selecting a process.
+        # Stop running the function if process managing keyboard shortcuts are pressed or
+        # right clicked on column titles without selecting a process.
         if len(self.selected_process_pid_list) == 0:
             return
 
@@ -846,7 +847,33 @@ class Processes:
         Get selected rows.
         """
 
+        try:
+            self.path_list_prev = list(self.path_list)
+        except AttributeError:
+            pass
+
         model, self.path_list = self.selection.get_selected_rows()
+        self.get_pids_from_paths()
+
+
+    def on_treeview_pressed(self, event, count, x, y):
+        """
+        Mouse single right click and double left click events (button press).
+        Details window is shown when double clicked.
+        """
+
+        # Show details window if double clicked on a row
+        if int(event.get_button()) == 1 and int(count) == 2:
+            from . import ProcessesDetails
+            ProcessesDetails.process_details_show_process_details()
+
+
+    def get_pids_from_paths(self):
+        """
+        Get process PIDs from selected treeview paths.
+        """
+
+        model = self.treeview.get_model()
 
         treeiter_list = []
         for path in self.path_list:
@@ -866,26 +893,33 @@ class Processes:
             self.selected_process_pid_list.append(selected_process_pid)
 
 
-    def on_treeview_pressed(self, event, count, x, y):
-        """
-        Mouse single right click and double left click events (button press).
-        Details window is shown when double clicked.
-        """
-
-        # Show details window if double clicked on a row
-        if int(event.get_button()) == 1 and int(count) == 2:
-            from . import ProcessesDetails
-            ProcessesDetails.process_details_show_process_details()
-
-
     def on_treeview_released(self, event, count, x, y):
         """
         Mouse single right click event (button release).
         Right click menu is opened.
         """
 
+        # Remember and reselect previous row selection if right clicked on selection of multiple rows.
+        # Otherwise, TreeSelection selects only right clicked row.
+        # Also block "changed" signal of TreeSelection for preventing calling selection functions multiple times.
+        with self.selection.handler_block(self.selection_changed_signal_handler):
+            if hasattr(Processes, "path_list_prev") and \
+                self.path_list != self.path_list_prev and \
+                len(self.path_list_prev) > 1 and \
+                len(self.path_list) == 1 and \
+                self.path_list[0] in self.path_list_prev:
+                    for path in self.path_list_prev:
+                        self.selection.select_path(path)
+                    self.path_list = list(self.path_list_prev)
+                    self.get_pids_from_paths()
+
         # Show right click menu if right clicked on a row
         if int(event.get_button()) == 3:
+
+            # Stop running the function if process managing keyboard shortcuts are pressed or
+            # right clicked on column titles without selecting a process.
+            if len(self.selected_process_pid_list) == 0:
+                return
 
             rectangle = Gdk.Rectangle()
             rectangle.x = int(x)
