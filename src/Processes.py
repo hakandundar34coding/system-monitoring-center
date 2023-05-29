@@ -428,15 +428,12 @@ class Processes:
             self.priority_custom_value_window.set_visible(False)
 
         if widget == self.priority_custom_value_change_priority_button:
-            # Get right clicked process pid and name.
-            selected_process_pid = self.selected_process_pid
-
             # Get new priority (nice value) of the process.
             selected_process_nice = str(int(self.adjustment.get_value()))
 
             # Define commands for the process.
-            priority_command = ["renice", "-n", selected_process_nice, "-p", selected_process_pid]
-            priority_command_pkexec = ["pkexec", "renice", "-n", selected_process_nice, "-p", selected_process_pid]
+            priority_command = ["renice", "-n", selected_process_nice, "-p"] + self.selected_process_pid_list
+            priority_command_pkexec = ["pkexec", "renice", "-n", selected_process_nice, "-p"] + self.selected_process_pid_list
 
             if Config.environment_type == "flatpak":
                 priority_command = ["flatpak-spawn", "--host"] + priority_command
