@@ -916,7 +916,7 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
     # Get global CPU time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
     global_cpu_time_all_before = time.time() * number_of_clock_ticks
     global_time_before = time.time()
-    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
+    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode("utf-8").strip()
     # Get global CPU time just after "/proc/[PID]/stat" file is read in order to calculate an average value.
     global_cpu_time_all_after = time.time() * number_of_clock_ticks
     global_time_after = time.time()
@@ -1121,7 +1121,7 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
     processes_data_dict["disk_read_write_data"] = disk_read_write_data
     processes_data_dict["global_cpu_time_all"] = global_cpu_time_all
     processes_data_dict["global_time"] = global_time
-    #print(processes_data_dict)
+
     return processes_data_dict
 
 
