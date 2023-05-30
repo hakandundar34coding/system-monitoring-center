@@ -89,7 +89,6 @@
 - Plotting performance data of multiple devices at the same time
 - Interactive charts for querying performance data on any point
 - Option for showing processes as tree or list
-- Optimized for low CPU usage and fast start
 - Supports ARM architecture
 - Free and open source
 
