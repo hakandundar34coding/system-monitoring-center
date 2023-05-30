@@ -1086,27 +1086,28 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
         username_list.append(username)
 
         # Add process data to a sub-dictionary
-        process_data_dict = {}
-        process_data_dict["name"] = name
-        process_data_dict["username"] = username
-        process_data_dict["status"] = status
-        process_data_dict["cpu_time"] = cpu_time
-        process_data_dict["cpu_usage"] = cpu_usage
-        process_data_dict["memory_rss"] = memory_rss
-        process_data_dict["memory_vms"] = memory_vms
-        process_data_dict["memory_shared"] = memory_shared
-        process_data_dict["memory"] = memory
-        process_data_dict["read_data"] = read_data
-        process_data_dict["written_data"] = written_data
-        process_data_dict["read_speed"] = read_speed
-        process_data_dict["write_speed"] = write_speed
-        process_data_dict["nice"] = nice
-        process_data_dict["number_of_threads"] = number_of_threads
-        process_data_dict["ppid"] = ppid
-        process_data_dict["uid"] = uid
-        process_data_dict["gid"] = gid
-        process_data_dict["start_time"] = start_time
-        process_data_dict["command_line"] = command_line
+        process_data_dict = {
+        "name" : name,
+        "username" : username,
+        "status" : status,
+        "cpu_time" : cpu_time,
+        "cpu_usage" : cpu_usage,
+        "memory_rss" : memory_rss,
+        "memory_vms" : memory_vms,
+        "memory_shared" : memory_shared,
+        "memory" : memory,
+        "read_data" : read_data,
+        "written_data" : written_data,
+        "read_speed" : read_speed,
+        "write_speed" : write_speed,
+        "nice" : nice,
+        "number_of_threads" : number_of_threads,
+        "ppid" : ppid,
+        "uid" : uid,
+        "gid" : gid,
+        "start_time" : start_time,
+        "command_line" : command_line
+        }
 
         # Add process sub-dictionary to dictionary
         processes_data_dict[pid] = process_data_dict
