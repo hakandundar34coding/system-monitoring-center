@@ -230,9 +230,9 @@ class ProcessesMenu:
         self.gid_cb = Common.checkbutton(_tr("GID"), None)
         grid.attach(self.gid_cb, 1, 6, 1, 1)
 
-        # CheckButton (Path)
-        self.path_cb = Common.checkbutton(_tr("Path"), None)
-        grid.attach(self.path_cb, 1, 7, 1, 1)
+        # CheckButton (Start Time)
+        self.start_time_cb = Common.checkbutton(_tr("Start Time"), None)
+        grid.attach(self.start_time_cb, 1, 7, 1, 1)
 
         # CheckButton (Command Line)
         self.commandline_cb = Common.checkbutton(_tr("Command Line"), None)
@@ -434,7 +434,7 @@ class ProcessesMenu:
         self.ppid_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.gid_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.uid_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
-        self.path_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.start_time_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.commandline_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.cpu_time_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.cpu_recursive_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
@@ -479,7 +479,7 @@ class ProcessesMenu:
         self.ppid_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.uid_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.gid_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
-        self.path_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.start_time_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.commandline_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.cpu_time_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.cpu_recursive_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
@@ -782,9 +782,9 @@ class ProcessesMenu:
         else:
             self.gid_cb.set_active(False)
         if 17 in Config.processes_treeview_columns_shown:
-            self.path_cb.set_active(True)
+            self.start_time_cb.set_active(True)
         else:
-            self.path_cb.set_active(False)
+            self.start_time_cb.set_active(False)
         if 18 in Config.processes_treeview_columns_shown:
             self.commandline_cb.set_active(True)
         else:
@@ -873,7 +873,7 @@ class ProcessesMenu:
             Config.processes_treeview_columns_shown.append(15)
         if self.gid_cb.get_active() == True:
             Config.processes_treeview_columns_shown.append(16)
-        if self.path_cb.get_active() == True:
+        if self.start_time_cb.get_active() == True:
             Config.processes_treeview_columns_shown.append(17)
         if self.commandline_cb.get_active() == True:
             Config.processes_treeview_columns_shown.append(18)

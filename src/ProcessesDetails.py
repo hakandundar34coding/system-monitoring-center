@@ -642,7 +642,7 @@ class ProcessesDetails:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        self.process_status_list = Processes.process_status_list
+        self.process_status_list = {"R": _tr("Running"), "S": _tr("Sleeping"), "D": _tr("Waiting"), "I": _tr("Idle"), "Z": _tr("Zombie"), "T": _tr("Stopped"), "t": "Tracing Stop", "X": "Dead"}
         self.global_process_cpu_times_prev = []
         self.disk_read_write_data_prev = []
 
@@ -660,7 +660,7 @@ class ProcessesDetails:
             if "btime " in line:
                 self.system_boot_time = int(line.split()[1].strip())
 
-        self.number_of_clock_ticks = Processes.number_of_clock_ticks
+        self.number_of_clock_ticks = os.sysconf("SC_CLK_TCK")
 
 
     def process_details_loop_func(self):
@@ -723,7 +723,7 @@ class ProcessesDetails:
             return
 
         # Set window title
-        self.process_details_window.set_title(_tr("Process Details") + ": " + selected_process_name + " - (" + _tr("PID") + ": " + selected_process_pid + ")")
+        self.process_details_window.set_title(_tr("Process Details") + ": " + selected_process_name + " - (" + _tr("PID") + ": " + str(selected_process_pid) + ")")
 
         # Update data lists for graphs.
         self.process_cpu_usage_list.append(selected_process_cpu_percent)
@@ -889,17 +889,17 @@ class ProcessesDetails:
         else:
             command_list = ["cat"]
         command_list.append("/proc/version")
-        command_list.append("/proc/" + selected_process_pid + "/stat")
+        command_list.append(f'/proc/{selected_process_pid}/stat')
         command_list.append("/proc/version")
-        command_list.append("/proc/" + selected_process_pid + "/status")
+        command_list.append(f'/proc/{selected_process_pid}/status')
         command_list.append("/proc/version")
-        command_list.append("/proc/" + selected_process_pid + "/statm")
+        command_list.append(f'/proc/{selected_process_pid}/statm')
         command_list.append("/proc/version")
-        command_list.append("/proc/" + selected_process_pid + "/io")
+        command_list.append(f'/proc/{selected_process_pid}/io')
         command_list.append("/proc/version")
-        command_list.append("/proc/" + selected_process_pid + "/smaps")
+        command_list.append(f'/proc/{selected_process_pid}/smaps')
         command_list.append("/proc/version")
-        command_list.append("/proc/" + selected_process_pid + "/cmdline")
+        command_list.append(f'/proc/{selected_process_pid}/cmdline')
 
         cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
 
@@ -944,8 +944,8 @@ class ProcessesDetails:
             command_list = ["flatpak-spawn", "--host", "ls"]
         else:
             command_list = ["ls"]
-        command_list.append("/proc/" + selected_process_pid + "/fd/")
-        command_list.append("/proc/" + selected_process_pid + "/task/")
+        command_list.append(f'/proc/{selected_process_pid}/fd/')
+        command_list.append(f'/proc/{selected_process_pid}/task/')
 
         ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
 
@@ -1070,7 +1070,7 @@ class ProcessesDetails:
         """
 
         # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
-        selected_process_memory_rss = int(stat_output_split[-29]) * Processes.memory_page_size
+        selected_process_memory_rss = int(stat_output_split[-29]) * os.sysconf("SC_PAGE_SIZE")
 
         return selected_process_memory_rss
 
@@ -1246,7 +1246,7 @@ class ProcessesDetails:
         Get process memory (Shared).
         """
 
-        selected_process_memory_shared = int(statm_output.split()[2]) * Processes.memory_page_size
+        selected_process_memory_shared = int(statm_output.split()[2]) * os.sysconf("SC_PAGE_SIZE")
 
         return selected_process_memory_shared
 
@@ -1317,14 +1317,14 @@ class ProcessesDetails:
         command_list.append("/proc/self")
 
         # Get process exe path.
-        selected_process_exe_path = "/proc/" + selected_process_pid + "/exe"
+        selected_process_exe_path = f'/proc/{selected_process_pid}/exe'
         command_list.append(selected_process_exe_path)
 
         # Append command for splitting command output.
         command_list.append("/proc/self")
 
         # Get process cwd path.
-        selected_process_cwd_path = "/proc/" + selected_process_pid + "/cwd"
+        selected_process_cwd_path = f'/proc/{selected_process_pid}/cwd'
         command_list.append(selected_process_cwd_path)
 
         # Append command for splitting command output.
@@ -1337,7 +1337,7 @@ class ProcessesDetails:
 
         selected_process_fd_paths = []
         for fd in selected_process_fds:
-            selected_process_fd_paths.append("/proc/" + selected_process_pid + "/fd/" + fd)
+            selected_process_fd_paths.append(f'/proc/{selected_process_pid}/fd/' + fd)
 
         if selected_process_fd_paths == []:
             selected_process_fd_paths = "-"

@@ -7,11 +7,24 @@ gi.require_version('Pango', '1.0')
 from gi.repository import Gtk, Gdk, Gio, GObject, Pango
 
 import os
+import subprocess
+import time
 
 from locale import gettext as _tr
 
 from .Config import Config
 from .Performance import Performance
+
+
+# Define constants
+# For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
+number_of_clock_ticks = os.sysconf("SC_CLK_TCK")
+# This value is used for converting memory page values into byte values.
+# This value depends on architecture (also sometimes depends on machine model). Default value is 4096 Bytes (4 KiB) for most processors.
+memory_page_size = os.sysconf("SC_PAGE_SIZE")
+
+# This list is used in order to show full status of the process. For more information, see: "https://man7.org/linux/man-pages/man5/proc.5.html".
+process_status_dict = {"R": _tr("Running"), "S": _tr("Sleeping"), "D": _tr("Waiting"), "I": _tr("Idle"), "Z": _tr("Zombie"), "T": _tr("Stopped"), "t": "Tracing Stop", "X": "Dead"}
 
 
 class ListStoreItem(GObject.Object):
@@ -848,6 +861,269 @@ def set_label_spinner(label, spinner, label_data):
     label.set_label(f'{label_data}')
 
 
+def processes_information(process_list=["all"], processes_of_user="all", cpu_usage_divide_by_cores="yes", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+
+    # Get environment type
+    environment_type = environment_type_detection()
+
+    # Get usernames and UIDs
+    if username_uid_dict == {}:
+        username_uid_dict = get_username_uid_dict()
+
+    # Get current username which will be used for determining processes from only this user or other users.
+    current_user_name = os.environ.get('USER')
+
+    # Redefine core count division number if "Divide CPU usage by core count" option is disabled.
+    if cpu_usage_divide_by_cores == "yes":
+        core_count_division_number = number_of_logical_cores()
+    else:
+        core_count_division_number = 1
+
+    # Get system boot time
+    if system_boot_time == 0:
+        system_boot_time = get_system_boot_time()
+
+    # Get process PIDs
+    command_list = ["ls", "/proc/"]
+    if environment_type == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
+    pid_list = []
+    for pid in ls_output.split():
+        if pid.isdigit() == True:
+            pid_list.append(int(pid))
+    pid_list = sorted(pid_list)
+
+    # Get process information from procfs files. "/proc/version" file content is used as separator text.
+    command_list = ["cat"]
+    command_list.append('/proc/version')
+    if environment_type == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    for pid in pid_list:
+        # Get process information of specified processes.
+        if process_list != ["all"] and pid not in process_list:
+            continue
+        command_list.append(f'/proc/{pid}/stat')
+        command_list.append('/proc/version')
+        command_list.append(f'/proc/{pid}/status')
+        command_list.append('/proc/version')
+        command_list.append(f'/proc/{pid}/statm')
+        command_list.append('/proc/version')
+        command_list.append(f'/proc/{pid}/io')
+        command_list.append('/proc/version')
+        command_list.append(f'/proc/{pid}/cmdline')
+        command_list.append('/proc/version')
+    # Get global CPU time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
+    global_cpu_time_all_before = time.time() * number_of_clock_ticks
+    global_time_before = time.time()
+    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
+    # Get global CPU time just after "/proc/[PID]/stat" file is read in order to calculate an average value.
+    global_cpu_time_all_after = time.time() * number_of_clock_ticks
+    global_time_after = time.time()
+    # Calculate average value of "global_cpu_time_all".
+    global_cpu_time_all = (global_cpu_time_all_before + global_cpu_time_all_after) / 2
+    global_time = (global_time_before + global_time_after) / 2
+
+    # Get separator text
+    separator_text = cat_output.split("\n", 1)[0]
+
+    cat_output_split = cat_output.split(separator_text + "\n")
+    # Delete first empty element
+    del cat_output_split[0]
+
+    # Get process information from command output.
+    processes_data_dict = {}
+    if processes_data_dict_prev != {}:
+        pid_list_prev = processes_data_dict_prev["pid_list"]
+        ppid_list_prev = processes_data_dict_prev["ppid_list"]
+        global_process_cpu_times_prev = processes_data_dict_prev["global_process_cpu_times"]
+        disk_read_write_data_prev = processes_data_dict_prev["disk_read_write_data"]
+        global_cpu_time_all_prev = processes_data_dict_prev["global_cpu_time_all"]
+        global_time_prev = processes_data_dict_prev["global_time"]
+    else:
+        pid_list_prev = []
+        ppid_list_prev = []
+        global_process_cpu_times_prev = []
+        disk_read_write_data_prev = []
+    pid_list = []
+    ppid_list = []
+    username_list = []
+    cmdline_list = []
+    global_process_cpu_times = []
+    disk_read_write_data = []
+    cat_output_split_iter = iter(cat_output_split)
+    for process_data in cat_output_split_iter:
+        # Get process information from "/proc/stat" file
+        # Skip to next loop if "/proc/stat" file is not read.
+        if process_data == "":
+            process_data = next(cat_output_split_iter)
+            process_data = next(cat_output_split_iter)
+            process_data = next(cat_output_split_iter)
+            process_data = next(cat_output_split_iter)
+            continue
+        process_data_split = process_data.split()
+        try:
+            pid = int(process_data_split[0])
+        except IndexError:
+            break
+        ppid = int(process_data_split[-49])
+        status = process_status_dict[process_data_split[-50]]
+        # Get process CPU time in user mode (utime + stime)
+        cpu_time = int(process_data_split[-39]) + int(process_data_split[-38])
+        # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
+        memory_rss = int(process_data_split[-29]) * memory_page_size
+        # Get process VMS (virtual memory size) memory (this value is in bytes unit).
+        memory_vms = int(process_data_split[-30])
+        # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting to wall clock time)
+        start_time = (int(process_data_split[-31]) / number_of_clock_ticks) + system_boot_time
+        nice = int(process_data_split[-34])
+        number_of_threads = int(process_data_split[-33])
+
+        # Get process information from "/proc/status" file
+        process_data = next(cat_output_split_iter)
+        # Skip to next loop if "/proc/status" file is not read.
+        if process_data == "":
+            process_data = next(cat_output_split_iter)
+            process_data = next(cat_output_split_iter)
+            process_data = next(cat_output_split_iter)
+            continue
+        name = process_data.split("Name:\t", 1)[1].split("\n", 1)[0]
+        # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
+        uid = int(process_data.split("\nUid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0])
+        # There are 4 values in the Gid line and first one (real GID) is get from this file.
+        gid = int(process_data.split("\nGid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0])
+
+        # Get username
+        try:
+            username = username_uid_dict[uid]
+        except KeyError:
+            username = str(uid)
+
+        # Skip to next process information if process information of current user is wanted.
+        if processes_of_user == "current" and username != current_user_name:
+            process_data = next(cat_output_split_iter)
+            process_data = next(cat_output_split_iter)
+            process_data = next(cat_output_split_iter)
+            continue
+
+        # Get process information from "/proc/statm" file
+        process_data = next(cat_output_split_iter)
+        # Skip to next loop if "/proc/statm" file is not read.
+        if process_data == "":
+            process_data = next(cat_output_split_iter)
+            process_data = next(cat_output_split_iter)
+            continue
+        process_data_split = process_data.split()
+        # Get shared memory pages and multiply with memory_page_size in order to convert the value into bytes.
+        memory_shared = int(process_data_split[2]) * memory_page_size
+        # Get memory
+        memory = memory_rss - memory_shared
+
+        # Get process information from "/proc/io" file
+        process_data = next(cat_output_split_iter)
+        if process_data != "":
+            process_data_split = process_data.split("\n")
+            read_data = int(process_data_split[4].split(":")[1])
+            written_data = int(process_data_split[5].split(":")[1])
+        else:
+            read_data = 0
+            written_data = 0
+
+        # Get process information from "/proc/cmdline" file
+        process_data = next(cat_output_split_iter)
+        # "cmdline" content may contain "\x00". They are replaced with " ".
+        command_line = process_data.replace("\x00", " ")
+        if command_line == "":
+            command_line = f'[{name}]'
+
+        # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters
+        # (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character 
+        # (not all process cmdlines have this) in order to obtain full process name.
+        process_name_from_status = name
+        if len(name) == 15:
+            name = command_line.split("/")[-1].split(" ")[0]
+            if name.startswith(process_name_from_status) == False:
+                name = command_line.split(" ")[0].split("/")[-1]
+                if name.startswith(process_name_from_status) == False:
+                    name = process_name_from_status
+
+        # Get CPU usage by using CPU times
+        process_cpu_time = cpu_time
+        global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))
+        try:
+            global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(pid)]
+        except (ValueError, IndexError, UnboundLocalError) as e:
+            # There is no "process_cpu_time_prev" value and get it from "process_cpu_time" if this is first loop of the process.
+            process_cpu_time_prev = process_cpu_time
+            # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
+            global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1
+        process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
+        global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
+        cpu_usage = process_cpu_time_difference / global_cpu_time_difference * 100 / core_count_division_number
+
+        # Get disk read speed and disk write speed
+        try:
+            read_data_prev, written_data_prev = disk_read_write_data_prev[pid_list_prev.index(pid)]
+        except (ValueError, IndexError, UnboundLocalError) as e:
+            # Make read_data_prev and written_data_prev equal to read_data for giving "0" disk read/write speed values
+            # if this is first loop of the process
+            read_data_prev = read_data
+            written_data_prev = written_data
+        disk_read_write_data.append((read_data, written_data))
+        if pid not in pid_list_prev and disk_read_write_data_prev != []:
+            disk_read_write_data_prev.append((read_data, written_data))
+        # Prevent errors if this is first loop of the process.
+        try:
+            update_interval = global_time - global_time_prev
+        except UnboundLocalError:
+            update_interval = 1
+        read_speed = (read_data - read_data_prev) / update_interval
+        write_speed = (written_data - written_data_prev) / update_interval
+
+        pid_list.append(pid)
+        ppid_list.append(ppid)
+        cmdline_list.append(command_line)
+        username_list.append(username)
+
+        # Add process data to a sub-dictionary
+        process_data_dict = {}
+        process_data_dict["name"] = name
+        process_data_dict["username"] = username
+        process_data_dict["status"] = status
+        process_data_dict["cpu_time"] = cpu_time
+        process_data_dict["cpu_usage"] = cpu_usage
+        process_data_dict["memory_rss"] = memory_rss
+        process_data_dict["memory_vms"] = memory_vms
+        process_data_dict["memory_shared"] = memory_shared
+        process_data_dict["memory"] = memory
+        process_data_dict["read_data"] = read_data
+        process_data_dict["written_data"] = written_data
+        process_data_dict["read_speed"] = read_speed
+        process_data_dict["write_speed"] = write_speed
+        process_data_dict["nice"] = nice
+        process_data_dict["number_of_threads"] = number_of_threads
+        process_data_dict["ppid"] = ppid
+        process_data_dict["uid"] = uid
+        process_data_dict["gid"] = gid
+        process_data_dict["start_time"] = start_time
+        process_data_dict["command_line"] = command_line
+
+        # Add process sub-dictionary to dictionary
+        processes_data_dict[pid] = process_data_dict
+
+    # Add process related lists and variables for returning them for using them (for using some them as previous data in the next loop).
+    processes_data_dict["pid_list"] = pid_list
+    processes_data_dict["ppid_list"] = ppid_list
+    processes_data_dict["username_list"] = username_list
+    processes_data_dict["cmdline_list"] = cmdline_list
+    processes_data_dict["global_process_cpu_times"] = global_process_cpu_times
+    processes_data_dict["disk_read_write_data"] = disk_read_write_data
+    processes_data_dict["global_cpu_time_all"] = global_cpu_time_all
+    processes_data_dict["global_time"] = global_time
+    #print(processes_data_dict)
+    return processes_data_dict
+
+
 def number_of_logical_cores():
     """
     Get number of online logical cores.
@@ -866,6 +1142,59 @@ def number_of_logical_cores():
                 number_of_logical_cores = number_of_logical_cores + 1
 
     return number_of_logical_cores
+
+
+def get_system_boot_time():
+    """
+    Get system boot time.
+    """
+
+    with open("/proc/stat") as reader:
+        stat_lines = reader.read().split("\n")
+    for line in stat_lines:
+        if "btime " in line:
+            system_boot_time = int(line.split()[1].strip())
+
+    return system_boot_time
+
+
+def get_username_uid_dict():
+    """
+    Get usernames and UIDs.
+    """
+
+    environment_type = environment_type_detection()
+
+    if environment_type == "flatpak":
+        command_list = ["flatpak-spawn", "--host"]
+        command_list = command_list + ["cat", "/etc/passwd"]
+        etc_passwd_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
+    else:
+        with open("/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+
+    username_uid_dict = {}
+    for line in etc_passwd_lines:
+        line_splitted = line.split(":", 3)
+        username_uid_dict[int(line_splitted[2])] = line_splitted[0]
+
+    return username_uid_dict
+
+
+def environment_type_detection():
+    """
+    Detect environment type (Flatpak or native).
+    This information will be used for accessing host OS commands if the application is run in Flatpak environment.
+    """
+
+    application_flatpak_id = os.getenv('FLATPAK_ID')
+
+    if application_flatpak_id != None:
+        environment_type = "flatpak"
+    else:
+        environment_type = "native"
+
+    return environment_type
 
 
 def device_vendor_model(modalias_output):
