@@ -903,16 +903,17 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
         # Get process information of specified processes.
         if process_list != ["all"] and pid not in process_list:
             continue
-        command_list.append(f'/proc/{pid}/stat')
-        command_list.append('/proc/version')
-        command_list.append(f'/proc/{pid}/status')
-        command_list.append('/proc/version')
-        command_list.append(f'/proc/{pid}/statm')
-        command_list.append('/proc/version')
-        command_list.append(f'/proc/{pid}/io')
-        command_list.append('/proc/version')
-        command_list.append(f'/proc/{pid}/cmdline')
-        command_list.append('/proc/version')
+        command_list.extend((
+        f'/proc/{pid}/stat',
+        '/proc/version',
+        f'/proc/{pid}/status',
+        '/proc/version',
+        f'/proc/{pid}/statm',
+        '/proc/version',
+        f'/proc/{pid}/io',
+        '/proc/version',
+        f'/proc/{pid}/cmdline',
+        '/proc/version'))
     # Get global CPU time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
     global_cpu_time_all_before = time.time() * number_of_clock_ticks
     global_time_before = time.time()
