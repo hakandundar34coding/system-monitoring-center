@@ -916,7 +916,7 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
     # Get global CPU time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
     global_cpu_time_all_before = time.time() * number_of_clock_ticks
     global_time_before = time.time()
-    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode("utf-8").strip()
+    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)).stdout.strip()
     # Get global CPU time just after "/proc/[PID]/stat" file is read in order to calculate an average value.
     global_cpu_time_all_after = time.time() * number_of_clock_ticks
     global_time_after = time.time()
@@ -953,8 +953,8 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
     disk_read_write_data = []
     cat_output_split_iter = iter(cat_output_split)
     for process_data in cat_output_split_iter:
-        # Get process information from "/proc/stat" file
-        # Skip to next loop if "/proc/stat" file is not read.
+        # Get process information from "/proc/[PID]/stat" file
+        # Skip to next loop if "/proc/[PID]/stat" file is not read.
         if process_data == "":
             process_data = next(cat_output_split_iter)
             process_data = next(cat_output_split_iter)
@@ -979,9 +979,9 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
         nice = int(process_data_split[-34])
         number_of_threads = int(process_data_split[-33])
 
-        # Get process information from "/proc/status" file
+        # Get process information from "/proc/[PID]/status" file
         process_data = next(cat_output_split_iter)
-        # Skip to next loop if "/proc/status" file is not read.
+        # Skip to next loop if "/proc/[PID]/status" file is not read.
         if process_data == "":
             process_data = next(cat_output_split_iter)
             process_data = next(cat_output_split_iter)
@@ -1006,9 +1006,9 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
             process_data = next(cat_output_split_iter)
             continue
 
-        # Get process information from "/proc/statm" file
+        # Get process information from "/proc/[PID]/statm" file
         process_data = next(cat_output_split_iter)
-        # Skip to next loop if "/proc/statm" file is not read.
+        # Skip to next loop if "/proc/[PID]/statm" file is not read.
         if process_data == "":
             process_data = next(cat_output_split_iter)
             process_data = next(cat_output_split_iter)
@@ -1019,7 +1019,7 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
         # Get memory
         memory = memory_rss - memory_shared
 
-        # Get process information from "/proc/io" file
+        # Get process information from "/proc/[PID]/io" file
         process_data = next(cat_output_split_iter)
         if process_data != "":
             process_data_split = process_data.split("\n")
@@ -1029,9 +1029,9 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
             read_data = 0
             written_data = 0
 
-        # Get process information from "/proc/cmdline" file
+        # Get process information from "/proc/[PID]/cmdline" file
         process_data = next(cat_output_split_iter)
-        # "cmdline" content may contain "\x00". They are replaced with " ".
+        # "cmdline" content may contain "\x00". They are replaced with " ". Otherwise, file content may be get as "".
         command_line = process_data.replace("\x00", " ")
         if command_line == "":
             command_line = f'[{name}]'
