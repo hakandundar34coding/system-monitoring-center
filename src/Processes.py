@@ -1006,8 +1006,11 @@ class Processes:
         global processes_data_dict_prev
         processes_data_dict_prev = {}
 
-        global number_of_clock_ticks, memory_page_size, username_uid_dict, application_exec_list, application_icon_list
+        global number_of_clock_ticks, memory_page_size, system_boot_time, username_uid_dict, application_exec_list, application_icon_list
         number_of_clock_ticks = os.sysconf("SC_CLK_TCK")                                          # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
+
+        # Get system boot time
+        system_boot_time = Common.get_system_boot_time()
 
         # Get usernames and UIDs
         username_uid_dict = Common.get_username_uid_dict()
@@ -1075,7 +1078,7 @@ class Processes:
         processes_treeview_columns_shown = set(processes_treeview_columns_shown)
 
         # Get process information
-        global processes_data_dict_prev, cmdline_list
+        global processes_data_dict_prev, system_boot_time, cmdline_list
         process_list = ["all"]
         if show_processes_of_all_users == 1:
             processes_of_user = "all"
@@ -1085,7 +1088,6 @@ class Processes:
             cpu_usage_divide_by_cores = "yes"
         elif processes_cpu_divide_by_core == 0:
             cpu_usage_divide_by_cores = "no"
-        system_boot_time = 0
         processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, processes_data_dict_prev, system_boot_time, username_uid_dict)
         processes_data_dict_prev = dict(processes_data_dict)
         pid_list = processes_data_dict["pid_list"]
