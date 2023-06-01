@@ -1006,6 +1006,9 @@ class Processes:
         global processes_data_dict_prev
         processes_data_dict_prev = {}
 
+        # Define process status text list for translation
+        process_status_list = [_tr("Running"), _tr("Sleeping"), _tr("Waiting"), _tr("Idle"), _tr("Zombie"), _tr("Stopped")]
+
         global number_of_clock_ticks, memory_page_size, system_boot_time, username_uid_dict, application_exec_list, application_icon_list
         number_of_clock_ticks = os.sysconf("SC_CLK_TCK")                                          # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
 
@@ -1114,7 +1117,7 @@ class Processes:
             if 2 in processes_treeview_columns_shown:
                 processes_data_row.append(process_data_dict["username"])
             if 3 in processes_treeview_columns_shown:
-                processes_data_row.append(process_data_dict["status"])
+                processes_data_row.append(_tr(process_data_dict["status"]))
             if 4 in processes_treeview_columns_shown or 21 in processes_treeview_columns_shown:
                 cpu_usage = process_data_dict["cpu_usage"]
                 cpu_usage_list.append(cpu_usage)

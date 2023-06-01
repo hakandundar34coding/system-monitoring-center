@@ -24,7 +24,7 @@ number_of_clock_ticks = os.sysconf("SC_CLK_TCK")
 memory_page_size = os.sysconf("SC_PAGE_SIZE")
 
 # This list is used in order to show full status of the process. For more information, see: "https://man7.org/linux/man-pages/man5/proc.5.html".
-process_status_dict = {"R": _tr("Running"), "S": _tr("Sleeping"), "D": _tr("Waiting"), "I": _tr("Idle"), "Z": _tr("Zombie"), "T": _tr("Stopped"), "t": "Tracing Stop", "X": "Dead"}
+process_status_dict = {"R": "Running", "S": "Sleeping", "D": "Waiting", "I": "Idle", "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead"}
 
 
 class ListStoreItem(GObject.Object):
@@ -891,8 +891,8 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
     pid_list = []
     for pid in ls_output.split():
         if pid.isdigit() == True:
-            pid_list.append(int(pid))
-    pid_list = sorted(pid_list)
+            pid_list.append(pid)
+    pid_list = sorted(pid_list, key=int)
 
     # Get process information from procfs files. "/proc/version" file content is used as separator text.
     command_list = ["cat"]
@@ -905,13 +905,10 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
             continue
         command_list.extend((
         f'/proc/{pid}/stat',
-        '/proc/version',
+        f'/proc/{pid}/statm',
         f'/proc/{pid}/status',
         '/proc/version',
-        f'/proc/{pid}/statm',
-        '/proc/version',
         f'/proc/{pid}/io',
-        '/proc/version',
         f'/proc/{pid}/cmdline',
         '/proc/version'))
     # Get time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
@@ -953,44 +950,39 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
     cat_output_split_iter = iter(cat_output_split)
     for process_data in cat_output_split_iter:
         # Get process information from "/proc/[PID]/stat" file
-        # Skip to next loop if "/proc/[PID]/stat" file is not read.
-        if process_data == "":
-            process_data = next(cat_output_split_iter)
-            process_data = next(cat_output_split_iter)
-            process_data = next(cat_output_split_iter)
+        # Skip to next loop if one of the stat, statm, status files is not read.
+        try:
+            stat_file, statm_file, status_file = process_data.split("\n", 2)
+        except ValueError:
             process_data = next(cat_output_split_iter)
             continue
-        process_data_split = process_data.split()
+        if status_file.startswith("Name:") == False or "" in (stat_file, statm_file, status_file):
+            process_data = next(cat_output_split_iter)
+            continue
+        stat_file_split = stat_file.split()
         try:
-            pid = int(process_data_split[0])
+            pid = int(stat_file_split[0])
         except IndexError:
             break
-        ppid = int(process_data_split[-49])
-        status = process_status_dict[process_data_split[-50]]
+        ppid = int(stat_file_split[-49])
+        status = process_status_dict[stat_file_split[-50]]
         # Get process CPU time in user mode (utime + stime)
-        cpu_time = int(process_data_split[-39]) + int(process_data_split[-38])
+        cpu_time = int(stat_file_split[-39]) + int(stat_file_split[-38])
         # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
-        memory_rss = int(process_data_split[-29]) * memory_page_size
+        memory_rss = int(stat_file_split[-29]) * memory_page_size
         # Get process VMS (virtual memory size) memory (this value is in bytes unit).
-        memory_vms = int(process_data_split[-30])
+        memory_vms = int(stat_file_split[-30])
         # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting to wall clock time)
-        start_time = (int(process_data_split[-31]) / number_of_clock_ticks) + system_boot_time
-        nice = int(process_data_split[-34])
-        number_of_threads = int(process_data_split[-33])
+        start_time = (int(stat_file_split[-31]) / number_of_clock_ticks) + system_boot_time
+        nice = int(stat_file_split[-34])
+        number_of_threads = int(stat_file_split[-33])
 
         # Get process information from "/proc/[PID]/status" file
-        process_data = next(cat_output_split_iter)
-        # Skip to next loop if "/proc/[PID]/status" file is not read.
-        if process_data == "":
-            process_data = next(cat_output_split_iter)
-            process_data = next(cat_output_split_iter)
-            process_data = next(cat_output_split_iter)
-            continue
-        name = process_data.split("Name:\t", 1)[1].split("\n", 1)[0]
+        name = status_file.split("Name:\t", 1)[1].split("\n", 1)[0]
         # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-        uid = int(process_data.split("\nUid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0])
+        uid = int(status_file.split("\nUid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0])
         # There are 4 values in the Gid line and first one (real GID) is get from this file.
-        gid = int(process_data.split("\nGid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0])
+        gid = int(status_file.split("\nGid:\t", 1)[1].split("\n", 1)[0].split("\t", 1)[0])
 
         # Get username
         try:
@@ -1001,37 +993,33 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
         # Skip to next process information if process information of current user is wanted.
         if processes_of_user == "current" and username != current_user_name:
             process_data = next(cat_output_split_iter)
-            process_data = next(cat_output_split_iter)
-            process_data = next(cat_output_split_iter)
             continue
 
         # Get process information from "/proc/[PID]/statm" file
-        process_data = next(cat_output_split_iter)
-        # Skip to next loop if "/proc/[PID]/statm" file is not read.
-        if process_data == "":
-            process_data = next(cat_output_split_iter)
-            process_data = next(cat_output_split_iter)
-            continue
-        process_data_split = process_data.split()
+        statm_file_split = statm_file.split()
         # Get shared memory pages and multiply with memory_page_size in order to convert the value into bytes.
-        memory_shared = int(process_data_split[2]) * memory_page_size
+        memory_shared = int(statm_file_split[2]) * memory_page_size
         # Get memory
         memory = memory_rss - memory_shared
 
-        # Get process information from "/proc/[PID]/io" file
+        # Get process information from "/proc/[PID]/io" and "/proc/[PID]/cmdline" files
         process_data = next(cat_output_split_iter)
-        if process_data != "":
-            process_data_split = process_data.split("\n")
-            read_data = int(process_data_split[4].split(":")[1])
-            written_data = int(process_data_split[5].split(":")[1])
+        if process_data.startswith("rchar") == True:
+            try:
+                io_cmdline_files_split = process_data.split("\n", 7)
+                cmdline_file = io_cmdline_files_split[-1]
+            except ValueError:
+                io_cmdline_files_split = process_data.split("\n")
+                cmdline_file = ""
+            read_data = int(io_cmdline_files_split[4].split(":")[1])
+            written_data = int(io_cmdline_files_split[5].split(":")[1])
         else:
             read_data = 0
             written_data = 0
+            cmdline_file = process_data
 
-        # Get process information from "/proc/[PID]/cmdline" file
-        process_data = next(cat_output_split_iter)
         # "cmdline" content may contain "\x00". They are replaced with " ". Otherwise, file content may be get as "".
-        command_line = process_data.replace("\x00", " ")
+        command_line = cmdline_file.replace("\x00", " ")
         if command_line == "":
             command_line = f'[{name}]'
 
