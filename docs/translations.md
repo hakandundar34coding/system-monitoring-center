@@ -18,9 +18,9 @@ as ```Connected SSID```. The text contains two different information.
 | fr             | French                 | 98%        |
 | hu             | Hungarian              | 91%        |
 | pl             | Polish                 | 92%        |
-| pt_BR          | Portuguese (Brazilian) | 98%        |
-| pt_PT          | Portuguese (Portugal)  | 98%        |
-| ru_RU          | Russian                | 98%        |
+| pt_BR          | Portuguese (Brazilian) | 99%        |
+| pt_PT          | Portuguese (Portugal)  | 99%        |
+| ru_RU          | Russian                | 100%       |
 | tr             | Turkish                | 100%       |
 | zh_TW          | Chinese (Traditional)  | 97%        |
 
