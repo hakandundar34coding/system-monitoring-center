@@ -642,12 +642,12 @@ msgstr "Путь"
 
 #: src/Processes.py:867 src/ProcessesMenu.py:242
 msgid "CPU Time"
-msgstr ""
+msgstr "Время ЦП"
 
 #: src/Processes.py:869 src/Processes.py:870 src/Processes.py:871
 #: src/ProcessesMenu.py:246 src/ProcessesMenu.py:250 src/ProcessesMenu.py:254
 msgid "Recursive"
-msgstr ""
+msgstr "Рекурсив"
 
 #: src/Processes.py:893 src/Services.py:450 src/ServicesDetails.py:346
 msgid "Running"
@@ -655,7 +655,7 @@ msgstr "Выполняется"
 
 #: src/Processes.py:893
 msgid "Sleeping"
-msgstr "Спит"
+msgstr "Гибернация"
 
 #: src/Processes.py:893
 msgid "Waiting"
@@ -704,7 +704,7 @@ msgstr "Память (USS)"
 
 #: src/ProcessesDetails.py:511
 msgid "Read Count"
-msgstr "Количество чтений"
+msgstr "Количество Чтений"
 
 #: src/ProcessesDetails.py:521
 msgid "Write Count"
@@ -712,11 +712,11 @@ msgstr "Количество записей"
 
 #: src/ProcessesDetails.py:555
 msgid "Current Working Directory"
-msgstr "Рабочая директория"
+msgstr "Текущая Рабочая Директория"
 
 #: src/ProcessesDetails.py:577
 msgid "Opened Files"
-msgstr "Открытые файлы"
+msgstr "Открытые Файлы"
 
 #: src/ProcessesDetails.py:849
 msgid "This process is not running anymore."
@@ -757,7 +757,7 @@ msgstr "Свернуть все"
 
 #: src/ProcessesMenu.py:335
 msgid "Divide CPU usage by core count"
-msgstr ""
+msgstr "Разделите использование процессора на количество ядер"
 
 #: src/Sensors.py:126
 msgid "Device"
@@ -1076,7 +1076,7 @@ msgstr "Версия Python"
 
 #: src/System.py:518
 msgid "Virtual Machine"
-msgstr ""
+msgstr "Виртуальная Машина"
 
 #: src/Users.py:244 src/UsersDetails.py:74 src/UsersMenu.py:91
 msgid "Full Name"
