@@ -1019,13 +1019,10 @@ class Processes:
         username_uid_dict = Common.get_username_uid_dict()
 
         # Get application names, images and types.
-        global application_exec_list, application_icon_list, application_type_list
-        application_exec_list, application_icon_list, application_type_list = self.application_exec_icon_type_list()
+        global application_image_dict
+        application_image_dict = self.get_application_name_image_dict()
 
         self.filter_column = processes_data_list[0][2] - 1                                        # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
-
-        self.application_exec_list = application_exec_list
-        self.application_icon_list = application_icon_list
 
         self.initial_already_run = 1
 
@@ -1082,7 +1079,7 @@ class Processes:
         processes_treeview_columns_shown = set(processes_treeview_columns_shown)
 
         # Get process information
-        global processes_data_dict_prev, system_boot_time, cmdline_list
+        global processes_data_dict_prev, system_boot_time, cmdline_list, application_image_dict
         process_list = []
         if show_processes_of_all_users == 1:
             processes_of_user = "all"
@@ -1106,13 +1103,13 @@ class Processes:
             ppid = process_data_dict["ppid"]
             # Get process image.
             if ppid == 2 or pid == 2:
-                process_icon = "system-monitoring-center-process-symbolic"
+                process_image = "system-monitoring-center-process-symbolic"
             else:
-                process_icon = "application-x-executable"                                         # Initial value of "process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
-                if process_name in application_exec_list:                                         # Use process icon name from application file if process name is found in application exec list.
-                    process_icon = application_icon_list[application_exec_list.index(process_name)]
+                process_image = "application-x-executable"
+                if process_name in application_image_dict:
+                    process_image = application_image_dict[process_name]
             process_commandline = process_data_dict["command_line"]
-            processes_data_row = [True, process_icon, process_name, process_commandline]
+            processes_data_row = [True, process_image, process_name, process_commandline]
             if 1 in processes_treeview_columns_shown:
                 processes_data_row.append(pid)
             if 2 in processes_treeview_columns_shown:
@@ -1506,15 +1503,12 @@ class Processes:
         Config.config_save_func()
 
 
-    def application_exec_icon_type_list(self):
+    def get_application_name_image_dict(self):
         """
-        Get application names, images and types (desktop_application or application).
-        Process name will be searched in "application_exec_list" list and image/application type will be get.
+        Get application names, images. Process name will be searched in "application_image_dict" list.
         """
 
-        application_exec_list = []
-        application_icon_list = []
-        application_type_list = []
+        application_image_dict = {}
 
         # Get  ".desktop" file names
         application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]
@@ -1540,10 +1534,10 @@ class Processes:
             if application_exec == "sh":
                 application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0]
 
-            # Get application icon name data
-            application_icon = application_file_content.split("Icon=", 1)[1].split("\n", 1)[0]
+            # Get application image name data
+            application_image = application_file_content.split("Icon=", 1)[1].split("\n", 1)[0]
 
-            # Get "desktop_application/application" information
+            """# Get "desktop_application/application" information
             if "NoDisplay=" in application_file_content:
                 desktop_application_value = application_file_content.split("NoDisplay=", 1)[1].split("\n", 1)[0]
                 if desktop_application_value == "true":
@@ -1552,12 +1546,11 @@ class Processes:
                     application_type = "desktop_application"
             else:
                 application_type = "desktop_application"
+            """
 
-            application_exec_list.append(application_exec)
-            application_icon_list.append(application_icon)
-            application_type_list.append(application_type)
+            application_image_dict[application_exec] = application_image
 
-        return application_exec_list, application_icon_list, application_type_list
+        return application_image_dict
 
 
 # ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
