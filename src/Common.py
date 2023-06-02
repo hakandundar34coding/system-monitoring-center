@@ -884,25 +884,25 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
         system_boot_time = get_system_boot_time()
 
     # Get process PIDs
-    command_list = ["ls", "/proc/"]
-    if environment_type == "flatpak":
-        command_list = ["flatpak-spawn", "--host"] + command_list
-    ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
-    pid_list = []
-    for pid in ls_output.split():
-        if pid.isdigit() == True:
-            pid_list.append(pid)
-    pid_list = sorted(pid_list, key=int)
+    if process_list == []:
+        command_list = ["ls", "/proc/"]
+        if environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
+        pid_list = []
+        for pid in ls_output.split():
+            if pid.isdigit() == True:
+                pid_list.append(pid)
+        pid_list = sorted(pid_list, key=int)
+    else:
+        pid_list = process_list
 
     # Get process information from procfs files. "/proc/version" file content is used as separator text.
-    command_list = ["cat"]
+    command_list = ["env", "LANG=C", "cat"]
     command_list.append('/proc/version')
     if environment_type == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
     for pid in pid_list:
-        # Get process information of specified processes.
-        if process_list != ["all"] and pid not in process_list:
-            continue
         command_list.extend((
         f'/proc/{pid}/stat',
         f'/proc/{pid}/statm',
@@ -1024,7 +1024,7 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
             command_line = f'[{name}]'
 
         # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters
-        # (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character 
+        # (it is counted as 15). "/proc/[PID]/cmdline" file is read and it is split by the last "/" character 
         # (not all process cmdlines have this) in order to obtain full process name.
         process_name_from_status = name
         if len(name) == 15:

@@ -1060,18 +1060,19 @@ class Processes:
         show_processes_of_all_users = Config.show_processes_of_all_users
 
         # Define lists for appending some performance data for calculating max values to determine cell background color.
-        cpu_usage_list = []
-        memory_rss_list = []
-        memory_vms_list = []
-        memory_shared_list = []
-        memory_list = []
-        disk_read_data_list = []
-        disk_write_data_list = []
-        disk_read_speed_list = []
-        disk_write_speed_list = []
-        cpu_usage_recursive_list = []
-        memory_rss_recursive_list = []
-        memory_recursive_list = []
+        # "0" values are added for preventing errors if the lists are empty.
+        cpu_usage_list = [0]
+        memory_rss_list = [0]
+        memory_vms_list = [0]
+        memory_shared_list = [0]
+        memory_list = [0]
+        disk_read_data_list = [0]
+        disk_write_data_list = [0]
+        disk_read_speed_list = [0]
+        disk_write_speed_list = [0]
+        cpu_usage_recursive_list = [0]
+        memory_rss_recursive_list = [0]
+        memory_recursive_list = [0]
 
         # Get process PIDs and define global variables and empty lists for the current loop
         global processes_data_rows_prev, global_process_cpu_times_prev, disk_read_write_data_prev, pid_list_prev, pid_list
@@ -1082,7 +1083,7 @@ class Processes:
 
         # Get process information
         global processes_data_dict_prev, system_boot_time, cmdline_list
-        process_list = ["all"]
+        process_list = []
         if show_processes_of_all_users == 1:
             processes_of_user = "all"
         elif show_processes_of_all_users == 0:
@@ -1343,54 +1344,18 @@ class Processes:
         global max_value_cpu_usage_list, max_value_memory_rss_list, max_value_memory_vms_list, max_value_memory_shared_list, max_value_memory_list
         global max_value_disk_read_data_list, max_value_disk_write_data_list, max_value_disk_read_speed_list, max_value_disk_write_speed_list
         global max_value_cpu_usage_recursive_list, max_value_memory_rss_recursive_list, max_value_memory_recursive_list
-        try:
-            max_value_cpu_usage_list = max(cpu_usage_list)
-        except ValueError:
-            max_value_cpu_usage_list = 0
-        try:
-            max_value_memory_rss_list = max(memory_rss_list)
-        except ValueError:
-            max_value_memory_rss_list = 0
-        try:
-            max_value_memory_vms_list = max(memory_vms_list)
-        except ValueError:
-            max_value_memory_vms_list = 0
-        try:
-            max_value_memory_shared_list = max(memory_shared_list)
-        except ValueError:
-            max_value_memory_shared_list = 0
-        try:
-            max_value_memory_list = max(memory_list)
-        except ValueError:
-            max_value_memory_list = 0
-        try:
-            max_value_disk_read_data_list = max(disk_read_data_list)
-        except ValueError:
-            max_value_disk_read_data_list = 0
-        try:
-            max_value_disk_write_data_list = max(disk_write_data_list)
-        except ValueError:
-            max_value_disk_write_data_list = 0
-        try:
-            max_value_disk_read_speed_list = max(disk_read_speed_list)
-        except ValueError:
-            max_value_disk_read_speed_list = 0
-        try:
-            max_value_disk_write_speed_list = max(disk_write_speed_list)
-        except ValueError:
-            max_value_disk_write_speed_list = 0
-        try:
-            max_value_cpu_usage_recursive_list = max(cpu_usage_recursive_list)
-        except ValueError:
-            max_value_cpu_usage_recursive_list = 0
-        try:
-            max_value_memory_rss_recursive_list = max(memory_rss_recursive_list)
-        except ValueError:
-            max_value_memory_rss_recursive_list = 0
-        try:
-            max_value_memory_recursive_list = max(memory_recursive_list)
-        except ValueError:
-            max_value_memory_recursive_list = 0
+        max_value_cpu_usage_list = max(cpu_usage_list)
+        max_value_memory_rss_list = max(memory_rss_list)
+        max_value_memory_vms_list = max(memory_vms_list)
+        max_value_memory_shared_list = max(memory_shared_list)
+        max_value_memory_list = max(memory_list)
+        max_value_disk_read_data_list = max(disk_read_data_list)
+        max_value_disk_write_data_list = max(disk_write_data_list)
+        max_value_disk_read_speed_list = max(disk_read_speed_list)
+        max_value_disk_write_speed_list = max(disk_write_speed_list)
+        max_value_cpu_usage_recursive_list = max(cpu_usage_recursive_list)
+        max_value_memory_rss_recursive_list = max(memory_rss_recursive_list)
+        max_value_memory_recursive_list = max(memory_recursive_list)
 
         # Show number of processes on the searchentry as placeholder text
         self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Processes") + ": " + str(len(username_list)) + ")"
@@ -1414,9 +1379,9 @@ class Processes:
         """
 
         # Define lists before rest of the function for avoiding errors.
-        cpu_usage_recursive_list = []
-        memory_rss_recursive_list = []
-        memory_recursive_list = []
+        cpu_usage_recursive_list = [0]
+        memory_rss_recursive_list = [0]
+        memory_recursive_list = [0]
 
         # Do not run rest of the function for avoiding high CPU usage because of getting PID-child PID dictionary.
         if 21 not in processes_treeview_columns_shown and \
