@@ -1101,7 +1101,7 @@ class Processes:
             process_data_dict = processes_data_dict[pid]
             process_name = process_data_dict["name"]
             ppid = process_data_dict["ppid"]
-            # Get process image.
+            # Get process image
             if ppid == 2 or pid == 2:
                 process_image = "system-monitoring-center-process-symbolic"
             else:

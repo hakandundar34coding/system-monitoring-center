@@ -864,9 +864,6 @@ def set_label_spinner(label, spinner, label_data):
 
 def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
 
-    # Get environment type
-    environment_type = environment_type_detection()
-
     # Get usernames and UIDs
     if username_uid_dict == {}:
         username_uid_dict = get_username_uid_dict()
@@ -884,58 +881,10 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     if system_boot_time == 0:
         system_boot_time = get_system_boot_time()
 
-    # Get process PIDs
-    if process_list == []:
-        command_list = ["ls", "/proc/"]
-        if environment_type == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-        ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
-        pid_list = []
-        for pid in ls_output.split():
-            if pid.isdigit() == True:
-                pid_list.append(pid)
-        pid_list = sorted(pid_list, key=int)
-    else:
-        pid_list = process_list
+    # Read information from procfs files.
+    cat_output_split, global_time, global_cpu_time_all = read_process_information(process_list)
 
-    # Get process information from procfs files. "/proc/version" file content is used as separator text.
-    command_list = ["env", "LANG=C", "cat"]
-    command_list.append('/proc/version')
-    if environment_type == "flatpak":
-        command_list = ["flatpak-spawn", "--host"] + command_list
-    for pid in pid_list:
-        command_list.extend((
-        f'/proc/{pid}/stat',
-        f'/proc/{pid}/statm',
-        f'/proc/{pid}/status',
-        '/proc/version',
-        f'/proc/{pid}/io',
-        f'/proc/{pid}/cmdline',
-        '/proc/version'))
-    # Get time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
-    time_before = time.time()
-    #cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)).stdout.strip()
-    cat_output = subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    try:
-        cat_output = cat_output.stdout.decode().strip()
-    except UnicodeDecodeError:
-        system_encoding = sys.getfilesystemencoding()
-        cat_output = cat_output.stdout.decode(system_encoding).strip()
-
-    # Get time just after "/proc/[PID]/stat" file is read in order to calculate an average value.
-    time_after = time.time()
-    # Calculate average values of "global_time" and "global_cpu_time_all".
-    global_time = (time_before + time_after) / 2
-    global_cpu_time_all = global_time * number_of_clock_ticks
-
-    # Get separator text
-    separator_text = cat_output.split("\n", 1)[0]
-
-    cat_output_split = cat_output.split(separator_text + "\n")
-    # Delete first empty element
-    del cat_output_split[0]
-
-    # Get process information from command output.
+    # Define lists for getting process information from command output.
     processes_data_dict = {}
     if processes_data_dict_prev != {}:
         pid_list_prev = processes_data_dict_prev["pid_list"]
@@ -955,23 +904,29 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     cmdline_list = []
     global_process_cpu_times = []
     disk_read_write_data = []
+
+    # Get process information from command output.
     cat_output_split_iter = iter(cat_output_split)
-    for process_data in cat_output_split_iter:
+    for process_data_stat_statm_status in cat_output_split_iter:
+        # Also get second part of the data of the current process.
+        process_data_io_cmdline = next(cat_output_split_iter)
+
         # Get process information from "/proc/[PID]/stat" file
         # Skip to next loop if one of the stat, statm, status files is not read.
         try:
-            stat_file, statm_file, status_file = process_data.split("\n", 2)
+            stat_file, statm_file, status_file = process_data_stat_statm_status.split("\n", 2)
         except ValueError:
-            process_data = next(cat_output_split_iter)
             continue
         if status_file.startswith("Name:") == False or "" in (stat_file, statm_file, status_file):
-            process_data = next(cat_output_split_iter)
             continue
         stat_file_split = stat_file.split()
+
+        # Get PID
         try:
             pid = int(stat_file_split[0])
         except IndexError:
             break
+
         ppid = int(stat_file_split[-49])
         status = process_status_dict[stat_file_split[-50]]
         # Get process CPU time in user mode (utime + stime)
@@ -1000,7 +955,6 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
 
         # Skip to next process information if process information of current user is wanted.
         if processes_of_user == "current" and username != current_user_name:
-            process_data = next(cat_output_split_iter)
             continue
 
         # Get process information from "/proc/[PID]/statm" file
@@ -1011,20 +965,19 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
         memory = memory_rss - memory_shared
 
         # Get process information from "/proc/[PID]/io" and "/proc/[PID]/cmdline" files
-        process_data = next(cat_output_split_iter)
-        if process_data.startswith("rchar") == True:
+        if process_data_io_cmdline.startswith("rchar") == True:
             try:
-                io_cmdline_files_split = process_data.split("\n", 7)
+                io_cmdline_files_split = process_data_io_cmdline.split("\n", 7)
                 cmdline_file = io_cmdline_files_split[-1]
             except ValueError:
-                io_cmdline_files_split = process_data.split("\n")
+                io_cmdline_files_split = process_data_io_cmdline.split("\n")
                 cmdline_file = ""
             read_data = int(io_cmdline_files_split[4].split(":")[1])
             written_data = int(io_cmdline_files_split[5].split(":")[1])
         else:
             read_data = 0
             written_data = 0
-            cmdline_file = process_data
+            cmdline_file = process_data_io_cmdline
 
         # "cmdline" content may contain "\x00". They are replaced with " ". Otherwise, file content may be get as "".
         command_line = cmdline_file.replace("\x00", " ")
@@ -1118,6 +1071,67 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     processes_data_dict["global_time"] = global_time
 
     return processes_data_dict
+
+
+def read_process_information(process_list):
+    """
+    Read information from procfs files.
+    """
+
+    # Get environment type
+    environment_type = environment_type_detection()
+
+    # Get process PIDs
+    if process_list == []:
+        command_list = ["ls", "/proc/"]
+        if environment_type == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
+        pid_list = []
+        for pid in ls_output.split():
+            if pid.isdigit() == True:
+                pid_list.append(pid)
+        pid_list = sorted(pid_list, key=int)
+    else:
+        pid_list = process_list
+
+    # Get process information from procfs files. "/proc/version" file content is used as separator text.
+    command_list = ["env", "LANG=C", "cat"]
+    command_list.append('/proc/version')
+    if environment_type == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    for pid in pid_list:
+        command_list.extend((
+        f'/proc/{pid}/stat',
+        f'/proc/{pid}/statm',
+        f'/proc/{pid}/status',
+        '/proc/version',
+        f'/proc/{pid}/io',
+        f'/proc/{pid}/cmdline',
+        '/proc/version'))
+    # Get time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
+    time_before = time.time()
+    #cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)).stdout.strip()
+    cat_output = subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout
+    # Get time just after "/proc/[PID]/stat" file is read in order to calculate an average value.
+    time_after = time.time()
+    # Calculate average values of "global_time" and "global_cpu_time_all".
+    global_time = (time_before + time_after) / 2
+    global_cpu_time_all = global_time * number_of_clock_ticks
+    try:
+        cat_output = cat_output.decode().strip()
+    except UnicodeDecodeError:
+        system_encoding = sys.getfilesystemencoding()
+        cat_output = cat_output.decode(system_encoding).strip()
+
+    # Get separator text
+    separator_text = cat_output.split("\n", 1)[0]
+
+    cat_output_split = cat_output.split(separator_text + "\n")
+    # Delete first empty element
+    del cat_output_split[0]
+
+    return cat_output_split, global_time, global_cpu_time_all
 
 
 def number_of_logical_cores():
