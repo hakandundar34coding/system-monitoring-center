@@ -9,6 +9,7 @@ from gi.repository import Gtk, Gdk, Gio, GObject, Pango
 import os
 import subprocess
 import time
+import sys
 
 from locale import gettext as _tr
 
@@ -861,7 +862,7 @@ def set_label_spinner(label, spinner, label_data):
     label.set_label(f'{label_data}')
 
 
-def processes_information(process_list=["all"], processes_of_user="all", cpu_usage_divide_by_cores="yes", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
 
     # Get environment type
     environment_type = environment_type_detection()
@@ -913,7 +914,14 @@ def processes_information(process_list=["all"], processes_of_user="all", cpu_usa
         '/proc/version'))
     # Get time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
     time_before = time.time()
-    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)).stdout.strip()
+    #cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)).stdout.strip()
+    cat_output = subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        cat_output = cat_output.stdout.decode().strip()
+    except UnicodeDecodeError:
+        system_encoding = sys.getfilesystemencoding()
+        cat_output = cat_output.stdout.decode(system_encoding).strip()
+
     # Get time just after "/proc/[PID]/stat" file is read in order to calculate an average value.
     time_after = time.time()
     # Calculate average values of "global_time" and "global_cpu_time_all".
