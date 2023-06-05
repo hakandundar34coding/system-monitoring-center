@@ -864,7 +864,7 @@ def set_label_spinner(label, spinner, label_data):
 
 def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
     """
-    Get process information of al/specified processes.
+    Get process information of all/specified processes.
     """
 
     global number_of_clock_ticks, memory_page_size, process_status_dict
