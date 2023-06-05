@@ -863,6 +863,11 @@ def set_label_spinner(label, spinner, label_data):
 
 
 def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+    """
+    Get process information of al/specified processes.
+    """
+
+    global number_of_clock_ticks, memory_page_size, process_status_dict
 
     # Get usernames and UIDs
     if username_uid_dict == {}:
@@ -889,21 +894,21 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     if processes_data_dict_prev != {}:
         pid_list_prev = processes_data_dict_prev["pid_list"]
         ppid_list_prev = processes_data_dict_prev["ppid_list"]
-        global_process_cpu_times_prev = processes_data_dict_prev["global_process_cpu_times"]
+        process_cpu_times_prev = processes_data_dict_prev["process_cpu_times"]
         disk_read_write_data_prev = processes_data_dict_prev["disk_read_write_data"]
         global_cpu_time_all_prev = processes_data_dict_prev["global_cpu_time_all"]
         global_time_prev = processes_data_dict_prev["global_time"]
     else:
         pid_list_prev = []
         ppid_list_prev = []
-        global_process_cpu_times_prev = []
-        disk_read_write_data_prev = []
+        process_cpu_times_prev = {}
+        disk_read_write_data_prev = {}
     pid_list = []
     ppid_list = []
     username_list = []
     cmdline_list = []
-    global_process_cpu_times = []
-    disk_read_write_data = []
+    process_cpu_times = {}
+    disk_read_write_data = {}
 
     # Get process information from command output.
     cat_output_split_iter = iter(cat_output_split)
@@ -997,33 +1002,26 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
 
         # Get CPU usage by using CPU times
         process_cpu_time = cpu_time
-        global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))
+        process_cpu_times[pid] = process_cpu_time
         try:
-            global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(pid)]
-        except (ValueError, IndexError, UnboundLocalError) as e:
+            process_cpu_time_prev = process_cpu_times_prev[pid]
+        except KeyError:
             # There is no "process_cpu_time_prev" value and get it from "process_cpu_time" if this is first loop of the process.
             process_cpu_time_prev = process_cpu_time
             # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
-            global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1
-        process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
-        global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-        cpu_usage = process_cpu_time_difference / global_cpu_time_difference * 100 / core_count_division_number
+            global_cpu_time_all_prev = global_cpu_time_all - 1
+        cpu_usage = (process_cpu_time - process_cpu_time_prev) / (global_cpu_time_all - global_cpu_time_all_prev) * 100 / core_count_division_number
 
         # Get disk read speed and disk write speed
+        disk_read_write_data[pid] = (read_data, written_data)
         try:
-            read_data_prev, written_data_prev = disk_read_write_data_prev[pid_list_prev.index(pid)]
-        except (ValueError, IndexError, UnboundLocalError) as e:
+            read_data_prev, written_data_prev = disk_read_write_data_prev[pid]
+            update_interval = global_time - global_time_prev
+        except (KeyError, NameError) as e:
             # Make read_data_prev and written_data_prev equal to read_data for giving "0" disk read/write speed values
             # if this is first loop of the process
             read_data_prev = read_data
             written_data_prev = written_data
-        disk_read_write_data.append((read_data, written_data))
-        if pid not in pid_list_prev and disk_read_write_data_prev != []:
-            disk_read_write_data_prev.append((read_data, written_data))
-        # Prevent errors if this is first loop of the process.
-        try:
-            update_interval = global_time - global_time_prev
-        except UnboundLocalError:
             update_interval = 1
         read_speed = (read_data - read_data_prev) / update_interval
         write_speed = (written_data - written_data_prev) / update_interval
@@ -1065,7 +1063,7 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     processes_data_dict["ppid_list"] = ppid_list
     processes_data_dict["username_list"] = username_list
     processes_data_dict["cmdline_list"] = cmdline_list
-    processes_data_dict["global_process_cpu_times"] = global_process_cpu_times
+    processes_data_dict["process_cpu_times"] = process_cpu_times
     processes_data_dict["disk_read_write_data"] = disk_read_write_data
     processes_data_dict["global_cpu_time_all"] = global_cpu_time_all
     processes_data_dict["global_time"] = global_time
