@@ -323,10 +323,10 @@ def processes_loop_func():
     processes_treeview_columns_shown = set(processes_treeview_columns_shown)                  # For obtaining lower CPU usage (because "if [number] in processes_treeview_columns_shown:" check is repeated thousand of times).
 
 
-    command_list = ["env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,exe:800,command=CMDLINE"]
+    command_list = ["env", "LANG=C", "ps", "-eo", "comm:96,pid,ruser:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,exe:800,command=CMDLINE"]
     # "exe" parameter is not recognized by "ps" command in "coreuilts" package if version
     # is lower than 8.32. "group" parameter is used instead of "exe as a placeholder.
-    command_list2 = ["env", "LANG=C", "ps", "-eo", "comm:96,pid,user:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,group:800,command=CMDLINE"]
+    command_list2 = ["env", "LANG=C", "ps", "-eo", "comm:96,pid,ruser:80,s,rss,vsz,sz,nice,thcount,ppid,uid,gid,group:800,command=CMDLINE"]
     if Config.environment_type == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
         command_list2 = ["flatpak-spawn", "--host"] + command_list2
@@ -369,6 +369,8 @@ def processes_loop_func():
             ps_output_lines.remove(line)
             continue
         pid_list.append(line_split[0])
+        if line_split[0] == "2411":
+            print(line_split)
         username_list.append(username)
         ppid_list.append(line_split[8])
         cmdline_list.append(line[cmdline_column_index:].strip())
