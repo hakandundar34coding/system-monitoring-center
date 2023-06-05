@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v1.43.4 (05.06.2023)
+  * Fix: User names of some processes
+  * Fix: Number of processes of users
+
 ### v1.43.3 (20.05.2023)
   * Fix: Showing processes if .desktop files are not read
   * Fix: Desktop environment version of some systems
