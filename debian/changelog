@@ -1,6 +1,7 @@
 system-monitoring-center (1.43.4) unstable; urgency=medium
 
   * Fix: User names of some processes
+  * Fix: Number of processes of users
 
  -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 05 Jun 2023 19:45:00 +0300
 
