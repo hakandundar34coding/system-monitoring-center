@@ -1,3 +1,9 @@
+system-monitoring-center (1.43.4) unstable; urgency=medium
+
+  * Fix: User names of some processes
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 05 Jun 2023 19:45:00 +0300
+
 system-monitoring-center (1.43.3) unstable; urgency=medium
 
   * Fix: Showing processes if .desktop files are not read
