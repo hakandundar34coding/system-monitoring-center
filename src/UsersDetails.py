@@ -129,9 +129,9 @@ class UsersDetails:
 
         # Get all user process PIDs and elapsed times (seconds) since they are started.
         if Config.environment_type == "flatpak":
-            ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "pid,etimes,user"], shell=False)).decode().strip().split("\n")
+            ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "pid,etimes,ruser"], shell=False)).decode().strip().split("\n")
         else:
-            ps_output_lines = (subprocess.check_output(["ps", "--no-headers", "-eo", "pid,etimes,user"], shell=False)).decode().strip().split("\n")
+            ps_output_lines = (subprocess.check_output(["ps", "--no-headers", "-eo", "pid,etimes,ruser"], shell=False)).decode().strip().split("\n")
 
         # Get user process PIDs, logged in users and user start times.
         pid_list = []
