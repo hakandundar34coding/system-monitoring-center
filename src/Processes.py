@@ -369,8 +369,6 @@ def processes_loop_func():
             ps_output_lines.remove(line)
             continue
         pid_list.append(line_split[0])
-        if line_split[0] == "2411":
-            print(line_split)
         username_list.append(username)
         ppid_list.append(line_split[8])
         cmdline_list.append(line[cmdline_column_index:].strip())
