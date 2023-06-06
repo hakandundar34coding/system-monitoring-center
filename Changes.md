@@ -1,5 +1,15 @@
 # System Monitoring Center
 
+### v2.15.0 (06.06.2023)
+  * New: Recursive CPU,Memory,Memory-RSS columns (Processes)
+  * New: Multiple process selection and operations
+  * Updated Portuguese(Brazilian,Portugal), Russian translations
+  * Updated dependency versions (Flatpak)
+  * Improvements for lower CPU usage (Processes)
+  * Changed: Command line column instead of path (Processes)
+  * Fix: User names of some processes
+  * Fix: Number of processes of users
+
 ### v1.43.4 (05.06.2023)
   * Fix: User names of some processes
   * Fix: Number of processes of users

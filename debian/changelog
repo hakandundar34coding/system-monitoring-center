@@ -1,3 +1,16 @@
+system-monitoring-center (2.15.0) unstable; urgency=medium
+
+  * New: Recursive CPU,Memory,Memory-RSS columns (Processes)
+  * New: Multiple process selection and operations
+  * Updated Portuguese(Brazilian,Portugal), Russian translations
+  * Updated dependency versions (Flatpak)
+  * Improvements for lower CPU usage (Processes)
+  * Changed: Command line column instead of path (Processes)
+  * Fix: User names of some processes
+  * Fix: Number of processes of users
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 06 Jun 2023 10:00:00 +0300
+
 system-monitoring-center (2.14.0) unstable; urgency=medium
 
   * New: CPU time column option (Processes)
