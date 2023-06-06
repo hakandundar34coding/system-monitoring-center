@@ -74,6 +74,20 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.15.0" date="2023-06-06">
+      <description>
+        <ul>
+          <li>New: Recursive CPU,Memory,Memory-RSS columns (Processes)</li>
+          <li>New: Multiple process selection and operations</li>
+          <li>Updated Portuguese(Brazilian,Portugal), Russian translations</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Improvements for lower CPU usage (Processes)</li>
+          <li>Changed: Command line column instead of path (Processes)</li>
+          <li>Fix: User names of some processes</li>
+          <li>Fix: Number of processes of users</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.14.0" date="2023-05-19">
       <description>
         <ul>
