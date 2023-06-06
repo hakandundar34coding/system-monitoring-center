@@ -1008,7 +1008,7 @@ class ProcessesDetails:
                 # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
                 real_user_id = line.split(":")[1].split()[0].strip()
                 try:
-                    selected_process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                    selected_process_username = Processes.username_uid_dict[int(real_user_id)]
                 except ValueError:
                     selected_process_username = real_user_id
 

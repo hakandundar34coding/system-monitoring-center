@@ -1009,20 +1009,23 @@ class Processes:
         # Define process status text list for translation
         process_status_list = [_tr("Running"), _tr("Sleeping"), _tr("Waiting"), _tr("Idle"), _tr("Zombie"), _tr("Stopped")]
 
-        global number_of_clock_ticks, memory_page_size, system_boot_time, username_uid_dict, application_exec_list, application_icon_list
-        number_of_clock_ticks = os.sysconf("SC_CLK_TCK")                                          # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
+        global number_of_clock_ticks, memory_page_size, application_exec_list, application_icon_list
+        number_of_clock_ticks = os.sysconf("SC_CLK_TCK")
 
         # Get system boot time
-        system_boot_time = Common.get_system_boot_time()
+        self.system_boot_time = Common.get_system_boot_time()
 
         # Get usernames and UIDs
-        username_uid_dict = Common.get_username_uid_dict()
+        self.username_uid_dict = Common.get_username_uid_dict()
 
         # Get application names, images and types.
         global application_image_dict
         application_image_dict = self.get_application_name_image_dict()
 
-        self.filter_column = processes_data_list[0][2] - 1                                        # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+        # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and
+        # it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last
+        # internal column number for the relevant treeview column.
+        self.filter_column = processes_data_list[0][2] - 1
 
         self.initial_already_run = 1
 
@@ -1079,7 +1082,7 @@ class Processes:
         processes_treeview_columns_shown = set(processes_treeview_columns_shown)
 
         # Get process information
-        global processes_data_dict_prev, system_boot_time, cmdline_list, application_image_dict
+        global processes_data_dict_prev, cmdline_list, application_image_dict
         process_list = []
         if show_processes_of_all_users == 1:
             processes_of_user = "all"
@@ -1089,7 +1092,7 @@ class Processes:
             cpu_usage_divide_by_cores = "yes"
         elif processes_cpu_divide_by_core == 0:
             cpu_usage_divide_by_cores = "no"
-        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, processes_data_dict_prev, system_boot_time, username_uid_dict)
+        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         processes_data_dict_prev = dict(processes_data_dict)
         pid_list = processes_data_dict["pid_list"]
         ppid_list = processes_data_dict["ppid_list"]

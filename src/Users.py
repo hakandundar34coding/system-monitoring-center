@@ -319,7 +319,7 @@ class Users:
         etc_passwd_lines, user_group_names, user_group_ids = self.users_groups_func()
 
         # Get all user process PIDs and elapsed times (seconds) since they are started.
-        command_list = ["ps", "--no-headers", "-eo", "pid,etimes,user"]
+        command_list = ["ps", "--no-headers", "-eo", "pid,etimes,ruser"]
         if Config.environment_type == "flatpak":
             command_list = ["flatpak-spawn", "--host"] + command_list
         ps_output_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
