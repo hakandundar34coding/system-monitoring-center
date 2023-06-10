@@ -143,6 +143,11 @@ class Processes:
         treeview_mouse_event_right_click.connect("released", self.on_treeview_released)
         self.treeview.add_controller(treeview_mouse_event_right_click)
 
+        treeview_mouse_event_left_click = Gtk.GestureClick()
+        treeview_mouse_event_left_click.set_button(1)
+        treeview_mouse_event_left_click.connect("released", self.on_treeview_released_button1)
+        self.treeview.add_controller(treeview_mouse_event_left_click)
+
         # TreeSelection events
         self.selection_changed_signal_handler = self.selection.connect("changed", self.treeview_selection_changed)
 
@@ -848,7 +853,7 @@ class Processes:
             return
         if processes_treeview_columns[0].get_width() == 0:
             return
-        self.treeview_column_order_width_row_sorting()
+        Common.treeview_column_order_width_row_sorting()
 
 
     def treeview_selection_changed(self, widget):
@@ -946,44 +951,54 @@ class Processes:
             self.set_priority_menu_option()
 
 
+    def on_treeview_released_button1(self, event, count, x, y):
+        """
+        Mouse single left click event (button release).
+        """
+        pass
+        #Common.treeview_column_order_width_row_sorting()
+
+
     def processes_initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
 
         # data list explanation:
-        # processes_data_list = [
-        #                       [treeview column number, treeview column title, internal column count, cell renderer count, treeview column sort column id, [data type 1, data type 2, ...], [cell renderer type 1, cell renderer type 2, ...], [cell attribute 1, cell attribute 2, ...], [cell renderer data 1, cell renderer data 2, ...], [cell left/right alignment 1, cell left/right alignment 2, ...], [set expand 1 {if cell will allocate unused space} cell expand 2, ...], [cell function 1, cell function 2, ...]]
-        #                       .
-        #                       .
-        #                       ]
-        global processes_data_list
-        processes_data_list = [
-                              [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
-                              [1, _tr('PID'), 2, 1, 2, [str, int], ['internal_column', 'CellRendererText'], ['no_cell_attribute', 'text'], [0, 1], ['no_cell_alignment', 1.0], [False, False], ['no_cell_function', 'no_cell_function']],
-                              [2, _tr('User'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                              [3, _tr('Status'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                              [4, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
-                              [5, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss]],
-                              [6, _tr('Memory (VMS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_vms]],
-                              [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_shared]],
-                              [8, _tr('Read Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_data]],
-                              [9, _tr('Written Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_data]],
-                              [10, _tr('Read Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_speed]],
-                              [11, _tr('Write Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_speed]],
-                              [12, _tr('Priority'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                              [13, _tr('Threads'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                              [14, _tr('PPID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                              [15, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                              [16, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                              [17, _tr('Start Time'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [0.0], [False], [cell_data_function_start_time]],
-                              [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                              [19, _tr('CPU Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_time]],
-                              [20, _tr('Memory'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory]],
-                              [21, _tr('CPU') + " - " + _tr('Recursive'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent_recursive]],
-                              [22, _tr('Memory (RSS)') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss_recursive]],
-                              [23, _tr('Memory') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_recursive]]
-                              ]
+        # row_data_list = [
+        #                 [treeview column number, treeview column title, internal column count, cell renderer count, treeview column sort column id, [data type 1, data type 2, ...], [cell renderer type 1, cell renderer type 2, ...], [cell attribute 1, cell attribute 2, ...], [cell renderer data 1, cell renderer data 2, ...], [cell left/right alignment 1, cell left/right alignment 2, ...], [set expand 1 {if cell will allocate unused space} cell expand 2, ...], [cell function 1, cell function 2, ...]]
+        #                 .
+        #                 .
+        #                 ]
+        global row_data_list
+        row_data_list = [
+                        [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
+                        [1, _tr('PID'), 2, 1, 2, [str, int], ['internal_column', 'CellRendererText'], ['no_cell_attribute', 'text'], [0, 1], ['no_cell_alignment', 1.0], [False, False], ['no_cell_function', 'no_cell_function']],
+                        [2, _tr('User'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                        [3, _tr('Status'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                        [4, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
+                        [5, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss]],
+                        [6, _tr('Memory (VMS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_vms]],
+                        [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_shared]],
+                        [8, _tr('Read Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_data]],
+                        [9, _tr('Written Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_data]],
+                        [10, _tr('Read Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_speed]],
+                        [11, _tr('Write Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_speed]],
+                        [12, _tr('Priority'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [13, _tr('Threads'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [14, _tr('PPID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [15, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [16, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [17, _tr('Start Time'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [0.0], [False], [cell_data_function_start_time]],
+                        [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                        [19, _tr('CPU Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_time]],
+                        [20, _tr('Memory'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory]],
+                        [21, _tr('CPU') + " - " + _tr('Recursive'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent_recursive]],
+                        [22, _tr('Memory (RSS)') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss_recursive]],
+                        [23, _tr('Memory') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_recursive]]
+                        ]
+
+        self.row_data_list = row_data_list
 
         # Define data unit conversion function objects in for lower CPU usage.
         global performance_data_unit_converter_func
@@ -1022,10 +1037,10 @@ class Processes:
         global application_image_dict
         application_image_dict = self.get_application_name_image_dict()
 
-        # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and
+        # Search filter is "Process Name". "-1" is used because "row_data_list" has internal column count and
         # it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last
         # internal column number for the relevant treeview column.
-        self.filter_column = processes_data_list[0][2] - 1
+        self.filter_column = row_data_list[0][2] - 1
 
         self.initial_already_run = 1
 
@@ -1190,10 +1205,10 @@ class Processes:
             for column in self.treeview.get_columns():                                            # Remove all columns in the treeview.
                 self.treeview.remove_column(column)
             for i, column in enumerate(processes_treeview_columns_shown):
-                if processes_data_list[column][0] in processes_treeview_columns_shown:
-                    cumulative_sort_column_id = cumulative_sort_column_id + processes_data_list[column][2]
-                processes_treeview_column = Gtk.TreeViewColumn(processes_data_list[column][1])    # Define column (also column title is defined)
-                for i, cell_renderer_type in enumerate(processes_data_list[column][6]):
+                if row_data_list[column][0] in processes_treeview_columns_shown:
+                    cumulative_sort_column_id = cumulative_sort_column_id + row_data_list[column][2]
+                processes_treeview_column = Gtk.TreeViewColumn(row_data_list[column][1])    # Define column (also column title is defined)
+                for i, cell_renderer_type in enumerate(row_data_list[column][6]):
                     cumulative_internal_data_id = cumulative_internal_data_id + 1
                     if cell_renderer_type == "internal_column":                                   # Continue to next loop to avoid generating a cell renderer for internal column (internal columns are not shon on the treeview and they do not have cell renderers).
                         continue
@@ -1201,26 +1216,26 @@ class Processes:
                         cell_renderer = Gtk.CellRendererPixbuf()
                     if cell_renderer_type == "CellRendererText":
                         cell_renderer = Gtk.CellRendererText()
-                    cell_renderer.set_alignment(processes_data_list[column][9][i], 0.5)           # Vertical alignment is set 0.5 in order to leave it as unchanged.
-                    processes_treeview_column.pack_start(cell_renderer, processes_data_list[column][10][i])    # Set if column will allocate unused space
-                    processes_treeview_column.add_attribute(cell_renderer, processes_data_list[column][7][i], cumulative_internal_data_id)
-                    if processes_data_list[column][11][i] != "no_cell_function":
-                        processes_treeview_column.set_cell_data_func(cell_renderer, processes_data_list[column][11][i], func_data=cumulative_internal_data_id)    # Define cell function which sets cell data precision and/or data unit
+                    cell_renderer.set_alignment(row_data_list[column][9][i], 0.5)           # Vertical alignment is set 0.5 in order to leave it as unchanged.
+                    processes_treeview_column.pack_start(cell_renderer, row_data_list[column][10][i])    # Set if column will allocate unused space
+                    processes_treeview_column.add_attribute(cell_renderer, row_data_list[column][7][i], cumulative_internal_data_id)
+                    if row_data_list[column][11][i] != "no_cell_function":
+                        processes_treeview_column.set_cell_data_func(cell_renderer, row_data_list[column][11][i], func_data=cumulative_internal_data_id)    # Define cell function which sets cell data precision and/or data unit
                 processes_treeview_column.set_sizing(2)                                           # Set column sizing (2 = auto sizing which is required for "self.treeview.set_fixed_height_mode(True)" command that is used for lower treeview CPU consumption because row heights are not calculated for every row).
                 processes_treeview_column.set_sort_column_id(cumulative_sort_column_id)           # Be careful with lists contain same element more than one.
                 processes_treeview_column.set_resizable(True)                                     # Set columns resizable by the user when column title button edge handles are dragged.
                 processes_treeview_column.set_reorderable(True)                                   # Set columns reorderable by the user when column title buttons are dragged.
                 processes_treeview_column.set_min_width(50)                                       # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
                 processes_treeview_column.connect("clicked", self.on_column_title_clicked)        # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-                processes_treeview_column.connect("notify::width", self.treeview_column_order_width_row_sorting)
+                processes_treeview_column.connect("notify::width", Common.treeview_column_order_width_row_sorting)
                 self.treeview.append_column(processes_treeview_column)                            # Append column into treeview
 
             # Get column data types for appending processes data into treestore
             processes_data_column_types = []
             for column in sorted(processes_treeview_columns_shown):
-                internal_column_count = len(processes_data_list[column][5])
+                internal_column_count = len(row_data_list[column][5])
                 for internal_column_number in range(internal_column_count):
-                    processes_data_column_types.append(processes_data_list[column][5][internal_column_number])    # Get column types (int, bool, float, str, etc.)
+                    processes_data_column_types.append(row_data_list[column][5][internal_column_number])    # Get column types (int, bool, float, str, etc.)
 
             # Define a treestore (for storing treeview data in it), a treemodelfilter (for search filtering), treemodelsort (for row sorting when column title buttons are clicked)
             self.treestore = Gtk.TreeStore()
@@ -1245,7 +1260,7 @@ class Processes:
             for order in reversed(sorted(processes_data_column_order_scratch)):                   # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
                 if processes_data_column_order.index(order) in processes_treeview_columns_shown:
                     column_number_to_move = processes_data_column_order.index(order)
-                    column_title_to_move = processes_data_list[column_number_to_move][1]
+                    column_title_to_move = row_data_list[column_number_to_move][1]
                     column_to_move = processes_treeview_columns[treeview_column_titles.index(column_title_to_move)]
                     self.treeview.move_column_after(column_to_move, None)                          # Column is moved at the beginning of the treeview if "None" is used.
 
@@ -1257,11 +1272,11 @@ class Processes:
                 treeview_column_titles.append(column.get_title())
             for i in range(10):
                 if processes_data_row_sorting_column in processes_treeview_columns_shown:
-                    for data in processes_data_list:
+                    for data in row_data_list:
                         if data[0] == processes_data_row_sorting_column:
                             column_title_for_sorting = data[1]
                 if processes_data_row_sorting_column not in processes_treeview_columns_shown:
-                    column_title_for_sorting = processes_data_list[0][1]
+                    column_title_for_sorting = row_data_list[0][1]
                 column_for_sorting = processes_treeview_columns[treeview_column_titles.index(column_title_for_sorting)]
                 column_for_sorting.clicked()                                                      # For row sorting.
                 if processes_data_row_sorting_order == int(column_for_sorting.get_sort_order()):
@@ -1273,7 +1288,7 @@ class Processes:
             treeview_column_titles = []
             for column in processes_treeview_columns:
                 treeview_column_titles.append(column.get_title())
-            for i, processes_data in enumerate(processes_data_list):
+            for i, processes_data in enumerate(row_data_list):
                 for j, column_title in enumerate(treeview_column_titles):
                     if column_title == processes_data[1]:
                        column_width = processes_data_column_widths[i]
@@ -1290,13 +1305,12 @@ class Processes:
         # Get new/deleted(ended) processes for updating treestore/treeview
         pid_list_prev_set = set(pid_list_prev)
         pid_list_set = set(pid_list)
-        deleted_processes = sorted(list(pid_list_prev_set - pid_list_set), key=int)               # "sorted(list, key=int)" is used for sorting string list (like "'1', '2', '10', '100'") as integer list without converting the list into integer list. Otherwise it is sorted like "'1', '10', '100', '2'".
-        new_processes = sorted(list(pid_list_set - pid_list_prev_set), key=int)
-        existing_processes = sorted(list(pid_list_set.intersection(pid_list_prev)), key=int)
+        deleted_processes = sorted(list(pid_list_prev_set - pid_list_set))
+        new_processes = sorted(list(pid_list_set - pid_list_prev_set))
+        existing_processes = sorted(list(pid_list_set.intersection(pid_list_prev)))
         updated_existing_proc_index = [[pid_list.index(i), pid_list_prev.index(i)] for i in existing_processes]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
         processes_data_rows_row_length = len(processes_data_rows[0])
         # Append/Remove/Update processes data into treestore
-        global process_search_text
         if len(self.piter_list) > 0:
             for i, j in updated_existing_proc_index:
                 if processes_data_rows[i] != processes_data_rows_prev[j]:
@@ -1304,25 +1318,27 @@ class Processes:
                         if processes_data_rows_prev[j][k] != processes_data_rows[i][k]:
                             self.treestore.set_value(self.piter_list[j], k, processes_data_rows[i][k])
         if len(deleted_processes) > 0:
-            for process in reversed(sorted(list(deleted_processes), key=int)):
+            for process in reversed(sorted(list(deleted_processes))):
                 self.treestore.remove(self.piter_list[pid_list_prev.index(process)])
                 self.piter_list.remove(self.piter_list[pid_list_prev.index(process)])
             self.on_searchentry_changed(self.searchentry)                                         # Update search results.
         if len(new_processes) > 0:
             for process in new_processes:
+                process_data_dict = processes_data_dict[process]
+                parent_process = process_data_dict["ppid"]
+                pid_index = pid_list.index(process)
                 if show_processes_as_tree == 1:
-                    if ppid_list[pid_list.index(process)] == 0:                                 # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
-                        self.piter_list.append(self.treestore.append(None, processes_data_rows[pid_list.index(process)]))
+                    if parent_process == 0:                                                       # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
+                        self.piter_list.append(self.treestore.append(None, processes_data_rows[pid_index]))
                     else:
                         if show_processes_of_all_users == 1:                                      # Process appended under tree root process or another process if "Show processes as tree" option is preferred.
-                            self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
-                        parent_process = ppid_list[pid_list.index(process)]                       # Define parent process of the process in order to avoid calculating it multiple times for faster processing.
+                            self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(parent_process)], processes_data_rows[pid_index]))
                         if show_processes_of_all_users == 0 and parent_process not in pid_list:   # Process is appended into treeview as tree root process if "Show processes of all users" is not preferred and process ppid not in pid_list.
-                            self.piter_list.append(self.treestore.append(None, processes_data_rows[pid_list.index(process)]))
+                            self.piter_list.append(self.treestore.append(None, processes_data_rows[pid_index]))
                         if show_processes_of_all_users == 0 and parent_process in pid_list:       # Process is appended into treeview under tree root process or another process if "Show processes of all users" is preferred and process ppid is in pid_list.
-                            self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
-                if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
-                    self.piter_list.insert(pid_list.index(process), self.treestore.insert(None, pid_list.index(process), processes_data_rows[pid_list.index(process)]))
+                            self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(parent_process)], processes_data_rows[pid_index]))
+                else:                                                                             # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
+                    self.piter_list.insert(pid_index, self.treestore.insert(None, pid_index, processes_data_rows[pid_index]))
             self.on_searchentry_changed(self.searchentry)                                         # Update search results.
 
         if pid_list_prev == []:                                                                   # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made. "First loop" control is made by checking if pid_list_prev is empty.
@@ -1467,42 +1483,10 @@ class Processes:
         """
 
         processes_data_row_sorting_column_title = widget.get_title()                              # Get column title which will be used for getting column number
-        for data in processes_data_list:
+        for data in row_data_list:
             if data[1] == processes_data_row_sorting_column_title:
                 Config.processes_data_row_sorting_column = data[0]                                # Get column number
         Config.processes_data_row_sorting_order = int(widget.get_sort_order())                    # Convert Gtk.SortType (for example: <enum GTK_SORT_ASCENDING of type Gtk.SortType>) to integer (0: ascending, 1: descending)
-        Config.config_save_func()
-
-
-    def treeview_column_order_width_row_sorting(self, widget=None, parameter=None):
-        """
-        Get and save column order/width, row sorting.
-        """
-
-        # Columns in the treeview are get one by one and appended into "processes_data_column_order".
-        # "processes_data_column_widths" list elements are modified for widths of every columns in the treeview.
-        # Length of these list are always same even if columns are removed, appended and column widths are changed.
-        # Only values of the elements (element indexes are always same with "processes_data") are changed if column order/widths are changed.
-        processes_treeview_columns = self.treeview.get_columns()
-        treeview_column_titles = []
-        for column in processes_treeview_columns:
-            treeview_column_titles.append(column.get_title())
-
-        processes_data_column_order = [-1] * len(processes_data_list)
-        processes_data_column_widths = [-1] * len(processes_data_list)
-
-        processes_treeview_columns_last_index = len(processes_treeview_columns)-1
-
-        for i, processes_data in enumerate(processes_data_list):
-            for j, column_title in enumerate(treeview_column_titles):
-                if column_title == processes_data[1]:
-                    column_index = treeview_column_titles.index(processes_data[1])
-                    processes_data_column_order[i] = column_index
-                    if j != processes_treeview_columns_last_index:
-                        processes_data_column_widths[i] = processes_treeview_columns[column_index].get_width()
-
-        Config.processes_data_column_order = list(processes_data_column_order)
-        Config.processes_data_column_widths = list(processes_data_column_widths)
         Config.config_save_func()
 
 
@@ -1513,7 +1497,7 @@ class Processes:
 
         application_image_dict = {}
 
-        # Get  ".desktop" file names
+        # Get ".desktop" file names
         application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]
 
         for application in application_file_list:

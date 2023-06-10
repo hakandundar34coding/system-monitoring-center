@@ -28,6 +28,49 @@ memory_page_size = os.sysconf("SC_PAGE_SIZE")
 process_status_dict = {"R": "Running", "S": "Sleeping", "D": "Waiting", "I": "Idle", "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead"}
 
 
+def get_tab_object():
+    """
+    Get object of the current tab.
+    """
+
+    if Config.current_main_tab == 0:
+        if Config.performance_tab_current_sub_tab == 0:
+            from .Summary import Summary
+            TabObject = Summary
+        elif Config.performance_tab_current_sub_tab == 1:
+            from .Cpu import Cpu
+            TabObject = Cpu
+        elif Config.performance_tab_current_sub_tab == 2:
+            from .Memory import Memory
+            TabObject = Memory
+        elif Config.performance_tab_current_sub_tab == 3:
+            from .Disk import Disk
+            TabObject = Disk
+        elif Config.performance_tab_current_sub_tab == 4:
+            from .Network import Network
+            TabObject = Network
+        elif Config.performance_tab_current_sub_tab == 5:
+            from .Gpu import Gpu
+            TabObject = Gpu
+        elif Config.performance_tab_current_sub_tab == 6:
+            from .Sensors import Sensors
+            TabObject = Sensors
+    elif Config.current_main_tab == 1:
+        from .Processes import Processes
+        TabObject = Processes
+    elif Config.current_main_tab == 2:
+        from .Users import Users
+        TabObject = Users
+    elif Config.current_main_tab == 3:
+        from .Services import Services
+        TabObject = Services
+    elif Config.current_main_tab == 4:
+        from .System import System
+        TabObject = System
+
+    return TabObject
+
+
 class ListStoreItem(GObject.Object):
     __gtype_name__ = 'ListStoreItem'
 
@@ -860,6 +903,67 @@ def set_label_spinner(label, spinner, label_data):
     spinner.stop()
     spinner.set_visible(False)
     label.set_label(f'{label_data}')
+
+
+def treeview_column_order_width_row_sorting(widget=None, parameter=None):
+    """
+    Get and save column order/width, row sorting.
+    Columns in the treeview are get one by one and appended into "[TAB]_data_column_order".
+    "[TAB]_data_column_widths" list elements are modified for widths of every columns in the treeview.
+    Length of these list are always same even if columns are removed, appended and column widths are changed.
+    Only values of the elements (element indexes are always same with "[TAB]_data") are changed if column order/widths are changed.
+    """
+
+    TabObject = get_tab_object()
+    treeview = TabObject.treeview
+    row_data_list = TabObject.row_data_list
+
+    # Get previous column order and widths
+    if Config.current_main_tab == 1:
+        data_column_order_prev = Config.processes_data_column_order
+        data_column_widths_prev = Config.processes_data_column_widths
+    elif Config.current_main_tab == 2:
+        data_column_order_prev = Config.users_data_column_order
+        data_column_widths_prev = Config.users_data_column_widths
+    elif Config.current_main_tab == 3:
+        data_column_order_prev = Config.services_data_column_order
+        data_column_widths_prev = Config.services_data_column_widths
+
+    # Get new column order and widths
+    treeview_columns = treeview.get_columns()
+    treeview_column_titles = []
+    for column in treeview_columns:
+        treeview_column_titles.append(column.get_title())
+
+    data_column_order = [-1] * len(row_data_list)
+    data_column_widths = [-1] * len(row_data_list)
+
+    treeview_columns_last_index = len(treeview_columns)-1
+
+    for i, row_data in enumerate(row_data_list):
+        for j, column_title in enumerate(treeview_column_titles):
+            if column_title == row_data[1]:
+                column_index = treeview_column_titles.index(row_data[1])
+                data_column_order[i] = column_index
+                if j != treeview_columns_last_index:
+                    data_column_widths[i] = treeview_columns[column_index].get_width()
+
+    # Prevent saving settings if column order and widths are not changed.
+    if data_column_order == data_column_order_prev and data_column_widths == data_column_widths_prev:
+        return
+
+    # Save new column order and widths
+    if Config.current_main_tab == 1:
+        Config.processes_data_column_order = list(data_column_order)
+        Config.processes_data_column_widths = list(data_column_widths)
+    elif Config.current_main_tab == 2:
+        Config.users_data_column_order = list(data_column_order)
+        Config.users_data_column_widths = list(data_column_widths)
+    elif Config.current_main_tab == 3:
+        Config.services_data_column_order = list(data_column_order)
+        Config.services_data_column_widths = list(data_column_widths)
+
+    Config.config_save_func()
 
 
 def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
