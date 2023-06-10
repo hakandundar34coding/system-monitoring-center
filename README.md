@@ -99,7 +99,7 @@
     - Installing from application stores (Pardus Application Center, Pi-Apps Store)
     - Installing from repositories of distributions
     - ~~Installing from PyPI as a Python package.~~ There will be no new packages on PyPI ([Details](docs/uninstall_pypi_package.md))
-    - Running from source code
+    - Running from source code:
       - For SMC v2.x.x, in ```src/``` folder, run: ```python3 ./run_from_source.py```
       - For SMC v1.x.x, in ```src/``` folder, run: ```python3 ./Main.py```
 
