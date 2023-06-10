@@ -889,7 +889,7 @@ class ProcessesMenu:
             Config.processes_treeview_columns_shown.append(23)
 
         # Apply changes immediately (without waiting update interval).
-        Processes.treeview_column_order_width_row_sorting()
+        Common.treeview_column_order_width_row_sorting()
         Processes.processes_initial_func()
         Processes.processes_loop_func()
         Config.config_save_func()

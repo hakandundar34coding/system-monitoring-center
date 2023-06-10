@@ -92,7 +92,7 @@ class Users:
         """
 
         # Treeview signals
-        self.treeview.connect("columns-changed", self.on_columns_changed)
+        self.treeview.connect("columns-changed", Common.on_columns_changed)
 
         # Treeview mouse events.
         treeview_mouse_event = Gtk.GestureClick()
@@ -157,19 +157,6 @@ class Users:
                 self.treestore.set_value(piter, 0, True)
 
 
-    def on_columns_changed(self, widget):
-        """
-        Called if number of columns changed.
-        """
-
-        users_treeview_columns = self.treeview.get_columns()
-        if len(Config.users_treeview_columns_shown) != len(users_treeview_columns):
-            return
-        if users_treeview_columns[0].get_width() == 0:
-            return
-        self.treeview_column_order_width_row_sorting()
-
-
     def on_treeview_pressed(self, event, count, x, y):
         """
         Mouse single right click and double left click events (button press).
@@ -230,7 +217,6 @@ class Users:
         # Check if left mouse button is used
         if int(event.get_button()) == 1:
             pass
-            #self.treeview_column_order_width_row_sorting()
 
 
     def users_initial_func(self):
@@ -238,33 +224,34 @@ class Users:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        global users_data_list
-        users_data_list = [
-                          [0, _tr('User'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
-                          [1, _tr('Full Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                          [2, _tr('Logged In'), 1, 1, 1, [bool], ['CellRendererToggle'], ['active'], [0], [0.5], [False], ['no_cell_function']],
-                          [3, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                          [4, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                          [5, _tr('Processes'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                          [6, _tr('Home Directory'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                          [7, _tr('Group'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                          [8, _tr('Terminal'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                          [9, _tr('Start Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_started]],
-                          [10, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
-                          ]
+        global row_data_list
+        row_data_list = [
+                        [0, _tr('User'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
+                        [1, _tr('Full Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                        [2, _tr('Logged In'), 1, 1, 1, [bool], ['CellRendererToggle'], ['active'], [0], [0.5], [False], ['no_cell_function']],
+                        [3, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [4, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [5, _tr('Processes'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                        [6, _tr('Home Directory'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                        [7, _tr('Group'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                        [8, _tr('Terminal'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                        [9, _tr('Start Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_started]],
+                        [10, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
+                        ]
 
-        global users_data_rows_prev, users_treeview_columns_shown_prev, users_data_row_sorting_column_prev, users_data_row_sorting_order_prev, users_data_column_order_prev, users_data_column_widths_prev
+        self.row_data_list = row_data_list
+
+        global users_data_rows_prev
         global pid_list_prev, global_process_cpu_times_prev, uid_username_list_prev
         users_data_rows_prev = []
         pid_list_prev = []
         global_process_cpu_times_prev = []
         uid_username_list_prev = []                                                               # For tracking new/removed (from treeview) user data rows
-        users_treeview_columns_shown_prev = []
-        users_data_row_sorting_column_prev = ""
-        users_data_row_sorting_order_prev = ""
-        users_data_column_order_prev = []
-        users_data_column_widths_prev = []
-
+        self.treeview_columns_shown_prev = []
+        self.data_row_sorting_column_prev = ""
+        self.data_row_sorting_order_prev = ""
+        self.data_column_order_prev = []
+        self.data_column_widths_prev = []
 
         global number_of_clock_ticks, system_boot_time
 
@@ -277,7 +264,7 @@ class Users:
             if "btime " in line:
                 system_boot_time = int(line.split()[1].strip())
 
-        self.filter_column = users_data_list[0][2] - 1                                                 # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+        self.filter_column = row_data_list[0][2] - 1                                                 # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
 
         self.number_of_clock_ticks = number_of_clock_ticks
         self.system_boot_time = system_boot_time
@@ -298,13 +285,13 @@ class Users:
         users_cpu_precision = Config.users_cpu_precision
 
         # Define global variables and get treeview columns, sort column/order, column widths, etc.
-        global users_treeview_columns_shown
-        global users_treeview_columns_shown_prev, users_data_row_sorting_column_prev, users_data_row_sorting_order_prev, users_data_column_order_prev, users_data_column_widths_prev
-        users_treeview_columns_shown = Config.users_treeview_columns_shown
-        users_data_row_sorting_column = Config.users_data_row_sorting_column
-        users_data_row_sorting_order = Config.users_data_row_sorting_order
-        users_data_column_order = Config.users_data_column_order
-        users_data_column_widths = Config.users_data_column_widths
+        global treeview_columns_shown
+        treeview_columns_shown = Config.users_treeview_columns_shown
+        self.data_row_sorting_column = Config.users_data_row_sorting_column
+        self.data_row_sorting_order = Config.users_data_row_sorting_order
+        self.data_column_order = Config.users_data_column_order
+        self.data_column_widths = Config.users_data_column_widths
+        self.treeview_columns_shown = treeview_columns_shown
 
         # Define global variables and empty lists for the current loop
         global users_data_rows, users_data_rows_prev, global_process_cpu_times_prev, pid_list, pid_list_prev, uid_username_list_prev, uid_username_list
@@ -335,7 +322,7 @@ class Users:
             logged_in_users_list.append(line_split[-1])
 
         # Get CPU usage percent of all processes
-        if 10 in users_treeview_columns_shown:
+        if 10 in treeview_columns_shown:
             command_list = ["cat"]
             if Config.environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
@@ -390,39 +377,39 @@ class Users:
                 # Append row visibility data, username (username has been get previously) and image
                 users_data_row = [True, "system-monitoring-center-user-symbolic", username]                             # User data row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.
                 # Get user full name
-                if 1 in users_treeview_columns_shown:
+                if 1 in treeview_columns_shown:
                     user_full_name = line_split[4]
                     users_data_row.append(user_full_name)
                 # Get user logged in data (User logged in data has been get previously)
-                if 2 in users_treeview_columns_shown:
+                if 2 in treeview_columns_shown:
                     if username in user_logged_in_list:
                         users_data_row.append(True)
                     else:
                         users_data_row.append(False)
                 # Get user UID (UID value has been get previously)
-                if 3 in users_treeview_columns_shown:
+                if 3 in treeview_columns_shown:
                     users_data_row.append(int(user_uid))
                 # Get user GID
-                if 4 in users_treeview_columns_shown:
+                if 4 in treeview_columns_shown:
                     users_data_row.append(int(user_gid))
                 # Get user process count
-                if 5 in users_treeview_columns_shown:
+                if 5 in treeview_columns_shown:
                     user_process_count = logged_in_users_list.count(username)
                     users_data_row.append(user_process_count)
                 # Get user home directory
-                if 6 in users_treeview_columns_shown:
+                if 6 in treeview_columns_shown:
                     user_home_dir = line_split[5]
                     users_data_row.append(user_home_dir)
                 # Get user group
-                if 7 in users_treeview_columns_shown:
+                if 7 in treeview_columns_shown:
                     user_group_name = user_group_names[user_group_ids.index(user_gid)]
                     users_data_row.append(user_group_name)
                 # Get user terminal
-                if 8 in users_treeview_columns_shown:
+                if 8 in treeview_columns_shown:
                     user_terminal = line_split[6]
                     users_data_row.append(user_terminal)
                 # Get user process start time
-                if 9 in users_treeview_columns_shown:
+                if 9 in treeview_columns_shown:
                     curent_user_process_start_time_list = []
                     for pid in pid_list:
                         if logged_in_users_list[pid_list.index(pid)] == username:
@@ -433,7 +420,7 @@ class Users:
                         user_process_start_time = time.time() - max(curent_user_process_start_time_list)
                     users_data_row.append(user_process_start_time)
                 # Get user processes CPU usage percentages
-                if 10 in users_treeview_columns_shown:
+                if 10 in treeview_columns_shown:
                     user_users_cpu_percent = 0
                     for pid in pid_list:
                         if logged_in_users_list[pid_list.index(pid)] == username:
@@ -444,104 +431,10 @@ class Users:
         pid_list_prev = pid_list                                                                  # For using values in the next loop
         global_process_cpu_times_prev = global_process_cpu_times                                  # For using values in the next loop
 
-        # Add/Remove treeview columns appropriate for user preferences
-        if users_treeview_columns_shown != users_treeview_columns_shown_prev:                     # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
-            cumulative_sort_column_id = -1
-            cumulative_internal_data_id = -1
-            for column in self.treeview.get_columns():                                           # Remove all columns in the treeview.
-                self.treeview.remove_column(column)
-            for i, column in enumerate(users_treeview_columns_shown):
-                if users_data_list[column][0] in users_treeview_columns_shown:
-                    cumulative_sort_column_id = cumulative_sort_column_id + users_data_list[column][2]
-                users_treeview_column = Gtk.TreeViewColumn(users_data_list[column][1])            # Define column (also column title is defined)
-                for i, cell_renderer_type in enumerate(users_data_list[column][6]):
-                    cumulative_internal_data_id = cumulative_internal_data_id + 1
-                    if cell_renderer_type == "internal_column":                                   # Continue to next loop to avoid generating a cell renderer for internal column (internal columns are not shon on the treeview and they do not have cell renderers).
-                        continue
-                    if cell_renderer_type == "CellRendererPixbuf":                                # Define cell renderer
-                        cell_renderer = Gtk.CellRendererPixbuf()
-                    if cell_renderer_type == "CellRendererText":                                  # Define cell renderer
-                        cell_renderer = Gtk.CellRendererText()
-                    if cell_renderer_type == "CellRendererToggle":                                # Define cell renderer
-                        cell_renderer = Gtk.CellRendererToggle()
-                    cell_renderer.set_alignment(users_data_list[column][9][i], 0.5)               # Vertical alignment is set 0.5 in order to leave it as unchanged.
-                    users_treeview_column.pack_start(cell_renderer, users_data_list[column][10][i])    # Set if column will allocate unused space
-                    users_treeview_column.add_attribute(cell_renderer, users_data_list[column][7][i], cumulative_internal_data_id)
-                    if users_data_list[column][11][i] != "no_cell_function":
-                        users_treeview_column.set_cell_data_func(cell_renderer, users_data_list[column][11][i], func_data=cumulative_internal_data_id)    # Define cell function which sets cell data precision and/or data unit
-                users_treeview_column.set_sizing(2)                                               # Set column sizing (2 = auto sizing which is required for "self.treeview.set_fixed_height_mode(True)" command that is used for lower treeview CPU consumption because row heights are not calculated for every row).
-                users_treeview_column.set_sort_column_id(cumulative_sort_column_id)               # Be careful with lists contain same element more than one.
-                users_treeview_column.set_resizable(True)                                         # Set columns resizable by the user when column title button edge handles are dragged.
-                users_treeview_column.set_reorderable(True)                                       # Set columns reorderable by the user when column title buttons are dragged.
-                users_treeview_column.set_min_width(50)                                           # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
-                users_treeview_column.connect("clicked", self.on_column_title_clicked)            # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-                users_treeview_column.connect("notify::width", self.treeview_column_order_width_row_sorting)
-                self.treeview.append_column(users_treeview_column)                                # Append column into treeview
-
-            # Get column data types for appending users data into treestore
-            users_data_column_types = []
-            for column in sorted(users_treeview_columns_shown):
-                internal_column_count = len(users_data_list[column][5])
-                for internal_column_number in range(internal_column_count):
-                    users_data_column_types.append(users_data_list[column][5][internal_column_number])    # Get column types (int, bool, float, str, etc.)
-
-            # Define a treestore (for storing treeview data in it), a treemodelfilter (for search filtering), treemodelsort (for row sorting when column title buttons are clicked)
-            self.treestore = Gtk.TreeStore()
-            self.treestore.set_column_types(users_data_column_types)                               # Set column types of the columns which will be appended into treestore
-            treemodelfilter3101 = self.treestore.filter_new()
-            treemodelfilter3101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
-            treemodelsort3101 = Gtk.TreeModelSort().new_with_model(treemodelfilter3101)
-            self.treeview.set_model(treemodelsort3101)
-            pid_list_prev = []                                                                    # Redefine (clear) "pid_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
-            uid_username_list_prev = []                                                           # Redefine (clear) "uid_username_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
-            self.piter_list = []
-
-        # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
-        if users_treeview_columns_shown_prev != users_treeview_columns_shown or users_data_column_order_prev != users_data_column_order:
-            users_treeview_columns = self.treeview.get_columns()                                   # Get shown columns on the treeview in order to use this data for reordering the columns.
-            treeview_column_titles = []
-            for column in users_treeview_columns:
-                treeview_column_titles.append(column.get_title())
-            users_data_column_order_scratch = []
-            for column_order in users_data_column_order:
-                if column_order != -1:
-                    users_data_column_order_scratch.append(column_order)
-            for order in reversed(sorted(users_data_column_order_scratch)):                       # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
-                if users_data_column_order.index(order) in users_treeview_columns_shown:
-                    column_number_to_move = users_data_column_order.index(order)
-                    column_title_to_move = users_data_list[column_number_to_move][1]
-                    column_to_move = users_treeview_columns[treeview_column_titles.index(column_title_to_move)]
-                    self.treeview.move_column_after(column_to_move, None)                          # Column is moved at the beginning of the treeview if "None" is used.
-
-        # Sort user rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
-        if users_treeview_columns_shown_prev != users_treeview_columns_shown or users_data_row_sorting_column_prev != users_data_row_sorting_column or users_data_row_sorting_order != users_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
-            users_treeview_columns = self.treeview.get_columns()                                   # Get shown columns on the treeview in order to use this data for reordering the columns.
-            treeview_column_titles = []
-            for column in users_treeview_columns:
-                treeview_column_titles.append(column.get_title())
-            for i in range(10):
-                if users_data_row_sorting_column in users_treeview_columns_shown:
-                    for data in users_data_list:
-                        if data[0] == users_data_row_sorting_column:
-                            column_title_for_sorting = data[1]
-                if users_data_row_sorting_column not in users_treeview_columns_shown:
-                    column_title_for_sorting = users_data_list[0][1]
-                column_for_sorting = users_treeview_columns[treeview_column_titles.index(column_title_for_sorting)]
-                column_for_sorting.clicked()                                                      # For row sorting.
-                if users_data_row_sorting_order == int(column_for_sorting.get_sort_order()):
-                    break
-
-        # Set column widths if there are changes since last loop.
-        if users_treeview_columns_shown_prev != users_treeview_columns_shown or users_data_column_widths_prev != users_data_column_widths:
-            users_treeview_columns = self.treeview.get_columns()
-            treeview_column_titles = []
-            for column in users_treeview_columns:
-                treeview_column_titles.append(column.get_title())
-            for i, users_data in enumerate(users_data_list):
-                for j, column_title in enumerate(treeview_column_titles):
-                    if column_title == users_data[1]:
-                       column_width = users_data_column_widths[i]
-                       users_treeview_columns[j].set_fixed_width(column_width)                    # Set column width in pixels. Fixed width is unset if value is "-1".
+        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
+        if reset_row_unique_data_list_prev == "yes":
+            uid_username_list_prev = []
+        Common.treeview_reorder_columns_sort_rows_set_column_widths()
 
         # Get new/deleted(ended) users for updating treestore/treeview
         uid_username_list_prev_set = set(tuple(i) for i in uid_username_list_prev)                # "set(a_list)" could not be used here because this list is a list of sub-lists. 
@@ -575,11 +468,11 @@ class Users:
 
         uid_username_list_prev = uid_username_list
         users_data_rows_prev = users_data_rows
-        users_treeview_columns_shown_prev = users_treeview_columns_shown
-        users_data_row_sorting_column_prev = users_data_row_sorting_column
-        users_data_row_sorting_order_prev = users_data_row_sorting_order
-        users_data_column_order_prev = users_data_column_order
-        users_data_column_widths_prev = users_data_column_widths
+        self.treeview_columns_shown_prev = treeview_columns_shown
+        self.data_row_sorting_column_prev = self.data_row_sorting_column
+        self.data_row_sorting_order_prev = self.data_row_sorting_order
+        self.data_column_order_prev = self.data_column_order
+        self.data_column_widths_prev = self.data_column_widths
 
         self.users_data_rows = users_data_rows
         self.uid_username_list = uid_username_list
@@ -587,47 +480,6 @@ class Users:
 
         # Show number of users on the searchentry as placeholder text
         self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Users") + ": " + str(len(uid_username_list)) + ")"
-
-
-    def on_column_title_clicked(self, widget):
-        """
-        Get and save column sorting order.
-        """
-
-        users_data_row_sorting_column_title = widget.get_title()                                  # Get column title which will be used for getting column number
-        for data in users_data_list:
-            if data[1] == users_data_row_sorting_column_title:
-                Config.users_data_row_sorting_column = data[0]                                    # Get column number
-        Config.users_data_row_sorting_order = int(widget.get_sort_order())                        # Convert Gtk.SortType (for example: <enum GTK_SORT_ASCENDING of type Gtk.SortType>) to integer (0: ascending, 1: descending)
-        Config.config_save_func()
-
-
-    def treeview_column_order_width_row_sorting(self, widget=None, parameter=None):
-        """
-        Get and save column order/width, row sorting.
-        """
-
-        users_treeview_columns = self.treeview.get_columns()
-        treeview_column_titles = []
-        for column in users_treeview_columns:
-            treeview_column_titles.append(column.get_title())
-
-        users_data_column_order = [-1] * len(users_data_list)
-        users_data_column_widths = [-1] * len(users_data_list)
-
-        users_treeview_columns_last_index = len(users_treeview_columns)-1
-
-        for i, users_data in enumerate(users_data_list):
-            for j, column_title in enumerate(treeview_column_titles):
-                if column_title == users_data[1]:
-                    column_index = treeview_column_titles.index(users_data[1])
-                    users_data_column_order[i] = column_index
-                    if j != users_treeview_columns_last_index:
-                        users_data_column_widths[i] = users_treeview_columns[column_index].get_width()
-
-        Config.users_data_column_order = list(users_data_column_order)
-        Config.users_data_column_widths = list(users_data_column_widths)
-        Config.config_save_func()
 
 
     def users_groups_func(self):

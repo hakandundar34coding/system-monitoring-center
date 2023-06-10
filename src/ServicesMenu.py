@@ -257,7 +257,7 @@ class ServicesMenu:
             Config.services_treeview_columns_shown.append(7)
 
         # Apply changes immediately (without waiting update interval).
-        Services.treeview_column_order_width_row_sorting()
+        Common.treeview_column_order_width_row_sorting()
         #Services.services_initial_func()
         #Services.services_loop_func()
         Config.config_save_func()

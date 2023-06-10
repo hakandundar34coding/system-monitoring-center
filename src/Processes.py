@@ -51,17 +51,17 @@ class Processes:
 
         # Add PID column (1) to shown columns in order to prevent errors during process search if PID column is hidden in
         # previous versions (<=v2.10.0) of the application.
-        processes_treeview_columns_shown = Config.processes_treeview_columns_shown
-        if 1 not in processes_treeview_columns_shown:
-            processes_treeview_columns_shown.append(1)
-        Config.processes_treeview_columns_shown = sorted(processes_treeview_columns_shown)
+        treeview_columns_shown = Config.processes_treeview_columns_shown
+        if 1 not in treeview_columns_shown:
+            treeview_columns_shown.append(1)
+        Config.processes_treeview_columns_shown = sorted(treeview_columns_shown)
 
 
-        processes_data_column_order = Config.processes_data_column_order
-        if len(processes_data_column_order) < 20:
-            processes_data_column_widths = Config.processes_data_column_widths
-            Config.processes_data_column_order = processes_data_column_order + [-1]
-            Config.processes_data_column_widths = processes_data_column_widths + [-1]
+        data_column_order = Config.processes_data_column_order
+        if len(data_column_order) < 20:
+            data_column_widths = Config.processes_data_column_widths
+            Config.processes_data_column_order = data_column_order + [-1]
+            Config.processes_data_column_widths = data_column_widths + [-1]
 
 
     def tab_title_grid(self):
@@ -131,7 +131,7 @@ class Processes:
         """
 
         # Treeview signals
-        self.treeview.connect("columns-changed", self.on_columns_changed)
+        self.treeview.connect("columns-changed", Common.on_columns_changed)
 
         # Treeview mouse events
         treeview_mouse_event = Gtk.GestureClick()
@@ -843,19 +843,6 @@ class Processes:
         return pid_piter_sort_model_dict
 
 
-    def on_columns_changed(self, widget):
-        """
-        Called if number of columns changed.
-        """
-
-        processes_treeview_columns = self.treeview.get_columns()
-        if len(Config.processes_treeview_columns_shown) != len(processes_treeview_columns):
-            return
-        if processes_treeview_columns[0].get_width() == 0:
-            return
-        Common.treeview_column_order_width_row_sorting()
-
-
     def treeview_selection_changed(self, widget):
         """
         Get selected rows.
@@ -1005,18 +992,18 @@ class Processes:
         performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
 
 
-        global processes_data_rows_prev, pid_list_prev, global_process_cpu_times_prev, disk_read_write_data_prev, show_processes_as_tree_prev, processes_treeview_columns_shown_prev, processes_data_row_sorting_column_prev, processes_data_row_sorting_order_prev, processes_data_column_order_prev, processes_data_column_widths_prev
+        global processes_data_rows_prev, pid_list_prev, global_process_cpu_times_prev, disk_read_write_data_prev, show_processes_as_tree_prev
         processes_data_rows_prev = []
         pid_list_prev = []
         self.piter_list = []
         global_process_cpu_times_prev = []
         disk_read_write_data_prev = []
         show_processes_as_tree_prev = Config.show_processes_as_tree
-        processes_treeview_columns_shown_prev = []
-        processes_data_row_sorting_column_prev = ""
-        processes_data_row_sorting_order_prev = ""
-        processes_data_column_order_prev = []
-        processes_data_column_widths_prev = []
+        self.treeview_columns_shown_prev = []
+        self.data_row_sorting_column_prev = ""
+        self.data_row_sorting_order_prev = ""
+        self.data_column_order_prev = []
+        self.data_column_widths_prev = []
 
         global processes_data_dict_prev
         processes_data_dict_prev = {}
@@ -1065,13 +1052,13 @@ class Processes:
         processes_disk_speed_bit = Config.processes_disk_speed_bit
 
         # Define global variables and get treeview columns, sort column/order, column widths, etc.
-        global processes_treeview_columns_shown, show_processes_of_all_users
-        global processes_treeview_columns_shown_prev, processes_data_row_sorting_column_prev, processes_data_row_sorting_order_prev, processes_data_column_order_prev, processes_data_column_widths_prev
-        processes_treeview_columns_shown = Config.processes_treeview_columns_shown
-        processes_data_row_sorting_column = Config.processes_data_row_sorting_column
-        processes_data_row_sorting_order = Config.processes_data_row_sorting_order
-        processes_data_column_order = Config.processes_data_column_order
-        processes_data_column_widths = Config.processes_data_column_widths
+        global treeview_columns_shown, show_processes_of_all_users
+        treeview_columns_shown = Config.processes_treeview_columns_shown
+        self.data_row_sorting_column = Config.processes_data_row_sorting_column
+        self.data_row_sorting_order = Config.processes_data_row_sorting_order
+        self.data_column_order = Config.processes_data_column_order
+        self.data_column_widths = Config.processes_data_column_widths
+        self.treeview_columns_shown = treeview_columns_shown
         show_processes_of_all_users = Config.show_processes_of_all_users
 
         # Define lists for appending some performance data for calculating max values to determine cell background color.
@@ -1094,7 +1081,7 @@ class Processes:
         processes_data_rows = []
 
         # For obtaining lower CPU usage
-        processes_treeview_columns_shown = set(processes_treeview_columns_shown)
+        treeview_columns_shown = set(treeview_columns_shown)
 
         # Get process information
         global processes_data_dict_prev, cmdline_list, application_image_dict
@@ -1128,171 +1115,80 @@ class Processes:
                     process_image = application_image_dict[process_name]
             process_commandline = process_data_dict["command_line"]
             processes_data_row = [True, process_image, process_name, process_commandline]
-            if 1 in processes_treeview_columns_shown:
+            if 1 in treeview_columns_shown:
                 processes_data_row.append(pid)
-            if 2 in processes_treeview_columns_shown:
+            if 2 in treeview_columns_shown:
                 processes_data_row.append(process_data_dict["username"])
-            if 3 in processes_treeview_columns_shown:
+            if 3 in treeview_columns_shown:
                 processes_data_row.append(_tr(process_data_dict["status"]))
-            if 4 in processes_treeview_columns_shown or 21 in processes_treeview_columns_shown:
+            if 4 in treeview_columns_shown or 21 in treeview_columns_shown:
                 cpu_usage = process_data_dict["cpu_usage"]
                 cpu_usage_list.append(cpu_usage)
-                if 4 in processes_treeview_columns_shown:
+                if 4 in treeview_columns_shown:
                     processes_data_row.append(cpu_usage)
-            if 5 in processes_treeview_columns_shown or 20 in processes_treeview_columns_shown or 22 in processes_treeview_columns_shown or 23 in processes_treeview_columns_shown:
+            if 5 in treeview_columns_shown or 20 in treeview_columns_shown or 22 in treeview_columns_shown or 23 in treeview_columns_shown:
                 memory_rss = process_data_dict["memory_rss"]
                 memory_rss_list.append(memory_rss)
-                if 5 in processes_treeview_columns_shown:
+                if 5 in treeview_columns_shown:
                     processes_data_row.append(memory_rss)
-            if 6 in processes_treeview_columns_shown:
+            if 6 in treeview_columns_shown:
                 memory_vms = process_data_dict["memory_vms"]
                 processes_data_row.append(memory_vms)
                 memory_vms_list.append(memory_vms)
-            if 7 in processes_treeview_columns_shown or 20 in processes_treeview_columns_shown or 23 in processes_treeview_columns_shown:
+            if 7 in treeview_columns_shown or 20 in treeview_columns_shown or 23 in treeview_columns_shown:
                 memory_shared = process_data_dict["memory_shared"]
                 memory_shared_list.append(memory_shared)
-                if 7 in processes_treeview_columns_shown:
+                if 7 in treeview_columns_shown:
                     processes_data_row.append(memory_shared)
-            if 8 in processes_treeview_columns_shown:
+            if 8 in treeview_columns_shown:
                 process_read_bytes = process_data_dict["read_data"]
                 processes_data_row.append(process_read_bytes)
                 disk_read_data_list.append(process_read_bytes)
-            if 9 in processes_treeview_columns_shown:
+            if 9 in treeview_columns_shown:
                 process_write_bytes = process_data_dict["written_data"]
                 processes_data_row.append(process_write_bytes)
                 disk_write_data_list.append(process_write_bytes)
-            if 10 in processes_treeview_columns_shown:
+            if 10 in treeview_columns_shown:
                 disk_read_speed = process_data_dict["read_speed"]
                 processes_data_row.append(disk_read_speed)
                 disk_read_speed_list.append(disk_read_speed)
-            if 11 in processes_treeview_columns_shown:
+            if 11 in treeview_columns_shown:
                 disk_write_speed = process_data_dict["write_speed"]
                 processes_data_row.append(disk_write_speed)
                 disk_write_speed_list.append(disk_write_speed)
-            if 12 in processes_treeview_columns_shown:
+            if 12 in treeview_columns_shown:
                 processes_data_row.append(process_data_dict["nice"])
-            if 13 in processes_treeview_columns_shown:
+            if 13 in treeview_columns_shown:
                 processes_data_row.append(process_data_dict["number_of_threads"])
-            if 14 in processes_treeview_columns_shown:
+            if 14 in treeview_columns_shown:
                 processes_data_row.append(ppid)
-            if 15 in processes_treeview_columns_shown:
+            if 15 in treeview_columns_shown:
                 processes_data_row.append(process_data_dict["uid"])
-            if 16 in processes_treeview_columns_shown:
+            if 16 in treeview_columns_shown:
                 processes_data_row.append(process_data_dict["gid"])
-            if 17 in processes_treeview_columns_shown:
+            if 17 in treeview_columns_shown:
                 processes_data_row.append(process_data_dict["start_time"])
-            if 18 in processes_treeview_columns_shown:
+            if 18 in treeview_columns_shown:
                 processes_data_row.append(process_commandline)
-            if 19 in processes_treeview_columns_shown:
+            if 19 in treeview_columns_shown:
                 processes_data_row.append(process_data_dict["cpu_time"])
-            if 20 in processes_treeview_columns_shown or 23 in processes_treeview_columns_shown:
+            if 20 in treeview_columns_shown or 23 in treeview_columns_shown:
                 memory = process_data_dict["memory"]
                 memory_list.append(memory)
-                if 20 in processes_treeview_columns_shown:
+                if 20 in treeview_columns_shown:
                     processes_data_row.append(memory)
 
             # Append process data into a list (processes_data_rows)
             processes_data_rows.append(processes_data_row)
-        processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list = self.recursive_cpu_memory_usage(processes_data_rows, processes_treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list)
+        processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list = self.recursive_cpu_memory_usage(processes_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list)
 
         # Convert set to list (it was set before getting process information)
-        processes_treeview_columns_shown = sorted(list(processes_treeview_columns_shown))
+        treeview_columns_shown = sorted(list(treeview_columns_shown))
 
-        # Add/Remove treeview columns appropriate for user preferences
-        if processes_treeview_columns_shown != processes_treeview_columns_shown_prev:             # Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if column numbers are changed. Because once treestore data types (str, int, etc) are defined, they can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal can not be performed.
-            cumulative_sort_column_id = -1
-            cumulative_internal_data_id = -1
-            for column in self.treeview.get_columns():                                            # Remove all columns in the treeview.
-                self.treeview.remove_column(column)
-            for i, column in enumerate(processes_treeview_columns_shown):
-                if row_data_list[column][0] in processes_treeview_columns_shown:
-                    cumulative_sort_column_id = cumulative_sort_column_id + row_data_list[column][2]
-                processes_treeview_column = Gtk.TreeViewColumn(row_data_list[column][1])    # Define column (also column title is defined)
-                for i, cell_renderer_type in enumerate(row_data_list[column][6]):
-                    cumulative_internal_data_id = cumulative_internal_data_id + 1
-                    if cell_renderer_type == "internal_column":                                   # Continue to next loop to avoid generating a cell renderer for internal column (internal columns are not shon on the treeview and they do not have cell renderers).
-                        continue
-                    if cell_renderer_type == "CellRendererPixbuf":                                # Define cell renderer
-                        cell_renderer = Gtk.CellRendererPixbuf()
-                    if cell_renderer_type == "CellRendererText":
-                        cell_renderer = Gtk.CellRendererText()
-                    cell_renderer.set_alignment(row_data_list[column][9][i], 0.5)           # Vertical alignment is set 0.5 in order to leave it as unchanged.
-                    processes_treeview_column.pack_start(cell_renderer, row_data_list[column][10][i])    # Set if column will allocate unused space
-                    processes_treeview_column.add_attribute(cell_renderer, row_data_list[column][7][i], cumulative_internal_data_id)
-                    if row_data_list[column][11][i] != "no_cell_function":
-                        processes_treeview_column.set_cell_data_func(cell_renderer, row_data_list[column][11][i], func_data=cumulative_internal_data_id)    # Define cell function which sets cell data precision and/or data unit
-                processes_treeview_column.set_sizing(2)                                           # Set column sizing (2 = auto sizing which is required for "self.treeview.set_fixed_height_mode(True)" command that is used for lower treeview CPU consumption because row heights are not calculated for every row).
-                processes_treeview_column.set_sort_column_id(cumulative_sort_column_id)           # Be careful with lists contain same element more than one.
-                processes_treeview_column.set_resizable(True)                                     # Set columns resizable by the user when column title button edge handles are dragged.
-                processes_treeview_column.set_reorderable(True)                                   # Set columns reorderable by the user when column title buttons are dragged.
-                processes_treeview_column.set_min_width(50)                                       # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
-                processes_treeview_column.connect("clicked", self.on_column_title_clicked)        # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-                processes_treeview_column.connect("notify::width", Common.treeview_column_order_width_row_sorting)
-                self.treeview.append_column(processes_treeview_column)                            # Append column into treeview
-
-            # Get column data types for appending processes data into treestore
-            processes_data_column_types = []
-            for column in sorted(processes_treeview_columns_shown):
-                internal_column_count = len(row_data_list[column][5])
-                for internal_column_number in range(internal_column_count):
-                    processes_data_column_types.append(row_data_list[column][5][internal_column_number])    # Get column types (int, bool, float, str, etc.)
-
-            # Define a treestore (for storing treeview data in it), a treemodelfilter (for search filtering), treemodelsort (for row sorting when column title buttons are clicked)
-            self.treestore = Gtk.TreeStore()
-            self.treestore.set_column_types(processes_data_column_types)                          # Set column types of the columns which will be appended into treestore
-            treemodelfilter2101 = self.treestore.filter_new()
-            treemodelfilter2101.set_visible_column(0)                                             # Column "0" of the treestore will be used for column visibility information (True or False)
-            treemodelsort2101 = Gtk.TreeModelSort().new_with_model(treemodelfilter2101)
-            self.treeview.set_model(treemodelsort2101)
-            pid_list_prev = []                                                                    # Redefine (clear) "pid_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
-            self.piter_list = []
-
-        # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or user has reset column order from customizations.
-        if processes_treeview_columns_shown_prev != processes_treeview_columns_shown or processes_data_column_order_prev != processes_data_column_order:
-            processes_treeview_columns = self.treeview.get_columns()                               # Get shown columns on the treeview in order to use this data for reordering the columns.
-            treeview_column_titles = []
-            for column in processes_treeview_columns:
-                treeview_column_titles.append(column.get_title())
-            processes_data_column_order_scratch = []
-            for column_order in processes_data_column_order:
-                if column_order != -1:
-                    processes_data_column_order_scratch.append(column_order)
-            for order in reversed(sorted(processes_data_column_order_scratch)):                   # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
-                if processes_data_column_order.index(order) in processes_treeview_columns_shown:
-                    column_number_to_move = processes_data_column_order.index(order)
-                    column_title_to_move = row_data_list[column_number_to_move][1]
-                    column_to_move = processes_treeview_columns[treeview_column_titles.index(column_title_to_move)]
-                    self.treeview.move_column_after(column_to_move, None)                          # Column is moved at the beginning of the treeview if "None" is used.
-
-        # Sort process rows if user has changed row sorting column and sorting order (ascending/descending) by clicking on any column title button on the GUI.
-        if processes_treeview_columns_shown_prev != processes_treeview_columns_shown or processes_data_row_sorting_column_prev != processes_data_row_sorting_column or processes_data_row_sorting_order != processes_data_row_sorting_order_prev:    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid reordering/sorting in every loop.
-            processes_treeview_columns = self.treeview.get_columns()                               # Get shown columns on the treeview in order to use this data for reordering the columns.
-            treeview_column_titles = []
-            for column in processes_treeview_columns:
-                treeview_column_titles.append(column.get_title())
-            for i in range(10):
-                if processes_data_row_sorting_column in processes_treeview_columns_shown:
-                    for data in row_data_list:
-                        if data[0] == processes_data_row_sorting_column:
-                            column_title_for_sorting = data[1]
-                if processes_data_row_sorting_column not in processes_treeview_columns_shown:
-                    column_title_for_sorting = row_data_list[0][1]
-                column_for_sorting = processes_treeview_columns[treeview_column_titles.index(column_title_for_sorting)]
-                column_for_sorting.clicked()                                                      # For row sorting.
-                if processes_data_row_sorting_order == int(column_for_sorting.get_sort_order()):
-                    break
-
-        # Set column widths if there are changes since last loop.
-        if processes_treeview_columns_shown_prev != processes_treeview_columns_shown or processes_data_column_widths_prev != processes_data_column_widths:
-            processes_treeview_columns = self.treeview.get_columns()
-            treeview_column_titles = []
-            for column in processes_treeview_columns:
-                treeview_column_titles.append(column.get_title())
-            for i, processes_data in enumerate(row_data_list):
-                for j, column_title in enumerate(treeview_column_titles):
-                    if column_title == processes_data[1]:
-                       column_width = processes_data_column_widths[i]
-                       processes_treeview_columns[j].set_fixed_width(column_width)                # Set column width in pixels. Fixed width is unset if value is "-1".
+        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
+        if reset_row_unique_data_list_prev == "yes":
+            pid_list_prev = []
+        Common.treeview_reorder_columns_sort_rows_set_column_widths()
 
         # Append treestore items (rows) as tree or list structure depending on user preferences.
         global show_processes_as_tree_prev
@@ -1347,11 +1243,11 @@ class Processes:
         pid_list_prev = pid_list
         processes_data_rows_prev = processes_data_rows
         show_processes_as_tree_prev = show_processes_as_tree
-        processes_treeview_columns_shown_prev = processes_treeview_columns_shown
-        processes_data_row_sorting_column_prev = processes_data_row_sorting_column
-        processes_data_row_sorting_order_prev = processes_data_row_sorting_order
-        processes_data_column_order_prev = processes_data_column_order
-        processes_data_column_widths_prev = processes_data_column_widths
+        self.treeview_columns_shown_prev = treeview_columns_shown
+        self.data_row_sorting_column_prev = self.data_row_sorting_column
+        self.data_row_sorting_order_prev = self.data_row_sorting_order
+        self.data_column_order_prev = self.data_column_order
+        self.data_column_widths_prev = self.data_column_widths
 
         self.processes_data_rows = processes_data_rows
         self.pid_list = pid_list
@@ -1389,7 +1285,7 @@ class Processes:
             self.treeview.set_enable_tree_lines(False)
 
 
-    def recursive_cpu_memory_usage(self, processes_data_rows, processes_treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list):
+    def recursive_cpu_memory_usage(self, processes_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list):
         """
         Get recursive CPU usage percentage, recursive memory (RSS) and recursive memory information of processes.
         """
@@ -1400,9 +1296,9 @@ class Processes:
         memory_recursive_list = [0]
 
         # Do not run rest of the function for avoiding high CPU usage because of getting PID-child PID dictionary.
-        if 21 not in processes_treeview_columns_shown and \
-           22 not in processes_treeview_columns_shown and \
-           23 not in processes_treeview_columns_shown:
+        if 21 not in treeview_columns_shown and \
+           22 not in treeview_columns_shown and \
+           23 not in treeview_columns_shown:
             return processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
 
         # Get PID-child PID dictionary
@@ -1430,11 +1326,11 @@ class Processes:
                         continue
                     pid_child_pid_dict[pid] = sorted(list(set(pid_child_pid_dict_scratch[pid])), key=int)
 
-        processes_treeview_columns_shown = sorted(list(processes_treeview_columns_shown))
+        treeview_columns_shown = sorted(list(treeview_columns_shown))
 
         # Get recursive CPU usage percentage of processes
-        if 21 in processes_treeview_columns_shown:
-            cpu_total_data_column_index = processes_treeview_columns_shown.index(21) + 3
+        if 21 in treeview_columns_shown:
+            cpu_total_data_column_index = treeview_columns_shown.index(21) + 3
             for i, pid in enumerate(pid_list):
                 process_cpu_usage_total = cpu_usage_list[i]
                 if pid in pid_child_pid_dict:
@@ -1447,8 +1343,8 @@ class Processes:
                 processes_data_rows[i].insert(cpu_total_data_column_index, process_cpu_usage_total)
 
         # Get recursive memory (RSS) usage of processes
-        if 22 in processes_treeview_columns_shown:
-            memory_rss_total_data_column_index = processes_treeview_columns_shown.index(22) + 3
+        if 22 in treeview_columns_shown:
+            memory_rss_total_data_column_index = treeview_columns_shown.index(22) + 3
             for i, pid in enumerate(pid_list):
                 process_memory_rss_total = memory_rss_list[i]
                 if pid in pid_child_pid_dict:
@@ -1461,8 +1357,8 @@ class Processes:
                 processes_data_rows[i].insert(memory_rss_total_data_column_index, process_memory_rss_total)
 
         # Get recursive memory usage of processes
-        if 23 in processes_treeview_columns_shown:
-            memory_total_data_column_index = processes_treeview_columns_shown.index(23) + 3
+        if 23 in treeview_columns_shown:
+            memory_total_data_column_index = treeview_columns_shown.index(23) + 3
             for i, pid in enumerate(pid_list):
                 process_memory_total = memory_list[i]
                 if pid in pid_child_pid_dict:
@@ -1475,19 +1371,6 @@ class Processes:
                 processes_data_rows[i].insert(memory_total_data_column_index, process_memory_total)
 
         return processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
-
-
-    def on_column_title_clicked(self, widget):
-        """
-        Get and save column sorting order.
-        """
-
-        processes_data_row_sorting_column_title = widget.get_title()                              # Get column title which will be used for getting column number
-        for data in row_data_list:
-            if data[1] == processes_data_row_sorting_column_title:
-                Config.processes_data_row_sorting_column = data[0]                                # Get column number
-        Config.processes_data_row_sorting_order = int(widget.get_sort_order())                    # Convert Gtk.SortType (for example: <enum GTK_SORT_ASCENDING of type Gtk.SortType>) to integer (0: ascending, 1: descending)
-        Config.config_save_func()
 
 
     def get_application_name_image_dict(self):

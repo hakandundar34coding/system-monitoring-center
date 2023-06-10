@@ -294,7 +294,7 @@ class UsersMenu:
             Config.users_treeview_columns_shown.append(10)
 
         # Apply changes immediately (without waiting update interval).
-        Users.treeview_column_order_width_row_sorting()
+        Common.treeview_column_order_width_row_sorting()
         Users.users_initial_func()
         Users.users_loop_func()
         Config.config_save_func()

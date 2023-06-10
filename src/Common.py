@@ -905,6 +905,171 @@ def set_label_spinner(label, spinner, label_data):
     label.set_label(f'{label_data}')
 
 
+def treeview_add_remove_columns():
+    """
+    Add/Remove treeview columns appropriate for user preferences.
+    Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if
+    column numbers are changed. Because once treestore data types (str, int, etc) are defined, they
+    can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal
+    can not be performed.
+    """
+
+    TabObject = get_tab_object()
+    treeview = TabObject.treeview
+    row_data_list = TabObject.row_data_list
+    treeview_columns_shown_prev = TabObject.treeview_columns_shown_prev
+
+    # Get treeview columns shown
+    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
+        treeview_columns_shown = Config.sensors_treeview_columns_shown
+    elif Config.current_main_tab == 1:
+        treeview_columns_shown = Config.processes_treeview_columns_shown
+    elif Config.current_main_tab == 2:
+        treeview_columns_shown = Config.users_treeview_columns_shown
+    elif Config.current_main_tab == 3:
+        treeview_columns_shown = Config.services_treeview_columns_shown
+
+    # Add/Remove treeview columns if they are changed since the last loop.
+    reset_row_unique_data_list_prev = "no"
+    if treeview_columns_shown != treeview_columns_shown_prev:
+        cumulative_sort_column_id = -1
+        cumulative_internal_data_id = -1
+        # Remove all columns in the treeview.
+        for column in treeview.get_columns():
+            treeview.remove_column(column)
+        for i, column in enumerate(treeview_columns_shown):
+            if row_data_list[column][0] in treeview_columns_shown:
+                cumulative_sort_column_id = cumulative_sort_column_id + row_data_list[column][2]
+            # Define column (also column title is defined)
+            treeview_column = Gtk.TreeViewColumn(row_data_list[column][1])
+            for i, cell_renderer_type in enumerate(row_data_list[column][6]):
+                cumulative_internal_data_id = cumulative_internal_data_id + 1
+                # Continue to next loop to avoid generating a cell renderer for internal column
+                # (internal columns are not shown on the treeview and they do not have cell renderers).
+                if cell_renderer_type == "internal_column":
+                    continue
+                # Define cell renderer
+                if cell_renderer_type == "CellRendererPixbuf":
+                    cell_renderer = Gtk.CellRendererPixbuf()
+                if cell_renderer_type == "CellRendererText":
+                    cell_renderer = Gtk.CellRendererText()
+                if cell_renderer_type == "CellRendererToggle":
+                    cell_renderer = Gtk.CellRendererToggle()
+                # Vertical alignment is set 0.5 in order to leave it as unchanged.
+                cell_renderer.set_alignment(row_data_list[column][9][i], 0.5)
+                # Set if column will allocate unused space
+                treeview_column.pack_start(cell_renderer, row_data_list[column][10][i])
+                treeview_column.add_attribute(cell_renderer, row_data_list[column][7][i], cumulative_internal_data_id)
+                if row_data_list[column][11][i] != "no_cell_function":
+                    treeview_column.set_cell_data_func(cell_renderer, row_data_list[column][11][i], func_data=cumulative_internal_data_id)    # Define cell function which sets cell data precision and/or data unit
+            treeview_column.set_sizing(2)                                           # Set column sizing (2 = auto sizing which is required for "treeview.set_fixed_height_mode(True)" command that is used for lower treeview CPU consumption because row heights are not calculated for every row).
+            treeview_column.set_sort_column_id(cumulative_sort_column_id)           # Be careful with lists contain same element more than one.
+            treeview_column.set_resizable(True)                                     # Set columns resizable by the user when column title button edge handles are dragged.
+            treeview_column.set_reorderable(True)                                   # Set columns reorderable by the user when column title buttons are dragged.
+            treeview_column.set_min_width(50)                                       # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
+            treeview_column.connect("clicked", on_column_title_clicked)             # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
+            treeview_column.connect("notify::width", treeview_column_order_width_row_sorting)
+            treeview.append_column(treeview_column)                                 # Append column into treeview
+
+        # Get column data types for appending row data into treestore
+        data_column_types = []
+        for column in sorted(treeview_columns_shown):
+            internal_column_count = len(row_data_list[column][5])
+            for internal_column_number in range(internal_column_count):
+                data_column_types.append(row_data_list[column][5][internal_column_number])    # Get column types (int, bool, float, str, etc.)
+
+        # Define a treestore (for storing treeview data in it), a treemodelfilter (for search filtering),
+        # treemodelsort (for row sorting when column title buttons are clicked)
+        TabObject.treestore = Gtk.TreeStore()
+        TabObject.treestore.set_column_types(data_column_types)                     # Set column types of the columns which will be appended into treestore
+        treemodelfilter = TabObject.treestore.filter_new()
+        treemodelfilter.set_visible_column(0)                                       # Column "0" of the treestore will be used for column visibility information (True or False)
+        treemodelsort = Gtk.TreeModelSort().new_with_model(treemodelfilter)
+        treeview.set_model(treemodelsort)
+        TabObject.piter_list = []
+        reset_row_unique_data_list_prev = "yes"                                     # For redefining (clear) "pid_list_prev, uid_username_list_prev, service_list_prev" lists. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
+
+    return reset_row_unique_data_list_prev
+
+
+def treeview_reorder_columns_sort_rows_set_column_widths():
+    """
+    Reorder TreeView columns, sort TreeView rows and set TreeView columns.
+    """
+
+    TabObject = get_tab_object()
+    treeview = TabObject.treeview
+    row_data_list = TabObject.row_data_list
+    treeview_columns_shown = TabObject.treeview_columns_shown
+    data_column_order = TabObject.data_column_order
+    data_row_sorting_column = TabObject.data_row_sorting_column
+    data_row_sorting_order = TabObject.data_row_sorting_order
+    data_column_widths = TabObject.data_column_widths
+    treeview_columns_shown_prev = TabObject.treeview_columns_shown_prev
+    data_column_order_prev = TabObject.data_column_order_prev
+    data_row_sorting_column_prev = TabObject.data_row_sorting_column_prev
+    data_row_sorting_order_prev = TabObject.data_row_sorting_order_prev
+    data_column_widths_prev = TabObject.data_column_widths_prev
+
+    # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or
+    # user has reset column order from customizations.
+    if treeview_columns_shown_prev != treeview_columns_shown or data_column_order_prev != data_column_order:
+        # Get shown columns on the treeview in order to use this data for reordering the columns.
+        treeview_columns = treeview.get_columns()
+        treeview_column_titles = []
+        for column in treeview_columns:
+            treeview_column_titles.append(column.get_title())
+        data_column_order_scratch = []
+        for column_order in data_column_order:
+            if column_order != -1:
+                data_column_order_scratch.append(column_order)
+        # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
+        for order in reversed(sorted(data_column_order_scratch)):
+            if data_column_order.index(order) in treeview_columns_shown:
+                column_number_to_move = data_column_order.index(order)
+                column_title_to_move = row_data_list[column_number_to_move][1]
+                column_to_move = treeview_columns[treeview_column_titles.index(column_title_to_move)]
+                # Column is moved at the beginning of the treeview if "None" is used.
+                treeview.move_column_after(column_to_move, None)
+
+    # Sort rows if user has changed row sorting column and sorting order (ascending/descending) by clicking
+    # on any column title button on the GUI.
+    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid
+    # reordering/sorting in every loop.
+    if treeview_columns_shown_prev != treeview_columns_shown or \
+       data_row_sorting_column_prev != data_row_sorting_column or \
+       data_row_sorting_order != data_row_sorting_order_prev:
+        # Get shown columns on the treeview in order to use this data for reordering the columns.
+        treeview_columns = treeview.get_columns()
+        treeview_column_titles = []
+        for column in treeview_columns:
+            treeview_column_titles.append(column.get_title())
+        for i in range(10):
+            if data_row_sorting_column in treeview_columns_shown:
+                for data in row_data_list:
+                    if data[0] == data_row_sorting_column:
+                        column_title_for_sorting = data[1]
+            if data_row_sorting_column not in treeview_columns_shown:
+                column_title_for_sorting = row_data_list[0][1]
+            column_for_sorting = treeview_columns[treeview_column_titles.index(column_title_for_sorting)]
+            column_for_sorting.clicked()                                                      # For row sorting.
+            if data_row_sorting_order == int(column_for_sorting.get_sort_order()):
+                break
+
+    # Set column widths if there are changes since last loop.
+    if treeview_columns_shown_prev != treeview_columns_shown or data_column_widths_prev != data_column_widths:
+        treeview_columns = treeview.get_columns()
+        treeview_column_titles = []
+        for column in treeview_columns:
+            treeview_column_titles.append(column.get_title())
+        for i, row_data in enumerate(row_data_list):
+            for j, column_title in enumerate(treeview_column_titles):
+                if column_title == row_data[1]:
+                   column_width = data_column_widths[i]
+                   # Set column width in pixels. Fixed width is unset if value is "-1".
+                   treeview_columns[j].set_fixed_width(column_width)
+
+
 def treeview_column_order_width_row_sorting(widget=None, parameter=None):
     """
     Get and save column order/width, row sorting.
@@ -919,7 +1084,10 @@ def treeview_column_order_width_row_sorting(widget=None, parameter=None):
     row_data_list = TabObject.row_data_list
 
     # Get previous column order and widths
-    if Config.current_main_tab == 1:
+    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
+        data_column_order_prev = Config.sensors_data_column_order
+        data_column_widths_prev = Config.sensors_data_column_widths
+    elif Config.current_main_tab == 1:
         data_column_order_prev = Config.processes_data_column_order
         data_column_widths_prev = Config.processes_data_column_widths
     elif Config.current_main_tab == 2:
@@ -964,6 +1132,64 @@ def treeview_column_order_width_row_sorting(widget=None, parameter=None):
         Config.services_data_column_widths = list(data_column_widths)
 
     Config.config_save_func()
+
+
+def on_column_title_clicked(widget):
+    """
+    Get and save column sorting order.
+    """
+
+    TabObject = get_tab_object()
+    row_data_list = TabObject.row_data_list
+
+    # Get column title which will be used for getting column number
+    data_row_sorting_column_title = widget.get_title()
+    for data in row_data_list:
+        if data[1] == data_row_sorting_column_title:
+            # Get column number
+            data_row_sorting_column = data[0]
+
+    # Convert Gtk.SortType (for example: <enum GTK_SORT_ASCENDING of type Gtk.SortType>) to integer (0: ascending, 1: descending)
+    data_row_sorting_order = int(widget.get_sort_order())
+
+    # Save new column order and widths
+    if Config.current_main_tab == 1:
+        Config.processes_data_row_sorting_column = data_row_sorting_column
+        Config.processes_data_row_sorting_order = data_row_sorting_order
+    elif Config.current_main_tab == 2:
+        Config.users_data_row_sorting_column = data_row_sorting_column
+        Config.users_data_row_sorting_order = data_row_sorting_order
+    elif Config.current_main_tab == 3:
+        Config.services_data_row_sorting_column = data_row_sorting_column
+        Config.services_data_row_sorting_order = data_row_sorting_order
+
+    Config.config_save_func()
+
+
+def on_columns_changed(widget):
+    """
+    Called if number of columns changed.
+    """
+
+    TabObject = get_tab_object()
+    treeview = TabObject.treeview
+
+    # Get treeview columns shown
+    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
+        treeview_columns_shown = Config.sensors_treeview_columns_shown
+    elif Config.current_main_tab == 1:
+        treeview_columns_shown = Config.processes_treeview_columns_shown
+    elif Config.current_main_tab == 2:
+        treeview_columns_shown = Config.users_treeview_columns_shown
+    elif Config.current_main_tab == 3:
+        treeview_columns_shown = Config.services_treeview_columns_shown
+
+    treeview_columns = treeview.get_columns()
+    if len(treeview_columns_shown) != len(treeview_columns):
+        return
+    if treeview_columns[0].get_width() == 0:
+        return
+    treeview_column_order_width_row_sorting()
 
 
 def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
