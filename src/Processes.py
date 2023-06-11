@@ -1081,7 +1081,8 @@ class Processes:
             cpu_usage_divide_by_cores = "yes"
         elif processes_cpu_divide_by_core == 0:
             cpu_usage_divide_by_cores = "no"
-        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        detailed_information = "no"
+        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detailed_information, processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         processes_data_dict_prev = dict(processes_data_dict)
         pid_list = processes_data_dict["pid_list"]
         ppid_list = processes_data_dict["ppid_list"]
@@ -1167,6 +1168,26 @@ class Processes:
 
             # Append process data into a list (processes_data_rows)
             processes_data_rows.append(processes_data_row)
+
+        list_of_cell_coloring_data_lists = [
+                                            cpu_usage_list,
+                                            memory_rss_list,
+                                            memory_vms_list,
+                                            memory_shared_list,
+                                            memory_list,
+                                            disk_read_data_list,
+                                            disk_write_data_list,
+                                            disk_read_speed_list,
+                                            disk_write_speed_list,
+                                            cpu_usage_recursive_list,
+                                            memory_rss_recursive_list,
+                                            memory_recursive_list
+                                            ]
+
+        for cell_coloring_data_list in list_of_cell_coloring_data_lists:
+            if cell_coloring_data_list != [0]:
+                del cell_coloring_data_list[0]
+
         processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list = self.recursive_cpu_memory_usage(processes_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list)
 
         # Convert set to list (it was set before getting process information)
@@ -1321,8 +1342,8 @@ class Processes:
             for i, pid in enumerate(pid_list):
                 process_cpu_usage_total = cpu_usage_list[i]
                 if pid in pid_child_pid_dict:
-                    pid_child_pid_index = pid_child_pid_dict[pid]
-                    for child_pid in pid_child_pid_index:
+                    child_pid_list = pid_child_pid_dict[pid]
+                    for child_pid in child_pid_list:
                         child_pid_index = pid_list.index(child_pid)
                         cpu_usage = cpu_usage_list[child_pid_index]
                         process_cpu_usage_total = process_cpu_usage_total + cpu_usage
@@ -1335,8 +1356,8 @@ class Processes:
             for i, pid in enumerate(pid_list):
                 process_memory_rss_total = memory_rss_list[i]
                 if pid in pid_child_pid_dict:
-                    pid_child_pid_index = pid_child_pid_dict[pid]
-                    for child_pid in pid_child_pid_index:
+                    child_pid_list = pid_child_pid_dict[pid]
+                    for child_pid in child_pid_list:
                         child_pid_index = pid_list.index(child_pid)
                         memory_rss = memory_rss_list[child_pid_index]
                         process_memory_rss_total = process_memory_rss_total + memory_rss
@@ -1349,8 +1370,8 @@ class Processes:
             for i, pid in enumerate(pid_list):
                 process_memory_total = memory_list[i]
                 if pid in pid_child_pid_dict:
-                    pid_child_pid_index = pid_child_pid_dict[pid]
-                    for child_pid in pid_child_pid_index:
+                    child_pid_list = pid_child_pid_dict[pid]
+                    for child_pid in child_pid_list:
                         child_pid_index = pid_list.index(child_pid)
                         memory = memory_list[child_pid_index]
                         process_memory_total = process_memory_total + memory

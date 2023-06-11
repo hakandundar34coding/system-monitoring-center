@@ -1194,7 +1194,7 @@ def on_columns_changed(widget):
     treeview_column_order_width_row_sorting()
 
 
-def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", detailed_information="no", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
     """
     Get process information of all/specified processes.
     """
@@ -1218,8 +1218,9 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     if system_boot_time == 0:
         system_boot_time = get_system_boot_time()
 
-    # Read information from procfs files.
-    cat_output_split, global_time, global_cpu_time_all = read_process_information(process_list)
+    # Read information from procfs files. "/proc/[PID]/smaps" file is not read for all processes. Because reading and
+    # processing "/proc/[PID]/smaps" file data for all processes (about 250 processes) requires nearly 1 second on a 4 core CPU (i7-2630QM).
+    cat_output_split, global_time, global_cpu_time_all = read_process_information(process_list, detailed_information)
 
     # Define lists for getting process information from command output.
     processes_data_dict = {}
@@ -1247,6 +1248,9 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     for process_data_stat_statm_status in cat_output_split_iter:
         # Also get second part of the data of the current process.
         process_data_io_cmdline = next(cat_output_split_iter)
+        # Also get third part of the data of the current process.
+        if detailed_information == "yes":
+            process_data_smaps = next(cat_output_split_iter)
 
         # Get process information from "/proc/[PID]/stat" file
         # Skip to next loop if one of the stat, statm, status files is not read.
@@ -1267,7 +1271,9 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
         ppid = int(stat_file_split[-49])
         status = process_status_dict[stat_file_split[-50]]
         # Get process CPU time in user mode (utime + stime)
-        cpu_time = int(stat_file_split[-39]) + int(stat_file_split[-38])
+        cpu_time_user = int(stat_file_split[-39])
+        cpu_time_kernel = int(stat_file_split[-38])
+        cpu_time = cpu_time_user + cpu_time_kernel
         # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
         memory_rss = int(stat_file_split[-29]) * memory_page_size
         # Get process VMS (virtual memory size) memory (this value is in bytes unit).
@@ -1315,11 +1321,57 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
             read_data = 0
             written_data = 0
             cmdline_file = process_data_io_cmdline
+            io_cmdline_files_split = "-"
 
         # "cmdline" content may contain "\x00". They are replaced with " ". Otherwise, file content may be get as "".
         command_line = cmdline_file.replace("\x00", " ")
         if command_line == "":
             command_line = f'[{name}]'
+
+        # Get detailed process information from "/proc/[PID]/smaps" file and other files that are processed previously.
+        if detailed_information == "yes":
+            # Get process USS (unique set size) memory and swap memory and convert them to bytes
+            process_data_smaps_split = process_data_smaps.split("\n")
+            private_clean = 0
+            private_dirty = 0
+            memory_swap = 0
+            for line in process_data_smaps_split:
+                if "Private_Clean:" in line:
+                    private_clean = private_clean + int(line.split(":")[1].split()[0].strip())
+                if "Private_Dirty:" in line:
+                    private_dirty = private_dirty + int(line.split(":")[1].split()[0].strip())
+                if line.startswith("Swap:"):
+                    memory_swap = memory_swap + int(line.split(":")[1].split()[0].strip())
+            memory_uss = (private_clean + private_dirty) * 1024
+            memory_swap = memory_swap * 1024
+
+            # Get other CPU time information (children_user, children_kernel, io_wait)
+            cpu_time_children_user = int(stat_file_split[-37])
+            cpu_time_children_kernel = int(stat_file_split[-36])
+            cpu_time_io_wait = int(stat_file_split[-11])
+
+            # Get numbers of CPU cores that process is run on.
+            cpu_numbers = int(stat_file_split[-14])
+
+            # Get UIDs (real, effective, saved)
+            uids = status_file.split("\nUid:\t", 1)[1].split("\n", 1)[0].split("\t")
+            uid_real, uid_effective, uid_saved = int(uids[0]), int(uids[1]), int(uids[2])
+
+            # Get GIDs (real, effective, saved)
+            gids = status_file.split("\nGid:\t", 1)[1].split("\n", 1)[0].split("\t")
+            gid_real, gid_effective, gid_saved = int(gids[0]), int(gids[1]), int(gids[2])
+
+            # Get number of context switches (voluntary and nonvoluntary)
+            ctx_switches_voluntary = int(status_file.split("\nvoluntary_ctxt_switches:\t", 1)[1].split("\n", 1)[0])
+            ctx_switches_nonvoluntary = int(status_file.split("\nnonvoluntary_ctxt_switches:\t", 1)[1].split("\n", 1)[0])
+
+            # Get read count and write count
+            if io_cmdline_files_split != "-":
+                read_count = int(io_cmdline_files_split[2].split(":")[1])
+                write_count = int(io_cmdline_files_split[3].split(":")[1])
+            else:
+                read_count = 0
+                write_count = 0
 
         # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters
         # (it is counted as 15). "/proc/[PID]/cmdline" file is read and it is split by the last "/" character 
@@ -1364,28 +1416,72 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
         username_list.append(username)
 
         # Add process data to a sub-dictionary
-        process_data_dict = {
-        "name" : name,
-        "username" : username,
-        "status" : status,
-        "cpu_time" : cpu_time,
-        "cpu_usage" : cpu_usage,
-        "memory_rss" : memory_rss,
-        "memory_vms" : memory_vms,
-        "memory_shared" : memory_shared,
-        "memory" : memory,
-        "read_data" : read_data,
-        "written_data" : written_data,
-        "read_speed" : read_speed,
-        "write_speed" : write_speed,
-        "nice" : nice,
-        "number_of_threads" : number_of_threads,
-        "ppid" : ppid,
-        "uid" : uid,
-        "gid" : gid,
-        "start_time" : start_time,
-        "command_line" : command_line
-        }
+        if detailed_information == "no":
+            process_data_dict = {
+            "name" : name,
+            "username" : username,
+            "status" : status,
+            "cpu_time" : cpu_time,
+            "cpu_usage" : cpu_usage,
+            "memory_rss" : memory_rss,
+            "memory_vms" : memory_vms,
+            "memory_shared" : memory_shared,
+            "memory" : memory,
+            "read_data" : read_data,
+            "written_data" : written_data,
+            "read_speed" : read_speed,
+            "write_speed" : write_speed,
+            "nice" : nice,
+            "number_of_threads" : number_of_threads,
+            "ppid" : ppid,
+            "uid" : uid,
+            "gid" : gid,
+            "start_time" : start_time,
+            "command_line" : command_line
+            }
+        else:
+            process_data_dict = {
+            "name" : name,
+            "username" : username,
+            "status" : status,
+            "cpu_time" : cpu_time,
+            "cpu_usage" : cpu_usage,
+            "memory_rss" : memory_rss,
+            "memory_vms" : memory_vms,
+            "memory_shared" : memory_shared,
+            "memory" : memory,
+            "memory_uss" : memory_uss,
+            "memory_swap" : memory_swap,
+            "read_data" : read_data,
+            "written_data" : written_data,
+            "read_speed" : read_speed,
+            "write_speed" : write_speed,
+            "nice" : nice,
+            "number_of_threads" : number_of_threads,
+            "ppid" : ppid,
+            "uid" : uid,
+            "gid" : gid,
+            "start_time" : start_time,
+            "command_line" : command_line,
+            "memory_uss": memory_uss,
+            "memory_swap": memory_swap,
+            "cpu_time_user": cpu_time_user,
+            "cpu_time_kernel": cpu_time_kernel,
+            "cpu_time_children_user": cpu_time_children_user,
+            "cpu_time_children_kernel": cpu_time_children_kernel,
+            "cpu_time_io_wait": cpu_time_io_wait,
+            "cpu_numbers": cpu_numbers,
+            "uid_real" : uid_real,
+            "uid_effective" : uid_effective,
+            "uid_saved" : uid_saved,
+            "gid_real" : gid_real,
+            "gid_effective" : gid_effective,
+            "gid_saved" : gid_saved,
+            "ctx_switches_voluntary": ctx_switches_voluntary,
+            "ctx_switches_nonvoluntary": ctx_switches_nonvoluntary,
+            "read_count": read_count,
+            "write_count": write_count
+            }
 
         # Add process sub-dictionary to dictionary
         processes_data_dict[pid] = process_data_dict
@@ -1403,7 +1499,7 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     return processes_data_dict
 
 
-def read_process_information(process_list):
+def read_process_information(process_list, detailed_information="no"):
     """
     Read information from procfs files.
     """
@@ -1430,15 +1526,28 @@ def read_process_information(process_list):
     command_list.append('/proc/version')
     if environment_type == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
-    for pid in pid_list:
-        command_list.extend((
-        f'/proc/{pid}/stat',
-        f'/proc/{pid}/statm',
-        f'/proc/{pid}/status',
-        '/proc/version',
-        f'/proc/{pid}/io',
-        f'/proc/{pid}/cmdline',
-        '/proc/version'))
+    if detailed_information == "no":
+        for pid in pid_list:
+            command_list.extend((
+            f'/proc/{pid}/stat',
+            f'/proc/{pid}/statm',
+            f'/proc/{pid}/status',
+            '/proc/version',
+            f'/proc/{pid}/io',
+            f'/proc/{pid}/cmdline',
+            '/proc/version'))
+    if detailed_information == "yes":
+        for pid in pid_list:
+            command_list.extend((
+            f'/proc/{pid}/stat',
+            f'/proc/{pid}/statm',
+            f'/proc/{pid}/status',
+            '/proc/version',
+            f'/proc/{pid}/io',
+            f'/proc/{pid}/cmdline',
+            '/proc/version',
+            f'/proc/{pid}/smaps',
+            '/proc/version'))
     # Get time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
     time_before = time.time()
     #cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)).stdout.strip()

@@ -3,8 +3,6 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('GLib', '2.0')
 from gi.repository import Gtk, GLib
 
-import os
-import time
 import subprocess
 from datetime import datetime
 
@@ -642,10 +640,6 @@ class ProcessesDetails:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        self.process_status_list = {"R": _tr("Running"), "S": _tr("Sleeping"), "D": _tr("Waiting"), "I": _tr("Idle"), "Z": _tr("Zombie"), "T": _tr("Stopped"), "t": "Tracing Stop", "X": "Dead"}
-        self.global_process_cpu_times_prev = []
-        self.disk_read_write_data_prev = []
-
         chart_data_history = Config.chart_data_history
 
         self.process_cpu_usage_list = [0] * chart_data_history
@@ -653,14 +647,10 @@ class ProcessesDetails:
         self.process_disk_read_speed_list = [0] * chart_data_history
         self.process_disk_write_speed_list = [0] * chart_data_history
 
-        # Get system boot time.
-        with open("/proc/stat") as reader:
-            stat_lines = reader.read().split("\n")
-        for line in stat_lines:
-            if "btime " in line:
-                self.system_boot_time = int(line.split()[1].strip())
+        # Get system boot time
+        self.system_boot_time = Common.get_system_boot_time()
 
-        self.number_of_clock_ticks = os.sysconf("SC_CLK_TCK")
+        self.processes_data_dict_prev = {}
 
 
     def process_details_loop_func(self):
@@ -675,47 +665,36 @@ class ProcessesDetails:
         processes_disk_data_unit = Config.processes_disk_data_unit
         processes_disk_speed_bit = Config.processes_disk_speed_bit
 
-        # Get "selected_process_pid".
+        # Get "selected_process_pid"
         selected_process_pid = self.selected_process_pid
 
-        # Get information.
-        usernames_username_list, usernames_uid_list = self.processes_details_usernames_uids_func()
-        stat_output, status_output, statm_output, io_output, smaps_output, cmdline_output = self.processes_details_stat_status_statm_io_smaps_cmdline_outputs_func(selected_process_pid)
-        if stat_output == "-" or status_output == "-" or statm_output == "-":
+        # Get information
+        self.username_uid_dict = Common.get_username_uid_dict()
+        processes_data_dict = self.get_process_detailed_information(selected_process_pid)
+        try:
+            process_data_dict = processes_data_dict[selected_process_pid]
+        except KeyError:
             self.update_window_value = 0
             self.process_details_process_end_label_func()
             return
-        global_cpu_time_all = self.process_details_global_cpu_time_func()
-        stat_output_split = stat_output.split()
-        status_output_split = status_output.split("\n")
-        io_output_lines = io_output.split("\n")
+
+        process_name = process_data_dict["name"]
+        cpu_usage = process_data_dict["cpu_usage"]
+        memory_rss = process_data_dict["memory_rss"]
+        disk_read_speed = process_data_dict["read_speed"]
+        disk_write_speed = process_data_dict["write_speed"]
+        read_data = process_data_dict["read_data"]
+        written_data = process_data_dict["written_data"]
+        memory_uss = process_data_dict["memory_uss"]
+        memory_swap = process_data_dict["memory_swap"]
+
         fd_ls_output, task_ls_output = self.processes_details_fd_task_ls_output_func(selected_process_pid)
         if task_ls_output == "-":
             self.update_window_value = 0
             self.process_details_process_end_label_func()
             return
-        selected_process_name = self.process_name_func(selected_process_pid, stat_output, cmdline_output)
-        selected_process_username = self.process_user_name_func(selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list)
-        selected_process_status = self.process_status_func(stat_output_split)
-        selected_process_nice = self.process_nice_func(stat_output_split)
-        selected_process_cpu_percent = self.process_cpu_usage_func(stat_output_split, global_cpu_time_all)
-        selected_process_memory_rss = self.process_memory_rss_func(stat_output_split)
-        selected_process_read_bytes, selected_process_write_bytes = self.process_disk_read_write_data_func(io_output_lines)
-        selected_process_read_speed, selected_process_write_speed = self.process_disk_read_write_speed_func(selected_process_read_bytes, selected_process_write_bytes)
-        selected_process_start_time = self.process_start_time_func(stat_output_split)
-        selected_process_ppid = self.process_ppid_func(stat_output_split)
-        selected_process_uid_real, selected_process_uid_effective, selected_process_uid_saved = self.process_real_effective_saved_uids_func(status_output_split)
-        selected_process_gid_real, selected_process_gid_effective, selected_process_gid_saved = self.process_real_effective_saved_gids_func(status_output_split)
-        selected_process_num_threads = self.process_number_of_threads_func(stat_output_split)
+
         selected_process_threads = self.process_tids_func(task_ls_output)
-        selected_process_cpu_num = self.process_cpu_number_func(stat_output_split)
-        selected_process_cpu_times_user, selected_process_cpu_times_kernel, selected_process_cpu_times_children_user, selected_process_cpu_times_children_kernel, selected_process_cpu_times_io_wait = self.process_cpu_times_func(stat_output_split)
-        selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary = self.process_context_switches_func(status_output_split)
-        selected_process_memory_vms = self.process_memory_vms_func(stat_output_split)
-        selected_process_memory_shared = self.process_memory_shared_func(statm_output)
-        selected_process_memory_uss, selected_process_memory_swap = self.process_memory_uss_and_swap_func(smaps_output)
-        selected_process_read_count, selected_process_write_count = self.process_read_write_counts_func(io_output_lines)
-        selected_process_cmdline = self.process_cmdline_func(cmdline_output)
         selected_process_exe, selected_process_cwd, selected_process_open_files = self.process_exe_cwd_open_files_func(selected_process_pid, fd_ls_output)
 
         # Stop running functions in order to prevent errors.
@@ -723,16 +702,16 @@ class ProcessesDetails:
             return
 
         # Set window title
-        self.process_details_window.set_title(_tr("Process Details") + ": " + selected_process_name + " - (" + _tr("PID") + ": " + str(selected_process_pid) + ")")
+        self.process_details_window.set_title(_tr("Process Details") + ": " + process_name + " - (" + _tr("PID") + ": " + str(selected_process_pid) + ")")
 
         # Update data lists for graphs.
-        self.process_cpu_usage_list.append(selected_process_cpu_percent)
+        self.process_cpu_usage_list.append(cpu_usage)
         del self.process_cpu_usage_list[0]
-        self.process_ram_usage_list.append(selected_process_memory_rss)
+        self.process_ram_usage_list.append(memory_rss)
         del self.process_ram_usage_list[0]
-        self.process_disk_read_speed_list.append(selected_process_read_speed)
+        self.process_disk_read_speed_list.append(disk_read_speed)
         del self.process_disk_read_speed_list[0]
-        self.process_disk_write_speed_list.append(selected_process_write_speed)
+        self.process_disk_write_speed_list.append(disk_write_speed)
         del self.process_disk_write_speed_list[0]
 
         # Update graphs.
@@ -741,55 +720,55 @@ class ProcessesDetails:
         self.processes_details_da_disk_speed.queue_draw()
 
         # Show information on labels (Summary tab).
-        self.name_label.set_label(selected_process_name)
+        self.name_label.set_label(process_name)
         self.pid_label.set_label(f'{selected_process_pid}')
-        self.status_label.set_label(selected_process_status)
-        self.user_label.set_label(selected_process_username)
-        self.priority_label.set_label(f'{selected_process_nice}')
-        self.cpu_label.set_label(f'{selected_process_cpu_percent:.{processes_cpu_precision}f} %')
-        self.memory_rss_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
-        if selected_process_read_bytes != "-":
-            self.read_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-        if selected_process_read_bytes == "-":
+        self.status_label.set_label(_tr(process_data_dict["status"]))
+        self.user_label.set_label(process_data_dict["username"])
+        self.priority_label.set_label(f'{process_data_dict["nice"]}')
+        self.cpu_label.set_label(f'{cpu_usage:.{processes_cpu_precision}f} %')
+        self.memory_rss_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        if read_data != "-":
+            self.read_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, disk_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+        if read_data == "-":
             self.read_speed_label.set_label("-")
-        if selected_process_write_bytes != "-":
-            self.write_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-        if selected_process_write_bytes == "-":
+        if written_data != "-":
+            self.write_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, disk_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+        if written_data == "-":
             self.write_speed_label.set_label("-")
-        self.start_time_label.set_label(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
+        self.start_time_label.set_label(datetime.fromtimestamp(process_data_dict["start_time"]).strftime("%d.%m.%Y %H:%M:%S"))
         self.path_label.set_label(selected_process_exe)
-        self.ppid_label.set_label(f'{selected_process_ppid}')
-        self.uid_label.set_label(f'Real: {selected_process_uid_real}, Effective: {selected_process_uid_effective}, Saved: {selected_process_uid_saved}')
-        self.gid_label.set_label(f'Real: {selected_process_gid_real}, Effective: {selected_process_gid_effective}, Saved: {selected_process_gid_saved}')
+        self.ppid_label.set_label(f'{process_data_dict["ppid"]}')
+        self.uid_label.set_label(f'Real: {process_data_dict["uid_real"]}, Effective: {process_data_dict["uid_effective"]}, Saved: {process_data_dict["uid_saved"]}')
+        self.gid_label.set_label(f'Real: {process_data_dict["gid_real"]}, Effective: {process_data_dict["gid_effective"]}, Saved: {process_data_dict["gid_saved"]}')
 
         # Show information on labels (CPU tab).
-        self.cpu_label2.set_label(f'{selected_process_cpu_percent:.{processes_cpu_precision}f} %')
-        self.threads_label.set_label(f'{selected_process_num_threads}')
+        self.cpu_label2.set_label(f'{cpu_usage:.{processes_cpu_precision}f} %')
+        self.threads_label.set_label(f'{process_data_dict["number_of_threads"]}')
         self.tid_label.set_label(',\n'.join(selected_process_threads))
-        self.used_cpu_cores_label.set_label(f'{selected_process_cpu_num}')
-        self.cpu_times_label.set_label(f'User: {selected_process_cpu_times_user}, System: {selected_process_cpu_times_kernel}, Children User: {selected_process_cpu_times_children_user}, Children System: {selected_process_cpu_times_children_kernel}, IO Wait: {selected_process_cpu_times_io_wait}')
-        self.context_switches_label.set_label(f'Voluntary: {selected_process_num_ctx_switches_voluntary}, Involuntary: {selected_process_num_ctx_switches_nonvoluntary}')
+        self.used_cpu_cores_label.set_label(f'{process_data_dict["cpu_numbers"]}')
+        self.cpu_times_label.set_label(f'User: {process_data_dict["cpu_time_user"]}, System: {process_data_dict["cpu_time_kernel"]}, Children User: {process_data_dict["cpu_time_children_user"]}, Children System: {process_data_dict["cpu_time_children_kernel"]}, IO Wait: {process_data_dict["cpu_time_io_wait"]}')
+        self.context_switches_label.set_label(f'Voluntary: {process_data_dict["ctx_switches_voluntary"]}, Involuntary: {process_data_dict["ctx_switches_nonvoluntary"]}')
 
         # Show information on labels (Memory tab).
-        self.memory_rss_label2.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
-        self.memory_vms_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_vms, processes_memory_data_unit, processes_memory_data_precision)}')
-        self.memory_shared_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_shared, processes_memory_data_unit, processes_memory_data_precision)}')
-        if selected_process_memory_uss != "-" and selected_process_memory_swap != "-":
-            self.memory_uss_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_uss, processes_memory_data_unit, processes_memory_data_precision)}')
-            self.swap_memory_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_memory_swap, processes_memory_data_unit, processes_memory_data_precision)}')
-        if selected_process_memory_uss == "-" and selected_process_memory_swap == "-":
-            self.memory_uss_label.set_label(selected_process_memory_uss)
-            self.swap_memory_label.set_label(selected_process_memory_swap)
+        self.memory_rss_label2.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_vms_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", process_data_dict["memory_vms"], processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_shared_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", process_data_dict["memory_shared"], processes_memory_data_unit, processes_memory_data_precision)}')
+        if memory_uss != "-" and memory_swap != "-":
+            self.memory_uss_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", memory_uss, processes_memory_data_unit, processes_memory_data_precision)}')
+            self.swap_memory_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", memory_swap, processes_memory_data_unit, processes_memory_data_precision)}')
+        if memory_uss == "-" and memory_swap == "-":
+            self.memory_uss_label.set_label(memory_uss)
+            self.swap_memory_label.set_label(memory_swap)
 
         # Show information on labels (Disk tab).
-        if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            self.read_speed_label2.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-            self.write_speed_label2.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, selected_process_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-            self.read_data_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_read_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
-            self.write_data_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", selected_process_write_bytes, processes_disk_data_unit, processes_disk_data_precision)}')
-            self.read_count_label.set_label(f'{selected_process_read_count}')
-            self.write_count_label.set_label(f'{selected_process_write_count}')
-        if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":
+        if read_data != "-" and written_data != "-":
+            self.read_speed_label2.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, disk_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.write_speed_label2.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, disk_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.read_data_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", read_data, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.write_data_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", written_data, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.read_count_label.set_label(f'{process_data_dict["read_count"]}')
+            self.write_count_label.set_label(f'{process_data_dict["write_count"]}')
+        if read_data == "-" and written_data == "-":
             self.read_speed_label2.set_label("-")
             self.write_speed_label2.set_label("-")
             self.read_data_label.set_label("-")
@@ -800,7 +779,7 @@ class ProcessesDetails:
         # Show information on labels (Path tab).
         self.path_label2.set_label(selected_process_exe)
         self.cwd_label.set_label(selected_process_cwd)
-        self.commandline_label.set_label(' '.join(selected_process_cmdline))
+        self.commandline_label.set_label(process_data_dict["command_line"])
         if selected_process_open_files != "-":
             self.opened_files_label.set_label(',\n'.join(selected_process_open_files))
         if selected_process_open_files == "-":
@@ -861,77 +840,23 @@ class ProcessesDetails:
         label_process_end_warning.set_visible(True)
 
 
-    def processes_details_usernames_uids_func(self):
+    def get_process_detailed_information(self, selected_process_pid):
         """
-        Get usernames and UIDs.
-        """
-
-        usernames_username_list = []
-        usernames_uid_list = []
-        with open("/etc/passwd") as reader:
-            etc_passwd_lines = reader.read().strip().split("\n")
-        for line in etc_passwd_lines:
-            line_splitted = line.split(":")
-            usernames_username_list.append(line_splitted[0])
-            usernames_uid_list.append(line_splitted[2])
-
-        return usernames_username_list, usernames_uid_list
-
-
-    def processes_details_stat_status_statm_io_smaps_cmdline_outputs_func(self, selected_process_pid):
-        """
-        Get stat, status, statm, io, smaps, cmdline file outputs.
+        Get process detailed information.
         """
 
-        # Generate command for getting file outputs.
-        if Config.environment_type == "flatpak":
-            command_list = ["flatpak-spawn", "--host", "cat"]
-        else:
-            command_list = ["cat"]
-        command_list.append("/proc/version")
-        command_list.append(f'/proc/{selected_process_pid}/stat')
-        command_list.append("/proc/version")
-        command_list.append(f'/proc/{selected_process_pid}/status')
-        command_list.append("/proc/version")
-        command_list.append(f'/proc/{selected_process_pid}/statm')
-        command_list.append("/proc/version")
-        command_list.append(f'/proc/{selected_process_pid}/io')
-        command_list.append("/proc/version")
-        command_list.append(f'/proc/{selected_process_pid}/smaps')
-        command_list.append("/proc/version")
-        command_list.append(f'/proc/{selected_process_pid}/cmdline')
+        processes_cpu_divide_by_core = Config.processes_cpu_divide_by_core
+        process_list = [selected_process_pid]
+        processes_of_user = "all"
+        if processes_cpu_divide_by_core == 1:
+            cpu_usage_divide_by_cores = "yes"
+        elif processes_cpu_divide_by_core == 0:
+            cpu_usage_divide_by_cores = "no"
+        detailed_information = "yes"
+        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detailed_information, self.processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        self.processes_data_dict_prev = dict(processes_data_dict)
 
-        cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
-
-        # Get split text by using the first line. This text will be used for splitting
-        # the outputs of different procfs files. Because output of some files may be ""
-        # and they are not shown in the output of command if multiple files are used as arguments.
-        cat_output_lines = cat_output.split("\n")
-        split_text = cat_output_lines[0].strip()
-        cat_output_split = cat_output.split(split_text)
-        del cat_output_split[0]
-        # Get output of procfs files.
-        stat_output = cat_output_split[0].strip()
-        status_output = cat_output_split[1].strip()
-        statm_output = cat_output_split[2].strip()
-        io_output = cat_output_split[3].strip()
-        smaps_output = cat_output_split[4].strip()
-        cmdline_output = cat_output_split[5].strip().replace("\x00", " ")                     # "\x00" characters in "cmdline" file are replaced with " ".
-
-        if stat_output == "":
-            stat_output = "-"
-        if status_output == "":
-            status_output = "-"
-        if statm_output == "":
-            statm_output = "-"
-        if io_output == "":
-            io_output = "-"
-        if smaps_output == "":
-            smaps_output = "-"
-        if cmdline_output == "":
-            cmdline_output = "-"
-
-        return stat_output, status_output, statm_output, io_output, smaps_output, cmdline_output
+        return processes_data_dict
 
 
     def processes_details_fd_task_ls_output_func(self, selected_process_pid):
@@ -965,222 +890,6 @@ class ProcessesDetails:
         return fd_ls_output, task_ls_output
 
 
-    def process_details_global_cpu_time_func(self):
-        """
-        Get global CPU time.
-        """
-
-        # global_cpu_time_all value is get just after "/proc/[PID]/stat file is
-        # read in order to measure global an process specific CPU times at the
-        # same time (nearly) for ensuring accurate process CPU usage percent.
-        global_cpu_time_all = time.time() * self.number_of_clock_ticks
-
-        return global_cpu_time_all
-
-
-    def process_name_func(self, selected_process_pid, stat_output, cmdline_output):
-        """
-        Get process name.
-        """
-
-        first_parentheses = stat_output.find("(")                                             # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
-        second_parentheses = stat_output.rfind(")")                                           # Last parantheses ")" index is get by using "find()".
-        process_name_from_stat = stat_output[first_parentheses+1:second_parentheses]          # Process name is get from string by using the indexes get previously.
-        selected_process_name = process_name_from_stat
-
-        if len(selected_process_name) == 15:                                                  # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
-            selected_process_name = cmdline_output.split("/")[-1].split(" ")[0]
-            if selected_process_name.startswith(process_name_from_stat) == False:
-                selected_process_name = cmdline_output.split(" ")[0].split("/")[-1]
-                if selected_process_name.startswith(process_name_from_stat) == False:
-                    selected_process_name = process_name_from_stat
-
-        return selected_process_name
-
-
-    def process_user_name_func(self, selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list):
-        """
-        Get process user name.
-        """
-
-        for line in status_output_split:
-            if "Uid:\t" in line:
-                # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                real_user_id = line.split(":")[1].split()[0].strip()
-                try:
-                    selected_process_username = Processes.username_uid_dict[int(real_user_id)]
-                except ValueError:
-                    selected_process_username = real_user_id
-
-        return selected_process_username
-
-
-    def process_status_func(self, stat_output_split):
-        """
-        Get process status.
-        """
-
-        selected_process_status = self.process_status_list[stat_output_split[-50]]
-
-        return selected_process_status
-
-
-    def process_nice_func(self, stat_output_split):
-        """
-        Get process nice.
-        """
-
-        selected_process_nice = int(stat_output_split[-34])
-
-        return selected_process_nice
-
-
-    def process_cpu_usage_func(self, stat_output_split, global_cpu_time_all):
-        """
-        Get process CPU usage.
-        """
-
-        number_of_logical_cores = Common.number_of_logical_cores()
-        # Redefine number of online logical CPU cores if "Divide CPU usage by core count" option is disabled.
-        if Config.processes_cpu_divide_by_core == 0:
-            core_count_division_number = 1
-        elif Config.processes_cpu_divide_by_core == 1:
-            core_count_division_number = number_of_logical_cores
-
-        # Get process cpu time in user mode (utime + stime)
-        process_cpu_time = int(stat_output_split[-39]) + int(stat_output_split[-38])
-        global_process_cpu_times = [global_cpu_time_all, process_cpu_time]
-        try:
-            global_cpu_time_all_prev, process_cpu_time_prev = self.global_process_cpu_times_prev
-        # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are used in these situations.
-        except (ValueError, IndexError, UnboundLocalError) as me:
-            process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time" if this is first loop of the process.
-            global_cpu_time_all_prev = global_process_cpu_times[0] - 1                    # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
-        process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
-        global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-        selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / core_count_division_number
-        self.global_process_cpu_times_prev = global_process_cpu_times
-
-        return selected_process_cpu_percent
-
-
-    def process_memory_rss_func(self, stat_output_split):
-        """
-        Get process memory (RSS).
-        """
-
-        # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
-        selected_process_memory_rss = int(stat_output_split[-29]) * os.sysconf("SC_PAGE_SIZE")
-
-        return selected_process_memory_rss
-
-
-    def process_disk_read_write_data_func(self, io_output_lines):
-        """
-        Get process disk read data, disk write data.
-        """
-
-        if io_output_lines != ["-"]:
-            selected_process_read_bytes = int(io_output_lines[4].split(":")[1])
-            selected_process_write_bytes = int(io_output_lines[5].split(":")[1])
-        else:
-            selected_process_read_bytes = 0
-            selected_process_write_bytes = 0
-
-        return selected_process_read_bytes, selected_process_write_bytes
-
-
-    def process_disk_read_write_speed_func(self, selected_process_read_bytes, selected_process_write_bytes):
-        """
-        Get process disk read speed, disk write speed.
-        """
-
-        # Get disk read speed.
-        disk_read_write_data = [selected_process_read_bytes, selected_process_write_bytes]
-        if self.disk_read_write_data_prev == []:
-            # Make process_read_bytes_prev equal to process_read_bytes for giving "0" disk read speed value if this is first loop of the process.
-            selected_process_read_bytes_prev = selected_process_read_bytes
-        else:
-            selected_process_read_bytes_prev = self.disk_read_write_data_prev[0]
-        selected_process_read_speed = (selected_process_read_bytes - int(selected_process_read_bytes_prev)) / self.update_interval
-
-        # Get disk write speed.
-        if self.disk_read_write_data_prev == []:
-            # Make process_write_bytes_prev equal to process_write_bytes for giving "0" disk write speed value if this is first loop of the process.
-            selected_process_write_bytes_prev = selected_process_write_bytes
-        else:
-            selected_process_write_bytes_prev = self.disk_read_write_data_prev[1]
-        selected_process_write_speed = (selected_process_write_bytes - int(selected_process_write_bytes_prev)) / self.update_interval
-
-        self.disk_read_write_data_prev = disk_read_write_data
-
-        return selected_process_read_speed, selected_process_write_speed
-
-
-    def process_start_time_func(self, stat_output_split):
-        """
-        Get process start time.
-        """
-
-        # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
-        selected_process_start_time_raw = int(stat_output_split[-31])
-        selected_process_start_time = (selected_process_start_time_raw / self.number_of_clock_ticks) + self.system_boot_time
-
-        return selected_process_start_time
-
-
-    def process_ppid_func(self, stat_output_split):
-        """
-        Get process PPID.
-        """
-
-        selected_process_ppid = int(stat_output_split[-49])
-
-        return selected_process_ppid
-
-
-    def process_real_effective_saved_uids_func(self, status_output_split):
-        """
-        Get process real, effective and saved UIDs.
-        """
-
-        for line in status_output_split:
-            if "Uid:\t" in line:
-                line_split = line.split(":")[1].split()
-                # There are 4 values in the Uid line (real, effective, user, filesystem UIDs)
-                selected_process_uid_real = line_split[0].strip()
-                selected_process_uid_effective = line_split[1].strip()
-                selected_process_uid_saved = line_split[2].strip()
-
-        return selected_process_uid_real, selected_process_uid_effective, selected_process_uid_saved
-
-
-    def process_real_effective_saved_gids_func(self, status_output_split):
-        """
-        Get process real, effective and saved GIDs.
-        """
-
-        for line in status_output_split:
-            if "Gid:\t" in line:
-                line_split = line.split(":")[1].split()
-                # There are 4 values in the Gid line (real, effective, user, filesystem GIDs)
-                selected_process_gid_real = line_split[0].strip()
-                selected_process_gid_effective = line_split[1].strip()
-                selected_process_gid_saved = line_split[2].strip()
-
-        return selected_process_gid_real, selected_process_gid_effective, selected_process_gid_saved
-
-
-    def process_number_of_threads_func(self, stat_output_split):
-        """
-        Get number of threads of the process.
-        """
-
-        selected_process_num_threads = stat_output_split[-33]
-
-        return selected_process_num_threads
-
-
     def process_tids_func(self, task_ls_output):
         """
         Get threads (TIDs) of the process.
@@ -1191,117 +900,6 @@ class ProcessesDetails:
         selected_process_threads = sorted(selected_process_threads, key=int)
 
         return selected_process_threads
-
-
-    def process_cpu_number_func(self, stat_output_split):
-        """
-        Get the last CPU core number which process executed on.
-        """
-
-        selected_process_cpu_num = stat_output_split[-14]
-
-        return selected_process_cpu_num
-
-
-    def process_cpu_times_func(self, stat_output_split):
-        """
-        Get CPU times of the process.
-        """
-
-        selected_process_cpu_times_user = stat_output_split[-39]
-        selected_process_cpu_times_kernel = stat_output_split[-38]
-        selected_process_cpu_times_children_user = stat_output_split[-37]
-        selected_process_cpu_times_children_kernel = stat_output_split[-36]
-        selected_process_cpu_times_io_wait = stat_output_split[-11]
-
-        return selected_process_cpu_times_user, selected_process_cpu_times_kernel, selected_process_cpu_times_children_user, selected_process_cpu_times_children_kernel, selected_process_cpu_times_io_wait
-
-
-    def process_context_switches_func(self, status_output_split):
-        """
-        Get process context switches.
-        """
-
-        for line in status_output_split:
-            if line.startswith("voluntary_ctxt_switches:"):
-                selected_process_num_ctx_switches_voluntary = line.split(":")[1].strip()
-            if line.startswith("nonvoluntary_ctxt_switches:"):
-                selected_process_num_ctx_switches_nonvoluntary = line.split(":")[1].strip()
-
-        return selected_process_num_ctx_switches_voluntary, selected_process_num_ctx_switches_nonvoluntary
-
-
-    def process_memory_vms_func(self, stat_output_split):
-        """
-        Get process memory (VMS).
-        """
-
-        selected_process_memory_vms = int(stat_output_split[-30])
-
-        return selected_process_memory_vms
-
-
-    def process_memory_shared_func(self, statm_output):
-        """
-        Get process memory (Shared).
-        """
-
-        selected_process_memory_shared = int(statm_output.split()[2]) * os.sysconf("SC_PAGE_SIZE")
-
-        return selected_process_memory_shared
-
-
-    def process_memory_uss_and_swap_func(self, smaps_output):
-        """
-        Get process memory (USS - Unique Set Size) and swap memory.
-        """
-
-        smaps_output_lines = smaps_output.split("\n")
-
-        private_clean = 0
-        private_dirty = 0
-        memory_swap = 0
-        for line in smaps_output_lines:
-            if "Private_Clean:" in line:
-                private_clean = private_clean + int(line.split(":")[1].split()[0].strip())
-            if "Private_Dirty:" in line:
-                private_dirty = private_dirty + int(line.split(":")[1].split()[0].strip())
-            if line.startswith("Swap:"):
-                memory_swap = memory_swap + int(line.split(":")[1].split()[0].strip())
-        # Kilobytes value converted into bytes value (there is a negligible deviation in bytes unit)
-        selected_process_memory_uss = (private_clean + private_dirty) * 1024
-        selected_process_memory_swap = memory_swap * 1024
-
-        return selected_process_memory_uss, selected_process_memory_swap
-
-
-    def process_read_write_counts_func(self, io_output_lines):
-        """
-        Get process read count, write count.
-        """
-
-        if io_output_lines != ["-"]:
-            selected_process_read_count = int(io_output_lines[2].split(":")[1])
-            selected_process_write_count = int(io_output_lines[3].split(":")[1])
-        # Root access is needed for reading "/proc/[PID]/io" file else it gives error.
-        else:
-            selected_process_read_count = 0
-            selected_process_write_count = 0
-
-        return selected_process_read_count, selected_process_write_count
-
-
-    def process_cmdline_func(self, cmdline_output):
-        """
-        Get process cmdline.
-        """
-
-        selected_process_cmdline = cmdline_output.split(" ")
-
-        if selected_process_cmdline == [""]:
-            selected_process_cmdline = "-"
-
-        return selected_process_cmdline
 
 
     def process_exe_cwd_open_files_func(self, selected_process_pid, fd_ls_output):
