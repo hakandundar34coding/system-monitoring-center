@@ -991,13 +991,10 @@ class Processes:
         global performance_data_unit_converter_func
         performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
 
-
-        global processes_data_rows_prev, pid_list_prev, global_process_cpu_times_prev, disk_read_write_data_prev, show_processes_as_tree_prev
+        global processes_data_rows_prev, pid_list_prev, show_processes_as_tree_prev
         processes_data_rows_prev = []
         pid_list_prev = []
         self.piter_list = []
-        global_process_cpu_times_prev = []
-        disk_read_write_data_prev = []
         show_processes_as_tree_prev = Config.show_processes_as_tree
         self.treeview_columns_shown_prev = []
         self.data_row_sorting_column_prev = ""
@@ -1008,21 +1005,11 @@ class Processes:
         global processes_data_dict_prev
         processes_data_dict_prev = {}
 
-        # Define process status text list for translation
-        process_status_list = [_tr("Running"), _tr("Sleeping"), _tr("Waiting"), _tr("Idle"), _tr("Zombie"), _tr("Stopped")]
-
-        global number_of_clock_ticks, memory_page_size, application_exec_list, application_icon_list
-        number_of_clock_ticks = os.sysconf("SC_CLK_TCK")
-
-        # Get system boot time
+        global number_of_clock_ticks, application_image_dict
+        number_of_clock_ticks = Common.number_of_clock_ticks
         self.system_boot_time = Common.get_system_boot_time()
-
-        # Get usernames and UIDs
         self.username_uid_dict = Common.get_username_uid_dict()
-
-        # Get application names, images and types.
-        global application_image_dict
-        application_image_dict = self.get_application_name_image_dict()
+        application_image_dict = Common.get_application_name_image_dict()
 
         # Search filter is "Process Name". "-1" is used because "row_data_list" has internal column count and
         # it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last
@@ -1077,7 +1064,7 @@ class Processes:
         memory_recursive_list = [0]
 
         # Get process PIDs and define global variables and empty lists for the current loop
-        global processes_data_rows_prev, global_process_cpu_times_prev, disk_read_write_data_prev, pid_list_prev, pid_list
+        global processes_data_rows_prev, pid_list_prev, pid_list
         processes_data_rows = []
 
         # For obtaining lower CPU usage
@@ -1275,13 +1262,13 @@ class Processes:
         # Show/Hide treeview expander arrows. If "child rows" are not used and there is no need for these expanders (they would be shown as empty spaces in this situation).
         if show_processes_as_tree == 1:
             self.treeview.set_show_expanders(True)
-        if show_processes_as_tree == 0:
+        else:
             self.treeview.set_show_expanders(False)
 
         # Show/Hide treeview tree lines
         if Config.show_tree_lines == 1:
             self.treeview.set_enable_tree_lines(True)
-        if Config.show_tree_lines == 0:
+        else:
             self.treeview.set_enable_tree_lines(False)
 
 
@@ -1371,56 +1358,6 @@ class Processes:
                 processes_data_rows[i].insert(memory_total_data_column_index, process_memory_total)
 
         return processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
-
-
-    def get_application_name_image_dict(self):
-        """
-        Get application names, images. Process name will be searched in "application_image_dict" list.
-        """
-
-        application_image_dict = {}
-
-        # Get ".desktop" file names
-        application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]
-
-        for application in application_file_list:
-
-            # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
-            try:
-                with open("/usr/share/applications/" + application, encoding="utf-8") as reader:
-                    application_file_content = reader.read()
-            except PermissionError:
-                continue
-
-            # Do not include application name or icon name if any of them is not found in the .desktop file.
-            if "Exec=" not in application_file_content or "Icon=" not in application_file_content:
-                continue
-
-            # Get application exec data
-            application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0].split("/")[-1].split(" ")[0]
-            # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process
-            # and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f").
-            # This statement is used to avoid from this confusion.
-            if application_exec == "sh":
-                application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0]
-
-            # Get application image name data
-            application_image = application_file_content.split("Icon=", 1)[1].split("\n", 1)[0]
-
-            """# Get "desktop_application/application" information
-            if "NoDisplay=" in application_file_content:
-                desktop_application_value = application_file_content.split("NoDisplay=", 1)[1].split("\n", 1)[0]
-                if desktop_application_value == "true":
-                    application_type = "application"
-                if desktop_application_value == "false":
-                    application_type = "desktop_application"
-            else:
-                application_type = "desktop_application"
-            """
-
-            application_image_dict[application_exec] = application_image
-
-        return application_image_dict
 
 
 # ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

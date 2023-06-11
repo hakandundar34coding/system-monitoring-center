@@ -26,6 +26,8 @@ memory_page_size = os.sysconf("SC_PAGE_SIZE")
 
 # This list is used in order to show full status of the process. For more information, see: "https://man7.org/linux/man-pages/man5/proc.5.html".
 process_status_dict = {"R": "Running", "S": "Sleeping", "D": "Waiting", "I": "Idle", "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead"}
+# Define process status text list for translation
+process_status_list = [_tr("Running"), _tr("Sleeping"), _tr("Waiting"), _tr("Idle"), _tr("Zombie"), _tr("Stopped")]
 
 
 def get_tab_object():
@@ -1073,10 +1075,10 @@ def treeview_reorder_columns_sort_rows_set_column_widths():
 def treeview_column_order_width_row_sorting(widget=None, parameter=None):
     """
     Get and save column order/width, row sorting.
-    Columns in the treeview are get one by one and appended into "[TAB]_data_column_order".
-    "[TAB]_data_column_widths" list elements are modified for widths of every columns in the treeview.
+    Columns in the treeview are get one by one and appended into "data_column_order".
+    "data_column_widths" list elements are modified for widths of every columns in the treeview.
     Length of these list are always same even if columns are removed, appended and column widths are changed.
-    Only values of the elements (element indexes are always same with "[TAB]_data") are changed if column order/widths are changed.
+    Only values of the elements (element indexes are always same with "row_data_list") are changed if column order/widths are changed.
     """
 
     TabObject = get_tab_object()
@@ -1460,6 +1462,57 @@ def read_process_information(process_list):
     del cat_output_split[0]
 
     return cat_output_split, global_time, global_cpu_time_all
+
+
+def get_application_name_image_dict():
+    """
+    Get application names and images. Process name will be searched in "application_image_dict" list.
+    """
+
+    application_image_dict = {}
+
+    # Get ".desktop" file names
+    application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]
+
+    # Get application name and image information
+    for application in application_file_list:
+
+        # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
+        try:
+            with open("/usr/share/applications/" + application, encoding="utf-8") as reader:
+                application_file_content = reader.read()
+        except PermissionError:
+            continue
+
+        # Do not include application name or icon name if any of them is not found in the .desktop file.
+        if "Exec=" not in application_file_content or "Icon=" not in application_file_content:
+            continue
+
+        # Get application exec data
+        application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0].split("/")[-1].split(" ")[0]
+        # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process
+        # and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f").
+        # This statement is used to avoid from this confusion.
+        if application_exec == "sh":
+            application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0]
+
+        # Get application image name data
+        application_image = application_file_content.split("Icon=", 1)[1].split("\n", 1)[0]
+
+        """# Get "desktop_application/application" information
+        if "NoDisplay=" in application_file_content:
+            desktop_application_value = application_file_content.split("NoDisplay=", 1)[1].split("\n", 1)[0]
+            if desktop_application_value == "true":
+                application_type = "application"
+            if desktop_application_value == "false":
+                application_type = "desktop_application"
+        else:
+            application_type = "desktop_application"
+        """
+
+        application_image_dict[application_exec] = application_image
+
+    return application_image_dict
 
 
 def number_of_logical_cores():
