@@ -1,3 +1,10 @@
+system-monitoring-center (2.15.1) unstable; urgency=medium
+
+  * Minor performance improvements for Processes tab
+  * Fix: Recursive CPU,Memory,Memory-RSS columns
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 11 Jun 2023 19:40:00 +0300
+
 system-monitoring-center (2.15.0) unstable; urgency=medium
 
   * New: Recursive CPU,Memory,Memory-RSS columns (Processes)

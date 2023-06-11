@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v2.15.1 (11.06.2023)
+  * Minor performance improvements for Processes tab
+  * Fix: Recursive CPU,Memory,Memory-RSS columns
+
 ### v2.15.0 (06.06.2023)
   * New: Recursive CPU,Memory,Memory-RSS columns (Processes)
   * New: Multiple process selection and operations

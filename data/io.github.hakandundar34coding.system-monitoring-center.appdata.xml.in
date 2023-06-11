@@ -74,6 +74,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.15.1" date="2023-06-11">
+      <description>
+        <ul>
+          <li>Minor performance improvements for Processes tab</li>
+          <li>Fix: Recursive CPU,Memory,Memory-RSS columns</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.15.0" date="2023-06-06">
       <description>
         <ul>
