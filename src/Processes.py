@@ -1169,6 +1169,7 @@ class Processes:
             # Append process data into a list (processes_data_rows)
             processes_data_rows.append(processes_data_row)
 
+        # Remove first element (0) from "list_of_cell_coloring_data_lists" if data is appended to them.
         list_of_cell_coloring_data_lists = [
                                             cpu_usage_list,
                                             memory_rss_list,
