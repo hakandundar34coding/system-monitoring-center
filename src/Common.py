@@ -1666,9 +1666,8 @@ def get_username_uid_dict():
     environment_type = environment_type_detection()
 
     if environment_type == "flatpak":
-        command_list = ["flatpak-spawn", "--host"]
-        command_list = command_list + ["cat", "/etc/passwd"]
-        etc_passwd_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
+        with open("/var/run/host/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
     else:
         with open("/etc/passwd") as reader:
             etc_passwd_lines = reader.read().strip().split("\n")
