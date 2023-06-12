@@ -100,7 +100,7 @@
     - Installing from repositories of distributions
     - ~~Installing from PyPI as a Python package.~~ There will be no new packages on PyPI ([Details](docs/uninstall_pypi_package.md))
     - Running from source code:
-      - For SMC v2:, in ```src/``` folder, run: ```python3 ./run_from_source.py```
+      - For SMC v2: in ```src/``` folder, run: ```python3 ./run_from_source.py```
       - For SMC v1: in ```src/``` folder, run: ```python3 ./Main.py```
 
 
