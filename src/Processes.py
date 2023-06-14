@@ -484,7 +484,7 @@ class Processes:
         selected_process_name_list = []
         for selected_process_pid in self.selected_process_pid_list:
             selected_process_pid_list_str.append(str(selected_process_pid))
-            selected_process_name = self.processes_data_rows[self.pid_list.index(selected_process_pid)][2]
+            selected_process_name = self.tab_data_rows[self.pid_list.index(selected_process_pid)][2]
             selected_process_name_list.append(selected_process_name)
 
         # Pause Process
@@ -703,7 +703,7 @@ class Processes:
             # Get right clicked process names.
             selected_process_name_list = []
             for selected_process_pid in self.selected_process_pid_list:
-                selected_process_name = self.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
+                selected_process_name = self.tab_data_rows[Processes.pid_list.index(selected_process_pid)][2]
                 selected_process_name_list.append(selected_process_name)
 
             # Get process stat file path for getting its current priority value if one process is selected.
@@ -957,52 +957,47 @@ class Processes:
         #                 .
         #                 .
         #                 ]
-        global row_data_list
-        row_data_list = [
-                        [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
-                        [1, _tr('PID'), 2, 1, 2, [str, int], ['internal_column', 'CellRendererText'], ['no_cell_attribute', 'text'], [0, 1], ['no_cell_alignment', 1.0], [False, False], ['no_cell_function', 'no_cell_function']],
-                        [2, _tr('User'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [3, _tr('Status'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [4, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
-                        [5, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss]],
-                        [6, _tr('Memory (VMS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_vms]],
-                        [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_shared]],
-                        [8, _tr('Read Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_data]],
-                        [9, _tr('Written Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_data]],
-                        [10, _tr('Read Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_speed]],
-                        [11, _tr('Write Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_speed]],
-                        [12, _tr('Priority'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [13, _tr('Threads'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [14, _tr('PPID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [15, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [16, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [17, _tr('Start Time'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [0.0], [False], [cell_data_function_start_time]],
-                        [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [19, _tr('CPU Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_time]],
-                        [20, _tr('Memory'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory]],
-                        [21, _tr('CPU') + " - " + _tr('Recursive'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent_recursive]],
-                        [22, _tr('Memory (RSS)') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss_recursive]],
-                        [23, _tr('Memory') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_recursive]]
-                        ]
-
-        self.row_data_list = row_data_list
+        self.row_data_list = [
+                             [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
+                             [1, _tr('PID'), 2, 1, 2, [str, int], ['internal_column', 'CellRendererText'], ['no_cell_attribute', 'text'], [0, 1], ['no_cell_alignment', 1.0], [False, False], ['no_cell_function', 'no_cell_function']],
+                             [2, _tr('User'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                             [3, _tr('Status'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                             [4, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
+                             [5, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss]],
+                             [6, _tr('Memory (VMS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_vms]],
+                             [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_shared]],
+                             [8, _tr('Read Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_data]],
+                             [9, _tr('Written Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_data]],
+                             [10, _tr('Read Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_speed]],
+                             [11, _tr('Write Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_speed]],
+                             [12, _tr('Priority'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [13, _tr('Threads'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [14, _tr('PPID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [15, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [16, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [17, _tr('Start Time'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [0.0], [False], [cell_data_function_start_time]],
+                             [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                             [19, _tr('CPU Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_time]],
+                             [20, _tr('Memory'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory]],
+                             [21, _tr('CPU') + " - " + _tr('Recursive'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent_recursive]],
+                             [22, _tr('Memory (RSS)') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss_recursive]],
+                             [23, _tr('Memory') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_recursive]]
+                             ]
 
         # Define data unit conversion function objects in for lower CPU usage.
         global performance_data_unit_converter_func
         performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
 
-        global processes_data_rows_prev, pid_list_prev, show_processes_as_tree_prev
-        processes_data_rows_prev = []
-        pid_list_prev = []
+        self.tab_data_rows_prev = []
+        self.pid_list_prev = []
         self.piter_list = []
-        show_processes_as_tree_prev = Config.show_processes_as_tree
+        self.show_processes_as_tree_prev = Config.show_processes_as_tree
         self.treeview_columns_shown_prev = []
         self.data_row_sorting_column_prev = ""
         self.data_row_sorting_order_prev = ""
         self.data_column_order_prev = []
         self.data_column_widths_prev = []
-
-        self.processes_data_dict_prev = {}
+        self.rows_data_dict_prev = {}
 
         global number_of_clock_ticks, application_image_dict
         number_of_clock_ticks = Common.number_of_clock_ticks
@@ -1013,7 +1008,7 @@ class Processes:
         # Search filter is "Process Name". "-1" is used because "row_data_list" has internal column count and
         # it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last
         # internal column number for the relevant treeview column.
-        self.filter_column = row_data_list[0][2] - 1
+        self.filter_column = self.row_data_list[0][2] - 1
 
         self.initial_already_run = 1
 
@@ -1038,14 +1033,16 @@ class Processes:
         processes_disk_speed_bit = Config.processes_disk_speed_bit
 
         # Define global variables and get treeview columns, sort column/order, column widths, etc.
-        global treeview_columns_shown, show_processes_of_all_users
-        treeview_columns_shown = Config.processes_treeview_columns_shown
+        self.treeview_columns_shown = Config.processes_treeview_columns_shown
         self.data_row_sorting_column = Config.processes_data_row_sorting_column
         self.data_row_sorting_order = Config.processes_data_row_sorting_order
         self.data_column_order = Config.processes_data_column_order
         self.data_column_widths = Config.processes_data_column_widths
-        self.treeview_columns_shown = treeview_columns_shown
-        show_processes_of_all_users = Config.show_processes_of_all_users
+        self.show_processes_of_all_users = Config.show_processes_of_all_users
+        self.show_processes_as_tree = Config.show_processes_as_tree
+        # For obtaining lower CPU usage
+        treeview_columns_shown = self.treeview_columns_shown
+        treeview_columns_shown = set(treeview_columns_shown)
 
         # Define lists for appending some performance data for calculating max values to determine cell background color.
         # "0" values are added for preventing errors if the lists are empty.
@@ -1062,37 +1059,31 @@ class Processes:
         memory_rss_recursive_list = [0]
         memory_recursive_list = [0]
 
-        # Get process PIDs and define global variables and empty lists for the current loop
-        global processes_data_rows_prev, pid_list_prev, pid_list
-        processes_data_rows = []
-
-        # For obtaining lower CPU usage
-        treeview_columns_shown = set(treeview_columns_shown)
-
         # Get process information
         global cmdline_list, application_image_dict
         process_list = []
-        if show_processes_of_all_users == 1:
+        if self.show_processes_of_all_users == 1:
             processes_of_user = "all"
-        elif show_processes_of_all_users == 0:
+        else:
             processes_of_user = "current"
         if processes_cpu_divide_by_core == 1:
             cpu_usage_divide_by_cores = "yes"
-        elif processes_cpu_divide_by_core == 0:
+        else:
             cpu_usage_divide_by_cores = "no"
         detail_level = "medium"
-        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
-        self.processes_data_dict_prev = dict(processes_data_dict)
-        pid_list = processes_data_dict["pid_list"]
-        ppid_list = processes_data_dict["ppid_list"]
-        username_list = processes_data_dict["username_list"]
-        cmdline_list = processes_data_dict["cmdline_list"]
+        rows_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        self.rows_data_dict_prev = dict(rows_data_dict)
+        pid_list = rows_data_dict["pid_list"]
+        ppid_list = rows_data_dict["ppid_list"]
+        username_list = rows_data_dict["username_list"]
+        cmdline_list = rows_data_dict["cmdline_list"]
 
         # Get and append process data
+        tab_data_rows = []
         for pid in pid_list:
-            process_data_dict = processes_data_dict[pid]
-            process_name = process_data_dict["name"]
-            ppid = process_data_dict["ppid"]
+            row_data_dict = rows_data_dict[pid]
+            process_name = row_data_dict["name"]
+            ppid = row_data_dict["ppid"]
             # Get process image
             if ppid == 2 or pid == 2:
                 process_image = "system-monitoring-center-process-symbolic"
@@ -1100,73 +1091,73 @@ class Processes:
                 process_image = "application-x-executable"
                 if process_name in application_image_dict:
                     process_image = application_image_dict[process_name]
-            process_commandline = process_data_dict["command_line"]
-            processes_data_row = [True, process_image, process_name, process_commandline]
+            process_commandline = row_data_dict["command_line"]
+            tab_data_row = [True, process_image, process_name, process_commandline]
             if 1 in treeview_columns_shown:
-                processes_data_row.append(pid)
+                tab_data_row.append(pid)
             if 2 in treeview_columns_shown:
-                processes_data_row.append(process_data_dict["username"])
+                tab_data_row.append(row_data_dict["username"])
             if 3 in treeview_columns_shown:
-                processes_data_row.append(_tr(process_data_dict["status"]))
+                tab_data_row.append(_tr(row_data_dict["status"]))
             if 4 in treeview_columns_shown or 21 in treeview_columns_shown:
-                cpu_usage = process_data_dict["cpu_usage"]
+                cpu_usage = row_data_dict["cpu_usage"]
                 cpu_usage_list.append(cpu_usage)
                 if 4 in treeview_columns_shown:
-                    processes_data_row.append(cpu_usage)
+                    tab_data_row.append(cpu_usage)
             if 5 in treeview_columns_shown or 20 in treeview_columns_shown or 22 in treeview_columns_shown or 23 in treeview_columns_shown:
-                memory_rss = process_data_dict["memory_rss"]
+                memory_rss = row_data_dict["memory_rss"]
                 memory_rss_list.append(memory_rss)
                 if 5 in treeview_columns_shown:
-                    processes_data_row.append(memory_rss)
+                    tab_data_row.append(memory_rss)
             if 6 in treeview_columns_shown:
-                memory_vms = process_data_dict["memory_vms"]
-                processes_data_row.append(memory_vms)
+                memory_vms = row_data_dict["memory_vms"]
+                tab_data_row.append(memory_vms)
                 memory_vms_list.append(memory_vms)
             if 7 in treeview_columns_shown or 20 in treeview_columns_shown or 23 in treeview_columns_shown:
-                memory_shared = process_data_dict["memory_shared"]
+                memory_shared = row_data_dict["memory_shared"]
                 memory_shared_list.append(memory_shared)
                 if 7 in treeview_columns_shown:
-                    processes_data_row.append(memory_shared)
+                    tab_data_row.append(memory_shared)
             if 8 in treeview_columns_shown:
-                process_read_bytes = process_data_dict["read_data"]
-                processes_data_row.append(process_read_bytes)
+                process_read_bytes = row_data_dict["read_data"]
+                tab_data_row.append(process_read_bytes)
                 disk_read_data_list.append(process_read_bytes)
             if 9 in treeview_columns_shown:
-                process_write_bytes = process_data_dict["written_data"]
-                processes_data_row.append(process_write_bytes)
+                process_write_bytes = row_data_dict["written_data"]
+                tab_data_row.append(process_write_bytes)
                 disk_write_data_list.append(process_write_bytes)
             if 10 in treeview_columns_shown:
-                disk_read_speed = process_data_dict["read_speed"]
-                processes_data_row.append(disk_read_speed)
+                disk_read_speed = row_data_dict["read_speed"]
+                tab_data_row.append(disk_read_speed)
                 disk_read_speed_list.append(disk_read_speed)
             if 11 in treeview_columns_shown:
-                disk_write_speed = process_data_dict["write_speed"]
-                processes_data_row.append(disk_write_speed)
+                disk_write_speed = row_data_dict["write_speed"]
+                tab_data_row.append(disk_write_speed)
                 disk_write_speed_list.append(disk_write_speed)
             if 12 in treeview_columns_shown:
-                processes_data_row.append(process_data_dict["nice"])
+                tab_data_row.append(row_data_dict["nice"])
             if 13 in treeview_columns_shown:
-                processes_data_row.append(process_data_dict["number_of_threads"])
+                tab_data_row.append(row_data_dict["number_of_threads"])
             if 14 in treeview_columns_shown:
-                processes_data_row.append(ppid)
+                tab_data_row.append(ppid)
             if 15 in treeview_columns_shown:
-                processes_data_row.append(process_data_dict["uid"])
+                tab_data_row.append(row_data_dict["uid"])
             if 16 in treeview_columns_shown:
-                processes_data_row.append(process_data_dict["gid"])
+                tab_data_row.append(row_data_dict["gid"])
             if 17 in treeview_columns_shown:
-                processes_data_row.append(process_data_dict["start_time"])
+                tab_data_row.append(row_data_dict["start_time"])
             if 18 in treeview_columns_shown:
-                processes_data_row.append(process_commandline)
+                tab_data_row.append(process_commandline)
             if 19 in treeview_columns_shown:
-                processes_data_row.append(process_data_dict["cpu_time"])
+                tab_data_row.append(row_data_dict["cpu_time"])
             if 20 in treeview_columns_shown or 23 in treeview_columns_shown:
-                memory = process_data_dict["memory"]
+                memory = row_data_dict["memory"]
                 memory_list.append(memory)
                 if 20 in treeview_columns_shown:
-                    processes_data_row.append(memory)
+                    tab_data_row.append(memory)
 
             # Append process data into a list
-            processes_data_rows.append(processes_data_row)
+            tab_data_rows.append(tab_data_row)
 
         # Remove first element (0) from "list_of_cell_coloring_data_lists" if data is appended to them.
         list_of_cell_coloring_data_lists = [
@@ -1188,77 +1179,47 @@ class Processes:
             if cell_coloring_data_list != [0]:
                 del cell_coloring_data_list[0]
 
-        processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list = self.recursive_cpu_memory_usage(processes_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list)
+        tab_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list = self.recursive_cpu_memory_usage(tab_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list)
+
+        self.tab_data_rows = tab_data_rows
+        self.pid_list = pid_list
 
         # Convert set to list (it was set before getting process information)
         treeview_columns_shown = sorted(list(treeview_columns_shown))
 
         reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
         if reset_row_unique_data_list_prev == "yes":
-            pid_list_prev = []
+            self.pid_list_prev = []
         Common.treeview_reorder_columns_sort_rows_set_column_widths()
 
         # Append treestore items (rows) as tree or list structure depending on user preferences.
-        global show_processes_as_tree_prev
-        show_processes_as_tree = Config.show_processes_as_tree
-        if show_processes_as_tree != show_processes_as_tree_prev:                                 # Check if "show_processes_as_tree" setting has been changed since last loop and redefine "piter_list" in order to prevent resetting it in every loop which will cause high CPU consumption because piter_list and treestore content would have been appended/builded from zero.
-            pid_list_prev = []                                                                    # Redefine (clear) "pid_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
+        if self.show_processes_as_tree != self.show_processes_as_tree_prev:                       # Check if "show_processes_as_tree" setting has been changed since last loop and redefine "piter_list" in order to prevent resetting it in every loop which will cause high CPU consumption because piter_list and treestore content would have been appended/builded from zero.
+            self.pid_list_prev = []                                                               # Redefine (clear) "pid_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
             self.treestore.clear()                                                                # Clear treestore because items will be appended from zero (in tree or list structure).
             self.piter_list = []
 
-        # Get new/deleted(ended) processes for updating treestore/treeview
-        pid_list_prev_set = set(pid_list_prev)
-        pid_list_set = set(pid_list)
-        deleted_processes = sorted(list(pid_list_prev_set - pid_list_set))
-        new_processes = sorted(list(pid_list_set - pid_list_prev_set))
-        existing_processes = sorted(list(pid_list_set.intersection(pid_list_prev)))
-        updated_existing_proc_index = [[pid_list.index(i), pid_list_prev.index(i)] for i in existing_processes]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
-        processes_data_rows_row_length = len(processes_data_rows[0])
-        # Append/Remove/Update processes data to treestore
-        if len(self.piter_list) > 0:
-            for i, j in updated_existing_proc_index:
-                if processes_data_rows[i] != processes_data_rows_prev[j]:
-                    for k in range(1, processes_data_rows_row_length):                            # Start from "1" in order to set first element (treeview row visibility data) as "True" in every loop.
-                        if processes_data_rows_prev[j][k] != processes_data_rows[i][k]:
-                            self.treestore.set_value(self.piter_list[j], k, processes_data_rows[i][k])
-        if len(deleted_processes) > 0:
-            for process in reversed(sorted(list(deleted_processes))):
-                self.treestore.remove(self.piter_list[pid_list_prev.index(process)])
-                self.piter_list.remove(self.piter_list[pid_list_prev.index(process)])
-            self.on_searchentry_changed(self.searchentry)                                         # Update search results.
-        if len(new_processes) > 0:
-            for process in new_processes:
-                process_data_dict = processes_data_dict[process]
-                parent_process = process_data_dict["ppid"]
-                pid_index = pid_list.index(process)
-                if show_processes_as_tree == 1:
-                    if parent_process == 0:                                                       # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
-                        self.piter_list.append(self.treestore.append(None, processes_data_rows[pid_index]))
-                    else:
-                        if show_processes_of_all_users == 1:                                      # Process appended under tree root process or another process if "Show processes as tree" option is preferred.
-                            self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(parent_process)], processes_data_rows[pid_index]))
-                        if show_processes_of_all_users == 0 and parent_process not in pid_list:   # Process is appended into treeview as tree root process if "Show processes of all users" is not preferred and process ppid not in pid_list.
-                            self.piter_list.append(self.treestore.append(None, processes_data_rows[pid_index]))
-                        if show_processes_of_all_users == 0 and parent_process in pid_list:       # Process is appended into treeview under tree root process or another process if "Show processes of all users" is preferred and process ppid is in pid_list.
-                            self.piter_list.append(self.treestore.append(self.piter_list[pid_list.index(parent_process)], processes_data_rows[pid_index]))
-                else:                                                                             # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
-                    self.piter_list.insert(pid_index, self.treestore.insert(None, pid_index, processes_data_rows[pid_index]))
-            self.on_searchentry_changed(self.searchentry)                                         # Update search results.
+        # Prevent errors if no rows are found.
+        if len(tab_data_rows[0]) == 0:
+            return
 
-        if pid_list_prev == []:                                                                   # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made. "First loop" control is made by checking if pid_list_prev is empty.
+        deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(pid_list, self.pid_list_prev)
+        Common.update_treestore_rows(rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, pid_list, self.pid_list_prev, self.show_processes_as_tree)
+        Common.searchentry_update_placeholder_text()
+
+        # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop
+        # of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made.
+        # "First loop" control is made by checking if pid_list_prev is empty.
+        if self.pid_list_prev == []:
             self.treeview.expand_all()
 
-        pid_list_prev = pid_list
-        processes_data_rows_prev = processes_data_rows
-        show_processes_as_tree_prev = show_processes_as_tree
+        self.pid_list_prev = pid_list
+        self.tab_data_rows_prev = tab_data_rows
+        self.show_processes_as_tree_prev = self.show_processes_as_tree
         self.treeview_columns_shown_prev = treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
         self.data_row_sorting_order_prev = self.data_row_sorting_order
         self.data_column_order_prev = self.data_column_order
         self.data_column_widths_prev = self.data_column_widths
-
-        self.processes_data_rows = processes_data_rows
-        self.pid_list = pid_list
 
         # Get max values of some performance data for setting cell background colors depending on relative performance data.
         global max_value_cpu_usage_list, max_value_memory_rss_list, max_value_memory_vms_list, max_value_memory_shared_list, max_value_memory_list
@@ -1277,11 +1238,8 @@ class Processes:
         max_value_memory_rss_recursive_list = max(memory_rss_recursive_list)
         max_value_memory_recursive_list = max(memory_recursive_list)
 
-        # Show number of processes on the searchentry as placeholder text
-        self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Processes") + ": " + str(len(username_list)) + ")"
-
         # Show/Hide treeview expander arrows. If "child rows" are not used and there is no need for these expanders (they would be shown as empty spaces in this situation).
-        if show_processes_as_tree == 1:
+        if self.show_processes_as_tree == 1:
             self.treeview.set_show_expanders(True)
         else:
             self.treeview.set_show_expanders(False)
@@ -1293,7 +1251,7 @@ class Processes:
             self.treeview.set_enable_tree_lines(False)
 
 
-    def recursive_cpu_memory_usage(self, processes_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list):
+    def recursive_cpu_memory_usage(self, tab_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list):
         """
         Get recursive CPU usage percentage, recursive memory (RSS) and recursive memory information of processes.
         """
@@ -1307,7 +1265,7 @@ class Processes:
         if 21 not in treeview_columns_shown and \
            22 not in treeview_columns_shown and \
            23 not in treeview_columns_shown:
-            return processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
+            return tab_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
 
         # Get PID-child PID dictionary
         pid_child_pid_dict = {}
@@ -1348,7 +1306,7 @@ class Processes:
                         cpu_usage = cpu_usage_list[child_pid_index]
                         process_cpu_usage_total = process_cpu_usage_total + cpu_usage
                 cpu_usage_recursive_list.append(process_cpu_usage_total)
-                processes_data_rows[i].insert(cpu_total_data_column_index, process_cpu_usage_total)
+                tab_data_rows[i].insert(cpu_total_data_column_index, process_cpu_usage_total)
 
         # Get recursive memory (RSS) usage of processes
         if 22 in treeview_columns_shown:
@@ -1362,7 +1320,7 @@ class Processes:
                         memory_rss = memory_rss_list[child_pid_index]
                         process_memory_rss_total = process_memory_rss_total + memory_rss
                 memory_rss_recursive_list.append(process_memory_rss_total)
-                processes_data_rows[i].insert(memory_rss_total_data_column_index, process_memory_rss_total)
+                tab_data_rows[i].insert(memory_rss_total_data_column_index, process_memory_rss_total)
 
         # Get recursive memory usage of processes
         if 23 in treeview_columns_shown:
@@ -1376,9 +1334,9 @@ class Processes:
                         memory = memory_list[child_pid_index]
                         process_memory_total = process_memory_total + memory
                 memory_recursive_list.append(process_memory_total)
-                processes_data_rows[i].insert(memory_total_data_column_index, process_memory_total)
+                tab_data_rows[i].insert(memory_total_data_column_index, process_memory_total)
 
-        return processes_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
+        return tab_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
 
 
 # ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

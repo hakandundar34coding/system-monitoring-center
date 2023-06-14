@@ -179,9 +179,9 @@ class Users:
         if treeiter == None:
             return
         try:
-            row_index = self.users_data_rows.index(model[treeiter][:])
+            row_index = self.tab_data_rows.index(model[treeiter][:])
             self.selected_user_uid = self.human_user_uid_list[row_index]
-            self.selected_username = self.users_data_rows[row_index][2]
+            self.selected_username = self.tab_data_rows[row_index][2]
         except ValueError:
             return
 
@@ -223,38 +223,32 @@ class Users:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        global row_data_list
-        row_data_list = [
-                        [0, _tr('User'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
-                        [1, _tr('Full Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [2, _tr('Logged In'), 1, 1, 1, [bool], ['CellRendererToggle'], ['active'], [0], [0.5], [False], ['no_cell_function']],
-                        [3, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [4, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [5, _tr('Processes'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [6, _tr('Home Directory'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [7, _tr('Group'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [8, _tr('Terminal'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [9, _tr('Start Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_started]],
-                        [10, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
-                        ]
+        self.row_data_list = [
+                             [0, _tr('User'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
+                             [1, _tr('Full Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                             [2, _tr('Logged In'), 1, 1, 1, [bool], ['CellRendererToggle'], ['active'], [0], [0.5], [False], ['no_cell_function']],
+                             [3, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [4, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [5, _tr('Processes'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [6, _tr('Home Directory'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                             [7, _tr('Group'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                             [8, _tr('Terminal'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                             [9, _tr('Start Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_started]],
+                             [10, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
+                             ]
 
-        self.row_data_list = row_data_list
-
-        global users_data_rows_prev
-        global human_user_uid_list_prev
-        users_data_rows_prev = []
-        human_user_uid_list_prev = []
+        self.tab_data_rows_prev = []
+        self.human_user_uid_list_prev = []
         self.treeview_columns_shown_prev = []
         self.data_row_sorting_column_prev = ""
         self.data_row_sorting_order_prev = ""
         self.data_column_order_prev = []
         self.data_column_widths_prev = []
-
-        self.users_data_dict_prev = {}
+        self.rows_data_dict_prev = {}
 
         self.system_boot_time = Common.get_system_boot_time()
 
-        self.filter_column = row_data_list[0][2] - 1
+        self.filter_column = self.row_data_list[0][2] - 1
 
         self.initial_already_run = 1
 
@@ -269,100 +263,73 @@ class Users:
         users_cpu_precision = Config.users_cpu_precision
 
         # Define global variables and get treeview columns, sort column/order, column widths, etc.
-        global treeview_columns_shown
-        treeview_columns_shown = Config.users_treeview_columns_shown
+        self.treeview_columns_shown = Config.users_treeview_columns_shown
         self.data_row_sorting_column = Config.users_data_row_sorting_column
         self.data_row_sorting_order = Config.users_data_row_sorting_order
         self.data_column_order = Config.users_data_column_order
         self.data_column_widths = Config.users_data_column_widths
-        self.treeview_columns_shown = treeview_columns_shown
-
-        # Define global variables and empty lists for the current loop
-        global users_data_rows, users_data_rows_prev, human_user_uid_list_prev, human_user_uid_list
-        users_data_rows = []
+        # For obtaining lower CPU usage
+        treeview_columns_shown = self.treeview_columns_shown
+        treeview_columns_shown = set(treeview_columns_shown)
 
         # Get user information
-        users_data_dict = Common.users_information(self.users_data_dict_prev, self.system_boot_time)
-        self.users_data_dict_prev = dict(users_data_dict)
-        human_user_uid_list = users_data_dict["human_user_uid_list"]
+        rows_data_dict = Common.users_information(self.rows_data_dict_prev, self.system_boot_time)
+        self.rows_data_dict_prev = dict(rows_data_dict)
+        human_user_uid_list = rows_data_dict["human_user_uid_list"]
 
         # Get and append user data
+        tab_data_rows = []
         for uid in human_user_uid_list:
-            user_data_dict = users_data_dict[uid]
-            username = user_data_dict["username"]
-            users_data_row = [True, "system-monitoring-center-user-symbolic", username]
+            row_data_dict = rows_data_dict[uid]
+            username = row_data_dict["username"]
+            tab_data_row = [True, "system-monitoring-center-user-symbolic", username]
             if 1 in treeview_columns_shown:
-                users_data_row.append(user_data_dict["full_name"])
+                tab_data_row.append(row_data_dict["full_name"])
             if 2 in treeview_columns_shown:
-                users_data_row.append(user_data_dict["logged_in"])
+                tab_data_row.append(row_data_dict["logged_in"])
             if 3 in treeview_columns_shown:
-                users_data_row.append(uid)
+                tab_data_row.append(uid)
             if 4 in treeview_columns_shown:
-                users_data_row.append(user_data_dict["gid"])
+                tab_data_row.append(row_data_dict["gid"])
             if 5 in treeview_columns_shown:
-                users_data_row.append(user_data_dict["process_count"])
+                tab_data_row.append(row_data_dict["process_count"])
             if 6 in treeview_columns_shown:
-                users_data_row.append(user_data_dict["home_dir"])
+                tab_data_row.append(row_data_dict["home_dir"])
             if 7 in treeview_columns_shown:
-                users_data_row.append(user_data_dict["group_name"])
+                tab_data_row.append(row_data_dict["group_name"])
             if 8 in treeview_columns_shown:
-                users_data_row.append(user_data_dict["terminal"])
+                tab_data_row.append(row_data_dict["terminal"])
             if 9 in treeview_columns_shown:
-                users_data_row.append(user_data_dict["log_in_time"])
+                tab_data_row.append(row_data_dict["log_in_time"])
             if 10 in treeview_columns_shown:
-                users_data_row.append(user_data_dict["total_cpu_usage"])
+                tab_data_row.append(row_data_dict["total_cpu_usage"])
 
             # Append user data into a list
-            users_data_rows.append(users_data_row)
+            tab_data_rows.append(tab_data_row)
+
+        self.tab_data_rows = tab_data_rows
+        self.human_user_uid_list = human_user_uid_list
 
         reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
         if reset_row_unique_data_list_prev == "yes":
-            human_user_uid_list_prev = []
+            self.human_user_uid_list_prev = []
         Common.treeview_reorder_columns_sort_rows_set_column_widths()
 
-        # Get new/deleted(ended) users for updating treestore/treeview
-        human_user_uid_list_prev_set = set(human_user_uid_list_prev)
-        human_user_uid_list_set = set(human_user_uid_list)
-        deleted_users = sorted(list(human_user_uid_list_prev_set - human_user_uid_list_set))
-        new_users = sorted(list(human_user_uid_list_set - human_user_uid_list_prev_set))
-        existing_users = sorted(list(human_user_uid_list_set.intersection(human_user_uid_list_prev_set)))
-        updated_existing_user_index = [[human_user_uid_list.index(i), human_user_uid_list_prev.index(i)] for i in existing_users]
-        try:
-            users_data_rows_row_length = len(users_data_rows[0])
-        # Prevent errors if there is no user account on the system. An user account may not be found on an OS if the OS is run without installation.
-        except IndexError:
+        # Prevent errors if no rows are found.
+        if len(tab_data_rows[0]) == 0:
             return
-        # Append/Remove/Update users data to treestore
-        global user_search_text
-        if len(self.piter_list) > 0:
-            for i, j in updated_existing_user_index:
-                if users_data_rows[i] != users_data_rows_prev[j]:
-                    for k in range(1, users_data_rows_row_length):                                 # Start from "1" in order to set first element (treeview row visibility data) as "True" in every loop.
-                        if users_data_rows_prev[j][k] != users_data_rows[i][k]:
-                            self.treestore.set_value(self.piter_list[j], k, users_data_rows[i][k])
-        if len(deleted_users) > 0:
-            for user in reversed(sorted(list(deleted_users))):
-                self.treestore.remove(self.piter_list[human_user_uid_list_prev.index(user)])
-                self.piter_list.remove(self.piter_list[human_user_uid_list_prev.index(user)])
-            self.on_searchentry_changed(self.searchentry)                                          # Update search results.
-        if len(new_users) > 0:
-            for i, user in enumerate(new_users):
-                self.piter_list.append(self.treestore.append(None, users_data_rows[human_user_uid_list.index(user)]))
-            self.on_searchentry_changed(self.searchentry)                                          # Update search results.
 
-        human_user_uid_list_prev = human_user_uid_list
-        users_data_rows_prev = users_data_rows
+        deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(human_user_uid_list, self.human_user_uid_list_prev)
+        Common.update_treestore_rows(rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, human_user_uid_list, self.human_user_uid_list_prev, 0)
+        Common.searchentry_update_placeholder_text()
+
+        self.human_user_uid_list_prev = human_user_uid_list
+        self.tab_data_rows_prev = tab_data_rows
         self.treeview_columns_shown_prev = treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
         self.data_row_sorting_order_prev = self.data_row_sorting_order
         self.data_column_order_prev = self.data_column_order
         self.data_column_widths_prev = self.data_column_widths
-
-        self.users_data_rows = users_data_rows
-        self.human_user_uid_list = human_user_uid_list
-
-        # Show number of users on the searchentry as placeholder text
-        self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Users") + ": " + str(len(human_user_uid_list)) + ")"
 
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

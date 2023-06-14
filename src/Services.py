@@ -352,7 +352,7 @@ class Services:
         if treeiter == None:
             return
         try:
-            self.selected_service_name = self.service_list[self.services_data_rows.index(model[treeiter][:])]
+            self.selected_service_name = self.service_list[self.tab_data_rows.index(model[treeiter][:])]
         except ValueError:
             return
 
@@ -403,8 +403,7 @@ class Services:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        global row_data_list
-        row_data_list = [
+        self.row_data_list = [
                              [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
                              [1, _tr('State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
                              [2, _tr('Main PID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
@@ -415,16 +414,12 @@ class Services:
                              [7, _tr('Description'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
                              ]
 
-        self.row_data_list = row_data_list
-
         # Define data unit conversion function objects in for lower CPU usage.
         global performance_data_unit_converter_func
         performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
 
-
-        global services_data_rows_prev, service_list_prev
-        services_data_rows_prev = []
-        service_list_prev = []
+        self.tab_data_rows_prev = []
+        self.service_list_prev = []
         self.piter_list = []
         self.treeview_columns_shown_prev = []
         self.data_row_sorting_column_prev = ""
@@ -432,13 +427,10 @@ class Services:
         self.data_column_order_prev = []
         self.data_column_widths_prev = []
 
-        global services_image
-        services_image = "system-monitoring-center-services-symbolic"                             # Will be used as image of the services
+        service_state_translation_list = [_tr("Enabled"), _tr("Disabled"), _tr("Masked"), _tr("Unmasked"), _tr("Static"), _tr("Generated"), _tr("Enabled-runtime"), _tr("Indirect"), _tr("Active"), _tr("Inactive"), _tr("Loaded"), _tr("Dead"), _tr("Exited"), _tr("Running")]
+        services_other_text_translation_list = [_tr("Yes"), _tr("No")]
 
-        service_state_list = [_tr("Enabled"), _tr("Disabled"), _tr("Masked"), _tr("Unmasked"), _tr("Static"), _tr("Generated"), _tr("Enabled-runtime"), _tr("Indirect"), _tr("Active"), _tr("Inactive"), _tr("Loaded"), _tr("Dead"), _tr("Exited"), _tr("Running")]    # This list is defined in order to make English service state names to be translated into other languages. String names are capitalized here as they are capitalized in the code by using ".capitalize()" in order to use translated strings.
-        services_other_text_list = [_tr("Yes"), _tr("No")]                                        # This list is defined in order to make English service information to be translated into other languages.
-
-        self.filter_column = row_data_list[0][2] - 1                                              # Search filter is "Service Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+        self.filter_column = self.row_data_list[0][2] - 1
 
         self.initial_already_run = 1
 
@@ -462,19 +454,14 @@ class Services:
         services_memory_data_unit = Config.services_memory_data_unit
 
         # Define global variables and get treeview columns, sort column/order, column widths, etc.
-        global treeview_columns_shown
-        treeview_columns_shown = Config.services_treeview_columns_shown
+        self.treeview_columns_shown = Config.services_treeview_columns_shown
         self.data_row_sorting_column = Config.services_data_row_sorting_column
         self.data_row_sorting_order = Config.services_data_row_sorting_order
         self.data_column_order = Config.services_data_column_order
         self.data_column_widths = Config.services_data_column_widths
-        self.treeview_columns_shown = treeview_columns_shown
-
-        # Get service file names and define global variables and empty lists for the current loop
-        global services_data_rows, services_data_rows_prev, service_list, service_list_prev, service_loaded_not_loaded_list
-        services_data_rows = []
-        service_list = []
-        service_loaded_not_loaded_list = []
+        # For obtaining lower CPU usage
+        treeview_columns_shown = self.treeview_columns_shown
+        treeview_columns_shown = set(treeview_columns_shown)
 
         # Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories. But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
         # There is no "/usr/lib/systemd/system/" on some ARM systems (and also on older distributions) and "/lib/systemd/system/" is used in this case. On newer distributions "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
@@ -527,6 +514,7 @@ class Services:
                     service_unit_file_list.remove(file)
 
         # Get all service names (joining service names from "systemctl list-unit-files ..." and "systemctl list-units ..."). Some services are run multiple times. For example there is one instance of "user@.service" from ""systemctl list-unit-files ..." command but there are two loaded services (user@1000.service and user@1001.service) per logged in user. There are several examples for this situation. "user@.service" is removed from list, "user@1000.service" and "user@1001.service" appended into list for getting information for all services correctly.
+        service_list = []
         for service_unit_file in service_unit_file_list:
             if "@" not in service_unit_file:
                 service_list.append(service_unit_file)
@@ -581,36 +569,33 @@ class Services:
             systemctl_show_command_lines = ServicesGetMultProc.start_processes_func(number_of_logical_cores, unit_files_command)
 
         # Get services data (specific information by processing the data get previously)
+        tab_data_rows = []
         for i, service in enumerate(service_list):
             systemctl_show_command_lines_split = systemctl_show_command_lines[i]
             # Get service "loaded/not loaded" status. This data will be used for filtering (search, etc.) services.
             service_load_state = "-"                                                              # Initial value of "service_load_state" variable. This value will be used if "service_load_state" could not be detected.
             service_load_state = systemctl_show_command_lines_split.split("LoadState=", 1)[1].split("\n", 1)[0].capitalize()
-            if service_load_state == "Loaded":
-                service_loaded_not_loaded_list.append(True)
-            else:
-                service_loaded_not_loaded_list.append(False)
-            # Append service icon and service name
-            services_data_row = [True, services_image, service]                                   # Service visibility data (on treeview) which is used for showing/hiding service when services in specific type (enabled/disabled) is preferred to be shown or service search feature is used from the GUI.
+            # Append service image and service name
+            tab_data_row = [True, "system-monitoring-center-services-symbolic", service]
             # Append service unit file state
             if 1 in treeview_columns_shown:
                 service_state = _tr(systemctl_show_command_lines_split.split("UnitFileState=", 1)[1].split("\n", 1)[0].capitalize())    # "_tr([value])" is used for using translated string.
-                services_data_row.append(service_state)
+                tab_data_row.append(service_state)
             # Append service main PID
             if 2 in treeview_columns_shown:
                 service_main_pid = int(systemctl_show_command_lines_split.split("MainPID=", 1)[1].split("\n", 1)[0].capitalize())
-                services_data_row.append(service_main_pid)
+                tab_data_row.append(service_main_pid)
             # Append service active state
             if 3 in treeview_columns_shown:
                 service_active_state = _tr(systemctl_show_command_lines_split.split("ActiveState=", 1)[1].split("\n", 1)[0].capitalize())
-                services_data_row.append(service_active_state)
+                tab_data_row.append(service_active_state)
             # Append service load state (it has been get previously)
             if 4 in treeview_columns_shown:
-                services_data_row.append(_tr(service_load_state))
+                tab_data_row.append(_tr(service_load_state))
             # Append service substate
             if 5 in treeview_columns_shown:
                 service_sub_state = _tr(systemctl_show_command_lines_split.split("SubState=", 1)[1].split("\n", 1)[0].capitalize())
-                services_data_row.append(service_sub_state)
+                tab_data_row.append(service_sub_state)
             # Append service current memory
             if 6 in treeview_columns_shown:
                 service_memory_current = systemctl_show_command_lines_split.split("MemoryCurrent=", 1)[1].split("\n", 1)[0].capitalize()
@@ -618,59 +603,39 @@ class Services:
                     service_memory_current = -9999                                                # "-9999" value is used as "service_memory_current" value if memory value is get as "[not set]". Code will recognize this value and show "-" information in this situation. This negative integer value is used instead of string value because this data colmn of the treestore is an integer typed column.
                 else:
                     service_memory_current = int(service_memory_current)
-                services_data_row.append(service_memory_current)
+                tab_data_row.append(service_memory_current)
             # Append service description
             if 7 in treeview_columns_shown:
                 service_description = systemctl_show_command_lines_split.split("Description=", 1)[1].split("\n", 1)[0].capitalize()
-                services_data_row.append(service_description)
+                tab_data_row.append(service_description)
             # Append all data of the services into a list which will be appended into a treestore for showing the data on a treeview.
-            services_data_rows.append(services_data_row)
+            tab_data_rows.append(tab_data_row)
+
+        self.tab_data_rows = tab_data_rows
+        self.service_list = service_list
 
         reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
         if reset_row_unique_data_list_prev == "yes":
-            service_list_prev = []
+            self.service_list_prev = []
         Common.treeview_reorder_columns_sort_rows_set_column_widths()
 
-        # Get new/deleted(ended) services for updating treestore/treeview
-        service_list_prev_set = set(service_list_prev)
-        service_list_set = set(service_list)
-        deleted_services = sorted(list(service_list_prev_set - service_list_set))
-        new_services = sorted(list(service_list_set - service_list_prev_set))
-        existing_services = sorted(list(service_list_set.intersection(service_list_prev)))
-        updated_existing_services_index = [[service_list.index(i), service_list_prev.index(i)] for i in existing_services]
-        services_data_rows_row_length = len(services_data_rows[0])
+        rows_data_dict = {}
 
-        # Append/Remove/Update services data into treestore
-        global service_search_text
-        if len(self.piter_list) > 0:
-            for i, j in updated_existing_services_index:
-                if services_data_rows[i] != services_data_rows_prev[j]:
-                    for k in range(1, services_data_rows_row_length):                             # Start from "1" in order to set first element (treeview row visibility data) as "True" in every loop.
-                        if services_data_rows_prev[j][k] != services_data_rows[i][k]:
-                            self.treestore.set_value(self.piter_list[j], k, services_data_rows[i][k])
-        if len(deleted_services) > 0:
-            for service in reversed(sorted(list(deleted_services))):
-                self.treestore.remove(self.piter_list[service_list_prev.index(service)])
-                self.piter_list.remove(self.piter_list[service_list_prev.index(service)])
-            self.on_searchentry_changed(self.searchentry)                                         # Update search results.
-        if len(new_services) > 0:
-            for service in new_services:
-                self.piter_list.insert(service_list.index(service), self.treestore.insert(None, service_list.index(service), services_data_rows[service_list.index(service)]))    # "insert" have to be used for appending element into both "self.piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of ".service" file names (this sorting is performed for getting list differences).
-            self.on_searchentry_changed(self.searchentry)                                         # Update search results.
+        # Prevent errors if no rows are found.
+        if len(tab_data_rows[0]) == 0:
+            return
 
-        service_list_prev = service_list                                                          # For using values in the next loop
-        services_data_rows_prev = services_data_rows
+        deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(service_list, self.service_list_prev)
+        Common.update_treestore_rows(rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, service_list, self.service_list_prev, 0)
+        Common.searchentry_update_placeholder_text()
+
+        self.service_list_prev = service_list                                                          # For using values in the next loop
+        self.tab_data_rows_prev = tab_data_rows
         self.treeview_columns_shown_prev = treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
         self.data_row_sorting_order_prev = self.data_row_sorting_order
         self.data_column_order_prev = self.data_column_order
         self.data_column_widths_prev = self.data_column_widths
-
-        self.services_data_rows = services_data_rows
-        self.service_list = service_list
-
-        # Show number of services on the searchentry as placeholder text
-        self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Services") + ": " + str(len(service_loaded_not_loaded_list)) + ")"
 
 
 # ----------------------------------- Services - Treeview Cell Functions -----------------------------------

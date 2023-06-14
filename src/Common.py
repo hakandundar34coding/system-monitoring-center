@@ -883,6 +883,28 @@ def searchentry_grab_focus(action, parameter):
     searchentry.grab_focus()
 
 
+def searchentry_update_placeholder_text():
+    """
+    Update placeholder text (row count) on SearchEntry.
+    """
+
+    TabObject = get_tab_object()
+    searchentry = TabObject.searchentry
+    tab_data_rows = TabObject.tab_data_rows
+
+    # Get row type
+    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
+        row_type = _tr("Sensors")
+    elif Config.current_main_tab == 1:
+        row_type = _tr("Processes")
+    elif Config.current_main_tab == 2:
+        row_type = _tr("Users")
+    elif Config.current_main_tab == 3:
+        row_type = _tr("Services")
+
+    searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + row_type + ": " + str(len(tab_data_rows)) + ")"
+
+
 def checkbutton(text, group_cb):
     """
     Generate CheckButton or RadioButton.
@@ -992,6 +1014,73 @@ def treeview_add_remove_columns():
         reset_row_unique_data_list_prev = "yes"                                     # For redefining (clear) "pid_list_prev, human_user_uid_list_prev, service_list_prev" lists. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
 
     return reset_row_unique_data_list_prev
+
+
+def get_new_deleted_updated_rows(row_id_list, row_id_list_prev):
+    """
+    Get new/deleted/updated rows for updating treestore/treeview.
+    """
+
+    row_id_list_prev_set = set(row_id_list_prev)
+    row_id_list_set = set(row_id_list)
+    deleted_rows = sorted(list(row_id_list_prev_set - row_id_list_set))
+    new_rows = sorted(list(row_id_list_set - row_id_list_prev_set))
+    existing_rows = sorted(list(row_id_list_set.intersection(row_id_list_prev)))
+    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
+    updated_existing_row_index = [[row_id_list.index(i), row_id_list_prev.index(i)] for i in existing_rows]
+
+    return deleted_rows, new_rows, updated_existing_row_index
+
+
+def update_treestore_rows(rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, row_id_list, row_id_list_prev, show_rows_as_tree=0):
+    """
+    Add/Remove/Update treestore rows.
+    """
+
+    TabObject = get_tab_object()
+    treestore = TabObject.treestore
+    piter_list = TabObject.piter_list
+    searchentry = TabObject.searchentry
+    on_searchentry_changed = TabObject.on_searchentry_changed
+    tab_data_rows = TabObject.tab_data_rows
+    tab_data_rows_prev = TabObject.tab_data_rows_prev
+
+    if Config.current_main_tab == 1:
+        show_processes_of_all_users = TabObject.show_processes_of_all_users
+
+    tab_data_rows_row_length = len(tab_data_rows[0])
+    if len(piter_list) > 0:
+        for i, j in updated_existing_row_index:
+            if tab_data_rows[i] != tab_data_rows_prev[j]:
+                # Start from "1" in order to set first element (treeview row visibility data) as "True" in every loop.
+                for k in range(1, tab_data_rows_row_length):
+                    if tab_data_rows_prev[j][k] != tab_data_rows[i][k]:
+                        treestore.set_value(piter_list[j], k, tab_data_rows[i][k])
+    if len(deleted_rows) > 0:
+        for row in reversed(sorted(list(deleted_rows))):
+            treestore.remove(piter_list[row_id_list_prev.index(row)])
+            piter_list.remove(piter_list[row_id_list_prev.index(row)])
+        # Update search results
+        on_searchentry_changed(searchentry)
+    if len(new_rows) > 0:
+        for row in new_rows:
+            pid_index = row_id_list.index(row)
+            if show_rows_as_tree == 1:
+                row_data_dict = rows_data_dict[row]
+                parent_row = row_data_dict["ppid"]
+                if parent_row == 0:                                                           # Row ppid was set as "0" if it has no parent row. Row is set as tree root (this root has no relationship between root user) row if it has no ppid (parent row). Treeview tree indentation is first level for the tree root row.
+                    piter_list.append(treestore.append(None, tab_data_rows[pid_index]))
+                else:
+                    if show_processes_of_all_users == 1:                                      # Row appended under tree root row or another row if "Show [ROWS] as tree" option is preferred.
+                        piter_list.append(treestore.append(piter_list[row_id_list.index(parent_row)], tab_data_rows[pid_index]))
+                    if show_processes_of_all_users == 0 and parent_row not in row_id_list:    # Row is appended into treeview as tree root row if "Show [ROWS] of all users" is not preferred and row ppid not in row_id_list.
+                        piter_list.append(treestore.append(None, tab_data_rows[pid_index]))
+                    if show_processes_of_all_users == 0 and parent_row in row_id_list:        # Row is appended into treeview under tree root row or another row if "Show [ROWS] of all users" is preferred and row ppid is in row_id_list.
+                        piter_list.append(treestore.append(piter_list[row_id_list.index(parent_row)], tab_data_rows[pid_index]))
+            else:                                                                             # All rows are appended into treeview as tree root row if "Show [ROWS] as tree" is not preferred. Thus rows are listed as list structure instead of tree structure.
+                piter_list.insert(pid_index, treestore.insert(None, pid_index, tab_data_rows[pid_index]))
+        # Update search results
+        on_searchentry_changed(searchentry)
 
 
 def treeview_reorder_columns_sort_rows_set_column_widths():

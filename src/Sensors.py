@@ -105,31 +105,29 @@ class Sensors:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        global row_data_list
-        row_data_list = [
-                        [0, _tr('Device'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
-                        [1, _tr('Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                        [2, _tr('Current Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [3, _tr('High'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                        [4, _tr('Critical'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']]
-                        ]
+        self.row_data_list = [
+                             [0, _tr('Device'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
+                             [1, _tr('Name'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
+                             [2, _tr('Current Value'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [3, _tr('High'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
+                             [4, _tr('Critical'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']]
+                             ]
 
-        self.row_data_list = row_data_list
-
-        global sensors_data_rows_prev
-        sensors_data_rows_prev = []
+        self.tab_data_rows_prev = []
         self.treeview_columns_shown_prev = []
         self.data_row_sorting_column_prev = ""
         self.data_row_sorting_order_prev = ""
         self.data_column_order_prev = []
         self.data_column_widths_prev = []
 
+        self.supported_sensor_attributes = ["temp", "fan", "in", "curr", "power"]
+
         global temperature_sensor_icon_name, fan_sensor_icon_name, voltage_current_power_sensor_icon_name
         temperature_sensor_icon_name = "system-monitoring-center-temperature-symbolic"
         fan_sensor_icon_name = "system-monitoring-center-fan-symbolic"
         voltage_current_power_sensor_icon_name = "system-monitoring-center-voltage-symbolic"
 
-        self.filter_column = row_data_list[0][2] - 1                                               # Search filter is "Sensor Group". "-1" is used because "row_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
+        self.filter_column = self.row_data_list[0][2] - 1
 
         self.initial_already_run = 1
 
@@ -142,26 +140,22 @@ class Sensors:
         update_interval = Config.update_interval
 
         # Define global variables and get treeview columns, sort column/order, column widths, etc.
-        global treeview_columns_shown
-        treeview_columns_shown = Config.sensors_treeview_columns_shown
+        self.treeview_columns_shown = Config.sensors_treeview_columns_shown
         self.data_row_sorting_column = Config.sensors_data_row_sorting_column
         self.data_row_sorting_order = Config.sensors_data_row_sorting_order
         self.data_column_order = Config.sensors_data_column_order
         self.data_column_widths = Config.sensors_data_column_widths
-        self.treeview_columns_shown = treeview_columns_shown
-
-        # Define global variables and empty lists for the current loop
-        global sensors_data_rows, sensor_type_list
-        sensors_data_rows = []
-        sensor_type_list = []
-        supported_sensor_attributes = ["temp", "fan", "in", "curr", "power"]
+        # For obtaining lower CPU usage
+        treeview_columns_shown = self.treeview_columns_shown
+        treeview_columns_shown = set(treeview_columns_shown)
 
         # Get sensor data
+        tab_data_rows = []
         sensor_groups = sorted(os.listdir("/sys/class/hwmon/"))                                   # Get sensor group names. In some sensor directories there are a name file and multiple label files. For example, name: "coretemp", label: "Core 0", "Core 1", ... For easier grouping and understanding name is used as "Sensor Group" name and labels are used as "Sensor" names.
         sensor_group_names = []
         for sensor_group in sensor_groups:
             files_in_sensor_group = os.listdir("/sys/class/hwmon/" + sensor_group)
-            for attribute in supported_sensor_attributes:
+            for attribute in self.supported_sensor_attributes:
                 sensor_number = 0
                 while True:                                                                       # Continue loop until code breaks it when next sensor data is not available in the folder.
                     string_sensor_number = str(sensor_number)                                     # Convert integer value to string value in order to reduce CPU usage. Because this value is used multiple times.
@@ -245,13 +239,14 @@ class Sensors:
                         critical_value = "-"
 
 
-                    sensor_type_list.append(sensor_type)                                          # Append sensor type. This information will be used for filtering sensors by type when "Show all temperature/fan/voltage and current sensors" radiobuttons are clicked.
-                    sensors_data_row = [True, sensor_type, sensor_group_name, sensor_name, current_value, max_value, critical_value]    # Append sensor visibility data (on treeview) which is used for showing/hiding sensor when sensor data of specific sensor type (temperature or fan sensor) is preferred to be shown or sensor search feature is used from the GUI.
+                    tab_data_row = [True, sensor_type, sensor_group_name, sensor_name, current_value, max_value, critical_value]    # Append sensor visibility data (on treeview) which is used for showing/hiding sensor when sensor data of specific sensor type (temperature or fan sensor) is preferred to be shown or sensor search feature is used from the GUI.
 
                     # Append sensor data list into main list
-                    sensors_data_rows.append(sensors_data_row)
+                    tab_data_rows.append(tab_data_row)
 
                     sensor_number = sensor_number + 1                                             # Increase sensor number by "1" in order to use this value for getting next file names of the sensor.
+
+        self.tab_data_rows = tab_data_rows
 
         reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
         Common.treeview_reorder_columns_sort_rows_set_column_widths()
@@ -259,19 +254,20 @@ class Sensors:
         # Clear piter_list and treestore because sensor data (new/removed) tracking is not performed. Because there may be same named sensors and tracking may not be successful while sensors have no unique identity (more computer examples are needed for understanding if sensors have unique information). PCI tree path could be get from sensor files but this may not be worth because code will be more complex and it may not be an exact solution for all sensors. Also CPU usage is very low (about 0.67-0.84%, tested on Core i7-2630QM 4-core notebook) even treestore is cleared and sensor data is appended from zero.
         self.piter_list = []
         self.treestore.clear()
+
         # Append sensor data into treeview
-        for sensors_data_row in sensors_data_rows:
-            self.piter_list.append(self.treestore.append(None, sensors_data_row))                       # All sensors are appended into treeview as tree root for listing sensor data as list (there is no tree view option for sensors tab).
-        self.on_searchentry_changed(self.searchentry)                                           # Update search results.
+        for tab_data_row in tab_data_rows:
+            self.piter_list.append(self.treestore.append(None, tab_data_row))
+        # Update search results.
+        self.on_searchentry_changed(self.searchentry)
+
+        Common.searchentry_update_placeholder_text()
 
         self.treeview_columns_shown_prev = treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
         self.data_row_sorting_order_prev = self.data_row_sorting_order
         self.data_column_order_prev = self.data_column_order
         self.data_column_widths_prev = self.data_column_widths
-
-        # Show number of sensors on the searchentry as placeholder text
-        self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Sensors") + ": " + str(len(sensor_type_list)) + ")"
 
 
 Sensors = Sensors()
