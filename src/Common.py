@@ -989,7 +989,7 @@ def treeview_add_remove_columns():
         treemodelsort = Gtk.TreeModelSort().new_with_model(treemodelfilter)
         treeview.set_model(treemodelsort)
         TabObject.piter_list = []
-        reset_row_unique_data_list_prev = "yes"                                     # For redefining (clear) "pid_list_prev, uid_username_list_prev, service_list_prev" lists. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
+        reset_row_unique_data_list_prev = "yes"                                     # For redefining (clear) "pid_list_prev, human_user_uid_list_prev, service_list_prev" lists. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
 
     return reset_row_unique_data_list_prev
 
@@ -1194,7 +1194,7 @@ def on_columns_changed(widget):
     treeview_column_order_width_row_sorting()
 
 
-def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", detailed_information="no", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+def processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", detail_level="medium", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
     """
     Get process information of all/specified processes.
     """
@@ -1220,7 +1220,7 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
 
     # Read information from procfs files. "/proc/[PID]/smaps" file is not read for all processes. Because reading and
     # processing "/proc/[PID]/smaps" file data for all processes (about 250 processes) requires nearly 1 second on a 4 core CPU (i7-2630QM).
-    cat_output_split, global_time, global_cpu_time_all = read_process_information(process_list, detailed_information)
+    cat_output_split, global_time, global_cpu_time_all = read_process_information(process_list, detail_level)
 
     # Define lists for getting process information from command output.
     processes_data_dict = {}
@@ -1247,9 +1247,11 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     cat_output_split_iter = iter(cat_output_split)
     for process_data_stat_statm_status in cat_output_split_iter:
         # Also get second part of the data of the current process.
-        process_data_io_cmdline = next(cat_output_split_iter)
-        # Also get third part of the data of the current process.
-        if detailed_information == "yes":
+        if detail_level == "medium":
+            process_data_io_cmdline = next(cat_output_split_iter)
+        # Also get second and third part of the data of the current process.
+        elif detail_level == "high":
+            process_data_io_cmdline = next(cat_output_split_iter)
             process_data_smaps = next(cat_output_split_iter)
 
         # Get process information from "/proc/[PID]/stat" file
@@ -1308,28 +1310,29 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
         memory = memory_rss - memory_shared
 
         # Get process information from "/proc/[PID]/io" and "/proc/[PID]/cmdline" files
-        if process_data_io_cmdline.startswith("rchar") == True:
-            try:
-                io_cmdline_files_split = process_data_io_cmdline.split("\n", 7)
-                cmdline_file = io_cmdline_files_split[-1]
-            except ValueError:
-                io_cmdline_files_split = process_data_io_cmdline.split("\n")
-                cmdline_file = ""
-            read_data = int(io_cmdline_files_split[4].split(":")[1])
-            written_data = int(io_cmdline_files_split[5].split(":")[1])
-        else:
-            read_data = 0
-            written_data = 0
-            cmdline_file = process_data_io_cmdline
-            io_cmdline_files_split = "-"
+        if detail_level == "medium" or detail_level == "high":
+            if process_data_io_cmdline.startswith("rchar") == True:
+                try:
+                    io_cmdline_files_split = process_data_io_cmdline.split("\n", 7)
+                    cmdline_file = io_cmdline_files_split[-1]
+                except ValueError:
+                    io_cmdline_files_split = process_data_io_cmdline.split("\n")
+                    cmdline_file = ""
+                read_data = int(io_cmdline_files_split[4].split(":")[1])
+                written_data = int(io_cmdline_files_split[5].split(":")[1])
+            else:
+                read_data = 0
+                written_data = 0
+                cmdline_file = process_data_io_cmdline
+                io_cmdline_files_split = "-"
 
-        # "cmdline" content may contain "\x00". They are replaced with " ". Otherwise, file content may be get as "".
-        command_line = cmdline_file.replace("\x00", " ")
-        if command_line == "":
-            command_line = f'[{name}]'
+            # "cmdline" content may contain "\x00". They are replaced with " ". Otherwise, file content may be get as "".
+            command_line = cmdline_file.replace("\x00", " ")
+            if command_line == "":
+                command_line = f'[{name}]'
 
-        # Get detailed process information from "/proc/[PID]/smaps" file and other files that are processed previously.
-        if detailed_information == "yes":
+        # Get process information from "/proc/[PID]/smaps" file and other files that are processed previously.
+        if detail_level == "high":
             # Get process USS (unique set size) memory and swap memory and convert them to bytes
             process_data_smaps_split = process_data_smaps.split("\n")
             private_clean = 0
@@ -1338,9 +1341,9 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
             for line in process_data_smaps_split:
                 if "Private_Clean:" in line:
                     private_clean = private_clean + int(line.split(":")[1].split()[0].strip())
-                if "Private_Dirty:" in line:
+                elif "Private_Dirty:" in line:
                     private_dirty = private_dirty + int(line.split(":")[1].split()[0].strip())
-                if line.startswith("Swap:"):
+                elif line.startswith("Swap:"):
                     memory_swap = memory_swap + int(line.split(":")[1].split()[0].strip())
             memory_uss = (private_clean + private_dirty) * 1024
             memory_swap = memory_swap * 1024
@@ -1376,13 +1379,14 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
         # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters
         # (it is counted as 15). "/proc/[PID]/cmdline" file is read and it is split by the last "/" character 
         # (not all process cmdlines have this) in order to obtain full process name.
-        process_name_from_status = name
-        if len(name) == 15:
-            name = command_line.split("/")[-1].split(" ")[0]
-            if name.startswith(process_name_from_status) == False:
-                name = command_line.split(" ")[0].split("/")[-1]
+        if detail_level == "medium" or detail_level == "high":
+            process_name_from_status = name
+            if len(name) == 15:
+                name = command_line.split("/")[-1].split(" ")[0]
                 if name.startswith(process_name_from_status) == False:
-                    name = process_name_from_status
+                    name = command_line.split(" ")[0].split("/")[-1]
+                    if name.startswith(process_name_from_status) == False:
+                        name = process_name_from_status
 
         # Get CPU usage by using CPU times
         process_cpu_time = cpu_time
@@ -1397,91 +1401,111 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
         cpu_usage = (process_cpu_time - process_cpu_time_prev) / (global_cpu_time_all - global_cpu_time_all_prev) * 100 / core_count_division_number
 
         # Get disk read speed and disk write speed
-        disk_read_write_data[pid] = (read_data, written_data)
-        try:
-            read_data_prev, written_data_prev = disk_read_write_data_prev[pid]
-            update_interval = global_time - global_time_prev
-        except (KeyError, NameError) as e:
-            # Make read_data_prev and written_data_prev equal to read_data for giving "0" disk read/write speed values
-            # if this is first loop of the process
-            read_data_prev = read_data
-            written_data_prev = written_data
-            update_interval = 1
-        read_speed = (read_data - read_data_prev) / update_interval
-        write_speed = (written_data - written_data_prev) / update_interval
+        if detail_level == "medium" or detail_level == "high":
+            disk_read_write_data[pid] = (read_data, written_data)
+            try:
+                read_data_prev, written_data_prev = disk_read_write_data_prev[pid]
+                update_interval = global_time - global_time_prev
+            except (KeyError, NameError) as e:
+                # Make read_data_prev and written_data_prev equal to read_data for giving "0" disk read/write speed values
+                # if this is first loop of the process
+                read_data_prev = read_data
+                written_data_prev = written_data
+                update_interval = 1
+            read_speed = (read_data - read_data_prev) / update_interval
+            write_speed = (written_data - written_data_prev) / update_interval
 
         pid_list.append(pid)
         ppid_list.append(ppid)
-        cmdline_list.append(command_line)
+        if detail_level == "medium" or detail_level == "high":
+            cmdline_list.append(command_line)
         username_list.append(username)
 
         # Add process data to a sub-dictionary
-        if detailed_information == "no":
+        if detail_level == "low":
             process_data_dict = {
-            "name" : name,
-            "username" : username,
-            "status" : status,
-            "cpu_time" : cpu_time,
-            "cpu_usage" : cpu_usage,
-            "memory_rss" : memory_rss,
-            "memory_vms" : memory_vms,
-            "memory_shared" : memory_shared,
-            "memory" : memory,
-            "read_data" : read_data,
-            "written_data" : written_data,
-            "read_speed" : read_speed,
-            "write_speed" : write_speed,
-            "nice" : nice,
-            "number_of_threads" : number_of_threads,
-            "ppid" : ppid,
-            "uid" : uid,
-            "gid" : gid,
-            "start_time" : start_time,
-            "command_line" : command_line
-            }
-        else:
+                                "name" : name,
+                                "username" : username,
+                                "status" : status,
+                                "cpu_time" : cpu_time,
+                                "cpu_usage" : cpu_usage,
+                                "memory_rss" : memory_rss,
+                                "memory_vms" : memory_vms,
+                                "memory_shared" : memory_shared,
+                                "memory" : memory,
+                                "nice" : nice,
+                                "number_of_threads" : number_of_threads,
+                                "ppid" : ppid,
+                                "uid" : uid,
+                                "gid" : gid,
+                                "start_time" : start_time,
+                                }
+        elif detail_level == "medium":
             process_data_dict = {
-            "name" : name,
-            "username" : username,
-            "status" : status,
-            "cpu_time" : cpu_time,
-            "cpu_usage" : cpu_usage,
-            "memory_rss" : memory_rss,
-            "memory_vms" : memory_vms,
-            "memory_shared" : memory_shared,
-            "memory" : memory,
-            "memory_uss" : memory_uss,
-            "memory_swap" : memory_swap,
-            "read_data" : read_data,
-            "written_data" : written_data,
-            "read_speed" : read_speed,
-            "write_speed" : write_speed,
-            "nice" : nice,
-            "number_of_threads" : number_of_threads,
-            "ppid" : ppid,
-            "uid" : uid,
-            "gid" : gid,
-            "start_time" : start_time,
-            "command_line" : command_line,
-            "memory_uss": memory_uss,
-            "memory_swap": memory_swap,
-            "cpu_time_user": cpu_time_user,
-            "cpu_time_kernel": cpu_time_kernel,
-            "cpu_time_children_user": cpu_time_children_user,
-            "cpu_time_children_kernel": cpu_time_children_kernel,
-            "cpu_time_io_wait": cpu_time_io_wait,
-            "cpu_numbers": cpu_numbers,
-            "uid_real" : uid_real,
-            "uid_effective" : uid_effective,
-            "uid_saved" : uid_saved,
-            "gid_real" : gid_real,
-            "gid_effective" : gid_effective,
-            "gid_saved" : gid_saved,
-            "ctx_switches_voluntary": ctx_switches_voluntary,
-            "ctx_switches_nonvoluntary": ctx_switches_nonvoluntary,
-            "read_count": read_count,
-            "write_count": write_count
-            }
+                                "name" : name,
+                                "username" : username,
+                                "status" : status,
+                                "cpu_time" : cpu_time,
+                                "cpu_usage" : cpu_usage,
+                                "memory_rss" : memory_rss,
+                                "memory_vms" : memory_vms,
+                                "memory_shared" : memory_shared,
+                                "memory" : memory,
+                                "read_data" : read_data,
+                                "written_data" : written_data,
+                                "read_speed" : read_speed,
+                                "write_speed" : write_speed,
+                                "nice" : nice,
+                                "number_of_threads" : number_of_threads,
+                                "ppid" : ppid,
+                                "uid" : uid,
+                                "gid" : gid,
+                                "start_time" : start_time,
+                                "command_line" : command_line
+                                }
+        elif detail_level == "high":
+            process_data_dict = {
+                                "name" : name,
+                                "username" : username,
+                                "status" : status,
+                                "cpu_time" : cpu_time,
+                                "cpu_usage" : cpu_usage,
+                                "memory_rss" : memory_rss,
+                                "memory_vms" : memory_vms,
+                                "memory_shared" : memory_shared,
+                                "memory" : memory,
+                                "memory_uss" : memory_uss,
+                                "memory_swap" : memory_swap,
+                                "read_data" : read_data,
+                                "written_data" : written_data,
+                                "read_speed" : read_speed,
+                                "write_speed" : write_speed,
+                                "nice" : nice,
+                                "number_of_threads" : number_of_threads,
+                                "ppid" : ppid,
+                                "uid" : uid,
+                                "gid" : gid,
+                                "start_time" : start_time,
+                                "command_line" : command_line,
+                                "memory_uss": memory_uss,
+                                "memory_swap": memory_swap,
+                                "cpu_time_user": cpu_time_user,
+                                "cpu_time_kernel": cpu_time_kernel,
+                                "cpu_time_children_user": cpu_time_children_user,
+                                "cpu_time_children_kernel": cpu_time_children_kernel,
+                                "cpu_time_io_wait": cpu_time_io_wait,
+                                "cpu_numbers": cpu_numbers,
+                                "uid_real" : uid_real,
+                                "uid_effective" : uid_effective,
+                                "uid_saved" : uid_saved,
+                                "gid_real" : gid_real,
+                                "gid_effective" : gid_effective,
+                                "gid_saved" : gid_saved,
+                                "ctx_switches_voluntary": ctx_switches_voluntary,
+                                "ctx_switches_nonvoluntary": ctx_switches_nonvoluntary,
+                                "read_count": read_count,
+                                "write_count": write_count
+                                }
 
         # Add process sub-dictionary to dictionary
         processes_data_dict[pid] = process_data_dict
@@ -1499,7 +1523,7 @@ def processes_information(process_list=[], processes_of_user="all", cpu_usage_di
     return processes_data_dict
 
 
-def read_process_information(process_list, detailed_information="no"):
+def read_process_information(process_list, detail_level="medium"):
     """
     Read information from procfs files.
     """
@@ -1526,28 +1550,38 @@ def read_process_information(process_list, detailed_information="no"):
     command_list.append('/proc/version')
     if environment_type == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
-    if detailed_information == "no":
+    if detail_level == "low":
         for pid in pid_list:
             command_list.extend((
-            f'/proc/{pid}/stat',
-            f'/proc/{pid}/statm',
-            f'/proc/{pid}/status',
-            '/proc/version',
-            f'/proc/{pid}/io',
-            f'/proc/{pid}/cmdline',
-            '/proc/version'))
-    if detailed_information == "yes":
+                                f'/proc/{pid}/stat',
+                                f'/proc/{pid}/statm',
+                                f'/proc/{pid}/status',
+                                '/proc/version'
+                                ))
+    elif detail_level == "medium":
         for pid in pid_list:
             command_list.extend((
-            f'/proc/{pid}/stat',
-            f'/proc/{pid}/statm',
-            f'/proc/{pid}/status',
-            '/proc/version',
-            f'/proc/{pid}/io',
-            f'/proc/{pid}/cmdline',
-            '/proc/version',
-            f'/proc/{pid}/smaps',
-            '/proc/version'))
+                                f'/proc/{pid}/stat',
+                                f'/proc/{pid}/statm',
+                                f'/proc/{pid}/status',
+                                '/proc/version',
+                                f'/proc/{pid}/io',
+                                f'/proc/{pid}/cmdline',
+                                '/proc/version'
+                                ))
+    elif detail_level == "high":
+        for pid in pid_list:
+            command_list.extend((
+                                f'/proc/{pid}/stat',
+                                f'/proc/{pid}/statm',
+                                f'/proc/{pid}/status',
+                                '/proc/version',
+                                f'/proc/{pid}/io',
+                                f'/proc/{pid}/cmdline',
+                                '/proc/version',
+                                f'/proc/{pid}/smaps',
+                                '/proc/version'
+                                ))
     # Get time just before "/proc/[PID]/stat" file is read in order to calculate an average value.
     time_before = time.time()
     #cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)).stdout.strip()
@@ -1678,6 +1712,218 @@ def get_username_uid_dict():
         username_uid_dict[int(line_splitted[2])] = line_splitted[0]
 
     return username_uid_dict
+
+
+def get_etc_passwd_dict():
+    """
+    Get username, UID, user full name, user termninal information from "/etc/passwd" file.
+    """
+
+    environment_type = environment_type_detection()
+
+    if environment_type == "flatpak":
+        with open("/var/run/host/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+    else:
+        with open("/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+
+    etc_passwd_dict = {}
+    for line in etc_passwd_lines:
+        line_split = line.split(":", 6)
+        uid = int(line_split[2])
+        etc_passwd_sub_dict = {
+                               "username" : line_split[0],
+                               "gid" : int(line_split[3]),
+                               "full_name" : line_split[4],
+                               "home_dir" : line_split[5],
+                               "terminal" : line_split[6]
+                               }
+        etc_passwd_dict[uid] = etc_passwd_sub_dict
+
+    return etc_passwd_dict
+
+
+def get_etc_group_dict():
+    """
+    Get user group name, GID information from "/etc/group" file.
+    """
+
+    environment_type = environment_type_detection()
+
+    if environment_type == "flatpak":
+        with open("/var/run/host/etc/group") as reader:
+            etc_group_lines = reader.read().strip().split("\n")
+    else:
+        with open("/etc/group") as reader:
+            etc_group_lines = reader.read().strip().split("\n")
+
+    etc_group_dict = {}
+    for line in etc_group_lines:
+        line_split = line.split(":", 3)
+        gid = int(line_split[2])
+        etc_group_sub_dict = {
+                             "user_group_name" : line_split[0]
+                             }
+        etc_group_dict[gid] = etc_group_sub_dict
+
+    return etc_group_dict
+
+
+def users_information(users_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+    """
+    Get user information of all/specified users.
+    """
+
+    process_list = []
+    processes_of_user = "all"
+    cpu_usage_divide_by_cores = "yes"
+    detail_level = "low"
+
+    # Define lists for getting user information from command output.
+    users_data_dict = {}
+    if users_data_dict_prev != {}:
+        uid_list_prev = users_data_dict_prev["uid_list"]
+        processes_data_dict_prev = users_data_dict_prev["processes_data_dict_prev"]
+        pid_list_prev = processes_data_dict_prev["pid_list"]
+        ppid_list_prev = processes_data_dict_prev["ppid_list"]
+        process_cpu_times_prev = processes_data_dict_prev["process_cpu_times"]
+        disk_read_write_data_prev = processes_data_dict_prev["disk_read_write_data"]
+        global_cpu_time_all_prev = processes_data_dict_prev["global_cpu_time_all"]
+        global_time_prev = processes_data_dict_prev["global_time"]
+    else:
+        uid_list_prev = []
+        processes_data_dict_prev = {}
+        pid_list_prev = []
+        ppid_list_prev = []
+        process_cpu_times_prev = {}
+        disk_read_write_data_prev = {}
+    uid_list = []
+    human_user_uid_list = []
+    pid_list = []
+    ppid_list = []
+    username_list = []
+    cmdline_list = []
+    process_cpu_times = {}
+    disk_read_write_data = {}
+
+    # Get process information fo getting logged in, CPU usage percentage, log in time and process count information.
+    processes_data_dict = processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, processes_data_dict_prev, system_boot_time, username_uid_dict)
+    processes_data_dict_prev = dict(processes_data_dict)
+
+    # Get user and user group information of all users
+    etc_passwd_dict = get_etc_passwd_dict()
+    etc_group_dict = get_etc_group_dict()
+
+    # Get logged in users list
+    logged_in_users_list = processes_data_dict["username_list"]
+
+    # Get UIDs, CPU usage percentages and start times of all processes
+    user_process_cpu_usage_start_time_dict = {}
+    for pid in processes_data_dict["pid_list"]:
+        process_data_dict = processes_data_dict[pid]
+        uid = process_data_dict["uid"]
+        uid_list.append(uid)
+        user_process_cpu_usage_start_time_sub_dict = {
+                                                     "uid" : uid,
+                                                     "cpu_usage" : process_data_dict["cpu_usage"],
+                                                     "start_time" : process_data_dict["start_time"]
+                                                     }
+        user_process_cpu_usage_start_time_dict[pid] = user_process_cpu_usage_start_time_sub_dict
+
+    # Get user information for all human users
+    for uid in etc_passwd_dict.keys():
+        etc_passwd_sub_dict = etc_passwd_dict[uid]
+        # Get information for only human users
+        if uid >= 1000 and uid != 65534:
+            human_user_uid_list.append(uid)
+            username = etc_passwd_sub_dict["username"]
+            if uid in uid_list:
+                logged_in = True
+            else:
+                logged_in = False
+            gid = etc_passwd_sub_dict["gid"]
+            group_name = etc_group_dict[gid]["user_group_name"]
+            full_name = etc_passwd_sub_dict["full_name"]
+            home_dir = etc_passwd_sub_dict["home_dir"]
+            terminal = etc_passwd_sub_dict["terminal"]
+
+            # Get user processes
+            cpu_usage_list = []
+            start_time_list = []
+            for pid in user_process_cpu_usage_start_time_dict:
+                user_process_cpu_usage_start_time_sub_dict = user_process_cpu_usage_start_time_dict[pid]
+                user_uid = user_process_cpu_usage_start_time_sub_dict["uid"]
+                if user_uid == uid:
+                    cpu_usage_list.append(user_process_cpu_usage_start_time_sub_dict["cpu_usage"])
+                    start_time_list.append(user_process_cpu_usage_start_time_sub_dict["start_time"])
+            if cpu_usage_list == []:
+                total_cpu_usage = 0
+            else:
+                total_cpu_usage = sum(cpu_usage_list)
+            if start_time_list == []:
+                log_in_time = 0
+            else:
+                log_in_time = min(start_time_list)
+            process_count = len(cpu_usage_list)
+
+            # Add user data to a sub-dictionary
+            user_data_dict = {
+                             "username" : username,
+                             "gid" : gid,
+                             "group_name" : group_name,
+                             "full_name" : full_name,
+                             "logged_in" : logged_in,
+                             "home_dir" : home_dir,
+                             "terminal" : terminal,
+                             "total_cpu_usage" : total_cpu_usage,
+                             "log_in_time" : log_in_time,
+                             "process_count" : process_count
+                             }
+
+            # Add user sub-dictionary to dictionary
+            users_data_dict[uid] = user_data_dict
+
+    # Add user related lists and variables for returning them for using them (for using some them as previous data in the next loop).
+    users_data_dict["uid_list"] = uid_list
+    users_data_dict["human_user_uid_list"] = human_user_uid_list
+    users_data_dict["processes_data_dict_prev"] = processes_data_dict_prev
+
+    return users_data_dict
+
+
+
+def users_groups_func():
+    """
+    Get users and user groups.
+    """
+
+    environment_type = environment_type_detection()
+
+    # Read all users
+    if environment_type == "flatpak":
+        with open("/var/run/host/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+    else:
+        with open("/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+
+    # Read all user groups
+    if environment_type == "flatpak":
+        with open("/var/run/host/etc/group") as reader:
+            etc_group_lines = reader.read().strip().split("\n")
+    else:
+        with open("/etc/group") as reader:
+            etc_group_lines = reader.read().strip().split("\n")
+
+    user_group_names = []
+    user_group_ids = []
+    for line in etc_group_lines:
+        line_split = line.split(":")
+        user_group_names.append(line_split[0])
+        user_group_ids.append(line_split[2])
+
+    return etc_passwd_lines, user_group_names, user_group_ids
 
 
 def environment_type_detection():

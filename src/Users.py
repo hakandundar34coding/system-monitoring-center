@@ -178,11 +178,10 @@ class Users:
         # Get right/double clicked user UID and user name
         if treeiter == None:
             return
-        global selected_user_uid, selected_username
         try:
-            selected_uid_username = self.uid_username_list[self.users_data_rows.index(model[treeiter][:])]
-            self.selected_user_uid = selected_uid_username[0]
-            self.selected_username = selected_uid_username[1]
+            row_index = self.users_data_rows.index(model[treeiter][:])
+            self.selected_user_uid = self.human_user_uid_list[row_index]
+            self.selected_username = self.users_data_rows[row_index][2]
         except ValueError:
             return
 
@@ -242,32 +241,20 @@ class Users:
         self.row_data_list = row_data_list
 
         global users_data_rows_prev
-        global pid_list_prev, global_process_cpu_times_prev, uid_username_list_prev
+        global human_user_uid_list_prev
         users_data_rows_prev = []
-        pid_list_prev = []
-        global_process_cpu_times_prev = []
-        uid_username_list_prev = []                                                               # For tracking new/removed (from treeview) user data rows
+        human_user_uid_list_prev = []
         self.treeview_columns_shown_prev = []
         self.data_row_sorting_column_prev = ""
         self.data_row_sorting_order_prev = ""
         self.data_column_order_prev = []
         self.data_column_widths_prev = []
 
-        global number_of_clock_ticks, system_boot_time
+        self.users_data_dict_prev = {}
 
-        number_of_clock_ticks = os.sysconf("SC_CLK_TCK")                                          # For many systems CPU ticks 100 times in a second. Wall clock time could be get if CPU times are multiplied with this value or vice versa.
+        self.system_boot_time = Common.get_system_boot_time()
 
-        # Get system boot time which will be used for obtaining user process start time
-        with open("/proc/stat") as reader:
-            stat_lines = reader.read().split("\n")
-        for line in stat_lines:
-            if "btime " in line:
-                system_boot_time = int(line.split()[1].strip())
-
-        self.filter_column = row_data_list[0][2] - 1                                                 # Search filter is "Process Name". "-1" is used because "processes_data_list" has internal column count and it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last internal column number for the relevant treeview column.
-
-        self.number_of_clock_ticks = number_of_clock_ticks
-        self.system_boot_time = system_boot_time
+        self.filter_column = row_data_list[0][2] - 1
 
         self.initial_already_run = 1
 
@@ -276,9 +263,6 @@ class Users:
         """
         Get and show information on the GUI on every loop.
         """
-
-        # Get GUI obejcts one time per floop instead of getting them multiple times
-        global users_treeview
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         global users_cpu_precision
@@ -294,161 +278,61 @@ class Users:
         self.treeview_columns_shown = treeview_columns_shown
 
         # Define global variables and empty lists for the current loop
-        global users_data_rows, users_data_rows_prev, global_process_cpu_times_prev, pid_list, pid_list_prev, uid_username_list_prev, uid_username_list
+        global users_data_rows, users_data_rows_prev, human_user_uid_list_prev, human_user_uid_list
         users_data_rows = []
-        global_process_cpu_times = []
-        uid_username_list = []                                                                    # For tracking new/removed user data rows. User UID and username information is appended per user. Because tracking only user UID and username may cause confusions. User UID may be given another user after a time if a user is deleted.
 
-        # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
-        number_of_logical_cores = Common.number_of_logical_cores()
+        # Get user information
+        users_data_dict = Common.users_information(self.users_data_dict_prev, self.system_boot_time)
+        self.users_data_dict_prev = dict(users_data_dict)
+        human_user_uid_list = users_data_dict["human_user_uid_list"]
 
-        # Get all users and user groups.
-        etc_passwd_lines, user_group_names, user_group_ids = self.users_groups_func()
+        # Get and append user data
+        for uid in human_user_uid_list:
+            user_data_dict = users_data_dict[uid]
+            username = user_data_dict["username"]
+            users_data_row = [True, "system-monitoring-center-user-symbolic", username]
+            if 1 in treeview_columns_shown:
+                users_data_row.append(user_data_dict["full_name"])
+            if 2 in treeview_columns_shown:
+                users_data_row.append(user_data_dict["logged_in"])
+            if 3 in treeview_columns_shown:
+                users_data_row.append(uid)
+            if 4 in treeview_columns_shown:
+                users_data_row.append(user_data_dict["gid"])
+            if 5 in treeview_columns_shown:
+                users_data_row.append(user_data_dict["process_count"])
+            if 6 in treeview_columns_shown:
+                users_data_row.append(user_data_dict["home_dir"])
+            if 7 in treeview_columns_shown:
+                users_data_row.append(user_data_dict["group_name"])
+            if 8 in treeview_columns_shown:
+                users_data_row.append(user_data_dict["terminal"])
+            if 9 in treeview_columns_shown:
+                users_data_row.append(user_data_dict["log_in_time"])
+            if 10 in treeview_columns_shown:
+                users_data_row.append(user_data_dict["total_cpu_usage"])
 
-        # Get all user process PIDs and elapsed times (seconds) since they are started.
-        command_list = ["ps", "--no-headers", "-eo", "pid,etimes,ruser"]
-        if Config.environment_type == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-        ps_output_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
-
-        # Get user process PIDs, logged in users and user start times.
-        pid_list = []
-        user_processes_start_times = []
-        logged_in_users_list = []
-        for line in ps_output_lines:
-            line_split = line.split()
-            pid_list.append(line_split[0])
-            user_processes_start_times.append(int(line_split[1]))
-            logged_in_users_list.append(line_split[-1])
-
-        # Get CPU usage percent of all processes
-        if 10 in treeview_columns_shown:
-            command_list = ["cat"]
-            if Config.environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
-            for pid in pid_list:
-                command_list.append("/proc/" + pid + "/stat")
-            cat_output_lines = (subprocess.run(command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)).stdout.decode().strip().split("\n")
-            global_cpu_time_all = time.time() * number_of_clock_ticks                             # global_cpu_time_all value is get just after "/proc/[PID]/stat file is get in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent.
-            all_process_cpu_usages = []
-            pid_list_from_stat = []
-            for line in cat_output_lines:
-                line_split = line.split()
-                process_pid = line_split[0]
-                pid_list_from_stat.append(process_pid)
-                process_cpu_time = int(line_split[-39]) + int(line_split[-38])                    # Get process cpu time in user mode (utime + stime)
-                global_process_cpu_times.append((global_cpu_time_all, process_cpu_time))          # While appending multiple elements into a list "append((value1, value2))" is faster than "append([value1, value2])".
-                try:                                                                              # It gives various errors (ValueError, IndexError, UnboundLocalError) if a new process is started, a new column is shown on the treeview, etc because previous CPU time values are not present in these situations. Following CPU time values are use in these situations.
-                    global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev[pid_list_prev.index(process_pid)]
-                except (ValueError, IndexError, UnboundLocalError) as me:
-                    process_cpu_time_prev = process_cpu_time                                      # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
-                    global_cpu_time_all_prev = global_process_cpu_times[-1][0] - 1                # Subtract "1" CPU time (a negligible value) if this is first loop of the process
-                process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
-                global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-                all_process_cpu_usages.append(process_cpu_time_difference / global_cpu_time_difference * 100 / number_of_logical_cores)
-            for pid in pid_list[:]:
-                index_to_remove = pid_list.index(pid)
-                if pid not in pid_list_from_stat:
-                    del pid_list[index_to_remove]
-                    del user_processes_start_times[index_to_remove]
-                    del logged_in_users_list[index_to_remove]
-                continue
-
-        # Get only logged in human user list.
-        user_logged_in_list = []
-        for line in etc_passwd_lines:
-            line_split = line.split(":")
-            username = line_split[0]
-            user_uid = line_split[2]
-            user_uid_int = int(user_uid)
-            if user_uid_int >= 1000 and user_uid_int != 65534:
-                if username in logged_in_users_list:
-                    user_logged_in_list.append(username)
-
-        # Get and append data per user.
-        for line in etc_passwd_lines:
-            line_split = line.split(":")
-            username = line_split[0]
-            user_uid = line_split[2]
-            user_gid = line_split[3]
-            user_uid_int = int(user_uid)
-            if user_uid_int >= 1000 and user_uid_int != 65534:                                    # Human users have UID bigger than 999 (1000 =< UID) and lower than 65534. 
-                uid_username_list.append([int(user_uid), username])                               # "user_uid" have to be appended as integer because sorting list of multiple elemented sub-list operation will be performed. "sorted(a_list, key=int)" could not be used in this situation.            
-                # Append row visibility data, username (username has been get previously) and image
-                users_data_row = [True, "system-monitoring-center-user-symbolic", username]                             # User data row visibility data (True/False) is always appended into the list. True is an initial value and it is modified later.
-                # Get user full name
-                if 1 in treeview_columns_shown:
-                    user_full_name = line_split[4]
-                    users_data_row.append(user_full_name)
-                # Get user logged in data (User logged in data has been get previously)
-                if 2 in treeview_columns_shown:
-                    if username in user_logged_in_list:
-                        users_data_row.append(True)
-                    else:
-                        users_data_row.append(False)
-                # Get user UID (UID value has been get previously)
-                if 3 in treeview_columns_shown:
-                    users_data_row.append(int(user_uid))
-                # Get user GID
-                if 4 in treeview_columns_shown:
-                    users_data_row.append(int(user_gid))
-                # Get user process count
-                if 5 in treeview_columns_shown:
-                    user_process_count = logged_in_users_list.count(username)
-                    users_data_row.append(user_process_count)
-                # Get user home directory
-                if 6 in treeview_columns_shown:
-                    user_home_dir = line_split[5]
-                    users_data_row.append(user_home_dir)
-                # Get user group
-                if 7 in treeview_columns_shown:
-                    user_group_name = user_group_names[user_group_ids.index(user_gid)]
-                    users_data_row.append(user_group_name)
-                # Get user terminal
-                if 8 in treeview_columns_shown:
-                    user_terminal = line_split[6]
-                    users_data_row.append(user_terminal)
-                # Get user process start time
-                if 9 in treeview_columns_shown:
-                    curent_user_process_start_time_list = []
-                    for pid in pid_list:
-                        if logged_in_users_list[pid_list.index(pid)] == username:
-                            curent_user_process_start_time_list.append(user_processes_start_times[pid_list.index(pid)])
-                    if curent_user_process_start_time_list == []:
-                        user_process_start_time = 0
-                    else:
-                        user_process_start_time = time.time() - max(curent_user_process_start_time_list)
-                    users_data_row.append(user_process_start_time)
-                # Get user processes CPU usage percentages
-                if 10 in treeview_columns_shown:
-                    user_users_cpu_percent = 0
-                    for pid in pid_list:
-                        if logged_in_users_list[pid_list.index(pid)] == username:
-                            user_users_cpu_percent = user_users_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
-                    users_data_row.append(user_users_cpu_percent)
-                # Append all data of the users into a list which will be appended into a treestore for showing the data on a treeview.
-                users_data_rows.append(users_data_row)
-        pid_list_prev = pid_list                                                                  # For using values in the next loop
-        global_process_cpu_times_prev = global_process_cpu_times                                  # For using values in the next loop
+            # Append user data into a list
+            users_data_rows.append(users_data_row)
 
         reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
         if reset_row_unique_data_list_prev == "yes":
-            uid_username_list_prev = []
+            human_user_uid_list_prev = []
         Common.treeview_reorder_columns_sort_rows_set_column_widths()
 
         # Get new/deleted(ended) users for updating treestore/treeview
-        uid_username_list_prev_set = set(tuple(i) for i in uid_username_list_prev)                # "set(a_list)" could not be used here because this list is a list of sub-lists. 
-        uid_username_list_set = set(tuple(i) for i in uid_username_list)                          # "set(a_list)" could not be used here because this list is a list of sub-lists. 
-        deleted_users = sorted(list(uid_username_list_prev_set - uid_username_list_set))          # For list of multiple elemented sub-lists, sorting is performed by using first elements of the sub-lists (For example: output of an sorted list = [[1, "b"], [2, "a"], [3, "c"]]).
-        new_users = sorted(list(uid_username_list_set - uid_username_list_prev_set))
-        existing_users = sorted(list(uid_username_list_set.intersection(uid_username_list_prev_set)))
-        updated_existing_user_index = [[uid_username_list.index(list(i)), uid_username_list_prev.index(list(i))] for i in existing_users]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
+        human_user_uid_list_prev_set = set(human_user_uid_list_prev)
+        human_user_uid_list_set = set(human_user_uid_list)
+        deleted_users = sorted(list(human_user_uid_list_prev_set - human_user_uid_list_set))
+        new_users = sorted(list(human_user_uid_list_set - human_user_uid_list_prev_set))
+        existing_users = sorted(list(human_user_uid_list_set.intersection(human_user_uid_list_prev_set)))
+        updated_existing_user_index = [[human_user_uid_list.index(i), human_user_uid_list_prev.index(i)] for i in existing_users]
         try:
             users_data_rows_row_length = len(users_data_rows[0])
-        # Prevent errors if there is no user account on the system. An user account may not be found on an OS if the OS is run from the installation disk without installation.
+        # Prevent errors if there is no user account on the system. An user account may not be found on an OS if the OS is run without installation.
         except IndexError:
             return
-        # Append/Remove/Update users data into treestore
+        # Append/Remove/Update users data to treestore
         global user_search_text
         if len(self.piter_list) > 0:
             for i, j in updated_existing_user_index:
@@ -458,15 +342,15 @@ class Users:
                             self.treestore.set_value(self.piter_list[j], k, users_data_rows[i][k])
         if len(deleted_users) > 0:
             for user in reversed(sorted(list(deleted_users))):
-                self.treestore.remove(self.piter_list[uid_username_list_prev.index(list(user))])        # ".index(list(user))" have to used with "list()" because it was converted into "set". This behavior is valid for list of multiple elemented sub-lists.
-                self.piter_list.remove(self.piter_list[uid_username_list_prev.index(list(user))])
+                self.treestore.remove(self.piter_list[human_user_uid_list_prev.index(user)])
+                self.piter_list.remove(self.piter_list[human_user_uid_list_prev.index(user)])
             self.on_searchentry_changed(self.searchentry)                                          # Update search results.
         if len(new_users) > 0:
             for i, user in enumerate(new_users):
-                self.piter_list.append(self.treestore.append(None, users_data_rows[uid_username_list.index(list(user))]))
+                self.piter_list.append(self.treestore.append(None, users_data_rows[human_user_uid_list.index(user)]))
             self.on_searchentry_changed(self.searchentry)                                          # Update search results.
 
-        uid_username_list_prev = uid_username_list
+        human_user_uid_list_prev = human_user_uid_list
         users_data_rows_prev = users_data_rows
         self.treeview_columns_shown_prev = treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
@@ -475,42 +359,10 @@ class Users:
         self.data_column_widths_prev = self.data_column_widths
 
         self.users_data_rows = users_data_rows
-        self.uid_username_list = uid_username_list
-        self.number_of_logical_cores = number_of_logical_cores
+        self.human_user_uid_list = human_user_uid_list
 
         # Show number of users on the searchentry as placeholder text
-        self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Users") + ": " + str(len(uid_username_list)) + ")"
-
-
-    def users_groups_func(self):
-        """
-        Get users and user groups.
-        """
-        
-        # Read all users
-        if Config.environment_type == "flatpak":
-            with open("/var/run/host/etc/passwd") as reader:
-                etc_passwd_lines = reader.read().strip().split("\n")
-        else:
-            with open("/etc/passwd") as reader:
-                etc_passwd_lines = reader.read().strip().split("\n")
-
-        # Read all user groups
-        if Config.environment_type == "flatpak":
-            with open("/var/run/host/etc/group") as reader:
-                etc_group_lines = reader.read().strip().split("\n")
-        else:
-            with open("/etc/group") as reader:
-                etc_group_lines = reader.read().strip().split("\n")
-
-        user_group_names = []
-        user_group_ids = []
-        for line in etc_group_lines:
-            line_split = line.split(":")
-            user_group_names.append(line_split[0])
-            user_group_ids.append(line_split[2])
-
-        return etc_passwd_lines, user_group_names, user_group_ids
+        self.searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + _tr("Users") + ": " + str(len(human_user_uid_list)) + ")"
 
 
 # ----------------------------------- Users - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------

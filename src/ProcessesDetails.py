@@ -852,8 +852,8 @@ class ProcessesDetails:
             cpu_usage_divide_by_cores = "yes"
         elif processes_cpu_divide_by_core == 0:
             cpu_usage_divide_by_cores = "no"
-        detailed_information = "yes"
-        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detailed_information, self.processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        detail_level = "high"
+        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         self.processes_data_dict_prev = dict(processes_data_dict)
 
         return processes_data_dict

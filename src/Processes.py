@@ -1002,8 +1002,7 @@ class Processes:
         self.data_column_order_prev = []
         self.data_column_widths_prev = []
 
-        global processes_data_dict_prev
-        processes_data_dict_prev = {}
+        self.processes_data_dict_prev = {}
 
         global number_of_clock_ticks, application_image_dict
         number_of_clock_ticks = Common.number_of_clock_ticks
@@ -1071,7 +1070,7 @@ class Processes:
         treeview_columns_shown = set(treeview_columns_shown)
 
         # Get process information
-        global processes_data_dict_prev, cmdline_list, application_image_dict
+        global cmdline_list, application_image_dict
         process_list = []
         if show_processes_of_all_users == 1:
             processes_of_user = "all"
@@ -1081,15 +1080,15 @@ class Processes:
             cpu_usage_divide_by_cores = "yes"
         elif processes_cpu_divide_by_core == 0:
             cpu_usage_divide_by_cores = "no"
-        detailed_information = "no"
-        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detailed_information, processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
-        processes_data_dict_prev = dict(processes_data_dict)
+        detail_level = "medium"
+        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        self.processes_data_dict_prev = dict(processes_data_dict)
         pid_list = processes_data_dict["pid_list"]
         ppid_list = processes_data_dict["ppid_list"]
         username_list = processes_data_dict["username_list"]
         cmdline_list = processes_data_dict["cmdline_list"]
 
-        # Get and append process data.
+        # Get and append process data
         for pid in pid_list:
             process_data_dict = processes_data_dict[pid]
             process_name = process_data_dict["name"]
@@ -1166,7 +1165,7 @@ class Processes:
                 if 20 in treeview_columns_shown:
                     processes_data_row.append(memory)
 
-            # Append process data into a list (processes_data_rows)
+            # Append process data into a list
             processes_data_rows.append(processes_data_row)
 
         # Remove first element (0) from "list_of_cell_coloring_data_lists" if data is appended to them.
@@ -1215,7 +1214,7 @@ class Processes:
         existing_processes = sorted(list(pid_list_set.intersection(pid_list_prev)))
         updated_existing_proc_index = [[pid_list.index(i), pid_list_prev.index(i)] for i in existing_processes]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
         processes_data_rows_row_length = len(processes_data_rows[0])
-        # Append/Remove/Update processes data into treestore
+        # Append/Remove/Update processes data to treestore
         if len(self.piter_list) > 0:
             for i, j in updated_existing_proc_index:
                 if processes_data_rows[i] != processes_data_rows_prev[j]:

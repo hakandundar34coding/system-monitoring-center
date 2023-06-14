@@ -637,7 +637,7 @@ class Services:
         deleted_services = sorted(list(service_list_prev_set - service_list_set))
         new_services = sorted(list(service_list_set - service_list_prev_set))
         existing_services = sorted(list(service_list_set.intersection(service_list_prev)))
-        updated_existing_services_index = [[service_list.index(i), service_list_prev.index(i)] for i in existing_services]    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
+        updated_existing_services_index = [[service_list.index(i), service_list_prev.index(i)] for i in existing_services]
         services_data_rows_row_length = len(services_data_rows[0])
 
         # Append/Remove/Update services data into treestore
@@ -652,11 +652,11 @@ class Services:
             for service in reversed(sorted(list(deleted_services))):
                 self.treestore.remove(self.piter_list[service_list_prev.index(service)])
                 self.piter_list.remove(self.piter_list[service_list_prev.index(service)])
-            self.on_searchentry_changed(self.searchentry)                                           # Update search results.
+            self.on_searchentry_changed(self.searchentry)                                         # Update search results.
         if len(new_services) > 0:
             for service in new_services:
                 self.piter_list.insert(service_list.index(service), self.treestore.insert(None, service_list.index(service), services_data_rows[service_list.index(service)]))    # "insert" have to be used for appending element into both "self.piter_list" and "treestore" in order to avoid data index problems which are caused by sorting of ".service" file names (this sorting is performed for getting list differences).
-            self.on_searchentry_changed(self.searchentry)                                           # Update search results.
+            self.on_searchentry_changed(self.searchentry)                                         # Update search results.
 
         service_list_prev = service_list                                                          # For using values in the next loop
         services_data_rows_prev = services_data_rows
