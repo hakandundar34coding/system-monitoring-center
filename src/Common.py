@@ -1981,7 +1981,6 @@ def users_information(users_data_dict_prev={}, system_boot_time=0, username_uid_
     return users_data_dict
 
 
-
 def users_groups_func():
     """
     Get users and user groups.
