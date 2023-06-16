@@ -2234,7 +2234,7 @@ def get_network_ssid(selected_network_card):
 
 def get_network_link_quality(selected_network_card, network_card_connected):
     """
-    Get network signal strength (link value).
+    Get network link quality.
     """
 
     network_link_quality = "-"

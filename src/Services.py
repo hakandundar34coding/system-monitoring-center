@@ -647,7 +647,7 @@ class Services:
         Common.update_treestore_rows(rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, service_list, self.service_list_prev, 0)
         Common.searchentry_update_placeholder_text()
 
-        self.service_list_prev = service_list                                                          # For using values in the next loop
+        self.service_list_prev = service_list
         self.tab_data_rows_prev = tab_data_rows
         self.treeview_columns_shown_prev = treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
