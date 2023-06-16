@@ -398,6 +398,8 @@ class Services:
         Refresh data on the tab.
         """
 
+        self.services_loop_run = 0
+
         self.services_loop_func()
 
 
@@ -447,6 +449,15 @@ class Services:
         if Config.init_system != "systemd":
             MainWindow.performance_tb.set_active(True)
             return
+
+        # Prevent running rest of the code if Services tab is opened again.
+        # Because running this function requires more than a few seconds on some systems.
+        try:
+            if self.services_loop_run == 1:
+                return
+        except AttributeError:
+            pass
+        self.services_loop_run = 1
 
         # Get GUI obejcts one time per floop instead of getting them multiple times
         global services_treeview
@@ -617,6 +628,9 @@ class Services:
 
         self.tab_data_rows = tab_data_rows
         self.service_list = service_list
+
+        # Convert set to list (it was set before getting process information)
+        treeview_columns_shown = sorted(list(treeview_columns_shown))
 
         reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
         if reset_row_unique_data_list_prev == "yes":

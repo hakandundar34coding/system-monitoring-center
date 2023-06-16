@@ -311,6 +311,9 @@ class Users:
         self.tab_data_rows = tab_data_rows
         self.human_user_uid_list = human_user_uid_list
 
+        # Convert set to list (it was set before getting process information)
+        treeview_columns_shown = sorted(list(treeview_columns_shown))
+
         reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
         if reset_row_unique_data_list_prev == "yes":
             self.human_user_uid_list_prev = []

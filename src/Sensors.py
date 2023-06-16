@@ -248,6 +248,9 @@ class Sensors:
 
         self.tab_data_rows = tab_data_rows
 
+        # Convert set to list (it was set before getting process information)
+        treeview_columns_shown = sorted(list(treeview_columns_shown))
+
         reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
         Common.treeview_reorder_columns_sort_rows_set_column_widths()
 
