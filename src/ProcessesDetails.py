@@ -13,6 +13,7 @@ from .Processes import Processes
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class ProcessesDetails:
@@ -648,7 +649,7 @@ class ProcessesDetails:
         self.process_disk_write_speed_list = [0] * chart_data_history
 
         # Get system boot time
-        self.system_boot_time = Common.get_system_boot_time()
+        self.system_boot_time = Libsysmon.get_system_boot_time()
 
         self.processes_data_dict_prev = {}
 
@@ -669,7 +670,7 @@ class ProcessesDetails:
         selected_process_pid = self.selected_process_pid
 
         # Get information
-        self.username_uid_dict = Common.get_username_uid_dict()
+        self.username_uid_dict = Libsysmon.get_username_uid_dict()
         processes_data_dict = self.get_process_detailed_information(selected_process_pid)
         try:
             process_data_dict = processes_data_dict[selected_process_pid]
@@ -853,7 +854,7 @@ class ProcessesDetails:
         elif processes_cpu_divide_by_core == 0:
             cpu_usage_divide_by_cores = "no"
         detail_level = "high"
-        processes_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        processes_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         self.processes_data_dict_prev = dict(processes_data_dict)
 
         return processes_data_dict
@@ -865,7 +866,7 @@ class ProcessesDetails:
         """
 
         # Generate command for getting file outputs.
-        if Config.environment_type == "flatpak":
+        if Libsysmon.get_environment_type() == "flatpak":
             command_list = ["flatpak-spawn", "--host", "ls"]
         else:
             command_list = ["ls"]
@@ -908,7 +909,7 @@ class ProcessesDetails:
         """
 
         command_list = ["readlink"]
-        if Config.environment_type == "flatpak":
+        if Libsysmon.get_environment_type() == "flatpak":
             command_list = ["flatpak-spawn", "--host"] + command_list
 
         # "/proc/self" folder will be used for splitting the "readlink" command output.
@@ -986,7 +987,7 @@ def process_details_show_process_details():
     """
 
     # Determine max. number of Process Details windows.
-    if Config.environment_type == "flatpak":
+    if Libsysmon.get_environment_type() == "flatpak":
         max_number_of_windows = 3
     else:
         max_number_of_windows = 8

@@ -4,7 +4,6 @@ gi.require_version('GLib', '2.0')
 from gi.repository import Gtk, GLib
 
 import os
-import subprocess
 
 from locale import gettext as _tr
 
@@ -12,6 +11,7 @@ from .Config import Config
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class Disk:
@@ -338,24 +338,22 @@ class Disk:
         # Get selected disk name and pci.ids file content
         selected_disk = self.selected_disk
 
-        disk_sector_size = Performance.disk_sector_size
-
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         performance_disk_data_precision = Config.performance_disk_data_precision
         performance_disk_data_unit = Config.performance_disk_data_unit
         disk_list = Performance.disk_list
 
         # Get information
-        disk_type = Disk.disk_type_func(selected_disk)
-        disk_parent_name = Disk.disk_parent_name_func(selected_disk, disk_type, disk_list)
-        disk_file_system_information = Disk.disk_file_system_information_func(disk_list)
-        disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point, encrypted_disk_name  = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
+        disk_type = Libsysmon.get_disk_type(selected_disk)
+        disk_parent_name = Libsysmon.get_disk_parent_name(selected_disk, disk_type, disk_list)
+        disk_file_system_information = Libsysmon.get_disk_file_system_information(disk_list)
+        disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point, encrypted_disk_name  = Libsysmon.get_disk_file_system_capacity_used_free_used_percent_mount_point(disk_file_system_information, disk_list, selected_disk)
         if disk_file_system  == "fuseblk":
-            disk_file_system = Disk.disk_file_system_fuseblk_func(selected_disk)
-        disk_if_system_disk = Disk.disk_if_system_disk_func(selected_disk)
-        disk_capacity_mass_storage = Disk.disk_capacity_mass_storage_func(selected_disk, disk_mount_point, disk_sector_size)
-        disk_device_model_name = Disk.disk_device_model_name_func(selected_disk, disk_type, disk_parent_name)
-        disk_label = Disk.disk_label_func(selected_disk)
+            disk_file_system = Libsysmon.get_disk_file_system_fuseblk(selected_disk)
+        disk_if_system_disk = Libsysmon.get_disk_if_system_disk(selected_disk, Performance.system_disk_list)
+        disk_capacity_mass_storage = Libsysmon.get_disk_capacity_mass_storage(selected_disk)
+        disk_device_model_name = Libsysmon.get_disk_device_model_name(selected_disk, disk_type, disk_parent_name)
+        disk_label = Libsysmon.get_disk_label(selected_disk)
 
         # Set Disk Details window title
         self.disk_details_window.set_title(_tr("Disk") + ": " + selected_disk)
@@ -415,16 +413,16 @@ class Disk:
             return
 
         # Get information.
-        disk_type = self.disk_type_func(selected_disk)
-        disk_parent_name = self.disk_parent_name_func(selected_disk, disk_type, disk_list)
-        disk_device_model_name = self.disk_device_model_name_func(selected_disk, disk_type, disk_parent_name)
-        if_system_disk = self.disk_if_system_disk_func(selected_disk)
+        disk_type = Libsysmon.get_disk_type(selected_disk)
+        disk_parent_name = Libsysmon.get_disk_parent_name(selected_disk, disk_type, disk_list)
+        disk_device_model_name = Libsysmon.get_disk_device_model_name(selected_disk, disk_type, disk_parent_name)
+        if_system_disk = Libsysmon.get_disk_if_system_disk(selected_disk, Performance.system_disk_list)
 
 
         # Show information on labels.
-        self.device_vendor_model_label.set_text(disk_device_model_name)
-        self.device_kernel_name_label.set_text(f'{selected_disk}  ({disk_type})')
-        self.system_disk_label.set_text(if_system_disk)
+        self.device_vendor_model_label.set_label(disk_device_model_name)
+        self.device_kernel_name_label.set_label(f'{selected_disk}  ({disk_type})')
+        self.system_disk_label.set_label(if_system_disk)
 
         self.initial_already_run = 1
 
@@ -436,7 +434,6 @@ class Disk:
 
         disk_list = Performance.disk_list
         selected_disk = Performance.selected_disk
-        disk_sector_size = Performance.disk_sector_size
 
         # Run "disk_initial_func" if selected disk is changed since the last loop.
         try:                                                                                      
@@ -478,7 +475,7 @@ class Disk:
         self.hide_loop_ramdisk_zram_disks_prev = hide_loop_ramdisk_zram_disks
 
         # Update disk usage percentages on disk list between Performance tab sub-tabs.
-        self.disk_update_disk_usage_percentages_on_disk_list_func()
+        self.get_disk_update_disk_usage_percentages_on_disk_list()
 
         # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
         try:
@@ -489,377 +486,26 @@ class Disk:
 
 
         # Get information.
-        disk_read_data, disk_write_data = self.disk_read_write_data_func(selected_disk)
-        disk_file_system_information = self.disk_file_system_information_func(disk_list)
-        disk_file_system, disk_capacity, disk_used, disk_free, self.disk_usage_percentage, disk_mount_point, encrypted_disk_name  = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_file_system_information, disk_list, selected_disk)
+        disk_read_data, disk_write_data = Libsysmon.get_disk_read_write_data(selected_disk)
+        disk_file_system_information = Libsysmon.get_disk_file_system_information(disk_list)
+        disk_file_system, disk_capacity, disk_used, disk_free, self.disk_usage_percentage, disk_mount_point, encrypted_disk_name  = Libsysmon.get_disk_file_system_capacity_used_free_used_percent_mount_point(disk_file_system_information, disk_list, selected_disk)
 
 
         # Show information on labels.
-        self.read_speed_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_read_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
-        self.write_speed_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_write_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
-        self.read_data_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
-        self.write_data_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
+        self.read_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_read_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.write_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_write_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.read_data_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
+        self.write_data_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
         if disk_mount_point != "-":
-            self.used_percent_label.set_text(f'{self.disk_usage_percentage:.0f}%')
+            self.used_percent_label.set_label(f'{self.disk_usage_percentage:.0f}%')
         if disk_mount_point == "-":
-            self.used_percent_label.set_text("-%")
-        self.free_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision))
-        self.used_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision))
-        self.capacity_label.set_text(Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision))
+            self.used_percent_label.set_label("-%")
+        self.free_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision))
+        self.used_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision))
+        self.capacity_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision))
 
 
-    def disk_type_func(self, selected_disk):
-        """
-        Get disk type (Disk or Partition).
-        """
-
-        with open("/sys/class/block/" + selected_disk + "/uevent") as reader:
-            sys_class_block_disk_uevent_lines = reader.read().split("\n")
-
-        for line in sys_class_block_disk_uevent_lines:
-            if "DEVTYPE" in line:
-                disk_type = _tr(line.split("=")[1].capitalize())
-                break
-
-        return disk_type
-
-
-    def disk_parent_name_func(self, selected_disk, disk_type, disk_list):
-        """
-        Get disk parent name.
-        """
-
-        disk_parent_name = "-"
-        if disk_type == _tr("Partition"):
-            for check_disk_dir in disk_list:
-                if os.path.isdir("/sys/class/block/" + check_disk_dir + "/" + selected_disk) == True:
-                    disk_parent_name = check_disk_dir
-
-        return disk_parent_name
-
-
-    def disk_device_model_name_func(self, selected_disk, disk_type, disk_parent_name):
-        """
-        Get disk vendor and model.
-        """
-
-        if disk_type == _tr("Disk"):
-            disk_or_parent_disk_name = selected_disk
-        if disk_type == _tr("Partition"):
-            disk_or_parent_disk_name = disk_parent_name
-
-        # Get disk vendor and model.
-        device_vendor_name = "-"
-        device_model_name = "-"
-        disk_device_model_name = "-"
-
-        # Get device vendor model if this is a NVMe SSD.
-        # These disks do not have "modalias" or "vendor" files under "/sys/class/block/" + selected_disk + "/device" directory.
-        if os.path.isdir("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/") == True:
-            try:
-                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/modalias") as reader:
-                    modalias_output = reader.read().strip()
-                device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
-            except (FileNotFoundError, NotADirectoryError) as me:
-                pass
-
-            if "-" not in [device_vendor_name, device_model_name] or "Unknown" not in [device_vendor_name, device_model_name]:
-                disk_device_model_name = f'{device_vendor_name} - {device_model_name}'
-
-            # Get device vendor-model if this is a NVMe SSD and vendor or model is not found in hardware database.
-            if "-" in [device_vendor_name, device_model_name] or "Unknown" in [device_vendor_name, device_model_name]:
-                device_vendor_name = "-"
-                device_model_name = "-"
-                try:
-                    with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
-                        device_model_name = reader.read().strip()
-                except (FileNotFoundError, NotADirectoryError) as me:
-                    pass
-
-                if device_model_name != "-":
-                    disk_device_model_name = device_model_name
-                else:
-                    device_vendor_name = "[" + _tr("Unknown") + "]"
-                    device_model_name = "[" + _tr("Unknown") + "]"
-                    disk_device_model_name = f'{device_vendor_name} - {device_model_name}'
-
-        # Get device vendor model if this is a SCSI, IDE or virtio device (on QEMU virtual machines).
-        if os.path.isdir("/sys/class/block/" + disk_or_parent_disk_name + "/device/device/") == False:
-            try:
-                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/modalias") as reader:
-                    modalias_output = reader.read().strip()
-                device_vendor_name, device_model_name, _, _ = Common.device_vendor_model(modalias_output)
-            except (FileNotFoundError, NotADirectoryError) as me:
-                pass
-
-            # Get device vendor model if this is a SCSI or IDE disk.
-            if device_vendor_name == "[scsi_or_ide_disk]":
-                try:
-                    with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/vendor") as reader:
-                        device_vendor_name = reader.read().strip()
-                except (FileNotFoundError, NotADirectoryError) as me:
-                    device_vendor_name = "Unknown"
-                try:
-                    with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/model") as reader:
-                        device_model_name = reader.read().strip()
-                except (FileNotFoundError, NotADirectoryError) as me:
-                    device_model_name = "Unknown"
-
-            if device_vendor_name == "Unknown":
-                device_vendor_name = "[" + _tr("Unknown") + "]"
-            if device_model_name == "Unknown":
-                device_model_name = "[" + _tr("Unknown") + "]"
-            disk_device_model_name = f'{device_vendor_name} - {device_model_name}'
-
-        # Get disk vendor and model if disk is loop device or swap disk.
-        if selected_disk.startswith("loop"):
-            disk_device_model_name = "[Loop Device]"
-        if selected_disk.startswith("zram"):
-            disk_device_model_name = "[" + "zram" + "]"
-            # zram disks may be used as swap disk, disk for temporary files (/tmp), etc.
-            # Check if disk name is in "/proc/swaps" file in order to determine if it is used as swap disk.
-            with open("/proc/swaps") as reader:
-                proc_swaps_lines = reader.read().split("\n")
-            # Delete header indormation which is get from "/proc/swaps" file.
-            del proc_swaps_lines[0]
-            for line in proc_swaps_lines:
-                if line.split()[0].split("/")[-1] == selected_disk:
-                    disk_device_model_name = "[" + "zram - " + _tr("Swap").upper() + "]"
-                    break
-        if selected_disk.startswith("ram"):
-            disk_device_model_name = "[Ramdisk]"
-        if selected_disk.startswith("dm-"):
-            disk_device_model_name = "[Device Mapper]"
-        if selected_disk.startswith("mmcblk"):
-            # Read database file for MMC disk register values. For more info about CIDs: https://www.kernel.org/doc/Documentation/mmc/mmc-dev-attrs.txt
-            with open(os.path.dirname(os.path.realpath(__file__)) + "/../database/sdcard.ids") as reader:
-                ids_file_output = reader.read().strip()
-            # Get device vendor, model names from device ID file content.
-            try:
-                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/manfid") as reader:
-                    disk_vendor_manfid = reader.read().strip()
-                search_text1 = "MANFID " + disk_vendor_manfid.split("0x", 1)[-1]
-                if search_text1 in ids_file_output:
-                    disk_vendor = ids_file_output.split(search_text1, 1)[1].split("\n", 1)[0].strip()
-                else:
-                    disk_vendor = "-"
-            except Exception:
-                disk_vendor = "-"
-            try:
-                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/name") as reader:
-                    disk_name = reader.read().strip()
-                disk_model = disk_name
-            except FileNotFoundError:
-                disk_model = "-"
-            try:
-                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/type") as reader:
-                    disk_card_type = reader.read().strip()
-            except FileNotFoundError:
-                disk_card_type = "-"
-            try:
-                with open("/sys/class/block/" + disk_or_parent_disk_name + "/device/speed_class") as reader:
-                    disk_card_speed_class = reader.read().strip()
-            except FileNotFoundError:
-                disk_card_speed_class = "-"
-            disk_device_model_name = f'{disk_vendor} - {disk_model} ({disk_card_type} Card, Class {disk_card_speed_class})'
-
-        return disk_device_model_name
-
-
-    def disk_file_system_information_func(self, disk_list):
-        """
-        Get file system information (file systems, capacities, used, free, used percentages and mount points) of all disks.
-        """
-
-        # Get file system information of the mounted disks by using "df" command.
-        # Online drives are excluded from "df" command output for avoiding long command runs and GUI blockings.
-        # Currently, "fuse.onedriver" filesystems (generated by Onedriver application) are excluded.
-        # More filesystems can be excluded by using the parameter multiple times (comma-separated filesystems
-        # for excluding are not supported by "df").
-        command_list = ["df", "--exclude-type=fuse.onedriver", "--output=source,fstype,size,used,avail,pcent,target"]
-        if Config.environment_type == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-
-        df_output_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
-
-        # Remove command output title line. Only disk information will be left.
-        del df_output_lines[0]
-
-        # Get mounted disk list.
-        mounted_disk_list = []
-        for line in df_output_lines:
-            disk_name = line.split()[0]
-            mounted_disk_list.append(disk_name.split("/dev/")[-1])
-
-        encrypted_disk_filesystem_information_dict = self.get_encrypted_disk_information(df_output_lines)
-        encrypted_disk_list = list(encrypted_disk_filesystem_information_dict.keys())
-
-        # Get file system information of the mounted and unmounted disks.
-        disk_filesystem_information_list = []
-        for disk in disk_list:
-            if disk in mounted_disk_list:
-                index = mounted_disk_list.index(disk)
-                disk_file_system = df_output_lines[index].split()[1]
-                disk_capacity = int(df_output_lines[index].split()[2]) * 1024
-                disk_used = int(df_output_lines[index].split()[3]) * 1024
-                disk_free = int(df_output_lines[index].split()[4]) * 1024
-                disk_used_percentage = int(df_output_lines[index].split()[5].strip("%"))
-                disk_mount_point = df_output_lines[index].split("% ", 1)[-1]
-                encrypted_disk_name = ""
-            elif disk in encrypted_disk_list:
-                disk_file_system = encrypted_disk_filesystem_information_dict[disk]["disk_file_system"]
-                disk_capacity = encrypted_disk_filesystem_information_dict[disk]["disk_capacity"]
-                disk_used = encrypted_disk_filesystem_information_dict[disk]["disk_used"]
-                disk_free = encrypted_disk_filesystem_information_dict[disk]["disk_free"]
-                disk_used_percentage = encrypted_disk_filesystem_information_dict[disk]["disk_used_percentage"]
-                disk_mount_point = encrypted_disk_filesystem_information_dict[disk]["disk_mount_point"]
-                encrypted_disk_name = encrypted_disk_filesystem_information_dict[disk]["encrypted_disk_name"]
-            else:
-                disk_file_system = "[" + _tr("Not mounted") + "]"
-                disk_capacity = "[" + _tr("Not mounted") + "]"
-                disk_used = "[" + _tr("Not mounted") + "]"
-                disk_free = "[" + _tr("Not mounted") + "]"
-                disk_used_percentage = 0
-                disk_mount_point = "[" + _tr("Not mounted") + "]"
-                encrypted_disk_name = ""
-            disk_filesystem_information_list.append([disk, disk_file_system, disk_capacity, disk_used, disk_free, disk_used_percentage, disk_mount_point, encrypted_disk_name])
-
-        return disk_filesystem_information_list
-
-
-    def get_encrypted_disk_information(self, df_output_lines):
-        """
-        Check if the selected disk is encrypted and get its file system information.
-        """
-
-        encrypted_disk_filesystem_information_dict = {}
-
-        for line in df_output_lines:
-            encrypted_disk_information = {}
-            disk_name = line.split()[0]
-            if disk_name.startswith("/dev/mapper/") == False:
-                continue
-            else:
-                encrypted_disk_name = disk_name.split("/dev/mapper/")[-1]
-                disk_file_system = line.split()[1]
-                disk_capacity = int(line.split()[2]) * 1024
-                disk_used = int(line.split()[3]) * 1024
-                disk_free = int(line.split()[4]) * 1024
-                disk_used_percentage = int(line.split()[5].strip("%"))
-                disk_mount_point = line.split("% ", 1)[-1]
-                encrypted_disk_information["encrypted_disk_name"] = encrypted_disk_name
-                encrypted_disk_information["disk_file_system"] = disk_file_system
-                encrypted_disk_information["disk_capacity"] = disk_capacity
-                encrypted_disk_information["disk_used"] = disk_used
-                encrypted_disk_information["disk_free"] = disk_free
-                encrypted_disk_information["disk_used_percentage"] = disk_used_percentage
-                encrypted_disk_information["disk_mount_point"] = disk_mount_point
-                # Get disk file in "/dev/mapper"
-                dev_mapper_disks = os.listdir("/dev/mapper/")
-                if encrypted_disk_name in dev_mapper_disks:
-                    if os.path.isdir("/dev/mapper/" + encrypted_disk_name) != True:
-                        disk_real_path = os.path.realpath("/dev/mapper/" + encrypted_disk_name)
-                        disk_proc_name = disk_real_path.split("/")[-1]
-                        encrypted_disk_filesystem_information_dict[disk_proc_name] = encrypted_disk_information
-
-        return encrypted_disk_filesystem_information_dict
-
-
-    def disk_file_system_capacity_used_free_used_percent_mount_point_func(self, disk_filesystem_information_list, disk_list, selected_disk):
-        """
-        Get file file systems, capacities, used, free, used percentages and mount points of all disks.
-        """
-
-        disk_index = disk_list.index(selected_disk)
-        disk_file_system = disk_filesystem_information_list[disk_index][1]
-        disk_capacity = disk_filesystem_information_list[disk_index][2]
-        disk_used = disk_filesystem_information_list[disk_index][3]
-        disk_free = disk_filesystem_information_list[disk_index][4]
-        disk_usage_percentage = disk_filesystem_information_list[disk_index][5]
-        disk_mount_point = disk_filesystem_information_list[disk_index][6]
-        encrypted_disk_name = disk_filesystem_information_list[disk_index][7]
-
-        return disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point, encrypted_disk_name
-
-
-    def disk_file_system_fuseblk_func(self, selected_disk):
-        """
-        Get disk file system if it is detected as 'fuseblk'.
-        """
-
-        # Try to get actual file system by using "lsblk" tool if file system
-        # has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts"
-        # file contains file system information as in user space. To be able to get the
-        # actual file system, root access is needed for reading from some files or 
-        # "lsblk" tool could be used.
-        disk_for_file_system = "/dev/" + selected_disk
-        command_list = ["lsblk", "-no", "FSTYPE", disk_for_file_system]
-        if Config.environment_type == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-        try:
-            disk_file_system = (subprocess.check_output(command_list, shell=False)).decode().strip()
-        except Exception:
-            disk_file_system = "fuseblk"
-
-        return disk_file_system
-
-
-    def disk_if_system_disk_func(self, selected_disk):
-        """
-        Get if system disk information.
-        """
-
-        if selected_disk in Performance.system_disk_list:
-            if_system_disk = _tr("Yes")
-        else:
-            if_system_disk = _tr("No")
-
-        return if_system_disk
-
-
-    def disk_read_write_data_func(self, selected_disk):
-        """
-        Get disk read data and disk write data.
-        """
-
-        disk_io = Performance.disk_io()
-
-        disk_read_data = disk_io[selected_disk]["read_bytes"]
-        disk_write_data = disk_io[selected_disk]["write_bytes"]
-
-        return disk_read_data, disk_write_data
-
-
-    def disk_capacity_mass_storage_func(self, selected_disk, disk_mount_point, disk_sector_size):
-        """
-        Get disk capacity (mass storage).
-        """
-
-        with open("/sys/class/block/" + selected_disk + "/size") as reader:
-            disk_capacity_mass_storage = int(reader.read()) * disk_sector_size
-
-        return disk_capacity_mass_storage
-
-
-    def disk_label_func(self, selected_disk):
-        """
-        Get disk label.
-        """
-
-        disk_label = "-"
-        try:
-            disk_label_list = os.listdir("/dev/disk/by-label/")
-            for label in disk_label_list:
-                if os.path.realpath("/dev/disk/by-label/" + label).split("/")[-1] == selected_disk:
-                    # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
-                    disk_label = bytes(label, "utf-8").decode("unicode_escape")
-        except FileNotFoundError:
-            pass
-
-        return disk_label
-
-
-    def disk_update_disk_usage_percentages_on_disk_list_func(self):
+    def get_disk_update_disk_usage_percentages_on_disk_list(self):
         """
         Update disk usage percentages on the disk list between Performance tab sub-tabs.
         """
@@ -867,9 +513,9 @@ class Disk:
         # Get disk usage percentages.
         device_list = Performance.disk_list
         disk_usage_percentage_list = []
-        disk_filesystem_information_list = self.disk_file_system_information_func(device_list)
+        disk_filesystem_information_list = Libsysmon.get_disk_file_system_information(device_list)
         for device in device_list:
-            _, _, _, _, disk_usage_percentage, disk_mount_point, _ = self.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
+            _, _, _, _, disk_usage_percentage, disk_mount_point, _ = Libsysmon.get_disk_file_system_capacity_used_free_used_percent_mount_point(disk_filesystem_information_list, device_list, device)
             # Append percentage number with no fractions in order to avoid updating the list very frequently.
             disk_usage_percentage_list.append(f'{disk_usage_percentage:.0f}')
 

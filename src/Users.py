@@ -17,6 +17,7 @@ from locale import gettext as _tr
 from .Config import Config
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class Users:
@@ -246,7 +247,7 @@ class Users:
         self.data_column_widths_prev = []
         self.rows_data_dict_prev = {}
 
-        self.system_boot_time = Common.get_system_boot_time()
+        self.system_boot_time = Libsysmon.get_system_boot_time()
 
         self.filter_column = self.row_data_list[0][2] - 1
 
@@ -273,7 +274,7 @@ class Users:
         treeview_columns_shown = set(treeview_columns_shown)
 
         # Get user information
-        rows_data_dict = Common.users_information(self.rows_data_dict_prev, self.system_boot_time)
+        rows_data_dict = Libsysmon.get_users_information(self.rows_data_dict_prev, self.system_boot_time)
         self.rows_data_dict_prev = dict(rows_data_dict)
         human_user_uid_list = rows_data_dict["human_user_uid_list"]
 

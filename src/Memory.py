@@ -3,15 +3,13 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('GLib', '2.0')
 from gi.repository import Gtk, GLib
 
-import os
-import subprocess
-
 from locale import gettext as _tr
 
 from .Config import Config
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class Memory:
@@ -192,7 +190,7 @@ class Memory:
 
         # Show RAM hardware window
         if widget == self.ram_hardware_label:
-            memory_ram_hardware_info = self.ram_hardware_info_get()
+            memory_ram_hardware_info = Libsysmon.get_ram_hardware_info()
             try:
                 self.ram_hardware_window.present()
             except AttributeError:
@@ -209,7 +207,8 @@ class Memory:
                 # Avoid generating window multiple times on every button click.
                 self.swap_details_window_gui()
                 self.swap_details_window.present()
-            self.swap_details_info_get()
+            memory_swap_details_info = Libsysmon.get_swap_details_info(Config.performance_memory_data_precision, Config.performance_memory_data_unit)
+            self.swap_details_win_label.set_label(memory_swap_details_info)
             self.swap_details_update()
 
 
@@ -252,112 +251,6 @@ class Memory:
         main_grid.attach(self.ram_hardware_win_label, 0, 0, 1, 1)
 
 
-    def ram_hardware_info_get(self):
-        """
-        Get RAM hardware information by using "dmidecode" command.
-        """
-
-        # Initial value of the variable
-        memory_ram_hardware_info = ""
-
-        # "sudo" has to be used for using "pkexec" to run "dmidecode" with root privileges.
-        command_list = ["pkexec", "sudo", "dmidecode", "-t", "16,17"]
-        if Config.environment_type == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-        try:
-            dmidecode_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
-        except Exception:
-            dmidecode_output = "-"
-            memory_ram_hardware_info = "-"
-
-        dmidecode_output_lines = dmidecode_output.split("\n")
-
-        # Initial value of "maximum_capacity". This value will be used if value could not be get.
-        maximum_capacity = "-"
-        number_of_devices = "-"
-
-        # Perform the following operations if "Physical Memory Array" is found in "dmidecode_output" output. This information may not be available on some systems.
-        if "Physical Memory Array" in dmidecode_output:
-            for line in dmidecode_output_lines:
-                line = line.strip()
-                if line.startswith("Maximum Capacity:"):
-                    maximum_capacity = line.split(":")[1].strip()
-                    continue
-                if line.startswith("Number Of Devices:"):
-                    number_of_devices = line.split(":")[1].strip()
-                    continue
-        memory_ram_hardware_info = memory_ram_hardware_info + _tr("Maximum Capacity") + " :    " + maximum_capacity
-        memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Number Of Devices") + " :    " + number_of_devices + "\n"
-
-        # Perform the following operations if "Memory Device" is found in "dmidecode_output" output. This information may not be available on some systems.
-        if "Memory Device" in dmidecode_output:
-            data_per_slot = dmidecode_output.split("Memory Device")
-            # First element in this list is not information of memory device and it is deleted.
-            del data_per_slot[0]
-            for data in data_per_slot:
-                data_lines = data.split("\n")
-                memory_size = "-"
-                memory_form_factor = "-"
-                memory_locator = "-"
-                memory_bank_locator = "-"
-                memory_type = "-"
-                memory_speed = "-"
-                memory_manufacturer = "-"
-                for line in data_lines:
-                    line = line.strip()
-                    if  line.startswith("Size:"):
-                        memory_size = line.split(":")[1].strip()
-                        continue
-                    if line.startswith("Form Factor:"):
-                        memory_form_factor = line.split(":")[1].strip()
-                        continue
-                    if line.startswith("Locator:"):
-                        memory_locator = line.split(":")[1].strip()
-                        continue
-                    if line.startswith("Bank Locator:"):
-                        memory_bank_locator = line.split(":")[1].strip()
-                        continue
-                    if line.startswith("Type:"):
-                        memory_type = line.split(":")[1].strip()
-                        continue
-                    if line.startswith("Speed:"):
-                        memory_speed = line.split(":")[1].strip()
-                        continue
-                    if line.startswith("Manufacturer:"):
-                        memory_manufacturer = line.split(":")[1].strip()
-                        continue
-                memory_ram_hardware_info = memory_ram_hardware_info + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
-                memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Capacity") + " :    " + memory_size
-                memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Type") + " :    " + memory_type
-                memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Speed") + " :    " + memory_speed
-                memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
-                memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
-                memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Locator") + " :    " + memory_locator
-                memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
-                memory_ram_hardware_info = memory_ram_hardware_info + "\n"
-
-        # Perform the following operations if "Memory Device" is not found in "dmidecode_output" output. This information may not be available on some systems.
-        if "Memory Device" not in dmidecode_output:
-            memory_size = "-"
-            memory_form_factor = "-"
-            memory_locator = "-"
-            memory_bank_locator = "-"
-            memory_type = "-"
-            memory_speed = "-"
-            memory_manufacturer = "-"
-
-            memory_ram_hardware_info = memory_ram_hardware_info + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
-            memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Capacity") + " :    " + memory_size
-            memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Type") + " :    " + memory_type
-            memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Speed") + " :    " + memory_speed
-            memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Manufacturer") + " :    " + memory_manufacturer
-            memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Form Factor") + " :    " + memory_form_factor
-            memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Locator") + " :    " + memory_locator
-            memory_ram_hardware_info = memory_ram_hardware_info + "\n" + _tr("Bank Locator") + " :    " + memory_bank_locator
-
-        return memory_ram_hardware_info
-
-
     def swap_details_window_gui(self):
         """
         Swap details window GUI.
@@ -397,65 +290,6 @@ class Memory:
         main_grid.attach(self.swap_details_win_label, 0, 0, 1, 1)
 
 
-    def swap_details_info_get(self):
-        """
-        Get swap memory details information by reading "/proc/swaps" file.
-        """
-
-        performance_memory_data_precision = Config.performance_memory_data_precision
-        performance_memory_data_unit = Config.performance_memory_data_unit
-
-        # List for language translation
-        memory_swap_details_text_list = [_tr("Partition"), _tr("File")]
-
-        # Set initial value of "memory_hardware_information_text".
-        memory_swap_details_info = ""
-
-        # Read "/proc/swaps" file for getting swap memory details.
-        # Systems may have more than one swap partition/file and this information can be read from this file.
-        with open("/proc/swaps") as reader:
-            proc_swaps_lines = reader.read().split("\n")
-
-        # Delete header indormation which is get from "/proc/swaps" file.
-        del proc_swaps_lines[0]
-
-        for line in proc_swaps_lines:
-            if line == "":
-                break
-            swap_name = "-"
-            swap_type = "-"
-            swap_size = "-"
-            swap_used = "-"
-            swap_priority = "-"
-            line_split = line.split()
-            swap_name = line_split[0].strip()
-            swap_type = line_split[1].strip().title()
-            # Values in this file are in KiB. They are converted to Bytes.
-            swap_size = int(line_split[2].strip()) * 1024
-            swap_size = f'{Performance.performance_data_unit_converter_func("data", "none", swap_size, performance_memory_data_unit, performance_memory_data_precision)}'
-            swap_used = int(line_split[3].strip()) * 1024
-            swap_used = f'{Performance.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}'
-            swap_priority = line_split[4].strip()
-            memory_swap_details_info = memory_swap_details_info + "\n" + _tr("Name") + " :    " + swap_name
-            memory_swap_details_info = memory_swap_details_info + "\n" + _tr("Type") + " :    " + _tr(swap_type)
-            memory_swap_details_info = memory_swap_details_info + "\n" + _tr("Capacity") + " :    " + swap_size
-            memory_swap_details_info = memory_swap_details_info + "\n" + _tr("Used") + " :    " + swap_used
-            memory_swap_details_info = memory_swap_details_info + "\n" + _tr("Priority") + " :    " + swap_priority
-            memory_swap_details_info = memory_swap_details_info + "\n"
-            memory_swap_details_info = memory_swap_details_info + "\n" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + "\n"
-
-        # In order to remove this string from the last line.
-        memory_swap_details_info = memory_swap_details_info.strip("\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n")
-
-        # Remove empty lines.
-        memory_swap_details_info = memory_swap_details_info.strip()
-
-        if memory_swap_details_info.strip() == "":
-            memory_swap_details_info = "-"
-
-        self.swap_details_win_label.set_label(memory_swap_details_info)
-
-
     def swap_details_update(self, *args):
         """
         Update swap memory information on the swap details window.
@@ -469,7 +303,8 @@ class Memory:
             except AttributeError:
                 pass
             self.main_glib_source = GLib.timeout_source_new(Config.update_interval * 1000)
-            self.swap_details_info_get()
+            memory_swap_details_info = Libsysmon.get_swap_details_info(Config.performance_memory_data_precision, Config.performance_memory_data_unit)
+            self.swap_details_win_label.set_label(memory_swap_details_info)
             self.main_glib_source.set_callback(self.swap_details_update)
             # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed.
             # A function may be attached to the MainContext multiple times.
@@ -481,14 +316,17 @@ class Memory:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        total_physical_ram = self.physical_ram()
+        # List for language translation
+        memory_swap_details_text_list = [_tr("Partition"), _tr("File")]
+
+        total_physical_ram = Libsysmon.get_physical_ram()
 
 
         # Set Memory tab label texts by using information get
         if total_physical_ram != "-":
-            self.device_vendor_model_label.set_text(_tr("Physical RAM") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", total_physical_ram, 0, 1)))
+            self.device_vendor_model_label.set_label(_tr("Physical RAM") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", total_physical_ram, 0, 1)))
         else:
-            self.device_vendor_model_label.set_text(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", ram_total, 0, 1)))
+            self.device_vendor_model_label.set_label(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", ram_total, 0, 1)))
 
         self.initial_already_run = 1
 
@@ -498,7 +336,7 @@ class Memory:
         Get and show information on the GUI on every loop.
         """
 
-        memory_info = Performance.memory_info()
+        memory_info = Libsysmon.get_memory_info()
 
         ram_used = memory_info["ram_used"]
         ram_usage_percent = Performance.ram_usage_percent
@@ -519,68 +357,15 @@ class Memory:
 
 
         # Set and update Memory tab label texts by using information get
-        self.device_kernel_name_label.set_text(_tr("Swap Memory") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", swap_total, 0, 1)))
-        self.ram_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {ram_usage_percent[-1]:.0f}% )')
-        self.ram_available_label.set_text(Performance.performance_data_unit_converter_func("data", "none", ram_available, performance_memory_data_unit, performance_memory_data_precision))
-        self.ram_capacity_label.set_text(Performance.performance_data_unit_converter_func("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
-        self.ram_free_label.set_text(Performance.performance_data_unit_converter_func("data", "none", ram_free, performance_memory_data_unit, performance_memory_data_precision))
-        self.swap_used_label.set_text(f'{Performance.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {self.swap_usage_percent[-1]:.0f}% )')
-        self.swap_used_percent_label.set_text(f'{self.swap_usage_percent[-1]:.0f}%')
-        self.swap_free_label.set_text(Performance.performance_data_unit_converter_func("data", "none", swap_free, performance_memory_data_unit, performance_memory_data_precision))
-        self.swap_capacity_label.set_text(Performance.performance_data_unit_converter_func("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
-
-
-    def physical_ram(self):
-        """
-        Get physical ram value. Summation of total online and offline memories gives RAM hardware size.
-        This value is very similar to RAM hardware size which is a bit different than ram_total value.
-        RAM hardware size and total RAM value (get from proc file system by using "free" command) are not same thing.
-        Because some of the RAM may be reserved for hardware and/or by the OS kernel.
-        "block_size_bytes" file may not be present on some systems such as ARM CPU used systems.
-        Physical RAM can not be detected on these systems. "vcgencmd" Python module can be used for physical RAM of RB-Pi devices.
-        But this module is not installed on these systems by default.
-        Currently kernel 5.10 does not have this feature but this feature will be included in the newer versions of the kernel.
-        Size of the blocks (block_size_bytes) depend on architecture.
-        For more information see: https://www.kernel.org/doc/html/latest/admin-guide/mm/memory-hotplug.html
-        """
-
-        # Get "memory block size" and convert hex value to integer (byte).
-        try:
-            with open("/sys/devices/system/memory/block_size_bytes") as reader:
-                block_size = int(reader.read().strip(), 16)
-        except FileNotFoundError:
-            block_size = "-"
-
-        # Get physical RAM value
-        if block_size != "-":
-            total_online_memory = 0
-            total_offline_memory = 0
-            # Folder (of which name start with "memory") in this folder is multiplied with memory block size.
-            files_in_sys_devices_system_memory = os.listdir("/sys/devices/system/memory/")
-            for file in files_in_sys_devices_system_memory:
-                if os.path.isdir("/sys/devices/system/memory/" + file) and file.startswith("memory"):
-                    with open("/sys/devices/system/memory/" + file + "/online") as reader:
-                        memory_online_offline_value = reader.read().strip()
-                    if memory_online_offline_value == "1":
-                        total_online_memory = total_online_memory + block_size
-                    if memory_online_offline_value == "0":
-                        total_offline_memory = total_offline_memory + block_size
-            total_physical_ram = (total_online_memory + total_offline_memory)
-
-        # Try to get physical RAM for RB Pi devices.
-        else:
-            command_list = ["vcgencmd", "get_config", "total_mem"]
-            _environment_type = environment_type()
-            if _environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
-            try:
-                total_physical_ram = (subprocess.check_output(command_list, shell=False)).decode().strip().split("=")[1]
-                # Convert MiB value to bytes
-                total_physical_ram = float(total_physical_ram) * 1024 * 1024
-            except Exception:
-                total_physical_ram = "-"
-
-        return total_physical_ram
+        self.device_kernel_name_label.set_label(_tr("Swap Memory") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", swap_total, 0, 1)))
+        self.ram_used_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {ram_usage_percent[-1]:.0f}% )')
+        self.ram_available_label.set_label(Performance.performance_data_unit_converter_func("data", "none", ram_available, performance_memory_data_unit, performance_memory_data_precision))
+        self.ram_capacity_label.set_label(Performance.performance_data_unit_converter_func("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
+        self.ram_free_label.set_label(Performance.performance_data_unit_converter_func("data", "none", ram_free, performance_memory_data_unit, performance_memory_data_precision))
+        self.swap_used_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {self.swap_usage_percent[-1]:.0f}% )')
+        self.swap_used_percent_label.set_label(f'{self.swap_usage_percent[-1]:.0f}%')
+        self.swap_free_label.set_label(Performance.performance_data_unit_converter_func("data", "none", swap_free, performance_memory_data_unit, performance_memory_data_precision))
+        self.swap_capacity_label.set_label(Performance.performance_data_unit_converter_func("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
 
 
 Memory = Memory()

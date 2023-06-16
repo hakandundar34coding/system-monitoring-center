@@ -6,6 +6,7 @@ from math import sqrt, ceil
 from locale import gettext as _tr
 
 from .Config import Config
+from . import Libsysmon
 
 
 class Performance:
@@ -14,12 +15,6 @@ class Performance:
 
         # Define data unit conversion variables
         self.unit_converter_variables()
-
-        # Disk data from '/proc/diskstats' is multiplied by 512 in order to find values in the form of byte.
-        # Disk sector size for all disk devices could be found in '/sys/block/[disk device name such as sda]/queue/hw_sector_size'.
-        # Linux uses 512 value for all disks without regarding device real block size.
-        # source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121)
-        self.disk_sector_size = 512
 
         # Set chart performance data line and point highligting off.
         # "chart_line_highlight" takes chart name or "" for highlighting or not.
@@ -119,131 +114,6 @@ class Performance:
         self.selected_network_card = selected_network_card
 
 
-    def cpu_times(self):
-        """
-        Get CPU times for all cores (first value).
-        '/proc/stat' file contains online logical CPU core names (without regarding CPU sockets) and CPU times (unit is jiffies).
-        """
-
-        # Read CPU times and remove first line (summation for all cores)
-        with open("/proc/stat") as reader:
-            proc_stat_lines = reader.read().split("intr", 1)[0].strip().split("\n")[1:]
-
-        # Get CPU times
-        _cpu_times = {}
-        for line in proc_stat_lines:
-            line_split = line.split()
-            cpu_core = line_split[0]
-            user = int(line_split[1])
-            nice = int(line_split[2])
-            system = int(line_split[3])
-            idle = int(line_split[4])
-            iowait = int(line_split[5])
-            irq = int(line_split[6])
-            softirq = int(line_split[7])
-            steal = int(line_split[8])
-            guest = int(line_split[9])
-            guest_nice = int(line_split[10])
-            cpu_time_all = user + nice + system + idle + iowait + irq + softirq + steal + guest
-            cpu_time_load = cpu_time_all - idle - iowait
-            _cpu_times[cpu_core] = {"load": cpu_time_load, "all": cpu_time_all}
-
-        return _cpu_times
-
-
-    def memory_info(self):
-        """
-        Get memory (RAM and swap) values.
-        Values in '/proc/meminfo' file are in KiB unit.
-        """
-
-        # Read memory information
-        with open("/proc/meminfo") as reader:
-            proc_meminfo_output = reader.read()
-
-        # Get memory (RAM) information
-        ram_total = int(proc_meminfo_output.split("MemTotal:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
-        ram_free = int(proc_meminfo_output.split("\nMemFree:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
-        ram_available = int(proc_meminfo_output.split("\nMemAvailable:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
-        ram_used = ram_total - ram_available
-        ram_used_percent = ram_used / ram_total * 100
-
-        # Get memory (swap) information
-        swap_total = int(proc_meminfo_output.split("\nSwapTotal:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
-        swap_free = int(proc_meminfo_output.split("\nSwapFree:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
-        # Calculate values if swap memory exists.
-        if swap_free != 0:
-            swap_used = swap_total - swap_free
-            swap_used_percent = swap_used / swap_total * 100
-        # Set values as "0" if swap memory does not exist.
-        else:
-            swap_used = 0
-            swap_used_percent = 0
-
-        _memory_info = {"ram_total": ram_total, "ram_free": ram_free, "ram_available": ram_available,
-                        "ram_used": ram_used, "ram_used_percent": ram_used_percent, "swap_total": swap_total,
-                        "swap_free": swap_free, "swap_used": swap_used, "swap_used_percent": swap_used_percent}
-
-        return _memory_info
-
-
-    def disk_io(self):
-        """
-        Get disk read bytes and write bytes.
-        '/proc/partitions' contains current disk list.
-        '/proc/diskstats' contains all disks and disk io information since system start.
-        """
-
-        # Get disk list
-        # Read disk information and remove first 2 lines (header information and spaces)
-        with open("/proc/partitions") as reader:
-            proc_partitions_lines = reader.read().strip().split("\n")[2:]
-
-        # Get disk list
-        _disk_list = []
-        for line in proc_partitions_lines:
-            _disk_list.append(line.split()[3].strip())
-
-        # Read disk IO information
-        with open("/proc/diskstats") as reader:
-            proc_diskstats_lines = reader.read().strip().split("\n")
-
-        # Get disk IO information
-        _disk_io = {}
-        for line in proc_diskstats_lines:
-            line_split = line.split()
-            disk_name = line_split[2]
-            if disk_name not in _disk_list:
-                continue
-            read_bytes = int(line_split[5]) * self.disk_sector_size
-            write_bytes = int(line_split[9]) * self.disk_sector_size
-            _disk_io[disk_name] = {"read_bytes": read_bytes, "write_bytes": write_bytes}
-
-        return _disk_io
-
-
-    def network_io(self):
-        """
-        Get network card download bytes, upload bytes.
-        """
-
-        # Read network card IO information
-        network_card_list = []
-        with open("/proc/net/dev") as reader:
-            proc_net_dev_lines = reader.read().strip().split("\n")[2:]
-
-        # Get network card IO information
-        _network_io = {}
-        for line in proc_net_dev_lines:
-            line_split = line.split()
-            network_card = line_split[0].split(":")[0]
-            download_bytes = int(line_split[1])
-            upload_bytes = int(line_split[9])
-            _network_io[network_card] = {"download_bytes": download_bytes, "upload_bytes": upload_bytes}
-
-        return _network_io
-
-
     def performance_background_initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
@@ -290,7 +160,7 @@ class Performance:
         """
 
         # Get CPU usage percentage per-core
-        cpu_times = self.cpu_times()
+        cpu_times = Libsysmon.get_cpu_times()
         self.logical_core_list = list(cpu_times.keys())
         for core in self.logical_core_list:
             if core not in self.logical_core_list_prev:
@@ -323,7 +193,7 @@ class Performance:
         self.cpu_times_prev = dict(cpu_times)
 
         # Get RAM usage percentage
-        memory_info = self.memory_info()
+        memory_info = Libsysmon.get_memory_info()
         ram_used_percent = memory_info["ram_used_percent"]
         self.ram_usage_percent.append(ram_used_percent)
         del self.ram_usage_percent[0]
@@ -336,7 +206,7 @@ class Performance:
         get_time = time.time()
 
         # Get disk read speed and write speed
-        disk_io = self.disk_io()
+        disk_io = Libsysmon.get_disk_io()
         self.disk_list = list(disk_io.keys())
         for disk in self.disk_list:
             if disk not in self.disk_list_prev:
@@ -363,7 +233,7 @@ class Performance:
         self.disk_io_prev = dict(disk_io)
 
         # Get network download speed and upload speed
-        network_io = self.network_io()
+        network_io = Libsysmon.get_network_io()
         self.network_card_list = list(network_io.keys())
         for network_card in self.network_card_list:
             if network_card not in self.network_card_list_prev:

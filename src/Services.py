@@ -15,6 +15,7 @@ from .Config import Config
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class Services:
@@ -199,7 +200,7 @@ class Services:
 
         # Get service "masked/unmasked" state
         command_list = ["systemctl", "show", service_name, "--property=UnitFileState"]
-        if Config.environment_type == "flatpak":
+        if Libsysmon.get_environment_type() == "flatpak":
             command_list = ["flatpak-spawn", "--host"] + command_list
         self.service_mask_status = (subprocess.check_output(command_list, shell=False)).decode().strip().split("=")[1]
 
@@ -218,40 +219,42 @@ class Services:
         # Get right clicked service name.
         service_name = self.selected_service_name
 
+        environment_type = Libsysmon.get_environment_type()
+
         # "Start" service
         if action.get_name() == "services_start_service":
             command_list = ["systemctl", "start", service_name]
-            if Config.environment_type == "flatpak":
+            if environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
 
         # "Stop" service
         if action.get_name() == "services_stop_service":
             command_list = ["systemctl", "stop", service_name]
-            if Config.environment_type == "flatpak":
+            if environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
 
         # "Restart" service
         if action.get_name() == "services_restart_service":
             command_list = ["systemctl", "restart", service_name]
-            if Config.environment_type == "flatpak":
+            if environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
 
         # "Reload" service
         if action.get_name() == "services_reload_service":
             command_list = ["systemctl", "reload", service_name]
-            if Config.environment_type == "flatpak":
+            if environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
 
         # "Enable" service
         if action.get_name() == "services_enable_service":
             command_list = ["systemctl", "enable", service_name]
-            if Config.environment_type == "flatpak":
+            if environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
 
         # "Disable" service
         if action.get_name() == "services_disable_service":
             command_list = ["systemctl", "disable", service_name]
-            if Config.environment_type == "flatpak":
+            if environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
 
         # "Mask/Unmask" service 
@@ -260,7 +263,7 @@ class Services:
                 command_list = ["systemctl", "unmask", service_name]
             else:
                 command_list = ["systemctl", "mask", service_name]
-            if Config.environment_type == "flatpak":
+            if environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
 
         # Manage the right clicked service and show an information dialog if there is output messages (warnings/errors).
@@ -466,9 +469,10 @@ class Services:
         # Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories. But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
         # There is no "/usr/lib/systemd/system/" on some ARM systems (and also on older distributions) and "/lib/systemd/system/" is used in this case. On newer distributions "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
         # On ARM systems, also "/usr/lib/systemd/system/" folder may be used after installling some applications. In this situation this folder will be a real path.
+        environment_type = Libsysmon.get_environment_type()
         service_unit_file_list_usr_lib_systemd = []
         service_unit_file_list_lib_systemd = []
-        if Config.environment_type == "flatpak":
+        if environment_type == "flatpak":
             if os.path.isdir("/var/run/host/usr/lib/systemd/system/") == True:
                 service_unit_files_dir = "/var/run/host/usr/lib/systemd/system/"
                 service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
@@ -492,7 +496,7 @@ class Services:
         service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd
 
         try:
-            if Config.environment_type == "flatpak":
+            if environment_type == "flatpak":
                 # There is no access to "/run" folder of the host OS in Flatpak environment.
                 service_files_from_run_systemd_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "/run/systemd/units/"], shell=False)).decode().strip().split()
             else:
@@ -500,7 +504,7 @@ class Services:
         except FileNotFoundError:
             service_files_from_run_systemd_list = []
 
-        if Config.environment_type == "flatpak":
+        if environment_type == "flatpak":
             service_unit_files_dir_scratch = service_unit_files_dir.split("/var/run/host")[-1]
             service_unit_file_real_path_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "-l", service_unit_files_dir_scratch], shell=False)).decode().strip().split("\n")
             for service_file in service_unit_file_real_path_list:
@@ -545,7 +549,7 @@ class Services:
             unit_files_command_parameter_list.append("Description")
         unit_files_command_parameter_list = ",".join(unit_files_command_parameter_list)           # Join strings with "," between them.
         # Construct command for getting service information for all services
-        if Config.environment_type == "flatpak":
+        if environment_type == "flatpak":
             unit_files_command = ["flatpak-spawn", "--host", "systemctl", "show", "--property=" + unit_files_command_parameter_list]
         else:
             unit_files_command = ["systemctl", "show", "--property=" + unit_files_command_parameter_list]
@@ -553,7 +557,7 @@ class Services:
             unit_files_command.append(service)
 
         # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
-        number_of_logical_cores = Common.number_of_logical_cores()
+        number_of_logical_cores = Libsysmon.get_number_of_logical_cores()
 
         # Get services bu using single process (instead of multiprocessing) if the system has 1 or 2 CPU cores.
         if number_of_logical_cores < 3:

@@ -18,6 +18,7 @@ from .Config import Config
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class Processes:
@@ -446,7 +447,7 @@ class Processes:
             priority_command = ["renice", "-n", selected_process_nice, "-p"] + selected_process_pid_list_str
             priority_command_pkexec = ["pkexec", "renice", "-n", selected_process_nice, "-p"] + selected_process_pid_list_str
 
-            if Config.environment_type == "flatpak":
+            if Libsysmon.get_environment_type() == "flatpak":
                 priority_command = ["flatpak-spawn", "--host"] + priority_command
                 priority_command_pkexec = ["flatpak-spawn", "--host"] + priority_command_pkexec
 
@@ -509,7 +510,7 @@ class Processes:
             process_command_pkexec = ["pkexec", "kill", "-9"] + selected_process_pid_list_str
             process_dialog_message = _tr("Do you want to end this process immediately?")
 
-        if Config.environment_type == "flatpak":
+        if Libsysmon.get_environment_type() == "flatpak":
             process_command = ["flatpak-spawn", "--host"] + process_command
             process_command_pkexec = ["flatpak-spawn", "--host"] + process_command_pkexec
 
@@ -570,7 +571,7 @@ class Processes:
             process_manage_process_name_and_pid_label.set_halign(Gtk.Align.START)
             grid.attach(process_manage_process_name_and_pid_label, 0, 0, 1, 1)
 
-            process_manage_process_name_and_pid_label.set_text(selected_process_pid_name_text)
+            process_manage_process_name_and_pid_label.set_label(selected_process_pid_name_text)
 
             messagedialog.connect("response", self.on_messagedialog_response, process_command, process_command_pkexec)
             messagedialog.present()
@@ -612,7 +613,7 @@ class Processes:
 
         # Get priority (nice value) of the process.
         command_list = ["cat", selected_process_stat_file]
-        if Config.environment_type == "flatpak":
+        if Libsysmon.get_environment_type() == "flatpak":
             command_list = ["flatpak-spawn", "--host"] + command_list
 
         cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
@@ -682,7 +683,7 @@ class Processes:
                 priority_command = ["renice", "-n", "19", "-p"] + selected_process_pid_list_str
                 priority_command_pkexec = ["pkexec", "renice", "-n", "19", "-p"] + selected_process_pid_list_str
 
-            if Config.environment_type == "flatpak":
+            if Libsysmon.get_environment_type() == "flatpak":
                 priority_command = ["flatpak-spawn", "--host"] + priority_command
                 priority_command_pkexec = ["flatpak-spawn", "--host"] + priority_command_pkexec
 
@@ -712,7 +713,7 @@ class Processes:
 
                 # Get priority (nice value) of the process.
                 command_list = ["cat", selected_process_stat_file]
-                if Config.environment_type == "flatpak":
+                if Libsysmon.get_environment_type() == "flatpak":
                     command_list = ["flatpak-spawn", "--host"] + command_list
                 cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
 
@@ -1000,10 +1001,13 @@ class Processes:
         self.rows_data_dict_prev = {}
 
         global number_of_clock_ticks, application_image_dict
-        number_of_clock_ticks = Common.number_of_clock_ticks
-        self.system_boot_time = Common.get_system_boot_time()
-        self.username_uid_dict = Common.get_username_uid_dict()
-        application_image_dict = Common.get_application_name_image_dict()
+        number_of_clock_ticks = Libsysmon.number_of_clock_ticks
+        self.system_boot_time = Libsysmon.get_system_boot_time()
+        self.username_uid_dict = Libsysmon.get_username_uid_dict()
+        application_image_dict = Libsysmon.get_application_name_image_dict()
+
+        # Define process status text list for translation
+        process_status_list = [_tr("Running"), _tr("Sleeping"), _tr("Waiting"), _tr("Idle"), _tr("Zombie"), _tr("Stopped")]
 
         # Search filter is "Process Name". "-1" is used because "row_data_list" has internal column count and
         # it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last
@@ -1071,7 +1075,7 @@ class Processes:
         else:
             cpu_usage_divide_by_cores = "no"
         detail_level = "medium"
-        rows_data_dict = Common.processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         self.rows_data_dict_prev = dict(rows_data_dict)
         pid_list = rows_data_dict["pid_list"]
         ppid_list = rows_data_dict["ppid_list"]

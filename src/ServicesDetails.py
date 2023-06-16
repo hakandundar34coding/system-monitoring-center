@@ -15,6 +15,7 @@ from .Services import Services
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class ServicesDetails:
@@ -359,7 +360,7 @@ class ServicesDetails:
 
         # Get all information of the service.
         command_list = ["systemctl", "show", selected_service_name]
-        if Config.environment_type == "flatpak":
+        if Libsysmon.get_environment_type() == "flatpak":
             command_list = ["flatpak-spawn", "--host"] + command_list
         systemctl_show_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
 

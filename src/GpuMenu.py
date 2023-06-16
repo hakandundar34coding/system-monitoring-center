@@ -9,6 +9,7 @@ from .Config import Config
 from .Gpu import Gpu
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class GpuMenu:
@@ -57,7 +58,7 @@ class GpuMenu:
 
         Config.config_default_performance_gpu_func()
         Config.config_save_func()
-        Gpu.gpu_set_selected_gpu_func()
+        Libsysmon.gpu_set_selected_gpu(Gpu.selected_gpu, Gpu.default_gpu, Gpu.gpu_list)
 
         # Reset device list between Performance tab sub-tabs because selected device is reset.
         MainWindow.main_gui_device_selection_list()

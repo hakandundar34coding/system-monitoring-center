@@ -15,6 +15,7 @@ from .Users import Users
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class UsersDetails:
@@ -216,7 +217,7 @@ class UsersDetails:
 
         self.users_data_dict_prev = {}
 
-        self.system_boot_time = Common.get_system_boot_time()
+        self.system_boot_time = Libsysmon.get_system_boot_time()
 
 
     def users_details_loop_func(self):
@@ -235,7 +236,7 @@ class UsersDetails:
         self.user_details_window.set_title(_tr("User") + ": " + selected_username)
 
         # Get user information
-        users_data_dict = Common.users_information(self.users_data_dict_prev, self.system_boot_time)
+        users_data_dict = Libsysmon.get_users_information(self.users_data_dict_prev, self.system_boot_time)
         self.users_data_dict_prev = dict(users_data_dict)
         human_user_uid_list = users_data_dict["human_user_uid_list"]
 

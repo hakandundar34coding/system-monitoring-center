@@ -10,6 +10,7 @@ from .Config import Config
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
+from . import Libsysmon
 
 
 class SettingsWindow:
@@ -370,7 +371,7 @@ class SettingsWindow:
         # Apply selected GPU changes
         try:
             from .MainWindow import Gpu
-            Gpu.gpu_set_selected_gpu_func()
+            Libsysmon.gpu_set_selected_gpu(Gpu.selected_gpu, Gpu.default_gpu, Gpu.gpu_list)
         # Prevent errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires
         # some modules in the Gpu module. They are imported if Gpu tab is switched on.
         except ImportError:
@@ -424,7 +425,7 @@ class SettingsWindow:
         # Apply selected GPU changes
         try:
             from .MainWindow import Gpu
-            Gpu.gpu_set_selected_gpu_func()
+            Libsysmon.gpu_set_selected_gpu(Gpu.selected_gpu, Gpu.default_gpu, Gpu.gpu_list)
         # Prevent errors because "gpu_get_gpu_list_and_set_selected_gpu_func" module requires
         # some modules in the Gpu module. They are imported if Gpu tab is switched on.
         except ImportError:

@@ -14,6 +14,7 @@ from locale import gettext as _tr
 from .Config import Config
 from .Performance import Performance
 from . import Common
+from . import Libsysmon
 
 
 class MainWindow():
@@ -26,9 +27,9 @@ class MainWindow():
 
         self.language_translation_support()
 
-        self.light_dark_theme()
+        Libsysmon.set_translation_func(_tr)
 
-        self.environment_type_detection()
+        self.light_dark_theme()
 
         # Add GUI images to the image theme.
         from .Main import localedir
@@ -622,22 +623,6 @@ class MainWindow():
             pass
 
 
-    def environment_type_detection(self):
-        """
-        Detect environment type (Flatpak or native).
-        This information will be used for accessing host OS commands if the application is run in Flatpak environment.
-        """
-
-        application_flatpak_id = os.getenv('FLATPAK_ID')
-
-        if application_flatpak_id != None:
-            environment_type = "flatpak"
-        else:
-            environment_type = "native"
-
-        Config.environment_type = environment_type
-
-
     def on_main_gui_togglebuttons_toggled(self, widget):
         """
         Called by tab togglebuttons. Prevents repetitive calls when togglebuttons are toggled.
@@ -1018,7 +1003,7 @@ class MainWindow():
         # Add devices to listbox.
         # For also adding disk usage percentage label next to device name if this is Disk tab.
         if Config.performance_tab_current_sub_tab == 3:
-            disk_filesystem_information_list = Disk.disk_file_system_information_func(device_list)
+            disk_filesystem_information_list = Libsysmon.get_disk_file_system_information(device_list)
         number_of_devices = len(device_list)
         for i, device in enumerate(device_list):
             row = Gtk.ListBoxRow()
@@ -1031,7 +1016,7 @@ class MainWindow():
             grid.attach(label, 0, 0, 1, 1)
             # Also add disk usage percentage label next to device name if this is Disk tab.
             if Config.performance_tab_current_sub_tab == 3:
-                _, _, _, _, disk_usage_percentage, disk_mount_point, encrypted_disk_name = Disk.disk_file_system_capacity_used_free_used_percent_mount_point_func(disk_filesystem_information_list, device_list, device)
+                _, _, _, _, disk_usage_percentage, disk_mount_point, encrypted_disk_name = Libsysmon.get_disk_file_system_capacity_used_free_used_percent_mount_point(disk_filesystem_information_list, device_list, device)
                 label = Gtk.Label()
                 label.add_css_class("dim-label")
                 if disk_mount_point == "[" + _tr("Not mounted") + "]":
@@ -1068,9 +1053,11 @@ class MainWindow():
         Hide Services tab if systemd is not used on the system.
         """
 
+        environment_type = Libsysmon.get_environment_type()
+
         try:
             # Access host OS commands if the application is run in Flatpak environment.
-            if Config.environment_type == "flatpak":
+            if environment_type == "flatpak":
                 import subprocess
                 process_name = (subprocess.check_output(["flatpak-spawn", "--host", "cat", "/proc/1/comm"], shell=False)).decode().strip()
             else:
