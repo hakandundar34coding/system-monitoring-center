@@ -398,7 +398,7 @@ class Services:
         Refresh data on the tab.
         """
 
-        self.services_loop_run = 0
+        self.services_loop_already_run = 0
 
         self.services_loop_func()
 
@@ -453,11 +453,11 @@ class Services:
         # Prevent running rest of the code if Services tab is opened again.
         # Because running this function requires more than a few seconds on some systems.
         try:
-            if self.services_loop_run == 1:
+            if self.services_loop_already_run == 1:
                 return
         except AttributeError:
             pass
-        self.services_loop_run = 1
+        self.services_loop_already_run = 1
 
         # Get GUI obejcts one time per floop instead of getting them multiple times
         global services_treeview
