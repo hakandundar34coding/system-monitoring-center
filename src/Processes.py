@@ -771,7 +771,9 @@ class Processes:
         filter_model = sort_model.get_model()
         treestore = filter_model.get_model()
 
-        global pid_list, cmdline_list
+        pid_list = self.pid_list
+
+        global cmdline_list
 
         # Get PID, iter, shown, expanded information from sort model before changing search text.
         pid_piter_sort_model_before_dict = self.get_sort_model_piter_information(treeview, sort_model)
