@@ -219,7 +219,7 @@ class Users:
             pass
 
 
-    def users_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -254,10 +254,13 @@ class Users:
         self.initial_already_run = 1
 
 
-    def users_loop_func(self):
+    def loop_func(self):
         """
         Get and show information on the GUI on every loop.
         """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         global users_cpu_precision

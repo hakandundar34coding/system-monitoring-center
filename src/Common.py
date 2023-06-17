@@ -55,6 +55,38 @@ def get_tab_object():
     return TabObject
 
 
+def save_tab_settings():
+    """
+    Save settings of the current tab.
+    """
+
+    TabObject = get_tab_object()
+
+    TabObject.initial_func()
+    TabObject.loop_func()
+    Config.config_save_func()
+
+
+def update_tab_and_menu_gui(MenuObject):
+    """
+    Update current tab GUI and menu of the current tab.
+    """
+
+    TabObject = get_tab_object()
+
+    TabObject.initial_func()
+    TabObject.loop_func()
+
+    try:
+        MenuObject.disconnect_signals()
+        MenuObject.set_gui()
+        MenuObject.connect_signals()
+    # Prevent errors if current tab menu does not have functions for
+    # setting GUI, disconnecting and connecting signals.
+    except AttributeError:
+        pass
+
+
 class ListStoreItem(GObject.Object):
     __gtype_name__ = 'ListStoreItem'
 
@@ -292,28 +324,28 @@ def on_colorchooserdialog_response(widget, response):
             if Config.performance_tab_current_sub_tab == 1:
                 Config.chart_line_color_cpu_percent = tab_graph_color
                 from .Cpu import Cpu
-                Cpu.cpu_initial_func()
-                Cpu.cpu_loop_func()
+                Cpu.initial_func()
+                Cpu.loop_func()
             elif Config.performance_tab_current_sub_tab == 2:
                 Config.chart_line_color_memory_percent = tab_graph_color
                 from .Memory import Memory
-                Memory.memory_initial_func()
-                Memory.memory_loop_func()
+                Memory.initial_func()
+                Memory.loop_func()
             elif Config.performance_tab_current_sub_tab == 3:
                 Config.chart_line_color_disk_speed_usage = tab_graph_color
                 from .Disk import Disk
-                Disk.disk_initial_func()
-                Disk.disk_loop_func()
+                Disk.initial_func()
+                Disk.loop_func()
             elif Config.performance_tab_current_sub_tab == 4:
                 Config.chart_line_color_network_speed_data = tab_graph_color
                 from .Network import Network
-                Network.network_initial_func()
-                Network.network_loop_func()
+                Network.initial_func()
+                Network.loop_func()
             elif Config.performance_tab_current_sub_tab == 5:
                 Config.chart_line_color_fps = tab_graph_color
                 from .Gpu import Gpu
-                Gpu.gpu_initial_func()
-                Gpu.gpu_loop_func()
+                Gpu.initial_func()
+                Gpu.loop_func()
         Config.config_save_func()
 
 

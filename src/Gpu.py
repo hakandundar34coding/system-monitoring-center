@@ -157,7 +157,7 @@ class Gpu:
         performance_info_right_grid.attach(self.resolution_label, 1, 5, 1, 1)
 
 
-    def gpu_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -194,10 +194,13 @@ class Gpu:
         self.initial_already_run = 1
 
 
-    def gpu_loop_func(self):
+    def loop_func(self):
         """
         Get and show information on the GUI on every loop.
         """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
 
         default_gpu = self.default_gpu
         selected_gpu_number = self.selected_gpu_number
@@ -207,11 +210,11 @@ class Gpu:
         gpu_device_sub_path_list = self.gpu_device_sub_path_list
         device_vendor_id = self.device_vendor_id
 
-        # Run "gpu_initial_func" if "initial_already_run variable is "0" which means all settings
+        # Run "initial_func" if "initial_already_run variable is "0" which means all settings
         # of the application is reset and initial function has to be run in order to avoid errors.
         # This check is required only for GPU tab (not required for other Performance tab sub-tabs).
         if self.initial_already_run == 0:
-            self.gpu_initial_func()
+            self.initial_func()
 
         # Get information.
         current_resolution, current_refresh_rate = Libsysmon.get_resolution_refresh_rate()

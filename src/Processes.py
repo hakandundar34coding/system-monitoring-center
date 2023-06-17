@@ -949,7 +949,7 @@ class Processes:
         #Common.treeview_column_order_width_row_sorting()
 
 
-    def processes_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -1019,10 +1019,14 @@ class Processes:
         self.initial_already_run = 1
 
 
-    def processes_loop_func(self):
+    def loop_func(self):
         """
         Get and show information on the GUI on every loop.
         """
+
+        # Run initial function of the module if this is the first loop of the module.
+        if self.initial_already_run == 0:
+            self.initial_func()
 
         update_interval = Config.update_interval
 

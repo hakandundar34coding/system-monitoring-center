@@ -129,6 +129,28 @@ def get_environment_type():
     return environment_type
 
 
+def get_init_system():
+    """
+    Get init system of the OS. Currently it is detected as "systemd" or "other".
+    """
+
+    try:
+        if get_environment_type() == "flatpak":
+            process_name = (subprocess.check_output(["flatpak-spawn", "--host", "cat", "/proc/1/comm"], shell=False)).decode().strip()
+        else:
+            with open("/proc/1/comm") as reader:
+                process_name = reader.read().strip()
+    except Exception:
+        process_name = "-"
+
+    if process_name == "systemd":
+        init_system = "systemd"
+    else:
+        init_system = "other"
+
+    return init_system
+
+
 def get_number_of_logical_cores():
     """
     Get number of online logical cores.

@@ -531,12 +531,7 @@ class ProcessesMenu:
         Config.config_default_processes_func()
         Config.config_save_func()
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        self.disconnect_signals()
-        self.set_gui()
-        self.connect_signals()
+        Common.update_tab_and_menu_gui(self)
 
 
     def on_show_processes_of_all_users_cb_toggled(self, widget):
@@ -549,10 +544,7 @@ class ProcessesMenu:
         if widget.get_active() == False:
             Config.show_processes_of_all_users = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_show_processes_as_tree_cb_toggled(self, widget):
@@ -571,10 +563,7 @@ class ProcessesMenu:
             self.expand_all_button.set_sensitive(False)
             self.collapse_all_button.set_sensitive(False)
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_show_tree_lines_cb_toggled(self, widget):
@@ -587,10 +576,7 @@ class ProcessesMenu:
         if widget.get_active() == False:
             Config.show_tree_lines = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_add_remove_checkbuttons_toggled(self, widget):
@@ -617,10 +603,7 @@ class ProcessesMenu:
         if widget == self.disk_precision_dd:
             Config.processes_disk_data_precision = widget.get_selected()
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_divide_cpu_usage_by_core_count_cb_toggled(self, widget):
@@ -633,10 +616,7 @@ class ProcessesMenu:
         elif widget.get_active() == False:
             Config.processes_cpu_divide_by_core = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_memory_data_unit_radiobuttons_toggled(self, widget):
@@ -649,10 +629,7 @@ class ProcessesMenu:
         elif self.memory_data_power_of_1000_cb.get_active() == True:
             Config.processes_memory_data_unit = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_disk_data_unit_radiobuttons_toggled(self, widget):
@@ -665,10 +642,7 @@ class ProcessesMenu:
         elif self.disk_data_power_of_1000_cb.get_active() == True:
             Config.processes_disk_data_unit = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_show_speed_units_bytes_cb_toggled(self, widget):
@@ -681,10 +655,7 @@ class ProcessesMenu:
         else:
             Config.processes_disk_speed_bit = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def set_gui(self):
@@ -890,9 +861,8 @@ class ProcessesMenu:
 
         # Apply changes immediately (without waiting update interval).
         Common.treeview_column_order_width_row_sorting()
-        Processes.processes_initial_func()
-        Processes.processes_loop_func()
-        Config.config_save_func()
+
+        Common.save_tab_settings()
 
 
 ProcessesMenu = ProcessesMenu()

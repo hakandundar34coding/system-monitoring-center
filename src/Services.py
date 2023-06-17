@@ -400,10 +400,10 @@ class Services:
 
         self.services_loop_already_run = 0
 
-        self.services_loop_func()
+        self.loop_func()
 
 
-    def services_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -440,10 +440,13 @@ class Services:
         self.initial_already_run = 1
 
 
-    def services_loop_func(self):
+    def loop_func(self):
         """
         Get and show information on the GUI on every loop.
         """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
 
         # Switch to System tab and prevent errors if systemd is not used on the system.
         if Config.init_system != "systemd":

@@ -311,7 +311,7 @@ class Memory:
             self.main_glib_source.attach(GLib.MainContext.default())
 
 
-    def memory_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -331,10 +331,13 @@ class Memory:
         self.initial_already_run = 1
 
 
-    def memory_loop_func(self):
+    def loop_func(self):
         """
         Get and show information on the GUI on every loop.
         """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
 
         memory_info = Libsysmon.get_memory_info()
 

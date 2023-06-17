@@ -7,7 +7,6 @@ from locale import gettext as _tr
 
 from .Config import Config
 from .Performance import Performance
-from .Memory import Memory
 from .MainWindow import MainWindow
 from . import Common
 
@@ -136,7 +135,7 @@ class MemoryMenu:
             self.disconnect_signals()
         except TypeError:
             pass
-        self.popover_set_gui()
+        self.set_gui()
         self.connect_signals()
 
 
@@ -151,10 +150,7 @@ class MemoryMenu:
             if widget == self.memory_usage_cb:
                 Config.show_memory_usage_per_memory = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Memory.memory_initial_func()
-        Memory.memory_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_selected_item_notify(self, widget, parameter):
@@ -166,10 +162,7 @@ class MemoryMenu:
 
         Config.performance_memory_data_precision = widget.get_selected()
 
-        # Apply changes immediately (without waiting update interval).
-        Memory.memory_initial_func()
-        Memory.memory_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_data_power_of_cb_toggled(self, widget):
@@ -182,10 +175,7 @@ class MemoryMenu:
         elif self.data_power_of_1000_cb.get_active() == True:
             Config.performance_memory_data_unit = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Memory.memory_initial_func()
-        Memory.memory_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_reset_button_clicked(self, widget):
@@ -197,15 +187,10 @@ class MemoryMenu:
         Config.config_default_performance_memory_func()
         Config.config_save_func()
 
-        # Apply changes immediately (without waiting update interval).
-        Memory.memory_initial_func()
-        Memory.memory_loop_func()
-        self.disconnect_signals()
-        self.popover_set_gui()
-        self.connect_signals()
+        Common.update_tab_and_menu_gui(self)
 
 
-    def popover_set_gui(self):
+    def set_gui(self):
         """
         Set menu GUI items.
         """

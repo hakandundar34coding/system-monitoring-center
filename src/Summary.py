@@ -40,7 +40,7 @@ class Summary:
         self.tab_grid.attach(self.da_summary, 0, 1, 1, 1)
 
 
-    def summary_initial_func(self):
+    def initial_func(self):
         """
         Initial code.
         """
@@ -48,10 +48,13 @@ class Summary:
         self.initial_already_run = 1
 
 
-    def summary_loop_func(self):
+    def loop_func(self):
         """
         Draw graphics for showing performance data.
         """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
 
         self.da_summary.queue_draw()
 

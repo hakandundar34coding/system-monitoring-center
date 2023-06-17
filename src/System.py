@@ -296,13 +296,24 @@ class System:
         self.flatpak_packages_spinner.set_visible(True)
         self.flatpak_packages_spinner.start()
 
-        GLib.idle_add(self.system_initial_func)
+        self.loop_func()
 
 
-    def system_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
+
+        self.initial_already_run = 1
+
+
+    def loop_func(self):
+        """
+        Get and show information on the GUI.
+        """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
 
         # Get information.
         os_name, os_version, os_based_on = Libsysmon.get_os_name_version_codename_based_on()

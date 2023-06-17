@@ -7,7 +7,6 @@ from locale import gettext as _tr
 
 from .Config import Config
 from .Performance import Performance
-from .Cpu import Cpu
 from .MainWindow import MainWindow
 from . import Common
 
@@ -116,7 +115,7 @@ class CpuMenu:
             self.disconnect_signals()
         except TypeError:
             pass
-        self.popover_set_gui()
+        self.set_gui()
         self.connect_signals()
 
 
@@ -131,10 +130,7 @@ class CpuMenu:
             if widget == self.cpu_usage_per_core_cb:
                 Config.show_cpu_usage_per_core = 1
 
-            # Apply changes immediately (without waiting update interval).
-            Cpu.cpu_initial_func()
-            Cpu.cpu_loop_func()
-            Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_selected_item_notify(self, widget, parameter):
@@ -146,10 +142,7 @@ class CpuMenu:
 
         Config.performance_cpu_usage_percent_precision = widget.get_selected()
 
-        # Apply changes immediately (without waiting update interval).
-        Cpu.cpu_initial_func()
-        Cpu.cpu_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_reset_button_clicked(self, widget):
@@ -165,15 +158,10 @@ class CpuMenu:
         # Reset device list between Performance tab sub-tabs because selected device is reset.
         MainWindow.main_gui_device_selection_list()
 
-        # Apply changes immediately (without waiting update interval).
-        Cpu.cpu_initial_func()
-        Cpu.cpu_loop_func()
-        self.disconnect_signals()
-        self.popover_set_gui()
-        self.connect_signals()
+        Common.update_tab_and_menu_gui(self)
 
 
-    def popover_set_gui(self):
+    def set_gui(self):
         """
         Set menu GUI items.
         """

@@ -195,12 +195,7 @@ class UsersMenu:
         Config.config_default_users_func()
         Config.config_save_func()
 
-        # Apply changes immediately (without waiting update interval).
-        Users.users_initial_func()
-        Users.users_loop_func()
-        self.disconnect_signals()
-        self.set_gui()
-        self.connect_signals()
+        Common.update_tab_and_menu_gui(self)
 
 
     def on_add_remove_checkbuttons_toggled(self, widget):
@@ -295,9 +290,8 @@ class UsersMenu:
 
         # Apply changes immediately (without waiting update interval).
         Common.treeview_column_order_width_row_sorting()
-        Users.users_initial_func()
-        Users.users_loop_func()
-        Config.config_save_func()
+
+        Common.save_tab_settings()
 
 
 UsersMenu = UsersMenu()

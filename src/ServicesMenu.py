@@ -5,7 +5,6 @@ from gi.repository import Gtk
 from locale import gettext as _tr
 
 from .Config import Config
-from .Services import Services
 from .MainWindow import MainWindow
 from . import Common
 
@@ -177,12 +176,7 @@ class ServicesMenu:
         Config.config_default_services_func()
         Config.config_save_func()
 
-        # Apply changes immediately (without waiting update interval).
-        #Services.services_initial_func()
-        #Services.services_loop_func()
-        self.disconnect_signals()
-        self.set_gui()
-        self.connect_signals()
+        Common.update_tab_and_menu_gui(self)
 
 
     def on_add_remove_checkbuttons_toggled(self, widget):
@@ -258,8 +252,8 @@ class ServicesMenu:
 
         # Apply changes immediately (without waiting update interval).
         Common.treeview_column_order_width_row_sorting()
-        #Services.services_initial_func()
-        #Services.services_loop_func()
+
+        #Common.save_tab_settings()
         Config.config_save_func()
 
 

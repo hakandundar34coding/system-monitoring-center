@@ -659,18 +659,15 @@ class MainWindow():
                     global Summary
                     from .Summary import Summary
                     self.summary_tab_main_grid.attach(Summary.tab_grid, 0, 0, 1, 1)
-                # Run initial function of the module if this is the first loop of the module.
-                if Summary.initial_already_run == 0:
-                    GLib.idle_add(Summary.summary_initial_func)
                 # Run loop Summary loop function in order to get data without waiting update interval.
-                GLib.idle_add(Summary.summary_loop_func)
+                Summary.loop_func()
                 # Show device selection list on a listbox between radiobuttons of Performance tab sub-tabs.
                 self.main_gui_device_selection_list()
                 self.tab_menu_menubutton.set_sensitive(False)
                 return
 
             # Switch to "CPU" tab
-            if self.cpu_tb.get_active() == True:
+            elif self.cpu_tb.get_active() == True:
                 self.sub_tab_stack.set_visible_child(self.cpu_tab_main_grid)
                 if Config.remember_last_opened_tabs_on_application_start == 1:
                     Config.performance_tab_default_sub_tab = 1
@@ -680,9 +677,7 @@ class MainWindow():
                     global Cpu
                     from .Cpu import Cpu
                     self.cpu_tab_main_grid.attach(Cpu.tab_grid, 0, 0, 1, 1)
-                if Cpu.initial_already_run == 0:
-                    GLib.idle_add(Cpu.cpu_initial_func)
-                GLib.idle_add(Cpu.cpu_loop_func)
+                Cpu.loop_func()
                 self.main_gui_device_selection_list()
                 self.tab_menu_menubutton.set_sensitive(True)
                 return
@@ -698,9 +693,7 @@ class MainWindow():
                     global Memory
                     from .Memory import Memory
                     self.memory_tab_main_grid.attach(Memory.tab_grid, 0, 0, 1, 1)
-                if Memory.initial_already_run == 0:
-                    GLib.idle_add(Memory.memory_initial_func)
-                GLib.idle_add(Memory.memory_loop_func)
+                Memory.loop_func()
                 self.main_gui_device_selection_list()
                 self.tab_menu_menubutton.set_sensitive(True)
                 return
@@ -716,9 +709,7 @@ class MainWindow():
                     global Disk
                     from .Disk import Disk
                     self.disk_tab_main_grid.attach(Disk.tab_grid, 0, 0, 1, 1)
-                if Disk.initial_already_run == 0:
-                    GLib.idle_add(Disk.disk_initial_func)
-                GLib.idle_add(Disk.disk_loop_func)
+                Disk.loop_func()
                 self.main_gui_device_selection_list()
                 self.tab_menu_menubutton.set_sensitive(True)
                 return
@@ -734,9 +725,7 @@ class MainWindow():
                     global Network
                     from .Network import Network
                     self.network_tab_main_grid.attach(Network.tab_grid, 0, 0, 1, 1)
-                if Network.initial_already_run == 0:
-                    GLib.idle_add(Network.network_initial_func)
-                GLib.idle_add(Network.network_loop_func)
+                Network.loop_func()
                 self.main_gui_device_selection_list()
                 self.tab_menu_menubutton.set_sensitive(True)
                 return
@@ -752,9 +741,7 @@ class MainWindow():
                     global Gpu
                     from .Gpu import Gpu
                     self.gpu_tab_main_grid.attach(Gpu.tab_grid, 0, 0, 1, 1)
-                if Gpu.initial_already_run == 0:
-                    GLib.idle_add(Gpu.gpu_initial_func)
-                GLib.idle_add(Gpu.gpu_loop_func)
+                Gpu.loop_func()
                 try:
                     self.main_gui_device_selection_list()
                 except AttributeError:
@@ -773,9 +760,7 @@ class MainWindow():
                     global Sensors
                     from .Sensors import Sensors
                     self.sensors_tab_main_grid.attach(Sensors.tab_grid, 0, 0, 1, 1)
-                if Sensors.initial_already_run == 0:
-                    GLib.idle_add(Sensors.sensors_initial_func)
-                GLib.idle_add(Sensors.sensors_loop_func)
+                Sensors.loop_func()
                 self.main_gui_device_selection_list()
                 self.tab_menu_menubutton.set_sensitive(False)
                 return
@@ -791,9 +776,7 @@ class MainWindow():
                 global Processes
                 from .Processes import Processes
                 self.processes_tab_main_grid.attach(Processes.tab_grid, 0, 0, 1, 1)
-            if Processes.initial_already_run == 0:
-                GLib.idle_add(Processes.processes_initial_func)
-            GLib.idle_add(Processes.processes_loop_func)
+            Processes.loop_func()
             self.tab_menu_menubutton.set_sensitive(True)
             return
 
@@ -808,9 +791,7 @@ class MainWindow():
                 global Users
                 from .Users import Users
                 self.users_tab_main_grid.attach(Users.tab_grid, 0, 0, 1, 1)
-            if Users.initial_already_run == 0:
-                GLib.idle_add(Users.users_initial_func)
-            GLib.idle_add(Users.users_loop_func)
+            Users.loop_func()
             self.tab_menu_menubutton.set_sensitive(True)
             return
 
@@ -825,9 +806,7 @@ class MainWindow():
                 global Services
                 from .Services import Services
                 self.services_tab_main_grid.attach(Services.tab_grid, 0, 0, 1, 1)
-            if Services.initial_already_run == 0:
-                GLib.idle_add(Services.services_initial_func)
-            GLib.idle_add(Services.services_loop_func)
+            Services.loop_func()
             self.tab_menu_menubutton.set_sensitive(True)
             return
 
@@ -842,8 +821,7 @@ class MainWindow():
                 global System
                 from .System import System
                 self.system_tab_main_grid.attach(System.tab_grid, 0, 0, 1, 1)
-            if System.initial_already_run == 0:
-                GLib.idle_add(System.system_initial_func)
+            System.loop_func()
             self.tab_menu_menubutton.set_sensitive(False)
             return
 
@@ -955,8 +933,8 @@ class MainWindow():
                 Performance.performance_set_selected_cpu_core_func()
 
                 # Apply changes immediately (without waiting update interval).
-                Cpu.cpu_initial_func()
-                Cpu.cpu_loop_func()
+                Cpu.initial_func()
+                Cpu.loop_func()
                 Config.config_save_func()
 
             # Check if Memory tab is selected.
@@ -969,8 +947,8 @@ class MainWindow():
                 Performance.performance_set_selected_disk_func()
 
                 # Apply changes immediately (without waiting update interval).
-                Disk.disk_initial_func()
-                Disk.disk_loop_func()
+                Disk.initial_func()
+                Disk.loop_func()
                 Config.config_save_func()
 
             # Check if Network tab is selected.
@@ -979,8 +957,8 @@ class MainWindow():
                 Performance.performance_set_selected_network_card_func()
 
                 # Apply changes immediately (without waiting update interval).
-                Network.network_initial_func()
-                Network.network_loop_func()
+                Network.initial_func()
+                Network.loop_func()
                 Config.config_save_func()
 
             # Check if GPU tab is selected.
@@ -989,8 +967,8 @@ class MainWindow():
                 Gpu.get_gpu_list_and_boot_vga_func()
 
                 # Apply changes immediately (without waiting update interval).
-                Gpu.gpu_initial_func()
-                Gpu.gpu_loop_func()
+                Gpu.initial_func()
+                Gpu.loop_func()
                 Config.config_save_func()
 
             # Check if Sensors tab is selected.
@@ -1053,23 +1031,11 @@ class MainWindow():
         Hide Services tab if systemd is not used on the system.
         """
 
-        environment_type = Libsysmon.get_environment_type()
+        init_system = Libsysmon.get_init_system()
+        Config.init_system = init_system
 
-        try:
-            # Access host OS commands if the application is run in Flatpak environment.
-            if environment_type == "flatpak":
-                import subprocess
-                process_name = (subprocess.check_output(["flatpak-spawn", "--host", "cat", "/proc/1/comm"], shell=False)).decode().strip()
-            else:
-                with open("/proc/1/comm") as reader:
-                    process_name = reader.read().strip()
-            if process_name != "systemd":
-                Config.init_system = "other"
-                self.services_tb.set_visible(False)
-            else:
-                Config.init_system = "systemd"
-        except Exception:
-            pass
+        if init_system != "systemd":
+            self.services_tb.set_visible(False)
 
 
     def unified_tab_device_list_width(self):
@@ -1165,27 +1131,27 @@ class MainWindow():
         Performance.performance_background_loop_func()
 
         if Config.performance_summary_on_the_headerbar == 1:
-            GLib.idle_add(self.performance_summary_headerbar_loop)
+            self.performance_summary_headerbar_loop()
 
         if Config.current_main_tab == 0:
             if Config.performance_tab_current_sub_tab == 0:
-                GLib.idle_add(Summary.summary_loop_func)
+                Summary.loop_func()
             elif Config.performance_tab_current_sub_tab == 1:
-                GLib.idle_add(Cpu.cpu_loop_func)
+                Cpu.loop_func()
             elif Config.performance_tab_current_sub_tab == 2:
-                GLib.idle_add(Memory.memory_loop_func)
+                Memory.loop_func()
             elif Config.performance_tab_current_sub_tab == 3:
-                GLib.idle_add(Disk.disk_loop_func)
+                Disk.loop_func()
             elif Config.performance_tab_current_sub_tab == 4:
-                GLib.idle_add(Network.network_loop_func)
+                Network.loop_func()
             elif Config.performance_tab_current_sub_tab == 5:
-                GLib.idle_add(Gpu.gpu_loop_func)
+                Gpu.loop_func()
             elif Config.performance_tab_current_sub_tab == 6:
-                GLib.idle_add(Sensors.sensors_loop_func)
+                Sensors.loop_func()
         elif Config.current_main_tab == 1:
-            GLib.idle_add(Processes.processes_loop_func)
+            Processes.loop_func()
         elif Config.current_main_tab == 2:
-            GLib.idle_add(Users.users_loop_func)
+            Users.loop_func()
 
         self.main_glib_source.set_callback(self.main_gui_tab_loop)
         # Attach GLib.Source to MainContext.

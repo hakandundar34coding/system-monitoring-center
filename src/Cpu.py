@@ -154,7 +154,7 @@ class Cpu:
         performance_info_right_grid.attach(self.architecture_label, 1, 5, 1, 1)
 
 
-    def cpu_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -186,17 +186,20 @@ class Cpu:
         self.initial_already_run = 1
 
 
-    def cpu_loop_func(self):
+    def loop_func(self):
         """
         Get and show information on the GUI on every loop.
         """
 
+        if self.initial_already_run == 0:
+            self.initial_func()
+
         number_of_logical_cores = Libsysmon.get_number_of_logical_cores()
         cpu_usage_percent_ave = Performance.cpu_usage_percent_ave
         selected_cpu_core = Performance.selected_cpu_core
-        # Run "cpu_initial_func" if selected CPU core is changed since the last loop.
+        # Run "initial_func" if selected CPU core is changed since the last loop.
         if self.selected_cpu_core_prev != selected_cpu_core:
-            self.cpu_initial_func()
+            self.initial_func()
         self.selected_cpu_core_prev = selected_cpu_core
 
         # Run "main_gui_device_selection_list" if selected device list is changed since the last loop.

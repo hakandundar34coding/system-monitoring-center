@@ -153,7 +153,7 @@ class Network:
         performance_info_right_grid.attach(self.mac_address_label, 1, 5, 1, 1)
 
 
-    def network_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -180,18 +180,21 @@ class Network:
         self.initial_already_run = 1
 
 
-    def network_loop_func(self):
+    def loop_func(self):
         """
         Get and show information on the GUI on every loop.
         """
 
+        if self.initial_already_run == 0:
+            self.initial_func()
+
         network_card_list = Performance.network_card_list
         selected_network_card = Performance.selected_network_card
 
-        # Run "network_initial_func" if selected network card is changed since the last loop.
+        # Run "initial_func" if selected network card is changed since the last loop.
         try:
             if self.selected_network_card_prev != selected_network_card:
-                self.network_initial_func()
+                self.initial_func()
         # Avoid errors if this is first loop of the function.
         except AttributeError:
             pass

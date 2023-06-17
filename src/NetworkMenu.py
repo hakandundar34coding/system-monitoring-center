@@ -7,7 +7,6 @@ from locale import gettext as _tr
 
 from .Config import Config
 from .Performance import Performance
-from .Network import Network
 from .MainWindow import MainWindow
 from . import Common
 
@@ -154,7 +153,7 @@ class NetworkMenu:
             self.disconnect_signals()
         except TypeError:
             pass
-        self.popover_set_gui()
+        self.set_gui()
         self.connect_signals()
 
 
@@ -171,10 +170,7 @@ class NetworkMenu:
                 return
             Config.plot_network_download_speed = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_upload_speed_cb_toggled(self, widget):
@@ -190,10 +186,7 @@ class NetworkMenu:
                 return
             Config.plot_network_upload_speed = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_network_menu_device_selection_cb(self, widget):
@@ -207,10 +200,7 @@ class NetworkMenu:
             if widget == self.all_devices_cb:
                 Config.show_network_usage_per_network_card = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_selected_item_notify(self, widget, parameter):
@@ -222,10 +212,7 @@ class NetworkMenu:
 
         Config.performance_network_data_precision = widget.get_selected()
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_data_unit_radiobuttons_toggled(self, widget):
@@ -238,10 +225,7 @@ class NetworkMenu:
         elif self.data_power_of_1000_cb.get_active() == True:
             Config.performance_network_data_unit = 1
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_data_bits_cb_toggled(self, widget):
@@ -254,10 +238,7 @@ class NetworkMenu:
         else:
             Config.performance_network_speed_bit = 0
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        Config.config_save_func()
+        Common.save_tab_settings()
 
 
     def on_reset_button_clicked(self, widget):
@@ -273,15 +254,10 @@ class NetworkMenu:
         # Reset device list between Performance tab sub-tabs because selected device is reset.
         MainWindow.main_gui_device_selection_list()
 
-        # Apply changes immediately (without waiting update interval).
-        Network.network_initial_func()
-        Network.network_loop_func()
-        self.disconnect_signals()
-        self.popover_set_gui()
-        self.connect_signals()
+        Common.update_tab_and_menu_gui(self)
 
 
-    def popover_set_gui(self):
+    def set_gui(self):
         """
         Set menu GUI items.
         """

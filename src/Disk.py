@@ -396,7 +396,7 @@ class Disk:
             self.main_glib_source.attach(GLib.MainContext.default())
 
 
-    def disk_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -427,18 +427,21 @@ class Disk:
         self.initial_already_run = 1
 
 
-    def disk_loop_func(self):
+    def loop_func(self):
         """
         Get and show information on the GUI on every loop.
         """
 
+        if self.initial_already_run == 0:
+            self.initial_func()
+
         disk_list = Performance.disk_list
         selected_disk = Performance.selected_disk
 
-        # Run "disk_initial_func" if selected disk is changed since the last loop.
+        # Run "initial_func" if selected disk is changed since the last loop.
         try:                                                                                      
             if self.selected_disk_prev != selected_disk:
-                self.disk_initial_func()
+                self.initial_func()
         # try-except is used in order to avoid error if this is first loop of the function.
         except AttributeError:
             pass

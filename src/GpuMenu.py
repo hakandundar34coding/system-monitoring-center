@@ -63,9 +63,7 @@ class GpuMenu:
         # Reset device list between Performance tab sub-tabs because selected device is reset.
         MainWindow.main_gui_device_selection_list()
 
-        # Apply changes immediately (without waiting update interval).
-        Gpu.gpu_initial_func()
-        Gpu.gpu_loop_func()
+        Common.update_tab_and_menu_gui(self)
 
 
 GpuMenu = GpuMenu()

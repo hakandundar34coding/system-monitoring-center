@@ -100,7 +100,7 @@ class Sensors:
                 self.treestore.set_value(piter, 0, True)
 
 
-    def sensors_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -132,10 +132,13 @@ class Sensors:
         self.initial_already_run = 1
 
 
-    def sensors_loop_func(self):
+    def loop_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
 
         update_interval = Config.update_interval
 
