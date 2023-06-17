@@ -34,6 +34,7 @@ system_monitoring_center_sources = [
     'DiskMenu.py',
     'Gpu.py',
     'GpuMenu.py',
+    'Libsysmon.py',
     'Main.py',
     'MainWindow.py',
     'Memory.py',
