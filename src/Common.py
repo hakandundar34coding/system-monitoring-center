@@ -197,6 +197,7 @@ def main_tab_togglebutton(text, image_name):
 
     # Label
     label = Gtk.Label()
+    label.set_ellipsize(Pango.EllipsizeMode.END)
     label.set_label(text)
     grid.attach(label, 0, 1, 1, 1)
 
