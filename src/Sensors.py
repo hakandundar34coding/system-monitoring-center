@@ -4,11 +4,11 @@ from gi.repository import Gtk
 
 import os
 
-from locale import gettext as _tr
-
 from .Config import Config
 from .MainWindow import MainWindow
 from . import Common
+
+_tr = Config._tr
 
 
 class Sensors:

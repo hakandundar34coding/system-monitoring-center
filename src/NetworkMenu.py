@@ -3,12 +3,12 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Gdk', '4.0')
 from gi.repository import Gtk, Gdk
 
-from locale import gettext as _tr
-
 from .Config import Config
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
+
+_tr = Config._tr
 
 
 class NetworkMenu:

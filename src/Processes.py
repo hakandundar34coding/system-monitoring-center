@@ -12,13 +12,13 @@ import time
 import subprocess
 from datetime import datetime
 
-from locale import gettext as _tr
-
 from .Config import Config
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
 from . import Libsysmon
+
+_tr = Config._tr
 
 
 class Processes:

@@ -5,12 +5,12 @@ from gi.repository import Gtk, GLib
 
 import threading
 
-from locale import gettext as _tr
-
 from .Config import Config
 from .MainWindow import MainWindow
 from . import Common
 from . import Libsysmon
+
+_tr = Config._tr
 
 
 class System:

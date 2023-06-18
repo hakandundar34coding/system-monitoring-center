@@ -6,10 +6,38 @@ gi.require_version('GObject', '2.0')
 gi.require_version('Pango', '1.0')
 from gi.repository import Gtk, Gdk, Gio, GObject, Pango
 
-from locale import gettext as _tr
+import os
+import gettext
 
 from .Config import Config
-from .Performance import Performance
+
+
+def language_translation_support():
+    """
+    Configurations for language translation support.
+    """
+
+    from .Main import localedir
+    if localedir == None:
+        localedir = os.path.dirname(os.path.realpath(__file__)) + "/../po/locale"
+
+    if Config.language == "system":
+        application_language = os.environ.get("LANG")
+    else:
+        application_language = Config.language
+
+    global _tr
+
+    try:
+        language = gettext.translation('system-monitoring-center', localedir=localedir, languages=[application_language])
+        language.install()
+        _tr = language.gettext
+    # Prevent errors if there are problems with language installations on the system.
+    except Exception:
+        def _tr(text_for_translation):
+            return text_for_translation
+
+    Config._tr = _tr
 
 
 def get_tab_object():
@@ -367,6 +395,7 @@ def drawingarea(drawing_function, drawingarea_tag):
     # Drawingarea mouse events
     if drawingarea_tag in ["da_cpu_usage", "da_memory_usage", "da_disk_speed", "da_network_speed", "da_gpu_usage",
                            "processes_details_da_cpu_usage", "processes_details_da_memory_usage", "processes_details_da_disk_speed"]:
+        from .Performance import Performance
         drawingarea_mouse_event = Gtk.EventControllerMotion()
         drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
         drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)

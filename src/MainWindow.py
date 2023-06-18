@@ -7,14 +7,14 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Gdk, GLib, Gio, Adw
 
 import os
-import locale
-
-from locale import gettext as _tr
 
 from .Config import Config
-from .Performance import Performance
 from . import Common
+Common.language_translation_support()
+from .Performance import Performance
 from . import Libsysmon
+
+_tr = Config._tr
 
 
 class MainWindow():
@@ -24,8 +24,6 @@ class MainWindow():
         """
         Run initial functions and generate main window.
         """
-
-        self.language_translation_support()
 
         Libsysmon.set_translation_func(_tr)
 
@@ -596,31 +594,6 @@ class MainWindow():
         elif Config.light_dark_theme == "dark":
             Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.FORCE_DARK)
             #Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = True
-
-
-    def language_translation_support(self):
-        """
-        Configurations for language translation support.
-        """
-
-        from .Main import localedir
-        if localedir == None:
-            localedir = os.path.dirname(os.path.realpath(__file__)) + "/../po/locale"
-
-        #locale.bindtextdomain("system-monitoring-center", os.path.dirname(os.path.realpath(__file__)) + "/../locale")
-        locale.bindtextdomain("system-monitoring-center", localedir)
-        locale.textdomain("system-monitoring-center")
-
-        if Config.language == "system":
-            application_language = os.environ.get("LANG")
-        else:
-            application_language = Config.language
-
-        try:
-            locale.setlocale(locale.LC_ALL, application_language)
-        # Prevent errors if there are problems with language installations on the system.
-        except Exception:
-            pass
 
 
     def on_main_gui_togglebuttons_toggled(self, widget):

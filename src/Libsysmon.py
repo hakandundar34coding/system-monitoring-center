@@ -816,9 +816,8 @@ def read_process_information(process_list, detail_level="medium"):
     global_cpu_time_all = global_time * number_of_clock_ticks
     try:
         cat_output = cat_output.decode().strip()
+    # Prevent errors if "cmdline" file contains characters that can not be decoded.
     except UnicodeDecodeError:
-        #system_encoding = sys.getfilesystemencoding()
-        #cat_output = cat_output.decode(system_encoding).strip()
         cat_output = cat_output.decode("utf-8", "ignore").strip()
 
     # Get separator text

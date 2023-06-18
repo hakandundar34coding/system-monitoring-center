@@ -7,13 +7,13 @@ import os
 import subprocess
 from threading import Thread
 
-from locale import gettext as _tr
-
 from .Config import Config
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
 from . import Libsysmon
+
+_tr = Config._tr
 
 
 class Gpu:

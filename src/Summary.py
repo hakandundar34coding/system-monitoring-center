@@ -7,12 +7,12 @@ import os
 import cairo
 from math import sin, cos
 
-from locale import gettext as _tr
-
 from .Config import Config
 from .Performance import Performance
 from . import Common
 from . import Libsysmon
+
+_tr = Config._tr
 
 
 class Summary:

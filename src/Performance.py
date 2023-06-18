@@ -3,10 +3,10 @@ import cairo
 import time
 from math import sqrt, ceil
 
-from locale import gettext as _tr
-
 from .Config import Config
 from . import Libsysmon
+
+_tr = Config._tr
 
 
 class Performance:
