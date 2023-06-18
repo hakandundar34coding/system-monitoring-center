@@ -817,8 +817,9 @@ def read_process_information(process_list, detail_level="medium"):
     try:
         cat_output = cat_output.decode().strip()
     except UnicodeDecodeError:
-        system_encoding = sys.getfilesystemencoding()
-        cat_output = cat_output.decode(system_encoding).strip()
+        #system_encoding = sys.getfilesystemencoding()
+        #cat_output = cat_output.decode(system_encoding).strip()
+        cat_output = cat_output.decode("utf-8", "ignore").strip()
 
     # Get separator text
     separator_text = cat_output.split("\n", 1)[0]
