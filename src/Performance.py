@@ -304,7 +304,7 @@ class Performance:
                 device_name_list = list(performance_data1.keys())
                 selected_device = ""
             else:
-                performance_data1 = {_tr("RAM"): self.ram_usage_percent, _tr("Swap Memory"): self.swap_usage_percent}
+                performance_data1 = {_tr("RAM"): self.ram_usage_percent, _tr("Swap"): self.swap_usage_percent}
                 device_name_list = list(performance_data1.keys())
                 selected_device = ""
 
