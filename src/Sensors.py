@@ -254,8 +254,8 @@ class Sensors:
         # Convert set to list (it was set before getting process information)
         treeview_columns_shown = sorted(list(treeview_columns_shown))
 
-        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
-        Common.treeview_reorder_columns_sort_rows_set_column_widths()
+        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns(self)
+        Common.treeview_reorder_columns_sort_rows_set_column_widths(self)
 
         # Clear piter_list and treestore because sensor data (new/removed) tracking is not performed. Because there may be same named sensors and tracking may not be successful while sensors have no unique identity (more computer examples are needed for understanding if sensors have unique information). PCI tree path could be get from sensor files but this may not be worth because code will be more complex and it may not be an exact solution for all sensors. Also CPU usage is very low (about 0.67-0.84%, tested on Core i7-2630QM 4-core notebook) even treestore is cleared and sensor data is appended from zero.
         self.piter_list = []
@@ -267,7 +267,7 @@ class Sensors:
         # Update search results.
         self.on_searchentry_changed(self.searchentry)
 
-        Common.searchentry_update_placeholder_text()
+        Common.searchentry_update_placeholder_text(self)
 
         self.treeview_columns_shown_prev = treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column

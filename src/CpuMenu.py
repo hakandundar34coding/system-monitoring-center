@@ -4,6 +4,7 @@ gi.require_version('Gdk', '4.0')
 from gi.repository import Gtk, Gdk
 
 from .Config import Config
+from .Cpu import Cpu
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
@@ -130,7 +131,7 @@ class CpuMenu:
             if widget == self.cpu_usage_per_core_cb:
                 Config.show_cpu_usage_per_core = 1
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Cpu)
 
 
     def on_selected_item_notify(self, widget, parameter):
@@ -142,7 +143,7 @@ class CpuMenu:
 
         Config.performance_cpu_usage_percent_precision = widget.get_selected()
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Cpu)
 
 
     def on_reset_button_clicked(self, widget):
@@ -158,7 +159,7 @@ class CpuMenu:
         # Reset device list between Performance tab sub-tabs because selected device is reset.
         MainWindow.main_gui_device_selection_list()
 
-        Common.update_tab_and_menu_gui(self)
+        Common.update_tab_and_menu_gui(self, Cpu)
 
 
     def set_gui(self):

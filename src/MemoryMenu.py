@@ -4,6 +4,7 @@ gi.require_version('Gdk', '4.0')
 from gi.repository import Gtk, Gdk
 
 from .Config import Config
+from .Memory import Memory
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
@@ -150,7 +151,7 @@ class MemoryMenu:
             if widget == self.memory_usage_cb:
                 Config.show_memory_usage_per_memory = 1
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Memory)
 
 
     def on_selected_item_notify(self, widget, parameter):
@@ -162,7 +163,7 @@ class MemoryMenu:
 
         Config.performance_memory_data_precision = widget.get_selected()
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Memory)
 
 
     def on_data_power_of_cb_toggled(self, widget):
@@ -175,7 +176,7 @@ class MemoryMenu:
         elif self.data_power_of_1000_cb.get_active() == True:
             Config.performance_memory_data_unit = 1
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Memory)
 
 
     def on_reset_button_clicked(self, widget):
@@ -187,7 +188,7 @@ class MemoryMenu:
         Config.config_default_performance_memory_func()
         Config.config_save_func()
 
-        Common.update_tab_and_menu_gui(self)
+        Common.update_tab_and_menu_gui(self, Memory)
 
 
     def set_gui(self):

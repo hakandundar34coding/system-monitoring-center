@@ -4,6 +4,7 @@ gi.require_version('Gdk', '4.0')
 from gi.repository import Gtk, Gdk
 
 from .Config import Config
+from .Network import Network
 from .Performance import Performance
 from .MainWindow import MainWindow
 from . import Common
@@ -170,7 +171,7 @@ class NetworkMenu:
                 return
             Config.plot_network_download_speed = 0
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Network)
 
 
     def on_upload_speed_cb_toggled(self, widget):
@@ -186,7 +187,7 @@ class NetworkMenu:
                 return
             Config.plot_network_upload_speed = 0
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Network)
 
 
     def on_network_menu_device_selection_cb(self, widget):
@@ -200,7 +201,7 @@ class NetworkMenu:
             if widget == self.all_devices_cb:
                 Config.show_network_usage_per_network_card = 1
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Network)
 
 
     def on_selected_item_notify(self, widget, parameter):
@@ -212,7 +213,7 @@ class NetworkMenu:
 
         Config.performance_network_data_precision = widget.get_selected()
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Network)
 
 
     def on_data_unit_radiobuttons_toggled(self, widget):
@@ -225,7 +226,7 @@ class NetworkMenu:
         elif self.data_power_of_1000_cb.get_active() == True:
             Config.performance_network_data_unit = 1
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Network)
 
 
     def on_data_bits_cb_toggled(self, widget):
@@ -238,7 +239,7 @@ class NetworkMenu:
         else:
             Config.performance_network_speed_bit = 0
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Network)
 
 
     def on_reset_button_clicked(self, widget):
@@ -254,7 +255,7 @@ class NetworkMenu:
         # Reset device list between Performance tab sub-tabs because selected device is reset.
         MainWindow.main_gui_device_selection_list()
 
-        Common.update_tab_and_menu_gui(self)
+        Common.update_tab_and_menu_gui(self, Network)
 
 
     def set_gui(self):

@@ -83,24 +83,20 @@ def get_tab_object():
     return TabObject
 
 
-def save_tab_settings():
+def save_tab_settings(TabObject):
     """
     Save settings of the current tab.
     """
-
-    TabObject = get_tab_object()
 
     TabObject.initial_func()
     TabObject.loop_func()
     Config.config_save_func()
 
 
-def update_tab_and_menu_gui(MenuObject):
+def update_tab_and_menu_gui(MenuObject, TabObject):
     """
     Update current tab GUI and menu of the current tab.
     """
-
-    TabObject = get_tab_object()
 
     TabObject.initial_func()
     TabObject.loop_func()
@@ -927,12 +923,11 @@ def searchentry_grab_focus(action, parameter):
     searchentry.grab_focus()
 
 
-def searchentry_update_placeholder_text():
+def searchentry_update_placeholder_text(TabObject):
     """
     Update placeholder text (row count) on SearchEntry.
     """
 
-    TabObject = get_tab_object()
     searchentry = TabObject.searchentry
     tab_data_rows = TabObject.tab_data_rows
 
@@ -973,7 +968,7 @@ def set_label_spinner(label, spinner, label_data):
     label.set_label(f'{label_data}')
 
 
-def treeview_add_remove_columns():
+def treeview_add_remove_columns(TabObject):
     """
     Add/Remove treeview columns appropriate for user preferences.
     Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if
@@ -982,7 +977,6 @@ def treeview_add_remove_columns():
     can not be performed.
     """
 
-    TabObject = get_tab_object()
     treeview = TabObject.treeview
     row_data_list = TabObject.row_data_list
     treeview_columns_shown_prev = TabObject.treeview_columns_shown_prev
@@ -1035,8 +1029,8 @@ def treeview_add_remove_columns():
             treeview_column.set_resizable(True)                                     # Set columns resizable by the user when column title button edge handles are dragged.
             treeview_column.set_reorderable(True)                                   # Set columns reorderable by the user when column title buttons are dragged.
             treeview_column.set_min_width(50)                                       # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
-            treeview_column.connect("clicked", on_column_title_clicked)             # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
-            treeview_column.connect("notify::width", treeview_column_order_width_row_sorting)
+            treeview_column.connect("clicked", on_column_title_clicked, TabObject)  # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
+            treeview_column.connect("notify::width", treeview_column_order_width_row_sorting, TabObject)
             treeview.append_column(treeview_column)                                 # Append column into treeview
 
         # Get column data types for appending row data into treestore
@@ -1076,12 +1070,11 @@ def get_new_deleted_updated_rows(row_id_list, row_id_list_prev):
     return deleted_rows, new_rows, updated_existing_row_index
 
 
-def update_treestore_rows(rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, row_id_list, row_id_list_prev, show_rows_as_tree=0):
+def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, row_id_list, row_id_list_prev, show_rows_as_tree=0):
     """
     Add/Remove/Update treestore rows.
     """
 
-    TabObject = get_tab_object()
     treestore = TabObject.treestore
     piter_list = TabObject.piter_list
     searchentry = TabObject.searchentry
@@ -1127,12 +1120,11 @@ def update_treestore_rows(rows_data_dict, deleted_rows, new_rows, updated_existi
         on_searchentry_changed(searchentry)
 
 
-def treeview_reorder_columns_sort_rows_set_column_widths():
+def treeview_reorder_columns_sort_rows_set_column_widths(TabObject):
     """
     Reorder TreeView columns, sort TreeView rows and set TreeView columns.
     """
 
-    TabObject = get_tab_object()
     treeview = TabObject.treeview
     row_data_list = TabObject.row_data_list
     treeview_columns_shown = TabObject.treeview_columns_shown
@@ -1205,7 +1197,7 @@ def treeview_reorder_columns_sort_rows_set_column_widths():
                    treeview_columns[j].set_fixed_width(column_width)
 
 
-def treeview_column_order_width_row_sorting(widget=None, parameter=None):
+def treeview_column_order_width_row_sorting(widget, parameter, TabObject):
     """
     Get and save column order/width, row sorting.
     Columns in the treeview are get one by one and appended into "data_column_order".
@@ -1214,7 +1206,6 @@ def treeview_column_order_width_row_sorting(widget=None, parameter=None):
     Only values of the elements (element indexes are always same with "row_data_list") are changed if column order/widths are changed.
     """
 
-    TabObject = get_tab_object()
     treeview = TabObject.treeview
     row_data_list = TabObject.row_data_list
 
@@ -1269,12 +1260,11 @@ def treeview_column_order_width_row_sorting(widget=None, parameter=None):
     Config.config_save_func()
 
 
-def on_column_title_clicked(widget):
+def on_column_title_clicked(widget, TabObject):
     """
     Get and save column sorting order.
     """
 
-    TabObject = get_tab_object()
     row_data_list = TabObject.row_data_list
 
     # Get column title which will be used for getting column number
@@ -1301,12 +1291,11 @@ def on_column_title_clicked(widget):
     Config.config_save_func()
 
 
-def on_columns_changed(widget):
+def on_columns_changed(widget, TabObject):
     """
     Called if number of columns changed.
     """
 
-    TabObject = get_tab_object()
     treeview = TabObject.treeview
 
     # Get treeview columns shown
@@ -1324,5 +1313,5 @@ def on_columns_changed(widget):
         return
     if treeview_columns[0].get_width() == 0:
         return
-    treeview_column_order_width_row_sorting()
+    treeview_column_order_width_row_sorting(widget, None, TabObject)
 

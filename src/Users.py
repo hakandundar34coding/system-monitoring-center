@@ -93,7 +93,7 @@ class Users:
         """
 
         # Treeview signals
-        self.treeview.connect("columns-changed", Common.on_columns_changed)
+        self.treeview.connect("columns-changed", Common.on_columns_changed, self)
 
         # Treeview mouse events.
         treeview_mouse_event = Gtk.GestureClick()
@@ -317,18 +317,18 @@ class Users:
         # Convert set to list (it was set before getting process information)
         treeview_columns_shown = sorted(list(treeview_columns_shown))
 
-        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
+        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns(self)
         if reset_row_unique_data_list_prev == "yes":
             self.human_user_uid_list_prev = []
-        Common.treeview_reorder_columns_sort_rows_set_column_widths()
+        Common.treeview_reorder_columns_sort_rows_set_column_widths(self)
 
         # Prevent errors if no rows are found.
         if len(tab_data_rows[0]) == 0:
             return
 
         deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(human_user_uid_list, self.human_user_uid_list_prev)
-        Common.update_treestore_rows(rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, human_user_uid_list, self.human_user_uid_list_prev, 0)
-        Common.searchentry_update_placeholder_text()
+        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, human_user_uid_list, self.human_user_uid_list_prev, 0)
+        Common.searchentry_update_placeholder_text(self)
 
         self.human_user_uid_list_prev = human_user_uid_list
         self.tab_data_rows_prev = tab_data_rows

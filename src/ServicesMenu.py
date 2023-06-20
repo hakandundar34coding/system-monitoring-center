@@ -3,6 +3,7 @@ gi.require_version('Gtk', '4.0')
 from gi.repository import Gtk
 
 from .Config import Config
+from .Services import Services
 from .MainWindow import MainWindow
 from . import Common
 
@@ -176,7 +177,7 @@ class ServicesMenu:
         Config.config_default_services_func()
         Config.config_save_func()
 
-        Common.update_tab_and_menu_gui(self)
+        Common.update_tab_and_menu_gui(self, Services)
 
 
     def on_add_remove_checkbuttons_toggled(self, widget):
@@ -251,9 +252,9 @@ class ServicesMenu:
             Config.services_treeview_columns_shown.append(7)
 
         # Apply changes immediately (without waiting update interval).
-        Common.treeview_column_order_width_row_sorting()
+        Common.treeview_column_order_width_row_sorting(None, None, Services)
 
-        #Common.save_tab_settings()
+        #Common.save_tab_settings(Services)
         Config.config_save_func()
 
 

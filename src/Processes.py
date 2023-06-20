@@ -132,7 +132,7 @@ class Processes:
         """
 
         # Treeview signals
-        self.treeview.connect("columns-changed", Common.on_columns_changed)
+        self.treeview.connect("columns-changed", Common.on_columns_changed, self)
 
         # Treeview mouse events
         treeview_mouse_event = Gtk.GestureClick()
@@ -946,7 +946,6 @@ class Processes:
         Mouse single left click event (button release).
         """
         pass
-        #Common.treeview_column_order_width_row_sorting()
 
 
     def initial_func(self):
@@ -1197,10 +1196,10 @@ class Processes:
         # Convert set to list (it was set before getting process information)
         treeview_columns_shown = sorted(list(treeview_columns_shown))
 
-        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns()
+        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns(self)
         if reset_row_unique_data_list_prev == "yes":
             self.pid_list_prev = []
-        Common.treeview_reorder_columns_sort_rows_set_column_widths()
+        Common.treeview_reorder_columns_sort_rows_set_column_widths(self)
 
         # Append treestore items (rows) as tree or list structure depending on user preferences.
         if self.show_processes_as_tree != self.show_processes_as_tree_prev:                       # Check if "show_processes_as_tree" setting has been changed since last loop and redefine "piter_list" in order to prevent resetting it in every loop which will cause high CPU consumption because piter_list and treestore content would have been appended/builded from zero.
@@ -1213,8 +1212,8 @@ class Processes:
             return
 
         deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(pid_list, self.pid_list_prev)
-        Common.update_treestore_rows(rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, pid_list, self.pid_list_prev, self.show_processes_as_tree)
-        Common.searchentry_update_placeholder_text()
+        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, pid_list, self.pid_list_prev, self.show_processes_as_tree)
+        Common.searchentry_update_placeholder_text(self)
 
         # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop
         # of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made.

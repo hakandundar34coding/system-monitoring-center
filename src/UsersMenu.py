@@ -195,7 +195,7 @@ class UsersMenu:
         Config.config_default_users_func()
         Config.config_save_func()
 
-        Common.update_tab_and_menu_gui(self)
+        Common.update_tab_and_menu_gui(self, Users)
 
 
     def on_add_remove_checkbuttons_toggled(self, widget):
@@ -289,9 +289,9 @@ class UsersMenu:
             Config.users_treeview_columns_shown.append(10)
 
         # Apply changes immediately (without waiting update interval).
-        Common.treeview_column_order_width_row_sorting()
+        Common.treeview_column_order_width_row_sorting(None, None, Users)
 
-        Common.save_tab_settings()
+        Common.save_tab_settings(Users)
 
 
 UsersMenu = UsersMenu()
