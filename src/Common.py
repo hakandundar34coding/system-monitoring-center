@@ -40,49 +40,6 @@ def language_translation_support():
     Config._tr = _tr
 
 
-def get_tab_object():
-    """
-    Get object of the current tab.
-    """
-
-    if Config.current_main_tab == 0:
-        if Config.performance_tab_current_sub_tab == 0:
-            from .Summary import Summary
-            TabObject = Summary
-        elif Config.performance_tab_current_sub_tab == 1:
-            from .Cpu import Cpu
-            TabObject = Cpu
-        elif Config.performance_tab_current_sub_tab == 2:
-            from .Memory import Memory
-            TabObject = Memory
-        elif Config.performance_tab_current_sub_tab == 3:
-            from .Disk import Disk
-            TabObject = Disk
-        elif Config.performance_tab_current_sub_tab == 4:
-            from .Network import Network
-            TabObject = Network
-        elif Config.performance_tab_current_sub_tab == 5:
-            from .Gpu import Gpu
-            TabObject = Gpu
-        elif Config.performance_tab_current_sub_tab == 6:
-            from .Sensors import Sensors
-            TabObject = Sensors
-    elif Config.current_main_tab == 1:
-        from .Processes import Processes
-        TabObject = Processes
-    elif Config.current_main_tab == 2:
-        from .Users import Users
-        TabObject = Users
-    elif Config.current_main_tab == 3:
-        from .Services import Services
-        TabObject = Services
-    elif Config.current_main_tab == 4:
-        from .System import System
-        TabObject = System
-
-    return TabObject
-
-
 def save_tab_settings(TabObject):
     """
     Save settings of the current tab.
