@@ -231,8 +231,9 @@ class UsersDetails:
                 # Get user process start time
                 curent_user_process_start_time_list = []
                 for pid in pid_list:
-                    if logged_in_users_list[pid_list.index(pid)] == username:
-                        curent_user_process_start_time_list.append(user_processes_start_times[pid_list.index(pid)])
+                    pid_index = pid_list.index(pid)
+                    if logged_in_users_list[pid_index] == username:
+                        curent_user_process_start_time_list.append(user_processes_start_times[pid_index])
                 if curent_user_process_start_time_list == []:
                     selected_user_process_start_time = 0
                 else:
@@ -241,8 +242,9 @@ class UsersDetails:
                 # Get user processes CPU usage percentages
                 selected_user_cpu_percent = 0
                 for pid in pid_list:
-                    if logged_in_users_list[pid_list.index(pid)] == username:
-                        selected_user_cpu_percent = selected_user_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
+                    pid_index = pid_list.index(pid)
+                    if logged_in_users_list[pid_index] == username:
+                        selected_user_cpu_percent = selected_user_cpu_percent + all_process_cpu_usages[pid_index]
 
         # For using values in the next loop
         self.pid_list_prev = pid_list

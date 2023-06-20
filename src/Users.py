@@ -298,8 +298,9 @@ def users_loop_func():
             if 9 in users_treeview_columns_shown:
                 curent_user_process_start_time_list = []
                 for pid in pid_list:
-                    if logged_in_users_list[pid_list.index(pid)] == username:
-                        curent_user_process_start_time_list.append(user_processes_start_times[pid_list.index(pid)])
+                    pid_index = pid_list.index(pid)
+                    if logged_in_users_list[pid_index] == username:
+                        curent_user_process_start_time_list.append(user_processes_start_times[pid_index])
                 if curent_user_process_start_time_list == []:
                     user_process_start_time = 0
                 else:
@@ -309,8 +310,9 @@ def users_loop_func():
             if 10 in users_treeview_columns_shown:
                 user_users_cpu_percent = 0
                 for pid in pid_list:
-                    if logged_in_users_list[pid_list.index(pid)] == username:
-                        user_users_cpu_percent = user_users_cpu_percent + all_process_cpu_usages[pid_list.index(pid)]
+                    pid_index = pid_list.index(pid)
+                    if logged_in_users_list[pid_index] == username:
+                        user_users_cpu_percent = user_users_cpu_percent + all_process_cpu_usages[pid_index]
                 users_data_row.append(user_users_cpu_percent)
             # Append all data of the users into a list which will be appended into a treestore for showing the data on a treeview.
             users_data_rows.append(users_data_row)
