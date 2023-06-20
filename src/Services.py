@@ -518,6 +518,9 @@ def on_column_title_clicked(widget):
 # ----------------------------------- Services - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def services_treeview_column_order_width_row_sorting_func():
 
+    services_data_column_order_prev = Config.services_data_column_order
+    services_data_column_widths_prev = Config.services_data_column_widths
+
     services_treeview_columns = treeview6101.get_columns()
     treeview_column_titles = []
     for column in services_treeview_columns:
@@ -535,6 +538,9 @@ def services_treeview_column_order_width_row_sorting_func():
                 services_data_column_order[i] = column_index
                 if j != services_treeview_columns_last_index:
                     services_data_column_widths[i] = services_treeview_columns[column_index].get_width()
+
+    if services_data_column_order == services_data_column_order_prev and services_data_column_widths == services_data_column_widths_prev:
+        return
 
     Config.services_data_column_order = list(services_data_column_order)
     Config.services_data_column_widths = list(services_data_column_widths)

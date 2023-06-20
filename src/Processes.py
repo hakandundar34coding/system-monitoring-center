@@ -811,6 +811,10 @@ def on_column_title_clicked(widget):
 # ----------------------------------- Processes - Treeview Column Order-Width Row Sorting Function (gets treeview column order/widths and row sorting) -----------------------------------
 def processes_treeview_column_order_width_row_sorting_func():
 
+    # Get previous column order and widths
+    processes_data_column_order_prev = Config.processes_data_column_order
+    processes_data_column_widths_prev = Config.processes_data_column_widths
+
     # Columns in the treeview are get one by one and appended into "processes_data_column_order". "processes_data_column_widths" list elements are modified for widths of every columns in the treeview. Length of these list are always same even if columns are removed, appended and column widths are changed. Only values of the elements (element indexes are always same with "processes_data") are changed if column order/widths are changed.
     processes_treeview_columns = treeview2101.get_columns()
     treeview_column_titles = []
@@ -829,6 +833,10 @@ def processes_treeview_column_order_width_row_sorting_func():
                 processes_data_column_order[i] = column_index
                 if j != processes_treeview_columns_last_index:
                     processes_data_column_widths[i] = processes_treeview_columns[column_index].get_width()
+
+    # Prevent saving settings if column order and widths are not changed.
+    if processes_data_column_order == processes_data_column_order_prev and processes_data_column_widths == processes_data_column_widths_prev:
+        return
 
     Config.processes_data_column_order = list(processes_data_column_order)
     Config.processes_data_column_widths = list(processes_data_column_widths)

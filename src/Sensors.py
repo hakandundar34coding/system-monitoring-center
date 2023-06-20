@@ -350,11 +350,14 @@ def on_column_title_clicked(widget):
         if data[1] == sensors_data_row_sorting_column_title:
             Config.sensors_data_row_sorting_column = data[0]                                  # Get column number
     Config.sensors_data_row_sorting_order = int(widget.get_sort_order())                      # Convert Gtk.SortType (for example: <enum GTK_SORT_ASCENDING of type Gtk.SortType>) to integer (0: ascending, 1: descending)
-    Config.config_save_func()
+    #Config.config_save_func()
 
 
 # ----------------------------------- Sensors - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def sensors_treeview_column_order_width_row_sorting_func():
+
+    sensors_data_column_order_prev = Config.sensors_data_column_order
+    sensors_data_column_widths_prev = Config.sensors_data_column_widths
 
     sensors_treeview_columns = treeview1601.get_columns()
     treeview_column_titles = []
@@ -374,7 +377,10 @@ def sensors_treeview_column_order_width_row_sorting_func():
                 if j != sensors_treeview_columns_last_index:
                     sensors_data_column_widths[i] = sensors_treeview_columns[column_index].get_width()
 
+    if sensors_data_column_order == sensors_data_column_order_prev and sensors_data_column_widths == sensors_data_column_widths_prev:
+        return
+
     Config.sensors_data_column_order = list(sensors_data_column_order)
     Config.sensors_data_column_widths = list(sensors_data_column_widths)
-    Config.config_save_func()
+    #Config.config_save_func()
 

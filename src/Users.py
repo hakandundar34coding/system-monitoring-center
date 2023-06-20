@@ -491,6 +491,9 @@ def on_column_title_clicked(widget):
 # ----------------------------------- Users - Treeview Column Order-Width Row Sorting Function -----------------------------------
 def users_treeview_column_order_width_row_sorting_func():
 
+    users_data_column_order_prev = Config.users_data_column_order
+    users_data_column_widths_prev = Config.users_data_column_widths
+
     users_treeview_columns = treeview3101.get_columns()
     treeview_column_titles = []
     for column in users_treeview_columns:
@@ -508,6 +511,9 @@ def users_treeview_column_order_width_row_sorting_func():
                 users_data_column_order[i] = column_index
                 if j != users_treeview_columns_last_index:
                     users_data_column_widths[i] = users_treeview_columns[column_index].get_width()
+
+    if users_data_column_order == users_data_column_order_prev and users_data_column_widths == users_data_column_widths_prev:
+        return
 
     Config.users_data_column_order = list(users_data_column_order)
     Config.users_data_column_widths = list(users_data_column_widths)
