@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v2.16.0 (20.06.2023)
+  * New: Setting app. language independent of system
+  * Fix: Rendering text for some languages (graphics)
+  * Fix: Listing processes with some cmdline characters
+  * Minor improvements (Performance, GUI, code)
+
 ### v2.15.1 (11.06.2023)
   * Minor performance improvements for Processes tab
   * Fix: Recursive CPU,Memory,Memory-RSS columns

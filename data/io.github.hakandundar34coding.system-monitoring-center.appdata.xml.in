@@ -74,6 +74,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.16.0" date="2023-06-20">
+      <description>
+        <ul>
+          <li>New: Setting app. language independent of system</li>
+          <li>Fix: Rendering text for some languages (graphics)</li>
+          <li>Fix: Listing processes with some cmdline characters</li>
+          <li>Minor improvements (Performance, GUI, code)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.15.1" date="2023-06-11">
       <description>
         <ul>
