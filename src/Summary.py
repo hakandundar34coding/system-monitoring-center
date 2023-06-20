@@ -690,9 +690,9 @@ class Summary:
         font_desc = Pango.font_description_from_string(system_font_scaled)
         layout.set_font_description(font_desc)
         layout.set_text(label_text)
-        ink_extends, logical_extends = layout.get_pixel_extents()
-        text_start_x = logical_extends.width + logical_extends.x
-        text_start_y = logical_extends.height + logical_extends.y
+        ink_extents, logical_extents = layout.get_pixel_extents()
+        text_start_x = logical_extents.width + logical_extents.x
+        text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_label_text_move - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         PangoCairo.show_layout(ctx, layout)
@@ -707,9 +707,9 @@ class Summary:
         font_desc = Pango.font_description_from_string(system_font_scaled)
         layout.set_font_description(font_desc)
         layout.set_text(label_text)
-        ink_extends, logical_extends = layout.get_pixel_extents()
-        text_start_x = logical_extends.width + logical_extends.x
-        text_start_y = logical_extends.height + logical_extends.y
+        ink_extents, logical_extents = layout.get_pixel_extents()
+        text_start_x = logical_extents.width + logical_extents.x
+        text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_cpu_ram_label_text_margin, -gauge_cpu_ram_label_text_move - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         PangoCairo.show_layout(ctx, layout)
@@ -724,9 +724,9 @@ class Summary:
         font_desc = Pango.font_description_from_string(system_font_scaled)
         layout.set_font_description(font_desc)
         layout.set_text(label_text)
-        ink_extends, logical_extends = layout.get_pixel_extents()
-        text_start_x = logical_extends.width + logical_extends.x
-        text_start_y = logical_extends.height + logical_extends.y
+        ink_extents, logical_extents = layout.get_pixel_extents()
+        text_start_x = logical_extents.width + logical_extents.x
+        text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_label_text_move - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         PangoCairo.show_layout(ctx, layout)
@@ -741,9 +741,9 @@ class Summary:
         font_desc = Pango.font_description_from_string(system_font_scaled)
         layout.set_font_description(font_desc)
         layout.set_text(label_text)
-        ink_extends, logical_extends = layout.get_pixel_extents()
-        text_start_x = logical_extends.width + logical_extends.x
-        text_start_y = logical_extends.height + logical_extends.y
+        ink_extents, logical_extents = layout.get_pixel_extents()
+        text_start_x = logical_extents.width + logical_extents.x
+        text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_processes_swap_label_text_move - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         PangoCairo.show_layout(ctx, layout)
@@ -752,8 +752,8 @@ class Summary:
         # Draw "%" labels below the CPU and RAM percentages on the inner circle of the circular gauge.
         percentage_text = "%"
         ctx.set_font_size(gauge_percentage_label_text_below_cpu_ram_size)
-        text_extends = ctx.text_extents(percentage_text)
-        text_start_x = text_extends.width
+        text_extents = ctx.text_extents(percentage_text)
+        text_start_x = text_extents.width
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_percentage_label_text_below_cpu_ram_move)
         ctx.set_source_rgba(180/255, 180/255, 180/255, 1.0)
         ctx.show_text(percentage_text)
@@ -764,8 +764,8 @@ class Summary:
 
         # Draw lowest layer of the shadow of the CPU usage percentage label on the left side of the inner circle of the circular gauge.
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
-        text_extends = ctx.text_extents(cpu_usage_text)
-        text_start_x = text_extends.width
+        text_extents = ctx.text_extents(cpu_usage_text)
+        text_start_x = text_extents.width
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_usage_text_move + 2 * gauge_cpu_ram_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(cpu_usage_text)
@@ -784,8 +784,8 @@ class Summary:
 
         # Draw lowest layer of the shadow of the RAM usage percentage label on the left side of the inner circle of the circular gauge.
         ctx.set_font_size(gauge_cpu_ram_usage_text_size)
-        text_extends = ctx.text_extents(ram_usage_text)
-        text_start_x = text_extends.width
+        text_extents = ctx.text_extents(ram_usage_text)
+        text_start_x = text_extents.width
         ctx.move_to(gauge_cpu_ram_label_text_margin, -gauge_cpu_ram_usage_text_move + 2 * gauge_cpu_ram_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(ram_usage_text)
@@ -804,8 +804,8 @@ class Summary:
 
         # Draw lowest layer of the shadow of the Processes label on the left side of the inner circle of the circular gauge.
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
-        text_extends = ctx.text_extents(processes_number_text)
-        text_start_x = text_extends.width
+        text_extents = ctx.text_extents(processes_number_text)
+        text_start_x = text_extents.width
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_usage_text_move + 2 * gauge_processes_swap_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(processes_number_text)
@@ -824,8 +824,8 @@ class Summary:
 
         # Draw lowest layer of the shadow of the Swap usage percentage label on the left side of the inner circle of the circular gauge.
         ctx.set_font_size(gauge_processes_swap_usage_text_size)
-        text_extends = ctx.text_extents(swap_usage_text)
-        text_start_x = text_extends.width
+        text_extents = ctx.text_extents(swap_usage_text)
+        text_start_x = text_extents.width
         ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_processes_swap_usage_text_move + 2 * gauge_processes_swap_usage_text_shadow_move)
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.2)
         ctx.show_text(swap_usage_text)
@@ -900,9 +900,9 @@ class Summary:
         font_desc = Pango.font_description_from_string(system_font_scaled)
         layout.set_font_description(font_desc)
         layout.set_text(label_text)
-        ink_extends, logical_extends = layout.get_pixel_extents()
-        text_start_x = logical_extends.width + logical_extends.x
-        text_start_y = logical_extends.height + logical_extends.y
+        ink_extents, logical_extents = layout.get_pixel_extents()
+        text_start_x = logical_extents.width + logical_extents.x
+        text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_disk_read_speed_label_text_move_x, -gauge_disk_read_speed_label_text_move_y - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         PangoCairo.show_layout(ctx, layout)
@@ -919,9 +919,9 @@ class Summary:
         font_desc = Pango.font_description_from_string(system_font_scaled)
         layout.set_font_description(font_desc)
         layout.set_text(label_text)
-        ink_extends, logical_extends = layout.get_pixel_extents()
-        text_start_x = logical_extends.width + logical_extends.x
-        text_start_y = logical_extends.height + logical_extends.y
+        ink_extents, logical_extents = layout.get_pixel_extents()
+        text_start_x = logical_extents.width + logical_extents.x
+        text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_disk_write_speed_label_text_move_x, -gauge_disk_write_speed_label_text_move_y - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         PangoCairo.show_layout(ctx, layout)
@@ -939,9 +939,9 @@ class Summary:
         font_desc = Pango.font_description_from_string(system_font_scaled)
         layout.set_font_description(font_desc)
         layout.set_text(label_text)
-        ink_extends, logical_extends = layout.get_pixel_extents()
-        text_start_x = logical_extends.width + logical_extends.x
-        text_start_y = logical_extends.height + logical_extends.y
+        ink_extents, logical_extents = layout.get_pixel_extents()
+        text_start_x = logical_extents.width + logical_extents.x
+        text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_network_download_speed_label_text_move_x, gauge_network_download_speed_label_text_move_y - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         PangoCairo.show_layout(ctx, layout)
@@ -959,9 +959,9 @@ class Summary:
         font_desc = Pango.font_description_from_string(system_font_scaled)
         layout.set_font_description(font_desc)
         layout.set_text(label_text)
-        ink_extends, logical_extends = layout.get_pixel_extents()
-        text_start_x = logical_extends.width + logical_extends.x
-        text_start_y = logical_extends.height + logical_extends.y
+        ink_extents, logical_extents = layout.get_pixel_extents()
+        text_start_x = logical_extents.width + logical_extents.x
+        text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_network_upload_speed_label_text_move_x, gauge_network_upload_speed_label_text_move_y - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         PangoCairo.show_layout(ctx, layout)
