@@ -439,7 +439,7 @@ def processes_loop_func():
         if len(process_memory_shared_list) < len(pid_list_from_stat_statm):
             process_memory_shared_list.append(0)
 
-    # Get and append process data.
+    # Remove infomation of ended processes
     for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
         index = pid_list.index(pid)
         if pid not in pid_list_from_stat:
@@ -448,7 +448,10 @@ def processes_loop_func():
             del ppid_list[index]
             del cmdline_list[index]
             del ps_output_lines[index]
-            continue
+
+    # Get and append process data.
+    for pid in pid_list:
+        index = pid_list.index(pid)
         index_from_stat = pid_list_from_stat.index(pid)
         ps_output_line = ps_output_lines[index]
         ps_output_line_split = ps_output_line[pid_column_index:].split()
@@ -715,18 +718,22 @@ def processes_loop_func():
         on_searchentry2101_changed(searchentry2101)                                           # Update search results.
     if len(new_processes) > 0:
         for process in new_processes:
-            pid_index = pid_list.index(process)
+            try:
+                pid_index = pid_list.index(process)
+            except ValueError:
+                print(process, "not in pid_list")
+                continue
             if show_processes_as_tree == 1 and temporary_show_processes_as_tree == 1:
-                if ppid_list[pid_index] == "0":                                 # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
+                parent_process = ppid_list[pid_index]
+                if parent_process == "0":                                                     # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
                     piter_list.append(treestore2101.append(None, processes_data_rows[pid_index]))
-                if ppid_list[pid_index] != "0":
+                if parent_process != "0":
                     if show_processes_of_all_users == 1:                                      # Process appended under tree root process or another process if "Show processes as tree" option is preferred.
-                        piter_list.append(treestore2101.append(piter_list[pid_list.index(ppid_list[pid_index])], processes_data_rows[pid_index]))
-                    parent_process = ppid_list[pid_index]                       # Define parent process of the process in order to avoid calculating it multiple times for faster processing.
+                        piter_list.append(treestore2101.append(piter_list[pid_list.index(parent_process)], processes_data_rows[pid_index]))
                     if show_processes_of_all_users == 0 and parent_process not in pid_list:   # Process is appended into treeview as tree root process if "Show processes of all users" is not preferred and process ppid not in pid_list.
                         piter_list.append(treestore2101.append(None, processes_data_rows[pid_index]))
                     if show_processes_of_all_users == 0 and parent_process in pid_list:       # Process is appended into treeview under tree root process or another process if "Show processes of all users" is preferred and process ppid is in pid_list.
-                        piter_list.append(treestore2101.append(piter_list[pid_list.index(ppid_list[pid_index])], processes_data_rows[pid_index]))
+                        piter_list.append(treestore2101.append(piter_list[pid_list.index(parent_process)], processes_data_rows[pid_index]))
             #if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
             else:
                 piter_list.insert(pid_index, treestore2101.insert(None, pid_index, processes_data_rows[pid_index]))
