@@ -715,20 +715,21 @@ def processes_loop_func():
         on_searchentry2101_changed(searchentry2101)                                           # Update search results.
     if len(new_processes) > 0:
         for process in new_processes:
+            pid_index = pid_list.index(process)
             if show_processes_as_tree == 1 and temporary_show_processes_as_tree == 1:
-                if ppid_list[pid_list.index(process)] == "0":                                 # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
-                    piter_list.append(treestore2101.append(None, processes_data_rows[pid_list.index(process)]))
-                if ppid_list[pid_list.index(process)] != "0":
+                if ppid_list[pid_index] == "0":                                 # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
+                    piter_list.append(treestore2101.append(None, processes_data_rows[pid_index]))
+                if ppid_list[pid_index] != "0":
                     if show_processes_of_all_users == 1:                                      # Process appended under tree root process or another process if "Show processes as tree" option is preferred.
-                        piter_list.append(treestore2101.append(piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
-                    parent_process = ppid_list[pid_list.index(process)]                       # Define parent process of the process in order to avoid calculating it multiple times for faster processing.
+                        piter_list.append(treestore2101.append(piter_list[pid_list.index(ppid_list[pid_index])], processes_data_rows[pid_index]))
+                    parent_process = ppid_list[pid_index]                       # Define parent process of the process in order to avoid calculating it multiple times for faster processing.
                     if show_processes_of_all_users == 0 and parent_process not in pid_list:   # Process is appended into treeview as tree root process if "Show processes of all users" is not preferred and process ppid not in pid_list.
-                        piter_list.append(treestore2101.append(None, processes_data_rows[pid_list.index(process)]))
+                        piter_list.append(treestore2101.append(None, processes_data_rows[pid_index]))
                     if show_processes_of_all_users == 0 and parent_process in pid_list:       # Process is appended into treeview under tree root process or another process if "Show processes of all users" is preferred and process ppid is in pid_list.
-                        piter_list.append(treestore2101.append(piter_list[pid_list.index(ppid_list[pid_list.index(process)])], processes_data_rows[pid_list.index(process)]))
+                        piter_list.append(treestore2101.append(piter_list[pid_list.index(ppid_list[pid_index])], processes_data_rows[pid_index]))
             #if show_processes_as_tree == 0:                                                   # All processes are appended into treeview as tree root process if "Show processes as tree" is not preferred. Thus processes are listed as list structure instead of tree structure.
             else:
-                piter_list.insert(pid_list.index(process), treestore2101.insert(None, pid_list.index(process), processes_data_rows[pid_list.index(process)]))
+                piter_list.insert(pid_index, treestore2101.insert(None, pid_index, processes_data_rows[pid_index]))
         on_searchentry2101_changed(searchentry2101)                                           # Update search results.
     treeview2101.thaw_child_notify()                                                          # Have to be used after "freeze_child_notify()" if it is used. It lets treeview to update when its content changes.
 
