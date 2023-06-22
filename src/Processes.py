@@ -361,12 +361,12 @@ def processes_loop_func():
     # of times integer to string conversion. Commandlines will be used for determining full names of the
     # processes if their names are longer than 15 characters.
     cmdline_list = []
-    for line in ps_output_lines[:]:
+    for i, line in enumerate(ps_output_lines[:]):
         line_split = line[pid_column_index:].split()
         username = line_split[1]
         if show_processes_of_all_users == 0 and username != current_user_name:
             # Remove the line from the list. Because "ps_output_lines" list will be used for getting process information.
-            ps_output_lines.remove(line)
+            del ps_output_lines[i]
             continue
         pid_list.append(line_split[0])
         username_list.append(username)
@@ -440,7 +440,7 @@ def processes_loop_func():
             process_memory_shared_list.append(0)
 
     # Remove infomation of ended processes
-    for pid in pid_list[:]:                                                                   # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
+    for pid in pid_list[:]:
         index = pid_list.index(pid)
         if pid not in pid_list_from_stat:
             del pid_list[index]
@@ -718,11 +718,7 @@ def processes_loop_func():
         on_searchentry2101_changed(searchentry2101)                                           # Update search results.
     if len(new_processes) > 0:
         for process in new_processes:
-            try:
-                pid_index = pid_list.index(process)
-            except ValueError:
-                print(process, "not in pid_list")
-                continue
+            pid_index = pid_list.index(process)
             if show_processes_as_tree == 1 and temporary_show_processes_as_tree == 1:
                 parent_process = ppid_list[pid_index]
                 if parent_process == "0":                                                     # Process ppid was set as "0" if it has no parent process. Process is set as tree root (this root has no relationship between root user) process if it has no ppid (parent process). Treeview tree indentation is first level for the tree root proceess.
