@@ -1,5 +1,12 @@
 # System Monitoring Center
 
+### v1.43.5 (22.06.2023)
+  * Changed: Process Start Time column instead of Path column
+  * Minor improvements for lower CPU usage (Processes, Users)
+  * Fix: User account login time precision (Users)
+  * Fix: Saving settings after clicking treeviews
+  * Fix: Errors during listing processes
+
 ### v2.16.0 (20.06.2023)
   * New: Setting app. language independent of system
   * Fix: Rendering text for some languages (graphics)
