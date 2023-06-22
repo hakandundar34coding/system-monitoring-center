@@ -1,3 +1,13 @@
+system-monitoring-center (1.43.5) unstable; urgency=medium
+
+  * Changed: Process Start Time column instead of Path column
+  * Minor improvements for lower CPU usage (Processes, Users)
+  * Fix: User account login time precision (Users)
+  * Fix: Saving settings after clicking treeviews
+  * Fix: Errors during listing processes
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 22 Jun 2023 22:00:00 +0300
+
 system-monitoring-center (1.43.4) unstable; urgency=medium
 
   * Fix: User names of some processes

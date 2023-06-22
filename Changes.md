@@ -1,5 +1,32 @@
 # System Monitoring Center
 
+### v1.43.5 (22.06.2023)
+  * Changed: Process Start Time column instead of Path column
+  * Minor improvements for lower CPU usage (Processes, Users)
+  * Fix: User account login time precision (Users)
+  * Fix: Saving settings after clicking treeviews
+  * Fix: Errors during listing processes
+
+### v2.16.0 (20.06.2023)
+  * New: Setting app. language independent of system
+  * Fix: Rendering text for some languages (graphics)
+  * Fix: Listing processes with some cmdline characters
+  * Minor improvements (Performance, GUI, code)
+
+### v2.15.1 (11.06.2023)
+  * Minor performance improvements for Processes tab
+  * Fix: Recursive CPU,Memory,Memory-RSS columns
+
+### v2.15.0 (06.06.2023)
+  * New: Recursive CPU,Memory,Memory-RSS columns (Processes)
+  * New: Multiple process selection and operations
+  * Updated Portuguese(Brazilian,Portugal), Russian translations
+  * Updated dependency versions (Flatpak)
+  * Improvements for lower CPU usage (Processes)
+  * Changed: Command line column instead of path (Processes)
+  * Fix: User names of some processes
+  * Fix: Number of processes of users
+
 ### v1.43.4 (05.06.2023)
   * Fix: User names of some processes
   * Fix: Number of processes of users
