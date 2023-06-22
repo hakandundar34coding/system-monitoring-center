@@ -47,6 +47,7 @@ class ProcessesCustomPriorityGUI:
         # Get right clicked process pid and name.
         selected_process_pid = Processes.selected_process_pid
         selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
+        selected_process_pid = str(selected_process_pid)
 
         # Get process stat file path.
         selected_process_stat_file = "/proc/" + selected_process_pid + "/stat"
@@ -79,7 +80,7 @@ class ProcessesCustomPriorityGUI:
     def on_button2102w2_clicked(self, widget):
 
         # Get right clicked process pid and name.
-        selected_process_pid = Processes.selected_process_pid
+        selected_process_pid = str(Processes.selected_process_pid)
 
         # Get new priority (nice value) of the process.
         selected_process_nice = str(int(self.adjustment2101w2.get_value()))

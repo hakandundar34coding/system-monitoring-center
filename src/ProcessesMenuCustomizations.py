@@ -475,7 +475,7 @@ class ProcessesMenuCustomizations:
             Config.processes_treeview_columns_shown.append(18)
 
         # Apply changes immediately (without waiting update interval).
-        Processes.processes_treeview_column_order_width_row_sorting_func()
+        Processes.treeview_column_order_width_row_sorting(None, None)
         Processes.processes_initial_func()
         Processes.processes_loop_func()
         Config.config_save_func()

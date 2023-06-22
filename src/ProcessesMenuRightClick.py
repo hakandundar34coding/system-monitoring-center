@@ -62,6 +62,7 @@ class ProcessesMenuRightClick:
         # Get right clicked process pid and name.
         selected_process_pid = Processes.selected_process_pid
         selected_process_name = Processes.processes_data_rows[Processes.pid_list.index(selected_process_pid)][2]
+        selected_process_pid = str(selected_process_pid)
 
         # Define signal and command for the process by checking the clicked menu item (Stop Process).
         if widget == self.menuitem2101m:
@@ -116,7 +117,7 @@ class ProcessesMenuRightClick:
             return
 
         # Get right clicked process pid and name.
-        selected_process_pid = Processes.selected_process_pid
+        selected_process_pid = str(Processes.selected_process_pid)
 
         # Define commands for the process by checking the clicked menu item (Very High).
         if self.radiomenuitem2101m.get_active() == True:
@@ -205,7 +206,7 @@ class ProcessesMenuRightClick:
     def processes_select_process_nice_option_func(self):
 
         # Get right clicked process pid and name.
-        selected_process_pid = Processes.selected_process_pid
+        selected_process_pid = str(Processes.selected_process_pid)
 
         # Get process stat file path.
         selected_process_stat_file = "/proc/" + selected_process_pid + "/stat"

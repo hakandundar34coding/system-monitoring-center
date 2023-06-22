@@ -202,7 +202,11 @@ class ProcessesDetails:
         # Define data unit conversion variables before they are used.
         self.performance_define_data_unit_converter_variables_func()
 
-        self.process_status_list = Processes.process_status_list
+        self.process_status_dict = Processes.process_status_dict
+        self.system_boot_time = Processes.system_boot_time
+        self.number_of_clock_ticks = Processes.number_of_clock_ticks
+        self.memory_page_size = Processes.memory_page_size
+        self.username_uid_dict = Processes.username_uid_dict
         self.global_process_cpu_times_prev = []
         self.disk_read_write_data_prev = []
 
@@ -212,15 +216,6 @@ class ProcessesDetails:
         self.process_ram_usage_list = [0] * chart_data_history
         self.process_disk_read_speed_list = [0] * chart_data_history
         self.process_disk_write_speed_list = [0] * chart_data_history
-
-        # Get system boot time.
-        with open("/proc/stat") as reader:
-            stat_lines = reader.read().split("\n")
-        for line in stat_lines:
-            if "btime " in line:
-                self.system_boot_time = int(line.split()[1].strip())
-
-        self.number_of_clock_ticks = Processes.number_of_clock_ticks
 
 
     # ----------------------------------- Processes - Processes Details Foreground Function -----------------------------------
@@ -237,7 +232,7 @@ class ProcessesDetails:
         selected_process_pid = self.selected_process_pid
 
         # Get information.
-        usernames_username_list, usernames_uid_list = self.processes_details_usernames_uids_func()
+        username_uid_dict = Processes.get_username_uid_dict()
         stat_output, status_output, statm_output, io_output, smaps_output, cmdline_output = self.processes_details_stat_status_statm_io_smaps_cmdline_outputs_func(selected_process_pid)
         if stat_output == "-" or status_output == "-" or statm_output == "-":
             self.update_window_value = 0
@@ -253,7 +248,7 @@ class ProcessesDetails:
             self.process_details_process_end_label_func()
             return
         selected_process_name = self.process_details_process_name_func(selected_process_pid, stat_output, cmdline_output)
-        selected_process_username = self.process_details_process_user_name_func(selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list)
+        selected_process_username = self.process_details_process_user_name_func(selected_process_pid, status_output_split, username_uid_dict)
         selected_process_status = self.process_details_process_status_func(stat_output_split)
         selected_process_nice = self.process_details_process_nice_func(stat_output_split)
         selected_process_cpu_percent = self.process_details_process_cpu_usage_func(stat_output_split, global_cpu_time_all)
@@ -537,14 +532,14 @@ class ProcessesDetails:
 
 
     # ----------------------- Get process user name -----------------------
-    def process_details_process_user_name_func(self, selected_process_pid, status_output_split, usernames_username_list, usernames_uid_list):
+    def process_details_process_user_name_func(self, selected_process_pid, status_output_split, usernames_uid_dict):
 
         for line in status_output_split:
             if "Uid:\t" in line:
                 # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
                 real_user_id = line.split(":")[1].split()[0].strip()
                 try:
-                    selected_process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
+                    selected_process_username = usernames_uid_dict[int(real_user_id)]
                 except ValueError:
                     selected_process_username = real_user_id
 
@@ -554,7 +549,7 @@ class ProcessesDetails:
     # ----------------------- Get process status -----------------------
     def process_details_process_status_func(self, stat_output_split):
 
-        selected_process_status = self.process_status_list[stat_output_split[-50]]
+        selected_process_status = _tr(self.process_status_dict[stat_output_split[-50]])
 
         return selected_process_status
 
@@ -581,7 +576,7 @@ class ProcessesDetails:
             global_cpu_time_all_prev = global_process_cpu_times[0] - 1                    # Subtract "1" CPU time (a negligible value) if this is first loop of the process.
         process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
         global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-        selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Processes.number_of_logical_cores
+        selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Processes.get_number_of_logical_cores()
         self.global_process_cpu_times_prev = global_process_cpu_times
 
         return selected_process_cpu_percent
@@ -882,6 +877,6 @@ def processes_details_show_process_details():
     if len(processes_details_object_list) == max_number_of_windows:
         return
 
-    processes_details_object_list.append(ProcessesDetails(Processes.selected_process_pid))
+    processes_details_object_list.append(ProcessesDetails(str(Processes.selected_process_pid)))
     processes_details_object_list[-1].window2101w.show()
 

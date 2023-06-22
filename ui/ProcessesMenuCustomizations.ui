@@ -152,9 +152,11 @@
                       <object class="GtkCheckButton" id="checkbutton2107p">
                         <property name="label" translatable="yes">PID</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="halign">start</property>
+                        <property name="active">True</property>
                         <property name="draw-indicator">True</property>
                       </object>
                       <packing>
@@ -276,7 +278,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton2123p">
-                        <property name="label" translatable="yes">Path</property>
+                        <property name="label" translatable="yes">Start Time</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
