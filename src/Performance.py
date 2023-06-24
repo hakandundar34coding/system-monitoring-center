@@ -1105,31 +1105,8 @@ class Performance:
         Define values for converting data units and set value precision.
         """
 
-        """
-              ISO UNITs (as powers of 1000)        -             IEC UNITs (as powers of 1024)
-        Unit Name    Abbreviation     bytes        -       Unit Name    Abbreviation    bytes   
-        byte         B                1            -       byte         B               1
-        kilobyte     KB               1000         -       kibibyte     KiB             1024
-        megabyte     MB               1000^2       -       mebibyte     MiB             1024^2
-        gigabyte     GB               1000^3       -       gibibyte     GiB             1024^3
-        terabyte     TB               1000^4       -       tebibyte     TiB             1024^4
-        petabyte     PB               1000^5       -       pebibyte     PiB             1024^5
-
-        Unit Name    Abbreviation     bits         -       Unit Name    Abbreviation    bits    
-        bit          b                1            -       bit          b               1
-        kilobit      Kb               1000         -       kibibit      Kib             1024
-        megabit      Mb               1000^2       -       mebibit      Mib             1024^2
-        gigabit      Gb               1000^3       -       gibibit      Gib             1024^3
-        terabit      Tb               1000^4       -       tebibit      Tib             1024^4
-        petabit      Pb               1000^5       -       pebibit      Pib             1024^5
-
-        1 byte = 8 bits
-        """
-
         self.data_unit_list = [[0, "B", "B", "b", "b"], [1, "KiB", "KB", "Kib", "Kb"], [2, "MiB", "MB", "Mib", "Mb"],
                               [3, "GiB", "GB", "Gib", "Gb"], [4, "TiB", "TB", "Tib", "Tb"], [5, "PiB", "PB", "Pib", "Pb"]]
-
-        # Data unit options: 0: Bytes (ISO), 1: Bytes (IEC), 2: bits (ISO), 3: bits (IEC).
 
 
     def performance_data_unit_converter_func(self, data_type, data_type_option, data, unit, precision):

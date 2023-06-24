@@ -435,33 +435,9 @@ class Processes:
             self.priority_custom_value_window.set_visible(False)
 
         if widget == self.priority_custom_value_change_priority_button:
-            # Get right clicked process pid and name.
-            selected_process_pid_list_str = []
-            for selected_process_pid in self.selected_process_pid_list:
-                selected_process_pid_list_str.append(str(selected_process_pid))
-
-            # Get new priority (nice value) of the process.
+            # Get new priority (nice value) of the process
             selected_process_nice = str(int(self.adjustment.get_value()))
-
-            # Define commands for the process.
-            priority_command = ["renice", "-n", selected_process_nice, "-p"] + selected_process_pid_list_str
-            priority_command_pkexec = ["pkexec", "renice", "-n", selected_process_nice, "-p"] + selected_process_pid_list_str
-
-            if Libsysmon.get_environment_type() == "flatpak":
-                priority_command = ["flatpak-spawn", "--host"] + priority_command
-                priority_command_pkexec = ["flatpak-spawn", "--host"] + priority_command_pkexec
-
-            # Try to change priority (nice value) of the process.
-            try:
-                (subprocess.check_output(priority_command, stderr=subprocess.STDOUT, shell=False)).decode()
-            except subprocess.CalledProcessError:
-                # Try to change priority (nice value) of the process if root privileges are required.
-                try:
-                    (subprocess.check_output(priority_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
-                # Prevent errors if wrong password is used or polkit dialog is closed by user.
-                except subprocess.CalledProcessError:
-                    return
-
+            Libsysmon.change_process_priority(self.selected_process_pid_list, selected_process_nice)
             self.priority_custom_value_window.set_visible(False)
 
 
@@ -481,118 +457,83 @@ class Processes:
             return
 
         # Get right clicked process names.
-        selected_process_pid_list_str = []
         selected_process_name_list = []
         for selected_process_pid in self.selected_process_pid_list:
-            selected_process_pid_list_str.append(str(selected_process_pid))
             selected_process_name = self.tab_data_rows[self.pid_list.index(selected_process_pid)][2]
             selected_process_name_list.append(selected_process_name)
 
-        # Pause Process
         if action.get_name() == "processes_pause_process":
-            process_command = ["kill", "-19"] + selected_process_pid_list_str
-            process_command_pkexec = ["pkexec", "kill", "-19"] + selected_process_pid_list_str
-
-        # Continue Process
-        if action.get_name() == "processes_continue_process":
-            process_command = ["kill", "-18"] + selected_process_pid_list_str
-            process_command_pkexec = ["pkexec", "kill", "-18"] + selected_process_pid_list_str
-
-        # End Process
-        if action.get_name() == "processes_end_process":
-            process_command = ["kill", "-15"] + selected_process_pid_list_str
-            process_command_pkexec = ["pkexec", "kill", "-15"] + selected_process_pid_list_str
+            manage_option = "pause_process"
+            process_dialog_message = _tr("Do you want to pause this process?")
+        elif action.get_name() == "processes_continue_process":
+            manage_option = "continue_process"
+        elif action.get_name() == "processes_end_process":
+            manage_option = "end_process"
             process_dialog_message = _tr("Do you want to end this process?")
-
-        # End Process Immediately
-        if action.get_name() == "processes_end_process_immediately":
-            process_command = ["kill", "-9"] + selected_process_pid_list_str
-            process_command_pkexec = ["pkexec", "kill", "-9"] + selected_process_pid_list_str
+        elif action.get_name() == "processes_end_process_immediately":
+            manage_option = "end_process_immediately"
             process_dialog_message = _tr("Do you want to end this process immediately?")
 
-        if Libsysmon.get_environment_type() == "flatpak":
-            process_command = ["flatpak-spawn", "--host"] + process_command
-            process_command_pkexec = ["flatpak-spawn", "--host"] + process_command_pkexec
+        if action.get_name() in ["processes_continue_process"]:
+            Libsysmon.manage_process(self.selected_process_pid_list, manage_option)
+
+        if action.get_name() in ["processes_pause_process", "processes_end_process", "processes_end_process_immediately"]:
+            # Show warning dialog if process is tried to be ended.
+            if Config.warn_before_stopping_processes == 1:
+                selected_process_pid_name_text = ""
+                for i, selected_process_pid in enumerate(self.selected_process_pid_list):
+                    if selected_process_pid_name_text != "":
+                        selected_process_pid_name_text = selected_process_pid_name_text + "\n"
+                    selected_process_pid_name_text = selected_process_pid_name_text + f'{selected_process_name_list[i]} - (PID: {selected_process_pid})'
+                messagedialog = Gtk.MessageDialog(transient_for=MainWindow.main_window,
+                                                  modal=True,
+                                                  title="",
+                                                  message_type=Gtk.MessageType.WARNING,
+                                                  buttons=Gtk.ButtonsType.YES_NO,
+                                                  text=process_dialog_message,
+                                                  secondary_text="")
+
+                # Get Box widget of the MessageDialog for appending custom content (ScrolledWindow, etc.).
+                message_area = messagedialog.get_message_area()
+
+                # ScrolledWindow (for process name and PID Label)
+                scrolledwindow = Common.window_main_scrolledwindow()
+                scrolledwindow.set_size_request(-1, 150)
+                message_area.append(scrolledwindow)
+
+                # Viewport (for process name and PID Label)
+                viewport = Gtk.Viewport()
+                scrolledwindow.set_child(viewport)
+
+                # Grid (for process name and PID Label)
+                grid = Gtk.Grid.new()
+                grid.set_margin_top(10)
+                grid.set_margin_bottom(10)
+                grid.set_margin_start(10)
+                grid.set_margin_end(10)
+                viewport.set_child(grid)
+
+                # Label (process name and PID)
+                process_manage_process_name_and_pid_label = Gtk.Label()
+                process_manage_process_name_and_pid_label.set_selectable(True)
+                process_manage_process_name_and_pid_label.set_label("--")
+                process_manage_process_name_and_pid_label.set_ellipsize(Pango.EllipsizeMode.END)
+                process_manage_process_name_and_pid_label.set_halign(Gtk.Align.START)
+                grid.attach(process_manage_process_name_and_pid_label, 0, 0, 1, 1)
+
+                process_manage_process_name_and_pid_label.set_label(selected_process_pid_name_text)
+
+                messagedialog.connect("response", self.on_messagedialog_response, self.selected_process_pid_list, manage_option)
+                messagedialog.present()
 
 
-        if action.get_name() == "processes_pause_process" or action.get_name() == "processes_continue_process":
-
-            # Try to end the process without using root privileges.
-            try:
-                (subprocess.check_output(process_command, stderr=subprocess.STDOUT, shell=False)).decode()
-            except subprocess.CalledProcessError:
-                # End the process if root privileges are given.
-                try:
-                    (subprocess.check_output(process_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
-                # Prevent errors if wrong password is used or polkit dialog is closed by user.
-                except subprocess.CalledProcessError:
-                    pass
-
-        # Show warning dialog if process is tried to be ended.
-        if Config.warn_before_stopping_processes == 1 and (action.get_name() == "processes_end_process" or action.get_name() == "processes_end_process_immediately"):
-            selected_process_pid_name_text = ""
-            for i, selected_process_pid in enumerate(self.selected_process_pid_list):
-                if selected_process_pid_name_text != "":
-                    selected_process_pid_name_text = selected_process_pid_name_text + "\n"
-                selected_process_pid_name_text = selected_process_pid_name_text + f'{selected_process_name_list[i]} - (PID: {selected_process_pid})'
-            messagedialog = Gtk.MessageDialog(transient_for=MainWindow.main_window,
-                                              modal=True,
-                                              title="",
-                                              message_type=Gtk.MessageType.WARNING,
-                                              buttons=Gtk.ButtonsType.YES_NO,
-                                              text=process_dialog_message,
-                                              secondary_text="")
-
-            # Get Box widget of the MessageDialog for appending custom content (ScrolledWindow, etc.).
-            message_area = messagedialog.get_message_area()
-
-            # ScrolledWindow (for process name and PID Label)
-            scrolledwindow = Common.window_main_scrolledwindow()
-            scrolledwindow.set_size_request(-1, 150)
-            message_area.append(scrolledwindow)
-
-            # Viewport (for process name and PID Label)
-            viewport = Gtk.Viewport()
-            scrolledwindow.set_child(viewport)
-
-            # Grid (for process name and PID Label)
-            grid = Gtk.Grid.new()
-            grid.set_margin_top(10)
-            grid.set_margin_bottom(10)
-            grid.set_margin_start(10)
-            grid.set_margin_end(10)
-            viewport.set_child(grid)
-
-            # Label (process name and PID)
-            process_manage_process_name_and_pid_label = Gtk.Label()
-            process_manage_process_name_and_pid_label.set_selectable(True)
-            process_manage_process_name_and_pid_label.set_label("--")
-            process_manage_process_name_and_pid_label.set_ellipsize(Pango.EllipsizeMode.END)
-            process_manage_process_name_and_pid_label.set_halign(Gtk.Align.START)
-            grid.attach(process_manage_process_name_and_pid_label, 0, 0, 1, 1)
-
-            process_manage_process_name_and_pid_label.set_label(selected_process_pid_name_text)
-
-            messagedialog.connect("response", self.on_messagedialog_response, process_command, process_command_pkexec)
-            messagedialog.present()
-
-
-    def on_messagedialog_response(self, widget, response, process_command, process_command_pkexec):
+    def on_messagedialog_response(self, widget, response, process_pid_list, manage_option):
         """
         End process if "YES" button on the dialog is clicked.
         """
 
         if response == Gtk.ResponseType.YES:
-            # Try to end the process without using root privileges.
-            try:
-                (subprocess.check_output(process_command, stderr=subprocess.STDOUT, shell=False)).decode()
-            except subprocess.CalledProcessError:
-                # End the process if root privileges are given.
-                try:
-                    (subprocess.check_output(process_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
-                # Prevent errors if wrong password is used or polkit dialog is closed by user.
-                except subprocess.CalledProcessError:
-                    pass
+            Libsysmon.manage_process(process_pid_list, manage_option)
 
         messagedialog = widget
         messagedialog.set_visible(False)
@@ -608,23 +549,15 @@ class Processes:
             self.priority_action.set_state(GLib.Variant("s", ""))
             return
 
-        # Get process stat file path.
-        selected_process_stat_file = "/proc/" + str(self.selected_process_pid_list[0]) + "/stat"
-
-        # Get priority (nice value) of the process.
-        command_list = ["cat", selected_process_stat_file]
-        if Libsysmon.get_environment_type() == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-
-        cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
-
-        # Process may be ended just after pid_list is generated. "cat" command output is get as "" in this situation.
-        if cat_output != "":
-            selected_process_nice = int(cat_output.split()[-34])
+        # Get process current priority value if one process is selected.
+        if len(self.selected_process_pid_list) == 1:
+            selected_process_nice = Libsysmon.get_process_priority(str(self.selected_process_pid_list[0]))
+            if selected_process_nice == "-":
+                return
         else:
-            return
+            selected_process_nice = 0
 
-        # Set menu GUI.
+        # Set menu GUI
         if selected_process_nice <= -11 and selected_process_nice >= -20:
             self.priority_action.set_state(GLib.Variant("s", "processes_priority_very_high"))
         if selected_process_nice < 0 and selected_process_nice > -11:
@@ -647,57 +580,25 @@ class Processes:
         if Config.current_main_tab != 1:
             return
 
-        selected_process_pid_list_str = []
-        for selected_process_pid in self.selected_process_pid_list:
-            selected_process_pid_list_str.append(str(selected_process_pid))
-
         if action.get_name() == "processes_priority_group":
 
-            # Set priority (Very High)
             if parameter == GLib.Variant("s", "processes_priority_very_high"):
                 action.set_state(GLib.Variant("s", "processes_priority_very_high"))
-                priority_command = ["renice", "-n", "-20", "-p"] + selected_process_pid_list_str
-                priority_command_pkexec = ["pkexec", "renice", "-n", "-20", "-p"] + selected_process_pid_list_str
-
-            # Set priority (High)
+                priority_option = "priority_very_high"
             elif parameter == GLib.Variant("s", "processes_priority_high"):
                 action.set_state(GLib.Variant("s", "processes_priority_high"))
-                priority_command = ["renice", "-n", "-10", "-p"] + selected_process_pid_list_str
-                priority_command_pkexec = ["pkexec", "renice", "-n", "-10", "-p"] + selected_process_pid_list_str
-
-            # Set priority (Normal)
+                priority_option = "priority_high"
             elif parameter == GLib.Variant("s", "processes_priority_normal"):
                 action.set_state(GLib.Variant("s", "processes_priority_normal"))
-                priority_command = ["renice", "-n", "0", "-p"] + selected_process_pid_list_str
-                priority_command_pkexec = ["pkexec", "renice", "-n", "0", "-p"] + selected_process_pid_list_str
-
-            # Set priority (Low)
+                priority_option = "priority_normal"
             elif parameter == GLib.Variant("s", "processes_priority_low"):
                 action.set_state(GLib.Variant("s", "processes_priority_low"))
-                priority_command = ["renice", "-n", "10", "-p"] + selected_process_pid_list_str
-                priority_command_pkexec = ["pkexec", "renice", "-n", "10", "-p"] + selected_process_pid_list_str
-
-            # Set priority (Very Low)
+                priority_option = "priority_low"
             elif parameter == GLib.Variant("s", "processes_priority_very_low"):
                 action.set_state(GLib.Variant("s", "processes_priority_very_low"))
-                priority_command = ["renice", "-n", "19", "-p"] + selected_process_pid_list_str
-                priority_command_pkexec = ["pkexec", "renice", "-n", "19", "-p"] + selected_process_pid_list_str
+                priority_option = "priority_very_low"
 
-            if Libsysmon.get_environment_type() == "flatpak":
-                priority_command = ["flatpak-spawn", "--host"] + priority_command
-                priority_command_pkexec = ["flatpak-spawn", "--host"] + priority_command_pkexec
-
-            # Try to change priority of the process.
-            try:
-                (subprocess.check_output(priority_command, stderr=subprocess.STDOUT, shell=False)).decode()
-                # Stop running the function if process priority is changed without root privileges.
-                return
-            except subprocess.CalledProcessError:
-                # Try to change priority of the process if root privileges are required.
-                try:
-                    (subprocess.check_output(priority_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
-                except subprocess.CalledProcessError:
-                    return
+            Libsysmon.change_process_priority(self.selected_process_pid_list, priority_option)
 
         if action.get_name() == "processes_priority_custom_value":
 
@@ -707,20 +608,10 @@ class Processes:
                 selected_process_name = self.tab_data_rows[Processes.pid_list.index(selected_process_pid)][2]
                 selected_process_name_list.append(selected_process_name)
 
-            # Get process stat file path for getting its current priority value if one process is selected.
-            if len(selected_process_pid_list_str) == 1:
-                selected_process_stat_file = "/proc/" + str(selected_process_pid) + "/stat"
-
-                # Get priority (nice value) of the process.
-                command_list = ["cat", selected_process_stat_file]
-                if Libsysmon.get_environment_type() == "flatpak":
-                    command_list = ["flatpak-spawn", "--host"] + command_list
-                cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
-
-                # Process may be ended just after pid_list is generated. "cat" command output is get as "" in this situation.
-                if cat_output != "":
-                    selected_process_nice = int(cat_output.split()[-34])
-                else:
+            # Get process current priority value if one process is selected.
+            if len(self.selected_process_pid_list) == 1:
+                selected_process_nice = Libsysmon.get_process_priority(str(self.selected_process_pid_list[0]))
+                if selected_process_nice == "-":
                     return
             else:
                 selected_process_nice = 0
@@ -738,7 +629,7 @@ class Processes:
 
             # Show process name and PID on a label.
             selected_process_pid_name_text = ""
-            for i, selected_process_pid in enumerate(selected_process_pid_list_str):
+            for i, selected_process_pid in enumerate(self.selected_process_pid_list):
                 if selected_process_pid_name_text != "":
                     selected_process_pid_name_text = selected_process_pid_name_text + "\n"
                 selected_process_pid_name_text = selected_process_pid_name_text + f'{selected_process_name_list[i]} - (PID: {selected_process_pid})'

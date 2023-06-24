@@ -689,14 +689,14 @@ class ProcessesDetails:
         memory_uss = process_data_dict["memory_uss"]
         memory_swap = process_data_dict["memory_swap"]
 
-        fd_ls_output, task_ls_output = self.processes_details_fd_task_ls_output_func(selected_process_pid)
+        fd_ls_output, task_ls_output = Libsysmon.get_fd_task_ls_output(selected_process_pid)
         if task_ls_output == "-":
             self.update_window_value = 0
             self.process_details_process_end_label_func()
             return
 
-        selected_process_threads = self.process_tids_func(task_ls_output)
-        selected_process_exe, selected_process_cwd, selected_process_open_files = self.process_exe_cwd_open_files_func(selected_process_pid, fd_ls_output)
+        selected_process_threads = Libsysmon.get_process_tids(task_ls_output)
+        selected_process_exe, selected_process_cwd, selected_process_open_files = Libsysmon.get_process_exe_cwd_open_files(selected_process_pid, fd_ls_output)
 
         # Stop running functions in order to prevent errors.
         if self.update_window_value == 0:
@@ -858,126 +858,6 @@ class ProcessesDetails:
         self.processes_data_dict_prev = dict(processes_data_dict)
 
         return processes_data_dict
-
-
-    def processes_details_fd_task_ls_output_func(self, selected_process_pid):
-        """
-        Get fd and stat folder list outputs.
-        """
-
-        # Generate command for getting file outputs.
-        if Libsysmon.get_environment_type() == "flatpak":
-            command_list = ["flatpak-spawn", "--host", "ls"]
-        else:
-            command_list = ["ls"]
-        command_list.append(f'/proc/{selected_process_pid}/fd/')
-        command_list.append(f'/proc/{selected_process_pid}/task/')
-
-        ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
-
-        # Get output of procfs folders.
-        if "/fd/" in ls_output and "/task/" in ls_output:
-            fd_ls_output, task_ls_output = ls_output.split("\n\n")
-        elif "/fd/" in ls_output and "/task/" not in ls_output:
-            fd_ls_output = ls_output
-            task_ls_output = "-"
-        elif "/fd/" not in ls_output and "/task/" in ls_output:
-            fd_ls_output = "-"
-            task_ls_output = ls_output
-        else:
-            fd_ls_output = "-"
-            task_ls_output = "-"
-
-        return fd_ls_output, task_ls_output
-
-
-    def process_tids_func(self, task_ls_output):
-        """
-        Get threads (TIDs) of the process.
-        """
-
-        task_ls_output_lines = task_ls_output.split("\n")
-        selected_process_threads = [filename for filename in task_ls_output_lines if filename.isdigit()]
-        selected_process_threads = sorted(selected_process_threads, key=int)
-
-        return selected_process_threads
-
-
-    def process_exe_cwd_open_files_func(self, selected_process_pid, fd_ls_output):
-        """
-        Get process cwd and open files.
-        """
-
-        command_list = ["readlink"]
-        if Libsysmon.get_environment_type() == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-
-        # "/proc/self" folder will be used for splitting the "readlink" command output.
-        command_list.append("/proc/self")
-
-        # Get process exe path.
-        selected_process_exe_path = f'/proc/{selected_process_pid}/exe'
-        command_list.append(selected_process_exe_path)
-
-        # Append command for splitting command output.
-        command_list.append("/proc/self")
-
-        # Get process cwd path.
-        selected_process_cwd_path = f'/proc/{selected_process_pid}/cwd'
-        command_list.append(selected_process_cwd_path)
-
-        # Append command for splitting command output.
-        command_list.append("/proc/self")
-
-        # Get process fd path list.
-        fd_ls_output_lines = fd_ls_output.split("\n")
-        selected_process_fds = [filename for filename in fd_ls_output_lines if filename.isdigit()]
-        selected_process_fds = sorted(selected_process_fds, key=int)
-
-        selected_process_fd_paths = []
-        for fd in selected_process_fds:
-            selected_process_fd_paths.append(f'/proc/{selected_process_pid}/fd/' + fd)
-
-        if selected_process_fd_paths == []:
-            selected_process_fd_paths = "-"
-
-        # Append command list for process open files.
-        if selected_process_fd_paths != "-":
-            for path in selected_process_fd_paths:
-                command_list.append(path)
-
-        # Get "readlink" command output.
-        readlink_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
-        readlink_output_lines = readlink_output.split("\n")
-
-        # Split the "readlink" command output.
-        split_text = readlink_output_lines[0].strip()
-        readlink_output_split = readlink_output.split(split_text)
-        del readlink_output_split[0]
-
-        # Get process exe.
-        selected_process_exe = readlink_output_split[0].strip()
-        if selected_process_exe == "":
-            selected_process_exe = "-"
-
-        # Get process cwd.
-        selected_process_cwd = readlink_output_split[1].strip()
-        if selected_process_cwd == "":
-            selected_process_cwd = "-"
-
-        # Get process open files list.
-        selected_process_open_files = []
-        readlink_output_split = readlink_output_split[2].strip().split("\n")
-        for file in readlink_output_split:
-            file_strip = file.strip()
-            # Prevent adding lines which are not files.
-            if file_strip.count("/") > 1:
-                selected_process_open_files.append(file_strip)
-
-        if selected_process_open_files == []:
-            selected_process_open_files = "-"
-
-        return selected_process_exe, selected_process_cwd, selected_process_open_files
 
 
 processes_details_object_list = []

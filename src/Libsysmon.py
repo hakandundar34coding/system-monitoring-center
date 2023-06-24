@@ -3,6 +3,7 @@ import subprocess
 import time
 import sys
 import platform
+from datetime import datetime
 
 
 # ***********************************************************************************************
@@ -28,6 +29,8 @@ disk_sector_size = 512
 # For more information, see: "https://man7.org/linux/man-pages/man5/proc.5.html".
 process_status_dict = {"R": "Running", "S": "Sleeping", "D": "Waiting", "I": "Idle",
                        "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead"}
+
+supported_sensor_attributes = ["temp", "fan", "in", "curr", "power"]
 
 # Define values for converting data units and set value precision.
 """
@@ -862,265 +865,6 @@ def data_unit_converter_func(data_type, data_type_option, data, unit, precision)
         precision = 0
 
     return f'{data:.{precision}f} {unit}'
-
-
-# ***********************************************************************************************
-#                                           Processes
-# ***********************************************************************************************
-
-def get_username_uid_dict():
-    """
-    Get usernames and UIDs.
-    """
-
-    environment_type = get_environment_type()
-
-    if environment_type == "flatpak":
-        with open("/var/run/host/etc/passwd") as reader:
-            etc_passwd_lines = reader.read().strip().split("\n")
-    else:
-        with open("/etc/passwd") as reader:
-            etc_passwd_lines = reader.read().strip().split("\n")
-
-    username_uid_dict = {}
-    for line in etc_passwd_lines:
-        line_splitted = line.split(":", 3)
-        username_uid_dict[int(line_splitted[2])] = line_splitted[0]
-
-    return username_uid_dict
-
-
-def get_application_name_image_dict():
-    """
-    Get application names and images. Process name will be searched in "application_image_dict" list.
-    """
-
-    application_image_dict = {}
-
-    # Get ".desktop" file names
-    application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]
-
-    # Get application name and image information
-    for application in application_file_list:
-
-        # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
-        try:
-            with open("/usr/share/applications/" + application, encoding="utf-8") as reader:
-                application_file_content = reader.read()
-        except PermissionError:
-            continue
-
-        # Do not include application name or icon name if any of them is not found in the .desktop file.
-        if "Exec=" not in application_file_content or "Icon=" not in application_file_content:
-            continue
-
-        # Get application exec data
-        application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0].split("/")[-1].split(" ")[0]
-        # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process
-        # and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f").
-        # This statement is used to avoid from this confusion.
-        if application_exec == "sh":
-            application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0]
-
-        # Get application image name data
-        application_image = application_file_content.split("Icon=", 1)[1].split("\n", 1)[0]
-
-        """# Get "desktop_application/application" information
-        if "NoDisplay=" in application_file_content:
-            desktop_application_value = application_file_content.split("NoDisplay=", 1)[1].split("\n", 1)[0]
-            if desktop_application_value == "true":
-                application_type = "application"
-            if desktop_application_value == "false":
-                application_type = "desktop_application"
-        else:
-            application_type = "desktop_application"
-        """
-
-        application_image_dict[application_exec] = application_image
-
-    return application_image_dict
-
-
-# ***********************************************************************************************
-#                                           Users
-# ***********************************************************************************************
-
-def get_etc_passwd_dict():
-    """
-    Get username, UID, user full name, user termninal information from "/etc/passwd" file.
-    """
-
-    environment_type = get_environment_type()
-
-    if environment_type == "flatpak":
-        with open("/var/run/host/etc/passwd") as reader:
-            etc_passwd_lines = reader.read().strip().split("\n")
-    else:
-        with open("/etc/passwd") as reader:
-            etc_passwd_lines = reader.read().strip().split("\n")
-
-    etc_passwd_dict = {}
-    for line in etc_passwd_lines:
-        line_split = line.split(":", 6)
-        uid = int(line_split[2])
-        etc_passwd_sub_dict = {
-                               "username" : line_split[0],
-                               "gid" : int(line_split[3]),
-                               "full_name" : line_split[4],
-                               "home_dir" : line_split[5],
-                               "terminal" : line_split[6]
-                               }
-        etc_passwd_dict[uid] = etc_passwd_sub_dict
-
-    return etc_passwd_dict
-
-
-def get_etc_group_dict():
-    """
-    Get user group name, GID information from "/etc/group" file.
-    """
-
-    environment_type = get_environment_type()
-
-    if environment_type == "flatpak":
-        with open("/var/run/host/etc/group") as reader:
-            etc_group_lines = reader.read().strip().split("\n")
-    else:
-        with open("/etc/group") as reader:
-            etc_group_lines = reader.read().strip().split("\n")
-
-    etc_group_dict = {}
-    for line in etc_group_lines:
-        line_split = line.split(":", 3)
-        gid = int(line_split[2])
-        etc_group_sub_dict = {
-                             "user_group_name" : line_split[0]
-                             }
-        etc_group_dict[gid] = etc_group_sub_dict
-
-    return etc_group_dict
-
-
-def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
-    """
-    Get user information of all/specified users.
-    """
-
-    process_list = []
-    processes_of_user = "all"
-    cpu_usage_divide_by_cores = "yes"
-    detail_level = "low"
-
-    # Define lists for getting user information from command output.
-    users_data_dict = {}
-    if users_data_dict_prev != {}:
-        uid_list_prev = users_data_dict_prev["uid_list"]
-        processes_data_dict_prev = users_data_dict_prev["processes_data_dict_prev"]
-        pid_list_prev = processes_data_dict_prev["pid_list"]
-        ppid_list_prev = processes_data_dict_prev["ppid_list"]
-        process_cpu_times_prev = processes_data_dict_prev["process_cpu_times"]
-        disk_read_write_data_prev = processes_data_dict_prev["disk_read_write_data"]
-        global_cpu_time_all_prev = processes_data_dict_prev["global_cpu_time_all"]
-        global_time_prev = processes_data_dict_prev["global_time"]
-    else:
-        uid_list_prev = []
-        processes_data_dict_prev = {}
-        pid_list_prev = []
-        ppid_list_prev = []
-        process_cpu_times_prev = {}
-        disk_read_write_data_prev = {}
-    uid_list = []
-    human_user_uid_list = []
-    pid_list = []
-    ppid_list = []
-    username_list = []
-    cmdline_list = []
-    process_cpu_times = {}
-    disk_read_write_data = {}
-
-    # Get process information fo getting logged in, CPU usage percentage, log in time and process count information.
-    processes_data_dict = get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, processes_data_dict_prev, system_boot_time, username_uid_dict)
-    processes_data_dict_prev = dict(processes_data_dict)
-
-    # Get user and user group information of all users
-    etc_passwd_dict = get_etc_passwd_dict()
-    etc_group_dict = get_etc_group_dict()
-
-    # Get logged in users list
-    logged_in_users_list = processes_data_dict["username_list"]
-
-    # Get UIDs, CPU usage percentages and start times of all processes
-    user_process_cpu_usage_start_time_dict = {}
-    for pid in processes_data_dict["pid_list"]:
-        process_data_dict = processes_data_dict[pid]
-        uid = process_data_dict["uid"]
-        uid_list.append(uid)
-        user_process_cpu_usage_start_time_sub_dict = {
-                                                     "uid" : uid,
-                                                     "cpu_usage" : process_data_dict["cpu_usage"],
-                                                     "start_time" : process_data_dict["start_time"]
-                                                     }
-        user_process_cpu_usage_start_time_dict[pid] = user_process_cpu_usage_start_time_sub_dict
-
-    # Get user information for all human users
-    for uid in etc_passwd_dict.keys():
-        etc_passwd_sub_dict = etc_passwd_dict[uid]
-        # Get information for only human users
-        if uid >= 1000 and uid != 65534:
-            human_user_uid_list.append(uid)
-            username = etc_passwd_sub_dict["username"]
-            if uid in uid_list:
-                logged_in = True
-            else:
-                logged_in = False
-            gid = etc_passwd_sub_dict["gid"]
-            group_name = etc_group_dict[gid]["user_group_name"]
-            full_name = etc_passwd_sub_dict["full_name"]
-            home_dir = etc_passwd_sub_dict["home_dir"]
-            terminal = etc_passwd_sub_dict["terminal"]
-
-            # Get user processes
-            cpu_usage_list = []
-            start_time_list = []
-            for pid in user_process_cpu_usage_start_time_dict:
-                user_process_cpu_usage_start_time_sub_dict = user_process_cpu_usage_start_time_dict[pid]
-                user_uid = user_process_cpu_usage_start_time_sub_dict["uid"]
-                if user_uid == uid:
-                    cpu_usage_list.append(user_process_cpu_usage_start_time_sub_dict["cpu_usage"])
-                    start_time_list.append(user_process_cpu_usage_start_time_sub_dict["start_time"])
-            if cpu_usage_list == []:
-                total_cpu_usage = 0
-            else:
-                total_cpu_usage = sum(cpu_usage_list)
-            if start_time_list == []:
-                log_in_time = 0
-            else:
-                log_in_time = min(start_time_list)
-            process_count = len(cpu_usage_list)
-
-            # Add user data to a sub-dictionary
-            user_data_dict = {
-                             "username" : username,
-                             "gid" : gid,
-                             "group_name" : group_name,
-                             "full_name" : full_name,
-                             "logged_in" : logged_in,
-                             "home_dir" : home_dir,
-                             "terminal" : terminal,
-                             "total_cpu_usage" : total_cpu_usage,
-                             "log_in_time" : log_in_time,
-                             "process_count" : process_count
-                             }
-
-            # Add user sub-dictionary to dictionary
-            users_data_dict[uid] = user_data_dict
-
-    # Add user related lists and variables for returning them for using them (for using some them as previous data in the next loop).
-    users_data_dict["uid_list"] = uid_list
-    users_data_dict["human_user_uid_list"] = human_user_uid_list
-    users_data_dict["processes_data_dict_prev"] = processes_data_dict_prev
-
-    return users_data_dict
 
 
 # ***********************************************************************************************
@@ -2821,6 +2565,975 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
 
 
 # ***********************************************************************************************
+#                                           Sensors
+# ***********************************************************************************************
+
+def get_sensors_information():
+    """
+    Get sensor information.
+    """
+
+    # Get sensor group names. In some sensor directories there are a name file and multiple label files.
+    # For example, name: "coretemp", label: "Core 0", "Core 1", ... For easier grouping and understanding
+    # name is used as "Sensor Group" name and labels are used as "Sensor" names.
+    sensors_data_dict = {}
+    sensor_count = 0
+    sensor_unique_id_list = []
+    sensor_groups = sorted(os.listdir("/sys/class/hwmon/"))
+    sensor_group_names = []
+    for sensor_group in sensor_groups:
+        files_in_sensor_group = os.listdir("/sys/class/hwmon/" + sensor_group)
+        for attribute in supported_sensor_attributes:
+            sensor_number = 0
+            # Continue loop until code breaks it when next sensor data is not available in the folder.
+            while True:
+                string_sensor_number = str(sensor_number)
+                # Some sensor groups have both label and input files. Some sensor groups have only label or only input files.
+                # Some sensor groups do not have label or input files, but they have name files. Data of sensor groups
+                # with only name files are not get because they do not have sensor values.
+                if (attribute + string_sensor_number + "_label" not in files_in_sensor_group) and (attribute + string_sensor_number + "_input" not in files_in_sensor_group):
+                    # Number in sensor names may start from 0 or 1. Skipped to next loop if number is 0.
+                    if sensor_number == 0:
+                        sensor_number = sensor_number + 1
+                        continue
+                    # Number in sensor names may start from 0 or 1. Loop is broken if number is bigger than 1.
+                    if sensor_number > 0:
+                        break
+
+                # Get device name
+                with open("/sys/class/hwmon/" + sensor_group + "/name") as reader:
+                    sensor_group_name = reader.read().strip()
+                if attribute == "temp":
+                    sensor_type = "temperature"
+                elif attribute == "fan":
+                    sensor_type = "fan"
+                elif attribute in ["in", "curr", "power"]:
+                    sensor_type = "voltage_current_power"
+
+                # Get device detailed name
+                device_path = os.readlink("/sys/class/hwmon/" + sensor_group)
+                device_detailed_name = device_path.split("/")[-2]
+                if device_detailed_name.startswith("hwmon") == True:
+                    device_detailed_name = device_path.split("/")[-3]
+                    if device_detailed_name.startswith("hwmon") == True:
+                        device_detailed_name = "-"
+                if device_detailed_name != "-" and device_detailed_name.startswith("0000:") == False:
+                    sensor_group_name = device_detailed_name + " ( " + sensor_group_name + " )"
+
+                # Get sensor name
+                try:
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_label") as reader:
+                        sensor_name = reader.read().strip()
+                except OSError:
+                    sensor_name = "-"
+
+                # Get sensor current value
+                try:
+                    # Units of data in this file are millidegree Celcius for temperature sensors, RPM for fan sensors,
+                    # millivolt for voltage sensors and milliamper for current sensors.
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_input") as reader:
+                        current_value = int(reader.read().strip())
+                    if attribute == "temp":
+                        # Convert millidegree Celcius to degree Celcius
+                        current_value = f'{(current_value / 1000):.0f} °C'
+                    if attribute == "fan":
+                        current_value = f'{current_value} RPM'
+                    if attribute == "in":
+                        # Convert millivolt to Volt
+                        current_value = f'{(current_value / 1000):.3f} V'
+                    if attribute == "curr":
+                        # Convert milliamper to Amper
+                        current_value = f'{(current_value / 1000):.3f} A'
+                    if attribute == "power":
+                        # Convert microwatt to Watt
+                        current_value = f'{(current_value / 1000000):.3f} W'
+                except OSError:
+                    current_value = "-"
+
+                # Get sensor high value
+                try:
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_max") as reader:
+                        max_value = int(reader.read().strip())
+                    if attribute == "temp":
+                        max_value = f'{(max_value / 1000):.0f} °C'
+                    if attribute == "fan":
+                        max_value = f'{max_value} RPM'
+                    if attribute == "in":
+                        max_value = f'{(max_value / 1000):.3f} V'
+                    if attribute == "curr":
+                        max_value = f'{(max_value / 1000):.3f} A'
+                    if attribute == "power":
+                        max_value = f'{(max_value / 1000000):.3f} W'
+                except OSError:
+                    max_value = "-"
+
+                # Get sensor critical value
+                try:
+                    with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_crit") as reader:
+                        critical_value = int(reader.read().strip())
+                    if attribute == "temp":
+                        critical_value = f'{(critical_value / 1000):.0f} °C'
+                    if attribute == "fan":
+                        critical_value = f'{critical_value} RPM'
+                    if attribute == "in":
+                        critical_value = f'{(critical_value / 1000):.3f} V'
+                    if attribute == "curr":
+                        critical_value = f'{(critical_value / 1000):.3f} A'
+                    if attribute == "power":
+                        critical_value = f'{(critical_value / 1000000):.3f} W'
+                except OSError:
+                    critical_value = "-"
+
+                # Add sensor data to a sub-dictionary
+                sensor_data_dict = {
+                                    "sensor_type": sensor_type,
+                                    "sensor_group_name" : sensor_group_name,
+                                    "sensor_name" : sensor_name,
+                                    "current_value" : current_value,
+                                    "max_value" : max_value,
+                                    "critical_value" : critical_value
+                                    }
+
+                # Increase sensor number by "1" in order to use this value for getting next file names of the sensor.
+                sensor_number = sensor_number + 1
+
+                sensor_count = sensor_count + 1
+                sensor_unique_id = "sensor_" + str(sensor_count)
+
+                sensor_unique_id_list.append(sensor_unique_id)
+
+                # Add sensor sub-dictionary to dictionary
+                sensors_data_dict[sensor_unique_id] = sensor_data_dict
+
+    # Add sensor related lists and variables
+    sensors_data_dict["sensor_unique_id_list"] = sensor_unique_id_list
+
+    return sensors_data_dict
+
+
+# ***********************************************************************************************
+#                                           Processes
+# ***********************************************************************************************
+
+def get_fd_task_ls_output(process_pid):
+    """
+    Get fd and stat folder list outputs.
+    """
+
+    # Generate command for getting file outputs
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host", "ls"]
+    else:
+        command_list = ["ls"]
+    command_list.append(f'/proc/{process_pid}/fd/')
+    command_list.append(f'/proc/{process_pid}/task/')
+
+    ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
+
+    # Get output of procfs folders
+    if "/fd/" in ls_output and "/task/" in ls_output:
+        fd_ls_output, task_ls_output = ls_output.split("\n\n")
+    elif "/fd/" in ls_output and "/task/" not in ls_output:
+        fd_ls_output = ls_output
+        task_ls_output = "-"
+    elif "/fd/" not in ls_output and "/task/" in ls_output:
+        fd_ls_output = "-"
+        task_ls_output = ls_output
+    else:
+        fd_ls_output = "-"
+        task_ls_output = "-"
+
+    return fd_ls_output, task_ls_output
+
+
+def get_process_tids(task_ls_output):
+    """
+    Get thread IDs (TIDs) of the process.
+    """
+
+    task_ls_output_lines = task_ls_output.split("\n")
+    process_threads = [filename for filename in task_ls_output_lines if filename.isdigit()]
+    process_threads = sorted(process_threads, key=int)
+
+    return process_threads
+
+
+def get_process_exe_cwd_open_files(process_pid, fd_ls_output):
+    """
+    Get process cwd and open files.
+    """
+
+    command_list = ["readlink"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+
+    # "/proc/self" folder will be used for splitting the "readlink" command output
+    command_list.append("/proc/self")
+
+    # Get process exe path
+    process_exe_path = f'/proc/{process_pid}/exe'
+    command_list.append(process_exe_path)
+
+    # Append command for splitting command output
+    command_list.append("/proc/self")
+
+    # Get process cwd path
+    process_cwd_path = f'/proc/{process_pid}/cwd'
+    command_list.append(process_cwd_path)
+
+    # Append command for splitting command output
+    command_list.append("/proc/self")
+
+    # Get process fd path list
+    fd_ls_output_lines = fd_ls_output.split("\n")
+    process_fds = [filename for filename in fd_ls_output_lines if filename.isdigit()]
+    process_fds = sorted(process_fds, key=int)
+
+    process_fd_paths = []
+    for fd in process_fds:
+        process_fd_paths.append(f'/proc/{process_pid}/fd/' + fd)
+
+    if process_fd_paths == []:
+        process_fd_paths = "-"
+
+    # Append command list for process open files
+    if process_fd_paths != "-":
+        for path in process_fd_paths:
+            command_list.append(path)
+
+    # Get "readlink" command output
+    readlink_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
+    readlink_output_lines = readlink_output.split("\n")
+
+    # Split the "readlink" command output
+    split_text = readlink_output_lines[0].strip()
+    readlink_output_split = readlink_output.split(split_text)
+    del readlink_output_split[0]
+
+    # Get process exe
+    process_exe = readlink_output_split[0].strip()
+    if process_exe == "":
+        process_exe = "-"
+
+    # Get process cwd
+    process_cwd = readlink_output_split[1].strip()
+    if process_cwd == "":
+        process_cwd = "-"
+
+    # Get process open files list
+    process_open_files = []
+    readlink_output_split = readlink_output_split[2].strip().split("\n")
+    for file in readlink_output_split:
+        file_strip = file.strip()
+        # Prevent adding lines which are not files
+        if file_strip.count("/") > 1:
+            process_open_files.append(file_strip)
+
+    if process_open_files == []:
+        process_open_files = "-"
+
+    return process_exe, process_cwd, process_open_files
+
+
+def get_username_uid_dict():
+    """
+    Get usernames and UIDs.
+    """
+
+    environment_type = get_environment_type()
+
+    if environment_type == "flatpak":
+        with open("/var/run/host/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+    else:
+        with open("/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+
+    username_uid_dict = {}
+    for line in etc_passwd_lines:
+        line_splitted = line.split(":", 3)
+        username_uid_dict[int(line_splitted[2])] = line_splitted[0]
+
+    return username_uid_dict
+
+
+def get_application_name_image_dict():
+    """
+    Get application names and images. Process name will be searched in "application_image_dict" list.
+    """
+
+    application_image_dict = {}
+
+    # Get ".desktop" file names
+    application_file_list = [file for file in os.listdir("/usr/share/applications/") if file.endswith(".desktop")]
+
+    # Get application name and image information
+    for application in application_file_list:
+
+        # "encoding="utf-8"" is used for preventing "UnicodeDecodeError" errors during reading the file content if "C" locale is used.
+        try:
+            with open("/usr/share/applications/" + application, encoding="utf-8") as reader:
+                application_file_content = reader.read()
+        except PermissionError:
+            continue
+
+        # Do not include application name or icon name if any of them is not found in the .desktop file.
+        if "Exec=" not in application_file_content or "Icon=" not in application_file_content:
+            continue
+
+        # Get application exec data
+        application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0].split("/")[-1].split(" ")[0]
+        # Splitting operation above may give "sh" as application name and this may cause confusion between "sh" process
+        # and splitted application exec (for example: sh -c "gdebi-gtk %f"sh -c "gdebi-gtk %f").
+        # This statement is used to avoid from this confusion.
+        if application_exec == "sh":
+            application_exec = application_file_content.split("Exec=", 1)[1].split("\n", 1)[0]
+
+        # Get application image name data
+        application_image = application_file_content.split("Icon=", 1)[1].split("\n", 1)[0]
+
+        """# Get "desktop_application/application" information
+        if "NoDisplay=" in application_file_content:
+            desktop_application_value = application_file_content.split("NoDisplay=", 1)[1].split("\n", 1)[0]
+            if desktop_application_value == "true":
+                application_type = "application"
+            if desktop_application_value == "false":
+                application_type = "desktop_application"
+        else:
+            application_type = "desktop_application"
+        """
+
+        application_image_dict[application_exec] = application_image
+
+    return application_image_dict
+
+
+def get_process_priority(process_pid):
+    """
+    Get process priority (nice).
+    """
+
+    process_stat_file = "/proc/" + str(process_pid) + "/stat"
+    command_list = ["cat", process_stat_file]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    cat_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
+
+    # Process may be ended just after pid_list is generated. "cat" command output is get as "" in this situation.
+    if cat_output != "":
+        selected_process_nice = int(cat_output.split()[-34])
+    else:
+        selected_process_nice = "-"
+
+    return selected_process_nice
+
+
+def change_process_priority(process_list, priority_option):
+    """
+    Change priority (nice) of process.
+    """
+
+    process_pid_list_str = []
+    for process_pid in process_list:
+        process_pid_list_str.append(str(process_pid))
+
+    if priority_option == "priority_very_high":
+        priority_command = ["renice", "-n", "-20", "-p"]
+        priority_command_pkexec = ["pkexec", "renice", "-n", "-20", "-p"]
+    elif priority_option == "priority_high":
+        priority_command = ["renice", "-n", "-10", "-p"]
+        priority_command_pkexec = ["pkexec", "renice", "-n", "-10", "-p"]
+    elif priority_option == "priority_normal":
+        priority_command = ["renice", "-n", "0", "-p"]
+        priority_command_pkexec = ["pkexec", "renice", "-n", "0", "-p"]
+    elif priority_option == "priority_low":
+        priority_command = ["renice", "-n", "10", "-p"]
+        priority_command_pkexec = ["pkexec", "renice", "-n", "10", "-p"]
+    elif priority_option == "priority_very_low":
+        priority_command = ["renice", "-n", "19", "-p"]
+        priority_command_pkexec = ["pkexec", "renice", "-n", "19", "-p"]
+    else:
+        process_priority = priority_option
+        priority_command = ["renice", "-n", process_priority, "-p"]
+        priority_command_pkexec = ["pkexec", "renice", "-n", process_priority, "-p"]
+
+    priority_command = priority_command + process_pid_list_str
+    priority_command_pkexec = priority_command_pkexec + process_pid_list_str
+
+    if get_environment_type() == "flatpak":
+        priority_command = ["flatpak-spawn", "--host"] + priority_command
+        priority_command_pkexec = ["flatpak-spawn", "--host"] + priority_command_pkexec
+
+    # Try to change priority of the process.
+    try:
+        (subprocess.check_output(priority_command, stderr=subprocess.STDOUT, shell=False)).decode()
+        # Stop running the function if process priority is changed without root privileges.
+        return
+    except subprocess.CalledProcessError:
+        # Try to change priority of the process if root privileges are required.
+        try:
+            (subprocess.check_output(priority_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
+        except subprocess.CalledProcessError:
+            return
+
+
+def manage_process(process_list, manage_option):
+    """
+    Manage (pause, continue, end, end immediately) processes.
+    """
+
+    process_pid_list_str = []
+    for process_pid in process_list:
+        process_pid_list_str.append(str(process_pid))
+
+    if manage_option == "pause_process":
+        process_command = ["kill", "-19"]
+        process_command_pkexec = ["pkexec", "kill", "-19"]
+
+    elif manage_option == "continue_process":
+        process_command = ["kill", "-18"]
+        process_command_pkexec = ["pkexec", "kill", "-18"]
+
+    elif manage_option == "end_process":
+        process_command = ["kill", "-15"]
+        process_command_pkexec = ["pkexec", "kill", "-15"]
+
+    elif manage_option == "end_process_immediately":
+        process_command = ["kill", "-9"]
+        process_command_pkexec = ["pkexec", "kill", "-9"]
+
+    process_command = process_command + process_pid_list_str
+    process_command_pkexec = process_command_pkexec + process_pid_list_str
+
+    if get_environment_type() == "flatpak":
+        process_command = ["flatpak-spawn", "--host"] + process_command
+        process_command_pkexec = ["flatpak-spawn", "--host"] + process_command_pkexec
+
+    # Try to end the process without using root privileges.
+    try:
+        (subprocess.check_output(process_command, stderr=subprocess.STDOUT, shell=False)).decode()
+    except subprocess.CalledProcessError:
+        # End the process if root privileges are given.
+        try:
+            (subprocess.check_output(process_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
+        # Prevent errors if wrong password is used or polkit dialog is closed by user.
+        except subprocess.CalledProcessError:
+            pass
+
+
+# ***********************************************************************************************
+#                                           Users
+# ***********************************************************************************************
+
+def get_etc_passwd_dict():
+    """
+    Get username, UID, user full name, user termninal information from "/etc/passwd" file.
+    """
+
+    environment_type = get_environment_type()
+
+    if environment_type == "flatpak":
+        with open("/var/run/host/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+    else:
+        with open("/etc/passwd") as reader:
+            etc_passwd_lines = reader.read().strip().split("\n")
+
+    etc_passwd_dict = {}
+    for line in etc_passwd_lines:
+        line_split = line.split(":", 6)
+        uid = int(line_split[2])
+        etc_passwd_sub_dict = {
+                               "username" : line_split[0],
+                               "gid" : int(line_split[3]),
+                               "full_name" : line_split[4],
+                               "home_dir" : line_split[5],
+                               "terminal" : line_split[6]
+                               }
+        etc_passwd_dict[uid] = etc_passwd_sub_dict
+
+    return etc_passwd_dict
+
+
+def get_etc_group_dict():
+    """
+    Get user group name, GID information from "/etc/group" file.
+    """
+
+    environment_type = get_environment_type()
+
+    if environment_type == "flatpak":
+        with open("/var/run/host/etc/group") as reader:
+            etc_group_lines = reader.read().strip().split("\n")
+    else:
+        with open("/etc/group") as reader:
+            etc_group_lines = reader.read().strip().split("\n")
+
+    etc_group_dict = {}
+    for line in etc_group_lines:
+        line_split = line.split(":", 3)
+        gid = int(line_split[2])
+        etc_group_sub_dict = {
+                             "user_group_name" : line_split[0]
+                             }
+        etc_group_dict[gid] = etc_group_sub_dict
+
+    return etc_group_dict
+
+
+def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+    """
+    Get user information of all/specified users.
+    """
+
+    process_list = []
+    processes_of_user = "all"
+    cpu_usage_divide_by_cores = "yes"
+    detail_level = "low"
+
+    # Define lists for getting user information from command output.
+    users_data_dict = {}
+    if users_data_dict_prev != {}:
+        uid_list_prev = users_data_dict_prev["uid_list"]
+        processes_data_dict_prev = users_data_dict_prev["processes_data_dict_prev"]
+        pid_list_prev = processes_data_dict_prev["pid_list"]
+        ppid_list_prev = processes_data_dict_prev["ppid_list"]
+        process_cpu_times_prev = processes_data_dict_prev["process_cpu_times"]
+        disk_read_write_data_prev = processes_data_dict_prev["disk_read_write_data"]
+        global_cpu_time_all_prev = processes_data_dict_prev["global_cpu_time_all"]
+        global_time_prev = processes_data_dict_prev["global_time"]
+    else:
+        uid_list_prev = []
+        processes_data_dict_prev = {}
+        pid_list_prev = []
+        ppid_list_prev = []
+        process_cpu_times_prev = {}
+        disk_read_write_data_prev = {}
+    uid_list = []
+    human_user_uid_list = []
+    pid_list = []
+    ppid_list = []
+    username_list = []
+    cmdline_list = []
+    process_cpu_times = {}
+    disk_read_write_data = {}
+
+    # Get process information fo getting logged in, CPU usage percentage, log in time and process count information.
+    processes_data_dict = get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, processes_data_dict_prev, system_boot_time, username_uid_dict)
+    processes_data_dict_prev = dict(processes_data_dict)
+
+    # Get user and user group information of all users
+    etc_passwd_dict = get_etc_passwd_dict()
+    etc_group_dict = get_etc_group_dict()
+
+    # Get logged in users list
+    logged_in_users_list = processes_data_dict["username_list"]
+
+    # Get UIDs, CPU usage percentages and start times of all processes
+    user_process_cpu_usage_start_time_dict = {}
+    for pid in processes_data_dict["pid_list"]:
+        process_data_dict = processes_data_dict[pid]
+        uid = process_data_dict["uid"]
+        uid_list.append(uid)
+        user_process_cpu_usage_start_time_sub_dict = {
+                                                     "uid" : uid,
+                                                     "cpu_usage" : process_data_dict["cpu_usage"],
+                                                     "start_time" : process_data_dict["start_time"]
+                                                     }
+        user_process_cpu_usage_start_time_dict[pid] = user_process_cpu_usage_start_time_sub_dict
+
+    # Get user information for all human users
+    for uid in etc_passwd_dict.keys():
+        etc_passwd_sub_dict = etc_passwd_dict[uid]
+        # Get information for only human users
+        if uid >= 1000 and uid != 65534:
+            human_user_uid_list.append(uid)
+            username = etc_passwd_sub_dict["username"]
+            if uid in uid_list:
+                logged_in = True
+            else:
+                logged_in = False
+            gid = etc_passwd_sub_dict["gid"]
+            group_name = etc_group_dict[gid]["user_group_name"]
+            full_name = etc_passwd_sub_dict["full_name"]
+            home_dir = etc_passwd_sub_dict["home_dir"]
+            terminal = etc_passwd_sub_dict["terminal"]
+
+            # Get user processes
+            cpu_usage_list = []
+            start_time_list = []
+            for pid in user_process_cpu_usage_start_time_dict:
+                user_process_cpu_usage_start_time_sub_dict = user_process_cpu_usage_start_time_dict[pid]
+                user_uid = user_process_cpu_usage_start_time_sub_dict["uid"]
+                if user_uid == uid:
+                    cpu_usage_list.append(user_process_cpu_usage_start_time_sub_dict["cpu_usage"])
+                    start_time_list.append(user_process_cpu_usage_start_time_sub_dict["start_time"])
+            if cpu_usage_list == []:
+                total_cpu_usage = 0
+            else:
+                total_cpu_usage = sum(cpu_usage_list)
+            if start_time_list == []:
+                log_in_time = 0
+            else:
+                log_in_time = min(start_time_list)
+            process_count = len(cpu_usage_list)
+
+            # Add user data to a sub-dictionary
+            user_data_dict = {
+                             "username" : username,
+                             "gid" : gid,
+                             "group_name" : group_name,
+                             "full_name" : full_name,
+                             "logged_in" : logged_in,
+                             "home_dir" : home_dir,
+                             "terminal" : terminal,
+                             "total_cpu_usage" : total_cpu_usage,
+                             "log_in_time" : log_in_time,
+                             "process_count" : process_count
+                             }
+
+            # Add user sub-dictionary to dictionary
+            users_data_dict[uid] = user_data_dict
+
+    # Add user related lists and variables for returning them for using them (for using some them as previous data in the next loop).
+    users_data_dict["uid_list"] = uid_list
+    users_data_dict["human_user_uid_list"] = human_user_uid_list
+    users_data_dict["processes_data_dict_prev"] = processes_data_dict_prev
+
+    return users_data_dict
+
+
+# ***********************************************************************************************
+#                                           Services
+# ***********************************************************************************************
+
+def get_services_information():
+    """
+    Get systemd services information.
+    """
+
+    environment_type = get_environment_type()
+
+    # Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories. But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
+    # There is no "/usr/lib/systemd/system/" on some ARM systems (and also on older distributions) and "/lib/systemd/system/" is used in this case. On newer distributions "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
+    # On ARM systems, also "/usr/lib/systemd/system/" folder may be used after installling some applications. In this situation this folder will be a real path.
+    services_data_dict = {}
+    service_unit_file_list_usr_lib_systemd = []
+    service_unit_file_list_lib_systemd = []
+    if environment_type == "flatpak":
+        if os.path.isdir("/var/run/host/usr/lib/systemd/system/") == True:
+            service_unit_files_dir = "/var/run/host/usr/lib/systemd/system/"
+            service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
+        # There is no access to "/run" folder of the host OS in Flatpak environment.
+        if (subprocess.check_output(["flatpak-spawn", "--host", "realpath", "/lib/systemd/system/"], shell=False)).decode().strip() + "/" == "/lib/systemd/system/":
+            service_unit_files_dir = "/lib/systemd/system/"
+            service_unit_file_list_lib_systemd_scratch = (subprocess.check_output(["flatpak-spawn", "--host", "ls", service_unit_files_dir], shell=False)).decode().strip().split()
+            service_unit_file_list_lib_systemd = []
+            for file in service_unit_file_list_lib_systemd_scratch:
+                if file.endswith(".service") == True:
+                    service_unit_file_list_lib_systemd.append(file)
+    else:
+        if os.path.isdir("/usr/lib/systemd/system/") == True:
+            service_unit_files_dir = "/usr/lib/systemd/system/"
+            service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
+        if os.path.realpath("/lib/systemd/system/") + "/" == "/lib/systemd/system/":
+            service_unit_files_dir = "/lib/systemd/system/"
+            service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
+
+    # Merge service file lists from different folders.
+    service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd
+
+    try:
+        if environment_type == "flatpak":
+            # There is no access to "/run" folder of the host OS in Flatpak environment.
+            service_files_from_run_systemd_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "/run/systemd/units/"], shell=False)).decode().strip().split()
+        else:
+            service_files_from_run_systemd_list = [filename.split("invocation:", 1)[-1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
+    except FileNotFoundError:
+        service_files_from_run_systemd_list = []
+
+    if environment_type == "flatpak":
+        service_unit_files_dir_scratch = service_unit_files_dir.split("/var/run/host")[-1]
+        service_unit_file_real_path_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "-l", service_unit_files_dir_scratch], shell=False)).decode().strip().split("\n")
+        for service_file in service_unit_file_real_path_list:
+            if " -> " in service_file and "/dev/null" not in service_file:
+                file = service_file.split(" -> ")[0].split()[-1].strip()
+                if file in service_unit_file_list:
+                    service_unit_file_list.remove(file)
+    else:
+        for file in service_unit_file_list[:]:                                                # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
+            if os.path.islink(service_unit_files_dir + file) == True and os.path.realpath(service_unit_files_dir + file) != "/dev/null":    # Some service files are link to other ".service" files in the same directory. These links are removed from the list. Not all link files are removed. Link files with "/dev/null" are kept in the list.
+                service_unit_file_list.remove(file)
+
+    # Get all service names (joining service names from "systemctl list-unit-files ..." and "systemctl list-units ..."). Some services are run multiple times. For example there is one instance of "user@.service" from ""systemctl list-unit-files ..." command but there are two loaded services (user@1000.service and user@1001.service) per logged in user. There are several examples for this situation. "user@.service" is removed from list, "user@1000.service" and "user@1001.service" appended into list for getting information for all services correctly.
+    service_list = []
+    for service_unit_file in service_unit_file_list:
+        if "@" not in service_unit_file:
+            service_list.append(service_unit_file)
+            continue
+        else:
+            service_unit_file_split = service_unit_file.split("@")[0]
+            for service_loaded in service_files_from_run_systemd_list:
+                if "@" in service_loaded:
+                    service_loaded = service_loaded.split("invocation:")[-1]
+                    if service_unit_file_split == service_loaded.split("@")[0]:
+                        service_list.append(service_loaded)
+                        continue
+    service_list = sorted(service_list)
+
+    # Generate "unit_files_command_parameter_list". This list will be used for constructing commandline for getting
+    # service data per service file.
+    # "LoadState" is always get for filtering service, etc. Also it prevents errors if every columns other than 
+    # service names are preferred not to be shown. It gives errors if no property is specified with
+    # "systemctl show [service_name] --property=" command.
+    unit_files_command_parameter_list = ["LoadState", "UnitFileState", "MainPID", "ActiveState", "SubState", "MemoryCurrent", "Description"]
+    unit_files_command_parameter_list = ",".join(unit_files_command_parameter_list)           # Join strings with "," between them.
+    # Construct command for getting service information for all services
+    if environment_type == "flatpak":
+        unit_files_command = ["flatpak-spawn", "--host", "systemctl", "show", "--property=" + unit_files_command_parameter_list]
+    else:
+        unit_files_command = ["systemctl", "show", "--property=" + unit_files_command_parameter_list]
+    for service in service_list:
+        unit_files_command.append(service)
+
+    # Get number of online logical CPU cores (this operation is repeated in every loop because 
+    # number of online CPU cores may be changed by user and this may cause wrong calculation of
+    # CPU usage percentage data of the processes even if this is a very rare situation.)
+    number_of_logical_cores = get_number_of_logical_cores()
+
+    # Get services bu using single process (instead of multiprocessing) if the system has 1 or 2 CPU cores.
+    if number_of_logical_cores < 3:
+        # Get service data per service file in one attempt in order to obtain lower CPU usage.
+        # Because information from all service files will be get by one commandline operation and will be parsed later.
+        try:
+            systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
+        # Prevent errors if "systemd" is not used on the system.
+        except Exception:
+            return
+    # Get services bu using multiple processes (multiprocessing) if the system has more than 2 CPU cores.
+    else:
+        from . import ServicesGetMultProc
+        systemctl_show_command_lines = ServicesGetMultProc.start_processes_func(number_of_logical_cores, unit_files_command)
+
+    # Get service information by processing command output
+    for i, service_name in enumerate(service_list):
+        systemctl_show_command_lines_split = systemctl_show_command_lines[i]
+        # Get service "loaded/not loaded" status
+        load_state = "-"
+        load_state = _tr(systemctl_show_command_lines_split.split("LoadState=", 1)[1].split("\n", 1)[0].capitalize())
+        # Get service unit file state
+        unit_file_state = _tr(systemctl_show_command_lines_split.split("UnitFileState=", 1)[1].split("\n", 1)[0].capitalize())
+        # Get service main PID
+        main_pid = int(systemctl_show_command_lines_split.split("MainPID=", 1)[1].split("\n", 1)[0].capitalize())
+        # Get service active state
+        active_state = _tr(systemctl_show_command_lines_split.split("ActiveState=", 1)[1].split("\n", 1)[0].capitalize())
+        # Get service substate
+        sub_state = _tr(systemctl_show_command_lines_split.split("SubState=", 1)[1].split("\n", 1)[0].capitalize())
+        # Get service current memory
+        memory_current = systemctl_show_command_lines_split.split("MemoryCurrent=", 1)[1].split("\n", 1)[0].capitalize()
+        # "-1" value is used as "memory_current" value if memory value is get as "[not set]".
+        # Code will recognize this value and show "-" information in this situation.
+        if memory_current.startswith("["):
+            memory_current = -1
+        else:
+            memory_current = int(memory_current)
+        # Get service description
+        description = systemctl_show_command_lines_split.split("Description=", 1)[1].split("\n", 1)[0].capitalize()
+
+        # Add service data to a sub-dictionary
+        service_data_dict = {
+                             "load_state" : load_state,
+                             "unit_file_state" : unit_file_state,
+                             "main_pid" : main_pid,
+                             "active_state" : active_state,
+                             "sub_state" : sub_state,
+                             "memory_current" : memory_current,
+                             "description" : description
+                             }
+
+        # Add service sub-dictionary to dictionary
+        services_data_dict[service_name] = service_data_dict
+
+    # Add service related lists and variables
+    services_data_dict["service_list"] = service_list
+
+    return services_data_dict
+
+
+def get_service_detailed_information(service_name):
+    """
+    Get detailed information of the specified service.
+    """
+
+    service_detailed_info_dict = {}
+
+    system_boot_time = get_system_boot_time()
+
+    # Get all information of the service
+    command_list = ["systemctl", "show", service_name]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    systemctl_show_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+
+    # Initial values of the variables. These values will be used if they could not be detected.
+    service_type = "-"
+    main_pid = "-"
+    exec_main_start_times_stamp_monotonic = "-"
+    exec_main_exit_times_stamp_monotonic ="-"
+    memory_current = "-"
+    requires = "-"
+    conflicts = "-"
+    after = "-"
+    before = "-"
+    triggered_by = "-"
+    documentation = "-"
+    description = "-"
+    active_state = "-"
+    load_state = "-"
+    sub_state = "-"
+    fragment_path = "-"
+    unit_file_state = "-"
+    unit_file_preset = "-"
+
+    for line in systemctl_show_lines:
+        if "Type=" in line:
+            service_type = _tr(line.split("=", 1)[1].capitalize())
+            # Skip to next loop if searched line ("Type=") is found in order to avoid redundant line search.
+            continue
+        if "MainPID=" in line:
+            main_pid = line.split("=", 1)[1]
+            continue
+        if "ExecMainStartTimestampMonotonic=" in line:
+            line_split = line.split("=", 1)[1]
+            if line_split != "0":
+                # Time is read from the service file (in microseconds), divided by 1000000 in order to obtain
+                # time in seconds and appended to system boot time for getting service start time.
+                # Because time data is get as "elapsed time after system boot" from the file.
+                exec_main_start_times_stamp_monotonic = int(line.split("=")[1])/1000000 + system_boot_time
+                exec_main_start_times_stamp_monotonic = datetime.fromtimestamp(exec_main_start_times_stamp_monotonic).strftime("%d.%m.%Y %H:%M:%S")
+            if line_split == "0":
+                exec_main_start_times_stamp_monotonic = "-"
+            continue
+        if "ExecMainExitTimestampMonotonic=" in line:
+            line_split = line.split("=", 1)[1]
+            if line_split != "0":
+                exec_main_exit_times_stamp_monotonic = int(line.split("=")[1])/1000000 + system_boot_time
+                exec_main_exit_times_stamp_monotonic = datetime.fromtimestamp(exec_main_exit_times_stamp_monotonic).strftime("%d.%m.%Y %H:%M:%S")
+            if line_split == "0":
+                exec_main_exit_times_stamp_monotonic = "-"
+            continue
+        if "MemoryCurrent=" in line:
+            memory_current = line.split("=", 1)[1]
+            try:
+                memory_current = int(memory_current)
+            except Exception:
+                memory_current = -1
+            continue
+        if "Requires=" in line:
+            requires = sorted(line.split("=", 1)[1].split())
+            continue
+        if "Conflicts=" in line:
+            conflicts = sorted(line.split("=", 1)[1].split())
+            continue
+        if "After=" in line:
+            after = sorted(line.split("=", 1)[1].split())
+            continue
+        if "Before=" in line:
+            before = sorted(line.split("=", 1)[1].split())
+            continue
+        if "TriggeredBy=" in line:
+            triggered_by = line.split("=", 1)[1]
+            continue
+        if "Documentation=" in line:
+            documentation = line.split("=", 1)[1].split()
+            # Convert string into multi-line string if there are more than one documentation information.
+            documentation_scratch = []
+            for documentation in documentation:
+                documentation_scratch.append(documentation.strip('"'))
+            documentation = documentation_scratch
+            continue
+        if "Description=" in line:
+            description = line.split("=", 1)[1]
+            continue
+        if "ActiveState=" in line:
+            active_state = _tr(line.split("=", 1)[1].capitalize())
+            continue
+        if "LoadState=" in line:
+            load_state = _tr(line.split("=", 1)[1].capitalize())
+            continue
+        if "SubState=" in line:
+            sub_state = _tr(line.split("=", 1)[1].capitalize())
+            continue
+        if "FragmentPath=" in line:
+            fragment_path = line.split("=", 1)[1]
+            continue
+        if "UnitFileState=" in line:
+            unit_file_state = _tr(line.split("=", 1)[1].capitalize())
+            continue
+        if "UnitFilePreset=" in line:
+            unit_file_preset = _tr(line.split("=", 1)[1].capitalize())
+            continue
+
+    # Add service data to a dictionary
+    service_detailed_info_dict = {
+                                  "service_name" : service_name,
+                                  "service_type" : service_type,
+                                  "main_pid" : main_pid,
+                                  "exec_main_start_times_stamp_monotonic" : exec_main_start_times_stamp_monotonic,
+                                  "exec_main_exit_times_stamp_monotonic" : exec_main_exit_times_stamp_monotonic,
+                                  "memory_current" : memory_current,
+                                  "requires" : requires,
+                                  "conflicts" : conflicts,
+                                  "after" : after,
+                                  "before" : before,
+                                  "triggered_by" : triggered_by,
+                                  "documentation" : documentation,
+                                  "description" : description,
+                                  "active_state" : active_state,
+                                  "load_state" : load_state,
+                                  "sub_state" : sub_state,
+                                  "fragment_path" : fragment_path,
+                                  "unit_file_state" : unit_file_state,
+                                  "unit_file_preset" : unit_file_preset
+                                  }
+
+    return service_detailed_info_dict
+
+
+def get_service_mask_state(service_name):
+    """
+    Get service mask state (masked/unmasked).
+    """
+
+    command_list = ["systemctl", "show", service_name, "--property=UnitFileState"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    service_mask_status = (subprocess.check_output(command_list, shell=False)).decode().strip().split("=")[1]
+
+    return service_mask_status
+
+
+def manage_service(service_name, action_name):
+    """
+    Start, stop, restart, enable, disable, mask (hide), unmask services.
+    """
+
+    command_list = ["systemctl", action_name, service_name]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+
+    # Run command and get output if there are errors.
+    try:
+        systemctl_run = subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        #systemctl_output = systemctl_run.stdout.decode().strip()
+        systemctl_error = systemctl_run.stderr.decode().strip()
+    except Exception:
+        systemctl_error = "-"
+
+    return systemctl_error
+
+
+# ***********************************************************************************************
 #                                           System
 # ***********************************************************************************************
 
@@ -2937,7 +3650,7 @@ def get_kernel_version():
 
 def get_computer_vendor_model_chassis_type():
     """
-    Get computer vendor, model and chassis type
+    Get computer vendor, model and chassis type.
     """
 
     # Get computer vendor ("/sys/devices/virtual/dmi" is used for UEFI/ACPI systems and not found on ARM systems)

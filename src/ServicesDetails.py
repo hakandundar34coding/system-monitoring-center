@@ -337,15 +337,7 @@ class ServicesDetails:
         self.selected_service_name = Services.selected_service_name
 
         # Get system boot time (will be used for appending to process start times to get process start times as date time.)
-        with open("/proc/stat") as reader:
-            stat_lines = reader.read().split("\n")
-        for line in stat_lines:
-            if "btime " in line:
-                self.system_boot_time = int(line.split()[1].strip())
-
-        # These lists are defined in order to make these texts translatable to other languages. String names are capitalized here as they are capitalized in the code by using ".capitalize()" in order to use translated strings.
-        service_state_list = [_tr("Enabled"), _tr("Disabled"), _tr("Masked"), _tr("Unmasked"), _tr("Static"), _tr("Generated"), _tr("Enabled-runtime"), _tr("Indirect"), _tr("Active"), _tr("Inactive"), _tr("Loaded"), _tr("Dead"), _tr("Exited"), _tr("Running")]
-        services_other_text_list = [_tr("Yes"), _tr("No")]
+        self.system_boot_time = Libsysmon.get_system_boot_time()
 
 
     def services_details_loop_func(self):
@@ -358,133 +350,31 @@ class ServicesDetails:
 
         selected_service_name = Services.selected_service_name
 
-        # Get all information of the service.
-        command_list = ["systemctl", "show", selected_service_name]
-        if Libsysmon.get_environment_type() == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-        systemctl_show_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
-
-        # Initial value of the variables. These values will be used if they could not be detected.
-        selected_service_type = "-"
-        selected_service_main_pid = "-"
-        selected_service_exec_main_start_times_stamp_monotonic = "-"
-        selected_service_exec_main_exit_times_stamp_monotonic ="-"
-        selected_service_memory_current = "-"
-        selected_service_requires = "-"
-        selected_service_conflicts = "-"
-        selected_service_after = "-"
-        selected_service_before = "-"
-        selected_service_triggered_by = "-"
-        selected_service_documentation = "-"
-        selected_service_description = "-"
-        selected_service_active_state = "-"
-        selected_service_load_state = "-"
-        selected_service_sub_state = "-"
-        selected_service_fragment_path = "-"
-        selected_service_unit_file_state = "-"
-        selected_service_unit_file_preset = "-"
-
-        for line in systemctl_show_lines:
-            if "Type=" in line:
-                selected_service_type = _tr(line.split("=")[1].capitalize())
-                # Skip to next loop if searched line ("Type=") is found in order to avoid redundant line search.
-                continue
-            if "MainPID=" in line:
-                selected_service_main_pid = line.split("=")[1]
-                continue
-            if "ExecMainStartTimestampMonotonic=" in line:
-                line_split = line.split("=")[1]
-                if line_split != "0":
-                    # Time is read from the service file (in microseconds), divided by 1000000 in order to obtain time in seconds and appended to system boot time for getting service start time. Because time data is get as "elapsed time after system boot" from the file.
-                    selected_service_exec_main_start_times_stamp_monotonic = int(line.split("=")[1])/1000000 + self.system_boot_time
-                    selected_service_exec_main_start_times_stamp_monotonic = datetime.fromtimestamp(selected_service_exec_main_start_times_stamp_monotonic).strftime("%d.%m.%Y %H:%M:%S")
-                if line_split == "0":
-                    selected_service_exec_main_start_times_stamp_monotonic = "-"
-                continue
-            if "ExecMainExitTimestampMonotonic=" in line:
-                line_split = line.split("=")[1]
-                if line_split != "0":
-                    # Time is read from the service file (in microseconds), divided by 1000000 in order to obtain time in seconds and appended to system boot time for getting service start time. Because time data is get as "elapsed time after system boot" from the file.
-                    selected_service_exec_main_exit_times_stamp_monotonic = int(line.split("=")[1])/1000000 + self.system_boot_time
-                    selected_service_exec_main_exit_times_stamp_monotonic = datetime.fromtimestamp(selected_service_exec_main_exit_times_stamp_monotonic).strftime("%d.%m.%Y %H:%M:%S")
-                if line_split == "0":
-                    selected_service_exec_main_exit_times_stamp_monotonic = "-"
-                continue
-            if "MemoryCurrent=" in line:
-                selected_service_memory_current = line.split("=")[1]
-                if selected_service_memory_current == "-" or selected_service_memory_current == "[not set]":
-                    selected_service_memory_current = "-"
-                else:
-                    try:
-                        selected_service_memory_current = f'{Performance.performance_data_unit_converter_func("data", "none", int(selected_service_memory_current), services_memory_data_unit, services_memory_data_precision)}'
-                    except Exception:
-                        selected_service_memory_current = "-"
-                continue
-            if "Requires=" in line:
-                selected_service_requires = sorted(line.split("=")[1].split())
-                continue
-            if "Conflicts=" in line:
-                selected_service_conflicts = sorted(line.split("=")[1].split())
-                continue
-            if "After=" in line:
-                selected_service_after = sorted(line.split("=")[1].split())
-                continue
-            if "Before=" in line:
-                selected_service_before = sorted(line.split("=")[1].split())
-                continue
-            if "TriggeredBy=" in line:
-                selected_service_triggered_by = line.split("=")[1]
-                continue
-            if "Documentation=" in line:
-                selected_service_documentation = line.split("=")[1].split()
-                # Convert string into multi-line string if there are more than one documentation information.
-                selected_service_documentation_scratch = []
-                for documentation in selected_service_documentation:
-                    selected_service_documentation_scratch.append(documentation.strip('"'))
-                selected_service_documentation = selected_service_documentation_scratch
-                continue
-            if "Description=" in line:
-                selected_service_description = line.split("=")[1]
-                continue
-            if "ActiveState=" in line:
-                selected_service_active_state = _tr(line.split("=")[1].capitalize())
-                continue
-            if "LoadState=" in line:
-                selected_service_load_state = _tr(line.split("=")[1].capitalize())
-                continue
-            if "SubState=" in line:
-                selected_service_sub_state = _tr(line.split("=")[1].capitalize())
-                continue
-            if "FragmentPath=" in line:
-                selected_service_fragment_path = line.split("=")[1]
-                continue
-            if "UnitFileState=" in line:
-                selected_service_unit_file_state = _tr(line.split("=")[1].capitalize())
-                continue
-            if "UnitFilePreset=" in line:
-                selected_service_unit_file_preset = _tr(line.split("=")[1].capitalize())
-                continue
-
+        service_detailed_info_dict = Libsysmon.get_service_detailed_information(selected_service_name)
 
         # Set label text by using service data
         self.name_label.set_label(self.selected_service_name)
-        self.description_label.set_label(selected_service_description)
-        self.unit_file_state_label.set_label(f'{selected_service_unit_file_state} - {selected_service_unit_file_preset}')
-        self.load_state_label.set_label(selected_service_load_state)
-        self.active_state_label.set_label(selected_service_active_state)
-        self.sub_state_label.set_label(selected_service_sub_state)
-        self.path_label.set_label(selected_service_fragment_path)
-        self.documentation_label.set_label(',\n'.join(selected_service_documentation))
-        self.triggered_by_label.set_label(selected_service_triggered_by)
-        self.main_pid_label.set_label(selected_service_main_pid)
-        self.main_process_start_time_label.set_label(selected_service_exec_main_start_times_stamp_monotonic)
-        self.main_process_end_time_label.set_label(selected_service_exec_main_exit_times_stamp_monotonic)
-        self.type_label.set_label(selected_service_type)
-        self.memory_rss_label.set_label(selected_service_memory_current)
-        self.requires_label.set_label(',\n'.join(selected_service_requires))
-        self.conflicts_label.set_label(',\n'.join(selected_service_conflicts))
-        self.after_label.set_label(',\n'.join(selected_service_after))
-        self.before_label.set_label(',\n'.join(selected_service_before))
+        self.description_label.set_label(service_detailed_info_dict["description"])
+        self.unit_file_state_label.set_label(service_detailed_info_dict["unit_file_state"] + " - " + service_detailed_info_dict["unit_file_preset"])
+        self.load_state_label.set_label(service_detailed_info_dict["load_state"])
+        self.active_state_label.set_label(service_detailed_info_dict["active_state"])
+        self.sub_state_label.set_label(service_detailed_info_dict["sub_state"])
+        self.path_label.set_label(service_detailed_info_dict["fragment_path"])
+        self.documentation_label.set_label(',\n'.join(service_detailed_info_dict["documentation"]))
+        self.triggered_by_label.set_label(service_detailed_info_dict["triggered_by"])
+        self.main_pid_label.set_label(service_detailed_info_dict["main_pid"])
+        self.main_process_start_time_label.set_label(service_detailed_info_dict["exec_main_start_times_stamp_monotonic"])
+        self.main_process_end_time_label.set_label(service_detailed_info_dict["exec_main_exit_times_stamp_monotonic"])
+        self.type_label.set_label(service_detailed_info_dict["service_type"])
+        if service_detailed_info_dict["memory_current"] != -1:
+            memory_current = f'{Performance.performance_data_unit_converter_func("data", "none", service_detailed_info_dict["memory_current"], services_memory_data_unit, services_memory_data_precision)}'
+        else:
+            memory_current = "-"
+        self.memory_rss_label.set_label(memory_current)
+        self.requires_label.set_label(',\n'.join(service_detailed_info_dict["requires"]))
+        self.conflicts_label.set_label(',\n'.join(service_detailed_info_dict["conflicts"]))
+        self.after_label.set_label(',\n'.join(service_detailed_info_dict["after"]))
+        self.before_label.set_label(',\n'.join(service_detailed_info_dict["before"]))
 
 
     def services_details_run_func(self, *args):

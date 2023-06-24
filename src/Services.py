@@ -198,11 +198,7 @@ class Services:
         # Get selected service name
         service_name = self.selected_service_name
 
-        # Get service "masked/unmasked" state
-        command_list = ["systemctl", "show", service_name, "--property=UnitFileState"]
-        if Libsysmon.get_environment_type() == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-        self.service_mask_status = (subprocess.check_output(command_list, shell=False)).decode().strip().split("=")[1]
+        self.service_mask_status = Libsysmon.get_service_mask_state(service_name)
 
         # Set menu option
         if self.service_mask_status == "masked":
@@ -216,68 +212,35 @@ class Services:
         Start, stop, restart, enable, disable, mask (hide), unmask services.
         """
 
-        # Get right clicked service name.
+        # Get right clicked service name
         service_name = self.selected_service_name
 
-        environment_type = Libsysmon.get_environment_type()
-
-        # "Start" service
         if action.get_name() == "services_start_service":
-            command_list = ["systemctl", "start", service_name]
-            if environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
+            action_name = "start"
+        elif action.get_name() == "services_stop_service":
+            action_name = "stop"
+        elif action.get_name() == "services_restart_service":
+            action_name = "restart"
+        elif action.get_name() == "services_reload_service":
+            action_name = "reload"
+        elif action.get_name() == "services_enable_service":
+            action_name = "enable"
+        elif action.get_name() == "services_disable_service":
+            action_name = "disable"
+        elif action.get_name() == "services_mask_service":
+            if self.service_mask_status != "masked":
+                action_name = "mask"
+            elif self.service_mask_status == "masked":
+                action_name = "unmask"
 
-        # "Stop" service
-        if action.get_name() == "services_stop_service":
-            command_list = ["systemctl", "stop", service_name]
-            if environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
+        systemctl_error = Libsysmon.manage_service(service_name, action_name)
 
-        # "Restart" service
-        if action.get_name() == "services_restart_service":
-            command_list = ["systemctl", "restart", service_name]
-            if environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
-
-        # "Reload" service
-        if action.get_name() == "services_reload_service":
-            command_list = ["systemctl", "reload", service_name]
-            if environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
-
-        # "Enable" service
-        if action.get_name() == "services_enable_service":
-            command_list = ["systemctl", "enable", service_name]
-            if environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
-
-        # "Disable" service
-        if action.get_name() == "services_disable_service":
-            command_list = ["systemctl", "disable", service_name]
-            if environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
-
-        # "Mask/Unmask" service 
-        if action.get_name() == "services_mask_service":
-            if self.service_mask_status == "masked":
-                command_list = ["systemctl", "unmask", service_name]
-            else:
-                command_list = ["systemctl", "mask", service_name]
-            if environment_type == "flatpak":
-                command_list = ["flatpak-spawn", "--host"] + command_list
-
-        # Manage the right clicked service and show an information dialog if there is output messages (warnings/errors).
-        try:
-            systemctl_run = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE))
-            #systemctl_output = systemctl_run.stdout.decode().strip()
-            systemctl_error = systemctl_run.stderr.decode().strip()
-        except Exception:
-            return
-
-        message_text = _tr("Information")
-        secondary_text = systemctl_error
-        if secondary_text != "":
-            self.messagedialog_gui(message_text, secondary_text)
+        # Show information dialog if there are errors in the command output.
+        if systemctl_error != "-":
+            message_text = _tr("Information")
+            secondary_text = systemctl_error
+            if secondary_text != "":
+                self.messagedialog_gui(message_text, secondary_text)
 
 
     def messagedialog_gui(self, message_text, secondary_text):
@@ -480,153 +443,31 @@ class Services:
         treeview_columns_shown = self.treeview_columns_shown
         treeview_columns_shown = set(treeview_columns_shown)
 
-        # Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories. But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
-        # There is no "/usr/lib/systemd/system/" on some ARM systems (and also on older distributions) and "/lib/systemd/system/" is used in this case. On newer distributions "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
-        # On ARM systems, also "/usr/lib/systemd/system/" folder may be used after installling some applications. In this situation this folder will be a real path.
-        environment_type = Libsysmon.get_environment_type()
-        service_unit_file_list_usr_lib_systemd = []
-        service_unit_file_list_lib_systemd = []
-        if environment_type == "flatpak":
-            if os.path.isdir("/var/run/host/usr/lib/systemd/system/") == True:
-                service_unit_files_dir = "/var/run/host/usr/lib/systemd/system/"
-                service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
-            # There is no access to "/run" folder of the host OS in Flatpak environment.
-            if (subprocess.check_output(["flatpak-spawn", "--host", "realpath", "/lib/systemd/system/"], shell=False)).decode().strip() + "/" == "/lib/systemd/system/":
-                service_unit_files_dir = "/lib/systemd/system/"
-                service_unit_file_list_lib_systemd_scratch = (subprocess.check_output(["flatpak-spawn", "--host", "ls", service_unit_files_dir], shell=False)).decode().strip().split()
-                service_unit_file_list_lib_systemd = []
-                for file in service_unit_file_list_lib_systemd_scratch:
-                    if file.endswith(".service") == True:
-                        service_unit_file_list_lib_systemd.append(file)
-        else:
-            if os.path.isdir("/usr/lib/systemd/system/") == True:
-                service_unit_files_dir = "/usr/lib/systemd/system/"
-                service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
-            if os.path.realpath("/lib/systemd/system/") + "/" == "/lib/systemd/system/":
-                service_unit_files_dir = "/lib/systemd/system/"
-                service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
+        rows_data_dict = Libsysmon.get_services_information()
+        self.rows_data_dict_prev = dict(rows_data_dict)
+        service_list = rows_data_dict["service_list"]
 
-        # Merge service file lists from different folders.
-        service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd
-
-        try:
-            if environment_type == "flatpak":
-                # There is no access to "/run" folder of the host OS in Flatpak environment.
-                service_files_from_run_systemd_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "/run/systemd/units/"], shell=False)).decode().strip().split()
-            else:
-                service_files_from_run_systemd_list = [filename.split("invocation:", 1)[-1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
-        except FileNotFoundError:
-            service_files_from_run_systemd_list = []
-
-        if environment_type == "flatpak":
-            service_unit_files_dir_scratch = service_unit_files_dir.split("/var/run/host")[-1]
-            service_unit_file_real_path_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "-l", service_unit_files_dir_scratch], shell=False)).decode().strip().split("\n")
-            for service_file in service_unit_file_real_path_list:
-                if " -> " in service_file and "/dev/null" not in service_file:
-                    file = service_file.split(" -> ")[0].split()[-1].strip()
-                    if file in service_unit_file_list:
-                        service_unit_file_list.remove(file)
-        else:
-            for file in service_unit_file_list[:]:                                                # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
-                if os.path.islink(service_unit_files_dir + file) == True and os.path.realpath(service_unit_files_dir + file) != "/dev/null":    # Some service files are link to other ".service" files in the same directory. These links are removed from the list. Not all link files are removed. Link files with "/dev/null" are kept in the list.
-                    service_unit_file_list.remove(file)
-
-        # Get all service names (joining service names from "systemctl list-unit-files ..." and "systemctl list-units ..."). Some services are run multiple times. For example there is one instance of "user@.service" from ""systemctl list-unit-files ..." command but there are two loaded services (user@1000.service and user@1001.service) per logged in user. There are several examples for this situation. "user@.service" is removed from list, "user@1000.service" and "user@1001.service" appended into list for getting information for all services correctly.
-        service_list = []
-        for service_unit_file in service_unit_file_list:
-            if "@" not in service_unit_file:
-                service_list.append(service_unit_file)
-                continue
-            else:
-                service_unit_file_split = service_unit_file.split("@")[0]
-                for service_loaded in service_files_from_run_systemd_list:
-                    if "@" in service_loaded:
-                        service_loaded = service_loaded.split("invocation:")[-1]
-                        if service_unit_file_split == service_loaded.split("@")[0]:
-                            service_list.append(service_loaded)
-                            continue
-        service_list = sorted(service_list)
-
-        # Generate "unit_files_command_parameter_list". This list will be used for constructing commandline for getting service data per service file.
-        unit_files_command_parameter_list = ["LoadState"]                                         # This information is always get for filtering service, etc. Also it prevents errors if every columns other than service name are preferred not to be shown. It gives errors if no property is specified with "systemctl show [service_name] --property=" command.
-        if 1 in treeview_columns_shown:
-            unit_files_command_parameter_list.append("UnitFileState")
-        if 2 in treeview_columns_shown:
-            unit_files_command_parameter_list.append("MainPID")
-        if 3 in treeview_columns_shown:
-            unit_files_command_parameter_list.append("ActiveState")
-        if 5 in treeview_columns_shown:
-            unit_files_command_parameter_list.append("SubState")
-        if 6 in treeview_columns_shown:
-            unit_files_command_parameter_list.append("MemoryCurrent")
-        if 7 in treeview_columns_shown:
-            unit_files_command_parameter_list.append("Description")
-        unit_files_command_parameter_list = ",".join(unit_files_command_parameter_list)           # Join strings with "," between them.
-        # Construct command for getting service information for all services
-        if environment_type == "flatpak":
-            unit_files_command = ["flatpak-spawn", "--host", "systemctl", "show", "--property=" + unit_files_command_parameter_list]
-        else:
-            unit_files_command = ["systemctl", "show", "--property=" + unit_files_command_parameter_list]
-        for service in service_list:
-            unit_files_command.append(service)
-
-        # Get number of online logical CPU cores (this operation is repeated in every loop because number of online CPU cores may be changed by user and this may cause wrong calculation of CPU usage percent data of the processes even if this is a very rare situation.)
-        number_of_logical_cores = Libsysmon.get_number_of_logical_cores()
-
-        # Get services bu using single process (instead of multiprocessing) if the system has 1 or 2 CPU cores.
-        if number_of_logical_cores < 3:
-            # Get service data per service file in one attempt in order to obtain lower CPU usage. Because information from all service files will be get by one commandline operation and will be parsed later.
-            try:
-                systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
-            # Prevent errors if "systemd" is not used on the system.
-            except Exception:
-                return
-        # Get services bu using multiple processes (multiprocessing) if the system has more than 2 CPU cores.
-        else:
-            from . import ServicesGetMultProc
-            systemctl_show_command_lines = ServicesGetMultProc.start_processes_func(number_of_logical_cores, unit_files_command)
-
-        # Get services data (specific information by processing the data get previously)
+        # Get and append process data
         tab_data_rows = []
-        for i, service in enumerate(service_list):
-            systemctl_show_command_lines_split = systemctl_show_command_lines[i]
-            # Get service "loaded/not loaded" status. This data will be used for filtering (search, etc.) services.
-            service_load_state = "-"                                                              # Initial value of "service_load_state" variable. This value will be used if "service_load_state" could not be detected.
-            service_load_state = systemctl_show_command_lines_split.split("LoadState=", 1)[1].split("\n", 1)[0].capitalize()
-            # Append service image and service name
-            tab_data_row = [True, "system-monitoring-center-services-symbolic", service]
-            # Append service unit file state
+        for service_name in service_list:
+            row_data_dict = rows_data_dict[service_name]
+            tab_data_row = [True, "system-monitoring-center-services-symbolic", service_name]
             if 1 in treeview_columns_shown:
-                service_state = _tr(systemctl_show_command_lines_split.split("UnitFileState=", 1)[1].split("\n", 1)[0].capitalize())    # "_tr([value])" is used for using translated string.
-                tab_data_row.append(service_state)
-            # Append service main PID
+                tab_data_row.append(row_data_dict["unit_file_state"])
             if 2 in treeview_columns_shown:
-                service_main_pid = int(systemctl_show_command_lines_split.split("MainPID=", 1)[1].split("\n", 1)[0].capitalize())
-                tab_data_row.append(service_main_pid)
-            # Append service active state
+                tab_data_row.append(row_data_dict["main_pid"])
             if 3 in treeview_columns_shown:
-                service_active_state = _tr(systemctl_show_command_lines_split.split("ActiveState=", 1)[1].split("\n", 1)[0].capitalize())
-                tab_data_row.append(service_active_state)
-            # Append service load state (it has been get previously)
+                tab_data_row.append(row_data_dict["active_state"])
             if 4 in treeview_columns_shown:
-                tab_data_row.append(_tr(service_load_state))
-            # Append service substate
+                tab_data_row.append(row_data_dict["load_state"])
             if 5 in treeview_columns_shown:
-                service_sub_state = _tr(systemctl_show_command_lines_split.split("SubState=", 1)[1].split("\n", 1)[0].capitalize())
-                tab_data_row.append(service_sub_state)
-            # Append service current memory
+                tab_data_row.append(row_data_dict["sub_state"])
             if 6 in treeview_columns_shown:
-                service_memory_current = systemctl_show_command_lines_split.split("MemoryCurrent=", 1)[1].split("\n", 1)[0].capitalize()
-                if service_memory_current.startswith("["):
-                    service_memory_current = -9999                                                # "-9999" value is used as "service_memory_current" value if memory value is get as "[not set]". Code will recognize this value and show "-" information in this situation. This negative integer value is used instead of string value because this data colmn of the treestore is an integer typed column.
-                else:
-                    service_memory_current = int(service_memory_current)
-                tab_data_row.append(service_memory_current)
-            # Append service description
+                tab_data_row.append(row_data_dict["memory_current"])
             if 7 in treeview_columns_shown:
-                service_description = systemctl_show_command_lines_split.split("Description=", 1)[1].split("\n", 1)[0].capitalize()
-                tab_data_row.append(service_description)
-            # Append all data of the services into a list which will be appended into a treestore for showing the data on a treeview.
+                tab_data_row.append(row_data_dict["description"])
+
+            # Append process data into a list
             tab_data_rows.append(tab_data_row)
 
         self.tab_data_rows = tab_data_rows
@@ -662,9 +503,9 @@ class Services:
 # ----------------------------------- Services - Treeview Cell Functions -----------------------------------
 def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
     cell_data = tree_model.get(iter, data)[0]
-    if cell_data == -9999:
+    if cell_data == -1:
         cell.set_property('text', "-")
-    if cell_data != -9999:
+    if cell_data != -1:
         cell.set_property('text', f'{performance_data_unit_converter_func("data", "none", cell_data, services_memory_data_unit, services_memory_data_precision)}')
 
 
