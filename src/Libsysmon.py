@@ -847,7 +847,7 @@ def read_process_information(process_list, detail_level="medium"):
     return cat_output_split, global_time, global_cpu_time_all
 
 
-def data_unit_converter_func(data_type, data_type_option, data, unit, precision):
+def data_unit_converter(data_type, data_type_option, data, unit, precision):
     """
     Convert data units and set value precision (called from several modules).
     """
@@ -1754,9 +1754,9 @@ def get_swap_details_info(performance_memory_data_precision=1, performance_memor
         swap_type = line_split[1].strip().title()
         # Values in this file are in KiB. They are converted to Bytes.
         swap_size = int(line_split[2].strip()) * 1024
-        swap_size = f'{data_unit_converter_func("data", "none", swap_size, performance_memory_data_unit, performance_memory_data_precision)}'
+        swap_size = f'{data_unit_converter("data", "none", swap_size, performance_memory_data_unit, performance_memory_data_precision)}'
         swap_used = int(line_split[3].strip()) * 1024
-        swap_used = f'{data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}'
+        swap_used = f'{data_unit_converter("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}'
         swap_priority = line_split[4].strip()
         memory_swap_details_info = memory_swap_details_info + "\n" + _tr("Name") + " :    " + swap_name
         memory_swap_details_info = memory_swap_details_info + "\n" + _tr("Type") + " :    " + _tr(swap_type)

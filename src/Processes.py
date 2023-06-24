@@ -878,8 +878,8 @@ class Processes:
                              ]
 
         # Define data unit conversion function objects in for lower CPU usage.
-        global performance_data_unit_converter_func
-        performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
+        global data_unit_converter
+        data_unit_converter = Libsysmon.data_unit_converter
 
         self.tab_data_rows_prev = []
         self.pid_list_prev = []
@@ -1247,42 +1247,42 @@ def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, da
 
 def cell_data_function_memory_rss(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', performance_data_unit_converter_func("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
+    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
     cell_backround_color(cell, value, max_value_memory_rss_list)
 
 def cell_data_function_memory_vms(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', performance_data_unit_converter_func("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
+    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
     cell_backround_color(cell, value, max_value_memory_vms_list)
 
 def cell_data_function_memory_shared(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', performance_data_unit_converter_func("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
+    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
     cell_backround_color(cell, value, max_value_memory_shared_list)
 
 def cell_data_function_memory(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', performance_data_unit_converter_func("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
+    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
     cell_backround_color(cell, value, max_value_memory_list)
 
 def cell_data_function_disk_read_data(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', performance_data_unit_converter_func("data", "none", value, processes_disk_data_unit, processes_disk_data_precision))
+    cell.set_property('text', data_unit_converter("data", "none", value, processes_disk_data_unit, processes_disk_data_precision))
     cell_backround_color(cell, value, max_value_disk_read_data_list)
 
 def cell_data_function_disk_write_data(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', performance_data_unit_converter_func("data", "none", value, processes_disk_data_unit, processes_disk_data_precision))
+    cell.set_property('text', data_unit_converter("data", "none", value, processes_disk_data_unit, processes_disk_data_precision))
     cell_backround_color(cell, value, max_value_disk_write_data_list)
 
 def cell_data_function_disk_read_speed(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', f'{performance_data_unit_converter_func("speed", processes_disk_speed_bit, value, processes_disk_data_unit, processes_disk_data_precision)}/s')
+    cell.set_property('text', f'{data_unit_converter("speed", processes_disk_speed_bit, value, processes_disk_data_unit, processes_disk_data_precision)}/s')
     cell_backround_color(cell, value, max_value_disk_read_speed_list)
 
 def cell_data_function_disk_write_speed(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', f'{performance_data_unit_converter_func("speed", processes_disk_speed_bit, value, processes_disk_data_unit, processes_disk_data_precision)}/s')
+    cell.set_property('text', f'{data_unit_converter("speed", processes_disk_speed_bit, value, processes_disk_data_unit, processes_disk_data_precision)}/s')
     cell_backround_color(cell, value, max_value_disk_write_speed_list)
 
 def cell_data_function_cpu_time(tree_column, cell, tree_model, iter, data):
@@ -1312,12 +1312,12 @@ def cell_data_function_cpu_usage_percent_recursive(tree_column, cell, tree_model
 
 def cell_data_function_memory_rss_recursive(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', performance_data_unit_converter_func("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
+    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
     cell_backround_color(cell, value, max_value_memory_rss_recursive_list)
 
 def cell_data_function_memory_recursive(tree_column, cell, tree_model, iter, data):
     value = tree_model.get(iter, data)[0]
-    cell.set_property('text', performance_data_unit_converter_func("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
+    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
     cell_backround_color(cell, value, max_value_memory_recursive_list)
 
 def cell_backround_color(cell, value, max_value):

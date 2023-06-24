@@ -228,10 +228,10 @@ class Network:
 
 
         # Set and update Network tab label texts by using information get
-        self.download_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_receive_speed[selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s')
-        self.upload_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", performance_network_speed_bit, network_send_speed[selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s')
-        self.download_data_label.set_label(Performance.performance_data_unit_converter_func("data", "none", network_receive_bytes, performance_network_data_unit, performance_network_data_precision))
-        self.upload_data_label.set_label(Performance.performance_data_unit_converter_func("data", "none", network_send_bytes, performance_network_data_unit, performance_network_data_precision))
+        self.download_speed_label.set_label(f'{Libsysmon.data_unit_converter("speed", performance_network_speed_bit, network_receive_speed[selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s')
+        self.upload_speed_label.set_label(f'{Libsysmon.data_unit_converter("speed", performance_network_speed_bit, network_send_speed[selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s')
+        self.download_data_label.set_label(Libsysmon.data_unit_converter("data", "none", network_receive_bytes, performance_network_data_unit, performance_network_data_precision))
+        self.upload_data_label.set_label(Libsysmon.data_unit_converter("data", "none", network_send_bytes, performance_network_data_unit, performance_network_data_precision))
         self.connected_ssid_label.set_label(f'{network_card_connected} - {network_ssid}')
         self.link_quality_label.set_label(network_link_quality)
 

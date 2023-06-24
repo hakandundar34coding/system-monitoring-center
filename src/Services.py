@@ -383,8 +383,8 @@ class Services:
                              ]
 
         # Define data unit conversion function objects in for lower CPU usage.
-        global performance_data_unit_converter_func
-        performance_data_unit_converter_func = Performance.performance_data_unit_converter_func
+        global data_unit_converter
+        data_unit_converter = Libsysmon.data_unit_converter
 
         self.tab_data_rows_prev = []
         self.service_list_prev = []
@@ -506,7 +506,7 @@ def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
     if cell_data == -1:
         cell.set_property('text', "-")
     if cell_data != -1:
-        cell.set_property('text', f'{performance_data_unit_converter_func("data", "none", cell_data, services_memory_data_unit, services_memory_data_precision)}')
+        cell.set_property('text', f'{data_unit_converter("data", "none", cell_data, services_memory_data_unit, services_memory_data_precision)}')
 
 
 Services = Services()

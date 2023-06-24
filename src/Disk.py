@@ -367,10 +367,10 @@ class Disk:
         self.disk_details_system_disk_label.set_label(disk_if_system_disk)
         self.disk_details_disk_type_label.set_label(disk_type)
         self.disk_details_file_system_label.set_label(disk_file_system)
-        self.disk_details_capacity_mass_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity_mass_storage, performance_disk_data_unit, performance_disk_data_precision)}')
-        self.disk_details_capacity_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision)}')
-        self.disk_details_free_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision)}')
-        self.disk_details_used_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)}  ( {disk_usage_percentage:.0f}% )')
+        self.disk_details_capacity_mass_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", disk_capacity_mass_storage, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.disk_details_capacity_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.disk_details_free_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.disk_details_used_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)}  ( {disk_usage_percentage:.0f}% )')
         self.disk_details_vendor_model_label.set_label(disk_device_model_name)
         self.details_label_fs_label.set_label(disk_label)
         self.disk_details_mount_point_label.set_label(disk_mount_point)
@@ -495,17 +495,17 @@ class Disk:
 
 
         # Show information on labels.
-        self.read_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_read_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
-        self.write_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, disk_write_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
-        self.read_data_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
-        self.write_data_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
+        self.read_speed_label.set_label(f'{Libsysmon.data_unit_converter("speed", performance_disk_speed_bit, disk_read_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.write_speed_label.set_label(f'{Libsysmon.data_unit_converter("speed", performance_disk_speed_bit, disk_write_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.read_data_label.set_label(Libsysmon.data_unit_converter("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
+        self.write_data_label.set_label(Libsysmon.data_unit_converter("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
         if disk_mount_point != "-":
             self.used_percent_label.set_label(f'{self.disk_usage_percentage:.0f}%')
         if disk_mount_point == "-":
             self.used_percent_label.set_label("-%")
-        self.free_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision))
-        self.used_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision))
-        self.capacity_label.set_label(Performance.performance_data_unit_converter_func("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision))
+        self.free_label.set_label(Libsysmon.data_unit_converter("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision))
+        self.used_label.set_label(Libsysmon.data_unit_converter("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision))
+        self.capacity_label.set_label(Libsysmon.data_unit_converter("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision))
 
 
     def get_disk_update_disk_usage_percentages_on_disk_list(self):

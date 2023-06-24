@@ -82,13 +82,13 @@ class Summary:
         performance_disk_data_precision = 1
         performance_disk_data_unit = Config.performance_disk_data_unit
         performance_disk_speed_bit = Config.performance_disk_speed_bit
-        disk_read_speed_text = f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, Performance.disk_read_speed[Performance.selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s'
-        disk_write_speed_text = f'{Performance.performance_data_unit_converter_func("speed", performance_disk_speed_bit, Performance.disk_write_speed[Performance.selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s'
+        disk_read_speed_text = f'{Libsysmon.data_unit_converter("speed", performance_disk_speed_bit, Performance.disk_read_speed[Performance.selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s'
+        disk_write_speed_text = f'{Libsysmon.data_unit_converter("speed", performance_disk_speed_bit, Performance.disk_write_speed[Performance.selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s'
         performance_network_data_precision = 1
         performance_network_data_unit = Config.performance_network_data_unit
         performance_network_speed_bit = Config.performance_network_speed_bit
-        network_download_speed_text = f'{Performance.performance_data_unit_converter_func("speed", performance_network_speed_bit, Performance.network_receive_speed[Performance.selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s'
-        network_upload_speed_text = f'{Performance.performance_data_unit_converter_func("speed", performance_network_speed_bit, Performance.network_send_speed[Performance.selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s'
+        network_download_speed_text = f'{Libsysmon.data_unit_converter("speed", performance_network_speed_bit, Performance.network_receive_speed[Performance.selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s'
+        network_upload_speed_text = f'{Libsysmon.data_unit_converter("speed", performance_network_speed_bit, Performance.network_send_speed[Performance.selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s'
 
 
         # Get system font name

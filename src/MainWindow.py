@@ -44,10 +44,6 @@ class MainWindow():
 
         self.hide_services_tab()
 
-        # Run "Performance" module in order to provide performance data
-        # to Performance tab and performance summary on the headerbar.
-        Performance.performance_background_initial_func()
-
         # Define these settings in order to avoid error on the first call 
         # of "main_gui_tab_loop" function. This value is used in order to detect
         # the current tab without checking GUI obejects for lower CPU usage.
@@ -628,7 +624,7 @@ class MainWindow():
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 0
                 # Attach the grid to the grid (on the Main Window) at (0, 0) position if not attached.
-                if self.summary_tab_main_grid.get_child_at(0,0) == None:
+                if "Summary" not in globals():
                     global Summary
                     from .Summary import Summary
                     self.summary_tab_main_grid.attach(Summary.tab_grid, 0, 0, 1, 1)
@@ -646,7 +642,7 @@ class MainWindow():
                     Config.performance_tab_default_sub_tab = 1
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 1
-                if self.cpu_tab_main_grid.get_child_at(0,0) == None:
+                if "Cpu" not in globals():
                     global Cpu
                     from .Cpu import Cpu
                     self.cpu_tab_main_grid.attach(Cpu.tab_grid, 0, 0, 1, 1)
@@ -662,7 +658,7 @@ class MainWindow():
                     Config.performance_tab_default_sub_tab = 2
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 2
-                if self.memory_tab_main_grid.get_child_at(0,0) == None:
+                if "Memory" not in globals():
                     global Memory
                     from .Memory import Memory
                     self.memory_tab_main_grid.attach(Memory.tab_grid, 0, 0, 1, 1)
@@ -678,7 +674,7 @@ class MainWindow():
                     Config.performance_tab_default_sub_tab = 3
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 3
-                if self.disk_tab_main_grid.get_child_at(0,0) == None:
+                if "Disk" not in globals():
                     global Disk
                     from .Disk import Disk
                     self.disk_tab_main_grid.attach(Disk.tab_grid, 0, 0, 1, 1)
@@ -694,7 +690,7 @@ class MainWindow():
                     Config.performance_tab_default_sub_tab = 4
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 4
-                if self.network_tab_main_grid.get_child_at(0,0) == None:
+                if "Network" not in globals():
                     global Network
                     from .Network import Network
                     self.network_tab_main_grid.attach(Network.tab_grid, 0, 0, 1, 1)
@@ -710,7 +706,7 @@ class MainWindow():
                     Config.performance_tab_default_sub_tab = 5
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 5
-                if self.gpu_tab_main_grid.get_child_at(0,0) == None:
+                if "Gpu" not in globals():
                     global Gpu
                     from .Gpu import Gpu
                     self.gpu_tab_main_grid.attach(Gpu.tab_grid, 0, 0, 1, 1)
@@ -729,7 +725,7 @@ class MainWindow():
                     Config.performance_tab_default_sub_tab = 6
                     Config.config_save_func()
                 Config.performance_tab_current_sub_tab = 6
-                if self.sensors_tab_main_grid.get_child_at(0,0) == None:
+                if "Sensors" not in globals():
                     global Sensors
                     from .Sensors import Sensors
                     self.sensors_tab_main_grid.attach(Sensors.tab_grid, 0, 0, 1, 1)
@@ -745,7 +741,7 @@ class MainWindow():
                 Config.default_main_tab = 1
                 Config.config_save_func()
             Config.current_main_tab = 1
-            if self.processes_tab_main_grid.get_child_at(0,0) == None:
+            if "Processes" not in globals():
                 global Processes
                 from .Processes import Processes
                 self.processes_tab_main_grid.attach(Processes.tab_grid, 0, 0, 1, 1)
@@ -760,7 +756,7 @@ class MainWindow():
                 Config.default_main_tab = 2
                 Config.config_save_func()
             Config.current_main_tab = 2
-            if self.users_tab_main_grid.get_child_at(0,0) == None:
+            if "Users" not in globals():
                 global Users
                 from .Users import Users
                 self.users_tab_main_grid.attach(Users.tab_grid, 0, 0, 1, 1)
@@ -775,7 +771,7 @@ class MainWindow():
                 Config.default_main_tab = 3
                 Config.config_save_func()
             Config.current_main_tab = 3
-            if self.services_tab_main_grid.get_child_at(0,0) == None:
+            if "Services" not in globals():
                 global Services
                 from .Services import Services
                 self.services_tab_main_grid.attach(Services.tab_grid, 0, 0, 1, 1)
@@ -790,7 +786,7 @@ class MainWindow():
                 Config.default_main_tab = 4
                 Config.config_save_func()
             Config.current_main_tab = 4
-            if self.system_tab_main_grid.get_child_at(0,0) == None:
+            if "System" not in globals():
                 global System
                 from .System import System
                 self.system_tab_main_grid.attach(System.tab_grid, 0, 0, 1, 1)
@@ -1101,30 +1097,30 @@ class MainWindow():
             pass
         self.main_glib_source = GLib.timeout_source_new(Config.update_interval * 1000)
 
-        Performance.performance_background_loop_func()
+        Performance.loop_func()
 
         if Config.performance_summary_on_the_headerbar == 1:
-            GLib.idle_add(self.performance_summary_headerbar_loop)
+            self.performance_summary_headerbar_loop()
 
         if Config.current_main_tab == 0:
             if Config.performance_tab_current_sub_tab == 0:
-                GLib.idle_add(Summary.loop_func)
+                Summary.loop_func()
             elif Config.performance_tab_current_sub_tab == 1:
-                GLib.idle_add(Cpu.loop_func)
+                Cpu.loop_func()
             elif Config.performance_tab_current_sub_tab == 2:
-                GLib.idle_add(Memory.loop_func)
+                Memory.loop_func()
             elif Config.performance_tab_current_sub_tab == 3:
-                GLib.idle_add(Disk.loop_func)
+                Disk.loop_func()
             elif Config.performance_tab_current_sub_tab == 4:
-                GLib.idle_add(Network.loop_func)
+                Network.loop_func()
             elif Config.performance_tab_current_sub_tab == 5:
-                GLib.idle_add(Gpu.loop_func)
+                Gpu.loop_func()
             elif Config.performance_tab_current_sub_tab == 6:
-                GLib.idle_add(Sensors.loop_func)
+                Sensors.loop_func()
         elif Config.current_main_tab == 1:
-            GLib.idle_add(Processes.loop_func)
+            Processes.loop_func()
         elif Config.current_main_tab == 2:
-            GLib.idle_add(Users.loop_func)
+            Users.loop_func()
 
         self.main_glib_source.set_callback(self.main_gui_tab_loop)
         # Attach GLib.Source to MainContext.
@@ -1143,8 +1139,8 @@ class MainWindow():
         selected_network_card = Performance.selected_network_card
         self.ps_hb_cpu_da.queue_draw()
         self.ps_hb_ram_da.queue_draw()
-        self.ps_hb_disk_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk][-1] + Performance.disk_write_speed[selected_disk][-1]), Config.performance_disk_data_unit, 1)}/s')
-        self.ps_hb_network_label.set_text(f'{Performance.performance_data_unit_converter_func("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card][-1] + Performance.network_send_speed[selected_network_card][-1]), Config.performance_network_data_unit, 1)}/s')
+        self.ps_hb_disk_label.set_text(f'{Libsysmon.data_unit_converter("speed", Config.performance_disk_speed_bit, (Performance.disk_read_speed[selected_disk][-1] + Performance.disk_write_speed[selected_disk][-1]), Config.performance_disk_data_unit, 1)}/s')
+        self.ps_hb_network_label.set_text(f'{Libsysmon.data_unit_converter("speed", Config.performance_network_speed_bit, (Performance.network_receive_speed[selected_network_card][-1] + Performance.network_send_speed[selected_network_card][-1]), Config.performance_network_data_unit, 1)}/s')
 
 
 MainWindow = MainWindow()

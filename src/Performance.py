@@ -11,15 +11,13 @@ _tr = Config._tr
 class Performance:
 
     def __init__(self):
-
-        # Define data unit conversion variables
-        self.unit_converter_variables()
-
         # Set chart performance data line and point highligting off.
         # "chart_line_highlight" takes chart name or "" for highlighting or not.
         # "chart_point_highlight" takes data point index or "-1" for not highlighting.
         self.chart_line_highlight = ""
         self.chart_point_highlight = -1
+
+        self.initial_already_run = 0
 
 
     def performance_set_selected_cpu_core_func(self):
@@ -32,7 +30,7 @@ class Performance:
         self.selected_network_card = Libsysmon.set_selected_network_card(Config.selected_cpu_core, self.network_card_list)
 
 
-    def performance_background_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
@@ -46,11 +44,16 @@ class Performance:
             Config.selected_network_card = ""
             Config.selected_gpu = ""
 
+        self.initial_already_run = 1
 
-    def performance_background_loop_func(self):
+
+    def loop_func(self):
         """
         Get basic CPU, memory, disk and network usage data in the background in order to assure uninterrupted data for charts.
         """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
 
         self.chart_data_history = Config.chart_data_history
 
@@ -193,7 +196,7 @@ class Performance:
             # Get chart_y_limit value if single chart (device) is drawn.
             else:
                 chart_y_limit = max(list(chart_y_limit_dict.values()))
-            chart_y_limit_str = f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, chart_y_limit, performance_disk_data_unit, performance_disk_data_precision)}/s'
+            chart_y_limit_str = f'{Libsysmon.data_unit_converter("speed", performance_disk_speed_bit, chart_y_limit, performance_disk_data_unit, performance_disk_data_precision)}/s'
             chart_y_limit_split = chart_y_limit_str.split(" ")
             chart_y_limit_float = float(chart_y_limit_split[0])
             number_of_digits = len(str(int(chart_y_limit_float)))
@@ -263,7 +266,7 @@ class Performance:
             # Get chart_y_limit value if single chart (device) is drawn.
             else:
                 chart_y_limit = max(list(chart_y_limit_dict.values()))
-            chart_y_limit_str = f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, chart_y_limit, performance_network_data_unit, performance_network_data_precision)}/s'
+            chart_y_limit_str = f'{Libsysmon.data_unit_converter("speed", performance_network_speed_bit, chart_y_limit, performance_network_data_unit, performance_network_data_precision)}/s'
             chart_y_limit_split = chart_y_limit_str.split(" ")
             chart_y_limit_float = float(chart_y_limit_split[0])
             number_of_digits = len(str(int(chart_y_limit_float)))
@@ -382,7 +385,7 @@ class Performance:
             # Get chart_y_limit value if single chart (device) is drawn.
             else:
                 chart_y_limit = max(list(chart_y_limit_dict.values()))
-            chart_y_limit_str = f'{self.performance_data_unit_converter_func("data", "none", chart_y_limit, processes_memory_data_unit, processes_memory_data_precision)}'
+            chart_y_limit_str = f'{Libsysmon.data_unit_converter("data", "none", chart_y_limit, processes_memory_data_unit, processes_memory_data_precision)}'
             chart_y_limit_split = chart_y_limit_str.split(" ")
             chart_y_limit_float = float(chart_y_limit_split[0])
             number_of_digits = len(str(int(chart_y_limit_float)))
@@ -443,7 +446,7 @@ class Performance:
             # Get chart_y_limit value if single chart (device) is drawn.
             else:
                 chart_y_limit = max(list(chart_y_limit_dict.values()))
-            chart_y_limit_str = f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, chart_y_limit, processes_disk_data_unit, processes_disk_data_precision)}/s'
+            chart_y_limit_str = f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, chart_y_limit, processes_disk_data_unit, processes_disk_data_precision)}/s'
             chart_y_limit_split = chart_y_limit_str.split(" ")
             chart_y_limit_float = float(chart_y_limit_split[0])
             number_of_digits = len(str(int(chart_y_limit_float)))
@@ -723,17 +726,17 @@ class Performance:
                 elif widget_name == "da_memory_usage":
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.{Config.performance_memory_data_precision}f} %'
                 elif widget_name == "da_disk_speed":
-                    performance_data1_at_point_text = f'{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, performance_data1[device_name_to_line_highlight][chart_point_highlight], performance_disk_data_unit, performance_disk_data_precision)}/s'
+                    performance_data1_at_point_text = f'{Libsysmon.data_unit_converter("speed", performance_disk_speed_bit, performance_data1[device_name_to_line_highlight][chart_point_highlight], performance_disk_data_unit, performance_disk_data_precision)}/s'
                 elif widget_name == "da_network_speed":
-                    performance_data1_at_point_text = f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, performance_data1[device_name_to_line_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'
+                    performance_data1_at_point_text = f'{Libsysmon.data_unit_converter("speed", performance_network_speed_bit, performance_data1[device_name_to_line_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'
                 elif widget_name == "da_gpu_usage":
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
                 elif widget_name == "processes_details_da_cpu_usage":
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.{Config.processes_cpu_precision}f} %'
                 elif widget_name == "processes_details_da_memory_usage":
-                    performance_data1_at_point_text = f'{self.performance_data_unit_converter_func("data", "none", performance_data1[device_name_to_line_highlight][chart_point_highlight], processes_memory_data_unit, processes_memory_data_precision)}'
+                    performance_data1_at_point_text = f'{Libsysmon.data_unit_converter("data", "none", performance_data1[device_name_to_line_highlight][chart_point_highlight], processes_memory_data_unit, processes_memory_data_precision)}'
                 elif widget_name == "processes_details_da_disk_speed":
-                    performance_data1_at_point_text = f'{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, performance_data1[device_name_to_line_highlight][chart_point_highlight], processes_disk_data_unit, processes_disk_data_precision)}/s'
+                    performance_data1_at_point_text = f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, performance_data1[device_name_to_line_highlight][chart_point_highlight], processes_disk_data_unit, processes_disk_data_precision)}/s'
                 # Add "-" before the text if there are 2 performance data lines.
                 if len(loc_y_list) == 2:
                     performance_data1_at_point_text = f'-  {performance_data1_at_point_text}'
@@ -745,13 +748,13 @@ class Performance:
                 elif widget_name == "da_memory_usage":
                     performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.{Config.performance_memory_swap_data_precision}f} %'
                 elif widget_name == "da_disk_speed":
-                    performance_data2_at_point_text = f'- -{self.performance_data_unit_converter_func("speed", performance_disk_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], performance_disk_data_unit, performance_disk_data_precision)}/s'
+                    performance_data2_at_point_text = f'- -{Libsysmon.data_unit_converter("speed", performance_disk_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], performance_disk_data_unit, performance_disk_data_precision)}/s'
                 elif widget_name == "da_network_speed":
-                    performance_data2_at_point_text = f'- -{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'
+                    performance_data2_at_point_text = f'- -{Libsysmon.data_unit_converter("speed", performance_network_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'
                 elif widget_name == "da_gpu_usage":
                     performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
                 elif widget_name == "processes_details_da_disk_speed":
-                    performance_data2_at_point_text = f'- -{self.performance_data_unit_converter_func("speed", processes_disk_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], processes_disk_data_unit, processes_disk_data_precision)}/s'
+                    performance_data2_at_point_text = f'- -{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], processes_disk_data_unit, processes_disk_data_precision)}/s'
                 performance_data_at_point_text_list.append(performance_data2_at_point_text)
 
             performance_data_at_point_text = '  |  '.join(performance_data_at_point_text_list)
@@ -916,49 +919,6 @@ class Performance:
         ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3])
         ctx.rectangle(0, 0, chart_width*performance_data1/chart_y_limit, chart_height)
         ctx.fill()
-
-
-    def unit_converter_variables(self):
-        """
-        Define values for converting data units and set value precision.
-        """
-
-        self.data_unit_list = [[0, "B", "B", "b", "b"], [1, "KiB", "KB", "Kib", "Kb"], [2, "MiB", "MB", "Mib", "Mb"],
-                              [3, "GiB", "GB", "Gib", "Gb"], [4, "TiB", "TB", "Tib", "Tb"], [5, "PiB", "PB", "Pib", "Pb"]]
-
-
-    def performance_data_unit_converter_func(self, data_type, data_type_option, data, unit, precision):
-        """
-        Convert data units and set value precision (called from several modules).
-        """
-
-        data_unit_list = self.data_unit_list
-        if isinstance(data, str) == True:
-            return data
-
-        if unit == 0:
-            power_of_value = 1024
-            unit_text_index = 1
-
-        if unit == 1:
-            power_of_value = 1000
-            unit_text_index = 2
-
-        if data_type == "speed":
-            if data_type_option == 1:
-                data = data * 8
-                unit_text_index = unit_text_index + 2
-
-        unit_counter = 0
-        while data >= power_of_value:
-            unit_counter = unit_counter + 1
-            data = data/power_of_value
-        unit = data_unit_list[unit_counter][unit_text_index]
-
-        if data == 0:
-            precision = 0
-
-        return f'{data:.{precision}f} {unit}'
 
 
 Performance = Performance()

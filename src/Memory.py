@@ -324,9 +324,9 @@ class Memory:
 
         # Set Memory tab label texts by using information get
         if total_physical_ram != "-":
-            self.device_vendor_model_label.set_label(_tr("Physical RAM") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", total_physical_ram, 0, 1)))
+            self.device_vendor_model_label.set_label(_tr("Physical RAM") + ": " + str(Libsysmon.data_unit_converter("data", "none", total_physical_ram, 0, 1)))
         else:
-            self.device_vendor_model_label.set_label(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", ram_total, 0, 1)))
+            self.device_vendor_model_label.set_label(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(Libsysmon.data_unit_converter("data", "none", ram_total, 0, 1)))
 
         self.initial_already_run = 1
 
@@ -360,15 +360,15 @@ class Memory:
 
 
         # Set and update Memory tab label texts by using information get
-        self.device_kernel_name_label.set_label(_tr("Swap Memory") + ": " + str(Performance.performance_data_unit_converter_func("data", "none", swap_total, 0, 1)))
-        self.ram_used_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {ram_usage_percent[-1]:.0f}% )')
-        self.ram_available_label.set_label(Performance.performance_data_unit_converter_func("data", "none", ram_available, performance_memory_data_unit, performance_memory_data_precision))
-        self.ram_capacity_label.set_label(Performance.performance_data_unit_converter_func("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
-        self.ram_free_label.set_label(Performance.performance_data_unit_converter_func("data", "none", ram_free, performance_memory_data_unit, performance_memory_data_precision))
-        self.swap_used_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {self.swap_usage_percent[-1]:.0f}% )')
+        self.device_kernel_name_label.set_label(_tr("Swap Memory") + ": " + str(Libsysmon.data_unit_converter("data", "none", swap_total, 0, 1)))
+        self.ram_used_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", ram_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {ram_usage_percent[-1]:.0f}% )')
+        self.ram_available_label.set_label(Libsysmon.data_unit_converter("data", "none", ram_available, performance_memory_data_unit, performance_memory_data_precision))
+        self.ram_capacity_label.set_label(Libsysmon.data_unit_converter("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
+        self.ram_free_label.set_label(Libsysmon.data_unit_converter("data", "none", ram_free, performance_memory_data_unit, performance_memory_data_precision))
+        self.swap_used_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {self.swap_usage_percent[-1]:.0f}% )')
         self.swap_used_percent_label.set_label(f'{self.swap_usage_percent[-1]:.0f}%')
-        self.swap_free_label.set_label(Performance.performance_data_unit_converter_func("data", "none", swap_free, performance_memory_data_unit, performance_memory_data_precision))
-        self.swap_capacity_label.set_label(Performance.performance_data_unit_converter_func("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
+        self.swap_free_label.set_label(Libsysmon.data_unit_converter("data", "none", swap_free, performance_memory_data_unit, performance_memory_data_precision))
+        self.swap_capacity_label.set_label(Libsysmon.data_unit_converter("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
 
 
 Memory = Memory()

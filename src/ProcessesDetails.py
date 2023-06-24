@@ -727,13 +727,13 @@ class ProcessesDetails:
         self.user_label.set_label(process_data_dict["username"])
         self.priority_label.set_label(f'{process_data_dict["nice"]}')
         self.cpu_label.set_label(f'{cpu_usage:.{processes_cpu_precision}f} %')
-        self.memory_rss_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_rss_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
         if read_data != "-":
-            self.read_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, disk_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.read_speed_label.set_label(f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, disk_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
         if read_data == "-":
             self.read_speed_label.set_label("-")
         if written_data != "-":
-            self.write_speed_label.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, disk_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.write_speed_label.set_label(f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, disk_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
         if written_data == "-":
             self.write_speed_label.set_label("-")
         self.start_time_label.set_label(datetime.fromtimestamp(process_data_dict["start_time"]).strftime("%d.%m.%Y %H:%M:%S"))
@@ -751,22 +751,22 @@ class ProcessesDetails:
         self.context_switches_label.set_label(f'Voluntary: {process_data_dict["ctx_switches_voluntary"]}, Involuntary: {process_data_dict["ctx_switches_nonvoluntary"]}')
 
         # Show information on labels (Memory tab).
-        self.memory_rss_label2.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
-        self.memory_vms_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", process_data_dict["memory_vms"], processes_memory_data_unit, processes_memory_data_precision)}')
-        self.memory_shared_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", process_data_dict["memory_shared"], processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_rss_label2.set_label(f'{Libsysmon.data_unit_converter("data", "none", memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_vms_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", process_data_dict["memory_vms"], processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_shared_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", process_data_dict["memory_shared"], processes_memory_data_unit, processes_memory_data_precision)}')
         if memory_uss != "-" and memory_swap != "-":
-            self.memory_uss_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", memory_uss, processes_memory_data_unit, processes_memory_data_precision)}')
-            self.swap_memory_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", memory_swap, processes_memory_data_unit, processes_memory_data_precision)}')
+            self.memory_uss_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", memory_uss, processes_memory_data_unit, processes_memory_data_precision)}')
+            self.swap_memory_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", memory_swap, processes_memory_data_unit, processes_memory_data_precision)}')
         if memory_uss == "-" and memory_swap == "-":
             self.memory_uss_label.set_label(memory_uss)
             self.swap_memory_label.set_label(memory_swap)
 
         # Show information on labels (Disk tab).
         if read_data != "-" and written_data != "-":
-            self.read_speed_label2.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, disk_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-            self.write_speed_label2.set_label(f'{Performance.performance_data_unit_converter_func("speed", processes_disk_speed_bit, disk_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
-            self.read_data_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", read_data, processes_disk_data_unit, processes_disk_data_precision)}')
-            self.write_data_label.set_label(f'{Performance.performance_data_unit_converter_func("data", "none", written_data, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.read_speed_label2.set_label(f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, disk_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.write_speed_label2.set_label(f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, disk_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.read_data_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", read_data, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.write_data_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", written_data, processes_disk_data_unit, processes_disk_data_precision)}')
             self.read_count_label.set_label(f'{process_data_dict["read_count"]}')
             self.write_count_label.set_label(f'{process_data_dict["write_count"]}')
         if read_data == "-" and written_data == "-":

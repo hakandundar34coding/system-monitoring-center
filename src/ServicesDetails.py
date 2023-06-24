@@ -367,7 +367,7 @@ class ServicesDetails:
         self.main_process_end_time_label.set_label(service_detailed_info_dict["exec_main_exit_times_stamp_monotonic"])
         self.type_label.set_label(service_detailed_info_dict["service_type"])
         if service_detailed_info_dict["memory_current"] != -1:
-            memory_current = f'{Performance.performance_data_unit_converter_func("data", "none", service_detailed_info_dict["memory_current"], services_memory_data_unit, services_memory_data_precision)}'
+            memory_current = f'{Libsysmon.data_unit_converter("data", "none", service_detailed_info_dict["memory_current"], services_memory_data_unit, services_memory_data_precision)}'
         else:
             memory_current = "-"
         self.memory_rss_label.set_label(memory_current)
