@@ -1,8 +1,8 @@
 import os
 import subprocess
-import time
 import sys
 import platform
+import time
 from datetime import datetime
 
 
@@ -187,6 +187,20 @@ def get_system_boot_time():
             system_boot_time = int(line.split()[1].strip())
 
     return system_boot_time
+
+
+def get_number_of_processes():
+    """
+    Get number of processes.
+    """
+
+    if get_environment_type() == "flatpak":
+        ls_proc_list = (subprocess.run(["flatpak-spawn", "--host", "ls", "/proc/"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split()
+        processes_number_text = f'{len([filename for filename in ls_proc_list if filename.isdigit()])}'
+    else:
+        processes_number_text = f'{len([filename for filename in os.listdir("/proc/") if filename.isdigit()])}'
+
+    return processes_number_text
 
 
 def get_device_vendor_model(modalias_output):

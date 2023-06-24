@@ -1,6 +1,5 @@
 import os
 import cairo
-import time
 from math import sqrt, ceil
 
 from .Config import Config

@@ -77,12 +77,7 @@ class Summary:
         cpu_usage_text = f'{Performance.cpu_usage_percent_ave[-1]:.{performance_cpu_usage_percent_precision}f}'
         performance_memory_data_precision = 0
         ram_usage_text = f'{Performance.ram_usage_percent[-1]:.{performance_memory_data_precision}f}'
-        if Libsysmon.get_environment_type() == "flatpak":
-            import subprocess
-            ls_proc_list = (subprocess.run(["flatpak-spawn", "--host", "ls", "/proc/"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split()
-            processes_number_text = f'{len([filename for filename in ls_proc_list if filename.isdigit()])}'
-        else:
-            processes_number_text = f'{len([filename for filename in os.listdir("/proc/") if filename.isdigit()])}'
+        processes_number_text = Libsysmon.get_number_of_processes()
         swap_usage_text = f'{Performance.swap_usage_percent[-1]:.0f}%'
         performance_disk_data_precision = 1
         performance_disk_data_unit = Config.performance_disk_data_unit
