@@ -24,94 +24,13 @@ class Performance:
 
 
     def performance_set_selected_cpu_core_func(self):
-        """
-        Set selected CPU core.
-        """
-
-        # Set selected CPU core
-        if Config.selected_cpu_core in self.logical_core_list:
-            selected_cpu_core = Config.selected_cpu_core
-        else:
-            first_core = self.logical_core_list[0]
-            selected_cpu_core = first_core
-
-        self.selected_cpu_core = selected_cpu_core
-
+        self.selected_cpu_core = Libsysmon.set_selected_cpu_core(Config.selected_cpu_core, self.logical_core_list)
 
     def performance_set_selected_disk_func(self):
-        """
-        Set selected disk.
-        """
-
-        # Set selected disk
-        with open("/proc/mounts") as reader:
-            proc_mounts_output_lines = reader.read().strip().split("\n")
-        system_disk_list = []
-        for line in proc_mounts_output_lines:
-            line_split = line.split(" ", 2)
-            if line_split[1].strip() == "/":
-                disk = line_split[0].strip().split("/")[-1]
-                # "/dev/root" disk is not listed in "/proc/partitions" file.
-                if disk in self.disk_list:
-                    system_disk_list.append(disk)
-                    break
-        # Detect system disk by checking if mount point is "/" on some systems such as some ARM devices.
-        # "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
-        if system_disk_list == []:
-            with open("/proc/cmdline") as reader:
-                proc_cmdline = reader.read()
-            if "root=UUID=" in proc_cmdline:
-                disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
-                system_disk_list.append(os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip())
-            if "root=PARTUUID=" in proc_cmdline:
-                disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
-                system_disk_list.append(os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip())
-
-        if Config.selected_disk in self.disk_list:
-            selected_disk = Config.selected_disk
-        else:
-            if system_disk_list != []:
-                selected_disk = system_disk_list[0]
-            else:
-                selected_disk = self.disk_list[0]
-                # Try to not to set selected disk a loop, ram, zram disk in order to avoid errors
-                # if "hide_loop_ramdisk_zram_disks" option is enabled and performance data of all disks are plotted
-                # at the same time. loop device may be the first disk on some systems if they are run without installation.
-                for disk in self.disk_list:
-                    if disk.startswith("loop") == False and disk.startswith("ram") == False and disk.startswith("zram") == False:
-                        selected_disk = disk
-                        break
-
-        self.system_disk_list = system_disk_list
-        self.selected_disk = selected_disk
-
+        self.selected_disk, self.system_disk_list = Libsysmon.set_selected_disk(Config.selected_cpu_core, self.disk_list)
 
     def performance_set_selected_network_card_func(self):
-        """
-        Set selected network card.
-        """
-
-        # Set selected network card
-        connected_network_card_list = []
-        for network_card in self.network_card_list:
-            with open(f'/sys/class/net/{network_card}/operstate') as reader:
-                sys_class_net_output = reader.read().strip()
-            if sys_class_net_output == "up":
-                connected_network_card_list.append(network_card)
-        # Avoid errors if there is no any network card that connected.
-        if connected_network_card_list != []:
-            selected_network_card = connected_network_card_list[0]
-        else:
-            selected_network_card = self.network_card_list[0]
-        # "" is predefined network card name before release of the software. This statement is used in order to avoid error, if no network card selection is made since first run of the software.
-        if Config.selected_network_card == "":
-            selected_network_card = selected_network_card
-        if Config.selected_network_card in self.network_card_list:
-            selected_network_card = Config.selected_network_card
-        else:
-            selected_network_card = selected_network_card
-
-        self.selected_network_card = selected_network_card
+        self.selected_network_card = Libsysmon.set_selected_network_card(Config.selected_cpu_core, self.network_card_list)
 
 
     def performance_background_initial_func(self):
@@ -119,30 +38,7 @@ class Performance:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        self.chart_data_history = Config.chart_data_history
-
-        # Define initial values for CPU usage percent
-        self.logical_core_list_prev = []
-        self.cpu_times_prev = {}
-        self.cpu_usage_percent_per_core = {}
-        self.cpu_usage_percent_ave = {}
-        self.cpu_usage_percent_ave = [0] * self.chart_data_history
-
-        # Define initial values for RAM usage percent and swap usage percent
-        self.ram_usage_percent = [0] * self.chart_data_history
-        self.swap_usage_percent = [0] * self.chart_data_history
-
-        # Define initial values for disk read speed and write speed
-        self.disk_list_prev = []
-        self.disk_io_prev = {}
-        self.disk_read_speed = {}
-        self.disk_write_speed = {}
-
-        # Define initial values for network receive speed and network send speed
-        self.network_card_list_prev = []
-        self.network_io_prev = {}
-        self.network_receive_speed = {}
-        self.network_send_speed = {}
+        self.system_performance_data_dict_prev = {}
 
         # Reset selected hardware if "remember_last_selected_hardware" prefrence is disabled by the user.
         if Config.remember_last_selected_hardware == 0:
@@ -151,115 +47,38 @@ class Performance:
             Config.selected_network_card = ""
             Config.selected_gpu = ""
 
-        self.get_time_prev = time.time()
-
 
     def performance_background_loop_func(self):
         """
         Get basic CPU, memory, disk and network usage data in the background in order to assure uninterrupted data for charts.
         """
 
-        # Get CPU usage percentage per-core
-        cpu_times = Libsysmon.get_cpu_times()
-        self.logical_core_list = list(cpu_times.keys())
-        for core in self.logical_core_list:
-            if core not in self.logical_core_list_prev:
-                self.cpu_usage_percent_per_core[core] = [0] * self.chart_data_history
-            else:
-                cpu_time_load_difference = cpu_times[core]["load"] - self.cpu_times_prev[core]["load"]
-                cpu_time_all_difference = cpu_times[core]["all"] - self.cpu_times_prev[core]["all"]
-                # Prevent errors if there is no time change for the core.
-                if cpu_time_all_difference == 0:
-                    _cpu_usage_percent_core = 0
-                else:
-                    _cpu_usage_percent_core = cpu_time_load_difference / cpu_time_all_difference * 100
-                self.cpu_usage_percent_per_core[core].append(_cpu_usage_percent_core)
-                del self.cpu_usage_percent_per_core[core][0]
-        for core in self.logical_core_list_prev:
-            if core not in self.logical_core_list:
-                self.cpu_usage_percent_per_core[core] = [0] * self.chart_data_history
-        # Get average CPU usage percentage
-        _cpu_usage_percent_ave = 0
-        for core in self.logical_core_list:
-            _cpu_usage_percent_ave = _cpu_usage_percent_ave + self.cpu_usage_percent_per_core[core][-1]
-        self.number_of_logical_cores = len(self.logical_core_list)
-        self.cpu_usage_percent_ave.append(_cpu_usage_percent_ave / self.number_of_logical_cores)
-        del self.cpu_usage_percent_ave[0]
-        # Set selected CPU core
-        if self.logical_core_list_prev != self.logical_core_list:
+        self.chart_data_history = Config.chart_data_history
+
+        system_performance_data_dict = Libsysmon.get_cpu_memory_disk_network_usages(self.chart_data_history, self.system_performance_data_dict_prev)
+        self.system_performance_data_dict_prev = dict(system_performance_data_dict)
+
+        self.logical_core_list = system_performance_data_dict["logical_core_list"]
+        self.cpu_usage_percent_per_core = system_performance_data_dict["cpu_usage_percent_per_core"]
+        self.cpu_usage_percent_ave = system_performance_data_dict["cpu_usage_percent_ave"]
+
+        self.ram_usage_percent = system_performance_data_dict["ram_usage_percent"]
+        self.swap_usage_percent = system_performance_data_dict["swap_usage_percent"]
+
+        self.disk_list = system_performance_data_dict["disk_list"]
+        self.disk_read_speed = system_performance_data_dict["disk_read_speed"]
+        self.disk_write_speed = system_performance_data_dict["disk_write_speed"]
+
+        self.network_card_list = system_performance_data_dict["network_card_list"]
+        self.network_receive_speed = system_performance_data_dict["network_receive_speed"]
+        self.network_send_speed = system_performance_data_dict["network_send_speed"]
+
+        if system_performance_data_dict["logical_core_list_changed"] == "yes":
             self.performance_set_selected_cpu_core_func()
-        # Define previous values
-        self.logical_core_list_prev = list(self.logical_core_list)
-        self.cpu_times_prev = dict(cpu_times)
-
-        # Get RAM usage percentage
-        memory_info = Libsysmon.get_memory_info()
-        ram_used_percent = memory_info["ram_used_percent"]
-        self.ram_usage_percent.append(ram_used_percent)
-        del self.ram_usage_percent[0]
-        # Get swap usage percentage
-        swap_used_percent = memory_info["swap_used_percent"]
-        self.swap_usage_percent.append(swap_used_percent)
-        del self.swap_usage_percent[0]
-
-        # Get time for calculating disk and network speeds
-        get_time = time.time()
-
-        # Get disk read speed and write speed
-        disk_io = Libsysmon.get_disk_io()
-        self.disk_list = list(disk_io.keys())
-        for disk in self.disk_list:
-            if disk not in self.disk_list_prev:
-                self.disk_read_speed[disk] = [0] * self.chart_data_history
-                self.disk_write_speed[disk] = [0] * self.chart_data_history
-            else:
-                disk_read_speed_difference = disk_io[disk]["read_bytes"] - self.disk_io_prev[disk]["read_bytes"]
-                disk_write_speed_difference = disk_io[disk]["write_bytes"] - self.disk_io_prev[disk]["write_bytes"]
-                _disk_read_speed = disk_read_speed_difference / (get_time - self.get_time_prev)
-                _disk_write_speed = disk_write_speed_difference / (get_time - self.get_time_prev)
-                self.disk_read_speed[disk].append(_disk_read_speed)
-                del self.disk_read_speed[disk][0]
-                self.disk_write_speed[disk].append(_disk_write_speed)
-                del self.disk_write_speed[disk][0]
-        for disk in self.disk_list_prev:
-            if disk not in self.disk_list:
-                self.disk_read_speed[disk] = [0] * self.chart_data_history
-                self.disk_write_speed[disk] = [0] * self.chart_data_history
-        # Set selected disk
-        if self.disk_list_prev != self.disk_list:
+        if system_performance_data_dict["disk_list_changed"] == "yes":
             self.performance_set_selected_disk_func()
-        # Define previous values
-        self.disk_list_prev = list(self.disk_list)
-        self.disk_io_prev = dict(disk_io)
-
-        # Get network download speed and upload speed
-        network_io = Libsysmon.get_network_io()
-        self.network_card_list = list(network_io.keys())
-        for network_card in self.network_card_list:
-            if network_card not in self.network_card_list_prev:
-                self.network_receive_speed[network_card] = [0] * self.chart_data_history
-                self.network_send_speed[network_card] = [0] * self.chart_data_history
-            else:
-                network_receive_speed_difference = network_io[network_card]["download_bytes"] - self.network_io_prev[network_card]["download_bytes"]
-                network_send_speed_difference = network_io[network_card]["upload_bytes"] - self.network_io_prev[network_card]["upload_bytes"]
-                _network_receive_speed = network_receive_speed_difference / (get_time - self.get_time_prev)
-                _network_send_speed = network_send_speed_difference / (get_time - self.get_time_prev)
-                self.network_receive_speed[network_card].append(_network_receive_speed)
-                del self.network_receive_speed[network_card][0]
-                self.network_send_speed[network_card].append(_network_send_speed)
-                del self.network_send_speed[network_card][0]
-        for network_card in self.network_card_list_prev:
-            if network_card not in self.network_card_list:
-                self.network_receive_speed[network_card] = [0] * self.chart_data_history
-                self.network_send_speed[network_card] = [0] * self.chart_data_history
-        # Set selected network card
-        if self.network_card_list_prev != self.network_card_list:
+        if system_performance_data_dict["network_card_list_changed"] == "yes":
             self.performance_set_selected_network_card_func()
-        # Define previous values
-        self.network_card_list_prev = list(self.network_card_list)
-        self.network_io_prev = dict(network_io)
-
-        self.get_time_prev = get_time
 
 
     def performance_line_charts_draw(self, widget, ctx, width, height, widget_name):

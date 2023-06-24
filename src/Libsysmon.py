@@ -996,6 +996,281 @@ def get_network_io():
     return network_io
 
 
+def get_cpu_memory_disk_network_usages(chart_data_history, system_performance_data_dict_prev={}):
+    """
+    Get system-wide CPU usage percentages per-core CPU usage percentage average, memory-RAM, memory-swap,
+    disk read speed, disk write speed, network download speed, network upload speed.
+    """
+
+    # Define lists for getting performance information
+    system_performance_data_dict = {}
+    if system_performance_data_dict_prev != {}:
+
+        # Define previous and initial values for CPU usage percentage
+        logical_core_list_prev = system_performance_data_dict_prev["logical_core_list"]
+        cpu_times_prev = system_performance_data_dict_prev["cpu_times"]
+        cpu_usage_percent_per_core = system_performance_data_dict_prev["cpu_usage_percent_per_core"]
+        cpu_usage_percent_ave = system_performance_data_dict_prev["cpu_usage_percent_ave"]
+        cpu_usage_percent_ave = system_performance_data_dict_prev["cpu_usage_percent_ave"]
+
+        # Define previous and initial values for RAM usage percentage and swap usage percentage
+        ram_usage_percent = system_performance_data_dict_prev["ram_usage_percent"]
+        swap_usage_percent = system_performance_data_dict_prev["swap_usage_percent"]
+
+        # Define previous and initial values for disk read speed and write speed
+        disk_list_prev = system_performance_data_dict_prev["disk_list"]
+        disk_io_prev = system_performance_data_dict_prev["disk_io"]
+        disk_read_speed = system_performance_data_dict_prev["disk_read_speed"]
+        disk_write_speed = system_performance_data_dict_prev["disk_write_speed"]
+
+        # Define previous and initial values for network receive speed and network send speed
+        network_card_list_prev = system_performance_data_dict_prev["network_card_list"]
+        network_io_prev = system_performance_data_dict_prev["network_io"]
+        network_receive_speed = system_performance_data_dict_prev["network_receive_speed"]
+        network_send_speed = system_performance_data_dict_prev["network_send_speed"]
+
+        # Define previous value for time
+        get_time_prev = system_performance_data_dict_prev["get_time"]
+
+    else:
+
+        # Define previous and initial values for CPU usage percentage
+        logical_core_list_prev = []
+        cpu_times_prev = {}
+        cpu_usage_percent_per_core = {}
+        cpu_usage_percent_ave = {}
+        cpu_usage_percent_ave = [0] * chart_data_history
+
+        # Define previous and initial values for RAM usage percentage and swap usage percentage
+        ram_usage_percent = [0] * chart_data_history
+        swap_usage_percent = [0] * chart_data_history
+
+        # Define previous and initial values for disk read speed and write speed
+        disk_list_prev = []
+        disk_io_prev = {}
+        disk_read_speed = {}
+        disk_write_speed = {}
+
+        # Define previous and initial values for network receive speed and network send speed
+        network_card_list_prev = []
+        network_io_prev = {}
+        network_receive_speed = {}
+        network_send_speed = {}
+
+        # Define previous value for time
+        get_time_prev = time.time()
+
+    # Get CPU usage percentage per-core
+    cpu_times = get_cpu_times()
+    logical_core_list = list(cpu_times.keys())
+    for core in logical_core_list:
+        if core not in logical_core_list_prev:
+            cpu_usage_percent_per_core[core] = [0] * chart_data_history
+        else:
+            cpu_time_load_difference = cpu_times[core]["load"] - cpu_times_prev[core]["load"]
+            cpu_time_all_difference = cpu_times[core]["all"] - cpu_times_prev[core]["all"]
+            # Prevent errors if there is no time change for the core
+            if cpu_time_all_difference == 0:
+                _cpu_usage_percent_core = 0
+            else:
+                _cpu_usage_percent_core = cpu_time_load_difference / cpu_time_all_difference * 100
+            cpu_usage_percent_per_core[core].append(_cpu_usage_percent_core)
+            del cpu_usage_percent_per_core[core][0]
+    for core in logical_core_list_prev:
+        if core not in logical_core_list:
+            cpu_usage_percent_per_core[core] = [0] * chart_data_history
+    # Get average CPU usage percentage
+    _cpu_usage_percent_ave = 0
+    for core in logical_core_list:
+        _cpu_usage_percent_ave = _cpu_usage_percent_ave + cpu_usage_percent_per_core[core][-1]
+    number_of_logical_cores = len(logical_core_list)
+    cpu_usage_percent_ave.append(_cpu_usage_percent_ave / number_of_logical_cores)
+    del cpu_usage_percent_ave[0]
+    # Set selected CPU core
+    if logical_core_list_prev != logical_core_list:
+        system_performance_data_dict["logical_core_list_changed"] = "yes"
+    else:
+        system_performance_data_dict["logical_core_list_changed"] = "no"
+
+    system_performance_data_dict["logical_core_list"] = logical_core_list
+    system_performance_data_dict["cpu_times"] = cpu_times
+    system_performance_data_dict["cpu_usage_percent_per_core"] = cpu_usage_percent_per_core
+    system_performance_data_dict["cpu_usage_percent_ave"] = cpu_usage_percent_ave
+
+    # Get RAM usage percentage
+    memory_info = get_memory_info()
+    ram_used_percent = memory_info["ram_used_percent"]
+    ram_usage_percent.append(ram_used_percent)
+    del ram_usage_percent[0]
+    # Get swap usage percentage
+    swap_used_percent = memory_info["swap_used_percent"]
+    swap_usage_percent.append(swap_used_percent)
+    del swap_usage_percent[0]
+
+    system_performance_data_dict["ram_usage_percent"] = ram_usage_percent
+    system_performance_data_dict["swap_usage_percent"] = swap_usage_percent
+
+    # Get time for calculating disk and network speeds
+    get_time = time.time()
+
+    system_performance_data_dict["get_time"] = get_time
+
+    # Get disk read speed and write speed
+    disk_io = get_disk_io()
+    disk_list = list(disk_io.keys())
+    for disk in disk_list:
+        if disk not in disk_list_prev:
+            disk_read_speed[disk] = [0] * chart_data_history
+            disk_write_speed[disk] = [0] * chart_data_history
+        else:
+            disk_read_speed_difference = disk_io[disk]["read_bytes"] - disk_io_prev[disk]["read_bytes"]
+            disk_write_speed_difference = disk_io[disk]["write_bytes"] - disk_io_prev[disk]["write_bytes"]
+            _disk_read_speed = disk_read_speed_difference / (get_time - get_time_prev)
+            _disk_write_speed = disk_write_speed_difference / (get_time - get_time_prev)
+            disk_read_speed[disk].append(_disk_read_speed)
+            del disk_read_speed[disk][0]
+            disk_write_speed[disk].append(_disk_write_speed)
+            del disk_write_speed[disk][0]
+    for disk in disk_list_prev:
+        if disk not in disk_list:
+            disk_read_speed[disk] = [0] * chart_data_history
+            disk_write_speed[disk] = [0] * chart_data_history
+    # Set selected disk
+    if disk_list_prev != disk_list:
+        system_performance_data_dict["disk_list_changed"] = "yes"
+    else:
+        system_performance_data_dict["disk_list_changed"] = "no"
+
+    system_performance_data_dict["disk_list"] = disk_list
+    system_performance_data_dict["disk_io"] = disk_io
+    system_performance_data_dict["disk_read_speed"] = disk_read_speed
+    system_performance_data_dict["disk_write_speed"] = disk_write_speed
+
+    # Get network download speed and upload speed
+    network_io = get_network_io()
+    network_card_list = list(network_io.keys())
+    for network_card in network_card_list:
+        if network_card not in network_card_list_prev:
+            network_receive_speed[network_card] = [0] * chart_data_history
+            network_send_speed[network_card] = [0] * chart_data_history
+        else:
+            network_receive_speed_difference = network_io[network_card]["download_bytes"] - network_io_prev[network_card]["download_bytes"]
+            network_send_speed_difference = network_io[network_card]["upload_bytes"] - network_io_prev[network_card]["upload_bytes"]
+            _network_receive_speed = network_receive_speed_difference / (get_time - get_time_prev)
+            _network_send_speed = network_send_speed_difference / (get_time - get_time_prev)
+            network_receive_speed[network_card].append(_network_receive_speed)
+            del network_receive_speed[network_card][0]
+            network_send_speed[network_card].append(_network_send_speed)
+            del network_send_speed[network_card][0]
+    for network_card in network_card_list_prev:
+        if network_card not in network_card_list:
+            network_receive_speed[network_card] = [0] * chart_data_history
+            network_send_speed[network_card] = [0] * chart_data_history
+    # Set selected network card
+    if network_card_list_prev != network_card_list:
+        system_performance_data_dict["network_card_list_changed"] = "yes"
+    else:
+        system_performance_data_dict["network_card_list_changed"] = "no"
+
+    system_performance_data_dict["network_card_list"] = network_card_list
+    system_performance_data_dict["network_io"] = network_io
+    system_performance_data_dict["network_receive_speed"] = network_receive_speed
+    system_performance_data_dict["network_send_speed"] = network_send_speed
+
+    return system_performance_data_dict
+
+
+def set_selected_cpu_core(config_selected_cpu_core, logical_core_list):
+    """
+    Set selected CPU core.
+    """
+
+    if config_selected_cpu_core in logical_core_list:
+        selected_cpu_core = config_selected_cpu_core
+    else:
+        first_core = logical_core_list[0]
+        selected_cpu_core = first_core
+
+    return selected_cpu_core
+
+
+def set_selected_disk(config_selected_disk, disk_list):
+    """
+    Set selected disk.
+    """
+
+    # Set selected disk
+    with open("/proc/mounts") as reader:
+        proc_mounts_output_lines = reader.read().strip().split("\n")
+    system_disk_list = []
+    for line in proc_mounts_output_lines:
+        line_split = line.split(" ", 2)
+        if line_split[1].strip() == "/":
+            disk = line_split[0].strip().split("/")[-1]
+            # "/dev/root" disk is not listed in "/proc/partitions" file.
+            if disk in disk_list:
+                system_disk_list.append(disk)
+                break
+    # Detect system disk by checking if mount point is "/" on some systems such as some ARM devices.
+    # "/dev/root" is the system disk name (symlink) in the "/proc/mounts" file on these systems.
+    if system_disk_list == []:
+        with open("/proc/cmdline") as reader:
+            proc_cmdline = reader.read()
+        if "root=UUID=" in proc_cmdline:
+            disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
+            system_disk_list.append(os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip())
+        if "root=PARTUUID=" in proc_cmdline:
+            disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
+            system_disk_list.append(os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip())
+
+    if config_selected_disk in disk_list:
+        selected_disk = config_selected_disk
+    else:
+        if system_disk_list != []:
+            selected_disk = system_disk_list[0]
+        else:
+            selected_disk = disk_list[0]
+            # Try to not to set selected disk a loop, ram, zram disk in order to avoid errors
+            # if "hide_loop_ramdisk_zram_disks" option is enabled and performance data of all disks are plotted
+            # at the same time. loop device may be the first disk on some systems if they are run without installation.
+            for disk in disk_list:
+                if disk.startswith("loop") == False and disk.startswith("ram") == False and disk.startswith("zram") == False:
+                    selected_disk = disk
+                    break
+
+    return selected_disk, system_disk_list
+
+
+def set_selected_network_card(config_selected_network_card, network_card_list):
+    """
+    Set selected network card.
+    """
+
+    # Set selected network card
+    connected_network_card_list = []
+    for network_card in network_card_list:
+        with open(f'/sys/class/net/{network_card}/operstate') as reader:
+            sys_class_net_output = reader.read().strip()
+        if sys_class_net_output == "up":
+            connected_network_card_list.append(network_card)
+
+    # Avoid errors if there is no any network card that connected.
+    if connected_network_card_list != []:
+        selected_network_card = connected_network_card_list[0]
+    else:
+        selected_network_card = network_card_list[0]
+    # "" is predefined network card name before release of the software. This statement is used
+    # in order to avoid error, if no network card selection is made since first run of the software.
+    if config_selected_network_card == "":
+        selected_network_card = selected_network_card
+    if config_selected_network_card in network_card_list:
+        selected_network_card = config_selected_network_card
+    else:
+        selected_network_card = selected_network_card
+
+    return selected_network_card
+
+
 # ***********************************************************************************************
 #                                           CPU
 # ***********************************************************************************************

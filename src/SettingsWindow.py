@@ -504,25 +504,25 @@ class SettingsWindow:
             length_difference = chart_data_history_current - chart_data_history_new
 
             # "cpu_usage_percent_ave" list
-            Performance.cpu_usage_percent_ave = Performance.cpu_usage_percent_ave[length_difference:]
+            Performance.system_performance_data_dict_prev["cpu_usage_percent_ave"] = Performance.system_performance_data_dict_prev["cpu_usage_percent_ave"][length_difference:]
 
             # "cpu_usage_percent_per_core" list
             for device in Performance.logical_core_list:
-                Performance.cpu_usage_percent_per_core[device] = Performance.cpu_usage_percent_per_core[device][length_difference:]
+                Performance.system_performance_data_dict_prev["cpu_usage_percent_per_core"][device] = Performance.system_performance_data_dict_prev["cpu_usage_percent_per_core"][device][length_difference:]
 
             # "ram_usage_percent" and "swap_usage_percent" lists
-            Performance.ram_usage_percent = Performance.ram_usage_percent[length_difference:]
-            Performance.swap_usage_percent = Performance.swap_usage_percent[length_difference:]
+            Performance.system_performance_data_dict_prev["ram_usage_percent"] = Performance.system_performance_data_dict_prev["ram_usage_percent"][length_difference:]
+            Performance.system_performance_data_dict_prev["swap_usage_percent"] = Performance.system_performance_data_dict_prev["swap_usage_percent"][length_difference:]
 
             # "disk_read_speed" and "disk_write_speed" lists
             for device in Performance.disk_list:
-                Performance.disk_read_speed[device] = Performance.disk_read_speed[device][length_difference:]
-                Performance.disk_write_speed[device] = Performance.disk_write_speed[device][length_difference:]
+                Performance.system_performance_data_dict_prev["disk_read_speed"][device] = Performance.system_performance_data_dict_prev["disk_read_speed"][device][length_difference:]
+                Performance.system_performance_data_dict_prev["disk_write_speed"][device] = Performance.system_performance_data_dict_prev["disk_write_speed"][device][length_difference:]
 
             # "network_receive_speed" and "network_send_speed" lists
             for device in Performance.network_card_list:
-                Performance.network_receive_speed[device] = Performance.network_receive_speed[device][length_difference:]
-                Performance.network_send_speed[device] = Performance.network_send_speed[device][length_difference:]
+                Performance.system_performance_data_dict_prev["network_receive_speed"][device] = Performance.system_performance_data_dict_prev["network_receive_speed"][device][length_difference:]
+                Performance.system_performance_data_dict_prev["network_send_speed"][device] = Performance.system_performance_data_dict_prev["network_send_speed"][device][length_difference:]
 
             # "gpu_load_list" list
             if MainWindow.gpu_tb.get_active() == True:
@@ -545,25 +545,25 @@ class SettingsWindow:
             list_to_add = [0] * (chart_data_history_new - chart_data_history_current)
 
             # "cpu_usage_percent_ave" list
-            Performance.cpu_usage_percent_ave = list_to_add + Performance.cpu_usage_percent_ave
+            Performance.system_performance_data_dict_prev["cpu_usage_percent_ave"] = list_to_add + Performance.system_performance_data_dict_prev["cpu_usage_percent_ave"]
 
             # "cpu_usage_percent_per_core" list
             for device in Performance.logical_core_list:
-                Performance.cpu_usage_percent_per_core[device] = list_to_add + Performance.cpu_usage_percent_per_core[device]
+                Performance.system_performance_data_dict_prev["cpu_usage_percent_per_core"][device] = list_to_add + Performance.system_performance_data_dict_prev["cpu_usage_percent_per_core"][device]
 
             # "ram_usage_percent" and "swap_usage_percent" lists
-            Performance.ram_usage_percent = list_to_add + Performance.ram_usage_percent
-            Performance.swap_usage_percent = list_to_add + Performance.swap_usage_percent
+            Performance.system_performance_data_dict_prev["ram_usage_percent"] = list_to_add + Performance.system_performance_data_dict_prev["ram_usage_percent"]
+            Performance.system_performance_data_dict_prev["swap_usage_percent"] = list_to_add + Performance.system_performance_data_dict_prev["swap_usage_percent"]
 
             # "disk_read_speed" and "disk_write_speed" lists
             for device in Performance.disk_list:
-                Performance.disk_read_speed[device] = list_to_add + Performance.disk_read_speed[device]
-                Performance.disk_write_speed[device] = list_to_add + Performance.disk_write_speed[device]
+                Performance.system_performance_data_dict_prev["disk_read_speed"][device] = list_to_add + Performance.system_performance_data_dict_prev["disk_read_speed"][device]
+                Performance.system_performance_data_dict_prev["disk_write_speed"][device] = list_to_add + Performance.system_performance_data_dict_prev["disk_write_speed"][device]
 
             # "network_receive_speed" and "network_send_speed" lists
             for device in Performance.network_card_list:
-                Performance.network_receive_speed[device] = list_to_add + Performance.network_receive_speed[device]
-                Performance.network_send_speed[device] = list_to_add + Performance.network_send_speed[device]
+                Performance.system_performance_data_dict_prev["network_receive_speed"][device] = list_to_add + Performance.system_performance_data_dict_prev["network_receive_speed"][device]
+                Performance.system_performance_data_dict_prev["network_send_speed"][device] = list_to_add + Performance.system_performance_data_dict_prev["network_send_speed"][device]
 
             # "gpu_load_list" list
             if MainWindow.gpu_tb.get_active() == True:
