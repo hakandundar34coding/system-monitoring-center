@@ -157,7 +157,7 @@ def on_treeview2101_key_press_event(widget, event):
         return
 
     # Check if Enter key is pressed.
-    if event.keyval == Gdk.KEY_Return:
+    if event.keyval == Gdk.KEY_Return or event.keyval == Gdk.KEY_KP_Enter:
         ProcessesMenuRightClick.on_menuitem2106m_activate(ProcessesMenuRightClick.menuitem2106m)
         return
 
