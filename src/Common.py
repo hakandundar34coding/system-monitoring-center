@@ -911,7 +911,16 @@ def treeview_add_remove_columns(TabObject):
     treeview = TabObject.treeview
     row_data_list = TabObject.row_data_list
     treeview_columns_shown_prev = TabObject.treeview_columns_shown_prev
-    treeview_columns_shown = TabObject.treeview_columns_shown
+
+    # Get treeview columns shown
+    if TabObject.name == "Sensors":
+        treeview_columns_shown = Config.sensors_treeview_columns_shown
+    elif TabObject.name == "Processes":
+        treeview_columns_shown = Config.processes_treeview_columns_shown
+    elif TabObject.name == "Users":
+        treeview_columns_shown = Config.users_treeview_columns_shown
+    elif TabObject.name == "Services":
+        treeview_columns_shown = Config.services_treeview_columns_shown
 
     # Add/Remove treeview columns if they are changed since the last loop.
     reset_row_unique_data_list_prev = "no"
@@ -1214,7 +1223,16 @@ def on_columns_changed(widget, TabObject):
     """
 
     treeview = TabObject.treeview
-    treeview_columns_shown = TabObject.treeview_columns_shown
+
+    # Get treeview columns shown
+    if TabObject.name == "Sensors":
+        treeview_columns_shown = Config.sensors_treeview_columns_shown
+    elif TabObject.name == "Processes":
+        treeview_columns_shown = Config.processes_treeview_columns_shown
+    elif TabObject.name == "Users":
+        treeview_columns_shown = Config.users_treeview_columns_shown
+    elif TabObject.name == "Services":
+        treeview_columns_shown = Config.services_treeview_columns_shown
 
     treeview_columns = treeview.get_columns()
     if len(treeview_columns_shown) != len(treeview_columns):
