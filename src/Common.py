@@ -217,7 +217,7 @@ def refresh_button(function):
     return refresh_button
 
 
-def graph_color_button():
+def graph_color_button(TabMenuObject):
     """
     Generate "Graph Color" button for menus.
     """
@@ -226,12 +226,12 @@ def graph_color_button():
     button.set_label(_tr("Graph Color"))
     button.set_halign(Gtk.Align.CENTER)
 
-    button.connect("clicked", on_graph_color_button_clicked)
+    button.connect("clicked", on_graph_color_button_clicked, TabMenuObject)
 
     return button
 
 
-def on_graph_color_button_clicked(widget):
+def on_graph_color_button_clicked(widget, TabMenuObject):
     """
     Change graph foreground color.
     Also get current foreground color of the graph and set it as selected color of the dialog.
@@ -239,30 +239,28 @@ def on_graph_color_button_clicked(widget):
 
     # Generate a ColorChooserDialog
     main_window = widget.get_root()
-    menu_colorchooserdialog(main_window)
+    if 'colorchooserdialog' not in globals():
+        global colorchooserdialog
+        colorchooserdialog = Gtk.ColorChooserDialog().new(title=_tr("Graph Color"), parent=main_window)
+        colorchooserdialog.set_modal(True)
+    # Disconnect and connect ColorChooserDialog response signal to pass current tab object every time.
+    try:
+        colorchooserdialog.disconnect_by_func(on_colorchooserdialog_response)
+    except TypeError:
+        pass
+    colorchooserdialog.connect("response", on_colorchooserdialog_response, TabMenuObject)
 
     # Get graph color of the tab
-    if Config.current_main_tab == 0:
-        if Config.performance_tab_current_sub_tab == 1:
-            tab_graph_color = Config.chart_line_color_cpu_percent
-            from .CpuMenu import CpuMenu
-            current_menu_po = CpuMenu.menu_po
-        elif Config.performance_tab_current_sub_tab == 2:
-            tab_graph_color = Config.chart_line_color_memory_percent
-            from .MemoryMenu import MemoryMenu
-            current_menu_po = MemoryMenu.menu_po
-        elif Config.performance_tab_current_sub_tab == 3:
-            tab_graph_color = Config.chart_line_color_disk_speed_usage
-            from .DiskMenu import DiskMenu
-            current_menu_po = DiskMenu.menu_po
-        elif Config.performance_tab_current_sub_tab == 4:
-            tab_graph_color = Config.chart_line_color_network_speed_data
-            from .NetworkMenu import NetworkMenu
-            current_menu_po = NetworkMenu.menu_po
-        elif Config.performance_tab_current_sub_tab == 5:
-            tab_graph_color = Config.chart_line_color_fps
-            from .GpuMenu import GpuMenu
-            current_menu_po = GpuMenu.menu_po
+    if TabMenuObject.name == "CpuMenu":
+        tab_graph_color = Config.chart_line_color_cpu_percent
+    elif TabMenuObject.name == "MemoryMenu":
+        tab_graph_color = Config.chart_line_color_memory_percent
+    elif TabMenuObject.name == "DiskMenu":
+        tab_graph_color = Config.chart_line_color_disk_speed_usage
+    elif TabMenuObject.name == "NetworkMenu":
+        tab_graph_color = Config.chart_line_color_network_speed_data
+    elif TabMenuObject.name == "GpuMenu":
+        tab_graph_color = Config.chart_line_color_fps
 
     # Set selected color on the ColorChooserDialog
     color = Gdk.RGBA()
@@ -270,24 +268,11 @@ def on_graph_color_button_clicked(widget):
     colorchooserdialog.set_rgba(color)
 
     # Show the ColorChooserDialog
-    current_menu_po.popdown()
+    TabMenuObject.menu_po.popdown()
     colorchooserdialog.present()
 
 
-def menu_colorchooserdialog(main_window):
-    """
-    Generate ColorChooserDialog.
-    """
-
-    if 'colorchooserdialog' not in globals():
-        global colorchooserdialog
-        colorchooserdialog = Gtk.ColorChooserDialog().new(title=_tr("Graph Color"), parent=main_window)
-        colorchooserdialog.set_modal(True)
-
-        colorchooserdialog.connect("response", on_colorchooserdialog_response)
-
-
-def on_colorchooserdialog_response(widget, response):
+def on_colorchooserdialog_response(widget, response, TabMenuObject):
     """
     Get selected color, apply it to graph and save it.
     Dialog have to be hidden for "Cancel" response.
@@ -302,32 +287,31 @@ def on_colorchooserdialog_response(widget, response):
         tab_graph_color = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
 
         # Set graph color of the tab and apply changes immediately (without waiting update interval)
-        if Config.current_main_tab == 0:
-            if Config.performance_tab_current_sub_tab == 1:
-                Config.chart_line_color_cpu_percent = tab_graph_color
-                from .Cpu import Cpu
-                Cpu.initial_func()
-                Cpu.loop_func()
-            elif Config.performance_tab_current_sub_tab == 2:
-                Config.chart_line_color_memory_percent = tab_graph_color
-                from .Memory import Memory
-                Memory.initial_func()
-                Memory.loop_func()
-            elif Config.performance_tab_current_sub_tab == 3:
-                Config.chart_line_color_disk_speed_usage = tab_graph_color
-                from .Disk import Disk
-                Disk.initial_func()
-                Disk.loop_func()
-            elif Config.performance_tab_current_sub_tab == 4:
-                Config.chart_line_color_network_speed_data = tab_graph_color
-                from .Network import Network
-                Network.initial_func()
-                Network.loop_func()
-            elif Config.performance_tab_current_sub_tab == 5:
-                Config.chart_line_color_fps = tab_graph_color
-                from .Gpu import Gpu
-                Gpu.initial_func()
-                Gpu.loop_func()
+        if TabMenuObject.name == "CpuMenu":
+            Config.chart_line_color_cpu_percent = tab_graph_color
+            from .Cpu import Cpu
+            Cpu.initial_func()
+            Cpu.loop_func()
+        elif TabMenuObject.name == "MemoryMenu":
+            Config.chart_line_color_memory_percent = tab_graph_color
+            from .Memory import Memory
+            Memory.initial_func()
+            Memory.loop_func()
+        elif TabMenuObject.name == "DiskMenu":
+            Config.chart_line_color_disk_speed_usage = tab_graph_color
+            from .Disk import Disk
+            Disk.initial_func()
+            Disk.loop_func()
+        elif TabMenuObject.name == "NetworkMenu":
+            Config.chart_line_color_network_speed_data = tab_graph_color
+            from .Network import Network
+            Network.initial_func()
+            Network.loop_func()
+        elif TabMenuObject.name == "GpuMenu":
+            Config.chart_line_color_fps = tab_graph_color
+            from .Gpu import Gpu
+            Gpu.initial_func()
+            Gpu.loop_func()
         Config.config_save_func()
 
 
@@ -835,7 +819,7 @@ def searchentry(function):
 
 def searchentry_focus_action_and_accelerator(main_window_object):
     """
-    Define action and accelerator for SearchEntry widgets.
+    Define action and accelerator for focus of SearchEntry widgets. They will be called if "Ctrl+F" buttons are pressed.
     """
 
     MainWindow = main_window_object
@@ -880,23 +864,13 @@ def searchentry_grab_focus(action, parameter):
     searchentry.grab_focus()
 
 
-def searchentry_update_placeholder_text(TabObject):
+def searchentry_update_placeholder_text(TabObject, row_type):
     """
     Update placeholder text (row count) on SearchEntry.
     """
 
     searchentry = TabObject.searchentry
     tab_data_rows = TabObject.tab_data_rows
-
-    # Get row type
-    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
-        row_type = _tr("Sensors")
-    elif Config.current_main_tab == 1:
-        row_type = _tr("Processes")
-    elif Config.current_main_tab == 2:
-        row_type = _tr("Users")
-    elif Config.current_main_tab == 3:
-        row_type = _tr("Services")
 
     searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + row_type + ": " + str(len(tab_data_rows)) + ")"
 
@@ -937,16 +911,7 @@ def treeview_add_remove_columns(TabObject):
     treeview = TabObject.treeview
     row_data_list = TabObject.row_data_list
     treeview_columns_shown_prev = TabObject.treeview_columns_shown_prev
-
-    # Get treeview columns shown
-    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
-        treeview_columns_shown = Config.sensors_treeview_columns_shown
-    elif Config.current_main_tab == 1:
-        treeview_columns_shown = Config.processes_treeview_columns_shown
-    elif Config.current_main_tab == 2:
-        treeview_columns_shown = Config.users_treeview_columns_shown
-    elif Config.current_main_tab == 3:
-        treeview_columns_shown = Config.services_treeview_columns_shown
+    treeview_columns_shown = TabObject.treeview_columns_shown
 
     # Add/Remove treeview columns if they are changed since the last loop.
     reset_row_unique_data_list_prev = "no"
@@ -1027,7 +992,7 @@ def get_new_deleted_updated_rows(row_id_list, row_id_list_prev):
     return deleted_rows, new_rows, updated_existing_row_index
 
 
-def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, row_id_list, row_id_list_prev, show_rows_as_tree=0):
+def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, row_id_list, row_id_list_prev, show_rows_as_tree=0, show_all_rows=1):
     """
     Add/Remove/Update treestore rows.
     """
@@ -1038,9 +1003,6 @@ def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, upd
     on_searchentry_changed = TabObject.on_searchentry_changed
     tab_data_rows = TabObject.tab_data_rows
     tab_data_rows_prev = TabObject.tab_data_rows_prev
-
-    if Config.current_main_tab == 1:
-        show_processes_of_all_users = TabObject.show_processes_of_all_users
 
     tab_data_rows_row_length = len(tab_data_rows[0])
     if len(piter_list) > 0:
@@ -1065,11 +1027,11 @@ def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, upd
                 if parent_row == 0:                                                           # Row ppid was set as "0" if it has no parent row. Row is set as tree root (this root has no relationship between root user) row if it has no ppid (parent row). Treeview tree indentation is first level for the tree root row.
                     piter_list.append(treestore.append(None, tab_data_rows[pid_index]))
                 else:
-                    if show_processes_of_all_users == 1:                                      # Row appended under tree root row or another row if "Show [ROWS] as tree" option is preferred.
+                    if show_all_rows == 1:                                      # Row appended under tree root row or another row if "Show [ROWS] as tree" option is preferred.
                         piter_list.append(treestore.append(piter_list[row_id_list.index(parent_row)], tab_data_rows[pid_index]))
-                    if show_processes_of_all_users == 0 and parent_row not in row_id_list:    # Row is appended into treeview as tree root row if "Show [ROWS] of all users" is not preferred and row ppid not in row_id_list.
+                    if show_all_rows == 0 and parent_row not in row_id_list:    # Row is appended into treeview as tree root row if "Show [ROWS] of all users" is not preferred and row ppid not in row_id_list.
                         piter_list.append(treestore.append(None, tab_data_rows[pid_index]))
-                    if show_processes_of_all_users == 0 and parent_row in row_id_list:        # Row is appended into treeview under tree root row or another row if "Show [ROWS] of all users" is preferred and row ppid is in row_id_list.
+                    if show_all_rows == 0 and parent_row in row_id_list:        # Row is appended into treeview under tree root row or another row if "Show [ROWS] of all users" is preferred and row ppid is in row_id_list.
                         piter_list.append(treestore.append(piter_list[row_id_list.index(parent_row)], tab_data_rows[pid_index]))
             else:                                                                             # All rows are appended into treeview as tree root row if "Show [ROWS] as tree" is not preferred. Thus rows are listed as list structure instead of tree structure.
                 piter_list.insert(pid_index, treestore.insert(None, pid_index, tab_data_rows[pid_index]))
@@ -1167,16 +1129,16 @@ def treeview_column_order_width_row_sorting(widget, parameter, TabObject):
     row_data_list = TabObject.row_data_list
 
     # Get previous column order and widths
-    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
+    if TabObject.name == "Sensors":
         data_column_order_prev = Config.sensors_data_column_order
         data_column_widths_prev = Config.sensors_data_column_widths
-    elif Config.current_main_tab == 1:
+    elif TabObject.name == "Processes":
         data_column_order_prev = Config.processes_data_column_order
         data_column_widths_prev = Config.processes_data_column_widths
-    elif Config.current_main_tab == 2:
+    elif TabObject.name == "Users":
         data_column_order_prev = Config.users_data_column_order
         data_column_widths_prev = Config.users_data_column_widths
-    elif Config.current_main_tab == 3:
+    elif TabObject.name == "Services":
         data_column_order_prev = Config.services_data_column_order
         data_column_widths_prev = Config.services_data_column_widths
 
@@ -1204,16 +1166,15 @@ def treeview_column_order_width_row_sorting(widget, parameter, TabObject):
         return
 
     # Save new column order and widths
-    if Config.current_main_tab == 1:
+    if TabObject.name == "Processes":
         Config.processes_data_column_order = list(data_column_order)
         Config.processes_data_column_widths = list(data_column_widths)
-    elif Config.current_main_tab == 2:
+    elif TabObject.name == "Users":
         Config.users_data_column_order = list(data_column_order)
         Config.users_data_column_widths = list(data_column_widths)
-    elif Config.current_main_tab == 3:
+    elif TabObject.name == "Services":
         Config.services_data_column_order = list(data_column_order)
         Config.services_data_column_widths = list(data_column_widths)
-
     Config.config_save_func()
 
 
@@ -1235,16 +1196,15 @@ def on_column_title_clicked(widget, TabObject):
     data_row_sorting_order = int(widget.get_sort_order())
 
     # Save new column order and widths
-    if Config.current_main_tab == 1:
+    if TabObject.name == "Processes":
         Config.processes_data_row_sorting_column = data_row_sorting_column
         Config.processes_data_row_sorting_order = data_row_sorting_order
-    elif Config.current_main_tab == 2:
+    elif TabObject.name == "Users":
         Config.users_data_row_sorting_column = data_row_sorting_column
         Config.users_data_row_sorting_order = data_row_sorting_order
-    elif Config.current_main_tab == 3:
+    elif TabObject.name == "Services":
         Config.services_data_row_sorting_column = data_row_sorting_column
         Config.services_data_row_sorting_order = data_row_sorting_order
-
     Config.config_save_func()
 
 
@@ -1254,16 +1214,7 @@ def on_columns_changed(widget, TabObject):
     """
 
     treeview = TabObject.treeview
-
-    # Get treeview columns shown
-    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
-        treeview_columns_shown = Config.sensors_treeview_columns_shown
-    elif Config.current_main_tab == 1:
-        treeview_columns_shown = Config.processes_treeview_columns_shown
-    elif Config.current_main_tab == 2:
-        treeview_columns_shown = Config.users_treeview_columns_shown
-    elif Config.current_main_tab == 3:
-        treeview_columns_shown = Config.services_treeview_columns_shown
+    treeview_columns_shown = TabObject.treeview_columns_shown
 
     treeview_columns = treeview.get_columns()
     if len(treeview_columns_shown) != len(treeview_columns):

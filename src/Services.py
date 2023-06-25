@@ -22,6 +22,8 @@ class Services:
 
     def __init__(self):
 
+        self.name = "Services"
+
         self.tab_gui()
 
         self.initial_already_run = 0
@@ -488,12 +490,12 @@ class Services:
             return
 
         deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(service_list, self.service_list_prev)
-        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, service_list, self.service_list_prev, 0)
-        Common.searchentry_update_placeholder_text(self)
+        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, service_list, self.service_list_prev, 0, 1)
+        Common.searchentry_update_placeholder_text(self, _tr("Services"))
 
-        self.service_list_prev = service_list
-        self.tab_data_rows_prev = tab_data_rows
-        self.treeview_columns_shown_prev = treeview_columns_shown
+        self.service_list_prev = self.service_list
+        self.tab_data_rows_prev = self.tab_data_rows
+        self.treeview_columns_shown_prev = self.treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
         self.data_row_sorting_order_prev = self.data_row_sorting_order
         self.data_column_order_prev = self.data_column_order

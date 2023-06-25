@@ -16,6 +16,8 @@ class Memory:
 
     def __init__(self):
 
+        self.name = "Memory"
+
         self.tab_gui()
 
         self.initial_already_run = 0

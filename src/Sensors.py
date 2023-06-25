@@ -16,6 +16,8 @@ class Sensors:
 
     def __init__(self):
 
+        self.name = "Sensors"
+
         self.tab_gui()
 
         self.initial_already_run = 0
@@ -196,9 +198,9 @@ class Sensors:
         # Update search results.
         self.on_searchentry_changed(self.searchentry)
 
-        Common.searchentry_update_placeholder_text(self)
+        Common.searchentry_update_placeholder_text(self, _tr("Sensors"))
 
-        self.treeview_columns_shown_prev = treeview_columns_shown
+        self.treeview_columns_shown_prev = self.treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
         self.data_row_sorting_order_prev = self.data_row_sorting_order
         self.data_column_order_prev = self.data_column_order

@@ -25,6 +25,8 @@ class Processes:
 
     def __init__(self):
 
+        self.name = "Processes"
+
         self.tab_gui()
 
         # "0" value of "initial_already_run" variable means that initial function is not run before or
@@ -197,7 +199,7 @@ class Processes:
         application.set_accels_for_action("win.processes_continue_process", ["<Control>C"])
         application.set_accels_for_action("win.processes_end_process", ["<Control>E"])
         application.set_accels_for_action("win.processes_end_process_immediately", ["<Control>K"])
-        application.set_accels_for_action("win.processes_details", ["Return"])
+        application.set_accels_for_action("win.processes_details", ["Return", "KP_Enter"])
 
 
     def right_click_menu(self):
@@ -1103,8 +1105,8 @@ class Processes:
             return
 
         deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(pid_list, self.pid_list_prev)
-        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, pid_list, self.pid_list_prev, self.show_processes_as_tree)
-        Common.searchentry_update_placeholder_text(self)
+        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, pid_list, self.pid_list_prev, self.show_processes_as_tree, self.show_processes_of_all_users)
+        Common.searchentry_update_placeholder_text(self, _tr("Processes"))
 
         # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop
         # of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made.
@@ -1112,10 +1114,10 @@ class Processes:
         if self.pid_list_prev == []:
             self.treeview.expand_all()
 
-        self.pid_list_prev = pid_list
-        self.tab_data_rows_prev = tab_data_rows
+        self.pid_list_prev = self.pid_list
+        self.tab_data_rows_prev = self.tab_data_rows
         self.show_processes_as_tree_prev = self.show_processes_as_tree
-        self.treeview_columns_shown_prev = treeview_columns_shown
+        self.treeview_columns_shown_prev = self.treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
         self.data_row_sorting_order_prev = self.data_row_sorting_order
         self.data_column_order_prev = self.data_column_order

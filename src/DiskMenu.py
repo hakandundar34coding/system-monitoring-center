@@ -16,6 +16,8 @@ class DiskMenu:
 
     def __init__(self):
 
+        self.name = "DiskMenu"
+
         self.menu_gui()
 
 
@@ -60,7 +62,7 @@ class DiskMenu:
         main_grid.attach(separator, 0, 4, 2, 1)
 
         # Button (Graph Color)
-        self.graph_color_button = Common.graph_color_button()
+        self.graph_color_button = Common.graph_color_button(self)
         main_grid.attach(self.graph_color_button, 0, 5, 2, 1)
 
         # Separator

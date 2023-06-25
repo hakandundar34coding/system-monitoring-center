@@ -15,6 +15,8 @@ class Network:
 
     def __init__(self):
 
+        self.name = "Network"
+
         self.tab_gui()
 
         self.initial_already_run = 0

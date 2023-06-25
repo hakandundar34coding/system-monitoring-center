@@ -16,6 +16,8 @@ class GpuMenu:
 
     def __init__(self):
 
+        self.name = "GpuMenu"
+
         self.menu_gui()
 
 
@@ -36,7 +38,7 @@ class GpuMenu:
         main_grid.attach(label, 0, 0, 2, 1)
 
         # Button (Graph Color)
-        self.graph_color_button = Common.graph_color_button()
+        self.graph_color_button = Common.graph_color_button(self)
         main_grid.attach(self.graph_color_button, 0, 4, 2, 1)
 
         # Separator

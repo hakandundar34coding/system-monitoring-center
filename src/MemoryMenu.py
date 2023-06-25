@@ -16,6 +16,8 @@ class MemoryMenu:
 
     def __init__(self):
 
+        self.name = "MemoryMenu"
+
         self.menu_gui()
 
 
@@ -52,7 +54,7 @@ class MemoryMenu:
         main_grid.attach(separator, 0, 3, 2, 1)
 
         # Button (Graph Color)
-        self.graph_color_button = Common.graph_color_button()
+        self.graph_color_button = Common.graph_color_button(self)
         main_grid.attach(self.graph_color_button, 0, 4, 2, 1)
 
         # Separator

@@ -18,6 +18,8 @@ class Disk:
 
     def __init__(self):
 
+        self.name = "Disk"
+
         self.tab_gui()
 
         self.initial_already_run = 0

@@ -20,6 +20,8 @@ class Gpu:
 
     def __init__(self):
 
+        self.name = "Gpu"
+
         self.tab_gui()
 
         self.initial_already_run = 0

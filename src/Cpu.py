@@ -15,6 +15,8 @@ class Cpu:
 
     def __init__(self):
 
+        self.name = "Cpu"
+
         self.tab_gui()
 
         self.initial_already_run = 0

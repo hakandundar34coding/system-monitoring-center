@@ -24,6 +24,8 @@ class Users:
 
     def __init__(self):
 
+        self.name = "Users"
+
         self.tab_gui()
 
         self.initial_already_run = 0
@@ -327,12 +329,12 @@ class Users:
             return
 
         deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(human_user_uid_list, self.human_user_uid_list_prev)
-        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, human_user_uid_list, self.human_user_uid_list_prev, 0)
-        Common.searchentry_update_placeholder_text(self)
+        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, human_user_uid_list, self.human_user_uid_list_prev, 0, 1)
+        Common.searchentry_update_placeholder_text(self, _tr("Users"))
 
-        self.human_user_uid_list_prev = human_user_uid_list
-        self.tab_data_rows_prev = tab_data_rows
-        self.treeview_columns_shown_prev = treeview_columns_shown
+        self.human_user_uid_list_prev = self.human_user_uid_list
+        self.tab_data_rows_prev = self.tab_data_rows
+        self.treeview_columns_shown_prev = self.treeview_columns_shown
         self.data_row_sorting_column_prev = self.data_row_sorting_column
         self.data_row_sorting_order_prev = self.data_row_sorting_order
         self.data_column_order_prev = self.data_column_order

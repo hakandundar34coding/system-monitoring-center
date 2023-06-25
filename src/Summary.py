@@ -21,6 +21,8 @@ class Summary:
 
     def __init__(self):
 
+        self.name = "Summary"
+
         self.tab_gui()
 
         self.initial_already_run = 0
