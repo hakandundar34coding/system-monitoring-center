@@ -927,9 +927,10 @@ def treeview_add_remove_columns(TabObject):
     if treeview_columns_shown != treeview_columns_shown_prev:
         cumulative_sort_column_id = -1
         cumulative_internal_data_id = -1
-        # Remove all columns in the treeview.
+        # Remove all treeview columns
         for column in treeview.get_columns():
             treeview.remove_column(column)
+        # Append columns
         for i, column in enumerate(treeview_columns_shown):
             if row_data_list[column][0] in treeview_columns_shown:
                 cumulative_sort_column_id = cumulative_sort_column_id + row_data_list[column][2]
@@ -957,19 +958,19 @@ def treeview_add_remove_columns(TabObject):
                     treeview_column.set_cell_data_func(cell_renderer, row_data_list[column][11][i], func_data=cumulative_internal_data_id)    # Define cell function which sets cell data precision and/or data unit
             treeview_column.set_sizing(2)                                           # Set column sizing (2 = auto sizing which is required for "treeview.set_fixed_height_mode(True)" command that is used for lower treeview CPU consumption because row heights are not calculated for every row).
             treeview_column.set_sort_column_id(cumulative_sort_column_id)           # Be careful with lists contain same element more than one.
-            treeview_column.set_resizable(True)                                     # Set columns resizable by the user when column title button edge handles are dragged.
-            treeview_column.set_reorderable(True)                                   # Set columns reorderable by the user when column title buttons are dragged.
+            treeview_column.set_resizable(True)
+            treeview_column.set_reorderable(True)
             treeview_column.set_min_width(50)                                       # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
-            treeview_column.connect("clicked", on_column_title_clicked, TabObject)  # Connect signal for column title button clicks. Getting column ordering and row sorting will be performed by using this signal.
+            treeview_column.connect("clicked", on_column_title_clicked, TabObject)
             treeview_column.connect("notify::width", treeview_column_order_width_row_sorting, TabObject)
-            treeview.append_column(treeview_column)                                 # Append column into treeview
+            treeview.append_column(treeview_column)
 
-        # Get column data types for appending row data into treestore
+        # Get column data types (int, bool, float, str, etc.) for appending row data to treestore
         data_column_types = []
         for column in sorted(treeview_columns_shown):
             internal_column_count = len(row_data_list[column][5])
             for internal_column_number in range(internal_column_count):
-                data_column_types.append(row_data_list[column][5][internal_column_number])    # Get column types (int, bool, float, str, etc.)
+                data_column_types.append(row_data_list[column][5][internal_column_number])
 
         # Define a treestore (for storing treeview data in it), a treemodelfilter (for search filtering),
         # treemodelsort (for row sorting when column title buttons are clicked)
@@ -983,6 +984,33 @@ def treeview_add_remove_columns(TabObject):
         reset_row_unique_data_list_prev = "yes"                                     # For redefining (clear) "pid_list_prev, human_user_uid_list_prev, service_list_prev" lists. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
 
     return reset_row_unique_data_list_prev
+
+
+def get_sort_column_id_column_dict(row_data_list, treeview_columns_shown):
+    """
+    Get sort column ID - column dictionary of treeview columns.
+    """
+
+    sort_column_id_column_dict = {}
+    cumulative_sort_column_id = -1
+    for column in treeview_columns_shown:
+        if row_data_list[column][0] in treeview_columns_shown:
+            cumulative_sort_column_id = cumulative_sort_column_id + row_data_list[column][2]
+            sort_column_id_column_dict[column] = cumulative_sort_column_id
+
+    return sort_column_id_column_dict
+
+
+def get_sort_column_id_list(treeview_columns):
+    """
+    Get sort column ID list of TreeView columns.
+    """
+
+    sort_column_id_list = []
+    for column in treeview_columns:
+        sort_column_id_list.append(column.get_sort_column_id())
+
+    return sort_column_id_list
 
 
 def get_new_deleted_updated_rows(row_id_list, row_id_list_prev):
@@ -1069,11 +1097,9 @@ def treeview_reorder_columns_sort_rows_set_column_widths(TabObject):
     # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or
     # user has reset column order from customizations.
     if treeview_columns_shown_prev != treeview_columns_shown or data_column_order_prev != data_column_order:
-        # Get shown columns on the treeview in order to use this data for reordering the columns.
         treeview_columns = treeview.get_columns()
-        treeview_column_titles = []
-        for column in treeview_columns:
-            treeview_column_titles.append(column.get_title())
+        sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
+        sort_column_id_list = get_sort_column_id_list(treeview_columns)
         data_column_order_scratch = []
         for column_order in data_column_order:
             if column_order != -1:
@@ -1082,8 +1108,8 @@ def treeview_reorder_columns_sort_rows_set_column_widths(TabObject):
         for order in reversed(sorted(data_column_order_scratch)):
             if data_column_order.index(order) in treeview_columns_shown:
                 column_number_to_move = data_column_order.index(order)
-                column_title_to_move = row_data_list[column_number_to_move][1]
-                column_to_move = treeview_columns[treeview_column_titles.index(column_title_to_move)]
+                column_id_to_move = sort_column_id_column_dict[column_number_to_move]
+                column_to_move = treeview_columns[sort_column_id_list.index(column_id_to_move)]
                 # Column is moved at the beginning of the treeview if "None" is used.
                 treeview.move_column_after(column_to_move, None)
 
@@ -1094,35 +1120,34 @@ def treeview_reorder_columns_sort_rows_set_column_widths(TabObject):
     if treeview_columns_shown_prev != treeview_columns_shown or \
        data_row_sorting_column_prev != data_row_sorting_column or \
        data_row_sorting_order != data_row_sorting_order_prev:
-        # Get shown columns on the treeview in order to use this data for reordering the columns.
+        sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
         treeview_columns = treeview.get_columns()
-        treeview_column_titles = []
-        for column in treeview_columns:
-            treeview_column_titles.append(column.get_title())
-        for i in range(10):
-            if data_row_sorting_column in treeview_columns_shown:
-                for data in row_data_list:
-                    if data[0] == data_row_sorting_column:
-                        column_title_for_sorting = data[1]
-            if data_row_sorting_column not in treeview_columns_shown:
-                column_title_for_sorting = row_data_list[0][1]
-            column_for_sorting = treeview_columns[treeview_column_titles.index(column_title_for_sorting)]
-            column_for_sorting.clicked()                                                      # For row sorting.
+        sort_column_id_list = get_sort_column_id_list(treeview_columns)
+        if data_row_sorting_column in treeview_columns_shown:
+            data_row_sorting_column_id = sort_column_id_column_dict[data_row_sorting_column]
+        else:
+            data_row_sorting_column_id = row_data_list[0][2]
+        column_for_sorting = treeview_columns[sort_column_id_list.index(data_row_sorting_column_id)]
+        # Set row sorting
+        for i in range(4):
+            column_for_sorting.clicked()
             if data_row_sorting_order == int(column_for_sorting.get_sort_order()):
                 break
 
     # Set column widths if there are changes since last loop.
     if treeview_columns_shown_prev != treeview_columns_shown or data_column_widths_prev != data_column_widths:
+        sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
         treeview_columns = treeview.get_columns()
-        treeview_column_titles = []
-        for column in treeview_columns:
-            treeview_column_titles.append(column.get_title())
-        for i, row_data in enumerate(row_data_list):
-            for j, column_title in enumerate(treeview_column_titles):
-                if column_title == row_data[1]:
-                   column_width = data_column_widths[i]
-                   # Set column width in pixels. Fixed width is unset if value is "-1".
-                   treeview_columns[j].set_fixed_width(column_width)
+        sort_column_id_list = get_sort_column_id_list(treeview_columns)
+        for row_data in row_data_list:
+            column_id = row_data[0]
+            for j, sort_column_id in enumerate(sort_column_id_list):
+                if column_id not in sort_column_id_column_dict:
+                    continue
+                if sort_column_id == sort_column_id_column_dict[column_id]:
+                    column_width = data_column_widths[column_id]
+                    # Set column width in pixels. Fixed width is unset if value is "-1".
+                    treeview_columns[j].set_fixed_width(column_width)
 
 
 def treeview_column_order_width_row_sorting(widget, parameter, TabObject):
@@ -1136,6 +1161,7 @@ def treeview_column_order_width_row_sorting(widget, parameter, TabObject):
 
     treeview = TabObject.treeview
     row_data_list = TabObject.row_data_list
+    treeview_columns_shown = TabObject.treeview_columns_shown
 
     # Get previous column order and widths
     if TabObject.name == "Sensors":
@@ -1151,24 +1177,26 @@ def treeview_column_order_width_row_sorting(widget, parameter, TabObject):
         data_column_order_prev = Config.services_data_column_order
         data_column_widths_prev = Config.services_data_column_widths
 
+    sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
+
     # Get new column order and widths
     treeview_columns = treeview.get_columns()
-    treeview_column_titles = []
-    for column in treeview_columns:
-        treeview_column_titles.append(column.get_title())
+    sort_column_id_list = get_sort_column_id_list(treeview_columns)
 
     data_column_order = [-1] * len(row_data_list)
     data_column_widths = [-1] * len(row_data_list)
 
     treeview_columns_last_index = len(treeview_columns)-1
 
-    for i, row_data in enumerate(row_data_list):
-        for j, column_title in enumerate(treeview_column_titles):
-            if column_title == row_data[1]:
-                column_index = treeview_column_titles.index(row_data[1])
-                data_column_order[i] = column_index
+    for row_data in row_data_list:
+        column_id = row_data[0]
+        for j, sort_column_id in enumerate(sort_column_id_list):
+            if column_id not in sort_column_id_column_dict:
+                continue
+            if sort_column_id == sort_column_id_column_dict[column_id]:
+                data_column_order[column_id] = j
                 if j != treeview_columns_last_index:
-                    data_column_widths[i] = treeview_columns[column_index].get_width()
+                    data_column_widths[column_id] = treeview_columns[j].get_width()
 
     # Prevent saving settings if column order and widths are not changed.
     if data_column_order == data_column_order_prev and data_column_widths == data_column_widths_prev:
