@@ -1227,7 +1227,6 @@ def on_column_title_clicked(widget, TabObject):
 
     sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
     treeview_columns = treeview.get_columns()
-    sort_column_id_list = get_sort_column_id_list(treeview_columns)
 
     # Get column that is used for sorting
     data_row_sorting_column_id = widget.get_sort_column_id()
