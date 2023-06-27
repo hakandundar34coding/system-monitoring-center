@@ -1220,14 +1220,21 @@ def on_column_title_clicked(widget, TabObject):
     Get and save column sorting order.
     """
 
+    treeview = TabObject.treeview
     row_data_list = TabObject.row_data_list
+    treeview_columns_shown = TabObject.treeview_columns_shown
+    data_row_sorting_column = TabObject.data_row_sorting_column
 
-    # Get column title which will be used for getting column number
-    data_row_sorting_column_title = widget.get_title()
-    for data in row_data_list:
-        if data[1] == data_row_sorting_column_title:
-            # Get column number
-            data_row_sorting_column = data[0]
+    sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
+    treeview_columns = treeview.get_columns()
+    sort_column_id_list = get_sort_column_id_list(treeview_columns)
+
+    # Get column that is used for sorting
+    data_row_sorting_column_id = widget.get_sort_column_id()
+    for column in sort_column_id_column_dict.keys():
+        if sort_column_id_column_dict[column] == data_row_sorting_column_id:
+            data_row_sorting_column = column
+            break
 
     # Convert Gtk.SortType (for example: <enum GTK_SORT_ASCENDING of type Gtk.SortType>) to integer (0: ascending, 1: descending)
     data_row_sorting_order = int(widget.get_sort_order())
