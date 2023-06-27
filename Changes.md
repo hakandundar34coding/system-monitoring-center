@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v2.16.1 (27.06.2023)
+  * Several improvements (code, etc.)
+  * Fix: Confusions if multiple columns have same title
+  * Fix: Show process details if right Enter is pressed
+
 ### v1.43.5 (22.06.2023)
   * Changed: Process Start Time column instead of Path column
   * Minor improvements for lower CPU usage (Processes, Users)

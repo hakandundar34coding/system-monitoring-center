@@ -74,6 +74,15 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.16.1" date="2023-06-27">
+      <description>
+        <ul>
+          <li>Several improvements (code, etc.)</li>
+          <li>Fix: Confusions if multiple columns have same title</li>
+          <li>Fix: Show process details if right Enter is pressed</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.16.0" date="2023-06-20">
       <description>
         <ul>
