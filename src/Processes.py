@@ -574,10 +574,10 @@ def treeview_add_remove_columns(TabObject_data):
         # treemodelsort (for row sorting when column title buttons are clicked)
         global treestore
         treestore = Gtk.TreeStore()
-        treestore.set_column_types(data_column_types)                     # Set column types of the columns which will be appended into treestore
+        treestore.set_column_types(data_column_types)                               # Set column types of the columns which will be appended into treestore
         treemodelfilter = treestore.filter_new()
         treemodelfilter.set_visible_column(0)                                       # Column "0" of the treestore will be used for column visibility information (True or False)
-        treemodelsort = Gtk.TreeModelSort().new_with_model(treemodelfilter)
+        treemodelsort = Gtk.TreeModelSort(treemodelfilter)
         treeview.set_model(treemodelsort)
         global piter_list
         piter_list = []
