@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-13 17:49+0300\n"
-"PO-Revision-Date: 2023-03-13 17:52+0300\n"
+"POT-Creation-Date: 2023-06-30 11:59+0300\n"
+"PO-Revision-Date: 2023-06-30 12:06+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -42,31 +42,31 @@ msgstr "Раздел"
 #: ui/DiskDetailsWindow.ui:7 ui/DiskDetailsWindow.ui:45 ui/DiskMenus.ui:23
 #: ui/DiskMenus.ui:356 ui/DiskTab.ui:728 ui/MainWindow.ui:323
 #: ui/MainWindow.ui:936 ui/ProcessesDetailsWindow.ui:1685
-#: ui/ProcessesMenuCustomizations.ui:518 ui/ProcessesMenuCustomizations.ui:596
+#: ui/ProcessesMenuCustomizations.ui:520 ui/ProcessesMenuCustomizations.ui:598
 msgid "Disk"
 msgstr "Диск"
 
-#: src/Disk.py:349 src/Performance.py:1268
+#: src/Disk.py:349 src/Performance.py:1269
 msgid "Swap"
 msgstr "Подкачка"
 
 #: src/Disk.py:426 src/Disk.py:427 src/Disk.py:428 src/Disk.py:429
-#: src/Disk.py:431 src/MainGUI.py:789
+#: src/Disk.py:431 src/MainGUI.py:794
 msgid "Not mounted"
 msgstr "Не смонтирован"
 
 #: src/Disk.py:515 src/Gpu.py:230 src/Gpu.py:233 src/Network.py:262
-#: src/Network.py:306 src/Services.py:157 src/ServicesDetails.py:134
-#: src/UsersDetails.py:206
+#: src/Network.py:306 src/Services.py:158 src/ServicesDetails.py:134
+#: src/UsersDetails.py:209
 msgid "Yes"
 msgstr "Да"
 
-#: src/Disk.py:517 src/Gpu.py:235 src/Network.py:264 src/Services.py:157
-#: src/ServicesDetails.py:134 src/UsersDetails.py:208
+#: src/Disk.py:517 src/Gpu.py:235 src/Network.py:264 src/Services.py:158
+#: src/ServicesDetails.py:134 src/UsersDetails.py:211
 msgid "No"
 msgstr "Нет"
 
-#: src/MainGUI.py:214
+#: src/MainGUI.py:217
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -74,23 +74,23 @@ msgstr ""
 "Внимание! Приложение было запущенно с правами администратора, это может "
 "навредить системе."
 
-#: src/MainGUI.py:652 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: src/MainGUI.py:655 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:633 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
 msgstr "Сводка"
 
-#: src/MainGUI.py:662
+#: src/MainGUI.py:665
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "Выбор ядра ЦП влияет только на информацию о частоте и кэше."
 
-#: src/MainGUI.py:666 src/Memory.py:199 src/Performance.py:1248
-#: src/Performance.py:1570 src/Performance.py:1574 ui/MainWindow.ui:920
+#: src/MainGUI.py:669 src/Memory.py:199 src/Performance.py:1249
+#: src/Performance.py:1583 src/Performance.py:1587 ui/MainWindow.ui:920
 #: ui/MemoryMenus.ui:100 ui/MemoryTab.ui:28
 msgid "RAM"
 msgstr "ОЗУ"
 
-#: src/MainGUI.py:666 src/Memory.py:228 src/Performance.py:1574
+#: src/MainGUI.py:669 src/Memory.py:228 src/Performance.py:1587
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:642
 #: ui/ProcessesDetailsWindow.ui:1066
 msgid "Swap Memory"
@@ -145,8 +145,8 @@ msgstr "Хранилище местоположения"
 msgid "File"
 msgstr "Файл"
 
-#: src/MemorySwapDetails.py:97 src/Processes.py:182 src/Sensors.py:81
-#: src/Services.py:125 ui/ProcessesDetailsWindow.ui:55
+#: src/MemorySwapDetails.py:97 src/Processes.py:202 src/Sensors.py:81
+#: src/Services.py:126 ui/ProcessesDetailsWindow.ui:55
 #: ui/ProcessesMenuCustomizations.ui:137 ui/ServicesDetailsWindow.ui:49
 #: ui/ServicesMenuCustomizations.ui:57 ui/SystemTab.ui:373 ui/SystemTab.ui:697
 msgid "Name"
@@ -157,8 +157,8 @@ msgstr "Название"
 msgid "Used"
 msgstr "Использовано"
 
-#: src/MemorySwapDetails.py:101 src/Processes.py:194
-#: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesMenuCustomizations.ui:237
+#: src/MemorySwapDetails.py:101 src/Processes.py:214
+#: ui/ProcessesDetailsWindow.ui:107 ui/ProcessesMenuCustomizations.ui:239
 msgid "Priority"
 msgstr "Приоритет"
 
@@ -174,166 +174,170 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:1239 src/Processes.py:186 src/SettingsGUI.py:51
+#: src/Performance.py:1240 src/Processes.py:206 src/SettingsGUI.py:51
 #: src/Users.py:129 ui/CpuMenus.ui:23 ui/CpuMenus.ui:124 ui/CpuTab.ui:591
 #: ui/MainWindow.ui:229 ui/MainWindow.ui:881 ui/ProcessesDetailsWindow.ui:120
 #: ui/ProcessesDetailsWindow.ui:961 ui/ProcessesDetailsWindow.ui:981
-#: ui/ProcessesMenuCustomizations.ui:195 ui/ProcessesMenuCustomizations.ui:486
+#: ui/ProcessesMenuCustomizations.ui:197 ui/ProcessesMenuCustomizations.ui:488
 #: ui/UsersDetailsWindow.ui:175 ui/UsersMenuCustomizations.ui:157
 msgid "CPU"
 msgstr "ЦП"
 
-#: src/Performance.py:1257 src/Processes.py:761 src/SettingsGUI.py:50
+#: src/Performance.py:1258 src/Processes.py:491 src/SettingsGUI.py:50
 #: src/Users.py:124 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
 msgid "Processes"
 msgstr "Процессы"
 
-#: src/Performance.py:1419 src/Processes.py:192 ui/DiskMenus.ui:90
+#: src/Performance.py:1420 src/Processes.py:212 ui/DiskMenus.ui:90
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:662 ui/ProcessesDetailsWindow.ui:146
 #: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesDetailsWindow.ui:1616
-#: ui/ProcessesMenuCustomizations.ui:307
+#: ui/ProcessesMenuCustomizations.ui:309
 msgid "Read Speed"
 msgstr "Скорость чтения"
 
-#: src/Performance.py:1428 src/Processes.py:193 ui/DiskMenus.ui:103
+#: src/Performance.py:1432 src/Processes.py:213 ui/DiskMenus.ui:103
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:685 ui/ProcessesDetailsWindow.ui:588
 #: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesDetailsWindow.ui:1639
-#: ui/ProcessesMenuCustomizations.ui:321
+#: ui/ProcessesMenuCustomizations.ui:323
 msgid "Write Speed"
 msgstr "Скорость записи"
 
-#: src/Performance.py:1437 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
+#: src/Performance.py:1444 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
 #: ui/NetworkTab.ui:632
 msgid "Download Speed"
 msgstr "Скорость скачивания"
 
-#: src/Performance.py:1446 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
+#: src/Performance.py:1456 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
 #: ui/NetworkTab.ui:655
 msgid "Upload Speed"
 msgstr "Скорость загрузки"
 
-#: src/Processes.py:183 src/ProcessesDetails.py:284
+#: src/Processes.py:203 src/ProcessesDetails.py:279
 #: ui/ProcessesDetailsWindow.ui:68 ui/ProcessesMenuCustomizations.ui:153
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:184 src/Users.py:119 src/UsersDetails.py:121
-#: ui/ProcessesDetailsWindow.ui:94 ui/ProcessesMenuCustomizations.ui:167
+#: src/Processes.py:204 src/Users.py:119 src/UsersDetails.py:124
+#: ui/ProcessesDetailsWindow.ui:94 ui/ProcessesMenuCustomizations.ui:169
 #: ui/UsersDetailsWindow.ui:7 ui/UsersDetailsWindow.ui:45
 #: ui/UsersMenuCustomizations.ui:57
 msgid "User"
 msgstr "Пользователь"
 
-#: src/Processes.py:185 ui/ProcessesDetailsWindow.ui:81
-#: ui/ProcessesMenuCustomizations.ui:181
+#: src/Processes.py:205 ui/ProcessesDetailsWindow.ui:81
+#: ui/ProcessesMenuCustomizations.ui:183
 msgid "Status"
 msgstr "Статус"
 
-#: src/Processes.py:187 src/Services.py:131 ui/ProcessesDetailsWindow.ui:133
+#: src/Processes.py:207 src/Services.py:132 ui/ProcessesDetailsWindow.ui:133
 #: ui/ProcessesDetailsWindow.ui:1014 ui/ProcessesDetailsWindow.ui:1236
-#: ui/ProcessesMenuCustomizations.ui:209 ui/ServicesDetailsWindow.ui:238
+#: ui/ProcessesMenuCustomizations.ui:211 ui/ServicesDetailsWindow.ui:238
 #: ui/ServicesMenuCustomizations.ui:143
 msgid "Memory (RSS)"
 msgstr "Память (RSS)"
 
-#: src/Processes.py:188 ui/ProcessesDetailsWindow.ui:1027
-#: ui/ProcessesMenuCustomizations.ui:223
+#: src/Processes.py:208 ui/ProcessesDetailsWindow.ui:1027
+#: ui/ProcessesMenuCustomizations.ui:225
 msgid "Memory (VMS)"
 msgstr "Память (VMS)"
 
-#: src/Processes.py:189 ui/ProcessesDetailsWindow.ui:1040
-#: ui/ProcessesMenuCustomizations.ui:293
+#: src/Processes.py:209 ui/ProcessesDetailsWindow.ui:1040
+#: ui/ProcessesMenuCustomizations.ui:295
 msgid "Memory (Shared)"
 msgstr "Память (разделённая)"
 
-#: src/Processes.py:190 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1348
-#: ui/ProcessesMenuCustomizations.ui:335
+#: src/Processes.py:210 ui/DiskTab.ui:176 ui/ProcessesDetailsWindow.ui:1348
+#: ui/ProcessesMenuCustomizations.ui:337
 msgid "Read Data"
 msgstr "Прочитано данных"
 
-#: src/Processes.py:191 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1361
-#: ui/ProcessesMenuCustomizations.ui:349
+#: src/Processes.py:211 ui/DiskTab.ui:189 ui/ProcessesDetailsWindow.ui:1361
+#: ui/ProcessesMenuCustomizations.ui:351
 msgid "Written Data"
 msgstr "Записано данных"
 
-#: src/Processes.py:195 ui/ProcessesDetailsWindow.ui:948
-#: ui/ProcessesMenuCustomizations.ui:251
+#: src/Processes.py:215 ui/ProcessesDetailsWindow.ui:948
+#: ui/ProcessesMenuCustomizations.ui:253
 msgid "Threads"
 msgstr "Потоки"
 
-#: src/Processes.py:196 ui/ProcessesDetailsWindow.ui:185
-#: ui/ProcessesMenuCustomizations.ui:265
+#: src/Processes.py:216 ui/ProcessesDetailsWindow.ui:185
+#: ui/ProcessesMenuCustomizations.ui:267
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:197 src/Users.py:122 ui/ProcessesDetailsWindow.ui:363
-#: ui/ProcessesMenuCustomizations.ui:363 ui/UsersDetailsWindow.ui:84
+#: src/Processes.py:217 src/Users.py:122 ui/ProcessesDetailsWindow.ui:363
+#: ui/ProcessesMenuCustomizations.ui:365 ui/UsersDetailsWindow.ui:84
 #: ui/UsersMenuCustomizations.ui:101
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:198 src/Users.py:123 ui/ProcessesDetailsWindow.ui:376
-#: ui/ProcessesMenuCustomizations.ui:377 ui/UsersDetailsWindow.ui:97
+#: src/Processes.py:218 src/Users.py:123 ui/ProcessesDetailsWindow.ui:376
+#: ui/ProcessesMenuCustomizations.ui:379 ui/UsersDetailsWindow.ui:97
 #: ui/UsersMenuCustomizations.ui:115
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:199 ui/ProcessesDetailsWindow.ui:172
-#: ui/ProcessesDetailsWindow.ui:1718 ui/ProcessesMenuCustomizations.ui:279
-#: ui/ServicesDetailsWindow.ui:75
-msgid "Path"
-msgstr "Путь"
+#: src/Processes.py:219 src/Users.py:128 ui/ProcessesDetailsWindow.ui:159
+#: ui/ProcessesMenuCustomizations.ui:281 ui/UsersDetailsWindow.ui:162
+#: ui/UsersMenuCustomizations.ui:185
+msgid "Start Time"
+msgstr "Время запуска"
 
-#: src/Processes.py:200 ui/ProcessesDetailsWindow.ui:1744
-#: ui/ProcessesMenuCustomizations.ui:391
+#: src/Processes.py:220 ui/ProcessesDetailsWindow.ui:1744
+#: ui/ProcessesMenuCustomizations.ui:393
 msgid "Command Line"
 msgstr "Командная строка"
 
-#: src/Processes.py:226 src/Services.py:156 src/ServicesDetails.py:133
+#: src/Processes.py:258 src/Services.py:157 src/ServicesDetails.py:133
 msgid "Running"
 msgstr "Выполняется"
 
-#: src/Processes.py:226
+#: src/Processes.py:258
 msgid "Sleeping"
 msgstr "Спит"
 
-#: src/Processes.py:226
+#: src/Processes.py:258
 msgid "Waiting"
 msgstr "Ожидает"
 
-#: src/Processes.py:226
+#: src/Processes.py:258
 msgid "Idle"
 msgstr "Бездействует"
 
-#: src/Processes.py:226
+#: src/Processes.py:258
 msgid "Zombie"
 msgstr "Зомби"
 
-#: src/Processes.py:226
+#: src/Processes.py:258
 msgid "Stopped"
 msgstr "Остановился"
 
-#: src/Processes.py:761 src/Sensors.py:342 src/Services.py:489 src/Users.py:464
+#: src/Processes.py:491 src/Sensors.py:342 src/Services.py:495 src/Users.py:465
 #: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:79
 #: ui/UsersTab.ui:66
 msgid "Search..."
 msgstr "Поиск..."
 
-#: src/ProcessesDetails.py:284 ui/ProcessesDetailsWindow.ui:7
+#: src/ProcessesDetails.py:279 ui/ProcessesDetailsWindow.ui:7
 msgid "Process Details"
 msgstr "Параметры процесса"
 
-#: src/ProcessesDetails.py:401
+#: src/ProcessesDetails.py:396
 msgid "This process is not running anymore."
 msgstr "Этот процесс больше не запущен."
 
-#: src/ProcessesMenuRightClick.py:80
+#: src/ProcessesMenuRightClick.py:71
+msgid "Do you want to pause this process?"
+msgstr ""
+
+#: src/ProcessesMenuRightClick.py:82
 msgid "Do you want to end this process?"
 msgstr "Вы уверены, что хотите остановить текущий процесс?"
 
-#: src/ProcessesMenuRightClick.py:86
+#: src/ProcessesMenuRightClick.py:88
 msgid "Do you want to end this process immediately?"
 msgstr "Вы уверены, что хотите остановить текущий процесс принудительно?"
 
@@ -358,88 +362,88 @@ msgstr "Критическое"
 msgid "Sensors"
 msgstr "Датчики"
 
-#: src/Services.py:126 ui/ServicesMenuCustomizations.ui:73
+#: src/Services.py:127 ui/ServicesMenuCustomizations.ui:73
 msgid "State"
 msgstr "Состояние"
 
-#: src/Services.py:127 ui/ServicesDetailsWindow.ui:400
+#: src/Services.py:128 ui/ServicesDetailsWindow.ui:400
 #: ui/ServicesMenuCustomizations.ui:87
 msgid "Main PID"
 msgstr "Основной PID"
 
-#: src/Services.py:128 ui/ServicesDetailsWindow.ui:277
+#: src/Services.py:129 ui/ServicesDetailsWindow.ui:277
 #: ui/ServicesMenuCustomizations.ui:101
 msgid "Active State"
 msgstr "Активное Состояние"
 
-#: src/Services.py:129 ui/ServicesDetailsWindow.ui:264
+#: src/Services.py:130 ui/ServicesDetailsWindow.ui:264
 #: ui/ServicesMenuCustomizations.ui:115
 msgid "Load State"
 msgstr "Состояние Загрузки"
 
-#: src/Services.py:130 ui/ServicesDetailsWindow.ui:290
+#: src/Services.py:131 ui/ServicesDetailsWindow.ui:290
 #: ui/ServicesMenuCustomizations.ui:129
 msgid "Sub-State"
 msgstr "Субсостояние"
 
-#: src/Services.py:132 ui/ServicesDetailsWindow.ui:62
+#: src/Services.py:133 ui/ServicesDetailsWindow.ui:62
 #: ui/ServicesMenuCustomizations.ui:157
 msgid "Description"
 msgstr "Описание"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Enabled"
 msgstr "Включен"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Disabled"
 msgstr "Выключен"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Masked"
 msgstr "Замаксирован"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Unmasked"
 msgstr "Незамаскирован"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Static"
 msgstr "Статический"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Generated"
 msgstr "Сгенерированный"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Enabled-runtime"
 msgstr "Включен во время работы"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Indirect"
 msgstr "Непрямой"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Active"
 msgstr "Активный"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Inactive"
 msgstr "Неактивный"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Loaded"
 msgstr "Загружен"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Dead"
 msgstr "Умер"
 
-#: src/Services.py:156 src/ServicesDetails.py:133
+#: src/Services.py:157 src/ServicesDetails.py:133
 msgid "Exited"
 msgstr "Вышел"
 
-#: src/Services.py:489 src/SettingsGUI.py:50 ui/MainWindow.ui:769
+#: src/Services.py:495 src/SettingsGUI.py:50 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Сервисы"
@@ -456,7 +460,7 @@ msgstr "Информация"
 msgid "Performance"
 msgstr "Производительность"
 
-#: src/SettingsGUI.py:50 src/Users.py:464 ui/MainWindow.ui:722
+#: src/SettingsGUI.py:50 src/Users.py:465 ui/MainWindow.ui:722
 #: ui/UsersMenuCustomizations.ui:23 ui/UsersTab.ui:48
 msgid "Users"
 msgstr "Пользователи"
@@ -468,7 +472,7 @@ msgstr "Система"
 
 #: src/SettingsGUI.py:51 ui/MainWindow.ui:276 ui/MemoryMenus.ui:23
 #: ui/MemoryMenus.ui:114 ui/MemoryTab.ui:733 ui/ProcessesDetailsWindow.ui:1289
-#: ui/ProcessesMenuCustomizations.ui:497 ui/ProcessesMenuCustomizations.ui:585
+#: ui/ProcessesMenuCustomizations.ui:499 ui/ProcessesMenuCustomizations.ui:587
 msgid "Memory"
 msgstr "Память"
 
@@ -490,7 +494,7 @@ msgstr "Системный монитор"
 msgid "Task Manager"
 msgstr "Диспетчер задач"
 
-#: src/SettingsGUI.py:592
+#: src/SettingsGUI.py:593
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Хотите ли вы откатить все настройки по умолчанию?"
 
@@ -519,13 +523,8 @@ msgstr "Группа"
 msgid "Terminal"
 msgstr "Терминал"
 
-#: src/Users.py:128 ui/ProcessesDetailsWindow.ui:159
-#: ui/UsersDetailsWindow.ui:162 ui/UsersMenuCustomizations.ui:185
-msgid "Start Time"
-msgstr "Время запуска"
-
 #: ui/CpuMenus.ui:109 ui/DiskMenus.ui:47 ui/GpuMenus.ui:47 ui/MemoryMenus.ui:69
-#: ui/NetworkMenus.ui:47 ui/ProcessesMenuCustomizations.ui:792
+#: ui/NetworkMenus.ui:47 ui/ProcessesMenuCustomizations.ui:794
 #: ui/ServicesMenuCustomizations.ui:210 ui/SettingsWindow.ui:172
 #: ui/UsersMenuCustomizations.ui:255
 msgid "Reset"
@@ -537,7 +536,7 @@ msgid "Graph - Show"
 msgstr "Отображение"
 
 #: ui/CpuMenus.ui:151 ui/DiskMenus.ui:178 ui/MemoryMenus.ui:164
-#: ui/NetworkMenus.ui:192 ui/ProcessesMenuCustomizations.ui:548
+#: ui/NetworkMenus.ui:192 ui/ProcessesMenuCustomizations.ui:550
 msgid "Precision"
 msgstr "Точность"
 
@@ -641,17 +640,17 @@ msgid "All Devices"
 msgstr "Все устройства"
 
 #: ui/DiskMenus.ui:193 ui/MemoryMenus.ui:179 ui/NetworkMenus.ui:207
-#: ui/ProcessesMenuCustomizations.ui:563
+#: ui/ProcessesMenuCustomizations.ui:565
 msgid "Data Unit"
 msgstr "Единица измерения данных"
 
 #: ui/DiskMenus.ui:230 ui/NetworkMenus.ui:229
-#: ui/ProcessesMenuCustomizations.ui:605
+#: ui/ProcessesMenuCustomizations.ui:607
 msgid "Show speed units as multiples of bits"
 msgstr "Показывать единицу измерения скорости данных как кратную битам"
 
 #: ui/DiskMenus.ui:295 ui/MemoryMenus.ui:244 ui/NetworkMenus.ui:294
-#: ui/ProcessesMenuCustomizations.ui:658 ui/ProcessesMenuCustomizations.ui:731
+#: ui/ProcessesMenuCustomizations.ui:660 ui/ProcessesMenuCustomizations.ui:733
 msgid "Show data as powers of"
 msgstr "Показывать данные как степень"
 
@@ -786,6 +785,11 @@ msgstr ""
 msgid "Cancel"
 msgstr "Отменить"
 
+#: ui/ProcessesDetailsWindow.ui:172 ui/ProcessesDetailsWindow.ui:1718
+#: ui/ServicesDetailsWindow.ui:75
+msgid "Path"
+msgstr "Путь"
+
 #: ui/ProcessesDetailsWindow.ui:896
 msgid "Context Switches"
 msgstr "Переключения контекста"
@@ -838,13 +842,13 @@ msgstr "Показать линии дерева"
 msgid "View"
 msgstr "Вид"
 
-#: ui/ProcessesMenuCustomizations.ui:417 ui/ProcessesMenuCustomizations.ui:436
+#: ui/ProcessesMenuCustomizations.ui:419 ui/ProcessesMenuCustomizations.ui:438
 #: ui/ServicesMenuCustomizations.ui:180 ui/ServicesMenuCustomizations.ui:196
 #: ui/UsersMenuCustomizations.ui:225 ui/UsersMenuCustomizations.ui:241
 msgid "Add/Remove Columns"
 msgstr "Добавить/Удалить столбец"
 
-#: ui/ProcessesMenuCustomizations.ui:777
+#: ui/ProcessesMenuCustomizations.ui:779
 msgid "Numbers"
 msgstr "Количество"
 

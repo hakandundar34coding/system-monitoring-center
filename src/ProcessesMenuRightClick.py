@@ -68,6 +68,7 @@ class ProcessesMenuRightClick:
         if widget == self.menuitem2101m:
             process_command = ["kill", "-19", selected_process_pid]
             process_command_pkexec = ["pkexec", "kill", "-19", selected_process_pid]
+            process_dialog_message = _tr("Do you want to pause this process?")
 
         # Define signal and command for the process by checking the clicked menu item (Continue Process).
         if widget == self.menuitem2102m:
@@ -87,7 +88,7 @@ class ProcessesMenuRightClick:
             process_dialog_message = _tr("Do you want to end this process immediately?")
 
         # Show warning dialog if process is tried to be ended.
-        if Config.warn_before_stopping_processes == 1 and (widget == self.menuitem2103m or widget == self.menuitem2104m):
+        if Config.warn_before_stopping_processes == 1 and (widget == self.menuitem2101m or widget == self.menuitem2103m or widget == self.menuitem2104m):
             self.processes_end_process_warning_dialog(process_dialog_message, selected_process_name, selected_process_pid)
             if self.dialog2101_response != Gtk.ResponseType.YES:
                 return
