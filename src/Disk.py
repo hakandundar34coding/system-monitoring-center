@@ -54,7 +54,7 @@ class Disk:
 
         # Label (device vendor-model label)
         self.device_vendor_model_label = Common.device_vendor_model_label()
-        self.device_vendor_model_label.set_tooltip_text(_tr("Vendor-Model"))
+        self.device_vendor_model_label.set_tooltip_text(_tr("Vendor") + "-" + _tr("Model"))
         grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
 
         # Label (device kernel name)
@@ -302,7 +302,7 @@ class Disk:
         main_grid.attach(self.disk_details_used_label, 2, 8, 1, 1)
 
         # Label (Vendor-Model)
-        label = Common.static_information_label(_tr("Vendor-Model"))
+        label = Common.static_information_label(_tr("Vendor") + "-" + _tr("Model"))
         main_grid.attach(label, 0, 9, 1, 1)
         # Label (Vendor-Model)
         label = Common.static_information_label(":")

@@ -51,7 +51,7 @@ class Network:
 
         # Label (device vendor-model label)
         self.device_vendor_model_label = Common.device_vendor_model_label()
-        self.device_vendor_model_label.set_tooltip_text(_tr("Vendor-Model"))
+        self.device_vendor_model_label.set_tooltip_text(_tr("Vendor") + "-" + _tr("Model"))
         grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
 
         # Label (device kernel name)
@@ -120,7 +120,7 @@ class Network:
         performance_info_right_grid.attach(self.connection_type_label, 1, 0, 1, 1)
 
         # Label (Connected-SSID)
-        label = Common.static_information_label(_tr("Connected-SSID") + ":")
+        label = Common.static_information_label(_tr("Connected") + "-" + _tr("SSID") + ":")
         performance_info_right_grid.attach(label, 0, 1, 1, 1)
         # Label (Connected-SSID)
         self.connected_ssid_label = Common.dynamic_information_label()

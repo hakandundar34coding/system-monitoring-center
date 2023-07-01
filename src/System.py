@@ -113,7 +113,7 @@ class System:
         grid.attach(self.os_name_label, 1, 1, 1, 1)
 
         # Label (Version - Code Name)
-        label = Common.static_information_label(_tr("Version - Code Name") + ":")
+        label = Common.static_information_label(_tr("Version") + " - " + _tr("Code Name") + ":")
         grid.attach(label, 0, 2, 1, 1)
         # Label (Version - Code Name)
         self.version_codename_label = Common.dynamic_information_label()

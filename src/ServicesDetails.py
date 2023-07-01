@@ -105,7 +105,7 @@ class ServicesDetails:
         grid.attach(self.description_label, 2, 1, 1, 1)
 
         # Label (Unit File State - Preset)
-        label = Common.static_information_label(_tr("Unit File State - Preset"))
+        label = Common.static_information_label(_tr("Unit File State") + " - " + _tr("Preset"))
         grid.attach(label, 0, 2, 1, 1)
         # Label (Unit File State - Preset)
         label = Common.static_information_label(":")

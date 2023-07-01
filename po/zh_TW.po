@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-30 15:56+0300\n"
-"PO-Revision-Date: 2023-06-30 15:59+0300\n"
+"POT-Creation-Date: 2023-07-01 10:53+0300\n"
+"PO-Revision-Date: 2023-07-01 10:59+0300\n"
 "Last-Translator: csc-chicken <k2205940@gmail.com>, 2023.\n"
 "Language-Team: Traditional-Chinese(Taiwan num1)) <k2205940@gmail.com>, "
 "2023.\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
-#: src/MainWindow.py:66 src/MainWindow.py:513
+#: src/MainWindow.py:66 src/MainWindow.py:516
 msgid "System Monitoring Center"
 msgstr "系統監控中心"
 
@@ -31,7 +31,7 @@ msgid "System Monitor"
 msgstr "系統監控"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
-#: src/MainWindow.py:515
+#: src/MainWindow.py:518
 msgid "Multi-featured system monitor"
 msgstr "多功能系統監控中心"
 
@@ -59,8 +59,8 @@ msgstr "圖表頻色"
 msgid "Search..."
 msgstr "尋找..."
 
-#: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:70 src/MainWindow.py:135
-#: src/MainWindow.py:284 src/Processes.py:860 src/Processes.py:877
+#: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:70 src/MainWindow.py:138
+#: src/MainWindow.py:287 src/Processes.py:860 src/Processes.py:877
 #: src/ProcessesDetails.py:65 src/ProcessesDetails.py:157
 #: src/ProcessesDetails.py:284 src/ProcessesMenu.py:178
 #: src/ProcessesMenu.py:246 src/ProcessesMenu.py:287 src/ProcessesMenu.py:328
@@ -70,8 +70,14 @@ msgid "CPU"
 msgstr "CPU"
 
 #: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:59 src/Network.py:54
-msgid "Vendor-Model"
-msgstr "製造商-模型"
+#: src/System.py:194
+msgid "Vendor"
+msgstr "製造商"
+
+#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:59 src/Network.py:54
+#: src/System.py:201
+msgid "Model"
+msgstr "模型"
 
 #: src/Cpu.py:59 src/Disk.py:62 src/Gpu.py:64 src/Network.py:59
 msgid "Device Name In Kernel"
@@ -93,9 +99,17 @@ msgstr "平均cpu 用量（有所cpu 核心）"
 msgid "Frequency"
 msgstr "頻率"
 
-#: src/Cpu.py:107
-msgid "Processes-Threads"
-msgstr "程序-執行緒"
+#: src/Cpu.py:107 src/MainWindow.py:201 src/Processes.py:81
+#: src/Processes.py:1109 src/ProcessesMenu.py:33 src/SettingsWindow.py:29
+#: src/Summary.py:716 src/Users.py:235 src/UsersDetails.py:115
+#: src/UsersMenu.py:107
+msgid "Processes"
+msgstr "程序"
+
+#: src/Cpu.py:107 src/Processes.py:869 src/ProcessesDetails.py:294
+#: src/ProcessesMenu.py:218
+msgid "Threads"
+msgstr "執行緒"
 
 #: src/Cpu.py:107
 msgid "Up Time"
@@ -144,8 +158,8 @@ msgid "Precision"
 msgstr "精度"
 
 #: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
-#: src/DiskMenu.py:37 src/DiskMenu.py:112 src/MainWindow.py:143
-#: src/MainWindow.py:294 src/ProcessesDetails.py:75 src/ProcessesMenu.py:309
+#: src/DiskMenu.py:37 src/DiskMenu.py:112 src/MainWindow.py:146
+#: src/MainWindow.py:297 src/ProcessesDetails.py:75 src/ProcessesMenu.py:309
 #: src/ProcessesMenu.py:367 src/SettingsWindow.py:30
 msgid "Disk"
 msgstr "硬碟"
@@ -253,7 +267,7 @@ msgstr "Show speed units as multiples of bits"
 msgid "Hide loop, ramdisk, zram disks"
 msgstr "Hide loop, ramdisk, zram disks"
 
-#: src/Gpu.py:54 src/GpuMenu.py:37 src/MainWindow.py:304
+#: src/Gpu.py:54 src/GpuMenu.py:37 src/MainWindow.py:307
 #: src/SettingsWindow.py:30
 msgid "GPU"
 msgstr "GPU"
@@ -263,8 +277,8 @@ msgid "GPU Usage"
 msgstr "GPU-用量"
 
 #: src/Gpu.py:107
-msgid "Video Memory"
-msgstr "視訊記憶體"
+msgid "GPU Memory"
+msgstr "記憶體"
 
 #: src/Gpu.py:112
 msgid "Temperature"
@@ -290,86 +304,80 @@ msgstr "更新率"
 msgid "Resolution"
 msgstr "解析度"
 
-#: src/MainWindow.py:105
+#: src/MainWindow.py:108
 msgid "Customization menu for the current tab"
 msgstr ""
 
-#: src/MainWindow.py:139 src/MainWindow.py:830 src/Memory.py:102
+#: src/MainWindow.py:142 src/MainWindow.py:833 src/Memory.py:102
 #: src/Memory.py:331 src/MemoryMenu.py:45 src/Performance.py:124
 #: src/Performance.py:128 src/Summary.py:699
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainWindow.py:149 src/MainWindow.py:299 src/Network.py:49
+#: src/MainWindow.py:152 src/MainWindow.py:302 src/Network.py:49
 #: src/NetworkMenu.py:37 src/SettingsWindow.py:30
 msgid "Network"
 msgstr "網路"
 
-#: src/MainWindow.py:193 src/SettingsWindow.py:29
+#: src/MainWindow.py:196 src/SettingsWindow.py:29
 msgid "Performance"
 msgstr "效能"
 
-#: src/MainWindow.py:198 src/Processes.py:81 src/Processes.py:1109
-#: src/ProcessesMenu.py:33 src/SettingsWindow.py:29 src/Summary.py:716
-#: src/Users.py:235 src/UsersDetails.py:115 src/UsersMenu.py:107
-msgid "Processes"
-msgstr "程序"
-
-#: src/MainWindow.py:203 src/SettingsWindow.py:29 src/Users.py:61
+#: src/MainWindow.py:206 src/SettingsWindow.py:29 src/Users.py:61
 #: src/Users.py:333 src/UsersMenu.py:33
 msgid "Users"
 msgstr "使用者"
 
-#: src/MainWindow.py:208 src/Services.py:63 src/Services.py:494
+#: src/MainWindow.py:211 src/Services.py:63 src/Services.py:494
 #: src/ServicesMenu.py:33 src/SettingsWindow.py:29
 msgid "Services"
 msgstr "服務"
 
-#: src/MainWindow.py:213 src/SettingsWindow.py:21 src/SettingsWindow.py:26
+#: src/MainWindow.py:216 src/SettingsWindow.py:21 src/SettingsWindow.py:26
 #: src/SettingsWindow.py:29 src/System.py:49 src/System.py:242
 msgid "System"
 msgstr "系統"
 
-#: src/MainWindow.py:279 src/MainWindow.py:816 src/ProcessesDetails.py:60
+#: src/MainWindow.py:282 src/MainWindow.py:819 src/ProcessesDetails.py:60
 #: src/ServicesDetails.py:59 src/SettingsWindow.py:30 src/Summary.py:39
 msgid "Summary"
 msgstr "大綱"
 
-#: src/MainWindow.py:289 src/Memory.py:50 src/MemoryMenu.py:37
+#: src/MainWindow.py:292 src/Memory.py:50 src/MemoryMenu.py:37
 #: src/MemoryMenu.py:49 src/Processes.py:876 src/Processes.py:879
 #: src/ProcessesDetails.py:70 src/ProcessesMenu.py:182 src/ProcessesMenu.py:254
 #: src/ProcessesMenu.py:298 src/ProcessesMenu.py:341 src/SettingsWindow.py:30
 msgid "Memory"
 msgstr "記憶體"
 
-#: src/MainWindow.py:309 src/Sensors.py:51 src/Sensors.py:201
+#: src/MainWindow.py:312 src/Sensors.py:51 src/Sensors.py:201
 #: src/SettingsWindow.py:30
 msgid "Sensors"
 msgstr "感測器"
 
-#: src/MainWindow.py:436 src/SettingsWindow.py:49
+#: src/MainWindow.py:439 src/SettingsWindow.py:49
 msgid "General Settings"
 msgstr "一般設定"
 
-#: src/MainWindow.py:437
+#: src/MainWindow.py:440
 msgid "About"
 msgstr "關於"
 
-#: src/MainWindow.py:826
+#: src/MainWindow.py:829
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "CPU core selection affects only frequency and cache memory information."
 
-#: src/MainWindow.py:830 src/Memory.py:140 src/Memory.py:264 src/Memory.py:365
+#: src/MainWindow.py:833 src/Memory.py:140 src/Memory.py:264 src/Memory.py:365
 #: src/ProcessesDetails.py:423
 msgid "Swap Memory"
 msgstr "swap 記憶體"
 
-#: src/MainWindow.py:969
+#: src/MainWindow.py:972
 msgid "Not mounted"
 msgstr "沒被掛載"
 
-#: src/MainWindow.py:1043
+#: src/MainWindow.py:1046
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -422,8 +430,12 @@ msgid "Connection Type"
 msgstr "連線類型"
 
 #: src/Network.py:123
-msgid "Connected-SSID"
-msgstr "連線的-SSID"
+msgid "Connected"
+msgstr "連線的"
+
+#: src/Network.py:123
+msgid "SSID"
+msgstr "SSID"
 
 #: src/Network.py:130
 msgid "Link Quality"
@@ -558,10 +570,6 @@ msgstr "記憶體(Shared)"
 #: src/Processes.py:868 src/ProcessesDetails.py:147 src/ProcessesMenu.py:214
 msgid "Priority"
 msgstr "優先"
-
-#: src/Processes.py:869 src/ProcessesDetails.py:294 src/ProcessesMenu.py:218
-msgid "Threads"
-msgstr "執行緒"
 
 #: src/Processes.py:870 src/ProcessesDetails.py:217 src/ProcessesMenu.py:222
 msgid "PPID"
@@ -843,8 +851,12 @@ msgid "Dependencies"
 msgstr "依賴"
 
 #: src/ServicesDetails.py:108
-msgid "Unit File State - Preset"
-msgstr "Unit File State - Preset"
+msgid "Unit File State"
+msgstr "Unit File State"
+
+#: src/ServicesDetails.py:108
+msgid "Preset"
+msgstr "Preset"
 
 #: src/ServicesDetails.py:158
 msgid "Documentation"
@@ -898,39 +910,43 @@ msgstr "語言 (Requires restart)"
 msgid "Light/Dark theme"
 msgstr "亮暗主題"
 
-#: src/SettingsWindow.py:88
+#: src/SettingsWindow.py:84
+msgid "Opacity"
+msgstr ""
+
+#: src/SettingsWindow.py:102
 msgid "Update interval (seconds)"
 msgstr "更新週期（seconds)"
 
-#: src/SettingsWindow.py:96
+#: src/SettingsWindow.py:110
 msgid "Graph data history"
 msgstr "圖表數據歷史"
 
-#: src/SettingsWindow.py:108
+#: src/SettingsWindow.py:122
 msgid "Show performance summary on the headerbar"
 msgstr "秀表現大綱在 上面（headerbar)"
 
-#: src/SettingsWindow.py:116
+#: src/SettingsWindow.py:130
 msgid "Remember last opened tabs"
 msgstr "記得最後開啟的分頁"
 
-#: src/SettingsWindow.py:125
+#: src/SettingsWindow.py:139
 msgid "Default main tab and sub-tab"
 msgstr "預設主分頁及次分頁"
 
-#: src/SettingsWindow.py:141
+#: src/SettingsWindow.py:155
 msgid "Remember last selected devices"
 msgstr "記得最後選擇的裝置"
 
-#: src/SettingsWindow.py:149
+#: src/SettingsWindow.py:163
 msgid "Remember window size"
 msgstr "記得窗口的大小"
 
-#: src/SettingsWindow.py:167
+#: src/SettingsWindow.py:181
 msgid "Reset all settings of the application"
 msgstr "重置應用的所有設置"
 
-#: src/SettingsWindow.py:702
+#: src/SettingsWindow.py:733
 msgid "Do you want to reset all settings to defaults?"
 msgstr "你想要重置所有的設置嗎？"
 
@@ -943,8 +959,12 @@ msgid "Computer"
 msgstr "電腦"
 
 #: src/System.py:116
-msgid "Version - Code Name"
-msgstr "版本- 版號"
+msgid "Version"
+msgstr "版本"
+
+#: src/System.py:116
+msgid "Code Name"
+msgstr "版號"
 
 #: src/System.py:123
 msgid "OS Family"
@@ -981,14 +1001,6 @@ msgstr "窗口管理員 (Window Manager)"
 #: src/System.py:183
 msgid "Display Manager"
 msgstr "螢幕管理員 (Display Manager)"
-
-#: src/System.py:194
-msgid "Vendor"
-msgstr "製造商"
-
-#: src/System.py:201
-msgid "Model"
-msgstr "模型"
 
 #: src/System.py:208
 msgid "Computer Type"

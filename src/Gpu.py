@@ -56,7 +56,7 @@ class Gpu:
 
         # Label (device vendor-model label)
         self.device_vendor_model_label = Common.device_vendor_model_label()
-        self.device_vendor_model_label.set_tooltip_text(_tr("Vendor-Model"))
+        self.device_vendor_model_label.set_tooltip_text(_tr("Vendor") + "-" + _tr("Model"))
         grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
 
         # Label (device kernel name)
@@ -104,7 +104,7 @@ class Gpu:
 
         # Styled information widgets (GPU Usage and Video Memory)
         # ScrolledWindow (GPU Usage and Video Memory)
-        scrolledwindow, self.gpu_usage_label, self.video_memory_label = Common.styled_information_scrolledwindow(_tr("GPU Usage"), None, _tr("Video Memory"), None)
+        scrolledwindow, self.gpu_usage_label, self.video_memory_label = Common.styled_information_scrolledwindow(_tr("GPU Usage"), None, _tr("GPU Memory"), None)
         performance_info_grid.attach(scrolledwindow, 0, 0, 1, 1)
 
         # Styled information widgets (Frequency and Temperature)

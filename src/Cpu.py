@@ -51,7 +51,7 @@ class Cpu:
 
         # Label (device vendor-model label)
         self.device_vendor_model_label = Common.device_vendor_model_label()
-        self.device_vendor_model_label.set_tooltip_text(_tr("Vendor-Model"))
+        self.device_vendor_model_label.set_tooltip_text(_tr("Vendor") + "-" + _tr("Model"))
         grid.attach(self.device_vendor_model_label, 1, 0, 1, 1)
 
         # Label (device kernel name)
@@ -104,7 +104,7 @@ class Cpu:
 
         # Styled information widgets (Processes-Threads and Up Time)
         # ScrolledWindow (Processes-Threads and Up Time)
-        scrolledwindow, self.processes_threads_label, self.up_time_label = Common.styled_information_scrolledwindow(_tr("Processes-Threads"), None, _tr("Up Time"), None)
+        scrolledwindow, self.processes_threads_label, self.up_time_label = Common.styled_information_scrolledwindow(_tr("Processes") + "-" + _tr("Threads"), None, _tr("Up Time"), None)
         performance_info_grid.attach(scrolledwindow, 0, 1, 1, 1)
 
         # Grid - Right information labels
