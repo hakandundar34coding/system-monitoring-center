@@ -298,6 +298,8 @@ class System:
         self.flatpak_packages_spinner.set_visible(True)
         self.flatpak_packages_spinner.start()
 
+        self.loop_already_run = 0
+
         self.loop_func()
 
 
@@ -316,6 +318,14 @@ class System:
 
         if self.initial_already_run == 0:
             self.initial_func()
+
+        # Prevent running rest of the code if System tab is opened again.
+        try:
+            if self.loop_already_run == 1:
+                return
+        except AttributeError:
+            pass
+        self.loop_already_run = 1
 
         # Get information.
         os_name, os_version, os_based_on = Libsysmon.get_os_name_version_codename_based_on()
