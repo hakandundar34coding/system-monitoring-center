@@ -1,3 +1,22 @@
+# Status
+
+| Language Code  | Language               | Percentage |
+| -------------- | ---------------------- | ---------- |
+| cs             | Czech                  | 88%        |
+| de             | German                 | 91%        |
+| en             | English                | 100%       |
+| es             | Spanish                | 97%        |
+| fa             | Persian                | 87%        |
+| fr             | French                 | 97%        |
+| hu             | Hungarian              | 89%        |
+| pl             | Polish                 | 91%        |
+| pt_BR          | Portuguese (Brazilian) | 97%        |
+| pt_PT          | Portuguese (Portugal)  | 97%        |
+| ru_RU          | Russian                | 98%        |
+| tr             | Turkish                | 100%       |
+| zh_TW          | Chinese (Traditional)  | 95%        |
+
+
 # Notes For Translators:
 
 - A translation editor (for example: Poedit) may be used for translating the ```.po``` files.
@@ -7,20 +26,5 @@ as ```Connected SSID```. The text contains two different information.
 
 - Be careful about uppercase and lowercase letters.
 
-
-| Language Code  | Language               | Percentage |
-| -------------- | ---------------------- | ---------- |
-| cs             | Czech                  | 89%        |
-| de             | German                 | 92%        |
-| en             | English                | 100%       |
-| es             | Spanish                | 98%        |
-| fa             | Persian                | 89%        |
-| fr             | French                 | 98%        |
-| hu             | Hungarian              | 91%        |
-| pl             | Polish                 | 92%        |
-| pt_BR          | Portuguese (Brazilian) | 99%        |
-| pt_PT          | Portuguese (Portugal)  | 99%        |
-| ru_RU          | Russian                | 100%       |
-| tr             | Turkish                | 100%       |
-| zh_TW          | Chinese (Traditional)  | 97%        |
+- If you want to use an English text directly, copy and paste the source text, instead of leaving a translation blank.
 
