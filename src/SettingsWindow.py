@@ -80,47 +80,61 @@ class SettingsWindow:
         self.light_dark_theme_dd = Common.dropdown_and_model(item_list)
         main_grid.attach(self.light_dark_theme_dd, 1, 1, 1, 1)
 
+        # Label (Opacity)
+        label = Common.static_information_label_no_ellipsize(_tr("Opacity") + " (0.4 - 1.0)" + ":")
+        main_grid.attach(label, 0, 2, 1, 1)
+        # Adjustment (for SpinButton)
+        self.adjustment = Gtk.Adjustment()
+        self.adjustment.configure(1.0, 0.4, 1.0, 0.05, 0, 0)
+        # SpinButton (Opacity)
+        self.scale = Gtk.SpinButton.new_with_range(0.4, 1.0, 0.05)
+        self.scale.set_digits(2)
+        self.scale.set_snap_to_ticks(True)
+        self.scale.set_numeric(True)
+        self.scale.set_adjustment(self.adjustment)
+        main_grid.attach(self.scale, 1, 2, 1, 1)
+
         # Separator
         separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 2, 2, 1)
+        main_grid.attach(separator, 0, 3, 2, 1)
 
         # Label (Update interval)
         label = Common.static_information_label_no_ellipsize(_tr("Update interval (seconds)") + ":")
-        main_grid.attach(label, 0, 3, 1, 1)
+        main_grid.attach(label, 0, 4, 1, 1)
         # DropDown (Update interval)
         item_list = self.update_interval_list
         self.update_interval_dd = Common.dropdown_and_model(item_list)
-        main_grid.attach(self.update_interval_dd, 1, 3, 1, 1)
+        main_grid.attach(self.update_interval_dd, 1, 4, 1, 1)
 
         # Label (Graph data history)
         label = Common.static_information_label_no_ellipsize(_tr("Graph data history") + ":")
-        main_grid.attach(label, 0, 4, 1, 1)
+        main_grid.attach(label, 0, 5, 1, 1)
         # DropDown (Graph data history)
         item_list = self.chart_data_history_list
         self.graph_data_history_dd = Common.dropdown_and_model(item_list)
-        main_grid.attach(self.graph_data_history_dd, 1, 4, 1, 1)
+        main_grid.attach(self.graph_data_history_dd, 1, 5, 1, 1)
 
         # Separator
         separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 5, 2, 1)
+        main_grid.attach(separator, 0, 6, 2, 1)
 
         # CheckButton (Show performance summary on headerbar)
         self.show_performance_summary_on_hb_cb = Common.checkbutton(_tr("Show performance summary on the headerbar"), None)
-        main_grid.attach(self.show_performance_summary_on_hb_cb, 0, 6, 2, 1)
+        main_grid.attach(self.show_performance_summary_on_hb_cb, 0, 7, 2, 1)
 
         # Separator
         separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 7, 2, 1)
+        main_grid.attach(separator, 0, 8, 2, 1)
 
         # CheckButton (Remember last opened tabs"
         self.remember_last_opened_tabs_cb = Common.checkbutton(_tr("Remember last opened tabs"), None)
-        main_grid.attach(self.remember_last_opened_tabs_cb, 0, 8, 2, 1)
+        main_grid.attach(self.remember_last_opened_tabs_cb, 0, 9, 2, 1)
 
         # Grid (Default main tab and sub-tab)
         default_main_sub_tab_grid = Gtk.Grid()
         default_main_sub_tab_grid.set_column_spacing(5)
         default_main_sub_tab_grid.set_column_homogeneous(True)
-        main_grid.attach(default_main_sub_tab_grid, 0, 9, 2, 1)
+        main_grid.attach(default_main_sub_tab_grid, 0, 10, 2, 1)
         # Label (Default main tab and sub-tab)
         label = Common.static_information_label_no_ellipsize(_tr("Default main tab and sub-tab") + ":")
         default_main_sub_tab_grid.attach(label, 0, 0, 2, 1)
@@ -135,38 +149,38 @@ class SettingsWindow:
 
         # Separator
         separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 10, 2, 1)
+        main_grid.attach(separator, 0, 11, 2, 1)
 
         # CheckButton (Remember last selected devices)
         self.remember_last_selected_devices_cb = Common.checkbutton(_tr("Remember last selected devices"), None)
-        main_grid.attach(self.remember_last_selected_devices_cb, 0, 11, 2, 1)
+        main_grid.attach(self.remember_last_selected_devices_cb, 0, 12, 2, 1)
 
         # Separator
         separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 12, 2, 1)
+        main_grid.attach(separator, 0, 13, 2, 1)
 
         # CheckButton (Remember window size)
         self.remember_window_size_cb = Common.checkbutton(_tr("Remember window size"), None)
-        main_grid.attach(self.remember_window_size_cb, 0, 13, 2, 1)
+        main_grid.attach(self.remember_window_size_cb, 0, 14, 2, 1)
 
         # Separator
         separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 14, 2, 1)
+        main_grid.attach(separator, 0, 15, 2, 1)
 
         # Button (Reset)
         self.reset_button = Common.reset_button()
-        main_grid.attach(self.reset_button, 0, 15, 2, 1)
+        main_grid.attach(self.reset_button, 0, 16, 2, 1)
 
         # Separator
         separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 16, 2, 1)
+        main_grid.attach(separator, 0, 17, 2, 1)
 
         # Button (Reset all settings of the application)
         self.reset_all_settings_button = Gtk.Button()
         self.reset_all_settings_button.set_halign(Gtk.Align.CENTER)
         self.reset_all_settings_button.set_label(_tr("Reset all settings of the application"))
         self.reset_all_settings_button.add_css_class("destructive-action")
-        main_grid.attach(self.reset_all_settings_button, 0, 17, 2, 1)
+        main_grid.attach(self.reset_all_settings_button, 0, 18, 2, 1)
 
 
     def gui_signals(self):
@@ -176,6 +190,9 @@ class SettingsWindow:
 
         # Window signals
         self.settings_window.connect("show", self.on_settings_window_show)
+
+        # Scale signal
+        self.adjustment.connect("value-changed", self.on_scale_value_changed)
 
         # Button signals
         self.reset_button.connect("clicked", self.on_reset_button_clicked)
@@ -349,6 +366,17 @@ class SettingsWindow:
         Config.config_save_func()
 
 
+    def on_scale_value_changed(self, widget):
+        """
+        Set opacity value of main window. This setting is not applied to child windows, dialogs, popover menus and tooltips.
+        """
+
+        opacity_value = widget.get_value()
+        MainWindow.main_window.set_opacity(opacity_value)
+        Config.main_window_opacity = opacity_value
+        Config.config_save_func()
+
+
     def on_reset_button_clicked(self, widget):
         """
         Reset settings on the "Settings" window.
@@ -486,6 +514,9 @@ class SettingsWindow:
             self.remember_window_size_cb.set_active(True)
         if Config.remember_window_size[0] == 0:
             self.remember_window_size_cb.set_active(False)
+
+        # Set scale value for "Opacity" setting
+        self.adjustment.set_value(Config.main_window_opacity)
 
 
     def settings_gui_set_chart_data_history_func(self):

@@ -66,6 +66,9 @@ class MainWindow():
         self.main_window.set_title(_tr("System Monitoring Center"))
         self.main_window.set_icon_name("system-monitoring-center")
 
+        # Set window opacity
+        self.main_window.set_opacity(Config.main_window_opacity)
+        
         # Set window size and state (full screen or not) of the main window if "remember window size" option is enabled.
         remember_window_size = Config.remember_window_size
         if remember_window_size[0] == 0:
