@@ -1,5 +1,17 @@
 # System Monitoring Center
 
+### v2.17.0 (01.07.2023)
+  * New: Window opacity option
+  * Updated translation files
+  * Updated dependency versions (Flatpak)
+  * Fix: Confusions if multiple columns have same title
+  * Fix: GPU usage for AMD GPUs
+
+### v1.43.6 (28.06.2023)
+  * Fix: Errors during listing processes
+  * Fix: Confusions if multiple columns have same title
+  * Fix: Show process details if right Enter is pressed
+
 ### v2.16.1 (27.06.2023)
   * Several improvements (code, etc.)
   * Fix: Confusions if multiple columns have same title

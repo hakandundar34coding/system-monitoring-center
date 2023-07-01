@@ -364,7 +364,7 @@ class Processes:
 
         # Label
         label = Gtk.Label()
-        label.set_label(_tr("Change priority of this process:\n(Smaller value means higher process priority)"))
+        label.set_label(_tr("Change priority of these processes") + ":\n(" + _tr("Smaller value means higher process priority") + ")")
         label.set_halign(Gtk.Align.START)
         main_grid.attach(label, 0, 0, 1, 1)
 
@@ -466,15 +466,15 @@ class Processes:
 
         if action.get_name() == "processes_pause_process":
             manage_option = "pause_process"
-            process_dialog_message = _tr("Do you want to pause this process?")
+            process_dialog_message = _tr("Do you want to pause these processes?")
         elif action.get_name() == "processes_continue_process":
             manage_option = "continue_process"
         elif action.get_name() == "processes_end_process":
             manage_option = "end_process"
-            process_dialog_message = _tr("Do you want to end this process?")
+            process_dialog_message = _tr("Do you want to end these processes?")
         elif action.get_name() == "processes_end_process_immediately":
             manage_option = "end_process_immediately"
-            process_dialog_message = _tr("Do you want to end this process immediately?")
+            process_dialog_message = _tr("Do you want to end these processes immediately?")
 
         if action.get_name() in ["processes_continue_process"]:
             Libsysmon.manage_process(self.selected_process_pid_list, manage_option)

@@ -74,6 +74,17 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.17.0" date="2023-07-01">
+      <description>
+        <ul>
+          <li>New: Window opacity option</li>
+          <li>Updated translation files</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Confusions if multiple columns have same title</li>
+          <li>Fix: GPU usage for AMD GPUs</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.16.1" date="2023-06-27">
       <description>
         <ul>

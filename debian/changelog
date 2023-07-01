@@ -1,3 +1,13 @@
+system-monitoring-center (2.17.0) unstable; urgency=medium
+
+  * New: Window opacity option
+  * Updated translation files
+  * Updated dependency versions (Flatpak)
+  * Fix: Confusions if multiple columns have same title
+  * Fix: GPU usage for AMD GPUs
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 01 Jul 2023 10:00:00 +0300
+
 system-monitoring-center (2.16.1) unstable; urgency=medium
 
   * Several improvements (code, etc.)
