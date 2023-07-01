@@ -296,6 +296,9 @@ class Gpu:
             except Exception:
                 gpu_load = "-"
 
+            # Update the GPU load value. Because it is not get in "get_gpu_load_memory_frequency_power_amd" function.
+            gpu_load_memory_frequency_power_dict["gpu_load"] = gpu_load
+
         # If selected GPU vendor is Broadcom (for RB-Pi ARM devices).
         if device_vendor_id in ["Brcm"]:
             gpu_load_memory_frequency_power_dict = Libsysmon.get_gpu_load_memory_frequency_power_broadcom_arm()
