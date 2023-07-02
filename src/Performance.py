@@ -24,10 +24,10 @@ class Performance:
         self.selected_cpu_core = Libsysmon.set_selected_cpu_core(Config.selected_cpu_core, self.logical_core_list)
 
     def performance_set_selected_disk_func(self):
-        self.selected_disk, self.system_disk_list = Libsysmon.set_selected_disk(Config.selected_cpu_core, self.disk_list)
+        self.selected_disk, self.system_disk_list = Libsysmon.set_selected_disk(Config.selected_disk, self.disk_list)
 
     def performance_set_selected_network_card_func(self):
-        self.selected_network_card = Libsysmon.set_selected_network_card(Config.selected_cpu_core, self.network_card_list)
+        self.selected_network_card = Libsysmon.set_selected_network_card(Config.selected_network_card, self.network_card_list)
 
 
     def initial_func(self):
