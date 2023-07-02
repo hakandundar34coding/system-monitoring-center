@@ -936,7 +936,7 @@ class MainWindow():
             # Check if GPU tab is selected.
             elif Config.performance_tab_current_sub_tab == 5:
                 Config.selected_gpu = selected_device
-                Gpu.get_gpu_list_and_boot_vga_func()
+                Gpu.gpu_list, Gpu.gpu_device_path_list, Gpu.gpu_device_sub_path_list, Gpu.default_gpu = Libsysmon.get_gpu_list_and_boot_vga()
 
                 # Apply changes immediately (without waiting update interval).
                 Gpu.initial_func()

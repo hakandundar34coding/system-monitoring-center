@@ -171,7 +171,7 @@ class Gpu:
         self.amd_gpu_load_list = [0] * 365
 
 
-        # Get information.
+        # Get information
         gpu_list, gpu_device_path_list, gpu_device_sub_path_list, default_gpu = Libsysmon.get_gpu_list_and_boot_vga()
         selected_gpu_number, selected_gpu = Libsysmon.gpu_set_selected_gpu(Config.selected_gpu, gpu_list, default_gpu)
         if_default_gpu = Libsysmon.get_default_gpu(selected_gpu_number, gpu_list, default_gpu)
