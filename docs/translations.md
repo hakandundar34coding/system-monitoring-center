@@ -2,17 +2,17 @@
 
 | Language Code  | Language               | Percentage |
 | -------------- | ---------------------- | ---------- |
-| cs             | Czech                  | 88%        |
-| de             | German                 | 91%        |
+| cs             | Czech                  | 87%        |
+| de             | German                 | 90%        |
 | en             | English                | 100%       |
-| es             | Spanish                | 97%        |
+| es             | Spanish                | 96%        |
 | fa             | Persian                | 87%        |
-| fr             | French                 | 97%        |
-| hu             | Hungarian              | 89%        |
-| pl             | Polish                 | 91%        |
+| fr             | French                 | 96%        |
+| hu             | Hungarian              | 88%        |
+| pl             | Polish                 | 90%        |
 | pt_BR          | Portuguese (Brazilian) | 97%        |
 | pt_PT          | Portuguese (Portugal)  | 97%        |
-| ru_RU          | Russian                | 98%        |
+| ru_RU          | Russian                | 97%        |
 | tr             | Turkish                | 100%       |
 | zh_TW          | Chinese (Traditional)  | 95%        |
 
@@ -21,10 +21,15 @@
 
 - A translation editor (for example: Poedit) may be used for translating the ```.po``` files.
 
-- Do not merge different information texts. For example: do not translate ```Connected - SSID``` 
-as ```Connected SSID```. The text contains two different information. 
-
 - Be careful about uppercase and lowercase letters.
 
-- If you want to use an English text directly, copy and paste the source text, instead of leaving a translation blank.
+- Send only ```.po``` files.
+
+
+# Details For Some Texts:
+
+- Boot VGA: Describes if a GPU is used during OS boot.
+
+- For texts that are related to systemd services, see: https://man7.org/linux/man-pages/man1/systemctl.1.html
+  For example: Mask, Unmask, Enabled-Runtime, Unit File State, Sub-State, Static
 
