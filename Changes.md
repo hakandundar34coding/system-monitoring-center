@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v2.17.1 (02.07.2023)
+  * Updated translation files
+  * Fix: Device selection by using unified device-tab list
+  * Fix: Running loop function for every System tab switch
+
 ### v2.17.0 (01.07.2023)
   * New: Window opacity option
   * Updated translation files

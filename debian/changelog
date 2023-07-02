@@ -1,3 +1,11 @@
+system-monitoring-center (2.17.1) unstable; urgency=medium
+
+  * Updated translation files
+  * Fix: Device selection by using unified device-tab list
+  * Fix: Running loop function for every System tab switch
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 02 Jul 2023 10:40:00 +0300
+
 system-monitoring-center (2.17.0) unstable; urgency=medium
 
   * New: Window opacity option

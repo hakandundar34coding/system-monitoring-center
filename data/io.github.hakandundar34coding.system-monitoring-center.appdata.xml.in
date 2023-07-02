@@ -74,6 +74,15 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.17.1" date="2023-07-02">
+      <description>
+        <ul>
+          <li>Updated translation files</li>
+          <li>Fix: Device selection by using unified device-tab list</li>
+          <li>Fix: Running loop function for every System tab switch</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.17.0" date="2023-07-01">
       <description>
         <ul>
