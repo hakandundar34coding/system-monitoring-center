@@ -1,3 +1,10 @@
+system-monitoring-center (2.17.2) unstable; urgency=medium
+
+  * Minor improvements
+  * Fix: RAM capacity if physical capacity is not detected
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 06 Jul 2023 10:10:00 +0300
+
 system-monitoring-center (2.17.1) unstable; urgency=medium
 
   * Updated translation files

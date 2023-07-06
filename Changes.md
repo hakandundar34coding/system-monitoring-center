@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v2.17.2 (06.07.2023)
+  * Minor improvements
+  * Fix: RAM capacity if physical capacity is not detected
+
 ### v2.17.1 (02.07.2023)
   * Updated translation files
   * Fix: Device selection by using unified device-tab list
