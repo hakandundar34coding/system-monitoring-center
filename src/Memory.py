@@ -328,6 +328,8 @@ class Memory:
         if total_physical_ram != "-":
             self.device_vendor_model_label.set_label(_tr("Physical RAM") + ": " + str(Libsysmon.data_unit_converter("data", "none", total_physical_ram, 0, 1)))
         else:
+            memory_info = Libsysmon.get_memory_info()
+            ram_total = memory_info["ram_total"]
             self.device_vendor_model_label.set_label(_tr("RAM") + " - " + _tr("Capacity") + ": " + str(Libsysmon.data_unit_converter("data", "none", ram_total, 0, 1)))
 
         self.initial_already_run = 1
