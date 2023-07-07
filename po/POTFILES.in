@@ -23,7 +23,6 @@ src/run_from_source.py
 src/Sensors.py
 src/Services.py
 src/ServicesDetails.py
-src/ServicesGetMultProc.py
 src/ServicesMenu.py
 src/SettingsWindow.py
 src/Summary.py

@@ -49,7 +49,6 @@ system_monitoring_center_sources = [
     'Sensors.py',
     'Services.py',
     'ServicesDetails.py',
-    'ServicesGetMultProc.py',
     'ServicesMenu.py',
     'SettingsWindow.py',
     'Summary.py',
