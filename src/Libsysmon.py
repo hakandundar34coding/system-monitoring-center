@@ -1228,6 +1228,7 @@ def set_selected_disk(config_selected_disk, disk_list):
         line_split = line.split(" ", 2)
         if line_split[1].strip() == "/":
             disk_full_name = line_split[0]
+            # Disk full name may be "tmpfs" if there are encrypted disks and environment type is Flatpak.
             if disk_full_name == "tmpfs":
                 continue
             disk = disk_full_name.strip().split("/")[-1]
@@ -1270,7 +1271,6 @@ def set_selected_disk(config_selected_disk, disk_list):
                     break
 
     return selected_disk, system_disk_list
-
 
 
 def set_selected_network_card(config_selected_network_card, network_card_list):
