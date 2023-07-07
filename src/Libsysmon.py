@@ -1215,12 +1215,29 @@ def set_selected_disk(config_selected_disk, disk_list):
 
     # Set selected disk
     with open("/proc/mounts") as reader:
-        proc_mounts_output_lines = reader.read().strip().split("\n")
+        proc_mounts_output = reader.read().strip()
+    # Get "/proc/mounts" file content if there are encrypted disks and environment type is Flatpak.
+    # Because, information line for the encrypted disk may not contain mountpoint as "/" in this case.
+    # Additionally, there may be more lines that contain encrypted disk name in this file.
+    if "/dev/mapper/" in proc_mounts_output:
+        if get_environment_type() == "flatpak":
+            proc_mounts_output = (subprocess.check_output(["flatpak-spawn", "--host", "cat", "/proc/mounts"], shell=False)).decode().strip()
+    proc_mounts_output_lines = proc_mounts_output.split("\n")
     system_disk_list = []
     for line in proc_mounts_output_lines:
         line_split = line.split(" ", 2)
         if line_split[1].strip() == "/":
-            disk = line_split[0].strip().split("/")[-1]
+            disk_full_name = line_split[0]
+            if disk_full_name == "tmpfs":
+                continue
+            disk = disk_full_name.strip().split("/")[-1]
+            # Get disk "/proc/partitions" name if it is an encrypted disk.
+            if disk_full_name.startswith("/dev/mapper/") == True:
+                encrypted_disk_name = disk_full_name.split("/dev/mapper/")[-1]
+                if os.path.isdir("/dev/mapper/" + encrypted_disk_name) != True:
+                    disk_real_path = os.path.realpath("/dev/mapper/" + encrypted_disk_name)
+                    disk_proc_name = disk_real_path.split("/")[-1]
+                    disk = disk_proc_name
             # "/dev/root" disk is not listed in "/proc/partitions" file.
             if disk in disk_list:
                 system_disk_list.append(disk)
@@ -1235,12 +1252,6 @@ def set_selected_disk(config_selected_disk, disk_list):
             system_disk_list.append(os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip())
         elif "root=PARTUUID=" in proc_cmdline:
             disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
-            system_disk_list.append(os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip())
-        elif "cryptdevice=UUID=" in proc_cmdline:
-            disk_uuid_partuuid = proc_cmdline.split("cryptdevice=UUID=", 1)[1].split(" ", 1)[0].strip()
-            system_disk_list.append(os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip())
-        elif "cryptdevice=PARTUUID=" in proc_cmdline:
-            disk_uuid_partuuid = proc_cmdline.split("cryptdevice=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
             system_disk_list.append(os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip())
 
     if config_selected_disk in disk_list:
@@ -1259,6 +1270,7 @@ def set_selected_disk(config_selected_disk, disk_list):
                     break
 
     return selected_disk, system_disk_list
+
 
 
 def set_selected_network_card(config_selected_network_card, network_card_list):
