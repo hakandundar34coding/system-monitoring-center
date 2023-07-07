@@ -1233,8 +1233,14 @@ def set_selected_disk(config_selected_disk, disk_list):
         if "root=UUID=" in proc_cmdline:
             disk_uuid_partuuid = proc_cmdline.split("root=UUID=", 1)[1].split(" ", 1)[0].strip()
             system_disk_list.append(os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip())
-        if "root=PARTUUID=" in proc_cmdline:
+        elif "root=PARTUUID=" in proc_cmdline:
             disk_uuid_partuuid = proc_cmdline.split("root=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
+            system_disk_list.append(os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip())
+        elif "cryptdevice=UUID=" in proc_cmdline:
+            disk_uuid_partuuid = proc_cmdline.split("cryptdevice=UUID=", 1)[1].split(" ", 1)[0].strip()
+            system_disk_list.append(os.path.realpath(f'/dev/disk/by-uuid/{disk_uuid_partuuid}').split("/")[-1].strip())
+        elif "cryptdevice=PARTUUID=" in proc_cmdline:
+            disk_uuid_partuuid = proc_cmdline.split("cryptdevice=PARTUUID=", 1)[1].split(" ", 1)[0].strip()
             system_disk_list.append(os.path.realpath(f'/dev/disk/by-partuuid/{disk_uuid_partuuid}').split("/")[-1].strip())
 
     if config_selected_disk in disk_list:
