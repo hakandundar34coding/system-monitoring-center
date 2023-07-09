@@ -1531,7 +1531,10 @@ def get_processes_threads():
     """
 
     if get_environment_type() == "flatpak":
-        ps_output_lines = (subprocess.check_output(["flatpak-spawn", "--host", "ps", "--no-headers", "-eo", "thcount"], shell=False)).decode().strip().split("\n")
+        command_list = ["flatpak-spawn", "--host", "ps", "-eo", "thcount"]
+        ps_output_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+        # Delete header line
+        del ps_output_lines[0]
         number_of_total_processes = len(ps_output_lines)
         number_of_total_threads = 0
         for line in ps_output_lines:
@@ -4325,10 +4328,12 @@ def get_desktop_environment_and_version_windowing_system_window_manager_display_
     # Try to detect windowing system, window manager, current desktop 
     # environment and current display manager by reading process names and
     # other details.
-    command_list = ["ps", "--no-headers", "-eo", "comm,user"]
+    command_list = ["ps", "-eo", "comm,user"]
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
     ps_output_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
+    # Delete header line
+    del ps_output_lines[0]
 
     process_name_list = []
     username_list = []
