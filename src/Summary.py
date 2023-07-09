@@ -153,6 +153,8 @@ class Summary:
         gauge_separator_line_vertical_lower_length = gauge_outer_radius * 0.23
         gauge_right_outer_radius = gauge_outer_radius * 1.05
         gauge_right_move = gauge_outer_radius * 0.938
+        gauge_right_start_angle = (90 + 40) * pi_number / 180
+        gauge_right_end_angle = (90 - 40) * pi_number / 180
         gauge_right_upper_lower_edge_thickness = gauge_outer_radius * 0.07
         gauge_right_upper_lower_edge_move_horizontal = gauge_right_outer_radius * 0.027
         gauge_separator_line_horizontal_start = gauge_outer_radius * 0.23
@@ -161,15 +163,18 @@ class Summary:
         gauge_disk_read_speed_label_text_move_x = gauge_outer_radius * 0.09
         gauge_disk_read_speed_label_text_move_y = gauge_outer_radius * 0.47
         gauge_disk_write_speed_label_text_move_x = gauge_outer_radius * 0.21
-        gauge_disk_write_speed_label_text_move_y = gauge_outer_radius * 0.18
+        gauge_disk_write_speed_label_text_move_y = gauge_outer_radius * 0.189
         gauge_network_download_speed_label_text_move_x = gauge_outer_radius * 0.21
-        gauge_network_download_speed_label_text_move_y = gauge_outer_radius * 0.18
+        gauge_network_download_speed_label_text_move_y = gauge_outer_radius * 0.189
         gauge_network_upload_speed_label_text_move_x = gauge_outer_radius * 0.09
         gauge_network_upload_speed_label_text_move_y = gauge_outer_radius * 0.45
         gauge_disk_network_usage_text_shadow_move = gauge_outer_radius * 0.009
         gauge_disk_network_usage_static_text_move_y = gauge_outer_radius * 0.11
         gauge_disk_network_usage_text_move_y = gauge_outer_radius * 0.095
         gauge_disk_network_usage_text_move_y_pango_text_correction = gauge_outer_radius * 0.015
+        selected_disk_network_card_name_text_move_x = gauge_right_outer_radius*cos(0) - gauge_outer_radius*0.1
+        selected_disk_name_text_move_y = gauge_outer_radius*0.03
+        selected_network_card_name_text_move_y = gauge_outer_radius*0.07
 
         gauge_indicator_text_size = gauge_outer_radius * 0.091
         gauge_cpu_ram_usage_text_size = gauge_outer_radius * 0.25
@@ -180,6 +185,7 @@ class Summary:
         gauge_indicator_text_size_smaller = gauge_outer_radius * 0.053
         gauge_indicator_text_size_smallest = gauge_outer_radius * 0.047
         gauge_disk_network_label_text_size = gauge_outer_radius * 0.062
+        selected_disk_network_card_name_text_size = gauge_disk_network_usage_text_size * 0.65
 
 
         # Draw a rounded rectangle to use it as outer frame of the chart.
@@ -266,12 +272,10 @@ class Summary:
         # Draw rectangle part of the background of the right gauge.
         ctx.save()
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
-        angle1 = (90+40)*pi_number/180
-        ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
-        angle1 = (90-40)*pi_number/180
-        ctx.line_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
+        ctx.move_to(gauge_right_outer_radius*sin(gauge_right_start_angle), gauge_right_outer_radius*cos(gauge_right_start_angle))
+        ctx.line_to(gauge_right_outer_radius*sin(gauge_right_end_angle), gauge_right_outer_radius*cos(gauge_right_end_angle))
         ctx.rel_line_to(-gauge_right_outer_radius, 0)
-        ctx.rel_line_to(0, -2*gauge_right_outer_radius*cos(angle1))
+        ctx.rel_line_to(0, -2*gauge_right_outer_radius*cos(gauge_right_end_angle))
         ctx.set_source_rgba(34/255, 52/255, 71/255, 1)
         ctx.fill()
         ctx.restore()
@@ -301,13 +305,12 @@ class Summary:
         # Draw upper edge of the right gauge.
         ctx.save()
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
-        angle1 = (90+40)*pi_number/180
         # "gauge_right_upper_lower_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
-        ctx.move_to(gauge_right_outer_radius*sin(angle1)-gauge_right_upper_lower_edge_move_horizontal, gauge_right_outer_radius*cos(angle1))
+        ctx.move_to(gauge_right_outer_radius*sin(gauge_right_start_angle)-gauge_right_upper_lower_edge_move_horizontal, gauge_right_outer_radius*cos(gauge_right_start_angle))
         ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
         ctx.rel_line_to(-gauge_right_outer_radius, 0)
         ctx.rel_line_to(0, -gauge_right_outer_radius*0.07)
-        gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(angle1)+gauge_right_outer_radius, 0, gauge_right_outer_radius*cos(angle1))
+        gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(gauge_right_start_angle)+gauge_right_outer_radius, 0, gauge_right_outer_radius*cos(gauge_right_start_angle))
         gradient_pattern.add_color_stop_rgba(0, 32/255, 41/255, 49/255, 1)
         gradient_pattern.add_color_stop_rgba(0.93, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.94, 20/255, 26/255, 35/255, 1)
@@ -323,14 +326,13 @@ class Summary:
         # Draw lower edge of the right gauge.
         ctx.save()
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
-        angle1 = (90-40)*pi_number/180
         # "gauge_right_upper_lower_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
-        ctx.move_to(gauge_right_outer_radius*sin(angle1)-gauge_right_upper_lower_edge_move_horizontal, gauge_right_outer_radius*cos(angle1))
+        ctx.move_to(gauge_right_outer_radius*sin(gauge_right_end_angle)-gauge_right_upper_lower_edge_move_horizontal, gauge_right_outer_radius*cos(gauge_right_end_angle))
         ctx.rel_move_to(0, -gauge_right_outer_radius*0.07)
         ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
         ctx.rel_line_to(-gauge_right_outer_radius, 0)
         ctx.rel_line_to(0, -gauge_right_outer_radius*0.07)
-        gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(angle1)-gauge_right_outer_radius, 0, gauge_right_outer_radius*cos(angle1))
+        gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(gauge_right_end_angle)-gauge_right_outer_radius, 0, gauge_right_outer_radius*cos(gauge_right_end_angle))
         gradient_pattern.add_color_stop_rgba(0, 32/255, 41/255, 49/255, 1)
         gradient_pattern.add_color_stop_rgba(0.93, 34/255, 52/255, 71/255, 1)
         gradient_pattern.add_color_stop_rgba(0.94, 20/255, 26/255, 35/255, 1)
@@ -348,8 +350,7 @@ class Summary:
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         start_angle = -90*pi_number/180
         end_angle = -55*pi_number/180
-        angle1 = (90-40)*pi_number/180
-        ctx.translate(gauge_right_outer_radius*sin(angle1), -gauge_right_outer_radius*cos(angle1))
+        ctx.translate(gauge_right_outer_radius*sin(gauge_right_end_angle), -gauge_right_outer_radius*cos(gauge_right_end_angle))
         ctx.translate(-gauge_right_outer_radius*0.03, gauge_right_outer_radius*0.07)
         gradient_pattern = cairo.RadialGradient(0, 0, 0, 0, 0, gauge_right_outer_radius*0.07)
         scale_value = 1-0.93
@@ -372,8 +373,7 @@ class Summary:
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         start_angle = 55*pi_number/180
         end_angle = 90*pi_number/180
-        angle1 = (90+40)*pi_number/180
-        ctx.translate(gauge_right_outer_radius*sin(angle1), -gauge_right_outer_radius*cos(angle1))
+        ctx.translate(gauge_right_outer_radius*sin(gauge_right_start_angle), -gauge_right_outer_radius*cos(gauge_right_start_angle))
         ctx.translate(-gauge_right_outer_radius*0.03, -gauge_right_outer_radius*0.07)
         gradient_pattern = cairo.RadialGradient(0, 0, 0, 0, 0, gauge_right_outer_radius*0.07)
         scale_value = 1-0.93
@@ -408,13 +408,12 @@ class Summary:
 
         # Draw white reflection on upper area of the upper edge of the right gauge.
         for i in range(2):
-            angle1 = (90+40)*pi_number/180
             # "gauge_right_upper_lower_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
-            ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
+            ctx.move_to(gauge_right_outer_radius*sin(gauge_right_start_angle), gauge_right_outer_radius*cos(gauge_right_start_angle))
             ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
             ctx.rel_line_to(-gauge_right_outer_radius, 0)
             ctx.rel_line_to(0, -gauge_right_outer_radius*0.07)
-            gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(angle1)*0.98, 0, gauge_right_outer_radius*cos(angle1))
+            gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(gauge_right_start_angle)*0.98, 0, gauge_right_outer_radius*cos(gauge_right_start_angle))
             gradient_pattern.add_color_stop_rgba(0, 1.0, 1.0, 1.0, 0.0)
             gradient_pattern.add_color_stop_rgba(1, 1.0, 1.0, 1.0, 0.13)
             ctx.set_source(gradient_pattern)
@@ -422,14 +421,13 @@ class Summary:
 
         # Draw white reflection on lower area of the lower edge of the right gauge.
         for i in range(2):
-            angle1 = (90-40)*pi_number/180
             # "gauge_right_upper_lower_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
-            ctx.move_to(gauge_right_outer_radius*sin(angle1), gauge_right_outer_radius*cos(angle1))
+            ctx.move_to(gauge_right_outer_radius*sin(gauge_right_end_angle), gauge_right_outer_radius*cos(gauge_right_end_angle))
             ctx.rel_move_to(0, -gauge_right_outer_radius*0.07)
             ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
             ctx.rel_line_to(-gauge_right_outer_radius, 0)
             ctx.rel_line_to(0, -gauge_right_outer_radius*0.07)
-            gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(angle1)*0.98, 0, gauge_right_outer_radius*cos(angle1))
+            gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(gauge_right_end_angle)*0.98, 0, gauge_right_outer_radius*cos(gauge_right_end_angle))
             gradient_pattern.add_color_stop_rgba(0, 1.0, 1.0, 1.0, 0.0)
             gradient_pattern.add_color_stop_rgba(1, 1.0, 1.0, 1.0, 0.13)
             ctx.set_source(gradient_pattern)
@@ -962,6 +960,25 @@ class Summary:
         ctx.move_to(gauge_network_upload_speed_label_text_move_x, gauge_network_upload_speed_label_text_move_y - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         PangoCairo.show_layout(ctx, layout)
+
+
+        # Draw selected disk name label on the right gauge.
+        ctx.set_source_rgba(0.5,0.5,0.5,1)
+        ctx.set_font_size(selected_disk_network_card_name_text_size)
+        device_name_text = Performance.selected_disk
+        text_extents = ctx.text_extents(device_name_text)
+        text_start_x = text_extents.width
+        ctx.move_to(-text_start_x + selected_disk_network_card_name_text_move_x, -selected_disk_name_text_move_y)
+        ctx.show_text(device_name_text)
+
+        # Draw selected network card name label on the right gauge.
+        ctx.set_source_rgba(0.5,0.5,0.5,1)
+        ctx.set_font_size(selected_disk_network_card_name_text_size)
+        device_name_text = Performance.selected_network_card
+        text_extents = ctx.text_extents(device_name_text)
+        text_start_x = text_extents.width
+        ctx.move_to(-text_start_x + selected_disk_network_card_name_text_move_x, selected_network_card_name_text_move_y)
+        ctx.show_text(device_name_text)
 
 
         # Draw lowest layer of the shadow of the Disk Read Speed label on the right gauge.
