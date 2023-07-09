@@ -2803,6 +2803,23 @@ def get_gpu_load_memory_frequency_power_amd(gpu_device_path):
     return gpu_load_memory_frequency_power_dict
 
 
+def gpu_load_nvidia_func():
+    """
+    Get GPU load average for NVIDIA (PCI) GPUs.
+    """
+
+    command_list = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+
+    global gpu_tool_output
+    try:
+        gpu_tool_output = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+    # Prevent errors because nvidia-smi may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
+    except Exception:
+        pass
+
+
 def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
     """
     Get values from command output if there was no error when running the command.

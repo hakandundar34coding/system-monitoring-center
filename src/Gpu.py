@@ -308,13 +308,14 @@ class Gpu:
             # Try to get GPU usage information in a separate thread in order to prevent this function from blocking
             # the main thread and GUI for a very small time which stops the GUI for a very small time.
             gpu_tool_output = "-"
-            Thread(target=self.gpu_load_nvidia_func, daemon=True).start()
+            Thread(target=Libsysmon.gpu_load_nvidia_func, daemon=True).start()
 
             try:
-                gpu_tool_output = self.gpu_tool_output
+                gpu_tool_output = Libsysmon.gpu_tool_output
             # Prevent error if thread is not finished before using the output variable "gpu_tool_output".
-            except AttributeError:
+            except Exception:
                 pass
+
             gpu_load_memory_frequency_power_dict = Libsysmon.process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output)
 
         # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
@@ -332,22 +333,6 @@ class Gpu:
             gpu_power = gpu_load_memory_frequency_power_dict["gpu_power"]
 
         return gpu_load, gpu_memory_used, gpu_memory_capacity, gpu_current_frequency, gpu_min_frequency, gpu_max_frequency, gpu_temperature, gpu_power
-
-
-    def gpu_load_nvidia_func(self):
-        """
-        Get GPU load average for NVIDIA (PCI) GPUs.
-        """
-
-        command_list = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
-        if Libsysmon.get_environment_type() == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-
-        try:
-            self.gpu_tool_output = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
-        # Prevent errors because nvidia-smi may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
-        except FileNotFoundError:
-            pass
 
 
     def gpu_load_amd_func(self, *args):
