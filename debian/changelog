@@ -1,3 +1,13 @@
+system-monitoring-center (2.17.3) unstable; urgency=medium
+
+  * Improved: Selected disk and network card names (Summary tab)
+  * Minor improvements (code, etc.)
+  * Updated Russian translations
+  * Fix: Detecting system disk if it is encrypted
+  * Fix:Errors if certain coreutils alternatvs are used(CPU,System)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 10 Jul 2023 09:50:00 +0300
+
 system-monitoring-center (2.17.2) unstable; urgency=medium
 
   * Minor improvements

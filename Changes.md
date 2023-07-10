@@ -1,5 +1,12 @@
 # System Monitoring Center
 
+### v2.17.3 (10.07.2023)
+  * Improved: Selected disk and network card names (Summary tab)
+  * Minor improvements (code, etc.)
+  * Updated Russian translations
+  * Fix: Detecting system disk if it is encrypted
+  * Fix:Errors if certain coreutils alternatvs are used(CPU,System)
+
 ### v2.17.2 (06.07.2023)
   * Minor improvements
   * Fix: RAM capacity if physical capacity is not detected

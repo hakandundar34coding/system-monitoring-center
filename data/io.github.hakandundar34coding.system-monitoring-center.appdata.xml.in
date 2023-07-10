@@ -74,6 +74,17 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.17.3" date="2023-07-10">
+      <description>
+        <ul>
+          <li>Improved: Selected disk and network card names (Summary tab)</li>
+          <li>Minor improvements (code, etc.)</li>
+          <li>Updated Russian translations</li>
+          <li>Fix: Detecting system disk if it is encrypted</li>
+          <li>Fix:Errors if certain coreutils alternatvs are used(CPU,System)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.17.2" date="2023-07-06">
       <description>
         <ul>
