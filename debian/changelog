@@ -1,3 +1,12 @@
+system-monitoring-center (1.43.7) unstable; urgency=medium
+
+  * Improved: Selected disk and network card names (Summary tab)
+  * GUI Improvements for Process Custom Priority window
+  * Updated dependencies
+  * Fix: Application name translation (desktop file)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 11 Jul 2023 11:35:00 +0300
+
 system-monitoring-center (1.43.6) unstable; urgency=medium
 
   * Fix: Errors during listing processes

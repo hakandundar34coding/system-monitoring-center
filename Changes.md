@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v1.43.7 (11.076.2023)
+  * Improved: Selected disk and network card names (Summary tab)
+  * GUI Improvements for Process Custom Priority window
+  * Updated dependencies
+  * Fix: Application name translation (desktop file)
+
 ### v2.17.3 (10.07.2023)
   * Improved: Selected disk and network card names (Summary tab)
   * Minor improvements (code, etc.)
