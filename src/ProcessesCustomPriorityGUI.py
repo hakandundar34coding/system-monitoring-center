@@ -33,6 +33,10 @@ class ProcessesCustomPriorityGUI:
         self.button2101w2.connect("clicked", self.on_button2101w2_clicked)
         self.button2102w2.connect("clicked", self.on_button2102w2_clicked)
 
+        # Show min and max values of the Scale
+        self.scale2101w2.add_mark(-20, Gtk.PositionType.BOTTOM, "-20")
+        self.scale2101w2.add_mark(19, Gtk.PositionType.BOTTOM, "19")
+
 
     # ----------------------- Called for running code/functions when window is closed -----------------------
     def on_window2101w2_delete_event(self, widget, event):
