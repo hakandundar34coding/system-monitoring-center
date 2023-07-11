@@ -7,7 +7,7 @@ For other installation types:
     - `dmidecode, gir1.2-adw-1, gir1.2-glib-2.0, gir1.2-gtk-4.0, gir1.2-pango-1.0, hwdata, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, util-linux (>=2.31)`
 
 - For System Monitoring Center v1.x.x:
-    - `dmidecode, hwdata, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, util-linux (>=2.31)`
+    - `dmidecode, hwdata, iproute2, procps (>=3.3), python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, util-linux (>=2.31)`
 
 - Following dependencies may be required on some systems:
     - `libcairo2-dev` (for systems with .deb packages)
