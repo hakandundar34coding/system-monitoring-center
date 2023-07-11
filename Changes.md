@@ -5,7 +5,7 @@
   * Minor improvements (code, etc.)
   * Updated Russian translations
   * Fix: Detecting system disk if it is encrypted
-  * Fix:Errors if certain coreutils alternatvs are used(CPU,System)
+  * Fix: Errors if procps is not installed (CPU, System tabs)
 
 ### v2.17.2 (06.07.2023)
   * Minor improvements

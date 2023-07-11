@@ -81,7 +81,7 @@
           <li>Minor improvements (code, etc.)</li>
           <li>Updated Russian translations</li>
           <li>Fix: Detecting system disk if it is encrypted</li>
-          <li>Fix:Errors if certain coreutils alternatvs are used(CPU,System)</li>
+          <li>Fix: Errors if procps is not installed (CPU, System tabs)</li>
         </ul>
       </description>
     </release>
