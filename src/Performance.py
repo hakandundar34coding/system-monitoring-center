@@ -730,15 +730,18 @@ class Performance:
         gauge_disk_read_speed_label_text_move_x = gauge_outer_radius * 0.09
         gauge_disk_read_speed_label_text_move_y = gauge_outer_radius * 0.5
         gauge_disk_write_speed_label_text_move_x = gauge_outer_radius * 0.21
-        gauge_disk_write_speed_label_text_move_y = gauge_outer_radius * 0.2
+        gauge_disk_write_speed_label_text_move_y = gauge_outer_radius * 0.22
         gauge_network_download_speed_label_text_move_x = gauge_outer_radius * 0.21
-        gauge_network_download_speed_label_text_move_y = gauge_outer_radius * 0.15
+        gauge_network_download_speed_label_text_move_y = gauge_outer_radius * 0.17
         gauge_network_upload_speed_label_text_move_x = gauge_outer_radius * 0.09
         gauge_network_upload_speed_label_text_move_y = gauge_outer_radius * 0.43
         gauge_disk_network_usage_text_size = gauge_cpu_ram_usage_text_size * 0.4
         gauge_disk_network_usage_text_shadow_move = gauge_outer_radius * 0.009
         gauge_disk_network_usage_text_move_y = gauge_outer_radius * 0.11
-
+        selected_disk_network_card_name_text_move_x = gauge_right_outer_radius*cos(0) - gauge_outer_radius*0.1
+        selected_disk_name_text_move_y = gauge_outer_radius*0.03
+        selected_network_card_name_text_move_y = gauge_outer_radius*0.07
+        selected_disk_network_card_name_text_size = gauge_disk_network_usage_text_size * 0.65
 
         # Draw a rounded rectangle to use it as outer frame of the chart.
         chart_bg_border_thickness = 0
@@ -1463,6 +1466,25 @@ class Performance:
         ctx.move_to(gauge_network_upload_speed_label_text_move_x, gauge_network_upload_speed_label_text_move_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
         ctx.show_text(upload_speed_text)
+
+
+        # Draw selected disk name label on the right gauge.
+        ctx.set_source_rgba(0.5,0.5,0.5,1)
+        ctx.set_font_size(selected_disk_network_card_name_text_size)
+        device_name_text = Performance.selected_disk
+        text_extents = ctx.text_extents(device_name_text)
+        text_start_x = text_extents.width
+        ctx.move_to(-text_start_x + selected_disk_network_card_name_text_move_x, -selected_disk_name_text_move_y)
+        ctx.show_text(device_name_text)
+
+        # Draw selected network card name label on the right gauge.
+        ctx.set_source_rgba(0.5,0.5,0.5,1)
+        ctx.set_font_size(selected_disk_network_card_name_text_size)
+        device_name_text = Performance.selected_network_card
+        text_extents = ctx.text_extents(device_name_text)
+        text_start_x = text_extents.width
+        ctx.move_to(-text_start_x + selected_disk_network_card_name_text_move_x, selected_network_card_name_text_move_y)
+        ctx.show_text(device_name_text)
 
 
         # Draw lowest layer of the shadow of the Disk Read Speed label on the right gauge.
