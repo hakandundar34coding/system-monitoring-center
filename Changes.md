@@ -1,9 +1,20 @@
 # System Monitoring Center
 
-### v1.43.7 (28.06.2023)
+### v2.17.3 (10.07.2023)
+  * Improved: Selected disk and network card names (Summary tab)
+  * Minor improvements (code, etc.)
+  * Updated Russian translations
+  * Fix: Detecting system disk if it is encrypted
+  * Fix: Errors if procps is not installed (CPU, System tabs)
+
+### v2.17.2 (06.07.2023)
+  * Minor improvements
+  * Fix: RAM capacity if physical capacity is not detected
+
+### v2.17.1 (02.07.2023)
   * Updated translation files
-  * Changed: Ask for permission before pausing processes
-  * Fix: Application name translation (desktop file)
+  * Fix: Device selection by using unified device-tab list
+  * Fix: Running loop function for every System tab switch
 
 ### v2.17.0 (01.07.2023)
   * New: Window opacity option
