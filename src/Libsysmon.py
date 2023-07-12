@@ -2961,13 +2961,13 @@ def get_memory_bytes_from_string(memory_string):
 
     memory_number, memory_unit = memory_string.split(" ", 1)
 
-    if memory_unit in ["KB, KiB"]:
+    if memory_unit in ["KB", "KiB"]:
         memory_divisor = 1024
-    elif memory_unit in ["MB, MiB"]:
+    elif memory_unit in ["MB", "MiB"]:
         memory_divisor = 1024 * 1024
-    elif memory_unit in ["GB, GiB"]:
+    elif memory_unit in ["GB", "GiB"]:
         memory_divisor = 1024 * 1024 * 1024
-    elif memory_unit in ["TB, TiB"]:
+    elif memory_unit in ["TB", "TiB"]:
         memory_divisor = 1024 * 1024 * 1024 * 1024
 
     memory_bytes = float(memory_number) / memory_divisor
