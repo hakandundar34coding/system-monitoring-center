@@ -403,6 +403,10 @@ class Processes:
         self.scale.set_digits(0)
         main_grid.attach(self.scale, 0, 2, 1, 1)
 
+        # Show min and max values of the Scale
+        self.scale.add_mark(-20, Gtk.PositionType.BOTTOM, "-20")
+        self.scale.add_mark(19, Gtk.PositionType.BOTTOM, "19")
+
         # Grid (buttons)
         grid = Gtk.Grid.new()
         grid.set_column_homogeneous(True)
