@@ -2938,6 +2938,44 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
     return gpu_load_memory_frequency_power_dict
 
 
+def get_gpu_memory_usage_percentage(gpu_memory_used, gpu_memory_capacity):
+    """
+    Get GPU memory usage percentage.
+    """
+
+    if gpu_memory_used == "-" or gpu_memory_capacity == "-":
+        gpu_memory_usage_percentage = 0
+
+    else:
+        gpu_memory_used_bytes = get_memory_bytes_from_string(gpu_memory_used)
+        gpu_memory_capacity_bytes = get_memory_bytes_from_string(gpu_memory_capacity)
+        gpu_memory_usage_percentage = gpu_memory_used_bytes / gpu_memory_capacity_bytes * 100
+
+    return gpu_memory_usage_percentage
+
+
+def get_memory_bytes_from_string(memory_string):
+    """
+    Get memory value in bytes unit by processing string value. Example: 5 MiB.
+    """
+
+    memory_number, memory_unit = memory_string.split(" ", 1)
+
+    if memory_unit in ["KB, KiB"]:
+        memory_divisor = 1024
+    elif memory_unit in ["MB, MiB"]:
+        memory_divisor = 1024 * 1024
+    elif memory_unit in ["GB, GiB"]:
+        memory_divisor = 1024 * 1024 * 1024
+    elif memory_unit in ["TB, TiB"]:
+        memory_divisor = 1024 * 1024 * 1024 * 1024
+
+    memory_bytes = float(memory_number) / memory_divisor
+    memory_bytes = round(memory_bytes)
+
+    return memory_bytes
+
+
 # ***********************************************************************************************
 #                                           Sensors
 # ***********************************************************************************************

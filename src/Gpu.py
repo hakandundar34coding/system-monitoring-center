@@ -36,7 +36,9 @@ class Gpu:
 
         self.tab_title_grid()
 
-        self.da_grid()
+        self.da_gpu_usage_grid()
+
+        self.da_gpu_memory_grid()
 
         self.information_grid()
 
@@ -65,16 +67,16 @@ class Gpu:
         grid.attach(self.device_kernel_name_label, 1, 1, 1, 1)
 
 
-    def da_grid(self):
+    def da_gpu_usage_grid(self):
         """
-        Generate tab drawingarea and related information labels.
+        Generate tab drawingarea (GPU usage) and related information labels.
         """
 
         # Grid (drawingarea)
         grid = Gtk.Grid()
         grid.set_hexpand(True)
         grid.set_vexpand(True)
-        self.tab_grid.attach(grid, 0, 1, 1, 1)
+        self.tab_grid.attach(grid, 0, 1, 1, 2)
 
         # Label (drawingarea upper-left)
         self.da_upper_left_label = Common.da_upper_lower_label(_tr("GPU Usage"), Gtk.Align.START)
@@ -93,6 +95,34 @@ class Gpu:
         grid.attach(label, 0, 3, 2, 1)
 
 
+    def da_gpu_memory_grid(self):
+        """
+        Generate tab drawingarea (GPU memory) and related information labels.
+        """
+
+        # Grid (drawingarea)
+        grid = Gtk.Grid()
+        grid.set_hexpand(True)
+        grid.set_vexpand(True)
+        self.tab_grid.attach(grid, 0, 3, 1, 1)
+
+        # Label (drawingarea upper-left)
+        label = Common.da_upper_lower_label(_tr("GPU Memory"), Gtk.Align.START)
+        grid.attach(label, 0, 0, 1, 1)
+
+        # Label (drawingarea upper-right)
+        label = Common.da_upper_lower_label("100%", Gtk.Align.END)
+        grid.attach(label, 1, 0, 1, 1)
+
+        # DrawingArea
+        self.da_gpu_memory = Common.drawingarea(Performance.performance_line_charts_draw, "da_gpu_memory")
+        grid.attach(self.da_gpu_memory, 0, 2, 2, 1)
+
+        # Label (drawingarea lower-right)
+        label = Common.da_upper_lower_label("0", Gtk.Align.END)
+        grid.attach(label, 0, 3, 2, 1)
+
+
     def information_grid(self):
         """
         Generate performance/information labels.
@@ -100,7 +130,7 @@ class Gpu:
 
         # Grid (performance/information labels)
         performance_info_grid = Common.performance_info_grid()
-        self.tab_grid.attach(performance_info_grid, 0, 2, 1, 1)
+        self.tab_grid.attach(performance_info_grid, 0, 4, 1, 1)
 
         # Styled information widgets (GPU Usage and Video Memory)
         # ScrolledWindow (GPU Usage and Video Memory)
@@ -167,6 +197,7 @@ class Gpu:
         # Define initial values
         self.chart_data_history = Config.chart_data_history
         self.gpu_load_list = [0] * self.chart_data_history
+        self.gpu_memory_list = [0] * self.chart_data_history
         # Currently highest monitor refresh rate is 360. 365 is used in order to get GPU load for AMD GPUs precisely.
         self.amd_gpu_load_list = [0] * 365
 
@@ -226,11 +257,14 @@ class Gpu:
         gpu_load = gpu_load.split()[0]
         if gpu_load == "-":
             self.gpu_load_list.append(0)
-            gpu_load = "-"
         else:
             self.gpu_load_list.append(float(gpu_load))
             gpu_load = f'{gpu_load} %'
         del self.gpu_load_list[0]
+
+        gpu_memory_usage_percentage = Libsysmon.get_gpu_memory_usage_percentage(gpu_memory_used, gpu_memory_capacity)
+        self.gpu_memory_list.append(gpu_memory_usage_percentage)
+        del self.gpu_memory_list[0]
 
         try:
             gpu_temperature = float(gpu_temperature)
@@ -239,6 +273,7 @@ class Gpu:
             pass
 
         self.da_gpu_usage.queue_draw()
+        self.da_gpu_memory.queue_draw()
 
         # Run "main_gui_device_selection_list" if selected device list is changed since the last loop.
         gpu_list = self.gpu_list
