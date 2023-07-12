@@ -2970,7 +2970,7 @@ def get_memory_bytes_from_string(memory_string):
     elif memory_unit in ["TB", "TiB"]:
         memory_divisor = 1024 * 1024 * 1024 * 1024
 
-    memory_bytes = float(memory_number) / memory_divisor
+    memory_bytes = float(memory_number) * memory_divisor
     memory_bytes = round(memory_bytes)
 
     return memory_bytes
