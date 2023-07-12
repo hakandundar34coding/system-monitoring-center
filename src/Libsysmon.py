@@ -1531,14 +1531,9 @@ def get_processes_threads():
     """
 
     if get_environment_type() == "flatpak":
-        command_list = ["flatpak-spawn", "--host", "ps", "-eo", "thcount"]
-        ps_output_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
-        # Delete header line
-        del ps_output_lines[0]
-        number_of_total_processes = len(ps_output_lines)
-        number_of_total_threads = 0
-        for line in ps_output_lines:
-            number_of_total_threads = number_of_total_threads + int(line.strip())
+        number_of_total_processes, number_of_total_threads = get_processes_threads_ps()
+        if number_of_total_processes == 0 or number_of_total_threads == 0:
+            number_of_total_processes, number_of_total_threads = get_processes_threads_ls_cat()
 
     else:
         pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
@@ -1557,6 +1552,58 @@ def get_processes_threads():
 
         number_of_total_processes = len(thread_count_list)
         number_of_total_threads = sum(thread_count_list)
+
+    return number_of_total_processes, number_of_total_threads
+
+
+def get_processes_threads_ps():
+    """
+    Get number of threads and number of processes by using "ps" command.
+    "procps" package is required for running this command and it may not be installed on all systems.
+    """
+
+    command_list = ["flatpak-spawn", "--host", "ps", "-eo", "thcount"]
+    ps_output_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip().split("\n")
+    # Delete header line
+    del ps_output_lines[0]
+    number_of_total_processes = len(ps_output_lines)
+    number_of_total_threads = 0
+    for line in ps_output_lines:
+        number_of_total_threads = number_of_total_threads + int(line.strip())
+
+    return number_of_total_processes, number_of_total_threads
+
+
+def get_processes_threads_ls_cat():
+    """
+    Get number of threads and number of processes by using "ls" and "cat" commands.
+    """
+
+    # Get PID list
+    command_list = ["ls", "/proc/"]
+    command_list = ["flatpak-spawn", "--host"] + command_list
+    ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
+    pid_list = []
+    for pid in ls_output.split():
+        if pid.isdigit() == True:
+            pid_list.append(pid)
+    pid_list = sorted(pid_list, key=int)
+
+    # Get process information from procfs files.
+    command_list = ["env", "LANG=C", "cat"]
+    command_list = ["flatpak-spawn", "--host"] + command_list
+    for pid in pid_list:
+        command_list.append(f'/proc/{pid}/stat')
+    cat_output_lines = subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout.decode().strip().split("\n")
+    # Delete empty lines of ended processes
+    if "" in cat_output_lines:
+        cat_output_lines.remove("")
+
+    # Get process and thread count
+    number_of_total_processes = len(cat_output_lines)
+    number_of_total_threads = 0
+    for line in cat_output_lines:
+        number_of_total_threads = number_of_total_threads + int(line.split(" ")[-33])
 
     return number_of_total_processes, number_of_total_threads
 
