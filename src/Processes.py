@@ -188,6 +188,11 @@ class Processes:
         action.connect("activate", self.on_change_priority_item_clicked)
         MainWindow.main_window.add_action(action)
 
+        # "Set CPU Affinity" action
+        action = Gio.SimpleAction.new("processes_set_cpu_affinity", None)
+        action.connect("activate", self.on_process_cpu_affinity_item_clicked)
+        MainWindow.main_window.add_action(action)
+
         # "Details" action
         action = Gio.SimpleAction.new("processes_details", None)
         action.connect("activate", self.on_details_item_clicked)
@@ -199,6 +204,7 @@ class Processes:
         application.set_accels_for_action("win.processes_continue_process", ["<Control>C"])
         application.set_accels_for_action("win.processes_end_process", ["<Control>E"])
         application.set_accels_for_action("win.processes_end_process_immediately", ["<Control>K"])
+        application.set_accels_for_action("win.processes_set_cpu_affinity", ["<Control>R"])
         application.set_accels_for_action("win.processes_details", ["Return", "KP_Enter"])
 
 
@@ -259,6 +265,11 @@ class Processes:
         priority_menu_section_item = Gio.MenuItem.new()
         priority_menu_section_item.set_section(priority_menu_section)
 
+        cpu_affinity_menu_section = Gio.Menu.new()
+        cpu_affinity_menu_section.append(_tr("Set CPU Affinity"), "win.processes_set_cpu_affinity")
+        cpu_affinity_menu_section_item = Gio.MenuItem.new()
+        cpu_affinity_menu_section_item.set_section(cpu_affinity_menu_section)
+
         details_menu_section = Gio.Menu.new()
         details_menu_section.append(_tr("Details"), "win.processes_details")
         details_menu_section_item = Gio.MenuItem.new()
@@ -267,6 +278,7 @@ class Processes:
         right_click_menu_model = Gio.Menu.new()
         right_click_menu_model.append_item(process_management_menu_section_item)
         right_click_menu_model.append_item(priority_menu_section_item)
+        right_click_menu_model.append_item(cpu_affinity_menu_section_item)
         right_click_menu_model.append_item(details_menu_section_item)
 
         # Popover menu
@@ -447,6 +459,183 @@ class Processes:
             self.priority_custom_value_window.set_visible(False)
 
 
+    def set_cpu_affinity_window_gui(self):
+        """
+        Generate process CPU affinity window GUI.
+        """
+
+        # Window
+        self.cpu_affinity_window = Gtk.Window()
+        self.cpu_affinity_window.set_default_size(400, -1)
+        self.cpu_affinity_window.set_title(_tr("Set CPU Affinity"))
+        self.cpu_affinity_window.set_icon_name("system-monitoring-center")
+        self.cpu_affinity_window.set_transient_for(MainWindow.main_window)
+        self.cpu_affinity_window.set_resizable(False)
+        self.cpu_affinity_window.set_modal(True)
+        self.cpu_affinity_window.set_hide_on_close(True)
+
+        # Main grid
+        main_grid = Gtk.Grid.new()
+        main_grid.set_margin_top(10)
+        main_grid.set_margin_bottom(10)
+        main_grid.set_margin_start(10)
+        main_grid.set_margin_end(10)
+        main_grid.set_row_spacing(10)
+        self.cpu_affinity_window.set_child(main_grid)
+
+        # Label
+        label = Gtk.Label()
+        label.set_label(_tr("Processes") + ":")
+        label.set_halign(Gtk.Align.START)
+        main_grid.attach(label, 0, 0, 1, 1)
+
+        # ScrolledWindow (for process name and PID Label)
+        scrolledwindow = Common.window_main_scrolledwindow()
+        scrolledwindow.set_size_request(-1, 150)
+        main_grid.attach(scrolledwindow, 0, 1, 1, 1)
+
+        # Viewport (for process name and PID Label)
+        viewport = Gtk.Viewport()
+        scrolledwindow.set_child(viewport)
+
+        # Grid (for process name and PID Label)
+        grid = Gtk.Grid.new()
+        grid.set_margin_top(10)
+        grid.set_margin_bottom(10)
+        grid.set_margin_start(10)
+        grid.set_margin_end(10)
+        viewport.set_child(grid)
+
+        # Label (process name and PID)
+        self.cpu_affinity_process_name_and_pid_label = Gtk.Label()
+        self.cpu_affinity_process_name_and_pid_label.set_selectable(True)
+        self.cpu_affinity_process_name_and_pid_label.set_label("--")
+        self.cpu_affinity_process_name_and_pid_label.set_ellipsize(Pango.EllipsizeMode.END)
+        self.cpu_affinity_process_name_and_pid_label.set_halign(Gtk.Align.START)
+        grid.attach(self.cpu_affinity_process_name_and_pid_label, 0, 0, 1, 1)
+
+        # ScrolledWindow (for CPU core CheckButtons)
+        scrolledwindow = Common.window_main_scrolledwindow()
+        scrolledwindow.set_size_request(-1, 150)
+        main_grid.attach(scrolledwindow, 0, 2, 1, 1)
+
+        # Viewport (for CPU core CheckButtons)
+        viewport = Gtk.Viewport()
+        scrolledwindow.set_child(viewport)
+
+        # Grid (for CPU core CheckButtons)
+        grid = Gtk.Grid.new()
+        grid.set_margin_top(10)
+        grid.set_margin_bottom(10)
+        grid.set_margin_start(10)
+        grid.set_margin_end(10)
+        viewport.set_child(grid)
+
+        self.cpu_affinity_select_all_button = Gtk.Button()
+        self.cpu_affinity_select_all_button.set_label(_tr("Select All"))
+        self.cpu_affinity_select_all_button.set_halign(Gtk.Align.CENTER)
+        grid.attach(self.cpu_affinity_select_all_button, 0, 0, 1, 1)
+
+        self.cpu_affinity_select_none_button = Gtk.Button()
+        self.cpu_affinity_select_none_button.set_label(_tr("Select None"))
+        self.cpu_affinity_select_none_button.set_halign(Gtk.Align.CENTER)
+        grid.attach(self.cpu_affinity_select_none_button, 1, 0, 1, 1)
+
+        number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
+        for i in range(number_of_all_logical_cores):
+            checkbutton = Common.checkbutton("cpu" + str(i), None)
+            grid.attach(checkbutton, 0, i+1, 1, 1)
+            checkbutton.connect("toggled", self.on_cpu_affinity_cores_checkbutton_clicked)
+
+        # Grid (buttons)
+        grid = Gtk.Grid.new()
+        grid.set_column_homogeneous(True)
+        grid.set_margin_top(10)
+        grid.set_margin_bottom(10)
+        grid.set_margin_start(10)
+        grid.set_margin_end(10)
+        grid.set_column_spacing(50)
+        main_grid.attach(grid, 0, 3, 1, 1)
+
+        # Button (Cancel)
+        self.cpu_affinity_cancel_button = Gtk.Button()
+        self.cpu_affinity_cancel_button.set_label(_tr("Cancel"))
+        grid.attach(self.cpu_affinity_cancel_button, 0, 0, 1, 1)
+
+        # Button (Change Priority)
+        self.cpu_affinity_set_cpu_affinity_button = Gtk.Button()
+        self.cpu_affinity_set_cpu_affinity_button.set_label(_tr("Set CPU Affinity"))
+        grid.attach(self.cpu_affinity_set_cpu_affinity_button, 1, 0, 1, 1)
+
+        # Signals (buttons)
+        self.cpu_affinity_select_all_button.connect("clicked", self.on_cpu_affinity_select_all_none_buttons_clicked)
+        self.cpu_affinity_select_none_button.connect("clicked", self.on_cpu_affinity_select_all_none_buttons_clicked)
+        self.cpu_affinity_cancel_button.connect("clicked", self.on_cpu_affinity_window_buttons_clicked)
+        self.cpu_affinity_set_cpu_affinity_button.connect("clicked", self.on_cpu_affinity_window_buttons_clicked)
+
+
+    def on_cpu_affinity_select_all_none_buttons_clicked(self, widget):
+        """
+        Select all/none of the CPU cores for CPU affinity.
+        """
+
+        number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
+        parent_grid = self.cpu_affinity_select_all_button.get_parent()
+
+        if widget == self.cpu_affinity_select_all_button:
+            for i in range(number_of_all_logical_cores):
+                checkbutton = parent_grid.get_child_at(0, i+1)
+                checkbutton.set_active(True)
+            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(True)
+
+        elif widget == self.cpu_affinity_select_none_button:
+            for i in range(number_of_all_logical_cores):
+                checkbutton = parent_grid.get_child_at(0, i+1)
+                checkbutton.set_active(False)
+            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(False)
+
+
+    def on_cpu_affinity_cores_checkbutton_clicked(self, widget):
+        """
+        Set sensitive/insensitive "Set CPU Affinity" button if any/none CPU cores are selected.
+        """
+
+        number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
+        parent_grid = self.cpu_affinity_select_all_button.get_parent()
+
+        checkbutton_active_list = []
+        for i in range(number_of_all_logical_cores):
+            checkbutton = parent_grid.get_child_at(0, i+1)
+            checkbutton_active_list.append(checkbutton.get_active())
+
+        if list(set(checkbutton_active_list)) == [False]:
+            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(False)
+        else:
+            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(True)
+
+
+    def on_cpu_affinity_window_buttons_clicked(self, widget):
+        """
+        Close the process CPU affinity window or change CPU affinity.
+        """
+
+        if widget == self.cpu_affinity_cancel_button:
+            self.cpu_affinity_window.set_visible(False)
+
+        if widget == self.cpu_affinity_set_cpu_affinity_button:
+            number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
+            parent_grid = self.cpu_affinity_select_all_button.get_parent()
+
+            cpu_affinity_core_list = []
+            for i in range(number_of_all_logical_cores):
+                checkbutton = parent_grid.get_child_at(0, i+1)
+                if checkbutton.get_active() == True:
+                    cpu_affinity_core_list.append(i)
+
+            Libsysmon.set_process_cpu_affinity(self.selected_process_pid_list, cpu_affinity_core_list)
+            self.cpu_affinity_window.set_visible(False)
+
+
     def on_process_manage_items_clicked(self, action, parameter):
         """
         Pause, continue, end, end immediately processes.
@@ -608,11 +797,7 @@ class Processes:
 
         if action.get_name() == "processes_priority_custom_value":
 
-            # Get right clicked process names.
-            selected_process_name_list = []
-            for selected_process_pid in self.selected_process_pid_list:
-                selected_process_name = self.tab_data_rows[Processes.pid_list.index(selected_process_pid)][2]
-                selected_process_name_list.append(selected_process_name)
+            selected_process_name_list = Common.get_selected_process_names(self)
 
             # Get process current priority value if one process is selected.
             if len(self.selected_process_pid_list) == 1:
@@ -634,12 +819,57 @@ class Processes:
             self.adjustment.configure(selected_process_nice, -20, 19, 1, 0, 0)
 
             # Show process name and PID on a label.
-            selected_process_pid_name_text = ""
-            for i, selected_process_pid in enumerate(self.selected_process_pid_list):
-                if selected_process_pid_name_text != "":
-                    selected_process_pid_name_text = selected_process_pid_name_text + "\n"
-                selected_process_pid_name_text = selected_process_pid_name_text + f'{selected_process_name_list[i]} - (PID: {selected_process_pid})'
-            self.priority_process_name_and_pid_label.set_label(selected_process_pid_name_text)
+            selected_process_name_pid_text = Common.get_process_name_pid_list_text(self, selected_process_name_list)
+            self.priority_process_name_and_pid_label.set_label(selected_process_name_pid_text)
+
+
+    def on_process_cpu_affinity_item_clicked(self, action, parameter):
+        """
+        Show process CPU affinity window.
+        """
+
+        if Config.current_main_tab != 1:
+            return
+
+        selected_process_name_list = Common.get_selected_process_names(self)
+
+        # Get process current CPU affinity value if one process is selected.
+        if len(self.selected_process_pid_list) == 1:
+            selected_process_cpu_affinity = Libsysmon.get_process_cpu_affinity(str(self.selected_process_pid_list[0]))
+            if selected_process_cpu_affinity == "-":
+                return
+        else:
+            selected_process_cpu_affinity = "-"
+
+        # Show process CPU affinity window.
+        try:
+            self.cpu_affinity_window.present()
+        except AttributeError:
+            # Avoid generating menu multiple times on every click.
+            self.set_cpu_affinity_window_gui()
+            self.cpu_affinity_window.present()
+
+        # Set CPU core CheckButtons
+        number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
+        parent_grid = self.cpu_affinity_select_all_button.get_parent()
+        if selected_process_cpu_affinity == "-":
+            for i in range(number_of_all_logical_cores):
+                checkbutton = parent_grid.get_child_at(0, i+1)
+                #checkbutton.set_inconsistent(True)
+                checkbutton.set_active(False)
+                self.cpu_affinity_set_cpu_affinity_button.set_sensitive(False)
+        else:
+            for i in range(number_of_all_logical_cores):
+                checkbutton = parent_grid.get_child_at(0, i+1)
+                if i in selected_process_cpu_affinity:
+                    checkbutton.set_active(True)
+                else:
+                    checkbutton.set_active(False)
+            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(True)
+
+        # Show process name and PID on a label.
+        selected_process_name_pid_text = Common.get_process_name_pid_list_text(self, selected_process_name_list)
+        self.cpu_affinity_process_name_and_pid_label.set_label(selected_process_name_pid_text)
 
 
     def on_details_item_clicked(self, action, parameter):

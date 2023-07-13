@@ -174,6 +174,19 @@ def get_number_of_logical_cores():
     return number_of_logical_cores
 
 
+def get_number_of_all_logical_cores():
+    """
+    Get number of all (online + offline) logical cores.
+    """
+
+    try:
+        number_of_all_logical_cores = os.sysconf('SC_NPROCESSORS_CONF')
+    except ValueError:
+        number_of_all_logical_cores = "-"
+
+    return number_of_all_logical_cores
+
+
 def get_system_boot_time():
     """
     Get system boot time.
@@ -3387,6 +3400,70 @@ def change_process_priority(process_list, priority_option):
             (subprocess.check_output(priority_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
         except subprocess.CalledProcessError:
             return
+
+
+def get_process_cpu_affinity(process_pid):
+    """
+    Get process CPU affinity.
+    """
+
+    command_list = ["taskset", "-pc", process_pid]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    taskset_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip()
+
+    # Process may be ended just after pid_list is generated. "cat" command output is get as "" in this situation.
+    if taskset_output.startswith("taskset: ") == True:
+        selected_process_cpu_affinity = "-"
+    else:
+        selected_process_cpu_affinity = []
+        selected_process_cpu_affinity_list = taskset_output.split(": ")[-1]
+        selected_process_cpu_affinity_list = selected_process_cpu_affinity_list.split(",")
+        for cpu_affinity_sub_list in selected_process_cpu_affinity_list:
+            if "-" in cpu_affinity_sub_list:
+                cpu_affinity_range_start, cpu_affinity_range_end = cpu_affinity_sub_list.split("-")
+                cpu_affinity_sub_list_processed = list(range(int(cpu_affinity_range_start), int(cpu_affinity_range_end)+1))
+                selected_process_cpu_affinity.extend(cpu_affinity_sub_list_processed)
+            else:
+                selected_process_cpu_affinity.append(int(cpu_affinity_sub_list))
+
+    return selected_process_cpu_affinity
+
+
+def set_process_cpu_affinity(process_list, cpu_core_list):
+    """
+    Set CPU affinity of process.
+    """
+
+    process_pid_list_str = []
+    for process_pid in process_list:
+        process_pid_list_str.append(str(process_pid))
+
+
+    cpu_core_list_str = []
+    for cpu_core in cpu_core_list:
+        cpu_core_list_str.append(str(cpu_core))
+    cpu_core_list_str_joined = ','.join(cpu_core_list_str)
+
+    for pid in process_pid_list_str:
+        command_list = ["taskset", "-pc", cpu_core_list_str_joined, pid]
+        command_list_pkexec = ["pkexec", "taskset", "-pc", cpu_core_list_str_joined, pid]
+
+        if get_environment_type() == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
+            command_list_pkexec = ["flatpak-spawn", "--host"] + command_list_pkexec
+
+        # Try to change priority of the process.
+        try:
+            (subprocess.check_output(command_list, stderr=subprocess.STDOUT, shell=False)).decode()
+            # Stop running the function if process priority is changed without root privileges.
+            return
+        except subprocess.CalledProcessError:
+            # Try to change priority of the process if root privileges are required.
+            try:
+                (subprocess.check_output(command_list_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:
+                return
 
 
 def manage_process(process_list, manage_option):

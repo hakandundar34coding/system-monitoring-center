@@ -1275,3 +1275,30 @@ def on_columns_changed(widget, TabObject):
         return
     treeview_column_order_width_row_sorting(widget, None, TabObject)
 
+
+def get_selected_process_names(TabObject):
+
+    selected_process_pid_list = TabObject.selected_process_pid_list
+    tab_data_rows = TabObject.tab_data_rows
+    pid_list = TabObject.pid_list
+
+    selected_process_name_list = []
+    for selected_process_pid in selected_process_pid_list:
+        selected_process_name = tab_data_rows[pid_list.index(selected_process_pid)][2]
+        selected_process_name_list.append(selected_process_name)
+
+    return selected_process_name_list
+
+
+def get_process_name_pid_list_text(TabObject, selected_process_name_list):
+
+    selected_process_pid_list = TabObject.selected_process_pid_list
+
+    selected_process_name_pid_text = ""
+    for i, selected_process_pid in enumerate(selected_process_pid_list):
+        if selected_process_name_pid_text != "":
+            selected_process_name_pid_text = selected_process_name_pid_text + "\n"
+        selected_process_name_pid_text = selected_process_name_pid_text + f'{selected_process_name_list[i]} - (PID: {selected_process_pid})'
+
+    return selected_process_name_pid_text
+
