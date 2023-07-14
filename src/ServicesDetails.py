@@ -32,7 +32,7 @@ class ServicesDetails:
 
         # Window
         self.service_details_window = Gtk.Window()
-        self.service_details_window.set_default_size(500, 435)
+        self.service_details_window.set_default_size(500, 460)
         self.service_details_window.set_title(_tr("Service Details"))
         self.service_details_window.set_icon_name("system-monitoring-center")
         self.service_details_window.set_transient_for(MainWindow.main_window)

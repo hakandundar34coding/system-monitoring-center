@@ -32,7 +32,7 @@ class UsersDetails:
 
         # Window
         self.user_details_window = Gtk.Window()
-        self.user_details_window.set_default_size(350, 330)
+        self.user_details_window.set_default_size(350, 345)
         self.user_details_window.set_title(_tr("User"))
         self.user_details_window.set_icon_name("system-monitoring-center")
         self.user_details_window.set_transient_for(MainWindow.main_window)
