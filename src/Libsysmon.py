@@ -629,6 +629,9 @@ def get_processes_information(process_list=[], processes_of_user="all", cpu_usag
                 read_count = 0
                 write_count = 0
 
+            # Get CPU affinity
+            cpu_affinity = status_file.split("\nCpus_allowed_list:\t", 1)[1].split("\n", 1)[0]
+
         # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters
         # (it is counted as 15). "/proc/[PID]/cmdline" file is read and it is split by the last "/" character 
         # (not all process cmdlines have this) in order to obtain full process name.
@@ -757,7 +760,8 @@ def get_processes_information(process_list=[], processes_of_user="all", cpu_usag
                                 "ctx_switches_voluntary": ctx_switches_voluntary,
                                 "ctx_switches_nonvoluntary": ctx_switches_nonvoluntary,
                                 "read_count": read_count,
-                                "write_count": write_count
+                                "write_count": write_count,
+                                "cpu_affinity": cpu_affinity
                                 }
 
         # Add process sub-dictionary to dictionary
@@ -2860,6 +2864,8 @@ def get_gpu_load_memory_frequency_power_amd(gpu_device_path):
         gpu_sensor_list = os.listdir(gpu_device_path + "device/hwmon/")
         for sensor in gpu_sensor_list:
             if os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_cap") == True:
+                # "power1_cap" file contains selected power cap value. It may be editable.
+                # "power1_cap_max" file contains max supported power cap value.
                 with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_cap") as reader:
                     gpu_power_max = reader.read().strip()
                 # Value in this file is in microwatts.
@@ -2900,7 +2906,7 @@ def gpu_load_nvidia_func():
     global gpu_tool_output
     try:
         gpu_tool_output = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
-    # Prevent errors because nvidia-smi may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
+    # Prevent errors because "nvidia-smi" may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
     except Exception:
         pass
 

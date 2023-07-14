@@ -33,7 +33,7 @@ class ProcessesDetails:
 
         # Window
         self.process_details_window = Gtk.Window()
-        self.process_details_window.set_default_size(500, 470)
+        self.process_details_window.set_default_size(500, 485)
         self.process_details_window.set_title(_tr("Process Details"))
         self.process_details_window.set_icon_name("system-monitoring-center")
         self.process_details_window.set_transient_for(MainWindow.main_window)
@@ -341,6 +341,16 @@ class ProcessesDetails:
         # Label (Context Switches)
         self.context_switches_label = Common.dynamic_information_label()
         grid.attach(self.context_switches_label, 2, 6, 1, 1)
+
+        # Label (CPU Affinity)
+        label = Common.static_information_label(_tr("CPU Affinity"))
+        grid.attach(label, 0, 7, 1, 1)
+        # Label (CPU Affinity)
+        label = Common.static_information_label(":")
+        grid.attach(label, 1, 7, 1, 1)
+        # Label (CPU Affinity)
+        self.cpu_affinity_label = Common.dynamic_information_label()
+        grid.attach(self.cpu_affinity_label, 2, 7, 1, 1)
 
 
     def memory_tab_gui(self):
@@ -759,6 +769,7 @@ class ProcessesDetails:
         self.used_cpu_cores_label.set_label(f'{process_data_dict["cpu_numbers"]}')
         self.cpu_times_label.set_label(f'User: {process_data_dict["cpu_time_user"]}, System: {process_data_dict["cpu_time_kernel"]}, Children User: {process_data_dict["cpu_time_children_user"]}, Children System: {process_data_dict["cpu_time_children_kernel"]}, IO Wait: {process_data_dict["cpu_time_io_wait"]}')
         self.context_switches_label.set_label(f'Voluntary: {process_data_dict["ctx_switches_voluntary"]}, Involuntary: {process_data_dict["ctx_switches_nonvoluntary"]}')
+        self.cpu_affinity_label.set_label(process_data_dict["cpu_affinity"])
 
         # Show information on labels (Memory tab).
         self.memory_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", process_data_dict["memory"], processes_memory_data_unit, processes_memory_data_precision)}')
