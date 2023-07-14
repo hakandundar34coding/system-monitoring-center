@@ -25,6 +25,8 @@
       <li>Plotting performance data of multiple devices at the same time</li>
       <li>Interactive charts for querying performance data on any point</li>
       <li>Option for showing processes as tree or list</li>
+      <li>Optimized for low CPU usage</li>
+      <li>Customization menus for almost all tabs</li>
       <li>Supports ARM architecture</li>
       <li>Free and open source</li>
     </ul>
