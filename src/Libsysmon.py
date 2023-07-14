@@ -2626,7 +2626,8 @@ def get_gpu_load_memory_frequency_power_intel(gpu_device_path):
     gpu_memory_used = "-"
     gpu_memory_capacity = "-"
     gpu_temperature = "-"
-    gpu_power = "-"
+    gpu_power_current = "-"
+    gpu_power_max = "-"
 
     gpu_load_memory_frequency_power_dict = {
                                             "gpu_load" : gpu_load,
@@ -2636,7 +2637,8 @@ def get_gpu_load_memory_frequency_power_intel(gpu_device_path):
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
-                                            "gpu_power" : gpu_power
+                                            "gpu_power_current" : gpu_power_current,
+                                            "gpu_power_max" : gpu_power_max
                                             }
 
     return gpu_load_memory_frequency_power_dict
@@ -2674,7 +2676,8 @@ def get_gpu_load_memory_frequency_power_broadcom_arm():
     gpu_min_frequency = "-"
     gpu_max_frequency = "-"
     gpu_temperature = "-"
-    gpu_power = "-"
+    gpu_power_current = "-"
+    gpu_power_max = "-"
 
     gpu_load_memory_frequency_power_dict = {
                                             "gpu_load" : gpu_load,
@@ -2684,7 +2687,8 @@ def get_gpu_load_memory_frequency_power_broadcom_arm():
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
-                                            "gpu_power" : gpu_power
+                                            "gpu_power_current" : gpu_power_current,
+                                            "gpu_power_max" : gpu_power_max
                                             }
 
     return gpu_load_memory_frequency_power_dict
@@ -2745,7 +2749,8 @@ def get_gpu_load_memory_frequency_power_nvidia_arm(gpu_device_path):
 
     # Get other GPU information
     gpu_temperature = "-"
-    gpu_power = "-"
+    gpu_power_current = "-"
+    gpu_power_max = "-"
 
     gpu_load_memory_frequency_power_dict = {
                                             "gpu_load" : gpu_load,
@@ -2755,7 +2760,8 @@ def get_gpu_load_memory_frequency_power_nvidia_arm(gpu_device_path):
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
-                                            "gpu_power" : gpu_power
+                                            "gpu_power_current" : gpu_power_current,
+                                            "gpu_power_max" : gpu_power_max
                                             }
 
     return gpu_load_memory_frequency_power_dict
@@ -2767,7 +2773,7 @@ def get_gpu_load_memory_frequency_power_amd(gpu_device_path):
     """
 
     # For more information about files under "/sys/class/drm/card[NUMBER]/device/" and their content
-    # for AMD GPUs: https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html and https://wiki.archlinux.org/title/AMDGPU.
+    # for AMD GPUs: https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html and https://wiki.archlinux.org/title/AMDGPU
 
     # Get GPU current, min, max frequencies (engine frequencies). This file contains all available
     # frequencies of the GPU. There is no separate frequency information in files for video clock frequency for AMD GPUs.
@@ -2831,23 +2837,38 @@ def get_gpu_load_memory_frequency_power_amd(gpu_device_path):
     except (FileNotFoundError, NotADirectoryError, OSError) as me:
         gpu_temperature = "-"
 
-    # Get GPU power usage
+    # Get GPU current power usage
     try:
         gpu_sensor_list = os.listdir(gpu_device_path + "device/hwmon/")
         for sensor in gpu_sensor_list:
             if os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") == True:
                 with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_input") as reader:
-                    gpu_power = reader.read().strip()
+                    gpu_power_current = reader.read().strip()
                 # Value in this file is in microwatts.
-                gpu_power = f'{(int(gpu_power) / 1000000):.2f} W'
+                gpu_power_current = f'{(int(gpu_power_current) / 1000000):.2f} W'
             elif os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_average") == True:
                 with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_average") as reader:
-                    gpu_power = reader.read().strip()
-                gpu_power = f'{(int(gpu_power) / 1000000):.2f} W'
+                    gpu_power_current = reader.read().strip()
+                gpu_power_current = f'{(int(gpu_power_current) / 1000000):.2f} W'
             else:
-                gpu_power = "-"
+                gpu_power_current = "-"
     except (FileNotFoundError, NotADirectoryError, OSError) as me:
-        gpu_power = "-"
+        gpu_power_current = "-"
+
+    # Get GPU max power usage
+    try:
+        gpu_sensor_list = os.listdir(gpu_device_path + "device/hwmon/")
+        for sensor in gpu_sensor_list:
+            if os.path.isfile(gpu_device_path + "device/hwmon/" + sensor + "/power1_cap") == True:
+                with open(gpu_device_path + "device/hwmon/" + sensor + "/power1_cap") as reader:
+                    gpu_power_max = reader.read().strip()
+                # Value in this file is in microwatts.
+                gpu_power_max = f'{(int(gpu_power_max) / 1000000):.2f} W'
+            else:
+                gpu_power_max = "-"
+    except (FileNotFoundError, NotADirectoryError, OSError) as me:
+        gpu_power_max = "-"
+
 
     # Get other GPU information
     gpu_load = "-"
@@ -2860,7 +2881,8 @@ def get_gpu_load_memory_frequency_power_amd(gpu_device_path):
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
-                                            "gpu_power" : gpu_power
+                                            "gpu_power_current" : gpu_power_current,
+                                            "gpu_power_max" : gpu_power_max
                                             }
 
     return gpu_load_memory_frequency_power_dict
@@ -2896,7 +2918,8 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
     gpu_min_frequency = "-"
     gpu_max_frequency = "-"
     gpu_temperature = "-"
-    gpu_power = "-"
+    gpu_power_current = "-"
+    gpu_power_max = "-"
 
     if gpu_tool_output != "-":
 
@@ -2914,7 +2937,7 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
         gpu_temperature = gpu_tool_output_for_selected_gpu[8].strip()
         gpu_current_frequency = gpu_tool_output_for_selected_gpu[9].strip()
         gpu_max_frequency = gpu_tool_output_for_selected_gpu[10].strip()
-        gpu_power = gpu_tool_output_for_selected_gpu[11].strip()
+        gpu_power_current = gpu_tool_output_for_selected_gpu[11].strip()
 
         if gpu_load in ["[Not Supported]", "[N/A]"]:
             gpu_load = "-"
@@ -2928,8 +2951,8 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
             gpu_current_frequency = "-"
         if gpu_max_frequency in ["[Not Supported]", "[N/A]"]:
             gpu_max_frequency = "-"
-        if gpu_power in ["[Not Supported]", "[N/A]"]:
-            gpu_power = "-"
+        if gpu_power_current in ["[Not Supported]", "[N/A]"]:
+            gpu_power_current = "-"
 
     try:
         gpu_temperature = float(gpu_temperature)
@@ -2945,7 +2968,8 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
-                                            "gpu_power" : gpu_power
+                                            "gpu_power_current" : gpu_power_current,
+                                            "gpu_power_max" : gpu_power_max
                                             }
 
     return gpu_load_memory_frequency_power_dict

@@ -252,7 +252,17 @@ class Gpu:
         # Get information.
         current_resolution, current_refresh_rate = Libsysmon.get_resolution_refresh_rate()
         gpu_pci_address = Libsysmon.get_gpu_pci_address(selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
-        gpu_load, gpu_memory_used, gpu_memory_capacity, gpu_current_frequency, gpu_min_frequency, gpu_max_frequency, gpu_temperature, gpu_power = self.get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+        gpu_load_memory_frequency_power_dict = self.get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+
+        gpu_load = gpu_load_memory_frequency_power_dict["gpu_load"]
+        gpu_memory_used = gpu_load_memory_frequency_power_dict["gpu_memory_used"]
+        gpu_memory_capacity = gpu_load_memory_frequency_power_dict["gpu_memory_capacity"]
+        gpu_current_frequency = gpu_load_memory_frequency_power_dict["gpu_current_frequency"]
+        gpu_min_frequency = gpu_load_memory_frequency_power_dict["gpu_min_frequency"]
+        gpu_max_frequency = gpu_load_memory_frequency_power_dict["gpu_max_frequency"]
+        gpu_temperature = gpu_load_memory_frequency_power_dict["gpu_temperature"]
+        gpu_power_current = gpu_load_memory_frequency_power_dict["gpu_power_current"]
+        gpu_power_max = gpu_load_memory_frequency_power_dict["gpu_power_max"]
 
         gpu_load = gpu_load.split()[0]
         if gpu_load == "-":
@@ -292,7 +302,7 @@ class Gpu:
         self.frequency_label.set_label(gpu_current_frequency)
         self.temperature_label.set_label(gpu_temperature)
         self.min_max_frequency_label.set_label(f'{gpu_min_frequency} - {gpu_max_frequency}')
-        self.power_usage_label.set_label(gpu_power)
+        self.power_usage_label.set_label(gpu_power_current + " / " + gpu_power_max)
         self.refresh_rate_label.set_label(current_refresh_rate)
         self.resolution_label.set_label(f'{current_resolution}')
 
@@ -303,18 +313,6 @@ class Gpu:
         """
 
         gpu_device_path = gpu_device_path_list[selected_gpu_number]
-
-        environment_type = Libsysmon.get_environment_type()
-
-        # Define initial values for unknown GPU vendors such as vritual devices.
-        gpu_load = "-"
-        gpu_memory_used = "-"
-        gpu_memory_capacity = "-"
-        gpu_current_frequency = "-"
-        gpu_min_frequency = "-"
-        gpu_max_frequency = "-"
-        gpu_temperature = "-"
-        gpu_power = "-"
 
         # If selected GPU vendor is Intel
         if device_vendor_id == "v00008086":
@@ -357,17 +355,7 @@ class Gpu:
         if device_vendor_id in ["v000010DE", "Nvidia"] and gpu_device_path.startswith("/sys/devices/") == True:
             gpu_load_memory_frequency_power_dict = Libsysmon.get_gpu_load_memory_frequency_power_nvidia_arm(gpu_device_path)
 
-        if device_vendor_id in ["v00008086", "v00001022", "v00001002", "Brcm", "v000010DE", "Nvidia"]:
-            gpu_load = gpu_load_memory_frequency_power_dict["gpu_load"]
-            gpu_memory_used = gpu_load_memory_frequency_power_dict["gpu_memory_used"]
-            gpu_memory_capacity = gpu_load_memory_frequency_power_dict["gpu_memory_capacity"]
-            gpu_current_frequency = gpu_load_memory_frequency_power_dict["gpu_current_frequency"]
-            gpu_min_frequency = gpu_load_memory_frequency_power_dict["gpu_min_frequency"]
-            gpu_max_frequency = gpu_load_memory_frequency_power_dict["gpu_max_frequency"]
-            gpu_temperature = gpu_load_memory_frequency_power_dict["gpu_temperature"]
-            gpu_power = gpu_load_memory_frequency_power_dict["gpu_power"]
-
-        return gpu_load, gpu_memory_used, gpu_memory_capacity, gpu_current_frequency, gpu_min_frequency, gpu_max_frequency, gpu_temperature, gpu_power
+        return gpu_load_memory_frequency_power_dict
 
 
     def gpu_load_amd_func(self, *args):
