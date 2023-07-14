@@ -146,10 +146,126 @@ class Services:
         self.mask_service_action = Gio.SimpleAction.new_stateful("services_mask_service", None, GLib.Variant("b", False))
         self.mask_service_action.connect("activate", self.on_service_manage_items_activate)
         MainWindow.main_window.add_action(self.mask_service_action)
+        # "Help" action
+        action = Gio.SimpleAction.new("services_help", None)
+        action.connect("activate", self.on_service_help_item_activate)
+        MainWindow.main_window.add_action(action)
         # "Details" action
         action = Gio.SimpleAction.new("services_details", None)
         action.connect("activate", self.on_service_details_item_activate)
         MainWindow.main_window.add_action(action)
+
+
+    def services_help_window_gui(self):
+        """
+        Services tab help window GUI.
+        """
+
+        # Window
+        self.services_help_window = Gtk.Window()
+        self.services_help_window.set_default_size(600, 500)
+        self.services_help_window.set_title(_tr("Help") + " (" + _tr("Services") + ")")
+        self.services_help_window.set_icon_name("system-monitoring-center")
+        self.services_help_window.set_transient_for(MainWindow.main_window)
+        self.services_help_window.set_modal(True)
+        self.services_help_window.set_hide_on_close(True)
+
+        # ScrolledWindow
+        scrolledwindow = Common.window_main_scrolledwindow()
+        self.services_help_window.set_child(scrolledwindow)
+
+        # Viewport
+        viewport = Gtk.Viewport()
+        scrolledwindow.set_child(viewport)
+
+        # Main grid
+        main_grid = Common.window_main_grid()
+        viewport.set_child(main_grid)
+
+        # Information labels
+        # Label (Start)
+        label = Common.static_information_bold_label(_tr("Start") + ":")
+        main_grid.attach(label, 0, 0, 1, 1)
+        # Label (Start - help text)
+        label = Common.static_information_label_wrap_selectable(_tr("Starts a service.") + " " + _tr("This action does not affect a service after system reboot."))
+        main_grid.attach(label, 0, 1, 1, 1)
+
+        # Separator
+        separator = Common.settings_window_separator()
+        main_grid.attach(separator, 0, 2, 1, 1)
+
+        # Label (Stop)
+        label = Common.static_information_bold_label(_tr("Stop") + ":")
+        main_grid.attach(label, 0, 3, 1, 1)
+        # Label (Stop - help text)
+        label = Common.static_information_label_wrap_selectable(_tr("Stops a service.") + " " + _tr("This action does not affect a service after system reboot."))
+        main_grid.attach(label, 0, 4, 1, 1)
+
+        # Separator
+        separator = Common.settings_window_separator()
+        main_grid.attach(separator, 0, 5, 1, 1)
+
+        # Label (Restart)
+        label = Common.static_information_bold_label(_tr("Restart") + ":")
+        main_grid.attach(label, 0, 6, 1, 1)
+        # Label (Restart - help text)
+        label = Common.static_information_label_wrap_selectable(_tr("Restarts a service."))
+        main_grid.attach(label, 0, 7, 1, 1)
+
+        # Separator
+        separator = Common.settings_window_separator()
+        main_grid.attach(separator, 0, 8, 1, 1)
+
+        # Label (Reload)
+        label = Common.static_information_bold_label(_tr("Reload") + ":")
+        main_grid.attach(label, 0, 9, 1, 1)
+        # Label (Reload - help text)
+        label = Common.static_information_label_wrap_selectable(_tr("Reload a service.") + " " + _tr("This action is not available for all services.") + " " + _tr("This action does not affect running process of a service."))
+        main_grid.attach(label, 0, 10, 1, 1)
+
+        # Separator
+        separator = Common.settings_window_separator()
+        main_grid.attach(separator, 0, 11, 1, 1)
+
+        # Label (Enable)
+        label = Common.static_information_bold_label(_tr("Enable") + ":")
+        main_grid.attach(label, 0, 12, 1, 1)
+        # Label (Enable - help text)
+        label = Common.static_information_label_wrap_selectable(_tr("Enables a service.") + " " + _tr("This action affects a service after system reboot."))
+        main_grid.attach(label, 0, 13, 1, 1)
+
+        # Separator
+        separator = Common.settings_window_separator()
+        main_grid.attach(separator, 0, 14, 1, 1)
+
+        # Label (Disable)
+        label = Common.static_information_bold_label(_tr("Disable") + ":")
+        main_grid.attach(label, 0, 15, 1, 1)
+        # Label (Disable - help text)
+        label = Common.static_information_label_wrap_selectable(_tr("Disables a service.") + " " + _tr("This action affects a service after system reboot.") + " " + _tr("This action does not affect running process of a service."))
+        main_grid.attach(label, 0, 16, 1, 1)
+
+        # Separator
+        separator = Common.settings_window_separator()
+        main_grid.attach(separator, 0, 17, 1, 1)
+
+        # Label (Mask)
+        label = Common.static_information_bold_label(_tr("Mask") + ":")
+        main_grid.attach(label, 0, 18, 1, 1)
+        # Label (Mask - help text)
+        label = Common.static_information_label_wrap_selectable(_tr("Disables a service completely.") + " " + _tr("A masked service can not be started, restarted, reloaded or enabled."))
+        main_grid.attach(label, 0, 19, 1, 1)
+
+        # Separator
+        separator = Common.settings_window_separator()
+        main_grid.attach(separator, 0, 20, 1, 1)
+
+        # Label (Unmask)
+        label = Common.static_information_bold_label(_tr("Unmask") + ":")
+        main_grid.attach(label, 0, 21, 1, 1)
+        # Label (Unmask - help text)
+        label = Common.static_information_label_wrap_selectable(_tr("Unmask a service.") + " " + _tr("A service can be started, restarted, reloaded (if it is available) or enabled after unmasking."))
+        main_grid.attach(label, 0, 22, 1, 1)
 
 
     def right_click_menu(self):
@@ -159,7 +275,7 @@ class Services:
 
         # Menu models
         service_manage_menu_section = Gio.Menu.new()
-        service_manage_menu_section.append(_tr("Start"), "win.services_start_service")
+        service_manage_menu_section.append(_tr("Start1"), "win.services_start_service")
         service_manage_menu_section.append(_tr("Stop"), "win.services_stop_service")
         service_manage_menu_section.append(_tr("Restart"), "win.services_restart_service")
         service_manage_menu_section.append(_tr("Reload"), "win.services_reload_service")
@@ -174,6 +290,11 @@ class Services:
         service_manage_menu_section_item = Gio.MenuItem.new()
         service_manage_menu_section_item.set_section(service_manage_menu_section)
 
+        help_menu_section = Gio.Menu.new()
+        help_menu_section.append(_tr("Help"), "win.services_help")
+        help_menu_section_item = Gio.MenuItem.new()
+        help_menu_section_item.set_section(help_menu_section)
+
         details_menu_section = Gio.Menu.new()
         details_menu_section.append(_tr("Details"), "win.services_details")
         details_menu_section_item = Gio.MenuItem.new()
@@ -181,6 +302,7 @@ class Services:
 
         right_click_menu_model = Gio.Menu.new()
         right_click_menu_model.append_item(service_manage_menu_section_item)
+        right_click_menu_model.append_item(help_menu_section_item)
         right_click_menu_model.append_item(details_menu_section_item)
 
         # Popover menu
@@ -275,9 +397,22 @@ class Services:
         messagedialog.set_visible(False)
 
 
+    def on_service_help_item_activate(self, action, parameter):
+        """
+        Show services help window.
+        """
+
+        try:
+            self.services_help_window.present()
+        except AttributeError:
+            # Avoid generating window multiple times on every button click.
+            self.services_help_window_gui()
+            self.services_help_window.present()
+
+
     def on_service_details_item_activate(self, action, parameter):
         """
-        Show process details window.
+        Show service details window.
         """
 
         from .ServicesDetails import ServicesDetails

@@ -508,12 +508,40 @@ def static_information_label(text):
     return label
 
 
+def static_information_bold_label(text):
+
+    if 'attribute_list_bold' not in globals():
+        text_attribute_bold()
+
+    label = Gtk.Label()
+    label.set_attributes(attribute_list_bold)
+    label.set_label(text)
+    label.set_ellipsize(Pango.EllipsizeMode.END)
+    label.set_halign(Gtk.Align.START)
+
+    return label
+
+
 def static_information_label_no_ellipsize(text):
     """
     Generate static information Label. This label is not updated.
     """
 
     label = Gtk.Label()
+    label.set_label(text)
+    label.set_halign(Gtk.Align.START)
+
+    return label
+
+
+def static_information_label_wrap_selectable(text):
+    """
+    Generate static information Label. This label is not updated.
+    """
+
+    label = Gtk.Label()
+    label.set_wrap(True)
+    label.set_selectable(True)
     label.set_label(text)
     label.set_halign(Gtk.Align.START)
 
