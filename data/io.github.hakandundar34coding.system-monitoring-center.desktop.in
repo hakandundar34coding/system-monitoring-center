@@ -2,7 +2,7 @@
 Name=System Monitoring Center
 GenericName=System Monitor
 Comment=Multi-featured system monitor
-Keywords=System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;Processes;Users;Services;
+Keywords=System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;Processes;Users;Services;
 Exec=system-monitoring-center
 Icon=io.github.hakandundar34coding.system-monitoring-center
 Terminal=false

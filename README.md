@@ -89,6 +89,8 @@
 - Plotting performance data of multiple devices at the same time
 - Interactive charts for querying performance data on any point
 - Option for showing processes as tree or list
+- Optimized for low CPU usage
+- Customization menus for almost all tabs
 - Supports ARM architecture
 - Free and open source
 
@@ -118,6 +120,10 @@
 
 ![System Monitoring Center](screenshots/cpu_tab_per_core_dark_system_theme.png)
 
+![System Monitoring Center](screenshots/memory_tab_white_system_theme.png)
+
+![System Monitoring Center](screenshots/disk_tab_menu_white_system_theme.png)
+
 ![System Monitoring Center](screenshots/network_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/gpu_tab_dark_system_theme.png)
@@ -129,6 +135,8 @@
 ![System Monitoring Center](screenshots/services_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/system_tab_dark_system_theme.png)
+
+![System Monitoring Center](screenshots/settings_dark_system_theme.png)
 
 
 ### Notes:
