@@ -610,6 +610,13 @@ class MainWindow():
         Runs tab functions (Performance, Processes, CPU, Memory, etc.) when their togglebuttons is toggled).
         """
 
+        # Set "get_amd_gpu_load" value for allowing/preventing runningAMD GPU load function.
+        if Config.current_main_tab == 0 or Config.performance_tab_current_sub_tab == 5:
+            try:
+                Libsysmon.event.set()
+            except (NameError, UnboundLocalError, AttributeError):
+                pass
+
         # Switch to "Performance" tab
         if self.performance_tb.get_active() == True:
             self.main_tab_stack.set_visible_child(self.performance_tab_main_grid)

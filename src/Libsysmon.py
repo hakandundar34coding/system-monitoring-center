@@ -4,6 +4,7 @@ import sys
 import platform
 import time
 from datetime import datetime
+import threading
 
 
 # ***********************************************************************************************
@@ -24,6 +25,11 @@ memory_page_size = os.sysconf("SC_PAGE_SIZE")
 # Linux uses 512 value for all disks without regarding device real block size.
 # source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121)
 disk_sector_size = 512
+
+# The content of the file is updated about 50-60 times in a second. 
+# 120 is used in order to get GPU load for AMD GPUs precisely.
+amd_gpu_load_read_frequency = 1 / 120
+amd_gpu_load_list = [0]
 
 # This list is used in order to show full status of the process.
 # For more information, see: "https://man7.org/linux/man-pages/man5/proc.5.html".
@@ -2589,6 +2595,66 @@ def get_gpu_pci_address(selected_gpu_number, gpu_list, gpu_device_path_list, gpu
     return gpu_pci_address
 
 
+def get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list):
+    """
+    Get GPU load, memory, frequencies, power.
+    """
+
+    gpu_device_path = gpu_device_path_list[selected_gpu_number]
+
+    # If selected GPU vendor is Intel
+    if device_vendor_id in ["v00008086"]:
+        gpu_load_memory_frequency_power_dict = get_gpu_load_memory_frequency_power_intel(gpu_device_path)
+
+    # If selected GPU vendor is AMD
+    elif device_vendor_id in ["v00001022", "v00001002"]:
+        gpu_load_memory_frequency_power_dict = get_gpu_load_memory_frequency_power_amd(gpu_device_path)
+
+        # Get GPU load average. There is no "%" character in "gpu_busy_percent" file. This file contains GPU load for a very small time.
+        global event
+        try:
+            event.set()
+        except (NameError, UnboundLocalError, AttributeError):
+            pass
+        event = threading.Event()
+        amd_gpu_load_thread = threading.Thread(target=gpu_load_amd_func, args=(gpu_device_path, event))
+        amd_gpu_load_thread.daemon = True
+        amd_gpu_load_thread.name = "amd_gpu_load_thread"
+        try:
+            amd_gpu_load_thread.start()
+            gpu_load = f'{(sum(amd_gpu_load_list) / len(amd_gpu_load_list)):.0f} %'
+        except Exception:
+            gpu_load = "-"
+
+        # Update the GPU load value. Because it is not get in "get_gpu_load_memory_frequency_power_amd" function.
+        gpu_load_memory_frequency_power_dict["gpu_load"] = gpu_load
+
+    # If selected GPU vendor is Broadcom (for RB-Pi ARM devices).
+    elif device_vendor_id in ["Brcm"]:
+        gpu_load_memory_frequency_power_dict = get_gpu_load_memory_frequency_power_broadcom_arm()
+
+    # If selected GPU vendor is NVIDIA and selected GPU is used on a PCI used system.
+    elif device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/class/drm/") == True:
+        # Try to get GPU usage information in a separate thread in order to prevent this function from blocking
+        # the main thread and GUI for a very small time which stops the GUI for a very small time.
+        gpu_tool_output = "-"
+        Thread(target=gpu_load_nvidia_func, daemon=True).start()
+
+        try:
+            gpu_tool_output = gpu_tool_output
+        # Prevent error if thread is not finished before using the output variable "gpu_tool_output".
+        except Exception:
+            pass
+
+        gpu_load_memory_frequency_power_dict = process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output)
+
+    # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
+    elif device_vendor_id in ["v000010DE", "Nvidia"] and gpu_device_path.startswith("/sys/devices/") == True:
+        gpu_load_memory_frequency_power_dict = get_gpu_load_memory_frequency_power_nvidia_arm(gpu_device_path)
+
+    return gpu_load_memory_frequency_power_dict
+
+
 def get_gpu_load_memory_frequency_power_intel(gpu_device_path):
     """
     Get GPU load, video memory, GPU frequency, power usage if GPU vendor is Intel.
@@ -2892,6 +2958,32 @@ def get_gpu_load_memory_frequency_power_amd(gpu_device_path):
                                             }
 
     return gpu_load_memory_frequency_power_dict
+
+
+def gpu_load_amd_func(gpu_device_path, event):
+    """
+    Get GPU load average for AMD GPUs.
+    """
+
+    while True:
+
+        if event.is_set():
+            break
+
+        # Read file to get GPU load information. This information is calculated for a very small
+        # time (screen refresh rate or content (game, etc.) refresh rate?) and directly plotting this data gives spikes.
+        try:
+            with open(gpu_device_path + "device/gpu_busy_percent") as reader:
+                gpu_load = reader.read().strip()
+        except Exception:
+            gpu_load = 0
+
+        # Add GPU load data into a list in order to calculate average of the list.
+        global amd_gpu_load_list
+        amd_gpu_load_list.append(float(gpu_load))
+        del amd_gpu_load_list[0]
+
+        time.sleep(amd_gpu_load_read_frequency)
 
 
 def gpu_load_nvidia_func():

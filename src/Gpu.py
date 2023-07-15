@@ -198,8 +198,6 @@ class Gpu:
         self.chart_data_history = Config.chart_data_history
         self.gpu_load_list = [0] * self.chart_data_history
         self.gpu_memory_list = [0] * self.chart_data_history
-        # Currently highest monitor refresh rate is 360. 365 is used in order to get GPU load for AMD GPUs precisely.
-        self.amd_gpu_load_list = [0] * 365
 
 
         # Get information
@@ -252,7 +250,7 @@ class Gpu:
         # Get information.
         current_resolution, current_refresh_rate = Libsysmon.get_resolution_refresh_rate()
         gpu_pci_address = Libsysmon.get_gpu_pci_address(selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
-        gpu_load_memory_frequency_power_dict = self.get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+        gpu_load_memory_frequency_power_dict = Libsysmon.get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
 
         gpu_load = gpu_load_memory_frequency_power_dict["gpu_load"]
         gpu_memory_used = gpu_load_memory_frequency_power_dict["gpu_memory_used"]
@@ -305,94 +303,6 @@ class Gpu:
         self.power_usage_label.set_label(gpu_power_current + " / " + gpu_power_max)
         self.refresh_rate_label.set_label(current_refresh_rate)
         self.resolution_label.set_label(f'{current_resolution}')
-
-
-    def get_gpu_load_memory_frequency_power(self, gpu_pci_address, device_vendor_id, selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list):
-        """
-        Get GPU load, memory, frequencies, power.
-        """
-
-        gpu_device_path = gpu_device_path_list[selected_gpu_number]
-
-        # If selected GPU vendor is Intel
-        if device_vendor_id == "v00008086":
-            gpu_load_memory_frequency_power_dict = Libsysmon.get_gpu_load_memory_frequency_power_intel(gpu_device_path)
-
-        # If selected GPU vendor is AMD
-        if device_vendor_id in ["v00001022", "v00001002"]:
-            gpu_load_memory_frequency_power_dict = Libsysmon.get_gpu_load_memory_frequency_power_amd(gpu_device_path)
-
-            # Get GPU load average. There is no "%" character in "gpu_busy_percent" file. This file contains GPU load for a very small time.
-            try:
-                self.gpu_load_amd_func()
-                gpu_load = f'{(sum(self.amd_gpu_load_list) / len(self.amd_gpu_load_list)):.0f} %'
-            except Exception:
-                gpu_load = "-"
-
-            # Update the GPU load value. Because it is not get in "get_gpu_load_memory_frequency_power_amd" function.
-            gpu_load_memory_frequency_power_dict["gpu_load"] = gpu_load
-
-        # If selected GPU vendor is Broadcom (for RB-Pi ARM devices).
-        if device_vendor_id in ["Brcm"]:
-            gpu_load_memory_frequency_power_dict = Libsysmon.get_gpu_load_memory_frequency_power_broadcom_arm()
-
-        # If selected GPU vendor is NVIDIA and selected GPU is used on a PCI used system.
-        if device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/class/drm/") == True:
-            # Try to get GPU usage information in a separate thread in order to prevent this function from blocking
-            # the main thread and GUI for a very small time which stops the GUI for a very small time.
-            gpu_tool_output = "-"
-            Thread(target=Libsysmon.gpu_load_nvidia_func, daemon=True).start()
-
-            try:
-                gpu_tool_output = Libsysmon.gpu_tool_output
-            # Prevent error if thread is not finished before using the output variable "gpu_tool_output".
-            except Exception:
-                pass
-
-            gpu_load_memory_frequency_power_dict = Libsysmon.process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output)
-
-        # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
-        if device_vendor_id in ["v000010DE", "Nvidia"] and gpu_device_path.startswith("/sys/devices/") == True:
-            gpu_load_memory_frequency_power_dict = Libsysmon.get_gpu_load_memory_frequency_power_nvidia_arm(gpu_device_path)
-
-        return gpu_load_memory_frequency_power_dict
-
-
-    def gpu_load_amd_func(self, *args):
-        """
-        Get GPU load average for AMD GPUs.
-        """
-
-        selected_gpu_number = self.selected_gpu_number
-        selected_gpu = self.gpu_list[selected_gpu_number]
-        gpu_device_path = self.gpu_device_path_list[selected_gpu_number]
-        gpu_device_sub_path = self.gpu_device_sub_path_list[selected_gpu_number]
-
-        # Destroy GLib source for preventing it repeating the function.
-        try:
-            self.gpu_glib_source.destroy()
-        # Prevent errors if this is first run of the function.
-        except AttributeError:
-            pass
-        self.gpu_glib_source = GLib.timeout_source_new(1000 / 365)
-
-        # Read file to get GPU load information. This information is calculated for a very small
-        # time (screen refresh rate or content (game, etc.) refresh rate?) and directly plotting this data gives spikes.
-        with open(gpu_device_path + "device/gpu_busy_percent") as reader:
-            gpu_load = reader.read().strip()
-
-        # Add GPU load data into a list in order to calculate average of the list.
-        self.amd_gpu_load_list.append(float(gpu_load))
-        del self.amd_gpu_load_list[0]
-
-        # Prevent running the function again if tab is GPU switched off.
-        if Config.current_main_tab != 0 or Config.performance_tab_current_sub_tab != 5:
-            return
-
-        self.gpu_glib_source.set_callback(self.gpu_load_amd_func)
-        # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed.
-        # A function may be attached to the MainContext multiple times.
-        self.gpu_glib_source.attach(GLib.MainContext.default())
 
 
 Gpu = Gpu()
