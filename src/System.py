@@ -340,7 +340,7 @@ class System:
         current_gtk_version = Libsysmon.get_current_gtk_version()
         current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager = Libsysmon.get_desktop_environment_and_version_windowing_system_window_manager_display_manager()
         # Run this function in a separate thread because it may take a long time (2-3 seconds) to get the information on some systems (such as rpm based systems) and it blocks the GUI during this process if a separate thread is not used.
-        threading.Thread(target=self.apt_or_rpm_or_pacman_packages_count_func, daemon=True).start()
+        threading.Thread(target=self.apt_or_rpm_or_pacman_or_apk_packages_count_func, daemon=True).start()
         threading.Thread(target=self.flatpak_packages_count_func, daemon=True).start()
 
 
@@ -363,7 +363,7 @@ class System:
         self.computer_name_label.set_label(host_name)
         self.architecture_label.set_label(cpu_architecture)
         self.number_of_monitors_label.set_label(f'{number_of_monitors}')
-        #self.system_packages_label.set_label(f'{apt_or_rpm_or_pacman_packages_count}')
+        #self.system_packages_label.set_label(f'{apt_or_rpm_or_pacman_or_apk_packages_count}')
         #self.flatpak_packages_label.set_label(f'{flatpak_packages_count}')
         self.gtk_version_label.set_label(current_gtk_version)
         self.python_version_label.set_label(f'{current_python_version}')
@@ -371,10 +371,10 @@ class System:
         self.initial_already_run = 1
 
 
-    def apt_or_rpm_or_pacman_packages_count_func(self):
-        apt_or_rpm_or_pacman_packages_count = Libsysmon.get_installed_apt_rpm_pacman_packages()
+    def apt_or_rpm_or_pacman_or_apk_packages_count_func(self):
+        apt_or_rpm_or_pacman_or_apk_packages_count = Libsysmon.get_installed_apt_rpm_pacman_apk_packages()
         # Stop and hide spinner and set label text.
-        GLib.idle_add(Common.set_label_spinner, self.system_packages_label, self.system_packages_spinner, apt_or_rpm_or_pacman_packages_count)
+        GLib.idle_add(Common.set_label_spinner, self.system_packages_label, self.system_packages_spinner, apt_or_rpm_or_pacman_or_apk_packages_count)
 
 
     def flatpak_packages_count_func(self):
