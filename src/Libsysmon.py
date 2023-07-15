@@ -4478,7 +4478,7 @@ def get_current_tk_version():
     return current_tk_version
 
 
-def get_installed_apt_rpm_pacman_packages():
+def get_installed_apt_rpm_pacman_apk_packages():
     """
     Get number of installed APT, RPM or pacman packages.
     """

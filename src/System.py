@@ -372,7 +372,7 @@ class System:
 
 
     def apt_or_rpm_or_pacman_or_apk_packages_count_func(self):
-        apt_or_rpm_or_pacman_or_apk_packages_count = Libsysmon.get_installed_apt_rpm_pacman_packages()
+        apt_or_rpm_or_pacman_or_apk_packages_count = Libsysmon.get_installed_apt_rpm_pacman_apk_packages()
         # Stop and hide spinner and set label text.
         GLib.idle_add(Common.set_label_spinner, self.system_packages_label, self.system_packages_spinner, apt_or_rpm_or_pacman_or_apk_packages_count)
 
