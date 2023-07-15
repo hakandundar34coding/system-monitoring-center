@@ -4489,7 +4489,8 @@ def get_installed_apt_rpm_pacman_packages():
     apt_packages_available = "-"
     rpm_packages_available = "-"
     pacman_packages_available = "-"
-    apt_or_rpm_or_pacman_packages_count = "-"
+    apk_packages_available = "-"
+    apt_or_rpm_or_pacman_or_apk_packages_count = "-"
 
     # Get number of APT (deb) packages if available.
     try:
@@ -4503,7 +4504,7 @@ def get_installed_apt_rpm_pacman_packages():
                 number_of_installed_apt_packages = (subprocess.check_output(["flatpak-spawn", "--host", "dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
             else:
                 number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
-            apt_or_rpm_or_pacman_packages_count = f'{number_of_installed_apt_packages} (APT)'
+            apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_apt_packages} (APT)'
     # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
     except (FileNotFoundError, subprocess.CalledProcessError) as me:
         apt_packages_available = "-"
@@ -4522,7 +4523,7 @@ def get_installed_apt_rpm_pacman_packages():
                     number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
                 # Differentiate empty line count
                 number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")
-                apt_or_rpm_or_pacman_packages_count = f'{number_of_installed_rpm_packages} (RPM)'
+                apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_rpm_packages} (RPM)'
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
             rpm_packages_available = "-"
 
@@ -4540,11 +4541,29 @@ def get_installed_apt_rpm_pacman_packages():
                     number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
                 # Differentiate empty line count
                 number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")
-                apt_or_rpm_or_pacman_packages_count = f'{number_of_installed_pacman_packages} (pacman)'
+                apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_pacman_packages} (pacman)'
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
             pacman_packages_available = "-"
 
-    return apt_or_rpm_or_pacman_packages_count
+    # Get number of APK (Alpine Linux) packages if available.
+    if apt_packages_available == "-" and rpm_packages_available == "-" and apk_packages_available == "-":
+        try:
+            if environment_type == "flatpak":
+                apk_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "apk", "list", "--installed", "python3"], shell=False)).decode().strip()
+            else:
+                apk_packages_available = (subprocess.check_output(["apk", "list", "--installed", "python3"], shell=False)).decode().strip()
+            if apk_packages_available.startswith("python3-3."):
+                if environment_type == "flatpak":
+                    number_of_installed_apk_packages = (subprocess.check_output(["flatpak-spawn", "--host", "apk", "info"], shell=False)).decode().strip().split("\n")
+                else:
+                    number_of_installed_apk_packages = (subprocess.check_output(["apk", "info"], shell=False)).decode().strip().split("\n")
+                # Differentiate empty line count
+                number_of_installed_apk_packages = len(number_of_installed_apk_packages) - number_of_installed_apk_packages.count("")
+                apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_apk_packages} (apk)'
+        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+            apk_packages_available = "-"
+
+    return apt_or_rpm_or_pacman_or_apk_packages_count
 
 
 def get_installed_flatpak_packages():
