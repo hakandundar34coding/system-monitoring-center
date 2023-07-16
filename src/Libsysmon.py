@@ -2652,6 +2652,25 @@ def get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selec
     elif device_vendor_id in ["v000010DE", "Nvidia"] and gpu_device_path.startswith("/sys/devices/") == True:
         gpu_load_memory_frequency_power_dict = get_gpu_load_memory_frequency_power_nvidia_arm(gpu_device_path)
 
+    else:
+        gpu_load_memory_frequency_power_dict = {
+                                                "gpu_load" : "-",
+                                                "gpu_encoder_load": "-",
+                                                "gpu_decoder_load": "-",
+                                                "gpu_memory_used" : "-",
+                                                "gpu_memory_capacity" : "-",
+                                                "gpu_current_frequency" : "-",
+                                                "gpu_min_frequency" : "-",
+                                                "gpu_max_frequency" : "-",
+                                                "gpu_memory_current_frequency" : "-",
+                                                "gpu_memory_min_frequency" : "-",
+                                                "gpu_memory_max_frequency" : "-",
+                                                "gpu_temperature" : "-",
+                                                "gpu_power_current" : "-",
+                                                "gpu_power_max" : "-",
+                                                "gpu_driver_version" : "-"
+                                                }
+
     return gpu_load_memory_frequency_power_dict
 
 
