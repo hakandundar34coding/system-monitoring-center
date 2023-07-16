@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-01 10:53+0300\n"
-"PO-Revision-Date: 2023-07-01 10:59+0300\n"
+"POT-Creation-Date: 2023-07-16 15:47+0300\n"
+"PO-Revision-Date: 2023-07-16 16:02+0300\n"
 "Last-Translator: csc-chicken <k2205940@gmail.com>, 2023.\n"
 "Language-Team: Traditional-Chinese(Taiwan num1)) <k2205940@gmail.com>, "
 "2023.\n"
@@ -36,8 +36,12 @@ msgid "Multi-featured system monitor"
 msgstr "多功能系統監控中心"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+#, fuzzy
+#| msgid ""
+#| "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+#| "Processes;Users;Services;"
 msgid ""
-"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;"
 "Processes;Users;Services;"
 msgstr ""
 "系統監控；任務管理；效能；CPU；RAM；SWAP；記憶體；硬碟；網路；程序；使用者；"
@@ -55,31 +59,31 @@ msgstr "重新整理此分頁的數據"
 msgid "Graph Color"
 msgstr "圖表頻色"
 
-#: src/Common.py:809 src/Common.py:875 src/Processes.py:298
+#: src/Common.py:838 src/Common.py:904 src/Processes.py:310
 msgid "Search..."
 msgstr "尋找..."
 
 #: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:70 src/MainWindow.py:138
-#: src/MainWindow.py:287 src/Processes.py:860 src/Processes.py:877
+#: src/MainWindow.py:287 src/Processes.py:1094 src/Processes.py:1111
 #: src/ProcessesDetails.py:65 src/ProcessesDetails.py:157
 #: src/ProcessesDetails.py:284 src/ProcessesMenu.py:178
 #: src/ProcessesMenu.py:246 src/ProcessesMenu.py:287 src/ProcessesMenu.py:328
-#: src/SettingsWindow.py:30 src/Summary.py:682 src/Users.py:240
+#: src/SettingsWindow.py:30 src/Summary.py:680 src/Users.py:240
 #: src/UsersDetails.py:165 src/UsersMenu.py:127
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:59 src/Network.py:54
-#: src/System.py:194
+#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:64 src/Gpu.py:310
+#: src/Network.py:54 src/System.py:194
 msgid "Vendor"
 msgstr "製造商"
 
-#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:59 src/Network.py:54
-#: src/System.py:201
+#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:64 src/Gpu.py:310
+#: src/Network.py:54 src/System.py:201
 msgid "Model"
 msgstr "模型"
 
-#: src/Cpu.py:59 src/Disk.py:62 src/Gpu.py:64 src/Network.py:59
+#: src/Cpu.py:59 src/Disk.py:62 src/Gpu.py:69 src/Network.py:59
 msgid "Device Name In Kernel"
 msgstr "在內核中的裝置名稱"
 
@@ -95,18 +99,18 @@ msgstr "平均用量"
 msgid "Average CPU usage of all cores"
 msgstr "平均cpu 用量（有所cpu 核心）"
 
-#: src/Cpu.py:102 src/Gpu.py:112
+#: src/Cpu.py:102 src/Gpu.py:215 src/Gpu.py:380
 msgid "Frequency"
 msgstr "頻率"
 
 #: src/Cpu.py:107 src/MainWindow.py:201 src/Processes.py:81
-#: src/Processes.py:1109 src/ProcessesMenu.py:33 src/SettingsWindow.py:29
-#: src/Summary.py:716 src/Users.py:235 src/UsersDetails.py:115
-#: src/UsersMenu.py:107
+#: src/Processes.py:488 src/Processes.py:1343 src/ProcessesMenu.py:33
+#: src/SettingsWindow.py:29 src/Summary.py:714 src/Users.py:235
+#: src/UsersDetails.py:115 src/UsersMenu.py:107
 msgid "Processes"
 msgstr "程序"
 
-#: src/Cpu.py:107 src/Processes.py:869 src/ProcessesDetails.py:294
+#: src/Cpu.py:107 src/Processes.py:1103 src/ProcessesDetails.py:294
 #: src/ProcessesMenu.py:218
 msgid "Threads"
 msgstr "執行緒"
@@ -115,7 +119,7 @@ msgstr "執行緒"
 msgid "Up Time"
 msgstr "上線時間"
 
-#: src/Cpu.py:116 src/Gpu.py:120
+#: src/Cpu.py:116 src/Gpu.py:223 src/Gpu.py:390
 msgid "Min-Max Frequency"
 msgstr "Min-Max 頻率"
 
@@ -164,19 +168,19 @@ msgstr "精度"
 msgid "Disk"
 msgstr "硬碟"
 
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:866
-#: src/ProcessesDetails.py:177 src/ProcessesDetails.py:452
-#: src/ProcessesDetails.py:470 src/ProcessesMenu.py:206 src/Summary.py:889
+#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:1100
+#: src/ProcessesDetails.py:177 src/ProcessesDetails.py:472
+#: src/ProcessesDetails.py:490 src/ProcessesMenu.py:206 src/Summary.py:887
 msgid "Read Speed"
 msgstr "讀取速度"
 
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:867
-#: src/ProcessesDetails.py:187 src/ProcessesDetails.py:452
-#: src/ProcessesDetails.py:480 src/ProcessesMenu.py:210 src/Summary.py:908
+#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1101
+#: src/ProcessesDetails.py:187 src/ProcessesDetails.py:472
+#: src/ProcessesDetails.py:500 src/ProcessesMenu.py:210 src/Summary.py:906
 msgid "Write Speed"
 msgstr "寫入速度"
 
-#: src/Disk.py:110 src/Processes.py:864 src/ProcessesDetails.py:490
+#: src/Disk.py:110 src/Processes.py:1098 src/ProcessesDetails.py:510
 #: src/ProcessesMenu.py:198
 msgid "Read Data"
 msgstr "讀取數據"
@@ -185,7 +189,7 @@ msgstr "讀取數據"
 msgid "Measured value since last system start"
 msgstr "自從系統啟動量測數字"
 
-#: src/Disk.py:110 src/Processes.py:865 src/ProcessesDetails.py:500
+#: src/Disk.py:110 src/Processes.py:1099 src/ProcessesDetails.py:520
 #: src/ProcessesMenu.py:202
 msgid "Written Data"
 msgstr ""
@@ -204,16 +208,16 @@ msgid "Free"
 msgstr "空的"
 
 #: src/Disk.py:156 src/Disk.py:265 src/Disk.py:275 src/Memory.py:119
-#: src/Memory.py:172 src/Memory.py:331
+#: src/Memory.py:172 src/Memory.py:333
 msgid "Capacity"
 msgstr "容量"
 
-#: src/Disk.py:163 src/Memory.py:179 src/Processes.py:263 src/Services.py:178
-#: src/Users.py:128
+#: src/Disk.py:163 src/Gpu.py:258 src/Memory.py:179 src/Processes.py:274
+#: src/Services.py:299 src/Users.py:128
 msgid "Details"
 msgstr "細節"
 
-#: src/Disk.py:166 src/Memory.py:136 src/Memory.py:182
+#: src/Disk.py:166 src/Gpu.py:261 src/Memory.py:136 src/Memory.py:182
 msgid "Show..."
 msgstr "展示..."
 
@@ -267,40 +271,68 @@ msgstr "Show speed units as multiples of bits"
 msgid "Hide loop, ramdisk, zram disks"
 msgstr "Hide loop, ramdisk, zram disks"
 
-#: src/Gpu.py:54 src/GpuMenu.py:37 src/MainWindow.py:307
-#: src/SettingsWindow.py:30
+#: src/Gpu.py:59 src/Gpu.py:290 src/Gpu.py:320 src/Gpu.py:501 src/GpuMenu.py:37
+#: src/MainWindow.py:307 src/SettingsWindow.py:30
 msgid "GPU"
 msgstr "GPU"
 
-#: src/Gpu.py:80 src/Gpu.py:107
+#: src/Gpu.py:85 src/Gpu.py:210 src/Gpu.py:360
 msgid "GPU Usage"
 msgstr "GPU-用量"
 
-#: src/Gpu.py:107
+#: src/Gpu.py:127 src/Gpu.py:210 src/Gpu.py:370
 msgid "GPU Memory"
 msgstr "記憶體"
 
-#: src/Gpu.py:112
+#: src/Gpu.py:155
+msgid "Video Encoder"
+msgstr ""
+
+#: src/Gpu.py:183
+msgid "Video Decoder"
+msgstr ""
+
+#: src/Gpu.py:215 src/Gpu.py:410
 msgid "Temperature"
 msgstr "溫度"
 
-#: src/Gpu.py:127
-msgid "Boot VGA"
-msgstr "Boot VGA"
+#: src/Gpu.py:230 src/Gpu.py:400
+msgid "Memory Frequency"
+msgstr ""
 
-#: src/Gpu.py:134
+#: src/Gpu.py:237 src/Gpu.py:420
 msgid "Power Usage"
 msgstr "電源使用量"
 
-#: src/Gpu.py:141
+#: src/Gpu.py:244 src/Gpu.py:430
+msgid "Boot VGA"
+msgstr "Boot VGA"
+
+#: src/Gpu.py:251 src/Gpu.py:440
 msgid "Driver"
 msgstr "驅動"
 
-#: src/Gpu.py:148
+#: src/Gpu.py:330
+msgid "PCIe Address"
+msgstr ""
+
+#: src/Gpu.py:340
+msgid "GPU Interface"
+msgstr ""
+
+#: src/Gpu.py:350
+msgid "Link Speed"
+msgstr ""
+
+#: src/Gpu.py:450
+msgid "Connections"
+msgstr ""
+
+#: src/Gpu.py:460
 msgid "Refresh Rate"
 msgstr "更新率"
 
-#: src/Gpu.py:155
+#: src/Gpu.py:470
 msgid "Resolution"
 msgstr "解析度"
 
@@ -308,9 +340,9 @@ msgstr "解析度"
 msgid "Customization menu for the current tab"
 msgstr ""
 
-#: src/MainWindow.py:142 src/MainWindow.py:833 src/Memory.py:102
-#: src/Memory.py:331 src/MemoryMenu.py:45 src/Performance.py:124
-#: src/Performance.py:128 src/Summary.py:699
+#: src/MainWindow.py:142 src/MainWindow.py:840 src/Memory.py:102
+#: src/Memory.py:333 src/MemoryMenu.py:45 src/Performance.py:124
+#: src/Performance.py:128 src/Summary.py:697
 msgid "RAM"
 msgstr "RAM"
 
@@ -328,8 +360,8 @@ msgstr "效能"
 msgid "Users"
 msgstr "使用者"
 
-#: src/MainWindow.py:211 src/Services.py:63 src/Services.py:494
-#: src/ServicesMenu.py:33 src/SettingsWindow.py:29
+#: src/MainWindow.py:211 src/Services.py:63 src/Services.py:167
+#: src/Services.py:629 src/ServicesMenu.py:33 src/SettingsWindow.py:29
 msgid "Services"
 msgstr "服務"
 
@@ -338,15 +370,16 @@ msgstr "服務"
 msgid "System"
 msgstr "系統"
 
-#: src/MainWindow.py:282 src/MainWindow.py:819 src/ProcessesDetails.py:60
+#: src/MainWindow.py:282 src/MainWindow.py:826 src/ProcessesDetails.py:60
 #: src/ServicesDetails.py:59 src/SettingsWindow.py:30 src/Summary.py:39
 msgid "Summary"
 msgstr "大綱"
 
 #: src/MainWindow.py:292 src/Memory.py:50 src/MemoryMenu.py:37
-#: src/MemoryMenu.py:49 src/Processes.py:876 src/Processes.py:879
-#: src/ProcessesDetails.py:70 src/ProcessesMenu.py:182 src/ProcessesMenu.py:254
-#: src/ProcessesMenu.py:298 src/ProcessesMenu.py:341 src/SettingsWindow.py:30
+#: src/MemoryMenu.py:49 src/Processes.py:1110 src/Processes.py:1113
+#: src/ProcessesDetails.py:70 src/ProcessesDetails.py:393
+#: src/ProcessesMenu.py:182 src/ProcessesMenu.py:254 src/ProcessesMenu.py:298
+#: src/ProcessesMenu.py:341 src/SettingsWindow.py:30
 msgid "Memory"
 msgstr "記憶體"
 
@@ -363,21 +396,21 @@ msgstr "一般設定"
 msgid "About"
 msgstr "關於"
 
-#: src/MainWindow.py:829
+#: src/MainWindow.py:836
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "CPU core selection affects only frequency and cache memory information."
 
-#: src/MainWindow.py:833 src/Memory.py:140 src/Memory.py:264 src/Memory.py:365
-#: src/ProcessesDetails.py:423
+#: src/MainWindow.py:840 src/Memory.py:140 src/Memory.py:264 src/Memory.py:367
+#: src/ProcessesDetails.py:443
 msgid "Swap Memory"
 msgstr "swap 記憶體"
 
-#: src/MainWindow.py:972
+#: src/MainWindow.py:979
 msgid "Not mounted"
 msgstr "沒被掛載"
 
-#: src/MainWindow.py:1046
+#: src/MainWindow.py:1053
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -408,12 +441,12 @@ msgid "File"
 msgstr "檔案"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:45
-#: src/Summary.py:928
+#: src/Summary.py:926
 msgid "Download Speed"
 msgstr "下載速度"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:49
-#: src/Summary.py:948
+#: src/Summary.py:946
 msgid "Upload Speed"
 msgstr "上傳速度"
 
@@ -453,181 +486,193 @@ msgstr "IPv6 位址"
 msgid "MAC Address"
 msgstr "MAC 位址"
 
-#: src/Performance.py:128 src/Summary.py:733
+#: src/Performance.py:128 src/Summary.py:731
 msgid "Swap"
 msgstr "Swap"
 
-#: src/Processes.py:212
+#: src/Processes.py:218
 msgid "Pause Process"
 msgstr "暫停程序"
 
-#: src/Processes.py:213
+#: src/Processes.py:219
 msgid "Continue Process"
 msgstr "繼續程序"
 
-#: src/Processes.py:214
+#: src/Processes.py:220
 msgid "End Process"
 msgstr "中止程序"
 
-#: src/Processes.py:215
+#: src/Processes.py:221
 msgid "End Process Immediately"
 msgstr "立刻中止程序"
 
-#: src/Processes.py:221
+#: src/Processes.py:227
 msgid "Very High"
 msgstr "非常高"
 
-#: src/Processes.py:226 src/Sensors.py:115
+#: src/Processes.py:232 src/Sensors.py:115
 msgid "High"
 msgstr "高"
 
-#: src/Processes.py:231
+#: src/Processes.py:237
 msgid "Normal"
 msgstr "一般"
 
-#: src/Processes.py:236
+#: src/Processes.py:242
 msgid "Low"
 msgstr "低"
 
-#: src/Processes.py:241
+#: src/Processes.py:247
 msgid "Very Low"
 msgstr "非常低"
 
-#: src/Processes.py:249
+#: src/Processes.py:255
 msgid "Custom Value..."
 msgstr "客製值..."
 
-#: src/Processes.py:258 src/Processes.py:349 src/Processes.py:423
+#: src/Processes.py:264 src/Processes.py:361 src/Processes.py:439
 msgid "Change Priority"
 msgstr "更改優先度"
 
-#: src/Processes.py:302 src/Processes.py:856 src/ProcessesDetails.py:107
-#: src/ProcessesMenu.py:158 src/Sensors.py:113 src/Services.py:377
+#: src/Processes.py:269 src/Processes.py:470 src/Processes.py:567
+msgid "Set CPU Affinity"
+msgstr ""
+
+#: src/Processes.py:314 src/Processes.py:1090 src/ProcessesDetails.py:107
+#: src/ProcessesMenu.py:158 src/Sensors.py:113 src/Services.py:512
 #: src/ServicesDetails.py:88 src/ServicesMenu.py:85 src/System.py:109
 #: src/System.py:215
 msgid "Name"
 msgstr "名字"
 
-#: src/Processes.py:306 src/Processes.py:874 src/ProcessesDetails.py:564
+#: src/Processes.py:318 src/Processes.py:1108 src/ProcessesDetails.py:584
 #: src/ProcessesMenu.py:238
 msgid "Command Line"
 msgstr "命令列"
 
-#: src/Processes.py:367
+#: src/Processes.py:379
 msgid "Change priority of these processes"
 msgstr ""
 
-#: src/Processes.py:367
+#: src/Processes.py:379
 msgid "Smaller value means higher process priority"
 msgstr "數字小優先度高"
 
-#: src/Processes.py:418
+#: src/Processes.py:434 src/Processes.py:562
 msgid "Cancel"
 msgstr "取消"
 
-#: src/Processes.py:469
+#: src/Processes.py:535
+msgid "Select All"
+msgstr ""
+
+#: src/Processes.py:540
+msgid "Select None"
+msgstr ""
+
+#: src/Processes.py:662
 msgid "Do you want to pause these processes?"
 msgstr ""
 
-#: src/Processes.py:474
+#: src/Processes.py:667
 msgid "Do you want to end these processes?"
 msgstr ""
 
-#: src/Processes.py:477
+#: src/Processes.py:670
 msgid "Do you want to end these processes immediately?"
 msgstr ""
 
-#: src/Processes.py:857 src/ProcessesDetails.py:117 src/ProcessesDetails.py:706
-#: src/ProcessesMenu.py:164
+#: src/Processes.py:1091 src/ProcessesDetails.py:117
+#: src/ProcessesDetails.py:726 src/ProcessesMenu.py:164
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:858 src/ProcessesDetails.py:137 src/ProcessesMenu.py:170
+#: src/Processes.py:1092 src/ProcessesDetails.py:137 src/ProcessesMenu.py:170
 #: src/Users.py:230 src/UsersDetails.py:36 src/UsersDetails.py:65
 #: src/UsersDetails.py:236 src/UsersMenu.py:85
 msgid "User"
 msgstr "使用者"
 
-#: src/Processes.py:859 src/ProcessesDetails.py:127 src/ProcessesMenu.py:174
+#: src/Processes.py:1093 src/ProcessesDetails.py:127 src/ProcessesMenu.py:174
 msgid "Status"
 msgstr "狀態"
 
-#: src/Processes.py:861 src/Processes.py:878 src/ProcessesDetails.py:167
-#: src/ProcessesDetails.py:365 src/ProcessesDetails.py:383
-#: src/ProcessesMenu.py:186 src/ProcessesMenu.py:250 src/Services.py:383
+#: src/Processes.py:1095 src/Processes.py:1112 src/ProcessesDetails.py:167
+#: src/ProcessesDetails.py:375 src/ProcessesDetails.py:403
+#: src/ProcessesMenu.py:186 src/ProcessesMenu.py:250 src/Services.py:518
 #: src/ServicesDetails.py:220 src/ServicesMenu.py:111
 msgid "Memory (RSS)"
 msgstr "記憶體（RSS)"
 
-#: src/Processes.py:862 src/ProcessesDetails.py:393 src/ProcessesMenu.py:190
+#: src/Processes.py:1096 src/ProcessesDetails.py:413 src/ProcessesMenu.py:190
 msgid "Memory (VMS)"
 msgstr "記憶體（VMS)"
 
-#: src/Processes.py:863 src/ProcessesDetails.py:403 src/ProcessesMenu.py:194
+#: src/Processes.py:1097 src/ProcessesDetails.py:423 src/ProcessesMenu.py:194
 msgid "Memory (Shared)"
 msgstr "記憶體(Shared)"
 
-#: src/Processes.py:868 src/ProcessesDetails.py:147 src/ProcessesMenu.py:214
+#: src/Processes.py:1102 src/ProcessesDetails.py:147 src/ProcessesMenu.py:214
 msgid "Priority"
 msgstr "優先"
 
-#: src/Processes.py:870 src/ProcessesDetails.py:217 src/ProcessesMenu.py:222
+#: src/Processes.py:1104 src/ProcessesDetails.py:217 src/ProcessesMenu.py:222
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:871 src/ProcessesDetails.py:227 src/ProcessesMenu.py:226
+#: src/Processes.py:1105 src/ProcessesDetails.py:227 src/ProcessesMenu.py:226
 #: src/Users.py:233 src/UsersDetails.py:95 src/UsersMenu.py:99
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:872 src/ProcessesDetails.py:237 src/ProcessesMenu.py:230
+#: src/Processes.py:1106 src/ProcessesDetails.py:237 src/ProcessesMenu.py:230
 #: src/Users.py:234 src/UsersDetails.py:105 src/UsersMenu.py:103
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:873 src/ProcessesDetails.py:197 src/ProcessesMenu.py:234
+#: src/Processes.py:1107 src/ProcessesDetails.py:197 src/ProcessesMenu.py:234
 #: src/Users.py:239 src/UsersDetails.py:155 src/UsersMenu.py:123
 msgid "Start Time"
 msgstr "啟動時間"
 
-#: src/Processes.py:875 src/ProcessesMenu.py:242
+#: src/Processes.py:1109 src/ProcessesMenu.py:242
 msgid "CPU Time"
 msgstr ""
 
-#: src/Processes.py:877 src/Processes.py:878 src/Processes.py:879
+#: src/Processes.py:1111 src/Processes.py:1112 src/Processes.py:1113
 #: src/ProcessesMenu.py:246 src/ProcessesMenu.py:250 src/ProcessesMenu.py:254
 msgid "Recursive"
 msgstr ""
 
-#: src/Processes.py:904 src/Services.py:400
+#: src/Processes.py:1138 src/Services.py:535
 msgid "Running"
 msgstr "正在運行"
 
-#: src/Processes.py:904
+#: src/Processes.py:1138
 msgid "Sleeping"
 msgstr "睡眠中"
 
-#: src/Processes.py:904
+#: src/Processes.py:1138
 msgid "Waiting"
 msgstr "等待"
 
-#: src/Processes.py:904
+#: src/Processes.py:1138
 msgid "Idle"
 msgstr "閒置"
 
-#: src/Processes.py:904
+#: src/Processes.py:1138
 msgid "Zombie"
 msgstr "Zombie"
 
-#: src/Processes.py:904
+#: src/Processes.py:1138
 msgid "Stopped"
 msgstr "已停止"
 
-#: src/ProcessesDetails.py:37 src/ProcessesDetails.py:706
+#: src/ProcessesDetails.py:37 src/ProcessesDetails.py:726
 msgid "Process Details"
 msgstr "程序細節"
 
-#: src/ProcessesDetails.py:207 src/ProcessesDetails.py:544
+#: src/ProcessesDetails.py:207 src/ProcessesDetails.py:564
 #: src/ServicesDetails.py:148
 msgid "Path"
 msgstr "路徑"
@@ -648,27 +693,31 @@ msgstr "CPU 時間"
 msgid "Context Switches"
 msgstr "Context Switches"
 
-#: src/ProcessesDetails.py:413
+#: src/ProcessesDetails.py:346
+msgid "CPU Affinity"
+msgstr ""
+
+#: src/ProcessesDetails.py:433
 msgid "Memory (USS)"
 msgstr "記憶體（USS)"
 
-#: src/ProcessesDetails.py:510
+#: src/ProcessesDetails.py:530
 msgid "Read Count"
 msgstr "讀的數量"
 
-#: src/ProcessesDetails.py:520
+#: src/ProcessesDetails.py:540
 msgid "Write Count"
 msgstr "寫的數量"
 
-#: src/ProcessesDetails.py:554
+#: src/ProcessesDetails.py:574
 msgid "Current Working Directory"
 msgstr "目前運行位置"
 
-#: src/ProcessesDetails.py:576
+#: src/ProcessesDetails.py:596
 msgid "Opened Files"
 msgstr "開啟的檔案"
 
-#: src/ProcessesDetails.py:829
+#: src/ProcessesDetails.py:851
 msgid "This process is not running anymore."
 msgstr "這個程序不會再運行"
 
@@ -726,119 +775,185 @@ msgid ""
 "Note: This tab is not reloaded automatically. Manually reload for changes."
 msgstr "提醒：這個分頁沒有自動重新整理.請手動重新整理"
 
-#: src/Services.py:162
+#: src/Services.py:167 src/Services.py:294
+msgid "Help"
+msgstr ""
+
+#: src/Services.py:187 src/Services.py:278
 msgid "Start"
 msgstr "啟動（start)"
 
-#: src/Services.py:163
+#: src/Services.py:190
+msgid "Starts a service."
+msgstr ""
+
+#: src/Services.py:190 src/Services.py:201
+msgid "This action does not affect a service after system reboot."
+msgstr ""
+
+#: src/Services.py:198 src/Services.py:279
 msgid "Stop"
 msgstr "停止（stop)"
 
-#: src/Services.py:164
+#: src/Services.py:201
+msgid "Stops a service."
+msgstr ""
+
+#: src/Services.py:209 src/Services.py:280
 msgid "Restart"
 msgstr "重啟（restart)"
 
-#: src/Services.py:165
+#: src/Services.py:212
+msgid "Restarts a service."
+msgstr ""
+
+#: src/Services.py:220 src/Services.py:281
 msgid "Reload"
 msgstr "重新整理（reload)"
 
-#: src/Services.py:166
+#: src/Services.py:223
+msgid "Reloads a service."
+msgstr ""
+
+#: src/Services.py:223
+msgid "This action is not available for all services."
+msgstr ""
+
+#: src/Services.py:223 src/Services.py:245
+msgid "This action does not affect running process of a service."
+msgstr ""
+
+#: src/Services.py:231 src/Services.py:282
 msgid "Enable"
 msgstr "允許（enable)"
 
-#: src/Services.py:167
+#: src/Services.py:234
+msgid "Enables a service."
+msgstr ""
+
+#: src/Services.py:234 src/Services.py:245
+msgid "This action affects a service after system reboot."
+msgstr ""
+
+#: src/Services.py:242 src/Services.py:283
 msgid "Disable"
 msgstr "不允許(disable)"
 
-#: src/Services.py:170
+#: src/Services.py:245
+msgid "Disables a service."
+msgstr ""
+
+#: src/Services.py:253 src/Services.py:286
 msgid "Mask"
 msgstr "Mask"
 
-#: src/Services.py:242
+#: src/Services.py:256
+msgid "Disables a service completely."
+msgstr ""
+
+#: src/Services.py:256
+msgid "A masked service can not be started, restarted, reloaded or enabled."
+msgstr ""
+
+#: src/Services.py:264
+msgid "Unmask"
+msgstr ""
+
+#: src/Services.py:267
+msgid "Unmasks a service."
+msgstr ""
+
+#: src/Services.py:267
+msgid ""
+"A service can be started, restarted, reloaded (if it is available) or "
+"enabled after unmasking."
+msgstr ""
+
+#: src/Services.py:364
 msgid "Information"
 msgstr "資訊"
 
-#: src/Services.py:378 src/ServicesMenu.py:91
+#: src/Services.py:513 src/ServicesMenu.py:91
 msgid "State"
 msgstr "狀態"
 
-#: src/Services.py:379 src/ServicesDetails.py:180 src/ServicesMenu.py:95
+#: src/Services.py:514 src/ServicesDetails.py:180 src/ServicesMenu.py:95
 msgid "Main PID"
 msgstr "Main PID"
 
-#: src/Services.py:380 src/ServicesDetails.py:128 src/ServicesMenu.py:99
+#: src/Services.py:515 src/ServicesDetails.py:128 src/ServicesMenu.py:99
 msgid "Active State"
 msgstr "活躍狀態（Active State)"
 
-#: src/Services.py:381 src/ServicesDetails.py:118 src/ServicesMenu.py:103
+#: src/Services.py:516 src/ServicesDetails.py:118 src/ServicesMenu.py:103
 msgid "Load State"
 msgstr "Load State"
 
-#: src/Services.py:382 src/ServicesDetails.py:138 src/ServicesMenu.py:107
+#: src/Services.py:517 src/ServicesDetails.py:138 src/ServicesMenu.py:107
 msgid "Sub-State"
 msgstr "Sub-State"
 
-#: src/Services.py:384 src/ServicesDetails.py:98 src/ServicesMenu.py:115
+#: src/Services.py:519 src/ServicesDetails.py:98 src/ServicesMenu.py:115
 msgid "Description"
 msgstr "敘述"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Enabled"
 msgstr "已允許"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Disabled"
 msgstr "已不允許"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Masked"
 msgstr "Masked"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Unmasked"
 msgstr "Unmasked"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Static"
 msgstr "Static"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Generated"
 msgstr "Generated"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Enabled-runtime"
 msgstr "Enabled-runtime"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Indirect"
 msgstr "間接的"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Active"
 msgstr "活躍"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Inactive"
 msgstr "不活躍"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Loaded"
 msgstr "已載入"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Dead"
 msgstr "已死"
 
-#: src/Services.py:400
+#: src/Services.py:535
 msgid "Exited"
 msgstr "已離開"
 
-#: src/Services.py:401 src/UsersDetails.py:255
+#: src/Services.py:536 src/UsersDetails.py:255
 msgid "Yes"
 msgstr "是"
 
-#: src/Services.py:401 src/UsersDetails.py:257
+#: src/Services.py:536 src/UsersDetails.py:257
 msgid "No"
 msgstr "不是"
 
@@ -946,7 +1061,7 @@ msgstr "記得窗口的大小"
 msgid "Reset all settings of the application"
 msgstr "重置應用的所有設置"
 
-#: src/SettingsWindow.py:733
+#: src/SettingsWindow.py:735
 msgid "Do you want to reset all settings to defaults?"
 msgstr "你想要重置所有的設置嗎？"
 

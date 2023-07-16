@@ -4884,7 +4884,7 @@ def get_installed_apt_rpm_pacman_apk_packages():
                     number_of_installed_apk_packages = (subprocess.check_output(["apk", "info"], shell=False)).decode().strip().split("\n")
                 # Differentiate empty line count
                 number_of_installed_apk_packages = len(number_of_installed_apk_packages) - number_of_installed_apk_packages.count("")
-                apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_apk_packages} (apk)'
+                apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_apk_packages} (APK)'
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
             apk_packages_available = "-"
 

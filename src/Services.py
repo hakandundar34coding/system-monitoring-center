@@ -220,7 +220,7 @@ class Services:
         label = Common.static_information_bold_label(_tr("Reload") + ":")
         main_grid.attach(label, 0, 9, 1, 1)
         # Label (Reload - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Reload a service.") + " " + _tr("This action is not available for all services.") + " " + _tr("This action does not affect running process of a service."))
+        label = Common.static_information_label_wrap_selectable(_tr("Reloads a service.") + " " + _tr("This action is not available for all services.") + " " + _tr("This action does not affect running process of a service."))
         main_grid.attach(label, 0, 10, 1, 1)
 
         # Separator
@@ -264,7 +264,7 @@ class Services:
         label = Common.static_information_bold_label(_tr("Unmask") + ":")
         main_grid.attach(label, 0, 21, 1, 1)
         # Label (Unmask - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Unmask a service.") + " " + _tr("A service can be started, restarted, reloaded (if it is available) or enabled after unmasking."))
+        label = Common.static_information_label_wrap_selectable(_tr("Unmasks a service.") + " " + _tr("A service can be started, restarted, reloaded (if it is available) or enabled after unmasking."))
         main_grid.attach(label, 0, 22, 1, 1)
 
 
@@ -275,7 +275,7 @@ class Services:
 
         # Menu models
         service_manage_menu_section = Gio.Menu.new()
-        service_manage_menu_section.append(_tr("Start1"), "win.services_start_service")
+        service_manage_menu_section.append(_tr("Start"), "win.services_start_service")
         service_manage_menu_section.append(_tr("Stop"), "win.services_stop_service")
         service_manage_menu_section.append(_tr("Restart"), "win.services_restart_service")
         service_manage_menu_section.append(_tr("Reload"), "win.services_reload_service")
