@@ -1,3 +1,9 @@
+system-monitoring-center (2.18.1) unstable; urgency=medium
+
+  * Fix: Showing GPU information of some GPUs
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 16 Jul 2023 23:45:00 +0300
+
 system-monitoring-center (2.18.0) unstable; urgency=medium
 
   * New: GPU memory, video encoding/decoding graphs (GPU tab)

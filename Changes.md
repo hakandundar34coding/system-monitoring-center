@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v2.18.1 (16.07.2023)
+  * Fix: Showing GPU information of some GPUs
+
 ### v2.18.0 (16.07.2023)
   * New: GPU memory, video encoding/decoding graphs (GPU tab)
   * New: GPU details window (GPU tab)
