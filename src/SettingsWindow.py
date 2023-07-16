@@ -555,11 +555,13 @@ class SettingsWindow:
                 Performance.system_performance_data_dict_prev["network_receive_speed"][device] = Performance.system_performance_data_dict_prev["network_receive_speed"][device][length_difference:]
                 Performance.system_performance_data_dict_prev["network_send_speed"][device] = Performance.system_performance_data_dict_prev["network_send_speed"][device][length_difference:]
 
-            # "gpu_load_list" list and "gpu_memory_list" list
+            # "gpu_load_list", "gpu_memory_list", "gpu_encoder_load_list", "gpu_decoder_load_list" lists
             if MainWindow.gpu_tb.get_active() == True:
                 from .Gpu import Gpu
                 Gpu.gpu_load_list = Gpu.gpu_load_list[length_difference:]
                 Gpu.gpu_memory_list = Gpu.gpu_memory_list[length_difference:]
+                Gpu.gpu_encoder_load_list = Gpu.gpu_encoder_load_list[length_difference:]
+                Gpu.gpu_decoder_load_list = Gpu.gpu_decoder_load_list[length_difference:]
 
             # Process Details window CPU, memory (RSS), disk read speed and disk write speed lists
             if MainWindow.processes_tab_main_grid.get_child_at(0,0) != None:
@@ -597,11 +599,13 @@ class SettingsWindow:
                 Performance.system_performance_data_dict_prev["network_receive_speed"][device] = list_to_add + Performance.system_performance_data_dict_prev["network_receive_speed"][device]
                 Performance.system_performance_data_dict_prev["network_send_speed"][device] = list_to_add + Performance.system_performance_data_dict_prev["network_send_speed"][device]
 
-            # "gpu_load_list" list and "gpu_memory_list" list
+            # "gpu_load_list", "gpu_memory_list", "gpu_encoder_load_list", "gpu_decoder_load_list" lists
             if MainWindow.gpu_tb.get_active() == True:
                 from .Gpu import Gpu
                 Gpu.gpu_load_list = list_to_add + Gpu.gpu_load_list
                 Gpu.gpu_memory_list = list_to_add + Gpu.gpu_memory_list
+                Gpu.gpu_encoder_load_list = list_to_add + Gpu.gpu_encoder_load_list
+                Gpu.gpu_decoder_load_list = list_to_add + Gpu.gpu_decoder_load_list
 
             # Process Details window CPU, memory (RSS), disk read speed and disk write speed lists
             if MainWindow.processes_tab_main_grid.get_child_at(0,0) != None:
