@@ -332,7 +332,8 @@ def drawingarea(drawing_function, drawingarea_tag):
 
     # Drawingarea mouse events
     if drawingarea_tag in ["da_cpu_usage", "da_memory_usage", "da_disk_speed", "da_network_speed", "da_gpu_usage", "da_gpu_memory",
-                           "processes_details_da_cpu_usage", "processes_details_da_memory_usage", "processes_details_da_disk_speed"]:
+                           "da_gpu_encoder_load", "da_gpu_decoder_load", "processes_details_da_cpu_usage", "processes_details_da_memory_usage",
+                           "processes_details_da_disk_speed"]:
         from .Performance import Performance
         drawingarea_mouse_event = Gtk.EventControllerMotion()
         drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)

@@ -336,6 +336,58 @@ class Performance:
             for device_name in device_name_list:
                 chart_y_limit_dict[device_name] = 100
 
+        # Check if drawing will be for GPU tab (GPU encoder load).
+        elif widget_name == "da_gpu_encoder_load":
+
+            # Get chart colors.
+            chart_line_color = Config.chart_line_color_fps
+
+            # Get performance data and device list for current device or all devices.
+            from .Gpu import Gpu
+            try:
+                performance_data1 = {Gpu.selected_gpu: Gpu.gpu_encoder_load_list}
+            # Handle errors because chart signals are connected before running relevant performance thread (in the GPU module)
+            # to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            except AttributeError:
+                return
+            device_name_list = list(performance_data1.keys())
+            selected_device = ""
+
+            # Get which performance data will be drawn.
+            draw_performance_data1 = 1
+            draw_performance_data2 = 0
+
+            # Get chart y limit values in order to show maximum values of the charts as 100.
+            chart_y_limit_dict = {}
+            for device_name in device_name_list:
+                chart_y_limit_dict[device_name] = 100
+
+        # Check if drawing will be for GPU tab (GPU decoder load).
+        elif widget_name == "da_gpu_decoder_load":
+
+            # Get chart colors.
+            chart_line_color = Config.chart_line_color_fps
+
+            # Get performance data and device list for current device or all devices.
+            from .Gpu import Gpu
+            try:
+                performance_data1 = {Gpu.selected_gpu: Gpu.gpu_decoder_load_list}
+            # Handle errors because chart signals are connected before running relevant performance thread (in the GPU module)
+            # to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
+            except AttributeError:
+                return
+            device_name_list = list(performance_data1.keys())
+            selected_device = ""
+
+            # Get which performance data will be drawn.
+            draw_performance_data1 = 1
+            draw_performance_data2 = 0
+
+            # Get chart y limit values in order to show maximum values of the charts as 100.
+            chart_y_limit_dict = {}
+            for device_name in device_name_list:
+                chart_y_limit_dict[device_name] = 100
+
         # Check if drawing will be for Process Details window CPU tab.
         elif widget_name == "processes_details_da_cpu_usage":
 
@@ -759,6 +811,10 @@ class Performance:
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
                 elif widget_name == "da_gpu_memory":
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
+                elif widget_name == "da_gpu_encoder_load":
+                    performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
+                elif widget_name == "da_gpu_decoder_load":
+                    performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
                 elif widget_name == "processes_details_da_cpu_usage":
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.{Config.processes_cpu_precision}f} %'
                 elif widget_name == "processes_details_da_memory_usage":
@@ -782,6 +838,10 @@ class Performance:
                 elif widget_name == "da_gpu_usage":
                     performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
                 elif widget_name == "da_gpu_memory":
+                    performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
+                elif widget_name == "da_gpu_encoder_load":
+                    performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
+                elif widget_name == "da_gpu_decoder_load":
                     performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
                 elif widget_name == "processes_details_da_disk_speed":
                     performance_data2_at_point_text = f'- -{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], processes_disk_data_unit, processes_disk_data_precision)}/s'
