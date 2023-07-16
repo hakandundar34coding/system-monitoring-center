@@ -2660,6 +2660,23 @@ def get_gpu_load_memory_frequency_power_intel(gpu_device_path):
     Get GPU load, video memory, GPU frequency, power usage if GPU vendor is Intel.
     """
 
+    # Define initial values
+    gpu_load = "-"
+    gpu_encoder_load = "-"
+    gpu_decoder_load = "-"
+    gpu_memory_used = "-"
+    gpu_memory_capacity = "-"
+    gpu_current_frequency = "-"
+    gpu_min_frequency = "-"
+    gpu_max_frequency = "-"
+    gpu_memory_current_frequency = "-"
+    gpu_memory_min_frequency = "-"
+    gpu_memory_max_frequency = "-"
+    gpu_temperature = "-"
+    gpu_power_current = "-"
+    gpu_power_max = "-"
+    gpu_driver_version = "-"
+
     # Get GPU min frequency
     try:
         with open(gpu_device_path + "gt_min_freq_mhz") as reader:
@@ -2691,24 +2708,22 @@ def get_gpu_load_memory_frequency_power_intel(gpu_device_path):
     if gpu_current_frequency != "-":
         gpu_current_frequency = f'{gpu_current_frequency} MHz'
 
-    # Get other GPU information
-    gpu_load = "-"
-    gpu_memory_used = "-"
-    gpu_memory_capacity = "-"
-    gpu_temperature = "-"
-    gpu_power_current = "-"
-    gpu_power_max = "-"
-
     gpu_load_memory_frequency_power_dict = {
                                             "gpu_load" : gpu_load,
+                                            "gpu_encoder_load": gpu_encoder_load,
+                                            "gpu_decoder_load": gpu_decoder_load,
                                             "gpu_memory_used" : gpu_memory_used,
                                             "gpu_memory_capacity" : gpu_memory_capacity,
                                             "gpu_current_frequency" : gpu_current_frequency,
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
+                                            "gpu_memory_current_frequency" : gpu_memory_current_frequency,
+                                            "gpu_memory_min_frequency" : gpu_memory_min_frequency,
+                                            "gpu_memory_max_frequency" : gpu_memory_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
                                             "gpu_power_current" : gpu_power_current,
-                                            "gpu_power_max" : gpu_power_max
+                                            "gpu_power_max" : gpu_power_max,
+                                            "gpu_driver_version" : gpu_driver_version
                                             }
 
     return gpu_load_memory_frequency_power_dict
@@ -2720,6 +2735,23 @@ def get_gpu_load_memory_frequency_power_broadcom_arm():
     GPU memory capacity and GPU current frequency information are get by using "vcgencmd" tool and
     it is not installed on the systems by default.
     """
+
+    # Define initial values
+    gpu_load = "-"
+    gpu_encoder_load = "-"
+    gpu_decoder_load = "-"
+    gpu_memory_used = "-"
+    gpu_memory_capacity = "-"
+    gpu_current_frequency = "-"
+    gpu_min_frequency = "-"
+    gpu_max_frequency = "-"
+    gpu_memory_current_frequency = "-"
+    gpu_memory_min_frequency = "-"
+    gpu_memory_max_frequency = "-"
+    gpu_temperature = "-"
+    gpu_power_current = "-"
+    gpu_power_max = "-"
+    gpu_driver_version = "-"
 
     # Get GPU memory capacity
     command_list = ["vcgencmd", "get_mem", "gpu"]
@@ -2740,25 +2772,22 @@ def get_gpu_load_memory_frequency_power_broadcom_arm():
     except Exception:
         gpu_current_frequency = "-"
 
-    # Get other GPU information
-    gpu_load = "-"
-    gpu_memory_used = "-"
-    gpu_min_frequency = "-"
-    gpu_max_frequency = "-"
-    gpu_temperature = "-"
-    gpu_power_current = "-"
-    gpu_power_max = "-"
-
     gpu_load_memory_frequency_power_dict = {
                                             "gpu_load" : gpu_load,
+                                            "gpu_encoder_load": gpu_encoder_load,
+                                            "gpu_decoder_load": gpu_decoder_load,
                                             "gpu_memory_used" : gpu_memory_used,
                                             "gpu_memory_capacity" : gpu_memory_capacity,
                                             "gpu_current_frequency" : gpu_current_frequency,
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
+                                            "gpu_memory_current_frequency" : gpu_memory_current_frequency,
+                                            "gpu_memory_min_frequency" : gpu_memory_min_frequency,
+                                            "gpu_memory_max_frequency" : gpu_memory_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
                                             "gpu_power_current" : gpu_power_current,
-                                            "gpu_power_max" : gpu_power_max
+                                            "gpu_power_max" : gpu_power_max,
+                                            "gpu_driver_version" : gpu_driver_version
                                             }
 
     return gpu_load_memory_frequency_power_dict
@@ -2768,6 +2797,23 @@ def get_gpu_load_memory_frequency_power_nvidia_arm(gpu_device_path):
     """
     Get GPU load, video memory, GPU frequency, power usage if GPU vendor is NVIDIA and it is used on an ARM system.
     """
+
+    # Define initial values
+    gpu_load = "-"
+    gpu_encoder_load = "-"
+    gpu_decoder_load = "-"
+    gpu_memory_used = "-"
+    gpu_memory_capacity = "-"
+    gpu_current_frequency = "-"
+    gpu_min_frequency = "-"
+    gpu_max_frequency = "-"
+    gpu_memory_current_frequency = "-"
+    gpu_memory_min_frequency = "-"
+    gpu_memory_max_frequency = "-"
+    gpu_temperature = "-"
+    gpu_power_current = "-"
+    gpu_power_max = "-"
+    gpu_driver_version = "-"
 
     # Get GPU frequency folders list. NVIDIA Tegra GPU files are listed in "/sys/devices/gpu.0/devfreq/57000000.gpu/" folder.
     gpu_frequency_files_list = os.listdir(gpu_device_path + "devfreq/")
@@ -2817,21 +2863,22 @@ def get_gpu_load_memory_frequency_power_nvidia_arm(gpu_device_path):
     if gpu_load != "-":
         gpu_load = f'{(float(gpu_load) / 10):.0f} %'
 
-    # Get other GPU information
-    gpu_temperature = "-"
-    gpu_power_current = "-"
-    gpu_power_max = "-"
-
     gpu_load_memory_frequency_power_dict = {
                                             "gpu_load" : gpu_load,
+                                            "gpu_encoder_load": gpu_encoder_load,
+                                            "gpu_decoder_load": gpu_decoder_load,
                                             "gpu_memory_used" : gpu_memory_used,
                                             "gpu_memory_capacity" : gpu_memory_capacity,
                                             "gpu_current_frequency" : gpu_current_frequency,
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
+                                            "gpu_memory_current_frequency" : gpu_memory_current_frequency,
+                                            "gpu_memory_min_frequency" : gpu_memory_min_frequency,
+                                            "gpu_memory_max_frequency" : gpu_memory_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
                                             "gpu_power_current" : gpu_power_current,
-                                            "gpu_power_max" : gpu_power_max
+                                            "gpu_power_max" : gpu_power_max,
+                                            "gpu_driver_version" : gpu_driver_version
                                             }
 
     return gpu_load_memory_frequency_power_dict
@@ -2841,6 +2888,23 @@ def get_gpu_load_memory_frequency_power_amd(gpu_device_path):
     """
     Get GPU load, video memory, GPU frequency, power usage if GPU vendor is AMD.
     """
+
+    # Define initial values
+    gpu_load = "-"
+    gpu_encoder_load = "-"
+    gpu_decoder_load = "-"
+    gpu_memory_used = "-"
+    gpu_memory_capacity = "-"
+    gpu_current_frequency = "-"
+    gpu_min_frequency = "-"
+    gpu_max_frequency = "-"
+    gpu_memory_current_frequency = "-"
+    gpu_memory_min_frequency = "-"
+    gpu_memory_max_frequency = "-"
+    gpu_temperature = "-"
+    gpu_power_current = "-"
+    gpu_power_max = "-"
+    gpu_driver_version = "-"
 
     # For more information about files under "/sys/class/drm/card[NUMBER]/device/" and their content
     # for AMD GPUs: https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html and https://wiki.archlinux.org/title/AMDGPU
@@ -2941,20 +3005,25 @@ def get_gpu_load_memory_frequency_power_amd(gpu_device_path):
     except (FileNotFoundError, NotADirectoryError, OSError) as me:
         gpu_power_max = "-"
 
-
-    # Get other GPU information
-    gpu_load = "-"
+    # Get GPU memory current, min, max frequencies
+    gpu_memory_current_frequency, gpu_memory_min_frequency, gpu_memory_max_frequency = get_gpu_memory_current_min_max_frequency_amd_gpu(gpu_device_path)
 
     gpu_load_memory_frequency_power_dict = {
                                             "gpu_load" : gpu_load,
+                                            "gpu_encoder_load": gpu_encoder_load,
+                                            "gpu_decoder_load": gpu_decoder_load,
                                             "gpu_memory_used" : gpu_memory_used,
                                             "gpu_memory_capacity" : gpu_memory_capacity,
                                             "gpu_current_frequency" : gpu_current_frequency,
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
+                                            "gpu_memory_current_frequency" : gpu_memory_current_frequency,
+                                            "gpu_memory_min_frequency" : gpu_memory_min_frequency,
+                                            "gpu_memory_max_frequency" : gpu_memory_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
                                             "gpu_power_current" : gpu_power_current,
-                                            "gpu_power_max" : gpu_power_max
+                                            "gpu_power_max" : gpu_power_max,
+                                            "gpu_driver_version" : gpu_driver_version
                                             }
 
     return gpu_load_memory_frequency_power_dict
@@ -3003,7 +3072,7 @@ def gpu_load_nvidia_func():
         pass
 
 
-def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
+def process_gpu_tool_output_nvidia2(gpu_pci_address, gpu_tool_output):
     """
     Get values from command output if there was no error when running the command.
     """
@@ -3015,6 +3084,9 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
     gpu_current_frequency = "-"
     gpu_min_frequency = "-"
     gpu_max_frequency = "-"
+    gpu_memory_current_frequency = "-"
+    gpu_memory_min_frequency = "-"
+    gpu_memory_max_frequency = "-"
     gpu_temperature = "-"
     gpu_power_current = "-"
     gpu_power_max = "-"
@@ -3065,9 +3137,116 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
                                             "gpu_current_frequency" : gpu_current_frequency,
                                             "gpu_min_frequency" : gpu_min_frequency,
                                             "gpu_max_frequency" : gpu_max_frequency,
+                                            "gpu_memory_current_frequency" : gpu_memory_current_frequency,
+                                            "gpu_memory_min_frequency" : gpu_memory_min_frequency,
+                                            "gpu_memory_max_frequency" : gpu_memory_max_frequency,
                                             "gpu_temperature" : gpu_temperature,
                                             "gpu_power_current" : gpu_power_current,
                                             "gpu_power_max" : gpu_power_max
+                                            }
+
+    return gpu_load_memory_frequency_power_dict
+
+
+def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
+    """
+    Get values from command output if there was no error when running the command.
+    """
+
+    # Define initial values
+    gpu_load = "-"
+    gpu_encoder_load = "-"
+    gpu_decoder_load = "-"
+    gpu_memory_used = "-"
+    gpu_memory_capacity = "-"
+    gpu_current_frequency = "-"
+    gpu_min_frequency = "-"
+    gpu_max_frequency = "-"
+    gpu_memory_current_frequency = "-"
+    gpu_memory_min_frequency = "-"
+    gpu_memory_max_frequency = "-"
+    gpu_temperature = "-"
+    gpu_power_current = "-"
+    gpu_power_max = "-"
+    gpu_driver_version = "-"
+
+    if gpu_tool_output != "-":
+
+        # Get line number of the selected GPU by using its PCI address.
+        for i, line in enumerate(gpu_tool_output):
+            if gpu_pci_address in line or gpu_pci_address.upper() in line:
+                gpu_info_line_no = i
+                break
+
+        gpu_tool_output_for_selected_gpu = gpu_tool_output[gpu_info_line_no].split(",")
+
+        gpu_driver_version = gpu_tool_output_for_selected_gpu[2].strip()
+        gpu_load = gpu_tool_output_for_selected_gpu[3].strip()
+        gpu_encoder_load = gpu_tool_output_for_selected_gpu[5].strip()
+        gpu_decoder_load = gpu_tool_output_for_selected_gpu[6].strip()
+        gpu_memory_capacity = gpu_tool_output_for_selected_gpu[7].strip()
+        gpu_memory_used = gpu_tool_output_for_selected_gpu[9].strip()
+        gpu_temperature = gpu_tool_output_for_selected_gpu[10].strip()
+        gpu_current_frequency = gpu_tool_output_for_selected_gpu[11].strip()
+        gpu_max_frequency = gpu_tool_output_for_selected_gpu[12].strip()
+        gpu_memory_current_frequency = gpu_tool_output_for_selected_gpu[13].strip()
+        gpu_memory_max_frequency = gpu_tool_output_for_selected_gpu[14].strip()
+        gpu_power_current = gpu_tool_output_for_selected_gpu[15].strip()
+        gpu_power_max = gpu_tool_output_for_selected_gpu[16].strip()
+
+        not_supported_text = ["[Not Supported]", "[N/A]"]
+
+        if gpu_driver_version in not_supported_text:
+            gpu_driver_version = "-"
+        if gpu_load in not_supported_text:
+            gpu_load = "-"
+        if gpu_encoder_load in not_supported_text:
+            gpu_encoder_load = "-"
+        if gpu_decoder_load in not_supported_text:
+            gpu_decoder_load = "-"
+        if gpu_memory_capacity in not_supported_text:
+            gpu_memory_capacity = "-"
+        if gpu_memory_used in not_supported_text:
+            gpu_memory_used = "-"
+        if gpu_temperature in not_supported_text:
+            gpu_temperature = "-"
+        if gpu_current_frequency in not_supported_text:
+            gpu_current_frequency = "-"
+        if gpu_max_frequency in not_supported_text:
+            gpu_max_frequency = "-"
+        if gpu_memory_current_frequency in not_supported_text:
+            gpu_memory_current_frequency = "-"
+        if gpu_memory_min_frequency in not_supported_text:
+            gpu_memory_min_frequency = "-"
+        if gpu_memory_max_frequency in not_supported_text:
+            gpu_memory_max_frequency = "-"
+        if gpu_power_current in not_supported_text:
+            gpu_power_current = "-"
+        if gpu_power_max in not_supported_text:
+            gpu_power_max = "-"
+
+    try:
+        gpu_temperature = float(gpu_temperature)
+        gpu_temperature = f'{gpu_temperature:.0f} °C'
+    except ValueError:
+        pass
+
+    gpu_load_memory_frequency_power_dict = {
+                                            "gpu_load" : gpu_load,
+                                            "gpu_encoder_load": gpu_encoder_load,
+                                            "gpu_decoder_load": gpu_decoder_load,
+                                            "gpu_memory_used" : gpu_memory_used,
+                                            "gpu_memory_capacity" : gpu_memory_capacity,
+                                            "gpu_current_frequency" : gpu_current_frequency,
+                                            "gpu_min_frequency" : gpu_min_frequency,
+                                            "gpu_max_frequency" : gpu_max_frequency,
+                                            "gpu_memory_current_frequency" : gpu_memory_current_frequency,
+                                            "gpu_memory_min_frequency" : gpu_memory_min_frequency,
+                                            "gpu_memory_max_frequency" : gpu_memory_max_frequency,
+                                            "gpu_temperature" : gpu_temperature,
+                                            "gpu_power_current" : gpu_power_current,
+                                            "gpu_power_max" : gpu_power_max,
+                                            "gpu_driver_version" : gpu_driver_version
                                             }
 
     return gpu_load_memory_frequency_power_dict
@@ -3096,19 +3275,165 @@ def get_memory_bytes_from_string(memory_string):
 
     memory_number, memory_unit = memory_string.split(" ", 1)
 
-    if memory_unit in ["KB", "KiB"]:
+    if memory_unit in ["KB", "KiB", "kb", "kib"]:
         memory_divisor = 1024
-    elif memory_unit in ["MB", "MiB"]:
+    elif memory_unit in ["MB", "MiB", "mb", "mib"]:
         memory_divisor = 1024 * 1024
-    elif memory_unit in ["GB", "GiB"]:
+    elif memory_unit in ["GB", "GiB", "gb", "gib"]:
         memory_divisor = 1024 * 1024 * 1024
-    elif memory_unit in ["TB", "TiB"]:
+    elif memory_unit in ["TB", "TiB", "tb", "tib"]:
         memory_divisor = 1024 * 1024 * 1024 * 1024
 
     memory_bytes = float(memory_number) * memory_divisor
     memory_bytes = round(memory_bytes)
 
     return memory_bytes
+
+
+def get_gpu_memory_current_min_max_frequency_amd_gpu(gpu_device_path):
+    """
+    Get current, minimum and maximum memory frequencies of AMD GPUs.
+    """
+
+    # For more information about files under "/sys/class/drm/card[NUMBER]/device/" and their content
+    # for AMD GPUs: https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html and https://wiki.archlinux.org/title/AMDGPU
+
+    # Get GPU current, min, max frequencies (memory frequencies). This file contains all available
+    # frequencies of the GPU memory.
+    gpu_memory_frequency_file_output = "-"
+    try:
+        with open(gpu_device_path + "device/pp_dpm_mclk") as reader:
+            gpu_memory_frequency_file_output = reader.read().strip().split("\n")
+    except FileNotFoundError:
+        gpu_memory_current_frequency = "-"
+        gpu_memory_max_frequency = "-"
+        gpu_memory_min_frequency = "-"
+
+    if gpu_memory_frequency_file_output != "-":
+        for line in gpu_memory_frequency_file_output:
+            if "*" in line:
+                gpu_memory_current_frequency = line.split(":")[1].rstrip("*").strip()
+                # Add a space character between value and unit. "Mhz" is used in the relevant file instead of "MHz".
+                if "Mhz" in gpu_memory_current_frequency:
+                    gpu_memory_current_frequency = gpu_memory_current_frequency.split("Mhz")[0] + " MHz"
+                break
+        gpu_memory_min_frequency = gpu_memory_frequency_file_output[0].split(":")[1].strip()
+        # Add a space character between value and unit.
+        if "Mhz" in gpu_memory_min_frequency:
+            gpu_memory_min_frequency = gpu_memory_min_frequency.split("Mhz")[0] + " MHz"
+        gpu_memory_max_frequency = gpu_memory_frequency_file_output[-1].split(":")[1].strip()
+        # Add a space character between value and unit.
+        if "Mhz" in gpu_memory_max_frequency:
+            gpu_memory_max_frequency = gpu_memory_max_frequency.split("Mhz")[0] + " MHz"
+
+    return gpu_memory_current_frequency, gpu_memory_min_frequency, gpu_memory_max_frequency
+
+
+def get_gpu_current_link_speed(gpu_device_path):
+
+    try:
+        with open(gpu_device_path + "device/current_link_speed") as reader:
+            current_link_speed = reader.read().strip()
+    except Exception:
+        current_link_speed = "-"
+
+    if current_link_speed in ["Unknown", "unknown", ""]:
+        current_link_speed = "-"
+
+    return current_link_speed
+
+
+def get_gpu_max_link_speed(gpu_device_path):
+
+    try:
+        with open(gpu_device_path + "device/max_link_speed") as reader:
+            max_link_speed = reader.read().strip()
+    except Exception:
+        max_link_speed = "-"
+
+    if max_link_speed in ["Unknown", "unknown", ""]:
+        max_link_speed = "-"
+
+    return max_link_speed
+
+
+def get_gpu_current_link_width(gpu_device_path):
+
+    try:
+        with open(gpu_device_path + "device/current_link_width") as reader:
+            current_link_width = reader.read().strip()
+    except Exception:
+        current_link_width = "-"
+
+    return current_link_width
+
+
+def get_gpu_max_link_width(gpu_device_path):
+
+    try:
+        with open(gpu_device_path + "device/max_link_width") as reader:
+            max_link_width = reader.read().strip()
+    except Exception:
+        max_link_width = "-"
+
+    return max_link_width
+
+
+def get_gpu_pci_express_version(gpu_device_path):
+
+    max_link_speed = get_gpu_max_link_speed(gpu_device_path)
+    if max_link_speed != "-":
+        max_link_speed_split = max_link_speed.split(" ")
+    max_link_speed_number = [0]
+    max_link_speed_unit = [1]
+
+    if max_link_speed_unit in ["GT/s", "GT/S", "gt/s"]:
+        gpu_pci_express_version = gpu_transfer_rate_pci_express_version_dict[max_link_speed_number]
+    else:
+        gpu_pci_express_version = "-"
+
+    return gpu_pci_express_version
+
+
+def get_gpu_interface(gpu_device_path):
+
+    gpu_pci_express_version = get_gpu_pci_express_version(gpu_device_path)
+    max_link_width = get_gpu_max_link_width(gpu_device_path)
+
+    if gpu_pci_express_version != "-":
+        if max_link_width != "-":
+            gpu_interface = gpu_pci_express_version + " x" + max_link_width
+        else:
+            gpu_interface = gpu_pci_express_version
+    else:
+        gpu_interface = "-"
+
+    return gpu_interface
+
+
+def get_gpu_connections(gpu_device_path, selected_gpu):
+    """
+    Get GPU display connections.
+    """
+
+    try:
+        file_list = os.listdir(gpu_device_path)
+    except Exception:
+        file_list = "-"
+
+    # Get connection name if file starts with GPU name and it is a folder.
+    if file_list != "-":
+        gpu_connections_list = []
+        for file_name in file_list:
+            if file_name.startswith(selected_gpu + "-") == True:
+                if os.path.isdir(gpu_device_path + file_name) == True:
+                    connection_name = file_name.split("-", 1)[-1]
+                    gpu_connections_list.append(connection_name)
+        gpu_connections = ', '.join(gpu_connections_list)
+    else:
+        gpu_connections = "-"
+
+    return gpu_connections
 
 
 # ***********************************************************************************************
