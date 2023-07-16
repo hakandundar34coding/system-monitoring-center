@@ -85,6 +85,22 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.18.0" date="2023-07-10">
+      <description>
+        <ul>
+          <li>New: GPU memory, video encoding/decoding graphs (GPU tab)</li>
+          <li>New: GPU details window (GPU tab)</li>
+          <li>New: GPU max power value (GPU tab)</li>
+          <li>New: Process CPU affinity (Processes right click menu)</li>
+          <li>New: Services help window (Services right click menu)</li>
+          <li>New: APK package (Linux) count (System tab)</li>
+          <li>Improved: GPU usage percentage of AMD GPUs</li>
+          <li>GUI Improvements for Process Custom Priority window</li>
+          <li>Fix: Errors if psproc package is not installed (CPU tab)</li>
+          <li>Several improvements (GUI, code, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.17.3" date="2023-07-10">
       <description>
         <ul>

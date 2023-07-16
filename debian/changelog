@@ -1,3 +1,18 @@
+system-monitoring-center (2.18.0) unstable; urgency=medium
+
+  * New: GPU memory, video encoding/decoding graphs (GPU tab)
+  * New: GPU details window (GPU tab)
+  * New: GPU max power value (GPU tab)
+  * New: Process CPU affinity (Processes right click menu)
+  * New: Services help window (Services right click menu)
+  * New: APK package (Linux) count (System tab)
+  * Improved: GPU usage percentage of AMD GPUs
+  * GUI Improvements for Process Custom Priority window
+  * Fix: Errors if psproc package is not installed (CPU tab)
+  * Several improvements (GUI, code, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 16 Jul 2023 17:00:00 +0300
+
 system-monitoring-center (2.17.3) unstable; urgency=medium
 
   * Improved: Selected disk and network card names (Summary tab)
