@@ -3060,7 +3060,7 @@ def gpu_load_nvidia_func():
     Get GPU load average for NVIDIA (PCI) GPUs.
     """
 
-    command_list = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,power.draw", "--format=csv"]
+    command_list = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,utilization.encoder,utilization.decoder,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,clocks.current.memory,clocks.max.memory,power.draw,power.limit", "--format=csv"]
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
 
@@ -3070,82 +3070,6 @@ def gpu_load_nvidia_func():
     # Prevent errors because "nvidia-smi" may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
     except Exception:
         pass
-
-
-def process_gpu_tool_output_nvidia2(gpu_pci_address, gpu_tool_output):
-    """
-    Get values from command output if there was no error when running the command.
-    """
-
-    # Define initial values
-    gpu_load = "-"
-    gpu_memory_used = "-"
-    gpu_memory_capacity = "-"
-    gpu_current_frequency = "-"
-    gpu_min_frequency = "-"
-    gpu_max_frequency = "-"
-    gpu_memory_current_frequency = "-"
-    gpu_memory_min_frequency = "-"
-    gpu_memory_max_frequency = "-"
-    gpu_temperature = "-"
-    gpu_power_current = "-"
-    gpu_power_max = "-"
-
-    if gpu_tool_output != "-":
-
-        # Get line number of the selected GPU by using its PCI address.
-        for i, line in enumerate(gpu_tool_output):
-            if gpu_pci_address in line or gpu_pci_address.upper() in line:
-                gpu_info_line_no = i
-                break
-
-        gpu_tool_output_for_selected_gpu = gpu_tool_output[gpu_info_line_no].split(",")
-
-        gpu_load = gpu_tool_output_for_selected_gpu[3].strip()
-        gpu_memory_capacity = gpu_tool_output_for_selected_gpu[5].strip()
-        gpu_memory_used = gpu_tool_output_for_selected_gpu[7].strip()
-        gpu_temperature = gpu_tool_output_for_selected_gpu[8].strip()
-        gpu_current_frequency = gpu_tool_output_for_selected_gpu[9].strip()
-        gpu_max_frequency = gpu_tool_output_for_selected_gpu[10].strip()
-        gpu_power_current = gpu_tool_output_for_selected_gpu[11].strip()
-
-        if gpu_load in ["[Not Supported]", "[N/A]"]:
-            gpu_load = "-"
-        if gpu_memory_used in ["[Not Supported]", "[N/A]"]:
-            gpu_memory_used = "-"
-        if gpu_memory_capacity in ["[Not Supported]", "[N/A]"]:
-            gpu_memory_capacity = "-"
-        if gpu_temperature in ["[Not Supported]", "[N/A]"]:
-            gpu_temperature = "-"
-        if gpu_current_frequency in ["[Not Supported]", "[N/A]"]:
-            gpu_current_frequency = "-"
-        if gpu_max_frequency in ["[Not Supported]", "[N/A]"]:
-            gpu_max_frequency = "-"
-        if gpu_power_current in ["[Not Supported]", "[N/A]"]:
-            gpu_power_current = "-"
-
-    try:
-        gpu_temperature = float(gpu_temperature)
-        gpu_temperature = f'{gpu_temperature:.0f} °C'
-    except ValueError:
-        pass
-
-    gpu_load_memory_frequency_power_dict = {
-                                            "gpu_load" : gpu_load,
-                                            "gpu_memory_used" : gpu_memory_used,
-                                            "gpu_memory_capacity" : gpu_memory_capacity,
-                                            "gpu_current_frequency" : gpu_current_frequency,
-                                            "gpu_min_frequency" : gpu_min_frequency,
-                                            "gpu_max_frequency" : gpu_max_frequency,
-                                            "gpu_memory_current_frequency" : gpu_memory_current_frequency,
-                                            "gpu_memory_min_frequency" : gpu_memory_min_frequency,
-                                            "gpu_memory_max_frequency" : gpu_memory_max_frequency,
-                                            "gpu_temperature" : gpu_temperature,
-                                            "gpu_power_current" : gpu_power_current,
-                                            "gpu_power_max" : gpu_power_max
-                                            }
-
-    return gpu_load_memory_frequency_power_dict
 
 
 def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
