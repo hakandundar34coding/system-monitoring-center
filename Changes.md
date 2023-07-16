@@ -1,17 +1,5 @@
 # System Monitoring Center
 
-### v2.18.0 (16.07.2023)
-  * New: GPU memory, video encoding/decoding graphs (GPU tab)
-  * New: GPU details window
-  * New: GPU max power value (GPU tab)
-  * New: Process CPU affinity (Processes right click menu)
-  * New: Services help window (Services right click menu)
-  * New: APK package (Linux) count (System tab))
-  * Improved: GPU usage percentage of AMD GPUs
-  * GUI Improvements for Process Custom Priority window
-  * Fix Errors if psproc package is not installed (CPU tab)
-  * Minor improvements (GUI, code, translations, etc.)
-
 ### v1.43.7 (11.07.2023)
   * Improved: Selected disk and network card names (Summary tab)
   * GUI Improvements for Process Custom Priority window
