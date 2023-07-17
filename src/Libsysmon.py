@@ -3118,6 +3118,8 @@ def process_gpu_tool_output_nvidia(gpu_pci_address):
     gpu_power_max = "-"
     gpu_driver_version = "-"
 
+    gpu_enforced_power_limit = "-"
+
     global gpu_tool_output
     if gpu_tool_output != "-":
 
@@ -3142,6 +3144,7 @@ def process_gpu_tool_output_nvidia(gpu_pci_address):
         gpu_memory_max_frequency = gpu_tool_output_for_selected_gpu[14].strip()
         gpu_power_current = gpu_tool_output_for_selected_gpu[15].strip()
         gpu_power_max = gpu_tool_output_for_selected_gpu[16].strip()
+        gpu_enforced_power_limit = gpu_tool_output_for_selected_gpu[17].strip()
 
         not_supported_text = ["[Not Supported]", "[N/A]"]
 
@@ -3173,12 +3176,17 @@ def process_gpu_tool_output_nvidia(gpu_pci_address):
             gpu_power_current = "-"
         if gpu_power_max in not_supported_text:
             gpu_power_max = "-"
+        if gpu_enforced_power_limit in not_supported_text:
+            gpu_enforced_power_limit = "-"
 
     try:
         gpu_temperature = float(gpu_temperature)
         gpu_temperature = f'{gpu_temperature:.0f} °C'
     except ValueError:
         pass
+
+    if gpu_power_max == "-":
+        gpu_power_max = gpu_enforced_power_limit
 
     gpu_load_memory_frequency_power_dict = {
                                             "gpu_load" : gpu_load,
