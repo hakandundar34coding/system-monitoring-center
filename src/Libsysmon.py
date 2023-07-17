@@ -2637,14 +2637,9 @@ def get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selec
     elif device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/class/drm/") == True:
         # Try to get GPU usage information in a separate thread in order to prevent this function from blocking
         # the main thread and GUI for a very small time which stops the GUI for a very small time.
+        global gpu_tool_output
         gpu_tool_output = "-"
         threading.Thread(target=gpu_load_nvidia_func, daemon=True).start()
-
-        try:
-            gpu_tool_output = gpu_tool_output
-        # Prevent error if thread is not finished before using the output variable "gpu_tool_output".
-        except Exception:
-            pass
 
         gpu_load_memory_frequency_power_dict = process_gpu_tool_output_nvidia(gpu_pci_address)
 

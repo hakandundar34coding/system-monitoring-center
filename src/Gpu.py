@@ -5,7 +5,6 @@ from gi.repository import Gtk, GLib
 
 import os
 import subprocess
-from threading import Thread
 
 from .Config import Config
 from .Performance import Performance
