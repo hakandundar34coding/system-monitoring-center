@@ -3084,7 +3084,7 @@ def gpu_load_nvidia_func():
     Get GPU load average for NVIDIA (PCI) GPUs.
     """
 
-    command_list = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,utilization.encoder,utilization.decoder,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,clocks.current.memory,clocks.max.memory,power.draw,power.limit", "--format=csv"]
+    command_list = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,utilization.encoder,utilization.decoder,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,clocks.current.memory,clocks.max.memory,power.draw,power.limit,enforced.power.limit", "--format=csv"]
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
 
