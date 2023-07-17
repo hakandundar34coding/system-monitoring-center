@@ -28,6 +28,7 @@
       <li>Optimized for low CPU usage</li>
       <li>Customization menus for almost all tabs</li>
       <li>Supports ARM architecture</li>
+      <li>Hardware accelerated GUI</li>
       <li>Free and open source</li>
     </ul>
     <p>Notes for Limitations:</p>
@@ -85,7 +86,14 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="2.18.1" date="2023-07-10">
+    <release version="2.18.2" date="2023-07-17">
+      <description>
+        <ul>
+          <li>Fix: Error when getting information of some GPUs</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.18.1" date="2023-07-16">
       <description>
         <ul>
           <li>Fix: Showing GPU information of some GPUs</li>

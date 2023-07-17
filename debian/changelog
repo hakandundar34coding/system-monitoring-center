@@ -1,3 +1,9 @@
+system-monitoring-center (2.18.2) unstable; urgency=medium
+
+  * Fix: Error when getting information of some GPUs
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 17 Jul 2023 17:55:00 +0300
+
 system-monitoring-center (2.18.1) unstable; urgency=medium
 
   * Fix: Showing GPU information of some GPUs

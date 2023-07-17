@@ -92,6 +92,7 @@
 - Optimized for low CPU usage
 - Customization menus for almost all tabs
 - Supports ARM architecture
+- Hardware accelerated GUI
 - Free and open source
 
 
