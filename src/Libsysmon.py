@@ -3276,8 +3276,7 @@ def get_gpu_current_link_speed(gpu_device_path):
     except Exception:
         current_link_speed = "-"
 
-    if current_link_speed in ["Unknown", "unknown", ""]:
-        current_link_speed = "-"
+    current_link_speed = process_gpu_link_speed(current_link_speed)
 
     return current_link_speed
 
@@ -3290,10 +3289,20 @@ def get_gpu_max_link_speed(gpu_device_path):
     except Exception:
         max_link_speed = "-"
 
-    if max_link_speed in ["Unknown", "unknown", ""]:
-        max_link_speed = "-"
+    max_link_speed = process_gpu_link_speed(max_link_speed)
 
     return max_link_speed
+
+
+def process_gpu_link_speed(gpu_link_speed):
+
+    if gpu_link_speed in ["Unknown", "unknown", ""]:
+        gpu_link_speed = "-"
+
+    if gpu_link_speed.endswith("PCIe") == True:
+        gpu_link_speed = gpu_link_speed.rstrip(" PCIe")
+
+    return gpu_link_speed
 
 
 def get_gpu_current_link_width(gpu_device_path):
