@@ -26,6 +26,15 @@ memory_page_size = os.sysconf("SC_PAGE_SIZE")
 # source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121)
 disk_sector_size = 512
 
+gpu_transfer_rate_pci_express_version_dict = {"2.5 GT/s": "PCI-Express 1.0",
+                                              "5.0 GT/s": "PCI-Express 2.0",
+                                              "8.0 GT/s": "PCI-Express 3.0",
+                                              "16.0 GT/s": "PCI-Express 4.0",
+                                              "32.0 GT/s": "PCI-Express 5.0",
+                                              "64.0 GT/s": "PCI-Express 6.0",
+                                              "128.0 GT/s": "PCI-Express 7.0",
+                                             }
+
 # The content of the file is updated about 50-60 times in a second. 
 # 120 is used in order to get GPU load for AMD GPUs precisely.
 amd_gpu_load_read_frequency = 1 / 120
@@ -3332,8 +3341,10 @@ def get_gpu_pci_express_version(gpu_device_path):
     max_link_speed = get_gpu_max_link_speed(gpu_device_path)
     if max_link_speed != "-":
         max_link_speed_split = max_link_speed.split(" ")
-    max_link_speed_number = [0]
-    max_link_speed_unit = [1]
+        max_link_speed_number = max_link_speed_split[0]
+        max_link_speed_unit = max_link_speed_split[1]
+    else:
+        max_link_speed_unit = "-"
 
     if max_link_speed_unit in ["GT/s", "GT/S", "gt/s"]:
         gpu_pci_express_version = gpu_transfer_rate_pci_express_version_dict[max_link_speed_number]
