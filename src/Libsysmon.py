@@ -2647,11 +2647,15 @@ def get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selec
     elif device_vendor_id == "v000010DE" and gpu_device_path.startswith("/sys/class/drm/") == True:
         # Try to get GPU usage information in a separate thread in order to prevent this function from blocking
         # the main thread and GUI for a very small time which stops the GUI for a very small time.
-        global gpu_tool_output
-        gpu_tool_output = "-"
         threading.Thread(target=gpu_load_nvidia_func, daemon=True).start()
 
-        gpu_load_memory_frequency_power_dict = process_gpu_tool_output_nvidia(gpu_pci_address)
+        global gpu_tool_output
+        try:
+            check_value = gpu_tool_output
+        except NameError:
+            gpu_tool_output = "-"
+
+        gpu_load_memory_frequency_power_dict = process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output)
 
     # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
     elif device_vendor_id in ["v000010DE", "Nvidia"] and gpu_device_path.startswith("/sys/devices/") == True:
@@ -3096,7 +3100,7 @@ def gpu_load_nvidia_func():
         pass
 
 
-def process_gpu_tool_output_nvidia(gpu_pci_address):
+def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
     """
     Get values from command output if there was no error when running the command.
     """
@@ -3120,7 +3124,6 @@ def process_gpu_tool_output_nvidia(gpu_pci_address):
 
     gpu_enforced_power_limit = "-"
 
-    global gpu_tool_output
     if gpu_tool_output != "-":
 
         # Get line number of the selected GPU by using its PCI address.
@@ -3185,6 +3188,7 @@ def process_gpu_tool_output_nvidia(gpu_pci_address):
     except ValueError:
         pass
 
+    # Use enforced power limit value if power max value is not get.
     if gpu_power_max == "-":
         gpu_power_max = gpu_enforced_power_limit
 
