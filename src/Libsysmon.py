@@ -26,13 +26,14 @@ memory_page_size = os.sysconf("SC_PAGE_SIZE")
 # source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/types.h?id=v4.4-rc6#n121)
 disk_sector_size = 512
 
-gpu_transfer_rate_pci_express_version_dict = {"2.5 GT/s": "PCI-Express 1.0",
-                                              "5.0 GT/s": "PCI-Express 2.0",
-                                              "8.0 GT/s": "PCI-Express 3.0",
-                                              "16.0 GT/s": "PCI-Express 4.0",
-                                              "32.0 GT/s": "PCI-Express 5.0",
-                                              "64.0 GT/s": "PCI-Express 6.0",
-                                              "128.0 GT/s": "PCI-Express 7.0",
+# GPU Transfer rate (link speed) units are GT/s.
+gpu_transfer_rate_pci_express_version_dict = {"2.5": "PCI-Express 1.0",
+                                              "5.0": "PCI-Express 2.0",
+                                              "8.0": "PCI-Express 3.0",
+                                              "16.0": "PCI-Express 4.0",
+                                              "32.0": "PCI-Express 5.0",
+                                              "64.0": "PCI-Express 6.0",
+                                              "128.0": "PCI-Express 7.0",
                                              }
 
 # The content of the file is updated about 50-60 times in a second. 
