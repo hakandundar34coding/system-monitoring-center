@@ -33,8 +33,7 @@ gpu_transfer_rate_pci_express_version_dict = {"2.5": "PCI-Express 1.0",
                                               "16.0": "PCI-Express 4.0",
                                               "32.0": "PCI-Express 5.0",
                                               "64.0": "PCI-Express 6.0",
-                                              "128.0": "PCI-Express 7.0",
-                                             }
+                                              "128.0": "PCI-Express 7.0"}
 
 # The content of the file is updated about 50-60 times in a second. 
 # 120 is used in order to get GPU load for AMD GPUs precisely.
@@ -44,7 +43,8 @@ amd_gpu_load_list = [0]
 # This list is used in order to show full status of the process.
 # For more information, see: "https://man7.org/linux/man-pages/man5/proc.5.html".
 process_status_dict = {"R": "Running", "S": "Sleeping", "D": "Waiting", "I": "Idle",
-                       "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead"}
+                       "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead",
+                       "P": "Parked", "W": "Waking"}
 
 supported_sensor_attributes = ["temp", "fan", "in", "curr", "power"]
 
@@ -95,8 +95,7 @@ supported_window_managers_list = ["xfwm4", "mutter", "kwin", "kwin_x11", "cinnam
 # are names of the display managers.
 supported_display_managers_dict = {"lightdm":"lightdm", "gdm":"gdm", "gdm3":"gdm3", "sddm":"sddm", "xdm":"xdm", "lxdm-binary":"lxdm"}                                                       
 
-desktop_environment_version_command_dict = {
-                                            "XFCE":["xfce4-panel", "--version"],
+desktop_environment_version_command_dict = {"XFCE":["xfce4-panel", "--version"],
                                             "GNOME":["gnome-shell", "--version"],
                                             "zorin:GNOME":["gnome-shell", "--version"],
                                             "ubuntu:GNOME":["gnome-shell", "--version"],
@@ -106,8 +105,7 @@ desktop_environment_version_command_dict = {
                                             "KDE":["plasmashell", "--version"],
                                             "LXQt":["lxqt-about", "--version"],
                                             "Budgie":["budgie-desktop", "--version"],
-                                            "Budgie:GNOME":["budgie-desktop", "--version"]
-                                            }
+                                            "Budgie:GNOME":["budgie-desktop", "--version"]}
 
 
 # ***********************************************************************************************
