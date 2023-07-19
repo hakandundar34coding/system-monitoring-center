@@ -285,11 +285,11 @@ msgstr "Память ГПУ"
 
 #: src/Gpu.py:155
 msgid "Video Encoder"
-msgstr ""
+msgstr "Видеокодер"
 
 #: src/Gpu.py:183
 msgid "Video Decoder"
-msgstr ""
+msgstr "Видеодекодер"
 
 #: src/Gpu.py:215 src/Gpu.py:410
 msgid "Temperature"
@@ -297,7 +297,7 @@ msgstr "Темература"
 
 #: src/Gpu.py:230 src/Gpu.py:400
 msgid "Memory Frequency"
-msgstr ""
+msgstr "Частота Памяти"
 
 #: src/Gpu.py:237 src/Gpu.py:420
 msgid "Power Usage"
@@ -313,19 +313,19 @@ msgstr "Драйвер"
 
 #: src/Gpu.py:330
 msgid "PCIe Address"
-msgstr ""
+msgstr "Адрес PCIe"
 
 #: src/Gpu.py:340
 msgid "GPU Interface"
-msgstr ""
+msgstr "Интетфейс ГПУ"
 
 #: src/Gpu.py:350
 msgid "Link Speed"
-msgstr ""
+msgstr "Скорость Соединения"
 
 #: src/Gpu.py:450
 msgid "Connections"
-msgstr ""
+msgstr "Подключения"
 
 #: src/Gpu.py:460
 msgid "Refresh Rate"
@@ -536,7 +536,7 @@ msgstr "Изменить приоритет"
 
 #: src/Processes.py:269 src/Processes.py:470 src/Processes.py:567
 msgid "Set CPU Affinity"
-msgstr ""
+msgstr "Установить привязку процессора" 
 
 #: src/Processes.py:314 src/Processes.py:1090 src/ProcessesDetails.py:107
 #: src/ProcessesMenu.py:158 src/Sensors.py:113 src/Services.py:512
@@ -564,11 +564,11 @@ msgstr "Отменить"
 
 #: src/Processes.py:535
 msgid "Select All"
-msgstr ""
+msgstr "Выбрать Всё"
 
 #: src/Processes.py:540
 msgid "Select None"
-msgstr ""
+msgstr "Выбрать Ничего"
 
 #: src/Processes.py:662
 msgid "Do you want to pause these processes?"
@@ -695,7 +695,7 @@ msgstr "Переключения контекста"
 
 #: src/ProcessesDetails.py:346
 msgid "CPU Affinity"
-msgstr ""
+msgstr "Привязанный к процессору"
 
 #: src/ProcessesDetails.py:433
 msgid "Memory (USS)"
@@ -779,7 +779,7 @@ msgstr ""
 
 #: src/Services.py:167 src/Services.py:294
 msgid "Help"
-msgstr ""
+msgstr "Помощь"
 
 #: src/Services.py:187 src/Services.py:278
 msgid "Start"
@@ -787,11 +787,11 @@ msgstr "Запуск"
 
 #: src/Services.py:190
 msgid "Starts a service."
-msgstr ""
+msgstr "Запускает службу."
 
 #: src/Services.py:190 src/Services.py:201
 msgid "This action does not affect a service after system reboot."
-msgstr ""
+msgstr "Это действие не влияет на службу после перезагрузки системы."
 
 #: src/Services.py:198 src/Services.py:279
 msgid "Stop"
@@ -799,7 +799,7 @@ msgstr "Оставновка"
 
 #: src/Services.py:201
 msgid "Stops a service."
-msgstr ""
+msgstr "Останаливает службу."
 
 #: src/Services.py:209 src/Services.py:280
 msgid "Restart"
@@ -807,23 +807,23 @@ msgstr "Перезапуск"
 
 #: src/Services.py:212
 msgid "Restarts a service."
-msgstr ""
+msgstr "Перезапускает службу."
 
 #: src/Services.py:220 src/Services.py:281
 msgid "Reload"
-msgstr "Перезагрузка"
+msgstr "Перезагрузить"
 
 #: src/Services.py:223
 msgid "Reloads a service."
-msgstr ""
+msgstr "Перезагружает службу."
 
 #: src/Services.py:223
 msgid "This action is not available for all services."
-msgstr ""
+msgstr "Это действие доступно не для всех служб."
 
 #: src/Services.py:223 src/Services.py:245
 msgid "This action does not affect running process of a service."
-msgstr ""
+msgstr "Это действие не влияет на запущенный процесс службы."
 
 #: src/Services.py:231 src/Services.py:282
 msgid "Enable"
@@ -831,11 +831,11 @@ msgstr "Включить"
 
 #: src/Services.py:234
 msgid "Enables a service."
-msgstr ""
+msgstr "Включает службу."
 
 #: src/Services.py:234 src/Services.py:245
 msgid "This action affects a service after system reboot."
-msgstr ""
+msgstr "Это действие влияет на работу службы после перезагрузки системы."
 
 #: src/Services.py:242 src/Services.py:283
 msgid "Disable"
@@ -843,7 +843,7 @@ msgstr "Выключить"
 
 #: src/Services.py:245
 msgid "Disables a service."
-msgstr ""
+msgstr "Отключает службу."
 
 #: src/Services.py:253 src/Services.py:286
 msgid "Mask"
@@ -851,19 +851,19 @@ msgstr "Замаскировать"
 
 #: src/Services.py:256
 msgid "Disables a service completely."
-msgstr ""
+msgstr "Полностью отключает службу."
 
 #: src/Services.py:256
 msgid "A masked service can not be started, restarted, reloaded or enabled."
-msgstr ""
+msgstr "Замаскированная служба не может быть запущена, перезапущена, перезагружена или включена"
 
 #: src/Services.py:264
 msgid "Unmask"
-msgstr ""
+msgstr "Снять маску"
 
 #: src/Services.py:267
 msgid "Unmasks a service."
-msgstr ""
+msgstr "Снимает маску со службы."
 
 #: src/Services.py:267
 msgid ""
