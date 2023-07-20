@@ -1,6 +1,7 @@
 system-monitoring-center (1.43.8) unstable; urgency=medium
 
-  * Updated Russian translations
+  * Reduced CPU load when getting AMD GPU usage percentage
+  * Fix: GPU usage percentage accuracy of AMD GPUs
   * Fix: Errors when getting process status on some kernels
 
  -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 20 Jul 2023 15:15:00 +0300
