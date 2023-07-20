@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v1.43.8 (20.07.2023)
+  * Reduced CPU load when getting AMD GPU usage percentage
+  * Fix: GPU usage percentage accuracy of AMD GPUs
+  * Fix: Errors when getting process status on some kernels
+
 ### v2.18.3 (20.07.2023)
   * Updated Russian translations
   * Fix: Errors when getting process status on some kernels

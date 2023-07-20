@@ -41,6 +41,8 @@ amd_gpu_load_read_frequency = 1 / 120
 amd_gpu_load_list = [0]
 
 # This list is used in order to show full status of the process.
+# Some values are required on systems with new kernels even if the opposite
+# situation is written in the documentation.
 # For more information, see: "https://man7.org/linux/man-pages/man5/proc.5.html".
 process_status_dict = {"R": "Running", "S": "Sleeping", "D": "Waiting", "I": "Idle",
                        "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead",
