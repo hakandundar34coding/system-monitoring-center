@@ -613,7 +613,7 @@ class Gpu:
         # "try-except" is used in order to prevent errors if this is first run of the function.
         except AttributeError:
             pass
-        self.gpu_glib_source = GLib.timeout_source_new(1000 / 365)
+        self.gpu_glib_source = GLib.timeout_source_new(Config.update_interval * 1000 / 365)
 
         # Read file to get GPU load information. This information is calculated for a very small time (screen refresh rate or content (game, etc.) refresh rate?) and directly plotting this data gives spikes.
         with open(gpu_device_path + "device/gpu_busy_percent") as reader:
