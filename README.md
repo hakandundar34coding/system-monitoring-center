@@ -133,6 +133,8 @@
 
 ![System Monitoring Center](screenshots/processes_list_view_dark_system_theme.png)
 
+![System Monitoring Center](screenshots/processes_tree_view_white_system_theme.png)
+
 ![System Monitoring Center](screenshots/services_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/system_tab_dark_system_theme.png)

@@ -76,6 +76,9 @@
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/processes_list_view_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/processes_tree_view_white_system_theme.png</image>
+    </screenshot>
+    <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/services_tab_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
@@ -86,6 +89,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.18.3" date="2023-07-20">
+      <description>
+        <ul>
+          <li>Updated Russian translations</li>
+          <li>Fix: Errors when getting process status on some kernels</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.18.2" date="2023-07-17">
       <description>
         <ul>
