@@ -246,9 +246,12 @@ def processes_initial_func():
     rows_data_dict_prev = {}
 
     global process_status_dict, number_of_clock_ticks, memory_page_size, application_image_dict, system_boot_time, username_uid_dict
+    # Some values are required on systems with new kernels even if the opposite
+    # situation is written in the documentation.
     # For more information, see: "https://man7.org/linux/man-pages/man5/proc.5.html".
     process_status_dict = {"R": "Running", "S": "Sleeping", "D": "Waiting", "I": "Idle",
-                           "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead"}
+                           "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead",
+                           "K": "Wakekill", "P": "Parked", "x": "Dead", "W": "Waking"}
     number_of_clock_ticks = os.sysconf("SC_CLK_TCK")
     memory_page_size = os.sysconf("SC_PAGE_SIZE")
     system_boot_time = get_system_boot_time()
