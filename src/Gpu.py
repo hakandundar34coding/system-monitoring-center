@@ -86,8 +86,9 @@ class Gpu:
         # Define initial values
         self.chart_data_history = Config.chart_data_history
         self.gpu_load_list = [0] * self.chart_data_history
-        # Currently highest monitor refresh rate is 360. 365 is used in order to get GPU load for AMD GPUs precisely.
-        self.amd_gpu_load_list = [0] * 365
+        # The content of the "gpu_busy_percent" file is updated about 50-60 times in a second. 
+        # 120 is used in order to get GPU load for AMD GPUs precisely.
+        self.amd_gpu_load_list = [0] * 120
 
 
         # Get information.
@@ -613,7 +614,7 @@ class Gpu:
         # "try-except" is used in order to prevent errors if this is first run of the function.
         except AttributeError:
             pass
-        self.gpu_glib_source = GLib.timeout_source_new(Config.update_interval * 1000 / 365)
+        self.gpu_glib_source = GLib.timeout_source_new(Config.update_interval * 1000 / 120)
 
         # Read file to get GPU load information. This information is calculated for a very small time (screen refresh rate or content (game, etc.) refresh rate?) and directly plotting this data gives spikes.
         with open(gpu_device_path + "device/gpu_busy_percent") as reader:
