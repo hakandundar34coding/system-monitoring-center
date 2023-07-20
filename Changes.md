@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v2.18.3 (20.07.2023)
+  * Fix: 
+
 ### v2.18.2 (17.07.2023)
   * Fix: Error when getting information of some GPUs
 

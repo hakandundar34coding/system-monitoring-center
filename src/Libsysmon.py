@@ -44,7 +44,7 @@ amd_gpu_load_list = [0]
 # For more information, see: "https://man7.org/linux/man-pages/man5/proc.5.html".
 process_status_dict = {"R": "Running", "S": "Sleeping", "D": "Waiting", "I": "Idle",
                        "Z": "Zombie", "T": "Stopped", "t": "Tracing Stop", "X": "Dead",
-                       "P": "Parked", "W": "Waking"}
+                       "K": "Wakekill", "P": "Parked", "x": "Dead", "W": "Waking"}
 
 supported_sensor_attributes = ["temp", "fan", "in", "curr", "power"]
 
