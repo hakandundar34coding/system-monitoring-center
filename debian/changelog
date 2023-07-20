@@ -1,3 +1,10 @@
+system-monitoring-center (1.43.8) unstable; urgency=medium
+
+  * Updated Russian translations
+  * Fix: Errors when getting process status on some kernels
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 20 Jul 2023 15:15:00 +0300
+
 system-monitoring-center (1.43.7) unstable; urgency=medium
 
   * Improved: Selected disk and network card names (Summary tab)
