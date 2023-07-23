@@ -76,6 +76,7 @@ class Config:
         """
 
         self.config_default_general_general_func()
+        self.config_default_performance_summary_func()
         self.config_default_performance_cpu_func()
         self.config_default_performance_memory_func()
         self.config_default_performance_disk_func()
@@ -104,6 +105,14 @@ class Config:
         self.remember_last_selected_hardware = 0
         self.remember_window_size = [0, 0, 0, 0]
         self.main_window_opacity = 1.0
+
+
+    def config_default_performance_summary_func(self):
+        """
+        Set default settings (Summary tab).
+        """
+
+        self.summary_show_gpu_usage = 0
 
 
     def config_default_performance_cpu_func(self):
@@ -260,6 +269,11 @@ class Config:
         else:
             pass
 
+        if "summary_show_gpu_usage" in config_variables:
+            self.summary_show_gpu_usage = float(config_values[config_variables.index("summary_show_gpu_usage")])
+        else:
+            pass
+
         self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
         self.performance_cpu_usage_percent_precision = int(config_values[config_variables.index("performance_cpu_usage_percent_precision")])
@@ -347,6 +361,10 @@ class Config:
         config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
         config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
         config_write_text = config_write_text + "main_window_opacity = " + str(self.main_window_opacity) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Performance Tab - Summary]" + "\n"
+        config_write_text = config_write_text + "summary_show_gpu_usage = " + str(self.summary_show_gpu_usage) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - CPU]" + "\n"

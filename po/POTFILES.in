@@ -26,6 +26,7 @@ src/ServicesDetails.py
 src/ServicesMenu.py
 src/SettingsWindow.py
 src/Summary.py
+src/SummaryMenu.py
 src/System.py
 src/Users.py
 src/UsersDetails.py

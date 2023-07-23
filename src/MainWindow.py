@@ -536,7 +536,8 @@ class MainWindow():
         if Config.current_main_tab == 0:
 
             if Config.performance_tab_current_sub_tab == 0:
-                self.tab_menu_menubutton.set_popover(None)
+                from .SummaryMenu import SummaryMenu
+                self.tab_menu_menubutton.set_popover(SummaryMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 1:
                 from .CpuMenu import CpuMenu
@@ -642,7 +643,7 @@ class MainWindow():
                 GLib.idle_add(Summary.loop_func)
                 # Show device selection list on a listbox between radiobuttons of Performance tab sub-tabs.
                 self.main_gui_device_selection_list()
-                self.tab_menu_menubutton.set_sensitive(False)
+                self.tab_menu_menubutton.set_sensitive(True)
                 return
 
             # Switch to "CPU" tab
@@ -719,7 +720,10 @@ class MainWindow():
                 if "Gpu" not in globals():
                     global Gpu
                     from .Gpu import Gpu
-                    self.gpu_tab_main_grid.attach(Gpu.tab_grid, 0, 0, 1, 1)
+                    # Grid may have been attached before Summary tab).
+                    child_grid = self.gpu_tab_main_grid.get_child_at(0, 0)
+                    if child_grid == None:
+                        self.gpu_tab_main_grid.attach(Gpu.tab_grid, 0, 0, 1, 1)
                 GLib.idle_add(Gpu.loop_func)
                 try:
                     self.main_gui_device_selection_list()

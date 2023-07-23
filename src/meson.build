@@ -52,6 +52,7 @@ system_monitoring_center_sources = [
     'ServicesMenu.py',
     'SettingsWindow.py',
     'Summary.py',
+    'SummaryMenu.py',
     'System.py',
     'Users.py',
     'UsersDetails.py',

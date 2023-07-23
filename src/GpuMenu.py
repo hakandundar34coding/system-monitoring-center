@@ -1,7 +1,6 @@
 import gi
 gi.require_version('Gtk', '4.0')
-gi.require_version('Gdk', '4.0')
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 
 from .Config import Config
 from .Gpu import Gpu
@@ -39,15 +38,15 @@ class GpuMenu:
 
         # Button (Graph Color)
         self.graph_color_button = Common.graph_color_button(self)
-        main_grid.attach(self.graph_color_button, 0, 4, 2, 1)
+        main_grid.attach(self.graph_color_button, 0, 1, 2, 1)
 
         # Separator
         separator = Common.menu_separator()
-        main_grid.attach(separator, 0, 5, 2, 1)
+        main_grid.attach(separator, 0, 2, 2, 1)
 
         # Button (Reset)
         self.reset_button = Common.reset_button()
-        main_grid.attach(self.reset_button, 0, 14, 2, 1)
+        main_grid.attach(self.reset_button, 0, 3, 2, 1)
 
         # Connect signals
         self.reset_button.connect("clicked", self.on_reset_button_clicked)

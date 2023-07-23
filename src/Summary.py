@@ -7,7 +7,7 @@ from gi.repository import Gtk, Pango, PangoCairo
 import os
 
 import cairo
-from math import sin, cos
+from math import sin, cos, atan
 
 from .Config import Config
 from .Performance import Performance
@@ -267,6 +267,267 @@ class Summary:
         ctx.fill()
         # Restore default transformations.
         ctx.restore()
+
+
+
+
+
+
+
+
+        #-----------------------------------------
+
+
+        # Draw GPU usage graphics if relevant option is enabled.
+        if Config.summary_show_gpu_usage == 1:
+
+            # Get chart color of GPU tab charts.
+            chart_line_color_fps = Config.chart_line_color_fps
+
+            # Get performance data and set text format.
+            if "Gpu" not in globals():
+                global Gpu
+                from .Gpu import Gpu
+                from .MainWindow import MainWindow
+                # Grid may have been attached before GPU tab).
+                child_grid = MainWindow.gpu_tab_main_grid.get_child_at(0, 0)
+                if child_grid == None:
+                    MainWindow.gpu_tab_main_grid.attach(Gpu.tab_grid, 0, 0, 1, 1)
+                global GLib
+                gi.require_version('GLib', '2.0')
+                from gi.repository import GLib
+            GLib.idle_add(Gpu.loop_func)
+
+            try:
+                gpu_usage_text = f'{Gpu.gpu_load_list[-1]}%'
+            except AttributeError:
+                gpu_usage_text = "-"
+
+            try:
+                device_name_text = Gpu.selected_gpu
+            except AttributeError:
+                device_name_text = "-"
+
+
+            gauge_gpu_start_angle = (90 + 40) * pi_number / 180
+            gauge_gpu_end_angle = (90 - 70) * pi_number / 180
+
+
+            gauge_gpu_x_y_move = gauge_right_outer_radius * 0.593
+            gauge_gpu_width = gauge_right_outer_radius * 1.1
+            gauge_gpu_height = gauge_right_outer_radius * 0.237
+
+
+            ctx.save()
+            ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
+            ctx.move_to(-gauge_gpu_x_y_move, -gauge_gpu_x_y_move)
+            ctx.rel_line_to(gauge_gpu_width*0.6, -gauge_gpu_height)
+            ctx.rel_line_to(gauge_gpu_width*0.4, 0)
+            ctx.rel_line_to(0, gauge_gpu_height)
+            ctx.rel_line_to(-gauge_gpu_width, 0)
+            ctx.set_source_rgba(34/255, 52/255, 71/255, 1)
+            ctx.fill()
+            ctx.restore()
+
+
+
+
+            gauge_gpu_start_angle = 148*pi_number/180
+
+            gauge_gpu_upper_edge_move_horizontal = gauge_right_outer_radius * 0.02
+
+
+
+            # Draw circular (partial) part of the background and edge of the GPU usage gauge.
+            ctx.save()
+            ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
+            start_angle = -58*pi_number/180
+            end_angle = -30*pi_number/180
+
+            gradient_pattern = cairo.RadialGradient(0, 0, 0, 0, 0, gauge_right_outer_radius)
+            gradient_pattern.add_color_stop_rgba(0, 34/255, 52/255, 71/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.93, 34/255, 52/255, 71/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.94, 20/255, 26/255, 35/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.95, 44/255, 60/255, 79/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.98, 20/255, 26/255, 35/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.99, 44/255, 60/255, 79/255, 1)
+            gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
+            ctx.set_source(gradient_pattern)
+            ctx.arc(0, 0, gauge_right_outer_radius, start_angle, end_angle)
+            ctx.line_to(0, 0)
+            ctx.fill()
+            ctx.restore()
+
+
+
+
+            # Draw upper edge of the GPU usage gauge.
+            ctx.save()
+            ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
+            # "gauge_gpu_upper_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
+            ctx.move_to(gauge_right_outer_radius*sin(gauge_gpu_start_angle)-gauge_gpu_upper_edge_move_horizontal, gauge_right_outer_radius*cos(gauge_gpu_start_angle))
+            ctx.rel_line_to(0, gauge_right_outer_radius*0.1)
+            ctx.rel_line_to(-gauge_gpu_width*0.4, 0)
+            ctx.rel_line_to(0, -gauge_right_outer_radius*0.1)
+            gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*cos(gauge_gpu_start_angle)+gauge_right_outer_radius, 0, gauge_right_outer_radius*cos(gauge_gpu_start_angle))
+            gradient_pattern.add_color_stop_rgba(0, 32/255, 41/255, 49/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.93, 34/255, 52/255, 71/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.94, 20/255, 26/255, 35/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.95, 44/255, 60/255, 79/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.98, 20/255, 26/255, 35/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.99, 44/255, 60/255, 79/255, 1)
+            gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
+            ctx.set_source(gradient_pattern)
+            ctx.fill()
+            ctx.restore()
+
+            gauge_gpu_upper_edge_move_vertical = gauge_right_outer_radius * 0.018
+
+
+            ctx.save()
+            ctx.translate(gauge_circular_center_x-gauge_gpu_x_y_move+gauge_gpu_width*0.6 + gauge_right_move, (chart_height / 2)-gauge_gpu_x_y_move-gauge_gpu_height-gauge_gpu_upper_edge_move_vertical)
+            #ctx.move_to(-gauge_gpu_x_y_move, -gauge_gpu_x_y_move)
+            #ctx.rel_move_to(gauge_gpu_width*0.6, -gauge_gpu_height)
+            angle1 = -atan(gauge_gpu_height / gauge_gpu_width*0.6)
+            ctx.rotate(2.2*angle1)
+            ctx.move_to(0, 0)
+            ctx.rel_line_to(-gauge_gpu_width*0.6, 0)
+            ctx.rel_line_to(0, gauge_right_outer_radius*0.07)
+            ctx.rel_line_to(gauge_gpu_width*0.6, 0)
+            gradient_pattern = cairo.LinearGradient(0, gauge_right_outer_radius*0.07, 0, 0)
+            gradient_pattern.add_color_stop_rgba(0, 32/255, 41/255, 49/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.001, 34/255, 52/255, 71/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.143, 20/255, 26/255, 35/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.286, 44/255, 60/255, 79/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.714, 20/255, 26/255, 35/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.857, 44/255, 60/255, 79/255, 1)
+            gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
+            ctx.set_source(gradient_pattern)
+            ctx.fill()
+            ctx.restore()
+
+
+
+            # Draw fillet on the connection point of the upper right corner of the GPU usage gauge for continuous gauge edge.
+            ctx.save()
+            ctx.translate(gauge_circular_center_x-gauge_gpu_x_y_move+gauge_gpu_width + gauge_right_move, (chart_height / 2)-gauge_gpu_x_y_move-gauge_gpu_height-gauge_gpu_upper_edge_move_vertical+gauge_right_outer_radius*0.07)
+            ctx.rotate(-55*pi_number/180)
+            # "gauge_gpu_upper_edge_move_horizontal" value is used for avoiding overlapping inner sides of the edges of the right gauge at the corners.
+            start_angle = -40*pi_number/180
+            end_angle = 0*pi_number/180
+            gradient_pattern = cairo.RadialGradient(0, 0, 0, 0, 0, gauge_right_outer_radius*0.07)
+            gradient_pattern.add_color_stop_rgba(0, 32/255, 41/255, 49/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.001, 34/255, 52/255, 71/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.143, 20/255, 26/255, 35/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.286, 44/255, 60/255, 79/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.714, 20/255, 26/255, 35/255, 1)
+            gradient_pattern.add_color_stop_rgba(0.857, 44/255, 60/255, 79/255, 1)
+            gradient_pattern.add_color_stop_rgba(1, 57/255, 68/255, 104/255, 1)
+            ctx.set_source(gradient_pattern)
+            ctx.arc(0, 0, gauge_right_outer_radius*0.07, start_angle, end_angle)
+            ctx.line_to(0, 0)
+            ctx.fill()
+            ctx.restore()
+
+
+
+
+            # Draw shadow on the GPU usage gauge.
+            ctx.save()
+            ctx.translate(gauge_circular_center_x + 0, chart_height / 2)
+            start_angle = -50*pi_number/180
+            end_angle = -35*pi_number/180
+
+            gradient_pattern = cairo.RadialGradient(0, 0, gauge_outer_radius, 0, 0, gauge_right_outer_radius)
+            gradient_pattern.add_color_stop_rgba(0, 0/255, 0/255, 0/255, 0)
+            gradient_pattern.add_color_stop_rgba(0, 0/255, 0/255, 0/255, 0.5)
+            gradient_pattern.add_color_stop_rgba(1, 0/255, 0/255, 0/255, 0)
+            ctx.set_source(gradient_pattern)
+            ctx.arc(0, 0, gauge_right_outer_radius, start_angle, end_angle)
+            ctx.line_to(0, 0)
+            ctx.fill()
+            ctx.restore()
+
+
+
+
+
+            gauge_gpu_label_text_move_x = gauge_outer_radius * 0.07
+            gauge_gpu_label_text_move_y = gauge_outer_radius * 0.69
+
+            gauge_gpu_usage_label_text_move_x = gauge_outer_radius * 0.12
+            gauge_gpu_usage_label_text_move_y = gauge_outer_radius * 0.805
+            gauge_gpu_usage_text_move_y = gauge_outer_radius * 0.095
+            gauge_gpu_usage_text_move_y_pango_text_correction = gauge_outer_radius * 0.015
+
+
+            # Draw "GPU" label on the upper-left side of the inner circle of the circular gauge.
+            ctx.save()
+            ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
+            label_text = _tr("GPU")
+            system_font_scaled = f'{system_font_name} {gauge_disk_network_label_text_size}'
+            text_length = len(label_text)
+            if text_length > 15 and text_length < 19:
+                system_font_scaled = f'{system_font_name} {gauge_indicator_text_size_smaller}'
+            elif text_length >= 19:
+                system_font_scaled = f'{system_font_name} {gauge_indicator_text_size_smallest}'
+            layout = PangoCairo.create_layout(ctx)
+            font_desc = Pango.font_description_from_string(system_font_scaled)
+            layout.set_font_description(font_desc)
+            layout.set_text(label_text)
+            ink_extents, logical_extents = layout.get_pixel_extents()
+            text_start_x = logical_extents.width + logical_extents.x
+            text_start_y = logical_extents.height + logical_extents.y
+            ctx.move_to(-gauge_gpu_label_text_move_x, -gauge_gpu_label_text_move_y - text_start_y)
+            ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+            PangoCairo.show_layout(ctx, layout)
+
+            # Draw GPU Usage label on the right gauge.
+            ctx.move_to(gauge_gpu_usage_label_text_move_x, -gauge_gpu_usage_label_text_move_y + gauge_gpu_usage_text_move_y)
+            ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
+            ctx.set_font_size(gauge_disk_network_usage_text_size)
+            ctx.show_text(gpu_usage_text)
+            ctx.restore()
+
+
+            selected_gpu_name_text_move_x = gauge_right_outer_radius*cos(0) + gauge_outer_radius*0.5
+            selected_gpu_name_text_move_y = gauge_outer_radius*0.71
+
+            # Draw selected GPU name label on the right gauge.
+            ctx.save()
+            ctx.translate(gauge_circular_center_x, chart_height / 2)
+            ctx.set_source_rgba(0.5,0.5,0.5,1)
+            ctx.set_font_size(selected_disk_network_card_name_text_size)
+            text_extents = ctx.text_extents(device_name_text)
+            text_start_x = text_extents.width
+            ctx.move_to(-text_start_x + selected_gpu_name_text_move_x, -selected_gpu_name_text_move_y)
+            ctx.show_text(device_name_text)
+            ctx.restore()
+
+
+
+            ctx.stroke()
+
+            # Draw circular (partial) line on the left of the GPU usage labels on the right gauge.
+            ctx.save()
+            ctx.translate(gauge_circular_center_x, chart_height / 2)
+            start_angle = -43.5*pi_number/180
+            end_angle = -41*pi_number/180
+
+            ctx.set_line_width(gauge_separator_thickness)
+            ctx.set_source_rgba(chart_line_color_fps[0], chart_line_color_fps[1], chart_line_color_fps[2], chart_line_color_fps[3])
+            ctx.arc(0, 0, gauge_outer_radius * 1.07, start_angle, end_angle)
+            ctx.stroke()
+            ctx.restore()
+
+
+        #-----------------------------------------
+
+
+
+
+
+
 
 
         # Draw rectangle part of the background of the right gauge.
