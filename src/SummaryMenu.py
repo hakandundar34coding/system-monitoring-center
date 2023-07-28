@@ -4,9 +4,7 @@ from gi.repository import Gtk
 
 from .Config import Config
 from .Summary import Summary
-from .MainWindow import MainWindow
 from . import Common
-from . import Libsysmon
 
 _tr = Config._tr
 

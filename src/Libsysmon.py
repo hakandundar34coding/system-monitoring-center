@@ -4116,13 +4116,16 @@ def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_
 def get_services_information():
     """
     Get systemd services information.
+    Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories.
+    But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
+    There is no "/usr/lib/systemd/system/" on some ARM systems (and also on older distributions) and "/lib/systemd/system/" is used
+    in this case. On newer distributions "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
+    On ARM systems, also "/usr/lib/systemd/system/" folder may be used after installling some applications. In this situation
+    this folder will be a real path. There may be user services in "/home/[USERNAME]/.config/systemd/user/" folder.
     """
 
     environment_type = get_environment_type()
 
-    # Service files (Unit files) are in the "/etc/systemd/system/" and "/usr/lib/systemd/system/autovt@.service" directories. But the first directory contains links to the service files in the second directory. Thus, service files get from the second directory.
-    # There is no "/usr/lib/systemd/system/" on some ARM systems (and also on older distributions) and "/lib/systemd/system/" is used in this case. On newer distributions "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
-    # On ARM systems, also "/usr/lib/systemd/system/" folder may be used after installling some applications. In this situation this folder will be a real path.
     services_data_dict = {}
     service_unit_file_list_usr_lib_systemd = []
     service_unit_file_list_lib_systemd = []
@@ -4146,8 +4149,19 @@ def get_services_information():
             service_unit_files_dir = "/lib/systemd/system/"
             service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
 
+    # Get user services
+    current_user_name = os.environ.get('USER')
+    service_unit_files_dir_user = "/home/" + current_user_name + "/.config/systemd/user/"
+    try:
+        service_unit_file_list_user = [filename for filename in os.listdir(service_unit_files_dir_user) if filename.endswith(".service")]
+    except Exception:
+        service_unit_file_list_user = []
+
     # Merge service file lists from different folders.
-    service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd
+    service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd + service_unit_file_list_user
+
+    # Remove duplicated service names
+    service_unit_file_list = sorted(list(set(service_unit_file_list)))
 
     try:
         if environment_type == "flatpak":
