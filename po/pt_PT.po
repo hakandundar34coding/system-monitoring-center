@@ -1,22 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
+# Portuguese translation for system-monitoring-center.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the system-monitoring-center package.
 # Hugo Carvalho <hugokarvalho@hotmail.com>, 2022, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: System Monitoring Center\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-16 15:47+0300\n"
-"PO-Revision-Date: 2023-07-16 16:03+0300\n"
+"PO-Revision-Date: 2023-07-28 15:37+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
-"Language-Team: \n"
+"Language-Team: Portuguese\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
 #: src/MainWindow.py:66 src/MainWindow.py:516
@@ -34,16 +34,12 @@ msgid "Multi-featured system monitor"
 msgstr "Monitor de sistema multi-recursos"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
-#, fuzzy
-#| msgid ""
-#| "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
-#| "Processes;Users;Services;"
 msgid ""
 "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;"
 "Processes;Users;Services;"
 msgstr ""
-"monitor do sistema;gestor de tarefas;desempenho;cpu;ram;memória;disco;rede;"
-"processos;utilizadores;serviços;"
+"Monitor do sistema;Gestor de tarefas;Desempenho;CPU;RAM;Memória;Disco;Rede;"
+"Processos;Utilizadores;Serviços;"
 
 #: src/Common.py:197
 msgid "Reset"
@@ -280,15 +276,15 @@ msgstr "Utilização da GPU"
 
 #: src/Gpu.py:127 src/Gpu.py:210 src/Gpu.py:370
 msgid "GPU Memory"
-msgstr ""
+msgstr "Memória GPU"
 
 #: src/Gpu.py:155
 msgid "Video Encoder"
-msgstr ""
+msgstr "Codificador de vídeo"
 
 #: src/Gpu.py:183
 msgid "Video Decoder"
-msgstr ""
+msgstr "Descodificador de vídeo"
 
 #: src/Gpu.py:215 src/Gpu.py:410
 msgid "Temperature"
@@ -296,7 +292,7 @@ msgstr "Temperatura"
 
 #: src/Gpu.py:230 src/Gpu.py:400
 msgid "Memory Frequency"
-msgstr ""
+msgstr "Frequência de memória"
 
 #: src/Gpu.py:237 src/Gpu.py:420
 msgid "Power Usage"
@@ -312,19 +308,19 @@ msgstr "Controlador"
 
 #: src/Gpu.py:330
 msgid "PCIe Address"
-msgstr ""
+msgstr "Endereço PCIe"
 
 #: src/Gpu.py:340
 msgid "GPU Interface"
-msgstr ""
+msgstr "Interface da GPU"
 
 #: src/Gpu.py:350
 msgid "Link Speed"
-msgstr ""
+msgstr "Velocidade de ligação"
 
 #: src/Gpu.py:450
 msgid "Connections"
-msgstr ""
+msgstr "Ligações"
 
 #: src/Gpu.py:460
 msgid "Refresh Rate"
@@ -537,7 +533,7 @@ msgstr "Alterar prioridade"
 
 #: src/Processes.py:269 src/Processes.py:470 src/Processes.py:567
 msgid "Set CPU Affinity"
-msgstr ""
+msgstr "Definir afinidade da CPU"
 
 #: src/Processes.py:314 src/Processes.py:1090 src/ProcessesDetails.py:107
 #: src/ProcessesMenu.py:158 src/Sensors.py:113 src/Services.py:512
@@ -553,11 +549,12 @@ msgstr "Linha de comandos"
 
 #: src/Processes.py:379
 msgid "Change priority of these processes"
-msgstr ""
+msgstr "Alterar a prioridade destes processos"
 
 #: src/Processes.py:379
 msgid "Smaller value means higher process priority"
-msgstr "valor menor significa maior prioridade do processo"
+msgstr ""
+"Um valor mais pequeno significa uma prioridade de processo mais elevada"
 
 #: src/Processes.py:434 src/Processes.py:562
 msgid "Cancel"
@@ -565,23 +562,23 @@ msgstr "Cancelar"
 
 #: src/Processes.py:535
 msgid "Select All"
-msgstr ""
+msgstr "Selecionar tudo"
 
 #: src/Processes.py:540
 msgid "Select None"
-msgstr ""
+msgstr "Não selecionar"
 
 #: src/Processes.py:662
 msgid "Do you want to pause these processes?"
-msgstr ""
+msgstr "Pretende colocar estes processos em pausa?"
 
 #: src/Processes.py:667
 msgid "Do you want to end these processes?"
-msgstr ""
+msgstr "Pretende terminar estes processos?"
 
 #: src/Processes.py:670
 msgid "Do you want to end these processes immediately?"
-msgstr ""
+msgstr "Pretende terminar estes processos imediatamente?"
 
 #: src/Processes.py:1091 src/ProcessesDetails.py:117
 #: src/ProcessesDetails.py:726 src/ProcessesMenu.py:164
@@ -643,7 +640,7 @@ msgstr "Tempo de CPU"
 #: src/Processes.py:1111 src/Processes.py:1112 src/Processes.py:1113
 #: src/ProcessesMenu.py:246 src/ProcessesMenu.py:250 src/ProcessesMenu.py:254
 msgid "Recursive"
-msgstr ""
+msgstr "Recursivo"
 
 #: src/Processes.py:1138 src/Services.py:535
 msgid "Running"
@@ -696,7 +693,7 @@ msgstr "Interruptores de contexto"
 
 #: src/ProcessesDetails.py:346
 msgid "CPU Affinity"
-msgstr ""
+msgstr "Afinidade da CPU"
 
 #: src/ProcessesDetails.py:433
 msgid "Memory (USS)"
@@ -780,7 +777,7 @@ msgstr ""
 
 #: src/Services.py:167 src/Services.py:294
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #: src/Services.py:187 src/Services.py:278
 msgid "Start"
@@ -788,11 +785,11 @@ msgstr "Iniciar"
 
 #: src/Services.py:190
 msgid "Starts a service."
-msgstr ""
+msgstr "Inicia um serviço."
 
 #: src/Services.py:190 src/Services.py:201
 msgid "This action does not affect a service after system reboot."
-msgstr ""
+msgstr "Esta ação não afeta um serviço após o reinício do sistema."
 
 #: src/Services.py:198 src/Services.py:279
 msgid "Stop"
@@ -800,7 +797,7 @@ msgstr "Parar"
 
 #: src/Services.py:201
 msgid "Stops a service."
-msgstr ""
+msgstr "Para um serviço."
 
 #: src/Services.py:209 src/Services.py:280
 msgid "Restart"
@@ -808,7 +805,7 @@ msgstr "Reiniciar"
 
 #: src/Services.py:212
 msgid "Restarts a service."
-msgstr ""
+msgstr "Reinicia um serviço."
 
 #: src/Services.py:220 src/Services.py:281
 msgid "Reload"
@@ -816,15 +813,15 @@ msgstr "Recarregar"
 
 #: src/Services.py:223
 msgid "Reloads a service."
-msgstr ""
+msgstr "Recarrega um serviço."
 
 #: src/Services.py:223
 msgid "This action is not available for all services."
-msgstr ""
+msgstr "Esta ação não está disponível para todos os serviços."
 
 #: src/Services.py:223 src/Services.py:245
 msgid "This action does not affect running process of a service."
-msgstr ""
+msgstr "Esta ação não afeta o processo em curso de um serviço."
 
 #: src/Services.py:231 src/Services.py:282
 msgid "Enable"
@@ -832,11 +829,11 @@ msgstr "Ativar"
 
 #: src/Services.py:234
 msgid "Enables a service."
-msgstr ""
+msgstr "Ativa um serviço."
 
 #: src/Services.py:234 src/Services.py:245
 msgid "This action affects a service after system reboot."
-msgstr ""
+msgstr "Esta ação afeta um serviço após o reinício do sistema."
 
 #: src/Services.py:242 src/Services.py:283
 msgid "Disable"
@@ -844,7 +841,7 @@ msgstr "Desativar"
 
 #: src/Services.py:245
 msgid "Disables a service."
-msgstr ""
+msgstr "Desativa um serviço."
 
 #: src/Services.py:253 src/Services.py:286
 msgid "Mask"
@@ -852,25 +849,29 @@ msgstr "Mascarar"
 
 #: src/Services.py:256
 msgid "Disables a service completely."
-msgstr ""
+msgstr "Desativa completamente um serviço."
 
 #: src/Services.py:256
 msgid "A masked service can not be started, restarted, reloaded or enabled."
 msgstr ""
+"Um serviço mascarado não pode ser iniciado, reiniciado, recarregado ou "
+"ativado."
 
 #: src/Services.py:264
 msgid "Unmask"
-msgstr ""
+msgstr "Desmascarar"
 
 #: src/Services.py:267
 msgid "Unmasks a service."
-msgstr ""
+msgstr "Desmascara um serviço."
 
 #: src/Services.py:267
 msgid ""
 "A service can be started, restarted, reloaded (if it is available) or "
 "enabled after unmasking."
 msgstr ""
+"Um serviço pode ser iniciado, reiniciado, recarregado (se estiver "
+"disponível) ou ativado após o desmascaramento."
 
 #: src/Services.py:364
 msgid "Information"
@@ -1030,7 +1031,7 @@ msgstr "Tema Claro/Escuro"
 
 #: src/SettingsWindow.py:84
 msgid "Opacity"
-msgstr ""
+msgstr "Opacidade"
 
 #: src/SettingsWindow.py:102
 msgid "Update interval (seconds)"
