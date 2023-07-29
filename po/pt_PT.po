@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: System Monitoring Center\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-16 15:47+0300\n"
-"PO-Revision-Date: 2023-07-28 15:37+0100\n"
+"PO-Revision-Date: 2023-07-29 11:08+0300\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
 #: src/MainWindow.py:66 src/MainWindow.py:516
@@ -39,7 +39,7 @@ msgid ""
 "Processes;Users;Services;"
 msgstr ""
 "Monitor do sistema;Gestor de tarefas;Desempenho;CPU;RAM;Memória;Disco;Rede;"
-"Processos;Utilizadores;Serviços;"
+"GPU;Processos;Utilizadores;Serviços;"
 
 #: src/Common.py:197
 msgid "Reset"
