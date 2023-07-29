@@ -222,8 +222,16 @@ def services_loop_func():
             service_unit_files_dir = "/lib/systemd/system/"
             service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
 
+    # Get user services
+    current_user_name = os.environ.get('USER')
+    try:
+        service_unit_files_dir_user = "/home/" + current_user_name + "/.config/systemd/user/"
+        service_unit_file_list_user = [filename for filename in os.listdir(service_unit_files_dir_user) if filename.endswith(".service")]
+    except Exception:
+        service_unit_file_list_user = []
+
     # Merge service file lists from different folders.
-    service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd
+    service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd + service_unit_file_list_user
 
     try:
         if Config.environment_type == "flatpak":
