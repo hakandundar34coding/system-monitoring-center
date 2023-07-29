@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v1.43.9 (29.07.2023)
+  * Fix: Listing user specific services (Services tab)
+  * Fix: Errors when getting process status on some kernels
+
 ### v2.19.0 (29.07.2023)
   * New: Show GPU usage option (Summary tab)
   * Updated Portuguese (Portugal) translations
