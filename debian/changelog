@@ -1,3 +1,10 @@
+system-monitoring-center (1.43.9) unstable; urgency=medium
+
+  * Fix: Listing user specific services (Services tab)
+  * Fix: Errors when getting process status on some kernels
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Thu, 20 Jul 2023 15:15:00 +0300
+
 system-monitoring-center (1.43.8) unstable; urgency=medium
 
   * Reduced CPU load when getting AMD GPU usage percentage
