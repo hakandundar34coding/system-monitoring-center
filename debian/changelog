@@ -1,3 +1,11 @@
+system-monitoring-center (2.19.0) unstable; urgency=medium
+
+  * New: Show GPU usage option (Summary tab)
+  * Updated Portuguese (Portugal) translations
+  * Fix: Listing user specific services (Services tab)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 29 Jul 2023 11:20:00 +0300
+
 system-monitoring-center (2.18.3) unstable; urgency=medium
 
   * Updated Russian translations

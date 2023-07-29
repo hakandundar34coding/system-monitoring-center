@@ -89,6 +89,15 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.19.0" date="2023-07-29">
+      <description>
+        <ul>
+          <li>New: Show GPU usage option (Summary tab)</li>
+          <li>Updated Portuguese (Portugal) translations</li>
+          <li>Fix: Listing user specific services (Services tab)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.18.3" date="2023-07-20">
       <description>
         <ul>

@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v2.19.0 (29.07.2023)
+  * New: Show GPU usage option (Summary tab)
+  * Updated Portuguese (Portugal) translations
+  * Fix: Listing user specific services (Services tab)
+
 ### v1.43.8 (20.07.2023)
   * Reduced CPU load when getting AMD GPU usage percentage
   * Fix: GPU usage percentage accuracy of AMD GPUs
