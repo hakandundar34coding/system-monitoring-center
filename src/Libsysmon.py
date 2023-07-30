@@ -4151,8 +4151,8 @@ def get_services_information():
 
     # Get user services
     current_user_name = os.environ.get('USER')
+    service_unit_files_dir_user = "/home/" + current_user_name + "/.config/systemd/user/"
     try:
-        service_unit_files_dir_user = "/home/" + current_user_name + "/.config/systemd/user/"
         service_unit_file_list_user = [filename for filename in os.listdir(service_unit_files_dir_user) if filename.endswith(".service")]
     except Exception:
         service_unit_file_list_user = []

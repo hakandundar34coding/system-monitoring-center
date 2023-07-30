@@ -123,6 +123,7 @@ class Config:
         self.chart_line_color_cpu_percent = [0.29, 0.78, 0.0, 1.0]
         self.show_cpu_usage_per_core = 0
         self.performance_cpu_usage_percent_precision = 0
+        self.show_max_cpu_usage_processes = 0
         self.selected_cpu_core = ""
 
 
@@ -278,6 +279,10 @@ class Config:
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
         self.performance_cpu_usage_percent_precision = int(config_values[config_variables.index("performance_cpu_usage_percent_precision")])
         self.selected_cpu_core = config_values[config_variables.index("selected_cpu_core")]
+        if "show_max_cpu_usage_processes" in config_variables:
+            self.show_max_cpu_usage_processes = int(config_values[config_variables.index("show_max_cpu_usage_processes")])
+        else:
+            pass
 
         self.chart_line_color_memory_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_memory_percent")].strip("[]").split(", ")]
         self.show_memory_usage_per_memory = int(config_values[config_variables.index("show_memory_usage_per_memory")])
@@ -371,6 +376,7 @@ class Config:
         config_write_text = config_write_text + "chart_line_color_cpu_percent = " + str(self.chart_line_color_cpu_percent) + "\n"
         config_write_text = config_write_text + "show_cpu_usage_per_core = " + str(self.show_cpu_usage_per_core) + "\n"
         config_write_text = config_write_text + "performance_cpu_usage_percent_precision = " + str(self.performance_cpu_usage_percent_precision) + "\n"
+        config_write_text = config_write_text + "show_max_cpu_usage_processes = " + str(self.show_max_cpu_usage_processes) + "\n"
         config_write_text = config_write_text + "selected_cpu_core = " + str(self.selected_cpu_core) + "\n"
         config_write_text = config_write_text + "\n"
 

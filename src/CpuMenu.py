@@ -80,9 +80,22 @@ class CpuMenu:
         separator = Common.menu_separator()
         main_grid.attach(separator, 0, 10, 1, 1)
 
+        # CheckButton (Show processes using max CPU)
+        self.show_processes_using_max_cpu_cb = Common.checkbutton(_tr("Show processes using max CPU"), None)
+        main_grid.attach(self.show_processes_using_max_cpu_cb, 0, 11, 1, 1)
+
+        # Label (This increases CPU usage.)
+        label = Common.static_information_label(_tr("This increases CPU usage."))
+        label.set_margin_start(25)
+        main_grid.attach(label, 0, 12, 1, 1)
+
+        # Separator
+        separator = Common.menu_separator()
+        main_grid.attach(separator, 0, 13, 1, 1)
+
         # Button (Reset)
         self.reset_button = Common.reset_button()
-        main_grid.attach(self.reset_button, 0, 11, 1, 1)
+        main_grid.attach(self.reset_button, 0, 14, 1, 1)
 
         # Connect signals
         self.menu_po.connect("show", self.on_menu_po_show)
@@ -97,6 +110,7 @@ class CpuMenu:
         self.cpu_usage_average_cb.connect("toggled", self.on_cpu_usage_cb_toggled)
         self.cpu_usage_per_core_cb.connect("toggled", self.on_cpu_usage_cb_toggled)
         self.cpu_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
+        self.show_processes_using_max_cpu_cb.connect("toggled", self.on_show_processes_using_max_cpu_cb_toggled)
 
 
     def disconnect_signals(self):
@@ -107,6 +121,7 @@ class CpuMenu:
         self.cpu_usage_average_cb.disconnect_by_func(self.on_cpu_usage_cb_toggled)
         self.cpu_usage_per_core_cb.disconnect_by_func(self.on_cpu_usage_cb_toggled)
         self.cpu_precision_dd.disconnect_by_func(self.on_selected_item_notify)
+        self.show_processes_using_max_cpu_cb.disconnect_by_func(self.on_show_processes_using_max_cpu_cb_toggled)
 
 
     def on_menu_po_show(self, widget):
@@ -148,6 +163,19 @@ class CpuMenu:
         Common.save_tab_settings(Cpu)
 
 
+    def on_show_processes_using_max_cpu_cb_toggled(self, widget):
+        """
+        Show/Hide processes that consumes max CPU resources.
+        """
+
+        if widget.get_active() == True:
+            Config.show_max_cpu_usage_processes = 1
+        else:
+            Config.show_max_cpu_usage_processes = 0
+
+        Common.save_tab_settings(Cpu)
+
+
     def on_reset_button_clicked(self, widget):
         """
         Reset all tab settings.
@@ -176,6 +204,12 @@ class CpuMenu:
             self.cpu_usage_per_core_cb.set_active(True)
 
         self.cpu_precision_dd.set_selected(Config.performance_cpu_usage_percent_precision)
+
+        # Set active checkbutton if "Show processes using max CPU" option is enabled.
+        if Config.show_max_cpu_usage_processes == 1:
+            self.show_processes_using_max_cpu_cb.set_active(True)
+        if Config.show_max_cpu_usage_processes == 0:
+            self.show_processes_using_max_cpu_cb.set_active(False)
 
 
 CpuMenu = CpuMenu()

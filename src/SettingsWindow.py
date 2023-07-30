@@ -534,7 +534,11 @@ class SettingsWindow:
 
             length_difference = chart_data_history_current - chart_data_history_new
 
-            # "cpu_usage_percent_ave" list
+            # "max_cpu_usage_list", "max_cpu_usage_process_name_list", "max_cpu_usage_process_pid_list" lists
+            Performance.max_cpu_usage_list = Performance.max_cpu_usage_list[length_difference:]
+            Performance.max_cpu_usage_process_name_list = Performance.max_cpu_usage_process_name_list[length_difference:]
+            Performance.max_cpu_usage_process_pid_list = Performance.max_cpu_usage_process_pid_list[length_difference:]
+
             Performance.system_performance_data_dict_prev["cpu_usage_percent_ave"] = Performance.system_performance_data_dict_prev["cpu_usage_percent_ave"][length_difference:]
 
             # "cpu_usage_percent_per_core" list
@@ -575,11 +579,18 @@ class SettingsWindow:
         # Add list of zeroes to the beginning part of the lists if new "chart_data_history" value is bigger than the old value.
         if chart_data_history_current < chart_data_history_new:
 
-            # Generate list of zeroes for adding to the beginning of te lists.
+            # Generate list of zeroes for adding to the beginning of the lists.
             list_to_add = [0] * (chart_data_history_new - chart_data_history_current)
 
             # "cpu_usage_percent_ave" list
             Performance.system_performance_data_dict_prev["cpu_usage_percent_ave"] = list_to_add + Performance.system_performance_data_dict_prev["cpu_usage_percent_ave"]
+
+            # Generate list of dashes for adding to the beginning of some of the lists.
+            list_to_add_dashes = ["-"] * (chart_data_history_new - chart_data_history_current)
+            # "max_cpu_usage_list", "max_cpu_usage_process_name_list", "max_cpu_usage_process_pid_list" lists
+            Performance.max_cpu_usage_list = list_to_add + Performance.max_cpu_usage_list
+            Performance.max_cpu_usage_process_name_list = list_to_add_dashes + Performance.max_cpu_usage_process_name_list
+            Performance.max_cpu_usage_process_pid_list = list_to_add_dashes + Performance.max_cpu_usage_process_pid_list
 
             # "cpu_usage_percent_per_core" list
             for device in Performance.logical_core_list:

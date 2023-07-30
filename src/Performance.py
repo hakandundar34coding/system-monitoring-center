@@ -82,6 +82,57 @@ class Performance:
         if system_performance_data_dict["network_card_list_changed"] == "yes":
             self.performance_set_selected_network_card_func()
 
+        self.get_max_cpu_usage_processes()
+
+
+    def get_max_cpu_usage_processes(self):
+        """
+        Get processes that consumes maximum CPU sources.
+        These processes are shown on CPU usage graph if mouse arrow is above the graph.
+        """
+
+        chart_data_history = Config.chart_data_history
+
+        # Reset lists if option for showing processes that consume max CPU sources is disabled.
+        if Config.show_max_cpu_usage_processes == 0:
+            self.max_cpu_usage_list = [0] * chart_data_history
+            self.max_cpu_usage_process_name_list = ["-"] * chart_data_history
+            self.max_cpu_usage_process_pid_list = ["-"] * chart_data_history
+            return
+
+        if hasattr(self, "rows_data_dict_prev") == False:
+            self.rows_data_dict_prev = {}
+            self.system_boot_time = Libsysmon.get_system_boot_time()
+            self.username_uid_dict = Libsysmon.get_username_uid_dict()
+            self.max_cpu_usage_list = [0] * chart_data_history
+            self.max_cpu_usage_process_name_list = ["-"] * chart_data_history
+            self.max_cpu_usage_process_pid_list = ["-"] * chart_data_history
+
+        process_list = []
+        processes_of_user = "all"
+        cpu_usage_divide_by_cores = "yes"
+        detail_level = "low"
+        rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        self.rows_data_dict_prev = dict(rows_data_dict)
+        pid_list = rows_data_dict["pid_list"]
+
+        cpu_usage_list = []
+        for pid in pid_list:
+            row_data_dict = rows_data_dict[pid]
+            cpu_usage = row_data_dict["cpu_usage"]
+            cpu_usage_list.append(cpu_usage)
+        max_cpu_usage = max(cpu_usage_list)
+        max_cpu_usage_index = cpu_usage_list.index(max_cpu_usage)
+        max_cpu_usage_process_pid = pid_list[max_cpu_usage_index]
+        max_cpu_usage_process_name = rows_data_dict[max_cpu_usage_process_pid]["name"]
+
+        self.max_cpu_usage_list.append(max_cpu_usage)
+        self.max_cpu_usage_process_name_list.append(max_cpu_usage_process_name)
+        self.max_cpu_usage_process_pid_list.append(max_cpu_usage_process_pid)
+        del self.max_cpu_usage_list[0]
+        del self.max_cpu_usage_process_name_list[0]
+        del self.max_cpu_usage_process_pid_list[0]
+
 
     def performance_line_charts_draw(self, widget, ctx, width, height, widget_name):
         """
@@ -853,7 +904,7 @@ class Performance:
             text_start_x = text_extends.width / 2
             text_start_y = text_extends.height / 2
             text_border_margin = 10
-            origin_for_text =  (chart_height_per_device*chart_index_dict[device_name][1])+chart_spacing_half + chart_height_per_device_wo_borders*0.35
+            origin_for_text = (chart_height_per_device*chart_index_dict[device_name][1])+chart_spacing_half + chart_height_per_device_wo_borders*0.35
 
             # Calculate correction value for x location of the text, box under the text and line between box and highligthed data point(s) in order to prevent them going out of the visible area (drawingara) when mouse is close to beginning/end of the drawingarea.
             box_under_text_location_correction = 0
@@ -882,6 +933,52 @@ class Performance:
                 ctx.line_to(box_under_text_start+box_under_text_location_correction, origin_for_text+text_start_y+15)
                 ctx.rel_line_to(text_extends.width+2*text_border_margin, 0)
                 ctx.stroke()
+
+
+            # Draw process name that consumes max CPU sources.
+            if widget_name == "da_cpu_usage":
+                if Config.show_max_cpu_usage_processes == 1 and Config.show_cpu_usage_per_core == 0:
+                    max_cpu_usage_at_point = self.max_cpu_usage_list[chart_point_highlight]
+                    max_cpu_usage_process_name_at_point = self.max_cpu_usage_process_name_list[chart_point_highlight]
+                    max_cpu_usage_process_pid_at_point = self.max_cpu_usage_process_pid_list[chart_point_highlight]
+
+                    max_text = _tr("Max")
+
+                    if max_cpu_usage_process_pid_at_point == "-":
+                        performance_data_at_point_text = f'{max_text}: -'
+                    else:
+                        performance_data_at_point_text = f'{max_text}: {max_cpu_usage_process_name_at_point} (PID: {max_cpu_usage_process_pid_at_point}) - {max_cpu_usage_at_point:.{Config.performance_cpu_usage_percent_precision}f} %'
+
+                    text_extends = ctx.text_extents(performance_data_at_point_text)
+                    text_start_x = text_extends.width / 2
+                    text_start_y = text_extends.height / 2
+                    text_border_margin = 10
+                    origin_for_text = (chart_height_per_device*chart_index_dict[device_name][1])+chart_spacing_half + chart_height_per_device_wo_borders*0.35
+
+                    text_extends_static_text = ctx.text_extents(max_text)
+                    text_start_y_static_text = text_extends_static_text.height / 2
+
+                    # Calculate correction value for x location of the text, box under the text and line between box and highligthed data point(s) in order to prevent them going out of the visible area (drawingara) when mouse is close to beginning/end of the drawingarea.
+                    box_under_text_location_correction = 0
+                    box_under_text_start = loc_x-text_start_x-text_border_margin
+                    box_under_text_end = loc_x+text_start_x+text_border_margin
+                    if box_under_text_start < 0 + chart_spacing_half:
+                        box_under_text_location_correction = -1 * box_under_text_start + chart_spacing_half
+                    if box_under_text_end > chart_width - chart_spacing_half:
+                        box_under_text_location_correction = chart_width - chart_spacing_half - box_under_text_end
+
+                    max_cpu_usage_process_name_y_shift = 35
+
+                    # Set grey color for the box under the text and draw the box.
+                    ctx.rectangle(box_under_text_start+box_under_text_location_correction,origin_for_text-text_start_y_static_text-text_border_margin-max_cpu_usage_process_name_y_shift, text_extends.width+2*text_border_margin, text_extends_static_text.height+2*text_border_margin)
+                    ctx.set_source_rgba(0.5, 0.5, 0.5, 0.5)
+                    ctx.fill()
+
+                    # Set color for the text and show the text.
+                    ctx.move_to(loc_x-text_start_x+box_under_text_location_correction,origin_for_text+text_start_y_static_text-max_cpu_usage_process_name_y_shift)
+                    ctx.set_line_width(1)
+                    ctx.set_source_rgba(1.0, 1.0, 1.0, 0.7)
+                    ctx.show_text(performance_data_at_point_text)
 
 
     def performance_line_charts_enter_notify_event(self, event, x, y):

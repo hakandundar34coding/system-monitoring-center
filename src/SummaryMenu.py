@@ -44,7 +44,7 @@ class SummaryMenu:
 
         # Label (This increases CPU usage.)
         label = Common.static_information_label(_tr("This increases CPU usage."))
-        label.set_margin_start(20)
+        label.set_margin_start(25)
         main_grid.attach(label, 0, 3, 2, 1)
 
         # Separator
