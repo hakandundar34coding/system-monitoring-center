@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2022.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-30 11:59+0300\n"
-"PO-Revision-Date: 2023-06-30 12:06+0300\n"
+"PO-Revision-Date: 2023-07-29 15:41+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: src/Cpu.py:96 ui/CpuMenus.ui:35 ui/CpuTab.ui:666
 #: ui/ProcessesDetailsWindow.ui:682
@@ -332,7 +332,7 @@ msgstr "Este processo já não está em execução."
 
 #: src/ProcessesMenuRightClick.py:71
 msgid "Do you want to pause this process?"
-msgstr ""
+msgstr "Interromper este processo?"
 
 #: src/ProcessesMenuRightClick.py:82
 msgid "Do you want to end this process?"
