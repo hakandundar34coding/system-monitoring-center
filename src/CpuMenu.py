@@ -165,7 +165,7 @@ class CpuMenu:
 
     def on_show_processes_using_max_cpu_cb_toggled(self, widget):
         """
-        Show/Hide processes that consumes max CPU resources.
+        Show/Hide processes that consume max CPU resources.
         """
 
         if widget.get_active() == True:
