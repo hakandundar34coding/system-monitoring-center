@@ -94,7 +94,7 @@ class Performance:
         chart_data_history = Config.chart_data_history
 
         # Reset lists if option for showing processes that consume max CPU sources is disabled.
-        if Config.show_max_cpu_usage_processes == 0:
+        if Config.show_processes_using_max_cpu == 0:
             self.max_cpu_usage_list = [0] * chart_data_history
             self.max_cpu_usage_process_name_list = ["-"] * chart_data_history
             self.max_cpu_usage_process_pid_list = ["-"] * chart_data_history
@@ -937,7 +937,7 @@ class Performance:
 
             # Draw process name that consumes max CPU sources.
             if widget_name == "da_cpu_usage":
-                if Config.show_max_cpu_usage_processes == 1 and Config.show_cpu_usage_per_core == 0:
+                if Config.show_processes_using_max_cpu == 1 and Config.show_cpu_usage_per_core == 0:
                     max_cpu_usage_at_point = self.max_cpu_usage_list[chart_point_highlight]
                     max_cpu_usage_process_name_at_point = self.max_cpu_usage_process_name_list[chart_point_highlight]
                     max_cpu_usage_process_pid_at_point = self.max_cpu_usage_process_pid_list[chart_point_highlight]

@@ -53,41 +53,41 @@ class CpuMenu:
         separator = Common.menu_separator()
         main_grid.attach(separator, 0, 4, 1, 1)
 
-        # Button (Graph Color)
-        self.graph_color_button = Common.graph_color_button(self)
-        main_grid.attach(self.graph_color_button, 0, 5, 1, 1)
+        # CheckButton (Show processes using max CPU)
+        self.show_processes_using_max_cpu_cb = Common.checkbutton(_tr("Show processes using max CPU"), None)
+        main_grid.attach(self.show_processes_using_max_cpu_cb, 0, 5, 1, 1)
+
+        # Label (This increases CPU usage.)
+        label = Common.static_information_label(_tr("This increases CPU usage."))
+        label.set_margin_start(25)
+        main_grid.attach(label, 0, 6, 1, 1)
 
         # Separator
         separator = Common.menu_separator()
-        main_grid.attach(separator, 0, 6, 1, 1)
+        main_grid.attach(separator, 0, 7, 1, 1)
+
+        # Button (Graph Color)
+        self.graph_color_button = Common.graph_color_button(self)
+        main_grid.attach(self.graph_color_button, 0, 8, 1, 1)
+
+        # Separator
+        separator = Common.menu_separator()
+        main_grid.attach(separator, 0, 9, 1, 1)
 
         # Label - title (Precision)
         label = Common.title_label(_tr("Precision"))
-        main_grid.attach(label, 0, 7, 1, 1)
+        main_grid.attach(label, 0, 10, 1, 1)
 
         # Label - precision (CPU)
         label = Gtk.Label()
         label.set_label(_tr("CPU"))
         label.set_halign(Gtk.Align.CENTER)
-        main_grid.attach(label, 0, 8, 1, 1)
+        main_grid.attach(label, 0, 11, 1, 1)
 
         # DropDown - precision (CPU)
         item_list = ['0', '0.0', '0.00', '0.000']
         self.cpu_precision_dd = Common.dropdown_and_model(item_list)
-        main_grid.attach(self.cpu_precision_dd, 0, 9, 1, 1)
-
-        # Separator
-        separator = Common.menu_separator()
-        main_grid.attach(separator, 0, 10, 1, 1)
-
-        # CheckButton (Show processes using max CPU)
-        self.show_processes_using_max_cpu_cb = Common.checkbutton(_tr("Show processes using max CPU"), None)
-        main_grid.attach(self.show_processes_using_max_cpu_cb, 0, 11, 1, 1)
-
-        # Label (This increases CPU usage.)
-        label = Common.static_information_label(_tr("This increases CPU usage."))
-        label.set_margin_start(25)
-        main_grid.attach(label, 0, 12, 1, 1)
+        main_grid.attach(self.cpu_precision_dd, 0, 12, 1, 1)
 
         # Separator
         separator = Common.menu_separator()
@@ -145,8 +145,10 @@ class CpuMenu:
         if widget.get_active() == True:
             if widget == self.cpu_usage_average_cb:
                 Config.show_cpu_usage_per_core = 0
+                self.show_processes_using_max_cpu_cb.set_sensitive(True)
             if widget == self.cpu_usage_per_core_cb:
                 Config.show_cpu_usage_per_core = 1
+                self.show_processes_using_max_cpu_cb.set_sensitive(False)
 
         Common.save_tab_settings(Cpu)
 
@@ -169,9 +171,9 @@ class CpuMenu:
         """
 
         if widget.get_active() == True:
-            Config.show_max_cpu_usage_processes = 1
+            Config.show_processes_using_max_cpu = 1
         else:
-            Config.show_max_cpu_usage_processes = 0
+            Config.show_processes_using_max_cpu = 0
 
         Common.save_tab_settings(Cpu)
 
@@ -200,15 +202,17 @@ class CpuMenu:
         # Select checkbutton appropriate for CPU usage chart setting
         if Config.show_cpu_usage_per_core == 0:
             self.cpu_usage_average_cb.set_active(True)
+            self.show_processes_using_max_cpu_cb.set_sensitive(True)
         if Config.show_cpu_usage_per_core == 1:
             self.cpu_usage_per_core_cb.set_active(True)
+            self.show_processes_using_max_cpu_cb.set_sensitive(False)
 
         self.cpu_precision_dd.set_selected(Config.performance_cpu_usage_percent_precision)
 
         # Set active checkbutton if "Show processes using max CPU" option is enabled.
-        if Config.show_max_cpu_usage_processes == 1:
+        if Config.show_processes_using_max_cpu == 1:
             self.show_processes_using_max_cpu_cb.set_active(True)
-        if Config.show_max_cpu_usage_processes == 0:
+        if Config.show_processes_using_max_cpu == 0:
             self.show_processes_using_max_cpu_cb.set_active(False)
 
 
