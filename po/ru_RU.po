@@ -39,12 +39,12 @@ msgid ""
 "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;Processes;Users;"
 "Services;"
 msgstr ""
-"системный монитор;менеджер задач;производительность;cpu;ram;подкачка;память;диск;сеть;ГПУ;"
-"процессы;пользователи;сервисы;"
+"Системный Монитор;Менеджер Задач;Производительность;CPU;ЦП;RAM;ОЗУ;Подкачка;Память;Диск;Сеть;ГПУ;"
+"Процессы;Пользователи;Сервисы;"
 
 #: src/Common.py:197
 msgid "Reset"
-msgstr "Вернуть настройки по умолчанию"
+msgstr "Сбросить"
 
 #: src/Common.py:209
 msgid "Refresh the data on this tab"
@@ -52,7 +52,7 @@ msgstr "Обновить данные в этой вкладке"
 
 #: src/Common.py:226 src/Common.py:244
 msgid "Graph Color"
-msgstr "Цвет графика"
+msgstr "Цвет Графа"
 
 #: src/Common.py:838 src/Common.py:904 src/Processes.py:310
 msgid "Search..."
@@ -83,7 +83,7 @@ msgstr "Название устройства в ядре ОС"
 
 #: src/Cpu.py:75 src/Cpu.py:177 src/CpuMenu.py:45 src/ProcessesDetails.py:266
 msgid "CPU Usage (Average)"
-msgstr "Средняя нагрузка на ЦП"
+msgstr "ЦП Использование (Среднее)"
 
 #: src/Cpu.py:102
 msgid "Average Usage"
@@ -162,17 +162,17 @@ msgstr "Диск"
 #: src/ProcessesDetails.py:177 src/ProcessesDetails.py:472 src/ProcessesDetails.py:490
 #: src/ProcessesMenu.py:206 src/Summary.py:887
 msgid "Read Speed"
-msgstr "Скорость чтения"
+msgstr "Скорость Чтения"
 
 #: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1101
 #: src/ProcessesDetails.py:187 src/ProcessesDetails.py:472 src/ProcessesDetails.py:500
 #: src/ProcessesMenu.py:210 src/Summary.py:906
 msgid "Write Speed"
-msgstr "Скорость записи"
+msgstr "Скорость Записи"
 
 #: src/Disk.py:110 src/Processes.py:1098 src/ProcessesDetails.py:510 src/ProcessesMenu.py:198
 msgid "Read Data"
-msgstr "Прочитано данных"
+msgstr "Прочитано Данных"
 
 #: src/Disk.py:110 src/Network.py:107
 msgid "Measured value since last system start"
@@ -180,11 +180,11 @@ msgstr "Значение с последнего запуска системы"
 
 #: src/Disk.py:110 src/Processes.py:1099 src/ProcessesDetails.py:520 src/ProcessesMenu.py:202
 msgid "Written Data"
-msgstr "Записано данных"
+msgstr "Записано Данных"
 
 #: src/Disk.py:120 src/Disk.py:235
 msgid "System Disk"
-msgstr "Системный диск"
+msgstr "Системный Диск"
 
 #: src/Disk.py:127 src/Disk.py:149 src/Disk.py:295 src/Memory.py:107 src/Memory.py:145
 #: src/Memory.py:157
@@ -211,7 +211,7 @@ msgstr "Показать..."
 
 #: src/Disk.py:225
 msgid "Parent Name"
-msgstr "Имя родителя"
+msgstr "Имя Родителя"
 
 #: src/Disk.py:245 src/ServicesDetails.py:210
 msgid "Type"
@@ -219,11 +219,11 @@ msgstr "Тип"
 
 #: src/Disk.py:255
 msgid "File System"
-msgstr "Файловая система"
+msgstr "Файловая Система"
 
 #: src/Disk.py:275
 msgid "Mass Storage"
-msgstr "Массовое хранилище"
+msgstr "Общее Хранилище"
 
 #: src/Disk.py:315
 msgid "Label (File System)"
@@ -231,15 +231,15 @@ msgstr "Метка (файловая система)"
 
 #: src/Disk.py:325
 msgid "Mount Point"
-msgstr "Точка монтирования"
+msgstr "Точка Монтирования"
 
 #: src/DiskMenu.py:53 src/NetworkMenu.py:53
 msgid "Selected Device"
-msgstr "Выбранное устройство"
+msgstr "Выбранное Устройство"
 
 #: src/DiskMenu.py:57 src/NetworkMenu.py:57
 msgid "All Devices"
-msgstr "Все устройства"
+msgstr "Все Устройства"
 
 #: src/DiskMenu.py:86 src/MemoryMenu.py:78 src/NetworkMenu.py:86 src/ProcessesMenu.py:323
 msgid "Data Unit"
@@ -248,7 +248,7 @@ msgstr "Единица измерения данных"
 #: src/DiskMenu.py:91 src/MemoryMenu.py:83 src/NetworkMenu.py:91 src/ProcessesMenu.py:347
 #: src/ProcessesMenu.py:373
 msgid "Show data as powers of"
-msgstr "Показывать данные как степень"
+msgstr "Показывать данные как степень из"
 
 #: src/DiskMenu.py:104 src/NetworkMenu.py:104 src/ProcessesMenu.py:394
 msgid "Show speed units as multiples of bits"
@@ -374,7 +374,7 @@ msgstr "Датчики"
 
 #: src/MainWindow.py:439 src/SettingsWindow.py:49
 msgid "General Settings"
-msgstr "Общие настройки"
+msgstr "Общие Настройки"
 
 #: src/MainWindow.py:440
 msgid "About"
@@ -400,7 +400,7 @@ msgstr ""
 
 #: src/Memory.py:74
 msgid "RAM Usage"
-msgstr "Используемый объем оперативной памяти"
+msgstr "Используемый ОЗУ"
 
 #: src/Memory.py:107
 msgid "Available"
@@ -412,7 +412,7 @@ msgstr "Аппаратное обеспечение"
 
 #: src/Memory.py:225 src/Memory.py:329
 msgid "Physical RAM"
-msgstr "Физическая оперативная память"
+msgstr "Физический ОЗУ"
 
 #: src/Memory.py:322
 msgid "Partition"
@@ -424,23 +424,23 @@ msgstr "Файл"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:45 src/Summary.py:926
 msgid "Download Speed"
-msgstr "Скорость скачивания"
+msgstr "Скорость Загрузки"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:49 src/Summary.py:946
 msgid "Upload Speed"
-msgstr "Скорость загрузки"
+msgstr "Скорость Отправки"
 
 #: src/Network.py:107
 msgid "Downloaded Data"
-msgstr "Скачанные данные"
+msgstr "Загруженные Данные"
 
 #: src/Network.py:107
 msgid "Uploaded Data"
-msgstr "Загруженные данные"
+msgstr "Отправленные Данные"
 
 #: src/Network.py:116
 msgid "Connection Type"
-msgstr "Тип подключения"
+msgstr "Тип Подключения"
 
 #: src/Network.py:123
 msgid "Connected"
@@ -452,7 +452,7 @@ msgstr "SSID"
 
 #: src/Network.py:130
 msgid "Link Quality"
-msgstr "Качество соединение"
+msgstr "Качество Связи"
 
 #: src/Network.py:137
 msgid "IPv4 Address"
@@ -472,15 +472,15 @@ msgstr "Подкачка"
 
 #: src/Processes.py:218
 msgid "Pause Process"
-msgstr "Приостановить процесс"
+msgstr "Приостановить Процесс"
 
 #: src/Processes.py:219
 msgid "Continue Process"
-msgstr "Продолжить процесс"
+msgstr "Продолжить Процесс"
 
 #: src/Processes.py:220
 msgid "End Process"
-msgstr "Остановить процесс"
+msgstr "Остановить Процесс"
 
 #: src/Processes.py:221
 msgid "End Process Immediately"
@@ -488,7 +488,7 @@ msgstr "Остановить процессы принудительно"
 
 #: src/Processes.py:227
 msgid "Very High"
-msgstr "Очень высокий"
+msgstr "Очень Высокий"
 
 #: src/Processes.py:232 src/Sensors.py:115
 msgid "High"
@@ -504,15 +504,15 @@ msgstr "Низкий"
 
 #: src/Processes.py:247
 msgid "Very Low"
-msgstr "Очень низкий"
+msgstr "Очень Низкий"
 
 #: src/Processes.py:255
 msgid "Custom Value..."
-msgstr "Пользовательское значение..."
+msgstr "Пользовательское Значение..."
 
 #: src/Processes.py:264 src/Processes.py:361 src/Processes.py:439
 msgid "Change Priority"
-msgstr "Изменить приоритет"
+msgstr "Изменить Приоритет"
 
 #: src/Processes.py:269 src/Processes.py:470 src/Processes.py:567
 msgid "Set CPU Affinity"
@@ -527,7 +527,7 @@ msgstr "Название"
 #: src/Processes.py:318 src/Processes.py:1108 src/ProcessesDetails.py:584
 #: src/ProcessesMenu.py:238
 msgid "Command Line"
-msgstr "Командная строка"
+msgstr "Командная Строка"
 
 #: src/Processes.py:379
 msgid "Change priority of these processes"
@@ -648,7 +648,7 @@ msgstr "Остановился"
 
 #: src/ProcessesDetails.py:37 src/ProcessesDetails.py:726
 msgid "Process Details"
-msgstr "Параметры процесса"
+msgstr "Детали Процесса"
 
 #: src/ProcessesDetails.py:207 src/ProcessesDetails.py:564 src/ServicesDetails.py:148
 msgid "Path"
@@ -680,11 +680,11 @@ msgstr "Память (USS)"
 
 #: src/ProcessesDetails.py:530
 msgid "Read Count"
-msgstr "Количество Чтений"
+msgstr "Количество Прочитанных"
 
 #: src/ProcessesDetails.py:540
 msgid "Write Count"
-msgstr "Количество записей"
+msgstr "Количество Записанных"
 
 #: src/ProcessesDetails.py:574
 msgid "Current Working Directory"
@@ -709,7 +709,7 @@ msgstr "Добавить/Удалить столбец"
 
 #: src/ProcessesMenu.py:65
 msgid "Numbers"
-msgstr "Количество"
+msgstr "Числа"
 
 #: src/ProcessesMenu.py:109
 msgid "Show processes of all users"
@@ -741,7 +741,7 @@ msgstr "Устройство"
 
 #: src/Sensors.py:114
 msgid "Current Value"
-msgstr "Текущее значение"
+msgstr "Текущее Значение"
 
 #: src/Sensors.py:116
 msgid "Critical"
@@ -831,8 +831,7 @@ msgstr "Полностью отключает службу."
 
 #: src/Services.py:256
 msgid "A masked service can not be started, restarted, reloaded or enabled."
-msgstr ""
-"Замаскированная служба не может быть запущена, перезапущена, перезагружена или включена."
+msgstr "Замаскированная служба не может быть запущена, перезапущена, перезагружена или включена."
 
 #: src/Services.py:264
 msgid "Unmask"
@@ -845,7 +844,8 @@ msgstr "Снимает маску со службы."
 #: src/Services.py:267
 msgid ""
 "A service can be started, restarted, reloaded (if it is available) or enabled after unmasking."
-msgstr ""
+msgstr "" 
+"Служба может быть запущена, перезапущена, перезагружена (если оно доступно) или быть включенной после снятие масскировки."
 
 #: src/Services.py:364
 msgid "Information"
@@ -937,7 +937,7 @@ msgstr "Нет"
 
 #: src/ServicesDetails.py:36
 msgid "Service Details"
-msgstr "Сервисные параметры"
+msgstr "Детали Службы"
 
 #: src/ServicesDetails.py:64
 msgid "Dependencies"
@@ -1045,7 +1045,7 @@ msgstr "Хотите ли вы откатить все настройки по �
 
 #: src/System.py:54 src/System.py:105
 msgid "Operating System (OS)"
-msgstr "Операционная система (ОС)"
+msgstr "Операционная Система (ОС)"
 
 #: src/System.py:59 src/System.py:190
 msgid "Computer"
