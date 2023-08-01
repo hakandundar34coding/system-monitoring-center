@@ -318,6 +318,10 @@ class Processes:
         self.search_process_command_line_cb = Common.checkbutton(_tr("Command Line"), self.search_process_name_cb)
         main_grid.attach(self.search_process_command_line_cb, 0, 2, 1, 1)
 
+        # CheckButton (PID)
+        self.search_process_pid_cb = Common.checkbutton(_tr("PID"), self.search_process_name_cb)
+        main_grid.attach(self.search_process_pid_cb, 0, 3, 1, 1)
+
         # Set Popover of MenuButton
         self.search_customization_menubutton.set_popover(self.search_menu_po)
 
@@ -327,6 +331,7 @@ class Processes:
         # Connect signals
         self.search_process_name_cb.connect("toggled", self.on_search_menu_cb_toggled)
         self.search_process_command_line_cb.connect("toggled", self.on_search_menu_cb_toggled)
+        self.search_process_pid_cb.connect("toggled", self.on_search_menu_cb_toggled)
 
 
     def search_popover_set_gui(self):
@@ -346,6 +351,8 @@ class Processes:
             self.process_search_type = "name"
         if widget == self.search_process_command_line_cb:
             self.process_search_type = "command_line"
+        if widget == self.search_process_pid_cb:
+            self.process_search_type = "pid"
 
         self.on_searchentry_changed(self.searchentry)
 
@@ -912,6 +919,8 @@ class Processes:
             elif self.process_search_type == "command_line":
                 process_pid_in_model = treestore.get_value(piter, 4)
                 process_data_text_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
+            elif self.process_search_type == "pid":
+                process_data_text_in_model = treestore.get_value(piter, 4)
             if process_search_text in str(process_data_text_in_model).lower():
                 while piter != None:
                     pid = treestore.get_value(piter, 4)
