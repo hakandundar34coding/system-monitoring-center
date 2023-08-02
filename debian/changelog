@@ -1,3 +1,9 @@
+system-monitoring-center (1.43.10) unstable; urgency=medium
+
+  * Fix: Listing processes if sorting column is removed
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Wed, 02 Aug 2023 21:10:00 +0300
+
 system-monitoring-center (1.43.9) unstable; urgency=medium
 
   * Fix: Listing user specific services (Services tab)
