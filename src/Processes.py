@@ -50,7 +50,7 @@ class Processes:
         self.right_click_menu()
 
         # Set initial value for process searching.
-        self.process_search_type = "name"
+        self.process_search_type = "all"
 
         # Add PID column (1) to shown columns in order to prevent errors during process search if PID column is hidden in
         # previous versions (<=v2.10.0) of the application.
@@ -310,17 +310,21 @@ class Processes:
         label = Common.title_label(_tr("Search...").strip("...") + ":")
         main_grid.attach(label, 0, 0, 1, 1)
 
+        # CheckButton (All)
+        self.search_process_all_cb = Common.checkbutton(_tr("All"), None)
+        main_grid.attach(self.search_process_all_cb, 0, 1, 1, 1)
+
         # CheckButton (Name)
-        self.search_process_name_cb = Common.checkbutton(_tr("Name"), None)
-        main_grid.attach(self.search_process_name_cb, 0, 1, 1, 1)
+        self.search_process_name_cb = Common.checkbutton(_tr("Name"), self.search_process_all_cb)
+        main_grid.attach(self.search_process_name_cb, 0, 2, 1, 1)
 
         # CheckButton (Command Line)
-        self.search_process_command_line_cb = Common.checkbutton(_tr("Command Line"), self.search_process_name_cb)
-        main_grid.attach(self.search_process_command_line_cb, 0, 2, 1, 1)
+        self.search_process_command_line_cb = Common.checkbutton(_tr("Command Line"), self.search_process_all_cb)
+        main_grid.attach(self.search_process_command_line_cb, 0, 3, 1, 1)
 
         # CheckButton (PID)
-        self.search_process_pid_cb = Common.checkbutton(_tr("PID"), self.search_process_name_cb)
-        main_grid.attach(self.search_process_pid_cb, 0, 3, 1, 1)
+        self.search_process_pid_cb = Common.checkbutton(_tr("PID"), self.search_process_all_cb)
+        main_grid.attach(self.search_process_pid_cb, 0, 4, 1, 1)
 
         # Set Popover of MenuButton
         self.search_customization_menubutton.set_popover(self.search_menu_po)
@@ -329,6 +333,7 @@ class Processes:
         self.search_popover_set_gui()
 
         # Connect signals
+        self.search_process_all_cb.connect("toggled", self.on_search_menu_cb_toggled)
         self.search_process_name_cb.connect("toggled", self.on_search_menu_cb_toggled)
         self.search_process_command_line_cb.connect("toggled", self.on_search_menu_cb_toggled)
         self.search_process_pid_cb.connect("toggled", self.on_search_menu_cb_toggled)
@@ -339,7 +344,7 @@ class Processes:
         Select the default search option checkbutton.
         """
 
-        self.search_process_name_cb.set_active(True)
+        self.search_process_all_cb.set_active(True)
 
 
     def on_search_menu_cb_toggled(self, widget):
@@ -347,11 +352,13 @@ class Processes:
         Search again if process search type (process name or command line) is changed.
         """
 
-        if widget == self.search_process_name_cb:
+        if widget == self.search_process_all_cb:
+            self.process_search_type = "all"
+        elif widget == self.search_process_name_cb:
             self.process_search_type = "name"
-        if widget == self.search_process_command_line_cb:
+        elif widget == self.search_process_command_line_cb:
             self.process_search_type = "command_line"
-        if widget == self.search_process_pid_cb:
+        elif widget == self.search_process_pid_cb:
             self.process_search_type = "pid"
 
         self.on_searchentry_changed(self.searchentry)
@@ -914,18 +921,25 @@ class Processes:
 
         # Show/hide iters (rows) by using search text.
         for piter in self.piter_list:
-            if self.process_search_type == "name":
+            if piter == None:
+                continue
+            if self.process_search_type == "all":
+                process_name_in_model = treestore.get_value(piter, self.filter_column)
+                process_pid_in_model = treestore.get_value(piter, 4)
+                process_command_line_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
+                process_data_text_in_model = f'{process_name_in_model}{process_pid_in_model}{process_command_line_in_model}'
+            elif self.process_search_type == "name":
                 process_data_text_in_model = treestore.get_value(piter, self.filter_column)
             elif self.process_search_type == "command_line":
                 process_pid_in_model = treestore.get_value(piter, 4)
                 process_data_text_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
             elif self.process_search_type == "pid":
-                process_data_text_in_model = treestore.get_value(piter, 4)
-            if process_search_text in str(process_data_text_in_model).lower():
-                while piter != None:
-                    pid = treestore.get_value(piter, 4)
-                    treestore.set_value(piter, 0, True)
-                    piter = treestore.iter_parent(piter)
+                process_data_text_in_model = f'{treestore.get_value(piter, 4)}'
+
+            if process_search_text in process_data_text_in_model.lower():
+                pid = treestore.get_value(piter, 4)
+                treestore.set_value(piter, 0, True)
+                piter = treestore.iter_parent(piter)
             else:
                 treestore.set_value(piter, 0, False)
 
