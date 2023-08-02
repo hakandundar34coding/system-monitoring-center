@@ -1155,7 +1155,7 @@ def treeview_reorder_columns_sort_rows_set_column_widths(TabObject):
         if data_row_sorting_column in treeview_columns_shown:
             data_row_sorting_column_id = sort_column_id_column_dict[data_row_sorting_column]
         else:
-            data_row_sorting_column_id = row_data_list[0][2]
+            data_row_sorting_column_id = row_data_list[0][2] - 1
         column_for_sorting = treeview_columns[sort_column_id_list.index(data_row_sorting_column_id)]
         # Set row sorting
         for i in range(4):
