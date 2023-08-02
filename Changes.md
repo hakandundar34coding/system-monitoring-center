@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v1.43.10 (02.08.2023)
+  * Fix: Listing processes if sorting column is removed
+
 ### v1.43.9 (29.07.2023)
   * Fix: Listing user specific services (Services tab)
   * Fix: Errors when getting process status on some kernels
