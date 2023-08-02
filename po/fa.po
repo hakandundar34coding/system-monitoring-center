@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-16 15:47+0300\n"
-"PO-Revision-Date: 2023-07-16 16:06+0300\n"
+"POT-Creation-Date: 2023-08-02 16:32+0300\n"
+"PO-Revision-Date: 2023-08-02 16:37+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa\n"
@@ -55,27 +55,27 @@ msgstr ""
 msgid "Search..."
 msgstr "جستجو..."
 
-#: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:70 src/MainWindow.py:138
-#: src/MainWindow.py:287 src/Processes.py:1094 src/Processes.py:1111
+#: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:83 src/MainWindow.py:138
+#: src/MainWindow.py:287 src/Processes.py:1117 src/Processes.py:1134
 #: src/ProcessesDetails.py:65 src/ProcessesDetails.py:157
 #: src/ProcessesDetails.py:284 src/ProcessesMenu.py:178
 #: src/ProcessesMenu.py:246 src/ProcessesMenu.py:287 src/ProcessesMenu.py:328
-#: src/SettingsWindow.py:30 src/Summary.py:680 src/Users.py:240
+#: src/SettingsWindow.py:30 src/Summary.py:941 src/Users.py:240
 #: src/UsersDetails.py:165 src/UsersMenu.py:127
 msgid "CPU"
 msgstr "پردازنده"
 
-#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:64 src/Gpu.py:310
+#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:63 src/Gpu.py:309
 #: src/Network.py:54 src/System.py:194
 msgid "Vendor"
 msgstr "سازنده"
 
-#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:64 src/Gpu.py:310
+#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:63 src/Gpu.py:309
 #: src/Network.py:54 src/System.py:201
 msgid "Model"
 msgstr "مدل"
 
-#: src/Cpu.py:59 src/Disk.py:62 src/Gpu.py:69 src/Network.py:59
+#: src/Cpu.py:59 src/Disk.py:62 src/Gpu.py:68 src/Network.py:59
 msgid "Device Name In Kernel"
 msgstr "نام دستگاه در کرنل   دستگاه"
 
@@ -91,18 +91,18 @@ msgstr "میانگین مصرف"
 msgid "Average CPU usage of all cores"
 msgstr "میانگین مصرف پردازنده در همه هسته ها"
 
-#: src/Cpu.py:102 src/Gpu.py:215 src/Gpu.py:380
+#: src/Cpu.py:102 src/Gpu.py:214 src/Gpu.py:379
 msgid "Frequency"
 msgstr "فرکانس"
 
 #: src/Cpu.py:107 src/MainWindow.py:201 src/Processes.py:81
-#: src/Processes.py:488 src/Processes.py:1343 src/ProcessesMenu.py:33
-#: src/SettingsWindow.py:29 src/Summary.py:714 src/Users.py:235
+#: src/Processes.py:502 src/Processes.py:1366 src/ProcessesMenu.py:33
+#: src/SettingsWindow.py:29 src/Summary.py:975 src/Users.py:235
 #: src/UsersDetails.py:115 src/UsersMenu.py:107
 msgid "Processes"
 msgstr "فرآیند ها"
 
-#: src/Cpu.py:107 src/Processes.py:1103 src/ProcessesDetails.py:294
+#: src/Cpu.py:107 src/Processes.py:1126 src/ProcessesDetails.py:294
 #: src/ProcessesMenu.py:218
 msgid "Threads"
 msgstr "ریسمان ها"
@@ -111,7 +111,7 @@ msgstr "ریسمان ها"
 msgid "Up Time"
 msgstr "زمان روشن بودن"
 
-#: src/Cpu.py:116 src/Gpu.py:223 src/Gpu.py:390
+#: src/Cpu.py:116 src/Gpu.py:222 src/Gpu.py:389
 msgid "Min-Max Frequency"
 msgstr "کمینه-بیشینه فرکانس"
 
@@ -144,11 +144,19 @@ msgid "CPU Usage (Per Core)"
 msgstr "مصرف پردازنده (به ازای هر هسته)"
 
 #: src/CpuMenu.py:41 src/DiskMenu.py:41 src/MemoryMenu.py:41
-#: src/NetworkMenu.py:41
+#: src/NetworkMenu.py:41 src/SummaryMenu.py:38
 msgid "Graph - Show"
 msgstr ""
 
-#: src/CpuMenu.py:65 src/DiskMenu.py:73 src/MemoryMenu.py:65
+#: src/CpuMenu.py:57
+msgid "Show processes using max CPU"
+msgstr ""
+
+#: src/CpuMenu.py:61 src/SummaryMenu.py:46
+msgid "This increases CPU usage."
+msgstr ""
+
+#: src/CpuMenu.py:78 src/DiskMenu.py:73 src/MemoryMenu.py:65
 #: src/NetworkMenu.py:73 src/ProcessesMenu.py:282
 msgid "Precision"
 msgstr "دقت"
@@ -160,19 +168,19 @@ msgstr "دقت"
 msgid "Disk"
 msgstr "دیسک"
 
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:1100
+#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:1123
 #: src/ProcessesDetails.py:177 src/ProcessesDetails.py:472
-#: src/ProcessesDetails.py:490 src/ProcessesMenu.py:206 src/Summary.py:887
+#: src/ProcessesDetails.py:490 src/ProcessesMenu.py:206 src/Summary.py:1148
 msgid "Read Speed"
 msgstr "سرعت خواندن"
 
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1101
+#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1124
 #: src/ProcessesDetails.py:187 src/ProcessesDetails.py:472
-#: src/ProcessesDetails.py:500 src/ProcessesMenu.py:210 src/Summary.py:906
+#: src/ProcessesDetails.py:500 src/ProcessesMenu.py:210 src/Summary.py:1167
 msgid "Write Speed"
 msgstr "سرعت نوشتن"
 
-#: src/Disk.py:110 src/Processes.py:1098 src/ProcessesDetails.py:510
+#: src/Disk.py:110 src/Processes.py:1121 src/ProcessesDetails.py:510
 #: src/ProcessesMenu.py:198
 msgid "Read Data"
 msgstr ""
@@ -181,7 +189,7 @@ msgstr ""
 msgid "Measured value since last system start"
 msgstr "این مقدار پس از آخرین ریستارت سیستم اندازه گیری شده"
 
-#: src/Disk.py:110 src/Processes.py:1099 src/ProcessesDetails.py:520
+#: src/Disk.py:110 src/Processes.py:1122 src/ProcessesDetails.py:520
 #: src/ProcessesMenu.py:202
 msgid "Written Data"
 msgstr ""
@@ -204,12 +212,12 @@ msgstr "آزاد"
 msgid "Capacity"
 msgstr "گنجایش"
 
-#: src/Disk.py:163 src/Gpu.py:258 src/Memory.py:179 src/Processes.py:274
+#: src/Disk.py:163 src/Gpu.py:257 src/Memory.py:179 src/Processes.py:274
 #: src/Services.py:299 src/Users.py:128
 msgid "Details"
 msgstr "جزییات"
 
-#: src/Disk.py:166 src/Gpu.py:261 src/Memory.py:136 src/Memory.py:182
+#: src/Disk.py:166 src/Gpu.py:260 src/Memory.py:136 src/Memory.py:182
 msgid "Show..."
 msgstr "نمایش..."
 
@@ -263,68 +271,68 @@ msgstr "یکای سرعت را به شکل بیت نشان بده"
 msgid "Hide loop, ramdisk, zram disks"
 msgstr "دیسک های loop، ramdisk, zram را پنهان کن"
 
-#: src/Gpu.py:59 src/Gpu.py:290 src/Gpu.py:320 src/Gpu.py:501 src/GpuMenu.py:37
-#: src/MainWindow.py:307 src/SettingsWindow.py:30
+#: src/Gpu.py:58 src/Gpu.py:289 src/Gpu.py:319 src/Gpu.py:500 src/GpuMenu.py:36
+#: src/MainWindow.py:307 src/SettingsWindow.py:30 src/Summary.py:467
 msgid "GPU"
 msgstr "گرافیک"
 
-#: src/Gpu.py:85 src/Gpu.py:210 src/Gpu.py:360
+#: src/Gpu.py:84 src/Gpu.py:209 src/Gpu.py:359 src/SummaryMenu.py:42
 msgid "GPU Usage"
 msgstr "مصرف گرافیک"
 
-#: src/Gpu.py:127 src/Gpu.py:210 src/Gpu.py:370
+#: src/Gpu.py:126 src/Gpu.py:209 src/Gpu.py:369
 msgid "GPU Memory"
 msgstr ""
 
-#: src/Gpu.py:155
+#: src/Gpu.py:154
 msgid "Video Encoder"
 msgstr ""
 
-#: src/Gpu.py:183
+#: src/Gpu.py:182
 msgid "Video Decoder"
 msgstr ""
 
-#: src/Gpu.py:215 src/Gpu.py:410
+#: src/Gpu.py:214 src/Gpu.py:409
 msgid "Temperature"
 msgstr "دما"
 
-#: src/Gpu.py:230 src/Gpu.py:400
+#: src/Gpu.py:229 src/Gpu.py:399
 msgid "Memory Frequency"
 msgstr ""
 
-#: src/Gpu.py:237 src/Gpu.py:420
+#: src/Gpu.py:236 src/Gpu.py:419
 msgid "Power Usage"
 msgstr "مصرف نیرو"
 
-#: src/Gpu.py:244 src/Gpu.py:430
+#: src/Gpu.py:243 src/Gpu.py:429
 msgid "Boot VGA"
 msgstr ""
 
-#: src/Gpu.py:251 src/Gpu.py:440
+#: src/Gpu.py:250 src/Gpu.py:439
 msgid "Driver"
 msgstr "درایور"
 
-#: src/Gpu.py:330
+#: src/Gpu.py:329
 msgid "PCIe Address"
 msgstr ""
 
-#: src/Gpu.py:340
+#: src/Gpu.py:339
 msgid "GPU Interface"
 msgstr ""
 
-#: src/Gpu.py:350
+#: src/Gpu.py:349
 msgid "Link Speed"
 msgstr ""
 
-#: src/Gpu.py:450
+#: src/Gpu.py:449
 msgid "Connections"
 msgstr ""
 
-#: src/Gpu.py:460
+#: src/Gpu.py:459
 msgid "Refresh Rate"
 msgstr "نرخ تازه‌سازی"
 
-#: src/Gpu.py:470
+#: src/Gpu.py:469
 msgid "Resolution"
 msgstr "وضوح تصویر"
 
@@ -332,9 +340,9 @@ msgstr "وضوح تصویر"
 msgid "Customization menu for the current tab"
 msgstr ""
 
-#: src/MainWindow.py:142 src/MainWindow.py:840 src/Memory.py:102
-#: src/Memory.py:333 src/MemoryMenu.py:45 src/Performance.py:124
-#: src/Performance.py:128 src/Summary.py:697
+#: src/MainWindow.py:142 src/MainWindow.py:844 src/Memory.py:102
+#: src/Memory.py:333 src/MemoryMenu.py:45 src/Performance.py:185
+#: src/Performance.py:189 src/Summary.py:958
 msgid "RAM"
 msgstr "رم"
 
@@ -362,13 +370,14 @@ msgstr "سرویس ها"
 msgid "System"
 msgstr "سیستم"
 
-#: src/MainWindow.py:282 src/MainWindow.py:826 src/ProcessesDetails.py:60
+#: src/MainWindow.py:282 src/MainWindow.py:830 src/ProcessesDetails.py:60
 #: src/ServicesDetails.py:59 src/SettingsWindow.py:30 src/Summary.py:39
+#: src/SummaryMenu.py:34
 msgid "Summary"
 msgstr "چکیده"
 
 #: src/MainWindow.py:292 src/Memory.py:50 src/MemoryMenu.py:37
-#: src/MemoryMenu.py:49 src/Processes.py:1110 src/Processes.py:1113
+#: src/MemoryMenu.py:49 src/Processes.py:1133 src/Processes.py:1136
 #: src/ProcessesDetails.py:70 src/ProcessesDetails.py:393
 #: src/ProcessesMenu.py:182 src/ProcessesMenu.py:254 src/ProcessesMenu.py:298
 #: src/ProcessesMenu.py:341 src/SettingsWindow.py:30
@@ -388,22 +397,22 @@ msgstr "تنظیمات عمومی"
 msgid "About"
 msgstr "درباره"
 
-#: src/MainWindow.py:836
+#: src/MainWindow.py:840
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "انتخاب هسته پردازنده فقط باعث تغییر اطلاعات مربوط به فرکانس و حافظه کش "
 "(حافظه پنهان) میشود."
 
-#: src/MainWindow.py:840 src/Memory.py:140 src/Memory.py:264 src/Memory.py:367
+#: src/MainWindow.py:844 src/Memory.py:140 src/Memory.py:264 src/Memory.py:367
 #: src/ProcessesDetails.py:443
 msgid "Swap Memory"
 msgstr "حافظه سواپ"
 
-#: src/MainWindow.py:979
+#: src/MainWindow.py:983
 msgid "Not mounted"
 msgstr "متصل نشده"
 
-#: src/MainWindow.py:1053
+#: src/MainWindow.py:1057
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -436,12 +445,12 @@ msgid "File"
 msgstr "فایل"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:45
-#: src/Summary.py:926
+#: src/Summary.py:1187
 msgid "Download Speed"
 msgstr "سرعت دریافت (دانلود)"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:49
-#: src/Summary.py:946
+#: src/Summary.py:1207
 msgid "Upload Speed"
 msgstr "سرعت بارگذاری (آپلود)"
 
@@ -481,9 +490,13 @@ msgstr "نشانی IPv6"
 msgid "MAC Address"
 msgstr "نشانی MAC"
 
-#: src/Performance.py:128 src/Summary.py:731
+#: src/Performance.py:189 src/Summary.py:992
 msgid "Swap"
 msgstr "سواپ"
+
+#: src/Performance.py:955
+msgid "Max"
+msgstr ""
 
 #: src/Processes.py:218
 msgid "Pause Process"
@@ -525,141 +538,145 @@ msgstr "خیلی پایین"
 msgid "Custom Value..."
 msgstr "مقدار دلخواه..."
 
-#: src/Processes.py:264 src/Processes.py:361 src/Processes.py:439
+#: src/Processes.py:264 src/Processes.py:375 src/Processes.py:453
 msgid "Change Priority"
 msgstr "تغییر اهمیت"
 
-#: src/Processes.py:269 src/Processes.py:470 src/Processes.py:567
+#: src/Processes.py:269 src/Processes.py:484 src/Processes.py:581
 msgid "Set CPU Affinity"
 msgstr ""
 
-#: src/Processes.py:314 src/Processes.py:1090 src/ProcessesDetails.py:107
+#: src/Processes.py:314
+msgid "All"
+msgstr ""
+
+#: src/Processes.py:318 src/Processes.py:1113 src/ProcessesDetails.py:107
 #: src/ProcessesMenu.py:158 src/Sensors.py:113 src/Services.py:512
 #: src/ServicesDetails.py:88 src/ServicesMenu.py:85 src/System.py:109
 #: src/System.py:215
 msgid "Name"
 msgstr "نام"
 
-#: src/Processes.py:318 src/Processes.py:1108 src/ProcessesDetails.py:584
+#: src/Processes.py:322 src/Processes.py:1131 src/ProcessesDetails.py:584
 #: src/ProcessesMenu.py:238
 msgid "Command Line"
 msgstr "دستور خط فرمان"
 
-#: src/Processes.py:379
-msgid "Change priority of these processes"
-msgstr ""
-
-#: src/Processes.py:379
-msgid "Smaller value means higher process priority"
-msgstr "عدد کوچکتر به معنای اهمیت بالاتر فرآیند می‌باشد"
-
-#: src/Processes.py:434 src/Processes.py:562
-msgid "Cancel"
-msgstr "لغو"
-
-#: src/Processes.py:535
-msgid "Select All"
-msgstr ""
-
-#: src/Processes.py:540
-msgid "Select None"
-msgstr ""
-
-#: src/Processes.py:662
-msgid "Do you want to pause these processes?"
-msgstr ""
-
-#: src/Processes.py:667
-msgid "Do you want to end these processes?"
-msgstr ""
-
-#: src/Processes.py:670
-msgid "Do you want to end these processes immediately?"
-msgstr ""
-
-#: src/Processes.py:1091 src/ProcessesDetails.py:117
+#: src/Processes.py:326 src/Processes.py:1114 src/ProcessesDetails.py:117
 #: src/ProcessesDetails.py:726 src/ProcessesMenu.py:164
 msgid "PID"
 msgstr "شناسه فرآیند"
 
-#: src/Processes.py:1092 src/ProcessesDetails.py:137 src/ProcessesMenu.py:170
+#: src/Processes.py:393
+msgid "Change priority of these processes"
+msgstr ""
+
+#: src/Processes.py:393
+msgid "Smaller value means higher process priority"
+msgstr "عدد کوچکتر به معنای اهمیت بالاتر فرآیند می‌باشد"
+
+#: src/Processes.py:448 src/Processes.py:576
+msgid "Cancel"
+msgstr "لغو"
+
+#: src/Processes.py:549
+msgid "Select All"
+msgstr ""
+
+#: src/Processes.py:554
+msgid "Select None"
+msgstr ""
+
+#: src/Processes.py:676
+msgid "Do you want to pause these processes?"
+msgstr ""
+
+#: src/Processes.py:681
+msgid "Do you want to end these processes?"
+msgstr ""
+
+#: src/Processes.py:684
+msgid "Do you want to end these processes immediately?"
+msgstr ""
+
+#: src/Processes.py:1115 src/ProcessesDetails.py:137 src/ProcessesMenu.py:170
 #: src/Users.py:230 src/UsersDetails.py:36 src/UsersDetails.py:65
 #: src/UsersDetails.py:236 src/UsersMenu.py:85
 msgid "User"
 msgstr "کاربر"
 
-#: src/Processes.py:1093 src/ProcessesDetails.py:127 src/ProcessesMenu.py:174
+#: src/Processes.py:1116 src/ProcessesDetails.py:127 src/ProcessesMenu.py:174
 msgid "Status"
 msgstr "وضعیت"
 
-#: src/Processes.py:1095 src/Processes.py:1112 src/ProcessesDetails.py:167
+#: src/Processes.py:1118 src/Processes.py:1135 src/ProcessesDetails.py:167
 #: src/ProcessesDetails.py:375 src/ProcessesDetails.py:403
 #: src/ProcessesMenu.py:186 src/ProcessesMenu.py:250 src/Services.py:518
 #: src/ServicesDetails.py:220 src/ServicesMenu.py:111
 msgid "Memory (RSS)"
 msgstr "حافظه (RSS)"
 
-#: src/Processes.py:1096 src/ProcessesDetails.py:413 src/ProcessesMenu.py:190
+#: src/Processes.py:1119 src/ProcessesDetails.py:413 src/ProcessesMenu.py:190
 msgid "Memory (VMS)"
 msgstr "حافظه (VMS)"
 
-#: src/Processes.py:1097 src/ProcessesDetails.py:423 src/ProcessesMenu.py:194
+#: src/Processes.py:1120 src/ProcessesDetails.py:423 src/ProcessesMenu.py:194
 msgid "Memory (Shared)"
 msgstr "حافظه (اشتراکی)"
 
-#: src/Processes.py:1102 src/ProcessesDetails.py:147 src/ProcessesMenu.py:214
+#: src/Processes.py:1125 src/ProcessesDetails.py:147 src/ProcessesMenu.py:214
 msgid "Priority"
 msgstr "اولویت"
 
-#: src/Processes.py:1104 src/ProcessesDetails.py:217 src/ProcessesMenu.py:222
+#: src/Processes.py:1127 src/ProcessesDetails.py:217 src/ProcessesMenu.py:222
 msgid "PPID"
 msgstr "شناسه فرآیند والد"
 
-#: src/Processes.py:1105 src/ProcessesDetails.py:227 src/ProcessesMenu.py:226
+#: src/Processes.py:1128 src/ProcessesDetails.py:227 src/ProcessesMenu.py:226
 #: src/Users.py:233 src/UsersDetails.py:95 src/UsersMenu.py:99
 msgid "UID"
 msgstr "شناسه کاربر"
 
-#: src/Processes.py:1106 src/ProcessesDetails.py:237 src/ProcessesMenu.py:230
+#: src/Processes.py:1129 src/ProcessesDetails.py:237 src/ProcessesMenu.py:230
 #: src/Users.py:234 src/UsersDetails.py:105 src/UsersMenu.py:103
 msgid "GID"
 msgstr "شناسه گروه"
 
-#: src/Processes.py:1107 src/ProcessesDetails.py:197 src/ProcessesMenu.py:234
+#: src/Processes.py:1130 src/ProcessesDetails.py:197 src/ProcessesMenu.py:234
 #: src/Users.py:239 src/UsersDetails.py:155 src/UsersMenu.py:123
 msgid "Start Time"
 msgstr "زمان ورود"
 
-#: src/Processes.py:1109 src/ProcessesMenu.py:242
+#: src/Processes.py:1132 src/ProcessesMenu.py:242
 msgid "CPU Time"
 msgstr ""
 
-#: src/Processes.py:1111 src/Processes.py:1112 src/Processes.py:1113
+#: src/Processes.py:1134 src/Processes.py:1135 src/Processes.py:1136
 #: src/ProcessesMenu.py:246 src/ProcessesMenu.py:250 src/ProcessesMenu.py:254
 msgid "Recursive"
 msgstr ""
 
-#: src/Processes.py:1138 src/Services.py:535
+#: src/Processes.py:1161 src/Services.py:535
 msgid "Running"
 msgstr "در حال اجرا"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Sleeping"
 msgstr "معلق"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Waiting"
 msgstr "در انتظار"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Idle"
 msgstr "آزاد (بیکار)"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Zombie"
 msgstr "زامبی (نیمه مُرده)"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Stopped"
 msgstr "متوقف شده"
 
@@ -1058,7 +1075,7 @@ msgstr "اندازه پنجره را به یاد داشته باش"
 msgid "Reset all settings of the application"
 msgstr ""
 
-#: src/SettingsWindow.py:735
+#: src/SettingsWindow.py:750
 msgid "Do you want to reset all settings to defaults?"
 msgstr "آیا میخواهید همه تنظیمات را به حالت اولیه بازنشانی کنید؟"
 

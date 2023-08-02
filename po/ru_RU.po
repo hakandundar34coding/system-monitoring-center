@@ -7,20 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-16 15:47+0300\n"
-"PO-Revision-Date: 2023-07-29 11:13+0300\n"
+"POT-Creation-Date: 2023-08-02 16:32+0300\n"
+"PO-Revision-Date: 2023-08-02 16:35+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
-"|| n%100>14) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3 src/MainWindow.py:66
-#: src/MainWindow.py:516
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/MainWindow.py:66 src/MainWindow.py:516
 msgid "System Monitoring Center"
 msgstr "Центр мониторинга системы"
 
@@ -36,11 +36,11 @@ msgstr "Многофункциональный системный монитор
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
 msgid ""
-"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;Processes;Users;"
-"Services;"
+"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;"
+"Processes;Users;Services;"
 msgstr ""
-"Системный Монитор;Менеджер Задач;Производительность;CPU;ЦП;RAM;ОЗУ;Подкачка;Память;Диск;Сеть;ГПУ;"
-"Процессы;Пользователи;Сервисы;"
+"Системный Монитор;Менеджер Задач;Производительность;CPU;ЦП;RAM;ОЗУ;Подкачка;"
+"Память;Диск;Сеть;ГПУ;Процессы;Пользователи;Сервисы;"
 
 #: src/Common.py:197
 msgid "Reset"
@@ -58,26 +58,27 @@ msgstr "Цвет Графа"
 msgid "Search..."
 msgstr "Поиск..."
 
-#: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:70 src/MainWindow.py:138 src/MainWindow.py:287
-#: src/Processes.py:1094 src/Processes.py:1111 src/ProcessesDetails.py:65
-#: src/ProcessesDetails.py:157 src/ProcessesDetails.py:284 src/ProcessesMenu.py:178
+#: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:83 src/MainWindow.py:138
+#: src/MainWindow.py:287 src/Processes.py:1117 src/Processes.py:1134
+#: src/ProcessesDetails.py:65 src/ProcessesDetails.py:157
+#: src/ProcessesDetails.py:284 src/ProcessesMenu.py:178
 #: src/ProcessesMenu.py:246 src/ProcessesMenu.py:287 src/ProcessesMenu.py:328
-#: src/SettingsWindow.py:30 src/Summary.py:680 src/Users.py:240 src/UsersDetails.py:165
-#: src/UsersMenu.py:127
+#: src/SettingsWindow.py:30 src/Summary.py:941 src/Users.py:240
+#: src/UsersDetails.py:165 src/UsersMenu.py:127
 msgid "CPU"
 msgstr "ЦП"
 
-#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:64 src/Gpu.py:310 src/Network.py:54
-#: src/System.py:194
+#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:63 src/Gpu.py:309
+#: src/Network.py:54 src/System.py:194
 msgid "Vendor"
 msgstr "Производитель"
 
-#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:64 src/Gpu.py:310 src/Network.py:54
-#: src/System.py:201
+#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:63 src/Gpu.py:309
+#: src/Network.py:54 src/System.py:201
 msgid "Model"
 msgstr "Модель"
 
-#: src/Cpu.py:59 src/Disk.py:62 src/Gpu.py:69 src/Network.py:59
+#: src/Cpu.py:59 src/Disk.py:62 src/Gpu.py:68 src/Network.py:59
 msgid "Device Name In Kernel"
 msgstr "Название устройства в ядре ОС"
 
@@ -93,17 +94,19 @@ msgstr "Средняя нагрузка"
 msgid "Average CPU usage of all cores"
 msgstr "Среднее нагрузка на ЦП среди всех ядер"
 
-#: src/Cpu.py:102 src/Gpu.py:215 src/Gpu.py:380
+#: src/Cpu.py:102 src/Gpu.py:214 src/Gpu.py:379
 msgid "Frequency"
 msgstr "Частота"
 
-#: src/Cpu.py:107 src/MainWindow.py:201 src/Processes.py:81 src/Processes.py:488
-#: src/Processes.py:1343 src/ProcessesMenu.py:33 src/SettingsWindow.py:29 src/Summary.py:714
-#: src/Users.py:235 src/UsersDetails.py:115 src/UsersMenu.py:107
+#: src/Cpu.py:107 src/MainWindow.py:201 src/Processes.py:81
+#: src/Processes.py:502 src/Processes.py:1366 src/ProcessesMenu.py:33
+#: src/SettingsWindow.py:29 src/Summary.py:975 src/Users.py:235
+#: src/UsersDetails.py:115 src/UsersMenu.py:107
 msgid "Processes"
 msgstr "Процессы"
 
-#: src/Cpu.py:107 src/Processes.py:1103 src/ProcessesDetails.py:294 src/ProcessesMenu.py:218
+#: src/Cpu.py:107 src/Processes.py:1126 src/ProcessesDetails.py:294
+#: src/ProcessesMenu.py:218
 msgid "Threads"
 msgstr "Потоки"
 
@@ -111,7 +114,7 @@ msgstr "Потоки"
 msgid "Up Time"
 msgstr "Время работы"
 
-#: src/Cpu.py:116 src/Gpu.py:223 src/Gpu.py:390
+#: src/Cpu.py:116 src/Gpu.py:222 src/Gpu.py:389
 msgid "Min-Max Frequency"
 msgstr "Мин.-Макс. частота"
 
@@ -143,34 +146,45 @@ msgstr "Архитектура"
 msgid "CPU Usage (Per Core)"
 msgstr "Использования ЦП (Для каждого ядра)"
 
-#: src/CpuMenu.py:41 src/DiskMenu.py:41 src/MemoryMenu.py:41 src/NetworkMenu.py:41
+#: src/CpuMenu.py:41 src/DiskMenu.py:41 src/MemoryMenu.py:41
+#: src/NetworkMenu.py:41 src/SummaryMenu.py:38
 msgid "Graph - Show"
 msgstr "Отображение"
 
-#: src/CpuMenu.py:65 src/DiskMenu.py:73 src/MemoryMenu.py:65 src/NetworkMenu.py:73
-#: src/ProcessesMenu.py:282
+#: src/CpuMenu.py:57
+msgid "Show processes using max CPU"
+msgstr ""
+
+#: src/CpuMenu.py:61 src/SummaryMenu.py:46
+msgid "This increases CPU usage."
+msgstr ""
+
+#: src/CpuMenu.py:78 src/DiskMenu.py:73 src/MemoryMenu.py:65
+#: src/NetworkMenu.py:73 src/ProcessesMenu.py:282
 msgid "Precision"
 msgstr "Точность"
 
-#: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361 src/DiskMenu.py:37
-#: src/DiskMenu.py:112 src/MainWindow.py:146 src/MainWindow.py:297 src/ProcessesDetails.py:75
-#: src/ProcessesMenu.py:309 src/ProcessesMenu.py:367 src/SettingsWindow.py:30
+#: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
+#: src/DiskMenu.py:37 src/DiskMenu.py:112 src/MainWindow.py:146
+#: src/MainWindow.py:297 src/ProcessesDetails.py:75 src/ProcessesMenu.py:309
+#: src/ProcessesMenu.py:367 src/SettingsWindow.py:30
 msgid "Disk"
 msgstr "Диск"
 
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:1100
-#: src/ProcessesDetails.py:177 src/ProcessesDetails.py:472 src/ProcessesDetails.py:490
-#: src/ProcessesMenu.py:206 src/Summary.py:887
+#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:1123
+#: src/ProcessesDetails.py:177 src/ProcessesDetails.py:472
+#: src/ProcessesDetails.py:490 src/ProcessesMenu.py:206 src/Summary.py:1148
 msgid "Read Speed"
 msgstr "Скорость Чтения"
 
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1101
-#: src/ProcessesDetails.py:187 src/ProcessesDetails.py:472 src/ProcessesDetails.py:500
-#: src/ProcessesMenu.py:210 src/Summary.py:906
+#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1124
+#: src/ProcessesDetails.py:187 src/ProcessesDetails.py:472
+#: src/ProcessesDetails.py:500 src/ProcessesMenu.py:210 src/Summary.py:1167
 msgid "Write Speed"
 msgstr "Скорость Записи"
 
-#: src/Disk.py:110 src/Processes.py:1098 src/ProcessesDetails.py:510 src/ProcessesMenu.py:198
+#: src/Disk.py:110 src/Processes.py:1121 src/ProcessesDetails.py:510
+#: src/ProcessesMenu.py:198
 msgid "Read Data"
 msgstr "Прочитано Данных"
 
@@ -178,7 +192,8 @@ msgstr "Прочитано Данных"
 msgid "Measured value since last system start"
 msgstr "Значение с последнего запуска системы"
 
-#: src/Disk.py:110 src/Processes.py:1099 src/ProcessesDetails.py:520 src/ProcessesMenu.py:202
+#: src/Disk.py:110 src/Processes.py:1122 src/ProcessesDetails.py:520
+#: src/ProcessesMenu.py:202
 msgid "Written Data"
 msgstr "Записано Данных"
 
@@ -186,8 +201,8 @@ msgstr "Записано Данных"
 msgid "System Disk"
 msgstr "Системный Диск"
 
-#: src/Disk.py:127 src/Disk.py:149 src/Disk.py:295 src/Memory.py:107 src/Memory.py:145
-#: src/Memory.py:157
+#: src/Disk.py:127 src/Disk.py:149 src/Disk.py:295 src/Memory.py:107
+#: src/Memory.py:145 src/Memory.py:157
 msgid "Used"
 msgstr "Использовано"
 
@@ -195,17 +210,17 @@ msgstr "Использовано"
 msgid "Free"
 msgstr "Свободно"
 
-#: src/Disk.py:156 src/Disk.py:265 src/Disk.py:275 src/Memory.py:119 src/Memory.py:172
-#: src/Memory.py:333
+#: src/Disk.py:156 src/Disk.py:265 src/Disk.py:275 src/Memory.py:119
+#: src/Memory.py:172 src/Memory.py:333
 msgid "Capacity"
 msgstr "Ёмкость"
 
-#: src/Disk.py:163 src/Gpu.py:258 src/Memory.py:179 src/Processes.py:274 src/Services.py:299
-#: src/Users.py:128
+#: src/Disk.py:163 src/Gpu.py:257 src/Memory.py:179 src/Processes.py:274
+#: src/Services.py:299 src/Users.py:128
 msgid "Details"
 msgstr "Параметры"
 
-#: src/Disk.py:166 src/Gpu.py:261 src/Memory.py:136 src/Memory.py:182
+#: src/Disk.py:166 src/Gpu.py:260 src/Memory.py:136 src/Memory.py:182
 msgid "Show..."
 msgstr "Показать..."
 
@@ -241,12 +256,13 @@ msgstr "Выбранное Устройство"
 msgid "All Devices"
 msgstr "Все Устройства"
 
-#: src/DiskMenu.py:86 src/MemoryMenu.py:78 src/NetworkMenu.py:86 src/ProcessesMenu.py:323
+#: src/DiskMenu.py:86 src/MemoryMenu.py:78 src/NetworkMenu.py:86
+#: src/ProcessesMenu.py:323
 msgid "Data Unit"
 msgstr "Единица измерения данных"
 
-#: src/DiskMenu.py:91 src/MemoryMenu.py:83 src/NetworkMenu.py:91 src/ProcessesMenu.py:347
-#: src/ProcessesMenu.py:373
+#: src/DiskMenu.py:91 src/MemoryMenu.py:83 src/NetworkMenu.py:91
+#: src/ProcessesMenu.py:347 src/ProcessesMenu.py:373
 msgid "Show data as powers of"
 msgstr "Показывать данные как степень из"
 
@@ -258,68 +274,68 @@ msgstr "Показывать единицу измерения скорости 
 msgid "Hide loop, ramdisk, zram disks"
 msgstr "Спрятать loop, ramdisk, zram диски"
 
-#: src/Gpu.py:59 src/Gpu.py:290 src/Gpu.py:320 src/Gpu.py:501 src/GpuMenu.py:37
-#: src/MainWindow.py:307 src/SettingsWindow.py:30
+#: src/Gpu.py:58 src/Gpu.py:289 src/Gpu.py:319 src/Gpu.py:500 src/GpuMenu.py:36
+#: src/MainWindow.py:307 src/SettingsWindow.py:30 src/Summary.py:467
 msgid "GPU"
 msgstr "ГПУ"
 
-#: src/Gpu.py:85 src/Gpu.py:210 src/Gpu.py:360
+#: src/Gpu.py:84 src/Gpu.py:209 src/Gpu.py:359 src/SummaryMenu.py:42
 msgid "GPU Usage"
 msgstr "Использования ГПУ"
 
-#: src/Gpu.py:127 src/Gpu.py:210 src/Gpu.py:370
+#: src/Gpu.py:126 src/Gpu.py:209 src/Gpu.py:369
 msgid "GPU Memory"
 msgstr "Память ГПУ"
 
-#: src/Gpu.py:155
+#: src/Gpu.py:154
 msgid "Video Encoder"
 msgstr "Видеокодер"
 
-#: src/Gpu.py:183
+#: src/Gpu.py:182
 msgid "Video Decoder"
 msgstr "Видеодекодер"
 
-#: src/Gpu.py:215 src/Gpu.py:410
+#: src/Gpu.py:214 src/Gpu.py:409
 msgid "Temperature"
 msgstr "Темература"
 
-#: src/Gpu.py:230 src/Gpu.py:400
+#: src/Gpu.py:229 src/Gpu.py:399
 msgid "Memory Frequency"
 msgstr "Частота Памяти"
 
-#: src/Gpu.py:237 src/Gpu.py:420
+#: src/Gpu.py:236 src/Gpu.py:419
 msgid "Power Usage"
 msgstr "Мощность"
 
-#: src/Gpu.py:244 src/Gpu.py:430
+#: src/Gpu.py:243 src/Gpu.py:429
 msgid "Boot VGA"
 msgstr "Загрузочный VGA"
 
-#: src/Gpu.py:251 src/Gpu.py:440
+#: src/Gpu.py:250 src/Gpu.py:439
 msgid "Driver"
 msgstr "Драйвер"
 
-#: src/Gpu.py:330
+#: src/Gpu.py:329
 msgid "PCIe Address"
 msgstr "Адрес PCIe"
 
-#: src/Gpu.py:340
+#: src/Gpu.py:339
 msgid "GPU Interface"
 msgstr "Интетфейс ГПУ"
 
-#: src/Gpu.py:350
+#: src/Gpu.py:349
 msgid "Link Speed"
 msgstr "Скорость Соединения"
 
-#: src/Gpu.py:450
+#: src/Gpu.py:449
 msgid "Connections"
 msgstr "Подключения"
 
-#: src/Gpu.py:460
+#: src/Gpu.py:459
 msgid "Refresh Rate"
 msgstr "Частота обновления"
 
-#: src/Gpu.py:470
+#: src/Gpu.py:469
 msgid "Resolution"
 msgstr "Разрешение"
 
@@ -327,13 +343,14 @@ msgstr "Разрешение"
 msgid "Customization menu for the current tab"
 msgstr "Пользовательское меню для текущей вкладки"
 
-#: src/MainWindow.py:142 src/MainWindow.py:840 src/Memory.py:102 src/Memory.py:333
-#: src/MemoryMenu.py:45 src/Performance.py:124 src/Performance.py:128 src/Summary.py:697
+#: src/MainWindow.py:142 src/MainWindow.py:844 src/Memory.py:102
+#: src/Memory.py:333 src/MemoryMenu.py:45 src/Performance.py:185
+#: src/Performance.py:189 src/Summary.py:958
 msgid "RAM"
 msgstr "ОЗУ"
 
-#: src/MainWindow.py:152 src/MainWindow.py:302 src/Network.py:49 src/NetworkMenu.py:37
-#: src/SettingsWindow.py:30
+#: src/MainWindow.py:152 src/MainWindow.py:302 src/Network.py:49
+#: src/NetworkMenu.py:37 src/SettingsWindow.py:30
 msgid "Network"
 msgstr "Сеть"
 
@@ -341,13 +358,13 @@ msgstr "Сеть"
 msgid "Performance"
 msgstr "Производительность"
 
-#: src/MainWindow.py:206 src/SettingsWindow.py:29 src/Users.py:61 src/Users.py:333
-#: src/UsersMenu.py:33
+#: src/MainWindow.py:206 src/SettingsWindow.py:29 src/Users.py:61
+#: src/Users.py:333 src/UsersMenu.py:33
 msgid "Users"
 msgstr "Пользователи"
 
-#: src/MainWindow.py:211 src/Services.py:63 src/Services.py:167 src/Services.py:629
-#: src/ServicesMenu.py:33 src/SettingsWindow.py:29
+#: src/MainWindow.py:211 src/Services.py:63 src/Services.py:167
+#: src/Services.py:629 src/ServicesMenu.py:33 src/SettingsWindow.py:29
 msgid "Services"
 msgstr "Сервисы"
 
@@ -356,19 +373,22 @@ msgstr "Сервисы"
 msgid "System"
 msgstr "Система"
 
-#: src/MainWindow.py:282 src/MainWindow.py:826 src/ProcessesDetails.py:60
+#: src/MainWindow.py:282 src/MainWindow.py:830 src/ProcessesDetails.py:60
 #: src/ServicesDetails.py:59 src/SettingsWindow.py:30 src/Summary.py:39
+#: src/SummaryMenu.py:34
 msgid "Summary"
 msgstr "Сводка"
 
-#: src/MainWindow.py:292 src/Memory.py:50 src/MemoryMenu.py:37 src/MemoryMenu.py:49
-#: src/Processes.py:1110 src/Processes.py:1113 src/ProcessesDetails.py:70
-#: src/ProcessesDetails.py:393 src/ProcessesMenu.py:182 src/ProcessesMenu.py:254
-#: src/ProcessesMenu.py:298 src/ProcessesMenu.py:341 src/SettingsWindow.py:30
+#: src/MainWindow.py:292 src/Memory.py:50 src/MemoryMenu.py:37
+#: src/MemoryMenu.py:49 src/Processes.py:1133 src/Processes.py:1136
+#: src/ProcessesDetails.py:70 src/ProcessesDetails.py:393
+#: src/ProcessesMenu.py:182 src/ProcessesMenu.py:254 src/ProcessesMenu.py:298
+#: src/ProcessesMenu.py:341 src/SettingsWindow.py:30
 msgid "Memory"
 msgstr "Память"
 
-#: src/MainWindow.py:312 src/Sensors.py:51 src/Sensors.py:201 src/SettingsWindow.py:30
+#: src/MainWindow.py:312 src/Sensors.py:51 src/Sensors.py:201
+#: src/SettingsWindow.py:30
 msgid "Sensors"
 msgstr "Датчики"
 
@@ -380,23 +400,26 @@ msgstr "Общие Настройки"
 msgid "About"
 msgstr "О программе"
 
-#: src/MainWindow.py:836
+#: src/MainWindow.py:840
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "Выбор ядра ЦП влияет только на информацию о частоте и кэше."
 
-#: src/MainWindow.py:840 src/Memory.py:140 src/Memory.py:264 src/Memory.py:367
+#: src/MainWindow.py:844 src/Memory.py:140 src/Memory.py:264 src/Memory.py:367
 #: src/ProcessesDetails.py:443
 msgid "Swap Memory"
 msgstr "Подкачка"
 
-#: src/MainWindow.py:979
+#: src/MainWindow.py:983
 msgid "Not mounted"
 msgstr "Не смонтирован"
 
-#: src/MainWindow.py:1053
-msgid "Warning! The application has been run with root privileges, you may harm your system."
+#: src/MainWindow.py:1057
+msgid ""
+"Warning! The application has been run with root privileges, you may harm "
+"your system."
 msgstr ""
-"Внимание! Приложение было запущенно с правами администратора, это может навредить системе."
+"Внимание! Приложение было запущенно с правами администратора, это может "
+"навредить системе."
 
 #: src/Memory.py:74
 msgid "RAM Usage"
@@ -422,11 +445,13 @@ msgstr "Раздел"
 msgid "File"
 msgstr "Файл"
 
-#: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:45 src/Summary.py:926
+#: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:45
+#: src/Summary.py:1187
 msgid "Download Speed"
 msgstr "Скорость Загрузки"
 
-#: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:49 src/Summary.py:946
+#: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:49
+#: src/Summary.py:1207
 msgid "Upload Speed"
 msgstr "Скорость Отправки"
 
@@ -466,9 +491,13 @@ msgstr "Адрес IPv6"
 msgid "MAC Address"
 msgstr "MAC адрес"
 
-#: src/Performance.py:128 src/Summary.py:731
+#: src/Performance.py:189 src/Summary.py:992
 msgid "Swap"
 msgstr "Подкачка"
+
+#: src/Performance.py:955
+msgid "Max"
+msgstr ""
 
 #: src/Processes.py:218
 msgid "Pause Process"
@@ -510,139 +539,145 @@ msgstr "Очень Низкий"
 msgid "Custom Value..."
 msgstr "Пользовательское Значение..."
 
-#: src/Processes.py:264 src/Processes.py:361 src/Processes.py:439
+#: src/Processes.py:264 src/Processes.py:375 src/Processes.py:453
 msgid "Change Priority"
 msgstr "Изменить Приоритет"
 
-#: src/Processes.py:269 src/Processes.py:470 src/Processes.py:567
+#: src/Processes.py:269 src/Processes.py:484 src/Processes.py:581
 msgid "Set CPU Affinity"
 msgstr "Установить привязку процессора"
 
-#: src/Processes.py:314 src/Processes.py:1090 src/ProcessesDetails.py:107
-#: src/ProcessesMenu.py:158 src/Sensors.py:113 src/Services.py:512 src/ServicesDetails.py:88
-#: src/ServicesMenu.py:85 src/System.py:109 src/System.py:215
+#: src/Processes.py:314
+msgid "All"
+msgstr ""
+
+#: src/Processes.py:318 src/Processes.py:1113 src/ProcessesDetails.py:107
+#: src/ProcessesMenu.py:158 src/Sensors.py:113 src/Services.py:512
+#: src/ServicesDetails.py:88 src/ServicesMenu.py:85 src/System.py:109
+#: src/System.py:215
 msgid "Name"
 msgstr "Название"
 
-#: src/Processes.py:318 src/Processes.py:1108 src/ProcessesDetails.py:584
+#: src/Processes.py:322 src/Processes.py:1131 src/ProcessesDetails.py:584
 #: src/ProcessesMenu.py:238
 msgid "Command Line"
 msgstr "Командная Строка"
 
-#: src/Processes.py:379
-msgid "Change priority of these processes"
-msgstr "Изменить приоритет этих процессов"
-
-#: src/Processes.py:379
-msgid "Smaller value means higher process priority"
-msgstr "Чем меньше значение, тем выше приоритет процесс"
-
-#: src/Processes.py:434 src/Processes.py:562
-msgid "Cancel"
-msgstr "Отменить"
-
-#: src/Processes.py:535
-msgid "Select All"
-msgstr "Выбрать Всё"
-
-#: src/Processes.py:540
-msgid "Select None"
-msgstr "Выбрать Ничего"
-
-#: src/Processes.py:662
-msgid "Do you want to pause these processes?"
-msgstr "Хотите приостановить выполнение этих процессов?"
-
-#: src/Processes.py:667
-msgid "Do you want to end these processes?"
-msgstr "Хотите завершить выполнение этих процессов?"
-
-#: src/Processes.py:670
-msgid "Do you want to end these processes immediately?"
-msgstr "Хотите немедленно завершить выполнение этих процессов?"
-
-#: src/Processes.py:1091 src/ProcessesDetails.py:117 src/ProcessesDetails.py:726
-#: src/ProcessesMenu.py:164
+#: src/Processes.py:326 src/Processes.py:1114 src/ProcessesDetails.py:117
+#: src/ProcessesDetails.py:726 src/ProcessesMenu.py:164
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:1092 src/ProcessesDetails.py:137 src/ProcessesMenu.py:170 src/Users.py:230
-#: src/UsersDetails.py:36 src/UsersDetails.py:65 src/UsersDetails.py:236 src/UsersMenu.py:85
+#: src/Processes.py:393
+msgid "Change priority of these processes"
+msgstr "Изменить приоритет этих процессов"
+
+#: src/Processes.py:393
+msgid "Smaller value means higher process priority"
+msgstr "Чем меньше значение, тем выше приоритет процесс"
+
+#: src/Processes.py:448 src/Processes.py:576
+msgid "Cancel"
+msgstr "Отменить"
+
+#: src/Processes.py:549
+msgid "Select All"
+msgstr "Выбрать Всё"
+
+#: src/Processes.py:554
+msgid "Select None"
+msgstr "Выбрать Ничего"
+
+#: src/Processes.py:676
+msgid "Do you want to pause these processes?"
+msgstr "Хотите приостановить выполнение этих процессов?"
+
+#: src/Processes.py:681
+msgid "Do you want to end these processes?"
+msgstr "Хотите завершить выполнение этих процессов?"
+
+#: src/Processes.py:684
+msgid "Do you want to end these processes immediately?"
+msgstr "Хотите немедленно завершить выполнение этих процессов?"
+
+#: src/Processes.py:1115 src/ProcessesDetails.py:137 src/ProcessesMenu.py:170
+#: src/Users.py:230 src/UsersDetails.py:36 src/UsersDetails.py:65
+#: src/UsersDetails.py:236 src/UsersMenu.py:85
 msgid "User"
 msgstr "Пользователь"
 
-#: src/Processes.py:1093 src/ProcessesDetails.py:127 src/ProcessesMenu.py:174
+#: src/Processes.py:1116 src/ProcessesDetails.py:127 src/ProcessesMenu.py:174
 msgid "Status"
 msgstr "Статус"
 
-#: src/Processes.py:1095 src/Processes.py:1112 src/ProcessesDetails.py:167
-#: src/ProcessesDetails.py:375 src/ProcessesDetails.py:403 src/ProcessesMenu.py:186
-#: src/ProcessesMenu.py:250 src/Services.py:518 src/ServicesDetails.py:220
-#: src/ServicesMenu.py:111
+#: src/Processes.py:1118 src/Processes.py:1135 src/ProcessesDetails.py:167
+#: src/ProcessesDetails.py:375 src/ProcessesDetails.py:403
+#: src/ProcessesMenu.py:186 src/ProcessesMenu.py:250 src/Services.py:518
+#: src/ServicesDetails.py:220 src/ServicesMenu.py:111
 msgid "Memory (RSS)"
 msgstr "Память (RSS)"
 
-#: src/Processes.py:1096 src/ProcessesDetails.py:413 src/ProcessesMenu.py:190
+#: src/Processes.py:1119 src/ProcessesDetails.py:413 src/ProcessesMenu.py:190
 msgid "Memory (VMS)"
 msgstr "Память (VMS)"
 
-#: src/Processes.py:1097 src/ProcessesDetails.py:423 src/ProcessesMenu.py:194
+#: src/Processes.py:1120 src/ProcessesDetails.py:423 src/ProcessesMenu.py:194
 msgid "Memory (Shared)"
 msgstr "Память (разделённая)"
 
-#: src/Processes.py:1102 src/ProcessesDetails.py:147 src/ProcessesMenu.py:214
+#: src/Processes.py:1125 src/ProcessesDetails.py:147 src/ProcessesMenu.py:214
 msgid "Priority"
 msgstr "Приоритет"
 
-#: src/Processes.py:1104 src/ProcessesDetails.py:217 src/ProcessesMenu.py:222
+#: src/Processes.py:1127 src/ProcessesDetails.py:217 src/ProcessesMenu.py:222
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:1105 src/ProcessesDetails.py:227 src/ProcessesMenu.py:226 src/Users.py:233
-#: src/UsersDetails.py:95 src/UsersMenu.py:99
+#: src/Processes.py:1128 src/ProcessesDetails.py:227 src/ProcessesMenu.py:226
+#: src/Users.py:233 src/UsersDetails.py:95 src/UsersMenu.py:99
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:1106 src/ProcessesDetails.py:237 src/ProcessesMenu.py:230 src/Users.py:234
-#: src/UsersDetails.py:105 src/UsersMenu.py:103
+#: src/Processes.py:1129 src/ProcessesDetails.py:237 src/ProcessesMenu.py:230
+#: src/Users.py:234 src/UsersDetails.py:105 src/UsersMenu.py:103
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:1107 src/ProcessesDetails.py:197 src/ProcessesMenu.py:234 src/Users.py:239
-#: src/UsersDetails.py:155 src/UsersMenu.py:123
+#: src/Processes.py:1130 src/ProcessesDetails.py:197 src/ProcessesMenu.py:234
+#: src/Users.py:239 src/UsersDetails.py:155 src/UsersMenu.py:123
 msgid "Start Time"
 msgstr "Время запуска"
 
-#: src/Processes.py:1109 src/ProcessesMenu.py:242
+#: src/Processes.py:1132 src/ProcessesMenu.py:242
 msgid "CPU Time"
 msgstr "Время ЦП"
 
-#: src/Processes.py:1111 src/Processes.py:1112 src/Processes.py:1113 src/ProcessesMenu.py:246
-#: src/ProcessesMenu.py:250 src/ProcessesMenu.py:254
+#: src/Processes.py:1134 src/Processes.py:1135 src/Processes.py:1136
+#: src/ProcessesMenu.py:246 src/ProcessesMenu.py:250 src/ProcessesMenu.py:254
 msgid "Recursive"
 msgstr "Рекурсив"
 
-#: src/Processes.py:1138 src/Services.py:535
+#: src/Processes.py:1161 src/Services.py:535
 msgid "Running"
 msgstr "Выполняется"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Sleeping"
 msgstr "Гибернация"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Waiting"
 msgstr "Ожидает"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Idle"
 msgstr "Бездействует"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Zombie"
 msgstr "Зомби"
 
-#: src/Processes.py:1138
+#: src/Processes.py:1161
 msgid "Stopped"
 msgstr "Остановился"
 
@@ -650,7 +685,8 @@ msgstr "Остановился"
 msgid "Process Details"
 msgstr "Детали Процесса"
 
-#: src/ProcessesDetails.py:207 src/ProcessesDetails.py:564 src/ServicesDetails.py:148
+#: src/ProcessesDetails.py:207 src/ProcessesDetails.py:564
+#: src/ServicesDetails.py:148
 msgid "Path"
 msgstr "Путь"
 
@@ -748,10 +784,11 @@ msgid "Critical"
 msgstr "Критическое"
 
 #: src/Services.py:44
-msgid "Note: This tab is not reloaded automatically. Manually reload for changes."
+msgid ""
+"Note: This tab is not reloaded automatically. Manually reload for changes."
 msgstr ""
-"Примечание: Эта вкладка не обновляется автоматически. Перегрузите вручную, чтобы увидеть "
-"изменения."
+"Примечание: Эта вкладка не обновляется автоматически. Перегрузите вручную, "
+"чтобы увидеть изменения."
 
 #: src/Services.py:167 src/Services.py:294
 msgid "Help"
@@ -831,7 +868,9 @@ msgstr "Полностью отключает службу."
 
 #: src/Services.py:256
 msgid "A masked service can not be started, restarted, reloaded or enabled."
-msgstr "Замаскированная служба не может быть запущена, перезапущена, перезагружена или включена."
+msgstr ""
+"Замаскированная служба не может быть запущена, перезапущена, перезагружена "
+"или включена."
 
 #: src/Services.py:264
 msgid "Unmask"
@@ -843,9 +882,11 @@ msgstr "Снимает маску со службы."
 
 #: src/Services.py:267
 msgid ""
-"A service can be started, restarted, reloaded (if it is available) or enabled after unmasking."
-msgstr "" 
-"Служба может быть запущена, перезапущена, перезагружена (если оно доступно) или быть включенной после снятие масскировки."
+"A service can be started, restarted, reloaded (if it is available) or "
+"enabled after unmasking."
+msgstr ""
+"Служба может быть запущена, перезапущена, перезагружена (если оно доступно) "
+"или быть включенной после снятие масскировки."
 
 #: src/Services.py:364
 msgid "Information"
@@ -1039,7 +1080,7 @@ msgstr "Запоминать размер окон"
 msgid "Reset all settings of the application"
 msgstr "Установить все настройки по умолчанию"
 
-#: src/SettingsWindow.py:735
+#: src/SettingsWindow.py:750
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Хотите ли вы откатить все настройки по умолчанию?"
 
