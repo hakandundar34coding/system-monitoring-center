@@ -3095,7 +3095,14 @@ def gpu_load_nvidia_func():
         gpu_tool_output = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
     # Prevent errors because "nvidia-smi" may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
     except Exception:
-        pass
+        command_list = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,clocks.current.memory,clocks.max.memory,power.draw,power.limit,enforced.power.limit", "--format=csv"]
+        if get_environment_type() == "flatpak":
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        try:
+            gpu_tool_output = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+        # Prevent errors because "nvidia-smi" may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
+        except Exception:
+            pass
 
 
 def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
