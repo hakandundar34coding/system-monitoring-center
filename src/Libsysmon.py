@@ -3142,7 +3142,7 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output, nvidia_smi_
 
         gpu_tool_output_for_selected_gpu = gpu_tool_output[gpu_info_line_no].split(",")
 
-        if nvidia_smi_encoder_decoder == 1:
+        if len(gpu_tool_output_for_selected_gpu) == 18:
             gpu_driver_version = gpu_tool_output_for_selected_gpu[2].strip()
             gpu_load = gpu_tool_output_for_selected_gpu[3].strip()
             gpu_encoder_load = gpu_tool_output_for_selected_gpu[5].strip()
@@ -3157,7 +3157,7 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output, nvidia_smi_
             gpu_power_current = gpu_tool_output_for_selected_gpu[15].strip()
             gpu_power_max = gpu_tool_output_for_selected_gpu[16].strip()
             gpu_enforced_power_limit = gpu_tool_output_for_selected_gpu[17].strip()
-        elif nvidia_smi_encoder_decoder == 0:
+        if len(gpu_tool_output_for_selected_gpu) == 16:
             gpu_driver_version = gpu_tool_output_for_selected_gpu[2].strip()
             gpu_load = gpu_tool_output_for_selected_gpu[3].strip()
             gpu_memory_capacity = gpu_tool_output_for_selected_gpu[5].strip()
