@@ -3090,11 +3090,13 @@ def gpu_load_nvidia_func():
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
 
-    global gpu_tool_output
+    global gpu_tool_output, nvidia_smi_encoder_decoder
     try:
+        nvidia_smi_encoder_decoder = 1
         gpu_tool_output = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
     # Prevent errors because "nvidia-smi" may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
     except Exception:
+        nvidia_smi_encoder_decoder = 0
         command_list = ["nvidia-smi", "--query-gpu=gpu_name,gpu_bus_id,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu,clocks.current.graphics,clocks.max.graphics,clocks.current.memory,clocks.max.memory,power.draw,power.limit,enforced.power.limit", "--format=csv"]
         if get_environment_type() == "flatpak":
             command_list = ["flatpak-spawn", "--host"] + command_list
@@ -3139,20 +3141,34 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
 
         gpu_tool_output_for_selected_gpu = gpu_tool_output[gpu_info_line_no].split(",")
 
-        gpu_driver_version = gpu_tool_output_for_selected_gpu[2].strip()
-        gpu_load = gpu_tool_output_for_selected_gpu[3].strip()
-        gpu_encoder_load = gpu_tool_output_for_selected_gpu[5].strip()
-        gpu_decoder_load = gpu_tool_output_for_selected_gpu[6].strip()
-        gpu_memory_capacity = gpu_tool_output_for_selected_gpu[7].strip()
-        gpu_memory_used = gpu_tool_output_for_selected_gpu[9].strip()
-        gpu_temperature = gpu_tool_output_for_selected_gpu[10].strip()
-        gpu_current_frequency = gpu_tool_output_for_selected_gpu[11].strip()
-        gpu_max_frequency = gpu_tool_output_for_selected_gpu[12].strip()
-        gpu_memory_current_frequency = gpu_tool_output_for_selected_gpu[13].strip()
-        gpu_memory_max_frequency = gpu_tool_output_for_selected_gpu[14].strip()
-        gpu_power_current = gpu_tool_output_for_selected_gpu[15].strip()
-        gpu_power_max = gpu_tool_output_for_selected_gpu[16].strip()
-        gpu_enforced_power_limit = gpu_tool_output_for_selected_gpu[17].strip()
+        if nvidia_smi_encoder_decoder == 1:
+            gpu_driver_version = gpu_tool_output_for_selected_gpu[2].strip()
+            gpu_load = gpu_tool_output_for_selected_gpu[3].strip()
+            gpu_encoder_load = gpu_tool_output_for_selected_gpu[5].strip()
+            gpu_decoder_load = gpu_tool_output_for_selected_gpu[6].strip()
+            gpu_memory_capacity = gpu_tool_output_for_selected_gpu[7].strip()
+            gpu_memory_used = gpu_tool_output_for_selected_gpu[9].strip()
+            gpu_temperature = gpu_tool_output_for_selected_gpu[10].strip()
+            gpu_current_frequency = gpu_tool_output_for_selected_gpu[11].strip()
+            gpu_max_frequency = gpu_tool_output_for_selected_gpu[12].strip()
+            gpu_memory_current_frequency = gpu_tool_output_for_selected_gpu[13].strip()
+            gpu_memory_max_frequency = gpu_tool_output_for_selected_gpu[14].strip()
+            gpu_power_current = gpu_tool_output_for_selected_gpu[15].strip()
+            gpu_power_max = gpu_tool_output_for_selected_gpu[16].strip()
+            gpu_enforced_power_limit = gpu_tool_output_for_selected_gpu[17].strip()
+        elif nvidia_smi_encoder_decoder == 0:
+            gpu_driver_version = gpu_tool_output_for_selected_gpu[2].strip()
+            gpu_load = gpu_tool_output_for_selected_gpu[3].strip()
+            gpu_memory_capacity = gpu_tool_output_for_selected_gpu[5].strip()
+            gpu_memory_used = gpu_tool_output_for_selected_gpu[7].strip()
+            gpu_temperature = gpu_tool_output_for_selected_gpu[8].strip()
+            gpu_current_frequency = gpu_tool_output_for_selected_gpu[9].strip()
+            gpu_max_frequency = gpu_tool_output_for_selected_gpu[10].strip()
+            gpu_memory_current_frequency = gpu_tool_output_for_selected_gpu[11].strip()
+            gpu_memory_max_frequency = gpu_tool_output_for_selected_gpu[12].strip()
+            gpu_power_current = gpu_tool_output_for_selected_gpu[13].strip()
+            gpu_power_max = gpu_tool_output_for_selected_gpu[14].strip()
+            gpu_enforced_power_limit = gpu_tool_output_for_selected_gpu[15].strip()
 
         not_supported_text = ["[Not Supported]", "[N/A]"]
 
