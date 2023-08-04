@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v2.20.1 (04.08.2023)
+  * Removed unused code that prevents listing processes
+  * Fix: GPU performance information for some old GPUs
+
 ### v2.20.0 (04.08.2023)
   * New: Option for showing processes using max CPU (CPU tab)
   * New: Process search option for name+cmdline+pid (Proceses)

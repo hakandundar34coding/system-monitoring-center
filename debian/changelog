@@ -1,3 +1,10 @@
+system-monitoring-center (2.20.1) unstable; urgency=medium
+
+  * Removed unused code that prevents listing processes
+  * Fix: GPU performance information for some old GPUs
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 04 Jul 2023 15:05:00 +0300
+
 system-monitoring-center (2.20.0) unstable; urgency=medium
 
   * New: Option for showing processes using max CPU (CPU tab)
