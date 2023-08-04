@@ -1,3 +1,16 @@
+system-monitoring-center (2.20.0) unstable; urgency=medium
+
+  * New: Option for showing processes using max CPU (CPU tab)
+  * New: Process search option for name+cmdline+pid (Proceses)
+  * New: Option for searching processes by PID (Processes tab)
+  * Changed: Default process search option as name+cmdline+pid
+  * Updated Russian translations
+  * Updated dependency versions (Flatpak)
+  * Fix: Listing processes if sorting column is removed
+  * Fix: GPU performance information for some old GPUs
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 04 Jul 2023 09:50:00 +0300
+
 system-monitoring-center (2.19.0) unstable; urgency=medium
 
   * New: Show GPU usage option (Summary tab)

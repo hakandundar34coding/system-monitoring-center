@@ -1,5 +1,15 @@
 # System Monitoring Center
 
+### v2.20.0 (04.08.2023)
+  * New: Option for showing processes using max CPU (CPU tab)
+  * New: Process search option for name+cmdline+pid (Proceses)
+  * New: Option for searching processes by PID (Processes tab)
+  * Changed: Default process search option as name+cmdline+pid
+  * Updated Russian translations
+  * Updated dependency versions (Flatpak)
+  * Fix: Listing processes if sorting column is removed
+  * Fix: GPU performance information for some old GPUs
+
 ### v1.43.10 (02.08.2023)
   * Fix: Listing processes if sorting column is removed
 
