@@ -1166,11 +1166,6 @@ class Processes:
         self.filter_column = self.row_data_list[0][2] - 1
 
         self.initial_already_run = 1
-        command_list = ["pkexec", "sudo", "python3", "/home/asush/Masaüstü/test.py"]
-        if Libsysmon.get_environment_type() == "flatpak":
-            command_list = ["flatpak-spawn", "--host"] + command_list
-        ls_output = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)).stdout.decode().strip()
-        print(ls_output)
 
 
     def loop_func(self):
