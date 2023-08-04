@@ -2647,13 +2647,14 @@ def get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selec
         # the main thread and GUI for a very small time which stops the GUI for a very small time.
         threading.Thread(target=gpu_load_nvidia_func, daemon=True).start()
 
-        global gpu_tool_output
+        global gpu_tool_output, nvidia_smi_encoder_decoder
         try:
             check_value = gpu_tool_output
         except NameError:
             gpu_tool_output = "-"
+            nvidia_smi_encoder_decoder = 1
 
-        gpu_load_memory_frequency_power_dict = process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output)
+        gpu_load_memory_frequency_power_dict = process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output, nvidia_smi_encoder_decoder)
 
     # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
     elif device_vendor_id in ["v000010DE", "Nvidia"] and gpu_device_path.startswith("/sys/devices/") == True:
@@ -3107,7 +3108,7 @@ def gpu_load_nvidia_func():
             pass
 
 
-def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output):
+def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output, nvidia_smi_encoder_decoder):
     """
     Get values from command output if there was no error when running the command.
     """
