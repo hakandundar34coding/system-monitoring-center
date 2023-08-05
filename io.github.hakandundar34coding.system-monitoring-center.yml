@@ -56,5 +56,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/hakandundar34coding/system-monitoring-center.git
-        commit: 0dd43cb14acf865297db66a35f68bc1af293dfe7
+        commit: e0e326b35f512407a211f6c4f8531509b40fe606
 

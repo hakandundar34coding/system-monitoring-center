@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v2.20.2 (05.08.2023)
+  * Updated Russian translations
+  * Fix: GPU performance information for some old GPUs
+
 ### v2.20.1 (04.08.2023)
   * Removed unused code that prevents listing processes
   * Fix: GPU performance information for some old GPUs

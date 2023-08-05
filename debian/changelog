@@ -1,3 +1,10 @@
+system-monitoring-center (2.20.2) unstable; urgency=medium
+
+  * Updated Russian translations
+  * Fix: GPU performance information for some old GPUs
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 05 Jul 2023 10:50:00 +0300
+
 system-monitoring-center (2.20.1) unstable; urgency=medium
 
   * Removed unused code that prevents listing processes

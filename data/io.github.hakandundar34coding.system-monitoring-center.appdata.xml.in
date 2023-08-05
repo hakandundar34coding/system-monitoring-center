@@ -89,6 +89,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.20.2" date="2023-08-05">
+      <description>
+        <ul>
+          <li>Updated Russian translations</li>
+          <li>Fix: GPU performance information for some old GPUs</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.20.1" date="2023-08-04">
       <description>
         <ul>
