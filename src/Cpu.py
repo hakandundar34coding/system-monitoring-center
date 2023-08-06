@@ -167,7 +167,10 @@ class Cpu:
 
         # Get information
         cpu_core_min_frequency, cpu_core_max_frequency = Libsysmon.get_cpu_core_min_max_frequency(selected_cpu_core)
-        cpu_core_l1d_cache, cpu_core_l1i_cache, cpu_core_l2_cache, cpu_core_l3_cache = Libsysmon.get_cpu_core_l1_l2_l3_cache(selected_cpu_core)
+        if Config.show_cpu_cache_type == "socket":
+            cpu_l1d_cache, cpu_l1i_cache, cpu_l2_cache, cpu_l3_cache = Libsysmon.get_cpu_socket_l1_l2_l3_cache(selected_cpu_core)
+        elif Config.show_cpu_cache_type == "core":
+            cpu_l1d_cache, cpu_l1i_cache, cpu_l2_cache, cpu_l3_cache = Libsysmon.get_cpu_core_l1_l2_l3_cache(selected_cpu_core)
         cpu_architecture = Libsysmon.get_cpu_architecture()
 
 
@@ -175,15 +178,15 @@ class Cpu:
         show_cpu_usage_per_core = Config.show_cpu_usage_per_core
         if show_cpu_usage_per_core == 0:
             self.da_upper_left_label.set_label(_tr("CPU Usage (Average)"))
-        if show_cpu_usage_per_core == 1:
+        elif show_cpu_usage_per_core == 1:
             self.da_upper_left_label.set_label(_tr("CPU Usage (Per Core)"))
         if isinstance(cpu_core_max_frequency, str) is False:
             self.min_max_frequency_label.set_label(f'{cpu_core_min_frequency:.2f} - {cpu_core_max_frequency:.2f} GHz')
         else:
             self.min_max_frequency_label.set_label(f'{cpu_core_min_frequency} - {cpu_core_max_frequency}')
         self.architecture_label.set_label(cpu_architecture)
-        self.cache_l1d_l1i_label.set_label(f'{cpu_core_l1d_cache} - {cpu_core_l1i_cache}')
-        self.cache_l2_l3_label.set_label(f'{cpu_core_l2_cache} - {cpu_core_l3_cache}')
+        self.cache_l1d_l1i_label.set_label(f'{cpu_l1d_cache} - {cpu_l1i_cache}')
+        self.cache_l2_l3_label.set_label(f'{cpu_l2_cache} - {cpu_l3_cache}')
 
         self.initial_already_run = 1
 

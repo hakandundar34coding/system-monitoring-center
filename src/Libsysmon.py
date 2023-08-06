@@ -230,6 +230,26 @@ def get_number_of_processes():
     return processes_number_text
 
 
+def get_parsed_kernel_data_list(data_list):
+    """
+    Get Linux kernel data list after parsing it.
+    For example: CPU core list may be get as "0", "0-4", "4,5", "0-3,7".
+    They are get as list. For example: "0-3,7" > [0, 1, 2, 3, 7].
+    """
+
+    parsed_list = []
+    data_list = data_list.split(",")
+    for data_sub_list in data_list:
+        if "-" in data_sub_list:
+            list_range_start, list_range_end = data_sub_list.split("-")
+            data_sub_list_processed = list(range(int(list_range_start), int(list_range_end)+1))
+            parsed_list.extend(data_sub_list_processed)
+        else:
+            parsed_list.append(int(data_sub_list))
+
+    return parsed_list
+
+
 def get_device_vendor_model(modalias_output):
     """
     Get device vendor and model information.
@@ -1411,6 +1431,130 @@ def get_cpu_core_l1_l2_l3_cache(selected_cpu_core):
     return cpu_core_l1d_cache, cpu_core_l1i_cache, cpu_core_l2_cache, cpu_core_l3_cache
 
 
+def get_cpu_socket_l1_l2_l3_cache(selected_cpu_core):
+    """
+    Get L1i, L1d, L2, L3 cache memory values of the CPU socket of the selected CPU core.
+    """
+
+    # Get CPU core - CPU socket dictionary.
+    with open("/proc/cpuinfo") as reader:
+        proc_cpuinfo = reader.read()
+
+    # Get CPU core - CPU socket dictionary for x86_64 architecture.
+    if "physical id" in proc_cpuinfo:
+        proc_cpuinfo_core_line_blocks = proc_cpuinfo.split("\n\n")
+
+        cpu_core_socket_dict = {}
+        for core_line_block in proc_cpuinfo_core_line_blocks:
+            core_line_block_lines = core_line_block.split("\n")
+            for line in core_line_block_lines:
+                if line.startswith("processor\t:") == True:
+                    cpu_core_number = line.split(":")[-1].strip()
+                if line.startswith("physical id\t:") == True:
+                    cpu_socket_number = line.split(":")[-1].strip()
+            cpu_core_socket_dict[cpu_core_number] = cpu_socket_number
+
+        # Get CPU cores of CPU socket that contains selected CPU core.
+        selected_cpu_core_socket = cpu_core_socket_dict[selected_cpu_core.strip("cpu")]
+        selected_cpu_core_socket_core_list = []
+        for cpu_core in sorted(list(cpu_core_socket_dict.keys())):
+            if cpu_core_socket_dict[cpu_core] == selected_cpu_core_socket:
+                selected_cpu_core_socket_core_list.append("cpu" + cpu_core)
+
+    # Get CPU core - CPU socket dictionary for ARM architecture.
+    else:
+        number_of_logical_cores = get_number_of_logical_cores()
+        selected_cpu_core_socket_core_list = []
+        for core_number in list(range(number_of_logical_cores)):
+            selected_cpu_core_socket_core_list.append("cpu" + str(core_number))
+
+    # Get CPU core cache values
+    socket_cores_cache_dict = {}
+    cache_index_list = ["0", "1", "2", "3"]
+    for cpu_core in selected_cpu_core_socket_core_list:
+        core_caches_dict = {}
+        for cache_index in cache_index_list:
+            core_cache_dict = get_core_cache_dict(cpu_core, cache_index)
+            cache_level = core_cache_dict["cache_level"]
+            core_caches_dict[cache_level] = dict(core_cache_dict)
+        socket_cores_cache_dict[cpu_core] = core_caches_dict
+
+
+    cpu_socket_l1d_cache = get_cpu_socket_specific_cache(socket_cores_cache_dict, "L1d")
+    cpu_socket_l1i_cache = get_cpu_socket_specific_cache(socket_cores_cache_dict, "L1i")
+    cpu_socket_l2_cache = get_cpu_socket_specific_cache(socket_cores_cache_dict, "L2")
+    cpu_socket_l3_cache = get_cpu_socket_specific_cache(socket_cores_cache_dict, "L3")
+
+    return cpu_socket_l1d_cache, cpu_socket_l1i_cache, cpu_socket_l2_cache, cpu_socket_l3_cache
+
+
+def get_core_cache_dict(cpu_core, cache_index):
+    """
+    Get cache size, type, and level of the CPU core.
+    """
+
+    try:
+        with open("/sys/devices/system/cpu/" + cpu_core + "/cache/index" + cache_index + "/level") as reader:
+            cache_level = reader.read().strip()
+        with open("/sys/devices/system/cpu/" + cpu_core + "/cache/index" + cache_index + "/type") as reader:
+            cache_type = reader.read().strip()
+        with open("/sys/devices/system/cpu/" + cpu_core + "/cache/index" + cache_index + "/size") as reader:
+            cache_size = reader.read().strip()
+        with open("/sys/devices/system/cpu/" + cpu_core + "/cache/index" + cache_index + "/shared_cpu_list") as reader:
+            cache_shared_cpu_list = reader.read().strip()
+    except FileNotFoundError:
+        cache_level = "-"
+        cache_type = "-"
+        cache_size = "-"
+        cache_shared_cpu_list = "-"
+
+    if cache_level == "1" and cache_type == "Data":
+        cache_level = "L1d"
+    elif cache_level == "1" and cache_type == "Instruction":
+        cache_level = "L1i"
+    elif cache_level == "2":
+        cache_level = "L2"
+    elif cache_level == "3":
+        cache_level = "L3"
+
+    if cache_shared_cpu_list != "-":
+        cache_shared_cpu_list = get_parsed_kernel_data_list(cache_shared_cpu_list)
+
+    core_cache_dict = {
+                       "cache_level" : cache_level,
+                       "cache_type" : cache_type,
+                       "cache_size" : cache_size,
+                       "cache_shared_cpu_list" : cache_shared_cpu_list
+                       }
+
+    return core_cache_dict
+
+
+def get_cpu_socket_specific_cache(socket_cores_cache_dict, specified_cache_type):
+    """
+    Get total cache of CPU socket.
+    """
+
+    cache_size_cumulative = 0
+    cache_shared_cpu_list_all = []
+    selected_cpu_core_socket_core_list = sorted(list(socket_cores_cache_dict.keys()))
+    for cpu_core in selected_cpu_core_socket_core_list:
+        if cpu_core in cache_shared_cpu_list_all:
+            continue
+        core_caches_dict = socket_cores_cache_dict[cpu_core]
+        for cache_type in core_caches_dict:
+            core_cache_dict = core_caches_dict[cache_type]
+            if cache_type == specified_cache_type:
+                cache_size = core_cache_dict["cache_size"]
+                cache_size_cumulative = cache_size_cumulative + int(cache_size.strip("K"))
+                cache_shared_cpu_list = core_cache_dict["cache_shared_cpu_list"]
+                for shared_cpu_core in cache_shared_cpu_list:
+                    cache_shared_cpu_list_all.append("cpu" + str(shared_cpu_core))
+    cache_size_cumulative = str(cache_size_cumulative) + "K"
+
+    return cache_size_cumulative
+
+
 def get_cpu_architecture():
     """
     Get CPU architecture.
@@ -1483,7 +1627,7 @@ def get_number_of_physical_cores_sockets_cpu_name(selected_cpu_core, number_of_l
         cpu_model_name = cpu_model_names[cpu_core_number]
 
     # Get number of physical cores, number_of_cpu_sockets, cpu_model_names for "ARM" architecture.
-    #xPhysical and logical cores and model name per core information are not tracked easily on this platform.
+    # Physical and logical cores and model name per core information are not tracked easily on this platform.
     # Different ARM processors (v6, v7, v8 or models of same ARM vX processors) may have different information in "/proc/cpuinfo" file.
     else:
         cpu_model_names = []

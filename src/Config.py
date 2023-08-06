@@ -124,6 +124,7 @@ class Config:
         self.show_cpu_usage_per_core = 0
         self.performance_cpu_usage_percent_precision = 0
         self.show_processes_using_max_cpu = 0
+        self.show_cpu_cache_type = "socket"
         self.selected_cpu_core = ""
 
 
@@ -283,6 +284,10 @@ class Config:
             self.show_processes_using_max_cpu = int(config_values[config_variables.index("show_processes_using_max_cpu")])
         else:
             pass
+        if "show_cpu_cache_type" in config_variables:
+            self.show_cpu_cache_type = config_values[config_variables.index("show_cpu_cache_type")]
+        else:
+            pass
 
         self.chart_line_color_memory_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_memory_percent")].strip("[]").split(", ")]
         self.show_memory_usage_per_memory = int(config_values[config_variables.index("show_memory_usage_per_memory")])
@@ -377,6 +382,7 @@ class Config:
         config_write_text = config_write_text + "show_cpu_usage_per_core = " + str(self.show_cpu_usage_per_core) + "\n"
         config_write_text = config_write_text + "performance_cpu_usage_percent_precision = " + str(self.performance_cpu_usage_percent_precision) + "\n"
         config_write_text = config_write_text + "show_processes_using_max_cpu = " + str(self.show_processes_using_max_cpu) + "\n"
+        config_write_text = config_write_text + "show_cpu_cache_type = " + str(self.show_cpu_cache_type) + "\n"
         config_write_text = config_write_text + "selected_cpu_core = " + str(self.selected_cpu_core) + "\n"
         config_write_text = config_write_text + "\n"
 

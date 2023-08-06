@@ -93,9 +93,25 @@ class CpuMenu:
         separator = Common.menu_separator()
         main_grid.attach(separator, 0, 13, 1, 1)
 
+        # Label (Cache)
+        label = Common.title_label(_tr("Cache"))
+        main_grid.attach(label, 0, 14, 1, 1)
+
+        # CheckButton (CPU Usage (Average))
+        self.cpu_cache_socket_cb = Common.checkbutton(_tr("Per Socket"), None)
+        main_grid.attach(self.cpu_cache_socket_cb, 0, 15, 1, 1)
+
+        # CheckButton (CPU Usage (Per Core))
+        self.cpu_cache_core_cb = Common.checkbutton(_tr("Per Core"), self.cpu_cache_socket_cb)
+        main_grid.attach(self.cpu_cache_core_cb, 0, 16, 1, 1)
+
+        # Separator
+        separator = Common.menu_separator()
+        main_grid.attach(separator, 0, 17, 1, 1)
+
         # Button (Reset)
         self.reset_button = Common.reset_button()
-        main_grid.attach(self.reset_button, 0, 14, 1, 1)
+        main_grid.attach(self.reset_button, 0, 18, 1, 1)
 
         # Connect signals
         self.menu_po.connect("show", self.on_menu_po_show)
@@ -111,6 +127,8 @@ class CpuMenu:
         self.cpu_usage_per_core_cb.connect("toggled", self.on_cpu_usage_cb_toggled)
         self.cpu_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
         self.show_processes_using_max_cpu_cb.connect("toggled", self.on_show_processes_using_max_cpu_cb_toggled)
+        self.cpu_cache_socket_cb.connect("toggled", self.on_cpu_cache_cb_toggled)
+        self.cpu_cache_core_cb.connect("toggled", self.on_cpu_cache_cb_toggled)
 
 
     def disconnect_signals(self):
@@ -122,6 +140,8 @@ class CpuMenu:
         self.cpu_usage_per_core_cb.disconnect_by_func(self.on_cpu_usage_cb_toggled)
         self.cpu_precision_dd.disconnect_by_func(self.on_selected_item_notify)
         self.show_processes_using_max_cpu_cb.disconnect_by_func(self.on_show_processes_using_max_cpu_cb_toggled)
+        self.cpu_cache_socket_cb.disconnect_by_func(self.on_cpu_cache_cb_toggled)
+        self.cpu_cache_core_cb.disconnect_by_func(self.on_cpu_cache_cb_toggled)
 
 
     def on_menu_po_show(self, widget):
@@ -178,6 +198,20 @@ class CpuMenu:
         Common.save_tab_settings(Cpu)
 
 
+    def on_cpu_cache_cb_toggled(self, widget):
+        """
+        Show CPU cache memory values per socket/core.
+        """
+
+        if widget.get_active() == True:
+            if widget == self.cpu_cache_socket_cb:
+                Config.show_cpu_cache_type = "socket"
+            if widget == self.cpu_cache_core_cb:
+                Config.show_cpu_cache_type = "core"
+
+        Common.save_tab_settings(Cpu)
+
+
     def on_reset_button_clicked(self, widget):
         """
         Reset all tab settings.
@@ -214,6 +248,12 @@ class CpuMenu:
             self.show_processes_using_max_cpu_cb.set_active(True)
         if Config.show_processes_using_max_cpu == 0:
             self.show_processes_using_max_cpu_cb.set_active(False)
+
+        # Select checkbutton appropriate for CPU cache type setting
+        if Config.show_cpu_cache_type == "socket":
+            self.cpu_cache_socket_cb.set_active(True)
+        if Config.show_cpu_cache_type == "core":
+            self.cpu_cache_core_cb.set_active(True)
 
 
 CpuMenu = CpuMenu()
