@@ -120,14 +120,14 @@ class Cpu:
         performance_info_right_grid.attach(self.min_max_frequency_label, 1, 0, 1, 1)
 
         # Label (Cache (L1d-L1i))
-        label = Common.static_information_label(_tr("Cache (L1d-L1i)") + ":")
+        label = Common.static_information_label(_tr("Cache") + "(L1d-L1i)" + ":")
         performance_info_right_grid.attach(label, 0, 1, 1, 1)
         # Label (Cache (L1d-L1i))
         self.cache_l1d_l1i_label = Common.dynamic_information_label()
         performance_info_right_grid.attach(self.cache_l1d_l1i_label, 1, 1, 1, 1)
 
         # Label (Cache (L2-L3))
-        label = Common.static_information_label(_tr("Cache (L2-L3)") + ":")
+        label = Common.static_information_label(_tr("Cache") + "(L2-L3)" + ":")
         performance_info_right_grid.attach(label, 0, 2, 1, 1)
         # Label (Cache (L2-L3))
         self.cache_l2_l3_label = Common.dynamic_information_label()

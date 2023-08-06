@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 16:32+0300\n"
-"PO-Revision-Date: 2023-08-02 16:37+0300\n"
+"POT-Creation-Date: 2023-08-06 15:58+0300\n"
+"PO-Revision-Date: 2023-08-06 16:08+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -34,16 +34,12 @@ msgid "Multi-featured system monitor"
 msgstr "Moniteur système multi-fonctions"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
-#, fuzzy
-#| msgid ""
-#| "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
-#| "Processes;Users;Services;"
 msgid ""
 "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;"
 "Processes;Users;Services;"
 msgstr ""
 "moniteur système;gestionnaire de tâches;performance;cpu;ram;swap;mémoire;"
-"disque;réseau;processus;utilisateurs;services;"
+"disque;réseau;gpuprocessus;utilisateurs;services;"
 
 #: src/Common.py:197
 msgid "Reset"
@@ -85,7 +81,7 @@ msgstr "Modèle"
 msgid "Device Name In Kernel"
 msgstr "Nom du périphérique dans le noyau"
 
-#: src/Cpu.py:75 src/Cpu.py:177 src/CpuMenu.py:45 src/ProcessesDetails.py:266
+#: src/Cpu.py:75 src/Cpu.py:180 src/CpuMenu.py:45 src/ProcessesDetails.py:266
 msgid "CPU Usage (Average)"
 msgstr "Utilisation du CPU (moyenne)"
 
@@ -121,13 +117,9 @@ msgstr "Temps d'utilisation"
 msgid "Min-Max Frequency"
 msgstr "Fréquence Min-Max"
 
-#: src/Cpu.py:123
-msgid "Cache (L1d-L1i)"
-msgstr "Cache (L1d-L1i)"
-
-#: src/Cpu.py:130
-msgid "Cache (L2-L3)"
-msgstr "Cache (L2-L3)"
+#: src/Cpu.py:123 src/Cpu.py:130 src/CpuMenu.py:97
+msgid "Cache"
+msgstr ""
 
 #: src/Cpu.py:137
 msgid "CPU Sockets"
@@ -145,7 +137,7 @@ msgstr "Nombre de cœurs de CPU physiques et logiques en ligne"
 msgid "Architecture"
 msgstr "Architecture"
 
-#: src/Cpu.py:179 src/CpuMenu.py:49
+#: src/Cpu.py:182 src/CpuMenu.py:49
 msgid "CPU Usage (Per Core)"
 msgstr "Utilisation du CPU (par cœur)"
 
@@ -166,6 +158,14 @@ msgstr ""
 #: src/NetworkMenu.py:73 src/ProcessesMenu.py:282
 msgid "Precision"
 msgstr "Précision"
+
+#: src/CpuMenu.py:101
+msgid "Socket"
+msgstr ""
+
+#: src/CpuMenu.py:105
+msgid "Selected Core"
+msgstr ""
 
 #: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
 #: src/DiskMenu.py:37 src/DiskMenu.py:112 src/MainWindow.py:146

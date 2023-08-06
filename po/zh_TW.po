@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 16:32+0300\n"
-"PO-Revision-Date: 2023-08-02 16:35+0300\n"
+"POT-Creation-Date: 2023-08-06 15:58+0300\n"
+"PO-Revision-Date: 2023-08-06 16:00+0300\n"
 "Last-Translator: csc-chicken <k2205940@gmail.com>, 2023.\n"
 "Language-Team: Traditional-Chinese(Taiwan num1)) <k2205940@gmail.com>, "
 "2023.\n"
@@ -87,7 +87,7 @@ msgstr "模型"
 msgid "Device Name In Kernel"
 msgstr "在內核中的裝置名稱"
 
-#: src/Cpu.py:75 src/Cpu.py:177 src/CpuMenu.py:45 src/ProcessesDetails.py:266
+#: src/Cpu.py:75 src/Cpu.py:180 src/CpuMenu.py:45 src/ProcessesDetails.py:266
 msgid "CPU Usage (Average)"
 msgstr "CPU用量"
 
@@ -123,13 +123,9 @@ msgstr "上線時間"
 msgid "Min-Max Frequency"
 msgstr "Min-Max 頻率"
 
-#: src/Cpu.py:123
-msgid "Cache (L1d-L1i)"
-msgstr "Cache (L1d-L1i)"
-
-#: src/Cpu.py:130
-msgid "Cache (L2-L3)"
-msgstr "Cache (L2-L3)"
+#: src/Cpu.py:123 src/Cpu.py:130 src/CpuMenu.py:97
+msgid "Cache"
+msgstr ""
 
 #: src/Cpu.py:137
 msgid "CPU Sockets"
@@ -147,7 +143,7 @@ msgstr "在線的實體與邏輯核心的數量"
 msgid "Architecture"
 msgstr "架構"
 
-#: src/Cpu.py:179 src/CpuMenu.py:49
+#: src/Cpu.py:182 src/CpuMenu.py:49
 msgid "CPU Usage (Per Core)"
 msgstr "CPU-用量（每個核心）"
 
@@ -168,6 +164,14 @@ msgstr ""
 #: src/NetworkMenu.py:73 src/ProcessesMenu.py:282
 msgid "Precision"
 msgstr "精度"
+
+#: src/CpuMenu.py:101
+msgid "Socket"
+msgstr ""
+
+#: src/CpuMenu.py:105
+msgid "Selected Core"
+msgstr ""
 
 #: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
 #: src/DiskMenu.py:37 src/DiskMenu.py:112 src/MainWindow.py:146

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 16:32+0300\n"
-"PO-Revision-Date: 2023-08-02 16:38+0300\n"
+"POT-Creation-Date: 2023-08-06 15:58+0300\n"
+"PO-Revision-Date: 2023-08-06 16:14+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -79,7 +79,7 @@ msgstr "Model"
 msgid "Device Name In Kernel"
 msgstr "Jméno zařízení v jádře"
 
-#: src/Cpu.py:75 src/Cpu.py:177 src/CpuMenu.py:45 src/ProcessesDetails.py:266
+#: src/Cpu.py:75 src/Cpu.py:180 src/CpuMenu.py:45 src/ProcessesDetails.py:266
 msgid "CPU Usage (Average)"
 msgstr "Využití CPU (Průměr)"
 
@@ -115,13 +115,9 @@ msgstr "Doba provozu"
 msgid "Min-Max Frequency"
 msgstr "Min-Max Frekvence"
 
-#: src/Cpu.py:123
-msgid "Cache (L1d-L1i)"
-msgstr "Cache (L1d-L1i)"
-
-#: src/Cpu.py:130
-msgid "Cache (L2-L3)"
-msgstr "Cache (L2-L3)"
+#: src/Cpu.py:123 src/Cpu.py:130 src/CpuMenu.py:97
+msgid "Cache"
+msgstr "Cache"
 
 #: src/Cpu.py:137
 msgid "CPU Sockets"
@@ -139,7 +135,7 @@ msgstr "Počet fyzických a logických procesorových jader"
 msgid "Architecture"
 msgstr "Architektura"
 
-#: src/Cpu.py:179 src/CpuMenu.py:49
+#: src/Cpu.py:182 src/CpuMenu.py:49
 msgid "CPU Usage (Per Core)"
 msgstr "Využití CPU (jednotlivá jádra)"
 
@@ -160,6 +156,14 @@ msgstr ""
 #: src/NetworkMenu.py:73 src/ProcessesMenu.py:282
 msgid "Precision"
 msgstr "Preciznost"
+
+#: src/CpuMenu.py:101
+msgid "Socket"
+msgstr ""
+
+#: src/CpuMenu.py:105
+msgid "Selected Core"
+msgstr ""
 
 #: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
 #: src/DiskMenu.py:37 src/DiskMenu.py:112 src/MainWindow.py:146
