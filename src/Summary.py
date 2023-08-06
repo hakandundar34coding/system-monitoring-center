@@ -299,7 +299,7 @@ class Summary:
             GLib.idle_add(Gpu.loop_func)
 
             try:
-                gpu_usage_text = f'{Gpu.gpu_load_list[-1]}%'
+                gpu_usage_text = f'{Gpu.gpu_load_list[-1]:.0f}%'
             except AttributeError:
                 gpu_usage_text = "-"
 
