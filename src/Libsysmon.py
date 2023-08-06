@@ -1389,7 +1389,7 @@ def get_cpu_core_l1_l2_l3_cache(selected_cpu_core):
         with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index0/size") as reader:
             cache_size = reader.read().strip()
         if cache_level == "1" and cache_type == "Data":
-            cpu_core_l1d_cache = cache_size
+            cpu_core_l1d_cache = int(cache_size.strip("K"))
     except FileNotFoundError:
         cpu_core_l1d_cache = "-"
 
@@ -1402,7 +1402,7 @@ def get_cpu_core_l1_l2_l3_cache(selected_cpu_core):
         with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/size") as reader:
             cache_size = reader.read().strip()
         if cache_level == "1" and cache_type == "Instruction":
-            cpu_core_l1i_cache = cache_size
+            cpu_core_l1i_cache = int(cache_size.strip("K"))
     except FileNotFoundError:
         cpu_core_l1i_cache = "-"
 
@@ -1413,7 +1413,7 @@ def get_cpu_core_l1_l2_l3_cache(selected_cpu_core):
         with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index2/size") as reader:
             cache_size = reader.read().strip()
         if cache_level == "2":
-            cpu_core_l2_cache = cache_size
+            cpu_core_l2_cache = int(cache_size.strip("K"))
     except FileNotFoundError:
         cpu_core_l2_cache = "-"
 
@@ -1424,9 +1424,18 @@ def get_cpu_core_l1_l2_l3_cache(selected_cpu_core):
         with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index3/size") as reader:
             cache_size = reader.read().strip()
         if cache_level == "3":
-            cpu_core_l3_cache = cache_size
+            cpu_core_l3_cache = int(cache_size.strip("K"))
     except FileNotFoundError:
         cpu_core_l3_cache = "-"
+
+    if cpu_core_l1d_cache != "-":
+        cpu_core_l1d_cache = convert_cpu_cache_data_unit(cpu_core_l1d_cache)
+    if cpu_core_l1i_cache != "-":
+        cpu_core_l1i_cache = convert_cpu_cache_data_unit(cpu_core_l1i_cache)
+    if cpu_core_l2_cache != "-":
+        cpu_core_l2_cache = convert_cpu_cache_data_unit(cpu_core_l2_cache)
+    if cpu_core_l3_cache != "-":
+        cpu_core_l3_cache = convert_cpu_cache_data_unit(cpu_core_l3_cache)
 
     return cpu_core_l1d_cache, cpu_core_l1i_cache, cpu_core_l2_cache, cpu_core_l3_cache
 
@@ -1550,9 +1559,28 @@ def get_cpu_socket_specific_cache(socket_cores_cache_dict, specified_cache_type)
                 cache_shared_cpu_list = core_cache_dict["cache_shared_cpu_list"]
                 for shared_cpu_core in cache_shared_cpu_list:
                     cache_shared_cpu_list_all.append("cpu" + str(shared_cpu_core))
-    cache_size_cumulative = str(cache_size_cumulative) + "K"
+    #cache_size_cumulative = str(cache_size_cumulative) + "K"
+    cache_size_cumulative = convert_cpu_cache_data_unit(cache_size_cumulative)
 
     return cache_size_cumulative
+
+
+def convert_cpu_cache_data_unit(cache_size):
+
+    for data_unit in ["KiB", "MiB", "GiB"]:
+        if cache_size < 1024:
+            break
+        cache_size = cache_size / 1024
+
+    cache_size_str = str(cache_size)
+    if "." in cache_size_str and cache_size_str.split(".")[-1] != "0":
+        cache_size = f'{cache_size:.1f}'
+    else:
+        cache_size = f'{cache_size:.0f}'
+
+    cache_size = str(cache_size) + " " + data_unit
+
+    return cache_size
 
 
 def get_cpu_architecture():

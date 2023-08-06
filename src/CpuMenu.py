@@ -98,11 +98,11 @@ class CpuMenu:
         main_grid.attach(label, 0, 14, 1, 1)
 
         # CheckButton (CPU Usage (Average))
-        self.cpu_cache_socket_cb = Common.checkbutton(_tr("Per Socket"), None)
+        self.cpu_cache_socket_cb = Common.checkbutton(_tr("Socket"), None)
         main_grid.attach(self.cpu_cache_socket_cb, 0, 15, 1, 1)
 
         # CheckButton (CPU Usage (Per Core))
-        self.cpu_cache_core_cb = Common.checkbutton(_tr("Per Core"), self.cpu_cache_socket_cb)
+        self.cpu_cache_core_cb = Common.checkbutton(_tr("Selected Core"), self.cpu_cache_socket_cb)
         main_grid.attach(self.cpu_cache_core_cb, 0, 16, 1, 1)
 
         # Separator
