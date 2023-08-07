@@ -7,5 +7,10 @@ For uninstalling Python (PyPI) package:
 - Removing files for system integration:
   - Delete `io.github.hakandundar34coding.system-monitoring-center.desktop` file in `/home/[USERNAME]/.local/share/applications/`
   - Delete `system-monitoring-center.svg` in `/home/[USERNAME]/.local/share/icons/hicolor/scalable/apps/`
-  - Delete `.svg` files that start with `system-monitoring-center-` in `/home/[USERNAME]/.local/share/icons/hicolor/scalable/actions/`
-
+  - Delete `.svg` files that start with `system-monitoring-center-` in `/home/[USERNAME]/.local/share/icons/hicolor/scalable/actions/
+  `
+```bash
+rm /home/$USER/.local/share/applications/io.github.hakandundar34coding.system-monitoring-center.desktop
+rm /home/$USER/.local/share/applications/com.github.hakand34.system-monitoring-center.desktop
+rm /home/$USER/.local/share/icons/hicolor/scalable/apps/system-monitoring-center*
+```
