@@ -58,7 +58,7 @@ class CpuMenu:
         main_grid.attach(self.show_processes_using_max_cpu_cb, 0, 5, 1, 1)
 
         # Label (This increases CPU usage.)
-        label = Common.static_information_label(_tr("This increases CPU usage."))
+        label = Common.static_information_label(_tr("This increases CPU usage.") + "\n" + _tr("(for all tabs)"))
         label.set_margin_start(25)
         main_grid.attach(label, 0, 6, 1, 1)
 

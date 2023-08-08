@@ -108,7 +108,7 @@ class Performance:
             self.max_cpu_usage_process_name_list = ["-"] * chart_data_history
             self.max_cpu_usage_process_pid_list = ["-"] * chart_data_history
 
-        # Prevent the running code for getting processes that consume max CPU resources for lower CPU usage if CPU tab is not opened.
+        """# Prevent the running code for getting processes that consume max CPU resources for lower CPU usage if CPU tab is not opened.
         if Config.current_main_tab != 0 or Config.performance_tab_current_sub_tab != 1:
             self.max_cpu_usage_list.append(0)
             self.max_cpu_usage_process_name_list.append("-")
@@ -116,7 +116,7 @@ class Performance:
             del self.max_cpu_usage_list[0]
             del self.max_cpu_usage_process_name_list[0]
             del self.max_cpu_usage_process_pid_list[0]
-            return
+            return"""
 
         process_list = []
         processes_of_user = "all"
