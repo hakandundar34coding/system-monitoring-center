@@ -162,11 +162,11 @@ msgstr "Точность"
 
 #: src/CpuMenu.py:101
 msgid "Socket"
-msgstr ""
+msgstr "Сокет"
 
 #: src/CpuMenu.py:105
 msgid "Selected Core"
-msgstr ""
+msgstr "Выбранные Ядра"
 
 #: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
 #: src/DiskMenu.py:37 src/DiskMenu.py:112 src/MainWindow.py:146
