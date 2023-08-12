@@ -58,7 +58,7 @@ class CpuMenu:
         main_grid.attach(self.show_processes_using_max_cpu_cb, 0, 5, 1, 1)
 
         # Label (This increases CPU usage.)
-        label = Common.static_information_label(_tr("This increases CPU usage.") + "\n" + _tr("(for all tabs)"))
+        label = Common.static_information_label(_tr("This increases CPU usage.") + "\n" + "(" + _tr("for all tabs") + ")")
         label.set_margin_start(25)
         main_grid.attach(label, 0, 6, 1, 1)
 
@@ -98,11 +98,11 @@ class CpuMenu:
         main_grid.attach(label, 0, 14, 1, 1)
 
         # CheckButton (CPU Usage (Average))
-        self.cpu_cache_socket_cb = Common.checkbutton(_tr("Socket"), None)
+        self.cpu_cache_socket_cb = Common.checkbutton(_tr("CPU Socket"), None)
         main_grid.attach(self.cpu_cache_socket_cb, 0, 15, 1, 1)
 
         # CheckButton (CPU Usage (Per Core))
-        self.cpu_cache_core_cb = Common.checkbutton(_tr("Selected Core"), self.cpu_cache_socket_cb)
+        self.cpu_cache_core_cb = Common.checkbutton(_tr("Selected CPU Core"), self.cpu_cache_socket_cb)
         main_grid.attach(self.cpu_cache_core_cb, 0, 16, 1, 1)
 
         # Separator
