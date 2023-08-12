@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-06 15:58+0300\n"
-"PO-Revision-Date: 2023-08-06 16:04+0300\n"
+"POT-Creation-Date: 2023-08-12 10:32+0300\n"
+"PO-Revision-Date: 2023-08-12 10:37+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -34,16 +34,12 @@ msgid "Multi-featured system monitor"
 msgstr "Monitor de Sistema com vários recursos"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
-#, fuzzy
-#| msgid ""
-#| "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;"
-#| "Processes;Users;Services;"
 msgid ""
 "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;"
 "Processes;Users;Services;"
 msgstr ""
 "Monitor de Sistema;Gerenciador de Tarefas;Desempenho;CPU;RAM;Swap;Memória;"
-"Disco;Rede;Processos;Usuários;Serviços;"
+"Disco;Rede;GPU;Processos;Usuários;Serviços;"
 
 #: src/Common.py:197
 msgid "Reset"
@@ -158,17 +154,21 @@ msgstr ""
 msgid "This increases CPU usage."
 msgstr ""
 
+#: src/CpuMenu.py:61
+msgid "for all tabs"
+msgstr ""
+
 #: src/CpuMenu.py:78 src/DiskMenu.py:73 src/MemoryMenu.py:65
 #: src/NetworkMenu.py:73 src/ProcessesMenu.py:282
 msgid "Precision"
 msgstr "Precisão"
 
 #: src/CpuMenu.py:101
-msgid "Socket"
+msgid "CPU Socket"
 msgstr ""
 
 #: src/CpuMenu.py:105
-msgid "Selected Core"
+msgid "Selected CPU Core"
 msgstr ""
 
 #: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
