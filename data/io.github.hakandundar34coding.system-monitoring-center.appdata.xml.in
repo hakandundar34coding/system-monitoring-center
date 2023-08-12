@@ -89,6 +89,17 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.21.0" date="2023-08-12">
+      <description>
+        <ul>
+          <li>New: CPU cache options for core and socket (CPU tab)</li>
+          <li>Improvements for CPU cache values (CPU tab)</li>
+          <li>Improvements for showing processes using max CPU (CPU tab)</li>
+          <li>Minor improvements (Summary tab)</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.20.2" date="2023-08-05">
       <description>
         <ul>

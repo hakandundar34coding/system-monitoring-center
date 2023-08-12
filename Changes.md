@@ -1,5 +1,12 @@
 # System Monitoring Center
 
+### v2.21.0 (12.08.2023)
+  * New: CPU cache options for core and socket (CPU tab)
+  * Improvements for CPU cache values (CPU tab)
+  * Improvements for showing processes using max CPU (CPU tab)
+  * Minor improvements (Summary tab)
+  * Updated translations
+
 ### v2.20.2 (05.08.2023)
   * Updated Russian translations
   * Fix: GPU performance information for some old GPUs

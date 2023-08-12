@@ -1,16 +1,26 @@
+system-monitoring-center (2.21.0) unstable; urgency=medium
+
+  * New: CPU cache options for core and socket (CPU tab)
+  * Improvements for CPU cache values (CPU tab)
+  * Improvements for showing processes using max CPU (CPU tab)
+  * Minor improvements (Summary tab)
+  * Updated translations
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 12 Aug 2023 10:50:00 +0300
+
 system-monitoring-center (2.20.2) unstable; urgency=medium
 
   * Updated Russian translations
   * Fix: GPU performance information for some old GPUs
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 05 Jul 2023 10:50:00 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 05 Aug 2023 10:50:00 +0300
 
 system-monitoring-center (2.20.1) unstable; urgency=medium
 
   * Removed unused code that prevents listing processes
   * Fix: GPU performance information for some old GPUs
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 04 Jul 2023 15:05:00 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 04 Aug 2023 15:05:00 +0300
 
 system-monitoring-center (2.20.0) unstable; urgency=medium
 
@@ -23,7 +33,7 @@ system-monitoring-center (2.20.0) unstable; urgency=medium
   * Fix: Listing processes if sorting column is removed
   * Fix: GPU performance information for some old GPUs
 
- -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 04 Jul 2023 09:50:00 +0300
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 04 Aug 2023 09:50:00 +0300
 
 system-monitoring-center (2.19.0) unstable; urgency=medium
 
