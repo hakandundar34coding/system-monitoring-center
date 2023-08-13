@@ -1,3 +1,9 @@
+system-monitoring-center (2.21.1) unstable; urgency=medium
+
+  * Minor improvements
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 13 Aug 2023 10:25:00 +0300
+
 system-monitoring-center (2.21.0) unstable; urgency=medium
 
   * New: CPU cache options for core and socket (CPU tab)

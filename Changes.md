@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v2.21.1 (13.08.2023)
+  * Minor improvements
+
 ### v2.21.0 (12.08.2023)
   * New: CPU cache options for core and socket (CPU tab)
   * Improvements for CPU cache values (CPU tab)
