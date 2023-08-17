@@ -1073,11 +1073,14 @@ def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, upd
     tab_data_rows_row_length = len(tab_data_rows[0])
     if len(piter_list) > 0:
         for i, j in updated_existing_row_index:
-            if tab_data_rows[i] != tab_data_rows_prev[j]:
-                # Start from "1" in order to set first element (treeview row visibility data) as "True" in every loop.
+            row_data = tab_data_rows[i]
+            row_data_prev = tab_data_rows_prev[j]
+            if row_data != row_data_prev:
+                # Start from "1" in order to not to set first element (treeview row visibility data) as "True" in every loop.
                 for k in range(1, tab_data_rows_row_length):
-                    if tab_data_rows_prev[j][k] != tab_data_rows[i][k]:
-                        treestore.set_value(piter_list[j], k, tab_data_rows[i][k])
+                    cell_data = row_data[k]
+                    if row_data_prev[k] != cell_data:
+                        treestore.set_value(piter_list[j], k, cell_data)
     if len(deleted_rows) > 0:
         for row in reversed(sorted(list(deleted_rows))):
             treestore.remove(piter_list[row_id_list_prev.index(row)])
