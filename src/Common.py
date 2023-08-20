@@ -1063,6 +1063,15 @@ def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, upd
     Add/Remove/Update treestore rows.
     """
 
+    # Get sort column and sort order (they will be used for restoring the current sort column and sort order) before
+    # disabling sorting of TreeModelSort for preventing unusable expanding/collapsing arrows of TreeView.
+    # Because, the model sorts the rows while the model data is modified.
+    sort_model = TabObject.treeview.get_model()
+    sort_column_id, sort_order = sort_model.get_sort_column_id()
+    #sort_model.freeze_notify()
+    sort_model.set_sort_column_id(-1, 0)
+    sort_model.reset_default_sort_func()
+
     treestore = TabObject.treestore
     piter_list = TabObject.piter_list
     searchentry = TabObject.searchentry
@@ -1106,6 +1115,9 @@ def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, upd
                 piter_list.insert(pid_index, treestore.insert(None, pid_index, tab_data_rows[pid_index]))
         # Update search results
         on_searchentry_changed(searchentry)
+
+    # Restore sort column and sort order
+    sort_model.set_sort_column_id(sort_column_id, sort_order)
 
 
 def treeview_reorder_columns_sort_rows_set_column_widths(TabObject):
