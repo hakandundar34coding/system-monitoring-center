@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-12 10:32+0300\n"
-"PO-Revision-Date: 2023-08-12 10:41+0300\n"
+"POT-Creation-Date: 2023-09-05 09:16+0300\n"
+"PO-Revision-Date: 2023-09-05 09:31+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
 #: src/MainWindow.py:66 src/MainWindow.py:516
@@ -60,7 +60,7 @@ msgstr "Hledat..."
 #: src/ProcessesDetails.py:65 src/ProcessesDetails.py:157
 #: src/ProcessesDetails.py:284 src/ProcessesMenu.py:178
 #: src/ProcessesMenu.py:246 src/ProcessesMenu.py:287 src/ProcessesMenu.py:328
-#: src/SettingsWindow.py:30 src/Summary.py:941 src/Users.py:240
+#: src/SettingsWindow.py:30 src/Summary.py:911 src/Users.py:240
 #: src/UsersDetails.py:165 src/UsersMenu.py:127
 msgid "CPU"
 msgstr "CPU"
@@ -97,7 +97,7 @@ msgstr "Frekvence"
 
 #: src/Cpu.py:107 src/MainWindow.py:201 src/Processes.py:81
 #: src/Processes.py:502 src/Processes.py:1366 src/ProcessesMenu.py:33
-#: src/SettingsWindow.py:29 src/Summary.py:975 src/Users.py:235
+#: src/SettingsWindow.py:29 src/Summary.py:945 src/Users.py:235
 #: src/UsersDetails.py:115 src/UsersMenu.py:107
 msgid "Processes"
 msgstr "Procesy"
@@ -170,21 +170,21 @@ msgid "Selected CPU Core"
 msgstr ""
 
 #: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
-#: src/DiskMenu.py:37 src/DiskMenu.py:112 src/MainWindow.py:146
-#: src/MainWindow.py:297 src/ProcessesDetails.py:75 src/ProcessesMenu.py:309
-#: src/ProcessesMenu.py:367 src/SettingsWindow.py:30
+#: src/DiskMenu.py:37 src/DiskMenu.py:112 src/Libsysmon.py:2091
+#: src/MainWindow.py:146 src/MainWindow.py:297 src/ProcessesDetails.py:75
+#: src/ProcessesMenu.py:309 src/ProcessesMenu.py:367 src/SettingsWindow.py:30
 msgid "Disk"
 msgstr "Disk"
 
 #: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:1123
 #: src/ProcessesDetails.py:177 src/ProcessesDetails.py:472
-#: src/ProcessesDetails.py:490 src/ProcessesMenu.py:206 src/Summary.py:1148
+#: src/ProcessesDetails.py:490 src/ProcessesMenu.py:206 src/Summary.py:1118
 msgid "Read Speed"
 msgstr "Rychlost čtení"
 
 #: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1124
 #: src/ProcessesDetails.py:187 src/ProcessesDetails.py:472
-#: src/ProcessesDetails.py:500 src/ProcessesMenu.py:210 src/Summary.py:1167
+#: src/ProcessesDetails.py:500 src/ProcessesMenu.py:210 src/Summary.py:1137
 msgid "Write Speed"
 msgstr "Rychlost zápisu"
 
@@ -206,8 +206,8 @@ msgstr ""
 msgid "System Disk"
 msgstr "Systémový disk"
 
-#: src/Disk.py:127 src/Disk.py:149 src/Disk.py:295 src/Memory.py:107
-#: src/Memory.py:145 src/Memory.py:157
+#: src/Disk.py:127 src/Disk.py:149 src/Disk.py:295 src/Libsysmon.py:2035
+#: src/Memory.py:107 src/Memory.py:145 src/Memory.py:157
 msgid "Used"
 msgstr "Použito"
 
@@ -215,7 +215,8 @@ msgstr "Použito"
 msgid "Free"
 msgstr "Volno"
 
-#: src/Disk.py:156 src/Disk.py:265 src/Disk.py:275 src/Memory.py:119
+#: src/Disk.py:156 src/Disk.py:265 src/Disk.py:275 src/Libsysmon.py:1968
+#: src/Libsysmon.py:1988 src/Libsysmon.py:2034 src/Memory.py:119
 #: src/Memory.py:172 src/Memory.py:333
 msgid "Capacity"
 msgstr "Kapacita"
@@ -233,7 +234,8 @@ msgstr "Zobrazit..."
 msgid "Parent Name"
 msgstr "Jméno rodiče"
 
-#: src/Disk.py:245 src/ServicesDetails.py:210
+#: src/Disk.py:245 src/Libsysmon.py:1969 src/Libsysmon.py:1989
+#: src/Libsysmon.py:2033 src/ServicesDetails.py:210
 msgid "Type"
 msgstr "Typ"
 
@@ -280,7 +282,7 @@ msgid "Hide loop, ramdisk, zram disks"
 msgstr "Skrýt zařízení loop, ramdisk a zram"
 
 #: src/Gpu.py:58 src/Gpu.py:289 src/Gpu.py:319 src/Gpu.py:500 src/GpuMenu.py:36
-#: src/MainWindow.py:307 src/SettingsWindow.py:30 src/Summary.py:467
+#: src/MainWindow.py:307 src/SettingsWindow.py:30 src/Summary.py:446
 msgid "GPU"
 msgstr "GPU"
 
@@ -344,13 +346,100 @@ msgstr "Obnovovací frekvence"
 msgid "Resolution"
 msgstr "Rozlišení"
 
+#: src/Libsysmon.py:1726 src/Libsysmon.py:2127 src/Libsysmon.py:2128
+#: src/Libsysmon.py:2154 src/Libsysmon.py:2156 src/Libsysmon.py:2428
+#: src/Libsysmon.py:2430 src/Libsysmon.py:2524 src/Libsysmon.py:2544
+#: src/Libsysmon.py:2747 src/Libsysmon.py:2749
+msgid "Unknown"
+msgstr ""
+
+#: src/Libsysmon.py:1927
+msgid "Maximum Capacity"
+msgstr ""
+
+#: src/Libsysmon.py:1928
+msgid "Number Of Devices"
+msgstr ""
+
+#: src/Libsysmon.py:1970 src/Libsysmon.py:1990
+msgid "Speed"
+msgstr ""
+
+#: src/Libsysmon.py:1971 src/Libsysmon.py:1991
+msgid "Manufacturer"
+msgstr ""
+
+#: src/Libsysmon.py:1972 src/Libsysmon.py:1992
+msgid "Form Factor"
+msgstr ""
+
+#: src/Libsysmon.py:1973 src/Libsysmon.py:1993
+msgid "Locator"
+msgstr ""
+
+#: src/Libsysmon.py:1974 src/Libsysmon.py:1994
+msgid "Bank Locator"
+msgstr ""
+
+#: src/Libsysmon.py:2032 src/Processes.py:318 src/Processes.py:1113
+#: src/ProcessesDetails.py:107 src/ProcessesMenu.py:158 src/Sensors.py:113
+#: src/Services.py:512 src/ServicesDetails.py:88 src/ServicesMenu.py:85
+#: src/System.py:109 src/System.py:215
+msgid "Name"
+msgstr "Jméno"
+
+#: src/Libsysmon.py:2036 src/Processes.py:1125 src/ProcessesDetails.py:147
+#: src/ProcessesMenu.py:214
+msgid "Priority"
+msgstr "Priorita"
+
+#: src/Libsysmon.py:2078 src/Libsysmon.py:2093 src/Memory.py:322
+msgid "Partition"
+msgstr "Oddíl"
+
+#: src/Libsysmon.py:2172 src/Performance.py:189 src/Summary.py:962
+msgid "Swap"
+msgstr "Swap"
+
+#: src/Libsysmon.py:2263 src/Libsysmon.py:2264 src/Libsysmon.py:2265
+#: src/Libsysmon.py:2266 src/Libsysmon.py:2268 src/MainWindow.py:983
+msgid "Not mounted"
+msgstr "Nepřipojeno"
+
+#: src/Libsysmon.py:2358 src/Libsysmon.py:2520 src/Libsysmon.py:2568
+#: src/Libsysmon.py:2665 src/Libsysmon.py:2668 src/Services.py:536
+#: src/UsersDetails.py:255
+msgid "Yes"
+msgstr "Ano"
+
+#: src/Libsysmon.py:2360 src/Libsysmon.py:2522 src/Libsysmon.py:2670
+#: src/Services.py:536 src/UsersDetails.py:257
+msgid "No"
+msgstr "Ne"
+
+#: src/Libsysmon.py:2439
+msgid "Virtual Network Interface"
+msgstr ""
+
+#: src/Libsysmon.py:2450
+msgid "Ethernet"
+msgstr ""
+
+#: src/Libsysmon.py:2452
+msgid "Wi-Fi"
+msgstr ""
+
+#: src/Libsysmon.py:4916
+msgid "Virtual Machine"
+msgstr ""
+
 #: src/MainWindow.py:108
 msgid "Customization menu for the current tab"
 msgstr ""
 
 #: src/MainWindow.py:142 src/MainWindow.py:844 src/Memory.py:102
 #: src/Memory.py:333 src/MemoryMenu.py:45 src/Performance.py:185
-#: src/Performance.py:189 src/Summary.py:958
+#: src/Performance.py:189 src/Summary.py:928
 msgid "RAM"
 msgstr "RAM"
 
@@ -414,10 +503,6 @@ msgstr "Výběr CPU jádra ovlivňuje pouze informace o frekvenci a paměti cach
 msgid "Swap Memory"
 msgstr "SWAP paměť"
 
-#: src/MainWindow.py:983
-msgid "Not mounted"
-msgstr "Nepřipojeno"
-
 #: src/MainWindow.py:1057
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
@@ -442,21 +527,17 @@ msgstr "Hardware"
 msgid "Physical RAM"
 msgstr "Fyzická RAM"
 
-#: src/Memory.py:322
-msgid "Partition"
-msgstr "Oddíl"
-
 #: src/Memory.py:322 src/ProcessesDetails.py:80
 msgid "File"
 msgstr "Soubor"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:45
-#: src/Summary.py:1187
+#: src/Summary.py:1157
 msgid "Download Speed"
 msgstr "Rychlost stahování"
 
 #: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:49
-#: src/Summary.py:1207
+#: src/Summary.py:1177
 msgid "Upload Speed"
 msgstr "Rychlost nahrávání"
 
@@ -495,10 +576,6 @@ msgstr "IPv6 Adresa"
 #: src/Network.py:151
 msgid "MAC Address"
 msgstr "MAC Adresa"
-
-#: src/Performance.py:189 src/Summary.py:992
-msgid "Swap"
-msgstr "Swap"
 
 #: src/Performance.py:955
 msgid "Max"
@@ -555,13 +632,6 @@ msgstr ""
 #: src/Processes.py:314
 msgid "All"
 msgstr ""
-
-#: src/Processes.py:318 src/Processes.py:1113 src/ProcessesDetails.py:107
-#: src/ProcessesMenu.py:158 src/Sensors.py:113 src/Services.py:512
-#: src/ServicesDetails.py:88 src/ServicesMenu.py:85 src/System.py:109
-#: src/System.py:215
-msgid "Name"
-msgstr "Jméno"
 
 #: src/Processes.py:322 src/Processes.py:1131 src/ProcessesDetails.py:584
 #: src/ProcessesMenu.py:238
@@ -629,10 +699,6 @@ msgstr "Paměť (VMS)"
 #: src/Processes.py:1120 src/ProcessesDetails.py:423 src/ProcessesMenu.py:194
 msgid "Memory (Shared)"
 msgstr "Paměť (Sdílená)"
-
-#: src/Processes.py:1125 src/ProcessesDetails.py:147 src/ProcessesMenu.py:214
-msgid "Priority"
-msgstr "Priorita"
 
 #: src/Processes.py:1127 src/ProcessesDetails.py:217 src/ProcessesMenu.py:222
 msgid "PPID"
@@ -967,14 +1033,6 @@ msgstr "Mrtvý"
 #: src/Services.py:535
 msgid "Exited"
 msgstr "Opuštěný"
-
-#: src/Services.py:536 src/UsersDetails.py:255
-msgid "Yes"
-msgstr "Ano"
-
-#: src/Services.py:536 src/UsersDetails.py:257
-msgid "No"
-msgstr "Ne"
 
 #: src/ServicesDetails.py:36
 msgid "Service Details"

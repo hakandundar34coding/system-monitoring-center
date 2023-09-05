@@ -2,19 +2,19 @@
 
 | Language Code  | Language               | Percentage |
 | -------------- | ---------------------- | ---------- |
-| cs             | Czech                  | 76%        |
-| de             | German                 | 79%        |
+| cs             | Czech                  | 73%        |
+| de             | German                 | 75%        |
 | en             | English                | 100%       |
-| es             | Spanish                | 84%        |
-| fa             | Persian                | 76%        |
-| fr             | French                 | 84%        |
-| hu             | Hungarian              | 77%        |
-| pl             | Polish                 | 79%        |
-| pt_BR          | Portuguese (Brazilian) | 84%        |
-| pt_PT          | Portuguese (Portugal)  | 97%        |
-| ru_RU          | Russian                | 99%        |
+| es             | Spanish                | 80%        |
+| fa             | Persian                | 73%        |
+| fr             | French                 | 80%        |
+| hu             | Hungarian              | 74%        |
+| pl             | Polish                 | 75%        |
+| pt_BR          | Portuguese (Brazilian) | 81%        |
+| pt_PT          | Portuguese (Portugal)  | 95%        |
+| ru_RU          | Russian                | 95%        |
 | tr             | Turkish                | 100%       |
-| zh_TW          | Chinese (Traditional)  | 83%        |
+| zh_TW          | Chinese (Traditional)  | 79%        |
 
 
 # Notes For Translators:

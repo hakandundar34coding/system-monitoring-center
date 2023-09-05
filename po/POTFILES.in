@@ -9,6 +9,7 @@ src/Disk.py
 src/DiskMenu.py
 src/Gpu.py
 src/GpuMenu.py
+src/Libsysmon.py
 src/Main.py
 src/MainWindow.py
 src/Memory.py
