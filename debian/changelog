@@ -1,3 +1,10 @@
+system-monitoring-center (2.21.2) unstable; urgency=medium
+
+  * Updated translations
+  * Minor improvements (performance, code, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 05 Sep 2023 09:40:00 +0300
+
 system-monitoring-center (2.21.1) unstable; urgency=medium
 
   * Minor improvements

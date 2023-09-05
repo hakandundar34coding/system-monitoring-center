@@ -89,6 +89,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.21.2" date="2023-09-05">
+      <description>
+        <ul>
+          <li>Updated translations</li>
+          <li>Minor improvements (performance, code, etc.)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.21.1" date="2023-08-13">
       <description>
         <ul>

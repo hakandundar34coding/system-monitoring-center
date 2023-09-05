@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v2.21.2 (05.09.2023)
+  * Updated translations
+  * Minor improvements (performance, code, etc.)
+
 ### v2.21.1 (13.08.2023)
   * Minor improvements
 
