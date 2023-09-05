@@ -1095,21 +1095,21 @@ class MainWindow():
              self.sensors_tb.set_active(True)
 
 
-    def main_gui_tab_loop(self, *args):
+    def main_gui_tab_loop(self):
         """
         Called for running loop functions of opened tabs to get performance/usage data.
-        "*args" is used in order to prevent warning and obtain a repeated function by using "GLib.timeout_source_new()".
-        "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval
+        "GLib.source_remove()" is used to be able to change the update interval
         and run the loop again without waiting ending the previous update interval.
         """
 
         # Destroy GLib source for preventing it repeating the function.
         try:
-            self.main_glib_source.destroy()
+            GLib.source_remove(self.main_glib_source)
         # Prevent errors if this is first run of the function.
         except AttributeError:
             pass
-        self.main_glib_source = GLib.timeout_source_new(Config.update_interval * 1000)
+
+        self.main_glib_source = GLib.timeout_add(Config.update_interval * 1000, self.main_gui_tab_loop)
 
         Performance.loop_func()
 
@@ -1135,12 +1135,6 @@ class MainWindow():
             Processes.loop_func()
         elif Config.current_main_tab == 2:
             Users.loop_func()
-
-        self.main_glib_source.set_callback(self.main_gui_tab_loop)
-        # Attach GLib.Source to MainContext.
-        # Therefore it will be part of the main loop until it is destroyed.
-        # A function may be attached to the MainContext multiple times.
-        self.main_glib_source.attach(GLib.MainContext.default())
 
 
     def performance_summary_headerbar_loop(self):

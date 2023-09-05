@@ -1068,7 +1068,6 @@ def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, upd
     # Because, the model sorts the rows while the model data is modified.
     sort_model = TabObject.treeview.get_model()
     sort_column_id, sort_order = sort_model.get_sort_column_id()
-    #sort_model.freeze_notify()
     sort_model.set_sort_column_id(-1, 0)
     sort_model.reset_default_sort_func()
 
