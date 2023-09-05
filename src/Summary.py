@@ -269,14 +269,7 @@ class Summary:
         ctx.restore()
 
 
-
-
-
-
-
-
         #-----------------------------------------
-
 
         # Draw GPU usage graphics if relevant option is enabled.
         if Config.summary_show_gpu_usage == 1:
@@ -312,12 +305,11 @@ class Summary:
             gauge_gpu_start_angle = (90 + 40) * pi_number / 180
             gauge_gpu_end_angle = (90 - 70) * pi_number / 180
 
-
             gauge_gpu_x_y_move = gauge_right_outer_radius * 0.593
             gauge_gpu_width = gauge_right_outer_radius * 1.1
             gauge_gpu_height = gauge_right_outer_radius * 0.237
 
-
+            # Draw background of the GPU usage gauge.
             ctx.save()
             ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
             ctx.move_to(-gauge_gpu_x_y_move, -gauge_gpu_x_y_move)
@@ -330,13 +322,8 @@ class Summary:
             ctx.restore()
 
 
-
-
             gauge_gpu_start_angle = 148*pi_number/180
-
             gauge_gpu_upper_edge_move_horizontal = gauge_right_outer_radius * 0.02
-
-
 
             # Draw circular (partial) part of the background and edge of the GPU usage gauge.
             ctx.save()
@@ -358,9 +345,6 @@ class Summary:
             ctx.fill()
             ctx.restore()
 
-
-
-
             # Draw upper edge of the GPU usage gauge.
             ctx.save()
             ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
@@ -381,9 +365,10 @@ class Summary:
             ctx.fill()
             ctx.restore()
 
+
             gauge_gpu_upper_edge_move_vertical = gauge_right_outer_radius * 0.018
 
-
+            # Draw upper edge (inclined part) of the GPU usage gauge.
             ctx.save()
             ctx.translate(gauge_circular_center_x-gauge_gpu_x_y_move+gauge_gpu_width*0.6 + gauge_right_move, (chart_height / 2)-gauge_gpu_x_y_move-gauge_gpu_height-gauge_gpu_upper_edge_move_vertical)
             #ctx.move_to(-gauge_gpu_x_y_move, -gauge_gpu_x_y_move)
@@ -405,7 +390,6 @@ class Summary:
             ctx.set_source(gradient_pattern)
             ctx.fill()
             ctx.restore()
-
 
 
             # Draw fillet on the connection point of the upper right corner of the GPU usage gauge for continuous gauge edge.
@@ -430,8 +414,6 @@ class Summary:
             ctx.restore()
 
 
-
-
             # Draw shadow on the GPU usage gauge.
             ctx.save()
             ctx.translate(gauge_circular_center_x + 0, chart_height / 2)
@@ -447,9 +429,6 @@ class Summary:
             ctx.line_to(0, 0)
             ctx.fill()
             ctx.restore()
-
-
-
 
 
             gauge_gpu_label_text_move_x = gauge_outer_radius * 0.07
@@ -504,8 +483,6 @@ class Summary:
             ctx.show_text(device_name_text)
             ctx.restore()
 
-
-
             ctx.stroke()
 
             # Draw circular (partial) line on the left of the GPU usage labels on the right gauge.
@@ -520,14 +497,7 @@ class Summary:
             ctx.stroke()
             ctx.restore()
 
-
         #-----------------------------------------
-
-
-
-
-
-
 
 
         # Draw rectangle part of the background of the right gauge.
