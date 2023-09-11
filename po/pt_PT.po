@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: System Monitoring Center\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-05 09:16+0300\n"
-"PO-Revision-Date: 2023-09-05 09:27+0300\n"
+"PO-Revision-Date: 2023-09-05 22:55+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
 #: src/MainWindow.py:66 src/MainWindow.py:516
@@ -353,35 +353,35 @@ msgstr "Resolução"
 #: src/Libsysmon.py:2430 src/Libsysmon.py:2524 src/Libsysmon.py:2544
 #: src/Libsysmon.py:2747 src/Libsysmon.py:2749
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecida"
 
 #: src/Libsysmon.py:1927
 msgid "Maximum Capacity"
-msgstr ""
+msgstr "Capacidade máxima"
 
 #: src/Libsysmon.py:1928
 msgid "Number Of Devices"
-msgstr ""
+msgstr "Número de dispositivos"
 
 #: src/Libsysmon.py:1970 src/Libsysmon.py:1990
 msgid "Speed"
-msgstr ""
+msgstr "Velocidade"
 
 #: src/Libsysmon.py:1971 src/Libsysmon.py:1991
 msgid "Manufacturer"
-msgstr ""
+msgstr "Fabricante"
 
 #: src/Libsysmon.py:1972 src/Libsysmon.py:1992
 msgid "Form Factor"
-msgstr ""
+msgstr "Form Factor"
 
 #: src/Libsysmon.py:1973 src/Libsysmon.py:1993
 msgid "Locator"
-msgstr ""
+msgstr "Locator"
 
 #: src/Libsysmon.py:1974 src/Libsysmon.py:1994
 msgid "Bank Locator"
-msgstr ""
+msgstr "Bank Locator"
 
 #: src/Libsysmon.py:2032 src/Processes.py:318 src/Processes.py:1113
 #: src/ProcessesDetails.py:107 src/ProcessesMenu.py:158 src/Sensors.py:113
@@ -421,19 +421,19 @@ msgstr "Não"
 
 #: src/Libsysmon.py:2439
 msgid "Virtual Network Interface"
-msgstr ""
+msgstr "Interface de rede virtual"
 
 #: src/Libsysmon.py:2450
 msgid "Ethernet"
-msgstr ""
+msgstr "Ethernet"
 
 #: src/Libsysmon.py:2452
 msgid "Wi-Fi"
-msgstr ""
+msgstr "Wi-Fi"
 
 #: src/Libsysmon.py:4916
 msgid "Virtual Machine"
-msgstr ""
+msgstr "Máquina virtual"
 
 #: src/MainWindow.py:108
 msgid "Customization menu for the current tab"
