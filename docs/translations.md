@@ -11,8 +11,8 @@
 | hu             | Hungarian              | 74%        |
 | pl             | Polish                 | 75%        |
 | pt_BR          | Portuguese (Brazilian) | 81%        |
-| pt_PT          | Portuguese (Portugal)  | 95%        |
-| ru_RU          | Russian                | 95%        |
+| pt_PT          | Portuguese (Portugal)  | 100%       |
+| ru_RU          | Russian                | 100%       |
 | tr             | Turkish                | 100%       |
 | zh_TW          | Chinese (Traditional)  | 79%        |
 
@@ -36,4 +36,6 @@
 
 - For texts that are related to systemd services, see: https://man7.org/linux/man-pages/man1/systemctl.1.html
   For example: Mask, Unmask, Enabled-Runtime, Unit File State, Sub-State, Static
+
+- Form Factor, Locator and Bank Locator texts are used for RAM memory hardware.
 
