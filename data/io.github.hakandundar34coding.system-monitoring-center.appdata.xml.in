@@ -87,6 +87,12 @@
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/settings_dark_system_theme.png</image>
     </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/process_details__dark_system_theme_1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/process_details__dark_system_theme_2.png</image>
+    </screenshot>
   </screenshots>
   <releases>
     <release version="2.21.2" date="2023-09-05">

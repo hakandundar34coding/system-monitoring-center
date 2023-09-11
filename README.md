@@ -141,6 +141,10 @@
 
 ![System Monitoring Center](screenshots/settings_dark_system_theme.png)
 
+![System Monitoring Center](screenshots/process_details__dark_system_theme_1.png)
+
+![System Monitoring Center](screenshots/process_details__dark_system_theme_2.png)
+
 
 ### Notes:
 - GPU usage information availability depends on vendor/driver.
