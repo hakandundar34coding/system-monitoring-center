@@ -354,35 +354,35 @@ msgstr "Разрешение"
 #: src/Libsysmon.py:2430 src/Libsysmon.py:2524 src/Libsysmon.py:2544
 #: src/Libsysmon.py:2747 src/Libsysmon.py:2749
 msgid "Unknown"
-msgstr ""
+msgstr "Неизвестный"
 
 #: src/Libsysmon.py:1927
 msgid "Maximum Capacity"
-msgstr ""
+msgstr "Максимальная Ёмкость"
 
 #: src/Libsysmon.py:1928
 msgid "Number Of Devices"
-msgstr ""
+msgstr "Количество Устройств"
 
 #: src/Libsysmon.py:1970 src/Libsysmon.py:1990
 msgid "Speed"
-msgstr ""
+msgstr "Скорость"
 
 #: src/Libsysmon.py:1971 src/Libsysmon.py:1991
 msgid "Manufacturer"
-msgstr ""
+msgstr "Производитель"
 
 #: src/Libsysmon.py:1972 src/Libsysmon.py:1992
 msgid "Form Factor"
-msgstr ""
+msgstr "Форм Фактор"
 
 #: src/Libsysmon.py:1973 src/Libsysmon.py:1993
 msgid "Locator"
-msgstr ""
+msgstr "Разъем"
 
 #: src/Libsysmon.py:1974 src/Libsysmon.py:1994
 msgid "Bank Locator"
-msgstr ""
+msgstr "Место разъема"
 
 #: src/Libsysmon.py:2032 src/Processes.py:318 src/Processes.py:1113
 #: src/ProcessesDetails.py:107 src/ProcessesMenu.py:158 src/Sensors.py:113
@@ -422,19 +422,19 @@ msgstr "Нет"
 
 #: src/Libsysmon.py:2439
 msgid "Virtual Network Interface"
-msgstr ""
+msgstr "Виртуальный Сетевой Интерфейс"
 
 #: src/Libsysmon.py:2450
 msgid "Ethernet"
-msgstr ""
+msgstr "Ethernet"
 
 #: src/Libsysmon.py:2452
 msgid "Wi-Fi"
-msgstr ""
+msgstr "Wi-Fi"
 
 #: src/Libsysmon.py:4916
 msgid "Virtual Machine"
-msgstr ""
+msgstr "Виртуальная Машина"
 
 #: src/MainWindow.py:108
 msgid "Customization menu for the current tab"
