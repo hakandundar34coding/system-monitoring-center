@@ -1093,8 +1093,6 @@ def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, upd
         for row in reversed(sorted(list(deleted_rows))):
             treestore.remove(piter_list[row_id_list_prev.index(row)])
             piter_list.remove(piter_list[row_id_list_prev.index(row)])
-        # Update search results
-        on_searchentry_changed(searchentry)
     if len(new_rows) > 0:
         for row in new_rows:
             pid_index = row_id_list.index(row)
@@ -1112,7 +1110,9 @@ def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, upd
                         piter_list.append(treestore.append(piter_list[row_id_list.index(parent_row)], tab_data_rows[pid_index]))
             else:                                                                             # All rows are appended into treeview as tree root row if "Show [ROWS] as tree" is not preferred. Thus rows are listed as list structure instead of tree structure.
                 piter_list.insert(pid_index, treestore.insert(None, pid_index, tab_data_rows[pid_index]))
-        # Update search results
+
+    # Update search results
+    if len(piter_list) > 0 or len(new_rows) > 0:
         on_searchentry_changed(searchentry)
 
     # Restore sort column and sort order
