@@ -111,6 +111,10 @@
 - Dependency [list](docs/dependencies.md).
 
 
+### Known Issues:
+- Known issue [list](docs/known_issues.md).
+
+
 ### Screenshots:
 
 ![System Monitoring Center](screenshots/summary_tab_dark_system_theme.png)
