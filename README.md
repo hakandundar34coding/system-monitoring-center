@@ -112,7 +112,7 @@
 
 
 ### Known Issues:
-- Known issue [list](docs/known_issues.md).
+- Known issues [list](docs/known_issues.md).
 
 
 ### Screenshots:
