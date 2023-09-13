@@ -1351,7 +1351,7 @@ def set_selected_network_card(config_selected_network_card, network_card_list):
     else:
         selected_network_card = selected_network_card
 
-    return selected_network_card
+    return selected_network_card, connected_network_card_list
 
 
 # ***********************************************************************************************
@@ -2725,6 +2725,23 @@ def get_resolution_refresh_rate():
     current_refresh_rate = ', '.join(refresh_rate_list)
 
     return current_resolution, current_refresh_rate
+
+
+def monitor_resolution_refresh_rate_multiline_text(current_resolution, current_refresh_rate):
+    """
+    Generate a multiline text for resolutions and refresh rates of multiple monitors.
+    """
+
+    current_resolution_list = current_resolution.split(", ")
+    current_refresh_rate_list = current_refresh_rate.split(", ")
+
+    resolution_refresh_rate_text = ""
+    for i, resolution in enumerate(current_resolution_list):
+        resolution_refresh_rate_text = resolution_refresh_rate_text + resolution + " @" + current_refresh_rate_list[i]
+        if i != len(current_resolution_list) - 1:
+            resolution_refresh_rate_text = resolution_refresh_rate_text + ",\n"
+
+    return resolution_refresh_rate_text
 
 
 def get_device_model_name_vendor_id(selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list):
